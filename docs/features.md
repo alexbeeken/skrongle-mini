@@ -2089,9 +2089,9 @@ keep their explicit buttons. The page needs JavaScript.
       (`POST /superuser/unsuspend`) undoes it.
     - **Delete account** (row action, `POST /superuser/delete-account`):
       the learner's own deletion (`privacy::delete_account`), for a breach
-      of the Terms, a child's data or a privacy request. Not undone;
+      of the Terms or a child's data. Not undone;
       refused while a Stripe subscription is still billing. Its dialog
-      asks for a reason, kept in the privacy log below.
+      asks for a reason, written to the server log.
     - A superuser can't suspend or delete their own account here.
     - **Courses** (#1034, `routes/superuser/courses.rs`,
       `course_flags/table.rs`): every made course, 25 to a page, with its
@@ -2329,51 +2329,6 @@ keep their explicit buttons. The page needs JavaScript.
       Skrongle mini. On the dev server: `SKRONGLE_CONTENT_CHECK=external
       ./.dev-start …`, then `./.dev-start --content-check` in another
       terminal runs the worker against it.
-  - **Privacy requests** (#981, the hosted site only, like moderation): for
-    a request that came by e-mail from someone who can't use Profile →
-    Your data. Each action asks for a reason (up to 200 characters) and
-    adds a row to the log on the card (`privacy_actions`, newest 50: when,
-    the action, the reason, which superuser), as Delete account does. The
-    log names no learner; the reason should point at the private request
-    log. The (i) says to check who is asking first.
-    How to verify, the deadlines, appeals and the request log are in
-    [privacy requests](privacy-requests).
-    - **Send an account its data** (`POST /superuser/privacy/export`,
-      address and reason): the profile's export (`exports::request`) for
-      that account, with its one-a-day limit. The link goes to the
-      account's own address, never to the address the request came from,
-      and opens only signed in to that account (a locked-out learner gets
-      a temporary password first).
-    - **Forget an address** (`POST /superuser/privacy/forget`): for a
-      person with no account whose address is in a course share
-      invitation. Every invitation to it (`course_shares`) and every mail
-      to it still in `mail_outbox` are deleted. An address that belongs to
-      an account is refused (delete the account instead). The address is
-      not echoed back in the redirect or the notice. Copyright notices sent
-      signed out (`content_reports`) are kept as a record.
-  - **Breach tools** (#1068, the hosted site only, like moderation; not in
-    Skrongle mini): the mass actions of the incident runbook
-    (`ops/incident-response.md`) as buttons, under Privacy requests. Each
-    dialog asks who (every account, or only the addresses pasted in a box,
-    split on commas, spaces or new lines), a reason (into the privacy log,
-    as `sign-out` or `notice`) and a typed word (`confirm` in English, the
-    page's language otherwise) before it runs; a wrong word does nothing.
-    - **Sign accounts out** (`POST /superuser/breach/sign-out`): their
-      sessions, sign-ins waiting for a second-step code and unused
-      password-reset links are deleted, as Suspend does for one account
-      (`breach::sign_out`). The superuser's own session on this device
-      stays. Passwords are not reset: they are argon2id hashes, so the
-      runbook signs everyone out after a leaked database and asks learners
-      to change a password they use elsewhere.
-    - **E-mail a notice** (`POST /superuser/breach/notice`): a plain-text
-      subject and message, as typed, to every account with a confirmed
-      address (or the listed ones that have one), through the mail outbox
-      (purpose `breach-notice`, so `SKRONGLE_MAIL_PER_HOUR` applies and a
-      mail over it waits for a later hour). `breach_notices` records each
-      account and notice text in the same transaction, so pressing Send
-      again with the same text mails nobody twice and carries on where the
-      hourly limit stopped. The notice says how many were queued, how many
-      had it already and how many still wait.
   - **Skrongle AI today, everyone** (a card at the top, servers with Skrongle AI, #623): a
     bar and "$3.20 of $10.00 · resets at midnight UTC", the day's hosted
     spend of every learner (`ai_spend_days`) against the daily cap

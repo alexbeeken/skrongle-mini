@@ -45,8 +45,7 @@ An item here that unblocks an issue says so; tick it, then say so in the issue.
 - [x] Add a `privacy@skrongle.com` alias at the mail provider, forwarding
       to the owner's mailbox, and set `SKRONGLE_LEGAL_EMAIL` to it before
       the privacy notice names a contact, so a later change of personal
-      address does not mean re-notifying everyone (#978). The process is
-      in `docs/privacy-requests.md`. (from #981)
+      address does not mean re-notifying everyone (#978). (from #981)
 
 ## Product decisions
 

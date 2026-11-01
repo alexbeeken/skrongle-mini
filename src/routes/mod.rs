@@ -299,10 +299,6 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/superuser/suspend", post(superuser::suspend))
         .route("/superuser/unsuspend", post(superuser::unsuspend))
         .route("/superuser/delete-account", post(superuser::delete_account))
-        .route("/superuser/privacy/export", post(superuser::privacy::export))
-        .route("/superuser/privacy/forget", post(superuser::privacy::forget))
-        .route("/superuser/breach/sign-out", post(superuser::breach::sign_out))
-        .route("/superuser/breach/notice", post(superuser::breach::send_notice))
         .route("/superuser/block-ip", post(superuser::block_ip))
         .route("/superuser/unblock-ip", post(superuser::unblock_ip))
         // api

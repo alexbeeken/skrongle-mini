@@ -2090,11 +2090,6 @@ button.le-check.warn { background: #e8a317; color: #2e1f00; } button.le-check.ba
 .content-report-fields dd { margin: 0; overflow-wrap: anywhere; }
 .content-report-details { white-space: pre-wrap; overflow-wrap: anywhere; }
 .content-report-actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .4rem; }
-/* Breach tools (#1068): who an action reaches. */
-fieldset.breach-who { border: 0; padding: 0; margin: 0 0 .6rem; }
-fieldset.breach-who legend { font-weight: 600; padding: 0; margin-bottom: .3rem; }
-fieldset.breach-who label { display: block; font-weight: 500; margin: .25rem 0; }
-fieldset.breach-who textarea { width: 100%; margin-top: .3rem; }
 
 /* Course card progress chips (#684): one per metric, quiet. The tint moves from
    the line colour to gold as the share of the course grows (--share). The chip

@@ -661,10 +661,6 @@ Running it on your own computer waits for the shared database (#581).
 
 ## If something goes wrong
 
-If personal data may have leaked (someone got into the box, a key turned
-up in public), stop here and follow the incident response runbook,
-`ops/incident-response.md` in the repo.
-
 - **`An error occurred (AccessDenied)`**: the IAM user is missing one of the
   policies in step 3, or the keys were pasted with a stray space.
 - **"the hosted server refuses to start without these"**: a required setting

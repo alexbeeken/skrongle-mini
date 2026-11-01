@@ -152,8 +152,6 @@
     {% endif %}
   </section>
 
-  {% include "superuser_privacy.html" %}
-  {% include "superuser_breach.html" %}
 
   <dialog class="modal" id="superuser-block-dialog" aria-labelledby="superuser-block-title" data-testid="superuser-block-dialog">
     <form method="post" action="{{ crate::url("/superuser/block-ip") }}" data-testid="superuser-block-form">
