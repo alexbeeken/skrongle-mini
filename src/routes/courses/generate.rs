@@ -389,7 +389,7 @@ async fn provider_choices(state: &AppState, user_id: i64) -> Result<Vec<Provider
 /// are generated from the editor's dialog now.
 pub async fn generate_form(Query(q): Query<GenerateParams>) -> Response {
     let to = match q.resume.filter(|s| !s.is_empty()) {
-        Some(id) => format!("/courses/{}?generate=1", crate::oauth::urlencode(&id)),
+        Some(id) => format!("/courses/{}?generate=1", crate::urlenc::urlencode(&id)),
         None => "/courses".into(),
     };
     Redirect::to(&crate::url(&to)).into_response()

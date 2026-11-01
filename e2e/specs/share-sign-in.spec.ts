@@ -1,6 +1,5 @@
 // A course's share link survives every way of signing in (#1016): the
-// two-factor code step, and the Google round trip (a new account's confirm
-// step, and an existing account's code step). Each learner signs in with an
+// two-factor code step. Each learner signs in with an
 // address the link was not sent to, so only the link puts the course on
 // their list. A link that no longer works says so before and after signing
 // in (#1082).
@@ -8,8 +7,6 @@ import { expect, test, type Page } from "@playwright/test";
 import { createCourse, devLogin, devReset } from "../lib/app";
 import { logout, newAccount, register, signUp } from "../lib/learner";
 import { inbox, mailLink, waitForMail } from "../lib/mail";
-
-const google = (params: Record<string, string>) => `/auth/google?${new URLSearchParams(params)}`;
 
 test.afterAll(async ({ browser }) => {
   const page = await browser.newPage();
@@ -91,48 +88,6 @@ test("a share link survives the two-factor code step, and cancelling it keeps th
   await page.getByTestId("login-email").fill(a.email);
   await page.getByTestId("login-password").fill(a.password);
   await page.getByTestId("login-submit").click();
-  await expect(page).toHaveURL(/\/login\/code$/);
-  await page.getByTestId("login-code-input").fill(await signInCode(a.email, seen));
-  await page.getByTestId("login-code-submit").click();
-  await expect(page.getByTestId("nav-account-toggle")).toHaveAttribute("data-email", a.email);
-  await hasCourse(page, id);
-});
-
-test("a share link survives Google sign-up's confirm step", async ({ page }) => {
-  const { id, link } = await sharedCourse(page);
-  const a = newAccount("share-google");
-
-  await page.goto(link);
-  await expect(page).toHaveURL(/\/login\?share=/);
-  const token = new URL(page.url()).searchParams.get("share")!;
-  await expect(page.getByTestId("login-google")).toHaveAttribute("href", new RegExp(`/auth/google\\?share=${token}$`));
-  await page.getByTestId("login-register-link").click();
-  await expect(page.getByTestId("register-google")).toHaveAttribute("href", new RegExp(`/auth/google\\?share=${token}$`));
-
-  await page.goto(google({ mock_email: a.email, share: token }));
-  await expect(page).toHaveURL(/\/auth\/google\/confirm$/);
-  await page.getByTestId("google-confirm-age").check();
-  await page.getByTestId("google-confirm-terms").check();
-  await page.getByTestId("google-confirm-submit").click();
-  await expect(page.getByTestId("nav-account-toggle")).toHaveAttribute("data-email", a.email);
-  await hasCourse(page, id);
-});
-
-test("a share link survives a Google sign-in with two-factor on", async ({ page }) => {
-  const a = await twoFactorAccount(page);
-  // Google once (and its code), so the account is a Google one too.
-  let seen = await lastMail(a.email);
-  await page.goto(google({ mock_email: a.email }));
-  await page.getByTestId("login-code-input").fill(await signInCode(a.email, seen));
-  await page.getByTestId("login-code-submit").click();
-  await expect(page).toHaveURL(/\/profile\?saved=google-joined$/);
-  await logout(page);
-
-  const { id, link } = await sharedCourse(page);
-  await page.goto(link);
-  const token = new URL(page.url()).searchParams.get("share")!;
-  seen = await lastMail(a.email);
-  await page.goto(google({ mock_email: a.email, share: token }));
   await expect(page).toHaveURL(/\/login\/code$/);
   await page.getByTestId("login-code-input").fill(await signInCode(a.email, seen));
   await page.getByTestId("login-code-submit").click();

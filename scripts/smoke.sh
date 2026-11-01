@@ -48,7 +48,7 @@ echo "==> pages"
 check /healthz
 check /login
 check /docs/testing
-check /self-host 404   # hidden until Skrongle mini ships (#1435)
+check /self-host 200   # the self-hosting page: a mini always serves it (#13)
 check /privacy
 check /terms
 check /terms.md
@@ -58,11 +58,11 @@ DOCS=$( { for p in /docs $(curl -s "$URL/docs" | grep -o 'href="/docs/[^"#]*"' |
 for p in $DOCS; do check "$p"; done
 check "/dev/login?open=spanish" 303
 LESSON=$(curl -s -b "$JAR" "$URL/lessons" | grep -o 'href="/lessons/[a-z0-9-]*"' | head -1 | sed 's/href="//; s/"//')
-for p in / /lessons "$LESSON" /practice /map /history /vocabulary /listening /sprint /play /guide /tutor /courses /profile /dev/mail /dev/inbox /dev/phone /dev/ai; do
+for p in / /lessons "$LESSON" /practice /map /history /vocabulary /listening /sprint /play /guide /tutor /courses /profile /dev/mail /dev/inbox /dev/ai; do
   check "$p"
 done
 echo "==> the dev mailbox needs no sign-in"
-for p in /dev/inbox /dev/mail /dev/phone /dev/authenticator /dev/ai; do
+for p in /dev/inbox /dev/mail /dev/authenticator /dev/ai; do
   code=$(curl -s -o /dev/null -w '%{http_code}' "$URL$p?format=json")
   if [ "$code" = 200 ]; then echo "  ok   $code $p signed out"; else echo "  FAIL $code $p signed out (expected 200)"; FAILED=1; fi
 done

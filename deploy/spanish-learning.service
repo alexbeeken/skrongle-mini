@@ -26,11 +26,10 @@ Environment=SKRONGLE_SECURE_COOKIES=1
 Environment=SKRONGLE_DATA_DIR=/opt/spanish-learning/data
 Environment=SKRONGLE_DB=/var/lib/spanish-learning/spanish.db
 Environment=SKRONGLE_LOG=info
-# Public URL (for the Google sign-in redirect URI). The client id and secret
-# live outside the repo: /etc/spanish-learning/env (see deploy/env.example).
+# Public URL. Secrets live outside the repo: /etc/spanish-learning/env (see deploy/env.example).
 # scripts/deploy.sh fills in the URL below from PI_PUBLIC_URL in deploy/deploy.env.
 Environment=SKRONGLE_PUBLIC_URL=@PI_PUBLIC_URL@
-# This Pi is a Skrongle mini: no plans, and no e-mail, SMS, Google or Stripe
+# This Pi is a Skrongle mini: no plans, and no e-mail, SMS or Stripe
 # required (a hosted server refuses to start without them).
 Environment=SKRONGLE_MINI=1
 EnvironmentFile=-/etc/spanish-learning/env

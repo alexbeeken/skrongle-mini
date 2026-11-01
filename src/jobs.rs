@@ -6,8 +6,8 @@
 //!   kind not in [`KINDS`] is refused, with a log line.
 //! - One OS thread (`jobs`) takes due rows one at a time with [`claim`], a
 //!   single `UPDATE … RETURNING` statement. On SQLite that one statement
-//!   holds the database's write lock, so it is safe across processes too
-//!   (the server and `skrongle content-check` on one file, #1041); a Postgres store adds
+//!   holds the database's write lock, so it is safe across processes too;
+//!   a Postgres store adds
 //!   `FOR UPDATE SKIP LOCKED` to the inner select so several servers never
 //!   take the same row.
 //! - Taking a row leases it to this server until `locked_until`
@@ -30,8 +30,8 @@
 //!   row is queued again, due now, behind anything already due ([`again`]).
 //!   Data exports work this way (#875, `exports.rs`, kind [`EXPORT`]).
 //!
-//! - The mail and text outboxes (`mail_outbox`, `sms_outbox`) keep their own
-//!   tables but are drained by this runner too (#873): each is a [`Drain`].
+//! - The mail outbox (`mail_outbox`) keeps its own
+//!   table but is drained by this runner too (#873): it is a [`Drain`].
 //!   A row is leased the same way, with [`lease_outbox`] (`locked_by`,
 //!   `locked_until`; it stays `queued` until it is sent or fails), so a row
 //!   being sent is never handed out twice. Each pass sends at most
@@ -127,7 +127,7 @@ pub const EXPORT: Kind = Kind { name: "export", max_attempts: 1, delays: RETRY_D
 pub const DEV_FAIL: Kind = Kind { name: "dev.fail", max_attempts: RETRY_DELAYS.len() as i64 + 1, delays: RETRY_DELAYS, every: None, at: None };
 
 /// Every kind there is. A row of another kind is refused by [`enqueue`].
-pub const KINDS: &[Kind] = &[SESSIONS, GAMES, AI_JOBS, TUTOR_CHATS, RATE_LIMITS, RETENTION, OUTBOX, LINKS, EXPORTS, JOBS, WAL_CHECKPOINT, DELETIONS, EXPORT, DEV_FAIL, crate::ai::GENERATE, crate::content_check::FLAGGED, crate::content_check::SCAN, crate::content_check::review::REVIEW, crate::content_check::nightly::NIGHTLY];
+pub const KINDS: &[Kind] = &[SESSIONS, GAMES, AI_JOBS, TUTOR_CHATS, RATE_LIMITS, RETENTION, OUTBOX, LINKS, EXPORTS, JOBS, WAL_CHECKPOINT, DELETIONS, EXPORT, DEV_FAIL, crate::ai::GENERATE];
 
 pub fn kind(name: &str) -> Option<Kind> {
     KINDS.iter().find(|k| k.name == name).copied()
@@ -273,7 +273,7 @@ pub fn next_due(conn: &Connection, kinds: &[&str]) -> rusqlite::Result<Option<i6
 
 // ---------- the outbox tables ----------
 
-/// Lease the next due row of an outbox table (`mail_outbox`, `sms_outbox`)
+/// Lease the next due row of an outbox table (`mail_outbox`)
 /// to `worker`: a `queued` row whose `next_attempt_at` has come and that no
 /// live lease holds (none, or one that ran out because its server stopped
 /// mid-send). One statement, like [`claim`]; the row stays `queued` until the
@@ -450,24 +450,6 @@ impl Runner {
         Runner { handlers: HashMap::new(), gates: HashMap::new(), drains: Vec::new(), worker: format!("pid{}@{}", std::process::id(), crate::db::now()), poll: MAX_WAIT }
     }
 
-    /// Look at the table every `secs` seconds: a process nobody wakes (the
-    /// content-check worker, #1041) sees a job the server queued that soon.
-    pub fn poll_every(mut self, secs: i64) -> Runner {
-        self.poll = secs.clamp(1, MAX_WAIT);
-        self
-    }
-
-    /// The name on the rows it takes (`locked_by`).
-    pub fn worker(&self) -> &str {
-        &self.worker
-    }
-
-    /// Does it run jobs of this kind?
-    #[cfg(test)]
-    pub fn runs(&self, name: &str) -> bool {
-        self.handlers.contains_key(name)
-    }
-
     /// Run kind `k` with `f`: `Ok` with a note for the log, or the error.
     pub fn handle(self, k: Kind, f: impl Fn(&Db, &str) -> Result<String, String> + Send + 'static) -> Runner {
         self.handle_steps(k, move |db, payload| f(db, payload).map(Step::Done))
@@ -620,7 +602,7 @@ impl Runner {
 
 /// The hourly housekeeping, one job per purge: expired sessions, abandoned
 /// games, old generation jobs, idle tutor chats, rate-limit windows, the
-/// retention rules (privacy.rs), old outbox rows (mail.rs, sms.rs), old
+/// retention rules (privacy.rs), old outbox rows (mail.rs), old
 /// verification, reset, two-factor and invitation links, expired data
 /// exports with their files, old job rows, accounts due for deletion
 /// (#970), and a WAL checkpoint so the -wal
@@ -662,10 +644,10 @@ pub fn housekeeping(runner: Runner, state: &Arc<crate::AppState>, retention: cra
         .handle(TUTOR_CHATS, tutors)
         .handle(RATE_LIMITS, limits)
         .handle(RETENTION, retain)
-        .handle(OUTBOX, |db, _| sql(db, |c, now| Ok(note(crate::mail::purge(c, now)? + crate::sms::purge(c, now)?, "old outbox rows deleted"))))
+        .handle(OUTBOX, |db, _| sql(db, |c, now| Ok(note(crate::mail::purge(c, now)?, "old outbox rows deleted"))))
         .handle(LINKS, |db, _| {
             sql(db, |c, now| {
-                let n = crate::verify::purge(c, now)? + crate::reset::purge(c, now)? + crate::two_factor::purge(c, now)? + crate::signup::purge(c, now)? + crate::waitlist::purge(c, now)?;
+                let n = crate::verify::purge(c, now)? + crate::reset::purge(c, now)? + crate::two_factor::purge(c, now)? + crate::signup::purge(c, now)?;
                 Ok(note(n, "old links deleted"))
             })
         })

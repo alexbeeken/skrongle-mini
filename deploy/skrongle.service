@@ -37,7 +37,7 @@ Environment=SKRONGLE_DATA_DIR=/opt/skrongle/data
 Environment=SKRONGLE_DB=/var/lib/skrongle/learn.db
 Environment=SKRONGLE_LOG=info
 # This is a Skrongle mini (docs/self-hosting.md, "Skrongle mini"): one small
-# box, no plans or payments, no e-mail, SMS, Google or Stripe required.
+# box, no plans or payments, no e-mail, SMS or Stripe required.
 Environment=SKRONGLE_MINI=1
 # Your own Terms at /terms (copy terms.example.md there first; no file, no start):
 Environment=SKRONGLE_TERMS=/etc/skrongle/terms.md
@@ -45,7 +45,7 @@ Environment=SKRONGLE_TERMS=/etc/skrongle/terms.md
 #   (sudo journalctl -u skrongle -g "Owner link" -o cat | tail -n 1);
 # everyone else needs an invitation link from its Superuser page:
 Environment=SKRONGLE_SIGNUP=invite
-# Optional settings (Google sign-in, a public URL, …): see docs/self-hosting.md.
+# Optional settings (a public URL, …): see docs/self-hosting.md.
 EnvironmentFile=-/etc/skrongle/env
 # glibc malloc: one arena per thread by default; two is plenty and keeps RSS flat.
 Environment=MALLOC_ARENA_MAX=2

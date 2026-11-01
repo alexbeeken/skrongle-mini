@@ -5,8 +5,7 @@ of the app practises the same lessons.
 
 ## First steps
 
-1. Register with your e-mail address (or sign in with Google, where the
-   server offers it). There are no usernames. Confirm the address from the
+1. Register with your e-mail address. There are no usernames. Confirm the address from the
    link in the e-mail it sends; until then a red ! by your e-mail on the
    profile can send the link again.
 2. On *What would you like to learn?* (`/courses`) pick a ready-made course

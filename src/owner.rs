@@ -46,7 +46,7 @@ pub fn set_temporary_password(conn: &Connection, user_id: i64, hash: &str, keep:
 
 /// Turn the account's second sign-in step off: the method, an authenticator
 /// app's key, sign-ins waiting for a code and codes sent to confirm a
-/// change. A confirmed phone number stays.
+/// change.
 pub fn disable_two_factor(conn: &Connection, user_id: i64) -> rusqlite::Result<()> {
     conn.execute("UPDATE users SET two_factor = '' WHERE id = ?1", [user_id])?;
     conn.execute("DELETE FROM totp_keys WHERE user_id = ?1", [user_id])?;
@@ -165,7 +165,7 @@ mod tests {
         db.with(|c| {
             let ann = crate::auth::create_user(c, "ann@example.org", &crate::auth::hash_password("old-password").unwrap())?;
             let session = crate::auth::create_session(c, ann)?;
-            c.execute("UPDATE users SET two_factor = 'totp', phone = '+15555555555', phone_verified_at = 1 WHERE id = ?1", [ann])?;
+            c.execute("UPDATE users SET two_factor = 'totp' WHERE id = ?1", [ann])?;
             c.execute("INSERT INTO totp_keys (user_id, secret, created_at, confirmed_at) VALUES (?1, x'00', 1, 1)", [ann])?;
             let flag = |c: &Connection| c.query_row("SELECT must_change_password FROM users WHERE id = ?1", [ann], |r| r.get::<_, bool>(0));
 
@@ -182,10 +182,10 @@ mod tests {
             crate::profile::set_password_hash(c, ann, "h")?;
             assert!(!flag(c)?);
 
-            // disable-2fa: method and key gone, the confirmed phone stays.
+            // disable-2fa: method and key gone.
             run(c, "disable-2fa", "ann@example.org")?.unwrap();
-            let (method, phone): (String, Option<i64>) = c.query_row("SELECT two_factor, phone_verified_at FROM users WHERE id = ?1", [ann], |r| Ok((r.get(0)?, r.get(1)?)))?;
-            assert_eq!((method.as_str(), phone), ("", Some(1)));
+            let method: String = c.query_row("SELECT two_factor FROM users WHERE id = ?1", [ann], |r| r.get(0))?;
+            assert_eq!(method, "");
             assert_eq!(c.query_row("SELECT COUNT(*) FROM totp_keys", [], |r| r.get::<_, i64>(0))?, 0);
 
             // make-owner.

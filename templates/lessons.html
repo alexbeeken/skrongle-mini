@@ -8,7 +8,7 @@
   <label for="lessons-filter">{{ crate::t("study.lessons.find") }}</label>
   <input type="search" id="lessons-filter" name="q" value="{{ q }}" data-testid="lessons-filter" maxlength="100" placeholder="{{ crate::t("study.lessons.find_placeholder") }}" autocomplete="off">
   <span class="small muted" id="lessons-filter-status" data-testid="lessons-filter-status" role="status">{% if !q.is_empty() && groups.is_empty() %}{{ crate::t1("study.js.filter_none", "query", q) }}{% endif %}</span>
-  <a class="small" id="lessons-lookup" data-testid="lessons-lookup" href="{{ crate::base_path() }}/lookup?q={{ crate::oauth::urlencode(q) }}"{% if q.is_empty() %} hidden{% endif %}>{{ crate::t1("study.js.lookup_link", "query", q) }}</a>
+  <a class="small" id="lessons-lookup" data-testid="lessons-lookup" href="{{ crate::base_path() }}/lookup?q={{ crate::urlenc::urlencode(q) }}"{% if q.is_empty() %} hidden{% endif %}>{{ crate::t1("study.js.lookup_link", "query", q) }}</a>
 </form>
 {% if tabs.len() > 1 %}
 {% let tabs_label = crate::t("study.lessons.jump") %}{% let tabs_id = "lessons-units" %}

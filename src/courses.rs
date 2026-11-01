@@ -344,8 +344,6 @@ pub struct CourseRow {
     pub brief: String,
     /// The AI's plan (JSON), kept so a failed run can resume.
     pub outline: Option<String>,
-    /// A superuser took it down (#967): it opens for nobody until put back.
-    pub taken_down: bool,
 }
 
 impl CourseRow {
@@ -379,11 +377,10 @@ fn course_row(r: &rusqlite::Row<'_>) -> rusqlite::Result<CourseRow> {
         job_id: r.get(9)?,
         brief: r.get(10)?,
         outline: r.get(11)?,
-        taken_down: r.get::<_, Option<i64>>(12)?.is_some(),
     })
 }
 
-const COURSE_COLS: &str = "id, owner_id, title, created_at, updated_at, error, state, source, visibility, job_id, brief, outline, taken_down_at";
+const COURSE_COLS: &str = "id, owner_id, title, created_at, updated_at, error, state, source, visibility, job_id, brief, outline";
 
 /// Register a course an AI job is about to write: no files yet, greyed out
 /// in the course list until the job finishes. (The app makes a draft with
@@ -441,8 +438,7 @@ pub fn set_revising(conn: &Connection, id: &str, job_id: &str) -> rusqlite::Resu
 /// again (its files are the new set, or untouched).
 pub fn finish_revision(conn: &Connection, id: &str) -> rusqlite::Result<()> {
     conn.execute("UPDATE courses SET state = 'ready', updated_at = ?2 WHERE id = ?1 AND state = 'revising'", params![id, now()])?;
-    // The AI wrote to it: the content check scans what changed (#1036).
-    crate::content_check::queue_scan(conn, id, now())
+    Ok(())
 }
 
 /// How many changes back Undo can go.
@@ -772,8 +768,7 @@ pub fn finish_generation(conn: &Connection, id: &str, error: Option<&str>) -> ru
         "UPDATE courses SET state = ?2, error = COALESCE(?3, error), updated_at = ?4 WHERE id = ?1",
         params![id, state.as_str(), error, now()],
     )?;
-    // The AI wrote it: the content check scans it (#1036).
-    crate::content_check::queue_scan(conn, id, now())
+    Ok(())
 }
 
 /// At boot, after `ai::at_boot`: a course still 'generating' whose job does
@@ -869,19 +864,13 @@ pub fn load_files(conn: &Connection, course_id: &str) -> rusqlite::Result<Vec<Co
 }
 
 /// The files of a course that can be opened: not while it is being generated
-/// (half-written), so the cache never holds a partial course, not while
-/// it is taken down (#967), and not while it is flagged (#1033): the
-/// listed-term check runs here when the files changed since it last did.
+/// (half-written), so the cache never holds a partial course.
 pub fn load_ready_files(conn: &Connection, course_id: &str) -> rusqlite::Result<Vec<CourseFile>> {
-    let row: Option<(String, Option<i64>)> = conn.query_row("SELECT state, taken_down_at FROM courses WHERE id = ?1", [course_id], |r| Ok((r.get(0)?, r.get(1)?))).optional()?;
-    if row.as_ref().is_some_and(|(state, down)| state == "generating" || down.is_some()) {
+    let state: Option<String> = conn.query_row("SELECT state FROM courses WHERE id = ?1", [course_id], |r| r.get(0)).optional()?;
+    if state.as_deref() == Some("generating") {
         return Ok(Vec::new());
     }
-    let files = load_files(conn, course_id)?;
-    if row.is_some() && crate::course_flags::check(conn, course_id, &files)?.is_some_and(|f| f.blocks()) {
-        return Ok(Vec::new());
-    }
-    Ok(files)
+    load_files(conn, course_id)
 }
 
 /// (path, bytes, updated_at) for the editor's file list.
@@ -1102,10 +1091,7 @@ pub fn revalidate(conn: &Connection, registry: &Courses, course_id: &str) -> rus
                 // A generation that stopped before its outline, fixed by hand, is a course now.
                 conn.execute("UPDATE courses SET state = 'ready' WHERE id = ?1 AND state = 'failed'", [course_id])?;
             }
-            // A flagged course (#1033) is not cached: it opens for nobody.
-            if !crate::course_flags::check(conn, course_id, &files)?.is_some_and(|f| f.blocks()) {
-                registry.cache(course_id, Arc::new(store), size_of(&files));
-            }
+            registry.cache(course_id, Arc::new(store), size_of(&files));
             Ok(None)
         }
         Err(e) => {
