@@ -240,7 +240,7 @@ pub async fn in_layout(
 }
 
 /// A page opened by address whose route only takes a form (GET /logout,
-/// /waitlist, ...) gets axum's bare 405 with an empty body (#1253). Give it
+/// /logout, ...) gets axum's bare 405 with an empty body (#1253). Give it
 /// the error page instead, keeping the 405 status and the `Allow` header.
 /// A 405 a handler wrote itself, with a body, is left alone; so are API
 /// routes (the caller skips them), whose clients read the status only.

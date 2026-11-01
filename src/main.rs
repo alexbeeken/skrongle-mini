@@ -73,7 +73,6 @@ mod test_course;
 mod themes;
 mod tutor;
 mod verify;
-mod waitlist;
 mod vocab;
 mod word_list;
 
@@ -214,8 +213,6 @@ pub struct AppState {
     pub public_url: Option<String>,
     /// `SKRONGLE_SIGNUP`: who may make an account (`signup.rs`).
     pub signup: signup::Mode,
-    /// The waitlist switch (#934), set on Superuser → Release.
-    pub waitlist: waitlist::Switch,
     /// `SKRONGLE_PROXY_AUTH_HEADER` + `SKRONGLE_PROXY_AUTH_FROM`: the proxy in
     /// front signs people in (`proxy_auth.rs`); `None` when unset.
     pub proxy_auth: Option<proxy_auth::Config>,
@@ -899,7 +896,6 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         dev_payments: Default::default(),
         public_url: env("PUBLIC_URL").map(|u| u.trim_end_matches('/').to_string()),
         signup,
-        waitlist: Default::default(),
         proxy_auth,
         blocked: Default::default(),
     });
@@ -951,13 +947,6 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         if let Some(token) = state.db.with(|c| signup::owner_link(c, db::now()))? {
             let link = signup::owner_link_url(state.public_url.as_deref(), cfg.bind, &token);
             tracing::warn!("no account yet. Owner link, to make your own account (the owner's): {link}");
-        }
-    }
-    // The waitlist switch (#934), set on Superuser → Release; never on Skrongle mini.
-    if !is_mini() {
-        state.db.with(|c| state.waitlist.load(c, env(waitlist::LOGIN_VAR).is_some_and(|v| v.trim() == "1")))?;
-        if state.waitlist.is_on() {
-            tracing::info!("waitlist: on; sign-up only through an e-mailed invitation (Superuser → Release)");
         }
     }
     let app = routes::router(state);

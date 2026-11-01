@@ -2101,11 +2101,9 @@ fn web_manifest_points_at_real_icons() {
 }
 
 /// Themes turned off (#1138, no `SKRONGLE_THEMES_ENABLED=1`): no page offers
-/// or wears one, a course's stored theme is kept for when they are back,
-/// and the waitlist page says nothing about them.
+/// or wears one, a course's stored theme is kept for when they are back.
 #[test]
 fn themes_off_hides_every_theme() {
-    use askama::Template;
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
     let Ok(mut s) = std::sync::Arc::try_unwrap(super::test_state(false, None)) else { unreachable!("a new state has one owner") }; // panic-ok: tests only
     s.themes = std::sync::Arc::new(crate::themes::Themes::off());
@@ -2138,9 +2136,6 @@ fn themes_off_hides_every_theme() {
     assert_eq!(post("/courses/spanish/settings", &[("motivator", "skc"), ("next", "home")]), 303);
     assert_eq!(theme(), "realm");
     assert_eq!(post("/courses/spanish/settings", &[("theme", "realm")]), 400);
-    // The waitlist page: no themes section.
-    let html = crate::routes::waitlist::WaitlistTemplate::new(&state).render().unwrap();
-    assert!(!html.contains("waitlist-theme") && !html.contains(&crate::t("waitlist.themes_h2")));
     // The docs (#1184): the theme pages are gone and no page, its sidebar,
     // llms.txt or the schema names themes.
     let status = |path: &str| agent.get(&format!("{base}{path}")).header("cookie", &cookie).call().unwrap().status().as_u16();

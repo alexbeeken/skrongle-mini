@@ -168,8 +168,6 @@ pub const LOGIN_PER_IP: Limit = Limit { name: "login-ip", max: 30, window: 600 }
 pub const LOGIN_FAILURES_PER_USER: Limit = Limit { name: "login-user", max: 10, window: 900 };
 /// Registration attempts from one address.
 pub const REGISTER_PER_IP: Limit = Limit { name: "register-ip", max: 20, window: 3600 };
-/// Waitlist sign-ups from one address (#934).
-pub const WAITLIST_PER_IP: Limit = Limit { name: "waitlist-ip", max: 10, window: 3600 };
 /// Password changes tried by one account.
 pub const PASSWORD_PER_USER: Limit = Limit { name: "password-user", max: 10, window: 900 };
 /// "Send the e-mail again" (address confirmation) by one account.

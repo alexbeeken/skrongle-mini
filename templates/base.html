@@ -49,9 +49,8 @@
       </li>
     {% else %}
       <li><a href="{{ crate::base_path() }}/docs" data-testid="nav-docs">{{ crate::t("nav.docs") }}</a></li>
-      {# While the waitlist is on (#934): no Create account, and Log in only with SKRONGLE_WAITLIST_LOGIN. #}
-      {% if crate::waitlist::shows_login() %}<li><a href="{{ crate::base_path() }}/login" data-testid="nav-login">{{ crate::t("nav.login") }}</a></li>{% endif %}
-      {% if !crate::waitlist::on() %}<li><a class="btn small" href="{{ crate::base_path() }}/register" data-testid="nav-register">{{ crate::t("nav.register") }}</a></li>{% endif %}
+      <li><a href="{{ crate::base_path() }}/login" data-testid="nav-login">{{ crate::t("nav.login") }}</a></li>
+      <li><a class="btn small" href="{{ crate::base_path() }}/register" data-testid="nav-register">{{ crate::t("nav.register") }}</a></li>
     {% endif %}
     </ul>
   </nav>

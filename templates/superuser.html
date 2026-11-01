@@ -33,14 +33,6 @@
   </dialog>
   {% endif %}
 
-  {% if moderate && mail %}
-  <section class="card" data-testid="superuser-release-card">
-    <h2>{{ crate::t("release.title") }}</h2>
-    <p data-testid="superuser-release-state">{% if crate::waitlist::on() %}{{ crate::t("release.state_on") }}{% else %}{{ crate::t("release.state_off") }}{% endif %}</p>
-    <a class="btn ghost" href="{{ crate::url("/superuser/release") }}" data-testid="superuser-release-open">{{ crate::t("release.open") }}</a>
-  </section>
-  {% endif %}
-
   {% if let Some(d) = ai_today %}
   <section class="card" data-testid="superuser-ai-today" data-level="{{ d.level() }}">
     <h2 class="heading-with-info">{{ crate::t1("superuser.ai_today", "hosted", crate::tutor::hosted_label()) }} <button type="button" class="info-btn" data-opens="superuser-ai-today-dialog" aria-haspopup="dialog" aria-label="{{ crate::t1("superuser.ai_today_about", "hosted", crate::tutor::hosted_label()) }}" data-testid="superuser-ai-today-info">i</button></h2>

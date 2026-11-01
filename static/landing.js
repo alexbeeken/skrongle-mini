@@ -1,4 +1,4 @@
-// The "try it" stage on the landing and waitlist pages (#1365): a
+// The "try it" stage on the landing page (#1365): a
 // twenty-second sample of each mode in three subjects, each showing off what
 // that subject's questions can do: a language you hear and type, maths you
 // shade, place and plot, music you hear, read and play. The samples are

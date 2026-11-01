@@ -129,10 +129,6 @@ pub struct RegisterClosedTemplate {
 }
 
 pub(crate) fn signup_refused(r: Refusal, status: StatusCode) -> Response {
-    // While the waitlist is on (#934), no invitation means the waitlist page.
-    if r == Refusal::Closed && crate::waitlist::on() {
-        return Redirect::to(&crate::url("/")).into_response();
-    }
     (status, Page(RegisterClosedTemplate { user: None, message: r.message() })).into_response()
 }
 
@@ -153,7 +149,7 @@ fn proxy_page(status: StatusCode, signed_out: bool) -> Response {
 /// May an account be made now, with this invitation token, for `email`
 /// (`None` before the address is typed)?
 async fn admit(state: &AppState, invite: &str, email: Option<&str>) -> Result<Result<Admit, Refusal>, AppError> {
-    let (mode, invite, email) = (crate::waitlist::mode(state.signup), invite.to_string(), email.map(str::to_string));
+    let (mode, invite, email) = (state.signup, invite.to_string(), email.map(str::to_string));
     state.db.call(move |c| signup::admit(c, mode, &invite, email.as_deref(), now())).await
 }
 
@@ -284,11 +280,7 @@ pub async fn register_form(State(state): State<Arc<AppState>>, MaybeUser(user): 
         Ok(a) => a,
         Err(r) => return Ok(signup_refused(r, StatusCode::OK)),
     };
-    // An e-mailed invitation (#934) fills in the address it is for.
-    let email = match admitted {
-        Admit::Invited(id) => state.db.call(move |c| crate::waitlist::invite_email(c, id)).await?.unwrap_or_default(),
-        _ => String::new(),
-    };
+    let email = String::new();
     Ok(Page(RegisterTemplate {
         user: None,
         error: None,
@@ -495,7 +487,7 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
     // invitation, while we hashed. The sign-up mode's word comes first, so
     // a refusal never depends on the address and never deletes anything.
     let e = email.clone();
-    let (mode, invite) = (crate::waitlist::mode(state.signup), form.invite.clone());
+    let (mode, invite) = (state.signup, form.invite.clone());
     let (outcome, deleted) = state
         .db
         .call(move |c| {
@@ -1150,7 +1142,7 @@ pub async fn google_confirm(
         return Ok(Page(GoogleConfirmTemplate { user: None, email: identity.email, min_age: gate.min_age, error: Some(e), no_ai, age, accept }).into_response());
     }
     let Some(identity) = state.signups.take(&token, now()) else { return Ok(signup_expired(&state)) };
-    let (mode, invite, google) = (crate::waitlist::mode(state.signup), invite_from_cookie(&headers), identity.clone());
+    let (mode, invite, google) = (state.signup, invite_from_cookie(&headers), identity.clone());
     let created = state
         .db
         .call(move |c| {

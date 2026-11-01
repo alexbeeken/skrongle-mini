@@ -45,7 +45,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 
 ### Accounts
 
-- Sign-in: `auth.rs` (sessions, CurrentUser, Project), `routes/auth.rs`, `routes/auth/code.rs` (the two-factor step), `oauth.rs` (Google), `proxy_auth.rs` (proxy header), `signup.rs` (who may register), `waitlist.rs` + `routes/waitlist.rs` (the waitlist page, #934) and `routes/superuser/release.rs` (Superuser → Release).
+- Sign-in: `auth.rs` (sessions, CurrentUser, Project), `routes/auth.rs`, `routes/auth/code.rs` (the two-factor step), `oauth.rs` (Google), `proxy_auth.rs` (proxy header), `signup.rs` (who may register).
 - Mail and texts: `mail.rs` (`mail/resend.rs`, `mail/postmark.rs`, `mail/brevo.rs`, `mail/sink.rs`), `sms.rs` (`sms/phone.rs`), `verify.rs` (address check), `reset.rs` + `routes/reset.rs` (password reset).
 - Two-factor: `two_factor.rs`, `totp.rs`.
 - Profile: `profile.rs`, `routes/profile.rs`, `static/profile.js`, `static/autosave.js`, `static/avatar-bg/` (picture backgrounds); keys in `secrets.rs`.
@@ -94,7 +94,7 @@ src/
   mail/brevo.rs  the `brevo` kind: Brevo's transactional HTTP API, response → Rejected/Unavailable, idempotency key per outbox row
   proxy_auth.rs  sign-in through a reverse proxy's identity header (SKRONGLE_PROXY_AUTH_HEADER / _FROM, #642): a middleware before every handler
   signup.rs      who may make an account (SKRONGLE_SIGNUP: open / invite / closed, #634): the first account is the owner, through the owner link written to the log at startup, invitation links (table signup_invites, the token hashed), the Superuser page's Accounts part and invitation links (routes/superuser.rs)
-  waitlist.rs    the waitlist for a slow release (#934, hosted only): the switch (release_settings, read per request by a middleware into a task-local for templates; open acts as invite while on), joining with double opt-in, e-mailed invitations tied to one address (signup_invites.email), users.beta; pages in routes/waitlist.rs and routes/superuser/release.rs
+
   account_deletion.rs  the learner's own account deletion after 14 days of grace (#970): users.delete_at, signing out, the dated mail, the hourly job housekeeping.deletions that deletes due accounts
   shape.rs       the two shapes (#578): SKRONGLE_MINI=1 is Skrongle mini, unset is the hosted site; read once at startup (shape::current, crate::is_mini); a mini has no plans (has_plans) and crate::env reads the hosted-only settings (HOSTED_ONLY: mail, SMS, Google, Stripe, S3) as unset
   share.rs       sharing a course with other learners by e-mail address (#451): invitations (table course_shares, the link's token hashed), who may open a shared course, the message
@@ -174,8 +174,6 @@ src/
     password.rs  /password/change (the gate after signing in with a temporary password: the new one twice, no old one)
     superuser/courses.rs  the course table on /superuser (#1034, hosted only): every made course 25 to a page, searched by title, id or owner (course_q), filtered (course_show: all | flagged | review | overridden | down), flagged first, then needs review (course_flags/table.rs); a row's detail dialog with what matched and the actions; POST /superuser/courses/override|clear-override|delete|email-owner (the last sends the owner_mail draft as edited, by hand only, #1035)
     superuser.rs /superuser (superusers only, 404 otherwise: every account 25 to a page with Temporary password, Turn off two-factor and Reset email verification per row; invitation links under SKRONGLE_SIGNUP=invite; Skrongle AI today, everyone, against the daily cap; while a material terms change is coming, a notice and Send the announcement; on the hosted site Suspend and Delete account per row, the course table and blocked addresses, #967), POST /superuser/reset-email-verification|invites|invites/revoke|temp-password|two-factor-off|terms-announce|courses/take-down|courses/put-back|suspend|unsuspend|delete-account|block-ip|unblock-ip
-    superuser/release.rs /superuser/release (#934, hosted only): the waitlist switch, counts and list, POST /superuser/release/switch|invite|invite-next
-    waitlist.rs  POST /waitlist (join: a confirmation link is mailed, the same page either way), GET /waitlist/confirm; GET / is the waitlist page for anyone signed out while it is on
     profile.rs   /profile (picture, personal information, account, subscription with the plans and cancel modals, Skrongle AI this month as a bar (Plus), AI API keys with the own-keys pill (Plus), ), POST /api/profile (autosave), POST /profile/password|api-keys…|own-keys|verify-email/resend, POST /profile/export (queue "Download my data"), GET /profile/export/download?token=… (the mailed link), POST /profile/delete
     dev_payments.rs /dev/payments/stripe/v1/* (Stripe's API), the hosted Checkout and Billing Portal pages, the dev mailbox's Payments section; delivers signed webhooks to /billing/webhook on a thread of its own
     billing.rs   POST /billing/cancel (reason + feedback; Stripe ends it with the month), /billing/checkout (a plan from the modal; a paying learner goes to the portal), /billing/credits (on the account's one Stripe customer, named by its billing_ref), /billing/portal (redirects to Stripe), /billing/webhook (Stripe's signed events); none of them exist in Skrongle mini
@@ -412,7 +410,7 @@ users          (id AUTOINCREMENT, password_hash, created_at, google_sub UNIQUE, 
                 -- must_change_password 1: signed in with a temporary password the owner set (src/owner.rs, v62);
                 -- CurrentUser sends the account to /password/change until it picks its own
                 -- suspended_at: a superuser suspended it (src/moderation.rs, v70): no session resolves, sign-in is refused, its courses are not shared out
-                -- beta 1: made through an e-mailed waitlist invitation (src/waitlist.rs, v86, #934); nothing reads it yet
+                -- beta 1: made through an e-mailed waitlist invitation (v86, #934); nothing reads it
                 -- delete_at: the learner asked to delete it; deleted then by housekeeping.deletions (src/account_deletion.rs, v88, #970);
                 -- CurrentUser sends it to /account/deletion until then, its courses are not shared out
 sessions       (id, user_id, session_token UNIQUE, created_at, expires_at)
@@ -458,12 +456,12 @@ signup_invites (id, token_hash UNIQUE, created_by, created_at, expires_at, used_
                 -- invitation links for SKRONGLE_SIGNUP=invite (src/signup.rs, v61): token_hash is the SHA-256
                 -- of the link's token; one use (used_at, used_by), 7 days; created_by cascades,
                 -- used_by is set NULL when the invited account is deleted; gone 30 days after expiry.
-                -- email (v86, #934): an e-mailed waitlist invitation, usable only by an account with that address
+                -- email (v86, #934): from the removed waitlist; nothing reads it
 waitlist       (id, email UNIQUE, joined_at, confirm_hash, confirmed_at, invite_id, invited_at, invites_sent, signed_up_at, user_id)
-                -- the waitlist (src/waitlist.rs, v86, #934): email lower case; confirm_hash the SHA-256 of the
+                -- the removed waitlist (v86, #934; nothing reads it): email lower case; confirm_hash the SHA-256 of the
                 -- confirmation link's token until it is used; invite_id the latest e-mailed invitation (set NULL
                 -- when purged); user_id the account it signed up as (cascades); unconfirmed rows go after 30 days
-release_settings (id = 1, waitlist)  -- the waitlist switch, set on /superuser/release (#934)
+release_settings (id = 1, waitlist)  -- the removed waitlist switch (#934; nothing reads it)
 projects       (user_id, course_id, created_at, last_opened_at, start_unit<!-- themes -->, theme<!-- /themes -->, avatar, avatar_color, motivator, set_up)  PRIMARY KEY (user_id, course_id)
                -- <!-- themes -->theme, <!-- /themes -->avatar, avatar_color, motivator: the course's settings (#565, #574); avatar/avatar_color and
                -- motivator start as the account's; set_up: 0 until the first visit's settings wizard is left (#574)
@@ -737,7 +735,6 @@ posture are in `docs/self-hosting.md`, "Skrongle mini".
 | Variable | Default | Meaning |
 |---|---|---|
 | `SKRONGLE_BIND` | `0.0.0.0:8080` | Listen address; a bare port (`9000`) means every interface. A value that doesn't parse stops the server |
-| `SKRONGLE_WAITLIST_LOGIN` | unset | `1`: while the waitlist is on (#934, `src/waitlist.rs`), the waitlist page and the header show Log in (for the soft launch). Unset, nobody sees a Log in link while the waitlist is on; `/login` still works. Hosted only |
 | `SKRONGLE_SIGNUP` | `open` (*mini:* `invite`) | Who may make an account (`src/signup.rs`, #634): `open` (anyone), `invite` (only through a link a superuser makes on `/superuser`) or `closed`. Under `invite` and `closed` the first account on a server with none is made only through the owner link the server logs at startup (a new one each start), and is made a superuser. Read as is, with no older spelling; any other value stops startup. `deploy/skrongle.service` sets `invite`, `deploy/aws` nothing |
 | `SKRONGLE_PROXY_AUTH_HEADER`, `SKRONGLE_PROXY_AUTH_FROM` | unset | Sign-in by a reverse proxy (`src/proxy_auth.rs`, #642): the header holding the person's e-mail address, and the proxy's addresses (IPs or CIDRs, comma-separated) it is trusted from, judged by the TCP peer, never `X-Forwarded-For`. Both or neither (one alone stops startup). A trusted request with the header is signed in without password, two-factor or rate limit; an unknown address follows `SKRONGLE_SIGNUP` (`open` makes a password-less account with its address confirmed). `/login` and `/register` only say the proxy signs in. Read as is, no older spelling. Skrongle mini only: the hosted server refuses to start with either set |
 | `SKRONGLE_DATA_DIR` | `data` | Directory containing `courses/`<!-- themes --> and `themes/`<!-- /themes --> |
@@ -746,7 +743,7 @@ posture are in `docs/self-hosting.md`, "Skrongle mini".
 | `SKRONGLE_COURSE_BYTES` | `8388608` | Total size of one user-made course's files |
 | `SKRONGLE_COURSE_BYTES_PER_USER` | `33554432` | Total size of the files of one account's courses |
 <!-- themes -->
-| `SKRONGLE_THEMES_ENABLED` | unset | `1`: offer and wear themes. Unset (or anything else), theming is off (#1138): `data/themes/` is not loaded, no course wears a theme (a stored choice is kept for when they come back), the course settings and the Start wizard have no Theme row or step, the waitlist page has no themes section, the course editor leaves out theme material, and no character art is drawn (#1153): the account badge is the gear, the course settings and the Start wizard have no picture or background, conversation lines show only the speaker's name, and the verb drill's person slots keep the course's own pictures. Off until the themes have art people made |
+| `SKRONGLE_THEMES_ENABLED` | unset | `1`: offer and wear themes. Unset (or anything else), theming is off (#1138): `data/themes/` is not loaded, no course wears a theme (a stored choice is kept for when they come back), the course settings and the Start wizard have no Theme row or step, the course editor leaves out theme material, and no character art is drawn (#1153): the account badge is the gear, the course settings and the Start wizard have no picture or background, conversation lines show only the speaker's name, and the verb drill's person slots keep the course's own pictures. Off until the themes have art people made |
 | `SKRONGLE_THEMES_PER_USER` | `5` | Themes one learner may keep |
 | `SKRONGLE_THEME_BYTES` | `524288` | Total size of the files of one learner's themes |
 <!-- /themes -->

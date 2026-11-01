@@ -8,8 +8,7 @@
 //! that e-mails it to every account (#966, `terms.rs`);
 //! and on the hosted site, moderation (#967, `moderation.rs`): the course
 //! table (#1034, `superuser/courses.rs`) with the flag of each course and
-//! what to do about it, suspend or delete an account, block an address;
-//! and a card that opens Release, the waitlist (#934, `superuser/release.rs`).
+//! what to do about it, suspend or delete an account, block an address.
 //! Anyone else gets a 404, as if the page did not exist; the account menu
 //! links here only for superusers.
 
@@ -28,7 +27,6 @@ use crate::profile;
 use crate::AppState;
 
 pub mod courses;
-pub mod release;
 
 #[derive(Template)]
 #[template(path = "superuser.html")]
