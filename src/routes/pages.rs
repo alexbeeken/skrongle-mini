@@ -114,9 +114,6 @@ pub async fn root(
     headers: HeaderMap,
     req: axum::extract::Request,
 ) -> Result<Response, AppError> {
-    if user.is_none() && crate::waitlist::on() {
-        return Ok(Page(super::waitlist::WaitlistTemplate::new(&state)).into_response());
-    }
     if user.is_none() {
         let courses = landing_courses(&state.courses);
         return Ok(Page(LandingTemplate { user: None, courses, google: state.google.is_some() }).into_response());

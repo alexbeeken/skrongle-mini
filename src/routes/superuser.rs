@@ -12,8 +12,7 @@
 //! table (#1034, `superuser/courses.rs`) with the flag of each course and
 //! what to do about it, suspend or delete an account, block an address;
 //! privacy requests that came by e-mail (#981, `superuser/privacy.rs`);
-//! the breach tools: sign everyone out, e-mail a notice (#1068, `superuser/breach.rs`);
-//! and a card that opens Release, the waitlist (#934, `superuser/release.rs`).
+//! and the breach tools: sign everyone out, e-mail a notice (#1068, `superuser/breach.rs`).
 //! Anyone else gets a 404, as if the page did not exist; the account menu
 //! links here only for superusers.
 
@@ -34,7 +33,6 @@ use crate::AppState;
 pub mod breach;
 pub mod courses;
 pub mod privacy;
-pub mod release;
 
 #[derive(Template)]
 #[template(path = "superuser.html")]

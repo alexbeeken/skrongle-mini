@@ -184,7 +184,6 @@ teenager on a phone in Sprint, 6), `testing-bot` (sees only markup, 12).
 | `specs/profile-nav.spec.ts` | 1 | yes |  |
 | `specs/prompt-limits.spec.ts` | 5 | **no** |  |
 | `specs/record.spec.ts` | 3 | **no** | yes |
-| `specs/release.spec.ts` | 2 | yes |  |
 | `specs/review-ai-changes.spec.ts` | 14 | **no** |  |
 | `specs/review-and-revise.spec.ts` | 4 | **no** |  |
 | `specs/revise.spec.ts` | 11 | **no** |  |
@@ -281,7 +280,6 @@ No e2e file names them; a spec drives the form, link (its testid) or script that
 - `POST /profile/phone/send`: `phone-locked-dialog`
 - `POST /profile/phone/verify`: `phone-verify-form`
 - `POST /profile/two-factor/totp/confirm`: `two-factor-totp-code`
-- `POST /superuser/release/invite`: `release-invite`
 - `POST /superuser/invites`: `superuser-invite-form`
 - `POST /superuser/invites/revoke`: `superuser-invite-revoke`
 - `POST /superuser/terms-announce`: `superuser-terms-form`
@@ -317,13 +315,10 @@ Not named by an e2e file, and no driven form, link or script calls them.
 - `GET /theme.css`
 <!-- /themes -->
 - `GET /badges/{file}`
-- `GET /waitlist/confirm`
 - `GET /account/deletion`
 - `GET /auth/google/callback`
 - `POST /profile/google/confirm`: called from `templates/profile.html`
 - `POST /profile/two-factor/code`: called from `templates/profile.html`
-- `POST /superuser/release/switch`: called from `templates/superuser_release.html`
-- `POST /superuser/release/invite-next`: called from `templates/superuser_release.html`
 - `GET /manifest.webmanifest`: called from `templates/base.html`, `templates/sprint.html`, `templates/sprint_play.html`, `templates/tutor.html`
 
 ### Testids per template
@@ -466,7 +461,6 @@ Not named by an e2e file, and no driven form, link or script calls them.
 | `templates/algebra_tiles.html` | 4 | 4 |  |
 | `static/landing-kit.js` | 2 | 2 |  |
 | `templates/landing_try.html` | 8 | 8 |  |
-| `templates/waitlist.html` | 10 | 10 |  |
 | `static/wrong-note.js` | 3 | 3 |  |
 | `templates/dev_box_rows.html` | 5 | 5 |  |
 | `templates/dev_google.html` | 2 | 2 |  |
@@ -523,7 +517,7 @@ Titles as Playwright lists them (from the source: run `npm ci` in e2e/ for loops
 - **`specs/journeys.spec.ts`** (2, needs a key): journey ${journey.id}
 - **`specs/judged.spec.ts`** (3, needs a key): a lesson page teaches a topic and ends with a check · a failed generation explains itself in plain words
 - **`specs/keyboard.spec.ts`** (4, CI): Practice: keys sound on a tap, the last one counts, any spelling and octave unless the key is exact · the reading check, Sprint mode and the Guide take the key tapped · a lesson without a keyboard question loads no keyboard script · the lesson editor has the key, octaves and what-counts switches, and its preview plays the question
-- **`specs/landing-try.spec.ts`** (6, CI): a visitor plays the language sample of every mode · maths: shade, the number line, plot a point, a formula, graphs · music: read the staff, hear it, play the keys, place a note · the try-it stage fits a phone in every subject and mode · the waitlist page has the same samples and use cases
+- **`specs/landing-try.spec.ts`** (4, CI): a visitor plays the language sample of every mode · maths: shade, the number line, plot a point, a formula, graphs · music: read the staff, hear it, play the keys, place a note · the try-it stage fits a phone in every subject and mode
 - **`specs/lesson-ai-edit.spec.ts`** (5, CI): Edit with AI on a row rewrites that lesson only, and Undo takes it back · a reply that renames the lesson is refused and the course stays as it was · a refused request opens the dialog again with why · a lesson gone since the page loaded: the dialog opens again and says so · a lesson copied in the editor gets its ✦ once it is saved
 - **`specs/lesson-conversations.spec.ts`** (2, CI): a lesson with a conversation shows both speakers' lines · tapping a conversation line shows its meaning and reads it aloud
 - **`specs/lesson-duplicate.spec.ts`** (1, CI): duplicate a lesson: the copy sits below the original, with new ids, and the course still loads
@@ -551,7 +545,6 @@ Titles as Playwright lists them (from the source: run `npm ci` in e2e/ for loops
 - **`specs/profile-nav.spec.ts`** (1, CI): the profile nav marks the section in view
 - **`specs/prompt-limits.spec.ts`** (5, local only): the Generate dialog counts the wish and the notes, red outside 20 to the maximum · the server refuses Generate prompts outside the limits, in the same words · Use AI counts its text, red outside 20 to the maximum, and the server agrees · a Generate form that is too short is refused in place, calmly · short notes are refused in place too, and the notes box is the one marked
 - **`specs/record.spec.ts`** (3, needs a key): record ${id}
-- **`specs/release.spec.ts`** (2, CI): a person joins the waitlist, confirms, is invited and signs up
 - **`specs/review-ai-changes.spec.ts`** (14, local only): a generated course reviews as new lessons, listed like the lesson table · Only add shows the new lesson as one column; what was there keeps no red · Use AI runs on the course page: the modal comes up in place, holds the page, then the review opens · a refused Use AI request comes back on the same page, text kept · a revision shows red and green side by side, and later hand edits do not change it · leaving out a line and a lesson: Accept writes only the rest, and the review remembers · editing a line in place as text: it turns blue and stays in, Undo/Redo step through edits, Accept writes them · after a lesson-table edit, leaving out part of a lesson still goes in (#280) · after Undo of the AI run the review says so and offers no Accept (#281) · the review labels lines in plain words, not JSON keys (#282) · Don't show this automatically next time: the review waits for its button · Review changes is a button next to Submit · a course nobody used AI on has no review button · without JavaScript the review is a page whose boxes Accept sends
 - **`specs/review-and-revise.spec.ts`** (4, local only): while a revision runs the modal covers the locked workspace; closing the review shows the new lessons · a lesson edited by hand survives a revision that keeps it · undo puts back the files from before the revision and drops later hand edits · a hand edit that breaks the course rules does not block a revision of a course that loads again
 - **`specs/revise.spec.ts`** (11, local only): revise a course twice in a row, and undo goes back one step · undo and redo icons right after a revision, from the course page the review closes onto (#231) · Undo and Redo: rows the step adds fade in, rows it takes away fade out, the rest stay still; none under reduced motion (#251) · a generated course is changed with Only add or Allow overall changes, not generated again · a course with content of its own sends you to the Use AI box, not to the old Only add buttons (#1245) · feedback that is too short is refused on the form and kept · a plan that removes a lesson drops it, keeps the others' progress, and undo brings it back · a rewritten lesson keeps its progress · a plan the AI cannot give leaves the course alone and offers neither undo nor resume · while a revision runs the course still opens but its files are locked; cancel releases it · two revisions asked for at the same moment start only one job

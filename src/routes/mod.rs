@@ -37,7 +37,6 @@ pub mod reset;
 pub mod reports;
 pub mod shop;
 pub mod superuser;
-pub mod waitlist;
 pub mod terms;
 pub mod tutor;
 pub mod vocab;
@@ -245,8 +244,6 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/login/code/status", get(auth::login_code_status))
         .route("/login/code/cancel", post(auth::login_code_cancel))
         .route("/register", get(auth::register_form).post(auth::register))
-        .route("/waitlist", post(waitlist::join))
-        .route("/waitlist/confirm", get(waitlist::confirm))
         .route("/logout", post(auth::logout))
         .route("/account/deletion", get(account_deletion::page))
         .route("/account/deletion/cancel", post(account_deletion::cancel))
@@ -279,10 +276,6 @@ pub fn router(state: Arc<AppState>) -> Router {
         // superusers (404 for anyone else)
         .route("/superuser", get(superuser::show))
         .route("/superuser/reset-email-verification", post(superuser::reset_email_verification))
-        .route("/superuser/release", get(superuser::release::show))
-        .route("/superuser/release/switch", post(superuser::release::switch))
-        .route("/superuser/release/invite", post(superuser::release::invite))
-        .route("/superuser/release/invite-next", post(superuser::release::invite_next))
         .route("/superuser/invites", post(superuser::make_invite))
         .route("/superuser/invites/revoke", post(superuser::revoke_invite))
         .route("/superuser/temp-password", post(superuser::set_temp_password))
@@ -418,8 +411,6 @@ pub fn router(state: Arc<AppState>) -> Router {
     };
     // A blocked address (#967) is refused before any session lookup.
     let app = app.layer(axum::middleware::from_fn_with_state(state.clone(), crate::moderation::block));
-    // The waitlist switch (#934) for templates, error pages included.
-    let app = app.layer(axum::middleware::from_fn_with_state(state.clone(), crate::waitlist::middleware));
     let app = app.with_state(state);
 
     let base = crate::base_path();
@@ -945,7 +936,6 @@ pub(crate) fn test_state_with(
         dev_payments: Default::default(),
         public_url: None,
         signup: Default::default(),
-        waitlist: Default::default(),
         proxy_auth: None,
         blocked: Default::default(),
     })

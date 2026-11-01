@@ -665,7 +665,7 @@ pub fn housekeeping(runner: Runner, state: &Arc<crate::AppState>, retention: cra
         .handle(OUTBOX, |db, _| sql(db, |c, now| Ok(note(crate::mail::purge(c, now)? + crate::sms::purge(c, now)?, "old outbox rows deleted"))))
         .handle(LINKS, |db, _| {
             sql(db, |c, now| {
-                let n = crate::verify::purge(c, now)? + crate::reset::purge(c, now)? + crate::two_factor::purge(c, now)? + crate::signup::purge(c, now)? + crate::waitlist::purge(c, now)?;
+                let n = crate::verify::purge(c, now)? + crate::reset::purge(c, now)? + crate::two_factor::purge(c, now)? + crate::signup::purge(c, now)?;
                 Ok(note(n, "old links deleted"))
             })
         })

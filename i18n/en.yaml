@@ -148,7 +148,6 @@ auth:
     invite_used: "This invitation link has already been used. Ask whoever runs this server for a new one."
     invite_expired: "This invitation link has expired. Ask whoever runs this server for a new one."
     invite_unknown: "This invitation link is not valid. Ask whoever runs this server for a new one."
-    invite_wrong_email: "This invitation is for a different e-mail address. Sign up with the address it was sent to."
     sign_in: "Log in"
     first_account: "This server has no accounts yet: the one you make now is its owner's."
     no_owner: "This server has no owner yet. Whoever runs it makes the first account with the owner link from the server's log."
@@ -4178,94 +4177,6 @@ reports:
       {report}
 
       If you think the report is mistaken, reply to this message and say why. On a copyright notice, that reply can be a counter-notice. We may hide the course while we look into it.
-waitlist:
-  hero_h1: "Learn anything."
-  hero_lead: "Tell {app} what you want to learn. Minutes later you have a whole course: lessons, quizzes, drills, games and a daily goal, built around the way you like to learn."
-  build_label: "A course being built from one sentence"
-  build_ready: "Ready. Start your first lesson."
-  built_units:
-    one: "{n} unit"
-    other: "{n} units"
-  built_lessons:
-    one: "{n} lesson"
-    other: "{n} lessons"
-  built_questions:
-    one: "{n} quiz question"
-    other: "{n} quiz questions"
-  built_cards:
-    one: "{n} flashcard"
-    other: "{n} flashcards"
-  built_more: "Drills, games, listening and a daily goal"
-  gen_h2: "Don't settle for an explanation. Get a course."
-  gen_p: "Ask a chatbot and you get a wall of text to read once. Ask {app} and you get a course you practise every day until you know it."
-  chat_label: "A chatbot"
-  modes_h2: "Then practise it every way there is."
-  themes_h2: "Make it look like your world."
-  themes_p: "A theme changes the colours, the type, the pictures and what the app cheers when you get it right."
-  motivators_h2: "Pick what keeps you coming back."
-  motivators_p: "Your progress is the same whichever you pick. You choose how it's shown."
-  write_h2: "Or write it yourself."
-  write_p: "A course is a folder of plain JSON files. Write one by hand, edit it in the browser, or let AI draft it and change whatever you like."
-  final_h2: "Your first course is minutes away."
-  title: "Join the waitlist"
-  lead: "{app} is opening a few people at a time. Leave your e-mail address and we'll send you an invitation when it's your turn."
-  email_label: "E-mail address"
-  submit: "Join the waitlist"
-  joined: "Check your e-mail: open the link we sent to confirm your place."
-  confirmed: "You're on the list. We'll e-mail you an invitation when it's your turn."
-  bad_link: "This link doesn't work any more. Join the waitlist again to get a new one."
-  too_many: "Too many tries from your network. Try again in an hour."
-  login_html: "Already invited? <a href=\"{url}\" data-testid=\"waitlist-login-link\">Log in</a>"
-release:
-  title: "Release"
-  about_label: "About Release"
-  open: "Open"
-  about: "While the waitlist is on, the home page is one e-mail field and nobody can sign up without an invitation. People confirm their address before you can invite them. Turning the waitlist off is the launch: the normal home page and sign-up come back."
-  about_invites: "Invite one person, or the next ones in the order they joined. Each gets an e-mail with an invitation for their own address, good for {days} days; Resend makes a new one. Accounts made through an invitation are marked beta."
-  waitlist: "Waitlist"
-  state_on: "On: sign-up by invitation only."
-  state_off: "Off: anyone can sign up."
-  turn_on: "Turn on the waitlist"
-  turn_off: "Turn off the waitlist"
-  turn_on_about: "The home page becomes the waitlist form, and sign-up needs an invitation. People already signed up can still log in."
-  turn_off_about: "This is the launch: the normal home page comes back and anyone can sign up. Open invitations still work."
-  list: "People on the waitlist"
-  count_total:
-    one: "{n} joined"
-    other: "{n} joined"
-  count_unconfirmed:
-    one: "{n} not confirmed"
-    other: "{n} not confirmed"
-  count_waiting:
-    one: "{n} waiting"
-    other: "{n} waiting"
-  count_invited:
-    one: "{n} invited"
-    other: "{n} invited"
-  count_signed_up:
-    one: "{n} signed up"
-    other: "{n} signed up"
-  invite_next_label: "How many"
-  invite_next: "Invite the next ones"
-  empty: "Nobody has joined yet."
-  joined: "Joined"
-  status_h: "Status"
-  invited_h: "Invited"
-  invite: "Invite"
-  resend: "Resend"
-  turned_on: "The waitlist is on."
-  turned_off: "The waitlist is off: anyone can sign up."
-  invited_one: "Invitation sent to {email}."
-  invited_n:
-    one: "{n} invitation sent."
-    other: "{n} invitations sent."
-  not_invited: "No invitation went to {email}: the address isn't confirmed, has signed up, or the mail limit was reached."
-  status:
-    unconfirmed: "Not confirmed"
-    waiting: "Waiting"
-    invited: "Invited"
-    expired: "Invitation expired"
-    signed_up: "Signed up"
 clock:
   js:
     set_label: "Clock. Drag the minute hand, or use the arrow keys; Page Up and Page Down move an hour."

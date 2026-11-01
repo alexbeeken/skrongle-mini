@@ -73,7 +73,7 @@
 .try-typed input.wrong { border-color: var(--bad); background: var(--bad-bg); color: var(--bad); }
 
 /* The pictures and sounds of the samples (landing-kit.js). Colours come from
-   the page's tokens, so the waitlist's stage, which pins its own, restyles them.
+   the page's tokens.
    What you draw or place is blue (--try-ink), never the accent: on the landing
    page that is red, which reads as wrong (#1318). */
 .try-stage { --try-ink: #2c5bd6; }

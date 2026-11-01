@@ -1977,32 +1977,6 @@ keep their explicit buttons. The page needs JavaScript.
   In dev mode the
   dev user (`dev@example.com`) always is one. For anyone else the menu has
   no link, and the page and its forms answer 404 (`src/routes/superuser.rs`).
-  - **Release** (#934, `src/waitlist.rs`, `/superuser/release`; on the
-    hosted site only, 404 on Skrongle mini or without mail): a card on
-    `/superuser` says whether the waitlist is on and opens the page.
-    **Turn on the waitlist** / **Turn off the waitlist** (a confirm dialog,
-    `POST /superuser/release/switch`) takes effect at once and survives a
-    restart (`release_settings`). While it is on, `/` for anyone signed out
-    is the launch's marketing page (`templates/waitlist.html`, `static/waitlist.css`, #1071): full-width bands for a course built from one sentence, a chatbot's answer against a course, the modes with the same playable samples as the landing page (`templates/landing_try.html`, drawn as a poster), "What can I do with it?" (`templates/landing_uses.html`, #1365)<!-- themes -->, every built-in theme in its own colours, font, banner, profile pictures, badges and praise (drawn from the theme files)<!-- /themes -->, the motivators and a course file, with the e-mail field at the top and the bottom (`waitlist-form`, `waitlist-form-end`). No Create account anywhere, no
-    Log in unless `SKRONGLE_WAITLIST_LOGIN=1`, and `/register` without an
-    invitation goes back to `/`. `open` acts as `invite`. **Join the
-    waitlist** (`POST /waitlist`) mails a confirmation link
-    (`/waitlist/confirm?token=`, at most 3 a day to one address) and shows
-    "check your e-mail" whether or not the address was new; addresses never
-    confirmed go after 30 days. The page counts joined, not confirmed,
-    waiting, invited and signed up, and lists everyone in the order they
-    joined (50 to a page) with their status. **Invite** (a waiting person)
-    and **Resend** (invited or expired; the old link stops working) mail an
-    invitation tied to that address, good for 14 days
-    (`POST /superuser/release/invite`); **Invite the next ones** with a
-    number (100 by default, at most 1,000) does the same for the next
-    confirmed people not yet invited (`POST /superuser/release/invite-next`),
-    stopping when the mail ceiling is full. The register page fills in the
-    invited address; another address is refused ("This invitation is for a
-    different e-mail address"), with a password or Google. An account made
-    through one gets `users.beta = 1`, which nothing else reads yet. Turning
-    the waitlist off is the launch: the normal home page and sign-up return,
-    and open invitations still work.
   - **Accounts** (#634, `src/signup.rs`): the (i) says which sign-up mode
     the server is in (`SKRONGLE_SIGNUP`: `open`, the default and the hosted
     site's; `invite`; `closed`), how invitations work and how many accounts
