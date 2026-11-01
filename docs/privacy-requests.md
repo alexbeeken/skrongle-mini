@@ -24,7 +24,7 @@ still go to their regulator.
 
 Requests come to the privacy contact the notice names. That is the
 address in `SKRONGLE_LEGAL_EMAIL`, which is also the contact for
-copyright notices and suspended accounts. The plan is
+suspended accounts. The plan is
 `privacy@skrongle.com`, an alias at the mail provider that forwards to
 the owner's mailbox, so the notice does not change when a personal
 address does (`TODO.md`, "Legal"). A request that reaches another address
@@ -123,7 +123,7 @@ link is in a separate message to the account's address.
 
 Some requests can't be met in full: the person can't be verified, the
 data is someone else's (a course another learner made), or the law lets
-us keep something (copyright notices sent to us stay as a record). Say
+us keep something. Say
 no in writing, give the reason in plain words, and say how to appeal.
 Every refusal, full or partial, ends with the appeal step.
 

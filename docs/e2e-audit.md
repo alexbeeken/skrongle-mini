@@ -129,7 +129,6 @@ teenager on a phone in Sprint, 6), `testing-bot` (sees only markup, 12).
 | `specs/clock.spec.ts` | 3 | yes |  |
 | `specs/consent.spec.ts` | 2 | yes |  |
 | `specs/content-check.spec.ts` | 3 | yes |  |
-| `specs/content-reports.spec.ts` | 1 | yes |  |
 | `specs/content-review.spec.ts` | 2 | yes |  |
 | `specs/course-card-stats.spec.ts` | 3 | yes |  |
 | `specs/course-copy.spec.ts` | 5 | yes |  |
@@ -243,10 +242,8 @@ No e2e file names them; a spec drives the form, link (its testid) or script that
 - `POST /courses/{id}/cancel`: `course-ai-modal-cancel-form`, `course-edit-cancel-form`, `courses-cancel`
 - `POST /courses/{id}/undo`: `course-undo-form`
 - `POST /courses/{id}/redo`: `course-undo-form`
-- `POST /courses/{id}/report`: `content-report-form`
 - `POST /courses/{id}/share/remove`: `course-share-remove-form`
 - `GET /cookies`: `footer-cookies`
-- `GET POST /legal/copyright`: `copyright-form`, `terms-copyright-link`
 - `GET POST /terms/accept`: `terms-accept-check`
 - `GET POST /password/change`: `password-change-form`
 - `POST /api/sprint/check`: `static/sprint.js`
@@ -285,8 +282,6 @@ No e2e file names them; a spec drives the form, link (its testid) or script that
 - `POST /superuser/invites`: `superuser-invite-form`
 - `POST /superuser/invites/revoke`: `superuser-invite-revoke`
 - `POST /superuser/terms-announce`: `superuser-terms-form`
-- `POST /superuser/reports/forward`: `superuser-report-forward`
-- `POST /superuser/reports/resolve`: `superuser-report-resolve`
 - `POST /superuser/courses/put-back`: `superuser-put-back-form`
 - `POST /superuser/courses/override`: `superuser-override-form`
 - `POST /superuser/courses/clear-override`: `superuser-clear-override-form`
@@ -404,9 +399,7 @@ Not named by an e2e file, and no driven form, link or script calls them.
 | `static/chord-spell.js` | 5 | 5 |  |
 | `static/sprint.js` | 6 | 6 |  |
 | `static/profile.js` | 37 | 37 |  |
-| `templates/content_report_dialog.html` | 7 | 7 |  |
 | `templates/course_shared_dot.html` | 4 | 4 |  |
-| `templates/copyright.html` | 13 | 13 |  |
 | `templates/lessons_panel.html` | 61 | 61 |  |
 | `static/courses.js` | 27 | 27 |  |
 | `templates/ai_examples.html` | 12 | 12 |  |
@@ -492,7 +485,6 @@ Titles as Playwright lists them (from the source: run `npm ci` in e2e/ for loops
 - **`specs/clock.spec.ts`** (3, CI): Practice: drag the minute hand, use the keys, read a clock · the Guide and Sprint mode show the clock too · the tutor draws a clock to read, with its times to tap
 - **`specs/consent.spec.ts`** (2, CI): the consent card shows each consent, and Do Not Show Me AI Features hides them and shows them again across a reload · with a key on file the card's AI switch asks first, and the key line goes
 - **`specs/content-check.spec.ts`** (3, CI): a course is scanned before it is shared; a high score the AI review passes blocks nothing · the nightly check waits in the job table for the next midnight (#1038)
-- **`specs/content-reports.spec.ts`** (1, CI): a shared course is reported, a copyright notice is sent, and the superuser forwards and resolves them
 - **`specs/content-review.spec.ts`** (2, CI): a harmful course is flagged with a short report; an override note is followed until new harm comes
 - **`specs/course-card-stats.spec.ts`** (3, CI): a course card shows passed and mastered as a bar and chips; a chip opens its stat in a modal and its name fits a phone (#684) · a chip's modal fetches what is next as it opens: the next lesson to pass and each unit, the lessons to practise, and opens the course at one (#900) · with the app in French, when a course was last opened fits its card at 1280 and 390 px, without an ellipsis (#1182)
 - **`specs/course-copy.spec.ts`** (5, CI): the copy icon in Spanish's settings opens Copy of Spanish in the editor, with every file, and lists it · copies count against the account's course bytes: past the limit the copy is refused with a notice · no copy or translate icon in the settings of a course shared with you; copying or translating it, or another user's private course, is a 404 · no copy icon while a course is being generated, nor after it stopped; a POST says why · at phone width the copy icon sits beside the X, inside the dialog and clear of its title

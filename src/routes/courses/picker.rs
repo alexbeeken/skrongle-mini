@@ -52,10 +52,6 @@ pub struct CourseCard {
     /// A copy being translated, or whose translation stopped (#630): its
     /// card resumes the translation rather than a generation.
     pub translation: bool,
-    /// A course shared with this learner, on a server that sends mail
-    /// (#968): its "shared with you" dialog offers "Report this course",
-    /// whose form starts with this address (the learner's).
-    pub report_email: Option<String>,
     /// Taken down by a superuser (#967): its owner's card shows why behind
     /// the red !, and has no Open.
     pub removed: bool,
@@ -261,7 +257,6 @@ fn card(content: &ContentStore, editable: bool) -> CourseCard {
         copyable: false,
         meanings_lang: m.meanings.lang.clone(),
         translation: false,
-        report_email: None,
         removed: false,
         flagged: false,
         flag_matches: Vec::new(),
@@ -360,7 +355,6 @@ fn broken_card(state: &AppState, row: &CourseRow) -> CourseCard {
         copyable: false,
         meanings_lang: String::new(),
         translation: row.source == "translate",
-        report_email: None,
         removed: false,
         flagged: false,
         flag_matches: Vec::new(),
@@ -404,8 +398,6 @@ pub(super) fn picker_notice(key: &str) -> Option<String> {
         "share-taken" => "courses.share.link_taken",
         "share-gone" => "courses.share.link_gone",
         "share-not-ready" => "courses.share.not_ready",
-        "reported" => "reports.course.sent",
-        "report-limit" => "reports.course.too_many",
         "too-many-writes" => return Some(too_many_writes_text()),
         "copy-not-ready" => "courses.picker.copy_not_ready",
         "translate-same" => "courses.translate.same_language",
@@ -575,7 +567,6 @@ pub(super) async fn picker_page(state: &AppState, user: CurrentUser, notice: Opt
         let Some(content) = state.courses.get(&state.db, &pr.course_id).await? else { continue };
         let mut c = card(&content, owned.is_some());
         c.copyable = owned.map_or(shared_by.is_none(), |r| !matches!(r.state, courses::CourseState::Generating | courses::CourseState::Failed));
-        c.report_email = shared_by.as_ref().filter(|_| state.caps().mail).map(|_| user.email.clone());
         c.shared_by = shared_by;
         if let Some(row) = owned {
             c.state = row.state.as_str(); // "revising" shows as a tag; the course still opens
@@ -642,7 +633,6 @@ pub(super) async fn picker_page(state: &AppState, user: CurrentUser, notice: Opt
         let Some(content) = state.courses.get(&state.db, &s.course_id).await? else { continue };
         let mut c = card(&content, false);
         c.shared_by = Some(s.owner.clone());
-        c.report_email = state.caps().mail.then(|| user.email.clone());
         shared_cards.push(with_wizard(&content, c));
     }
     Ok(Page(PickerTemplate { user: Some(user), projects: project_cards, builtin, mine: my_cards, shared: shared_cards, notice, generate, looks: choices.looks, translate_providers }).into_response())

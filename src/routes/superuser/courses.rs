@@ -411,8 +411,7 @@ pub async fn clear_override(State(state): State<Arc<AppState>>, user: CurrentUse
 }
 
 /// POST /superuser/courses/delete (course=…): the course, its files and its
-/// shares are deleted. Not undone. Its content reports stay (they are the
-/// record, docs/content-reports.md). Refused while a generation or revision
+/// shares are deleted. Not undone. Refused while a generation or revision
 /// writes to it.
 pub async fn delete_course(State(state): State<Arc<AppState>>, user: CurrentUser, Form(form): Form<CourseForm>) -> Result<Response, AppError> {
     if !moderates(&user) {

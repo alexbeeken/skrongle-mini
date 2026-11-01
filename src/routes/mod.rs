@@ -34,7 +34,6 @@ pub mod progress;
 pub mod quiz;
 pub mod password;
 pub mod reset;
-pub mod reports;
 pub mod shop;
 pub mod superuser;
 pub mod waitlist;
@@ -156,7 +155,6 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/courses/{id}/settings", post(courses::set_settings))
         .route("/courses/{id}/stat/{metric}", get(courses::stat_detail))
         .route("/courses/{id}/placement", get(courses::placement).post(courses::mark_placement))
-        .route("/courses/{id}/report", post(reports::report_course))
         // sharing a course with other learners (#451)
         .route("/courses/shared/{token}", get(share::open_link))
         .route("/courses/{id}/share", get(share::to_course).post(share::invite))
@@ -180,7 +178,6 @@ pub fn router(state: Arc<AppState>) -> Router {
         // Terms of Service (public) and the gate for accounts that have not accepted them
         .route("/terms", get(terms::page))
         .route("/terms.md", get(terms::markdown))
-        .route("/legal/copyright", get(reports::copyright_form).post(reports::copyright_submit))
         .route("/terms/accept", get(terms::accept_form).post(terms::accept))
         .route("/terms/dismiss", post(terms::dismiss))
         .route("/password/change", get(password::change_form).post(password::change))
@@ -288,8 +285,6 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/superuser/temp-password", post(superuser::set_temp_password))
         .route("/superuser/two-factor-off", post(superuser::turn_off_two_factor))
         .route("/superuser/terms-announce", post(superuser::announce_terms))
-        .route("/superuser/reports/forward", post(reports::forward))
-        .route("/superuser/reports/resolve", post(reports::resolve))
         .route("/superuser/courses/take-down", post(superuser::take_down_course))
         .route("/superuser/courses/put-back", post(superuser::put_back_course))
         .route("/superuser/courses/override", post(superuser::courses::override_flag))

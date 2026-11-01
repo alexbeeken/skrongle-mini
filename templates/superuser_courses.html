@@ -21,7 +21,6 @@
     <p>{{ crate::t("superuser.courses.about_review") }}</p>
     <p>{{ crate::t1("superuser.courses.about_versions", "n", crate::content_check::nightly::settings().recheck_behind) }} <a href="{{ crate::url("/docs/content-check-versions") }}" data-testid="superuser-courses-versions-link">{{ crate::t("superuser.courses.versions_link") }}</a></p>
     <p class="small">{{ crate::t2("superuser.courses.shown", "total", ct.total, "per_page", crate::course_flags::table::COURSES_PER_PAGE) }}</p>
-    <p><a href="{{ crate::url("/docs/content-reports") }}">{{ crate::t("reports.superuser.runbook") }}</a></p>
     <div class="modal-actions"><button type="button" class="btn" data-closes>{{ crate::t("profile.data.export_ok") }}</button></div>
   </dialog>
   <form method="get" action="{{ crate::url("/superuser") }}#courses" class="course-table-search" role="search" data-testid="superuser-courses-search">

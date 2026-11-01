@@ -42,7 +42,6 @@
         {% if c.theme.is_some() %}<button type="button" class="icon-btn course-gear" data-tip="{{ crate::t("courses.settings.title") }}" aria-label="{{ crate::t1("courses.settings.open_label", "title", c.title.as_str()) }}" aria-haspopup="dialog" data-open-dialog="course-settings-{{ c.id }}" data-testid="courses-settings"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>{% endif %}
       </div>
       {% if let Some(st) = c.settings %}{% if st.wizard %}{% include "course_wizard.html" %}{% else %}{% include "course_settings.html" %}{% endif %}{% endif %}
-      {% include "content_report_dialog.html" %}
     </article>
   {% endfor %}
   </div>
@@ -65,7 +64,6 @@
         <form method="post" action="{{ crate::base_path() }}/courses/open/{{ c.id }}"><button type="submit" class="btn" data-testid="courses-open">{{ crate::t("courses.picker.start_learning") }}</button></form>
       </div>
       {% if let Some(st) = c.settings %}{% if st.wizard %}{% include "course_wizard.html" %}{% else %}{% include "course_settings.html" %}{% endif %}{% endif %}
-      {% include "content_report_dialog.html" %}
     </article>
   {% endfor %}
   </div>
@@ -125,7 +123,6 @@
         {% endif %}
       </div>
       {% if let Some(st) = c.settings %}{% if st.wizard %}{% include "course_wizard.html" %}{% else %}{% include "course_settings.html" %}{% endif %}{% endif %}
-      {% include "content_report_dialog.html" %}
     </article>
   {% endfor %}
   </div>
@@ -148,7 +145,6 @@
         <form method="post" action="{{ crate::base_path() }}/courses/open/{{ c.id }}"><button type="submit" class="btn" data-testid="courses-open">{{ crate::t("courses.picker.start_learning") }}</button></form>
       </div>
       {% if let Some(st) = c.settings %}{% if st.wizard %}{% include "course_wizard.html" %}{% else %}{% include "course_settings.html" %}{% endif %}{% endif %}
-      {% include "content_report_dialog.html" %}
     </article>
   {% endfor %}
   </div>

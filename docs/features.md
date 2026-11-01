@@ -2119,7 +2119,7 @@ keep their explicit buttons. The page needs JavaScript.
       are gone comes out clear. **Take down** and **Put back** are below.
       **Delete the course** (`POST /superuser/courses/delete`) removes it,
       its files, flag and shares; not undone, and not offered while it is
-      being generated or revised. Its `content_reports` rows stay.
+      being generated or revised.
       **Suspend the owner** is the account's Suspend (not offered for your
       own courses).
       **E-mail the owner** (#1035; flagged or taken-down courses whose
@@ -2349,8 +2349,7 @@ keep their explicit buttons. The page needs JavaScript.
       invitation. Every invitation to it (`course_shares`) and every mail
       to it still in `mail_outbox` are deleted. An address that belongs to
       an account is refused (delete the account instead). The address is
-      not echoed back in the redirect or the notice. Copyright notices sent
-      signed out (`content_reports`) are kept as a record.
+      not echoed back in the redirect or the notice.
   - **Breach tools** (#1068, the hosted site only, like moderation; not in
     Skrongle mini): the mass actions of the incident runbook
     (`ops/incident-response.md`) as buttons, under Privacy requests. Each
@@ -2465,35 +2464,6 @@ address (#1328).
   version accepted and when, and its "read" link opens the terms in a
   dialog over the profile (the link still goes to `/terms` in a new tab
   or without JavaScript).
-
-## Content reports and copyright notices
-
-Hosted only (not in Skrongle mini, which has no mail). `src/content_reports.rs`,
-`src/routes/reports.rs`, table `content_reports` (v68, #968).
-
-- **Report this course.** The circle on a course someone shared with the
-  learner (`/courses`, `courses-card-shared`) opens its "shared with you"
-  dialog, which has *Report this course* (`content-report-open`). The form
-  (`templates/content_report_dialog.html`) asks for a reason (harmful,
-  copyright, other), what is wrong, and the learner's address, filled in
-  from the account. `POST /courses/{id}/report` stores the report, mails the
-  operator (purpose `content-report`) and comes back to
-  `/courses?notice=reported`. Built-in courses, the learner's own and courses
-  they cannot open are a 404. Ten reports an hour per account.
-- **Copyright form.** `/legal/copyright` (public, linked from `/terms`):
-  name, address, the work, where it is (a link to the course; the first
-  word that is a course id names the course), what is copied, and the
-  good-faith statement, which must be ticked. Five tries a minute from one
-  address, counted in dev mode too (`RateLimits::hit_always`); the sixth gets
-  a 429. Without mail the page shows only `SKRONGLE_LEGAL_EMAIL` and a post is a 404.
-- **The operator** is `SKRONGLE_LEGAL_EMAIL`, or every superuser with an
-  address when it is unset. The mail has the report and a link to
-  `/superuser#reports`.
-- **Superuser page.** *Reports* lists the open ones, oldest first, with
-  *Forward to owner* (`POST /superuser/reports/forward`, purpose
-  `content-report-forward`; the reporter's name and address only on a
-  copyright notice) and *Resolve* (`POST /superuser/reports/resolve`). What
-  the operator does with them: the [runbook](content-reports).
 
 ## Registration and password reset
 
