@@ -48,7 +48,7 @@ echo "==> pages"
 check /healthz
 check /login
 check /docs/testing
-check /self-host 404   # hidden until Skrongle mini ships (#1435)
+check /self-host 200   # the self-hosting page: a mini always serves it (#13)
 check /privacy
 check /terms
 check /terms.md
