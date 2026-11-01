@@ -9,8 +9,6 @@
 //!   for [`TOKEN_TTL_SECS`], and only while the account still has the
 //!   address it was sent to; a new link replaces the unused older ones.
 //! - Opening it sets `users.email_verified_at`. It does not sign anyone in.
-//! - Google accounts are verified when created or linked with the same
-//!   address: Google vouched for it.
 //!
 //! Nothing is gated on verification yet; the state exists so features can be.
 //!
@@ -80,7 +78,7 @@ pub fn confirm(conn: &mut Connection, token: &str, now: i64) -> rusqlite::Result
     Ok(Outcome::Confirmed { user_id })
 }
 
-/// The account's current address is confirmed (a link, or Google said so).
+/// The account's current address is confirmed (a link).
 /// Keeps the first confirmation time.
 pub fn mark_verified(conn: &Connection, user_id: i64, now: i64) -> rusqlite::Result<()> {
     conn.execute("UPDATE users SET email_verified_at = COALESCE(email_verified_at, ?2) WHERE id = ?1", params![user_id, now])?;

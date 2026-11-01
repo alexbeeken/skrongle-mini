@@ -827,8 +827,7 @@ like you don't have an account with us! Please login or signup to continue
 viewing your course: title* above the form (the register page says the same,
 and the two link to each other with the token). Logging in or registering
 there goes on to the link, which puts the course on the list and opens it,
-also through the two-factor code step and with *Continue with Google*
-(sign-in, or a new account's confirm step): a short-lived `share_next`
+also through the two-factor code step: a short-lived `share_next`
 cookie carries the token there (#1016). *Cancel* on the code step goes back
 to the login page for the same link.
 
@@ -1828,54 +1827,26 @@ keep their explicit buttons. The page needs JavaScript.
   dialog that says so, with the learner's own "Ana L." (updated as they type),
   and that the address is private.
 - **E-mail address**: what the account signs in with (there are no
-  usernames). Asked for at registration (Google sign-in brings its own) and
+  usernames). Asked for at registration and
   fixed from then on. The profile shows it read-only ("No e-mail on file"
   for an account from before addresses were asked for).
-- **One account per address** (#277, `auth::google_match`): *Continue with
-  Google* with no Google account connected yet, whose (Google-verified)
-  address an account already has, never makes a second account. If that
-  account's address is confirmed, Google is connected to it and the sign-in
-  lands on the profile with "Google account connected …" (the password, if
-  any, still works). With two-factor sign-in on, Google is connected only
-  once the code is accepted, and the notice shows then; a sign-in given up
-  at the code leaves Google unconnected (#677). If it is not confirmed, the login page refuses ("An
-  account with this address exists, but its e-mail address isn't confirmed
-  …"): sign in with the password, confirm, then connect Google from the
-  profile. An account with a different Google account connected is refused
-  too. The other way round, `/register` refuses an address that signs in
-  with Google only and says to use *Continue with Google*. Duplicates made
-  before #277 are left alone; the oldest account with the address decides.
-- **Account**: member since, how the account signs in, a link to
-  connect a Google account (locally, dev mode stands in for Google: see
-  [testing](testing#google-sign-in)), and for password accounts a
+- **Account**: member since, how the account signs in, and for password accounts a
   *Change password* button that opens a dialog (current password, the new
   one twice). The browser keeps it open until the two new ones match and are
   8 characters or more; a refusal from the server (wrong current password)
   comes back with the dialog open and the reason in it. Saved, the dialog
   closes and the page says "Password changed." (`static/profile.js` opens
   and closes both dialogs.)
-  *Connect a Google account* (`profile-google-connect`) opens a dialog
-  that asks for the password (`profile-google-link-dialog`,
-  `POST /profile/google/link`) before the trip to Google (#360); the
-  callback links only a trip this account started (`oauth::StepUps`, in
-  memory, 10 minutes, once), so a signed-in `GET /auth/google` just goes
-  to the profile. A linked account with a password has *Unlink*
-  (`profile-google-unlink-open`, the password again,
-  `POST /profile/google/unlink`); a Google-only account can't unlink its
-  only way in. The Google address itself is not stored, so the card says
-  "Google account connected". *Sign out everywhere else*
+  *Sign out everywhere else*
   (`profile-sign-out-others`, `POST /profile/sessions/end-others`, #375,
   explained behind its (i)) ends every other session; changing the
-  password or two-factor sign-in and linking or unlinking Google do the
-  same.
+  password or two-factor sign-in does the same.
 - **Privacy and consent** (#974, `profile-consent`): one row per consent
   with its date, explained behind an (i). The Terms version accepted and
   when, with links to the Terms and the privacy policy (see
   [Terms of Service](#terms-of-service)); the age confirmation (the date of
   the first Terms acceptance, read-only: taking it back means deleting the
-  account); Google sign-in, connected or
-  not, opening the same connect and disconnect dialogs as the Account card
-  (where Google is offered); e-mail, service messages only (hosted only;
+  account); e-mail, service messages only (hosted only;
   an optional e-mail such as reminders gets a switch here, off by default);
   and *Do Not Show Me AI Features*, "Shown since …" or "Hidden since …"
   with the profile's only AI switch (below; on hides them, `POST /profile/ai`
@@ -1887,16 +1858,13 @@ keep their explicit buttons. The page needs JavaScript.
 - **Proof that it is the owner** (`prove_owner` in `src/routes/profile.rs`):
   every change a stolen session must not make asks for it: the password
   (checked like `/login`: 10 per account per 15 minutes, a wrong one
-  counting against sign-in, refused while sign-in is blocked, #378); a
-  Google-only account has none, so a code from its second step, or with
-  no second step *Confirm with Google* (`POST /profile/google/confirm`: a
-  new trip to Google for the account it signs in with, which lets the next
-  change through once, #376). It guards the password change, deleting the
-  account, linking and unlinking Google and every two-factor change.
+  counting against sign-in, refused while sign-in is blocked, #378); an
+  account without one (signed in through a proxy) gives a code from its
+  second step, or with no second step nothing (#376). It guards the
+  password change, deleting the account and every two-factor change.
 - **Do Not Show Me AI Features**: an On/Off toggle pill in the Privacy and
   consent card (#147, #974, `users.ai_off`, off for every account unless the
-  "Hide all AI features" pill on the registration form or the Google
-  sign-up's confirm step was turned on: `templates/ai_switch.html`, a
+  "Hide all AI features" pill on the registration form was turned on: `templates/ai_switch.html`, a
   checkbox `no_ai` dressed as the pill, its info dot a hover tooltip).
   The card's (i) says what it covers. Switching it on posts
   `POST /profile/ai` (`off=1`) at once, or first opens a confirm dialog
@@ -1940,11 +1908,10 @@ keep their explicit buttons. The page needs JavaScript.
   file has the columns `privacy::EXPORTED` lists: never the password hash,
   session tokens, keys (only which providers have one), codes, links or the
   text of mails. And
-  *Delete account* (`POST /profile/delete`): the password, or for a
-  Google-only account its e-mail address typed out and a code from its
-  second step (`profile-delete-code`, *Send code* `profile-delete-send`
-  for an e-mailed one) or, with none, *Confirm with Google*
-  (`profile-delete-google`, then `profile-delete-google-done`; #376); refused while a Stripe
+  *Delete account* (`POST /profile/delete`): the password, or for an
+  account without one its e-mail address typed out and, with a second
+  step, a code from it (`profile-delete-code`, *Send code*
+  `profile-delete-send` for an e-mailed one; #376); refused while a Stripe
   subscription would keep billing. It does not delete at once (#970,
   `src/account_deletion.rs`): it sets `users.delete_at` 14 days out (or
   to the end of a cancelled plan's paid time, if later), ends every session
@@ -1964,7 +1931,7 @@ keep their explicit buttons. The page needs JavaScript.
   links to it. An account is a superuser when `users.superuser` is 1. With `SKRONGLE_SIGNUP` `invite` or `closed` (#634)
   the first account made on a server with no accounts becomes one (the
   owner, made only through the owner link from the log; one query in the
-  registration transaction, password or Google);
+  registration transaction);
   otherwise no page sets it: run `./spanish-learning make-owner <email>`
   (#635; see `docs/self-hosting.md`, "If you lock yourself out").
   In dev mode the
@@ -2016,15 +1983,12 @@ keep their explicit buttons. The page needs JavaScript.
     first can't claim it: only someone who reads the log can. `/register`
     without it is the closed page saying the server has no owner yet;
     with it, the form with a line saying this account is the owner's
-    (Google too, as for invitations). Once an account exists, unused owner
+    Once an account exists, unused owner
     links are deleted at startup and refused meanwhile. After that, `/register` without a usable link is a short page
     ("Sign-ups are closed", ask whoever runs the server; no address, no
     form) and `POST /register` answers 403 with it; a used, expired or
     unknown link says which. `/register?invite=<token>` shows the form,
-    which carries the token; its "Sign up with Google" carries it too
-    (`/auth/google?invite=` puts it in a `signup_invite` cookie for the
-    confirm step). A new Google account is refused the same way at the
-    callback and again at the confirm step; existing accounts always sign
+    which carries the token. Existing accounts always sign
     in. Under `closed` an invitation never works. Rate limits are as for
     any registration.
   - **Reset email verification** (`POST /superuser/reset-email-verification`,
@@ -2072,12 +2036,7 @@ address (#1328).
   and "I agree to the Terms and Privacy Policy" (`accept`;
   `templates/terms_check.html`, each sentence with a rounded check box on
   its right in the AI pill's style); the server refuses the form without
-  both, naming the missing one. A new
-  Google account is not created at the callback but at a confirm step
-  (`/auth/google/confirm`: the Google mark and address you are signing up as,
-  the same two boxes, the same "Hide all AI features" pill; a missing
-  tick comes back under the boxes, not as a banner); the verified
-  identity waits in memory for ten minutes. Each acceptance is a row in `terms_acceptances`
+  both, naming the missing one. Each acceptance is a row in `terms_acceptances`
   (user, version, time; no IP address), so the history is kept.
 - **The changelog.** Every version of the built-in text is an entry in
   `docs/terms-changes.json` (#966): `version`, `announced` and `effective`
@@ -2171,7 +2130,7 @@ password?*, `login-reset-link`):
 
 - **Asking** (`reset-email`, `reset-submit`): the page always says "If
   that address has an account, a link was sent" (`reset-sent`). An account
-  (password or Google-only) gets a message (outbox purpose
+  gets a message (outbox purpose
   `password-reset`) with `<SKRONGLE_PUBLIC_URL or the request's host>/reset?token=…`.
   At most 3 links per address and 10 requests per network per hour; past
   the address's limit nothing is sent and the page says the same.
@@ -2205,8 +2164,7 @@ gives its address up to a new registration after `SKRONGLE_UNCONFIRMED_DAYS`
   superuser resets the account's verification (the Superuser page, it starts
   unconfirmed again); and on *Send the e-mail again*
   (`POST /profile/verify-email/resend`, 5 per account per hour, past that it
-  silently sends nothing). Google accounts are confirmed when created, and
-  when Google is linked to an account with the same address.
+  silently sends nothing).
 - **The link** is `<SKRONGLE_PUBLIC_URL or the request's host>/verify-email?token=…`:
   32 random bytes, hex; only the SHA-256 is stored, in
   `email_verifications`. It works once, for 24 hours, and only while the
@@ -2231,7 +2189,7 @@ gives its address up to a new registration after `SKRONGLE_UNCONFIRMED_DAYS`
 
 ## Two-factor sign-in
 
-After the password (or *Continue with Google*) an account can be asked for
+After the password an account can be asked for
 a code too (#292, `src/two_factor.rs`). One method at a time
 (`users.two_factor`), chosen on the profile's **Two-factor authentication**
 card (`profile-two-factor[data-method]`, chips `profile-two-factor-method[data-method]`
@@ -2242,7 +2200,7 @@ Choosing another method replaces the one in use.
 **Only what the server can send** (#633). Without a mail provider the
 E-mail chip is left out; the authenticator app needs none. Posting such a method anyway is refused (422) with a
 message naming the setting. An account already on a method whose channel
-the server has lost cannot sign in: after the password (or Google) the
+the server has lost cannot sign in: after the password the
 login page comes back (403) saying so and naming `SKRONGLE_MAIL_PROVIDERS`; no code is made.
 
 **Every change asks who it is** (#374). Choosing Off, another method or,
@@ -2253,15 +2211,12 @@ with it off, any method (or the app's *Remove*) opens *Confirm it's you*
 checked on the server like `/login` (10 tries per account per 15 minutes;
 wrong ones count against the sign-in limit). A missing or wrong password is
 refused (403) with the dialog open again and `two-factor-confirm-error`.
-A Google-only account has no password, so it types a code from its current
+An account without a password (signed in through a proxy) types a code from its current
 method instead (`two-factor-confirm-code`): the authenticator's, or one
 e-mailed by *Send code* (`two-factor-confirm-send`,
 `POST /profile/two-factor/code`, purpose `two-factor-confirm`, 10 minutes,
-five tries, 5 sends per 15 minutes). A Google-only account with it off has
-neither, so the dialog offers *Confirm with Google*
-(`two-factor-confirm-with-google`); back from Google it opens again
-saying so (`two-factor-confirm-google-done`) and *Confirm* makes the
-change. Once made, every other session of the account ends and the
+five tries, 5 sends per 15 minutes). One with it off has nothing to type:
+*Confirm* makes the change. Once made, every other session of the account ends and the
 account's address is e-mailed (purpose `two-factor-changed`), so an
 owner whose session someone else used hears of it. Recovery codes are not
 offered yet. Without JavaScript the chips post with *Save* and the page
@@ -2287,7 +2242,7 @@ comes back with the dialog shown as a form.
   forgets it and turns two-factor sign-in off (so it asks for the password
   like Off). The app's secret is stored encrypted, like the AI API keys. Leaving it for another
   method removes it too: its secret is not kept unused.
-- **Signing in**: once the password (or Google) is right, an account with a
+- **Signing in**: once the password is right, an account with a
   method gets no session yet but a `twofa` cookie (10 minutes) naming a
   challenge, and `/login/code` (`login-code[data-method]`) asks for the
   code (`login-code-input`, `login-code-submit`), saying where it went

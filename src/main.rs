@@ -38,7 +38,7 @@ mod notes;
 mod mastery;
 mod metering;
 mod motivators;
-mod oauth;
+mod urlenc;
 mod owner;
 mod placement;
 mod privacy;
@@ -160,14 +160,6 @@ pub struct AppState {
     pub games: games::Sessions,
     /// Running and recently finished course-generation jobs.
     pub jobs: ai::Jobs,
-    /// "Continue with Google", when configured.
-    pub google: Option<oauth::GoogleConfig>,
-    /// New Google accounts waiting for the Terms confirm step.
-    pub signups: oauth::Signups,
-    /// Google joins waiting for the two-factor code (#677).
-    pub google_joins: oauth::Joins,
-    /// Google trips started from the profile (link, confirm it's you).
-    pub step_ups: oauth::StepUps,
     /// Paid subscriptions through Stripe, when configured. Without it
     /// nobody can subscribe and only grants make a learner premium.
     pub stripe: Option<billing::StripeConfig>,
@@ -228,7 +220,7 @@ impl Caps {
 }
 
 /// The hosted site needs every provider; only Skrongle mini (`SKRONGLE_MINI=1`;
-/// and the dev server, whose mailbox, Google and Stripe stand in)
+/// and the dev server, whose mailbox and Stripe stand in)
 /// runs without them. Self-hosting the full build is not supported (CLAUDE.md, "Two
 /// shapes"). `missing` names the settings that are not set. The hosted site
 /// is served over HTTPS, so it also needs `Secure` cookies, and proxy
@@ -263,11 +255,6 @@ impl AppState {
     pub fn caps(&self) -> Caps {
         Caps { mail: self.mail.can_send() }
     }
-
-    /// "Continue with Google" goes to dev mode's stand-in, not to Google.
-    pub fn google_mock(&self) -> bool {
-        self.google.as_ref().is_some_and(|g| g.mock)
-    }
 }
 
 struct Config {
@@ -277,7 +264,6 @@ struct Config {
     secure_cookies: bool,
     base_path: String,
     log_level: tracing::Level,
-    google: Option<oauth::GoogleConfig>,
     stripe: Option<billing::StripeConfig>,
     /// `SKRONGLE_SECRET_KEY`; without it the secret lives in `<db>.key`.
     secret_key: Option<String>,
@@ -431,18 +417,6 @@ impl Config {
                 ..server::Limits::default()
             },
             test_course: std::env::var("TEST_COURSE").ok().or_else(|| env("TEST_COURSE")).is_some_and(|v| v == "1" || v == "true"),
-            google: match (env("GOOGLE_CLIENT_ID"), env("GOOGLE_CLIENT_SECRET"), env("PUBLIC_URL")) {
-                (Some(client_id), Some(client_secret), Some(public_url)) => Some(oauth::GoogleConfig::new(
-                    client_id,
-                    client_secret,
-                    format!("{}/auth/google/callback", public_url.trim_end_matches('/')),
-                )),
-                (None, None, _) => None,
-                _ => {
-                    eprintln!("Google sign-in needs SKRONGLE_GOOGLE_CLIENT_ID, SKRONGLE_GOOGLE_CLIENT_SECRET and SKRONGLE_PUBLIC_URL; disabled");
-                    None
-                }
-            },
             stripe: match (env("STRIPE_SECRET_KEY"), env("STRIPE_WEBHOOK_SECRET"), env("STRIPE_PRICE_ID"), env("PUBLIC_URL")) {
                 (Some(secret_key), Some(webhook_secret), Some(price_id), Some(public_url)) => Some(billing::StripeConfig {
                     secret_key,
@@ -686,8 +660,6 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         tracing::warn!("{w}");
     }
     let llm_mode = dev::init_llm(dev, cfg.bind)?;
-    // Dev mode without a real Google client: this server stands in for Google
-    // (`/dev/google/*`), so "Continue with Google" works locally. SKRONGLE_GOOGLE_MOCK=0 opts out.
     // Dev mode without real Stripe settings: this server stands in for
     // Stripe (`/dev/payments`), with fake keys, so subscribing works locally.
     // SKRONGLE_DEV_STRIPE=0 opts out.
@@ -701,7 +673,6 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         None if dev_payments::wanted(dev, false) => Some(dev_payments::dev_config(cfg.bind.port(), env("PUBLIC_URL").as_deref())),
         None => None,
     };
-    let google = cfg.google.clone().or_else(|| (!is_mini() && dev::mock_google_wanted(dev, cfg.google.is_some())).then(|| dev::mock_google(cfg.bind)));
     if dev {
         tracing::warn!("DEV MODE: /dev/login, /dev/reset and the dev mailbox (/dev/inbox, /dev/ai) are open to anyone who can reach {}", cfg.bind);
         match llm_mode {
@@ -768,7 +739,6 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
     let mut mail_cfg = mail::Config::from_env()?;
     let missing: Vec<&str> = [
         (mail_cfg.logging_only, "SKRONGLE_MAIL_PROVIDERS"),
-        (cfg.google.is_none(), "SKRONGLE_GOOGLE_CLIENT_ID"),
         (cfg.stripe.is_none(), "SKRONGLE_STRIPE_SECRET_KEY"),
         // Both plans are sold, each at its own price: the webhook tells them apart by price (#963).
         (cfg.stripe.as_ref().is_some_and(|s| s.price_for(billing::Plan::Basic).is_none()), "SKRONGLE_STRIPE_PRICE_ID_BASIC (its own price, not SKRONGLE_STRIPE_PRICE_ID)"),
@@ -839,10 +809,6 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         dummy_hash: auth::hash_password("placeholder-for-timing-only")?,
         games: games::Sessions::default(),
         jobs: ai::Jobs::default(),
-        google: google.clone(),
-        signups: Default::default(),
-        google_joins: Default::default(),
-        step_ups: Default::default(),
         stripe: stripe.clone(),
         vault,
         tutors: tutor::Sessions::default(),
@@ -861,14 +827,6 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         signup,
         proxy_auth,
     });
-    match &google {
-        Some(g) if g.mock => tracing::warn!(
-            "DEV MODE: Google sign-in is mocked: {} stands in for Google; /auth/google?mock_email=…&mock_error=… picks the account or the failure (SKRONGLE_GOOGLE_MOCK=0 to disable)",
-            g.auth_url
-        ),
-        Some(g) => tracing::info!("Google sign-in enabled (redirect URI {})", g.redirect_uri),
-        None => tracing::info!("Google sign-in disabled (no SKRONGLE_GOOGLE_CLIENT_ID)"),
-    }
     match &stripe {
         _ if !billing::plans_on(&state) => tracing::info!("plans: off (every account has every feature)"),
         Some(s) if s.api_base.contains("/dev/payments/stripe") => tracing::warn!(
@@ -1012,7 +970,7 @@ mod tests {
 
     #[test]
     fn only_the_hosted_server_requires_providers() {
-        let none = ["SKRONGLE_MAIL_PROVIDERS", "SKRONGLE_GOOGLE_CLIENT_ID", "SKRONGLE_STRIPE_SECRET_KEY"];
+        let none = ["SKRONGLE_MAIL_PROVIDERS", "SKRONGLE_STRIPE_SECRET_KEY"];
         let why = require_providers(false, false, &none, true, false).unwrap_err();
         assert!(none.iter().all(|n| why.contains(n)), "{why}");
         assert!(why.contains("SKRONGLE_MINI=1"), "{why}");

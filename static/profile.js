@@ -328,15 +328,14 @@
   // back saying what changed, or with the authenticator's setup dialog).
   // Every change (a chip, or the app's Remove; turning it on too, #374)
   // opens the "Confirm it's you" dialog first, which posts the same change
-  // with the password (or a Google-only account's code, or after "Confirm
-  // with Google"); closing it puts the chips back. The server checks it
+  // with the password (or the code of an account without one);
+  // closing it puts the chips back. The server checks it
   // either way.
   var tfCard = document.querySelector("[data-testid=profile-two-factor]");
   var tfForm = document.querySelector("[data-testid=profile-two-factor-form]");
   var confirmDlg = document.getElementById("two-factor-confirm-dialog");
   var confirmForm = document.getElementById("two-factor-confirm-form");
   var confirmSend = document.getElementById("two-factor-confirm-send-form");
-  var confirmGoogle = document.getElementById("two-factor-confirm-google-form");
   var current = tfCard ? tfCard.dataset.method : "";
   function askToConfirm(method, remove) {
     confirmForm.action = remove ? confirmForm.dataset.removeAction : confirmForm.dataset.methodAction;
@@ -345,7 +344,6 @@
       confirmSend.elements.method.value = method;
       confirmSend.elements.remove.value = remove ? "1" : "";
     }
-    if (confirmGoogle) confirmGoogle.elements.method.value = method;
     var what = confirmDlg.querySelector("[data-testid=two-factor-confirm-what]");
     var chip = document.querySelector('[data-testid=profile-two-factor-method][data-method="' + method + '"]');
     var label = chip ? chip.textContent.trim().toLowerCase() : "";

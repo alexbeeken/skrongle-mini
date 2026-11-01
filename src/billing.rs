@@ -784,13 +784,12 @@ mod tests {
             public_url: "https://x".into(),
             api_base: STRIPE_API.into(),
         };
-        let google = crate::oauth::GoogleConfig::new("cid".into(), "SECRET3".into(), "https://x/cb".into());
         let provider = crate::ai::ProviderKind::Anthropic.provider("sk-ant-SECRET4".into());
-        let printed = format!("{stripe:?} {google:?} {provider:?}");
-        for secret in ["SECRET1", "SECRET2", "SECRET3", "SECRET4"] {
+        let printed = format!("{stripe:?} {provider:?}");
+        for secret in ["SECRET1", "SECRET2", "SECRET4"] {
             assert!(!printed.contains(secret), "{secret} leaked: {printed}");
         }
-        assert!(printed.contains("price_1") && printed.contains("cid") && printed.contains("<redacted>"));
+        assert!(printed.contains("price_1") && printed.contains("<redacted>"));
     }
 
     #[test]

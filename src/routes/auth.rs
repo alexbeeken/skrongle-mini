@@ -13,7 +13,6 @@ use super::Page;
 use crate::auth::{self, CurrentUser, MaybeUser, SessionToken};
 use crate::db::now;
 use crate::error::AppError;
-use crate::oauth::{self, Pending};
 use crate::profile;
 use crate::security::{self, ClientIp};
 use crate::signup::{self, Admit, Refusal};
@@ -29,13 +28,8 @@ pub struct LoginTemplate {
     pub user: Option<CurrentUser>,
     pub error: Option<String>,
     pub email: String,
-    pub google: bool,
-    /// Dev mode: offer a one-click login as the dev user, and the form that
-    /// forgets a Google account (`/dev/google/forget`).
+    /// Dev mode: offer a one-click login as the dev user.
     pub dev: bool,
-    /// The Google button goes to dev mode's stand-in: prefill the forget form with its default account.
-    pub google_mock: bool,
-    /// What `/dev/google/forget` did (`?forgot=`).
     pub notice: Option<String>,
     /// A course's share link brought the visitor here (`?share=<token>`,
     /// `share.rs`): the page says so, and signing in or registering goes
@@ -64,12 +58,12 @@ pub struct ShareNotice {
 impl ShareNotice {
     /// Where to go once signed in.
     pub fn next(&self) -> String {
-        format!("/courses/shared/{}", oauth::urlencode(&self.token))
+        format!("/courses/shared/{}", crate::urlenc::urlencode(&self.token))
     }
 
     /// The URL of `path` (the other sign-in page) that keeps the link: `?share=<token>`.
     pub fn page_url(&self, path: &str) -> String {
-        crate::url(&format!("{path}?share={}", oauth::urlencode(&self.token)))
+        crate::url(&format!("{path}?share={}", crate::urlenc::urlencode(&self.token)))
     }
 }
 
@@ -104,8 +98,6 @@ fn after_sign_in(share: Option<&ShareNotice>) -> String {
 
 #[derive(Deserialize)]
 pub struct LoginQuery {
-    /// Back from `POST /dev/google/forget`: `unlinked`, `deleted` or `none`.
-    pub forgot: Option<String>,
     /// A course's share link (`share.rs`): the page says what it is for.
     pub share: Option<String>,
     /// Back from *Delete my account* (#970): when the account will be deleted.
@@ -160,28 +152,14 @@ fn deletion_notice(at: Option<&str>) -> Option<String> {
     Some(crate::t1("auth.login.deletion_scheduled", "date", crate::profile::long_date(at)))
 }
 
-/// The login page's notice after `/dev/google/forget`.
-fn forgot_notice(forgot: Option<&str>) -> Option<String> {
-    Some(match forgot? {
-        "unlinked" => "Google disconnected from that account. The next Google sign-in with its address starts over at the confirm step.",
-        "deleted" => "That Google-only account is deleted. The next Google sign-in with its address starts over at the confirm step.",
-        "none" => "No account with a Google account connected has that e-mail address.",
-        _ => return None,
-    }
-    .to_string())
-}
-
 #[derive(Template)]
 #[template(path = "register.html")]
 pub struct RegisterTemplate {
     pub user: Option<CurrentUser>,
     pub error: Option<String>,
     pub email: String,
-    pub google: bool,
     /// Dev mode: offer a one-click login as the dev user.
     pub dev: bool,
-    /// The Google button goes to dev mode's stand-in: show one dev button per outcome (#191).
-    pub google_mock: bool,
     /// The age the Terms checkbox states (`SKRONGLE_MIN_AGE`).
     pub min_age: u32,
     /// "Hide all AI features" (#147) was on when the form came back with an error.
@@ -202,19 +180,6 @@ impl RegisterTemplate {
     /// The other sign-in page, keeping the share link if there is one.
     pub fn other_page_url(&self, path: &str) -> String {
         other_page_url(&self.share, path)
-    }
-
-    /// The Google button: it carries the invitation and the share link (#1016).
-    pub fn google_url(&self) -> String {
-        let mut q = Vec::new();
-        if !self.invite.is_empty() {
-            q.push(format!("invite={}", oauth::urlencode(&self.invite)));
-        }
-        if let Some(s) = &self.share {
-            q.push(format!("share={}", oauth::urlencode(&s.token)));
-        }
-        let path = if q.is_empty() { "/auth/google".to_string() } else { format!("/auth/google?{}", q.join("&")) };
-        crate::url(&path)
     }
 }
 
@@ -262,9 +227,8 @@ pub async fn login_form(State(state): State<Arc<AppState>>, MaybeUser(user): May
     if state.proxy_auth.is_some() {
         return Ok(proxy_page(StatusCode::OK, false));
     }
-    let notice = if state.dev { forgot_notice(q.forgot.as_deref()) } else { None };
-    let notice = notice.or_else(|| deletion_notice(q.deletion.as_deref()));
-    Ok(Page(LoginTemplate { user: None, reset: state.caps().mail, error: None, email: String::new(), google: state.google.is_some(), dev: state.dev, google_mock: state.google_mock(), notice, share }).into_response())
+    let notice = deletion_notice(q.deletion.as_deref());
+    Ok(Page(LoginTemplate { user: None, reset: state.caps().mail, error: None, email: String::new(), dev: state.dev, notice, share }).into_response())
 }
 
 pub async fn register_form(State(state): State<Arc<AppState>>, MaybeUser(user): MaybeUser, Query(q): Query<RegisterQuery>) -> Result<Response, AppError> {
@@ -285,9 +249,7 @@ pub async fn register_form(State(state): State<Arc<AppState>>, MaybeUser(user): 
         user: None,
         error: None,
         email,
-        google: state.google.is_some(),
         dev: state.dev,
-        google_mock: state.google_mock(),
         min_age: crate::terms::min_age(),
         no_ai: false,
         age: false,
@@ -310,9 +272,8 @@ pub async fn login(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp, r
     if state.proxy_auth.is_some() {
         return Ok(proxy_page(StatusCode::FORBIDDEN, false));
     }
-    let google = state.google.is_some();
     let too_many = |email: String, share: Option<_>| {
-        let page = LoginTemplate { user: None, reset: state.caps().mail, error: Some(crate::t("auth.login.too_many_attempts")), email, google, dev: state.dev, google_mock: state.google_mock(), notice: None, share };
+        let page = LoginTemplate { user: None, reset: state.caps().mail, error: Some(crate::t("auth.login.too_many_attempts")), email, dev: state.dev, notice: None, share };
         (StatusCode::TOO_MANY_REQUESTS, Page(page)).into_response()
     };
     if state.limits.blocked(security::LOGIN_PER_IP, &ip, now()) {
@@ -331,9 +292,7 @@ pub async fn login(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp, r
             reset: state.caps().mail,
             error: Some(msg.to_string()),
             email: email.clone(),
-            google,
             dev: state.dev,
-            google_mock: state.google_mock(),
             notice: None,
             share: share.clone(),
         })
@@ -373,7 +332,7 @@ pub async fn login(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp, r
     };
 
     tracing::info!("user {user_id} gave the right password");
-    sign_in(&state, user_id, Vec::new(), share.as_ref(), None).await
+    sign_in(&state, user_id, Vec::new(), share.as_ref()).await
 }
 
 pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp, headers: HeaderMap, req: axum::extract::Request) -> Result<Response, AppError> {
@@ -386,9 +345,7 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
             user: None,
             error: Some(crate::t("auth.register.too_many_signups")),
             email: String::new(),
-            google: state.google.is_some(),
             dev: state.dev,
-            google_mock: state.google_mock(),
             min_age: crate::terms::min_age(),
             no_ai: false,
             age: false,
@@ -404,7 +361,6 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
         Err(r) => return Ok(r),
     };
     let email_input = form.email.trim().to_string();
-    let google = state.google.is_some();
     let share = share_notice(&state, &form.share).await?;
     // Over the limit: refused before the invitation is looked at.
     let within_limit = state.limits.hit(security::REGISTER_PER_IP, &ip, now());
@@ -423,9 +379,7 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
             user: None,
             error: Some(msg),
             email: email_input.clone(),
-            google,
             dev: state.dev,
-            google_mock: state.google_mock(),
             min_age: crate::terms::min_age(),
             no_ai: !form.no_ai.is_empty(),
             age: !form.age.is_empty(),
@@ -538,7 +492,7 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
                 return Ok(([auth::set_session_cookie(&token, state.secure_cookies)], Redirect::to(&crate::url(&after_sign_in(share.as_ref())))).into_response());
             }
         }
-        Signup::Taken(_, _) if !can_mail => return Ok(fail(taken_message(&state, &email).await?)),
+        Signup::Taken(_, _) if !can_mail => return Ok(fail(crate::t("auth.register.email_taken"))),
         Signup::Taken(user_id, stored) => {
             tracing::info!("a registration named the address of user {user_id}: nothing created, the address is told");
             if state.limits.hit(security::REGISTER_TAKEN_PER_ADDRESS, &stored, t) {
@@ -607,18 +561,6 @@ pub async fn set_lang(
     Ok(([crate::i18n::set_cookie(&f.lang, state.secure_cookies)], Redirect::to(&back)).into_response())
 }
 
-/// Why `/register` refuses an address that has an account, where there is
-/// no mail to tell it by (Skrongle mini): a Google-only one is signed in to
-/// with Google (#277), never given a second, password account.
-async fn taken_message(state: &AppState, email: &str) -> Result<String, AppError> {
-    let e = email.to_string();
-    Ok(if state.db.call(move |c| auth::google_only(c, &e)).await? {
-        crate::t("auth.register.email_taken_google")
-    } else {
-        crate::t("auth.register.email_taken")
-    })
-}
-
 pub async fn logout(
     State(state): State<Arc<AppState>>,
     SessionToken(token): SessionToken,
@@ -654,15 +596,12 @@ fn twofa_token(headers: &HeaderMap) -> Option<String> {
     })
 }
 
-/// The password (or Google) said who this is: sign them in, or, with
-/// two-factor sign-in on, send the code and ask for it at `/login/code`.
-/// `cookies` go out either way (Google's clears its state cookie). `share`:
-/// the course's share link to land on instead of home; a sign-in that goes
-/// through its second step carries it in the share cookie (#1016). `join`: a Google
-/// identity to connect to the account (#277), only once the sign-in is
-/// done, so after the code when there is one (#677); the learner then
-/// lands on the profile, whose notice says so.
-async fn sign_in(state: &AppState, user_id: i64, mut cookies: Vec<(axum::http::HeaderName, HeaderValue)>, share: Option<&ShareNotice>, join: Option<oauth::Identity>) -> Result<Response, AppError> {
+/// The password said who this is: sign them in, or, with two-factor
+/// sign-in on, send the code and ask for it at `/login/code`. `cookies` go
+/// out either way. `share`: the course's share link to land on instead of
+/// home; a sign-in that goes through its second step carries it in the
+/// share cookie (#1016).
+async fn sign_in(state: &AppState, user_id: i64, mut cookies: Vec<(axum::http::HeaderName, HeaderValue)>, share: Option<&ShareNotice>) -> Result<Response, AppError> {
     // The account's second step goes by a channel this server lost (a
     // self-hoster removed the provider): no code could reach it, so the
     // sign-in is refused, naming the setting (#633).
@@ -674,9 +613,7 @@ async fn sign_in(state: &AppState, user_id: i64, mut cookies: Vec<(axum::http::H
             reset: state.caps().mail,
             error: Some(two_factor::channel_off_text(m)),
             email: String::new(),
-            google: state.google.is_some(),
             dev: state.dev,
-            google_mock: state.google_mock(),
             notice: None,
             share: None,
         });
@@ -684,19 +621,14 @@ async fn sign_in(state: &AppState, user_id: i64, mut cookies: Vec<(axum::http::H
     }
     let challenge = state.db.call(move |c| two_factor::start_login(c, user_id, now())).await?;
     let Some(ch) = challenge else {
-        let joined = finish_join(state, user_id, join).await?;
         let token = state.db.call(move |c| auth::create_session(c, user_id)).await?;
         tracing::info!("user {user_id} logged in");
         cookies.push(auth::set_session_cookie(&token, state.secure_cookies));
         if share.is_some() {
             cookies.push(named_cookie(SHARE_COOKIE, "", 0, state.secure_cookies));
         }
-        let next = if joined { JOINED_PROFILE.to_string() } else { after_sign_in(share) };
-        return Ok((AppendHeaders(cookies), Redirect::to(&crate::url(&next))).into_response());
+        return Ok((AppendHeaders(cookies), Redirect::to(&crate::url(&after_sign_in(share)))).into_response());
     };
-    if let Some(identity) = join {
-        state.google_joins.insert(&ch.token, identity, now());
-    }
     tracing::info!("user {user_id} asked for a {} code", ch.method.as_str());
     let sent = match ch.send {
         Some((to, code)) => send_code(state, user_id, ch.method, &to, &code).await,
@@ -730,94 +662,11 @@ async fn send_code(state: &AppState, user_id: i64, method: two_factor::Method, t
 }
 
 
-// ---------- Google sign-in ----------
-
-const OAUTH_COOKIE: &str = "oauth";
-
-fn oauth_cookie(value: &str, max_age: i64, secure: bool) -> (axum::http::HeaderName, HeaderValue) {
-    let v = format!(
-        "{OAUTH_COOKIE}={value}; Path={}; HttpOnly; SameSite=Lax; Max-Age={max_age}{}",
-        crate::cookie_path(),
-        if secure { "; Secure" } else { "" }
-    );
-    (SET_COOKIE, HeaderValue::from_str(&v).expect("valid cookie header"))
-}
-
-fn pending_from_headers(headers: &HeaderMap) -> Option<Pending> {
-    headers.get_all(COOKIE).iter().find_map(|v| {
-        v.to_str().ok()?.split(';').find_map(|pair| {
-            let (k, v) = pair.trim().split_once('=')?;
-            (k.trim() == OAUTH_COOKIE).then(|| Pending::decode(v.trim())).flatten()
-        })
-    })
-}
-
-/// Dev mode's stand-in Google only (`crate::dev::mock_google`): who signs in
-/// and what goes wrong. Ignored, and never sent on, with a real client.
-#[derive(Deserialize, Default)]
-pub struct MockGoogleParams {
-    /// The account's e-mail address (default `dev::MOCK_GOOGLE_EMAIL`).
-    pub mock_email: Option<String>,
-    /// One of `dev::MockGoogleError`: `cancel`, `invalid_grant`, `unverified`, `timeout`, `unavailable`.
-    pub mock_error: Option<String>,
-}
-
-/// GET /auth/google: send the browser to Google to sign in or up. A
-/// signed-in visitor goes to the profile instead: linking a Google account
-/// needs the password first (#360, `POST /profile/google/link`).
-pub async fn google_start(
-    State(state): State<Arc<AppState>>,
-    MaybeUser(user): MaybeUser,
-    Query(mock): Query<MockGoogleParams>,
-    Query(inv): Query<InviteParam>,
-    Query(sq): Query<ShareParam>,
-) -> Result<Response, AppError> {
-    let cfg = state.google.as_ref().ok_or(AppError::NotFound)?;
-    if user.is_some() {
-        return Ok(Redirect::to(&crate::url("/profile#account")).into_response());
-    }
-    let pending = Pending::new(false);
-    let mut url = oauth::auth_url(cfg, &pending);
-    if cfg.mock {
-        // `login_hint` is a real OpenID Connect parameter; `mock_error` is the stand-in's own.
-        if let Some(email) = mock.mock_email.as_deref().map(str::trim).filter(|e| !e.is_empty()) {
-            url.push_str(&format!("&login_hint={}", oauth::urlencode(email)));
-        }
-        if let Some(err) = mock.mock_error.as_deref().map(str::trim).filter(|e| !e.is_empty()) {
-            url.push_str(&format!("&mock_error={}", oauth::urlencode(err)));
-        }
-    }
-    let mut cookies = vec![oauth_cookie(&pending.encode(), oauth::PENDING_TTL_SECS, state.secure_cookies)];
-    // `/register?invite=…`'s Google button: the invitation waits for the
-    // confirm step, where a new account uses it up.
-    if let Some(token) = inv.invite.as_deref().map(str::trim).filter(|t| is_hex_token(t)) {
-        cookies.push(named_cookie(INVITE_COOKIE, token, oauth::PENDING_TTL_SECS, state.secure_cookies));
-    }
-    // A share link's Google button: the sign-in lands on the link (#1016).
-    if let Some(token) = sq.share.as_deref().map(str::trim).filter(|t| is_hex_token(t)) {
-        cookies.push(named_cookie(SHARE_COOKIE, token, oauth::PENDING_TTL_SECS, state.secure_cookies));
-    }
-    Ok((AppendHeaders(cookies), Redirect::to(&url)).into_response())
-}
-
-#[derive(Deserialize, Default)]
-pub struct ShareParam {
-    /// A course's share link token (`share.rs`).
-    pub share: Option<String>,
-}
+// ---------- cookies that carry an invitation or share link ----------
 
 /// The cookie that carries a share link's token through the second sign-in
-/// step and the Google round trip (#1016), to land on the link after.
+/// step (#1016), to land on the link after.
 const SHARE_COOKIE: &str = "share_next";
-
-#[derive(Deserialize, Default)]
-pub struct InviteParam {
-    /// An invitation link's token (`signup.rs`).
-    pub invite: Option<String>,
-}
-
-/// The cookie that carries an invitation through a Google sign-up.
-const INVITE_COOKIE: &str = "signup_invite";
 
 /// An invitation's or share link's token: hex, as `auth::generate_token` makes them.
 fn is_hex_token(t: &str) -> bool {
@@ -828,10 +677,6 @@ fn named_cookie(name: &str, value: &str, max_age: i64, secure: bool) -> (axum::h
     let v = format!("{name}={value}; Path={}; HttpOnly; SameSite=Lax; Max-Age={max_age}{}", crate::cookie_path(), if secure { "; Secure" } else { "" });
     // Every part is ASCII: a fixed name, a hex token and numbers.
     (SET_COOKIE, HeaderValue::from_str(&v).unwrap_or_else(|_| HeaderValue::from_static("")))
-}
-
-fn invite_from_cookie(headers: &HeaderMap) -> String {
-    hex_cookie(headers, INVITE_COOKIE)
 }
 
 /// The hex token in cookie `name` ('' for none).
@@ -846,341 +691,6 @@ fn hex_cookie(headers: &HeaderMap, name: &str) -> String {
             })
         })
         .unwrap_or_default()
-}
-
-/// Send a signed-in learner to Google from the profile (#360, #376): the
-/// trip is remembered on the server for this account and purpose, so the
-/// callback can tell it from a cookie written by hand. `hint` suggests the
-/// Google account (the one already linked, when confirming).
-pub(crate) fn to_google(state: &AppState, user_id: i64, what: oauth::StepUp, back: &str, hint: Option<&str>) -> Result<Response, AppError> {
-    let cfg = state.google.as_ref().ok_or(AppError::NotFound)?;
-    let pending = Pending::new(true);
-    state.step_ups.start(&pending.state, user_id, what, back, now());
-    let mut url = oauth::auth_url(cfg, &pending);
-    if let Some(email) = hint.filter(|e| !e.is_empty()) {
-        url.push_str(&format!("&login_hint={}", oauth::urlencode(email)));
-    }
-    Ok(([oauth_cookie(&pending.encode(), oauth::PENDING_TTL_SECS, state.secure_cookies)], Redirect::to(&url)).into_response())
-}
-
-#[derive(Deserialize)]
-pub struct CallbackParams {
-    pub code: Option<String>,
-    pub state: Option<String>,
-    pub error: Option<String>,
-}
-
-/// GET /auth/google/callback?code=…&state=…
-pub async fn google_callback(
-    State(state): State<Arc<AppState>>,
-    MaybeUser(user): MaybeUser,
-    auth::SessionToken(session): auth::SessionToken,
-    headers: HeaderMap,
-    Query(params): Query<CallbackParams>,
-) -> Result<Response, AppError> {
-    let cfg = state.google.as_ref().ok_or(AppError::NotFound)?;
-    let clear = oauth_cookie("", 0, state.secure_cookies);
-    let fail = |msg: &str| {
-        tracing::warn!("google sign-in failed: {msg}");
-        let page = if user.is_some() {
-            // Linking failed: a plain error page with a way back; the account is unchanged.
-            AppError::BadRequest(msg.to_string()).into_response()
-        } else {
-            Page(LoginTemplate { user: None, reset: state.caps().mail, error: Some(msg.to_string()), email: String::new(), google: true, dev: state.dev, google_mock: state.google_mock(), notice: None, share: None })
-                .into_response()
-        };
-        ([clear.clone()], page).into_response()
-    };
-
-    if let Some(err) = params.error.as_deref() {
-        return Ok(fail(&crate::t(if err == "access_denied" { "auth.google.cancelled" } else { "auth.google.error" })));
-    }
-    let Some(pending) = pending_from_headers(&headers) else {
-        return Ok(fail(&crate::t("auth.google.expired")));
-    };
-    if params.state.as_deref() != Some(pending.state.as_str()) {
-        return Ok(fail(&crate::t("auth.google.mismatch")));
-    }
-    let Some(code) = params.code.filter(|c| !c.is_empty() && c.len() < 2048) else {
-        return Ok(fail(&crate::t("auth.google.no_code")));
-    };
-
-    // Network: token exchange on the blocking pool.
-    let cfg2 = cfg.clone();
-    let verifier = pending.verifier.clone();
-    let exchanged = tokio::task::spawn_blocking(move || oauth::exchange_code(&cfg2, &code, &verifier))
-        .await
-        .map_err(|e| AppError::Internal(e.to_string()))?;
-    let id_token = match exchanged {
-        Ok(t) => t,
-        Err(e) => {
-            tracing::warn!("google token exchange: {e}");
-            return Ok(fail(&crate::t("auth.google.exchange_failed")));
-        }
-    };
-    let identity = match oauth::parse_id_token(&id_token, &cfg.client_id, &pending.nonce, now()) {
-        Ok(i) => i,
-        Err(e) => {
-            tracing::warn!("google id_token rejected: {e}");
-            return Ok(fail(&crate::t("auth.google.bad_identity")));
-        }
-    };
-
-    // A trip started from the profile (`to_google`): only for the account
-    // that started it, once (#360).
-    if pending.link {
-        let expired = crate::t("auth.google.attempt_expired");
-        let Some(u) = user.as_ref() else { return Ok(fail(&expired)) };
-        let Some((what, back)) = state.step_ups.finish(&pending.state, u.id, now()) else { return Ok(fail(&expired)) };
-        let uid = u.id;
-        let back = crate::url(&back);
-        return Ok(match what {
-            // Link to the signed-in account; every other session ends (#375).
-            oauth::StepUp::Link => {
-                let (sub, email, keep) = (identity.sub.clone(), identity.email.clone(), session.unwrap_or_default());
-                let r = state
-                    .db
-                    .call(move |c| {
-                        auth::link_google(c, uid, &sub, &email)?;
-                        auth::delete_other_sessions(c, uid, &keep)
-                    })
-                    .await;
-                match r {
-                    Ok(ended) => {
-                        tracing::info!("user {uid} linked a Google account ({ended} other sessions signed out)");
-                        ([clear], Redirect::to(&back)).into_response()
-                    }
-                    Err(AppError::Db(rusqlite::Error::SqliteFailure(e, _))) if e.code == rusqlite::ErrorCode::ConstraintViolation => {
-                        fail(&crate::t("auth.google.already_linked"))
-                    }
-                    Err(e) => return Err(e),
-                }
-            }
-            // A Google-only account proves it is its owner (`prove_owner`).
-            oauth::StepUp::Confirm => {
-                let linked = state.db.call(move |c| auth::google_sub(c, uid)).await?;
-                if linked.as_deref() != Some(identity.sub.as_str()) {
-                    return Ok(fail(&crate::t("auth.google.not_this_account")));
-                }
-                state.step_ups.confirm(uid, now());
-                tracing::info!("user {uid} confirmed it's them with Google");
-                ([clear], Redirect::to(&back)).into_response()
-            }
-        });
-    }
-
-    // An existing account signs in, or joins (#277): one account per
-    // address. A new one waits for the confirm step (age and Terms) before it
-    // is created.
-    let (sub, email) = (identity.sub.clone(), identity.email.clone());
-    match state.db.call(move |c| join_by_google(c, &sub, &email)).await? {
-        Ok(Some((user_id, joined))) => {
-            tracing::info!("user {user_id} signed in with Google");
-            let share = share_notice(&state, &hex_cookie(&headers, SHARE_COOKIE)).await?;
-            return sign_in(&state, user_id, vec![clear], share.as_ref(), joined.then(|| identity)).await;
-        }
-        Err(key) => return Ok(fail(&crate::t(key))),
-        Ok(None) => {}
-    }
-    if let Err(r) = admit(&state, &invite_from_cookie(&headers), Some(&identity.email)).await? {
-        return Ok(([clear], signup_refused(r, StatusCode::FORBIDDEN)).into_response());
-    }
-    let token = state.signups.insert(identity, now());
-    Ok((
-        // AppendHeaders: a plain array of headers keeps only the last Set-Cookie (#1028).
-        AppendHeaders([clear, signup_cookie(&token, oauth::PENDING_TTL_SECS, state.secure_cookies)]),
-        Redirect::to(&crate::url("/auth/google/confirm")),
-    )
-        .into_response())
-}
-
-/// Where a Google sign-in that just joined an account lands: its notice says so.
-const JOINED_PROFILE: &str = "/profile?saved=google-joined";
-
-/// i18n keys: `join_by_google` runs on the database thread, so the
-/// handler translates them.
-const UNCONFIRMED_ACCOUNT: &str = "auth.google.unconfirmed_account";
-const OTHER_GOOGLE: &str = "auth.google.other_google";
-
-/// Why the confirm step made no account: the sign-up mode refused it
-/// (#634), or `join_by_google` found an account the address belongs to.
-enum ConfirmRefusal {
-    Signup(Refusal),
-    Google(&'static str),
-}
-
-/// Who a Google identity signs in as (#277): `Ok(Some((id, joined)))` for an
-/// account (`joined`: Google joins it, its address being Google's and
-/// confirmed; [`sign_in`] connects it once the sign-in is done, #677),
-/// `Ok(None)` for a new account, `Err` with the reason's i18n key when an
-/// account has the address but Google may not take it.
-fn join_by_google(c: &rusqlite::Connection, sub: &str, email: &str) -> rusqlite::Result<Result<Option<(i64, bool)>, &'static str>> {
-    Ok(match auth::google_match(c, sub, email)? {
-        auth::GoogleMatch::Linked(id) => Ok(Some((id, false))),
-        auth::GoogleMatch::Join(id) => Ok(Some((id, true))),
-        auth::GoogleMatch::Unconfirmed => Err(UNCONFIRMED_ACCOUNT),
-        auth::GoogleMatch::OtherGoogle => Err(OTHER_GOOGLE),
-        auth::GoogleMatch::New => Ok(None),
-    })
-}
-
-/// Connect the Google identity a sign-in joins (#277) now that the sign-in
-/// is done (#677). `true` when it was connected; `false` without one, or
-/// when the account no longer takes it (another Google connected meanwhile).
-async fn finish_join(state: &AppState, user_id: i64, join: Option<oauth::Identity>) -> Result<bool, AppError> {
-    let Some(identity) = join else { return Ok(false) };
-    state
-        .db
-        .call(move |c| {
-            if auth::google_match(c, &identity.sub, &identity.email)? != auth::GoogleMatch::Join(user_id) {
-                tracing::info!("user {user_id} signed in, but Google no longer joins their account");
-                return Ok(false);
-            }
-            auth::link_google(c, user_id, &identity.sub, &identity.email)?;
-            tracing::info!("user {user_id} signed in with Google for the first time: Google connected to their account (same confirmed address)");
-            Ok(true)
-        })
-        .await
-}
-
-const SIGNUP_COOKIE: &str = "signup";
-
-fn signup_cookie(value: &str, max_age: i64, secure: bool) -> (axum::http::HeaderName, HeaderValue) {
-    let v = format!(
-        "{SIGNUP_COOKIE}={value}; Path={}; HttpOnly; SameSite=Lax; Max-Age={max_age}{}",
-        crate::cookie_path(),
-        if secure { "; Secure" } else { "" }
-    );
-    (SET_COOKIE, HeaderValue::from_str(&v).expect("valid cookie header"))
-}
-
-fn signup_token(headers: &HeaderMap) -> Option<String> {
-    headers.get_all(COOKIE).iter().find_map(|v| {
-        v.to_str().ok()?.split(';').find_map(|pair| {
-            let (k, v) = pair.trim().split_once('=')?;
-            (k.trim() == SIGNUP_COOKIE && !v.trim().is_empty()).then(|| v.trim().to_string())
-        })
-    })
-}
-
-#[derive(Template)]
-#[template(path = "google_confirm.html")]
-pub struct GoogleConfirmTemplate {
-    pub user: Option<CurrentUser>,
-    pub email: String,
-    pub min_age: u32,
-    /// The Terms checkbox was not ticked: shown under it, as part of the form.
-    pub error: Option<String>,
-    /// "Hide all AI features" (#147) was on when the form came back with an error.
-    pub no_ai: bool,
-    /// "I am at least N years old" was ticked when the form came back.
-    pub age: bool,
-    /// "I agree to the Terms and Privacy Policy" was ticked when the form came back.
-    pub accept: bool,
-}
-
-fn signup_expired(state: &AppState) -> Response {
-    let error = Some(crate::t("auth.google.signup_expired"));
-    Page(LoginTemplate { user: None, reset: state.caps().mail, error, email: String::new(), google: state.google.is_some(), dev: state.dev, google_mock: state.google_mock(), notice: None, share: None }).into_response()
-}
-
-/// GET /auth/google/confirm: a new Google account confirms age and Terms.
-pub async fn google_confirm_form(State(state): State<Arc<AppState>>, headers: HeaderMap) -> Result<Response, AppError> {
-    state.google.as_ref().ok_or(AppError::NotFound)?;
-    let Some(identity) = signup_token(&headers).and_then(|t| state.signups.get(&t, now())) else {
-        return Ok(signup_expired(&state));
-    };
-    Ok(Page(GoogleConfirmTemplate { user: None, email: identity.email, min_age: crate::terms::min_age(), error: None, no_ai: false, age: false, accept: false }).into_response())
-}
-
-#[derive(Deserialize)]
-pub struct ConfirmForm {
-    /// "I am at least N years old": "on" when ticked, absent otherwise.
-    #[serde(default)]
-    pub age: String,
-    /// "I agree to the Terms and Privacy Policy": "on" when ticked, absent otherwise.
-    #[serde(default)]
-    pub accept: String,
-    /// "Hide all AI features" (#147), the same box as on `/register`.
-    #[serde(default)]
-    pub no_ai: String,
-}
-
-/// POST /auth/google/confirm (age=on, accept=on, no_ai=on): create the account,
-/// record the acceptance (and the AI choice), sign in.
-pub async fn google_confirm(
-    State(state): State<Arc<AppState>>,
-    headers: HeaderMap,
-    Form(form): Form<ConfirmForm>,
-) -> Result<Response, AppError> {
-    state.google.as_ref().ok_or(AppError::NotFound)?;
-    let Some(token) = signup_token(&headers) else { return Ok(signup_expired(&state)) };
-    let no_ai = !form.no_ai.is_empty();
-    let (age, accept) = (!form.age.is_empty(), !form.accept.is_empty());
-    let gate = crate::privacy::AgeGate::current();
-    if let Err(e) = gate.check(age, accept, "continue") {
-        let Some(identity) = state.signups.get(&token, now()) else { return Ok(signup_expired(&state)) };
-        return Ok(Page(GoogleConfirmTemplate { user: None, email: identity.email, min_age: gate.min_age, error: Some(e), no_ai, age, accept }).into_response());
-    }
-    let Some(identity) = state.signups.take(&token, now()) else { return Ok(signup_expired(&state)) };
-    let (mode, invite, google) = (state.signup, invite_from_cookie(&headers), identity.clone());
-    let created = state
-        .db
-        .call(move |c| {
-            let tx = c.transaction()?;
-            // Signed up (or the address registered) in another tab meanwhile:
-            // the same answer as the callback's, never a second account.
-            match join_by_google(&tx, &identity.sub, &identity.email)? {
-                Ok(None) => {}
-                found => {
-                    tx.commit()?;
-                    return Ok(found.map(|f| f.map(|(id, joined)| (id, Some(joined)))).map_err(ConfirmRefusal::Google));
-                }
-            }
-            let admitted = match signup::admit(&tx, mode, &invite, Some(&identity.email), now())? {
-                Ok(a) => a,
-                Err(r) => return Ok(Err(ConfirmRefusal::Signup(r))),
-            };
-            let id = auth::create_google_user(&tx, &identity.sub, &identity.email)?;
-            if !signup::finish(&tx, admitted, id, now())? {
-                return Ok(Err(ConfirmRefusal::Signup(Refusal::Used)));
-            }
-            crate::terms::accept(&tx, id, crate::terms::version())?;
-            crate::privacy::record_age_confirmed(&tx, id, true)?;
-            profile::set_ai_off(&tx, id, no_ai)?;
-            tx.commit()?;
-            Ok(Ok(Some((id, None))))
-        })
-        .await?;
-    let clear = signup_cookie("", 0, state.secure_cookies);
-    let share = share_notice(&state, &hex_cookie(&headers, SHARE_COOKIE)).await?;
-    let user_id = match created {
-        Ok(Some((id, None))) => id,
-        // An existing account: a normal sign-in (its two-factor code too, #377).
-        Ok(Some((id, Some(joined)))) => {
-            tracing::info!("user {id} signed in with Google from the confirm step");
-            return sign_in(&state, id, vec![clear], share.as_ref(), joined.then_some(google)).await;
-        }
-        // join_by_google's None creates the account above.
-        Ok(None) => return Ok(signup_expired(&state)),
-        Err(ConfirmRefusal::Signup(r)) => return Ok(([clear], signup_refused(r, StatusCode::FORBIDDEN)).into_response()),
-        Err(ConfirmRefusal::Google(key)) => {
-            let page = Page(LoginTemplate { user: None, reset: state.caps().mail, error: Some(crate::t(key)), email: String::new(), google: true, dev: state.dev, google_mock: state.google_mock(), notice: None, share: None });
-            return Ok(([clear], page).into_response());
-        }
-    };
-    let session = state.db.call(move |c| auth::create_session(c, user_id)).await?;
-    tracing::info!("new user {user_id} registered with Google");
-    Ok((
-        AppendHeaders([
-            clear,
-            named_cookie(INVITE_COOKIE, "", 0, state.secure_cookies),
-            named_cookie(SHARE_COOKIE, "", 0, state.secure_cookies),
-            auth::set_session_cookie(&session, state.secure_cookies),
-        ]),
-        Redirect::to(&crate::url(&after_sign_in(share.as_ref()))),
-    )
-        .into_response())
 }
 
 // ---------- e-mail verification ----------

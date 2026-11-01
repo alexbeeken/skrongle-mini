@@ -23,7 +23,7 @@ Each fix has a test; the test names are given so they can be found with
 | Brute force | No rate limits on sign-in, registration or password change; each attempt costs the Pi an argon2 hash. | `security::RateLimits` (in memory, bounded, off in dev mode): 30 sign-in attempts per address per 10 min, 10 wrong passwords per account (e-mail address) per 15 min, 20 registrations per address per hour, 10 password changes per account per 15 min. 429 with the form and a message. The address is the peer, or the last `X-Forwarded-For` entry when the peer is a loopback proxy. | `account_forms_are_rate_limited`, `rate_limits_count_per_key_and_window`, `rate_limit_memory_is_bounded`, `client_ip_trusts_only_a_local_proxy` |
 | Sessions | Changing the password left every other session signed in (whoever knew the old password stayed in). | The change ends the account's other sessions. | `account_forms_are_rate_limited` |
 | Dev routes | Dev mode was refused only for a non-loopback bind or `SKRONGLE_SECURE_COOKIES=1`, but deploys bind loopback behind nginx/Caddy, so `SKRONGLE_DEV=1` on a Pi without secure cookies would have exposed `/dev/login` to the internet. | Dev mode is also refused when `SKRONGLE_PUBLIC_URL` names a non-local host, and the `/dev/*` routes answer only requests with a loopback `Host` and no proxy headers. | `dev_mode_needs_a_loopback_bind_and_no_secure_cookies`, `dev_routes_refuse_proxied_and_non_local_requests`, `dev_routes_404_unless_dev_mode_is_on` |
-| Secrets | `ai::Provider`, `oauth::GoogleConfig` and `billing::StripeConfig` derived `Debug`, so a future `{:?}` in a log would print API keys and secrets. | Hand-written `Debug` that prints `<redacted>`. | `debug_output_never_shows_secrets` |
+| Secrets | `ai::Provider` and `billing::StripeConfig` derived `Debug`, so a future `{:?}` in a log would print API keys and secrets. | Hand-written `Debug` that prints `<redacted>`. | `debug_output_never_shows_secrets` |
 | Secrets | A `<db>.key` copied in by hand or restored from a backup could be world-readable. | At startup it is set back to 0600, with a warning. | `master_hex_roundtrip_and_key_file` |
 | Self-hosting | No warning when passwords and cookies cross a network without TLS. | Startup warns for a plain-HTTP non-loopback bind, and for an https `SKRONGLE_PUBLIC_URL` without `SKRONGLE_SECURE_COOKIES=1`. | `warns_about_plain_http` |
 | Dependencies | `cargo audit`: rustls 0.23.45 (RUSTSEC-2026-0346 to -0349, low/medium; reached through ureq's TLS client). | Updated to 0.23.46. `cargo audit` is clean. | `cargo audit` |
@@ -49,15 +49,13 @@ PR and its merge commit.
 | #373 | Custom AI base URL ports | Any port on a public host was allowed, so the server could be used as a relay. | Only 443 and 80 unless `SKRONGLE_ALLOW_PRIVATE_AI_URLS=1` or dev mode. | #435 (`5dc0f6d`) | `custom_base_urls_use_only_web_ports`, `ai_features_with_saved_keys_answered_by_the_simulator` |
 | #362 | SMS limits | Limits counted `sms_outbox` rows that cascade away with the account; no server cap or country filter (text bombing, toll fraud). | `sms_sends` ledger (migration v46: hashed number, `user_id` SET NULL, 2 days) counted by every limit; `SKRONGLE_SMS_MAX_PER_HOUR`/`_PER_DAY` server caps; `SKRONGLE_SMS_COUNTRIES` allow-list. | #436 (`d9ab14f`) | `the_limits_outlive_the_account`, `the_server_wide_cap_holds_for_each_kind`, `only_listed_countries_are_texted` |
 | #363 | SMS lock-out | Anyone could put a victim's number on their profile and use up its per-number quota, blocking the victim's SMS sign-in codes. | Sign-in codes have their own per-number and server allowance; a number verified on one account is refused (unique partial index) when saved, texted or verified elsewhere. | #436 (`d9ab14f`) | `sign_in_codes_have_their_own_allowance`, `a_number_verified_on_one_account_is_refused_on_another`, `the_sms_ledger_migration_keeps_one_verification_per_number` |
-| #431 | Phone numbers | Unconfirmed accounts could add any number and have it texted. | Only accounts with a confirmed e-mail address or Google may add a phone or request a code; the profile locks the field with an (i). | #436 (`d9ab14f`) | `a_phone_needs_a_confirmed_address_or_google`, `a_phone_needs_a_confirmed_address_and_a_number_of_its_own` |
+| #431 | Phone numbers | Unconfirmed accounts could add any number and have it texted. | Only accounts with a confirmed e-mail address may add a phone or request a code; the profile locks the field with an (i). | #436 (`d9ab14f`) | `a_phone_needs_a_confirmed_address`, `a_phone_needs_a_confirmed_address_and_a_number_of_its_own` |
 | #366 | Course storage | No total size cap per course or account, no course count cap, no rate limit on course writes; every save re-parses the course and the course cache was unbounded. | `courses::Limits` (8 MiB/course, 32 MiB/account, 50 courses; `SKRONGLE_COURSE_BYTES`, `SKRONGLE_COURSE_BYTES_PER_USER`, `SKRONGLE_COURSES_PER_USER`) checked by `room_for`/`room_for_course` inside the writing `Db::call` on create, upload, file save and the lesson table; `security::COURSE_WRITES_PER_USER` (120 per 5 min); the custom-course cache is LRU-bounded at 24 MiB of files. | #437 (`f72c56a`) | `course_and_account_size_limits`, `the_course_cache_drops_the_least_recently_used`, `course_writes_stop_at_the_limits` |
 | #380 | Course ids | A course whose manifest id differs from its row id still opened and wrote under the chosen id, reaching other courses' leaderboards. | `Courses::get` returns `None` and caches nothing when `store.id() != id`. | #437 (`f72c56a`) | `a_course_claiming_another_id_does_not_open` |
 | #383 | Active course | `Project` trusted `users.active_course` without re-checking ownership. | The session query also selects `courses.owner_id`; `Project` opens a non-built-in course only for its owner (or, since #451, a learner it is shared with) and clears the active course otherwise. | #437 (`f72c56a`) | `course_writes_stop_at_the_limits` |
-| #360 | Google link | Any session could attach its own Google account (no proof, no unlink, the link marked only by a cookie a session holder can write). | `POST /profile/google/link` needs `prove_owner`; the callback links only a trip `oauth::StepUps` started for that account; Unlink with the password; linking/unlinking ends other sessions. | #438 (`5ad30a3`) | `step_ups_are_bound_to_the_account_used_once_and_expire`, `google_is_unlinked_only_from_an_account_with_a_password`, `account_changes_need_proof_and_sign_out_other_devices` |
 | #374 | Two-factor on | Turning two-factor on (own phone/app) needed no password; the owner was not told. | `needs_proof` is any change; the account is e-mailed (`two-factor-changed`). | #438 (`5ad30a3`) | `every_change_of_method_needs_proof`, `account_changes_need_proof_and_sign_out_other_devices` |
-| #375 | Sessions | Only a password change ended other sessions; the mail advised a non-existent remedy. | "Sign out everywhere else" (`POST /profile/sessions/end-others`); two-factor changes and Google link/unlink end other sessions; mail text fixed. | #438 (`5ad30a3`) | `account_changes_need_proof_and_sign_out_other_devices`, `the_mails_say_how_to_sign_out_everywhere_else` |
-| #376 | Google-only deletion | Deleting needed only the e-mail address shown on the page. | `prove_owner`: the second step's code, or a fresh "Confirm with Google". | #438 (`5ad30a3`) | `privacy_page_export_and_account_deletion_over_http`, `account_changes_need_proof_and_sign_out_other_devices` |
-| #377 | Google confirm | An already-linked `sub` at the confirm step got a session without the second step. | That branch calls `sign_in`. | #438 (`5ad30a3`) | `google_confirm_step_signs_in_to_an_existing_account_through_its_second_step` |
+| #375 | Sessions | Only a password change ended other sessions; the mail advised a non-existent remedy. | "Sign out everywhere else" (`POST /profile/sessions/end-others`); two-factor changes end other sessions; mail text fixed. | #438 (`5ad30a3`) | `account_changes_need_proof_and_sign_out_other_devices`, `the_mails_say_how_to_sign_out_everywhere_else` |
+| #376 | Deleting without a password | Deleting needed only the e-mail address shown on the page. | `prove_owner`: the second step's code. | #438 (`5ad30a3`) | `privacy_page_export_and_account_deletion_over_http`, `account_changes_need_proof_and_sign_out_other_devices` |
 | #378 | Profile password checks | Password change and account deletion neither checked nor hit `LOGIN_FAILURES_PER_USER`. | Both go through `prove_owner`. | #438 (`5ad30a3`) | `account_forms_are_rate_limited` |
 | #390 | Deploy files | The owner's DuckDNS host and the Pi's LAN address were tracked in `deploy/` and `scripts/`. | Placeholders in the unit and nginx snippets, rendered by `deploy.sh` from `PI_PUBLIC_URL`; `PI_HOST` / `PI_PUBLIC_URL` required from `deploy/deploy.env`. | #439 (`da6d26e`) | `git grep` (manual) |
 | #392 | Self-hosting docs | No tarball checksum; backup tarball world-readable. | `sha256sum -c` of the published `.sha256`; backup under `umask 077`. | #439 (`da6d26e`) | docs |
@@ -101,13 +99,6 @@ Still open from this review:
   `Path` set, `Secure` with `SKRONGLE_SECURE_COOKIES=1`; fixed 30-day expiry,
   checked in SQL on every request, purged hourly; logout deletes the row and
   clears the cookie; a new token on every login (no fixation).
-- **Google sign-in** (`src/oauth.rs`): random `state`, PKCE (S256) and
-  `nonce` kept in a 10-minute HttpOnly cookie and checked; the redirect URI is
-  fixed from `SKRONGLE_PUBLIC_URL`; issuer, audience, expiry, nonce and
-  `email_verified` are checked. Accounts are matched by Google's `sub` only,
-  never by e-mail address, so a Google account with someone's address cannot
-  take over their password account. Linking needs a signed-in session and the
-  state cookie of that browser.
 - **Private courses**: every `/courses/{id}…` and `/api/courses/{id}…` handler
   that changes a course goes through `owned()` (404 or 400 for anyone but the
   owner); opening a course checks `accessible()` (built-in, owned, or shared
@@ -157,8 +148,7 @@ Still open from this review:
   through `terms::is_app_path`: it starts with one `/` and has no `\`,
   whitespace or control character, so a tab cannot turn it into
   `//evil.example` (#358). Sign-in after a share link lands on a path the
-  server builds from the token; Google step-ups return to a path the server
-  chose when it started them. One weaker check remains: the language
+  server builds from the token. One weaker check remains: the language
   picker's `POST /lang` `back` refuses `//` but not `/\` or a tab, so it
   could send the browser off-site; a cross-site form cannot post it (the
   CSRF check), so only a same-site page could use it.
@@ -239,7 +229,7 @@ Still open from this review:
   24 hours, single use, voided by a newer link or an address change; resend
   limited to 5 per account per hour, and at most 10 per address per day
   across account deletion, #395). Only a few things need a confirmed
-  address: adding a phone number (or a Google account instead, #431), e-mail
+  address: adding a phone number (#431), e-mail
   as the second sign-in step, and opening a course shared to that address.
   Otherwise an unconfirmed account can do everything a confirmed one can.
   Registration still says when an address already has an account, and there
@@ -251,7 +241,7 @@ Still open from this review:
   through a forged `Host` header can make the link in that person's mail
   point at their own site; if the person clicks it, the token leaks and the
   address can be confirmed on an account they don't own. Set
-  `SKRONGLE_PUBLIC_URL` on a public deploy (Google sign-in and Stripe need it
+  `SKRONGLE_PUBLIC_URL` on a public deploy (Stripe needs it
   anyway).
 - **Course and AI quotas are per account** (#366, #367): 50 courses, 8 MiB
   per course, 32 MiB per account, 10 AI generations an hour and 40 a day.

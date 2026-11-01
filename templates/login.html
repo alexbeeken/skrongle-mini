@@ -17,10 +17,6 @@
     <button type="submit" class="btn" data-testid="login-submit">{{ crate::t("auth.login.submit") }}</button>
   </form>
   {% if reset %}<p class="muted small"><a href="{{ crate::url("/reset") }}" data-testid="login-reset-link">{{ crate::t("auth.login.forgot") }}</a></p>{% endif %}
-  {% if google %}
-  <p class="or"><span>{{ crate::t("auth.login.or") }}</span></p>
-  <a class="btn google" data-testid="login-google" href="{{ self.other_page_url("/auth/google") }}">{% include "google_mark.html" %} {{ crate::t("auth.login.google") }}</a>
-  {% endif %}
   {% let register_url = self.other_page_url("/register") %}
   <p class="muted">{{ crate::t1("auth.login.no_account_html", "url", register_url)|safe }}</p>
   <p class="muted small"><a href="{{ crate::url("/terms") }}" data-testid="login-terms-link">{{ crate::t("auth.login.terms_link") }}</a> · <a href="{{ crate::url("/privacy") }}" data-testid="login-privacy-link">{{ crate::t("auth.login.privacy_link") }}</a></p>
@@ -29,16 +25,6 @@
   <section class="dev-panel" data-testid="login-dev">
     <h2>Dev mode</h2>
     <p><a class="btn ghost small" href="{{ crate::base_path() }}/dev/login" data-testid="login-dev-login">Log in as dev</a> <span class="muted small">(or <code>{{ crate::dev::DEV_EMAIL }}</code> / <code>dev-password</code>)</span></p>
-    {% if google_mock %}
-    {% let prefix = "login" %}{% include "dev_google.html" %}
-    {% endif %}
-    {% if google %}
-    <h3>Forget a Google account</h3>
-    <form method="post" action="{{ crate::base_path() }}/dev/google/forget" class="dev-forget-google" data-testid="login-dev-forget-google-form">
-      <input type="email" name="email" aria-label="E-mail address of the Google account" value="{% if google_mock %}{{ crate::dev::MOCK_GOOGLE_EMAIL }}{% endif %}" placeholder="who@example.org" required maxlength="254" autocomplete="off" data-testid="login-dev-forget-google-email">
-      <button type="submit" class="btn ghost small" data-testid="login-dev-forget-google">Forget</button>
-    </form>
-    {% endif %}
   </section>
   {% endif %}
 </section>

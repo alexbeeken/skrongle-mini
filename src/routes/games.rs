@@ -544,7 +544,7 @@ pub async fn conjugation_setup(State(state): State<Arc<AppState>>, p: Project, Q
         .map(|(i, t)| super::pages::PickTab {
             key: t.key.clone(),
             title: t.label.clone(),
-            href: format!("{base}?set={}", crate::oauth::urlencode(&t.key)),
+            href: format!("{base}?set={}", crate::urlenc::urlencode(&t.key)),
             done: t.unlocked,
             total: t.total,
             current: i == chosen,
@@ -557,7 +557,7 @@ pub async fn conjugation_setup(State(state): State<Arc<AppState>>, p: Project, Q
     } else {
         let mut t = sets.swap_remove(chosen.min(sets.len() - 1));
         let page = sp.page.as_deref().and_then(|n| n.parse().ok()).unwrap_or(1);
-        let href = format!("{base}?set={}&", crate::oauth::urlencode(&t.key));
+        let href = format!("{base}?set={}&", crate::urlenc::urlencode(&t.key));
         let (pg, rows) = super::pages::Pager::new(t.locked.len(), LOCKED_PER_PAGE, page, &href);
         t.locked = t.locked.drain(rows).collect();
         pager = pg;
@@ -635,7 +635,7 @@ pub async fn conjugation_play(
     if items.is_empty() {
         // Nothing ticked (only possible without script, #949): back to this
         // set's setup with a line that says why.
-        let to = format!("{}?set={}&empty=1", crate::url("/play/conjugation"), crate::oauth::urlencode(&set.key));
+        let to = format!("{}?set={}&empty=1", crate::url("/play/conjugation"), crate::urlenc::urlencode(&set.key));
         return Ok(Redirect::to(&to).into_response());
     }
     let count = q.n.unwrap_or(20).min(120);

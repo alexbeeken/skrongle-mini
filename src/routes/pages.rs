@@ -90,7 +90,6 @@ pub struct LandingCourse {
 pub struct LandingTemplate {
     pub user: Option<CurrentUser>,
     pub courses: Vec<LandingCourse>,
-    pub google: bool,
 }
 
 pub fn landing_courses(courses: &crate::courses::Courses) -> Vec<LandingCourse> {
@@ -116,7 +115,7 @@ pub async fn root(
 ) -> Result<Response, AppError> {
     if user.is_none() {
         let courses = landing_courses(&state.courses);
-        return Ok(Page(LandingTemplate { user: None, courses, google: state.google.is_some() }).into_response());
+        return Ok(Page(LandingTemplate { user: None, courses }).into_response());
     }
     let (mut parts, _) = req.into_parts();
     let p = <Project as axum::extract::FromRequestParts<Arc<AppState>>>::from_request_parts(&mut parts, &state).await?;
@@ -728,7 +727,7 @@ pub async fn lessons(State(state): State<Arc<AppState>>, p: Project, Query(lq): 
         .map(|(i, (g, id))| PickTab {
             key: g.anchor.clone(),
             title: g.unit.clone(),
-            href: format!("{base}?unit={}", crate::oauth::urlencode(id)),
+            href: format!("{base}?unit={}", crate::urlenc::urlencode(id)),
             done: g.passed,
             total: g.lessons.len(),
             current: chosen == Some(i),
@@ -752,7 +751,7 @@ pub async fn lessons(State(state): State<Arc<AppState>>, p: Project, Query(lq): 
             Some(n) => n,
             None => g.lessons.iter().position(todo).map_or(1, |k| k / LESSONS_PER_PAGE + 1),
         };
-        let href = format!("{base}?unit={}&", crate::oauth::urlencode(ids.get(i).map_or("", String::as_str)));
+        let href = format!("{base}?unit={}&", crate::urlenc::urlencode(ids.get(i).map_or("", String::as_str)));
         let (pg, rows) = Pager::new(g.lessons.len(), LESSONS_PER_PAGE, page, &href);
         g.lessons = g.lessons.drain(rows).collect();
         pager = pg;
@@ -973,7 +972,7 @@ mod tests {
         let courses = crate::courses::Courses::load_builtin(Path::new("data")).expect("built-in courses load");
         let rows = landing_courses(&courses);
         assert!(rows.iter().any(|c| c.title == "Spanish" && c.lessons > 0 && c.units > 0));
-        let html = LandingTemplate { user: None, courses: rows, google: false }.render().expect("landing renders");
+        let html = LandingTemplate { user: None, courses: rows }.render().expect("landing renders");
         assert!(html.contains("JSON"));
         assert!(html.contains("lessons/greetings.json"));
         assert!(html.contains("/docs/course-format"));

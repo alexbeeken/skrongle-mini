@@ -19,10 +19,6 @@
     {% include "ai_switch.html" %}
     <button type="submit" class="btn" data-testid="register-submit">{{ crate::t("auth.register.submit") }}</button>
   </form>
-  {% if google %}
-  <p class="or"><span>{{ crate::t("auth.register.or") }}</span></p>
-  <a class="btn google" data-testid="register-google" href="{{ self.google_url() }}">{% include "google_mark.html" %} {{ crate::t("auth.register.google") }}</a>
-  {% endif %}
   {% let login_url = self.other_page_url("/login") %}
   <p class="muted">{{ crate::t1("auth.register.have_account_html", "url", login_url)|safe }}</p>
   {% let lang_back = "/register" %}{% include "lang_picker.html" %}
@@ -30,9 +26,6 @@
   <section class="dev-panel" data-testid="register-dev">
     <h2>Dev mode</h2>
     <p><a class="btn ghost small" href="{{ crate::base_path() }}/dev/login" data-testid="register-dev-login">Log in as dev</a> <span class="muted small">(or <code>{{ crate::dev::DEV_EMAIL }}</code> / <code>dev-password</code>)</span></p>
-    {% if google_mock %}
-    {% let prefix = "register" %}{% include "dev_google.html" %}
-    {% endif %}
   </section>
   {% endif %}
 </section>

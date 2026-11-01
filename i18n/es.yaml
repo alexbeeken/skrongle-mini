@@ -117,7 +117,6 @@ auth:
     password_label: Contraseña
     submit: Iniciar sesión
     or: o
-    google: Continuar con Google
     no_account_html: "¿Aún no tienes cuenta? <a href=\"{url}\" data-testid=\"login-register-link\">Regístrate</a>."
     terms_link: Términos
     privacy_link: Privacidad
@@ -133,11 +132,9 @@ auth:
     password_note: (al menos 8 caracteres)
     submit: Registrarse
     or: o
-    google: Registrarse con Google
     have_account_html: "¿Ya tienes cuenta? <a href=\"{url}\" data-testid=\"register-login-link\">Inicia sesión</a>."
     too_many_signups: Demasiados registros desde tu red. Inténtalo de nuevo dentro de una hora.
     email_taken: Ya existe una cuenta con ese correo electrónico.
-    email_taken_google: Una cuenta con ese correo electrónico inicia sesión con Google. Usa «Continuar con Google».
   signup:
     closed_title: "El registro está cerrado"
     closed: "Este servidor no admite cuentas nuevas. Pregunta a quien lo administra."
@@ -188,27 +185,6 @@ auth:
     needs_email: Confirma primero tu correo electrónico.
     needs_app: Configura primero la aplicación de autenticación.
     app_already: Ya hay una aplicación de autenticación configurada. Elimínala primero.
-  google:
-    cancelled: Se canceló el inicio de sesión con Google.
-    error: Google informó un error.
-    expired: Este intento de inicio de sesión ha caducado. Inténtalo de nuevo.
-    mismatch: Este intento de inicio de sesión no coincide. Inténtalo de nuevo.
-    no_code: Google no devolvió un código de inicio de sesión.
-    exchange_failed: No se pudo completar el inicio de sesión con Google. Inténtalo de nuevo.
-    bad_identity: Google devolvió una identidad que este sitio no puede aceptar.
-    already_linked: Esa cuenta de Google ya está vinculada a otro usuario.
-    attempt_expired: Este intento ha caducado. Inténtalo de nuevo.
-    not_this_account: Esa no es la cuenta de Google con la que inicia sesión esta cuenta.
-    unconfirmed_account: Ya existe una cuenta con este correo, pero su dirección no está confirmada. Inicia sesión con tu contraseña y confírmala; después conecta Google desde tu perfil.
-    other_google: La cuenta con este correo ya tiene conectada otra cuenta de Google. Inicia sesión con esa o con tu contraseña.
-    signup_expired: Este registro ha caducado. Inténtalo de nuevo.
-  google_confirm:
-    title: Crea tu cuenta
-    lead: "Ya casi está: Google ha confirmado quién eres. Marca las dos casillas y tu cuenta estará lista."
-    as: Registrándote con Google como
-    not_you: ¿No eres tú?
-    submit: Crear cuenta
-    back: Volver a iniciar sesión
   ai_switch:
     label: Ocultar todas las funciones de IA
     about: Acerca de las funciones de IA
@@ -820,7 +796,6 @@ landing:
   create_account: Crear una cuenta
   read_format: Leer el formato de curso
   have_account_html: "¿Ya tienes cuenta? <a href=\"{url}\" data-testid=\"landing-login\">Inicia sesión</a>."
-  have_account_google_html: "¿Ya tienes cuenta? <a href=\"{url}\" data-testid=\"landing-login\">Inicia sesión</a> o <a href=\"{google_url}\">continúa con Google</a>."
   two_files_h2: Un curso son dos archivos. Todo lo demás es opcional.
   two_files_lead_html: Un <code>course.json</code> nombra las unidades y las dos caras de cada tarjeta. Cada lección es un archivo. Agrega un campo y se activa una función; omítelo y esa función simplemente no aparece para esa lección. Nada se rompe, nada molesta.
   field_content_html: Markdown. Cada sección <code>##</code> se convierte en una tarjeta de lección, un paso de la Guía y un bocado del modo Sprint.
@@ -864,7 +839,7 @@ landing:
   spec_footprint_h: Huella diminuta
   spec_footprint_p: "Dimensionado para una Pi Zero 2 W: unos pocos megabytes en disco, decenas de megabytes en memoria, dos workers asíncronos."
   spec_data_h: Tus datos siguen siendo tuyos
-  spec_data_p: Funciona en tu propia máquina o red local. Inicio de sesión con Google opcional, proxy TLS opcional, sin scripts de terceros, sin rastreo.
+  spec_data_p: Funciona en tu propia máquina o red local. Proxy TLS opcional, sin scripts de terceros, sin rastreo.
   spec_docs_h: Documentación incluida
   spec_docs_p: El formato, las funciones y la arquitectura se sirven desde la propia aplicación, como páginas o como Markdown sin formato para un LLM.
   final_h2: "Regístrate y responde una sola pregunta: ¿qué te gustaría aprender?"
@@ -1031,8 +1006,6 @@ profile:
     sign_in: Inicio de sesión
     password: Contraseña
     and: y
-    google_connected: Cuenta de Google conectada
-    connect_google_html: "· <a href=\"{url}\" data-testid=\"profile-google-connect\">Conecta una cuenta de Google</a> para iniciar sesión con un toque"
     terms: Términos
     terms_accepted: "Versión {version}, aceptada el {date}"
     terms_not_accepted: No aceptados
@@ -1041,7 +1014,7 @@ profile:
     terms_title: Términos del servicio
     terms_close: Cerrar
     terms_open_page: Abrir como página
-    no_password: Esta cuenta inicia sesión con Google, así que no hay contraseña que cambiar.
+    no_password: Esta cuenta no tiene contraseña que cambiar.
   consent:
     title: "Privacidad y consentimiento"
     info: "Sobre tus consentimientos"
@@ -1054,11 +1027,6 @@ profile:
     age: "Edad"
     age_confirmed: "Confirmada el {date}"
     age_not_confirmed: "Sin confirmar"
-    google: "Acceso con Google"
-    google_on: "Conectado"
-    google_off: "No conectado"
-    google_connect: "conectar"
-    google_disconnect: "desconectar"
     email: "Correo"
     email_service: "Solo mensajes de servicio"
     ai: "No mostrarme funciones de IA"
@@ -1069,29 +1037,11 @@ profile:
     ai_key: "Clave API propia guardada"
     ai_keys_manage: "gestionar claves"
     ai_hosted: "{hosted}: {n} % de este mes usado"
-  google_link:
-    link_title: Conectar una cuenta de Google
-    one_tap: para iniciar sesión con un toque
-    link_text: Escribe tu contraseña y elige la cuenta de Google. Se cerrará la sesión en tus otros dispositivos.
-    password: Contraseña
-    cancel: Cancelar
-    continue: Continuar con Google
-    unlink_title: Desvincular Google
-    unlink_text: "«Continuar con Google» dejará de iniciar sesión en esta cuenta y se cerrará la sesión en tus otros dispositivos. Escribe tu contraseña para confirmar."
-    unlink: Desvincular
-    linked_notice: Cuenta de Google conectada. Se cerró la sesión en tus otros dispositivos.
-    unlinked_notice: Cuenta de Google desvinculada. Se cerró la sesión en tus otros dispositivos.
-    joined_notice: "Cuenta de Google conectada: Google confirmó esta dirección, así que inicia sesión en esta cuenta. Tu contraseña sigue funcionando."
-    stays_connected: Esta cuenta solo inicia sesión con Google, así que sigue conectada.
-    confirm_needed: Confirma con Google para hacer este cambio.
-    confirm: Confirmar con Google
-    confirmed: Confirmado con Google.
-    confirm_why: Esta cuenta inicia sesión con Google y no tiene contraseña, así que primero confirma con Google.
   sessions:
     sign_out_others: Cerrar sesión en todos los demás sitios
     info_label: Sobre cerrar sesión en todos los demás sitios
     text: "Cierra todas las demás sesiones de esta cuenta: otros navegadores, teléfonos y ordenadores, y cualquiera que no deba tener la sesión iniciada. Este navegador sigue con la sesión iniciada."
-    text_same: Cambiar tu contraseña o la verificación en dos pasos, y conectar o desvincular Google, hace lo mismo.
+    text_same: Cambiar tu contraseña o la verificación en dos pasos hace lo mismo.
     ok: Aceptar
     signed_out_notice: Se cerró la sesión en todos los demás sitios.
   password:
@@ -1104,7 +1054,7 @@ profile:
     save: Guardar
     changed: Contraseña cambiada.
     mismatch: Las nuevas contraseñas no coinciden.
-    google_only: Esta cuenta inicia sesión con Google y no tiene contraseña.
+    none: Esta cuenta no tiene contraseña.
     too_many: Demasiados intentos. Espera unos minutos e inténtalo de nuevo.
     current_wrong: La contraseña actual no es correcta.
   two_factor:
@@ -1118,8 +1068,8 @@ profile:
     save: Guardar
     confirm_title: Confirma que eres tú
     confirm_password_why: Para que nadie que use este navegador con la sesión iniciada pueda cambiar tu segundo paso, escribe la contraseña de tu cuenta.
-    confirm_app_code: Esta cuenta inicia sesión con Google y no tiene contraseña, así que escribe el código que muestra ahora tu aplicación de autenticación.
-    confirm_sent_code: Esta cuenta inicia sesión con Google y no tiene contraseña, así que confirma con un código de tu segundo paso actual.
+    confirm_app_code: Esta cuenta no tiene contraseña, así que escribe el código que muestra ahora tu aplicación de autenticación.
+    confirm_sent_code: Esta cuenta no tiene contraseña, así que confirma con un código de tu segundo paso actual.
     sent_to: "Enviado a {to}."
     send_one_first: Envía uno primero.
     password: Contraseña
@@ -1131,7 +1081,7 @@ profile:
     totp_added: "Aplicación de autenticación añadida el {date}"
     remove: Quitar
     info_title: Autenticación en dos pasos
-    info_text: "Después de tu contraseña (o de Google), el inicio de sesión pide un código: enviado por correo electrónico o mostrado por una aplicación de autenticación como Google Authenticator. Un método a la vez; elegir otro lo reemplaza."
+    info_text: "Después de tu contraseña, el inicio de sesión pide un código: enviado por correo electrónico o mostrado por una aplicación de autenticación como Google Authenticator. Un método a la vez; elegir otro lo reemplaza."
     info_small: El correo electrónico y el mensaje de texto necesitan una dirección o un número verificados. Los códigos valen 10 minutos; cinco códigos incorrectos terminan el inicio de sesión.
     ok: OK
     email_first_title: Verifica primero tu correo electrónico

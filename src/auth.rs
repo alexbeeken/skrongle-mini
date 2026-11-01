@@ -261,7 +261,7 @@ pub fn create_user(conn: &Connection, email: &str, password_hash: &str) -> rusql
 const CREDENTIALS_SQL: &str = "SELECT id, password_hash FROM users WHERE lower(email) = lower(?1) AND password_hash <> '' ORDER BY id LIMIT 1";
 
 /// The password account an e-mail address signs in to: (id, password hash).
-/// Google-only accounts have no password and are never found here.
+/// Accounts without a password are never found here.
 pub fn find_user_credentials(conn: &Connection, email: &str) -> rusqlite::Result<Option<(i64, String)>> {
     conn.query_row(
         CREDENTIALS_SQL,
@@ -269,101 +269,6 @@ pub fn find_user_credentials(conn: &Connection, email: &str) -> rusqlite::Result
         |r| Ok((r.get(0)?, r.get(1)?)),
     )
     .optional()
-}
-
-/// The user linked to a Google account id (`sub` claim).
-pub fn find_user_by_google(conn: &Connection, sub: &str) -> rusqlite::Result<Option<i64>> {
-    conn.query_row("SELECT id FROM users WHERE google_sub = ?1", [sub], |r| r.get(0)).optional()
-}
-
-/// Attach a Google account to an existing user. Fails with a constraint
-/// violation if that Google account is already attached to someone else.
-/// The Google address only fills in a missing e-mail; a stored one stays.
-/// When the account's address is then Google's, it counts as confirmed.
-pub fn link_google(conn: &Connection, user_id: i64, sub: &str, email: &str) -> rusqlite::Result<()> {
-    conn.execute(
-        "UPDATE users SET google_sub = ?2, email = COALESCE(NULLIF(email, ''), ?3) WHERE id = ?1",
-        params![user_id, sub, email],
-    )?;
-    conn.execute(
-        "UPDATE users SET email_verified_at = COALESCE(email_verified_at, ?3) WHERE id = ?1 AND lower(email) = lower(?2) AND ?2 <> ''",
-        params![user_id, email, now()],
-    )?;
-    Ok(())
-}
-
-/// What a Google sign-in (not a link from the profile) finds for its
-/// identity (#277): one account per address, so a Google address that an
-/// account already has never makes a second one.
-#[derive(Debug, PartialEq, Eq)]
-pub enum GoogleMatch {
-    /// That Google account is already connected to this user.
-    Linked(i64),
-    /// No Google connected yet, and this user's own address is Google's and
-    /// confirmed: Google vouches for it too, so the sign-in joins the account.
-    Join(i64),
-    /// An account has the address but never confirmed it: whoever registered
-    /// it may not own it, so Google must not take it over.
-    Unconfirmed,
-    /// The account with the address has a different Google account connected.
-    OtherGoogle,
-    /// Nobody has the address: a new account, after the confirm step.
-    New,
-}
-
-pub fn google_match(conn: &Connection, sub: &str, email: &str) -> rusqlite::Result<GoogleMatch> {
-    if let Some(id) = find_user_by_google(conn, sub)? {
-        return Ok(GoogleMatch::Linked(id));
-    }
-    // Old duplicates (before #277) may share an address: the oldest decides.
-    let found: Option<(i64, bool, bool)> = conn
-        .query_row(
-            "SELECT id, email_verified_at IS NOT NULL, google_sub IS NOT NULL FROM users WHERE lower(email) = lower(?1) AND ?1 <> '' ORDER BY id LIMIT 1",
-            [email],
-            |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?)),
-        )
-        .optional()?;
-    Ok(match found {
-        None => GoogleMatch::New,
-        Some((_, _, true)) => GoogleMatch::OtherGoogle,
-        Some((id, true, false)) => GoogleMatch::Join(id),
-        Some((_, false, false)) => GoogleMatch::Unconfirmed,
-    })
-}
-
-/// An account with this address signs in with Google only (no password).
-pub fn google_only(conn: &Connection, email: &str) -> rusqlite::Result<bool> {
-    conn.query_row(
-        "SELECT EXISTS(SELECT 1 FROM users WHERE lower(email) = lower(?1) AND password_hash = '' AND google_sub IS NOT NULL)",
-        [email],
-        |r| r.get(0),
-    )
-}
-
-pub fn google_linked(conn: &Connection, user_id: i64) -> rusqlite::Result<bool> {
-    conn.query_row("SELECT google_sub IS NOT NULL FROM users WHERE id = ?1", [user_id], |r| r.get(0))
-}
-
-/// The Google account id linked to a user, if any.
-pub fn google_sub(conn: &Connection, user_id: i64) -> rusqlite::Result<Option<String>> {
-    Ok(conn.query_row("SELECT google_sub FROM users WHERE id = ?1", [user_id], |r| r.get(0)).optional()?.flatten())
-}
-
-/// Detach the Google account (#360). Only an account with a password may:
-/// a Google-only one would have no way left to sign in. `false` when
-/// nothing was detached.
-pub fn unlink_google(conn: &Connection, user_id: i64) -> rusqlite::Result<bool> {
-    Ok(conn.execute("UPDATE users SET google_sub = NULL WHERE id = ?1 AND google_sub IS NOT NULL AND password_hash <> ''", [user_id])? > 0)
-}
-
-/// Create an account that can only sign in with Google (no password). Its
-/// address is confirmed: Google asserted it.
-pub fn create_google_user(conn: &Connection, sub: &str, email: &str) -> rusqlite::Result<i64> {
-    conn.execute(
-        "INSERT INTO users (password_hash, created_at, google_sub, email, email_verified_at, avatar) VALUES ('', ?1, ?2, ?3, ?1, ?4)",
-        params![now(), sub, email, crate::profile::DEFAULT_AVATAR],
-    )?;
-    Ok(conn.last_insert_rowid())
 }
 
 /// What `sessions.session_token` stores: the SHA-256 of the cookie's token,
@@ -771,77 +676,12 @@ mod tests {
     }
 
     #[test]
-    fn google_accounts() {
+    fn credentials_are_found_whatever_the_case_of_the_address() {
         let db = crate::db::Db::open_in_memory().unwrap();
         db.with(|c| {
-            assert_eq!(find_user_by_google(c, "g1")?, None);
-            let id = create_google_user(c, "g1", "ana@example.org")?;
-            assert_eq!(find_user_by_google(c, "g1")?, Some(id));
-            assert!(google_linked(c, id)?);
-            // A Google-only account has no password to sign in with.
             assert_eq!(find_user_credentials(c, "ana@example.org")?, None);
-            // The password account with the same address does, whatever the case.
             let pw = create_user(c, "ana@example.org", "h")?;
             assert_eq!(find_user_credentials(c, "ANA@example.org")?, Some((pw, "h".to_string())));
-            let bob = create_user(c, "bob@work.example", "h")?;
-            assert!(!google_linked(c, bob)?);
-            link_google(c, bob, "g2", "bob@example.org")?;
-            assert!(google_linked(c, bob)?);
-            // Linking never overwrites an address the account already has.
-            let email: String = c.query_row("SELECT email FROM users WHERE id = ?1", [bob], |r| r.get(0))?;
-            assert_eq!(email, "bob@work.example");
-            let verified = |id: i64| c.query_row("SELECT email_verified_at IS NOT NULL FROM users WHERE id = ?1", [id], |r| r.get::<_, bool>(0));
-            assert!(verified(id)?, "Google vouched for a new account's address");
-            assert!(!verified(pw)? && !verified(bob)?, "a different address stays unconfirmed");
-            let carl = create_user(c, "carl@example.org", "h")?;
-            link_google(c, carl, "g3", "carl@example.org")?;
-            assert!(verified(carl)?, "linking Google with the same address confirms it");
-            let email: String = c.query_row("SELECT email FROM users WHERE id = ?1", [carl], |r| r.get(0))?;
-            assert_eq!(email, "carl@example.org");
-            // The same Google account cannot be attached twice.
-            assert!(link_google(c, bob, "g1", "x").is_err());
-            Ok(())
-        })
-        .unwrap();
-    }
-
-    #[test]
-    fn google_sign_in_finds_the_account_with_its_address() {
-        let db = crate::db::Db::open_in_memory().unwrap();
-        db.with(|c| {
-            assert_eq!(google_match(c, "g1", "new@example.org")?, GoogleMatch::New);
-            let ana = create_user(c, "ana@example.org", "h")?;
-            // Unconfirmed: nobody knows the registrant owns the address.
-            assert_eq!(google_match(c, "g1", "ANA@example.org")?, GoogleMatch::Unconfirmed);
-            crate::verify::mark_verified(c, ana, 1)?;
-            assert_eq!(google_match(c, "g1", "ana@example.org")?, GoogleMatch::Join(ana));
-            link_google(c, ana, "g1", "ana@example.org")?;
-            assert_eq!(google_match(c, "g1", "ana@example.org")?, GoogleMatch::Linked(ana));
-            // Another Google account with the same address cannot take it.
-            assert_eq!(google_match(c, "g2", "ana@example.org")?, GoogleMatch::OtherGoogle);
-            assert!(!google_only(c, "ana@example.org")?, "it has a password");
-            create_google_user(c, "g3", "gina@example.org")?;
-            assert!(google_only(c, "Gina@example.org")?);
-            assert!(!google_only(c, "nobody@example.org")?);
-            Ok(())
-        })
-        .unwrap();
-    }
-
-    #[test]
-    fn google_is_unlinked_only_from_an_account_with_a_password() {
-        let db = crate::db::Db::open_in_memory().unwrap();
-        db.with(|c| {
-            let only = create_google_user(c, "g1", "ana@example.org")?;
-            assert_eq!(google_sub(c, only)?.as_deref(), Some("g1"));
-            assert!(!unlink_google(c, only)?, "a Google-only account keeps its one way in");
-            assert!(google_linked(c, only)?);
-            let bob = create_user(c, "bob@example.org", "h")?;
-            assert!(!unlink_google(c, bob)?, "nothing linked");
-            link_google(c, bob, "g2", "bob@example.org")?;
-            assert!(unlink_google(c, bob)?);
-            assert_eq!(google_sub(c, bob)?, None);
-            assert_eq!(find_user_by_google(c, "g2")?, None, "Continue with Google no longer signs in to it");
             Ok(())
         })
         .unwrap();

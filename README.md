@@ -109,7 +109,7 @@ cargo build --release    # hardened release profile (fat LTO, 1 codegen unit, st
 
 The app keeps no developer keys. Learners' Claude and OpenAI keys are
 pasted into the app and saved encrypted in the database (see Security
-notes). Server secrets such as `SKRONGLE_SECRET_KEY` and the Google OAuth client
+notes). Server secrets such as `SKRONGLE_SECRET_KEY`
 come from the environment (on the Pi, from `/etc/spanish-learning/env`,
 written by `scripts/deploy.sh` from `deploy/deploy.env`).
 
@@ -190,8 +190,7 @@ startup ([Renamed settings](docs/self-hosting.md#renamed-settings)).
 | `SKRONGLE_LOG` | `info` | `error`/`warn`/`info`/`debug`/`trace` |
 | `SKRONGLE_SECURE_COOKIES` | `0` | Set `1` behind a TLS proxy to add `Secure` to cookies |
 | `SKRONGLE_BASE_PATH` | *(empty)* | URL prefix when mounted behind a reverse proxy, e.g. `/spanish` |
-| `SKRONGLE_PUBLIC_URL` | — | Public URL; with the two below enables "Continue with Google" |
-| `SKRONGLE_GOOGLE_CLIENT_ID` / `SKRONGLE_GOOGLE_CLIENT_SECRET` | — | OAuth client (redirect URI `<PUBLIC_URL>/auth/google/callback`) |
+| `SKRONGLE_PUBLIC_URL` | — | Public URL, for the links in e-mail |
 | `SKRONGLE_OPENAI_BASE_URL` | `https://api.openai.com` | Any OpenAI-compatible server (Ollama, LM Studio) for the OpenAI provider |
 | `SKRONGLE_DEV`, `SKRONGLE_LLM_MODE`, … | off | Local testing only; see [docs/testing.md](docs/testing.md) |
 | `SKRONGLE_SECRET_KEY` | *(generated)* | 64 hex characters that encrypt the API keys saved on profile pages. Unset: created once at `<SKRONGLE_DB>.key` (mode 0600); back it up with the database |
@@ -248,7 +247,7 @@ with no file at all.
 `deploy-all` calls) asks the Pi for its architecture, cross-compiles, rsyncs
 the binary and `data/` to `/opt/spanish-learning`, installs
 `deploy/spanish-learning.service` and the nginx snippets, writes the public
-URL and Google client to `/etc/spanish-learning/env`, restarts and checks
+URL to `/etc/spanish-learning/env`, restarts and checks
 `/healthz`. Install path and service name are unchanged from the Spanish-only
 days, so an existing Pi upgrades in place (the first start migrates all
 existing progress into the `spanish` course).

@@ -164,7 +164,7 @@ pub async fn show(State(state): State<Arc<AppState>>, user: CurrentUser, Query(q
         Some("reset") => {
             t.notice = Some(crate::t1("superuser.reset_done", "email", email));
             if state.dev_inbox.is_some() {
-                t.inbox = Some(crate::url(&format!("/dev/inbox/latest?to={}", crate::oauth::urlencode(email))));
+                t.inbox = Some(crate::url(&format!("/dev/inbox/latest?to={}", crate::urlenc::urlencode(email))));
             }
         }
         Some("unknown") => t.error = Some(crate::t1("superuser.unknown", "email", format!("{email:?}"))),
@@ -178,7 +178,7 @@ pub async fn show(State(state): State<Arc<AppState>>, user: CurrentUser, Query(q
 
 /// Back to the page after an action: what it did, about which address.
 fn done(did: &str, email: &str) -> Response {
-    let to = format!("/superuser?did={did}&email={}", crate::oauth::urlencode(email));
+    let to = format!("/superuser?did={did}&email={}", crate::urlenc::urlencode(email));
     Redirect::to(&crate::url(&to)).into_response()
 }
 

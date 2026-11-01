@@ -44,7 +44,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 
 ### Accounts
 
-- Sign-in: `auth.rs` (sessions, CurrentUser, Project), `routes/auth.rs`, `routes/auth/code.rs` (the two-factor step), `oauth.rs` (Google), `proxy_auth.rs` (proxy header), `signup.rs` (who may register).
+- Sign-in: `auth.rs` (sessions, CurrentUser, Project), `routes/auth.rs`, `routes/auth/code.rs` (the two-factor step), `proxy_auth.rs` (proxy header), `signup.rs` (who may register), `urlenc.rs` (percent-encoding for the redirects they build).
 - Mail: `mail.rs` (`mail/resend.rs`, `mail/postmark.rs`, `mail/brevo.rs`, `mail/sink.rs`), `verify.rs` (address check), `reset.rs` + `routes/reset.rs` (password reset).
 - Two-factor: `two_factor.rs`, `totp.rs`.
 - Profile: `profile.rs`, `routes/profile.rs`, `static/profile.js`, `static/autosave.js`, `static/avatar-bg/` (picture backgrounds); keys in `secrets.rs`.
@@ -54,7 +54,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 
 ### Dev mode only
 
-- `dev.rs` + `routes/dev.rs` (`/dev/login`, mailbox, stand-in Google; `routes/dev/jobs_page.rs` is `/dev/jobs`), `dev_ai.rs` + `routes/dev_ai.rs` (`/dev/ai`, fixtures in `data/test-fixtures/`), `dev_payments.rs` + `routes/dev_payments.rs` (stand-in Stripe), `dev_crowd.rs` (made-up learners), `static/devbox.js`.
+- `dev.rs` + `routes/dev.rs` (`/dev/login`, mailbox; `routes/dev/jobs_page.rs` is `/dev/jobs`), `dev_ai.rs` + `routes/dev_ai.rs` (`/dev/ai`, fixtures in `data/test-fixtures/`), `dev_payments.rs` + `routes/dev_payments.rs` (stand-in Stripe), `dev_crowd.rs` (made-up learners), `static/devbox.js`.
 
 ### Elsewhere
 
@@ -85,7 +85,6 @@ src/
   lint.rs        course lints (#445, #1199): cheap checks, no AI, for lessons that load but teach badly; the top of the feature usage report, an amber ! on the field in the lesson editor, logged at the end of a generation; lint/language.rs guesses a text's language
   db.rs          rusqlite connection, pragmas, migrations, spawn_blocking wrapper
   auth.rs        argon2id hashing, sessions, CurrentUser (route guard) and Project (user + active course) extractors
-  oauth.rs       "Continue with Google": OpenID Connect code flow with PKCE; sign-ups waiting for the Terms confirm step (in memory)
   mail.rs        e-mail: the outbox (table mail_outbox), the provider chain with fallback and cooldown, the sender the job runner drains (`mail::Outbox`), SMTP and log providers, SKRONGLE_MAIL_* config
   mail/resend.rs the `resend` kind: Resend's HTTP API (POST /emails, idempotency key per outbox row)
   mail/postmark.rs the `postmark` kind: Postmark's HTTP API (POST /email, Server API token, message stream, outbox id as metadata)
@@ -139,7 +138,7 @@ src/
   dev_ai.rs      the dev AI provider's logic (#297): key profiles (platform, learner), usage limits and their quota errors, injected failures, the fixture reply for a wire request, Manual replies (held requests), the call log; in memory
   dev_payments.rs the dev payment provider (#314): a Stripe stand-in's state (prices, customers, Checkout sessions, subscriptions, invoices and one-off payments, events, the log) and its rules (pay, decline, renew, fail a renewal, cancel, refund), each returning the events to deliver; dev mode's Stripe settings; in memory
   dev_crowd.rs   a crowd of made-up learners with weeks of backdated history (SKRONGLE_DEV_SEED_USERS, #583), written through the modes' own progress functions; deterministic per learner
-  dev.rs         local testing (SKRONGLE_DEV): the gate, the dev user (seed with the simulator's keys, reset), SKRONGLE_LLM_MODE and the dev AI provider's default base URLs, the fixture directory and its in-memory edits, held requests on disk (Manual replies on /dev/ai), the stand-in Google (mock_google: codes, ID tokens, the failures it can act out)
+  dev.rs         local testing (SKRONGLE_DEV): the gate, the dev user (seed with the simulator's keys, reset), SKRONGLE_LLM_MODE and the dev AI provider's default base URLs, the fixture directory and its in-memory edits, held requests on disk (Manual replies on /dev/ai)
   test_course.rs tests only: keep the test course covering every feature (schema, aliases, quiz types, exercises<!-- themes -->, themes<!-- /themes -->)
   routes/
     mod.rs       axum Router, embedded static assets and docs, CourseView for templates
@@ -158,7 +157,7 @@ src/
     share.rs     POST /courses/{id}/share (invite addresses) and /courses/{id}/share/remove (owner only); GET /courses/shared/{token} (the invitation's link: signed in, the course joins the list and opens; signed out, /login?share=<token>)
     docs.rs      /docs (sidebar sections: SECTIONS), /llms.txt (docs/llms.txt), /privacy (docs/privacy.md)
     reset.rs     GET/POST /reset (ask for a link: the same answer for any address; ?token=: choose a new password, which ends every session; 404 without mail)
-    auth.rs      /login /register (with mail: always "check your mail", signs nobody in) /logout /auth/google… (incl. /auth/google/confirm: a new Google account accepts the Terms), GET /verify-email?token= (confirms the address; signed in or not)
+    auth.rs      /login /register (with mail: always "check your mail", signs nobody in) /logout, GET /verify-email?token= (confirms the address; signed in or not)
     auth/code.rs /login/code… (the two-factor step: code form, resend, cancel, status, dev device)
     terms.rs     /terms, /terms.md (public), /terms/accept (the gate for accounts without the current version, and the notice's accept form), /terms/dismiss (closes a minor change's notice)
     account_deletion.rs  /account/deletion (the only page of an account scheduled for deletion: its date, Cancel deletion, Log out)
@@ -178,7 +177,7 @@ src/
     vocab.rs     /vocabulary, /vocabulary/study, /lookup, POST /api/vocabulary/review
     games.rs     /play (Play mode hub; /g and /games redirect here), /play/matching…, /play/conjugation…, /play/numbers, /play/dates, their APIs
     sprint.rs     /sprint, /sprint/play, POST /api/sprint/check|finish
-    dev.rs       /dev/login, /dev/reset, /dev/mail, /dev/jobs, /dev/inbox, /dev/authenticator, /dev/google/auth + /dev/google/token (the stand-in Google), /dev/boot (the --watch reload poll); all mounted only in dev mode and for local clients, see testing.md; the dev mailbox needs no sign-in
+    dev.rs       /dev/login, /dev/reset, /dev/mail, /dev/jobs, /dev/inbox, /dev/authenticator, /dev/boot (the --watch reload poll); all mounted only in dev mode and for local clients, see testing.md; the dev mailbox needs no sign-in
     dev_ai.rs    /dev/ai: the dev AI provider's wire API (Anthropic Messages, OpenAI chat completions, Gemini's OpenAI endpoint; checked by API key; a held request waits for its reply file) and its page in the dev mailbox (log, limits, failures, Manual replies with the held requests and their reply forms, fixture editor)
 templates/       askama templates (compiled in)
 static/          CSS + dependency-free JS (compiled in); vendor/ holds the one third-party script, abcjs
@@ -362,9 +361,10 @@ users          (id AUTOINCREMENT, password_hash, created_at, google_sub UNIQUE, 
                 -- id is never reused after a deletion (AUTOINCREMENT since v45, #364);
                 -- billing_ref: random per account, what Stripe's subscription metadata names (never the id);
                 -- stripe_customer: the one Stripe customer every Checkout of the account shares (#394);
-                -- password_hash is '' for Google-only accounts; email is what a password account
+                -- google_sub is no longer read (the Google sign-in is gone; the column waits for the schema squash);
+                -- password_hash is '' for accounts without one (proxy sign-in); email is what a password account
                 -- signs in with (no usernames since v26), set once and never changed;
-                -- email_verified_at: when the address was confirmed (link or Google), NULL = not yet;
+                -- email_verified_at: when the address was confirmed (link), NULL = not yet;
                 -- avatar is an id from src/profile.rs (AVATARS)<!-- themes -->, shown in the worn theme's version<!-- /themes -->;
                 -- avatar_color a background slot: 1-8 the patterned palette (profile::palette<!-- themes -->, the theme's avatar_colors<!-- /themes -->)<!-- themes -->, 9-16 a theme's scenes (avatar_backgrounds)<!-- /themes -->, 0 = none picked yet (profile::DEFAULT_COLOR, v35);
 <!-- themes -->
@@ -509,7 +509,7 @@ two_factor_challenges (id, user_id, token_hash UNIQUE, method, code_hash, salt, 
                 -- code_hash SHA-256(salt:token:code) for texted/e-mailed codes ('' for an authenticator); 10 minutes, 5 tries;
                 -- sent_by 'email' when a texted code went by e-mail because the number opted out (v69)
 two_factor_confirmations (user_id PRIMARY KEY, method, code_hash, salt, attempts, created_at, expires_at)
-                -- a Google-only account's code for turning its texted/e-mailed second step off or switching it:
+                -- the code of an account without a password for turning its texted/e-mailed second step off or switching it:
                 -- SHA-256(salt:code), only for the method it was sent for; 10 minutes, 5 tries
 ai_usage       (id, user_id, course_id, job_id, purpose, provider, model, input_tokens, output_tokens, cached_tokens,
                 cost_micros, credit_micros, key_source, created_at)
@@ -549,7 +549,7 @@ lessons (seen). Migration 14 gave user-made courses their lifecycle columns
 (state, source, visibility, the generation job, brief, outline and notes).
 Migration 15 added `subscriptions` and `plan_grants`. Migration 22 added
 `users.age_confirmed` (the "I am at least N" part of the Terms box at
-sign-up, set by registration, the Google confirm step and `/terms/accept`).
+sign-up, set by registration and `/terms/accept`).
 Migration 34 stores session tokens hashed: it ends every existing session
 (everyone signs in once more) and marks accounts that accepted the Terms as
 age-confirmed. Migration 23 added `terms_acceptances`; accounts from before it
@@ -670,15 +670,15 @@ switch for any of them: plans are off (`Shape::has_plans`, below), and
 provider, Google, Stripe) as unset, so those
 features are off wherever they are read; the startup log names any that
 are set and ignored. Dev mode's stand-ins for them (the dev mailbox,
-mock Google, simulated Stripe) are off in a mini too. `SKRONGLE_PLANS` is
+simulated Stripe) are off in a mini too. `SKRONGLE_PLANS` is
 gone; a server that still sets it logs a warning. The startup
 line and `/healthz` (`ok skrongle mini <version>`) say which shape runs.
 Self-hosting the full build is not supported: outside mini and dev mode the
-server refuses to start until e-mail (`SKRONGLE_MAIL_PROVIDERS`), Google (`SKRONGLE_GOOGLE_CLIENT_ID`) and Stripe
+server refuses to start until e-mail (`SKRONGLE_MAIL_PROVIDERS`) and Stripe
 (`SKRONGLE_STRIPE_SECRET_KEY`) are all set (`require_providers` in `main.rs`).
 It also refuses to start without `SKRONGLE_SECURE_COOKIES=1` (the hosted site
 is served over HTTPS) and with `SKRONGLE_PROXY_AUTH_*` set (proxy sign-in is
-a mini feature; #980). The dev server's mailbox, Google and Stripe stand in for them. The
+a mini feature; #980). The dev server's mailbox and Stripe stand in for them. The
 release tarballs are `skrongle-<version>-<arch>.tar.gz`
 (`routes::docs::RELEASE_TARBALL`, `scripts/package-release.sh`); each
 carries `terms.example.md` for `SKRONGLE_TERMS`. The pitch and the security
@@ -706,10 +706,7 @@ posture are in `docs/self-hosting.md`, "Skrongle mini".
 | `SKRONGLE_LOG` | `info` | `error`/`warn`/`info`/`debug`/`trace` |
 | `SKRONGLE_SECURE_COOKIES` | `0` | Set `1` behind a TLS proxy to add `Secure` to cookies. Required outside mini and dev mode: the hosted server refuses to start without it |
 | `SKRONGLE_BASE_PATH` | *(empty)* | URL prefix when mounted behind a reverse proxy, e.g. `/spanish` |
-| `SKRONGLE_PUBLIC_URL` | — | Public URL, for the Google redirect URI and the links in e-mail (unset: links use the request's host, `X-Forwarded-Host` behind a proxy) |
-| `SKRONGLE_GOOGLE_CLIENT_ID` / `_SECRET` | — | Enable "Continue with Google" |
-| `SKRONGLE_GOOGLE_AUTH_URL` / `_TOKEN_URL` | Google's | Where the real client sends the browser and exchanges the code; for pointing at a stand-in server. Never set in production |
-| `SKRONGLE_GOOGLE_MOCK` | `1` | Dev mode only, without a real client: `0` turns off the stand-in Google (`/dev/google/*`) that otherwise makes "Continue with Google" work locally; see [testing](testing#google-sign-in) |
+| `SKRONGLE_PUBLIC_URL` | — | Public URL, for the links in e-mail (unset: links use the request's host, `X-Forwarded-Host` behind a proxy) |
 | `SKRONGLE_MINI` | unset (*mini:* `1`) | `1`: the server is a Skrongle mini (`shape.rs`); unset: the hosted site. Anything but `1`, `true`, `0`, `false` or unset refuses to start. Read once at startup, directly (no older spelling) |
 | *(plans)* | on (*mini:* off) | Follow the shape (`shape::Shape::has_plans`); there is no setting. Off in a mini: no plans or payments. Every account counts as Plus (`billing::plans_on`, the one switch every gate asks), the profile shows no Subscription section or plans modal, `/billing/*` answers 404 (Stripe settings are ignored), and `SKRONGLE_AI_KEY` is shared by every account with no monthly allowance: only `SKRONGLE_AI_DAILY_CAP` and `SKRONGLE_AI_RATE_PER_MINUTE` guard it |
 | `SKRONGLE_STRIPE_SECRET_KEY` / `_WEBHOOK_SECRET` / `_PRICE_ID` | — | Enable paid subscriptions (all three plus `SKRONGLE_PUBLIC_URL`); see [Subscriptions](features#subscriptions) |
@@ -724,7 +721,7 @@ posture are in `docs/self-hosting.md`, "Skrongle mini".
 | `SKRONGLE_AI_MODEL_COURSES` | `claude-sonnet-5-5` | Skrongle AI's model for generating, revising and adding lessons |
 | `SKRONGLE_AI_PRICES` | see `metering::DEFAULT_PRICES` | `model=in/out[/cached],…` in dollars per million tokens, added to (or replacing) the built-in table of Anthropic's list prices; `*` prices unknown models (default: the dearest rate) |
 | `SKRONGLE_AI_ALLOWANCE_PLUS` | `1.50` | Dollars of Skrongle AI a month on the Plus plan (CA$15 a month). Only Plus has an allowance; Free and Basic bring their own keys or buy credit packs (#931). Learners see it as a bar, never in dollars. The old name `SKRONGLE_AI_ALLOWANCE_PRO` is still read |
-| `SKRONGLE_AI_ALLOWANCE_FREE` | `0` | Dollars of Skrongle AI a new account gets once, as credits, when its address is first confirmed (a link, a password reset or Google; #931). Not monthly, and accounts made before v87 get nothing. Spent like bought credits, on any plan |
+| `SKRONGLE_AI_ALLOWANCE_FREE` | `0` | Dollars of Skrongle AI a new account gets once, as credits, when its address is first confirmed (a link or a password reset; #931). Not monthly, and accounts made before v87 get nothing. Spent like bought credits, on any plan |
 | `SKRONGLE_AI_DAILY_CAP` | `10.00` | Skrongle AI spend across all learners per UTC day; past it hosted calls stop and the log says `ALERT` |
 | `SKRONGLE_AI_RATE_PER_MINUTE` | `12` | Skrongle AI requests one account may start per minute |
 | `SKRONGLE_AI_CREDIT_PACKS` | *(none)* | `price_id:credit dollars:label,…` credit packs sold through Stripe Checkout (needs Stripe), e.g. `price_x:3.00:$5` |
@@ -750,7 +747,7 @@ posture are in `docs/self-hosting.md`, "Skrongle mini".
 | `SKRONGLE_SECRET_KEY` | *(generated)* | 64 hex characters; encrypts stored API keys. Unset: read from or created at `<SKRONGLE_DB>.key` (mode 0600) |
 | `SKRONGLE_NEW_SECRET_KEY` | `0` | `1`: the secret key is lost for good; create a new one, delete the saved API keys it cannot read, and turn off the authenticator apps it cannot read (two-factor off for those accounts, #1068). Without it the server refuses to start when the database has saved keys but neither `SKRONGLE_SECRET_KEY` nor `<SKRONGLE_DB>.key` is there, or the key there opens none of them |
 | `SKRONGLE_DEV_SMTP` | `1` | Dev mode without `SKRONGLE_MAIL_PROVIDERS`: `1` sends e-mail to the dev mailbox on a free port, a number pins the port, `0` only logs it ([testing](testing#e-mail-the-dev-mailbox)) |
-| `SKRONGLE_DEV` | `0` | `1`: dev mode (`/dev/login`, `/dev/reset`, `/dev/mail`, `/dev/mail/send`, `/dev/jobs`, `/dev/inbox` and its SMTP mailbox, `/dev/ai` (the dev AI provider, which the default base URLs point at), the stand-in Google; sent e-mail keeps its body; the dev mailbox needs no sign-in). Refused unless `SKRONGLE_BIND` is loopback, `SKRONGLE_SECURE_COOKIES` is not `1` and `SKRONGLE_PUBLIC_URL` is unset or local; the `/dev/*` routes also refuse proxied or non-loopback-`Host` requests. Set by `./.dev-start`, never by `deploy/` |
+| `SKRONGLE_DEV` | `0` | `1`: dev mode (`/dev/login`, `/dev/reset`, `/dev/mail`, `/dev/mail/send`, `/dev/jobs`, `/dev/inbox` and its SMTP mailbox, `/dev/ai` (the dev AI provider, which the default base URLs point at); sent e-mail keeps its body; the dev mailbox needs no sign-in). Refused unless `SKRONGLE_BIND` is loopback, `SKRONGLE_SECURE_COOKIES` is not `1` and `SKRONGLE_PUBLIC_URL` is unset or local; the `/dev/*` routes also refuse proxied or non-loopback-`Host` requests. Set by `./.dev-start`, never by `deploy/` |
 | `SKRONGLE_DEV_RELOAD` | `0` | Dev mode only: `1` (set by `./.dev-start --watch`) appends a script to every HTML page that reloads it after the server restarts; see [testing](testing#live-reload---watch) |
 | `TEST_COURSE` | `0` | `1`: also offer the courses under `data/test-courses/` (the test course, for automated tests). `SKRONGLE_TEST_COURSE` works too. Never set in production |
 | `SKRONGLE_DEV_SEED` | `0` | Dev mode only: at boot, create the dev user with a course open and some progress |
@@ -868,8 +865,7 @@ exported from the shell overrides the file (`scripts/deploy-env.sh`).
 calls the per-target script:
 
 - **Pi / DietPi:** `scripts/release.sh` → `scripts/deploy.sh`: rsync + systemd
-  unit + nginx snippets, `/etc/spanish-learning/env` for the public URL and
-  Google client. Read-only install, database in `/var/lib/spanish-learning`.
+  unit + nginx snippets, `/etc/spanish-learning/env` for the public URL. Read-only install, database in `/var/lib/spanish-learning`.
 
 User-made courses live in the database, so the install needs no other
 writable path, and a release never touches the database.
@@ -905,15 +901,12 @@ writable path, and a release never touches the database.
   most 10,000 keys; a full table drops ended windows and otherwise refuses
   new keys (as over the limit) rather than evicting a running one, so a
   flood cannot reset an account's wrong-password count.
-  Changing the password or two-factor sign-in, linking or unlinking Google,
+  Changing the password or two-factor sign-in
   and *Sign out everywhere else* sign out the account's other sessions; a
   reset link signs out all of them. Registration never says whether an
   address has an account (#379).
-  Linking Google needs the password and a trip to Google that the server
-  started for that account (`oauth::StepUps`); a Google-only account
-  proves itself with its second step's code or a fresh trip to Google.
 - Two-factor sign-in (`src/two_factor.rs`, [features](features#two-factor-sign-in)):
-  with a method on, the password (or Google) only leaves a challenge named
+  with a method on, the password only leaves a challenge named
   by a 256-bit token in the `twofa` cookie (HttpOnly, SameSite=Lax, 10
   minutes; the table keeps its SHA-256); the session is made after the
   code. E-mailed codes are 6 random digits, 10 minutes, 5 tries
@@ -931,7 +924,7 @@ writable path, and a release never touches the database.
   associated data bound to the user). Turning the second step off or
   switching it needs the password (checked like `/login`: argon2 off the
   async workers, 10 tries per account per 15 minutes, wrong ones count
-  against the sign-in limit); a Google-only account gives a code from its
+  against the sign-in limit); an account without a password gives a code from its
   current method instead. `/dev/login` skips the second step.
 - Course files are validated on every save and limited to 1 MiB each and 400
   per course, 8 MiB per course and 32 MiB per account in all, and 50 courses
@@ -977,8 +970,8 @@ writable path, and a release never touches the database.
   the `export` job in `exports.rs`, on the `jobs` runner, reads every table in
   `privacy::USER_TABLES` a page at a time, the columns in
   `privacy::EXPORTED`, into `<db>.exports/`) and deletes the account (`POST /profile/delete`: the password,
-  or for a Google-only account the e-mail address typed out plus its
-  second step's code or a fresh "Confirm with Google"; refused while a
+  or for an account without one the e-mail address typed out plus its
+  second step's code, if it has one; refused while a
   Stripe subscription would keep billing). Deletion stops the account's
   generation jobs, tutor chats and games in memory, removes the `users` row
   (every user table cascades from it) and the caches of its courses<!-- themes --> and

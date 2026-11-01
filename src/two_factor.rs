@@ -1,4 +1,4 @@
-//! Two-factor sign-in (#292): after the password (or Google) a second step
+//! Two-factor sign-in (#292): after the password a second step
 //! asks for a code, from one method at a time (`users.two_factor`):
 //!
 //! - `email`: a 6-digit code e-mailed to the account's address, which must
@@ -22,7 +22,7 @@
 //!
 //! Turning the second step off, or switching it to another method, needs
 //! proof that it is the account's owner, not just a session ([`needs_proof`]):
-//! the password, or, for a Google-only account (no password), a code from
+//! the password, or, for an account without one, a code from
 //! the current second step ([`issue_confirm_code`], [`check_confirm_code`]).
 
 use rusqlite::{params, Connection, OptionalExtension};
@@ -119,7 +119,7 @@ pub fn settings(conn: &Connection, user_id: i64) -> rusqlite::Result<Settings> {
 }
 
 /// Does going from the current method to `to` need the password (or a
-/// code, or Google)? Every change does (#374): turning it on as well, or a
+/// code)? Every change does (#374): turning it on as well, or a
 /// session holder could put their own app in front of the
 /// owner's next sign-in. Only choosing the method already in use does not.
 pub fn needs_proof(current: Option<Method>, to: Option<Method>) -> bool {
@@ -375,7 +375,7 @@ pub fn check_login(conn: &Connection, vault: &Vault, token: &str, code: &str, no
 
 // ---------- proving it is the owner, without a password ----------
 
-/// A Google-only account turning its e-mailed second step off (or
+/// An account without a password turning its e-mailed second step off (or
 /// switching it): a new code to the current method's address
 /// (older ones stop working), as `(method, to, code)`. `None` with no such
 /// method in use; an authenticator app needs no code sent.

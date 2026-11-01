@@ -29,7 +29,6 @@ pub struct ProfileTemplate {
     /// How other learners see the name being edited ("Ana L."), for the privacy note.
     pub public_name: String,
     pub member_since: String,
-    pub google_enabled: bool,
     pub notice: Option<String>,
     /// Which form failed, so the message sits next to it.
     pub password_error: Option<String>,
@@ -71,14 +70,7 @@ pub struct ProfileTemplate {
     pub confirm_remove: bool,
     pub confirm_error: Option<String>,
     pub confirm_sent: Option<String>,
-    /// A Google-only account without a second step just confirmed it's
-    /// its owner with Google (#376): the next change goes ahead.
-    pub google_confirmed: bool,
-    /// The Google link / unlink dialog to open on load (`link`, `unlink`,
-    /// `''`), and why it was refused.
-    pub google_open: String,
-    pub google_error: Option<String>,
-    /// Deleting a Google-only account: where its code went.
+    /// Deleting an account without a password: where its code went.
     pub delete_sent: Option<String>,
     /// "Download my data": the newest export (exports.rs), and why a link did not work.
     pub export: Option<crate::exports::Status>,
@@ -90,14 +82,14 @@ pub struct ProfileTemplate {
 
 impl ProfileTemplate {
     /// How this account proves it is its owner (`prove_owner`): `password`;
-    /// a Google-only account a `code` from its app, one it is `send`
-    /// (e-mailed), or, without a second step, `google`.
+    /// an account without one a `code` from its app, one it is `send`
+    /// (e-mailed), or, without a second step, `none`.
     pub fn proof_kind(&self) -> &'static str {
         match (self.profile.has_password, self.profile.two_factor.method) {
             (true, _) => "password",
             (false, Some(crate::two_factor::Method::Totp)) => "code",
             (false, Some(_)) => "send",
-            (false, None) => "google",
+            (false, None) => "none",
         }
     }
 
@@ -201,7 +193,7 @@ impl ProfileTemplate {
 
     /// Dev mode: the "scan" into the dev authenticator.
     pub fn totp_dev_link(&self) -> String {
-        crate::url(&format!("/dev/authenticator?uri={}", crate::oauth::urlencode(&self.totp_uri())))
+        crate::url(&format!("/dev/authenticator?uri={}", crate::urlenc::urlencode(&self.totp_uri())))
     }
 }
 
@@ -300,10 +292,6 @@ pub struct ShowQuery {
     pub ai: Option<String>,
     /// `enrol`: an authenticator app's enrolment just started.
     pub totp: Option<String>,
-    /// `google`: back from confirming it's you with Google (#376), for
-    /// the two-factor `method` being chosen (else to delete the account).
-    pub confirmed: Option<String>,
-    pub method: Option<String>,
 }
 
 #[derive(Deserialize)]
@@ -357,16 +345,11 @@ async fn load_profile(state: &AppState, user: &CurrentUser) -> Result<Loaded, Ap
 }
 
 fn page(state: &AppState, user: CurrentUser, (p, api_keys, subscription, ai): Loaded) -> ProfileTemplate {
-    let google_confirmed = state.step_ups.is_confirmed(user.id, crate::db::now());
     ProfileTemplate {
-        google_confirmed,
-        google_open: String::new(),
-        google_error: None,
         delete_sent: None,
         display_name: profile::display_name(&p.first_name, &p.last_name),
         public_name: profile::public_name(&p.first_name, &p.last_name),
         member_since: profile::member_since(p.created_at),
-        google_enabled: state.google.is_some(),
         user: Some(user),
         profile: p,
         notice: None,
@@ -417,7 +400,6 @@ pub async fn show(
     let provider = q.provider.as_deref().and_then(Provider::parse);
     t.notice = match (q.saved.as_deref(), provider) {
         (Some("password"), _) => Some(crate::t("profile.password.changed")),
-        (Some("google-joined"), _) => Some(crate::t("profile.google_link.joined_notice")),
         (Some("verify-sent"), _) if t.user.as_ref().is_some_and(|u| u.needs_email_confirmation()) => Some(crate::t1("profile.save.sent_to", "email", t.profile.email.as_deref().unwrap_or_default())),
         (Some("key-removed"), Some(p)) => Some(crate::t1("profile.api_keys.removed", "provider", p.label())),
         (Some("ai-off"), _) => Some(crate::t("profile.ai.hidden_notice")),
@@ -431,8 +413,6 @@ pub async fn show(
         (Some("export-queued"), _) if !t.caps.mail => Some(crate::t("profile.data.export_building_no_mail")),
         (Some("export-queued"), _) => Some(crate::t("profile.data.export_queued")),
         (Some("signed-out"), _) => Some(crate::t("profile.sessions.signed_out_notice")),
-        (Some("google-linked"), _) => Some(crate::t("profile.google_link.linked_notice")),
-        (Some("google-unlinked"), _) => Some(crate::t("profile.google_link.unlinked_notice")),
         (Some("plan"), _) if t.subscription.premium => Some(crate::t1("profile.subscription.plan_thanks", "plan", t.subscription.plan.label())),
         (Some("cancelled"), _) => Some(crate::t1("profile.subscription.cancelled_notice", "note", t.subscription.cancel_note())),
         (Some("own-keys-on"), _) => Some(crate::t1("profile.api_keys.own_keys_on", "hosted", crate::tutor::hosted_label())),
@@ -456,13 +436,6 @@ pub async fn show(
     if q.totp.as_deref() == Some("enrol") && t.profile.two_factor.totp_pending {
         t.totp_key = pending_totp_key(&state, user_id(&t)).await?;
         t.totp_open = t.totp_key.is_some();
-    }
-    // Back from Google with a two-factor change waiting: its dialog again, ready to confirm.
-    if let (Some("google"), Some(m), true) = (q.confirmed.as_deref(), q.method.as_deref(), t.google_confirmed) {
-        if parse_method(m).is_ok() {
-            t.confirm_open = true;
-            t.confirm_method = m.to_string();
-        }
     }
     let uid = user_id(&t);
     t.export = state.db.call(move |c| crate::exports::status(c, uid, crate::db::now())).await?;
@@ -682,9 +655,9 @@ fn parse_method(m: &str) -> Result<Option<crate::two_factor::Method>, AppError> 
 /// Is it the account's owner, not just someone with the session? The
 /// password, checked like `/login` (argon2 off the async workers, limited
 /// per account, a wrong one counting against sign-in, refused while sign-in
-/// is blocked); a Google-only account has none, so a code from its current
-/// second step instead, or without one a fresh "Confirm with Google"
-/// (`StepUps`, #376). Every account change that a stolen session must not
+/// is blocked); an account without one (signed in through a proxy) gives a
+/// code from its current second step instead, or without one nothing: the
+/// proxy vouches for it on every request. Every account change that a stolen session must not
 /// make goes through here. `Some((status, message))` refuses.
 async fn prove_owner(state: &AppState, user: &CurrentUser, password: &str, code: &str) -> Result<Option<(StatusCode, String)>, AppError> {
     use crate::security::{LOGIN_FAILURES_PER_USER, PASSWORD_PER_USER};
@@ -710,11 +683,8 @@ async fn prove_owner(state: &AppState, user: &CurrentUser, password: &str, code:
         return Ok(None);
     }
     if state.db.call(move |c| crate::two_factor::settings(c, uid)).await?.method.is_none() {
-        // No password and no second step: Google itself vouches, once.
-        if state.step_ups.spend(uid, now) {
-            return Ok(None);
-        }
-        return Ok(Some((StatusCode::FORBIDDEN, crate::t("profile.google_link.confirm_needed"))));
+        // No password and no second step: nothing to ask.
+        return Ok(None);
     }
     if code.trim().is_empty() {
         return Ok(Some((StatusCode::FORBIDDEN, crate::t("profile.two_factor.type_code"))));
@@ -948,7 +918,7 @@ pub async fn change_password(
         Page(t).into_response()
     };
     if !p.has_password {
-        return Ok(fail(&state, user, p, &crate::t("profile.password.google_only")));
+        return Ok(fail(&state, user, p, &crate::t("profile.password.none")));
     }
     if form.new != form.confirm {
         return Ok(fail(&state, user, p, &crate::t("profile.password.mismatch")));
@@ -991,96 +961,6 @@ pub async fn end_other_sessions(State(state): State<Arc<AppState>>, user: Curren
     let ended = state.db.call(move |c| auth::delete_other_sessions(c, uid, &keep)).await?;
     tracing::info!("user {uid} signed out everywhere else ({ended} sessions)");
     Ok(Redirect::to(&crate::url("/profile?saved=signed-out#account")).into_response())
-}
-
-#[derive(Deserialize)]
-pub struct ProofForm {
-    #[serde(default)]
-    pub password: String,
-}
-
-/// The profile again with the Google link or unlink dialog open, saying why.
-async fn google_again(state: &AppState, user: CurrentUser, status: StatusCode, open: &str, why: String) -> Result<Response, AppError> {
-    let open = open.to_string();
-    profile_with(state, user, status, move |t| {
-        t.google_open = open;
-        t.google_error = Some(why);
-    })
-    .await
-}
-
-/// POST /profile/google/link (password): connect a Google account (#360).
-/// The password first (`prove_owner`), then Google; the callback links it
-/// only for the account that started (`StepUps`) and signs out the other
-/// devices. A Google-only account is already linked.
-pub async fn link_google(State(state): State<Arc<AppState>>, user: CurrentUser, Form(f): Form<ProofForm>) -> Result<Response, AppError> {
-    state.google.as_ref().ok_or(AppError::NotFound)?;
-    let uid = user.id;
-    if state.db.call(move |c| auth::google_linked(c, uid)).await? {
-        return Ok(Redirect::to(&crate::url("/profile#account")).into_response());
-    }
-    if let Some((status, why)) = prove_owner(&state, &user, &f.password, "").await? {
-        return google_again(&state, user, status, "link", why).await;
-    }
-    tracing::info!("user {uid} is connecting a Google account");
-    super::auth::to_google(&state, uid, crate::oauth::StepUp::Link, "/profile?saved=google-linked#account", None)
-}
-
-/// POST /profile/google/unlink (password): "Continue with Google" stops
-/// signing in to this account (#360), and the other devices are signed
-/// out. Only an account with a password: a Google-only one would be left
-/// with no way in.
-pub async fn unlink_google(
-    State(state): State<Arc<AppState>>,
-    user: CurrentUser,
-    auth::SessionToken(token): auth::SessionToken,
-    Form(f): Form<ProofForm>,
-) -> Result<Response, AppError> {
-    let uid = user.id;
-    let has_password = !state.db.call(move |c| profile::password_hash(c, uid)).await?.unwrap_or_default().is_empty();
-    if !has_password {
-        return google_again(&state, user, StatusCode::UNPROCESSABLE_ENTITY, "unlink", crate::t("profile.google_link.stays_connected")).await;
-    }
-    if let Some((status, why)) = prove_owner(&state, &user, &f.password, "").await? {
-        return google_again(&state, user, status, "unlink", why).await;
-    }
-    let keep = token.unwrap_or_default();
-    let (unlinked, ended) = state
-        .db
-        .call(move |c| {
-            let unlinked = auth::unlink_google(c, uid)?;
-            let ended = if unlinked { auth::delete_other_sessions(c, uid, &keep)? } else { 0 };
-            Ok((unlinked, ended))
-        })
-        .await?;
-    if unlinked {
-        tracing::info!("user {uid} unlinked their Google account ({ended} other sessions signed out)");
-    }
-    Ok(Redirect::to(&crate::url("/profile?saved=google-unlinked#account")).into_response())
-}
-
-#[derive(Deserialize)]
-pub struct GoogleConfirmForm {
-    /// `two-factor` (with the `method` being chosen) or `delete`.
-    #[serde(default)]
-    pub then: String,
-    #[serde(default)]
-    pub method: String,
-}
-
-/// POST /profile/google/confirm (then, method): a Google-only account with
-/// no second step proves it is its owner by going through Google again
-/// (#374, #376). Back on the profile, the change it was making goes ahead
-/// once (`prove_owner` spends the confirmation).
-pub async fn confirm_with_google(State(state): State<Arc<AppState>>, user: CurrentUser, Form(f): Form<GoogleConfirmForm>) -> Result<Response, AppError> {
-    state.google.as_ref().ok_or(AppError::NotFound)?;
-    let back = if f.then == "delete" {
-        "/profile?confirmed=google#data".to_string()
-    } else {
-        parse_method(&f.method)?;
-        format!("/profile?confirmed=google&method={}#two-factor", crate::oauth::urlencode(&f.method))
-    };
-    super::auth::to_google(&state, user.id, crate::oauth::StepUp::Confirm, &back, Some(&user.email))
 }
 
 /// POST /profile/ai (off=1|0): "Do Not Show Me AI Features" on or off. On, the

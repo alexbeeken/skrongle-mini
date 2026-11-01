@@ -72,8 +72,6 @@ We collect personal information that you voluntarily provide to us when you regi
 
 Payments are processed by Stripe. Card numbers and billing details are entered on Stripe's hosted checkout and never reach our servers. We store only the Stripe customer id, subscription id and the subscription status (active, cancelled, past due) needed to run your account. Prices are in Canadian dollars. Stripe may use your payment information for fraud prevention under its own privacy policy.
 
-**Social Media Login Data.** We may provide you with the option to register with us using your existing social media account details, like your Google account. If you choose to register in this way, we will collect certain profile information about you from the social media provider, as described in the section called ["HOW DO WE HANDLE YOUR SOCIAL LOGINS?"](#7-how-do-we-handle-your-social-logins) below.
-
 All personal information that you provide to us must be true, complete, and accurate, and you must notify us of any changes to such personal information.
 
 ### Information automatically collected
@@ -87,10 +85,6 @@ Like many businesses, we also collect information through cookies and similar te
 The information we collect includes:
 
 - *Log and Usage Data.* Log and usage data is service-related, diagnostic, usage, and performance information our servers automatically collect when you access or use our Services and which we record in log files. Depending on how you interact with us, this log data may include your IP address, device information, browser type, and settings and information about your activity in the Services (such as the date/time stamps associated with your usage, pages and files viewed, searches, and other actions you take such as which features you use), device event information (such as system activity, error reports (sometimes called "crash dumps"), and hardware settings).
-
-### Google API
-
-Our use of information received from Google APIs will adhere to [Google API Services User Data Policy](https://developers.google.com/terms/api-services-user-data-policy), including the [Limited Use requirements](https://developers.google.com/terms/api-services-user-data-policy#limited-use).
 
 ## 2. HOW DO WE PROCESS YOUR INFORMATION?
 
@@ -147,7 +141,6 @@ In some exceptional cases, we may be legally permitted under applicable law to p
 - **Communication Tools:** the e-mail provider that delivers the messages we send you (your address, the subject and the message), and the text message provider that delivers sign-in codes (your phone number and the text)
 - **AI Platforms:** Anthropic, Google Cloud AI and OpenAI, when you use an AI feature (see ["AI FEATURES"](#15-ai-features))
 - **Content Safety Checks:** TypeSafe, which reads the text of a course you make (a lesson at a time, with its title, no account details) to check it against our Terms before it is shared
-- **Authentication Services:** Google, when you sign in with Google
 
 We also may need to share your personal information in the following situations:
 
@@ -195,11 +188,9 @@ We believe in giving you the power to decide how your data is used. To opt out, 
 
 ## 7. HOW DO WE HANDLE YOUR SOCIAL LOGINS?
 
-***In Short:** If you choose to register or log in to our Services using a social media account, we may have access to certain information about you.*
+***In Short:** We do not offer sign-in with a social media account.*
 
-Our Services offer you the ability to register and log in using your third-party social media account details (like your Google login). Where you choose to do this, we will receive certain profile information about you from your social media provider. The profile information we receive from Google is your Google account id, your name and your email address.
-
-We will use the information we receive only for the purposes that are described in this Privacy Notice or that are otherwise made clear to you on the relevant Services. Please note that we do not control, and are not responsible for, other uses of your personal information by your third-party social media provider. We recommend that you review their privacy notice to understand how they collect, use, and share your personal information, and how you can set your privacy preferences on their sites and apps.
+Our Services do not offer registration or login with a third-party social media account.
 
 ## 8. IS YOUR INFORMATION TRANSFERRED INTERNATIONALLY?
 
@@ -262,7 +253,7 @@ If you are located in the EEA or UK and you believe we are unlawfully processing
 
 If you are located in Switzerland, you may contact the [Federal Data Protection and Information Commissioner](https://www.edoeb.admin.ch/edoeb/en/home.html).
 
-**Withdrawing your consent:** If we are relying on your consent to process your personal information, which may be express and/or implied consent depending on the applicable law, you have the right to withdraw your consent at any time. You can withdraw your consent under *Privacy and consent* on your profile: it lists what you agreed to and when (the Terms, your age, your phone number and Google sign-in where you use them, and AI features), and each row has its own switch or link to take the consent back. Each change is recorded with its date and comes with your data download. You can also withdraw your consent by contacting us by using the contact details provided in the section ["HOW CAN YOU CONTACT US ABOUT THIS NOTICE?"](#22-how-can-you-contact-us-about-this-notice) below.
+**Withdrawing your consent:** If we are relying on your consent to process your personal information, which may be express and/or implied consent depending on the applicable law, you have the right to withdraw your consent at any time. You can withdraw your consent under *Privacy and consent* on your profile: it lists what you agreed to and when (the Terms, your age, your phone number where you use one, and AI features), and each row has its own switch or link to take the consent back. Each change is recorded with its date and comes with your data download. You can also withdraw your consent by contacting us by using the contact details provided in the section ["HOW CAN YOU CONTACT US ABOUT THIS NOTICE?"](#22-how-can-you-contact-us-about-this-notice) below.
 
 However, please note that this will not affect the lawfulness of the processing before its withdrawal nor, when applicable law allows, will it affect the processing of your personal information conducted in reliance on lawful processing grounds other than consent.
 

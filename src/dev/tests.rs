@@ -33,18 +33,6 @@ fn marks_are_per_box_and_row() {
     assert!(m.get("mail-out", 1).read);
 }
 
-#[test]
-fn mock_google_stands_in_only_in_dev_without_a_real_client() {
-    assert!(!mock_google_wanted(false, false));
-    assert!(!mock_google_wanted(true, true));
-    assert!(mock_google_wanted(true, false));
-    let cfg = mock_google("127.0.0.1:8123".parse().unwrap());
-    assert!(cfg.mock);
-    assert_eq!(cfg.auth_url, "/dev/google/auth");
-    assert_eq!(cfg.redirect_uri, "/auth/google/callback");
-    assert_eq!(cfg.token_url, "http://127.0.0.1:8123/dev/google/token");
-}
-
 /// `--watch`: HTML pages get the reload poller; other responses do not.
 #[test]
 fn reload_poller_goes_into_html_only() {
@@ -64,38 +52,6 @@ fn reload_poller_goes_into_html_only() {
     let (page, text) = (get("/page"), get("/text"));
     assert!(page.starts_with("<p>hi</p><script>") && page.contains(boot_id()) && page.contains("/dev/boot"), "{page}");
     assert_eq!(text, "plain");
-}
-
-#[test]
-fn mock_code_roundtrips_and_errors_spell_themselves() {
-    let code = MockCode { email: "a@b.c".into(), nonce: "n".into(), challenge: "ch".into(), error: Some(MockGoogleError::Unverified), issued_at: 5 };
-    let s = code.encode();
-    assert!(s.starts_with("4/mock."));
-    assert_eq!(MockCode::decode(&s), Some(code));
-    assert_eq!(MockCode::decode("4/0AbCdEf"), None);
-    assert_eq!(MockCode::decode("nope"), None);
-    for e in MockGoogleError::ALL {
-        assert_eq!(MockGoogleError::parse(e.as_str()), Some(e));
-    }
-    assert_eq!(MockGoogleError::parse("explode"), None);
-}
-
-#[test]
-fn mock_accounts_are_stable_and_their_tokens_pass_the_real_checks() {
-    let (sub, name) = mock_google_account("Ana.Lopez@Example.org");
-    assert_eq!((sub.clone(), name.as_str()), (mock_google_account("ana.lopez@example.org").0, "Ana Lopez"));
-    assert_eq!(sub.len(), 20);
-    assert!(sub.bytes().all(|b| b.is_ascii_digit()));
-    assert_ne!(sub, mock_google_account("bob@example.org").0);
-    assert_eq!(mock_google_account("@x").1, "Mock Learner");
-
-    let now = 1_700_000_000;
-    let token = mock_id_token(MOCK_GOOGLE_CLIENT_ID, "Ana.Lopez@Example.org", true, "nonce-1", now);
-    let id = crate::oauth::parse_id_token(&token, MOCK_GOOGLE_CLIENT_ID, "nonce-1", now).unwrap();
-    assert_eq!(id, crate::oauth::Identity { sub, email: "ana.lopez@example.org".into(), name: Some("Ana Lopez".into()) });
-    assert!(crate::oauth::parse_id_token(&token, MOCK_GOOGLE_CLIENT_ID, "nonce-2", now).unwrap_err().contains("nonce"));
-    let unverified = mock_id_token(MOCK_GOOGLE_CLIENT_ID, "ana@example.org", false, "nonce-1", now);
-    assert!(crate::oauth::parse_id_token(&unverified, MOCK_GOOGLE_CLIENT_ID, "nonce-1", now).unwrap_err().contains("verified"));
 }
 
 fn addr(s: &str) -> SocketAddr {

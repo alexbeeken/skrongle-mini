@@ -566,7 +566,7 @@ mod tests {
         for part in js.iter().flat_map(|f| f.split("document.cookie = \"").skip(1)) {
             names.extend(part.split('=').next().map(str::to_string));
         }
-        for must in ["sid", "oauth", "signup", "twofa", "lang", "tz"] {
+        for must in ["sid", "twofa", "lang", "tz"] {
             assert!(names.iter().any(|n| n == must), "the scan missed the {must} cookie: {names:?}");
         }
         let md = String::from_utf8_lossy(&Docs::get("cookies.md").unwrap().data).into_owned();

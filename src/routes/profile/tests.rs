@@ -2,7 +2,7 @@ use crate::content::CourseFile;
 
 /// The privacy page is public; the export holds the learner's data and
 /// no secrets; deleting the account needs the password (or the e-mail address,
-/// for Google-only accounts), refuses while a subscription bills, signs the
+/// for accounts without one), refuses while a subscription bills, signs the
 /// account out and schedules the deletion 14 days out (#970): signing in
 /// again shows only the page that cancels it, and once due the hourly job
 /// leaves nothing to sign in with.
@@ -15,7 +15,7 @@ fn privacy_page_export_and_account_deletion_over_http() {
         .db
         .with(|c| {
             let ann = crate::auth::create_user(c, "ann@example.org", &hash)?;
-            let gil = crate::auth::create_google_user(c, "g-1", "gil@example.org")?;
+            let gil = crate::auth::create_user(c, "gil@example.org", "")?;
             let files = [CourseFile { path: "course.json".into(), content: "{\"id\": \"ann-c\", \"note\": \"ann-file\"}".into() }];
             crate::courses::create_course(c, ann, "ann-c", "Ann's", &files)?;
             c.execute(
@@ -146,86 +146,37 @@ fn privacy_page_export_and_account_deletion_over_http() {
     let (status, _, _) = post("/login", "", &[("email", "ann@example.org"), ("password", "right-password")]);
     assert_eq!(status, 200, "signing in fails (the form is shown again)");
 
-    // A Google-only account types its e-mail address, and (no second
-    // step) must have just confirmed with Google: the session and the
-    // address shown on the page are not enough (#376).
+    // An account without a password types its e-mail address (no second
+    // step, so nothing more).
     let (status, _, html) = post("/profile/delete", &format!("sid={gil_t}"), &[("confirm", "nope")]);
     assert_eq!(status, 200);
     assert!(html.contains("Type your e-mail address"));
-    let (status, _, html) = post("/profile/delete", &format!("sid={gil_t}"), &[("confirm", " GIL@example.org ")]);
-    assert_eq!(status, 200);
-    assert!(html.contains("Confirm with Google to make this change") && html.contains("profile-delete-google"));
-    state.step_ups.confirm(gil, crate::db::now());
-    assert!(get("/profile", &format!("sid={gil_t}")).1.contains("profile-delete-google-done"));
     assert_eq!(post("/profile/delete", &format!("sid={gil_t}"), &[("confirm", " GIL@example.org ")]).0, 303);
     let scheduled: bool = state.db.with(|c| c.query_row("SELECT delete_at IS NOT NULL FROM users WHERE id = ?1", [gil], |r| r.get(0))).unwrap();
     assert!(scheduled, "scheduled, not deleted at once");
 }
 
-/// A Google sign-up whose Google account was linked to an account in
-/// the meantime signs in to it through the second step, not around it (#377).
-#[test]
-fn google_confirm_step_signs_in_to_an_existing_account_through_its_second_step() {
-    let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let listener = rt.block_on(tokio::net::TcpListener::bind("127.0.0.1:0")).unwrap();
-    let addr = listener.local_addr().unwrap();
-    let mut s = std::sync::Arc::into_inner(crate::routes::test_state(false, None)).unwrap();
-    s.google = Some(crate::dev::mock_google(addr));
-    let state = std::sync::Arc::new(s);
-    let ann = state
-        .db
-        .with(|c| {
-            let ann = crate::auth::create_user(c, "ann@example.org", "h")?;
-            c.execute("UPDATE users SET email_verified_at = 1 WHERE id = ?1", [ann])?;
-            crate::auth::link_google(c, ann, "g-9", "ann@example.org")?;
-            Ok(ann)
-        })
-        .unwrap();
-    state.db.with(|c| crate::two_factor::set_method(c, ann, Some(crate::two_factor::Method::Email))).unwrap().unwrap();
-    let token = state.signups.insert(crate::oauth::Identity { sub: "g-9".into(), email: "ann@example.org".into(), name: None }, crate::db::now());
-    let app = crate::routes::router(state.clone());
-    rt.spawn(async move { axum::serve(listener, app.into_make_service_with_connect_info::<std::net::SocketAddr>()).await.unwrap() });
-    let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
-    let r = agent
-        .post(&format!("http://{addr}/auth/google/confirm"))
-        .header("cookie", &format!("signup={token}"))
-        .send_form([("age", "on"), ("accept", "on")])
-        .unwrap();
-    assert_eq!(r.status().as_u16(), 303);
-    assert_eq!(r.headers().get("location").unwrap(), "/login/code");
-    let cookies: Vec<String> = r.headers().get_all("set-cookie").iter().map(|v| v.to_str().unwrap().to_string()).collect();
-    assert!(cookies.iter().any(|c| c.starts_with("twofa=") && !c.starts_with("twofa=;")), "a second-step challenge: {cookies:?}");
-    assert!(!cookies.iter().any(|c| c.starts_with("sid=")), "no session before the second step");
-    let sessions: i64 = state.db.with(|c| c.query_row("SELECT COUNT(*) FROM sessions WHERE user_id = ?1", [ann], |r| r.get(0))).unwrap();
-    assert_eq!(sessions, 0);
-}
-
-/// Account changes a stolen session must not make (#360, #374, #375,
-/// #376): linking Google needs the password and a trip to Google that
-/// this account started; unlinking needs the password; turning
-/// two-factor on needs proof, signs out the other devices and e-mails
-/// the account; "Sign out everywhere else" ends every other session; a
-/// Google-only account with a second step deletes with its code.
+/// Account changes a stolen session must not make (#374, #375, #376):
+/// turning two-factor on needs proof, signs out the other devices and
+/// e-mails the account; "Sign out everywhere else" ends every other
+/// session; an account without a password but with a second step deletes
+/// with its code.
 #[test]
 fn account_changes_need_proof_and_sign_out_other_devices() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
     let listener = rt.block_on(tokio::net::TcpListener::bind("127.0.0.1:0")).unwrap();
     let addr = listener.local_addr().unwrap();
-    // Dev mode, for the stand-in Google (`dev::mock_google`).
-    let mut s = std::sync::Arc::into_inner(crate::routes::test_state(true, None)).unwrap();
-    s.google = Some(crate::dev::mock_google(addr));
-    let state = std::sync::Arc::new(s);
+    let state = crate::routes::test_state(true, None);
     let hash = crate::auth::hash_password("right-password").unwrap();
     let (ann, gil) = state
         .db
         .with(|c| {
             let ann = crate::auth::create_user(c, "ann@example.org", &hash)?;
-            let (sub, _) = crate::dev::mock_google_account("gil@example.org");
-            let gil = crate::auth::create_google_user(c, &sub, "gil@example.org")?;
+            let gil = crate::auth::create_user(c, "gil@example.org", "")?;
             for u in [ann, gil] {
                 crate::terms::accept(c, u, crate::terms::version())?;
             }
-            c.execute("UPDATE users SET email_verified_at = 1 WHERE id = ?1", [ann])?;
+            c.execute("UPDATE users SET email_verified_at = 1 WHERE id IN (?1, ?2)", [ann, gil])?;
             Ok((ann, gil))
         })
         .unwrap();
@@ -242,48 +193,10 @@ fn account_changes_need_proof_and_sign_out_other_devices() {
         let (location, cookie) = (header("location"), header("set-cookie").split(';').next().unwrap_or_default().to_string());
         (r.status().as_u16(), location, cookie, r.body_mut().read_to_string().unwrap())
     };
-    let get = |path: &str, cookie: &str| send(agent.get(&format!("{base}{path}")).header("cookie", cookie).call());
     let post = |path: &str, cookie: &str, form: &[(&str, &str)]| send(agent.post(&format!("{base}{path}")).header("cookie", cookie).send_form(form.iter().copied()));
-    // Through the stand-in Google and back to the callback, with the `oauth` cookie the start set.
-    let via_google = |to_google: &str, oauth: &str, sid: &str| {
-        let (status, back, _, _) = get(to_google.trim_start_matches(&base), "");
-        assert_eq!(status, 303, "the stand-in sends the browser back");
-        get(back.trim_start_matches(&base), &format!("{sid}; {oauth}"))
-    };
-
-    // Linking Google: /auth/google no longer links a signed-in account.
     let (ann_t, ann_other) = (session(ann), session(ann));
     let ann_c = format!("sid={ann_t}");
-    let (status, location, _, _) = get("/auth/google", &ann_c);
-    assert_eq!((status, location.as_str()), (303, "/profile#account"));
-    // A hand-written `oauth` cookie claiming a link is refused: the server never started one.
-    let forged = crate::oauth::Pending::new(true);
-    let url = crate::oauth::auth_url(state.google.as_ref().unwrap(), &forged);
-    let (status, _, _, body) = via_google(&url, &format!("oauth={}", forged.encode()), &ann_c);
-    assert_eq!(status, 400);
-    assert!(body.contains("expired"));
-    assert!(!state.db.with(|c| crate::auth::google_linked(c, ann)).unwrap());
-    // No password, or a wrong one: the dialog again.
-    let (status, _, _, body) = post("/profile/google/link", &ann_c, &[("password", "")]);
-    assert_eq!(status, 403);
-    assert!(body.contains("profile-google-error") && body.contains("Type your password"));
-    assert_eq!(post("/profile/google/link", &ann_c, &[("password", "wrong")]).0, 403);
-    // The password: off to Google, back linked, the other session ended.
-    let (status, to_google, oauth, _) = post("/profile/google/link", &ann_c, &[("password", "right-password")]);
-    assert_eq!(status, 303);
-    let (status, location, _, _) = via_google(&to_google, &oauth, &ann_c);
-    assert_eq!((status, location.as_str()), (303, "/profile?saved=google-linked#account"));
-    assert!(state.db.with(|c| crate::auth::google_linked(c, ann)).unwrap());
-    assert!(alive(&ann_t) && !alive(&ann_other), "linking signs out the other devices (#375)");
-    assert!(get("/profile", &ann_c).3.contains("profile-google-unlink-open"));
-
-    // Unlinking needs the password too, and signs out the other devices.
-    let ann_other = session(ann);
-    assert_eq!(post("/profile/google/unlink", &ann_c, &[("password", "wrong")]).0, 403);
-    assert!(state.db.with(|c| crate::auth::google_linked(c, ann)).unwrap());
-    assert_eq!(post("/profile/google/unlink", &ann_c, &[("password", "right-password")]).0, 303);
-    assert!(!state.db.with(|c| crate::auth::google_linked(c, ann)).unwrap());
-    assert!(alive(&ann_t) && !alive(&ann_other));
+    assert!(alive(&ann_t) && alive(&ann_other));
 
     // "Sign out everywhere else".
     let ann_other = session(ann);
@@ -305,32 +218,16 @@ fn account_changes_need_proof_and_sign_out_other_devices() {
     let told: i64 = state.db.with(|c| c.query_row("SELECT COUNT(*) FROM mail_outbox WHERE user_id = ?1 AND purpose = 'two-factor-changed'", [ann], |r| r.get(0))).unwrap();
     assert_eq!(told, 1);
 
-    // A Google-only account without a second step confirms with Google
-    // to turn it on: the Google account it signs in with, once.
+    // An account without a password and without a second step has nothing
+    // to prove (the proxy that signs it in vouches for it); with one, a
+    // change takes a code from it.
     let gil_t = session(gil);
     let gil_c = format!("sid={gil_t}");
     state.db.with(|c| c.execute("UPDATE users SET email_verified_at = 1 WHERE id = ?1", [gil])).unwrap();
-    let (status, _, _, body) = post("/profile/two-factor", &gil_c, &[("method", "email")]);
-    assert_eq!(status, 403);
-    assert!(body.contains("two-factor-confirm-with-google"));
-    let (status, to_google, oauth, _) = post("/profile/google/confirm", &gil_c, &[("then", "two-factor"), ("method", "email")]);
-    assert_eq!(status, 303);
-    assert!(to_google.contains("login_hint=gil%40example.org"));
-    let (status, back, _, _) = via_google(&to_google, &oauth, &gil_c);
-    assert_eq!((status, back.as_str()), (303, "/profile?confirmed=google&method=email#two-factor"));
-    let page = get("/profile?confirmed=google&method=email", &gil_c).3;
-    assert!(page.contains("two-factor-confirm-google-done") && page.contains("data-open-on-load"));
     assert_eq!(post("/profile/two-factor", &gil_c, &[("method", "email")]).0, 303);
     let gil_method = || state.db.with(|c| crate::two_factor::settings(c, gil)).unwrap().method;
     assert_eq!(gil_method(), Some(crate::two_factor::Method::Email));
-    assert_eq!(post("/profile/two-factor", &gil_c, &[("method", "")]).0, 403, "the confirmation was used up");
-    // Another Google account does not confirm this one.
-    let (_, to_google, oauth, _) = post("/profile/google/confirm", &gil_c, &[("then", "delete")]);
-    let to_google = to_google.replace("login_hint=gil%40example.org", "login_hint=someone.else%40example.org");
-    let (status, _, _, body) = via_google(&to_google, &oauth, &gil_c);
-    assert_eq!(status, 400);
-    assert!(body.contains("not the Google account"));
-    assert!(!state.step_ups.is_confirmed(gil, crate::db::now()));
+    assert_eq!(post("/profile/two-factor", &gil_c, &[("method", "")]).0, 403, "turning it off takes a code");
 
     // With a second step, deleting it takes a code from that step (#376).
     let (status, _, _, body) = post("/profile/delete", &gil_c, &[("confirm", "gil@example.org")]);

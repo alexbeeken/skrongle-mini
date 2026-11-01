@@ -283,9 +283,6 @@ fn a_new_account_gets_the_sign_up_credit_once_confirmed() {
     db.with(|c| c.execute("UPDATE users SET email_verified_at = NULL WHERE id = ?1", [ana])).unwrap();
     db.with(|c| crate::verify::mark_verified(c, ana, 2)).unwrap();
     assert_eq!(credits(ana), 250_000, "confirming again gives nothing");
-    // A Google account comes confirmed.
-    let gil = db.with(|c| crate::auth::create_google_user(c, "g-1", "gil@example.org")).unwrap();
-    assert_eq!(credits(gil), 250_000);
     // An account from before v87 is marked done by the migration.
     let old = user(&db, "old");
     db.with(|c| c.execute("UPDATE users SET signup_credit_at = 0, email_verified_at = 1 WHERE id = ?1", [old])).unwrap();
