@@ -1934,14 +1934,8 @@ keep their explicit buttons. The page needs JavaScript.
   account only; the file is deleted once sent). Once it is ready the Data
   section also shows *Download my data* (`profile-export-download`,
   `POST /profile/export/download`: the same file, once, for the account
-  signed in). Where the finished file lives (#871, `src/storage.rs`): on
-  Skrongle mini and the dev server it stays on the server's disk and the
-  download streams it. On the hosted site it is uploaded to a private S3
-  bucket (`SKRONGLE_S3_BUCKET`) and the local copy deleted; after the same
-  session and link checks, the download redirects to a pre-signed S3 link
-  that works for 60 seconds, and the app deletes the bucket's copy five
-  minutes later. The bucket deletes anything under `exports/` after two
-  days. Not in Skrongle mini. On a server without mail (#633) that button is the only way:
+  signed in). The finished file stays on the server's disk, next to the
+  database, and the download streams it. On a server without mail (#633) that button is the only way:
   no link is mailed and the (i) says so. One export in flight and one
   a day per account; the (i) next to the heading says where it stands. The
   file has the columns `privacy::EXPORTED` lists: never the password hash,

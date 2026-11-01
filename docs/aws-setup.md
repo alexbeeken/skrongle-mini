@@ -621,17 +621,6 @@ none are waiting to go out.
 
 Last full restore test: not done yet.
 
-## Data exports bucket
-
-A learner's *Download my data* file goes to a second private bucket, the
-stack's `FilesBucket`, under `exports/` (#871). The deploy writes its name
-to `/etc/learnmap/env` as `SKRONGLE_S3_BUCKET`; the server refuses to start
-without it. The instance's role may put, read and delete objects under
-`exports/` only. A download is a pre-signed link that works for 60 seconds;
-the app deletes the file five minutes after it is downloaded, and the
-bucket's lifecycle rule deletes anything under `exports/` two days after
-upload. Like the backup bucket, it is kept when the stack is deleted.
-
 ## The content check in its own process
 
 The AI content check (Jev and the AI review of what scored high) can run

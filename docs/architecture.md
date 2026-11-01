@@ -49,7 +49,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 - Mail and texts: `mail.rs` (`mail/resend.rs`, `mail/postmark.rs`, `mail/brevo.rs`, `mail/sink.rs`), `sms.rs` (`sms/phone.rs`), `verify.rs` (address check), `reset.rs` + `routes/reset.rs` (password reset).
 - Two-factor: `two_factor.rs`, `totp.rs`.
 - Profile: `profile.rs`, `routes/profile.rs`, `static/profile.js`, `static/autosave.js`, `static/avatar-bg/` (picture backgrounds); keys in `secrets.rs`.
-- Data rights: `privacy.rs` (export columns, deletion), `exports.rs` (Download my data), `storage.rs` and `storage/s3.rs` (where finished exports live: disk, or the hosted site's S3 bucket, #871), `consent.rs` (optional consents for the Privacy and consent card), `account_deletion.rs` and `routes/account_deletion.rs` (deleting an account after 14 days, #970).
+- Data rights: `privacy.rs` (export columns, deletion), `exports.rs` (Download my data), `consent.rs` (optional consents for the Privacy and consent card), `account_deletion.rs` and `routes/account_deletion.rs` (deleting an account after 14 days, #970).
 - Plans: `billing.rs`, `routes/billing.rs`. Terms: `terms.rs`, `routes/terms.rs`. Owner and superuser: `owner.rs`, `routes/superuser.rs`, `routes/superuser/courses.rs` and `course_flags/table.rs` (the course table), `course_flags/owner_mail.rs` (e-mailing a course's owner, #1035), `moderation.rs` (take-downs, suspensions, blocked addresses), `breach.rs` and `routes/superuser/breach.rs` (breach tools: sign accounts out, e-mail a notice, #1068), `privacy_requests.rs` and `routes/superuser/privacy.rs` (privacy requests by e-mail and their log), `routes/password.rs` (temporary password gate).
 - Docs pages: `routes/docs.rs` (`/docs` sidebar `SECTIONS`, `/llms.txt`).
 
@@ -134,7 +134,6 @@ src/
   privacy.rs     a learner's data as a whole: USER_TABLES, the exported columns (EXPORTED/WITHHELD), account deletion, retention rules, the age confirmation (docs/data-inventory.md)
   jobs.rs        background jobs (table jobs, #872): enqueue, the one-statement claim with a lease, retries with per-kind delays, periodic kinds that queue their next run, sliced kinds that queue themselves again (`Step::Again`); the `jobs` runner thread, which also drains the mail and text outboxes with a lease (#873); the hourly housekeeping as one job per purge
   exports.rs     "Download my data" in the background (table data_exports): the `export` job (jobs.rs runner, #875) writes the file page by page to <db>.exports/, a slice per run, mails a one-time link, retention
-  storage.rs     where finished files live (#871): `Storage::Disk` (mini, dev) or `Storage::S3` (hosted, SKRONGLE_S3_BUCKET); storage/s3.rs is a hand-written S3 client (PUT, GET, DELETE, pre-signed GET; SigV4 on ureq + sha2; keys from the environment or the instance role via IMDSv2)
   mathcheck.rs   numeric and expression answers: a small parser/evaluator, numbers in every spelling, equivalence by sampling
   algebra_tiles.rs  algebra-tiles questions: the pile from `tiles`, an answer must be two sides whose product is the tiles
   clock.rs       clock answers: H:MM on the 12-hour face, the hands' angles, what a clock question may say
@@ -722,7 +721,7 @@ at startup (`Shape::Mini` or `Shape::Hosted`, `shape::current()`,
 A mini has none of the hosted site's production features and no second
 switch for any of them: plans are off (`Shape::has_plans`, below), and
 `crate::env` reads the settings in `shape::HOSTED_ONLY` (mail and text
-providers, Google, Stripe, `SKRONGLE_S3_BUCKET`) as unset, so those
+providers, Google, Stripe) as unset, so those
 features are off wherever they are read; the startup log names any that
 are set and ignored. Dev mode's stand-ins for them (dev mailbox and phone,
 mock Google, simulated Stripe) are off in a mini too. `SKRONGLE_PLANS` is
@@ -731,9 +730,7 @@ line and `/healthz` (`ok skrongle mini <version>`) say which shape runs.
 Self-hosting the full build is not supported: outside mini and dev mode the
 server refuses to start until e-mail (`SKRONGLE_MAIL_PROVIDERS`), texts
 (`SKRONGLE_SMS_PROVIDERS`), Google (`SKRONGLE_GOOGLE_CLIENT_ID`) and Stripe
-(`SKRONGLE_STRIPE_SECRET_KEY`) are all set, and the data exports bucket
-(`SKRONGLE_S3_BUCKET`) with them (`require_providers` in `main.rs`).
-Skrongle mini refuses to start with `SKRONGLE_S3_BUCKET` set.
+(`SKRONGLE_STRIPE_SECRET_KEY`) are all set (`require_providers` in `main.rs`).
 It also refuses to start without `SKRONGLE_SECURE_COOKIES=1` (the hosted site
 is served over HTTPS) and with `SKRONGLE_PROXY_AUTH_*` set (proxy sign-in is
 a mini feature; #980). The dev server's mailbox, phone, Google and Stripe stand in for them. The
@@ -777,7 +774,6 @@ posture are in `docs/self-hosting.md`, "Skrongle mini".
 | `SKRONGLE_CONTENT_CHECK_TZ` | `America/Vancouver` | The time zone whose midnight starts the nightly content check (#1038): a zoneinfo name (read from `/usr/share/zoneinfo`) or a POSIX TZ rule such as `PST8PDT,M3.2.0,M11.1.0`. Hosted only |
 | `SKRONGLE_CONTENT_CHECK_PER_NIGHT` | 200 | The most courses the nightly content check looks at in one night, oldest edit first; the rest wait for the next night (#1038). AI rechecks share the cap (#1040). Hosted only |
 | `SKRONGLE_CONTENT_CHECK_RECHECK_BEHIND` | 3 | How many versions behind `AI_CHECK_VERSION` a course's AI check may fall before the nightly run checks it again, within the nightly cap (#1040). Hosted only |
-| `SKRONGLE_S3_BUCKET` | — | The private S3 bucket finished data exports go to, under `exports/` (#871, `storage.rs`); its region is `AWS_REGION`. Keys come from `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY` / `AWS_SESSION_TOKEN` when set, else from the instance role (IMDSv2). Required on the hosted site (`scripts/deploy-aws.sh` writes it from the stack's `FilesBucket`); refused by Skrongle mini; unset on the dev server, exports stay on disk |
 | `SKRONGLE_STRIPE_PRICE_ID_BASIC` | — | The Basic plan's recurring price, not the same as `SKRONGLE_STRIPE_PRICE_ID`: the webhook takes the plan from the subscription's price, never its metadata (#963). Required on the hosted site; unset, Basic is not sold |
 | `SKRONGLE_STRIPE_PRICE_LABEL` | `Monthly` | What a Stripe-sold subscription is said to cost; the profile's plan chooser prices Basic and Plus itself (`billing::Plan`) |
 | `SKRONGLE_STRIPE_API_URL` | `https://api.stripe.com` | Where Stripe calls go; for pointing at a mock (dev mode without `SKRONGLE_STRIPE_*`: the dev payment provider) |

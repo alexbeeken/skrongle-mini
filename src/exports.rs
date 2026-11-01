@@ -23,11 +23,8 @@
 //!   their SHA-256. Either works for [`LINK_TTL_SECS`] and only for the
 //!   account signed in. Downloading deletes the file; so does expiry (hourly
 //!   housekeeping, [`purge`]) and deleting the account.
-//! - Where the finished file lives is [`Storage`] (#871): it stays in the
-//!   exports folder on Skrongle mini and the dev server; on the hosted site
-//!   it is uploaded to the S3 bucket under `exports/` and the local copy
-//!   deleted, and the download redirects to a pre-signed link
-//!   ([`Exports::link`]) once the session and the one-time link check out.
+//! - The finished file stays in the exports folder next to the database,
+//!   and the download streams it from there.
 //! - The file has the same content the synchronous export had: the columns
 //!   `privacy::EXPORTED` lists. Pages are read at different moments, so an
 //!   edit made while it is built may show in one table and not another.
@@ -35,7 +32,6 @@
 use std::fs::File;
 use std::io::{BufWriter, Seek, SeekFrom, Write};
 use std::path::{Path, PathBuf};
-use std::sync::Arc;
 use std::time::Duration;
 
 use rusqlite::{params, Connection, OptionalExtension};
@@ -43,7 +39,6 @@ use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
 use crate::db::Db;
-use crate::storage::Storage;
 use crate::{jobs, privacy};
 
 /// The outbox `purpose` of the "your data is ready" mail.
@@ -206,14 +201,8 @@ pub fn purge(conn: &Connection, now: i64) -> rusqlite::Result<Vec<String>> {
     Ok(files)
 }
 
-/// The object key of a finished export in the bucket.
-pub fn s3_key(file: &str) -> String {
-    format!("exports/{file}")
-}
-
 /// Delete files from the exports folder (names from [`take`], [`purge`] or
-/// account deletion). A missing file is fine. On the hosted site use
-/// [`Exports::remove`], which deletes the bucket's copies too.
+/// account deletion). A missing file is fine.
 pub fn remove_files(dir: &Path, files: &[String]) {
     for f in files {
         if let Some(p) = file_path(dir, f) {
@@ -317,13 +306,11 @@ pub struct Builder {
     pub slice_pages: usize,
     /// The pause after each page ([`PAUSE`]).
     pub pause: Duration,
-    /// Where the finished file goes ([`Storage::Disk`]: it stays in `dir`).
-    pub storage: Arc<Storage>,
 }
 
 impl Builder {
     pub fn new(dir: PathBuf, wake_mail: Option<Box<dyn Fn() + Send>>) -> Builder {
-        Builder { dir, wake_mail, slice_pages: SLICE_PAGES, pause: PAUSE, storage: Arc::new(Storage::Disk) }
+        Builder { dir, wake_mail, slice_pages: SLICE_PAGES, pause: PAUSE }
     }
 
     /// One run of the `export` job: one slice of the export its payload names.
@@ -462,25 +449,13 @@ impl Builder {
         self.done(db, place).map(|()| true)
     }
 
-    /// The file is complete and in place: upload it when the files live in
-    /// the bucket, mark the export ready and queue its mail. The local copy
-    /// of an uploaded file goes once the row is ready; a stop before that
-    /// leaves it named on the row, for [`purge`].
+    /// The file is complete and in place: mark the export ready and queue
+    /// its mail.
     fn done(&self, db: &Db, place: &mut Place) -> Result<(), Stop> {
-        let local = self.dir.join(&place.file);
-        place.bytes = std::fs::metadata(&local)?.len();
-        if let Some(bucket) = self.storage.bucket() {
-            bucket.put_file(&s3_key(&place.file), &local, crate::db::now()).map_err(Stop::Failed)?;
-        }
+        place.bytes = std::fs::metadata(self.dir.join(&place.file))?.len();
         let token = crate::auth::generate_token();
         if !db.with(|c| finish(c, place.export, &place.file, &token, place.bytes as i64, crate::db::now(), self.wake_mail.is_some()))? {
-            if let Some(bucket) = self.storage.bucket() {
-                let _ = bucket.delete(&s3_key(&place.file), crate::db::now());
-            }
             return Err(Stop::Gone);
-        }
-        if self.storage.bucket().is_some() {
-            remove_files(&self.dir, std::slice::from_ref(&place.file));
         }
         Ok(())
     }
@@ -570,76 +545,25 @@ pub fn remove_strays(db: &Db, dir: &Path) -> usize {
     n
 }
 
-/// The exports folder and where finished files live, kept in `AppState`.
+/// The exports folder, kept in `AppState`.
 pub struct Exports {
     pub dir: PathBuf,
-    pub storage: Arc<Storage>,
 }
 
 impl Exports {
     /// The folder next to the database, `<db>.exports`, made if missing.
-    pub fn open(db_path: &Path, storage: Arc<Storage>) -> std::io::Result<Exports> {
+    pub fn open(db_path: &Path) -> std::io::Result<Exports> {
         let mut s = db_path.as_os_str().to_owned();
         s.push(".exports");
         let dir = PathBuf::from(s);
         std::fs::create_dir_all(&dir)?;
-        Ok(Exports { dir, storage })
+        Ok(Exports { dir })
     }
 
     /// Delete finished or half-built exports ([`take`], [`purge`], account
-    /// deletion): the local files, and on the hosted site the bucket's
-    /// copies, on a thread of their own (a call may wait on the network).
-    /// One the server misses goes with the bucket's two-day rule.
+    /// deletion).
     pub fn remove(&self, files: &[String]) {
         remove_files(&self.dir, files);
-        self.remove_uploaded(files.to_vec(), Duration::ZERO);
-    }
-
-    /// Delete the bucket's copies of `files` after `delay` (nothing on disk storage).
-    fn remove_uploaded(&self, files: Vec<String>, delay: Duration) {
-        let files: Vec<String> = files.into_iter().filter(|f| !f.is_empty() && !f.ends_with(".part")).collect();
-        if self.storage.bucket().is_none() || files.is_empty() {
-            return;
-        }
-        let storage = Arc::clone(&self.storage);
-        let spawned = std::thread::Builder::new().name("export-delete".into()).spawn(move || {
-            std::thread::sleep(delay);
-            if let Some(bucket) = storage.bucket() {
-                for f in &files {
-                    if let Err(e) = bucket.delete(&s3_key(f), crate::db::now()) {
-                        tracing::warn!("exports: {e} (the bucket's two-day rule deletes it)");
-                    }
-                }
-            }
-        });
-        if let Err(e) = spawned {
-            tracing::warn!("exports: no thread to delete uploaded files: {e}");
-        }
-    }
-
-    /// On the hosted site, the download of `file` (from [`take`] or
-    /// [`take_ready`]): a pre-signed link to the bucket's copy that works
-    /// for [`crate::storage::LINK_SECS`], and the copy deleted a little after
-    /// it stops working. `None` on disk storage (the caller streams the file)
-    /// and `Some(Err)` when the link can't be signed.
-    pub async fn link(&self, file: &str) -> Option<Result<String, String>> {
-        self.storage.bucket()?;
-        let storage = Arc::clone(&self.storage);
-        let key = s3_key(file);
-        let (tx, rx) = tokio::sync::oneshot::channel();
-        // Signing may fetch the instance role's credentials first: off the async threads.
-        let spawned = std::thread::Builder::new().name("export-link".into()).spawn(move || {
-            let disposition = format!("attachment; filename=\"{}-my-data.json\"", crate::APP_NAME.to_lowercase());
-            let extra = [("response-content-disposition", disposition.as_str()), ("response-content-type", "application/json; charset=utf-8")];
-            let link = storage.bucket().ok_or_else(|| "no bucket".to_string()).and_then(|b| b.presign_get(&key, crate::storage::LINK_SECS, &extra, crate::db::now()));
-            let _ = tx.send(link);
-        });
-        if let Err(e) = spawned {
-            return Some(Err(e.to_string()));
-        }
-        let link = rx.await.unwrap_or_else(|_| Err("the signing thread stopped".to_string()));
-        self.remove_uploaded(vec![file.to_string()], Duration::from_secs(crate::storage::LINK_SECS as u64 * 5));
-        Some(link)
     }
 }
 
@@ -935,37 +859,6 @@ mod tests {
         assert_eq!(woken.load(Ordering::SeqCst), 1);
         let mails: i64 = db.with(|c| c.query_row("SELECT COUNT(*) FROM mail_outbox WHERE purpose = ?1", [PURPOSE], |r| r.get(0))).unwrap();
         assert_eq!(mails, 1);
-        let _ = std::fs::remove_dir_all(&dir);
-    }
-
-    /// On the hosted site the finished file goes to the bucket under
-    /// `exports/` and the local copy is deleted; the download is a short
-    /// pre-signed link to it (#871).
-    #[tokio::test]
-    async fn on_the_bucket_the_export_is_uploaded_and_linked() {
-        let (endpoint, seen) = crate::storage::tests::stand_in();
-        let creds = crate::storage::s3::Creds { key_id: "AKID".into(), secret: "secret".into(), token: None };
-        let storage = Arc::new(Storage::S3(Box::new(crate::storage::s3::Bucket::at(&endpoint, "us-west-2", creds))));
-        let db = Db::open_in_memory().unwrap();
-        let dir = tmp_dir("bucket");
-        let ann = user(&db, "ann@example.org");
-        let Requested::Queued(id) = db.with(|c| request(c, ann, "http://x", 10)).unwrap() else { panic!() };
-        let builder = Builder { pause: Duration::ZERO, storage: Arc::clone(&storage), ..Builder::new(dir.clone(), None) };
-        let runner = jobs::Runner::new().handle_steps(jobs::EXPORT, move |db, p| builder.run(db, p));
-        while runner.run_one(&db, crate::db::now()).unwrap().is_some() {}
-        let (file, state): (String, String) = db.with(|c| c.query_row("SELECT file, state FROM data_exports WHERE id = ?1", [id], |r| Ok((r.get(0)?, r.get(1)?)))).unwrap();
-        assert_eq!(state, "ready");
-        assert!(!dir.join(&file).exists(), "the local copy is deleted once uploaded");
-        let put = seen.lock().unwrap().iter().find(|h| h[":method"] == "PUT").cloned().expect("uploaded");
-        assert!(put.contains_key("authorization"));
-        let bucket = storage.bucket().unwrap();
-        let v: Value = serde_json::from_slice(&bucket.get(&s3_key(&file), crate::db::now()).unwrap()).unwrap();
-        assert_eq!(v["user_id"], ann);
-
-        let exports = Exports { dir: dir.clone(), storage };
-        let link = exports.link(&file).await.unwrap().unwrap();
-        assert!(link.starts_with(&format!("{endpoint}/exports/{file}?")), "{link}");
-        assert!(link.contains("X-Amz-Expires=60&") && link.contains("response-content-disposition=attachment"), "{link}");
         let _ = std::fs::remove_dir_all(&dir);
     }
 
