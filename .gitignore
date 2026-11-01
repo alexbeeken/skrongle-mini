@@ -23,3 +23,6 @@ deploy/aws/known_hosts.*
 # browser tests (scripts/e2e.sh): its database, Playwright output; the Jev key lives in e2e/.env
 /e2e/node_modules
 /e2e/results
+
+# Agent worktrees (Claude Code)
+.claude/worktrees/

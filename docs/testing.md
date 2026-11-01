@@ -1501,14 +1501,18 @@ shard; it is not a required check yet.
 Every workflow job runs on self-hosted runners in Docker on the laptop, not
 on GitHub-hosted ones, so CI costs no Actions minutes (the cost report and
 the options weighed are in #209). The jobs ask for
-`runs-on: ${{ vars.CI_RUNNER || 'laptop' }}`; eight runners carry the label
-`laptop`, so a PR's `checks` jobs, and a second PR's, run side by side.
+`runs-on: ${{ vars.CI_RUNNER || 'laptop' }}`; four runners carry the label
+`laptop`. A PR's `checks` run is nine jobs (cargo test, three exact shards,
+four smoke shards, the mini lane), so one PR takes about two waves and a
+second PR's jobs wait their turn. The runners are registered to this repo
+alone and run beside the parent repo's (compose project `skrongle-mini-ci`).
 
 ```sh
-scripts/ci-runners.sh up       # build the image (ci/runner/) and start the eight runners
+scripts/ci-runners.sh up       # build the image (ci/runner/) and start the four runners
 scripts/ci-runners.sh status   # containers, and the runners as GitHub sees them
 scripts/ci-runners.sh logs     # follow them
 scripts/ci-runners.sh down     # stop them; queued jobs wait until the next up
+scripts/ci-runners.sh prune    # delete the runners GitHub lists as offline (stopped without deregistering)
 scripts/ci-runners.sh reset    # also delete the work volumes (a clean build next time)
 ```
 
@@ -1554,12 +1558,21 @@ scripts/ci-runners.sh reset    # also delete the work volumes (a clean build nex
   `cargo test` check) so they share a build and a runner. smoke.sh runs even
   when cargo test fails, and its outcome is the `server smoke test` check, a
   gate like the e2e ones; its log is in the `cargo test` job.
-- **Token**: `POOKI_CI_RUNNER_TOKEN` in the shell (e.g. exported from
-  `~/.zshrc`), a fine-grained token for this repo with *Administration: Read
-  and write*; the runners use it to register at start and deregister at
-  stop. Only `up` reads it; Docker keeps it in the containers' config, so
-  they restart after a reboot without it. It is unset before jobs run. After
-  renewing the token, run `up` again.
+- **Token**: `up` needs one of two. With `SKRONGLE_MINI_CI_RUNNER_TOKEN` in
+  the shell (e.g. exported from `~/.zshrc`), a fine-grained token for this
+  repo with *Administration: Read and write*, the runners register at every
+  start and deregister at stop, so they come back after a reboot on their
+  own. Without it, `up` fetches a one-hour registration token through `gh`
+  (signed in as the repo's owner): the runners start and keep running, but a
+  container recreated later (a reboot, the next `up`) can't register with the
+  expired token, so run `up` again then. Either way the token is unset
+  before jobs run. A runner that stopped without deregistering stays listed
+  offline; `prune` deletes those.
+- **Required checks**: the ruleset on `main` ("main: PR with green checks")
+  wants a PR, up to date with main, with `cargo test`, `server smoke test
+  (scripts/smoke.sh)`, `e2e exact specs` and `e2e smoke specs` green; a
+  repository admin can bypass it. The other workflows (`pr-title`,
+  `terms-lint`, `plagiarism`, `release`) are not required.
 - **Builds stay on the runner**: each runner's work volume holds its Rust
   build at `CARGO_TARGET_DIR=/_work/cargo-target` (set in `compose.yml`),
   outside the checkout, so `actions/checkout`'s `git clean -ffdx` leaves it
