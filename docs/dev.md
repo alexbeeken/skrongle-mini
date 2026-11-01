@@ -15,14 +15,6 @@ For working on Skrongle's code. Start with `CLAUDE.md` in the repository.
   one `i18n/<code>.yaml` per language.
 - [Security review](security-review): what was checked before going
   public, what was fixed, and the risks accepted.
-- [Scalability](scalability): what breaks first if 10,000 people sign
-  up in one day. It has measured numbers, ranked bottlenecks, the first five fixes.
-  [On AWS](scalability-aws) asks the same for the cloud stack alone.
-- [Load testing](load-testing): a proposal for spike-testing the app
-  with k6 on the Mac, in a sized Docker container and on a throwaway AWS
-  stack, so bottlenecks show up before a crowd does.
-- [AWS setup](aws-setup): the account, IAM user, keys and tools needed
-  before `scripts/deploy-all.sh aws`.
 - [Pricing Skrongle AI](pricing) — the AI Skrongle provides on its own key,
   what each plan includes, the list prices and the margin.
 

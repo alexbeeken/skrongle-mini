@@ -2842,9 +2842,7 @@ features as they land) and **Skrongle Plus** (CA$15 a month: Basic, and
    `SKRONGLE_STRIPE_PRICE_ID`, `SKRONGLE_STRIPE_PRICE_ID_BASIC` and
    `SKRONGLE_PUBLIC_URL` (optionally
    `SKRONGLE_STRIPE_PRICE_LABEL`, e.g. `€4 a month`, for the button). All four
-   or none; see [configuration](architecture#configuration). On the AWS
-   server they are Parameter Store settings (`scripts/aws-env.sh set …`,
-   [AWS setup](aws-setup) step 8).
+   or none; see [configuration](architecture#configuration).
 
 Locally, dev mode needs none of this: without `SKRONGLE_STRIPE_*` it points
 the app at [the dev payment provider](testing#payments-the-dev-payment-provider)

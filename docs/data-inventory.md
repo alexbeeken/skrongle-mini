@@ -137,7 +137,7 @@ code; there is (`src/billing.rs`, migration 15). It also predates
 | The SMS provider(s) in `SKRONGLE_SMS_PROVIDERS` (e.g. Twilio, or the operator's webhook) | the phone number and the text | each text the app sends: the code confirming the profile's phone number, and sign-in codes with text-message two-factor sign-in; none while unset (texts are only logged) |
 | Stripe | the account id as `client_reference_id`, e-mail for Checkout | Subscribe / Manage subscription |
 | TypeSafe (Jev, `TYPESAFE_API_KEY`) | the text of a made course, a lesson at a time, with the course and lesson titles; no account details | the AI content check (#1036, hosted only): when an AI generation or revision finishes, before a share, and each night at midnight for courses edited since their last check (#1038), for the lessons that changed |
-| Hosting | everything above, at rest | always: on the hosted site Amazon Web Services, in the region `AWS_REGION` names ([AWS setup](aws-setup)); the privacy policy (section 8) says the United States |
+| Hosting | everything above, at rest | always: on the operator's own server; the privacy policy (section 8) says the United States |
 
 ## Logs
 
@@ -147,10 +147,7 @@ errors, export, deletion). Model errors are scrubbed of the key
 (`ai::redact_key`, tested). Mail lines name the outbox id and purpose, never the address, subject or text (also when no provider is set and mail is only logged, #361); provider errors quoting an address are scrubbed (`mail::scrub`). Text message lines name the outbox id, purpose and the number's last two digits; digit runs in provider errors are scrubbed (`sms::scrub`). Generation progress lines carry titles and
 counts ("Building from your material (1200 characters)"), never the notes.
 The app logs no IP addresses (#121's rate-limit warnings do log the
-address). On the hosted site Caddy writes no access log, and the journal
-keeps no line older than 31 days: `scripts/deploy-aws.sh` installs a
-journald drop-in with `MaxFileSec=1day` and `MaxRetentionSec=30day` (#972).
-On Skrongle mini the operator sets the journal's retention and the proxy's
+address). The operator sets the journal's retention and the proxy's
 access log, which records IPs.
 
 ## Backups

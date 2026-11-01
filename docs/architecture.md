@@ -797,13 +797,13 @@ posture are in `docs/self-hosting.md`, "Skrongle mini".
 | `SKRONGLE_SUPPORT_EMAIL` | — | Hosted: the help address (`support@skrongle.com`), shown on `/terms` in place of `[SUPPORT EMAIL]` and the `Reply-To` of every e-mail, so a reply to the no-reply sender reaches support. Unset: `/terms` shows `SKRONGLE_LEGAL_EMAIL` there and mail has no `Reply-To` |
 | `SKRONGLE_TERMS` | `builtin` (*mini:* `/etc/skrongle/terms.md`) | The Terms of Service text: `builtin` (`docs/terms.md`, versioned by `docs/terms-changes.json`; see [features](features#terms-of-service)) or the path of the self-hoster's own Markdown file, served as it is at `/terms` with the first 16 hex characters of its SHA-256 as the version, so editing it asks every account to accept again. A missing, unreadable or empty file refuses to start, naming the variable and the path. No older spelling (read directly). `deploy/skrongle.service` sets `/etc/skrongle/terms.md` |
 | `SKRONGLE_MAIL_FROM` | — | Sender of e-mail, e.g. `Skrongle <noreply@example.org>`; needed with `SKRONGLE_MAIL_PROVIDERS` |
-| `SKRONGLE_MAIL_PER_HOUR` | `3000` (none in dev mode) | E-mails of one purpose (`email-verify`, `login-code`, `course-share`, …) due per window; each purpose has its own budget. Past it a message is queued for the next window with room (`mail_outbox.scheduled_at`), at most `mail::MAX_WAIT_WINDOWS` (12) ahead; `mail::NO_WAIT` purposes (sign-in codes) are not queued. `0`: no ceiling. See [AWS setup](aws-setup#e-mail) |
+| `SKRONGLE_MAIL_PER_HOUR` | `3000` (none in dev mode) | E-mails of one purpose (`email-verify`, `login-code`, `course-share`, …) due per window; each purpose has its own budget. Past it a message is queued for the next window with room (`mail_outbox.scheduled_at`), at most `mail::MAX_WAIT_WINDOWS` (12) ahead; `mail::NO_WAIT` purposes (sign-in codes) are not queued. `0`: no ceiling. |
 | `SKRONGLE_MAIL_WINDOW` | `3600` | The ceiling's window in seconds; windows start at multiples of it (clock hours). A short one (`60`) lets a test watch a capped message wait and leave |
-| `SKRONGLE_MAIL_PROVIDERS` | — | Provider names in fallback order, e.g. `ses,backup`; each is configured by `SKRONGLE_MAIL_<NAME>_*` (`_KIND`, and for SMTP `_HOST`, `_PORT`, `_TLS`, `_USER`, `_PASS`). Unset: e-mail is logged, not sent (in dev mode it goes to the dev mailbox), and the features that would send it switch off (`AppState::caps`, #633). See [AWS setup](aws-setup#e-mail) ; Skrongle mini ignores it (`docs/self-hosting.md`, "Without e-mail or text messages") |
+| `SKRONGLE_MAIL_PROVIDERS` | — | Provider names in fallback order, e.g. `ses,backup`; each is configured by `SKRONGLE_MAIL_<NAME>_*` (`_KIND`, and for SMTP `_HOST`, `_PORT`, `_TLS`, `_USER`, `_PASS`). Unset: e-mail is logged, not sent (in dev mode it goes to the dev mailbox), and the features that would send it switch off (`AppState::caps`, #633); Skrongle mini ignores it (`docs/self-hosting.md`, "Without e-mail or text messages") |
 | `SKRONGLE_MAIL_<NAME>_API_KEY` / `_API_URL` | — / `https://api.resend.com` | For `_KIND=resend` (Resend's HTTP API): the API key (required) and where calls go (a mock in tests) |
 | `SKRONGLE_MAIL_<NAME>_API_KEY` / `_API_URL` / `_STREAM` | — / `https://api.postmarkapp.com` / `outbound` | For `_KIND=postmark` (Postmark's HTTP API): the Server API token (required), where calls go (a mock in tests) and the message stream |
 | `SKRONGLE_MAIL_<NAME>_API_KEY` / `_API_URL` | — / `https://api.brevo.com/v3/smtp/email` | For `_KIND=brevo` (Brevo's HTTP API): the API key (required) and the endpoint (tests point it at a fake server) |
-| `SKRONGLE_SMS_PROVIDERS` | — | Text message (SMS) provider names in fallback order, e.g. `twilio,hook`; each is configured by `SKRONGLE_SMS_<NAME>_*` (`_KIND` `http` or `log`, and for HTTP `_URL`, `_FORMAT`, `_BODY`, `_AUTH`/`_AUTH_HEADER` or `_USER`/`_PASS`, `_FROM`, `_OPT_OUT`). Unset: texts are logged, not sent (in dev mode they go to the dev phone), and the features that would send them switch off (`AppState::caps`, #633). See [Text messages](#text-messages) and [AWS setup](aws-setup#text-messages); Skrongle mini ignores it |
+| `SKRONGLE_SMS_PROVIDERS` | — | Text message (SMS) provider names in fallback order, e.g. `twilio,hook`; each is configured by `SKRONGLE_SMS_<NAME>_*` (`_KIND` `http` or `log`, and for HTTP `_URL`, `_FORMAT`, `_BODY`, `_AUTH`/`_AUTH_HEADER` or `_USER`/`_PASS`, `_FROM`, `_OPT_OUT`). Unset: texts are logged, not sent (in dev mode they go to the dev phone), and the features that would send them switch off (`AppState::caps`, #633). See [Text messages](#text-messages); Skrongle mini ignores it |
 | `SKRONGLE_SMS_FROM` | — | Default sender number or ID for every SMS provider (`{from}` in a body template) |
 | `SKRONGLE_OPENAI_BASE_URL` | `https://api.openai.com` | Where the OpenAI provider sends requests: any OpenAI-compatible server (Ollama, LM Studio) |
 | `SKRONGLE_ANTHROPIC_BASE_URL` | `https://api.anthropic.com` | Where the Anthropic provider sends requests (a proxy, the dev AI provider) |
@@ -991,35 +991,16 @@ client (`ai::chat`) serves the AI tutor with a multi-turn transcript.
 ## Deploying
 
 `deploy/deploy.env` (gitignored; template `deploy/deploy.env.example`
-documents every variable) holds the settings for both targets; a variable
+documents every variable) holds the settings for the deploy; a variable
 exported from the shell overrides the file (`scripts/deploy-env.sh`).
 `scripts/deploy-all.sh` runs the tests, cross-compiles once for aarch64 and
-calls the per-target scripts:
+calls the per-target script:
 
 - **Pi / DietPi:** `scripts/release.sh` → `scripts/deploy.sh`: rsync + systemd
   unit + nginx snippets, `/etc/spanish-learning/env` for the public URL and
   Google client. Read-only install, database in `/var/lib/spanish-learning`.
-- **AWS:** `scripts/deploy-aws.sh`: `aws cloudformation deploy` of
-  `deploy/aws/cloudformation.yaml` (t4g.nano with an IAM role, static IP,
-  security group, Caddy via first-boot user data), then the same rsync +
-  unit pattern (`deploy/aws/learnmap.service`, database in
-  `/var/lib/learnmap`). `/etc/learnmap/env` holds only the public URL and a
-  Parameter Store path; the provider secrets (Google, Stripe, e-mail, texts)
-  are `SecureString` parameters under that path (`scripts/aws-env.sh`), which
-  the role may read and `deploy/aws/learnmap-env.sh` fetches into
-  `/run/learnmap/env` (tmpfs) right before every start (#914). Caddy
-  terminates TLS and proxies `/` to `127.0.0.1:8080`. Backups (#964): a
-  nightly `sqlite3 .backup` to a private S3 bucket the stack keeps on
-  delete (`deploy/aws/learnmap-backup.*`), plus nightly EBS snapshots; the
-  secret key is `SKRONGLE_SECRET_KEY` in Parameter Store, so the database
-  alone restores ([AWS setup, Backups](aws-setup#backups)). The instance
-  keeps the previous release beside the live one for `--rollback`, backs the
-  database up before a release that migrates it, and logs each release in
-  `/opt/learnmap/releases.log`; a binary refuses a database whose schema is
-  newer than it knows (`db::check_not_newer`, exit 78)
-  ([AWS setup, Rolling back](aws-setup#rolling-back)).
 
-User-made courses live in the database, so neither install needs any other
+User-made courses live in the database, so the install needs no other
 writable path, and a release never touches the database.
 
 ## Security notes
