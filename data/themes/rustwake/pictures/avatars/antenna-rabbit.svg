@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Antenna rabbit">
+  <path d="M42 24 L52 6" stroke="#8a9a9a" stroke-width="2.4" stroke-linecap="round"/><path d="M47 15 L54 17 M45 20 L53 23" stroke="#8a9a9a" stroke-width="1.6" stroke-linecap="round"/><circle cx="52" cy="6" r="2.4" fill="#f0c030"/>
+  <ellipse cx="32" cy="50" rx="15" ry="11" fill="#cfcabc"/>
+  <ellipse cx="21" cy="57" rx="5.5" ry="3" fill="#bdb8aa"/><ellipse cx="43" cy="57" rx="5.5" ry="3" fill="#bdb8aa"/>
+  <ellipse cx="32" cy="52" rx="6" ry="7" fill="#e8e4d8"/>
+  <path d="M22 24 Q16 2 24 2 Q31 4 29 24Z M42 24 Q48 2 40 2 Q33 4 35 24Z" fill="#cfcabc"/>
+  <path d="M24 22 Q20 6 24 5 Q27 7 27 22Z M40 22 Q44 6 40 5 Q37 7 37 22Z" fill="#e0a8a8"/>
+  <circle cx="32" cy="30" r="12" fill="#cfcabc"/>
+  <rect x="36" y="25" width="9" height="7" rx="1.5" fill="#4a5a5a"/><circle cx="40.5" cy="28.5" r="2" fill="#b9f0a8"/>
+  <circle cx="26" cy="29" r="2.2" fill="#1a1a1a"/><circle cx="26.7" cy="28.3" r="0.8" fill="#fff"/>
+  <path d="M29.5 35 L34.5 35 L32 37.5Z" fill="#d98a8a"/>
+  <path d="M32 37.5 Q29 40 26.5 38.5 M32 37.5 Q35 40 37.5 38.5" stroke="#1a1a1a" stroke-width="1.2" fill="none"/>
+  <rect x="30.2" y="39" width="2.4" height="3.5" fill="#fff"/><rect x="33" y="39" width="2.4" height="3.5" fill="#fff"/>
+</svg>

@@ -1,0 +1,215 @@
+{
+  "id": "test-course",
+  "title": "Test Course",
+  "subject": "Every course feature",
+  "description": "For automated tests only (loaded with TEST_COURSE=1): every question type, exercise, game and feature a course file can switch on, one lesson per feature.",
+  "icon": "🧪",
+  "terms": {
+    "label": "Español",
+    "lang": "es"
+  },
+  "meanings": {
+    "label": "English",
+    "lang": "en"
+  },
+  "units": [
+    {
+      "id": "all",
+      "title": "Everything",
+      "description": "One lesson with every lesson field"
+    },
+    {
+      "id": "questions",
+      "title": "Question types",
+      "description": "One lesson per quiz type"
+    },
+    {
+      "id": "exercises",
+      "title": "Sprint mode exercises",
+      "description": "One lesson per exercise kind"
+    },
+    {
+      "id": "words",
+      "title": "Words and sound",
+      "description": "Vocabulary and listening"
+    },
+    {
+      "id": "games",
+      "title": "Stages",
+      "description": "The derived Guide"
+    },
+    {
+      "id": "edge",
+      "title": "Edge cases"
+    }
+  ],
+  "levels": true,
+  "language_features": true,
+  "music": {
+    "note_names": "letters"
+  },
+  "groups": [
+    {
+      "id": "overview",
+      "title": "Overview"
+    },
+    {
+      "id": "quiz",
+      "title": "Quiz"
+    },
+    {
+      "id": "sprint",
+      "title": "Sprint mode"
+    },
+    {
+      "id": "words",
+      "title": "Words"
+    },
+    {
+      "id": "games",
+      "title": "Games"
+    },
+    {
+      "id": "themes",
+      "title": "Themes"
+    }
+  ],
+  "paradigm": {
+    "label": "Verb forms",
+    "item_label": "Verb",
+    "slots": [
+      {
+        "key": "yo",
+        "label": "yo",
+        "hint": "I",
+        "who": "me",
+        "art": [
+          "   |   ",
+          "   |   ",
+          " \\ | / ",
+          "  \\|/  ",
+          "   v   "
+        ]
+      },
+      {
+        "key": "tu",
+        "label": "tú",
+        "hint": "you",
+        "who": "you"
+      },
+      {
+        "key": "el",
+        "label": "él / ella / usted",
+        "hint": "he / she / you (formal)",
+        "who": "other",
+        "art": [
+          "-------\\",
+          "        >",
+          "-------/"
+        ]
+      },
+      {
+        "key": "nosotros",
+        "label": "nosotros / nosotras",
+        "hint": "we",
+        "who": "us"
+      },
+      {
+        "key": "vosotros",
+        "label": "vosotros / vosotras",
+        "hint": "you all",
+        "who": "you_all"
+      },
+      {
+        "key": "ellos",
+        "label": "ellos / ellas",
+        "hint": "they",
+        "who": "them"
+      },
+      {
+        "key": "gerundio",
+        "label": "gerundio",
+        "hint": "-ing form",
+        "art": [
+          "-----\\   ",
+          "      >  ",
+          "-----/   "
+        ]
+      }
+    ],
+    "sets": [
+      {
+        "key": "present",
+        "label": "Present"
+      },
+      {
+        "key": "preterite",
+        "label": "Preterite"
+      }
+    ]
+  },
+  "chars": [
+    "á",
+    "é",
+    "í",
+    "ó",
+    "ú",
+    "ñ",
+    "ü",
+    "¿",
+    "¡"
+  ],
+  "calendar": {
+    "days": [
+      "lunes",
+      "martes",
+      "miércoles",
+      "jueves",
+      "viernes",
+      "sábado",
+      "domingo"
+    ],
+    "months": [
+      "enero",
+      "febrero",
+      "marzo",
+      "abril",
+      "mayo",
+      "junio",
+      "julio",
+      "agosto",
+      "septiembre",
+      "octubre",
+      "noviembre",
+      "diciembre"
+    ],
+    "format": "{day}, {d} de {month} de {year}"
+  },
+  "strings": {
+    "praise": [
+      "¡Correcto!"
+    ],
+    "almost": [
+      "Casi…"
+    ]
+  },
+  "themes": {
+    "realm": {
+      "strings": {
+        "praise": [
+          "¡Victoria de prueba!"
+        ],
+        "almost": [
+          "Casi, aventurero de prueba"
+        ]
+      }
+    },
+    "not-installed": {
+      "strings": {
+        "praise": [
+          "¡Nunca!"
+        ]
+      }
+    }
+  }
+}

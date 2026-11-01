@@ -1,0 +1,6 @@
+{# Skrongle AI did not cover a job: the ways on (`routes::hosted::OutOfAi`, bound as `out`). Each is its own form, so this sits outside any other form. #}
+<div class="actions ai-out" data-testid="ai-out">
+  {% if let Some(price) = out.upgrade %}<a class="btn" href="{{ crate::base_path() }}/profile?plans=1#subscription" data-testid="ai-out-upgrade">{{ crate::t1("courses.ai_out.upgrade", "price", price) }}</a>{% endif %}
+  {% for pk in out.packs %}<form method="post" action="{{ crate::base_path() }}/billing/credits"><input type="hidden" name="pack" value="{{ pk.price_id }}"><button type="submit" class="btn ghost" data-testid="ai-out-buy" data-pack="{{ pk.price_id }}">{{ crate::t2("courses.ai_out.buy", "credit", crate::routes::hosted::OutOfAi::credit(pk), "price", pk.label) }}</button></form>{% endfor %}
+  <a class="btn ghost" href="{{ crate::base_path() }}/profile#api-keys" data-testid="ai-out-own-key">{{ crate::t("courses.ai_out.own_key") }}</a>
+</div>

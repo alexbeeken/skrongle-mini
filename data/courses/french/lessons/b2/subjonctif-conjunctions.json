@@ -1,0 +1,1338 @@
+{
+  "id": "b2-subjonctif-conjunctions",
+  "slug": "subjonctif-conjunctions",
+  "title": "Conjunctions with the subjonctif, and the subjonctif passé",
+  "unit": "B2",
+  "group": "Grammar",
+  "order": 10,
+  "summary": "Bien que, pour que, avant que and friends take the subjonctif; parce que and après que do not. Plus the subjonctif passé for finished actions.",
+  "focus": "Choosing subjonctif or indicative after a conjunction, and forming the subjonctif passé",
+  "prerequisites": [
+    "b1-subjonctif"
+  ],
+  "content": "## Conjunctions that call for the subjonctif\n\nSome conjunctions always take the **subjonctif**, because what follows is not stated as a plain fact. It is a goal, a condition, a concession or something that has not happened yet.\n\n| idea | conjunctions |\n|---|---|\n| goal | **pour que**, **afin que** (more formal) |\n| concession | **bien que**, **quoique** (more formal) |\n| time ahead | **avant que**, **jusqu'à ce que** |\n| condition | **à condition que**, **pourvu que**, **à moins que** |\n| absence | **sans que** |\n\n- **Je t'explique pour que tu comprennes.** (I'm explaining so that you understand.)\n- **Bien qu'il soit tard, on continue.** (Although it's late, we're carrying on.)\n- **Attends ici jusqu'à ce que je vienne.** (Wait here until I come.)\n\n## Avant que, à moins que and the expletive ne\n\nAfter **avant que** and **à moins que**, careful French often adds a **ne** that negates nothing: the **ne explétif**. It is optional and formal; in speech you can leave it out. There is never a **pas**.\n\n- **Rentre avant qu'il ne fasse nuit.** (Come home before it gets dark.)\n- **Je viendrai, à moins que tu ne doives travailler.** (I'll come, unless you have to work.)\n\nWhen both halves of the sentence have the **same subject**, use a preposition + infinitive instead: **pour partir**, **afin de dormir**, **avant de manger**, **sans dire un mot**, **à condition de payer**, **à moins de courir**.\n\n## Conjunctions that keep the indicative\n\nCause and real time state facts, so they keep the **indicative**: **parce que**, **puisque**, **pendant que**, **depuis que** and **après que**.\n\n- **Je reste parce qu'il pleut.** (I'm staying because it's raining.)\n- **Puisque tu es là, aide-moi.** (Since you're here, help me.)\n- **On a dîné pendant que les enfants dormaient.** (We had dinner while the children slept.)\n\nWatch the pair: **avant que** + subjonctif, but **après que** + indicative, because what comes after it has really happened: **après qu'il est parti** (after he left). You will hear **après qu'il soit parti** in speech; the indicative is the standard.\n\n## The subjonctif passé\n\nFor an action **completed** before the main clause, use the **subjonctif passé**: the subjonctif of **avoir** or **être** + the participle. Être verbs agree as in the passé composé.\n\n| | finir | partir |\n|---|---|---|\n| que je / j' | aie fini | sois parti(e) |\n| que tu | aies fini | sois parti(e) |\n| qu'il / elle | ait fini | soit parti(e) |\n| que nous | ayons fini | soyons parti(e)s |\n| que vous | ayez fini | soyez parti(e)(s) |\n| qu'ils / elles | aient fini | soient parti(e)s |\n\n- **Je suis contente que tu sois venu.** (I'm glad you came.)\n- **Bien qu'elle soit partie tôt, elle a raté le train.** (Although she left early, she missed the train.)\n\nNew présent forms to drill: **que je vienne**, **que je doive**, **que je voie**, with **nous venions**, **devions**, **voyions**.",
+  "vocabulary": [
+    {
+      "term": "bien que",
+      "meaning": "although",
+      "example": "Bien qu'elle soit malade, elle va au bureau.",
+      "example_meaning": "Although she is ill, she's going to the office."
+    },
+    {
+      "term": "quoique",
+      "meaning": "although (more formal)",
+      "example": "Quoiqu'il soit riche, il vit très simplement.",
+      "example_meaning": "Although he is rich, he lives very simply."
+    },
+    {
+      "term": "pour que",
+      "meaning": "so that",
+      "example": "Je laisse la porte ouverte pour que le chat puisse sortir.",
+      "example_meaning": "I'm leaving the door open so that the cat can go out."
+    },
+    {
+      "term": "afin que",
+      "meaning": "so that, in order that (formal)",
+      "example": "Nous vous écrivons afin que vous soyez informés.",
+      "example_meaning": "We are writing to you so that you are informed."
+    },
+    {
+      "term": "avant que",
+      "meaning": "before (+ subjonctif)",
+      "example": "Finis tes devoirs avant que ton père rentre.",
+      "example_meaning": "Finish your homework before your father gets home."
+    },
+    {
+      "term": "jusqu'à ce que",
+      "meaning": "until",
+      "example": "Reste au lit jusqu'à ce que la fièvre baisse.",
+      "example_meaning": "Stay in bed until the fever goes down."
+    },
+    {
+      "term": "à condition que",
+      "meaning": "on condition that, provided that",
+      "example": "Tu peux sortir à condition que tu rentres avant minuit.",
+      "example_meaning": "You can go out on condition that you're back before midnight."
+    },
+    {
+      "term": "pourvu que",
+      "meaning": "provided that; let's hope that",
+      "example": "Pourvu qu'il fasse beau demain !",
+      "example_meaning": "Let's hope it's sunny tomorrow!"
+    },
+    {
+      "term": "sans que",
+      "meaning": "without (someone doing something)",
+      "example": "Il est parti sans que je le sache.",
+      "example_meaning": "He left without my knowing."
+    },
+    {
+      "term": "à moins que",
+      "meaning": "unless",
+      "example": "Nous irons à la plage, à moins qu'il ne pleuve.",
+      "example_meaning": "We'll go to the beach, unless it rains."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-subjonctif-conjunctions-01",
+      "prompt": "Je t'appelle ___ tu saches où nous sommes.",
+      "type": "multiple-choice",
+      "options": [
+        "pour que",
+        "parce que",
+        "puisque"
+      ],
+      "correct_answer": "pour que",
+      "explanation": "A goal takes pour que + subjonctif. 'saches' is the subjonctif of savoir, so only pour que fits.",
+      "hints": [
+        "Is it a reason or a goal?",
+        "'saches' is a subjonctif."
+      ],
+      "teaches": [
+        "pour que"
+      ]
+    },
+    {
+      "question_id": "b2-subjonctif-conjunctions-02",
+      "prompt": "Il est parti ___ nous ayons pu lui dire au revoir.",
+      "type": "multiple-choice",
+      "options": [
+        "sans que",
+        "après que",
+        "pendant que"
+      ],
+      "correct_answer": "sans que",
+      "explanation": "Sans que takes the subjonctif (here the subjonctif passé 'ayons pu'). Après que and pendant que take the indicative.",
+      "hints": [
+        "Which conjunction is followed by a subjonctif?"
+      ],
+      "teaches": [
+        "sans que"
+      ]
+    },
+    {
+      "question_id": "b2-subjonctif-conjunctions-03",
+      "prompt": "Je reste ici jusqu'à ce que tu ___. (venir)",
+      "type": "fill-in-blank",
+      "correct_answer": "viennes",
+      "accepted_answers": [
+        "tu viennes"
+      ],
+      "explanation": "Jusqu'à ce que takes the subjonctif. Venir: que je vienne, que tu viennes, qu'il vienne, que nous venions.",
+      "hints": [
+        "The stem comes from ils viennent.",
+        "tu takes -es"
+      ],
+      "teaches": [
+        "jusqu'à ce que"
+      ]
+    },
+    {
+      "question_id": "b2-subjonctif-conjunctions-04",
+      "prompt": "Je te prête ma voiture à condition que tu me la ___ demain.",
+      "type": "multiple-choice",
+      "options": [
+        "rendes",
+        "rends",
+        "rendras"
+      ],
+      "correct_answer": "rendes",
+      "explanation": "À condition que is a condition, so it takes the subjonctif: que tu rendes.",
+      "hints": [
+        "A condition takes the subjonctif."
+      ],
+      "teaches": [
+        "à condition que"
+      ]
+    },
+    {
+      "question_id": "b2-subjonctif-conjunctions-05",
+      "prompt": "Je suis content que vous ___ venus hier. (être, subjonctif)",
+      "type": "fill-in-blank",
+      "correct_answer": "soyez",
+      "accepted_answers": [
+        "vous soyez"
+      ],
+      "explanation": "The visit is over, so the subjonctif passé: être in the subjonctif (que vous soyez) + venus.",
+      "hints": [
+        "Venir takes être in compound tenses.",
+        "que vous s…"
+      ]
+    },
+    {
+      "question_id": "b2-subjonctif-conjunctions-06",
+      "prompt": "In standard French, après que is followed by the indicative: après qu'il est parti.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "What follows après que has really happened, so standard French uses the indicative. Avant que, on the other hand, takes the subjonctif.",
+      "hints": [
+        "Has the action after 'après' happened or not?"
+      ]
+    },
+    {
+      "question_id": "b2-subjonctif-conjunctions-07",
+      "prompt": "Partons avant qu'ils ne nous ___. (voir)",
+      "type": "fill-in-blank",
+      "correct_answer": "voient",
+      "accepted_answers": [
+        "voient"
+      ],
+      "explanation": "Avant que takes the subjonctif, here with the expletive ne: avant qu'ils ne nous voient. Voir: que je voie, qu'ils voient, que nous voyions.",
+      "hints": [
+        "The ne here is not a negation.",
+        "ils voient becomes qu'ils voient"
+      ]
+    },
+    {
+      "question_id": "b2-subjonctif-conjunctions-08",
+      "prompt": "In 'Pars avant qu'il ne soit trop tard', the ne makes the clause negative.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "This is the ne explétif: it negates nothing and there is no pas. The sentence means 'Leave before it's too late.'",
+      "hints": [
+        "Is there a pas?"
+      ],
+      "teaches": [
+        "avant que"
+      ]
+    },
+    {
+      "question_id": "b2-subjonctif-conjunctions-09",
+      "prompt": "Reste dîner avec nous, ___ tu doives partir tôt.",
+      "type": "multiple-choice",
+      "options": [
+        "à moins que",
+        "parce que",
+        "puisque"
+      ],
+      "correct_answer": "à moins que",
+      "explanation": "'doives' is the subjonctif of devoir, and only à moins que (unless) takes it. Parce que and puisque would need tu dois.",
+      "hints": [
+        "Which one means 'unless'?",
+        "doives = subjonctif"
+      ],
+      "teaches": [
+        "à moins que"
+      ]
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "venir",
+      "meaning": "to come",
+      "set": "subjonctif",
+      "art": [
+        "  o           ",
+        " /|\\  --->  []",
+        " / \\         ",
+        "  que je vienne"
+      ],
+      "forms": {
+        "je": "vienne",
+        "tu": "viennes",
+        "il": "vienne",
+        "nous": "venions",
+        "vous": "veniez",
+        "ils": "viennent"
+      }
+    },
+    {
+      "item": "devoir",
+      "meaning": "to have to, must",
+      "set": "subjonctif",
+      "art": [
+        " .----------. ",
+        " | [x] must | ",
+        " | [ ] wish | ",
+        " '----------' "
+      ],
+      "forms": {
+        "je": "doive",
+        "tu": "doives",
+        "il": "doive",
+        "nous": "devions",
+        "vous": "deviez",
+        "ils": "doivent"
+      }
+    },
+    {
+      "item": "voir",
+      "meaning": "to see",
+      "set": "subjonctif",
+      "art": [
+        "   .----.   ",
+        "  ( (()) )  ",
+        "   '----'   ",
+        " que je voie "
+      ],
+      "forms": {
+        "je": "voie",
+        "tu": "voies",
+        "il": "voie",
+        "nous": "voyions",
+        "vous": "voyiez",
+        "ils": "voient"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-subjonctif-conjunctions-conv-hike",
+      "title": "Planning a hike",
+      "scenario": "Camille and Hugo plan a Saturday hike in the mountains.",
+      "role_a": "Camille",
+      "role_b": "Hugo",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Hugo, on fait la randonnée samedi, à moins que tu ne doives travailler ?",
+          "meaning": "Hugo, shall we do the hike on Saturday, unless you have to work?",
+          "note": "à moins que + ne explétif + subjonctif"
+        },
+        {
+          "speaker": "b",
+          "text": "Non, je suis libre. Mais il faut partir tôt pour qu'on voie le lever du soleil.",
+          "meaning": "No, I'm free. But we need to leave early so that we see the sunrise.",
+          "note": "pour que + subjonctif"
+        },
+        {
+          "speaker": "a",
+          "text": "D'accord, à condition que tu viennes me chercher en voiture.",
+          "meaning": "OK, on condition that you come and pick me up by car."
+        },
+        {
+          "speaker": "b",
+          "text": "Pas de problème. Je passerai à six heures, avant qu'il y ait des bouchons.",
+          "meaning": "No problem. I'll come by at six, before there are traffic jams.",
+          "note": "il y a becomes qu'il y ait"
+        },
+        {
+          "speaker": "a",
+          "text": "Six heures ? Bien que je sois matinale, c'est tôt !",
+          "meaning": "Six o'clock? Although I'm an early riser, that's early!"
+        },
+        {
+          "speaker": "b",
+          "text": "Je sais, mais je veux arriver au sommet avant que le soleil ne soit trop fort.",
+          "meaning": "I know, but I want to reach the top before the sun is too strong."
+        },
+        {
+          "speaker": "a",
+          "text": "Pourvu qu'il ne pleuve pas ! La météo hésite.",
+          "meaning": "Let's hope it doesn't rain! The forecast can't make up its mind.",
+          "note": "Pourvu que alone means let's hope"
+        },
+        {
+          "speaker": "b",
+          "text": "Et ton dossier ? Il faut que tu l'aies fini avant lundi, non ?",
+          "meaning": "And your report? You need to have finished it by Monday, right?",
+          "note": "subjonctif passé"
+        },
+        {
+          "speaker": "a",
+          "text": "Je le finirai dimanche, puisque samedi on marche toute la journée.",
+          "meaning": "I'll finish it on Sunday, since on Saturday we're walking all day.",
+          "note": "puisque + indicative"
+        },
+        {
+          "speaker": "b",
+          "text": "Parfait. Je suis content que tu aies dit oui !",
+          "meaning": "Perfect. I'm glad you said yes!"
+        },
+        {
+          "speaker": "a",
+          "text": "Moi aussi. Prends le pique-nique pour qu'on ne perde pas de temps.",
+          "meaning": "Me too. Bring the picnic so that we don't waste any time."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Parle plus fort pour que je t'entende.",
+      "meaning": "Speak louder so that I can hear you.",
+      "note": "pour que + subjonctif"
+    },
+    {
+      "text": "On attendra jusqu'à ce que le bus arrive.",
+      "meaning": "We'll wait until the bus arrives."
+    },
+    {
+      "text": "Bien qu'il soit fatigué, il travaille encore.",
+      "meaning": "Although he's tired, he's still working.",
+      "note": "bien que + subjonctif"
+    },
+    {
+      "text": "Il est entré sans que nous le voyions.",
+      "meaning": "He came in without our seeing him.",
+      "note": "voir: que nous voyions"
+    },
+    {
+      "text": "Rentrons à la maison avant qu'il ne fasse nuit.",
+      "meaning": "Let's go home before it gets dark.",
+      "note": "The ne after avant que is expletive and negates nothing."
+    },
+    {
+      "text": "Je te prête mon vélo à condition que tu sois prudent.",
+      "meaning": "I'll lend you my bike on condition that you're careful.",
+      "note": "New word: prudent = careful."
+    },
+    {
+      "text": "Je sortirai ce soir, à moins qu'il ne fasse trop froid.",
+      "meaning": "I'll go out tonight, unless it's too cold."
+    },
+    {
+      "text": "Je suis ravie que tu aies trouvé un appartement près de la gare.",
+      "meaning": "I'm delighted that you found a flat near the station.",
+      "note": "New word: ravi = delighted."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Conjunctions that call"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-subjonctif-conjunctions-01"
+    },
+    {
+      "question": "b2-subjonctif-conjunctions-02"
+    },
+    {
+      "question": "b2-subjonctif-conjunctions-04"
+    },
+    {
+      "section": "Avant que"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-subjonctif-conjunctions-07"
+    },
+    {
+      "question": "b2-subjonctif-conjunctions-08"
+    },
+    {
+      "question": "b2-subjonctif-conjunctions-09"
+    },
+    {
+      "tip": "Ask: is it a fact (parce que, puisque, après que) or a goal, condition, concession or something not yet real? Facts take the indicative; the rest take the subjonctif."
+    },
+    {
+      "section": "Conjunctions that keep"
+    },
+    {
+      "question": "b2-subjonctif-conjunctions-06"
+    },
+    {
+      "section": "The subjonctif passé"
+    },
+    {
+      "question": "b2-subjonctif-conjunctions-03"
+    },
+    {
+      "question": "b2-subjonctif-conjunctions-05"
+    },
+    {
+      "concept": {
+        "title": "Pourvu que on its own",
+        "markdown": "With no main clause, **pourvu que** turns into a hope: **Pourvu qu'il fasse beau !** (Let's hope it's sunny!) A bare **que** + subjonctif does the same for a wish or an order: **Qu'il vienne, s'il veut !** (Let him come, if he wants!)"
+      }
+    }
+  ],
+  "sprint": {
+    "icon": "🌂",
+    "bites": [
+      {
+        "title": "Goal, condition, concession",
+        "emoji": "🎯",
+        "rule": "pour que, afin que, bien que, quoique, à condition que, pourvu que, à moins que, sans que, avant que, jusqu'à ce que: all take the subjonctif.",
+        "example": "Je parle lentement pour que tu comprennes.",
+        "example_meaning": "I speak slowly so that you understand."
+      },
+      {
+        "title": "The ne that isn't",
+        "emoji": "👻",
+        "rule": "After avant que and à moins que, formal French may add a ne that negates nothing. No pas, no negative meaning, and you may leave it out.",
+        "example": "Pars avant qu'il ne pleuve.",
+        "example_meaning": "Leave before it rains."
+      },
+      {
+        "title": "Facts keep the indicative",
+        "emoji": "📌",
+        "rule": "parce que, puisque, pendant que and après que state facts: indicative. Avant que + subjonctif, après que + indicative.",
+        "example": "Il est arrivé après que tu es parti.",
+        "example_meaning": "He arrived after you left."
+      },
+      {
+        "title": "The subjonctif passé",
+        "emoji": "✅",
+        "rule": "que + avoir or être in the subjonctif + participle, for an action completed first: que tu aies fini, qu'elle soit partie.",
+        "example": "Je suis ravi que tu sois venue.",
+        "example_meaning": "I'm delighted you came."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Subjonctif or indicative?",
+        "buckets": [
+          "subjonctif",
+          "indicatif"
+        ],
+        "items": [
+          {
+            "text": "bien que",
+            "bucket": 0
+          },
+          {
+            "text": "pour que",
+            "bucket": 0
+          },
+          {
+            "text": "parce que",
+            "bucket": 1
+          },
+          {
+            "text": "avant que",
+            "bucket": 0
+          },
+          {
+            "text": "puisque",
+            "bucket": 1
+          },
+          {
+            "text": "après que",
+            "bucket": 1
+          },
+          {
+            "text": "jusqu'à ce que",
+            "bucket": 0
+          },
+          {
+            "text": "pendant que",
+            "bucket": 1
+          }
+        ],
+        "why": "Goals, concessions, conditions and things still ahead take the subjonctif; causes and real time (parce que, puisque, pendant que, après que) keep the indicative."
+      },
+      {
+        "title": "Two subjects or one?",
+        "buckets": [
+          "que + subjonctif (two subjects)",
+          "preposition + infinitive (one subject)"
+        ],
+        "items": [
+          {
+            "text": "Je travaille pour que tu sois libre.",
+            "bucket": 0
+          },
+          {
+            "text": "Je travaille pour être libre.",
+            "bucket": 1
+          },
+          {
+            "text": "Mange avant de partir.",
+            "bucket": 1
+          },
+          {
+            "text": "Mange avant que nous partions.",
+            "bucket": 0
+          },
+          {
+            "text": "Il est parti sans dire au revoir.",
+            "bucket": 1
+          },
+          {
+            "text": "Il est parti sans que je le voie.",
+            "bucket": 0
+          }
+        ],
+        "why": "With the same subject on both sides, French uses pour, avant de, sans + infinitive; a new subject needs que + subjonctif."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Je reste jusqu'à ce que tu viens.",
+        "wrong": "viens",
+        "fix": "viennes",
+        "why": "Jusqu'à ce que takes the subjonctif: que tu viennes."
+      },
+      {
+        "sentence": "Bien qu'il est malade, il travaille.",
+        "wrong": "est",
+        "fix": "soit",
+        "why": "Bien que takes the subjonctif: bien qu'il soit malade."
+      },
+      {
+        "sentence": "Je reste à la maison parce que je sois malade.",
+        "wrong": "sois",
+        "fix": "suis",
+        "why": "Parce que gives a fact: indicative, je suis."
+      },
+      {
+        "sentence": "Il faut que vous ayez partis avant midi.",
+        "wrong": "ayez",
+        "fix": "soyez",
+        "why": "Partir takes être, so the subjonctif passé is que vous soyez partis."
+      },
+      {
+        "sentence": "Nous partirons à moins qu'il pleut.",
+        "wrong": "pleut",
+        "fix": "pleuve",
+        "why": "À moins que takes the subjonctif: qu'il pleuve."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Je t'explique pour que tu comprennes.",
+        "meaning": "I'm explaining so that you understand.",
+        "distractors": [
+          "comprends"
+        ]
+      },
+      {
+        "text": "Bien qu'il soit tard, on continue.",
+        "meaning": "Although it's late, we carry on.",
+        "distractors": [
+          "est"
+        ]
+      },
+      {
+        "text": "Attends ici jusqu'à ce que je vienne.",
+        "meaning": "Wait here until I come.",
+        "distractors": [
+          "viens"
+        ]
+      },
+      {
+        "text": "Je suis content que tu sois venu.",
+        "meaning": "I'm glad you came.",
+        "distractors": [
+          "aies"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🌘",
+      "content": "## Les conjonctions à Eldmark\n\nEvery quest has conditions. The mage casts a spell **pour que** the party **puisse** pass; Borin enters the donjon **à condition que** the paladin **vienne**; everyone fights **jusqu'à ce que** the orcs flee. Plain facts keep the indicative: you rest **parce que** the dragon **dort**.",
+      "vocabulary": [
+        {
+          "term": "pour que",
+          "example": "La mage lance un sort pour que nous puissions passer.",
+          "example_meaning": "The mage casts a spell so that we can get through."
+        },
+        {
+          "term": "avant que",
+          "example": "Fuyons avant que le dragon ne se réveille !",
+          "example_meaning": "Let's flee before the dragon wakes up!"
+        },
+        {
+          "term": "jusqu'à ce que",
+          "example": "Le guerrier combat jusqu'à ce que les orcs s'enfuient.",
+          "example_meaning": "The warrior fights until the orcs run away."
+        },
+        {
+          "term": "à condition que",
+          "example": "Borin entre dans le donjon à condition que le paladin vienne aussi.",
+          "example_meaning": "Borin will go into the dungeon on condition that the paladin comes too."
+        },
+        {
+          "term": "à moins que",
+          "example": "Nous partirons à l'aube, à moins que Séla ne doive finir sa potion.",
+          "example_meaning": "We'll leave at dawn, unless Séla has to finish her potion."
+        },
+        {
+          "term": "bien que",
+          "example": "Bien que la quête soit dangereuse, Nym accepte.",
+          "example_meaning": "Although the quest is dangerous, Nym accepts."
+        },
+        {
+          "term": "le sort",
+          "meaning": "spell",
+          "example": "Ce sort protège toute la guilde.",
+          "example_meaning": "This spell protects the whole guild."
+        },
+        {
+          "term": "le donjon",
+          "meaning": "dungeon",
+          "example": "Le donjon est sombre et froid.",
+          "example_meaning": "The dungeon is dark and cold."
+        },
+        {
+          "term": "la potion",
+          "meaning": "potion",
+          "example": "Bois cette potion avant que la bataille commence.",
+          "example_meaning": "Drink this potion before the battle starts."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Conjonctions d'aventurier",
+          "emoji": "🌘",
+          "rule": "Plans, conditions and dangers ahead take the subjonctif: pour que, à condition que, avant que. Facts (parce que, puisque) keep the indicative.",
+          "example": "Bois la potion pour que je puisse te soigner.",
+          "example_meaning": "Drink the potion so that I can heal you."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Le nain creuse jusqu'à ce qu'il trouve de l'or.",
+          "meaning": "The dwarf digs until he finds gold.",
+          "note": "New word: creuser = to dig."
+        },
+        {
+          "text": "Bien que Nym soit fatiguée, elle continue.",
+          "meaning": "Although Nym is tired, she carries on.",
+          "note": "bien que + subjonctif"
+        },
+        {
+          "text": "Le paladin part à l'aube, à moins qu'il ne neige.",
+          "meaning": "The paladin leaves at dawn, unless it snows.",
+          "note": "New word: l'aube = dawn."
+        },
+        {
+          "text": "Le mage ouvre la porte pour que la guilde entre.",
+          "meaning": "The mage opens the door so that the guild can come in."
+        },
+        {
+          "text": "Restons ici puisque le donjon est fermé.",
+          "meaning": "Let's stay here since the dungeon is closed.",
+          "note": "puisque + indicative"
+        }
+      ],
+      "builds": [
+        {
+          "text": "Le guerrier reste jusqu'à ce que tu viennes.",
+          "meaning": "The warrior stays until you come.",
+          "distractors": [
+            "viens"
+          ]
+        },
+        {
+          "text": "Bien que l'orc soit fort, Borin gagne.",
+          "meaning": "Although the orc is strong, Borin wins.",
+          "distractors": [
+            "est"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Nous attaquons à moins que le dragon dort.",
+          "wrong": "dort",
+          "fix": "dorme",
+          "why": "À moins que takes the subjonctif: que le dragon dorme."
+        },
+        {
+          "sentence": "Je prends l'épée parce que l'orc soit là.",
+          "wrong": "soit",
+          "fix": "est",
+          "why": "Parce que states a fact: indicative, l'orc est là."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Subjonctif or indicative on the quest?",
+          "buckets": [
+            "subjonctif",
+            "indicatif"
+          ],
+          "items": [
+            {
+              "text": "pour que la guilde gagne",
+              "bucket": 0
+            },
+            {
+              "text": "parce que le dragon dort",
+              "bucket": 1
+            },
+            {
+              "text": "avant que l'orc arrive",
+              "bucket": 0
+            },
+            {
+              "text": "puisque la quête est finie",
+              "bucket": 1
+            },
+            {
+              "text": "bien que Borin soit petit",
+              "bucket": 0
+            },
+            {
+              "text": "pendant que la mage lit",
+              "bucket": 1
+            }
+          ],
+          "why": "Goals, things ahead and concessions take the subjonctif; parce que, puisque and pendant que state facts."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-subjonctif-conjunctions-realm-01",
+          "prompt": "Nous attendrons jusqu'à ce que le mage ___.",
+          "type": "multiple-choice",
+          "options": [
+            "vienne",
+            "vient",
+            "viendra"
+          ],
+          "correct_answer": "vienne",
+          "explanation": "Jusqu'à ce que takes the subjonctif: que le mage vienne.",
+          "hints": [
+            "Until takes the subjonctif."
+          ],
+          "teaches": [
+            "jusqu'à ce que"
+          ]
+        },
+        {
+          "question_id": "b2-subjonctif-conjunctions-realm-02",
+          "prompt": "Borin entre dans le donjon ___ il a une épée.",
+          "type": "multiple-choice",
+          "options": [
+            "parce qu'",
+            "bien qu'",
+            "pour qu'"
+          ],
+          "correct_answer": "parce qu'",
+          "explanation": "'a' is indicative, so only parce que fits: a cause is a fact. Bien que and pour que would need 'ait'.",
+          "hints": [
+            "Look at the verb: a or ait?"
+          ],
+          "teaches": [
+            "le donjon"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b2-subjonctif-conjunctions-conv-realm-dungeon",
+          "title": "At the dungeon gate",
+          "scenario": "Nym the elf and Borin the dwarf decide when to enter the dungeon.",
+          "role_a": "Nym",
+          "role_b": "Borin",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Borin, on entre dans le donjon avant que la nuit ne tombe ?",
+              "meaning": "Borin, shall we go into the dungeon before night falls?"
+            },
+            {
+              "speaker": "b",
+              "text": "D'accord, à condition que la mage Séla vienne avec nous.",
+              "meaning": "All right, on condition that Séla the mage comes with us."
+            },
+            {
+              "speaker": "a",
+              "text": "Elle viendra, à moins qu'elle ne doive finir sa potion.",
+              "meaning": "She'll come, unless she has to finish her potion."
+            },
+            {
+              "speaker": "b",
+              "text": "Bien que je sois un nain courageux, j'ai peur du noir !",
+              "meaning": "Although I'm a brave dwarf, I'm afraid of the dark!"
+            },
+            {
+              "speaker": "a",
+              "text": "Je lancerai un sort pour que tu voies dans le noir.",
+              "meaning": "I'll cast a spell so that you can see in the dark."
+            },
+            {
+              "speaker": "b",
+              "text": "Merci ! Je resterai près de toi jusqu'à ce qu'on trouve le butin.",
+              "meaning": "Thanks! I'll stay close to you until we find the loot."
+            },
+            {
+              "speaker": "a",
+              "text": "Pourvu que le dragon dorme !",
+              "meaning": "Let's hope the dragon is asleep!"
+            }
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "☂️",
+      "content": "## Les conjonctions à Meadowbrook\n\nFarm life is full of plans. You water the strawberries **pour qu'elles poussent**; you wait at the market **jusqu'à ce que** Rosa **vienne**; Léo goes fishing **à moins qu'il ne pleuve**. A plain fact keeps the indicative: you sell your corn **parce qu'il est beau**.",
+      "vocabulary": [
+        {
+          "term": "pour que",
+          "example": "J'arrose les fraises pour qu'elles poussent vite.",
+          "example_meaning": "I water the strawberries so that they grow fast."
+        },
+        {
+          "term": "jusqu'à ce que",
+          "example": "Je reste au marché jusqu'à ce que Rosa vienne.",
+          "example_meaning": "I'm staying at the market until Rosa comes."
+        },
+        {
+          "term": "à moins que",
+          "example": "Léo va pêcher, à moins qu'il ne pleuve.",
+          "example_meaning": "Léo is going fishing, unless it rains."
+        },
+        {
+          "term": "avant que",
+          "example": "Récoltons le maïs avant que l'hiver arrive.",
+          "example_meaning": "Let's harvest the corn before winter comes."
+        },
+        {
+          "term": "pourvu que",
+          "example": "Pourvu que les citrouilles soient grosses cette année !",
+          "example_meaning": "Let's hope the pumpkins are big this year!"
+        },
+        {
+          "term": "bien que",
+          "example": "Bien que Nora soit nouvelle, sa ferme est magnifique.",
+          "example_meaning": "Although Nora is new, her farm is magnificent."
+        },
+        {
+          "term": "arroser",
+          "meaning": "to water",
+          "example": "Il faut arroser les fraises chaque matin.",
+          "example_meaning": "The strawberries need watering every morning."
+        },
+        {
+          "term": "la récolte",
+          "meaning": "harvest",
+          "example": "La récolte de maïs est excellente.",
+          "example_meaning": "The corn harvest is excellent."
+        },
+        {
+          "term": "la citrouille",
+          "meaning": "pumpkin",
+          "example": "Nora vend une citrouille au marché.",
+          "example_meaning": "Nora sells a pumpkin at the market."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Conjonctions à la ferme",
+          "emoji": "☂️",
+          "rule": "Goals, conditions and things not done yet take the subjonctif: pour que, à moins que, avant que. A plain fact keeps the indicative: parce que, puisque.",
+          "example": "Je plante tôt pour que tout soit prêt pour la fête.",
+          "example_meaning": "I plant early so that everything is ready for the festival."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Rosa ouvre tôt pour que les fermiers viennent.",
+          "meaning": "Rosa opens early so that the farmers come."
+        },
+        {
+          "text": "Pourvu qu'il fasse beau pour la fête !",
+          "meaning": "Let's hope it's sunny for the festival!",
+          "note": "Pourvu que alone expresses a hope."
+        },
+        {
+          "text": "Léo pêche jusqu'à ce que le soleil se couche.",
+          "meaning": "Léo fishes until the sun sets."
+        },
+        {
+          "text": "Bien que la vache soit vieille, elle donne du lait.",
+          "meaning": "Although the cow is old, she gives milk.",
+          "note": "New word: le lait = milk."
+        },
+        {
+          "text": "Rentre les poules avant qu'il ne fasse nuit.",
+          "meaning": "Bring the hens in before it gets dark.",
+          "note": "New word: la poule = hen."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Bien que Léo soit fatigué, il pêche.",
+          "meaning": "Although Léo is tired, he goes fishing.",
+          "distractors": [
+            "est"
+          ]
+        },
+        {
+          "text": "Plantons avant que la pluie arrive.",
+          "meaning": "Let's plant before the rain comes.",
+          "distractors": [
+            "arrivera"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Nora plante des fraises bien qu'il fait froid.",
+          "wrong": "fait",
+          "fix": "fasse",
+          "why": "Bien que takes the subjonctif: bien qu'il fasse froid."
+        },
+        {
+          "sentence": "Je vends mes citrouilles puisqu'elles soient belles.",
+          "wrong": "soient",
+          "fix": "sont",
+          "why": "Puisque gives a fact: indicative, elles sont belles."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Subjonctif or indicative on the farm?",
+          "buckets": [
+            "subjonctif",
+            "indicatif"
+          ],
+          "items": [
+            {
+              "text": "pour que les fraises poussent",
+              "bucket": 0
+            },
+            {
+              "text": "parce que la vache a faim",
+              "bucket": 1
+            },
+            {
+              "text": "avant que l'hiver arrive",
+              "bucket": 0
+            },
+            {
+              "text": "puisque Rosa est là",
+              "bucket": 1
+            },
+            {
+              "text": "à condition qu'il fasse beau",
+              "bucket": 0
+            },
+            {
+              "text": "pendant que Léo pêche",
+              "bucket": 1
+            }
+          ],
+          "why": "Goals, conditions and what is still ahead take the subjonctif; parce que, puisque and pendant que keep the indicative."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-subjonctif-conjunctions-meadowbrook-01",
+          "prompt": "Arrose les fraises pour qu'elles ___ belles.",
+          "type": "multiple-choice",
+          "options": [
+            "soient",
+            "sont",
+            "seront"
+          ],
+          "correct_answer": "soient",
+          "explanation": "Pour que takes the subjonctif: qu'elles soient.",
+          "hints": [
+            "A goal takes the subjonctif."
+          ],
+          "teaches": [
+            "pour que",
+            "arroser"
+          ]
+        },
+        {
+          "question_id": "b2-subjonctif-conjunctions-meadowbrook-02",
+          "prompt": "Je vends ma récolte au marché ___ Rosa a besoin de légumes.",
+          "type": "multiple-choice",
+          "options": [
+            "puisque",
+            "bien que",
+            "pour que"
+          ],
+          "correct_answer": "puisque",
+          "explanation": "'a' is indicative, so the conjunction must state a fact: puisque. Bien que and pour que would need 'ait'.",
+          "hints": [
+            "a or ait?"
+          ],
+          "teaches": [
+            "la récolte"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b2-subjonctif-conjunctions-conv-meadowbrook-festival",
+          "title": "Before the harvest festival",
+          "scenario": "Nora invites Léo the fisherman to the harvest festival.",
+          "role_a": "Nora",
+          "role_b": "Léo",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Léo, tu viens à la fête des récoltes samedi ?",
+              "meaning": "Léo, are you coming to the harvest festival on Saturday?"
+            },
+            {
+              "speaker": "b",
+              "text": "Oui, à moins que je ne doive pêcher pour la taverne.",
+              "meaning": "Yes, unless I have to fish for the tavern."
+            },
+            {
+              "speaker": "a",
+              "text": "Viens, pour que tu voies mes citrouilles géantes !",
+              "meaning": "Come, so that you can see my giant pumpkins!"
+            },
+            {
+              "speaker": "b",
+              "text": "D'accord, à condition que tu me gardes une part de tarte.",
+              "meaning": "All right, on condition that you save me a slice of pie."
+            },
+            {
+              "speaker": "a",
+              "text": "Bien sûr. Mais il faut que j'aie fini la récolte avant vendredi.",
+              "meaning": "Of course. But I need to have finished the harvest by Friday."
+            },
+            {
+              "speaker": "b",
+              "text": "Je t'aiderai jusqu'à ce que tout soit rentré.",
+              "meaning": "I'll help you until everything is in."
+            },
+            {
+              "speaker": "a",
+              "text": "Merci ! Pourvu qu'il fasse beau !",
+              "meaning": "Thanks! Let's hope it's sunny!"
+            }
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🌪️",
+      "content": "## Les conjonctions à Rustwake\n\nOutside the Dôme, every plan comes with a condition. You walk **jusqu'à ce que** you **voies** the antenna; you pay nuts **pour que** Marta **vende** you water; you go out **à moins qu'il n'y ait** an ash storm. Facts keep the indicative: you stay in **parce qu'il y a** dust.",
+      "vocabulary": [
+        {
+          "term": "jusqu'à ce que",
+          "example": "Cherche jusqu'à ce que tu trouves de l'eau filtrée.",
+          "example_meaning": "Search until you find filtered water."
+        },
+        {
+          "term": "pour que",
+          "example": "Je donne des écrous à Marta pour qu'elle me vende de l'eau.",
+          "example_meaning": "I give Marta nuts so that she'll sell me water."
+        },
+        {
+          "term": "à moins que",
+          "example": "On sort demain, à moins qu'il n'y ait une tempête de cendres.",
+          "example_meaning": "We're going out tomorrow, unless there's an ash storm."
+        },
+        {
+          "term": "avant que",
+          "example": "Répare la radio avant que le contremaître revienne.",
+          "example_meaning": "Fix the radio before the foreman comes back."
+        },
+        {
+          "term": "sans que",
+          "example": "Léo est sorti du Dôme sans que le contremaître le sache.",
+          "example_meaning": "Léo left the Dome without the foreman knowing."
+        },
+        {
+          "term": "à condition que",
+          "example": "Ruiz t'aide, à condition que tu répares son robot.",
+          "example_meaning": "Ruiz will help you on condition that you fix his robot."
+        },
+        {
+          "term": "les écrous",
+          "meaning": "nuts (the currency)",
+          "example": "Ce tonique coûte dix écrous.",
+          "example_meaning": "This tonic costs ten nuts."
+        },
+        {
+          "term": "la tempête de cendres",
+          "meaning": "ash storm",
+          "example": "La tempête de cendres arrive ce soir.",
+          "example_meaning": "The ash storm is coming tonight."
+        },
+        {
+          "term": "l'antenne",
+          "meaning": "antenna (f)",
+          "example": "L'antenne est sur la colline.",
+          "example_meaning": "The antenna is on the hill."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Conditions du désert",
+          "emoji": "🌪️",
+          "rule": "Plans in the desert take the subjonctif: pour que, à condition que, avant que, jusqu'à ce que. Facts keep the indicative: parce que, puisque.",
+          "example": "Rentre avant que la tempête n'arrive.",
+          "example_meaning": "Come back before the storm arrives."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Marta attend jusqu'à ce que tu paies.",
+          "meaning": "Marta waits until you pay.",
+          "note": "payer: que tu paies"
+        },
+        {
+          "text": "Prends la radio-montre pour que je t'appelle.",
+          "meaning": "Take the wrist radio so that I can call you."
+        },
+        {
+          "text": "Le robot jardinier marche bien qu'il soit vieux.",
+          "meaning": "The gardening robot works although it's old.",
+          "note": "New word: le robot jardinier = the gardening robot."
+        },
+        {
+          "text": "Ne sors pas, à moins que le chien vienne.",
+          "meaning": "Don't go out unless the dog comes."
+        },
+        {
+          "text": "On reste au village puisqu'il y a de la poussière.",
+          "meaning": "We're staying in the village since there's dust.",
+          "note": "puisque + indicative"
+        }
+      ],
+      "builds": [
+        {
+          "text": "Répare l'armure avant que la tempête arrive.",
+          "meaning": "Fix the armour before the storm arrives.",
+          "distractors": [
+            "arrivera"
+          ]
+        },
+        {
+          "text": "Je marche jusqu'à ce que je voie l'antenne.",
+          "meaning": "I walk until I see the antenna.",
+          "distractors": [
+            "vois"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Marta vend de l'eau à condition que tu as des écrous.",
+          "wrong": "as",
+          "fix": "aies",
+          "why": "À condition que takes the subjonctif: que tu aies."
+        },
+        {
+          "sentence": "Je reste au Dôme parce qu'il y ait une tempête.",
+          "wrong": "ait",
+          "fix": "a",
+          "why": "Parce que states a fact: indicative, il y a."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Subjonctif or indicative in the desert?",
+          "buckets": [
+            "subjonctif",
+            "indicatif"
+          ],
+          "items": [
+            {
+              "text": "pour que la radio marche",
+              "bucket": 0
+            },
+            {
+              "text": "parce qu'il fait soleil",
+              "bucket": 1
+            },
+            {
+              "text": "avant que Ruiz revienne",
+              "bucket": 0
+            },
+            {
+              "text": "puisque l'eau est filtrée",
+              "bucket": 1
+            },
+            {
+              "text": "à moins qu'il y ait de la poussière",
+              "bucket": 0
+            },
+            {
+              "text": "pendant que Marta répare",
+              "bucket": 1
+            }
+          ],
+          "why": "Goals, conditions and what is still ahead take the subjonctif; parce que, puisque and pendant que keep the indicative."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-subjonctif-conjunctions-rustwake-01",
+          "prompt": "On sortira, à moins qu'il n'y ___ une tempête de cendres.",
+          "type": "multiple-choice",
+          "options": [
+            "ait",
+            "a",
+            "aura"
+          ],
+          "correct_answer": "ait",
+          "explanation": "À moins que takes the subjonctif; il y a becomes qu'il y ait. The ne is expletive.",
+          "hints": [
+            "Unless takes the subjonctif."
+          ],
+          "teaches": [
+            "à moins que",
+            "la tempête de cendres"
+          ]
+        },
+        {
+          "question_id": "b2-subjonctif-conjunctions-rustwake-02",
+          "prompt": "Marche jusqu'à ce que tu ___ l'antenne. (voir)",
+          "type": "fill-in-blank",
+          "correct_answer": "voies",
+          "accepted_answers": [
+            "tu voies"
+          ],
+          "explanation": "Jusqu'à ce que takes the subjonctif: que tu voies.",
+          "hints": [
+            "voir: que je voie, que tu…"
+          ],
+          "teaches": [
+            "jusqu'à ce que",
+            "l'antenne"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b2-subjonctif-conjunctions-conv-rustwake-water",
+          "title": "Buying water",
+          "scenario": "Léo the scavenger haggles with Marta the trader before a trip into the desert.",
+          "role_a": "Léo",
+          "role_b": "Marta",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Marta, je voudrais de l'eau filtrée, à condition que le prix soit juste.",
+              "meaning": "Marta, I'd like some filtered water, on condition that the price is fair."
+            },
+            {
+              "speaker": "b",
+              "text": "Trois écrous la bouteille. Achète-la avant que les prix montent !",
+              "meaning": "Three nuts a bottle. Buy it before prices go up!"
+            },
+            {
+              "speaker": "a",
+              "text": "Bien que ce soit cher, j'en prends deux.",
+              "meaning": "Although it's expensive, I'll take two."
+            },
+            {
+              "speaker": "b",
+              "text": "Bon choix. Je te les garde jusqu'à ce que tu reviennes ?",
+              "meaning": "Good choice. Shall I keep them for you until you come back?"
+            },
+            {
+              "speaker": "a",
+              "text": "Non, je les prends maintenant pour que mon chien boive ce soir.",
+              "meaning": "No, I'll take them now so that my dog can drink tonight."
+            },
+            {
+              "speaker": "b",
+              "text": "Rentre avant qu'il ne fasse nuit, Léo.",
+              "meaning": "Come back before it gets dark, Léo."
+            },
+            {
+              "speaker": "a",
+              "text": "Promis. Pourvu que ma radio-montre marche !",
+              "meaning": "Promise. Let's hope my wrist radio works!"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

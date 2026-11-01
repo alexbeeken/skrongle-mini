@@ -1,0 +1,1279 @@
+{
+  "id": "c2-long-sentences",
+  "slug": "long-sentences",
+  "title": "Long sentences: subordination and absolute constructions",
+  "unit": "C2",
+  "group": "Grammar",
+  "order": 16,
+  "summary": "How formal Spanish builds a long sentence and keeps it standing: absolute participles and gerunds, al / de / con + infinitive, relative chains with el cual, lo cual and cuyo, and how to repair one that has lost its thread.",
+  "focus": "Building and repairing long sentences in formal Spanish with absolute constructions, infinitive clauses and relative chains",
+  "prerequisites": [
+    "c1-gerund-and-participle-clauses",
+    "b2-relative-clauses"
+  ],
+  "content": "## Absolute constructions: Terminada la reunión, Siendo así\n\nA participle or gerund with its own subject can open a sentence as a compact clause of time, cause or condition.\n\n- **Absolute participle**: it comes first and agrees with the noun after it. **Terminada la reunión, los socios salieron a cenar** (Once the meeting was over, the partners went out to dinner). Also **una vez firmados los contratos** and the fixed **dicho esto** (that said).\n- **Absolute gerund**: **Siendo así, aceptamos** (That being so, we accept). **Estando ausente el juez, se aplazó la vista** (With the judge absent, the hearing was postponed). Its subject follows it and may differ from the main one.\n\nThe gerund must overlap with the main verb or come before it, never after.\n\n## Al, de, con + infinitive\n\nThree prepositions turn an infinitive into a whole adverbial clause.\n\n| frame | meaning | example |\n|---|---|---|\n| **al** + infinitive | when, as | **Al salir del juzgado, la llamó.** (As he left the court, he called her.) |\n| **de** + infinitive | if | **De haberlo sabido, no habría venido.** (Had I known, I wouldn't have come.) |\n| **con** + infinitive | although | **Con tener tanto dinero, vive como un monje.** (For all his money, he lives like a monk.) |\n\n**De** + perfect infinitive is the compact equivalent of **si lo hubiera sabido**, common in essays and speeches. **Con solo** + infinitive means \"just by\": **con solo llamar, te lo arreglan**. **Al** + infinitive can take its own subject after it: **al llegar el invierno** (when winter came).\n\n## Relative chains: el cual, lo cual, cuyo, quien\n\n- **Preposition + article + que**: **el despacho en el que trabajo**, **la razón por la que dimitió**. The article agrees with the noun.\n- **El cual / la cual**: the formal equivalent, used after long prepositions and to point at the right noun: **la hermana de mi socio, la cual vive en Lyon** (the sister, not the partner).\n- **Lo cual** (or **lo que**) sums up a whole clause: **Llegó tarde, lo cual molestó a todos.**\n- **Cuyo** = whose, agreeing with the thing owned: **el notario, cuyas oficinas cerraron**. Not *el vecino que su perro ladra* but **el vecino cuyo perro ladra**.\n- **Quien / quienes** = who, for people, after a preposition or between commas: **los socios con quienes cené**.\n\n## Keeping the thread: commas, anacoluthon, full stops\n\n- **No comma between subject and verb**, however long the subject: **Los vecinos que firmaron la carta el martes exigen una respuesta.** An aside (**un inciso**) takes a pair of commas: **Los vecinos, que estaban hartos, exigen…**\n- **Anacoluthon** (**el anacoluto**): the sentence starts one way and ends another. *El director, le pidieron que dimitiera* → **Al director le pidieron que dimitiera**. It is natural in speech and a flaw on the page.\n- **Split a sentence that has lost its thread**: *La propuesta que presentó la directora, cuyo equipo, al cual yo pertenecía, había trabajado en ella meses, fue rechazada* → **La directora presentó la propuesta. Su equipo, al que yo pertenecía, llevaba meses con ella. Aun así, la rechazaron.** A **punto y seguido** is better than another **lo cual**.",
+  "vocabulary": [
+    {
+      "term": "dicho esto",
+      "meaning": "that said, having said that",
+      "example": "Dicho esto, la sesión queda abierta a preguntas.",
+      "example_meaning": "That said, the session is open to questions."
+    },
+    {
+      "term": "terminada la reunión",
+      "meaning": "once the meeting was over (absolute participle)",
+      "example": "Terminada la reunión, la presidenta atendió a la prensa.",
+      "example_meaning": "Once the meeting was over, the chair spoke to the press."
+    },
+    {
+      "term": "siendo así",
+      "meaning": "that being so, in that case (absolute gerund)",
+      "example": "No hay quórum. Siendo así, aplazamos la votación.",
+      "example_meaning": "There is no quorum. That being so, we will postpone the vote."
+    },
+    {
+      "term": "al + infinitivo",
+      "meaning": "when, as (al llegar = when he arrived)",
+      "example": "Al revisar las cuentas, la auditora encontró un error.",
+      "example_meaning": "When she went through the accounts, the auditor found a mistake."
+    },
+    {
+      "term": "de + infinitivo",
+      "meaning": "if (de haberlo sabido = had I known)",
+      "example": "De seguir así, la empresa cerrará antes del verano.",
+      "example_meaning": "If things go on like this, the company will close before summer."
+    },
+    {
+      "term": "con + infinitivo",
+      "meaning": "although, for all that (concessive)",
+      "example": "Con ser el más joven del bufete, lleva los casos más difíciles.",
+      "example_meaning": "Although he is the youngest in the firm, he handles the hardest cases."
+    },
+    {
+      "term": "el cual / la cual",
+      "meaning": "which, who (formal relative)",
+      "example": "Visitamos la catedral, en el interior de la cual se conserva un órgano antiguo.",
+      "example_meaning": "We visited the cathedral, inside which an old organ is kept."
+    },
+    {
+      "term": "lo cual",
+      "meaning": "which (referring to a whole idea)",
+      "example": "El tren salió con una hora de retraso, lo cual nadie explicó.",
+      "example_meaning": "The train left an hour late, which nobody explained."
+    },
+    {
+      "term": "cuyo / cuya",
+      "meaning": "whose (agrees with the thing owned)",
+      "example": "Es una editorial cuyos libros cuidan mucho la tipografía.",
+      "example_meaning": "It is a publisher whose books take great care over typography."
+    },
+    {
+      "term": "quien / quienes",
+      "meaning": "who, whom (for people)",
+      "example": "La testigo, a quien nadie había citado, pidió la palabra.",
+      "example_meaning": "The witness, whom nobody had summoned, asked to speak."
+    },
+    {
+      "term": "en el que / por la que",
+      "meaning": "in which / for which (preposition + article + que)",
+      "example": "Esta es la calle en la que nací y la razón por la que vuelvo.",
+      "example_meaning": "This is the street I was born in and the reason I come back."
+    },
+    {
+      "term": "el inciso",
+      "meaning": "aside, parenthetical clause set off by commas",
+      "example": "El inciso era tan largo que el lector olvidó el sujeto.",
+      "example_meaning": "The aside was so long that the reader forgot the subject."
+    },
+    {
+      "term": "el anacoluto",
+      "meaning": "anacoluthon: a sentence that changes construction midway",
+      "example": "Su discurso estaba lleno de anacolutos, pero nadie se aburrió.",
+      "example_meaning": "His speech was full of anacolutha, but nobody was bored."
+    },
+    {
+      "term": "el punto y seguido",
+      "meaning": "full stop that continues the same paragraph",
+      "example": "Un punto y seguido a tiempo salvó el párrafo.",
+      "example_meaning": "A timely full stop saved the paragraph."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "c2-long-sentences-01",
+      "prompt": "___ las obras, el ayuntamiento reabrió el puente. (terminar)",
+      "type": "multiple-choice",
+      "options": [
+        "Terminadas",
+        "Terminados",
+        "Terminada"
+      ],
+      "correct_answer": "Terminadas",
+      "explanation": "In an absolute construction the participle agrees with the noun that follows it: las obras is feminine plural, so terminadas.",
+      "hints": [
+        "Look at the noun right after the gap."
+      ],
+      "teaches": [
+        "terminada la reunión"
+      ]
+    },
+    {
+      "question_id": "c2-long-sentences-02",
+      "prompt": "___ abrir el sobre, la notaria se quedó callada.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "Al",
+      "accepted_answers": [
+        "al",
+        "tras",
+        "nada más"
+      ],
+      "explanation": "Al + infinitive marks the moment when something happens: when she opened the envelope. Tras or nada más also fit.",
+      "hints": [
+        "When she opened the envelope…",
+        "Contraction of a + el."
+      ],
+      "teaches": [
+        "al + infinitivo"
+      ]
+    },
+    {
+      "question_id": "c2-long-sentences-03",
+      "prompt": "___ haber leído la letra pequeña, no habría firmado el contrato.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "De",
+      "accepted_answers": [
+        "de"
+      ],
+      "explanation": "De + infinitive is a condition: de haber leído = si hubiera leído (had I read). The main clause takes the conditional perfect.",
+      "hints": [
+        "Had I read the small print…",
+        "A one-word preposition that means if here."
+      ],
+      "teaches": [
+        "de + infinitivo"
+      ]
+    },
+    {
+      "question_id": "c2-long-sentences-04",
+      "prompt": "Con ser tan brillante, no consiguió la plaza. Here con ser means:",
+      "type": "multiple-choice",
+      "options": [
+        "although she was",
+        "because she was",
+        "as soon as she was"
+      ],
+      "correct_answer": "although she was",
+      "explanation": "Con + infinitive is concessive: for all her brilliance, she did not get the post. Cause would use por ser, and time would use al ser or nada más ser.",
+      "hints": [
+        "The two halves of the sentence pull against each other."
+      ],
+      "teaches": [
+        "con + infinitivo"
+      ]
+    },
+    {
+      "question_id": "c2-long-sentences-05",
+      "prompt": "La traductora, ___ novelas se leen en medio mundo, vive en Cádiz.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "cuyas",
+      "accepted_answers": [],
+      "explanation": "Cuyo agrees with the thing owned, not with the owner: novelas is feminine plural, so cuyas.",
+      "hints": [
+        "Whose novels…",
+        "Agree with novelas, not with traductora."
+      ],
+      "teaches": [
+        "cuyo / cuya"
+      ]
+    },
+    {
+      "question_id": "c2-long-sentences-06",
+      "prompt": "Llegó tarde a la vista, ___ irritó al juez.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "lo cual",
+      "accepted_answers": [
+        "lo que",
+        "cosa que"
+      ],
+      "explanation": "Lo cual (or lo que) refers back to the whole clause: arriving late is what annoyed the judge. El cual or la cual would need a noun to refer to.",
+      "hints": [
+        "Which refers to the whole fact, not to a noun.",
+        "Neuter article + cual."
+      ],
+      "teaches": [
+        "lo cual"
+      ]
+    },
+    {
+      "question_id": "c2-long-sentences-07",
+      "prompt": "Which sentence with a long subject is punctuated correctly?",
+      "type": "multiple-choice",
+      "options": [
+        "Los vecinos que firmaron la carta exigen una respuesta.",
+        "Los vecinos que firmaron la carta, exigen una respuesta.",
+        "Los vecinos, que firmaron la carta exigen una respuesta."
+      ],
+      "correct_answer": "Los vecinos que firmaron la carta exigen una respuesta.",
+      "explanation": "No comma goes between a subject and its verb, however long the subject. An aside needs a pair of commas, never a single one.",
+      "hints": [
+        "Find the subject and the verb, then look between them."
+      ],
+      "teaches": [
+        "el inciso"
+      ]
+    },
+    {
+      "question_id": "c2-long-sentences-08",
+      "prompt": "Which version repairs this sentence: Los clientes que compraron antes de marzo, se les devolverá el dinero.",
+      "type": "multiple-choice",
+      "options": [
+        "A los clientes que compraron antes de marzo se les devolverá el dinero.",
+        "Los clientes que compraron antes de marzo se les devolverá el dinero.",
+        "Los clientes, que compraron antes de marzo, se les devolverá el dinero."
+      ],
+      "correct_answer": "A los clientes que compraron antes de marzo se les devolverá el dinero.",
+      "explanation": "The original is an anacoluthon: it opens with los clientes as if it were the subject, then turns them into an indirect object (se les). Adding a makes the opening the indirect object it really is.",
+      "hints": [
+        "Is the person who gets the money back the subject or the indirect object?"
+      ],
+      "teaches": [
+        "el anacoluto"
+      ]
+    },
+    {
+      "question_id": "c2-long-sentences-09",
+      "prompt": "Esa es la razón ___ dimitió la directora.",
+      "type": "multiple-choice",
+      "options": [
+        "por la que",
+        "por el que",
+        "porque"
+      ],
+      "correct_answer": "por la que",
+      "explanation": "After a preposition the relative takes an article that agrees with the noun: la razón takes por la que (or por la cual). Porque is the conjunction (because).",
+      "hints": [
+        "Razón is feminine."
+      ],
+      "teaches": [
+        "en el que / por la que"
+      ]
+    },
+    {
+      "question_id": "c2-long-sentences-10",
+      "prompt": "Los socios con ___ cené ayer firmaron el acuerdo.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "quienes",
+      "accepted_answers": [
+        "los que",
+        "los cuales"
+      ],
+      "explanation": "For people after a preposition, quien agrees in number: con quienes. Con los que and con los cuales are also correct.",
+      "hints": [
+        "People, plural, after a preposition."
+      ],
+      "teaches": [
+        "quien / quienes"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Dicho esto, se levanta la sesión.",
+      "meaning": "That said, the session is closed."
+    },
+    {
+      "text": "De haberlo leído antes, habría corregido la cláusula.",
+      "meaning": "Had I read it earlier, I would have corrected the clause.",
+      "note": "New word: la cláusula = the clause."
+    },
+    {
+      "text": "Al salir de la notaría, llamó a su abogada.",
+      "meaning": "On leaving the notary's office, she called her lawyer.",
+      "note": "New word: la notaría = the notary's office."
+    },
+    {
+      "text": "Siendo así, no hace falta repetir la votación.",
+      "meaning": "That being so, there's no need to repeat the vote.",
+      "note": "New word: la votación = the vote."
+    },
+    {
+      "text": "Firmado el acuerdo, los dos ministros posaron para la prensa.",
+      "meaning": "Once the agreement was signed, the two ministers posed for the press.",
+      "note": "The participle agrees with el acuerdo."
+    },
+    {
+      "text": "La revista, cuyo director se jubila en mayo, busca un sucesor.",
+      "meaning": "The magazine, whose editor retires in May, is looking for a successor."
+    },
+    {
+      "text": "El informe llegó con tres semanas de retraso, lo cual nadie entendió.",
+      "meaning": "The report arrived three weeks late, which nobody understood.",
+      "note": "Lo cual sums up the whole clause."
+    },
+    {
+      "text": "Los socios con quienes firmamos el contrato el año pasado han cerrado la empresa.",
+      "meaning": "The partners we signed the contract with last year have closed the company."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Absolute constructions"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "c2-long-sentences-01"
+    },
+    {
+      "section": "Al, de, con"
+    },
+    {
+      "question": "c2-long-sentences-02"
+    },
+    {
+      "question": "c2-long-sentences-03"
+    },
+    {
+      "question": "c2-long-sentences-04"
+    },
+    {
+      "section": "Relative chains"
+    },
+    {
+      "question": "c2-long-sentences-05"
+    },
+    {
+      "question": "c2-long-sentences-06"
+    },
+    {
+      "question": "c2-long-sentences-09"
+    },
+    {
+      "question": "c2-long-sentences-10"
+    },
+    {
+      "section": "Keeping the thread"
+    },
+    {
+      "tip": "Read a long sentence aloud. If you run out of breath before the verb arrives, the subject has drifted too far from it."
+    },
+    {
+      "question": "c2-long-sentences-07"
+    },
+    {
+      "question": "c2-long-sentences-08"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "c2-long-sentences-conv-declaracion",
+      "title": "A statement with one sentence too many",
+      "scenario": "Beatriz, a lawyer, goes through the written statement her client Julián has drafted for court.",
+      "role_a": "Beatriz",
+      "role_b": "Julián",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "He leído su declaración, Julián. Dicho esto, tenemos que hablar de la primera frase.",
+          "meaning": "I've read your statement, Julián. That said, we need to talk about the first sentence."
+        },
+        {
+          "speaker": "b",
+          "text": "¿Qué le pasa? Es larga, pero lo cuenta todo.",
+          "meaning": "What's wrong with it? It's long, but it tells everything."
+        },
+        {
+          "speaker": "a",
+          "text": "Ese es el problema: tiene noventa palabras y el sujeto se pierde en la segunda línea.",
+          "meaning": "That's the problem: it has ninety words and the subject gets lost in the second line."
+        },
+        {
+          "speaker": "b",
+          "text": "Pero empieza con el vecino del tercero. Eso está claro.",
+          "meaning": "But it starts with the neighbour on the third floor. That's clear."
+        },
+        {
+          "speaker": "a",
+          "text": "Sí, y luego dice: el vecino del tercero, lo vieron salir a las dos. Eso es un anacoluto.",
+          "meaning": "Yes, and then it says: the neighbour on the third floor, they saw him leave at two. That's an anacoluthon.",
+          "note": "Fix: Al vecino del tercero lo vieron salir…"
+        },
+        {
+          "speaker": "b",
+          "text": "¿Y cómo lo arreglo sin perder detalles?",
+          "meaning": "And how do I fix it without losing details?"
+        },
+        {
+          "speaker": "a",
+          "text": "Partiéndola en dos. Primero, quién es el vecino; después, lo que vio usted.",
+          "meaning": "By splitting it in two. First, who the neighbour is; then, what you saw."
+        },
+        {
+          "speaker": "b",
+          "text": "¿Y el párrafo en el que hablo del coche?",
+          "meaning": "And the paragraph where I talk about the car?"
+        },
+        {
+          "speaker": "a",
+          "text": "Ahí hay una coma entre el sujeto y el verbo, lo cual no es grave, pero conviene quitarla.",
+          "meaning": "There's a comma between the subject and the verb there, which isn't serious, but it's best to remove it."
+        },
+        {
+          "speaker": "b",
+          "text": "Siendo así, la reviso esta noche y se la mando mañana.",
+          "meaning": "In that case, I'll revise it tonight and send it to you tomorrow."
+        },
+        {
+          "speaker": "a",
+          "text": "Perfecto. Al terminarla, léala en voz alta: si se queda sin aire, la frase es demasiado larga.",
+          "meaning": "Perfect. When you've finished, read it aloud: if you run out of breath, the sentence is too long."
+        },
+        {
+          "speaker": "b",
+          "text": "Con ser abogada, tiene usted alma de correctora.",
+          "meaning": "For a lawyer, you have the soul of a proofreader.",
+          "note": "Con + infinitive is concessive."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🧵",
+    "bites": [
+      {
+        "title": "Absolute openers",
+        "emoji": "🚪",
+        "rule": "A participle that agrees with the noun after it opens a sentence. Terminada la reunión means once the meeting was over, siendo así means that being so, and dicho esto means that said.",
+        "example": "Aprobadas las cuentas, se levantó la sesión.",
+        "example_meaning": "Once the accounts were approved, the session was closed."
+      },
+      {
+        "title": "Al, de, con",
+        "emoji": "🔑",
+        "rule": "Al + infinitive means when, de + infinitive means if, and con + infinitive means although. De haberlo sabido means had I known.",
+        "example": "Al abrir la carta, se puso pálido.",
+        "example_meaning": "When he opened the letter, he turned pale."
+      },
+      {
+        "title": "Whose agrees with the thing",
+        "emoji": "🏷️",
+        "rule": "Cuyo, cuya, cuyos and cuyas mean whose and agree with what is owned, not with the owner. Never use que su.",
+        "example": "Es un pueblo cuyas calles no tienen nombre.",
+        "example_meaning": "It's a village whose streets have no names."
+      },
+      {
+        "title": "No comma before the verb",
+        "emoji": "🚫",
+        "rule": "However long the subject, no comma between it and its verb. An aside takes two commas or none.",
+        "example": "El abogado que llevó el caso durante diez años se jubila hoy.",
+        "example_meaning": "The lawyer who handled the case for ten years retires today."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "When, if or although?",
+        "buckets": [
+          "time (when)",
+          "condition (if)",
+          "concession (although)"
+        ],
+        "why": "Al + infinitive marks time, de + infinitive a condition, con + infinitive a concession.",
+        "items": [
+          {
+            "text": "Al entrar en la sala, saludó.",
+            "bucket": 0
+          },
+          {
+            "text": "De seguir así, perderemos el cliente.",
+            "bucket": 1
+          },
+          {
+            "text": "Con trabajar tanto, nunca ascendió.",
+            "bucket": 2
+          },
+          {
+            "text": "Al conocer la noticia, llamó a su madre.",
+            "bucket": 0
+          },
+          {
+            "text": "De no ser por ti, no lo habría logrado.",
+            "bucket": 1
+          },
+          {
+            "text": "Con ser tan joven, dirige el bufete.",
+            "bucket": 2
+          }
+        ]
+      },
+      {
+        "title": "Which relative?",
+        "buckets": [
+          "cuyo, cuya, cuyos, cuyas",
+          "lo cual",
+          "quien, quienes"
+        ],
+        "why": "Cuyo links an owner to a thing; lo cual sums up a clause; quien refers to people, often after a preposition.",
+        "items": [
+          {
+            "text": "la empresa ___ sede está en Bilbao",
+            "bucket": 0
+          },
+          {
+            "text": "Perdió las llaves, ___ le obligó a esperar.",
+            "bucket": 1
+          },
+          {
+            "text": "la jueza con ___ hablé",
+            "bucket": 2
+          },
+          {
+            "text": "un autor ___ obras nadie lee",
+            "bucket": 0
+          },
+          {
+            "text": "No llamó, ___ nos extrañó.",
+            "bucket": 1
+          },
+          {
+            "text": "los testigos a ___ citaron",
+            "bucket": 2
+          }
+        ]
+      },
+      {
+        "title": "Correct, or a comma to remove?",
+        "buckets": [
+          "correct",
+          "comma to remove"
+        ],
+        "why": "A comma never separates a subject from its verb; a pair of commas around an aside and a comma after an opening absolute clause are fine.",
+        "items": [
+          {
+            "text": "Los socios que votaron en contra, se marcharon.",
+            "bucket": 1
+          },
+          {
+            "text": "Los socios, que votaron en contra, se marcharon.",
+            "bucket": 0
+          },
+          {
+            "text": "Todo lo que dijo el testigo, era falso.",
+            "bucket": 1
+          },
+          {
+            "text": "Terminada la vista, el juez se retiró.",
+            "bucket": 0
+          },
+          {
+            "text": "Dicho esto, cerró la sesión.",
+            "bucket": 0
+          }
+        ]
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Terminado la reunión, los socios salieron a cenar.",
+        "wrong": "Terminado",
+        "fix": "Terminada",
+        "why": "The absolute participle agrees with the noun after it: la reunión takes terminada."
+      },
+      {
+        "sentence": "Es una autora cuyos novelas se leen en todo el mundo.",
+        "wrong": "cuyos",
+        "fix": "cuyas",
+        "why": "Cuyo agrees with the thing owned: novelas is feminine plural."
+      },
+      {
+        "sentence": "Llegó tarde, el cual irritó al tribunal.",
+        "wrong": "el",
+        "fix": "lo",
+        "why": "A whole clause is summed up by the neuter lo cual."
+      },
+      {
+        "sentence": "Ese es el despacho en la que trabajé diez años.",
+        "wrong": "la",
+        "fix": "el",
+        "why": "The article after the preposition agrees with the noun referred to: el despacho takes en el que."
+      },
+      {
+        "sentence": "Con haberlo sabido, no habría firmado.",
+        "wrong": "Con",
+        "fix": "De",
+        "why": "A condition takes de + infinitive; con + infinitive is concessive."
+      },
+      {
+        "sentence": "Los clientes con quien hablé ayer están contentos.",
+        "wrong": "quien",
+        "fix": "quienes",
+        "why": "Quien agrees in number: los clientes take con quienes."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Dicho esto, pasamos al último punto.",
+        "meaning": "That said, let's move on to the last item.",
+        "distractors": [
+          "Diciendo"
+        ]
+      },
+      {
+        "text": "Siendo así, no firmaremos el contrato.",
+        "meaning": "That being so, we won't sign the contract.",
+        "distractors": [
+          "Sido"
+        ]
+      },
+      {
+        "text": "Al leer la carta, se echó a reír.",
+        "meaning": "When she read the letter, she burst out laughing.",
+        "distractors": [
+          "El"
+        ]
+      },
+      {
+        "text": "Hablé con la abogada cuyo despacho está enfrente.",
+        "meaning": "I spoke to the lawyer whose office is opposite.",
+        "distractors": [
+          "cuya"
+        ]
+      },
+      {
+        "text": "Nadie vino, lo cual nos sorprendió mucho.",
+        "meaning": "Nobody came, which surprised us a lot.",
+        "distractors": [
+          "el"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🐍",
+      "content": "## Las frases largas en Eldmark\n\nThe chroniclers of Highgate never end a sentence while a participle can carry it on: **Derrotado el minotauro, la compañía volvió a Deepanvil, cuyas forjas ardían todavía, lo cual alegró al enano**. Their apprentices learn one rule first: **ni una coma entre sujeto y verbo**, however many orcs stand between them.",
+      "vocabulary": [
+        {
+          "term": "dicho esto",
+          "example": "Dicho esto, el paladín se puso el yelmo y salió de la taberna.",
+          "example_meaning": "That said, the paladin put on his helm and left the tavern."
+        },
+        {
+          "term": "terminada la reunión",
+          "example": "Terminada la reunión del consejo, la maga cerró las puertas del salón.",
+          "example_meaning": "Once the council meeting was over, the mage shut the doors of the hall."
+        },
+        {
+          "term": "siendo así",
+          "example": "¿No hay barcas en el río? Siendo así, cruzaremos por el puente de Frostmarch.",
+          "example_meaning": "No boats on the river? In that case, we'll cross by the Frostmarch bridge."
+        },
+        {
+          "term": "al + infinitivo",
+          "example": "Al ver la mazmorra vacía, el cazador sospechó una emboscada.",
+          "example_meaning": "When he saw the empty dungeon, the hunter suspected an ambush."
+        },
+        {
+          "term": "cuyo / cuya",
+          "example": "La elfa, cuya flecha salvó al rey, no quiso ninguna recompensa.",
+          "example_meaning": "The elf, whose arrow saved the king, wanted no reward."
+        },
+        {
+          "term": "lo cual",
+          "example": "El enano se negó a pagar la cerveza, lo cual provocó una discusión memorable.",
+          "example_meaning": "The dwarf refused to pay for the beer, which started a memorable argument."
+        },
+        {
+          "term": "la hazaña",
+          "meaning": "feat, heroic deed",
+          "example": "Narradas sus hazañas, el guerrero pidió otro plato de estofado.",
+          "example_meaning": "His feats recounted, the warrior asked for another plate of stew."
+        },
+        {
+          "term": "el escudero",
+          "meaning": "squire",
+          "example": "El escudero, a quien nadie hacía caso, encontró la llave de la mazmorra.",
+          "example_meaning": "The squire, whom nobody paid attention to, found the key to the dungeon."
+        },
+        {
+          "term": "la emboscada",
+          "meaning": "ambush",
+          "example": "De haber sabido lo de la emboscada, habríamos tomado otro camino.",
+          "example_meaning": "Had we known about the ambush, we would have taken another road."
+        }
+      ],
+      "bites": [
+        {
+          "title": "El estilo del cronista",
+          "emoji": "🪶",
+          "rule": "Eldmark's chroniclers open with an absolute participle and chain clauses with cuyo and lo cual, then end with a full stop before the reader gets lost.",
+          "example": "Derrotado el orco, la aldea celebró la victoria.",
+          "example_meaning": "With the orc defeated, the village celebrated the victory."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Dicho esto, partimos al alba.",
+          "meaning": "That said, we leave at dawn."
+        },
+        {
+          "text": "Al entrar en la mazmorra, apagamos las antorchas.",
+          "meaning": "On entering the dungeon, we put out the torches.",
+          "note": "New word: la antorcha = torch."
+        },
+        {
+          "text": "Cumplida la misión, el escudero volvió a casa.",
+          "meaning": "The quest accomplished, the squire went home.",
+          "note": "New word: el escudero = squire."
+        },
+        {
+          "text": "La maga, cuyo dragón dormía, pidió silencio.",
+          "meaning": "The mage, whose dragon was asleep, asked for silence."
+        },
+        {
+          "text": "Perdimos el mapa, lo cual nos costó tres días.",
+          "meaning": "We lost the map, which cost us three days."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Siendo así, esperaremos al paladín.",
+          "meaning": "That being so, we will wait for the paladin.",
+          "distractors": [
+            "Sido"
+          ]
+        },
+        {
+          "text": "El orco, cuya hacha brillaba, se rindió.",
+          "meaning": "The orc, whose axe was gleaming, surrendered.",
+          "distractors": [
+            "cuyo"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Derrotado la bruja, el pueblo celebró una fiesta.",
+          "wrong": "Derrotado",
+          "fix": "Derrotada",
+          "why": "The absolute participle agrees with la bruja: derrotada."
+        },
+        {
+          "sentence": "La elfa con quienes viajé conocía todos los caminos.",
+          "wrong": "quienes",
+          "fix": "quien",
+          "why": "One elf: con quien."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "When, if or although, in Eldmark?",
+          "buckets": [
+            "time (when)",
+            "condition (if)",
+            "concession (although)"
+          ],
+          "why": "Al + infinitive marks time, de + infinitive a condition, con + infinitive a concession.",
+          "items": [
+            {
+              "text": "Al cruzar el puente, vimos el castillo.",
+              "bucket": 0
+            },
+            {
+              "text": "De encontrar el tesoro, lo repartiremos.",
+              "bucket": 1
+            },
+            {
+              "text": "Con ser un enano, alcanzaba el estante más alto.",
+              "bucket": 2
+            },
+            {
+              "text": "Al oír el cuerno, la guardia corrió a la muralla.",
+              "bucket": 0
+            },
+            {
+              "text": "De no ser por la maga, seguiríamos perdidos.",
+              "bucket": 1
+            },
+            {
+              "text": "Con tener tanto oro, el rey vestía como un mendigo.",
+              "bucket": 2
+            }
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "c2-long-sentences-realm-01",
+          "prompt": "___ el minotauro, la compañía volvió a Highgate.",
+          "type": "multiple-choice",
+          "options": [
+            "Derrotado",
+            "Derrotada",
+            "Derrotados"
+          ],
+          "correct_answer": "Derrotado",
+          "explanation": "The absolute participle agrees with the noun after it: el minotauro is masculine singular, so derrotado.",
+          "hints": [
+            "Look at the noun after the gap."
+          ],
+          "teaches": [
+            "terminada la reunión"
+          ]
+        },
+        {
+          "question_id": "c2-long-sentences-realm-02",
+          "prompt": "La elfa, ___ arco era de plata, ganó el torneo.",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "cuyo",
+          "accepted_answers": [],
+          "explanation": "Cuyo agrees with the thing owned: arco is masculine singular, so cuyo, even though the owner is la elfa.",
+          "hints": [
+            "Whose bow…",
+            "Agree with arco, not with elfa."
+          ],
+          "teaches": [
+            "cuyo / cuya"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "c2-long-sentences-conv-realm-cronista",
+          "title": "The apprentice's first chronicle",
+          "scenario": "In the library of Highgate, Ferrán, an old chronicler, reads the first sentence his apprentice Ilda has written for the annals.",
+          "role_a": "Ferrán",
+          "role_b": "Ilda",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Léeme la primera frase de tu crónica, Ilda.",
+              "meaning": "Read me the first sentence of your chronicle, Ilda."
+            },
+            {
+              "speaker": "b",
+              "text": "El orco que bajó de las montañas con sus tres hermanos y un carro de calabazas, lo vimos en Highgate.",
+              "meaning": "The orc who came down from the mountains with his three brothers and a cart of pumpkins, we saw him in Highgate."
+            },
+            {
+              "speaker": "a",
+              "text": "Empiezas con un sujeto y acabas con otro. Eso es un anacoluto.",
+              "meaning": "You start with one subject and end with another. That's an anacoluthon."
+            },
+            {
+              "speaker": "b",
+              "text": "¿Y si escribo: al orco que bajó de las montañas lo vimos en Highgate?",
+              "meaning": "And if I write: the orc who came down from the mountains, we saw in Highgate?"
+            },
+            {
+              "speaker": "a",
+              "text": "Mejor. Pero el carro de calabazas merece su propia frase.",
+              "meaning": "Better. But the cart of pumpkins deserves a sentence of its own."
+            },
+            {
+              "speaker": "b",
+              "text": "Siendo así, la parto en dos: primero el orco, luego las calabazas.",
+              "meaning": "In that case, I'll split it in two: first the orc, then the pumpkins."
+            },
+            {
+              "speaker": "a",
+              "text": "Dicho esto, el orco te ha quedado simpático, lo cual no es poco.",
+              "meaning": "That said, you've made the orc likeable, which is no small thing."
+            },
+            {
+              "speaker": "b",
+              "text": "Es que nos regaló una calabaza, maestro.",
+              "meaning": "Well, he did give us a pumpkin, master."
+            }
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🧶",
+      "content": "## Las frases largas en Meadowbrook\n\nThe Meadowbrook almanac writes in long, slow sentences: **Cosechado el maíz, los vecinos, cuyas vacas ya dormían, se reunieron en la taberna, lo cual el alcalde celebró con sidra**. Nora, the new farmer, prefers a **punto y seguido**: **Cosechamos el maíz. Luego, a la taberna.**",
+      "vocabulary": [
+        {
+          "term": "terminada la reunión",
+          "example": "Terminada la reunión del mercado, Rosa cerró la tienda de semillas.",
+          "example_meaning": "Once the market meeting was over, Rosa closed the seed shop."
+        },
+        {
+          "term": "al + infinitivo",
+          "example": "Al amanecer, Nora ya estaba plantando fresas.",
+          "example_meaning": "At daybreak, Nora was already planting strawberries."
+        },
+        {
+          "term": "de + infinitivo",
+          "example": "De llover mañana, cosecharemos las calabazas el jueves.",
+          "example_meaning": "If it rains tomorrow, we'll harvest the pumpkins on Thursday."
+        },
+        {
+          "term": "cuyo / cuya",
+          "example": "Leo, cuya barca es azul, pesca en el río cada mañana.",
+          "example_meaning": "Leo, whose boat is blue, fishes in the river every morning."
+        },
+        {
+          "term": "lo cual",
+          "example": "Las gallinas se escaparon, lo cual divirtió mucho al alcalde.",
+          "example_meaning": "The hens escaped, which greatly amused the mayor."
+        },
+        {
+          "term": "el punto y seguido",
+          "example": "Nora pone un punto y seguido donde el almanaque pone tres comas.",
+          "example_meaning": "Nora puts a full stop where the almanac puts three commas."
+        },
+        {
+          "term": "el almanaque",
+          "meaning": "almanac",
+          "example": "Según el almanaque, cuyas predicciones casi nunca fallan, nevará en noviembre.",
+          "example_meaning": "According to the almanac, whose forecasts almost never fail, it will snow in November."
+        },
+        {
+          "term": "la cosecha",
+          "meaning": "harvest",
+          "example": "Terminada la cosecha, todo el pueblo baila en la plaza.",
+          "example_meaning": "Once the harvest is in, the whole town dances in the square."
+        },
+        {
+          "term": "el huerto",
+          "meaning": "vegetable garden",
+          "example": "El huerto en el que planté las fresas da al río.",
+          "example_meaning": "The vegetable garden where I planted the strawberries looks onto the river."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Frases de almanaque",
+          "emoji": "📅",
+          "rule": "The almanac chains clauses with cuyo and lo cual; when the thread gets lost, a punto y seguido saves it.",
+          "example": "Cosechado el maíz, empezó la fiesta.",
+          "example_meaning": "Once the maize was harvested, the festival began."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Plantadas las fresas, Nora descansó.",
+          "meaning": "With the strawberries planted, Nora rested."
+        },
+        {
+          "text": "Según el almanaque, mañana lloverá.",
+          "meaning": "According to the almanac, it will rain tomorrow.",
+          "note": "New word: el almanaque = almanac."
+        },
+        {
+          "text": "Al llegar el otoño, cosechamos las calabazas.",
+          "meaning": "When autumn came, we harvested the pumpkins."
+        },
+        {
+          "text": "La vaca, cuyo nombre es Luna, da mucha leche.",
+          "meaning": "The cow, whose name is Luna, gives a lot of milk."
+        },
+        {
+          "text": "Leo pescó un salmón enorme, lo cual nadie creyó.",
+          "meaning": "Leo caught an enormous salmon, which nobody believed.",
+          "note": "New word: el salmón = salmon."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Terminada la cosecha, bailamos en la plaza.",
+          "meaning": "Once the harvest was in, we danced in the square.",
+          "distractors": [
+            "Terminado"
+          ]
+        },
+        {
+          "text": "Rosa, cuya tienda vende semillas, sonríe siempre.",
+          "meaning": "Rosa, whose shop sells seeds, is always smiling.",
+          "distractors": [
+            "cuyo"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Leo, cuyo barca es azul, pesca cada mañana.",
+          "wrong": "cuyo",
+          "fix": "cuya",
+          "why": "Cuyo agrees with the thing owned: la barca takes cuya."
+        },
+        {
+          "sentence": "Con llover mañana, cosecharemos el jueves.",
+          "wrong": "Con",
+          "fix": "De",
+          "why": "A condition takes de + infinitive; con + infinitive is concessive."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Correct, or a comma to remove?",
+          "buckets": [
+            "correct",
+            "comma to remove"
+          ],
+          "why": "A comma never separates a subject from its verb; paired commas around an aside and a comma after an opening clause are fine.",
+          "items": [
+            {
+              "text": "Las vacas que pastan junto al río, dan más leche.",
+              "bucket": 1
+            },
+            {
+              "text": "Las vacas, que pastan junto al río, dan más leche.",
+              "bucket": 0
+            },
+            {
+              "text": "Plantado el maíz, Nora se fue al mercado.",
+              "bucket": 0
+            },
+            {
+              "text": "El alcalde de Meadowbrook, abrió el festival.",
+              "bucket": 1
+            },
+            {
+              "text": "Al salir el sol, cantó el gallo.",
+              "bucket": 0
+            },
+            {
+              "text": "Todo lo que cultiva Nora, se vende en la tienda de Rosa.",
+              "bucket": 1
+            }
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "c2-long-sentences-meadowbrook-01",
+          "prompt": "___ las fresas, Nora fue a la taberna.",
+          "type": "multiple-choice",
+          "options": [
+            "Plantadas",
+            "Plantados",
+            "Plantada"
+          ],
+          "correct_answer": "Plantadas",
+          "explanation": "The absolute participle agrees with the noun after it: las fresas is feminine plural, so plantadas.",
+          "hints": [
+            "Look at the noun after the gap."
+          ],
+          "teaches": [
+            "terminada la reunión"
+          ]
+        },
+        {
+          "question_id": "c2-long-sentences-meadowbrook-02",
+          "prompt": "Las gallinas se escaparon otra vez, ___ divirtió al alcalde.",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "lo cual",
+          "accepted_answers": [
+            "lo que",
+            "cosa que"
+          ],
+          "explanation": "Lo cual sums up the whole clause: the hens escaping is what amused the mayor.",
+          "hints": [
+            "Which refers to the whole fact.",
+            "Neuter article + cual."
+          ],
+          "teaches": [
+            "lo cual"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🚂",
+      "content": "## Las frases largas en el páramo\n\nRadio Páramo reads each bulletin in one breath: **Reparada la antena, cuyo cable se rompió en la tormenta de ceniza, el capataz Ruiz anuncia que el mercado abre mañana, lo cual alegra a los buscadores**. The announcer's rule is **siendo así**, breathe, and **ni una coma entre sujeto y verbo**.",
+      "vocabulary": [
+        {
+          "term": "dicho esto",
+          "example": "Dicho esto, Radio Páramo se despide hasta mañana.",
+          "example_meaning": "That said, Radio Páramo signs off until tomorrow."
+        },
+        {
+          "term": "siendo así",
+          "example": "Hay una tormenta de ceniza. Siendo así, nadie sale de la cúpula.",
+          "example_meaning": "There's an ash storm. That being so, nobody leaves the Dome."
+        },
+        {
+          "term": "con + infinitivo",
+          "example": "Con ser tan viejo, el robot jardinero todavía cuida el huerto.",
+          "example_meaning": "Old as he is, the gardener robot still looks after the vegetable patch."
+        },
+        {
+          "term": "quien / quienes",
+          "example": "Los buscadores con quienes cambié tuercas por agua eran honrados.",
+          "example_meaning": "The scavengers I traded nuts for water with were honest."
+        },
+        {
+          "term": "el inciso",
+          "example": "La locutora lee cada inciso un poco más despacio.",
+          "example_meaning": "The announcer reads every aside a little more slowly."
+        },
+        {
+          "term": "el anacoluto",
+          "example": "El capataz, le gusta la gaseosa Zafiro: un anacoluto de manual.",
+          "example_meaning": "The foreman, he likes Zafiro soda: a textbook anacoluthon."
+        },
+        {
+          "term": "el boletín",
+          "meaning": "news bulletin",
+          "example": "Terminado el boletín, la locutora apagó el micrófono.",
+          "example_meaning": "Once the bulletin was over, the announcer switched off the microphone."
+        },
+        {
+          "term": "el locutor / la locutora",
+          "meaning": "radio announcer",
+          "example": "La locutora, cuya voz conoce todo el páramo, nunca dice su nombre.",
+          "example_meaning": "The announcer, whose voice the whole wasteland knows, never says her name."
+        },
+        {
+          "term": "la chatarra",
+          "meaning": "scrap metal",
+          "example": "Al encontrar tanta chatarra, el buscador silbó de alegría.",
+          "example_meaning": "On finding so much scrap, the scavenger whistled with joy."
+        }
+      ],
+      "bites": [
+        {
+          "title": "El boletín de Radio Páramo",
+          "emoji": "📻",
+          "rule": "Radio Páramo opens with an absolute participle and never puts a comma between a long subject and its verb.",
+          "example": "Reparado el radiorreloj, Leo volvió a escuchar la radio.",
+          "example_meaning": "With his wrist radio repaired, Leo listened to the radio again."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Dicho esto, buenas noches, páramo.",
+          "meaning": "That said, good night, wasteland."
+        },
+        {
+          "text": "Encontrada la chatarra, Leo volvió al taller.",
+          "meaning": "With the scrap found, Leo went back to the workshop.",
+          "note": "New word: la chatarra = scrap metal."
+        },
+        {
+          "text": "Volvió el polvo, lo cual nadie esperaba.",
+          "meaning": "The dust came back, which nobody expected."
+        },
+        {
+          "text": "Al caer la noche, vuelve el escarabajo gigante.",
+          "meaning": "When night falls, the giant beetle comes back."
+        },
+        {
+          "text": "La locutora, cuya voz conoces, lee las noticias.",
+          "meaning": "The announcer, whose voice you know, reads the news.",
+          "note": "New word: la locutora = the announcer."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Reparada la antena, volvió la música.",
+          "meaning": "With the antenna repaired, the music came back.",
+          "distractors": [
+            "Reparado"
+          ]
+        },
+        {
+          "text": "Marta, cuyas tuercas brillan, vende agua filtrada.",
+          "meaning": "Marta, whose nuts shine, sells filtered water.",
+          "distractors": [
+            "cuyos"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Cerraron el mercado, la cual enfadó a Marta.",
+          "wrong": "la",
+          "fix": "lo",
+          "why": "A whole clause is summed up by the neuter lo cual."
+        },
+        {
+          "sentence": "Terminado la tormenta de ceniza, salimos de la cúpula.",
+          "wrong": "Terminado",
+          "fix": "Terminada",
+          "why": "The absolute participle agrees with la tormenta: terminada."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Which relative, in the wasteland?",
+          "buckets": [
+            "cuyo, cuya, cuyos, cuyas",
+            "lo cual",
+            "quien, quienes"
+          ],
+          "why": "Cuyo links an owner to a thing; lo cual sums up a clause; quien refers to people, often after a preposition.",
+          "items": [
+            {
+              "text": "el robot ___ brazo chirría",
+              "bucket": 0
+            },
+            {
+              "text": "Llovió ceniza, ___ nos obligó a volver.",
+              "bucket": 1
+            },
+            {
+              "text": "la mercadera a ___ compré el tónico",
+              "bucket": 2
+            },
+            {
+              "text": "la cabra ___ leche bebemos",
+              "bucket": 0
+            },
+            {
+              "text": "los buscadores con ___ exploré el centro comercial",
+              "bucket": 2
+            }
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "c2-long-sentences-rustwake-01",
+          "prompt": "___ así, nadie sale de la cúpula hasta mañana. (ser)",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "Siendo",
+          "accepted_answers": [
+            "siendo"
+          ],
+          "explanation": "The absolute gerund siendo así means that being so. It opens the sentence and gives the reason for what follows.",
+          "hints": [
+            "That being so…",
+            "Gerund of ser."
+          ],
+          "teaches": [
+            "siendo así"
+          ]
+        },
+        {
+          "question_id": "c2-long-sentences-rustwake-02",
+          "prompt": "Which sentence keeps the thread?",
+          "type": "multiple-choice",
+          "options": [
+            "Al capataz Ruiz le gusta la gaseosa Zafiro.",
+            "El capataz Ruiz, le gusta la gaseosa Zafiro.",
+            "El capataz Ruiz le gusta la gaseosa Zafiro."
+          ],
+          "correct_answer": "Al capataz Ruiz le gusta la gaseosa Zafiro.",
+          "explanation": "With gustar the person is the indirect object: al capataz… le gusta. Starting with el capataz as a subject and then switching to le is an anacoluthon.",
+          "hints": [
+            "Who does the liking in Spanish grammar: subject or indirect object?"
+          ],
+          "teaches": [
+            "el anacoluto"
+          ]
+        }
+      ]
+    }
+  }
+}

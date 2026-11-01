@@ -1,0 +1,1318 @@
+{
+  "id": "b1-travel-problems",
+  "slug": "travel-problems",
+  "title": "Problems on the road: j'ai perdu mon passeport",
+  "unit": "B1",
+  "group": "Vocabulary",
+  "order": 44,
+  "summary": "Say what went wrong on a trip, ask for help in the right place, complain politely and tell the story afterwards.",
+  "focus": "Vocabulary of travel problems, getting help and complaining politely",
+  "prerequisites": [
+    "b1-conditionnel"
+  ],
+  "content": "## When things go wrong\n\n- **perdre** (to lose) is a regular -re verb: **je perds, tu perds, il perd, nous perdons, vous perdez, ils perdent**. **J'ai perdu mon passeport.**\n- **oublier** (to forget, to leave behind): **J'ai oublié ma valise dans le train.**\n- **rater** (to miss) **le train, le bus, l'avion**; **être en retard** (to be late).\n- **Le vol est annulé** (cancelled) or **retardé** (delayed).\n- **la panne**: a breakdown (**la voiture est en panne**, **tomber en panne**); **la grève**: a strike (**les contrôleurs font grève**).\n- Theft: **on m'a volé mon sac**. You will also hear **je me suis fait voler mon sac** (I had my bag stolen); just recognise it for now.\n\n## Getting help\n\nAsk with the **conditionnel**, which softens any request: **Pourriez-vous m'aider ?** **Je voudrais signaler un vol.** (to report a theft) **Vous pourriez appeler un taxi ?**\n\nWhere to go:\n\n- **le commissariat**: the police station, to report a theft (**porter plainte**: to file a complaint).\n- **l'ambassade** (f) or **le consulat**: if your passport is lost or stolen abroad.\n- **le bureau des objets trouvés**: the lost property office.\n- At a station or an airport: **le guichet** (ticket desk), **l'accueil** (information desk).\n\n## Complaining politely and telling what happened\n\n- **Il y a un problème avec ma chambre.** **La douche ne marche pas.** (doesn't work)\n- **Je voudrais être remboursé(e).** (refunded) **Je voudrais faire une réclamation.** (a formal complaint) **Est-ce que je peux faire un échange ?** (an exchange)\n\nTelling the story afterwards, the **imparfait** sets the scene and the **passé composé** tells what happened:\n\n- **J'attendais le bus quand un homme a pris mon sac.**\n- **Il pleuvait, et nous avons raté le dernier train.**",
+  "vocabulary": [
+    {
+      "term": "perdre",
+      "meaning": "to lose",
+      "example": "Je perds toujours mes lunettes en vacances.",
+      "example_meaning": "I always lose my glasses on holiday."
+    },
+    {
+      "term": "oublier",
+      "meaning": "to forget, to leave behind",
+      "example": "J'ai oublié mon chargeur à l'hôtel.",
+      "example_meaning": "I left my charger at the hotel."
+    },
+    {
+      "term": "rater",
+      "meaning": "to miss (a train, a bus, a flight)",
+      "example": "Nous avons raté le train de huit heures.",
+      "example_meaning": "We missed the eight o'clock train."
+    },
+    {
+      "term": "être en retard",
+      "meaning": "to be late",
+      "example": "Désolé, je suis en retard : le métro était bloqué.",
+      "example_meaning": "Sorry I'm late: the metro was stuck."
+    },
+    {
+      "term": "annulé",
+      "meaning": "cancelled",
+      "example": "Mon vol pour Nice est annulé à cause de la neige.",
+      "example_meaning": "My flight to Nice is cancelled because of the snow."
+    },
+    {
+      "term": "retardé",
+      "meaning": "delayed",
+      "example": "Le train est retardé de quarante minutes.",
+      "example_meaning": "The train is delayed by forty minutes."
+    },
+    {
+      "term": "la panne",
+      "meaning": "breakdown; en panne = broken down, out of order",
+      "example": "Notre voiture est tombée en panne sur l'autoroute.",
+      "example_meaning": "Our car broke down on the motorway."
+    },
+    {
+      "term": "la grève",
+      "meaning": "strike; faire grève = to be on strike",
+      "example": "Il y a une grève des trains demain.",
+      "example_meaning": "There's a train strike tomorrow."
+    },
+    {
+      "term": "signaler",
+      "meaning": "to report",
+      "example": "Je voudrais signaler la perte de ma carte bancaire.",
+      "example_meaning": "I'd like to report the loss of my bank card."
+    },
+    {
+      "term": "le commissariat",
+      "meaning": "police station",
+      "example": "Le commissariat le plus proche est à côté de la gare.",
+      "example_meaning": "The nearest police station is next to the station."
+    },
+    {
+      "term": "l'ambassade",
+      "meaning": "embassy (f)",
+      "example": "Elle a appelé l'ambassade pour un passeport provisoire.",
+      "example_meaning": "She called the embassy for a temporary passport."
+    },
+    {
+      "term": "le bureau des objets trouvés",
+      "meaning": "lost property office",
+      "example": "Mon parapluie est peut-être au bureau des objets trouvés.",
+      "example_meaning": "My umbrella may be at the lost property office."
+    },
+    {
+      "term": "rembourser",
+      "meaning": "to refund, to pay back",
+      "example": "La compagnie va nous rembourser les billets.",
+      "example_meaning": "The company is going to refund our tickets."
+    },
+    {
+      "term": "la réclamation",
+      "meaning": "complaint (formal, to a company)",
+      "example": "J'ai envoyé une réclamation à la compagnie aérienne.",
+      "example_meaning": "I sent a complaint to the airline."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-travel-problems-01",
+      "prompt": "En voyage, je ___ (perdre) toujours mes clés.",
+      "type": "fill-in-blank",
+      "correct_answer": "perds",
+      "accepted_answers": [
+        "je perds"
+      ],
+      "explanation": "Perdre in the present: je perds (the d stays, the s is added, both silent).",
+      "hints": [
+        "je form of a regular -re verb",
+        "perd- + s"
+      ],
+      "teaches": [
+        "perdre"
+      ]
+    },
+    {
+      "question_id": "b1-travel-problems-02",
+      "prompt": "Le train est parti à huit heures et je suis arrivé sur le quai à huit heures cinq : j'ai ___ le train.",
+      "type": "multiple-choice",
+      "options": [
+        "raté",
+        "oublié",
+        "annulé"
+      ],
+      "correct_answer": "raté",
+      "explanation": "Rater le train = to miss the train. Oublier is to forget something; annuler is what the company does when the train doesn't run.",
+      "hints": [
+        "You got there too late."
+      ],
+      "teaches": [
+        "rater"
+      ]
+    },
+    {
+      "question_id": "b1-travel-problems-03",
+      "prompt": "Nous ___ (perdre) beaucoup de temps : la voiture est en panne.",
+      "type": "fill-in-blank",
+      "correct_answer": "perdons",
+      "accepted_answers": [
+        "nous perdons"
+      ],
+      "explanation": "Perdre: nous perdons. En panne = broken down.",
+      "hints": [
+        "nous form: perd- + -ons"
+      ],
+      "teaches": [
+        "perdre",
+        "la panne"
+      ]
+    },
+    {
+      "question_id": "b1-travel-problems-04",
+      "prompt": "Someone has stolen your wallet in the metro. Where do you go to report it?",
+      "type": "multiple-choice",
+      "options": [
+        "au commissariat",
+        "au bureau des objets trouvés",
+        "à l'ambassade"
+      ],
+      "correct_answer": "au commissariat",
+      "explanation": "A theft is reported at the police station: au commissariat, where you porter plainte. The lost property office is for things you lost; the embassy for a lost passport.",
+      "hints": [
+        "Theft is a matter for the police."
+      ],
+      "teaches": [
+        "le commissariat"
+      ]
+    },
+    {
+      "question_id": "b1-travel-problems-05",
+      "prompt": "In 'Je voudrais signaler un vol', voudrais is the futur simple of vouloir.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "False: je voudrais is the conditionnel (futur stem voudr- + imparfait ending -ais), the polite way to ask. The futur would be je voudrai. Here un vol means a theft, not a flight.",
+      "hints": [
+        "-ais is an imparfait ending on a future stem."
+      ],
+      "teaches": [
+        "signaler"
+      ]
+    },
+    {
+      "question_id": "b1-travel-problems-06",
+      "prompt": "J'ai perdu mon passeport à Rome : je dois contacter l'___ de France.",
+      "type": "fill-in-blank",
+      "correct_answer": "ambassade",
+      "accepted_answers": [],
+      "explanation": "L'ambassade (or le consulat) gives you a temporary passport abroad.",
+      "hints": [
+        "Your country's office in a foreign capital.",
+        "amb…"
+      ],
+      "teaches": [
+        "l'ambassade"
+      ]
+    },
+    {
+      "question_id": "b1-travel-problems-07",
+      "prompt": "Les pilotes font ___ aujourd'hui : tous les vols sont annulés.",
+      "type": "multiple-choice",
+      "options": [
+        "grève",
+        "panne",
+        "réclamation"
+      ],
+      "correct_answer": "grève",
+      "explanation": "Faire grève = to be on strike (no article). La panne is a breakdown; une réclamation a complaint.",
+      "hints": [
+        "The pilots refuse to work."
+      ],
+      "teaches": [
+        "la grève",
+        "annulé"
+      ]
+    },
+    {
+      "question_id": "b1-travel-problems-08",
+      "prompt": "In 'J'attendais le bus quand on m'a volé mon sac', the imparfait sets the scene and the passé composé tells what happened.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "True: j'attendais (imparfait) is the background, on m'a volé (passé composé) the event that interrupts it.",
+      "hints": [
+        "Which verb is the sudden event?"
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b1-travel-problems-09",
+      "prompt": "Le concert est annulé : je voudrais être ___, s'il vous plaît.",
+      "type": "fill-in-blank",
+      "correct_answer": "remboursé",
+      "accepted_answers": [
+        "remboursée",
+        "remboursé(e)"
+      ],
+      "explanation": "Être remboursé(e) = to be refunded; add -e if you are a woman.",
+      "hints": [
+        "You want your money back.",
+        "From rembourser."
+      ],
+      "teaches": [
+        "rembourser"
+      ]
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "perdre",
+      "meaning": "to lose",
+      "set": "present",
+      "art": [
+        "    ________    ",
+        "   |  ? ?   |   ",
+        " __|________|__ ",
+        "|    LOST :(   |",
+        "|______________|"
+      ],
+      "forms": {
+        "je": "perds",
+        "tu": "perds",
+        "il": "perd",
+        "nous": "perdons",
+        "vous": "perdez",
+        "ils": "perdent"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-travel-problems-conv-hotel-complaint",
+      "title": "A problem with the room",
+      "scenario": "Camille has just checked into a hotel in Bordeaux. She goes down to reception to speak to Monsieur Garnier.",
+      "role_a": "Camille",
+      "role_b": "M. Garnier",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Bonsoir, monsieur. Il y a un problème avec ma chambre.",
+          "meaning": "Good evening. There's a problem with my room."
+        },
+        {
+          "speaker": "b",
+          "text": "Je suis désolé, madame. Qu'est-ce qui se passe ?",
+          "meaning": "I'm sorry, madam. What's the matter?"
+        },
+        {
+          "speaker": "a",
+          "text": "La douche ne marche pas, et il n'y a pas d'eau chaude.",
+          "meaning": "The shower doesn't work, and there's no hot water."
+        },
+        {
+          "speaker": "b",
+          "text": "Ah, il y a une panne dans tout le deuxième étage.",
+          "meaning": "Ah, there's a fault on the whole second floor."
+        },
+        {
+          "speaker": "a",
+          "text": "Pourriez-vous me donner une autre chambre ?",
+          "meaning": "Could you give me another room?"
+        },
+        {
+          "speaker": "b",
+          "text": "Malheureusement, l'hôtel est complet ce soir.",
+          "meaning": "Unfortunately, the hotel is full tonight."
+        },
+        {
+          "speaker": "a",
+          "text": "Alors je voudrais être remboursée pour cette nuit.",
+          "meaning": "Then I'd like to be refunded for tonight."
+        },
+        {
+          "speaker": "b",
+          "text": "Bien sûr. Et je vous offre le petit-déjeuner.",
+          "meaning": "Of course. And breakfast is on us."
+        },
+        {
+          "speaker": "a",
+          "text": "Merci. Autre chose : j'ai oublié mon parapluie dans le taxi.",
+          "meaning": "Thank you. One more thing: I left my umbrella in the taxi."
+        },
+        {
+          "speaker": "b",
+          "text": "Pas de problème, j'appelle la compagnie de taxis tout de suite.",
+          "meaning": "No problem, I'll call the taxi company right away."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Notre train est en retard.",
+      "meaning": "Our train is late."
+    },
+    {
+      "text": "Le vol pour Lyon est annulé.",
+      "meaning": "The flight to Lyon is cancelled."
+    },
+    {
+      "text": "J'ai raté le dernier métro hier soir.",
+      "meaning": "I missed the last metro last night."
+    },
+    {
+      "text": "Il y a une grève des bus jusqu'à jeudi.",
+      "meaning": "There's a bus strike until Thursday."
+    },
+    {
+      "text": "Pourriez-vous m'aider, s'il vous plaît ? J'ai perdu mon sac.",
+      "meaning": "Could you help me, please? I've lost my bag.",
+      "note": "Pourriez-vous: the conditionnel makes the request polite."
+    },
+    {
+      "text": "Je voudrais signaler la perte de mon portefeuille.",
+      "meaning": "I'd like to report the loss of my wallet.",
+      "note": "New word: le portefeuille = the wallet."
+    },
+    {
+      "text": "Le bureau des objets trouvés est au fond de la gare.",
+      "meaning": "The lost property office is at the back of the station.",
+      "note": "New word: au fond de = at the back of."
+    },
+    {
+      "text": "Je dormais dans le train quand quelqu'un a pris ma valise.",
+      "meaning": "I was asleep on the train when someone took my suitcase.",
+      "note": "The imparfait sets the scene, the passé composé tells the event."
+    }
+  ],
+  "guide": [
+    {
+      "section": "When things go wrong"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-travel-problems-01"
+    },
+    {
+      "question": "b1-travel-problems-02"
+    },
+    {
+      "question": "b1-travel-problems-03"
+    },
+    {
+      "question": "b1-travel-problems-07"
+    },
+    {
+      "section": "Getting help"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-travel-problems-04"
+    },
+    {
+      "question": "b1-travel-problems-05"
+    },
+    {
+      "question": "b1-travel-problems-06"
+    },
+    {
+      "tip": "Un vol is both a flight and a theft: le vol est annulé (the flight), signaler un vol (a theft). Context tells you which."
+    },
+    {
+      "section": "Complaining"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b1-travel-problems-09"
+    },
+    {
+      "question": "b1-travel-problems-08"
+    },
+    {
+      "concept": {
+        "title": "Une grève annoncée",
+        "markdown": "In France, transport strikes are usually announced a few days ahead, and the rail and bus companies publish which services will still run. Before a trip, ask: **Il y a une grève demain ? Quels trains circulent ?** A cancelled ticket can usually be exchanged or refunded."
+      }
+    }
+  ],
+  "sprint": {
+    "icon": "🆘",
+    "bites": [
+      {
+        "title": "Perdre, rater, oublier",
+        "emoji": "🧳",
+        "rule": "Perdre: je perds, nous perdons, ils perdent. Rater le train = to miss it; oublier = to leave behind. Le vol est annulé or retardé.",
+        "example": "J'ai perdu mes clés à la gare.",
+        "example_meaning": "I lost my keys at the station."
+      },
+      {
+        "title": "Asking for help",
+        "emoji": "🙋",
+        "rule": "Soften every request with the conditionnel: pourriez-vous m'aider ?, je voudrais signaler… Go to le commissariat, l'ambassade or le bureau des objets trouvés.",
+        "example": "Pourriez-vous appeler la police ?",
+        "example_meaning": "Could you call the police?"
+      },
+      {
+        "title": "Complaining politely",
+        "emoji": "🧾",
+        "rule": "Il y a un problème avec…, ça ne marche pas, je voudrais être remboursé(e), faire une réclamation, faire un échange.",
+        "example": "Ce téléphone ne marche pas, je voudrais faire un échange.",
+        "example_meaning": "This phone doesn't work, I'd like to exchange it."
+      },
+      {
+        "title": "Telling what happened",
+        "emoji": "📖",
+        "rule": "Imparfait for the scene (j'attendais, il pleuvait), passé composé for the event (on m'a volé mon sac, le train est parti).",
+        "example": "Il pleuvait quand la voiture est tombée en panne.",
+        "example_meaning": "It was raining when the car broke down."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Where do you go?",
+        "buckets": [
+          "le commissariat",
+          "le bureau des objets trouvés",
+          "l'ambassade"
+        ],
+        "items": [
+          {
+            "text": "On m'a volé mon sac.",
+            "bucket": 0
+          },
+          {
+            "text": "Je voudrais porter plainte.",
+            "bucket": 0
+          },
+          {
+            "text": "J'ai oublié mon parapluie dans le train.",
+            "bucket": 1
+          },
+          {
+            "text": "Quelqu'un a rapporté un portefeuille ?",
+            "bucket": 1
+          },
+          {
+            "text": "J'ai perdu mon passeport à l'étranger.",
+            "bucket": 2
+          },
+          {
+            "text": "J'ai besoin d'un passeport provisoire.",
+            "bucket": 2
+          }
+        ],
+        "why": "Theft and complaints go to the police station, forgotten things to the lost property office, and passport trouble abroad to the embassy."
+      },
+      {
+        "title": "Problem or solution?",
+        "buckets": [
+          "le problème",
+          "la solution"
+        ],
+        "items": [
+          {
+            "text": "Le vol est annulé.",
+            "bucket": 0
+          },
+          {
+            "text": "La voiture est en panne.",
+            "bucket": 0
+          },
+          {
+            "text": "Ça ne marche pas.",
+            "bucket": 0
+          },
+          {
+            "text": "Il y a une grève.",
+            "bucket": 0
+          },
+          {
+            "text": "Je voudrais être remboursé.",
+            "bucket": 1
+          },
+          {
+            "text": "Est-ce que je peux faire un échange ?",
+            "bucket": 1
+          },
+          {
+            "text": "Pourriez-vous m'aider ?",
+            "bucket": 1
+          },
+          {
+            "text": "On vous rembourse le billet.",
+            "bucket": 1
+          }
+        ],
+        "why": "Cancellations, breakdowns, faults and strikes are the problems; refunds, exchanges and help are what you ask for."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Mes parents perd toujours leurs billets.",
+        "wrong": "perd",
+        "fix": "perdent",
+        "why": "Mes parents = ils. Perdre: ils perdent."
+      },
+      {
+        "sentence": "Je perde souvent mes clés.",
+        "wrong": "perde",
+        "fix": "perds",
+        "why": "Perdre in the present: je perds."
+      },
+      {
+        "sentence": "J'attendais le bus quand un homme prenait mon sac.",
+        "wrong": "prenait",
+        "fix": "a pris",
+        "why": "The sudden event goes in the passé composé: un homme a pris mon sac."
+      },
+      {
+        "sentence": "Je voudrai signaler un vol.",
+        "wrong": "voudrai",
+        "fix": "voudrais",
+        "why": "A polite request takes the conditionnel: je voudrais, with -s."
+      },
+      {
+        "sentence": "Mon vol est annulée à cause de la neige.",
+        "wrong": "annulée",
+        "fix": "annulé",
+        "why": "Annulé agrees with le vol (masculine)."
+      }
+    ],
+    "builds": [
+      {
+        "text": "J'ai perdu mon passeport.",
+        "meaning": "I've lost my passport.",
+        "distractors": [
+          "perdé"
+        ]
+      },
+      {
+        "text": "Pourriez-vous m'aider, s'il vous plaît ?",
+        "meaning": "Could you help me, please?",
+        "distractors": [
+          "Pourrez-vous"
+        ]
+      },
+      {
+        "text": "Le vol est retardé d'une heure.",
+        "meaning": "The flight is delayed by an hour.",
+        "distractors": [
+          "annulée"
+        ]
+      },
+      {
+        "text": "Je voudrais être remboursé.",
+        "meaning": "I'd like to be refunded.",
+        "distractors": [
+          "rembourser"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🐗",
+      "content": "## Les problèmes de voyage à Eldmark\n\nOn the road to Frostmarch, nothing goes right: Borin **perd** his map, the caravan **est en retard** and the griffin flight **est annulé**. At the inn, the stove **ne marche pas**. Borin asks politely: **Pourriez-vous m'aider ?** And to the Highgate guard: **Je voudrais signaler un vol.**",
+      "vocabulary": [
+        {
+          "term": "perdre",
+          "example": "Borin perd toujours sa carte de Frostmarch.",
+          "example_meaning": "Borin always loses his map of Frostmarch."
+        },
+        {
+          "term": "annulé",
+          "example": "Le vol du griffon est annulé à cause de la tempête.",
+          "example_meaning": "The griffin flight is cancelled because of the storm."
+        },
+        {
+          "term": "être en retard",
+          "example": "La caravane est en retard de deux jours.",
+          "example_meaning": "The caravan is two days late."
+        },
+        {
+          "term": "signaler",
+          "example": "Je voudrais signaler le vol de mon épée.",
+          "example_meaning": "I'd like to report the theft of my sword."
+        },
+        {
+          "term": "rater",
+          "example": "Nym a raté le bateau pour Highgate.",
+          "example_meaning": "Nym missed the boat to Highgate."
+        },
+        {
+          "term": "rembourser",
+          "example": "L'aubergiste va nous rembourser la nuit.",
+          "example_meaning": "The innkeeper is going to refund us for the night."
+        },
+        {
+          "term": "l'auberge",
+          "meaning": "inn (f)",
+          "example": "L'auberge du col est complète ce soir.",
+          "example_meaning": "The inn at the pass is full tonight."
+        },
+        {
+          "term": "le griffon",
+          "meaning": "griffin",
+          "example": "Le griffon transporte les voyageurs jusqu'à Frostmarch.",
+          "example_meaning": "The griffin carries travellers to Frostmarch."
+        },
+        {
+          "term": "la carte",
+          "meaning": "map",
+          "example": "Sans carte, on ne trouve pas la Forêt Ombreuse.",
+          "example_meaning": "Without a map, you can't find the Shadowed Forest."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Mauvaise route",
+          "emoji": "🐗",
+          "rule": "Even heroes have bad trips: perdre sa carte, rater le bateau, le vol du griffon est annulé. Ask the guard: pourriez-vous m'aider ?",
+          "example": "Borin a perdu sa carte en route.",
+          "example_meaning": "Borin lost his map on the way."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Borin perd sa hache.",
+          "meaning": "Borin is losing his axe."
+        },
+        {
+          "text": "Le griffon est en retard.",
+          "meaning": "The griffin is late.",
+          "note": "New word: le griffon = the griffin."
+        },
+        {
+          "text": "Nous perdons du temps dans la forêt.",
+          "meaning": "We're losing time in the forest."
+        },
+        {
+          "text": "Pourriez-vous nous aider, messire ?",
+          "meaning": "Could you help us, my lord?",
+          "note": "New word: messire = my lord."
+        },
+        {
+          "text": "J'ai oublié mon bouclier à l'auberge.",
+          "meaning": "I left my shield at the inn.",
+          "note": "New word: l'auberge = the inn."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Nym a raté le bateau.",
+          "meaning": "Nym missed the boat.",
+          "distractors": [
+            "ratée"
+          ]
+        },
+        {
+          "text": "Les nains perdent leur carte.",
+          "meaning": "The dwarves are losing their map.",
+          "distractors": [
+            "perdons"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Les elfes perdez leur chemin.",
+          "wrong": "perdez",
+          "fix": "perdent",
+          "why": "Perdre: ils perdent."
+        },
+        {
+          "sentence": "Je voudrai signaler le vol de mon épée.",
+          "wrong": "voudrai",
+          "fix": "voudrais",
+          "why": "A polite request takes the conditionnel: je voudrais."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Problem or help?",
+          "buckets": [
+            "le problème",
+            "l'aide"
+          ],
+          "items": [
+            {
+              "text": "Le vol du griffon est annulé.",
+              "bucket": 0
+            },
+            {
+              "text": "Borin a perdu sa carte.",
+              "bucket": 0
+            },
+            {
+              "text": "La caravane est en retard.",
+              "bucket": 0
+            },
+            {
+              "text": "Pourriez-vous m'aider ?",
+              "bucket": 1
+            },
+            {
+              "text": "La garde va chercher votre épée.",
+              "bucket": 1
+            },
+            {
+              "text": "L'aubergiste nous rembourse la nuit.",
+              "bucket": 1
+            }
+          ],
+          "why": "Cancelled flights, lost maps and late caravans are problems; polite requests, the guard and a refund are the help."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-travel-problems-realm-01",
+          "prompt": "Dans la Forêt Ombreuse, les nains ___ (perdre) souvent leur chemin.",
+          "type": "fill-in-blank",
+          "correct_answer": "perdent",
+          "accepted_answers": [],
+          "explanation": "Perdre: ils perdent (les nains = ils).",
+          "hints": [
+            "ils form: perd- + -ent"
+          ],
+          "teaches": [
+            "perdre"
+          ]
+        },
+        {
+          "question_id": "b1-travel-problems-realm-02",
+          "prompt": "Ta monture a disparu pendant la nuit. Tu dis poliment au garde de Highgate…",
+          "type": "multiple-choice",
+          "options": [
+            "Je voudrais signaler un vol.",
+            "Je voudrai signaler un vol.",
+            "Je vais rembourser un vol."
+          ],
+          "correct_answer": "Je voudrais signaler un vol.",
+          "explanation": "Signaler un vol = to report a theft, with the polite conditionnel je voudrais. Je voudrai (no -s) is the futur.",
+          "hints": [
+            "The polite form ends in -ais."
+          ],
+          "teaches": [
+            "signaler"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b1-travel-problems-conv-realm-cold-inn",
+          "title": "A cold night at the inn",
+          "scenario": "Borin the dwarf, on his way to Frostmarch, complains to Maëlle the innkeeper.",
+          "role_a": "Borin",
+          "role_b": "Maëlle",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Bonsoir, madame. Il y a un problème avec le poêle de ma chambre.",
+              "meaning": "Good evening. There's a problem with the stove in my room."
+            },
+            {
+              "speaker": "b",
+              "text": "Je suis désolée, messire. Il ne marche pas ?",
+              "meaning": "I'm sorry, my lord. Doesn't it work?"
+            },
+            {
+              "speaker": "a",
+              "text": "Non, et il fait très froid.",
+              "meaning": "No, and it's very cold."
+            },
+            {
+              "speaker": "b",
+              "text": "Oui, il est en panne depuis hier.",
+              "meaning": "Yes, it's been out of order since yesterday."
+            },
+            {
+              "speaker": "a",
+              "text": "Pourriez-vous me donner une autre chambre ?",
+              "meaning": "Could you give me another room?"
+            },
+            {
+              "speaker": "b",
+              "text": "L'auberge est complète, mais je peux vous rembourser la nuit.",
+              "meaning": "The inn is full, but I can refund you for the night."
+            },
+            {
+              "speaker": "a",
+              "text": "Merci. Et j'ai perdu ma carte : vous en avez une ?",
+              "meaning": "Thank you. And I've lost my map: do you have one?"
+            },
+            {
+              "speaker": "b",
+              "text": "Bien sûr, la voici !",
+              "meaning": "Of course, here it is!"
+            }
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🦔",
+      "content": "## Les problèmes de voyage à Meadowbrook\n\nNora wants to sell her strawberries in the next town, but the bus **est en retard**, then the boat **est annulé**: there's a storm. She **perd** her hat on the quay and **oublie** her basket. Back at the seed shop: **Il y a un problème avec ces graines.** Rosa smiles: **On fait un échange ?**",
+      "vocabulary": [
+        {
+          "term": "être en retard",
+          "example": "Le bus du marché est encore en retard.",
+          "example_meaning": "The market bus is late again."
+        },
+        {
+          "term": "annulé",
+          "example": "Le bateau pour la plage est annulé à cause du vent.",
+          "example_meaning": "The boat to the beach is cancelled because of the wind."
+        },
+        {
+          "term": "perdre",
+          "example": "Je perds toujours mon chapeau au marché.",
+          "example_meaning": "I always lose my hat at the market."
+        },
+        {
+          "term": "oublier",
+          "example": "Nora a oublié son panier de fraises sur le quai.",
+          "example_meaning": "Nora left her basket of strawberries on the quay."
+        },
+        {
+          "term": "la panne",
+          "example": "Le tracteur de Léo est en panne.",
+          "example_meaning": "Léo's tractor has broken down."
+        },
+        {
+          "term": "la réclamation",
+          "example": "Rosa n'a jamais reçu de réclamation.",
+          "example_meaning": "Rosa has never had a complaint."
+        },
+        {
+          "term": "rembourser",
+          "example": "Si les graines ne poussent pas, Rosa vous rembourse.",
+          "example_meaning": "If the seeds don't grow, Rosa refunds you."
+        },
+        {
+          "term": "le bateau",
+          "meaning": "boat",
+          "example": "Le bateau traverse la rivière deux fois par jour.",
+          "example_meaning": "The boat crosses the river twice a day."
+        },
+        {
+          "term": "le panier",
+          "meaning": "basket",
+          "example": "Mon panier est plein de champignons.",
+          "example_meaning": "My basket is full of mushrooms."
+        },
+        {
+          "term": "la graine",
+          "meaning": "seed",
+          "example": "Rosa vend des graines de citrouille.",
+          "example_meaning": "Rosa sells pumpkin seeds."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Un jour sans chance",
+          "emoji": "🦔",
+          "rule": "Le bus est en retard, le bateau est annulé, Nora perd son chapeau. Then fix it politely: il y a un problème avec…, on peut faire un échange ?",
+          "example": "Le bateau est annulé à cause de la tempête.",
+          "example_meaning": "The boat is cancelled because of the storm."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Mon vélo est en panne.",
+          "meaning": "My bike has broken down."
+        },
+        {
+          "text": "Nora a raté le bus du marché.",
+          "meaning": "Nora missed the market bus."
+        },
+        {
+          "text": "Le bateau part en retard.",
+          "meaning": "The boat is leaving late.",
+          "note": "New word: le bateau = the boat."
+        },
+        {
+          "text": "Léo perd souvent ses clés.",
+          "meaning": "Léo often loses his keys."
+        },
+        {
+          "text": "J'ai oublié mon panier chez Rosa.",
+          "meaning": "I left my basket at Rosa's.",
+          "note": "New word: le panier = the basket."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Le bus du marché est en retard.",
+          "meaning": "The market bus is late.",
+          "distractors": [
+            "retardée"
+          ]
+        },
+        {
+          "text": "Nous perdons du temps au marché.",
+          "meaning": "We're losing time at the market.",
+          "distractors": [
+            "perdez"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Vous perdons vos clés.",
+          "wrong": "perdons",
+          "fix": "perdez",
+          "why": "Perdre: vous perdez."
+        },
+        {
+          "sentence": "Le bateau est annulée à cause du vent.",
+          "wrong": "annulée",
+          "fix": "annulé",
+          "why": "Annulé agrees with le bateau (masculine)."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Annulé, en retard or en panne?",
+          "buckets": [
+            "annulé",
+            "en retard",
+            "en panne"
+          ],
+          "items": [
+            {
+              "text": "Le bateau ne part pas du tout aujourd'hui.",
+              "bucket": 0
+            },
+            {
+              "text": "Il n'y a pas de bus ce soir, à cause de la neige.",
+              "bucket": 0
+            },
+            {
+              "text": "Le bus arrive à dix heures au lieu de neuf heures.",
+              "bucket": 1
+            },
+            {
+              "text": "Le facteur passe seulement après midi.",
+              "bucket": 1
+            },
+            {
+              "text": "Le tracteur ne démarre pas.",
+              "bucket": 2
+            },
+            {
+              "text": "La pompe à eau ne marche plus.",
+              "bucket": 2
+            }
+          ],
+          "why": "A service that doesn't run at all is annulé; one that comes later than planned is en retard; a machine that won't work is en panne."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-travel-problems-meadowbrook-01",
+          "prompt": "Nora arrive au quai à midi cinq, mais le bateau est parti à midi : elle a ___ le bateau.",
+          "type": "fill-in-blank",
+          "correct_answer": "raté",
+          "accepted_answers": [],
+          "explanation": "Rater le bateau = to miss the boat; the participle is raté.",
+          "hints": [
+            "She got there too late.",
+            "Participle of rater."
+          ],
+          "teaches": [
+            "rater"
+          ]
+        },
+        {
+          "question_id": "b1-travel-problems-meadowbrook-02",
+          "prompt": "'Le tracteur est en panne' means the tractor is on strike.",
+          "type": "true-false",
+          "correct_answer": "false",
+          "explanation": "False: en panne = broken down. A strike is la grève, and only people go on strike.",
+          "hints": [
+            "Can a tractor refuse to work on purpose?"
+          ],
+          "teaches": [
+            "la panne"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b1-travel-problems-conv-meadowbrook-seed-swap",
+          "title": "Seeds that don't grow",
+          "scenario": "Nora comes back to Rosa's seed shop because the corn seeds she bought have not come up.",
+          "role_a": "Nora",
+          "role_b": "Rosa",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Bonjour Rosa. Il y a un problème avec ces graines de maïs.",
+              "meaning": "Hello Rosa. There's a problem with these corn seeds."
+            },
+            {
+              "speaker": "b",
+              "text": "Oh ! Qu'est-ce qui se passe ?",
+              "meaning": "Oh! What's the matter?"
+            },
+            {
+              "speaker": "a",
+              "text": "Je les ai plantées il y a trois semaines, et rien ne pousse.",
+              "meaning": "I planted them three weeks ago, and nothing is growing."
+            },
+            {
+              "speaker": "b",
+              "text": "Je suis désolée. Tu veux faire un échange ?",
+              "meaning": "I'm sorry. Do you want to exchange them?"
+            },
+            {
+              "speaker": "a",
+              "text": "Oui, volontiers. Ou tu pourrais me rembourser ?",
+              "meaning": "Yes, gladly. Or could you refund me?"
+            },
+            {
+              "speaker": "b",
+              "text": "Bien sûr, je te rembourse. Et voici des graines de citrouille, gratuites !",
+              "meaning": "Of course, I'll refund you. And here are some pumpkin seeds, free!"
+            },
+            {
+              "speaker": "a",
+              "text": "Merci, Rosa, tu es géniale !",
+              "meaning": "Thank you, Rosa, you're wonderful!"
+            }
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🚨",
+      "content": "## Les problèmes de voyage à Rustwake\n\nOn the way to the antenna, the buggy **tombe en panne**, an ash storm starts and Léo **perd** his radio-montre. Back at the market, someone **a volé** his écrous. He tells the foreman: **Je voudrais signaler un vol.** Then Marta: **Cette radio ne marche pas, je voudrais être remboursé.**",
+      "vocabulary": [
+        {
+          "term": "perdre",
+          "example": "Léo perd sa radio-montre dans la tempête.",
+          "example_meaning": "Léo loses his wrist radio in the storm."
+        },
+        {
+          "term": "la panne",
+          "example": "Le buggy est tombé en panne près de la station-service.",
+          "example_meaning": "The buggy broke down near the petrol station."
+        },
+        {
+          "term": "signaler",
+          "example": "Je voudrais signaler un scarabée géant sur la route.",
+          "example_meaning": "I'd like to report a giant beetle on the road."
+        },
+        {
+          "term": "rembourser",
+          "example": "Marta, vous pourriez me rembourser cette radio ?",
+          "example_meaning": "Marta, could you refund me for this radio?"
+        },
+        {
+          "term": "la réclamation",
+          "example": "Le contremaître lit toutes les réclamations du village.",
+          "example_meaning": "The foreman reads all the village's complaints."
+        },
+        {
+          "term": "être en retard",
+          "example": "La caravane d'eau est en retard à cause de la poussière.",
+          "example_meaning": "The water caravan is late because of the dust."
+        },
+        {
+          "term": "annulé",
+          "example": "Le départ est annulé : il y a une tempête de cendres.",
+          "example_meaning": "The departure is cancelled: there's an ash storm."
+        },
+        {
+          "term": "le buggy",
+          "meaning": "buggy (desert car)",
+          "example": "Mon buggy roule avec de vieilles pièces.",
+          "example_meaning": "My buggy runs on old parts."
+        },
+        {
+          "term": "la radio-montre",
+          "meaning": "wrist radio",
+          "example": "Ma radio-montre capte la station du Dôme.",
+          "example_meaning": "My wrist radio picks up the Dome's station."
+        },
+        {
+          "term": "la tempête de cendres",
+          "meaning": "ash storm",
+          "example": "Pendant la tempête de cendres, tout le monde reste à l'atelier.",
+          "example_meaning": "During the ash storm, everyone stays at the workshop."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Sale journée dans le désert",
+          "emoji": "🚨",
+          "rule": "In the rust desert, things break: le buggy est en panne, je perds ma radio-montre. Report it politely: je voudrais signaler…, pourriez-vous m'aider ?",
+          "example": "Pourriez-vous réparer mon buggy ?",
+          "example_meaning": "Could you repair my buggy?"
+        }
+      ],
+      "listening": [
+        {
+          "text": "Mon buggy est en panne.",
+          "meaning": "My buggy has broken down.",
+          "note": "New word: le buggy = the buggy."
+        },
+        {
+          "text": "Il y a une tempête de cendres.",
+          "meaning": "There's an ash storm.",
+          "note": "New word: la tempête de cendres = the ash storm."
+        },
+        {
+          "text": "Les fouilleurs perdent leurs écrous.",
+          "meaning": "The scavengers are losing their nuts."
+        },
+        {
+          "text": "Pourriez-vous appeler le contremaître ?",
+          "meaning": "Could you call the foreman?"
+        },
+        {
+          "text": "Je marchais vers l'antenne quand la tempête a commencé.",
+          "meaning": "I was walking to the antenna when the storm started."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Le départ est annulé ce matin.",
+          "meaning": "The departure is cancelled this morning.",
+          "distractors": [
+            "annulée"
+          ]
+        },
+        {
+          "text": "Vous pourriez réparer ma radio-montre ?",
+          "meaning": "Could you repair my wrist radio?",
+          "distractors": [
+            "pourrez"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Tu perdez toujours tes écrous.",
+          "wrong": "perdez",
+          "fix": "perds",
+          "why": "Perdre: tu perds."
+        },
+        {
+          "sentence": "Je réparais le buggy quand un scarabée arrivait.",
+          "wrong": "arrivait",
+          "fix": "est arrivé",
+          "why": "The sudden event goes in the passé composé: un scarabée est arrivé."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Who do you ask?",
+          "buckets": [
+            "le contremaître Ruiz",
+            "Marta la marchande"
+          ],
+          "items": [
+            {
+              "text": "On m'a volé mes écrous.",
+              "bucket": 0
+            },
+            {
+              "text": "Je voudrais signaler un scarabée géant.",
+              "bucket": 0
+            },
+            {
+              "text": "Un fouilleur a disparu dans la tempête.",
+              "bucket": 0
+            },
+            {
+              "text": "Cette radio-montre ne marche pas.",
+              "bucket": 1
+            },
+            {
+              "text": "Je voudrais être remboursé.",
+              "bucket": 1
+            },
+            {
+              "text": "On peut faire un échange ?",
+              "bucket": 1
+            }
+          ],
+          "why": "Thefts, dangers and missing people are reported to the foreman; a faulty purchase, a refund or an exchange is a matter for the trader."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-travel-problems-rustwake-01",
+          "prompt": "Le buggy ne démarre plus au milieu du désert de rouille. Il est…",
+          "type": "multiple-choice",
+          "options": [
+            "en panne",
+            "en grève",
+            "en retard"
+          ],
+          "correct_answer": "en panne",
+          "explanation": "En panne = broken down. En grève is for people on strike; en retard means late.",
+          "hints": [
+            "The engine won't start."
+          ],
+          "teaches": [
+            "la panne"
+          ]
+        },
+        {
+          "question_id": "b1-travel-problems-rustwake-02",
+          "prompt": "Les fouilleurs ___ (perdre) souvent leurs écrous dans la poussière.",
+          "type": "fill-in-blank",
+          "correct_answer": "perdent",
+          "accepted_answers": [],
+          "explanation": "Perdre: ils perdent (les fouilleurs = ils).",
+          "hints": [
+            "ils form: perd- + -ent"
+          ],
+          "teaches": [
+            "perdre"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b1-travel-problems-conv-rustwake-broken-radio",
+          "title": "The broken wrist radio",
+          "scenario": "Léo the scavenger brings back to Marta the trader a wrist radio that stopped working in the ash storm.",
+          "role_a": "Léo",
+          "role_b": "Marta",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Marta, il y a un problème avec la radio-montre de mardi.",
+              "meaning": "Marta, there's a problem with Tuesday's wrist radio."
+            },
+            {
+              "speaker": "b",
+              "text": "Qu'est-ce qui ne va pas ?",
+              "meaning": "What's wrong?"
+            },
+            {
+              "speaker": "a",
+              "text": "Elle ne marche plus depuis la tempête de cendres.",
+              "meaning": "It hasn't worked since the ash storm."
+            },
+            {
+              "speaker": "b",
+              "text": "Tu l'as fait tomber dans la poussière ?",
+              "meaning": "Did you drop it in the dust?"
+            },
+            {
+              "speaker": "a",
+              "text": "Non, je marchais vers l'antenne quand elle s'est arrêtée.",
+              "meaning": "No, I was walking to the antenna when it stopped."
+            },
+            {
+              "speaker": "b",
+              "text": "D'accord. Tu veux un échange, ou je te rembourse ?",
+              "meaning": "All right. Do you want an exchange, or shall I refund you?"
+            },
+            {
+              "speaker": "a",
+              "text": "Je voudrais être remboursé, s'il te plaît. Trente écrous.",
+              "meaning": "I'd like a refund, please. Thirty nuts."
+            },
+            {
+              "speaker": "b",
+              "text": "Voilà tes trente écrous. Et fais attention dans le désert !",
+              "meaning": "Here are your thirty nuts. And be careful in the desert!"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

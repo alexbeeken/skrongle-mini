@@ -1,0 +1,1275 @@
+{
+  "id": "b2-sequence-of-tenses",
+  "slug": "sequence-of-tenses",
+  "title": "Quería que vinieras: the sequence of tenses",
+  "unit": "B2",
+  "group": "Grammar",
+  "order": 12,
+  "summary": "The main verb picks the subjunctive: quiero que vengas, but quería que vinieras. It also covers como si, para que in the past and me gustaría que.",
+  "focus": "Matching the subjunctive to the tense of the main verb",
+  "prerequisites": [
+    "b2-imperfect-subjunctive",
+    "b1-feelings-and-judgements"
+  ],
+  "content": "## The main verb sets the tense\n\nAfter **que**, the tense of the main verb picks the subjunctive (forms recap: **vinieron → viniera**).\n\n| Main verb | Subjunctive | Example |\n|---|---|---|\n| present | present | **Quiero que vengas.** (I want you to come.) |\n| present perfect | present | **Me ha pedido que lo haga.** (She's asked me to do it.) |\n| future | present | **Te pediré que me ayudes.** (I'll ask you to help me.) |\n| preterite | imperfect | **Me pidió que lo hiciera.** (She asked me to do it.) |\n| imperfect | imperfect | **Quería que vinieras.** (I wanted you to come.) |\n| conditional | imperfect | **Me gustaría que fueras.** (I'd like you to go.) |\n\nNow or later takes the present subjunctive; past or conditional takes the imperfect.\n\n## Wanting, asking and needing in the past\n\nEvery trigger of the subjunctive works in the past: move both verbs back.\n\n- **Mis padres querían que estudiara medicina.** (My parents wanted me to study medicine.)\n- **El médico me aconsejó que caminara más.** (The doctor advised me to walk more.)\n- **Era necesario que alguien hablara con la directora.** (Someone had to talk to the head teacher.)\n- **Era importante que no llegáramos tarde.** (It was important that we weren't late.)\n- **No hacía falta que trajeras vino.** (You didn't need to bring wine.)\n\nWith no particular person, the impersonal phrases take an infinitive: **era necesario esperar** (it was necessary to wait). Name a person and you need **que + subjunctive**.\n\n## Para que in the past\n\n**Para que** (so that) always takes the subjunctive, and it follows the main verb like any other trigger:\n\n- **Te lo digo para que lo sepas.** (I'm telling you so that you know.)\n- **Te lo dije para que lo supieras.** (I told you so that you'd know.)\n- **Mi abuelo trabajó mucho para que sus hijos pudieran estudiar.** (My grandfather worked hard so that his children could study.)\n\nWhen both verbs share the same subject, use **para + infinitive** instead: **Ahorré para comprarme un coche** (I saved to buy myself a car), but **Ahorré para que mi hija se comprara un coche** (I saved so that my daughter could buy herself a car).\n\n## Me gustaría que: polite wishes\n\nA conditional main verb takes the imperfect subjunctive even when the wish is about now or tomorrow. It is the polite way to ask for something:\n\n- **Me gustaría que vinieras mañana.** (I'd like you to come tomorrow.)\n- **Preferiría que no fumaras aquí.** (I'd rather you didn't smoke here.)\n- **Sería mejor que se lo dijeras tú.** (It would be better if you told him.)\n\nCompare **Me gusta que vengas** (I like it when you come) with **Me gustaría que vinieras** (I'd like you to come). In parts of Latin America you will hear *me gustaría que vengas* in casual speech; in standard Spanish, keep the imperfect.\n\n## Como si: as if\n\n**Como si** (as if) always takes the imperfect subjunctive, whatever the tense of the main verb, because it compares with something that is not real:\n\n- **Habla como si fuera el jefe.** (He talks as if he were the boss.)\n- **Me miró como si no me conociera.** (She looked at me as if she didn't know me.)\n- **Gasta como si tuviera un millón de euros.** (He spends as if he had a million euros.)\n- **Hice como si no pasara nada.** (I acted as if nothing were going on.)\n\nNever put the present subjunctive after **como si**. Say **como si fuera**, not *como si sea*.",
+  "vocabulary": [
+    {
+      "term": "rogar",
+      "meaning": "to beg, to ask earnestly (+ que + subjunctive)",
+      "example": "Le rogué que no se lo contara a nadie.",
+      "example_meaning": "I begged him not to tell anyone."
+    },
+    {
+      "term": "exigir",
+      "meaning": "to demand",
+      "example": "El cliente exigió que le cambiaran la mesa.",
+      "example_meaning": "The customer demanded that they change his table."
+    },
+    {
+      "term": "aconsejar",
+      "meaning": "to advise",
+      "example": "Mi profesora me aconsejó que leyera más novelas.",
+      "example_meaning": "My teacher advised me to read more novels."
+    },
+    {
+      "term": "permitir",
+      "meaning": "to allow",
+      "example": "Mis padres no permitían que viéramos la tele entre semana.",
+      "example_meaning": "My parents didn't allow us to watch TV on weekdays."
+    },
+    {
+      "term": "prohibir",
+      "meaning": "to forbid",
+      "example": "El médico le prohibió que comiera sal.",
+      "example_meaning": "The doctor forbade him to eat salt."
+    },
+    {
+      "term": "insistir en",
+      "meaning": "to insist on (+ que + subjunctive)",
+      "example": "Insistió en que nos quedáramos a cenar.",
+      "example_meaning": "She insisted that we stay for dinner."
+    },
+    {
+      "term": "sugerir",
+      "meaning": "to suggest",
+      "example": "Te sugerí que lo dejaras para mañana.",
+      "example_meaning": "I suggested you leave it until tomorrow."
+    },
+    {
+      "term": "evitar",
+      "meaning": "to avoid, to prevent (evitar que = to stop something happening)",
+      "example": "Cerré la ventana para evitar que entrara el frío.",
+      "example_meaning": "I closed the window to stop the cold getting in."
+    },
+    {
+      "term": "hacer falta",
+      "meaning": "to be needed (no hacía falta que = there was no need to)",
+      "example": "No hacía falta que trajerais nada.",
+      "example_meaning": "You didn't need to bring anything."
+    },
+    {
+      "term": "como si",
+      "meaning": "as if (+ imperfect subjunctive)",
+      "example": "Habla como si lo supiera todo.",
+      "example_meaning": "He talks as if he knew everything."
+    },
+    {
+      "term": "para que",
+      "meaning": "so that (+ subjunctive)",
+      "example": "Dejé la luz encendida para que el niño no tuviera miedo.",
+      "example_meaning": "I left the light on so that the boy wouldn't be scared."
+    },
+    {
+      "term": "era necesario que",
+      "meaning": "it was necessary that (+ imperfect subjunctive)",
+      "example": "Era necesario que alguien llamara al fontanero.",
+      "example_meaning": "Someone needed to call the plumber."
+    },
+    {
+      "term": "era importante que",
+      "meaning": "it was important that (+ imperfect subjunctive)",
+      "example": "Era importante que todos firmaran a tiempo.",
+      "example_meaning": "It was important that everyone signed on time."
+    },
+    {
+      "term": "me gustaría que",
+      "meaning": "I'd like (someone) to (+ imperfect subjunctive)",
+      "example": "Me gustaría que me llamaras más a menudo.",
+      "example_meaning": "I'd like you to call me more often."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-sequence-of-tenses-01",
+      "prompt": "Mi médica me aconsejó que ___ más. (dormir)",
+      "type": "multiple-choice",
+      "options": [
+        "duerma",
+        "durmiera",
+        "dormía"
+      ],
+      "correct_answer": "durmiera",
+      "explanation": "Aconsejó is a preterite, so the subjunctive goes into the past: 'que durmiera' (from durmieron).",
+      "hints": [
+        "A past main verb takes the imperfect subjunctive."
+      ],
+      "teaches": [
+        "aconsejar"
+      ]
+    },
+    {
+      "question_id": "b2-sequence-of-tenses-02",
+      "prompt": "Te ruego que me ___ la verdad. (decir)",
+      "type": "multiple-choice",
+      "options": [
+        "digas",
+        "dijeras",
+        "dices"
+      ],
+      "correct_answer": "digas",
+      "explanation": "Ruego is a present, so the present subjunctive follows: 'que me digas la verdad'.",
+      "hints": [
+        "Is the main verb present or past?"
+      ],
+      "teaches": [
+        "rogar"
+      ]
+    },
+    {
+      "question_id": "b2-sequence-of-tenses-03",
+      "prompt": "Era importante que nosotros ___ a tiempo. (llegar)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "llegáramos",
+      "accepted_answers": [
+        "llegásemos",
+        "nosotros llegáramos",
+        "nosotros llegásemos"
+      ],
+      "explanation": "Era importante is in the past, so 'que llegáramos' (accent on the nosotros form). The -se form llegásemos is also correct.",
+      "hints": [
+        "Era takes the imperfect subjunctive.",
+        "Nosotros: -áramos, with an accent."
+      ],
+      "teaches": [
+        "era importante que"
+      ]
+    },
+    {
+      "question_id": "b2-sequence-of-tenses-04",
+      "prompt": "Me miró como si no me ___. (conocer)",
+      "type": "multiple-choice",
+      "options": [
+        "conozca",
+        "conociera",
+        "conocía",
+        "conocerá"
+      ],
+      "correct_answer": "conociera",
+      "explanation": "Como si always takes the imperfect subjunctive: 'como si no me conociera'.",
+      "hints": [
+        "Como si never takes the present subjunctive."
+      ],
+      "teaches": [
+        "como si"
+      ]
+    },
+    {
+      "question_id": "b2-sequence-of-tenses-05",
+      "prompt": "Dejé la llave debajo del felpudo para que tú ___ entrar. (poder)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "pudieras",
+      "accepted_answers": [
+        "pudieses",
+        "tú pudieras",
+        "tú pudieses"
+      ],
+      "explanation": "Dejé is past, so para que takes the imperfect subjunctive: 'para que pudieras' (from pudieron).",
+      "hints": [
+        "Para que follows the main verb's tense.",
+        "The stem comes from pudieron."
+      ],
+      "teaches": [
+        "para que"
+      ]
+    },
+    {
+      "question_id": "b2-sequence-of-tenses-06",
+      "prompt": "Me gustaría que ___ conmigo al concierto. (venir, tú)",
+      "type": "multiple-choice",
+      "options": [
+        "vinieras",
+        "vienes",
+        "vendrás"
+      ],
+      "correct_answer": "vinieras",
+      "explanation": "A conditional main verb (me gustaría) takes the imperfect subjunctive, even for a future plan: 'que vinieras'.",
+      "hints": [
+        "Me gustaría que takes the imperfect subjunctive."
+      ],
+      "teaches": [
+        "me gustaría que"
+      ]
+    },
+    {
+      "question_id": "b2-sequence-of-tenses-07",
+      "prompt": "El cliente exigió que le ___ el dinero. (devolver, ellos)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "devolvieran",
+      "accepted_answers": [
+        "devolviesen"
+      ],
+      "explanation": "Exigió is a preterite: 'que le devolvieran el dinero' (from devolvieron).",
+      "hints": [
+        "A preterite main verb takes the imperfect subjunctive."
+      ],
+      "teaches": [
+        "exigir"
+      ]
+    },
+    {
+      "question_id": "b2-sequence-of-tenses-08",
+      "prompt": "Si me llama mañana, le aconsejaré que ___ con su jefe. (hablar)",
+      "type": "multiple-choice",
+      "options": [
+        "hable",
+        "hablara",
+        "habla"
+      ],
+      "correct_answer": "hable",
+      "explanation": "Aconsejaré is a future, and a future main verb takes the present subjunctive: 'que hable con su jefe'.",
+      "hints": [
+        "A future main verb takes the present subjunctive."
+      ],
+      "teaches": [
+        "aconsejar"
+      ]
+    },
+    {
+      "question_id": "b2-sequence-of-tenses-09",
+      "prompt": "No hacía falta que vosotros ___ tan pronto. (venir)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "vinierais",
+      "accepted_answers": [
+        "vinieseis",
+        "vosotros vinierais",
+        "vosotros vinieseis"
+      ],
+      "explanation": "Hacía is an imperfect, so 'que vinierais' (from vinieron).",
+      "hints": [
+        "Vosotros: -ierais."
+      ],
+      "teaches": [
+        "hacer falta"
+      ]
+    },
+    {
+      "question_id": "b2-sequence-of-tenses-10",
+      "prompt": "Mis padres no permitían que mi hermana y yo ___ solos a la playa. (ir)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "fuéramos",
+      "accepted_answers": [
+        "fuésemos",
+        "nosotros fuéramos",
+        "nosotros fuésemos"
+      ],
+      "explanation": "Permitían is an imperfect, so the imperfect subjunctive follows: 'que fuéramos' (ir: fueron → fuéramos).",
+      "hints": [
+        "Mi hermana y yo = nosotros.",
+        "Ir: fueron → fuera."
+      ],
+      "teaches": [
+        "permitir"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-sequence-of-tenses-conv-new-boss",
+      "title": "The new boss",
+      "scenario": "Lucía tells her brother Javier about her first week at a new job.",
+      "role_a": "Javier",
+      "role_b": "Lucía",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¿Qué tal tu primera semana en el trabajo?",
+          "meaning": "How was your first week at work?"
+        },
+        {
+          "speaker": "b",
+          "text": "Rara. El primer día mi jefa me pidió que llegara a las siete.",
+          "meaning": "Strange. On the first day my boss asked me to arrive at seven.",
+          "note": "pidió → que llegara"
+        },
+        {
+          "speaker": "a",
+          "text": "¿A las siete? ¿Era necesario que estuvieras allí tan pronto?",
+          "meaning": "At seven? Did you really need to be there so early?",
+          "note": "era necesario que takes the imperfect subjunctive"
+        },
+        {
+          "speaker": "b",
+          "text": "Según ella, sí. Quería que conociera a todo el equipo antes de la reunión.",
+          "meaning": "According to her, yes. She wanted me to meet the whole team before the meeting."
+        },
+        {
+          "speaker": "a",
+          "text": "Lo haría para que te sintieras parte del grupo, ¿no?",
+          "meaning": "She probably did it so that you'd feel part of the group, right?",
+          "note": "para que in the past"
+        },
+        {
+          "speaker": "b",
+          "text": "Puede ser. Pero luego me habló como si llevara diez años allí.",
+          "meaning": "Maybe. But then she spoke to me as if I'd been there for ten years.",
+          "note": "como si takes the imperfect subjunctive"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Y tú qué hiciste?",
+          "meaning": "And what did you do?"
+        },
+        {
+          "speaker": "b",
+          "text": "Hice como si lo entendiera todo, claro.",
+          "meaning": "I acted as if I understood everything, of course."
+        },
+        {
+          "speaker": "a",
+          "text": "Me gustaría que me la presentaras algún día.",
+          "meaning": "I'd like you to introduce her to me some day.",
+          "note": "me gustaría que takes the imperfect subjunctive"
+        },
+        {
+          "speaker": "b",
+          "text": "¡Ni hablar! Prefiero que no os conozcáis.",
+          "meaning": "No way! I'd rather you two didn't meet.",
+          "note": "A present main verb takes the present subjunctive."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Quería que me escucharas.",
+      "meaning": "I wanted you to listen to me.",
+      "note": "An imperfect main verb takes the imperfect subjunctive."
+    },
+    {
+      "text": "Le pedí que cerrara la puerta.",
+      "meaning": "I asked him to close the door."
+    },
+    {
+      "text": "Hablaba como si estuviera muy cansado.",
+      "meaning": "He was talking as if he were very tired.",
+      "note": "Como si takes the imperfect subjunctive."
+    },
+    {
+      "text": "Era necesario que todos firmaran el contrato.",
+      "meaning": "Everyone had to sign the contract.",
+      "note": "New word: firmar = to sign."
+    },
+    {
+      "text": "Me gustaría que pasáramos más tiempo juntos.",
+      "meaning": "I'd like us to spend more time together."
+    },
+    {
+      "text": "Mi abuela nos daba dinero para que compráramos helados.",
+      "meaning": "My grandmother used to give us money so that we could buy ice creams."
+    },
+    {
+      "text": "El entrenador insistió en que bebiéramos agua durante el partido.",
+      "meaning": "The coach insisted that we drink water during the match.",
+      "note": "New word: el entrenador = the coach."
+    },
+    {
+      "text": "Nos prohibieron que hiciéramos fotos dentro del museo, pero nadie hizo caso.",
+      "meaning": "They forbade us to take photos inside the museum, but nobody paid attention.",
+      "note": "New word: hacer caso = to pay attention."
+    }
+  ],
+  "guide": [
+    {
+      "section": "The main verb sets the tense"
+    },
+    {
+      "question": "b2-sequence-of-tenses-02"
+    },
+    {
+      "question": "b2-sequence-of-tenses-08"
+    },
+    {
+      "question": "b2-sequence-of-tenses-01"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "section": "Wanting, asking and needing"
+    },
+    {
+      "question": "b2-sequence-of-tenses-07"
+    },
+    {
+      "question": "b2-sequence-of-tenses-10"
+    },
+    {
+      "question": "b2-sequence-of-tenses-03"
+    },
+    {
+      "question": "b2-sequence-of-tenses-09"
+    },
+    {
+      "tip": "Ask one question. Does the main verb point at now or later (present subjunctive), or at the past or a would-be (imperfect subjunctive)?"
+    },
+    {
+      "section": "Para que in the past"
+    },
+    {
+      "question": "b2-sequence-of-tenses-05"
+    },
+    {
+      "section": "Me gustaría que"
+    },
+    {
+      "question": "b2-sequence-of-tenses-06"
+    },
+    {
+      "section": "Como si"
+    },
+    {
+      "question": "b2-sequence-of-tenses-04"
+    }
+  ],
+  "sprint": {
+    "icon": "⛓️",
+    "bites": [
+      {
+        "title": "The tenses agree",
+        "emoji": "⚖️",
+        "rule": "A main verb in the present, perfect or future takes the present subjunctive. A main verb in the preterite, imperfect or conditional takes the imperfect subjunctive.",
+        "example": "Quiero que vengas. Quería que vinieras.",
+        "example_meaning": "I want you to come. I wanted you to come."
+      },
+      {
+        "title": "Para que goes back too",
+        "emoji": "🎯",
+        "rule": "Para que follows the main verb: lo hago para que lo sepas, lo hice para que lo supieras. Same subject in both? Use para + infinitive.",
+        "example": "Te lo dije para que lo supieras.",
+        "example_meaning": "I told you so that you'd know."
+      },
+      {
+        "title": "Me gustaría que…",
+        "emoji": "🙏",
+        "rule": "A conditional main verb takes the imperfect subjunctive, even for tomorrow: me gustaría que vinieras mañana.",
+        "example": "Me gustaría que me ayudaras con la mudanza.",
+        "example_meaning": "I'd like you to help me with the move."
+      },
+      {
+        "title": "Como si = as if",
+        "emoji": "🪞",
+        "rule": "Como si always takes the imperfect subjunctive, whatever the tense of the main verb: habla como si fuera el jefe.",
+        "example": "Me miró como si no me conociera.",
+        "example_meaning": "She looked at me as if she didn't know me."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which subjunctive follows?",
+        "buckets": [
+          "present subjunctive",
+          "imperfect subjunctive"
+        ],
+        "why": "Present, perfect and future main verbs take the present subjunctive; preterite, imperfect and conditional ones take the imperfect.",
+        "items": [
+          {
+            "text": "Quiero que…",
+            "bucket": 0
+          },
+          {
+            "text": "Quería que…",
+            "bucket": 1
+          },
+          {
+            "text": "Me ha pedido que…",
+            "bucket": 0
+          },
+          {
+            "text": "Me pidió que…",
+            "bucket": 1
+          },
+          {
+            "text": "Me gustaría que…",
+            "bucket": 1
+          },
+          {
+            "text": "Te pediré que…",
+            "bucket": 0
+          },
+          {
+            "text": "Era importante que…",
+            "bucket": 1
+          },
+          {
+            "text": "Es importante que…",
+            "bucket": 0
+          }
+        ]
+      },
+      {
+        "title": "Infinitive or que?",
+        "buckets": [
+          "para + infinitive",
+          "para que + subjunctive"
+        ],
+        "why": "Same subject in both halves takes para + infinitive; a different subject takes para que + subjunctive.",
+        "items": [
+          {
+            "text": "Ahorré dinero ___ comprarme una moto.",
+            "bucket": 0
+          },
+          {
+            "text": "Te di dinero ___ te compraras una moto.",
+            "bucket": 1
+          },
+          {
+            "text": "Fuimos al mercado ___ comprar fruta.",
+            "bucket": 0
+          },
+          {
+            "text": "Hablé despacio ___ todos me entendieran.",
+            "bucket": 1
+          },
+          {
+            "text": "Me levanté pronto ___ no llegar tarde.",
+            "bucket": 0
+          },
+          {
+            "text": "Desperté a mi hermano ___ no llegara tarde.",
+            "bucket": 1
+          }
+        ]
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Quería que vengas a mi fiesta.",
+        "wrong": "vengas",
+        "fix": "vinieras",
+        "why": "Quería is past, so the imperfect subjunctive follows."
+      },
+      {
+        "sentence": "Me gustaría que me ayudes con la mudanza.",
+        "wrong": "ayudes",
+        "fix": "ayudaras",
+        "why": "Me gustaría que takes the imperfect subjunctive in standard Spanish."
+      },
+      {
+        "sentence": "Habla como si sea el dueño de la casa.",
+        "wrong": "sea",
+        "fix": "fuera",
+        "why": "Como si always takes the imperfect subjunctive."
+      },
+      {
+        "sentence": "Te lo expliqué para que lo entiendas.",
+        "wrong": "entiendas",
+        "fix": "entendieras",
+        "why": "Expliqué is past, so para que takes the imperfect subjunctive."
+      },
+      {
+        "sentence": "Era necesario que todos estén presentes.",
+        "wrong": "estén",
+        "fix": "estuvieran",
+        "why": "Era necesario is past, so the imperfect subjunctive follows."
+      },
+      {
+        "sentence": "Te pido que me llamaras esta noche.",
+        "wrong": "llamaras",
+        "fix": "llames",
+        "why": "Pido is present, so the present subjunctive follows."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Quería que vinieras a mi boda.",
+        "meaning": "I wanted you to come to my wedding.",
+        "distractors": [
+          "vengas"
+        ]
+      },
+      {
+        "text": "Me gustaría que me escribieras más.",
+        "meaning": "I'd like you to write to me more.",
+        "distractors": [
+          "escribas"
+        ]
+      },
+      {
+        "text": "Lo dije para que lo supieras.",
+        "meaning": "I said it so that you'd know.",
+        "distractors": [
+          "sepas"
+        ]
+      },
+      {
+        "text": "Me miraba como si no me conociera.",
+        "meaning": "He was looking at me as if he didn't know me.",
+        "distractors": [
+          "conozca"
+        ]
+      },
+      {
+        "text": "Era importante que lo hiciéramos juntos.",
+        "meaning": "It was important that we did it together.",
+        "distractors": [
+          "hagamos"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🔗",
+      "content": "## Los tiempos en Eldmark\n\nWhen the main verb looks back, the subjunctive follows it: **el gremio nos pidió que limpiáramos la mazmorra**, **el paladín quería que la maga lo acompañara**. **Me gustaría que** and **como si** take the imperfect subjunctive too: **el enano habla como si fuera el rey de Deepanvil**.",
+      "vocabulary": [
+        {
+          "term": "rogar",
+          "example": "La elfa nos rogó que no despertáramos al minotauro.",
+          "example_meaning": "The elf begged us not to wake the minotaur."
+        },
+        {
+          "term": "exigir",
+          "example": "El orco exigió que le diéramos la mitad del botín.",
+          "example_meaning": "The orc demanded that we give him half the loot."
+        },
+        {
+          "term": "como si",
+          "example": "El enano camina como si llevara todo el oro de Deepanvil.",
+          "example_meaning": "The dwarf walks as if he were carrying all the gold of Deepanvil."
+        },
+        {
+          "term": "para que",
+          "example": "La maga encendió una antorcha para que viéramos el camino.",
+          "example_meaning": "The mage lit a torch so that we could see the path."
+        },
+        {
+          "term": "era necesario que",
+          "example": "Era necesario que alguien vigilara las monturas.",
+          "example_meaning": "Someone had to guard the mounts."
+        },
+        {
+          "term": "me gustaría que",
+          "example": "Me gustaría que vinieras conmigo a Frostmarch.",
+          "example_meaning": "I'd like you to come with me to Frostmarch."
+        },
+        {
+          "term": "el botín",
+          "meaning": "the loot",
+          "example": "El botín era para el gremio.",
+          "example_meaning": "The loot was for the guild."
+        },
+        {
+          "term": "la mazmorra",
+          "meaning": "the dungeon",
+          "example": "La mazmorra estaba bajo Highgate.",
+          "example_meaning": "The dungeon was under Highgate."
+        },
+        {
+          "term": "el gremio",
+          "meaning": "the guild",
+          "example": "El gremio quería que entrenáramos más.",
+          "example_meaning": "The guild wanted us to train more."
+        },
+        {
+          "term": "la antorcha",
+          "meaning": "the torch",
+          "example": "Nos dio una antorcha para que no nos perdiéramos.",
+          "example_meaning": "She gave us a torch so that we wouldn't get lost."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Órdenes del gremio",
+          "emoji": "📜",
+          "rule": "The guild asked in the past, so the subjunctive goes into the past too: el gremio nos pidió que limpiáramos la mazmorra.",
+          "example": "El gremio nos pidió que limpiáramos la mazmorra.",
+          "example_meaning": "The guild asked us to clear the dungeon."
+        }
+      ],
+      "listening": [
+        {
+          "text": "El paladín quería que esperáramos.",
+          "meaning": "The paladin wanted us to wait."
+        },
+        {
+          "text": "La maga habló como si supiera el futuro.",
+          "meaning": "The mage spoke as if she knew the future.",
+          "note": "Como si takes the imperfect subjunctive."
+        },
+        {
+          "text": "Era importante que nadie tocara el botín.",
+          "meaning": "It was important that nobody touched the loot.",
+          "note": "New word: el botín = the loot."
+        },
+        {
+          "text": "Nos mandaron a la mazmorra para que encontráramos la llave.",
+          "meaning": "They sent us to the dungeon so that we would find the key.",
+          "note": "New word: la mazmorra = the dungeon."
+        },
+        {
+          "text": "Me gustaría que el cazador nos guiara.",
+          "meaning": "I'd like the hunter to guide us."
+        }
+      ],
+      "builds": [
+        {
+          "text": "El orco exigió que le diéramos oro.",
+          "meaning": "The orc demanded that we give him gold.",
+          "distractors": [
+            "demos"
+          ]
+        },
+        {
+          "text": "La elfa luchaba como si fuera invencible.",
+          "meaning": "The elf fought as if she were invincible.",
+          "distractors": [
+            "sea"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "El cazador quería que lo sigamos.",
+          "wrong": "sigamos",
+          "fix": "siguiéramos",
+          "why": "Quería is past, so the imperfect subjunctive follows."
+        },
+        {
+          "sentence": "Me gustaría que el enano me enseñe a forjar.",
+          "wrong": "enseñe",
+          "fix": "enseñara",
+          "why": "Me gustaría que takes the imperfect subjunctive."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Which subjunctive in Eldmark?",
+          "buckets": [
+            "present subjunctive",
+            "imperfect subjunctive"
+          ],
+          "why": "Present main verbs take the present subjunctive; past and conditional ones take the imperfect.",
+          "items": [
+            {
+              "text": "El gremio pide que…",
+              "bucket": 0
+            },
+            {
+              "text": "El gremio pidió que…",
+              "bucket": 1
+            },
+            {
+              "text": "El rey quiere que…",
+              "bucket": 0
+            },
+            {
+              "text": "El rey quería que…",
+              "bucket": 1
+            },
+            {
+              "text": "Me gustaría que…",
+              "bucket": 1
+            },
+            {
+              "text": "Es necesario que…",
+              "bucket": 0
+            }
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-sequence-of-tenses-realm-01",
+          "prompt": "El minotauro nos miró como si ___ su cena. (ser)",
+          "type": "multiple-choice",
+          "options": [
+            "fuéramos",
+            "seamos",
+            "somos"
+          ],
+          "correct_answer": "fuéramos",
+          "explanation": "Como si always takes the imperfect subjunctive: 'como si fuéramos su cena'.",
+          "hints": [
+            "Como si takes the imperfect subjunctive."
+          ],
+          "teaches": [
+            "como si"
+          ]
+        },
+        {
+          "question_id": "b2-sequence-of-tenses-realm-02",
+          "prompt": "El paladín nos dio escudos para que nosotros ___ a salvo. (estar)",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "estuviéramos",
+          "accepted_answers": [
+            "estuviésemos",
+            "nosotros estuviéramos",
+            "nosotros estuviésemos"
+          ],
+          "explanation": "Dio is past, so para que takes the imperfect subjunctive: 'para que estuviéramos a salvo' (from estuvieron).",
+          "hints": [
+            "Para que follows the past main verb.",
+            "Estar: estuvieron → estuviera."
+          ],
+          "teaches": [
+            "para que"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🐾",
+      "content": "## Los tiempos en Meadowbrook\n\nRosa **quería que plantara** fresas, and el alcalde **me pidió que llevara** una calabaza al festival. That is a past main verb with a past subjunctive. **Me gustaría que** works the same way, and **como si** is always past: Leo **pesca como si fuera** fácil.",
+      "vocabulary": [
+        {
+          "term": "aconsejar",
+          "example": "Rosa me aconsejó que plantara maíz en verano.",
+          "example_meaning": "Rosa advised me to plant corn in summer."
+        },
+        {
+          "term": "insistir en",
+          "example": "El alcalde insistió en que fuéramos al festival.",
+          "example_meaning": "The mayor insisted that we go to the festival."
+        },
+        {
+          "term": "como si",
+          "example": "Leo habla como si fuera el mejor pescador del río.",
+          "example_meaning": "Leo talks as if he were the best fisherman on the river."
+        },
+        {
+          "term": "para que",
+          "example": "Nora cerró la puerta del establo para que las vacas no salieran.",
+          "example_meaning": "Nora closed the barn door so that the cows wouldn't get out."
+        },
+        {
+          "term": "era importante que",
+          "example": "Era importante que cosecháramos antes de la lluvia.",
+          "example_meaning": "It was important that we harvested before the rain."
+        },
+        {
+          "term": "me gustaría que",
+          "example": "Me gustaría que me enseñaras a pescar.",
+          "example_meaning": "I'd like you to teach me to fish."
+        },
+        {
+          "term": "la semilla",
+          "meaning": "the seed",
+          "example": "Rosa quería que probara las semillas nuevas.",
+          "example_meaning": "Rosa wanted me to try the new seeds."
+        },
+        {
+          "term": "el gallinero",
+          "meaning": "the hen house",
+          "example": "Cerré el gallinero para que el zorro no entrara.",
+          "example_meaning": "I shut the hen house so that the fox wouldn't get in."
+        },
+        {
+          "term": "el concurso",
+          "meaning": "the contest",
+          "example": "El alcalde quería que ganara el concurso.",
+          "example_meaning": "The mayor wanted me to win the contest."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Encargos del pueblo",
+          "emoji": "🎃",
+          "rule": "A past request in town takes the imperfect subjunctive: el alcalde me pidió que llevara una calabaza al festival.",
+          "example": "El alcalde me pidió que llevara una calabaza al festival.",
+          "example_meaning": "The mayor asked me to bring a pumpkin to the festival."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Rosa quería que plantara fresas.",
+          "meaning": "Rosa wanted me to plant strawberries."
+        },
+        {
+          "text": "Leo pesca como si fuera fácil.",
+          "meaning": "Leo fishes as if it were easy.",
+          "note": "Como si takes the imperfect subjunctive."
+        },
+        {
+          "text": "Era necesario que ordeñáramos las vacas.",
+          "meaning": "We had to milk the cows.",
+          "note": "New word: ordeñar = to milk."
+        },
+        {
+          "text": "Nora cerró el gallinero para que las gallinas durmieran tranquilas.",
+          "meaning": "Nora shut the hen house so that the hens could sleep peacefully.",
+          "note": "New word: el gallinero = the hen house."
+        },
+        {
+          "text": "Me gustaría que ganaras el concurso de calabazas.",
+          "meaning": "I'd like you to win the pumpkin contest.",
+          "note": "New word: el concurso = the contest."
+        }
+      ],
+      "builds": [
+        {
+          "text": "El alcalde quería que bailáramos.",
+          "meaning": "The mayor wanted us to dance.",
+          "distractors": [
+            "bailemos"
+          ]
+        },
+        {
+          "text": "Leo habla como si lo supiera todo.",
+          "meaning": "Leo talks as if he knew everything.",
+          "distractors": [
+            "sepa"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Rosa me aconsejó que plante maíz.",
+          "wrong": "plante",
+          "fix": "plantara",
+          "why": "Aconsejó is past, so the imperfect subjunctive follows."
+        },
+        {
+          "sentence": "Era importante que cosechemos antes del otoño.",
+          "wrong": "cosechemos",
+          "fix": "cosecháramos",
+          "why": "Era importante is past, so the imperfect subjunctive follows."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Present or past on the farm?",
+          "buckets": [
+            "present subjunctive",
+            "imperfect subjunctive"
+          ],
+          "why": "Present and perfect main verbs take the present subjunctive; past, conditional and como si take the imperfect.",
+          "items": [
+            {
+              "text": "Rosa quiere que…",
+              "bucket": 0
+            },
+            {
+              "text": "Rosa quería que…",
+              "bucket": 1
+            },
+            {
+              "text": "El alcalde nos ha pedido que…",
+              "bucket": 0
+            },
+            {
+              "text": "El alcalde nos pidió que…",
+              "bucket": 1
+            },
+            {
+              "text": "Me gustaría que…",
+              "bucket": 1
+            },
+            {
+              "text": "Leo vive como si…",
+              "bucket": 1
+            }
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-sequence-of-tenses-meadowbrook-01",
+          "prompt": "El alcalde nos exigió que ___ la plaza antes del festival. (limpiar)",
+          "type": "multiple-choice",
+          "options": [
+            "limpiáramos",
+            "limpiemos",
+            "limpiamos"
+          ],
+          "correct_answer": "limpiáramos",
+          "explanation": "Exigió is a preterite, so the imperfect subjunctive follows: 'que limpiáramos la plaza'.",
+          "hints": [
+            "A past main verb takes the imperfect subjunctive."
+          ],
+          "teaches": [
+            "exigir"
+          ]
+        },
+        {
+          "question_id": "b2-sequence-of-tenses-meadowbrook-02",
+          "prompt": "Me gustaría que Leo me ___ su caña de pescar. (prestar)",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "prestara",
+          "accepted_answers": [
+            "prestase"
+          ],
+          "explanation": "Me gustaría que takes the imperfect subjunctive: 'que Leo me prestara su caña'.",
+          "hints": [
+            "A conditional main verb takes the imperfect subjunctive."
+          ],
+          "teaches": [
+            "me gustaría que"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b2-sequence-of-tenses-conv-meadowbrook-festival",
+          "title": "A pumpkin for the festival",
+          "scenario": "Nora drops into Rosa's seed shop the week before the autumn festival.",
+          "role_a": "Nora",
+          "role_b": "Rosa",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Rosa, el alcalde me pidió que llevara algo al festival.",
+              "meaning": "Rosa, the mayor asked me to bring something to the festival."
+            },
+            {
+              "speaker": "b",
+              "text": "¿Y qué quería que llevaras?",
+              "meaning": "And what did he want you to bring?"
+            },
+            {
+              "speaker": "a",
+              "text": "Una calabaza enorme, como si yo fuera granjera desde siempre.",
+              "meaning": "A huge pumpkin, as if I'd always been a farmer."
+            },
+            {
+              "speaker": "b",
+              "text": "Te aconsejé que plantaras calabazas en primavera, ¿te acuerdas?",
+              "meaning": "I advised you to plant pumpkins in spring, remember?"
+            },
+            {
+              "speaker": "a",
+              "text": "Sí, pero planté maíz para que las gallinas comieran bien.",
+              "meaning": "Yes, but I planted corn so that the hens would eat well."
+            },
+            {
+              "speaker": "b",
+              "text": "Bueno, me gustaría que vinieras mañana. Tengo semillas nuevas.",
+              "meaning": "Well, I'd like you to come by tomorrow. I have new seeds."
+            },
+            {
+              "speaker": "a",
+              "text": "Gracias, Rosa. Hablas como si fuera fácil.",
+              "meaning": "Thanks, Rosa. You talk as if it were easy."
+            },
+            {
+              "speaker": "b",
+              "text": "Lo es. Solo hace falta que tengas paciencia.",
+              "meaning": "It is. You just need to be patient.",
+              "note": "A present main verb takes the present subjunctive."
+            }
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🔗",
+      "content": "## Los tiempos en el páramo\n\nThe foreman spoke in the past, so the subjunctive follows: **el capataz Ruiz nos pidió que reparáramos la antena**, **Marta quería que le pagara en tuercas**. The garden robot works **como si fuera nuevo**, and today **me gustaría que vinieras** al mercado.",
+      "vocabulary": [
+        {
+          "term": "exigir",
+          "example": "Marta exigió que le pagáramos en tuercas.",
+          "example_meaning": "Marta demanded that we pay her in nuts."
+        },
+        {
+          "term": "prohibir",
+          "example": "El capataz Ruiz prohibió que saliéramos de la cúpula.",
+          "example_meaning": "Foreman Ruiz forbade us to leave the Dome."
+        },
+        {
+          "term": "como si",
+          "example": "El robot jardinero trabaja como si fuera nuevo.",
+          "example_meaning": "The garden robot works as if it were new."
+        },
+        {
+          "term": "para que",
+          "example": "Leo dejó agua filtrada para que la cabra del páramo bebiera.",
+          "example_meaning": "Leo left filtered water so that the wasteland goat could drink."
+        },
+        {
+          "term": "era necesario que",
+          "example": "Era necesario que alguien reparara la antena.",
+          "example_meaning": "Someone had to repair the antenna."
+        },
+        {
+          "term": "evitar",
+          "example": "Cerramos el taller para evitar que entrara el polvo.",
+          "example_meaning": "We shut the workshop to stop the dust getting in."
+        },
+        {
+          "term": "las tuercas",
+          "meaning": "nuts, the money of the wasteland",
+          "example": "Marta quería que le diera diez tuercas.",
+          "example_meaning": "Marta wanted me to give her ten nuts."
+        },
+        {
+          "term": "la tormenta de ceniza",
+          "meaning": "the ash storm",
+          "example": "Ruiz nos avisó para que nadie saliera durante la tormenta de ceniza.",
+          "example_meaning": "Ruiz warned us so that nobody would go out during the ash storm."
+        },
+        {
+          "term": "el radiorreloj",
+          "meaning": "the wrist radio",
+          "example": "Me gustaría que llevaras siempre el radiorreloj.",
+          "example_meaning": "I'd like you to wear the wrist radio at all times."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Órdenes del capataz",
+          "emoji": "📻",
+          "rule": "Ruiz gave the order in the past, so the subjunctive goes into the past too: nos pidió que reparáramos la antena.",
+          "example": "El capataz Ruiz nos pidió que reparáramos la antena.",
+          "example_meaning": "Foreman Ruiz asked us to repair the antenna."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Ruiz quería que explorara el páramo.",
+          "meaning": "Ruiz wanted me to explore the wasteland."
+        },
+        {
+          "text": "Marta habla como si fuera rica.",
+          "meaning": "Marta talks as if she were rich.",
+          "note": "Como si takes the imperfect subjunctive."
+        },
+        {
+          "text": "Era necesario que cambiáramos tuercas por agua.",
+          "meaning": "We had to trade nuts for water.",
+          "note": "New word: las tuercas = nuts, the money of the wasteland."
+        },
+        {
+          "text": "Leo avisó para que nadie saliera en la tormenta de ceniza.",
+          "meaning": "Leo warned us so that nobody would go out in the ash storm.",
+          "note": "New word: la tormenta de ceniza = the ash storm."
+        },
+        {
+          "text": "Me gustaría que me llamaras por el radiorreloj.",
+          "meaning": "I'd like you to call me on the wrist radio.",
+          "note": "New word: el radiorreloj = the wrist radio."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Ruiz nos pidió que reparáramos la antena.",
+          "meaning": "Ruiz asked us to repair the antenna.",
+          "distractors": [
+            "reparemos"
+          ]
+        },
+        {
+          "text": "El perro guardián ladraba como si oyera algo.",
+          "meaning": "The guard dog was barking as if it heard something.",
+          "distractors": [
+            "oiga"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Marta quería que le paguemos en tuercas.",
+          "wrong": "paguemos",
+          "fix": "pagáramos",
+          "why": "Quería is past, so the imperfect subjunctive follows."
+        },
+        {
+          "sentence": "El robot trabaja como si es nuevo.",
+          "wrong": "es",
+          "fix": "fuera",
+          "why": "Como si always takes the imperfect subjunctive."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Which subjunctive in the wasteland?",
+          "buckets": [
+            "present subjunctive",
+            "imperfect subjunctive"
+          ],
+          "why": "Present and perfect main verbs take the present subjunctive; past and conditional ones take the imperfect.",
+          "items": [
+            {
+              "text": "Ruiz quiere que…",
+              "bucket": 0
+            },
+            {
+              "text": "Ruiz quería que…",
+              "bucket": 1
+            },
+            {
+              "text": "Marta nos ha pedido que…",
+              "bucket": 0
+            },
+            {
+              "text": "Marta nos pidió que…",
+              "bucket": 1
+            },
+            {
+              "text": "Sería mejor que…",
+              "bucket": 1
+            },
+            {
+              "text": "Es necesario que…",
+              "bucket": 0
+            }
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-sequence-of-tenses-rustwake-01",
+          "prompt": "El capataz Ruiz nos prohibió que ___ de la cúpula sin el radiorreloj. (salir)",
+          "type": "multiple-choice",
+          "options": [
+            "saliéramos",
+            "salgamos",
+            "salimos"
+          ],
+          "correct_answer": "saliéramos",
+          "explanation": "Prohibió is a preterite, so the imperfect subjunctive follows: 'que saliéramos'.",
+          "hints": [
+            "A past main verb takes the imperfect subjunctive."
+          ],
+          "teaches": [
+            "prohibir",
+            "el radiorreloj"
+          ]
+        },
+        {
+          "question_id": "b2-sequence-of-tenses-rustwake-02",
+          "prompt": "Leo escondió las tuercas para que nadie las ___. (encontrar)",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "encontrara",
+          "accepted_answers": [
+            "encontrase"
+          ],
+          "explanation": "Escondió is past, so para que takes the imperfect subjunctive: 'para que nadie las encontrara'.",
+          "hints": [
+            "Para que follows the past main verb."
+          ],
+          "teaches": [
+            "para que",
+            "las tuercas"
+          ]
+        }
+      ]
+    }
+  }
+}

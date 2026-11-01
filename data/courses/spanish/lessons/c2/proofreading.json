@@ -1,0 +1,1254 @@
+{
+  "id": "c2-proofreading",
+  "slug": "proofreading",
+  "title": "Proofreading and editing your own Spanish",
+  "unit": "C2",
+  "group": "Grammar",
+  "order": 32,
+  "summary": "The slips that survive into fluent Spanish, natives' included: dequeísmo and queísmo, hubieron, deber de, detrás mío, ¡venir!, the gerund of posteriority, accents and commas, and three verbs everyone conjugates wrong.",
+  "focus": "Finding and fixing the common errors of advanced and native writers in formal Spanish",
+  "prerequisites": [
+    "c2-academic-and-professional-writing",
+    "c2-precision-in-lexis"
+  ],
+  "content": "## Errors natives make too: dequeísmo and queísmo\n\n**Dequeísmo** adds a **de** the verb does not take: *Pienso de que…* → **Pienso que…**; *Me dijo de que…* → **Me dijo que…**\n\n**Queísmo** drops a **de** the verb or adjective needs: *Me acuerdo que…* → **Me acuerdo de que…**; *Estoy seguro que…* → **Estoy seguro de que…**; *a pesar que* → **a pesar de que**.\n\n**The eso test.** Replace the whole *que* clause with **eso**. If the sentence needs a preposition before *eso*, keep it before *que*.\n\n- *Pienso eso* → **pienso que**\n- *Me acuerdo de eso* → **me acuerdo de que**\n- *Me alegro de eso* → **me alegro de que**\n\n## Haber, deber and the pronoun after a preposition\n\n- **Impersonal haber has no plural.** *There was / there were* is **hubo**, **había**, **ha habido**, **habrá**, whatever follows: **Hubo muchas quejas** (not *hubieron*), **Había dos coches** (not *habían*).\n- **Deber + infinitive** expresses obligation: **Debes descansar.** **Deber de + infinitive** expresses probability: **Debe de estar en casa.** Plain *deber* is also accepted for probability, but using **de** for obligation is an error.\n- **Detrás de mí, delante de ti, cerca de él**: after an adverb of place, formal writing uses **de + pronoun**. *Detrás mío* is everyday speech in many regions; edit it out of a formal text.\n\n## Imperatives, gerunds and padding\n\n- **Vosotros commands end in -d**: **¡Venid!**, **¡Escuchad!** With *os* the *d* drops: **¡Sentaos!**, **¡Callaos!** The infinitive (*¡Venir!*, *¡Callaros!*) is colloquial; in writing it belongs only on signs: **No fumar**.\n- **The gerund of posteriority**: a gerund cannot report what happened *afterwards*. *Chocó contra un muro, muriendo el conductor* → **Chocó contra un muro y el conductor murió.**\n- Use **a nivel de** only for real levels (*a nivel del mar*). *A nivel de precios* → **en cuanto a los precios**.\n- **Leísmo with things**: *El libro le compré* → **El libro lo compré**.\n\n## Accents, punctuation and capitals\n\n- Since the 2010 spelling rules, **solo**, **este**, **ese**, **aquel** and **guion** are written without an accent; since 2023 the RAE tolerates one on **solo** and the demonstratives where the writer sees a real ambiguity. **Aún** (= todavía, still) keeps it; **aun** (= incluso, even) does not: **Aún no ha llegado; aun así, empezamos.**\n- **A comma never separates a subject from its verb**, even when the subject is long: *Los alumnos que aprobaron el examen, recibirán…* → **Los alumnos que aprobaron el examen recibirán…**\n- Open **¿** and **¡** where the question or exclamation begins: **Si vienes, ¿me avisas?**\n- Days, months, languages and nationalities are lower case: **el lunes**, **en marzo**, **el español**.\n\n## Three verbs that trip everyone up\n\n| verb | goes like | right | wrong |\n|---|---|---|---|\n| **satisfacer** | hacer | **satisfice, satisfizo, satisficieron** | *satisfació* |\n| **prever** | ver | **preví, previó, previeron** | *preveyó, preveí* |\n| **bendecir** | regular future | **bendeciré, bendecirá** | *bendiré* |\n\n*Prever* (foresee) is often mixed up with *proveer* (supply), which does have **proveyó**. *Maldecir* works like *bendecir*: **maldeciré**.",
+  "vocabulary": [
+    {
+      "term": "satisfacer",
+      "meaning": "to satisfy (conjugated like hacer)",
+      "example": "La explicación del ministro no satisfizo a nadie.",
+      "example_meaning": "The minister's explanation satisfied nobody."
+    },
+    {
+      "term": "prever",
+      "meaning": "to foresee, to anticipate (conjugated like ver)",
+      "example": "Nadie previó que la obra duraría tanto.",
+      "example_meaning": "Nobody foresaw that the building work would last so long."
+    },
+    {
+      "term": "bendecir",
+      "meaning": "to bless",
+      "example": "El párroco bendecirá el barco el domingo.",
+      "example_meaning": "The parish priest will bless the boat on Sunday."
+    },
+    {
+      "term": "el dequeísmo",
+      "meaning": "using de que where only que is correct",
+      "example": "Decir pienso de que es un caso típico de dequeísmo.",
+      "example_meaning": "Saying pienso de que is a typical case of dequeísmo."
+    },
+    {
+      "term": "el queísmo",
+      "meaning": "dropping the de that a verb or adjective needs before que",
+      "example": "Escribir estoy seguro que, sin de, es queísmo.",
+      "example_meaning": "Writing estoy seguro que, without de, is queísmo."
+    },
+    {
+      "term": "acordarse de que",
+      "meaning": "to remember that",
+      "example": "Me acordé de que era su cumpleaños al ver la tarta.",
+      "example_meaning": "I remembered that it was her birthday when I saw the cake."
+    },
+    {
+      "term": "estar seguro de que",
+      "meaning": "to be sure that",
+      "example": "Estoy segura de que lo entregó a tiempo.",
+      "example_meaning": "I'm sure that she handed it in on time."
+    },
+    {
+      "term": "hubo",
+      "meaning": "there was, there were (impersonal haber, always singular)",
+      "example": "Hubo varias quejas sobre el horario.",
+      "example_meaning": "There were several complaints about the timetable."
+    },
+    {
+      "term": "deber de",
+      "meaning": "must (probability, not obligation)",
+      "example": "Deben de ser más de las diez: ya han cerrado el bar.",
+      "example_meaning": "It must be after ten: they've already closed the bar."
+    },
+    {
+      "term": "detrás de mí",
+      "meaning": "behind me (formal; not detrás mío)",
+      "example": "Se sentó detrás de mí en el teatro.",
+      "example_meaning": "He sat behind me at the theatre."
+    },
+    {
+      "term": "el gerundio de posterioridad",
+      "meaning": "a gerund used for a later action (an error in careful writing)",
+      "example": "Busca los gerundios de posterioridad antes de entregar el informe.",
+      "example_meaning": "Look for gerunds of posteriority before handing in the report."
+    },
+    {
+      "term": "la errata",
+      "meaning": "typo, misprint",
+      "example": "La primera edición salió con una errata en la portada.",
+      "example_meaning": "The first edition came out with a misprint on the cover."
+    },
+    {
+      "term": "corregir",
+      "meaning": "to correct, to proofread",
+      "example": "Conviene corregir un texto al día siguiente, con la cabeza fría.",
+      "example_meaning": "It's best to proofread a text the next day, with a clear head."
+    },
+    {
+      "term": "aún / aun",
+      "meaning": "still, yet (aún) · even (aun)",
+      "example": "Aún no ha llegado el autobús; aun así, no pienso coger un taxi.",
+      "example_meaning": "The bus still hasn't come; even so, I'm not taking a taxi."
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "satisfacer",
+      "meaning": "to satisfy",
+      "set": "preterite",
+      "art": [
+        "  _______  ",
+        " /       \\ ",
+        "|  ^   ^  |",
+        "|  \\___/  |",
+        " \\_______/ "
+      ],
+      "forms": {
+        "yo": "satisfice",
+        "tu": "satisficiste",
+        "el": "satisfizo",
+        "nosotros": "satisficimos",
+        "vosotros": "satisficisteis",
+        "ellos": "satisficieron"
+      }
+    },
+    {
+      "item": "prever",
+      "meaning": "to foresee",
+      "set": "preterite",
+      "art": [
+        "   _____   ",
+        "  / . . \\  ",
+        " |  ( )  | ",
+        "  \\_____/  ",
+        "   /___\\   "
+      ],
+      "forms": {
+        "yo": "preví",
+        "tu": "previste",
+        "el": "previó",
+        "nosotros": "previmos",
+        "vosotros": "previsteis",
+        "ellos": "previeron"
+      }
+    },
+    {
+      "item": "bendecir",
+      "meaning": "to bless",
+      "set": "future",
+      "art": [
+        "     _     ",
+        "    / \\    ",
+        "   /   \\   ",
+        "  /_____\\  ",
+        "     o     "
+      ],
+      "forms": {
+        "yo": "bendeciré",
+        "tu": "bendecirás",
+        "el": "bendecirá",
+        "nosotros": "bendeciremos",
+        "vosotros": "bendeciréis",
+        "ellos": "bendecirán"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "c2-proofreading-01",
+      "prompt": "Which sentence is correct in formal writing?",
+      "type": "multiple-choice",
+      "options": [
+        "Pienso que tienes razón.",
+        "Pienso de que tienes razón."
+      ],
+      "correct_answer": "Pienso que tienes razón.",
+      "explanation": "Pensar takes a direct que clause (pienso eso), so de que is dequeísmo.",
+      "hints": [
+        "Try the eso test: pienso eso or pienso de eso?"
+      ],
+      "teaches": [
+        "el dequeísmo"
+      ]
+    },
+    {
+      "question_id": "c2-proofreading-02",
+      "prompt": "Me acuerdo ___ que llovía mucho aquel verano.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "de",
+      "accepted_answers": [],
+      "explanation": "Acordarse takes de (me acuerdo de eso), so the de stays before que. Leaving it out is queísmo.",
+      "hints": [
+        "Me acuerdo ___ eso."
+      ],
+      "teaches": [
+        "acordarse de que",
+        "el queísmo"
+      ]
+    },
+    {
+      "question_id": "c2-proofreading-03",
+      "prompt": "___ muchas quejas durante la reunión.",
+      "type": "multiple-choice",
+      "options": [
+        "Hubo",
+        "Hubieron"
+      ],
+      "correct_answer": "Hubo",
+      "explanation": "Impersonal haber (there was / there were) has no subject, so it stays singular: hubo muchas quejas.",
+      "hints": [
+        "Quejas is the object, not the subject."
+      ],
+      "teaches": [
+        "hubo"
+      ]
+    },
+    {
+      "question_id": "c2-proofreading-04",
+      "prompt": "La respuesta del ministro no ___ a nadie. (satisfacer, preterite)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "satisfizo",
+      "accepted_answers": [],
+      "explanation": "Satisfacer goes like hacer: hizo → satisfizo. Satisfació is a common error.",
+      "hints": [
+        "Think of hacer: él hizo."
+      ],
+      "teaches": [
+        "satisfacer"
+      ]
+    },
+    {
+      "question_id": "c2-proofreading-05",
+      "prompt": "Nadie ___ la crisis. (prever, preterite)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "previó",
+      "accepted_answers": [],
+      "explanation": "Prever goes like ver: vio → previó, with an accent because the word has two syllables. Preveyó mixes it up with proveer.",
+      "hints": [
+        "Think of ver: él vio.",
+        "Two syllables: it needs an accent."
+      ],
+      "teaches": [
+        "prever"
+      ]
+    },
+    {
+      "question_id": "c2-proofreading-06",
+      "prompt": "El obispo ___ la nueva capilla el domingo.",
+      "type": "multiple-choice",
+      "options": [
+        "bendecirá",
+        "bendirá"
+      ],
+      "correct_answer": "bendecirá",
+      "explanation": "Unlike decir (dirá), bendecir keeps its full stem in the future: bendecirá.",
+      "hints": [
+        "Bendecir does not copy decir's short future stem."
+      ],
+      "teaches": [
+        "bendecir"
+      ]
+    },
+    {
+      "question_id": "c2-proofreading-07",
+      "prompt": "No contesta al teléfono; ___ estar de viaje.",
+      "type": "multiple-choice",
+      "options": [
+        "debe de",
+        "debe que",
+        "tiene de"
+      ],
+      "correct_answer": "debe de",
+      "explanation": "This is a guess, so deber de + infinitive (probability): debe de estar de viaje. Debe que and tiene de do not exist.",
+      "hints": [
+        "A guess, not an obligation."
+      ],
+      "teaches": [
+        "deber de"
+      ]
+    },
+    {
+      "question_id": "c2-proofreading-08",
+      "prompt": "Se sentó detrás de ___ en el concierto. (me, with an accent)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "mí",
+      "accepted_answers": [],
+      "explanation": "After a preposition the pronoun is mí, with an accent to tell it from mi (my). Formal writing prefers detrás de mí to detrás mío.",
+      "hints": [
+        "The pronoun used after a preposition."
+      ],
+      "teaches": [
+        "detrás de mí"
+      ]
+    },
+    {
+      "question_id": "c2-proofreading-09",
+      "prompt": "Choose the best edit of: El camión chocó contra un muro, resultando herido el conductor.",
+      "type": "multiple-choice",
+      "options": [
+        "El camión chocó contra un muro y el conductor resultó herido.",
+        "El camión chocó contra un muro, el conductor resultando herido.",
+        "El camión chocando contra un muro, resultó herido el conductor."
+      ],
+      "correct_answer": "El camión chocó contra un muro y el conductor resultó herido.",
+      "explanation": "The injury came after the crash, so a gerund cannot report it: use a second finite verb joined with y.",
+      "hints": [
+        "A gerund cannot describe what happened afterwards."
+      ],
+      "teaches": [
+        "el gerundio de posterioridad"
+      ]
+    },
+    {
+      "question_id": "c2-proofreading-10",
+      "prompt": "¡___ aquí ahora mismo, chicos! (venir, vosotros)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "Venid",
+      "accepted_answers": [],
+      "explanation": "The vosotros command ends in -d: venid. The infinitive venir is colloquial and wrong in writing.",
+      "hints": [
+        "Infinitive minus -r, plus -d."
+      ],
+      "teaches": [
+        "corregir"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Hubo dos errores en el acta.",
+      "meaning": "There were two mistakes in the minutes.",
+      "note": "New word: el acta = the minutes."
+    },
+    {
+      "text": "Estoy segura de que lo enviaste ayer.",
+      "meaning": "I'm sure that you sent it yesterday."
+    },
+    {
+      "text": "La nueva ordenanza no satisfizo a los vecinos.",
+      "meaning": "The new by-law did not satisfy the residents.",
+      "note": "New word: la ordenanza = the by-law."
+    },
+    {
+      "text": "Los meteorólogos previeron lluvias para el fin de semana.",
+      "meaning": "The forecasters predicted rain for the weekend.",
+      "note": "Prever goes like ver: previeron."
+    },
+    {
+      "text": "Debe de haber un error en la factura.",
+      "meaning": "There must be a mistake in the invoice.",
+      "note": "Deber de expresses a guess, not an obligation."
+    },
+    {
+      "text": "Aún quedan tres páginas; aun así, terminaremos hoy.",
+      "meaning": "There are still three pages left; even so, we'll finish today.",
+      "note": "Aún = still; aun = even."
+    },
+    {
+      "text": "El párroco bendecirá las barcas el día de la fiesta del puerto.",
+      "meaning": "The parish priest will bless the boats on the day of the harbour festival.",
+      "note": "New word: el párroco = the parish priest."
+    },
+    {
+      "text": "Antes de entregar el informe, corregid las erratas y revisad las comas.",
+      "meaning": "Before handing in the report, correct the typos and check the commas.",
+      "note": "Vosotros commands end in -d."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Errors natives make too"
+    },
+    {
+      "vocab": 3
+    },
+    {
+      "question": "c2-proofreading-01"
+    },
+    {
+      "question": "c2-proofreading-02"
+    },
+    {
+      "section": "Haber, deber"
+    },
+    {
+      "question": "c2-proofreading-03"
+    },
+    {
+      "question": "c2-proofreading-07"
+    },
+    {
+      "question": "c2-proofreading-08"
+    },
+    {
+      "section": "Imperatives, gerunds"
+    },
+    {
+      "question": "c2-proofreading-09"
+    },
+    {
+      "question": "c2-proofreading-10"
+    },
+    {
+      "tip": "Proofread in two passes: first read for sense, then read only for the usual suspects (de que, hubieron, commas, accents)."
+    },
+    {
+      "section": "Accents, punctuation"
+    },
+    {
+      "section": "Three verbs"
+    },
+    {
+      "question": "c2-proofreading-04"
+    },
+    {
+      "question": "c2-proofreading-05"
+    },
+    {
+      "question": "c2-proofreading-06"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "c2-proofreading-conv-report",
+      "title": "A report that needs a second look",
+      "scenario": "Carmen, head of communications, goes through a report with Javier, who wrote it, before it goes to the board.",
+      "role_a": "Carmen",
+      "role_b": "Javier",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Javier, he leído tu informe. Está bien, pero necesita una buena corrección.",
+          "meaning": "Javier, I've read your report. It's fine, but it needs a good edit."
+        },
+        {
+          "speaker": "b",
+          "text": "¿Tan mal está? Me aseguré de que no hubiera erratas.",
+          "meaning": "Is it that bad? I made sure there were no typos."
+        },
+        {
+          "speaker": "a",
+          "text": "Erratas, pocas. Pero aquí pones: pienso de que deberíamos invertir más.",
+          "meaning": "Typos, few. But here you put: pienso de que we should invest more."
+        },
+        {
+          "speaker": "b",
+          "text": "Vaya, dequeísmo. Es pienso que, sin de.",
+          "meaning": "Oh dear, dequeísmo. It's pienso que, without de."
+        },
+        {
+          "speaker": "a",
+          "text": "Exacto. Y dos líneas más abajo: me acuerdo que el año pasado…",
+          "meaning": "Exactly. And two lines further down: me acuerdo que last year…"
+        },
+        {
+          "speaker": "b",
+          "text": "Ahí es al revés, falta el de: me acuerdo de que.",
+          "meaning": "There it's the other way round, the de is missing: me acuerdo de que."
+        },
+        {
+          "speaker": "a",
+          "text": "Y esto: hubieron muchos retrasos. Haber impersonal, siempre en singular.",
+          "meaning": "And this: hubieron muchos retrasos. Impersonal haber, always singular."
+        },
+        {
+          "speaker": "b",
+          "text": "Hubo muchos retrasos. Lo cambio ahora mismo. ¿Algo más?",
+          "meaning": "Hubo muchos retrasos. I'll change it right now. Anything else?"
+        },
+        {
+          "speaker": "a",
+          "text": "Una coma entre el sujeto y el verbo, y un gerundio de posterioridad.",
+          "meaning": "A comma between the subject and the verb, and a gerund of posteriority."
+        },
+        {
+          "speaker": "b",
+          "text": "No lo preví, la verdad. Te lo devuelvo esta tarde, impecable.",
+          "meaning": "I didn't see that coming, to be honest. I'll send it back this afternoon, spotless."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🖍️",
+    "bites": [
+      {
+        "title": "The eso test",
+        "emoji": "🧪",
+        "rule": "Swap the que clause for eso. Pienso eso → pienso que. Me acuerdo de eso → me acuerdo de que. Keep the preposition only if eso needs it.",
+        "example": "Me alegro de que hayas venido.",
+        "example_meaning": "I'm glad that you came."
+      },
+      {
+        "title": "Haber has no plural",
+        "emoji": "1️⃣",
+        "rule": "When haber means 'there is / there are', it stays singular in every tense: hay, hubo, había, ha habido, habrá.",
+        "example": "Había muchas personas en la sala.",
+        "example_meaning": "There were many people in the hall."
+      },
+      {
+        "title": "Debe or debe de",
+        "emoji": "🤔",
+        "rule": "Deber + infinitive expresses obligation; deber de + infinitive expresses probability. Never use deber de for an obligation.",
+        "example": "Debes llamarla. Debe de estar preocupada.",
+        "example_meaning": "You must call her. She must be worried."
+      },
+      {
+        "title": "Three tricky verbs",
+        "emoji": "🧷",
+        "rule": "Satisfacer goes like hacer (satisfizo), prever like ver (previó), and bendecir keeps its full stem in the future (bendeciré).",
+        "example": "El acuerdo satisfizo a todos, aunque nadie lo previó.",
+        "example_meaning": "The deal satisfied everyone, although nobody foresaw it."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Que or de que?",
+        "buckets": [
+          "que",
+          "de que"
+        ],
+        "why": "Verbs that take a direct object (pensar, creer, decir) take que; verbs and expressions that need de (acordarse, estar seguro, a pesar) keep it before que.",
+        "items": [
+          {
+            "text": "Pienso ___ tienes razón",
+            "bucket": 0
+          },
+          {
+            "text": "Me acuerdo ___ llovía",
+            "bucket": 1
+          },
+          {
+            "text": "Estoy seguro ___ vendrá",
+            "bucket": 1
+          },
+          {
+            "text": "Creo ___ es tarde",
+            "bucket": 0
+          },
+          {
+            "text": "A pesar ___ llovía, salimos",
+            "bucket": 1
+          },
+          {
+            "text": "Me dijo ___ no venía",
+            "bucket": 0
+          }
+        ]
+      },
+      {
+        "title": "Correct, or edit it?",
+        "buckets": [
+          "correct",
+          "edit it"
+        ],
+        "why": "Impersonal haber stays singular, formal writing uses de + pronoun after adverbs of place, vosotros commands end in -d (or drop it before os), and months are lower case.",
+        "items": [
+          {
+            "text": "Hubo muchas quejas.",
+            "bucket": 0
+          },
+          {
+            "text": "Hubieron muchas quejas.",
+            "bucket": 1
+          },
+          {
+            "text": "Está detrás de mí.",
+            "bucket": 0
+          },
+          {
+            "text": "¡Sentaos ya!",
+            "bucket": 0
+          },
+          {
+            "text": "¡Sentaros ya!",
+            "bucket": 1
+          },
+          {
+            "text": "Nos vemos en Marzo.",
+            "bucket": 1
+          }
+        ]
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Hubieron muchos problemas con la factura.",
+        "wrong": "Hubieron",
+        "fix": "Hubo",
+        "why": "Impersonal haber has no plural."
+      },
+      {
+        "sentence": "Se sentó detrás mío en el teatro.",
+        "wrong": "mío",
+        "fix": "de mí",
+        "why": "Formal writing uses de + pronoun after an adverb of place: detrás de mí."
+      },
+      {
+        "sentence": "La nueva norma no satisfació a nadie.",
+        "wrong": "satisfació",
+        "fix": "satisfizo",
+        "why": "Satisfacer goes like hacer: hizo → satisfizo."
+      },
+      {
+        "sentence": "Los expertos no preveyeron la crisis.",
+        "wrong": "preveyeron",
+        "fix": "previeron",
+        "why": "Prever goes like ver: vieron → previeron."
+      },
+      {
+        "sentence": "El año que viene bendirán el puente nuevo.",
+        "wrong": "bendirán",
+        "fix": "bendecirán",
+        "why": "Bendecir keeps its full stem in the future."
+      },
+      {
+        "sentence": "¡Niños, callaros ya!",
+        "wrong": "callaros",
+        "fix": "callaos",
+        "why": "The vosotros command is callad; before os the d drops: callaos."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Hubo muchas quejas en la reunión.",
+        "meaning": "There were many complaints at the meeting.",
+        "distractors": [
+          "Hubieron"
+        ]
+      },
+      {
+        "text": "Me acuerdo de que llovía.",
+        "meaning": "I remember that it was raining.",
+        "distractors": [
+          "en"
+        ]
+      },
+      {
+        "text": "Estoy segura de que lo sabe.",
+        "meaning": "I'm sure that she knows.",
+        "distractors": [
+          "sabes"
+        ]
+      },
+      {
+        "text": "La respuesta no satisfizo a nadie.",
+        "meaning": "The answer satisfied nobody.",
+        "distractors": [
+          "satisfació"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "✒️",
+      "content": "## La corrección en Eldmark\n\nBefore a chronicle enters the archive of Highgate, the scribe hunts the usual slips: **hubo tres dragones**, never *hubieron*; **el oráculo previó la guerra**, never *preveyó*; **la sacerdotisa bendecirá las espadas**, never *bendirá*. A chronicle with errors, they say, is a map that leads to the wrong dungeon.",
+      "vocabulary": [
+        {
+          "term": "hubo",
+          "example": "Hubo tres dragones en la batalla de Frostmarch.",
+          "example_meaning": "There were three dragons at the battle of Frostmarch."
+        },
+        {
+          "term": "prever",
+          "example": "El oráculo previó la caída de la torre.",
+          "example_meaning": "The oracle foresaw the fall of the tower."
+        },
+        {
+          "term": "bendecir",
+          "example": "La sacerdotisa bendecirá las espadas al alba.",
+          "example_meaning": "The priestess will bless the swords at dawn."
+        },
+        {
+          "term": "detrás de mí",
+          "example": "¡Quedaos detrás de mí, que yo llevo el escudo!",
+          "example_meaning": "Stay behind me, I'm the one with the shield!"
+        },
+        {
+          "term": "satisfacer",
+          "example": "El botín no satisfizo a los enanos.",
+          "example_meaning": "The loot did not satisfy the dwarves."
+        },
+        {
+          "term": "el escriba",
+          "meaning": "scribe",
+          "example": "El escriba corrigió las erratas de la crónica.",
+          "example_meaning": "The scribe corrected the misprints in the chronicle."
+        },
+        {
+          "term": "el oráculo",
+          "meaning": "oracle",
+          "example": "Debe de ser el oráculo: nadie más habla en verso.",
+          "example_meaning": "It must be the oracle: nobody else speaks in verse."
+        },
+        {
+          "term": "el escudo",
+          "meaning": "shield",
+          "example": "Al cruzar el puente, levantad el escudo.",
+          "example_meaning": "When you cross the bridge, raise your shields."
+        }
+      ],
+      "bites": [
+        {
+          "title": "El escriba de Highgate",
+          "emoji": "✒️",
+          "rule": "Before a chronicle is archived, the scribe checks: hubo (never hubieron), previó (never preveyó), bendecirá (never bendirá).",
+          "example": "Hubo tres dragones y nadie lo previó.",
+          "example_meaning": "There were three dragons and nobody foresaw it."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Hubo tres orcos en el puente.",
+          "meaning": "There were three orcs on the bridge.",
+          "note": "Impersonal haber stays singular."
+        },
+        {
+          "text": "El oráculo previó la tormenta.",
+          "meaning": "The oracle foresaw the storm.",
+          "note": "New word: el oráculo = oracle."
+        },
+        {
+          "text": "La sacerdotisa bendecirá a los guerreros.",
+          "meaning": "The priestess will bless the warriors."
+        },
+        {
+          "text": "¡Guerreros, quedaos detrás de mí!",
+          "meaning": "Warriors, stay behind me!"
+        },
+        {
+          "text": "El escriba debe de estar dormido.",
+          "meaning": "The scribe must be asleep.",
+          "note": "New word: el escriba = scribe."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Hubo un dragón en la cueva.",
+          "meaning": "There was a dragon in the cave.",
+          "distractors": [
+            "Hubieron"
+          ]
+        },
+        {
+          "text": "El oráculo previó la guerra.",
+          "meaning": "The oracle foresaw the war.",
+          "distractors": [
+            "preveyó"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Hubieron dos dragones en Frostmarch.",
+          "wrong": "Hubieron",
+          "fix": "Hubo",
+          "why": "Impersonal haber has no plural."
+        },
+        {
+          "sentence": "El botín no satisfació a los enanos.",
+          "wrong": "satisfació",
+          "fix": "satisfizo",
+          "why": "Satisfacer goes like hacer: satisfizo."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "The scribe's verdict",
+          "buckets": [
+            "correct",
+            "edit it"
+          ],
+          "why": "Haber stays singular, prever goes like ver, and bendecir keeps its full stem in the future.",
+          "items": [
+            {
+              "text": "hubo tres dragones",
+              "bucket": 0
+            },
+            {
+              "text": "hubieron tres dragones",
+              "bucket": 1
+            },
+            {
+              "text": "el oráculo previó",
+              "bucket": 0
+            },
+            {
+              "text": "el oráculo preveyó",
+              "bucket": 1
+            },
+            {
+              "text": "bendecirá las espadas",
+              "bucket": 0
+            },
+            {
+              "text": "bendirá las espadas",
+              "bucket": 1
+            }
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "c2-proofreading-realm-01",
+          "prompt": "El oráculo ___ la caída de la torre.",
+          "type": "multiple-choice",
+          "options": [
+            "previó",
+            "preveyó",
+            "prevenió"
+          ],
+          "correct_answer": "previó",
+          "explanation": "Prever goes like ver: vio → previó.",
+          "hints": [
+            "Think of ver."
+          ],
+          "teaches": [
+            "prever",
+            "el oráculo"
+          ]
+        },
+        {
+          "question_id": "c2-proofreading-realm-02",
+          "prompt": "El botín no ___ a los enanos. (satisfacer, preterite)",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "satisfizo",
+          "accepted_answers": [],
+          "explanation": "Satisfacer goes like hacer: hizo → satisfizo.",
+          "hints": [
+            "Think of hacer: él hizo."
+          ],
+          "teaches": [
+            "satisfacer"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🔍",
+      "content": "## La corrección en Meadowbrook\n\nThe mayor is printing this year's almanac and Nora is proofreading it: **hubo tres heladas en marzo**, never *hubieron*; **Rosa se acordó de que** the festival was on Saturday, with its **de**; and **el almanaque previó** a rainy autumn, like *vio*. Leo's verdict: an almanac without typos is rarer than a golden pumpkin.",
+      "vocabulary": [
+        {
+          "term": "hubo",
+          "example": "Hubo tres heladas en marzo y las fresas aguantaron.",
+          "example_meaning": "There were three frosts in March and the strawberries held out."
+        },
+        {
+          "term": "acordarse de que",
+          "example": "Rosa se acordó de que el festival era el sábado.",
+          "example_meaning": "Rosa remembered that the festival was on Saturday."
+        },
+        {
+          "term": "prever",
+          "example": "El almanaque previó un otoño lluvioso.",
+          "example_meaning": "The almanac foresaw a rainy autumn."
+        },
+        {
+          "term": "satisfacer",
+          "example": "La cosecha de calabazas satisfizo a todo el pueblo.",
+          "example_meaning": "The pumpkin harvest satisfied the whole town."
+        },
+        {
+          "term": "estar seguro de que",
+          "example": "Leo está seguro de que mañana pescará algo.",
+          "example_meaning": "Leo is sure that he'll catch something tomorrow."
+        },
+        {
+          "term": "deber de",
+          "example": "Debe de haber helado: las fresas amanecieron blancas.",
+          "example_meaning": "There must have been a frost: the strawberries were white at dawn."
+        },
+        {
+          "term": "la corrección",
+          "meaning": "proofreading, correction",
+          "example": "La corrección del almanaque le llevó una semana a Nora.",
+          "example_meaning": "Proofreading the almanac took Nora a week."
+        },
+        {
+          "term": "el pregón",
+          "meaning": "speech that opens a town festival",
+          "example": "El alcalde leyó el pregón del festival sin una sola errata.",
+          "example_meaning": "The mayor read the festival's opening speech without a single slip."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Un almanaque sin erratas",
+          "emoji": "📖",
+          "rule": "Before printing the almanac, try the eso test: me acuerdo de eso → me acuerdo de que; pienso eso → pienso que.",
+          "example": "Me acuerdo de que el festival era en otoño.",
+          "example_meaning": "I remember that the festival was in autumn."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Hubo mucha fruta este verano.",
+          "meaning": "There was a lot of fruit this summer."
+        },
+        {
+          "text": "Me acuerdo de que llovió en mayo.",
+          "meaning": "I remember that it rained in May.",
+          "note": "With acordarse de que, keep the de."
+        },
+        {
+          "text": "Nadie previó una cosecha tan buena.",
+          "meaning": "Nobody foresaw such a good harvest."
+        },
+        {
+          "text": "Pienso que el maíz ya está listo.",
+          "meaning": "I think the maize is ready now.",
+          "note": "Pensar takes que, without de."
+        },
+        {
+          "text": "El alcalde leerá el pregón mañana.",
+          "meaning": "The mayor will give the festival's opening speech tomorrow.",
+          "note": "New word: el pregón = festival opening speech."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Hubo tres heladas en marzo.",
+          "meaning": "There were three frosts in March.",
+          "distractors": [
+            "Hubieron"
+          ]
+        },
+        {
+          "text": "Me acuerdo de que llovió.",
+          "meaning": "I remember that it rained.",
+          "distractors": [
+            "en"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Hubieron muchas fresas este año.",
+          "wrong": "Hubieron",
+          "fix": "Hubo",
+          "why": "Impersonal haber has no plural."
+        },
+        {
+          "sentence": "Rosa está segura en que lloverá mañana.",
+          "wrong": "en",
+          "fix": "de",
+          "why": "Estar seguro takes de (segura de eso), and it stays before que: segura de que."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Que or de que on the farm?",
+          "buckets": [
+            "que",
+            "de que"
+          ],
+          "why": "Pensar and decir take que directly; acordarse, estar seguro and a pesar need de before que.",
+          "items": [
+            {
+              "text": "Rosa piensa ___ va a llover",
+              "bucket": 0
+            },
+            {
+              "text": "Leo se acuerda ___ pescó un pez enorme",
+              "bucket": 1
+            },
+            {
+              "text": "Nora está segura ___ la vaca está bien",
+              "bucket": 1
+            },
+            {
+              "text": "El alcalde dice ___ habrá fiesta",
+              "bucket": 0
+            },
+            {
+              "text": "A pesar ___ llovió, hubo festival",
+              "bucket": 1
+            }
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "c2-proofreading-meadowbrook-01",
+          "prompt": "Rosa se acordó ___ que el festival era el sábado.",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "de",
+          "accepted_answers": [],
+          "explanation": "Acordarse takes de (se acordó de eso), so the de stays before que.",
+          "hints": [
+            "Se acordó ___ eso."
+          ],
+          "teaches": [
+            "acordarse de que"
+          ]
+        },
+        {
+          "question_id": "c2-proofreading-meadowbrook-02",
+          "prompt": "La cosecha de calabazas ___ a todo el pueblo.",
+          "type": "multiple-choice",
+          "options": [
+            "satisfizo",
+            "satisfació"
+          ],
+          "correct_answer": "satisfizo",
+          "explanation": "Satisfacer goes like hacer: hizo → satisfizo.",
+          "hints": [
+            "Think of hacer."
+          ],
+          "teaches": [
+            "satisfacer"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🔍",
+      "content": "## La corrección en el páramo\n\nRadio Páramo's script is full of slips, and today you are the editor: **hubo dos tormentas**, never *hubieron*; **nadie previó el apagón**, never *preveyó*; and on air the listeners are told **¡escuchad!**, never *¡escuchar!*, which belongs on the signs at the petrol station.",
+      "vocabulary": [
+        {
+          "term": "hubo",
+          "example": "Anoche hubo dos tormentas de ceniza.",
+          "example_meaning": "Last night there were two ash storms."
+        },
+        {
+          "term": "prever",
+          "example": "Nadie previó el apagón de la antena.",
+          "example_meaning": "Nobody foresaw the antenna blackout."
+        },
+        {
+          "term": "deber de",
+          "example": "La caravana debe de estar cerca: el perro guardián ladra.",
+          "example_meaning": "The caravan must be close: the guard dog is barking."
+        },
+        {
+          "term": "detrás de mí",
+          "example": "El escarabajo gigante está detrás de mí, ¿verdad?",
+          "example_meaning": "The giant beetle is behind me, isn't it?"
+        },
+        {
+          "term": "corregir",
+          "example": "Marta corrige el boletín antes de que salga al aire.",
+          "example_meaning": "Marta proofreads the bulletin before it goes on air."
+        },
+        {
+          "term": "el guion",
+          "meaning": "script",
+          "example": "Guion se escribe sin tilde, igual que solo.",
+          "example_meaning": "Guion is written without an accent, just like solo."
+        },
+        {
+          "term": "el apagón",
+          "meaning": "power cut, blackout",
+          "example": "Hubo un apagón en el taller.",
+          "example_meaning": "There was a power cut in the workshop."
+        },
+        {
+          "term": "el locutor / la locutora",
+          "meaning": "radio announcer",
+          "example": "La locutora leyó el boletín sin una errata.",
+          "example_meaning": "The announcer read the bulletin without a single slip."
+        }
+      ],
+      "bites": [
+        {
+          "title": "El guion de Radio Páramo",
+          "emoji": "🎙️",
+          "rule": "On air: hubo (never hubieron), previó (never preveyó), and vosotros commands end in -d: ¡escuchad!, not ¡escuchar!",
+          "example": "¡Escuchad el boletín de las ocho!",
+          "example_meaning": "Listen to the eight o'clock bulletin!"
+        }
+      ],
+      "listening": [
+        {
+          "text": "Hubo un apagón en la antena.",
+          "meaning": "There was a blackout at the antenna."
+        },
+        {
+          "text": "¡Escuchad el boletín, habitantes del páramo!",
+          "meaning": "Listen to the bulletin, people of the wasteland!",
+          "note": "This is a vosotros command: escuchad."
+        },
+        {
+          "text": "Nadie previó la tormenta de ceniza.",
+          "meaning": "Nobody foresaw the ash storm."
+        },
+        {
+          "text": "El perro guardián debe de tener hambre.",
+          "meaning": "The guard dog must be hungry.",
+          "note": "Deber de expresses a guess."
+        },
+        {
+          "text": "La locutora corrigió el guion antes de emitir.",
+          "meaning": "The announcer corrected the script before broadcasting.",
+          "note": "New word: la locutora = radio announcer."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Hubo dos tormentas de ceniza.",
+          "meaning": "There were two ash storms.",
+          "distractors": [
+            "Hubieron"
+          ]
+        },
+        {
+          "text": "¡Escuchad la radio, buscadores!",
+          "meaning": "Listen to the radio, scavengers!",
+          "distractors": [
+            "Escuchar"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "¡Habitantes del páramo, escuchar el boletín!",
+          "wrong": "escuchar",
+          "fix": "escuchad",
+          "why": "The vosotros command ends in -d; the infinitive is for signs."
+        },
+        {
+          "sentence": "Los buscadores no preveyeron el apagón.",
+          "wrong": "preveyeron",
+          "fix": "previeron",
+          "why": "Prever goes like ver: previeron."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Correct, or edit the script?",
+          "buckets": [
+            "correct",
+            "edit it"
+          ],
+          "why": "Haber stays singular, vosotros commands end in -d, prever goes like ver, and formal scripts use detrás de mí.",
+          "items": [
+            {
+              "text": "hubo un apagón",
+              "bucket": 0
+            },
+            {
+              "text": "hubieron dos apagones",
+              "bucket": 1
+            },
+            {
+              "text": "¡escuchad!",
+              "bucket": 0
+            },
+            {
+              "text": "¡escuchar! (to the listeners)",
+              "bucket": 1
+            },
+            {
+              "text": "previó la tormenta",
+              "bucket": 0
+            },
+            {
+              "text": "detrás mío (in the script)",
+              "bucket": 1
+            }
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "c2-proofreading-rustwake-01",
+          "prompt": "¡___ el boletín, buscadores! (escuchar, vosotros)",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "Escuchad",
+          "accepted_answers": [],
+          "explanation": "The vosotros command ends in -d: escuchad. The infinitive escuchar is for signs, not for speaking to people.",
+          "hints": [
+            "Infinitive minus -r, plus -d."
+          ],
+          "teaches": [
+            "corregir"
+          ]
+        },
+        {
+          "question_id": "c2-proofreading-rustwake-02",
+          "prompt": "Anoche ___ dos tormentas de ceniza.",
+          "type": "multiple-choice",
+          "options": [
+            "hubo",
+            "hubieron"
+          ],
+          "correct_answer": "hubo",
+          "explanation": "Impersonal haber has no plural: hubo dos tormentas.",
+          "hints": [
+            "Tormentas is the object, not the subject."
+          ],
+          "teaches": [
+            "hubo"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "c2-proofreading-conv-rustwake-guion",
+          "title": "Checking the script before going on air",
+          "scenario": "Vega, the announcer of Radio Páramo, goes through the evening bulletin with Leo the scavenger before broadcasting.",
+          "role_a": "Vega",
+          "role_b": "Leo",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Leo, antes de emitir, revisa conmigo el guion del boletín.",
+              "meaning": "Leo, before we go on air, check the bulletin script with me."
+            },
+            {
+              "speaker": "b",
+              "text": "A ver… Aquí pone: hubieron dos tormentas de ceniza.",
+              "meaning": "Let's see… Here it says: hubieron dos tormentas de ceniza."
+            },
+            {
+              "speaker": "a",
+              "text": "Hubo, hubo. Haber no tiene plural, ni en el páramo ni en ningún sitio.",
+              "meaning": "Hubo, hubo. Haber has no plural, not in the wasteland or anywhere else."
+            },
+            {
+              "speaker": "b",
+              "text": "Y luego: nadie preveyó el apagón. ¿Eso existe?",
+              "meaning": "And then: nadie preveyó el apagón. Is that even a word?"
+            },
+            {
+              "speaker": "a",
+              "text": "No. Previó, como vio. ¿Algo más?",
+              "meaning": "No. Previó, like vio. Anything else?"
+            },
+            {
+              "speaker": "b",
+              "text": "Al final: habitantes del páramo, escuchar con atención.",
+              "meaning": "At the end: habitantes del páramo, escuchar con atención."
+            },
+            {
+              "speaker": "a",
+              "text": "Escuchad, con de. Si no, parece un cartel de la gasolinera.",
+              "meaning": "Escuchad, with a d. Otherwise it sounds like a sign at the petrol station."
+            },
+            {
+              "speaker": "b",
+              "text": "Corregido. Que yo sepa, es el boletín más limpio del páramo.",
+              "meaning": "Corrected. As far as I know, it's the cleanest bulletin in the wasteland."
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

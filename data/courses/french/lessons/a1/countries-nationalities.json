@@ -1,0 +1,1304 @@
+{
+  "id": "a1-countries-nationalities",
+  "slug": "countries-nationalities",
+  "title": "Countries, nationalities and languages: je suis canadienne",
+  "unit": "A1",
+  "group": "Vocabulary",
+  "order": 24,
+  "summary": "Say where you are from and where you live: en France, au Canada, aux États-Unis; je suis canadienne; je parle anglais.",
+  "focus": "Countries with their gender and preposition, nationalities that agree, and languages",
+  "prerequisites": [
+    "a1-etre-avoir"
+  ],
+  "content": "## Countries have a gender\n\nEvery country is **feminine**, **masculine** or **plural**, and has its article:\n\n| feminine | masculine | plural |\n|---|---|---|\n| **la France** | **le Canada** | **les États-Unis** |\n| **la Belgique** | **le Japon** | **les Pays-Bas** |\n| **la Suisse** | **le Sénégal** | **les Philippines** |\n| **l'Italie** | **le Maroc** | |\n\nMost countries ending in **-e** are feminine; the others are masculine. A few end in **-e** and are still masculine: **le Mexique**, **le Cambodge**, **le Mozambique**. Before a vowel, **le** and **la** become **l'**: **l'Allemagne** (f), **l'Iran** (m). Country names keep their capital letter.\n\n## In, to and from a country\n\nOne little word means both *in* and *to*:\n\n- **en** + a feminine country or one starting with a vowel: **en France**, **en Italie**, **en Iran**\n- **au** (à + le) + a masculine country: **au Canada**, **au Japon**\n- **aux** (à + les) + a plural country: **aux États-Unis**\n- **à** + a city: **à Paris**, **à Montréal**, **à Dakar**\n\n*From* is **venir de**, with the same pattern: **je viens de France**, **d'Italie** (before a vowel), **du Japon** (de + le), **des États-Unis** (de + les), **de Montréal**. To ask, say **Tu viens d'où ?** or **Vous venez d'où ?** (Where are you from?)\n\n## Nationalities and languages\n\nA nationality is an adjective: it agrees, takes **no capital** and, after **être**, no article (**elle est canadienne**).\n\n| masculine | feminine |\n|---|---|\n| **français** | **française** |\n| **canadien** | **canadienne** |\n| **américain** | **américaine** |\n| **belge** | **belge** |\n| **suisse** | **suisse** |\n\nWords already ending in **-e** stay the same. Only the noun for a person has a capital: **un Français**, **une Canadienne**.\n\nLanguages are **masculine** and lower-case, often the masculine nationality: **le français**, **l'anglais**. After **parler** they usually drop the article: **Je parle anglais.** Other verbs keep it: **J'étudie l'espagnol.**\n\n## Vivre, habiter and the French-speaking world\n\n| | vivre (to live) |\n|---|---|\n| je | **vis** |\n| tu | **vis** |\n| il / elle / on | **vit** |\n| nous | **vivons** |\n| vous | **vivez** |\n| ils / elles | **vivent** |\n\n**Habiter** says where your home is: **J'habite à Lyon.** **Vivre** says that too, and also *to live* in the wider sense: **Elle vit seule.** (She lives alone.)\n\nFrench is spoken on every continent: **en Belgique**, **en Suisse**, **au Québec** (a province of Canada; the city is **à Québec**), **au Sénégal**, **au Maroc**. More than three hundred million people speak it.",
+  "vocabulary": [
+    {
+      "term": "le pays",
+      "meaning": "country (m; the same in the plural)",
+      "example": "La Suisse est un petit pays.",
+      "example_meaning": "Switzerland is a small country."
+    },
+    {
+      "term": "la ville",
+      "meaning": "city, town (f)",
+      "example": "Montréal est une grande ville.",
+      "example_meaning": "Montréal is a big city."
+    },
+    {
+      "term": "la langue",
+      "meaning": "language (f)",
+      "example": "Le français est une langue difficile ?",
+      "example_meaning": "Is French a difficult language?"
+    },
+    {
+      "term": "la France",
+      "meaning": "France (f)",
+      "example": "Nous habitons en France, à Lille.",
+      "example_meaning": "We live in France, in Lille."
+    },
+    {
+      "term": "le Canada",
+      "meaning": "Canada (m)",
+      "example": "Il travaille au Canada.",
+      "example_meaning": "He works in Canada."
+    },
+    {
+      "term": "les États-Unis",
+      "meaning": "the United States (pl)",
+      "example": "Tu voyages aux États-Unis en juillet ?",
+      "example_meaning": "Are you travelling to the United States in July?"
+    },
+    {
+      "term": "français",
+      "meaning": "French (adjective; f: française)",
+      "example": "Pierre est français et Julie est française.",
+      "example_meaning": "Pierre is French and Julie is French."
+    },
+    {
+      "term": "canadien",
+      "meaning": "Canadian (adjective; f: canadienne)",
+      "example": "Je suis canadienne, de Montréal.",
+      "example_meaning": "I'm Canadian (f), from Montréal."
+    },
+    {
+      "term": "venir de",
+      "meaning": "to come from",
+      "example": "Vous venez d'où ? — Je viens du Japon.",
+      "example_meaning": "Where are you from? — I'm from Japan."
+    },
+    {
+      "term": "vivre",
+      "meaning": "to live",
+      "example": "Nous vivons à Dakar, au Sénégal.",
+      "example_meaning": "We live in Dakar, in Senegal."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-countries-nationalities-01",
+      "prompt": "Le Canada is masculine. Complete: Ma cousine habite ___ Canada.",
+      "type": "multiple-choice",
+      "options": [
+        "au",
+        "en",
+        "à"
+      ],
+      "correct_answer": "au",
+      "explanation": "A masculine country takes au (à + le): au Canada. En is for feminine countries, à for cities.",
+      "hints": [
+        "Le Canada: à + le = ?"
+      ],
+      "teaches": [
+        "le Canada"
+      ]
+    },
+    {
+      "question_id": "a1-countries-nationalities-02",
+      "prompt": "Ils passent les vacances ___ Italie. (They spend the holidays in Italy.)",
+      "type": "fill-in-blank",
+      "correct_answer": "en",
+      "accepted_answers": [],
+      "explanation": "L'Italie is feminine and starts with a vowel, so it takes en: en Italie.",
+      "hints": [
+        "L'Italie is feminine.",
+        "Feminine countries take a two-letter word."
+      ]
+    },
+    {
+      "question_id": "a1-countries-nationalities-03",
+      "prompt": "Marie is from Toronto. Marie est ___.",
+      "type": "multiple-choice",
+      "options": [
+        "canadienne",
+        "canadien",
+        "Canadienne"
+      ],
+      "correct_answer": "canadienne",
+      "explanation": "The nationality agrees with Marie (-ien becomes -ienne) and, as an adjective, takes no capital: Marie est canadienne.",
+      "hints": [
+        "Marie is a woman.",
+        "Adjectives of nationality are lower-case."
+      ],
+      "teaches": [
+        "canadien"
+      ]
+    },
+    {
+      "question_id": "a1-countries-nationalities-04",
+      "prompt": "Le Japon is masculine. Je viens ___ Japon. (I come from Japan.)",
+      "type": "fill-in-blank",
+      "correct_answer": "du",
+      "accepted_answers": [],
+      "explanation": "Venir de + le Japon contracts: de + le = du. Je viens du Japon.",
+      "hints": [
+        "de + le = ?"
+      ],
+      "teaches": [
+        "venir de"
+      ]
+    },
+    {
+      "question_id": "a1-countries-nationalities-05",
+      "prompt": "How do you write 'I speak English' in French?",
+      "type": "multiple-choice",
+      "options": [
+        "Je parle anglais.",
+        "Je parle Anglais.",
+        "Je parle anglaise."
+      ],
+      "correct_answer": "Je parle anglais.",
+      "explanation": "Languages are masculine and lower-case, and after parler they usually take no article: Je parle anglais.",
+      "hints": [
+        "Languages take no capital.",
+        "A language is masculine."
+      ],
+      "teaches": [
+        "la langue"
+      ]
+    },
+    {
+      "question_id": "a1-countries-nationalities-06",
+      "prompt": "Nous ___ à Genève, en Suisse. (vivre: We live in Geneva.)",
+      "type": "fill-in-blank",
+      "correct_answer": "vivons",
+      "accepted_answers": [
+        "nous vivons"
+      ],
+      "explanation": "Vivre in the nous form is vivons: nous vivons à Genève.",
+      "hints": [
+        "The stem is viv-, the ending -ons."
+      ],
+      "teaches": [
+        "vivre"
+      ]
+    },
+    {
+      "question_id": "a1-countries-nationalities-07",
+      "prompt": "Le Mexique is masculine even though it ends in -e, so you say 'au Mexique'.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Most countries in -e are feminine, but le Mexique (like le Cambodge and le Mozambique) is masculine: au Mexique, du Mexique.",
+      "hints": [
+        "It is one of the exceptions in the first section."
+      ],
+      "teaches": [
+        "le pays"
+      ]
+    },
+    {
+      "question_id": "a1-countries-nationalities-08",
+      "prompt": "Les États-Unis is plural. Mes oncles travaillent ___ États-Unis.",
+      "type": "multiple-choice",
+      "options": [
+        "aux",
+        "au",
+        "en"
+      ],
+      "correct_answer": "aux",
+      "explanation": "A plural country takes aux (à + les): aux États-Unis.",
+      "hints": [
+        "à + les = ?"
+      ],
+      "teaches": [
+        "les États-Unis"
+      ]
+    },
+    {
+      "question_id": "a1-countries-nationalities-09",
+      "prompt": "'Elle est Française' is correctly written with a capital F.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "After être the nationality is an adjective, so it is lower-case: elle est française. Only the noun has a capital: une Française.",
+      "hints": [
+        "Is française an adjective or a noun here?"
+      ],
+      "teaches": [
+        "français"
+      ]
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "vivre",
+      "meaning": "to live",
+      "set": "present",
+      "art": [
+        "     /\\     ",
+        "    /  \\    ",
+        "   /____\\   ",
+        "   | [] |   ",
+        "   |____|   "
+      ],
+      "forms": {
+        "je": "vis",
+        "tu": "vis",
+        "il": "vit",
+        "nous": "vivons",
+        "vous": "vivez",
+        "ils": "vivent"
+      }
+    }
+  ],
+  "listening": [
+    {
+      "text": "Je viens de France.",
+      "meaning": "I come from France.",
+      "note": "De before a feminine country."
+    },
+    {
+      "text": "Il habite au Portugal.",
+      "meaning": "He lives in Portugal.",
+      "note": "New word: le Portugal = Portugal."
+    },
+    {
+      "text": "Nous parlons anglais et français.",
+      "meaning": "We speak English and French."
+    },
+    {
+      "text": "Elle vit à Montréal, au Québec.",
+      "meaning": "She lives in Montréal, in Quebec.",
+      "note": "À for the city, au for the province."
+    },
+    {
+      "text": "Les étudiants viennent des États-Unis.",
+      "meaning": "The students come from the United States.",
+      "note": "De + les = des."
+    },
+    {
+      "text": "Vous parlez allemand ou italien ?",
+      "meaning": "Do you speak German or Italian?",
+      "note": "New word: l'allemand = German."
+    },
+    {
+      "text": "Au Sénégal, on parle français et wolof.",
+      "meaning": "In Senegal, people speak French and Wolof.",
+      "note": "New word: le wolof = Wolof."
+    },
+    {
+      "text": "Ma voisine est belge, mais elle vit en Suisse.",
+      "meaning": "My neighbour is Belgian, but she lives in Switzerland.",
+      "note": "Belge is the same in the masculine and the feminine."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Countries have a gender"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-countries-nationalities-07"
+    },
+    {
+      "section": "In, to and from"
+    },
+    {
+      "question": "a1-countries-nationalities-01"
+    },
+    {
+      "question": "a1-countries-nationalities-02"
+    },
+    {
+      "question": "a1-countries-nationalities-08"
+    },
+    {
+      "question": "a1-countries-nationalities-04"
+    },
+    {
+      "tip": "Hear the country's article in your head first: la France → en France, le Japon → au Japon, les États-Unis → aux États-Unis."
+    },
+    {
+      "section": "Nationalities and languages"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-countries-nationalities-03"
+    },
+    {
+      "question": "a1-countries-nationalities-09"
+    },
+    {
+      "question": "a1-countries-nationalities-05"
+    },
+    {
+      "concept": {
+        "title": "Hear the feminine",
+        "markdown": "The feminine ending is not only spelling: you can **hear** it. **Français** ends on an *s* you don't say, **française** on a *z* sound. **Canadien** ends in a nasal vowel, **canadienne** in a clear *n*. **Belge** and **suisse** sound the same for everyone."
+      }
+    },
+    {
+      "section": "Vivre, habiter"
+    },
+    {
+      "question": "a1-countries-nationalities-06"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-countries-nationalities-conv-language-cafe",
+      "title": "At the language café",
+      "scenario": "Awa, a student from Dakar, meets Lucas from Montréal at a language café in Lyon.",
+      "role_a": "Awa",
+      "role_b": "Lucas",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Bonsoir ! Tu viens d'où ?",
+          "meaning": "Good evening! Where are you from?"
+        },
+        {
+          "speaker": "b",
+          "text": "Je viens du Canada, de Montréal. Et toi ?",
+          "meaning": "I'm from Canada, from Montréal. And you?",
+          "note": "du = de + le (le Canada)"
+        },
+        {
+          "speaker": "a",
+          "text": "Moi, je suis sénégalaise. Je viens de Dakar.",
+          "meaning": "I'm Senegalese. I come from Dakar.",
+          "note": "sénégalais → sénégalaise"
+        },
+        {
+          "speaker": "b",
+          "text": "Et maintenant, tu vis à Lyon ?",
+          "meaning": "And now you live in Lyon?"
+        },
+        {
+          "speaker": "a",
+          "text": "Oui, j'étudie ici. Tu parles anglais ?",
+          "meaning": "Yes, I'm studying here. Do you speak English?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, à Montréal, on parle français et anglais.",
+          "meaning": "Yes, in Montréal people speak French and English.",
+          "note": "no article after parler"
+        },
+        {
+          "speaker": "a",
+          "text": "Moi, je parle français, anglais et wolof.",
+          "meaning": "I speak French, English and Wolof."
+        },
+        {
+          "speaker": "b",
+          "text": "Le wolof ? C'est une langue du Sénégal ?",
+          "meaning": "Wolof? Is that a language from Senegal?",
+          "note": "languages are masculine: le wolof"
+        },
+        {
+          "speaker": "a",
+          "text": "Oui ! Et mon frère vit aux États-Unis, à Boston.",
+          "meaning": "Yes! And my brother lives in the United States, in Boston.",
+          "note": "aux + a plural country, à + a city"
+        },
+        {
+          "speaker": "b",
+          "text": "Super ! Ma sœur habite en Belgique, à Bruxelles.",
+          "meaning": "Great! My sister lives in Belgium, in Brussels.",
+          "note": "en + a feminine country"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🌐",
+    "bites": [
+      {
+        "title": "Every country has a gender",
+        "emoji": "🌍",
+        "rule": "Feminine (la France), masculine (le Canada) or plural (les États-Unis). Most countries ending in -e are feminine; le Mexique is an exception.",
+        "example": "La Belgique est un petit pays.",
+        "example_meaning": "Belgium is a small country."
+      },
+      {
+        "title": "En, au, aux, à",
+        "emoji": "📍",
+        "rule": "En + feminine country or vowel, au + masculine, aux + plural, à + city. Venir de follows: de France, du Japon, des États-Unis.",
+        "example": "J'habite au Canada, à Toronto.",
+        "example_meaning": "I live in Canada, in Toronto."
+      },
+      {
+        "title": "Nationalities agree",
+        "emoji": "🏷️",
+        "rule": "No capital and no article after être: il est français, elle est française. Belge and suisse never change.",
+        "example": "Elle est suisse et il est américain.",
+        "example_meaning": "She's Swiss and he's American."
+      },
+      {
+        "title": "Parler + language",
+        "emoji": "💬",
+        "rule": "Languages are masculine and lower-case, and take no article after parler: je parle anglais.",
+        "example": "Tu parles espagnol ?",
+        "example_meaning": "Do you speak Spanish?"
+      }
+    ],
+    "sorts": [
+      {
+        "title": "En, au or aux?",
+        "buckets": [
+          "en",
+          "au",
+          "aux"
+        ],
+        "items": [
+          {
+            "text": "la France",
+            "bucket": 0
+          },
+          {
+            "text": "le Canada",
+            "bucket": 1
+          },
+          {
+            "text": "les États-Unis",
+            "bucket": 2
+          },
+          {
+            "text": "l'Italie",
+            "bucket": 0
+          },
+          {
+            "text": "le Japon",
+            "bucket": 1
+          },
+          {
+            "text": "les Pays-Bas",
+            "bucket": 2
+          },
+          {
+            "text": "le Sénégal",
+            "bucket": 1
+          },
+          {
+            "text": "la Belgique",
+            "bucket": 0
+          }
+        ],
+        "why": "Feminine countries (and vowels) take en, masculine ones au, plural ones aux."
+      },
+      {
+        "title": "Il est… or elle est…?",
+        "buckets": [
+          "il est…",
+          "elle est…",
+          "both"
+        ],
+        "items": [
+          {
+            "text": "française",
+            "bucket": 1
+          },
+          {
+            "text": "canadien",
+            "bucket": 0
+          },
+          {
+            "text": "américaine",
+            "bucket": 1
+          },
+          {
+            "text": "belge",
+            "bucket": 2
+          },
+          {
+            "text": "italien",
+            "bucket": 0
+          },
+          {
+            "text": "suisse",
+            "bucket": 2
+          }
+        ],
+        "why": "The feminine adds -e (-ien doubles the n: -ienne); a nationality already ending in -e fits both."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "J'habite en Canada.",
+        "wrong": "en",
+        "fix": "au",
+        "why": "Le Canada is masculine: au Canada."
+      },
+      {
+        "sentence": "Je viens de Japon.",
+        "wrong": "de",
+        "fix": "du",
+        "why": "Le Japon is masculine: de + le = du."
+      },
+      {
+        "sentence": "Nous travaillons à États-Unis.",
+        "wrong": "à",
+        "fix": "aux",
+        "why": "A plural country takes aux: aux États-Unis."
+      },
+      {
+        "sentence": "Paul est française.",
+        "wrong": "française",
+        "fix": "français",
+        "why": "Paul is a man, so the adjective is masculine: français."
+      },
+      {
+        "sentence": "Ils viennent du France.",
+        "wrong": "du",
+        "fix": "de",
+        "why": "La France is feminine: de France, not du."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Je viens du Japon.",
+        "meaning": "I come from Japan.",
+        "distractors": [
+          "de"
+        ]
+      },
+      {
+        "text": "Elle habite en Belgique.",
+        "meaning": "She lives in Belgium.",
+        "distractors": [
+          "au"
+        ]
+      },
+      {
+        "text": "Nous parlons français et anglais.",
+        "meaning": "We speak French and English.",
+        "distractors": [
+          "le"
+        ]
+      },
+      {
+        "text": "Les étudiants vivent aux États-Unis.",
+        "meaning": "The students live in the United States.",
+        "distractors": [
+          "en"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🏔️",
+      "content": "## Pays et peuples à Eldmark\n\nEldmark has its own lands: **la Valdorie** (f), **le Brennor** (m) and **les Îles d'Écume** (pl). So you travel **en Valdorie**, **au Brennor**, **aux Îles d'Écume**, and **à Highgate**. Nym **est valdorienne**; Borin **est brennois** and **vient du Brennor**. Each people has its language: **Nym parle elfique.**",
+      "vocabulary": [
+        {
+          "term": "le pays",
+          "example": "La Valdorie est un pays de forêts.",
+          "example_meaning": "Valdoria is a land of forests."
+        },
+        {
+          "term": "la ville",
+          "example": "Highgate est la grande ville du royaume.",
+          "example_meaning": "Highgate is the great city of the kingdom."
+        },
+        {
+          "term": "la langue",
+          "example": "L'elfique est une langue très ancienne.",
+          "example_meaning": "Elvish is a very old language."
+        },
+        {
+          "term": "venir de",
+          "example": "Borin vient du Brennor.",
+          "example_meaning": "Borin comes from Brennor."
+        },
+        {
+          "term": "vivre",
+          "example": "Les nains vivent à Deepanvil.",
+          "example_meaning": "The dwarves live in Deepanvil."
+        },
+        {
+          "term": "la Valdorie",
+          "meaning": "Valdoria, a land of Eldmark (f)",
+          "example": "La mage Séla voyage en Valdorie.",
+          "example_meaning": "The mage Séla is travelling to Valdoria."
+        },
+        {
+          "term": "le Brennor",
+          "meaning": "Brennor, the dwarves' land (m)",
+          "example": "Il fait froid au Brennor.",
+          "example_meaning": "It's cold in Brennor."
+        },
+        {
+          "term": "l'elfique",
+          "meaning": "Elvish, the language (m)",
+          "example": "Nym parle elfique et français.",
+          "example_meaning": "Nym speaks Elvish and French."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Les pays d'Eldmark",
+          "emoji": "🏔️",
+          "rule": "Invented lands follow the same rules: en Valdorie (f), au Brennor (m), aux Îles d'Écume (pl), à Highgate (a city).",
+          "example": "Le paladin voyage au Brennor.",
+          "example_meaning": "The paladin is travelling to Brennor."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Nym vient de Valdorie.",
+          "meaning": "Nym comes from Valdoria.",
+          "note": "New word: la Valdorie = Valdoria."
+        },
+        {
+          "text": "Les nains du Brennor vivent sous la montagne.",
+          "meaning": "The dwarves of Brennor live under the mountain.",
+          "note": "New word: la montagne = the mountain."
+        },
+        {
+          "text": "La mage Séla est valdorienne.",
+          "meaning": "The mage Séla is Valdorian.",
+          "note": "-ien becomes -ienne in the feminine."
+        },
+        {
+          "text": "Tu parles elfique, guerrier ?",
+          "meaning": "Do you speak Elvish, warrior?",
+          "note": "New word: l'elfique = Elvish."
+        },
+        {
+          "text": "Le chasseur voyage aux Îles d'Écume.",
+          "meaning": "The hunter is travelling to the Foam Isles.",
+          "note": "Aux before a plural land."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Nym habite en Valdorie.",
+          "meaning": "Nym lives in Valdoria.",
+          "distractors": [
+            "au"
+          ]
+        },
+        {
+          "text": "La guerrière est brennoise.",
+          "meaning": "The warrior is Brennorian.",
+          "distractors": [
+            "brennois"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Le mage voyage en Brennor.",
+          "wrong": "en",
+          "fix": "au",
+          "why": "Le Brennor is masculine: au Brennor."
+        },
+        {
+          "sentence": "Séla est valdorien.",
+          "wrong": "valdorien",
+          "fix": "valdorienne",
+          "why": "Séla is a woman: -ien becomes -ienne."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "À, en, au or aux in Eldmark?",
+          "buckets": [
+            "à (city)",
+            "en",
+            "au",
+            "aux"
+          ],
+          "items": [
+            {
+              "text": "Highgate",
+              "bucket": 0
+            },
+            {
+              "text": "Deepanvil",
+              "bucket": 0
+            },
+            {
+              "text": "la Valdorie",
+              "bucket": 1
+            },
+            {
+              "text": "le Brennor",
+              "bucket": 2
+            },
+            {
+              "text": "les Îles d'Écume",
+              "bucket": 3
+            }
+          ],
+          "why": "Cities take à; feminine lands en, masculine lands au, plural lands aux."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-countries-nationalities-realm-01",
+          "prompt": "Borin vient ___ Brennor, le pays des nains.",
+          "type": "multiple-choice",
+          "options": [
+            "du",
+            "de",
+            "des"
+          ],
+          "correct_answer": "du",
+          "explanation": "Le Brennor is masculine, so de + le = du: Borin vient du Brennor.",
+          "hints": [
+            "Le Brennor: de + le = ?"
+          ],
+          "teaches": [
+            "venir de",
+            "le Brennor"
+          ]
+        },
+        {
+          "question_id": "a1-countries-nationalities-realm-02",
+          "prompt": "La mage Séla vient de Valdorie : elle est ___. (valdorien, feminine)",
+          "type": "fill-in-blank",
+          "correct_answer": "valdorienne",
+          "accepted_answers": [],
+          "explanation": "Like canadien → canadienne, valdorien doubles the n and adds -e: elle est valdorienne.",
+          "hints": [
+            "Think of canadien → canadienne."
+          ],
+          "teaches": [
+            "la Valdorie"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "a1-countries-nationalities-conv-realm-tavern",
+          "title": "Where are you from, dwarf?",
+          "scenario": "At the taverne du Dragon Vert, Nym the elf sits down next to Borin the dwarf.",
+          "role_a": "Nym",
+          "role_b": "Borin",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Bonsoir ! Tu viens d'où, ami nain ?",
+              "meaning": "Good evening! Where are you from, dwarf friend?"
+            },
+            {
+              "speaker": "b",
+              "text": "Je viens du Brennor, mais je vis à Deepanvil. Et toi ?",
+              "meaning": "I come from Brennor, but I live in Deepanvil. And you?",
+              "note": "du + a masculine land, à + a city"
+            },
+            {
+              "speaker": "a",
+              "text": "Je suis valdorienne. Je viens de Valdorie.",
+              "meaning": "I'm Valdorian. I come from Valdoria."
+            },
+            {
+              "speaker": "b",
+              "text": "La Valdorie, le pays des forêts ! Tu parles elfique ?",
+              "meaning": "Valdoria, the land of forests! Do you speak Elvish?"
+            },
+            {
+              "speaker": "a",
+              "text": "Oui, je parle elfique et français. Et toi ?",
+              "meaning": "Yes, I speak Elvish and French. And you?",
+              "note": "no article after parler"
+            },
+            {
+              "speaker": "b",
+              "text": "Moi, je parle brennois et un peu français.",
+              "meaning": "I speak Brennorian and a little French."
+            },
+            {
+              "speaker": "a",
+              "text": "Demain, je voyage aux Îles d'Écume. Tu viens ?",
+              "meaning": "Tomorrow I'm travelling to the Foam Isles. Are you coming?",
+              "note": "aux + a plural land"
+            },
+            {
+              "speaker": "b",
+              "text": "Aux Îles d'Écume ? D'accord, en route !",
+              "meaning": "To the Foam Isles? All right, let's go!"
+            }
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "⛵",
+      "content": "## Pays et langues à Meadowbrook\n\nAt **la fête des récoltes**, visitors come from everywhere. Rosa **vient du Portugal**: she **est portugaise**. Léo **vient de Belgique**; he **est belge** and **parle français et néerlandais**. Nora, the new farmer, **est canadienne**, and now she **vit à Meadowbrook**.",
+      "vocabulary": [
+        {
+          "term": "le pays",
+          "example": "Rosa vient d'un pays très chaud.",
+          "example_meaning": "Rosa comes from a very hot country."
+        },
+        {
+          "term": "la ville",
+          "example": "Nora aime la ferme, pas la ville.",
+          "example_meaning": "Nora likes the farm, not the city."
+        },
+        {
+          "term": "le Canada",
+          "example": "Nora vient du Canada, elle adore le maïs.",
+          "example_meaning": "Nora comes from Canada, she loves corn."
+        },
+        {
+          "term": "canadien",
+          "example": "La nouvelle fermière est canadienne.",
+          "example_meaning": "The new farmer is Canadian."
+        },
+        {
+          "term": "venir de",
+          "example": "Les fraises viennent de la ferme de Nora.",
+          "example_meaning": "The strawberries come from Nora's farm."
+        },
+        {
+          "term": "vivre",
+          "example": "Léo vit près de la rivière.",
+          "example_meaning": "Léo lives near the river."
+        },
+        {
+          "term": "la fête des récoltes",
+          "meaning": "the harvest festival (f)",
+          "example": "Tout le village est à la fête des récoltes.",
+          "example_meaning": "The whole village is at the harvest festival."
+        },
+        {
+          "term": "portugais",
+          "meaning": "Portuguese (adjective; f: portugaise)",
+          "example": "Rosa est portugaise, de Porto.",
+          "example_meaning": "Rosa is Portuguese, from Porto."
+        },
+        {
+          "term": "le voisin",
+          "meaning": "neighbour (m; f: la voisine)",
+          "example": "Mon voisin est suisse.",
+          "example_meaning": "My neighbour is Swiss."
+        }
+      ],
+      "bites": [
+        {
+          "title": "À la fête des récoltes",
+          "emoji": "⛵",
+          "rule": "Visitors say where they come from: de Belgique (f), du Portugal (m), des États-Unis (pl). Their nationality agrees: portugais, portugaise.",
+          "example": "Rosa vient du Portugal, elle est portugaise.",
+          "example_meaning": "Rosa comes from Portugal, she's Portuguese."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Léo est belge, de Bruxelles.",
+          "meaning": "Léo is Belgian, from Brussels.",
+          "note": "Belge does not change."
+        },
+        {
+          "text": "Rosa parle portugais et français.",
+          "meaning": "Rosa speaks Portuguese and French.",
+          "note": "New word: le portugais = Portuguese."
+        },
+        {
+          "text": "Les touristes viennent des États-Unis.",
+          "meaning": "The tourists come from the United States.",
+          "note": "New word: les touristes = the tourists."
+        },
+        {
+          "text": "Nora vit à Meadowbrook avec ses poules.",
+          "meaning": "Nora lives in Meadowbrook with her hens."
+        },
+        {
+          "text": "Notre voisine vient de Suisse.",
+          "meaning": "Our neighbour comes from Switzerland.",
+          "note": "New word: la voisine = the neighbour."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Rosa vient du Portugal.",
+          "meaning": "Rosa comes from Portugal.",
+          "distractors": [
+            "de"
+          ]
+        },
+        {
+          "text": "Nora est canadienne.",
+          "meaning": "Nora is Canadian.",
+          "distractors": [
+            "canadien"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Rosa est portugais.",
+          "wrong": "portugais",
+          "fix": "portugaise",
+          "why": "Rosa is a woman: portugaise."
+        },
+        {
+          "sentence": "Léo vient du Belgique.",
+          "wrong": "du",
+          "fix": "de",
+          "why": "La Belgique is feminine: de Belgique."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Who is it at the festival?",
+          "buckets": [
+            "Léo (il)",
+            "Nora (elle)",
+            "both"
+          ],
+          "items": [
+            {
+              "text": "canadienne",
+              "bucket": 1
+            },
+            {
+              "text": "portugais",
+              "bucket": 0
+            },
+            {
+              "text": "belge",
+              "bucket": 2
+            },
+            {
+              "text": "française",
+              "bucket": 1
+            },
+            {
+              "text": "américain",
+              "bucket": 0
+            },
+            {
+              "text": "suisse",
+              "bucket": 2
+            }
+          ],
+          "why": "The feminine adds -e (-ien becomes -ienne); belge and suisse fit everyone."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-countries-nationalities-meadowbrook-01",
+          "prompt": "Le Portugal is masculine. Rosa de la graineterie vient ___ Portugal.",
+          "type": "multiple-choice",
+          "options": [
+            "du",
+            "de",
+            "au"
+          ],
+          "correct_answer": "du",
+          "explanation": "Venir de + le Portugal: de + le = du. Rosa vient du Portugal.",
+          "hints": [
+            "de + le = ?"
+          ],
+          "teaches": [
+            "venir de",
+            "portugais"
+          ]
+        },
+        {
+          "question_id": "a1-countries-nationalities-meadowbrook-02",
+          "prompt": "Nora vient du Canada. Elle vit ___ Meadowbrook maintenant.",
+          "type": "fill-in-blank",
+          "correct_answer": "à",
+          "accepted_answers": [
+            "a"
+          ],
+          "explanation": "Meadowbrook is a town, and towns take à: elle vit à Meadowbrook.",
+          "hints": [
+            "A town, not a country."
+          ],
+          "teaches": [
+            "vivre"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "a1-countries-nationalities-conv-meadowbrook-festival",
+          "title": "A new face at the festival",
+          "scenario": "At the harvest festival, Rosa from the seed shop chats with Nora, the new farmer.",
+          "role_a": "Rosa",
+          "role_b": "Nora",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Bonjour ! Tu es la nouvelle fermière ?",
+              "meaning": "Hello! Are you the new farmer?"
+            },
+            {
+              "speaker": "b",
+              "text": "Oui, je m'appelle Nora. Je viens du Canada.",
+              "meaning": "Yes, my name is Nora. I come from Canada.",
+              "note": "du + a masculine country"
+            },
+            {
+              "speaker": "a",
+              "text": "Ah, tu es canadienne ! Tu viens de Montréal ?",
+              "meaning": "Ah, you're Canadian! Are you from Montréal?"
+            },
+            {
+              "speaker": "b",
+              "text": "Non, de Québec. Et toi, tu es d'ici ?",
+              "meaning": "No, from Quebec City. And you, are you from here?"
+            },
+            {
+              "speaker": "a",
+              "text": "Non, je suis portugaise. Je vis ici avec ma fille.",
+              "meaning": "No, I'm Portuguese. I live here with my daughter."
+            },
+            {
+              "speaker": "b",
+              "text": "Tu parles portugais avec elle ?",
+              "meaning": "Do you speak Portuguese with her?",
+              "note": "no article after parler"
+            },
+            {
+              "speaker": "a",
+              "text": "Oui, à la maison. Et au marché, je parle français !",
+              "meaning": "Yes, at home. And at the market, I speak French!"
+            }
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🛻",
+      "content": "## Pays et radios à Rustwake\n\nOutside **le Dôme**, your **radio-montre** picks up voices from far away: **une radio du Canada**, **une station de Belgique**, **une voix des États-Unis**. Marta the trader **vient du Mexique**: she **est mexicaine** and **parle espagnol et français**. And you? **Vous vivez au village de ferraille** now.",
+      "vocabulary": [
+        {
+          "term": "le pays",
+          "example": "Le désert de rouille est un pays sans eau.",
+          "example_meaning": "The rust desert is a land without water."
+        },
+        {
+          "term": "la ville",
+          "example": "La vieille ville est en ruines.",
+          "example_meaning": "The old city is in ruins."
+        },
+        {
+          "term": "la langue",
+          "example": "À la radio, on entend une langue inconnue.",
+          "example_meaning": "On the radio, you hear an unknown language."
+        },
+        {
+          "term": "le Canada",
+          "example": "La radio-montre capte une station du Canada.",
+          "example_meaning": "The wrist radio picks up a station from Canada."
+        },
+        {
+          "term": "venir de",
+          "example": "Le fouilleur vient de la station-service.",
+          "example_meaning": "The scavenger is coming from the petrol station."
+        },
+        {
+          "term": "vivre",
+          "example": "Le contremaître Ruiz vit dans le Dôme.",
+          "example_meaning": "Foreman Ruiz lives in the Dome."
+        },
+        {
+          "term": "la radio-montre",
+          "meaning": "wrist radio (f)",
+          "example": "Ma radio-montre parle anglais !",
+          "example_meaning": "My wrist radio is speaking English!"
+        },
+        {
+          "term": "mexicain",
+          "meaning": "Mexican (adjective; f: mexicaine)",
+          "example": "Marta est mexicaine, elle vend de l'eau.",
+          "example_meaning": "Marta is Mexican, she sells water."
+        },
+        {
+          "term": "capter",
+          "meaning": "to pick up (a signal)",
+          "example": "L'antenne capte une radio belge.",
+          "example_meaning": "The antenna picks up a Belgian radio station."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Voix à la radio",
+          "emoji": "🛻",
+          "rule": "A station comes du Canada (m), de Belgique (f), des États-Unis (pl). The speaker is canadien, belge, américaine: no capital.",
+          "example": "C'est une radio des États-Unis.",
+          "example_meaning": "It's a radio station from the United States."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Marta vient du Mexique.",
+          "meaning": "Marta comes from Mexico.",
+          "note": "Le Mexique is masculine."
+        },
+        {
+          "text": "La voix à la radio est canadienne.",
+          "meaning": "The voice on the radio is Canadian.",
+          "note": "New word: la voix = the voice."
+        },
+        {
+          "text": "Le marchand parle espagnol et anglais.",
+          "meaning": "The trader speaks Spanish and English."
+        },
+        {
+          "text": "Les fouilleurs vivent au village de ferraille.",
+          "meaning": "The scavengers live in the scrap village.",
+          "note": "New word: la ferraille = scrap metal."
+        },
+        {
+          "text": "J'écoute une station de Belgique.",
+          "meaning": "I'm listening to a station from Belgium."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Marta est mexicaine.",
+          "meaning": "Marta is Mexican.",
+          "distractors": [
+            "mexicain"
+          ]
+        },
+        {
+          "text": "La radio vient des États-Unis.",
+          "meaning": "The radio comes from the United States.",
+          "distractors": [
+            "du"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "La radio capte une station de Canada.",
+          "wrong": "de",
+          "fix": "du",
+          "why": "Le Canada is masculine: de + le = du."
+        },
+        {
+          "sentence": "Marta est mexicain.",
+          "wrong": "mexicain",
+          "fix": "mexicaine",
+          "why": "Marta is a woman: mexicaine."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Which station is it?",
+          "buckets": [
+            "du…",
+            "de…",
+            "des…"
+          ],
+          "items": [
+            {
+              "text": "Canada",
+              "bucket": 0
+            },
+            {
+              "text": "Belgique",
+              "bucket": 1
+            },
+            {
+              "text": "États-Unis",
+              "bucket": 2
+            },
+            {
+              "text": "Mexique",
+              "bucket": 0
+            },
+            {
+              "text": "Suisse",
+              "bucket": 1
+            },
+            {
+              "text": "Pays-Bas",
+              "bucket": 2
+            }
+          ],
+          "why": "Masculine countries take du, feminine ones de, plural ones des."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-countries-nationalities-rustwake-01",
+          "prompt": "Le Mexique is masculine. Marta, la marchande du village, vient ___ Mexique.",
+          "type": "multiple-choice",
+          "options": [
+            "du",
+            "de",
+            "d'"
+          ],
+          "correct_answer": "du",
+          "explanation": "Le Mexique is one of the masculine countries in -e: de + le = du. Marta vient du Mexique.",
+          "hints": [
+            "Le Mexique: de + le = ?"
+          ],
+          "teaches": [
+            "venir de",
+            "mexicain"
+          ]
+        },
+        {
+          "question_id": "a1-countries-nationalities-rustwake-02",
+          "prompt": "On the wrist radio, a man and a woman from Brussels both say 'Je suis belge', and both are right.",
+          "type": "true-false",
+          "correct_answer": "true",
+          "explanation": "Belge already ends in -e, so it is the same in the masculine and the feminine: il est belge, elle est belge.",
+          "hints": [
+            "Does belge end in -e already?"
+          ],
+          "teaches": [
+            "la radio-montre"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "a1-countries-nationalities-conv-rustwake-radio",
+          "title": "A voice on the radio",
+          "scenario": "Léo the scavenger shows Marta the trader a strange station on his wrist radio.",
+          "role_a": "Léo",
+          "role_b": "Marta",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Marta, écoute ! La radio-montre capte une voix.",
+              "meaning": "Marta, listen! The wrist radio is picking up a voice."
+            },
+            {
+              "speaker": "b",
+              "text": "Elle parle français ou espagnol ?",
+              "meaning": "Is she speaking French or Spanish?"
+            },
+            {
+              "speaker": "a",
+              "text": "Français. C'est une radio du Canada, je pense.",
+              "meaning": "French. It's a station from Canada, I think.",
+              "note": "du + a masculine country"
+            },
+            {
+              "speaker": "b",
+              "text": "Du Canada ? C'est très loin !",
+              "meaning": "From Canada? That's very far!"
+            },
+            {
+              "speaker": "a",
+              "text": "Et toi, Marta, tu viens d'où ?",
+              "meaning": "And you, Marta, where are you from?"
+            },
+            {
+              "speaker": "b",
+              "text": "Je viens du Mexique. Je suis mexicaine.",
+              "meaning": "I'm from Mexico. I'm Mexican.",
+              "note": "mexicain → mexicaine"
+            },
+            {
+              "speaker": "a",
+              "text": "Et maintenant, tu vis au village de ferraille.",
+              "meaning": "And now you live in the scrap village."
+            },
+            {
+              "speaker": "b",
+              "text": "Oui, avec mes écrous et ma chèvre !",
+              "meaning": "Yes, with my nuts and my goat!"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

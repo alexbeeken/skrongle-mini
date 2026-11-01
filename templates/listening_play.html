@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t1("listening.play.title", "heading", heading) }}{% endblock %}
+{% block modenav %}{% let active = "listening" %}{% include "nav_study.html" %}{% endblock %}
+{% block content %}
+<section class="listening" id="listening" data-testid="listen" data-lang="{{ course.term_lang }}" data-label="{{ course.term_label }}" data-praise="{{ course.praise }}" data-board="{{ board }}" data-total="{{ total }}">
+  <header class="quiz-head">
+    <div>
+      <p class="crumbs"><a href="{{ crate::base_path() }}/listening">{{ crate::t("listening.play.crumb_listening") }}</a> › {{ heading }}</p>
+      <h1>{{ heading }}</h1>
+      <p class="muted">{{ subheading }}</p>
+    </div>
+    <div class="quiz-progress"><span id="l-pos">1</span> / {{ total }}</div>
+  </header>
+  <div class="bar slim"><div class="fill" id="l-bar" style="width:0%"></div></div>
+
+  <p class="alert" id="l-unsupported" role="alert" data-testid="listen-unsupported" hidden>{{ crate::t("listening.play.unsupported") }}</p>
+  <p class="alert" id="l-novoice" role="alert" data-testid="listen-novoice" hidden>{{ crate::t1("listening.play.no_voice", "language", course.term_label) }}</p>
+  {% if total == 0 %}<p class="alert" role="status" data-testid="listen-empty">{{ crate::t1("listening.play.empty_html", "url", crate::url("/listening"))|safe }}</p>{% endif %}
+
+  <form class="num-setup" id="l-setup" data-testid="listen-setup"{% if total == 0 %} hidden{% endif %}>
+    <div class="view-options">
+      <label class="opt">{{ crate::t("listening.play.voice") }} <select id="l-voice" data-testid="listen-voice"><option value="">{{ crate::t("listening.play.loading_voices") }}</option></select></label>
+      <label class="opt">{{ crate::t("listening.play.speed") }}
+        <select id="l-rate" data-testid="listen-rate">
+          <option value="words">{{ crate::t("listening.play.speed_words") }}</option>
+          <option value="phrases">{{ crate::t("listening.play.speed_phrases") }}</option>
+          <option value="0.8">{{ crate::t("listening.play.speed_unhurried") }}</option>
+          <option value="1" selected>{{ crate::t("listening.play.speed_normal") }}</option>
+          <option value="1.2">{{ crate::t("listening.play.speed_fast") }}</option>
+        </select>
+      </label>
+    </div>
+    <div class="actions">
+      <button type="submit" class="btn big" id="l-start" data-testid="listen-start">{{ crate::t("listening.play.start") }}</button>
+      <span class="muted small">{{ crate::tn("listening.play.sentence_count", total) }}</span>
+    </div>
+  </form>
+
+  <div class="num-card listen-card" id="l-card" data-testid="listen-card" hidden>
+    <p class="crumbs" id="l-crumbs"></p>
+    <div class="num-speaker" id="l-speaker" aria-hidden="true">🔊</div>
+    <p class="muted small" id="l-status" role="status" data-testid="listen-status">{{ crate::t("listening.play.listen_status") }}</p>
+    <form class="question" id="l-form" data-testid="listen-form">
+      <input class="fill" type="text" id="l-answer" data-testid="listen-answer" maxlength="500" lang="{{ course.term_lang }}" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="{{ crate::t("listening.play.placeholder") }}" aria-label="{{ crate::t("listening.play.answer_label") }}">
+      {% if !course.chars.is_empty() %}
+      <div class="accents" aria-label="{{ crate::t("quiz.question.insert_char") }}">
+        {% for ch in course.chars %}<button type="button" data-ch="{{ ch }}" aria-label="{{ crate::t1("quiz.question.type_char", "ch", ch) }}">{{ ch }}</button>{% endfor %}
+      </div>
+      {% endif %}
+      <div class="actions">
+        <button type="submit" class="btn" id="l-check" data-testid="listen-check">{{ crate::t("listening.play.check") }}</button>
+        <button type="button" class="btn ghost" id="l-replay" data-testid="listen-replay">{{ crate::t("listening.play.replay") }}</button>
+        <button type="button" class="btn ghost" id="l-slow" data-testid="listen-slow">{{ crate::t("listening.play.slower") }}</button>
+        <button type="button" class="btn ghost" id="l-reveal" data-testid="listen-reveal">{{ crate::t("listening.play.reveal") }}</button>
+        <button type="button" class="btn ghost" id="l-stop" data-testid="listen-stop">{{ crate::t("listening.play.stop") }}</button>
+      </div>
+      <div class="feedback" id="l-feedback" role="status" data-testid="listen-feedback" hidden></div>
+    </form>
+    <p class="num-keys muted small">{{ crate::t("listening.play.keys_html")|safe }}</p>
+  </div>
+
+  <section class="summary" id="l-done" data-testid="listen-done" hidden>
+    <h2>{{ crate::t("listening.play.round_complete") }}</h2>
+    <p class="stars-big" id="l-done-score">0 / 0</p>
+    <p class="lead" id="l-done-detail"></p>
+    <ul class="topics listen-misses" id="l-misses"></ul>
+    <div class="actions">
+      <a class="btn big" href="{{ crate::url("/listening/play") }}{% if let Some(slug) = lesson_slug %}?lesson={{ slug }}{% endif %}">{{ crate::t("listening.play.another_round") }}</a>
+      <a class="btn ghost" href="{{ crate::base_path() }}/listening">{{ crate::t("listening.play.pick_lesson") }}</a>
+      {% if let Some(slug) = quiz_slug %}<a class="btn ghost" href="{{ crate::base_path() }}/practice?lesson={{ slug }}" data-testid="listen-quiz-lesson">{{ crate::t("listening.play.quiz_lesson") }}</a>{% endif %}
+      <a class="btn ghost" href="{{ crate::base_path() }}/lessons">{{ crate::t("study.nav.lessons") }}</a>
+    </div>
+  </section>
+</section>
+<script id="l-items" type="application/json">{{ items_json|safe }}</script>
+{% endblock %}
+{% block scripts %}<script>Object.assign(I18N, {{ crate::i18n::js_json("listening.js")|safe }});</script><script src="{{ crate::routes::asset_url("listening.js") }}" defer></script>{% endblock %}

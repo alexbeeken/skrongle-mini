@@ -1,0 +1,162 @@
+# On every PR, as separate checks: the Rust tests, the
+# server smoke test (scripts/smoke.sh), the exact browser specs and the
+# smoke specs (e2e/specs/smoke/), each suite in Playwright shards. Each job
+# starts its own fresh seeded server.
+# No key and no network beyond installing tools; the Jev specs are never run
+# here. See docs/testing.md, "Smoke specs".
+#
+# Every job in .github/workflows runs on the laptop's self-hosted runners
+# (label `laptop`, ci/runner/). Set the repo variable CI_RUNNER=ubuntu-latest
+# to fall back to GitHub-hosted runners. See docs/testing.md, "CI runners".
+#
+# The GitHub caches (rust-cache, setup-node's npm cache) are for the hosted
+# fallback only: a laptop runner keeps its build in a persistent volume
+# (CARGO_TARGET_DIR, ci/runner/compose.yml), and fetching a 200 MB cache
+# from GitHub through the home connection took 2-4 minutes of every job.
+name: checks
+
+# Not on pushes to main: a PR's run already tested it merged into main,
+# and the ruleset makes a PR be up to date with main before it merges.
+on:
+  pull_request:
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+# CI is for finding failures, not for debugging them: builds carry only
+# line tables (panics and backtraces still name file:line), which compiles
+# and links much faster than full debug info. Debug locally, where the dev
+# profile keeps full debug info. For a failure that only CI shows, set the
+# repo variable CI_DEBUGINFO=full for a run, then delete it (docs/testing.md,
+# "CI runners"); changing it rebuilds every runner's target once.
+env:
+  CARGO_PROFILE_DEV_DEBUG: ${{ vars.CI_DEBUGINFO || 'line-tables-only' }}
+
+jobs:
+  # cargo test and smoke.sh build nearly the same code, so they share one
+  # job and one build. Their checks stay separate: this job fails only on
+  # cargo test, and the smoke gate below reports smoke.sh's outcome.
+  rust:
+    name: cargo test
+    runs-on: ${{ vars.CI_RUNNER || 'laptop' }}
+    timeout-minutes: 20
+    outputs:
+      smoke: ${{ steps.smoke.outcome }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        if: runner.environment == 'github-hosted'
+      # Release builds abort on panic: no new unwrap/expect/indexing outside tests (#389).
+      - run: scripts/panic-check.sh
+      # No source file grows past 1,500 non-test lines, or its baseline (#908).
+      - run: scripts/file-size-lint.sh
+      - run: cargo test
+      - id: smoke
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        run: SERVER_BIN=$(scripts/ci-build.sh) scripts/smoke.sh
+
+  server-smoke-gate:
+    name: server smoke test (scripts/smoke.sh)
+    needs: rust
+    if: ${{ !cancelled() }}
+    runs-on: ${{ vars.CI_RUNNER || 'laptop' }}
+    timeout-minutes: 5
+    steps:
+      - run: '[ "${{ needs.rust.outputs.smoke }}" = success ] || { echo "scripts/smoke.sh: ${{ needs.rust.outputs.smoke || needs.rust.result }} (see the cargo test job)"; exit 1; }'
+
+  # The browser suites run in Playwright shards, one job each, so a suite's
+  # specs (one worker: they share the dev user) spread over several runners.
+  # Sharding is by spec file; a new file lands in a shard on its own. The
+  # gate jobs below carry the check names the ruleset requires.
+  e2e-exact:
+    name: e2e exact specs ${{ matrix.shard }}
+    runs-on: ${{ vars.CI_RUNNER || 'laptop' }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1/3, 2/3, 3/3]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/e2e
+        with:
+          specs: specs/exact.spec.ts specs/custom-themes.spec.ts specs/pathways.spec.ts specs/terms.spec.ts specs/forms.spec.ts specs/google-signin.spec.ts specs/mail.spec.ts specs/editor-autosave.spec.ts specs/modals.spec.ts specs/lesson-tables.spec.ts specs/authenticator.spec.ts specs/dev-ai.spec.ts specs/two-factor.spec.ts specs/i18n.spec.ts specs/profile-nav.spec.ts specs/consent.spec.ts specs/create.spec.ts specs/course-copy.spec.ts specs/docs.spec.ts specs/owner-resets.spec.ts specs/course-translate.spec.ts specs/lesson-editor.spec.ts specs/lesson-editor-rules.spec.ts specs/content-reports.spec.ts specs/moderation.spec.ts specs/term-flag.spec.ts specs/course-table.spec.ts specs/email-owner.spec.ts specs/content-check.spec.ts specs/content-review.spec.ts specs/course-card-stats.spec.ts specs/share-sign-in.spec.ts specs/accessibility.spec.ts specs/privacy-requests.spec.ts specs/release.spec.ts specs/lesson-header.spec.ts specs/share-edges.spec.ts specs/lesson-duplicate.spec.ts specs/mistakes.spec.ts specs/word-list.spec.ts specs/lesson-conversations.spec.ts specs/share-removed.spec.ts specs/breach-tools.spec.ts specs/notation.spec.ts specs/course-lints.spec.ts specs/landing-try.spec.ts specs/privacy.spec.ts specs/fact-check.spec.ts specs/lesson-ai-edit.spec.ts specs/music-sound.spec.ts specs/fill-bar.spec.ts specs/chord-spell.spec.ts specs/staff-note.spec.ts specs/keyboard.spec.ts specs/scale-ladder.spec.ts specs/advice-badge.spec.ts specs/ai-examples.spec.ts specs/words-due.spec.ts specs/algebra-tiles.spec.ts specs/clock.spec.ts specs/measure.spec.ts
+          shard: ${{ matrix.shard }}
+          report-name: playwright-report-exact-${{ strategy.job-index }}
+          # The specs' type check and unit tests, once per run, in the
+          # shortest shard.
+          ts-checks: ${{ matrix.shard == '3/3' }}
+
+  e2e-smoke:
+    name: e2e smoke specs ${{ matrix.shard }}
+    runs-on: ${{ vars.CI_RUNNER || 'laptop' }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1/4, 2/4, 3/4, 4/4]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/e2e
+        with:
+          specs: specs/smoke
+          shard: ${{ matrix.shard }}
+          report-name: playwright-report-smoke-${{ strategy.job-index }}
+
+  # The mini lane (#639): the smoke happy paths and mini.spec.ts with the
+  # dev stand-ins off (no mail, SMS, Google, payments or Skrongle AI), the
+  # shape a self-hoster runs (docs/testing.md, "The mini lane"). One shard,
+  # so its own result is the check; not a required check yet.
+  e2e-mini:
+    name: e2e mini lane
+    runs-on: ${{ vars.CI_RUNNER || 'laptop' }}
+    timeout-minutes: 30
+    env:
+      E2E_MINI: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/e2e
+        with:
+          specs: specs/smoke/happy-paths.spec.ts specs/smoke/mini.spec.ts
+          shard: 1/1
+          report-name: playwright-report-mini
+
+  # A skipped required check counts as passed, so the gates run unless the
+  # run was cancelled, and fail unless every shard succeeded.
+  e2e-exact-gate:
+    name: e2e exact specs
+    needs: e2e-exact
+    if: ${{ !cancelled() }}
+    runs-on: ${{ vars.CI_RUNNER || 'laptop' }}
+    timeout-minutes: 5
+    steps:
+      - run: '[ "${{ needs.e2e-exact.result }}" = success ] || { echo "a shard did not pass: ${{ needs.e2e-exact.result }}"; exit 1; }'
+
+  e2e-smoke-gate:
+    name: e2e smoke specs
+    needs: e2e-smoke
+    if: ${{ !cancelled() }}
+    runs-on: ${{ vars.CI_RUNNER || 'laptop' }}
+    timeout-minutes: 5
+    steps:
+      - run: '[ "${{ needs.e2e-smoke.result }}" = success ] || { echo "a shard did not pass: ${{ needs.e2e-smoke.result }}"; exit 1; }'
+
+  # Pi budget (#638): the stripped release binary, and the idle server's
+  # memory and threads, against scripts/pi-budget.txt; the numbers go in the
+  # job summary. The only release build in CI (fat LTO, the slowest build
+  # here, in the runner's own target volume); not a required check.
+  # Off for now (#1387): remove `if: false` to turn it back on.
+  pi-budget:
+    name: pi budget
+    if: false
+    runs-on: ${{ vars.CI_RUNNER || 'laptop' }}
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        if: runner.environment == 'github-hosted'
+      - run: scripts/pi-budget.sh

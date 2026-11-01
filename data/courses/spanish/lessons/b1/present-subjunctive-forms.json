@@ -1,0 +1,1323 @@
+{
+  "id": "b1-present-subjunctive-forms",
+  "slug": "present-subjunctive-forms",
+  "title": "The present subjunctive: forms (que trabaje, que viva)",
+  "unit": "B1",
+  "group": "Grammar",
+  "order": 10,
+  "summary": "A new mood for wishes, feelings and the not-yet-real: build all six present subjunctive forms and use them after ojalá.",
+  "focus": "Forming the present subjunctive (regular, spelling-change and irregular verbs) and using it after ojalá",
+  "prerequisites": [
+    "a2-imperative"
+  ],
+  "content": "## Two moods, facts and the not-yet-real\n\nA **mood** shows how the speaker sees an action. So far you have used the **indicative**: facts, things you know, things that happen. The **subjunctive** (**el subjuntivo**) is for what is not real yet: wishes, feelings, doubts, requests.\n\n- **Mi hermano trabaja mucho.** My brother works a lot. (A fact, so indicative.)\n- **Ojalá mi hermano trabaje menos.** I hope my brother works less. (A wish, so subjunctive.)\n\nYou have met it already: **usted** commands (**hable**, **coma**) and negative commands (**no hables**) are subjunctive forms. This lesson builds all six forms. The next lessons add the triggers that call for them.\n\n## Building it: the opposite vowel\n\nTake the **yo** form of the present, drop the **-o** and add the \"opposite\" vowel: **-ar** verbs take **-e**, **-er / -ir** verbs take **-a**.\n\n| | trabajar | aprender | vivir |\n|---|---|---|---|\n| yo | trabaje | aprenda | viva |\n| tú | trabajes | aprendas | vivas |\n| él / ella / usted | trabaje | aprenda | viva |\n| nosotros/as | trabajemos | aprendamos | vivamos |\n| vosotros/as | trabajéis | aprendáis | viváis |\n| ellos / ellas / ustedes | trabajen | aprendan | vivan |\n\n**Yo** and **él** share one form. An irregular **yo** carries into every person: tengo → **tenga**, hago → **haga**, salgo → **salga**.\n\n## Spelling: busque, llegue, empiece\n\nThe new vowel would change the sound of the last consonant, so the spelling changes to keep it, in all six forms:\n\n| ending | change | example |\n|---|---|---|\n| -car | c → qu | buscar → **busque**, busquemos |\n| -gar | g → gu | llegar → **llegue**, lleguemos |\n| -zar | z → c | empezar → **empiece**, empecemos |\n\n- **Ojalá el autobús llegue pronto.** (I hope the bus comes soon.)\n- **Ojalá busquéis un piso juntos.** (I hope you look for a flat together.)\n\n**Empezar** also keeps its **e → ie** change (empiece, but empecemos). Stem changers are the next lesson.\n\n## The irregulars: dé, esté, haya, sepa, vea\n\n**Dar**, **estar**, **haber** and **saber** do not follow the **yo** rule. **Ver** does (veo → **vea**), but it is listed with them for reference.\n\n| | dar | estar | haber | saber | ver |\n|---|---|---|---|---|---|\n| yo | dé | esté | haya | sepa | vea |\n| tú | des | estés | hayas | sepas | veas |\n| él / ella | dé | esté | haya | sepa | vea |\n| nosotros | demos | estemos | hayamos | sepamos | veamos |\n| vosotros | deis | estéis | hayáis | sepáis | veáis |\n| ellos / ellas | den | estén | hayan | sepan | vean |\n\nFrom the imperative you already know **ser → sea** and **ir → vaya**. Accents matter: **dé** (give) vs **de** (of), and **esté** vs **este** (this). **Haya** is the subjunctive of **hay**. Haya + participle comes at B2.\n\n## The first trigger: ojalá\n\n**Ojalá** means *I hope* or *if only*, and it is always followed by the subjunctive. It never changes form, and a **que** after it is optional.\n\n- **Ojalá haga sol el sábado.** (I hope it's sunny on Saturday.)\n- **Ojalá que estés mejor pronto.** (I hope you're better soon.)\n- **Ojalá no haya cola en el museo.** (I hope there's no queue at the museum.)\n- **¡Ojalá!** I hope so! / Let's hope so!\n\nWith the present subjunctive, **ojalá** is a wish that can still come true. Ojalá for unlikely wishes (with the imperfect subjunctive) comes at B2.",
+  "vocabulary": [
+    {
+      "term": "ojalá",
+      "meaning": "I hope / if only (+ subjunctive)",
+      "example": "Ojalá tengas suerte en el examen.",
+      "example_meaning": "I hope you're lucky in the exam."
+    },
+    {
+      "term": "el subjuntivo",
+      "meaning": "the subjunctive (the mood of wishes, feelings and doubt)",
+      "example": "El subjuntivo de estar lleva tilde: esté.",
+      "example_meaning": "The subjunctive of estar has a written accent: esté."
+    },
+    {
+      "term": "trabajar",
+      "meaning": "to work",
+      "example": "Ojalá mi madre no trabaje este domingo.",
+      "example_meaning": "I hope my mother isn't working this Sunday."
+    },
+    {
+      "term": "aprender",
+      "meaning": "to learn",
+      "example": "Ojalá aprendáis mucho en Salamanca.",
+      "example_meaning": "I hope you all learn a lot in Salamanca."
+    },
+    {
+      "term": "vivir",
+      "meaning": "to live",
+      "example": "Ojalá vivamos cerca algún día.",
+      "example_meaning": "I hope we live close to each other one day."
+    },
+    {
+      "term": "estar",
+      "meaning": "to be (states, location)",
+      "example": "Ojalá estés mejor mañana.",
+      "example_meaning": "I hope you're better tomorrow."
+    },
+    {
+      "term": "dar",
+      "meaning": "to give",
+      "example": "Ojalá me den el trabajo.",
+      "example_meaning": "I hope they give me the job."
+    },
+    {
+      "term": "saber",
+      "meaning": "to know",
+      "example": "Ojalá sepas la respuesta.",
+      "example_meaning": "I hope you know the answer."
+    },
+    {
+      "term": "haber",
+      "meaning": "there to be (hay → haya)",
+      "example": "Ojalá haya plazas en el tren de las ocho.",
+      "example_meaning": "I hope there are seats on the eight o'clock train."
+    },
+    {
+      "term": "ver",
+      "meaning": "to see",
+      "example": "Ojalá veamos el mar desde la habitación.",
+      "example_meaning": "I hope we can see the sea from the room."
+    },
+    {
+      "term": "buscar",
+      "meaning": "to look for",
+      "example": "Ojalá Ana busque un piso en el centro.",
+      "example_meaning": "I hope Ana looks for a flat in the centre."
+    },
+    {
+      "term": "llegar",
+      "meaning": "to arrive",
+      "example": "Ojalá el tren llegue a tiempo.",
+      "example_meaning": "I hope the train arrives on time."
+    },
+    {
+      "term": "empezar",
+      "meaning": "to start, to begin",
+      "example": "Ojalá las vacaciones empiecen pronto.",
+      "example_meaning": "I hope the holidays start soon."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-present-subjunctive-forms-01",
+      "prompt": "Ojalá mi padre ___ (trabajar) menos este año.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "trabaje",
+      "accepted_answers": [],
+      "explanation": "-ar verbs take -e in the subjunctive: trabajo → trabaje. Ojalá always takes the subjunctive.",
+      "hints": [
+        "Ojalá + subjunctive.",
+        "Start from 'trabajo', drop the -o, add the opposite vowel."
+      ],
+      "teaches": [
+        "ojalá",
+        "trabajar"
+      ]
+    },
+    {
+      "question_id": "b1-present-subjunctive-forms-02",
+      "prompt": "Ojalá (nosotros) ___ juntos en Barcelona algún día.",
+      "type": "multiple-choice",
+      "options": [
+        "vivamos",
+        "vivimos",
+        "vivemos"
+      ],
+      "correct_answer": "vivamos",
+      "explanation": "-ir verbs take -a in the subjunctive: vivamos. 'Vivimos' is the indicative, and 'vivemos' does not exist.",
+      "hints": [
+        "After ojalá: subjunctive.",
+        "-er and -ir verbs switch to -a."
+      ],
+      "teaches": [
+        "ojalá",
+        "vivir"
+      ]
+    },
+    {
+      "question_id": "b1-present-subjunctive-forms-03",
+      "prompt": "Ojalá mi vuelo ___ antes de las diez.",
+      "type": "multiple-choice",
+      "options": [
+        "llegue",
+        "llege",
+        "llega"
+      ],
+      "correct_answer": "llegue",
+      "explanation": "-gar verbs add a u to keep the hard g sound: llegue. 'Llege' would sound like 'lleje', and 'llega' is the indicative.",
+      "hints": [
+        "-gar verbs: g → gu before e."
+      ],
+      "teaches": [
+        "llegar"
+      ]
+    },
+    {
+      "question_id": "b1-present-subjunctive-forms-04",
+      "prompt": "Ojalá el concierto ___ (empezar) a las nueve.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "empiece",
+      "accepted_answers": [],
+      "explanation": "-zar verbs change z → c before e, and empezar keeps its e → ie change: empiece.",
+      "hints": [
+        "-zar: z → c before e.",
+        "The stem changes as in 'empieza'."
+      ],
+      "teaches": [
+        "empezar",
+        "ojalá"
+      ]
+    },
+    {
+      "question_id": "b1-present-subjunctive-forms-05",
+      "prompt": "Ojalá mis abuelos ___ bien.",
+      "type": "multiple-choice",
+      "options": [
+        "estén",
+        "están",
+        "sean"
+      ],
+      "correct_answer": "estén",
+      "explanation": "Being well is a state, so estar, and after ojalá it goes into the subjunctive: estén, with an accent.",
+      "hints": [
+        "How someone is: estar.",
+        "Ojalá + subjunctive."
+      ],
+      "teaches": [
+        "estar",
+        "ojalá"
+      ]
+    },
+    {
+      "question_id": "b1-present-subjunctive-forms-06",
+      "prompt": "Ojalá el profesor nos ___ más tiempo para el examen.",
+      "type": "multiple-choice",
+      "options": [
+        "dé",
+        "de",
+        "da"
+      ],
+      "correct_answer": "dé",
+      "explanation": "The subjunctive of dar is dé, with an accent to tell it apart from the preposition 'de'. 'Da' is the indicative.",
+      "hints": [
+        "The give-verb needs an accent here."
+      ],
+      "teaches": [
+        "dar",
+        "ojalá"
+      ]
+    },
+    {
+      "question_id": "b1-present-subjunctive-forms-07",
+      "prompt": "Ojalá (yo) ___ (saber) todas las respuestas mañana.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "sepa",
+      "accepted_answers": [
+        "yo sepa"
+      ],
+      "explanation": "Saber has an irregular subjunctive: sepa, sepas, sepa, sepamos, sepáis, sepan.",
+      "hints": [
+        "Not from 'sé': the stem is sep-."
+      ],
+      "teaches": [
+        "saber",
+        "ojalá"
+      ]
+    },
+    {
+      "question_id": "b1-present-subjunctive-forms-08",
+      "prompt": "Ojalá ___ (haber: hay) entradas para el concierto del sábado.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "haya",
+      "accepted_answers": [],
+      "explanation": "The subjunctive of 'hay' is 'haya', the same for one thing or many: ojalá haya entradas.",
+      "hints": [
+        "What is the subjunctive of hay?",
+        "It doesn't change for plural nouns."
+      ],
+      "teaches": [
+        "haber",
+        "ojalá"
+      ]
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "trabajar",
+      "meaning": "to work",
+      "set": "present-subjunctive",
+      "forms": {
+        "yo": "trabaje",
+        "tu": "trabajes",
+        "el": "trabaje",
+        "nosotros": "trabajemos",
+        "vosotros": "trabajéis",
+        "ellos": "trabajen"
+      }
+    },
+    {
+      "item": "aprender",
+      "meaning": "to learn",
+      "set": "present-subjunctive",
+      "forms": {
+        "yo": "aprenda",
+        "tu": "aprendas",
+        "el": "aprenda",
+        "nosotros": "aprendamos",
+        "vosotros": "aprendáis",
+        "ellos": "aprendan"
+      }
+    },
+    {
+      "item": "vivir",
+      "meaning": "to live",
+      "set": "present-subjunctive",
+      "forms": {
+        "yo": "viva",
+        "tu": "vivas",
+        "el": "viva",
+        "nosotros": "vivamos",
+        "vosotros": "viváis",
+        "ellos": "vivan"
+      }
+    },
+    {
+      "item": "estar",
+      "meaning": "to be (states, location)",
+      "set": "present-subjunctive",
+      "forms": {
+        "yo": "esté",
+        "tu": "estés",
+        "el": "esté",
+        "nosotros": "estemos",
+        "vosotros": "estéis",
+        "ellos": "estén"
+      }
+    },
+    {
+      "item": "dar",
+      "meaning": "to give",
+      "set": "present-subjunctive",
+      "forms": {
+        "yo": "dé",
+        "tu": "des",
+        "el": "dé",
+        "nosotros": "demos",
+        "vosotros": "deis",
+        "ellos": "den"
+      }
+    },
+    {
+      "item": "saber",
+      "meaning": "to know",
+      "set": "present-subjunctive",
+      "forms": {
+        "yo": "sepa",
+        "tu": "sepas",
+        "el": "sepa",
+        "nosotros": "sepamos",
+        "vosotros": "sepáis",
+        "ellos": "sepan"
+      }
+    },
+    {
+      "item": "haber",
+      "meaning": "to have (auxiliary); hay = there is",
+      "set": "present-subjunctive",
+      "forms": {
+        "yo": "haya",
+        "tu": "hayas",
+        "el": "haya",
+        "nosotros": "hayamos",
+        "vosotros": "hayáis",
+        "ellos": "hayan"
+      }
+    },
+    {
+      "item": "ver",
+      "meaning": "to see",
+      "set": "present-subjunctive",
+      "forms": {
+        "yo": "vea",
+        "tu": "veas",
+        "el": "vea",
+        "nosotros": "veamos",
+        "vosotros": "veáis",
+        "ellos": "vean"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-present-subjunctive-forms-conv-big-day",
+      "title": "The night before the interview",
+      "scenario": "Diego has a job interview tomorrow, and his friend Lucía calls to wish him luck.",
+      "role_a": "Lucía",
+      "role_b": "Diego",
+      "lines": [
+        {
+          "speaker": "b",
+          "text": "Mañana tengo la entrevista en la editorial. Estoy nerviosísimo.",
+          "meaning": "Tomorrow I have the interview at the publisher's. I'm really nervous."
+        },
+        {
+          "speaker": "a",
+          "text": "¡Ojalá te den el puesto! Te lo mereces.",
+          "meaning": "I hope they give you the job! You deserve it.",
+          "note": "dar becomes den"
+        },
+        {
+          "speaker": "b",
+          "text": "Ojalá. Pero no sé si sé bastante inglés.",
+          "meaning": "Let's hope so. But I don't know if I know enough English.",
+          "note": "¡Ojalá! on its own means let's hope so"
+        },
+        {
+          "speaker": "a",
+          "text": "Seguro que sí. Ojalá la entrevistadora vea toda tu experiencia.",
+          "meaning": "I'm sure you do. I hope the interviewer sees all your experience.",
+          "note": "ver becomes vea"
+        },
+        {
+          "speaker": "b",
+          "text": "Y ojalá no haya mucho tráfico, porque la oficina está lejos.",
+          "meaning": "And I hope there isn't much traffic, because the office is far away.",
+          "note": "hay becomes haya"
+        },
+        {
+          "speaker": "a",
+          "text": "Sal temprano. Ojalá el autobús llegue puntual.",
+          "meaning": "Leave early. Let's hope the bus is on time.",
+          "note": "llegar becomes llegue"
+        },
+        {
+          "speaker": "b",
+          "text": "Si me lo dan, ¿lo celebramos el sábado?",
+          "meaning": "If they give it to me, shall we celebrate on Saturday?"
+        },
+        {
+          "speaker": "a",
+          "text": "¡Claro! Ojalá estemos todos: tú, yo y tu hermana.",
+          "meaning": "Of course! I hope we're all there: you, me and your sister.",
+          "note": "estar becomes estemos"
+        },
+        {
+          "speaker": "b",
+          "text": "Ojalá. Ella trabaja muchísimo últimamente.",
+          "meaning": "Let's hope so. She's working a lot lately.",
+          "note": "A fact: indicative."
+        },
+        {
+          "speaker": "a",
+          "text": "Pues ojalá trabaje menos esa semana. ¡Mucha suerte mañana!",
+          "meaning": "Well, hopefully she works less that week. Good luck tomorrow!",
+          "note": "A wish: subjunctive."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Ojalá haga buen tiempo.",
+      "meaning": "I hope the weather is good.",
+      "note": "Hago becomes haga because the yo stem carries over."
+    },
+    {
+      "text": "Ojalá mi hermana viva más cerca.",
+      "meaning": "I hope my sister comes to live closer.",
+      "note": "Vivir becomes viva because -ir verbs take -a."
+    },
+    {
+      "text": "Ojalá veamos a los abuelos este domingo.",
+      "meaning": "I hope we see our grandparents this Sunday."
+    },
+    {
+      "text": "Ojalá el jefe nos dé el viernes libre.",
+      "meaning": "I hope the boss gives us Friday off.",
+      "note": "Dé carries an accent because it is the verb, not 'de'."
+    },
+    {
+      "text": "Ojalá que mis amigos estén en casa esta noche.",
+      "meaning": "I hope my friends are at home tonight.",
+      "note": "The que after ojalá is optional."
+    },
+    {
+      "text": "Ojalá Pablo sepa la dirección de la oficina nueva.",
+      "meaning": "I hope Pablo knows the address of the new office.",
+      "note": "New word: la dirección = the address."
+    },
+    {
+      "text": "Ojalá los niños busquen las llaves antes de salir de casa.",
+      "meaning": "I hope the children look for the keys before leaving home.",
+      "note": "Buscar becomes busquen: c turns into qu."
+    },
+    {
+      "text": "Ojalá mi compañero de piso trabaje menos horas en la fábrica.",
+      "meaning": "I hope my flatmate works fewer hours at the factory.",
+      "note": "New word: la fábrica = the factory."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Two moods"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "section": "Building it"
+    },
+    {
+      "question": "b1-present-subjunctive-forms-01"
+    },
+    {
+      "question": "b1-present-subjunctive-forms-02"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "section": "Spelling"
+    },
+    {
+      "question": "b1-present-subjunctive-forms-03"
+    },
+    {
+      "question": "b1-present-subjunctive-forms-04"
+    },
+    {
+      "section": "The irregulars"
+    },
+    {
+      "question": "b1-present-subjunctive-forms-05"
+    },
+    {
+      "question": "b1-present-subjunctive-forms-06"
+    },
+    {
+      "question": "b1-present-subjunctive-forms-07"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "section": "The first trigger"
+    },
+    {
+      "question": "b1-present-subjunctive-forms-08"
+    },
+    {
+      "tip": "A fact takes the indicative (trabaja). A wish, a hope or anything not yet real takes the subjunctive (trabaje). Ojalá always takes the subjunctive."
+    }
+  ],
+  "sprint": {
+    "icon": "🌈",
+    "bites": [
+      {
+        "title": "Fact or not-yet-real?",
+        "emoji": "🌈",
+        "rule": "The indicative is for facts and what you know. The subjunctive is for wishes, feelings and doubt, anything that isn't real yet.",
+        "example": "Trabaja mucho. Ojalá trabaje menos.",
+        "example_meaning": "He works a lot. I hope he works less."
+      },
+      {
+        "title": "The opposite vowel",
+        "emoji": "🔄",
+        "rule": "Take the yo form, drop -o and swap the vowel. -ar verbs take -e (trabaje), and -er/-ir verbs take -a (aprenda, viva).",
+        "example": "Ojalá aprendas mucho.",
+        "example_meaning": "I hope you learn a lot."
+      },
+      {
+        "title": "Keep the sound",
+        "emoji": "🔤",
+        "rule": "Before e, -car becomes qu, -gar becomes gu and -zar becomes c: busque, llegue, empiece.",
+        "example": "Ojalá el tren llegue pronto.",
+        "example_meaning": "I hope the train arrives soon."
+      },
+      {
+        "title": "The irregulars",
+        "emoji": "⭐",
+        "rule": "dé, esté, haya, sepa, vea, plus sea and vaya. Dé and esté carry accents.",
+        "example": "Ojalá haya sitio y esté abierto.",
+        "example_meaning": "I hope there's room and it's open."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Fact or wish?",
+        "buckets": [
+          "indicative (a fact)",
+          "subjunctive (a wish)"
+        ],
+        "items": [
+          {
+            "text": "Mi hermano trabaja mucho.",
+            "bucket": 0
+          },
+          {
+            "text": "Ojalá mi hermano trabaje menos.",
+            "bucket": 1
+          },
+          {
+            "text": "Vivimos en Toledo.",
+            "bucket": 0
+          },
+          {
+            "text": "Ojalá vivamos en Toledo.",
+            "bucket": 1
+          },
+          {
+            "text": "Hay sitio en el tren.",
+            "bucket": 0
+          },
+          {
+            "text": "Ojalá haya sitio en el tren.",
+            "bucket": 1
+          },
+          {
+            "text": "Ana sabe la respuesta.",
+            "bucket": 0
+          },
+          {
+            "text": "Ojalá Ana sepa la respuesta.",
+            "bucket": 1
+          }
+        ],
+        "why": "A fact you state takes the indicative; after ojalá the same verb turns subjunctive."
+      },
+      {
+        "title": "Which vowel in the subjunctive?",
+        "buckets": [
+          "-e (trabaje)",
+          "-a (aprenda)"
+        ],
+        "items": [
+          {
+            "text": "trabajar",
+            "bucket": 0
+          },
+          {
+            "text": "buscar",
+            "bucket": 0
+          },
+          {
+            "text": "llegar",
+            "bucket": 0
+          },
+          {
+            "text": "estar",
+            "bucket": 0
+          },
+          {
+            "text": "aprender",
+            "bucket": 1
+          },
+          {
+            "text": "vivir",
+            "bucket": 1
+          },
+          {
+            "text": "ver",
+            "bucket": 1
+          },
+          {
+            "text": "saber",
+            "bucket": 1
+          }
+        ],
+        "why": "-ar verbs (estar too: esté) switch to -e; -er and -ir verbs (ver gives vea, saber gives sepa) switch to -a."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Ojalá mi jefe me da un día libre.",
+        "wrong": "da",
+        "fix": "dé",
+        "why": "After ojalá comes the subjunctive. Dar becomes dé, with an accent."
+      },
+      {
+        "sentence": "Ojalá que lleges a tiempo.",
+        "wrong": "lleges",
+        "fix": "llegues",
+        "why": "-gar verbs add a u: llegues."
+      },
+      {
+        "sentence": "Ojalá vemos el partido juntos.",
+        "wrong": "vemos",
+        "fix": "veamos",
+        "why": "Ojalá takes the subjunctive: veamos."
+      },
+      {
+        "sentence": "Ojalá que no hay mucha gente en la playa.",
+        "wrong": "hay",
+        "fix": "haya",
+        "why": "The subjunctive of hay is haya."
+      },
+      {
+        "sentence": "Ojalá mis padres esten bien.",
+        "wrong": "esten",
+        "fix": "estén",
+        "why": "Estén needs its accent."
+      },
+      {
+        "sentence": "Ojalá Ana busca piso pronto.",
+        "wrong": "busca",
+        "fix": "busque",
+        "why": "Ojalá takes the subjunctive, and -car becomes qu: busque."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Ojalá aprendas mucho este año.",
+        "meaning": "I hope you learn a lot this year.",
+        "distractors": [
+          "aprendes"
+        ]
+      },
+      {
+        "text": "Ojalá mis padres vivan cerca.",
+        "meaning": "I hope my parents live nearby.",
+        "distractors": [
+          "viven"
+        ]
+      },
+      {
+        "text": "Ojalá el profesor nos dé más tiempo.",
+        "meaning": "I hope the teacher gives us more time.",
+        "distractors": [
+          "da"
+        ]
+      },
+      {
+        "text": "Ojalá que sepas la verdad.",
+        "meaning": "I hope you know the truth.",
+        "distractors": [
+          "sabes"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🧞",
+      "content": "## Ojalá en Eldmark\n\nBefore every raid the guild makes wishes, and wishes take the subjunctive. For example **ojalá el paladín esté listo**, **ojalá haya botín**, **ojalá la maga sepa el hechizo**, **ojalá el rey nos dé una recompensa**. Facts stay indicative: **el enano trabaja en Deepanvil**.",
+      "vocabulary": [
+        {
+          "term": "ojalá",
+          "example": "Ojalá ganemos la batalla de Frostmarch.",
+          "example_meaning": "I hope we win the battle of Frostmarch."
+        },
+        {
+          "term": "estar",
+          "example": "Ojalá el paladín esté listo para la banda.",
+          "example_meaning": "I hope the paladin is ready for the raid."
+        },
+        {
+          "term": "haber",
+          "example": "Ojalá haya botín en el cofre.",
+          "example_meaning": "I hope there's loot in the chest."
+        },
+        {
+          "term": "saber",
+          "example": "Ojalá la maga sepa abrir el portal.",
+          "example_meaning": "I hope the mage knows how to open the portal."
+        },
+        {
+          "term": "dar",
+          "example": "Ojalá el rey de Highgate nos dé una recompensa.",
+          "example_meaning": "I hope the king of Highgate gives us a reward."
+        },
+        {
+          "term": "ver",
+          "example": "Ojalá no veamos ningún dragón en el Bosque Umbrío.",
+          "example_meaning": "I hope we don't see any dragon in the Bosque Umbrío."
+        },
+        {
+          "term": "el botín",
+          "meaning": "loot",
+          "example": "El botín de hoy es una espada vieja.",
+          "example_meaning": "Today's loot is an old sword."
+        },
+        {
+          "term": "el hechizo",
+          "meaning": "spell",
+          "example": "La elfa aprende un hechizo nuevo.",
+          "example_meaning": "The elf learns a new spell."
+        },
+        {
+          "term": "la montura",
+          "meaning": "mount",
+          "example": "Ojalá mi montura llegue antes que la tuya.",
+          "example_meaning": "I hope my mount gets there before yours."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Deseos de aventurero",
+          "emoji": "🔮",
+          "rule": "Every adventurer's wish starts with ojalá and takes the subjunctive (esté, haya, sepa, dé, vea). Facts about the realm stay indicative.",
+          "example": "Ojalá haya botín en la mazmorra.",
+          "example_meaning": "I hope there's loot in the dungeon."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Ojalá ganemos el torneo de Highgate.",
+          "meaning": "I hope we win the Highgate tournament.",
+          "note": "New word: el torneo = the tournament."
+        },
+        {
+          "text": "Ojalá el enano trabaje en la forja.",
+          "meaning": "I hope the dwarf works at the forge.",
+          "note": "New word: la forja = the forge."
+        },
+        {
+          "text": "Ojalá los elfos vean el humo.",
+          "meaning": "I hope the elves see the smoke."
+        },
+        {
+          "text": "Ojalá el orco no sepa nuestro plan.",
+          "meaning": "I hope the orc doesn't know our plan."
+        },
+        {
+          "text": "Ojalá la maga aprenda el hechizo a tiempo.",
+          "meaning": "I hope the mage learns the spell in time."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Ojalá el paladín esté listo.",
+          "meaning": "I hope the paladin is ready.",
+          "distractors": [
+            "está"
+          ]
+        },
+        {
+          "text": "Ojalá vivamos en Emberhold.",
+          "meaning": "I hope we get to live in Emberhold.",
+          "distractors": [
+            "vivimos"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Ojalá el cazador ve al lobo.",
+          "wrong": "ve",
+          "fix": "vea",
+          "why": "Ojalá takes the subjunctive: vea."
+        },
+        {
+          "sentence": "Ojalá la maga sabe el hechizo.",
+          "wrong": "sabe",
+          "fix": "sepa",
+          "why": "The subjunctive of saber is sepa."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "¿Hecho o deseo?",
+          "buckets": [
+            "indicative (a fact)",
+            "subjunctive (a wish)"
+          ],
+          "items": [
+            {
+              "text": "El enano trabaja en Deepanvil.",
+              "bucket": 0
+            },
+            {
+              "text": "Ojalá el enano trabaje menos.",
+              "bucket": 1
+            },
+            {
+              "text": "La elfa vive en el Bosque Umbrío.",
+              "bucket": 0
+            },
+            {
+              "text": "Ojalá la elfa viva cerca.",
+              "bucket": 1
+            },
+            {
+              "text": "Hay botín en el cofre.",
+              "bucket": 0
+            },
+            {
+              "text": "Ojalá haya botín.",
+              "bucket": 1
+            }
+          ],
+          "why": "What is true in the realm takes the indicative; what the guild hopes for takes the subjunctive after ojalá."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-present-subjunctive-forms-realm-01",
+          "prompt": "Ojalá el rey nos ___ una recompensa.",
+          "type": "multiple-choice",
+          "options": [
+            "dé",
+            "da",
+            "de"
+          ],
+          "correct_answer": "dé",
+          "explanation": "Ojalá takes the subjunctive: dar becomes dé, with an accent to tell it from 'de'.",
+          "hints": [
+            "The verb needs its accent."
+          ],
+          "teaches": [
+            "dar",
+            "ojalá"
+          ]
+        },
+        {
+          "question_id": "b1-present-subjunctive-forms-realm-02",
+          "prompt": "Ojalá (nosotros) ___ (ver) el castillo de Highgate mañana.",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "veamos",
+          "accepted_answers": [
+            "nosotros veamos"
+          ],
+          "explanation": "Ver keeps the e of veo: vea, veas, vea, veamos.",
+          "hints": [
+            "Veo gives ve- plus -amos."
+          ],
+          "teaches": [
+            "ver",
+            "ojalá"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b1-present-subjunctive-forms-conv-realm-before-the-raid",
+          "title": "Before the raid",
+          "scenario": "Brunilda the dwarf warrior and Ilvan the elf mage wait at the dungeon gate.",
+          "role_a": "Brunilda",
+          "role_b": "Ilvan",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "¿Estás listo para la mazmorra, Ilvan?",
+              "meaning": "Are you ready for the dungeon, Ilvan?"
+            },
+            {
+              "speaker": "b",
+              "text": "Casi. Ojalá sepa todos los hechizos.",
+              "meaning": "Almost. I hope I know all the spells."
+            },
+            {
+              "speaker": "a",
+              "text": "Y ojalá haya mucho botín esta vez.",
+              "meaning": "And I hope there's a lot of loot this time."
+            },
+            {
+              "speaker": "b",
+              "text": "Ojalá el jefe no nos vea llegar.",
+              "meaning": "I hope the boss doesn't see us coming."
+            },
+            {
+              "speaker": "a",
+              "text": "Tranquilo. Ojalá el paladín esté despierto, eso sí.",
+              "meaning": "Relax. I do hope the paladin is awake, though."
+            },
+            {
+              "speaker": "b",
+              "text": "¡Ojalá! La última vez durmió encima de su montura.",
+              "meaning": "Let's hope so! Last time he fell asleep on his mount."
+            },
+            {
+              "speaker": "a",
+              "text": "Vamos. Ojalá lleguemos a Highgate antes de la cena.",
+              "meaning": "Let's go. I hope we get back to Highgate before dinner."
+            },
+            {
+              "speaker": "b",
+              "text": "Y ojalá el posadero nos dé sopa caliente.",
+              "meaning": "And I hope the innkeeper gives us hot soup."
+            }
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🌻",
+      "content": "## Ojalá en la granja\n\nFarm life runs on hopes. For example **ojalá haga sol**, **ojalá las fresas estén maduras**, **ojalá Leo vea muchos peces en el río**, **ojalá el alcalde nos dé un premio en el festival**. A fact (**Rosa trabaja en la tienda**) stays indicative, and a hope takes the subjunctive.",
+      "vocabulary": [
+        {
+          "term": "ojalá",
+          "example": "Ojalá haga buen tiempo en primavera.",
+          "example_meaning": "I hope the weather is good in spring."
+        },
+        {
+          "term": "trabajar",
+          "example": "Ojalá Nora no trabaje sola en la mina.",
+          "example_meaning": "I hope Nora doesn't work alone in the mine."
+        },
+        {
+          "term": "estar",
+          "example": "Ojalá las fresas estén maduras el lunes.",
+          "example_meaning": "I hope the strawberries are ripe on Monday."
+        },
+        {
+          "term": "ver",
+          "example": "Ojalá Leo vea un pez grande en el río.",
+          "example_meaning": "I hope Leo sees a big fish in the river."
+        },
+        {
+          "term": "dar",
+          "example": "Ojalá el alcalde me dé el premio de la calabaza.",
+          "example_meaning": "I hope the mayor gives me the pumpkin prize."
+        },
+        {
+          "term": "aprender",
+          "example": "Ojalá aprenda a cuidar las vacas este año.",
+          "example_meaning": "I hope I learn to look after the cows this year."
+        },
+        {
+          "term": "la cosecha",
+          "meaning": "harvest",
+          "example": "Ojalá la cosecha sea buena este otoño.",
+          "example_meaning": "I hope the harvest is good this autumn."
+        },
+        {
+          "term": "el premio",
+          "meaning": "prize",
+          "example": "El premio del festival es una medalla.",
+          "example_meaning": "The festival prize is a medal."
+        },
+        {
+          "term": "maduro / madura",
+          "meaning": "ripe",
+          "example": "El maíz ya está maduro.",
+          "example_meaning": "The corn is already ripe."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Ojalá en la granja",
+          "emoji": "🌻",
+          "rule": "Hopes for the farm take ojalá and the subjunctive, as in ojalá haga sol, ojalá las vacas estén bien, ojalá Rosa tenga semillas.",
+          "example": "Ojalá la cosecha sea buena.",
+          "example_meaning": "I hope the harvest is good."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Ojalá Rosa tenga semillas de maíz.",
+          "meaning": "I hope Rosa has corn seeds.",
+          "note": "New word: las semillas = the seeds."
+        },
+        {
+          "text": "Ojalá las gallinas estén en el gallinero.",
+          "meaning": "I hope the hens are in the hen house.",
+          "note": "New word: el gallinero = the hen house."
+        },
+        {
+          "text": "Ojalá Leo nos dé un pescado.",
+          "meaning": "I hope Leo gives us a fish."
+        },
+        {
+          "text": "Ojalá Nora sepa plantar calabazas.",
+          "meaning": "I hope Nora knows how to plant pumpkins."
+        },
+        {
+          "text": "Ojalá veamos fuegos artificiales en el festival.",
+          "meaning": "I hope we see fireworks at the festival."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Ojalá la cosecha sea buena.",
+          "meaning": "I hope the harvest is good.",
+          "distractors": [
+            "es"
+          ]
+        },
+        {
+          "text": "Ojalá Leo vea muchos peces.",
+          "meaning": "I hope Leo sees lots of fish.",
+          "distractors": [
+            "ve"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Ojalá el alcalde me da el premio.",
+          "wrong": "da",
+          "fix": "dé",
+          "why": "After ojalá: dé, with an accent."
+        },
+        {
+          "sentence": "Ojalá las fresas están maduras.",
+          "wrong": "están",
+          "fix": "estén",
+          "why": "Ojalá takes the subjunctive: estén."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "-e or -a?",
+          "buckets": [
+            "-e (plante)",
+            "-a (venda)"
+          ],
+          "items": [
+            {
+              "text": "plantar",
+              "bucket": 0
+            },
+            {
+              "text": "cosechar",
+              "bucket": 0
+            },
+            {
+              "text": "trabajar",
+              "bucket": 0
+            },
+            {
+              "text": "vender",
+              "bucket": 1
+            },
+            {
+              "text": "vivir",
+              "bucket": 1
+            },
+            {
+              "text": "aprender",
+              "bucket": 1
+            }
+          ],
+          "why": "-ar farm verbs take -e (plante, coseche); -er and -ir verbs take -a (venda, viva)."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-present-subjunctive-forms-meadowbrook-01",
+          "prompt": "Ojalá Nora ___ (plantar) maíz esta primavera.",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "plante",
+          "accepted_answers": [],
+          "explanation": "-ar verbs take -e in the subjunctive: planto → plante.",
+          "hints": [
+            "Ojalá takes the subjunctive, and -ar verbs take -e."
+          ],
+          "teaches": [
+            "ojalá"
+          ]
+        },
+        {
+          "question_id": "b1-present-subjunctive-forms-meadowbrook-02",
+          "prompt": "Ojalá ___ sol el día del festival.",
+          "type": "multiple-choice",
+          "options": [
+            "haga",
+            "hace",
+            "hago"
+          ],
+          "correct_answer": "haga",
+          "explanation": "Ojalá takes the subjunctive; hacer builds it from hago: haga.",
+          "hints": [
+            "The yo stem hag- carries over."
+          ],
+          "teaches": [
+            "ojalá"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🛸",
+      "content": "## Ojalá en el páramo\n\nOut in **el páramo** every plan ends in a hope. For example **ojalá no haya tormenta de ceniza**, **ojalá Marta tenga agua filtrada**, **ojalá el radiorreloj esté arreglado**, **ojalá el robot jardinero sepa volver**. What you know is indicative; what you hope is subjunctive.",
+      "vocabulary": [
+        {
+          "term": "ojalá",
+          "example": "Ojalá encontremos tuercas en la gasolinera.",
+          "example_meaning": "I hope we find nuts at the petrol station."
+        },
+        {
+          "term": "haber",
+          "example": "Ojalá no haya polvo mañana.",
+          "example_meaning": "I hope there's no dust tomorrow."
+        },
+        {
+          "term": "estar",
+          "example": "Ojalá el radiorreloj esté arreglado.",
+          "example_meaning": "I hope the wrist radio is fixed."
+        },
+        {
+          "term": "saber",
+          "example": "Ojalá Leo el buscador sepa el camino.",
+          "example_meaning": "I hope Leo the scavenger knows the way."
+        },
+        {
+          "term": "buscar",
+          "example": "Ojalá busquemos en el centro comercial en ruinas.",
+          "example_meaning": "I hope we search the ruined shopping centre."
+        },
+        {
+          "term": "vivir",
+          "example": "Ojalá vivamos fuera de la cúpula algún día.",
+          "example_meaning": "I hope we live outside the Dome one day."
+        },
+        {
+          "term": "las tuercas",
+          "meaning": "nuts (the wasteland's currency)",
+          "example": "Marta acepta tuercas por el agua.",
+          "example_meaning": "Marta accepts nuts for the water."
+        },
+        {
+          "term": "el páramo",
+          "meaning": "the barren plains",
+          "example": "El páramo es enorme y seco.",
+          "example_meaning": "The barren plains are huge and dry."
+        },
+        {
+          "term": "el radiorreloj",
+          "meaning": "wrist radio",
+          "example": "Mi radiorreloj funciona otra vez.",
+          "example_meaning": "My wrist radio works again."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Ojalá en el páramo",
+          "emoji": "📻",
+          "rule": "Out in the wasteland, hopes take ojalá and the subjunctive, as in ojalá haya agua, ojalá el radiorreloj funcione, ojalá Ruiz esté contento.",
+          "example": "Ojalá no haya una tormenta de ceniza.",
+          "example_meaning": "I hope there isn't an ash storm."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Ojalá Marta acepte mis tuercas.",
+          "meaning": "I hope Marta accepts my nuts."
+        },
+        {
+          "text": "Ojalá el capataz Ruiz esté de buen humor.",
+          "meaning": "I hope Foreman Ruiz is in a good mood.",
+          "note": "New word: el humor = the mood."
+        },
+        {
+          "text": "Ojalá el perro guardián nos vea.",
+          "meaning": "I hope the guard dog sees us."
+        },
+        {
+          "text": "Ojalá el robot jardinero trabaje hoy.",
+          "meaning": "I hope the gardener robot works today."
+        },
+        {
+          "text": "Ojalá llegues al pueblo de chatarra antes de la noche.",
+          "meaning": "I hope you reach the scrap town before nightfall.",
+          "note": "New word: la chatarra = scrap."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Ojalá encontremos agua filtrada.",
+          "meaning": "I hope we find filtered water.",
+          "distractors": [
+            "encontramos"
+          ]
+        },
+        {
+          "text": "Ojalá el buscador sepa el camino.",
+          "meaning": "I hope the scavenger knows the way.",
+          "distractors": [
+            "sabe"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Ojalá no hay polvo mañana.",
+          "wrong": "hay",
+          "fix": "haya",
+          "why": "The subjunctive of hay is haya."
+        },
+        {
+          "sentence": "Ojalá el radiorreloj funciona pronto.",
+          "wrong": "funciona",
+          "fix": "funcione",
+          "why": "Ojalá takes the subjunctive: funcione."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "¿Hecho o esperanza?",
+          "buckets": [
+            "indicative (a fact)",
+            "subjunctive (a hope)"
+          ],
+          "items": [
+            {
+              "text": "Hay polvo en el páramo.",
+              "bucket": 0
+            },
+            {
+              "text": "Ojalá no haya polvo.",
+              "bucket": 1
+            },
+            {
+              "text": "Marta vende tónicos.",
+              "bucket": 0
+            },
+            {
+              "text": "Ojalá Marta venda tónicos.",
+              "bucket": 1
+            },
+            {
+              "text": "Leo busca tuercas.",
+              "bucket": 0
+            },
+            {
+              "text": "Ojalá Leo busque tuercas.",
+              "bucket": 1
+            }
+          ],
+          "why": "What you see in the wasteland is indicative; what you hope for after ojalá is subjunctive."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-present-subjunctive-forms-rustwake-01",
+          "prompt": "Ojalá Leo el buscador ___ el camino al taller.",
+          "type": "multiple-choice",
+          "options": [
+            "sepa",
+            "sabe",
+            "sepe"
+          ],
+          "correct_answer": "sepa",
+          "explanation": "Saber is irregular in the subjunctive: sepa. 'Sabe' is the indicative; 'sepe' does not exist.",
+          "hints": [
+            "The stem is sep-."
+          ],
+          "teaches": [
+            "saber",
+            "ojalá"
+          ]
+        },
+        {
+          "question_id": "b1-present-subjunctive-forms-rustwake-02",
+          "prompt": "Ojalá (nosotros) ___ (buscar) tuercas en la gasolinera.",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "busquemos",
+          "accepted_answers": [
+            "nosotros busquemos"
+          ],
+          "explanation": "-car verbs change c → qu before e: busquemos.",
+          "hints": [
+            "Keep the hard c sound: qu."
+          ],
+          "teaches": [
+            "buscar",
+            "ojalá"
+          ]
+        }
+      ]
+    }
+  }
+}

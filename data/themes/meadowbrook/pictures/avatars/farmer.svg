@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Farmer with a pitchfork">
+  <defs><radialGradient id="bg" cx="0.35" cy="0.3" r="0.9"><stop offset="0" stop-color="#ffffff" stop-opacity="0.7"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient></defs>
+  <circle cx="32" cy="32" r="32" fill="url(#bg)"/>
+  <path d="M6 20 Q32 -4 58 20" stroke="#ffffff" stroke-opacity="0.35" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M51 20 L49 60" stroke="#8a5a2b" stroke-width="2.6" stroke-linecap="round"/>
+  <path d="M45 20 H57 M46 20 V8 M51 20 V6 M56 20 V8" stroke="#9aa3b2" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M8 64 Q10 44 32 43 Q54 44 56 64Z" fill="#c0392b"/>
+  <path d="M14 50 H50 M12 56 H52 M22 44 V64 M32 44 V64 M42 44 V64" stroke="#a8301f" stroke-width="1.2"/>
+  <path d="M22 46 L42 46 L42 64 L22 64Z" fill="#4f8fb8"/><path d="M22 46 L19 54 M42 46 L45 54" stroke="#4f8fb8" stroke-width="3"/>
+  <path d="M27 52 H37" stroke="#3a6f94" stroke-width="2"/>
+  <rect x="28" y="36" width="8" height="9" fill="#b07a4e"/>
+  <circle cx="32" cy="28" r="12" fill="#d9a070"/>
+  <circle cx="26.5" cy="30" r="1.6" fill="#1a0c08"/><circle cx="37.5" cy="30" r="1.6" fill="#1a0c08"/>
+  <path d="M28 35 Q32 38 36 35" stroke="#1a0c08" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <circle cx="23" cy="33" r="1" fill="#b07a4e"/><circle cx="41" cy="33" r="1" fill="#b07a4e"/>
+  <path d="M12 24 Q32 18 52 24 Q32 30 12 24Z" fill="#e9c768"/><path d="M22 24 Q22 8 32 8 Q42 8 42 24Z" fill="#e9c768"/>
+  <path d="M22 22 H42" stroke="#b9873a" stroke-width="2"/><path d="M12 24 Q32 30 52 24" stroke="#b9873a" stroke-width="1.6" fill="none"/>
+</svg>

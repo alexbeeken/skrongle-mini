@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t2("play.drill.page_title", "item", course.item_label, "set", set_label) }}{% endblock %}
+{% block modenav %}{% let active = "drill" %}{% include "nav_play.html" %}{% endblock %}
+{% block content %}
+<section class="conj" id="conj" data-testid="drill" data-set="{{ set }}" data-items="{{ items_csv }}" data-count="{{ count }}" data-hide="{% if hide_item %}1{% else %}0{% endif %}" data-praise="{{ course.praise }}" data-lang="{{ course.term_lang }}">
+  <header class="quiz-head">
+    <div>
+      <p class="crumbs"><a href="{{ crate::base_path() }}/play">{{ crate::t("play.common.games") }}</a> › <a href="{{ crate::base_path() }}/play/conjugation">{{ crate::t1("play.drill.name", "item", course.item_label) }}</a></p>
+      <h1>{{ set_label }}</h1>
+      <p class="muted">{% if items.len() != 1 %}{{ crate::t2("play.drill.items_list", "n", items.len(), "items", crate::t1("play.drill.item_plural", "item", course.item_label.to_lowercase())) }}{% else %}{{ crate::t2("play.drill.items_list", "n", items.len(), "items", course.item_label.to_lowercase()) }}{% endif %}{% for v in items %}<span lang="{{ course.term_lang }}">{{ v }}</span>{% if !loop.last %}, {% endif %}{% endfor %}</p>
+    </div>
+    <div class="quiz-progress"><span id="c-pos">–</span> / <span id="c-total">–</span></div>
+  </header>
+  <div class="bar slim"><div class="fill" id="c-bar" style="width:0%"></div></div>
+  <p class="match-status muted small" id="c-status" role="status" data-testid="drill-status">{{ crate::t("play.drill.dealing") }}</p>
+  <noscript><style>#c-status{display:none}</style><p class="alert" role="status" data-testid="drill-noscript">{{ crate::t("play.drill.needs_js") }}</p></noscript>
+
+  <div class="conj-card" id="c-card" data-testid="drill-card" hidden>
+    <div class="conj-pictures">
+      <div class="pic">
+        <pre class="ascii verb" id="c-verb-art"></pre>
+        <p class="caption" id="c-caption"><span lang="{{ course.term_lang }}" id="c-infinitive"></span> <span class="muted" id="c-meaning"></span></p>
+      </div>
+      <div class="pic plus">+</div>
+      <div class="pic">
+        <pre class="ascii subject" id="c-subject-art"></pre>
+        <div class="people" id="c-subject-people" data-testid="drill-people" hidden></div>
+        <p class="caption muted" id="c-subject-caption">{{ crate::t("play.drill.which_slot") }}</p>
+      </div>
+    </div>
+    <form class="question" id="c-form" data-testid="drill-form">
+      <input class="fill" type="text" id="c-answer" data-testid="drill-answer" maxlength="60" aria-label="{{ crate::t("play.drill.answer_aria") }}" lang="{{ course.term_lang }}" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="{{ crate::t("play.drill.answer_placeholder") }}" required>
+      {% if !course.chars.is_empty() %}
+      <div class="accents" aria-label="{{ crate::t("play.common.insert_char") }}">
+        {% for ch in course.chars %}<button type="button" data-ch="{{ ch }}" aria-label="{{ crate::t1("play.common.type_char", "ch", ch) }}">{{ ch }}</button>{% endfor %}
+      </div>
+      {% endif %}
+      <div class="actions"><button type="submit" class="btn" id="c-check" data-testid="drill-check">{{ crate::t("play.common.check") }}</button></div>
+      <div class="feedback" id="c-feedback" role="status" data-testid="drill-feedback" hidden></div>
+    </form>
+  </div>
+
+  <details class="hints legend-details">
+    <summary>{{ crate::t("play.drill.remind_slots") }}</summary>
+    <ul class="subject-legend" id="subject-legend-inline" data-people="{{ people_json }}">
+    {% for s in slots %}
+      <li><pre class="ascii subject" data-slot="{{ s.key }}" data-art="{{ s.art_json }}" data-who="{{ s.who }}"></pre><span lang="{{ course.term_lang }}"><strong>{{ s.label }}</strong></span><br><span class="muted small">{{ s.hint }}</span></li>
+    {% endfor %}
+    </ul>
+  </details>
+
+  <section class="summary" id="c-done" data-testid="drill-done" hidden>
+    <h2>{{ crate::t("play.drill.complete") }}</h2>
+    <p class="stars-big" id="c-score">0 / 0</p>
+    <p class="lead" id="c-detail"></p>
+    <ul class="topics" id="c-misses"></ul>
+    <div class="actions">
+      <button type="button" class="btn big" id="c-again-misses" data-testid="drill-again-misses" hidden>{{ crate::t("play.drill.again_misses") }}</button>
+      <button type="button" class="btn" id="c-again" data-testid="drill-again">{{ crate::t("play.drill.new_round") }}</button>
+      <a class="btn ghost" href="{{ crate::base_path() }}/play/conjugation">{{ crate::t("play.drill.change_selection") }}</a>
+    </div>
+  </section>
+</section>
+{% endblock %}
+{% block scripts %}<script>Object.assign(I18N, {{ crate::i18n::js_json("play.js")|safe }});</script><script src="{{ crate::routes::asset_url("conjugation.js") }}" defer></script>{% endblock %}

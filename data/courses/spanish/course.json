@@ -1,0 +1,72 @@
+{
+  "id": "spanish",
+  "title": "Spanish",
+  "subject": "Spanish",
+  "description": "CEFR-aligned Spanish from A1 up: greetings, the present tense, ser and estar, questions, time, the preterite… Grammar lessons with quizzes, vocabulary, verb drills and conversations.",
+  "icon": "🇪🇸",
+  "terms": { "label": "Español", "lang": "es" },
+  "meanings": { "label": "English", "lang": "en" },
+  "units": [
+    { "id": "A1", "title": "A1", "description": "Beginner" },
+    { "id": "A2", "title": "A2", "description": "Elementary" },
+    { "id": "B1", "title": "B1", "description": "Intermediate" },
+    { "id": "B2", "title": "B2", "description": "Upper intermediate" },
+    { "id": "C1", "title": "C1", "description": "Advanced" },
+    { "id": "C2", "title": "C2", "description": "Mastery" }
+  ],
+  "levels": true,
+  "groups": [
+    { "id": "Grammar", "title": "Grammar" },
+    { "id": "Vocabulary", "title": "Vocabulary" }
+  ],
+  "paradigm": {
+    "label": "Conjugations",
+    "item_label": "Verb",
+    "slots": [
+      { "key": "yo", "who": "me", "label": "yo", "hint": "I",
+        "art": ["   |   ", "   |   ", "   |   ", " \\ | / ", "  \\|/  ", "   v   "] },
+      { "key": "tu", "who": "you", "label": "tú", "hint": "you",
+        "art": ["   ^   ", "  /|\\  ", " / | \\ ", "   |   ", "   |   ", "   |   "] },
+      { "key": "el", "who": "other", "label": "él / ella / usted", "hint": "he / she / you (formal)",
+        "art": ["       ", "       ", "-------\\", "        >", "-------/", "       "] },
+      { "key": "nosotros", "who": "us", "label": "nosotros / nosotras", "hint": "we",
+        "art": [" |  |  | ", " |  |  | ", " |  |  | ", "\\|/\\|/\\|/", " v  v  v ", "         "] },
+      { "key": "vosotros", "who": "you_all", "label": "vosotros / vosotras", "hint": "you all",
+        "art": [" ^  ^  ^ ", "/|\\/|\\/|\\", " |  |  | ", " |  |  | ", " |  |  | ", "         "] },
+      { "key": "ellos", "who": "them", "label": "ellos / ellas / ustedes", "hint": "they / you all (formal)",
+        "art": ["-----\\   ", "      >  ", "-----/   ", "-----\\   ", "      >  ", "-----/   "] }
+    ],
+    "sets": [
+      { "key": "present", "label": "Present" },
+      { "key": "preterite", "label": "Preterite" },
+      { "key": "imperfect", "label": "Imperfect" },
+      { "key": "future", "label": "Future" },
+      { "key": "conditional", "label": "Conditional" },
+      { "key": "present-subjunctive", "label": "Present subjunctive" }
+    ]
+  },
+  "chars": ["á", "é", "í", "ó", "ú", "ñ", "ü", "¿", "¡"],
+  "calendar": {
+    "days": ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"],
+    "months": ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"],
+    "format": "{day}, {d} de {month} de {year}"
+  },
+  "strings": {
+    "praise": ["¡Correcto!", "¡Muy bien!", "¡Eso es!", "¡Perfecto!", "¡Genial!"],
+    "almost": ["Not quite", "Casi…", "Hmm, no"]
+  },
+  "themes": {
+    "realm": { "strings": {
+      "praise": ["¡Victoria!", "¡Botín épico!", "¡Subes de nivel!", "¡Por Eldmark!", "¡Crítico!", "¡Skrongle épico!"],
+      "almost": ["Casi, aventurero", "Casi… repite la misión", "Mmm, no. ¡Skrong!"]
+    } },
+    "meadowbrook": { "strings": {
+      "praise": ["¡Buena cosecha!", "¡Florece!", "¡Como un grano de oro!", "¡Qué bien!", "¡Crece, crece!", "¡Skrongle!"],
+      "almost": ["Casi, vecino", "Casi… riega un poco más", "Mmm, no", "Casi… un poco más de skrong"]
+    } },
+    "rustwake": { "strings": {
+      "praise": ["¡Tuercas para ti!", "¡Subes de nivel!", "¡Sin radiación!", "¡Skrong! Misión cumplida", "¡Eres un genio del páramo!"],
+      "almost": ["Casi, habitante de la cúpula", "Casi… tu radiorreloj hace skrongle", "Mmm, no"]
+    } }
+  }
+}

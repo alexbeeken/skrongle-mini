@@ -1,0 +1,44 @@
+# FAQ
+
+**Do I need an API key?**
+No. Courses, the four modes and every game work without one. A key (Claude,
+OpenAI or Gemini) is only for AI tutoring, generating a course and adding
+content with AI. Save it on your profile; it is stored encrypted and never
+shown again. Don't want AI at all? Turn on *Do Not Show Me AI Features*
+under Privacy and consent on your profile.
+
+**I passed a lesson in Sprint. Why does Study mode still say "in progress" or "needs practice"?**
+Passing and mastery are different. A pass is a milestone that stays. Mastery
+is a score that rises with practice and fades with time. See
+[Getting started](getting-started#when-a-lesson-is-passed).
+
+**Why is a game missing from my course?**
+A feature only appears when the course has the data for it. Date Dash needs a
+`calendar`, the drill a `paradigm`, Listening a language course with `listening` sentences. See
+[Which field switches on what](course-structure#which-field-switches-on-what).
+
+**Can other people see my course?**
+Only the people you share it with: **Share** on the course page invites them
+by e-mail. They learn from it read-only, with their own progress. See
+[Share a course](making-courses#share-a-course).
+
+**My course does not load. What now?**
+The error names the file and the field. See
+[Fixing validation errors](making-courses#fixing-validation-errors).
+
+**Can ChatGPT, Claude or another LLM write my course?**
+Yes. Give it [`/llms.txt`](/llms.txt) or paste the
+[course format](course-format.md), then add its replies on the course page.
+See [Write lessons with an LLM](making-courses#write-lessons-with-an-llm-you-already-use).
+
+<!-- themes -->
+**Why doesn't my theme change my own course's lessons?**
+Themed material is shown in built-in courses only for now; your course gets
+the theme's colours. See [Themes](using-themes).
+<!-- /themes -->
+
+**Can an AI agent outside the app record my progress?**
+Yes, through `/api/progress`. Give the agent [Progress across modes](progress).
+
+**I'm a developer. Where are the code docs?**
+[Developer documentation](dev).

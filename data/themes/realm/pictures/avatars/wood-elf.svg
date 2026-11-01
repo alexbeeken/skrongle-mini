@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Wood elf with a leaf circlet and a bow">
+  <path d="M50 20 Q62 36 50 56" stroke="#a5703b" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+  <path d="M50 20 L50 56" stroke="#e8dcc0" stroke-width="0.8"/>
+  <path d="M12 64 Q14 46 32 44 Q50 46 52 64 Z" fill="#2f7a46"/>
+  <path d="M26 46 L32 56 L38 46" stroke="#215a32" stroke-width="2" fill="none"/>
+  <path d="M18 30 Q14 10 32 8 Q50 10 46 30 L46 44 Q40 48 38 40 L38 30 L26 30 L26 40 Q24 48 18 44 Z" fill="#8a5a2b"/>
+  <path d="M25 30 L13 27 L24 38Z M39 30 L51 27 L40 38Z" fill="#f1d3b3"/>
+  <path d="M21 30 Q21 14 32 14 Q43 14 43 30 L43 36 Q43 46 32 46 Q21 46 21 36 Z" fill="#f1d3b3"/>
+  <path d="M20 26 Q32 16 44 26 Q38 22 32 22 Q26 22 20 26 Z" fill="#8a5a2b"/>
+  <path d="M18 24 Q24 18 30 21 Q24 20 20 25 Z M46 24 Q40 18 34 21 Q40 20 44 25 Z" fill="#3fae6a"/>
+  <path d="M22 22 L42 22" stroke="#3fae6a" stroke-width="1.6" stroke-linecap="round"/>
+  <path d="M26 30 Q28.5 28 31 30 M33 30 Q35.5 28 38 30" stroke="#1a0c08" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <circle cx="28" cy="32.5" r="1.6" fill="#3fae6a"/><circle cx="36" cy="32.5" r="1.6" fill="#3fae6a"/>
+  <path d="M28.5 40 Q32 42.5 35.5 40" stroke="#a5503b" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+</svg>

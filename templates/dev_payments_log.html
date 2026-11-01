@@ -1,0 +1,10 @@
+{% for r in rows %}
+<tr class="devbox-row devpay-entry" data-testid="dev-payments-entry" data-id="{{ r.id }}" data-href="{{ r.href }}" data-kind="{{ r.kind }}" data-what="{{ r.what }}" data-status="{{ r.status }}" data-event="{{ r.event }}" data-tampered="{{ r.tampered }}">
+  <td class="devbox-when">{{ r.ago }}</td>
+  <td class="devpay-kind small">{% if r.kind == "api" %}API{% else if r.kind == "webhook" %}Webhook{% else %}Page{% endif %}</td>
+  <td class="devbox-what"><a href="{{ r.href }}" class="devbox-subject" data-testid="dev-payments-entry-open">{{ r.what }}</a> <span class="small muted">{{ r.summary }}</span></td>
+  <td class="devai-outcome">{% if r.kind != "page" %}<span class="devbox-state" data-state="{% if r.state == "ok" %}sent{% else %}failed{% endif %}" data-testid="dev-payments-entry-status">{% if r.status == 0 %}—{% else %}{{ r.status }}{% endif %}</span>{% endif %}
+    {% if !r.event.is_empty() %}<form method="post" action="{{ crate::url("/dev/payments/events/") }}{{ r.event }}" data-live class="devpay-resend"><input type="hidden" name="do" value="resend"><button type="submit" class="link-btn small" data-testid="dev-payments-resend">Send again</button></form>{% endif %}</td>
+</tr>
+{% endfor %}
+{% if rows.is_empty() %}<tr class="devbox-empty"><td colspan="4" data-testid="dev-payments-empty">Nothing yet. The app's Stripe calls and the webhooks show up here.</td></tr>{% endif %}

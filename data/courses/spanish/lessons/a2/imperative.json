@@ -1,0 +1,871 @@
+{
+  "id": "a2-imperative",
+  "slug": "imperative",
+  "title": "The imperative: giving instructions",
+  "unit": "A2",
+  "group": "Grammar",
+  "order": 28,
+  "summary": "Give orders, instructions and advice: habla, haz, siga, no vayas, dímelo.",
+  "focus": "Affirmative and negative commands for tú, usted and ustedes, and where the pronouns go",
+  "prerequisites": [
+    "a2-direct-object-pronouns"
+  ],
+  "content": "## Tú: borrow the él form\n\nTo tell a friend what to do, use the **él / ella** form of the present tense as a command:\n\n| verb | él form | command |\n|---|---|---|\n| hablar | habla | **¡Habla más despacio!** |\n| comer | come | **Come la sopa.** |\n| escribir | escribe | **Escribe tu nombre.** |\n\nEight verbs have short, irregular **tú** commands: **di** (decir), **haz** (hacer), **ve** (ir), **pon** (poner), **sal** (salir), **sé** (ser), **ten** (tener), **ven** (venir).\n\n- **Haz los deberes.** Do your homework.\n- **Ven aquí y pon la mesa.** Come here and lay the table.\n- **Sé bueno y di la verdad.** Be good and tell the truth.\n\n## Usted and ustedes: the subjunctive forms\n\nCommands to **usted** and **ustedes** use the **present subjunctive**. Take the present **yo** form, drop the **-o** and swap the vowel: **-ar** verbs take **-e**, and **-er / -ir** verbs take **-a**. An irregular **yo** stem (hago, pongo, digo, tengo, vengo, salgo) carries into every person.\n\n| infinitive | yo | usted | ustedes |\n|---|---|---|---|\n| hablar | hablo | **hable** | **hablen** |\n| comer | como | **coma** | **coman** |\n| hacer | hago | **haga** | **hagan** |\n| decir | digo | **diga** | **digan** |\n| venir | vengo | **venga** | **vengan** |\n\n**Ir** (**vaya**) and **ser** (**sea**) break the rule, and so do *estar* (*esté*), *dar* (*dé*) and *saber* (*sepa*). Spelling keeps the sound the same, so cruzar becomes **cruce** and llegar becomes **llegue**.\n\n- **Siga todo recto, señor.** Go straight on, sir.\n- **Pasen y siéntense.** Come in and sit down.\n\n## Don't: no + subjunctive\n\nEvery negative command uses the subjunctive, **tú** included. Use **no** plus the subjunctive **tú** form, which ends in **-s**.\n\n| affirmative tú | negative tú |\n|---|---|\n| habla | **no hables** |\n| come | **no comas** |\n| haz | **no hagas** |\n| ve | **no vayas** |\n| sé | **no seas** |\n| pon | **no pongas** |\n\nFor **usted / ustedes** the form is the same with or without **no**: **coma / no coma**, **salgan / no salgan**.\n\n- **No cruces la calle aquí.** Don't cross the street here.\n- **No tengan miedo.** Don't be afraid.\n\nFor **vosotros**, the affirmative swaps the **-r** of the infinitive for **-d** (**hablad**, **comed**, **venid**). The negative is the subjunctive (**no habléis**, **no vengáis**).\n\n## Pronouns: glued on or in front\n\nObject and reflexive pronouns **attach** to an affirmative command, indirect before direct. A written accent keeps the stress where it was: **dímelo** (tell me it), **siéntate** (sit down), **póngalo** (put it), **mézclalo** (mix it).\n\nIn a negative command they go **before** the verb: **no me lo digas**, **no te sientes**, **no lo ponga ahí**.\n\nRecipes and directions use commands a lot:\n\n- **Corta la cebolla, añade el aceite y mézclalo todo.** Cut the onion, add the oil and mix it all.\n- **Gire a la derecha y cruce la plaza.** Turn right and cross the square. (usted)\n- **Siéntate y cuéntamelo.** Sit down and tell me about it.\n\nWith vosotros reflexives, the **-d** drops: **sentaos**, **levantaos**.",
+  "vocabulary": [
+    {
+      "term": "cortar",
+      "meaning": "to cut",
+      "example": "Corta la cebolla en trozos pequeños.",
+      "example_meaning": "Cut the onion into small pieces."
+    },
+    {
+      "term": "añadir",
+      "meaning": "to add",
+      "example": "Añade un poco de sal.",
+      "example_meaning": "Add a little salt."
+    },
+    {
+      "term": "mezclar",
+      "meaning": "to mix",
+      "example": "Mézclalo todo bien.",
+      "example_meaning": "Mix it all well."
+    },
+    {
+      "term": "la cebolla",
+      "meaning": "onion",
+      "example": "Pon la cebolla en la sartén.",
+      "example_meaning": "Put the onion in the frying pan."
+    },
+    {
+      "term": "girar",
+      "meaning": "to turn",
+      "example": "Gire a la izquierda en el semáforo.",
+      "example_meaning": "Turn left at the traffic lights."
+    },
+    {
+      "term": "seguir",
+      "meaning": "to go on, to follow",
+      "example": "Siga todo recto hasta la plaza.",
+      "example_meaning": "Go straight on to the square."
+    },
+    {
+      "term": "cruzar",
+      "meaning": "to cross",
+      "example": "No cruces con el semáforo en rojo.",
+      "example_meaning": "Don't cross when the light is red."
+    },
+    {
+      "term": "la calle",
+      "meaning": "street",
+      "example": "Cruza la calle con cuidado.",
+      "example_meaning": "Cross the street carefully."
+    },
+    {
+      "term": "sentarse",
+      "meaning": "to sit down",
+      "example": "Siéntese aquí, por favor.",
+      "example_meaning": "Sit here, please."
+    },
+    {
+      "term": "despacio",
+      "meaning": "slowly",
+      "example": "Habla más despacio, por favor.",
+      "example_meaning": "Speak more slowly, please."
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "hablar",
+      "meaning": "to speak",
+      "set": "present-subjunctive",
+      "art": [
+        " .--------. ",
+        "( hola!    )",
+        " `---. ,--' ",
+        "      V     "
+      ],
+      "forms": {
+        "yo": "hable",
+        "tu": "hables",
+        "el": "hable",
+        "nosotros": "hablemos",
+        "vosotros": "habléis",
+        "ellos": "hablen"
+      }
+    },
+    {
+      "item": "comer",
+      "meaning": "to eat",
+      "set": "present-subjunctive",
+      "art": [
+        "  \\ /   ____  ",
+        "   |   (____) ",
+        "   |    ====  ",
+        "   |          "
+      ],
+      "forms": {
+        "yo": "coma",
+        "tu": "comas",
+        "el": "coma",
+        "nosotros": "comamos",
+        "vosotros": "comáis",
+        "ellos": "coman"
+      }
+    },
+    {
+      "item": "escribir",
+      "meaning": "to write",
+      "set": "present-subjunctive",
+      "art": [
+        "  ___________  ",
+        " /___________\\>",
+        "  |         |  ",
+        "  |_________|  "
+      ],
+      "forms": {
+        "yo": "escriba",
+        "tu": "escribas",
+        "el": "escriba",
+        "nosotros": "escribamos",
+        "vosotros": "escribáis",
+        "ellos": "escriban"
+      }
+    },
+    {
+      "item": "hacer",
+      "meaning": "to do, to make",
+      "set": "present-subjunctive",
+      "art": [
+        "   ______  ",
+        "  |______| ",
+        "     ||    ",
+        "     ||    ",
+        "     ||    "
+      ],
+      "forms": {
+        "yo": "haga",
+        "tu": "hagas",
+        "el": "haga",
+        "nosotros": "hagamos",
+        "vosotros": "hagáis",
+        "ellos": "hagan"
+      }
+    },
+    {
+      "item": "poner",
+      "meaning": "to put",
+      "set": "present-subjunctive",
+      "art": [
+        "     |     ",
+        "     v     ",
+        " _______   ",
+        "|       |  ",
+        "|_______|  "
+      ],
+      "forms": {
+        "yo": "ponga",
+        "tu": "pongas",
+        "el": "ponga",
+        "nosotros": "pongamos",
+        "vosotros": "pongáis",
+        "ellos": "pongan"
+      }
+    },
+    {
+      "item": "decir",
+      "meaning": "to say, to tell",
+      "set": "present-subjunctive",
+      "art": [
+        "       ___ ",
+        "   ___/   |",
+        "  |       |",
+        "  |___    |",
+        "      \\___|"
+      ],
+      "forms": {
+        "yo": "diga",
+        "tu": "digas",
+        "el": "diga",
+        "nosotros": "digamos",
+        "vosotros": "digáis",
+        "ellos": "digan"
+      }
+    },
+    {
+      "item": "ir",
+      "meaning": "to go",
+      "set": "present-subjunctive",
+      "art": [
+        " _   _     ",
+        "(_) (_)    ",
+        "      _    ",
+        "  _  (_)   ",
+        " (_)       "
+      ],
+      "forms": {
+        "yo": "vaya",
+        "tu": "vayas",
+        "el": "vaya",
+        "nosotros": "vayamos",
+        "vosotros": "vayáis",
+        "ellos": "vayan"
+      }
+    },
+    {
+      "item": "venir",
+      "meaning": "to come",
+      "set": "present-subjunctive",
+      "art": [
+        "   o           ",
+        "  /|\\   <----- ",
+        "  / \\          ",
+        "               "
+      ],
+      "forms": {
+        "yo": "venga",
+        "tu": "vengas",
+        "el": "venga",
+        "nosotros": "vengamos",
+        "vosotros": "vengáis",
+        "ellos": "vengan"
+      }
+    },
+    {
+      "item": "tener",
+      "meaning": "to have",
+      "set": "present-subjunctive",
+      "art": [
+        "  _  _  _  ",
+        " | || || | ",
+        " | || || |_",
+        " |       _/",
+        "  \\_____/  "
+      ],
+      "forms": {
+        "yo": "tenga",
+        "tu": "tengas",
+        "el": "tenga",
+        "nosotros": "tengamos",
+        "vosotros": "tengáis",
+        "ellos": "tengan"
+      }
+    },
+    {
+      "item": "salir",
+      "meaning": "to go out, to leave",
+      "set": "present-subjunctive",
+      "art": [
+        "  _______     ",
+        " |  ___  |    ",
+        " | |   | |--> ",
+        " | |  o| |    ",
+        " |_|___|_|    "
+      ],
+      "forms": {
+        "yo": "salga",
+        "tu": "salgas",
+        "el": "salga",
+        "nosotros": "salgamos",
+        "vosotros": "salgáis",
+        "ellos": "salgan"
+      }
+    },
+    {
+      "item": "ser",
+      "meaning": "to be",
+      "set": "present-subjunctive",
+      "art": [
+        " __________ ",
+        "|  o  ____ |",
+        "| /|\\ ____ |",
+        "| / \\ ____ |",
+        "|__________|"
+      ],
+      "forms": {
+        "yo": "sea",
+        "tu": "seas",
+        "el": "sea",
+        "nosotros": "seamos",
+        "vosotros": "seáis",
+        "ellos": "sean"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-imperative-01",
+      "prompt": "A un amigo: ___ más despacio, por favor.",
+      "type": "multiple-choice",
+      "options": [
+        "Habla",
+        "Hable",
+        "Hablas",
+        "Hablad"
+      ],
+      "correct_answer": "Habla",
+      "explanation": "An affirmative tú command is the él form of the present: 'habla'. 'Hable' is for usted, 'hablad' for vosotros.",
+      "hints": [
+        "A friend = tú.",
+        "Affirmative tú commands look like the él form."
+      ],
+      "teaches": [
+        "despacio"
+      ]
+    },
+    {
+      "question_id": "a2-imperative-02",
+      "prompt": "Tú command: ___ (hacer) los deberes antes de cenar.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "haz",
+      "accepted_answers": [
+        "tú haz"
+      ],
+      "explanation": "Hacer is one of the eight irregular tú commands: 'haz'.",
+      "hints": [
+        "One of the eight short irregular tú commands: one syllable."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a2-imperative-03",
+      "prompt": "A un señor mayor (usted): ___ todo recto hasta la plaza.",
+      "type": "multiple-choice",
+      "options": [
+        "Siga",
+        "Sigue",
+        "Sigues",
+        "Sigan"
+      ],
+      "correct_answer": "Siga",
+      "explanation": "Usted commands use the subjunctive, so sigo becomes siga. 'Sigue' is the tú command, and 'sigan' is ustedes.",
+      "hints": [
+        "Usted takes the subjunctive form.",
+        "Start from the yo form: sigo."
+      ],
+      "teaches": [
+        "seguir"
+      ]
+    },
+    {
+      "question_id": "a2-imperative-04",
+      "prompt": "Usted, negative: No ___ (añadir) la sal todavía.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "añada",
+      "accepted_answers": [
+        "usted añada"
+      ],
+      "explanation": "For usted the form is the same with or without 'no': 'no añada'. Añadir is an -ir verb, so the vowel is -a.",
+      "hints": [
+        "An -ir verb takes the -a ending.",
+        "Usted forms never change between affirmative and negative."
+      ],
+      "teaches": [
+        "añadir"
+      ]
+    },
+    {
+      "question_id": "a2-imperative-05",
+      "prompt": "A tu hermano: ___ al parque ahora, es muy tarde.",
+      "type": "multiple-choice",
+      "options": [
+        "No vayas",
+        "No ve",
+        "No vas",
+        "No va"
+      ],
+      "correct_answer": "No vayas",
+      "explanation": "Negative tú commands use the subjunctive tú form: 'no vayas'. 'Ve' is only affirmative, and 'no vas' is a statement.",
+      "hints": [
+        "A negative tú command is no plus the subjunctive form ending in -s.",
+        "The subjunctive of ir is vaya."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a2-imperative-06",
+      "prompt": "Replace 'la verdad' with a pronoun: Dime la verdad → ___.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "dímela",
+      "accepted_answers": [
+        "dimela"
+      ],
+      "explanation": "Pronouns attach to an affirmative command, indirect (me) before direct (la), and an accent keeps the stress: 'dímela'.",
+      "hints": [
+        "Glue the pronouns to the end.",
+        "Order: me + la.",
+        "Add an accent on the i."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a2-imperative-07",
+      "prompt": "Which negative command ('don't tell me it') is correct?",
+      "type": "multiple-choice",
+      "options": [
+        "No me lo digas.",
+        "No dímelo.",
+        "No lo me digas."
+      ],
+      "correct_answer": "No me lo digas.",
+      "explanation": "In a negative command the pronouns go before the verb, indirect before direct: 'no me lo digas'.",
+      "hints": [
+        "In a negative command the pronouns go in front.",
+        "Indirect (me) comes before direct (lo)."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a2-imperative-08",
+      "prompt": "Receta (tú): ___ (cortar) la cebolla y añade el aceite.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "corta",
+      "accepted_answers": [
+        "tú corta"
+      ],
+      "explanation": "The affirmative tú command of a regular -ar verb is the él form: 'corta'.",
+      "hints": [
+        "Same as the él/ella present form."
+      ],
+      "teaches": [
+        "cortar",
+        "la cebolla"
+      ]
+    },
+    {
+      "question_id": "a2-imperative-09",
+      "prompt": "A dos turistas (ustedes): ___ la calle en el semáforo.",
+      "type": "multiple-choice",
+      "options": [
+        "Crucen",
+        "Cruzan",
+        "Cruza",
+        "Cruce"
+      ],
+      "correct_answer": "Crucen",
+      "explanation": "Ustedes takes the subjunctive -en, and -zar verbs spell z as c before e: 'crucen'. 'Cruzan' is a statement, and 'cruce' is singular usted.",
+      "hints": [
+        "Two people, formal = ustedes.",
+        "Z becomes c before e."
+      ],
+      "teaches": [
+        "cruzar",
+        "la calle"
+      ]
+    },
+    {
+      "question_id": "a2-imperative-10",
+      "prompt": "Tú, reflexive: ___ (sentarse) aquí, por favor.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "siéntate",
+      "accepted_answers": [
+        "sientate"
+      ],
+      "explanation": "The reflexive pronoun attaches to the affirmative command (sienta + te) and a written accent keeps the stress: 'siéntate'.",
+      "hints": [
+        "The stem changes from e to ie, then te attaches.",
+        "Add the accent."
+      ],
+      "teaches": [
+        "sentarse"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Come más despacio, por favor.",
+      "meaning": "Eat more slowly, please."
+    },
+    {
+      "text": "Siéntate aquí, a mi lado.",
+      "meaning": "Sit down here, next to me.",
+      "note": "The pronoun glues onto the command and needs an accent: siéntate."
+    },
+    {
+      "text": "Corta dos tomates y una cebolla.",
+      "meaning": "Cut two tomatoes and an onion."
+    },
+    {
+      "text": "No cruces la calle sin mirar.",
+      "meaning": "Don't cross the street without looking.",
+      "note": "A negative tú command uses the subjunctive: no cruces."
+    },
+    {
+      "text": "No añadas más azúcar al café.",
+      "meaning": "Don't add more sugar to the coffee.",
+      "note": "New word: el azúcar = the sugar."
+    },
+    {
+      "text": "Mézclalo todo y ponlo en la nevera.",
+      "meaning": "Mix it all and put it in the fridge.",
+      "note": "New word: la nevera = the fridge."
+    },
+    {
+      "text": "Gire a la derecha en la segunda calle, señora.",
+      "meaning": "Turn right at the second street, madam."
+    },
+    {
+      "text": "Siga todo recto, cruce la plaza y gire a la izquierda en el semáforo.",
+      "meaning": "Go straight on, cross the square and turn left at the traffic lights."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Tú: borrow"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-imperative-01"
+    },
+    {
+      "question": "a2-imperative-02"
+    },
+    {
+      "section": "Usted and ustedes"
+    },
+    {
+      "question": "a2-imperative-03"
+    },
+    {
+      "question": "a2-imperative-09"
+    },
+    {
+      "tip": "Stuck on an usted form? Say the yo form first (hago, pongo, digo), drop the -o and swap the vowel to get haga, ponga, diga."
+    },
+    {
+      "section": "Don't"
+    },
+    {
+      "question": "a2-imperative-04"
+    },
+    {
+      "question": "a2-imperative-05"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "section": "Pronouns"
+    },
+    {
+      "question": "a2-imperative-06"
+    },
+    {
+      "question": "a2-imperative-07"
+    },
+    {
+      "question": "a2-imperative-08"
+    },
+    {
+      "question": "a2-imperative-10"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-imperative-conv-tortilla",
+      "title": "Grandma's tortilla",
+      "scenario": "Carmen is teaching her grandson Dani to make a Spanish omelette. She gives the orders, and he asks questions.",
+      "role_a": "Carmen",
+      "role_b": "Dani",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Dani, ven aquí. Hoy haces tú la tortilla.",
+          "meaning": "Dani, come here. Today you're making the tortilla.",
+          "note": "venir gives ven (irregular tú)"
+        },
+        {
+          "speaker": "b",
+          "text": "¡Vale! ¿Qué hago primero?",
+          "meaning": "OK! What do I do first?"
+        },
+        {
+          "speaker": "a",
+          "text": "Pela las patatas y córtalas en trozos pequeños. Y corta una cebolla.",
+          "meaning": "Peel the potatoes and cut them into small pieces. And cut an onion.",
+          "note": "pronoun attached: córtalas"
+        },
+        {
+          "speaker": "b",
+          "text": "¿Pongo mucho aceite?",
+          "meaning": "Do I put in a lot of oil?"
+        },
+        {
+          "speaker": "a",
+          "text": "Sí, pon bastante aceite en la sartén, pero no lo calientes demasiado.",
+          "meaning": "Yes, put plenty of oil in the pan, but don't heat it too much.",
+          "note": "pon / no lo calientes"
+        },
+        {
+          "speaker": "b",
+          "text": "¿Y ahora qué?",
+          "meaning": "And now what?"
+        },
+        {
+          "speaker": "a",
+          "text": "Bate cuatro huevos, añade un poco de sal y mézclalo todo con las patatas.",
+          "meaning": "Beat four eggs, add a little salt and mix it all with the potatoes.",
+          "note": "mézclalo: accent added"
+        },
+        {
+          "speaker": "b",
+          "text": "¿Le doy la vuelta ya?",
+          "meaning": "Do I turn it over now?"
+        },
+        {
+          "speaker": "a",
+          "text": "¡No, no le des la vuelta todavía! Espera dos minutos. Ten paciencia.",
+          "meaning": "No, don't turn it over yet! Wait two minutes. Be patient.",
+          "note": "no plus the subjunctive: no le des"
+        },
+        {
+          "speaker": "b",
+          "text": "Abuela, siéntate y descansa. Yo me encargo.",
+          "meaning": "Grandma, sit down and rest. I'll take care of it.",
+          "note": "siéntate"
+        },
+        {
+          "speaker": "a",
+          "text": "Muy bien. Pero no te olvides de la sal.",
+          "meaning": "Very good. But don't forget the salt.",
+          "note": "no te olvides"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "👉",
+    "bites": [
+      {
+        "title": "Tú = the él form",
+        "emoji": "🗣️",
+        "rule": "To order a friend around, use the él/ella present form: habla, come, escribe. Eight commands are short and irregular: di, haz, ve, pon, sal, sé, ten, ven.",
+        "example": "Haz los deberes y pon la mesa.",
+        "example_meaning": "Do your homework and lay the table."
+      },
+      {
+        "title": "Usted = subjunctive",
+        "emoji": "🎩",
+        "rule": "Usted/ustedes commands use the present subjunctive: Take the yo form, drop the -o and swap the vowel: -ar verbs take -e, and -er/-ir verbs take -a. So hago becomes haga and pongo becomes ponga.",
+        "example": "Siga todo recto, señor.",
+        "example_meaning": "Go straight on, sir."
+      },
+      {
+        "title": "No + subjunctive",
+        "emoji": "🚫",
+        "rule": "Every negative command is subjunctive, tú included: no hables, no comas, no hagas, no vayas, no seas. Usted keeps the same form: no coma.",
+        "example": "No cruces la calle aquí.",
+        "example_meaning": "Don't cross the street here."
+      },
+      {
+        "title": "Pronouns: on or in front",
+        "emoji": "🧲",
+        "rule": "Pronouns glue onto affirmative commands with an accent (dímelo, siéntate) and go in front of negative ones (no me lo digas, no te sientes).",
+        "example": "Cuéntamelo. No me lo cuentes.",
+        "example_meaning": "Tell me about it. Don't tell me about it."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Tú or usted?",
+        "buckets": [
+          "tú",
+          "usted"
+        ],
+        "why": "Tú commands look like the él present form. Usted commands are subjunctive, with the swapped vowel.",
+        "items": [
+          {
+            "text": "habla",
+            "bucket": 0
+          },
+          {
+            "text": "hable",
+            "bucket": 1
+          },
+          {
+            "text": "come",
+            "bucket": 0
+          },
+          {
+            "text": "coma",
+            "bucket": 1
+          },
+          {
+            "text": "haz",
+            "bucket": 0
+          },
+          {
+            "text": "haga",
+            "bucket": 1
+          },
+          {
+            "text": "ven",
+            "bucket": 0
+          },
+          {
+            "text": "venga",
+            "bucket": 1
+          }
+        ]
+      },
+      {
+        "title": "Regular or irregular tú command?",
+        "buckets": [
+          "regular (= él form)",
+          "one of the eight irregulars"
+        ],
+        "why": "Only di, haz, ve, pon, sal, sé, ten and ven are irregular. Every other verb uses the él form.",
+        "items": [
+          {
+            "text": "di",
+            "bucket": 1
+          },
+          {
+            "text": "escribe",
+            "bucket": 0
+          },
+          {
+            "text": "pon",
+            "bucket": 1
+          },
+          {
+            "text": "habla",
+            "bucket": 0
+          },
+          {
+            "text": "sal",
+            "bucket": 1
+          },
+          {
+            "text": "come",
+            "bucket": 0
+          },
+          {
+            "text": "ten",
+            "bucket": 1
+          },
+          {
+            "text": "corta",
+            "bucket": 0
+          }
+        ]
+      },
+      {
+        "title": "Where is the pronoun?",
+        "buckets": [
+          "attached (affirmative)",
+          "in front (negative)"
+        ],
+        "why": "Affirmative commands carry the pronouns on the end. Negative commands put them before the verb.",
+        "items": [
+          {
+            "text": "Dímelo.",
+            "bucket": 0
+          },
+          {
+            "text": "No me lo digas.",
+            "bucket": 1
+          },
+          {
+            "text": "Siéntate.",
+            "bucket": 0
+          },
+          {
+            "text": "No te sientes.",
+            "bucket": 1
+          },
+          {
+            "text": "Póntelo.",
+            "bucket": 0
+          },
+          {
+            "text": "No te lo pongas.",
+            "bucket": 1
+          }
+        ]
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Dani, hace los deberes ahora.",
+        "wrong": "hace",
+        "fix": "haz",
+        "why": "Hacer has the irregular tú command haz. Hace is a statement (he does)."
+      },
+      {
+        "sentence": "Señor García, sigue todo recto.",
+        "wrong": "sigue",
+        "fix": "siga",
+        "why": "Señor García is usted, so the command is the subjunctive siga."
+      },
+      {
+        "sentence": "No habla tan rápido, que no te entiendo.",
+        "wrong": "habla",
+        "fix": "hables",
+        "why": "A negative tú command needs the subjunctive: no hables."
+      },
+      {
+        "sentence": "No dímelo ahora, por favor.",
+        "wrong": "dímelo",
+        "fix": "me lo digas",
+        "why": "Negative commands put the pronouns in front: no me lo digas."
+      },
+      {
+        "sentence": "Córtala en trozos y añades el aceite.",
+        "wrong": "añades",
+        "fix": "añade",
+        "why": "Both verbs are tú commands. Añades is the present statement, and añade is the command."
+      },
+      {
+        "sentence": "Pasen y sientense, por favor.",
+        "wrong": "sientense",
+        "fix": "siéntense",
+        "why": "Attaching -se moves the stress, so a written accent is needed: siéntense."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Corta la cebolla y añade la sal.",
+        "meaning": "Cut the onion and add the salt.",
+        "distractors": [
+          "Corte"
+        ]
+      },
+      {
+        "text": "No me lo digas ahora.",
+        "meaning": "Don't tell me now.",
+        "distractors": [
+          "dímelo"
+        ]
+      },
+      {
+        "text": "Siga todo recto, señor.",
+        "meaning": "Go straight on, sir.",
+        "distractors": [
+          "Sigue"
+        ]
+      },
+      {
+        "text": "Haz los deberes antes de cenar.",
+        "meaning": "Do your homework before dinner.",
+        "distractors": [
+          "Hace",
+          "Haga"
+        ]
+      },
+      {
+        "text": "Siéntate aquí y habla despacio.",
+        "meaning": "Sit down here and speak slowly.",
+        "distractors": [
+          "hables"
+        ]
+      }
+    ]
+  }
+}

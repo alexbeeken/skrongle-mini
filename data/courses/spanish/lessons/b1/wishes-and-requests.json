@@ -1,0 +1,1247 @@
+{
+  "id": "b1-wishes-and-requests",
+  "slug": "wishes-and-requests",
+  "title": "Wishes and requests: quiero que vengas",
+  "unit": "B1",
+  "group": "Grammar",
+  "order": 14,
+  "summary": "Want, hope, ask, advise, allow or forbid someone else to do something with que + subjunctive; keep the infinitive when it's the same person.",
+  "focus": "Infinitive vs. que + present subjunctive after verbs of wishing and influence; decir que; ojalá and set wishes",
+  "prerequisites": [
+    "b1-subjunctive-stem-changers"
+  ],
+  "content": "## Same person or someone else?\n\nWith **querer**, **esperar**, **preferir** and **necesitar**, ask who does the second action. Same person: the **infinitive**. Someone else: **que + subjunctive**.\n\n| verb | same person | someone else |\n|---|---|---|\n| querer | **Quiero ir.** (I want to go.) | **Quiero que vayas.** (I want you to go.) |\n| esperar | **Espero llegar pronto.** | **Espero que llegues pronto.** |\n| preferir | **Prefiero cocinar yo.** | **Prefiero que cocines tú.** |\n| necesitar | **Necesito descansar.** | **Necesito que me ayudes.** |\n\nEnglish says *I want you to go*; Spanish says *I want that you go*: **quiero que vayas**. Never *quiero que ir*, and never *quiero que vaya* when you are the one going.\n\n## Asking, advising, allowing, forbidding\n\nVerbs that push someone else to act take **que + subjunctive**: **pedir** (to ask), **recomendar**, **aconsejar** (to advise), **permitir** (to allow) and **prohibir** (to forbid), usually with an indirect pronoun for the person.\n\n- **Te pido que me esperes.** I'm asking you to wait for me.\n- **Le recomiendo que pruebe el pescado.** I recommend you try the fish. (usted)\n- **Os aconsejo que salgáis temprano.** I advise you to leave early.\n- **Mi jefe no permite que comamos en la oficina.** My boss doesn't let us eat in the office.\n- **Nos prohíben que aparquemos aquí.** They forbid us to park here.\n\n**Permitir** and **prohibir** may also take a plain infinitive: **te prohíbo salir**. Watch the accent: **prohíbo, prohíbe**.\n\n## Decir: telling or reporting\n\n**Decir** has two jobs, and the mood shows which one:\n\n| sentence | meaning | mood |\n|---|---|---|\n| **Dice que viene.** | She says she's coming. (a report) | indicative |\n| **Me dice que venga.** | She tells me to come. (an order) | subjunctive |\n\n- **Ana dice que tiene hambre.** Ana says she's hungry.\n- **Ana nos dice que comamos ya.** Ana tells us to eat now.\n\nAfter a past verb (*me dijo que viniera*) Spanish uses the imperfect subjunctive, which you meet at B2.\n\n## Ojalá and good wishes\n\n**Ojalá** (*I hope*, *let's hope*) always takes the subjunctive, with or without **que**: **Ojalá (que) llueva.** Let's hope it rains.\n\nA bare **que** + subjunctive makes a ready-made wish (an unspoken *espero* in front):\n\n- **¡Que te mejores!** Get well soon!\n- **¡Que aproveche!** Enjoy your meal!\n- **¡Que tengas suerte!** Good luck!\n- **¡Que lo pases bien!** Have a good time!\n\nThe verb follows the person: **¡Que se mejore!** (usted), **¡Que lo paséis bien!** (vosotros).",
+  "vocabulary": [
+    {
+      "term": "querer que",
+      "meaning": "to want (someone) to",
+      "example": "Quiero que vengas a mi cumpleaños.",
+      "example_meaning": "I want you to come to my birthday party."
+    },
+    {
+      "term": "esperar que",
+      "meaning": "to hope that",
+      "example": "Espero que te guste el regalo.",
+      "example_meaning": "I hope you like the present."
+    },
+    {
+      "term": "preferir que",
+      "meaning": "to prefer (someone) to",
+      "example": "Prefiero que hablemos mañana.",
+      "example_meaning": "I'd rather we talked tomorrow."
+    },
+    {
+      "term": "necesitar que",
+      "meaning": "to need (someone) to",
+      "example": "Necesito que me prestes tu coche.",
+      "example_meaning": "I need you to lend me your car."
+    },
+    {
+      "term": "pedir que",
+      "meaning": "to ask (someone) to",
+      "example": "Le pido al camarero que nos traiga la cuenta.",
+      "example_meaning": "I ask the waiter to bring us the bill."
+    },
+    {
+      "term": "recomendar que",
+      "meaning": "to recommend that",
+      "example": "Os recomiendo que visitéis Toledo.",
+      "example_meaning": "I recommend that you visit Toledo."
+    },
+    {
+      "term": "aconsejar que",
+      "meaning": "to advise (someone) to",
+      "example": "Mi profesora me aconseja que lea en español.",
+      "example_meaning": "My teacher advises me to read in Spanish."
+    },
+    {
+      "term": "prohibir que",
+      "meaning": "to forbid (someone) to",
+      "example": "El dueño prohíbe que fumemos en el piso.",
+      "example_meaning": "The owner forbids us to smoke in the flat."
+    },
+    {
+      "term": "permitir que",
+      "meaning": "to allow (someone) to",
+      "example": "Mis padres no permiten que mi hermano use el móvil en la mesa.",
+      "example_meaning": "My parents don't let my brother use his phone at the table."
+    },
+    {
+      "term": "decir que",
+      "meaning": "to say that (+ indicative) / to tell (someone) to (+ subjunctive)",
+      "example": "Mi madre me dice que vuelva pronto.",
+      "example_meaning": "My mother tells me to come back early."
+    },
+    {
+      "term": "ojalá",
+      "meaning": "I hope / let's hope (+ subjunctive)",
+      "example": "Ojalá aprobemos el examen.",
+      "example_meaning": "I hope we pass the exam."
+    },
+    {
+      "term": "¡Que te mejores!",
+      "meaning": "Get well soon!",
+      "example": "¿Tienes gripe? ¡Que te mejores!",
+      "example_meaning": "You've got the flu? Get well soon!"
+    },
+    {
+      "term": "¡Que aproveche!",
+      "meaning": "Enjoy your meal!",
+      "example": "Veo que estáis comiendo. ¡Que aproveche!",
+      "example_meaning": "I see you're eating. Enjoy your meal!"
+    },
+    {
+      "term": "¡Que tengas suerte!",
+      "meaning": "Good luck!",
+      "example": "Mañana tienes la entrevista, ¿no? ¡Que tengas suerte!",
+      "example_meaning": "Your interview is tomorrow, isn't it? Good luck!"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-wishes-and-requests-01",
+      "prompt": "Esta noche estoy cansada. Prefiero ___ en casa.",
+      "type": "multiple-choice",
+      "options": [
+        "quedarme",
+        "que me quede",
+        "que me quedo"
+      ],
+      "correct_answer": "quedarme",
+      "explanation": "The same person prefers and stays, so the infinitive: prefiero quedarme. 'Que me quede' is only for someone else.",
+      "hints": [
+        "Who prefers? Who stays? The same person?"
+      ],
+      "teaches": [
+        "preferir que"
+      ]
+    },
+    {
+      "question_id": "b1-wishes-and-requests-02",
+      "prompt": "Mis padres quieren que yo ___ medicina.",
+      "type": "multiple-choice",
+      "options": [
+        "estudie",
+        "estudio",
+        "estudiar",
+        "estudia"
+      ],
+      "correct_answer": "estudie",
+      "explanation": "The parents want, I study: two different people, so que + subjunctive: estudie.",
+      "hints": [
+        "Different subjects after querer take que + subjunctive.",
+        "-ar verbs swap to -e in the subjunctive."
+      ],
+      "teaches": [
+        "querer que"
+      ]
+    },
+    {
+      "question_id": "b1-wishes-and-requests-03",
+      "prompt": "Espero que ___ (tú, tener) un buen viaje.",
+      "type": "fill-in-blank",
+      "correct_answer": "tengas",
+      "accepted_answers": [
+        "tú tengas"
+      ],
+      "explanation": "Esperar que + a different subject takes the subjunctive. Tengo becomes tenga, then tengas.",
+      "hints": [
+        "Start from the yo form: tengo."
+      ],
+      "teaches": [
+        "esperar que"
+      ]
+    },
+    {
+      "question_id": "b1-wishes-and-requests-04",
+      "prompt": "El médico me recomienda que ___ (beber) más agua.",
+      "type": "fill-in-blank",
+      "correct_answer": "beba",
+      "accepted_answers": [
+        "yo beba"
+      ],
+      "explanation": "Recomendar que pushes someone else to act: subjunctive. Bebo becomes beba.",
+      "hints": [
+        "-er verbs swap to -a in the subjunctive.",
+        "Who drinks? Me, the patient: yo."
+      ],
+      "teaches": [
+        "recomendar que"
+      ]
+    },
+    {
+      "question_id": "b1-wishes-and-requests-05",
+      "prompt": "Te pido que no ___ (llegar, tú) tarde mañana.",
+      "type": "fill-in-blank",
+      "correct_answer": "llegues",
+      "accepted_answers": [],
+      "explanation": "Pedir que + subjunctive. Llegar keeps its hard g sound with gu: llegue, llegues.",
+      "hints": [
+        "Spelling: g becomes gu before e."
+      ],
+      "teaches": [
+        "pedir que"
+      ]
+    },
+    {
+      "question_id": "b1-wishes-and-requests-06",
+      "prompt": "Ana dice que ___ muy cansada. (She is reporting how she feels.)",
+      "type": "multiple-choice",
+      "options": [
+        "está",
+        "esté"
+      ],
+      "correct_answer": "está",
+      "explanation": "Decir que reports a fact here, so the indicative: Ana dice que está cansada.",
+      "hints": [
+        "Report or order?"
+      ],
+      "teaches": [
+        "decir que"
+      ]
+    },
+    {
+      "question_id": "b1-wishes-and-requests-07",
+      "prompt": "Mi madre me dice que ___ mi habitación. (She tells me to tidy it.)",
+      "type": "multiple-choice",
+      "options": [
+        "ordene",
+        "ordeno",
+        "ordenar"
+      ],
+      "correct_answer": "ordene",
+      "explanation": "Decir que as an order (tell someone to) takes the subjunctive: ordene.",
+      "hints": [
+        "An order with decir takes the subjunctive."
+      ],
+      "teaches": [
+        "decir que"
+      ]
+    },
+    {
+      "question_id": "b1-wishes-and-requests-08",
+      "prompt": "Ojalá ___ (hacer) sol el sábado.",
+      "type": "fill-in-blank",
+      "correct_answer": "haga",
+      "accepted_answers": [
+        "que haga"
+      ],
+      "explanation": "Ojalá always takes the subjunctive. Hago becomes haga.",
+      "hints": [
+        "Ojalá never takes the indicative.",
+        "Start from the yo form: hago."
+      ],
+      "teaches": [
+        "ojalá"
+      ]
+    },
+    {
+      "question_id": "b1-wishes-and-requests-09",
+      "prompt": "Your friend has a bad cold. What do you say?",
+      "type": "multiple-choice",
+      "options": [
+        "¡Que te mejores!",
+        "¡Que aproveche!",
+        "¡Que lo pases bien!",
+        "¡Que tengas suerte!"
+      ],
+      "correct_answer": "¡Que te mejores!",
+      "explanation": "¡Que te mejores! wishes someone a quick recovery. ¡Que aproveche! is for a meal, ¡Que lo pases bien! for a party or trip, ¡Que tengas suerte! for an exam or interview.",
+      "hints": [
+        "Mejorar = to get better."
+      ],
+      "teaches": [
+        "¡Que te mejores!"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-wishes-and-requests-conv-weekend-favour",
+      "title": "A favour for the weekend",
+      "scenario": "Clara is going away for the weekend and asks her flatmate Diego to look after the flat and the cat.",
+      "role_a": "Clara",
+      "role_b": "Diego",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Diego, este fin de semana me voy a Sevilla. ¿Puedo pedirte un favor?",
+          "meaning": "Diego, I'm off to Seville this weekend. Can I ask you a favour?"
+        },
+        {
+          "speaker": "b",
+          "text": "Claro. ¿Qué necesitas?",
+          "meaning": "Of course. What do you need?"
+        },
+        {
+          "speaker": "a",
+          "text": "Necesito que riegues mis plantas el sábado.",
+          "meaning": "I need you to water my plants on Saturday."
+        },
+        {
+          "speaker": "b",
+          "text": "Vale. ¿Algo más?",
+          "meaning": "OK. Anything else?"
+        },
+        {
+          "speaker": "a",
+          "text": "Sí. Te pido que no abras la ventana del salón.",
+          "meaning": "Yes. Please don't open the living-room window."
+        },
+        {
+          "speaker": "b",
+          "text": "Tranquila. ¿Prefieres que te mande fotos del gato?",
+          "meaning": "Don't worry. Would you like me to send you photos of the cat?"
+        },
+        {
+          "speaker": "a",
+          "text": "¡Sí, por favor! Ojalá no se aburra sin mí.",
+          "meaning": "Yes, please! I hope he doesn't get bored without me."
+        },
+        {
+          "speaker": "b",
+          "text": "Mi madre dice que los gatos no echan de menos a nadie.",
+          "meaning": "My mother says cats don't miss anybody."
+        },
+        {
+          "speaker": "a",
+          "text": "¡Qué malo eres! Bueno, me voy ya.",
+          "meaning": "You're so mean! Right, I'm off."
+        },
+        {
+          "speaker": "b",
+          "text": "¡Que tengas buen viaje y que lo pases muy bien!",
+          "meaning": "Have a good trip and have a great time!"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Quiero que me escuches.",
+      "meaning": "I want you to listen to me.",
+      "note": "Two different people: que + subjunctive."
+    },
+    {
+      "text": "Necesito que me ayudes hoy.",
+      "meaning": "I need you to help me today."
+    },
+    {
+      "text": "Ojalá no llueva este fin de semana.",
+      "meaning": "I hope it doesn't rain this weekend.",
+      "note": "Ojalá always takes the subjunctive."
+    },
+    {
+      "text": "Mi jefa prefiere que trabajemos desde casa.",
+      "meaning": "My boss prefers us to work from home.",
+      "note": "New word: la jefa = the boss."
+    },
+    {
+      "text": "Te recomiendo que pruebes el gazpacho de este bar.",
+      "meaning": "I recommend you try the gazpacho in this bar.",
+      "note": "New word: el gazpacho = cold tomato soup."
+    },
+    {
+      "text": "Los vecinos nos piden que no hagamos ruido por la noche.",
+      "meaning": "The neighbours ask us not to make noise at night.",
+      "note": "New word: el ruido = the noise."
+    },
+    {
+      "text": "Espero que lo paséis muy bien en la boda de vuestros amigos.",
+      "meaning": "I hope you have a great time at your friends' wedding."
+    },
+    {
+      "text": "Mi hermano dice que está bien, pero yo quiero que vaya al médico.",
+      "meaning": "My brother says he's fine, but I want him to go to the doctor.",
+      "note": "Decir que reports with the indicative; querer que asks with the subjunctive."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Same person or someone else"
+    },
+    {
+      "question": "b1-wishes-and-requests-01"
+    },
+    {
+      "question": "b1-wishes-and-requests-02"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b1-wishes-and-requests-03"
+    },
+    {
+      "section": "Asking, advising"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-wishes-and-requests-04"
+    },
+    {
+      "question": "b1-wishes-and-requests-05"
+    },
+    {
+      "section": "Decir"
+    },
+    {
+      "question": "b1-wishes-and-requests-06"
+    },
+    {
+      "question": "b1-wishes-and-requests-07"
+    },
+    {
+      "tip": "One person doing both: quiero venir. Two people: quiero que vengas. With decir, ask: a report (indicative) or an order (subjunctive)?"
+    },
+    {
+      "section": "Ojalá"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-wishes-and-requests-08"
+    },
+    {
+      "question": "b1-wishes-and-requests-09"
+    }
+  ],
+  "sprint": {
+    "icon": "🙏",
+    "bites": [
+      {
+        "title": "One person: infinitive",
+        "emoji": "👤",
+        "rule": "If the one who wants, hopes or prefers is also the one who acts, use the infinitive: quiero ir, espero aprobar, prefiero cocinar.",
+        "example": "Necesito descansar un poco.",
+        "example_meaning": "I need to rest a little."
+      },
+      {
+        "title": "Someone else: que + subjunctive",
+        "emoji": "👥",
+        "rule": "When you want, ask, advise, allow or forbid someone ELSE to act: querer / pedir / aconsejar / permitir / prohibir que + subjunctive.",
+        "example": "Te aconsejo que salgas temprano.",
+        "example_meaning": "I advise you to leave early."
+      },
+      {
+        "title": "Decir: report or order",
+        "emoji": "🗣️",
+        "rule": "Decir que + indicative reports what someone says (dice que viene). Decir que + subjunctive tells someone to do something (me dice que venga).",
+        "example": "Dice que tiene frío y me dice que cierre la ventana.",
+        "example_meaning": "She says she's cold and tells me to close the window."
+      },
+      {
+        "title": "Ojalá and ¡Que…!",
+        "emoji": "🍀",
+        "rule": "Ojalá always takes the subjunctive. A bare que + subjunctive is a ready-made wish: ¡Que te mejores! ¡Que aproveche! ¡Que tengas suerte! ¡Que lo pases bien!",
+        "example": "Ojalá tengas suerte en el examen.",
+        "example_meaning": "I hope you're lucky in the exam."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Infinitive or que + subjunctive?",
+        "buckets": [
+          "infinitive",
+          "que + subjunctive"
+        ],
+        "items": [
+          {
+            "text": "I want to rest.",
+            "bucket": 0
+          },
+          {
+            "text": "I want you to rest.",
+            "bucket": 1
+          },
+          {
+            "text": "We hope to win.",
+            "bucket": 0
+          },
+          {
+            "text": "We hope you win.",
+            "bucket": 1
+          },
+          {
+            "text": "She needs to sleep.",
+            "bucket": 0
+          },
+          {
+            "text": "She needs us to help.",
+            "bucket": 1
+          },
+          {
+            "text": "I prefer to drive.",
+            "bucket": 0
+          },
+          {
+            "text": "I prefer you to drive.",
+            "bucket": 1
+          }
+        ],
+        "why": "If one person does both, use the infinitive. If someone else does the second action, use que + subjunctive."
+      },
+      {
+        "title": "Report or order?",
+        "buckets": [
+          "report (indicative)",
+          "order (subjunctive)"
+        ],
+        "items": [
+          {
+            "text": "Dice que llega tarde.",
+            "bucket": 0
+          },
+          {
+            "text": "Me dice que llegue pronto.",
+            "bucket": 1
+          },
+          {
+            "text": "Dicen que hace frío.",
+            "bucket": 0
+          },
+          {
+            "text": "Les digo que se callen.",
+            "bucket": 1
+          },
+          {
+            "text": "Mi padre dice que está cansado.",
+            "bucket": 0
+          },
+          {
+            "text": "Mi padre me dice que descanse.",
+            "bucket": 1
+          }
+        ],
+        "why": "Decir que + indicative passes on information; decir que + subjunctive tells someone to do something."
+      },
+      {
+        "title": "Which wish?",
+        "buckets": [
+          "¡Que aproveche!",
+          "¡Que te mejores!",
+          "¡Que tengas suerte!"
+        ],
+        "items": [
+          {
+            "text": "Your colleagues sit down to lunch.",
+            "bucket": 0
+          },
+          {
+            "text": "A friend has a cold.",
+            "bucket": 1
+          },
+          {
+            "text": "Your sister has an exam.",
+            "bucket": 2
+          },
+          {
+            "text": "The next table starts dinner.",
+            "bucket": 0
+          },
+          {
+            "text": "Your neighbour broke a leg.",
+            "bucket": 1
+          },
+          {
+            "text": "A friend has a job interview.",
+            "bucket": 2
+          }
+        ],
+        "why": "¡Que aproveche! is for meals, ¡Que te mejores! for illness and ¡Que tengas suerte! for a challenge ahead."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Quiero que vienes a mi casa.",
+        "wrong": "vienes",
+        "fix": "vengas",
+        "why": "Querer que + a different subject takes the subjunctive: vengas."
+      },
+      {
+        "sentence": "Espero que tienes un buen día.",
+        "wrong": "tienes",
+        "fix": "tengas",
+        "why": "Esperar que + a different subject takes the subjunctive: tengas."
+      },
+      {
+        "sentence": "Mi madre quiere que yo estudiar más.",
+        "wrong": "estudiar",
+        "fix": "estudie",
+        "why": "After que comes a conjugated verb in the subjunctive, never an infinitive."
+      },
+      {
+        "sentence": "Ojalá mañana hace sol.",
+        "wrong": "hace",
+        "fix": "haga",
+        "why": "Ojalá always takes the subjunctive: haga."
+      },
+      {
+        "sentence": "El médico me recomienda que duermo más.",
+        "wrong": "duermo",
+        "fix": "duerma",
+        "why": "Recomendar que + subjunctive: duerma."
+      },
+      {
+        "sentence": "Ana dice que esté cansada hoy.",
+        "wrong": "esté",
+        "fix": "está",
+        "why": "Ana is reporting how she feels, so decir que takes the indicative: está."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Te pido que cierres la puerta.",
+        "meaning": "I'm asking you to close the door.",
+        "distractors": [
+          "cierras"
+        ]
+      },
+      {
+        "text": "Ojalá tengas mucha suerte mañana.",
+        "meaning": "I hope you have lots of luck tomorrow.",
+        "distractors": [
+          "tienes"
+        ]
+      },
+      {
+        "text": "Prefiero cenar en casa esta noche.",
+        "meaning": "I'd rather have dinner at home tonight.",
+        "distractors": [
+          "que"
+        ]
+      },
+      {
+        "text": "Me dice que la llame luego.",
+        "meaning": "She tells me to call her later.",
+        "distractors": [
+          "llamo"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🏹",
+      "content": "## Deseos y peticiones en Eldmark\n\nQuest-givers never say *go*; they say **quiero que vayas a la mazmorra**. When you act yourself, use the infinitive: **quiero ganar el botín**. The paladín **te pide que protejas** Highgate, the maga **te aconseja que no toques** the crystal, and before every raid: **¡Que tengas suerte!**",
+      "vocabulary": [
+        {
+          "term": "querer que",
+          "example": "El rey quiere que limpiemos la mazmorra de Deepanvil.",
+          "example_meaning": "The king wants us to clear the Deepanvil dungeon."
+        },
+        {
+          "term": "pedir que",
+          "example": "La elfa nos pide que la llevemos al Bosque Umbrío.",
+          "example_meaning": "The elf asks us to take her to the Bosque Umbrío."
+        },
+        {
+          "term": "aconsejar que",
+          "example": "El enano te aconseja que no entres sin antorcha.",
+          "example_meaning": "The dwarf advises you not to go in without a torch."
+        },
+        {
+          "term": "prohibir que",
+          "example": "El paladín prohíbe que toquemos el cristal.",
+          "example_meaning": "The paladin forbids us to touch the crystal."
+        },
+        {
+          "term": "ojalá",
+          "example": "Ojalá caiga una espada épica.",
+          "example_meaning": "Let's hope an epic sword drops."
+        },
+        {
+          "term": "¡Que tengas suerte!",
+          "example": "¿Vas solo a Frostmarch? ¡Que tengas suerte!",
+          "example_meaning": "You're going to Frostmarch alone? Good luck!"
+        },
+        {
+          "term": "la misión",
+          "meaning": "quest",
+          "example": "El mago quiere que terminemos la misión antes de la noche.",
+          "example_meaning": "The mage wants us to finish the quest before nightfall."
+        },
+        {
+          "term": "el botín",
+          "meaning": "loot",
+          "example": "Prefiero que repartamos el botín ahora.",
+          "example_meaning": "I'd rather we shared out the loot now."
+        },
+        {
+          "term": "la mazmorra",
+          "meaning": "dungeon",
+          "example": "Espero que la mazmorra no esté llena de orcos.",
+          "example_meaning": "I hope the dungeon isn't full of orcs."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Quests: que + subjunctive",
+          "emoji": "📜",
+          "rule": "Someone else must act? que + subjunctive: el rey quiere que vayas. You act yourself? The infinitive: quiero ir.",
+          "example": "El rey quiere que vayas a Frostmarch.",
+          "example_meaning": "The king wants you to go to Frostmarch."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Quiero que me cures, por favor.",
+          "meaning": "I want you to heal me, please.",
+          "note": "New word: curar = to heal."
+        },
+        {
+          "text": "Ojalá encontremos la llave de la mazmorra.",
+          "meaning": "Let's hope we find the dungeon key."
+        },
+        {
+          "text": "La maga nos pide que esperemos aquí.",
+          "meaning": "The mage asks us to wait here."
+        },
+        {
+          "text": "Te aconsejo que no despiertes al minotauro.",
+          "meaning": "I advise you not to wake the minotaur.",
+          "note": "New word: despertar = to wake up."
+        },
+        {
+          "text": "¡Que tengáis suerte en Highgate!",
+          "meaning": "Good luck in Highgate, all of you!"
+        }
+      ],
+      "builds": [
+        {
+          "text": "El paladín quiere que defendamos Highgate.",
+          "meaning": "The paladin wants us to defend Highgate.",
+          "distractors": [
+            "defendemos"
+          ]
+        },
+        {
+          "text": "Ojalá caiga botín épico esta noche.",
+          "meaning": "Let's hope epic loot drops tonight.",
+          "distractors": [
+            "cae"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "El enano quiere que lo ayudamos en la mina.",
+          "wrong": "ayudamos",
+          "fix": "ayudemos",
+          "why": "Querer que + a different subject: subjunctive, ayudemos."
+        },
+        {
+          "sentence": "Ojalá encontramos la espada mágica.",
+          "wrong": "encontramos",
+          "fix": "encontremos",
+          "why": "Ojalá always takes the subjunctive: encontremos."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Infinitive or que + subjunctive in Eldmark?",
+          "buckets": [
+            "infinitive",
+            "que + subjunctive"
+          ],
+          "items": [
+            {
+              "text": "The mage wants to rest.",
+              "bucket": 0
+            },
+            {
+              "text": "The mage wants us to rest.",
+              "bucket": 1
+            },
+            {
+              "text": "I hope to find the loot.",
+              "bucket": 0
+            },
+            {
+              "text": "I hope you find the loot.",
+              "bucket": 1
+            },
+            {
+              "text": "The dwarf asks us to wait.",
+              "bucket": 1
+            },
+            {
+              "text": "We prefer to travel by night.",
+              "bucket": 0
+            }
+          ],
+          "why": "The same person takes the infinitive; someone else acting takes que + subjunctive."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-wishes-and-requests-realm-01",
+          "prompt": "El rey quiere que nosotros ___ la mazmorra.",
+          "type": "multiple-choice",
+          "options": [
+            "limpiemos",
+            "limpiamos",
+            "limpiar"
+          ],
+          "correct_answer": "limpiemos",
+          "explanation": "The king wants, we clean: two subjects, so que + subjunctive: limpiemos.",
+          "hints": [
+            "Two different people take the subjunctive."
+          ],
+          "teaches": [
+            "querer que",
+            "la mazmorra"
+          ]
+        },
+        {
+          "question_id": "b1-wishes-and-requests-realm-02",
+          "prompt": "El paladín prohíbe que los aprendices ___ (entrar) solos en la mazmorra.",
+          "type": "fill-in-blank",
+          "correct_answer": "entren",
+          "accepted_answers": [],
+          "explanation": "Prohibir que + subjunctive. Entro becomes entre, then entren (ellos).",
+          "hints": [
+            "-ar verbs swap to -e; ellos ends in -en."
+          ],
+          "teaches": [
+            "prohibir que"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🌷",
+      "content": "## Deseos y peticiones en la granja\n\nIn Meadowbrook everyone wants a favour. Rosa **quiere que plantes** fresas, el alcalde **te pide que ayudes** con el festival, and Leo **te aconseja que pesques** por la mañana. Doing it yourself? Use the infinitive: **prefiero cosechar hoy**. And at the tavern, to everyone eating: **¡Que aproveche!**",
+      "vocabulary": [
+        {
+          "term": "querer que",
+          "example": "Rosa quiere que plante más fresas esta primavera.",
+          "example_meaning": "Rosa wants me to plant more strawberries this spring."
+        },
+        {
+          "term": "pedir que",
+          "example": "El alcalde nos pide que decoremos la plaza para el festival.",
+          "example_meaning": "The mayor asks us to decorate the square for the festival."
+        },
+        {
+          "term": "aconsejar que",
+          "example": "Leo me aconseja que pesque por la mañana.",
+          "example_meaning": "Leo advises me to fish in the morning."
+        },
+        {
+          "term": "esperar que",
+          "example": "Espero que la vaca dé mucha leche.",
+          "example_meaning": "I hope the cow gives lots of milk."
+        },
+        {
+          "term": "ojalá",
+          "example": "Ojalá crezcan las calabazas antes del otoño.",
+          "example_meaning": "Let's hope the pumpkins grow before autumn."
+        },
+        {
+          "term": "¡Que aproveche!",
+          "example": "¿Ya estáis comiendo la tarta de calabaza? ¡Que aproveche!",
+          "example_meaning": "Are you already eating the pumpkin pie? Enjoy!"
+        },
+        {
+          "term": "la cosecha",
+          "meaning": "harvest",
+          "example": "Esperamos que la cosecha sea buena este año.",
+          "example_meaning": "We hope the harvest is good this year."
+        },
+        {
+          "term": "la semilla",
+          "meaning": "seed",
+          "example": "Rosa me recomienda que compre semillas de maíz.",
+          "example_meaning": "Rosa recommends that I buy corn seeds."
+        },
+        {
+          "term": "el festival",
+          "meaning": "festival",
+          "example": "El alcalde quiere que todos vengan al festival.",
+          "example_meaning": "The mayor wants everyone to come to the festival."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Favours on the farm",
+          "emoji": "🧺",
+          "rule": "Asking a neighbour to act? pedir / querer / necesitar que + subjunctive. Doing it yourself? Just the infinitive.",
+          "example": "Necesito que me ayudes con la cosecha.",
+          "example_meaning": "I need you to help me with the harvest."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Rosa quiere que vuelvas mañana a la tienda.",
+          "meaning": "Rosa wants you to come back to the shop tomorrow."
+        },
+        {
+          "text": "Ojalá pesquemos algo hoy.",
+          "meaning": "Let's hope we catch something today.",
+          "note": "Pescar becomes pesquemos, because c becomes qu before e."
+        },
+        {
+          "text": "Te pido que cuides de mis gallinas.",
+          "meaning": "I'm asking you to look after my hens.",
+          "note": "New word: cuidar de = to look after."
+        },
+        {
+          "text": "El alcalde prefiere que el festival sea en la playa.",
+          "meaning": "The mayor prefers the festival to be on the beach."
+        },
+        {
+          "text": "¡Que lo pases bien en la mina!",
+          "meaning": "Have a good time in the mine!",
+          "note": "New word: la mina = the mine."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Leo quiere que vayamos al río.",
+          "meaning": "Leo wants us to go to the river.",
+          "distractors": [
+            "vamos"
+          ]
+        },
+        {
+          "text": "Prefiero cosechar el maíz mañana.",
+          "meaning": "I'd rather harvest the corn tomorrow.",
+          "distractors": [
+            "que"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Rosa me pide que planto más fresas.",
+          "wrong": "planto",
+          "fix": "plante",
+          "why": "Pedir que + subjunctive: plante."
+        },
+        {
+          "sentence": "Ojalá la vaca está mejor mañana.",
+          "wrong": "está",
+          "fix": "esté",
+          "why": "Ojalá always takes the subjunctive: esté."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Report or request on the farm?",
+          "buckets": [
+            "report (indicative)",
+            "request (subjunctive)"
+          ],
+          "items": [
+            {
+              "text": "Leo dice que hay peces en el río.",
+              "bucket": 0
+            },
+            {
+              "text": "Leo me dice que traiga la caña.",
+              "bucket": 1
+            },
+            {
+              "text": "El alcalde dice que el festival es el sábado.",
+              "bucket": 0
+            },
+            {
+              "text": "Rosa nos dice que volvamos mañana.",
+              "bucket": 1
+            },
+            {
+              "text": "Nora dice que las gallinas están contentas.",
+              "bucket": 0
+            },
+            {
+              "text": "Nora me dice que cierre el gallinero.",
+              "bucket": 1
+            }
+          ],
+          "why": "Decir que + indicative passes on news; decir que + subjunctive asks someone to do something."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-wishes-and-requests-meadowbrook-01",
+          "prompt": "Leo me aconseja que ___ (pescar) en el río por la mañana.",
+          "type": "fill-in-blank",
+          "correct_answer": "pesque",
+          "accepted_answers": [
+            "yo pesque"
+          ],
+          "explanation": "Aconsejar que + subjunctive. Pesco becomes pesque, because c becomes qu to keep the hard sound.",
+          "hints": [
+            "Spelling: c becomes qu before e."
+          ],
+          "teaches": [
+            "aconsejar que"
+          ]
+        },
+        {
+          "question_id": "b1-wishes-and-requests-meadowbrook-02",
+          "prompt": "Nora: Gracias, pero prefiero ___ las fresas yo sola.",
+          "type": "multiple-choice",
+          "options": [
+            "cosechar",
+            "que coseche",
+            "que cosecho"
+          ],
+          "correct_answer": "cosechar",
+          "explanation": "Nora prefers and Nora harvests: one person, so the infinitive.",
+          "hints": [
+            "Who prefers? Who harvests?"
+          ],
+          "teaches": [
+            "preferir que",
+            "la cosecha"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🧃",
+      "content": "## Deseos y peticiones en el páramo\n\nOutside la cúpula everyone asks for something. El capataz Ruiz **quiere que repares** la antena, Marta **te pide que le traigas** agua filtrada, and the radio **dice que hay polvo** (a report: indicative). Going out yourself? **Quiero explorar.** And to every scavenger: **¡Que tengas suerte!**",
+      "vocabulary": [
+        {
+          "term": "querer que",
+          "example": "El capataz Ruiz quiere que reparemos la antena hoy.",
+          "example_meaning": "Foreman Ruiz wants us to repair the antenna today."
+        },
+        {
+          "term": "pedir que",
+          "example": "Marta me pide que le pague con tuercas.",
+          "example_meaning": "Marta asks me to pay her in nuts."
+        },
+        {
+          "term": "recomendar que",
+          "example": "El radiorreloj recomienda que no salgamos con la tormenta.",
+          "example_meaning": "The wrist radio recommends that we don't go out in the storm."
+        },
+        {
+          "term": "permitir que",
+          "example": "La capataza no permite que saquemos agua filtrada de la cúpula.",
+          "example_meaning": "The forewoman doesn't let us take filtered water out of the Dome."
+        },
+        {
+          "term": "decir que",
+          "example": "La radio dice que hay polvo en el páramo.",
+          "example_meaning": "The radio says there's dust on the plains."
+        },
+        {
+          "term": "¡Que tengas suerte!",
+          "example": "¿Vas solo al centro comercial en ruinas? ¡Que tengas suerte!",
+          "example_meaning": "You're going to the ruined shopping centre alone? Good luck!"
+        },
+        {
+          "term": "la tormenta de ceniza",
+          "meaning": "ash storm",
+          "example": "Ojalá no haya una tormenta de ceniza esta noche.",
+          "example_meaning": "Let's hope there's no ash storm tonight."
+        },
+        {
+          "term": "las tuercas",
+          "meaning": "nuts (the wasteland's money)",
+          "example": "Marta prefiere que le pagues en tuercas.",
+          "example_meaning": "Marta prefers you to pay her in nuts."
+        },
+        {
+          "term": "el radiorreloj",
+          "meaning": "wrist radio",
+          "example": "Mi radiorreloj me dice que vuelva a la cúpula.",
+          "example_meaning": "My wrist radio tells me to go back to the Dome."
+        }
+      ],
+      "bites": [
+        {
+          "title": "The radio: report or order?",
+          "emoji": "📻",
+          "rule": "Decir que + indicative reports (la radio dice que hay polvo). Decir que + subjunctive gives an order (Ruiz me dice que vuelva).",
+          "example": "La radio dice que viene polvo y Ruiz me dice que vuelva.",
+          "example_meaning": "The radio says dust is coming and Ruiz tells me to come back."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Ruiz quiere que vuelvas antes de la noche.",
+          "meaning": "Ruiz wants you back before nightfall."
+        },
+        {
+          "text": "Ojalá Marta tenga agua filtrada.",
+          "meaning": "Let's hope Marta has filtered water.",
+          "note": "New word: el agua filtrada = filtered water."
+        },
+        {
+          "text": "Te pido que no toques ese disco.",
+          "meaning": "Please don't touch that disc."
+        },
+        {
+          "text": "Necesito que me ayudes a reparar el robot jardinero.",
+          "meaning": "I need you to help me repair the gardening robot.",
+          "note": "New word: el robot jardinero = the gardening robot."
+        },
+        {
+          "text": "La radio dice que viene una tormenta.",
+          "meaning": "The radio says a storm is coming.",
+          "note": "A report: decir que + indicative."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Marta quiere que le traigas tuercas.",
+          "meaning": "Marta wants you to bring her nuts.",
+          "distractors": [
+            "traes"
+          ]
+        },
+        {
+          "text": "Ruiz me dice que vuelva pronto.",
+          "meaning": "Ruiz tells me to come back soon.",
+          "distractors": [
+            "vuelvo"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "El capataz quiere que exploras el páramo.",
+          "wrong": "exploras",
+          "fix": "explores",
+          "why": "Querer que + a different subject: subjunctive, explores."
+        },
+        {
+          "sentence": "Ojalá no hay polvo mañana.",
+          "wrong": "hay",
+          "fix": "haya",
+          "why": "Ojalá always takes the subjunctive: haya."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Fact or wish in the wasteland?",
+          "buckets": [
+            "indicative (fact, report)",
+            "subjunctive (wish, request)"
+          ],
+          "items": [
+            {
+              "text": "Espero que Leo ___ pronto. (volver)",
+              "bucket": 1
+            },
+            {
+              "text": "Leo dice que ___ cansado. (estar)",
+              "bucket": 0
+            },
+            {
+              "text": "Ruiz quiere que ___ la antena. (reparar)",
+              "bucket": 1
+            },
+            {
+              "text": "Marta dice que el agua ___ cara. (ser)",
+              "bucket": 0
+            },
+            {
+              "text": "Ojalá ___ sol mañana. (hacer)",
+              "bucket": 1
+            },
+            {
+              "text": "La radio dice que ___ polvo. (haber)",
+              "bucket": 0
+            }
+          ],
+          "why": "Wishes, requests and ojalá take the subjunctive; reporting a fact with decir takes the indicative."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-wishes-and-requests-rustwake-01",
+          "prompt": "El capataz Ruiz me dice que ___ a la cúpula antes de la tormenta. (He tells me to go back.)",
+          "type": "multiple-choice",
+          "options": [
+            "vuelva",
+            "vuelvo",
+            "volver"
+          ],
+          "correct_answer": "vuelva",
+          "explanation": "Decir que as an order takes the subjunctive: vuelva.",
+          "hints": [
+            "Report or order?"
+          ],
+          "teaches": [
+            "decir que"
+          ]
+        },
+        {
+          "question_id": "b1-wishes-and-requests-rustwake-02",
+          "prompt": "Marta prefiere que le ___ (pagar, tú) en tuercas.",
+          "type": "fill-in-blank",
+          "correct_answer": "pagues",
+          "accepted_answers": [],
+          "explanation": "Preferir que + a different subject: subjunctive. Pagar keeps its hard g with gu: pague, pagues.",
+          "hints": [
+            "Spelling: g becomes gu before e."
+          ],
+          "teaches": [
+            "preferir que",
+            "las tuercas"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b1-wishes-and-requests-conv-rustwake-before-the-storm",
+          "title": "Before the storm",
+          "scenario": "Marta the trader sees Leo the scavenger heading out to the ruined shopping centre.",
+          "role_a": "Marta",
+          "role_b": "Leo",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Leo, ¿vas al centro comercial en ruinas?",
+              "meaning": "Leo, are you going to the ruined shopping centre?"
+            },
+            {
+              "speaker": "b",
+              "text": "Sí. Ruiz quiere que busque piezas para la antena.",
+              "meaning": "Yes. Ruiz wants me to look for parts for the antenna."
+            },
+            {
+              "speaker": "a",
+              "text": "Te pido que me traigas una gaseosa Zafiro.",
+              "meaning": "Please bring me a Zafiro soda."
+            },
+            {
+              "speaker": "b",
+              "text": "Vale, pero quiero que me pagues en tuercas.",
+              "meaning": "OK, but I want you to pay me in nuts."
+            },
+            {
+              "speaker": "a",
+              "text": "Claro. Y te aconsejo que vuelvas antes de la noche.",
+              "meaning": "Of course. And I'd advise you to come back before nightfall."
+            },
+            {
+              "speaker": "b",
+              "text": "Lo sé. El radiorreloj dice que hay polvo.",
+              "meaning": "I know. The wrist radio says there's dust."
+            },
+            {
+              "speaker": "a",
+              "text": "Ojalá no te encuentres al escarabajo gigante.",
+              "meaning": "Let's hope you don't run into the giant beetle."
+            },
+            {
+              "speaker": "b",
+              "text": "Yo también lo espero. ¡Que vendas mucho hoy!",
+              "meaning": "I hope so too. Sell lots today!"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

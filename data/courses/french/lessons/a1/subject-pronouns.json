@@ -1,0 +1,1173 @@
+{
+  "id": "a1-subject-pronouns",
+  "slug": "subject-pronouns",
+  "title": "Subject and stress pronouns: je, tu, on… moi, toi",
+  "unit": "A1",
+  "group": "Grammar",
+  "order": 16,
+  "summary": "Who does it: je, tu, il, elle, on, nous, vous, ils, elles; and the stressed moi, toi, lui, eux after c'est, after a preposition or alone.",
+  "focus": "Choosing the subject pronoun and the stress pronoun",
+  "prerequisites": [
+    "a1-greetings"
+  ],
+  "content": "## The subject pronouns\n\n| pronoun | meaning | example |\n|---|---|---|\n| **je** / **j'** | I | **Je parle.** **J'habite ici.** |\n| **tu** | you (one person, familiar) | **Tu parles anglais ?** |\n| **il** | he, it | **Il est grand.** |\n| **elle** | she, it | **Elle est ici.** |\n| **on** | we (speech); one, people | **On mange ?** |\n| **nous** | we | **Nous parlons.** |\n| **vous** | you (polite, or several people) | **Vous parlez anglais ?** |\n| **ils** | they (men or a mixed group) | **Ils sont là.** |\n| **elles** | they (women only) | **Elles sont là.** |\n\n**Je** becomes **j'** before a vowel or a silent h: **j'aime**, never *je aime*. **Il** and **elle** also stand for things: **la table → elle**, **le livre → il**.\n\n## On, ils and elles\n\n**On** is everywhere in spoken French. In conversation it means **we**, and the verb takes the **il / elle** form:\n\n- **On mange au café ?** (Shall we eat at the café?) = **Nous mangeons au café ?**\n- **On parle français à la maison.** (We speak French at home.)\n\nFor *they*, look at the group:\n\n- **elles** only when everyone in it is female: **Léa et Inès → elles**.\n- **ils** for men, and for any mixed group, even ten women and one man: **Marie et Paul → ils**.\n\n## Tu or vous: with whom?\n\n| **tu** | **vous** |\n|---|---|\n| a friend, a classmate | someone you don't know |\n| your family | a shop assistant, a doctor |\n| a child, a pet | your teacher, your boss |\n| | **any** group of two or more |\n\nThe verb changes with the pronoun: **tu parles**, **vous parlez**. If you are unsure, start with **vous**; when someone says **On se tutoie ?**, you can switch to **tu**.\n\n## Stress pronouns: moi, toi, lui, eux\n\n| subject | **je** | **tu** | **il** | **elle** | **nous** | **vous** | **ils** | **elles** |\n|---|---|---|---|---|---|---|---|---|\n| stress | **moi** | **toi** | **lui** | **elle** | **nous** | **vous** | **eux** | **elles** |\n\nUse a stress pronoun where no verb follows it:\n\n- after **c'est**: **C'est moi.** (It's me.)\n- after a preposition: **avec toi** (with you), **chez lui** (at his place), **pour elles** (for them)\n- on its own: **Qui parle anglais ? — Moi !**\n- for emphasis, before the subject: **Moi, je parle anglais. Lui, il parle espagnol.**\n- in short replies: **Et toi ?** (And you?) **Moi aussi.** (Me too.)",
+  "vocabulary": [
+    {
+      "term": "je / j'",
+      "meaning": "I (j' before a vowel or a silent h)",
+      "example": "J'habite à Lille et je parle anglais.",
+      "example_meaning": "I live in Lille and I speak English."
+    },
+    {
+      "term": "tu",
+      "meaning": "you (one person you know well)",
+      "example": "Tu parles espagnol, Léa ?",
+      "example_meaning": "Do you speak Spanish, Léa?"
+    },
+    {
+      "term": "vous",
+      "meaning": "you (polite, or more than one person)",
+      "example": "Vous êtes madame Martin ?",
+      "example_meaning": "Are you Mrs Martin?"
+    },
+    {
+      "term": "on",
+      "meaning": "we (everyday speech); one, people",
+      "example": "On mange ensemble ce soir ?",
+      "example_meaning": "Shall we eat together tonight?"
+    },
+    {
+      "term": "ils",
+      "meaning": "they (men, or a mixed group)",
+      "example": "Paul et Marie ? Ils habitent à Nice.",
+      "example_meaning": "Paul and Marie? They live in Nice."
+    },
+    {
+      "term": "elles",
+      "meaning": "they, them (women only)",
+      "example": "Léa et Inès ? Elles sont à l'école.",
+      "example_meaning": "Léa and Inès? They're at school."
+    },
+    {
+      "term": "moi",
+      "meaning": "me (stressed)",
+      "example": "Qui veut du café ? — Moi !",
+      "example_meaning": "Who wants coffee? — Me!"
+    },
+    {
+      "term": "toi",
+      "meaning": "you (stressed, familiar)",
+      "example": "Je viens avec toi.",
+      "example_meaning": "I'm coming with you."
+    },
+    {
+      "term": "lui",
+      "meaning": "him (stressed)",
+      "example": "Ce soir, on dîne chez lui.",
+      "example_meaning": "Tonight we're having dinner at his place."
+    },
+    {
+      "term": "eux",
+      "meaning": "them (stressed; men or a mixed group)",
+      "example": "Ce gâteau est pour eux.",
+      "example_meaning": "This cake is for them."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-subject-pronouns-01",
+      "prompt": "Which sentence correctly says 'I live in Marseille'?",
+      "type": "multiple-choice",
+      "options": [
+        "J'habite à Marseille.",
+        "Je habite à Marseille."
+      ],
+      "correct_answer": "J'habite à Marseille.",
+      "explanation": "Je becomes j' before a vowel or a silent h, and habiter starts with a silent h: j'habite.",
+      "hints": [
+        "Habiter starts with a silent h.",
+        "Je + vowel sound → ?"
+      ],
+      "teaches": [
+        "je / j'"
+      ]
+    },
+    {
+      "question_id": "a1-subject-pronouns-02",
+      "prompt": "Paul et Marie ? ___ habitent à Nice. (They live in Nice.)",
+      "type": "fill-in-blank",
+      "correct_answer": "Ils",
+      "accepted_answers": [],
+      "explanation": "Paul and Marie are a mixed group, and a mixed group is always ils. Elles is only for groups that are all female.",
+      "hints": [
+        "There is a man in the group."
+      ],
+      "teaches": [
+        "ils"
+      ]
+    },
+    {
+      "question_id": "a1-subject-pronouns-03",
+      "prompt": "Your new neighbour is an older woman you have just met. Which 'you' do you use with her?",
+      "type": "multiple-choice",
+      "options": [
+        "vous",
+        "tu"
+      ],
+      "correct_answer": "vous",
+      "explanation": "Use vous with someone you don't know or someone older, until they suggest tu. Tu is for friends, family and children.",
+      "hints": [
+        "Is she a friend or a stranger?"
+      ],
+      "teaches": [
+        "vous"
+      ]
+    },
+    {
+      "question_id": "a1-subject-pronouns-04",
+      "prompt": "Léa, Inès et Chloé ? ___ sont au café. (They're at the café.)",
+      "type": "fill-in-blank",
+      "correct_answer": "Elles",
+      "accepted_answers": [],
+      "explanation": "Three women and no man: the pronoun is elles.",
+      "hints": [
+        "Everyone in the group is female."
+      ],
+      "teaches": [
+        "elles"
+      ]
+    },
+    {
+      "question_id": "a1-subject-pronouns-05",
+      "prompt": "In 'On mange à midi ?', on means 'we' and mange is the il / elle form of the verb.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "In everyday French, on replaces nous, but its verb always takes the il / elle form: on mange, not on mangeons.",
+      "hints": [
+        "Compare il mange and on mange."
+      ],
+      "teaches": [
+        "on"
+      ]
+    },
+    {
+      "question_id": "a1-subject-pronouns-06",
+      "prompt": "— Qui parle anglais ici ? — ___ ! (Me!)",
+      "type": "multiple-choice",
+      "options": [
+        "Moi",
+        "Je",
+        "Me"
+      ],
+      "correct_answer": "Moi",
+      "explanation": "A pronoun standing on its own, with no verb after it, is a stress pronoun: Moi ! Je always needs a verb, and me is never used alone.",
+      "hints": [
+        "No verb follows the pronoun."
+      ],
+      "teaches": [
+        "moi"
+      ]
+    },
+    {
+      "question_id": "a1-subject-pronouns-07",
+      "prompt": "Je dîne chez ___ ce soir. (I'm having dinner at his place tonight.)",
+      "type": "fill-in-blank",
+      "correct_answer": "lui",
+      "accepted_answers": [],
+      "explanation": "After a preposition like chez, use the stress pronoun: chez lui (at his place). Il can only stand before a verb.",
+      "hints": [
+        "After chez, avec or pour, il becomes…"
+      ],
+      "teaches": [
+        "lui"
+      ]
+    },
+    {
+      "question_id": "a1-subject-pronouns-08",
+      "prompt": "Ces fleurs sont pour ___. (These flowers are for them: Paul and Marie.)",
+      "type": "fill-in-blank",
+      "correct_answer": "eux",
+      "accepted_answers": [],
+      "explanation": "After pour, use a stress pronoun. For a mixed group (Paul and Marie), the stress pronoun of ils is eux.",
+      "hints": [
+        "The stress form of ils.",
+        "It rhymes with deux."
+      ],
+      "teaches": [
+        "eux"
+      ]
+    },
+    {
+      "question_id": "a1-subject-pronouns-09",
+      "prompt": "'Moi, je parle anglais' is wrong, because moi and je cannot appear together.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Putting moi before je is normal and adds emphasis: Moi, je parle anglais (Me, I speak English). The same goes for toi, tu and lui, il.",
+      "hints": [
+        "Think of 'Me, I…' in English."
+      ],
+      "teaches": [
+        "moi"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Je m'appelle Hugo, et toi ?",
+      "meaning": "My name is Hugo, and you?",
+      "note": "Et toi ? turns the question back to a friend."
+    },
+    {
+      "text": "Vous parlez français, madame ?",
+      "meaning": "Do you speak French, madam?",
+      "note": "Vous is polite with someone you don't know."
+    },
+    {
+      "text": "Nous habitons à Lyon.",
+      "meaning": "We live in Lyon."
+    },
+    {
+      "text": "On regarde un film ce soir ?",
+      "meaning": "Shall we watch a film tonight?",
+      "note": "On = nous in everyday speech, with the il form of the verb."
+    },
+    {
+      "text": "Marc et Sophie sont chez eux.",
+      "meaning": "Marc and Sophie are at home.",
+      "note": "Chez eux = at their place."
+    },
+    {
+      "text": "Mon frère travaille avec moi au bureau.",
+      "meaning": "My brother works with me at the office.",
+      "note": "New word: le bureau = the office."
+    },
+    {
+      "text": "Moi, je préfère le thé, et lui, il préfère le café.",
+      "meaning": "I prefer tea, and he prefers coffee.",
+      "note": "Moi and lui add emphasis to je and il."
+    },
+    {
+      "text": "C'est pour toi, ce petit cadeau ?",
+      "meaning": "Is this little present for you?",
+      "note": "New word: le cadeau = the present."
+    }
+  ],
+  "guide": [
+    {
+      "section": "The subject pronouns"
+    },
+    {
+      "question": "a1-subject-pronouns-01"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-subject-pronouns-02"
+    },
+    {
+      "question": "a1-subject-pronouns-04"
+    },
+    {
+      "section": "On, ils"
+    },
+    {
+      "question": "a1-subject-pronouns-05"
+    },
+    {
+      "concept": {
+        "title": "On = people in general",
+        "markdown": "**On** can also mean *people*, *you* or *they* in general, with no one in particular:\n\n- **En France, on mange tard.** (In France, people eat late.)\n- **Ici, on parle français.** (French is spoken here.)\n\nThe verb still takes the **il** form."
+      }
+    },
+    {
+      "section": "Tu or vous"
+    },
+    {
+      "question": "a1-subject-pronouns-03"
+    },
+    {
+      "tip": "Not sure whether to say tu or vous to an adult? Say vous. Nobody minds being treated politely; some people mind tu from a stranger."
+    },
+    {
+      "section": "Stress pronouns"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-subject-pronouns-06"
+    },
+    {
+      "question": "a1-subject-pronouns-07"
+    },
+    {
+      "question": "a1-subject-pronouns-08"
+    },
+    {
+      "question": "a1-subject-pronouns-09"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-subject-pronouns-conv-party",
+      "title": "At a party",
+      "scenario": "At Karim's birthday party, Inès starts talking to Tom, whom she has never met.",
+      "role_a": "Inès",
+      "role_b": "Tom",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Salut ! Tu es un ami de Karim ?",
+          "meaning": "Hi! Are you a friend of Karim's?",
+          "note": "tu between young people at a party"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui ! Moi, c'est Tom. Et toi ?",
+          "meaning": "Yes! I'm Tom. And you?",
+          "note": "moi, c'est… = I'm… (spoken)"
+        },
+        {
+          "speaker": "a",
+          "text": "Inès. Tu es ici avec qui ?",
+          "meaning": "Inès. Who are you here with?"
+        },
+        {
+          "speaker": "b",
+          "text": "Avec eux, là-bas : Paul et Marie.",
+          "meaning": "With them, over there: Paul and Marie.",
+          "note": "eux after a preposition; a mixed group"
+        },
+        {
+          "speaker": "a",
+          "text": "Ah, ils sont sympas ! Ils habitent près de chez moi.",
+          "meaning": "Oh, they're nice! They live near me.",
+          "note": "chez moi = at my place"
+        },
+        {
+          "speaker": "b",
+          "text": "Et toi, tu es avec qui ?",
+          "meaning": "And you, who are you with?"
+        },
+        {
+          "speaker": "a",
+          "text": "Avec Léa et Chloé. Elles sont dans la cuisine.",
+          "meaning": "With Léa and Chloé. They're in the kitchen.",
+          "note": "elles: everyone in the group is female"
+        },
+        {
+          "speaker": "b",
+          "text": "Vous êtes étudiantes ?",
+          "meaning": "Are you students?",
+          "note": "vous for more than one person"
+        },
+        {
+          "speaker": "a",
+          "text": "Oui, nous étudions la musique. On adore ça !",
+          "meaning": "Yes, we study music. We love it!",
+          "note": "on = nous, with the il form of the verb"
+        },
+        {
+          "speaker": "b",
+          "text": "Moi aussi, j'adore la musique !",
+          "meaning": "Me too, I love music!"
+        },
+        {
+          "speaker": "a",
+          "text": "Alors, on danse ?",
+          "meaning": "So, shall we dance?"
+        },
+        {
+          "speaker": "b",
+          "text": "Avec toi ? Avec plaisir !",
+          "meaning": "With you? With pleasure!"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🙋",
+    "bites": [
+      {
+        "title": "Who's who",
+        "emoji": "🙋",
+        "rule": "je (j' before a vowel), tu, il, elle, on, nous, vous, ils, elles. Il and elle also stand for things: la table → elle.",
+        "example": "J'habite ici, et vous ?",
+        "example_meaning": "I live here, and you?"
+      },
+      {
+        "title": "On means we",
+        "emoji": "👥",
+        "rule": "In everyday speech, on means we. Its verb takes the il / elle form: on parle, on mange.",
+        "example": "On mange au café ?",
+        "example_meaning": "Shall we eat at the café?"
+      },
+      {
+        "title": "Ils for any mixed group",
+        "emoji": "👫",
+        "rule": "Elles only when everyone is female. One man in the group and it's ils. Vous for strangers and for any group.",
+        "example": "Marie et Paul ? Ils sont là.",
+        "example_meaning": "Marie and Paul? They're here."
+      },
+      {
+        "title": "Moi, toi, lui, eux",
+        "emoji": "💪",
+        "rule": "Stress pronouns stand alone, after c'est, after avec, chez, pour, and before the subject for emphasis: Moi, je…",
+        "example": "C'est pour moi ? — Oui, pour toi !",
+        "example_meaning": "Is it for me? — Yes, for you!"
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Ils or elles?",
+        "buckets": [
+          "ils",
+          "elles"
+        ],
+        "items": [
+          {
+            "text": "Paul et Marc",
+            "bucket": 0
+          },
+          {
+            "text": "Léa et Inès",
+            "bucket": 1
+          },
+          {
+            "text": "Marie et Paul",
+            "bucket": 0
+          },
+          {
+            "text": "les filles",
+            "bucket": 1
+          },
+          {
+            "text": "les garçons",
+            "bucket": 0
+          },
+          {
+            "text": "dix femmes et un homme",
+            "bucket": 0
+          },
+          {
+            "text": "ma mère et ma sœur",
+            "bucket": 1
+          }
+        ],
+        "why": "Elles only for an all-female group; men or any mixed group take ils."
+      },
+      {
+        "title": "Tu or vous?",
+        "buckets": [
+          "tu",
+          "vous"
+        ],
+        "items": [
+          {
+            "text": "your best friend",
+            "bucket": 0
+          },
+          {
+            "text": "a shop assistant",
+            "bucket": 1
+          },
+          {
+            "text": "your little brother",
+            "bucket": 0
+          },
+          {
+            "text": "two friends at once",
+            "bucket": 1
+          },
+          {
+            "text": "the doctor",
+            "bucket": 1
+          },
+          {
+            "text": "your cat",
+            "bucket": 0
+          }
+        ],
+        "why": "Tu for one person you know well (or a pet); vous for strangers, people you respect, and any group."
+      },
+      {
+        "title": "Subject or stress pronoun?",
+        "buckets": [
+          "subject (before a verb)",
+          "stress (moi, toi, lui…)"
+        ],
+        "items": [
+          {
+            "text": "chez lui",
+            "bucket": 1
+          },
+          {
+            "text": "il habite",
+            "bucket": 0
+          },
+          {
+            "text": "avec eux",
+            "bucket": 1
+          },
+          {
+            "text": "ils parlent",
+            "bucket": 0
+          },
+          {
+            "text": "c'est moi",
+            "bucket": 1
+          },
+          {
+            "text": "tu danses",
+            "bucket": 0
+          }
+        ],
+        "why": "A subject pronoun comes before its verb; stress pronouns come after c'est and prepositions."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Je habite à Paris.",
+        "wrong": "Je",
+        "fix": "J'",
+        "why": "Je becomes j' before a vowel or a silent h: j'habite."
+      },
+      {
+        "sentence": "Ce cadeau est pour ils.",
+        "wrong": "ils",
+        "fix": "eux",
+        "why": "After a preposition, use the stress pronoun: pour eux."
+      },
+      {
+        "sentence": "Je dîne chez il ce soir.",
+        "wrong": "il",
+        "fix": "lui",
+        "why": "After chez, use the stress pronoun: chez lui."
+      },
+      {
+        "sentence": "Qui parle anglais ? — Je !",
+        "wrong": "Je",
+        "fix": "Moi",
+        "why": "A pronoun on its own is a stress pronoun: Moi !"
+      },
+      {
+        "sentence": "Marie et Paul ? Elles sont là.",
+        "wrong": "Elles",
+        "fix": "Ils",
+        "why": "A mixed group takes ils."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Tu viens avec moi ?",
+        "meaning": "Are you coming with me?",
+        "distractors": [
+          "je"
+        ]
+      },
+      {
+        "text": "On mange à la maison.",
+        "meaning": "We're eating at home.",
+        "distractors": [
+          "mangeons"
+        ]
+      },
+      {
+        "text": "C'est pour elles.",
+        "meaning": "It's for them (women).",
+        "distractors": [
+          "ils"
+        ]
+      },
+      {
+        "text": "Moi, je parle français.",
+        "meaning": "Me, I speak French.",
+        "distractors": [
+          "me"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🧙",
+      "content": "## Les pronoms à Eldmark\n\nBefore the quest, the mage counts the party: **Moi, je porte les potions. Toi, tu as l'épée.** Borin? **Lui, il garde le butin.** Nym and Séla? **Elles sont avec nous.** The orcs? **Eux, ils restent à la taverne.** Then everyone shouts: **On part !**",
+      "vocabulary": [
+        {
+          "term": "je / j'",
+          "example": "J'ai une épée et un bouclier.",
+          "example_meaning": "I have a sword and a shield."
+        },
+        {
+          "term": "tu",
+          "example": "Tu es un elfe ou un nain ?",
+          "example_meaning": "Are you an elf or a dwarf?"
+        },
+        {
+          "term": "on",
+          "example": "On part au donjon ce soir.",
+          "example_meaning": "We're leaving for the dungeon tonight."
+        },
+        {
+          "term": "ils",
+          "example": "Les orcs ? Ils dorment dans la forêt.",
+          "example_meaning": "The orcs? They're sleeping in the forest."
+        },
+        {
+          "term": "elles",
+          "example": "Nym et Séla ? Elles sont dans la guilde.",
+          "example_meaning": "Nym and Séla? They're in the guild."
+        },
+        {
+          "term": "moi",
+          "example": "Moi, je porte les potions.",
+          "example_meaning": "Me, I carry the potions."
+        },
+        {
+          "term": "lui",
+          "example": "Borin garde l'or chez lui.",
+          "example_meaning": "Borin keeps the gold at his place."
+        },
+        {
+          "term": "eux",
+          "example": "On part sans eux ?",
+          "example_meaning": "Are we leaving without them?"
+        },
+        {
+          "term": "la quête",
+          "meaning": "quest (f)",
+          "example": "La quête commence demain.",
+          "example_meaning": "The quest starts tomorrow."
+        },
+        {
+          "term": "le butin",
+          "meaning": "loot",
+          "example": "Le butin est dans le donjon.",
+          "example_meaning": "The loot is in the dungeon."
+        },
+        {
+          "term": "l'équipe",
+          "meaning": "team, party (f)",
+          "example": "Notre équipe a quatre héros.",
+          "example_meaning": "Our party has four heroes."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Le groupe d'aventuriers",
+          "emoji": "🧙",
+          "rule": "Subject pronouns before the verb; stress pronouns alone, for emphasis or after a preposition: Moi, je porte les potions. Le butin est pour eux.",
+          "example": "Toi, tu as l'épée ; lui, il a le bouclier.",
+          "example_meaning": "You have the sword; he has the shield."
+        }
+      ],
+      "listening": [
+        {
+          "text": "La quête commence avec nous.",
+          "meaning": "The quest starts with us.",
+          "note": "New word: la quête = the quest."
+        },
+        {
+          "text": "Le butin, c'est pour eux ?",
+          "meaning": "The loot, is it for them?",
+          "note": "New word: le butin = the loot."
+        },
+        {
+          "text": "Moi, je suis la mage du groupe.",
+          "meaning": "Me, I'm the group's mage."
+        },
+        {
+          "text": "Borin et Séla ? Ils sont à la taverne.",
+          "meaning": "Borin and Séla? They're at the tavern."
+        },
+        {
+          "text": "On part ce soir avec toi.",
+          "meaning": "We're leaving tonight with you."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Le butin est pour moi.",
+          "meaning": "The loot is for me.",
+          "distractors": [
+            "je"
+          ]
+        },
+        {
+          "text": "On part avec eux.",
+          "meaning": "We're leaving with them.",
+          "distractors": [
+            "ils"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Borin et Séla ? Elles sont là.",
+          "wrong": "Elles",
+          "fix": "Ils",
+          "why": "Borin is a man, so the mixed pair takes ils."
+        },
+        {
+          "sentence": "Je pars avec tu.",
+          "wrong": "tu",
+          "fix": "toi",
+          "why": "After avec, use the stress pronoun: avec toi."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Subject or stress pronoun in Eldmark?",
+          "buckets": [
+            "subject",
+            "stress"
+          ],
+          "items": [
+            {
+              "text": "avec lui",
+              "bucket": 1
+            },
+            {
+              "text": "je porte",
+              "bucket": 0
+            },
+            {
+              "text": "pour eux",
+              "bucket": 1
+            },
+            {
+              "text": "elles partent",
+              "bucket": 0
+            },
+            {
+              "text": "c'est toi",
+              "bucket": 1
+            },
+            {
+              "text": "on cherche",
+              "bucket": 0
+            }
+          ],
+          "why": "A subject pronoun comes before its verb; a stress pronoun follows c'est or a preposition."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-subject-pronouns-realm-01",
+          "prompt": "Borin the dwarf and the mage Séla walk into the taverne. Which pronoun stands for the pair of them?",
+          "type": "multiple-choice",
+          "options": [
+            "ils",
+            "elles"
+          ],
+          "correct_answer": "ils",
+          "explanation": "One man in the group is enough: Borin and Séla are ils. Elles is only for an all-female group.",
+          "hints": [
+            "Borin is a man."
+          ],
+          "teaches": [
+            "ils"
+          ]
+        },
+        {
+          "question_id": "a1-subject-pronouns-realm-02",
+          "prompt": "Le butin ? C'est pour ___ ! (The loot? It's for me!)",
+          "type": "fill-in-blank",
+          "correct_answer": "moi",
+          "accepted_answers": [],
+          "explanation": "After pour (and after c'est), use the stress pronoun: pour moi.",
+          "hints": [
+            "Not je: no verb follows."
+          ],
+          "teaches": [
+            "moi"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🐥",
+      "content": "## Les pronoms à Meadowbrook\n\nAt the harvest festival, Nora meets the town. To the mairesse: **Vous êtes la mairesse ?** To Léo, a friendly neighbour: **Tu pêches demain ?** Rosa and Léo? **Ils vendent des fraises.** The hens? **Elles sont avec moi.** And the whole town: **On fête les récoltes !**",
+      "vocabulary": [
+        {
+          "term": "tu",
+          "example": "Tu arroses les fraises, Léo ?",
+          "example_meaning": "Are you watering the strawberries, Léo?"
+        },
+        {
+          "term": "vous",
+          "example": "Vous vendez du maïs, madame ?",
+          "example_meaning": "Do you sell corn, madam?"
+        },
+        {
+          "term": "on",
+          "example": "On récolte les citrouilles demain.",
+          "example_meaning": "We're harvesting the pumpkins tomorrow."
+        },
+        {
+          "term": "ils",
+          "example": "Rosa et Léo ? Ils sont à la plage.",
+          "example_meaning": "Rosa and Léo? They're at the beach."
+        },
+        {
+          "term": "elles",
+          "example": "Les poules ? Elles mangent du maïs.",
+          "example_meaning": "The hens? They're eating corn."
+        },
+        {
+          "term": "toi",
+          "example": "Ce champignon est pour toi.",
+          "example_meaning": "This mushroom is for you."
+        },
+        {
+          "term": "lui",
+          "example": "Léo pêche, et moi, je pêche avec lui.",
+          "example_meaning": "Léo is fishing, and I'm fishing with him."
+        },
+        {
+          "term": "la poule",
+          "meaning": "hen (f)",
+          "example": "La poule est dans le jardin.",
+          "example_meaning": "The hen is in the garden."
+        },
+        {
+          "term": "la voisine",
+          "meaning": "neighbour (a woman)",
+          "example": "Ma voisine s'appelle Rosa.",
+          "example_meaning": "My neighbour is called Rosa."
+        },
+        {
+          "term": "la fête des récoltes",
+          "meaning": "harvest festival (f)",
+          "example": "La fête des récoltes est en automne.",
+          "example_meaning": "The harvest festival is in autumn."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Les voisins de Meadowbrook",
+          "emoji": "🐥",
+          "rule": "Vous for the mairesse, tu for Léo. Ils for Rosa and Léo together, elles for the hens. On = all of us.",
+          "example": "Vous êtes la mairesse ? — Oui, et toi, tu es Nora ?",
+          "example_meaning": "Are you the mayor? — Yes, and you, are you Nora?"
+        }
+      ],
+      "listening": [
+        {
+          "text": "Ma voisine arrose les fraises avec moi.",
+          "meaning": "My neighbour waters the strawberries with me.",
+          "note": "New word: la voisine = the neighbour."
+        },
+        {
+          "text": "Les poules ? Elles sont à la ferme.",
+          "meaning": "The hens? They're at the farm.",
+          "note": "New word: la poule = the hen."
+        },
+        {
+          "text": "On plante le maïs ensemble ?",
+          "meaning": "Shall we plant the corn together?"
+        },
+        {
+          "text": "Léo et Rosa sont chez eux.",
+          "meaning": "Léo and Rosa are at home."
+        },
+        {
+          "text": "Toi, tu récoltes les citrouilles ?",
+          "meaning": "And you, are you harvesting the pumpkins?"
+        }
+      ],
+      "builds": [
+        {
+          "text": "On récolte les fraises.",
+          "meaning": "We're harvesting the strawberries.",
+          "distractors": [
+            "récoltons"
+          ]
+        },
+        {
+          "text": "Le panier est pour toi.",
+          "meaning": "The basket is for you.",
+          "distractors": [
+            "tu"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Rosa et Léo ? Elles sont au marché.",
+          "wrong": "Elles",
+          "fix": "Ils",
+          "why": "Léo is a man, so the pair takes ils."
+        },
+        {
+          "sentence": "Je plante le maïs avec il.",
+          "wrong": "il",
+          "fix": "lui",
+          "why": "After avec, use the stress pronoun: avec lui."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Tu or vous at Meadowbrook?",
+          "buckets": [
+            "tu",
+            "vous"
+          ],
+          "items": [
+            {
+              "text": "Léo, your fishing friend",
+              "bucket": 0
+            },
+            {
+              "text": "the mairesse, the first time you meet",
+              "bucket": 1
+            },
+            {
+              "text": "Rosa and Léo together",
+              "bucket": 1
+            },
+            {
+              "text": "your dog",
+              "bucket": 0
+            },
+            {
+              "text": "a visitor at the market",
+              "bucket": 1
+            },
+            {
+              "text": "a child at the festival",
+              "bucket": 0
+            }
+          ],
+          "why": "Tu for one friend, a child or a pet; vous for someone new or important, and for any group."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-subject-pronouns-meadowbrook-01",
+          "prompt": "Nora meets the mairesse for the first time. How does she ask her name?",
+          "type": "multiple-choice",
+          "options": [
+            "Comment vous appelez-vous ?",
+            "Comment tu t'appelles ?"
+          ],
+          "correct_answer": "Comment vous appelez-vous ?",
+          "explanation": "A first meeting with the mayor calls for vous: Comment vous appelez-vous ? Tu is for friends and children.",
+          "hints": [
+            "Is the mayor a close friend?"
+          ],
+          "teaches": [
+            "vous"
+          ]
+        },
+        {
+          "question_id": "a1-subject-pronouns-meadowbrook-02",
+          "prompt": "'Les poules ? Ils sont à la ferme.' uses the right pronoun for the hens.",
+          "type": "true-false",
+          "correct_answer": "false",
+          "explanation": "La poule is feminine and the hens are all female, so the pronoun is elles: Les poules ? Elles sont à la ferme.",
+          "hints": [
+            "Is poule masculine or feminine?"
+          ],
+          "teaches": [
+            "elles"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🤖",
+      "content": "## Les pronoms à Rustwake\n\nOutside the Dôme, you meet the locals. To the foreman: **Vous êtes le contremaître Ruiz ?** To Léo: **Je viens avec toi !** Léo and Marta? **Ils échangent des écrous.** Marta and her goat? **Elles dorment à l'atelier.** The garden robot? **Lui, il répare tout.** And the scavengers: **On explore le désert.**",
+      "vocabulary": [
+        {
+          "term": "je / j'",
+          "example": "J'explore le désert de rouille.",
+          "example_meaning": "I'm exploring the rust desert."
+        },
+        {
+          "term": "vous",
+          "example": "Vous êtes le contremaître Ruiz ?",
+          "example_meaning": "Are you the foreman, Ruiz?"
+        },
+        {
+          "term": "on",
+          "example": "On échange des écrous contre de l'eau ?",
+          "example_meaning": "Shall we trade nuts for water?"
+        },
+        {
+          "term": "ils",
+          "example": "Léo et Marta ? Ils sont au marché.",
+          "example_meaning": "Léo and Marta? They're at the market."
+        },
+        {
+          "term": "lui",
+          "example": "Le robot jardinier ? Je travaille avec lui.",
+          "example_meaning": "The garden robot? I work with it."
+        },
+        {
+          "term": "toi",
+          "example": "Je cherche de l'eau avec toi, Léo.",
+          "example_meaning": "I'm looking for water with you, Léo."
+        },
+        {
+          "term": "eux",
+          "example": "Les fouilleurs ? On part avec eux.",
+          "example_meaning": "The scavengers? We're leaving with them."
+        },
+        {
+          "term": "le robot jardinier",
+          "meaning": "garden robot",
+          "example": "Le robot jardinier arrose les tomates.",
+          "example_meaning": "The garden robot waters the tomatoes."
+        },
+        {
+          "term": "les écrous",
+          "meaning": "nuts (the currency)",
+          "example": "Marta compte ses écrous.",
+          "example_meaning": "Marta counts her nuts."
+        },
+        {
+          "term": "la marchande",
+          "meaning": "trader, shopkeeper (a woman)",
+          "example": "La marchande vend de l'eau filtrée.",
+          "example_meaning": "The trader sells filtered water."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Dehors, avec les autres",
+          "emoji": "🤖",
+          "rule": "Vous for Ruiz the foreman, tu for Léo. Ils for Léo and Marta, elles for Marta and her goat. On = us scavengers.",
+          "example": "Vous êtes Ruiz ? Moi, je suis Léo.",
+          "example_meaning": "Are you Ruiz? Me, I'm Léo."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Le robot jardinier travaille avec nous.",
+          "meaning": "The garden robot works with us.",
+          "note": "New word: le robot jardinier = the garden robot."
+        },
+        {
+          "text": "On échange de l'eau contre des écrous.",
+          "meaning": "We trade water for nuts.",
+          "note": "New word: les écrous = nuts."
+        },
+        {
+          "text": "Vous venez avec nous, monsieur Ruiz ?",
+          "meaning": "Are you coming with us, Mr Ruiz?"
+        },
+        {
+          "text": "Les fouilleurs ? Moi, je pars sans eux.",
+          "meaning": "The scavengers? Me, I'm leaving without them."
+        },
+        {
+          "text": "La marchande parle avec lui.",
+          "meaning": "The trader is talking with him.",
+          "note": "New word: la marchande = the trader."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Je pars avec lui.",
+          "meaning": "I'm leaving with him.",
+          "distractors": [
+            "il"
+          ]
+        },
+        {
+          "text": "On explore le désert.",
+          "meaning": "We're exploring the desert.",
+          "distractors": [
+            "explorons"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Ce tonique est pour il.",
+          "wrong": "il",
+          "fix": "lui",
+          "why": "After pour, use the stress pronoun: pour lui."
+        },
+        {
+          "sentence": "Léo et Marta ? Elles cherchent de l'eau.",
+          "wrong": "Elles",
+          "fix": "Ils",
+          "why": "Léo is a man, so the pair takes ils."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Ils or elles in the desert?",
+          "buckets": [
+            "ils",
+            "elles"
+          ],
+          "items": [
+            {
+              "text": "Léo et Ruiz",
+              "bucket": 0
+            },
+            {
+              "text": "Marta et sa chèvre",
+              "bucket": 1
+            },
+            {
+              "text": "Marta et Léo",
+              "bucket": 0
+            },
+            {
+              "text": "les chèvres",
+              "bucket": 1
+            },
+            {
+              "text": "les robots",
+              "bucket": 0
+            },
+            {
+              "text": "les marchandes",
+              "bucket": 1
+            }
+          ],
+          "why": "Elles only for an all-female group (la chèvre is feminine); any man or masculine noun in the group makes it ils."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-subject-pronouns-rustwake-01",
+          "prompt": "On part avec ___ : Léo et Ruiz. (We're leaving with them.)",
+          "type": "multiple-choice",
+          "options": [
+            "eux",
+            "ils",
+            "elles"
+          ],
+          "correct_answer": "eux",
+          "explanation": "After avec, use a stress pronoun; for men or a mixed group it's eux.",
+          "hints": [
+            "After a preposition, not the subject pronoun."
+          ],
+          "teaches": [
+            "eux"
+          ]
+        },
+        {
+          "question_id": "a1-subject-pronouns-rustwake-02",
+          "prompt": "___ échange des écrous contre de l'eau. (We trade nuts for water, in everyday speech.)",
+          "type": "fill-in-blank",
+          "correct_answer": "On",
+          "accepted_answers": [],
+          "explanation": "Échange is the il / elle form, so the everyday 'we' is on: On échange des écrous. Nous would need échangeons.",
+          "hints": [
+            "The verb has the il form, but the meaning is 'we'."
+          ],
+          "teaches": [
+            "on"
+          ]
+        }
+      ]
+    }
+  }
+}

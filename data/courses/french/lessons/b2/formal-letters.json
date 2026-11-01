@@ -1,0 +1,1300 @@
+{
+  "id": "b2-formal-letters",
+  "slug": "formal-letters",
+  "title": "Formal letters and complaints: je vous prie d'agréer…",
+  "unit": "B2",
+  "group": "Vocabulary",
+  "order": 36,
+  "summary": "Lay out a French formal letter, open it, make a request or a complaint in the conditionnel, attach documents and close with the right formula.",
+  "focus": "The set phrases of a French formal letter, from Objet : to salutations distinguées",
+  "prerequisites": [
+    "b2-registers-idioms"
+  ],
+  "content": "## The layout and the opening lines\n\nA French formal letter has a fixed shape: your name and address top left, the reader's below on the right, then the place and date (**Lyon, le 3 mars 2026**), then **Objet :** and the subject in a few words (**Objet : demande de remboursement**).\n\nThe salutation ends with a comma: **Madame, Monsieur,** for an unknown reader, or a title (**Madame la Directrice,**). **Cher Monsieur** is only for someone you know.\n\nThe first line says why you write:\n\n- **Je me permets de vous écrire** au sujet de… (I am writing to you about…)\n- **Je vous écris au sujet de** ma commande. (I am writing about my order.)\n- **Suite à** notre conversation du 3 mars, … (Following our conversation of 3 March, …)\n- **J'ai bien reçu** votre courrier du 2 juin. (I have received your letter of 2 June.)\n\n## Asking and complaining politely\n\nA formal request uses **vous** and the **conditionnel**, which softens it:\n\n- **Je souhaiterais** obtenir un rendez-vous. (I would like to get an appointment.)\n- **Je vous serais reconnaissant(e) de bien vouloir** me répondre. (I would be grateful if you would reply.)\n\nA complaint, **une réclamation**, states the facts, then what you want:\n\n- **Je demande le remboursement de** mon billet. (I request a refund of my ticket.)\n- **Je me vois dans l'obligation de** résilier mon contrat. (I find myself obliged to cancel my contract.)\n\nAttaching a document: **Vous trouverez ci-joint** la facture. **Ci-joint** before the noun stays invariable; after the noun it agrees: **la facture ci-jointe**, **les photos ci-jointes**.\n\n## Closing the letter (and the e-mail)\n\nA letter ends with two set pieces:\n\n1. **Dans l'attente de votre réponse,** (Looking forward to your reply,)\n2. **je vous prie d'agréer, Madame, Monsieur, l'expression de mes salutations distinguées.**\n\nThe second one is a fixed formula: **agréer** means to accept, and the salutation inside repeats the opening one exactly (**Madame la Directrice**, if you began with it). **Veuillez agréer, …** is a common shorter start.\n\nAn e-mail is lighter: **Cordialement,** or **Bien cordialement,** then your name. Never mix the two: no long formula in a quick e-mail, no **Bisous** anywhere near a complaint.",
+  "vocabulary": [
+    {
+      "term": "l'objet",
+      "meaning": "subject line of a letter (m)",
+      "example": "Objet : demande de remboursement.",
+      "example_meaning": "Re: request for a refund."
+    },
+    {
+      "term": "le courrier",
+      "meaning": "letter, mail",
+      "example": "J'ai bien reçu votre courrier du 12 mai.",
+      "example_meaning": "I have received your letter of 12 May."
+    },
+    {
+      "term": "se permettre de",
+      "meaning": "to take the liberty of",
+      "example": "Je me permets de vous écrire au sujet de votre annonce.",
+      "example_meaning": "I am writing to you regarding your advertisement."
+    },
+    {
+      "term": "au sujet de",
+      "meaning": "about, concerning",
+      "example": "Je vous écris au sujet de ma facture d'électricité.",
+      "example_meaning": "I am writing to you about my electricity bill."
+    },
+    {
+      "term": "suite à",
+      "meaning": "following (formal)",
+      "example": "Suite à notre entretien téléphonique, je vous envoie mon dossier.",
+      "example_meaning": "Following our phone conversation, I am sending you my file."
+    },
+    {
+      "term": "être reconnaissant de",
+      "meaning": "to be grateful for",
+      "example": "Je vous serais reconnaissante de bien vouloir me rappeler.",
+      "example_meaning": "I would be grateful if you would call me back."
+    },
+    {
+      "term": "souhaiter",
+      "meaning": "to wish, to want (polite)",
+      "example": "Je souhaiterais connaître vos tarifs.",
+      "example_meaning": "I would like to know your prices."
+    },
+    {
+      "term": "se voir dans l'obligation de",
+      "meaning": "to find oneself obliged to",
+      "example": "Je me vois dans l'obligation d'annuler ma commande.",
+      "example_meaning": "I find myself obliged to cancel my order."
+    },
+    {
+      "term": "le remboursement",
+      "meaning": "refund",
+      "example": "Le remboursement sera fait sous dix jours.",
+      "example_meaning": "The refund will be made within ten days."
+    },
+    {
+      "term": "la réclamation",
+      "meaning": "complaint (formal)",
+      "example": "J'ai envoyé une réclamation au service client.",
+      "example_meaning": "I sent a complaint to customer service."
+    },
+    {
+      "term": "ci-joint",
+      "meaning": "attached, enclosed",
+      "example": "Vous trouverez ci-joint une copie de mon contrat.",
+      "example_meaning": "Please find attached a copy of my contract."
+    },
+    {
+      "term": "dans l'attente de",
+      "meaning": "looking forward to, awaiting",
+      "example": "Dans l'attente de votre réponse, je reste à votre disposition.",
+      "example_meaning": "Looking forward to your reply, I remain at your disposal."
+    },
+    {
+      "term": "agréer",
+      "meaning": "to accept (formal, in closing formulas)",
+      "example": "Veuillez agréer, Monsieur, mes salutations distinguées.",
+      "example_meaning": "Yours faithfully. (literally: Please accept, Sir, my distinguished greetings.)"
+    },
+    {
+      "term": "les salutations distinguées",
+      "meaning": "formal regards (closing a letter)",
+      "example": "Je vous prie d'agréer, Madame, l'expression de mes salutations distinguées.",
+      "example_meaning": "Yours sincerely. (literally: I beg you to accept, Madam, the expression of my distinguished greetings.)"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-formal-letters-01",
+      "prompt": "You are writing a formal letter to Mme Roche, a school director you have never met. Which salutation opens it?",
+      "type": "multiple-choice",
+      "options": [
+        "Madame la Directrice,",
+        "Chère Madame Roche,",
+        "Salut Madame Roche,"
+      ],
+      "correct_answer": "Madame la Directrice,",
+      "explanation": "A title (Madame la Directrice,) or Madame, Monsieur, opens a letter to someone you don't know. Cher/Chère suggests you know the person; Salut is for friends.",
+      "hints": [
+        "Cher and chère imply a personal relationship."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b2-formal-letters-02",
+      "prompt": "Je vous serais ___ de bien vouloir me répondre avant vendredi. (a man writing)",
+      "type": "fill-in-blank",
+      "correct_answer": "reconnaissant",
+      "accepted_answers": [
+        "reconnaissante"
+      ],
+      "explanation": "Je vous serais reconnaissant(e) de bien vouloir + infinitive = I would be grateful if you would… The conditionnel serais makes it polite.",
+      "hints": [
+        "The adjective for 'grateful'.",
+        "It agrees with the writer: -ant for a man, -ante for a woman."
+      ],
+      "teaches": [
+        "être reconnaissant de"
+      ]
+    },
+    {
+      "question_id": "b2-formal-letters-03",
+      "prompt": "Your train was cancelled and you want your money back. In your letter you write: Je demande le ___ de mon billet.",
+      "type": "multiple-choice",
+      "options": [
+        "remboursement",
+        "courrier",
+        "objet"
+      ],
+      "correct_answer": "remboursement",
+      "explanation": "Le remboursement = the refund. Le courrier is the letter itself, l'objet its subject line.",
+      "hints": [
+        "You want the money back."
+      ],
+      "teaches": [
+        "le remboursement"
+      ]
+    },
+    {
+      "question_id": "b2-formal-letters-04",
+      "prompt": "Complete the classic closing formula: Je vous prie d'___, Madame, Monsieur, l'expression de mes salutations distinguées.",
+      "type": "fill-in-blank",
+      "correct_answer": "agréer",
+      "accepted_answers": [],
+      "explanation": "Je vous prie d'agréer… = I ask you to accept… It is a fixed formula: learn it whole.",
+      "hints": [
+        "A formal verb meaning 'to accept'.",
+        "It starts with agr-."
+      ],
+      "teaches": [
+        "agréer",
+        "les salutations distinguées"
+      ]
+    },
+    {
+      "question_id": "b2-formal-letters-05",
+      "prompt": "Which opening line refers back to a phone call you had with the reader?",
+      "type": "multiple-choice",
+      "options": [
+        "Suite à notre conversation téléphonique du 3 mars,",
+        "Dans l'attente de votre réponse,",
+        "Veuillez agréer, Monsieur,"
+      ],
+      "correct_answer": "Suite à notre conversation téléphonique du 3 mars,",
+      "explanation": "Suite à = following. The other two belong to the end of the letter.",
+      "hints": [
+        "Which one looks back at something that already happened?"
+      ],
+      "teaches": [
+        "suite à"
+      ]
+    },
+    {
+      "question_id": "b2-formal-letters-06",
+      "prompt": "Je me ___ de vous écrire au sujet de ma commande du 15 avril.",
+      "type": "fill-in-blank",
+      "correct_answer": "permets",
+      "accepted_answers": [
+        "me permets"
+      ],
+      "explanation": "Se permettre de + infinitive: je me permets de vous écrire = I am taking the liberty of writing to you, a polite first line.",
+      "hints": [
+        "se permettre, je form",
+        "Like mettre: je mets → je me permets."
+      ],
+      "teaches": [
+        "se permettre de",
+        "au sujet de"
+      ]
+    },
+    {
+      "question_id": "b2-formal-letters-07",
+      "prompt": "Sans réponse de votre part sous quinze jours, je me verrai dans l'___ de résilier mon contrat.",
+      "type": "fill-in-blank",
+      "correct_answer": "obligation",
+      "accepted_answers": [],
+      "explanation": "Se voir dans l'obligation de + infinitive = to find oneself obliged to: the firm but polite step before stronger action.",
+      "hints": [
+        "A noun meaning 'being obliged'.",
+        "It ends in -tion."
+      ],
+      "teaches": [
+        "se voir dans l'obligation de"
+      ]
+    },
+    {
+      "question_id": "b2-formal-letters-08",
+      "prompt": "True or false: in 'Veuillez trouver la facture ci-jointe', ci-jointe agrees with facture because it comes after the noun.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "After the noun, ci-joint agrees like an adjective: la facture ci-jointe, les documents ci-joints. Before the noun it usually stays invariable: ci-joint la facture.",
+      "hints": [
+        "Is ci-joint placed before or after the noun here?"
+      ],
+      "teaches": [
+        "ci-joint"
+      ]
+    },
+    {
+      "question_id": "b2-formal-letters-09",
+      "prompt": "True or false: in a French formal letter, the line beginning 'Objet :' goes at the bottom, under the signature.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "L'objet comes near the top, after the place and date and before the salutation Madame, Monsieur, so the reader knows at once what the letter is about.",
+      "hints": [
+        "The reader should see the subject first."
+      ],
+      "teaches": [
+        "l'objet"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-formal-letters-conv-complaint-draft",
+      "title": "Drafting a complaint",
+      "scenario": "Inès's new washing machine broke down after two weeks. Her neighbour M. Garnier, a retired notary, helps her write a letter of complaint to the shop.",
+      "role_a": "Inès",
+      "role_b": "M. Garnier",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Vous pouvez relire ma lettre de réclamation ?",
+          "meaning": "Could you read over my letter of complaint?"
+        },
+        {
+          "speaker": "b",
+          "text": "Bien sûr. Qu'est-ce qui s'est passé ?",
+          "meaning": "Of course. What happened?"
+        },
+        {
+          "speaker": "a",
+          "text": "Mon lave-linge est tombé en panne au bout de deux semaines.",
+          "meaning": "My washing machine broke down after two weeks."
+        },
+        {
+          "speaker": "b",
+          "text": "Alors commencez par l'objet : demande de remboursement.",
+          "meaning": "Then start with the subject line: request for a refund."
+        },
+        {
+          "speaker": "a",
+          "text": "D'accord. Et la première phrase ?",
+          "meaning": "OK. And the first sentence?"
+        },
+        {
+          "speaker": "b",
+          "text": "Écrivez : je me permets de vous écrire au sujet de ma commande.",
+          "meaning": "Write: I am writing to you about my order."
+        },
+        {
+          "speaker": "a",
+          "text": "Ensuite, j'écris que je veux être remboursée ?",
+          "meaning": "Then I write that I want a refund?"
+        },
+        {
+          "speaker": "b",
+          "text": "Plutôt : je vous serais reconnaissante de bien vouloir me rembourser.",
+          "meaning": "Rather: I would be grateful if you would refund me."
+        },
+        {
+          "speaker": "a",
+          "text": "Avec le conditionnel, c'est beaucoup plus poli.",
+          "meaning": "With the conditionnel, it's much more polite."
+        },
+        {
+          "speaker": "b",
+          "text": "Exactement. Et joignez une copie de la facture.",
+          "meaning": "Exactly. And enclose a copy of the invoice."
+        },
+        {
+          "speaker": "a",
+          "text": "Pour finir, je mets juste « Cordialement » ?",
+          "meaning": "To finish, do I just put 'Cordialement'?"
+        },
+        {
+          "speaker": "b",
+          "text": "Non, pour une lettre, la formule complète : je vous prie d'agréer…",
+          "meaning": "No, for a letter, the full formula: je vous prie d'agréer…"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "J'ai bien reçu votre lettre.",
+      "meaning": "I have received your letter."
+    },
+    {
+      "text": "Je vous écris au sujet de mon abonnement.",
+      "meaning": "I am writing to you about my subscription.",
+      "note": "New word: l'abonnement = the subscription."
+    },
+    {
+      "text": "Vous trouverez ci-joint la photo du colis abîmé.",
+      "meaning": "Please find attached the photo of the damaged parcel.",
+      "note": "New word: le colis = the parcel."
+    },
+    {
+      "text": "Je souhaiterais obtenir un rendez-vous la semaine prochaine.",
+      "meaning": "I would like to get an appointment next week.",
+      "note": "The conditionnel souhaiterais softens the request."
+    },
+    {
+      "text": "Suite à votre appel, je vous envoie les documents demandés.",
+      "meaning": "Following your call, I am sending you the documents requested."
+    },
+    {
+      "text": "Je demande le remboursement complet de mon billet de train.",
+      "meaning": "I request a full refund of my train ticket."
+    },
+    {
+      "text": "Je me vois dans l'obligation de résilier mon contrat de location.",
+      "meaning": "I find myself obliged to terminate my rental contract.",
+      "note": "New word: résilier = to terminate a contract."
+    },
+    {
+      "text": "Je vous prie d'agréer, Monsieur, l'expression de mes salutations distinguées.",
+      "meaning": "Yours faithfully, Sir."
+    }
+  ],
+  "guide": [
+    {
+      "section": "The layout"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-formal-letters-01"
+    },
+    {
+      "question": "b2-formal-letters-09"
+    },
+    {
+      "question": "b2-formal-letters-05"
+    },
+    {
+      "question": "b2-formal-letters-06"
+    },
+    {
+      "section": "Asking and complaining"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-formal-letters-02"
+    },
+    {
+      "question": "b2-formal-letters-03"
+    },
+    {
+      "question": "b2-formal-letters-07"
+    },
+    {
+      "question": "b2-formal-letters-08"
+    },
+    {
+      "tip": "Write the request in the conditionnel: je souhaiterais, je vous serais reconnaissant(e). The futur (je vous serai reconnaissant) exists too, but sounds firmer."
+    },
+    {
+      "section": "Closing"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b2-formal-letters-04"
+    },
+    {
+      "concept": {
+        "title": "La lettre recommandée",
+        "markdown": "For a serious complaint or to end a contract, the French send **une lettre recommandée avec accusé de réception** (registered letter with proof of receipt). The post office records that it was sent and signed for: useful proof if the dispute goes further."
+      }
+    }
+  ],
+  "sprint": {
+    "icon": "✉️",
+    "bites": [
+      {
+        "title": "The shape of the letter",
+        "emoji": "📝",
+        "rule": "Place and date (Lyon, le 3 mars 2026), then Objet : …, then Madame, Monsieur, with a comma. Cher or chère only for someone you know.",
+        "example": "Objet : demande de remboursement",
+        "example_meaning": "Re: request for a refund"
+      },
+      {
+        "title": "Ask in the conditionnel",
+        "emoji": "🙏",
+        "rule": "Je souhaiterais…, je vous serais reconnaissant(e) de bien vouloir… Firmer: je me vois dans l'obligation de…",
+        "example": "Je souhaiterais être remboursé.",
+        "example_meaning": "I would like to be refunded."
+      },
+      {
+        "title": "Attach it: ci-joint",
+        "emoji": "📎",
+        "rule": "Vous trouverez ci-joint + the document. After the noun, ci-joint agrees: la facture ci-jointe.",
+        "example": "Vous trouverez ci-joint mon contrat.",
+        "example_meaning": "Please find my contract attached."
+      },
+      {
+        "title": "Close with the formula",
+        "emoji": "✒️",
+        "rule": "Dans l'attente de votre réponse, je vous prie d'agréer, Madame, Monsieur, l'expression de mes salutations distinguées. In an e-mail: Cordialement.",
+        "example": "Dans l'attente de votre réponse,",
+        "example_meaning": "Looking forward to your reply,"
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Opening, request or closing?",
+        "buckets": [
+          "opening",
+          "request",
+          "closing"
+        ],
+        "items": [
+          {
+            "text": "Je me permets de vous écrire…",
+            "bucket": 0
+          },
+          {
+            "text": "Suite à notre entretien du 5 mai,",
+            "bucket": 0
+          },
+          {
+            "text": "J'ai bien reçu votre courrier du 2 juin.",
+            "bucket": 0
+          },
+          {
+            "text": "Je vous serais reconnaissant de bien vouloir…",
+            "bucket": 1
+          },
+          {
+            "text": "Je demande le remboursement de…",
+            "bucket": 1
+          },
+          {
+            "text": "Je souhaiterais savoir si…",
+            "bucket": 1
+          },
+          {
+            "text": "Dans l'attente de votre réponse,",
+            "bucket": 2
+          },
+          {
+            "text": "Je vous prie d'agréer…",
+            "bucket": 2
+          }
+        ],
+        "why": "Openers say why you write or what you answer; requests use the conditionnel or demander; the closing waits for a reply and offers the formula."
+      },
+      {
+        "title": "Formal letter or e-mail to a colleague?",
+        "buckets": [
+          "lettre formelle",
+          "e-mail à un collègue"
+        ],
+        "items": [
+          {
+            "text": "Madame la Directrice,",
+            "bucket": 0
+          },
+          {
+            "text": "Bonjour Julie,",
+            "bucket": 1
+          },
+          {
+            "text": "Veuillez agréer, Monsieur, mes salutations distinguées.",
+            "bucket": 0
+          },
+          {
+            "text": "Bien cordialement,",
+            "bucket": 1
+          },
+          {
+            "text": "Objet : résiliation du contrat",
+            "bucket": 0
+          },
+          {
+            "text": "Bonne journée !",
+            "bucket": 1
+          }
+        ],
+        "why": "Titles, an Objet line and the long formula belong to letters; a first name, Bien cordialement and Bonne journée suit an e-mail to a colleague."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Je me permets à vous écrire au sujet de ma commande.",
+        "wrong": "à",
+        "fix": "de",
+        "why": "Se permettre de + infinitive."
+      },
+      {
+        "sentence": "Veuillez trouver la facture ci-joint.",
+        "wrong": "ci-joint",
+        "fix": "ci-jointe",
+        "why": "After the noun, ci-joint agrees: la facture ci-jointe."
+      },
+      {
+        "sentence": "Je demande la remboursement de mon billet.",
+        "wrong": "la",
+        "fix": "le",
+        "why": "Le remboursement is masculine, like most nouns in -ment."
+      },
+      {
+        "sentence": "Je vous prie d'agréer, Madame, l'expression de mes salutations distingués.",
+        "wrong": "distingués",
+        "fix": "distinguées",
+        "why": "Les salutations is feminine plural: distinguées."
+      },
+      {
+        "sentence": "Suite de notre conversation, je vous envoie le dossier.",
+        "wrong": "de",
+        "fix": "à",
+        "why": "The formal 'following' is suite à."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Je vous écris au sujet de ma commande.",
+        "meaning": "I am writing to you about my order.",
+        "distractors": [
+          "à"
+        ]
+      },
+      {
+        "text": "Vous trouverez ci-joint mon contrat.",
+        "meaning": "Please find my contract attached.",
+        "distractors": [
+          "trouvez"
+        ]
+      },
+      {
+        "text": "Je souhaiterais obtenir un remboursement.",
+        "meaning": "I would like to get a refund.",
+        "distractors": [
+          "souhaiterait"
+        ]
+      },
+      {
+        "text": "Dans l'attente de votre réponse,",
+        "meaning": "Looking forward to your reply,",
+        "distractors": [
+          "attendre"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🔏",
+      "content": "## La lettre formelle à Eldmark\n\nA letter to **le maître de la guilde** of Highgate keeps every rule: **Objet :** at the top, **Maître,** as the salutation, a request in the conditionnel (**je vous serais reconnaissant de bien vouloir…**), **ci-joint** for the parchment you add, and the full closing formula before your **sceau**.",
+      "vocabulary": [
+        {
+          "term": "l'objet",
+          "example": "Objet : réclamation au sujet de mon bouclier.",
+          "example_meaning": "Re: complaint about my shield."
+        },
+        {
+          "term": "se permettre de",
+          "example": "Je me permets de vous écrire depuis Frostmarch.",
+          "example_meaning": "I am taking the liberty of writing to you from Frostmarch."
+        },
+        {
+          "term": "ci-joint",
+          "example": "Vous trouverez ci-joint le parchemin de la quête.",
+          "example_meaning": "Please find the quest parchment enclosed."
+        },
+        {
+          "term": "le remboursement",
+          "example": "Je demande le remboursement de mes vingt pièces d'or.",
+          "example_meaning": "I request a refund of my twenty gold coins."
+        },
+        {
+          "term": "la réclamation",
+          "example": "Borin a envoyé une réclamation à l'armurier de Deepanvil.",
+          "example_meaning": "Borin sent a complaint to the armourer of Deepanvil."
+        },
+        {
+          "term": "dans l'attente de",
+          "example": "Dans l'attente de votre réponse, je reste à la taverne du Dragon Vert.",
+          "example_meaning": "Awaiting your reply, I am staying at the Green Dragon tavern."
+        },
+        {
+          "term": "le parchemin",
+          "meaning": "parchment, scroll",
+          "example": "La mage Séla écrit sur un parchemin.",
+          "example_meaning": "Séla the mage writes on a parchment."
+        },
+        {
+          "term": "le sceau",
+          "meaning": "seal (on a letter)",
+          "example": "Le sceau de la guilde est rouge.",
+          "example_meaning": "The guild's seal is red."
+        },
+        {
+          "term": "le maître de la guilde",
+          "meaning": "guild master",
+          "example": "Le maître de la guilde lit les réclamations le matin.",
+          "example_meaning": "The guild master reads the complaints in the morning."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Un parchemin dans les règles",
+          "emoji": "🔏",
+          "rule": "Even to a guild master: Objet :, a title as salutation, the conditionnel for the request, ci-joint for the enclosed parchment, the full formula, then your seal.",
+          "example": "Maître, je me permets de vous écrire au sujet de ma quête.",
+          "example_meaning": "Master, I am writing to you about my quest."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Le sceau est sur le parchemin.",
+          "meaning": "The seal is on the parchment."
+        },
+        {
+          "text": "Mon épée neuve est cassée.",
+          "meaning": "My new sword is broken."
+        },
+        {
+          "text": "Je souhaiterais rencontrer le maître de la guilde.",
+          "meaning": "I would like to meet the guild master."
+        },
+        {
+          "text": "Vous trouverez ci-joint la carte de Frostmarch.",
+          "meaning": "Please find the map of Frostmarch enclosed.",
+          "note": "New word: la carte = the map."
+        },
+        {
+          "text": "Je demande le remboursement de ma potion.",
+          "meaning": "I request a refund for my potion."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Je me permets de vous écrire.",
+          "meaning": "I am taking the liberty of writing to you.",
+          "distractors": [
+            "à"
+          ]
+        },
+        {
+          "text": "Vous trouverez ci-joint le parchemin.",
+          "meaning": "Please find the parchment enclosed.",
+          "distractors": [
+            "ci-jointe"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Je demande la remboursement de mon bouclier.",
+          "wrong": "la",
+          "fix": "le",
+          "why": "Le remboursement is masculine."
+        },
+        {
+          "sentence": "Maître, veuillez agréer mes salutations distingués.",
+          "wrong": "distingués",
+          "fix": "distinguées",
+          "why": "Salutations is feminine plural."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Where does it go in the guild letter?",
+          "buckets": [
+            "the top",
+            "the end"
+          ],
+          "items": [
+            {
+              "text": "Highgate, le 2 mai",
+              "bucket": 0
+            },
+            {
+              "text": "Objet : quête non payée",
+              "bucket": 0
+            },
+            {
+              "text": "Maître,",
+              "bucket": 0
+            },
+            {
+              "text": "Dans l'attente de votre réponse,",
+              "bucket": 1
+            },
+            {
+              "text": "veuillez agréer, Maître, mes salutations distinguées.",
+              "bucket": 1
+            },
+            {
+              "text": "le sceau de Borin",
+              "bucket": 1
+            }
+          ],
+          "why": "Place and date, the Objet line and the salutation open the letter; the closing formula and the seal end it."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-formal-letters-realm-01",
+          "prompt": "Borin's new shield split in two. To the armourer he writes: Je demande le ___ de mes vingt pièces d'or.",
+          "type": "multiple-choice",
+          "options": [
+            "remboursement",
+            "sceau",
+            "parchemin"
+          ],
+          "correct_answer": "remboursement",
+          "explanation": "Le remboursement = the refund: Borin wants his gold back.",
+          "hints": [
+            "He wants his gold back."
+          ],
+          "teaches": [
+            "le remboursement"
+          ]
+        },
+        {
+          "question_id": "b2-formal-letters-realm-02",
+          "prompt": "Nym encloses the quest scroll: Vous trouverez ___ le parchemin de la quête.",
+          "type": "fill-in-blank",
+          "correct_answer": "ci-joint",
+          "accepted_answers": [
+            "ci joint"
+          ],
+          "explanation": "Vous trouverez ci-joint + the document = please find enclosed. Before the noun, ci-joint stays invariable.",
+          "hints": [
+            "The word for 'enclosed', with a hyphen."
+          ],
+          "teaches": [
+            "ci-joint"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b2-formal-letters-conv-realm-shield-complaint",
+          "title": "A complaint to the armourer",
+          "scenario": "Borin the dwarf dictates a complaint about a broken shield to Séla the mage, who writes it on a parchment.",
+          "role_a": "Borin",
+          "role_b": "Séla",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Écris : ton bouclier est nul !",
+              "meaning": "Write: your shield is useless!"
+            },
+            {
+              "speaker": "b",
+              "text": "Non, Borin. Une réclamation doit être polie.",
+              "meaning": "No, Borin. A complaint has to be polite."
+            },
+            {
+              "speaker": "a",
+              "text": "Bon. Alors, comment je commence ?",
+              "meaning": "Fine. So how do I start?"
+            },
+            {
+              "speaker": "b",
+              "text": "Je me permets de vous écrire au sujet de mon bouclier.",
+              "meaning": "I am writing to you about my shield."
+            },
+            {
+              "speaker": "a",
+              "text": "Et je veux mes vingt pièces d'or !",
+              "meaning": "And I want my twenty gold coins!"
+            },
+            {
+              "speaker": "b",
+              "text": "J'écris : je vous serais reconnaissant de bien vouloir me rembourser.",
+              "meaning": "I'll write: I would be grateful if you would refund me."
+            },
+            {
+              "speaker": "a",
+              "text": "Parfait. Et à la fin ?",
+              "meaning": "Perfect. And at the end?"
+            },
+            {
+              "speaker": "b",
+              "text": "La formule complète, puis ton sceau.",
+              "meaning": "The full formula, then your seal."
+            }
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🖊️",
+      "content": "## La lettre formelle à Meadowbrook\n\nNora wants a stand at **la fête des récoltes**, so she writes to **la mairesse**: **Objet : demande de stand**, **Madame la Mairesse,**, a polite request (**je souhaiterais…**), the list of her vegetables **ci-jointe**, and the full closing formula with **Madame la Mairesse** inside it.",
+      "vocabulary": [
+        {
+          "term": "l'objet",
+          "example": "Objet : demande de stand pour la fête des récoltes.",
+          "example_meaning": "Re: request for a stand at the harvest festival."
+        },
+        {
+          "term": "souhaiter",
+          "example": "Je souhaiterais vendre mes citrouilles à la fête.",
+          "example_meaning": "I would like to sell my pumpkins at the festival."
+        },
+        {
+          "term": "être reconnaissant de",
+          "example": "Je vous serais reconnaissante de bien vouloir me réserver un stand.",
+          "example_meaning": "I would be grateful if you would book me a stand."
+        },
+        {
+          "term": "ci-joint",
+          "example": "Vous trouverez ci-joint la liste de mes légumes.",
+          "example_meaning": "Please find attached the list of my vegetables."
+        },
+        {
+          "term": "le courrier",
+          "example": "Le courrier de la mairie arrive le mardi.",
+          "example_meaning": "The town hall's mail arrives on Tuesdays."
+        },
+        {
+          "term": "la réclamation",
+          "example": "Léo a fait une réclamation : ses graines ne poussent pas.",
+          "example_meaning": "Léo made a complaint: his seeds aren't growing."
+        },
+        {
+          "term": "la mairesse",
+          "meaning": "mayor (f)",
+          "example": "La mairesse répond à toutes les lettres.",
+          "example_meaning": "The mayor answers every letter."
+        },
+        {
+          "term": "la fête des récoltes",
+          "meaning": "harvest festival",
+          "example": "La fête des récoltes a lieu en octobre.",
+          "example_meaning": "The harvest festival takes place in October."
+        },
+        {
+          "term": "le stand",
+          "meaning": "stall, stand",
+          "example": "Rosa a un stand de graines à la fête.",
+          "example_meaning": "Rosa has a seed stall at the festival."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Une lettre à la mairie",
+          "emoji": "🖊️",
+          "rule": "To the mayor: Madame la Mairesse, a request in the conditionnel, ci-joint for what you add, and the same title repeated in the closing formula.",
+          "example": "Je souhaiterais obtenir un stand à la fête des récoltes.",
+          "example_meaning": "I would like to get a stand at the harvest festival."
+        }
+      ],
+      "listening": [
+        {
+          "text": "La mairesse a lu ma lettre.",
+          "meaning": "The mayor has read my letter."
+        },
+        {
+          "text": "Je souhaiterais un stand près de la rivière.",
+          "meaning": "I would like a stand near the river."
+        },
+        {
+          "text": "Mes fraises sont sur la liste ci-jointe.",
+          "meaning": "My strawberries are on the attached list."
+        },
+        {
+          "text": "Je vous écris au sujet de la fête des récoltes.",
+          "meaning": "I am writing to you about the harvest festival."
+        },
+        {
+          "text": "La mairie a reçu ma demande hier.",
+          "meaning": "The town hall received my request yesterday.",
+          "note": "New word: la mairie = the town hall."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Je souhaiterais obtenir un stand.",
+          "meaning": "I would like to get a stand.",
+          "distractors": [
+            "souhaiterait"
+          ]
+        },
+        {
+          "text": "Madame la Mairesse, je vous écris.",
+          "meaning": "Madam Mayor, I am writing to you.",
+          "distractors": [
+            "Chère"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Vous trouverez la liste ci-joint de mes légumes.",
+          "wrong": "ci-joint",
+          "fix": "ci-jointe",
+          "why": "After the noun liste, ci-joint agrees: la liste ci-jointe."
+        },
+        {
+          "sentence": "Salut Madame la Mairesse, je vous écris au sujet du stand.",
+          "wrong": "Salut",
+          "fix": "Bonjour",
+          "why": "Salut is for friends; better still, open a formal letter with the title alone: Madame la Mairesse,"
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Nora's letter or her note to Rosa?",
+          "buckets": [
+            "lettre à la mairesse",
+            "petit mot à Rosa"
+          ],
+          "items": [
+            {
+              "text": "Madame la Mairesse,",
+              "bucket": 0
+            },
+            {
+              "text": "Coucou Rosa !",
+              "bucket": 1
+            },
+            {
+              "text": "Je souhaiterais obtenir un stand.",
+              "bucket": 0
+            },
+            {
+              "text": "Tu me gardes des graines ?",
+              "bucket": 1
+            },
+            {
+              "text": "Je vous prie d'agréer l'expression de mes salutations distinguées.",
+              "bucket": 0
+            },
+            {
+              "text": "Bisous, Nora",
+              "bucket": 1
+            }
+          ],
+          "why": "The mayor gets a title, vous, the conditionnel and the formula; a friend gets coucou, tu and bisous."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-formal-letters-meadowbrook-01",
+          "prompt": "Nora opened her letter with 'Madame la Mairesse,'. Her closing formula must say: Je vous prie d'agréer, ___, l'expression de mes salutations distinguées.",
+          "type": "multiple-choice",
+          "options": [
+            "Madame la Mairesse",
+            "chère Mairesse",
+            "Madame, Monsieur"
+          ],
+          "correct_answer": "Madame la Mairesse",
+          "explanation": "The closing formula repeats the opening salutation exactly.",
+          "hints": [
+            "Look at how she began the letter."
+          ],
+          "teaches": []
+        },
+        {
+          "question_id": "b2-formal-letters-meadowbrook-02",
+          "prompt": "Je vous serais ___ de bien vouloir me réserver un stand. (Nora writing)",
+          "type": "fill-in-blank",
+          "correct_answer": "reconnaissante",
+          "accepted_answers": [],
+          "explanation": "Nora is a woman, so reconnaissant takes -e: je vous serais reconnaissante.",
+          "hints": [
+            "Grateful, feminine form."
+          ],
+          "teaches": [
+            "être reconnaissant de"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b2-formal-letters-conv-meadowbrook-stand-request",
+          "title": "A letter for a stand",
+          "scenario": "At the seed shop, Nora asks Rosa how to write to the mayor for a stand at the harvest festival.",
+          "role_a": "Nora",
+          "role_b": "Rosa",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Rosa, je dois écrire à la mairesse pour un stand.",
+              "meaning": "Rosa, I have to write to the mayor for a stand."
+            },
+            {
+              "speaker": "b",
+              "text": "Commence par l'objet : demande de stand.",
+              "meaning": "Start with the subject line: request for a stand."
+            },
+            {
+              "speaker": "a",
+              "text": "Et ensuite, Chère Mairesse ?",
+              "meaning": "And then, Dear Mayor?"
+            },
+            {
+              "speaker": "b",
+              "text": "Non, Madame la Mairesse, c'est plus formel.",
+              "meaning": "No, Madam Mayor, it's more formal."
+            },
+            {
+              "speaker": "a",
+              "text": "Je souhaiterais vendre mes citrouilles et mes fraises.",
+              "meaning": "I would like to sell my pumpkins and my strawberries."
+            },
+            {
+              "speaker": "b",
+              "text": "Très bien. Et joins la liste de tes légumes.",
+              "meaning": "Very good. And enclose the list of your vegetables."
+            },
+            {
+              "speaker": "a",
+              "text": "Et je finis avec la formule de politesse ?",
+              "meaning": "And I finish with the polite formula?"
+            },
+            {
+              "speaker": "b",
+              "text": "Oui, avec Madame la Mairesse dedans.",
+              "meaning": "Yes, with Madame la Mairesse inside it."
+            }
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "📠",
+      "content": "## La lettre formelle à Rustwake\n\nThe water filter Léo bought leaks, so he writes to **l'administration du Dôme**. The wasteland is rough, but a complaint stays formal: **Objet : filtre défectueux**, **Madame, Monsieur,**, **je demande le remboursement de mes écrous**, **vous trouverez ci-joint le reçu**, and the full formula.",
+      "vocabulary": [
+        {
+          "term": "l'objet",
+          "example": "Objet : filtre à eau défectueux.",
+          "example_meaning": "Re: faulty water filter."
+        },
+        {
+          "term": "au sujet de",
+          "example": "Je vous écris au sujet de l'antenne du village.",
+          "example_meaning": "I am writing to you about the village antenna."
+        },
+        {
+          "term": "le remboursement",
+          "example": "Je demande le remboursement de mes cinquante écrous.",
+          "example_meaning": "I request a refund of my fifty nuts."
+        },
+        {
+          "term": "se voir dans l'obligation de",
+          "example": "Je me vois dans l'obligation de quitter l'atelier.",
+          "example_meaning": "I find myself obliged to leave the workshop."
+        },
+        {
+          "term": "ci-joint",
+          "example": "Vous trouverez ci-joint le reçu de Marta.",
+          "example_meaning": "Please find Marta's receipt attached."
+        },
+        {
+          "term": "suite à",
+          "example": "Suite à la tempête de cendres, la radio ne marche plus.",
+          "example_meaning": "Following the ash storm, the radio no longer works."
+        },
+        {
+          "term": "l'administration du Dôme",
+          "meaning": "the Dome's administration",
+          "example": "L'administration du Dôme répond en trois jours.",
+          "example_meaning": "The Dome's administration replies within three days."
+        },
+        {
+          "term": "le filtre à eau",
+          "meaning": "water filter",
+          "example": "Le filtre à eau fuit depuis lundi.",
+          "example_meaning": "The water filter has been leaking since Monday."
+        },
+        {
+          "term": "défectueux",
+          "meaning": "faulty, defective",
+          "example": "Ce robot jardinier est défectueux.",
+          "example_meaning": "This gardener robot is faulty."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Réclamation au Dôme",
+          "emoji": "📠",
+          "rule": "Out in the rust desert, a complaint still follows the rules: Objet :, Madame, Monsieur, the facts, je demande le remboursement de…, ci-joint, the full formula.",
+          "example": "Je demande le remboursement de mes écrous.",
+          "example_meaning": "I request a refund of my nuts."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Mon filtre est défectueux depuis mardi.",
+          "meaning": "My filter has been faulty since Tuesday."
+        },
+        {
+          "text": "J'ai acheté ce filtre au marché.",
+          "meaning": "I bought this filter at the market."
+        },
+        {
+          "text": "Vous trouverez ci-joint le reçu.",
+          "meaning": "Please find the receipt attached.",
+          "note": "New word: le reçu = the receipt."
+        },
+        {
+          "text": "Je souhaiterais échanger ma radio-montre.",
+          "meaning": "I would like to exchange my wrist radio."
+        },
+        {
+          "text": "Le contremaître a reçu ma réclamation ce matin.",
+          "meaning": "The foreman received my complaint this morning."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Je demande le remboursement de mes écrous.",
+          "meaning": "I request a refund of my nuts.",
+          "distractors": [
+            "la"
+          ]
+        },
+        {
+          "text": "Le filtre à eau est défectueux.",
+          "meaning": "The water filter is faulty.",
+          "distractors": [
+            "défectueuse"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Je me vois dans l'obligation à quitter le Dôme.",
+          "wrong": "à",
+          "fix": "de",
+          "why": "Se voir dans l'obligation de + infinitive."
+        },
+        {
+          "sentence": "Je vous écris au sujet du filtre défectueuse.",
+          "wrong": "défectueuse",
+          "fix": "défectueux",
+          "why": "Le filtre is masculine: défectueux."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "The facts or the demand?",
+          "buckets": [
+            "les faits",
+            "la demande"
+          ],
+          "items": [
+            {
+              "text": "Le filtre fuit depuis lundi.",
+              "bucket": 0
+            },
+            {
+              "text": "Je l'ai acheté au marché.",
+              "bucket": 0
+            },
+            {
+              "text": "Il est défectueux.",
+              "bucket": 0
+            },
+            {
+              "text": "Je demande le remboursement de mes écrous.",
+              "bucket": 1
+            },
+            {
+              "text": "Je souhaiterais un nouveau filtre.",
+              "bucket": 1
+            },
+            {
+              "text": "Je vous serais reconnaissant de répondre vite.",
+              "bucket": 1
+            }
+          ],
+          "why": "A complaint first states the facts, then asks for something, politely."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-formal-letters-rustwake-01",
+          "prompt": "Léo encloses the receipt in his letter to the Dome: Vous trouverez ___ le reçu de Marta.",
+          "type": "fill-in-blank",
+          "correct_answer": "ci-joint",
+          "accepted_answers": [
+            "ci joint"
+          ],
+          "explanation": "Ci-joint before the noun = enclosed, attached, and it stays invariable there.",
+          "hints": [
+            "Two short words joined by a hyphen."
+          ],
+          "teaches": [
+            "ci-joint"
+          ]
+        },
+        {
+          "question_id": "b2-formal-letters-rustwake-02",
+          "prompt": "The Dome never answered. Léo's second letter turns firmer: Je me vois dans ___ de demander mes écrous au contremaître Ruiz.",
+          "type": "multiple-choice",
+          "options": [
+            "l'obligation",
+            "l'attente",
+            "l'objet"
+          ],
+          "correct_answer": "l'obligation",
+          "explanation": "Se voir dans l'obligation de = to find oneself obliged to: the polite way to announce a firmer step.",
+          "hints": [
+            "He feels obliged to act."
+          ],
+          "teaches": [
+            "se voir dans l'obligation de"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b2-formal-letters-conv-rustwake-leaky-filter",
+          "title": "The leaky filter",
+          "scenario": "Léo the scavenger wants his nuts back for a leaky water filter. Marta the merchant helps him write to the Dome's administration.",
+          "role_a": "Léo",
+          "role_b": "Marta",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Ce filtre fuit depuis lundi. Je veux mes écrous !",
+              "meaning": "This filter has been leaking since Monday. I want my nuts!"
+            },
+            {
+              "speaker": "b",
+              "text": "Alors écris une réclamation à l'administration du Dôme.",
+              "meaning": "Then write a complaint to the Dome's administration."
+            },
+            {
+              "speaker": "a",
+              "text": "Qu'est-ce que je mets en haut ?",
+              "meaning": "What do I put at the top?"
+            },
+            {
+              "speaker": "b",
+              "text": "L'objet : filtre à eau défectueux.",
+              "meaning": "The subject line: faulty water filter."
+            },
+            {
+              "speaker": "a",
+              "text": "Puis : je demande le remboursement de mes écrous.",
+              "meaning": "Then: I request a refund of my nuts."
+            },
+            {
+              "speaker": "b",
+              "text": "Bien. Et joins le reçu que je t'ai donné.",
+              "meaning": "Good. And enclose the receipt I gave you."
+            },
+            {
+              "speaker": "a",
+              "text": "Je finis par « À plus » ?",
+              "meaning": "Do I finish with 'See you'?"
+            },
+            {
+              "speaker": "b",
+              "text": "Jamais ! Mets la formule avec les salutations distinguées.",
+              "meaning": "Never! Put the formula with the salutations distinguées."
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

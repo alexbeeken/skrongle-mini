@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Billing portal (dev payment provider)</title>
+<link rel="stylesheet" href="{{ crate::routes::asset_url("style.css") }}">
+<link rel="stylesheet" href="{{ crate::routes::asset_url("devbox.css") }}">
+</head>
+<body class="devpay-hosted">
+<main class="devpay-sheet" data-testid="dev-portal" data-id="{{ id }}" data-customer="{{ customer }}">
+  <p class="devpay-banner small">Dev payment provider · test mode · no money moves</p>
+  <p><a href="{{ back }}" data-testid="dev-portal-return">← Return to {{ crate::APP_NAME }}</a></p>
+  <h1>Your subscription</h1>
+  <p class="small muted">{% if !email.is_empty() %}{{ email }} · {% endif %}<code>{{ customer }}</code> · card ending 4242</p>
+  {% for s in subs %}
+  <article class="devpay-item" data-testid="dev-portal-sub" data-id="{{ s.id }}" data-status="{{ s.status }}">
+    <p><strong>{{ s.product }}</strong> · {{ s.amount }} <span class="devbox-state">{{ s.status }}</span></p>
+    {% if s.status != "canceled" %}
+    <p class="small muted">{% if s.cancel_at_period_end %}Cancels on {{ s.period_end }}{% else %}Renews on {{ s.period_end }}{% endif %}{% if s.unpaid_invoice.is_some() %} · the last payment failed{% endif %}</p>
+    <div class="devai-line">
+      {% if s.unpaid_invoice.is_some() %}<form method="post" action="{{ action }}"><input type="hidden" name="subscription" value="{{ s.id }}"><input type="hidden" name="do" value="update-card"><button type="submit" class="btn small" data-testid="dev-portal-update-card">Update card and pay</button></form>{% endif %}
+      {% if s.cancel_at_period_end %}
+      <form method="post" action="{{ action }}"><input type="hidden" name="subscription" value="{{ s.id }}"><input type="hidden" name="do" value="resume"><button type="submit" class="btn small" data-testid="dev-portal-resume">Renew subscription</button></form>
+      {% else %}
+      <form method="post" action="{{ action }}"><input type="hidden" name="subscription" value="{{ s.id }}"><input type="hidden" name="do" value="cancel"><button type="submit" class="btn ghost small" data-testid="dev-portal-cancel">Cancel subscription</button></form>
+      {% endif %}
+      <form method="post" action="{{ action }}"><input type="hidden" name="subscription" value="{{ s.id }}"><input type="hidden" name="do" value="cancel-now"><button type="submit" class="btn danger small" data-testid="dev-portal-cancel-now">Cancel now</button></form>
+    </div>
+    {% endif %}
+  </article>
+  {% endfor %}
+  {% if subs.is_empty() %}<p class="muted" data-testid="dev-portal-empty">No subscriptions for this customer (the simulator forgets them when the server restarts).</p>{% endif %}
+</main>
+</body>
+</html>

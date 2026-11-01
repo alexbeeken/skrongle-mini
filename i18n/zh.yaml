@@ -1,0 +1,4254 @@
+# 应用界面的简体中文文本。逐键翻译 en.yaml
+# （格式见 i18n/README.md）；键名和 {占位符} 保持不变。
+
+meta:
+  name: 简体中文
+
+nav:
+  skip_to_content: "跳到主要内容"
+  courses: 课程
+  switch_course: 切换课程
+  switch_course_now: "切换课程（当前：{course}）"
+  account_menu_for: "{name} 的账户菜单"
+  profile: 个人资料设置
+  superuser: 超级用户
+  documentation: 文档
+  docs: 文档
+  login: 登录
+  register: 注册
+  logout: 退出登录
+
+footer:
+  terms: 条款
+  privacy: 隐私
+  cookies: Cookie
+
+lang:
+  label: 语言
+  change: 更改
+  unknown: 没有这种语言。
+
+error:
+  blocked: "此服务器已屏蔽来自你的网络地址的请求。"
+  not_found: 找不到页面
+  form_only: "此页面只能通过其按钮打开。请返回并使用页面上的按钮。"
+  database: 数据库错误
+  internal: 出了点问题
+  back_to_start: 返回首页
+  cross_site: 已拒绝跨站请求。请返回、重新加载页面后再试一次。
+  home: 首页
+  lessons: 课节
+  courses: 全部课程
+
+common:
+  pager:
+    label: "页码"
+    prev: "上一页"
+    next: "下一页"
+    page_of: "第 {n} 页，共 {total} 页"
+  time_ago:
+    just_now: 刚刚
+    minutes:
+      one: "{n} 分钟前"
+      other: "{n} 分钟前"
+    hours:
+      one: "{n} 小时前"
+      other: "{n} 小时前"
+    days:
+      one: "{n} 天前"
+      other: "{n} 天前"
+    months:
+      one: "{n} 个月前"
+      other: "{n} 个月前"
+    years:
+      one: "{n} 年前"
+      other: "{n} 年前"
+  js:
+    close: 关闭
+    notation_label: 乐谱
+    music_play: "播放"
+    music_no_sound: "没有声音？手机静音时会听不到。"
+    music_cant_listen: "现在无法播放"
+    keyboard_label: "钢琴键盘"
+    keyboard_white: "白键 {n}"
+    keyboard_black: "黑键 {n}"
+    music_sound_off: "声音已关闭：轻点打开"
+    fill_bar_undo: "撤销"
+    fill_bar_full: "这一小节已填满。"
+    fill_bar_left:
+      one: "还差 {n} 拍"
+      other: "还差 {n} 拍"
+    fill_bar_beats:
+      one: "{n} 拍"
+      other: "{n} 拍"
+    chord_spell_slot: "和弦的第 {n} 个音"
+    staff_note_label: "放置音符的五线谱。上下方向键移动音符，回车键放下。"
+    staff_note_line: "第 {n} 线"
+    staff_note_space: "第 {n} 间"
+    staff_note_just_below: "紧贴五线谱下方"
+    staff_note_just_above: "紧贴五线谱上方"
+    staff_note_ledger_below: "下加第 {n} 线"
+    staff_note_ledger_above: "上加第 {n} 线"
+    staff_note_under_ledger: "下加第 {n} 间"
+    staff_note_over_ledger: "上加第 {n} 间"
+    staff_note_sharp: "升号"
+    staff_note_flat: "降号"
+    all_saved: 所有更改已保存
+    saving: 正在保存…
+    not_saved: 更改未保存
+    could_not_save_reload: 无法保存你的更改。请重新加载页面。
+    signed_out: 你已退出登录。请在另一个标签页中重新登录，然后继续编辑。
+    server_error: "无法保存你的更改（服务器返回 {status}）。正在重试…"
+    unreachable: 无法连接服务器。你的更改尚未保存；正在重试…
+    leave_lose_these: "{why} 要离开并丢弃这些更改吗？"
+    leave_fields: 有些字段需要处理，且尚未保存。要离开并丢弃这些更改吗？
+    leave_latest: 你最新的更改尚未保存。要离开并丢弃吗？
+    leave_title: 要离开此页面吗？
+    leave_anyway: 仍然离开
+    stay: 留下
+    tap_to_hear: 点击收听
+    meaning: 意思
+    no_voice: "（没有{language}语音）"
+
+auth:
+  login:
+    suspended: "此账户因违反条款已被暂停。如果你认为这是误会，请写信给 {email}。"
+    deletion_scheduled: "你的账户将于 {date} 被删除。如要保留，请在此之前登录并取消删除。"
+    title: 登录
+    email_label: 电子邮箱地址
+    password_label: 密码
+    submit: 登录
+    or: 或
+    google: 使用 Google 继续
+    no_account_html: "还没有账户？<a href=\"{url}\" data-testid=\"login-register-link\">注册</a>。"
+    terms_link: 条款
+    privacy_link: 隐私
+    too_many_attempts: 登录尝试次数过多。请等待几分钟后再试。
+    incorrect: 电子邮箱地址或密码不正确。
+    forgot: "忘记密码？"
+  register:
+    title: 注册
+    heading: 创建账户
+    email_label: 电子邮箱地址
+    email_note: （以后无法更改）
+    password_label: 密码
+    password_note: （至少 8 个字符）
+    submit: 注册
+    or: 或
+    google: 使用 Google 注册
+    have_account_html: "已经注册过？<a href=\"{url}\" data-testid=\"register-login-link\">登录</a>。"
+    too_many_signups: 你的网络注册次数过多。请一小时后再试。
+    email_taken: 该电子邮箱地址已有账户。
+    email_taken_google: "使用该电子邮箱的账户通过 Google 登录。请改用“继续使用 Google”。"
+  signup:
+    closed_title: "注册已关闭"
+    closed: "此服务器不接受新账户。请联系服务器的管理者。"
+    invite_used: "此邀请链接已被使用。请向此服务器的管理者索取新链接。"
+    invite_expired: "此邀请链接已过期。请向此服务器的管理者索取新链接。"
+    invite_unknown: "此邀请链接无效。请向此服务器的管理者索取新链接。"
+    invite_wrong_email: "这个邀请是给另一个电子邮件地址的。请用收到邀请的地址注册。"
+    sign_in: "登录"
+    first_account: "此服务器还没有账户：你现在创建的账户将属于服务器的所有者。"
+    no_owner: "此服务器还没有所有者。服务器的管理者用服务器日志中的所有者链接创建第一个账户。"
+  proxy:
+    title: "由代理登录"
+    note: "此服务器通过其前面的代理为你登录：通过该地址打开即可自动登录。"
+    signed_out: "你已退出登录。通过代理打开下一个页面时会再次登录。"
+    open: "继续"
+  password:
+    too_short: 密码至少需要 8 个字符。
+    too_long: "密码太长（最多 {max} 个字符）。"
+  password_change:
+    title: "设置新密码"
+    info_label: "为什么要设置新密码"
+    about: "你使用的是本服务器管理员为你设置的临时密码。请先设置你自己的密码再继续；其他人不会知道它。"
+    submit: "保存并继续"
+  age_gate:
+    to_register: 注册
+    to_continue: 继续
+    both: "请确认你至少 {min_age} 岁，并接受条款后{to}。"
+    age: "请确认你至少 {min_age} 岁后{to}。"
+    terms: "请接受条款后{to}。"
+  code:
+    title: 输入你的验证码
+    from_app: 来自你的验证器应用。
+    texted_to: "已发送短信至 {to}。"
+    emailed_to: "已发送邮件至 {to}。"
+    fallback: "你的手机对 {app} 的短信回复了 STOP，所以我们把验证码发到了邮箱 {to}。"
+    code_label: 验证码
+    submit: 登录
+    resend: 发送新验证码
+    cancel: 取消
+    gone: 该登录已过期。请重新登录。
+    unsent: 刚才无法发送验证码。请等待一分钟后再发送新的验证码。
+    sent: 新的验证码正在发送途中。
+    wrong:
+      one: "验证码不正确。还剩 {n} 次机会。"
+      other: "验证码不正确。还剩 {n} 次机会。"
+    too_many_wrong: 验证码错误次数过多，或验证码已过期。请重新登录。
+    your_email: 你的电子邮箱地址
+    your_authenticator: 你的验证器应用
+  two_factor:
+    channel_off_email: "你的账户登录时需要通过电子邮件接收验证码，但此服务器无法发送电子邮件（未设置 {setting}）。请联系服务器管理员设置 {setting}，或为你的账户关闭两步登录。"
+    channel_off_sms: "你的账户登录时需要通过短信接收验证码，但此服务器无法发送短信（未设置 {setting}）。请联系服务器管理员设置 {setting}，或为你的账户关闭两步登录。"
+    needs_email: 请先确认你的电子邮箱地址。
+    needs_phone: 请先添加并验证手机号码。
+    needs_app: 请先设置验证器应用。
+    phone_in_use: 两步验证会向此号码发送短信。更改前请先选择其他方式。
+    needs_confirmed_email: 添加电话号码前，请先确认你的电子邮箱地址。
+    phone_taken: "此号码已在另一个账户上验证。请先在那里将其移除，或使用其他号码。"
+    app_already: 已设置验证器应用。请先将其移除。
+  google:
+    cancelled: 已取消 Google 登录。
+    error: Google 报告了一个错误。
+    expired: 此次登录已过期。请重试。
+    mismatch: 此次登录与发起时不匹配。请重试。
+    no_code: Google 没有返回登录代码。
+    exchange_failed: 无法完成 Google 登录。请重试。
+    bad_identity: Google 返回的身份信息本网站无法接受。
+    already_linked: 该 Google 账户已绑定到另一个用户。
+    attempt_expired: 此次尝试已过期。请重试。
+    not_this_account: 这不是本账户登录时使用的 Google 账户。
+    unconfirmed_account: "该地址已有账户，但其电子邮箱尚未确认。请用密码登录并确认，然后在个人资料中连接 Google。"
+    other_google: "该地址的账户已连接了另一个 Google 账户。请用那个账户登录，或使用密码登录。"
+    signup_expired: 此次注册已过期。请重试。
+  google_confirm:
+    title: 创建你的账户
+    lead: "即将完成：Google 已确认你的身份。勾选两个方框，你的账户就准备好了。"
+    as: 正在以以下身份通过 Google 注册
+    not_you: 不是你？
+    submit: 创建账户
+    back: 返回登录
+  ai_switch:
+    label: 隐藏所有 AI 功能
+    about: 关于 AI 功能
+    tip: AI 导师和 AI 课程创建都会被隐藏且无法使用。它们的工作方式是：将你输入的内容连同你自己的 API 密钥发送给 AI 公司。你可以随时在个人资料中更改此设置。
+    off: "关"
+    on: "开"
+  verify_email:
+    title: 确认你的电子邮箱地址
+    confirmed_heading: 你的电子邮箱地址已确认
+    confirmed: 谢谢。无需其他操作。
+    invalid_heading: 此链接无法使用
+    invalid: 该链接可能已被使用、超过 24 小时，或已被更新的链接替换。
+    already: "你的地址 {email} 已经确认过。"
+    resend_to: 我们可以将新链接发送至
+    resend: 发送新链接
+    sign_in_hint: 请登录后从个人资料中申请新链接。
+    continue: 继续
+    sign_in: 登录
+
+  register_sent:
+    title: "请查收邮件"
+    sent_html: "我们已向 {email} 发送了一封邮件。打开其中的链接以确认你的地址，然后登录。"
+    sign_in: "登录"
+  reset:
+    title: "重置密码"
+    email_label: "电子邮箱地址"
+    send: "发送链接"
+    sent_title: "请查收邮件"
+    sent_html: "如果 {email} 有账户，我们已向其发送了一个用于选择新密码的链接。此链接只能使用一次，有效期为一小时。"
+    choose_title: "选择新密码"
+    choose_html: "账户：{email}。保存后，你将在所有设备上退出登录。"
+    password_label: "新密码"
+    password_note: "（至少 8 个字符）"
+    save: "保存新密码"
+    invalid_title: "此链接无法使用"
+    invalid: "该链接可能已被使用、超过一小时，或已被更新的链接替换。"
+    again: "发送新链接"
+    done_title: "密码已更改"
+    done: "✓ 所有会话已退出登录。请用新密码登录。"
+    sign_in: "登录"
+    too_many_requests: "你的网络请求次数过多。请一小时后再试。"
+    too_many_tries: "你的网络尝试次数过多。请等待几分钟后再试。"
+
+terms:
+  page:
+    title: 服务条款
+    version: "版本 {version}"
+    markdown: Markdown
+    privacy: 隐私政策
+  check:
+    age: "我至少 {min_age} 岁"
+    agree_html: "我同意<a href=\"{terms_url}\" target=\"_blank\" data-testid=\"{tid}-terms-link\">服务条款</a>和<a href=\"{privacy_url}\" target=\"_blank\" data-testid=\"{tid}-privacy-link\">隐私政策</a>"
+  accept:
+    title: 服务条款
+    changed: 条款已更改
+    heading: 接受条款
+    read_html: "请阅读<a href=\"{url}\" target=\"_blank\" data-testid=\"terms-gate-link\">服务条款</a>（版本 {version}），并接受后继续。"
+    check_html: "我至少 {min_age} 岁，并同意<a href=\"{terms_url}\" target=\"_blank\">服务条款</a>和<a href=\"{privacy_url}\" target=\"_blank\" data-testid=\"terms-gate-privacy-link\">隐私政策</a>"
+    submit: 继续
+    logout: 改为退出登录
+    tick: 请勾选方框以接受条款。
+  notice:
+    heading: 我们的条款已更改
+    minor: 以下是更改内容。继续使用本网站即表示你接受新条款。
+    material: 这些更改会影响你的权利或付费套餐。请接受新条款以继续使用你的账户。
+    effective: "自 {date} 起生效"
+    read: 阅读完整条款
+    dismiss: 继续
+    disagree_html: "如果你不同意，可以退出登录，或在你的<a href=\"{url}\" data-testid=\"terms-notice-profile\">个人资料</a>中注销账户。"
+
+mail:
+  waitlist_confirm:
+    subject: "确认你在 {app} 候补名单上的位置"
+    text: |
+      你好，
+
+      请打开这个链接，确认你想加入 {app} 的候补名单：
+
+      {link}
+
+      轮到你时，我们会用电子邮件发送邀请。如果你没有申请加入，请忽略这封邮件：不打开链接，这个地址就不会被加入。
+    html: |
+      <p>你好，</p>
+      <p>请确认你想加入 {app} 的候补名单：</p>
+      <p><a href="{link}">确认我的位置</a></p>
+      <p>或者把这个链接粘贴到浏览器：{link}</p>
+      <p>轮到你时，我们会用电子邮件发送邀请。如果你没有申请加入，请忽略这封邮件：不打开链接，这个地址就不会被加入。</p>
+  waitlist_invite:
+    subject: "你的 {app} 邀请"
+    text: |
+      你好，
+
+      轮到你了：我们邀请你创建 {app} 账户。打开这个链接，用这个电子邮件地址（{email}）注册：
+
+      {link}
+
+      邀请有效期为 {days} 天。
+    html: |
+      <p>你好，</p>
+      <p>轮到你了：我们邀请你创建 {app} 账户。请用这个电子邮件地址（{email}）注册。</p>
+      <p><a href="{link}">创建我的账户</a></p>
+      <p>或者把这个链接粘贴到浏览器：{link}</p>
+      <p>邀请有效期为 {days} 天。</p>
+  terms_change:
+    subject: "{app} 的条款将于 {date} 更改"
+    text: |
+      你好：
+
+      我们正在更改 {app} 的条款。新条款自 {date} 起生效。
+
+      更改内容：
+      {summary}
+
+      阅读新条款：{link}
+
+      自 {date} 起，你登录时需要接受新条款。如果你不同意，可以在个人资料中注销账户。
+    html: |
+      <p>你好：</p>
+      <p>我们正在更改 {app} 的条款。新条款自 {date} 起生效。</p>
+      <p>更改内容：</p>
+      {summary}
+      <p><a href="{link}">阅读新条款</a></p>
+      <p>自 {date} 起，你登录时需要接受新条款。如果你不同意，可以在个人资料中注销账户。</p>
+  verify_email:
+    subject: "确认你在 {app} 上的电子邮箱地址"
+    text: |
+      你好，
+
+      请通过打开此链接，确认这是你在 {app} 上使用的电子邮箱地址：
+
+      {link}
+
+      此链接只能使用一次，有效期为 24 小时。如果你没有注册 {app}，请忽略此邮件：只有打开链接后，该地址才会被确认。{app} 每个地址每天最多发送 {max} 封此类邮件。
+    html: |
+      <p>你好，</p>
+      <p>请确认这是你在 {app} 上使用的电子邮箱地址：</p>
+      <p><a href="{link}">确认我的电子邮箱地址</a></p>
+      <p>或将此链接粘贴到浏览器中：{link}</p>
+      <p>此链接只能使用一次，有效期为 24 小时。如果你没有注册 {app}，请忽略此邮件：只有打开链接后，该地址才会被确认。{app} 每个地址每天最多发送 {max} 封此类邮件。</p>
+  password_reset:
+    subject: "重置你的 {app} 密码"
+    text: |
+      你好，
+
+      有人（希望是你）申请重置你的 {app} 账户密码。请打开此链接选择新密码：
+
+      {link}
+
+      此链接只能使用一次，有效期为一小时，使用后你将在所有设备上退出登录。如果不是你申请的，请忽略此邮件；你的密码保持不变。
+    html: |
+      <p>你好，</p>
+      <p>有人（希望是你）申请重置你的 {app} 账户密码。</p>
+      <p><a href="{link}">选择新密码</a></p>
+      <p>或将此链接粘贴到浏览器中：{link}</p>
+      <p>此链接只能使用一次，有效期为一小时，使用后你将在所有设备上退出登录。如果不是你申请的，请忽略此邮件；你的密码保持不变。</p>
+  register_taken:
+    subject: "你已经有一个 {app} 账户"
+    text: |
+      你好，
+
+      有人试图用此电子邮箱地址创建新的 {app} 账户。该地址已有账户，因此没有创建任何内容。
+
+      如果是你，请在此登录：
+
+      {login}
+
+      忘记密码？请在此选择新密码：
+
+      {reset}
+
+      如果不是你，请忽略此邮件；你的账户没有变化。
+    html: |
+      <p>你好，</p>
+      <p>有人试图用此电子邮箱地址创建新的 {app} 账户。该地址已有账户，因此没有创建任何内容。</p>
+      <p>如果是你：<a href="{login}">登录</a></p>
+      <p>忘记密码？<a href="{reset}">选择新密码</a></p>
+      <p>如果不是你，请忽略此邮件；你的账户没有变化。</p>
+  account_deletion:
+    subject: "你的 {app} 账户将于 {date} 被删除"
+    text: |
+      你好，
+
+      你请求删除你的 {app} 账户。它将于 {date} 被永久删除，连同你的学习进度、课程和已保存的密钥。
+
+      如要保留，请在此之前登录 {app} 并选择“取消删除”。
+
+      如果这不是你本人的请求，请登录、取消删除并修改密码。
+  data_export:
+    subject: "你的 {app} 数据已可下载"
+    text: |
+      你好，
+
+      你所请求的 {app} 数据副本已准备好。请登录 {app}，然后打开此链接下载：
+
+      {link}
+
+      此链接只能使用一次，有效期为 24 小时，且仅在你登录此账户期间有效。如果这不是你请求的，请修改密码：说明有其他人已登录你的账户。
+    html: |
+      <p>你好，</p>
+      <p>你所请求的 {app} 数据副本已准备好。请登录 {app}，然后打开此链接下载：</p>
+      <p><a href="{link}">下载我的数据</a></p>
+      <p>此链接只能使用一次，有效期为 24 小时，且仅在你登录此账户期间有效。如果这不是你请求的，请修改密码：说明有其他人已登录你的账户。</p>
+  two_factor_changed:
+    subject: "{app} 上的两步验证已更改"
+    now_off: 已关闭
+    now_email: 现在会通过电子邮件发送验证码给你
+    now_sms: 现在会把验证码通过短信发送到你的手机
+    now_totp: 现在要求输入验证器应用中的验证码
+    text: |
+      你好，
+
+      {app} 上的两步验证{now}。
+
+      其他所有设备均已退出登录。如果这不是你的操作，说明有其他人已登录你的账户：请登录，使用个人设置中的“退出其他所有设备”，并重新设置两步验证。
+    html: |
+      <p>你好，</p>
+      <p>{app} 上的两步验证<strong>{now}</strong>。</p>
+      <p>其他所有设备均已退出登录。如果这不是你的操作，说明有其他人已登录你的账户：请登录，使用个人设置中的“退出其他所有设备”，并重新设置两步验证。</p>
+  login_code:
+    subject: "你的 {app} 登录验证码"
+    text: |
+      你好，
+
+      你用于完成 {app} 登录的验证码：
+
+      {code}
+
+      此验证码有效期为 10 分钟。如果你没有尝试登录，请更改密码：说明有其他人知道它。
+    html: |
+      <p>你好，</p>
+      <p>你用于完成 {app} 登录的验证码：</p>
+      <p style="font-size:1.6em;letter-spacing:.15em"><strong>{code}</strong></p>
+      <p>此验证码有效期为 10 分钟。如果你没有尝试登录，请更改密码：说明有其他人知道它。</p>
+  two_factor_confirm:
+    subject: "你用于更改 {app} 两步验证的验证码"
+    text: |
+      你好，
+
+      你用于关闭或更改 {app} 两步验证的验证码：
+
+      {code}
+
+      此验证码有效期为 10 分钟。如果这不是你的操作，说明有其他人已登录你的账户：请使用个人设置中的“退出其他所有设备”。
+    html: |
+      <p>你好，</p>
+      <p>你用于关闭或更改 {app} 两步验证的验证码：</p>
+      <p style="font-size:1.6em;letter-spacing:.15em"><strong>{code}</strong></p>
+      <p>此验证码有效期为 10 分钟。如果这不是你的操作，说明有其他人已登录你的账户：请使用个人设置中的“退出其他所有设备”。</p>
+  course_share:
+    subject: "{owner} 在 {app} 上与你分享了一门课程：{title}"
+    text: |
+      你好，
+      {owner} 在 {app} 上与你分享了课程“{title}”。打开此链接即可将它添加到你的课程中：
+      {link}
+      你可以用自己的学习进度学习这门课程；只有 {owner} 可以修改它。如果你还没有 {app} 账户，可以通过此链接注册。如果你并未期待这封邮件，请忽略。
+    html: |
+      <p>你好，</p>
+      <p>{owner} 在 {app} 上与你分享了课程 <strong>{title}</strong>。</p>
+      <p><a href="{link}">打开课程</a></p>
+      <p>或将此链接粘贴到浏览器中：{link}</p>
+      <p>你可以用自己的学习进度学习这门课程；只有 {owner} 可以修改它。如果你还没有 {app} 账户，可以通过此链接注册。如果你并未期待这封邮件，请忽略。</p>
+
+sms:
+  login_code: "{code} 是你的 {app} 登录验证码，有效期为 10 分钟。请勿告诉他人。"
+  phone_code: "{code} 是你用于确认此手机号码的 {app} 验证码，有效期为 10 分钟。"
+  two_factor_confirm: "{code} 是你用于更改两步验证的 {app} 验证码，有效期为 10 分钟。请勿告诉他人。"
+  number:
+    needs_plus: 手机号码需要以 + 和国家代码开头
+    not_a_digit: "手机号码只能包含数字，不能包含 {char}"
+    bad_length: 手机号码在 + 之后需要 8 到 15 位数字，且第一位不能是 0
+    us_length: "美国或加拿大的号码有 10 位数字，例如 (555) 555 - 5555"
+    us_only: 目前只支持美国和加拿大的号码，所以号码以 +1 开头
+    us_area: 区号和其后的三位数字都不能以 0 或 1 开头
+
+profile:
+  email_no_mail:
+    title: "未确认"
+    text: "此服务器无法发送电子邮件，因此无法发送确认地址的链接。没有确认也不影响使用。"
+    label: "关于你的地址"
+    ok: "好"
+  title: 个人资料
+  no_name: 学习者
+  head:
+    change_picture: 更换头像
+    member_since: "注册于 {date}"
+    all_saved: 所有更改已保存
+  avatar:
+    title: 头像
+    background: 头像背景
+    done: 完成
+    shows:
+      noor: 一位戴蓝色头巾的人
+      amani: 一位戴鲜艳头巾、戴圈形耳环的黑人女性
+      yuki: 一位身穿深蓝色羽织、头发盘成发髻并插着发簪的人
+      kai: 一位肤色较深、短卷发、围着淡蓝、粉色和白色围巾的人
+      arjun: 一位留胡须、戴藏红色头巾的锡克教男子
+      sofia: 一位梳辫子、穿绣花白色衬衫的拉丁裔女性
+      mochi: 一只白色的猫，身上有橙色和黑色斑块
+      coco: 一只棕色的狗，耳朵耷拉，戴红色项圈
+  colors:
+    sunburst: 琥珀色放射纹
+    waves: 绿色波浪纹
+    confetti: 玫瑰色彩纸纹
+    stars: 青绿色星星纹
+    stripes: 石板灰条纹
+    dots: 橄榄色圆点纹
+    rings: 紫罗兰色环纹
+    zigzag: 金色锯齿纹
+  month:
+    january: 一月
+    february: 二月
+    march: 三月
+    april: 四月
+    may: 五月
+    june: 六月
+    july: 七月
+    august: 八月
+    september: 九月
+    october: 十月
+    november: 十一月
+    december: 十二月
+  date:
+    month_year: "{year}年{month}"
+    long: "{year}年{month}{day}"
+  privacy:
+    title: 谁能看到什么
+    info: 谁能看到你的姓名和地址
+    appear_as_before: "其他用户会看到你的名字为："
+    appear_as_after: "。"
+    email_private: 你的电子邮箱地址只有你自己能看到。
+    policy_link: 隐私政策
+    ok: 好
+  email_unverified:
+    title: 验证你的电子邮箱
+    text: 电子邮箱尚未验证。请到收件箱中查找链接。
+    close: 关闭
+    resend: 重新发送
+  nav:
+    label: 个人资料各部分
+    personal: 个人信息
+    account: 账户
+    two_factor: 两步验证
+    subscription: 订阅
+    api_keys: AI API 密钥
+    data: 你的数据
+    consent: "隐私与同意"
+  personal:
+    phone_locked_label: 为什么电话号码被锁定
+    phone_locked_title: 请先确认你的电子邮箱地址
+    phone_locked_text: 确认电子邮箱地址（或使用 Google 登录）后，即可添加电话号码。请查看收件箱中的链接。
+    phone_locked_close: 关闭
+    phone_locked_resend: 重新发送链接
+    title: 个人信息
+    first_name: 名字
+    last_name: 姓氏
+    email: 电子邮箱地址
+    no_email: 尚未设置电子邮箱
+    verified: 已验证
+    not_verified: 未验证
+    phone: 电话号码
+    phone_placeholder: "(555) 555 - 5555"
+    phone_problem: 请检查电话号码
+    phone_stopped: "此号码的短信已停止"
+    language: 语言
+    language_unavailable: 该语言暂不可用。
+  phone_problem:
+    title: 请检查电话号码
+    close: 关闭
+  phone_stopped:
+    title: "短信已停止"
+    text: "此号码对 {app} 的短信回复了 STOP，所以你的登录验证码暂时通过邮件发送。要重新接收短信，请用这部手机向我们发短信的号码发送 START，然后给自己发一个验证码。"
+    close: "关闭"
+    send: "发送验证码"
+  phone_dialog:
+    title: 验证你的手机
+    type_code: 请输入发到你手机上的验证码。
+    not_verified: 电话号码尚未验证。请向该号码发送验证码。
+    code: 验证码
+    close: 关闭
+    send_again: 再次发送
+    send_code: 发送验证码
+    verify: 验证
+  account:
+    title: 账户
+    member_since: 注册于
+    sign_in: 登录方式
+    password: 密码
+    and: 和
+    google_connected: 已连接 Google 账户
+    connect_google_html: "· <a href=\"{url}\" data-testid=\"profile-google-connect\">连接 Google 账户</a>，即可一键登录"
+    terms: 条款
+    terms_accepted: "版本 {version}，于 {date} 同意"
+    terms_not_accepted: 未同意
+    terms_read: 阅读
+    terms_privacy: 隐私政策
+    terms_title: 服务条款
+    terms_close: 关闭
+    terms_open_page: 在新页面中打开
+    no_password: 此账户通过 Google 登录，因此没有可更改的密码。
+  consent:
+    title: "隐私与同意"
+    info: "关于你的同意"
+    info_age: "你在注册时确认了年龄。要撤回，请在“你的数据”中删除账户。"
+    info_email: "服务邮件总是会发送：确认你的邮箱、你的数据下载以及条款变更。可选邮件会出现在这里，各有开关，在你打开之前保持关闭。"
+    info_ai: "AI 功能会把你输入的内容发送给 AI 公司。隐藏后不会发送任何内容，这些功能会从应用中消失，已保存的 API 密钥也会被删除。"
+    info_record: "每次更改都会连同日期记录下来，并包含在“下载我的数据”中。"
+    close: "关闭"
+    terms: "条款与隐私"
+    age: "年龄"
+    age_confirmed: "已于 {date} 确认"
+    age_not_confirmed: "未确认"
+    phone: "用于登录验证码的手机"
+    phone_none: "没有号码"
+    phone_add: "添加"
+    phone_edit: "更改或删除"
+    google: "Google 登录"
+    google_on: "已连接"
+    google_off: "未连接"
+    google_connect: "连接"
+    google_disconnect: "断开"
+    email: "邮件"
+    email_service: "仅服务消息"
+    ai: "不显示 AI 功能"
+    ai_on_since: "自 {date} 起显示"
+    ai_on: "显示"
+    ai_off_since: "自 {date} 起隐藏"
+    ai_off: "隐藏"
+    ai_key: "已保存自己的 API 密钥"
+    ai_keys_manage: "管理密钥"
+    ai_hosted: "{hosted}：本月已用 {n}%"
+  google_link:
+    link_title: 连接 Google 账户
+    one_tap: 以便一键登录
+    link_text: 输入密码，然后选择 Google 账户。你的其他设备将退出登录。
+    password: 密码
+    cancel: 取消
+    continue: 使用 Google 继续
+    unlink_title: 解除 Google 绑定
+    unlink_text: "“使用 Google 继续”将不再用于登录此账户，且其他设备将退出登录。请输入密码以确认。"
+    unlink: 解除绑定
+    linked_notice: Google 账户已连接。你的其他设备已退出登录。
+    unlinked_notice: Google 账户已解除绑定。你的其他设备已退出登录。
+    joined_notice: "已连接 Google 账户：Google 确认了这个地址，所以它可以登录此账户。你的密码仍然有效。"
+    stays_connected: 此账户只能通过 Google 登录，因此保持连接。
+    confirm_needed: 请通过 Google 确认以进行此更改。
+    confirm: 通过 Google 确认
+    confirmed: 已通过 Google 确认。
+    confirm_why: 此账户通过 Google 登录，没有密码，因此请先通过 Google 确认。
+  sessions:
+    sign_out_others: 退出其他所有设备
+    info_label: 关于退出其他所有设备
+    text: "结束此账户的所有其他会话：其他浏览器、手机和电脑，以及任何不应保持登录的人。此浏览器将保持登录。"
+    text_same: 更改密码或两步验证，以及连接或解除 Google 绑定，也会执行同样的操作。
+    ok: 好
+    signed_out_notice: 已退出其他所有设备。
+  password:
+    change: 更改密码
+    current: 当前密码
+    new: 新密码
+    repeat: 再次输入新密码
+    rule: 8 到 128 个字符。
+    cancel: 取消
+    save: 保存
+    changed: 密码已更改。
+    mismatch: 两次输入的新密码不一致。
+    google_only: 此账户通过 Google 登录，没有密码。
+    too_many: 尝试次数过多。请稍等几分钟后再试。
+    current_wrong: 当前密码不正确。
+  two_factor:
+    title: 两步验证
+    info: 关于两步验证
+    second_step: 第二步登录验证
+    off: "关闭"
+    email: 电子邮件
+    email_unverified: 电子邮箱未验证
+    sms: 短信
+    phone_unverified: 手机号未验证
+    totp: 验证器应用
+    save: 保存
+    confirm_title: 请确认是你本人
+    confirm_password_why: 为防止使用此已登录浏览器的其他人更改你的第二步验证，请输入此账户的密码。
+    confirm_app_code: 此账户通过 Google 登录，没有密码，因此请输入你的验证器应用当前显示的验证码。
+    confirm_sent_code: 此账户通过 Google 登录，没有密码，因此请输入你当前第二步验证方式收到的验证码进行确认。
+    sent_to: "已发送至 {to}。"
+    send_one_first: 请先发送一个验证码。
+    password: 密码
+    code: 验证码
+    cancel: 取消
+    send_again: 再次发送
+    send_code: 发送验证码
+    confirm: 确认
+    totp_added: "验证器应用已于 {date} 添加"
+    remove: 移除
+    info_title: 两步验证
+    info_text: "输入密码（或通过 Google 登录）后，登录时还需输入一个验证码：可以是通过电子邮件发送的、短信发到手机的，或是由 Google Authenticator 等验证器应用显示的。同一时间只能使用一种方式；选择另一种方式会替换当前方式。"
+    info_small: 电子邮件和短信需要已验证的邮箱地址或电话号码。验证码有效期为 10 分钟；连续输错五次，本次登录将结束。
+    ok: 好
+    email_first_title: 请先验证你的电子邮箱
+    email_first_text: 电子邮件验证码需要已验证的邮箱地址。请到收件箱中查找链接。
+    close: 关闭
+    resend: 重新发送
+    sms_first_title: 请先验证你的手机
+    sms_first_text: 短信验证码需要已验证的手机号码。
+    add_number: 添加号码
+    totp_title: 添加验证器应用
+    totp_how: 如何添加应用
+    totp_dev_link: "开发：添加到开发验证器"
+    turn_on: 开启
+    totp_info_title: 添加验证器应用
+    totp_info_scan: 在手机上打开验证器应用（如 Google Authenticator、Authy、1Password 等），选择添加账户，然后用其相机扫描二维码。
+    totp_info_key: 无法扫描？请选择输入设置密钥，并在验证码下方输入该密钥；它是基于时间的。
+    qr_title: 设置链接的二维码
+    turn_off: 关闭两步登录验证
+    switch_to: "将两步登录验证切换为{method}"
+    turn_on_by: "通过{method}开启两步验证"
+    method_sms: 短信
+    method_email: 电子邮件
+    method_totp: 验证器应用
+    is_off: 两步登录验证已关闭。
+    is_method: "两步登录验证：{method}。"
+    totp_removed: 验证器应用已移除。
+    phone_verified: 电话号码已验证。
+    too_many_attempts: 尝试次数过多。请稍等几分钟后再试。
+    type_password: 请输入你的密码以进行此更改。
+    password_wrong: 该密码不正确。
+    type_code: 请输入验证码以进行此更改。
+    code_wrong_tries:
+      one: "验证码不正确。还剩 {n} 次机会。"
+      other: "验证码不正确。还剩 {n} 次机会。"
+    code_wrong_newest: 验证码不正确。请输入验证器应用当前显示的最新验证码。
+    code_gone: 没有等待中的验证码，或验证码已过期。请重新发送一个。
+    too_many_codes: 发送的验证码过多。请稍等几分钟后再试。
+    code_not_sent: 验证码未能发送。请稍后再试。
+    too_many_texts: "发送到此号码的短信过多。请 {minutes} 分钟后再试。"
+    number_no_texts: "该号码无法接收短信：{why}。"
+    phone_code_expired: 该验证码已过期或已用完。请重新发送一个。
+  subscription:
+    title: 订阅
+    plan: 方案
+    premium: ✓ 高级版
+    free: 免费
+    subscription: 订阅
+    granted_label: 已赠送
+    granted: "已为此账户赠送高级版，{note}"
+    manage: 管理订阅
+    manage_note: 在 Stripe 上更换银行卡、查看账单或取消订阅。
+    subscribe: 订阅
+    subscribe_note: 通过 Stripe 按月付费；可随时取消。
+    unavailable: 本服务器未提供订阅服务。
+    dev_revoke: "开发：撤销高级版赠送"
+    dev_grant: "开发：赠送高级版"
+    thanks_active: 感谢你！你的订阅已生效。
+    thanks_pending: 感谢你！Stripe 正在确认你的付款；请稍后刷新页面以查看你的订阅。
+    cancelled: 已取消结账；未收取任何费用。
+    required: 该功能需要订阅。
+    plan_thanks: "你现在使用的是 {plan}。谢谢！"
+    cancelled_notice: "你的订阅已取消。{note}"
+    credits_thanks: "谢谢！Stripe 确认付款后，你的 AI 额度会立即到账。"
+    ends_on: "结束于"
+    renewal_date: "续订日期"
+    cancelled_mark: "（已取消）"
+    granted_plan: "已为此账户赠送 {plan}，{note}"
+    choose: "选择方案"
+    upgrade_plus: "升级到 Plus"
+    cancel_open: "取消订阅"
+    portal: "银行卡和账单，在 Stripe 上"
+    past_due: "上次付款失败；Stripe 会再次尝试扣款。"
+  ai:
+    on: "开"
+    off: "关"
+    close: 关闭
+    off_title: 要隐藏所有 AI 功能吗？
+    off_text: 这将删除你个人资料中保存的所有 AI API 密钥。
+    cancel: 取消
+    confirm: 确认
+    hidden_notice: AI 功能已隐藏。你不会看到这些功能，你在此进行的任何操作都不会发送给 AI 公司。
+    shown_notice: AI 功能已重新显示。
+    feature_hidden: "该功能使用 AI，而你已隐藏 AI。在“隐私与同意”中关闭“不显示 AI 功能”即可使用。"
+    keys_off: 你账户的 AI 功能已关闭；请先开启，才能保存密钥。
+  api_keys:
+    title: AI API 密钥
+    about: "AI 导师、“生成课程”和“使用 AI”会用你的密钥调用这些服务商，费用记在你的账户上。"
+    info: "关于你的 API 密钥"
+    info_title: "你的 API 密钥"
+    info_text: "密钥在保存前会加密，之后不再显示；只保留最后四个字符，方便你分辨已保存的是哪个密钥。你可以随时替换或删除密钥。"
+    unreadable: "已保存但无法读取：服务器的密钥已更改。请重新粘贴。"
+    on_file: ✓ 已保存密钥
+    ends_in: 结尾为
+    none: 尚无密钥
+    replace: 粘贴新密钥以替换
+    paste: 粘贴你的密钥
+    get_one: 获取一个
+    remove: 移除密钥
+    removed: "{provider} 密钥已移除。"
+    empty: 请先粘贴 API 密钥。
+    too_long: "该内容对 API 密钥来说太长了（最多 {max} 个字符）。"
+    bad_chars: API 密钥只能包含字母、数字和标点符号，不能有空格。
+    wrong_provider: "这看起来不像是 {provider} 的密钥：它们以 {prefix} 开头。"
+    own_keys_on: "本月的 {hosted} 用完后，将改用你自己的 API 密钥。"
+    own_keys_off: "只使用 {hosted}；你自己的 API 密钥不会被使用。"
+    own_keys_switch: "{hosted} 达到上限时使用我的密钥"
+    about_hosted: "AI 导师、“生成课程”和“使用 AI”会用你的密钥调用这些服务商，费用记在你的账户上，不占用你的 {hosted}。"
+  data:
+    export_download: "下载我的数据"
+    export_building_no_mail: "正在准备你的数据。准备好后，这里会出现“下载”按钮。"
+    export_ready_no_mail: "你的数据已准备好：在 {date} 之前用按钮下载，仅限一次。"
+    export_about_no_mail: "一个 JSON 文件，包含你账户存储的所有内容，在后台准备。准备好后在这里下载；仅可下载一次，有效期 24 小时。每天一份。"
+    title: 你的数据
+    stored_html: "存储的内容及原因：<a href=\"{url}\" data-testid=\"profile-privacy-link\">隐私政策</a>。"
+    export: 准备我的数据（JSON）
+    export_heading: 下载我的数据
+    export_info_label: 关于下载你的数据
+    export_preparing: 准备中…
+    export_about: 你账户中存储的所有内容的 JSON 文件，将在后台准备。我们会通过电子邮件发送下载链接；该链接只能使用一次，有效期为 24 小时，且仅在你登录期间有效。每天只能获取一份副本。
+    export_ok: 好
+    export_your_address: 你的电子邮箱地址
+    export_none: 你还没有请求过副本。
+    export_building: "正在准备中。准备好后，链接将发送至 {email}。"
+    export_ready: "已准备好。链接已发送至 {email}；只能使用一次，有效期至 {date}。"
+    export_downloaded: "已于 {date} 下载。"
+    export_expired: 上一个链接未使用即已过期。
+    export_failed: 上一份副本无法准备。请重试。
+    export_next: "每天一份副本：可从 {date} 起再次请求下一份。"
+    export_queued: 正在准备你的数据。你将收到一封包含下载链接的电子邮件。
+    export_busy: 你的数据正在准备中。
+    export_soon: 每天一份副本。查看 (i) 了解何时可以再次请求。
+    export_gone: 该下载链接已被使用、已过期，或属于另一个账户。
+    delete_title: 删除账户
+    delete_about: "我们会在你提出请求 14 天后删除你的账户；如果已取消的订阅付费期结束得更晚，则在那时删除。届时你的学习进度、课程和已保存的密钥都会被删除。在此之前你会被登出，重新登录即可取消。"
+    your_password: 你的密码
+    confirm_before: 请输入你的电子邮箱地址（
+    confirm_after: "）以确认"
+    delete: 删除我的账户
+    too_many: 尝试次数过多。请稍等几分钟后再试。
+    password_wrong: 密码不正确。
+    type_email: 请输入你的电子邮箱地址以确认。
+    code_app: 来自验证器应用的验证码
+    code_sent_to: "已发送至 {to}"
+    cancel_first: 请先取消订阅（见上方的“管理订阅”），然后再删除账户。
+  deletion:
+    title: "账户已安排删除"
+    on: "此账户将于 {date} 被永久删除。"
+    info_label: "关于删除"
+    about: "在那天之前，此账户只能取消删除或登出。取消后一切保持原样。那天之后，你的学习进度、课程和已保存的密钥将被永久删除。"
+    cancel: "取消删除"
+  save:
+    sms_off: "此服务器无法发送短信，因此不保存电话号码。"
+    pick_picture: 请选择一张图片。
+    pick_colour: 请选择一种颜色。
+    not_a_field: 此字段不属于个人资料。
+    theme_unavailable: 该主题不可用。
+    motivator_unavailable: "该激励方式不可用。"
+    not_a_phone: "不是有效的电话号码：{why}。"
+    sms_country: 本服务器不向该国家或地区的号码发送短信。
+    sent_to: "已发送至 {email}。"
+  name:
+    too_long: "{label} 太长（最多 {max} 个字符）。"
+    bad_chars: "{label} 包含不允许使用的字符。"
+  email:
+    empty: 请输入电子邮箱地址。
+    too_long: "电子邮箱地址太长（最多 {max} 个字符）。"
+    local_too_long: "@ 前面的部分太长（最多 {max} 个字符）。"
+    spaces: 电子邮箱地址不能包含空格。
+    no_at: 电子邮箱地址必须包含 @。
+    not_email: 这看起来不像电子邮箱地址。
+    no_domain: 电子邮箱地址需要像 example.org 这样的域名。
+  js:
+    no_key: 尚无密钥
+    paste_key: 粘贴你的密钥
+    paste_new_key: 粘贴新密钥以替换
+    key_on_file: ✓ 已保存密钥
+    ends_in: 结尾为
+    on: "开"
+    off: "关"
+    account_menu_for: "{name} 的账户菜单"
+    first_name: 名字
+    last_name: 姓氏
+    name_too_long: "{label} 太长（最多 {max} 个字符）。"
+    name_bad_chars: "{label} 包含不允许使用的字符。"
+    password_mismatch: 两次输入的新密码不一致。
+    phone_digits: "电话号码有 10 位数字，例如 (555) 555 - 5555。"
+    phone_us_only: 目前只支持美国和加拿大的号码。请输入 +1 之后的 10 位数字。
+    phone_area: 区号和其后的三位数字都不能以 0 或 1 开头。
+    turn_off: 关闭两步登录验证
+    switch_to: "将两步登录验证切换为{method}"
+    turn_on_by: "通过{method}开启两步验证"
+    pay_with_stripe: "使用 Stripe 付款"
+  ai_usage:
+    title: "本月的 {hosted}"
+    about: "关于本月的 {hosted}"
+    info_p1: "你的方案每月包含一定量的 {hosted}，用于 AI 导师和编写课程。进度条显示本月的请求已用掉多少；它会在 {date} 重新充满。使用你自己的 API 密钥发出的请求不计入。"
+    info_p2_html: "用完后，AI 导师和课程编写会等到下个月，除非在 AI API 密钥下打开了<em>{hosted} 达到上限时使用我的密钥</em>：这样会改用你自己的密钥。"
+    bar_label: "本月已用的 {hosted}"
+    used: "已用 {n} %"
+    left: "剩余 {n} %"
+    refills: "将于 {date} 重新充满"
+    info_p1_tutor: "你的方案每月包含一定量的 {hosted}，用于 AI 导师。这点用量不足以编写课程：请为此使用你自己的 API 密钥。进度条显示本月的请求已用掉多少；它会在 {date} 重新充满。使用你自己的 API 密钥发出的请求不计入。"
+  plans:
+    title: "选择你的方案"
+    plans_label: "方案"
+    flag: "包含 {hosted}"
+    current: "你的方案"
+    terms: "按月付费；可随时取消，已付费的当月仍可继续使用该方案。"
+    not_now: "暂不"
+    purchase: "购买"
+  cancel:
+    title: "取消订阅？"
+    why: "你为什么要离开？"
+    optional: "（可选）"
+    feedback: "你有什么想告诉我们的吗？"
+    keep: "保留我的方案"
+    confirm: "确认取消"
+
+superuser:
+  courses:
+    title: "课程"
+    about_label: "关于课程表"
+    about: "此服务器上创建的所有课程。含有列表中词语的课程，或 AI 检查发现问题的课程，会被标记：在修正或你解除标记之前，它不能开始也不能分享。被标记的课程排在最前。"
+    about_review: "AI 检查评分较高的课程需要审核。一两分钟内，AI 审核会结合上下文阅读这些部分，如果有害就标记课程。在此之前它仍可开始和分享；其对话框会列出评分较高的部分。"
+    shown: "课程：{total} 门。每页 {per_page} 门。"
+    search: "标题、课程 id 或所有者邮箱"
+    show: "显示"
+    show_all: "全部"
+    show_flagged: "已标记"
+    show_review: "待审核"
+    show_overridden: "已解除"
+    show_down: "已下架"
+    show_behind: "AI 检查落后 {n} 个或更多版本（{count}）"
+    find: "搜索"
+    none: "没有匹配的课程。"
+    edited: "最后编辑"
+    state: "标记"
+    source: "标记来源"
+    state_clear: "无"
+    state_flagged: "已标记"
+    state_review: "待审核"
+    state_overridden: "已解除"
+    state_down: "已下架"
+    source_terms: "词语列表"
+    source_ai: "AI 检查"
+    owner_suspended: "已停用"
+    checked: "最后检查"
+    never_checked: "尚未检查"
+    ai_checked: "AI 检查"
+    last_ai_check: "上次 AI 检查"
+    checker_label: "内容检查程序"
+    checker_about: "内容检查在单独的进程 skrongle content-check 中运行，与服务器并行（SKRONGLE_CONTENT_CHECK=external）。"
+    checker_seen: "上次报到：{when}"
+    checker_never: "尚未报到。"
+    checker_waiting: "等待中的检查：{n}"
+    checker_silent: "已经一天没有报到。请用 skrongle content-check 重新启动。"
+    checker_alert_since: "内容检查程序自 {when} 起没有报到。等待中的检查：{n}。"
+    checker_alert_never: "内容检查程序从未报到。等待中的检查：{n}。"
+    checker_details: "详情"
+    versions: "规则"
+    version_terms: "词表 v{version}"
+    version_ai: "AI v{version}"
+    version_behind: "按旧规则检查。当前版本是 {current}。"
+    about_versions: "规则一栏显示每门课程上次检查时所用的词表版本和 AI 检查版本。高亮的版本比当前规则旧，词表更新后，夜间检查会立即重新检查课程；AI 检查更新后，课程落后 {n} 个或更多版本时才会重新检查。"
+    versions_link: "每个版本的改动"
+    scores: "AI 评分"
+    score_category: "类别"
+    score_value: "分数"
+    high_in: "偏高项"
+    category:
+      misinformation: "虚假信息"
+      violence: "暴力"
+      self_harm: "自残"
+      weapons: "武器"
+      firearms: "枪支"
+      hate: "仇恨言论"
+      tragedy: "轻视大规模惨剧"
+      adult: "成人内容"
+      minors: "剥削未成年人"
+      sexual_crimes: "轻视性犯罪"
+      terms: "使用条款"
+    review_queued: "等待 AI 审核"
+    review_fine: "AI 审核：没问题"
+    review_harmful: "AI 审核：有害"
+    ai_cost: "AI 检查费用"
+    ai_cost_parts: "{cost}，共 {parts} 部分"
+    high_parts: "AI 评分较高的部分"
+    why: "标记原因"
+    report: "AI 报告"
+    override_note: "解除说明"
+    overridden_by: "{email}，{when}"
+    override: "解除标记"
+    override_about: "标记有误。课程可以重新开始和分享。之后的检查对相同的词保持解除；出现新词会再次标记。"
+    note: "为什么没问题？"
+    note_example: "这里 'coger' 的意思是 '拿'；没问题"
+    override_confirm: "解除"
+    clear_override: "撤销解除"
+    clear_override_about: "按课程现在的内容重新检查。如果这些词还在，它会再次被标记，不能开始也不能分享。"
+    take_down: "下架"
+    put_back_about: "课程重新对所有者和被分享的人开放。"
+    suspend_owner: "停用所有者"
+    delete: "删除课程"
+    delete_about: "课程、它的文件和分享都会被删除。此操作无法撤销。关于它的举报会保留。"
+    overridden: "{id} 的标记已解除。它可以重新开始和分享。"
+    override_cleared: "{id} 的解除已撤销。"
+    no_note: "请写一句简短说明，解释为什么标记有误。"
+    deleted: "课程 {id} 已删除。"
+    busy: "课程 {id} 正在生成或修改中。完成后再试。"
+    email_owner: "给所有者发邮件"
+    email_to: "发给 {email}，用对方的语言。你可以修改内容。按下发送之前不会发出任何邮件。"
+    email_subject: "主题"
+    email_text: "内容"
+    email_send: "发送"
+    emailed: "已于 {when} 通知所有者"
+    emailed_label: "已通知所有者"
+    emailed_before: "已于 {when} 就这门课程给所有者发过邮件。"
+    owner_emailed: "给 {id} 所有者的邮件正在发送。"
+    no_mail_text: "发送前请写好主题和内容。"
+    no_owner_address: "{id} 的所有者没有可以发送的邮箱地址。"
+    mail:
+      subject: "{app}：你的课程“{title}”无法开始或分享"
+      text: |
+        你好，
+
+        你在 {app} 上的课程“{title}”目前无法开始或分享。{why}
+
+        {fix}
+
+        如有疑问，或你认为我们弄错了，请写信到 {contact}。
+      why_flagged: "我们的内容检查标记了它。"
+      why_down: "因为它违反了条款，我们已将其下架。"
+      fix_flagged: "登录查看需要修改的内容：{link}"
+      fix_down: "下架期间你无法编辑它。如果你认为它没有违反条款，请写信给我们，我们会再看一次。"
+  privacy:
+    title: "隐私请求"
+    about_label: "关于隐私请求"
+    about: "用于通过电子邮件收到的请求，来自无法使用“个人资料 → 你的数据”的人。先确认是谁在请求。回复应来自该账户的地址；对没有账户的人，应来自请求所涉及的地址。"
+    about_log: "这里的每个操作以及“删除账户”都需要填写原因。日志会记录操作、原因、执行者和时间。让原因指向你自己的请求记录，不要写入对方的姓名或地址。"
+    export: "向账户发送其数据"
+    export_about: "生成与个人资料中“下载我的数据”相同的文件。链接只发送到该账户自己的地址，绝不发送到提出请求的地址，并且只有登录该账户后才能打开。"
+    export_confirm: "发送"
+    export_queued: "正在整理 {email} 的数据。链接会发送到该地址。"
+    export_busy: "{email} 的导出已在生成中。"
+    export_soon: "{email} 在过去一天内已有一次导出。请明天再试。"
+    forget: "忘记一个地址"
+    forget_about: "删除发送到此地址的所有课程邀请，以及服务器上仍保留的发给它的所有邮件。仅适用于没有账户的地址。"
+    forget_confirm: "忘记它"
+    forgot: "该地址已被忘记。"
+    has_account: "该地址属于一个账户。请改为删除该账户。"
+    reason: "原因"
+    reason_hint: "请求记录中的第 12 号请求"
+    no_reason: "请先填写原因。"
+    log_empty: "还没有隐私操作。"
+    log_when: "时间"
+    log_action: "操作"
+    log_who: "执行者"
+    action_export: "已发送数据"
+    action_forget: "已忘记地址"
+    action_delete_account: "已删除账户"
+    action_sign_out: "已退出账户"
+    action_notice: "已发送泄露通知"
+  breach:
+    title: "数据泄露工具"
+    about_label: "关于数据泄露工具"
+    about: "用于数据泄露事件，按事件处理手册操作。退出账户会结束这些账户的会话、等待第二步验证码的登录和未使用的重置密码链接。发送通知会把你的文字发到每个账户已确认的地址，每段文字只发一次。"
+    about_log: "两者都需要填写原因，原因记在隐私日志里；运行前还要你输入一个词。"
+    sign_out: "退出账户"
+    sign_out_about: "他们用密码重新登录。你在这台设备上的会话保留。"
+    sign_out_confirm: "让他们退出"
+    notice: "发送邮件通知"
+    notice_about: "纯文本，按你输入的原样发送。再次发送相同文字只会发给还没收到的账户。每小时最多 SKRONGLE_MAIL_PER_HOUR 封，其余的等待。"
+    notice_confirm: "发送"
+    who: "对象"
+    everyone:
+      one: "所有账户（{n}）"
+      other: "所有账户（{n}）"
+    everyone_confirmed:
+      one: "所有地址已确认的账户（{n}）"
+      other: "所有地址已确认的账户（{n}）"
+    only_list: "只发给这些地址"
+    list: "地址，用逗号或换行分隔"
+    subject: "主题"
+    body: "内容"
+    reason_hint: "10 月 28 日的事件"
+    confirm: "输入 {word} 以确认"
+    confirm_word: "确认"
+    confirm_wrong: "没有执行任何操作。输入 {word} 以确认。"
+    no_list: "至少粘贴一个地址，或选择所有账户。"
+    no_text: "请填写主题和内容。"
+    signed_out:
+      one: "已让 {n} 个账户退出。"
+      other: "已让 {n} 个账户退出。"
+    sessions_ended:
+      one: "结束了 {n} 个会话。"
+      other: "结束了 {n} 个会话。"
+    sent:
+      one: "已为 {n} 个账户排队发送通知。"
+      other: "已为 {n} 个账户排队发送通知。"
+    sent_already:
+      one: "{n} 个账户已经收到过。"
+      other: "{n} 个账户已经收到过。"
+    sent_left:
+      one: "{n} 个账户在等待：每小时上限已满。稍后再按一次发送。"
+      other: "{n} 个账户在等待：每小时上限已满。稍后再按一次发送。"
+  mod:
+    course_id: "课程 id"
+    take_down_about: "课程的所有者和被分享的人都将无法打开它。所有者会看到它因违反条款被下架。分享记录会保留，恢复后分享也会恢复。"
+    take_down_confirm: "下架"
+    course: "课程"
+    owner: "所有者"
+    put_back_btn: "恢复"
+    taken_down: "课程 {id} 已下架。"
+    put_back: "课程 {id} 已恢复。"
+    no_course: "没有 id 为 {id} 的自建课程，或它已处于该状态。"
+    suspend: "暂停"
+    unsuspend: "解除暂停"
+    suspend_about: "该账户会在所有设备上退出登录，在你解除暂停前无法登录。它的课程不再分享给他人。不会删除任何内容。"
+    suspend_confirm: "暂停账户"
+    suspended: "{email} 已被暂停。"
+    unsuspended: "{email} 可以重新登录。"
+    delete: "删除账户"
+    delete_about: "账户及其创建的一切都会被删除：进度、课程、主题。此操作无法撤销。用于违反条款或儿童数据的情况。"
+    delete_confirm: "永久删除"
+    deleted: "{email} 及其数据已删除。"
+    yourself: "这是你自己的账户。请在个人资料中操作。"
+    subscribed: "{email} 有仍在计费的订阅。请先在 Stripe 中取消。"
+    blocked_title: "已屏蔽的地址"
+    block: "屏蔽地址"
+    address: "地址或范围"
+    block_about: "来自该地址的每个请求都会得到 403 页面，包括登录。范围写作 203.0.113.0/24。如果屏蔽了自己的地址，你也会被挡在外面；之后只能从 blocked_ips 删除该行并重启服务器。"
+    block_confirm: "屏蔽"
+    unblock: "移除"
+    blocked: "{ip} 已屏蔽。"
+    unblocked: "{ip} 已解除屏蔽。"
+    bad_ip: "{ip} 不是此页面能屏蔽的地址或范围（IPv4 /8 或更窄，IPv6 /16 或更窄）。"
+  title: 超级用户
+  about: "对任何账户的操作。只有超级用户能看到此页面。"
+  open_inbox: 在开发收件箱中打开
+  email: 电子邮箱地址
+  reset_note: 将该账户的邮箱标记为未确认，并像注册时一样发送新的确认链接。
+  reset: 重置电子邮箱验证
+  reset_done: "{email} 已恢复为未确认状态，并已发送新的确认链接。"
+  unknown: "没有账户使用邮箱地址 {email}。"
+  accounts: "账户"
+  accounts_info: "关于账户和注册"
+  mode_open: "任何能访问此服务器的人都可以注册（SKRONGLE_SIGNUP=open）。"
+  mode_invite: "只有持邀请链接的人才能注册（SKRONGLE_SIGNUP=invite）。"
+  mode_closed: "任何人都不能注册（SKRONGLE_SIGNUP=closed）。"
+  invite_about: "创建一个邀请链接并发给一个人。它只能使用一次，有效期 7 天。链接只在创建时显示，请当时复制。撤销会让尚未使用的链接失效。"
+  accounts_shown: "此服务器上的账户：{total}。最新的在前，每页 {per_page} 个。"
+  invite_link: "邀请链接"
+  copy: "复制"
+  make_invite: "创建邀请链接"
+  invite_made: "创建于"
+  invite_expires: "过期于"
+  revoke: "撤销"
+  invite_revoked: "该邀请链接已失效。"
+  created: "创建于"
+  last_sign_in: "最近登录"
+  temp_password: "临时密码"
+  temp_password_about: "系统会生成一个新密码，只向你显示一次。该账户会在所有设备上退出登录，并须在下次登录时设置自己的密码。不会发送任何消息：请你亲自转交给对方。"
+  temp_password_confirm: "设置临时密码"
+  temp_password_for: "{email} 的临时密码："
+  temp_password_once: "只在此刻显示。请复制后交给对方；对方会在下次登录时设置自己的密码。"
+  two_factor_off: "关闭两步验证"
+  two_factor_off_about: "在重新开启两步验证之前，该账户只凭密码登录。为其设置的身份验证器应用会被移除；已确认的手机号码保留。"
+  two_factor_off_confirm: "关闭"
+  two_factor_off_done: "{email} 的两步验证已关闭。"
+  page_of: "第 {page} 页，共 {pages} 页"
+  prev: "较新"
+  next: "较早"
+  terms_changed: "条款已更改。"
+  terms_title: "即将生效的条款变更"
+  terms_send: "发送通知"
+  terms_send_about:
+    one: "即将生效的变更摘要将发送给 {n} 个尚未收到的账户。"
+    other: "即将生效的变更摘要将发送给 {n} 个尚未收到的账户。"
+  terms_sent:
+    one: "已为 {n} 个账户排队发送通知。"
+    other: "已为 {n} 个账户排队发送通知。"
+  js:
+    copied: "已复制"
+  ai_today: "今天的 {hosted}（所有人）"
+  ai_today_about: "关于今天的 {hosted}"
+  ai_today_info: "今天（UTC）所有人在 {hosted} 上的花费，对照服务器每日上限 {cap}。达到上限后，{hosted} 对所有人暂停，直到 UTC 午夜；自己的 API 密钥仍然可用。只有超级用户能看到；学习者只能看到自己当月的用量。"
+  ai_today_spent: "{spent} / {cap} · UTC 午夜重置"
+
+billing:
+  not_offered: 本服务器未提供订阅服务。
+  stripe_unreachable: 暂时无法连接 Stripe。请稍后再试。
+  past_due: 上次付款失败；Stripe 将再次尝试扣款。请在“管理”中更新银行卡。
+  cancelled_ends: "已取消：将于 {date} 结束。"
+  renews: "将于 {date} 续订。"
+  grant_until: "截至 {date}"
+  grant_no_end: 无截止日期
+  choose_plan: "请选择一个方案。"
+  pack_not_offered: "未提供该额度包。"
+  cancel_note: "你可以使用 {plan} 到 {date}。之后你将使用免费版。"
+  cancel_note_free: "之后你将使用免费版。"
+  cancel_reason:
+    price: "太贵了"
+    unused: "我用得不够多"
+    missing: "缺少我需要的功能"
+    problems: "有些功能不能用"
+  plan:
+    price: "每月 {price}"
+    free:
+      name: "免费"
+      blurb: "所有课程和模式，使用你自己的 AI 密钥。"
+      perks: "所有内置课程和模式\n创建你自己的课程\n使用你自己的 API 密钥的 AI 功能"
+    basic:
+      name: "{app} Basic"
+      blurb: "支持我们持续运营，并在上线时获得付费功能。"
+      perks: "包含免费版的全部内容\n支持一个独立、无广告的应用\n新的付费功能上线即可使用\n可随时取消"
+    plus:
+      name: "{app} Plus"
+      blurb: "包含 {hosted}：AI 导师和课程编写，无需 API 密钥。"
+      perks: "包含 Basic 的全部内容\n每月包含 {hosted}\n无需 API 密钥即可使用 AI 导师和编写课程\n用完后可改用你自己的密钥\n可随时取消"
+  ai:
+    not_enough: "本月剩余的 {hosted} 不足以完成此操作。请升级，或使用你自己的 API 密钥。"
+    not_enough_credits: "本月剩余的 {hosted} 不足以完成此操作。请升级、购买 AI 额度，或使用你自己的 API 密钥。"
+    used_up: "你本月的 {hosted} 已用完。请升级，或使用你自己的 API 密钥。"
+    used_up_credits: "你本月的 {hosted} 已用完。请升级、购买 AI 额度，或使用你自己的 API 密钥。"
+    daily_cap: "{hosted} 今天已暂停：服务器已达到每日支出上限。UTC 午夜后恢复；你自己的 API 密钥仍可使用。"
+    rate: "一分钟内的 AI 请求太多了。请稍等片刻再试。"
+    job_daily_cap: "AI 已停止：{hosted} 今天已暂停（服务器已达到每日支出上限）。已写好的内容不会丢失；请在 UTC 午夜后继续，或使用你自己的 API 密钥。"
+    job_used_up: "AI 已停止：你本月的 {hosted} 已用完。已写好的内容不会丢失；请在升级后继续，或使用你自己的 API 密钥。"
+    job_used_up_credits: "AI 已停止：你本月的 {hosted} 已用完。已写好的内容不会丢失；请在升级后、购买 AI 额度后继续，或使用你自己的 API 密钥。"
+
+landing:
+  title: 从一个 JSON 文件夹学习任何内容
+  hero_h1: 从一个 JSON 文件夹学习任何内容。
+  hero_lead: "{app} 是一款学习应用，理念与流行的学习平台相似。把课程写成普通的 JSON 文件添加进来，每节课就会变成课节页面、自适应测验、单词卡、五分钟手机练习、听力练习和游戏。无需代码，无需内容流水线，也没有第二种格式。"
+  create_account: 创建账户
+  read_format: 阅读课程格式
+  have_account_html: "已有账户？<a href=\"{url}\" data-testid=\"landing-login\">登录</a>。"
+  have_account_google_html: "已有账户？<a href=\"{url}\" data-testid=\"landing-login\">登录</a>，或<a href=\"{google_url}\">使用 Google 继续</a>。"
+  two_files_h2: 一门课程只需两个文件，其余都是可选的。
+  two_files_lead_html: "<code>course.json</code> 列出单元，以及每张单词卡的两面。每节课是一个文件。添加一个字段，对应功能就会开启；不写，该功能就不会出现在这节课里。什么都不会出错，也不会有任何提醒。"
+  field_content_html: Markdown。每个 <code>##</code> 小节会变成一张课节卡片、一个指南步骤和一个冲刺模式小节。
+  field_vocabulary: 单词卡、点击听读、单词配对，以及手机上的配对练习。
+  field_quiz: 自适应练习，每节课有一个会增长、会衰减的掌握度分数，并决定接下来练什么。
+  field_listening: 听一句话，输入它，逐词查看检查结果。由浏览器朗读，因此无需托管音频文件。
+  field_conjugations: "任意形状的变位表：动词变位、名词变格、音阶等。附带变位练习和阶梯练习。"
+  field_conversations: 带译文的剧本对话，显示在课节页面上；冲刺模式中还有造句练习。
+  field_sprint_guide: 当自动生成的练习和步骤顺序不够用时，可以手写练习和步骤顺序。
+  reference_html: "完整参考，包括每个字段和验证器检查的每条规则，位于 <a href=\"{url}\">/docs/course-format</a>。另外还提供 JSON Schema。"
+  three_ways_h2: 获取课程的三种方式
+  write_h3: 自己编写
+  write_p_html: 点击 <em>创建课程</em>，关闭 AI 对话框，然后在浏览器中编辑文件。每次保存都会验证整门课程，并指出出错的确切文件和字段，因此错别字不会上线。
+  llm_h3: 让 LLM 来编写
+  llm_p: 格式页面是专门为交给模型阅读而写的。把它粘贴到任意聊天中，请求生成课节，然后把回复的内容粘贴到课程页面中。或者在应用中描述课程，使用你自己的 API 密钥（Anthropic、OpenAI 或本地 Ollama 服务器），看着它逐节编写并验证。密钥仅用于这项工作，绝不会被存储。
+  ready_h3: 从现成课程开始
+  ready_p: 应用自带的课程，使用相同格式编写，你可以把它们当作范例阅读，并复制喜欢的部分。
+  course_units:
+    one: "{n} 个单元"
+    other: "{n} 个单元"
+  course_lessons:
+    one: "{n} 节课"
+    other: "{n} 节课"
+  every_way_h2: 一门课程，多种学习方式
+  every_way_lead: 每个功能读取的都是同一组文件，你无需重复编写任何内容。
+  feat_sprint_h: 冲刺模式
+  feat_sprint_p: "专为手机设计的五分钟课程：词块、分类、辨认、组句、阶梯、配对、听力练习，以及每日目标和连续天数。"
+  feat_study_h: 学习模式
+  feat_study_p: 认真阅读课节，然后进行测验，测验更侧重你答错的内容。学习地图显示每个单元的掌握情况。
+  feat_play_h: 游戏模式
+  feat_play_p: 带共享排行榜的单词配对、变位练习、听数字、日期竞速、单词卡和指南。
+  feat_ai_h: AI 辅导
+  feat_ai_p: 通过聊天进行一对一辅导：讲解课节，确认你跟上了，并在你准备好时出测验。使用你自己的密钥运行。
+  feat_hear_h: 点击听读
+  feat_hear_p: 在语言课程中，每个重要的词都可以点击，并由浏览器自带的语音朗读出来。
+  feat_mastery_h: 会衰减的掌握度
+  feat_mastery_p: 正确答案会累积分数，但收益递减；错误答案会扣掉一部分；一个月不练，分数会慢慢回落。
+  small_h2: 小到能在树莓派上运行
+  spec_binary_h: 单个二进制文件
+  spec_binary_p: 模板、CSS、脚本和文档都已编译进去；内置课程是放在旁边的普通文件。SQLite 就是整个数据库。
+  spec_footprint_h: 占用极小
+  spec_footprint_p: "为 Pi Zero 2 W 设计：磁盘占用几兆字节，内存占用几十兆字节，两个异步工作线程。"
+  spec_data_h: 你的数据归你所有
+  spec_data_p: 运行在你自己的机器或局域网上。可选的 Google 登录、可选的 TLS 代理，没有第三方脚本，没有追踪。
+  spec_docs_h: 内置文档
+  spec_docs_p: 格式、功能和架构都直接由应用提供，既可以是网页，也可以是供 LLM 使用的原始 Markdown。
+  final_h2: "注册，然后回答一个问题：你想学什么？"
+  browse_docs: 浏览文档
+  terms: 服务条款
+  privacy: 隐私政策
+  feat_guide_h: "引导"
+  feat_guide_p: "把每节课变成由小步骤组成的一关：卡片、快速检查、抽认卡和提示，最后给星星。"
+  try_lead: "每种模式二十秒。选一个试试。"
+  try_noscript: "开启 JavaScript 即可在这里试用每种模式。"
+  uses_h2: "我能用它做什么？"
+  use_niche_h: "学习冷门主题"
+  use_niche_p: "没人卖这方面的课程？自己写一门，或让 AI 根据你的笔记来写。"
+  use_work_h: "补充工作培训"
+  use_work_p: "把员工手册或认证考试大纲变成课程和测验。"
+  use_goals_h: "朝长期目标前进"
+  use_goals_p: "每天在手机上学五分钟，用每日目标和连续天数坚持下去。"
+  use_fresh_h: "让重要概念保持新鲜"
+  use_fresh_p: "离开一段时间掌握度会下降，练习会先找回正在淡忘的内容。"
+  use_mood_h: "按心情选择学习方式"
+  use_mood_p: "公交上冲刺，书桌前阅读，累了就玩个游戏。进度是共享的。"
+  use_exam_h: "备考"
+  use_exam_p: "测验偏向你答错的内容，让复习时间用在需要的地方。"
+  use_trip_h: "为旅行做准备"
+  use_trip_p: "你会用到的句子，每个词都能朗读出来。"
+  use_notes_h: "把课堂笔记变成课程"
+  use_notes_p: "粘贴笔记或作业，得到课程、测验和抽认卡。"
+  use_agent_h: "和你自己的 AI 智能体一起学"
+  use_agent_p: "在应用之外教你的智能体会把你的进度报告给它。"
+  subjects_label: "科目"
+  subject_language: "语言"
+  subject_maths: "数学"
+  subject_music: "音乐"
+  js:
+    type_answer: "输入答案"
+    sprint_order: "按顺序排列"
+    sprint_note: "说出音名"
+    count: "第 {n} 题，共 {total} 题"
+    check: "检查"
+    next: "下一步"
+    again: "再来一次"
+    wrong: "答案：{answer}"
+    sprint_pick: "这是什么意思？"
+    sprint_build: "把词语排好顺序"
+    sprint_done: "答对 {right} / {total}"
+    sprint_done_line: "真正的一轮练习五分钟，能填满今天的目标。"
+    read_quiz: "我读完了，考考我"
+    study_passed: "课程通过：{right} / {total}"
+    study_passed_line: "在所有模式中都算通过。"
+    study_not: "{right} / {total}：还没通过"
+    study_not_line: "练习会让它再出现，直到你通过。"
+    play_hint: "先点一个，再点与它配对的"
+    play_done: "全部配对用时 {secs} 秒"
+    play_done_line: "Word Match 有一个共享排行榜。"
+    guide_card: "提示"
+    guide_check: "对还是错？"
+    answer_true: "对"
+    answer_false: "错"
+    guide_flip: "点卡片翻面"
+    got_it: "记住了"
+    guide_done: "本关完成"
+    sprint_listen: "你听到了什么？"
+    listen: "播放"
+    tap_to_hear: "点击收听"
+    type_it: "填写缺少的词"
+    shade: "给分数涂色"
+    number_line: "把它放到数轴上"
+    plot: "描点：点击网格"
+    type_formula: "输入式子"
+    type_formula_hint: "例如 x^2 + 3x"
+    match_graph: "匹配图像"
+    hear_interval: "听音程"
+    find_key: "在琴键上找到它"
+    place_note: "放置音符：点击五线谱"
+    which_heard: "你听到的是哪一个？"
+    major_minor: "大调还是小调？"
+    near_miss: "对了！注意重音符号：{answer}"
+
+home:
+  due:
+    title: "待复习的词"
+    about: "关于待复习的词"
+    count_html:
+      one: "<strong>{n}</strong> 个词待复习"
+      other: "<strong>{n}</strong> 个词待复习"
+    review_n:
+      one: "复习 1 个词"
+      other: "复习 {n} 个词"
+    info_ladder: "收集的词第二天会再出现。每次你记得它，间隔就会变长：1、3、7、16、35、75，然后是 150 天。"
+    info_miss: "没记住的话，它明天会再出现。每轮最多复习 20 个词，等得最久的先来。"
+  your_progress: 你的进度
+  lessons_passed: 已通过的课节
+  terms: "词条"
+  day_streak: 天连续学习
+  skipped: 已跳过
+  unit_of: "第 {n} 单元，共 {total} 个"
+  unit_bar_label: "{unit} 中已通过的课节"
+  unit_passed_html: "本单元 {total} 节课中已通过 <strong>{passed}</strong> 节"
+  sprint: 冲刺
+  open_sprint: 打开冲刺模式
+  sprint_tag: 互动式，适合手机。
+  about_sprint: 关于冲刺模式
+  start_session: 开始练习
+  study: 学习
+  open_study: 打开学习模式
+  study_tag: 带测验的简短学习课节。
+  about_study: 关于学习模式
+  need_practice_html:
+    one: "<strong>{n}</strong> 节课需要练习"
+    other: "<strong>{n}</strong> 节课需要练习"
+  answers_week_html: "本周已答 <strong>{n}</strong> 题"
+  start_practice: 开始推荐练习
+  play: 游戏
+  open_play: 打开游戏模式
+  play_tag: 小游戏和单次练习
+  about_play: 关于游戏模式
+  games_week_html:
+    one: "本周 <strong>{n}</strong> 局游戏"
+    other: "本周 <strong>{n}</strong> 局游戏"
+  terms_collected_html: "已收集 <strong>{n}</strong> 个词条"
+  browse_games: 浏览游戏
+  guide: 指南
+  open_guide: 打开指南
+  guide_tag: 分阶段的引导式课节。
+  about_guide: 关于指南
+  guide_stat_html: "已完成 <strong>{done}</strong> / {total} 个阶段"
+  next_stage: "下一步：{title}"
+  continue_guide: 继续指南
+  start_guide: 开始指南
+  see_stages: 查看你的阶段
+  ai: AI 辅导
+  open_ai: 打开 AI 辅导
+  ai_tag: 与导师聊天
+  about_ai: 关于 AI 辅导
+  using_key_html: "正在使用你的 <strong>{provider}</strong> 密钥"
+  needs_key_html: "需要 API 密钥 · <a href=\"{url}\" data-testid=\"home-ai-add-key\">在个人资料中添加</a>"
+  start_conversation: 开始对话
+  no_ai_keys: "未设置 AI 密钥"
+  info_sprint_p: "短促的点击和滑动练习：词块、分类、配对和快速测验。连续天数和每日目标会让你持续回来。"
+  info_study_p: 认真阅读课节，然后进行自适应测验，针对你答错的内容。在学习地图上逐个单元查看掌握度的增长。
+  info_study_listening_p: 认真阅读课节，然后进行自适应测验，针对你答错的内容，并通过输入所听到的内容来训练听力。在学习地图上逐个单元查看掌握度的增长。
+  info_play_intro: "选一样来玩：限时单词配对，"
+  info_play_drill: "{item} 变位练习，"
+  info_play_numbers: "听数字，"
+  info_play_dates: "日期竞速，"
+  info_play_end: 或一副单词卡。
+  info_guide_p: "按顺序一次完成一个小步骤：看一两张卡片，然后做一个快速检查。完成一个阶段即可解锁下一个，每个阶段最多可获得三颗星。"
+  info_ai_p: "通过聊天进行一对一课节：导师讲解、确认你跟上了、在你准备好时布置练习，并带你逐一点评答案。题目相同，掌握度相同，只是变成了对话。使用你自己的 API 密钥运行。"
+  ok: 好
+
+goal:
+  ring_label: "今日目标：{goal} 分中已得 {n} 分"
+  smashed: "目标达成 {icon}"
+  smashed_sub: "今日 {n} 分。让连续天数继续亮着。"
+  showed_up: "不错，你来了"
+  points_today: "今日 {n} 分。再得 {more} 分就能填满圆环。"
+  keep_alive: "保住 {icon}"
+  day_away: "第 {n} 天只差一节练习。"
+  five_minutes: "有五分钟吗？"
+  any_mode: "无论用哪种模式学习，都会填满圆环。"
+  continue: "继续：{title}"
+  all_done: "所有课程都已通过：继续保持熟练"
+  info_label: "哪些学习计入每日目标"
+  info_title: "今日目标"
+  info_p: "你在本课程中的一切学习，无论哪种模式，都会为当天的 {goal} 分积分。用时越长的得分越多："
+  col_activity: "学习内容"
+  col_points: "分数"
+  kind:
+    answer: "一道测验题（任意模式）"
+    tutor: "AI 导师的一道题"
+    exercise: "一道冲刺练习（词块、分类、组句…）"
+    game: "游戏中的一项（一对、一个数字、一个日期）"
+    listening: "听力练习中的一句"
+    flashcard: "一张单词卡"
+    card: "指南阶段中的一张卡片"
+    reading: "把一课读完"
+
+study:
+  correct: 正确！
+  never: 从未
+  pill_passed: ✓ 已通过
+  pill_read: ✓ 已读
+  pill_mastery_title: 掌握程度
+  practise: 练习
+  status:
+    not_started: 未开始
+    mastered: 已掌握
+    in_progress: 进行中
+    needs_practice: 需要练习
+    skipped: 已跳过
+  via:
+    study: 学习模式
+    sprint: 冲刺模式
+    play: 游戏模式
+    tutor: AI 辅导
+    agent: AI 代理
+    legacy: 早前的一次练习
+    other: 其他模式
+  pass:
+    passed_in: "在{via}中已通过"
+    passed_with: "用{via}通过"
+    seen_best: "已读 · 最佳一轮 {best}%，{pass}% 即通过"
+    seen_now: "已读 · 目前在其练习中得分 {pass}%"
+    done_read: 练习已完成 · 读完才能通过
+    best_run: "最佳一轮 {n}%"
+    not_started: 未开始
+  counts:
+    n_mastered: "{n} 个已掌握"
+    n_in_progress:
+      one: "{n} 个进行中"
+      other: "{n} 个进行中"
+    n_weak: "{n} 个薄弱"
+    n_need_practice:
+      one: "{n} 个需要练习"
+      other: "{n} 个需要练习"
+    n_not_started:
+      one: "{n} 个未开始"
+      other: "{n} 个未开始"
+    n_of_m_passed: "已通过 {n}/{total}"
+    n_skipped:
+      one: "{n} 个已跳过"
+      other: "{n} 个已跳过"
+    n_questions: "{n} 道题"
+    n_lessons:
+      one: "{n} 节课"
+      other: "{n} 节课"
+  games:
+    word_match: 单词配对
+    numbers: 听数字
+    date_dash: 日期竞速
+    listening: 听力
+    sprint: 冲刺模式
+    drill: "{item} 变位练习"
+    drill_plain: 变位练习
+    result: "答对 {correct} / {total} · {time}"
+  nav:
+    study_mode: 学习模式
+    study_mode_desc: "学习模式：带测验的简短学习课节"
+    study: 学习
+    practice: 练习
+    listening: 听力
+    lessons: 课节
+    map: 地图
+    vocabulary: 词汇
+    history: 历史记录
+    mistakes: 错题
+    switch: "切换："
+    to_sprint: 切换到冲刺模式
+    sprint_desc: "冲刺模式：互动式，适合手机"
+    sprint: 冲刺
+    to_play: 切换到游戏模式
+    play_desc: "游戏模式：小游戏和单次练习"
+    play: 游戏
+    all_modes: 所有模式（首页）
+    menu: 菜单
+  lessons:
+    title: 课节
+    find: 查找课节
+    find_placeholder: 一个主题或一个词
+    read_title: 已通过阅读检查
+    unread: 未读
+    unread_title: 通过课节底部的检查，即可将其加入推荐练习
+    jump: "跳转到单元"
+    jump_passed: "已通过 {n}/{total}"
+    to_top: "↑ 返回顶部"
+  panel:
+    lessons: 课节
+    noscript: 移动、重命名和添加课节需要 JavaScript；“编辑”会打开课节的文件。
+    editor_settings: 编辑器设置
+    feature_usage: 功能使用情况
+    feature_usage_report: 功能使用报告
+    edit_settings: 编辑课程设置
+    course_settings: 课程设置
+    edit: 编辑
+    add_unit: + 添加单元
+    words_open: "粘贴单词表"
+    words_title: "粘贴单词表"
+    words_info: "关于粘贴单词表"
+    words_name: "课节名称"
+    words_text: "单词，每行一个"
+    words_add: "添加课节"
+    words_how: "每个单词占一行，后面跟它的意思，用短横线、等号、逗号或制表符隔开（电子表格复制时用制表符）。如果第一行只写了两列的名称，会被跳过。"
+    words_after: "新课节放在最后一个单元的末尾。这些单词成为它的词汇，单词表成为它的正文。在表格里打开它，可以添加题目或移动它。"
+    json_of_settings: 课程设置的 JSON
+    format: 格式化
+    fold: "折叠 {unit}"
+    add_to: "向 {unit} 添加课节"
+    delete_unit: "删除单元 {unit}"
+    delete_this_unit: 删除此单元
+    json: JSON
+    json_desc: 以 JSON 形式编辑每个文件，而不是使用表单。
+    line_numbers: 行号
+    line_numbers_desc: 为 JSON 框中的行加上编号。
+    language_features: "语言功能"
+    language_features_desc: "听写、组句和翻译字段。"
+    language_features_info: "关于语言功能"
+    language_features_what: "课程中有些部分只有在教语言时才有意义：听写句子、对话、组句，以及例句或对话行旁边的翻译。"
+    language_features_off: "关闭后，编辑器会隐藏这些部分（只要它们还是空的），这样用你自己的语言解释术语的课程就不必填写翻译。已有内容的部分会保留。学习者将不再有对应的练习：听写、听数字、点击朗读，以及 Sprint 中的听写和组句练习。JSON 模式始终显示所有字段。"
+    language_features_saved: "以 language_features 保存在课程设置中，对编辑该课程的每个人都生效。在你设置之前，当术语与释义使用不同语言时，这些功能处于开启状态。"
+    levels: "级别"
+    levels_info: "什么是级别"
+    levels_desc: "学习者可以从后面的单元开始"
+    levels_what: "当单元是这门学科的级别（A1、A2……、初级、中级……），而不是每章都依赖前一章时，请打开它。首次打开课程的学习者会选择从哪个级别开始，之前的课程会被跳过。"
+    levels_saved: "以 levels 保存在课程设置中，对编辑该课程的每个人都生效。"
+    placement: "分级测试"
+    placement_info: "什么是分级测试"
+    placement_desc: "一个建议从哪里开始的简短测试"
+    placement_what: "学习者可以在开始向导的最后参加测试，而不是自己选级别。全部答对的级别可以跳过；第一个答错的级别就是建议的起点。"
+    placement_how: "在 \"questions\" 中为某个单元写选择题，或设置 \"random_per_unit\"，从每个单元自己的选择题中随机抽取这么多道。"
+    placement_saved: "保存为 placement.json，每门课程一个。"
+    edit_placement: "编辑分级测试"
+    json_of_placement: "分级测试的 JSON"
+    close: 关闭
+    delete_unit_q: 删除此单元？
+    delete_unit_warn: "警告：这将删除该单元中的所有课节。确定吗？"
+    progress_goes: 其中的进度也会一并删除（撤销可以恢复）。
+    cancel: 取消
+    confirm: 确认
+    new_lesson: 新课节
+    move: "移动 {title}：拖动，或使用方向键"
+    drag: 拖动以重新排序
+    edit_title: "编辑 {title}"
+    rename: 点击以重命名
+    delete_title: "删除 {title}"
+    duplicate_title: "复制 {title}"
+    ai_edit: "用 AI 编辑"
+    ai_edit_title: "用 AI 编辑 {title}"
+    ai_edit_ask: "这一课要改什么？"
+    ai_edit_placeholder: "例如：多加几个例题，用更简单的词。"
+    ai_edit_limit: "最多 {n} 个字符。只改这一课。"
+    duplicate: "复制"
+    delete: 删除
+    json_of: "{title} 的 JSON"
+  lesson:
+    lessons: 课节
+    mastery_aria: "掌握度 {n}%"
+    read_title: "{when} 已通过阅读检查"
+    mastery: 掌握度
+    accuracy_over: " · {n} 次作答的准确率 {pct}%"
+    streak: " · 连续 {n} 次"
+    last_practised: " · 上次练习于 {when}"
+    read_quiz_me: 我已读完，考考我吧
+    practise_this: 练习本课节
+    previous: 上一课
+    next: 下一课
+    pager_aria: 上一课和下一课
+    listen_type: 听并输入
+    tutor_me: 让导师辅导我
+    before_this: "在此之前："
+    vocabulary: 词汇
+    say_hint: "🔊 点击本页中任意 {label} 单词即可听读。"
+    conversations: 对话
+    example: 示例
+    from_theme: "来自「{theme}」主题"
+    set: 设置
+    drill_these: "在{item}变位练习中练习这些"
+    drill_after: 完成本课节后。
+    scales: "音阶"
+    check_h2: 检查你的理解
+    check_intro_one: "读完了吗？回答这一道题即可将本课节标记为已读。循环是：阅读、检查、练习。请仔细阅读（写下关键词和短语有助于记住），通过本次检查，本课节就会加入你的推荐练习，直到你展示出掌握度。"
+    check_intro_two: "读完了吗？回答这两道题即可将本课节标记为已读。循环是：阅读、检查、练习。请仔细阅读（写下关键词和短语有助于记住），通过本次检查，本课节就会加入你的推荐练习，直到你展示出掌握度。"
+    question_n_of: "第 {n} 题，共 {total} 题"
+    answer_to: "第 {n} 题的答案"
+    insert_special: 插入特殊字符
+    type_ch: "输入 {ch}"
+    hint: 提示
+    check_answers: 检查我的答案
+    lesson_read: ✓ 课节已读
+    read_passed: "你于 {when} 通过了阅读检查。本课节现已属于你的推荐练习；请继续练习，直到展示出掌握度。"
+    focus: "重点：{focus}"
+    quiz_questions: "{n} 道测验题"
+    listening_sentences: "{n} 个听力句子"
+    play_guide: "在指南中练习"
+    sprint_session: 冲刺模式练习
+    counts_complete: 在每种模式中都计为完成。
+    pass_rule: "在一轮中达到 {pct}% 或以上即可通过本课节，在此处或任何模式中均可。"
+    pass_rule_min: "在一轮中至少 {n} 题达到 {pct}% 或以上即可通过本课节，在此处或任何模式中均可。"
+    read_to_end: 读到结尾才会计为已读。
+    sprint_same_guide: 冲刺模式练习或指南阶段的计算方式相同。
+    sprint_same_ai: 冲刺模式练习、指南阶段或 AI 导师的计算方式相同。
+    read_it: 我已读完
+    to_pass_check: "要通过本课节：先通过上方的阅读检查，然后在一轮中达到 {pct}% 或以上。"
+    to_pass_check_min: "要通过本课节：先通过上方的阅读检查，然后在一轮中至少 {n} 题达到 {pct}% 或以上。"
+    test_yourself: 测试自己
+    more_ways: "更多方式"
+    info_label: "关于本课的学习进度"
+    close: "关闭"
+    note_h2: "我的笔记"
+    note_placeholder: "任何能帮你记住这一课的内容"
+    note_info: "关于我的笔记"
+    note_info_body: "只有你能看到这条笔记。它会在你输入时自动保存，最多 {max} 个字符，并包含在个人资料的“下载我的数据”中。"
+    note_ok: "好"
+    note_saved: "笔记已保存"
+    note_too_long: "笔记最多 {max} 个字符。"
+    note_bad_chars: "笔记不能包含控制字符。"
+  start:
+    where_start: 你想从哪里开始？
+    lead: "选择适合你的级别。低于它的课节会被跳过：你仍可阅读，但不会要求你练习，也不计为已通过。"
+    from_beginning: "从头开始 · "
+    change_lead: "选择要学习的级别。你的进度会保留：通过记录、掌握程度和历史都不变，所有模式都从这个级别的第一个课节继续。低于它、你从没学过的课节会被跳过。"
+    no_such_level: "本课程没有可供开始的级别「{unit}」"
+  history:
+    title: 历史记录
+    games: 游戏
+    no_games_html: "还没有玩过游戏。<a href=\"{url}\">去玩一局</a>。"
+    when: 时间
+    game: 游戏
+    board: 面板
+    result: 结果
+    recent_answers: 最近的作答
+    no_answers_html: "还没有作答。<a href=\"{url}\">开始练习</a>。"
+    topic: 主题
+    question: 题目
+    your_answer: 你的答案
+    agent_prompt: "{asked}（由 AI 代理设置）"
+    removed_lesson: （已删除的课节）
+  mistakes:
+    title: 错题
+    about: 关于错题列表
+    none_html: "没有要改正的错题。<a href=\"{url}\">开始练习</a>。"
+    when: 时间
+    lesson: 课程
+    question: 问题
+    your_answer: 你的回答
+    right_answer: 正确答案
+    info_p: "最后一次答错的测验题，最新的在前。答对一次后，题目就会从列表中移除。最多显示 {n} 条。"
+    ok: 确定
+  map:
+    title: 学习地图
+    lead: 按顺序列出每个单元的每节课。当一个单元中的所有课节都已掌握（80% 或以上）时，该单元即为已掌握。你目前学习的是
+    unit_mastered: 单元已掌握
+    mastered_of: "已掌握 {total} 节课中的 {n} 节"
+    to_go: "距离{unit}掌握还差 {n} 节课"
+    mastered: 已掌握
+    lesson_aria_passed: "{title} 课节 · 已通过"
+    lesson_aria: "{title} 课节 · {status}"
+    passed_check: 已通过 ✓
+    you_are_here: "你在这里 · 第 {n} 节，共 {total} 节"
+    practise_towards: "为{unit}掌握度练习"
+    next_up_lesson: "下一节是第 {n} 节"
+  js:
+    correct: 正确！
+    not_quite: 不太对。
+    correct_answer_html: "正确答案：<strong lang=\"{lang}\">{answer}</strong>"
+    new_terms_collected:
+      one: "✦ 收集到新词条："
+      other: "✦ 收集到新词条："
+    lesson_read: ✓ 课节已读
+    read_passed_html: "掌握度现为 <strong>{mastery}%</strong>。从此刻起，本课节属于你的推荐练习；再多练几次以展示掌握度。"
+    recommended_practice: 推荐练习
+    back_to_lessons: 返回课节列表
+    not_read: 尚未阅读
+    not_read_hint: 两个答案都需要正确。请重新看看解释所指的部分，然后再用两道新题重试。
+    try_two_more: 再试两道题
+    submit_failed: "无法提交你的答案（{error}）。请重试。"
+    filter_matches: "{total} 节课中有 {shown} 节匹配"
+    filter_none: "没有课节匹配「{query}」"
+    lookup_link: "在词汇中查找「{query}」"
+
+docs:
+  title_suffix: 文档
+  documentation: 文档
+  raw: 原始：
+  section_guides: 指南
+  section_reference: 参考
+  section_dev: 开发者
+  js:
+    copied: 已复制 ✓
+    copy: 复制
+    selected: 已选择
+  self_host:
+    title: 自己动手部署
+    kicker: "{app} mini · 无需经验"
+    h1: "在家里的小电脑上运行 {app}"
+    lead: 把它放在家里的树莓派上，连上同一个 Wi-Fi 的每个人都能使用。你只需复制粘贴几条命令。
+    start_need: 先准备好所需物品
+    technical: 技术版
+    hero_art_alt: 树莓派向手机和笔记本电脑发送 Wi-Fi 信号，两台设备上都显示着一节课
+    your_pi: 你的树莓派
+    steps: 步骤
+    toc_why: 为什么
+    toc_need: 所需物品
+    toc_setup: 设置树莓派
+    toc_install: 安装
+    toc_yours: 个性化设置
+    toc_away: 外出使用
+    toc_more: 还能做什么？
+    why_h2: 为什么要自己部署？
+    reason_data_h: 🔒 数据留在你的设备上
+    reason_data_p: 课程、学习进度和账户都保存在你家里的存储卡上，而不是别人的服务器上。
+    reason_cheap_h: 🔌 运行成本低
+    reason_cheap_p: 除了树莓派本身，唯一的运行成本只是一点电费。
+    reason_everyone_h: 👪 一台设备，大家共用
+    reason_everyone_p: 一个家庭或一间教室共用一台树莓派。每个人都有自己的账户和学习进度。
+    reason_skill_h: 🛠️ 一项真正的技能
+    reason_skill_html: 做过这一次之后，你几乎可以自己部署任何东西。参见<a href="#more">文末的想法</a>。
+    need_h2: 所需物品
+    need_pi: 树莓派 Zero 2 W
+    need_pi_price: 约 $18
+    need_pi_p: 电脑主机本身，大小和一块口香糖差不多。
+    need_pi_buy: 从官方经销商购买 →
+    need_sd: microSD 存储卡，16 GB 或更大
+    need_sd_price: 约 $13
+    need_sd_p: 用来存放树莓派的整个系统。
+    need_sd_buy: 购买官方树莓派存储卡 →
+    need_power: 电源
+    need_power_price: 约 $9
+    need_power_html: Micro-USB，5&nbsp;V 2.5&nbsp;A。
+    need_power_buy: 购买官方电源 →
+    need_wifi: 家里 Wi-Fi 的名称和密码
+    need_wifi_p: 树莓派像其他设备一样连接它。
+    need_computer: 带 SD 卡插槽的电脑
+    need_computer_price: 读卡器约 $7
+    need_computer_p: 只用于设置。没有插槽？请使用 USB 读卡器。
+    need_computer_buy: 购买读卡器 →
+    total_html: "<strong>预计成本：约 $40</strong>，若加上读卡器则约 $47。为美国经销商价格，不含运费，实际价格可能不同。不需要显示器、键盘或鼠标。"
+    setup_h2: 设置树莓派
+    setup_imager_html: 在你的电脑上从 <a href="https://www.raspberrypi.com/software/" rel="noopener">raspberrypi.com/software</a> 安装 <strong>Raspberry Pi Imager</strong>。这是官方的免费工具，用来准备存储卡。
+    setup_card_html: <strong>把 microSD 卡插入你的电脑</strong>，然后打开 Imager。
+    setup_device_html: <strong>选择设备：</strong>Raspberry Pi Zero 2 W。
+    setup_system_html: <strong>选择系统：</strong><em>Raspberry Pi OS (other)</em> → <strong>Raspberry Pi OS Lite (64-bit)</strong>。
+    setup_memory_html: "<strong>选择你的存储卡</strong>，然后填写 Imager 提供的设置："
+    setting_hostname: 主机名
+    setting_user: 用户名和密码
+    setting_user_v: 由你选择；记下来
+    setting_wifi: Wi-Fi
+    setting_wifi_v: 你的网络名称和密码
+    setting_location: 所在地
+    setting_location_v: 你所在的国家
+    setting_ssh: SSH
+    setting_ssh_v: 开启，使用密码登录
+    setup_write_html: <strong>写入存储卡。</strong>
+    setup_plug_html: <strong>把存储卡放入树莓派并接通电源。</strong>等待几分钟让它启动。
+    setup_tip_html: 💡 <strong>以后连不上？</strong>通常是 Wi-Fi 输错了。重新写入存储卡即可。
+    install_h2: "安装 {app}"
+    connect_h3: 连接到你的树莓派
+    connect_p_html: "打开 <strong>终端</strong>（Mac）或 <strong>PowerShell</strong>（Windows），输入你的用户名："
+    copy: 复制
+    connect_yes_html: 如果提示，输入 <code>yes</code>，然后输入密码（输入时不会显示）。
+    download_h3: 下载
+    paste_lines: "粘贴以下几行："
+    start_h3: 启动（并在每次开机时启动）
+    open_h3: 打开
+    owner_link_p: "首先，显示用来创建你自己账户（所有者账户）的链接。它只能用一次："
+    open_p: "在同一 Wi-Fi 下的任何手机或笔记本电脑上打开该链接并创建你的账户。之后，地址是："
+    done_html: 🎉 <strong>完成。</strong>把它加入书签。
+    not_loading_html: 💡 <strong>无法加载？</strong>在树莓派上运行 <code>hostname -I</code>，然后改用显示的数字，例如 <code>http://192.168.1.42:8080</code>。
+    yours_h2: 个性化设置
+    yours_account_html: "在账户菜单的<em>超级用户</em>页面中用链接<strong>邀请其他人</strong>。"
+    yours_terms_html: "<strong>在服务条款中写上你的名字。</strong>每个人注册时都会接受它。用 <code>sudo nano /etc/skrongle/terms.md</code> 编辑，然后运行 <code>sudo systemctl restart skrongle</code>；每个人下次访问时都会接受新文本。"
+    yours_course_html: <strong>选择一门课程。</strong>西班牙语已内置，也可以自己制作。
+    yours_ai_html: "<strong>可选：AI 导师和课程生成器。</strong>在<em>个人设置 → AI API 密钥</em>中粘贴 Anthropic、OpenAI 或 Google 的密钥。费用由它们直接向你收取。"
+    yours_tip: "🔒 只有你邀请的人才能创建账户。"
+    away_h2: 外出时使用
+    optional: 可选
+    away_p_html: "使用 <a href=\"https://tailscale.com\" rel=\"noopener\">Tailscale</a>（免费）：在你自己的设备之间建立私密连接。无需在路由器上开放端口。"
+    away_art_alt: 家中的树莓派与你身处任何地方的手机之间，一条私密的加密隧道
+    home: 家中
+    anywhere: 任何地方
+    away_account: 注册一个免费的 Tailscale 账户。
+    away_run: 在树莓派上运行以下命令，然后打开它显示的链接，并批准该树莓派。
+    away_phone: 在你的手机上安装 Tailscale，使用同一账户。
+    away_open_html: 在任何地方打开 <strong>http://skrongle:8080</strong>。
+    more_h2: 树莓派还能做什么？
+    more_p: "最难的部分你已经完成了。接下来可以试试下面的一个："
+    idea_passwords_h: 🔑 保存你的密码
+    idea_passwords_p: Vaultwarden，一个你可以自己部署的密码管理器。
+    idea_music_h: 🎵 播放你自己的音乐
+    idea_music_p: Navidrome 让你随时随地播放自己的音乐库。
+    idea_files_h: 📁 存储文件和笔记
+    idea_files_p: Syncthing 让它们在各设备之间保持同步。
+    more_at_html: 更多内容请见 <a href="https://projects.raspberrypi.org/" rel="noopener">projects.raspberrypi.org</a>。
+    footnote_html: "更多详情：请看<a href=\"{url}\" data-testid=\"selfhost-technical-footer\">技术指南</a>。"
+    mini_h2: "{app} mini"
+    mini_p: "本页安装的是：同一个应用，为几个认识你的人设置好，不依赖任何外部服务。"
+    mini_out_h3: "它省掉了什么"
+    mini_out_mail: "没有电子邮件或短信：链接直接显示在页面上。"
+    mini_out_plans: "没有套餐或付款：每个人都能用全部功能。"
+    mini_out_signup: "凭邀请注册：你为每个人生成一个链接。"
+    mini_out_terms: "使用你自己的服务条款，而不是我们的。"
+    mini_out_jobs: "后台任务在应用内部运行：不需要额外的服务。"
+    mini_out_db: "一个数据库文件（SQLite）：不需要数据库服务器。"
+    mini_safe_h3: "安全由你负责"
+    mini_safe_password: "每个账户都用强密码。"
+    mini_safe_2fa_html: "用身份验证器应用开启两步登录：<em>个人资料设置 → 两步验证</em>。"
+    mini_safe_vpn_html: "只通过 Tailscale 或 VPN 访问（第 6 步）。<strong>绝不要在路由器上开放端口</strong>。"
+    mini_safe_tip_html: "🔒 应用会减缓猜密码的尝试，但它不是为直接暴露在互联网上而设计的。<a href=\"{url}\" data-testid=\"selfhost-mini-security\">它能防什么、不能防什么</a>。"
+
+quiz:
+  page:
+    recommended_title: 推荐练习
+    recommended_subtitle: 混合你读过的课程，偏重你觉得最难的课程。
+  empty:
+    nothing_yet: "还没有可以练习的内容。推荐练习从你读过的课程中抽题：打开一节课，认真阅读，然后通过底部的两题检测，即可加入。"
+    read_next: "接下来读：{title}"
+    all_lessons: 所有课
+    no_questions_html: "目前还没有可用的题目。<a href=\"{url}\">浏览课程</a>。"
+    lesson_has_none: "这一课没有测验题。"
+    back_to_lesson: "返回本课"
+  question:
+    answer_label: 你的答案
+    placeholder_number: 输入数字（3/4、1.5、2；-3 …）
+    placeholder_expression: 输入一个表达式，例如 2(x+1) 或 x^2 - 1
+    placeholder_sides: "输入两条边，例如 (x + 1)(x + 4)"
+    placeholder_text: 输入你的答案
+    insert_char: 插入特殊字符
+    type_char: "输入 {ch}"
+    hint: 提示
+    check: 检查
+    protractor: "量角器：把它拖到角上，用把手转动。方向键移动它，Shift 加左右方向键转动它，回车键跳到答案框。"
+  summary:
+    title: 测验完成
+    score_html: 答对 <span id="s-correct">0</span> / <span id="s-total">0</span>
+    again_lesson: 再练习这节课
+    recommended: 推荐练习
+    another_round: 再来一轮
+  tiles:
+    board: "可摆放的拼块"
+    keys: "拖动拼块，或按 Tab 选中后用方向键移动。按 R 旋转长条，按 Enter 检查答案。"
+    turn: "旋转"
+    reset: "重新开始"
+  check:
+    no_answer: 你没有输入答案。
+    accents: "差一点！请检查重音符号：正确的形式是“{answer}”。"
+    fill_bar_beats: "你放入的拍数：{given}。空缺的拍数：{gap}。"
+    fill_bar_exact: "这些音符能填满空缺，但这道题要的是特定的音符。"
+    chord_spelling: "差一点！音对了，但写法不对。请检查音名。"
+    staff_octave: "差一点！音名对了，但八度不对。"
+    keyboard_octave: "音对了，八度不对。"
+    two_sides: "请写成两条边相乘，例如 (x + 1)(x + 4)。"
+    other_scale: "你读的是另一圈刻度。请从落在角的一条边上的 0 开始数。"
+  api:
+    unknown_lesson: 未知的课
+    no_questions: 这节课没有题目
+    check_needs: "检测需要 {n} 个答案"
+    distinct_questions: 答案必须针对本课的不同题目
+    unknown_question: 未知的题目
+    answer_too_long: 答案太长
+  js:
+    correct: 正确！
+    lesson_result: "答对 {right}/{asked} · 当前掌握度 {mastery}%"
+    practise: 练习
+    lesson_passed_now: ✓ 本课已通过
+    passed: ✓ 已通过
+    read_to_pass: · 读完本课即可通过
+    seventy_passes: · 70% 即可通过
+    answers_needed: "· 需要 {n} 个答案才能计入"
+    not_quite: 不太对。
+    correct_answer: "正确答案："
+    new_terms:
+      one: "✦ 已收集新词条："
+      other: "✦ 已收集新词条："
+    mastery_html: "{lesson} 掌握度：<strong>{mastery}%</strong>"
+    streak: " · 连续答对 {n} 题"
+    see_results: 查看结果
+    next: 下一题
+    pick_first: 请先选择一个答案。
+    type_first: 请先输入答案。
+    submit_failed: "无法提交你的答案（{error}）。请再试一次。"
+
+vocab:
+  index:
+    title: 词汇
+    heading: 你的词汇
+    lead: 你通过正确回答测验题收集到的每一个词条。
+    lead_count_html: "目前已收集 <strong>{learned}</strong> / {total} 个词条。"
+    study_all: 全部学习（随机）
+    empty_html: "还没有词条。请在<a href=\"{practice_url}\">练习</a>或<a href=\"{guide_url}\">指南</a>中回答问题；每个正确答案都会把它用到的词条加入你的收藏。"
+    show_all_lessons: "显示全部课程（{n}）"
+    nothing_yet:
+      one: "{n} 节课尚未收集任何词条"
+      other: "{n} 节课尚未收集任何词条"
+    study_n: "学习（{n}）"
+    collected: "已收集 {learned} / {total} 个词条"
+    practise_more_html: "· <a href=\"{url}?lesson={slug}\">练习这节课</a>以收集更多"
+    show_terms: 显示词条
+    say_hint: 🔊 点击词条即可听发音。
+    th_example: 例句
+    th_collected: 已收集
+    th_known: 已掌握
+    not_reviewed: 尚未复习
+  study:
+    title: "学习：{heading}"
+    all_terms: 所有词条
+    subtitle_lesson: "你从本课收集的 {n} 个词条"
+    subtitle_all: "共 {n} 个词条，随机顺序"
+    crumb_vocabulary: 词汇
+    crumb_flashcards: 单词卡
+    show_first: 先显示
+    how_to: 点击卡片（或按空格键）翻面。然后告诉我们你是否认识这个词。
+    hear_it: 听发音
+    tap_to_reveal: 点击显示
+    didnt_know: 不认识
+    knew_it: 认识
+    round_complete: 本轮完成
+    known_html: "你认识 <span id=\"st-known\">0</span> / <span id=\"st-count\">0</span>。"
+    review_missed: 复习答错的词条
+    go_again: 再来一次
+    practise_lesson: 练习本课
+    new_random: 重新随机排序
+    back: 返回词汇
+    due_heading: "待复习的词"
+    subtitle_due:
+      one: "今天有 {n} 个词待复习"
+      other: "今天有 {n} 个词待复习，等得最久的先来"
+    due_tomorrow_html: "明天再来：<span id=\"st-tomorrow\">0</span>"
+    next_tomorrow:
+      one: "下次：明天 {n} 个词"
+      other: "下次：明天 {n} 个词"
+    next_on:
+      one: "下次：{day} {n} 个词"
+      other: "下次：{day} {n} 个词"
+    due_home: "返回课程"
+  api:
+    word_too_long: 词条太长
+  lookup:
+    title: "查找「{query}」"
+    heading: "「{query}」的词汇"
+    back: 返回课节
+    none: "本课程中没有与「{query}」匹配的词。"
+    more: "显示前 {shown} 个，共 {total} 个。多输入一些可缩小范围。"
+    form_of: "{what} 的一种形式"
+    taught_in: "所在课节："
+
+listening:
+  index:
+    title: 听力
+    heading: 听力
+    tagline: · 听一听，再输入
+    lead: "浏览器会朗读一句{language}；你输入听到的内容，并逐词查看检查结果。想听多少次都可以重播，还可以放慢速度。"
+    sentences_total: "各课共 {n} 个句子"
+    rounds_played:
+      one: "已完成 {n} 轮"
+      other: "已完成 {n} 轮"
+    mixed_round: "混合练习（{n} 个句子）"
+    intro: "混合练习会从每节课中抽取句子，并偏重你觉得最难的课程。也可以选择一节课，听完它的所有句子："
+    sentence_count:
+      one: "{n} 个句子"
+      other: "{n} 个句子"
+    read_lesson: 阅读本课
+    listen: 听
+  play:
+    title: "听力：{heading}"
+    mixed_title: 混合听力练习
+    mixed_subtitle: 来自每节课的句子，偏重你觉得最难的课程。
+    crumb_listening: 听力
+    unsupported: 此浏览器无法朗读（不支持语音合成）。请在电脑或手机上试用 Chrome、Edge、Safari 或 Firefox。
+    no_voice: "此浏览器未安装{language}语音，因此句子会以其他语言朗读。请在系统的语音设置中安装，或换一个浏览器试试。"
+    empty_html: "没有可播放的句子。<a href=\"{url}\">选择一节课</a>。"
+    voice: 语音
+    loading_voices: 正在加载语音…
+    speed: 速度
+    speed_words: 逐词朗读
+    speed_phrases: 慢速，短语朗读
+    speed_unhurried: 从容
+    speed_normal: 正常
+    speed_fast: 快速
+    start: 开始听
+    sentence_count:
+      one: "{n} 个句子 · 想听多少次都可以重播"
+      other: "{n} 个句子 · 想听多少次都可以重播"
+    listen_status: 听…
+    placeholder: 输入你听到的内容
+    answer_label: 你听到的句子
+    check: 检查
+    replay: 重播
+    slower: 放慢
+    reveal: 显示
+    stop: 停止
+    keys_html: <kbd>Enter</kbd> 检查 · <kbd>Alt</kbd>+<kbd>R</kbd> 重播 · <kbd>Alt</kbd>+<kbd>S</kbd> 放慢 · <kbd>Alt</kbd>+<kbd>Q</kbd> 显示
+    round_complete: 本轮完成
+    another_round: 再来一轮
+    pick_lesson: 选择一节课
+    quiz_lesson: 本课测验
+  api:
+    unknown_lesson: 未知的课
+    unknown_sentence: 未知的句子
+    answer_too_long: 答案太长
+    no_listening: 本课程没有听力练习
+    implausible: 结果不合理
+  js:
+    correct: 正确！
+    audio_failed: "无法播放音频（{code}）。请按重播。"
+    listen_status: 听…（想听多少次都可以重播；如果太快，请放慢。）
+    check: 检查
+    sentence_was: "这句话是："
+    almost_accents: 差一点！请检查重音符号。
+    not_quite: 不太对。
+    you_wrote: "你写的是："
+    words_right: "{total} 个词答对 {right} 个"
+    finish: 完成
+    next: 下一题
+    press_r_s: 按 R 再听一遍，按 S 慢速听。
+    type_or_reveal: 输入你听到的内容，或按 Q 显示答案。
+    check_failed: "无法检查你的答案（{error}）。请再试一次。"
+    done_detail: "用时 {secs} 秒，答对 {pct}% 的句子"
+    revealed: " · 已显示"
+    you_wrote_quote: " · 你写的是“{typed}”"
+
+play:
+  common:
+    games: 游戏
+    play: 游戏
+    start: 开始
+    stop: 停止
+    check: 检查
+    again: 再来一次
+    change_settings: 更改设置
+    round_complete: 本轮完成
+    first_round: 你的第一轮。
+    points: 分
+    combo: 连击
+    streak: 连续天数
+    insert_char: 插入特殊字符
+    type_char: "输入 {ch}"
+    best_score: "最佳分数 {n}"
+    rounds_played:
+      one: "已玩 {n} 轮"
+      other: "已玩 {n} 轮"
+  nav:
+    aria: 游戏模式
+    mode_title: "游戏模式：游戏和单次练习"
+    play: 游戏
+    all: 全部
+    numbers: 数字
+    dates: 日期
+    flashcards: 单词卡
+    stages: 阶段
+    switch: "切换："
+    to_sprint: 切换到 Sprint 模式
+    sprint_title: "Sprint 模式：互动，适合手机"
+    sprint: Sprint
+    to_study: 切换到学习模式
+    study_title: "学习模式：带测验的短课"
+    study: 学习
+    menu_aria: 所有模式（首页）
+    menu: 菜单
+  hub:
+    title: 游戏
+    heading: 游戏
+    heading_sub: "· 游戏和单次练习"
+    lead: "选一项就玩。这里没有固定的学习路径：每个游戏和练习都是独立的，并且都使用本课程自己的课。"
+    matching_desc: "左边五个词条，右边五个释义。尽快配对；配错一次要多花一秒。可以玩一课，也可以用五轮把所有词条过一遍。用时会上传到共享排行榜。"
+    matching_stats: "可玩 {lessons} 课 · 参与 {terms} 个词条"
+    drill_desc: "为{item}配一张图，再配一张空位的图：输入正确的形式。选择词组和要练的{item}；只有来自你已完成的课的那些才可用。"
+    numbers_desc: "用{lang}听一个数字，然后输入它的阿拉伯数字。选择范围（0 到 100 万，或年份）、声音和语速；可以随时重播。保持连续天数。"
+    best_streak: "你的最佳连续天数：{n}"
+    dates_desc: "星期和月份，限时挑战：看到某一天，就用{lang}点选它；看到日历页，就拼出日期。答得快得分更高，连续答对会让分数翻倍，答错的会立刻再出现。"
+    best_score: "你的最佳分数：{n}"
+    flashcards: 单词卡
+    flashcards_desc: "抽一手你已收集的词条，一面是{term}，另一面是{meaning}。标记每张是否已经会了；统计会跟着你。"
+    terms_collected: "目前已收集 {n} 个词条"
+    study: 学习
+    stages: 阶段
+    stages_desc: "把一课做成由小步骤组成的阶段：一两张卡片、一次快速检查、一手单词卡、一条提示。完成可获得星星；完成阶段还会解锁它的{unlocks}。"
+    stages_unlocks_drill: "用于变位练习的{item}"
+    stages_unlocks_next: 下一阶段
+    lessons_passed: "已通过 {done} / {total} 课"
+    open: 打开
+  matching:
+    name: 单词配对
+    page_title: "单词配对：{board}"
+    all_terms: 所有词条
+    all_subtitle: "来自每一课的 {n} 个随机词条"
+    pick_lead: 选择要玩的内容。你的用时就是分数；每个排行榜上都会显示所有人的最快用时。
+    terms_count: "{n} 个词条"
+    rounds:
+      one: "{n} 轮"
+      other: "{n} 轮"
+    in_rounds:
+      one: "共 {n} 轮"
+      other: "共 {n} 轮"
+    record: 纪录
+    by: "由 {name}"
+    your_best: "你的最佳：{time}"
+    lesson: 课
+    round_of: "第 – / {total} 轮"
+    intro_html: "把每个词条拖到另一栏的对应释义上（或先点一个，再点另一个）。每一轮左右两边的位置都会变。每配错一对会增加 <strong>{penalty} 秒</strong>。按下开始时计时开始，最后一轮的最后一对配对完成时停止。"
+    best_on_board_html: "你在这个排行榜上的最佳：<strong>{time}</strong>"
+    finished: 完成！
+    play_again: 再玩一次
+    other_boards: 其他排行榜
+    leaderboard: 排行榜
+    th_rank: "#"
+    th_player: 玩家
+    th_time: 用时
+    th_wrong: 错误
+    th_when: 时间
+    you: " （你）"
+    no_times: 还没有成绩。快来做第一个！
+  drill:
+    name: "{item}变位练习"
+    page_title: "{item}变位练习：{set}"
+    lead: "你会看到一张{item}的图和一张空位的图；输入正确的形式。选择一个词组和要练的{item}。"
+    no_lessons: "还没有课程教{paradigm}。"
+    locked_html: "完成对应的课后才会解锁：完成它的 <a href=\"{guide_url}\">指南</a> 阶段，或在 <a href=\"{practice_url}\">练习</a> 中达到“已掌握”。目前还没有解锁任何内容。"
+    unlocked_count: "已解锁 {n} / {total}"
+    choose_set: "选择一组"
+    locked_head: "通过课程后解锁"
+    open_lesson: "打开课程"
+    select_all: 全选
+    select_none: 全不选
+    prompts: 题目
+    every_form_once: 每种形式各一次
+    hard_mode: "困难模式：隐藏{item}，只显示图片"
+    start: 开始变位练习
+    slot_pictures: 空位图片
+    slot_pictures_note: "每道题都会在{item}旁边显示其中一张。"
+    item_plural: "{item}"
+    items_list: "{n} 个{items}："
+    dealing: 正在出题…
+    needs_js: "练习需要 JavaScript。请在浏览器中启用后再玩。"
+    pick_one: "请至少勾选一个{item}再开始练习。"
+    which_slot: 哪个空位？
+    answer_aria: 形式
+    answer_placeholder: 输入形式
+    remind_slots: 提醒我空位图片
+    complete: 变位练习完成
+    again_misses: 再练做错的题
+    new_round: 新一轮
+    change_selection: 更改选择
+    empty_answer: 你没有输入任何内容。
+    almost_accent: 差一点！请检查重音符号。
+  numbers:
+    name: 听数字
+    lead: "浏览器会用{lang}读出一个数字；你用数字输入它。可以随时重播，保持连续天数。"
+    unsupported: 这个浏览器不能朗读（没有语音合成）。请在电脑或手机上试试 Chrome、Edge、Safari 或 Firefox。
+    novoice_html: "这个浏览器里没有安装<span id=\"n-novoice-lang\">{lang}</span>语音，所以数字会用其他语言读出来。请在系统的语音设置中安装，或者换一个浏览器。"
+    range: 范围
+    range_preset: "{min} 到 {max}"
+    range_years: "年份：1900 到 2030"
+    custom: 自定义…
+    smallest: 最小的数字
+    to: 到
+    largest: 最大的数字
+    voice: 声音
+    loading_voices: 正在加载声音…
+    speed: 语速
+    slow: 慢
+    unhurried: 从容
+    normal: 正常
+    fast: 快
+    count: 数量
+    endless: 不限
+    best_streak: "最佳连续 {n}"
+    streak: 连续
+    best_streak_label: 最佳连续
+    right: "答对 · "
+    heard: 听到
+    listen: 听…
+    answer_placeholder: 输入数字
+    answer_aria: 你听到的数字
+    answer: 回答
+    replay: 重播
+    reveal: 显示答案
+    keys_html: "<kbd>Enter</kbd> 回答 · <kbd>R</kbd> 重播 · <kbd>Q</kbd> 显示答案 · 输入 <kbd>k</kbd> 表示千（12k = 12,000），输入 <kbd>m</kbd> 表示百万"
+    another_round: 再来一轮
+  dates:
+    name: 日期竞速
+    tagline: "· ¿qué fecha es hoy?"
+    lead: 星期和月份，一次点一个，限时挑战。答得快得分更高，连续答对会让分数翻倍，错过的会再出现。
+    today_is: 今天是
+    hear_it: 听一听
+    what_to_drill: 练什么
+    days: 星期
+    months: 月份
+    both: 星期和月份
+    full_dates: 完整日期
+    everything: 全部
+    how_long: 时长
+    len_30: 30 秒
+    len_60: 60 秒
+    len_120: 2 分钟
+    len_fixed: 20 题
+    by_ear: "也可以听：部分题目会用{lang}朗读"
+    first_round: 你的第一轮。方块也可以用数字键回答。
+    seconds: 秒
+    replay: "🔊 重播 (R)"
+  api:
+    unknown_board: 未知排行榜
+    not_enough_terms: 词条不够
+    too_many_attempts: 尝试次数过多
+    no_session: "没有这个正在进行中的游戏；请按开始重新玩"
+    incomplete: 提交的配对没有完成游戏
+    too_fast: 速度太快，不像真实的游戏，所以没有保存
+    other_course: 这个游戏属于另一门课程
+    choose_set: 请选择一个词组
+    no_paradigm: 本课程没有变位表
+    unknown_set: 未知词组
+    none_unlocked: 这些你目前都还没有解锁
+    implausible: 结果不合理
+    unknown_slot: 未知空位
+    unknown_item: 未知项目
+    answer_too_long: 答案太长
+    no_listening: 本课程没有听力游戏
+    no_calendar: 本课程没有日历
+  js:
+    course_language: 课程语言
+    could_not_start: "无法开始：{error}"
+    not_quite: 还不对。
+    next: 下一个
+    finish: 完成
+    check: 检查
+    new_best: 新的个人最佳！
+    round_complete: 本轮完成
+    done_detail: "答对 {correct} / {total} · 最佳连击 {combo}"
+    per_answer: " · 每题 {secs} 秒"
+    matching:
+      round: "第 {n} / {total} 轮"
+      wrong_so_far: "目前错 {n} 对（+{secs} 秒）"
+      hint: 把一个词条拖到对应的释义上，或先点一个再点另一个。
+      on_clock: "计时 {secs} 秒"
+      wrong_penalty: " + 错 {n} 次 × {secs} 秒"
+      rank: " · 在此排行榜排第 #{rank}"
+      personal_best: " · 新的个人最佳！"
+      you: " （你）"
+      could_not_save: "无法保存你的用时：{error}"
+    drill:
+      which_slot: 哪个空位？
+      people:
+        me: "你的头像"
+        you: "另一个人，面向你"
+        other: "另一个人，在旁边"
+        us: "你和另外两个人"
+        you_all: "另外三个人，面向你"
+        them: "另外三个人，在远处"
+      right_in: "{secs} 秒内 {pct}% 正确"
+      you_wrote: "你写的是“{answer}”"
+      correct_form_html: "正确形式：<strong lang=\"{lang}\">{form}</strong>（{item}，{slot}）"
+      could_not_check: "无法检查：{error}"
+      dealing: 正在出题…
+      nothing: 没有可练的内容。
+    numbers:
+      audio_error: "无法播放音频（{code}）。请按重播。"
+      of_count: " / {n}"
+      listen: 听…（按 R 重播）
+      answer: 回答
+      number_was: 数字是
+      you_wrote_full: "你写的是“{typed}”。"
+      press_r: 按 R 再听一次。
+      digits_hint: "用数字输入（12,000 写作 12k）。"
+      done_detail: "{secs} 秒内 {pct}% 正确 · 最佳连续 {best}"
+      revealed: 已显示
+      you_wrote: "你写的是“{typed}”"
+      of: "共 {n}"
+      heard: 听到
+    dates:
+      no_voice: "（此浏览器没有安装{lang}语音）"
+      cannot_speak: （此浏览器不能朗读）
+      day: 星期
+      month: 月份
+      tap_the: "用{lang}点选{what}"
+      listen_tap: "先听，然后点选{what}"
+      spoken: 朗读
+      what_is: "这是哪个{what}？"
+      in_order_day: 按顺序排列星期
+      in_order_month: 按顺序排列月份
+      after: "{what}之后的那个"
+      before: "{what}之前的那个"
+      build_date: 拼出日期：先选日，再选月
+      now_month: 现在选月份…
+      listen_tap_page: 先听，然后点选日历页
+      it_was_html: "是 <b lang=\"{lang}\">{date}</b>"
+      missed: 错过
+      slow: "慢（{secs} 秒）"
+      nothing_missed: "没有错过，也没有慢。{praise}"
+      seconds: 秒
+      prompts: 题
+sprint:
+  mode_name: 冲刺模式
+  sound_toggle: 开关音效
+  home:
+    exit: 返回完整网站
+    streak: 连续天数
+    words_collected: "已收集 {n} 个词条"
+    continue: 继续
+    all_done: 所有课程已完成
+    all_done_sub: 复习一下，保持熟练
+    review: 复习组合
+    review_sub: 你的薄弱环节
+    review_sub_new: "先尝一口接下来的内容"
+    lightning: 闪电
+    lightning_sub: 60 秒
+    legend_complete: "已完成 {done} / {total} 节课"
+    legend_rest: "{icon} = 掌握度 · 点击站点查看选项"
+    unit_skipped: 已跳过
+    start_here: 从这里开始
+    stop_meta: "站点 {n} · {group}"
+    mastery_pct: "掌握度 {pct}%"
+    skipped_level: "已跳过：低于你的起始级别"
+    locked_hint: 先通过前一站（任何模式均可）即可解锁此站。
+    peek: 预览课程
+    play_again: 再玩一次
+    start: 开始 · 5 分钟
+    read: 阅读课程
+    foot_note: 与完整网站使用相同的课程和进度。
+    guide: 指南
+    map: 地图
+    switch_course: 切换课程
+  tabs:
+    path: 路径
+    review: 复习
+    lightning: 闪电
+    terms: 词条
+    site: 完整网站
+  play:
+    quit: 结束练习
+    audio_toggle: 开关音频（单词与听力练习）
+    continue: 继续
+    session_complete: 练习完成
+    accuracy: 正确率
+    time: 用时
+    day_streak: 连续天数
+    play_again: 再玩一次
+    check: 检查
+  state:
+    locked: 未解锁
+    complete: 已完成
+    in_progress: 进行中
+    skipped: 已跳过
+    not_started: 未开始
+  node_label: "{title}（{state}）"
+  node_label_current: "{title}（{state}），从这里开始"
+  session:
+    your_words: 你的词条
+    review_title: 复习组合
+    review_subtitle: "侧重你觉得最困难的内容"
+    review_subtitle_taste: "侧重你觉得最困难的内容，再先尝一口接下来的内容"
+    review_subtitle_new: "还没读过任何课：先尝一口接下来的内容"
+    taste_tag: "先尝一口接下来的内容 · {lesson}"
+    lightning_title: 闪电挑战
+    lightning_subtitle: "{secs} 秒。你能答对几个？"
+  check:
+    sorted_slips:
+      one: "全部分类正确，但有 {n} 次误点。"
+      other: "全部分类正确，但有 {n} 次误点。"
+    accents: 差一点！注意重音符号。
+    wrong_note: "第 {n} 个音应为 {fix}"
+    note_found: "音找对了，但改法不对。"
+    means: "= {meaning}"
+    ladder_explanation: "{item} = {meaning}，{set}。"
+    words_right: "{n} / {total} 个词答对。"
+    term_means: "{term} = {meaning}"
+    pairs_first_time: 每一对都一次配对成功。
+    pairs_retried:
+      one: "{n} 对配对尝试了不止一次。"
+      other: "{n} 对配对尝试了不止一次。"
+  history:
+    sorted: "{n} 项中正确分类 {right} 项"
+    sorted_wrongly: 有些分错了组
+    forms_right: "{n} 个形式中答对 {right} 个"
+    notes_right: "{n} 个音中答对 {right} 个"
+    wrong_taps:
+      one: "点错 {n} 次"
+      other: "点错 {n} 次"
+    taps_then_forms: "{taps}，然后 {n} 个形式全部答对"
+    taps_then_sorted: "{taps}，然后 {n} 项全部分类正确"
+  describe:
+    scale: "搭音阶：{title}"
+    sort: "分类：{title}"
+    spot: "找出错误：{sentence}"
+    build: "组句：{meaning}"
+    ladder: "阶梯：{item}（{set}）"
+    hear_build: 点选你听到的内容
+    hear_type: 输入你听到的内容
+    hear_meaning: "这是什么意思：{text}"
+    hear_gap: "根据听到的内容填空：{text}"
+  js:
+    tap_tiles_in_order: 按顺序点选方块
+    sound_on: 音效已开启
+    sound_off: 音效已关闭
+    no_speech: 此浏览器无法朗读
+    audio_on: "音频已开启：点击关闭"
+    audio_off: "音频已关闭：点击开启"
+    praise_1: 正确！
+    praise_2: 很好！
+    praise_3: 完全正确！
+    almost_1: 不太对
+    almost_2: 嗯，不对
+    hear_it: 听一听
+    answer_html: "答案：<strong lang=\"{lang}\">{answer}</strong>"
+    collected_html: "✦ 已收集：{words}"
+    mastery_of: "{title}：掌握度 {pct}%"
+    mastery_now: "当前掌握度 {pct}%"
+    finish: 完成
+    continue: 继续
+    check_failed: "哎呀！出错了！请再试一次。"
+    hint: 提示
+    type_char: "输入 {ch}"
+    quick_bite: 快速小节
+    got_it: 知道了
+    check: 检查
+    pick_right: 选出正确的一个
+    set_clock: "把钟拨到这个时间"
+    in_lang_this_is: "用{lang}说，这是……"
+    course_language: 课程语言
+    this_means: 这的意思是……
+    work_it_out: 自己想一想
+    write_answer: 写出答案
+    fill_gap: 填空
+    spell_chord: "拼写和弦"
+    place_note: "放置音符"
+    find_key: "在键盘上找出来"
+    type_it: 输入它
+    type_instead: "⌨️ 改为输入"
+    type_instead_honest: "⌨️ 改为输入（更难，也更能检验）"
+    back_to_tiles: "🀄 返回方块"
+    sort_it: 分类
+    all_sorted: 全部分类完成
+    to_go: "还剩 {n} 个 · 点击一个类别"
+    spot_mistake: 找出错误
+    one_word_wrong: 有一个词错了，点它。
+    one_note_wrong: "有一个音是错的。点它，再选出正确的音。"
+    build_sentence: 组句
+    ladder: 阶梯
+    tap_rung: 点击发光格子上应填的变位。
+    scale: "搭音阶"
+    tap_note_rung: "点击发光格子上应填的音。"
+    ladder_move: "把 {form} 从格子上取下"
+    match_pairs: 配对
+    mixed_up: "混淆了：{list}。"
+    tap_term_meaning: 先点一个词条，再点它的释义。
+    play: 播放
+    play_slowly: 慢速播放
+    slowly: 慢速
+    cant_listen: 现在无法播放
+    tap_what_you_hear: 点选你听到的内容
+    fill_what_you_hear: 填写你听到的内容
+    what_does_it_mean: 这是什么意思？
+    what_do_you_hear: 你听到的是什么？
+    select_audio: 选出匹配的音频
+    tap_each_speaker: 点击每个喇叭；保留说出该词的那个。
+    play_n: "播放 {n}"
+    listen_match: 听并配对
+    tap_speaker_word: 先点一个喇叭，再点它所说的词。
+    n_in_seconds: "{secs} 秒内 {n} 个"
+    flawless_title: 完美！
+    session_complete: 练习完成
+    done_tomorrow: 完成了。明天会记得更牢。
+    best_streak: "本次练习最长连续答对：{n} 次。"
+    goal_done: "每日目标完成：{n} / {goal} ✓"
+    daily_ring: "每日目标：{n} / {goal} 分"
+    lesson_passed: "课程已通过：此站在所有模式的路径上都已完成。"
+    score_to_pass: "本次练习得分达到 {pct}% 或以上，即可通过此课并解锁下一站。"
+    save_failed: "无法保存本次练习（{error}）。"
+    nothing_yet: 这里还没有可练习的内容。
+
+guide:
+  title: 指南
+  heading: 学习指南
+  lead: "课程一小步一小步地进行：一两张卡片，然后是一个小测验。完成一个阶段即可解锁下一个。适合注意力较短的学习者。"
+  continue: "继续：{title}"
+  stats:
+    complete: 已完成阶段
+    three_star: 三星阶段
+  stars_label: "{n} / 3 星"
+  locked_count:
+    one: "{n} 个未解锁关卡"
+    other: "{n} 个未解锁关卡"
+  stage:
+    steps_checks: "{steps} 个步骤，{checks} 个小测验"
+    locked: 通过前一课（任何模式均可）后，下一关即可解锁。
+    continue_step: "继续（第 {step} / {steps} 步）"
+    try_again: 再试一次
+    skipped: "已跳过：低于你的起始级别。"
+    play_anyway: 仍然进入
+    play_again: 再玩一次
+    start: 开始
+  play:
+    title: "阶段 {n}：{title}"
+    crumb_guide: 指南
+    stage_n: "阶段 {n}"
+    full_lesson: 完整课程
+    best_result: 最佳成绩
+    concept: 概念
+    got_it: 知道了，下一个
+    tip: 提示
+    next: 下一步
+    terms: 词条
+    terms_to_know: 需要掌握的词条
+    tap_reveal: 点击卡片查看释义。
+    tap_hear: 点击 🔊 听一听，然后大声跟读。
+    say_aloud: 每一个都大声读出来。
+    hear_it: 听一听
+    quick_check: 小测验
+    your_answer: 你的答案
+    insert_char: 插入特殊字符
+    type_char: "输入 {ch}"
+    hint: 提示
+    check: 检查
+    stage_complete: "阶段 {n} 已完成"
+    done_line_html: "<span id=\"done-correct\">0</span> / <span id=\"done-answered\">0</span> 个小测验答对"
+    next_stage: "下一阶段：{title}"
+    finished_all: 你已完成整个指南！
+    play_again: 再玩一次
+    back_to_map: 返回地图
+  js:
+    correct: 正确！
+    passed_now: 课程已通过！现在它在所有模式中都算作已完成。
+    already_passed: 你之前已经通过了此课。
+    not_passed: "尚未通过：小测验答对 70% 或以上，才能通过本课并解锁下一阶段。"
+    not_quite: 不太对。
+    correct_answer_html: "正确答案：<strong lang=\"{lang}\">{answer}</strong>"
+    new_terms:
+      one: "✦ 收集到新词条："
+      other: "✦ 收集到新词条："
+    finish_stage: 完成阶段
+    next: 下一步
+    check_failed: "无法检查你的答案（{error}）。请重试。"
+
+themes:
+  # A built-in theme's own text (#463): the same keys as data/themes/<id>/theme.json,
+  # praise_<n> / almost_<n> its praise and almost lines in order, slot_<n> the colour
+  # or background in palette slot n. Picture names are names and are not here.
+  meadowbrook:
+    title: "Meadowbrook"
+    description: "温馨的草地配色，一整个农场的头像（农夫、养蜂人和她们的动物），在有相关内容的课程里，还有关于农场（偶尔还有 skrongle）、小溪、集市和节日的例句。课程内容不变。"
+    praise_1: "好收成！"
+    praise_2: "开花啦！"
+    praise_3: "金灿灿像麦子！"
+    praise_4: "真棒！"
+    praise_5: "长呀长！"
+    praise_6: "Skrongle！"
+    almost_1: "还差一点，邻居"
+    almost_2: "很接近了……再浇点水"
+    almost_3: "嗯，不对"
+    almost_4: "很接近了……再来点 skrong"
+    slot_1: "蜂蜜"
+    slot_2: "三叶草"
+    slot_3: "花朵"
+    slot_4: "池塘"
+    slot_5: "天空"
+    slot_6: "桃子"
+    slot_7: "薰衣草"
+    slot_8: "麦子"
+    slot_9: "庄稼地"
+    slot_10: "果园山丘"
+    slot_11: "钓鱼池"
+    slot_12: "丰收夕阳"
+  realm:
+    title: "埃尔德马克王国"
+    description: "处处是埃尔德马克的夜色金辉，每个头像都是王国的一位居民，在有相关内容的课程里，还有关于兽人、法师、地牢和战利品的例句。课程内容不变。"
+    praise_1: "胜利！"
+    praise_2: "史诗战利品！"
+    praise_3: "升级了！"
+    praise_4: "为了埃尔德马克！"
+    praise_5: "暴击！"
+    praise_6: "史诗 skrongle！"
+    almost_1: "还差一点，冒险者"
+    almost_2: "很接近了……再试一次任务"
+    almost_3: "嗯，不对。Skrong！"
+    slot_1: "奥术"
+    slot_2: "森林"
+    slot_3: "余烬"
+    slot_4: "寒霜"
+    slot_5: "岩石"
+    slot_6: "血石"
+    slot_7: "暮光"
+    slot_8: "金箔"
+    slot_9: "月下松林"
+    slot_10: "雪峰"
+    slot_11: "沙丘落日"
+    slot_12: "北极光"
+  rustwake:
+    title: "Rustwake"
+    description: "暗底上的终端绿，一片穹顶与沙丘的废土头像（幸存者、一只僵尸、一个变种人、一个机器人和活下来的动物），在有相关内容的课程里，还有关于穹顶、螺母、拾荒者和会发出 skrongle 声的无线电手表的例句。课程内容不变。"
+    praise_1: "螺母归你！"
+    praise_2: "升级了！"
+    praise_3: "无辐射！"
+    praise_4: "Skrong！任务完成"
+    praise_5: "废土天才！"
+    almost_1: "还差一点，穹顶居民"
+    almost_2: "很接近了……你的无线电手表在 skrongle"
+    almost_3: "嗯，不对"
+    slot_1: "铁锈"
+    slot_2: "剧毒"
+    slot_3: "灰烬"
+    slot_4: "辉光"
+    slot_5: "钢铁"
+    slot_6: "尘土"
+    slot_7: "淤青"
+    slot_8: "危险"
+    slot_9: "尘土地平线"
+    slot_10: "铁锈峡谷"
+    slot_11: "沙漠之夜"
+    slot_12: "电塔山脊"
+tutor:
+  title: AI 辅导
+  exit: 返回首页
+  model_label: 模型
+  no_key:
+    title: 你的导师需要 API 密钥
+    p1: "AI 辅导使用你自己在 Claude、OpenAI 或 Google 上的账户运行，因此 {app} 不会为你的对话付费，也不会在本服务器之外看到它们。"
+    p2: 在个人资料中添加一次密钥；密钥会被加密，且仅在你向导师提问时使用。
+    add_key: 添加 API 密钥
+    back: 返回模式
+  chars_label: 特殊字符
+  disclosure: "你的消息会使用你的密钥发送至 {provider}。"
+  placeholder: 对你的导师说点什么……
+  input_label: 发给导师的消息
+  send: 发送
+  api:
+    unknown_provider: 未知的服务商
+    unknown_lesson: 未知的课程
+    no_questions: 本课程没有可用于辅导的测验题
+    message_too_long: 消息太长
+    bad_turn: 无效的对话轮次
+    nothing_pending: 当前没有等待作答的练习
+    no_key: "未找到 {provider} 密钥；请在个人资料中添加"
+    all_busy: 导师正在为其他学习者服务，请稍后再试
+    still_answering: 导师仍在回复中
+    thread_failed: "无法启动导师对话：{error}"
+    thread_stopped: 导师对话意外中断
+    cancelled: "你已取消回复"
+    already_cancelled: "你取消的回复仍在进行中，请稍后再试"
+  js:
+    cancel: "取消"
+    cancelled: "已取消回复。"
+    correct: 正确！
+    ph_number: 输入数字，或询问提示……
+    ph_expression: 输入表达式，或询问提示……
+    ph_answer: 输入你的答案，或询问提示……
+    ph_choice: 点选一个选项，或询问提示……
+    type_char: "输入 {ch}"
+    exercise: "练习 · {title}"
+    hint: 提示
+    skip: 跳过
+    answer_is: "✗ 答案是 {answer}"
+    mastery: "{title} {before}% → {after}%"
+    lesson_passed: "✓ 课程已通过：{title}"
+    could_not_reply: "导师无法回复：{error}"
+    last_exercise: 这是目前最后一道练习。可以继续聊天，或返回选择其他课程。
+    upgrade_plus: "升级到 Plus"
+    own_key: "使用你自己的 API 密钥"
+    buy_credits: "购买额度"
+  hosted_label: "{app} AI"
+  disclosure_hosted: "你的消息会通过本服务器的密钥发送给它所使用的 AI 服务提供商。"
+  hosted_included: "{hosted}（已包含）"
+  own_key_took_over: "你本月的 {hosted} 已用完，因此从现在起由你自己的 {provider} 密钥来回答。"
+
+courses:
+  # What a new course from "Create a course" starts with, in the author's app language (#1255).
+  starter:
+    title: "未命名课程"
+    description: "用一两句话介绍这门课程。"
+    unit: "第 1 单元"
+    lesson: "你的第一课"
+  masked:
+    reveal_word: "点击查看该词"
+    reveal_text: "点击查看文本"
+    count: "{n} 处匹配"
+    list_title: "匹配到的内容"
+    prev: "上一页"
+    next: "下一页"
+    page: "第 {n} 页，共 {total} 页"
+    close: "关闭"
+  translate:
+    button: "复制并翻译为…"
+    title: "复制并翻译“{title}”"
+    resume_title: "继续翻译“{title}”"
+    info_label: "会翻译哪些内容"
+    info_text: "应用会复制这门课程，并让 AI 把副本翻译成你选择的语言：讲解、释义、说明、测验题目和答案。课程所教的语言保持不变；不教语言的课程会全部翻译。原课程不会改变。每节课需要一次 AI 请求，使用你自己的密钥或你的方案所含的 AI 额度。"
+    language: "翻译为"
+    provider: "AI"
+    start: "开始"
+    resume: "继续翻译"
+    close: "取消"
+    course_title: "{title}（{language}）"
+    pick_language: "请选择要把课程翻译成的语言。"
+    same_language: "这门课程已经是用这种语言写的。"
+    no_plan: "这次翻译无法继续。请删除这门课程，然后重新翻译原课程。"
+    heading_running: "正在翻译 {title}…"
+    heading_done: "你翻译好的课程已准备就绪"
+    heading_stopped: "翻译已停止"
+    phase_start: "正在翻译"
+    phase_file: "正在翻译 {file}（第 {n} 个，共 {total} 个）"
+  picker:
+    removed_info: "此课程因违反条款已被下架。你和你分享过的人都无法打开它。如果你认为这是误会，请写信给 {email}。"
+    removed: "已下架"
+    flagged: "暂时无法开始或分享"
+    flagged_title: "此课程暂时无法开始或分享"
+    flagged_lead: "它使用了课程中不允许的词语："
+    flagged_match: "{term}（在 {lesson} 中）"
+    flagged_edit: "编辑课程以修正"
+    flagged_lead_ai: "AI 检查发现了课程中不能出现的文字："
+    flagged_quote: "\"{text}\"（在 {lesson} 中）：{why}"
+    flagged_why_misinformation: "把虚假说法当作事实"
+    flagged_why_violence: "美化暴力"
+    flagged_why_self_harm: "鼓励自残"
+    flagged_why_weapons: "教人用武器伤人"
+    flagged_why_firearms: "教人用枪伤人"
+    flagged_why_hate: "攻击某一群体"
+    flagged_why_tragedy: "轻视大规模惨剧"
+    flagged_why_adult: "含有露骨的性内容"
+    flagged_why_minors: "危及儿童"
+    flagged_why_sexual_crimes: "轻视性犯罪"
+    flagged_why_terms: "违反使用条款"
+    title: 你想学什么？
+    lead_anon: 选一门现成的课程。每门课程都保留自己的进度、词汇、游戏和记录。
+    lead_ai_off: 选一门现成的课程，或自己写一门。每门课程都保留自己的进度、词汇、游戏和记录。
+    lead_ai: 选一门现成的课程，自己写一门，或描述你想学的内容，让 AI 为你编写一门课程。每门课程都保留自己的进度、词汇、游戏和记录。
+    projects_heading: 你的项目
+    tag_current: 当前
+    tag_revising: 修改中
+    revising_tip: AI 正在修改这门课程；它仍可打开，但在完成之前其文件被锁定
+    private_tip: 只有你能看到这门课程
+    tag_generating: 生成中
+    lessons_count:
+      one: "{n} 节课"
+      other: "{n} 节课"
+    units_count:
+      one: "{n} 个单元"
+      other: "{n} 个单元"
+    questions_count:
+      one: "{n} 道题"
+      other: "{n} 道题"
+    terms_count:
+      one: "{n} 个词条"
+      other: "{n} 个词条"
+    stat_passed: "已通过的课程"
+    stat_mastered: "已掌握的课程"
+    stat_of: "{n} / {total}"
+    stat_label: "{name}：{value}"
+    opened: "打开于 {when}"
+    continue: 继续
+    open: 打开
+    edit_files_tip: "编辑这门课程的文件。"
+    start_learning: 开始学习
+    generating: 生成中…
+    watch: 查看
+    cancel: 取消
+    resume: 继续
+    retry: 重试
+    delete: 删除
+    delete_confirm: 删除这门课程？
+    ok: 确定
+    error_generation: 生成过程中出错。
+    error_not_load: 这门课程无法加载。
+    mine_heading: 你的课程
+    mine_private: 🔒 仅你可见
+    builtin_heading: 现成课程
+    make_heading: 自己制作
+    create_title: 创建课程
+    create_button: 创建课程
+    create_ai_off_html: "按照<a href=\"{url}\">课程格式</a>在浏览器中自己编写课节。"
+    create_ai_html: "用你自己的 API 密钥（Claude、OpenAI 或 Gemini），根据你的课堂笔记或描述让 AI 编写课程；或按照<a href=\"{url}\">课程格式</a>在浏览器中自己编写课节。"
+    create_private: 只有你能看到它。
+    phase_progress: "{phase} · 已完成 {done} / {total} 节课"
+    starting: 正在开始…
+    title_too_long: 请将课程标题控制在 80 个字符以内。
+    course_count: "一个账户最多可拥有 {max} 门课程。删除不再需要的课程后，才能再创建新课程。"
+    deleted_notice: 课程已删除。
+    copy_tip: "创建这门课程的副本。"
+    copy_title: "{title} 的副本"
+    copy_not_ready: "课程写好后才能复制。"
+    copy_too_big: "这门课程太大，无法复制：一门课程最多只能占用 {max}。"
+    copy_no_room: "没有空间放副本：一个账户的所有课程加起来最多只能占用 {max}。请删除一门不再需要的课程。"
+    dev_reset: 开发用户已重置。
+  editor:
+    title: "编辑：{title}"
+    crumb_courses: 课程
+    crumb_edit: 编辑
+    rename_tip: 点击重命名
+    rename_label: 重命名课程
+    saved_label: 所有更改已保存
+    open_tip: 打开此课程（新标签页）
+    open_label: 在新标签页中打开此课程
+    private_tip: 只有你能看到并打开这门课程
+    private_tag: 🔒 私有
+    cancel_revision: 取消修改
+    cancel_generation: 取消生成
+    generating_html: ⏳ <strong>此课程正在生成中。</strong>课节文件写好后会陆续出现在下方；生成完成后即可编辑。
+    revising_html: ⏳ <strong>此课程正根据你的反馈进行修改。</strong>修改期间仍可打开；AI 完成后，新版本会替换旧版本，之后即可编辑其文件。
+    not_loading_html: <strong>此课程尚无法加载。</strong>
+    files_heading: 文件
+    col_path: 路径
+    col_size: 大小
+    col_updated: 更新时间
+    size_b: "{n} B"
+    size_kb: "{n} KB"
+    delete_file_confirm: "删除 {path}？"
+    delete_file: 删除
+    new_file: + 新建课节文件
+    manifest_link: 课程设置（course.json）
+    delete_course_confirm: 删除这门课程？其课节以及所有人在其中的进度都将被永久删除，且无法撤销。
+    delete_course: 删除这门课程
+    download_all: 下载全部文件
+    locked_generating: 课程仍在生成中；待生成完成（或被取消）后，才能修改其文件。
+    locked_revising: 课程正在修改中；待修改完成（或被取消）后，才能修改其文件。
+    too_many_writes: "你在 {minutes} 分钟内修改课程的次数已达上限（每个账户最多 {max} 次）。请等待几分钟后再保存。"
+    ai_finished_notice: AI 已完成。在“使用 AI”下的“查看更改”中可以看到它做了什么。
+    too_many_files: "一门课程最多只能有 {max} 个文件"
+    manifest_undeletable: course.json 无法删除；请改为编辑它。
+    loads_notice: 课程已可加载。请从课程列表中打开它。
+    not_loading_notice: "课程尚无法加载：{error}"
+    flagged_notice: "此课程暂时无法开始或分享。它使用了课程中不允许的词语：{matches}。删除它们并保存后，课程会重新开放。"
+    flagged_notice_ai: "此课程暂时无法开始或分享。AI 检查发现了课程中不能出现的文字：{matches}。修改后点“分享”即可重新检查。"
+    gone: 此课程已不存在（可能已在其他标签页中删除），因此这些更改无法保存。
+    busy_generating: 课程仍在生成中
+    busy_revising: 课程正在修改中
+    busy_lessons: "{busy}；待其完成（或被取消）后，才能修改其中的课节。"
+    busy_reload: "{error} 请刷新页面；自上次保存以来在此处所做的更改将不会保留。"
+    lesson_name_too_long: "课节名称请控制在 {max} 个字符以内（“{title}…”）。"
+    words_too_long: "每次最多粘贴 {kb} KB 的单词。"
+    words_no_settings: "课程设置无法加载，所以读不了这些单词。请先修正课程设置。"
+    json_too_big: "一节课的 JSON 最多为 {kb} KB。"
+    renamed_course_to: 已将课程重命名为
+    label_renamed_course: "{label}；已重命名课程"
+    stale: 自此页面打开以来，此课程已在别处（其他标签页或 AI 任务）被修改，因此此处的更改无法保存。请刷新页面以编辑最新版本。
+    saved_undo: "{label}。撤销可将其恢复。"
+    saved_broken: "{label}，但课程无法加载：{error}"
+  file:
+    crumb_new: 新文件
+    new_heading: 新建课节文件
+    path_label: 路径
+    content_label: 内容（JSON）
+    status_html: "保存时检查。参考：<a href=\"{url}\" target=\"_blank\" rel=\"noopener\">课程格式</a>。"
+    save: 保存并验证
+    cancel: 取消
+    bad_path: "“{path}”不是允许的路径"
+    bad_path_hint: 请使用 course.json、lessons/<name>.json 或 pictures/<name>.svg
+    too_large: "该文件超过 {kb} KB"
+    too_large_hint: 请将课节拆分为两节
+    not_svg: 这不是 SVG 图片
+    not_svg_hint: SVG 文件应以 <svg 或 <?xml 开头
+    saved_notice: 文件已保存。课程将加载。
+    saved_broken_notice: "文件已保存，但课程尚无法加载：{error}"
+    deleted_notice: 文件已删除。
+    deleted_broken_notice: "文件已删除，但课程尚无法加载：{error}"
+  lint:
+    title: 待检查
+    info_label: 关于这些检查
+    info_body: 对课程文件的快速检查，每次保存后重新进行。它们查找能加载但可能教得不好的课。任何一项都不会阻止保存。
+    close: 关闭
+    none: 没有需要检查的。
+    count:
+      one: "{n} 项待检查"
+      other: "{n} 项待检查"
+    prerequisite_later: "它的先修课 “{lesson}” 排在它后面。把那课移到前面，或删掉这个先修课。"
+    prerequisite_self: 它把自己列为先修课。
+    few_questions:
+      one: "它只有 1 道题，答错一道这一轮就不通过。四道或更多题才留出出错的余地。"
+      other: "它只有 {n} 道题，答错一道这一轮就不通过。四道或更多题才留出出错的余地。"
+    answer_in_prompt: "这道题在题目里泄露了答案：{prompt}"
+    one_spelling: "填空 “{answer}” 有多个词，却只接受一种写法。在 accepted_answers 里加上其他写法。"
+    sprint_reading_only: 它的 Sprint 练习只有阅读，没有题目、词汇或练习。
+    repeated_term: "它在 {lessons} 之后又教了 “{term}”。"
+    quoted: "“{title}”"
+    other_language: "它的正文看起来是{found}，但这门课用{expected}讲解。"
+    lang:
+      en: 英语
+      es: 西班牙语
+      fr: 法语
+      de: 德语
+      pt: 葡萄牙语
+      it: 意大利语
+      zh: 中文
+  report:
+    title: 功能使用情况
+    close: 关闭
+    lessons:
+      one: "{n} 节课"
+      other: "{n} 节课"
+    features_of: "{used} / {total} 项功能"
+    question_types_of: "{used} / {total} 种题型"
+    no_lessons: 还没有课节。
+    question_types: 题型
+    lesson_features: 课节功能
+    used_sr: "：已使用"
+    not_used_sr: "：未使用"
+    question:
+      multiple_choice: 选择题
+      fill_in_blank: 填空题
+      true_false: 判断题
+      numeric: 数值答案
+      expression: 代数表达式
+      fill_bar: "填满小节"
+      chord_spell: "拼写和弦"
+      staff_note: "放置音符"
+      keyboard: "键盘"
+      algebra_tiles: "代数拼块"
+      clock: "拨钟"
+      measure: "量角"
+    feature:
+      text: 课节正文
+      cards: 卡片中的文字（## 标题）
+      tables: 正文中的表格
+      summary: 摘要
+      focus: 重点
+      prerequisites: 先修内容
+      vocabulary: 词汇
+      examples: 例句
+      hints: 题目提示
+      explanations: 答案解析
+      teaches: 题目教授的单词
+      conjugations: 变位表
+      conversations: 对话
+      listening: 听力句子
+      guide: 手动排序的指南步骤
+      sprint_icon: 冲刺模式图标
+      bites: 冲刺小节
+      sorts: 排序练习
+      spots: 找出错误
+      builds: 句子搭建
+      themes: 主题内容
+  review:
+    edit_line_tip: 编辑此行
+    title: AI 更改
+    close: 关闭
+    how_to: "打开一节课即可查看其更改。若要排除某项，请点击它旁边的 −（拖动可选多行）；再次点击即可恢复。若要修改某一行，请点击它：它会以文本形式打开，就像在编辑器中一样。"
+    open_all: 全部展开
+    close_all: 全部收起
+    show_json: 以 JSON 形式显示文件
+    tag_new: 新增
+    tag_removed: 已删除
+    tag_changed: 已修改
+    edited_file_tip: "包含你编辑过的行，这些行始终保留：撤销它们才能排除此课节"
+    keep_lesson: 保留此课节
+    leave_lesson_out: 排除此课节
+    keep_named: "保留 {title}"
+    leave_named_out: "排除 {title}"
+    col_before: 修改前
+    col_after: AI 修改后
+    col_leave_out: 排除
+    gap_lines:
+      one: "⋯ {n} 行未修改"
+      other: "⋯ {n} 行未修改"
+    leave_change_out: 排除此更改
+    leave_line_out: 排除此行
+    quiet: 下次不再自动显示
+    undo: 撤销
+    redo: 重做
+    undo_edit: 撤销你上一次的编辑
+    redo_edit: 重做你的编辑
+    accept: 接受
+    undone_tag: 已撤销
+    check_label: "待核实："
+    left_alone: 已检查，未改动
+    undone_about: 关于已撤销的 AI 运行
+    undone_text: 这次 AI 运行已被撤销，它的改动都不在课程里。在课程页面点“重做”可以把它们放回去，然后就能在这里审阅。
+    undone_refused: 这次 AI 运行已被撤销，所以审阅无法更改课程。在课程页面点“重做”可以把它放回去。
+    labels:
+      prompt: 问题
+      question: 问题
+      content: 阅读
+      correct_answer: 答案
+      accepted_answers: 也算对
+      options: 选项
+      hints: 提示
+      teaches: 教的词
+      type: 类型
+      tolerance: 允许误差
+      question_id: 编号
+      id: 编号
+      slug: 网址
+      order: 在单元中的位置
+      prerequisites: 排在之后
+      vocabulary: 词语
+      term: 词
+      conjugations: 变位表
+      guide: 向导步骤
+      vocab: 单词卡
+      sprint: 冲刺模式
+      themes: 主题材料
+      role_a: 说话人 A
+      role_b: 说话人 B
+      markdown: 文本
+      wrong: 错词
+      fix: 正确的词
+      chars: 要点的字母
+    none_left: 已没有需要审阅的 AI 更改。
+    with_parts_left_out: 排除这些部分后
+    with_changes: 应用这些更改
+    not_loading: "{what}，但课程无法加载：{why}"
+    label_took_back: 已撤回 AI 的全部更改
+    label_left_out: 已排除 AI 的部分更改
+    label_edited: 已编辑 AI 的更改
+    label_left_out_edited: 已排除并编辑 AI 的部分更改
+    done_in_again: AI 的全部更改已重新加入
+    done_in: AI 的更改已生效
+    done_in_without: AI 的更改已生效，但不包括你排除的部分
+    done_in_edited: AI 的更改已生效，并包含你的编辑
+    done_in_edited_without: AI 的更改已生效，包含你的编辑，但不包括你排除的部分
+    notice_done: "{done}。"
+    notice_undo: "{done}。撤销可将其恢复。"
+    notice_broken: "{done}，但课程无法加载：{error}"
+    lessons:
+      one: "{n} 节课"
+      other: "{n} 节课"
+    verb_added: "添加了{what}"
+    verb_changed: "修改了{what}"
+    verb_removed: "删除了{what}"
+    changed_settings: 修改了课程设置
+    nothing: AI 没有修改任何可供你审阅的内容。
+    overview: "AI{parts}。"
+    and: "{a}和{b}"
+    sep: "、"
+    changes:
+      one: "{n} 处更改"
+      other: "{n} 处更改"
+    left_out: "排除了{parts}"
+    lines_edited:
+      one: "{n} 行已编辑"
+      other: "{n} 行已编辑"
+    course_settings: 课程设置
+    name_reading: 阅读材料
+    name_title: 标题
+    name_focus: 重点
+    name_quiz:
+      one: 测验题
+      other: 测验题
+    name_word:
+      one: 单词
+      other: 单词
+    name_conjugation:
+      one: 变位表
+      other: 变位表
+    name_conversation:
+      one: 对话
+      other: 对话
+    name_listening:
+      one: 听力句子
+      other: 听力句子
+    name_guide:
+      one: 指南步骤
+      other: 指南步骤
+    name_unit:
+      one: 单元
+      other: 单元
+    name_sprint: 冲刺模式的内容
+    name_themes: 主题内容
+    name_place: 它在课程中的位置
+    count: "{n} {noun}"
+    the_list: "{name}"
+    the_field: "{field}"
+    a_reading: 一篇阅读材料
+    written_by_ai: 由 AI 编写。
+    new_with: "新增，包含{parts}。"
+    taken_out: 已从课程中移除。
+    added: "添加了{what}"
+    removed_all: "删除了全部{what}"
+    removed: "删除了{what}"
+    layout_only: 只修改了排版。
+    redrew: 重新绘制了图片。
+    edited: 已编辑。
+    sentence: "{text}。"
+    sentence_sep: "；"
+    renamed_it: "将其重命名为“{title}”"
+    rewrote: "重写了{what}"
+    changed: "修改了{what}"
+    item_of:
+      one: "{field}中的条目"
+      other: "{field}中的条目"
+    reordered: "重新排列了{name}"
+    none: （无）
+    edits_unreadable: "你对“{title}”的编辑使其无法读取（{error}）。请检查你编辑过的行。"
+    left_out_unreadable: "排除“{title}”中的这些行后，它将无法读取（{error}）。请多排除一点或少排除一点。"
+  ai:
+    title: 使用 AI
+    mode_legend: "AI 可以做什么？"
+    mode_add: "添加"
+    mode_edit: "编辑"
+    mode_change: "添加并编辑"
+    mode_info: "添加、编辑和添加并编辑分别做什么？"
+    mode_add_info: "编写一节新课节。课程中已有的内容都不会改变。"
+    mode_edit_info: "重写已有的课节。不会添加、删除或移动任何课节。"
+    mode_change_info: "还可以添加、重新排序或删除课节。审阅更改会列出每项更改，撤销可恢复旧版本。"
+    mode_change_finished_only: "添加并编辑只适用于已完成的课程。添加和编辑适用于任何课程。"
+    outline: "仅大纲"
+    outline_info: "“仅大纲”有什么作用？"
+    outline_info_text: "开启时，AI 编写的课节是大纲：每节课节将讲授内容的要点列表和一道示例题，而不是完整课节。关闭时，它编写完整课节。"
+    generate: 生成课程
+    generate_note: 根据描述或你的笔记让 AI 编写整门课程。一旦你编辑了某节课的内容，此选项即消失。
+    ask_add: AI 应该添加什么？
+    ask_add_or_change: AI 应该添加或修改什么？
+    ask_edit: "AI 应该修改什么？"
+    placeholder: "例如：一节关于比较不同分母分数的课。"
+    placeholder_edit: "例如：改正第 2 课的错别字，并给每节课加一个解题示例。"
+    placeholder_change: "例如：把那节长课拆成两节，并在最后加一节复习课。"
+    up_to_chars: "最多 {n} 个字符。"
+    sensitive_note: 请勿粘贴敏感的个人数据（健康、信仰、证件号码）或他人的详细信息。
+    submit: 提交
+    review_changes: 查看更改
+    review_tip: "上次 AI 运行（{when}）所做的更改"
+    sent_to_named_html: "你的笔记将使用你的密钥发送至 <span data-testid=\"course-ai-provider\">{provider}</span>。"
+    sent_to_generic: 你的笔记将使用你的密钥发送至你的 AI 服务提供商。
+    no_key_html: "尚未设置 AI 服务提供商密钥。<a href=\"{url}\" data-testid=\"course-ai-profile-link\">在你的个人资料中添加 API 密钥</a>后即可使用 AI 功能。"
+    no_key: 尚未设置 AI 服务提供商密钥。请在个人资料中添加 API 密钥后即可使用 AI 功能。
+    modal_generating: 生成中…
+    modal_count_rewritten: "已重写或添加 {done} / {total} 节课"
+    modal_count_edited: "已重写 {done} / {total} 节课"
+    modal_count_written: "已编写 {done} / {total} 节课"
+    modal_cancel: 取消
+    modal_refresh: 刷新
+    modal_leave_revision: "你可以离开此页面：任务会继续运行，课程在完成前保持原样可用，你回来时此框会再次出现。"
+    modal_leave: "你可以离开此页面：任务会继续运行，你回来时此框会再次出现。"
+    modal_provider_said: AI 服务提供商的回复
+    modal_close: 关闭
+    modal_done: 课节已出现在课节表中。
+    modal_continue: 继续
+    say_change: 请说明需要修改什么
+    say_add: 请说明新课节应该教什么
+    too_short: "{what}，至少需要 {min} 个字符。"
+    too_long: "请将其控制在 {max} 个字符以内。"
+    not_loading: 课程无法加载；请先修复，然后再使用 AI 添加内容。
+    only_finished: "只有已完成的课程才能修改现有内容。请关闭“允许修改现有内容”，AI 将只添加内容。"
+    another_started: 此课程刚开始了另一项修改。请等待其完成。
+    lesson_gone: "这一课已不在课程中。请刷新页面后再试。"
+    hosted_uses: "使用你的账户中包含的 {hosted}。"
+    # The (i) by the box: example requests to click into it (#1236).
+    examples_info: AI 能做什么？
+    examples_title: AI 能做什么？
+    examples_intro_html: "点击一个示例把它放进输入框，再按你的课程修改。大多数需要打开<em>{switch}</em>。"
+    examples_check: 检查
+    examples_add: 添加
+    examples_change: 修改
+    examples_remove: 删除
+    example_check_facts: 检查每节课中的事实，并改正错误。
+    example_add_lesson: "添加一节关于……的课"
+    example_add_questions: 给第 4 课添加三道选择题。
+    example_add_sort: 给每节还没有 Sprint 分类练习的课添加一个。
+    example_add_listening: 给每节有词汇但没有听力的课添加听力句子。
+    example_add_conversation: 给第 2 课添加一段对话。
+    example_simpler: 在讲解中使用更简单的词。
+    example_drop: 删除历史课。
+    examples_translate_html: "要把课程换成另一种语言，请在课程设置中使用<em>{button}</em>。它会创建一份翻译后的副本。"
+  generate:
+    close: 关闭
+    resume_title: "继续生成“{title}”"
+    resume_note: 大纲和已编写的课节都会保留；只编写缺少的课节。
+    retry_title: 重新尝试生成课程
+    title: 用 AI 生成课程
+    intro: "描述你想学什么，或粘贴你的课堂笔记、作业或教学大纲。模型会先规划课程，然后逐节编写：正文、关键词、测验题（数学答案按数值检查）以及手机端课程中的练习。课程仅你可见。"
+    named_keeps: "AI 将保留{what}。"
+    named_title: "标题{title}"
+    named_and: "{a}和{b}"
+    named_lessons:
+      one: "你的课节 {list}"
+      other: "你的课节 {list}"
+    list_sep: "、"
+    quoted: "“{text}”"
+    no_key_html: "生成课程需要 AI 服务提供商密钥。<a href=\"{url}\" data-testid=\"generate-profile-link\">在你的个人资料中添加 API 密钥</a>，然后回到这里。"
+    asked_for: 你的请求
+    wish_label: 你想学什么？
+    wish_optional: "（可选：只填标题即可开始）"
+    wish_placeholder: "例如：我代数课的第 4 章：因式分解二次式和求根公式。考试在周五。"
+    wish_note: 请说明水平、考试范围以及你觉得困难的地方。一两句话即可。
+    notes_label: 你的材料
+    optional: （可选）
+    notes_placeholder: 粘贴课堂笔记、作业题、教学大纲或阅读清单。课程将严格按照这些内容及其记号来教学。
+    files_label: 包含你材料的文本文件
+    drop_html: "将文本文件拖到此处，或<button type=\"button\" class=\"link\" id=\"gen-pick\">选择文件</button>（.txt、.md、.csv、.tex 等）。对于 PDF 或照片，请把其中的文字复制进来。"
+    kind_legend: 这是哪种课程？
+    kind_auto: 由 AI 决定
+    kind_math: 数学或科学
+    kind_math_note: （数字和公式答案）
+    kind_language: 语言
+    kind_language_note: （听力、对话、点击即可朗读）
+    kind_general: 事实与概念
+    kind_general_note: （历史、生物、法律等）
+    depth_legend: "写多少"
+    depth_info: "这些选项有什么作用？"
+    depth_info_text: "完整课程：AI 规划课程并完整编写每一节课节。它会决定这个主题需要多少课节，最多 15 节。预览：一个单元和一节完整的课节，让你在写更多之前先看看课节是什么样子。大纲：所有单元和课节，但每节课节只是它将讲授内容的要点列表，外加一道示例题。这样检查计划又快又省钱。"
+    depth_full: "完整课程"
+    depth_preview: "预览（1 节课）"
+    depth_outline: "大纲（每节课节的简要内容）"
+    estimate_about: "估算是怎么算出来的"
+    estimate_title: "关于估算"
+    estimate_how: "模型会收到一次生成大纲的请求，每节课再各一次。每次请求都带上课程格式参考和你的材料，所以材料越多费用越高。用你自己的密钥时，费用按服务商对应用所用模型的标价计算，并按固定汇率从美元换算成加元。用 {hosted} 时，显示的是这项任务占本月额度的比例。"
+    estimate_rough: "这只是粗略估计，不是承诺。模型需要重写的课程会花更多钱和时间。如果应用不知道某个模型的价格，就只显示时间。"
+    provider_legend: 你的 AI 服务提供商
+    advanced: "高级：编辑发给 AI 的指令"
+    warn_html: |-
+      <strong>⚠️ 注意：这可能会破坏你的课程，并产生费用。</strong>
+              以下是随每次请求发送的指令。应用仍会验证每个文件，无法通过验证的课节会退回给模型最多两次，之后任务停止。与课程格式相冲突的指令会在重试中浪费 API 额度，并生成无法加载的课程。请勿粘贴你看不懂的指令：他人提供的文字可能让模型编写你没有要求的内容。该类课程的规则、课程格式参考和大纲始终会附加在这些指令之后。
+    instructions_label: 指令
+    reset: 恢复默认指令
+    edited: 已编辑
+    sent_to_html: "你的笔记将使用你的密钥发送至 <span id=\"gen-disclosure-provider\">{provider}</span>。"
+    sent_to_generic: 你的笔记将使用你的密钥发送至你的 AI 服务提供商。
+    submit_resume: 继续编写
+    submit_retry: 重试
+    effort:
+      button: "力度：{level}"
+      title: "AI 应该多努力？"
+      fast: "快速"
+      fast_note: "最快，用的 AI 最少。适合简短或简单的材料。"
+      balanced: "均衡"
+      balanced_note: "适合大多数课程。"
+      thorough: "深入"
+      thorough_note: "每节课想得更久。更慢，用的 AI 大约是两倍。"
+      same_model: "每个级别都用同一个 AI 模型。Skrongle 会记住你的选择，下次沿用。"
+      done: "完成"
+    submit: 生成课程
+    own_stopped_resume: "或关闭此窗口：课程会留在你的列表中，直到你继续或删除它。"
+    own_stopped_retry: "或关闭此窗口：课程会留在你的列表中，直到你重试或删除它。"
+    own_write: 或关闭此窗口，自己编写课节；起始课节会展示格式。在你编辑某节课的内容之前，都可以从“使用 AI”回到这里。
+    your_provider: 你的服务提供商
+    choose_provider: 请选择服务提供商。
+    base_url: 基础 URL 必须以 http:// 或 https:// 开头。
+    bad_key: 这看起来不像 API 密钥。
+    paste_key: "请粘贴 {provider} 的 API 密钥，或先在个人资料中保存一个。"
+    wish_too_long: "“你想学什么”请控制在 {max} 个字符以内；更长的材料请放入笔记框。"
+    notes_too_long: "你的材料请控制在 {max} 个字符以内；请删减，或将课程拆分为两门。"
+    new_course: 新课程
+    busy: 课程已有一项 AI 任务在进行中。
+    has_content: "此课程已有自己的内容，因此 AI 不会重新生成它。请在“使用 AI”框中说明你想要的内容。"
+    instructions_too_long: "指令超过 {max} 个字符。"
+    cancelled: 已取消。
+    in_line: "你排在第 {n} 位。"
+    cancelling_revision: "正在取消：课程保持原样。"
+    cancelling_generation: "正在取消：课程将在正在编写的课节之后停止。"
+    sent_to_hosted_choice_html: "你的笔记会发送给<span id=\"gen-disclosure-provider\">本服务器所使用的 AI 服务提供商</span><span id=\"gen-disclosure-key\" hidden>，并使用你的密钥</span>。"
+    sent_to_hosted: "你的笔记会发送给本服务器所使用的 AI 服务提供商。"
+  undo:
+    undo: 撤销
+    redo: 重做
+    undo_label: "撤销：{label}"
+    undo_nothing: 撤销（没有可撤销的内容）
+    redo_label: "重做：{label}"
+    redo_nothing: 重做（没有可重做的内容）
+    nothing_to_undo: 没有可撤销的更改。
+    nothing_to_redo: 没有可重做的更改。
+    undone: "已撤销（{label}）：课程已恢复到之前的状态。"
+    redone: "已重做（{label}）。"
+    undone_broken: "已撤销（{label}），但课程无法加载：{error}"
+    redone_broken: "已重做（{label}），但课程无法加载：{error}"
+  js:
+    stat_failed: "加载失败，请再试一次。"
+    link_copy: "复制"
+    link_copied: "已复制 ✓"
+    ai_edit_heading: "用 AI 编辑“{title}”"
+    link_selected: "已选中"
+    kind_json: 不是有效的 JSON
+    kind_rules: 违反课程规则
+    kind_refused: 未保存
+    json_hint: "请检查该位置之前是否缺少逗号、引号或括号，或者 } 或 ] 之前是否多了一个逗号。在它成为有效的 JSON 之前，其中的内容都不会被保存。"
+    problem_field: "字段“{field}”"
+    problem_line_col: "第 {line} 行，第 {column} 列"
+    problem_line: "第 {line} 行"
+    problem_in: "，位于{where}"
+    problem_sep: "、"
+    problem_fix: " 修复方法：{hint}"
+    problem_text: "{kind}{where}：{message}{fix}"
+    json_empty: "文本框为空；请将整个文件写成一个 JSON 对象，即 { … }。"
+    json_end: 文本在所有 { 和 [ 闭合之前就结束了
+    json_escape: 文本中的反斜杠开始了 JSON 不认识的转义；反斜杠请写作 \\
+    json_control: 带引号的文本中出现了换行或制表符；请改写为 \n 或 \t
+    json_number: 数字的写法不符合 JSON 的规定
+    json_single_quotes: 文本必须使用双引号（"…"），不能使用单引号
+    json_value: "此处应为一个值：双引号文本、数字、true、false、null、{ 或 ["
+    json_key: 此处应为双引号括起的键
+    json_colon: "键之后应为 :"
+    json_comma_brace: "应为逗号或 }"
+    json_trailing_comma: "} 或 ] 之前有逗号，JSON 不允许这样写"
+    json_comma_bracket: 应为逗号或 ]
+    json_more: JSON 结束之后还有多余的文本
+    settings_place: 课程设置
+    placement_place: "分级测试"
+    quoted: "“{text}”"
+    valid_json_table: 有效的 JSON。输入时即自动保存；课程规则会在保存时检查。
+    not_saved_refused: "未保存：这次更改因 {place} 被拒绝；请到那里查看原因。"
+    goto_line: "跳到第 {n} 行"
+    saved_broken: "已保存，但课程无法加载：{warning}"
+    rename_lesson: 课节名称
+    rename_course: 课程标题
+    new_lesson: 新课节
+    edit_new_lesson: 编辑新课节
+    move_new_lesson: "移动新课节：拖动，或使用方向键"
+    delete_new_lesson: 删除新课节
+    duplicate_new_lesson: "复制新课节"
+    copy_of: "{title}（副本）"
+    duplicate_bad_json: "请先修复 {name} 的 JSON，再复制它。"
+    settings_need_units: "请先修复课程设置的 JSON：它需要一个 \"units\" 列表。"
+    load_settings_failed: 无法加载课程设置
+    new_unit: 新单元
+    words_failed: "无法读取这些单词，请再试一次。"
+    words_skip_no_split: "已跳过第 {line} 行，单词和意思之间没有分隔符：{text}"
+    words_skip_duplicate: "已跳过第 {line} 行，这个单词已在列表中：{text}"
+    words_skip_too_many: "已跳过第 {line} 行，一个课节的单词太多：{text}"
+    words_read:
+      one: "已读取 {n} 个单词"
+      other: "已读取 {n} 个单词"
+    words_added:
+      one: "已添加含 {n} 个单词的课节。"
+      other: "已添加含 {n} 个单词的课节。"
+    rename_unit: 单元名称
+    need_one_lesson: 课程至少需要一节课；如需删除，请删除整门课程。
+    need_one_unit: 课程至少需要一个单元。
+    whole_lesson_placeholder: "整节课的 JSON。"
+    loading: 加载中…
+    load_file_failed: 无法加载文件
+    forms_need_object: 表单模式需要一个 JSON 对象。
+    loading_form: 正在加载表单…
+    fold_unit: "折叠 {title}"
+    add_lesson_to: "在 {title} 中添加课节"
+    delete_unit: "删除单元 {title}"
+    delete_lesson_confirm: "删除“{name}”？你在其中的进度也会被删除（撤销可将其恢复）。"
+    undo_unsaved: 撤销你未保存的更改
+    unsaved_undone: 你未保存的更改已撤销。
+    valid_json_file: 有效的 JSON。保存时会检查课程规则。
+    at_most: "最多 {max}"
+    at_least: "至少 {min}"
+    char_count: "{n} / {max} 个字符"
+    char_count_problem: "{count} · {problem}"
+    starting: 正在开始…
+    saving: 保存中…
+    modal_count_rewritten: "已重写或添加 {done} / {total} 节课"
+    modal_count_edited: "已重写 {done} / {total} 节课"
+    modal_count_written: "已编写 {done} / {total} 节课"
+    review_leave_confirm: 离开而不接受？你排除或编辑的内容将不会保留。
+    review_edited_file_tip: "包含你编辑过的行，这些行始终保留：撤销它们才能排除此课节"
+    review_edited_line_tip: 包含你编辑过的一行，该行会保留
+    review_changes:
+      one: "{n} 处更改"
+      other: "{n} 处更改"
+    review_lessons:
+      one: "{n} 节课"
+      other: "{n} 节课"
+    review_and: "{a}和{b}"
+    review_left_out: "排除了{parts}"
+    review_sep: "、"
+    review_lines_edited:
+      one: "{n} 行已编辑"
+      other: "{n} 行已编辑"
+    accept_rest: 接受其余部分
+    accept: 接受
+    none: （无）
+    edit_line_label: 此行（JSON 文本）
+    card_progress: "{phase} · 已完成 {done} / {total} 节课"
+    your_provider: 你的服务提供商
+    files_too_large: 这些文件太大或不是文本；请改为复制它们的文字。
+    not_text_file: 这看起来不是文本文件。对于 PDF 或文档，请复制其中的文字。
+    form_load_failed: 无法加载课程格式
+    form_kept: "保留原样（请以 JSON 形式编辑）：{keys}"
+    form_move_up: 上移
+    form_move_down: 下移
+    form_remove: 移除
+    form_right_answer: 正确答案
+    form_add: + 添加
+    form_add_to: "添加到{list}"
+    form_remove_key: "移除 {key}"
+    form_key: 键
+    delete_item_confirm: 删除此项？撤销可以恢复。
+    guide_derive_confirm: 放弃手动排列的步骤，让指南重新自动生成？在这里写的提示和概念卡片会丢失（撤销可以恢复）。
+    form_key_to_add: 要添加的键
+    form_add_key: 添加键
+    form_kind: 类型
+    form_option: "选项 {n}"
+    hosted_provider: "本服务器所使用的 AI 服务提供商"
+    estimate_lessons:
+      one: "{n} 节课"
+      other: "{n} 节课"
+    estimate_minutes:
+      one: "约 {n} 分钟"
+      other: "约 {n} 分钟"
+    estimate_cost: "约 {cost} 加元"
+    estimate_share: "约占本月 {hosted} 的 {n} %"
+    estimate_sep: " · "
+  stat:
+    next_lesson: "下一课待通过"
+    all_passed: "所有课程都已通过。"
+    last_passed: "最近通过：{title}，{when}"
+    practise_next: "接下来练习"
+    nothing_to_practise: "暂时没有要练习的。回答过某课的问题且尚未掌握时，这一课会出现在这里。"
+    score: "{pct}%"
+    fading: "{pct}%，曾经掌握"
+    info_label_passed: "怎样算通过"
+    info_label_mastered: "掌握度怎么算"
+    info_passed: "读过一课，并在任意模式下完成一轮该课的问题且正确率达到 {pct}% 或以上，这一课就算通过。"
+    info_mastered: "答对会提高一课的分数，答错会降低。达到 {pct}% 或以上即为掌握。3 天不练习后分数会慢慢下降，所以已掌握的课也可能退回去。"
+  settings:
+    title: "课程设置"
+    level: "级别"
+    level_info: "什么是级别"
+    open_label: "{title} 的设置"
+    theme: "主题"
+    theme_default: 默认
+    picture: "头像"
+    background: "背景"
+    about: "关于这些设置"
+    about_p: "这里的每项设置都可以随时换成别的。更改设置绝不会重置任何内容：你的进度以及每个激励方式统计过的一切都会保持原样。"
+    wizard_title: "欢迎来到 {course}"
+    motivator: "激励方式"
+    motivator_ask: "选择激励方式"
+    motivator_info: "什么是激励方式"
+    motivator_info_p: "激励方式是你的努力获得奖励的方式：每一种都会在课程主页顶部和每节课结束时以自己的方式展示你的进度。开始后，你可以随时在本课程的设置中更改。"
+    theme_ask: "选择主题"
+    theme_info: "什么是主题"
+    theme_info_p: "主题会增添有趣的视觉效果，课程也可能用它为内容增添额外的趣味。开始后，你可以随时在本课程的设置中更改。"
+    picture_ask: "选择你的头像"
+    background_ask: "选择背景"
+    save: "保存"
+    ok: "确定"
+    get_started: "开始吧！"
+    prev: "上一步"
+    next: "下一步"
+    close: "关闭"
+  placement:
+    take: "参加分级测试"
+    question_of: "第 {n} 题，共 {total} 题"
+    suggest: "你的结果：从 {unit} 开始"
+    show_card: "查看成绩单"
+    hide_card: "隐藏成绩单"
+    retake: "再测一次"
+    col_level: "级别"
+    col_correct: "答对"
+    all_right: "全部答对"
+    some_right: "部分答对"
+    none_right: "全部答错"
+    failed: "分级测试没有加载出来。请直接选择一个级别。"
+  share:
+    dialog_lead_no_mail: "每个地址都会得到一个专属链接，由你转发：此服务器不发送电子邮件。他们以自己的进度学习这门课程；只有你可以修改它。"
+    make_links: "生成邀请链接"
+    made:
+      one: "已生成 {n} 个邀请链接。请复制并转发；它只在此时显示。"
+      other: "已生成 {n} 个邀请链接。请逐个复制并转发；它们只在此时显示。"
+    link_label: "{email} 的邀请链接"
+    copy: "复制"
+    button: 分享
+    button_count: "分享（{n}）"
+    dialog_title: 分享此课程
+    dialog_lead: 你分享给的每个人都会收到一封含链接的邮件。他们用自己的学习进度学习这门课程；只有你可以修改它。
+    status_opened: 已打开
+    status_invited: 已邀请
+    remove: 移除
+    remove_label: "停止与 {email} 分享"
+    emails_label: 电子邮件地址
+    emails_note: （每行一个，或用逗号分隔）
+    send: 发送邀请
+    close: 关闭
+    own_address: "这是你自己的地址：该课程已经属于你。"
+    too_many_course: "一门课程最多可与 {max} 个地址分享。"
+    too_many_request: "每次最多可与 {max} 个地址分享。"
+    at_least_one: 请至少输入一个电子邮件地址。
+    bad_address: "“{address}”：{error}"
+    bad_address_notice: 其中有一个不是电子邮箱地址。请检查列表后重新发送。
+    sent:
+      one: "已向 {n} 个地址发送邀请。"
+      other: "已向 {n} 个地址发送邀请。"
+    already_had: "{n} 个地址已经收到过邀请。"
+    removed_notice: 已停止与该地址共享。
+    not_on_list: 该地址不在列表中。
+    link_taken: 已有其他账户使用过此链接。请让课程所有者用你的地址重新分享。
+    link_gone: 此链接已失效。请让课程所有者重新与你分享课程。
+    not_ready: 该课程尚未准备好打开。请联系其所有者，稍后再试此链接。
+    login_notice: "看起来你还没有账户！请登录或注册，以继续查看你的课程：{title}"
+    shared_heading: 与你分享
+    dot_label: "由 {owner} 与你分享"
+    shared_title: 与你分享
+    shared_body: "此课程属于 {owner}，对方与你分享了它。你可以用自己的学习进度学习；只有 {owner} 可以修改其课程内容。"
+    ok: 好
+  ai_out:
+    upgrade: "升级到 Plus · {price}"
+    buy: "购买 {credit} 的 AI 额度 · {price}"
+    own_key: "使用你自己的 API 密钥"
+  hosted:
+    not_offered: "你的方案所含的 {hosted} 不足以完成此操作。请在个人资料中添加你自己的 API 密钥，或升级。"
+    own_keys_off: "你的方案使用 {hosted}。请在个人资料中打开“{hosted} 达到上限时使用我的密钥”，以使用你自己的密钥。"
+    left: "本月剩余的 {hosted}：{n} %"
+    percent: "{n} %"
+    left_per_lesson: "{left} · 每节课约 {per}"
+    gap:
+      none: "你的方案不包含 {hosted}。"
+      too_little_tutor: "你的方案每月包含的 {hosted} 不足以进行一次 AI 导师辅导。"
+      too_little_course: "你的方案每月包含的 {hosted} 连最小的课程都写不完。"
+      too_little_lesson: "你的方案每月包含的 {hosted} 不足以编写一节课。"
+      instead_key: "请改为在个人资料中添加你自己的 API 密钥：费用记在你与 AI 服务提供商的账户上。"
+      instead_upgrade: "请在个人资料中添加你自己的 API 密钥（费用记在你与 AI 服务提供商的账户上），或升级到 Plus，每月包含 {hosted}。"
+      instead_pill: "请在个人资料中添加你自己的 API 密钥，并在那里打开“{hosted} 达到上限时使用我的密钥”；你的密钥费用记在你与 AI 服务提供商的账户上。"
+motivator:
+  stats:
+    title: "统计与指标"
+    about: "以圆环显示的每日目标、连续天数、已通过的课、已收集的词语，以及单元进度。"
+    reward:
+      passed: "✓ 已通过"
+      unit: "🏁 单元完成"
+      goal_met: "已达成每日目标"
+      today: "今天 {n} / {goal}"
+  xp:
+    title: "经验值"
+    about: "你在课程中做的每件事都能获得经验值，经验值会提升你的等级，就像游戏里的角色一样。"
+    lv: "等级"
+    level_label: "等级 {n}"
+    to_next: "{n} / {need} 经验值"
+    bar_label: "距离等级 {n} 的经验值"
+    today: "今天：{n} / {goal} 经验值"
+    info_label: "如何获得经验值"
+    info_title: "如何获得经验值"
+    info_p: "无论你选择哪种激励方式，在本课程中做的每件事都能获得经验值。每日目标不变，只是以经验值计算。"
+    info_levels: "升到 2 级需要 {step} 经验值，之后每一级都比上一级多需要 {step} 经验值。"
+    col_xp: "经验值"
+    bonus:
+      pass: "通过一课"
+      goal: "达成每日目标"
+      unit: "完成一个单元"
+    reward:
+      earned: "+{n} 经验值"
+      level_up: "升级了！等级 {n}"
+  skc:
+    title: "Skrongle Cash"
+    short: "SKC"
+    about: "为你的进步发放的游戏币，就像游戏厅的奖票：每门课程都有自己的 Skrongle Cash（SKC）余额。"
+    today: "今天：{n} / {goal} SKC"
+    reward:
+      amount: "+{n} SKC"
+      pass: "+{n} SKC 通过课程"
+      goal: "+{n} SKC 每日目标"
+      unit: "+{n} SKC 完成单元"
+    info:
+      label: "如何赚取 Skrongle Cash"
+      p: "Skrongle Cash（SKC）是这门课程的游戏币。无论你选择哪个激励方式，你在这里做的每件事都能赚取它："
+      per_point: "每个努力点"
+      per_pass: "通过课程"
+      per_goal: "达成每日目标"
+      per_unit: "完成单元"
+      points: "努力点，按每日目标的方式计算："
+      shop: "在本课程的商店里用 SKC 兑换徽章。徽章显示在这张卡片上，无论你选择哪种激励方式都归你所有。"
+    shop:
+      open: "商店"
+      title: "商店"
+      shelf: "你的徽章"
+      shelf_empty: "还没有徽章。"
+      badges: "徽章"
+      buy: "购买"
+      owned: "已拥有"
+      back: "返回课程"
+      refused_title: "未购买"
+      refused_owned: "你已经有{title}了。"
+      refused_short: "购买{title}还差 {n} SKC。"
+      refused_unknown: "商店里没有这个徽章。"
+    badge:
+      sprout: "嫩芽"
+      lantern: "灯笼"
+      kite: "风筝"
+      compass: "指南针"
+      lighthouse: "灯塔"
+      comet: "彗星"
+  social:
+    title: "社交"
+    about: "你与本课程其他学习者相比如何，以及有多少人在学习：只有匿名数字，不显示任何人的名字。"
+    week_effort: "本周你的努力超过了本课程 {pct} % 的学习者。"
+    week_count: "本周有 {n} 人学习了这门课程。"
+    today_count: "今天有 {n} 人在学习这门课程。"
+    streak_count: "今天有 {n} 名学习者保持了连续学习。"
+    streak_count_you: "今天有 {n} 名学习者保持了连续学习，你是其中之一。"
+    lesson_now: "过去一小时内有 {n} 名学习者学习了 {title}。"
+    goal: "今天：{n} / {goal}"
+    ahead_today: "，目前超过今天 {pct} % 的学习者"
+    info_label: "比较的内容"
+    info_title: "与其他学习者的比较"
+    info_compared: "你本周和今天的努力点数（与每日目标相同的点数）会与这段时间里学习本课程的所有人进行比较，无论他们使用哪种激励方式；本周通过的课程也会被统计。"
+    info_anonymous: "只显示总数和百分比。不会点名或展示任何人，包括你自己：其他人只会在数字中看到你。"
+    info_crowd: "只有在该时间段内至少有 {n} 名学习者活跃时才会显示比较。人数更少时，比较会透露太多关于少数人的信息。"
+    info_lesson: "你接下来要继续的课程还会显示过去一小时内有多少学习者打开或学习了它。"
+    reward:
+      passed: "本周通过这节课的 {n} 人中有你。"
+      first: "你是本周第一个通过这节课的人。"
+      effort: "本周你的努力超过了本课程 {pct} % 的学习者。"
+
+# The lesson editor (#841): static/lesson-editor.js and static/lesson-preview.js.
+editor:
+  js:
+    outline: 课节大纲
+    tab_outline: 大纲
+    tab_edit: 编辑
+    tab_preview: 预览
+    edit_as_json: "{ } 以 JSON 编辑"
+    has_problem: 课程规则会拒绝这一项
+    lint_title: "待检查"
+    lint_close: "关闭"
+    field_checks_title: "此字段的检查"
+    field_checks_close: "关闭"
+    untitled: （无标题）
+    pick_item: 请在大纲中选择一项，或添加一项。
+    sec_lesson: 课节
+    sec_content: 文本
+    sec_vocabulary: 词汇
+    sec_quiz: 测验
+    sec_listening: 听力
+    sec_sprint: 冲刺
+    sec_conversations: 对话
+    sec_conjugations: 变位
+    sec_guide: 指南
+    sec_themes: 主题
+    add_vocab: + 单词
+    add_quiz: + 题目
+    add_listening: + 句子
+    add_conversation: + 对话
+    add_conjugation: + 表格
+    add_icon: + 路径图标
+    add_bites: + 小知识
+    add_sorts: + 分类
+    add_spots: + 找错
+    add_builds: + 组句
+    add_scales: "+ 音阶"
+    add_to: "添加到{list}"
+    another: + 再加一个
+    another_option: 另一个选项…
+    add_word: + 单词
+    no_words: 这节课还没有词汇
+    add_prereq: + 需先阅读的课节
+    add_line: + 一行
+    add_item: + 项目
+    add_bucket: + 分组
+    add_distractor: + 干扰项
+    remove: 移除
+    remove_bucket: 移除此分组
+    delete: ✕ 删除
+    duplicate: ⧉ 复制
+    previous: ↑ 上一个
+    next: ↓ 下一个
+    move_up: 上移
+    move_down: 下移
+    move_prev_bucket: 移到前一个分组
+    move_next_bucket: 移到后一个分组
+    right_answer: 正确答案
+    option_n: "选项 {n}"
+    answer_true: "正确"
+    answer_false: "错误"
+    optional: 可选
+    ids_note: "ID、slug、单元和顺序由课节表设定；请以 JSON 形式编辑。"
+    lesson_head: 课节
+    grp_about: 简介
+    f_title: 标题
+    f_summary: 摘要
+    h_summary: 用于列表的一行文字。
+    f_focus: 重点
+    h_focus: 这节课教的唯一一件事，用一个短语表示。
+    f_group: 分组
+    h_group: "课程设置中某个分组的 ID；留空则为“general”。"
+    grp_prereq: 先读
+    h_prereq: 学习者最好先学完的课节。
+    content_head: 文本
+    content_sub: "Markdown；每个 ## 标题开始一张卡片"
+    f_content: 文本
+    h_content: "支持表格、列表、粗体、代码块和引用。第一个 ## 标题之前的文字会成为“介绍”卡片。"
+    cards_label: "卡片："
+    cards_none: "还没有卡片。请写一些文字，每张卡片用一个 ## 标题。"
+    intro_card: 介绍
+    cards:
+      one: "{n} 张卡片"
+      other: "{n} 张卡片"
+    word_n_of: "第 {n} 个单词，共 {total} 个"
+    grp_word: 单词
+    f_term: 词条
+    f_meaning: 释义
+    grp_example: 例句
+    grp_example_aside: 可选，请给出释义
+    f_example: 例句
+    f_example_meaning: 例句释义
+    grp_used: 被谁使用
+    used_by_questions: "题目 {list} 会教这个词（按名称或按答案）；单词卡、单词配对和冲刺会用到每个单词。"
+    used_by_none: 目前没有题目教这个词；单词卡、单词配对和冲刺会用到每个单词。
+    question_n_of: "第 {n} 题，共 {total} 题"
+    type_multiple-choice: 选择题
+    type_fill-in-blank: 填空题
+    type_true-false: 判断题
+    type_numeric: 数字
+    type_expression: 公式
+    type_fill-bar: "填满小节"
+    type_chord-spell: "拼写和弦"
+    type_staff-note: "放置音符"
+    type_keyboard: "在键盘上找出来"
+    type_algebra-tiles: "代数拼块"
+    type_clock: "拨钟"
+    set_clock: "把钟拨到这个时间"
+    h_clock: "一个时间 H:MM，小时为 1 到 12，例如 3:45。学习者把分针拖到这个时间。"
+    f_step: "分针步长"
+    h_step: "分针每一步走多少分钟：默认 5，一刻钟用 15。必须能整除 60。"
+    f_clock_options: "可选的时间"
+    h_clock_options: "填写这些时间可以把问题反过来：钟显示答案，学习者从这些时间（H:MM）中选出它。"
+    check_clock: "把时间写成 H:MM，小时为 1 到 12，例如 3:45"
+    type_unknown: 未知类型
+    grp_ask: 提问
+    grp_answer: 答案
+    grp_after: 答题之后
+    f_prompt: 题干
+    f_statement: 陈述
+    h_statement: 学习者判断它是对还是错。
+    h_prompt_blank: 在答案的位置写 ___。冲刺模式用词块填入；学习模式让学习者自己输入。
+    h_prompt_math: "数学内容请写成纯文本或 Unicode（x²、√2、π），不要用 LaTeX。"
+    f_options: 选项
+    f_options_aside: 选出正确的一项
+    f_which_right: 哪个是对的？
+    f_correct: 正确答案
+    f_accepted: 同时接受
+    h_accepted: 其他同样算对的答案。
+    h_fill: "判分时忽略大小写、标点和多余的空格；缺少重音符号算接近正确。"
+    h_numeric: "按数值判分：3/4、0.75、40 %、2^10 和 sqrt(2) 都会被当作数字。多个答案用 ; 分隔，表示顺序不限的列表。"
+    f_tolerance: 容差
+    h_tolerance: "答案可以偏差多少。0.01 表示“精确到两位小数”。"
+    f_unit: 单位
+    f_abc: "乐谱"
+    h_abc: "ABC 记谱法，在题目上方画成五线谱。一个音：X:1、L:1/4、K:C 和 A，各占一行。"
+    f_play: "声音"
+    h_play: "扬声器按钮播放的 ABC 记谱。两个单音先依次播放，再一起播放；没有乐谱时，作答后会把这些音画成五线谱。"
+    f_option_kind: "选项是"
+    option_kind_text: "文字"
+    option_kind_abc: "五线谱"
+    h_abc_bar: "用 ABC 记谱法写的小节。一个隐形休止符标出要用音符块填满的空缺：B B x2|"
+    f_tiles: "音符块"
+    h_tiles: "用 ABC 写的音符时值，每块一组，不含空格：B2、BB、B/B/B。一块可以用多次。"
+    f_exact: "怎样算对"
+    exact_any: "任何填满空缺的音符块"
+    exact_only: "只有正确答案"
+    h_bar_answer: "填满空缺的音符块，用空格分开：B2 或 B B。只有正确答案算对时必填；否则在答错后显示。"
+    f_chord_tiles: "选项块"
+    h_chord_tiles: "用 ABC 写的音，以空格分隔：D E F ^F _G A B。包含答案中的每个音，再加几个别的音。"
+    h_chord_answer: "和弦的 3 或 4 个音，用 ABC 写，顺序不限：D ^F A。写法要对：_G 不是 ^F。"
+    f_clef: "谱号"
+    clef_treble: "高音谱号"
+    clef_bass: "低音谱号"
+    f_any_octave: "任何八度都算对"
+    h_staff_answer: "一个用 ABC 写的音，带八度：C 是中央 C，c 是高一个八度的 C，C, 是低一个八度的 C。^F 是升 F，_B 是降 B。"
+    h_unit: 显示在答案框之后；学习者可以输入，也可以不输入。
+    f_expression_aside: 代数表达式
+    f_pile: "拼块"
+    h_pile: "拼块写成 a x^2 + b x + c：a 为 1 到 3，b 最多 12，c 最多 20，不能有负号。x^2 + 5x + 6 是一个大正方形、五个长条和六个小正方形。"
+    f_sides_aside: "两条边相乘"
+    h_sides: "例如 (x + 2)(x + 3)。展开后必须等于拼块。学习者的答案顺序不限，但必须写成两条边相乘。"
+    h_expression: "用 + - * / ^、括号、2x、sqrt、pi 书写；变量为单个字母。任何等价形式都会被接受，例如 (x+1)(x+1)。"
+    h_key: "这个键，写成一个 ABC 音符：C 是中央 C，^F 是升 F，_B 是降 B，c 是中央 C 上方的 C。同一个键的任何写法都算对。"
+    f_octaves: "琴键"
+    octaves_one: "一个八度"
+    octaves_two: "两个八度"
+    f_key_counts: "怎样算对"
+    key_any: "任何一个键上的这个音"
+    key_exact: "只有这个键"
+    h_key_accepted: "其他也算对的音，用 ABC 写：E, G。"
+    h_expression_form: "如果题目要求某种特定形式（“完全因式分解”），请改用选择题：等价形式都会被接受。"
+    f_explanation: 讲解
+    f_hints: 提示
+    f_teaches: 教授
+    f_teaches_aside: 本课的词汇
+    h_teaches: 答对时收集。与答案相同的单词无论如何都会被收集。
+    listening_n_of: "第 {n} 句，共 {total} 句"
+    grp_hear: 听一听
+    f_text_exact: 文本
+    h_listening_text: "须与应输入的内容完全一致，1 到 30 个词；数字请写成文字。在本课中不得重复。"
+    hear_it: 听一听
+    f_note: 备注
+    h_note: "一行提示，或新词：“新词：la oficina = 办公室。”"
+    conversation_head: 对话
+    grp_scene: 场景
+    f_scenario: 情境
+    h_scenario: 用一两句话交代场景。
+    f_role_a: 角色 A
+    f_role_b: 角色 B
+    grp_lines: 台词
+    grp_lines_aside: 说话人、文本、释义
+    f_speaker: 说话人
+    f_line_text: 说的话
+    f_line_meaning: 释义
+    f_line_note: 备注（可选）
+    conjugation_head: "{item}表"
+    item: 项目
+    grp_item: 项目
+    f_item: 项目
+    f_set: 组
+    grp_forms: 形式
+    grp_forms_aside: 对应课程范式的每个位置各一个
+    grp_forms_free: 课程设置没有定义范式
+    grp_art: 图画
+    grp_art_aside: "可选的 ASCII 图画，最多 8 行，每行 24 个字符"
+    f_art: 图画
+    icon_head: 路径图标
+    icon_sub: 本课在冲刺路径上的站点
+    grp_icon: 图标
+    f_icon: 表情符号
+    h_icon: "一个表情符号，不能与其他课节的相同。"
+    bite_head: 小知识
+    bite_sub: 一口气讲完一个想法 · 不评分
+    grp_say: 说出来
+    f_emoji: 表情符号
+    h_emoji: "可选；否则使用主题的小知识图标。"
+    h_emoji_off: "可选；否则使用 💡。"
+    f_rule: 规则
+    h_rule: 一行，简明有力。
+    grp_show: 展示
+    sort_head: 分类
+    sort_sub: 点按每个项目，把它放进正确的分组
+    grp_buckets: 分组和项目
+    grp_buckets_aside: "2–4 个分组，3–10 个项目；把项目拖到另一个分组，或使用 ◂ ▸"
+    f_bucket: 分组
+    f_sort_item: 项目
+    f_sort_play: "声音（ABC）"
+    f_why: 原因
+    spot_head: 找错
+    spot_sub: 点按那个错误的词
+    f_sentence: 句子
+    f_sentence_aside: 其中有一个错词
+    f_wrong: 错词
+    f_wrong_aside: 点按它
+    spot_type_first: 请先输入句子。
+    spot_word_twice: "这个词在句子里出现不止一次，所以不能作为错词"
+    f_fix: 改正
+    h_fix: 点按后显示在错词的位置。
+    h_spot_abc: "ABC 记谱，含一个错音，代替句子画成五线谱。T: 行显示为标题。"
+    f_wrong_note: "错音"
+    f_wrong_note_aside: "它的序号，从 1 数起"
+    h_fix_note: "ABC 写的正确音：F，^C 表示升 C，_B 表示降 B。"
+    build_head: 组句
+    scale_head: "音阶"
+    scale_sub: "把音阶的音点到梯子上"
+    f_notes: "音"
+    f_notes_aside: "8 个，从低到高"
+    h_notes: "用 ABC 写，以空格分隔：D E ^F G A B ^c d。第一个音已填好。"
+    f_decoys: "干扰音"
+    h_decoys: "不属于该音阶的音，混在选项中：F c"
+    build_sub: 用打乱的词块重新组出文本
+    f_text: 文本
+    grp_tiles: 词块
+    f_from_text: 来自文本
+    f_distractors: 干扰项
+    h_distractors: 混入词库的错误词块。
+    guide_head: 指南
+    guide_sub: 本课的进行顺序
+    guide_auto: 自动生成
+    guide_derived: "没有手动排序的步骤：指南会根据文本的卡片、每五个单词一组，以及从第三张卡片起的题目自动生成。"
+    guide_order_by_hand: 手动排列步骤
+    guide_back_to_derived: 恢复为自动生成的步骤
+    steps:
+      one: "{n} 个步骤"
+      other: "{n} 个步骤"
+    grp_steps: 步骤
+    grp_steps_aside: "用 ↑ ↓ 拖动；章节或题目从本课中选取"
+    guide_kind_section: 章节
+    guide_kind_question: 题目
+    guide_kind_vocab: 单词卡
+    guide_kind_tip: 提示
+    guide_kind_concept: 概念
+    guide_kind_unknown: "?"
+    guide_add_section: + 章节
+    guide_add_question: + 题目
+    guide_add_vocab: + 单词卡
+    guide_add_tip: + 提示
+    guide_add_concept: + 概念卡片
+    guide_vocab_n: "接下来的 {n} 个单词，以单词卡呈现"
+    step_n_kind: "步骤 {n} · {kind}"
+    guide_step_unknown: 指南不认识这个步骤；请以 JSON 形式编辑。
+    f_section: 章节
+    h_section: 文本中的某个标题，按开头匹配。
+    f_question: 题目
+    f_vocab_n: 单词数量
+    h_vocab_n: "接下来尚未出现的单词；本课共有 {n} 个。"
+    f_tip: 提示
+    f_markdown: 卡片文本
+    schema_sub: 逐个字段编辑
+    schema_unavailable: 无法加载课程格式；请以 JSON 形式编辑这一部分。
+    check_prompt_empty: 题干为空
+    check_blank_ok: 有一个空格
+    check_blank_missing: "题干中没有 ___：学习者需要输入完整答案，冲刺模式也不会显示空位"
+    check_type: 请选择类型
+    check_options_two: 至少需要 2 个选项
+    check_options_right: 请选出哪个选项是正确的
+    check_options_same: 有两个选项内容相同
+    check_options_ok: "{n} 个选项，每次测验都会重新打乱"
+    check_answer_empty: 答案为空
+    check_tiles_two: "至少给出 2 个音符块"
+    check_chord_notes: "请给出 3 或 4 个音"
+    check_chord_tiles: "答案中的每个音都必须是一个选项块"
+    check_staff_note: "请写一个 ABC 音，例如 G、^F 或 c"
+    check_key_note: "写一个 ABC 音符，例如 C、^F 或 _B"
+    check_true_false: 请选择正确或错误
+    check_tolerance: 容差必须是不小于 0 的数字
+    check_tolerance_ok: "±{n} 以内都算对"
+    check_numeric_read: "检查器无法把“{answer}”读成数字。请写成 12 或 3/4 这样的形式，单位填在“单位”里"
+    check_expression_read: "检查器无法把“{answer}”读成表达式。请写成 2x + 1 这样的形式"
+    check_unit_numeric: 容差和单位只用于数字题
+    check_teaches: "“{term}”不在本课的词汇中"
+    check_explanation: 还没有讲解；学习者答题后什么也看不到
+    check_vocab_both: 单词需要词条和释义
+    check_vocab_dup: "另一个单词也用了这个词条。请修改其中一个"
+    check_vocab_unique: 在本课中唯一
+    check_example_meaning: 也请给例句加上释义
+    check_listening_words: "{n} 个词；需 1 到 30 个"
+    check_listening_twice: "另一个句子的文本与此相同。请修改其中一个"
+    check_listening_ok: "{n} 个词"
+    check_note_empty: 备注为空；请直接删掉
+    check_note_new_word: 新词会为学习者高亮显示
+    check_conv_two: 至少需要 2 行
+    check_conv_both: 两个角色都必须说话
+    check_conv_empty: 有一行没有文本
+    check_conv_ok: "两个角色都有台词 · {n} 行 3–9 个词且带释义的台词会成为冲刺组句"
+    check_conj_both: 需要项目和释义
+    check_conj_no_paradigm: "课程设置没有定义范式，因此无法显示此表"
+    check_conj_set: "请选择范式中的一组：{sets}"
+    check_conj_missing: "缺少：{slots}"
+    check_conj_ok: 每个位置都已填写
+    check_conj_unknown: "“{slot}”不是范式中的位置。用 ✕ 删除它"
+    check_conj_dup: "“{item}”在这一组里已经有变位了。请换一组或修改条目"
+    check_art: 最多 8 行，每行 24 个字符
+    check_icon: 一个简短的符号，例如表情符号
+    check_bite: 小知识需要标题和规则
+    check_sort_buckets: 2 到 4 个分组
+    check_sort_items: "{n} 个项目；需 3 到 10 个"
+    check_sort_empty: 有一个项目没有文本
+    check_sort_bucket: 有一个项目指向已不存在的分组
+    check_sort_ok: "{n} 个项目，每个都在某个分组中"
+    check_spot_once: 错词在句子中必须恰好出现一次
+    check_spot_ok: "“{word}”出现一次"
+    check_spot_fix: 请给出改正
+    check_spot_note: "填写错音的序号，从 1 起"
+    check_spot_fix_note: "改正必须是一个音，例如 F、^C 或 _B"
+    check_build: "{n} 个词；文本需要 2 到 12 个词并带释义"
+    check_build_ok: "{n} 个词"
+    check_scale_notes: "音阶需要 8 个音，现有 {n} 个"
+    check_scale_note: "每一个都必须是一个 ABC 音，例如 F、^C 或 _B：{note}"
+    check_scale_decoy: "干扰音 {note} 是音阶中的音"
+    check_scale_ok: "8 个音"
+    check_guide_step: 指南不认识的步骤
+    check_guide_section: "没有以“{name}”开头的标题。请选择一个标题或删除此步骤"
+    check_guide_question: "本课中没有题目“{id}”。请选择一道题目或删除此步骤"
+    check_guide_vocab: "单词数须为整数，至少 1 个"
+    check_guide_tip: 提示为空
+    check_guide_concept: 概念卡片需要标题和文本
+    check_title: 课节需要标题
+    check_content: 课节需要一些文本
+    live_preview: 实时预览
+    mode_study: 学习
+    mode_sprint: 冲刺
+    mode_guide: 指南
+    no_preview: 这里没有可预览的内容。
+    preview_failed: "无法绘制预览：{error}"
+    check: 检查
+    try_again: 再试一次
+    hint: 提示
+    quick_check: 快速检查
+    answer_html: "答案：<strong>{answer}</strong>"
+    praise: 答对了！
+    almost: 差一点
+    ph_number: 一个数字
+    ph_expression: 一个公式
+    ph_text: 你的答案
+    ph_heard: 你听到的内容
+    pick_right: 选出正确的一项
+    write_answer: 写出答案
+    fill_gap: 填空
+    spell_chord: "拼写和弦"
+    place_note: "放置音符"
+    find_key: "在键盘上找出来"
+    type_it: 输入…
+    type_instead: 改为输入
+    crumb_lessons: 课节
+    pill_new: 新
+    before_this: "在此之前："
+    focus_line: "重点：{focus}"
+    quiz_questions:
+      one: "{n} 道测验题"
+      other: "{n} 道测验题"
+    terms: 词条
+    flashcards_title: 新单词
+    tap_reveal: 点按卡片可翻面。
+    in_lang_this_is: "用{lang}来说是…"
+    course_language: 课程语言
+    listen_status: 先听，再输入你听到的内容。
+    replay: 再播放一次
+    conv_no_build: "还没有 3 到 9 个词且带释义的台词：冲刺模式不会从这段对话生成任何内容。"
+    ladder: 阶梯
+    wrong_rungs:
+      one: "{n} 级答错"
+      other: "{n} 级答错"
+    path_stop: 路径
+    path_stop_note: "这是本课在冲刺路径上的站点。"
+    quick_bite: 小知识
+    got_it: 明白了
+    sort_it: 来分类
+    all_sorted: 全部分好了
+    to_go: "还剩 {n} 个"
+    sort_slips:
+      one: "全部分类正确，但有 {n} 次误点"
+      other: "全部分类正确，但有 {n} 次误点"
+    spot_mistake: 找出错误
+    one_word_wrong: 有一个词是错的。点按它。
+    one_note_wrong: "有一个音是错的。点它，再选出正确的音。"
+    spot_note_preview: "在 Sprint 模式中，学习者点第 {n} 个音，再从三个选项中选 {fix}。"
+    build_sentence: 组成句子
+    tap_tiles_in_order: 按顺序点按词块
+    concept: 概念
+    tip: 提示
+    guide_derived_preview: "指南会自动生成本课的步骤；手动排列后即可逐个预览。"
+    hand_empty: 这一组已经没有单词了。
+    question_missing: "本课中没有题目“{id}”。"
+    note_quiz: 与学习和练习相同。“检查”使用课程自己的判分器评分；不会记录任何内容。
+    note_quiz_sprint: 与冲刺会话相同。词块是答案，混在本课的其他单词中。
+    note_vocab: 指南里的单词卡；点按可翻面。
+    note_vocab_sprint: 冲刺的选择练习，本课的其他单词作为错误选项。
+    note_listening: 浏览器会用课程语言朗读这段文本。
+    note_conversation: "冲刺会用带释义的 3 到 9 个词的台词生成句子；这是第一句。"
+    note_conjugation: 课节页面上显示的表格。
+    note_ladder: 冲刺中针对这张表的阶梯练习。
+    note_sort: 冲刺中的分类游戏。
+    note_spot: 冲刺中的找错游戏。
+    note_build: 冲刺中的组句游戏。
+    note_scale: "冲刺中的音阶梯子。"
+    scale_kicker: "搭音阶"
+    scale_preview: "在 Sprint 模式中，第一格已填好，学习者从 {n} 个选项中点出其余 7 个音。"
+    note_bite: 小知识开启一次练习；无需作答。
+    note_guide: 指南的这一步。
+    note_content: 课节页面上的文本。
+    advice_title: "待检查事项"
+    advice_count:
+      one: "{n} 项待检查"
+      other: "{n} 项待检查"
+    advice_none: "没有需要检查的地方。"
+    advice_close: "关闭"
+reports:
+  reason:
+    harmful: "有害"
+    copyright: "版权"
+    other: "其他"
+  course:
+    open: "举报此课程"
+    title: "举报此课程"
+    reason: "你为什么举报它？"
+    details: "哪里有问题，在课程的哪一部分？"
+    email: "你的电子邮箱"
+    cancel: "取消"
+    send: "发送举报"
+    sent: "谢谢。我们已收到你的举报，会查看这门课程。"
+    too_many: "你这一小时发送的举报太多了。请稍后再试。"
+    pick_reason: "请选择一个原因。"
+    details_empty: "请说明课程哪里有问题。"
+  copyright:
+    title: "版权通知"
+    contact: "如需报告版权问题，请写信至 {email}。"
+    intro: "如果你认为这里的某门课程未经许可复制了你的作品，请使用此表单。我们会把通知的副本（包括你的姓名和邮箱）发送给创建该课程的人。"
+    name: "你的全名（作为签名）"
+    email: "你的电子邮箱"
+    work: "你认为被复制的作品"
+    location: "它在哪里（课程链接）"
+    details: "复制了什么，以及你为何拥有它"
+    good_faith: "我真诚地相信，这种使用未经我本人、我的代理人或法律许可。本通知中的信息准确无误，我愿承担伪证责任声明：我是权利人或有权代表权利人行事。"
+    send: "发送通知"
+    sent: "谢谢。我们已收到你的通知，会通过电子邮件回复。"
+    terms: "返回条款"
+    too_many: "过去一分钟内从这里发送的通知太多。请等一分钟再试。"
+    missing: "请填写所有字段。"
+    tick_good_faith: "请勾选声明以发送通知。"
+  superuser:
+    title: "举报"
+    about_label: "关于举报"
+    about: "学习者对课程的举报，以及任何人发送的版权通知。“转发给所有者”会把副本通过邮件发送给课程所有者（只有版权通知会附上举报人的邮箱）。“已处理”会把举报从此列表中移除。"
+    runbook: "如何处理举报"
+    none: "没有待处理的举报。"
+    forward: "转发给所有者"
+    forward_again: "已于 {when} 转发。再次发送"
+    resolve: "已处理"
+    forwarded: "副本已发送给课程所有者。"
+    resolved: "该举报已处理。"
+    no_owner: "该举报没有指明一门有所有者可联系的课程。"
+    unknown: "没有这条待处理的举报。"
+  mail:
+    none: "（未提供）"
+    course: "课程"
+    reason: "原因"
+    location: "位置"
+    work: "作品"
+    name: "姓名"
+    email: "电子邮箱"
+    operator_subject: "{app}：新举报（{reason}）"
+    operator_text: "{app} 收到一条新举报：\n\n{report}\n\n待处理的举报在超级用户页面：{link}\n"
+    owner_subject: "{app}：关于你的课程 {title} 的举报"
+    owner_text: "你好，\n\n有人向 {app} 发送了关于你的课程“{title}”的举报。以下是副本：\n\n{report}\n\n如果你认为举报有误，请回复此邮件并说明原因。对于版权通知，这封回复可以作为反通知。在我们核查期间，可能会暂时隐藏这门课程。\n"
+waitlist:
+  hero_h1: "学任何东西。"
+  hero_lead: "告诉 {app} 你想学什么。几分钟后，你就有了一整门课程：课文、测验、练习、游戏和每日目标，按你喜欢的学习方式打造。"
+  build_label: "用一句话生成的课程"
+  build_ready: "完成。开始第一课吧。"
+  built_units:
+    one: "{n} 个单元"
+    other: "{n} 个单元"
+  built_lessons:
+    one: "{n} 节课"
+    other: "{n} 节课"
+  built_questions:
+    one: "{n} 道测验题"
+    other: "{n} 道测验题"
+  built_cards:
+    one: "{n} 张抽认卡"
+    other: "{n} 张抽认卡"
+  built_more: "练习、游戏、听力和每日目标"
+  gen_h2: "别只满足于一段解释。要一整门课程。"
+  gen_p: "问聊天机器人，你得到一大段只读一次的文字。问 {app}，你得到一门每天练习、直到学会的课程。"
+  chat_label: "聊天机器人"
+  modes_h2: "然后用各种方式练习。"
+  themes_h2: "让它变成你的世界。"
+  themes_p: "主题会改变颜色、字体、图片，以及你答对时应用欢呼的话。"
+  motivators_h2: "选择让你坚持回来的方式。"
+  motivators_p: "无论选哪个，你的进度都一样。由你决定如何展示。"
+  write_h2: "或者自己写。"
+  write_p: "一门课程就是一个装着 JSON 文件的文件夹。手写、在浏览器里编辑，或者让 AI 起草后随意修改。"
+  final_h2: "你的第一门课程只需几分钟。"
+  title: "加入候补名单"
+  lead: "{app} 每次只向少数人开放。留下你的电子邮件地址，轮到你时我们会发送邀请。"
+  email_label: "电子邮件地址"
+  submit: "加入候补名单"
+  joined: "请查收邮件：打开我们发送的链接来确认你的位置。"
+  confirmed: "你已在名单上。轮到你时，我们会用电子邮件发送邀请。"
+  bad_link: "这个链接已失效。请重新加入候补名单以获取新链接。"
+  too_many: "你的网络尝试次数太多。请一小时后再试。"
+  login_html: "已收到邀请？<a href=\"{url}\" data-testid=\"waitlist-login-link\">登录</a>"
+release:
+  title: "发布"
+  about_label: "关于发布"
+  open: "打开"
+  about: "候补名单开启时，首页只有一个电子邮件输入框，没有邀请就无法注册。用户先确认地址，你才能邀请他们。关闭候补名单就是正式发布：普通首页和注册会恢复。"
+  about_invites: "邀请某一个人，或按加入顺序邀请接下来的若干人。每人会收到一封电子邮件，内含只限其本人地址的邀请，有效期 {days} 天；“重新发送”会生成新的邀请。通过邀请创建的账户会标记为测试版用户。"
+  waitlist: "候补名单"
+  state_on: "开启：仅凭邀请注册。"
+  state_off: "关闭：任何人都可以注册。"
+  turn_on: "开启候补名单"
+  turn_off: "关闭候补名单"
+  turn_on_about: "首页会变成候补名单表单，注册需要邀请。已有账户的人仍可登录。"
+  turn_off_about: "这就是正式发布：普通首页恢复，任何人都可以注册。未使用的邀请仍然有效。"
+  list: "候补名单上的人"
+  count_total:
+    one: "{n} 人加入"
+    other: "{n} 人加入"
+  count_unconfirmed:
+    one: "{n} 人未确认"
+    other: "{n} 人未确认"
+  count_waiting:
+    one: "{n} 人等待中"
+    other: "{n} 人等待中"
+  count_invited:
+    one: "{n} 人已邀请"
+    other: "{n} 人已邀请"
+  count_signed_up:
+    one: "{n} 人已注册"
+    other: "{n} 人已注册"
+  invite_next_label: "人数"
+  invite_next: "邀请接下来的人"
+  empty: "还没有人加入。"
+  joined: "加入时间"
+  status_h: "状态"
+  invited_h: "邀请时间"
+  invite: "邀请"
+  resend: "重新发送"
+  turned_on: "候补名单已开启。"
+  turned_off: "候补名单已关闭：任何人都可以注册。"
+  invited_one: "已向 {email} 发送邀请。"
+  invited_n:
+    one: "已发送 {n} 份邀请。"
+    other: "已发送 {n} 份邀请。"
+  not_invited: "没有向 {email} 发送邀请：该地址未确认、已注册，或已达到邮件发送上限。"
+  status:
+    unconfirmed: "未确认"
+    waiting: "等待中"
+    invited: "已邀请"
+    expired: "邀请已过期"
+    signed_up: "已注册"
+clock:
+  js:
+    set_label: "时钟。拖动分针，或用方向键；Page Up 和 Page Down 调一小时。"
+    read_label: "要读的时钟"

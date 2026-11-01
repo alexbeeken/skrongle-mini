@@ -1,0 +1,1271 @@
+{
+  "id": "b2-imperfect-subjunctive",
+  "slug": "imperfect-subjunctive",
+  "title": "The imperfect subjunctive: hablara, comiera, viviera",
+  "unit": "B2",
+  "group": "Grammar",
+  "order": 10,
+  "summary": "Form the imperfect subjunctive from the ellos preterite, in -ra and -se, and use it for far-fetched wishes with ojalá and the polite quisiera.",
+  "focus": "Forming the imperfect subjunctive; ojalá + imperfect subjunctive and quisiera",
+  "prerequisites": [
+    "b1-wishes-and-requests",
+    "a2-irregular-preterite"
+  ],
+  "content": "## Built from the ellos preterite\n\nThe imperfect subjunctive has no new stems to learn. Take the **ellos** form of the preterite, drop **-ron**, and add the endings: **hablaron → hablara**, **comieron → comiera**, **vivieron → viviera**. Every verb also has a second set in **-se**, shown after the dot. -er and -ir verbs share the same endings.\n\n| | hablar | comer | vivir |\n|---|---|---|---|\n| yo | hablara · hablase | comiera · comiese | viviera · viviese |\n| tú | hablaras · hablases | comieras · comieses | vivieras · vivieses |\n| él / ella / usted | hablara · hablase | comiera · comiese | viviera · viviese |\n| nosotros/as | habláramos · hablásemos | comiéramos · comiésemos | viviéramos · viviésemos |\n| vosotros/as | hablarais · hablaseis | comierais · comieseis | vivierais · vivieseis |\n| ellos / ellas / ustedes | hablaran · hablasen | comieran · comiesen | vivieran · viviesen |\n\n## Two endings, one tense\n\nThe **-ra** forms (*hablara*) and the **-se** forms (*hablase*) are both correct and mean the same in almost every use. **-ra** is the more common everywhere, especially in speech; **-se** is heard in Spain and in careful writing. Use one, recognise both.\n\nTwo details to watch:\n\n- The **nosotros** form always carries a written accent, three syllables from the end: **habláramos, comiéramos, tuviéramos, fuésemos**. No other form has one.\n- **yo** and **él / ella / usted** share a form, so add the subject when it is not clear: *Ojalá **yo** supiera…*, *Ojalá **ella** supiera…*\n\n## Irregular stems come for free\n\nWhatever is irregular in the ellos preterite carries straight over: know **tuvieron** and you already know **tuviera**.\n\n| infinitive | ellos preterite | imperfect subjunctive |\n|---|---|---|\n| tener | tuvieron | tuviera |\n| estar | estuvieron | estuviera |\n| ser / ir | fueron | fuera |\n| hacer | hicieron | hiciera |\n| poder | pudieron | pudiera |\n| poner | pusieron | pusiera |\n| saber | supieron | supiera |\n| querer | quisieron | quisiera |\n| decir | dijeron | dijera |\n| venir | vinieron | viniera |\n| pedir | pidieron | pidiera |\n| dormir | durmieron | durmiera |\n| leer | leyeron | leyera |\n\nThe -se forms follow the same way (*tuviese, fuese, dijese*). Watch **dijeron → dijera** (no *i*) and the stem changes in **pidiera** and **durmiera**. **Fuera** is the form for both *ser* and *ir*, and context tells you which.\n\n## Ojalá: likely or far-fetched\n\n**Ojalá** (*I hope, if only*) always takes the subjunctive, and the tense tells the listener how likely you think the wish is.\n\n- **Ojalá + present subjunctive**: it may well happen. *Ojalá llegue a tiempo.* (I hope she gets here on time.)\n- **Ojalá + imperfect subjunctive**: unlikely or impossible, often about right now. *Ojalá tuviera tu edad.* (I wish I were your age.) *Ojalá no lloviera tanto aquí.* (If only it didn't rain so much here.)\n\nThe same wish can go either way: *Ojalá venga Ana* (she might come) against *Ojalá viniera Ana* (she almost certainly won't). A **que** after ojalá is optional: *ojalá que viniera*.\n\n## Quisiera, and a first look at quería que\n\n**Quisiera** (from *querer*) is the polite *I'd like*. It is softer than **quiero** and as courteous as **me gustaría**. In this use only the -ra form works, never *quisiese*.\n\n- *Quisiera un kilo de tomates, por favor.* (I'd like a kilo of tomatoes, please.)\n- *Quisiera hablar con el responsable.* (I'd like to speak to the person in charge.)\n\nYou will also meet the imperfect subjunctive after a main verb in the past. The next lesson covers it in full. For now, notice the pattern:\n\n- *Quería que vinieras.* (I wanted you to come.)\n- *Me pidió que lo hiciera.* (She asked me to do it.)",
+  "vocabulary": [
+    {
+      "term": "ojalá",
+      "meaning": "I hope / if only (+ subjunctive)",
+      "example": "Ojalá fuera viernes.",
+      "example_meaning": "I wish it were Friday."
+    },
+    {
+      "term": "quisiera",
+      "meaning": "I would like (polite, from querer)",
+      "example": "Quisiera reservar una habitación para tres noches.",
+      "example_meaning": "I'd like to book a room for three nights."
+    },
+    {
+      "term": "el deseo",
+      "meaning": "wish",
+      "example": "Mi deseo era que todos estuvieran juntos en Navidad.",
+      "example_meaning": "My wish was for everyone to be together at Christmas."
+    },
+    {
+      "term": "tocar la lotería",
+      "meaning": "to win the lottery (la lotería le toca a alguien)",
+      "example": "Ojalá nos tocara la lotería este año.",
+      "example_meaning": "If only we won the lottery this year."
+    },
+    {
+      "term": "disponer de",
+      "meaning": "to have (available)",
+      "example": "Ojalá dispusiéramos de más tiempo para el proyecto.",
+      "example_meaning": "I wish we had more time for the project."
+    },
+    {
+      "term": "atreverse a",
+      "meaning": "to dare to",
+      "example": "Ojalá me atreviera a cantar en público.",
+      "example_meaning": "I wish I dared to sing in public."
+    },
+    {
+      "term": "caber",
+      "meaning": "to fit",
+      "example": "Ojalá cupiera todo en una sola maleta.",
+      "example_meaning": "If only everything fitted in a single suitcase."
+    },
+    {
+      "term": "mudarse",
+      "meaning": "to move (house)",
+      "example": "Mis padres querían que nos mudáramos a Valencia.",
+      "example_meaning": "My parents wanted us to move to Valencia."
+    },
+    {
+      "term": "el extranjero",
+      "meaning": "foreign countries (en el extranjero = abroad)",
+      "example": "Ojalá pudiera trabajar un año en el extranjero.",
+      "example_meaning": "I wish I could work abroad for a year."
+    },
+    {
+      "term": "echar de menos",
+      "meaning": "to miss (someone or something)",
+      "example": "Te echo de menos; ojalá estuvieras aquí.",
+      "example_meaning": "I miss you; I wish you were here."
+    },
+    {
+      "term": "hacer caso",
+      "meaning": "to listen to, pay attention to (advice)",
+      "example": "Ojalá mi hermano me hiciera caso alguna vez.",
+      "example_meaning": "If only my brother listened to me for once."
+    },
+    {
+      "term": "el aumento",
+      "meaning": "pay rise",
+      "example": "Quisiera hablar con usted sobre un aumento de sueldo.",
+      "example_meaning": "I'd like to talk to you about a pay rise."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-imperfect-subjunctive-01",
+      "prompt": "Tener: ellos tuvieron. Which is the yo form of the imperfect subjunctive?",
+      "type": "multiple-choice",
+      "options": [
+        "tuviera",
+        "teniera",
+        "tendría",
+        "tenía"
+      ],
+      "correct_answer": "tuviera",
+      "explanation": "Drop -ron from the ellos preterite tuvieron and add -ra: tuviera. The irregular stem tuv- carries over. Tendría is the conditional and tenía the imperfect indicative.",
+      "hints": [
+        "Start from tuvieron, not from the infinitive."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b2-imperfect-subjunctive-02",
+      "prompt": "Ojalá (nosotros) ___ más tiempo libre. (tener: I wish we had more free time)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "tuviéramos",
+      "accepted_answers": [
+        "tuviésemos",
+        "nosotros tuviéramos",
+        "nosotros tuviésemos"
+      ],
+      "explanation": "Tuvieron gives tuvie- + -ramos = tuviéramos (or tuviésemos). The nosotros form carries a written accent. The imperfect subjunctive marks a wish you don't expect to come true.",
+      "hints": [
+        "Nosotros form, built from tuvieron.",
+        "Don't forget the accent: tuvié-."
+      ],
+      "teaches": [
+        "ojalá"
+      ]
+    },
+    {
+      "question_id": "b2-imperfect-subjunctive-03",
+      "prompt": "It's August in Seville and forty degrees. You wish it were snowing right now: Ojalá ___.",
+      "type": "multiple-choice",
+      "options": [
+        "nevara",
+        "nieve",
+        "nevaba"
+      ],
+      "correct_answer": "nevara",
+      "explanation": "Snow in Seville in August is impossible, so ojalá takes the imperfect subjunctive: ojalá nevara. Ojalá nieve would be a hope that could come true; nevaba is indicative and never follows ojalá.",
+      "hints": [
+        "Is this wish realistic?",
+        "Unlikely or impossible wishes take the imperfect subjunctive."
+      ],
+      "teaches": [
+        "ojalá"
+      ]
+    },
+    {
+      "question_id": "b2-imperfect-subjunctive-04",
+      "prompt": "Ojalá me ___ la verdad. (decir, tú: I wish you'd tell me the truth)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "dijeras",
+      "accepted_answers": [
+        "dijeses"
+      ],
+      "explanation": "Decir: ellos dijeron gives dije- + -ras = dijeras (or dijeses). Just as dijeron has no i, neither does dijeras.",
+      "hints": [
+        "Start from dijeron.",
+        "No i after the j."
+      ],
+      "teaches": [
+        "ojalá"
+      ]
+    },
+    {
+      "question_id": "b2-imperfect-subjunctive-05",
+      "prompt": "In a shop, the polite way to ask: ___ ver esa chaqueta, por favor.",
+      "type": "multiple-choice",
+      "options": [
+        "Quisiera",
+        "Quiera",
+        "Querré"
+      ],
+      "correct_answer": "Quisiera",
+      "explanation": "Quisiera is the courteous 'I'd like', as polite as me gustaría. Quiera is the present subjunctive and cannot start a request on its own; querré is the future.",
+      "hints": [
+        "The polite form of querer comes from quisieron."
+      ],
+      "teaches": [
+        "quisiera"
+      ]
+    },
+    {
+      "question_id": "b2-imperfect-subjunctive-06",
+      "prompt": "Ojalá todo ___ en el maletero. (caber: if only everything fitted in the boot)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "cupiera",
+      "accepted_answers": [
+        "cupiese"
+      ],
+      "explanation": "Caber has an irregular preterite, cupieron. Drop -ron, add -ra: cupiera (or cupiese).",
+      "hints": [
+        "The ellos preterite of caber is cupieron.",
+        "Él form: todo is singular."
+      ],
+      "teaches": [
+        "caber"
+      ]
+    },
+    {
+      "question_id": "b2-imperfect-subjunctive-07",
+      "prompt": "Mis padres querían que nos ___ a Valencia.",
+      "type": "multiple-choice",
+      "options": [
+        "mudáramos",
+        "mudemos",
+        "mudamos"
+      ],
+      "correct_answer": "mudáramos",
+      "explanation": "A main verb in the past (querían) is followed by the imperfect subjunctive: que nos mudáramos. The next lesson covers this pattern in full.",
+      "hints": [
+        "Querían is in the past.",
+        "The nosotros form has an accent: -áramos."
+      ],
+      "teaches": [
+        "mudarse"
+      ]
+    },
+    {
+      "question_id": "b2-imperfect-subjunctive-08",
+      "prompt": "Ojalá me ___ a decírselo. (atreverse, yo: I wish I dared to tell him)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "atreviera",
+      "accepted_answers": [
+        "atreviese"
+      ],
+      "explanation": "Atrevieron gives atrevie- + -ra = atreviera (or atreviese). The yo form is the same as the él form; me already shows who it is.",
+      "hints": [
+        "Regular -er verb: atrevieron.",
+        "Yo form: same as él."
+      ],
+      "teaches": [
+        "atreverse a",
+        "ojalá"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-imperfect-subjunctive-conv-mondays",
+      "title": "Monday wishes",
+      "scenario": "Lucía and Javier share a coffee on a terrace in Madrid after a long Monday at the office.",
+      "role_a": "Lucía",
+      "role_b": "Javier",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Uf, lunes otra vez. Ojalá estuviéramos ya en agosto.",
+          "meaning": "Ugh, Monday again. I wish it were already August.",
+          "note": "estuvieron → estuviéramos"
+        },
+        {
+          "speaker": "b",
+          "text": "Ya ves. Yo quisiera tomarme un año sabático.",
+          "meaning": "Tell me about it. I'd like to take a year off.",
+          "note": "quisiera: a polite, softened want"
+        },
+        {
+          "speaker": "a",
+          "text": "¿En serio? ¿Y qué harías?",
+          "meaning": "Really? And what would you do?"
+        },
+        {
+          "speaker": "b",
+          "text": "Viajar. Ojalá pudiera recorrer Sudamérica en moto.",
+          "meaning": "Travel. If only I could ride round South America on a motorbike."
+        },
+        {
+          "speaker": "a",
+          "text": "Mis padres querían que estudiara Derecho, y aquí estoy, en una oficina.",
+          "meaning": "My parents wanted me to study law, and here I am, in an office.",
+          "note": "A past main verb takes the imperfect subjunctive."
+        },
+        {
+          "speaker": "b",
+          "text": "¿Y tú qué querías ser?",
+          "meaning": "And what did you want to be?"
+        },
+        {
+          "speaker": "a",
+          "text": "Fotógrafa. Ojalá me atreviera a cambiar de trabajo ahora.",
+          "meaning": "A photographer. I wish I dared to change jobs now."
+        },
+        {
+          "speaker": "b",
+          "text": "Nunca es tarde. Ojalá encuentres algo que te guste.",
+          "meaning": "It's never too late. I hope you find something you like.",
+          "note": "ojalá with the present subjunctive: a real possibility"
+        },
+        {
+          "speaker": "a",
+          "text": "Gracias. Bueno, quisiera otro café con leche.",
+          "meaning": "Thanks. Right, I'd like another white coffee."
+        },
+        {
+          "speaker": "b",
+          "text": "Y yo una caña. Ojalá nos tocara la lotería y no volviéramos a la oficina.",
+          "meaning": "And a small beer for me. If only we won the lottery and never went back to the office."
+        },
+        {
+          "speaker": "a",
+          "text": "¡Ojalá! Pero primero habría que comprar un décimo.",
+          "meaning": "If only! But first we'd have to buy a lottery ticket.",
+          "note": "un décimo: a tenth-share of a Spanish lottery ticket"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Ojalá hiciera menos calor.",
+      "meaning": "I wish it weren't so hot.",
+      "note": "hicieron → hiciera"
+    },
+    {
+      "text": "Quisiera un billete para Toledo.",
+      "meaning": "I'd like a ticket to Toledo.",
+      "note": "Quisiera: a polite I'd like."
+    },
+    {
+      "text": "Ojalá supiera tocar la guitarra.",
+      "meaning": "I wish I could play the guitar.",
+      "note": "supieron → supiera"
+    },
+    {
+      "text": "Ojalá vinieras a la boda con nosotros.",
+      "meaning": "I wish you'd come to the wedding with us.",
+      "note": "New word: la boda = the wedding."
+    },
+    {
+      "text": "Ojalá mis abuelos vivieran más cerca de nosotros.",
+      "meaning": "If only my grandparents lived closer to us."
+    },
+    {
+      "text": "Quisiera hablar con la directora antes de la reunión.",
+      "meaning": "I'd like to speak to the director before the meeting.",
+      "note": "New word: la reunión = the meeting."
+    },
+    {
+      "text": "Ojalá estuviéramos en la playa en lugar de en la oficina.",
+      "meaning": "I wish we were at the beach instead of at the office.",
+      "note": "Only the nosotros form has an accent: estuviéramos."
+    },
+    {
+      "text": "El profesor quería que leyéramos el libro entero antes del examen.",
+      "meaning": "The teacher wanted us to read the whole book before the exam.",
+      "note": "New word: entero = whole."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Built from the ellos preterite"
+    },
+    {
+      "question": "b2-imperfect-subjunctive-01"
+    },
+    {
+      "section": "Two endings, one tense"
+    },
+    {
+      "question": "b2-imperfect-subjunctive-02"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "section": "Irregular stems come for free"
+    },
+    {
+      "question": "b2-imperfect-subjunctive-04"
+    },
+    {
+      "question": "b2-imperfect-subjunctive-06"
+    },
+    {
+      "tip": "Stuck on a form? Say the ellos preterite out loud first (dijeron, pudieron, fueron), then swap -ron for -ra."
+    },
+    {
+      "section": "Ojalá: likely or far-fetched"
+    },
+    {
+      "question": "b2-imperfect-subjunctive-03"
+    },
+    {
+      "question": "b2-imperfect-subjunctive-08"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "section": "Quisiera, and a first look"
+    },
+    {
+      "question": "b2-imperfect-subjunctive-05"
+    },
+    {
+      "question": "b2-imperfect-subjunctive-07"
+    },
+    {
+      "vocab": 4
+    }
+  ],
+  "sprint": {
+    "icon": "🌠",
+    "bites": [
+      {
+        "title": "From the ellos preterite",
+        "emoji": "🧱",
+        "rule": "Take the ellos preterite, drop -ron, add -ra, -ras, -ra, -ramos, -rais, -ran. hablaron → hablara; tuvieron → tuviera.",
+        "example": "Ojalá tuviera un perro.",
+        "example_meaning": "I wish I had a dog."
+      },
+      {
+        "title": "-ra or -se",
+        "emoji": "🪞",
+        "rule": "Every verb has two sets: hablara or hablase. Both are correct and mean the same; -ra is the more common. Only nosotros has an accent: habláramos.",
+        "example": "Ojalá lo supiera. Ojalá lo supiese.",
+        "example_meaning": "I wish I knew. I wish I knew."
+      },
+      {
+        "title": "Ojalá: hope or sigh",
+        "emoji": "🌠",
+        "rule": "Ojalá with the present subjunctive means it may well happen. With the imperfect subjunctive it is unlikely or impossible, often about right now.",
+        "example": "Ojalá venga. Ojalá viniera.",
+        "example_meaning": "I hope she comes. If only she would come."
+      },
+      {
+        "title": "Quisiera means I'd like",
+        "emoji": "🎩",
+        "rule": "Quisiera softens a request: politer than quiero, as polite as me gustaría. Use it in shops, offices and emails. Only the -ra form works here.",
+        "example": "Quisiera cambiar esta camisa.",
+        "example_meaning": "I'd like to exchange this shirt."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Hope or sigh?",
+        "buckets": [
+          "may happen (present subj.)",
+          "unlikely or impossible (imperfect subj.)"
+        ],
+        "items": [
+          {
+            "text": "Ojalá apruebes el examen.",
+            "bucket": 0
+          },
+          {
+            "text": "Ojalá llegue a tiempo el tren.",
+            "bucket": 0
+          },
+          {
+            "text": "Ojalá haga buen tiempo el sábado.",
+            "bucket": 0
+          },
+          {
+            "text": "Ojalá tuviera veinte años otra vez.",
+            "bucket": 1
+          },
+          {
+            "text": "Ojalá pudiera volar.",
+            "bucket": 1
+          },
+          {
+            "text": "Ojalá mi gato hablara.",
+            "bucket": 1
+          }
+        ],
+        "why": "The present subjunctive says the speaker thinks it can happen; the imperfect subjunctive says it is a long shot or impossible."
+      },
+      {
+        "title": "Which tense is it?",
+        "buckets": [
+          "imperfect subjunctive",
+          "imperfect indicative",
+          "conditional"
+        ],
+        "items": [
+          {
+            "text": "hablara",
+            "bucket": 0
+          },
+          {
+            "text": "hablaba",
+            "bucket": 1
+          },
+          {
+            "text": "hablaría",
+            "bucket": 2
+          },
+          {
+            "text": "comiera",
+            "bucket": 0
+          },
+          {
+            "text": "comía",
+            "bucket": 1
+          },
+          {
+            "text": "comería",
+            "bucket": 2
+          },
+          {
+            "text": "fuese",
+            "bucket": 0
+          },
+          {
+            "text": "iba",
+            "bucket": 1
+          }
+        ],
+        "why": "-ra / -se forms are the imperfect subjunctive; -aba / -ía is the imperfect indicative; -ría is the conditional."
+      },
+      {
+        "title": "Same stem or new stem?",
+        "buckets": [
+          "same stem as the infinitive",
+          "new stem from the preterite"
+        ],
+        "items": [
+          {
+            "text": "hablara",
+            "bucket": 0
+          },
+          {
+            "text": "viviera",
+            "bucket": 0
+          },
+          {
+            "text": "aprendiera",
+            "bucket": 0
+          },
+          {
+            "text": "bebiera",
+            "bucket": 0
+          },
+          {
+            "text": "tuviera",
+            "bucket": 1
+          },
+          {
+            "text": "dijera",
+            "bucket": 1
+          },
+          {
+            "text": "pusiera",
+            "bucket": 1
+          },
+          {
+            "text": "durmiera",
+            "bucket": 1
+          }
+        ],
+        "why": "Regular verbs keep their stem; any change in the ellos preterite (tuvieron, dijeron, pusieron, durmieron) carries over."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Ojalá tuviéra más dinero.",
+        "wrong": "tuviéra",
+        "fix": "tuviera",
+        "why": "Only the nosotros form carries a written accent: tuviéramos."
+      },
+      {
+        "sentence": "Ojalá me dijieras la verdad.",
+        "wrong": "dijieras",
+        "fix": "dijeras",
+        "why": "Dijeron has no i after the j, so dijeras has none either."
+      },
+      {
+        "sentence": "Ojalá pudieramos ir a la playa.",
+        "wrong": "pudieramos",
+        "fix": "pudiéramos",
+        "why": "The nosotros form always takes an accent: pudiéramos."
+      },
+      {
+        "sentence": "Ojalá me hacieras caso.",
+        "wrong": "hacieras",
+        "fix": "hicieras",
+        "why": "Built from the preterite hicieron, not from hacer."
+      },
+      {
+        "sentence": "Ojalá sabiera nadar.",
+        "wrong": "sabiera",
+        "fix": "supiera",
+        "why": "Saber → supieron → supiera."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Ojalá tuviera más tiempo libre.",
+        "meaning": "I wish I had more free time.",
+        "distractors": [
+          "tenía"
+        ]
+      },
+      {
+        "text": "Quisiera pedirle un favor.",
+        "meaning": "I'd like to ask you a favour.",
+        "distractors": [
+          "Quiera"
+        ]
+      },
+      {
+        "text": "Ojalá no hiciera tanto frío.",
+        "meaning": "If only it weren't so cold.",
+        "distractors": [
+          "hacía"
+        ]
+      },
+      {
+        "text": "Mi madre quería que la llamara.",
+        "meaning": "My mother wanted me to call her.",
+        "distractors": [
+          "llame"
+        ]
+      },
+      {
+        "text": "Ojalá pudiéramos quedarnos aquí para siempre.",
+        "meaning": "I wish we could stay here forever.",
+        "distractors": [
+          "podíamos"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🌠",
+      "content": "## Deseos en Eldmark\n\nEvery adventurer sighs **ojalá**. **Ojalá tuviera** más pociones (you have none left) and **ojalá el dragón durmiera** (he is wide awake). The imperfect subjunctive marks a wish you hardly expect. At the inn, a well-bred hero never says *quiero*: **Quisiera** una habitación, por favor.",
+      "vocabulary": [
+        {
+          "term": "ojalá",
+          "example": "Ojalá el enano supiera leer este mapa.",
+          "example_meaning": "I wish the dwarf could read this map."
+        },
+        {
+          "term": "quisiera",
+          "example": "Quisiera una habitación en la posada, por favor.",
+          "example_meaning": "I'd like a room at the inn, please."
+        },
+        {
+          "term": "atreverse a",
+          "example": "Ojalá me atreviera a entrar en la mazmorra.",
+          "example_meaning": "I wish I dared to go into the dungeon."
+        },
+        {
+          "term": "caber",
+          "example": "Ojalá el botín cupiera en mi mochila.",
+          "example_meaning": "If only the loot fitted in my backpack."
+        },
+        {
+          "term": "echar de menos",
+          "example": "La elfa echa de menos el Bosque Umbrío; ojalá pudiera volver.",
+          "example_meaning": "The elf misses the Bosque Umbrío; she wishes she could go back."
+        },
+        {
+          "term": "hacer caso",
+          "example": "Ojalá el guerrero nos hiciera caso antes de atacar.",
+          "example_meaning": "If only the warrior listened to us before attacking."
+        },
+        {
+          "term": "la poción",
+          "meaning": "potion",
+          "example": "Ojalá tuviéramos otra poción de curación.",
+          "example_meaning": "I wish we had another healing potion."
+        },
+        {
+          "term": "la posada",
+          "meaning": "inn",
+          "example": "La posada de Frostmarch está llena; ojalá hubiera sitio.",
+          "example_meaning": "The inn in Frostmarch is full; I wish there were room."
+        },
+        {
+          "term": "el botín",
+          "meaning": "loot",
+          "example": "Ojalá el botín fuera de oro y no de cobre.",
+          "example_meaning": "If only the loot were gold and not copper."
+        },
+        {
+          "term": "el gremio",
+          "meaning": "guild",
+          "example": "Quisiera entrar en el gremio de magas.",
+          "example_meaning": "I'd like to join the mages' guild."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Ojalá en Eldmark",
+          "emoji": "🐉",
+          "rule": "Ojalá + imperfect subjunctive is the adventurer's sigh for what won't happen: more potions, a sleeping dragon. Quisiera asks the innkeeper nicely.",
+          "example": "Ojalá el dragón durmiera.",
+          "example_meaning": "If only the dragon were asleep."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Ojalá fuéramos más fuertes.",
+          "meaning": "I wish we were stronger.",
+          "note": "fueron → fuéramos"
+        },
+        {
+          "text": "Quisiera una montura para mañana.",
+          "meaning": "I'd like a mount for tomorrow.",
+          "note": "New word: la montura = the mount."
+        },
+        {
+          "text": "Ojalá el minotauro no nos viera.",
+          "meaning": "If only the minotaur didn't see us.",
+          "note": "vieron → viera"
+        },
+        {
+          "text": "Ojalá la maga supiera el camino a Deepanvil.",
+          "meaning": "I wish the mage knew the way to Deepanvil."
+        },
+        {
+          "text": "El cazador quería que lo esperáramos en Highgate.",
+          "meaning": "The hunter wanted us to wait for him in Highgate.",
+          "note": "A past main verb takes the imperfect subjunctive."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Ojalá tuviéramos más pociones.",
+          "meaning": "I wish we had more potions.",
+          "distractors": [
+            "tenemos"
+          ]
+        },
+        {
+          "text": "Quisiera entrar en el gremio.",
+          "meaning": "I'd like to join the guild.",
+          "distractors": [
+            "Quiera"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Ojalá el dragón dormiera.",
+          "wrong": "dormiera",
+          "fix": "durmiera",
+          "why": "Dormir → durmieron → durmiera."
+        },
+        {
+          "sentence": "Ojalá el paladín se poniera la armadura.",
+          "wrong": "poniera",
+          "fix": "pusiera",
+          "why": "Poner → pusieron → pusiera."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Hope or sigh in Eldmark?",
+          "buckets": [
+            "may happen (present subj.)",
+            "hardly or never (imperfect subj.)"
+          ],
+          "items": [
+            {
+              "text": "Ojalá encontremos el botín.",
+              "bucket": 0
+            },
+            {
+              "text": "Ojalá llegue pronto la maga.",
+              "bucket": 0
+            },
+            {
+              "text": "Ojalá el gremio nos pague hoy.",
+              "bucket": 0
+            },
+            {
+              "text": "Ojalá los dragones no existieran.",
+              "bucket": 1
+            },
+            {
+              "text": "Ojalá fuera inmortal.",
+              "bucket": 1
+            },
+            {
+              "text": "Ojalá el orco hablara mi idioma.",
+              "bucket": 1
+            }
+          ],
+          "why": "A quest you can still win takes the present subjunctive; a wish against the facts takes the imperfect subjunctive."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-imperfect-subjunctive-realm-01",
+          "prompt": "The dragon is wide awake and staring at you. Ojalá ___ (if only it were asleep).",
+          "type": "multiple-choice",
+          "options": [
+            "durmiera",
+            "dormía",
+            "duerme"
+          ],
+          "correct_answer": "durmiera",
+          "explanation": "A wish against the facts right now takes the imperfect subjunctive: dormir → durmieron → durmiera. Ojalá never takes the indicative.",
+          "hints": [
+            "Ojalá takes the subjunctive.",
+            "Start from durmieron."
+          ],
+          "teaches": [
+            "ojalá"
+          ]
+        },
+        {
+          "question_id": "b2-imperfect-subjunctive-realm-02",
+          "prompt": "Ojalá el botín ___ en mi mochila. (caber: if only the loot fitted in my backpack)",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "cupiera",
+          "accepted_answers": [
+            "cupiese"
+          ],
+          "explanation": "Caber: cupieron gives cupiera (or cupiese). The backpack is full, so the wish is a long shot.",
+          "hints": [
+            "The ellos preterite is cupieron."
+          ],
+          "teaches": [
+            "caber",
+            "el botín"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b2-imperfect-subjunctive-conv-realm-full-inn",
+          "title": "A full inn in Frostmarch",
+          "scenario": "Yrsa, a hunter, reaches the inn at Frostmarch late on a snowy night; Tobías the innkeeper has bad news.",
+          "role_a": "Yrsa",
+          "role_b": "Tobías",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Buenas noches. Quisiera una habitación y algo caliente para cenar.",
+              "meaning": "Good evening. I'd like a room and something hot for dinner."
+            },
+            {
+              "speaker": "b",
+              "text": "Ojalá pudiera ayudarte, pero la posada está llena por la feria.",
+              "meaning": "I wish I could help you, but the inn is full because of the fair."
+            },
+            {
+              "speaker": "a",
+              "text": "¡Vaya! Ojalá no hiciera tanto frío en Frostmarch.",
+              "meaning": "Oh no! If only it weren't so cold in Frostmarch."
+            },
+            {
+              "speaker": "b",
+              "text": "Puedo ofrecerte el establo. Ojalá tuviera algo mejor.",
+              "meaning": "I can offer you the stable. I wish I had something better."
+            },
+            {
+              "speaker": "a",
+              "text": "El establo me vale. Así duermo con mi montura.",
+              "meaning": "The stable will do. That way I sleep next to my mount."
+            },
+            {
+              "speaker": "b",
+              "text": "Le pedí al gremio que me mandara más camas, pero nada.",
+              "meaning": "I asked the guild to send me more beds, but nothing.",
+              "note": "A past main verb takes the imperfect subjunctive."
+            },
+            {
+              "speaker": "a",
+              "text": "Pues ojalá te hagan caso pronto.",
+              "meaning": "Well, I hope they listen to you soon.",
+              "note": "ojalá with the present subjunctive: it can still happen"
+            },
+            {
+              "speaker": "b",
+              "text": "Ojalá. Toma, una sopa de la casa, y que descanses.",
+              "meaning": "Let's hope so. Here, a bowl of the house soup, and sleep well."
+            }
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🍀",
+      "content": "## Deseos en Meadowbrook\n\nOn the farm, wishes follow the weather. After weeks of sun, **ojalá lloviera** is a sigh, because you doubt it will happen. **Ojalá llueva mañana** sounds hopeful, because the clouds are coming. And at Rosa's seed shop, ask nicely: **Quisiera** semillas de calabaza, por favor.",
+      "vocabulary": [
+        {
+          "term": "ojalá",
+          "example": "Ojalá las fresas crecieran más rápido.",
+          "example_meaning": "I wish the strawberries grew faster."
+        },
+        {
+          "term": "quisiera",
+          "example": "Quisiera un saco de semillas de maíz, Rosa.",
+          "example_meaning": "I'd like a sack of corn seeds, Rosa."
+        },
+        {
+          "term": "echar de menos",
+          "example": "Echo de menos el verano; ojalá durara todo el año.",
+          "example_meaning": "I miss the summer; I wish it lasted all year."
+        },
+        {
+          "term": "hacer caso",
+          "example": "Ojalá la vaca me hiciera caso cuando la llamo.",
+          "example_meaning": "If only the cow listened when I call her."
+        },
+        {
+          "term": "disponer de",
+          "example": "Ojalá dispusiera de más tierra para plantar.",
+          "example_meaning": "I wish I had more land to plant."
+        },
+        {
+          "term": "el deseo",
+          "example": "Mi deseo para el festival era que vinieran todos los vecinos.",
+          "example_meaning": "My wish for the festival was for all the neighbours to come."
+        },
+        {
+          "term": "la cosecha",
+          "meaning": "harvest",
+          "example": "Ojalá la cosecha fuera tan buena como la del año pasado.",
+          "example_meaning": "I wish the harvest were as good as last year's."
+        },
+        {
+          "term": "las semillas",
+          "meaning": "seeds",
+          "example": "Rosa quería que plantara las semillas en primavera.",
+          "example_meaning": "Rosa wanted me to plant the seeds in spring."
+        },
+        {
+          "term": "el huerto",
+          "meaning": "vegetable garden",
+          "example": "Ojalá el huerto fuera más grande.",
+          "example_meaning": "If only the vegetable garden were bigger."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Hope or sigh on the farm",
+          "emoji": "🌧️",
+          "rule": "With ojalá, the present subjunctive hopes (ojalá llueva) and the imperfect subjunctive sighs (ojalá lloviera). It is the same wish with less faith.",
+          "example": "Ojalá lloviera esta semana.",
+          "example_meaning": "If only it would rain this week."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Ojalá Leo pescara un salmón.",
+          "meaning": "I wish Leo would catch a salmon.",
+          "note": "pescaron → pescara"
+        },
+        {
+          "text": "Quisiera vender estas calabazas en el festival.",
+          "meaning": "I'd like to sell these pumpkins at the festival."
+        },
+        {
+          "text": "Ojalá la mina no estuviera tan lejos.",
+          "meaning": "If only the mine weren't so far away.",
+          "note": "estuvieron → estuviera"
+        },
+        {
+          "text": "Ojalá el granero fuera más grande.",
+          "meaning": "I wish the barn were bigger.",
+          "note": "New word: el granero = the barn."
+        },
+        {
+          "text": "El alcalde quería que plantáramos más flores en la plaza.",
+          "meaning": "The mayor wanted us to plant more flowers in the square.",
+          "note": "A past main verb takes the imperfect subjunctive."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Ojalá las gallinas pusieran más huevos.",
+          "meaning": "I wish the hens laid more eggs.",
+          "distractors": [
+            "ponieran"
+          ]
+        },
+        {
+          "text": "Quisiera semillas de fresa, por favor.",
+          "meaning": "I'd like strawberry seeds, please.",
+          "distractors": [
+            "Quiera"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Ojalá la vaca me hacería caso.",
+          "wrong": "hacería",
+          "fix": "hiciera",
+          "why": "Ojalá takes the subjunctive, never the conditional."
+        },
+        {
+          "sentence": "Ojalá Nora vivíera en el pueblo.",
+          "wrong": "vivíera",
+          "fix": "viviera",
+          "why": "Only the nosotros form has a written accent."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Which preterite stem?",
+          "buckets": [
+            "tener → tuv-",
+            "hacer → hic-",
+            "ser / ir → fu-"
+          ],
+          "items": [
+            {
+              "text": "Ojalá tuviéramos más vacas.",
+              "bucket": 0
+            },
+            {
+              "text": "Ojalá Leo tuviera suerte.",
+              "bucket": 0
+            },
+            {
+              "text": "Ojalá hiciera sol en el festival.",
+              "bucket": 1
+            },
+            {
+              "text": "Ojalá no hiciera tanto viento.",
+              "bucket": 1
+            },
+            {
+              "text": "Ojalá fuera primavera.",
+              "bucket": 2
+            },
+            {
+              "text": "Ojalá fuéramos al río.",
+              "bucket": 2
+            }
+          ],
+          "why": "The stem comes from the ellos preterite: tuvieron, hicieron, fueron."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-imperfect-subjunctive-meadowbrook-01",
+          "prompt": "It's the middle of winter and the fields are frozen. You wish it were summer right now: Ojalá ___ verano.",
+          "type": "multiple-choice",
+          "options": [
+            "fuera",
+            "sea",
+            "era"
+          ],
+          "correct_answer": "fuera",
+          "explanation": "It is winter, so the wish is impossible right now: ojalá + imperfect subjunctive, fuera. Ojalá sea verano makes no sense in January, and era is indicative.",
+          "hints": [
+            "Can it be summer right now?"
+          ],
+          "teaches": [
+            "ojalá"
+          ]
+        },
+        {
+          "question_id": "b2-imperfect-subjunctive-meadowbrook-02",
+          "prompt": "Rosa, ___ un saco de semillas de maíz. (polite 'I'd like', from querer)",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "quisiera",
+          "accepted_answers": [
+            "yo quisiera"
+          ],
+          "explanation": "Quisiera is the polite 'I'd like'. In this use only the -ra form works.",
+          "hints": [
+            "From quisieron.",
+            "Softer than quiero."
+          ],
+          "teaches": [
+            "quisiera",
+            "las semillas"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🌠",
+      "content": "## Deseos en el páramo\n\nOut in **el páramo**, everyone sighs **ojalá**: **ojalá tuviera** más tuercas, **ojalá no hubiera** otra tormenta de ceniza. The imperfect subjunctive means you doubt it. At Marta's stall, keep it polite: **Quisiera** dos gaseosas Zafiro.",
+      "vocabulary": [
+        {
+          "term": "ojalá",
+          "example": "Ojalá el radiorreloj funcionara aquí fuera.",
+          "example_meaning": "I wish the wrist radio worked out here."
+        },
+        {
+          "term": "quisiera",
+          "example": "Quisiera cambiar diez tuercas por agua filtrada.",
+          "example_meaning": "I'd like to swap ten nuts for filtered water."
+        },
+        {
+          "term": "echar de menos",
+          "example": "Echo de menos la cúpula; ojalá pudiera volver una noche.",
+          "example_meaning": "I miss the Dome; I wish I could go back for one night."
+        },
+        {
+          "term": "atreverse a",
+          "example": "Ojalá me atreviera a explorar el centro comercial en ruinas.",
+          "example_meaning": "I wish I dared to explore the ruined shopping centre."
+        },
+        {
+          "term": "caber",
+          "example": "Ojalá la armadura de chatarra me cupiera.",
+          "example_meaning": "If only the scrap armour fitted me."
+        },
+        {
+          "term": "disponer de",
+          "example": "Ojalá dispusiéramos de un taller propio.",
+          "example_meaning": "I wish we had a workshop of our own."
+        },
+        {
+          "term": "las tuercas",
+          "meaning": "nuts (the wasteland's currency)",
+          "example": "Ojalá tuviera tuercas suficientes para el tónico.",
+          "example_meaning": "I wish I had enough nuts for the tonic."
+        },
+        {
+          "term": "la tormenta de ceniza",
+          "meaning": "ash storm",
+          "example": "Ojalá la tormenta de ceniza pasara pronto.",
+          "example_meaning": "If only the ash storm would pass soon."
+        },
+        {
+          "term": "el capataz",
+          "meaning": "foreman",
+          "example": "El capataz Ruiz quería que reparáramos la antena.",
+          "example_meaning": "Foreman Ruiz wanted us to repair the antenna."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Ojalá en el páramo",
+          "emoji": "🔩",
+          "rule": "Out here, ojalá + imperfect subjunctive is for long shots: ojalá encontrara agua limpia. When you trade, ask with quisiera.",
+          "example": "Quisiera tres tuercas más, por favor.",
+          "example_meaning": "I'd like three more nuts, please."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Ojalá lloviera agua limpia.",
+          "meaning": "If only clean water would rain down."
+        },
+        {
+          "text": "Quisiera una gaseosa Zafiro bien fría.",
+          "meaning": "I'd like an ice-cold Zafiro soda."
+        },
+        {
+          "text": "Ojalá el robot jardinero supiera cocinar.",
+          "meaning": "I wish the gardener robot could cook.",
+          "note": "supieron → supiera"
+        },
+        {
+          "text": "Ojalá encontráramos un perro guardián.",
+          "meaning": "I wish we found a guard dog.",
+          "note": "New word: el perro guardián = the guard dog."
+        },
+        {
+          "text": "Marta quería que le trajéramos un disco nuevo.",
+          "meaning": "Marta wanted us to bring her a new record.",
+          "note": "trajeron → trajéramos"
+        }
+      ],
+      "builds": [
+        {
+          "text": "Ojalá la tormenta pasara pronto.",
+          "meaning": "If only the storm would pass soon.",
+          "distractors": [
+            "pasaba"
+          ]
+        },
+        {
+          "text": "Quisiera cambiar tuercas por agua.",
+          "meaning": "I'd like to swap nuts for water.",
+          "distractors": [
+            "Quisieron"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Ojalá Leo trayera más chatarra.",
+          "wrong": "trayera",
+          "fix": "trajera",
+          "why": "Traer → trajeron → trajera."
+        },
+        {
+          "sentence": "Ojalá encontraramos la antena.",
+          "wrong": "encontraramos",
+          "fix": "encontráramos",
+          "why": "The nosotros form always takes an accent."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Hope or long shot?",
+          "buckets": [
+            "may happen (present subj.)",
+            "long shot (imperfect subj.)"
+          ],
+          "items": [
+            {
+              "text": "Ojalá Marta tenga agua hoy.",
+              "bucket": 0
+            },
+            {
+              "text": "Ojalá el capataz nos escuche.",
+              "bucket": 0
+            },
+            {
+              "text": "Ojalá encontremos tuercas en el taller.",
+              "bucket": 0
+            },
+            {
+              "text": "Ojalá el páramo fuera verde otra vez.",
+              "bucket": 1
+            },
+            {
+              "text": "Ojalá la radiación desapareciera.",
+              "bucket": 1
+            },
+            {
+              "text": "Ojalá la cabra hablara.",
+              "bucket": 1
+            }
+          ],
+          "why": "Present subjunctive for what may really happen; imperfect subjunctive for wishes against the odds."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-imperfect-subjunctive-rustwake-01",
+          "prompt": "Ojalá Leo ___ más chatarra. (traer)",
+          "type": "multiple-choice",
+          "options": [
+            "trajera",
+            "trayera",
+            "traería"
+          ],
+          "correct_answer": "trajera",
+          "explanation": "Traer: trajeron → trajera. The j stem of the preterite carries over; traería is the conditional, which never follows ojalá.",
+          "hints": [
+            "The ellos preterite is trajeron."
+          ],
+          "teaches": [
+            "ojalá"
+          ]
+        },
+        {
+          "question_id": "b2-imperfect-subjunctive-rustwake-02",
+          "prompt": "El capataz Ruiz quería que (nosotros) ___ la antena. (reparar)",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "reparáramos",
+          "accepted_answers": [
+            "reparásemos",
+            "nosotros reparáramos",
+            "nosotros reparásemos"
+          ],
+          "explanation": "Quería is in the past, so the imperfect subjunctive follows: repararon → reparáramos (or reparásemos), with the nosotros accent.",
+          "hints": [
+            "Nosotros form, built from repararon.",
+            "Accent on -ára-."
+          ],
+          "teaches": [
+            "el capataz"
+          ]
+        }
+      ]
+    }
+  }
+}

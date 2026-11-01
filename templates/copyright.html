@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{# /legal/copyright (#968, routes/reports.rs): the copyright notice form, for anyone, signed in or not.
+   On a server without mail (Skrongle mini) only the contact address. #}
+{% block title %}{{ crate::t("reports.copyright.title") }}{% endblock %}
+{% block content %}
+<section class="narrow" data-testid="copyright-page" data-form="{{ form }}">
+  <h1>{{ crate::t("reports.copyright.title") }}</h1>
+  {% if !form %}
+  <p data-testid="copyright-contact">{{ crate::t1("reports.copyright.contact", "email", contact) }}</p>
+  {% else if sent %}
+  <p class="alert ok-text" role="status" data-testid="copyright-sent">✓ {{ crate::t("reports.copyright.sent") }}</p>
+  <p><a class="btn ghost" href="{{ crate::url("/terms") }}" data-testid="copyright-terms">{{ crate::t("reports.copyright.terms") }}</a></p>
+  {% else %}
+  <p>{{ crate::t("reports.copyright.intro") }}</p>
+  {% if let Some(e) = error %}<p class="alert error" role="alert" data-testid="copyright-error">{{ e }}</p>{% endif %}
+  <form method="post" action="{{ crate::url("/legal/copyright") }}" data-testid="copyright-form">
+    <label>{{ crate::t("reports.copyright.name") }}
+      <input type="text" name="name" value="{{ v.name }}" required maxlength="{{ crate::content_reports::MAX_LINE }}" autocomplete="name" data-testid="copyright-name">
+    </label>
+    <label>{{ crate::t("reports.copyright.email") }}
+      <input type="email" name="email" value="{{ v.email }}" required maxlength="254" autocomplete="email" data-testid="copyright-email">
+    </label>
+    <label>{{ crate::t("reports.copyright.work") }}
+      <input type="text" name="work" value="{{ v.work }}" required maxlength="{{ crate::content_reports::MAX_LINE }}" data-testid="copyright-work">
+    </label>
+    <label>{{ crate::t("reports.copyright.location") }}
+      <input type="text" name="location" value="{{ v.location }}" required maxlength="{{ crate::content_reports::MAX_LINE }}" data-testid="copyright-location">
+    </label>
+    <label>{{ crate::t("reports.copyright.details") }}
+      <textarea name="details" rows="6" required maxlength="{{ crate::content_reports::MAX_TEXT }}" data-testid="copyright-details">{{ v.details }}</textarea>
+    </label>
+    <label class="terms-check"><input type="checkbox" name="good_faith" value="on" required{% if v.good_faith.is_some() %} checked{% endif %} data-testid="copyright-good-faith"> {{ crate::t("reports.copyright.good_faith") }}</label>
+    <button type="submit" class="btn" data-testid="copyright-send">{{ crate::t("reports.copyright.send") }}</button>
+  </form>
+  {% endif %}
+</section>
+{% endblock %}

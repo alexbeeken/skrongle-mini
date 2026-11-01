@@ -1,0 +1,62 @@
+{
+  "id": "tc-listening",
+  "slug": "listening",
+  "title": "Listening",
+  "unit": "words",
+  "group": "words",
+  "order": 20,
+  "summary": "Sentences to hear and type: short, long, with and without notes.",
+  "focus": "listening",
+  "content": "## Listening\n\nHear a sentence, type it, and see it checked word by word. Sprint mode builds its listening exercises from the same sentences.",
+  "vocabulary": [
+    {
+      "term": "la playa",
+      "meaning": "beach",
+      "example": "Vamos a la playa.",
+      "example_meaning": "Let's go to the beach."
+    },
+    {
+      "term": "el sol",
+      "meaning": "sun",
+      "example": "Hace sol.",
+      "example_meaning": "It's sunny."
+    },
+    {
+      "term": "hoy",
+      "meaning": "today",
+      "example": "Hoy es lunes.",
+      "example_meaning": "Today is Monday."
+    }
+  ],
+  "listening": [
+    {
+      "text": "Hoy hace sol.",
+      "meaning": "It's sunny today.",
+      "note": "Weather uses hacer."
+    },
+    {
+      "text": "Vamos a la playa.",
+      "meaning": "Let's go to the beach."
+    },
+    {
+      "text": "La playa está cerca.",
+      "meaning": "The beach is near.",
+      "note": "New word: cerca = near."
+    },
+    {
+      "text": "El sol está muy fuerte hoy.",
+      "meaning": "The sun is very strong today."
+    },
+    {
+      "text": "Sí.",
+      "meaning": "Yes."
+    },
+    {
+      "text": "Hasta luego."
+    },
+    {
+      "text": "Hoy por la mañana vamos a la playa con mis dos hermanos y después comemos juntos en un restaurante pequeño cerca del mar.",
+      "meaning": "This morning we're going to the beach with my two brothers, and afterwards we'll eat together in a small restaurant near the sea."
+    }
+  ]
+}

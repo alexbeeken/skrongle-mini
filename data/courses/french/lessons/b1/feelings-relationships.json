@@ -1,0 +1,1290 @@
+{
+  "id": "b1-feelings-relationships",
+  "slug": "feelings-relationships",
+  "title": "Feelings and relationships: on s'entend bien",
+  "unit": "B1",
+  "group": "Vocabulary",
+  "order": 28,
+  "summary": "Say how you feel (heureux, déçu, fier, inquiet), why (je suis ravi de…, je suis triste que…), and talk about the people in your life: s'entendre, se disputer, tomber amoureux.",
+  "focus": "Naming feelings, linking them to a cause, and describing relationships",
+  "prerequisites": [
+    "b1-subjonctif"
+  ],
+  "content": "## How you feel\n\nFeelings are adjectives after **être**, so they agree with the person:\n\n| he | she |\n|---|---|\n| heureux (happy) | heureuse |\n| triste (sad) | triste |\n| déçu (disappointed) | déçue |\n| fier (proud) | fière |\n| jaloux (jealous) | jalouse |\n| inquiet (worried) | inquiète |\n| ému (moved, touched) | émue |\n| gêné (embarrassed) | gênée |\n\n**En colère** (angry) never changes: **Elles sont en colère.** — They're angry.\n\nSay what causes a feeling with **ça**: **Ça me rend heureux.** — It makes me happy. **Ça m'énerve. / Ça m'agace.** — It gets on my nerves. **Ça me fait plaisir.** — It makes me happy, I'm glad.\n\n## Feelings with de or que\n\nAfter **être** + a feeling, the cause comes in one of two ways:\n\n- **same person** → **de** + infinitive: **Je suis ravi de te voir.** — I'm delighted to see you. **Elle est fière d'avoir réussi.** — She's proud to have passed.\n- **another person** → **que** + subjonctif: **Je suis triste que tu partes.** — I'm sad that you're leaving. **Nous sommes contents qu'il vienne.** — We're glad he's coming.\n\nNever the indicative here: **que tu partes**, not *que tu pars*.\n\n## Relationships\n\n| s'entendre (bien avec) | |\n|---|---|\n| je m'entends | nous nous entendons |\n| tu t'entends | vous vous entendez |\n| il / elle s'entend | ils / elles s'entendent |\n\n- **Je m'entends bien avec ma sœur.** — I get on well with my sister.\n- **se disputer** (to argue), **se réconcilier** (to make up), **se séparer** (to split up), **se marier** (to get married)\n- **tomber amoureux de**: **Il est tombé amoureux de Julie.** — He fell in love with Julie.\n- **sortir avec**: **Elle sort avec Hugo.** — She's going out with Hugo.\n- **le copain / la copine** (boyfriend / girlfriend, or friend), **le couple**\n\nWith a plural subject, **se** often means *each other*: **Ils s'aiment.** — They love each other. **On se téléphone ?** — Shall we call each other?",
+  "vocabulary": [
+    {
+      "term": "heureux",
+      "meaning": "happy (f: heureuse)",
+      "example": "Ma grand-mère est heureuse quand toute la famille est là.",
+      "example_meaning": "My grandmother is happy when the whole family is there."
+    },
+    {
+      "term": "déçu",
+      "meaning": "disappointed",
+      "example": "Les supporters sont déçus après le match.",
+      "example_meaning": "The fans are disappointed after the match."
+    },
+    {
+      "term": "fier",
+      "meaning": "proud (f: fière)",
+      "example": "Je suis fière de mon fils.",
+      "example_meaning": "I'm proud of my son."
+    },
+    {
+      "term": "jaloux",
+      "meaning": "jealous (f: jalouse)",
+      "example": "Mon petit frère est jaloux du nouveau bébé.",
+      "example_meaning": "My little brother is jealous of the new baby."
+    },
+    {
+      "term": "inquiet",
+      "meaning": "worried (f: inquiète)",
+      "example": "Elle est inquiète parce que son train a du retard.",
+      "example_meaning": "She's worried because her train is late."
+    },
+    {
+      "term": "ému",
+      "meaning": "moved, touched",
+      "example": "Le marié était très ému pendant son discours.",
+      "example_meaning": "The groom was very moved during his speech."
+    },
+    {
+      "term": "gêné",
+      "meaning": "embarrassed",
+      "example": "J'ai oublié son prénom, j'étais vraiment gêné.",
+      "example_meaning": "I forgot her first name, I was really embarrassed."
+    },
+    {
+      "term": "en colère",
+      "meaning": "angry",
+      "example": "Le voisin est en colère à cause du bruit.",
+      "example_meaning": "The neighbour is angry because of the noise."
+    },
+    {
+      "term": "ça me fait plaisir",
+      "meaning": "it makes me happy, I'm glad",
+      "example": "Merci pour les fleurs, ça me fait très plaisir !",
+      "example_meaning": "Thank you for the flowers, they make me very happy!"
+    },
+    {
+      "term": "s'entendre bien avec",
+      "meaning": "to get on well with",
+      "example": "Tu t'entends bien avec tes collègues ?",
+      "example_meaning": "Do you get on well with your colleagues?"
+    },
+    {
+      "term": "se disputer",
+      "meaning": "to argue, to quarrel",
+      "example": "Mes parents se disputent rarement.",
+      "example_meaning": "My parents rarely argue."
+    },
+    {
+      "term": "se réconcilier",
+      "meaning": "to make up, to be reconciled",
+      "example": "Après une semaine de silence, les deux amies se réconcilient.",
+      "example_meaning": "After a week of silence, the two friends make up."
+    },
+    {
+      "term": "tomber amoureux de",
+      "meaning": "to fall in love with",
+      "example": "On tombe souvent amoureux de quelqu'un en vacances.",
+      "example_meaning": "People often fall in love with someone on holiday."
+    },
+    {
+      "term": "se séparer",
+      "meaning": "to split up, to separate",
+      "example": "Ils ont décidé de se séparer après dix ans.",
+      "example_meaning": "They decided to split up after ten years."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-feelings-relationships-01",
+      "prompt": "Quelle bonne surprise ! Je suis ravi ___ te voir.",
+      "type": "multiple-choice",
+      "options": [
+        "de",
+        "que",
+        "à"
+      ],
+      "correct_answer": "de",
+      "explanation": "The person who is delighted and the person who sees are the same (je), so être ravi + de + infinitive.",
+      "hints": [
+        "Same person in both halves: de or que?"
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b1-feelings-relationships-02",
+      "prompt": "Ma mère est triste que je ___ habiter si loin.",
+      "type": "multiple-choice",
+      "options": [
+        "parte",
+        "pars",
+        "partir"
+      ],
+      "correct_answer": "parte",
+      "explanation": "Two different people (ma mère, je) after a feeling: que + subjonctif, 'que je parte'.",
+      "hints": [
+        "A feeling + que + another person → which mood?"
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b1-feelings-relationships-03",
+      "prompt": "Léa a eu son bac avec mention : ses parents sont très ___ d'elle.",
+      "type": "fill-in-blank",
+      "correct_answer": "fiers",
+      "explanation": "Proud = fier; with ses parents (masculine plural) it becomes 'fiers'.",
+      "hints": [
+        "Proud, in the plural.",
+        "fier → fiers"
+      ],
+      "teaches": [
+        "fier"
+      ]
+    },
+    {
+      "question_id": "b1-feelings-relationships-04",
+      "prompt": "Mon frère et moi, nous nous ___ (s'entendre) très bien.",
+      "type": "fill-in-blank",
+      "correct_answer": "entendons",
+      "accepted_answers": [
+        "nous entendons"
+      ],
+      "explanation": "S'entendre in the nous form: 'nous nous entendons'. The second nous is the pronoun se.",
+      "hints": [
+        "nous form, -ons ending"
+      ],
+      "teaches": [
+        "s'entendre bien avec"
+      ]
+    },
+    {
+      "question_id": "b1-feelings-relationships-05",
+      "prompt": "Mon meilleur ami a oublié mon anniversaire : je suis vraiment ___.",
+      "type": "multiple-choice",
+      "options": [
+        "déçu",
+        "fier",
+        "ému"
+      ],
+      "correct_answer": "déçu",
+      "explanation": "A forgotten birthday leaves you disappointed: 'je suis déçu'.",
+      "hints": [
+        "How do you feel when someone lets you down?"
+      ],
+      "teaches": [
+        "déçu"
+      ]
+    },
+    {
+      "question_id": "b1-feelings-relationships-06",
+      "prompt": "In « Julie et Marc s'aiment », se means 'each other'.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Yes: with a plural subject, se can be reciprocal: they love each other.",
+      "hints": [
+        "Two people, one action that goes both ways."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b1-feelings-relationships-07",
+      "prompt": "Paul et Léa ne s'entendent plus : après trois ans, ils vont se ___.",
+      "type": "fill-in-blank",
+      "correct_answer": "séparer",
+      "accepted_answers": [],
+      "explanation": "Se séparer = to split up, what a couple does when they no longer get on.",
+      "hints": [
+        "The opposite of se marier.",
+        "It starts with s."
+      ],
+      "teaches": [
+        "se séparer"
+      ]
+    },
+    {
+      "question_id": "b1-feelings-relationships-08",
+      "prompt": "Merci pour ton petit message, ça ___ très plaisir !",
+      "type": "multiple-choice",
+      "options": [
+        "me fait",
+        "me rend",
+        "m'énerve"
+      ],
+      "correct_answer": "me fait",
+      "explanation": "The fixed phrase is 'ça me fait plaisir'. Ça me rend is followed by an adjective (ça me rend heureux).",
+      "hints": [
+        "Plaisir is a noun: which verb goes with it?"
+      ],
+      "teaches": [
+        "ça me fait plaisir"
+      ]
+    },
+    {
+      "question_id": "b1-feelings-relationships-09",
+      "prompt": "« Je suis content que tu viens ce soir » is correct French.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "After être content que, the verb goes into the subjonctif: 'je suis content que tu viennes'.",
+      "hints": [
+        "Feeling + que + another person → subjonctif."
+      ],
+      "teaches": []
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "s'entendre",
+      "meaning": "to get on (with each other)",
+      "set": "present",
+      "art": [
+        "  (^_^)    (^_^)  ",
+        "   /|\\ <-> /|\\   ",
+        "   / \\      / \\   ",
+        "  on s'entend bien "
+      ],
+      "forms": {
+        "je": "m'entends",
+        "tu": "t'entends",
+        "il": "s'entend",
+        "nous": "nous entendons",
+        "vous": "vous entendez",
+        "ils": "s'entendent"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-feelings-relationships-conv-moving-in",
+      "title": "Moving in together",
+      "scenario": "Malik tells his friend Chloé some big news over lunch.",
+      "role_a": "Chloé",
+      "role_b": "Malik",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Tu as l'air très heureux aujourd'hui !",
+          "meaning": "You look very happy today!"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui ! Sophie et moi, on va habiter ensemble.",
+          "meaning": "Yes! Sophie and I are going to live together."
+        },
+        {
+          "speaker": "a",
+          "text": "C'est génial ! Je suis ravie de l'apprendre.",
+          "meaning": "That's great! I'm delighted to hear it.",
+          "note": "être ravi(e) de + infinitive"
+        },
+        {
+          "speaker": "b",
+          "text": "Merci. On s'entend vraiment bien, tu sais.",
+          "meaning": "Thanks. We really get on well, you know."
+        },
+        {
+          "speaker": "a",
+          "text": "Vous ne vous disputez jamais ?",
+          "meaning": "Don't you ever argue?"
+        },
+        {
+          "speaker": "b",
+          "text": "Si, parfois, mais on se réconcilie vite.",
+          "meaning": "Yes, sometimes, but we make up quickly."
+        },
+        {
+          "speaker": "a",
+          "text": "Et tes parents, ils sont contents ?",
+          "meaning": "And your parents, are they glad?"
+        },
+        {
+          "speaker": "b",
+          "text": "Ma mère est un peu inquiète que je quitte la maison.",
+          "meaning": "My mum is a bit worried that I'm leaving home.",
+          "note": "être inquiet que + subjonctif"
+        },
+        {
+          "speaker": "a",
+          "text": "C'est normal, elle est fière de toi mais elle va être triste.",
+          "meaning": "That's normal, she's proud of you but she's going to be sad."
+        },
+        {
+          "speaker": "b",
+          "text": "Viens dîner chez nous le mois prochain, ça nous fera plaisir !",
+          "meaning": "Come to dinner at our place next month, we'd love that!"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Nous sommes très émus ce soir.",
+      "meaning": "We're very moved tonight."
+    },
+    {
+      "text": "Je m'entends bien avec mes voisins.",
+      "meaning": "I get on well with my neighbours."
+    },
+    {
+      "text": "Elle est jalouse de sa sœur aînée.",
+      "meaning": "She's jealous of her older sister.",
+      "note": "New word: aîné = older, eldest."
+    },
+    {
+      "text": "Les enfants se disputent pour la télécommande.",
+      "meaning": "The children are arguing over the remote control.",
+      "note": "New word: la télécommande = the remote control."
+    },
+    {
+      "text": "Je suis désolé que tu sois malade.",
+      "meaning": "I'm sorry that you're ill.",
+      "note": "être désolé que + subjonctif"
+    },
+    {
+      "text": "Ça m'agace quand le bus arrive en retard.",
+      "meaning": "It annoys me when the bus is late."
+    },
+    {
+      "text": "Mes grands-parents se sont mariés il y a cinquante ans.",
+      "meaning": "My grandparents got married fifty years ago."
+    },
+    {
+      "text": "Elle est tombée amoureuse d'un garçon qu'elle a rencontré à la fac.",
+      "meaning": "She fell in love with a boy she met at university.",
+      "note": "New word: la fac = university."
+    }
+  ],
+  "guide": [
+    {
+      "section": "How you feel"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-feelings-relationships-05"
+    },
+    {
+      "question": "b1-feelings-relationships-03"
+    },
+    {
+      "tip": "Feelings agree like any adjective: il est inquiet, elle est inquiète; ils sont fiers, elles sont fières. Only en colère never changes."
+    },
+    {
+      "section": "Feelings with de or que"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b1-feelings-relationships-01"
+    },
+    {
+      "question": "b1-feelings-relationships-02"
+    },
+    {
+      "question": "b1-feelings-relationships-09"
+    },
+    {
+      "question": "b1-feelings-relationships-08"
+    },
+    {
+      "section": "Relationships"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-feelings-relationships-04"
+    },
+    {
+      "question": "b1-feelings-relationships-06"
+    },
+    {
+      "question": "b1-feelings-relationships-07"
+    },
+    {
+      "concept": {
+        "title": "Careful with excité",
+        "markdown": "To say you're excited about a trip, don't say **je suis excité**: it often sounds sexual. Say **j'ai hâte !** (I can't wait!), **j'ai hâte de partir** (I can't wait to leave) or **je suis impatient(e)**."
+      }
+    }
+  ],
+  "sprint": {
+    "icon": "💞",
+    "bites": [
+      {
+        "title": "Feelings agree",
+        "emoji": "😊",
+        "rule": "Heureux / heureuse, fier / fière, jaloux / jalouse, inquiet / inquiète; en colère never changes.",
+        "example": "Elle est inquiète.",
+        "example_meaning": "She's worried."
+      },
+      {
+        "title": "Same person → de",
+        "emoji": "🙋",
+        "rule": "Être + feeling + de + infinitive when the same person feels and acts.",
+        "example": "Je suis ravi de te voir.",
+        "example_meaning": "I'm delighted to see you."
+      },
+      {
+        "title": "Another person → que",
+        "emoji": "👥",
+        "rule": "Être + feeling + que + subjonctif when someone else acts.",
+        "example": "Je suis triste que tu partes.",
+        "example_meaning": "I'm sad that you're leaving."
+      },
+      {
+        "title": "Each other",
+        "emoji": "💞",
+        "rule": "S'entendre bien avec, se disputer, se réconcilier; with a plural subject, se can mean each other.",
+        "example": "On s'entend bien.",
+        "example_meaning": "We get on well."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "de + infinitive or que + subjonctif?",
+        "buckets": [
+          "de + infinitive",
+          "que + subjonctif"
+        ],
+        "items": [
+          {
+            "text": "Je suis heureux de partir.",
+            "bucket": 0
+          },
+          {
+            "text": "Je suis heureux que tu partes.",
+            "bucket": 1
+          },
+          {
+            "text": "Elle est fière d'avoir gagné.",
+            "bucket": 0
+          },
+          {
+            "text": "Elle est fière que son fils ait gagné.",
+            "bucket": 1
+          },
+          {
+            "text": "Nous sommes contents d'être ici.",
+            "bucket": 0
+          },
+          {
+            "text": "Nous sommes contents que vous soyez ici.",
+            "bucket": 1
+          }
+        ],
+        "why": "When the same person feels and acts, use de + infinitive; when another person acts, use que + subjonctif."
+      },
+      {
+        "title": "Feeling good or feeling bad?",
+        "buckets": [
+          "good",
+          "bad"
+        ],
+        "items": [
+          {
+            "text": "heureux",
+            "bucket": 0
+          },
+          {
+            "text": "fier",
+            "bucket": 0
+          },
+          {
+            "text": "ravi",
+            "bucket": 0
+          },
+          {
+            "text": "déçu",
+            "bucket": 1
+          },
+          {
+            "text": "inquiet",
+            "bucket": 1
+          },
+          {
+            "text": "jaloux",
+            "bucket": 1
+          },
+          {
+            "text": "en colère",
+            "bucket": 1
+          }
+        ],
+        "why": "Heureux, fier and ravi feel good; déçu, inquiet, jaloux and en colère feel bad."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Je suis triste que tu pars demain.",
+        "wrong": "pars",
+        "fix": "partes",
+        "why": "A feeling + que takes the subjonctif: que tu partes."
+      },
+      {
+        "sentence": "Ils s'entendent bien de leurs voisins.",
+        "wrong": "de",
+        "fix": "avec",
+        "why": "S'entendre bien avec quelqu'un."
+      },
+      {
+        "sentence": "Il est tombé amoureux avec Julie.",
+        "wrong": "avec",
+        "fix": "de",
+        "why": "Tomber amoureux de quelqu'un."
+      },
+      {
+        "sentence": "Elles sont très inquiets pour leur fils.",
+        "wrong": "inquiets",
+        "fix": "inquiètes",
+        "why": "Elles is feminine plural: inquiètes."
+      },
+      {
+        "sentence": "Paul sort de Camille depuis un an.",
+        "wrong": "de",
+        "fix": "avec",
+        "why": "To go out with someone is sortir avec."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Je suis ravi de te voir.",
+        "meaning": "I'm delighted to see you.",
+        "distractors": [
+          "que"
+        ]
+      },
+      {
+        "text": "On s'entend bien avec nos voisins.",
+        "meaning": "We get on well with our neighbours.",
+        "distractors": [
+          "de"
+        ]
+      },
+      {
+        "text": "Ils se disputent tout le temps.",
+        "meaning": "They argue all the time.",
+        "distractors": [
+          "s'"
+        ]
+      },
+      {
+        "text": "Je suis triste que tu partes.",
+        "meaning": "I'm sad that you're leaving.",
+        "distractors": [
+          "pars"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🐲",
+      "content": "## Les sentiments à Eldmark\n\nIn the guild, Borin and Nym **se disputent** over the loot, then **se réconcilient** at the taverne du Dragon Vert. Borin **est fier de** son épée; Nym **est inquiète que** le dragon **soit** réveillé. Same person: **de** + infinitive; another person: **que** + subjonctif.",
+      "vocabulary": [
+        {
+          "term": "fier",
+          "example": "Le jeune paladin est fier de sa première quête.",
+          "example_meaning": "The young paladin is proud of his first quest."
+        },
+        {
+          "term": "jaloux",
+          "example": "Le nain est jaloux de l'épée magique de Nym.",
+          "example_meaning": "The dwarf is jealous of Nym's magic sword."
+        },
+        {
+          "term": "inquiet",
+          "example": "La prêtresse est inquiète : la mage n'est pas rentrée.",
+          "example_meaning": "The priestess is worried: the mage hasn't come back."
+        },
+        {
+          "term": "en colère",
+          "example": "Le dragon est en colère quand on touche à son trésor.",
+          "example_meaning": "The dragon is angry when anyone touches his treasure."
+        },
+        {
+          "term": "se disputer",
+          "example": "Les guerriers se disputent pour la meilleure monture.",
+          "example_meaning": "The warriors argue over the best mount."
+        },
+        {
+          "term": "se réconcilier",
+          "example": "L'orc et l'elfe se réconcilient autour d'un feu.",
+          "example_meaning": "The orc and the elf make up around a fire."
+        },
+        {
+          "term": "le compagnon",
+          "meaning": "companion, comrade (f: la compagne)",
+          "example": "Je suis ravi d'être ton compagnon de quête.",
+          "example_meaning": "I'm delighted to be your quest companion."
+        },
+        {
+          "term": "l'ennemi",
+          "meaning": "enemy (m)",
+          "example": "Borin est triste que son ami soit devenu son ennemi.",
+          "example_meaning": "Borin is sad that his friend has become his enemy."
+        },
+        {
+          "term": "la guilde",
+          "meaning": "guild",
+          "example": "Dans notre guilde, tout le monde s'entend bien.",
+          "example_meaning": "In our guild, everyone gets on well."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Compagnons de quête",
+          "emoji": "🐲",
+          "rule": "Feelings agree (fier, fière); de + infinitive for the same person, que + subjonctif for another.",
+          "example": "Nym est ravie que Borin vienne.",
+          "example_meaning": "Nym is delighted that Borin is coming."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Borin est jaloux de la mage.",
+          "meaning": "Borin is jealous of the mage."
+        },
+        {
+          "text": "Les deux guerrières se disputent encore.",
+          "meaning": "The two warriors are arguing again."
+        },
+        {
+          "text": "Nym est émue de revoir sa forêt.",
+          "meaning": "Nym is moved to see her forest again."
+        },
+        {
+          "text": "Le roi est en colère contre la guilde.",
+          "meaning": "The king is angry with the guild.",
+          "note": "New word: le roi = the king."
+        },
+        {
+          "text": "Mon compagnon de quête est très courageux.",
+          "meaning": "My quest companion is very brave.",
+          "note": "New word: le compagnon = the companion."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Le nain et l'elfe s'entendent bien.",
+          "meaning": "The dwarf and the elf get on well.",
+          "distractors": [
+            "entendent"
+          ]
+        },
+        {
+          "text": "Je suis fier de mon épée.",
+          "meaning": "I'm proud of my sword.",
+          "distractors": [
+            "que"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "La mage est inquiet pour son dragon.",
+          "wrong": "inquiet",
+          "fix": "inquiète",
+          "why": "La mage is a woman here: inquiète."
+        },
+        {
+          "sentence": "Nym est contente que Borin revient.",
+          "wrong": "revient",
+          "fix": "revienne",
+          "why": "A feeling + que takes the subjonctif: que Borin revienne."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Eldmark feelings: good or bad?",
+          "buckets": [
+            "good",
+            "bad"
+          ],
+          "items": [
+            {
+              "text": "Borin est fier de sa hache.",
+              "bucket": 0
+            },
+            {
+              "text": "Nym est ravie de partir en quête.",
+              "bucket": 0
+            },
+            {
+              "text": "La prêtresse est heureuse de nous voir.",
+              "bucket": 0
+            },
+            {
+              "text": "Le dragon est en colère.",
+              "bucket": 1
+            },
+            {
+              "text": "L'orc est déçu de perdre le combat.",
+              "bucket": 1
+            },
+            {
+              "text": "La mage est inquiète pour Séla.",
+              "bucket": 1
+            }
+          ],
+          "why": "Fier, ravi and heureux are good feelings; en colère, déçu and inquiet are bad ones."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-feelings-relationships-realm-01",
+          "prompt": "La prêtresse est contente que le paladin ___ (être) de retour à Highgate.",
+          "type": "fill-in-blank",
+          "correct_answer": "soit",
+          "accepted_answers": [],
+          "explanation": "Être content que + another person → subjonctif: 'que le paladin soit de retour'.",
+          "hints": [
+            "Subjonctif of être, il form."
+          ],
+          "teaches": []
+        },
+        {
+          "question_id": "b1-feelings-relationships-realm-02",
+          "prompt": "Borin a perdu son bouclier au donjon : il est ___ contre lui-même.",
+          "type": "multiple-choice",
+          "options": [
+            "en colère",
+            "ému",
+            "fier"
+          ],
+          "correct_answer": "en colère",
+          "explanation": "Losing your shield makes you angry with yourself: 'en colère contre lui-même'.",
+          "hints": [
+            "Which feeling goes with contre?"
+          ],
+          "teaches": [
+            "en colère"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b1-feelings-relationships-conv-realm-after-the-quarrel",
+          "title": "After the quarrel",
+          "scenario": "After an argument over the loot, Nym the elf finds Borin the dwarf alone at the taverne du Dragon Vert.",
+          "role_a": "Nym",
+          "role_b": "Borin",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Borin, tu es encore en colère ?",
+              "meaning": "Borin, are you still angry?"
+            },
+            {
+              "speaker": "b",
+              "text": "Non, mais je suis déçu. Tu as pris tout le butin !",
+              "meaning": "No, but I'm disappointed. You took all the loot!"
+            },
+            {
+              "speaker": "a",
+              "text": "Je suis désolée que tu sois triste. C'était une erreur.",
+              "meaning": "I'm sorry that you're sad. It was a mistake.",
+              "note": "être désolé que + subjonctif"
+            },
+            {
+              "speaker": "b",
+              "text": "On se dispute trop souvent, toi et moi.",
+              "meaning": "We argue too often, you and I."
+            },
+            {
+              "speaker": "a",
+              "text": "C'est vrai. Pourtant, on s'entend bien en quête.",
+              "meaning": "That's true. And yet we get on well on a quest."
+            },
+            {
+              "speaker": "b",
+              "text": "Alors on partage le butin et on se réconcilie ?",
+              "meaning": "So we share the loot and make up?"
+            },
+            {
+              "speaker": "a",
+              "text": "Avec plaisir ! Je suis heureuse d'être ta compagne de quête.",
+              "meaning": "With pleasure! I'm happy to be your quest companion."
+            }
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🌹",
+      "content": "## Les sentiments à Meadowbrook\n\nAt the fête des récoltes, Léo **est tombé amoureux de** Nora, Rosa **est fière de** ses fraises, and the mayor **est ému que** tout le village **soit** là. Feelings agree, **de** + infinitive for the same person, **que** + subjonctif for another.",
+      "vocabulary": [
+        {
+          "term": "heureux",
+          "example": "Nora est heureuse de vivre à la ferme.",
+          "example_meaning": "Nora is happy to live on the farm."
+        },
+        {
+          "term": "fier",
+          "example": "Rosa est fière de ses fraises.",
+          "example_meaning": "Rosa is proud of her strawberries."
+        },
+        {
+          "term": "ému",
+          "example": "Le maire est ému que tout le village soit venu à la fête.",
+          "example_meaning": "The mayor is touched that the whole village has come to the festival."
+        },
+        {
+          "term": "gêné",
+          "example": "Léo est gêné : sa vache a mangé les fleurs de Rosa.",
+          "example_meaning": "Léo is embarrassed: his cow ate Rosa's flowers."
+        },
+        {
+          "term": "tomber amoureux de",
+          "example": "Léo est tombé amoureux de la nouvelle fermière.",
+          "example_meaning": "Léo fell in love with the new farmer."
+        },
+        {
+          "term": "s'entendre bien avec",
+          "example": "Mes poules s'entendent bien avec le cochon.",
+          "example_meaning": "My hens get on well with the pig."
+        },
+        {
+          "term": "le bouquet",
+          "meaning": "bouquet, bunch of flowers",
+          "example": "Léo offre un bouquet à Nora, ça lui fait plaisir.",
+          "example_meaning": "Léo gives Nora a bouquet; it makes her happy."
+        },
+        {
+          "term": "la voisine",
+          "meaning": "neighbour (f)",
+          "example": "Je m'entends très bien avec ma voisine.",
+          "example_meaning": "I get on very well with my neighbour."
+        },
+        {
+          "term": "la fête des récoltes",
+          "meaning": "the harvest festival",
+          "example": "Je suis ravi de danser à la fête des récoltes.",
+          "example_meaning": "I'm delighted to dance at the harvest festival."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Amour à la ferme",
+          "emoji": "🌹",
+          "rule": "Tomber amoureux de, s'entendre bien avec; feeling + que + subjonctif when another person acts.",
+          "example": "Rosa est contente que Léo soit amoureux.",
+          "example_meaning": "Rosa is glad that Léo is in love."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Léo est amoureux de Nora.",
+          "meaning": "Léo is in love with Nora."
+        },
+        {
+          "text": "La vache et le mouton s'entendent bien.",
+          "meaning": "The cow and the sheep get on well."
+        },
+        {
+          "text": "Rosa est déçue par sa récolte.",
+          "meaning": "Rosa is disappointed with her harvest.",
+          "note": "New word: la récolte = the harvest."
+        },
+        {
+          "text": "Les deux voisins se disputent pour une citrouille.",
+          "meaning": "The two neighbours are arguing over a pumpkin.",
+          "note": "New word: le voisin = the neighbour."
+        },
+        {
+          "text": "Nora est heureuse que l'été arrive.",
+          "meaning": "Nora is happy that summer is coming."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Rosa est fière de ses fraises.",
+          "meaning": "Rosa is proud of her strawberries.",
+          "distractors": [
+            "fier"
+          ]
+        },
+        {
+          "text": "Les voisins se réconcilient à la fête.",
+          "meaning": "The neighbours make up at the festival.",
+          "distractors": [
+            "réconcilier"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Léo est tombé amoureux à Nora.",
+          "wrong": "à",
+          "fix": "de",
+          "why": "Tomber amoureux de quelqu'un."
+        },
+        {
+          "sentence": "Rosa est très fier de ses fraises.",
+          "wrong": "fier",
+          "fix": "fière",
+          "why": "Rosa is a woman: fière."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Meadowbrook: de or que?",
+          "buckets": [
+            "de + infinitive",
+            "que + subjonctif"
+          ],
+          "items": [
+            {
+              "text": "Nora est ravie de planter des fleurs.",
+              "bucket": 0
+            },
+            {
+              "text": "Léo est content de pêcher avec toi.",
+              "bucket": 0
+            },
+            {
+              "text": "Rosa est fière d'avoir gagné.",
+              "bucket": 0
+            },
+            {
+              "text": "Le maire est heureux que vous veniez.",
+              "bucket": 1
+            },
+            {
+              "text": "Nora est triste que Léo parte.",
+              "bucket": 1
+            },
+            {
+              "text": "Je suis inquiet qu'il pleuve demain.",
+              "bucket": 1
+            }
+          ],
+          "why": "Same person: de + infinitive; another person or thing: que + subjonctif."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-feelings-relationships-meadowbrook-01",
+          "prompt": "Léo offre un bouquet de tulipes à Nora. Elle dit : « Merci, ça me fait ___ ! »",
+          "type": "fill-in-blank",
+          "correct_answer": "plaisir",
+          "accepted_answers": [],
+          "explanation": "Ça me fait plaisir = it makes me happy, I'm glad.",
+          "hints": [
+            "A noun that means pleasure."
+          ],
+          "teaches": [
+            "ça me fait plaisir"
+          ]
+        },
+        {
+          "question_id": "b1-feelings-relationships-meadowbrook-02",
+          "prompt": "Rosa et sa voisine ___ bien : elles cuisinent souvent ensemble.",
+          "type": "multiple-choice",
+          "options": [
+            "s'entendent",
+            "s'entend",
+            "entendent"
+          ],
+          "correct_answer": "s'entendent",
+          "explanation": "Two people (Rosa et sa voisine) → ils/elles form with the pronoun: 'elles s'entendent bien'.",
+          "hints": [
+            "A plural subject, and don't forget se."
+          ],
+          "teaches": [
+            "s'entendre bien avec"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b1-feelings-relationships-conv-meadowbrook-shy-fisherman",
+          "title": "The shy fisherman",
+          "scenario": "At the seed shop, Rosa tells Nora, the new farmer, that Léo the fisherman has a crush on her.",
+          "role_a": "Rosa",
+          "role_b": "Nora",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Nora, tu t'entends bien avec Léo ?",
+              "meaning": "Nora, do you get on well with Léo?"
+            },
+            {
+              "speaker": "b",
+              "text": "Oui, il est gentil. Pourquoi ?",
+              "meaning": "Yes, he's nice. Why?"
+            },
+            {
+              "speaker": "a",
+              "text": "Je crois qu'il est tombé amoureux de toi.",
+              "meaning": "I think he's fallen in love with you."
+            },
+            {
+              "speaker": "b",
+              "text": "Vraiment ? Je suis un peu gênée, mais ça me fait plaisir.",
+              "meaning": "Really? I'm a bit embarrassed, but I'm glad."
+            },
+            {
+              "speaker": "a",
+              "text": "Il est trop timide pour te le dire.",
+              "meaning": "He's too shy to tell you."
+            },
+            {
+              "speaker": "b",
+              "text": "Je suis contente que tu me le dises, Rosa.",
+              "meaning": "I'm glad you're telling me, Rosa.",
+              "note": "être content que + subjonctif"
+            },
+            {
+              "speaker": "a",
+              "text": "Alors, tu danses avec lui à la fête des récoltes ?",
+              "meaning": "So, will you dance with him at the harvest festival?"
+            },
+            {
+              "speaker": "b",
+              "text": "Avec plaisir ! Je serai ravie de danser avec lui.",
+              "meaning": "With pleasure! I'll be delighted to dance with him."
+            }
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🫀",
+      "content": "## Les sentiments à Rustwake\n\nIn the scrap village, Marta and Léo **se disputent** over a disque, then **se réconcilient** with a soda Saphir. Ruiz **est inquiet que** la tempête **arrive**; and you, **tu es fier d'**avoir quitté le Dôme. Same person: **de** + infinitive; another person: **que** + subjonctif.",
+      "vocabulary": [
+        {
+          "term": "inquiet",
+          "example": "Le contremaître est inquiet : la radio ne répond plus.",
+          "example_meaning": "The foreman is worried: the radio isn't answering any more."
+        },
+        {
+          "term": "fier",
+          "example": "Je suis fier d'avoir réparé le robot jardinier.",
+          "example_meaning": "I'm proud to have repaired the garden robot."
+        },
+        {
+          "term": "déçu",
+          "example": "Léo est déçu : le centre commercial est vide.",
+          "example_meaning": "Léo is disappointed: the shopping centre is empty."
+        },
+        {
+          "term": "en colère",
+          "example": "Marta est en colère parce qu'on lui a volé ses écrous.",
+          "example_meaning": "Marta is angry because someone stole her nuts."
+        },
+        {
+          "term": "se disputer",
+          "example": "Les fouilleurs se disputent pour une vieille batterie.",
+          "example_meaning": "The scavengers are arguing over an old battery."
+        },
+        {
+          "term": "se réconcilier",
+          "example": "Marta et Léo se réconcilient autour d'un soda Saphir.",
+          "example_meaning": "Marta and Léo make up over a Saphir soda."
+        },
+        {
+          "term": "le partenaire",
+          "meaning": "partner (f: la partenaire)",
+          "example": "Je suis ravi que tu sois mon partenaire d'exploration.",
+          "example_meaning": "I'm delighted that you're my exploring partner."
+        },
+        {
+          "term": "la confiance",
+          "meaning": "trust",
+          "example": "Ruiz et Marta s'entendent bien : ils ont confiance l'un en l'autre.",
+          "example_meaning": "Ruiz and Marta get on well: they trust each other."
+        },
+        {
+          "term": "le chien de garde",
+          "meaning": "guard dog",
+          "example": "Mon chien de garde est jaloux du robot.",
+          "example_meaning": "My guard dog is jealous of the robot."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Voisins du désert",
+          "emoji": "🫀",
+          "rule": "Se disputer, se réconcilier, s'entendre bien avec; feeling + de + infinitive or + que + subjonctif.",
+          "example": "Marta est triste que Léo parte explorer.",
+          "example_meaning": "Marta is sad that Léo is going off exploring."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Marta est en colère contre Léo.",
+          "meaning": "Marta is angry with Léo."
+        },
+        {
+          "text": "Les deux fouilleurs s'entendent très bien.",
+          "meaning": "The two scavengers get on very well."
+        },
+        {
+          "text": "Je suis inquiet qu'il y ait une tempête.",
+          "meaning": "I'm worried that there's going to be a storm."
+        },
+        {
+          "text": "Ruiz est fier de son vieux camion.",
+          "meaning": "Ruiz is proud of his old truck.",
+          "note": "New word: le camion = the truck."
+        },
+        {
+          "text": "Le chien est jaloux du robot jardinier.",
+          "meaning": "The dog is jealous of the garden robot."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Marta et Léo se disputent encore.",
+          "meaning": "Marta and Léo are arguing again.",
+          "distractors": [
+            "disputent"
+          ]
+        },
+        {
+          "text": "Je suis fier de quitter le Dôme.",
+          "meaning": "I'm proud to be leaving the Dome.",
+          "distractors": [
+            "que"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Ruiz est inquiet que la tempête arrivera ce soir.",
+          "wrong": "arrivera",
+          "fix": "arrive",
+          "why": "A feeling + que takes the subjonctif, never the futur: que la tempête arrive."
+        },
+        {
+          "sentence": "Marta s'entend bien de Ruiz.",
+          "wrong": "de",
+          "fix": "avec",
+          "why": "S'entendre bien avec quelqu'un."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Rustwake feelings: good or bad?",
+          "buckets": [
+            "good",
+            "bad"
+          ],
+          "items": [
+            {
+              "text": "Je suis fier de ma radio-montre.",
+              "bucket": 0
+            },
+            {
+              "text": "Léo est ravi de trouver de l'eau.",
+              "bucket": 0
+            },
+            {
+              "text": "Marta est heureuse que tu sois là.",
+              "bucket": 0
+            },
+            {
+              "text": "Ruiz est en colère contre le robot.",
+              "bucket": 1
+            },
+            {
+              "text": "La marchande est déçue de ses ventes.",
+              "bucket": 1
+            },
+            {
+              "text": "Je suis inquiet pour mon chien.",
+              "bucket": 1
+            }
+          ],
+          "why": "Fier, ravi and heureux are good feelings; en colère, déçu and inquiet are bad ones."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-feelings-relationships-rustwake-01",
+          "prompt": "Ruiz est inquiet que Léo ___ (partir) seul dans le désert de rouille.",
+          "type": "fill-in-blank",
+          "correct_answer": "parte",
+          "accepted_answers": [],
+          "explanation": "Être inquiet que + another person → subjonctif of partir: 'que Léo parte'.",
+          "hints": [
+            "Subjonctif of partir, il form: from ils partent."
+          ],
+          "teaches": [
+            "inquiet"
+          ]
+        },
+        {
+          "question_id": "b1-feelings-relationships-rustwake-02",
+          "prompt": "In « Marta et Léo se réconcilient », the two scavengers make up with each other.",
+          "type": "true-false",
+          "correct_answer": "true",
+          "explanation": "Yes: se réconcilier = to make up, and with a plural subject se means each other.",
+          "hints": [
+            "Se réconcilier is the opposite of se disputer."
+          ],
+          "teaches": [
+            "se réconcilier"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b1-feelings-relationships-conv-rustwake-the-disc",
+          "title": "The old disc",
+          "scenario": "Léo the scavenger comes back to Marta's stall the day after they argued over an old music disc.",
+          "role_a": "Léo",
+          "role_b": "Marta",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Salut Marta. Tu es encore en colère ?",
+              "meaning": "Hi Marta. Are you still angry?"
+            },
+            {
+              "speaker": "b",
+              "text": "Un peu. Tu as vendu mon disque préféré !",
+              "meaning": "A bit. You sold my favourite disc!"
+            },
+            {
+              "speaker": "a",
+              "text": "Je suis désolé. Je suis vraiment gêné.",
+              "meaning": "I'm sorry. I'm really embarrassed."
+            },
+            {
+              "speaker": "b",
+              "text": "On se dispute toujours pour des bêtises.",
+              "meaning": "We always argue over silly things."
+            },
+            {
+              "speaker": "a",
+              "text": "Regarde, je l'ai retrouvé au marché ce matin.",
+              "meaning": "Look, I found it again at the market this morning."
+            },
+            {
+              "speaker": "b",
+              "text": "Oh, Léo ! Je suis tellement contente de le revoir !",
+              "meaning": "Oh, Léo! I'm so glad to see it again!",
+              "note": "être content de + infinitive"
+            },
+            {
+              "speaker": "a",
+              "text": "Alors, on se réconcilie ?",
+              "meaning": "So, shall we make up?"
+            },
+            {
+              "speaker": "b",
+              "text": "D'accord ! Ça me fait plaisir, partenaire.",
+              "meaning": "All right! I'm glad, partner."
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

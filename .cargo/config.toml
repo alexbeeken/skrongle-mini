@@ -1,0 +1,21 @@
+# Cross-compilation helpers. `cargo zigbuild` does not need these, but plain
+# `cargo build --target ...` does, if you install a GNU cross toolchain via Homebrew
+# (e.g. `brew install messense/macos-cross-toolchains/aarch64-unknown-linux-gnu`).
+
+[target.aarch64-unknown-linux-gnu]
+linker = "aarch64-unknown-linux-gnu-gcc"
+# Cortex-A53 specific tuning (Pi Zero 2 W / Pi 3). Safe to leave in: it is only
+# applied when building for this target.
+# The cortex-a53 CPU model turns on the ARMv8 crypto extensions (aes, sha2), which
+# Broadcom left out of the Pi 3 / Zero 2 W SoC: sha2 >= 0.11 and chacha20poly1305
+# >= 0.11 then pick the hardware code path at compile time and the binary dies with
+# SIGILL right after the database migrations. Keep the tuning, drop those features.
+rustflags = ["-C", "target-cpu=cortex-a53", "-C", "target-feature=-aes,-sha2"]
+
+[target.armv7-unknown-linux-gnueabihf]
+linker = "armv7-unknown-linux-gnueabihf-gcc"
+rustflags = ["-C", "target-cpu=cortex-a53"]   # implies NEON/VFPv4
+
+[env]
+# The bundled SQLite build honours these; they shave a little code size.
+LIBSQLITE3_FLAGS = "-DSQLITE_DEFAULT_MEMSTATUS=0 -DSQLITE_OMIT_DEPRECATED -DSQLITE_OMIT_SHARED_CACHE -DSQLITE_OMIT_LOAD_EXTENSION -DSQLITE_DEFAULT_WAL_SYNCHRONOUS=1 -DSQLITE_LIKE_DOESNT_MATCH_BLOBS -DSQLITE_MAX_EXPR_DEPTH=0 -DSQLITE_OMIT_PROGRESS_CALLBACK -DSQLITE_USE_ALLOCA"

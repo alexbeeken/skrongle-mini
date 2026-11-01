@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t("auth.reset.title") }}{% endblock %}
+{% block content %}
+<section class="narrow" data-testid="reset" data-step="{{ step }}">
+  {% if step == "ask" %}
+  <h1>{{ crate::t("auth.reset.title") }}</h1>
+  {% if let Some(e) = error %}<p class="alert error" role="alert" data-testid="reset-error">{{ e }}</p>{% endif %}
+  <form method="post" action="{{ crate::url("/reset") }}" data-testid="reset-ask-form">
+    <label>{{ crate::t("auth.reset.email_label") }}
+      <input type="email" name="email" data-testid="reset-email" value="{{ email }}" required autofocus maxlength="254" autocomplete="email" inputmode="email">
+    </label>
+    <button type="submit" class="btn" data-testid="reset-submit">{{ crate::t("auth.reset.send") }}</button>
+  </form>
+  {% else if step == "sent" %}
+  <h1>{{ crate::t("auth.reset.sent_title") }}</h1>
+  <p role="status" data-testid="reset-sent">{{ crate::t1("auth.reset.sent_html", "email", self.email_html())|safe }}</p>
+  {% else if step == "choose" %}
+  <h1>{{ crate::t("auth.reset.choose_title") }}</h1>
+  {% if let Some(e) = error %}<p class="alert error" role="alert" data-testid="reset-error">{{ e }}</p>{% endif %}
+  <form method="post" action="{{ crate::url("/reset") }}" data-testid="reset-choose-form">
+    <input type="hidden" name="token" value="{{ token }}">
+    <input type="email" name="email" value="{{ email }}" autocomplete="username" hidden>
+    <p>{{ crate::t1("auth.reset.choose_html", "email", self.email_html())|safe }}</p>
+    <label>{{ crate::t("auth.reset.password_label") }} <span class="muted">{{ crate::t("auth.reset.password_note") }}</span>
+      <input type="password" name="password" data-testid="reset-password" maxlength="{{ crate::auth::PASSWORD_MAX }}" required minlength="8" autofocus autocomplete="new-password">
+    </label>
+    <button type="submit" class="btn" data-testid="reset-save">{{ crate::t("auth.reset.save") }}</button>
+  </form>
+  {% else if step == "invalid" %}
+  <h1>{{ crate::t("auth.reset.invalid_title") }}</h1>
+  <p class="alert" role="status" data-testid="reset-invalid">{{ crate::t("auth.reset.invalid") }}</p>
+  <p><a class="btn" href="{{ crate::url("/reset") }}" data-testid="reset-again">{{ crate::t("auth.reset.again") }}</a></p>
+  {% else %}
+  <h1>{{ crate::t("auth.reset.done_title") }}</h1>
+  <p class="alert ok-text" role="status" data-testid="reset-done">{{ crate::t("auth.reset.done") }}</p>
+  {% endif %}
+  {% if step != "invalid" %}<p><a class="btn ghost" href="{{ crate::url("/login") }}" data-testid="reset-login">{{ crate::t("auth.reset.sign_in") }}</a></p>{% endif %}
+</section>
+{% endblock %}

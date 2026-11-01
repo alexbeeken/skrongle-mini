@@ -1,0 +1,1211 @@
+{
+  "id": "b2-work-and-careers",
+  "slug": "work-and-careers",
+  "title": "Work: the interview, the contract, the career",
+  "unit": "B2",
+  "group": "Vocabulary",
+  "order": 38,
+  "summary": "Talk about jobs the way Spain does: applying, interviews, contracts, pay and retirement, plus the subjunctive for the job you want and your wishes about it.",
+  "focus": "Job vocabulary from Spain, busco un trabajo que + subjunctive, me gustaría que + imperfect subjunctive, and talking about strengths at an interview",
+  "prerequisites": [
+    "b2-relative-clauses",
+    "b1-work-and-job-hunting"
+  ],
+  "content": "## Looking for a job in Spain\n\nYou see an **oferta de empleo** (job ad) for **un puesto** (a position) and decide to **solicitar** it (apply for it): you send **el currículum** (CV) with a short **carta de presentación** (cover letter). If they like your **experiencia**, they call you for **una entrevista**.\n\n- **Solicité el puesto de recepcionista la semana pasada.** I applied for the receptionist job last week.\n- **Estoy en el paro desde enero.** I've been unemployed since January.\n\n**Estar en el paro** is the everyday Spanish way to say you are out of work (**el desempleo** is the formal word). Someone who works for themselves is **autónomo / autónoma**: **Soy autónoma; trabajo para varias empresas.**\n\n## Contract, hours and pay\n\n| Spanish | English |\n|---|---|\n| **el contrato indefinido** | permanent contract |\n| **el contrato temporal** | fixed-term contract |\n| **la jornada completa** | full-time |\n| **la media jornada** | part-time |\n| **el sueldo** (bruto / neto) | salary (gross / net) |\n| **el ascenso** | promotion |\n\nVerbs for the start and the end of a working life:\n\n- **La empresa despidió a tres personas.** The company let three people go. (**despedir** changes e to i: **despidió, despidieron**)\n- **Me han despedido.** I've been fired.\n- **Mi madre se jubiló a los sesenta y cinco.** My mother retired at sixty-five.\n- **Trabajo a media jornada.** I work part-time.\n\n## Busco un trabajo que…: the job you want\n\nA relative clause takes the **subjunctive** when what it describes is not known to exist: you are still looking for it. If it exists and you know it, use the **indicative**.\n\n| Known: indicative | Wanted: subjunctive |\n|---|---|\n| **Tengo un trabajo que me gusta.** | **Busco un trabajo que me guste.** |\n| **Hay una empresa que paga bien.** | **¿Hay alguna empresa que pague bien?** |\n| **Conozco a alguien que habla alemán.** | **No hay nadie que hable alemán.** |\n\nJob ads use this rule all the time: **Buscamos dependiente que sepa inglés** (shop assistant wanted, English needed). The personal **a** is usually dropped before an unknown person, but **alguien** and **nadie** always take it.\n\n## Me gustaría que…: wishes about others\n\nUse **me gustaría** + infinitive when you are the one who acts, and **me gustaría que** + **imperfect subjunctive** when someone else does:\n\n- **Me gustaría trabajar aquí.** I'd like to work here.\n- **Me gustaría que me hicieran un contrato indefinido.** I'd like them to give me a permanent contract.\n- **Nos gustaría que empezara el lunes.** We'd like you (usted) to start on Monday.\n\nThe conditional **gustaría** sets a past-style sequence, so the verb after **que** is in the imperfect subjunctive (**llamaran, ofrecieran, subieran**), not the present. The same goes for **querría que**, **preferiría que** and **quería que**.\n\n## At the interview: your strong points\n\nInterviews in Spain are usually in **usted**. Expect **¿Por qué ha solicitado este puesto?** and **¿Cuáles son sus puntos fuertes?** Useful answers:\n\n- **Mi punto fuerte es la organización.** My strength is organisation.\n- **Se me da bien tratar con clientes.** I'm good at dealing with customers.\n- **Se me dan bien los idiomas.** I'm good at languages. (a plural noun takes **dan**)\n- **Tengo experiencia en ventas.** I have experience in sales.\n- **He trabajado como jefa de equipo.** I've worked as a team leader.\n\nFor a weakness, be honest and show progress: **A veces me cuesta delegar, pero estoy mejorando.**",
+  "vocabulary": [
+    {
+      "term": "el puesto",
+      "meaning": "the position, the post (a job)",
+      "example": "Han abierto un puesto de enfermera en el hospital.",
+      "example_meaning": "They've opened a nursing position at the hospital."
+    },
+    {
+      "term": "solicitar",
+      "meaning": "to apply for",
+      "example": "Voy a solicitar el puesto de diseñadora gráfica.",
+      "example_meaning": "I'm going to apply for the graphic designer job."
+    },
+    {
+      "term": "el currículum",
+      "meaning": "the CV, the résumé",
+      "example": "He actualizado el currículum con mi último trabajo.",
+      "example_meaning": "I've updated my CV with my last job."
+    },
+    {
+      "term": "el paro",
+      "meaning": "unemployment (Spain); estar en el paro = to be unemployed",
+      "example": "Estuvo en el paro casi un año antes de encontrar algo.",
+      "example_meaning": "He was unemployed for almost a year before finding something."
+    },
+    {
+      "term": "autónomo / autónoma",
+      "meaning": "self-employed, freelance",
+      "example": "Mi cuñado es autónomo y trabaja desde casa.",
+      "example_meaning": "My brother-in-law is self-employed and works from home."
+    },
+    {
+      "term": "el contrato",
+      "meaning": "the contract (indefinido = permanent, temporal = fixed-term)",
+      "example": "Por fin me han hecho un contrato indefinido.",
+      "example_meaning": "They've finally given me a permanent contract."
+    },
+    {
+      "term": "la jornada",
+      "meaning": "the working day (jornada completa = full-time, media jornada = part-time)",
+      "example": "Trabajo a media jornada y por las tardes estudio.",
+      "example_meaning": "I work part-time and study in the afternoons."
+    },
+    {
+      "term": "el sueldo",
+      "meaning": "the salary, the pay",
+      "example": "El sueldo es de dos mil euros al mes.",
+      "example_meaning": "The salary is two thousand euros a month."
+    },
+    {
+      "term": "el ascenso",
+      "meaning": "the promotion",
+      "example": "Después de tres años le dieron un ascenso.",
+      "example_meaning": "After three years they gave her a promotion."
+    },
+    {
+      "term": "despedir",
+      "meaning": "to dismiss, to fire (also: to see someone off)",
+      "example": "Si sigue llegando tarde, lo van a despedir.",
+      "example_meaning": "If he keeps arriving late, they're going to fire him."
+    },
+    {
+      "term": "jubilarse",
+      "meaning": "to retire",
+      "example": "Mi padre quiere jubilarse antes de los sesenta y cinco.",
+      "example_meaning": "My father wants to retire before sixty-five."
+    },
+    {
+      "term": "la entrevista",
+      "meaning": "the (job) interview",
+      "example": "La entrevista es el martes a las diez.",
+      "example_meaning": "The interview is on Tuesday at ten."
+    },
+    {
+      "term": "la experiencia",
+      "meaning": "the experience",
+      "example": "Tiene cinco años de experiencia en atención al cliente.",
+      "example_meaning": "She has five years' experience in customer service."
+    },
+    {
+      "term": "el punto fuerte",
+      "meaning": "the strong point, the strength",
+      "example": "Su punto fuerte es la paciencia con los clientes.",
+      "example_meaning": "His strength is his patience with customers."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-work-and-careers-01",
+      "prompt": "La semana pasada ___ un puesto de jefa de proyecto en una empresa de Bilbao.",
+      "type": "multiple-choice",
+      "options": [
+        "solicité",
+        "despedí",
+        "me jubilé"
+      ],
+      "correct_answer": "solicité",
+      "explanation": "Solicitar un puesto = to apply for a position (solicité, preterite). Despedir is to fire someone and jubilarse is to retire.",
+      "hints": [
+        "What do you do with a job ad you like?"
+      ],
+      "teaches": [
+        "solicitar",
+        "el puesto"
+      ]
+    },
+    {
+      "question_id": "b2-work-and-careers-02",
+      "prompt": "Mi hermano lleva un año en ___: no encuentra trabajo.",
+      "type": "multiple-choice",
+      "options": [
+        "el paro",
+        "el ascenso",
+        "la jornada"
+      ],
+      "correct_answer": "el paro",
+      "explanation": "Estar en el paro is the everyday Spanish (Spain) way to say you are unemployed.",
+      "hints": [
+        "He has no job at all."
+      ],
+      "teaches": [
+        "el paro"
+      ]
+    },
+    {
+      "question_id": "b2-work-and-careers-03",
+      "prompt": "La empresa ___ a veinte trabajadores el mes pasado. (despedir, preterite)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "despidió",
+      "accepted_answers": [],
+      "explanation": "Despedir changes e to i in the third person of the preterite: despidió, despidieron.",
+      "hints": [
+        "Like pedir: pidió.",
+        "The subject, la empresa, is singular."
+      ],
+      "teaches": [
+        "despedir"
+      ]
+    },
+    {
+      "question_id": "b2-work-and-careers-04",
+      "prompt": "Busco un puesto que ___ cerca de casa.",
+      "type": "multiple-choice",
+      "options": [
+        "esté",
+        "está",
+        "estaría"
+      ],
+      "correct_answer": "esté",
+      "explanation": "The job you are looking for is not known to exist yet, so the relative clause takes the present subjunctive: esté.",
+      "hints": [
+        "Do you already have this job?"
+      ],
+      "teaches": [
+        "el puesto"
+      ]
+    },
+    {
+      "question_id": "b2-work-and-careers-05",
+      "prompt": "Ya tengo un puesto que ___ bien, así que no busco otro. (pagar)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "paga",
+      "accepted_answers": [],
+      "explanation": "This job exists and you know it, so the relative clause takes the indicative: paga.",
+      "hints": [
+        "Is the job real or still wanted?"
+      ],
+      "teaches": [
+        "el puesto",
+        "el sueldo"
+      ]
+    },
+    {
+      "question_id": "b2-work-and-careers-06",
+      "prompt": "Necesitamos a alguien que ___ experiencia en ventas. (tener)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "tenga",
+      "accepted_answers": [],
+      "explanation": "The person is still unknown, so the subjunctive follows: tenga.",
+      "hints": [
+        "Have they found this person yet?",
+        "Build it on the yo present, which has a g."
+      ],
+      "teaches": [
+        "la experiencia"
+      ]
+    },
+    {
+      "question_id": "b2-work-and-careers-07",
+      "prompt": "Me gustaría que la empresa me ___ un contrato indefinido. (ofrecer)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "ofreciera",
+      "accepted_answers": [
+        "ofreciese"
+      ],
+      "explanation": "After me gustaría que the verb goes into the imperfect subjunctive: ofrecieron becomes ofreciera (or ofreciese).",
+      "hints": [
+        "Start from ellos ofrecieron.",
+        "Gustaría is conditional: imperfect subjunctive follows."
+      ],
+      "teaches": [
+        "el contrato"
+      ]
+    },
+    {
+      "question_id": "b2-work-and-careers-08",
+      "prompt": "At an interview, which sentence correctly says you are good at teamwork?",
+      "type": "multiple-choice",
+      "options": [
+        "Se me da bien trabajar en equipo.",
+        "Se me da bueno trabajar en equipo.",
+        "Me doy bien trabajar en equipo."
+      ],
+      "correct_answer": "Se me da bien trabajar en equipo.",
+      "explanation": "The phrase is se me da bien + infinitive (or + noun): bien is an adverb, and the verb is dar with se and the indirect pronoun.",
+      "hints": [
+        "Bien or bueno after dar?"
+      ],
+      "teaches": [
+        "el punto fuerte",
+        "la entrevista"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-work-and-careers-conv-interview",
+      "title": "The job interview",
+      "scenario": "Daniel has applied for a job as a shift manager at a sports shop chain. Señora Ortega interviews him.",
+      "role_a": "Sra. Ortega",
+      "role_b": "Daniel",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Buenos días, Daniel. Siéntese, por favor. ¿Por qué ha solicitado este puesto?",
+          "meaning": "Good morning, Daniel. Please sit down. Why have you applied for this position?",
+          "note": "usted at an interview"
+        },
+        {
+          "speaker": "b",
+          "text": "Porque busco un trabajo en el que pueda seguir aprendiendo, y su empresa tiene muy buena fama.",
+          "meaning": "Because I'm looking for a job where I can keep learning, and your company has a very good reputation.",
+          "note": "en el que pueda: a job not yet found takes the subjunctive"
+        },
+        {
+          "speaker": "a",
+          "text": "En su currículum veo que ha trabajado tres años en una tienda de deportes.",
+          "meaning": "I see in your CV that you've worked in a sports shop for three years."
+        },
+        {
+          "speaker": "b",
+          "text": "Sí, era encargado de turno. Allí aprendí a organizar al equipo y a tratar con clientes difíciles.",
+          "meaning": "Yes, I was the shift manager. There I learnt to organise the team and to deal with difficult customers."
+        },
+        {
+          "speaker": "a",
+          "text": "¿Cuáles diría que son sus puntos fuertes?",
+          "meaning": "What would you say your strengths are?"
+        },
+        {
+          "speaker": "b",
+          "text": "Se me da bien resolver problemas y soy muy constante. Nunca dejo nada a medias.",
+          "meaning": "I'm good at solving problems and I'm very persistent. I never leave anything half-done.",
+          "note": "se me da bien + infinitive"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Y algún punto débil?",
+          "meaning": "And any weak point?"
+        },
+        {
+          "speaker": "b",
+          "text": "A veces me cuesta delegar, pero estoy aprendiendo a confiar más en mis compañeros.",
+          "meaning": "Sometimes I find it hard to delegate, but I'm learning to trust my colleagues more."
+        },
+        {
+          "speaker": "a",
+          "text": "Bien. Es un puesto de jornada completa, con un contrato temporal de seis meses que puede pasar a indefinido.",
+          "meaning": "Good. It's a full-time position, with a six-month fixed-term contract that can become permanent."
+        },
+        {
+          "speaker": "b",
+          "text": "Perfecto. ¿Podría decirme cuál sería el sueldo?",
+          "meaning": "Perfect. Could you tell me what the salary would be?",
+          "note": "polite conditional"
+        },
+        {
+          "speaker": "a",
+          "text": "Veintiocho mil euros brutos al año. Le llamaremos antes del viernes.",
+          "meaning": "Twenty-eight thousand euros gross a year. We'll call you before Friday."
+        },
+        {
+          "speaker": "b",
+          "text": "Muchas gracias. Me gustaría mucho que me tuvieran en cuenta.",
+          "meaning": "Thank you very much. I'd really like you to consider me.",
+          "note": "me gustaría que + imperfect subjunctive (tuvieron becomes tuvieran)"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Mañana tengo una entrevista importante.",
+      "meaning": "Tomorrow I have an important interview."
+    },
+    {
+      "text": "Mi hermana está en el paro desde marzo.",
+      "meaning": "My sister has been unemployed since March.",
+      "note": "Estar en el paro = to be out of work."
+    },
+    {
+      "text": "Busco un trabajo que no esté lejos de casa.",
+      "meaning": "I'm looking for a job that isn't far from home.",
+      "note": "A job not found yet: subjunctive."
+    },
+    {
+      "text": "Le ofrecieron un contrato indefinido y una oficina propia.",
+      "meaning": "They offered him a permanent contract and his own office.",
+      "note": "New word: la oficina = the office."
+    },
+    {
+      "text": "Necesitan a alguien que sepa programar y hable inglés.",
+      "meaning": "They need someone who can program and speaks English.",
+      "note": "An unknown person: subjunctive."
+    },
+    {
+      "text": "Me gustaría que mi jefe valorara más el trabajo del equipo.",
+      "meaning": "I'd like my boss to value the team's work more.",
+      "note": "New word: el equipo = the team."
+    },
+    {
+      "text": "Mi tío se jubiló tras cuarenta años en la fábrica de coches.",
+      "meaning": "My uncle retired after forty years at the car factory.",
+      "note": "New word: la fábrica = the factory."
+    },
+    {
+      "text": "Ojalá la empresa me diera el ascenso que llevo dos años esperando.",
+      "meaning": "I wish the company would give me the promotion I've been waiting two years for.",
+      "note": "dieron becomes diera"
+    }
+  ],
+  "guide": [
+    {
+      "section": "Looking for a job in Spain"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-work-and-careers-01"
+    },
+    {
+      "question": "b2-work-and-careers-02"
+    },
+    {
+      "section": "Contract, hours and pay"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-work-and-careers-03"
+    },
+    {
+      "section": "Busco un trabajo que"
+    },
+    {
+      "question": "b2-work-and-careers-04"
+    },
+    {
+      "question": "b2-work-and-careers-05"
+    },
+    {
+      "question": "b2-work-and-careers-06"
+    },
+    {
+      "tip": "Ask yourself: does this job or person already exist for me? If yes, use the indicative (tengo un jefe que me escucha). If you are still looking, use the subjunctive (busco un jefe que me escuche)."
+    },
+    {
+      "section": "Me gustaría que"
+    },
+    {
+      "question": "b2-work-and-careers-07"
+    },
+    {
+      "section": "At the interview"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b2-work-and-careers-08"
+    }
+  ],
+  "sprint": {
+    "icon": "📈",
+    "bites": [
+      {
+        "title": "Job words from Spain",
+        "emoji": "🇪🇸",
+        "rule": "In Spain you send el currículum, may be en el paro, and work a jornada completa or media jornada. A contrato indefinido is permanent; a temporal one ends.",
+        "example": "Estuvo en el paro hasta que le hicieron un contrato indefinido.",
+        "example_meaning": "He was unemployed until they gave him a permanent contract."
+      },
+      {
+        "title": "The job you don't have yet",
+        "emoji": "🔎",
+        "rule": "A job or person you are still looking for takes the subjunctive: busco un trabajo que tenga horario flexible. One you already have takes the indicative.",
+        "example": "Tengo un trabajo que me gusta, pero busco uno que pague más.",
+        "example_meaning": "I have a job I like, but I'm looking for one that pays more."
+      },
+      {
+        "title": "Wishes about others",
+        "emoji": "🙏",
+        "rule": "Me gustaría que + imperfect subjunctive when someone else acts: me gustaría que me llamaran. If you act yourself, use the infinitive: me gustaría trabajar aquí.",
+        "example": "Me gustaría que me subieran el sueldo.",
+        "example_meaning": "I'd like them to raise my salary."
+      },
+      {
+        "title": "Selling yourself",
+        "emoji": "🌟",
+        "rule": "At an interview: mi punto fuerte es…, se me da bien + infinitive, se me dan bien + plural noun, tengo experiencia en…, he trabajado como… Use usted.",
+        "example": "Se me dan bien los números y tengo experiencia en contabilidad.",
+        "example_meaning": "I'm good with numbers and I have experience in accounting."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Does it exist yet?",
+        "buckets": [
+          "indicative: it exists",
+          "subjunctive: still wanted"
+        ],
+        "why": "A job or person you know takes the indicative; one you are looking for, or that does not exist, takes the subjunctive.",
+        "items": [
+          {
+            "text": "Tengo un jefe que me escucha.",
+            "bucket": 0
+          },
+          {
+            "text": "Busco un jefe que me escuche.",
+            "bucket": 1
+          },
+          {
+            "text": "Trabajo en una empresa que paga bien.",
+            "bucket": 0
+          },
+          {
+            "text": "Quiero una empresa que pague bien.",
+            "bucket": 1
+          },
+          {
+            "text": "No hay ningún puesto que me interese.",
+            "bucket": 1
+          },
+          {
+            "text": "Conozco a alguien que habla chino.",
+            "bucket": 0
+          }
+        ]
+      },
+      {
+        "title": "When in a working life?",
+        "buckets": [
+          "getting the job",
+          "in the job",
+          "leaving the job"
+        ],
+        "why": "You apply with a CV and an interview; inside the job come pay and promotion; it ends when you are fired, retire or end up unemployed.",
+        "items": [
+          {
+            "text": "solicitar",
+            "bucket": 0
+          },
+          {
+            "text": "la entrevista",
+            "bucket": 0
+          },
+          {
+            "text": "el currículum",
+            "bucket": 0
+          },
+          {
+            "text": "el ascenso",
+            "bucket": 1
+          },
+          {
+            "text": "el sueldo",
+            "bucket": 1
+          },
+          {
+            "text": "despedir",
+            "bucket": 2
+          },
+          {
+            "text": "jubilarse",
+            "bucket": 2
+          },
+          {
+            "text": "quedarse en el paro",
+            "bucket": 2
+          }
+        ]
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Busco un trabajo que está cerca de casa.",
+        "wrong": "está",
+        "fix": "esté",
+        "why": "The job is not found yet, so the relative clause takes the subjunctive."
+      },
+      {
+        "sentence": "Me gustaría que me llamen mañana.",
+        "wrong": "llamen",
+        "fix": "llamaran",
+        "why": "Me gustaría que is followed by the imperfect subjunctive."
+      },
+      {
+        "sentence": "Tengo un trabajo que me guste mucho.",
+        "wrong": "guste",
+        "fix": "gusta",
+        "why": "You already have this job: it exists, so indicative."
+      },
+      {
+        "sentence": "La empresa lo despedió porque siempre llegaba tarde.",
+        "wrong": "despedió",
+        "fix": "despidió",
+        "why": "Despedir changes e to i in the preterite third person: despidió."
+      },
+      {
+        "sentence": "Se me da bueno hablar en público.",
+        "wrong": "bueno",
+        "fix": "bien",
+        "why": "The phrase is se me da bien: bien is an adverb."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Busco un puesto que tenga horario flexible.",
+        "meaning": "I'm looking for a job with flexible hours.",
+        "distractors": [
+          "tiene"
+        ]
+      },
+      {
+        "text": "Me gustaría que me hicieran un contrato indefinido.",
+        "meaning": "I'd like them to give me a permanent contract.",
+        "distractors": [
+          "hagan"
+        ]
+      },
+      {
+        "text": "Mi punto fuerte es la organización.",
+        "meaning": "My strength is organisation.",
+        "distractors": [
+          "fuerza"
+        ]
+      },
+      {
+        "text": "Se me da bien hablar en público.",
+        "meaning": "I'm good at public speaking.",
+        "distractors": [
+          "bueno"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🪖",
+      "content": "## El trabajo en Eldmark\n\nGuilds hire like companies. A notice in Highgate reads **se busca una maga que sepa curar**: subjunctive, because nobody has the post yet. At the interview, a dwarf from Deepanvil says **mi punto fuerte es la forja** and adds, hopefully, **me gustaría que el gremio me pagara en oro**.",
+      "vocabulary": [
+        {
+          "term": "el puesto",
+          "example": "El gremio de cazadores tiene un puesto libre en Frostmarch.",
+          "example_meaning": "The hunters' guild has an open post in Frostmarch."
+        },
+        {
+          "term": "solicitar",
+          "example": "Quiero solicitar el puesto de guardia de la posada.",
+          "example_meaning": "I want to apply for the post of guard at the inn."
+        },
+        {
+          "term": "la experiencia",
+          "example": "Buscan un guerrero que tenga experiencia en mazmorras.",
+          "example_meaning": "They're looking for a warrior with dungeon experience."
+        },
+        {
+          "term": "el sueldo",
+          "example": "El sueldo es bajo, pero el botín se reparte.",
+          "example_meaning": "The pay is low, but the loot is shared."
+        },
+        {
+          "term": "el ascenso",
+          "example": "Tras vencer al minotauro, la paladina consiguió un ascenso.",
+          "example_meaning": "After defeating the minotaur, the paladin got a promotion."
+        },
+        {
+          "term": "jubilarse",
+          "example": "El viejo enano se jubiló y abrió una posada en Deepanvil.",
+          "example_meaning": "The old dwarf retired and opened an inn in Deepanvil."
+        },
+        {
+          "term": "el gremio",
+          "meaning": "the guild",
+          "example": "El gremio de magas busca aprendices que sepan leer runas.",
+          "example_meaning": "The mages' guild is looking for apprentices who can read runes."
+        },
+        {
+          "term": "el botín",
+          "meaning": "the loot",
+          "example": "Me gustaría que el botín se repartiera a partes iguales.",
+          "example_meaning": "I'd like the loot to be split equally."
+        },
+        {
+          "term": "el aprendiz",
+          "meaning": "the apprentice",
+          "example": "La herrera necesita un aprendiz que no tenga miedo al fuego.",
+          "example_meaning": "The blacksmith needs an apprentice who isn't afraid of fire."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Se busca en el gremio",
+          "emoji": "🪖",
+          "rule": "Guild notices describe someone they don't have yet, so the subjunctive follows: se busca un cazador que conozca el bosque. A wish about the guild takes me gustaría que + imperfect subjunctive.",
+          "example": "Se busca una maga que sepa curar.",
+          "example_meaning": "Wanted: a mage who can heal."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Buscan una maga que sepa curar.",
+          "meaning": "They're looking for a mage who can heal.",
+          "note": "Not found yet: subjunctive."
+        },
+        {
+          "text": "Mañana tengo una entrevista en el gremio.",
+          "meaning": "Tomorrow I have an interview at the guild."
+        },
+        {
+          "text": "Ese enano lleva meses en el paro.",
+          "meaning": "That dwarf has been out of work for months."
+        },
+        {
+          "text": "Me gustaría que me dieran una montura.",
+          "meaning": "I'd like them to give me a mount.",
+          "note": "New word: la montura = the mount."
+        },
+        {
+          "text": "El orco solicitó el puesto de cocinero en la posada.",
+          "meaning": "The orc applied for the cook's job at the inn.",
+          "note": "New word: la posada = the inn."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Buscan un guerrero que no tenga miedo.",
+          "meaning": "They're looking for a warrior who isn't afraid.",
+          "distractors": [
+            "tiene"
+          ]
+        },
+        {
+          "text": "Me gustaría que el gremio me ascendiera.",
+          "meaning": "I'd like the guild to promote me.",
+          "distractors": [
+            "asciende"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Se busca una elfa que conoce el Bosque Umbrío.",
+          "wrong": "conoce",
+          "fix": "conozca",
+          "why": "Nobody has the post yet: subjunctive."
+        },
+        {
+          "sentence": "Me gustaría que el capitán me pague en oro.",
+          "wrong": "pague",
+          "fix": "pagara",
+          "why": "Me gustaría que takes the imperfect subjunctive."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "In the guild, or still wanted?",
+          "buckets": [
+            "indicative",
+            "subjunctive"
+          ],
+          "why": "Someone the guild already has takes the indicative; someone it is still looking for, or that does not exist, takes the subjunctive.",
+          "items": [
+            {
+              "text": "Tenemos un enano que forja espadas.",
+              "bucket": 0
+            },
+            {
+              "text": "Queremos un enano que forje espadas.",
+              "bucket": 1
+            },
+            {
+              "text": "No hay nadie que entienda las runas.",
+              "bucket": 1
+            },
+            {
+              "text": "Conozco a un orco que cocina bien.",
+              "bucket": 0
+            },
+            {
+              "text": "Buscamos un paladín que sepa nadar.",
+              "bucket": 1
+            },
+            {
+              "text": "La maga que cura vive en Highgate.",
+              "bucket": 0
+            }
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-work-and-careers-realm-01",
+          "prompt": "El gremio busca un cazador que ___ el Bosque Umbrío.",
+          "type": "multiple-choice",
+          "options": [
+            "conozca",
+            "conoce",
+            "conocería"
+          ],
+          "correct_answer": "conozca",
+          "explanation": "The guild has not found this hunter yet, so the relative clause takes the subjunctive: conozca.",
+          "hints": [
+            "Does the guild already have this hunter?"
+          ],
+          "teaches": [
+            "el gremio"
+          ]
+        },
+        {
+          "question_id": "b2-work-and-careers-realm-02",
+          "prompt": "Me gustaría que el gremio me ___ un ascenso. (dar)",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "diera",
+          "accepted_answers": [
+            "diese"
+          ],
+          "explanation": "Me gustaría que + imperfect subjunctive: dieron becomes diera (or diese).",
+          "hints": [
+            "Start from ellos dieron."
+          ],
+          "teaches": [
+            "el ascenso",
+            "el gremio"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "👩‍🌾",
+      "content": "## El trabajo en Meadowbrook\n\nNora wants extra work for the winter. Rosa's shop **busca a alguien que sepa de semillas**, and the mine wants **mineros que no tengan miedo a la oscuridad**. Nora only wants **media jornada**: **me gustaría que Rosa me dejara las mañanas libres para la granja**.",
+      "vocabulary": [
+        {
+          "term": "el puesto",
+          "example": "Rosa tiene un puesto libre en la tienda de semillas.",
+          "example_meaning": "Rosa has a job opening at the seed shop."
+        },
+        {
+          "term": "la jornada",
+          "example": "En invierno Nora trabaja en la mina a media jornada.",
+          "example_meaning": "In winter Nora works part-time at the mine."
+        },
+        {
+          "term": "el sueldo",
+          "example": "El sueldo de la mina es bueno, pero el trabajo es duro.",
+          "example_meaning": "The pay at the mine is good, but the work is hard."
+        },
+        {
+          "term": "la experiencia",
+          "example": "No tengo experiencia en tiendas, pero conozco bien las semillas.",
+          "example_meaning": "I have no experience in shops, but I know seeds well."
+        },
+        {
+          "term": "autónomo / autónoma",
+          "example": "Leo es autónomo: vende su pescado en el mercado del pueblo.",
+          "example_meaning": "Leo is self-employed: he sells his fish at the town market."
+        },
+        {
+          "term": "jubilarse",
+          "example": "El viejo minero se jubiló y ahora cultiva calabazas.",
+          "example_meaning": "The old miner retired and now grows pumpkins."
+        },
+        {
+          "term": "la mina",
+          "meaning": "the mine",
+          "example": "Buscan a alguien que conozca bien los túneles de la mina.",
+          "example_meaning": "They're looking for someone who knows the mine's tunnels well."
+        },
+        {
+          "term": "el minero / la minera",
+          "meaning": "the miner",
+          "example": "La minera más joven pidió un ascenso al alcalde.",
+          "example_meaning": "The youngest miner asked the mayor for a promotion."
+        },
+        {
+          "term": "la semilla",
+          "meaning": "the seed",
+          "example": "Me gustaría que Rosa vendiera semillas de girasol.",
+          "example_meaning": "I'd like Rosa to sell sunflower seeds."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Se busca en el pueblo",
+          "emoji": "🪴",
+          "rule": "Rosa's notice wants someone she hasn't found: busco a alguien que sepa de semillas. Nora's wish about Rosa takes the imperfect subjunctive: me gustaría que me dejaras libre.",
+          "example": "Rosa busca a alguien que sepa de semillas.",
+          "example_meaning": "Rosa is looking for someone who knows about seeds."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Nora busca trabajo para el invierno.",
+          "meaning": "Nora is looking for work for the winter."
+        },
+        {
+          "text": "Leo es autónomo y vende pescado.",
+          "meaning": "Leo is self-employed and sells fish."
+        },
+        {
+          "text": "La mina busca mineros que sean valientes.",
+          "meaning": "The mine is looking for miners who are brave.",
+          "note": "New word: el minero = the miner."
+        },
+        {
+          "text": "Rosa necesita a alguien que trabaje los sábados.",
+          "meaning": "Rosa needs someone to work on Saturdays.",
+          "note": "Someone not found yet: subjunctive."
+        },
+        {
+          "text": "Me gustaría que el alcalde subiera los sueldos.",
+          "meaning": "I'd like the mayor to raise wages."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Busco a alguien que sepa de semillas.",
+          "meaning": "I'm looking for someone who knows about seeds.",
+          "distractors": [
+            "sabe"
+          ]
+        },
+        {
+          "text": "Me gustaría que me pagaras en fresas.",
+          "meaning": "I'd like you to pay me in strawberries.",
+          "distractors": [
+            "pagues"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "La mina necesita mineros que tienen experiencia.",
+          "wrong": "tienen",
+          "fix": "tengan",
+          "why": "The mine hasn't found these miners yet: subjunctive."
+        },
+        {
+          "sentence": "Me gustaría que Rosa me deje las mañanas libres.",
+          "wrong": "deje",
+          "fix": "dejara",
+          "why": "Me gustaría que takes the imperfect subjunctive."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Who's hiring in town?",
+          "buckets": [
+            "indicative",
+            "subjunctive"
+          ],
+          "why": "A helper someone already has takes the indicative; one they are still looking for takes the subjunctive.",
+          "items": [
+            {
+              "text": "Rosa tiene una ayudante que llega pronto.",
+              "bucket": 0
+            },
+            {
+              "text": "Rosa busca una ayudante que llegue pronto.",
+              "bucket": 1
+            },
+            {
+              "text": "En la mina no hay nadie que tenga miedo.",
+              "bucket": 1
+            },
+            {
+              "text": "Conozco a un minero que trabaja de noche.",
+              "bucket": 0
+            },
+            {
+              "text": "El alcalde quiere un granjero que plante maíz.",
+              "bucket": 1
+            },
+            {
+              "text": "Leo tiene una barca que funciona bien.",
+              "bucket": 0
+            }
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-work-and-careers-meadowbrook-01",
+          "prompt": "Rosa busca a alguien que ___ de semillas.",
+          "type": "multiple-choice",
+          "options": [
+            "sepa",
+            "sabe",
+            "sabría"
+          ],
+          "correct_answer": "sepa",
+          "explanation": "Rosa hasn't found this person yet, so the relative clause takes the subjunctive: sepa.",
+          "hints": [
+            "Has Rosa found a helper yet?"
+          ],
+          "teaches": [
+            "la semilla",
+            "el puesto"
+          ]
+        },
+        {
+          "question_id": "b2-work-and-careers-meadowbrook-02",
+          "prompt": "Me gustaría que la mina me ___ media jornada. (ofrecer)",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "ofreciera",
+          "accepted_answers": [
+            "ofreciese"
+          ],
+          "explanation": "Me gustaría que + imperfect subjunctive: ofrecieron becomes ofreciera (or ofreciese).",
+          "hints": [
+            "Start from ellos ofrecieron."
+          ],
+          "teaches": [
+            "la jornada",
+            "la mina"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b2-work-and-careers-conv-meadowbrook-shop",
+          "title": "A helper for the seed shop",
+          "scenario": "Before winter, Nora asks Rosa about the notice in the seed shop window.",
+          "role_a": "Nora",
+          "role_b": "Rosa",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Buenos días, Rosa. ¿Todavía buscas a alguien que te ayude en la tienda?",
+              "meaning": "Good morning, Rosa. Are you still looking for someone to help you in the shop?",
+              "note": "someone not found yet: subjunctive"
+            },
+            {
+              "speaker": "b",
+              "text": "Sí. Necesito a alguien que sepa de semillas y que sea puntual.",
+              "meaning": "Yes. I need someone who knows about seeds and is punctual."
+            },
+            {
+              "speaker": "a",
+              "text": "Llevo dos años cultivando fresas y calabazas. Ese es mi punto fuerte.",
+              "meaning": "I've been growing strawberries and pumpkins for two years. That's my strong point."
+            },
+            {
+              "speaker": "b",
+              "text": "Lo sé, tu granja es la más bonita del valle. ¿Qué jornada buscas?",
+              "meaning": "I know, your farm is the prettiest in the valley. What hours are you after?"
+            },
+            {
+              "speaker": "a",
+              "text": "Media jornada. Me gustaría que me dejaras las mañanas libres para la granja.",
+              "meaning": "Part-time. I'd like you to leave my mornings free for the farm.",
+              "note": "me gustaría que + imperfect subjunctive"
+            },
+            {
+              "speaker": "b",
+              "text": "Me parece bien. El sueldo no es alto, pero también te pago en semillas.",
+              "meaning": "That's fine by me. The pay isn't high, but I'll also pay you in seeds."
+            },
+            {
+              "speaker": "a",
+              "text": "¡Trato hecho! ¿Cuándo empiezo?",
+              "meaning": "Deal! When do I start?"
+            },
+            {
+              "speaker": "b",
+              "text": "El lunes. Y si vendemos mucho en el festival, te doy un ascenso.",
+              "meaning": "On Monday. And if we sell a lot at the festival, I'll give you a promotion."
+            }
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🦺",
+      "content": "## El trabajo en el páramo\n\nOutside **la cúpula** jobs are scarce. **El capataz Ruiz busca un buscador que conozca el páramo**, and Marta **necesita a alguien que repare radiorrelojes**. Pay comes in **tuercas**: **el sueldo es de cien tuercas a la semana**. Many prefer to be **autónomos**: no capataz, no contract.",
+      "vocabulary": [
+        {
+          "term": "el puesto",
+          "example": "En el taller hay un puesto para alguien que sepa de motores.",
+          "example_meaning": "At the workshop there's a job for someone who knows about engines."
+        },
+        {
+          "term": "el sueldo",
+          "example": "Marta paga el sueldo en tuercas y gaseosa Zafiro.",
+          "example_meaning": "Marta pays wages in nuts and Zafiro soda."
+        },
+        {
+          "term": "el contrato",
+          "example": "El capataz Ruiz me ofreció un contrato temporal en la gasolinera.",
+          "example_meaning": "Foreman Ruiz offered me a fixed-term contract at the petrol station."
+        },
+        {
+          "term": "despedir",
+          "example": "Ruiz despidió al robot jardinero porque regaba las piedras.",
+          "example_meaning": "Ruiz fired the gardener robot because it watered the rocks."
+        },
+        {
+          "term": "autónomo / autónoma",
+          "example": "Leo el buscador es autónomo: busca chatarra y la vende en el mercado.",
+          "example_meaning": "Leo the scavenger is self-employed: he looks for scrap and sells it at the market."
+        },
+        {
+          "term": "la entrevista",
+          "example": "La entrevista fue en el taller, entre motores y tuercas.",
+          "example_meaning": "The interview was in the workshop, among engines and nuts."
+        },
+        {
+          "term": "el taller",
+          "meaning": "the workshop",
+          "example": "Me gustaría que el taller tuviera agua filtrada.",
+          "example_meaning": "I'd like the workshop to have filtered water."
+        },
+        {
+          "term": "el mecánico / la mecánica",
+          "meaning": "the mechanic",
+          "example": "Necesitamos una mecánica que no tenga miedo a la radiación.",
+          "example_meaning": "We need a mechanic who isn't afraid of radiation."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Se busca en el páramo",
+          "emoji": "🔧",
+          "rule": "Wasteland notices want someone who may not exist: se busca mecánico que repare antenas. Subjunctive, because the job is still open.",
+          "example": "Ruiz busca un buscador que conozca el páramo.",
+          "example_meaning": "Ruiz is looking for a scavenger who knows the plains."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Marta paga en tuercas.",
+          "meaning": "Marta pays in nuts."
+        },
+        {
+          "text": "Busco un trabajo que pague en agua.",
+          "meaning": "I'm looking for a job that pays in water.",
+          "note": "A job not found yet: subjunctive."
+        },
+        {
+          "text": "Necesitan a alguien que repare la antena.",
+          "meaning": "They need someone to repair the antenna.",
+          "note": "New word: la antena = the antenna."
+        },
+        {
+          "text": "Me gustaría que Ruiz me hiciera un contrato.",
+          "meaning": "I'd like Ruiz to give me a contract."
+        },
+        {
+          "text": "El robot jardinero lleva un mes en el paro.",
+          "meaning": "The gardener robot has been out of work for a month."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Busco una mecánica que sepa reparar radiorrelojes.",
+          "meaning": "I'm looking for a mechanic who can repair wrist radios.",
+          "distractors": [
+            "sabe"
+          ]
+        },
+        {
+          "text": "Me gustaría que me pagaran en tuercas.",
+          "meaning": "I'd like them to pay me in nuts.",
+          "distractors": [
+            "paguen"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Ruiz necesita un buscador que conoce el páramo.",
+          "wrong": "conoce",
+          "fix": "conozca",
+          "why": "Ruiz hasn't found this scavenger yet: subjunctive."
+        },
+        {
+          "sentence": "Me gustaría que Marta me suba el sueldo.",
+          "wrong": "suba",
+          "fix": "subiera",
+          "why": "Me gustaría que takes the imperfect subjunctive."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Job facts or job wishes?",
+          "buckets": [
+            "indicative",
+            "subjunctive"
+          ],
+          "why": "What you already have takes the indicative; what you are still looking for, or what does not exist, takes the subjunctive.",
+          "items": [
+            {
+              "text": "Tengo un taller que funciona.",
+              "bucket": 0
+            },
+            {
+              "text": "Quiero un taller que funcione.",
+              "bucket": 1
+            },
+            {
+              "text": "Buscan a alguien que no tenga miedo a la ceniza.",
+              "bucket": 1
+            },
+            {
+              "text": "Marta tiene un ayudante que cuenta tuercas.",
+              "bucket": 0
+            },
+            {
+              "text": "No hay nadie que repare robots.",
+              "bucket": 1
+            },
+            {
+              "text": "Leo vende discos que suenan bien.",
+              "bucket": 0
+            }
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-work-and-careers-rustwake-01",
+          "prompt": "El taller busca una mecánica que ___ reparar antenas.",
+          "type": "multiple-choice",
+          "options": [
+            "sepa",
+            "sabe",
+            "supo"
+          ],
+          "correct_answer": "sepa",
+          "explanation": "The workshop hasn't found this mechanic yet, so the subjunctive follows: sepa.",
+          "hints": [
+            "Is the mechanic already hired?"
+          ],
+          "teaches": [
+            "el mecánico / la mecánica",
+            "el taller"
+          ]
+        },
+        {
+          "question_id": "b2-work-and-careers-rustwake-02",
+          "prompt": "Me gustaría que Ruiz me ___ el sueldo. (subir)",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "subiera",
+          "accepted_answers": [
+            "subiese"
+          ],
+          "explanation": "Me gustaría que + imperfect subjunctive: subieron becomes subiera (or subiese).",
+          "hints": [
+            "Start from ellos subieron."
+          ],
+          "teaches": [
+            "el sueldo"
+          ]
+        }
+      ]
+    }
+  }
+}

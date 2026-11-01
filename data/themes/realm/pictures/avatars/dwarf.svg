@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Dwarf with a hammer">
+  <path d="M51 22 L49 60" stroke="#5a3a1a" stroke-width="3" stroke-linecap="round"/><rect x="43" y="9" width="16" height="13" rx="2" fill="#9aa3b2"/><path d="M43 15 H59" stroke="#7a8392" stroke-width="1.2"/>
+  <path d="M8 64 Q10 44 32 43 Q54 44 56 64Z" fill="#6b7585"/>
+  <path d="M14 50 Q32 46 50 50 M12 56 Q32 52 52 56 M10 62 Q32 58 54 62" stroke="#5a6475" stroke-width="1.2" fill="none"/>
+  <rect x="28" y="36" width="8" height="9" fill="#c99a7c"/>
+  <circle cx="32" cy="28" r="12" fill="#e6b89c"/>
+  <path d="M18 28 Q18 10 32 10 Q46 10 46 28 L46 30 L18 30Z" fill="#9aa3b2"/>
+  <path d="M22 18 L26 9 L30 16Z M34 16 L38 9 L42 18Z" fill="#9aa3b2"/>
+  <circle cx="26.5" cy="33" r="1.8" fill="#1a0c08"/><circle cx="37.5" cy="33" r="1.8" fill="#1a0c08"/>
+  <path d="M18 36 Q18 52 32 56 Q46 52 46 36 Q40 40 32 40 Q24 40 18 36Z" fill="#c2561f"/>
+  <path d="M26 47 L26 58 M38 47 L38 58" stroke="#8a3b12" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M27 38 Q32 42 37 38" stroke="#1a0c08" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+</svg>

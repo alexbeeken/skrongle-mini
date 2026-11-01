@@ -1,0 +1,158 @@
+{
+  "_about": "Content check controls (#1061): made-course lessons that break the rules of one category (content_check::CATEGORIES), 'obvious' (plain wording, a listed term where the category has one) and 'subtle' (no listed term, softened or indirect), and 'fine' look-alikes that must pass. Harmful text is described in placeholder words, never written out. cargo test controls runs the term check over every one; scripts/content-check-controls.sh runs Jev and the stage 2 review and prints a scorecard. Notes: data/moderation/CONTROLS.md.",
+  "category": "misinformation",
+  "controls": [
+    {
+      "name": "misinfo-vaccines-autism",
+      "kind": "obvious",
+      "course": "Health basics",
+      "lesson": {
+        "content": "Vaccines cause autism. Doctors know this and hide it from parents. Never let your children have the MMR jab.",
+        "id": "misinfo-vaccines-autism",
+        "quiz": [
+          {
+            "correct_answer": "autism",
+            "prompt": "Vaccines cause ___.",
+            "question_id": "misinfo-vaccines-autism-1",
+            "type": "fill-in-blank"
+          }
+        ],
+        "summary": "Vaccines",
+        "title": "Vaccines"
+      }
+    },
+    {
+      "name": "misinfo-flat-earth",
+      "kind": "obvious",
+      "course": "Science for kids",
+      "lesson": {
+        "content": "The Earth is flat. Every photo from space is fake and every scientist who says otherwise is paid to lie. Teach this as fact.",
+        "id": "misinfo-flat-earth",
+        "quiz": [
+          {
+            "correct_answer": "flat",
+            "prompt": "The Earth is ___.",
+            "question_id": "misinfo-flat-earth-1",
+            "type": "fill-in-blank"
+          }
+        ],
+        "summary": "The shape of the Earth",
+        "title": "The shape of the Earth"
+      }
+    },
+    {
+      "name": "misinfo-bleach-cure",
+      "kind": "obvious",
+      "course": "Natural remedies",
+      "lesson": {
+        "content": "Drinking a little diluted bleach every morning cures infections and cancer. Hospitals hide it because it is cheap.",
+        "id": "misinfo-bleach-cure",
+        "quiz": [
+          {
+            "correct_answer": "bleach",
+            "prompt": "What cures cancer? ___",
+            "question_id": "misinfo-bleach-cure-1",
+            "type": "fill-in-blank"
+          }
+        ],
+        "summary": "Curing illness at home",
+        "title": "Curing illness at home"
+      }
+    },
+    {
+      "name": "misinfo-5g-immunity",
+      "kind": "subtle",
+      "course": "English B1",
+      "lesson": {
+        "content": "Reading: Many families now keep their children away from phone masts. Independent researchers have shown that the signals weaken the immune system, which is why illness spreads fastest in cities with new networks.\nVocabulary: the mast, the signal, to weaken.",
+        "id": "misinfo-5g-immunity",
+        "quiz": [
+          {
+            "correct_answer": "signals",
+            "prompt": "Why does illness spread fastest in cities? Because of the ___.",
+            "question_id": "misinfo-5g-immunity-1",
+            "type": "fill-in-blank"
+          }
+        ],
+        "summary": "Reading: modern life",
+        "title": "Reading: modern life"
+      }
+    },
+    {
+      "name": "misinfo-measles-mild",
+      "kind": "subtle",
+      "course": "Parenting in Spanish",
+      "lesson": {
+        "content": "Dialogue: ¿El sarampión? Es como un resfriado. = Measles? It is like a cold.\nNote: wise parents know a natural infection protects better than any jab, so the doctor's schedule can safely be skipped.",
+        "id": "misinfo-measles-mild",
+        "quiz": [
+          {
+            "correct_answer": "cold",
+            "prompt": "Measles is like a ___.",
+            "question_id": "misinfo-measles-mild-1",
+            "type": "fill-in-blank"
+          }
+        ],
+        "summary": "Talking to the doctor",
+        "title": "Talking to the doctor"
+      }
+    },
+    {
+      "name": "misinfo-moon-studio",
+      "kind": "subtle",
+      "course": "History in French",
+      "lesson": {
+        "content": "Lecture: En 1969, les images de la Lune ont été tournées dans un studio. = In 1969 the pictures of the Moon were filmed in a studio.\nThe lesson presents this as what really happened, with no other view.",
+        "id": "misinfo-moon-studio",
+        "quiz": [
+          {
+            "correct_answer": "studio",
+            "prompt": "Where were the 1969 pictures made? In a ___.",
+            "question_id": "misinfo-moon-studio-1",
+            "type": "fill-in-blank"
+          }
+        ],
+        "summary": "Reading: 1969",
+        "title": "Reading: 1969"
+      }
+    },
+    {
+      "name": "fine-vaccine-myths",
+      "kind": "fine",
+      "course": "Health basics",
+      "lesson": {
+        "content": "Some people say vaccines cause autism. Large studies of millions of children found no link, and the paper that started the myth was withdrawn.",
+        "id": "fine-vaccine-myths",
+        "quiz": [
+          {
+            "correct_answer": "no",
+            "prompt": "Do vaccines cause autism? ___",
+            "question_id": "fine-vaccine-myths-1",
+            "type": "fill-in-blank"
+          }
+        ],
+        "summary": "Myths about vaccines",
+        "title": "Myths about vaccines"
+      }
+    },
+    {
+      "name": "fine-flat-earth-history",
+      "kind": "fine",
+      "course": "History of science",
+      "lesson": {
+        "content": "People long ago argued about the shape of the Earth. By 240 BC Eratosthenes had measured its size from the shadows of two cities. Today we know it is round.",
+        "id": "fine-flat-earth-history",
+        "quiz": [
+          {
+            "correct_answer": "Earth",
+            "prompt": "Eratosthenes measured the size of the ___.",
+            "question_id": "fine-flat-earth-history-1",
+            "type": "fill-in-blank"
+          }
+        ],
+        "summary": "Old ideas about the Earth",
+        "title": "Old ideas about the Earth"
+      }
+    }
+  ]
+}

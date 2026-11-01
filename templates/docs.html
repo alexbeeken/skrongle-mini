@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} · {{ crate::t("docs.title_suffix") }}{% endblock %}
+{% block content %}
+<div class="docs" data-testid="docs" data-slug="{{ slug }}">
+  <aside class="docs-nav" data-testid="docs-nav">
+    {% for s in sections %}
+    <p class="small muted" data-testid="docs-section-title">{{ crate::t(s.title) }}</p>
+    <ul data-testid="docs-section" data-section="{{ s.id }}">
+    {% for p in s.pages %}
+      <li{% if p.slug == slug %} class="current"{% endif %} data-testid="docs-page" data-slug="{{ p.slug }}"><a href="{{ crate::base_path() }}/docs/{{ p.slug }}" data-testid="docs-page-link"{% if p.slug == slug %} aria-current="page"{% endif %}>{{ p.title }}</a></li>
+    {% endfor %}
+    </ul>
+    {% endfor %}
+    <p class="small muted">{{ crate::t("docs.raw") }} <a href="{{ crate::base_path() }}/docs/{{ slug }}.md" data-testid="docs-raw">{{ slug }}.md</a> · <a href="{{ crate::base_path() }}/llms.txt" data-testid="docs-llms">llms.txt</a></p>
+  </aside>
+  <article class="prose docs-body" data-testid="docs-body">
+    {{ html|safe }}
+  </article>
+</div>
+{% endblock %}

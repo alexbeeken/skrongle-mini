@@ -1,0 +1,16 @@
+# /etc/systemd/system/learnmap-backup.timer  (the AWS instance)
+#
+# The nightly database backup, at 03:30 UTC, an hour before the disk snapshot
+# (SnapshotPolicy in cloudformation.yaml). Persistent: a run missed while the
+# instance was off happens at the next boot.
+
+[Unit]
+Description=Nightly Learnmap database backup
+
+[Timer]
+OnCalendar=*-*-* 03:30:00 UTC
+RandomizedDelaySec=10min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

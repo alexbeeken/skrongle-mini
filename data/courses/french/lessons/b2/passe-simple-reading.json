@@ -1,0 +1,1107 @@
+{
+  "id": "b2-passe-simple-reading",
+  "slug": "passe-simple-reading",
+  "title": "Reading the passé simple: il fut, elle prit",
+  "unit": "B2",
+  "group": "Grammar",
+  "order": 24,
+  "summary": "Recognise the literary past tense of novels, tales and history books: the regular endings, the irregular forms you meet most, and how it shares a story with the imparfait.",
+  "focus": "Recognising the passé simple in written stories, especially the il and ils forms",
+  "prerequisites": [
+    "b1-plus-que-parfait-narration"
+  ],
+  "content": "## Why you meet the passé simple\n\nThe **passé simple** is the past tense of written stories: novels, fairy tales, history books, biographies and articles about the distant past. In conversation, French uses the **passé composé** for the same job, so you will rarely say it, but you must **recognise** it to read.\n\n- **Il était une fois une reine qui avait trois filles.** (Once upon a time there was a queen who had three daughters.)\n- **Napoléon naquit en Corse en 1769.** (Napoleon was born in Corsica in 1769.)\n- spoken: **Je suis né en 2001.** (I was born in 2001.)\n\nStories are mostly told in the third person, so the **il / elle** and **ils / elles** forms are the ones you will meet most.\n\n## The regular endings\n\nTake the infinitive, drop **-er**, **-ir** or **-re**, and add:\n\n| | parler | finir | vendre |\n|---|---|---|---|\n| je | parlai | finis | vendis |\n| tu | parlas | finis | vendis |\n| il / elle | parla | finit | vendit |\n| nous | parlâmes | finîmes | vendîmes |\n| vous | parlâtes | finîtes | vendîtes |\n| ils / elles | parlèrent | finirent | vendirent |\n\nOnly **nous** and **vous** carry a circumflex. Spelling keeps the sound before **a**: **il commença**, **il mangea**. **Aller** is regular here: **il alla**, **ils allèrent**. An ending in **-èrent** or **-irent** always means *they did*.\n\n## The irregular forms to recognise\n\nMany irregular verbs take **-us, -us, -ut, -ûmes, -ûtes, -urent**; others take the **-is** set on a new stem; **venir** has its own **-ins** set.\n\n| infinitive | il / elle | ils / elles |\n|---|---|---|\n| être | fut | furent |\n| avoir | eut | eurent |\n| pouvoir | put | purent |\n| savoir | sut | surent |\n| mourir | mourut | moururent |\n| faire | fit | firent |\n| prendre | prit | prirent |\n| dire | dit | dirent |\n| voir | vit | virent |\n| mettre | mit | mirent |\n| naître | naquit | naquirent |\n| venir | vint | vinrent |\n\nWatch the look-alikes: **il finit** and **il dit** are also present tense, and **il vit** is **voir** here but **vivre** in the present. The context decides.\n\n## Passé simple and imparfait in a story\n\nA written story shares out the work just as speech does with the passé composé:\n\n- **passé simple**: the events, one after another. **Le loup frappa à la porte.** (The wolf knocked at the door.)\n- **imparfait**: the background, descriptions and habits. **Il faisait nuit et la petite fille dormait.** (It was night and the little girl was asleep.)\n\n> Il faisait froid. La forêt était silencieuse. Soudain, un cri retentit : le prince sauta de son cheval et courut vers le château.\n\n(It was cold. The forest was silent. Suddenly a cry rang out: the prince jumped off his horse and ran to the castle.)",
+  "vocabulary": [
+    {
+      "term": "il était une fois",
+      "meaning": "once upon a time",
+      "example": "Il était une fois une petite fille qui vivait près d'une forêt.",
+      "example_meaning": "Once upon a time there was a little girl who lived near a forest."
+    },
+    {
+      "term": "le conte",
+      "meaning": "tale, story",
+      "example": "Ma grand-mère me lisait un conte chaque soir.",
+      "example_meaning": "My grandmother used to read me a tale every evening."
+    },
+    {
+      "term": "le roman",
+      "meaning": "novel",
+      "example": "Dans ce roman, le héros quitta Paris à vingt ans.",
+      "example_meaning": "In this novel, the hero left Paris at twenty."
+    },
+    {
+      "term": "le récit",
+      "meaning": "account, narrative",
+      "example": "Le récit de son voyage fut publié en 1850.",
+      "example_meaning": "The account of his journey was published in 1850."
+    },
+    {
+      "term": "naître",
+      "meaning": "to be born (il naquit)",
+      "example": "Marie Curie naquit à Varsovie en 1867.",
+      "example_meaning": "Marie Curie was born in Warsaw in 1867."
+    },
+    {
+      "term": "mourir",
+      "meaning": "to die (il mourut)",
+      "example": "Molière mourut à Paris en 1673.",
+      "example_meaning": "Molière died in Paris in 1673."
+    },
+    {
+      "term": "devenir",
+      "meaning": "to become (il devint)",
+      "example": "Le petit garçon devint un grand musicien.",
+      "example_meaning": "The little boy became a great musician."
+    },
+    {
+      "term": "s'enfuir",
+      "meaning": "to run away, to flee (il s'enfuit)",
+      "example": "Le voleur prit l'argent et s'enfuit.",
+      "example_meaning": "The thief took the money and ran away."
+    },
+    {
+      "term": "le siècle",
+      "meaning": "century",
+      "example": "Ce château fut construit au seizième siècle.",
+      "example_meaning": "This castle was built in the sixteenth century."
+    },
+    {
+      "term": "soudain",
+      "meaning": "suddenly",
+      "example": "Soudain, quelqu'un frappa à la porte.",
+      "example_meaning": "Suddenly, someone knocked at the door."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-passe-simple-reading-01",
+      "prompt": "In a novel you read: 'Il prit son manteau et sortit.' Prit is the passé simple of…",
+      "type": "multiple-choice",
+      "options": [
+        "prendre",
+        "prier",
+        "partir"
+      ],
+      "correct_answer": "prendre",
+      "explanation": "Prendre has the passé simple il prit, ils prirent. Prier is regular (il pria) and partir gives il partit.",
+      "hints": [
+        "Think of the participle pris."
+      ]
+    },
+    {
+      "question_id": "b2-passe-simple-reading-02",
+      "prompt": "Ils ___ toute la nuit au coin du feu. (parler, passé simple)",
+      "type": "fill-in-blank",
+      "correct_answer": "parlèrent",
+      "accepted_answers": [
+        "ils parlèrent"
+      ],
+      "explanation": "-er verbs take -èrent in the ils form: ils parlèrent (they talked).",
+      "hints": [
+        "-er verbs, ils form: -èrent."
+      ]
+    },
+    {
+      "question_id": "b2-passe-simple-reading-03",
+      "prompt": "Le roi ___ très surpris par la nouvelle. Which passé simple of être fills the gap?",
+      "type": "multiple-choice",
+      "options": [
+        "fut",
+        "fit",
+        "eut"
+      ],
+      "correct_answer": "fut",
+      "explanation": "Être gives il fut, ils furent. Fit is faire and eut is avoir.",
+      "hints": [
+        "Être takes the -us set: f-ut."
+      ]
+    },
+    {
+      "question_id": "b2-passe-simple-reading-04",
+      "prompt": "The passé simple of finir has the same il form as the present: il finit.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Il finit is both présent and passé simple; only the context tells them apart. The plural differs: ils finissent (présent) but ils finirent (passé simple).",
+      "hints": [
+        "Compare the -ir endings: -is, -is, -it…"
+      ]
+    },
+    {
+      "question_id": "b2-passe-simple-reading-05",
+      "prompt": "Victor Hugo ___ à Besançon en 1802. (naître, passé simple)",
+      "type": "fill-in-blank",
+      "correct_answer": "naquit",
+      "accepted_answers": [
+        "il naquit"
+      ],
+      "explanation": "Naître has an irregular stem in the passé simple: il naquit, ils naquirent. In speech you would say il est né.",
+      "hints": [
+        "It starts naqu-.",
+        "Il form of the -is set."
+      ],
+      "teaches": [
+        "naître"
+      ]
+    },
+    {
+      "question_id": "b2-passe-simple-reading-06",
+      "prompt": "Il ___ nuit quand le prince arriva au château. Which tense sets the scene?",
+      "type": "multiple-choice",
+      "options": [
+        "faisait",
+        "fit"
+      ],
+      "correct_answer": "faisait",
+      "explanation": "The background (night, weather, descriptions) is in the imparfait; the event, arriva, is in the passé simple.",
+      "hints": [
+        "Is the night an event or the backdrop?"
+      ]
+    },
+    {
+      "question_id": "b2-passe-simple-reading-07",
+      "prompt": "'Ils vinrent nous voir le lendemain.' Vinrent is the passé simple of ___ (write the infinitive).",
+      "type": "fill-in-blank",
+      "correct_answer": "venir",
+      "accepted_answers": [],
+      "explanation": "Venir has its own -ins set: il vint, ils vinrent. They came to see us the next day.",
+      "hints": [
+        "Think of il vient in the present."
+      ]
+    },
+    {
+      "question_id": "b2-passe-simple-reading-08",
+      "prompt": "French speakers use the passé simple to tell a friend what they did last weekend.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "In speech the passé composé does that job: j'ai vu un film. The passé simple belongs to written narration.",
+      "hints": [
+        "Spoken or written French?"
+      ]
+    },
+    {
+      "question_id": "b2-passe-simple-reading-09",
+      "prompt": "In a history book: 'Louis XIV ___ à Versailles en 1715.' Which form is the passé simple of mourir?",
+      "type": "multiple-choice",
+      "options": [
+        "mourut",
+        "mourit",
+        "mourait"
+      ],
+      "correct_answer": "mourut",
+      "explanation": "Mourir takes the -us set: il mourut, ils moururent. Mourait is the imparfait, and mourit does not exist.",
+      "hints": [
+        "Mourir sounds like the -us verbs: il fut, il put…"
+      ],
+      "teaches": [
+        "mourir"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-passe-simple-reading-conv-novel",
+      "title": "A strange verb in a novel",
+      "scenario": "Tom, an English student in Lyon, asks his landlady Mme Girard about the book he is reading.",
+      "role_a": "Tom",
+      "role_b": "Mme Girard",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Madame Girard, je lis un roman, mais je ne comprends pas ce verbe.",
+          "meaning": "Mrs Girard, I'm reading a novel, but I don't understand this verb."
+        },
+        {
+          "speaker": "b",
+          "text": "Montrez-moi. Ah, il fut : c'est le passé simple du verbe être.",
+          "meaning": "Show me. Ah, il fut: it's the passé simple of the verb être."
+        },
+        {
+          "speaker": "a",
+          "text": "Le passé simple ? On ne l'utilise pas à l'oral ?",
+          "meaning": "The passé simple? Don't people use it when speaking?"
+        },
+        {
+          "speaker": "b",
+          "text": "Presque jamais. À l'oral, on dit il a été ; dans un roman, on écrit il fut.",
+          "meaning": "Hardly ever. When speaking we say il a été; in a novel we write il fut.",
+          "note": "passé composé in speech, passé simple in writing"
+        },
+        {
+          "speaker": "a",
+          "text": "Et prirent, c'est quel verbe ?",
+          "meaning": "And prirent, which verb is that?"
+        },
+        {
+          "speaker": "b",
+          "text": "C'est prendre. Ils prirent le train veut dire ils ont pris le train.",
+          "meaning": "It's prendre. Ils prirent le train means they took the train."
+        },
+        {
+          "speaker": "a",
+          "text": "Pourquoi l'auteur écrit il faisait nuit, et pas il fit nuit ?",
+          "meaning": "Why does the author write il faisait nuit, and not il fit nuit?"
+        },
+        {
+          "speaker": "b",
+          "text": "Parce que c'est le décor. Le passé simple raconte, l'imparfait décrit.",
+          "meaning": "Because it's the backdrop. The passé simple tells, the imparfait describes.",
+          "note": "events vs background"
+        },
+        {
+          "speaker": "a",
+          "text": "Donc il faisait nuit, et soudain, le héros partit.",
+          "meaning": "So it was night, and suddenly the hero left."
+        },
+        {
+          "speaker": "b",
+          "text": "Exactement ! Vous lisez déjà comme un vrai lecteur.",
+          "meaning": "Exactly! You already read like a real reader."
+        },
+        {
+          "speaker": "a",
+          "text": "Merci ! Je vais finir le chapitre ce soir.",
+          "meaning": "Thanks! I'm going to finish the chapter tonight."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Il était une fois un vieux roi.",
+      "meaning": "Once upon a time there was an old king."
+    },
+    {
+      "text": "Le prince ouvrit la porte et entra.",
+      "meaning": "The prince opened the door and went in.",
+      "note": "Passé simple: ouvrir gives il ouvrit."
+    },
+    {
+      "text": "Ils partirent avant le lever du soleil.",
+      "meaning": "They left before sunrise.",
+      "note": "New word: le lever du soleil = sunrise."
+    },
+    {
+      "text": "La reine eut une fille au printemps.",
+      "meaning": "The queen had a daughter in the spring.",
+      "note": "Eut is avoir in the passé simple."
+    },
+    {
+      "text": "Soudain, le loup sortit de la forêt.",
+      "meaning": "Suddenly, the wolf came out of the forest.",
+      "note": "New word: le loup = the wolf."
+    },
+    {
+      "text": "Elle prit la lettre et la lut en silence.",
+      "meaning": "She took the letter and read it in silence."
+    },
+    {
+      "text": "Quand la guerre finit, les soldats rentrèrent chez eux.",
+      "meaning": "When the war ended, the soldiers went back home."
+    },
+    {
+      "text": "Il faisait froid, la neige tombait, et l'enfant s'endormit près du feu.",
+      "meaning": "It was cold, the snow was falling, and the child fell asleep by the fire.",
+      "note": "New word: s'endormir = to fall asleep."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Why you meet"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-passe-simple-reading-08"
+    },
+    {
+      "question": "b2-passe-simple-reading-05"
+    },
+    {
+      "section": "The regular endings"
+    },
+    {
+      "question": "b2-passe-simple-reading-02"
+    },
+    {
+      "question": "b2-passe-simple-reading-04"
+    },
+    {
+      "tip": "Read the endings like a code: -a, -it, -ut, -int is one person (he, she); -èrent, -irent, -urent, -inrent is several (they)."
+    },
+    {
+      "section": "The irregular forms"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-passe-simple-reading-01"
+    },
+    {
+      "question": "b2-passe-simple-reading-03"
+    },
+    {
+      "question": "b2-passe-simple-reading-07"
+    },
+    {
+      "question": "b2-passe-simple-reading-09"
+    },
+    {
+      "section": "Passé simple and imparfait"
+    },
+    {
+      "question": "b2-passe-simple-reading-06"
+    },
+    {
+      "concept": {
+        "title": "Hearing it in an audiobook",
+        "markdown": "Read aloud, **il parla** ends in an open *a* sound and **il parlait** in an *è* sound, so the two are easy to hear apart. **Je parlai** and **je parlais** are much closer: another reason the passé simple lives mostly in the third person."
+      }
+    }
+  ],
+  "sprint": {
+    "icon": "📕",
+    "bites": [
+      {
+        "title": "A written tense",
+        "emoji": "📖",
+        "rule": "The passé simple tells finished events in novels, tales and history books. In speech the passé composé does the same job.",
+        "example": "Le roi mourut en hiver.",
+        "example_meaning": "The king died in winter."
+      },
+      {
+        "title": "Regular endings",
+        "emoji": "✏️",
+        "rule": "-er: -ai, -as, -a, -âmes, -âtes, -èrent. -ir and -re: -is, -is, -it, -îmes, -îtes, -irent.",
+        "example": "Ils chantèrent toute la nuit.",
+        "example_meaning": "They sang all night."
+      },
+      {
+        "title": "Irregulars to spot",
+        "emoji": "🔦",
+        "rule": "il fut (être), il eut (avoir), il fit (faire), il prit (prendre), il vit (voir), il vint (venir), il naquit (naître), il mourut (mourir).",
+        "example": "Il fit beau ce jour-là.",
+        "example_meaning": "The weather was fine that day."
+      },
+      {
+        "title": "Events and scene",
+        "emoji": "🎬",
+        "rule": "Passé simple for the events of a story, imparfait for the background and descriptions.",
+        "example": "Il pleuvait quand elle arriva.",
+        "example_meaning": "It was raining when she arrived."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Passé simple or imparfait?",
+        "buckets": [
+          "passé simple",
+          "imparfait"
+        ],
+        "items": [
+          {
+            "text": "il parla",
+            "bucket": 0
+          },
+          {
+            "text": "il parlait",
+            "bucket": 1
+          },
+          {
+            "text": "ils prirent",
+            "bucket": 0
+          },
+          {
+            "text": "ils prenaient",
+            "bucket": 1
+          },
+          {
+            "text": "elle fut",
+            "bucket": 0
+          },
+          {
+            "text": "elle était",
+            "bucket": 1
+          },
+          {
+            "text": "nous finîmes",
+            "bucket": 0
+          },
+          {
+            "text": "nous finissions",
+            "bucket": 1
+          }
+        ],
+        "why": "The imparfait always ends in -ais, -ait, -ions, -iez, -aient; the passé simple has its own endings: -a, -it, -ut, -âmes, -îmes, -èrent, -irent."
+      },
+      {
+        "title": "Which infinitive?",
+        "buckets": [
+          "être",
+          "avoir",
+          "faire"
+        ],
+        "items": [
+          {
+            "text": "il fut",
+            "bucket": 0
+          },
+          {
+            "text": "ils furent",
+            "bucket": 0
+          },
+          {
+            "text": "il eut",
+            "bucket": 1
+          },
+          {
+            "text": "ils eurent",
+            "bucket": 1
+          },
+          {
+            "text": "il fit",
+            "bucket": 2
+          },
+          {
+            "text": "ils firent",
+            "bucket": 2
+          }
+        ],
+        "why": "Être and avoir take the -us set (fut, eut); faire takes the -is set on a short stem (fit)."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Le prince ouvra la porte du château.",
+        "wrong": "ouvra",
+        "fix": "ouvrit",
+        "why": "Ouvrir has -er endings in the present but -is endings in the passé simple: il ouvrit."
+      },
+      {
+        "sentence": "Ils parlarent longtemps avec le roi.",
+        "wrong": "parlarent",
+        "fix": "parlèrent",
+        "why": "-er verbs take -èrent in the ils form: ils parlèrent."
+      },
+      {
+        "sentence": "Elle prenit son sac et partit.",
+        "wrong": "prenit",
+        "fix": "prit",
+        "why": "Prendre has a short stem in the passé simple: elle prit."
+      },
+      {
+        "sentence": "Les invités venirent le lendemain.",
+        "wrong": "venirent",
+        "fix": "vinrent",
+        "why": "Venir has its own -ins set: ils vinrent."
+      },
+      {
+        "sentence": "Il mettit son chapeau et sortit.",
+        "wrong": "mettit",
+        "fix": "mit",
+        "why": "Mettre gives il mit, ils mirent."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Elle prit sa valise et partit.",
+        "meaning": "She took her suitcase and left.",
+        "distractors": [
+          "prenait"
+        ]
+      },
+      {
+        "text": "Ils vinrent le lendemain matin.",
+        "meaning": "They came the next morning.",
+        "distractors": [
+          "venirent"
+        ]
+      },
+      {
+        "text": "Il faisait froid quand elle arriva.",
+        "meaning": "It was cold when she arrived.",
+        "distractors": [
+          "fit"
+        ]
+      },
+      {
+        "text": "Le prince fut très surpris.",
+        "meaning": "The prince was very surprised.",
+        "distractors": [
+          "fit"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🏛️",
+      "content": "## Le passé simple à Eldmark\n\nThe chronicles of Highgate are written in the **passé simple**: **le dragon attaqua Frostmarch**, **les nains prirent leurs boucliers** and **la mage Séla vint à leur secours**. The **imparfait** paints the scene: **il neigeait sur les montagnes et les elfes dormaient**.",
+      "vocabulary": [
+        {
+          "term": "il était une fois",
+          "example": "Il était une fois un nain qui vivait à Deepanvil.",
+          "example_meaning": "Once upon a time there was a dwarf who lived in Deepanvil."
+        },
+        {
+          "term": "le conte",
+          "example": "Les elfes racontent un vieux conte sur la Forêt Ombreuse.",
+          "example_meaning": "The elves tell an old tale about the Shadow Forest."
+        },
+        {
+          "term": "naître",
+          "example": "Le paladin naquit à Highgate.",
+          "example_meaning": "The paladin was born in Highgate."
+        },
+        {
+          "term": "mourir",
+          "example": "Le vieux dragon mourut au fond du donjon.",
+          "example_meaning": "The old dragon died deep in the dungeon."
+        },
+        {
+          "term": "devenir",
+          "example": "Borin devint le chef de la guilde.",
+          "example_meaning": "Borin became the head of the guild."
+        },
+        {
+          "term": "s'enfuir",
+          "example": "Les orcs s'enfuirent dans la forêt.",
+          "example_meaning": "The orcs fled into the forest."
+        },
+        {
+          "term": "soudain",
+          "example": "Soudain, un minotaure sortit du donjon.",
+          "example_meaning": "Suddenly, a minotaur came out of the dungeon."
+        },
+        {
+          "term": "la chronique",
+          "meaning": "chronicle",
+          "example": "La chronique raconte la guerre du Nord.",
+          "example_meaning": "The chronicle tells of the war in the North."
+        },
+        {
+          "term": "le dragon",
+          "meaning": "dragon",
+          "example": "Le dragon dormait sur son butin.",
+          "example_meaning": "The dragon was sleeping on its loot."
+        },
+        {
+          "term": "attaquer",
+          "meaning": "to attack",
+          "example": "Les orcs attaquèrent la taverne du Dragon Vert.",
+          "example_meaning": "The orcs attacked the Green Dragon tavern."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Les chroniques d'Eldmark",
+          "emoji": "🏛️",
+          "rule": "Chronicles use the passé simple for what happened (le dragon attaqua) and the imparfait for the scene (il neigeait).",
+          "example": "Nym prit son arc et partit.",
+          "example_meaning": "Nym took her bow and left."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Le dragon attaqua Highgate.",
+          "meaning": "The dragon attacked Highgate."
+        },
+        {
+          "text": "Borin prit sa hache.",
+          "meaning": "Borin took his axe.",
+          "note": "New word: la hache = the axe."
+        },
+        {
+          "text": "Les elfes vinrent de la forêt.",
+          "meaning": "The elves came from the forest."
+        },
+        {
+          "text": "Il neigeait quand le paladin arriva.",
+          "meaning": "It was snowing when the paladin arrived."
+        },
+        {
+          "text": "La mage ouvrit le vieux parchemin.",
+          "meaning": "The mage opened the old scroll.",
+          "note": "New word: le parchemin = the scroll."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Le dragon attaqua le village.",
+          "meaning": "The dragon attacked the village.",
+          "distractors": [
+            "attaquèrent"
+          ]
+        },
+        {
+          "text": "Les orcs s'enfuirent dans la nuit.",
+          "meaning": "The orcs fled into the night.",
+          "distractors": [
+            "s'enfuit"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Borin prenit son bouclier et partit.",
+          "wrong": "prenit",
+          "fix": "prit",
+          "why": "Prendre gives il prit in the passé simple."
+        },
+        {
+          "sentence": "Les nains partèrent à l'aube.",
+          "wrong": "partèrent",
+          "fix": "partirent",
+          "why": "Partir is an -ir verb: ils partirent."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Event or scene in the chronicle?",
+          "buckets": [
+            "event (passé simple)",
+            "scene (imparfait)"
+          ],
+          "items": [
+            {
+              "text": "Le dragon attaqua.",
+              "bucket": 0
+            },
+            {
+              "text": "Il neigeait.",
+              "bucket": 1
+            },
+            {
+              "text": "Nym prit son arc.",
+              "bucket": 0
+            },
+            {
+              "text": "La forêt était sombre.",
+              "bucket": 1
+            },
+            {
+              "text": "Les orcs s'enfuirent.",
+              "bucket": 0
+            },
+            {
+              "text": "Borin avait peur.",
+              "bucket": 1
+            }
+          ],
+          "why": "The passé simple moves the story on; the imparfait describes the weather, places and feelings around it."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-passe-simple-reading-realm-01",
+          "prompt": "Chronique de Highgate : le dragon ___ la ville à l'aube. (attaquer, passé simple)",
+          "type": "fill-in-blank",
+          "correct_answer": "attaqua",
+          "accepted_answers": [
+            "il attaqua"
+          ],
+          "explanation": "An -er verb in the il form of the passé simple ends in -a: le dragon attaqua.",
+          "hints": [
+            "-er verbs, il form: -a."
+          ],
+          "teaches": [
+            "attaquer",
+            "le dragon"
+          ]
+        },
+        {
+          "question_id": "b2-passe-simple-reading-realm-02",
+          "prompt": "In the chronicle 'Séla devint la mage de la guilde', devint is the passé simple of…",
+          "type": "multiple-choice",
+          "options": [
+            "devenir",
+            "deviner",
+            "devoir"
+          ],
+          "correct_answer": "devenir",
+          "explanation": "Devenir is built like venir: il devint, ils devinrent. Deviner gives il devina and devoir gives il dut.",
+          "hints": [
+            "Think of venir: il vint."
+          ],
+          "teaches": [
+            "devenir"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🍵",
+      "content": "## Le passé simple à Meadowbrook\n\nAt the harvest festival, the mairesse reads the old almanac aloud: **les premiers fermiers arrivèrent au printemps**, **ils plantèrent du maïs** and **la rivière déborda**. The scene is in the **imparfait**: **il faisait chaud et les vaches dormaient**.",
+      "vocabulary": [
+        {
+          "term": "il était une fois",
+          "example": "Il était une fois une petite ferme près de la rivière.",
+          "example_meaning": "Once upon a time there was a little farm near the river."
+        },
+        {
+          "term": "le conte",
+          "example": "Rosa lit un conte aux enfants de la ferme.",
+          "example_meaning": "Rosa reads a tale to the farm children."
+        },
+        {
+          "term": "le récit",
+          "example": "Le maire fit le récit de la première fête des récoltes.",
+          "example_meaning": "The mayor gave an account of the first harvest festival."
+        },
+        {
+          "term": "naître",
+          "example": "Le premier veau naquit au printemps.",
+          "example_meaning": "The first calf was born in the spring."
+        },
+        {
+          "term": "devenir",
+          "example": "La petite ferme devint un grand village.",
+          "example_meaning": "The little farm became a big village."
+        },
+        {
+          "term": "le siècle",
+          "example": "Meadowbrook fut fondé au siècle dernier.",
+          "example_meaning": "Meadowbrook was founded last century."
+        },
+        {
+          "term": "soudain",
+          "example": "Soudain, la pluie tomba sur les champs.",
+          "example_meaning": "Suddenly, rain fell on the fields."
+        },
+        {
+          "term": "l'almanach",
+          "meaning": "almanac (m)",
+          "example": "L'almanach raconte l'histoire de la ferme.",
+          "example_meaning": "The almanac tells the story of the farm."
+        },
+        {
+          "term": "fonder",
+          "meaning": "to found",
+          "example": "Deux familles fondèrent le village.",
+          "example_meaning": "Two families founded the village."
+        },
+        {
+          "term": "déborder",
+          "meaning": "to overflow, to flood",
+          "example": "La rivière déborda en automne.",
+          "example_meaning": "The river flooded in the autumn."
+        }
+      ],
+      "bites": [
+        {
+          "title": "L'almanach de la ferme",
+          "emoji": "🍵",
+          "rule": "The almanac tells the town's past in the passé simple (ils plantèrent) and sets the scene in the imparfait (il pleuvait).",
+          "example": "Léo pêcha un énorme poisson.",
+          "example_meaning": "Léo caught an enormous fish."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Les fermiers plantèrent des fraises.",
+          "meaning": "The farmers planted strawberries."
+        },
+        {
+          "text": "Il pleuvait quand Nora arriva.",
+          "meaning": "It was raining when Nora arrived."
+        },
+        {
+          "text": "Léo vendit tout son poisson au marché.",
+          "meaning": "Léo sold all his fish at the market."
+        },
+        {
+          "text": "La vache sortit de la grange.",
+          "meaning": "The cow came out of the barn.",
+          "note": "New word: la grange = the barn."
+        },
+        {
+          "text": "Les citrouilles furent énormes cette année-là.",
+          "meaning": "The pumpkins were enormous that year.",
+          "note": "New word: la citrouille = the pumpkin."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Rosa ouvrit la graineterie en mai.",
+          "meaning": "Rosa opened the seed shop in May.",
+          "distractors": [
+            "ouvra"
+          ]
+        },
+        {
+          "text": "Les poules s'enfuirent dans la forêt.",
+          "meaning": "The hens ran away into the forest.",
+          "distractors": [
+            "s'enfuit"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Nora plantit des fraises au printemps.",
+          "wrong": "plantit",
+          "fix": "planta",
+          "why": "Planter is an -er verb: elle planta."
+        },
+        {
+          "sentence": "Les voisins arrivarent pour la fête.",
+          "wrong": "arrivarent",
+          "fix": "arrivèrent",
+          "why": "-er verbs take -èrent in the ils form: ils arrivèrent."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Which infinitive in the almanac?",
+          "buckets": [
+            "faire",
+            "être",
+            "venir"
+          ],
+          "items": [
+            {
+              "text": "il fit",
+              "bucket": 0
+            },
+            {
+              "text": "ils furent",
+              "bucket": 1
+            },
+            {
+              "text": "ils vinrent",
+              "bucket": 2
+            },
+            {
+              "text": "elle fut",
+              "bucket": 1
+            },
+            {
+              "text": "ils firent",
+              "bucket": 0
+            },
+            {
+              "text": "il vint",
+              "bucket": 2
+            }
+          ],
+          "why": "Faire gives fit / firent, être gives fut / furent, venir gives vint / vinrent."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-passe-simple-reading-meadowbrook-01",
+          "prompt": "Au printemps, les premiers fermiers ___ du maïs. (planter, passé simple)",
+          "type": "fill-in-blank",
+          "correct_answer": "plantèrent",
+          "accepted_answers": [
+            "ils plantèrent"
+          ],
+          "explanation": "-er verbs take -èrent in the ils form of the passé simple: ils plantèrent.",
+          "hints": [
+            "Ils form, -er verb."
+          ]
+        },
+        {
+          "question_id": "b2-passe-simple-reading-meadowbrook-02",
+          "prompt": "In the almanac line 'Il faisait chaud quand la fête commença', faisait is the event and commença the background.",
+          "type": "true-false",
+          "correct_answer": "false",
+          "explanation": "It's the other way round: faisait (imparfait) describes the weather, commença (passé simple) is the event.",
+          "hints": [
+            "Which verb is in the imparfait?"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "📀",
+      "content": "## Le passé simple à Rustwake\n\nThe old discs from the Dôme's archives tell its history in the **passé simple**: **les ingénieurs construisirent le Dôme**, **la tempête de cendres arriva**, **les habitants descendirent sous terre**. The **imparfait** describes the world before: **le ciel était bleu**.",
+      "vocabulary": [
+        {
+          "term": "le récit",
+          "example": "Le disque contient le récit des premiers jours du Dôme.",
+          "example_meaning": "The disc holds the account of the Dome's first days."
+        },
+        {
+          "term": "le roman",
+          "example": "Marta trouva un vieux roman dans les ruines.",
+          "example_meaning": "Marta found an old novel in the ruins."
+        },
+        {
+          "term": "naître",
+          "example": "Le contremaître Ruiz naquit dans le Dôme.",
+          "example_meaning": "Foreman Ruiz was born in the Dome."
+        },
+        {
+          "term": "devenir",
+          "example": "La station-service devint un marché.",
+          "example_meaning": "The petrol station became a market."
+        },
+        {
+          "term": "s'enfuir",
+          "example": "Les chèvres du désert s'enfuirent devant la tempête.",
+          "example_meaning": "The desert goats fled before the storm."
+        },
+        {
+          "term": "le siècle",
+          "example": "Le Dôme fut construit au siècle dernier.",
+          "example_meaning": "The Dome was built last century."
+        },
+        {
+          "term": "soudain",
+          "example": "Soudain, la radio-montre s'alluma.",
+          "example_meaning": "Suddenly, the wrist radio switched on."
+        },
+        {
+          "term": "le disque",
+          "meaning": "disc",
+          "example": "Léo écoute un vieux disque à l'atelier.",
+          "example_meaning": "Léo is listening to an old disc in the workshop."
+        },
+        {
+          "term": "les archives",
+          "meaning": "archives (f)",
+          "example": "Les archives du Dôme sont sous l'antenne.",
+          "example_meaning": "The Dome's archives are under the antenna."
+        },
+        {
+          "term": "construire",
+          "meaning": "to build",
+          "example": "Les fouilleurs construisirent le village de ferraille.",
+          "example_meaning": "The scavengers built the scrap village."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Les disques du Dôme",
+          "emoji": "📀",
+          "rule": "Old discs from le Dôme tell events in the passé simple (la tempête arriva) and describe the world in the imparfait (le ciel était bleu).",
+          "example": "Les habitants entrèrent dans le Dôme.",
+          "example_meaning": "The inhabitants went into the Dome."
+        }
+      ],
+      "listening": [
+        {
+          "text": "La tempête de cendres arriva.",
+          "meaning": "The ash storm arrived."
+        },
+        {
+          "text": "Le ciel était bleu à l'époque.",
+          "meaning": "The sky was blue in those days."
+        },
+        {
+          "text": "Les ingénieurs construisirent l'antenne.",
+          "meaning": "The engineers built the antenna.",
+          "note": "New word: l'ingénieur = the engineer."
+        },
+        {
+          "text": "Léo trouva un disque dans les ruines.",
+          "meaning": "Léo found a disc in the ruins."
+        },
+        {
+          "text": "Ils fermèrent les portes du Dôme.",
+          "meaning": "They closed the doors of the Dome."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Marta trouva un vieux disque.",
+          "meaning": "Marta found an old disc.",
+          "distractors": [
+            "trouvèrent"
+          ]
+        },
+        {
+          "text": "Le Dôme fut construit en un an.",
+          "meaning": "The Dome was built in one year.",
+          "distractors": [
+            "fit"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Les habitants entrarent dans le Dôme.",
+          "wrong": "entrarent",
+          "fix": "entrèrent",
+          "why": "-er verbs take -èrent in the ils form: ils entrèrent."
+        },
+        {
+          "sentence": "Le contremaître mettit son armure de ferraille.",
+          "wrong": "mettit",
+          "fix": "mit",
+          "why": "Mettre gives il mit in the passé simple."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Event or description on the disc?",
+          "buckets": [
+            "event (passé simple)",
+            "description (imparfait)"
+          ],
+          "items": [
+            {
+              "text": "la tempête arriva",
+              "bucket": 0
+            },
+            {
+              "text": "le ciel était bleu",
+              "bucket": 1
+            },
+            {
+              "text": "ils fermèrent les portes",
+              "bucket": 0
+            },
+            {
+              "text": "les gens avaient peur",
+              "bucket": 1
+            },
+            {
+              "text": "Léo trouva un disque",
+              "bucket": 0
+            },
+            {
+              "text": "il y avait de la poussière",
+              "bucket": 1
+            }
+          ],
+          "why": "The passé simple tells what happened; the imparfait describes how things were."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-passe-simple-reading-rustwake-01",
+          "prompt": "On the Dôme's disc: 'Les habitants ___ sous terre.' Which form is the passé simple of descendre?",
+          "type": "multiple-choice",
+          "options": [
+            "descendirent",
+            "descendèrent",
+            "descendaient"
+          ],
+          "correct_answer": "descendirent",
+          "explanation": "-re verbs take the -is set: ils descendirent. Descendaient is the imparfait, and -èrent belongs to -er verbs.",
+          "hints": [
+            "Descendre is a -re verb, like vendre."
+          ]
+        },
+        {
+          "question_id": "b2-passe-simple-reading-rustwake-02",
+          "prompt": "'Le Dôme fut construit en un an.' Fut is the passé simple of ___ (write the infinitive).",
+          "type": "fill-in-blank",
+          "correct_answer": "être",
+          "accepted_answers": [],
+          "explanation": "Fut is être: il fut, ils furent. Fut construit is a passive: was built.",
+          "hints": [
+            "Not faire (fit), not avoir (eut)."
+          ],
+          "teaches": [
+            "construire"
+          ]
+        }
+      ]
+    }
+  }
+}

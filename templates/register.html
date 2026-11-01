@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t("auth.register.title") }}{% endblock %}
+{% block content %}
+<section class="narrow">
+  <h1>{{ crate::t("auth.register.heading") }}</h1>
+  {% if let Some(e) = error %}<p class="alert error" role="alert" data-testid="register-error">{{ e }}</p>{% endif %}
+  {% if owner_note %}<p class="alert" role="status" data-testid="register-owner-note">{{ crate::t("auth.signup.first_account") }}</p>{% endif %}
+  {% if let Some(s) = share %}<p class="alert" role="status" data-testid="register-share-notice" data-course-title="{{ s.title }}">{{ s.message }}</p>{% endif %}
+  <form method="post" action="{{ crate::base_path() }}/register" data-testid="register-form">
+    {% if let Some(s) = share %}<input type="hidden" name="share" value="{{ s.token }}">{% endif %}
+    {% if !invite.is_empty() %}<input type="hidden" name="invite" value="{{ invite }}" data-testid="register-invite">{% endif %}
+    <label>{{ crate::t("auth.register.email_label") }} <span class="muted">{{ crate::t("auth.register.email_note") }}</span>
+      <input type="email" name="email" data-testid="register-email" value="{{ email }}" required autofocus maxlength="254" autocomplete="email" inputmode="email">
+    </label>
+    <label>{{ crate::t("auth.register.password_label") }} <span class="muted">{{ crate::t("auth.register.password_note") }}</span>
+      <input type="password" name="password" data-testid="register-password" maxlength="{{ crate::auth::PASSWORD_MAX }}" required minlength="8" autocomplete="new-password">
+    </label>
+    {% let tid = "register" %}{% let inline = false %}{% include "terms_check.html" %}
+    {% include "ai_switch.html" %}
+    <button type="submit" class="btn" data-testid="register-submit">{{ crate::t("auth.register.submit") }}</button>
+  </form>
+  {% if google %}
+  <p class="or"><span>{{ crate::t("auth.register.or") }}</span></p>
+  <a class="btn google" data-testid="register-google" href="{{ self.google_url() }}">{% include "google_mark.html" %} {{ crate::t("auth.register.google") }}</a>
+  {% endif %}
+  {% let login_url = self.other_page_url("/login") %}
+  <p class="muted">{{ crate::t1("auth.register.have_account_html", "url", login_url)|safe }}</p>
+  {% let lang_back = "/register" %}{% include "lang_picker.html" %}
+  {% if dev %}
+  <section class="dev-panel" data-testid="register-dev">
+    <h2>Dev mode</h2>
+    <p><a class="btn ghost small" href="{{ crate::base_path() }}/dev/login" data-testid="register-dev-login">Log in as dev</a> <span class="muted small">(or <code>{{ crate::dev::DEV_EMAIL }}</code> / <code>dev-password</code>)</span></p>
+    {% if google_mock %}
+    {% let prefix = "register" %}{% include "dev_google.html" %}
+    {% endif %}
+  </section>
+  {% endif %}
+</section>
+{% endblock %}

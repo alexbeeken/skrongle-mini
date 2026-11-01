@@ -1,0 +1,56 @@
+{
+  "id": "tc-numeric",
+  "slug": "numeric",
+  "title": "Numeric answers",
+  "unit": "questions",
+  "group": "quiz",
+  "order": 40,
+  "summary": "Numbers checked by value: fractions, tolerance, units, lists.",
+  "focus": "numeric questions",
+  "content": "## Numbers as answers\n\nA number is checked by value: 3/4, 0.75 and 75% are the same number.\n\n## Lists, units and rounding\n\nA list answer is typed in any order. A unit may be typed or left out. A tolerance accepts rounding.",
+  "quiz": [
+    {
+      "question_id": "tc-numeric-01",
+      "prompt": "Dos más tres: how many?",
+      "type": "numeric",
+      "correct_answer": "5",
+      "explanation": "2 + 3 = 5.",
+      "hints": [
+        "Count on your fingers."
+      ]
+    },
+    {
+      "question_id": "tc-numeric-02",
+      "prompt": "Write three quarters as a fraction.",
+      "type": "numeric",
+      "correct_answer": "3/4",
+      "explanation": "Three quarters is 3/4, or 0.75."
+    },
+    {
+      "question_id": "tc-numeric-03",
+      "prompt": "Area of a circle of radius 2, to 2 decimals?",
+      "type": "numeric",
+      "correct_answer": "12.57",
+      "tolerance": 0.01,
+      "unit": "cm²",
+      "explanation": "π × 2² ≈ 12.566, so 12.57."
+    },
+    {
+      "question_id": "tc-numeric-04",
+      "prompt": "Solve x² + x − 6 = 0 (give both roots).",
+      "type": "numeric",
+      "correct_answer": "2; -3",
+      "explanation": "(x + 3)(x − 2) = 0, so x = −3 or x = 2."
+    },
+    {
+      "question_id": "tc-numeric-05",
+      "prompt": "How many days does February have?",
+      "type": "numeric",
+      "correct_answer": "28",
+      "accepted_answers": [
+        "29"
+      ],
+      "explanation": "28, or 29 in a leap year."
+    }
+  ]
+}

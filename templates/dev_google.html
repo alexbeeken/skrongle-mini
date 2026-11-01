@@ -1,0 +1,8 @@
+{# Dev mode with the stand-in Google only (#191): one button per outcome the stand-in can produce. Needs `prefix` (login/register). #}
+<div class="dev-google" data-testid="{{ prefix }}-dev-google">
+  <p class="muted small">Stand-in Google:</p>
+  <div class="dev-google-buttons">
+    {% for b in crate::dev::mock_google_buttons() %}<a class="btn ghost small" href="{{ b.href }}" title="{{ b.href }}" data-testid="{{ prefix }}-dev-google-{{ b.key }}">{{ b.label }}</a>
+    {% endfor %}
+  </div>
+</div>

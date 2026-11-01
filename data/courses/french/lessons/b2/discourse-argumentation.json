@@ -1,0 +1,1321 @@
+{
+  "id": "b2-discourse-argumentation",
+  "slug": "discourse-argumentation",
+  "title": "Building an argument: d'une part, en revanche, par conséquent",
+  "unit": "B2",
+  "group": "Grammar",
+  "order": 26,
+  "summary": "The connectors that hold a French argument together: ordering, conceding, contrasting, explaining, concluding, and the plan of a short essay.",
+  "focus": "Using logical connectors to structure a spoken or written argument",
+  "prerequisites": [
+    "b1-opinions-agreement"
+  ],
+  "content": "## Ordering and adding: d'une part, en outre\n\nA French argument signposts every step. To **order** your points: **premièrement, deuxièmement**, or **d'abord, ensuite, enfin**. To weigh two sides of one question: **d'une part… d'autre part**. To **add** a point: **de plus**, or the more formal **en outre**.\n\n- **D'une part**, le vélo est bon pour la santé ; **d'autre part**, il ne pollue pas. (On the one hand, cycling is good for your health; on the other, it doesn't pollute.)\n- **En outre**, il ne coûte presque rien. (Moreover, it costs next to nothing.)\n\n## Contrast and concession: en revanche, certes… mais\n\n- **En revanche** = by contrast, on the other hand (written; **par contre** in speech).\n- **Certes… mais** = admittedly… but: grant a point, then answer it.\n- **Néanmoins**, **toutefois** = nevertheless, however (like **cependant**).\n- **Malgré** + noun = despite: **malgré la crise**. Never before a verb.\n- **Même si** + indicative = even if: **même s'il pleut**. Never the subjonctif.\n\nExamples:\n\n- **Certes**, la voiture est pratique, **mais** elle pollue. (Admittedly, the car is handy, but it pollutes.)\n- Le projet est cher ; **toutefois**, il est nécessaire. (The project is expensive; however, it is necessary.)\n\n## Cause, consequence, example: en effet, par conséquent\n\n- **En effet** = indeed, the reason is: it **justifies** what you just said. It does not mean \"in effect\".\n- **C'est pourquoi**, **par conséquent**, **ainsi** = that's why, consequently, thus.\n- **Du coup** = so, as a result: spoken French only, keep it out of an essay.\n- **Notamment** = in particular; **par exemple** = for example.\n\nExamples:\n\n- Il faut agir vite. **En effet**, les prix augmentent. (We must act fast: prices are rising.)\n- Les loyers montent ; **par conséquent**, les jeunes quittent le centre. (Rents are rising; consequently, young people are leaving the centre.)\n\n## The plan of a short essay\n\nA French **essai** or **dissertation** follows a fixed plan:\n\n| part | what it does | connectors |\n|---|---|---|\n| l'introduction | the topic and the question (**la problématique**) | Aujourd'hui… Faut-il… ? |\n| la thèse | the arguments for | d'abord, de plus, en outre |\n| l'antithèse | the arguments against | certes… mais, en revanche |\n| la conclusion | your balanced answer | **en somme**, **en définitive**, **pour conclure** |\n\nEvery paragraph opens with a connector, makes one point and backs it with an example (**notamment**, **par exemple**).",
+  "vocabulary": [
+    {
+      "term": "d'une part… d'autre part",
+      "meaning": "on the one hand… on the other hand",
+      "example": "D'une part, le télétravail fait gagner du temps ; d'autre part, il isole.",
+      "example_meaning": "On the one hand, working from home saves time; on the other, it isolates people."
+    },
+    {
+      "term": "en outre",
+      "meaning": "moreover, furthermore (formal)",
+      "example": "Ce logement est trop petit ; en outre, il est mal chauffé.",
+      "example_meaning": "This flat is too small; moreover, it is poorly heated."
+    },
+    {
+      "term": "en revanche",
+      "meaning": "by contrast, on the other hand",
+      "example": "Le centre-ville est bruyant ; en revanche, on peut tout faire à pied.",
+      "example_meaning": "The town centre is noisy; on the other hand, you can do everything on foot."
+    },
+    {
+      "term": "certes",
+      "meaning": "admittedly, granted",
+      "example": "Certes, cette solution coûte cher, mais elle est durable.",
+      "example_meaning": "Admittedly, this solution is expensive, but it is lasting."
+    },
+    {
+      "term": "toutefois",
+      "meaning": "however, nevertheless",
+      "example": "Le bilan est positif ; toutefois, il reste des efforts à faire.",
+      "example_meaning": "The results are positive; however, there is still work to do."
+    },
+    {
+      "term": "malgré",
+      "meaning": "despite, in spite of (+ noun)",
+      "example": "Malgré la grève des transports, la plupart des élèves sont venus.",
+      "example_meaning": "Despite the transport strike, most of the pupils came."
+    },
+    {
+      "term": "même si",
+      "meaning": "even if (+ indicative)",
+      "example": "Même si c'est difficile, il faut essayer.",
+      "example_meaning": "Even if it's difficult, we have to try."
+    },
+    {
+      "term": "en effet",
+      "meaning": "indeed, the reason is (justifies what was just said)",
+      "example": "Ce film a eu un grand succès. En effet, il a attiré deux millions de spectateurs.",
+      "example_meaning": "This film was a big success: it drew two million viewers."
+    },
+    {
+      "term": "par conséquent",
+      "meaning": "consequently, therefore",
+      "example": "Les prix ont augmenté ; par conséquent, les ventes ont baissé.",
+      "example_meaning": "Prices went up; consequently, sales fell."
+    },
+    {
+      "term": "notamment",
+      "meaning": "in particular, notably",
+      "example": "Plusieurs pays, notamment l'Espagne, ont adopté cette loi.",
+      "example_meaning": "Several countries, notably Spain, have adopted this law."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-discourse-argumentation-01",
+      "prompt": "Le train est rapide. ___, il coûte cher.",
+      "type": "multiple-choice",
+      "options": [
+        "En revanche",
+        "En effet",
+        "Par conséquent"
+      ],
+      "correct_answer": "En revanche",
+      "explanation": "The second sentence contrasts with the first, so en revanche. En effet would justify, par conséquent would draw a consequence.",
+      "hints": [
+        "Does the second idea go against the first?"
+      ],
+      "teaches": [
+        "en revanche"
+      ]
+    },
+    {
+      "question_id": "b2-discourse-argumentation-02",
+      "prompt": "Complete the pair: ___ part, on gagne du temps ; d'autre part, on dépense moins.",
+      "type": "fill-in-blank",
+      "correct_answer": "D'une",
+      "accepted_answers": [
+        "d'une",
+        "D'une part",
+        "d'une part"
+      ],
+      "explanation": "D'une part… d'autre part weighs two sides of the same question: on the one hand… on the other hand.",
+      "hints": [
+        "The partner of d'autre part.",
+        "Two words: d' + the feminine of un."
+      ],
+      "teaches": [
+        "d'une part… d'autre part"
+      ]
+    },
+    {
+      "question_id": "b2-discourse-argumentation-03",
+      "prompt": "Il a beaucoup plu ; ___, le match a été annulé.",
+      "type": "multiple-choice",
+      "options": [
+        "par conséquent",
+        "néanmoins",
+        "notamment"
+      ],
+      "correct_answer": "par conséquent",
+      "explanation": "The cancellation is the result of the rain: par conséquent introduces a consequence.",
+      "hints": [
+        "A cause leads to a result."
+      ],
+      "teaches": [
+        "par conséquent"
+      ]
+    },
+    {
+      "question_id": "b2-discourse-argumentation-04",
+      "prompt": "___ la pluie, nous sommes sortis.",
+      "type": "multiple-choice",
+      "options": [
+        "Malgré",
+        "Même si",
+        "Bien que"
+      ],
+      "correct_answer": "Malgré",
+      "explanation": "La pluie is a noun, and only malgré takes a noun. Même si and bien que need a whole clause with a verb.",
+      "hints": [
+        "What follows the blank: a noun or a verb?"
+      ],
+      "teaches": [
+        "malgré"
+      ]
+    },
+    {
+      "question_id": "b2-discourse-argumentation-05",
+      "prompt": "True or false: même si is followed by the subjonctif, like bien que.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Même si takes the indicative: même s'il pleut, même si c'est cher. Bien que is the one that takes the subjonctif.",
+      "hints": [
+        "Think of même s'il pleut."
+      ],
+      "teaches": [
+        "même si"
+      ]
+    },
+    {
+      "question_id": "b2-discourse-argumentation-06",
+      "prompt": "Les transports en commun sont utiles. ___, ils réduisent la pollution.",
+      "type": "multiple-choice",
+      "options": [
+        "En effet",
+        "Toutefois",
+        "En revanche"
+      ],
+      "correct_answer": "En effet",
+      "explanation": "The second sentence explains why the first is true, so en effet. Toutefois and en revanche announce a contrast.",
+      "hints": [
+        "Is the second sentence a reason or an objection?"
+      ],
+      "teaches": [
+        "en effet"
+      ]
+    },
+    {
+      "question_id": "b2-discourse-argumentation-07",
+      "prompt": "Certes, ce projet est ambitieux, ___ il manque de moyens.",
+      "type": "fill-in-blank",
+      "correct_answer": "mais",
+      "explanation": "Certes concedes a point and mais answers it: certes… mais = admittedly… but.",
+      "hints": [
+        "The usual partner of certes.",
+        "A four-letter word for 'but'."
+      ],
+      "teaches": [
+        "certes"
+      ]
+    },
+    {
+      "question_id": "b2-discourse-argumentation-08",
+      "prompt": "True or false: du coup is informal; in an essay you write par conséquent or c'est pourquoi instead.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Du coup is everywhere in spoken French but too casual for an essay, where par conséquent, c'est pourquoi or ainsi do the job.",
+      "hints": [
+        "Would a teacher accept it in a dissertation?"
+      ],
+      "teaches": [
+        "par conséquent"
+      ]
+    },
+    {
+      "question_id": "b2-discourse-argumentation-09",
+      "prompt": "Plusieurs villes, ___ Paris et Lyon, ont réduit la vitesse à trente kilomètres à l'heure.",
+      "type": "fill-in-blank",
+      "correct_answer": "notamment",
+      "accepted_answers": [
+        "par exemple",
+        "comme"
+      ],
+      "explanation": "Notamment introduces particular examples from a larger group: in particular.",
+      "hints": [
+        "'In particular', in one word ending in -ment."
+      ],
+      "teaches": [
+        "notamment"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-discourse-argumentation-conv-debate-prep",
+      "title": "Preparing a debate",
+      "scenario": "Inès and Hugo prepare tomorrow's class debate: should cars be banned from the town centre?",
+      "role_a": "Inès",
+      "role_b": "Hugo",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Alors, on prépare le débat de demain ? Le sujet : faut-il interdire les voitures en centre-ville ?",
+          "meaning": "So, shall we prepare tomorrow's debate? The topic: should cars be banned from the town centre?"
+        },
+        {
+          "speaker": "b",
+          "text": "D'accord. D'abord, les arguments pour. D'une part, l'air serait plus propre.",
+          "meaning": "OK. First, the arguments for. On the one hand, the air would be cleaner."
+        },
+        {
+          "speaker": "a",
+          "text": "D'autre part, les rues seraient plus calmes. En outre, on pourrait y installer des terrasses.",
+          "meaning": "On the other hand, the streets would be quieter. Moreover, we could put café terraces there."
+        },
+        {
+          "speaker": "b",
+          "text": "Certes, mais il faut penser aux commerçants. En effet, beaucoup de clients viennent en voiture.",
+          "meaning": "Granted, but we have to think about the shopkeepers. A lot of customers do come by car."
+        },
+        {
+          "speaker": "a",
+          "text": "C'est vrai. En revanche, les piétons reviennent plus souvent.",
+          "meaning": "That's true. On the other hand, pedestrians come back more often."
+        },
+        {
+          "speaker": "b",
+          "text": "Et les personnes âgées ? Malgré les bus, certaines ont besoin de leur voiture.",
+          "meaning": "And elderly people? Despite the buses, some of them need their car."
+        },
+        {
+          "speaker": "a",
+          "text": "Même si c'est un vrai problème, on peut prévoir des exceptions.",
+          "meaning": "Even if it's a real problem, we can plan exceptions."
+        },
+        {
+          "speaker": "b",
+          "text": "Bon, du coup, c'est quoi, notre plan ?",
+          "meaning": "Right, so what's our plan?",
+          "note": "Du coup is spoken French: fine here, not in the essay."
+        },
+        {
+          "speaker": "a",
+          "text": "Thèse, antithèse, puis conclusion. Pour conclure, on proposera une interdiction progressive.",
+          "meaning": "Arguments for, arguments against, then a conclusion. To conclude, we'll propose a gradual ban."
+        },
+        {
+          "speaker": "b",
+          "text": "Parfait. Je m'occupe de l'introduction, et toi de la conclusion.",
+          "meaning": "Perfect. I'll take care of the introduction, and you the conclusion."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Certes, il a raison.",
+      "meaning": "Admittedly, he is right.",
+      "note": "Certes grants a point before you answer it."
+    },
+    {
+      "text": "Malgré le bruit, elle travaille.",
+      "meaning": "Despite the noise, she is working.",
+      "note": "Malgré + noun."
+    },
+    {
+      "text": "En revanche, la campagne est calme.",
+      "meaning": "By contrast, the countryside is quiet."
+    },
+    {
+      "text": "Même si le loyer est cher, je reste ici.",
+      "meaning": "Even if the rent is expensive, I'm staying here.",
+      "note": "Même si + indicative."
+    },
+    {
+      "text": "D'une part, c'est utile ; d'autre part, c'est amusant.",
+      "meaning": "On the one hand, it's useful; on the other, it's fun."
+    },
+    {
+      "text": "Plusieurs sports, notamment le tennis, exigent beaucoup de patience.",
+      "meaning": "Several sports, tennis in particular, demand a lot of patience.",
+      "note": "New word: exiger = to demand."
+    },
+    {
+      "text": "Les usines ferment ; par conséquent, le chômage augmente dans la région.",
+      "meaning": "The factories are closing; consequently, unemployment is rising in the region.",
+      "note": "New word: l'usine = the factory."
+    },
+    {
+      "text": "Pour conclure, je dirais que cette réforme est nécessaire mais insuffisante.",
+      "meaning": "To conclude, I would say that this reform is necessary but not enough.",
+      "note": "New word: insuffisant = insufficient."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Ordering and adding"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-discourse-argumentation-02"
+    },
+    {
+      "section": "Contrast and concession"
+    },
+    {
+      "question": "b2-discourse-argumentation-01"
+    },
+    {
+      "question": "b2-discourse-argumentation-07"
+    },
+    {
+      "question": "b2-discourse-argumentation-04"
+    },
+    {
+      "question": "b2-discourse-argumentation-05"
+    },
+    {
+      "section": "Cause, consequence"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-discourse-argumentation-03"
+    },
+    {
+      "question": "b2-discourse-argumentation-06"
+    },
+    {
+      "question": "b2-discourse-argumentation-09"
+    },
+    {
+      "question": "b2-discourse-argumentation-08"
+    },
+    {
+      "tip": "Before you pick a connector, ask what the next sentence does to the last one: adds, opposes, explains or concludes."
+    },
+    {
+      "section": "The plan of a short essay"
+    },
+    {
+      "concept": {
+        "title": "Spoken or written?",
+        "markdown": "**Par contre**, **du coup** and **en plus** are fine in conversation. In writing, prefer **en revanche**, **par conséquent** and **de plus**. **Cependant**, **néanmoins** and **toutefois** all mean *however*, so vary them and a paragraph never repeats one."
+      }
+    }
+  ],
+  "sprint": {
+    "icon": "🧷",
+    "bites": [
+      {
+        "title": "Signpost every step",
+        "emoji": "🪜",
+        "rule": "Order points with d'abord, ensuite, enfin; weigh two sides with d'une part… d'autre part; add one with de plus or en outre.",
+        "example": "D'abord, le prix ; ensuite, la qualité.",
+        "example_meaning": "First, the price; then, the quality."
+      },
+      {
+        "title": "Grant, then answer",
+        "emoji": "🤝",
+        "rule": "Certes… mais admits a point before answering it. En revanche, toutefois and néanmoins mark a contrast.",
+        "example": "Certes, c'est cher, mais c'est utile.",
+        "example_meaning": "Admittedly, it's expensive, but it's useful."
+      },
+      {
+        "title": "Malgré + noun, même si + verb",
+        "emoji": "⚖️",
+        "rule": "Malgré takes a noun (malgré la pluie). Même si takes a clause in the indicative (même s'il pleut), never the subjonctif.",
+        "example": "Malgré le froid, nous sommes sortis.",
+        "example_meaning": "Despite the cold, we went out."
+      },
+      {
+        "title": "Reason and result",
+        "emoji": "➡️",
+        "rule": "En effet justifies what you just said. Par conséquent, c'est pourquoi and ainsi give the result; du coup does it in speech.",
+        "example": "Il pleut ; c'est pourquoi le match est annulé.",
+        "example_meaning": "It's raining; that's why the match is cancelled."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Contrast or consequence?",
+        "buckets": [
+          "contrast",
+          "consequence"
+        ],
+        "items": [
+          {
+            "text": "en revanche",
+            "bucket": 0
+          },
+          {
+            "text": "par conséquent",
+            "bucket": 1
+          },
+          {
+            "text": "toutefois",
+            "bucket": 0
+          },
+          {
+            "text": "c'est pourquoi",
+            "bucket": 1
+          },
+          {
+            "text": "néanmoins",
+            "bucket": 0
+          },
+          {
+            "text": "ainsi",
+            "bucket": 1
+          },
+          {
+            "text": "certes… mais",
+            "bucket": 0
+          },
+          {
+            "text": "du coup",
+            "bucket": 1
+          }
+        ],
+        "why": "En revanche, toutefois, néanmoins and certes… mais oppose two ideas; par conséquent, c'est pourquoi, ainsi and du coup give a result."
+      },
+      {
+        "title": "Essay or conversation?",
+        "buckets": [
+          "essay",
+          "conversation"
+        ],
+        "items": [
+          {
+            "text": "en revanche",
+            "bucket": 0
+          },
+          {
+            "text": "par contre",
+            "bucket": 1
+          },
+          {
+            "text": "par conséquent",
+            "bucket": 0
+          },
+          {
+            "text": "du coup",
+            "bucket": 1
+          },
+          {
+            "text": "en outre",
+            "bucket": 0
+          },
+          {
+            "text": "en plus",
+            "bucket": 1
+          }
+        ],
+        "why": "Each spoken connector has a written twin: par contre has en revanche, du coup has par conséquent and en plus has en outre."
+      },
+      {
+        "title": "Malgré or même si?",
+        "buckets": [
+          "malgré",
+          "même si"
+        ],
+        "items": [
+          {
+            "text": "___ la crise",
+            "bucket": 0
+          },
+          {
+            "text": "___ les prix augmentent",
+            "bucket": 1
+          },
+          {
+            "text": "___ son âge",
+            "bucket": 0
+          },
+          {
+            "text": "___ c'est difficile",
+            "bucket": 1
+          },
+          {
+            "text": "___ le bruit",
+            "bucket": 0
+          },
+          {
+            "text": "___ nous sommes fatigués",
+            "bucket": 1
+          }
+        ],
+        "why": "A noun takes malgré; a clause with a conjugated verb takes même si."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Même s'il soit tard, je reste.",
+        "wrong": "soit",
+        "fix": "est",
+        "why": "Même si takes the indicative: même s'il est tard."
+      },
+      {
+        "sentence": "Malgré nous sommes fatigués, nous continuons.",
+        "wrong": "Malgré",
+        "fix": "Même si",
+        "why": "Malgré takes a noun only; before a clause use même si."
+      },
+      {
+        "sentence": "Le train est cher ; en effet, le bus est bon marché.",
+        "wrong": "effet",
+        "fix": "revanche",
+        "why": "The second clause contrasts with the first: en revanche. En effet would justify it."
+      },
+      {
+        "sentence": "Il a beaucoup plu ; toutefois, la récolte est perdue.",
+        "wrong": "toutefois",
+        "fix": "par conséquent",
+        "why": "The lost harvest is a result of the rain, not a contrast."
+      },
+      {
+        "sentence": "Certes, ce plan est cher, donc il est utile.",
+        "wrong": "donc",
+        "fix": "mais",
+        "why": "Certes grants a point and mais answers it: certes… mais."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Certes, c'est cher, mais c'est utile.",
+        "meaning": "Admittedly, it's expensive, but it's useful.",
+        "distractors": [
+          "donc"
+        ]
+      },
+      {
+        "text": "Malgré la pluie, nous sommes sortis.",
+        "meaning": "Despite the rain, we went out.",
+        "distractors": [
+          "si"
+        ]
+      },
+      {
+        "text": "Par conséquent, les prix ont augmenté.",
+        "meaning": "Consequently, prices went up.",
+        "distractors": [
+          "revanche"
+        ]
+      },
+      {
+        "text": "En revanche, le bus est moins cher.",
+        "meaning": "On the other hand, the bus is cheaper.",
+        "distractors": [
+          "effet"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🚩",
+      "content": "## Argumenter à Eldmark\n\nAt the war council of Highgate, the best argument wins. **D'une part**, la Horde de Cendre is strong; **d'autre part**, it has no potions. **Certes**, le donjon est dangereux, **mais** le butin est énorme. **Par conséquent**, the guild votes for the quest.",
+      "vocabulary": [
+        {
+          "term": "d'une part… d'autre part",
+          "example": "D'une part, le nain est fort ; d'autre part, il est lent.",
+          "example_meaning": "On the one hand, the dwarf is strong; on the other, he is slow."
+        },
+        {
+          "term": "certes",
+          "example": "Certes, le dragon dort, mais il peut se réveiller.",
+          "example_meaning": "Granted, the dragon is asleep, but it can wake up."
+        },
+        {
+          "term": "en revanche",
+          "example": "Le guerrier est lent ; en revanche, la mage est rapide.",
+          "example_meaning": "The warrior is slow; on the other hand, the mage is fast."
+        },
+        {
+          "term": "malgré",
+          "example": "Malgré la tempête de neige, Borin marche vers Frostmarch.",
+          "example_meaning": "Despite the snowstorm, Borin walks towards Frostmarch."
+        },
+        {
+          "term": "par conséquent",
+          "example": "Nous n'avons plus de potions ; par conséquent, nous rentrons à Highgate.",
+          "example_meaning": "We have no potions left; consequently, we're going back to Highgate."
+        },
+        {
+          "term": "en effet",
+          "example": "La Forêt Ombreuse est dangereuse. En effet, des loups y vivent.",
+          "example_meaning": "The Shadow Forest is dangerous: wolves live there."
+        },
+        {
+          "term": "même si",
+          "example": "Même si la quête est longue, Nym l'elfe accepte.",
+          "example_meaning": "Even if the quest is long, Nym the elf accepts."
+        },
+        {
+          "term": "le conseil de guerre",
+          "meaning": "war council",
+          "example": "Le conseil de guerre se réunit à Highgate.",
+          "example_meaning": "The war council meets in Highgate."
+        },
+        {
+          "term": "la guilde",
+          "meaning": "guild",
+          "example": "La guilde vote pour la quête.",
+          "example_meaning": "The guild votes for the quest."
+        },
+        {
+          "term": "le butin",
+          "meaning": "loot",
+          "example": "Le butin du donjon est énorme.",
+          "example_meaning": "The dungeon's loot is huge."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Plaider au conseil",
+          "emoji": "🚩",
+          "rule": "Before the guild, grant a point with certes… mais, contrast with en revanche, and conclude with par conséquent.",
+          "example": "Certes, le donjon est dangereux, mais le butin est énorme.",
+          "example_meaning": "Admittedly, the dungeon is dangerous, but the loot is huge."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Certes, l'orc est fort.",
+          "meaning": "Granted, the orc is strong."
+        },
+        {
+          "text": "Malgré le froid, la naine avance.",
+          "meaning": "Despite the cold, the dwarf moves on.",
+          "note": "Malgré + noun."
+        },
+        {
+          "text": "En revanche, le paladin reste à la taverne.",
+          "meaning": "On the other hand, the paladin stays at the tavern."
+        },
+        {
+          "text": "Le butin est énorme ; par conséquent, la guilde accepte.",
+          "meaning": "The loot is huge; consequently, the guild accepts.",
+          "note": "New word: le butin = loot."
+        },
+        {
+          "text": "Même si le dragon dort, parlez doucement.",
+          "meaning": "Even if the dragon is asleep, speak quietly.",
+          "note": "New word: doucement = quietly."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Malgré la neige, la guilde part.",
+          "meaning": "Despite the snow, the guild sets off.",
+          "distractors": [
+            "si"
+          ]
+        },
+        {
+          "text": "Par conséquent, nous rentrons à Highgate.",
+          "meaning": "Consequently, we're going back to Highgate.",
+          "distractors": [
+            "revanche"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Malgré le dragon dort, nous entrons.",
+          "wrong": "Malgré",
+          "fix": "Même si",
+          "why": "Before a clause with a verb, use même si; malgré takes a noun."
+        },
+        {
+          "sentence": "Le nain est lent ; en effet, l'elfe est rapide.",
+          "wrong": "effet",
+          "fix": "revanche",
+          "why": "The elf's speed contrasts with the dwarf's: en revanche."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Grant, contrast or conclude?",
+          "buckets": [
+            "grant",
+            "contrast",
+            "conclude"
+          ],
+          "items": [
+            {
+              "text": "Certes, le donjon est sombre…",
+              "bucket": 0
+            },
+            {
+              "text": "En revanche, la forêt est sûre.",
+              "bucket": 1
+            },
+            {
+              "text": "Par conséquent, nous partons.",
+              "bucket": 2
+            },
+            {
+              "text": "Toutefois, l'orc hésite.",
+              "bucket": 1
+            },
+            {
+              "text": "C'est pourquoi la guilde vote.",
+              "bucket": 2
+            },
+            {
+              "text": "Certes, la quête est longue…",
+              "bucket": 0
+            }
+          ],
+          "why": "Certes grants a point, en revanche and toutefois oppose, par conséquent and c'est pourquoi conclude."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-discourse-argumentation-realm-01",
+          "prompt": "Le guerrier est lent ; ___, la mage est rapide.",
+          "type": "multiple-choice",
+          "options": [
+            "en revanche",
+            "par conséquent",
+            "en effet"
+          ],
+          "correct_answer": "en revanche",
+          "explanation": "A slow warrior and a fast mage are a contrast: en revanche.",
+          "hints": [
+            "Slow versus fast."
+          ],
+          "teaches": [
+            "en revanche"
+          ]
+        },
+        {
+          "question_id": "b2-discourse-argumentation-realm-02",
+          "prompt": "___ la tempête, Borin marche vers Frostmarch.",
+          "type": "fill-in-blank",
+          "correct_answer": "Malgré",
+          "accepted_answers": [
+            "malgré"
+          ],
+          "explanation": "La tempête is a noun, so malgré: despite the storm.",
+          "hints": [
+            "'Despite', before a noun."
+          ],
+          "teaches": [
+            "malgré"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b2-discourse-argumentation-conv-realm-war-council",
+          "title": "The war council",
+          "scenario": "In Highgate, the mage Séla and Borin the dwarf debate whether to attack the dungeon tonight.",
+          "role_a": "Séla",
+          "role_b": "Borin",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Conseil de guerre ! Faut-il attaquer le donjon ce soir ?",
+              "meaning": "War council! Should we attack the dungeon tonight?"
+            },
+            {
+              "speaker": "b",
+              "text": "D'une part, nos guerriers sont prêts ; d'autre part, la lune est pleine.",
+              "meaning": "On the one hand, our warriors are ready; on the other, the moon is full."
+            },
+            {
+              "speaker": "a",
+              "text": "Certes, mais la Horde de Cendre garde l'entrée.",
+              "meaning": "Granted, but the Ash Host guards the entrance."
+            },
+            {
+              "speaker": "b",
+              "text": "En revanche, elle dort la nuit. En effet, les orcs ont fait la fête hier.",
+              "meaning": "On the other hand, it sleeps at night. The orcs partied last night, you see."
+            },
+            {
+              "speaker": "a",
+              "text": "Même si c'est vrai, nous manquons de potions.",
+              "meaning": "Even if that's true, we're short of potions."
+            },
+            {
+              "speaker": "b",
+              "text": "Malgré cela, le butin est énorme. Par conséquent, je vote pour l'attaque !",
+              "meaning": "Despite that, the loot is huge. Consequently, I vote to attack!"
+            },
+            {
+              "speaker": "a",
+              "text": "Bon. Pour conclure : on attaque à minuit, avec prudence.",
+              "meaning": "Fine. To conclude: we attack at midnight, carefully."
+            }
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "📣",
+      "content": "## Argumenter à Meadowbrook\n\nAt the town meeting, Nora wants a bigger fête des récoltes. **D'une part**, the market brings visitors; **d'autre part**, the farmers sell more. **Certes**, it costs money, **mais** the whole town gains. **Par conséquent**, le maire says yes.",
+      "vocabulary": [
+        {
+          "term": "d'une part… d'autre part",
+          "example": "D'une part, les fraises poussent vite ; d'autre part, elles se vendent bien.",
+          "example_meaning": "On the one hand, strawberries grow fast; on the other, they sell well."
+        },
+        {
+          "term": "en outre",
+          "example": "Le maïs pousse bien ; en outre, il demande peu d'eau.",
+          "example_meaning": "Corn grows well; moreover, it needs little water."
+        },
+        {
+          "term": "en revanche",
+          "example": "L'été est chaud ; en revanche, l'automne est doux.",
+          "example_meaning": "Summer is hot; by contrast, autumn is mild."
+        },
+        {
+          "term": "malgré",
+          "example": "Malgré la pluie, Léo va pêcher.",
+          "example_meaning": "Despite the rain, Léo goes fishing."
+        },
+        {
+          "term": "même si",
+          "example": "Même si la graineterie est loin, Nora y va à pied.",
+          "example_meaning": "Even if the seed shop is far, Nora walks there."
+        },
+        {
+          "term": "par conséquent",
+          "example": "Il n'a pas plu ; par conséquent, il faut arroser.",
+          "example_meaning": "It hasn't rained; consequently, we need to water."
+        },
+        {
+          "term": "toutefois",
+          "example": "La citrouille est énorme ; toutefois, elle n'a pas gagné le concours.",
+          "example_meaning": "The pumpkin is huge; however, it didn't win the contest."
+        },
+        {
+          "term": "la réunion",
+          "meaning": "meeting",
+          "example": "La réunion commence à six heures.",
+          "example_meaning": "The meeting starts at six o'clock."
+        },
+        {
+          "term": "la mairie",
+          "meaning": "town hall",
+          "example": "Tout le monde est à la mairie ce soir.",
+          "example_meaning": "Everyone is at the town hall tonight."
+        },
+        {
+          "term": "le concours",
+          "meaning": "contest, competition",
+          "example": "Le concours de la plus grosse citrouille a lieu en automne.",
+          "example_meaning": "The biggest-pumpkin contest takes place in autumn."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Plaider à la mairie",
+          "emoji": "📣",
+          "rule": "At the town meeting, add points with en outre, grant one with certes… mais and conclude with par conséquent.",
+          "example": "En outre, la fête attire des visiteurs.",
+          "example_meaning": "Moreover, the festival draws visitors."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Certes, la vache est lente.",
+          "meaning": "Granted, the cow is slow."
+        },
+        {
+          "text": "Malgré le vent, Léo pêche.",
+          "meaning": "Despite the wind, Léo is fishing.",
+          "note": "Malgré + noun."
+        },
+        {
+          "text": "En revanche, les poules sont calmes.",
+          "meaning": "On the other hand, the hens are calm."
+        },
+        {
+          "text": "La mairie invite ; par conséquent, tout le monde vient.",
+          "meaning": "The town hall sends an invitation; consequently, everyone is coming.",
+          "note": "New word: la mairie = town hall."
+        },
+        {
+          "text": "Même si l'hiver est long, Rosa vend ses graines.",
+          "meaning": "Even if winter is long, Rosa sells her seeds.",
+          "note": "New word: la graine = seed."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Malgré l'orage, Nora récolte le maïs.",
+          "meaning": "Despite the storm, Nora harvests the corn.",
+          "distractors": [
+            "si"
+          ]
+        },
+        {
+          "text": "Par conséquent, il faut arroser les fraises.",
+          "meaning": "Consequently, we have to water the strawberries.",
+          "distractors": [
+            "revanche"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Malgré le soleil brille, Nora reste à l'ombre.",
+          "wrong": "Malgré",
+          "fix": "Même si",
+          "why": "A clause with a verb (le soleil brille) needs même si; malgré takes a noun."
+        },
+        {
+          "sentence": "Il n'a pas plu ; toutefois, il faut arroser.",
+          "wrong": "toutefois",
+          "fix": "par conséquent",
+          "why": "Watering is the result of the dry weather, not a contrast."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Add or contrast?",
+          "buckets": [
+            "add a point",
+            "contrast"
+          ],
+          "items": [
+            {
+              "text": "En outre, le maïs pousse bien.",
+              "bucket": 0
+            },
+            {
+              "text": "De plus, les vaches sont calmes.",
+              "bucket": 0
+            },
+            {
+              "text": "En revanche, le cochon est bruyant.",
+              "bucket": 1
+            },
+            {
+              "text": "Toutefois, la récolte est petite.",
+              "bucket": 1
+            },
+            {
+              "text": "D'autre part, la rivière est proche.",
+              "bucket": 0
+            },
+            {
+              "text": "Néanmoins, Rosa est contente.",
+              "bucket": 1
+            }
+          ],
+          "why": "En outre, de plus and d'autre part add a point; en revanche, toutefois and néanmoins oppose one."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-discourse-argumentation-meadowbrook-01",
+          "prompt": "Il n'a pas plu ; ___, il faut arroser les fraises.",
+          "type": "multiple-choice",
+          "options": [
+            "par conséquent",
+            "en revanche",
+            "néanmoins"
+          ],
+          "correct_answer": "par conséquent",
+          "explanation": "No rain, so watering: a consequence, par conséquent.",
+          "hints": [
+            "A cause leads to a result."
+          ],
+          "teaches": [
+            "par conséquent"
+          ]
+        },
+        {
+          "question_id": "b2-discourse-argumentation-meadowbrook-02",
+          "prompt": "True or false: in 'Malgré la pluie, Léo va pêcher', malgré is correctly followed by a noun.",
+          "type": "true-false",
+          "correct_answer": "true",
+          "explanation": "La pluie is a noun, and malgré takes a noun: malgré la pluie.",
+          "hints": [
+            "Is la pluie a noun or a clause?"
+          ],
+          "teaches": [
+            "malgré"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b2-discourse-argumentation-conv-meadowbrook-town-meeting",
+          "title": "The town meeting",
+          "scenario": "At the town hall, Nora asks the mayor for a two-day harvest festival.",
+          "role_a": "Nora",
+          "role_b": "Le maire",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Monsieur le maire, je propose une fête des récoltes sur deux jours.",
+              "meaning": "Mr Mayor, I propose a two-day harvest festival."
+            },
+            {
+              "speaker": "b",
+              "text": "Deux jours ? Certes, c'est une belle idée, mais c'est cher.",
+              "meaning": "Two days? Granted, it's a lovely idea, but it's expensive."
+            },
+            {
+              "speaker": "a",
+              "text": "D'une part, les visiteurs dépensent au marché ; d'autre part, les fermiers vendent plus.",
+              "meaning": "On the one hand, visitors spend at the market; on the other, the farmers sell more."
+            },
+            {
+              "speaker": "b",
+              "text": "En revanche, il faut payer la musique et les tables.",
+              "meaning": "On the other hand, we have to pay for the music and the tables."
+            },
+            {
+              "speaker": "a",
+              "text": "C'est vrai, mais Rosa offre les fleurs. En outre, Léo apporte le poisson.",
+              "meaning": "True, but Rosa is giving the flowers. Moreover, Léo is bringing the fish."
+            },
+            {
+              "speaker": "b",
+              "text": "Et si la météo est mauvaise ?",
+              "meaning": "And if the weather is bad?"
+            },
+            {
+              "speaker": "a",
+              "text": "Malgré la pluie, la taverne peut accueillir tout le monde.",
+              "meaning": "Despite the rain, the tavern can hold everyone."
+            },
+            {
+              "speaker": "b",
+              "text": "Bon, par conséquent, j'accepte. Deux jours de fête !",
+              "meaning": "Well, consequently, I agree. Two days of festival!"
+            }
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🪧",
+      "content": "## Argumenter à Rustwake\n\nIn the scrap village, every deal is a debate. **D'une part**, l'eau filtrée is rare; **d'autre part**, écrous are everywhere. **Certes**, Marta's prices are high, **mais** her water is clean. **Par conséquent**, you pay, and you say **marché conclu**.",
+      "vocabulary": [
+        {
+          "term": "d'une part… d'autre part",
+          "example": "D'une part, l'eau filtrée est rare ; d'autre part, elle coûte cher.",
+          "example_meaning": "On the one hand, filtered water is rare; on the other, it's expensive."
+        },
+        {
+          "term": "certes",
+          "example": "Certes, l'armure est lourde, mais elle protège.",
+          "example_meaning": "Granted, the armour is heavy, but it protects."
+        },
+        {
+          "term": "en revanche",
+          "example": "Le désert est dangereux ; en revanche, le Dôme est sûr.",
+          "example_meaning": "The desert is dangerous; by contrast, the Dome is safe."
+        },
+        {
+          "term": "malgré",
+          "example": "Malgré la tempête de cendres, Léo cherche des écrous.",
+          "example_meaning": "Despite the ash storm, Léo looks for nuts."
+        },
+        {
+          "term": "par conséquent",
+          "example": "La radio ne marche plus ; par conséquent, je vais à l'atelier.",
+          "example_meaning": "The radio doesn't work any more; consequently, I'm going to the workshop."
+        },
+        {
+          "term": "en effet",
+          "example": "Il faut filtrer l'eau. En effet, elle contient de la radiation.",
+          "example_meaning": "The water has to be filtered: it contains radiation."
+        },
+        {
+          "term": "notamment",
+          "example": "Marta vend de tout, notamment du soda Saphir.",
+          "example_meaning": "Marta sells everything, Saphir soda in particular."
+        },
+        {
+          "term": "les écrous",
+          "meaning": "nuts (the currency)",
+          "example": "L'eau coûte douze écrous.",
+          "example_meaning": "The water costs twelve nuts."
+        },
+        {
+          "term": "l'échange",
+          "meaning": "trade, exchange (m)",
+          "example": "C'est un bon échange.",
+          "example_meaning": "It's a good trade."
+        },
+        {
+          "term": "marché conclu",
+          "meaning": "it's a deal",
+          "example": "Douze écrous ? Marché conclu !",
+          "example_meaning": "Twelve nuts? It's a deal!"
+        }
+      ],
+      "bites": [
+        {
+          "title": "Négocier au marché",
+          "emoji": "🪧",
+          "rule": "At the market, grant a point with certes… mais, contrast with en revanche, and seal the deal with par conséquent.",
+          "example": "Certes, c'est cher, mais l'eau est propre.",
+          "example_meaning": "Granted, it's expensive, but the water is clean."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Certes, le robot est vieux.",
+          "meaning": "Granted, the robot is old."
+        },
+        {
+          "text": "Malgré la poussière, Marta ouvre.",
+          "meaning": "Despite the dust, Marta opens up.",
+          "note": "Malgré + noun."
+        },
+        {
+          "text": "En revanche, l'atelier est fermé.",
+          "meaning": "On the other hand, the workshop is closed."
+        },
+        {
+          "text": "Le chien de garde dort ; par conséquent, nous entrons.",
+          "meaning": "The guard dog is asleep; consequently, we go in.",
+          "note": "New word: le chien de garde = guard dog."
+        },
+        {
+          "text": "Même si le soda est tiède, Léo le boit.",
+          "meaning": "Even if the soda is lukewarm, Léo drinks it.",
+          "note": "New word: tiède = lukewarm."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Malgré la radiation, Léo explore le désert.",
+          "meaning": "Despite the radiation, Léo explores the desert.",
+          "distractors": [
+            "si"
+          ]
+        },
+        {
+          "text": "En revanche, le Dôme est sûr.",
+          "meaning": "By contrast, the Dome is safe.",
+          "distractors": [
+            "effet"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Malgré la tempête souffle, nous marchons.",
+          "wrong": "Malgré",
+          "fix": "Même si",
+          "why": "La tempête souffle is a clause, so même si; malgré takes a noun."
+        },
+        {
+          "sentence": "Le désert est dangereux ; en effet, le Dôme est sûr.",
+          "wrong": "effet",
+          "fix": "revanche",
+          "why": "A safe Dome contrasts with a dangerous desert: en revanche."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Reason or result?",
+          "buckets": [
+            "reason (en effet)",
+            "result"
+          ],
+          "items": [
+            {
+              "text": "En effet, l'eau est rare.",
+              "bucket": 0
+            },
+            {
+              "text": "Par conséquent, elle coûte cher.",
+              "bucket": 1
+            },
+            {
+              "text": "C'est pourquoi Marta est riche.",
+              "bucket": 1
+            },
+            {
+              "text": "En effet, la radio est cassée.",
+              "bucket": 0
+            },
+            {
+              "text": "Ainsi, nous restons au village.",
+              "bucket": 1
+            },
+            {
+              "text": "En effet, il y a une tempête.",
+              "bucket": 0
+            }
+          ],
+          "why": "En effet gives the reason for what came before; par conséquent, c'est pourquoi and ainsi give the result."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-discourse-argumentation-rustwake-01",
+          "prompt": "Certes, l'armure est lourde, ___ elle protège.",
+          "type": "fill-in-blank",
+          "correct_answer": "mais",
+          "explanation": "Certes grants a point, mais answers it.",
+          "hints": [
+            "The partner of certes."
+          ],
+          "teaches": [
+            "certes"
+          ]
+        },
+        {
+          "question_id": "b2-discourse-argumentation-rustwake-02",
+          "prompt": "Il faut filtrer l'eau. ___, elle contient de la radiation.",
+          "type": "multiple-choice",
+          "options": [
+            "En effet",
+            "En revanche",
+            "Toutefois"
+          ],
+          "correct_answer": "En effet",
+          "explanation": "The radiation is the reason for filtering: en effet justifies.",
+          "hints": [
+            "Is the second sentence a reason or an objection?"
+          ],
+          "teaches": [
+            "en effet"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b2-discourse-argumentation-conv-rustwake-water-deal",
+          "title": "A deal for water",
+          "scenario": "At the scrap village market, Léo the scavenger haggles with Marta over a can of filtered water.",
+          "role_a": "Léo",
+          "role_b": "Marta",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Marta, je voudrais de l'eau filtrée. Dix écrous, ça va ?",
+              "meaning": "Marta, I'd like some filtered water. Ten nuts, OK?"
+            },
+            {
+              "speaker": "b",
+              "text": "Dix ? Certes, tu es un bon client, mais l'eau est rare.",
+              "meaning": "Ten? Granted, you're a good customer, but water is rare."
+            },
+            {
+              "speaker": "a",
+              "text": "En revanche, mes écrous sont en bon état. En outre, je peux réparer ta radio-montre.",
+              "meaning": "On the other hand, my nuts are in good condition. Moreover, I can fix your wrist radio."
+            },
+            {
+              "speaker": "b",
+              "text": "Hmm. D'une part, ma radio marche mal ; d'autre part, j'ai besoin d'écrous.",
+              "meaning": "Hmm. On the one hand, my radio works badly; on the other, I need nuts."
+            },
+            {
+              "speaker": "a",
+              "text": "Par conséquent, c'est un bon échange !",
+              "meaning": "Consequently, it's a good trade!"
+            },
+            {
+              "speaker": "b",
+              "text": "Même si tu répares la radio, c'est quinze écrous.",
+              "meaning": "Even if you fix the radio, it's fifteen nuts."
+            },
+            {
+              "speaker": "a",
+              "text": "Malgré la tempête, j'ai marché jusqu'ici… Douze ?",
+              "meaning": "Despite the storm, I walked all the way here… Twelve?"
+            },
+            {
+              "speaker": "b",
+              "text": "Bon, douze. Marché conclu !",
+              "meaning": "Fine, twelve. It's a deal!"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

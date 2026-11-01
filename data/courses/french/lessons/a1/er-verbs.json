@@ -1,0 +1,1266 @@
+{
+  "id": "a1-er-verbs",
+  "slug": "er-verbs",
+  "title": "Regular -er verbs in the present",
+  "unit": "A1",
+  "group": "Grammar",
+  "order": 26,
+  "summary": "Most French verbs end in -er. Drop the -er and add -e, -es, -e, -ons, -ez, -ent. Three of those endings are silent.",
+  "focus": "Conjugating regular -er verbs in the present tense",
+  "prerequisites": [
+    "a1-etre-avoir"
+  ],
+  "content": "## One pattern for thousands of verbs\n\nNine French verbs out of ten end in **-er**. Take off the **-er** to get the stem (**parl-**), then add the ending for the person:\n\n| | parler (to speak) | ending |\n|---|---|---|\n| je | parle | -e |\n| tu | parles | -es |\n| il / elle / on | parle | -e |\n| nous | parlons | -ons |\n| vous | parlez | -ez |\n| ils / elles | parlent | -ent |\n\nThe endings **-e**, **-es** and **-ent** are **silent**: **je parle**, **tu parles** and **ils parlent** sound exactly the same. Only **nous parlons** and **vous parlez** sound different.\n\n## Elision and liaison\n\nWhen the verb starts with a vowel or a silent **h**, **je** becomes **j'**:\n\n- **J'habite à Lyon.** (I live in Lyon.)\n- **J'aime le chocolat.** (I like chocolate.)\n- **J'écoute la radio.** (I listen to the radio.)\n\nAfter **nous**, **vous**, **ils** and **elles**, the final **s** links to the vowel with a **z** sound (the *liaison*): **ils aiment** sounds like *il-z-aiment*, **nous habitons** like *nou-z-habitons*. Compare **il aime** (no z) and **ils aiment** (z). The liaison is the only way to hear the plural.\n\n## Nous mangeons and verbs in -ger\n\nIn verbs ending in **-ger**, the **g** must stay soft before **-ons**, so the **nous** form keeps an **e**:\n\n- **nous mangeons** (we eat), never *mangons*\n- **nous nageons** (we swim)\n- **nous voyageons** (we travel)\n\nEvery other form is regular: **je mange**, **vous mangez**, **ils mangent**.\n\n## Aimer + infinitive, and verbs to know\n\nTo say you like *doing* something, put the second verb in the infinitive, straight after **aimer**:\n\n- **J'aime danser.** (I like dancing.)\n- **Nous aimons regarder des films.** (We like watching films.)\n\nCommon -er verbs follow the same pattern: **regarder** (to watch), **écouter** (to listen to), **étudier** (to study), **jouer** (to play), **travailler** (to work), **danser** (to dance). Note that **écouter** and **regarder** need no word for *to* or *at*, as in **j'écoute la radio** and **je regarde la télé**.",
+  "vocabulary": [
+    {
+      "term": "parler",
+      "meaning": "to speak, to talk",
+      "example": "Nous parlons français à la maison.",
+      "example_meaning": "We speak French at home."
+    },
+    {
+      "term": "habiter",
+      "meaning": "to live (in a place)",
+      "example": "J'habite à Lyon depuis deux ans.",
+      "example_meaning": "I've lived in Lyon for two years."
+    },
+    {
+      "term": "manger",
+      "meaning": "to eat",
+      "example": "Nous mangeons à midi.",
+      "example_meaning": "We eat at noon."
+    },
+    {
+      "term": "aimer",
+      "meaning": "to like, to love",
+      "example": "Elle aime beaucoup le chocolat.",
+      "example_meaning": "She really likes chocolate."
+    },
+    {
+      "term": "travailler",
+      "meaning": "to work",
+      "example": "Claire travaille dans un bureau.",
+      "example_meaning": "Claire works in an office."
+    },
+    {
+      "term": "regarder",
+      "meaning": "to watch, to look at",
+      "example": "Le soir, nous regardons un film.",
+      "example_meaning": "In the evening, we watch a film."
+    },
+    {
+      "term": "écouter",
+      "meaning": "to listen to",
+      "example": "J'écoute la radio dans la voiture.",
+      "example_meaning": "I listen to the radio in the car."
+    },
+    {
+      "term": "étudier",
+      "meaning": "to study",
+      "example": "Vous étudiez le français à l'université.",
+      "example_meaning": "You study French at university."
+    },
+    {
+      "term": "jouer",
+      "meaning": "to play",
+      "example": "Léa et Tom jouent ensemble.",
+      "example_meaning": "Léa and Tom play together."
+    },
+    {
+      "term": "danser",
+      "meaning": "to dance",
+      "example": "Elles aiment danser le samedi.",
+      "example_meaning": "They like dancing on Saturdays."
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "parler",
+      "meaning": "to speak, to talk",
+      "set": "present",
+      "art": [
+        "  .-----------.  ",
+        " (  bonjour !  ) ",
+        "  `----. .----'  ",
+        "        V        "
+      ],
+      "forms": {
+        "je": "parle",
+        "tu": "parles",
+        "il": "parle",
+        "nous": "parlons",
+        "vous": "parlez",
+        "ils": "parlent"
+      }
+    },
+    {
+      "item": "habiter",
+      "meaning": "to live (in a place)",
+      "set": "present",
+      "art": [
+        "     /\\     ",
+        "    /  \\    ",
+        "   /____\\   ",
+        "   | [] |   ",
+        "   |_[]_|   "
+      ],
+      "forms": {
+        "je": "habite",
+        "tu": "habites",
+        "il": "habite",
+        "nous": "habitons",
+        "vous": "habitez",
+        "ils": "habitent"
+      }
+    },
+    {
+      "item": "manger",
+      "meaning": "to eat",
+      "set": "present",
+      "art": [
+        " |||    _______  ",
+        " |||   /       \\ ",
+        "  |   |  ~~~~~  |",
+        "  |    \\_______/ ",
+        "  |              "
+      ],
+      "forms": {
+        "je": "mange",
+        "tu": "manges",
+        "il": "mange",
+        "nous": "mangeons",
+        "vous": "mangez",
+        "ils": "mangent"
+      }
+    },
+    {
+      "item": "aimer",
+      "meaning": "to like, to love",
+      "set": "present",
+      "art": [
+        "  _     _  ",
+        " / \\   / \\ ",
+        " \\  \\_/  / ",
+        "  \\     /  ",
+        "   \\   /   ",
+        "    \\_/    "
+      ],
+      "forms": {
+        "je": "aime",
+        "tu": "aimes",
+        "il": "aime",
+        "nous": "aimons",
+        "vous": "aimez",
+        "ils": "aiment"
+      }
+    },
+    {
+      "item": "travailler",
+      "meaning": "to work",
+      "set": "present",
+      "art": [
+        "    ______    ",
+        "   |      |   ",
+        " __|______|__ ",
+        "|     ()     |",
+        "|____________|"
+      ],
+      "forms": {
+        "je": "travaille",
+        "tu": "travailles",
+        "il": "travaille",
+        "nous": "travaillons",
+        "vous": "travaillez",
+        "ils": "travaillent"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-er-verbs-01",
+      "prompt": "Nous ___ français à la maison.",
+      "type": "multiple-choice",
+      "options": [
+        "parlons",
+        "parlez",
+        "parlent"
+      ],
+      "correct_answer": "parlons",
+      "explanation": "The nous form ends in -ons: nous parlons.",
+      "hints": [
+        "Which ending goes with nous?"
+      ],
+      "teaches": [
+        "parler"
+      ]
+    },
+    {
+      "question_id": "a1-er-verbs-02",
+      "prompt": "Choose the correct sentence: 'I live in Marseille.'",
+      "type": "multiple-choice",
+      "options": [
+        "J'habite à Marseille.",
+        "Je habite à Marseille.",
+        "J'habites à Marseille."
+      ],
+      "correct_answer": "J'habite à Marseille.",
+      "explanation": "Habiter starts with a silent h, so je becomes j', and the je ending is -e: j'habite.",
+      "hints": [
+        "The h of habiter is silent.",
+        "The je ending is -e, not -es."
+      ],
+      "teaches": [
+        "habiter"
+      ]
+    },
+    {
+      "question_id": "a1-er-verbs-03",
+      "prompt": "Nous ___ à midi. (manger)",
+      "type": "fill-in-blank",
+      "correct_answer": "mangeons",
+      "accepted_answers": [
+        "nous mangeons"
+      ],
+      "explanation": "Verbs in -ger keep an e before -ons so the g stays soft: nous mangeons.",
+      "hints": [
+        "The g must sound like the s in 'pleasure'.",
+        "Add an e before -ons."
+      ],
+      "teaches": [
+        "manger"
+      ]
+    },
+    {
+      "question_id": "a1-er-verbs-04",
+      "prompt": "In 'ils aiment', you hear a z sound between ils and aiment.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "That is the liaison: the silent s of ils is pronounced z before a vowel, il-z-aiment. It is how you hear that the subject is plural.",
+      "hints": [
+        "Aiment starts with a vowel."
+      ],
+      "teaches": [
+        "aimer"
+      ]
+    },
+    {
+      "question_id": "a1-er-verbs-05",
+      "prompt": "Which sentence means 'They like dancing'?",
+      "type": "multiple-choice",
+      "options": [
+        "Ils aiment danser.",
+        "Ils aiment dansent.",
+        "Ils aime danser."
+      ],
+      "correct_answer": "Ils aiment danser.",
+      "explanation": "Aimer is conjugated (ils aiment) and the second verb stays in the infinitive (danser).",
+      "hints": [
+        "Only the first verb changes.",
+        "After aimer, use the infinitive."
+      ],
+      "teaches": [
+        "aimer",
+        "danser"
+      ]
+    },
+    {
+      "question_id": "a1-er-verbs-06",
+      "prompt": "Vous ___ le français à l'université. (étudier)",
+      "type": "fill-in-blank",
+      "correct_answer": "étudiez",
+      "accepted_answers": [
+        "vous étudiez"
+      ],
+      "explanation": "Drop -er (étudi-) and add the vous ending -ez: vous étudiez.",
+      "hints": [
+        "The stem is étudi-.",
+        "The vous ending is -ez."
+      ],
+      "teaches": [
+        "étudier"
+      ]
+    },
+    {
+      "question_id": "a1-er-verbs-07",
+      "prompt": "Les enfants ___ dans le jardin.",
+      "type": "multiple-choice",
+      "options": [
+        "jouent",
+        "joues",
+        "jouez"
+      ],
+      "correct_answer": "jouent",
+      "explanation": "Les enfants is plural, like ils, so the ending is -ent: les enfants jouent.",
+      "hints": [
+        "Les enfants = ils."
+      ],
+      "teaches": [
+        "jouer"
+      ]
+    },
+    {
+      "question_id": "a1-er-verbs-08",
+      "prompt": "J'___ la radio dans la voiture. (écouter)",
+      "type": "fill-in-blank",
+      "correct_answer": "écoute",
+      "accepted_answers": [
+        "j'écoute"
+      ],
+      "explanation": "Écouter starts with a vowel, so je becomes j', and the je ending is -e: j'écoute.",
+      "hints": [
+        "The je ending is -e."
+      ],
+      "teaches": [
+        "écouter"
+      ]
+    },
+    {
+      "question_id": "a1-er-verbs-09",
+      "prompt": "The ending -ent in 'ils travaillent' is pronounced.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "The -ent of a verb is always silent: ils travaillent sounds exactly like il travaille.",
+      "hints": [
+        "Three of the six endings are silent."
+      ],
+      "teaches": [
+        "travailler"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Je parle un peu français.",
+      "meaning": "I speak a little French.",
+      "note": "New word: un peu = a little."
+    },
+    {
+      "text": "Nous habitons à Nice.",
+      "meaning": "We live in Nice.",
+      "note": "Liaison: nous habitons sounds like nou-z-habitons."
+    },
+    {
+      "text": "Ils aiment beaucoup la musique.",
+      "meaning": "They really like music.",
+      "note": "Liaison: ils aiment sounds like il-z-aiment."
+    },
+    {
+      "text": "Ce soir, nous mangeons des pâtes.",
+      "meaning": "Tonight we're eating pasta.",
+      "note": "New word: les pâtes = pasta."
+    },
+    {
+      "text": "Tu écoutes la radio dans la cuisine.",
+      "meaning": "You listen to the radio in the kitchen.",
+      "note": "New word: la cuisine = the kitchen."
+    },
+    {
+      "text": "Vous travaillez le lundi et le mardi.",
+      "meaning": "You work on Mondays and Tuesdays.",
+      "note": "The vous ending -ez sounds like é."
+    },
+    {
+      "text": "Les enfants jouent dans le jardin après l'école.",
+      "meaning": "The children play in the garden after school.",
+      "note": "The -ent of jouent is silent."
+    },
+    {
+      "text": "Le soir, j'étudie le français et ils regardent la télé.",
+      "meaning": "In the evening I study French and they watch TV."
+    }
+  ],
+  "guide": [
+    {
+      "section": "One pattern"
+    },
+    {
+      "question": "a1-er-verbs-01"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-er-verbs-07"
+    },
+    {
+      "question": "a1-er-verbs-09"
+    },
+    {
+      "section": "Elision and liaison"
+    },
+    {
+      "question": "a1-er-verbs-02"
+    },
+    {
+      "question": "a1-er-verbs-08"
+    },
+    {
+      "question": "a1-er-verbs-04"
+    },
+    {
+      "tip": "Can't hear if it's il or ils? Listen for the z of the liaison: il aime, ils (z) aiment. With a consonant, only the context tells you."
+    },
+    {
+      "section": "Nous mangeons"
+    },
+    {
+      "question": "a1-er-verbs-03"
+    },
+    {
+      "section": "Aimer + infinitive"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-er-verbs-05"
+    },
+    {
+      "question": "a1-er-verbs-06"
+    },
+    {
+      "concept": {
+        "title": "One verb, three English tenses",
+        "markdown": "French has no *-ing* form for the present. **Je parle** means *I speak*, *I am speaking* and *I do speak*, all at once:\n\n- **Je parle avec Paul.** (I'm talking with Paul.)\n- **Je parle anglais.** (I speak English.)"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-er-verbs-conv-new-neighbours",
+      "title": "New neighbours",
+      "scenario": "Inès has just moved into a building in Lyon. On the stairs she meets Hugo, who lives across the landing.",
+      "role_a": "Inès",
+      "role_b": "Hugo",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Bonjour ! Je m'appelle Inès. J'habite ici depuis lundi.",
+          "meaning": "Hello! My name's Inès. I've lived here since Monday.",
+          "note": "j'habite: je becomes j' before a silent h"
+        },
+        {
+          "speaker": "b",
+          "text": "Enchanté, Inès ! Moi, c'est Hugo. Tu travailles à Lyon ?",
+          "meaning": "Nice to meet you, Inès! I'm Hugo. Do you work in Lyon?",
+          "note": "tu travailles: -es, silent"
+        },
+        {
+          "speaker": "a",
+          "text": "Oui, je travaille dans une librairie, près de la gare.",
+          "meaning": "Yes, I work in a bookshop, near the station."
+        },
+        {
+          "speaker": "b",
+          "text": "Moi, j'étudie la musique à l'université.",
+          "meaning": "I study music at university.",
+          "note": "j'étudie: elision before a vowel"
+        },
+        {
+          "speaker": "a",
+          "text": "Super ! Tu chantes ?",
+          "meaning": "Great! Do you sing?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, je chante dans un groupe avec deux amis.",
+          "meaning": "Yes, I sing in a band with two friends."
+        },
+        {
+          "speaker": "a",
+          "text": "Moi, j'adore danser. J'écoute de la musique tout le temps.",
+          "meaning": "I love dancing. I listen to music all the time.",
+          "note": "adorer + infinitive, like aimer"
+        },
+        {
+          "speaker": "b",
+          "text": "Alors, samedi, nous jouons dans un bar en ville.",
+          "meaning": "Well then, on Saturday we're playing in a bar in town.",
+          "note": "nous jouons: -ons"
+        },
+        {
+          "speaker": "a",
+          "text": "Génial ! Vous jouez à quelle heure ?",
+          "meaning": "Great! What time are you playing?",
+          "note": "vous jouez: -ez"
+        },
+        {
+          "speaker": "b",
+          "text": "À neuf heures. Après, nous mangeons tous ensemble.",
+          "meaning": "At nine. Afterwards we all eat together.",
+          "note": "nous mangeons: the e keeps the g soft"
+        },
+        {
+          "speaker": "a",
+          "text": "Parfait. J'aime beaucoup les nouveaux voisins !",
+          "meaning": "Perfect. I really like the new neighbours!"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🗣️",
+    "bites": [
+      {
+        "title": "Drop -er, add the ending",
+        "emoji": "✂️",
+        "rule": "Take off -er and add -e, -es, -e, -ons, -ez, -ent: parl- gives je parle, nous parlons, ils parlent.",
+        "example": "Nous parlons français.",
+        "example_meaning": "We speak French."
+      },
+      {
+        "title": "Three silent endings",
+        "emoji": "🤫",
+        "rule": "-e, -es and -ent are silent: je parle, tu parles and ils parlent sound the same. Only -ons and -ez are heard.",
+        "example": "Ils travaillent à Paris.",
+        "example_meaning": "They work in Paris."
+      },
+      {
+        "title": "J' and the z of liaison",
+        "emoji": "🔗",
+        "rule": "Before a vowel or silent h, je becomes j'. After nous, vous, ils, elles, the s sounds like z before a vowel.",
+        "example": "J'aime la musique. Ils aiment la musique.",
+        "example_meaning": "I like music. They like music."
+      },
+      {
+        "title": "Nous mangeons",
+        "emoji": "🍝",
+        "rule": "Verbs in -ger keep an e before -ons: nous mangeons, nous nageons. The e keeps the g soft.",
+        "example": "Nous mangeons à midi.",
+        "example_meaning": "We eat at noon."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Silent or heard?",
+        "buckets": [
+          "silent ending",
+          "you hear the ending"
+        ],
+        "items": [
+          {
+            "text": "je parle",
+            "bucket": 0
+          },
+          {
+            "text": "nous parlons",
+            "bucket": 1
+          },
+          {
+            "text": "tu joues",
+            "bucket": 0
+          },
+          {
+            "text": "vous jouez",
+            "bucket": 1
+          },
+          {
+            "text": "elles dansent",
+            "bucket": 0
+          },
+          {
+            "text": "nous mangeons",
+            "bucket": 1
+          },
+          {
+            "text": "il regarde",
+            "bucket": 0
+          },
+          {
+            "text": "vous écoutez",
+            "bucket": 1
+          }
+        ],
+        "why": "-e, -es and -ent are never pronounced; -ons and -ez always are."
+      },
+      {
+        "title": "Je or j'?",
+        "buckets": [
+          "je",
+          "j'"
+        ],
+        "items": [
+          {
+            "text": "___ parle",
+            "bucket": 0
+          },
+          {
+            "text": "___ habite",
+            "bucket": 1
+          },
+          {
+            "text": "___ aime",
+            "bucket": 1
+          },
+          {
+            "text": "___ travaille",
+            "bucket": 0
+          },
+          {
+            "text": "___ écoute",
+            "bucket": 1
+          },
+          {
+            "text": "___ danse",
+            "bucket": 0
+          }
+        ],
+        "why": "Je becomes j' before a vowel or a silent h: j'aime, j'habite, j'écoute."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Nous mangons à midi.",
+        "wrong": "mangons",
+        "fix": "mangeons",
+        "why": "Verbs in -ger keep the e before -ons."
+      },
+      {
+        "sentence": "Ils parlez français.",
+        "wrong": "parlez",
+        "fix": "parlent",
+        "why": "Ils takes -ent; -ez is for vous."
+      },
+      {
+        "sentence": "Tu travaille dans un bureau.",
+        "wrong": "travaille",
+        "fix": "travailles",
+        "why": "Tu always takes -es (silent, but written)."
+      },
+      {
+        "sentence": "Elle aime dansent le samedi.",
+        "wrong": "dansent",
+        "fix": "danser",
+        "why": "After aimer, the second verb stays in the infinitive."
+      },
+      {
+        "sentence": "Vous étudions le français.",
+        "wrong": "étudions",
+        "fix": "étudiez",
+        "why": "Vous takes -ez; -ons is for nous."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Nous parlons français à la maison.",
+        "meaning": "We speak French at home.",
+        "distractors": [
+          "parlez"
+        ]
+      },
+      {
+        "text": "J'habite à Lyon avec Paul.",
+        "meaning": "I live in Lyon with Paul.",
+        "distractors": [
+          "habites"
+        ]
+      },
+      {
+        "text": "Ils aiment regarder des films.",
+        "meaning": "They like watching films.",
+        "distractors": [
+          "regardent"
+        ]
+      },
+      {
+        "text": "Le soir, nous mangeons ensemble.",
+        "meaning": "In the evening, we eat together.",
+        "distractors": [
+          "mangons"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "⛏️",
+      "content": "## Les verbes en -er à Eldmark\n\nEldmark runs on -er verbs. Borin le nain **travaille** à Deepanvil, Nym l'elfe **habite** dans la Forêt Ombreuse, and the guild **mange** à la taverne du Dragon Vert. A new verb, the same endings: **je chasse, tu chasses, nous chassons, ils chassent**.",
+      "vocabulary": [
+        {
+          "term": "habiter",
+          "example": "Nym l'elfe habite dans la Forêt Ombreuse.",
+          "example_meaning": "Nym the elf lives in the Shadowed Forest."
+        },
+        {
+          "term": "travailler",
+          "example": "Borin travaille à Deepanvil.",
+          "example_meaning": "Borin works in Deepanvil."
+        },
+        {
+          "term": "manger",
+          "example": "Nous mangeons à la taverne du Dragon Vert.",
+          "example_meaning": "We eat at the Green Dragon tavern."
+        },
+        {
+          "term": "parler",
+          "example": "Les nains parlent peu.",
+          "example_meaning": "Dwarves don't talk much."
+        },
+        {
+          "term": "aimer",
+          "example": "Le paladin aime les quêtes difficiles.",
+          "example_meaning": "The paladin likes difficult quests."
+        },
+        {
+          "term": "écouter",
+          "example": "Le guerrier écoute la prêtresse.",
+          "example_meaning": "The warrior listens to the priestess."
+        },
+        {
+          "term": "le nain / la naine",
+          "meaning": "dwarf",
+          "example": "La naine travaille dans la mine.",
+          "example_meaning": "The dwarf works in the mine."
+        },
+        {
+          "term": "la quête",
+          "meaning": "quest",
+          "example": "J'aime cette quête.",
+          "example_meaning": "I like this quest."
+        },
+        {
+          "term": "chasser",
+          "meaning": "to hunt",
+          "example": "Nous chassons dans la forêt.",
+          "example_meaning": "We hunt in the forest."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Même règle à Eldmark",
+          "emoji": "⛏️",
+          "rule": "Every -er verb in Eldmark takes -e, -es, -e, -ons, -ez, -ent: the dwarves travaillent, we chassons, you explorez.",
+          "example": "Nous chassons dans la Forêt Ombreuse.",
+          "example_meaning": "We hunt in the Shadowed Forest."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Les nains travaillent dans la mine.",
+          "meaning": "The dwarves work in the mine.",
+          "note": "New word: la mine = the mine."
+        },
+        {
+          "text": "Le soir, Nym chasse avec les elfes.",
+          "meaning": "In the evening, Nym hunts with the elves.",
+          "note": "New word: chasser = to hunt."
+        },
+        {
+          "text": "J'aime les quêtes difficiles.",
+          "meaning": "I like difficult quests.",
+          "note": "Elision: j'aime."
+        },
+        {
+          "text": "Elles habitent à Highgate.",
+          "meaning": "They live in Highgate.",
+          "note": "Liaison: elles habitent."
+        },
+        {
+          "text": "Le soir, la guilde mange et danse à la taverne.",
+          "meaning": "In the evening, the guild eats and dances at the tavern."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Nous mangeons à la taverne.",
+          "meaning": "We eat at the tavern.",
+          "distractors": [
+            "mangons"
+          ]
+        },
+        {
+          "text": "Les orcs chassent dans la forêt.",
+          "meaning": "The orcs hunt in the forest.",
+          "distractors": [
+            "chassez"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Nous mangons à la taverne du Dragon Vert.",
+          "wrong": "mangons",
+          "fix": "mangeons",
+          "why": "Verbs in -ger keep the e before -ons."
+        },
+        {
+          "sentence": "Borin le nain travaillent à Deepanvil.",
+          "wrong": "travaillent",
+          "fix": "travaille",
+          "why": "Borin is one person (il): -e."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Who is acting in Eldmark?",
+          "buckets": [
+            "je / il / elle",
+            "nous",
+            "ils / elles"
+          ],
+          "items": [
+            {
+              "text": "chassons",
+              "bucket": 1
+            },
+            {
+              "text": "travaillent",
+              "bucket": 2
+            },
+            {
+              "text": "mange",
+              "bucket": 0
+            },
+            {
+              "text": "habitons",
+              "bucket": 1
+            },
+            {
+              "text": "aiment",
+              "bucket": 2
+            },
+            {
+              "text": "écoute",
+              "bucket": 0
+            }
+          ],
+          "why": "-e is je or il/elle, -ons is nous, -ent is ils/elles."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-er-verbs-realm-01",
+          "prompt": "Les nains ___ à Deepanvil.",
+          "type": "multiple-choice",
+          "options": [
+            "travaillent",
+            "travaillons",
+            "travaillez"
+          ],
+          "correct_answer": "travaillent",
+          "explanation": "Les nains = ils, so the ending is -ent: les nains travaillent.",
+          "hints": [
+            "Les nains = ils."
+          ],
+          "teaches": [
+            "travailler",
+            "le nain / la naine"
+          ]
+        },
+        {
+          "question_id": "a1-er-verbs-realm-02",
+          "prompt": "Nous ___ dans la Forêt Ombreuse. (chasser)",
+          "type": "fill-in-blank",
+          "correct_answer": "chassons",
+          "accepted_answers": [
+            "nous chassons"
+          ],
+          "explanation": "Drop -er (chass-) and add -ons for nous: nous chassons.",
+          "hints": [
+            "The nous ending is -ons."
+          ],
+          "teaches": [
+            "chasser"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🌽",
+      "content": "## Les verbes en -er à Meadowbrook\n\nFarm life is full of -er verbs: Nora **plante** des fraises, Léo **pêche** dans la rivière, Rosa **travaille** à la graineterie. **Planter, arroser, récolter** and **cuisiner** always take the same endings, **-e, -es, -e, -ons, -ez, -ent**. And at dinner, **nous mangeons** une soupe de citrouille.",
+      "vocabulary": [
+        {
+          "term": "habiter",
+          "example": "Nora habite dans une ferme près de la forêt.",
+          "example_meaning": "Nora lives on a farm near the forest."
+        },
+        {
+          "term": "travailler",
+          "example": "Rosa travaille à la graineterie.",
+          "example_meaning": "Rosa works at the seed shop."
+        },
+        {
+          "term": "manger",
+          "example": "Nous mangeons une soupe de citrouille.",
+          "example_meaning": "We're eating pumpkin soup."
+        },
+        {
+          "term": "aimer",
+          "example": "Les poules aiment le maïs.",
+          "example_meaning": "Hens like corn."
+        },
+        {
+          "term": "jouer",
+          "example": "Les enfants jouent avec le mouton.",
+          "example_meaning": "The children play with the sheep."
+        },
+        {
+          "term": "danser",
+          "example": "Tout le monde danse à la fête des récoltes.",
+          "example_meaning": "Everyone dances at the harvest festival."
+        },
+        {
+          "term": "planter",
+          "meaning": "to plant",
+          "example": "Nora plante des fraises.",
+          "example_meaning": "Nora plants strawberries."
+        },
+        {
+          "term": "arroser",
+          "meaning": "to water",
+          "example": "J'arrose les citrouilles le matin.",
+          "example_meaning": "I water the pumpkins in the morning."
+        },
+        {
+          "term": "pêcher",
+          "meaning": "to fish",
+          "example": "Léo pêche dans la rivière.",
+          "example_meaning": "Léo fishes in the river."
+        },
+        {
+          "term": "la ferme",
+          "meaning": "farm (f)",
+          "example": "La ferme est petite.",
+          "example_meaning": "The farm is small."
+        }
+      ],
+      "bites": [
+        {
+          "title": "À la ferme",
+          "emoji": "🌽",
+          "rule": "Farm verbs are -er verbs: je plante, tu arroses, nous récoltons, ils pêchent. Drop -er, add the ending.",
+          "example": "Nous arrosons les fraises le matin.",
+          "example_meaning": "We water the strawberries in the morning."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Nous plantons du maïs au printemps.",
+          "meaning": "We plant corn in spring.",
+          "note": "New word: planter = to plant."
+        },
+        {
+          "text": "J'arrose les citrouilles.",
+          "meaning": "I water the pumpkins.",
+          "note": "New word: arroser = to water."
+        },
+        {
+          "text": "Le dimanche, Léo et Rosa pêchent.",
+          "meaning": "On Sundays, Léo and Rosa go fishing.",
+          "note": "New word: pêcher = to fish."
+        },
+        {
+          "text": "Nous récoltons les fraises en été.",
+          "meaning": "We harvest the strawberries in summer.",
+          "note": "Nous: -ons."
+        },
+        {
+          "text": "Les poules aiment beaucoup le maïs.",
+          "meaning": "The hens really like corn."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Nous arrosons les fraises.",
+          "meaning": "We water the strawberries.",
+          "distractors": [
+            "arrosez"
+          ]
+        },
+        {
+          "text": "Rosa travaille à la graineterie.",
+          "meaning": "Rosa works at the seed shop.",
+          "distractors": [
+            "travailles"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Nous mangons une soupe de citrouille.",
+          "wrong": "mangons",
+          "fix": "mangeons",
+          "why": "Verbs in -ger keep the e before -ons."
+        },
+        {
+          "sentence": "Les vaches mange le maïs.",
+          "wrong": "mange",
+          "fix": "mangent",
+          "why": "Les vaches = elles: -ent."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Nous, vous or ils on the farm?",
+          "buckets": [
+            "nous",
+            "vous",
+            "ils / elles"
+          ],
+          "items": [
+            {
+              "text": "plantons",
+              "bucket": 0
+            },
+            {
+              "text": "arrosez",
+              "bucket": 1
+            },
+            {
+              "text": "pêchent",
+              "bucket": 2
+            },
+            {
+              "text": "mangeons",
+              "bucket": 0
+            },
+            {
+              "text": "récoltez",
+              "bucket": 1
+            },
+            {
+              "text": "aiment",
+              "bucket": 2
+            }
+          ],
+          "why": "-ons is nous, -ez is vous, -ent is ils/elles."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-er-verbs-meadowbrook-01",
+          "prompt": "Léo ___ dans la rivière.",
+          "type": "multiple-choice",
+          "options": [
+            "pêche",
+            "pêchent",
+            "pêchons"
+          ],
+          "correct_answer": "pêche",
+          "explanation": "Léo is one person (il), so the ending is -e: Léo pêche.",
+          "hints": [
+            "Léo = il."
+          ],
+          "teaches": [
+            "pêcher"
+          ]
+        },
+        {
+          "question_id": "a1-er-verbs-meadowbrook-02",
+          "prompt": "Nous ___ une soupe de citrouille. (manger)",
+          "type": "fill-in-blank",
+          "correct_answer": "mangeons",
+          "accepted_answers": [
+            "nous mangeons"
+          ],
+          "explanation": "Verbs in -ger keep the e before -ons: nous mangeons.",
+          "hints": [
+            "Keep the g soft."
+          ],
+          "teaches": [
+            "manger"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🔩",
+      "content": "## Les verbes en -er à Rustwake\n\nOutside the Dome, life runs on -er verbs. Léo le fouilleur **cherche** des écrous, Marta la marchande **échange** l'eau filtrée contre des écrous, and we **marchons** dans le désert de rouille. **Je répare, tu répares, ils réparent** sound the same. Only **nous réparons** and **vous réparez** stand out.",
+      "vocabulary": [
+        {
+          "term": "habiter",
+          "example": "J'habite dans le Dôme.",
+          "example_meaning": "I live in the Dome."
+        },
+        {
+          "term": "travailler",
+          "example": "Le contremaître Ruiz travaille à l'atelier.",
+          "example_meaning": "Foreman Ruiz works in the workshop."
+        },
+        {
+          "term": "écouter",
+          "example": "Nous écoutons la radio-montre.",
+          "example_meaning": "We listen to the wrist radio."
+        },
+        {
+          "term": "parler",
+          "example": "Le robot jardinier parle beaucoup.",
+          "example_meaning": "The gardener robot talks a lot."
+        },
+        {
+          "term": "aimer",
+          "example": "Marta aime le soda Saphir.",
+          "example_meaning": "Marta likes Sapphire soda."
+        },
+        {
+          "term": "regarder",
+          "example": "Ils regardent la tempête de cendres.",
+          "example_meaning": "They watch the ash storm."
+        },
+        {
+          "term": "chercher",
+          "meaning": "to look for",
+          "example": "Léo cherche des écrous.",
+          "example_meaning": "Léo is looking for nuts."
+        },
+        {
+          "term": "réparer",
+          "meaning": "to repair",
+          "example": "Nous réparons la radio-montre.",
+          "example_meaning": "We repair the wrist radio."
+        },
+        {
+          "term": "les écrous",
+          "meaning": "nuts (the wasteland's money)",
+          "example": "Marta compte les écrous.",
+          "example_meaning": "Marta counts the nuts."
+        },
+        {
+          "term": "le fouilleur / la fouilleuse",
+          "meaning": "scavenger",
+          "example": "La fouilleuse explore le centre commercial.",
+          "example_meaning": "The scavenger explores the shopping centre."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Dans le désert",
+          "emoji": "🔩",
+          "rule": "Wasteland verbs are -er verbs too: je cherche, nous réparons, ils marchent. Only -ons and -ez sound different.",
+          "example": "Nous réparons l'armure de ferraille.",
+          "example_meaning": "We repair the scrap armour."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Je cherche des écrous.",
+          "meaning": "I'm looking for nuts.",
+          "note": "New word: les écrous = nuts, the money."
+        },
+        {
+          "text": "Ruiz répare le vieux robot.",
+          "meaning": "Ruiz repairs the old robot.",
+          "note": "New word: réparer = to repair."
+        },
+        {
+          "text": "Les fouilleurs habitent à l'atelier.",
+          "meaning": "The scavengers live in the workshop.",
+          "note": "New word: le fouilleur = scavenger."
+        },
+        {
+          "text": "Marta échange l'eau filtrée contre des écrous.",
+          "meaning": "Marta trades filtered water for nuts."
+        },
+        {
+          "text": "Le soir, nous écoutons la radio.",
+          "meaning": "In the evening, we listen to the radio.",
+          "note": "Liaison: nous écoutons."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Nous réparons la radio-montre.",
+          "meaning": "We repair the wrist radio.",
+          "distractors": [
+            "réparez"
+          ]
+        },
+        {
+          "text": "Léo cherche des écrous.",
+          "meaning": "Léo is looking for nuts.",
+          "distractors": [
+            "cherchent"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Les fouilleurs cherche des écrous.",
+          "wrong": "cherche",
+          "fix": "cherchent",
+          "why": "Les fouilleurs = ils: -ent."
+        },
+        {
+          "sentence": "Vous réparons l'armure de ferraille.",
+          "wrong": "réparons",
+          "fix": "réparez",
+          "why": "Vous takes -ez; -ons is for nous."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Can you hear the ending?",
+          "buckets": [
+            "silent (-e, -es, -ent)",
+            "heard (-ons, -ez)"
+          ],
+          "items": [
+            {
+              "text": "je répare",
+              "bucket": 0
+            },
+            {
+              "text": "tu cherches",
+              "bucket": 0
+            },
+            {
+              "text": "ils marchent",
+              "bucket": 0
+            },
+            {
+              "text": "nous explorons",
+              "bucket": 1
+            },
+            {
+              "text": "vous échangez",
+              "bucket": 1
+            },
+            {
+              "text": "nous écoutons",
+              "bucket": 1
+            }
+          ],
+          "why": "-e, -es and -ent are silent; -ons and -ez are always pronounced."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-er-verbs-rustwake-01",
+          "prompt": "Les fouilleurs ___ des écrous.",
+          "type": "multiple-choice",
+          "options": [
+            "cherchent",
+            "cherchez",
+            "cherchons"
+          ],
+          "correct_answer": "cherchent",
+          "explanation": "Les fouilleurs = ils, so the ending is -ent: ils cherchent.",
+          "hints": [
+            "Les fouilleurs = ils."
+          ],
+          "teaches": [
+            "chercher",
+            "le fouilleur / la fouilleuse",
+            "les écrous"
+          ]
+        },
+        {
+          "question_id": "a1-er-verbs-rustwake-02",
+          "prompt": "Vous ___ l'armure de ferraille. (réparer)",
+          "type": "fill-in-blank",
+          "correct_answer": "réparez",
+          "accepted_answers": [
+            "vous réparez"
+          ],
+          "explanation": "Drop -er (répar-) and add -ez for vous: vous réparez.",
+          "hints": [
+            "The vous ending is -ez."
+          ],
+          "teaches": [
+            "réparer"
+          ]
+        }
+      ]
+    }
+  }
+}

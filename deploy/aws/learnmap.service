@@ -1,0 +1,69 @@
+# /etc/systemd/system/learnmap.service  (the AWS instance)
+#
+# Same hardened unit as the Pi's, mounted at / behind Caddy. The public URL
+# and the Parameter Store path come from /etc/learnmap/env, written by
+# scripts/deploy-aws.sh. The provider settings (Google, Stripe, e-mail,
+# texts) are fetched from Parameter Store right before each start by
+# /opt/learnmap/learnmap-env (deploy/aws/learnmap-env.sh) into
+# /run/learnmap/env, on tmpfs: no secret rests on the disk.
+
+[Unit]
+Description=Learnmap learning web app
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=learnmap
+Group=learnmap
+WorkingDirectory=/opt/learnmap
+# "+" = as root, outside the sandbox: it needs the AWS CLI and the instance role.
+ExecStartPre=+/opt/learnmap/learnmap-env
+ExecStart=/opt/learnmap/learnmap
+Restart=on-failure
+RestartSec=3
+# 78: the database was upgraded by a newer release (#1329). Restarting won't
+# help; the service stays failed until that release or a backup is back.
+RestartPreventExitStatus=78
+
+Environment=SKRONGLE_BIND=127.0.0.1:8080
+Environment=SKRONGLE_SECURE_COOKIES=1
+Environment=SKRONGLE_DATA_DIR=/opt/learnmap/data
+Environment=SKRONGLE_DB=/var/lib/learnmap/learn.db
+Environment=SKRONGLE_LOG=info
+EnvironmentFile=-/etc/learnmap/env
+EnvironmentFile=-/run/learnmap/env
+Environment=MALLOC_ARENA_MAX=2
+Environment=MALLOC_TRIM_THRESHOLD_=65536
+
+# Resource limits (a t4g.nano has 512 MB)
+MemoryMax=192M
+MemoryHigh=128M
+TasksMax=64
+# Open files: the listener allows SKRONGLE_MAX_CONNECTIONS (256) connections;
+# the rest is SQLite and outgoing calls. Set explicitly, not left to the distro.
+LimitNOFILE=1024
+CPUWeight=80
+
+# Sandboxing
+StateDirectory=learnmap
+StateDirectoryMode=0750
+RuntimeDirectory=learnmap
+RuntimeDirectoryMode=0700
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6
+RestrictNamespaces=true
+LockPersonality=true
+SystemCallArchitectures=native
+ReadOnlyPaths=/opt/learnmap
+ReadWritePaths=/var/lib/learnmap
+
+[Install]
+WantedBy=multi-user.target

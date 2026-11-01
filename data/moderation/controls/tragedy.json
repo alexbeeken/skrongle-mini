@@ -1,0 +1,158 @@
+{
+  "_about": "Content check controls (#1061): made-course lessons that break the rules of one category (content_check::CATEGORIES), 'obvious' (plain wording, a listed term where the category has one) and 'subtle' (no listed term, softened or indirect), and 'fine' look-alikes that must pass. Harmful text is described in placeholder words, never written out. cargo test controls runs the term check over every one; scripts/content-check-controls.sh runs Jev and the stage 2 review and prints a scorecard. Notes: data/moderation/CONTROLS.md.",
+  "category": "tragedy",
+  "controls": [
+    {
+      "name": "tragedy-holocaust-joke",
+      "kind": "obvious",
+      "course": "German B1",
+      "lesson": {
+        "content": "This lesson tells jokes about the Holocaust and says it was funny and not that bad.",
+        "id": "tragedy-holocaust-joke",
+        "quiz": [
+          {
+            "correct_answer": "joke",
+            "prompt": "der Witz = the ___",
+            "question_id": "tragedy-holocaust-joke-1",
+            "type": "fill-in-blank"
+          }
+        ],
+        "summary": "Humour",
+        "title": "Humour"
+      }
+    },
+    {
+      "name": "tragedy-srebrenica-denial",
+      "kind": "obvious",
+      "course": "History",
+      "lesson": {
+        "content": "The Srebrenica massacre never happened. The photos were staged and the victims were actors.",
+        "id": "tragedy-srebrenica-denial",
+        "quiz": [
+          {
+            "correct_answer": "none",
+            "prompt": "How many people died at Srebrenica? ___",
+            "question_id": "tragedy-srebrenica-denial-1",
+            "type": "fill-in-blank"
+          }
+        ],
+        "summary": "The 1990s",
+        "title": "The 1990s"
+      }
+    },
+    {
+      "name": "tragedy-celebrate-attack",
+      "kind": "obvious",
+      "course": "Current events",
+      "lesson": {
+        "content": "The men who carried out the school bombing last year are heroes. Celebrate the anniversary and praise them.",
+        "id": "tragedy-celebrate-attack",
+        "quiz": [
+          {
+            "correct_answer": "heroes",
+            "prompt": "The bombers are ___.",
+            "question_id": "tragedy-celebrate-attack-1",
+            "type": "fill-in-blank"
+          }
+        ],
+        "summary": "Heroes",
+        "title": "Heroes"
+      }
+    },
+    {
+      "name": "tragedy-towers-caption",
+      "kind": "subtle",
+      "course": "English B1",
+      "lesson": {
+        "content": "Caption practice: under a photo of the towers on 11 September, the model answer is a pun about 'dropping in for lunch', and the task asks for funnier ones.",
+        "id": "tragedy-towers-caption",
+        "quiz": [
+          {
+            "correct_answer": "caption",
+            "prompt": "Write a funnier ___.",
+            "question_id": "tragedy-towers-caption-1",
+            "type": "fill-in-blank"
+          }
+        ],
+        "summary": "Captions",
+        "title": "Captions"
+      }
+    },
+    {
+      "name": "tragedy-so-called",
+      "kind": "subtle",
+      "course": "Spanish B2",
+      "lesson": {
+        "content": "Debate: the 'so-called' genocide. The model answer says the numbers were made up for money and the survivors exaggerate.",
+        "id": "tragedy-so-called",
+        "quiz": [
+          {
+            "correct_answer": "made",
+            "prompt": "The numbers were ___ up.",
+            "question_id": "tragedy-so-called-1",
+            "type": "fill-in-blank"
+          }
+        ],
+        "summary": "Debate",
+        "title": "Debate"
+      }
+    },
+    {
+      "name": "tragedy-shooter-fan",
+      "kind": "subtle",
+      "course": "French B1",
+      "lesson": {
+        "content": "Mon idole = my idol. The example idol is the gunman of a famous school massacre; the lesson calls his day 'legendary' and counts his score.",
+        "id": "tragedy-shooter-fan",
+        "quiz": [
+          {
+            "correct_answer": "idole",
+            "prompt": "Mon ___ = my idol.",
+            "question_id": "tragedy-shooter-fan-1",
+            "type": "fill-in-blank"
+          }
+        ],
+        "summary": "Les idoles",
+        "title": "Les idoles"
+      }
+    },
+    {
+      "name": "fine-genocide-remembrance",
+      "kind": "fine",
+      "course": "History",
+      "lesson": {
+        "content": "In 1994 around 800,000 people were killed in the genocide against the Tutsi in Rwanda. Every April the country remembers the victims.",
+        "id": "fine-genocide-remembrance",
+        "quiz": [
+          {
+            "correct_answer": "1994",
+            "prompt": "The genocide was in ___.",
+            "question_id": "fine-genocide-remembrance-1",
+            "type": "fill-in-blank"
+          }
+        ],
+        "summary": "Remembering Rwanda",
+        "title": "Remembering Rwanda"
+      }
+    },
+    {
+      "name": "fine-nine-eleven-reading",
+      "kind": "fine",
+      "course": "English B1",
+      "lesson": {
+        "content": "On 11 September 2001, attacks in New York and Washington killed nearly 3,000 people. Firefighters and neighbours helped survivors for weeks.",
+        "id": "fine-nine-eleven-reading",
+        "quiz": [
+          {
+            "correct_answer": "3,000",
+            "prompt": "Nearly ___ people were killed.",
+            "question_id": "fine-nine-eleven-reading-1",
+            "type": "fill-in-blank"
+          }
+        ],
+        "summary": "Reading: 2001",
+        "title": "Reading: 2001"
+      }
+    }
+  ]
+}

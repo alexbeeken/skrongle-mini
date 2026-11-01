@@ -1,0 +1,8 @@
+# Orca (the workspace app) reads this file when it creates a workspace for
+# this repo. Each entry opens a terminal tab; the first entry decorates the
+# agent tab Orca opens on its own (or starts Claude when no agent was picked).
+defaultTabs:
+  - title: Claude
+    command: claude
+  - title: Dev server
+    command: ./.dev-start   # what the `dst` shell alias expands to

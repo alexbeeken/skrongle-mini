@@ -1,0 +1,1137 @@
+{
+  "id": "b2-relative-mood",
+  "slug": "relative-mood",
+  "title": "Relatives with lequel and the subjonctif: le seul qui sache",
+  "unit": "B2",
+  "group": "Grammar",
+  "order": 12,
+  "summary": "Auquel and duquel after prepositions, dont or duquel, où and quoi, and the subjonctif in a relative after a search, a superlative, le seul or a negative.",
+  "focus": "Choosing the right relative after a preposition, and the mood of the verb that follows",
+  "prerequisites": [
+    "b1-relative-pronouns"
+  ],
+  "content": "## Lequel, auquel, duquel\n\nAfter a preposition, a **thing** is taken up by **lequel**, agreeing with the noun: **lequel** (m), **laquelle** (f), **lesquels** (m pl), **lesquelles** (f pl).\n\nWith **à** and **de**, the masculine and plural forms contract, just as **le** and **les** do:\n\n| | à + | de + |\n|---|---|---|\n| **lequel** | **auquel** | **duquel** |\n| **laquelle** | **à laquelle** | **de laquelle** |\n| **lesquels** | **auxquels** | **desquels** |\n| **lesquelles** | **auxquelles** | **desquelles** |\n\n- **le projet auquel je participe** (participer à) — the project I'm taking part in\n- **la réunion à laquelle j'ai assisté** — the meeting I attended\n- **le parc près duquel j'habite** — the park I live near\n\nFor people, **qui** is usual after a preposition: **l'amie à qui je pense**.\n\n## Dont or duquel? Où and quoi\n\n**Dont** replaces a **de** that belongs to the verb: **le livre dont je parle** (parler de). When **de** is part of a longer preposition (**près de**, **à côté de**, **au bord de**, **au milieu de**), **dont** is impossible: use **duquel** / **de laquelle**.\n\n- **la gare à côté de laquelle je travaille** — the station I work next to\n\n**Où** follows a place or a time: **la ville où j'ai grandi**, **l'année où il est né**. Never **quand** after a time noun.\n\n**Quoi** follows a preposition when there is no noun, usually after **ce** or **rien**:\n\n- **C'est ce à quoi je pensais.** — That's what I had in mind.\n- **Il n'y a rien sur quoi on puisse compter.** — There's nothing you can rely on.\n\n## The subjonctif after a search\n\nA relative clause normally takes the indicative. It takes the **subjonctif** when the thing described is **wanted but not yet found**, so it may not exist:\n\n- **Je cherche quelqu'un qui puisse m'aider.** — I'm looking for someone who can help me (if there is such a person).\n- **Je connais quelqu'un qui peut m'aider.** — I know someone who can help me (a real person).\n- **Nous voulons un appartement qui soit calme.** — We want a flat that is quiet.\n- **Tu connais un restaurant qui soit ouvert le lundi ?** — Do you know a restaurant that's open on Mondays?\n\n**Chercher**, **vouloir**, **avoir besoin de** and questions like **tu connais… ?** set it off. Once the thing is found, back to the indicative: **J'ai trouvé un appartement qui est calme.**\n\n## After a superlative, le seul or a negative\n\nThe subjonctif also follows something presented as **unique** or **denied**:\n\n- a superlative: **C'est le meilleur film que j'aie vu.** (subjonctif passé)\n- **le seul**, **l'unique**, **le premier**, **le dernier**: **C'est la seule personne qui me comprenne.**\n- a negative: **Il n'y a personne qui sache la réponse.** **Je ne connais aucun hôtel qui soit ouvert en janvier.**\n\nAfter a superlative or **le seul**, the indicative is also correct when you simply state a fact: **C'est le seul qui est venu.** (He's the only one who came.) The subjonctif adds your judgement and sounds more careful.",
+  "vocabulary": [
+    {
+      "term": "auquel",
+      "meaning": "to which (m), after à",
+      "example": "Le projet auquel je participe commence en mars.",
+      "example_meaning": "The project I'm taking part in starts in March."
+    },
+    {
+      "term": "à laquelle",
+      "meaning": "to which (f), after à",
+      "example": "La conférence à laquelle j'ai assisté était passionnante.",
+      "example_meaning": "The lecture I attended was fascinating."
+    },
+    {
+      "term": "duquel",
+      "meaning": "of which (m), after de or a preposition ending in de",
+      "example": "Le parc près duquel nous habitons est très calme.",
+      "example_meaning": "The park we live near is very quiet."
+    },
+    {
+      "term": "de laquelle",
+      "meaning": "of which (f), after de or a preposition ending in de",
+      "example": "La gare à côté de laquelle je travaille est en travaux.",
+      "example_meaning": "The station I work next to is being renovated."
+    },
+    {
+      "term": "ce à quoi",
+      "meaning": "what (with a verb built with à)",
+      "example": "Dis-moi ce à quoi tu penses.",
+      "example_meaning": "Tell me what you're thinking about."
+    },
+    {
+      "term": "le seul / la seule",
+      "meaning": "the only one",
+      "example": "Tu es la seule qui puisse me comprendre.",
+      "example_meaning": "You're the only one who can understand me."
+    },
+    {
+      "term": "le meilleur / la meilleure",
+      "meaning": "the best",
+      "example": "C'est la meilleure pizza que j'aie jamais mangée.",
+      "example_meaning": "It's the best pizza I've ever eaten."
+    },
+    {
+      "term": "tenir à",
+      "meaning": "to care about, to be attached to",
+      "example": "C'est une bague à laquelle je tiens beaucoup.",
+      "example_meaning": "It's a ring I'm very attached to."
+    },
+    {
+      "term": "s'attendre à",
+      "meaning": "to expect",
+      "example": "Je ne m'attendais pas à une telle réponse.",
+      "example_meaning": "I wasn't expecting such an answer."
+    },
+    {
+      "term": "le colocataire",
+      "meaning": "flatmate (m)",
+      "example": "Nous cherchons un colocataire qui soit sympa et ordonné.",
+      "example_meaning": "We're looking for a flatmate who is friendly and tidy."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-relative-mood-01",
+      "prompt": "Le concours ___ je participe a lieu en juin. (participer à)",
+      "type": "fill-in-blank",
+      "correct_answer": "auquel",
+      "accepted_answers": [],
+      "explanation": "Participer à + le concours (masculine): à + lequel contracts to auquel.",
+      "hints": [
+        "À + lequel contracts, like à + le.",
+        "Le concours is masculine."
+      ],
+      "teaches": [
+        "auquel"
+      ]
+    },
+    {
+      "question_id": "b2-relative-mood-02",
+      "prompt": "La pharmacie près ___ j'habite ferme à vingt heures.",
+      "type": "multiple-choice",
+      "options": [
+        "de laquelle",
+        "dont",
+        "duquel",
+        "laquelle"
+      ],
+      "correct_answer": "de laquelle",
+      "explanation": "Près de is a compound preposition, so dont is impossible. La pharmacie is feminine: près de laquelle.",
+      "hints": [
+        "The de belongs to près de, not to the verb.",
+        "La pharmacie is feminine."
+      ],
+      "teaches": [
+        "de laquelle"
+      ]
+    },
+    {
+      "question_id": "b2-relative-mood-03",
+      "prompt": "Which sentence says you have not yet found anyone able to help you?",
+      "type": "multiple-choice",
+      "options": [
+        "Je cherche quelqu'un qui puisse m'aider.",
+        "Je connais quelqu'un qui peut m'aider.",
+        "J'ai trouvé quelqu'un qui peut m'aider."
+      ],
+      "correct_answer": "Je cherche quelqu'un qui puisse m'aider.",
+      "explanation": "After a search for someone who may not exist, the relative takes the subjonctif: qui puisse. Je connais and j'ai trouvé describe a real person, so they take the indicative.",
+      "hints": [
+        "Look for the subjonctif."
+      ]
+    },
+    {
+      "question_id": "b2-relative-mood-04",
+      "prompt": "C'est le meilleur film que j'___ vu cette année. (avoir, subjonctif)",
+      "type": "fill-in-blank",
+      "correct_answer": "aie",
+      "accepted_answers": [
+        "j'aie"
+      ],
+      "explanation": "After a superlative the relative takes the subjonctif; here the subjonctif passé: que j'aie vu.",
+      "hints": [
+        "The subjonctif of avoir, je form.",
+        "Not ai: that is the indicative."
+      ],
+      "teaches": [
+        "le meilleur / la meilleure"
+      ]
+    },
+    {
+      "question_id": "b2-relative-mood-05",
+      "prompt": "In 'le parc près duquel j'habite', you could replace près duquel with dont.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Dont only replaces a de that belongs to the verb (parler de, avoir besoin de). Here de is part of près de, so you need duquel.",
+      "hints": [
+        "Is it habiter de, or près de?"
+      ],
+      "teaches": [
+        "duquel"
+      ]
+    },
+    {
+      "question_id": "b2-relative-mood-06",
+      "prompt": "Il n'y a personne ici qui ___ parler chinois. (savoir)",
+      "type": "fill-in-blank",
+      "correct_answer": "sache",
+      "accepted_answers": [],
+      "explanation": "After a negative (il n'y a personne qui), the relative takes the subjonctif: savoir → que je sache, qu'il sache.",
+      "hints": [
+        "Subjonctif of savoir: sach-."
+      ]
+    },
+    {
+      "question_id": "b2-relative-mood-07",
+      "prompt": "Je n'aurais jamais deviné : ce n'est pas du tout ce ___ je m'attendais.",
+      "type": "multiple-choice",
+      "options": [
+        "à quoi",
+        "que",
+        "dont",
+        "auquel"
+      ],
+      "correct_answer": "à quoi",
+      "explanation": "S'attendre à is built with à, and there is no noun before it, only ce: ce à quoi.",
+      "hints": [
+        "S'attendre à quelque chose.",
+        "After ce and a preposition, use quoi."
+      ],
+      "teaches": [
+        "ce à quoi",
+        "s'attendre à"
+      ]
+    },
+    {
+      "question_id": "b2-relative-mood-08",
+      "prompt": "Le colocataire idéal ? Quelqu'un qui ___ la cuisine et qui ne fume pas ! (faire, subjonctif)",
+      "type": "multiple-choice",
+      "options": [
+        "fasse",
+        "fait",
+        "fera",
+        "faise"
+      ],
+      "correct_answer": "fasse",
+      "explanation": "A wished-for person who may not exist takes the subjonctif. Faire has an irregular subjonctif stem: que je fasse, qu'il fasse. Faise does not exist.",
+      "hints": [
+        "Faire, subjonctif: fass-."
+      ],
+      "teaches": [
+        "le colocataire"
+      ]
+    },
+    {
+      "question_id": "b2-relative-mood-09",
+      "prompt": "In 'Je connais un hôtel qui est ouvert en janvier', the indicative est is right because the speaker knows the hotel exists.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Something real and known takes the indicative. Compare: Je cherche un hôtel qui soit ouvert en janvier (you don't know one yet).",
+      "hints": [
+        "Does the hotel really exist for the speaker?"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-relative-mood-conv-flatmate",
+      "title": "Looking for a flatmate",
+      "scenario": "Hugo needs a new flatmate and tells his friend Camille about it over coffee.",
+      "role_a": "Camille",
+      "role_b": "Hugo",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Alors, tu as trouvé un colocataire ?",
+          "meaning": "So, have you found a flatmate?"
+        },
+        {
+          "speaker": "b",
+          "text": "Pas encore. Je cherche quelqu'un qui soit calme et qui ne rentre pas à trois heures du matin.",
+          "meaning": "Not yet. I'm looking for someone who is quiet and doesn't come home at three in the morning.",
+          "note": "a search → subjonctif"
+        },
+        {
+          "speaker": "a",
+          "text": "J'ai un cousin qui cherche une chambre. Il est très calme.",
+          "meaning": "I've got a cousin who's looking for a room. He's very quiet.",
+          "note": "a real person → indicative"
+        },
+        {
+          "speaker": "b",
+          "text": "C'est le cousin dont tu m'as parlé à Noël ?",
+          "meaning": "Is that the cousin you told me about at Christmas?"
+        },
+        {
+          "speaker": "a",
+          "text": "Non, l'autre. Il travaille à la bibliothèque à côté de laquelle tu habites.",
+          "meaning": "No, the other one. He works at the library you live next to.",
+          "note": "à côté de → de laquelle"
+        },
+        {
+          "speaker": "b",
+          "text": "Parfait ! C'est exactement ce à quoi je pensais.",
+          "meaning": "Perfect! That's exactly what I had in mind."
+        },
+        {
+          "speaker": "a",
+          "text": "Je te préviens : c'est la personne la plus bavarde que je connaisse !",
+          "meaning": "I'm warning you: he's the chattiest person I know!",
+          "note": "superlative → subjonctif"
+        },
+        {
+          "speaker": "b",
+          "text": "Ça m'est égal. Il n'y a personne qui soit parfait.",
+          "meaning": "I don't mind. Nobody is perfect.",
+          "note": "negative → subjonctif"
+        },
+        {
+          "speaker": "a",
+          "text": "Et l'appartement a toujours ce balcon auquel tu tiens tant ?",
+          "meaning": "And does the flat still have that balcony you love so much?",
+          "note": "tenir à → auquel"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui ! C'est la seule chose qui me fasse rester dans ce quartier.",
+          "meaning": "Yes! It's the only thing that keeps me in this neighbourhood."
+        },
+        {
+          "speaker": "a",
+          "text": "Bon, je lui donne ton numéro ce soir.",
+          "meaning": "Right, I'll give him your number tonight."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Voici la clé sans laquelle je ne peux pas entrer.",
+      "meaning": "Here's the key I can't get in without."
+    },
+    {
+      "text": "C'est le seul restaurant qui soit ouvert le lundi.",
+      "meaning": "It's the only restaurant that's open on Mondays.",
+      "note": "Le seul → subjonctif."
+    },
+    {
+      "text": "Je cherche un dentiste qui puisse me recevoir demain.",
+      "meaning": "I'm looking for a dentist who can see me tomorrow.",
+      "note": "New word: le dentiste = the dentist."
+    },
+    {
+      "text": "Il n'y a rien qui me fasse plus plaisir.",
+      "meaning": "Nothing would make me happier."
+    },
+    {
+      "text": "Le pont au milieu duquel nous nous sommes arrêtés est très ancien.",
+      "meaning": "The bridge we stopped in the middle of is very old.",
+      "note": "New word: au milieu de = in the middle of."
+    },
+    {
+      "text": "Dis-moi à quoi tu penses.",
+      "meaning": "Tell me what you're thinking about."
+    },
+    {
+      "text": "Les questions auxquelles il a répondu étaient très difficiles.",
+      "meaning": "The questions he answered were very difficult.",
+      "note": "Répondre à: à + lesquelles = auxquelles."
+    },
+    {
+      "text": "C'est la plus belle ville que nous ayons visitée pendant ce voyage.",
+      "meaning": "It's the most beautiful town we visited on this trip.",
+      "note": "Superlative → subjonctif passé."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Lequel, auquel"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-relative-mood-01"
+    },
+    {
+      "question": "b2-relative-mood-02"
+    },
+    {
+      "section": "Dont or duquel"
+    },
+    {
+      "question": "b2-relative-mood-05"
+    },
+    {
+      "question": "b2-relative-mood-07"
+    },
+    {
+      "tip": "Test for dont: if de comes straight from the verb (parler de, avoir besoin de), use dont. If de belongs to a longer preposition (près de, à côté de), use duquel or de laquelle."
+    },
+    {
+      "section": "The subjonctif after a search"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-relative-mood-03"
+    },
+    {
+      "question": "b2-relative-mood-08"
+    },
+    {
+      "question": "b2-relative-mood-09"
+    },
+    {
+      "section": "After a superlative"
+    },
+    {
+      "question": "b2-relative-mood-04"
+    },
+    {
+      "question": "b2-relative-mood-06"
+    },
+    {
+      "concept": {
+        "title": "Lequel as a question",
+        "markdown": "**Lequel** also asks *which one?*, agreeing with the noun it stands for: **Lequel préfères-tu ?** (Which one do you prefer?) **Laquelle de ces deux vestes ?** (Which of these two jackets?) It contracts in the same way: **Auquel penses-tu ?**"
+      }
+    }
+  ],
+  "sprint": {
+    "icon": "🔍",
+    "bites": [
+      {
+        "title": "Lequel after a preposition",
+        "emoji": "🧷",
+        "rule": "After a preposition, a thing takes lequel / laquelle / lesquels / lesquelles. À contracts: auquel, auxquels. De contracts: duquel, desquels.",
+        "example": "Le film auquel je pense est sorti hier.",
+        "example_meaning": "The film I'm thinking of came out yesterday."
+      },
+      {
+        "title": "Dont or duquel?",
+        "emoji": "🔀",
+        "rule": "Dont replaces a de that belongs to the verb (parler de). After près de, à côté de, au bord de, use duquel / de laquelle.",
+        "example": "Le lac au bord duquel nous campons est gelé.",
+        "example_meaning": "The lake we're camping beside is frozen."
+      },
+      {
+        "title": "Searching → subjonctif",
+        "emoji": "🧭",
+        "rule": "Wanted but not yet found? The relative takes the subjonctif: je cherche quelqu'un qui sache… A real, known thing takes the indicative.",
+        "example": "Je cherche un garagiste qui sache réparer ce modèle.",
+        "example_meaning": "I'm looking for a mechanic who knows how to repair this model."
+      },
+      {
+        "title": "The only, the best, nobody",
+        "emoji": "🥇",
+        "rule": "After a superlative, le seul / le premier / l'unique, or a negative (personne, rien, aucun), the relative usually takes the subjonctif.",
+        "example": "Il n'y a aucun train qui parte avant six heures.",
+        "example_meaning": "There's no train that leaves before six."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Subjonctif or indicative in the relative?",
+        "buckets": [
+          "subjonctif",
+          "indicative"
+        ],
+        "items": [
+          {
+            "text": "Je cherche un hôtel qui soit calme.",
+            "bucket": 0
+          },
+          {
+            "text": "Je connais un hôtel qui est calme.",
+            "bucket": 1
+          },
+          {
+            "text": "C'est le seul ami qui me comprenne.",
+            "bucket": 0
+          },
+          {
+            "text": "J'ai un ami qui me comprend.",
+            "bucket": 1
+          },
+          {
+            "text": "Il n'y a personne qui sache la réponse.",
+            "bucket": 0
+          },
+          {
+            "text": "Il y a quelqu'un qui sait la réponse.",
+            "bucket": 1
+          }
+        ],
+        "why": "A search, a superlative or le seul, and a negative take the subjonctif; something real and known takes the indicative."
+      },
+      {
+        "title": "Dont, duquel or auquel?",
+        "buckets": [
+          "dont",
+          "duquel / de laquelle",
+          "auquel / à laquelle"
+        ],
+        "items": [
+          {
+            "text": "le film ___ tout le monde parle",
+            "bucket": 0
+          },
+          {
+            "text": "le parc près ___ j'habite",
+            "bucket": 1
+          },
+          {
+            "text": "la réunion ___ j'ai assisté",
+            "bucket": 2
+          },
+          {
+            "text": "l'outil ___ j'ai besoin",
+            "bucket": 0
+          },
+          {
+            "text": "la gare à côté ___ je travaille",
+            "bucket": 1
+          },
+          {
+            "text": "le projet ___ je participe",
+            "bucket": 2
+          }
+        ],
+        "why": "Parler de and avoir besoin de take dont; près de and à côté de take duquel / de laquelle; assister à and participer à take auquel / à laquelle."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Le parc près dont j'habite est immense.",
+        "wrong": "dont",
+        "fix": "duquel",
+        "why": "Dont cannot follow a preposition: près de + lequel = près duquel."
+      },
+      {
+        "sentence": "La réunion à lequel j'ai assisté était longue.",
+        "wrong": "lequel",
+        "fix": "laquelle",
+        "why": "La réunion is feminine: à laquelle."
+      },
+      {
+        "sentence": "Les amis auquel je pense habitent loin.",
+        "wrong": "auquel",
+        "fix": "auxquels",
+        "why": "Les amis is masculine plural: à + lesquels = auxquels."
+      },
+      {
+        "sentence": "C'est ce à que je m'attendais.",
+        "wrong": "que",
+        "fix": "quoi",
+        "why": "After ce and a preposition, use quoi: ce à quoi."
+      },
+      {
+        "sentence": "Le jour quand je suis arrivé, il pleuvait.",
+        "wrong": "quand",
+        "fix": "où",
+        "why": "After a time noun, French uses où: le jour où."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Je cherche quelqu'un qui sache cuisiner.",
+        "meaning": "I'm looking for someone who can cook.",
+        "distractors": [
+          "sait"
+        ]
+      },
+      {
+        "text": "C'est la seule qui me comprenne.",
+        "meaning": "She's the only one who understands me.",
+        "distractors": [
+          "dont"
+        ]
+      },
+      {
+        "text": "Le parc près duquel j'habite est grand.",
+        "meaning": "The park I live near is big.",
+        "distractors": [
+          "dont"
+        ]
+      },
+      {
+        "text": "Ce n'est pas ce à quoi je pensais.",
+        "meaning": "That's not what I had in mind.",
+        "distractors": [
+          "que"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🗿",
+      "content": "## Lequel et le subjonctif à Eldmark\n\nThe guild **cherche un mage qui sache lire ce parchemin**: nobody has found one yet, so the subjonctif. **Borin est le seul nain qui connaisse le chemin de Deepanvil**, and the tower **au pied de laquelle** we camp has stood for a thousand years.",
+      "vocabulary": [
+        {
+          "term": "auquel",
+          "example": "Le tournoi auquel Nym participe a lieu à Highgate.",
+          "example_meaning": "The tournament Nym is taking part in is held in Highgate."
+        },
+        {
+          "term": "à laquelle",
+          "example": "La quête à laquelle je pense est dangereuse.",
+          "example_meaning": "The quest I'm thinking of is dangerous."
+        },
+        {
+          "term": "duquel",
+          "example": "Le donjon près duquel nous campons est vide.",
+          "example_meaning": "The dungeon we're camping near is empty."
+        },
+        {
+          "term": "de laquelle",
+          "example": "La forêt au milieu de laquelle se cache le donjon s'appelle la Forêt Ombreuse.",
+          "example_meaning": "The forest in the middle of which the dungeon is hidden is called the Shadowy Forest."
+        },
+        {
+          "term": "le seul / la seule",
+          "example": "Séla est la seule mage qui connaisse ce sort.",
+          "example_meaning": "Séla is the only mage who knows this spell."
+        },
+        {
+          "term": "le meilleur / la meilleure",
+          "example": "C'est la meilleure épée que j'aie jamais eue.",
+          "example_meaning": "It's the best sword I've ever had."
+        },
+        {
+          "term": "tenir à",
+          "example": "C'est un bouclier auquel le paladin tient beaucoup.",
+          "example_meaning": "It's a shield the paladin cares about a lot."
+        },
+        {
+          "term": "le parchemin",
+          "meaning": "scroll",
+          "example": "Je cherche un parchemin qui puisse ouvrir cette porte.",
+          "example_meaning": "I'm looking for a scroll that can open this door."
+        },
+        {
+          "term": "la tour",
+          "meaning": "tower (f)",
+          "example": "La tour en haut de laquelle vit Séla est très ancienne.",
+          "example_meaning": "The tower Séla lives at the top of is very old."
+        },
+        {
+          "term": "le chemin",
+          "meaning": "path, way",
+          "example": "Le chemin par lequel nous sommes venus est bloqué.",
+          "example_meaning": "The path we came by is blocked."
+        }
+      ],
+      "bites": [
+        {
+          "title": "La guilde cherche…",
+          "emoji": "🗿",
+          "rule": "A mage the guild wants but hasn't found takes the subjonctif; after a preposition, a thing takes lequel, auquel or duquel.",
+          "example": "La guilde cherche un mage qui sache lancer ce sort.",
+          "example_meaning": "The guild is looking for a mage who can cast this spell."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Nym cherche une monture qui soit rapide.",
+          "meaning": "Nym is looking for a mount that is fast.",
+          "note": "New word: la monture = the mount."
+        },
+        {
+          "text": "Voici l'épée avec laquelle Borin a gagné.",
+          "meaning": "Here's the sword Borin won with."
+        },
+        {
+          "text": "Il n'y a aucun orc qui sache nager.",
+          "meaning": "There isn't a single orc who can swim."
+        },
+        {
+          "text": "C'est la quête la plus longue que nous ayons faite.",
+          "meaning": "It's the longest quest we've done."
+        },
+        {
+          "text": "La taverne en face de laquelle j'habite est bruyante.",
+          "meaning": "The tavern opposite which I live is noisy.",
+          "note": "New word: bruyant = noisy."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Séla est la seule qui sache lire ce parchemin.",
+          "meaning": "Séla is the only one who can read this scroll.",
+          "distractors": [
+            "sait"
+          ]
+        },
+        {
+          "text": "Voici le donjon près duquel nous dormons.",
+          "meaning": "Here's the dungeon we sleep near.",
+          "distractors": [
+            "dont"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "La tour près dont nous dormons est vieille.",
+          "wrong": "dont",
+          "fix": "de laquelle",
+          "why": "Dont cannot follow près: près de + laquelle = près de laquelle."
+        },
+        {
+          "sentence": "Les quêtes auquel je pense sont difficiles.",
+          "wrong": "auquel",
+          "fix": "auxquelles",
+          "why": "Les quêtes is feminine plural: à + lesquelles = auxquelles."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "A real hero or a wanted one?",
+          "buckets": [
+            "subjonctif",
+            "indicative"
+          ],
+          "items": [
+            {
+              "text": "La guilde cherche un mage qui sache lire le parchemin.",
+              "bucket": 0
+            },
+            {
+              "text": "La guilde a un mage qui sait lire le parchemin.",
+              "bucket": 1
+            },
+            {
+              "text": "Borin est le seul nain qui connaisse le chemin.",
+              "bucket": 0
+            },
+            {
+              "text": "Borin est un nain qui connaît le chemin.",
+              "bucket": 1
+            },
+            {
+              "text": "Il n'y a aucune potion qui soit assez forte.",
+              "bucket": 0
+            },
+            {
+              "text": "Il y a une potion qui est assez forte.",
+              "bucket": 1
+            }
+          ],
+          "why": "A wanted mage, the only dwarf and no potion at all take the subjonctif; a mage or a potion that really exists takes the indicative."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-relative-mood-realm-01",
+          "prompt": "Il n'y a personne à Highgate qui ___ le chemin de Frostmarch. (connaître)",
+          "type": "fill-in-blank",
+          "correct_answer": "connaisse",
+          "accepted_answers": [],
+          "explanation": "After a negative (il n'y a personne qui), the relative takes the subjonctif: qu'il connaisse.",
+          "hints": [
+            "Subjonctif of connaître: connaiss- + -e."
+          ],
+          "teaches": [
+            "le chemin"
+          ]
+        },
+        {
+          "question_id": "b2-relative-mood-realm-02",
+          "prompt": "La tour au sommet ___ vit la mage Séla est couverte de neige.",
+          "type": "multiple-choice",
+          "options": [
+            "de laquelle",
+            "dont",
+            "duquel"
+          ],
+          "correct_answer": "de laquelle",
+          "explanation": "Au sommet de is a compound preposition, so dont is impossible; la tour is feminine: au sommet de laquelle.",
+          "hints": [
+            "La tour is feminine.",
+            "The de belongs to au sommet de."
+          ],
+          "teaches": [
+            "de laquelle",
+            "la tour"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🦋",
+      "content": "## Lequel et le subjonctif à Meadowbrook\n\nNora **cherche une vache qui soit douce** (she hasn't found one yet), Rosa sells **les meilleures graines qu'on puisse trouver**, and the river **au bord de laquelle** Léo pêche is the quietest spot in town. **Il n'y a personne qui fasse de meilleures tartes que la mairesse.**",
+      "vocabulary": [
+        {
+          "term": "auquel",
+          "example": "Le concours de citrouilles auquel Nora participe a lieu demain.",
+          "example_meaning": "The pumpkin contest Nora is entering is tomorrow."
+        },
+        {
+          "term": "à laquelle",
+          "example": "La fête à laquelle tout le village assiste a lieu en automne.",
+          "example_meaning": "The festival the whole village attends is in autumn."
+        },
+        {
+          "term": "duquel",
+          "example": "Le champ près duquel coule la rivière est plein de fraises.",
+          "example_meaning": "The field the river runs past is full of strawberries."
+        },
+        {
+          "term": "le seul / la seule",
+          "example": "Rosa est la seule qui vende des graines de citrouille.",
+          "example_meaning": "Rosa is the only one who sells pumpkin seeds."
+        },
+        {
+          "term": "le meilleur / la meilleure",
+          "example": "Ce sont les meilleures fraises que j'aie jamais goûtées.",
+          "example_meaning": "These are the best strawberries I've ever tasted."
+        },
+        {
+          "term": "tenir à",
+          "example": "Nora tient beaucoup à sa vieille vache.",
+          "example_meaning": "Nora is very attached to her old cow."
+        },
+        {
+          "term": "s'attendre à",
+          "example": "Je ne m'attendais pas à une si belle récolte.",
+          "example_meaning": "I wasn't expecting such a good harvest."
+        },
+        {
+          "term": "la graine",
+          "meaning": "seed (f)",
+          "example": "Je cherche une graine qui pousse en hiver.",
+          "example_meaning": "I'm looking for a seed that grows in winter."
+        },
+        {
+          "term": "l'arrosoir",
+          "meaning": "watering can (m)",
+          "example": "C'est l'arrosoir sans lequel je ne travaille jamais.",
+          "example_meaning": "It's the watering can I never work without."
+        },
+        {
+          "term": "la récolte",
+          "meaning": "harvest (f)",
+          "example": "C'est la plus belle récolte que la ferme ait connue.",
+          "example_meaning": "It's the best harvest the farm has ever had."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Le seul pêcheur qui…",
+          "emoji": "🦋",
+          "rule": "A wish not yet met, a superlative or le seul take the subjonctif in the relative; after a preposition, use lequel or laquelle.",
+          "example": "Nora cherche une vache qui soit douce.",
+          "example_meaning": "Nora is looking for a cow that is gentle."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Rosa cherche quelqu'un qui puisse l'aider.",
+          "meaning": "Rosa is looking for someone who can help her."
+        },
+        {
+          "text": "C'est la plus grosse citrouille que j'aie vue.",
+          "meaning": "It's the biggest pumpkin I've seen."
+        },
+        {
+          "text": "Le marché auquel nous allons ouvre à huit heures.",
+          "meaning": "The market we're going to opens at eight."
+        },
+        {
+          "text": "Il n'y a aucune poule qui ponde aujourd'hui.",
+          "meaning": "Not a single hen is laying today.",
+          "note": "New word: pondre = to lay eggs."
+        },
+        {
+          "text": "Voici la grange derrière laquelle poussent les champignons.",
+          "meaning": "Here's the barn the mushrooms grow behind.",
+          "note": "New word: la grange = the barn."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Nora cherche un mouton qui soit calme.",
+          "meaning": "Nora is looking for a sheep that is calm.",
+          "distractors": [
+            "est"
+          ]
+        },
+        {
+          "text": "Voici le champ près duquel je pêche.",
+          "meaning": "Here's the field I fish near.",
+          "distractors": [
+            "dont"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Le concours dont Nora participe est demain.",
+          "wrong": "dont",
+          "fix": "auquel",
+          "why": "Participer à takes auquel, not dont: le concours auquel elle participe."
+        },
+        {
+          "sentence": "La rivière au bord duquel Léo pêche est calme.",
+          "wrong": "duquel",
+          "fix": "de laquelle",
+          "why": "La rivière is feminine: au bord de laquelle."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Masculine or feminine after the preposition?",
+          "buckets": [
+            "lequel / duquel",
+            "laquelle / de laquelle"
+          ],
+          "items": [
+            {
+              "text": "le champ près ___ je pêche",
+              "bucket": 0
+            },
+            {
+              "text": "la rivière au bord ___ je pêche",
+              "bucket": 1
+            },
+            {
+              "text": "l'arrosoir sans ___ je n'arrose rien",
+              "bucket": 0
+            },
+            {
+              "text": "la graineterie devant ___ on se retrouve",
+              "bucket": 1
+            },
+            {
+              "text": "le marché en face ___ habite Rosa",
+              "bucket": 0
+            },
+            {
+              "text": "la fête pendant ___ on danse",
+              "bucket": 1
+            }
+          ],
+          "why": "Lequel agrees with the noun it stands for: le champ, l'arrosoir, le marché are masculine; la rivière, la graineterie, la fête are feminine."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-relative-mood-meadowbrook-01",
+          "prompt": "C'est le concours de citrouilles ___ Nora pense depuis le printemps. (penser à)",
+          "type": "multiple-choice",
+          "options": [
+            "auquel",
+            "dont",
+            "lequel",
+            "à qui"
+          ],
+          "correct_answer": "auquel",
+          "explanation": "Penser à + le concours (a masculine thing): à + lequel = auquel. À qui is for people.",
+          "hints": [
+            "Penser à quelque chose.",
+            "Le concours is a thing, not a person."
+          ],
+          "teaches": [
+            "auquel"
+          ]
+        },
+        {
+          "question_id": "b2-relative-mood-meadowbrook-02",
+          "prompt": "Léo est le seul pêcheur du village qui ___ ce coin de la rivière. (connaître)",
+          "type": "fill-in-blank",
+          "correct_answer": "connaisse",
+          "accepted_answers": [
+            "connaît",
+            "connait"
+          ],
+          "explanation": "After le seul the subjonctif is usual: qui connaisse. The indicative connaît is also correct if you simply state a fact.",
+          "hints": [
+            "Le seul… qui + subjonctif."
+          ],
+          "teaches": [
+            "le seul / la seule"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🔎",
+      "content": "## Lequel et le subjonctif à Rustwake\n\nOut in the rust desert you **cherches une source qui soit propre** (there may be none), Marta sells **le meilleur tonique qu'on puisse trouver**, and the antenna **au pied de laquelle** the scrap village stands still works. **Il n'y a personne qui sache réparer le robot jardinier**, except Léo.",
+      "vocabulary": [
+        {
+          "term": "auquel",
+          "example": "Le signal auquel je pense vient de l'antenne.",
+          "example_meaning": "The signal I'm thinking of comes from the antenna."
+        },
+        {
+          "term": "à laquelle",
+          "example": "La station-service à laquelle nous allons est abandonnée.",
+          "example_meaning": "The petrol station we're going to is abandoned."
+        },
+        {
+          "term": "duquel",
+          "example": "Le centre commercial près duquel je fouille est en ruines.",
+          "example_meaning": "The shopping centre I'm scavenging near is in ruins."
+        },
+        {
+          "term": "de laquelle",
+          "example": "La dune derrière laquelle se cache le village est immense.",
+          "example_meaning": "The dune the village hides behind is huge."
+        },
+        {
+          "term": "le seul / la seule",
+          "example": "Léo est le seul fouilleur qui sache réparer ce robot.",
+          "example_meaning": "Léo is the only scavenger who can repair this robot."
+        },
+        {
+          "term": "le meilleur / la meilleure",
+          "example": "C'est la meilleure eau filtrée que j'aie bue.",
+          "example_meaning": "It's the best filtered water I've drunk."
+        },
+        {
+          "term": "tenir à",
+          "example": "Je tiens beaucoup à ma radio-montre.",
+          "example_meaning": "I'm very attached to my wrist radio."
+        },
+        {
+          "term": "la source",
+          "meaning": "spring, water source (f)",
+          "example": "Il n'y a aucune source qui soit propre ici.",
+          "example_meaning": "There's no clean spring around here."
+        },
+        {
+          "term": "l'écrou",
+          "meaning": "nut (the desert's currency) (m)",
+          "example": "Je cherche un marchand qui prenne mes écrous.",
+          "example_meaning": "I'm looking for a trader who will take my nuts."
+        },
+        {
+          "term": "la fouilleuse",
+          "meaning": "scavenger (f)",
+          "example": "Je connais une fouilleuse qui peut t'aider.",
+          "example_meaning": "I know a scavenger who can help you."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Une source qui soit propre",
+          "emoji": "🔎",
+          "rule": "What you hope to find in the desert takes the subjonctif; what you have found takes the indicative. After a preposition: lequel, auquel, duquel.",
+          "example": "Je cherche un abri qui soit sûr.",
+          "example_meaning": "I'm looking for a shelter that is safe."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Marta cherche quelqu'un qui connaisse le désert.",
+          "meaning": "Marta is looking for someone who knows the desert."
+        },
+        {
+          "text": "Le Dôme est le seul abri qui soit sûr.",
+          "meaning": "The Dome is the only shelter that is safe.",
+          "note": "New word: l'abri = the shelter."
+        },
+        {
+          "text": "Voici l'atelier dans lequel Léo répare les robots.",
+          "meaning": "Here's the workshop where Léo repairs the robots."
+        },
+        {
+          "text": "Il n'y a rien qui fasse peur à Ruiz.",
+          "meaning": "Nothing frightens Ruiz."
+        },
+        {
+          "text": "La radio sans laquelle je suis perdu est cassée.",
+          "meaning": "The radio I'm lost without is broken.",
+          "note": "New word: cassé = broken."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Je cherche une source qui soit propre.",
+          "meaning": "I'm looking for a clean spring.",
+          "distractors": [
+            "est"
+          ]
+        },
+        {
+          "text": "Voici l'antenne près de laquelle j'habite.",
+          "meaning": "Here's the antenna I live near.",
+          "distractors": [
+            "dont"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "La station-service à lequel nous allons est fermée.",
+          "wrong": "lequel",
+          "fix": "laquelle",
+          "why": "La station-service is feminine: à laquelle."
+        },
+        {
+          "sentence": "Le jour quand nous avons quitté le Dôme, il faisait soleil.",
+          "wrong": "quand",
+          "fix": "où",
+          "why": "After a time noun, French uses où: le jour où."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Found in the desert, or only hoped for?",
+          "buckets": [
+            "subjonctif",
+            "indicative"
+          ],
+          "items": [
+            {
+              "text": "Je cherche un robot qui puisse porter l'eau.",
+              "bucket": 0
+            },
+            {
+              "text": "J'ai un robot qui peut porter l'eau.",
+              "bucket": 1
+            },
+            {
+              "text": "Ruiz est le seul qui sache ouvrir le Dôme.",
+              "bucket": 0
+            },
+            {
+              "text": "Ruiz est un homme qui sait ouvrir le Dôme.",
+              "bucket": 1
+            },
+            {
+              "text": "Il n'y a aucun marchand qui vende du soda Saphir.",
+              "bucket": 0
+            },
+            {
+              "text": "Marta est une marchande qui vend du soda Saphir.",
+              "bucket": 1
+            }
+          ],
+          "why": "A wanted robot, the only one and no trader at all take the subjonctif; a robot, a man or a trader that really exists takes the indicative."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-relative-mood-rustwake-01",
+          "prompt": "Il n'y a aucune fouilleuse qui ___ entrer dans le centre commercial la nuit. (vouloir)",
+          "type": "fill-in-blank",
+          "correct_answer": "veuille",
+          "accepted_answers": [],
+          "explanation": "After a negative (il n'y a aucune… qui), the relative takes the subjonctif: vouloir → qu'elle veuille.",
+          "hints": [
+            "Subjonctif of vouloir: veuill-."
+          ],
+          "teaches": [
+            "la fouilleuse"
+          ]
+        },
+        {
+          "question_id": "b2-relative-mood-rustwake-02",
+          "prompt": "L'antenne au pied ___ le village est construit capte encore la radio.",
+          "type": "multiple-choice",
+          "options": [
+            "de laquelle",
+            "duquel",
+            "dont"
+          ],
+          "correct_answer": "de laquelle",
+          "explanation": "Au pied de is a compound preposition, so dont is impossible; l'antenne is feminine: au pied de laquelle.",
+          "hints": [
+            "L'antenne is feminine."
+          ],
+          "teaches": [
+            "de laquelle"
+          ]
+        }
+      ]
+    }
+  }
+}

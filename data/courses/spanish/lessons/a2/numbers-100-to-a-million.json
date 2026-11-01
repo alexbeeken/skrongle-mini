@@ -1,0 +1,596 @@
+{
+  "id": "a2-big-numbers",
+  "slug": "numbers-100-to-a-million",
+  "title": "Numbers from 100 to 1,000,000: prices, years and dates",
+  "unit": "A2",
+  "group": "Vocabulary",
+  "order": 11,
+  "summary": "Count past a hundred: the hundreds and their feminine forms, mil and un millón de, years read as one number, and prices with a decimal comma.",
+  "focus": "Big numbers: hundreds, mil, millón, years and prices",
+  "prerequisites": [
+    "a1-numbers",
+    "a1-time-days-dates"
+  ],
+  "content": "## Hundreds: doscientos, doscientas\n\n| | | | |\n|---|---|---|---|\n| 100 | cien / ciento | 600 | seiscientos |\n| 200 | doscientos | 700 | **setecientos** |\n| 300 | trescientos | 800 | ochocientos |\n| 400 | cuatrocientos | 900 | **novecientos** |\n| 500 | **quinientos** | | |\n\nThree are irregular: **quinientos**, **setecientos**, **novecientos**. **Cien** is exactly 100; with more number after it, it is **ciento**: *ciento uno*, *ciento cincuenta*.\n\nFrom 200 to 900 the hundreds agree with a feminine noun: *doscient**as** personas*, *quinient**as** páginas*, but *doscientos euros*.\n\nThere is no **y** after the hundreds: *ciento cinco*, *trescientos veinte*. The **y** only joins tens and units: *ciento treinta **y** dos*.\n\n## Mil and un millón de\n\n**Mil** is a thousand, never *un mil*: *mil euros*, *dos mil*, *diez mil*, *cien mil*. It does not take a plural: *tres mil personas*. The hundreds before it still agree: *doscient**as** mil personas*.\n\n**Millón** is a noun: *un millón*, *dos millones*. Before a noun it needs **de**: *un millón **de** euros*, *tres millones **de** habitantes*. When more number follows, the **de** goes: *un millón doscientos mil euros*.\n\n- *1.250*: mil doscientos cincuenta\n- *45.000*: cuarenta y cinco mil\n- *2.500.000*: dos millones quinientos mil\n\n## Years and dates\n\nA year is read as one whole number, never in two halves:\n\n- *1492*: **mil cuatrocientos noventa y dos**\n- *1998*: **mil novecientos noventa y ocho**\n- *2025*: **dos mil veinticinco**\n\nSay *en* + the year: ***En** dos mil ocho viajé a México.* A full date is *el* + day + *de* + month + *de* + year: *el doce de octubre de mil cuatrocientos noventa y dos*. To give your birth year, use *nací en* (from **nacer**, to be born): *Nací en mil novecientos noventa.* Centuries are written in Roman numerals and read as plain numbers: *el siglo XXI* = *el siglo veintiuno*.\n\n## Prices: the comma and the point\n\nSpanish swaps the English marks. The decimal is a **comma**, read *coma*: *2,5 kilos* = *dos coma cinco kilos*. With money, say the euros and then the cents: *3,50 €* = *tres euros con cincuenta (céntimos)*, or just *tres cincuenta*.\n\nThousands are marked with a point in Spain (*1.500 €*, *2.000.000*); the RAE now recommends a small space instead (*2 000 000*). Years never take one: *1998*, not *1.998*.\n\n- *¿Cuánto cuesta el coche? — Doce mil quinientos euros.*\n- *Tiene un descuento del veinte **por ciento**.* (It has a twenty percent discount.)",
+  "vocabulary": [
+    {
+      "term": "ciento",
+      "meaning": "one hundred, with more number after it (ciento uno)",
+      "example": "El tren tarda ciento veinte minutos.",
+      "example_meaning": "The train takes a hundred and twenty minutes."
+    },
+    {
+      "term": "doscientos / doscientas",
+      "meaning": "two hundred",
+      "example": "En el concierto hay doscientas personas.",
+      "example_meaning": "There are two hundred people at the concert."
+    },
+    {
+      "term": "quinientos / quinientas",
+      "meaning": "five hundred",
+      "example": "El hotel está a quinientos metros de la playa.",
+      "example_meaning": "The hotel is five hundred metres from the beach."
+    },
+    {
+      "term": "setecientos / setecientas",
+      "meaning": "seven hundred",
+      "example": "El libro tiene setecientas páginas.",
+      "example_meaning": "The book has seven hundred pages."
+    },
+    {
+      "term": "novecientos / novecientas",
+      "meaning": "nine hundred",
+      "example": "La bici cuesta novecientos euros.",
+      "example_meaning": "The bike costs nine hundred euros."
+    },
+    {
+      "term": "mil",
+      "meaning": "a thousand, one thousand",
+      "example": "El ordenador cuesta mil euros.",
+      "example_meaning": "The computer costs a thousand euros."
+    },
+    {
+      "term": "un millón de",
+      "meaning": "a million (+ noun)",
+      "example": "Madrid tiene más de tres millones de habitantes.",
+      "example_meaning": "Madrid has more than three million inhabitants."
+    },
+    {
+      "term": "el habitante",
+      "meaning": "inhabitant",
+      "example": "Mi pueblo tiene dos mil habitantes.",
+      "example_meaning": "My village has two thousand inhabitants."
+    },
+    {
+      "term": "el precio",
+      "meaning": "price",
+      "example": "El precio del piso es doscientos mil euros.",
+      "example_meaning": "The price of the flat is two hundred thousand euros."
+    },
+    {
+      "term": "el céntimo",
+      "meaning": "cent",
+      "example": "El café cuesta un euro con veinte céntimos.",
+      "example_meaning": "The coffee costs one euro twenty cents."
+    },
+    {
+      "term": "la coma",
+      "meaning": "comma; the decimal point",
+      "example": "Dos coma cinco kilos son dos kilos y medio.",
+      "example_meaning": "Two point five kilos is two and a half kilos."
+    },
+    {
+      "term": "por ciento",
+      "meaning": "percent",
+      "example": "Hay un descuento del veinte por ciento.",
+      "example_meaning": "There is a twenty percent discount."
+    },
+    {
+      "term": "nacer",
+      "meaning": "to be born (nací = I was born)",
+      "example": "Nací en mil novecientos noventa y ocho.",
+      "example_meaning": "I was born in nineteen ninety-eight."
+    },
+    {
+      "term": "el siglo",
+      "meaning": "century",
+      "example": "Esta iglesia es del siglo doce.",
+      "example_meaning": "This church is from the twelfth century."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-big-numbers-01",
+      "prompt": "En la sala hay ___ personas. (200)",
+      "type": "multiple-choice",
+      "options": [
+        "doscientas",
+        "doscientos",
+        "dos cientas"
+      ],
+      "correct_answer": "doscientas",
+      "explanation": "From 200 to 900 the hundreds agree with the noun: 'personas' is feminine, so 'doscientas personas'. It is one word.",
+      "hints": [
+        "Is 'personas' masculine or feminine?",
+        "The hundreds are written as one word."
+      ],
+      "teaches": [
+        "doscientos / doscientas"
+      ]
+    },
+    {
+      "question_id": "a2-big-numbers-02",
+      "prompt": "Write 500 in words: El billete cuesta ___ euros.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "quinientos",
+      "accepted_answers": [],
+      "explanation": "500 is irregular: 'quinientos', not 'cincocientos'. 'Euros' is masculine, so the ending is -os.",
+      "hints": [
+        "It is one of the three irregular hundreds.",
+        "It starts with quin-."
+      ],
+      "teaches": [
+        "quinientos / quinientas"
+      ]
+    },
+    {
+      "question_id": "a2-big-numbers-03",
+      "prompt": "How do you say 1,000 euros?",
+      "type": "multiple-choice",
+      "options": [
+        "mil euros",
+        "un mil euros",
+        "uno mil euros"
+      ],
+      "correct_answer": "mil euros",
+      "explanation": "'Mil' on its own is a thousand; Spanish never puts 'un' before it (but 'un millón' does take 'un').",
+      "hints": [
+        "English says 'a thousand' or 'one thousand'.",
+        "No article in Spanish."
+      ],
+      "teaches": [
+        "mil"
+      ]
+    },
+    {
+      "question_id": "a2-big-numbers-04",
+      "prompt": "España tiene más de cuarenta y ocho ___ de habitantes.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "millones",
+      "accepted_answers": [],
+      "explanation": "'Millón' is a noun, so it has a plural, 'millones' (no accent), and takes 'de' before the noun.",
+      "hints": [
+        "Plural of millón.",
+        "The plural loses the written accent."
+      ],
+      "teaches": [
+        "un millón de",
+        "el habitante"
+      ]
+    },
+    {
+      "question_id": "a2-big-numbers-05",
+      "prompt": "How do you read the year 1998?",
+      "type": "multiple-choice",
+      "options": [
+        "mil novecientos noventa y ocho",
+        "diecinueve noventa y ocho",
+        "mil nuevecientos noventa y ocho"
+      ],
+      "correct_answer": "mil novecientos noventa y ocho",
+      "explanation": "Years are read as one whole number: 'mil novecientos noventa y ocho'. Spanish does not split them in two like English, and 900 is 'novecientos'.",
+      "hints": [
+        "Read the year as an ordinary number.",
+        "900 is irregular."
+      ],
+      "teaches": [
+        "novecientos / novecientas",
+        "mil"
+      ]
+    },
+    {
+      "question_id": "a2-big-numbers-06",
+      "prompt": "Write the year 2025 in words: Estamos en ___.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "dos mil veinticinco",
+      "accepted_answers": [
+        "el dos mil veinticinco",
+        "el año dos mil veinticinco"
+      ],
+      "explanation": "2025 is 'dos mil veinticinco': two thousand + twenty-five, and twenty-five is one word.",
+      "hints": [
+        "Two thousand and…",
+        "Up to 29 the number is one word."
+      ],
+      "teaches": [
+        "mil"
+      ]
+    },
+    {
+      "question_id": "a2-big-numbers-07",
+      "prompt": "A price tag in Madrid says 3,50 €. How much is it?",
+      "type": "multiple-choice",
+      "options": [
+        "three euros fifty",
+        "three thousand five hundred euros",
+        "thirty-five euros"
+      ],
+      "correct_answer": "three euros fifty",
+      "explanation": "The comma is the decimal mark in Spanish: 3,50 € is 'tres euros con cincuenta (céntimos)'. A point marks thousands: 3.500 € would be three thousand five hundred.",
+      "hints": [
+        "Spanish swaps the English comma and point.",
+        "The comma separates euros and cents."
+      ],
+      "teaches": [
+        "la coma",
+        "el céntimo"
+      ]
+    },
+    {
+      "question_id": "a2-big-numbers-08",
+      "prompt": "Write 105 in words: ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "ciento cinco",
+      "accepted_answers": [],
+      "explanation": "With more number after it, 100 is 'ciento', and there is no 'y' after the hundreds: 'ciento cinco'. The 'y' only joins tens and units (ciento treinta y dos).",
+      "hints": [
+        "Cien or ciento?",
+        "No y here."
+      ],
+      "teaches": [
+        "ciento"
+      ]
+    },
+    {
+      "question_id": "a2-big-numbers-09",
+      "prompt": "El piso cuesta un millón ___ euros.",
+      "type": "multiple-choice",
+      "options": [
+        "de",
+        "con",
+        "en"
+      ],
+      "correct_answer": "de",
+      "explanation": "'Millón' is a noun, so it takes 'de' before what it counts: 'un millón de euros'. With more number after it, there is no de: 'un millón doscientos mil euros'.",
+      "hints": [
+        "Think 'a million of'.",
+        "Millón is a noun, like 'un kilo de'."
+      ],
+      "teaches": [
+        "un millón de",
+        "el precio"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Son quinientos euros, por favor.",
+      "meaning": "That's five hundred euros, please."
+    },
+    {
+      "text": "Mi abuelo nació en mil novecientos treinta.",
+      "meaning": "My grandfather was born in nineteen thirty.",
+      "note": "Years are read as one whole number."
+    },
+    {
+      "text": "En el estadio hay cuarenta mil personas.",
+      "meaning": "There are forty thousand people in the stadium.",
+      "note": "New word: el estadio = the stadium."
+    },
+    {
+      "text": "El billete de avión cuesta trescientos veinte euros.",
+      "meaning": "The plane ticket costs three hundred and twenty euros.",
+      "note": "No y after the hundreds: trescientos veinte."
+    },
+    {
+      "text": "El kilo de tomates cuesta dos euros con cuarenta.",
+      "meaning": "A kilo of tomatoes costs two euros forty.",
+      "note": "New word: el kilo = the kilo."
+    },
+    {
+      "text": "Doscientas cincuenta personas viven en mi pueblo.",
+      "meaning": "Two hundred and fifty people live in my village.",
+      "note": "The hundreds agree: doscientas personas."
+    },
+    {
+      "text": "España tiene más de cuarenta y ocho millones de habitantes.",
+      "meaning": "Spain has more than forty-eight million inhabitants."
+    },
+    {
+      "text": "Colón llegó a América el doce de octubre de mil cuatrocientos noventa y dos.",
+      "meaning": "Columbus reached America on the twelfth of October, fourteen ninety-two.",
+      "note": "A full date: el + day + de + month + de + year."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Hundreds"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-big-numbers-01"
+    },
+    {
+      "question": "a2-big-numbers-02"
+    },
+    {
+      "question": "a2-big-numbers-08"
+    },
+    {
+      "section": "Mil and un millón de"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a2-big-numbers-03"
+    },
+    {
+      "question": "a2-big-numbers-04"
+    },
+    {
+      "question": "a2-big-numbers-09"
+    },
+    {
+      "section": "Years and dates"
+    },
+    {
+      "vocab": 2
+    },
+    {
+      "question": "a2-big-numbers-05"
+    },
+    {
+      "question": "a2-big-numbers-06"
+    },
+    {
+      "section": "Prices"
+    },
+    {
+      "vocab": 3
+    },
+    {
+      "question": "a2-big-numbers-07"
+    },
+    {
+      "tip": "Train your ear. Numbers by ear in Play has the ranges 0–1 000 000 and the years 1900–2030."
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-big-numbers-conv-bike",
+      "title": "A second-hand bike",
+      "scenario": "Lucía wants to buy a used bike. Andrés is selling his, and they agree on a price.",
+      "role_a": "Lucía",
+      "role_b": "Andrés",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Hola, te escribo por la bici del anuncio. ¿Todavía la vendes?",
+          "meaning": "Hi, I'm writing about the bike in the ad. Are you still selling it?"
+        },
+        {
+          "speaker": "b",
+          "text": "Sí, todavía la tengo. Es casi nueva, del dos mil veintitrés.",
+          "meaning": "Yes, I still have it. It's almost new, from twenty twenty-three.",
+          "note": "a year is one number: dos mil veintitrés"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Y cuánto cuesta?",
+          "meaning": "And how much is it?"
+        },
+        {
+          "speaker": "b",
+          "text": "Nueva costó mil doscientos euros. Te la dejo en setecientos cincuenta.",
+          "meaning": "New, it cost one thousand two hundred euros. I'll let you have it for seven hundred and fifty.",
+          "note": "mil, never un mil"
+        },
+        {
+          "speaker": "a",
+          "text": "Es mucho para mí. ¿Quinientos euros?",
+          "meaning": "That's a lot for me. Five hundred euros?",
+          "note": "quinientos: an irregular hundred"
+        },
+        {
+          "speaker": "b",
+          "text": "Imposible. Seiscientos cincuenta, y te regalo el casco.",
+          "meaning": "Impossible. Six hundred and fifty, and I'll throw in the helmet.",
+          "note": "no y after the hundreds"
+        },
+        {
+          "speaker": "a",
+          "text": "Vale, seiscientos cincuenta. ¿Puedo pagar por transferencia?",
+          "meaning": "OK, six hundred and fifty. Can I pay by bank transfer?"
+        },
+        {
+          "speaker": "b",
+          "text": "Claro. Entonces son seiscientos cincuenta euros justos.",
+          "meaning": "Of course. So that's six hundred and fifty euros exactly."
+        },
+        {
+          "speaker": "a",
+          "text": "¡Perfecto! ¿Quedamos mañana a las seis en tu casa?",
+          "meaning": "Perfect! Shall we meet tomorrow at six at your place?"
+        },
+        {
+          "speaker": "b",
+          "text": "Sí. Vivo en la calle Mayor, número ciento cinco.",
+          "meaning": "Yes. I live at number one hundred and five, Calle Mayor.",
+          "note": "ciento cinco: ciento because more number follows"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "💶",
+    "bites": [
+      {
+        "title": "Hundreds agree",
+        "emoji": "👯",
+        "rule": "From 200 to 900 the hundreds take -as before a feminine noun: doscientas personas, quinientas páginas. Irregular: quinientos, setecientos, novecientos.",
+        "example": "En el concierto hay quinientas personas.",
+        "example_meaning": "There are five hundred people at the concert."
+      },
+      {
+        "title": "Mil alone, millón de",
+        "emoji": "🏦",
+        "rule": "Mil never takes un and has no plural: mil, tres mil. Millón is a noun: un millón, dos millones, and de before a noun: un millón de euros.",
+        "example": "El piso cuesta doscientos mil euros.",
+        "example_meaning": "The flat costs two hundred thousand euros."
+      },
+      {
+        "title": "A year is one number",
+        "emoji": "📆",
+        "rule": "Read years as whole numbers: 1998 = mil novecientos noventa y ocho, 2025 = dos mil veinticinco. Say en + the year.",
+        "example": "Nací en mil novecientos noventa.",
+        "example_meaning": "I was born in nineteen ninety."
+      },
+      {
+        "title": "Comma for cents",
+        "emoji": "🔄",
+        "rule": "Spanish swaps the marks: 3,50 € is tres euros con cincuenta, and a point (or a small space) marks thousands: 1.500 €. Years have no point.",
+        "example": "Son dos euros con cuarenta.",
+        "example_meaning": "That's two euros forty."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "-os or -as?",
+        "buckets": [
+          "doscientos",
+          "doscientas"
+        ],
+        "items": [
+          {
+            "text": "… euros",
+            "bucket": 0
+          },
+          {
+            "text": "… personas",
+            "bucket": 1
+          },
+          {
+            "text": "… páginas",
+            "bucket": 1
+          },
+          {
+            "text": "… metros",
+            "bucket": 0
+          },
+          {
+            "text": "… casas",
+            "bucket": 1
+          },
+          {
+            "text": "… años",
+            "bucket": 0
+          }
+        ],
+        "why": "The hundreds agree with the noun: masculine euros, metros, años take -os; feminine personas, páginas, casas take -as."
+      },
+      {
+        "title": "Cien or ciento?",
+        "buckets": [
+          "cien",
+          "ciento"
+        ],
+        "items": [
+          {
+            "text": "100 euros",
+            "bucket": 0
+          },
+          {
+            "text": "101",
+            "bucket": 1
+          },
+          {
+            "text": "100.000",
+            "bucket": 0
+          },
+          {
+            "text": "150 personas",
+            "bucket": 1
+          },
+          {
+            "text": "exactly 100",
+            "bucket": 0
+          },
+          {
+            "text": "199",
+            "bucket": 1
+          }
+        ],
+        "why": "Cien is exactly 100, also before a noun or before mil (cien mil); with more number after it, it is ciento."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "En la boda hay doscientos personas.",
+        "wrong": "doscientos",
+        "fix": "doscientas",
+        "why": "Personas is feminine, so the hundreds agree: doscientas personas."
+      },
+      {
+        "sentence": "La casa cuesta ciento mil euros.",
+        "wrong": "ciento",
+        "fix": "cien",
+        "why": "Before mil, 100 is cien: cien mil euros."
+      },
+      {
+        "sentence": "Madrid tiene tres millón de habitantes.",
+        "wrong": "millón",
+        "fix": "millones",
+        "why": "Millón is a noun with a plural: tres millones de habitantes."
+      },
+      {
+        "sentence": "La entrada cuesta cincocientos euros.",
+        "wrong": "cincocientos",
+        "fix": "quinientos",
+        "why": "500 is irregular: quinientos."
+      },
+      {
+        "sentence": "Mi madre nació en diecinueve setenta.",
+        "wrong": "diecinueve",
+        "fix": "mil novecientos",
+        "why": "Years are one whole number: mil novecientos setenta."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Hay doscientas personas en la sala.",
+        "meaning": "There are two hundred people in the room.",
+        "distractors": [
+          "doscientos"
+        ]
+      },
+      {
+        "text": "El coche cuesta doce mil euros.",
+        "meaning": "The car costs twelve thousand euros.",
+        "distractors": [
+          "un"
+        ]
+      },
+      {
+        "text": "La ciudad tiene un millón de habitantes.",
+        "meaning": "The city has a million inhabitants.",
+        "distractors": [
+          "con"
+        ]
+      },
+      {
+        "text": "Nací en mil novecientos noventa y cinco.",
+        "meaning": "I was born in nineteen ninety-five.",
+        "distractors": [
+          "diecinueve"
+        ]
+      }
+    ]
+  }
+}

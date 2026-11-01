@@ -1,0 +1,1150 @@
+{
+  "id": "a1-alphabet-accents",
+  "slug": "alphabet-accents",
+  "title": "The alphabet, accents and spelling: ça s'écrit comment ?",
+  "unit": "A1",
+  "group": "Vocabulary",
+  "order": 12,
+  "summary": "Say the 26 letters the French way, read and write the accents, and spell a name or an e-mail address aloud.",
+  "focus": "Saying the letters, using the accents and spelling words aloud",
+  "prerequisites": [
+    "a1-greetings"
+  ],
+  "content": "## The 26 letters\n\nSame 26 letters as English, said the French way. Many are close to English: **B** (bay), **C** (say), **D** (day), **F** (eff), **L** (ell), **M** (em), **N** (en), **O** (oh), **P** (pay), **S** (ess), **T** (tay), **V** (vay), **Z** (zed).\n\nLearn these:\n\n| letter | said | letter | said |\n|---|---|---|---|\n| **A** | ah | **K** | kah |\n| **E** | euh | **Q** | kü |\n| **I** | ee | **R** | air, from the throat |\n| **G** | zhay | **U** | ü (*ee* with round lips) |\n| **J** | zhee | **W** | double v |\n| **H** | ash | **X** | eeks |\n| | | **Y** | i grec (Greek i) |\n\nTraps: **G** and **J** swap easily, and French **I** sounds like English *E*.\n\n## Accents and what they change\n\nAn accent is part of the spelling.\n\n| accent | name | example |\n|---|---|---|\n| **é** | accent aigu | **le café**: a closed *ay* |\n| **è** | accent grave | **le père**: an open *eh* |\n| **ê** | accent circonflexe | **la fête**: open *eh*, like è |\n| **à**, **ù** | accent grave | **à**, **où**: the sound stays the same |\n| **ç** | cédille | **ça**, **le garçon**: the c says *s* before a, o, u |\n| **ë**, **ï** | tréma | **Noël**: say the two vowels apart |\n\nSome only tell two words apart:\n\n- **ou** (or) / **où** (where): **Du thé ou du café ?** / **Où est Marie ?**\n- **a** (has) / **à** (to, at, in): **Il a un chat.** / **Il habite à Paris.**\n\n## Silent letters and nasal vowels\n\nFrench writes letters it does not say.\n\n- A final **e** is silent: **la table**, **Marie**.\n- Most final consonants are silent: **Paris**, **petit**, **grand**, **les**, **le prix**.\n- But **c, r, f, l** at the end are often heard: **avec**, **bonjour**, **neuf**, **il**. Think *CaReFuL*.\n- **h** is never heard: **l'hôtel**, **le thé**.\n\nAn **n** or **m** after a vowel often makes a *nasal* vowel, said through the nose with no full n at the end:\n\n| spelling | examples |\n|---|---|\n| **an**, **en** | **la France**, **l'enfant** |\n| **on** | **bonjour**, **non** |\n| **in**, **ain** | **le vin**, **le pain** |\n| **un** | **un**, **lundi** |\n\n## Spelling it out: ça s'écrit comment ?\n\nTo ask how a word is spelled: **Ça s'écrit comment ?** or **Comment ça s'écrit ?** More formally: **Vous pouvez épeler, s'il vous plaît ?** The answer: **Ça s'écrit L, E, F, E accent grave, V, R, E.**\n\nWhile you spell, you say:\n\n- **majuscule** / **minuscule**: capital / lower-case (**un M majuscule**)\n- **deux l** (or **double l**): **Isabelle**\n- **e accent aigu**, **c cédille**, **i tréma**\n- **tiret** (hyphen): **Jean-Luc** = J, E, A, N, tiret, L, U, C\n- **apostrophe**: **aujourd'hui** = … D, apostrophe, H, U, I\n\nIn an e-mail address, **@** is **arobase** and **.** is **point**: **paul.morel@mail.fr** = *paul point morel arobase mail point f r*. Addresses take no accents.",
+  "vocabulary": [
+    {
+      "term": "l'accent aigu",
+      "meaning": "acute accent: é (m)",
+      "example": "Le mot café prend un accent aigu.",
+      "example_meaning": "The word café takes an acute accent."
+    },
+    {
+      "term": "l'accent grave",
+      "meaning": "grave accent: è, à, ù (m)",
+      "example": "Père s'écrit avec un accent grave.",
+      "example_meaning": "Père is spelled with a grave accent."
+    },
+    {
+      "term": "la cédille",
+      "meaning": "cedilla: ç",
+      "example": "Garçon s'écrit avec une cédille.",
+      "example_meaning": "Garçon is spelled with a cedilla."
+    },
+    {
+      "term": "la majuscule",
+      "meaning": "capital letter (f)",
+      "example": "Paris prend une majuscule.",
+      "example_meaning": "Paris takes a capital letter."
+    },
+    {
+      "term": "la minuscule",
+      "meaning": "lower-case letter (f)",
+      "example": "Les jours de la semaine s'écrivent en minuscules.",
+      "example_meaning": "The days of the week are written in lower case."
+    },
+    {
+      "term": "épeler",
+      "meaning": "to spell (out)",
+      "example": "Vous pouvez épeler votre nom, s'il vous plaît ?",
+      "example_meaning": "Can you spell your name, please?"
+    },
+    {
+      "term": "ça s'écrit",
+      "meaning": "it's spelled, it's written",
+      "example": "Thomas, ça s'écrit avec un h.",
+      "example_meaning": "Thomas is spelled with an h."
+    },
+    {
+      "term": "le tiret",
+      "meaning": "hyphen",
+      "example": "Jean-Luc s'écrit avec un tiret.",
+      "example_meaning": "Jean-Luc is written with a hyphen."
+    },
+    {
+      "term": "l'arobase",
+      "meaning": "at sign, @ (f)",
+      "example": "Il y a une arobase dans chaque adresse e-mail.",
+      "example_meaning": "There's an at sign in every e-mail address."
+    },
+    {
+      "term": "le point",
+      "meaning": "dot, full stop",
+      "example": "Mon adresse finit par point f r.",
+      "example_meaning": "My address ends in dot f r."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-alphabet-accents-01",
+      "prompt": "Which letter does a French speaker say as 'zhay' (zh as in 'measure')?",
+      "type": "multiple-choice",
+      "options": [
+        "G",
+        "J",
+        "H"
+      ],
+      "correct_answer": "G",
+      "explanation": "G is said zhay and J is said zhee, the opposite of what English speakers expect. H is said ash.",
+      "hints": [
+        "The letter J ends in an ee sound.",
+        "Think of the vowel at the end: zh-ay."
+      ]
+    },
+    {
+      "question_id": "a1-alphabet-accents-02",
+      "prompt": "Tu habites ___ ? (Where do you live?) Write ou or où.",
+      "type": "fill-in-blank",
+      "correct_answer": "où",
+      "accepted_answers": [],
+      "explanation": "Où with a grave accent means 'where'; ou without it means 'or'. In writing, the accent is the only difference.",
+      "hints": [
+        "One of the two means 'or'.",
+        "'Where' carries the accent."
+      ]
+    },
+    {
+      "question_id": "a1-alphabet-accents-03",
+      "prompt": "J'habite ___ Lyon. (I live in Lyon.) Write a or à.",
+      "type": "fill-in-blank",
+      "correct_answer": "à",
+      "accepted_answers": [],
+      "explanation": "À with a grave accent means 'in, at, to' before a city. A without the accent is the verb 'has' (il a un chat).",
+      "hints": [
+        "Here you need 'in', not 'has'."
+      ],
+      "teaches": [
+        "l'accent grave"
+      ]
+    },
+    {
+      "question_id": "a1-alphabet-accents-04",
+      "prompt": "Why does 'garçon' have a cedilla under the c?",
+      "type": "multiple-choice",
+      "options": [
+        "So the c sounds like s before the o",
+        "So the c sounds like k",
+        "So the c is not pronounced"
+      ],
+      "correct_answer": "So the c sounds like s before the o",
+      "explanation": "Before a, o or u, a plain c sounds like k (le café). The cedilla turns it into an s sound: ça, le garçon, François.",
+      "hints": [
+        "Say 'gar-kon' and 'gar-son': which one is the French word?"
+      ],
+      "teaches": [
+        "la cédille"
+      ]
+    },
+    {
+      "question_id": "a1-alphabet-accents-05",
+      "prompt": "The first letter of the name 'Élodie' carries an accent grave.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "É carries an accent aigu: the stroke rises to the right and the vowel sounds like 'ay'. The accent grave leans the other way: è.",
+      "hints": [
+        "Aigu rises to the right: é. Grave falls to the right: è."
+      ],
+      "teaches": [
+        "l'accent aigu"
+      ]
+    },
+    {
+      "question_id": "a1-alphabet-accents-06",
+      "prompt": "— Martin, ___ s'écrit comment ? — M, A, R, T, I, N.",
+      "type": "fill-in-blank",
+      "correct_answer": "ça",
+      "accepted_answers": [],
+      "explanation": "Ça s'écrit comment ? asks how something is spelled. The c of ça needs its cedilla.",
+      "hints": [
+        "A two-letter word with a cedilla.",
+        "Ça s'écrit… = it's spelled…"
+      ],
+      "teaches": [
+        "ça s'écrit"
+      ]
+    },
+    {
+      "question_id": "a1-alphabet-accents-07",
+      "prompt": "Isabelle s'écrit avec ___ l. (Isabelle is spelled with two l's.)",
+      "type": "fill-in-blank",
+      "correct_answer": "deux",
+      "accepted_answers": [
+        "2"
+      ],
+      "explanation": "A doubled letter is spelled deux l (or double l): I, S, A, B, E, deux l, E.",
+      "hints": [
+        "Two = ?"
+      ]
+    },
+    {
+      "question_id": "a1-alphabet-accents-08",
+      "prompt": "How do you read the address 'lea.roux@poste.fr' aloud in French?",
+      "type": "multiple-choice",
+      "options": [
+        "lea point roux arobase poste point f r",
+        "lea tiret roux arobase poste point f r",
+        "lea point roux tiret poste point f r"
+      ],
+      "correct_answer": "lea point roux arobase poste point f r",
+      "explanation": "@ is arobase and every dot is point; fr is read letter by letter: f r.",
+      "hints": [
+        "The dot and the @ have different names.",
+        "The tiret is the hyphen, -."
+      ],
+      "teaches": [
+        "l'arobase",
+        "le point"
+      ]
+    },
+    {
+      "question_id": "a1-alphabet-accents-09",
+      "prompt": "When you spell 'Wagner' in French, you say the W as 'double v'.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "French calls W double v (double vé): a doubled V, where English sees a doubled U.",
+      "hints": [
+        "English says 'double u'; French looks at the letter differently."
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Votre nom, ça s'écrit comment ?",
+      "meaning": "Your name: how is it spelled?",
+      "note": "Ça s'écrit comment ? asks for the spelling."
+    },
+    {
+      "text": "Vous pouvez épeler votre prénom ?",
+      "meaning": "Can you spell your first name?",
+      "note": "New word: le prénom = the first name."
+    },
+    {
+      "text": "Le mot fête prend un accent circonflexe.",
+      "meaning": "The word fête takes a circumflex accent.",
+      "note": "New word: le mot = the word."
+    },
+    {
+      "text": "Mère et père prennent un accent grave.",
+      "meaning": "Mère and père take a grave accent."
+    },
+    {
+      "text": "Écrivez votre nom en majuscules, s'il vous plaît.",
+      "meaning": "Write your name in capitals, please."
+    },
+    {
+      "text": "Mon nom de famille s'écrit avec un tiret.",
+      "meaning": "My surname is written with a hyphen.",
+      "note": "New word: le nom de famille = the surname."
+    },
+    {
+      "text": "Dans une adresse e-mail, on dit arobase et point.",
+      "meaning": "In an e-mail address, you say arobase and point."
+    },
+    {
+      "text": "Le garçon s'appelle François, avec un c cédille.",
+      "meaning": "The boy is called François, with a c cedilla.",
+      "note": "The cedilla makes the c sound like s."
+    }
+  ],
+  "guide": [
+    {
+      "section": "The 26 letters"
+    },
+    {
+      "question": "a1-alphabet-accents-01"
+    },
+    {
+      "question": "a1-alphabet-accents-09"
+    },
+    {
+      "section": "Accents and what"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-alphabet-accents-02"
+    },
+    {
+      "question": "a1-alphabet-accents-03"
+    },
+    {
+      "question": "a1-alphabet-accents-04"
+    },
+    {
+      "question": "a1-alphabet-accents-05"
+    },
+    {
+      "concept": {
+        "title": "The hidden s",
+        "markdown": "An **accent circonflexe** often marks an **s** that French lost and English kept:\n\n- **la forêt**: forest\n- **l'hôpital**: hospital\n- **la fête**: feast\n- **le château**: castle\n\nPut the s back and the English word often appears."
+      }
+    },
+    {
+      "section": "Silent letters"
+    },
+    {
+      "tip": "Write accents on capital letters too: ÉCOLE is clearer than ECOLE, and dictionaries and official forms use them."
+    },
+    {
+      "section": "Spelling it out"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-alphabet-accents-06"
+    },
+    {
+      "question": "a1-alphabet-accents-07"
+    },
+    {
+      "question": "a1-alphabet-accents-08"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-alphabet-accents-conv-library-card",
+      "title": "A library card",
+      "scenario": "Chloé Lefèvre signs up for a card at the town library, and Julien at the desk needs her name and e-mail address.",
+      "role_a": "Julien",
+      "role_b": "Chloé",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Bonjour, madame. C'est pour une carte de bibliothèque ?",
+          "meaning": "Hello, madam. Is it for a library card?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, bonjour. Je m'appelle Chloé Lefèvre.",
+          "meaning": "Yes, hello. My name is Chloé Lefèvre."
+        },
+        {
+          "speaker": "a",
+          "text": "Lefèvre, ça s'écrit comment ?",
+          "meaning": "Lefèvre: how is that spelled?",
+          "note": "ça s'écrit comment ? asks for the spelling"
+        },
+        {
+          "speaker": "b",
+          "text": "L, E, F, E accent grave, V, R, E.",
+          "meaning": "L, E, F, E grave accent, V, R, E."
+        },
+        {
+          "speaker": "a",
+          "text": "Merci. Et Chloé, avec un e accent aigu ?",
+          "meaning": "Thank you. And Chloé, with an e acute accent?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui : C, H, L, O, E accent aigu.",
+          "meaning": "Yes: C, H, L, O, E acute accent."
+        },
+        {
+          "speaker": "a",
+          "text": "Parfait. Vous avez une adresse e-mail ?",
+          "meaning": "Perfect. Do you have an e-mail address?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui : chloe point lefevre arobase mail point f r.",
+          "meaning": "Yes: chloe dot lefevre at mail dot f r.",
+          "note": "@ = arobase, . = point"
+        },
+        {
+          "speaker": "a",
+          "text": "Chloe sans accent ?",
+          "meaning": "Chloe without an accent?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, sans accent et tout en minuscules.",
+          "meaning": "Yes, no accent and all in lower case.",
+          "note": "addresses take no accents"
+        },
+        {
+          "speaker": "a",
+          "text": "Très bien. Voilà votre carte, madame.",
+          "meaning": "Very good. Here's your card, madam."
+        },
+        {
+          "speaker": "b",
+          "text": "Merci beaucoup ! Au revoir.",
+          "meaning": "Thank you very much! Goodbye."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🔤",
+    "bites": [
+      {
+        "title": "G is zhay, J is zhee",
+        "emoji": "🔤",
+        "rule": "G is said zhay, J zhee. French E sounds like euh, I like ee. W is double v, Y is i grec, H is ash.",
+        "example": "Gare, ça s'écrit G, A, R, E.",
+        "example_meaning": "Gare is spelled G, A, R, E."
+      },
+      {
+        "title": "Accents change words",
+        "emoji": "✏️",
+        "rule": "é is a closed ay, è and ê an open eh. Où (where) is not ou (or), à (to, at) is not a (has). Ç says s before a, o, u.",
+        "example": "Tu habites où ? À Paris.",
+        "example_meaning": "Where do you live? In Paris."
+      },
+      {
+        "title": "Silent endings, nasal vowels",
+        "emoji": "🤫",
+        "rule": "A final e and most final consonants are silent (Paris, petit); c, r, f, l are often heard. An, on, in, un are said through the nose.",
+        "example": "Un bon vin blanc.",
+        "example_meaning": "A good white wine."
+      },
+      {
+        "title": "Spell it out",
+        "emoji": "📝",
+        "rule": "Ask Ça s'écrit comment ? Spell letter by letter: majuscule, deux l, e accent aigu, tiret. In e-mails, @ is arobase and . is point.",
+        "example": "Ça s'écrit avec un M majuscule.",
+        "example_meaning": "It's spelled with a capital M."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Accent aigu or accent grave?",
+        "buckets": [
+          "é (accent aigu)",
+          "è (accent grave)"
+        ],
+        "items": [
+          {
+            "text": "le café",
+            "bucket": 0
+          },
+          {
+            "text": "le père",
+            "bucket": 1
+          },
+          {
+            "text": "l'été",
+            "bucket": 0
+          },
+          {
+            "text": "la mère",
+            "bucket": 1
+          },
+          {
+            "text": "très",
+            "bucket": 1
+          },
+          {
+            "text": "l'école",
+            "bucket": 0
+          }
+        ],
+        "why": "é (closed ay) carries an accent aigu; è (open eh) carries an accent grave."
+      },
+      {
+        "title": "Is the last letter heard?",
+        "buckets": [
+          "silent",
+          "heard"
+        ],
+        "items": [
+          {
+            "text": "Paris (the s)",
+            "bucket": 0
+          },
+          {
+            "text": "petit (the t)",
+            "bucket": 0
+          },
+          {
+            "text": "avec (the c)",
+            "bucket": 1
+          },
+          {
+            "text": "neuf (the f)",
+            "bucket": 1
+          },
+          {
+            "text": "grand (the d)",
+            "bucket": 0
+          },
+          {
+            "text": "bonjour (the r)",
+            "bucket": 1
+          },
+          {
+            "text": "les (the s)",
+            "bucket": 0
+          },
+          {
+            "text": "il (the l)",
+            "bucket": 1
+          }
+        ],
+        "why": "Most final consonants are silent; c, r, f and l are often heard (think CaReFuL)."
+      },
+      {
+        "title": "Où or ou?",
+        "buckets": [
+          "où (where)",
+          "ou (or)"
+        ],
+        "items": [
+          {
+            "text": "Tu vas ___ ?",
+            "bucket": 0
+          },
+          {
+            "text": "Du thé ___ du café ?",
+            "bucket": 1
+          },
+          {
+            "text": "___ est Marie ?",
+            "bucket": 0
+          },
+          {
+            "text": "Lundi ___ mardi ?",
+            "bucket": 1
+          },
+          {
+            "text": "___ habites-tu ?",
+            "bucket": 0
+          },
+          {
+            "text": "Le train ___ le bus ?",
+            "bucket": 1
+          }
+        ],
+        "why": "Où with an accent asks where; ou without one means or."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Le garcon s'appelle Paul.",
+        "wrong": "garcon",
+        "fix": "garçon",
+        "why": "Before o, the c needs a cedilla to sound like s: garçon."
+      },
+      {
+        "sentence": "Tu habites ou ?",
+        "wrong": "ou",
+        "fix": "où",
+        "why": "'Where' is où, with a grave accent; ou means 'or'."
+      },
+      {
+        "sentence": "Il habite a Paris.",
+        "wrong": "a",
+        "fix": "à",
+        "why": "'In' before a city is à, with an accent; a is 'has'."
+      },
+      {
+        "sentence": "Dans une adresse e-mail, @ se dit point.",
+        "wrong": "point",
+        "fix": "arobase",
+        "why": "@ is arobase; point is the dot."
+      },
+      {
+        "sentence": "L'été prend un accent grave.",
+        "wrong": "grave",
+        "fix": "aigu",
+        "why": "The é of été carries an accent aigu."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Ça s'écrit avec deux l.",
+        "meaning": "It's spelled with two l's.",
+        "distractors": [
+          "comment"
+        ]
+      },
+      {
+        "text": "Comment ça s'écrit ?",
+        "meaning": "How is that spelled?",
+        "distractors": [
+          "où"
+        ]
+      },
+      {
+        "text": "Mon prénom prend une majuscule.",
+        "meaning": "My first name takes a capital letter.",
+        "distractors": [
+          "accent"
+        ]
+      },
+      {
+        "text": "Tu habites où ?",
+        "meaning": "Where do you live?",
+        "distractors": [
+          "ou"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🪶",
+      "content": "## L'alphabet à Eldmark\n\nAt the guild, the scribe writes every new adventurer in the register: **Votre nom, ça s'écrit comment ?** The elf answers: **N, i grec, M.** Borin adds: **B, O, R, I, N, avec un B majuscule !** And the mage: **S, E accent aigu, L, A.**",
+      "vocabulary": [
+        {
+          "term": "l'accent aigu",
+          "example": "Séla s'écrit avec un e accent aigu.",
+          "example_meaning": "Séla is spelled with an e acute accent."
+        },
+        {
+          "term": "l'accent grave",
+          "example": "Guerrière, ça prend un accent grave.",
+          "example_meaning": "Guerrière takes a grave accent."
+        },
+        {
+          "term": "la majuscule",
+          "example": "Highgate prend une majuscule.",
+          "example_meaning": "Highgate takes a capital letter."
+        },
+        {
+          "term": "épeler",
+          "example": "Le nain épelle son nom pour la guilde.",
+          "example_meaning": "The dwarf spells his name for the guild."
+        },
+        {
+          "term": "ça s'écrit",
+          "example": "Borin, ça s'écrit B, O, R, I, N.",
+          "example_meaning": "Borin is spelled B, O, R, I, N."
+        },
+        {
+          "term": "le tiret",
+          "example": "Le nom de la guerrière a un tiret : Lune-Rouge.",
+          "example_meaning": "The warrior's name has a hyphen: Lune-Rouge."
+        },
+        {
+          "term": "le scribe",
+          "meaning": "scribe",
+          "example": "Le scribe écrit les noms des héros.",
+          "example_meaning": "The scribe writes down the heroes' names."
+        },
+        {
+          "term": "le registre",
+          "meaning": "register (book)",
+          "example": "Ton nom est dans le registre de la guilde.",
+          "example_meaning": "Your name is in the guild's register."
+        },
+        {
+          "term": "le parchemin",
+          "meaning": "parchment, scroll",
+          "example": "Le parchemin est écrit en majuscules.",
+          "example_meaning": "The scroll is written in capitals."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Chez le scribe",
+          "emoji": "🪶",
+          "rule": "The guild's scribe asks Ça s'écrit comment ? Spell letter by letter, with accents and capitals: S, E accent aigu, L, A.",
+          "example": "Séla, ça s'écrit S, E accent aigu, L, A.",
+          "example_meaning": "Séla is spelled S, E acute accent, L, A."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Le scribe écrit ton nom.",
+          "meaning": "The scribe writes down your name.",
+          "note": "New word: le scribe = the scribe."
+        },
+        {
+          "text": "Mon nom est dans le registre.",
+          "meaning": "My name is in the register.",
+          "note": "New word: le registre = the register."
+        },
+        {
+          "text": "Nym, ça s'écrit avec un i grec.",
+          "meaning": "Nym is spelled with a y."
+        },
+        {
+          "text": "Le nain épelle son nom en majuscules.",
+          "meaning": "The dwarf spells his name in capitals."
+        },
+        {
+          "text": "Le donjon, ça s'écrit comment ?",
+          "meaning": "Donjon: how is it spelled?"
+        }
+      ],
+      "builds": [
+        {
+          "text": "Ton nom, ça s'écrit comment ?",
+          "meaning": "Your name: how is it spelled?",
+          "distractors": [
+            "où"
+          ]
+        },
+        {
+          "text": "Nym s'écrit avec un i grec.",
+          "meaning": "Nym is spelled with a y.",
+          "distractors": [
+            "double"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "La guerriere a une épée.",
+          "wrong": "guerriere",
+          "fix": "guerrière",
+          "why": "Guerrière takes an accent grave: the e before the final syllable is an open eh."
+        },
+        {
+          "sentence": "Le nom de l'elfe prend une minuscule.",
+          "wrong": "minuscule",
+          "fix": "majuscule",
+          "why": "A name always starts with a capital letter: une majuscule."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Majuscule or minuscule in Eldmark?",
+          "buckets": [
+            "majuscule",
+            "minuscule"
+          ],
+          "items": [
+            {
+              "text": "Highgate",
+              "bucket": 0
+            },
+            {
+              "text": "Borin",
+              "bucket": 0
+            },
+            {
+              "text": "l'épée",
+              "bucket": 1
+            },
+            {
+              "text": "Frostmarch",
+              "bucket": 0
+            },
+            {
+              "text": "le donjon",
+              "bucket": 1
+            },
+            {
+              "text": "la potion",
+              "bucket": 1
+            }
+          ],
+          "why": "Names of people and places start with a majuscule; ordinary nouns are written in minuscules."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-alphabet-accents-realm-01",
+          "prompt": "The guild's scribe writes 'Séla'. Which accent sits on its e?",
+          "type": "multiple-choice",
+          "options": [
+            "l'accent aigu",
+            "l'accent grave",
+            "la cédille"
+          ],
+          "correct_answer": "l'accent aigu",
+          "explanation": "É rises to the right: that's the accent aigu, and it sounds like 'ay'.",
+          "hints": [
+            "The stroke on é rises to the right."
+          ],
+          "teaches": [
+            "l'accent aigu"
+          ]
+        },
+        {
+          "question_id": "a1-alphabet-accents-realm-02",
+          "prompt": "Le scribe demande : Votre nom, ça s'écrit ___ ?",
+          "type": "fill-in-blank",
+          "correct_answer": "comment",
+          "accepted_answers": [],
+          "explanation": "Ça s'écrit comment ? = How is it spelled? Comment means 'how'.",
+          "hints": [
+            "The question word for 'how'."
+          ],
+          "teaches": [
+            "ça s'écrit"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🐌",
+      "content": "## L'alphabet à Meadowbrook\n\nAt the graineterie, Rosa writes a label for each bag of seeds: **fraise**, **citrouille** (with **deux l**), **maïs** (**M, A, I tréma, S**). For the festival poster she writes **Fête des récoltes**: a **majuscule** on Fête, an **accent circonflexe** on its ê and an **accent aigu** on récoltes.",
+      "vocabulary": [
+        {
+          "term": "l'accent aigu",
+          "example": "Le mot récolte prend un accent aigu.",
+          "example_meaning": "The word récolte takes an acute accent."
+        },
+        {
+          "term": "l'accent grave",
+          "example": "Rivière, ça prend un accent grave.",
+          "example_meaning": "Rivière takes a grave accent."
+        },
+        {
+          "term": "la majuscule",
+          "example": "Meadowbrook prend une majuscule.",
+          "example_meaning": "Meadowbrook takes a capital letter."
+        },
+        {
+          "term": "la minuscule",
+          "example": "Rosa écrit fraise en minuscules.",
+          "example_meaning": "Rosa writes fraise in lower case."
+        },
+        {
+          "term": "épeler",
+          "example": "Léo épelle le nom de son bateau.",
+          "example_meaning": "Léo spells the name of his boat."
+        },
+        {
+          "term": "ça s'écrit",
+          "example": "Citrouille ? Ça s'écrit avec deux l.",
+          "example_meaning": "Citrouille? It's spelled with two l's."
+        },
+        {
+          "term": "l'étiquette",
+          "meaning": "label (f)",
+          "example": "Rosa écrit une étiquette pour les graines.",
+          "example_meaning": "Rosa writes a label for the seeds."
+        },
+        {
+          "term": "le tréma",
+          "meaning": "diaeresis, the two dots: ë, ï",
+          "example": "Maïs prend un tréma sur le i.",
+          "example_meaning": "Maïs takes two dots on the i."
+        },
+        {
+          "term": "le maïs",
+          "meaning": "corn, maize",
+          "example": "Le maïs est grand en été.",
+          "example_meaning": "The corn is tall in summer."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Les étiquettes de Rosa",
+          "emoji": "🐌",
+          "rule": "Rosa spells her labels with every accent: rivière (è), récolte (é), maïs (i tréma). A town's name, Meadowbrook, takes a majuscule.",
+          "example": "Maïs, ça s'écrit M, A, I tréma, S.",
+          "example_meaning": "Maïs is spelled M, A, I diaeresis, S."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Rosa écrit une étiquette.",
+          "meaning": "Rosa writes a label.",
+          "note": "New word: l'étiquette = the label."
+        },
+        {
+          "text": "Il y a un tréma dans maïs.",
+          "meaning": "There are two dots in maïs.",
+          "note": "New word: le tréma = the two dots."
+        },
+        {
+          "text": "Léo, ça s'écrit L, E accent aigu, O.",
+          "meaning": "Léo is spelled L, E acute accent, O."
+        },
+        {
+          "text": "Citrouille s'écrit en minuscules.",
+          "meaning": "Citrouille is written in lower case."
+        },
+        {
+          "text": "La fête des récoltes prend une majuscule.",
+          "meaning": "The harvest festival takes a capital letter."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Citrouille s'écrit avec deux l.",
+          "meaning": "Citrouille is spelled with two l's.",
+          "distractors": [
+            "trois"
+          ]
+        },
+        {
+          "text": "Léo épelle son prénom.",
+          "meaning": "Léo spells his first name.",
+          "distractors": [
+            "épeler"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "La riviere est près de la ferme.",
+          "wrong": "riviere",
+          "fix": "rivière",
+          "why": "Rivière takes an accent grave on its second e."
+        },
+        {
+          "sentence": "Le mais pousse en été.",
+          "wrong": "mais",
+          "fix": "maïs",
+          "why": "Without the tréma, mais means 'but'; corn is le maïs."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Which accent on the farm?",
+          "buckets": [
+            "é",
+            "è",
+            "ï / ë"
+          ],
+          "items": [
+            {
+              "text": "la récolte",
+              "bucket": 0
+            },
+            {
+              "text": "la rivière",
+              "bucket": 1
+            },
+            {
+              "text": "le maïs",
+              "bucket": 2
+            },
+            {
+              "text": "l'été",
+              "bucket": 0
+            },
+            {
+              "text": "la fermière",
+              "bucket": 1
+            },
+            {
+              "text": "Noël",
+              "bucket": 2
+            }
+          ],
+          "why": "é is an accent aigu, è an accent grave, and the two dots of ï and ë are a tréma."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-alphabet-accents-meadowbrook-01",
+          "prompt": "Rosa writes 'maïs' on a seed label. What are the two dots on its ï called?",
+          "type": "multiple-choice",
+          "options": [
+            "le tréma",
+            "la cédille",
+            "l'accent grave"
+          ],
+          "correct_answer": "le tréma",
+          "explanation": "The two dots are le tréma: they tell you to say the a and the i apart (ma-eess). Mais without them means 'but'.",
+          "hints": [
+            "They are not an accent aigu or grave."
+          ],
+          "teaches": [
+            "le tréma"
+          ]
+        },
+        {
+          "question_id": "a1-alphabet-accents-meadowbrook-02",
+          "prompt": "On the festival poster, the town's name 'Meadowbrook' starts with a minuscule.",
+          "type": "true-false",
+          "correct_answer": "false",
+          "explanation": "The name of a town is a proper noun, so it starts with a majuscule (capital letter): Meadowbrook.",
+          "hints": [
+            "Names of places start with a capital."
+          ],
+          "teaches": [
+            "la majuscule"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "📟",
+      "content": "## L'alphabet à Rustwake\n\nAt the antenne, the foreman Ruiz registers your radio-montre: **Ton nom, ça s'écrit comment ?** You spell it: **L, E accent aigu, O, avec un L majuscule.** Your radio address: **leo tiret fouilleur arobase dome point net**. In an address: no accents, everything in **minuscules**.",
+      "vocabulary": [
+        {
+          "term": "ça s'écrit",
+          "example": "Ruiz, ça s'écrit R, U, I, Z.",
+          "example_meaning": "Ruiz is spelled R, U, I, Z."
+        },
+        {
+          "term": "l'arobase",
+          "example": "L'arobase est sur l'écran.",
+          "example_meaning": "The at sign is on the screen."
+        },
+        {
+          "term": "le point",
+          "example": "Dome point net, c'est l'adresse du Dôme.",
+          "example_meaning": "Dome dot net is the Dome's address."
+        },
+        {
+          "term": "le tiret",
+          "example": "Station-service prend un tiret.",
+          "example_meaning": "Station-service takes a hyphen."
+        },
+        {
+          "term": "la majuscule",
+          "example": "Dôme s'écrit avec une majuscule et un accent circonflexe.",
+          "example_meaning": "Dôme is written with a capital letter and a circumflex."
+        },
+        {
+          "term": "épeler",
+          "example": "Marta épelle le nom de la station.",
+          "example_meaning": "Marta spells the name of the station."
+        },
+        {
+          "term": "le code",
+          "meaning": "code",
+          "example": "Le code de la porte est en majuscules.",
+          "example_meaning": "The door code is in capitals."
+        },
+        {
+          "term": "l'écran",
+          "meaning": "screen (m)",
+          "example": "L'écran de la radio-montre est petit.",
+          "example_meaning": "The wrist radio's screen is small."
+        },
+        {
+          "term": "la radio-montre",
+          "meaning": "wrist radio (f)",
+          "example": "Ma radio-montre a une adresse.",
+          "example_meaning": "My wrist radio has an address."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Sur la radio-montre",
+          "emoji": "📟",
+          "rule": "Spell your name for the radio list: letters, accents, majuscule. In an address, @ is arobase, . is point and - is tiret.",
+          "example": "leo tiret fouilleur arobase dome point net",
+          "example_meaning": "leo-fouilleur@dome.net"
+        }
+      ],
+      "listening": [
+        {
+          "text": "Ruiz épelle son nom.",
+          "meaning": "Ruiz spells his name."
+        },
+        {
+          "text": "Il y a un écran sur la radio-montre.",
+          "meaning": "There's a screen on the wrist radio.",
+          "note": "New word: l'écran = the screen."
+        },
+        {
+          "text": "Le code est en majuscules.",
+          "meaning": "The code is in capitals.",
+          "note": "New word: le code = the code."
+        },
+        {
+          "text": "Il y a un tiret dans station-service.",
+          "meaning": "There's a hyphen in station-service."
+        },
+        {
+          "text": "Mon adresse a une arobase et un point.",
+          "meaning": "My address has an at sign and a dot."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Le Dôme prend une majuscule.",
+          "meaning": "The Dome takes a capital letter.",
+          "distractors": [
+            "accent"
+          ]
+        },
+        {
+          "text": "Ruiz, ça s'écrit avec un z.",
+          "meaning": "Ruiz is spelled with a z.",
+          "distractors": [
+            "comment"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Le Dome est fermé.",
+          "wrong": "Dome",
+          "fix": "Dôme",
+          "why": "Dôme takes an accent circonflexe on the o."
+        },
+        {
+          "sentence": "Sur la radio-montre, @ se dit tiret.",
+          "wrong": "tiret",
+          "fix": "arobase",
+          "why": "@ is arobase; the tiret is the hyphen, -."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Arobase, point or tiret?",
+          "buckets": [
+            "@ arobase",
+            ". point",
+            "- tiret"
+          ],
+          "items": [
+            {
+              "text": "leo@dome",
+              "bucket": 0
+            },
+            {
+              "text": "dome.net",
+              "bucket": 1
+            },
+            {
+              "text": "station-service",
+              "bucket": 2
+            },
+            {
+              "text": "marta@ferraille",
+              "bucket": 0
+            },
+            {
+              "text": "radio.dome",
+              "bucket": 1
+            },
+            {
+              "text": "radio-montre",
+              "bucket": 2
+            }
+          ],
+          "why": "@ is read arobase, a dot is point and a hyphen is tiret."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-alphabet-accents-rustwake-01",
+          "prompt": "Ruiz reads your radio address 'leo@dome.net' aloud. What does he say?",
+          "type": "multiple-choice",
+          "options": [
+            "leo arobase dome point net",
+            "leo point dome arobase net",
+            "leo tiret dome point net"
+          ],
+          "correct_answer": "leo arobase dome point net",
+          "explanation": "@ is arobase and the dot is point: leo arobase dome point net.",
+          "hints": [
+            "The @ comes first, the dot second."
+          ],
+          "teaches": [
+            "l'arobase",
+            "le point"
+          ]
+        },
+        {
+          "question_id": "a1-alphabet-accents-rustwake-02",
+          "prompt": "Station-service : ça s'écrit avec un ___ entre les deux mots.",
+          "type": "fill-in-blank",
+          "correct_answer": "tiret",
+          "accepted_answers": [],
+          "explanation": "The hyphen that joins station and service is le tiret.",
+          "hints": [
+            "The French word for a hyphen."
+          ],
+          "teaches": [
+            "le tiret"
+          ]
+        }
+      ]
+    }
+  }
+}

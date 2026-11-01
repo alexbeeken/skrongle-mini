@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Dev: {{ subject }}{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ crate::routes::asset_url("devbox.css") }}">
+<section class="narrow wide" data-testid="dev-mail-detail" data-id="{{ id }}" data-state="{{ state }}" data-purpose="{{ purpose }}" data-to="{{ to }}">
+  <div class="devbox-bar">
+    <a href="{{ crate::url("/dev/mail") }}" data-testid="dev-mail-back">← Outbox</a>
+    {% if let Some(i) = inbox_id %}<a class="btn ghost small" href="{{ crate::url("/dev/inbox/") }}{{ i }}" data-testid="dev-mail-open">Open in the dev inbox</a>{% endif %}
+    <form method="post" action="{{ crate::url("/dev/mail/") }}{{ id }}"><input type="hidden" name="do" value="{% if archived %}unarchive{% else %}archive{% endif %}"><button type="submit" class="btn ghost small" data-testid="dev-mail-message-archive">{% if archived %}Move back{% else %}Archive{% endif %}</button></form>
+    <form method="post" action="{{ crate::url("/dev/mail/") }}{{ id }}"><input type="hidden" name="do" value="delete"><button type="submit" class="btn ghost small" data-testid="dev-mail-message-delete">Delete</button></form>
+  </div>
+  <h1 data-testid="dev-mail-subject">{{ subject }}</h1>
+  <table class="small" data-testid="dev-mail-headers">
+    <tr><th>To</th><td>{{ to }}</td></tr>
+    <tr><th>State</th><td data-testid="dev-mail-state">{{ state }}{% if !provider.is_empty() %} via <code>{{ provider }}</code>{% endif %} · attempts {{ attempts }}</td></tr>
+    <tr><th>Purpose</th><td><code>{{ purpose }}</code></td></tr>
+    <tr><th>Queued</th><td>{{ created }} (outbox #{{ id }})</td></tr>
+    {% if !last_error.is_empty() %}<tr><th>Last error</th><td data-testid="dev-mail-error">{{ last_error }}</td></tr>{% endif %}
+  </table>
+  {% if !links.is_empty() %}
+  <h2>Links</h2>
+  <ul>{% for l in links %}<li><a href="{{ l }}" data-testid="dev-mail-link">{{ l }}</a></li>{% endfor %}</ul>
+  {% endif %}
+  {% if !srcdoc.is_empty() %}
+  <h2>HTML</h2>
+  <iframe title="The message's HTML part" sandbox="allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation" srcdoc="{{ srcdoc }}" style="width:100%;height:24rem;border:1px solid var(--line);border-radius:6px;background:#fff" data-testid="dev-mail-html"></iframe>
+  {% endif %}
+  {% if !text.is_empty() %}
+  <details{% if srcdoc.is_empty() %} open{% endif %}><summary>Text</summary><pre class="small" style="white-space:pre-wrap" data-testid="dev-mail-text">{{ text }}</pre></details>
+  {% endif %}
+</section>
+{% endblock %}

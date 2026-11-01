@@ -1,0 +1,1163 @@
+{
+  "id": "a1-c-est-il-est",
+  "slug": "c-est-il-est",
+  "title": "C'est or il est?",
+  "unit": "A1",
+  "group": "Grammar",
+  "order": 28,
+  "summary": "C'est + un, mon, le… + noun; il est / elle est + adjective or a bare job; c'est beau ! for comments; qui est-ce ? and qu'est-ce que c'est ?",
+  "focus": "Choosing between c'est and il est / elle est",
+  "prerequisites": [
+    "a1-etre-avoir"
+  ],
+  "content": "## C'est + a determiner and a noun\n\n**C'est** (*it's, this is, that's*, and also *he's* or *she's*) presents someone or something. After it comes a **determiner** (un, une, le, la, mon, ma…) and a noun:\n\n- **C'est un ami.** (He's a friend.)\n- **C'est mon père.** (That's my father.)\n- **C'est la gare.** (This is the station.)\n\nFor more than one, use **ce sont**:\n\n- **Ce sont mes amis.** (These are my friends.)\n- **Ce sont des livres.** (They're books.)\n\nIn relaxed speech you will hear **c'est des livres**, but write **ce sont**.\n\n## Il est, elle est + an adjective, a job or a nationality\n\n**Il est** / **elle est** (plural **ils sont** / **elles sont**) describe a person or a thing you have already mentioned. They take an **adjective**, or a **bare job or nationality** with no article:\n\n- **Il est grand.** (He's tall.)\n- **Elle est médecin.** (She's a doctor.)\n- **Il est belge.** (He's Belgian.)\n\nAdd an article, or an adjective to the job, and you switch to **c'est**:\n\n| il / elle est + bare noun | c'est + un / une + noun |\n|---|---|\n| **Il est médecin.** | **C'est un médecin génial.** |\n| **Elle est actrice.** | **C'est une actrice célèbre.** |\n\nNever *il est un médecin*.\n\n## C'est + an adjective, a name or a stress pronoun\n\n**C'est** + a **masculine adjective** comments on a situation, an idea or an activity in general:\n\n- **C'est beau !** (That's beautiful!)\n- **C'est difficile.** (It's difficult.)\n- **Le français, c'est facile !** (French is easy!)\n\nFor one specific person or thing, the adjective agrees with **il** or **elle**: **La maison ? Elle est belle.** (The house? It's beautiful.)\n\n**C'est** also comes before a **name** or a **stress pronoun**: **C'est Paul.** **C'est moi !** **C'est toi ?** **C'est nous.**\n\n## Asking, and saying no\n\n- **Qui est-ce ?** (Who is it? Who's that?) asks about a **person**: **Qui est-ce ? — C'est Léa.**\n- **Qu'est-ce que c'est ?** (What is it? What's that?) asks about a **thing**: **Qu'est-ce que c'est ? — C'est un cadeau.**\n\nIn the negative, **ne** becomes **n'** before **est**: **ce n'est pas**.\n\n- **Ce n'est pas mon sac.** (It's not my bag.)\n- **Ce n'est pas difficile.** (It isn't difficult.)\n- **Ce ne sont pas mes clés.** (They're not my keys.)\n\nAfter **être**, **un** and **une** stay as they are: **Ce n'est pas un chat, c'est un lapin.**",
+  "vocabulary": [
+    {
+      "term": "c'est",
+      "meaning": "it's, this is, that's (also he's / she's before a noun)",
+      "example": "C'est une bonne idée !",
+      "example_meaning": "That's a good idea!"
+    },
+    {
+      "term": "ce sont",
+      "meaning": "they are, these are, those are",
+      "example": "Ce sont les enfants de Marc.",
+      "example_meaning": "Those are Marc's children."
+    },
+    {
+      "term": "il est",
+      "meaning": "he is, it is (m)",
+      "example": "Il est professeur à Nantes.",
+      "example_meaning": "He's a teacher in Nantes."
+    },
+    {
+      "term": "elle est",
+      "meaning": "she is, it is (f)",
+      "example": "Elle est italienne et elle est infirmière.",
+      "example_meaning": "She's Italian and she's a nurse."
+    },
+    {
+      "term": "qui est-ce ?",
+      "meaning": "who is it?, who's that?",
+      "example": "Qui est-ce, sur la photo ?",
+      "example_meaning": "Who's that in the photo?"
+    },
+    {
+      "term": "qu'est-ce que c'est ?",
+      "meaning": "what is it?, what's that?",
+      "example": "Qu'est-ce que c'est, ce bruit ?",
+      "example_meaning": "What's that noise?"
+    },
+    {
+      "term": "ce n'est pas",
+      "meaning": "it isn't, that's not",
+      "example": "Ce n'est pas grave.",
+      "example_meaning": "It doesn't matter. (literally: it's not serious)"
+    },
+    {
+      "term": "le médecin",
+      "meaning": "doctor (m, also used for a woman)",
+      "example": "C'est un médecin très gentil.",
+      "example_meaning": "He's a very kind doctor."
+    },
+    {
+      "term": "l'ami",
+      "meaning": "friend (m; f: l'amie)",
+      "example": "C'est l'ami de Sophie.",
+      "example_meaning": "He's Sophie's friend."
+    },
+    {
+      "term": "beau",
+      "meaning": "beautiful, handsome (f: belle)",
+      "example": "C'est beau, la mer !",
+      "example_meaning": "The sea is beautiful!"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-c-est-il-est-01",
+      "prompt": "Showing a photo of your dad: '___ mon père.'",
+      "type": "multiple-choice",
+      "options": [
+        "C'est",
+        "Il est",
+        "Elle est"
+      ],
+      "correct_answer": "C'est",
+      "explanation": "A determiner (mon) and a noun follow, so you need c'est: C'est mon père.",
+      "hints": [
+        "What comes right after the gap: an adjective, or mon + a noun?"
+      ],
+      "teaches": [
+        "c'est"
+      ]
+    },
+    {
+      "question_id": "a1-c-est-il-est-02",
+      "prompt": "Paul ? ___ très grand, presque deux mètres.",
+      "type": "multiple-choice",
+      "options": [
+        "Il est",
+        "C'est",
+        "Ce sont"
+      ],
+      "correct_answer": "Il est",
+      "explanation": "Paul has been mentioned and an adjective follows, so you describe him with il est: Il est très grand.",
+      "hints": [
+        "Grand is an adjective describing Paul."
+      ],
+      "teaches": [
+        "il est"
+      ]
+    },
+    {
+      "question_id": "a1-c-est-il-est-03",
+      "prompt": "Ma tante ? ___ médecin à l'hôpital. (She's a doctor.)",
+      "type": "fill-in-blank",
+      "correct_answer": "Elle est",
+      "accepted_answers": [
+        "elle est"
+      ],
+      "explanation": "A bare job with no article takes elle est: Elle est médecin. No une before médecin.",
+      "hints": [
+        "Médecin has no article here.",
+        "Your aunt is a woman."
+      ],
+      "teaches": [
+        "elle est",
+        "le médecin"
+      ]
+    },
+    {
+      "question_id": "a1-c-est-il-est-04",
+      "prompt": "Which sentence means 'He's a brilliant doctor'?",
+      "type": "multiple-choice",
+      "options": [
+        "C'est un médecin génial.",
+        "Il est un médecin génial.",
+        "Il est médecin génial."
+      ],
+      "correct_answer": "C'est un médecin génial.",
+      "explanation": "As soon as the job has an adjective, it needs un and c'est: C'est un médecin génial. Il est un médecin is never right.",
+      "hints": [
+        "An adjective with the job brings back the article.",
+        "Un after il est is never right."
+      ],
+      "teaches": [
+        "c'est",
+        "le médecin"
+      ]
+    },
+    {
+      "question_id": "a1-c-est-il-est-05",
+      "prompt": "___ mes amis Lucas et Inès. (These are my friends.)",
+      "type": "fill-in-blank",
+      "correct_answer": "Ce sont",
+      "accepted_answers": [
+        "ce sont"
+      ],
+      "explanation": "For more than one, c'est becomes ce sont: Ce sont mes amis.",
+      "hints": [
+        "The plural of c'est.",
+        "Two words."
+      ],
+      "teaches": [
+        "ce sont",
+        "l'ami"
+      ]
+    },
+    {
+      "question_id": "a1-c-est-il-est-06",
+      "prompt": "At a party, you point at a man you don't know and ask your friend:",
+      "type": "multiple-choice",
+      "options": [
+        "Qui est-ce ?",
+        "Qu'est-ce que c'est ?",
+        "Où est-ce ?"
+      ],
+      "correct_answer": "Qui est-ce ?",
+      "explanation": "Qui est-ce ? asks about a person. Qu'est-ce que c'est ? asks about a thing.",
+      "hints": [
+        "You are asking about a person, not a thing."
+      ],
+      "teaches": [
+        "qui est-ce ?"
+      ]
+    },
+    {
+      "question_id": "a1-c-est-il-est-07",
+      "prompt": "Paris en automne ? ___ beau ! (It's beautiful!)",
+      "type": "fill-in-blank",
+      "correct_answer": "C'est",
+      "accepted_answers": [
+        "c'est"
+      ],
+      "explanation": "A general comment on a place or a moment takes c'est + a masculine adjective: C'est beau !",
+      "hints": [
+        "A general comment, not a description of one person."
+      ],
+      "teaches": [
+        "c'est",
+        "beau"
+      ]
+    },
+    {
+      "question_id": "a1-c-est-il-est-08",
+      "prompt": "'Elle est une actrice' is the natural way to say 'She's an actress'.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Say elle est actrice (no article) or c'est une actrice. Il est un / elle est une + a job is a typical mistake.",
+      "hints": [
+        "Does il est / elle est take un or une?"
+      ],
+      "teaches": [
+        "elle est"
+      ]
+    },
+    {
+      "question_id": "a1-c-est-il-est-09",
+      "prompt": "The negative of 'C'est un chat' is 'Ce n'est pas un chat': after être, un stays.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Ce becomes n' before est, and with être the article does not change to de: Ce n'est pas un chat.",
+      "hints": [
+        "Un only becomes de after a negation with verbs like avoir, not with être."
+      ],
+      "teaches": [
+        "ce n'est pas"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "C'est mon frère Thomas.",
+      "meaning": "That's my brother Thomas."
+    },
+    {
+      "text": "Elle est professeure de maths.",
+      "meaning": "She's a maths teacher.",
+      "note": "No article before a job after elle est."
+    },
+    {
+      "text": "Ce sont des amis de Bordeaux.",
+      "meaning": "They're friends from Bordeaux."
+    },
+    {
+      "text": "Qu'est-ce que c'est, sur la table ?",
+      "meaning": "What's that on the table?"
+    },
+    {
+      "text": "Il est boulanger, c'est un boulanger génial.",
+      "meaning": "He's a baker, he's a brilliant baker.",
+      "note": "New word: le boulanger = the baker."
+    },
+    {
+      "text": "C'est beau, la Bretagne !",
+      "meaning": "Brittany is beautiful!",
+      "note": "New word: la Bretagne = Brittany."
+    },
+    {
+      "text": "Ce n'est pas un chien, c'est un loup !",
+      "meaning": "That's not a dog, it's a wolf!",
+      "note": "New word: le loup = the wolf."
+    },
+    {
+      "text": "Qui est-ce ? C'est la nouvelle voisine, elle est italienne.",
+      "meaning": "Who's that? It's the new neighbour, she's Italian."
+    }
+  ],
+  "guide": [
+    {
+      "section": "C'est + a determiner"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-c-est-il-est-01"
+    },
+    {
+      "question": "a1-c-est-il-est-05"
+    },
+    {
+      "section": "Il est, elle est"
+    },
+    {
+      "question": "a1-c-est-il-est-02"
+    },
+    {
+      "question": "a1-c-est-il-est-03"
+    },
+    {
+      "question": "a1-c-est-il-est-04"
+    },
+    {
+      "question": "a1-c-est-il-est-08"
+    },
+    {
+      "tip": "Look right after the gap: a determiner (un, mon, le) means c'est; an adjective or a bare job means il est / elle est."
+    },
+    {
+      "section": "C'est + an adjective"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-c-est-il-est-07"
+    },
+    {
+      "section": "Asking, and saying no"
+    },
+    {
+      "question": "a1-c-est-il-est-06"
+    },
+    {
+      "concept": {
+        "title": "C'est qui ? C'est quoi ?",
+        "markdown": "In everyday speech the French often ask **C'est qui ?** (Who's that?) and **C'est quoi ?** (What's that?). They mean the same as **Qui est-ce ?** and **Qu'est-ce que c'est ?**: recognise them, and keep the full forms for writing."
+      }
+    },
+    {
+      "question": "a1-c-est-il-est-09"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-c-est-il-est-conv-photos",
+      "title": "Birthday photos",
+      "scenario": "Tom looks at the photos from Inès's birthday on her phone.",
+      "role_a": "Tom",
+      "role_b": "Inès",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "C'est ta famille, sur la photo ?",
+          "meaning": "Is that your family in the photo?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui ! Ce sont mes parents, à Lyon.",
+          "meaning": "Yes! Those are my parents, in Lyon.",
+          "note": "ce sont + a plural noun"
+        },
+        {
+          "speaker": "a",
+          "text": "Et qui est-ce, à côté de ta mère ?",
+          "meaning": "And who's that, next to your mother?"
+        },
+        {
+          "speaker": "b",
+          "text": "C'est ma tante Claire. Elle est médecin.",
+          "meaning": "That's my aunt Claire. She's a doctor.",
+          "note": "a bare job after elle est"
+        },
+        {
+          "speaker": "a",
+          "text": "Et lui, c'est ton frère ?",
+          "meaning": "And him, is that your brother?",
+          "note": "c'est + a stress pronoun or a noun"
+        },
+        {
+          "speaker": "b",
+          "text": "Non, ce n'est pas mon frère, c'est mon cousin Max.",
+          "meaning": "No, that's not my brother, it's my cousin Max."
+        },
+        {
+          "speaker": "a",
+          "text": "Il est sympa ?",
+          "meaning": "Is he nice?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, il est drôle. C'est un musicien génial.",
+          "meaning": "Yes, he's funny. He's a brilliant musician.",
+          "note": "job + adjective → c'est un"
+        },
+        {
+          "speaker": "a",
+          "text": "Et ça, qu'est-ce que c'est ?",
+          "meaning": "And that, what's that?"
+        },
+        {
+          "speaker": "b",
+          "text": "C'est le gâteau d'anniversaire !",
+          "meaning": "That's the birthday cake!"
+        },
+        {
+          "speaker": "a",
+          "text": "Il est magnifique, ce gâteau !",
+          "meaning": "That cake is magnificent!",
+          "note": "one specific thing: il est"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, et il est délicieux. C'est mon père, le pâtissier !",
+          "meaning": "Yes, and it's delicious. My father's the pastry chef!"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🪪",
+    "bites": [
+      {
+        "title": "C'est + determiner + noun",
+        "emoji": "🪪",
+        "rule": "C'est un ami, c'est mon père, c'est la gare. For more than one: ce sont mes amis.",
+        "example": "C'est mon professeur de piano.",
+        "example_meaning": "That's my piano teacher."
+      },
+      {
+        "title": "Il est + adjective or bare job",
+        "emoji": "🩺",
+        "rule": "Il est grand. Elle est médecin. Il est belge. No un or une straight after il est / elle est.",
+        "example": "Elle est infirmière.",
+        "example_meaning": "She's a nurse."
+      },
+      {
+        "title": "Job + adjective → c'est un",
+        "emoji": "✨",
+        "rule": "Give the job an adjective and it needs c'est + un / une: il est médecin, but c'est un médecin génial.",
+        "example": "C'est une actrice célèbre.",
+        "example_meaning": "She's a famous actress."
+      },
+      {
+        "title": "Comments, names, moi",
+        "emoji": "💬",
+        "rule": "C'est + masculine adjective comments in general: c'est beau ! C'est also goes before a name or a stress pronoun: c'est Paul, c'est moi.",
+        "example": "C'est difficile, mais c'est génial !",
+        "example_meaning": "It's hard, but it's great!"
+      }
+    ],
+    "sorts": [
+      {
+        "title": "C'est or il / elle est?",
+        "buckets": [
+          "c'est",
+          "il est / elle est"
+        ],
+        "items": [
+          {
+            "text": "___ un ami de Léa.",
+            "bucket": 0
+          },
+          {
+            "text": "Paul ? ___ grand.",
+            "bucket": 1
+          },
+          {
+            "text": "Ma tante ? ___ médecin.",
+            "bucket": 1
+          },
+          {
+            "text": "___ mon père.",
+            "bucket": 0
+          },
+          {
+            "text": "Lucas ? ___ belge.",
+            "bucket": 1
+          },
+          {
+            "text": "___ Paul, au téléphone.",
+            "bucket": 0
+          },
+          {
+            "text": "Qui est-ce ? ___ moi !",
+            "bucket": 0
+          },
+          {
+            "text": "Ta sœur ? ___ très sympa.",
+            "bucket": 1
+          }
+        ],
+        "why": "A determiner + noun, a name or moi take c'est; an adjective, a bare job or a nationality describing someone takes il est / elle est."
+      },
+      {
+        "title": "Which question was it?",
+        "buckets": [
+          "Qui est-ce ?",
+          "Qu'est-ce que c'est ?"
+        ],
+        "items": [
+          {
+            "text": "— C'est Léa.",
+            "bucket": 0
+          },
+          {
+            "text": "— C'est un livre.",
+            "bucket": 1
+          },
+          {
+            "text": "— C'est mon voisin.",
+            "bucket": 0
+          },
+          {
+            "text": "— C'est une clé.",
+            "bucket": 1
+          },
+          {
+            "text": "— C'est le médecin.",
+            "bucket": 0
+          },
+          {
+            "text": "— C'est un cadeau.",
+            "bucket": 1
+          }
+        ],
+        "why": "A person answers qui est-ce ?; a thing answers qu'est-ce que c'est ?"
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Regarde la mer, c'est belle !",
+        "wrong": "belle",
+        "fix": "beau",
+        "why": "C'est + adjective for a general comment takes the masculine: c'est beau."
+      },
+      {
+        "sentence": "Mon frère ? Elle est très grand.",
+        "wrong": "Elle",
+        "fix": "Il",
+        "why": "Mon frère is a man: il est."
+      },
+      {
+        "sentence": "Qui est-ce ? — C'est je !",
+        "wrong": "je",
+        "fix": "moi",
+        "why": "After c'est, use the stress pronoun: c'est moi."
+      },
+      {
+        "sentence": "Ce n'est pas de chat, c'est un lapin.",
+        "wrong": "de",
+        "fix": "un",
+        "why": "After être the article stays: ce n'est pas un chat."
+      },
+      {
+        "sentence": "Léa et Inès ? Ce sont médecins.",
+        "wrong": "Ce",
+        "fix": "Elles",
+        "why": "A bare job takes elles sont: elles sont médecins."
+      }
+    ],
+    "builds": [
+      {
+        "text": "C'est un ami de Paul.",
+        "meaning": "He's a friend of Paul's.",
+        "distractors": [
+          "Il"
+        ]
+      },
+      {
+        "text": "Elle est médecin à Lyon.",
+        "meaning": "She's a doctor in Lyon.",
+        "distractors": [
+          "une"
+        ]
+      },
+      {
+        "text": "Ce sont mes parents.",
+        "meaning": "These are my parents.",
+        "distractors": [
+          "est"
+        ]
+      },
+      {
+        "text": "Qui est-ce sur la photo ?",
+        "meaning": "Who's that in the photo?",
+        "distractors": [
+          "que"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🧝",
+      "content": "## C'est ou il est à Eldmark\n\nIn the guild hall: **Qui est-ce ? C'est Nym. Elle est elfe et elle est chasseuse.** With an adjective: **c'est une chasseuse redoutable.** And the loot? **Qu'est-ce que c'est ? C'est une épée. Elle est magique. C'est génial !**",
+      "vocabulary": [
+        {
+          "term": "c'est",
+          "example": "C'est le donjon des orcs.",
+          "example_meaning": "That's the orcs' dungeon."
+        },
+        {
+          "term": "ce sont",
+          "example": "Ce sont les nains de Deepanvil.",
+          "example_meaning": "Those are the dwarves of Deepanvil."
+        },
+        {
+          "term": "il est",
+          "example": "Borin ? Il est forgeron.",
+          "example_meaning": "Borin? He's a blacksmith."
+        },
+        {
+          "term": "elle est",
+          "example": "La mage Séla ? Elle est très puissante.",
+          "example_meaning": "The mage Séla? She's very powerful."
+        },
+        {
+          "term": "qui est-ce ?",
+          "example": "Qui est-ce, sur la monture noire ?",
+          "example_meaning": "Who's that on the black mount?"
+        },
+        {
+          "term": "qu'est-ce que c'est ?",
+          "example": "Qu'est-ce que c'est, ce parchemin ?",
+          "example_meaning": "What's this scroll?"
+        },
+        {
+          "term": "ce n'est pas",
+          "example": "Ce n'est pas une potion, c'est un piège !",
+          "example_meaning": "That's not a potion, it's a trap!"
+        },
+        {
+          "term": "la chasseuse",
+          "meaning": "hunter (f; m: le chasseur)",
+          "example": "C'est une chasseuse de la guilde.",
+          "example_meaning": "She's a hunter from the guild."
+        },
+        {
+          "term": "le forgeron",
+          "meaning": "blacksmith",
+          "example": "Le forgeron est nain.",
+          "example_meaning": "The blacksmith is a dwarf."
+        },
+        {
+          "term": "l'épée",
+          "meaning": "sword (f)",
+          "example": "L'épée est lourde.",
+          "example_meaning": "The sword is heavy."
+        }
+      ],
+      "bites": [
+        {
+          "title": "À la guilde",
+          "emoji": "🧝",
+          "rule": "C'est + un / une + noun presents: c'est une épée. Il / elle est + adjective or bare job describes: elle est chasseuse.",
+          "example": "C'est Nym. Elle est chasseuse.",
+          "example_meaning": "That's Nym. She's a hunter."
+        }
+      ],
+      "listening": [
+        {
+          "text": "C'est une épée magique.",
+          "meaning": "It's a magic sword.",
+          "note": "New word: l'épée = the sword."
+        },
+        {
+          "text": "Borin est forgeron à Deepanvil.",
+          "meaning": "Borin is a blacksmith in Deepanvil.",
+          "note": "New word: le forgeron = the blacksmith."
+        },
+        {
+          "text": "Ce sont les orcs de la Horde.",
+          "meaning": "Those are the orcs of the Horde."
+        },
+        {
+          "text": "Elle est chasseuse, c'est une chasseuse redoutable.",
+          "meaning": "She's a hunter, she's a formidable hunter.",
+          "note": "New word: redoutable = formidable."
+        },
+        {
+          "text": "Ce n'est pas un dragon, c'est un lézard.",
+          "meaning": "That's not a dragon, it's a lizard."
+        }
+      ],
+      "builds": [
+        {
+          "text": "C'est une potion de feu.",
+          "meaning": "It's a fire potion.",
+          "distractors": [
+            "Elle"
+          ]
+        },
+        {
+          "text": "Il est paladin à Highgate.",
+          "meaning": "He's a paladin in Highgate.",
+          "distractors": [
+            "un"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "La mage Séla ? Il est très puissante.",
+          "wrong": "Il",
+          "fix": "Elle",
+          "why": "Séla is a woman: elle est puissante."
+        },
+        {
+          "sentence": "Qui est-ce ? — C'est il, le paladin !",
+          "wrong": "il",
+          "fix": "lui",
+          "why": "After c'est, use the stress pronoun: c'est lui."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "C'est or il / elle est in the guild?",
+          "buckets": [
+            "c'est",
+            "il est / elle est"
+          ],
+          "items": [
+            {
+              "text": "___ une épée.",
+              "bucket": 0
+            },
+            {
+              "text": "Borin ? ___ forgeron.",
+              "bucket": 1
+            },
+            {
+              "text": "___ le donjon.",
+              "bucket": 0
+            },
+            {
+              "text": "Séla ? ___ puissante.",
+              "bucket": 1
+            },
+            {
+              "text": "___ Nym, l'elfe.",
+              "bucket": 0
+            },
+            {
+              "text": "L'orc ? ___ grand.",
+              "bucket": 1
+            }
+          ],
+          "why": "A determiner + noun or a name takes c'est; an adjective or a bare job takes il est / elle est."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-c-est-il-est-realm-01",
+          "prompt": "Borin le nain ? ___ forgeron à Deepanvil.",
+          "type": "multiple-choice",
+          "options": [
+            "Il est",
+            "C'est",
+            "Il est un"
+          ],
+          "correct_answer": "Il est",
+          "explanation": "A bare job with no article takes il est: Il est forgeron.",
+          "hints": [
+            "Forgeron has no article here."
+          ],
+          "teaches": [
+            "il est",
+            "le forgeron"
+          ]
+        },
+        {
+          "question_id": "a1-c-est-il-est-realm-02",
+          "prompt": "Dans le coffre : « ___ une épée magique ! » (It's a magic sword!)",
+          "type": "fill-in-blank",
+          "correct_answer": "C'est",
+          "accepted_answers": [
+            "c'est"
+          ],
+          "explanation": "Une + noun follows, so you present it with c'est: C'est une épée magique !",
+          "hints": [
+            "Une follows the gap."
+          ],
+          "teaches": [
+            "c'est",
+            "l'épée"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🐖",
+      "content": "## C'est ou il est à Meadowbrook\n\nA walk round the farm: **Qu'est-ce que c'est ? C'est un cochon. Il est rose et il est gourmand.** **Qui est-ce ? C'est Léo. Il est pêcheur ; c'est un pêcheur très patient.** And the view? **C'est beau, la rivière le matin !**",
+      "vocabulary": [
+        {
+          "term": "c'est",
+          "example": "C'est la ferme de Nora.",
+          "example_meaning": "That's Nora's farm."
+        },
+        {
+          "term": "ce sont",
+          "example": "Ce sont les poules de Rosa.",
+          "example_meaning": "Those are Rosa's hens."
+        },
+        {
+          "term": "il est",
+          "example": "Le maïs ? Il est délicieux.",
+          "example_meaning": "The corn? It's delicious."
+        },
+        {
+          "term": "elle est",
+          "example": "La citrouille ? Elle est énorme !",
+          "example_meaning": "The pumpkin? It's huge!"
+        },
+        {
+          "term": "qui est-ce ?",
+          "example": "Qui est-ce, près de la rivière ?",
+          "example_meaning": "Who's that near the river?"
+        },
+        {
+          "term": "qu'est-ce que c'est ?",
+          "example": "Qu'est-ce que c'est, ce champignon ?",
+          "example_meaning": "What's this mushroom?"
+        },
+        {
+          "term": "beau",
+          "example": "C'est beau, la fête des récoltes !",
+          "example_meaning": "The harvest festival is beautiful!"
+        },
+        {
+          "term": "le cochon",
+          "meaning": "pig",
+          "example": "C'est un petit cochon.",
+          "example_meaning": "It's a little pig."
+        },
+        {
+          "term": "le pêcheur",
+          "meaning": "fisherman (f: la pêcheuse)",
+          "example": "Léo est pêcheur.",
+          "example_meaning": "Léo is a fisherman."
+        },
+        {
+          "term": "gourmand",
+          "meaning": "greedy, fond of food (f: gourmande)",
+          "example": "La vache est gourmande.",
+          "example_meaning": "The cow is greedy."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Tour de la ferme",
+          "emoji": "🐖",
+          "rule": "Present with c'est + un / une: c'est un cochon. Describe with il / elle est: il est rose. A bare job too: Léo est pêcheur.",
+          "example": "C'est un cochon. Il est gourmand.",
+          "example_meaning": "It's a pig. It's greedy."
+        }
+      ],
+      "listening": [
+        {
+          "text": "C'est un cochon très gourmand.",
+          "meaning": "It's a very greedy pig.",
+          "note": "New word: gourmand = greedy."
+        },
+        {
+          "text": "Léo est pêcheur sur la rivière.",
+          "meaning": "Léo is a fisherman on the river.",
+          "note": "New word: le pêcheur = the fisherman."
+        },
+        {
+          "text": "Ce sont les fraises de Nora.",
+          "meaning": "Those are Nora's strawberries."
+        },
+        {
+          "text": "Qui est-ce ? C'est la mairesse.",
+          "meaning": "Who's that? It's the mayor.",
+          "note": "New word: la mairesse = the mayor."
+        },
+        {
+          "text": "Ce n'est pas une poule, c'est un canard !",
+          "meaning": "That's not a hen, it's a duck!"
+        }
+      ],
+      "builds": [
+        {
+          "text": "C'est une citrouille énorme.",
+          "meaning": "It's a huge pumpkin.",
+          "distractors": [
+            "Elle"
+          ]
+        },
+        {
+          "text": "Rosa est vendeuse à la graineterie.",
+          "meaning": "Rosa is a shop assistant at the seed shop.",
+          "distractors": [
+            "une"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Le cochon ? Elle est rose.",
+          "wrong": "Elle",
+          "fix": "Il",
+          "why": "Le cochon is masculine: il est rose."
+        },
+        {
+          "sentence": "Ce n'est pas de vache, c'est un mouton.",
+          "wrong": "de",
+          "fix": "une",
+          "why": "After être the article stays: ce n'est pas une vache."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "On the farm: c'est or il / elle est?",
+          "buckets": [
+            "c'est",
+            "il est / elle est"
+          ],
+          "items": [
+            {
+              "text": "___ un cochon.",
+              "bucket": 0
+            },
+            {
+              "text": "La vache ? ___ gourmande.",
+              "bucket": 1
+            },
+            {
+              "text": "___ Léo, le pêcheur.",
+              "bucket": 0
+            },
+            {
+              "text": "Léo ? ___ pêcheur.",
+              "bucket": 1
+            },
+            {
+              "text": "___ beau, la rivière !",
+              "bucket": 0
+            },
+            {
+              "text": "Le maïs ? ___ délicieux.",
+              "bucket": 1
+            }
+          ],
+          "why": "A determiner + noun, a name or a general comment take c'est; a description of one thing or a bare job takes il / elle est."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-c-est-il-est-meadowbrook-01",
+          "prompt": "Nora shows you a little animal in the barn: '___ un cochon.'",
+          "type": "multiple-choice",
+          "options": [
+            "C'est",
+            "Il est",
+            "Ce sont"
+          ],
+          "correct_answer": "C'est",
+          "explanation": "Un + noun follows, and there is only one animal: C'est un cochon.",
+          "hints": [
+            "One animal, and un comes next."
+          ],
+          "teaches": [
+            "c'est",
+            "le cochon"
+          ]
+        },
+        {
+          "question_id": "a1-c-est-il-est-meadowbrook-02",
+          "prompt": "La citrouille ? ___ énorme ! (It's huge!)",
+          "type": "fill-in-blank",
+          "correct_answer": "Elle est",
+          "accepted_answers": [
+            "elle est"
+          ],
+          "explanation": "One specific thing already named (la citrouille, feminine) + an adjective takes elle est.",
+          "hints": [
+            "La citrouille is feminine and already mentioned."
+          ],
+          "teaches": [
+            "elle est"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🦺",
+      "content": "## C'est ou il est à Rustwake\n\nOn the radio: **Qui est-ce ? C'est le contremaître Ruiz. Il est sévère ; c'est un chef sévère.** At the market: **Qu'est-ce que c'est ? C'est une armure de ferraille. Elle est lourde.** And the desert? **C'est dangereux, mais c'est beau !**",
+      "vocabulary": [
+        {
+          "term": "c'est",
+          "example": "C'est l'atelier de Marta.",
+          "example_meaning": "That's Marta's workshop."
+        },
+        {
+          "term": "ce sont",
+          "example": "Ce sont des écrous rouillés.",
+          "example_meaning": "They're rusty nuts."
+        },
+        {
+          "term": "il est",
+          "example": "Le robot jardinier ? Il est cassé.",
+          "example_meaning": "The gardener robot? It's broken."
+        },
+        {
+          "term": "elle est",
+          "example": "Marta ? Elle est marchande.",
+          "example_meaning": "Marta? She's a trader."
+        },
+        {
+          "term": "qui est-ce ?",
+          "example": "Qui est-ce, devant le Dôme ?",
+          "example_meaning": "Who's that in front of the Dome?"
+        },
+        {
+          "term": "qu'est-ce que c'est ?",
+          "example": "Qu'est-ce que c'est, dans le sable ?",
+          "example_meaning": "What's that in the sand?"
+        },
+        {
+          "term": "ce n'est pas",
+          "example": "Ce n'est pas de l'eau filtrée !",
+          "example_meaning": "That's not filtered water!"
+        },
+        {
+          "term": "le contremaître",
+          "meaning": "foreman (f: la contremaîtresse)",
+          "example": "Le contremaître est dans le Dôme.",
+          "example_meaning": "The foreman is in the Dome."
+        },
+        {
+          "term": "l'armure de ferraille",
+          "meaning": "scrap armour (f)",
+          "example": "L'armure de ferraille coûte cher.",
+          "example_meaning": "Scrap armour is expensive."
+        },
+        {
+          "term": "lourd",
+          "meaning": "heavy (f: lourde)",
+          "example": "Le sac est très lourd.",
+          "example_meaning": "The bag is very heavy."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Au marché de ferraille",
+          "emoji": "🦺",
+          "rule": "C'est une armure presents the thing; elle est lourde describes it. Ruiz ? Il est contremaître: a bare job.",
+          "example": "C'est une armure. Elle est lourde.",
+          "example_meaning": "It's a suit of armour. It's heavy."
+        }
+      ],
+      "listening": [
+        {
+          "text": "C'est le contremaître Ruiz.",
+          "meaning": "That's foreman Ruiz.",
+          "note": "New word: le contremaître = the foreman."
+        },
+        {
+          "text": "Elle est lourde, cette armure.",
+          "meaning": "This armour is heavy.",
+          "note": "New word: lourd = heavy."
+        },
+        {
+          "text": "Ce sont des scarabées géants !",
+          "meaning": "They're giant beetles!",
+          "note": "New word: le scarabée = the beetle."
+        },
+        {
+          "text": "Léo est fouilleur, c'est un bon fouilleur.",
+          "meaning": "Léo is a scavenger, he's a good scavenger."
+        },
+        {
+          "text": "C'est dangereux, le désert de rouille.",
+          "meaning": "The rust desert is dangerous."
+        }
+      ],
+      "builds": [
+        {
+          "text": "C'est une radio-montre.",
+          "meaning": "It's a wrist radio.",
+          "distractors": [
+            "Elle"
+          ]
+        },
+        {
+          "text": "Marta est marchande au village.",
+          "meaning": "Marta is a trader in the village.",
+          "distractors": [
+            "une"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Le contremaître Ruiz ? Elle est sévère.",
+          "wrong": "Elle",
+          "fix": "Il",
+          "why": "Ruiz is a man: il est sévère."
+        },
+        {
+          "sentence": "Le désert ? C'est dangereuse.",
+          "wrong": "dangereuse",
+          "fix": "dangereux",
+          "why": "C'est + adjective takes the masculine: c'est dangereux."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "At the scrap market: c'est or il / elle est?",
+          "buckets": [
+            "c'est",
+            "il est / elle est"
+          ],
+          "items": [
+            {
+              "text": "___ une armure.",
+              "bucket": 0
+            },
+            {
+              "text": "L'armure ? ___ lourde.",
+              "bucket": 1
+            },
+            {
+              "text": "___ Marta, la marchande.",
+              "bucket": 0
+            },
+            {
+              "text": "Marta ? ___ marchande.",
+              "bucket": 1
+            },
+            {
+              "text": "___ des écrous.",
+              "bucket": 0
+            },
+            {
+              "text": "Le robot ? ___ cassé.",
+              "bucket": 1
+            }
+          ],
+          "why": "A determiner + noun or a name takes c'est (ce sont for plural nouns works too); an adjective or a bare job takes il / elle est."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-c-est-il-est-rustwake-01",
+          "prompt": "Le contremaître Ruiz ? ___ un chef très sévère.",
+          "type": "multiple-choice",
+          "options": [
+            "C'est",
+            "Il est",
+            "Elle est"
+          ],
+          "correct_answer": "C'est",
+          "explanation": "Un + noun + adjective follows, so you need c'est: C'est un chef très sévère.",
+          "hints": [
+            "Un comes right after the gap."
+          ],
+          "teaches": [
+            "c'est",
+            "le contremaître"
+          ]
+        },
+        {
+          "question_id": "a1-c-est-il-est-rustwake-02",
+          "prompt": "In Rustwake you say 'Qu'est-ce que c'est ?' about a strange machine in the sand, and 'Qui est-ce ?' about a stranger at the gate.",
+          "type": "true-false",
+          "correct_answer": "true",
+          "explanation": "Qu'est-ce que c'est ? asks about a thing; qui est-ce ? asks about a person.",
+          "hints": [
+            "A machine is a thing; a stranger is a person."
+          ],
+          "teaches": [
+            "qu'est-ce que c'est ?",
+            "qui est-ce ?"
+          ]
+        }
+      ]
+    }
+  }
+}

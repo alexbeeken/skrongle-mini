@@ -1,0 +1,1422 @@
+{
+  "id": "a2-futur-simple",
+  "slug": "futur-simple",
+  "title": "The futur simple: je parlerai",
+  "unit": "A2",
+  "group": "Grammar",
+  "order": 34,
+  "summary": "Say what will happen with the infinitive plus -ai, -as, -a, -ons, -ez, -ont. Learn a handful of irregular stems and the future after quand.",
+  "focus": "Forming and using the futur simple",
+  "prerequisites": [
+    "a1-aller-faire-town"
+  ],
+  "content": "## Building the futur simple\n\nThe **futur simple** says what will happen. Take the **infinitive** and add the endings **-ai, -as, -a, -ons, -ez, -ont** (they look like **avoir** in the present). Verbs in **-re** drop the final **-e** first: **prendre → je prendrai**.\n\n| | parler | finir | vendre |\n|---|---|---|---|\n| je | parlerai | finirai | vendrai |\n| tu | parleras | finiras | vendras |\n| il / elle / on | parlera | finira | vendra |\n| nous | parlerons | finirons | vendrons |\n| vous | parlerez | finirez | vendrez |\n| ils / elles | parleront | finiront | vendront |\n\nEvery form has an **r** just before the ending, so listen for it.\n\n## Irregular stems\n\nSome common verbs change the stem, but the endings never change.\n\n| infinitive | stem | je … |\n|---|---|---|\n| être | ser- | je serai |\n| avoir | aur- | j'aurai |\n| aller | ir- | j'irai |\n| faire | fer- | je ferai |\n| venir | viendr- | je viendrai |\n| pouvoir | pourr- | je pourrai |\n| devoir | devr- | je devrai |\n| savoir | saur- | je saurai |\n| voir | verr- | je verrai |\n\nAlso **il pleuvra** (pleuvoir) and **il y aura** (il y a). Elision still applies: **j'aurai**, **j'irai**.\n\n## Futur proche or futur simple?\n\nYou already know the **futur proche**: **aller + infinitive** (**je vais manger**). Both talk about the future.\n\n- **Futur proche**: near, planned, everyday speech. *Je vais prendre le bus.* (I'm going to take the bus.)\n- **Futur simple**: further away, or more definite. *Un jour, je parlerai couramment.* (One day I will speak fluently.)\n- Predictions: *Demain, il fera beau.* (Tomorrow the weather will be nice.)\n- Promises: *Je serai à l'heure, promis.* (I'll be on time, I promise.)\n\nIn conversation the two overlap a lot. The futur simple sounds a little more formal or certain.\n\n## Quand + futur and time words\n\nEnglish says *when I **have** time*. French is logical. If the moment is still to come, the verb after **quand** is in the future too.\n\n- **Quand j'aurai le temps, je lirai ce livre.** (When I have time, I'll read this book.)\n- **Quand tu viendras, nous irons au marché.** (When you come, we'll go to the market.)\n\nTime words that go with the future:\n\n- **demain** (tomorrow), **après-demain** (the day after tomorrow)\n- **la semaine prochaine**, **l'année prochaine** (next week, next year)\n- **dans deux ans** (in two years' time)\n- **bientôt** (soon), **un jour** (one day)",
+  "vocabulary": [
+    {
+      "term": "demain",
+      "meaning": "tomorrow",
+      "example": "Demain, je finirai mon rapport.",
+      "example_meaning": "Tomorrow I'll finish my report."
+    },
+    {
+      "term": "la semaine prochaine",
+      "meaning": "next week",
+      "example": "La semaine prochaine, nous serons à Nice.",
+      "example_meaning": "Next week we'll be in Nice."
+    },
+    {
+      "term": "l'année prochaine",
+      "meaning": "next year (f)",
+      "example": "L'année prochaine, elle aura vingt ans.",
+      "example_meaning": "Next year she'll be twenty."
+    },
+    {
+      "term": "dans deux ans",
+      "meaning": "in two years' time",
+      "example": "Dans deux ans, ils parleront très bien français.",
+      "example_meaning": "In two years' time they'll speak French very well."
+    },
+    {
+      "term": "bientôt",
+      "meaning": "soon",
+      "example": "Le train arrivera bientôt.",
+      "example_meaning": "The train will arrive soon."
+    },
+    {
+      "term": "quand",
+      "meaning": "when",
+      "example": "Quand tu viendras, je ferai un gâteau.",
+      "example_meaning": "When you come, I'll make a cake."
+    },
+    {
+      "term": "l'avenir",
+      "meaning": "the future (m)",
+      "example": "L'avenir sera meilleur.",
+      "example_meaning": "The future will be better."
+    },
+    {
+      "term": "promettre",
+      "meaning": "to promise",
+      "example": "Il promet qu'il viendra demain.",
+      "example_meaning": "He promises he'll come tomorrow."
+    },
+    {
+      "term": "avoir le temps",
+      "meaning": "to have time",
+      "example": "Quand j'aurai le temps, j'irai au musée.",
+      "example_meaning": "When I have time, I'll go to the museum."
+    },
+    {
+      "term": "pleuvoir",
+      "meaning": "to rain",
+      "example": "Selon la météo, il pleuvra ce week-end.",
+      "example_meaning": "According to the forecast, it will rain this weekend."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-futur-simple-01",
+      "prompt": "Demain, nous ___ au cinéma.",
+      "type": "multiple-choice",
+      "options": [
+        "irons",
+        "allerons",
+        "irrons"
+      ],
+      "correct_answer": "irons",
+      "explanation": "Aller has the irregular future stem ir-: nous irons.",
+      "hints": [
+        "Aller does not keep its infinitive in the future."
+      ],
+      "teaches": [
+        "demain"
+      ]
+    },
+    {
+      "question_id": "a2-futur-simple-02",
+      "prompt": "Quand j'___ le temps, je lirai ce livre. (avoir)",
+      "type": "fill-in-blank",
+      "correct_answer": "aurai",
+      "accepted_answers": [],
+      "explanation": "Avoir has the stem aur-, and after quand the future is needed when the moment is still to come: quand j'aurai le temps.",
+      "hints": [
+        "The stem of avoir in the future is aur-.",
+        "je takes -ai"
+      ],
+      "teaches": [
+        "quand",
+        "avoir le temps"
+      ]
+    },
+    {
+      "question_id": "a2-futur-simple-03",
+      "prompt": "L'année prochaine, tu ___ conduire.",
+      "type": "multiple-choice",
+      "options": [
+        "pourras",
+        "pouvras",
+        "pouveras"
+      ],
+      "correct_answer": "pourras",
+      "explanation": "Pouvoir has the irregular stem pourr- (two r's): tu pourras.",
+      "hints": [
+        "The stem has a double r."
+      ],
+      "teaches": [
+        "l'année prochaine"
+      ]
+    },
+    {
+      "question_id": "a2-futur-simple-04",
+      "prompt": "La semaine prochaine, ils ___ le projet. (finir)",
+      "type": "fill-in-blank",
+      "correct_answer": "finiront",
+      "accepted_answers": [
+        "ils finiront"
+      ],
+      "explanation": "This verb is regular. Take the infinitive finir and add -ont: ils finiront.",
+      "hints": [
+        "Keep the whole infinitive.",
+        "ils takes -ont"
+      ],
+      "teaches": [
+        "la semaine prochaine"
+      ]
+    },
+    {
+      "question_id": "a2-futur-simple-05",
+      "prompt": "True or false: French puts the future after quand when the moment is still to come, as in \"Quand je serai grand, je serai pilote.\"",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "English says 'when I grow up' (present), but French uses the future after quand: quand je serai grand.",
+      "hints": [
+        "Is 'growing up' still to come?"
+      ],
+      "teaches": [
+        "quand"
+      ]
+    },
+    {
+      "question_id": "a2-futur-simple-06",
+      "prompt": "Which sentence is in the futur proche?",
+      "type": "multiple-choice",
+      "options": [
+        "Je vais partir demain.",
+        "Je partirai demain.",
+        "Je partais demain."
+      ],
+      "correct_answer": "Je vais partir demain.",
+      "explanation": "The futur proche is aller in the present plus an infinitive: je vais partir. Je partirai is the futur simple.",
+      "hints": [
+        "Look for aller plus an infinitive."
+      ],
+      "teaches": [
+        "demain"
+      ]
+    },
+    {
+      "question_id": "a2-futur-simple-07",
+      "prompt": "Elle ___ avec nous demain. (venir)",
+      "type": "fill-in-blank",
+      "correct_answer": "viendra",
+      "accepted_answers": [
+        "elle viendra"
+      ],
+      "explanation": "Venir has the irregular stem viendr-: elle viendra.",
+      "hints": [
+        "The stem is viendr-.",
+        "elle takes -a"
+      ],
+      "teaches": [
+        "demain"
+      ]
+    },
+    {
+      "question_id": "a2-futur-simple-08",
+      "prompt": "True or false: \"Je prendrerai le train\" is correct French.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Verbs in -re drop the final -e before the ending: prendre becomes je prendrai.",
+      "hints": [
+        "What happens to the -e of prendre?"
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a2-futur-simple-09",
+      "prompt": "Selon la météo, il ___ demain.",
+      "type": "multiple-choice",
+      "options": [
+        "pleuvra",
+        "pleuvera",
+        "pleuvoira"
+      ],
+      "correct_answer": "pleuvra",
+      "explanation": "Pleuvoir has the stem pleuvr-: il pleuvra.",
+      "hints": [
+        "Like pouvoir, which becomes pourr-, the -oir disappears."
+      ],
+      "teaches": [
+        "pleuvoir"
+      ]
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "parler",
+      "meaning": "to speak",
+      "set": "futur",
+      "art": [
+        " .------------. ",
+        "( je parlerai ) ",
+        " `----. .----' ",
+        "       V        "
+      ],
+      "forms": {
+        "je": "parlerai",
+        "tu": "parleras",
+        "il": "parlera",
+        "nous": "parlerons",
+        "vous": "parlerez",
+        "ils": "parleront"
+      }
+    },
+    {
+      "item": "finir",
+      "meaning": "to finish",
+      "set": "futur",
+      "art": [
+        " ____________ ",
+        "|  F  I  N   |",
+        "|____________|",
+        "   demain !   "
+      ],
+      "forms": {
+        "je": "finirai",
+        "tu": "finiras",
+        "il": "finira",
+        "nous": "finirons",
+        "vous": "finirez",
+        "ils": "finiront"
+      }
+    },
+    {
+      "item": "être",
+      "meaning": "to be",
+      "set": "futur",
+      "art": [
+        "  *   .   *  ",
+        "  .  \\o/  .  ",
+        "  *   |   *  ",
+        "     / \\     ",
+        "  je serai   "
+      ],
+      "forms": {
+        "je": "serai",
+        "tu": "seras",
+        "il": "sera",
+        "nous": "serons",
+        "vous": "serez",
+        "ils": "seront"
+      }
+    },
+    {
+      "item": "avoir",
+      "meaning": "to have",
+      "set": "futur",
+      "art": [
+        "  _________  ",
+        " |  $ $ $  | ",
+        " |_________| ",
+        "   j'aurai   "
+      ],
+      "forms": {
+        "je": "aurai",
+        "tu": "auras",
+        "il": "aura",
+        "nous": "aurons",
+        "vous": "aurez",
+        "ils": "auront"
+      }
+    },
+    {
+      "item": "aller",
+      "meaning": "to go",
+      "set": "futur",
+      "art": [
+        "  o     ---->  [ ] ",
+        " /|\\    ---->  [ ] ",
+        " / \\    ---->  [ ] ",
+        "      j'irai       "
+      ],
+      "forms": {
+        "je": "irai",
+        "tu": "iras",
+        "il": "ira",
+        "nous": "irons",
+        "vous": "irez",
+        "ils": "iront"
+      }
+    },
+    {
+      "item": "faire",
+      "meaning": "to do, to make",
+      "set": "futur",
+      "art": [
+        "    ( ( (    ",
+        "   _______   ",
+        "  |       |  ",
+        "  |_______|  ",
+        "  je ferai   "
+      ],
+      "forms": {
+        "je": "ferai",
+        "tu": "feras",
+        "il": "fera",
+        "nous": "ferons",
+        "vous": "ferez",
+        "ils": "feront"
+      }
+    },
+    {
+      "item": "venir",
+      "meaning": "to come",
+      "set": "futur",
+      "art": [
+        " [ ]  <----  o  ",
+        " [ ]  <---- /|\\ ",
+        " [ ]  <---- / \\ ",
+        "  je viendrai   "
+      ],
+      "forms": {
+        "je": "viendrai",
+        "tu": "viendras",
+        "il": "viendra",
+        "nous": "viendrons",
+        "vous": "viendrez",
+        "ils": "viendront"
+      }
+    },
+    {
+      "item": "pouvoir",
+      "meaning": "can, to be able to",
+      "set": "futur",
+      "art": [
+        "    \\o/     ",
+        "     |      ",
+        "    / \\     ",
+        " je pourrai "
+      ],
+      "forms": {
+        "je": "pourrai",
+        "tu": "pourras",
+        "il": "pourra",
+        "nous": "pourrons",
+        "vous": "pourrez",
+        "ils": "pourront"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-futur-simple-conv-summer-plans",
+      "title": "Summer plans",
+      "scenario": "Camille and Hugo talk about what they will do this summer.",
+      "role_a": "Camille",
+      "role_b": "Hugo",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Qu'est-ce que tu feras cet été, Hugo ?",
+          "meaning": "What will you do this summer, Hugo?"
+        },
+        {
+          "speaker": "b",
+          "text": "Je partirai en Bretagne avec ma sœur.",
+          "meaning": "I'll go to Brittany with my sister."
+        },
+        {
+          "speaker": "a",
+          "text": "Super ! Vous prendrez le train ?",
+          "meaning": "Great! Will you take the train?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, et nous ferons du vélo là-bas.",
+          "meaning": "Yes, and we'll go cycling there."
+        },
+        {
+          "speaker": "a",
+          "text": "Moi, je resterai à Lyon. Je travaillerai tout l'été.",
+          "meaning": "I'll stay in Lyon. I'll work all summer."
+        },
+        {
+          "speaker": "b",
+          "text": "Tu viendras nous voir en août ?",
+          "meaning": "Will you come and see us in August?"
+        },
+        {
+          "speaker": "a",
+          "text": "Quand j'aurai des vacances, je viendrai.",
+          "meaning": "When I have some holiday, I'll come.",
+          "note": "Quand takes the futur because the holiday is still to come."
+        },
+        {
+          "speaker": "b",
+          "text": "Promis ? Il fera beau, tu verras.",
+          "meaning": "Promise? The weather will be nice, you'll see."
+        },
+        {
+          "speaker": "a",
+          "text": "Promis. Je te téléphonerai la semaine prochaine.",
+          "meaning": "Promise. I'll phone you next week."
+        },
+        {
+          "speaker": "b",
+          "text": "Parfait. On se verra bientôt !",
+          "meaning": "Perfect. We'll see each other soon!"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Je serai là demain.",
+      "meaning": "I'll be there tomorrow.",
+      "note": "Être becomes je serai."
+    },
+    {
+      "text": "Nous irons à la plage samedi.",
+      "meaning": "We'll go to the beach on Saturday.",
+      "note": "New word: la plage = the beach."
+    },
+    {
+      "text": "Elle finira ses devoirs ce soir.",
+      "meaning": "She'll finish her homework this evening.",
+      "note": "Finir keeps its infinitive: elle finira."
+    },
+    {
+      "text": "Il fera très chaud la semaine prochaine.",
+      "meaning": "It will be very hot next week."
+    },
+    {
+      "text": "Quand vous arriverez, je vous montrerai la ville.",
+      "meaning": "When you arrive, I'll show you the town.",
+      "note": "Quand takes the futur."
+    },
+    {
+      "text": "Mes parents auront une nouvelle voiture l'année prochaine.",
+      "meaning": "My parents will have a new car next year.",
+      "note": "New word: la voiture = the car."
+    },
+    {
+      "text": "Je te promets que je ne serai pas en retard.",
+      "meaning": "I promise you I won't be late.",
+      "note": "New word: en retard = late."
+    },
+    {
+      "text": "Dans deux ans, nous pourrons acheter une petite maison près de Lyon.",
+      "meaning": "In two years' time we'll be able to buy a little house near Lyon."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Building the futur simple"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-futur-simple-01"
+    },
+    {
+      "question": "a2-futur-simple-04"
+    },
+    {
+      "question": "a2-futur-simple-08"
+    },
+    {
+      "section": "Irregular stems"
+    },
+    {
+      "question": "a2-futur-simple-03"
+    },
+    {
+      "question": "a2-futur-simple-07"
+    },
+    {
+      "question": "a2-futur-simple-09"
+    },
+    {
+      "tip": "Hear an r just before -ai, -as, -a, -ons, -ez, -ont? It's the future."
+    },
+    {
+      "section": "Futur proche or futur simple"
+    },
+    {
+      "question": "a2-futur-simple-06"
+    },
+    {
+      "concept": {
+        "title": "Si takes the present",
+        "markdown": "Careful: **si** (if) is not **quand**. After **si**, French uses the **present**, like English: **S'il fait beau, nous irons à la plage.** Only time words like **quand** take the future."
+      }
+    },
+    {
+      "section": "Quand + futur"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-futur-simple-02"
+    },
+    {
+      "question": "a2-futur-simple-05"
+    }
+  ],
+  "sprint": {
+    "icon": "🔮",
+    "bites": [
+      {
+        "title": "Infinitive + -ai",
+        "emoji": "🔮",
+        "rule": "The futur simple is the infinitive plus -ai, -as, -a, -ons, -ez, -ont. Verbs in -re drop the -e: prendre becomes je prendrai.",
+        "example": "Je parlerai au directeur demain.",
+        "example_meaning": "I'll speak to the manager tomorrow."
+      },
+      {
+        "title": "Irregular stems",
+        "emoji": "🧩",
+        "rule": "The endings stay the same and the stem changes: ser- (être), aur- (avoir), ir- (aller), fer- (faire), viendr- (venir), pourr- (pouvoir), devr-, saur-, verr-.",
+        "example": "Nous serons à Paris et nous irons au Louvre.",
+        "example_meaning": "We'll be in Paris and we'll go to the Louvre."
+      },
+      {
+        "title": "Proche or simple?",
+        "emoji": "🛤️",
+        "rule": "Use aller plus an infinitive for what is near and planned. Use the futur simple for predictions, promises and the further future.",
+        "example": "Je vais manger. Un jour, je voyagerai.",
+        "example_meaning": "I'm going to eat. One day I'll travel."
+      },
+      {
+        "title": "Quand + futur",
+        "emoji": "⏳",
+        "rule": "If the moment is still to come, the verb after quand is in the future too, unlike English.",
+        "example": "Quand j'aurai le temps, je t'écrirai.",
+        "example_meaning": "When I have time, I'll write to you."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Infinitive stem or irregular stem?",
+        "buckets": [
+          "infinitive stem",
+          "irregular stem"
+        ],
+        "items": [
+          {
+            "text": "je parlerai",
+            "bucket": 0
+          },
+          {
+            "text": "je serai",
+            "bucket": 1
+          },
+          {
+            "text": "je finirai",
+            "bucket": 0
+          },
+          {
+            "text": "j'irai",
+            "bucket": 1
+          },
+          {
+            "text": "je prendrai",
+            "bucket": 0
+          },
+          {
+            "text": "je ferai",
+            "bucket": 1
+          },
+          {
+            "text": "je vendrai",
+            "bucket": 0
+          },
+          {
+            "text": "je viendrai",
+            "bucket": 1
+          }
+        ],
+        "why": "Regular verbs keep the infinitive (minus the -e of -re verbs). Être, aller, faire, venir and a few others have their own stem."
+      },
+      {
+        "title": "Futur proche or futur simple?",
+        "buckets": [
+          "futur proche",
+          "futur simple"
+        ],
+        "items": [
+          {
+            "text": "je vais partir",
+            "bucket": 0
+          },
+          {
+            "text": "je partirai",
+            "bucket": 1
+          },
+          {
+            "text": "nous allons voir",
+            "bucket": 0
+          },
+          {
+            "text": "nous verrons",
+            "bucket": 1
+          },
+          {
+            "text": "elle va avoir",
+            "bucket": 0
+          },
+          {
+            "text": "elle aura",
+            "bucket": 1
+          }
+        ],
+        "why": "The futur proche is two words, aller plus an infinitive. The futur simple is one word with a future ending."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Demain, nous allerons au marché.",
+        "wrong": "allerons",
+        "fix": "irons",
+        "why": "Aller has the irregular stem ir-."
+      },
+      {
+        "sentence": "Quand je suis grand, je serai médecin.",
+        "wrong": "suis",
+        "fix": "serai",
+        "why": "After quand, a moment still to come takes the future."
+      },
+      {
+        "sentence": "Ils prendreront le train de huit heures.",
+        "wrong": "prendreront",
+        "fix": "prendront",
+        "why": "-re verbs drop the -e: prendr- plus -ont."
+      },
+      {
+        "sentence": "L'année prochaine, j'avrai trente ans.",
+        "wrong": "j'avrai",
+        "fix": "j'aurai",
+        "why": "Avoir has the stem aur-."
+      },
+      {
+        "sentence": "Tu fairas les courses ce soir ?",
+        "wrong": "fairas",
+        "fix": "feras",
+        "why": "Faire has the stem fer-."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Nous serons à Paris la semaine prochaine.",
+        "meaning": "We'll be in Paris next week.",
+        "distractors": [
+          "serrons"
+        ]
+      },
+      {
+        "text": "Quand tu viendras, nous mangerons ensemble.",
+        "meaning": "When you come, we'll eat together.",
+        "distractors": [
+          "viens"
+        ]
+      },
+      {
+        "text": "Il fera beau demain.",
+        "meaning": "The weather will be nice tomorrow.",
+        "distractors": [
+          "faira"
+        ]
+      },
+      {
+        "text": "Je te promets que je viendrai.",
+        "meaning": "I promise you I'll come.",
+        "distractors": [
+          "venirai"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🌠",
+      "content": "## Le futur à Eldmark\n\nAt the guild, every quest is a promise in the **futur simple**: demain, **nous irons** au donjon; Borin **sera** le guerrier; la mage Séla **fera** un sort. **Quand** takes the future too: **quand nous aurons le butin, nous rentrerons** à Highgate.",
+      "vocabulary": [
+        {
+          "term": "demain",
+          "example": "Demain, nous irons au donjon.",
+          "example_meaning": "Tomorrow we'll go to the dungeon."
+        },
+        {
+          "term": "bientôt",
+          "example": "La guilde partira bientôt pour Frostmarch.",
+          "example_meaning": "The guild will leave for Frostmarch soon."
+        },
+        {
+          "term": "quand",
+          "example": "Quand nous aurons le butin, nous rentrerons à Highgate.",
+          "example_meaning": "When we have the loot, we'll go back to Highgate."
+        },
+        {
+          "term": "promettre",
+          "example": "Nym promet qu'elle reviendra.",
+          "example_meaning": "Nym promises she'll come back."
+        },
+        {
+          "term": "l'avenir",
+          "example": "La prêtresse dit que l'avenir sera brillant.",
+          "example_meaning": "The priestess says the future will be bright."
+        },
+        {
+          "term": "la semaine prochaine",
+          "example": "La semaine prochaine, Borin fera une quête à Deepanvil.",
+          "example_meaning": "Next week Borin will do a quest in Deepanvil."
+        },
+        {
+          "term": "la quête",
+          "meaning": "quest",
+          "example": "La quête sera longue.",
+          "example_meaning": "The quest will be long."
+        },
+        {
+          "term": "le butin",
+          "meaning": "loot",
+          "example": "Nous partagerons le butin.",
+          "example_meaning": "We'll share the loot."
+        },
+        {
+          "term": "le donjon",
+          "meaning": "dungeon",
+          "example": "Le donjon sera sombre.",
+          "example_meaning": "The dungeon will be dark."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Les quêtes au futur",
+          "emoji": "🌠",
+          "rule": "Quest plans use the infinitive plus -ai, -as, -a, -ons, -ez, -ont. The irregular stems stay irregular in Eldmark: ser-, aur-, ir-, fer-, viendr-.",
+          "example": "Demain, nous irons au donjon.",
+          "example_meaning": "Tomorrow we'll go to the dungeon."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Borin sera notre guerrier.",
+          "meaning": "Borin will be our warrior."
+        },
+        {
+          "text": "Nous irons à Deepanvil demain.",
+          "meaning": "We'll go to Deepanvil tomorrow."
+        },
+        {
+          "text": "La mage Séla fera un sort.",
+          "meaning": "Séla the mage will cast a spell.",
+          "note": "New word: le sort = spell."
+        },
+        {
+          "text": "Quand nous aurons le butin, nous rentrerons.",
+          "meaning": "When we have the loot, we'll go home.",
+          "note": "Quand takes the futur."
+        },
+        {
+          "text": "Nym viendra avec son épée.",
+          "meaning": "Nym will come with her sword.",
+          "note": "New word: l'épée = sword."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Nous partagerons le butin à Highgate.",
+          "meaning": "We'll share the loot in Highgate.",
+          "distractors": [
+            "partageons"
+          ]
+        },
+        {
+          "text": "Borin viendra avec nous demain.",
+          "meaning": "Borin will come with us tomorrow.",
+          "distractors": [
+            "venira"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Demain, la guilde allera au donjon.",
+          "wrong": "allera",
+          "fix": "ira",
+          "why": "Aller has the future stem ir-."
+        },
+        {
+          "sentence": "Quand nous avons le butin, nous rentrerons.",
+          "wrong": "avons",
+          "fix": "aurons",
+          "why": "After quand, a moment still to come takes the future."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Futur simple or futur proche in Eldmark?",
+          "buckets": [
+            "futur simple",
+            "futur proche"
+          ],
+          "items": [
+            {
+              "text": "nous irons au donjon",
+              "bucket": 0
+            },
+            {
+              "text": "je vais lancer un sort",
+              "bucket": 1
+            },
+            {
+              "text": "Nym sera là",
+              "bucket": 0
+            },
+            {
+              "text": "Borin va arriver",
+              "bucket": 1
+            },
+            {
+              "text": "la guilde fera la fête",
+              "bucket": 0
+            },
+            {
+              "text": "nous allons partager le butin",
+              "bucket": 1
+            }
+          ],
+          "why": "One word with a future ending is the futur simple. Aller plus an infinitive is the futur proche."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a2-futur-simple-realm-01",
+          "prompt": "Demain, la mage ___ un sort.",
+          "type": "multiple-choice",
+          "options": [
+            "fera",
+            "faira",
+            "ferait"
+          ],
+          "correct_answer": "fera",
+          "explanation": "Faire has the future stem fer-: elle fera.",
+          "hints": [
+            "The stem of faire is fer-."
+          ],
+          "teaches": [
+            "demain"
+          ]
+        },
+        {
+          "question_id": "a2-futur-simple-realm-02",
+          "prompt": "Quand nous ___ le butin, nous rentrerons à Highgate. (avoir)",
+          "type": "fill-in-blank",
+          "correct_answer": "aurons",
+          "accepted_answers": [
+            "nous aurons"
+          ],
+          "explanation": "After quand, use the future: the stem of avoir is aur-, plus -ons, gives nous aurons.",
+          "hints": [
+            "Quand takes the futur.",
+            "The stem of avoir is aur-."
+          ],
+          "teaches": [
+            "quand",
+            "le butin"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "a2-futur-simple-conv-realm-quest",
+          "title": "Tomorrow's quest",
+          "scenario": "Nym the elf and Borin the dwarf plan tomorrow's trip to the dungeon.",
+          "role_a": "Nym",
+          "role_b": "Borin",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Borin, tu viendras au donjon demain ?",
+              "meaning": "Borin, will you come to the dungeon tomorrow?"
+            },
+            {
+              "speaker": "b",
+              "text": "Oui, je serai là à l'aube.",
+              "meaning": "Yes, I'll be there at dawn."
+            },
+            {
+              "speaker": "a",
+              "text": "Séla viendra aussi. Elle fera les sorts.",
+              "meaning": "Séla will come too. She'll cast the spells."
+            },
+            {
+              "speaker": "b",
+              "text": "Et moi, je porterai le bouclier.",
+              "meaning": "And I'll carry the shield."
+            },
+            {
+              "speaker": "a",
+              "text": "Quand nous aurons le butin, nous irons à la taverne du Dragon Vert.",
+              "meaning": "When we have the loot, we'll go to the Green Dragon tavern."
+            },
+            {
+              "speaker": "b",
+              "text": "Promis ! Nous fêterons la quête là-bas.",
+              "meaning": "Promise! We'll celebrate the quest there."
+            }
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🌱",
+      "content": "## Le futur à Meadowbrook\n\nA farm runs on plans. Au printemps, **je planterai** des fraises; en été, **elles pousseront**; à l'automne, **nous récolterons** les citrouilles pour la fête des récoltes. After **quand**, the future stays future: **quand il pleuvra, je n'arroserai pas**.",
+      "vocabulary": [
+        {
+          "term": "demain",
+          "example": "Demain, je planterai du maïs.",
+          "example_meaning": "Tomorrow I'll plant corn."
+        },
+        {
+          "term": "l'année prochaine",
+          "example": "L'année prochaine, nous aurons deux vaches.",
+          "example_meaning": "Next year we'll have two cows."
+        },
+        {
+          "term": "bientôt",
+          "example": "Les fraises seront bientôt rouges.",
+          "example_meaning": "The strawberries will soon be red."
+        },
+        {
+          "term": "quand",
+          "example": "Quand il fera beau, Léo ira pêcher.",
+          "example_meaning": "When the weather is nice, Léo will go fishing."
+        },
+        {
+          "term": "pleuvoir",
+          "example": "Il pleuvra cette nuit sur la ferme.",
+          "example_meaning": "It will rain on the farm tonight."
+        },
+        {
+          "term": "avoir le temps",
+          "example": "Quand j'aurai le temps, je cuisinerai une tarte.",
+          "example_meaning": "When I have time, I'll bake a tart."
+        },
+        {
+          "term": "planter",
+          "meaning": "to plant",
+          "example": "Nora plantera des fraises au printemps.",
+          "example_meaning": "Nora will plant strawberries in spring."
+        },
+        {
+          "term": "récolter",
+          "meaning": "to harvest",
+          "example": "Nous récolterons le maïs en septembre.",
+          "example_meaning": "We'll harvest the corn in September."
+        },
+        {
+          "term": "la citrouille",
+          "meaning": "pumpkin",
+          "example": "La citrouille sera énorme.",
+          "example_meaning": "The pumpkin will be huge."
+        },
+        {
+          "term": "la fête des récoltes",
+          "meaning": "the harvest festival",
+          "example": "Tout le village viendra à la fête des récoltes.",
+          "example_meaning": "The whole village will come to the harvest festival."
+        }
+      ],
+      "bites": [
+        {
+          "title": "La ferme au futur",
+          "emoji": "🌱",
+          "rule": "Farm plans use the futur simple: récolter becomes je récolterai, vendre becomes je vendrai, faire becomes il fera beau, and être becomes ce sera.",
+          "example": "Je récolterai les fraises demain.",
+          "example_meaning": "I'll harvest the strawberries tomorrow."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Je planterai du maïs demain.",
+          "meaning": "I'll plant corn tomorrow."
+        },
+        {
+          "text": "Il pleuvra cette nuit.",
+          "meaning": "It will rain tonight."
+        },
+        {
+          "text": "Rosa vendra ses fraises au marché.",
+          "meaning": "Rosa will sell her strawberries at the market.",
+          "note": "New word: le marché = the market."
+        },
+        {
+          "text": "Quand il fera beau, nous irons pêcher.",
+          "meaning": "When the weather is nice, we'll go fishing.",
+          "note": "Quand takes the futur."
+        },
+        {
+          "text": "Les citrouilles seront énormes cette année.",
+          "meaning": "The pumpkins will be huge this year.",
+          "note": "New word: la citrouille = pumpkin."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Nous récolterons les citrouilles en octobre.",
+          "meaning": "We'll harvest the pumpkins in October.",
+          "distractors": [
+            "récoltrons"
+          ]
+        },
+        {
+          "text": "Il fera beau pour la fête.",
+          "meaning": "The weather will be nice for the festival.",
+          "distractors": [
+            "faira"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "L'année prochaine, nous avrons une vache.",
+          "wrong": "avrons",
+          "fix": "aurons",
+          "why": "Avoir has the future stem aur-."
+        },
+        {
+          "sentence": "Quand il pleut demain, je resterai à la ferme.",
+          "wrong": "pleut",
+          "fix": "pleuvra",
+          "why": "After quand, a moment still to come takes the future."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Which stem on the farm?",
+          "buckets": [
+            "infinitive stem",
+            "irregular stem"
+          ],
+          "items": [
+            {
+              "text": "je récolterai",
+              "bucket": 0
+            },
+            {
+              "text": "ce sera",
+              "bucket": 1
+            },
+            {
+              "text": "je planterai",
+              "bucket": 0
+            },
+            {
+              "text": "il fera beau",
+              "bucket": 1
+            },
+            {
+              "text": "je vendrai",
+              "bucket": 0
+            },
+            {
+              "text": "j'irai au marché",
+              "bucket": 1
+            }
+          ],
+          "why": "Récolter, planter and vendre (minus its -e) keep the infinitive. Être, faire and aller have their own stems."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a2-futur-simple-meadowbrook-01",
+          "prompt": "L'année prochaine, nous ___ deux vaches.",
+          "type": "multiple-choice",
+          "options": [
+            "aurons",
+            "avrons",
+            "avoirons"
+          ],
+          "correct_answer": "aurons",
+          "explanation": "Avoir has the future stem aur-: nous aurons.",
+          "hints": [
+            "The stem of avoir is aur-."
+          ],
+          "teaches": [
+            "l'année prochaine"
+          ]
+        },
+        {
+          "question_id": "a2-futur-simple-meadowbrook-02",
+          "prompt": "Demain, Léo ___ pêcher à la rivière. (aller)",
+          "type": "fill-in-blank",
+          "correct_answer": "ira",
+          "accepted_answers": [
+            "il ira"
+          ],
+          "explanation": "Aller has the future stem ir-: il ira.",
+          "hints": [
+            "The stem of aller is ir-."
+          ],
+          "teaches": [
+            "demain"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "a2-futur-simple-conv-meadowbrook-seeds",
+          "title": "Plans at the seed shop",
+          "scenario": "Nora, the new farmer, tells Rosa at the seed shop what she will grow this year.",
+          "role_a": "Nora",
+          "role_b": "Rosa",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Bonjour Rosa ! Je planterai des fraises ce printemps.",
+              "meaning": "Hello Rosa! I'll plant strawberries this spring."
+            },
+            {
+              "speaker": "b",
+              "text": "Bonne idée ! Elles seront belles en juin.",
+              "meaning": "Good idea! They'll be lovely in June."
+            },
+            {
+              "speaker": "a",
+              "text": "Et à l'automne, je récolterai des citrouilles.",
+              "meaning": "And in autumn I'll harvest pumpkins."
+            },
+            {
+              "speaker": "b",
+              "text": "Tu les vendras à la fête des récoltes ?",
+              "meaning": "Will you sell them at the harvest festival?"
+            },
+            {
+              "speaker": "a",
+              "text": "Oui ! Et quand je serai riche, j'aurai une vache.",
+              "meaning": "Yes! And when I'm rich, I'll have a cow."
+            },
+            {
+              "speaker": "b",
+              "text": "Alors je viendrai la voir !",
+              "meaning": "Then I'll come and see her!"
+            }
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🛰️",
+      "content": "## Le futur à Rustwake\n\nOutside le Dôme, every day is a plan. Demain, **je chercherai** de l'eau filtrée; Marta **sera** au marché; **nous échangerons** des écrous. The radio-montre predicts the weather: **il y aura une tempête de cendres**. And **quand je reviendrai** au Dôme, **je réparerai** l'antenne.",
+      "vocabulary": [
+        {
+          "term": "demain",
+          "example": "Demain, je chercherai de l'eau filtrée.",
+          "example_meaning": "Tomorrow I'll look for filtered water."
+        },
+        {
+          "term": "bientôt",
+          "example": "Le contremaître Ruiz ouvrira bientôt le Dôme.",
+          "example_meaning": "Foreman Ruiz will open the Dome soon."
+        },
+        {
+          "term": "quand",
+          "example": "Quand je reviendrai au Dôme, je réparerai l'antenne.",
+          "example_meaning": "When I come back to the Dome, I'll repair the antenna."
+        },
+        {
+          "term": "promettre",
+          "example": "Marta promet qu'elle aura du soda Saphir.",
+          "example_meaning": "Marta promises she'll have Saphir soda."
+        },
+        {
+          "term": "la semaine prochaine",
+          "example": "La semaine prochaine, nous explorerons le centre commercial en ruines.",
+          "example_meaning": "Next week we'll explore the ruined shopping centre."
+        },
+        {
+          "term": "dans deux ans",
+          "example": "Dans deux ans, le village de ferraille sera une ville.",
+          "example_meaning": "In two years' time the scrap village will be a town."
+        },
+        {
+          "term": "les écrous",
+          "meaning": "nuts (the currency)",
+          "example": "Tu paieras en écrous.",
+          "example_meaning": "You'll pay in nuts."
+        },
+        {
+          "term": "la radio-montre",
+          "meaning": "wrist radio",
+          "example": "Ma radio-montre sonnera à six heures.",
+          "example_meaning": "My wrist radio will ring at six."
+        },
+        {
+          "term": "la tempête de cendres",
+          "meaning": "ash storm",
+          "example": "La tempête de cendres arrivera ce soir.",
+          "example_meaning": "The ash storm will arrive this evening."
+        },
+        {
+          "term": "réparer",
+          "meaning": "to repair",
+          "example": "Léo réparera la radio.",
+          "example_meaning": "Léo will repair the radio."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Prévisions du désert",
+          "emoji": "🛰️",
+          "rule": "The radio-montre speaks in the futur simple: il y aura (avoir), il fera (faire), ce sera (être). Il y a becomes il y aura.",
+          "example": "Demain, il y aura de la poussière.",
+          "example_meaning": "Tomorrow there will be dust."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Il y aura une tempête de cendres.",
+          "meaning": "There will be an ash storm.",
+          "note": "New word: la tempête de cendres = ash storm."
+        },
+        {
+          "text": "Je réparerai la radio demain.",
+          "meaning": "I'll repair the radio tomorrow."
+        },
+        {
+          "text": "Marta sera au marché ce soir.",
+          "meaning": "Marta will be at the market this evening."
+        },
+        {
+          "text": "Nous échangerons des écrous contre de l'eau.",
+          "meaning": "We'll trade nuts for water.",
+          "note": "New word: les écrous = nuts."
+        },
+        {
+          "text": "Quand le soleil reviendra, nous explorerons.",
+          "meaning": "When the sun comes back, we'll explore.",
+          "note": "Quand takes the futur."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Nous irons au village de ferraille.",
+          "meaning": "We'll go to the scrap village.",
+          "distractors": [
+            "allerons"
+          ]
+        },
+        {
+          "text": "Il y aura de la poussière demain.",
+          "meaning": "There will be dust tomorrow.",
+          "distractors": [
+            "avra"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Demain, nous allerons au marché.",
+          "wrong": "allerons",
+          "fix": "irons",
+          "why": "Aller has the future stem ir-."
+        },
+        {
+          "sentence": "Quand je reviens au Dôme, je réparerai l'antenne.",
+          "wrong": "reviens",
+          "fix": "reviendrai",
+          "why": "After quand, a moment still to come takes the future."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Future or present on the radio?",
+          "buckets": [
+            "futur simple",
+            "présent"
+          ],
+          "items": [
+            {
+              "text": "il y aura",
+              "bucket": 0
+            },
+            {
+              "text": "il y a",
+              "bucket": 1
+            },
+            {
+              "text": "je serai",
+              "bucket": 0
+            },
+            {
+              "text": "je suis",
+              "bucket": 1
+            },
+            {
+              "text": "nous ferons",
+              "bucket": 0
+            },
+            {
+              "text": "nous faisons",
+              "bucket": 1
+            }
+          ],
+          "why": "The future has an r-stem and a future ending: aur-a, ser-ai, fer-ons."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a2-futur-simple-rustwake-01",
+          "prompt": "Demain, il y ___ une tempête de cendres.",
+          "type": "multiple-choice",
+          "options": [
+            "aura",
+            "sera",
+            "avra"
+          ],
+          "correct_answer": "aura",
+          "explanation": "Il y a becomes il y aura in the future, because avoir has the stem aur-.",
+          "hints": [
+            "Il y a uses avoir."
+          ],
+          "teaches": [
+            "demain",
+            "la tempête de cendres"
+          ]
+        },
+        {
+          "question_id": "a2-futur-simple-rustwake-02",
+          "prompt": "Quand tu ___ au marché, Marta te donnera de l'eau. (venir)",
+          "type": "fill-in-blank",
+          "correct_answer": "viendras",
+          "accepted_answers": [
+            "tu viendras"
+          ],
+          "explanation": "After quand, use the future: the stem of venir is viendr-, plus -as, gives tu viendras.",
+          "hints": [
+            "Quand takes the futur.",
+            "The stem of venir is viendr-."
+          ],
+          "teaches": [
+            "quand"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "a2-futur-simple-conv-rustwake-storm",
+          "title": "Before the storm",
+          "scenario": "Léo the scavenger and Marta the trader plan tomorrow's trade while a storm is on its way.",
+          "role_a": "Léo",
+          "role_b": "Marta",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Marta, tu seras au marché demain ?",
+              "meaning": "Marta, will you be at the market tomorrow?"
+            },
+            {
+              "speaker": "b",
+              "text": "Oui, et j'aurai de l'eau filtrée.",
+              "meaning": "Yes, and I'll have filtered water."
+            },
+            {
+              "speaker": "a",
+              "text": "Super. Je viendrai avec des écrous.",
+              "meaning": "Great. I'll come with some nuts."
+            },
+            {
+              "speaker": "b",
+              "text": "Attention, la radio dit qu'il y aura une tempête de cendres.",
+              "meaning": "Careful, the radio says there will be an ash storm."
+            },
+            {
+              "speaker": "a",
+              "text": "Alors je mettrai mon armure de ferraille.",
+              "meaning": "Then I'll put on my scrap armour."
+            },
+            {
+              "speaker": "b",
+              "text": "Bonne idée. Quand la tempête finira, nous échangerons.",
+              "meaning": "Good idea. When the storm ends, we'll trade."
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

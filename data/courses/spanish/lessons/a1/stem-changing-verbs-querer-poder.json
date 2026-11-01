@@ -1,0 +1,751 @@
+{
+  "id": "a1-stem-changing",
+  "slug": "stem-changing-verbs-querer-poder",
+  "title": "Stem-changing verbs: querer, poder, preferir, pensar, jugar",
+  "unit": "A1",
+  "group": "Grammar",
+  "order": 36,
+  "summary": "The 'boot' verbs: e→ie and o→ue in every form except nosotros and vosotros.",
+  "focus": "Present tense of e→ie, o→ue and u→ue stem-changing verbs; querer/poder + infinitive",
+  "prerequisites": [
+    "a1-regular-ar-present",
+    "a1-regular-er-ir-present"
+  ],
+  "content": "## What changes\n\nIn some verbs the **stressed vowel of the stem** changes in the present tense. The endings are the regular ones. The change happens in **yo, tú, él, ellos** but not in **nosotros, vosotros**, so the changing forms make a boot shape in the table.\n\n## e → ie: querer, preferir, pensar, entender, empezar\n\n| | querer (to want) | preferir (to prefer) | pensar (to think) |\n|---|---|---|---|\n| yo | qu**ie**ro | pref**ie**ro | p**ie**nso |\n| tú | qu**ie**res | pref**ie**res | p**ie**nsas |\n| él / ella / usted | qu**ie**re | pref**ie**re | p**ie**nsa |\n| nosotros/as | queremos | preferimos | pensamos |\n| vosotros/as | queréis | preferís | pensáis |\n| ellos / ellas / ustedes | qu**ie**ren | pref**ie**ren | p**ie**nsan |\n\n## o → ue: poder, dormir, volver, costar\n\n| | poder (can, to be able) | dormir (to sleep) |\n|---|---|---|\n| yo | p**ue**do | d**ue**rmo |\n| tú | p**ue**des | d**ue**rmes |\n| él / ella / usted | p**ue**de | d**ue**rme |\n| nosotros/as | podemos | dormimos |\n| vosotros/as | podéis | dormís |\n| ellos / ellas / ustedes | p**ue**den | d**ue**rmen |\n\n*Jugar* (to play a sport or game) is the one **u → ue** verb: *juego, juegas, juega, jugamos, jugáis, juegan*.\n\n## Querer, poder, preferir + infinitive\n\n- *Quiero comer.* (I want to eat.)\n- *¿Puedes ayudar?* (Can you help?)\n- *Prefiero ir a pie.* (I'd rather walk.)\n- *Pienso que es caro.* (I think it's expensive.)\n\n**Deber + infinitive** (should / must) and **soler + infinitive** (to usually do; o→ue: *suelo, sueles…*) work the same way: *Debes descansar. Suelo levantarme a las siete.*",
+  "vocabulary": [
+    {
+      "term": "querer",
+      "meaning": "to want; to love (a person)",
+      "example": "Quiero un café.",
+      "example_meaning": "I want a coffee."
+    },
+    {
+      "term": "poder",
+      "meaning": "can, to be able to",
+      "example": "¿Puedes ayudar?",
+      "example_meaning": "Can you help?"
+    },
+    {
+      "term": "preferir",
+      "meaning": "to prefer",
+      "example": "Prefiero el té.",
+      "example_meaning": "I prefer tea."
+    },
+    {
+      "term": "pensar",
+      "meaning": "to think",
+      "example": "Pienso que sí.",
+      "example_meaning": "I think so."
+    },
+    {
+      "term": "entender",
+      "meaning": "to understand",
+      "example": "No entiendo.",
+      "example_meaning": "I don't understand."
+    },
+    {
+      "term": "empezar",
+      "meaning": "to start",
+      "example": "La clase empieza a las nueve.",
+      "example_meaning": "The class starts at nine."
+    },
+    {
+      "term": "dormir",
+      "meaning": "to sleep",
+      "example": "Duermo ocho horas.",
+      "example_meaning": "I sleep eight hours."
+    },
+    {
+      "term": "volver",
+      "meaning": "to return, to go back",
+      "example": "Vuelvo a casa a las seis.",
+      "example_meaning": "I go back home at six."
+    },
+    {
+      "term": "costar",
+      "meaning": "to cost",
+      "example": "¿Cuánto cuesta?",
+      "example_meaning": "How much does it cost?"
+    },
+    {
+      "term": "jugar",
+      "meaning": "to play (a sport or game)",
+      "example": "Juego al fútbol.",
+      "example_meaning": "I play football."
+    },
+    {
+      "term": "deber",
+      "meaning": "should, must",
+      "example": "Debes descansar.",
+      "example_meaning": "You should rest."
+    },
+    {
+      "term": "soler",
+      "meaning": "to usually do",
+      "example": "Suelo comer a las dos.",
+      "example_meaning": "I usually eat at two."
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "querer",
+      "meaning": "to want",
+      "set": "present",
+      "art": [
+        "   __  __    ",
+        "  /  \\/  \\   ",
+        " |        |  ",
+        "  \\      /   ",
+        "   \\    /    ",
+        "    \\  /     ",
+        "     \\/      "
+      ],
+      "forms": {
+        "yo": "quiero",
+        "tu": "quieres",
+        "el": "quiere",
+        "nosotros": "queremos",
+        "vosotros": "queréis",
+        "ellos": "quieren"
+      }
+    },
+    {
+      "item": "poder",
+      "meaning": "can, to be able to",
+      "set": "present",
+      "art": [
+        "    .---.    ",
+        "    |   |    ",
+        "  __|   |    ",
+        " /  |   | O  ",
+        " \\__|   |/|\\ ",
+        "    |___| |  "
+      ],
+      "forms": {
+        "yo": "puedo",
+        "tu": "puedes",
+        "el": "puede",
+        "nosotros": "podemos",
+        "vosotros": "podéis",
+        "ellos": "pueden"
+      }
+    },
+    {
+      "item": "preferir",
+      "meaning": "to prefer",
+      "set": "present",
+      "art": [
+        "  [A]   [B]  ",
+        "   ^         ",
+        "   |         ",
+        "   |         ",
+        "  (o)        ",
+        "  /|\\        "
+      ],
+      "forms": {
+        "yo": "prefiero",
+        "tu": "prefieres",
+        "el": "prefiere",
+        "nosotros": "preferimos",
+        "vosotros": "preferís",
+        "ellos": "prefieren"
+      }
+    },
+    {
+      "item": "pensar",
+      "meaning": "to think",
+      "set": "present",
+      "art": [
+        "      o      ",
+        "     O       ",
+        "   .----.    ",
+        "  ( ?    )   ",
+        "   '----'    ",
+        "    (o o)    "
+      ],
+      "forms": {
+        "yo": "pienso",
+        "tu": "piensas",
+        "el": "piensa",
+        "nosotros": "pensamos",
+        "vosotros": "pensáis",
+        "ellos": "piensan"
+      }
+    },
+    {
+      "item": "jugar",
+      "meaning": "to play (a sport or game)",
+      "set": "present",
+      "art": [
+        "    .---.    ",
+        "   / o o \\   ",
+        "  ( o o o )  ",
+        "   \\ o o /   ",
+        "    '---'    ",
+        "   \\_/ \\_/   "
+      ],
+      "forms": {
+        "yo": "juego",
+        "tu": "juegas",
+        "el": "juega",
+        "nosotros": "jugamos",
+        "vosotros": "jugáis",
+        "ellos": "juegan"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-stem-01",
+      "prompt": "Conjugate: (yo) querer → ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "quiero",
+      "accepted_answers": [
+        "yo quiero"
+      ],
+      "explanation": "e → ie in the yo form: quiero.",
+      "hints": [
+        "e becomes ie."
+      ],
+      "teaches": [
+        "querer"
+      ]
+    },
+    {
+      "question_id": "a1-stem-02",
+      "prompt": "Conjugate: (nosotros) querer → ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "queremos",
+      "accepted_answers": [
+        "nosotros queremos"
+      ],
+      "explanation": "Nosotros keeps the original stem: queremos.",
+      "hints": [
+        "Nosotros is outside the boot, so the stem stays."
+      ],
+      "teaches": [
+        "querer"
+      ]
+    },
+    {
+      "question_id": "a1-stem-03",
+      "prompt": "¿Tú ___ venir mañana?",
+      "type": "multiple-choice",
+      "options": [
+        "puedes",
+        "podes",
+        "puedas"
+      ],
+      "correct_answer": "puedes",
+      "explanation": "o → ue: puedes.",
+      "hints": [
+        "o becomes ue."
+      ],
+      "teaches": [
+        "poder"
+      ]
+    },
+    {
+      "question_id": "a1-stem-04",
+      "prompt": "Vosotros ___ al fútbol los sábados.",
+      "type": "multiple-choice",
+      "options": [
+        "jugáis",
+        "juegáis",
+        "juegan"
+      ],
+      "correct_answer": "jugáis",
+      "explanation": "Vosotros has no stem change: jugáis.",
+      "hints": [
+        "Nosotros and vosotros keep the stem."
+      ],
+      "teaches": [
+        "jugar"
+      ]
+    },
+    {
+      "question_id": "a1-stem-05",
+      "prompt": "Conjugate: (ella) preferir → ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "prefiere",
+      "accepted_answers": [
+        "ella prefiere"
+      ],
+      "explanation": "e → ie: prefiere.",
+      "hints": [
+        "Third person singular -e."
+      ],
+      "teaches": [
+        "preferir"
+      ]
+    },
+    {
+      "question_id": "a1-stem-06",
+      "prompt": "Mis padres ___ que es caro.",
+      "type": "multiple-choice",
+      "options": [
+        "piensan",
+        "pensan",
+        "piensen"
+      ],
+      "correct_answer": "piensan",
+      "explanation": "Ellos: piensan (e → ie).",
+      "hints": [
+        "Ellos changes too."
+      ],
+      "teaches": [
+        "pensar"
+      ]
+    },
+    {
+      "question_id": "a1-stem-07",
+      "prompt": "Translate: I want to eat.",
+      "type": "multiple-choice",
+      "options": [
+        "Quiero comer.",
+        "Quiero como.",
+        "Quiero a comer."
+      ],
+      "correct_answer": "Quiero comer.",
+      "explanation": "Querer is followed directly by the infinitive.",
+      "hints": [
+        "No 'a' is needed."
+      ],
+      "teaches": [
+        "querer"
+      ]
+    },
+    {
+      "question_id": "a1-stem-08",
+      "prompt": "Conjugate: (yo) jugar → ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "juego",
+      "accepted_answers": [
+        "yo juego"
+      ],
+      "explanation": "Jugar is the u → ue verb: juego.",
+      "hints": [
+        "u becomes ue."
+      ],
+      "teaches": [
+        "jugar"
+      ]
+    },
+    {
+      "question_id": "a1-stem-09",
+      "prompt": "Los niños ___ diez horas.",
+      "type": "multiple-choice",
+      "options": [
+        "duermen",
+        "dormen",
+        "duermemos"
+      ],
+      "correct_answer": "duermen",
+      "explanation": "Dormir: o → ue in ellos: duermen.",
+      "hints": [
+        "o → ue"
+      ],
+      "teaches": [
+        "dormir"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "No entiendo la pregunta.",
+      "meaning": "I don't understand the question.",
+      "note": "New word: la pregunta = the question."
+    },
+    {
+      "text": "¿Quieres un café con leche?",
+      "meaning": "Do you want a coffee with milk?"
+    },
+    {
+      "text": "Mis hermanos juegan al fútbol los sábados.",
+      "meaning": "My brothers play football on Saturdays."
+    },
+    {
+      "text": "¿Puedes abrir la puerta, por favor?",
+      "meaning": "Can you open the door, please?"
+    },
+    {
+      "text": "Pienso que este coche es muy caro.",
+      "meaning": "I think this car is very expensive.",
+      "note": "New word: caro = expensive."
+    },
+    {
+      "text": "Debes dormir ocho horas todos los días.",
+      "meaning": "You should sleep eight hours every day.",
+      "note": "Deber + infinitive = should."
+    },
+    {
+      "text": "Suelo volver a casa a las seis de la tarde.",
+      "meaning": "I usually get home at six in the evening."
+    },
+    {
+      "text": "Queremos volver a Madrid, pero no podemos porque mañana trabajamos muy temprano.",
+      "meaning": "We want to go back to Madrid, but we can't because tomorrow we work very early.",
+      "note": "No stem change in the nosotros form: queremos, podemos."
+    }
+  ],
+  "guide": [
+    {
+      "section": "What changes"
+    },
+    {
+      "section": "e → ie"
+    },
+    {
+      "vocab": 6
+    },
+    {
+      "question": "a1-stem-01"
+    },
+    {
+      "question": "a1-stem-02"
+    },
+    {
+      "question": "a1-stem-05"
+    },
+    {
+      "question": "a1-stem-06"
+    },
+    {
+      "section": "o → ue"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a1-stem-03"
+    },
+    {
+      "question": "a1-stem-09"
+    },
+    {
+      "question": "a1-stem-04"
+    },
+    {
+      "question": "a1-stem-08"
+    },
+    {
+      "section": "Querer, poder, preferir + infinitive"
+    },
+    {
+      "vocab": 2
+    },
+    {
+      "question": "a1-stem-07"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-stem-conv-plans",
+      "title": "Can you come?",
+      "scenario": "Dani invites Marta to play football, but she has other ideas.",
+      "role_a": "Dani",
+      "role_b": "Marta",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¿Quieres jugar al fútbol el domingo?",
+          "meaning": "Do you want to play football on Sunday?",
+          "note": "querer, jugar"
+        },
+        {
+          "speaker": "b",
+          "text": "No puedo. Prefiero descansar; duermo poco esta semana.",
+          "meaning": "I can't. I'd rather rest; I'm sleeping little this week.",
+          "note": "poder, preferir, dormir"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Qué piensas de un café por la tarde?",
+          "meaning": "What do you think about a coffee in the afternoon?",
+          "note": "pensar"
+        },
+        {
+          "speaker": "b",
+          "text": "Sí, puedo a las cinco. ¿Dónde solemos ir?",
+          "meaning": "Yes, I can at five. Where do we usually go?",
+          "note": "soler, nosotros"
+        },
+        {
+          "speaker": "a",
+          "text": "Al bar de siempre. ¿Entiendes el menú nuevo?",
+          "meaning": "To the usual bar. Do you understand the new menu?",
+          "note": "entender"
+        },
+        {
+          "speaker": "b",
+          "text": "No entiendo nada, pero quiero probar la tarta.",
+          "meaning": "I don't understand anything, but I want to try the cake."
+        },
+        {
+          "speaker": "a",
+          "text": "Empieza a las cinco entonces. ¡Y debes dormir más!",
+          "meaning": "It starts at five then. And you should sleep more!",
+          "note": "empezar, deber"
+        },
+        {
+          "speaker": "b",
+          "text": "Vuelvo a casa temprano hoy, lo prometo.",
+          "meaning": "I'm going home early today, I promise.",
+          "note": "volver"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🌱",
+    "bites": [
+      {
+        "title": "Draw the boot",
+        "emoji": "👢",
+        "rule": "Circle yo, tú, él and ellos in the table and you get a boot. Those four forms change the stem. Nosotros and vosotros are outside the boot and stay regular.",
+        "example": "Yo quiero ir, pero nosotros queremos descansar.",
+        "example_meaning": "I want to go, but we want to rest."
+      },
+      {
+        "title": "e becomes ie",
+        "emoji": "🌸",
+        "rule": "In querer, preferir, pensar, entender and empezar the stressed e becomes ie: quiero, prefiero, pienso, entiendo, empieza.",
+        "example": "No entiendo el menú nuevo.",
+        "example_meaning": "I don't understand the new menu."
+      },
+      {
+        "title": "o becomes ue",
+        "emoji": "😴",
+        "rule": "Poder, dormir, volver and costar change o to ue: puedo, duermo, vuelvo, cuesta. Jugar is the only u → ue verb: juego.",
+        "example": "¿Cuánto cuesta el café?",
+        "example_meaning": "How much does the coffee cost?"
+      },
+      {
+        "title": "Then add an infinitive",
+        "emoji": "➕",
+        "rule": "Querer, poder, preferir, deber and soler take an infinitive right after them. Use no 'a' and do not conjugate the second verb.",
+        "example": "¿Puedes ayudar?",
+        "example_meaning": "Can you help?"
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Stem change or not?",
+        "buckets": [
+          "changes (inside the boot)",
+          "stays (outside the boot)"
+        ],
+        "items": [
+          {
+            "text": "yo + querer",
+            "bucket": 0
+          },
+          {
+            "text": "nosotros + poder",
+            "bucket": 1
+          },
+          {
+            "text": "ellos + dormir",
+            "bucket": 0
+          },
+          {
+            "text": "vosotros + jugar",
+            "bucket": 1
+          },
+          {
+            "text": "tú + pensar",
+            "bucket": 0
+          },
+          {
+            "text": "ella + preferir",
+            "bucket": 0
+          },
+          {
+            "text": "nosotros + volver",
+            "bucket": 1
+          },
+          {
+            "text": "el café + costar",
+            "bucket": 0
+          }
+        ],
+        "why": "Only nosotros and vosotros keep the plain stem. Every other person changes it."
+      },
+      {
+        "title": "Which change?",
+        "buckets": [
+          "e → ie",
+          "o → ue",
+          "u → ue"
+        ],
+        "items": [
+          {
+            "text": "querer",
+            "bucket": 0
+          },
+          {
+            "text": "pensar",
+            "bucket": 0
+          },
+          {
+            "text": "entender",
+            "bucket": 0
+          },
+          {
+            "text": "empezar",
+            "bucket": 0
+          },
+          {
+            "text": "preferir",
+            "bucket": 0
+          },
+          {
+            "text": "poder",
+            "bucket": 1
+          },
+          {
+            "text": "dormir",
+            "bucket": 1
+          },
+          {
+            "text": "volver",
+            "bucket": 1
+          },
+          {
+            "text": "costar",
+            "bucket": 1
+          },
+          {
+            "text": "jugar",
+            "bucket": 2
+          }
+        ],
+        "why": "Look at the stem vowel. E becomes ie, o becomes ue, and the u of jugar also becomes ue."
+      },
+      {
+        "title": "Real form or wrong form?",
+        "buckets": [
+          "✓ correct",
+          "✗ wrong"
+        ],
+        "items": [
+          {
+            "text": "pienso",
+            "bucket": 0
+          },
+          {
+            "text": "piensamos",
+            "bucket": 1
+          },
+          {
+            "text": "pensamos",
+            "bucket": 0
+          },
+          {
+            "text": "dormen",
+            "bucket": 1
+          },
+          {
+            "text": "puedo",
+            "bucket": 0
+          },
+          {
+            "text": "juegamos",
+            "bucket": 1
+          },
+          {
+            "text": "jugamos",
+            "bucket": 0
+          },
+          {
+            "text": "quieres",
+            "bucket": 0
+          }
+        ],
+        "why": "The stem changes in yo, tú, él and ellos only, so nosotros never gets ie or ue and the other forms always do."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Hoy no podo ir a la fiesta.",
+        "wrong": "podo",
+        "fix": "puedo",
+        "why": "Poder is o → ue in yo: puedo."
+      },
+      {
+        "sentence": "Los niños dormen diez horas.",
+        "wrong": "dormen",
+        "fix": "duermen",
+        "why": "Ellos is inside the boot, so the stem changes: duermen."
+      },
+      {
+        "sentence": "Nosotros puedemos ir a pie.",
+        "wrong": "puedemos",
+        "fix": "podemos",
+        "why": "Nosotros is outside the boot, so there is no change: podemos."
+      },
+      {
+        "sentence": "Mis padres pensan que es caro.",
+        "wrong": "pensan",
+        "fix": "piensan",
+        "why": "Pensar is e → ie for ellos: piensan."
+      },
+      {
+        "sentence": "Vosotros juegáis al fútbol los sábados.",
+        "wrong": "juegáis",
+        "fix": "jugáis",
+        "why": "Vosotros keeps the original stem: jugáis."
+      },
+      {
+        "sentence": "¿Cuánto costa el café?",
+        "wrong": "costa",
+        "fix": "cuesta",
+        "why": "Costar is o → ue: cuesta."
+      }
+    ],
+    "builds": [
+      {
+        "text": "¿Quieres jugar al fútbol el domingo?",
+        "meaning": "Do you want to play football on Sunday?",
+        "distractors": [
+          "queres",
+          "juegar"
+        ]
+      },
+      {
+        "text": "No entiendo el menú nuevo.",
+        "meaning": "I don't understand the new menu.",
+        "distractors": [
+          "entendo"
+        ]
+      },
+      {
+        "text": "Hoy prefiero descansar en casa.",
+        "meaning": "Today I'd rather rest at home.",
+        "distractors": [
+          "prefero",
+          "a"
+        ]
+      },
+      {
+        "text": "Los niños duermen diez horas.",
+        "meaning": "The children sleep ten hours.",
+        "distractors": [
+          "dormen"
+        ]
+      },
+      {
+        "text": "Podemos volver a las seis.",
+        "meaning": "We can come back at six.",
+        "distractors": [
+          "Puedemos",
+          "vuelver"
+        ]
+      }
+    ]
+  }
+}

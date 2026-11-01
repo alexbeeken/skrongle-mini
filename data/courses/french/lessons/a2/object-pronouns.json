@@ -1,0 +1,1157 @@
+{
+  "id": "a2-object-pronouns",
+  "slug": "object-pronouns",
+  "title": "Object pronouns: le, la, les, lui, leur, y, en",
+  "unit": "A2",
+  "group": "Grammar",
+  "order": 30,
+  "summary": "Replace nouns with le, la, les, lui, leur, y and en, and put them in the right place: before the verb, the infinitive or avoir.",
+  "focus": "Choosing and placing direct, indirect, y and en pronouns",
+  "prerequisites": [
+    "a2-passe-compose-avoir"
+  ],
+  "content": "## Direct objects: le, la, les\n\nA direct object follows the verb with no preposition: **je vois Marie**. To avoid repeating it, use a pronoun and put it **before the verb**: **je la vois**.\n\n| me | you | him / it | her / it | us | you (pl./formal) | them |\n|---|---|---|---|---|---|---|\n| me (m') | te (t') | le (l') | la (l') | nous | vous | les |\n\n- **Le pain ? Je le prends.** The bread? I'll take it.\n- **Mon frère ? Je l'aide.** My brother? I help him.\n- **Tu me regardes ?** Are you looking at me?\n\nIn the negative, **ne … pas** wraps the pronoun and the verb: **Je ne la vois pas.**\n\n## Indirect objects: lui, leur\n\nWhen a person comes after **à** (parler à, téléphoner à, donner à, écrire à), use the indirect pronouns. Only the third person differs from the direct set:\n\n| me | te | lui | nous | vous | leur |\n|---|---|---|---|---|---|\n\n**Lui** means *to him* **and** *to her*; **leur** means *to them*.\n\n- **Je téléphone à ma mère → Je lui téléphone.**\n- **Il parle à ses voisins → Il leur parle.**\n\nCareful: **aider** and **chercher** take a direct object in French (je l'aide, je la cherche), while **téléphoner à** is indirect.\n\n## Y and en\n\n**Y** replaces **à** + a place or a thing, and any place after **chez**, **en** or **dans**: **Tu vas à Paris ? Oui, j'y vais.** **Tu penses à l'examen ? Oui, j'y pense.**\n\n**En** replaces **de** + a thing, a partitive (du, de la, des) or a noun after a number or quantity. Keep the number at the end:\n\n- **Tu veux du café ? Oui, j'en veux.**\n- **Tu as des enfants ? Oui, j'en ai deux.**\n- **Il y a beaucoup de pommes ? Oui, il y en a beaucoup.**\n\n## Where the pronoun goes\n\n- Before the **conjugated verb**: **Je le vois.**\n- Before an **infinitive**: **Je vais le faire.** **Je peux lui parler ?**\n- In the **passé composé**, before **avoir**: **Je l'ai vu.** **Je leur ai écrit.**\n\nWith two pronouns, **le / la / les** come before **lui / leur**:\n\n- **Le livre ? Je le lui donne.** The book? I give it to him.\n- **Les photos ? Je les leur montre.** The photos? I show them to them.",
+  "vocabulary": [
+    {
+      "term": "le / la",
+      "meaning": "him, her, it (direct object)",
+      "example": "La télé ? Je la regarde le soir.",
+      "example_meaning": "The TV? I watch it in the evening."
+    },
+    {
+      "term": "les",
+      "meaning": "them (direct object)",
+      "example": "Mes clés ? Je les mets dans mon sac.",
+      "example_meaning": "My keys? I put them in my bag."
+    },
+    {
+      "term": "aider",
+      "meaning": "to help (direct object in French)",
+      "example": "Ma voisine est âgée, alors je l'aide.",
+      "example_meaning": "My neighbour is elderly, so I help her."
+    },
+    {
+      "term": "chercher",
+      "meaning": "to look for",
+      "example": "Ton téléphone ? Je le cherche partout.",
+      "example_meaning": "Your phone? I'm looking for it everywhere."
+    },
+    {
+      "term": "lui",
+      "meaning": "(to) him, (to) her",
+      "example": "Paul ? Je lui écris une lettre.",
+      "example_meaning": "Paul? I'm writing him a letter."
+    },
+    {
+      "term": "leur",
+      "meaning": "(to) them",
+      "example": "Mes cousins ? Je leur parle souvent.",
+      "example_meaning": "My cousins? I often talk to them."
+    },
+    {
+      "term": "téléphoner à",
+      "meaning": "to phone (someone)",
+      "example": "Je téléphone à ma sœur tous les soirs.",
+      "example_meaning": "I phone my sister every evening."
+    },
+    {
+      "term": "y",
+      "meaning": "there; to it (replaces à + place or thing)",
+      "example": "La plage ? On y va cet après-midi.",
+      "example_meaning": "The beach? We're going there this afternoon."
+    },
+    {
+      "term": "penser à",
+      "meaning": "to think about",
+      "example": "Tu penses à tes vacances ? Oui, j'y pense.",
+      "example_meaning": "Are you thinking about your holiday? Yes, I'm thinking about it."
+    },
+    {
+      "term": "en",
+      "meaning": "some, of it, of them (replaces de + noun)",
+      "example": "Du fromage ? Non merci, je n'en veux pas.",
+      "example_meaning": "Cheese? No thanks, I don't want any."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-object-pronouns-01",
+      "prompt": "Tu vois Marie ? — Oui, je ___ vois.",
+      "type": "multiple-choice",
+      "options": [
+        "la",
+        "lui",
+        "le"
+      ],
+      "correct_answer": "la",
+      "explanation": "Voir takes a direct object, and Marie is feminine: je la vois.",
+      "hints": [
+        "Is there an à after voir?",
+        "Marie is feminine."
+      ],
+      "teaches": [
+        "le / la"
+      ]
+    },
+    {
+      "question_id": "a2-object-pronouns-02",
+      "prompt": "Tu téléphones à tes parents ? — Oui, je ___ téléphone le dimanche.",
+      "type": "fill-in-blank",
+      "correct_answer": "leur",
+      "accepted_answers": [],
+      "explanation": "Téléphoner à plus a person takes an indirect pronoun. Tes parents is plural, so use leur: je leur téléphone.",
+      "hints": [
+        "Téléphoner à is indirect.",
+        "Several people take l…"
+      ],
+      "teaches": [
+        "leur",
+        "téléphoner à"
+      ]
+    },
+    {
+      "question_id": "a2-object-pronouns-03",
+      "prompt": "Tu aides ton frère ? — Oui, je ___ aide.",
+      "type": "multiple-choice",
+      "options": [
+        "l'",
+        "lui",
+        "y"
+      ],
+      "correct_answer": "l'",
+      "explanation": "Aider takes a direct object in French (aider quelqu'un, no à), so le, elided to l' before a vowel: je l'aide.",
+      "hints": [
+        "Aider has no à in French.",
+        "Le before a vowel becomes…"
+      ],
+      "teaches": [
+        "aider"
+      ]
+    },
+    {
+      "question_id": "a2-object-pronouns-04",
+      "prompt": "Tu vas à la boulangerie ? — Oui, j'___ vais.",
+      "type": "fill-in-blank",
+      "correct_answer": "y",
+      "accepted_answers": [
+        "j'y",
+        "j'y vais"
+      ],
+      "explanation": "Y replaces à plus a place: je vais à la boulangerie becomes j'y vais.",
+      "hints": [
+        "Which pronoun replaces a place?",
+        "One letter."
+      ],
+      "teaches": [
+        "y"
+      ]
+    },
+    {
+      "question_id": "a2-object-pronouns-05",
+      "prompt": "Tu as des frères ? — Oui, j'___ ai deux.",
+      "type": "fill-in-blank",
+      "correct_answer": "en",
+      "accepted_answers": [
+        "j'en",
+        "j'en ai deux"
+      ],
+      "explanation": "En replaces a noun after a number, and the number stays at the end: j'en ai deux.",
+      "hints": [
+        "Des frères is a quantity.",
+        "J'___ ai deux: two of them."
+      ],
+      "teaches": [
+        "en"
+      ]
+    },
+    {
+      "question_id": "a2-object-pronouns-06",
+      "prompt": "With aller + infinitive, the pronoun goes before aller: 'Je le vais faire.'",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "False: the pronoun goes before the verb it belongs to, the infinitive: je vais le faire.",
+      "hints": [
+        "Whose object is it: aller's or faire's?"
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a2-object-pronouns-07",
+      "prompt": "The film? I saw it.",
+      "type": "multiple-choice",
+      "options": [
+        "Le film ? Je l'ai vu.",
+        "Le film ? J'ai le vu.",
+        "Le film ? J'ai vu le."
+      ],
+      "correct_answer": "Le film ? Je l'ai vu.",
+      "explanation": "In the passé composé the pronoun goes before avoir: je l'ai vu.",
+      "hints": [
+        "The pronoun goes before the conjugated verb.",
+        "In the passé composé that is avoir."
+      ],
+      "teaches": [
+        "le / la"
+      ]
+    },
+    {
+      "question_id": "a2-object-pronouns-08",
+      "prompt": "Tu donnes le livre à Paul ? — Oui, je le ___ donne.",
+      "type": "fill-in-blank",
+      "correct_answer": "lui",
+      "accepted_answers": [],
+      "explanation": "Donner à Paul takes lui, and le / la / les come before lui / leur: je le lui donne.",
+      "hints": [
+        "À Paul is one person after à.",
+        "Le comes first, then…"
+      ],
+      "teaches": [
+        "lui"
+      ]
+    },
+    {
+      "question_id": "a2-object-pronouns-09",
+      "prompt": "In 'Je lui parle', lui can mean 'to him' or 'to her'.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "True: lui is the indirect pronoun for one person, man or woman: je parle à Marc and je parle à Léa both give je lui parle.",
+      "hints": [
+        "Lui is used for both genders."
+      ],
+      "teaches": [
+        "lui"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Je la regarde souvent.",
+      "meaning": "I often watch it.",
+      "note": "La replaces a feminine noun."
+    },
+    {
+      "text": "Mon frère ? Je l'aide tous les soirs.",
+      "meaning": "My brother? I help him every evening.",
+      "note": "Aider is direct: l'."
+    },
+    {
+      "text": "Ma grand-mère ? Je lui téléphone le dimanche.",
+      "meaning": "My grandmother? I phone her on Sundays."
+    },
+    {
+      "text": "Le marché ? Nous y allons le samedi matin.",
+      "meaning": "The market? We go there on Saturday mornings."
+    },
+    {
+      "text": "Mes clés ? Je les cherche partout dans la maison.",
+      "meaning": "My keys? I'm looking for them all over the house.",
+      "note": "New word: les clés = keys."
+    },
+    {
+      "text": "Des pommes ? J'en voudrais un kilo, s'il vous plaît.",
+      "meaning": "Apples? I'd like a kilo, please.",
+      "note": "New word: le kilo = kilo."
+    },
+    {
+      "text": "Mes parents arrivent demain, je vais leur montrer la ville.",
+      "meaning": "My parents arrive tomorrow, I'm going to show them the town.",
+      "note": "New word: montrer = to show."
+    },
+    {
+      "text": "Le film ? Je l'ai vu hier avec mes amis.",
+      "meaning": "The film? I saw it yesterday with my friends.",
+      "note": "In the passé composé the pronoun goes before avoir."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Direct objects"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-object-pronouns-01"
+    },
+    {
+      "question": "a2-object-pronouns-03"
+    },
+    {
+      "section": "Indirect objects"
+    },
+    {
+      "question": "a2-object-pronouns-02"
+    },
+    {
+      "question": "a2-object-pronouns-09"
+    },
+    {
+      "tip": "Look for à before the person: téléphoner à Paul → je lui téléphone. No à: aider Paul → je l'aide."
+    },
+    {
+      "section": "Y and en"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-object-pronouns-04"
+    },
+    {
+      "question": "a2-object-pronouns-05"
+    },
+    {
+      "section": "Where the pronoun goes"
+    },
+    {
+      "concept": {
+        "title": "The participle agrees",
+        "markdown": "With **la** or **les** before avoir, the participle agrees in writing with the noun it replaces: **La lettre ? Je l'ai écrite.** **Les photos ? Je les ai vues.** You only hear it with a few verbs (écrite, prise, mise)."
+      }
+    },
+    {
+      "question": "a2-object-pronouns-06"
+    },
+    {
+      "question": "a2-object-pronouns-07"
+    },
+    {
+      "question": "a2-object-pronouns-08"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-object-pronouns-conv-party",
+      "title": "Getting ready for the party",
+      "scenario": "Inès and Mathieu share a flat and are getting ready for a party on Saturday.",
+      "role_a": "Inès",
+      "role_b": "Mathieu",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Tu as acheté le gâteau ?",
+          "meaning": "Did you buy the cake?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, je l'ai acheté ce matin.",
+          "meaning": "Yes, I bought it this morning.",
+          "note": "passé composé, before avoir"
+        },
+        {
+          "speaker": "a",
+          "text": "Super. Et les boissons ?",
+          "meaning": "Great. And the drinks?"
+        },
+        {
+          "speaker": "b",
+          "text": "Je vais les chercher cet après-midi.",
+          "meaning": "I'm going to get them this afternoon.",
+          "note": "before the infinitive"
+        },
+        {
+          "speaker": "a",
+          "text": "Tu as invité Karim ?",
+          "meaning": "Did you invite Karim?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, je lui ai envoyé un message hier.",
+          "meaning": "Yes, I sent him a message yesterday.",
+          "note": "envoyer à Karim takes lui"
+        },
+        {
+          "speaker": "a",
+          "text": "Et les voisins ? Tu leur as parlé de la fête ?",
+          "meaning": "And the neighbours? Did you tell them about the party?",
+          "note": "parler aux voisins takes leur"
+        },
+        {
+          "speaker": "b",
+          "text": "Pas encore. Je vais leur parler ce soir.",
+          "meaning": "Not yet. I'll talk to them tonight."
+        },
+        {
+          "speaker": "a",
+          "text": "On a besoin de chaises. On en a combien ?",
+          "meaning": "We need chairs. How many have we got?",
+          "note": "en = some chairs"
+        },
+        {
+          "speaker": "b",
+          "text": "On en a six.",
+          "meaning": "We've got six."
+        },
+        {
+          "speaker": "a",
+          "text": "Il en faut dix ! Je téléphone à Karim, il en a beaucoup.",
+          "meaning": "We need ten! I'll phone Karim, he has lots."
+        },
+        {
+          "speaker": "b",
+          "text": "Parfait. Moi, je vais au supermarché. J'y vais tout de suite !",
+          "meaning": "Perfect. I'm going to the supermarket. I'm going right now!",
+          "note": "y stands for au supermarché"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🎯",
+    "bites": [
+      {
+        "title": "Le, la, les",
+        "emoji": "🎯",
+        "rule": "A direct object (no à) becomes le, la, l' or les and moves before the verb.",
+        "example": "Le gâteau ? Je le mange.",
+        "example_meaning": "The cake? I'm eating it."
+      },
+      {
+        "title": "Lui, leur",
+        "emoji": "📞",
+        "rule": "A person after à becomes lui (him or her) or leur (them). Verbs like parler à, téléphoner à and donner à work this way.",
+        "example": "Je lui téléphone ce soir.",
+        "example_meaning": "I'm phoning him tonight."
+      },
+      {
+        "title": "Y and en",
+        "emoji": "📍",
+        "rule": "Y replaces à plus a place or thing. En replaces de plus a thing, or a noun after a number: j'en ai deux.",
+        "example": "Paris ? J'y vais. Des œufs ? J'en ai six.",
+        "example_meaning": "Paris? I'm going there. Eggs? I have six."
+      },
+      {
+        "title": "Where it goes",
+        "emoji": "⬅️",
+        "rule": "The pronoun goes before the conjugated verb, before an infinitive, and before avoir in the passé composé. Le / la / les come before lui / leur.",
+        "example": "Je vais le faire. Je l'ai fait.",
+        "example_meaning": "I'm going to do it. I did it."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which pronoun replaces it?",
+        "buckets": [
+          "le / la / les",
+          "lui / leur",
+          "y",
+          "en"
+        ],
+        "items": [
+          {
+            "text": "Je lis le journal.",
+            "bucket": 0
+          },
+          {
+            "text": "Je parle à Sophie.",
+            "bucket": 1
+          },
+          {
+            "text": "Je vais à la piscine.",
+            "bucket": 2
+          },
+          {
+            "text": "Je mange du pain.",
+            "bucket": 3
+          },
+          {
+            "text": "Je regarde les photos.",
+            "bucket": 0
+          },
+          {
+            "text": "J'écris à mes cousins.",
+            "bucket": 1
+          },
+          {
+            "text": "Je pense à mon examen.",
+            "bucket": 2
+          },
+          {
+            "text": "J'ai trois chats.",
+            "bucket": 3
+          }
+        ],
+        "why": "A direct object takes le / la / les. À plus a person takes lui / leur. À plus a place or thing takes y. De, a partitive or a number takes en."
+      },
+      {
+        "title": "Direct or indirect?",
+        "buckets": [
+          "direct: le / la / les",
+          "indirect: lui / leur"
+        ],
+        "items": [
+          {
+            "text": "aider quelqu'un",
+            "bucket": 0
+          },
+          {
+            "text": "téléphoner à quelqu'un",
+            "bucket": 1
+          },
+          {
+            "text": "chercher quelqu'un",
+            "bucket": 0
+          },
+          {
+            "text": "parler à quelqu'un",
+            "bucket": 1
+          },
+          {
+            "text": "regarder quelqu'un",
+            "bucket": 0
+          },
+          {
+            "text": "écrire à quelqu'un",
+            "bucket": 1
+          },
+          {
+            "text": "attendre quelqu'un",
+            "bucket": 0
+          },
+          {
+            "text": "répondre à quelqu'un",
+            "bucket": 1
+          }
+        ],
+        "why": "Verbs with à before the person take lui / leur; the others take le / la / les. Aider, chercher and attendre are direct in French."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Marie ? Je lui vois tous les jours.",
+        "wrong": "lui",
+        "fix": "la",
+        "why": "Voir takes a direct object: je la vois."
+      },
+      {
+        "sentence": "Mes parents ? Je les téléphone le dimanche.",
+        "wrong": "les",
+        "fix": "leur",
+        "why": "Téléphoner à is indirect: je leur téléphone."
+      },
+      {
+        "sentence": "Des tomates ? J'y ai trois.",
+        "wrong": "J'y",
+        "fix": "J'en",
+        "why": "En replaces a noun after a number: j'en ai trois."
+      },
+      {
+        "sentence": "Tu vas au cinéma ? Oui, j'en vais ce soir.",
+        "wrong": "j'en",
+        "fix": "j'y",
+        "why": "Y replaces a place after à: j'y vais."
+      },
+      {
+        "sentence": "Mon frère ? Je lui aide souvent.",
+        "wrong": "lui",
+        "fix": "l'",
+        "why": "Aider is direct in French: je l'aide."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Je le vois tous les jours.",
+        "meaning": "I see him every day.",
+        "distractors": [
+          "lui"
+        ]
+      },
+      {
+        "text": "Je vais leur téléphoner ce soir.",
+        "meaning": "I'm going to phone them tonight.",
+        "distractors": [
+          "les"
+        ]
+      },
+      {
+        "text": "Je l'ai vu hier.",
+        "meaning": "I saw him yesterday.",
+        "distractors": [
+          "lui"
+        ]
+      },
+      {
+        "text": "Oui, j'en ai deux.",
+        "meaning": "Yes, I have two.",
+        "distractors": [
+          "y"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🏹",
+      "content": "## Les pronoms à Eldmark\n\nIn the guild, nobody repeats a noun. **L'épée ? Je la prends.** **La prêtresse ? Je lui donne le parchemin.** **La Forêt Ombreuse ? Nous y allons demain.** **Des potions ? J'en ai trois.** **Le dragon ? Je l'ai vu !** Direct, indirect, y and en, all before the verb.",
+      "vocabulary": [
+        {
+          "term": "le / la",
+          "example": "L'épée ? Le guerrier la prend.",
+          "example_meaning": "The sword? The warrior takes it."
+        },
+        {
+          "term": "les",
+          "example": "Les orcs ? Nym les voit dans la forêt.",
+          "example_meaning": "The orcs? Nym sees them in the forest."
+        },
+        {
+          "term": "lui",
+          "example": "La prêtresse ? Je lui donne le parchemin.",
+          "example_meaning": "The priestess? I give her the scroll."
+        },
+        {
+          "term": "leur",
+          "example": "Les nains ? Le mage leur parle.",
+          "example_meaning": "The dwarves? The mage talks to them."
+        },
+        {
+          "term": "y",
+          "example": "Le donjon ? Nous y allons ce soir.",
+          "example_meaning": "The dungeon? We're going there tonight."
+        },
+        {
+          "term": "en",
+          "example": "Des potions ? J'en ai trois.",
+          "example_meaning": "Potions? I have three."
+        },
+        {
+          "term": "l'épée",
+          "meaning": "sword (f)",
+          "example": "Borin cherche son épée.",
+          "example_meaning": "Borin is looking for his sword."
+        },
+        {
+          "term": "la potion",
+          "meaning": "potion (f)",
+          "example": "La potion est dans mon sac.",
+          "example_meaning": "The potion is in my bag."
+        },
+        {
+          "term": "le parchemin",
+          "meaning": "scroll (m)",
+          "example": "Le parchemin ? La mage le lit.",
+          "example_meaning": "The scroll? The mage reads it."
+        },
+        {
+          "term": "le donjon",
+          "meaning": "dungeon, castle keep (m)",
+          "example": "Le donjon est au nord de Highgate.",
+          "example_meaning": "The dungeon is north of Highgate."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Pas de répétition",
+          "emoji": "🏹",
+          "rule": "Replace the loot and the heroes: l'épée becomes la, à la prêtresse becomes lui, au donjon becomes y, and des potions becomes en.",
+          "example": "Des potions ? J'en ai trois.",
+          "example_meaning": "Potions? I have three."
+        }
+      ],
+      "listening": [
+        {
+          "text": "L'épée ? Je la prends.",
+          "meaning": "The sword? I'll take it.",
+          "note": "New word: l'épée = sword."
+        },
+        {
+          "text": "Le donjon ? Nous y allons.",
+          "meaning": "The dungeon? We're going there.",
+          "note": "New word: le donjon = dungeon."
+        },
+        {
+          "text": "Des potions ? Le mage en a cinq.",
+          "meaning": "Potions? The mage has five.",
+          "note": "New word: la potion = potion."
+        },
+        {
+          "text": "La prêtresse ? Je lui parle demain.",
+          "meaning": "The priestess? I'll talk to her tomorrow."
+        },
+        {
+          "text": "Les loups ? Le chasseur les entend la nuit.",
+          "meaning": "The wolves? The hunter hears them at night."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Je la prends tout de suite.",
+          "meaning": "I'll take it right away.",
+          "distractors": [
+            "lui"
+          ]
+        },
+        {
+          "text": "Nous y allons ce soir.",
+          "meaning": "We're going there tonight.",
+          "distractors": [
+            "en"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Borin ? Je le donne une potion.",
+          "wrong": "le",
+          "fix": "lui",
+          "why": "Donner à Borin is indirect: je lui donne une potion."
+        },
+        {
+          "sentence": "Le donjon ? Nous en allons demain.",
+          "wrong": "en",
+          "fix": "y",
+          "why": "Y replaces a place after à: nous y allons."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "La, lui or y?",
+          "buckets": [
+            "la",
+            "lui",
+            "y"
+          ],
+          "items": [
+            {
+              "text": "prendre l'épée",
+              "bucket": 0
+            },
+            {
+              "text": "parler à la prêtresse",
+              "bucket": 1
+            },
+            {
+              "text": "aller au donjon",
+              "bucket": 2
+            },
+            {
+              "text": "boire la potion",
+              "bucket": 0
+            },
+            {
+              "text": "donner le butin à Borin",
+              "bucket": 1
+            },
+            {
+              "text": "aller à Highgate",
+              "bucket": 2
+            }
+          ],
+          "why": "A feminine direct object takes la, à plus a person takes lui, and à plus a place takes y."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a2-object-pronouns-realm-01",
+          "prompt": "Des potions ? J'___ ai trois.",
+          "type": "multiple-choice",
+          "options": [
+            "en",
+            "y"
+          ],
+          "correct_answer": "en",
+          "explanation": "En replaces a noun after a number: j'en ai trois.",
+          "hints": [
+            "Three of them takes en."
+          ],
+          "teaches": [
+            "la potion",
+            "en"
+          ]
+        },
+        {
+          "question_id": "a2-object-pronouns-realm-02",
+          "prompt": "La prêtresse ? Je ___ donne le parchemin.",
+          "type": "fill-in-blank",
+          "correct_answer": "lui",
+          "accepted_answers": [],
+          "explanation": "Donner à la prêtresse puts one person after à, so use lui.",
+          "hints": [
+            "Donner à with one person."
+          ],
+          "teaches": [
+            "le parchemin",
+            "lui"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🥚",
+      "content": "## Les pronoms à Meadowbrook\n\nOn the farm, pronouns save your breath. **Les œufs ? Je les ramasse le matin.** **Rosa ? Je lui achète des graines.** **Le marché ? J'y vais samedi.** **Des citrouilles ? J'en ai dix.** **La vache ? Je vais la voir.** Same rules as in town: before the verb, or before the infinitive.",
+      "vocabulary": [
+        {
+          "term": "les",
+          "example": "Les œufs ? Nora les ramasse tous les matins.",
+          "example_meaning": "The eggs? Nora collects them every morning."
+        },
+        {
+          "term": "le / la",
+          "example": "La vache ? Je la vois dans le champ.",
+          "example_meaning": "The cow? I can see her in the field."
+        },
+        {
+          "term": "lui",
+          "example": "Rosa ? Je lui achète des graines.",
+          "example_meaning": "Rosa? I buy seeds from her."
+        },
+        {
+          "term": "leur",
+          "example": "Les poules ? Je leur donne du maïs.",
+          "example_meaning": "The hens? I give them corn."
+        },
+        {
+          "term": "y",
+          "example": "La rivière ? Léo y pêche le dimanche.",
+          "example_meaning": "The river? Léo fishes there on Sundays."
+        },
+        {
+          "term": "en",
+          "example": "Des fraises ? J'en vends au marché.",
+          "example_meaning": "Strawberries? I sell some at the market."
+        },
+        {
+          "term": "ramasser",
+          "meaning": "to collect, to pick up",
+          "example": "Je ramasse les œufs avant le petit déjeuner.",
+          "example_meaning": "I collect the eggs before breakfast."
+        },
+        {
+          "term": "les œufs",
+          "meaning": "eggs (m pl)",
+          "example": "Les œufs de mes poules sont délicieux.",
+          "example_meaning": "My hens' eggs are delicious."
+        },
+        {
+          "term": "les graines",
+          "meaning": "seeds (f pl)",
+          "example": "Rosa vend des graines de citrouille.",
+          "example_meaning": "Rosa sells pumpkin seeds."
+        }
+      ],
+      "bites": [
+        {
+          "title": "À la ferme",
+          "emoji": "🥚",
+          "rule": "Eggs, neighbours, places and crops: les œufs becomes les, à Rosa becomes lui, au marché becomes y, and des fraises becomes en.",
+          "example": "Les œufs ? Je les ramasse.",
+          "example_meaning": "The eggs? I collect them."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Les œufs ? Je les ramasse.",
+          "meaning": "The eggs? I collect them.",
+          "note": "New word: ramasser = to collect."
+        },
+        {
+          "text": "Le maire ? Je lui vends des graines.",
+          "meaning": "The mayor? I sell him seeds.",
+          "note": "New word: les graines = seeds."
+        },
+        {
+          "text": "Le marché ? J'y vais samedi.",
+          "meaning": "The market? I'm going there on Saturday."
+        },
+        {
+          "text": "Des citrouilles ? J'en ai dix.",
+          "meaning": "Pumpkins? I have ten."
+        },
+        {
+          "text": "Les vaches ? Je leur donne de l'eau.",
+          "meaning": "The cows? I give them water.",
+          "note": "Donner à with animals takes leur."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Je les ramasse le matin.",
+          "meaning": "I collect them in the morning.",
+          "distractors": [
+            "leur"
+          ]
+        },
+        {
+          "text": "J'en vends au marché.",
+          "meaning": "I sell some at the market.",
+          "distractors": [
+            "J'y"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Mes poules ? Je les donne du maïs.",
+          "wrong": "les",
+          "fix": "leur",
+          "why": "Donner aux poules is indirect: je leur donne du maïs."
+        },
+        {
+          "sentence": "Rosa ? Je la vends mes fraises.",
+          "wrong": "la",
+          "fix": "lui",
+          "why": "Vendre à Rosa is indirect: je lui vends mes fraises."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Direct or indirect on the farm?",
+          "buckets": [
+            "le / la / les",
+            "lui / leur"
+          ],
+          "items": [
+            {
+              "text": "ramasser les œufs",
+              "bucket": 0
+            },
+            {
+              "text": "donner du maïs aux poules",
+              "bucket": 1
+            },
+            {
+              "text": "arroser les fraises",
+              "bucket": 0
+            },
+            {
+              "text": "vendre des fraises à Rosa",
+              "bucket": 1
+            },
+            {
+              "text": "voir la vache",
+              "bucket": 0
+            },
+            {
+              "text": "parler au maire",
+              "bucket": 1
+            }
+          ],
+          "why": "What you collect, water or see is direct; the one you give, sell or talk to (à) is indirect."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a2-object-pronouns-meadowbrook-01",
+          "prompt": "Les poules ? Je ___ donne du maïs.",
+          "type": "fill-in-blank",
+          "correct_answer": "leur",
+          "accepted_answers": [],
+          "explanation": "Donner aux poules is plural and indirect, so use leur.",
+          "hints": [
+            "Donner à with several animals."
+          ],
+          "teaches": [
+            "leur"
+          ]
+        },
+        {
+          "question_id": "a2-object-pronouns-meadowbrook-02",
+          "prompt": "Le marché ? J'___ vais samedi.",
+          "type": "multiple-choice",
+          "options": [
+            "y",
+            "en"
+          ],
+          "correct_answer": "y",
+          "explanation": "Aller au marché puts a place after à, so use y: j'y vais.",
+          "hints": [
+            "A place after à."
+          ],
+          "teaches": [
+            "y"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🔌",
+      "content": "## Les pronoms à Rustwake\n\nIn the rust desert, words are rationed like water. **La radio-montre ? Je la répare.** **Marta ? Je lui donne des écrous.** **L'atelier ? J'y vais.** **De l'eau filtrée ? J'en ai deux bouteilles.** **Le scarabée géant ? Je l'ai vu hier !**",
+      "vocabulary": [
+        {
+          "term": "le / la",
+          "example": "La radio-montre ? Léo la répare.",
+          "example_meaning": "The wrist radio? Léo is repairing it."
+        },
+        {
+          "term": "lui",
+          "example": "Marta ? Je lui donne dix écrous.",
+          "example_meaning": "Marta? I give her ten nuts."
+        },
+        {
+          "term": "leur",
+          "example": "Les fouilleurs ? Le contremaître leur parle à la radio.",
+          "example_meaning": "The scavengers? The foreman talks to them on the radio."
+        },
+        {
+          "term": "y",
+          "example": "L'atelier ? Nous y allons après la tempête.",
+          "example_meaning": "The workshop? We're going there after the storm."
+        },
+        {
+          "term": "en",
+          "example": "De l'eau filtrée ? J'en voudrais une bouteille.",
+          "example_meaning": "Filtered water? I'd like a bottle."
+        },
+        {
+          "term": "aider",
+          "example": "Le robot jardinier ? Je l'aide tous les matins.",
+          "example_meaning": "The robot gardener? I help it every morning."
+        },
+        {
+          "term": "la radio-montre",
+          "meaning": "wrist radio (f)",
+          "example": "Ma radio-montre ne marche plus.",
+          "example_meaning": "My wrist radio doesn't work any more."
+        },
+        {
+          "term": "l'atelier",
+          "meaning": "workshop (m)",
+          "example": "L'atelier est derrière la station-service.",
+          "example_meaning": "The workshop is behind the petrol station."
+        },
+        {
+          "term": "réparer",
+          "meaning": "to repair",
+          "example": "Léo répare les vieilles radios.",
+          "example_meaning": "Léo repairs the old radios."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Court comme l'eau",
+          "emoji": "🔌",
+          "rule": "Replace the gear and the people: la radio-montre becomes la, à Marta becomes lui, à l'atelier becomes y, and de l'eau becomes en.",
+          "example": "L'atelier ? J'y vais.",
+          "example_meaning": "The workshop? I'm going there."
+        }
+      ],
+      "listening": [
+        {
+          "text": "La radio-montre ? Je la répare.",
+          "meaning": "The wrist radio? I'm repairing it.",
+          "note": "New word: réparer = to repair."
+        },
+        {
+          "text": "L'atelier ? J'y vais.",
+          "meaning": "The workshop? I'm going there.",
+          "note": "New word: l'atelier = workshop."
+        },
+        {
+          "text": "Léo ? Je lui prête cinq écrous.",
+          "meaning": "Léo? I'm lending him five nuts."
+        },
+        {
+          "text": "De l'eau filtrée ? J'en ai deux bouteilles.",
+          "meaning": "Filtered water? I have two bottles."
+        },
+        {
+          "text": "Le scarabée géant ? Je l'ai vu hier.",
+          "meaning": "The giant beetle? I saw it yesterday.",
+          "note": "New word: le scarabée = beetle."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Je lui donne dix écrous.",
+          "meaning": "I give her ten nuts.",
+          "distractors": [
+            "la"
+          ]
+        },
+        {
+          "text": "Je l'ai vu hier.",
+          "meaning": "I saw it yesterday.",
+          "distractors": [
+            "lui"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Marta ? Je la donne des écrous.",
+          "wrong": "la",
+          "fix": "lui",
+          "why": "Donner à Marta is indirect: je lui donne des écrous."
+        },
+        {
+          "sentence": "L'atelier ? J'en vais ce soir.",
+          "wrong": "J'en",
+          "fix": "J'y",
+          "why": "Y replaces a place after à: j'y vais."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Y or en?",
+          "buckets": [
+            "y",
+            "en"
+          ],
+          "items": [
+            {
+              "text": "à l'atelier",
+              "bucket": 0
+            },
+            {
+              "text": "de l'eau filtrée",
+              "bucket": 1
+            },
+            {
+              "text": "au marché",
+              "bucket": 0
+            },
+            {
+              "text": "des écrous",
+              "bucket": 1
+            },
+            {
+              "text": "à la station-service",
+              "bucket": 0
+            },
+            {
+              "text": "trois bouteilles",
+              "bucket": 1
+            }
+          ],
+          "why": "À plus a place takes y. De, a partitive or a number takes en."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a2-object-pronouns-rustwake-01",
+          "prompt": "Le scarabée géant ? Je ___ ai vu hier.",
+          "type": "multiple-choice",
+          "options": [
+            "l'",
+            "lui",
+            "y"
+          ],
+          "correct_answer": "l'",
+          "explanation": "Voir takes a direct object; in the passé composé le goes before avoir and elides: je l'ai vu.",
+          "hints": [
+            "Voir quelqu'un: no à."
+          ],
+          "teaches": [
+            "le / la"
+          ]
+        },
+        {
+          "question_id": "a2-object-pronouns-rustwake-02",
+          "prompt": "De l'eau filtrée ? J'___ ai deux bouteilles.",
+          "type": "fill-in-blank",
+          "correct_answer": "en",
+          "accepted_answers": [
+            "j'en"
+          ],
+          "explanation": "De l'eau is a partitive with a quantity: en, and the quantity stays at the end.",
+          "hints": [
+            "De l'eau takes e…"
+          ],
+          "teaches": [
+            "en"
+          ]
+        }
+      ]
+    }
+  }
+}

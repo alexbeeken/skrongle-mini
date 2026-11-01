@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Orc with an axe">
+  <path d="M52 14 L48 60" stroke="#5a3a1a" stroke-width="3" stroke-linecap="round"/><path d="M52 12 Q63 16 59 30 Q53 24 47 26 Q46 15 52 12Z" fill="#9aa3b2"/>
+  <path d="M8 64 Q10 44 32 43 Q54 44 56 64Z" fill="#5a3d20"/>
+  <path d="M12 52 Q22 44 32 46 Q42 44 52 52 Q42 51 32 53 Q22 51 12 52Z" fill="#8a7a5a"/>
+  <rect x="28" y="36" width="8" height="9" fill="#6a7545"/>
+  <path d="M25 27 L11 23 L24 35Z M39 27 L53 23 L40 35Z" fill="#7d8a52"/>
+  <circle cx="32" cy="28" r="12" fill="#7d8a52"/>
+  <path d="M22 20 Q32 12 42 20 L40 23 Q32 18 24 23Z" fill="#2a1a10"/><path d="M31 13 L36 4 L29 8Z" fill="#2a1a10"/>
+  <path d="M23 25 L29 27 M41 25 L35 27" stroke="#1a0c08" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="26.5" cy="30" r="1.8" fill="#1a0c08"/><circle cx="37.5" cy="30" r="1.8" fill="#1a0c08"/>
+  <path d="M25 36 Q32 40 39 36" stroke="#1a0c08" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M25 36 L24 30 L28 36Z M39 36 L40 30 L36 36Z" fill="#f3edd2"/>
+</svg>

@@ -1,0 +1,1155 @@
+{
+  "id": "b2-false-friends",
+  "slug": "false-friends",
+  "title": "Faux amis: actuellement, éventuellement, une librairie",
+  "unit": "B2",
+  "group": "Vocabulary",
+  "order": 32,
+  "summary": "French words that look English but mean something else, with the right English and the French for the English word: actuellement, éventuellement, une librairie, sensible, passer un examen…",
+  "focus": "Recognising the common faux amis and choosing the French word you really need",
+  "prerequisites": [
+    "b2-registers-idioms"
+  ],
+  "content": "## Adverbs and verbs that fool you\n\n| French | really means | for the English word, say |\n|---|---|---|\n| **actuellement** | currently | actually → **en fait** |\n| **éventuellement** | possibly, if need be | eventually → **finalement** |\n| **assister à** | to attend | to assist → **aider** |\n| **attendre** | to wait (for) | to attend → **assister à** |\n| **rester** | to stay | to rest → **se reposer** |\n| **prétendre** | to claim | to pretend → **faire semblant** |\n| **demander** | to ask | to demand → **exiger** |\n\n- **Actuellement, elle vit à Rome.** (She currently lives in Rome.)\n- **Il prétend qu'il a raison.** (He claims he's right.)\n\n## Nouns and adjectives that fool you\n\n| French | really means | for the English word, say |\n|---|---|---|\n| **une librairie** | a bookshop | library → **une bibliothèque** |\n| **sensible** | sensitive | sensible → **raisonnable** |\n| **un coin** | a corner | coin → **une pièce** |\n| **une location** | a rental | location → **un lieu**, **un emplacement** |\n| **large** | wide | large → **grand** |\n| **la monnaie** | change, currency | money → **l'argent** |\n| **le raisin** | grapes | raisins → **les raisins secs** |\n| **une veste** | a jacket | vest → **un maillot de corps** (UK), **un gilet** (US) |\n\n## Exams, and a safe habit\n\n**Passer un examen** means to *take* or *sit* it, whatever the result. To pass it is **réussir un examen** (or **être reçu**); to fail it is **rater** or **échouer à un examen**.\n\n- **Je passe le bac en juin.** (I'm sitting the baccalauréat in June.)\n- **Elle a réussi son permis du premier coup.** (She passed her driving test first time.)\n\nWhen a French word looks just like an English one, stop and ask whether the meaning really fits the sentence. Many words are true friends (**une table**, **important**), but the ones above catch even advanced learners.",
+  "vocabulary": [
+    {
+      "term": "actuellement",
+      "meaning": "currently, at the moment (not 'actually')",
+      "example": "Actuellement, je travaille à Lyon.",
+      "example_meaning": "I'm currently working in Lyon."
+    },
+    {
+      "term": "en fait",
+      "meaning": "actually, in fact",
+      "example": "En fait, je ne suis pas d'accord.",
+      "example_meaning": "Actually, I don't agree."
+    },
+    {
+      "term": "éventuellement",
+      "meaning": "possibly, if need be (not 'eventually')",
+      "example": "On pourrait éventuellement partir plus tôt.",
+      "example_meaning": "We could possibly leave earlier."
+    },
+    {
+      "term": "finalement",
+      "meaning": "eventually, in the end",
+      "example": "Finalement, on est restés à la maison.",
+      "example_meaning": "In the end, we stayed at home."
+    },
+    {
+      "term": "la librairie",
+      "meaning": "bookshop (not 'library')",
+      "example": "J'ai acheté ce roman à la librairie du quartier.",
+      "example_meaning": "I bought this novel at the local bookshop."
+    },
+    {
+      "term": "la bibliothèque",
+      "meaning": "library",
+      "example": "On peut emprunter des livres à la bibliothèque.",
+      "example_meaning": "You can borrow books at the library."
+    },
+    {
+      "term": "sensible",
+      "meaning": "sensitive (not 'sensible')",
+      "example": "Ma peau est très sensible au soleil.",
+      "example_meaning": "My skin is very sensitive to the sun."
+    },
+    {
+      "term": "raisonnable",
+      "meaning": "sensible, reasonable",
+      "example": "Rentre avant minuit, c'est plus raisonnable.",
+      "example_meaning": "Come home before midnight, it's more sensible."
+    },
+    {
+      "term": "assister à",
+      "meaning": "to attend (not 'to assist')",
+      "example": "Deux cents personnes ont assisté à la réunion.",
+      "example_meaning": "Two hundred people attended the meeting."
+    },
+    {
+      "term": "rester",
+      "meaning": "to stay (not 'to rest')",
+      "example": "Je reste chez moi ce soir.",
+      "example_meaning": "I'm staying at home tonight."
+    },
+    {
+      "term": "prétendre",
+      "meaning": "to claim (not 'to pretend')",
+      "example": "Il prétend qu'il a tout compris.",
+      "example_meaning": "He claims he understood everything."
+    },
+    {
+      "term": "la monnaie",
+      "meaning": "change (coins), currency (not 'money')",
+      "example": "Désolé, je n'ai pas de monnaie.",
+      "example_meaning": "Sorry, I haven't got any change."
+    },
+    {
+      "term": "la location",
+      "meaning": "rental, hire (not 'location')",
+      "example": "La location de la voiture coûte cher.",
+      "example_meaning": "The car hire is expensive."
+    },
+    {
+      "term": "passer un examen",
+      "meaning": "to take, to sit an exam (not 'to pass')",
+      "example": "Je passe mon examen de conduite demain.",
+      "example_meaning": "I'm taking my driving test tomorrow."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-false-friends-01",
+      "prompt": "Your French colleague says: 'Actuellement, je travaille de chez moi.' What does she mean?",
+      "type": "multiple-choice",
+      "options": [
+        "At the moment, I work from home.",
+        "Actually, I work from home.",
+        "Eventually, I'll work from home."
+      ],
+      "correct_answer": "At the moment, I work from home.",
+      "explanation": "Actuellement means currently, at the moment. Actually is en fait.",
+      "hints": [
+        "Think actuel = current."
+      ],
+      "teaches": [
+        "actuellement"
+      ]
+    },
+    {
+      "question_id": "b2-false-friends-02",
+      "prompt": "Tu veux lire ce livre sans l'acheter ? Emprunte-le à la ___ municipale.",
+      "type": "fill-in-blank",
+      "correct_answer": "bibliothèque",
+      "accepted_answers": [
+        "la bibliothèque"
+      ],
+      "explanation": "You borrow books at la bibliothèque (library). La librairie is a bookshop, where you buy them.",
+      "hints": [
+        "Not the bookshop: the place that lends books."
+      ],
+      "teaches": [
+        "la bibliothèque"
+      ]
+    },
+    {
+      "question_id": "b2-false-friends-03",
+      "prompt": "How do you tell a French friend 'I passed my exam'?",
+      "type": "multiple-choice",
+      "options": [
+        "J'ai réussi mon examen.",
+        "J'ai passé mon examen.",
+        "J'ai assisté à mon examen."
+      ],
+      "correct_answer": "J'ai réussi mon examen.",
+      "explanation": "To pass is réussir. J'ai passé mon examen only says you sat it, not that you passed.",
+      "hints": [
+        "Passer un examen = to take it."
+      ],
+      "teaches": [
+        "passer un examen"
+      ]
+    },
+    {
+      "question_id": "b2-false-friends-04",
+      "prompt": "'Mon frère est très sensible' means 'My brother is very sensible'.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Sensible means sensitive. A sensible person is raisonnable.",
+      "hints": [
+        "Sensible in French is about feelings."
+      ],
+      "teaches": [
+        "sensible",
+        "raisonnable"
+      ]
+    },
+    {
+      "question_id": "b2-false-friends-05",
+      "prompt": "___, je ne suis pas d'accord avec toi. (Actually,)",
+      "type": "fill-in-blank",
+      "correct_answer": "En fait",
+      "accepted_answers": [
+        "en fait"
+      ],
+      "explanation": "Actually (in fact) is en fait. Actuellement would mean at the moment.",
+      "hints": [
+        "Two words: in fact."
+      ],
+      "teaches": [
+        "en fait"
+      ]
+    },
+    {
+      "question_id": "b2-false-friends-06",
+      "prompt": "Translate 'Eventually, we found the hotel.'",
+      "type": "multiple-choice",
+      "options": [
+        "Finalement, nous avons trouvé l'hôtel.",
+        "Éventuellement, nous avons trouvé l'hôtel.",
+        "Actuellement, nous avons trouvé l'hôtel."
+      ],
+      "correct_answer": "Finalement, nous avons trouvé l'hôtel.",
+      "explanation": "Eventually (in the end) is finalement. Éventuellement means possibly, if need be.",
+      "hints": [
+        "In the end…"
+      ],
+      "teaches": [
+        "finalement",
+        "éventuellement"
+      ]
+    },
+    {
+      "question_id": "b2-false-friends-07",
+      "prompt": "Je suis fatigué, j'ai besoin de me ___. (to rest)",
+      "type": "fill-in-blank",
+      "correct_answer": "reposer",
+      "accepted_answers": [],
+      "explanation": "To rest is se reposer. Rester means to stay.",
+      "hints": [
+        "A pronominal verb: se ___."
+      ]
+    },
+    {
+      "question_id": "b2-false-friends-08",
+      "prompt": "'J'ai assisté à la conférence' means 'I attended the conference'.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Assister à means to attend. To assist (help) someone is aider quelqu'un.",
+      "hints": [
+        "Notice the à after assister."
+      ],
+      "teaches": [
+        "assister à"
+      ]
+    },
+    {
+      "question_id": "b2-false-friends-09",
+      "prompt": "You hand the baker a fifty-euro note for a baguette. She asks: 'Vous n'avez pas de ___ ?' (smaller coins)",
+      "type": "multiple-choice",
+      "options": [
+        "monnaie",
+        "coin",
+        "change"
+      ],
+      "correct_answer": "monnaie",
+      "explanation": "La monnaie is change, small coins. Un coin is a corner, and le change is currency exchange.",
+      "hints": [
+        "Not money in general: the coins you get back."
+      ],
+      "teaches": [
+        "la monnaie"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-false-friends-conv-exam-eve",
+      "title": "The day before the exam",
+      "scenario": "Emma, an exchange student, chats with her French host Julien the evening before her French exam.",
+      "role_a": "Emma",
+      "role_b": "Julien",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Julien, demain je passe mon examen de français !",
+          "meaning": "Julien, tomorrow I'm sitting my French exam!",
+          "note": "passer = to take, not to pass"
+        },
+        {
+          "speaker": "b",
+          "text": "Bon courage ! J'espère que tu vas le réussir.",
+          "meaning": "Good luck! I hope you pass it."
+        },
+        {
+          "speaker": "a",
+          "text": "Merci. En fait, je suis un peu stressée.",
+          "meaning": "Thanks. Actually, I'm a bit stressed."
+        },
+        {
+          "speaker": "b",
+          "text": "C'est normal. Tu as révisé où aujourd'hui ?",
+          "meaning": "That's normal. Where did you revise today?"
+        },
+        {
+          "speaker": "a",
+          "text": "À la librairie, comme tous les jours.",
+          "meaning": "At the bookshop, like every day."
+        },
+        {
+          "speaker": "b",
+          "text": "À la librairie ? Tu veux dire à la bibliothèque, non ?",
+          "meaning": "At the bookshop? You mean at the library, don't you?",
+          "note": "librairie = bookshop"
+        },
+        {
+          "speaker": "a",
+          "text": "Oups, oui ! Et après, j'ai assisté à un cours de grammaire.",
+          "meaning": "Oops, yes! And afterwards I attended a grammar class."
+        },
+        {
+          "speaker": "b",
+          "text": "Très bien. Et ce soir, tu restes à la maison ?",
+          "meaning": "Very good. And tonight, are you staying at home?"
+        },
+        {
+          "speaker": "a",
+          "text": "Oui, je reste ici et je relis mes notes.",
+          "meaning": "Yes, I'm staying here and going over my notes."
+        },
+        {
+          "speaker": "b",
+          "text": "Repose-toi aussi, c'est plus raisonnable.",
+          "meaning": "Get some rest too, it's more sensible.",
+          "note": "se reposer = to rest; raisonnable = sensible"
+        },
+        {
+          "speaker": "a",
+          "text": "Tu as raison. Finalement, je vais me coucher tôt.",
+          "meaning": "You're right. In the end, I'll go to bed early."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "La librairie ferme à sept heures.",
+      "meaning": "The bookshop closes at seven."
+    },
+    {
+      "text": "Actuellement, mon frère vit au Canada.",
+      "meaning": "My brother currently lives in Canada."
+    },
+    {
+      "text": "Range ta veste dans le placard.",
+      "meaning": "Put your jacket away in the cupboard.",
+      "note": "New word: la veste = the jacket."
+    },
+    {
+      "text": "Elle a réussi son examen du premier coup.",
+      "meaning": "She passed her exam first time.",
+      "note": "Réussir is to pass; passer is to take."
+    },
+    {
+      "text": "Cette rue est large et très calme.",
+      "meaning": "This street is wide and very quiet.",
+      "note": "Large means wide."
+    },
+    {
+      "text": "Je vais acheter du raisin au marché.",
+      "meaning": "I'm going to buy some grapes at the market.",
+      "note": "New word: le raisin = grapes."
+    },
+    {
+      "text": "Il fait semblant de dormir quand sa mère l'appelle.",
+      "meaning": "He pretends to be asleep when his mother calls him.",
+      "note": "New word: faire semblant = to pretend."
+    },
+    {
+      "text": "Nous avons assisté à un très beau concert dans la vieille église.",
+      "meaning": "We attended a lovely concert in the old church."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Adverbs and verbs"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-false-friends-01"
+    },
+    {
+      "question": "b2-false-friends-05"
+    },
+    {
+      "question": "b2-false-friends-06"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-false-friends-07"
+    },
+    {
+      "question": "b2-false-friends-08"
+    },
+    {
+      "tip": "Before you use an English-looking French word, ask whether a French speaker would really say it here. If in doubt, look it up in both directions."
+    },
+    {
+      "section": "Nouns and adjectives"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b2-false-friends-02"
+    },
+    {
+      "question": "b2-false-friends-04"
+    },
+    {
+      "question": "b2-false-friends-09"
+    },
+    {
+      "section": "Exams"
+    },
+    {
+      "question": "b2-false-friends-03"
+    },
+    {
+      "concept": {
+        "title": "Half-false friends",
+        "markdown": "Some words are only half false. **Une expérience** is both an experience and a scientific experiment. **Un examen** is an exam but also a medical examination. **Une figure** is a figure in maths, yet in everyday speech **la figure** is the face: **lave-toi la figure** (wash your face)."
+      }
+    }
+  ],
+  "sprint": {
+    "icon": "🦊",
+    "bites": [
+      {
+        "title": "Actuellement ≠ actually",
+        "emoji": "⏱️",
+        "rule": "Actuellement = at the moment; actually = en fait. Éventuellement = possibly; eventually = finalement.",
+        "example": "Actuellement, il vit à Rome.",
+        "example_meaning": "He currently lives in Rome."
+      },
+      {
+        "title": "Bookshop or library?",
+        "emoji": "📚",
+        "rule": "Une librairie sells books; une bibliothèque lends them.",
+        "example": "J'emprunte des livres à la bibliothèque.",
+        "example_meaning": "I borrow books from the library."
+      },
+      {
+        "title": "Passer ≠ pass",
+        "emoji": "📝",
+        "rule": "Passer un examen = to take it. To pass is réussir; to fail is rater or échouer à.",
+        "example": "J'ai passé l'examen lundi et je l'ai réussi.",
+        "example_meaning": "I took the exam on Monday and passed it."
+      },
+      {
+        "title": "Sensible, large, monnaie",
+        "emoji": "🪙",
+        "rule": "Sensible = sensitive, large = wide, la monnaie = change. For sensible say raisonnable, for large grand, for money l'argent.",
+        "example": "Tu as de la monnaie pour le parking ?",
+        "example_meaning": "Have you got change for the car park?"
+      }
+    ],
+    "sorts": [
+      {
+        "title": "En fait, finalement or actuellement?",
+        "buckets": [
+          "en fait",
+          "finalement",
+          "actuellement"
+        ],
+        "items": [
+          {
+            "text": "Actually, I'm tired.",
+            "bucket": 0
+          },
+          {
+            "text": "Eventually, he arrived.",
+            "bucket": 1
+          },
+          {
+            "text": "At the moment, she's in Paris.",
+            "bucket": 2
+          },
+          {
+            "text": "In the end, we stayed.",
+            "bucket": 1
+          },
+          {
+            "text": "Currently, prices are high.",
+            "bucket": 2
+          },
+          {
+            "text": "In fact, it's free.",
+            "bucket": 0
+          }
+        ],
+        "why": "En fait = actually, in fact; finalement = eventually, in the end; actuellement = currently, at the moment."
+      },
+      {
+        "title": "Librairie or bibliothèque?",
+        "buckets": [
+          "la librairie",
+          "la bibliothèque"
+        ],
+        "items": [
+          {
+            "text": "acheter un roman",
+            "bucket": 0
+          },
+          {
+            "text": "emprunter un livre",
+            "bucket": 1
+          },
+          {
+            "text": "payer à la caisse",
+            "bucket": 0
+          },
+          {
+            "text": "rendre les livres dans trois semaines",
+            "bucket": 1
+          },
+          {
+            "text": "demander conseil au libraire",
+            "bucket": 0
+          },
+          {
+            "text": "montrer sa carte de lecteur",
+            "bucket": 1
+          }
+        ],
+        "why": "In a librairie you buy books from a libraire; in a bibliothèque you borrow them with a reader's card."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Mon fils est très sensible : il économise tout son argent.",
+        "wrong": "sensible",
+        "fix": "raisonnable",
+        "why": "Sensible means sensitive; a careful, sensible person is raisonnable."
+      },
+      {
+        "sentence": "Je cherche un roman à emprunter à la librairie.",
+        "wrong": "librairie",
+        "fix": "bibliothèque",
+        "why": "You borrow books at the bibliothèque; a librairie sells them."
+      },
+      {
+        "sentence": "Actuellement, je ne suis pas d'accord : c'est faux.",
+        "wrong": "Actuellement",
+        "fix": "En fait",
+        "why": "Actually, in fact, is en fait; actuellement means at the moment."
+      },
+      {
+        "sentence": "Éventuellement, après trois heures de marche, nous sommes arrivés au sommet.",
+        "wrong": "Éventuellement",
+        "fix": "Finalement",
+        "why": "Eventually, in the end, is finalement; éventuellement means possibly."
+      },
+      {
+        "sentence": "Je peux assister ma voisine à porter ses courses ?",
+        "wrong": "assister",
+        "fix": "aider",
+        "why": "To help someone is aider; assister à means to attend."
+      },
+      {
+        "sentence": "J'ai trouvé trois coins de deux euros par terre.",
+        "wrong": "coins",
+        "fix": "pièces",
+        "why": "Coins are des pièces; un coin is a corner."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Actuellement, je vis à Lyon.",
+        "meaning": "I currently live in Lyon.",
+        "distractors": [
+          "fait"
+        ]
+      },
+      {
+        "text": "J'ai réussi mon examen.",
+        "meaning": "I passed my exam.",
+        "distractors": [
+          "passé"
+        ]
+      },
+      {
+        "text": "Je vais à la bibliothèque.",
+        "meaning": "I'm going to the library.",
+        "distractors": [
+          "librairie"
+        ]
+      },
+      {
+        "text": "Nous avons assisté au concert.",
+        "meaning": "We attended the concert.",
+        "distractors": [
+          "aidé"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🃏",
+      "content": "## Les faux amis à Eldmark\n\nA young elf gets it all wrong in Highgate: **la librairie** sells spellbooks, but the guild lends scrolls at **la bibliothèque**. **Actuellement**, the paladin **reste** at the taverne du Dragon Vert (he stays, he doesn't rest), and the orc **prétend** he beat a dragon: he claims it.",
+      "vocabulary": [
+        {
+          "term": "la librairie",
+          "example": "La librairie de Highgate vend des livres de sorts.",
+          "example_meaning": "The Highgate bookshop sells spellbooks."
+        },
+        {
+          "term": "la bibliothèque",
+          "example": "Séla emprunte un parchemin à la bibliothèque de la guilde.",
+          "example_meaning": "Séla borrows a scroll from the guild library."
+        },
+        {
+          "term": "actuellement",
+          "example": "Actuellement, Borin est à Deepanvil.",
+          "example_meaning": "Borin is currently in Deepanvil."
+        },
+        {
+          "term": "rester",
+          "example": "Le paladin reste à la taverne du Dragon Vert ce soir.",
+          "example_meaning": "The paladin is staying at the Green Dragon tavern tonight."
+        },
+        {
+          "term": "prétendre",
+          "example": "L'orc prétend qu'il a vaincu un dragon.",
+          "example_meaning": "The orc claims he defeated a dragon."
+        },
+        {
+          "term": "assister à",
+          "example": "Toute la guilde assiste à la fête du roi.",
+          "example_meaning": "The whole guild attends the king's feast."
+        },
+        {
+          "term": "sensible",
+          "example": "Les elfes sont sensibles au froid de Frostmarch.",
+          "example_meaning": "Elves are sensitive to the cold of Frostmarch."
+        },
+        {
+          "term": "le livre de sorts",
+          "meaning": "spellbook",
+          "example": "La mage ouvre son livre de sorts.",
+          "example_meaning": "The mage opens her spellbook."
+        },
+        {
+          "term": "la guilde",
+          "meaning": "guild",
+          "example": "La guilde se réunit à la taverne.",
+          "example_meaning": "The guild meets at the tavern."
+        },
+        {
+          "term": "le parchemin",
+          "meaning": "scroll",
+          "example": "Ce parchemin est très ancien.",
+          "example_meaning": "This scroll is very old."
+        }
+      ],
+      "bites": [
+        {
+          "title": "La mage à la librairie",
+          "emoji": "🃏",
+          "rule": "In Highgate you buy books at la librairie and borrow scrolls at la bibliothèque. Actuellement = right now, not actually.",
+          "example": "Actuellement, Nym est dans la Forêt Ombreuse.",
+          "example_meaning": "Nym is currently in the Shadow Forest."
+        }
+      ],
+      "listening": [
+        {
+          "text": "La bibliothèque de la guilde est immense.",
+          "meaning": "The guild library is huge."
+        },
+        {
+          "text": "Borin reste à Deepanvil cet hiver.",
+          "meaning": "Borin is staying in Deepanvil this winter."
+        },
+        {
+          "text": "Le nain prétend qu'il est le plus fort.",
+          "meaning": "The dwarf claims he's the strongest."
+        },
+        {
+          "text": "Actuellement, la mage étudie un sort.",
+          "meaning": "The mage is currently studying a spell."
+        },
+        {
+          "text": "Nym a assisté au tournoi de Highgate.",
+          "meaning": "Nym attended the Highgate tournament.",
+          "note": "New word: le tournoi = the tournament."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Séla va à la bibliothèque.",
+          "meaning": "Séla is going to the library.",
+          "distractors": [
+            "librairie"
+          ]
+        },
+        {
+          "text": "Actuellement, Borin est à Highgate.",
+          "meaning": "Borin is currently in Highgate.",
+          "distractors": [
+            "fait"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Le mage achète un livre de sorts à la bibliothèque.",
+          "wrong": "bibliothèque",
+          "fix": "librairie",
+          "why": "You buy books at the librairie; the bibliothèque lends them."
+        },
+        {
+          "sentence": "Éventuellement, après dix jours de marche, la guilde est arrivée à Frostmarch.",
+          "wrong": "Éventuellement",
+          "fix": "Finalement",
+          "why": "In the end is finalement; éventuellement means possibly."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Rester or se reposer on the quest?",
+          "buckets": [
+            "rester (to stay)",
+            "se reposer (to rest)"
+          ],
+          "items": [
+            {
+              "text": "Borin ___ trois jours à la taverne.",
+              "bucket": 0
+            },
+            {
+              "text": "Après la bataille, Nym a besoin de ___.",
+              "bucket": 1
+            },
+            {
+              "text": "Le paladin ___ à Highgate cet hiver.",
+              "bucket": 0
+            },
+            {
+              "text": "La mage est épuisée, elle va ___.",
+              "bucket": 1
+            },
+            {
+              "text": "Les elfes ___ dans la forêt jusqu'au printemps.",
+              "bucket": 0
+            }
+          ],
+          "why": "Rester is to stay somewhere; to rest after effort is se reposer."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-false-friends-realm-01",
+          "prompt": "Séla wants to borrow a scroll for free. Where does she go in Highgate?",
+          "type": "multiple-choice",
+          "options": [
+            "à la bibliothèque de la guilde",
+            "à la librairie de la guilde",
+            "à la location de la guilde"
+          ],
+          "correct_answer": "à la bibliothèque de la guilde",
+          "explanation": "A bibliothèque lends books and scrolls. A librairie sells them, and une location is a rental.",
+          "hints": [
+            "Borrowing, not buying."
+          ],
+          "teaches": [
+            "la bibliothèque",
+            "le parchemin",
+            "la guilde"
+          ]
+        },
+        {
+          "question_id": "b2-false-friends-realm-02",
+          "prompt": "'L'orc prétend qu'il a vaincu un dragon' means the orc is pretending, acting as if he had defeated one.",
+          "type": "true-false",
+          "correct_answer": "false",
+          "explanation": "Prétendre means to claim: the orc says he did it. To pretend, act as if, is faire semblant.",
+          "hints": [
+            "Prétendre = to claim."
+          ],
+          "teaches": [
+            "prétendre"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🐸",
+      "content": "## Les faux amis à Meadowbrook\n\nAt the market, Rosa asks: **vous avez de la monnaie ?** (change, not money). Léo sells **du raisin** (grapes, not raisins), and Nora **reste** at the farm all winter. **Actuellement**, everyone is getting ready for la fête des récoltes.",
+      "vocabulary": [
+        {
+          "term": "la monnaie",
+          "example": "Rosa n'a pas de monnaie sur vingt euros.",
+          "example_meaning": "Rosa hasn't got change for twenty euros."
+        },
+        {
+          "term": "rester",
+          "example": "Nora reste à la ferme tout l'hiver.",
+          "example_meaning": "Nora stays on the farm all winter."
+        },
+        {
+          "term": "actuellement",
+          "example": "Actuellement, les vaches sont dans le pré.",
+          "example_meaning": "The cows are in the meadow at the moment."
+        },
+        {
+          "term": "la location",
+          "example": "La location du tracteur coûte cher.",
+          "example_meaning": "Hiring the tractor is expensive."
+        },
+        {
+          "term": "sensible",
+          "example": "Les fraises sont sensibles au froid.",
+          "example_meaning": "Strawberries are sensitive to the cold."
+        },
+        {
+          "term": "finalement",
+          "example": "Finalement, il a fait beau pour la fête.",
+          "example_meaning": "In the end, the weather was fine for the festival."
+        },
+        {
+          "term": "la librairie",
+          "example": "Léo achète un livre sur la pêche à la librairie.",
+          "example_meaning": "Léo buys a book about fishing at the bookshop."
+        },
+        {
+          "term": "le raisin",
+          "meaning": "grapes",
+          "example": "Le raisin est mûr en septembre.",
+          "example_meaning": "The grapes are ripe in September."
+        },
+        {
+          "term": "le pré",
+          "meaning": "meadow",
+          "example": "Les moutons mangent dans le pré.",
+          "example_meaning": "The sheep graze in the meadow."
+        },
+        {
+          "term": "le tracteur",
+          "meaning": "tractor",
+          "example": "Le tracteur de Nora est tout neuf.",
+          "example_meaning": "Nora's tractor is brand new."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Au marché de Meadowbrook",
+          "emoji": "🐸",
+          "rule": "La monnaie = change, l'argent = money, le raisin = grapes (raisins are raisins secs).",
+          "example": "Je voudrais un kilo de raisin, s'il vous plaît.",
+          "example_meaning": "I'd like a kilo of grapes, please."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Rosa rend la monnaie à Léo.",
+          "meaning": "Rosa gives Léo his change."
+        },
+        {
+          "text": "Ce raisin vient de la ferme.",
+          "meaning": "These grapes come from the farm."
+        },
+        {
+          "text": "Les poules restent dans le poulailler.",
+          "meaning": "The hens stay in the henhouse.",
+          "note": "New word: le poulailler = the henhouse."
+        },
+        {
+          "text": "Actuellement, Nora plante des fraises.",
+          "meaning": "Nora is planting strawberries at the moment."
+        },
+        {
+          "text": "La location de la grange est gratuite.",
+          "meaning": "Renting the barn is free.",
+          "note": "New word: la grange = the barn."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Vous avez de la monnaie ?",
+          "meaning": "Have you got any change?",
+          "distractors": [
+            "argent"
+          ]
+        },
+        {
+          "text": "Léo vend du raisin au marché.",
+          "meaning": "Léo sells grapes at the market.",
+          "distractors": [
+            "monnaie"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Nora est très sensible : elle met son argent de côté.",
+          "wrong": "sensible",
+          "fix": "raisonnable",
+          "why": "Saving money is being raisonnable; sensible means sensitive."
+        },
+        {
+          "sentence": "Léo emprunte un livre sur la pêche à la librairie.",
+          "wrong": "librairie",
+          "fix": "bibliothèque",
+          "why": "You borrow at the bibliothèque; the librairie sells books."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Monnaie or argent at the market?",
+          "buckets": [
+            "la monnaie",
+            "l'argent"
+          ],
+          "items": [
+            {
+              "text": "Vous avez de la ___ sur dix euros ?",
+              "bucket": 0
+            },
+            {
+              "text": "Nora gagne de l'___ au marché.",
+              "bucket": 1
+            },
+            {
+              "text": "Je n'ai pas de ___ pour la machine.",
+              "bucket": 0
+            },
+            {
+              "text": "Rosa économise son ___ pour un tracteur.",
+              "bucket": 1
+            },
+            {
+              "text": "Léo rend la ___ à un client.",
+              "bucket": 0
+            },
+            {
+              "text": "L'___ ne fait pas le bonheur.",
+              "bucket": 1
+            }
+          ],
+          "why": "La monnaie is change, the small coins you give back; l'argent is money in general."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-false-friends-meadowbrook-01",
+          "prompt": "Au marché, Rosa rend la ___ à Nora : deux euros cinquante. (the change)",
+          "type": "fill-in-blank",
+          "correct_answer": "monnaie",
+          "accepted_answers": [],
+          "explanation": "The change you get back is la monnaie. Money in general is l'argent.",
+          "hints": [
+            "Not argent: the coins given back."
+          ],
+          "teaches": [
+            "la monnaie"
+          ]
+        },
+        {
+          "question_id": "b2-false-friends-meadowbrook-02",
+          "prompt": "Léo sells 'du raisin' at the harvest festival. What is he selling?",
+          "type": "multiple-choice",
+          "options": [
+            "grapes",
+            "raisins",
+            "prunes"
+          ],
+          "correct_answer": "grapes",
+          "explanation": "Le raisin is grapes. Raisins are des raisins secs, and prunes are des pruneaux.",
+          "hints": [
+            "Fresh fruit, straight from the vine."
+          ],
+          "teaches": [
+            "le raisin"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🛸",
+      "content": "## Les faux amis à Rustwake\n\nOut in the desert, words fool you too: the scavenger **prétend** he found a working robot (he claims it), Marta **assiste à** the market meeting (she attends it), and **la location** of a scrap armour costs ten nuts. **Actuellement**, the antenna doesn't work.",
+      "vocabulary": [
+        {
+          "term": "prétendre",
+          "example": "Le fouilleur prétend qu'il a trouvé un robot neuf.",
+          "example_meaning": "The scavenger claims he found a brand-new robot."
+        },
+        {
+          "term": "assister à",
+          "example": "Marta assiste à la réunion du marché.",
+          "example_meaning": "Marta attends the market meeting."
+        },
+        {
+          "term": "la location",
+          "example": "La location d'une armure de ferraille coûte dix écrous.",
+          "example_meaning": "Hiring a suit of scrap armour costs ten nuts."
+        },
+        {
+          "term": "actuellement",
+          "example": "Actuellement, l'antenne ne marche pas.",
+          "example_meaning": "The antenna isn't working at the moment."
+        },
+        {
+          "term": "éventuellement",
+          "example": "On pourrait éventuellement échanger ces écrous contre de l'eau.",
+          "example_meaning": "We could possibly trade these nuts for water."
+        },
+        {
+          "term": "rester",
+          "example": "Ruiz reste dans le Dôme pendant la tempête.",
+          "example_meaning": "Ruiz stays in the Dome during the storm."
+        },
+        {
+          "term": "en fait",
+          "example": "En fait, ce soda Saphir est trop vieux.",
+          "example_meaning": "Actually, this Saphir soda is too old."
+        },
+        {
+          "term": "l'armure",
+          "meaning": "armour (f)",
+          "example": "Mon armure de ferraille est lourde.",
+          "example_meaning": "My scrap armour is heavy."
+        },
+        {
+          "term": "l'écrou",
+          "meaning": "nut (m), the desert's currency",
+          "example": "Un écrou ne vaut pas grand-chose.",
+          "example_meaning": "One nut isn't worth much."
+        },
+        {
+          "term": "la réunion",
+          "meaning": "meeting",
+          "example": "La réunion commence au coucher du soleil.",
+          "example_meaning": "The meeting starts at sunset."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Faux amis du désert",
+          "emoji": "🛸",
+          "rule": "Prétendre = to claim, assister à = to attend, la location = a rental. To pretend is faire semblant; to assist is aider.",
+          "example": "Léo prétend qu'il connaît le désert.",
+          "example_meaning": "Léo claims he knows the desert."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Ruiz reste à l'atelier ce soir.",
+          "meaning": "Ruiz is staying at the workshop tonight."
+        },
+        {
+          "text": "La location du robot est trop chère.",
+          "meaning": "Hiring the robot is too expensive."
+        },
+        {
+          "text": "Marta a assisté à la réunion.",
+          "meaning": "Marta attended the meeting."
+        },
+        {
+          "text": "Léo prétend qu'il a vu un scarabée géant.",
+          "meaning": "Léo claims he saw a giant beetle.",
+          "note": "New word: le scarabée = the beetle."
+        },
+        {
+          "text": "Actuellement, il y a une tempête de cendres.",
+          "meaning": "There's an ash storm at the moment."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Marta assiste à la réunion.",
+          "meaning": "Marta attends the meeting.",
+          "distractors": [
+            "aide"
+          ]
+        },
+        {
+          "text": "Léo prétend avoir trouvé de l'eau.",
+          "meaning": "Léo claims to have found water.",
+          "distractors": [
+            "semblant"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Tu peux assister Marta à porter l'eau filtrée ?",
+          "wrong": "assister",
+          "fix": "aider",
+          "why": "To help someone is aider; assister à means to attend."
+        },
+        {
+          "sentence": "Le marchand ne prend pas les coins, seulement les écrous.",
+          "wrong": "coins",
+          "fix": "pièces",
+          "why": "Coins are des pièces; un coin is a corner."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Assister à or attendre in the village?",
+          "buckets": [
+            "assister à (to attend)",
+            "attendre (to wait for)"
+          ],
+          "items": [
+            {
+              "text": "___ la réunion du marché",
+              "bucket": 0
+            },
+            {
+              "text": "___ la fin de la tempête",
+              "bucket": 1
+            },
+            {
+              "text": "___ le retour de Léo",
+              "bucket": 1
+            },
+            {
+              "text": "___ un concert à la radio-montre",
+              "bucket": 0
+            },
+            {
+              "text": "___ le robot devant l'atelier",
+              "bucket": 1
+            },
+            {
+              "text": "___ une fête au village",
+              "bucket": 0
+            }
+          ],
+          "why": "Assister à is to attend an event; attendre is to wait for someone or something."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-false-friends-rustwake-01",
+          "prompt": "Léo pretends to be asleep when Ruiz comes into the workshop. Which sentence says that?",
+          "type": "multiple-choice",
+          "options": [
+            "Léo fait semblant de dormir.",
+            "Léo prétend dormir.",
+            "Léo assiste à dormir."
+          ],
+          "correct_answer": "Léo fait semblant de dormir.",
+          "explanation": "To pretend, act as if, is faire semblant de. Léo prétend dormir would mean he claims he is asleep.",
+          "hints": [
+            "Prétendre = to claim."
+          ],
+          "teaches": [
+            "prétendre"
+          ]
+        },
+        {
+          "question_id": "b2-false-friends-rustwake-02",
+          "prompt": "Marta ___ à la réunion du marché ce soir. (to attend, présent)",
+          "type": "fill-in-blank",
+          "correct_answer": "assiste",
+          "accepted_answers": [],
+          "explanation": "To attend is assister à: Marta assiste à la réunion.",
+          "hints": [
+            "Not attendre, which means to wait."
+          ],
+          "teaches": [
+            "assister à",
+            "la réunion"
+          ]
+        }
+      ]
+    }
+  }
+}

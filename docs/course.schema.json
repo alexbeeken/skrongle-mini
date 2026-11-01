@@ -1,0 +1,446 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://learnmap.local/docs/course.schema.json",
+  "title": "Skrongle course files",
+  "description": "Schemas for course.json (the manifest), for placement.json (the placement test), for one lesson file and for a theme file (data/themes/<id>/theme.json). See /docs/course-format for the prose reference. Older aliases (level, category, es/en, journey, verb/tense, target_grammar_point, markdown_content, example_es/en) are also accepted by the app but are not listed here.",
+  "$defs": {
+    "slug": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "side": {
+      "type": "object",
+      "properties": {
+        "label": { "type": "string", "minLength": 1, "description": "Shown as the column / card side heading, e.g. \"Español\" or \"Term\"." },
+        "lang": { "type": "string", "description": "BCP 47 language tag for lang= attributes, or \"\"." }
+      },
+      "required": ["label"]
+    },
+    "manifest": {
+      "type": "object",
+      "title": "course.json",
+      "properties": {
+        "id": { "$ref": "#/$defs/slug", "description": "Course id. Built-in courses: must equal the folder name." },
+        "title": { "type": "string", "minLength": 1 },
+        "subject": { "type": "string" },
+        "description": { "type": "string" },
+        "icon": { "type": "string", "description": "An emoji." },
+        "terms": { "$ref": "#/$defs/side" },
+        "meanings": { "$ref": "#/$defs/side" },
+        "units": {
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object",
+            "properties": { "id": { "type": "string", "minLength": 1 }, "title": { "type": "string", "minLength": 1 }, "description": { "type": "string" } },
+            "required": ["id", "title"]
+          }
+        },
+        "levels": { "type": "boolean", "description": "True when the units are levels (A1, A2…): a learner opening the course picks the one to start at, and the lessons below it are skipped (not passed). Default false: no picker." },
+        "language_features": { "type": "boolean", "description": "Language features on or off: Listening, Sprint's listening exercises and sentence builds, read-aloud, Numbers by ear, and the translation fields in the lesson editor. Unset: on when terms.lang differs from meanings.lang. The editor's gear sets it." },
+        "groups": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": { "id": { "type": "string", "minLength": 1 }, "title": { "type": "string", "minLength": 1 } },
+            "required": ["id", "title"]
+          }
+        },
+        "paradigm": {
+          "type": "object",
+          "properties": {
+            "label": { "type": "string", "default": "Conjugations" },
+            "item_label": { "type": "string", "default": "Verb" },
+            "slots": {
+              "type": "array", "minItems": 2, "maxItems": 12,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "key": { "type": "string", "minLength": 1 },
+                  "label": { "type": "string", "minLength": 1, "description": "Alternatives may be separated by \" / \"." },
+                  "hint": { "type": "string" },
+                  "art": { "type": "array", "maxItems": 8, "items": { "type": "string", "maxLength": 24 } },
+                  "who": { "type": "string", "enum": ["me", "you", "other", "us", "you_all", "them"], "description": "Which grammatical person the slot is; the drill draws it with profile pictures." }
+                },
+                "required": ["key", "label"]
+              }
+            },
+            "sets": {
+              "type": "array", "minItems": 1,
+              "items": {
+                "type": "object",
+                "properties": { "key": { "type": "string", "minLength": 1 }, "label": { "type": "string", "minLength": 1 } },
+                "required": ["key", "label"]
+              }
+            }
+          },
+          "required": ["slots", "sets"]
+        },
+        "chars": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 2 }, "description": "Single characters offered as tap-to-insert buttons." },
+        "calendar": {
+          "type": "object",
+          "description": "Weekday and month names in the course's language, for the Date Dash game.",
+          "properties": {
+            "days": { "type": "array", "minItems": 7, "maxItems": 7, "items": { "type": "string", "minLength": 1 }, "description": "The seven weekday names, Monday first." },
+            "months": { "type": "array", "minItems": 12, "maxItems": 12, "items": { "type": "string", "minLength": 1 }, "description": "The twelve month names, January first." },
+            "format": { "type": "string", "default": "{day}, {d} {month} {year}", "description": "How a full date is written; {day} and {month} are required, {d} and {year} optional." }
+          },
+          "required": ["days", "months"]
+        },
+        "music": {
+          "type": "object",
+          "description": "A course that teaches music.",
+          "properties": {
+            "note_names": { "type": "string", "pattern": "^(letters|solfege|german)$", "default": "letters", "description": "How notes are named on screen: letters (C D E, F♯, B♭), solfege (Do Re Mi, Fa♯) or german (C D E, Fis, H for B, B for B flat). In a multiple-choice question with abc, an option written as an ABC note (A, ^F, _B, c) is shown in these names." }
+          }
+        },
+        "strings": {
+          "type": "object",
+          "properties": {
+            "praise": { "type": "array", "items": { "type": "string" } },
+            "almost": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "themes": {
+          "type": "object",
+          "description": "Course material for a theme, by theme id: praise lines in the course's language that fit the theme's world. Ids of themes that are not installed are kept and never used.",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "strings": {
+                "type": "object",
+                "description": "Replace the theme's strings (and the course's own) while that theme is worn.",
+                "properties": {
+                  "praise": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+                  "almost": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+                }
+              }
+            }
+          }
+        }
+      },
+      "required": ["id", "title", "units"]
+    },
+    "theme_colors": {
+      "type": "object",
+      "description": "CSS colour tokens, hex only (#rgb, #rgba, #rrggbb, #rrggbbaa). Each becomes the custom property of the same name (--accent-dark for accent_dark).",
+      "properties": {
+        "bg": { "$ref": "#/$defs/hex_color" }, "surface": { "$ref": "#/$defs/hex_color" }, "text": { "$ref": "#/$defs/hex_color" },
+        "muted": { "$ref": "#/$defs/hex_color" }, "line": { "$ref": "#/$defs/hex_color" }, "accent": { "$ref": "#/$defs/hex_color" },
+        "accent_dark": { "$ref": "#/$defs/hex_color" }, "gold": { "$ref": "#/$defs/hex_color" }, "gold_dark": { "$ref": "#/$defs/hex_color" },
+        "ok": { "$ref": "#/$defs/hex_color" }, "ok_dark": { "$ref": "#/$defs/hex_color" }, "ok_bg": { "$ref": "#/$defs/hex_color" },
+        "bad": { "$ref": "#/$defs/hex_color" }, "bad_bg": { "$ref": "#/$defs/hex_color" }, "warn_bg": { "$ref": "#/$defs/hex_color" },
+        "sky": { "$ref": "#/$defs/hex_color" }, "violet": { "$ref": "#/$defs/hex_color" }
+      },
+      "additionalProperties": false
+    },
+    "hex_color": { "type": "string", "pattern": "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$" },
+    "theme": {
+      "type": "object",
+      "title": "data/themes/<id>/theme.json",
+      "description": "A skin for the whole app, worn by a learner whatever course is open. Lessons may carry material for it under themes.<id>.",
+      "properties": {
+        "id": { "$ref": "#/$defs/slug", "description": "Must equal the folder name; lessons refer to it in their themes block." },
+        "title": { "type": "string", "minLength": 1 },
+        "description": { "type": "string", "description": "Shown in the theme picker." },
+        "icon": { "type": "string", "description": "An emoji." },
+        "colors": { "$ref": "#/$defs/theme_colors" },
+        "dark": { "$ref": "#/$defs/theme_colors", "description": "The same tokens for browsers that prefer a dark scheme." },
+        "font": { "type": "string", "maxLength": 160, "pattern": "^[A-Za-z0-9 ,'\"-]+$", "description": "A CSS font-family stack." },
+        "art": {
+          "type": "object",
+          "properties": {
+            "banner": { "type": "string", "description": "A file of the theme pictures/<name>.svg or an https:// URL; shown on the home page and the Sprint mode home." },
+            "mark": { "type": "string", "description": "A small emblem, same rules." }
+          }
+        },
+        "strings": {
+          "type": "object",
+          "description": "Replace the course's praise / almost strings while the theme is on, in English (any course may be worn with it). A course's own themes.<id>.strings win.",
+          "properties": {
+            "praise": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+            "almost": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+          }
+        },
+        "avatars": {
+          "type": "array",
+          "description": "The theme's versions of the built-in profile pictures, by the picture's id; a learner's choice is shown in this version while the theme is worn.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string", "enum": ["noor", "amani", "yuki", "kai", "arjun", "sofia", "mochi", "coco", "owl", "fox", "cat", "bear", "rabbit", "robot", "rocket", "star", "leaf", "bolt"], "description": "The built-in picture this one replaces. The last ten are the ids from before #180 and name the slot that took them." },
+              "label": { "type": "string", "description": "The picture's name, shown under it while the theme is worn; defaults to the built-in picture's name." },
+              "image": { "type": "string", "minLength": 1, "description": "A file of the theme pictures/<name>.svg or an https:// URL." }
+            },
+            "required": ["id", "image"]
+          }
+        },
+        "icons": {
+          "type": "object",
+          "description": "The app's own icons by slot, an emoji or short glyph each; a slot left out keeps the default.",
+          "properties": {
+            "streak": { "$ref": "#/$defs/icon" }, "xp": { "$ref": "#/$defs/icon" }, "words": { "$ref": "#/$defs/icon" }, "goal": { "$ref": "#/$defs/icon" },
+            "flawless": { "$ref": "#/$defs/icon" }, "effort": { "$ref": "#/$defs/icon" }, "mastery": { "$ref": "#/$defs/icon" }, "locked": { "$ref": "#/$defs/icon" },
+            "trophy": { "$ref": "#/$defs/icon" }, "review": { "$ref": "#/$defs/icon" }, "path": { "$ref": "#/$defs/icon" }, "site": { "$ref": "#/$defs/icon" },
+            "start": { "$ref": "#/$defs/icon" }, "bite": { "$ref": "#/$defs/icon" }, "hint": { "$ref": "#/$defs/icon" },
+            "mode_sprint": { "$ref": "#/$defs/icon" }, "mode_study": { "$ref": "#/$defs/icon" }, "mode_play": { "$ref": "#/$defs/icon" }, "mode_guide": { "$ref": "#/$defs/icon" }, "mode_ai": { "$ref": "#/$defs/icon" }
+          },
+          "additionalProperties": false
+        },
+        "lesson_icons": { "type": "array", "items": { "$ref": "#/$defs/icon" }, "description": "Icons for lessons that set none, used in turn along the Sprint mode path." }
+      },
+      "required": ["id", "title"]
+    },
+    "icon": { "type": "string", "minLength": 1, "maxLength": 8, "description": "An emoji or short glyph (1 to 4 characters, no markup)." },
+    "lesson_theme": {
+      "type": "object",
+      "description": "Themed material for one theme: the same shapes as the lesson fields it mirrors. Merged in front of the lesson's own material while the theme is on; the lesson's own material is never removed.",
+      "properties": {
+        "icon": { "$ref": "#/$defs/icon", "description": "The lesson's stop on the Sprint mode path while the theme is worn." },
+        "content": { "type": "string", "description": "Markdown appended to the lesson text as extra sections." },
+        "vocabulary": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "term": { "type": "string", "minLength": 1 },
+              "meaning": { "type": "string", "description": "Required for a term the lesson does not teach; must be omitted or equal for one it does." },
+              "example": { "type": ["string", "null"], "description": "Replaces the example of a term the lesson teaches." },
+              "example_meaning": { "type": ["string", "null"], "description": "The themed example in the meaning language." }
+            },
+            "required": ["term"]
+          }
+        },
+        "quiz": { "type": "array", "items": { "$ref": "#/$defs/quiz_item" }, "description": "Ids must be unique across the course: suffix them, e.g. -realm-01." },
+        "listening": { "type": "array", "items": { "$ref": "#/$defs/listening_item" } },
+        "conversations": { "type": "array", "items": { "$ref": "#/$defs/conversation" } },
+        "bites": { "$ref": "#/$defs/sprint/properties/bites" },
+        "sorts": { "$ref": "#/$defs/sprint/properties/sorts" },
+        "spots": { "$ref": "#/$defs/sprint/properties/spots" },
+        "builds": { "$ref": "#/$defs/sprint/properties/builds" }
+      }
+    },
+    "vocab_entry": {
+      "type": "object",
+      "properties": {
+        "term": { "type": "string", "minLength": 1 },
+        "meaning": { "type": "string", "minLength": 1 },
+        "example": { "type": ["string", "null"] },
+        "example_meaning": { "type": ["string", "null"], "description": "The example in the meaning language; shown as a hint on the example." }
+      },
+      "required": ["term", "meaning"]
+    },
+    "quiz_item": {
+      "type": "object",
+      "properties": {
+        "question_id": { "type": "string", "minLength": 1, "description": "Unique across the whole course; prefix with the lesson id." },
+        "prompt": { "type": "string", "minLength": 1, "description": "Write ___ where the answer goes." },
+        "type": { "type": "string", "enum": ["multiple-choice", "fill-in-blank", "true-false", "numeric", "expression", "fill-bar", "chord-spell", "staff-note", "keyboard", "algebra-tiles", "clock", "measure"] },
+        "options": { "type": "array", "items": { "type": "string" }, "description": "multiple-choice: 2 or more, must contain correct_answer. clock: times (H:MM) to pick from; the clock shows correct_answer." },
+        "correct_answer": { "type": "string", "minLength": 1, "description": "true-false: \"true\" or \"false\". numeric: a number (3/4, 1.5, 2^10), values separated by ; for an any-order list. expression: an algebraic expression such as 2x^2 - 3x + 1. fill-bar: tiles that fill the gap, separated by spaces; may be left out unless exact. chord-spell: the chord's 3 or 4 notes in ABC, separated by spaces, such as D ^F A. staff-note: one note in ABC with its octave, such as G, ^F or c. keyboard: one ABC note (C, ^F, _B, c). algebra-tiles: the two sides multiplied, such as (x + 2)(x + 3). clock: a time H:MM with an hour from 1 to 12, such as 3:45. measure: the size of the angle, a number." },
+        "accepted_answers": { "type": "array", "items": { "type": "string" }, "description": "fill-in-blank, numeric, expression, keyboard, algebra-tiles, clock, measure: other answers that count as right." },
+        "form": { "type": "string", "enum": ["product"], "description": "algebra-tiles only: the form the answer must take; product (two sides multiplied) is the one form." },
+        "step_minutes": { "type": "integer", "minimum": 1, "maximum": 60, "description": "clock only: how far one step of the minute hand goes (default 5); divides 60." },
+        "tolerance": { "type": "number", "minimum": 0, "description": "numeric, measure only: how far off an answer may be (absolute), e.g. 0.01 for two decimals or 2 for a protractor reading." },
+        "unit": { "type": "string", "description": "numeric, measure only: shown after the answer box; the learner may type it or not." },
+        "tool": { "type": "string", "enum": ["protractor"], "description": "measure only: the tool drawn to measure with." },
+        "angle": { "type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 180, "description": "measure only: the angle drawn, in degrees." },
+        "explanation": { "type": "string" },
+        "hints": { "type": "array", "items": { "type": "string" } },
+        "abc": { "type": "string", "description": "Music in ABC notation, drawn as a staff above the prompt, e.g. \"X:1\\nL:1/4\\nK:C\\nA\" for one note. fill-bar: the bar, with one invisible rest (x2) marking the gap." },
+        "tiles": { "oneOf": [{ "type": "string", "minLength": 1 }, { "type": "array", "items": { "type": "string", "pattern": "^\\S+$" }, "minItems": 2 }], "description": "fill-bar: note values in ABC (B2, BB, B/B/B), one group per tile without spaces; a tile may be used more than once. algebra-tiles: the pile as a x^2 + b x + c with whole a from 1 to 3, b from 0 to 12, c from 0 to 20, such as x^2 + 5x + 6. chord-spell: the notes to pick from in ABC, as one string separated by spaces (D E F ^F _G A B) or a list; every note of the answer and at least one more." },
+        "exact": { "type": "boolean", "default": false, "description": "fill-bar only: only correct_answer (and accepted_answers) count, instead of any tiles that fill the gap." },
+        "play": { "type": "string", "description": "Music in ABC notation that a speaker button plays (Web Audio tones), e.g. \"X:1\\nL:1/2\\nK:C\\nC G\". Two single notes play one after the other, then together. Without abc, the notes are drawn on a staff once the question is answered." },
+        "option_kind": { "type": "string", "enum": ["text", "abc"], "default": "text", "description": "multiple-choice with play or abc: abc draws each option as a staff (its notes after the header of play, else abc)." },
+        "clef": { "type": "string", "enum": ["treble", "bass"], "description": "staff-note only: the staff the learner places the note on." },
+        "any_octave": { "type": "boolean", "description": "staff-note only: the note counts in any octave." },
+        "octave": { "type": "boolean", "default": false, "description": "keyboard only: only the exact key counts, not the same note in another octave." },
+        "octaves": { "type": "integer", "enum": [1, 2], "default": 1, "description": "keyboard only: how many octaves of keys, from middle C." },
+        "teaches": { "type": "array", "items": { "type": "string" }, "description": "Terms of this lesson's vocabulary." }
+      },
+      "required": ["question_id", "prompt", "type"],
+      "if": { "properties": { "type": { "not": { "const": "fill-bar" } } } },
+      "then": { "required": ["correct_answer"] }
+    },
+    "conjugation": {
+      "type": "object",
+      "properties": {
+        "item": { "type": "string", "minLength": 1 },
+        "meaning": { "type": "string", "minLength": 1 },
+        "set": { "type": "string", "minLength": 1, "description": "A paradigm set key from the manifest." },
+        "art": { "type": "array", "maxItems": 8, "items": { "type": "string", "maxLength": 24 } },
+        "forms": { "type": "object", "additionalProperties": { "type": "string", "minLength": 1 }, "description": "One entry per paradigm slot key." }
+      },
+      "required": ["item", "meaning", "set", "forms"]
+    },
+    "conversation": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "title": { "type": "string", "minLength": 1 },
+        "scenario": { "type": "string" },
+        "role_a": { "type": "string", "minLength": 1 },
+        "role_b": { "type": "string", "minLength": 1 },
+        "lines": {
+          "type": "array", "minItems": 2,
+          "items": {
+            "type": "object",
+            "properties": {
+              "speaker": { "type": "string", "enum": ["a", "b"] },
+              "text": { "type": "string", "minLength": 1 },
+              "meaning": { "type": "string" },
+              "note": { "type": ["string", "null"] }
+            },
+            "required": ["speaker", "text"]
+          }
+        }
+      },
+      "required": ["id", "title", "role_a", "role_b", "lines"]
+    },
+    "guide_step": {
+      "oneOf": [
+        { "type": "object", "properties": { "section": { "type": "string" } }, "required": ["section"], "additionalProperties": false },
+        { "type": "object", "properties": { "question": { "type": "string" } }, "required": ["question"], "additionalProperties": false },
+        { "type": "object", "properties": { "vocab": { "type": "integer", "minimum": 1 } }, "required": ["vocab"], "additionalProperties": false },
+        { "type": "object", "properties": { "tip": { "type": "string" } }, "required": ["tip"], "additionalProperties": false },
+        { "type": "object", "properties": { "concept": { "type": "object", "properties": { "title": { "type": "string" }, "markdown": { "type": "string" } }, "required": ["title", "markdown"] } }, "required": ["concept"], "additionalProperties": false }
+      ]
+    },
+    "listening_item": {
+      "type": "object",
+      "description": "A sentence for listening practice: read aloud by the browser, typed by the learner.",
+      "properties": {
+        "text": { "type": "string", "minLength": 1, "description": "The sentence exactly as it should be typed (1 to 30 words)." },
+        "meaning": { "type": "string", "description": "Its translation, shown after answering." },
+        "note": { "type": ["string", "null"], "description": "Optional pointer: the grammar at work, or 'New word: <word> = <meaning>.'" }
+      },
+      "required": ["text"],
+      "additionalProperties": false
+    },
+    "sprint": {
+      "type": "object",
+      "properties": {
+        "icon": { "type": "string" },
+        "bites": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": { "type": "string", "minLength": 1 },
+              "rule": { "type": "string", "minLength": 1 },
+              "example": { "type": "string" },
+              "example_meaning": { "type": "string" },
+              "emoji": { "type": "string" }
+            },
+            "required": ["title", "rule"]
+          }
+        },
+        "sorts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": { "type": "string", "minLength": 1 },
+              "buckets": { "type": "array", "minItems": 2, "maxItems": 4, "items": { "type": "string" } },
+              "items": {
+                "type": "array", "minItems": 3, "maxItems": 10,
+                "items": { "type": "object", "properties": { "text": { "type": "string", "minLength": 1 }, "play": { "type": "string", "description": "A speaker tile: music in ABC notation, played on a tap, in place of text." }, "bucket": { "type": "integer", "minimum": 0 } }, "required": ["bucket"], "anyOf": [{ "required": ["text"] }, { "required": ["play"] }] }
+              },
+              "why": { "type": "string" }
+            },
+            "required": ["title", "buckets", "items"]
+          }
+        },
+        "spots": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "sentence": { "type": "string", "minLength": 1 },
+              "abc": { "type": "string", "minLength": 1, "description": "A tune in ABC notation with one wrong note, drawn as a staff in place of the sentence (#1227)." },
+              "wrong": { "type": ["string", "integer"], "minLength": 1, "minimum": 1, "description": "Must appear exactly once in sentence; with abc, the wrong note's number, counting from 1." },
+              "fix": { "type": "string", "minLength": 1, "description": "What the wrong word should have been; with abc, one note in ABC (F, ^C, _B)." },
+              "why": { "type": "string" }
+            },
+            "required": ["wrong", "fix"],
+            "description": "A spot has a sentence or abc, not both."
+          }
+        },
+        "builds": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "text": { "type": "string", "minLength": 1, "description": "2 to 12 words." },
+              "meaning": { "type": "string", "minLength": 1 },
+              "distractors": { "type": "array", "items": { "type": "string" } }
+            },
+            "required": ["text", "meaning"]
+          }
+        },
+        "scales": {
+          "type": "array",
+          "description": "Build the scale (#1229): Sprint mode's ladder with notes. The first rung is filled; the learner taps the other seven from the scale's notes and the decoys.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": { "type": "string", "minLength": 1 },
+              "notes": { "type": "string", "minLength": 1, "description": "Eight ABC notes separated by spaces, bottom to top: \"D E ^F G A B ^c d\"." },
+              "decoys": { "type": "string", "description": "ABC notes separated by spaces that are not in the scale, mixed into the bank: \"F c\". The octave doesn't count: c is C." }
+            },
+            "required": ["title", "notes"],
+            "additionalProperties": false
+          }
+        }
+      }
+    },
+    "placement": {
+      "type": "object",
+      "title": "placement.json",
+      "description": "The course's placement test (#1106), one per course, for a course with \"levels\": multiple-choice questions, each about one unit. A unit with written questions uses them; every other unit draws random_per_unit of its lessons' multiple-choice questions.",
+      "additionalProperties": false,
+      "properties": {
+        "random_per_unit": { "type": "integer", "minimum": 0, "maximum": 10, "default": 0, "description": "For each unit without written questions: how many of its lessons' multiple-choice questions to draw at random." },
+        "questions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "unit": { "type": "string", "minLength": 1, "description": "A unit id from the manifest." },
+              "prompt": { "type": "string", "minLength": 1 },
+              "options": { "type": "array", "minItems": 2, "items": { "type": "string" }, "description": "No option twice." },
+              "answer": { "type": "string", "description": "One of the options." }
+            },
+            "required": ["unit", "prompt", "options", "answer"]
+          }
+        }
+      }
+    },
+    "lesson": {
+      "type": "object",
+      "title": "lessons/<name>.json",
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "slug": { "$ref": "#/$defs/slug" },
+        "title": { "type": "string", "minLength": 1 },
+        "unit": { "type": "string", "minLength": 1, "description": "A unit id from the manifest." },
+        "group": { "type": "string", "minLength": 1, "default": "general" },
+        "order": { "type": "integer", "minimum": 0, "default": 100 },
+        "summary": { "type": "string" },
+        "focus": { "type": "string" },
+        "prerequisites": { "type": "array", "items": { "type": "string" } },
+        "content": { "type": "string", "description": "Markdown; each '## ' heading starts a card. A fenced block marked abc is music notation (ABC text), drawn as a staff." },
+        "vocabulary": { "type": "array", "items": { "$ref": "#/$defs/vocab_entry" } },
+        "quiz": { "type": "array", "items": { "$ref": "#/$defs/quiz_item" } },
+        "conjugations": { "type": "array", "items": { "$ref": "#/$defs/conjugation" } },
+        "conversations": { "type": "array", "items": { "$ref": "#/$defs/conversation" } },
+        "listening": { "type": "array", "items": { "$ref": "#/$defs/listening_item" } },
+        "guide": { "type": "array", "items": { "$ref": "#/$defs/guide_step" } },
+        "sprint": { "$ref": "#/$defs/sprint" },
+        "themes": {
+          "type": "object",
+          "description": "Themed material by theme id (a theme of the app, data/themes/<id>/); optional flair on top of the lesson.",
+          "additionalProperties": { "$ref": "#/$defs/lesson_theme" }
+        }
+      },
+      "required": ["id", "slug", "title", "unit", "content"]
+    }
+  },
+  "oneOf": [ { "$ref": "#/$defs/manifest" }, { "$ref": "#/$defs/lesson" }, { "$ref": "#/$defs/placement" }, { "$ref": "#/$defs/theme" } ]
+}

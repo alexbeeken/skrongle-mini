@@ -1,0 +1,1323 @@
+{
+  "id": "a1-weather-seasons",
+  "slug": "weather-seasons",
+  "title": "Weather and seasons: il fait beau, il pleut",
+  "unit": "A1",
+  "group": "Vocabulary",
+  "order": 46,
+  "summary": "Ask and say what the weather is like with il fait, il pleut and il y a, give the temperature, and talk about the four seasons.",
+  "focus": "Talking about the weather, temperatures and the seasons",
+  "prerequisites": [
+    "a1-aller-faire-town"
+  ],
+  "content": "## Quel temps fait-il ? Il fait beau\n\nTo ask about the weather: **Quel temps fait-il ?** (What's the weather like?) Most answers use **il fait** + an adjective:\n\n| French | English |\n|---|---|\n| **il fait beau** / **il fait mauvais** | the weather's nice / bad |\n| **il fait chaud** / **il fait froid** | it's hot / cold |\n| **il fait doux** / **il fait frais** | it's mild / cool |\n\nThe weather is always **il fait**, never **il est**: **il est froid** means *he* (or a thing) is cold to the touch.\n\nRain and snow have their own verbs, used only with **il**:\n\n- **Il pleut.** (It's raining.)\n- **Il neige.** (It's snowing.)\n- **Il ne pleut pas, mais il fait froid.** (It isn't raining, but it's cold.)\n\n## Il y a du soleil, du vent… and degrees\n\nFor what is in the sky, use **il y a** + **du**, **de l'** or **des**:\n\n- **Il y a du soleil.** (It's sunny.) You will also hear **il fait soleil** and **il fait du vent**.\n- **Il y a du vent.** (It's windy.)\n- **Il y a des nuages.** (It's cloudy.)\n- **Il y a du brouillard.** (It's foggy.)\n- **Il y a de l'orage.** (There's a thunderstorm.)\n\nTemperatures are in degrees Celsius, with **il fait** again:\n\n- **Il fait vingt degrés.** (It's 20 °C.)\n- **Il fait moins cinq.** (It's −5 °C: **moins** = minus.)\n\n**La météo** is the weather forecast: **Je regarde la météo.**\n\n## The seasons: au printemps, en été\n\nAll four seasons are masculine: **le printemps** (spring), **l'été** (summer), **l'automne** (autumn), **l'hiver** (winter).\n\nTo say *in* a season, use **au** before **printemps** (a consonant) and **en** before the three that start with a vowel:\n\n| | in … |\n|---|---|\n| **le printemps** | **au printemps** |\n| **l'été** | **en été** |\n| **l'automne** | **en automne** |\n| **l'hiver** | **en hiver** |\n\nWhat you do in each season:\n\n- **En hiver, on fait du ski.** (In winter, we go skiing.)\n- **En été, on va à la plage.** (In summer, we go to the beach.)\n- **Au printemps, on fait du vélo.** (In spring, we go cycling.)\n- **En automne, on cherche des champignons.** (In autumn, we look for mushrooms.)",
+  "vocabulary": [
+    {
+      "term": "quel temps fait-il ?",
+      "meaning": "what's the weather like?",
+      "example": "Quel temps fait-il à Lyon aujourd'hui ?",
+      "example_meaning": "What's the weather like in Lyon today?"
+    },
+    {
+      "term": "il fait beau / il fait mauvais",
+      "meaning": "the weather's nice / the weather's bad",
+      "example": "Il fait beau, on mange dans le jardin ?",
+      "example_meaning": "The weather's nice, shall we eat in the garden?"
+    },
+    {
+      "term": "il fait chaud / il fait froid",
+      "meaning": "it's hot / it's cold",
+      "example": "En janvier, il fait froid à Montréal.",
+      "example_meaning": "In January it's cold in Montréal."
+    },
+    {
+      "term": "il fait doux / il fait frais",
+      "meaning": "it's mild / it's cool",
+      "example": "Le matin, il fait frais, mais l'après-midi, il fait doux.",
+      "example_meaning": "In the morning it's cool, but in the afternoon it's mild."
+    },
+    {
+      "term": "il pleut / il neige",
+      "meaning": "it's raining / it's snowing",
+      "example": "Il pleut à Brest et il neige dans les Alpes.",
+      "example_meaning": "It's raining in Brest and snowing in the Alps."
+    },
+    {
+      "term": "le soleil",
+      "meaning": "sun (m)",
+      "example": "Il y a du soleil sur la plage.",
+      "example_meaning": "It's sunny on the beach."
+    },
+    {
+      "term": "le vent",
+      "meaning": "wind (m)",
+      "example": "Il y a du vent sur la côte.",
+      "example_meaning": "It's windy on the coast."
+    },
+    {
+      "term": "le nuage",
+      "meaning": "cloud (m)",
+      "example": "Il y a des nuages, mais il ne pleut pas.",
+      "example_meaning": "It's cloudy, but it isn't raining."
+    },
+    {
+      "term": "l'orage",
+      "meaning": "thunderstorm (m)",
+      "example": "Ce soir, il y a de l'orage dans le sud.",
+      "example_meaning": "Tonight there's a thunderstorm in the south."
+    },
+    {
+      "term": "la météo",
+      "meaning": "weather forecast (f)",
+      "example": "Je regarde la météo à la télé.",
+      "example_meaning": "I'm watching the weather forecast on TV."
+    },
+    {
+      "term": "le printemps",
+      "meaning": "spring (m)",
+      "example": "Au printemps, il fait doux et il pleut souvent.",
+      "example_meaning": "In spring it's mild and it often rains."
+    },
+    {
+      "term": "l'été",
+      "meaning": "summer (m)",
+      "example": "En été, on va à la plage.",
+      "example_meaning": "In summer, we go to the beach."
+    },
+    {
+      "term": "l'automne",
+      "meaning": "autumn, fall (m)",
+      "example": "En automne, il y a du vent et des nuages.",
+      "example_meaning": "In autumn it's windy and cloudy."
+    },
+    {
+      "term": "l'hiver",
+      "meaning": "winter (m)",
+      "example": "En hiver, on fait du ski dans les Alpes.",
+      "example_meaning": "In winter, we go skiing in the Alps."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-weather-seasons-01",
+      "prompt": "It's 32 °C in Marseille. Which sentence fits the weather?",
+      "type": "multiple-choice",
+      "options": [
+        "Il fait chaud.",
+        "Il fait froid.",
+        "Il fait frais."
+      ],
+      "correct_answer": "Il fait chaud.",
+      "explanation": "Thirty-two degrees is hot: il fait chaud. Froid is cold and frais is cool.",
+      "hints": [
+        "Thirty-two degrees: hot or cold?"
+      ],
+      "teaches": [
+        "il fait chaud / il fait froid"
+      ]
+    },
+    {
+      "question_id": "a1-weather-seasons-02",
+      "prompt": "Quel temps ___-il ? — Il fait beau.",
+      "type": "fill-in-blank",
+      "accepted_answers": [],
+      "correct_answer": "fait",
+      "explanation": "The weather question uses faire: Quel temps fait-il ? (literally 'what weather does it make?'), and the answer too: il fait beau.",
+      "hints": [
+        "The same verb as in the answer.",
+        "Il ___ beau."
+      ],
+      "teaches": [
+        "quel temps fait-il ?"
+      ]
+    },
+    {
+      "question_id": "a1-weather-seasons-03",
+      "prompt": "Choose the French for 'It's raining.'",
+      "type": "multiple-choice",
+      "options": [
+        "Il pleut.",
+        "Il fait pluie.",
+        "Il est pleut."
+      ],
+      "correct_answer": "Il pleut.",
+      "explanation": "Rain has its own verb, used only with il: il pleut. No fait and no est.",
+      "hints": [
+        "Rain is a verb of its own."
+      ],
+      "teaches": [
+        "il pleut / il neige"
+      ]
+    },
+    {
+      "question_id": "a1-weather-seasons-04",
+      "prompt": "Il y a ___ vent sur la plage. (It's windy on the beach.)",
+      "type": "fill-in-blank",
+      "accepted_answers": [],
+      "correct_answer": "du",
+      "explanation": "Il y a + du + a masculine noun for what is in the air: il y a du vent, il y a du soleil.",
+      "hints": [
+        "Le vent is masculine.",
+        "Two letters."
+      ],
+      "teaches": [
+        "le vent"
+      ]
+    },
+    {
+      "question_id": "a1-weather-seasons-05",
+      "prompt": "___ printemps, il fait doux et il pleut souvent.",
+      "type": "multiple-choice",
+      "options": [
+        "Au",
+        "En",
+        "À la"
+      ],
+      "correct_answer": "Au",
+      "explanation": "Printemps starts with a consonant, so it takes au: au printemps. The other seasons take en.",
+      "hints": [
+        "Printemps is the only season that starts with a consonant."
+      ],
+      "teaches": [
+        "le printemps"
+      ]
+    },
+    {
+      "question_id": "a1-weather-seasons-06",
+      "prompt": "___ hiver, on fait du ski. (In winter, we go skiing.)",
+      "type": "fill-in-blank",
+      "accepted_answers": [],
+      "correct_answer": "En",
+      "explanation": "Hiver starts with a vowel sound (the h is silent), so it takes en: en hiver, like en été and en automne.",
+      "hints": [
+        "Not au: the season starts with a silent h."
+      ],
+      "teaches": [
+        "l'hiver"
+      ]
+    },
+    {
+      "question_id": "a1-weather-seasons-07",
+      "prompt": "La météo : « À Strasbourg, il fait moins huit degrés. » What is the temperature in Strasbourg?",
+      "type": "numeric",
+      "accepted_answers": [],
+      "unit": "°C",
+      "correct_answer": "-8",
+      "explanation": "Moins means minus and huit is eight: il fait moins huit degrés = −8 °C.",
+      "hints": [
+        "Moins = minus.",
+        "Huit = 8."
+      ],
+      "teaches": [
+        "la météo"
+      ]
+    },
+    {
+      "question_id": "a1-weather-seasons-08",
+      "prompt": "'Il est froid' is the right way to say 'It's cold' about the weather.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "The weather takes il fait: il fait froid. Il est froid says that he, or a thing, is cold to the touch.",
+      "hints": [
+        "Which verb do weather adjectives use?"
+      ],
+      "teaches": [
+        "il fait chaud / il fait froid"
+      ]
+    },
+    {
+      "question_id": "a1-weather-seasons-09",
+      "prompt": "All four seasons are masculine in French.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Le printemps, l'été, l'automne and l'hiver are all masculine: un été chaud, un hiver froid.",
+      "hints": [
+        "Le printemps is masculine; what about the others?"
+      ],
+      "teaches": [
+        "l'été",
+        "l'automne"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Aujourd'hui, il fait beau et chaud.",
+      "meaning": "Today the weather's nice and hot."
+    },
+    {
+      "text": "Il neige beaucoup à la montagne en hiver.",
+      "meaning": "It snows a lot in the mountains in winter.",
+      "note": "New word: la montagne = the mountains."
+    },
+    {
+      "text": "Il y a du brouillard ce matin.",
+      "meaning": "It's foggy this morning.",
+      "note": "New word: le brouillard = the fog."
+    },
+    {
+      "text": "Il pleut, mais il ne fait pas froid.",
+      "meaning": "It's raining, but it isn't cold.",
+      "note": "The negation goes around fait."
+    },
+    {
+      "text": "En automne, les arbres sont rouges et il fait frais.",
+      "meaning": "In autumn the trees are red and it's cool.",
+      "note": "New word: l'arbre = the tree."
+    },
+    {
+      "text": "La météo annonce vingt-cinq degrés à Nice.",
+      "meaning": "The forecast says twenty-five degrees in Nice."
+    },
+    {
+      "text": "Au printemps, je fais du vélo quand il fait doux.",
+      "meaning": "In spring I go cycling when it's mild.",
+      "note": "Au before printemps."
+    },
+    {
+      "text": "En été, quand il fait trop chaud, nous allons à la plage le matin.",
+      "meaning": "In summer, when it's too hot, we go to the beach in the morning."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Quel temps"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-weather-seasons-02"
+    },
+    {
+      "question": "a1-weather-seasons-01"
+    },
+    {
+      "question": "a1-weather-seasons-03"
+    },
+    {
+      "question": "a1-weather-seasons-08"
+    },
+    {
+      "tip": "Pleuvoir and neiger only ever have one form you need: il pleut, il neige. Nobody else can rain."
+    },
+    {
+      "section": "Il y a"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-weather-seasons-04"
+    },
+    {
+      "question": "a1-weather-seasons-07"
+    },
+    {
+      "concept": {
+        "title": "Degrees Celsius",
+        "markdown": "France measures in Celsius: **trente degrés** is a heatwave, **zéro** is freezing. Below zero, say **moins**: **il fait moins dix**. To ask the temperature: **Il fait combien ?** or **Quelle température fait-il ?**"
+      }
+    },
+    {
+      "section": "The seasons"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a1-weather-seasons-05"
+    },
+    {
+      "question": "a1-weather-seasons-06"
+    },
+    {
+      "question": "a1-weather-seasons-09"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-weather-seasons-conv-video-call",
+      "title": "A call across the ocean",
+      "scenario": "In January, Julien in Nice calls his sister Camille, who studies in Montréal, and they compare the weather.",
+      "role_a": "Julien",
+      "role_b": "Camille",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Salut Camille ! Quel temps fait-il à Montréal ?",
+          "meaning": "Hi Camille! What's the weather like in Montréal?"
+        },
+        {
+          "speaker": "b",
+          "text": "Il fait très froid ! Il fait moins quinze aujourd'hui.",
+          "meaning": "It's very cold! It's minus fifteen today.",
+          "note": "moins = minus"
+        },
+        {
+          "speaker": "a",
+          "text": "Moins quinze ? Et il neige ?",
+          "meaning": "Minus fifteen? And is it snowing?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, il neige beaucoup. Et à Nice ?",
+          "meaning": "Yes, it's snowing a lot. And in Nice?"
+        },
+        {
+          "speaker": "a",
+          "text": "Ici, il fait doux. Il y a du soleil et il fait quatorze degrés.",
+          "meaning": "Here it's mild. It's sunny and it's fourteen degrees.",
+          "note": "il y a du soleil"
+        },
+        {
+          "speaker": "b",
+          "text": "Quatorze degrés en hiver ? Quelle chance !",
+          "meaning": "Fourteen degrees in winter? Lucky you!",
+          "note": "en hiver"
+        },
+        {
+          "speaker": "a",
+          "text": "Oui, mais il y a du vent. Tu fais du ski le week-end ?",
+          "meaning": "Yes, but it's windy. Do you go skiing at weekends?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, je vais à la montagne samedi avec des amis.",
+          "meaning": "Yes, I'm going to the mountains on Saturday with friends."
+        },
+        {
+          "speaker": "a",
+          "text": "Moi, en hiver, je fais du vélo au bord de la mer.",
+          "meaning": "Me, in winter I go cycling by the sea."
+        },
+        {
+          "speaker": "b",
+          "text": "Et en été, tu vas à la plage tous les jours ?",
+          "meaning": "And in summer, do you go to the beach every day?"
+        },
+        {
+          "speaker": "a",
+          "text": "Non ! En été, il fait trop chaud. Je préfère le printemps.",
+          "meaning": "No! In summer it's too hot. I prefer spring."
+        },
+        {
+          "speaker": "b",
+          "text": "Moi aussi. Au printemps, il fait doux partout !",
+          "meaning": "Me too. In spring it's mild everywhere!",
+          "note": "au printemps"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🌡️",
+    "bites": [
+      {
+        "title": "Il fait + adjective",
+        "emoji": "☀️",
+        "rule": "The weather is il fait: il fait beau, mauvais, chaud, froid, doux, frais. Never il est for the weather.",
+        "example": "Il fait beau aujourd'hui.",
+        "example_meaning": "The weather's nice today."
+      },
+      {
+        "title": "Il pleut, il neige",
+        "emoji": "🌧️",
+        "rule": "Two weather verbs that only exist with il: il pleut (it's raining), il neige (it's snowing).",
+        "example": "Il neige dans les Alpes.",
+        "example_meaning": "It's snowing in the Alps."
+      },
+      {
+        "title": "Il y a du vent",
+        "emoji": "🌬️",
+        "rule": "Il y a + du, de l' or des for what's in the sky: du soleil, du vent, des nuages, du brouillard, de l'orage.",
+        "example": "Il y a des nuages ce matin.",
+        "example_meaning": "It's cloudy this morning."
+      },
+      {
+        "title": "Au printemps, en été",
+        "emoji": "🍂",
+        "rule": "Au printemps (a consonant), but en été, en automne, en hiver (a vowel sound).",
+        "example": "En automne, il fait frais.",
+        "example_meaning": "In autumn it's cool."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Il fait or il y a?",
+        "buckets": [
+          "il fait…",
+          "il y a…"
+        ],
+        "items": [
+          {
+            "text": "beau",
+            "bucket": 0
+          },
+          {
+            "text": "des nuages",
+            "bucket": 1
+          },
+          {
+            "text": "froid",
+            "bucket": 0
+          },
+          {
+            "text": "de l'orage",
+            "bucket": 1
+          },
+          {
+            "text": "doux",
+            "bucket": 0
+          },
+          {
+            "text": "de la neige",
+            "bucket": 1
+          },
+          {
+            "text": "frais",
+            "bucket": 0
+          },
+          {
+            "text": "une tempête",
+            "bucket": 1
+          }
+        ],
+        "why": "Adjectives (beau, froid, doux, frais) go with il fait; things in the sky or on the ground (des nuages, de l'orage, de la neige, une tempête) go with il y a."
+      },
+      {
+        "title": "Au or en?",
+        "buckets": [
+          "au",
+          "en"
+        ],
+        "items": [
+          {
+            "text": "___ printemps",
+            "bucket": 0
+          },
+          {
+            "text": "___ été",
+            "bucket": 1
+          },
+          {
+            "text": "___ automne",
+            "bucket": 1
+          },
+          {
+            "text": "___ hiver",
+            "bucket": 1
+          },
+          {
+            "text": "___ mois de mai",
+            "bucket": 0
+          },
+          {
+            "text": "___ juillet",
+            "bucket": 1
+          }
+        ],
+        "why": "Au before printemps and before mois de; en before a season starting with a vowel sound and before the name of a month."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Il est froid ce matin.",
+        "wrong": "est",
+        "fix": "fait",
+        "why": "Weather adjectives go with il fait: il fait froid."
+      },
+      {
+        "sentence": "En printemps, il pleut souvent.",
+        "wrong": "En",
+        "fix": "Au",
+        "why": "Printemps starts with a consonant: au printemps."
+      },
+      {
+        "sentence": "Au hiver, on fait du ski.",
+        "wrong": "Au",
+        "fix": "En",
+        "why": "Hiver starts with a silent h, a vowel sound: en hiver."
+      },
+      {
+        "sentence": "Il fait des nuages aujourd'hui.",
+        "wrong": "fait",
+        "fix": "y a",
+        "why": "Clouds are things in the sky: il y a des nuages."
+      },
+      {
+        "sentence": "Il fait vingt degré à Paris.",
+        "wrong": "degré",
+        "fix": "degrés",
+        "why": "Twenty degrees is plural: vingt degrés."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Quel temps fait-il à Paris ?",
+        "meaning": "What's the weather like in Paris?",
+        "distractors": [
+          "est"
+        ]
+      },
+      {
+        "text": "Il y a du soleil.",
+        "meaning": "It's sunny.",
+        "distractors": [
+          "de"
+        ]
+      },
+      {
+        "text": "En hiver, il neige souvent.",
+        "meaning": "In winter it often snows.",
+        "distractors": [
+          "Au"
+        ]
+      },
+      {
+        "text": "Il fait moins cinq ce matin.",
+        "meaning": "It's minus five this morning.",
+        "distractors": [
+          "est"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "❄️",
+      "content": "## Le temps à Eldmark\n\nIn Frostmarch, the frozen north, **il fait froid, il neige et il y a du vent** all year. In la Forêt Ombreuse, **il y a du brouillard**. And in Highgate, **en été, il fait beau et chaud**: perfect weather for a quest.",
+      "vocabulary": [
+        {
+          "term": "quel temps fait-il ?",
+          "example": "Quel temps fait-il à Highgate ?",
+          "example_meaning": "What's the weather like in Highgate?"
+        },
+        {
+          "term": "il fait chaud / il fait froid",
+          "example": "À Frostmarch, il fait froid même en été.",
+          "example_meaning": "In Frostmarch it's cold even in summer."
+        },
+        {
+          "term": "il pleut / il neige",
+          "example": "Il neige sur les montagnes de Frostmarch.",
+          "example_meaning": "It's snowing on the mountains of Frostmarch."
+        },
+        {
+          "term": "le vent",
+          "example": "Il y a du vent sur la tour du mage.",
+          "example_meaning": "It's windy on the mage's tower."
+        },
+        {
+          "term": "l'orage",
+          "example": "La mage Séla adore l'orage.",
+          "example_meaning": "Séla the mage loves thunderstorms."
+        },
+        {
+          "term": "l'hiver",
+          "example": "En hiver, les nains restent à Deepanvil.",
+          "example_meaning": "In winter the dwarves stay in Deepanvil."
+        },
+        {
+          "term": "l'été",
+          "example": "En été, les elfes dansent dans la forêt.",
+          "example_meaning": "In summer the elves dance in the forest."
+        },
+        {
+          "term": "la tempête de neige",
+          "meaning": "snowstorm (f)",
+          "example": "Il y a une tempête de neige à Frostmarch.",
+          "example_meaning": "There's a snowstorm in Frostmarch."
+        },
+        {
+          "term": "la cape",
+          "meaning": "cloak (f)",
+          "example": "La cape de Nym est blanche comme la neige.",
+          "example_meaning": "Nym's cloak is as white as snow."
+        },
+        {
+          "term": "la glace",
+          "meaning": "ice (f)",
+          "example": "Il y a de la glace sur le bouclier.",
+          "example_meaning": "There's ice on the shield."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Le temps du Nord",
+          "emoji": "❄️",
+          "rule": "At Frostmarch: il fait froid, il neige, il y a du vent. Below zero, say moins: il fait moins vingt.",
+          "example": "En hiver, il fait moins vingt à Frostmarch.",
+          "example_meaning": "In winter it's minus twenty in Frostmarch."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Il neige à Frostmarch.",
+          "meaning": "It's snowing in Frostmarch."
+        },
+        {
+          "text": "Il y a du brouillard dans la forêt.",
+          "meaning": "It's foggy in the forest.",
+          "note": "New word: le brouillard = the fog."
+        },
+        {
+          "text": "Quel temps fait-il au donjon ?",
+          "meaning": "What's the weather like at the dungeon?"
+        },
+        {
+          "text": "En été, il fait chaud à Highgate.",
+          "meaning": "In summer it's hot in Highgate."
+        },
+        {
+          "text": "Il y a une tempête de neige sur la montagne.",
+          "meaning": "There's a snowstorm on the mountain.",
+          "note": "New word: la montagne = the mountain."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Il fait froid à Frostmarch.",
+          "meaning": "It's cold in Frostmarch.",
+          "distractors": [
+            "est"
+          ]
+        },
+        {
+          "text": "En hiver, il neige beaucoup.",
+          "meaning": "In winter it snows a lot.",
+          "distractors": [
+            "Au"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Il est froid dans le donjon.",
+          "wrong": "est",
+          "fix": "fait",
+          "why": "The weather takes il fait: il fait froid."
+        },
+        {
+          "sentence": "Au été, les elfes dansent.",
+          "wrong": "Au",
+          "fix": "En",
+          "why": "Été starts with a vowel: en été."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Hot or cold?",
+          "buckets": [
+            "chaud (hot)",
+            "froid (cold)"
+          ],
+          "items": [
+            {
+              "text": "Il neige.",
+              "bucket": 1
+            },
+            {
+              "text": "Il fait trente degrés.",
+              "bucket": 0
+            },
+            {
+              "text": "Il y a de la glace.",
+              "bucket": 1
+            },
+            {
+              "text": "Il fait moins dix.",
+              "bucket": 1
+            },
+            {
+              "text": "Il y a du soleil en été.",
+              "bucket": 0
+            },
+            {
+              "text": "Il fait chaud dans la forge.",
+              "bucket": 0
+            }
+          ],
+          "why": "Snow, ice and minus degrees are cold; thirty degrees, summer sun and the forge are hot."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-weather-seasons-realm-01",
+          "prompt": "À Frostmarch, ___ et il y a du vent. (In Frostmarch, it's snowing and it's windy.)",
+          "type": "multiple-choice",
+          "options": [
+            "il neige",
+            "il fait neige",
+            "il est neige"
+          ],
+          "correct_answer": "il neige",
+          "explanation": "Snow is its own verb: il neige, with no fait or est.",
+          "hints": [
+            "Snow has a verb of its own, like rain."
+          ],
+          "teaches": [
+            "il pleut / il neige"
+          ]
+        },
+        {
+          "question_id": "a1-weather-seasons-realm-02",
+          "prompt": "___ hiver, Borin porte une cape. (In winter, Borin wears a cloak.)",
+          "type": "fill-in-blank",
+          "accepted_answers": [],
+          "correct_answer": "En",
+          "explanation": "Hiver starts with a silent h, a vowel sound, so it takes en: en hiver.",
+          "hints": [
+            "Only printemps takes au."
+          ],
+          "teaches": [
+            "l'hiver",
+            "la cape"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "a1-weather-seasons-conv-realm-frostmarch",
+          "title": "Off to Frostmarch?",
+          "scenario": "In Highgate, Nym the elf asks Borin the dwarf about the weather before a quest to the frozen north.",
+          "role_a": "Nym",
+          "role_b": "Borin",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Borin, quel temps fait-il à Frostmarch ?",
+              "meaning": "Borin, what's the weather like in Frostmarch?"
+            },
+            {
+              "speaker": "b",
+              "text": "Il fait très froid. Il neige tous les jours.",
+              "meaning": "It's very cold. It snows every day."
+            },
+            {
+              "speaker": "a",
+              "text": "Même en été ?",
+              "meaning": "Even in summer?",
+              "note": "en été"
+            },
+            {
+              "speaker": "b",
+              "text": "Oui ! En été, il fait moins cinq.",
+              "meaning": "Yes! In summer it's minus five."
+            },
+            {
+              "speaker": "a",
+              "text": "Moins cinq en été ? Et en hiver ?",
+              "meaning": "Minus five in summer? And in winter?"
+            },
+            {
+              "speaker": "b",
+              "text": "En hiver, il fait moins trente et il y a des tempêtes de neige.",
+              "meaning": "In winter it's minus thirty and there are snowstorms."
+            },
+            {
+              "speaker": "a",
+              "text": "Bon… On va à Frostmarch au printemps, alors ?",
+              "meaning": "Right… We'll go to Frostmarch in spring, then?",
+              "note": "au printemps"
+            },
+            {
+              "speaker": "b",
+              "text": "Bonne idée ! Au printemps, il fait seulement moins dix.",
+              "meaning": "Good idea! In spring it's only minus ten."
+            }
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "⛅",
+      "content": "## Les saisons à Meadowbrook\n\nEvery season has its work. **Au printemps, il pleut**: Nora plants **les fraises**. **En été, il fait chaud**: she waters **le maïs**. **En automne, il fait frais**: it's time for **la fête des récoltes** and **les citrouilles**. **En hiver, il neige**: everyone meets at la taverne.",
+      "vocabulary": [
+        {
+          "term": "le printemps",
+          "example": "Au printemps, Nora plante des fraises.",
+          "example_meaning": "In spring Nora plants strawberries."
+        },
+        {
+          "term": "l'été",
+          "example": "En été, Léo pêche dans la rivière.",
+          "example_meaning": "In summer Léo fishes in the river."
+        },
+        {
+          "term": "l'automne",
+          "example": "En automne, il y a la fête des récoltes.",
+          "example_meaning": "In autumn there's the harvest festival."
+        },
+        {
+          "term": "l'hiver",
+          "example": "En hiver, les vaches restent dans la grange.",
+          "example_meaning": "In winter the cows stay in the barn."
+        },
+        {
+          "term": "il pleut / il neige",
+          "example": "Il pleut : pas besoin d'arroser les fraises !",
+          "example_meaning": "It's raining: no need to water the strawberries!"
+        },
+        {
+          "term": "le soleil",
+          "example": "Le maïs adore le soleil.",
+          "example_meaning": "Corn loves the sun."
+        },
+        {
+          "term": "la météo",
+          "example": "Rosa écoute la météo à la radio.",
+          "example_meaning": "Rosa listens to the weather forecast on the radio."
+        },
+        {
+          "term": "la citrouille",
+          "meaning": "pumpkin (f)",
+          "example": "Les citrouilles sont orange en automne.",
+          "example_meaning": "Pumpkins are orange in autumn."
+        },
+        {
+          "term": "la récolte",
+          "meaning": "harvest (f)",
+          "example": "La récolte de maïs est belle cette année.",
+          "example_meaning": "The corn harvest is good this year."
+        },
+        {
+          "term": "arroser",
+          "meaning": "to water (plants)",
+          "example": "En été, Nora arrose le jardin le soir.",
+          "example_meaning": "In summer Nora waters the garden in the evening."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Une saison, un travail",
+          "emoji": "⛅",
+          "rule": "Au printemps, on plante; en été, on arrose; en automne, on récolte; en hiver, il neige.",
+          "example": "En automne, il fait frais et on récolte les citrouilles.",
+          "example_meaning": "In autumn it's cool and we harvest the pumpkins."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Il pleut sur la ferme.",
+          "meaning": "It's raining on the farm."
+        },
+        {
+          "text": "En été, il fait chaud au marché.",
+          "meaning": "In summer it's hot at the market."
+        },
+        {
+          "text": "Au printemps, Nora plante les fraises.",
+          "meaning": "In spring Nora plants the strawberries."
+        },
+        {
+          "text": "En automne, il y a des citrouilles partout.",
+          "meaning": "In autumn there are pumpkins everywhere.",
+          "note": "New word: partout = everywhere."
+        },
+        {
+          "text": "Il y a du vent sur la plage aujourd'hui.",
+          "meaning": "It's windy on the beach today.",
+          "note": "New word: la plage = the beach."
+        }
+      ],
+      "builds": [
+        {
+          "text": "En été, il fait chaud.",
+          "meaning": "In summer it's hot.",
+          "distractors": [
+            "Au"
+          ]
+        },
+        {
+          "text": "Il y a des nuages sur la ferme.",
+          "meaning": "It's cloudy over the farm.",
+          "distractors": [
+            "fait"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Il est beau ce matin, on plante les fraises.",
+          "wrong": "est",
+          "fix": "fait",
+          "why": "Nice weather is il fait beau, not il est."
+        },
+        {
+          "sentence": "En printemps, Nora plante les fraises.",
+          "wrong": "En",
+          "fix": "Au",
+          "why": "Printemps takes au: au printemps."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Summer or winter?",
+          "buckets": [
+            "en été",
+            "en hiver"
+          ],
+          "items": [
+            {
+              "text": "Il neige sur la ferme.",
+              "bucket": 1
+            },
+            {
+              "text": "Léo pêche, il fait trente degrés.",
+              "bucket": 0
+            },
+            {
+              "text": "La rivière est gelée.",
+              "bucket": 1
+            },
+            {
+              "text": "Le maïs pousse au soleil.",
+              "bucket": 0
+            },
+            {
+              "text": "Il fait moins cinq.",
+              "bucket": 1
+            },
+            {
+              "text": "On mange une glace à la plage.",
+              "bucket": 0
+            }
+          ],
+          "why": "Snow, a frozen river and minus five are winter; thirty degrees, corn in the sun and ice cream on the beach are summer."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-weather-seasons-meadowbrook-01",
+          "prompt": "___ automne, c'est la fête des récoltes.",
+          "type": "multiple-choice",
+          "options": [
+            "En",
+            "Au",
+            "À l'"
+          ],
+          "correct_answer": "En",
+          "explanation": "Automne starts with a vowel, so it takes en: en automne.",
+          "hints": [
+            "Only printemps takes au."
+          ],
+          "teaches": [
+            "l'automne",
+            "la récolte"
+          ]
+        },
+        {
+          "question_id": "a1-weather-seasons-meadowbrook-02",
+          "prompt": "Il ___, alors Nora n'arrose pas les fraises. (It's raining, so Nora isn't watering the strawberries.)",
+          "type": "fill-in-blank",
+          "accepted_answers": [],
+          "correct_answer": "pleut",
+          "explanation": "Rain is its own verb: il pleut.",
+          "hints": [
+            "The verb is pleuvoir; you only need the il form."
+          ],
+          "teaches": [
+            "il pleut / il neige",
+            "arroser"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "a1-weather-seasons-conv-meadowbrook-river",
+          "title": "A foggy morning at the river",
+          "scenario": "Nora meets Léo the fisherman by the river on an autumn morning, two days before the harvest festival.",
+          "role_a": "Nora",
+          "role_b": "Léo",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Bonjour Léo ! Quel temps fait-il à la rivière ?",
+              "meaning": "Hello Léo! What's the weather like at the river?"
+            },
+            {
+              "speaker": "b",
+              "text": "Il fait frais, et il y a du brouillard ce matin.",
+              "meaning": "It's cool, and it's foggy this morning."
+            },
+            {
+              "speaker": "a",
+              "text": "Pas de pêche, alors ?",
+              "meaning": "No fishing, then?"
+            },
+            {
+              "speaker": "b",
+              "text": "Si, je pêche quand même. En automne, il y a beaucoup de poissons.",
+              "meaning": "Yes, I'm fishing anyway. In autumn there are lots of fish.",
+              "note": "en automne"
+            },
+            {
+              "speaker": "a",
+              "text": "Et la fête des récoltes, c'est samedi ?",
+              "meaning": "And the harvest festival is on Saturday?"
+            },
+            {
+              "speaker": "b",
+              "text": "Oui, et la météo annonce du soleil pour samedi !",
+              "meaning": "Yes, and the forecast says sun for Saturday!"
+            },
+            {
+              "speaker": "a",
+              "text": "Super ! J'apporte mes citrouilles.",
+              "meaning": "Great! I'll bring my pumpkins."
+            },
+            {
+              "speaker": "b",
+              "text": "Et moi, mes poissons !",
+              "meaning": "And I'll bring my fish!"
+            }
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🌫️",
+      "content": "## Le temps à Rustwake\n\nOutside the Dome, check **la météo** on your radio-montre every morning. **Il fait soleil** and **il fait très chaud**, often forty degrees. **Il y a du vent et de la poussière.** The worst: **il y a une tempête de cendres**. Then it's back to the Dome!",
+      "vocabulary": [
+        {
+          "term": "la météo",
+          "example": "La radio-montre donne la météo du désert.",
+          "example_meaning": "The wrist radio gives the desert weather forecast."
+        },
+        {
+          "term": "il fait chaud / il fait froid",
+          "example": "Le jour, il fait chaud, mais la nuit, il fait froid.",
+          "example_meaning": "By day it's hot, but at night it's cold."
+        },
+        {
+          "term": "le vent",
+          "example": "Il y a du vent sur le centre commercial en ruines.",
+          "example_meaning": "It's windy over the ruined mall."
+        },
+        {
+          "term": "le soleil",
+          "example": "Le soleil du désert est terrible.",
+          "example_meaning": "The desert sun is terrible."
+        },
+        {
+          "term": "quel temps fait-il ?",
+          "example": "Quel temps fait-il au village de ferraille ?",
+          "example_meaning": "What's the weather like in the scrap village?"
+        },
+        {
+          "term": "l'orage",
+          "example": "Il y a de l'orage sur l'antenne.",
+          "example_meaning": "There's a thunderstorm over the antenna."
+        },
+        {
+          "term": "il pleut / il neige",
+          "example": "Il ne pleut jamais dans le désert de rouille.",
+          "example_meaning": "It never rains in the rust desert."
+        },
+        {
+          "term": "la poussière",
+          "meaning": "dust (f)",
+          "example": "Il y a de la poussière sur ma radio-montre.",
+          "example_meaning": "There's dust on my wrist radio."
+        },
+        {
+          "term": "la tempête de cendres",
+          "meaning": "ash storm (f)",
+          "example": "Une tempête de cendres arrive ce soir.",
+          "example_meaning": "An ash storm is coming tonight."
+        },
+        {
+          "term": "la chaleur",
+          "meaning": "heat (f)",
+          "example": "La chaleur est terrible au marché.",
+          "example_meaning": "The heat is terrible at the market."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Météo du désert",
+          "emoji": "🌫️",
+          "rule": "Il fait chaud, il y a du vent, il y a de la poussière. A storm: il y a une tempête de cendres.",
+          "example": "Il fait quarante degrés au marché.",
+          "example_meaning": "It's forty degrees at the market."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Il fait très chaud au marché.",
+          "meaning": "It's very hot at the market."
+        },
+        {
+          "text": "Il y a de la poussière partout.",
+          "meaning": "There's dust everywhere.",
+          "note": "New word: la poussière = the dust."
+        },
+        {
+          "text": "La nuit, il fait froid dans le désert.",
+          "meaning": "At night it's cold in the desert."
+        },
+        {
+          "text": "La radio annonce une tempête de cendres.",
+          "meaning": "The radio says an ash storm is coming.",
+          "note": "New word: la tempête de cendres = the ash storm."
+        },
+        {
+          "text": "Il ne pleut pas, il fait quarante-deux degrés.",
+          "meaning": "It isn't raining, it's forty-two degrees."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Il y a de la poussière.",
+          "meaning": "There's dust.",
+          "distractors": [
+            "fait"
+          ]
+        },
+        {
+          "text": "Il fait quarante degrés aujourd'hui.",
+          "meaning": "It's forty degrees today.",
+          "distractors": [
+            "est"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Il est chaud dans le désert.",
+          "wrong": "est",
+          "fix": "fait",
+          "why": "Weather adjectives take il fait: il fait chaud."
+        },
+        {
+          "sentence": "Il fait de la poussière près de l'antenne.",
+          "wrong": "fait",
+          "fix": "y a",
+          "why": "Dust is a thing in the air: il y a de la poussière."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Il fait or il y a in the desert?",
+          "buckets": [
+            "il fait…",
+            "il y a…"
+          ],
+          "items": [
+            {
+              "text": "chaud",
+              "bucket": 0
+            },
+            {
+              "text": "de la poussière",
+              "bucket": 1
+            },
+            {
+              "text": "froid la nuit",
+              "bucket": 0
+            },
+            {
+              "text": "une tempête de cendres",
+              "bucket": 1
+            },
+            {
+              "text": "quarante degrés",
+              "bucket": 0
+            },
+            {
+              "text": "des nuages",
+              "bucket": 1
+            }
+          ],
+          "why": "Adjectives and degrees go with il fait; dust, storms and clouds are things, so il y a."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-weather-seasons-rustwake-01",
+          "prompt": "On the radio-montre: « ___ une tempête de cendres ce soir. »",
+          "type": "multiple-choice",
+          "options": [
+            "Il y a",
+            "Il fait",
+            "Il est"
+          ],
+          "correct_answer": "Il y a",
+          "explanation": "A storm is a thing in the sky, so il y a: il y a une tempête de cendres.",
+          "hints": [
+            "A noun follows: une tempête."
+          ],
+          "teaches": [
+            "la tempête de cendres"
+          ]
+        },
+        {
+          "question_id": "a1-weather-seasons-rustwake-02",
+          "prompt": "La nuit, dans le désert, il fait ___. (At night, in the desert, it's cold.)",
+          "type": "fill-in-blank",
+          "accepted_answers": [],
+          "correct_answer": "froid",
+          "explanation": "Cold weather is il fait froid.",
+          "hints": [
+            "The opposite of chaud."
+          ],
+          "teaches": [
+            "il fait chaud / il fait froid"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "a1-weather-seasons-conv-rustwake-ash-storm",
+          "title": "Storm warning",
+          "scenario": "Foreman Ruiz calls Marta the trader from the Dome on her wrist radio to ask about the weather in the scrap village.",
+          "role_a": "Ruiz",
+          "role_b": "Marta",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Marta, ici le contremaître. Quel temps fait-il au village ?",
+              "meaning": "Marta, the foreman here. What's the weather like in the village?"
+            },
+            {
+              "speaker": "b",
+              "text": "Il fait chaud, quarante degrés, et il y a du vent.",
+              "meaning": "It's hot, forty degrees, and it's windy."
+            },
+            {
+              "speaker": "a",
+              "text": "Il y a de la poussière ?",
+              "meaning": "Is there dust?"
+            },
+            {
+              "speaker": "b",
+              "text": "Oui, beaucoup. Et la radio annonce une tempête de cendres.",
+              "meaning": "Yes, lots. And the radio says an ash storm is coming."
+            },
+            {
+              "speaker": "a",
+              "text": "Une tempête de cendres ? Quand ?",
+              "meaning": "An ash storm? When?"
+            },
+            {
+              "speaker": "b",
+              "text": "Ce soir. Je reste dans l'atelier.",
+              "meaning": "Tonight. I'm staying in the workshop."
+            },
+            {
+              "speaker": "a",
+              "text": "Bonne idée. Au Dôme, il fait vingt degrés et il ne pleut jamais !",
+              "meaning": "Good idea. In the Dome it's twenty degrees and it never rains!"
+            },
+            {
+              "speaker": "b",
+              "text": "Ha ! Au Dôme, il n'y a pas de météo !",
+              "meaning": "Ha! In the Dome there's no weather forecast!"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

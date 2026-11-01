@@ -1,0 +1,25 @@
+<div class="modal-backdrop" data-testid="course-ai-modal-backdrop"{% if m.follows() %} data-modal-static{% endif %}>
+  <div class="modal" id="ai-modal" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="ai-modal-title" data-testid="course-ai-modal" data-follow="{{ m.follows() }}" data-job="{{ m.job }}" data-phase="{{ m.status.phase }}" data-state="{{ m.state() }}" data-done="{{ m.status.done }}" data-error="{% if let Some(e) = m.status.error %}{{ e }}{% endif %}" data-adding="{{ m.status.adding }}" data-revision="{{ m.status.revision }}" data-editing="{{ m.status.editing }}" data-lessons-done="{{ m.status.lessons_done }}" data-lessons-total="{{ m.status.lessons_total }}" data-poll-url="{{ crate::base_path() }}/api/generate/{{ m.job }}" data-done-url="{{ crate::base_path() }}/courses/{{ m.course_id }}?job={{ m.job }}">
+  {% if m.follows() %}
+    <h2 id="ai-modal-title" data-testid="course-ai-modal-title">{{ crate::t("courses.ai.modal_generating") }}</h2>
+    <p class="muted" data-testid="course-ai-modal-what">{{ m.status.heading() }}</p>
+    <p id="ai-modal-phase" role="status" data-testid="course-ai-modal-phase">{{ m.status.phase }}</p>
+    <div class="bar" data-testid="course-ai-modal-bar"><div class="fill" id="ai-modal-bar" style="width:{% if m.status.lessons_total > 0 %}{{ m.status.lessons_done * 100 / m.status.lessons_total }}{% else %}0{% endif %}%"></div></div>
+    <p class="small muted" id="ai-modal-count" data-testid="course-ai-modal-count">{% if m.status.editing %}{{ crate::t2("courses.ai.modal_count_edited", "done", m.status.lessons_done, "total", m.status.lessons_total) }}{% else if m.status.revision && !m.status.adding %}{{ crate::t2("courses.ai.modal_count_rewritten", "done", m.status.lessons_done, "total", m.status.lessons_total) }}{% else %}{{ crate::t2("courses.ai.modal_count_written", "done", m.status.lessons_done, "total", m.status.lessons_total) }}{% endif %}</p>
+    <div class="actions">
+      <form method="post" action="{{ crate::base_path() }}/courses/{{ m.course_id }}/cancel" class="inline" data-testid="course-ai-modal-cancel-form"><button type="submit" class="btn ghost" data-testid="course-ai-modal-cancel">{{ crate::t("courses.ai.modal_cancel") }}</button></form>
+      <noscript><a class="btn ghost" href="{{ crate::base_path() }}/courses/{{ m.course_id }}?job={{ m.job }}" data-testid="course-ai-modal-refresh">{{ crate::t("courses.ai.modal_refresh") }}</a></noscript>
+    </div>
+    <p class="small muted">{% if m.status.revision %}{{ crate::t("courses.ai.modal_leave_revision") }}{% else %}{{ crate::t("courses.ai.modal_leave") }}{% endif %}</p>
+  {% else if let Some(e) = m.status.error %}
+    <h2 id="ai-modal-title" data-testid="course-ai-modal-title">{{ m.status.heading() }}</h2>
+    <p class="alert error" role="alert" data-testid="course-ai-modal-error">{% if let Some(plain) = crate::ai::plain_revision_failure(e) %}{{ plain }}{% else %}{{ e }}{% endif %}</p>
+    {% if crate::ai::plain_revision_failure(e).is_some() %}<details class="error-detail small muted" data-testid="course-ai-modal-error-detail"><summary>{{ crate::t("courses.ai.modal_provider_said") }}</summary><code>{{ e }}</code></details>{% endif %}
+    <p class="actions"><a class="btn" href="{{ crate::base_path() }}/courses/{{ m.course_id }}" data-testid="course-ai-modal-close" data-modal-close>{{ crate::t("courses.ai.modal_close") }}</a></p>
+  {% else %}
+    <h2 id="ai-modal-title" data-testid="course-ai-modal-title">{{ m.status.heading() }}</h2>
+    <p data-testid="course-ai-modal-done">{{ crate::t("courses.ai.modal_done") }}</p>
+    <p class="actions"><a class="btn big" href="{{ crate::base_path() }}/courses/{{ m.course_id }}#lessons" data-testid="course-ai-modal-continue" data-modal-close>{{ crate::t("courses.ai.modal_continue") }}</a></p>
+  {% endif %}
+  </div>
+</div>

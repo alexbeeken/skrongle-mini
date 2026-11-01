@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Three-eyed mutant with a glowing staff">
+  <path d="M52 14 L48 60" stroke="#5a4a3a" stroke-width="2.6" stroke-linecap="round"/><circle cx="52" cy="11" r="7" fill="#c8f04a" fill-opacity="0.3"/><circle cx="52" cy="11" r="4" fill="#c8f04a"/>
+  <path d="M8 64 Q10 44 32 43 Q54 44 56 64Z" fill="#6a7a4a"/>
+  <path d="M32 46 L32 64" stroke="#4a5a30" stroke-width="2"/>
+  <circle cx="22" cy="54" r="3" fill="#c8f04a"/><path d="M22 51 L22 57 M19 54 L25 54" stroke="#4a5a30" stroke-width="1"/>
+  <rect x="28" y="36" width="8" height="9" fill="#846a9a"/>
+  <circle cx="32" cy="28" r="12" fill="#9b7fb0"/>
+  <circle cx="23" cy="18" r="3" fill="#b89ccc"/><circle cx="41" cy="17" r="2.4" fill="#b89ccc"/><circle cx="31" cy="15" r="2" fill="#b89ccc"/>
+  <circle cx="26" cy="30" r="3" fill="#f6f3d8"/><circle cx="38" cy="30" r="3" fill="#f6f3d8"/><circle cx="32" cy="23" r="2.6" fill="#f6f3d8"/>
+  <circle cx="26" cy="30" r="1.4" fill="#2a4a1a"/><circle cx="38" cy="30" r="1.4" fill="#2a4a1a"/><circle cx="32" cy="23" r="1.2" fill="#2a4a1a"/>
+  <path d="M27 37 Q32 40 37 37" stroke="#3a2a4a" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+</svg>

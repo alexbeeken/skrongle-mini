@@ -1,0 +1,1204 @@
+{
+  "id": "c2-humour-irony-wordplay",
+  "slug": "humour-irony-wordplay",
+  "title": "Humour, irony and wordplay",
+  "unit": "C2",
+  "group": "Vocabulary",
+  "order": 26,
+  "summary": "How Spanish speakers joke: irony markers like ¡Lo que faltaba! and menudo + noun, mocking diminutives, understatement and hyperbole, puns built on polysemy, and the words for talking about humour.",
+  "focus": "Recognising and using irony, understatement, mocking diminutives and puns",
+  "prerequisites": [
+    "c1-colloquial-and-idioms",
+    "c2-word-formation"
+  ],
+  "content": "## Irony markers\n\nSpanish irony often uses a set exclamation, and tone does the rest.\n\n| marker | ironic use |\n|---|---|\n| **¡Hombre, claro!** | \"oh, sure\" when the answer is plainly no |\n| **¡Qué bien!** | something has just gone wrong |\n| **menudo/a + noun** | what a…! **¡Menudo día!** (agrees: **¡Menuda tarde!**) |\n| **vaya + noun** | **¡Vaya nochecita!** what a night (not a good one) |\n| **¡Lo que faltaba!** | that's all we needed |\n| **¡Anda que…!** | a reproach: **¡Anda que avisas!** you might have warned me |\n\nBefore the noun, **menudo** means \"what a\"; after it, plain \"small\" (**un hombre menudo**). Both can also admire: **¡Menudo gol!**\n\n## Diminutives and augmentatives with a sting\n\nDiminutives usually sound fond, but aimed at someone's cleverness they mock:\n\n- **el listillo / la listilla**: the smart aleck who always knows better.\n- **el cerebrito**: the brainiac, teasing but mostly friendly (**Clara es un cerebrito**).\n- **el graciosillo**: someone trying too hard to be funny.\n- **el muy + adjective** sharpens it: **Se fue sin pagar, el muy listillo.**\n\nOn a disaster, a diminutive shrinks it ironically: a flooded kitchen is **un problemilla**. Augmentatives cut both ways: **un cochazo** (a flash car, admiring), **un problemón** (a huge problem).\n\n## Understatement and hyperbole\n\n**Understatement** says less than the truth and lets the listener add the rest:\n\n- **No está nada mal.** It's excellent (said of a record-breaking time).\n- **Es un pelín caro.** It costs a fortune.\n- **Hace un poquito de calor.** At forty-four degrees in the shade.\n\n**Hyperbole** says far more:\n\n- **Te lo he dicho mil veces.** I've told you a thousand times.\n- **Me muero de hambre.** I'm starving.\n- **Tardó un siglo en contestar.** He took ages to answer.\n\nBoth turn ironic when the gap with reality is the joke. Deadpan understatement is the heart of **la retranca**, the sly humour often associated with Galicia.\n\n## Puns from polysemy\n\nA **juego de palabras** needs one word with two live meanings:\n\n| word | meaning 1 | meaning 2 |\n|---|---|---|\n| **el banco** | bank | bench |\n| **la cola** | queue | glue (also tail) |\n| **el gato** | cat | car jack |\n| **la sierra** | saw | mountain range |\n\n- **El banco del parque no da intereses, pero te deja sentarte.** The park bench pays no interest, but lets you sit.\n- **Había tanta cola en la papelería que me quedé pegado.** So much queue (glue) at the stationer's that I got stuck.\n- **El carpintero veranea en la sierra: no sabe desconectar.** The carpenter holidays in the mountains (the saw): he can't switch off.\n\n## Talking about humour\n\n- **tomar el pelo a alguien**: to pull someone's leg. **¿Me estás tomando el pelo?**\n- **con segundas**: with a hidden meaning or a dig. **Lo dijo con segundas.**\n- **pillar el chiste**: to get the joke (colloquial; **no lo pillo**).\n- **el humor negro**: dark humour about death or misfortune; know your audience.\n- **la retranca**: dry, deadpan irony.\n\n**Irony vs sarcasm.** **La ironía** says the opposite of what it means and invites you to share the wink. **El sarcasmo** is irony sharpened to wound. **¡Qué puntual!** to a friend who turns up late is irony; repeated in front of the whole office to embarrass them, it is sarcasm.",
+  "vocabulary": [
+    {
+      "term": "menudo",
+      "meaning": "what a…! (before a noun; ironic or admiring; agrees: menuda, menudos)",
+      "example": "¡Menudo atasco a las ocho de la mañana!",
+      "example_meaning": "What a traffic jam at eight in the morning!"
+    },
+    {
+      "term": "¡hombre, claro!",
+      "meaning": "well, of course! (often ironic: of course not)",
+      "example": "¿Que si quiero hacer horas extra el domingo? ¡Hombre, claro!",
+      "example_meaning": "Do I want to work overtime on Sunday? Oh, sure!"
+    },
+    {
+      "term": "¡lo que faltaba!",
+      "meaning": "that's all we needed!",
+      "example": "Se ha ido la luz en mitad de la cena. ¡Lo que faltaba!",
+      "example_meaning": "The power's gone off in the middle of dinner. That's all we needed!"
+    },
+    {
+      "term": "¡anda que…!",
+      "meaning": "ironic reproach: ¡anda que avisas! = you might have warned me",
+      "example": "¡Anda que me llamas el día de mi cumpleaños!",
+      "example_meaning": "You didn't even call me on my birthday!"
+    },
+    {
+      "term": "el listillo",
+      "meaning": "smart aleck (la listilla)",
+      "example": "El listillo de turno ya ha encontrado un fallo en el plan.",
+      "example_meaning": "The resident smart aleck has already found a flaw in the plan."
+    },
+    {
+      "term": "el cerebrito",
+      "meaning": "brainiac, swot (teasing)",
+      "example": "Pregúntale a Clara, que es el cerebrito de la oficina.",
+      "example_meaning": "Ask Clara, she's the office brainiac."
+    },
+    {
+      "term": "no estar nada mal",
+      "meaning": "to be pretty good (understatement)",
+      "example": "Tu paella no está nada mal: voy a repetir.",
+      "example_meaning": "Your paella isn't bad at all: I'm having seconds."
+    },
+    {
+      "term": "tomar el pelo",
+      "meaning": "to pull someone's leg",
+      "example": "¿Te han ascendido otra vez? Me estás tomando el pelo.",
+      "example_meaning": "Promoted again? You're pulling my leg."
+    },
+    {
+      "term": "con segundas",
+      "meaning": "with a hidden meaning or a dig",
+      "example": "Cuando me felicitó por mi puntualidad, lo dijo con segundas.",
+      "example_meaning": "When she congratulated me on my punctuality, there was a dig in it."
+    },
+    {
+      "term": "pillar el chiste",
+      "meaning": "to get the joke (colloquial)",
+      "example": "Tardé un rato en pillar el chiste, pero luego me reí más que nadie.",
+      "example_meaning": "It took me a while to get the joke, but then I laughed more than anyone."
+    },
+    {
+      "term": "el humor negro",
+      "meaning": "dark humour",
+      "example": "El humor negro funciona entre amigos, no con desconocidos.",
+      "example_meaning": "Dark humour works among friends, not with strangers."
+    },
+    {
+      "term": "la retranca",
+      "meaning": "sly, deadpan irony (associated with Galicia)",
+      "example": "Con mucha retranca, mi tío llamó llovizna al diluvio.",
+      "example_meaning": "With a perfectly straight face, my uncle called the downpour a drizzle."
+    },
+    {
+      "term": "el juego de palabras",
+      "meaning": "pun, wordplay",
+      "example": "El juego de palabras se pierde en la traducción.",
+      "example_meaning": "The pun gets lost in translation."
+    },
+    {
+      "term": "el sarcasmo",
+      "meaning": "sarcasm (irony meant to wound)",
+      "example": "Su sarcasmo en la reunión dejó a todos incómodos.",
+      "example_meaning": "His sarcasm in the meeting made everyone uncomfortable."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "c2-humour-irony-wordplay-01",
+      "prompt": "It's raining, you've just missed the bus, and now your umbrella turns inside out. What do you say?",
+      "type": "multiple-choice",
+      "options": [
+        "¡Lo que faltaba!",
+        "¡Menos mal!",
+        "¡Qué suerte!"
+      ],
+      "correct_answer": "¡Lo que faltaba!",
+      "explanation": "¡Lo que faltaba! (that's all we needed) greets the last straw. ¡Menos mal! means 'thank goodness', which only works if something went right.",
+      "hints": [
+        "Literally: what was missing."
+      ],
+      "teaches": [
+        "¡lo que faltaba!"
+      ]
+    },
+    {
+      "question_id": "c2-humour-irony-wordplay-02",
+      "prompt": "¡___ nochecita he pasado con el vecino de la batería! (menudo)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "Menuda",
+      "accepted_answers": [],
+      "explanation": "Menudo before a noun means 'what a…!' and agrees with it, so la nochecita takes ¡Menuda nochecita!",
+      "hints": [
+        "Nochecita is feminine."
+      ],
+      "teaches": [
+        "menudo"
+      ]
+    },
+    {
+      "question_id": "c2-humour-irony-wordplay-03",
+      "prompt": "Your boss asks if you'd love to work this Saturday. You reply, flatly: '¡Hombre, claro! Me hace muchísima ilusión.' What do you mean?",
+      "type": "multiple-choice",
+      "options": [
+        "No, not at all.",
+        "Yes, I'd be delighted.",
+        "Maybe, if I'm free."
+      ],
+      "correct_answer": "No, not at all.",
+      "explanation": "Said flat, ¡Hombre, claro! and the over-the-top 'muchísima ilusión' mean the opposite: irony through tone.",
+      "hints": [
+        "Listen to the tone, not the words."
+      ],
+      "teaches": [
+        "¡hombre, claro!"
+      ]
+    },
+    {
+      "question_id": "c2-humour-irony-wordplay-04",
+      "prompt": "Llevas un mes en la ciudad y ni un mensaje. ¡___ que me llamas!",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "Anda",
+      "accepted_answers": [],
+      "explanation": "¡Anda que…! + a verb in the present is an ironic reproach: ¡Anda que me llamas! = you haven't called me once.",
+      "hints": [
+        "A word that also means 'walk!'."
+      ],
+      "teaches": [
+        "¡anda que…!"
+      ]
+    },
+    {
+      "question_id": "c2-humour-irony-wordplay-05",
+      "prompt": "Which word teases a studious, very bright person, usually fondly?",
+      "type": "multiple-choice",
+      "options": [
+        "el cerebrito",
+        "el listillo",
+        "el cabezota"
+      ],
+      "correct_answer": "el cerebrito",
+      "explanation": "El cerebrito (little brain) is teasing but friendly. El listillo mocks a know-it-all; el cabezota is a stubborn person.",
+      "hints": [
+        "Think of the brain: el cerebro."
+      ],
+      "teaches": [
+        "el cerebrito"
+      ]
+    },
+    {
+      "question_id": "c2-humour-irony-wordplay-06",
+      "prompt": "Se coló en la cola y encima sonrió, el muy ___. (listo + -illo)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "listillo",
+      "accepted_answers": [],
+      "explanation": "El muy + an ironic diminutive is a mocking aside: el muy listillo = the clever so-and-so.",
+      "hints": [
+        "listo → list + illo"
+      ],
+      "teaches": [
+        "el listillo"
+      ]
+    },
+    {
+      "question_id": "c2-humour-irony-wordplay-07",
+      "prompt": "—He ganado el maratón y he batido el récord. —Pues no está nada ___.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "mal",
+      "accepted_answers": [],
+      "explanation": "No está nada mal (it's not bad at all) is understatement. The speaker means it is excellent.",
+      "hints": [
+        "The opposite of bien."
+      ],
+      "teaches": [
+        "no estar nada mal"
+      ]
+    },
+    {
+      "question_id": "c2-humour-irony-wordplay-08",
+      "prompt": "Tranquilo, no es verdad: te estaba tomando el ___.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "pelo",
+      "accepted_answers": [],
+      "explanation": "Tomar el pelo a alguien (literally to take someone's hair) is to pull their leg.",
+      "hints": [
+        "Something on your head."
+      ],
+      "teaches": [
+        "tomar el pelo"
+      ]
+    },
+    {
+      "question_id": "c2-humour-irony-wordplay-09",
+      "prompt": "'Había tanta cola en la papelería que me quedé pegado.' The joke works because cola means both…",
+      "type": "multiple-choice",
+      "options": [
+        "queue and glue",
+        "queue and tail",
+        "tail and glue"
+      ],
+      "correct_answer": "queue and glue",
+      "explanation": "The long queue at the stationer's and the glue sold there are both cola, and 'me quedé pegado' (I got stuck) brings the glue to life.",
+      "hints": [
+        "What sticks?"
+      ],
+      "teaches": [
+        "el juego de palabras"
+      ]
+    },
+    {
+      "question_id": "c2-humour-irony-wordplay-10",
+      "prompt": "As a downpour floods the street, your neighbour remarks with a straight face: 'Parece que chispea un poco.' What kind of humour is this?",
+      "type": "multiple-choice",
+      "options": [
+        "la retranca",
+        "el humor negro",
+        "un juego de palabras"
+      ],
+      "correct_answer": "la retranca",
+      "explanation": "Chispear is to drizzle. Calling a flood a drizzle, deadpan, is the dry understatement of la retranca. There is no pun and nothing dark about it.",
+      "hints": [
+        "Deadpan understatement."
+      ],
+      "teaches": [
+        "la retranca"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "c2-humour-irony-wordplay-conv-columna",
+      "title": "The humour column",
+      "scenario": "Inés, an editor at a weekly magazine, goes through Bruno's humour column with him before it goes to print.",
+      "role_a": "Inés",
+      "role_b": "Bruno",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "He leído tu columna. Menuda forma de empezar, con un juego de palabras.",
+          "meaning": "I've read your column. Some way to start, with a pun."
+        },
+        {
+          "speaker": "b",
+          "text": "¿No te gusta? El banco del parque no da intereses, pero te deja sentarte. Es bueno.",
+          "meaning": "Don't you like it? The park bench pays no interest, but it lets you sit. It's good."
+        },
+        {
+          "speaker": "a",
+          "text": "Hombre, claro, buenísimo. He tenido que leerlo tres veces para pillar el chiste.",
+          "meaning": "Oh, sure, brilliant. I had to read it three times to get the joke."
+        },
+        {
+          "speaker": "b",
+          "text": "Eso lo dices con segundas.",
+          "meaning": "There's a dig in that."
+        },
+        {
+          "speaker": "a",
+          "text": "Un poquito. Pero el del carpintero que se va de vacaciones a la sierra sí funciona.",
+          "meaning": "A little. But the one about the carpenter who goes to the mountains on holiday does work."
+        },
+        {
+          "speaker": "b",
+          "text": "Porque no sabe desconectar. Me costó una semana dar con él.",
+          "meaning": "Because he can't switch off. It took me a week to come up with it."
+        },
+        {
+          "speaker": "a",
+          "text": "Lo que me preocupa es el párrafo del alcalde. Ahí ya no hay ironía: hay sarcasmo.",
+          "meaning": "What worries me is the paragraph about the mayor. That's not irony any more: it's sarcasm."
+        },
+        {
+          "speaker": "b",
+          "text": "¿Tú crees? Solo digo que es muy puntual para llegar tarde.",
+          "meaning": "Do you think so? I only say he's very punctual about arriving late."
+        },
+        {
+          "speaker": "a",
+          "text": "La ironía guiña el ojo; el sarcasmo muerde. Y ese párrafo muerde.",
+          "meaning": "Irony winks; sarcasm bites. And that paragraph bites."
+        },
+        {
+          "speaker": "b",
+          "text": "Vale, lo suavizo. ¿Algo más, señora editora?",
+          "meaning": "All right, I'll tone it down. Anything else, madam editor?"
+        },
+        {
+          "speaker": "a",
+          "text": "Sí: no vuelvas a llamarme cerebrito en la reunión de redacción.",
+          "meaning": "Yes: don't call me a brainiac in the editorial meeting again."
+        },
+        {
+          "speaker": "b",
+          "text": "¡Anda que no te gustó! Te pusiste roja como un tomate.",
+          "meaning": "Oh, come on, you loved it! You went as red as a tomato."
+        }
+      ]
+    }
+  ],
+  "guide": [
+    {
+      "section": "Irony markers"
+    },
+    {
+      "question": "c2-humour-irony-wordplay-01"
+    },
+    {
+      "question": "c2-humour-irony-wordplay-02"
+    },
+    {
+      "question": "c2-humour-irony-wordplay-03"
+    },
+    {
+      "question": "c2-humour-irony-wordplay-04"
+    },
+    {
+      "tip": "Irony sits in the tone. Say ¡Qué bien! flat and slow, eyes on the disaster, and nobody will take it literally."
+    },
+    {
+      "section": "Diminutives and augmentatives"
+    },
+    {
+      "question": "c2-humour-irony-wordplay-05"
+    },
+    {
+      "question": "c2-humour-irony-wordplay-06"
+    },
+    {
+      "section": "Understatement and hyperbole"
+    },
+    {
+      "question": "c2-humour-irony-wordplay-07"
+    },
+    {
+      "section": "Puns from polysemy"
+    },
+    {
+      "question": "c2-humour-irony-wordplay-09"
+    },
+    {
+      "section": "Talking about humour"
+    },
+    {
+      "question": "c2-humour-irony-wordplay-08"
+    },
+    {
+      "question": "c2-humour-irony-wordplay-10"
+    }
+  ],
+  "sprint": {
+    "icon": "😏",
+    "bites": [
+      {
+        "title": "Menudo + noun",
+        "emoji": "🙄",
+        "rule": "Before a noun, menudo means 'what a…!', ironic or admiring, and agrees: ¡Menudo día!, ¡Menuda tarde! After the noun it just means small.",
+        "example": "¡Menuda semana llevamos!",
+        "example_meaning": "What a week we're having!"
+      },
+      {
+        "title": "¡Lo que faltaba!",
+        "emoji": "🌧️",
+        "rule": "Greet the last straw with ¡Lo que faltaba! (that's all we needed). ¡Qué bien! said flat does the same job.",
+        "example": "Se ha roto la lavadora. ¡Lo que faltaba!",
+        "example_meaning": "The washing machine's broken. That's all we needed!"
+      },
+      {
+        "title": "-illo with a sting",
+        "emoji": "🤓",
+        "rule": "Aimed at cleverness, a diminutive mocks: el listillo is a know-it-all, el cerebrito a teased brainiac. El muy listillo sharpens it.",
+        "example": "Se llevó el último trozo, el muy listillo.",
+        "example_meaning": "He took the last slice, the clever so-and-so."
+      },
+      {
+        "title": "Two meanings, one pun",
+        "emoji": "🎭",
+        "rule": "A juego de palabras needs a word with two live meanings: banco (bank, bench), cola (queue, glue), gato (cat, car jack), sierra (saw, mountains).",
+        "example": "El banco del parque no da intereses.",
+        "example_meaning": "The park bench pays no interest."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Understatement or hyperbole?",
+        "buckets": [
+          "understatement",
+          "hyperbole"
+        ],
+        "why": "Understatement says less than the truth (un pelín, no está nada mal); hyperbole says far more (mil veces, un siglo, me muero).",
+        "items": [
+          {
+            "text": "Es un pelín caro.",
+            "bucket": 0
+          },
+          {
+            "text": "No está nada mal.",
+            "bucket": 0
+          },
+          {
+            "text": "Hace un poquito de calor.",
+            "bucket": 0
+          },
+          {
+            "text": "Te lo he dicho mil veces.",
+            "bucket": 1
+          },
+          {
+            "text": "Me muero de hambre.",
+            "bucket": 1
+          },
+          {
+            "text": "Tardó un siglo en contestar.",
+            "bucket": 1
+          }
+        ]
+      },
+      {
+        "title": "Banco: bank or bench?",
+        "buckets": [
+          "bank",
+          "bench"
+        ],
+        "why": "Money, accounts and opening hours point to the bank; parks, stone and sitting point to the bench.",
+        "items": [
+          {
+            "text": "Pedí un préstamo al banco.",
+            "bucket": 0
+          },
+          {
+            "text": "El banco cierra a las dos.",
+            "bucket": 0
+          },
+          {
+            "text": "Abrí una cuenta en otro banco.",
+            "bucket": 0
+          },
+          {
+            "text": "Me senté en un banco del parque.",
+            "bucket": 1
+          },
+          {
+            "text": "Dormía la siesta en un banco de piedra.",
+            "bucket": 1
+          },
+          {
+            "text": "El banco de la plaza está recién pintado.",
+            "bucket": 1
+          }
+        ]
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "¡Menudo nochecita he pasado!",
+        "wrong": "Menudo",
+        "fix": "Menuda",
+        "why": "Menudo agrees with the noun, so la nochecita takes menuda."
+      },
+      {
+        "sentence": "¡Lo que sobraba! Ahora se ha ido la luz.",
+        "wrong": "sobraba",
+        "fix": "faltaba",
+        "why": "The set phrase is ¡Lo que faltaba!, that's all we needed."
+      },
+      {
+        "sentence": "Siempre corrige a todos, la muy listillo.",
+        "wrong": "listillo",
+        "fix": "listilla",
+        "why": "Speaking of a woman, the diminutive agrees: la muy listilla."
+      },
+      {
+        "sentence": "No me tomes el cabello, que no me lo creo.",
+        "wrong": "cabello",
+        "fix": "pelo",
+        "why": "The idiom is fixed: tomar el pelo."
+      },
+      {
+        "sentence": "Lo dijo con segundos, pero nadie se dio cuenta.",
+        "wrong": "segundos",
+        "fix": "segundas",
+        "why": "Con segundas (with a hidden dig) is feminine plural."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Menuda tarde nos ha tocado hoy.",
+        "meaning": "What an afternoon we've had today.",
+        "distractors": [
+          "Menudo"
+        ]
+      },
+      {
+        "text": "Me estás tomando el pelo.",
+        "meaning": "You're pulling my leg.",
+        "distractors": [
+          "cabello"
+        ]
+      },
+      {
+        "text": "Lo dijo con segundas, pero sonriendo.",
+        "meaning": "He said it with a dig, but smiling.",
+        "distractors": [
+          "segundos"
+        ]
+      },
+      {
+        "text": "No pillé el chiste hasta la noche.",
+        "meaning": "I didn't get the joke until that night.",
+        "distractors": [
+          "chisme"
+        ]
+      }
+    ]
+  },
+  "listening": [
+    {
+      "text": "¡Lo que faltaba, otra reunión!",
+      "meaning": "That's all we needed, another meeting!"
+    },
+    {
+      "text": "Vaya tardecita nos ha dado el ordenador.",
+      "meaning": "What an afternoon the computer has given us.",
+      "note": "Vaya + noun means what a…, here ironic."
+    },
+    {
+      "text": "Mi hermano es el cerebrito de la familia.",
+      "meaning": "My brother is the family brainiac."
+    },
+    {
+      "text": "No te enfades, solo te estaba tomando el pelo.",
+      "meaning": "Don't get cross, I was only pulling your leg."
+    },
+    {
+      "text": "La cola del cine daba la vuelta a la manzana.",
+      "meaning": "The queue for the cinema went round the block.",
+      "note": "New word: la manzana = the city block."
+    },
+    {
+      "text": "Cuando el mecánico pidió el gato, mi hija le trajo a Misi.",
+      "meaning": "When the mechanic asked for the jack, my daughter brought him Misi the cat.",
+      "note": "New word: el gato = the car jack."
+    },
+    {
+      "text": "Mi primo cuenta chistes de humor negro, pero nunca delante de los niños.",
+      "meaning": "My cousin tells dark jokes, but never in front of the children."
+    },
+    {
+      "text": "Con cuarenta grados a la sombra, mi abuela dice que hace un poquito de calor.",
+      "meaning": "At forty degrees in the shade, my grandmother says it's a little warm.",
+      "note": "Here un poquito is understatement and means a great deal."
+    }
+  ],
+  "themes": {
+    "realm": {
+      "icon": "🃏",
+      "content": "## El humor en Eldmark\n\nAt the court of Highgate, **el bufón** is full of irony. When the dragon scorches the banquet he sighs **¡Lo que faltaba!**; he calls the court wizard **el cerebrito**; and his favourite **juego de palabras** is **la cola**, a dragon's tail and the queue at the armoury. The king never quite manages to **pillar el chiste**.",
+      "vocabulary": [
+        {
+          "term": "¡lo que faltaba!",
+          "example": "Llueve en Frostmarch y el dragón ha vuelto. ¡Lo que faltaba!",
+          "example_meaning": "It's raining in Frostmarch and the dragon is back. That's all we needed!"
+        },
+        {
+          "term": "el cerebrito",
+          "example": "La maga es el cerebrito de la torre.",
+          "example_meaning": "The mage is the brainiac of the tower."
+        },
+        {
+          "term": "menudo",
+          "example": "¡Menudo banquete nos ha dejado el dragón!",
+          "example_meaning": "What a banquet the dragon has left us!"
+        },
+        {
+          "term": "pillar el chiste",
+          "example": "El orco tardó tres días en pillar el chiste.",
+          "example_meaning": "The orc took three days to get the joke."
+        },
+        {
+          "term": "tomar el pelo",
+          "example": "El bufón le toma el pelo al paladín.",
+          "example_meaning": "The jester pulls the paladin's leg."
+        },
+        {
+          "term": "el juego de palabras",
+          "example": "El juego de palabras del bufón hizo reír al rey.",
+          "example_meaning": "The jester's pun made the king laugh."
+        },
+        {
+          "term": "el bufón",
+          "meaning": "the jester",
+          "example": "El bufón de Highgate habla siempre con segundas.",
+          "example_meaning": "The jester of Highgate always speaks with a hidden dig."
+        },
+        {
+          "term": "la cola",
+          "meaning": "the queue; also a tail",
+          "example": "La cola del dragón barre la plaza.",
+          "example_meaning": "The dragon's tail sweeps the square."
+        },
+        {
+          "term": "el banquete",
+          "meaning": "the banquet",
+          "example": "El banquete terminó en cenizas.",
+          "example_meaning": "The banquet ended in ashes."
+        }
+      ],
+      "bites": [
+        {
+          "title": "La cola del dragón",
+          "emoji": "🐉",
+          "rule": "A pun needs one word with two meanings: la cola is the dragon's tail and the queue to see it.",
+          "example": "Delante del dragón hay más cola que detrás.",
+          "example_meaning": "There's more queue in front of the dragon than tail behind it."
+        }
+      ],
+      "listening": [
+        {
+          "text": "El bufón nos toma el pelo.",
+          "meaning": "The jester is pulling our leg.",
+          "note": "New word: el bufón = the jester."
+        },
+        {
+          "text": "¡Menuda cola hay en la armería!",
+          "meaning": "What a queue there is at the armoury!",
+          "note": "New word: la cola = the queue."
+        },
+        {
+          "text": "¡Lo que faltaba, otro dragón!",
+          "meaning": "That's all we needed, another dragon!"
+        },
+        {
+          "text": "El rey no pilló el chiste.",
+          "meaning": "The king didn't get the joke."
+        },
+        {
+          "text": "El mago es el cerebrito de la corte.",
+          "meaning": "The wizard is the brainiac of the court."
+        }
+      ],
+      "builds": [
+        {
+          "text": "El bufón habla siempre con segundas.",
+          "meaning": "The jester always speaks with a hidden dig.",
+          "distractors": [
+            "segundos"
+          ]
+        },
+        {
+          "text": "¡Menuda cola hay para ver al dragón!",
+          "meaning": "What a queue there is to see the dragon!",
+          "distractors": [
+            "Menudo"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "El bufón siempre me toma el cabello.",
+          "wrong": "cabello",
+          "fix": "pelo",
+          "why": "The idiom is fixed: tomar el pelo."
+        },
+        {
+          "sentence": "El enano, siempre tan listilla, corrigió al mago.",
+          "wrong": "listilla",
+          "fix": "listillo",
+          "why": "The dwarf here is a man: el listillo."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "La cola: tail or queue?",
+          "buckets": [
+            "tail",
+            "queue"
+          ],
+          "why": "Creatures wag and sweep with a tail; people wait in a queue.",
+          "items": [
+            {
+              "text": "La cola del dragón barre la plaza.",
+              "bucket": 0
+            },
+            {
+              "text": "El grifo mueve la cola.",
+              "bucket": 0
+            },
+            {
+              "text": "El ratón tiene la cola larga.",
+              "bucket": 0
+            },
+            {
+              "text": "Hay cola en la armería.",
+              "bucket": 1
+            },
+            {
+              "text": "La cola para ver al rey es eterna.",
+              "bucket": 1
+            },
+            {
+              "text": "Hago cola desde el alba.",
+              "bucket": 1
+            }
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "c2-humour-irony-wordplay-realm-01",
+          "prompt": "'Delante del dragón hay más cola que detrás.' Why is it funny?",
+          "type": "multiple-choice",
+          "options": [
+            "Cola is the queue in front and the tail behind.",
+            "Cola is glue, and the dragon is stuck.",
+            "The dragon is very small."
+          ],
+          "correct_answer": "Cola is the queue in front and the tail behind.",
+          "explanation": "The pun keeps both meanings of la cola alive, with the crowd queuing in front and the tail behind.",
+          "hints": [
+            "Who stands in front of a dragon?"
+          ],
+          "teaches": [
+            "la cola",
+            "el juego de palabras"
+          ]
+        },
+        {
+          "question_id": "c2-humour-irony-wordplay-realm-02",
+          "prompt": "El bufón siempre está de broma: le encanta tomarnos el ___.",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "pelo",
+          "accepted_answers": [],
+          "explanation": "Tomar el pelo a alguien is to pull their leg; here the pronoun nos is attached: tomarnos el pelo.",
+          "hints": [
+            "Something on your head."
+          ],
+          "teaches": [
+            "tomar el pelo"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🐷",
+      "content": "## El humor en Meadowbrook\n\n**El almanaque** of Meadowbrook has a dry wit. In a week of storms it forecasts **un pelín de lluvia**. That is pure **retranca**. The cleverest hen is **el cerebrito del gallinero**, and its **juego de palabras** of the season is **el pico**. The hen pecks with hers, Nora digs the mine with hers.",
+      "vocabulary": [
+        {
+          "term": "no estar nada mal",
+          "example": "Las fresas de Nora no están nada mal este año.",
+          "example_meaning": "Nora's strawberries aren't bad at all this year."
+        },
+        {
+          "term": "el cerebrito",
+          "example": "Esa gallina es el cerebrito de la granja: abre la puerta sola.",
+          "example_meaning": "That hen is the brainiac of the farm: she opens the door by herself."
+        },
+        {
+          "term": "la retranca",
+          "example": "Leo el pescador cuenta sus historias con mucha retranca.",
+          "example_meaning": "Leo the fisherman tells his stories with a very straight face."
+        },
+        {
+          "term": "¡anda que…!",
+          "example": "Son las once. ¡Anda que madrugas, Nora!",
+          "example_meaning": "It's eleven o'clock. Up with the lark, aren't you, Nora!"
+        },
+        {
+          "term": "el juego de palabras",
+          "example": "Rosa escribe un juego de palabras en la pizarra de la tienda.",
+          "example_meaning": "Rosa writes a pun on the shop's blackboard."
+        },
+        {
+          "term": "el pico",
+          "meaning": "beak; pickaxe; peak",
+          "example": "La gallina y el minero trabajan con el pico.",
+          "example_meaning": "The hen and the miner both work with their pico (beak, pickaxe)."
+        },
+        {
+          "term": "el almanaque",
+          "meaning": "the almanac",
+          "example": "El almanaque promete sol para el festival.",
+          "example_meaning": "The almanac promises sun for the festival."
+        },
+        {
+          "term": "el gallinero",
+          "meaning": "the henhouse",
+          "example": "El gallinero huele a maíz y a misterio.",
+          "example_meaning": "The henhouse smells of corn and mystery."
+        }
+      ],
+      "bites": [
+        {
+          "title": "El pico, dos picos",
+          "emoji": "⛏️",
+          "rule": "Puns need polysemy: el pico is a hen's beak, a miner's pickaxe and a mountain peak.",
+          "example": "La gallina picotea con su pico y Nora pica con el suyo.",
+          "example_meaning": "The hen pecks with her beak and Nora digs with her pickaxe."
+        }
+      ],
+      "listening": [
+        {
+          "text": "El almanaque anuncia un pelín de lluvia.",
+          "meaning": "The almanac forecasts a tiny bit of rain.",
+          "note": "New word: el almanaque = the almanac."
+        },
+        {
+          "text": "¡Anda que madrugas, Nora!",
+          "meaning": "Up with the lark, aren't you, Nora!"
+        },
+        {
+          "text": "Esta cosecha no está nada mal.",
+          "meaning": "This harvest isn't bad at all."
+        },
+        {
+          "text": "La gallina es el cerebrito del gallinero.",
+          "meaning": "The hen is the brainiac of the henhouse.",
+          "note": "New word: el gallinero = the henhouse."
+        },
+        {
+          "text": "Nora baja a la mina con su pico.",
+          "meaning": "Nora goes down the mine with her pickaxe.",
+          "note": "New word: el pico = the pickaxe."
+        }
+      ],
+      "builds": [
+        {
+          "text": "La cosecha no está nada mal.",
+          "meaning": "The harvest isn't bad at all.",
+          "distractors": [
+            "nadie"
+          ]
+        },
+        {
+          "text": "Leo habla con mucha retranca.",
+          "meaning": "Leo speaks with a very straight face.",
+          "distractors": [
+            "retranco"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Esta calabaza no está nada malo.",
+          "wrong": "malo",
+          "fix": "mal",
+          "why": "In no está nada mal, mal is an adverb and never changes."
+        },
+        {
+          "sentence": "La gallina picotea el maíz con su pica.",
+          "wrong": "pica",
+          "fix": "pico",
+          "why": "A beak is el pico, masculine."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Understatement or hyperbole?",
+          "buckets": [
+            "understatement",
+            "hyperbole"
+          ],
+          "why": "Understatement shrinks the truth (un pelín, un poquito, nada mal); hyperbole blows it up (una tonelada, un millón, un siglo).",
+          "items": [
+            {
+              "text": "Un pelín de lluvia.",
+              "bucket": 0
+            },
+            {
+              "text": "No está nada mal.",
+              "bucket": 0
+            },
+            {
+              "text": "Hace un poquito de frío.",
+              "bucket": 0
+            },
+            {
+              "text": "Esta calabaza pesa una tonelada.",
+              "bucket": 1
+            },
+            {
+              "text": "Hay un millón de fresas.",
+              "bucket": 1
+            },
+            {
+              "text": "Llevo un siglo plantando maíz.",
+              "bucket": 1
+            }
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "c2-humour-irony-wordplay-meadowbrook-01",
+          "prompt": "'La gallina y el minero trabajan con el pico.' The joke rests on…",
+          "type": "multiple-choice",
+          "options": [
+            "pico = beak and pickaxe",
+            "pico = peak and a little bit",
+            "pico = hen and miner"
+          ],
+          "correct_answer": "pico = beak and pickaxe",
+          "explanation": "The hen pecks with her beak, the miner swings his pickaxe. One word, el pico, has two live meanings.",
+          "hints": [
+            "What does each of them hold?"
+          ],
+          "teaches": [
+            "el pico",
+            "el juego de palabras"
+          ]
+        },
+        {
+          "question_id": "c2-humour-irony-wordplay-meadowbrook-02",
+          "prompt": "En plena tormenta, el almanaque anuncia un pelín de lluvia: eso es humor de ___.",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "retranca",
+          "accepted_answers": [],
+          "explanation": "Calling a storm 'a tiny bit of rain', deadpan, is la retranca, dry understatement.",
+          "hints": [
+            "Dry, straight-faced irony."
+          ],
+          "teaches": [
+            "la retranca"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "😼",
+      "content": "## El humor en el páramo\n\nThe radio bulletin is full of irony: **¡Qué bien, otra tormenta de ceniza!**, **¡Menudo día para tender la ropa!** Its pun of the week: **el taller** has two **gatos**, one lifts trucks, the other won't lift its head. And here is a dig **con segundas**. The Dome gets one **cadena**, the one on its door.",
+      "vocabulary": [
+        {
+          "term": "menudo",
+          "example": "¡Menuda tormenta de ceniza para estrenar el mono azul!",
+          "example_meaning": "What an ash storm to try out the new blue jumpsuit!"
+        },
+        {
+          "term": "con segundas",
+          "example": "El capataz Ruiz habla siempre con segundas.",
+          "example_meaning": "Foreman Ruiz always speaks with a hidden dig."
+        },
+        {
+          "term": "¡hombre, claro!",
+          "example": "¿Que si me gusta la radiación? ¡Hombre, claro!",
+          "example_meaning": "Do I like radiation? Oh, sure!"
+        },
+        {
+          "term": "¡lo que faltaba!",
+          "example": "Se ha roto el radiorreloj. ¡Lo que faltaba!",
+          "example_meaning": "My wrist radio has broken. That's all we needed!"
+        },
+        {
+          "term": "pillar el chiste",
+          "example": "El robot jardinero nunca pilla el chiste.",
+          "example_meaning": "The gardening robot never gets the joke."
+        },
+        {
+          "term": "el gato",
+          "meaning": "cat; car jack",
+          "example": "En el taller hay dos gatos: uno levanta camionetas y el otro, ni la cabeza.",
+          "example_meaning": "In the workshop there are two gatos: one lifts trucks, the other doesn't even lift its head."
+        },
+        {
+          "term": "la cadena",
+          "meaning": "chain; radio network",
+          "example": "En la cúpula solo hay una cadena: la de la puerta.",
+          "example_meaning": "In the Dome there's only one cadena: the one on the door."
+        },
+        {
+          "term": "el boletín",
+          "meaning": "news bulletin",
+          "example": "El boletín de la mañana anuncia polvo y buen humor.",
+          "example_meaning": "The morning bulletin forecasts dust and good spirits."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Dos gatos en el taller",
+          "emoji": "🔧",
+          "rule": "El gato is a cat and the jack that lifts a truck. A pun keeps both meanings alive in one sentence.",
+          "example": "El gato levanta la camioneta; el otro gato, ni la cabeza.",
+          "example_meaning": "The jack lifts the truck; the other gato (the cat) doesn't even lift its head."
+        }
+      ],
+      "listening": [
+        {
+          "text": "¡Qué bien, otra tormenta de ceniza!",
+          "meaning": "Great, another ash storm!",
+          "note": "Here ¡qué bien! means the opposite, which is irony."
+        },
+        {
+          "text": "Leo busca el gato para la camioneta.",
+          "meaning": "Leo is looking for the jack for the truck.",
+          "note": "New word: el gato = the car jack."
+        },
+        {
+          "text": "¡Menudo boletín nos ha tocado hoy!",
+          "meaning": "What a bulletin we've got today!",
+          "note": "New word: el boletín = the news bulletin."
+        },
+        {
+          "text": "Hombre, claro, me encanta la radiación.",
+          "meaning": "Oh, sure, I love radiation."
+        },
+        {
+          "text": "Marta no pilló el chiste del gato.",
+          "meaning": "Marta didn't get the joke about the cat."
+        }
+      ],
+      "builds": [
+        {
+          "text": "¡Menuda tormenta de ceniza hay hoy!",
+          "meaning": "What an ash storm there is today!",
+          "distractors": [
+            "Menudo"
+          ]
+        },
+        {
+          "text": "Lo dijo con segundas en el boletín.",
+          "meaning": "He said it with a dig in the bulletin.",
+          "distractors": [
+            "segundos"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "¡Lo que sobraba, se ha roto la antena!",
+          "wrong": "sobraba",
+          "fix": "faltaba",
+          "why": "The set phrase is ¡Lo que faltaba!"
+        },
+        {
+          "sentence": "¡Menudo tormenta de ceniza!",
+          "wrong": "Menudo",
+          "fix": "Menuda",
+          "why": "Menudo agrees with the noun, so la tormenta takes menuda."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "El gato: cat or car jack?",
+          "buckets": [
+            "cat",
+            "car jack"
+          ],
+          "why": "Sleeping, hunting and drinking point to the cat; wheels, trucks and the workshop to the jack.",
+          "items": [
+            {
+              "text": "El gato duerme sobre la radio.",
+              "bucket": 0
+            },
+            {
+              "text": "El gato del mercado caza ratones.",
+              "bucket": 0
+            },
+            {
+              "text": "El gato de Marta bebe agua filtrada.",
+              "bucket": 0
+            },
+            {
+              "text": "Sube la camioneta con el gato.",
+              "bucket": 1
+            },
+            {
+              "text": "Sin gato no puedo cambiar la rueda.",
+              "bucket": 1
+            },
+            {
+              "text": "El gato hidráulico del taller está roto.",
+              "bucket": 1
+            }
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "c2-humour-irony-wordplay-rustwake-01",
+          "prompt": "The bulletin says: 'En la cúpula solo hay una cadena: la de la puerta.' The joke plays on…",
+          "type": "multiple-choice",
+          "options": [
+            "cadena = chain and radio network",
+            "cadena = door and Dome",
+            "cadena = rust and ash"
+          ],
+          "correct_answer": "cadena = chain and radio network",
+          "explanation": "Una cadena is a radio network and a chain. The Dome has no station worth hearing, only the chain on its door.",
+          "hints": [
+            "Radio stations belong to a cadena."
+          ],
+          "teaches": [
+            "la cadena",
+            "el juego de palabras"
+          ]
+        },
+        {
+          "question_id": "c2-humour-irony-wordplay-rustwake-02",
+          "prompt": "Hay una tormenta de ceniza y la antena está rota. ¡Lo que ___!",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "faltaba",
+          "accepted_answers": [],
+          "explanation": "¡Lo que faltaba! (that's all we needed) greets the last straw.",
+          "hints": [
+            "Literally: what was missing."
+          ],
+          "teaches": [
+            "¡lo que faltaba!"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "c2-humour-irony-wordplay-conv-rustwake-chistes",
+          "title": "Jokes for the radio",
+          "scenario": "Marta la mercadera tests Leo el buscador's new radio jokes at her market stall.",
+          "role_a": "Marta",
+          "role_b": "Leo",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Leo, ¿es verdad que ahora escribes chistes para la radio?",
+              "meaning": "Leo, is it true you write jokes for the radio now?"
+            },
+            {
+              "speaker": "b",
+              "text": "Hombre, claro. En el páramo sobra tiempo y faltan tuercas.",
+              "meaning": "Well, of course. In the wasteland there's time to spare and not enough nuts."
+            },
+            {
+              "speaker": "a",
+              "text": "A ver, cuéntame uno, pero sin humor negro, que es temprano.",
+              "meaning": "Go on, tell me one, but no dark humour, it's early."
+            },
+            {
+              "speaker": "b",
+              "text": "En el taller hay dos gatos: uno levanta camionetas y el otro, ni la cabeza.",
+              "meaning": "In the workshop there are two gatos: one lifts trucks, the other doesn't even lift its head."
+            },
+            {
+              "speaker": "a",
+              "text": "Menudo chiste. Lo he pillado a la primera, que ya es mérito.",
+              "meaning": "Some joke. I got it first time, which is quite an achievement."
+            },
+            {
+              "speaker": "b",
+              "text": "Eso lo dices con segundas. ¿No te ha hecho gracia?",
+              "meaning": "There's a dig in that. Didn't you find it funny?"
+            },
+            {
+              "speaker": "a",
+              "text": "No está nada mal. Pero el capataz Ruiz no lo va a pillar.",
+              "meaning": "It's not bad at all. But Foreman Ruiz won't get it."
+            },
+            {
+              "speaker": "b",
+              "text": "¡Lo que faltaba! Si el gato que no levanta la cabeza es él.",
+              "meaning": "That's all we needed! He's the gato that won't lift its head."
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

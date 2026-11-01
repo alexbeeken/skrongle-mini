@@ -1,0 +1,106 @@
+/* AI tutoring: phone-first chat. Independent of style.css. */
+:root {
+  --bg: #fbfaf7; --surface: #ffffff; --text: #1f2328; --muted: #6b7280; --line: #e5e1d8;
+  --accent: #c0392b; --tutor: #6b4f9e; --tutor-bg: #efeaf7; --gold: #e3a21a;
+  --ok: #2e8b57; --ok-bg: #e7f5ec; --bad: #c0392b; --bad-bg: #fbe9e7;
+  --radius: 14px;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #15171a; --surface: #1e2126; --text: #e8e6e1; --muted: #9aa0a6; --line: #30343a;
+    --tutor-bg: #2b2440; --ok-bg: #16331f; --bad-bg: #3a1c19; }
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { font-family: var(--font); font-size: 100%; line-height: 1.5; color: var(--text); background: var(--bg); }
+body { margin: 0; background: var(--bg); overscroll-behavior-y: contain; }
+a { color: var(--accent); text-decoration: none; }
+button, textarea, select { font: inherit; color: inherit; }
+[hidden] { display: none !important; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.small { font-size: .85rem; }
+
+.shell { display: flex; flex-direction: column; min-height: 100dvh; max-width: 720px; margin: 0 auto; }
+
+/* top bar */
+.t-top { position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; align-items: center; gap: .7rem; padding: max(.6rem, env(safe-area-inset-top)) .9rem .55rem;
+  background: var(--surface); border-bottom: 1px solid var(--line); }
+.t-exit { width: 2.3rem; height: 2.3rem; flex: none; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; color: var(--muted); border: 1px solid var(--line); }
+/* The rem basis wraps the model picker onto a second row at large text sizes (#1058). */
+.t-title { flex: 1 1 5rem; min-width: 0; display: flex; flex-direction: column; line-height: 1.25; }
+.t-sub { color: var(--muted); font-size: .82rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.t-provider { max-width: 100%; }
+.t-provider select { max-width: min(12rem, 100%); padding: .3rem .4rem; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); font-size: .85rem; }
+.t-model { color: var(--muted); white-space: nowrap; }
+.t-score { font-size: .85rem; color: var(--muted); white-space: nowrap; }
+.t-score b { color: var(--text); }
+.t-ai-left { font-size: .75rem; color: var(--muted); white-space: nowrap; }
+/* On a phone it wraps under itself, so the title and the model picker keep their room. */
+@media (max-width: 30rem) { .t-ai-left { white-space: normal; max-width: 6.5rem; text-align: right; line-height: 1.2; } }
+.msg.system.ai-out a { display: inline-block; margin: .35rem .8rem 0 0; font-weight: 600; }
+
+/* thread */
+.t-main { flex: 1; padding: .9rem .9rem 1rem; }
+.t-thread { display: flex; flex-direction: column; gap: .6rem; }
+.msg { max-width: 88%; padding: .6rem .85rem; border-radius: var(--radius); line-height: 1.45; white-space: pre-wrap; overflow-wrap: anywhere; }
+.msg p { margin: 0; }
+.msg p + p { margin-top: .5rem; }
+.msg.tutor { align-self: flex-start; background: var(--tutor-bg); border-bottom-left-radius: 4px; }
+.msg.learner { align-self: flex-end; background: var(--accent); color: #fff; border-bottom-right-radius: 4px; }
+.msg.system { align-self: center; max-width: 100%; background: transparent; color: var(--muted); font-size: .85rem; text-align: center; padding: .2rem .5rem; }
+.msg.system.error { color: var(--bad); }
+.typing { align-self: flex-start; color: var(--muted); font-size: .9rem; padding: .3rem .85rem; }
+.typing i { display: inline-block; width: .4rem; height: .4rem; margin-right: .2rem; border-radius: 50%; background: var(--muted); animation: blink 1.2s infinite; }
+.typing i:nth-child(2) { animation-delay: .2s; } .typing i:nth-child(3) { animation-delay: .4s; }
+@keyframes blink { 0%, 80%, 100% { opacity: .25; } 40% { opacity: 1; } }
+/* stop waiting for a slow reply (#890) */
+.typing .cancel, .msg.system .cancel { display: inline-flex; align-items: center; justify-content: center; width: 1.6rem; height: 1.6rem; margin-left: .5rem; padding: 0; vertical-align: middle; border: 1px solid var(--line); border-radius: 50%; background: var(--bg); color: var(--muted); font-size: .75rem; line-height: 1; cursor: pointer; }
+.typing .cancel:hover, .msg.system .cancel:hover { color: var(--text); border-color: var(--muted); }
+
+/* an exercise: part of the tutor's turn, with its own tint and the choices as chips */
+.msg.exercise { max-width: 92%; background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--gold); white-space: normal; }
+.ex-label { margin: 0 0 .2rem; font-size: .7rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.ex-prompt { margin: 0; font-size: 1.05rem; font-weight: 600; line-height: 1.35; }
+.chips { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .6rem; }
+.chip { padding: .45rem .8rem; border: 1px solid var(--line); border-radius: 999px; background: var(--bg); cursor: pointer; font-size: .95rem; }
+.chip:hover { border-color: var(--gold); }
+.chip:disabled { cursor: default; opacity: .6; }
+.chip.right { border-color: var(--ok); background: var(--ok-bg); color: var(--ok); opacity: 1; }
+.chip.wrong { border-color: var(--bad); background: var(--bad-bg); color: var(--bad); opacity: 1; }
+.ex-hint { display: block; margin-top: .5rem; font-size: .88rem; color: var(--muted); }
+.ex-tools { margin: .5rem 0 0; font-size: .8rem; color: var(--muted); }
+.ex-tools button { background: none; border: 0; padding: 0; color: var(--accent); cursor: pointer; font-size: .8rem; }
+.msg.exercise.done { border-left-color: var(--line); }
+/* the app's verdict: a quiet line under the learner's answer */
+.verdict { align-self: flex-end; max-width: 88%; display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: baseline; gap: .15rem .6rem; margin-top: -.3rem; padding: 0 .3rem; font-size: .82rem; }
+.verdict.ok { color: var(--ok); }
+.verdict.bad { color: var(--bad); }
+.verdict .m { color: var(--muted); }
+
+/* buttons */
+.t-btn { display: inline-flex; align-items: center; justify-content: center; padding: .8rem 1.3rem; border-radius: 12px; border: 0; background: var(--accent); color: #fff; font-weight: 700; cursor: pointer; }
+.t-btn:disabled { opacity: .6; cursor: default; }
+.t-link { display: block; margin-top: 1rem; color: var(--muted); }
+
+/* composer */
+.t-foot { position: sticky; bottom: 0; background: var(--surface); border-top: 1px solid var(--line); padding: .55rem .8rem max(.55rem, env(safe-area-inset-bottom)); }
+.t-chars { display: flex; flex-wrap: wrap; gap: .3rem; padding: 0 0 .45rem; }
+.t-chars button { padding: .2rem .55rem; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); cursor: pointer; font-size: .95rem; }
+.t-composer { display: flex; align-items: flex-end; gap: .5rem; }
+.t-composer textarea { flex: 1; resize: none; max-height: 7rem; padding: .6rem .8rem; border: 1px solid var(--line); border-radius: 18px; background: var(--bg); line-height: 1.35; }
+.t-composer textarea:focus { outline: 2px solid var(--gold); outline-offset: 1px; }
+.t-send { width: 2.6rem; height: 2.6rem; flex: none; border-radius: 50%; border: 0; background: var(--tutor); color: #fff; font-size: 1rem; cursor: pointer; }
+.t-send:disabled { opacity: .5; cursor: default; }
+
+/* empty state */
+.t-empty { text-align: center; padding-top: 3rem; max-width: 420px; margin: 0 auto; }
+.t-empty-icon { font-size: 3rem; margin: 0; }
+.t-empty h1 { font-size: 1.4rem; margin: .4rem 0 .6rem; }
+.t-empty p { color: var(--muted); }
+.t-empty .t-btn { margin-top: .8rem; }
+.t-disclosure { margin: 0 0 .4rem; color: var(--muted); font-size: .8rem; }
+
+/* No Skrongle AI for the tutor (#283): Upgrade to Plus beside "Add an API key". */
+.t-empty .t-btn.ghost { margin-left: .5rem; background: none; color: var(--accent); border: 1px solid var(--accent); }
+
+/* The system's "reduce motion" setting stops the typing dots (#342). */
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }

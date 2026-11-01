@@ -1,0 +1,1250 @@
+{
+  "id": "b2-concessive-and-conditional-links",
+  "slug": "concessive-and-conditional-links",
+  "title": "Aunque llueva: concessive and conditional links",
+  "unit": "B2",
+  "group": "Grammar",
+  "order": 30,
+  "summary": "Aunque with the indicative or the subjunctive, por mucho que and a pesar de, and the links that set conditions: a menos que, con tal de que, siempre que, en caso de que.",
+  "focus": "Concessive and conditional conjunctions with the indicative and the subjunctive",
+  "prerequisites": [
+    "b2-imperfect-subjunctive",
+    "b1-time-and-purpose-clauses",
+    "b1-real-conditions"
+  ],
+  "content": "## Aunque: a fact or a possibility\n\n**Aunque** takes either mood, and the mood changes the meaning:\n\n- **aunque + indicative** = *although*: you state a fact as information. *Aunque llueve, salgo a correr.* (It is raining, but I'm going for a run.)\n- **aunque + subjunctive** = *even if*: you don't know whether it will happen. *Aunque llueva, saldré a correr.* (Even if it rains, I'll go for a run.)\n- **aunque + subjunctive** with a known fact = *even though, so what*: the fact is granted but changes nothing. *Aunque sea tu jefe, no tiene razón.* (He may be your boss, but he's wrong.)\n\n**A pesar de que** (*even though, despite the fact that*) works exactly like **aunque**: *A pesar de que estaba enfermo, vino a la reunión.*\n\n## Por mucho que and a pesar de\n\n**Por mucho que** = *however much, no matter how much*. It usually takes the subjunctive, because no amount will help:\n\n- *Por mucho que corras, no llegarás a tiempo.* (However fast you run, you won't make it.)\n- With a noun it agrees: *por mucha paciencia que tengas* (however patient you are).\n\nWith the indicative it reports a real, repeated fact: *Por mucho que estudia, no aprueba.* (However much he studies, he doesn't pass.)\n\n**A pesar de** without **que** takes a **noun** or an **infinitive**, never a conjugated verb:\n\n- *A pesar del ruido, dormí bien.* (Despite the noise, I slept well.)\n- *A pesar de estar cansada, terminó el informe.* (Despite being tired, she finished the report.)\n\n## Conditions that need the subjunctive\n\nThese links set a condition that has not happened yet, so they **always** take the subjunctive:\n\n| link | meaning | example |\n|---|---|---|\n| **a menos que** | unless | *No voy a menos que me invites.* |\n| **a no ser que** | unless (a touch more formal) | *Llegaremos a las diez, a no ser que haya atasco.* |\n| **con tal de que** | provided that, as long as | *Te ayudo con tal de que me invites a cenar.* |\n| **en caso de que** | in case, if by any chance | *En caso de que no esté, deja un mensaje.* |\n\n**Siempre que** has two meanings, and the mood tells them apart:\n\n- **siempre que + indicative** = *whenever*: *Siempre que voy a Sevilla, como gazpacho.*\n- **siempre que + subjunctive** = *provided that*: *Iré siempre que me paguéis el viaje.*\n\n## The same links in the past\n\nWhen the main verb is in a past tense or the conditional, the subjunctive after these links becomes the **imperfect subjunctive** (-ra or -se):\n\n- *Dijo que vendría aunque lloviera.* (He said he'd come even if it rained.)\n- *Me prestó el coche con tal de que se lo devolviera el lunes.* (She lent me the car provided I gave it back on Monday.)\n- *Dejé una llave en caso de que llegaras antes.* (I left a key in case you got there first.)\n- *No salíamos a menos que hiciera buen tiempo.* (We never went out unless the weather was good.)\n\nFacts stay in the indicative: *Aunque hacía frío, salimos.* (Although it was cold, we went out.)",
+  "vocabulary": [
+    {
+      "term": "aunque",
+      "meaning": "although (+ indicative) · even if, even though (+ subjunctive)",
+      "example": "Aunque llueva mañana, iremos a la playa.",
+      "example_meaning": "Even if it rains tomorrow, we'll go to the beach."
+    },
+    {
+      "term": "a pesar de que",
+      "meaning": "even though, despite the fact that",
+      "example": "A pesar de que estaba agotada, terminó el maratón.",
+      "example_meaning": "Even though she was exhausted, she finished the marathon."
+    },
+    {
+      "term": "a pesar de",
+      "meaning": "despite, in spite of (+ noun or infinitive)",
+      "example": "A pesar del tráfico, llegamos a tiempo.",
+      "example_meaning": "Despite the traffic, we arrived on time."
+    },
+    {
+      "term": "por mucho que",
+      "meaning": "however much, no matter how much",
+      "example": "Por mucho que insistas, no voy a cambiar de opinión.",
+      "example_meaning": "However much you insist, I'm not going to change my mind."
+    },
+    {
+      "term": "a menos que",
+      "meaning": "unless (+ subjunctive)",
+      "example": "No te llamaré a menos que surja un problema.",
+      "example_meaning": "I won't call you unless a problem comes up."
+    },
+    {
+      "term": "a no ser que",
+      "meaning": "unless (+ subjunctive)",
+      "example": "Saldremos a las ocho, a no ser que tengas otro plan.",
+      "example_meaning": "We'll leave at eight, unless you have another plan."
+    },
+    {
+      "term": "con tal de que",
+      "meaning": "provided that, as long as (+ subjunctive)",
+      "example": "Te dejo la moto con tal de que conduzcas despacio.",
+      "example_meaning": "I'll lend you the motorbike as long as you ride slowly."
+    },
+    {
+      "term": "siempre que",
+      "meaning": "whenever (+ indicative) · provided that (+ subjunctive)",
+      "example": "Puedes quedarte a dormir siempre que avises a tus padres.",
+      "example_meaning": "You can stay over provided that you tell your parents."
+    },
+    {
+      "term": "en caso de que",
+      "meaning": "in case, if by any chance (+ subjunctive)",
+      "example": "En caso de que no funcione, llama al técnico.",
+      "example_meaning": "In case it doesn't work, call the technician."
+    },
+    {
+      "term": "el paraguas",
+      "meaning": "umbrella",
+      "example": "Aunque no llueva, me llevo el paraguas.",
+      "example_meaning": "Even if it doesn't rain, I'm taking the umbrella."
+    },
+    {
+      "term": "el plazo",
+      "meaning": "deadline, time limit",
+      "example": "Entregaremos el proyecto dentro del plazo, a no ser que falte algún dato.",
+      "example_meaning": "We'll hand in the project before the deadline, unless some data is missing."
+    },
+    {
+      "term": "aprobar",
+      "meaning": "to pass (an exam)",
+      "example": "Por mucho que estudió, no aprobó el examen de conducir.",
+      "example_meaning": "However much he studied, he didn't pass the driving test."
+    },
+    {
+      "term": "insistir",
+      "meaning": "to insist",
+      "example": "Aunque insistió mucho, no lo dejaron entrar.",
+      "example_meaning": "Although he insisted a lot, they didn't let him in."
+    },
+    {
+      "term": "valer la pena",
+      "meaning": "to be worth it",
+      "example": "Aunque cueste mucho esfuerzo, vale la pena.",
+      "example_meaning": "Even if it takes a lot of effort, it's worth it."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-concessive-and-conditional-links-01",
+      "prompt": "Nobody knows tomorrow's weather yet. Aunque ___ mañana, el partido se jugará.",
+      "type": "multiple-choice",
+      "options": [
+        "llueva",
+        "lloviera",
+        "llovería"
+      ],
+      "correct_answer": "llueva",
+      "explanation": "A possibility you can't know yet takes aunque + present subjunctive (even if it rains). Lloviera belongs with a past or conditional main verb, and the conditional never follows aunque here.",
+      "hints": [
+        "A possibility about the future takes the subjunctive.",
+        "The main verb (se jugará) is in the future, so use the present subjunctive."
+      ],
+      "teaches": [
+        "aunque"
+      ]
+    },
+    {
+      "question_id": "b2-concessive-and-conditional-links-02",
+      "prompt": "You are telling a friend what happened: it really was raining. Aunque ___, salimos a pasear.",
+      "type": "multiple-choice",
+      "options": [
+        "llovía",
+        "lloviera",
+        "llueva"
+      ],
+      "correct_answer": "llovía",
+      "explanation": "You report a fact as new information, so aunque takes the indicative: Aunque llovía, salimos (although it was raining). Llueva clashes with the past, and lloviera would treat the rain as a mere possibility.",
+      "hints": [
+        "Is it a fact you are reporting, or a possibility?"
+      ],
+      "teaches": [
+        "aunque"
+      ]
+    },
+    {
+      "question_id": "b2-concessive-and-conditional-links-03",
+      "prompt": "Provided that you help me, I'll finish today: Termino hoy con tal de que me ___ (ayudar, tú).",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "ayudes",
+      "accepted_answers": [],
+      "explanation": "Con tal de que always takes the subjunctive: con tal de que me ayudes.",
+      "hints": [
+        "Con tal de que is always followed by the subjunctive.",
+        "Use the tú form of the present subjunctive of ayudar."
+      ],
+      "teaches": [
+        "con tal de que"
+      ]
+    },
+    {
+      "question_id": "b2-concessive-and-conditional-links-04",
+      "prompt": "Whenever I go to Madrid, I visit my aunt: Siempre que ___ a Madrid, visito a mi tía.",
+      "type": "multiple-choice",
+      "options": [
+        "voy",
+        "vaya",
+        "fuera"
+      ],
+      "correct_answer": "voy",
+      "explanation": "A habit (whenever) takes siempre que + indicative: siempre que voy. With the subjunctive, siempre que means provided that.",
+      "hints": [
+        "Whenever, as a habit, takes the indicative."
+      ],
+      "teaches": [
+        "siempre que"
+      ]
+    },
+    {
+      "question_id": "b2-concessive-and-conditional-links-05",
+      "prompt": "You can use my bike provided that you give it back to me tonight: Puedes usar mi bici siempre que me la ___ (devolver, tú) esta noche.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "devuelvas",
+      "accepted_answers": [],
+      "explanation": "Here siempre que sets a condition (provided that), so it takes the subjunctive: siempre que me la devuelvas. Devolver changes o to ue.",
+      "hints": [
+        "Provided that takes the subjunctive.",
+        "devolver changes o to ue in the stem."
+      ],
+      "teaches": [
+        "siempre que"
+      ]
+    },
+    {
+      "question_id": "b2-concessive-and-conditional-links-06",
+      "prompt": "No iré a la cena a menos que me ___ Carmen.",
+      "type": "multiple-choice",
+      "options": [
+        "invite",
+        "invita",
+        "invitaría"
+      ],
+      "correct_answer": "invite",
+      "explanation": "A menos que (unless) always takes the subjunctive: a menos que me invite Carmen.",
+      "hints": [
+        "Unless always takes the subjunctive."
+      ],
+      "teaches": [
+        "a menos que"
+      ]
+    },
+    {
+      "question_id": "b2-concessive-and-conditional-links-07",
+      "prompt": "I left a key with the neighbour in case you lost yours: Dejé una llave a la vecina en caso de que ___ (perder, tú) la tuya.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "perdieras",
+      "accepted_answers": [
+        "perdieses"
+      ],
+      "explanation": "En caso de que always takes the subjunctive, and after a past main verb (dejé) it is the imperfect subjunctive: perdieras or perdieses.",
+      "hints": [
+        "The main verb is in the preterite.",
+        "For the imperfect subjunctive, change perdieron to perdiera."
+      ],
+      "teaches": [
+        "en caso de que"
+      ]
+    },
+    {
+      "question_id": "b2-concessive-and-conditional-links-08",
+      "prompt": "She lent me the car provided that I gave it back on Monday: Me prestó el coche con tal de que se lo ___ (devolver, yo) el lunes.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "devolviera",
+      "accepted_answers": [
+        "devolviese"
+      ],
+      "explanation": "Con tal de que takes the subjunctive; after the preterite prestó it moves to the imperfect subjunctive: devolviera (or devolviese).",
+      "hints": [
+        "A past main verb takes the imperfect subjunctive.",
+        "Start from the ellos preterite, drop -ron, add -ra."
+      ],
+      "teaches": [
+        "con tal de que"
+      ]
+    },
+    {
+      "question_id": "b2-concessive-and-conditional-links-09",
+      "prompt": "___ la lluvia, el concierto empezó a su hora.",
+      "type": "multiple-choice",
+      "options": [
+        "A pesar de",
+        "A pesar de que",
+        "Aunque"
+      ],
+      "correct_answer": "A pesar de",
+      "explanation": "Before a noun (la lluvia) use a pesar de without que. A pesar de que and aunque need a conjugated verb after them.",
+      "hints": [
+        "What follows: a noun or a whole clause?"
+      ],
+      "teaches": [
+        "a pesar de",
+        "a pesar de que"
+      ]
+    },
+    {
+      "question_id": "b2-concessive-and-conditional-links-10",
+      "prompt": "However much you shout, I'm not opening the door: Por mucho que ___ (gritar, tú), no voy a abrir la puerta.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "grites",
+      "accepted_answers": [
+        "gritas"
+      ],
+      "explanation": "Por mucho que + subjunctive: no amount of shouting will change anything, so por mucho que grites. If the shouting is already a real, ongoing fact, the indicative (gritas) is also possible.",
+      "hints": [
+        "No matter how much usually takes the subjunctive.",
+        "Use the tú form of the present subjunctive of gritar."
+      ],
+      "teaches": [
+        "por mucho que"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-concessive-and-conditional-links-conv-excursion",
+      "title": "Planning the hike",
+      "scenario": "Elena and Javier are planning a mountain hike for Saturday, but the forecast says it may rain.",
+      "role_a": "Elena",
+      "role_b": "Javier",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¿Seguimos con la excursión del sábado? Dicen que puede llover.",
+          "meaning": "Are we still on for Saturday's hike? They say it may rain."
+        },
+        {
+          "speaker": "b",
+          "text": "Aunque llueva, yo voy. Tengo un chubasquero nuevo.",
+          "meaning": "Even if it rains, I'm going. I've got a new raincoat.",
+          "note": "aunque + subjunctive: a possibility"
+        },
+        {
+          "speaker": "a",
+          "text": "Vale, pero no subimos al pico a menos que mejore el tiempo.",
+          "meaning": "OK, but we're not going up to the peak unless the weather improves.",
+          "note": "a menos que + subjunctive"
+        },
+        {
+          "speaker": "b",
+          "text": "Me parece bien, siempre que salgamos temprano.",
+          "meaning": "Fine by me, provided that we leave early.",
+          "note": "siempre que + subjunctive = provided that"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Temprano? Siempre que quedamos temprano, llegas tarde.",
+          "meaning": "Early? Whenever we arrange to meet early, you turn up late.",
+          "note": "siempre que + indicative = whenever"
+        },
+        {
+          "speaker": "b",
+          "text": "A pesar de lo que piensas, esta vez pondré tres alarmas.",
+          "meaning": "Despite what you think, this time I'll set three alarms.",
+          "note": "a pesar de + lo que"
+        },
+        {
+          "speaker": "a",
+          "text": "Aunque pongas diez, te quedarás dormido igual.",
+          "meaning": "Even if you set ten, you'll oversleep anyway."
+        },
+        {
+          "speaker": "b",
+          "text": "Bueno, yo llevo los bocadillos con tal de que tú lleves el café.",
+          "meaning": "Well, I'll bring the sandwiches as long as you bring the coffee.",
+          "note": "con tal de que + subjunctive"
+        },
+        {
+          "speaker": "a",
+          "text": "Trato hecho. Y en caso de que haya tormenta, nos quedamos en el refugio.",
+          "meaning": "Deal. And in case there's a storm, we'll stay in the mountain hut.",
+          "note": "en caso de que + subjunctive"
+        },
+        {
+          "speaker": "b",
+          "text": "Perfecto. La última vez, aunque hacía un frío horrible, lo pasamos genial.",
+          "meaning": "Perfect. Last time, even though it was horribly cold, we had a great time.",
+          "note": "aunque + indicative: a fact"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Aunque llueva, saldremos a correr.",
+      "meaning": "Even if it rains, we'll go out running.",
+      "note": "Aunque + subjunctive: even if."
+    },
+    {
+      "text": "Aunque es caro, este piso me encanta.",
+      "meaning": "Although it's expensive, I love this flat.",
+      "note": "Aunque + indicative: a fact."
+    },
+    {
+      "text": "Siempre que viene mi hermano, cenamos pizza.",
+      "meaning": "Whenever my brother comes, we have pizza for dinner.",
+      "note": "Siempre que + indicative = whenever."
+    },
+    {
+      "text": "No firmo nada a menos que lo lea antes.",
+      "meaning": "I don't sign anything unless I read it first.",
+      "note": "A menos que always takes the subjunctive."
+    },
+    {
+      "text": "Te dejo mis apuntes con tal de que me los devuelvas.",
+      "meaning": "I'll lend you my notes as long as you give them back to me.",
+      "note": "New word: los apuntes = the notes."
+    },
+    {
+      "text": "Mis padres me dejaban salir siempre que volviera antes de las doce.",
+      "meaning": "My parents let me go out provided that I came back before twelve.",
+      "note": "Siempre que + imperfect subjunctive = provided that, in the past."
+    },
+    {
+      "text": "A pesar del frío, los niños jugaron en el jardín toda la tarde.",
+      "meaning": "Despite the cold, the children played in the garden all afternoon."
+    },
+    {
+      "text": "En caso de que necesites algo, mi vecina tiene una llave de casa.",
+      "meaning": "In case you need anything, my neighbour has a key to the house.",
+      "note": "New word: la vecina = the neighbour."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Aunque: a fact or a possibility"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-concessive-and-conditional-links-01"
+    },
+    {
+      "question": "b2-concessive-and-conditional-links-02"
+    },
+    {
+      "tip": "Ask yourself: am I telling you a fact (indicative), or a possibility or a fact that changes nothing (subjunctive)?"
+    },
+    {
+      "section": "Por mucho que and a pesar de"
+    },
+    {
+      "question": "b2-concessive-and-conditional-links-09"
+    },
+    {
+      "question": "b2-concessive-and-conditional-links-10"
+    },
+    {
+      "section": "Conditions that need the subjunctive"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-concessive-and-conditional-links-06"
+    },
+    {
+      "question": "b2-concessive-and-conditional-links-03"
+    },
+    {
+      "question": "b2-concessive-and-conditional-links-04"
+    },
+    {
+      "question": "b2-concessive-and-conditional-links-05"
+    },
+    {
+      "section": "The same links in the past"
+    },
+    {
+      "question": "b2-concessive-and-conditional-links-07"
+    },
+    {
+      "question": "b2-concessive-and-conditional-links-08"
+    }
+  ],
+  "sprint": {
+    "icon": "🌂",
+    "bites": [
+      {
+        "title": "Aunque: fact or maybe?",
+        "emoji": "🌂",
+        "rule": "aunque + indicative states a fact (although it is raining). aunque + subjunctive means even if, or a fact that changes nothing.",
+        "example": "Aunque llueve, salgo. Aunque llueva, saldré.",
+        "example_meaning": "Although it's raining, I'm going out. Even if it rains, I'll go out."
+      },
+      {
+        "title": "Unless, provided, in case",
+        "emoji": "🔒",
+        "rule": "a menos que, a no ser que, con tal de que and en caso de que always take the subjunctive.",
+        "example": "No voy a menos que vengas tú.",
+        "example_meaning": "I'm not going unless you come."
+      },
+      {
+        "title": "Siempre que, two meanings",
+        "emoji": "🔁",
+        "rule": "siempre que + indicative = whenever (a habit). siempre que + subjunctive = provided that (a condition).",
+        "example": "Siempre que puedo, ayudo. Te dejo el coche siempre que lo cuides.",
+        "example_meaning": "Whenever I can, I help. I'll lend you the car provided you look after it."
+      },
+      {
+        "title": "In the past",
+        "emoji": "⏪",
+        "rule": "After a past or conditional main verb, the subjunctive moves to the imperfect: aunque lloviera, con tal de que viniera, en caso de que hiciera falta.",
+        "example": "Me ayudó con tal de que lo invitara a cenar.",
+        "example_meaning": "He helped me as long as I took him out to dinner."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Siempre que: whenever or provided that?",
+        "buckets": [
+          "whenever (indicative)",
+          "provided that (subjunctive)"
+        ],
+        "items": [
+          {
+            "text": "Siempre que llueve, se inunda el garaje.",
+            "bucket": 0
+          },
+          {
+            "text": "Te lo cuento siempre que no se lo digas a nadie.",
+            "bucket": 1
+          },
+          {
+            "text": "Siempre que viajo, pierdo algo.",
+            "bucket": 0
+          },
+          {
+            "text": "Podéis usar la sala siempre que la dejéis limpia.",
+            "bucket": 1
+          },
+          {
+            "text": "Siempre que la veo, me sonríe.",
+            "bucket": 0
+          },
+          {
+            "text": "Acepto el puesto siempre que pueda trabajar desde casa.",
+            "bucket": 1
+          }
+        ],
+        "why": "The mood decides: a habit in the indicative means whenever; a condition in the subjunctive means provided that."
+      },
+      {
+        "title": "What comes after the link?",
+        "buckets": [
+          "always subjunctive",
+          "indicative or subjunctive",
+          "noun or infinitive"
+        ],
+        "items": [
+          {
+            "text": "a menos que",
+            "bucket": 0
+          },
+          {
+            "text": "con tal de que",
+            "bucket": 0
+          },
+          {
+            "text": "en caso de que",
+            "bucket": 0
+          },
+          {
+            "text": "a no ser que",
+            "bucket": 0
+          },
+          {
+            "text": "aunque",
+            "bucket": 1
+          },
+          {
+            "text": "siempre que",
+            "bucket": 1
+          },
+          {
+            "text": "por mucho que",
+            "bucket": 1
+          },
+          {
+            "text": "a pesar de",
+            "bucket": 2
+          }
+        ],
+        "why": "Conditions (unless, provided that, in case) always take the subjunctive; aunque, siempre que and por mucho que change meaning with the mood; a pesar de without que takes a noun or an infinitive."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "No iré a menos que me invitas.",
+        "wrong": "invitas",
+        "fix": "invites",
+        "why": "A menos que always takes the subjunctive."
+      },
+      {
+        "sentence": "Te presto el libro con tal de que me lo devuelves pronto.",
+        "wrong": "devuelves",
+        "fix": "devuelvas",
+        "why": "Con tal de que always takes the subjunctive."
+      },
+      {
+        "sentence": "Aunque la lluvia, jugamos el partido.",
+        "wrong": "Aunque",
+        "fix": "A pesar de",
+        "why": "Before a noun alone use a pesar de; aunque needs a verb."
+      },
+      {
+        "sentence": "Me dejó su coche en caso de que lo necesito.",
+        "wrong": "necesito",
+        "fix": "necesitara",
+        "why": "En caso de que takes the subjunctive, and after the past dejó it is the imperfect subjunctive."
+      },
+      {
+        "sentence": "Siempre que voy a la playa, me quemo, a menos que me pongo crema.",
+        "wrong": "pongo",
+        "fix": "ponga",
+        "why": "Siempre que voy is a habit (whenever, indicative), but a menos que always takes the subjunctive."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Aunque llueva, iremos al concierto.",
+        "meaning": "Even if it rains, we'll go to the concert.",
+        "distractors": [
+          "llovería"
+        ]
+      },
+      {
+        "text": "No salgo a menos que me llames.",
+        "meaning": "I'm not going out unless you call me.",
+        "distractors": [
+          "llamas"
+        ]
+      },
+      {
+        "text": "Firmaré con tal de que cambiéis esta cláusula.",
+        "meaning": "I'll sign provided that you change this clause.",
+        "distractors": [
+          "cambiáis"
+        ]
+      },
+      {
+        "text": "A pesar del frío, nadamos en el lago.",
+        "meaning": "Despite the cold, we swam in the lake.",
+        "distractors": [
+          "que"
+        ]
+      },
+      {
+        "text": "Me lo prestó con tal de que lo cuidara.",
+        "meaning": "He lent it to me provided that I looked after it.",
+        "distractors": [
+          "cuido"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🌧️",
+      "content": "## Aunque y con tal de que en Eldmark\n\nEvery deal in Eldmark depends on a condition. Risks and bargains take the subjunctive: **aunque el minotauro sea enorme, entraremos en la mazmorra**; **te doy parte del botín con tal de que me cubras**; **no abras el cofre a menos que la maga lo revise**. A fact you report takes the indicative: **aunque es tarde, seguimos**.",
+      "vocabulary": [
+        {
+          "term": "aunque",
+          "example": "Aunque el minotauro sea enorme, entraremos en la mazmorra.",
+          "example_meaning": "Even if the minotaur is huge, we'll go into the dungeon."
+        },
+        {
+          "term": "a menos que",
+          "example": "No abras el cofre a menos que la maga lo revise.",
+          "example_meaning": "Don't open the chest unless the mage checks it."
+        },
+        {
+          "term": "con tal de que",
+          "example": "El enano te vende el hacha con tal de que pagues en oro.",
+          "example_meaning": "The dwarf will sell you the axe as long as you pay in gold."
+        },
+        {
+          "term": "en caso de que",
+          "example": "Lleva pociones en caso de que nos embosquen los orcos.",
+          "example_meaning": "Bring potions in case the orcs ambush us."
+        },
+        {
+          "term": "a pesar de",
+          "example": "A pesar de la nieve, cruzamos Frostmarch en dos días.",
+          "example_meaning": "Despite the snow, we crossed Frostmarch in two days."
+        },
+        {
+          "term": "siempre que",
+          "example": "Siempre que volvemos de la mazmorra, lo celebramos en la posada.",
+          "example_meaning": "Whenever we come back from the dungeon, we celebrate at the inn."
+        },
+        {
+          "term": "el cofre",
+          "meaning": "chest (for treasure)",
+          "example": "El cofre estaba vacío, a pesar de que el mapa decía lo contrario.",
+          "example_meaning": "The chest was empty, even though the map said otherwise."
+        },
+        {
+          "term": "la poción",
+          "meaning": "potion",
+          "example": "La maga nos dio una poción en caso de que nos hirieran.",
+          "example_meaning": "The mage gave us a potion in case we got hurt."
+        },
+        {
+          "term": "la emboscada",
+          "meaning": "ambush",
+          "example": "Caímos en una emboscada a pesar de que el cazador nos avisó.",
+          "example_meaning": "We fell into an ambush even though the hunter warned us."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Pactos de Eldmark",
+          "emoji": "⚔️",
+          "rule": "Deals and dangers take the subjunctive: con tal de que pagues, en caso de que ataquen, a menos que llegue ayuda. A fact you report takes the indicative: aunque es tarde.",
+          "example": "Te sigo a la mazmorra con tal de que compartas el botín.",
+          "example_meaning": "I'll follow you into the dungeon as long as you share the loot."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Aunque sea tarde, partimos.",
+          "meaning": "Even if it's late, we set off."
+        },
+        {
+          "text": "A pesar de la nieve, llegamos a Frostmarch.",
+          "meaning": "Despite the snow, we reached Frostmarch."
+        },
+        {
+          "text": "No ataques a menos que yo lo diga.",
+          "meaning": "Don't attack unless I say so.",
+          "note": "A menos que + subjunctive."
+        },
+        {
+          "text": "Siempre que vamos a Highgate, la elfa compra flechas.",
+          "meaning": "Whenever we go to Highgate, the elf buys arrows.",
+          "note": "New word: las flechas = the arrows."
+        },
+        {
+          "text": "Esconde el cofre en caso de que vuelvan los orcos.",
+          "meaning": "Hide the chest in case the orcs come back.",
+          "note": "New word: el cofre = the chest."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Te ayudo con tal de que compartas el botín.",
+          "meaning": "I'll help you as long as you share the loot.",
+          "distractors": [
+            "compartes"
+          ]
+        },
+        {
+          "text": "No entres a menos que llegue el paladín.",
+          "meaning": "Don't go in unless the paladin arrives.",
+          "distractors": [
+            "llega"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "La maga vendrá a no ser que el gremio la necesita.",
+          "wrong": "necesita",
+          "fix": "necesite",
+          "why": "A no ser que always takes the subjunctive."
+        },
+        {
+          "sentence": "Nos dio una poción en caso de que nos atacan en el Bosque Umbrío.",
+          "wrong": "atacan",
+          "fix": "atacaran",
+          "why": "En caso de que takes the subjunctive; after the past dio, the imperfect subjunctive."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "¿Un hecho o una condición?",
+          "buckets": [
+            "indicative: a fact",
+            "subjunctive: a possibility or condition"
+          ],
+          "items": [
+            {
+              "text": "Aunque el orco es lento, pega fuerte.",
+              "bucket": 0
+            },
+            {
+              "text": "Siempre que entramos en la mazmorra, perdemos algo.",
+              "bucket": 0
+            },
+            {
+              "text": "A pesar de que llovía, cazamos en el bosque.",
+              "bucket": 0
+            },
+            {
+              "text": "Te acompaño con tal de que lleves una antorcha.",
+              "bucket": 1
+            },
+            {
+              "text": "En caso de que caiga el puente, cruzamos a nado.",
+              "bucket": 1
+            },
+            {
+              "text": "No descansamos a menos que el paladín lo ordene.",
+              "bucket": 1
+            }
+          ],
+          "why": "A fact you report takes the indicative; conditions and possibilities (con tal de que, en caso de que, a menos que) take the subjunctive."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-concessive-and-conditional-links-realm-01",
+          "prompt": "El enano forja tu espada con tal de que le ___ en oro.",
+          "type": "multiple-choice",
+          "options": [
+            "pagues",
+            "pagas",
+            "pagarás"
+          ],
+          "correct_answer": "pagues",
+          "explanation": "Con tal de que always takes the subjunctive: con tal de que le pagues.",
+          "hints": [
+            "A bargain's condition takes the subjunctive."
+          ],
+          "teaches": [
+            "con tal de que"
+          ]
+        },
+        {
+          "question_id": "b2-concessive-and-conditional-links-realm-02",
+          "prompt": "The mage gave us a map in case we got lost: La maga nos dio un mapa en caso de que nos ___ (perder, nosotros) en el Bosque Umbrío.",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "perdiéramos",
+          "accepted_answers": [
+            "perdiésemos"
+          ],
+          "explanation": "En caso de que takes the subjunctive; after the past dio it is the imperfect subjunctive, with an accent on the nosotros form: perdiéramos.",
+          "hints": [
+            "A past main verb takes the imperfect subjunctive.",
+            "The nosotros form has an accent on the third-last syllable."
+          ],
+          "teaches": [
+            "en caso de que"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🌂",
+      "content": "## Aunque y con tal de que en Meadowbrook\n\nFarm life is full of ifs: **aunque llueva, hay que cosechar**; **Rosa te fía las semillas con tal de que le pagues en otoño**; **Leo no sale a pescar a menos que el río esté tranquilo**. A fact stays in the indicative: **aunque es invierno, la mina sigue abierta**.",
+      "vocabulary": [
+        {
+          "term": "aunque",
+          "example": "Aunque llueva, hay que cosechar las calabazas.",
+          "example_meaning": "Even if it rains, the pumpkins have to be harvested."
+        },
+        {
+          "term": "a menos que",
+          "example": "Leo no sale a pescar a menos que el río esté tranquilo.",
+          "example_meaning": "Leo doesn't go fishing unless the river is calm."
+        },
+        {
+          "term": "con tal de que",
+          "example": "Rosa me fía las semillas con tal de que le pague en otoño.",
+          "example_meaning": "Rosa sells me the seeds on credit as long as I pay her in autumn."
+        },
+        {
+          "term": "siempre que",
+          "example": "Siempre que voy a la taberna, el alcalde me invita a algo.",
+          "example_meaning": "Whenever I go to the tavern, the mayor buys me something."
+        },
+        {
+          "term": "a pesar de",
+          "example": "A pesar del calor, las fresas crecieron muy bien.",
+          "example_meaning": "Despite the heat, the strawberries grew very well."
+        },
+        {
+          "term": "en caso de que",
+          "example": "Guardo maíz en caso de que el invierno sea largo.",
+          "example_meaning": "I'm keeping corn in case the winter is long."
+        },
+        {
+          "term": "fiar",
+          "meaning": "to sell on credit, to trust someone to pay later",
+          "example": "En la tienda de Rosa te fían si eres de Meadowbrook.",
+          "example_meaning": "At Rosa's shop they give you credit if you're from Meadowbrook."
+        },
+        {
+          "term": "la cosecha",
+          "meaning": "harvest",
+          "example": "A pesar de la tormenta, la cosecha fue buena.",
+          "example_meaning": "Despite the storm, the harvest was good."
+        },
+        {
+          "term": "el gallinero",
+          "meaning": "hen house",
+          "example": "Cierra el gallinero aunque no veas al zorro.",
+          "example_meaning": "Shut the hen house even if you don't see the fox."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Ifs on the farm",
+          "emoji": "🌻",
+          "rule": "Farm plans depend on conditions. These take the subjunctive: a menos que, con tal de que and en caso de que. With aunque, the subjunctive means even if.",
+          "example": "Aunque llueva, Nora planta el maíz.",
+          "example_meaning": "Even if it rains, Nora is planting the corn."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Aunque nieve, abro la tienda.",
+          "meaning": "Even if it snows, I'm opening the shop.",
+          "note": "Aunque + subjunctive: even if."
+        },
+        {
+          "text": "Leo pesca siempre que hace sol.",
+          "meaning": "Leo goes fishing whenever it's sunny.",
+          "note": "Siempre que + indicative = whenever."
+        },
+        {
+          "text": "A pesar del frío, la cosecha fue buena.",
+          "meaning": "Despite the cold, the harvest was good.",
+          "note": "New word: la cosecha = the harvest."
+        },
+        {
+          "text": "Iré al festival con tal de que bailes conmigo.",
+          "meaning": "I'll go to the festival as long as you dance with me."
+        },
+        {
+          "text": "Cierra el gallinero en caso de que venga el zorro.",
+          "meaning": "Shut the hen house in case the fox comes.",
+          "note": "New word: el zorro = the fox."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Aunque llueva, Nora cosechará las calabazas.",
+          "meaning": "Even if it rains, Nora will harvest the pumpkins.",
+          "distractors": [
+            "llovería"
+          ]
+        },
+        {
+          "text": "Rosa te fía con tal de que pagues.",
+          "meaning": "Rosa gives you credit as long as you pay.",
+          "distractors": [
+            "pagas"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "El alcalde abrirá el festival a menos que llueve.",
+          "wrong": "llueve",
+          "fix": "llueva",
+          "why": "A menos que always takes the subjunctive."
+        },
+        {
+          "sentence": "Rosa me dio las semillas con tal de que le pago en otoño.",
+          "wrong": "pago",
+          "fix": "pagara",
+          "why": "Con tal de que takes the subjunctive; after the past dio, the imperfect subjunctive."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Siempre que en la granja",
+          "buckets": [
+            "whenever (indicative)",
+            "provided that (subjunctive)"
+          ],
+          "items": [
+            {
+              "text": "Siempre que llueve, las vacas se quedan en el establo.",
+              "bucket": 0
+            },
+            {
+              "text": "Siempre que Leo pesca un salmón, lo celebra en la taberna.",
+              "bucket": 0
+            },
+            {
+              "text": "Te presto la barca siempre que la devuelvas antes de la noche.",
+              "bucket": 1
+            },
+            {
+              "text": "Puedes coger fresas siempre que dejes algunas para el festival.",
+              "bucket": 1
+            }
+          ],
+          "why": "A habit in the indicative means whenever; a condition in the subjunctive means provided that."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-concessive-and-conditional-links-meadowbrook-01",
+          "prompt": "Leo no sale a pescar a menos que el río ___ tranquilo.",
+          "type": "multiple-choice",
+          "options": [
+            "esté",
+            "está",
+            "estaba"
+          ],
+          "correct_answer": "esté",
+          "explanation": "A menos que always takes the subjunctive: a menos que el río esté tranquilo.",
+          "hints": [
+            "Unless takes the subjunctive."
+          ],
+          "teaches": [
+            "a menos que"
+          ]
+        },
+        {
+          "question_id": "b2-concessive-and-conditional-links-meadowbrook-02",
+          "prompt": "Whenever I go to the mine, I find something strange: Siempre que ___ (ir, yo) a la mina, encuentro algo raro.",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "voy",
+          "accepted_answers": [
+            "yo voy"
+          ],
+          "explanation": "A habit means whenever, so siempre que takes the indicative: siempre que voy.",
+          "hints": [
+            "Whenever, as a habit, takes the indicative."
+          ],
+          "teaches": [
+            "siempre que"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b2-concessive-and-conditional-links-conv-meadowbrook-seeds",
+          "title": "Seeds on credit",
+          "scenario": "Nora wants pumpkin seeds at Rosa's shop but is short of money before the harvest.",
+          "role_a": "Nora",
+          "role_b": "Rosa",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Rosa, quiero plantar calabazas, aunque ahora no tengo mucho dinero.",
+              "meaning": "Rosa, I want to plant pumpkins, although I don't have much money right now.",
+              "note": "aunque + indicative: a fact"
+            },
+            {
+              "speaker": "b",
+              "text": "No pasa nada. Te las fío con tal de que me pagues después de la cosecha.",
+              "meaning": "No problem. I'll give you them on credit as long as you pay me after the harvest.",
+              "note": "con tal de que + subjunctive"
+            },
+            {
+              "speaker": "a",
+              "text": "¿Y en caso de que la lluvia estropee la cosecha?",
+              "meaning": "And in case the rain ruins the harvest?",
+              "note": "en caso de que + subjunctive"
+            },
+            {
+              "speaker": "b",
+              "text": "Aunque llueva mucho, las calabazas aguantan. Son muy duras.",
+              "meaning": "Even if it rains a lot, pumpkins hold up. They're very tough.",
+              "note": "aunque + subjunctive: even if"
+            },
+            {
+              "speaker": "a",
+              "text": "Vale. Las plantaré mañana, a menos que el alcalde me necesite para el festival.",
+              "meaning": "OK. I'll plant them tomorrow, unless the mayor needs me for the festival.",
+              "note": "a menos que + subjunctive"
+            },
+            {
+              "speaker": "b",
+              "text": "Siempre que vienes a la tienda, me alegras el día.",
+              "meaning": "Whenever you come to the shop, you brighten my day.",
+              "note": "siempre que + indicative = whenever"
+            },
+            {
+              "speaker": "a",
+              "text": "¡Qué amable! A pesar del trabajo, siempre tienes tiempo para charlar.",
+              "meaning": "How kind! Despite all the work, you always have time for a chat.",
+              "note": "a pesar de + noun"
+            },
+            {
+              "speaker": "b",
+              "text": "Para eso estamos los vecinos. ¡Suerte con las calabazas!",
+              "meaning": "That's what neighbours are for. Good luck with the pumpkins!"
+            }
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "☂️",
+      "content": "## Aunque y en caso de que en el páramo\n\nOut in the wasteland nothing is certain: **aunque haya una tormenta de ceniza, saldremos a explorar**; **lleva el radiorreloj en caso de que te pierdas**; **el robot jardinero no funciona a menos que lo repares**. A fact you can see takes the indicative: **aunque hace sol, hay mucho polvo**.",
+      "vocabulary": [
+        {
+          "term": "aunque",
+          "example": "Aunque haya polvo, Leo el buscador sale a explorar.",
+          "example_meaning": "Even if there's dust, Leo the scavenger goes out exploring."
+        },
+        {
+          "term": "en caso de que",
+          "example": "Lleva el radiorreloj en caso de que te pierdas en el páramo.",
+          "example_meaning": "Take the wrist radio in case you get lost in the wasteland."
+        },
+        {
+          "term": "a menos que",
+          "example": "El robot jardinero no planta nada a menos que lo repares.",
+          "example_meaning": "The robot gardener won't plant anything unless you repair it."
+        },
+        {
+          "term": "con tal de que",
+          "example": "Marta te guarda la armadura con tal de que le pagues diez tuercas.",
+          "example_meaning": "Marta will keep your armour for you as long as you pay her ten nuts."
+        },
+        {
+          "term": "a pesar de",
+          "example": "A pesar de la tormenta de ceniza, llegamos al mercado.",
+          "example_meaning": "Despite the ash storm, we reached the market."
+        },
+        {
+          "term": "por mucho que",
+          "example": "Por mucho que lo intentes, el capataz Ruiz no te dará más tuercas.",
+          "example_meaning": "However hard you try, Foreman Ruiz won't give you more nuts."
+        },
+        {
+          "term": "oxidado / oxidada",
+          "meaning": "rusty",
+          "example": "Marta no acepta tuercas oxidadas, aunque se lo pidas por favor.",
+          "example_meaning": "Marta doesn't accept rusty nuts, even if you ask her nicely."
+        },
+        {
+          "term": "la tormenta de ceniza",
+          "meaning": "ash storm",
+          "example": "No salgas de la cúpula en caso de que empiece la tormenta de ceniza.",
+          "example_meaning": "Don't leave the Dome in case the ash storm starts."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Planes en el páramo",
+          "emoji": "📻",
+          "rule": "In the wasteland, plans depend on conditions, and en caso de que, a menos que and con tal de que take the subjunctive. aunque + indicative states a fact.",
+          "example": "Lleva agua filtrada en caso de que no encuentres el pueblo.",
+          "example_meaning": "Take filtered water in case you don't find the town."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Aunque hay polvo, exploramos.",
+          "meaning": "Although there's dust, we're exploring.",
+          "note": "Aunque + indicative: a fact."
+        },
+        {
+          "text": "No salgas a menos que pare la tormenta.",
+          "meaning": "Don't go out unless the storm stops."
+        },
+        {
+          "text": "Marta acepta tuercas siempre que no estén oxidadas.",
+          "meaning": "Marta accepts nuts provided that they aren't rusty.",
+          "note": "New word: oxidado = rusty."
+        },
+        {
+          "text": "Lleva gaseosa Zafiro en caso de que tengas sed.",
+          "meaning": "Take Zafiro soda in case you get thirsty."
+        },
+        {
+          "text": "A pesar de la radiación, el robot jardinero sigue plantando.",
+          "meaning": "Despite the radiation, the robot gardener keeps planting.",
+          "note": "New word: la radiación = the radiation."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Leo explora aunque haya tormenta de ceniza.",
+          "meaning": "Leo explores even if there's an ash storm.",
+          "distractors": [
+            "habría"
+          ]
+        },
+        {
+          "text": "Te reparo el radiorreloj con tal de que pagues.",
+          "meaning": "I'll repair your wrist radio as long as you pay.",
+          "distractors": [
+            "pagas"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "No abras la puerta de la cúpula a menos que el capataz lo ordena.",
+          "wrong": "ordena",
+          "fix": "ordene",
+          "why": "A menos que always takes the subjunctive."
+        },
+        {
+          "sentence": "Ruiz me dio un tónico en caso de que me pongo enfermo.",
+          "wrong": "pongo",
+          "fix": "pusiera",
+          "why": "En caso de que takes the subjunctive; after the past dio, the imperfect subjunctive."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "¿Un hecho o una posibilidad en el páramo?",
+          "buckets": [
+            "indicative: a fact",
+            "subjunctive: a possibility or condition"
+          ],
+          "items": [
+            {
+              "text": "Aunque hace sol, llevo el mono azul.",
+              "bucket": 0
+            },
+            {
+              "text": "Siempre que pasa la cabra del páramo, el perro guardián ladra.",
+              "bucket": 0
+            },
+            {
+              "text": "A pesar de que caía ceniza, Marta abrió el mercado.",
+              "bucket": 0
+            },
+            {
+              "text": "Aunque mañana haga sol, llevaré el mono azul.",
+              "bucket": 1
+            },
+            {
+              "text": "En caso de que se rompa el radiorreloj, usa la antena.",
+              "bucket": 1
+            },
+            {
+              "text": "Te doy tuercas con tal de que repares el robot.",
+              "bucket": 1
+            }
+          ],
+          "why": "A fact you see or report takes the indicative; an unknown future and any condition take the subjunctive."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-concessive-and-conditional-links-rustwake-01",
+          "prompt": "Marta te cambia agua filtrada por tuercas con tal de que no ___ oxidadas.",
+          "type": "multiple-choice",
+          "options": [
+            "estén",
+            "están",
+            "estarán"
+          ],
+          "correct_answer": "estén",
+          "explanation": "Con tal de que always takes the subjunctive: con tal de que no estén oxidadas.",
+          "hints": [
+            "A condition takes the subjunctive."
+          ],
+          "teaches": [
+            "con tal de que",
+            "oxidado / oxidada"
+          ]
+        },
+        {
+          "question_id": "b2-concessive-and-conditional-links-rustwake-02",
+          "prompt": "Leo said he would go exploring even if there was an ash storm: Leo dijo que saldría a explorar aunque ___ (haber) tormenta de ceniza.",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "hubiera",
+          "accepted_answers": [
+            "hubiese"
+          ],
+          "explanation": "Even if after a past main verb (dijo… saldría) takes the imperfect subjunctive: aunque hubiera (or hubiese) tormenta.",
+          "hints": [
+            "Even if takes the subjunctive.",
+            "The main verbs are in the past and conditional, so use the imperfect subjunctive of haber."
+          ],
+          "teaches": [
+            "aunque",
+            "la tormenta de ceniza"
+          ]
+        }
+      ]
+    }
+  }
+}

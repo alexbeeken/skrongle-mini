@@ -1,0 +1,158 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "StackItself",
+      "Effect": "Allow",
+      "Action": [
+        "cloudformation:CreateChangeSet", "cloudformation:DescribeChangeSet",
+        "cloudformation:ExecuteChangeSet", "cloudformation:DeleteChangeSet",
+        "cloudformation:ListChangeSets", "cloudformation:DescribeStacks",
+        "cloudformation:DescribeStackEvents", "cloudformation:DescribeStackResource",
+        "cloudformation:DescribeStackResources", "cloudformation:GetTemplate",
+        "cloudformation:GetTemplateSummary", "cloudformation:DeleteStack"
+      ],
+      "Resource": [
+        "arn:aws:cloudformation:us-west-2:ACCOUNT_ID:stack/learnmap/*",
+        "arn:aws:cloudformation:us-west-2:ACCOUNT_ID:changeSet/awscli-cloudformation-package-deploy-*/*"
+      ]
+    },
+    {
+      "Sid": "TemplateChecks",
+      "Effect": "Allow",
+      "Action": ["cloudformation:ValidateTemplate", "cloudformation:GetTemplateSummary"],
+      "Resource": "*"
+    },
+    {
+      "Sid": "InstanceNetworkAndIp",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:Describe*", "ec2:GetConsoleOutput", "ec2:CreateTags", "ec2:DeleteTags",
+        "ec2:CreateSecurityGroup", "ec2:DeleteSecurityGroup",
+        "ec2:AuthorizeSecurityGroupIngress", "ec2:RevokeSecurityGroupIngress",
+        "ec2:AuthorizeSecurityGroupEgress", "ec2:RevokeSecurityGroupEgress",
+        "ec2:ModifySecurityGroupRules", "ec2:UpdateSecurityGroupRuleDescriptionsIngress",
+        "ec2:RunInstances", "ec2:TerminateInstances", "ec2:StartInstances", "ec2:StopInstances",
+        "ec2:ModifyInstanceAttribute", "ec2:ModifyInstanceMetadataOptions",
+        "ec2:AssociateIamInstanceProfile", "ec2:ReplaceIamInstanceProfileAssociation",
+        "ec2:DisassociateIamInstanceProfile",
+        "ec2:AllocateAddress", "ec2:ReleaseAddress", "ec2:AssociateAddress", "ec2:DisassociateAddress"
+      ],
+      "Resource": "*",
+      "Condition": { "StringEquals": { "aws:RequestedRegion": "us-west-2" } }
+    },
+    {
+      "Sid": "StackRoles",
+      "Effect": "Allow",
+      "Action": [
+        "iam:CreateRole", "iam:DeleteRole", "iam:GetRole", "iam:UpdateRole",
+        "iam:UpdateRoleDescription", "iam:UpdateAssumeRolePolicy",
+        "iam:TagRole", "iam:UntagRole", "iam:ListRoleTags",
+        "iam:PutRolePolicy", "iam:GetRolePolicy", "iam:DeleteRolePolicy",
+        "iam:ListRolePolicies", "iam:ListAttachedRolePolicies", "iam:ListInstanceProfilesForRole",
+        "iam:CreateInstanceProfile", "iam:DeleteInstanceProfile", "iam:GetInstanceProfile",
+        "iam:AddRoleToInstanceProfile", "iam:RemoveRoleFromInstanceProfile",
+        "iam:TagInstanceProfile", "iam:UntagInstanceProfile"
+      ],
+      "Resource": [
+        "arn:aws:iam::ACCOUNT_ID:role/learnmap-*",
+        "arn:aws:iam::ACCOUNT_ID:instance-profile/learnmap-*"
+      ]
+    },
+    {
+      "Sid": "SnapshotRoleManagedPolicyOnly",
+      "Effect": "Allow",
+      "Action": ["iam:AttachRolePolicy", "iam:DetachRolePolicy"],
+      "Resource": "arn:aws:iam::ACCOUNT_ID:role/learnmap-*",
+      "Condition": {
+        "ArnEquals": { "iam:PolicyARN": "arn:aws:iam::aws:policy/service-role/AWSDataLifecycleManagerServiceRole" }
+      }
+    },
+    {
+      "Sid": "PassStackRolesToEc2AndDlmOnly",
+      "Effect": "Allow",
+      "Action": "iam:PassRole",
+      "Resource": "arn:aws:iam::ACCOUNT_ID:role/learnmap-*",
+      "Condition": {
+        "StringEquals": { "iam:PassedToService": ["ec2.amazonaws.com", "dlm.amazonaws.com"] }
+      }
+    },
+    {
+      "Sid": "NightlySnapshots",
+      "Effect": "Allow",
+      "Action": [
+        "dlm:CreateLifecyclePolicy", "dlm:GetLifecyclePolicy", "dlm:GetLifecyclePolicies",
+        "dlm:UpdateLifecyclePolicy", "dlm:DeleteLifecyclePolicy",
+        "dlm:TagResource", "dlm:UntagResource", "dlm:ListTagsForResource"
+      ],
+      "Resource": "*",
+      "Condition": { "StringEquals": { "aws:RequestedRegion": "us-west-2" } }
+    },
+    {
+      "Sid": "StackBuckets",
+      "Effect": "Allow",
+      "Action": [
+        "s3:CreateBucket", "s3:GetBucket*", "s3:PutBucket*", "s3:DeleteBucketPolicy",
+        "s3:GetLifecycleConfiguration", "s3:PutLifecycleConfiguration",
+        "s3:GetEncryptionConfiguration", "s3:PutEncryptionConfiguration",
+        "s3:GetAccelerateConfiguration", "s3:GetAnalyticsConfiguration",
+        "s3:GetInventoryConfiguration", "s3:GetMetricsConfiguration",
+        "s3:GetIntelligentTieringConfiguration", "s3:GetReplicationConfiguration",
+        "s3:ListBucket", "s3:ListBucketVersions"
+      ],
+      "Resource": "arn:aws:s3:::learnmap-*"
+    },
+    {
+      "Sid": "ReadBackups",
+      "Effect": "Allow",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::learnmap-backupbucket-*/daily/*"
+    },
+    {
+      "Sid": "NeverTouchObjects",
+      "Effect": "Deny",
+      "Action": ["s3:PutObject*", "s3:DeleteObject*", "s3:RestoreObject"],
+      "Resource": "arn:aws:s3:::*/*"
+    },
+    {
+      "Sid": "NeverReadExports",
+      "Effect": "Deny",
+      "Action": "s3:GetObject*",
+      "Resource": "arn:aws:s3:::learnmap-filesbucket-*/*"
+    },
+    {
+      "Sid": "AppSettings",
+      "Effect": "Allow",
+      "Action": [
+        "ssm:GetParameter", "ssm:GetParameters", "ssm:GetParametersByPath",
+        "ssm:PutParameter", "ssm:DeleteParameter", "ssm:AddTagsToResource",
+        "ssm:ListTagsForResource", "ssm:GetParameterHistory"
+      ],
+      "Resource": [
+        "arn:aws:ssm:us-west-2:ACCOUNT_ID:parameter/skrongle",
+        "arn:aws:ssm:us-west-2:ACCOUNT_ID:parameter/skrongle/*"
+      ]
+    },
+    {
+      "Sid": "AmazonLinuxImageLookup",
+      "Effect": "Allow",
+      "Action": ["ssm:GetParameter", "ssm:GetParameters"],
+      "Resource": "arn:aws:ssm:us-west-2::parameter/aws/service/ami-amazon-linux-latest/*"
+    },
+    {
+      "Sid": "ListSettingsInTheConsole",
+      "Effect": "Allow",
+      "Action": "ssm:DescribeParameters",
+      "Resource": "*"
+    },
+    {
+      "Sid": "AwsManagedKeysThroughSsmAndEc2Only",
+      "Effect": "Allow",
+      "Action": ["kms:Encrypt", "kms:Decrypt", "kms:GenerateDataKey*", "kms:CreateGrant", "kms:DescribeKey"],
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": { "kms:ViaService": ["ssm.us-west-2.amazonaws.com", "ec2.us-west-2.amazonaws.com"] }
+      }
+    }
+  ]
+}

@@ -1,0 +1,1260 @@
+{
+  "id": "a1-stem-changing-er",
+  "slug": "stem-changing-er",
+  "title": "Spelling-change -er verbs: j'achète, nous commençons",
+  "unit": "A1",
+  "group": "Grammar",
+  "order": 42,
+  "summary": "Some -er verbs change spelling with je, tu, il and ils (j'achète, j'appelle, je paie) or with nous (nous commençons).",
+  "focus": "Spelling changes in -er verbs in the present: the boot pattern, ç and -yer",
+  "prerequisites": [
+    "a1-er-verbs"
+  ],
+  "content": "## The boot pattern\n\nSome -er verbs change their spelling in the present, always in the same four places: **je**, **tu**, **il / elle / on** and **ils / elles**. Draw a line around those four in the table and you get the shape of a boot; **nous** and **vous** stay outside it and keep the infinitive's spelling.\n\n| | acheter (to buy) |\n|---|---|\n| je / j' | **achète** |\n| tu | **achètes** |\n| il / elle / on | **achète** |\n| nous | achetons |\n| vous | achetez |\n| ils / elles | **achètent** |\n\nWhy? Inside the boot the ending is silent, so the vowel before it carries the voice and sounds open, like **è**. With **-ons** and **-ez** the ending is heard and that vowel stays light. The endings themselves are the regular ones: -e, -es, -e, -ons, -ez, -ent.\n\n## E → è and é → è\n\nTwo families put a grave accent in the boot:\n\n| | acheter | préférer |\n|---|---|---|\n| je / j' | achète | préfère |\n| tu | achètes | préfères |\n| il / elle / on | achète | préfère |\n| nous | achetons | préférons |\n| vous | achetez | préférez |\n| ils / elles | achètent | préfèrent |\n\n- Like **acheter**: **se promener** (to go for a walk): **je me promène**, **nous nous promenons**.\n- Like **préférer**: **espérer** (to hope): **j'espère**; **répéter** (to repeat): **il répète**.\n\nIn **préférer** only the second **é** changes: **je préfère**, never *je prèfère*.\n\n## Doubling: appeler and jeter\n\n**Appeler** (to call) and **jeter** (to throw) double their consonant in the boot instead of taking an accent:\n\n| | appeler | jeter |\n|---|---|---|\n| je / j' | appelle | jette |\n| tu | appelles | jettes |\n| il / elle / on | appelle | jette |\n| nous | appelons | jetons |\n| vous | appelez | jetez |\n| ils / elles | appellent | jettent |\n\nThe double **ll** or **tt** does the same job as **è**: it makes the **e** before it sound open. You already know one of these forms: **je m'appelle** comes from **s'appeler**, the same verb with **se**.\n\n## -cer, -ger and -yer\n\nThese verbs change to keep a sound:\n\n- **-cer**: only the **nous** form changes. A **c** before **o** would sound like **k**, so it takes a cedilla: **nous commençons** (we begin), **nous avançons** (we move forward).\n- **-ger** (recap): **nous mangeons**, **nous voyageons** keep an **e** so the **g** stays soft.\n- **-yer**: the **y** becomes **i** in the boot: **je paie**, **tu paies**, **ils paient**, but **nous payons**, **vous payez**. Same for **envoyer** (to send): **j'envoie**, and **essayer** (to try): **j'essaie**.\n\nWith **-ayer** verbs, keeping the **y** is also correct: **je paye**, **j'essaye**. The drill uses **je paie**.",
+  "vocabulary": [
+    {
+      "term": "acheter",
+      "meaning": "to buy",
+      "example": "Ma mère achète le journal tous les matins.",
+      "example_meaning": "My mother buys the newspaper every morning."
+    },
+    {
+      "term": "se promener",
+      "meaning": "to go for a walk",
+      "example": "Mes grands-parents se promènent après le déjeuner.",
+      "example_meaning": "My grandparents go for a walk after lunch."
+    },
+    {
+      "term": "préférer",
+      "meaning": "to prefer",
+      "example": "Mes enfants préfèrent les vacances à la mer.",
+      "example_meaning": "My children prefer holidays by the sea."
+    },
+    {
+      "term": "espérer",
+      "meaning": "to hope",
+      "example": "Nous espérons visiter Paris cet été.",
+      "example_meaning": "We hope to visit Paris this summer."
+    },
+    {
+      "term": "répéter",
+      "meaning": "to repeat",
+      "example": "Vous répétez la phrase, s'il vous plaît ?",
+      "example_meaning": "Can you repeat the sentence, please?"
+    },
+    {
+      "term": "appeler",
+      "meaning": "to call (on the phone, or by name)",
+      "example": "Le soir, j'appelle souvent ma sœur.",
+      "example_meaning": "In the evening, I often call my sister."
+    },
+    {
+      "term": "jeter",
+      "meaning": "to throw, to throw away",
+      "example": "Nous jetons les vieux papiers.",
+      "example_meaning": "We throw away the old papers."
+    },
+    {
+      "term": "commencer",
+      "meaning": "to begin, to start",
+      "example": "Le concert commence à neuf heures.",
+      "example_meaning": "The concert begins at nine."
+    },
+    {
+      "term": "payer",
+      "meaning": "to pay, to pay for",
+      "example": "Mon père paie toujours le restaurant.",
+      "example_meaning": "My father always pays for the restaurant."
+    },
+    {
+      "term": "envoyer",
+      "meaning": "to send",
+      "example": "Ma grand-mère envoie des cartes postales.",
+      "example_meaning": "My grandmother sends postcards."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-stem-changing-er-01",
+      "prompt": "Nous ___ du pain tous les matins. (acheter)",
+      "type": "multiple-choice",
+      "options": [
+        "achetons",
+        "achètons",
+        "achètent"
+      ],
+      "correct_answer": "achetons",
+      "explanation": "Nous is outside the boot, so it keeps the infinitive's spelling, with no accent: nous achetons.",
+      "hints": [
+        "Nous and vous don't change.",
+        "Look at the infinitive: achet-."
+      ],
+      "teaches": [
+        "acheter"
+      ]
+    },
+    {
+      "question_id": "a1-stem-changing-er-02",
+      "prompt": "Moi, je ___ le thé au café. (préférer)",
+      "type": "fill-in-blank",
+      "correct_answer": "préfère",
+      "accepted_answers": [
+        "je préfère"
+      ],
+      "explanation": "Je is inside the boot: the second é becomes è. Je préfère.",
+      "hints": [
+        "Only the second é changes.",
+        "è before the silent ending."
+      ],
+      "teaches": [
+        "préférer"
+      ]
+    },
+    {
+      "question_id": "a1-stem-changing-er-03",
+      "prompt": "Which spelling of appeler is right for 'they call'?",
+      "type": "multiple-choice",
+      "options": [
+        "ils appellent",
+        "ils appelent",
+        "ils appèlent"
+      ],
+      "correct_answer": "ils appellent",
+      "explanation": "Ils is inside the boot, so appeler doubles its l: ils appellent. Only nous appelons and vous appelez keep one l.",
+      "hints": [
+        "Appeler doubles a letter instead of taking an accent."
+      ],
+      "teaches": [
+        "appeler"
+      ]
+    },
+    {
+      "question_id": "a1-stem-changing-er-04",
+      "prompt": "Nous ___ le cours à neuf heures. (commencer)",
+      "type": "fill-in-blank",
+      "correct_answer": "commençons",
+      "accepted_answers": [
+        "nous commençons"
+      ],
+      "explanation": "Before -ons, the c needs a cedilla to keep its s sound: nous commençons.",
+      "hints": [
+        "The c must still sound like s before o.",
+        "Use ç."
+      ],
+      "teaches": [
+        "commencer"
+      ]
+    },
+    {
+      "question_id": "a1-stem-changing-er-05",
+      "prompt": "In the boot pattern, nous and vous keep the spelling of the infinitive: nous achetons, vous achetez.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "The change happens only with je, tu, il / elle / on and ils / elles. Nous and vous have audible endings and keep the infinitive's spelling.",
+      "hints": [
+        "Which four persons make the boot?"
+      ],
+      "teaches": [
+        "acheter"
+      ]
+    },
+    {
+      "question_id": "a1-stem-changing-er-06",
+      "prompt": "Tu ___ par carte ou en espèces ? (payer)",
+      "type": "multiple-choice",
+      "options": [
+        "paies",
+        "pays",
+        "paient"
+      ],
+      "correct_answer": "paies",
+      "explanation": "Tu is inside the boot, so the y of payer becomes i: tu paies (tu payes is also correct).",
+      "hints": [
+        "The y becomes i with tu.",
+        "Pays is a noun: a country."
+      ],
+      "teaches": [
+        "payer"
+      ]
+    },
+    {
+      "question_id": "a1-stem-changing-er-07",
+      "prompt": "Elle ___ ses vieux journaux à la poubelle. (jeter)",
+      "type": "fill-in-blank",
+      "correct_answer": "jette",
+      "accepted_answers": [
+        "elle jette"
+      ],
+      "explanation": "Elle is inside the boot, so jeter doubles its t: elle jette.",
+      "hints": [
+        "Like appeler, jeter doubles its consonant.",
+        "Two t's."
+      ],
+      "teaches": [
+        "jeter"
+      ]
+    },
+    {
+      "question_id": "a1-stem-changing-er-08",
+      "prompt": "Le professeur ___ la question deux fois. (répéter)",
+      "type": "multiple-choice",
+      "options": [
+        "répète",
+        "répéte",
+        "répètent"
+      ],
+      "correct_answer": "répète",
+      "explanation": "Répéter works like préférer: the second é becomes è inside the boot. Il répète.",
+      "hints": [
+        "Only the second é changes.",
+        "The subject is singular."
+      ],
+      "teaches": [
+        "répéter"
+      ]
+    },
+    {
+      "question_id": "a1-stem-changing-er-09",
+      "prompt": "'Nous mangons' is spelt correctly, like 'nous parlons'.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "In -ger verbs, nous keeps an e so the g stays soft: nous mangeons.",
+      "hints": [
+        "What does g sound like before o?"
+      ]
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "acheter",
+      "meaning": "to buy",
+      "set": "present",
+      "art": [
+        "    ______    ",
+        "   /      \\   ",
+        "  |--------|  ",
+        "  |  $  $  |  ",
+        "  |________|  "
+      ],
+      "forms": {
+        "je": "achète",
+        "tu": "achètes",
+        "il": "achète",
+        "nous": "achetons",
+        "vous": "achetez",
+        "ils": "achètent"
+      }
+    },
+    {
+      "item": "préférer",
+      "meaning": "to prefer",
+      "set": "present",
+      "art": [
+        "  _     _  ",
+        " ( `\\ /' ) ",
+        "  \\  v  /  ",
+        "   \\   /   ",
+        "    \\ /    ",
+        "     v     "
+      ],
+      "forms": {
+        "je": "préfère",
+        "tu": "préfères",
+        "il": "préfère",
+        "nous": "préférons",
+        "vous": "préférez",
+        "ils": "préfèrent"
+      }
+    },
+    {
+      "item": "appeler",
+      "meaning": "to call",
+      "set": "present",
+      "art": [
+        " .---------. ",
+        "(  ALLO ??  )",
+        " `---. .---' ",
+        "     |/      ",
+        "   [===]     "
+      ],
+      "forms": {
+        "je": "appelle",
+        "tu": "appelles",
+        "il": "appelle",
+        "nous": "appelons",
+        "vous": "appelez",
+        "ils": "appellent"
+      }
+    },
+    {
+      "item": "commencer",
+      "meaning": "to begin, to start",
+      "set": "present",
+      "art": [
+        " |>>>>>>     ",
+        " |>>>>>>     ",
+        " |           ",
+        " |   GO !    ",
+        "_|________   "
+      ],
+      "forms": {
+        "je": "commence",
+        "tu": "commences",
+        "il": "commence",
+        "nous": "commençons",
+        "vous": "commencez",
+        "ils": "commencent"
+      }
+    },
+    {
+      "item": "payer",
+      "meaning": "to pay",
+      "set": "present",
+      "art": [
+        "    .----.    ",
+        "   / EUR  \\   ",
+        "  |  1,00  |  ",
+        "   \\      /   ",
+        "    '----'    "
+      ],
+      "forms": {
+        "je": "paie",
+        "tu": "paies",
+        "il": "paie",
+        "nous": "payons",
+        "vous": "payez",
+        "ils": "paient"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-stem-changing-er-conv-party",
+      "title": "Planning a party",
+      "scenario": "Léa and Sami share out the shopping and the phone calls for a party at their flat on Saturday.",
+      "role_a": "Léa",
+      "role_b": "Sami",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Pour la fête de samedi, qui achète les boissons ?",
+          "meaning": "For Saturday's party, who's buying the drinks?",
+          "note": "il form inside the boot: achète"
+        },
+        {
+          "speaker": "b",
+          "text": "J'achète les boissons. Et toi, tu achètes le gâteau ?",
+          "meaning": "I'll buy the drinks. And you, will you buy the cake?"
+        },
+        {
+          "speaker": "a",
+          "text": "D'accord. Tu préfères un gâteau au chocolat ou aux fraises ?",
+          "meaning": "OK. Do you prefer a chocolate cake or a strawberry one?"
+        },
+        {
+          "speaker": "b",
+          "text": "Je préfère le chocolat, mais Paul préfère les fraises.",
+          "meaning": "I prefer chocolate, but Paul prefers strawberries.",
+          "note": "only the second é becomes è"
+        },
+        {
+          "speaker": "a",
+          "text": "Alors j'achète deux gâteaux ! On commence à quelle heure ?",
+          "meaning": "Then I'll buy two cakes! What time do we start?"
+        },
+        {
+          "speaker": "b",
+          "text": "Nous commençons à huit heures. J'appelle Paul et Sarah ce soir.",
+          "meaning": "We start at eight. I'll call Paul and Sarah tonight.",
+          "note": "ç before -ons; ll in the boot"
+        },
+        {
+          "speaker": "a",
+          "text": "Et moi, j'envoie un message aux voisins.",
+          "meaning": "And I'll send a message to the neighbours.",
+          "note": "y → i: j'envoie"
+        },
+        {
+          "speaker": "b",
+          "text": "Bonne idée. Et les pizzas, qui paie ?",
+          "meaning": "Good idea. And the pizzas, who's paying?"
+        },
+        {
+          "speaker": "a",
+          "text": "Nous payons ensemble, c'est plus simple.",
+          "meaning": "We'll pay together, it's simpler.",
+          "note": "nous keeps the y"
+        },
+        {
+          "speaker": "b",
+          "text": "Parfait. J'espère qu'il va faire beau !",
+          "meaning": "Perfect. I hope the weather will be nice!"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "J'achète des pommes au marché.",
+      "meaning": "I buy apples at the market.",
+      "note": "Inside the boot: è."
+    },
+    {
+      "text": "Nous préférons voyager en train.",
+      "meaning": "We prefer to travel by train.",
+      "note": "Nous keeps the infinitive's spelling."
+    },
+    {
+      "text": "Ils appellent leur grand-mère le dimanche.",
+      "meaning": "They call their grandmother on Sundays."
+    },
+    {
+      "text": "Lundi, nous commençons le cours très tôt.",
+      "meaning": "On Monday, we start the class very early.",
+      "note": "A cedilla keeps the s sound."
+    },
+    {
+      "text": "Tu paies toujours en espèces ?",
+      "meaning": "Do you always pay in cash?",
+      "note": "New word: en espèces = in cash."
+    },
+    {
+      "text": "J'espère que tu vas bien.",
+      "meaning": "I hope you're well."
+    },
+    {
+      "text": "Le dimanche, nous nous promenons dans le parc.",
+      "meaning": "On Sundays, we go for a walk in the park.",
+      "note": "New word: le parc = the park."
+    },
+    {
+      "text": "Mon frère envoie un message à sa copine tous les soirs.",
+      "meaning": "My brother sends a message to his girlfriend every evening.",
+      "note": "New word: la copine = the girlfriend."
+    }
+  ],
+  "guide": [
+    {
+      "section": "The boot"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-stem-changing-er-05"
+    },
+    {
+      "question": "a1-stem-changing-er-01"
+    },
+    {
+      "tip": "Listen to the verb: whenever the ending is silent (je, tu, il, ils), the e or é before it sounds like è. Write what you hear: è, ll or tt."
+    },
+    {
+      "section": "E → è"
+    },
+    {
+      "question": "a1-stem-changing-er-02"
+    },
+    {
+      "question": "a1-stem-changing-er-08"
+    },
+    {
+      "section": "Doubling"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-stem-changing-er-03"
+    },
+    {
+      "question": "a1-stem-changing-er-07"
+    },
+    {
+      "section": "-cer"
+    },
+    {
+      "question": "a1-stem-changing-er-04"
+    },
+    {
+      "question": "a1-stem-changing-er-09"
+    },
+    {
+      "concept": {
+        "title": "Je paie or je paye?",
+        "markdown": "Verbs in **-ayer** (**payer**, **essayer**) may keep their **y**: **je paye** and **j'essaye** are as correct as **je paie** and **j'essaie**. Verbs in **-oyer** and **-uyer** (**envoyer**, **nettoyer**, **s'ennuyer**) must change: **j'envoie**, never *j'envoye*."
+      }
+    },
+    {
+      "question": "a1-stem-changing-er-06"
+    }
+  ],
+  "sprint": {
+    "icon": "🔁",
+    "bites": [
+      {
+        "title": "The boot",
+        "emoji": "👢",
+        "rule": "Spelling changes happen with je, tu, il and ils only. Nous and vous keep the infinitive's spelling: j'achète but nous achetons.",
+        "example": "J'achète du pain, nous achetons du fromage.",
+        "example_meaning": "I buy bread, we buy cheese."
+      },
+      {
+        "title": "E or é becomes è",
+        "emoji": "🎵",
+        "rule": "Acheter, se promener: e → è. Préférer, espérer, répéter: the last é → è. Only inside the boot.",
+        "example": "Je préfère le thé, vous préférez le café.",
+        "example_meaning": "I prefer tea, you prefer coffee."
+      },
+      {
+        "title": "Double the consonant",
+        "emoji": "👯",
+        "rule": "Appeler and jeter double their l or t inside the boot: j'appelle, ils jettent; but nous appelons, vous jetez.",
+        "example": "Elle appelle sa mère tous les soirs.",
+        "example_meaning": "She calls her mother every evening."
+      },
+      {
+        "title": "ç, ge and i",
+        "emoji": "🧩",
+        "rule": "Nous commençons (ç before o), nous mangeons (ge before o). -yer: y → i in the boot: je paie, nous payons.",
+        "example": "Nous commençons à huit heures et je paie le café.",
+        "example_meaning": "We start at eight and I'm paying for the coffee."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Inside or outside the boot?",
+        "buckets": [
+          "spelling changes",
+          "infinitive spelling"
+        ],
+        "items": [
+          {
+            "text": "je",
+            "bucket": 0
+          },
+          {
+            "text": "nous",
+            "bucket": 1
+          },
+          {
+            "text": "tu",
+            "bucket": 0
+          },
+          {
+            "text": "vous",
+            "bucket": 1
+          },
+          {
+            "text": "il / elle",
+            "bucket": 0
+          },
+          {
+            "text": "ils / elles",
+            "bucket": 0
+          }
+        ],
+        "why": "Je, tu, il and ils have silent endings and change; nous and vous keep the infinitive's spelling."
+      },
+      {
+        "title": "Which change?",
+        "buckets": [
+          "e → è",
+          "é → è",
+          "double consonant",
+          "y → i"
+        ],
+        "items": [
+          {
+            "text": "acheter",
+            "bucket": 0
+          },
+          {
+            "text": "préférer",
+            "bucket": 1
+          },
+          {
+            "text": "appeler",
+            "bucket": 2
+          },
+          {
+            "text": "payer",
+            "bucket": 3
+          },
+          {
+            "text": "jeter",
+            "bucket": 2
+          },
+          {
+            "text": "espérer",
+            "bucket": 1
+          },
+          {
+            "text": "se promener",
+            "bucket": 0
+          },
+          {
+            "text": "envoyer",
+            "bucket": 3
+          }
+        ],
+        "why": "Acheter and se promener take è; préférer and espérer turn their last é into è; appeler and jeter double; -yer verbs turn y into i."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Nous achètons des fruits.",
+        "wrong": "achètons",
+        "fix": "achetons",
+        "why": "Nous is outside the boot: no accent."
+      },
+      {
+        "sentence": "Je préfére le café.",
+        "wrong": "préfére",
+        "fix": "préfère",
+        "why": "Inside the boot, the second é becomes è."
+      },
+      {
+        "sentence": "Il appele son frère.",
+        "wrong": "appele",
+        "fix": "appelle",
+        "why": "Appeler doubles its l with il."
+      },
+      {
+        "sentence": "Nous commencons à neuf heures.",
+        "wrong": "commencons",
+        "fix": "commençons",
+        "why": "C before o needs a cedilla: ç."
+      },
+      {
+        "sentence": "Vous paiez par carte ?",
+        "wrong": "paiez",
+        "fix": "payez",
+        "why": "Vous keeps the y of payer."
+      },
+      {
+        "sentence": "Ils jetent les vieux papiers.",
+        "wrong": "jetent",
+        "fix": "jettent",
+        "why": "Ils is inside the boot: double t."
+      }
+    ],
+    "builds": [
+      {
+        "text": "J'achète du pain le matin.",
+        "meaning": "I buy bread in the morning.",
+        "distractors": [
+          "achetons"
+        ]
+      },
+      {
+        "text": "Nous commençons à huit heures.",
+        "meaning": "We start at eight o'clock.",
+        "distractors": [
+          "commencons"
+        ]
+      },
+      {
+        "text": "Tu préfères le thé ?",
+        "meaning": "Do you prefer tea?",
+        "distractors": [
+          "préférez"
+        ]
+      },
+      {
+        "text": "Ils appellent leurs parents.",
+        "meaning": "They call their parents.",
+        "distractors": [
+          "appelent"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🧮",
+      "content": "## Les achats à Eldmark\n\nBefore a quest, the party shops in Highgate: **j'achète une potion**, **nous achetons des flèches**. Borin **préfère** l'épée; **nous préférons** l'arc. The dwarf **paie** in gold, **nous payons** together, and **nous commençons** la quête at dawn. The boot again: je, tu, il, ils change; nous and vous don't.",
+      "vocabulary": [
+        {
+          "term": "acheter",
+          "example": "Le paladin achète un bouclier.",
+          "example_meaning": "The paladin buys a shield."
+        },
+        {
+          "term": "préférer",
+          "example": "Les elfes préfèrent la forêt.",
+          "example_meaning": "Elves prefer the forest."
+        },
+        {
+          "term": "appeler",
+          "example": "La prêtresse appelle sa monture.",
+          "example_meaning": "The priestess calls her mount."
+        },
+        {
+          "term": "commencer",
+          "example": "Nous commençons la quête demain.",
+          "example_meaning": "We start the quest tomorrow."
+        },
+        {
+          "term": "payer",
+          "example": "Le nain paie avec des pièces d'or.",
+          "example_meaning": "The dwarf pays with gold coins."
+        },
+        {
+          "term": "jeter",
+          "example": "La mage Séla jette un sort.",
+          "example_meaning": "Séla the mage casts a spell."
+        },
+        {
+          "term": "espérer",
+          "example": "J'espère trouver du butin dans le donjon.",
+          "example_meaning": "I hope to find loot in the dungeon."
+        },
+        {
+          "term": "la pièce d'or",
+          "meaning": "gold coin (f)",
+          "example": "Une potion coûte trois pièces d'or.",
+          "example_meaning": "A potion costs three gold coins."
+        },
+        {
+          "term": "l'arc",
+          "meaning": "bow (m)",
+          "example": "Nym préfère son arc.",
+          "example_meaning": "Nym prefers her bow."
+        },
+        {
+          "term": "la flèche",
+          "meaning": "arrow (f)",
+          "example": "La chasseuse achète des flèches.",
+          "example_meaning": "The huntress buys arrows."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Avant la quête",
+          "emoji": "🧮",
+          "rule": "Boot verbs at the market: j'achète, tu achètes, il achète, ils achètent, but nous achetons, vous achetez. Payer too: je paie, nous payons.",
+          "example": "Nous achetons des flèches, et Borin paie.",
+          "example_meaning": "We buy arrows, and Borin pays."
+        }
+      ],
+      "listening": [
+        {
+          "text": "J'achète un arc en bois.",
+          "meaning": "I'm buying a wooden bow.",
+          "note": "New word: l'arc = the bow."
+        },
+        {
+          "text": "Nous payons en pièces d'or.",
+          "meaning": "We pay in gold coins.",
+          "note": "New word: la pièce d'or = the gold coin."
+        },
+        {
+          "text": "Le mage jette un sort à l'orc.",
+          "meaning": "The mage casts a spell on the orc.",
+          "note": "Jeter un sort = to cast a spell."
+        },
+        {
+          "text": "Vous préférez quelle épée ?",
+          "meaning": "Which sword do you prefer?"
+        },
+        {
+          "text": "Nous commençons la quête ce soir.",
+          "meaning": "We start the quest this evening."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Nous achetons des flèches.",
+          "meaning": "We buy arrows.",
+          "distractors": [
+            "achètons"
+          ]
+        },
+        {
+          "text": "Le nain paie l'aubergiste.",
+          "meaning": "The dwarf pays the innkeeper.",
+          "distractors": [
+            "payez"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Nous jettons un sort.",
+          "wrong": "jettons",
+          "fix": "jetons",
+          "why": "Nous is outside the boot: one t."
+        },
+        {
+          "sentence": "Le paladin achéte une épée.",
+          "wrong": "achéte",
+          "fix": "achète",
+          "why": "The accent is grave: è."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Which spelling?",
+          "buckets": [
+            "è, ll, tt or i",
+            "infinitive spelling"
+          ],
+          "items": [
+            {
+              "text": "nous achetons",
+              "bucket": 1
+            },
+            {
+              "text": "elle achète",
+              "bucket": 0
+            },
+            {
+              "text": "vous jetez",
+              "bucket": 1
+            },
+            {
+              "text": "il jette",
+              "bucket": 0
+            },
+            {
+              "text": "ils paient",
+              "bucket": 0
+            },
+            {
+              "text": "nous payons",
+              "bucket": 1
+            }
+          ],
+          "why": "Inside the boot (je, tu, il, ils) the spelling changes; nous and vous keep the infinitive."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-stem-changing-er-realm-01",
+          "prompt": "La mage ___ un sort à l'orc. (jeter)",
+          "type": "fill-in-blank",
+          "correct_answer": "jette",
+          "accepted_answers": [
+            "elle jette"
+          ],
+          "explanation": "Elle (la mage) is inside the boot, so jeter doubles its t: elle jette un sort.",
+          "hints": [
+            "Double the consonant."
+          ],
+          "teaches": [
+            "jeter"
+          ]
+        },
+        {
+          "question_id": "a1-stem-changing-er-realm-02",
+          "prompt": "Nous ___ l'épée en pièces d'or. (payer)",
+          "type": "multiple-choice",
+          "options": [
+            "payons",
+            "paions",
+            "paient"
+          ],
+          "correct_answer": "payons",
+          "explanation": "Nous is outside the boot, so payer keeps its y: nous payons.",
+          "hints": [
+            "Nous keeps the infinitive's spelling."
+          ],
+          "teaches": [
+            "payer",
+            "la pièce d'or"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🧈",
+      "content": "## Les courses à Meadowbrook\n\nOn market day, **j'achète du beurre** and **nous achetons des graines** at Rosa's. Nora **préfère** les fraises; **nous préférons** le maïs. **Nous commençons** la récolte in autumn, and Léo **appelle** ses poules. The boot again: je, tu, il, ils change; nous and vous keep the infinitive.",
+      "vocabulary": [
+        {
+          "term": "acheter",
+          "example": "Nora achète des graines à la graineterie.",
+          "example_meaning": "Nora buys seeds at the seed shop."
+        },
+        {
+          "term": "préférer",
+          "example": "Les vaches préfèrent l'herbe près de la rivière.",
+          "example_meaning": "The cows prefer the grass near the river."
+        },
+        {
+          "term": "appeler",
+          "example": "Léo appelle ses poules le matin.",
+          "example_meaning": "Léo calls his hens in the morning."
+        },
+        {
+          "term": "commencer",
+          "example": "Nous commençons la récolte en automne.",
+          "example_meaning": "We start the harvest in autumn."
+        },
+        {
+          "term": "envoyer",
+          "example": "Rosa envoie des fleurs à la mairesse.",
+          "example_meaning": "Rosa sends flowers to the mayor."
+        },
+        {
+          "term": "payer",
+          "example": "Les clients paient au marché.",
+          "example_meaning": "The customers pay at the market."
+        },
+        {
+          "term": "se promener",
+          "example": "Le dimanche, nous nous promenons au bord de la rivière.",
+          "example_meaning": "On Sundays, we go for a walk along the river."
+        },
+        {
+          "term": "le beurre",
+          "meaning": "butter",
+          "example": "Le beurre de la ferme est délicieux.",
+          "example_meaning": "The farm's butter is delicious."
+        },
+        {
+          "term": "les graines",
+          "meaning": "seeds (f pl)",
+          "example": "Rosa vend des graines de tournesol.",
+          "example_meaning": "Rosa sells sunflower seeds."
+        },
+        {
+          "term": "la récolte",
+          "meaning": "harvest (f)",
+          "example": "La récolte de maïs est bonne cette année.",
+          "example_meaning": "The corn harvest is good this year."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Jour de marché",
+          "emoji": "🧈",
+          "rule": "J'achète, tu achètes, ils achètent, but nous achetons. And nous commençons keeps its s sound with ç.",
+          "example": "Nous commençons la récolte, et Nora achète du beurre.",
+          "example_meaning": "We start the harvest, and Nora buys butter."
+        }
+      ],
+      "listening": [
+        {
+          "text": "J'achète du beurre chez Rosa.",
+          "meaning": "I buy butter at Rosa's.",
+          "note": "New word: le beurre = the butter."
+        },
+        {
+          "text": "Nous préférons planter des graines.",
+          "meaning": "We prefer planting seeds.",
+          "note": "New word: les graines = the seeds."
+        },
+        {
+          "text": "Lundi, nous commençons la récolte.",
+          "meaning": "On Monday, we start the harvest.",
+          "note": "New word: la récolte = the harvest."
+        },
+        {
+          "text": "Léo appelle son chien.",
+          "meaning": "Léo calls his dog."
+        },
+        {
+          "text": "Nora et Léo jettent les vieilles pommes.",
+          "meaning": "Nora and Léo throw away the old apples."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Tu préfères les fraises ?",
+          "meaning": "Do you prefer strawberries?",
+          "distractors": [
+            "préférez"
+          ]
+        },
+        {
+          "text": "Nous commençons la récolte.",
+          "meaning": "We start the harvest.",
+          "distractors": [
+            "commencons"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Nous commencons à planter.",
+          "wrong": "commencons",
+          "fix": "commençons",
+          "why": "C before o needs a cedilla."
+        },
+        {
+          "sentence": "Léo appele ses poules.",
+          "wrong": "appele",
+          "fix": "appelle",
+          "why": "Appeler doubles its l with il."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Which change?",
+          "buckets": [
+            "e → è",
+            "double consonant",
+            "y → i"
+          ],
+          "items": [
+            {
+              "text": "j'achète",
+              "bucket": 0
+            },
+            {
+              "text": "il appelle",
+              "bucket": 1
+            },
+            {
+              "text": "tu paies",
+              "bucket": 2
+            },
+            {
+              "text": "elle jette",
+              "bucket": 1
+            },
+            {
+              "text": "je me promène",
+              "bucket": 0
+            },
+            {
+              "text": "ils envoient",
+              "bucket": 2
+            }
+          ],
+          "why": "Acheter and se promener take è, appeler and jeter double, payer and envoyer turn y into i."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-stem-changing-er-meadowbrook-01",
+          "prompt": "Nora ___ des graines chez Rosa. (acheter)",
+          "type": "fill-in-blank",
+          "correct_answer": "achète",
+          "accepted_answers": [
+            "elle achète"
+          ],
+          "explanation": "Nora (elle) is inside the boot: acheter takes è. Nora achète des graines.",
+          "hints": [
+            "E becomes è with elle."
+          ],
+          "teaches": [
+            "acheter",
+            "les graines"
+          ]
+        },
+        {
+          "question_id": "a1-stem-changing-er-meadowbrook-02",
+          "prompt": "'Nous commençons la récolte' needs the ç so the c still sounds like s before o.",
+          "type": "true-false",
+          "correct_answer": "true",
+          "explanation": "Without the cedilla, c before o sounds like k. Nous commençons keeps the s sound.",
+          "hints": [
+            "How would 'commencons' sound?"
+          ],
+          "teaches": [
+            "commencer",
+            "la récolte"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "💲",
+      "content": "## Les échanges à Rustwake\n\nAt the scrap market, **je paie** in nuts, but **nous payons** together. Marta **préfère** les vieilles piles; **nous préférons** l'eau filtrée. On the radio-montre, **j'appelle** Léo and **j'envoie** un signal. **Nous commençons** l'exploration at dawn. The boot: je, tu, il, ils change; nous and vous keep the infinitive.",
+      "vocabulary": [
+        {
+          "term": "payer",
+          "example": "Je paie l'eau filtrée en écrous.",
+          "example_meaning": "I pay for the filtered water in nuts."
+        },
+        {
+          "term": "préférer",
+          "example": "Marta préfère les écrous neufs.",
+          "example_meaning": "Marta prefers new nuts."
+        },
+        {
+          "term": "appeler",
+          "example": "J'appelle le contremaître à la radio-montre.",
+          "example_meaning": "I call the foreman on the wrist radio."
+        },
+        {
+          "term": "envoyer",
+          "example": "L'antenne envoie un signal au Dôme.",
+          "example_meaning": "The antenna sends a signal to the Dome."
+        },
+        {
+          "term": "espérer",
+          "example": "Nous espérons trouver de l'eau.",
+          "example_meaning": "We hope to find water."
+        },
+        {
+          "term": "jeter",
+          "example": "Le robot jardinier jette la vieille ferraille.",
+          "example_meaning": "The gardener robot throws away the old scrap."
+        },
+        {
+          "term": "commencer",
+          "example": "Nous commençons l'exploration demain.",
+          "example_meaning": "We start the exploration tomorrow."
+        },
+        {
+          "term": "la ferraille",
+          "meaning": "scrap metal (f)",
+          "example": "Le village est plein de ferraille.",
+          "example_meaning": "The village is full of scrap metal."
+        },
+        {
+          "term": "la pile",
+          "meaning": "battery (f)",
+          "example": "La radio-montre marche avec une pile.",
+          "example_meaning": "The wrist radio runs on a battery."
+        },
+        {
+          "term": "le signal",
+          "meaning": "signal",
+          "example": "Le signal est faible aujourd'hui.",
+          "example_meaning": "The signal is weak today."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Au marché de ferraille",
+          "emoji": "💲",
+          "rule": "Trade with boot verbs: je paie, tu paies, ils paient, but nous payons, vous payez. Acheter too: j'achète, nous achetons.",
+          "example": "Je paie en écrous, mais vous payez en eau.",
+          "example_meaning": "I pay in nuts, but you pay in water."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Marta achète des piles.",
+          "meaning": "Marta buys batteries.",
+          "note": "New word: la pile = the battery."
+        },
+        {
+          "text": "Ils jettent la ferraille dehors.",
+          "meaning": "They throw the scrap metal outside.",
+          "note": "New word: la ferraille = the scrap metal."
+        },
+        {
+          "text": "Nous envoyons un signal ce soir.",
+          "meaning": "We're sending a signal tonight.",
+          "note": "New word: le signal = the signal."
+        },
+        {
+          "text": "Vous payez en écrous ?",
+          "meaning": "Are you paying in nuts?"
+        },
+        {
+          "text": "J'espère que la radio marche.",
+          "meaning": "I hope the radio works."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Vous payez en eau filtrée.",
+          "meaning": "You pay in filtered water.",
+          "distractors": [
+            "paiez"
+          ]
+        },
+        {
+          "text": "J'appelle Léo à la radio.",
+          "meaning": "I call Léo on the radio.",
+          "distractors": [
+            "appèle"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Vous paiez l'eau ?",
+          "wrong": "paiez",
+          "fix": "payez",
+          "why": "Vous keeps the y of payer."
+        },
+        {
+          "sentence": "Nous envoiyons un signal.",
+          "wrong": "envoiyons",
+          "fix": "envoyons",
+          "why": "Nous keeps the infinitive's y: envoyons."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Boot or not?",
+          "buckets": [
+            "changes",
+            "keeps the infinitive spelling"
+          ],
+          "items": [
+            {
+              "text": "je paie",
+              "bucket": 0
+            },
+            {
+              "text": "nous payons",
+              "bucket": 1
+            },
+            {
+              "text": "tu appelles",
+              "bucket": 0
+            },
+            {
+              "text": "vous appelez",
+              "bucket": 1
+            },
+            {
+              "text": "ils envoient",
+              "bucket": 0
+            },
+            {
+              "text": "nous envoyons",
+              "bucket": 1
+            }
+          ],
+          "why": "Je, tu, il and ils change the spelling; nous and vous keep the infinitive's."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-stem-changing-er-rustwake-01",
+          "prompt": "Marta asks: 'Vous ___ en écrous ou en eau ?' (payer)",
+          "type": "multiple-choice",
+          "options": [
+            "payez",
+            "paiez",
+            "paient"
+          ],
+          "correct_answer": "payez",
+          "explanation": "Vous is outside the boot, so payer keeps its y: vous payez.",
+          "hints": [
+            "Vous keeps the infinitive's spelling."
+          ],
+          "teaches": [
+            "payer"
+          ]
+        },
+        {
+          "question_id": "a1-stem-changing-er-rustwake-02",
+          "prompt": "Chaque soir, l'antenne ___ un signal au Dôme. (envoyer)",
+          "type": "fill-in-blank",
+          "correct_answer": "envoie",
+          "accepted_answers": [
+            "elle envoie"
+          ],
+          "explanation": "L'antenne (elle) is inside the boot: the y of envoyer becomes i. Elle envoie.",
+          "hints": [
+            "-oyer verbs always change y to i in the boot."
+          ],
+          "teaches": [
+            "envoyer",
+            "le signal"
+          ]
+        }
+      ]
+    }
+  }
+}

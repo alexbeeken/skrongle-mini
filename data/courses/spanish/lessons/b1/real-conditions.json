@@ -1,0 +1,1200 @@
+{
+  "id": "b1-real-conditions",
+  "slug": "real-conditions",
+  "title": "Real conditions: si llueve, nos quedamos",
+  "unit": "B1",
+  "group": "Grammar",
+  "order": 26,
+  "summary": "Talk about what happens if something real happens, using si + present and then a present, a future, an order or a plan.",
+  "focus": "Real conditions: si + present indicative with a present, future, imperative or ir a / poder / tener que result",
+  "prerequisites": [
+    "a2-future-simple",
+    "a2-imperative"
+  ],
+  "content": "## Si + present: real possibilities\n\n**Si** (if, no accent) introduces a condition that can really happen. In a real condition the **si**-half always takes the **present indicative**, even when it is about tomorrow.\n\nWhen the result is always true (a general rule, a habit), the other half is in the present too:\n\n- **Si llueve, me mojo.** If it rains, I get wet.\n- **Si mezclas rojo y blanco, sale rosa.** If you mix red and white, you get pink.\n- **Si llego tarde, mi jefe se enfada.** If I'm late, my boss gets cross.\n\nSpelling: **si** = if; **sí** with an accent = yes. **Sí, voy si puedo.** Yes, I'll go if I can.\n\n## The other half: future, order or plan\n\nThe **si**-half stays in the present, and the result can take several shapes:\n\n| result | example |\n|---|---|\n| present (near future) | **Si llueve mañana, nos quedamos en casa.** If it rains tomorrow, we'll stay at home. |\n| future | **Si estudias, aprobarás.** If you study, you'll pass. |\n| imperative | **Si tienes tiempo, llámame.** If you have time, call me. |\n| ir a + infinitive | **Si sale bien, vamos a celebrarlo.** If it goes well, we're going to celebrate. |\n| poder / tener que | **Si pierdes el tren, puedes coger el siguiente.** If you miss the train, you can catch the next one. |\n\n## Which half first? The comma\n\nEither half can go first. The meaning stays the same; the punctuation changes:\n\n- **si**-half first: a comma after it: **Si tienes frío, cierra la ventana.**\n- **si**-half second: no comma: **Cierra la ventana si tienes frío.**\n\nStarting with **si** sets the scene first (\"this is the situation\"); starting with the result puts the news first. Both orders are everyday Spanish.\n\n## Never the future or the subjunctive after si\n\nEnglish says *if it rains*, not *if it will rain*. Spanish is the same, and stricter:\n\n- Write **Si llueve**, no salimos, not ~~Si lloverá~~.\n- Write **Si tienes tiempo**, ven, not ~~Si tengas tiempo~~.\n\n(After **no sé si** = *whether*, the future is fine: **No sé si vendrá.** That **si** is not a condition.)\n\nThe subjunctive does turn up with **en caso de que** (in case), which always takes it: **Lleva el paraguas en caso de que llueva.** Take the umbrella in case it rains.\n\nUnlikely or impossible conditions (*if I were rich…*) are coming at B2.",
+  "vocabulary": [
+    {
+      "term": "si",
+      "meaning": "if",
+      "example": "Si quieres, te acompaño a casa.",
+      "example_meaning": "If you like, I'll walk you home."
+    },
+    {
+      "term": "en caso de que",
+      "meaning": "in case (+ subjunctive)",
+      "example": "Te dejo mi número en caso de que necesites algo.",
+      "example_meaning": "I'll leave you my number in case you need anything."
+    },
+    {
+      "term": "llover",
+      "meaning": "to rain",
+      "example": "Si llueve el domingo, vemos una película en casa.",
+      "example_meaning": "If it rains on Sunday, we'll watch a film at home."
+    },
+    {
+      "term": "mojarse",
+      "meaning": "to get wet",
+      "example": "Si sales sin abrigo, te vas a mojar.",
+      "example_meaning": "If you go out without a coat, you're going to get wet."
+    },
+    {
+      "term": "quedarse",
+      "meaning": "to stay",
+      "example": "Si estás cansada, quédate en el sofá.",
+      "example_meaning": "If you're tired, stay on the sofa."
+    },
+    {
+      "term": "aprobar",
+      "meaning": "to pass (an exam)",
+      "example": "Si practicas cada día, aprobarás el examen de conducir.",
+      "example_meaning": "If you practise every day, you'll pass the driving test."
+    },
+    {
+      "term": "perder",
+      "meaning": "to miss (a train, a bus); to lose",
+      "example": "Si pierdes el último metro, coge un taxi.",
+      "example_meaning": "If you miss the last underground train, take a taxi."
+    },
+    {
+      "term": "darse prisa",
+      "meaning": "to hurry",
+      "example": "Si nos damos prisa, llegamos al principio de la película.",
+      "example_meaning": "If we hurry, we'll get there for the start of the film."
+    },
+    {
+      "term": "llegar a tiempo",
+      "meaning": "to arrive on time",
+      "example": "Si salimos ahora, llegamos a tiempo.",
+      "example_meaning": "If we leave now, we'll arrive on time."
+    },
+    {
+      "term": "avisar",
+      "meaning": "to let (someone) know, to warn",
+      "example": "Si cambias de plan, avísame.",
+      "example_meaning": "If you change your plans, let me know."
+    },
+    {
+      "term": "el paraguas",
+      "meaning": "umbrella",
+      "example": "Si ves nubes negras, coge el paraguas.",
+      "example_meaning": "If you see black clouds, take the umbrella."
+    },
+    {
+      "term": "salir bien",
+      "meaning": "to go well, to turn out well",
+      "example": "Si todo sale bien, nos mudamos en marzo.",
+      "example_meaning": "If all goes well, we're moving in March."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-real-conditions-01",
+      "prompt": "Si llueve y no llevo paraguas, siempre me ___ (mojar).",
+      "type": "fill-in-blank",
+      "correct_answer": "mojo",
+      "accepted_answers": [
+        "me mojo"
+      ],
+      "explanation": "Siempre marks a general rule, so both halves are in the present: 'Si llueve…, siempre me mojo.'",
+      "hints": [
+        "A habit: present + present.",
+        "Yo form of mojarse: me ___."
+      ],
+      "teaches": [
+        "mojarse",
+        "el paraguas",
+        "llover"
+      ]
+    },
+    {
+      "question_id": "b1-real-conditions-02",
+      "prompt": "Si ___ (estudiar, tú), aprobarás el examen.",
+      "type": "fill-in-blank",
+      "correct_answer": "estudias",
+      "accepted_answers": [
+        "tú estudias",
+        "tu estudias"
+      ],
+      "explanation": "The si-half of a real condition takes the present indicative: 'Si estudias, aprobarás.' The future goes in the other half.",
+      "hints": [
+        "Si + present, never si + future.",
+        "Tú form of estudiar."
+      ],
+      "teaches": [
+        "si",
+        "aprobar"
+      ]
+    },
+    {
+      "question_id": "b1-real-conditions-03",
+      "prompt": "Si llegas tarde, ___, por favor.",
+      "type": "multiple-choice",
+      "options": [
+        "avísame",
+        "avisarme",
+        "avisándome"
+      ],
+      "correct_answer": "avísame",
+      "explanation": "An instruction as the result: si + present, then an imperative. With tú, the affirmative imperative of avisar is avisa, plus me attached: avísame.",
+      "hints": [
+        "The second half is an order.",
+        "Pronouns attach to an affirmative imperative."
+      ],
+      "teaches": [
+        "avisar",
+        "si"
+      ]
+    },
+    {
+      "question_id": "b1-real-conditions-04",
+      "prompt": "Which real condition about tomorrow is correct?",
+      "type": "multiple-choice",
+      "options": [
+        "Si llueve mañana, nos quedamos en casa.",
+        "Si lloverá mañana, nos quedamos en casa.",
+        "Si llueva mañana, nos quedamos en casa."
+      ],
+      "correct_answer": "Si llueve mañana, nos quedamos en casa.",
+      "explanation": "Even when the condition is about tomorrow, si takes the present indicative. Never si + future (lloverá) or si + present subjunctive (llueva).",
+      "hints": [
+        "What tense goes right after a conditional si?"
+      ],
+      "teaches": [
+        "si",
+        "quedarse",
+        "llover"
+      ]
+    },
+    {
+      "question_id": "b1-real-conditions-05",
+      "prompt": "Si no te das prisa, ___ el tren.",
+      "type": "multiple-choice",
+      "options": [
+        "perderás",
+        "pierdas",
+        "perder"
+      ],
+      "correct_answer": "perderás",
+      "explanation": "The si-half is in the present (te das), so the result can be in the future: 'perderás el tren' (you'll miss the train).",
+      "hints": [
+        "The result of a real condition can be in the future.",
+        "The subjunctive and the bare infinitive don't fit here."
+      ],
+      "teaches": [
+        "darse prisa",
+        "perder"
+      ]
+    },
+    {
+      "question_id": "b1-real-conditions-06",
+      "prompt": "True or false: 'Te llamo si llego tarde' needs a comma before si.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "When the si-half comes second there is no comma: 'Te llamo si llego tarde.' The comma goes after the si-half only when it comes first: 'Si llego tarde, te llamo.'",
+      "hints": [
+        "Which half comes first here?"
+      ],
+      "teaches": [
+        "si"
+      ]
+    },
+    {
+      "question_id": "b1-real-conditions-07",
+      "prompt": "—¿Vienes a la fiesta? —___, si salgo pronto del trabajo.",
+      "type": "multiple-choice",
+      "options": [
+        "Sí",
+        "Si"
+      ],
+      "correct_answer": "Sí",
+      "explanation": "The first word answers the question: yes = sí, with an accent. The si in 'si salgo pronto' means if and has no accent.",
+      "hints": [
+        "Is this word 'yes' or 'if'?"
+      ],
+      "teaches": [
+        "si"
+      ]
+    },
+    {
+      "question_id": "b1-real-conditions-08",
+      "prompt": "Te dejo las llaves en caso de que ___ (llegar, tú) antes que yo.",
+      "type": "fill-in-blank",
+      "correct_answer": "llegues",
+      "accepted_answers": [
+        "tú llegues",
+        "tu llegues"
+      ],
+      "explanation": "En caso de que always takes the present subjunctive: llegar becomes llegues (g becomes gu before e).",
+      "hints": [
+        "En caso de que is not si, and it wants the subjunctive.",
+        "Watch the spelling: -gue-."
+      ],
+      "teaches": [
+        "en caso de que"
+      ]
+    },
+    {
+      "question_id": "b1-real-conditions-09",
+      "prompt": "Si todo ___ (salir) bien, vamos a llegar a tiempo.",
+      "type": "fill-in-blank",
+      "correct_answer": "sale",
+      "explanation": "Si + present indicative (todo sale bien), then a plan with ir a + infinitive: 'vamos a llegar a tiempo'.",
+      "hints": [
+        "Todo is singular, so use the él/ella form.",
+        "Present indicative after si."
+      ],
+      "teaches": [
+        "salir bien",
+        "llegar a tiempo"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-real-conditions-conv-weekend-plans",
+      "title": "Plans for Saturday",
+      "scenario": "Lucía and Javier plan their Saturday, but the weather forecast isn't sure yet.",
+      "role_a": "Lucía",
+      "role_b": "Javier",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¿Qué hacemos el sábado si hace bueno?",
+          "meaning": "What shall we do on Saturday if the weather's nice?"
+        },
+        {
+          "speaker": "b",
+          "text": "Si hace sol, podemos subir a la sierra.",
+          "meaning": "If it's sunny, we can go up into the mountains."
+        },
+        {
+          "speaker": "a",
+          "text": "Vale, pero el pronóstico dice que va a llover.",
+          "meaning": "OK, but the forecast says it's going to rain."
+        },
+        {
+          "speaker": "b",
+          "text": "Pues si llueve, nos quedamos en Madrid y vamos a un museo.",
+          "meaning": "Well, if it rains, we'll stay in Madrid and go to a museum."
+        },
+        {
+          "speaker": "a",
+          "text": "Buena idea. Si vamos al museo, invito yo a la comida.",
+          "meaning": "Good idea. If we go to the museum, lunch is on me."
+        },
+        {
+          "speaker": "b",
+          "text": "¡Trato hecho! Pero si vamos a la sierra, lleva botas.",
+          "meaning": "Deal! But if we go to the mountains, wear boots."
+        },
+        {
+          "speaker": "a",
+          "text": "Claro. Y si te levantas tarde, me voy sin ti, ¿eh?",
+          "meaning": "Of course. And if you get up late, I'm going without you, OK?"
+        },
+        {
+          "speaker": "b",
+          "text": "Tranquila. Si pongo dos alarmas, nunca llego tarde.",
+          "meaning": "Don't worry. If I set two alarms, I'm never late."
+        },
+        {
+          "speaker": "a",
+          "text": "Bueno, coge el paraguas en caso de que cambie el tiempo.",
+          "meaning": "Well, take the umbrella in case the weather changes."
+        },
+        {
+          "speaker": "b",
+          "text": "Sí, y si pasa algo, te aviso por el móvil.",
+          "meaning": "Yes, and if anything happens, I'll let you know on my mobile."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Si nieva, cerramos la tienda.",
+      "meaning": "If it snows, we close the shop.",
+      "note": "A general rule: present + present."
+    },
+    {
+      "text": "Si tienes sueño, vete a la cama.",
+      "meaning": "If you're sleepy, go to bed.",
+      "note": "Si + present, then an imperative."
+    },
+    {
+      "text": "Mañana iremos al parque si hace buen tiempo.",
+      "meaning": "Tomorrow we'll go to the park if the weather's good.",
+      "note": "No comma when the si-half comes second."
+    },
+    {
+      "text": "Si Pablo no llega pronto, vamos a cenar solos.",
+      "meaning": "If Pablo doesn't arrive soon, we're going to have dinner on our own.",
+      "note": "The result can be ir a + infinitive."
+    },
+    {
+      "text": "Si comes tanto chocolate, te va a doler la tripa.",
+      "meaning": "If you eat so much chocolate, your tummy is going to hurt.",
+      "note": "New word: la tripa = the tummy."
+    },
+    {
+      "text": "Lleva una chaqueta en caso de que haga frío esta noche.",
+      "meaning": "Take a jacket in case it's cold tonight.",
+      "note": "En caso de que always takes the subjunctive."
+    },
+    {
+      "text": "Si terminas los deberes antes de cenar, puedes jugar un rato.",
+      "meaning": "If you finish your homework before dinner, you can play for a while.",
+      "note": "New word: los deberes = the homework."
+    },
+    {
+      "text": "Si pierdes las llaves otra vez, tendrás que llamar a un cerrajero.",
+      "meaning": "If you lose the keys again, you'll have to call a locksmith.",
+      "note": "New word: el cerrajero = the locksmith."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Si + present"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b1-real-conditions-01"
+    },
+    {
+      "question": "b1-real-conditions-04"
+    },
+    {
+      "question": "b1-real-conditions-07"
+    },
+    {
+      "section": "The other half"
+    },
+    {
+      "question": "b1-real-conditions-02"
+    },
+    {
+      "question": "b1-real-conditions-03"
+    },
+    {
+      "question": "b1-real-conditions-05"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "section": "Which half first"
+    },
+    {
+      "question": "b1-real-conditions-06"
+    },
+    {
+      "tip": "In English you say 'if it rains', never 'if it will rain'. Spanish si wants the plain present; put your future, order or plan in the other half."
+    },
+    {
+      "section": "Never the future"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b1-real-conditions-08"
+    },
+    {
+      "question": "b1-real-conditions-09"
+    }
+  ],
+  "sprint": {
+    "icon": "🌦️",
+    "bites": [
+      {
+        "title": "Si + present",
+        "emoji": "🌦️",
+        "rule": "A condition that can really happen: si + present indicative, even for tomorrow. Never si + future, never si + subjunctive.",
+        "example": "Si llueve mañana, no salimos.",
+        "example_meaning": "If it rains tomorrow, we won't go out."
+      },
+      {
+        "title": "Four kinds of result",
+        "emoji": "➡️",
+        "rule": "The other half can be a present (always true), a future, an imperative, or ir a / poder / tener que + infinitive.",
+        "example": "Si estudias, aprobarás.",
+        "example_meaning": "If you study, you'll pass."
+      },
+      {
+        "title": "Comma or not?",
+        "emoji": "✏️",
+        "rule": "Si-half first: a comma after it. Si-half second: no comma at all.",
+        "example": "Si puedo, te ayudo. Te ayudo si puedo.",
+        "example_meaning": "If I can, I'll help you. I'll help you if I can."
+      },
+      {
+        "title": "Si or sí?",
+        "emoji": "✅",
+        "rule": "si without an accent = if; sí with an accent = yes. En caso de que (in case) is the one that takes the subjunctive.",
+        "example": "Sí, voy si termino pronto.",
+        "example_meaning": "Yes, I'll go if I finish early."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Can it follow si?",
+        "buckets": [
+          "right after si",
+          "never after si"
+        ],
+        "items": [
+          {
+            "text": "llueve",
+            "bucket": 0
+          },
+          {
+            "text": "lloverá",
+            "bucket": 1
+          },
+          {
+            "text": "tienes",
+            "bucket": 0
+          },
+          {
+            "text": "tengas",
+            "bucket": 1
+          },
+          {
+            "text": "puedo",
+            "bucket": 0
+          },
+          {
+            "text": "pueda",
+            "bucket": 1
+          },
+          {
+            "text": "hace sol",
+            "bucket": 0
+          },
+          {
+            "text": "hará sol",
+            "bucket": 1
+          }
+        ],
+        "why": "After si, a real condition takes the present indicative, never the future or the subjunctive."
+      },
+      {
+        "title": "What kind of result?",
+        "buckets": [
+          "always true (present)",
+          "plan or prediction",
+          "an order"
+        ],
+        "items": [
+          {
+            "text": "Si calientas hielo, se derrite.",
+            "bucket": 0
+          },
+          {
+            "text": "Si estudias, aprobarás.",
+            "bucket": 1
+          },
+          {
+            "text": "Si tienes sed, bebe agua.",
+            "bucket": 2
+          },
+          {
+            "text": "Si salgo pronto, voy a ir al cine.",
+            "bucket": 1
+          },
+          {
+            "text": "Si mezclas azul y amarillo, sale verde.",
+            "bucket": 0
+          },
+          {
+            "text": "Si ves a Ana, salúdala.",
+            "bucket": 2
+          }
+        ],
+        "why": "General truths use the present in both halves; plans use the future or ir a; instructions use the imperative."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Si lloverá mañana, nos quedamos en casa.",
+        "wrong": "lloverá",
+        "fix": "llueve",
+        "why": "Never the future after a conditional si: si llueve."
+      },
+      {
+        "sentence": "Si tengas tiempo, llámame.",
+        "wrong": "tengas",
+        "fix": "tienes",
+        "why": "A real condition takes the present indicative, not the subjunctive."
+      },
+      {
+        "sentence": "Sí llegas tarde, avísame.",
+        "wrong": "Sí",
+        "fix": "Si",
+        "why": "If = si, without an accent; sí means yes."
+      },
+      {
+        "sentence": "Si estudias mucho, aprobar el examen.",
+        "wrong": "aprobar",
+        "fix": "aprobarás",
+        "why": "The result needs a conjugated verb: the future aprobarás."
+      },
+      {
+        "sentence": "En caso de que llueve, lleva el paraguas.",
+        "wrong": "llueve",
+        "fix": "llueva",
+        "why": "En caso de que always takes the present subjunctive."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Si tienes hambre, come algo.",
+        "meaning": "If you're hungry, eat something.",
+        "distractors": [
+          "tengas"
+        ]
+      },
+      {
+        "text": "Te llamo si llego tarde.",
+        "meaning": "I'll call you if I'm late.",
+        "distractors": [
+          "llegaré"
+        ]
+      },
+      {
+        "text": "Si hace frío, ponte el abrigo.",
+        "meaning": "If it's cold, put your coat on.",
+        "distractors": [
+          "hará"
+        ]
+      },
+      {
+        "text": "Si apruebas, te invito a cenar.",
+        "meaning": "If you pass, I'll take you out to dinner.",
+        "distractors": [
+          "apruebes"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🔥",
+      "content": "## Si… en Eldmark\n\nEvery quest in Eldmark comes with conditions: **si entras en la mazmorra, lleva una antorcha**; **si el dragón se despierta, huimos**; **si derrotas al orco, ganarás botín**. And a wise maga always packs a potion **en caso de que haya trampas**.",
+      "vocabulary": [
+        {
+          "term": "si",
+          "example": "Si entras en la mazmorra, lleva una antorcha.",
+          "example_meaning": "If you go into the dungeon, take a torch."
+        },
+        {
+          "term": "perder",
+          "example": "Si pierdes la montura, tendrás que caminar hasta Highgate.",
+          "example_meaning": "If you lose your mount, you'll have to walk to Highgate."
+        },
+        {
+          "term": "avisar",
+          "example": "Si ves un orco, avisa al paladín.",
+          "example_meaning": "If you see an orc, warn the paladin."
+        },
+        {
+          "term": "en caso de que",
+          "example": "Llevo una poción en caso de que haya trampas.",
+          "example_meaning": "I'm carrying a potion in case there are traps."
+        },
+        {
+          "term": "quedarse",
+          "example": "Si hay tormenta en Frostmarch, nos quedamos en la posada.",
+          "example_meaning": "If there's a storm in Frostmarch, we'll stay at the inn."
+        },
+        {
+          "term": "la mazmorra",
+          "meaning": "dungeon",
+          "example": "La mazmorra está debajo del castillo.",
+          "example_meaning": "The dungeon is under the castle."
+        },
+        {
+          "term": "el botín",
+          "meaning": "loot",
+          "example": "Si derrotas al orco, ganarás botín.",
+          "example_meaning": "If you defeat the orc, you'll win loot."
+        },
+        {
+          "term": "la antorcha",
+          "meaning": "torch",
+          "example": "Si se apaga la antorcha, no vemos nada.",
+          "example_meaning": "If the torch goes out, we can't see a thing."
+        },
+        {
+          "term": "la poción",
+          "meaning": "potion",
+          "example": "Si estás herido, bebe una poción.",
+          "example_meaning": "If you're hurt, drink a potion."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Si en la mazmorra",
+          "emoji": "🗡️",
+          "rule": "Real dangers, real plans: si + present, then a present, a future or an order. Never si + future.",
+          "example": "Si abres el cofre, encontrarás botín.",
+          "example_meaning": "If you open the chest, you'll find loot."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Si el orco duerme, pasamos.",
+          "meaning": "If the orc is asleep, we go past.",
+          "note": "Si + present, then present."
+        },
+        {
+          "text": "Si encuentras botín, compártelo con el grupo.",
+          "meaning": "If you find loot, share it with the party.",
+          "note": "Si + present, then an imperative."
+        },
+        {
+          "text": "Si la maga lanza un hechizo, todos huimos.",
+          "meaning": "If the mage casts a spell, we all run away.",
+          "note": "New word: el hechizo = the spell."
+        },
+        {
+          "text": "Los enanos de Deepanvil te ayudarán si les pagas.",
+          "meaning": "The dwarves of Deepanvil will help you if you pay them.",
+          "note": "No comma when the si-half comes second."
+        },
+        {
+          "text": "Si cae la noche, encendemos las antorchas.",
+          "meaning": "If night falls, we light the torches."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Si ves un dragón, corre.",
+          "meaning": "If you see a dragon, run.",
+          "distractors": [
+            "verás"
+          ]
+        },
+        {
+          "text": "Si derrotas al orco, ganarás botín.",
+          "meaning": "If you defeat the orc, you'll win loot.",
+          "distractors": [
+            "derrotarás"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Si entrarás en la mazmorra, lleva una antorcha.",
+          "wrong": "entrarás",
+          "fix": "entras",
+          "why": "Never the future after a conditional si."
+        },
+        {
+          "sentence": "Lleva una poción en caso de que hay trampas.",
+          "wrong": "hay",
+          "fix": "haya",
+          "why": "En caso de que takes the subjunctive: haya."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "After si in Eldmark",
+          "buckets": [
+            "right after si",
+            "never after si"
+          ],
+          "items": [
+            {
+              "text": "ves un orco",
+              "bucket": 0
+            },
+            {
+              "text": "verás un orco",
+              "bucket": 1
+            },
+            {
+              "text": "tienes la poción",
+              "bucket": 0
+            },
+            {
+              "text": "tengas la poción",
+              "bucket": 1
+            },
+            {
+              "text": "llega el dragón",
+              "bucket": 0
+            },
+            {
+              "text": "llegará el dragón",
+              "bucket": 1
+            }
+          ],
+          "why": "After si, a real condition takes the present indicative, never the future or the subjunctive."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-real-conditions-realm-01",
+          "prompt": "Si el paladín ___ a tiempo, ganaremos la batalla.",
+          "type": "multiple-choice",
+          "options": [
+            "llega",
+            "llegue",
+            "llegará"
+          ],
+          "correct_answer": "llega",
+          "explanation": "Si + present indicative, then the future: 'Si el paladín llega a tiempo, ganaremos.'",
+          "hints": [
+            "What goes right after a conditional si?"
+          ],
+          "teaches": [
+            "si",
+            "llegar a tiempo"
+          ]
+        },
+        {
+          "question_id": "b1-real-conditions-realm-02",
+          "prompt": "Si el dragón se ___ (despertar), huimos.",
+          "type": "fill-in-blank",
+          "correct_answer": "despierta",
+          "explanation": "Si takes the present indicative; despertar changes e to ie in se despierta.",
+          "hints": [
+            "Present indicative, él form.",
+            "The stem changes e to ie."
+          ],
+          "teaches": [
+            "si"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "☔",
+      "content": "## Si… en la granja\n\nFarm life runs on real conditions: **si llueve esta semana, las fresas crecerán**; **si vas al pueblo, compra semillas en la tienda de Rosa**; **si pescas algo, Leo te lo compra**. And in autumn take a coat **en caso de que haga frío**.",
+      "vocabulary": [
+        {
+          "term": "llover",
+          "example": "Si llueve esta semana, las fresas crecerán rápido.",
+          "example_meaning": "If it rains this week, the strawberries will grow fast."
+        },
+        {
+          "term": "salir bien",
+          "example": "Si la cosecha sale bien, iremos al festival con calabazas.",
+          "example_meaning": "If the harvest goes well, we'll go to the festival with pumpkins."
+        },
+        {
+          "term": "quedarse",
+          "example": "Si hay tormenta, me quedo en la taberna.",
+          "example_meaning": "If there's a storm, I'll stay at the tavern."
+        },
+        {
+          "term": "el paraguas",
+          "example": "Si vas a la playa en otoño, lleva el paraguas.",
+          "example_meaning": "If you go to the beach in autumn, take the umbrella."
+        },
+        {
+          "term": "perder",
+          "example": "Si pierdes la caña de pescar, Leo te presta otra.",
+          "example_meaning": "If you lose your fishing rod, Leo will lend you another one."
+        },
+        {
+          "term": "la cosecha",
+          "meaning": "harvest",
+          "example": "La cosecha de maíz es en verano.",
+          "example_meaning": "The maize harvest is in summer."
+        },
+        {
+          "term": "la semilla",
+          "meaning": "seed",
+          "example": "Si plantas estas semillas, tendrás calabazas en otoño.",
+          "example_meaning": "If you plant these seeds, you'll have pumpkins in autumn."
+        },
+        {
+          "term": "la caña de pescar",
+          "meaning": "fishing rod",
+          "example": "Leo siempre lleva su caña de pescar al río.",
+          "example_meaning": "Leo always takes his fishing rod to the river."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Si en la granja",
+          "emoji": "🌱",
+          "rule": "Plans that hang on the weather: si + present, then a present, a future, ir a or an order.",
+          "example": "Si hace sol, voy a plantar maíz.",
+          "example_meaning": "If it's sunny, I'm going to plant maize."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Si llueve, las vacas duermen dentro.",
+          "meaning": "If it rains, the cows sleep inside.",
+          "note": "A general rule: present + present."
+        },
+        {
+          "text": "Si plantas en primavera, cosecharás en verano.",
+          "meaning": "If you plant in spring, you'll harvest in summer.",
+          "note": "New word: cosechar = to harvest."
+        },
+        {
+          "text": "Si ves a Nora, dale estas fresas.",
+          "meaning": "If you see Nora, give her these strawberries.",
+          "note": "Si + present, then an imperative."
+        },
+        {
+          "text": "El alcalde te dará un premio si ganas.",
+          "meaning": "The mayor will give you a prize if you win.",
+          "note": "New word: el premio = the prize."
+        },
+        {
+          "text": "Si la gallina pone huevos, los vendo en el mercado.",
+          "meaning": "If the hen lays eggs, I sell them at the market."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Si hace sol, voy a pescar.",
+          "meaning": "If it's sunny, I'm going fishing.",
+          "distractors": [
+            "hará"
+          ]
+        },
+        {
+          "text": "Si ves a Rosa, compra semillas.",
+          "meaning": "If you see Rosa, buy some seeds.",
+          "distractors": [
+            "verás"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Si hará frío, me quedo en la taberna.",
+          "wrong": "hará",
+          "fix": "hace",
+          "why": "Never the future after a conditional si: si hace frío."
+        },
+        {
+          "sentence": "Sí llueve, las fresas crecen rápido.",
+          "wrong": "Sí",
+          "fix": "Si",
+          "why": "If = si, without an accent."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "What comes after the comma?",
+          "buckets": [
+            "always true (present)",
+            "an order (imperative)"
+          ],
+          "items": [
+            {
+              "text": "Si llueve, las fresas crecen.",
+              "bucket": 0
+            },
+            {
+              "text": "Si vas al pueblo, compra pan.",
+              "bucket": 1
+            },
+            {
+              "text": "Si hace frío, las gallinas no salen.",
+              "bucket": 0
+            },
+            {
+              "text": "Si ves a Leo, salúdalo.",
+              "bucket": 1
+            },
+            {
+              "text": "Si el río sube, la playa desaparece.",
+              "bucket": 0
+            },
+            {
+              "text": "Si tienes hambre, ven a la taberna.",
+              "bucket": 1
+            }
+          ],
+          "why": "A general truth keeps the present in both halves; an instruction puts an imperative after the comma."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-real-conditions-meadowbrook-01",
+          "prompt": "Si ___ mucho esta semana, las fresas crecerán.",
+          "type": "multiple-choice",
+          "options": [
+            "llueve",
+            "llueva",
+            "lloverá"
+          ],
+          "correct_answer": "llueve",
+          "explanation": "Si + present indicative, then the future: 'Si llueve mucho, las fresas crecerán.'",
+          "hints": [
+            "Never the future or the subjunctive after si."
+          ],
+          "teaches": [
+            "llover"
+          ]
+        },
+        {
+          "question_id": "b1-real-conditions-meadowbrook-02",
+          "prompt": "Si la cosecha ___ (salir) bien, iremos al festival.",
+          "type": "fill-in-blank",
+          "correct_answer": "sale",
+          "explanation": "The si-half takes the present indicative: 'Si la cosecha sale bien, iremos al festival.'",
+          "hints": [
+            "Present indicative, él/ella form."
+          ],
+          "teaches": [
+            "salir bien",
+            "la cosecha"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "⚡",
+      "content": "## Si… en el páramo\n\nOutside the Dome every plan has an if: **si hay una tormenta de ceniza, nos quedamos en el taller**; **si encuentras tuercas, cámbialas por agua filtrada**; **si suena el radiorreloj, contesta**. Leo always packs a tónico **en caso de que haya radiación**.",
+      "vocabulary": [
+        {
+          "term": "quedarse",
+          "example": "Si hay polvo, nos quedamos en el pueblo de chatarra.",
+          "example_meaning": "If there's dust, we stay in the scrap town."
+        },
+        {
+          "term": "avisar",
+          "example": "Si ves un escarabajo gigante, avísame por el radiorreloj.",
+          "example_meaning": "If you see a giant beetle, let me know on the wrist radio."
+        },
+        {
+          "term": "perder",
+          "example": "Si pierdes las tuercas, no podrás comprar agua filtrada.",
+          "example_meaning": "If you lose your nuts, you won't be able to buy filtered water."
+        },
+        {
+          "term": "en caso de que",
+          "example": "Lleva un tónico en caso de que haya radiación.",
+          "example_meaning": "Take a tonic in case there's radiation."
+        },
+        {
+          "term": "darse prisa",
+          "example": "Si no nos damos prisa, la tormenta nos va a pillar.",
+          "example_meaning": "If we don't hurry, the storm is going to catch us."
+        },
+        {
+          "term": "las tuercas",
+          "meaning": "nuts (the wasteland's money)",
+          "example": "Marta cambia agua filtrada por tuercas.",
+          "example_meaning": "Marta trades filtered water for nuts."
+        },
+        {
+          "term": "el radiorreloj",
+          "meaning": "wrist radio",
+          "example": "Si suena el radiorreloj, contesta.",
+          "example_meaning": "If the wrist radio rings, answer."
+        },
+        {
+          "term": "la tormenta de ceniza",
+          "meaning": "ash storm",
+          "example": "Si llega una tormenta de ceniza, cierra la puerta.",
+          "example_meaning": "If an ash storm comes, shut the door."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Si en el páramo",
+          "emoji": "⚙️",
+          "rule": "Out on the plains, plan for real ifs with si + present, then a present, a future, ir a or an order. Never si + future.",
+          "example": "Si reparas la antena, escucharemos la radio.",
+          "example_meaning": "If you fix the antenna, we'll listen to the radio."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Si hay polvo, cierro la puerta.",
+          "meaning": "If there's dust, I shut the door.",
+          "note": "A general rule: present + present."
+        },
+        {
+          "text": "Si Marta tiene agua filtrada, le compramos dos botellas.",
+          "meaning": "If Marta has filtered water, we'll buy two bottles from her."
+        },
+        {
+          "text": "Si el robot jardinero falla, repáralo.",
+          "meaning": "If the robot gardener breaks down, fix it.",
+          "note": "New word: fallar = to break down."
+        },
+        {
+          "text": "Leo vendrá al mercado si no hay tormenta.",
+          "meaning": "Leo will come to the market if there's no storm.",
+          "note": "No comma when the si-half comes second."
+        },
+        {
+          "text": "Si encuentras chatarra útil, llévala al taller.",
+          "meaning": "If you find useful scrap, take it to the workshop.",
+          "note": "New word: útil = useful."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Si hay radiación, bebe un tónico.",
+          "meaning": "If there's radiation, drink a tonic.",
+          "distractors": [
+            "habrá"
+          ]
+        },
+        {
+          "text": "Te aviso si veo una cabra.",
+          "meaning": "I'll let you know if I see a goat.",
+          "distractors": [
+            "veré"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Si encontrarás tuercas, cámbialas por agua.",
+          "wrong": "encontrarás",
+          "fix": "encuentras",
+          "why": "Never the future after a conditional si: si encuentras."
+        },
+        {
+          "sentence": "En caso de que llega la tormenta, quédate en el taller.",
+          "wrong": "llega",
+          "fix": "llegue",
+          "why": "En caso de que takes the present subjunctive: llegue."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "What does the other half do?",
+          "buckets": [
+            "an order",
+            "a plan (future or ir a)"
+          ],
+          "items": [
+            {
+              "text": "Si ves a Ruiz, salúdalo.",
+              "bucket": 0
+            },
+            {
+              "text": "Si hay tormenta, vamos a esperar.",
+              "bucket": 1
+            },
+            {
+              "text": "Si tienes sed, bebe agua filtrada.",
+              "bucket": 0
+            },
+            {
+              "text": "Si reparo la antena, escucharemos música.",
+              "bucket": 1
+            },
+            {
+              "text": "Si encuentras tuercas, guárdalas.",
+              "bucket": 0
+            },
+            {
+              "text": "Si Marta abre el mercado, compraré gaseosa Zafiro.",
+              "bucket": 1
+            }
+          ],
+          "why": "After the si-half, an imperative gives an order; the future or ir a + infinitive gives a plan."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-real-conditions-rustwake-01",
+          "prompt": "Si ___ una tormenta de ceniza, nos quedamos en el taller.",
+          "type": "multiple-choice",
+          "options": [
+            "hay",
+            "haya",
+            "habrá"
+          ],
+          "correct_answer": "hay",
+          "explanation": "Si + present indicative: hay. Not habrá (future) or haya (subjunctive).",
+          "hints": [
+            "What tense goes right after a conditional si?"
+          ],
+          "teaches": [
+            "quedarse",
+            "la tormenta de ceniza"
+          ]
+        },
+        {
+          "question_id": "b1-real-conditions-rustwake-02",
+          "prompt": "Si ___ (encontrar, tú) tuercas, cámbialas por agua filtrada.",
+          "type": "fill-in-blank",
+          "correct_answer": "encuentras",
+          "accepted_answers": [
+            "tú encuentras",
+            "tu encuentras"
+          ],
+          "explanation": "Si + present indicative, then an imperative. Encontrar changes o to ue in encuentras.",
+          "hints": [
+            "Present indicative, tú form.",
+            "The stem changes o to ue."
+          ],
+          "teaches": [
+            "las tuercas",
+            "si"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b1-real-conditions-conv-rustwake-antena",
+          "title": "The antenna job",
+          "scenario": "Foreman Ruiz offers Leo the scavenger a job to fix the old antenna before the ash storm arrives.",
+          "role_a": "Ruiz",
+          "role_b": "Leo",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Leo, si reparas la antena hoy, te pago veinte tuercas.",
+              "meaning": "Leo, if you fix the antenna today, I'll pay you twenty nuts."
+            },
+            {
+              "speaker": "b",
+              "text": "¿Y si llega una tormenta de ceniza?",
+              "meaning": "And what if an ash storm comes?"
+            },
+            {
+              "speaker": "a",
+              "text": "Si hay tormenta, te quedas en el taller y esperas.",
+              "meaning": "If there's a storm, you stay in the workshop and wait."
+            },
+            {
+              "speaker": "b",
+              "text": "Vale. Y si veo escarabajos gigantes, ¿qué hago?",
+              "meaning": "OK. And if I see giant beetles, what do I do?"
+            },
+            {
+              "speaker": "a",
+              "text": "Si ves alguno, avísame por el radiorreloj.",
+              "meaning": "If you see one, let me know on the wrist radio."
+            },
+            {
+              "speaker": "b",
+              "text": "De acuerdo. Llevo un tónico en caso de que haya radiación.",
+              "meaning": "All right. I'll take a tonic in case there's radiation."
+            },
+            {
+              "speaker": "a",
+              "text": "Bien pensado. Y si todo sale bien, te invito a una gaseosa Zafiro.",
+              "meaning": "Good thinking. And if all goes well, the Zafiro soda is on me."
+            },
+            {
+              "speaker": "b",
+              "text": "¡Trato hecho! Si me doy prisa, vuelvo antes de la cena.",
+              "meaning": "Deal! If I hurry, I'll be back before dinner."
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,1326 @@
+{
+  "id": "a2-invitations-phone",
+  "slug": "invitations-phone",
+  "title": "Invitations and the phone: tu es libre samedi ?",
+  "unit": "A2",
+  "group": "Vocabulary",
+  "order": 32,
+  "summary": "Invite someone, say yes or no politely, fix a time and place, and get through a phone call or a text.",
+  "focus": "Inviting, accepting, refusing and the phrases of a phone call",
+  "prerequisites": [
+    "a2-food-restaurant"
+  ],
+  "content": "## Inviting, accepting, refusing\n\nTo invite:\n\n- **Tu es libre samedi ?** Are you free on Saturday?\n- **Ça te dit de** + infinitive ? Do you fancy…? **Ça te dit d'aller au cinéma ?** (with vous: **ça vous dit**)\n- **Tu veux venir dîner à la maison ?** Do you want to come for dinner?\n- **Je t'invite** = I'm inviting you; in a café it also means *it's on me*.\n\nTo say yes: **Avec plaisir !** **Volontiers !** (warm, a little formal) **D'accord.** **Ça marche !** (casual: deal!)\n\nTo say no kindly: **Désolé(e), je ne peux pas.** **Je suis pris** (a man) / **prise** (a woman): I'm busy, I've got plans. Add a reason and **une autre fois ?** (another time?): **Désolée, je travaille samedi. Une autre fois ?**\n\n## Setting a time and place\n\n- **On se retrouve où ?** Where shall we meet? **Devant le cinéma.** / **Au café de la gare.** / **Chez moi.**\n- **À quelle heure ?** What time? **À huit heures.** / **Vers sept heures** (around seven).\n- **Rendez-vous à huit heures devant le cinéma.** Let's meet at eight in front of the cinema.\n- **Ça te va ?** Does that suit you? **Ça me va.** That suits me.\n- **On peut dire neuf heures plutôt ?** Can we say nine instead?\n\n**Se retrouver** = to meet up (as planned), **se voir** = to see each other: **on se voit demain**. **Un rendez-vous** is any arranged meeting: with a friend, at the doctor's, at the bank.\n\n## On the phone and by text\n\n- **Allô ?** is only for the phone: to answer, or when the line is bad. Then say who you are: **Allô, bonjour, c'est Léa.**\n- **C'est de la part de qui ?** Who's calling? (at an office) **C'est Paul Martin.**\n- **Ne quittez pas.** Hold the line. **Je vous le passe.** I'll put you through to him.\n- **Elle n'est pas là. Vous voulez laisser un message ?** She's not in. Would you like to leave a message?\n- **Rappeler** = to call back: **je rappelle plus tard** (double l, like appeler).\n\nA text is **un texto** (or **un SMS**). Common short forms: **À+** (**à plus tard**, see you), **stp** (**s'il te plaît**), **dsl** (**désolé**), **rdv** (**rendez-vous**).",
+  "vocabulary": [
+    {
+      "term": "être libre",
+      "meaning": "to be free (not busy)",
+      "example": "Je suis libre tous les soirs sauf le mardi.",
+      "example_meaning": "I'm free every evening except Tuesday."
+    },
+    {
+      "term": "ça te dit de… ?",
+      "meaning": "do you fancy…?, how about…?",
+      "example": "Ça te dit de manger une pizza ce soir ?",
+      "example_meaning": "Do you fancy a pizza tonight?"
+    },
+    {
+      "term": "avec plaisir",
+      "meaning": "with pleasure, I'd love to",
+      "example": "Un café en terrasse ? Avec plaisir !",
+      "example_meaning": "A coffee outside on the terrace? I'd love to!"
+    },
+    {
+      "term": "volontiers",
+      "meaning": "gladly, I'd be glad to",
+      "example": "Tu veux un peu de gâteau ? — Volontiers !",
+      "example_meaning": "Would you like a bit of cake? — Yes please, gladly!"
+    },
+    {
+      "term": "ça marche",
+      "meaning": "deal, that works (casual)",
+      "example": "On se voit à six heures ? — Ça marche !",
+      "example_meaning": "See you at six? — Deal!"
+    },
+    {
+      "term": "je suis pris / prise",
+      "meaning": "I'm busy, I've got plans",
+      "example": "Désolée, ce soir je suis prise : j'ai un dîner de famille.",
+      "example_meaning": "Sorry, I've got plans tonight: I have a family dinner."
+    },
+    {
+      "term": "une autre fois",
+      "meaning": "another time",
+      "example": "Je ne peux pas aujourd'hui, mais une autre fois avec plaisir.",
+      "example_meaning": "I can't today, but another time I'd love to."
+    },
+    {
+      "term": "se retrouver",
+      "meaning": "to meet up (as planned)",
+      "example": "Nous nous retrouvons tous les vendredis au café du coin.",
+      "example_meaning": "We meet up every Friday at the café on the corner."
+    },
+    {
+      "term": "le rendez-vous",
+      "meaning": "appointment, meeting, date (m)",
+      "example": "J'ai rendez-vous chez le médecin à dix heures.",
+      "example_meaning": "I have a doctor's appointment at ten."
+    },
+    {
+      "term": "allô ?",
+      "meaning": "hello? (on the phone only)",
+      "example": "Allô ? Je ne t'entends pas bien !",
+      "example_meaning": "Hello? I can't hear you very well!"
+    },
+    {
+      "term": "c'est de la part de qui ?",
+      "meaning": "who's calling?",
+      "example": "Je voudrais parler à Mme Roux. — C'est de la part de qui ?",
+      "example_meaning": "I'd like to speak to Mrs Roux. — Who's calling?"
+    },
+    {
+      "term": "ne quittez pas",
+      "meaning": "hold the line",
+      "example": "Ne quittez pas, je vous passe le directeur.",
+      "example_meaning": "Hold the line, I'll put you through to the manager."
+    },
+    {
+      "term": "laisser un message",
+      "meaning": "to leave a message",
+      "example": "J'ai laissé un message à Paul ce matin.",
+      "example_meaning": "I left Paul a message this morning."
+    },
+    {
+      "term": "rappeler",
+      "meaning": "to call back",
+      "example": "Je suis en réunion, je vous rappelle dans une heure.",
+      "example_meaning": "I'm in a meeting, I'll call you back in an hour."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-invitations-phone-01",
+      "prompt": "A friend asks: « Ça te dit d'aller au cinéma ce soir ? » Which answer says yes?",
+      "type": "multiple-choice",
+      "options": [
+        "Avec plaisir !",
+        "Une autre fois.",
+        "Je suis prise ce soir."
+      ],
+      "correct_answer": "Avec plaisir !",
+      "explanation": "Avec plaisir (with pleasure) accepts. Une autre fois and je suis prise both say no, politely.",
+      "hints": [
+        "Which one is happy to come?"
+      ],
+      "teaches": [
+        "avec plaisir",
+        "ça te dit de… ?"
+      ]
+    },
+    {
+      "question_id": "a2-invitations-phone-02",
+      "prompt": "Tu es ___ samedi soir ? Je fais une fête chez moi.",
+      "type": "fill-in-blank",
+      "correct_answer": "libre",
+      "accepted_answers": [],
+      "explanation": "Être libre = to be free, not busy: tu es libre samedi soir ?",
+      "hints": [
+        "The opposite of busy.",
+        "l…"
+      ],
+      "teaches": [
+        "être libre"
+      ]
+    },
+    {
+      "question_id": "a2-invitations-phone-03",
+      "prompt": "At an office, the receptionist asks you: « C'est de la part de qui ? ». She wants to know…",
+      "type": "multiple-choice",
+      "options": [
+        "who is calling",
+        "what the call is about",
+        "when you will call back"
+      ],
+      "correct_answer": "who is calling",
+      "explanation": "C'est de la part de qui ? = literally 'it's on behalf of whom?': who's calling? You answer with your name: c'est Paul Martin.",
+      "hints": [
+        "De la part de = on behalf of."
+      ],
+      "teaches": [
+        "c'est de la part de qui ?"
+      ]
+    },
+    {
+      "question_id": "a2-invitations-phone-04",
+      "prompt": "Claire refuse : « Désolée, je ne peux pas samedi, je suis ___. » (busy, she has plans)",
+      "type": "fill-in-blank",
+      "correct_answer": "prise",
+      "accepted_answers": [],
+      "explanation": "Claire is a woman, so pris takes -e: je suis prise. A man says je suis pris.",
+      "hints": [
+        "Pris, with agreement.",
+        "Claire is a woman."
+      ],
+      "teaches": [
+        "je suis pris / prise"
+      ]
+    },
+    {
+      "question_id": "a2-invitations-phone-05",
+      "prompt": "Allô is the normal way to say hello to a friend you meet in the street.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "False: allô is only used on the phone. In the street you say bonjour or salut.",
+      "hints": [
+        "Where do you hear allô?"
+      ],
+      "teaches": [
+        "allô ?"
+      ]
+    },
+    {
+      "question_id": "a2-invitations-phone-06",
+      "prompt": "Monsieur Dupont n'est pas là. Vous voulez ___ un message ?",
+      "type": "fill-in-blank",
+      "correct_answer": "laisser",
+      "accepted_answers": [],
+      "explanation": "To leave a message is laisser un message. Quitter means to leave a place or a person, never a message.",
+      "hints": [
+        "Not quitter!",
+        "l…"
+      ],
+      "teaches": [
+        "laisser un message"
+      ]
+    },
+    {
+      "question_id": "a2-invitations-phone-07",
+      "prompt": "Which sentence fixes both a time and a place to meet?",
+      "type": "multiple-choice",
+      "options": [
+        "Rendez-vous à huit heures devant le cinéma.",
+        "C'est de la part de qui ?",
+        "Ça te dit de venir au cinéma ?"
+      ],
+      "correct_answer": "Rendez-vous à huit heures devant le cinéma.",
+      "explanation": "Rendez-vous + time + place sets the meeting: at eight, in front of the cinema.",
+      "hints": [
+        "Look for an hour and a place."
+      ],
+      "teaches": [
+        "le rendez-vous"
+      ]
+    },
+    {
+      "question_id": "a2-invitations-phone-08",
+      "prompt": "Je suis au travail, je te ___ ce soir, d'accord ? (to call back)",
+      "type": "fill-in-blank",
+      "correct_answer": "rappelle",
+      "accepted_answers": [
+        "je te rappelle"
+      ],
+      "explanation": "Rappeler doubles the l like appeler: je rappelle, tu rappelles (but nous rappelons).",
+      "hints": [
+        "Like j'appelle.",
+        "Double l."
+      ],
+      "teaches": [
+        "rappeler"
+      ]
+    },
+    {
+      "question_id": "a2-invitations-phone-09",
+      "prompt": "In a texto, 'À+' is short for 'à plus (tard)', meaning 'see you later'.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "True: À+ is said 'à plus' and is the usual casual goodbye in a text message.",
+      "hints": [
+        "Plus = +"
+      ],
+      "teaches": []
+    }
+  ],
+  "listening": [
+    {
+      "text": "Tu es libre ce week-end ?",
+      "meaning": "Are you free this weekend?"
+    },
+    {
+      "text": "Volontiers, c'est une très bonne idée.",
+      "meaning": "Gladly, that's a very good idea."
+    },
+    {
+      "text": "Désolé, je suis pris demain soir.",
+      "meaning": "Sorry, I've got plans tomorrow evening.",
+      "note": "A man says pris, a woman prise."
+    },
+    {
+      "text": "On se retrouve devant la gare à sept heures ?",
+      "meaning": "Shall we meet in front of the station at seven?"
+    },
+    {
+      "text": "Ne quittez pas, je vous passe le service client.",
+      "meaning": "Hold the line, I'll put you through to customer service.",
+      "note": "New word: le service client = customer service."
+    },
+    {
+      "text": "Ça te dit de faire une randonnée dimanche matin ?",
+      "meaning": "Do you fancy going on a hike on Sunday morning?",
+      "note": "New word: la randonnée = hike."
+    },
+    {
+      "text": "Mon portable ne marche plus, je te rappelle avec le téléphone de Julie.",
+      "meaning": "My mobile isn't working any more, I'll call you back on Julie's phone.",
+      "note": "New word: le portable = mobile phone."
+    },
+    {
+      "text": "Elle n'est pas là, mais vous pouvez laisser un message après le bip.",
+      "meaning": "She's not in, but you can leave a message after the beep."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Inviting"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-invitations-phone-02"
+    },
+    {
+      "question": "a2-invitations-phone-01"
+    },
+    {
+      "concept": {
+        "title": "Je t'invite = it's on me",
+        "markdown": "In a café or a restaurant, **je t'invite** (or **je vous invite**) means *I'm paying*. Say thank you: **C'est gentil, merci !** and offer the next one: **La prochaine fois, je t'invite !** Splitting the bill is **partager l'addition**."
+      }
+    },
+    {
+      "section": "Setting a time"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a2-invitations-phone-04"
+    },
+    {
+      "question": "a2-invitations-phone-07"
+    },
+    {
+      "section": "On the phone"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-invitations-phone-03"
+    },
+    {
+      "question": "a2-invitations-phone-05"
+    },
+    {
+      "tip": "On the phone, say who you are straight after allô: Allô, bonjour, c'est Léa. In French that is polite, not abrupt."
+    },
+    {
+      "question": "a2-invitations-phone-06"
+    },
+    {
+      "question": "a2-invitations-phone-08"
+    },
+    {
+      "question": "a2-invitations-phone-09"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-invitations-phone-conv-jazz-concert",
+      "title": "A jazz concert in the park",
+      "scenario": "Léa phones her friend Hugo to invite him to a concert.",
+      "role_a": "Léa",
+      "role_b": "Hugo",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Allô, Hugo ? C'est Léa.",
+          "meaning": "Hello, Hugo? It's Léa."
+        },
+        {
+          "speaker": "b",
+          "text": "Salut Léa ! Ça va ?",
+          "meaning": "Hi Léa! How are you?"
+        },
+        {
+          "speaker": "a",
+          "text": "Très bien. Dis, tu es libre vendredi soir ?",
+          "meaning": "Very well. Say, are you free on Friday evening?"
+        },
+        {
+          "speaker": "b",
+          "text": "Vendredi ? Désolé, je ne peux pas, je suis pris. Pourquoi ?",
+          "meaning": "Friday? Sorry, I can't, I've got plans. Why?",
+          "note": "A man: je suis pris."
+        },
+        {
+          "speaker": "a",
+          "text": "Il y a un concert de jazz au parc. Ça te dit ?",
+          "meaning": "There's a jazz concert in the park. Do you fancy it?"
+        },
+        {
+          "speaker": "b",
+          "text": "Ah, dommage ! Et samedi, c'est possible ?",
+          "meaning": "Oh, what a shame! And Saturday, is that possible?"
+        },
+        {
+          "speaker": "a",
+          "text": "Oui, il y a aussi un concert samedi. Tu veux venir ?",
+          "meaning": "Yes, there's a concert on Saturday too. Do you want to come?"
+        },
+        {
+          "speaker": "b",
+          "text": "Avec plaisir ! On se retrouve où ?",
+          "meaning": "I'd love to! Where shall we meet?"
+        },
+        {
+          "speaker": "a",
+          "text": "Devant l'entrée du parc, à huit heures. Ça te va ?",
+          "meaning": "In front of the park entrance, at eight. Does that suit you?"
+        },
+        {
+          "speaker": "b",
+          "text": "Ça marche. Et après, je t'invite à boire un verre !",
+          "meaning": "Deal. And afterwards, I'll buy you a drink!",
+          "note": "je t'invite = it's on me"
+        },
+        {
+          "speaker": "a",
+          "text": "Volontiers ! Je t'envoie un texto avec l'adresse.",
+          "meaning": "Gladly! I'll send you a text with the address."
+        },
+        {
+          "speaker": "b",
+          "text": "Super. À samedi !",
+          "meaning": "Great. See you on Saturday!"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "📞",
+    "bites": [
+      {
+        "title": "Invite",
+        "emoji": "✉️",
+        "rule": "Tu es libre… ? Ça te dit de + infinitive ? Tu veux venir… ? Je t'invite can also mean 'it's on me'.",
+        "example": "Ça te dit d'aller à la plage dimanche ?",
+        "example_meaning": "Do you fancy going to the beach on Sunday?"
+      },
+      {
+        "title": "Say yes",
+        "emoji": "👍",
+        "rule": "Avec plaisir ! and Volontiers ! are warm; D'accord and Ça marche ! are casual.",
+        "example": "Un pique-nique ? Volontiers !",
+        "example_meaning": "A picnic? Gladly!"
+      },
+      {
+        "title": "Say no kindly",
+        "emoji": "🙏",
+        "rule": "Désolé(e), je ne peux pas. Je suis pris (m) / prise (f). Give a reason and offer une autre fois.",
+        "example": "Désolée, je suis prise. Une autre fois ?",
+        "example_meaning": "Sorry, I've got plans. Another time?"
+      },
+      {
+        "title": "On the phone",
+        "emoji": "☎️",
+        "rule": "Allô ? C'est de la part de qui ? Ne quittez pas. Vous voulez laisser un message ? Je rappelle plus tard.",
+        "example": "Allô, bonjour, c'est Marc. Je rappelle plus tard.",
+        "example_meaning": "Hello, it's Marc. I'll call back later."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Invite, accept or refuse?",
+        "buckets": [
+          "inviting",
+          "accepting",
+          "refusing"
+        ],
+        "items": [
+          {
+            "text": "Tu es libre samedi ?",
+            "bucket": 0
+          },
+          {
+            "text": "Ça te dit de venir ?",
+            "bucket": 0
+          },
+          {
+            "text": "Tu veux venir dîner ?",
+            "bucket": 0
+          },
+          {
+            "text": "Volontiers !",
+            "bucket": 1
+          },
+          {
+            "text": "Ça marche !",
+            "bucket": 1
+          },
+          {
+            "text": "Avec plaisir !",
+            "bucket": 1
+          },
+          {
+            "text": "Je suis prise ce soir.",
+            "bucket": 2
+          },
+          {
+            "text": "Désolé, une autre fois ?",
+            "bucket": 2
+          }
+        ],
+        "why": "Questions with libre, ça te dit and tu veux invite; avec plaisir, volontiers and ça marche accept; pris(e) and une autre fois refuse politely."
+      },
+      {
+        "title": "Phone call or text?",
+        "buckets": [
+          "on the phone",
+          "in a text"
+        ],
+        "items": [
+          {
+            "text": "Allô ?",
+            "bucket": 0
+          },
+          {
+            "text": "Ne quittez pas.",
+            "bucket": 0
+          },
+          {
+            "text": "C'est de la part de qui ?",
+            "bucket": 0
+          },
+          {
+            "text": "Je vous le passe.",
+            "bucket": 0
+          },
+          {
+            "text": "À+",
+            "bucket": 1
+          },
+          {
+            "text": "stp",
+            "bucket": 1
+          },
+          {
+            "text": "dsl",
+            "bucket": 1
+          },
+          {
+            "text": "rdv devant le ciné",
+            "bucket": 1
+          }
+        ],
+        "why": "Allô, ne quittez pas and je vous le passe belong to a spoken call; À+, stp, dsl and rdv are text-message shorthand."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Ça me dit de venir au concert avec moi ?",
+        "wrong": "me",
+        "fix": "te",
+        "why": "You are asking the other person: ça te dit de… ?"
+      },
+      {
+        "sentence": "Marc répond : désolé, je suis prise ce soir.",
+        "wrong": "prise",
+        "fix": "pris",
+        "why": "Marc is a man: je suis pris."
+      },
+      {
+        "sentence": "On se trouve devant le cinéma à huit heures ?",
+        "wrong": "trouve",
+        "fix": "retrouve",
+        "why": "To meet up as planned is se retrouver."
+      },
+      {
+        "sentence": "Il n'est pas là, vous pouvez quitter un message.",
+        "wrong": "quitter",
+        "fix": "laisser",
+        "why": "You leave a message with laisser; quitter is for leaving a place."
+      },
+      {
+        "sentence": "Je te rapelle dans dix minutes.",
+        "wrong": "rapelle",
+        "fix": "rappelle",
+        "why": "Rappeler has a double p and a double l here: je rappelle."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Tu es libre samedi soir ?",
+        "meaning": "Are you free on Saturday evening?",
+        "distractors": [
+          "libres"
+        ]
+      },
+      {
+        "text": "Ça te dit d'aller au cinéma ?",
+        "meaning": "Do you fancy going to the cinema?",
+        "distractors": [
+          "me"
+        ]
+      },
+      {
+        "text": "On se retrouve devant le cinéma.",
+        "meaning": "Let's meet in front of the cinema.",
+        "distractors": [
+          "trouve"
+        ]
+      },
+      {
+        "text": "Ne quittez pas, je vous le passe.",
+        "meaning": "Hold the line, I'll put you through to him.",
+        "distractors": [
+          "laissez"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "📯",
+      "content": "## Les invitations à Eldmark\n\nIn Eldmark, invitations come on a **parchemin** or with the horn of the guild. **Ça te dit de venir au banquet de la guilde ?** Say **avec plaisir !**, or, if you're on a quest, **désolée, je suis prise, une autre fois ?** Then fix the meeting: **rendez-vous à minuit devant la taverne du Dragon Vert**.",
+      "vocabulary": [
+        {
+          "term": "être libre",
+          "example": "Le paladin est libre après sa quête.",
+          "example_meaning": "The paladin is free after his quest."
+        },
+        {
+          "term": "ça te dit de… ?",
+          "example": "Ça te dit de chasser dans la Forêt Ombreuse ?",
+          "example_meaning": "Do you fancy hunting in the Shadowed Forest?"
+        },
+        {
+          "term": "avec plaisir",
+          "example": "Un banquet chez les nains ? Avec plaisir !",
+          "example_meaning": "A feast with the dwarves? I'd love to!"
+        },
+        {
+          "term": "volontiers",
+          "example": "La prêtresse accepte volontiers l'invitation.",
+          "example_meaning": "The priestess gladly accepts the invitation."
+        },
+        {
+          "term": "je suis pris / prise",
+          "example": "Désolée, je suis prise : je garde le pont de Highgate.",
+          "example_meaning": "Sorry, I'm busy: I'm guarding the bridge of Highgate."
+        },
+        {
+          "term": "se retrouver",
+          "example": "Les aventuriers se retrouvent à la taverne.",
+          "example_meaning": "The adventurers meet up at the tavern."
+        },
+        {
+          "term": "le rendez-vous",
+          "example": "Le rendez-vous est à l'aube devant le donjon.",
+          "example_meaning": "The meeting is at dawn in front of the dungeon."
+        },
+        {
+          "term": "le banquet",
+          "meaning": "feast, banquet (m)",
+          "example": "Le banquet de la guilde commence à huit heures.",
+          "example_meaning": "The guild feast starts at eight."
+        },
+        {
+          "term": "le parchemin",
+          "meaning": "scroll (m)",
+          "example": "Borin écrit l'invitation sur un parchemin.",
+          "example_meaning": "Borin writes the invitation on a scroll."
+        },
+        {
+          "term": "le cor",
+          "meaning": "horn (m)",
+          "example": "Le cor de la guilde annonce le banquet.",
+          "example_meaning": "The guild's horn announces the feast."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Le cor de la guilde",
+          "emoji": "📯",
+          "rule": "The guild invites with ça te dit de… ? Accept with avec plaisir or volontiers; refuse with je suis pris(e), une autre fois.",
+          "example": "Ça te dit de venir au banquet ?",
+          "example_meaning": "Do you fancy coming to the feast?"
+        }
+      ],
+      "listening": [
+        {
+          "text": "Tu es libre pour la quête ?",
+          "meaning": "Are you free for the quest?"
+        },
+        {
+          "text": "Volontiers, mon ami !",
+          "meaning": "Gladly, my friend!"
+        },
+        {
+          "text": "La guilde t'invite au banquet.",
+          "meaning": "The guild is inviting you to the feast.",
+          "note": "New word: le banquet = feast."
+        },
+        {
+          "text": "Nym lit le parchemin de la guilde.",
+          "meaning": "Nym reads the guild's scroll.",
+          "note": "New word: le parchemin = scroll."
+        },
+        {
+          "text": "On se retrouve devant le donjon à l'aube.",
+          "meaning": "We'll meet in front of the dungeon at dawn.",
+          "note": "New word: l'aube = dawn."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Ça te dit de venir au banquet ?",
+          "meaning": "Do you fancy coming to the feast?",
+          "distractors": [
+            "me"
+          ]
+        },
+        {
+          "text": "Rendez-vous devant la taverne à minuit.",
+          "meaning": "Let's meet in front of the tavern at midnight.",
+          "distractors": [
+            "quittez"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Désolé, je suis pris, une autre foi ?",
+          "wrong": "foi",
+          "fix": "fois",
+          "why": "Another time = une autre fois, with an s."
+        },
+        {
+          "sentence": "Le paladin répond : volontier, j'arrive !",
+          "wrong": "volontier",
+          "fix": "volontiers",
+          "why": "Volontiers always ends in -s."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Yes or no to the feast?",
+          "buckets": [
+            "yes",
+            "no"
+          ],
+          "items": [
+            {
+              "text": "Avec plaisir !",
+              "bucket": 0
+            },
+            {
+              "text": "Volontiers !",
+              "bucket": 0
+            },
+            {
+              "text": "Ça marche !",
+              "bucket": 0
+            },
+            {
+              "text": "Je suis prise.",
+              "bucket": 1
+            },
+            {
+              "text": "Je ne peux pas.",
+              "bucket": 1
+            },
+            {
+              "text": "Une autre fois ?",
+              "bucket": 1
+            }
+          ],
+          "why": "Avec plaisir, volontiers and ça marche accept; je suis prise, je ne peux pas and une autre fois refuse politely."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a2-invitations-phone-realm-01",
+          "prompt": "Séla reçoit un parchemin : « Ça te dit de venir au banquet ? » But she is on a quest that night. What does she answer?",
+          "type": "multiple-choice",
+          "options": [
+            "Désolée, je suis prise. Une autre fois ?",
+            "Volontiers, j'arrive !",
+            "Ne quittez pas."
+          ],
+          "correct_answer": "Désolée, je suis prise. Une autre fois ?",
+          "explanation": "She can't come, so she refuses politely: désolée (a woman), je suis prise, une autre fois ?",
+          "hints": [
+            "She has to say no, kindly."
+          ],
+          "teaches": [
+            "je suis pris / prise",
+            "le parchemin"
+          ]
+        },
+        {
+          "question_id": "a2-invitations-phone-realm-02",
+          "prompt": "Borin : « On se ___ où ? » Nym : « Devant la porte de Highgate. »",
+          "type": "fill-in-blank",
+          "correct_answer": "retrouve",
+          "accepted_answers": [],
+          "explanation": "To meet up as planned is se retrouver; with on, the verb takes the il form: on se retrouve.",
+          "hints": [
+            "se re…",
+            "on = il form"
+          ],
+          "teaches": [
+            "se retrouver"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "a2-invitations-phone-conv-realm-guild-feast",
+          "title": "The guild feast",
+          "scenario": "Borin the dwarf invites Nym the elf to the guild's feast.",
+          "role_a": "Borin",
+          "role_b": "Nym",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Nym ! Tu es libre ce soir ?",
+              "meaning": "Nym! Are you free tonight?"
+            },
+            {
+              "speaker": "b",
+              "text": "Ce soir ? Oui, pourquoi ?",
+              "meaning": "Tonight? Yes, why?"
+            },
+            {
+              "speaker": "a",
+              "text": "La guilde fait un banquet. Ça te dit de venir ?",
+              "meaning": "The guild is having a feast. Do you fancy coming?"
+            },
+            {
+              "speaker": "b",
+              "text": "Volontiers ! Séla vient aussi ?",
+              "meaning": "Gladly! Is Séla coming too?"
+            },
+            {
+              "speaker": "a",
+              "text": "Non, elle est prise : elle est en quête à Frostmarch.",
+              "meaning": "No, she's busy: she's on a quest in Frostmarch."
+            },
+            {
+              "speaker": "b",
+              "text": "Dommage. On se retrouve où ?",
+              "meaning": "Shame. Where shall we meet?"
+            },
+            {
+              "speaker": "a",
+              "text": "Devant la taverne du Dragon Vert, à huit heures.",
+              "meaning": "In front of the Green Dragon tavern, at eight."
+            },
+            {
+              "speaker": "b",
+              "text": "Ça marche. À ce soir, Borin !",
+              "meaning": "Deal. See you tonight, Borin!"
+            }
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "💌",
+      "content": "## Les invitations à Meadowbrook\n\nA letter in your letterbox: the mayor invites the whole town to **la fête des récoltes**. Then Léo phones: **Allô, Nora ? Tu es libre samedi ? Ça te dit de pêcher avant la fête ?** **Ça marche !** At la mairie, the secretary asks **c'est de la part de qui ?** and you can **laisser un message**.",
+      "vocabulary": [
+        {
+          "term": "être libre",
+          "example": "Nora est libre après la récolte du maïs.",
+          "example_meaning": "Nora is free after the corn harvest."
+        },
+        {
+          "term": "ça te dit de… ?",
+          "example": "Ça te dit de cuisiner une tarte aux fraises ?",
+          "example_meaning": "Do you fancy baking a strawberry tart?"
+        },
+        {
+          "term": "ça marche",
+          "example": "Rendez-vous au marché à neuf heures ? — Ça marche !",
+          "example_meaning": "Meet at the market at nine? — Deal!"
+        },
+        {
+          "term": "allô ?",
+          "example": "Allô, la graineterie ? Vous avez des graines de citrouille ?",
+          "example_meaning": "Hello, is that the seed shop? Do you have pumpkin seeds?"
+        },
+        {
+          "term": "c'est de la part de qui ?",
+          "example": "À la mairie, la secrétaire demande toujours : c'est de la part de qui ?",
+          "example_meaning": "At the town hall, the secretary always asks: who's calling?"
+        },
+        {
+          "term": "laisser un message",
+          "example": "Léo pêche, alors je laisse un message à sa mère.",
+          "example_meaning": "Léo is fishing, so I leave a message with his mother."
+        },
+        {
+          "term": "rappeler",
+          "example": "La mairesse rappelle Nora après la fête.",
+          "example_meaning": "The mayor calls Nora back after the festival."
+        },
+        {
+          "term": "la lettre",
+          "meaning": "letter (f)",
+          "example": "La mairesse envoie une lettre à chaque fermier.",
+          "example_meaning": "The mayor sends a letter to every farmer."
+        },
+        {
+          "term": "la boîte aux lettres",
+          "meaning": "letterbox (f)",
+          "example": "Il y a une invitation dans la boîte aux lettres.",
+          "example_meaning": "There's an invitation in the letterbox."
+        },
+        {
+          "term": "la mairie",
+          "meaning": "town hall (f)",
+          "example": "La fête commence devant la mairie.",
+          "example_meaning": "The festival starts in front of the town hall."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Une lettre de la mairie",
+          "emoji": "💌",
+          "rule": "Invitations come by letter or by phone. On the phone: allô ?, c'est de la part de qui ?, laisser un message, rappeler.",
+          "example": "Allô, Nora ? Tu es libre samedi ?",
+          "example_meaning": "Hello, Nora? Are you free on Saturday?"
+        }
+      ],
+      "listening": [
+        {
+          "text": "Allô, Rosa ? C'est Nora.",
+          "meaning": "Hello, Rosa? It's Nora."
+        },
+        {
+          "text": "Tu es libre pour la fête des récoltes ?",
+          "meaning": "Are you free for the harvest festival?"
+        },
+        {
+          "text": "Il y a une lettre de la mairie.",
+          "meaning": "There's a letter from the town hall.",
+          "note": "New word: la mairie = town hall."
+        },
+        {
+          "text": "J'ai trouvé une invitation dans la boîte aux lettres.",
+          "meaning": "I found an invitation in the letterbox.",
+          "note": "New word: la boîte aux lettres = letterbox."
+        },
+        {
+          "text": "Je te rappelle après la récolte.",
+          "meaning": "I'll call you back after the harvest."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Ça te dit de pêcher samedi ?",
+          "meaning": "Do you fancy going fishing on Saturday?",
+          "distractors": [
+            "me"
+          ]
+        },
+        {
+          "text": "Je te rappelle après le marché.",
+          "meaning": "I'll call you back after the market.",
+          "distractors": [
+            "rapelle"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Allô, c'est de la part de quoi ?",
+          "wrong": "quoi",
+          "fix": "qui",
+          "why": "Who's calling? = c'est de la part de qui ?"
+        },
+        {
+          "sentence": "Nora, ça te dis de cuisiner avec moi ?",
+          "wrong": "dis",
+          "fix": "dit",
+          "why": "Ça takes the il form: ça te dit."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Phone call or letter?",
+          "buckets": [
+            "on the phone",
+            "in a letter"
+          ],
+          "items": [
+            {
+              "text": "Allô ?",
+              "bucket": 0
+            },
+            {
+              "text": "Ne quittez pas.",
+              "bucket": 0
+            },
+            {
+              "text": "Je te rappelle ce soir.",
+              "bucket": 0
+            },
+            {
+              "text": "Chère Nora,",
+              "bucket": 1
+            },
+            {
+              "text": "Bises, Rosa",
+              "bucket": 1
+            },
+            {
+              "text": "La mairesse vous invite à la fête des récoltes.",
+              "bucket": 1
+            }
+          ],
+          "why": "Allô, ne quittez pas and je te rappelle are spoken on the phone; a letter opens with Chère… and ends with bises."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a2-invitations-phone-meadowbrook-01",
+          "prompt": "Léo téléphone à la graineterie : « ___ ? Bonjour Rosa, c'est Léo ! »",
+          "type": "fill-in-blank",
+          "correct_answer": "allô",
+          "accepted_answers": [
+            "allo"
+          ],
+          "explanation": "On the phone, you start with allô, then say who you are.",
+          "hints": [
+            "Only on the phone…",
+            "a…"
+          ],
+          "teaches": [
+            "allô ?"
+          ]
+        },
+        {
+          "question_id": "a2-invitations-phone-meadowbrook-02",
+          "prompt": "When the secretary at the mairie says 'Ne quittez pas', she is asking you to hang up.",
+          "type": "true-false",
+          "correct_answer": "false",
+          "explanation": "False: ne quittez pas means hold the line, don't hang up.",
+          "hints": [
+            "Quitter = to leave."
+          ],
+          "teaches": [
+            "la mairie"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "a2-invitations-phone-conv-meadowbrook-town-hall",
+          "title": "Calling the town hall",
+          "scenario": "Léo the fisherman phones the town hall to offer help with the harvest festival.",
+          "role_a": "La secrétaire",
+          "role_b": "Léo",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Mairie de Meadowbrook, bonjour !",
+              "meaning": "Meadowbrook town hall, hello!"
+            },
+            {
+              "speaker": "b",
+              "text": "Bonjour. Je voudrais parler à la mairesse, s'il vous plaît.",
+              "meaning": "Hello. I'd like to speak to the mayor, please."
+            },
+            {
+              "speaker": "a",
+              "text": "C'est de la part de qui ?",
+              "meaning": "Who's calling?"
+            },
+            {
+              "speaker": "b",
+              "text": "C'est Léo, le pêcheur.",
+              "meaning": "It's Léo, the fisherman."
+            },
+            {
+              "speaker": "a",
+              "text": "Ne quittez pas… Désolée, elle n'est pas là. Vous voulez laisser un message ?",
+              "meaning": "Hold the line… Sorry, she's not in. Would you like to leave a message?"
+            },
+            {
+              "speaker": "b",
+              "text": "Oui. Je suis libre samedi pour aider à la fête des récoltes.",
+              "meaning": "Yes. I'm free on Saturday to help with the harvest festival."
+            },
+            {
+              "speaker": "a",
+              "text": "Très bien. Elle vous rappelle demain.",
+              "meaning": "Very good. She'll call you back tomorrow."
+            },
+            {
+              "speaker": "b",
+              "text": "Merci, au revoir !",
+              "meaning": "Thank you, goodbye!"
+            }
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "📡",
+      "content": "## Les appels à Rustwake\n\nIn the desert, la radio-montre is your phone. **Allô, Marta ? Tu es libre ce soir ? Ça te dit d'échanger des écrous au marché ?** **Désolée, je suis prise : il y a une tempête de cendres.** No answer? You can **laisser un message**, and she will **rappeler** when the antenna works again.",
+      "vocabulary": [
+        {
+          "term": "allô ?",
+          "example": "Allô ? Ici Léo, au centre commercial en ruines.",
+          "example_meaning": "Hello? Léo here, at the ruined shopping centre."
+        },
+        {
+          "term": "je suis pris / prise",
+          "example": "Ce soir, je suis pris : je cherche des écrous.",
+          "example_meaning": "I'm busy tonight: I'm looking for nuts."
+        },
+        {
+          "term": "laisser un message",
+          "example": "Ruiz n'est pas là ; je laisse un message sur sa radio-montre.",
+          "example_meaning": "Ruiz isn't there; I leave a message on his wrist radio."
+        },
+        {
+          "term": "rappeler",
+          "example": "Marta rappelle Léo quand la tempête est finie.",
+          "example_meaning": "Marta calls Léo back when the storm is over."
+        },
+        {
+          "term": "se retrouver",
+          "example": "On se retrouve devant l'atelier ?",
+          "example_meaning": "Shall we meet in front of the workshop?"
+        },
+        {
+          "term": "le rendez-vous",
+          "example": "J'ai rendez-vous avec la marchande à midi.",
+          "example_meaning": "I'm meeting the trader at noon."
+        },
+        {
+          "term": "ça marche",
+          "example": "Dix écrous contre de l'eau filtrée ? Ça marche !",
+          "example_meaning": "Ten nuts for filtered water? Deal!"
+        },
+        {
+          "term": "l'appel",
+          "meaning": "call (m)",
+          "example": "Il y a trois appels sur ma radio-montre.",
+          "example_meaning": "There are three calls on my wrist radio."
+        },
+        {
+          "term": "le signal",
+          "meaning": "signal (m)",
+          "example": "Le signal est mauvais dans le désert.",
+          "example_meaning": "The signal is bad in the desert."
+        },
+        {
+          "term": "l'antenne",
+          "meaning": "antenna (f)",
+          "example": "Ruiz répare l'antenne sur le toit.",
+          "example_meaning": "Ruiz is repairing the antenna on the roof."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Radio-montre",
+          "emoji": "📡",
+          "rule": "Your wrist radio works like a phone: allô ?, je suis pris(e), laisser un message, je te rappelle.",
+          "example": "Allô, Marta ? Tu es libre ce soir ?",
+          "example_meaning": "Hello, Marta? Are you free tonight?"
+        }
+      ],
+      "listening": [
+        {
+          "text": "Allô, Léo ? Tu m'entends ?",
+          "meaning": "Hello, Léo? Can you hear me?"
+        },
+        {
+          "text": "Pas de signal dans la tempête.",
+          "meaning": "No signal in the storm.",
+          "note": "New word: le signal = signal."
+        },
+        {
+          "text": "Le contremaître n'est pas là.",
+          "meaning": "The foreman isn't here."
+        },
+        {
+          "text": "On se retrouve à la station-service ?",
+          "meaning": "Shall we meet at the petrol station?"
+        },
+        {
+          "text": "Il y a un appel de Marta sur ma radio-montre.",
+          "meaning": "There's a call from Marta on my wrist radio.",
+          "note": "New word: l'appel = call."
+        }
+      ],
+      "builds": [
+        {
+          "text": "On se retrouve au marché à midi.",
+          "meaning": "Let's meet at the market at noon.",
+          "distractors": [
+            "trouve"
+          ]
+        },
+        {
+          "text": "Je te rappelle quand l'antenne marche.",
+          "meaning": "I'll call you back when the antenna works.",
+          "distractors": [
+            "laisse"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Désolée, je suis pris ce soir, dit Marta.",
+          "wrong": "pris",
+          "fix": "prise",
+          "why": "Marta is a woman: je suis prise."
+        },
+        {
+          "sentence": "Rendez-vous à la station-service à huit heure.",
+          "wrong": "heure",
+          "fix": "heures",
+          "why": "Eight o'clock: huit heures, plural."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Pick up, wait, or later?",
+          "buckets": [
+            "picking up",
+            "waiting",
+            "later"
+          ],
+          "items": [
+            {
+              "text": "Allô ?",
+              "bucket": 0
+            },
+            {
+              "text": "Oui, c'est Léo.",
+              "bucket": 0
+            },
+            {
+              "text": "Ne quittez pas.",
+              "bucket": 1
+            },
+            {
+              "text": "Un moment, je vous le passe.",
+              "bucket": 1
+            },
+            {
+              "text": "Je te rappelle.",
+              "bucket": 2
+            },
+            {
+              "text": "Vous pouvez laisser un message.",
+              "bucket": 2
+            }
+          ],
+          "why": "Allô and saying your name pick up the call; ne quittez pas and je vous le passe keep you waiting; rappeler and laisser un message are for later."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a2-invitations-phone-rustwake-01",
+          "prompt": "Ta radio-montre sonne dans le désert. Pour répondre, tu dis :",
+          "type": "multiple-choice",
+          "options": [
+            "Allô ?",
+            "À+ !",
+            "Une autre fois."
+          ],
+          "correct_answer": "Allô ?",
+          "explanation": "You answer a call with allô ? À+ ends a text, and une autre fois refuses an invitation.",
+          "hints": [
+            "The first word of every call."
+          ],
+          "teaches": [
+            "allô ?"
+          ]
+        },
+        {
+          "question_id": "a2-invitations-phone-rustwake-02",
+          "prompt": "L'antenne ne marche pas. Vous voulez laisser un ___ pour le contremaître Ruiz ?",
+          "type": "fill-in-blank",
+          "correct_answer": "message",
+          "accepted_answers": [],
+          "explanation": "Laisser un message = to leave a message: the same word as in English.",
+          "hints": [
+            "Same word as in English."
+          ],
+          "teaches": [
+            "laisser un message",
+            "l'antenne"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "a2-invitations-phone-conv-rustwake-radio-call",
+          "title": "A call on the wrist radio",
+          "scenario": "Léo the scavenger calls Marta the trader on his wrist radio to make plans.",
+          "role_a": "Léo",
+          "role_b": "Marta",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Allô, Marta ? C'est Léo. Tu m'entends ?",
+              "meaning": "Hello, Marta? It's Léo. Can you hear me?"
+            },
+            {
+              "speaker": "b",
+              "text": "Oui, mais le signal est faible. Ça va ?",
+              "meaning": "Yes, but the signal is weak. How are you?"
+            },
+            {
+              "speaker": "a",
+              "text": "Ça va. Tu es libre ce soir ? J'ai trouvé un vieux disque.",
+              "meaning": "Fine. Are you free tonight? I found an old record."
+            },
+            {
+              "speaker": "b",
+              "text": "Désolée, je suis prise : je répare l'antenne avec Ruiz.",
+              "meaning": "Sorry, I'm busy: I'm repairing the antenna with Ruiz."
+            },
+            {
+              "speaker": "a",
+              "text": "Et demain matin ? Ça te dit d'échanger au marché ?",
+              "meaning": "And tomorrow morning? Do you fancy trading at the market?"
+            },
+            {
+              "speaker": "b",
+              "text": "Ça marche ! On se retrouve à quelle heure ?",
+              "meaning": "Deal! What time shall we meet?"
+            },
+            {
+              "speaker": "a",
+              "text": "À neuf heures, devant la station-service.",
+              "meaning": "At nine, in front of the petrol station."
+            },
+            {
+              "speaker": "b",
+              "text": "D'accord. À plus !",
+              "meaning": "OK. See you later!"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

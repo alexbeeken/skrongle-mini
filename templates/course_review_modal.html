@@ -1,0 +1,109 @@
+{#- "Review AI changes" (#163, #193, #189): the lessons the latest AI run touched,
+    listed like the course page's lesson table. Each says in words what the AI
+    did and opens (▸) to its changes: what was there on the left, what the AI
+    wrote on the right. "−" (at the right, like the lesson's) leaves a line
+    (drag for several) or a whole lesson out; Accept writes the rest. Without
+    JavaScript every "−" is a checkbox of the same form, and each ticked line
+    is left out on its own. Any line on the right of a JSON file (the AI's,
+    or an unchanged one) can be edited in place as text, like in a text
+    editor (#287, static/courses.js): a click on it (Enter when it has the
+    focus) opens the raw line in a box, which may become several lines; an edited line is
+    blue, read like any line, carries its text in a hidden
+    `edit:<path>:<key>` field of the same form and is always in: its − is
+    disabled (hidden), and so is its lesson's. The modal's own Undo / Redo
+    (in the footer, once something is edited) step through the edits.
+    Labels are the course format's plain names ("Question", "Reading",
+    review.rs LABELS, #282); id-only lines are dimmed. A run undone since
+    (#281) shows read-only: an "Undone" tag with an (i), no −, no Accept.
+    Above a lesson's diff, the AI's own why lines (one per fix) and Check
+    lines (what it was unsure of and left alone); lessons a fact check read
+    and left alone, with Check lines, are listed under the lessons (#1238). -#}
+{% macro notes(why, check) %}<ul class="rv-why" data-testid="course-review-why">{% for w in why %}<li data-testid="course-review-why-line">{{ w }}</li>{% endfor %}{% for c in check %}<li class="rv-check" data-testid="course-review-check-line"><span class="rv-k">{{ crate::t("courses.review.check_label") }}</span> {{ c }}</li>{% endfor %}</ul>{% endmacro %}
+{% macro cell(c, testid) %}<td class="code {{ c.kind }}{% if c.bare %} bare{% endif %}{% if c.quiet %} rv-quiet{% endif %}{% if c.edited %} rv-is-edited{% endif %}"{% if !testid.is_empty() %} data-testid="{{ testid }}"{% endif %}{% if c.editable %} data-edit data-ai="{{ c.ai }}" data-name="{{ c.edit_name }}" tabindex="0" title="{{ crate::t("courses.review.edit_line_tip") }}"{% endif %}><span class="rv-nice" style="--i:{{ c.indent }}">{% if !c.label.is_empty() %}<span class="rv-k">{{ c.label }}</span> {% endif %}<span class="rv-v">{{ c.pre }}{% if !c.mid.is_empty() %}<mark>{{ c.mid }}</mark>{% endif %}{{ c.post }}</span></span>{% for m in c.more %}<span class="rv-nice" style="--i:{{ m.indent }}">{% if !m.label.is_empty() %}<span class="rv-k">{{ m.label }}</span> {% endif %}<span class="rv-v">{{ m.pre }}</span></span>{% endfor %}<span class="rv-raw">{{ c.raw }}</span>{% if c.editable %}{% if c.edited %}<input type="hidden" name="{{ c.edit_name }}" value="{{ c.raw }}" form="review-form" data-testid="course-review-edit-value">{% endif %}{% endif %}</td>{% endmacro %}
+<link rel="stylesheet" href="{{ crate::routes::asset_url("review-notes.css") }}">
+<div class="modal-backdrop" data-testid="course-review-backdrop">
+  <div class="modal review-modal" id="review-modal" role="dialog" aria-modal="true" aria-labelledby="review-modal-title" data-testid="course-review-modal" data-files="{{ r.files.len() }}" data-after-job="{{ r.after_job }}" data-undone="{{ r.undone }}" data-labels="{{ r.labels }}">
+    <div class="review-head">
+      <div>
+        <h2 id="review-modal-title" class="heading-with-info">{{ crate::t("courses.review.title") }}{% if r.undone %} <span class="rv-tag rv-undone" data-testid="course-review-undone">{{ crate::t("courses.review.undone_tag") }}</span> <details class="info-tip" data-testid="course-review-undone-info"><summary aria-label="{{ crate::t("courses.review.undone_about") }}" title="{{ crate::t("courses.review.undone_about") }}">i</summary><p class="small" data-testid="course-review-undone-text">{{ crate::t("courses.review.undone_text") }}</p></details>{% endif %}</h2>
+        <p class="small muted" data-testid="course-review-label">{{ r.label }}, {{ r.when }}</p>
+      </div>
+      <a class="btn ghost" href="{{ crate::base_path() }}/courses/{{ r.course_id }}{% if r.after_job %}#lessons{% else %}#ai{% endif %}" data-testid="course-review-close" data-modal-close>{{ crate::t("courses.review.close") }}</a>
+    </div>
+    <p class="review-overview" data-testid="course-review-overview">{{ r.overview }}{% if !r.undone %} <span class="small muted">{{ crate::t("courses.review.how_to") }}</span>{% endif %}</p>
+    {% if let Some(e) = r.error %}<p class="alert error" role="alert" data-testid="course-review-error">{{ e }}</p>{% endif %}
+    <div class="review-tools">
+      <button type="button" class="link small" data-review-all="open" data-testid="course-review-expand-all" hidden>{{ crate::t("courses.review.open_all") }}</button>
+      <button type="button" class="link small" data-review-all="close" data-testid="course-review-collapse-all" hidden>{{ crate::t("courses.review.close_all") }}</button>
+      <span class="review-raw" hidden><span class="small" aria-hidden="true">JSON</span><button type="button" class="lt-switch" role="switch" aria-checked="false" aria-label="{{ crate::t("courses.review.show_json") }}" title="{{ crate::t("courses.review.show_json") }}" data-testid="course-review-raw"><span class="lt-switch-knob" aria-hidden="true"></span></button></span>
+    </div>
+    <ul class="ltable review-list" data-testid="course-review-list">
+    {% for f in r.files %}
+      <li class="review-file" id="review-file-{{ loop.index }}" data-testid="course-review-file" data-path="{{ f.path }}" data-kind="{{ f.kind }}" data-added="{{ f.added }}" data-removed="{{ f.removed }}">
+        <details{% if r.files.len() == 1 && !f.excluded %} open{% endif %} data-testid="course-review-details">
+          <summary class="lt-line rv-line" data-testid="course-review-file-link">
+            <span class="rv-tri" aria-hidden="true"></span>
+            <span class="lt-num" data-testid="course-review-position">{% if f.position > 0 %}{{ f.position }}{% else if f.path == "course.json" %}⚙{% endif %}</span>
+            <span class="rv-name">
+              <span class="rv-title" data-testid="course-review-file-title">{{ f.title }}</span>
+              <span class="rv-tag rv-{{ f.kind }}" data-testid="course-review-tag">{% if f.kind == "added" %}{{ crate::t("courses.review.tag_new") }}{% else if f.kind == "removed" %}{{ crate::t("courses.review.tag_removed") }}{% else %}{{ crate::t("courses.review.tag_changed") }}{% endif %}</span>
+              <span class="rv-sum small muted" data-testid="course-review-summary">{{ f.summary }}</span>
+            </span>
+            {% if !r.undone %}<label class="rv-x rv-x-file" title="{% if f.edited > 0 %}{{ crate::t("courses.review.edited_file_tip") }}{% else if f.kind == "removed" %}{{ crate::t("courses.review.keep_lesson") }}{% else %}{{ crate::t("courses.review.leave_lesson_out") }}{% endif %}"><input type="checkbox" name="file" value="{{ f.path }}" form="review-form" data-testid="course-review-exclude-file"{% if f.excluded %} checked{% endif %}{% if f.edited > 0 %} disabled{% endif %}><span class="rv-minus" aria-hidden="true">−</span><span class="sr-only">{% if f.kind == "removed" %}{{ crate::t1("courses.review.keep_named", "title", f.title) }}{% else %}{{ crate::t1("courses.review.leave_named_out", "title", f.title) }}{% endif %}</span></label>{% endif %}
+          </summary>
+          {% if !f.why.is_empty() || !f.check.is_empty() %}{% call notes(&f.why, &f.check) %}{% endcall %}{% endif %}
+          <div class="rv-body table-scroll">
+          {% if f.kind == "changed" %}
+          <table class="diff split" data-testid="course-review-split">
+            <colgroup><col><col><col class="x"></colgroup>
+            <thead><tr><th>{{ crate::t("courses.review.col_before") }}</th><th>{{ crate::t("courses.review.col_after") }}</th><th><span class="sr-only">{{ crate::t("courses.review.col_leave_out") }}</span></th></tr></thead>
+            <tbody>
+            {% for row in f.rows %}
+              {% if row.kind == "gap" %}
+              <tr class="diff-gap"><td colspan="3" data-testid="course-review-gap">{{ crate::tn("courses.review.gap_lines", row.gap) }}</td></tr>
+              {% else %}
+              <tr class="rv-row {{ row.kind }}{% if row.is_bare() %} rv-bare{% endif %}{% if row.right.edited %} rv-edited-row{% endif %}"{% if row.kind == "change" %} data-testid="course-review-row" data-key="{{ row.key }}"{% endif %}>
+                {% if row.left.kind == "del" %}{% call cell(row.left, "course-review-del") %}{% endcall %}{% else %}{% call cell(row.left, "") %}{% endcall %}{% endif %}
+                {% if row.right.kind == "add" %}{% call cell(row.right, "course-review-add") %}{% endcall %}{% else %}{% call cell(row.right, "") %}{% endcall %}{% endif %}
+                <td class="rv-xc">{% if row.kind == "change" && !r.undone %}<label class="rv-x" title="{{ crate::t("courses.review.leave_change_out") }}"><input type="checkbox" name="lines" value="{{ f.path }}:{{ row.key }}" form="review-form" data-group="{{ row.group }}" data-testid="course-review-exclude-line"{% if row.excluded %} checked{% endif %}{% if row.right.edited %} disabled{% endif %}><span class="rv-minus" aria-hidden="true">−</span><span class="sr-only">{{ crate::t("courses.review.leave_change_out") }}</span></label>{% endif %}</td>
+              </tr>
+              {% endif %}
+            {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+          <table class="diff whole{% if f.kind == "removed" %} removed{% endif %}" data-testid="course-review-whole">
+            <colgroup><col><col class="x"></colgroup>
+            <tbody>
+            {% for row in f.rows %}
+              <tr class="rv-row change{% if row.is_bare() %} rv-bare{% endif %}{% if row.right.edited %} rv-edited-row{% endif %}"{% if f.kind == "added" %} data-testid="course-review-row" data-key="{{ row.key }}"{% endif %}>
+                {% if f.kind == "added" %}{% call cell(row.right, "course-review-line") %}{% endcall %}{% else %}{% call cell(row.left, "course-review-line") %}{% endcall %}{% endif %}
+                <td class="rv-xc">{% if f.kind == "added" && !r.undone %}<label class="rv-x" title="{{ crate::t("courses.review.leave_line_out") }}"><input type="checkbox" name="lines" value="{{ f.path }}:{{ row.key }}" form="review-form" data-group="{{ row.group }}" data-testid="course-review-exclude-line"{% if row.excluded %} checked{% endif %}{% if row.right.edited %} disabled{% endif %}><span class="rv-minus" aria-hidden="true">−</span><span class="sr-only">{{ crate::t("courses.review.leave_line_out") }}</span></label>{% endif %}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+          {% endif %}
+          </div>
+        </details>
+      </li>
+    {% endfor %}
+    </ul>
+    {% if !r.left_alone.is_empty() %}
+    <section class="review-left-alone" data-testid="course-review-left-alone">
+      <h3>{{ crate::t("courses.review.left_alone") }}</h3>
+      <ul>
+      {% for n in r.left_alone %}
+        <li data-testid="course-review-left-alone-lesson"><span class="rv-title">{{ n.title }}</span>{% call notes(&n.why, &n.check) %}{% endcall %}</li>
+      {% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+    <form method="post" action="{{ crate::base_path() }}/courses/{{ r.course_id }}/review" id="review-form" class="review-foot" data-testid="course-review-form">
+      <label class="small review-quiet"><input type="checkbox" name="quiet" value="1" data-testid="course-review-quiet"{% if r.quiet %} checked{% endif %}> {{ crate::t("courses.review.quiet") }}</label>
+      <span class="undo-redo rv-history" data-testid="course-review-history" hidden><button type="button" class="icon-btn" data-tip="{{ crate::t("courses.review.undo") }}" aria-label="{{ crate::t("courses.review.undo_edit") }}" data-testid="course-review-undo" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 2.64-6.36"/><path d="M3 4v5h5"/></svg></button><button type="button" class="icon-btn" data-tip="{{ crate::t("courses.review.redo") }}" aria-label="{{ crate::t("courses.review.redo_edit") }}" data-testid="course-review-redo" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 4v5h-5"/></svg></button></span>
+      <span class="small muted" id="review-left-out" role="status" data-testid="course-review-left-out">{{ r.left_out }}</span>
+      {% if !r.undone %}<button type="submit" class="btn" data-testid="course-review-accept">{{ crate::t("courses.review.accept") }}</button>{% endif %}
+    </form>
+  </div>
+</div>

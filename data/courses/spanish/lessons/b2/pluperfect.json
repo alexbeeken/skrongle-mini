@@ -1,0 +1,1217 @@
+{
+  "id": "b2-pluperfect",
+  "slug": "pluperfect",
+  "title": "The pluperfect: había hecho",
+  "unit": "B2",
+  "group": "Grammar",
+  "order": 14,
+  "summary": "Había + participle tells what had already happened before another moment in the past: cuando llegué, la película ya había empezado.",
+  "focus": "Forming and using the pluperfect (había + participle) for the past before the past",
+  "prerequisites": [
+    "a2-present-perfect",
+    "a2-preterite-vs-imperfect"
+  ],
+  "content": "## Había + participle\n\nThe pluperfect (**pluscuamperfecto**) is the imperfect of **haber** plus a participle. In English this is *had done*.\n\n| | haber | + participle |\n|---|---|---|\n| yo | había | hablado |\n| tú | habías | comido |\n| él / ella / usted | había | salido |\n| nosotros/as | habíamos | terminado |\n| vosotros/as | habíais | vivido |\n| ellos / ellas / ustedes | habían | llegado |\n\nThe participle never changes: **ellas habían salido**. Object pronouns and **se** go before **había**, never between the two words:\n\n- **No lo había visto.** (I hadn't seen it.)\n- **Ya se habían marchado.** (They had already left.)\n\n## Irregular participles\n\nThese irregular participles are the same as in the present perfect:\n\n| infinitive | participle | infinitive | participle |\n|---|---|---|---|\n| hacer | **hecho** | escribir | **escrito** |\n| decir | **dicho** | abrir | **abierto** |\n| ver | **visto** | volver | **vuelto** |\n| poner | **puesto** | romper | **roto** |\n| | | morir | **muerto** |\n\nCompounds follow them: **descubierto**, **devuelto**, **deshecho**. A stem ending in a vowel takes an accent: **leído**, **creído**, **oído**, **traído**.\n\n- **Nunca antes había escrito una carta así.** (I had never written a letter like that before.)\n\n## The past before the past\n\nUse it when the story is already in the past and you step one further back:\n\n- **Cuando llegué, la película ya había empezado.** (When I arrived, the film had already started.)\n\nWords that go with it: **ya** (already), **todavía no / aún no** (not yet), **nunca antes** (never before), **para entonces** (by then), **para cuando** (by the time).\n\n- **Para cuando llamaste, aún no me había levantado.** (By the time you called, I hadn't got up yet.)\n- **Hasta aquel verano, nunca antes había volado.** (Until that summer, I had never flown before.)\n\n## Pluperfect or preterite?\n\nIn a story the preterite moves the action forward, one step after another; the pluperfect jumps back to something already finished.\n\n- **Cuando llegué, Ana se fue.** (When I arrived, Ana left, so she left after I came.)\n- **Cuando llegué, Ana ya se había ido.** (When I arrived, Ana had already gone, so she left before.)\n\nAfter **me di cuenta de que**, **me enteré de que** or **me dijo que**, the earlier event usually takes the pluperfect:\n\n- **Me di cuenta de que había perdido las llaves.** (I realised I had lost my keys.)",
+  "vocabulary": [
+    {
+      "term": "nunca antes",
+      "meaning": "never before",
+      "example": "Nunca antes había visto el mar tan tranquilo.",
+      "example_meaning": "I had never seen the sea so calm before."
+    },
+    {
+      "term": "para entonces",
+      "meaning": "by then",
+      "example": "Llegué a medianoche; para entonces todos se habían dormido.",
+      "example_meaning": "I arrived at midnight; by then everyone had fallen asleep."
+    },
+    {
+      "term": "para cuando",
+      "meaning": "by the time",
+      "example": "Para cuando encontré aparcamiento, el concierto ya había terminado.",
+      "example_meaning": "By the time I found a parking space, the concert had already finished."
+    },
+    {
+      "term": "aún no",
+      "meaning": "not yet (= todavía no)",
+      "example": "Eran las once y aún no habían servido la cena.",
+      "example_meaning": "It was eleven and they hadn't served dinner yet."
+    },
+    {
+      "term": "de antemano",
+      "meaning": "beforehand, in advance",
+      "example": "Por suerte, habíamos reservado la mesa de antemano.",
+      "example_meaning": "Luckily, we had booked the table in advance."
+    },
+    {
+      "term": "darse cuenta de",
+      "meaning": "to realise, to notice",
+      "example": "En la estación me di cuenta de que había olvidado la cartera.",
+      "example_meaning": "At the station I realised I had forgotten my wallet."
+    },
+    {
+      "term": "enterarse de",
+      "meaning": "to find out about, to hear about",
+      "example": "Me enteré de la boda cuando ya se habían casado.",
+      "example_meaning": "I found out about the wedding when they had already got married."
+    },
+    {
+      "term": "advertir",
+      "meaning": "to warn",
+      "example": "El guía nos había advertido del calor, pero no le hicimos caso.",
+      "example_meaning": "The guide had warned us about the heat, but we didn't listen to him."
+    },
+    {
+      "term": "marcharse",
+      "meaning": "to leave, to go away",
+      "example": "Cuando volví a la fiesta, mis amigos ya se habían marchado.",
+      "example_meaning": "When I went back to the party, my friends had already left."
+    },
+    {
+      "term": "despegar",
+      "meaning": "to take off (a plane)",
+      "example": "El avión había despegado con una hora de retraso.",
+      "example_meaning": "The plane had taken off an hour late."
+    },
+    {
+      "term": "agotarse",
+      "meaning": "to sell out, to run out",
+      "example": "Las entradas se habían agotado en diez minutos.",
+      "example_meaning": "The tickets had sold out in ten minutes."
+    },
+    {
+      "term": "averiarse",
+      "meaning": "to break down (a machine, a car)",
+      "example": "El ascensor se había averiado otra vez y subimos andando.",
+      "example_meaning": "The lift had broken down again and we walked up."
+    },
+    {
+      "term": "la víspera",
+      "meaning": "the day before, the eve",
+      "example": "La víspera del examen, ya lo había repasado todo.",
+      "example_meaning": "The day before the exam, I had already revised everything."
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "haber",
+      "meaning": "to have (auxiliary verb)",
+      "set": "imperfect",
+      "forms": {
+        "yo": "había",
+        "tu": "habías",
+        "el": "había",
+        "nosotros": "habíamos",
+        "vosotros": "habíais",
+        "ellos": "habían"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-pluperfect-01",
+      "prompt": "Cuando llegamos al cine, la película ya ___.",
+      "type": "multiple-choice",
+      "options": [
+        "había empezado",
+        "ha empezado",
+        "habían empezado"
+      ],
+      "correct_answer": "había empezado",
+      "explanation": "Arriving is already in the past; the film started before that, so the pluperfect: había empezado (la película is singular).",
+      "hints": [
+        "The film started before you arrived.",
+        "La película takes the él/ella form."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b2-pluperfect-02",
+      "prompt": "Cuando llamé a Lucía, ya ___. (marcharse: she had left)",
+      "type": "fill-in-blank",
+      "correct_answer": "se había marchado",
+      "accepted_answers": [
+        "ella se había marchado"
+      ],
+      "explanation": "Reflexive se goes before había: se había marchado.",
+      "hints": [
+        "Where does se go: before or after había?"
+      ],
+      "teaches": [
+        "marcharse"
+      ]
+    },
+    {
+      "question_id": "b2-pluperfect-03",
+      "prompt": "Hasta aquel viaje, yo nunca antes ___ una aurora boreal.",
+      "type": "multiple-choice",
+      "options": [
+        "había visto",
+        "había veído",
+        "habíamos visto"
+      ],
+      "correct_answer": "había visto",
+      "explanation": "Ver has an irregular participle, visto; yo takes había.",
+      "hints": [
+        "Ver becomes visto, as in he visto.",
+        "Yo takes había."
+      ],
+      "teaches": [
+        "nunca antes"
+      ]
+    },
+    {
+      "question_id": "b2-pluperfect-04",
+      "prompt": "Para cuando llegaron los bomberos, nosotros ya ___ todas las ventanas. (abrir)",
+      "type": "fill-in-blank",
+      "correct_answer": "habíamos abierto",
+      "explanation": "Nosotros takes habíamos, and abrir has the irregular participle abierto.",
+      "hints": [
+        "Abrir becomes abierto.",
+        "Nosotros takes habíamos."
+      ],
+      "teaches": [
+        "para cuando"
+      ]
+    },
+    {
+      "question_id": "b2-pluperfect-05",
+      "prompt": "No ___ antes. (I hadn't seen it before.)",
+      "type": "multiple-choice",
+      "options": [
+        "lo había visto",
+        "había lo visto",
+        "había visto lo"
+      ],
+      "correct_answer": "lo había visto",
+      "explanation": "Object pronouns go before the conjugated haber and never between había and the participle.",
+      "hints": [
+        "Haber + participle is a block: nothing goes in between."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b2-pluperfect-06",
+      "prompt": "El avión ya ___ cuando llegamos a la puerta de embarque. (despegar)",
+      "type": "fill-in-blank",
+      "correct_answer": "había despegado",
+      "explanation": "The plane took off before we reached the gate: había despegado.",
+      "hints": [
+        "Which came first: the take-off or our arrival?"
+      ],
+      "teaches": [
+        "despegar"
+      ]
+    },
+    {
+      "question_id": "b2-pluperfect-07",
+      "prompt": "Llegué a la taquilla a las ocho, pero las entradas ya ___.",
+      "type": "multiple-choice",
+      "options": [
+        "se habían agotado",
+        "se han agotado",
+        "se agotarán"
+      ],
+      "correct_answer": "se habían agotado",
+      "explanation": "The story is in the past (llegué) and the selling out happened before it: se habían agotado. The present perfect does not fit a story told with llegué.",
+      "hints": [
+        "Llegué sets the scene in the past.",
+        "Entradas is plural, so use habían."
+      ],
+      "teaches": [
+        "agotarse"
+      ]
+    },
+    {
+      "question_id": "b2-pluperfect-08",
+      "prompt": "Cuando Marta se dio cuenta, el tren ya había salido. What happened first?",
+      "type": "multiple-choice",
+      "options": [
+        "The train left.",
+        "Marta realised."
+      ],
+      "correct_answer": "The train left.",
+      "explanation": "Había salido reaches back before the moment of realising: the train had already gone.",
+      "hints": [
+        "The pluperfect is the earlier of two past events."
+      ],
+      "teaches": [
+        "darse cuenta de"
+      ]
+    },
+    {
+      "question_id": "b2-pluperfect-09",
+      "prompt": "Hasta aquel verano, nunca antes ___ un viaje tan largo. (hacer, nosotros)",
+      "type": "fill-in-blank",
+      "correct_answer": "habíamos hecho",
+      "accepted_answers": [
+        "nosotros habíamos hecho"
+      ],
+      "explanation": "Nosotros takes habíamos, and hacer becomes hecho.",
+      "hints": [
+        "Hacer has an irregular participle.",
+        "Nosotros takes habíamos."
+      ],
+      "teaches": [
+        "nunca antes"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-pluperfect-conv-missed-flight",
+      "title": "The missed flight",
+      "scenario": "Irene asks her colleague Tomás about his trip to Lisbon, which went wrong from the start.",
+      "role_a": "Irene",
+      "role_b": "Tomás",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¿Qué tal el viaje a Lisboa?",
+          "meaning": "How was the trip to Lisbon?"
+        },
+        {
+          "speaker": "b",
+          "text": "Un desastre. Cuando llegamos al aeropuerto, el vuelo ya había despegado.",
+          "meaning": "A disaster. When we got to the airport, the flight had already taken off."
+        },
+        {
+          "speaker": "a",
+          "text": "¿Cómo? ¿No habíais salido de casa con tiempo?",
+          "meaning": "What? Hadn't you left home in good time?"
+        },
+        {
+          "speaker": "b",
+          "text": "Sí, pero el taxi se había averiado a mitad de camino.",
+          "meaning": "Yes, but the taxi had broken down halfway there."
+        },
+        {
+          "speaker": "a",
+          "text": "¡Qué mala suerte! ¿Y qué hicisteis?",
+          "meaning": "What bad luck! And what did you do?"
+        },
+        {
+          "speaker": "b",
+          "text": "Fuimos al mostrador, pero los billetes del siguiente vuelo ya se habían agotado.",
+          "meaning": "We went to the desk, but the tickets for the next flight had already sold out."
+        },
+        {
+          "speaker": "a",
+          "text": "Pues yo nunca antes había oído una historia así.",
+          "meaning": "Well, I'd never heard a story like that before."
+        },
+        {
+          "speaker": "b",
+          "text": "Lo peor es que mi jefe me lo había advertido de antemano.",
+          "meaning": "The worst part is that my boss had warned me in advance.",
+          "note": "Pronouns go before había: me lo había advertido."
+        },
+        {
+          "speaker": "a",
+          "text": "¿De qué te había advertido?",
+          "meaning": "What had he warned you about?"
+        },
+        {
+          "speaker": "b",
+          "text": "De que en agosto los taxis tardan muchísimo. La próxima vez, salgo la víspera.",
+          "meaning": "That in August taxis take ages. Next time, I'm leaving the day before."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Ella ya había salido.",
+      "meaning": "She had already gone out."
+    },
+    {
+      "text": "Nunca antes había probado el pulpo.",
+      "meaning": "I had never tried octopus before.",
+      "note": "New word: el pulpo = the octopus."
+    },
+    {
+      "text": "Cuando llegué, mis amigos ya se habían ido.",
+      "meaning": "When I arrived, my friends had already gone.",
+      "note": "Se goes before habían."
+    },
+    {
+      "text": "No me habían dicho nada de la reunión.",
+      "meaning": "They hadn't told me anything about the meeting.",
+      "note": "Decir becomes dicho."
+    },
+    {
+      "text": "El tren todavía no había llegado a la estación.",
+      "meaning": "The train still hadn't arrived at the station."
+    },
+    {
+      "text": "Cuando abrí la nevera, alguien se había comido mi tarta.",
+      "meaning": "When I opened the fridge, someone had eaten my cake.",
+      "note": "New word: la nevera = the fridge."
+    },
+    {
+      "text": "Le pregunté a Pablo si había leído el libro antes de la clase.",
+      "meaning": "I asked Pablo whether he had read the book before the class.",
+      "note": "Leer becomes leído, with an accent."
+    },
+    {
+      "text": "Al día siguiente me enteré de que mi vecina se había mudado a Valencia.",
+      "meaning": "The next day I found out that my neighbour had moved to Valencia.",
+      "note": "New word: mudarse = to move house."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Había + participle"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-pluperfect-02"
+    },
+    {
+      "question": "b2-pluperfect-05"
+    },
+    {
+      "section": "Irregular participles"
+    },
+    {
+      "question": "b2-pluperfect-03"
+    },
+    {
+      "question": "b2-pluperfect-04"
+    },
+    {
+      "question": "b2-pluperfect-09"
+    },
+    {
+      "section": "The past before the past"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b2-pluperfect-01"
+    },
+    {
+      "question": "b2-pluperfect-06"
+    },
+    {
+      "tip": "Ask yourself: by the time of the story, was it already done? If yes, había + participle."
+    },
+    {
+      "section": "Pluperfect or preterite?"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b2-pluperfect-07"
+    },
+    {
+      "question": "b2-pluperfect-08"
+    }
+  ],
+  "sprint": {
+    "icon": "⏪",
+    "bites": [
+      {
+        "title": "The past before the past",
+        "emoji": "⏪",
+        "rule": "When you are telling a story in the past, había + participle goes one step further back. The thing was done before the moment you are describing.",
+        "example": "Cuando llegué, la película ya había empezado.",
+        "example_meaning": "When I arrived, the film had already started."
+      },
+      {
+        "title": "Había, habías, había…",
+        "emoji": "🧱",
+        "rule": "The imperfect of haber (había, habías, había, habíamos, habíais, habían) + a participle that never changes: ellas habían salido.",
+        "example": "Nosotros ya habíamos cenado.",
+        "example_meaning": "We had already had dinner."
+      },
+      {
+        "title": "The usual irregulars",
+        "emoji": "🦹",
+        "rule": "Irregular participles stay irregular: hecho, dicho, visto, puesto, escrito, abierto, vuelto, roto, muerto. Leído, oído, creído carry an accent.",
+        "example": "Nunca antes había visto tanta nieve.",
+        "example_meaning": "I had never seen so much snow before."
+      },
+      {
+        "title": "Pronouns go first",
+        "emoji": "👆",
+        "rule": "Object pronouns and se go before había, never between había and the participle: no lo había visto, ya se habían ido.",
+        "example": "Ya se habían marchado todos.",
+        "example_meaning": "Everyone had already left."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which happened first?",
+        "buckets": [
+          "earlier (había + participle)",
+          "the story's now (preterite)"
+        ],
+        "items": [
+          {
+            "text": "la película ya había empezado",
+            "bucket": 0
+          },
+          {
+            "text": "llegué al cine",
+            "bucket": 1
+          },
+          {
+            "text": "se habían marchado",
+            "bucket": 0
+          },
+          {
+            "text": "me di cuenta",
+            "bucket": 1
+          },
+          {
+            "text": "habíamos cenado",
+            "bucket": 0
+          },
+          {
+            "text": "sonó el teléfono",
+            "bucket": 1
+          }
+        ],
+        "why": "The preterite moves the story on; había + participle reaches back to what was already done."
+      },
+      {
+        "title": "Regular or irregular participle?",
+        "buckets": [
+          "-ado / -ido",
+          "irregular"
+        ],
+        "items": [
+          {
+            "text": "hablado",
+            "bucket": 0
+          },
+          {
+            "text": "comido",
+            "bucket": 0
+          },
+          {
+            "text": "leído",
+            "bucket": 0
+          },
+          {
+            "text": "hecho",
+            "bucket": 1
+          },
+          {
+            "text": "dicho",
+            "bucket": 1
+          },
+          {
+            "text": "abierto",
+            "bucket": 1
+          },
+          {
+            "text": "vuelto",
+            "bucket": 1
+          },
+          {
+            "text": "puesto",
+            "bucket": 1
+          }
+        ],
+        "why": "Leído only adds an accent; hecho, dicho, abierto, vuelto and puesto are the old irregulars."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Cuando llegué, la clase ya ha empezado.",
+        "wrong": "ha",
+        "fix": "había",
+        "why": "The story is in the past (llegué), so the earlier action takes había, not ha."
+      },
+      {
+        "sentence": "Nunca antes había veído un desierto.",
+        "wrong": "veído",
+        "fix": "visto",
+        "why": "Ver has the irregular participle visto."
+      },
+      {
+        "sentence": "Cuando llegamos, los invitados ya había salido.",
+        "wrong": "había",
+        "fix": "habían",
+        "why": "Los invitados means ellos, so use habían."
+      },
+      {
+        "sentence": "Le dije que no había escribido el correo.",
+        "wrong": "escribido",
+        "fix": "escrito",
+        "why": "Escribir becomes escrito."
+      },
+      {
+        "sentence": "Cuando llegaron los bomberos, el fuego ya se había apagando.",
+        "wrong": "apagando",
+        "fix": "apagado",
+        "why": "Haber takes the participle (-ado), not the gerund (-ando)."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Cuando llegué, la película ya había empezado.",
+        "meaning": "When I arrived, the film had already started.",
+        "distractors": [
+          "ha"
+        ]
+      },
+      {
+        "text": "Nunca antes había visto tanta nieve.",
+        "meaning": "I had never seen so much snow before.",
+        "distractors": [
+          "veído"
+        ]
+      },
+      {
+        "text": "Ya se habían marchado todos.",
+        "meaning": "Everyone had already left.",
+        "distractors": [
+          "ha"
+        ]
+      },
+      {
+        "text": "No lo había leído antes.",
+        "meaning": "I hadn't read it before.",
+        "distractors": [
+          "leyó"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🏺",
+      "content": "## El pluscuamperfecto en Eldmark\n\nTavern tales need the past before the past: **cuando llegamos a la mazmorra, los orcos ya se habían llevado el botín**. **La maga nunca antes había visto un minotauro**, and **el enano no nos había advertido de la trampa**. The preterite tells the adventure; **había** + participle tells what was already done.",
+      "vocabulary": [
+        {
+          "term": "nunca antes",
+          "example": "La elfa nunca antes había entrado en el Bosque Umbrío.",
+          "example_meaning": "The elf had never gone into the Bosque Umbrío before."
+        },
+        {
+          "term": "para cuando",
+          "example": "Para cuando llegó el paladín, los orcos ya habían huido.",
+          "example_meaning": "By the time the paladin arrived, the orcs had already fled."
+        },
+        {
+          "term": "advertir",
+          "example": "El enano nos había advertido de los lobos de Frostmarch.",
+          "example_meaning": "The dwarf had warned us about the wolves of Frostmarch."
+        },
+        {
+          "term": "darse cuenta de",
+          "example": "En la posada me di cuenta de que había dejado la espada en Highgate.",
+          "example_meaning": "At the inn I realised I had left my sword in Highgate."
+        },
+        {
+          "term": "marcharse",
+          "example": "Cuando volvimos a Deepanvil, la caravana ya se había marchado.",
+          "example_meaning": "When we got back to Deepanvil, the caravan had already left."
+        },
+        {
+          "term": "agotarse",
+          "example": "En la posada ya se habían agotado las pociones.",
+          "example_meaning": "The potions had already sold out at the inn."
+        },
+        {
+          "term": "la mazmorra",
+          "meaning": "dungeon",
+          "example": "Alguien había abierto la mazmorra antes que nosotros.",
+          "example_meaning": "Someone had opened the dungeon before us."
+        },
+        {
+          "term": "el botín",
+          "meaning": "loot",
+          "example": "El cazador había escondido el botín en una cueva.",
+          "example_meaning": "The hunter had hidden the loot in a cave."
+        },
+        {
+          "term": "la trampa",
+          "meaning": "trap",
+          "example": "La maga había puesto una trampa en la puerta.",
+          "example_meaning": "The mage had set a trap at the door."
+        },
+        {
+          "term": "la montura",
+          "meaning": "mount (horse or beast to ride)",
+          "example": "Mi montura se había escapado durante la noche.",
+          "example_meaning": "My mount had run off during the night."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Cuentos de la posada",
+          "emoji": "📜",
+          "rule": "In a tavern tale the preterite moves the adventure on, and había + participle reaches back to what had already happened.",
+          "example": "Entramos en la mazmorra, pero los orcos ya se habían llevado el botín.",
+          "example_meaning": "We went into the dungeon, but the orcs had already taken the loot."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Los orcos ya se habían marchado.",
+          "meaning": "The orcs had already left."
+        },
+        {
+          "text": "Nunca antes había visto un minotauro.",
+          "meaning": "I had never seen a minotaur before."
+        },
+        {
+          "text": "Alguien había abierto la mazmorra.",
+          "meaning": "Someone had opened the dungeon.",
+          "note": "New word: la mazmorra = the dungeon."
+        },
+        {
+          "text": "El cazador había escondido el botín en la cueva.",
+          "meaning": "The hunter had hidden the loot in the cave.",
+          "note": "New word: el botín = the loot."
+        },
+        {
+          "text": "Cuando llegamos a Frostmarch, ya había nevado.",
+          "meaning": "When we reached Frostmarch, it had already snowed."
+        }
+      ],
+      "builds": [
+        {
+          "text": "El enano no nos había advertido.",
+          "meaning": "The dwarf hadn't warned us.",
+          "distractors": [
+            "ha"
+          ]
+        },
+        {
+          "text": "Los orcos ya se habían llevado el botín.",
+          "meaning": "The orcs had already taken the loot.",
+          "distractors": [
+            "han"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Cuando llegamos, el paladín ya ha partido.",
+          "wrong": "ha",
+          "fix": "había",
+          "why": "Llegamos puts the story in the past; what was done before it takes había."
+        },
+        {
+          "sentence": "La maga había ponido una trampa en la puerta.",
+          "wrong": "ponido",
+          "fix": "puesto",
+          "why": "Poner becomes puesto."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Before or during the adventure?",
+          "buckets": [
+            "earlier (había + participle)",
+            "the story's now (preterite)"
+          ],
+          "items": [
+            {
+              "text": "el cazador había escondido el botín",
+              "bucket": 0
+            },
+            {
+              "text": "entramos en la mazmorra",
+              "bucket": 1
+            },
+            {
+              "text": "los orcos se habían marchado",
+              "bucket": 0
+            },
+            {
+              "text": "encontramos la trampa",
+              "bucket": 1
+            },
+            {
+              "text": "la maga nos había advertido",
+              "bucket": 0
+            },
+            {
+              "text": "volvimos a la posada",
+              "bucket": 1
+            }
+          ],
+          "why": "The preterite tells the adventure step by step; había + participle is what was already done."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-pluperfect-realm-01",
+          "prompt": "Cuando entramos en la mazmorra, los orcos ya ___ el botín.",
+          "type": "multiple-choice",
+          "options": [
+            "se habían llevado",
+            "se han llevado",
+            "se llevan"
+          ],
+          "correct_answer": "se habían llevado",
+          "explanation": "Entramos is the story's past; the orcs took the loot before that: se habían llevado.",
+          "hints": [
+            "Who got there first?"
+          ],
+          "teaches": [
+            "la mazmorra",
+            "el botín"
+          ]
+        },
+        {
+          "question_id": "b2-pluperfect-realm-02",
+          "prompt": "La maga no nos ___ de la trampa. (advertir: she hadn't warned us)",
+          "type": "fill-in-blank",
+          "correct_answer": "había advertido",
+          "explanation": "Ella takes había + advertido, and the pronoun nos stays before había.",
+          "hints": [
+            "Imperfect of haber + participle."
+          ],
+          "teaches": [
+            "advertir",
+            "la trampa"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🍁",
+      "content": "## El pluscuamperfecto en Meadowbrook\n\nFarm news always arrives a little late: **cuando Nora llegó a la tienda, Rosa ya había vendido todas las semillas de fresa**. **Leo nunca antes había pescado un pez tan grande**, and **la vaca se había escapado del establo** before anyone noticed. **Había** + participle tells what was already done.",
+      "vocabulary": [
+        {
+          "term": "nunca antes",
+          "example": "Leo nunca antes había pescado un pez tan grande.",
+          "example_meaning": "Leo had never caught such a big fish before."
+        },
+        {
+          "term": "para cuando",
+          "example": "Para cuando volví del río, las gallinas ya se habían dormido.",
+          "example_meaning": "By the time I got back from the river, the hens had already fallen asleep."
+        },
+        {
+          "term": "enterarse de",
+          "example": "Nora se enteró de que la vaca se había escapado.",
+          "example_meaning": "Nora found out that the cow had got out."
+        },
+        {
+          "term": "agotarse",
+          "example": "Las semillas de fresa ya se habían agotado en la tienda de Rosa.",
+          "example_meaning": "The strawberry seeds had already sold out at Rosa's shop."
+        },
+        {
+          "term": "de antemano",
+          "example": "Rosa había preparado las calabazas de antemano para el festival.",
+          "example_meaning": "Rosa had got the pumpkins ready in advance for the festival."
+        },
+        {
+          "term": "la víspera",
+          "example": "La víspera del festival, ya habíamos cosechado todo el maíz.",
+          "example_meaning": "The day before the festival, we had already harvested all the corn."
+        },
+        {
+          "term": "cosechar",
+          "meaning": "to harvest",
+          "example": "Nunca antes habíamos cosechado tantas fresas.",
+          "example_meaning": "We had never harvested so many strawberries before."
+        },
+        {
+          "term": "la semilla",
+          "meaning": "seed",
+          "example": "El alcalde había comprado semillas de calabaza.",
+          "example_meaning": "The mayor had bought pumpkin seeds."
+        },
+        {
+          "term": "escaparse",
+          "meaning": "to escape, to get out",
+          "example": "La oveja se había escapado por un agujero de la cerca.",
+          "example_meaning": "The sheep had got out through a hole in the fence."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Noticias de la granja",
+          "emoji": "🍓",
+          "rule": "The preterite tells what you found; había + participle tells what had already happened on the farm before you got there.",
+          "example": "Cuando volví, la vaca se había escapado del establo.",
+          "example_meaning": "When I got back, the cow had got out of the barn."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Rosa ya había cerrado la tienda.",
+          "meaning": "Rosa had already closed the shop."
+        },
+        {
+          "text": "Las gallinas se habían escapado otra vez.",
+          "meaning": "The hens had got out again."
+        },
+        {
+          "text": "Nunca antes habíamos cosechado tantas calabazas.",
+          "meaning": "We had never harvested so many pumpkins before.",
+          "note": "New word: cosechar = to harvest."
+        },
+        {
+          "text": "Leo había pescado tres truchas antes del amanecer.",
+          "meaning": "Leo had caught three trout before dawn.",
+          "note": "New word: la trucha = the trout."
+        },
+        {
+          "text": "Cuando llegó el otoño, ya habíamos plantado el trigo.",
+          "meaning": "When autumn came, we had already planted the wheat."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Rosa ya había vendido las semillas.",
+          "meaning": "Rosa had already sold the seeds.",
+          "distractors": [
+            "ha"
+          ]
+        },
+        {
+          "text": "La vaca se había escapado del establo.",
+          "meaning": "The cow had got out of the barn.",
+          "distractors": [
+            "escapando"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Cuando llegué al río, Leo ya ha pescado una trucha.",
+          "wrong": "ha",
+          "fix": "había",
+          "why": "Llegué puts the story in the past; the earlier catch takes había."
+        },
+        {
+          "sentence": "Nora nunca antes había hacido queso.",
+          "wrong": "hacido",
+          "fix": "hecho",
+          "why": "Hacer becomes hecho."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Regular or irregular on the farm?",
+          "buckets": [
+            "-ado / -ido",
+            "irregular"
+          ],
+          "items": [
+            {
+              "text": "plantado",
+              "bucket": 0
+            },
+            {
+              "text": "cosechado",
+              "bucket": 0
+            },
+            {
+              "text": "vendido",
+              "bucket": 0
+            },
+            {
+              "text": "vuelto",
+              "bucket": 1
+            },
+            {
+              "text": "abierto",
+              "bucket": 1
+            },
+            {
+              "text": "puesto",
+              "bucket": 1
+            }
+          ],
+          "why": "Plantar, cosechar and vender are regular; volver, abrir and poner have irregular participles."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-pluperfect-meadowbrook-01",
+          "prompt": "Cuando Nora llegó a la tienda, las semillas de fresa ya ___.",
+          "type": "multiple-choice",
+          "options": [
+            "se habían agotado",
+            "se han agotado",
+            "se agotarán"
+          ],
+          "correct_answer": "se habían agotado",
+          "explanation": "Llegó sets the story in the past; the seeds sold out before that: se habían agotado.",
+          "hints": [
+            "Las semillas is plural: habían."
+          ],
+          "teaches": [
+            "agotarse",
+            "la semilla"
+          ]
+        },
+        {
+          "question_id": "b2-pluperfect-meadowbrook-02",
+          "prompt": "Leo nunca antes ___ un pez tan grande. (pescar)",
+          "type": "fill-in-blank",
+          "correct_answer": "había pescado",
+          "explanation": "Él takes había + pescado, so Leo had never caught such a big fish before.",
+          "hints": [
+            "Imperfect of haber + -ado."
+          ],
+          "teaches": [
+            "nunca antes"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "💾",
+      "content": "## El pluscuamperfecto en el páramo\n\nNews in the wasteland is always old: **cuando salí de la cúpula, Leo ya se había ido a buscar chatarra**. **Marta ya había vendido toda la gaseosa Zafiro**, and **nadie me había dicho que venía una tormenta de ceniza**. **Había** + participle tells what was already done.",
+      "vocabulary": [
+        {
+          "term": "nunca antes",
+          "example": "Nunca antes había visto una cabra del páramo.",
+          "example_meaning": "I had never seen a wasteland goat before."
+        },
+        {
+          "term": "para cuando",
+          "example": "Para cuando volví al taller, el robot jardinero ya había plantado los tomates.",
+          "example_meaning": "By the time I got back to the workshop, the gardening robot had already planted the tomatoes."
+        },
+        {
+          "term": "averiarse",
+          "example": "El robot jardinero se había averiado en la gasolinera.",
+          "example_meaning": "The gardening robot had broken down at the petrol station."
+        },
+        {
+          "term": "advertir",
+          "example": "El capataz Ruiz nos había advertido de la tormenta.",
+          "example_meaning": "Foreman Ruiz had warned us about the storm."
+        },
+        {
+          "term": "agotarse",
+          "example": "La gaseosa Zafiro se había agotado en el mercado.",
+          "example_meaning": "The Zafiro soda had sold out at the market."
+        },
+        {
+          "term": "darse cuenta de",
+          "example": "En el mercado me di cuenta de que había perdido todas mis tuercas.",
+          "example_meaning": "At the market I realised I had lost all my nuts (all my money)."
+        },
+        {
+          "term": "las tuercas",
+          "meaning": "nuts (the wasteland's money)",
+          "example": "Marta había cambiado mis tuercas por agua filtrada.",
+          "example_meaning": "Marta had swapped my nuts for filtered water."
+        },
+        {
+          "term": "el radiorreloj",
+          "meaning": "wrist radio",
+          "example": "El radiorreloj se había quedado sin batería.",
+          "example_meaning": "The wrist radio had run out of battery."
+        },
+        {
+          "term": "la tormenta de ceniza",
+          "meaning": "ash storm",
+          "example": "La tormenta de ceniza ya había pasado cuando salimos.",
+          "example_meaning": "The ash storm had already passed when we went out."
+        },
+        {
+          "term": "la cúpula",
+          "meaning": "the Dome (the sealed shelter)",
+          "example": "Nunca antes habíamos salido de la cúpula.",
+          "example_meaning": "We had never left the Dome before."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Noticias viejas del páramo",
+          "emoji": "📻",
+          "rule": "Out in the wasteland you always arrive late: the preterite says what you found, había + participle what had already happened.",
+          "example": "Cuando llegué al mercado, Marta ya había cerrado el puesto.",
+          "example_meaning": "When I got to the market, Marta had already closed her stall."
+        }
+      ],
+      "listening": [
+        {
+          "text": "El capataz ya se había ido.",
+          "meaning": "The foreman had already gone."
+        },
+        {
+          "text": "Nunca antes había salido de la cúpula.",
+          "meaning": "I had never left the Dome before.",
+          "note": "New word: la cúpula = the Dome."
+        },
+        {
+          "text": "Marta ya había gastado todas sus tuercas.",
+          "meaning": "Marta had already spent all her nuts.",
+          "note": "New word: las tuercas = nuts, the wasteland money."
+        },
+        {
+          "text": "El robot jardinero había plantado tomates junto al taller.",
+          "meaning": "The gardening robot had planted tomatoes next to the workshop."
+        },
+        {
+          "text": "Cuando empezó la tormenta, ya habíamos vuelto.",
+          "meaning": "When the storm started, we had already come back.",
+          "note": "Volver becomes vuelto."
+        }
+      ],
+      "builds": [
+        {
+          "text": "El radiorreloj se había averiado otra vez.",
+          "meaning": "The wrist radio had broken down again.",
+          "distractors": [
+            "ha"
+          ]
+        },
+        {
+          "text": "Nadie me había dicho nada de la tormenta.",
+          "meaning": "Nobody had told me anything about the storm.",
+          "distractors": [
+            "decía"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Cuando llegué al mercado, Marta ya habían cerrado el puesto.",
+          "wrong": "habían",
+          "fix": "había",
+          "why": "Marta is one person: había."
+        },
+        {
+          "sentence": "Leo me dijo que había rompido la armadura.",
+          "wrong": "rompido",
+          "fix": "roto",
+          "why": "Romper becomes roto."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Before or after you left the Dome?",
+          "buckets": [
+            "earlier (había + participle)",
+            "the story's now (preterite)"
+          ],
+          "items": [
+            {
+              "text": "la tormenta había pasado",
+              "bucket": 0
+            },
+            {
+              "text": "salí de la cúpula",
+              "bucket": 1
+            },
+            {
+              "text": "Leo había encontrado un disco",
+              "bucket": 0
+            },
+            {
+              "text": "Marta cerró el puesto",
+              "bucket": 1
+            },
+            {
+              "text": "el robot se había averiado",
+              "bucket": 0
+            },
+            {
+              "text": "volvimos al taller",
+              "bucket": 1
+            }
+          ],
+          "why": "The preterite moves the trip on; había + participle is what was already done."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-pluperfect-rustwake-01",
+          "prompt": "Cuando volví al taller, el radiorreloj ya ___. (averiarse: had broken down)",
+          "type": "fill-in-blank",
+          "correct_answer": "se había averiado",
+          "explanation": "Se goes before había, and the breakdown came before my return: se había averiado.",
+          "hints": [
+            "Reflexive verb: se + había + participle."
+          ],
+          "teaches": [
+            "averiarse",
+            "el radiorreloj"
+          ]
+        },
+        {
+          "question_id": "b2-pluperfect-rustwake-02",
+          "prompt": "El capataz Ruiz nos ___ de la tormenta de ceniza, pero no le hicimos caso.",
+          "type": "multiple-choice",
+          "options": [
+            "había advertido",
+            "ha advertido",
+            "habíamos advertido"
+          ],
+          "correct_answer": "había advertido",
+          "explanation": "The warning came before we ignored it, and the foreman is él: había advertido.",
+          "hints": [
+            "Who warned whom? El capataz takes había."
+          ],
+          "teaches": [
+            "advertir",
+            "la tormenta de ceniza"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b2-pluperfect-conv-rustwake-late-to-market",
+          "title": "Late to the market",
+          "scenario": "Leo the scavenger finally reaches Marta's market stall after an ash storm.",
+          "role_a": "Marta",
+          "role_b": "Leo",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "¡Leo! ¿Dónde te habías metido?",
+              "meaning": "Leo! Where had you got to?"
+            },
+            {
+              "speaker": "b",
+              "text": "La tormenta de ceniza me había atrapado en la gasolinera.",
+              "meaning": "The ash storm had trapped me at the petrol station."
+            },
+            {
+              "speaker": "a",
+              "text": "Ya me lo imaginaba. Te había guardado dos botellas de agua filtrada.",
+              "meaning": "I thought as much. I had kept two bottles of filtered water for you."
+            },
+            {
+              "speaker": "b",
+              "text": "¡Gracias! Cuando llegué, pensé que ya habías cerrado.",
+              "meaning": "Thanks! When I arrived, I thought you had already closed."
+            },
+            {
+              "speaker": "a",
+              "text": "Casi. Nunca antes había vendido tanta gaseosa Zafiro en un día.",
+              "meaning": "Almost. I had never sold so much Zafiro soda in one day before."
+            },
+            {
+              "speaker": "b",
+              "text": "¿Y el capataz Ruiz había pasado por aquí antes de la tormenta?",
+              "meaning": "And had Foreman Ruiz come by before the storm?"
+            },
+            {
+              "speaker": "a",
+              "text": "Sí, y nos había advertido por la radio. ¿No lo habías oído?",
+              "meaning": "Yes, and he had warned us over the radio. Hadn't you heard it?"
+            },
+            {
+              "speaker": "b",
+              "text": "No. Mi radiorreloj se había averiado otra vez.",
+              "meaning": "No. My wrist radio had broken down again."
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

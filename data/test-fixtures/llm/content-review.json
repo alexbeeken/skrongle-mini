@@ -1,0 +1,29 @@
+{
+  "_comment": "content-review replies: the AI content check's stage 2 (#1037, src/content_check/review.rs). One request per course with parts Jev scored high; the reply is the verdict JSON. The key is a [fixture:NAME] token in the course text (default: 'default', a fine verdict). 'harmful' quotes the stand-in Jev's self-harm phrase, 'harmful-new' its hate phrase and says the override note doesn't cover it. See docs/testing.md.",
+  "replies": {
+    "default": {
+      "reply": {
+        "verdict": "fine",
+        "question": "",
+        "quotes": [],
+        "report": "The word that scored high is taught as ordinary vocabulary in a neutral example. Nothing in the lesson targets anyone."
+      }
+    },
+    "harmful": {
+      "reply": {
+        "verdict": "harmful",
+        "question": "self_harm",
+        "quotes": [{ "path": "", "text": "hurting yourself is the answer" }],
+        "report": "The lesson tells learners that hurting themselves is the answer when things hurt. That encourages self-harm, and nothing around it frames it as something to avoid or points to help."
+      }
+    },
+    "harmful-new": {
+      "reply": {
+        "verdict": "harmful",
+        "question": "hate",
+        "quotes": [{ "path": "", "text": "people like them are vermin" }],
+        "report": "A new lesson calls a group of people vermin, which is hate speech. The override note was considered: it covers the earlier passage only, not this new text."
+      }
+    }
+  }
+}

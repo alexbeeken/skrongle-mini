@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t1("play.matching.page_title", "board", title) }}{% endblock %}
+{% block modenav %}{% let active = "matching" %}{% include "nav_play.html" %}{% endblock %}
+{% block content %}
+<section class="match" id="match" data-testid="matching" data-board="{{ board }}" data-penalty="{{ penalty_secs }}" data-term-label="{{ course.term_label }}" data-meaning-label="{{ course.meaning_label }}" data-term-lang="{{ course.term_lang }}" data-meaning-lang="{{ course.meaning_lang }}">
+  <header class="quiz-head">
+    <div>
+      <p class="crumbs"><a href="{{ crate::base_path() }}/play">{{ crate::t("play.common.games") }}</a> › <a href="{{ crate::base_path() }}/play/matching">{{ crate::t("play.matching.name") }}</a>
+        {% if let Some(slug) = lesson_slug %} · <a href="{{ crate::base_path() }}/lessons/{{ slug }}">{{ crate::t("play.matching.lesson") }}</a>{% endif %}</p>
+      <h1>{{ title }}</h1>
+      <p class="muted">{{ subtitle }} · {{ crate::t1("play.matching.terms_count", "n", words) }} {{ crate::tn("play.matching.in_rounds", rounds) }}</p>
+    </div>
+    <div class="match-hud">
+      <span class="timer" id="timer" data-testid="matching-timer">0.0</span>
+      <span class="small muted" id="round-label">{{ crate::t1("play.matching.round_of", "total", rounds) }}</span>
+    </div>
+  </header>
+
+  <div class="match-intro" id="intro">
+    <p>{{ crate::t1("play.matching.intro_html", "penalty", penalty_secs)|safe }}</p>
+    {% if let Some(b) = your_best %}<p class="muted">{{ crate::t1("play.matching.best_on_board_html", "time", b)|safe }}</p>{% endif %}
+    <button type="button" class="btn big" id="btn-start" data-testid="matching-start">{{ crate::t("play.common.start") }}</button>
+  </div>
+
+  <div class="match-board" id="board" data-testid="matching-board-area" hidden>
+    <div class="column-wrap">
+      <p class="col-label" id="label-left">{{ course.term_label }}</p>
+      <ul class="column" id="col-left" data-testid="matching-col-left"></ul>
+    </div>
+    <div class="column-wrap">
+      <p class="col-label" id="label-right">{{ course.meaning_label }}</p>
+      <ul class="column" id="col-right" data-testid="matching-col-right"></ul>
+    </div>
+  </div>
+  <p class="match-status muted small" id="status" role="status" data-testid="matching-status" hidden></p>
+
+  <section class="summary" id="result" data-testid="matching-result" hidden>
+    <h2>{{ crate::t("play.matching.finished") }}</h2>
+    <p class="stars-big" id="result-time">0.00 s</p>
+    <p class="lead" id="result-detail"></p>
+    <div class="actions">
+      <button type="button" class="btn big" id="btn-again" data-testid="matching-again">{{ crate::t("play.matching.play_again") }}</button>
+      <a class="btn ghost" href="{{ crate::base_path() }}/play/matching">{{ crate::t("play.matching.other_boards") }}</a>
+    </div>
+  </section>
+
+  <section class="leaderboard">
+    <h2>{{ crate::t("play.matching.leaderboard") }}</h2>
+    <table class="history" id="lb-table" data-testid="matching-leaderboard">
+      <thead><tr><th>{{ crate::t("play.matching.th_rank") }}</th><th>{{ crate::t("play.matching.th_player") }}</th><th>{{ crate::t("play.matching.th_time") }}</th><th>{{ crate::t("play.matching.th_wrong") }}</th><th>{{ crate::t("play.matching.th_when") }}</th></tr></thead>
+      <tbody id="lb-body">
+      {% for r in leaderboard %}
+        <tr{% if r.is_you %} class="you"{% endif %} data-testid="matching-leaderboard-row" data-you="{{ r.is_you }}"><td>{{ r.rank }}</td><td>{{ r.name }}{% if r.is_you %}{{ crate::t("play.matching.you") }}{% endif %}</td><td class="nowrap"><strong>{{ r.time }}</strong></td><td>{{ r.wrong }}</td><td class="nowrap muted">{{ r.when }}</td></tr>
+      {% endfor %}
+      {% if leaderboard.is_empty() %}
+        <tr><td colspan="5" class="muted">{{ crate::t("play.matching.no_times") }}</td></tr>
+      {% endif %}
+      </tbody>
+    </table>
+  </section>
+</section>
+{% endblock %}
+{% block scripts %}<script>Object.assign(I18N, {{ crate::i18n::js_json("play.js")|safe }});</script><script src="{{ crate::routes::asset_url("matching.js") }}" defer></script>{% endblock %}

@@ -1,0 +1,373 @@
+{
+  "_comment": "generate-outline replies. The key is a [fixture:NAME] token in the learner's wish (default: 'default'). See docs/testing.md.",
+  "replies": {
+    "default": {
+      "reply": {
+        "kind": "math",
+        "course": {
+          "id": "placeholder",
+          "title": "Fractions",
+          "subject": "Arithmetic",
+          "description": "Adding, comparing and simplifying fractions.",
+          "icon": "🍕",
+          "terms": {
+            "label": "Term",
+            "lang": ""
+          },
+          "meanings": {
+            "label": "Meaning",
+            "lang": ""
+          },
+          "units": [
+            {
+              "id": "1",
+              "title": "Basics"
+            },
+            {
+              "id": "2",
+              "title": "Operations"
+            }
+          ],
+          "groups": [
+            {
+              "id": "core",
+              "title": "Core"
+            }
+          ]
+        },
+        "lessons": [
+          {
+            "id": "u1-what",
+            "slug": "what-is-a-fraction",
+            "title": "What a fraction is",
+            "unit": "1",
+            "group": "core",
+            "summary": "Parts of a whole",
+            "focus": "numerator and denominator",
+            "prerequisites": []
+          },
+          {
+            "id": "u1-simplify",
+            "slug": "simplifying",
+            "title": "Simplifying",
+            "unit": "1",
+            "group": "core",
+            "summary": "Lowest terms",
+            "focus": "dividing by a common factor",
+            "prerequisites": [
+              "u1-what"
+            ]
+          },
+          {
+            "id": "u2-add",
+            "slug": "adding",
+            "title": "Adding fractions",
+            "unit": "2",
+            "group": "core",
+            "summary": "Common denominators",
+            "focus": "adding with a common denominator",
+            "prerequisites": [
+              "u1-simplify"
+            ]
+          }
+        ]
+      }
+    },
+    "slow": {
+      "reply": {
+        "kind": "math",
+        "course": {
+          "id": "placeholder",
+          "title": "Fractions",
+          "subject": "Arithmetic",
+          "description": "Adding, comparing and simplifying fractions.",
+          "icon": "🍕",
+          "terms": {
+            "label": "Term",
+            "lang": ""
+          },
+          "meanings": {
+            "label": "Meaning",
+            "lang": ""
+          },
+          "units": [
+            {
+              "id": "1",
+              "title": "Basics"
+            },
+            {
+              "id": "2",
+              "title": "Operations"
+            }
+          ],
+          "groups": [
+            {
+              "id": "core",
+              "title": "Core"
+            }
+          ]
+        },
+        "lessons": [
+          {
+            "id": "u1-what",
+            "slug": "what-is-a-fraction",
+            "title": "What a fraction is",
+            "unit": "1",
+            "group": "core",
+            "summary": "Parts of a whole",
+            "focus": "numerator and denominator",
+            "prerequisites": []
+          },
+          {
+            "id": "u1-simplify",
+            "slug": "simplifying",
+            "title": "Simplifying",
+            "unit": "1",
+            "group": "core",
+            "summary": "Lowest terms",
+            "focus": "dividing by a common factor",
+            "prerequisites": [
+              "u1-what"
+            ]
+          },
+          {
+            "id": "u2-add",
+            "slug": "adding",
+            "title": "Adding fractions",
+            "unit": "2",
+            "group": "core",
+            "summary": "Common denominators",
+            "focus": "adding with a common denominator",
+            "prerequisites": [
+              "u1-simplify"
+            ]
+          }
+        ]
+      },
+      "delay_ms": 3000
+    },
+    "slow-lessons": {
+      "reply": {
+        "kind": "math",
+        "course": {
+          "id": "placeholder",
+          "title": "Fractions",
+          "subject": "Arithmetic",
+          "description": "Adding, comparing and simplifying fractions.",
+          "icon": "🍕",
+          "terms": {
+            "label": "Term",
+            "lang": ""
+          },
+          "meanings": {
+            "label": "Meaning",
+            "lang": ""
+          },
+          "units": [
+            {
+              "id": "1",
+              "title": "Basics"
+            },
+            {
+              "id": "2",
+              "title": "Operations"
+            }
+          ],
+          "groups": [
+            {
+              "id": "core",
+              "title": "Core"
+            }
+          ]
+        },
+        "lessons": [
+          {
+            "id": "u1-what",
+            "slug": "slow-lesson",
+            "title": "What a fraction is",
+            "unit": "1",
+            "group": "core",
+            "summary": "Parts of a whole",
+            "focus": "numerator and denominator",
+            "prerequisites": []
+          },
+          {
+            "id": "u1-simplify",
+            "slug": "simplifying",
+            "title": "Simplifying",
+            "unit": "1",
+            "group": "core",
+            "summary": "Lowest terms",
+            "focus": "dividing by a common factor",
+            "prerequisites": [
+              "u1-what"
+            ]
+          },
+          {
+            "id": "u2-add",
+            "slug": "adding",
+            "title": "Adding fractions",
+            "unit": "2",
+            "group": "core",
+            "summary": "Common denominators",
+            "focus": "adding with a common denominator",
+            "prerequisites": [
+              "u1-simplify"
+            ]
+          }
+        ]
+      }
+    },
+    "invalid-json": {
+      "reply": "Sorry, I can't write that course right now."
+    },
+    "validation-fails": {
+      "reply": {
+        "kind": "math",
+        "course": {
+          "id": "placeholder",
+          "title": "Fractions",
+          "subject": "Arithmetic",
+          "description": "Adding, comparing and simplifying fractions.",
+          "icon": "🍕",
+          "terms": {
+            "label": "Term",
+            "lang": ""
+          },
+          "meanings": {
+            "label": "Meaning",
+            "lang": ""
+          },
+          "units": [
+            {
+              "id": "1",
+              "title": "Basics"
+            },
+            {
+              "id": "2",
+              "title": "Operations"
+            }
+          ],
+          "groups": [
+            {
+              "id": "core",
+              "title": "Core"
+            }
+          ]
+        },
+        "lessons": [
+          {
+            "id": "u1-what",
+            "slug": "what-is-a-fraction",
+            "title": "What a fraction is",
+            "unit": "1",
+            "group": "core",
+            "summary": "Parts of a whole",
+            "focus": "numerator and denominator",
+            "prerequisites": []
+          },
+          {
+            "id": "u1-bad",
+            "slug": "fails-validation",
+            "title": "A lesson that never validates",
+            "unit": "1",
+            "group": "core",
+            "prerequisites": [
+              "u1-what"
+            ]
+          },
+          {
+            "id": "u2-add",
+            "slug": "adding",
+            "title": "Adding fractions",
+            "unit": "2",
+            "group": "core",
+            "summary": "Common denominators",
+            "focus": "adding with a common denominator",
+            "prerequisites": [
+              "u1-simplify"
+            ]
+          }
+        ]
+      }
+    },
+    "timeout": {
+      "timeout": true
+    },
+    "provider-error": {
+      "error": "the API answered HTTP 401. invalid x-api-key"
+    },
+    "*": {
+      "reply": {
+        "kind": "math",
+        "course": {
+          "id": "placeholder",
+          "title": "Fractions",
+          "subject": "Arithmetic",
+          "description": "Adding, comparing and simplifying fractions.",
+          "icon": "🍕",
+          "terms": {
+            "label": "Term",
+            "lang": ""
+          },
+          "meanings": {
+            "label": "Meaning",
+            "lang": ""
+          },
+          "units": [
+            {
+              "id": "1",
+              "title": "Basics"
+            },
+            {
+              "id": "2",
+              "title": "Operations"
+            }
+          ],
+          "groups": [
+            {
+              "id": "core",
+              "title": "Core"
+            }
+          ]
+        },
+        "lessons": [
+          {
+            "id": "u1-what",
+            "slug": "what-is-a-fraction",
+            "title": "What a fraction is",
+            "unit": "1",
+            "group": "core",
+            "summary": "Parts of a whole",
+            "focus": "numerator and denominator",
+            "prerequisites": []
+          },
+          {
+            "id": "u1-simplify",
+            "slug": "simplifying",
+            "title": "Simplifying",
+            "unit": "1",
+            "group": "core",
+            "summary": "Lowest terms",
+            "focus": "dividing by a common factor",
+            "prerequisites": [
+              "u1-what"
+            ]
+          },
+          {
+            "id": "u2-add",
+            "slug": "adding",
+            "title": "Adding fractions",
+            "unit": "2",
+            "group": "core",
+            "summary": "Common denominators",
+            "focus": "adding with a common denominator",
+            "prerequisites": [
+              "u1-simplify"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,1186 @@
+{
+  "id": "b2-science-technology",
+  "slug": "science-technology",
+  "title": "Science and technology: l'intelligence artificielle, les données",
+  "unit": "B2",
+  "group": "Vocabulary",
+  "order": 42,
+  "summary": "Talk about the digital world and research, turn verbs into the nouns of science reports, weigh pros and cons, and read big figures like deux milliards.",
+  "focus": "The vocabulary of technology and research, and how to weigh its benefits and risks with figures",
+  "prerequisites": [
+    "b2-environment-society"
+  ],
+  "content": "## The digital world: données, logiciels, IA\n\n- **l'intelligence artificielle**, **l'IA** (said *i-a*): artificial intelligence\n- **les données** (f pl): data. **Les données personnelles** = personal data.\n- **un algorithme**, **un logiciel** (a piece of software), **une application** (**une appli** in speech), **un écran** (a screen)\n- **le numérique**: digital technology; as an adjective, **numérique** (**l'école numérique**)\n- **la cybersécurité**; **le piratage** (hacking), from **pirater**; **un pirate informatique** (a hacker)\n- **la vie privée**: privacy. **Cette appli menace la vie privée.**\n- **l'innovation**: what start-ups and labs promise.\n\n## The lab: chercheurs, hypothèses, découvertes\n\n**Un chercheur / une chercheuse** works in **un laboratoire** (**un labo**) and does **la recherche** (research). They start from **une hypothèse**, test it with **une expérience**, then **prouver** or **démontrer** it. If all goes well: **une découverte**.\n\nTrap: **une expérience** is both an *experiment* (**faire une expérience**) and an *experience* (**avoir de l'expérience**).\n\nScience reports love nouns (you met the pattern in the environment lesson):\n\n| verb | noun |\n|---|---|\n| innover | l'innovation |\n| développer | le développement |\n| découvrir | la découverte |\n| chercher | la recherche |\n| démontrer | la démonstration |\n| pirater | le piratage |\n\n## Weighing pros and cons, with figures\n\n- **D'un côté…, de l'autre…** = on the one hand…, on the other…\n- **Cela permet de** + infinitive: a benefit. **Cela permet de soigner plus tôt.** (It makes earlier treatment possible.)\n- **Cela risque de** + infinitive: a danger. **Cela risque de supprimer des emplois.** (It could wipe out jobs.)\n\nBig numbers take **de** before a noun:\n\n- **un million d'utilisateurs**, **deux milliards de personnes** (2 000 000 000)\n- **un sur trois**, **un Français sur trois** = one in three\n\nCareful: **un milliard** is a billion; **un billion** is a million million.",
+  "vocabulary": [
+    {
+      "term": "l'intelligence artificielle",
+      "meaning": "artificial intelligence, AI (f)",
+      "example": "L'intelligence artificielle traduit déjà des textes entiers.",
+      "example_meaning": "Artificial intelligence already translates whole texts."
+    },
+    {
+      "term": "les données",
+      "meaning": "data (f pl)",
+      "example": "Cette entreprise vend les données de ses clients.",
+      "example_meaning": "This company sells its customers' data."
+    },
+    {
+      "term": "l'algorithme",
+      "meaning": "algorithm (m)",
+      "example": "L'algorithme choisit les vidéos que tu regardes.",
+      "example_meaning": "The algorithm chooses the videos you watch."
+    },
+    {
+      "term": "le logiciel",
+      "meaning": "software, program",
+      "example": "Il faut mettre à jour ce logiciel tous les mois.",
+      "example_meaning": "This software has to be updated every month."
+    },
+    {
+      "term": "le numérique",
+      "meaning": "digital technology, the digital world",
+      "example": "Le numérique a transformé notre façon de travailler.",
+      "example_meaning": "Digital technology has transformed the way we work."
+    },
+    {
+      "term": "le piratage",
+      "meaning": "hacking",
+      "example": "L'hôpital a été victime d'un piratage informatique.",
+      "example_meaning": "The hospital was the victim of a cyber attack."
+    },
+    {
+      "term": "la vie privée",
+      "meaning": "privacy, private life",
+      "example": "Ces caméras posent un problème de vie privée.",
+      "example_meaning": "These cameras raise a privacy issue."
+    },
+    {
+      "term": "le chercheur / la chercheuse",
+      "meaning": "researcher",
+      "example": "Une chercheuse de Toulouse étudie les abeilles.",
+      "example_meaning": "A researcher from Toulouse is studying bees."
+    },
+    {
+      "term": "la découverte",
+      "meaning": "discovery",
+      "example": "Cette découverte a valu un prix à toute l'équipe.",
+      "example_meaning": "This discovery won the whole team a prize."
+    },
+    {
+      "term": "l'expérience",
+      "meaning": "experiment; experience (f)",
+      "example": "Nous avons refait l'expérience trois fois.",
+      "example_meaning": "We redid the experiment three times."
+    },
+    {
+      "term": "l'hypothèse",
+      "meaning": "hypothesis (f)",
+      "example": "Les résultats confirment notre hypothèse.",
+      "example_meaning": "The results confirm our hypothesis."
+    },
+    {
+      "term": "démontrer",
+      "meaning": "to demonstrate, to prove",
+      "example": "L'étude démontre que le sport améliore la mémoire.",
+      "example_meaning": "The study shows that exercise improves memory."
+    },
+    {
+      "term": "cela permet de",
+      "meaning": "it makes it possible to, it lets you",
+      "example": "Cela permet de réduire les erreurs de diagnostic.",
+      "example_meaning": "It makes it possible to reduce diagnostic errors."
+    },
+    {
+      "term": "cela risque de",
+      "meaning": "it could, there is a risk that it will",
+      "example": "Cela risque de creuser les inégalités.",
+      "example_meaning": "It could widen inequalities."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-science-technology-01",
+      "prompt": "In a science report, the verb découvrir becomes a noun. Which one?",
+      "type": "multiple-choice",
+      "options": [
+        "la découverte",
+        "le découvrement",
+        "la découvration"
+      ],
+      "correct_answer": "la découverte",
+      "explanation": "Découvrir → la découverte (the discovery). The other two are not French words.",
+      "hints": [
+        "It looks like the feminine participle of découvrir."
+      ],
+      "teaches": [
+        "la découverte"
+      ]
+    },
+    {
+      "question_id": "b2-science-technology-02",
+      "prompt": "Des pirates ont volé les mots de passe de milliers de clients. Ce ___ inquiète la banque.",
+      "type": "multiple-choice",
+      "options": [
+        "piratage",
+        "logiciel",
+        "algorithme"
+      ],
+      "correct_answer": "piratage",
+      "explanation": "Le piratage (from pirater) = hacking: breaking into a system to steal or damage.",
+      "hints": [
+        "The noun from pirater."
+      ],
+      "teaches": [
+        "le piratage"
+      ]
+    },
+    {
+      "question_id": "b2-science-technology-03",
+      "prompt": "You are listing the dangers of an app. Which phrase introduces a risk, not a benefit?",
+      "type": "multiple-choice",
+      "options": [
+        "Cela risque de…",
+        "Cela permet de…",
+        "Grâce à cela, …"
+      ],
+      "correct_answer": "Cela risque de…",
+      "explanation": "Cela risque de + infinitive = it could (something bad). Cela permet de and grâce à cela introduce benefits.",
+      "hints": [
+        "Which one contains the word for 'risk'?"
+      ],
+      "teaches": [
+        "cela risque de",
+        "cela permet de"
+      ]
+    },
+    {
+      "question_id": "b2-science-technology-04",
+      "prompt": "Nominalisation in tech news: innover → l'___",
+      "type": "fill-in-blank",
+      "correct_answer": "innovation",
+      "accepted_answers": [
+        "l'innovation"
+      ],
+      "explanation": "Innover → l'innovation (f). Nouns in -tion are feminine.",
+      "hints": [
+        "The same word as in English."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b2-science-technology-05",
+      "prompt": "D'un côté, l'IA fait gagner du temps ; de l'___, elle consomme beaucoup d'énergie.",
+      "type": "fill-in-blank",
+      "correct_answer": "autre",
+      "accepted_answers": [
+        "autre côté"
+      ],
+      "explanation": "D'un côté… de l'autre (côté) = on the one hand… on the other. The second côté is usually left out.",
+      "hints": [
+        "'The other' in French."
+      ],
+      "teaches": [
+        "l'intelligence artificielle"
+      ]
+    },
+    {
+      "question_id": "b2-science-technology-06",
+      "prompt": "Après dix ans d'études, les chercheurs ont enfin ___ que ce médicament était efficace.",
+      "type": "fill-in-blank",
+      "correct_answer": "démontré",
+      "accepted_answers": [
+        "prouvé",
+        "demontre",
+        "prouve"
+      ],
+      "explanation": "Démontrer (or prouver) que + indicative = to show, to prove that. Passé composé: ils ont démontré.",
+      "hints": [
+        "To prove by experiment or reasoning.",
+        "Participle of démontrer."
+      ],
+      "teaches": [
+        "démontrer",
+        "le chercheur / la chercheuse"
+      ]
+    },
+    {
+      "question_id": "b2-science-technology-07",
+      "prompt": "True or false: une expérience can mean both a scientific experiment and an experience in life or work.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Faire une expérience = to do an experiment; avoir de l'expérience = to have experience. The context tells you which.",
+      "hints": [
+        "Think of a laboratory and of a CV."
+      ],
+      "teaches": [
+        "l'expérience"
+      ]
+    },
+    {
+      "question_id": "b2-science-technology-08",
+      "prompt": "True or false: in French, un billion means a thousand million (1 000 000 000).",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "A thousand million is un milliard. Un billion is a million million (1 000 000 000 000), the English trillion.",
+      "hints": [
+        "English billion = French milliard."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b2-science-technology-09",
+      "prompt": "« Selon le rapport, deux milliards de personnes utilisent cette application chaque mois. » How many people is that? Write it in digits.",
+      "type": "numeric",
+      "correct_answer": "2000000000",
+      "explanation": "Un milliard = 1 000 000 000, so deux milliards = 2 000 000 000 (two billion). Note de before the noun: deux milliards de personnes.",
+      "hints": [
+        "un milliard = a thousand million",
+        "2 followed by nine zeros"
+      ],
+      "teaches": []
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-science-technology-conv-ai-radio",
+      "title": "AI in the hospital",
+      "scenario": "On a science radio show, the journalist Chloé Vidal interviews Sami Benali, a researcher who develops AI tools for doctors.",
+      "role_a": "Chloé",
+      "role_b": "Sami",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Bonjour. Vous êtes chercheur en intelligence artificielle ?",
+          "meaning": "Hello. You're a researcher in artificial intelligence?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, je travaille dans un laboratoire à Grenoble.",
+          "meaning": "Yes, I work in a laboratory in Grenoble."
+        },
+        {
+          "speaker": "a",
+          "text": "Sur quoi portent vos recherches ?",
+          "meaning": "What is your research about?"
+        },
+        {
+          "speaker": "b",
+          "text": "Nous développons des algorithmes qui analysent les radiographies.",
+          "meaning": "We develop algorithms that analyse X-rays."
+        },
+        {
+          "speaker": "a",
+          "text": "Qu'est-ce que cela permet de faire ?",
+          "meaning": "What does that make possible?"
+        },
+        {
+          "speaker": "b",
+          "text": "Cela permet de détecter certaines maladies plus tôt.",
+          "meaning": "It makes it possible to detect some diseases earlier."
+        },
+        {
+          "speaker": "a",
+          "text": "Et les données des patients ? Et la vie privée ?",
+          "meaning": "And the patients' data? And privacy?"
+        },
+        {
+          "speaker": "b",
+          "text": "C'est essentiel : les données sont anonymes et protégées.",
+          "meaning": "It's essential: the data are anonymous and protected."
+        },
+        {
+          "speaker": "a",
+          "text": "Certains disent que l'IA risque de remplacer les médecins.",
+          "meaning": "Some people say AI could replace doctors."
+        },
+        {
+          "speaker": "b",
+          "text": "D'un côté, elle va plus vite ; de l'autre, elle se trompe parfois.",
+          "meaning": "On the one hand, it's faster; on the other, it sometimes gets things wrong."
+        },
+        {
+          "speaker": "a",
+          "text": "Votre hypothèse, c'est donc une collaboration ?",
+          "meaning": "So your hypothesis is a collaboration?"
+        },
+        {
+          "speaker": "b",
+          "text": "Exactement : l'algorithme propose, le médecin décide.",
+          "meaning": "Exactly: the algorithm suggests, the doctor decides."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Mon ordinateur a un nouveau logiciel.",
+      "meaning": "My computer has new software."
+    },
+    {
+      "text": "Les données personnelles sont précieuses.",
+      "meaning": "Personal data are valuable."
+    },
+    {
+      "text": "Elle travaille comme chercheuse dans un laboratoire.",
+      "meaning": "She works as a researcher in a laboratory."
+    },
+    {
+      "text": "Cette découverte a changé la médecine moderne.",
+      "meaning": "This discovery changed modern medicine."
+    },
+    {
+      "text": "Un Français sur trois utilise une application de santé.",
+      "meaning": "One French person in three uses a health app.",
+      "note": "New word: la santé = health."
+    },
+    {
+      "text": "Le piratage des comptes bancaires augmente chaque année.",
+      "meaning": "The hacking of bank accounts is rising every year.",
+      "note": "New word: le compte = the account."
+    },
+    {
+      "text": "D'un côté, les écrans nous aident ; de l'autre, ils nous fatiguent.",
+      "meaning": "On the one hand, screens help us; on the other, they tire us."
+    },
+    {
+      "text": "Les chercheurs n'ont pas encore démontré leur hypothèse sur le sommeil.",
+      "meaning": "The researchers have not yet proved their hypothesis about sleep.",
+      "note": "New word: le sommeil = sleep."
+    }
+  ],
+  "guide": [
+    {
+      "section": "The digital world"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-science-technology-02"
+    },
+    {
+      "question": "b2-science-technology-04"
+    },
+    {
+      "section": "The lab"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-science-technology-01"
+    },
+    {
+      "question": "b2-science-technology-07"
+    },
+    {
+      "question": "b2-science-technology-06"
+    },
+    {
+      "tip": "Expérience is a trap word: faire une expérience = to do an experiment; avoir de l'expérience = to have experience."
+    },
+    {
+      "section": "Weighing pros and cons"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b2-science-technology-03"
+    },
+    {
+      "question": "b2-science-technology-05"
+    },
+    {
+      "question": "b2-science-technology-08"
+    },
+    {
+      "question": "b2-science-technology-09"
+    },
+    {
+      "concept": {
+        "title": "Numérique, pas digital",
+        "markdown": "French official terminology recommends **numérique** rather than the anglicism **digital**, which in French first means 'of the fingers' (**les empreintes digitales** = fingerprints). Newspapers and ministries say **la transformation numérique**; you will still hear **digital** in marketing."
+      }
+    }
+  ],
+  "sprint": {
+    "icon": "🔬",
+    "bites": [
+      {
+        "title": "Digital words",
+        "emoji": "💾",
+        "rule": "L'IA, les données (f pl), un algorithme, un logiciel, une application, le numérique, le piratage, la vie privée.",
+        "example": "Les données sont protégées.",
+        "example_meaning": "The data are protected."
+      },
+      {
+        "title": "In the lab",
+        "emoji": "🧪",
+        "rule": "Un chercheur / une chercheuse tests une hypothèse with une expérience, then démontre it: une découverte! Expérience = experiment and experience.",
+        "example": "Elle a fait une découverte.",
+        "example_meaning": "She made a discovery."
+      },
+      {
+        "title": "Verbs become nouns",
+        "emoji": "🔁",
+        "rule": "Reports prefer nouns: innover → l'innovation, développer → le développement, chercher → la recherche, pirater → le piratage.",
+        "example": "Le développement de l'IA est rapide.",
+        "example_meaning": "The development of AI is fast."
+      },
+      {
+        "title": "Pros, cons, figures",
+        "emoji": "⚖️",
+        "rule": "Cela permet de (benefit), cela risque de (danger), d'un côté… de l'autre. Deux milliards de personnes; un sur trois.",
+        "example": "Cela permet de gagner du temps.",
+        "example_meaning": "It saves time."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Digital world or laboratory?",
+        "buckets": [
+          "le numérique",
+          "le laboratoire"
+        ],
+        "items": [
+          {
+            "text": "le logiciel",
+            "bucket": 0
+          },
+          {
+            "text": "l'algorithme",
+            "bucket": 0
+          },
+          {
+            "text": "le piratage",
+            "bucket": 0
+          },
+          {
+            "text": "l'application",
+            "bucket": 0
+          },
+          {
+            "text": "l'hypothèse",
+            "bucket": 1
+          },
+          {
+            "text": "l'expérience",
+            "bucket": 1
+          },
+          {
+            "text": "la découverte",
+            "bucket": 1
+          },
+          {
+            "text": "la chercheuse",
+            "bucket": 1
+          }
+        ],
+        "why": "Software, algorithms, hacking and apps are digital; hypotheses, experiments, discoveries and researchers belong to the lab."
+      },
+      {
+        "title": "A benefit or a risk?",
+        "buckets": [
+          "un avantage",
+          "un risque"
+        ],
+        "items": [
+          {
+            "text": "Cela permet de gagner du temps.",
+            "bucket": 0
+          },
+          {
+            "text": "Cela permet de soigner plus tôt.",
+            "bucket": 0
+          },
+          {
+            "text": "Grâce à l'IA, on traduit plus vite.",
+            "bucket": 0
+          },
+          {
+            "text": "Cela risque de supprimer des emplois.",
+            "bucket": 1
+          },
+          {
+            "text": "Cela risque de menacer la vie privée.",
+            "bucket": 1
+          },
+          {
+            "text": "Le piratage risque d'augmenter.",
+            "bucket": 1
+          }
+        ],
+        "why": "Permettre de and grâce à introduce benefits; risquer de introduces a danger."
+      },
+      {
+        "title": "Which noun ending?",
+        "buckets": [
+          "-tion (f)",
+          "-ment (m)",
+          "-age (m)"
+        ],
+        "items": [
+          {
+            "text": "innover",
+            "bucket": 0
+          },
+          {
+            "text": "démontrer",
+            "bucket": 0
+          },
+          {
+            "text": "développer",
+            "bucket": 1
+          },
+          {
+            "text": "traiter",
+            "bucket": 1
+          },
+          {
+            "text": "pirater",
+            "bucket": 2
+          },
+          {
+            "text": "stocker",
+            "bucket": 2
+          }
+        ],
+        "why": "L'innovation, la démonstration; le développement, le traitement; le piratage, le stockage."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Les données sont très précieux.",
+        "wrong": "précieux",
+        "fix": "précieuses",
+        "why": "Les données is feminine plural: précieuses."
+      },
+      {
+        "sentence": "Cela permet à gagner du temps.",
+        "wrong": "à",
+        "fix": "de",
+        "why": "Permettre de + infinitive."
+      },
+      {
+        "sentence": "Deux milliards des personnes utilisent cette appli.",
+        "wrong": "des",
+        "fix": "de",
+        "why": "After a big number, de: deux milliards de personnes."
+      },
+      {
+        "sentence": "Le chercheuse a publié sa découverte.",
+        "wrong": "Le",
+        "fix": "La",
+        "why": "Chercheuse is feminine: la chercheuse."
+      },
+      {
+        "sentence": "Ce logiciel risque à voler nos données.",
+        "wrong": "à",
+        "fix": "de",
+        "why": "Risquer de + infinitive."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Cela permet de gagner du temps.",
+        "meaning": "It saves time.",
+        "distractors": [
+          "à"
+        ]
+      },
+      {
+        "text": "Les chercheurs ont fait une découverte.",
+        "meaning": "The researchers made a discovery.",
+        "distractors": [
+          "découvert"
+        ]
+      },
+      {
+        "text": "Un utilisateur sur trois est inquiet.",
+        "meaning": "One user in three is worried.",
+        "distractors": [
+          "des"
+        ]
+      },
+      {
+        "text": "L'IA risque de supprimer des emplois.",
+        "meaning": "AI could wipe out jobs.",
+        "distractors": [
+          "à"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🌟",
+      "content": "## La science à Eldmark\n\nAt the observatory of Highgate, **la chercheuse** Séla tests **une hypothèse**: the stars guide the dragons. **L'expérience** takes a hundred nights. If she can **démontrer** it, **cela permet de** predict their flights; but a wrong spell **risque de** wake them. Her **découverte** goes into **le grimoire** of the guild.",
+      "vocabulary": [
+        {
+          "term": "le chercheur / la chercheuse",
+          "example": "Séla est chercheuse à l'observatoire de Highgate.",
+          "example_meaning": "Séla is a researcher at the Highgate observatory."
+        },
+        {
+          "term": "l'hypothèse",
+          "example": "Son hypothèse : les étoiles guident les dragons.",
+          "example_meaning": "Her hypothesis: the stars guide the dragons."
+        },
+        {
+          "term": "l'expérience",
+          "example": "L'expérience dure cent nuits.",
+          "example_meaning": "The experiment lasts a hundred nights."
+        },
+        {
+          "term": "démontrer",
+          "example": "Elle veut démontrer que la potion soigne le froid de Frostmarch.",
+          "example_meaning": "She wants to prove that the potion cures the Frostmarch chill."
+        },
+        {
+          "term": "la découverte",
+          "example": "Cette découverte change toute la magie du royaume.",
+          "example_meaning": "This discovery changes all the magic of the realm."
+        },
+        {
+          "term": "cela risque de",
+          "example": "Ce sort est puissant, mais cela risque de réveiller le dragon.",
+          "example_meaning": "This spell is powerful, but it could wake the dragon."
+        },
+        {
+          "term": "l'observatoire",
+          "meaning": "observatory (m)",
+          "example": "L'observatoire est en haut de la tour.",
+          "example_meaning": "The observatory is at the top of the tower."
+        },
+        {
+          "term": "l'étoile",
+          "meaning": "star (f)",
+          "example": "Les étoiles du nord brillent sur Frostmarch.",
+          "example_meaning": "The northern stars shine over Frostmarch."
+        },
+        {
+          "term": "le grimoire",
+          "meaning": "spellbook",
+          "example": "Le grimoire de la guilde contient mille sorts.",
+          "example_meaning": "The guild's spellbook holds a thousand spells."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Sous les étoiles",
+          "emoji": "🌟",
+          "rule": "Magic research uses the same words: une hypothèse, une expérience, démontrer, une découverte. Cela permet de + infinitive names a gain; cela risque de + infinitive names a danger.",
+          "example": "Séla a fait une découverte à l'observatoire.",
+          "example_meaning": "Séla made a discovery at the observatory."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Séla observe les étoiles.",
+          "meaning": "Séla is watching the stars."
+        },
+        {
+          "text": "Le grimoire est très ancien.",
+          "meaning": "The spellbook is very old."
+        },
+        {
+          "text": "Son expérience a réussi cette nuit.",
+          "meaning": "Her experiment succeeded tonight."
+        },
+        {
+          "text": "Cette potion risque d'endormir le guerrier.",
+          "meaning": "This potion could put the warrior to sleep.",
+          "note": "New word: endormir = to put to sleep."
+        },
+        {
+          "text": "Les mages cherchent une étoile perdue.",
+          "meaning": "The mages are looking for a lost star."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Séla a démontré son hypothèse.",
+          "meaning": "Séla proved her hypothesis.",
+          "distractors": [
+            "démontrée"
+          ]
+        },
+        {
+          "text": "Ce sort risque de réveiller le dragon.",
+          "meaning": "This spell could wake the dragon.",
+          "distractors": [
+            "à"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Ce sort permet à voler.",
+          "wrong": "à",
+          "fix": "de",
+          "why": "Permettre de + infinitive: ce sort permet de voler."
+        },
+        {
+          "sentence": "Le chercheuse Séla observe les étoiles.",
+          "wrong": "Le",
+          "fix": "La",
+          "why": "Chercheuse is feminine: la chercheuse."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Benefit or danger of the new spell?",
+          "buckets": [
+            "cela permet de…",
+            "cela risque de…"
+          ],
+          "items": [
+            {
+              "text": "voler au-dessus de la Forêt Ombreuse",
+              "bucket": 0
+            },
+            {
+              "text": "soigner les blessés",
+              "bucket": 0
+            },
+            {
+              "text": "trouver le butin caché",
+              "bucket": 0
+            },
+            {
+              "text": "réveiller le dragon",
+              "bucket": 1
+            },
+            {
+              "text": "brûler le grimoire",
+              "bucket": 1
+            },
+            {
+              "text": "fatiguer la mage",
+              "bucket": 1
+            }
+          ],
+          "why": "Gains follow cela permet de; dangers follow cela risque de."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-science-technology-realm-01",
+          "prompt": "Séla thinks the stars guide the dragons, but she hasn't proved it yet. For now it is only…",
+          "type": "multiple-choice",
+          "options": [
+            "une hypothèse",
+            "une découverte",
+            "un grimoire"
+          ],
+          "correct_answer": "une hypothèse",
+          "explanation": "An idea still to be tested is une hypothèse; once proved, it becomes une découverte.",
+          "hints": [
+            "It still has to be tested."
+          ],
+          "teaches": [
+            "l'hypothèse"
+          ]
+        },
+        {
+          "question_id": "b2-science-technology-realm-02",
+          "prompt": "Ce sort de feu est puissant, mais cela ___ de brûler le grimoire de la guilde.",
+          "type": "fill-in-blank",
+          "correct_answer": "risque",
+          "accepted_answers": [
+            "cela risque"
+          ],
+          "explanation": "Cela risque de + infinitive = it could (a danger).",
+          "hints": [
+            "A danger: the verb for 'to risk', il form."
+          ],
+          "teaches": [
+            "cela risque de",
+            "le grimoire"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🧬",
+      "content": "## La science à Meadowbrook\n\nNora has **une hypothèse**: strawberries grow better near la rivière. Her **expérience**: two fields, the same seeds. **Un capteur** sends **les données** of the soil to **une application**. **D'un côté**, it's precise; **de l'autre**, the battery dies in the rain. At la fête des récoltes, she presents her **découverte**.",
+      "vocabulary": [
+        {
+          "term": "l'hypothèse",
+          "example": "Mon hypothèse : les fraises préfèrent l'ombre.",
+          "example_meaning": "My hypothesis: strawberries prefer the shade."
+        },
+        {
+          "term": "l'expérience",
+          "example": "Nora fait une expérience avec deux champs de maïs.",
+          "example_meaning": "Nora is doing an experiment with two fields of corn."
+        },
+        {
+          "term": "les données",
+          "example": "Les données du sol arrivent sur mon téléphone.",
+          "example_meaning": "The soil data come to my phone."
+        },
+        {
+          "term": "cela permet de",
+          "example": "Cela permet d'arroser seulement quand il faut.",
+          "example_meaning": "It lets you water only when needed."
+        },
+        {
+          "term": "la découverte",
+          "example": "Sa découverte intéresse tous les fermiers.",
+          "example_meaning": "Her discovery interests every farmer."
+        },
+        {
+          "term": "le logiciel",
+          "example": "Le logiciel de la ferme calcule la récolte.",
+          "example_meaning": "The farm software calculates the harvest."
+        },
+        {
+          "term": "le capteur",
+          "meaning": "sensor",
+          "example": "Le capteur mesure l'eau dans la terre.",
+          "example_meaning": "The sensor measures the water in the soil."
+        },
+        {
+          "term": "le champ",
+          "meaning": "field",
+          "example": "Le champ près de la rivière est plus humide.",
+          "example_meaning": "The field near the river is damper."
+        },
+        {
+          "term": "la graine",
+          "meaning": "seed",
+          "example": "Rosa vend des graines plus résistantes.",
+          "example_meaning": "Rosa sells hardier seeds."
+        }
+      ],
+      "bites": [
+        {
+          "title": "La ferme connectée",
+          "emoji": "🧬",
+          "rule": "Farm science: une hypothèse, une expérience in two fields, les données from a sensor. Cela permet de + infinitive names a gain; cela risque de + infinitive names a danger.",
+          "example": "Le capteur envoie les données à l'application.",
+          "example_meaning": "The sensor sends the data to the app."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Le capteur est dans le champ.",
+          "meaning": "The sensor is in the field."
+        },
+        {
+          "text": "Nora compare deux champs de fraises.",
+          "meaning": "Nora is comparing two strawberry fields."
+        },
+        {
+          "text": "L'application montre les données du sol.",
+          "meaning": "The app shows the soil data."
+        },
+        {
+          "text": "Une graine sur trois n'a pas poussé.",
+          "meaning": "One seed in three didn't grow."
+        },
+        {
+          "text": "La pluie risque d'abîmer le capteur.",
+          "meaning": "The rain could damage the sensor.",
+          "note": "New word: abîmer = to damage."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Nora fait une expérience dans son champ.",
+          "meaning": "Nora is doing an experiment in her field.",
+          "distractors": [
+            "expérimente"
+          ]
+        },
+        {
+          "text": "Cela permet d'économiser de l'eau.",
+          "meaning": "It saves water.",
+          "distractors": [
+            "à"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Les données du capteur sont faux.",
+          "wrong": "faux",
+          "fix": "fausses",
+          "why": "Les données is feminine plural: fausses."
+        },
+        {
+          "sentence": "Cela risque à abîmer les fraises.",
+          "wrong": "à",
+          "fix": "d'",
+          "why": "Risquer de + infinitive."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Nora's method: which step?",
+          "buckets": [
+            "l'hypothèse",
+            "l'expérience",
+            "la découverte"
+          ],
+          "items": [
+            {
+              "text": "Je pense que l'ombre aide les fraises.",
+              "bucket": 0
+            },
+            {
+              "text": "Peut-être que la rivière change tout ?",
+              "bucket": 0
+            },
+            {
+              "text": "Je plante les mêmes graines dans deux champs.",
+              "bucket": 1
+            },
+            {
+              "text": "Le capteur mesure l'eau chaque jour.",
+              "bucket": 1
+            },
+            {
+              "text": "Les fraises à l'ombre sont deux fois plus grosses !",
+              "bucket": 2
+            }
+          ],
+          "why": "First an idea to test, then the test itself, then the result that proves it."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-science-technology-meadowbrook-01",
+          "prompt": "Le capteur envoie chaque jour les ___ du sol à l'application de Nora.",
+          "type": "fill-in-blank",
+          "correct_answer": "données",
+          "accepted_answers": [
+            "donnees"
+          ],
+          "explanation": "Les données (f pl) = data: the sensor sends the soil data to the app.",
+          "hints": [
+            "The French word for 'data', always plural here."
+          ],
+          "teaches": [
+            "les données",
+            "le capteur"
+          ]
+        },
+        {
+          "question_id": "b2-science-technology-meadowbrook-02",
+          "prompt": "Nora plants the same seeds in two fields to test her idea. What is she doing?",
+          "type": "multiple-choice",
+          "options": [
+            "une expérience",
+            "une découverte",
+            "une graine"
+          ],
+          "correct_answer": "une expérience",
+          "explanation": "Testing an idea in a controlled way is faire une expérience (an experiment).",
+          "hints": [
+            "The test, not the result."
+          ],
+          "teaches": [
+            "l'expérience"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "💻",
+      "content": "## La technologie à Rustwake\n\nIn the ruins of the shopping centre, Léo finds **un terminal** that still works. **Le logiciel** of the Dome runs an old **algorithme**, and the **disques** hold **les données** of every resident. **D'un côté**, **cela permet de** find water; **de l'autre**, **le piratage** of the Dome **risque de** expose everyone's **vie privée**.",
+      "vocabulary": [
+        {
+          "term": "le logiciel",
+          "example": "Le logiciel du robot jardinier date d'avant le Dôme.",
+          "example_meaning": "The gardener robot's software dates from before the Dome."
+        },
+        {
+          "term": "l'algorithme",
+          "example": "L'algorithme choisit qui reçoit l'eau filtrée.",
+          "example_meaning": "The algorithm chooses who gets the filtered water."
+        },
+        {
+          "term": "les données",
+          "example": "Ce disque contient les données de tous les habitants.",
+          "example_meaning": "This disk holds the data of all the residents."
+        },
+        {
+          "term": "le piratage",
+          "example": "Le piratage de l'antenne a coupé la radio.",
+          "example_meaning": "The hacking of the antenna cut off the radio."
+        },
+        {
+          "term": "la vie privée",
+          "example": "Ma radio-montre écoute tout : adieu la vie privée !",
+          "example_meaning": "My wrist radio listens to everything: goodbye privacy!"
+        },
+        {
+          "term": "cela permet de",
+          "example": "Cela permet de trouver les puits du désert.",
+          "example_meaning": "It makes it possible to find the desert wells."
+        },
+        {
+          "term": "l'intelligence artificielle",
+          "example": "L'intelligence artificielle du Dôme parle encore.",
+          "example_meaning": "The Dome's artificial intelligence still talks."
+        },
+        {
+          "term": "le terminal",
+          "meaning": "computer terminal",
+          "example": "Le terminal s'allume dans le centre commercial en ruines.",
+          "example_meaning": "The terminal switches on in the ruined shopping centre."
+        },
+        {
+          "term": "le disque",
+          "meaning": "disk",
+          "example": "Marta échange un disque contre dix écrous.",
+          "example_meaning": "Marta trades a disk for ten nuts."
+        },
+        {
+          "term": "le pirate informatique",
+          "meaning": "hacker",
+          "example": "Le pirate informatique se cache près de la station-service.",
+          "example_meaning": "The hacker is hiding near the petrol station."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Le terminal du Dôme",
+          "emoji": "💻",
+          "rule": "Old tech, same words: le logiciel, l'algorithme, les données (f pl), le piratage, la vie privée; cela permet de / cela risque de to weigh it up.",
+          "example": "Le terminal contient les données du Dôme.",
+          "example_meaning": "The terminal holds the Dome's data."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Le terminal marche encore.",
+          "meaning": "The terminal still works."
+        },
+        {
+          "text": "Léo répare le vieux logiciel.",
+          "meaning": "Léo is fixing the old software."
+        },
+        {
+          "text": "Un disque sur trois est cassé.",
+          "meaning": "One disk in three is broken."
+        },
+        {
+          "text": "Le pirate a volé les données du Dôme.",
+          "meaning": "The hacker stole the Dome's data."
+        },
+        {
+          "text": "Ce virus risque d'effacer tous les disques.",
+          "meaning": "This virus could wipe all the disks.",
+          "note": "New word: effacer = to wipe, to erase."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Les données du Dôme sont protégées.",
+          "meaning": "The Dome's data are protected.",
+          "distractors": [
+            "protégés"
+          ]
+        },
+        {
+          "text": "Le piratage risque de couper la radio.",
+          "meaning": "The hacking could cut off the radio.",
+          "distractors": [
+            "à"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Les données sont cachés dans le disque.",
+          "wrong": "cachés",
+          "fix": "cachées",
+          "why": "Les données is feminine plural: cachées."
+        },
+        {
+          "sentence": "Ce terminal permet à parler au Dôme.",
+          "wrong": "à",
+          "fix": "de",
+          "why": "Permettre de + infinitive."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "The old terminal: benefit or risk?",
+          "buckets": [
+            "cela permet de…",
+            "cela risque de…"
+          ],
+          "items": [
+            {
+              "text": "trouver de l'eau filtrée",
+              "bucket": 0
+            },
+            {
+              "text": "parler au contremaître Ruiz",
+              "bucket": 0
+            },
+            {
+              "text": "réparer les robots",
+              "bucket": 0
+            },
+            {
+              "text": "attirer les pirates informatiques",
+              "bucket": 1
+            },
+            {
+              "text": "montrer nos données à tout le monde",
+              "bucket": 1
+            },
+            {
+              "text": "effacer les disques",
+              "bucket": 1
+            }
+          ],
+          "why": "Useful outcomes follow cela permet de; dangers follow cela risque de."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-science-technology-rustwake-01",
+          "prompt": "Someone broke into the Dome's terminal and stole the residents' files. This is…",
+          "type": "multiple-choice",
+          "options": [
+            "du piratage",
+            "un algorithme",
+            "une découverte"
+          ],
+          "correct_answer": "du piratage",
+          "explanation": "Breaking into a system is le piratage; the person who does it is un pirate informatique.",
+          "hints": [
+            "The noun from pirater."
+          ],
+          "teaches": [
+            "le piratage",
+            "le pirate informatique"
+          ]
+        },
+        {
+          "question_id": "b2-science-technology-rustwake-02",
+          "prompt": "Ma radio-montre enregistre tout ce que je dis : elle ne respecte pas ma vie ___.",
+          "type": "fill-in-blank",
+          "correct_answer": "privée",
+          "accepted_answers": [
+            "privee"
+          ],
+          "explanation": "La vie privée = privacy. Privée agrees with the feminine vie.",
+          "hints": [
+            "Private, feminine form."
+          ],
+          "teaches": [
+            "la vie privée"
+          ]
+        }
+      ]
+    }
+  }
+}

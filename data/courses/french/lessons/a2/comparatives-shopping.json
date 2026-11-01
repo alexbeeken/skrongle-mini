@@ -1,0 +1,1338 @@
+{
+  "id": "a2-comparatives-shopping",
+  "slug": "comparatives-shopping",
+  "title": "Comparing and shopping for clothes",
+  "unit": "A2",
+  "group": "Vocabulary",
+  "order": 42,
+  "summary": "Compare with plus, moins and aussi, say better and the best, and buy clothes: sizes, trying on, sales and paying.",
+  "focus": "Comparatives and superlatives while shopping for clothes",
+  "prerequisites": [
+    "a1-family-adjectives"
+  ],
+  "content": "## Comparing: plus, moins, aussi\n\nTo compare with an adjective, put **plus** (more), **moins** (less) or **aussi** (as) before it and **que** after. The adjective still agrees.\n\n- **Cette robe est plus chère que la jupe.** (This dress is more expensive than the skirt.)\n- **Le jean est moins cher que le pantalon.** (The jeans are cheaper than the trousers.)\n- **Ma veste est aussi chaude que ton manteau.** (My jacket is as warm as your coat.)\n\nWith a **noun**, use **plus de**, **moins de** or **autant de** (as much, as many) + noun + **que**:\n\n- **Il y a plus de robes que de jupes.** (There are more dresses than skirts.)\n- **J'ai autant de chemises que toi.** (I have as many shirts as you.)\n\nBefore a vowel, **que** becomes **qu'**: **plus grand qu'elle**.\n\n## Meilleur, mieux and the superlative\n\n**Bon** (good) has its own comparative: **meilleur**, which agrees (**meilleure, meilleurs, meilleures**). Never say *plus bon*. **Bien** (well) becomes **mieux**, which never changes.\n\n- **Ce magasin est meilleur que l'autre.** (adjective, describes a noun)\n- **Cette taille te va mieux.** (adverb, describes a verb)\n\nThe **superlative** adds the article: **le / la / les plus** (or **moins**) + adjective, with **de** for the group:\n\n- **C'est la robe la plus chère du magasin.** (the most expensive dress in the shop)\n- **Ce sont les chaussures les moins chères.** (the cheapest shoes)\n- **C'est le meilleur prix de la ville.** (the best price in town)\n\n## In the clothes shop\n\nClothes: **le tee-shirt**, **la chemise**, **la robe**, **la jupe**, **le manteau**, **l'écharpe** (scarf), **le pantalon**, **le jean**, **les chaussures**, **le chapeau**, **le sac à main**, **la veste** (jacket).\n\n- **Je peux essayer ?** (Can I try it on?) **La taille** for clothes, **la pointure** for shoes.\n- **Ça vous va bien !** (It suits you!)\n- **C'est trop cher.** / **C'est en solde.** (It's too expensive. / It's on sale.)\n- **Je paie par carte / en espèces.** (I'll pay by card / in cash.)\n\n**Mettre** (to put on, to wear): **je mets, tu mets, il met, nous mettons, vous mettez, ils mettent**.",
+  "vocabulary": [
+    {
+      "term": "le manteau",
+      "meaning": "coat (m)",
+      "example": "Ce manteau est plus chaud que ma veste.",
+      "example_meaning": "This coat is warmer than my jacket."
+    },
+    {
+      "term": "la robe",
+      "meaning": "dress (f)",
+      "example": "Cette robe est moins chère que la jupe.",
+      "example_meaning": "This dress is cheaper than the skirt."
+    },
+    {
+      "term": "le pantalon",
+      "meaning": "trousers (m)",
+      "example": "Ce pantalon est aussi long que l'autre.",
+      "example_meaning": "These trousers are as long as the other ones."
+    },
+    {
+      "term": "les chaussures",
+      "meaning": "shoes (f pl)",
+      "example": "Ces chaussures sont les plus confortables du magasin.",
+      "example_meaning": "These shoes are the most comfortable in the shop."
+    },
+    {
+      "term": "la chemise",
+      "meaning": "shirt (f)",
+      "example": "Je mets une chemise blanche pour le travail.",
+      "example_meaning": "I wear a white shirt for work."
+    },
+    {
+      "term": "la taille",
+      "meaning": "size (clothes) (f)",
+      "example": "Vous faites quelle taille ? Du quarante ?",
+      "example_meaning": "What size are you? A forty?"
+    },
+    {
+      "term": "la pointure",
+      "meaning": "shoe size (f)",
+      "example": "Quelle est votre pointure ?",
+      "example_meaning": "What is your shoe size?"
+    },
+    {
+      "term": "essayer",
+      "meaning": "to try on, to try",
+      "example": "Je peux essayer ce pantalon ?",
+      "example_meaning": "Can I try on these trousers?"
+    },
+    {
+      "term": "cher / chère",
+      "meaning": "expensive",
+      "example": "C'est trop cher pour moi.",
+      "example_meaning": "It's too expensive for me."
+    },
+    {
+      "term": "en solde",
+      "meaning": "on sale, reduced",
+      "example": "Les manteaux sont en solde cette semaine.",
+      "example_meaning": "The coats are on sale this week."
+    },
+    {
+      "term": "meilleur / meilleure",
+      "meaning": "better (adjective)",
+      "example": "Cette boutique est meilleure que l'autre.",
+      "example_meaning": "This shop is better than the other one."
+    },
+    {
+      "term": "mieux",
+      "meaning": "better (adverb)",
+      "example": "Cette couleur te va mieux.",
+      "example_meaning": "This colour suits you better."
+    },
+    {
+      "term": "payer par carte",
+      "meaning": "to pay by card",
+      "example": "Je peux payer par carte ?",
+      "example_meaning": "Can I pay by card?"
+    },
+    {
+      "term": "en espèces",
+      "meaning": "in cash",
+      "example": "Vous payez en espèces ou par carte ?",
+      "example_meaning": "Are you paying in cash or by card?"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-comparatives-shopping-01",
+      "prompt": "La robe coûte quatre-vingts euros, la jupe quarante. La robe est ___ chère que la jupe.",
+      "type": "multiple-choice",
+      "options": [
+        "plus",
+        "moins",
+        "aussi"
+      ],
+      "correct_answer": "plus",
+      "explanation": "80 € is more than 40 €, so la robe est plus chère que la jupe.",
+      "hints": [
+        "Which one costs more?"
+      ],
+      "teaches": [
+        "la robe",
+        "cher / chère"
+      ]
+    },
+    {
+      "question_id": "a2-comparatives-shopping-02",
+      "prompt": "Ce manteau est bon, mais l'autre est ___. (better)",
+      "type": "fill-in-blank",
+      "correct_answer": "meilleur",
+      "accepted_answers": [],
+      "explanation": "The comparative of bon is meilleur (masculine, for le manteau). Never plus bon.",
+      "hints": [
+        "Bon has its own comparative.",
+        "Le manteau is masculine."
+      ],
+      "teaches": [
+        "le manteau",
+        "meilleur / meilleure"
+      ]
+    },
+    {
+      "question_id": "a2-comparatives-shopping-03",
+      "prompt": "Le bleu te va ___ que le vert.",
+      "type": "multiple-choice",
+      "options": [
+        "mieux",
+        "meilleur",
+        "plus bon"
+      ],
+      "correct_answer": "mieux",
+      "explanation": "Aller bien (to suit) uses the adverb bien, whose comparative is mieux.",
+      "hints": [
+        "It describes the verb va, not a noun."
+      ],
+      "teaches": [
+        "mieux"
+      ]
+    },
+    {
+      "question_id": "a2-comparatives-shopping-04",
+      "prompt": "J'ai dix chemises et tu as dix chemises : j'ai ___ de chemises que toi.",
+      "type": "fill-in-blank",
+      "correct_answer": "autant",
+      "accepted_answers": [],
+      "explanation": "For an equal quantity of a noun, use autant de + noun + que.",
+      "hints": [
+        "Not aussi, because there is a noun."
+      ],
+      "teaches": [
+        "la chemise"
+      ]
+    },
+    {
+      "question_id": "a2-comparatives-shopping-05",
+      "prompt": "True or false: \"Ce pantalon est plus bon que l'autre\" is correct French.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Plus bon is wrong. The comparative of bon is meilleur. Ce pantalon est meilleur que l'autre.",
+      "hints": [
+        "Bon has an irregular comparative."
+      ],
+      "teaches": [
+        "le pantalon"
+      ]
+    },
+    {
+      "question_id": "a2-comparatives-shopping-06",
+      "prompt": "C'est la robe ___ chère du magasin.",
+      "type": "multiple-choice",
+      "options": [
+        "la plus",
+        "plus",
+        "le plus"
+      ],
+      "correct_answer": "la plus",
+      "explanation": "After the noun, the superlative repeats the article, which agrees: la robe la plus chère.",
+      "hints": [
+        "La robe is feminine and the article comes twice."
+      ],
+      "teaches": [
+        "la robe"
+      ]
+    },
+    {
+      "question_id": "a2-comparatives-shopping-07",
+      "prompt": "Pour les chaussures, vous faites quelle ___ ? Du quarante-deux ?",
+      "type": "fill-in-blank",
+      "correct_answer": "pointure",
+      "accepted_answers": [
+        "la pointure"
+      ],
+      "explanation": "Shoe size is la pointure; la taille is for clothes.",
+      "hints": [
+        "Not taille, which is for clothes."
+      ],
+      "teaches": [
+        "la pointure",
+        "les chaussures"
+      ]
+    },
+    {
+      "question_id": "a2-comparatives-shopping-08",
+      "prompt": "True or false: with a superlative, French uses de for the group, as in \"le manteau le plus chaud du magasin\".",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "English says 'in the shop', French says du magasin (de + le).",
+      "hints": [
+        "Look at du magasin."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a2-comparatives-shopping-09",
+      "prompt": "Ce manteau est en solde : soixante-quinze euros au lieu de cent. How much does the coat cost now?",
+      "type": "numeric",
+      "correct_answer": "75",
+      "unit": "euros",
+      "explanation": "Soixante-quinze = 75, instead of (au lieu de) 100.",
+      "hints": [
+        "Soixante-quinze = sixty + fifteen."
+      ],
+      "teaches": [
+        "en solde",
+        "le manteau"
+      ]
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "mettre",
+      "meaning": "to put, to put on, to wear",
+      "set": "present",
+      "art": [
+        "     _____     ",
+        "   _|_____|_   ",
+        "    ( o o )    ",
+        "     \\ - /     ",
+        "   je mets     "
+      ],
+      "forms": {
+        "je": "mets",
+        "tu": "mets",
+        "il": "met",
+        "nous": "mettons",
+        "vous": "mettez",
+        "ils": "mettent"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-comparatives-shopping-conv-winter-coat",
+      "title": "A winter coat",
+      "scenario": "Léa is looking for a winter coat, and Inès works in the shop.",
+      "role_a": "Léa",
+      "role_b": "Inès",
+      "lines": [
+        {
+          "speaker": "b",
+          "text": "Bonjour, je peux vous aider ?",
+          "meaning": "Hello, can I help you?"
+        },
+        {
+          "speaker": "a",
+          "text": "Oui, je cherche un manteau pour l'hiver.",
+          "meaning": "Yes, I'm looking for a coat for the winter."
+        },
+        {
+          "speaker": "b",
+          "text": "Nous avons ce manteau gris. Il est en solde.",
+          "meaning": "We have this grey coat. It's on sale."
+        },
+        {
+          "speaker": "a",
+          "text": "Il est joli. Je peux essayer ?",
+          "meaning": "It's nice. Can I try it on?"
+        },
+        {
+          "speaker": "b",
+          "text": "Bien sûr. Vous faites quelle taille ?",
+          "meaning": "Of course. What size are you?"
+        },
+        {
+          "speaker": "a",
+          "text": "Je fais du trente-huit.",
+          "meaning": "I'm a thirty-eight."
+        },
+        {
+          "speaker": "b",
+          "text": "Voilà. Ça vous va très bien !",
+          "meaning": "Here you are. It really suits you!"
+        },
+        {
+          "speaker": "a",
+          "text": "Il est plus chaud que mon manteau noir. Il coûte combien ?",
+          "meaning": "It's warmer than my black coat. How much is it?"
+        },
+        {
+          "speaker": "b",
+          "text": "Quatre-vingt-dix euros au lieu de cent vingt.",
+          "meaning": "Ninety euros instead of a hundred and twenty."
+        },
+        {
+          "speaker": "a",
+          "text": "C'est un bon prix. Je prends ce manteau.",
+          "meaning": "That's a good price. I'll take this coat."
+        },
+        {
+          "speaker": "b",
+          "text": "Vous payez par carte ou en espèces ?",
+          "meaning": "Are you paying by card or in cash?"
+        },
+        {
+          "speaker": "a",
+          "text": "Par carte, s'il vous plaît.",
+          "meaning": "By card, please."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Ce chapeau est trop grand.",
+      "meaning": "This hat is too big."
+    },
+    {
+      "text": "Je mets mon écharpe rouge.",
+      "meaning": "I'm putting on my red scarf.",
+      "note": "New word: l'écharpe = scarf."
+    },
+    {
+      "text": "Cette jupe est plus courte que la robe.",
+      "meaning": "This skirt is shorter than the dress.",
+      "note": "New word: court = short."
+    },
+    {
+      "text": "Ces bottes sont aussi chères que les chaussures.",
+      "meaning": "These boots are as expensive as the shoes.",
+      "note": "New word: les bottes = boots."
+    },
+    {
+      "text": "Ce vert te va mieux que le gris.",
+      "meaning": "This green suits you better than the grey.",
+      "note": "Aller bien becomes aller mieux."
+    },
+    {
+      "text": "C'est le magasin le moins cher de la ville.",
+      "meaning": "It's the cheapest shop in town.",
+      "note": "The superlative takes de for the group."
+    },
+    {
+      "text": "Il y a autant de tee-shirts que de chemises en solde.",
+      "meaning": "There are as many T-shirts as shirts on sale."
+    },
+    {
+      "text": "Je voudrais essayer ce manteau dans une taille plus grande, s'il vous plaît.",
+      "meaning": "I'd like to try this coat in a bigger size, please."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Comparing"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-comparatives-shopping-01"
+    },
+    {
+      "question": "a2-comparatives-shopping-04"
+    },
+    {
+      "question": "a2-comparatives-shopping-05"
+    },
+    {
+      "tip": "Adjective or adverb? A noun being described takes meilleur, and a verb (ça te va) takes mieux."
+    },
+    {
+      "section": "Meilleur, mieux"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-comparatives-shopping-02"
+    },
+    {
+      "question": "a2-comparatives-shopping-03"
+    },
+    {
+      "question": "a2-comparatives-shopping-06"
+    },
+    {
+      "question": "a2-comparatives-shopping-08"
+    },
+    {
+      "concept": {
+        "title": "Short adjectives stay in front",
+        "markdown": "Adjectives that go before the noun keep their place in the superlative: **la plus belle robe**, **le plus petit sac**, **le meilleur prix**. Only adjectives that follow the noun need the article twice: **la robe la plus chère**."
+      }
+    },
+    {
+      "section": "In the clothes shop"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a2-comparatives-shopping-07"
+    },
+    {
+      "question": "a2-comparatives-shopping-09"
+    }
+  ],
+  "sprint": {
+    "icon": "🛍️",
+    "bites": [
+      {
+        "title": "plus / moins / aussi … que",
+        "emoji": "⚖️",
+        "rule": "Compare adjectives with plus (more), moins (less) or aussi (as) + adjective + que. The adjective agrees with its noun.",
+        "example": "Cette robe est plus chère que la jupe.",
+        "example_meaning": "This dress is more expensive than the skirt."
+      },
+      {
+        "title": "With a noun: de",
+        "emoji": "📦",
+        "rule": "Plus de, moins de, autant de + noun + que. No article after de.",
+        "example": "J'ai autant de chemises que toi.",
+        "example_meaning": "I have as many shirts as you."
+      },
+      {
+        "title": "Meilleur and mieux",
+        "emoji": "🥇",
+        "rule": "Bon becomes meilleur, which agrees (meilleure, meilleurs). Bien becomes mieux, which never changes. Never say plus bon.",
+        "example": "Ce prix est meilleur, et cette taille te va mieux.",
+        "example_meaning": "This price is better, and this size suits you better."
+      },
+      {
+        "title": "The most",
+        "emoji": "🏆",
+        "rule": "The superlative is le / la / les plus + adjective, with de for the group. After the noun, the article comes twice.",
+        "example": "C'est le manteau le plus chaud du magasin.",
+        "example_meaning": "It's the warmest coat in the shop."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Meilleur or mieux?",
+        "buckets": [
+          "meilleur(e)",
+          "mieux"
+        ],
+        "items": [
+          {
+            "text": "un ___ prix",
+            "bucket": 0
+          },
+          {
+            "text": "ça te va ___",
+            "bucket": 1
+          },
+          {
+            "text": "une ___ taille",
+            "bucket": 0
+          },
+          {
+            "text": "elle chante ___",
+            "bucket": 1
+          },
+          {
+            "text": "les ___ chaussures",
+            "bucket": 0
+          },
+          {
+            "text": "je dors ___",
+            "bucket": 1
+          }
+        ],
+        "why": "Before or about a noun, use meilleur, which agrees. With a verb, use mieux."
+      },
+      {
+        "title": "Adjective or noun?",
+        "buckets": [
+          "plus + adjective + que",
+          "plus de + noun + que"
+        ],
+        "items": [
+          {
+            "text": "plus cher",
+            "bucket": 0
+          },
+          {
+            "text": "plus de robes",
+            "bucket": 1
+          },
+          {
+            "text": "moins grand",
+            "bucket": 0
+          },
+          {
+            "text": "moins de clients",
+            "bucket": 1
+          },
+          {
+            "text": "aussi joli",
+            "bucket": 0
+          },
+          {
+            "text": "autant de pulls",
+            "bucket": 1
+          }
+        ],
+        "why": "Adjectives take plus, moins, aussi directly; nouns take plus de, moins de, autant de."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Cette jupe est meilleur que la robe.",
+        "wrong": "meilleur",
+        "fix": "meilleure",
+        "why": "Meilleur agrees: la jupe is feminine."
+      },
+      {
+        "sentence": "Ce rouge te va meilleur.",
+        "wrong": "meilleur",
+        "fix": "mieux",
+        "why": "Aller bien becomes aller mieux, because it is an adverb."
+      },
+      {
+        "sentence": "Cette robe est plus chère de la jupe.",
+        "wrong": "de",
+        "fix": "que",
+        "why": "A comparison takes que: plus chère que."
+      },
+      {
+        "sentence": "J'ai autant des chemises que toi.",
+        "wrong": "des",
+        "fix": "de",
+        "why": "Autant de + noun, no article."
+      },
+      {
+        "sentence": "Je mettons mon manteau.",
+        "wrong": "mettons",
+        "fix": "mets",
+        "why": "Mettre: je mets."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Ce manteau est plus chaud que ma veste.",
+        "meaning": "This coat is warmer than my jacket.",
+        "distractors": [
+          "de"
+        ]
+      },
+      {
+        "text": "Ça vous va très bien.",
+        "meaning": "It really suits you.",
+        "distractors": [
+          "bon"
+        ]
+      },
+      {
+        "text": "C'est la robe la moins chère.",
+        "meaning": "It's the cheapest dress.",
+        "distractors": [
+          "du"
+        ]
+      },
+      {
+        "text": "Je peux payer par carte ?",
+        "meaning": "Can I pay by card?",
+        "distractors": [
+          "en"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "💎",
+      "content": "## Le marché de Highgate\n\nAt the armourer's, compare before you buy: **cette épée est plus légère que l'autre**, **ce bouclier est aussi solide que ton bouclier**, and **c'est la potion la plus chère du marché** ! The elf's cloak is **meilleur**, and it **te va mieux**.",
+      "vocabulary": [
+        {
+          "term": "le manteau",
+          "example": "Ce manteau d'elfe est plus chaud que ma cape.",
+          "example_meaning": "This elf coat is warmer than my cloak."
+        },
+        {
+          "term": "cher / chère",
+          "example": "C'est la potion la plus chère du marché.",
+          "example_meaning": "It's the most expensive potion in the market."
+        },
+        {
+          "term": "meilleur / meilleure",
+          "example": "L'épée de Borin est meilleure que mon épée.",
+          "example_meaning": "Borin's sword is better than my sword."
+        },
+        {
+          "term": "mieux",
+          "example": "Cette cape te va mieux, paladin.",
+          "example_meaning": "This cloak suits you better, paladin."
+        },
+        {
+          "term": "essayer",
+          "example": "Je peux essayer ce bouclier ?",
+          "example_meaning": "Can I try this shield?"
+        },
+        {
+          "term": "en solde",
+          "example": "Les potions sont en solde aujourd'hui.",
+          "example_meaning": "The potions are on sale today."
+        },
+        {
+          "term": "l'épée",
+          "meaning": "sword (f)",
+          "example": "Cette épée est plus légère que l'autre.",
+          "example_meaning": "This sword is lighter than the other one."
+        },
+        {
+          "term": "le bouclier",
+          "meaning": "shield",
+          "example": "C'est le bouclier le plus solide du marché.",
+          "example_meaning": "It's the sturdiest shield in the market."
+        },
+        {
+          "term": "la cape",
+          "meaning": "cloak (f)",
+          "example": "La cape de Nym est aussi verte que la forêt.",
+          "example_meaning": "Nym's cloak is as green as the forest."
+        },
+        {
+          "term": "la pièce d'or",
+          "meaning": "gold coin",
+          "example": "Ça coûte dix pièces d'or.",
+          "example_meaning": "It costs ten gold coins."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Comparer le butin",
+          "emoji": "💎",
+          "rule": "Compare loot like clothes: plus / moins / aussi + adjective + que. The best is le meilleur, and the most expensive is la plus chère.",
+          "example": "Ce bouclier est plus solide que l'autre.",
+          "example_meaning": "This shield is sturdier than the other one."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Cette épée est plus légère.",
+          "meaning": "This sword is lighter.",
+          "note": "New word: léger = light."
+        },
+        {
+          "text": "Ce bouclier est aussi solide que l'autre.",
+          "meaning": "This shield is as sturdy as the other one."
+        },
+        {
+          "text": "C'est la potion la plus chère.",
+          "meaning": "It's the most expensive potion."
+        },
+        {
+          "text": "La cape te va mieux.",
+          "meaning": "The cloak suits you better."
+        },
+        {
+          "text": "Je paie en pièces d'or.",
+          "meaning": "I pay in gold coins.",
+          "note": "New word: la pièce d'or = gold coin."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Cette épée est meilleure que l'autre.",
+          "meaning": "This sword is better than the other one.",
+          "distractors": [
+            "mieux"
+          ]
+        },
+        {
+          "text": "C'est le bouclier le plus solide.",
+          "meaning": "It's the sturdiest shield.",
+          "distractors": [
+            "du"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Cette épée est meilleur que l'autre.",
+          "wrong": "meilleur",
+          "fix": "meilleure",
+          "why": "Meilleur agrees: l'épée is feminine."
+        },
+        {
+          "sentence": "La cape te va meilleure.",
+          "wrong": "meilleure",
+          "fix": "mieux",
+          "why": "Aller bien becomes aller mieux, because it is an adverb."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Meilleur or mieux in Eldmark?",
+          "buckets": [
+            "meilleur(e)",
+            "mieux"
+          ],
+          "items": [
+            {
+              "text": "une ___ épée",
+              "bucket": 0
+            },
+            {
+              "text": "la cape te va ___",
+              "bucket": 1
+            },
+            {
+              "text": "le ___ guerrier",
+              "bucket": 0
+            },
+            {
+              "text": "Nym combat ___ que Borin",
+              "bucket": 1
+            },
+            {
+              "text": "une ___ potion",
+              "bucket": 0
+            },
+            {
+              "text": "Séla lance ___ les sorts",
+              "bucket": 1
+            }
+          ],
+          "why": "About a noun, use meilleur, which agrees. About a verb, use mieux."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a2-comparatives-shopping-realm-01",
+          "prompt": "Cette potion coûte dix pièces d'or, l'autre cinq. Elle est ___ chère que l'autre.",
+          "type": "multiple-choice",
+          "options": [
+            "plus",
+            "moins",
+            "aussi"
+          ],
+          "correct_answer": "plus",
+          "explanation": "Ten is more than five, so elle est plus chère que l'autre.",
+          "hints": [
+            "Which costs more?"
+          ],
+          "teaches": [
+            "cher / chère"
+          ]
+        },
+        {
+          "question_id": "a2-comparatives-shopping-realm-02",
+          "prompt": "C'est l'épée ___ plus légère du marché.",
+          "type": "fill-in-blank",
+          "correct_answer": "la",
+          "accepted_answers": [],
+          "explanation": "After the noun, the superlative repeats the article: l'épée la plus légère (épée is feminine).",
+          "hints": [
+            "Épée is feminine; the article comes back."
+          ],
+          "teaches": []
+        }
+      ],
+      "conversations": [
+        {
+          "id": "a2-comparatives-shopping-conv-realm-shield",
+          "title": "A new shield",
+          "scenario": "Borin the dwarf buys a shield from Ysolde the armourer in Highgate.",
+          "role_a": "Borin",
+          "role_b": "Ysolde",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Bonjour ! Je cherche un bouclier solide.",
+              "meaning": "Hello! I'm looking for a sturdy shield."
+            },
+            {
+              "speaker": "b",
+              "text": "Ce bouclier est le plus solide du marché.",
+              "meaning": "This shield is the sturdiest in the market."
+            },
+            {
+              "speaker": "a",
+              "text": "Il est plus lourd que mon vieux bouclier.",
+              "meaning": "It's heavier than my old shield."
+            },
+            {
+              "speaker": "b",
+              "text": "Oui, mais il est meilleur, et il est en solde !",
+              "meaning": "Yes, but it's better, and it's on sale!"
+            },
+            {
+              "speaker": "a",
+              "text": "Il coûte combien ?",
+              "meaning": "How much is it?"
+            },
+            {
+              "speaker": "b",
+              "text": "Vingt pièces d'or au lieu de trente.",
+              "meaning": "Twenty gold coins instead of thirty."
+            },
+            {
+              "speaker": "a",
+              "text": "C'est moins cher que l'épée de Séla ! Je prends ce bouclier.",
+              "meaning": "That's cheaper than Séla's sword! I'll take this shield."
+            },
+            {
+              "speaker": "b",
+              "text": "Parfait. Il vous va très bien !",
+              "meaning": "Perfect. It really suits you!"
+            }
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🧵",
+      "content": "## La boutique de Meadowbrook\n\nBefore la fête des récoltes, everyone shops at la boutique: **le chapeau de paille est moins cher que le chapeau en laine**, **la robe à fleurs est la plus jolie du village**, and in winter **le manteau est meilleur que la veste**. Nora tries an apron on: **Ça te va mieux !**",
+      "vocabulary": [
+        {
+          "term": "la robe",
+          "example": "La robe à fleurs est la plus jolie du village.",
+          "example_meaning": "The flowery dress is the prettiest in the village."
+        },
+        {
+          "term": "le manteau",
+          "example": "En hiver, le manteau en laine est le plus chaud.",
+          "example_meaning": "In winter, the wool coat is the warmest."
+        },
+        {
+          "term": "essayer",
+          "example": "Nora essaie un chapeau de paille.",
+          "example_meaning": "Nora tries on a straw hat."
+        },
+        {
+          "term": "cher / chère",
+          "example": "Les bottes sont moins chères au marché.",
+          "example_meaning": "The boots are cheaper at the market."
+        },
+        {
+          "term": "meilleur / meilleure",
+          "example": "Les fraises de Rosa sont meilleures que mes fraises.",
+          "example_meaning": "Rosa's strawberries are better than my strawberries."
+        },
+        {
+          "term": "mieux",
+          "example": "Ce tablier te va mieux, Nora.",
+          "example_meaning": "This apron suits you better, Nora."
+        },
+        {
+          "term": "en solde",
+          "example": "Les bottes sont en solde après la fête des récoltes.",
+          "example_meaning": "The boots are on sale after the harvest festival."
+        },
+        {
+          "term": "le chapeau de paille",
+          "meaning": "straw hat",
+          "example": "Le chapeau de paille est parfait pour l'été.",
+          "example_meaning": "The straw hat is perfect for summer."
+        },
+        {
+          "term": "les bottes",
+          "meaning": "boots (f pl)",
+          "example": "Mes bottes sont plus solides que mes chaussures.",
+          "example_meaning": "My boots are sturdier than my shoes."
+        },
+        {
+          "term": "le tablier",
+          "meaning": "apron",
+          "example": "Le tablier de Rosa est aussi vert que mon tablier.",
+          "example_meaning": "Rosa's apron is as green as my apron."
+        },
+        {
+          "term": "la laine",
+          "meaning": "wool",
+          "example": "La laine de mes moutons est la meilleure.",
+          "example_meaning": "My sheep's wool is the best."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Habits de saison",
+          "emoji": "🧵",
+          "rule": "Compare what you wear with the seasons: plus chaud que, moins cher que, aussi joli que. The best: le meilleur, la plus jolie.",
+          "example": "En été, le chapeau de paille est meilleur.",
+          "example_meaning": "In summer, the straw hat is better."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Ces bottes sont en solde.",
+          "meaning": "These boots are on sale.",
+          "note": "New word: les bottes = boots."
+        },
+        {
+          "text": "Le tablier te va mieux.",
+          "meaning": "The apron suits you better.",
+          "note": "New word: le tablier = apron."
+        },
+        {
+          "text": "Le manteau en laine est plus chaud.",
+          "meaning": "The wool coat is warmer."
+        },
+        {
+          "text": "Rosa a autant de chapeaux que Nora.",
+          "meaning": "Rosa has as many hats as Nora."
+        },
+        {
+          "text": "C'est la robe la plus jolie de la fête.",
+          "meaning": "It's the prettiest dress at the festival."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Ce chapeau est moins cher que les bottes.",
+          "meaning": "This hat is cheaper than the boots.",
+          "distractors": [
+            "de"
+          ]
+        },
+        {
+          "text": "Ce tablier te va mieux.",
+          "meaning": "This apron suits you better.",
+          "distractors": [
+            "meilleur"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Les bottes sont plus cher que le chapeau.",
+          "wrong": "cher",
+          "fix": "chères",
+          "why": "The adjective agrees: les bottes are feminine plural."
+        },
+        {
+          "sentence": "Rosa a autant des chapeaux que Nora.",
+          "wrong": "des",
+          "fix": "de",
+          "why": "Autant de + noun, no article."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Adjective or noun at the boutique?",
+          "buckets": [
+            "plus + adjective",
+            "plus de + noun"
+          ],
+          "items": [
+            {
+              "text": "plus chaud",
+              "bucket": 0
+            },
+            {
+              "text": "plus de fraises",
+              "bucket": 1
+            },
+            {
+              "text": "moins cher",
+              "bucket": 0
+            },
+            {
+              "text": "moins de citrouilles",
+              "bucket": 1
+            },
+            {
+              "text": "aussi joli",
+              "bucket": 0
+            },
+            {
+              "text": "autant de poules",
+              "bucket": 1
+            }
+          ],
+          "why": "Adjectives take plus, moins, aussi directly; nouns take plus de, moins de, autant de."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a2-comparatives-shopping-meadowbrook-01",
+          "prompt": "Le tablier te va ___ que la robe.",
+          "type": "multiple-choice",
+          "options": [
+            "mieux",
+            "meilleur",
+            "plus bien"
+          ],
+          "correct_answer": "mieux",
+          "explanation": "Aller bien (to suit) becomes aller mieux. Plus bien does not exist.",
+          "hints": [
+            "It describes the verb va."
+          ],
+          "teaches": [
+            "mieux"
+          ]
+        },
+        {
+          "question_id": "a2-comparatives-shopping-meadowbrook-02",
+          "prompt": "Les bottes coûtent vingt pièces, le chapeau dix. Les bottes sont ___ chères que le chapeau.",
+          "type": "fill-in-blank",
+          "correct_answer": "plus",
+          "accepted_answers": [],
+          "explanation": "Twenty is more than ten, so les bottes sont plus chères que le chapeau.",
+          "hints": [
+            "Which costs more?"
+          ],
+          "teaches": [
+            "cher / chère"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "a2-comparatives-shopping-conv-meadowbrook-festival-dress",
+          "title": "A dress for the festival",
+          "scenario": "Nora looks for a dress for the harvest festival at Mathilde's boutique.",
+          "role_a": "Nora",
+          "role_b": "Mathilde",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Bonjour Mathilde ! Je cherche une robe pour la fête des récoltes.",
+              "meaning": "Hello Mathilde! I'm looking for a dress for the harvest festival."
+            },
+            {
+              "speaker": "b",
+              "text": "Essaie cette robe à fleurs. C'est la plus jolie de la boutique.",
+              "meaning": "Try this flowery dress. It's the prettiest in the shop."
+            },
+            {
+              "speaker": "a",
+              "text": "Elle est jolie, mais elle est plus chère que la robe bleue.",
+              "meaning": "It's pretty, but it's more expensive than the blue dress."
+            },
+            {
+              "speaker": "b",
+              "text": "Oui, mais le tissu est meilleur.",
+              "meaning": "Yes, but the fabric is better."
+            },
+            {
+              "speaker": "a",
+              "text": "Bon, j'essaie la robe à fleurs.",
+              "meaning": "All right, I'll try the flowery dress."
+            },
+            {
+              "speaker": "b",
+              "text": "Oh, elle te va mieux que la bleue !",
+              "meaning": "Oh, it suits you better than the blue one!"
+            },
+            {
+              "speaker": "a",
+              "text": "Je prends la robe ! Je peux payer en espèces ?",
+              "meaning": "I'll take the dress! Can I pay in cash?"
+            },
+            {
+              "speaker": "b",
+              "text": "Bien sûr. Et le chapeau de paille est en solde !",
+              "meaning": "Of course. And the straw hat is on sale!"
+            }
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "👢",
+      "content": "## Le marché de Rustwake\n\nAt Marta's stall, compare before you trade your écrous: **ces bottes sont plus solides que tes chaussures du Dôme**, **l'armure de ferraille est moins confortable que la combinaison bleue**, and these goggles are **les meilleures du désert**. Marta grins: **Ça te va mieux !**",
+      "vocabulary": [
+        {
+          "term": "les chaussures",
+          "example": "Mes chaussures du Dôme sont moins solides que tes bottes.",
+          "example_meaning": "My Dome shoes are less sturdy than your boots."
+        },
+        {
+          "term": "le pantalon",
+          "example": "Ce pantalon est plus résistant que ma combinaison.",
+          "example_meaning": "These trousers are tougher than my jumpsuit."
+        },
+        {
+          "term": "essayer",
+          "example": "Je peux essayer l'armure de ferraille ?",
+          "example_meaning": "Can I try on the scrap armour?"
+        },
+        {
+          "term": "cher / chère",
+          "example": "L'eau filtrée est plus chère que le soda Saphir.",
+          "example_meaning": "Filtered water is more expensive than Saphir soda."
+        },
+        {
+          "term": "meilleur / meilleure",
+          "example": "Ces lunettes sont les meilleures du désert.",
+          "example_meaning": "These goggles are the best in the desert."
+        },
+        {
+          "term": "mieux",
+          "example": "La combinaison bleue te va mieux.",
+          "example_meaning": "The blue jumpsuit suits you better."
+        },
+        {
+          "term": "en solde",
+          "example": "Les bottes sont en solde après la tempête.",
+          "example_meaning": "The boots are on sale after the storm."
+        },
+        {
+          "term": "la combinaison bleue",
+          "meaning": "blue jumpsuit",
+          "example": "Ma combinaison bleue est aussi vieille que le Dôme.",
+          "example_meaning": "My blue jumpsuit is as old as the Dome."
+        },
+        {
+          "term": "l'armure de ferraille",
+          "meaning": "scrap armour (f)",
+          "example": "L'armure de ferraille est la plus lourde du marché.",
+          "example_meaning": "The scrap armour is the heaviest in the market."
+        },
+        {
+          "term": "les bottes",
+          "meaning": "boots (f pl)",
+          "example": "Ces bottes coûtent quinze écrous.",
+          "example_meaning": "These boots cost fifteen nuts."
+        },
+        {
+          "term": "les lunettes",
+          "meaning": "goggles, glasses (f pl)",
+          "example": "Avec ces lunettes, je vois mieux dans la poussière.",
+          "example_meaning": "With these goggles, I see better in the dust."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Troc au marché",
+          "emoji": "👢",
+          "rule": "Compare before you trade: plus / moins / aussi + adjective + que, plus de / autant de + noun. The best: le meilleur, la meilleure.",
+          "example": "Ces bottes sont meilleures que mes chaussures.",
+          "example_meaning": "These boots are better than my shoes."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Ces bottes sont plus solides.",
+          "meaning": "These boots are sturdier.",
+          "note": "New word: solide = sturdy."
+        },
+        {
+          "text": "L'armure de ferraille est trop lourde.",
+          "meaning": "The scrap armour is too heavy.",
+          "note": "New word: lourd = heavy."
+        },
+        {
+          "text": "Avec ces bottes, tu marches mieux.",
+          "meaning": "You walk better in these boots."
+        },
+        {
+          "text": "Marta a autant d'écrous que Léo.",
+          "meaning": "Marta has as many nuts as Léo.",
+          "note": "Autant de becomes autant d' before a vowel."
+        },
+        {
+          "text": "C'est le marché le moins cher du désert.",
+          "meaning": "It's the cheapest market in the desert."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Ces lunettes sont les meilleures du désert.",
+          "meaning": "These goggles are the best in the desert.",
+          "distractors": [
+            "mieux"
+          ]
+        },
+        {
+          "text": "L'eau est plus chère que le soda.",
+          "meaning": "Water is more expensive than soda.",
+          "distractors": [
+            "de"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Ces bottes sont meilleur que mes chaussures.",
+          "wrong": "meilleur",
+          "fix": "meilleures",
+          "why": "Meilleur agrees: les bottes are feminine plural."
+        },
+        {
+          "sentence": "L'armure est plus lourde de la combinaison.",
+          "wrong": "de",
+          "fix": "que",
+          "why": "A comparison takes que."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Meilleur or mieux at the market?",
+          "buckets": [
+            "meilleur(e)",
+            "mieux"
+          ],
+          "items": [
+            {
+              "text": "les ___ bottes",
+              "bucket": 0
+            },
+            {
+              "text": "ça te va ___",
+              "bucket": 1
+            },
+            {
+              "text": "un ___ prix",
+              "bucket": 0
+            },
+            {
+              "text": "Léo répare ___ que moi",
+              "bucket": 1
+            },
+            {
+              "text": "la ___ eau",
+              "bucket": 0
+            },
+            {
+              "text": "je vois ___ avec ces lunettes",
+              "bucket": 1
+            }
+          ],
+          "why": "About a noun, use meilleur, which agrees. About a verb, use mieux."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a2-comparatives-shopping-rustwake-01",
+          "prompt": "Les bottes coûtent dix écrous, les chaussures dix écrous aussi. Les bottes sont ___ chères que les chaussures.",
+          "type": "multiple-choice",
+          "options": [
+            "aussi",
+            "plus",
+            "moins"
+          ],
+          "correct_answer": "aussi",
+          "explanation": "Same price, so aussi chères que.",
+          "hints": [
+            "The prices are the same."
+          ],
+          "teaches": [
+            "cher / chère",
+            "les chaussures"
+          ]
+        },
+        {
+          "question_id": "a2-comparatives-shopping-rustwake-02",
+          "prompt": "Marta a vingt écrous, Léo a vingt écrous : Marta a ___ d'écrous que Léo.",
+          "type": "fill-in-blank",
+          "correct_answer": "autant",
+          "accepted_answers": [],
+          "explanation": "For an equal quantity of a noun, use autant de (d' before a vowel) + noun + que.",
+          "hints": [
+            "Not aussi, because there is a noun."
+          ],
+          "teaches": []
+        }
+      ],
+      "conversations": [
+        {
+          "id": "a2-comparatives-shopping-conv-rustwake-boots",
+          "title": "Boots for the desert",
+          "scenario": "Léo the scavenger trades for boots at Marta's market stall.",
+          "role_a": "Léo",
+          "role_b": "Marta",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Marta, ces bottes coûtent combien ?",
+              "meaning": "Marta, how much are these boots?"
+            },
+            {
+              "speaker": "b",
+              "text": "Quinze écrous. Ce sont les meilleures bottes du marché.",
+              "meaning": "Fifteen nuts. They're the best boots in the market."
+            },
+            {
+              "speaker": "a",
+              "text": "Elles sont plus chères que les chaussures, non ?",
+              "meaning": "They're more expensive than the shoes, aren't they?"
+            },
+            {
+              "speaker": "b",
+              "text": "Oui, mais elles sont plus solides. Essaie !",
+              "meaning": "Yes, but they're sturdier. Try them on!"
+            },
+            {
+              "speaker": "a",
+              "text": "Elles sont confortables. Et l'armure de ferraille ?",
+              "meaning": "They're comfortable. And the scrap armour?"
+            },
+            {
+              "speaker": "b",
+              "text": "Elle est en solde, mais elle est moins confortable que ta combinaison.",
+              "meaning": "It's on sale, but it's less comfortable than your jumpsuit."
+            },
+            {
+              "speaker": "a",
+              "text": "Alors je prends les bottes. Voilà quinze écrous.",
+              "meaning": "Then I'll take the boots. Here are fifteen nuts."
+            },
+            {
+              "speaker": "b",
+              "text": "Merci ! Elles te vont mieux que tes chaussures du Dôme.",
+              "meaning": "Thanks! They suit you better than your Dome shoes."
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

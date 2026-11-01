@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% block title %}Dev: AI provider{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ crate::routes::asset_url("devbox.css") }}">
+<section class="devbox devai" data-testid="dev-ai" data-rows-url="{{ crate::url("/dev/ai/rows") }}">
+  <div class="devbox-head">
+    <h1>Dev mailbox</h1>
+    <button type="button" class="info-btn" data-opens="devai-info" aria-haspopup="dialog" aria-label="About the dev AI provider" title="About the dev AI provider" data-testid="dev-ai-info"><span aria-hidden="true">i</span></button>
+  </div>
+
+  {% include "dev_box_kinds.html" %}
+
+  {% if !notice.is_empty() %}<p class="alert ok-text" role="status" data-testid="dev-ai-notice">{{ notice }}</p>{% endif %}
+
+  <div class="devai-profiles">
+    {% for p in profiles %}
+    <article class="devai-profile" data-testid="dev-ai-profile" data-who="{{ p.id }}" data-over="{{ p.over }}">
+      <h2>{{ p.label }}</h2>
+      <p class="devai-usage"><strong data-testid="dev-ai-usage" data-usage="{{ p.id }}">{{ p.usage }}</strong> <span class="devbox-state" data-state="failed" data-testid="dev-ai-over" data-over-badge="{{ p.id }}"{% if !p.over %} hidden{% endif %}>limit reached</span></p>
+      <p class="small muted" data-detail="{{ p.id }}" data-testid="dev-ai-detail">{{ p.detail }}</p>
+      <div class="devai-keys" role="group" aria-label="{{ p.label }}: copy a key">
+        {% for k in p.keys %}<button type="button" class="devai-key" data-provider="{{ k.provider }}" data-copy-key="{{ k.key }}" title="Copy {{ k.key }}" aria-label="Copy the {{ k.label }} key, {{ k.key }}" data-testid="dev-ai-key"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 7h9v9H7zM4 13V4h9"/></svg><span data-key-label>{{ k.label }}</span></button>{% endfor %}
+      </div>
+
+      <form method="post" action="{{ p.action }}" class="devai-line" data-testid="dev-ai-limit-form">
+        <input type="hidden" name="do" value="settings">
+        <label>Limit <input name="limit" type="number" min="0" step="any" value="{{ p.limit }}" placeholder="none" data-testid="dev-ai-limit"></label>
+        <label>in <select name="measure" data-testid="dev-ai-measure">{% for m in measures %}<option value="{{ m.0 }}"{% if m.0 == p.measure %} selected{% endif %}>{{ m.1 }}</option>{% endfor %}</select></label>
+        <button type="submit" class="btn small" data-testid="dev-ai-limit-save">Save</button>
+      </form>
+
+      <div class="devai-line">
+        <form method="post" action="{{ p.action }}"><input type="hidden" name="do" value="reset"><button type="submit" class="btn ghost small" data-testid="dev-ai-reset">Reset usage</button></form>
+        {% if p.exhausted %}
+        <form method="post" action="{{ p.action }}"><input type="hidden" name="do" value="lift"><button type="submit" class="btn ghost small" data-testid="dev-ai-lift">Lift "limit reached"</button></form>
+        {% else %}
+        <form method="post" action="{{ p.action }}"><input type="hidden" name="do" value="exhaust"><button type="submit" class="btn danger small" data-testid="dev-ai-exhaust">Hit the limit now</button></form>
+        {% endif %}
+      </div>
+
+      <form method="post" action="{{ p.action }}" class="devai-line" data-testid="dev-ai-inject-form">
+        <input type="hidden" name="do" value="inject">
+        <label>Fail with <select name="fault" data-testid="dev-ai-fault">{% for f in faults %}<option value="{{ f.0 }}">{{ f.1 }}</option>{% endfor %}</select></label>
+        <label>hang <input name="hang" type="number" min="1" max="900" value="{{ default_hang }}" class="devai-num" data-testid="dev-ai-hang"> s</label>
+        <label><input type="radio" name="mode" value="once" checked data-testid="dev-ai-once"> next request</label>
+        <label><input type="radio" name="mode" value="sticky" data-testid="dev-ai-sticky"> every request</label>
+        <button type="submit" class="btn small" data-testid="dev-ai-inject">Inject</button>
+      </form>
+      <form method="post" action="{{ p.action }}" class="devai-line" data-inject-row="{{ p.id }}"{% if p.inject.is_none() %} hidden{% endif %}>
+        <input type="hidden" name="do" value="clear-inject">
+        <span class="small">Injected: <span data-testid="dev-ai-injected" data-inject="{{ p.id }}">{% if let Some(i) = p.inject %}{{ i }}{% endif %}</span></span>
+        <button type="submit" class="btn ghost small" data-testid="dev-ai-clear-inject">Clear</button>
+      </form>
+    </article>
+    {% endfor %}
+  </div>
+
+  <div class="devai-section-head">
+    <h2>Calls</h2>
+    <form method="post" action="{{ crate::url("/dev/ai/clear") }}" data-live><button type="submit" class="btn ghost small" data-testid="dev-ai-clear">Empty the log</button></form>
+  </div>
+  <div class="devbox-frame">
+    <table class="devbox-table devai-log" data-testid="dev-ai-log">
+      <tbody data-rows="log">{{ log|safe }}</tbody>
+    </table>
+  </div>
+
+  <div class="devai-section-head">
+    <h2>Fixtures</h2>
+    <button type="button" class="info-btn" data-opens="devai-fixtures-info" aria-haspopup="dialog" aria-label="About the fixtures" title="About the fixtures" data-testid="dev-ai-fixtures-info"><span aria-hidden="true">i</span></button>
+  </div>
+  <div class="devbox-frame">
+    <table class="devbox-table" data-testid="dev-ai-fixtures">
+      <tbody>
+        {% for f in fixtures %}
+        <tr class="devbox-row" data-testid="dev-ai-fixture" data-name="{{ f.name }}" data-edited="{{ f.edited }}" data-href="{{ f.href }}">
+          <td class="devbox-what"><a href="{{ f.href }}" class="devbox-subject" data-testid="dev-ai-fixture-open">{{ f.name }}.json</a>{% if f.edited %} <span class="devbox-state" data-testid="dev-ai-fixture-edited">edited</span>{% endif %}{% if !f.on_disk %} <span class="devbox-state">not saved</span>{% endif %}</td>
+          <td class="small">{% if f.error.is_empty() %}{% for k in f.keys %}<code>{{ k }}</code>{% if !loop.last %} {% endif %}{% endfor %}{% else %}<span class="bad-text">{{ f.error }}</span>{% endif %}</td>
+        </tr>
+        {% endfor %}
+        {% if fixtures.is_empty() %}<tr class="devbox-empty"><td colspan="2">No fixture files.</td></tr>{% endif %}
+      </tbody>
+    </table>
+  </div>
+
+  <form method="post" action="{{ crate::url("/dev/ai/fixtures") }}" class="devai-scenario" data-testid="dev-ai-scenario-form">
+    <h3>Add a scenario</h3>
+    <div class="devai-line">
+      <label>File <select name="purpose" data-testid="dev-ai-scenario-purpose">{% for f in fixtures %}<option value="{{ f.name }}">{{ f.name }}</option>{% endfor %}</select></label>
+      <label>Name <input name="scenario" type="text" required maxlength="64" placeholder="my-case" data-testid="dev-ai-scenario-name"></label>
+      <label>Delay <input name="delay_ms" type="number" min="0" class="devai-num" placeholder="0" data-testid="dev-ai-scenario-delay"> ms</label>
+    </div>
+    <label class="sr-only" for="devai-reply">Reply</label>
+    <textarea id="devai-reply" name="reply" rows="4" class="mono" placeholder="The reply: JSON or text" data-testid="dev-ai-scenario-reply"></textarea>
+    <label class="sr-only" for="devai-error">Or an error</label>
+    <input id="devai-error" name="error" type="text" placeholder="Or an error instead, e.g. the API answered HTTP 429. rate limited" data-testid="dev-ai-scenario-error">
+    <p><button type="submit" class="btn small" data-testid="dev-ai-scenario-add">Add</button></p>
+  </form>
+
+  <form method="post" action="{{ crate::url("/dev/ai/hold") }}" class="devai-line devai-hold" data-live data-testid="dev-ai-hold-form" data-holding="{{ holding }}">
+    <input type="hidden" name="do" value="{% if holding %}off{% else %}on{% endif %}" data-hold-do>
+    <button type="submit" class="devai-pill" role="switch" aria-checked="{{ holding }}" data-testid="dev-ai-hold-toggle"><span class="devai-pill-dot" aria-hidden="true"></span><span>Manual replies: <span data-testid="dev-ai-hold-state">{% if holding %}on{% else %}off{% endif %}</span></span></button>
+    <a href="#held" class="small" data-held-count data-testid="dev-ai-held-link"{% if !holding %} hidden{% endif %}>{{ pending }} waiting</a>
+    <button type="button" class="info-btn" data-opens="devai-hold-info" aria-haspopup="dialog" aria-label="About manual replies" title="About manual replies" data-testid="dev-ai-hold-info"><span aria-hidden="true">i</span></button>
+  </form>
+  <div class="devai-held" id="held" data-testid="dev-ai-held"{% if !holding %} hidden{% endif %}>
+    <div class="devai-section-head">
+      <h2>Manual replies</h2>
+      <span class="small muted" data-held-count>{{ pending }} waiting</span>
+    </div>
+    <p class="small muted">Each request the fixtures would answer waits here, newest first, until you reply to it (or write its <code>.response.txt</code> into <code>{{ capture_dir }}/</code>). Start a reply with <code>ERROR:</code> to play a provider failure.</p>
+    <div class="devbox-frame devai-held-box" data-rows="held">{{ held|safe }}</div>
+  </div>
+</section>
+
+<dialog class="modal" id="devai-info" aria-labelledby="devai-info-title" data-testid="dev-ai-info-dialog">
+  <h2 id="devai-info-title">The dev AI provider</h2>
+  <p>A stand-in for Anthropic and OpenAI (and Gemini's OpenAI endpoint) that speaks their real APIs and answers from the fixtures. Mode: <span data-testid="dev-ai-mode">{{ mode }}</span>.</p>
+  <p>Base URLs:</p>
+  <ul class="small">{% for b in bases %}<li><code>{{ b.0 }}</code>: <code data-testid="dev-ai-base" data-format="{{ b.0 }}">{{ b.1 }}</code></li>{% endfor %}</ul>
+  <p class="small">The <strong>platform key</strong> profile is what the app would use on a learner's behalf; <strong>the learner's own keys</strong> are the ones on their profile. Each has its own usage, limit and injected failure. Once over the limit, Anthropic answers HTTP 400 "You have reached your specified API usage limits", OpenAI HTTP 429 <code>insufficient_quota</code>. Dollars come from a made-up price table (per million tokens; tokens are 4 characters). The app's client gives up after {{ timeout }}.</p>
+  <p class="small">In memory until the server stops. As JSON: <a href="{{ crate::url("/dev/ai?format=json") }}">state, log and fixtures</a>.</p>
+  <div class="modal-actions"><button type="button" class="btn" data-closes>OK</button></div>
+</dialog>
+<dialog class="modal" id="devai-hold-info" aria-labelledby="devai-hold-info-title" data-testid="dev-ai-hold-info-dialog">
+  <h2 id="devai-hold-info-title">Manual replies</h2>
+  <p>On, each request the fixtures would answer is written to the capture directory (<code>SKRONGLE_LLM_DIR</code>, <code>./dev-llm</code>) and waits in the <strong>Manual replies</strong> section at the bottom of this page until you answer it there (or write its <code>.response.txt</code>). A reply starting with <code>ERROR:</code> answers with that error. Usage limits and injected failures still come first.</p>
+  <p class="small"><code>./.dev-start --llm capture</code> starts with it on.</p>
+  <div class="modal-actions"><button type="button" class="btn" data-closes>OK</button></div>
+</dialog>
+<dialog class="modal" id="devai-fixtures-info" aria-labelledby="devai-fixtures-info-title" data-testid="dev-ai-fixtures-info-dialog">
+  <h2 id="devai-fixtures-info-title">Fixtures</h2>
+  <p>One file per call site (<code>generate-outline</code>, <code>tutor-turn</code>, …), with replies by key: a lesson's slug, else a <code>[fixture:NAME]</code> token in the prompt (e.g. in the wish), else <code>default</code>; then <code>*</code>. The app names the call site in its <code>x-skrongle-call</code> header.</p>
+  <p class="small">Edits are in memory for this server run. Save to file writes them back; Reset goes back to the file.</p>
+  <div class="modal-actions"><button type="button" class="btn" data-closes>OK</button></div>
+</dialog>
+{% endblock %}
+{% block scripts %}<script src="{{ crate::routes::asset_url("devbox.js") }}" defer></script>{% endblock %}

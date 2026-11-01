@@ -1,0 +1,76 @@
+# Self-hosted GitHub Actions runners for alexbeeken/pooki, on the laptop.
+# The workflows pick them with `runs-on: ${{ vars.CI_RUNNER || 'laptop' }}`.
+# Eight runners so a PR's `checks` jobs (the e2e suites run in shards) and a
+# second PR's run side by side; each keeps
+# its own work volume, so builds stay incremental between jobs: the Rust build
+# goes to CARGO_TARGET_DIR in the volume, outside the checkout, where
+# actions/checkout's `git clean -ffdx` cannot delete it before every job.
+# Start and stop with scripts/ci-runners.sh; see docs/testing.md, "CI runners".
+x-runner: &runner
+  build:
+    context: .
+    args:
+      # Set by scripts/ci-runners.sh from e2e/package.json.
+      PLAYWRIGHT_VERSION: ${PLAYWRIGHT_VERSION:-1.64.1}
+  image: pooki-ci-runner
+  restart: unless-stopped
+  environment: &env
+    REPO_URL: https://github.com/alexbeeken/pooki
+    RUNNER_SCOPE: repo
+    LABELS: laptop
+    RANDOM_RUNNER_SUFFIX: "true"
+    # A fine-grained token for this repo with "Administration: Read and write",
+    # from the shell that runs `scripts/ci-runners.sh up`.
+    ACCESS_TOKEN: ${POOKI_CI_RUNNER_TOKEN:?set POOKI_CI_RUNNER_TOKEN (see docs/testing.md, CI runners)}
+    UNSET_CONFIG_VARS: "true"   # keep ACCESS_TOKEN out of the jobs' env
+    CARGO_TARGET_DIR: /_work/cargo-target   # the persistent, incremental build
+    # The same checkout path on every runner (each still has its own volume),
+    # so a debug server built on one serves static/ on another (rust-embed
+    # reads it from the build's path); see scripts/ci-build.sh.
+    RUNNER_WORKDIR: /_work/runner
+  shm_size: 2gb                 # Chromium needs more than Docker's 64 MB
+
+services:
+  runner-1:
+    <<: *runner
+    environment: { <<: *env, RUNNER_NAME_PREFIX: laptop-1 }
+    volumes: [work-1:/_work, shared:/_shared]
+  runner-2:
+    <<: *runner
+    environment: { <<: *env, RUNNER_NAME_PREFIX: laptop-2 }
+    volumes: [work-2:/_work, shared:/_shared]
+  runner-3:
+    <<: *runner
+    environment: { <<: *env, RUNNER_NAME_PREFIX: laptop-3 }
+    volumes: [work-3:/_work, shared:/_shared]
+  runner-4:
+    <<: *runner
+    environment: { <<: *env, RUNNER_NAME_PREFIX: laptop-4 }
+    volumes: [work-4:/_work, shared:/_shared]
+  runner-5:
+    <<: *runner
+    environment: { <<: *env, RUNNER_NAME_PREFIX: laptop-5 }
+    volumes: [work-5:/_work, shared:/_shared]
+  runner-6:
+    <<: *runner
+    environment: { <<: *env, RUNNER_NAME_PREFIX: laptop-6 }
+    volumes: [work-6:/_work, shared:/_shared]
+  runner-7:
+    <<: *runner
+    environment: { <<: *env, RUNNER_NAME_PREFIX: laptop-7 }
+    volumes: [work-7:/_work, shared:/_shared]
+  runner-8:
+    <<: *runner
+    environment: { <<: *env, RUNNER_NAME_PREFIX: laptop-8 }
+    volumes: [work-8:/_work, shared:/_shared]
+
+volumes:
+  shared:   # one server binary per commit, for every job (scripts/ci-build.sh)
+  work-1:
+  work-2:
+  work-3:
+  work-4:
+  work-5:
+  work-6:
+  work-7:
+  work-8:

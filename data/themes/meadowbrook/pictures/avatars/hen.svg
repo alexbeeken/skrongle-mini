@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Hen">
+  <defs><radialGradient id="bg" cx="0.35" cy="0.3" r="0.9"><stop offset="0" stop-color="#ffffff" stop-opacity="0.7"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient></defs>
+  <circle cx="32" cy="32" r="32" fill="url(#bg)"/>
+  <path d="M6 20 Q32 -4 58 20" stroke="#ffffff" stroke-opacity="0.35" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <ellipse cx="31" cy="40" rx="18" ry="14" fill="#fff3df"/>
+  <circle cx="40" cy="25" r="10" fill="#fff3df"/>
+  <path d="M35 16 Q38 9 41 15 Q44 9 47 17 Z" fill="#d9503c"/>
+  <path d="M48 24 L57 26 L49 28 Z" fill="#f09a2a"/><path d="M49 28 L56 30 L48 31 Z" fill="#d9801a"/>
+  <path d="M44 31 Q47 38 42 37 Z" fill="#d9503c"/>
+  <circle cx="43" cy="23" r="2.2" fill="#3b2a1a"/><circle cx="43.8" cy="22.3" r="0.8" fill="#fff"/><circle cx="39" cy="28" r="2.4" fill="#f5a0a0" opacity="0.6"/>
+  <path d="M16 38 Q22 46 32 44" stroke="#e8cfa4" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M26 53 V59 M36 53 V59" stroke="#f09a2a" stroke-width="3" stroke-linecap="round"/>
+</svg>

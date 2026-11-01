@@ -1,0 +1,47 @@
+{
+  "id": "tc-bites",
+  "slug": "bites",
+  "title": "Bites",
+  "unit": "exercises",
+  "group": "sprint",
+  "order": 10,
+  "summary": "Hand-written Sprint mode bites.",
+  "focus": "Sprint mode bites",
+  "content": "## Bites\n\nA bite is the idea in one breath. It is not graded.",
+  "quiz": [
+    {
+      "question_id": "tc-bites-01",
+      "prompt": "When do you say 'buenos días'?",
+      "type": "multiple-choice",
+      "options": [
+        "in the morning",
+        "at night"
+      ],
+      "correct_answer": "in the morning",
+      "explanation": "Buenos días is good morning."
+    }
+  ],
+  "sprint": {
+    "icon": "💡",
+    "bites": [
+      {
+        "title": "Buenos días",
+        "emoji": "🌅",
+        "rule": "Say buenos días until lunch.",
+        "example": "Buenos días, señora.",
+        "example_meaning": "Good morning, madam."
+      },
+      {
+        "title": "Buenas tardes",
+        "rule": "Say buenas tardes in the afternoon.",
+        "example": "Buenas tardes, Luis.",
+        "example_meaning": "Good afternoon, Luis."
+      },
+      {
+        "title": "Buenas noches",
+        "emoji": "🌙",
+        "rule": "Say buenas noches in the evening and at bedtime."
+      }
+    ]
+  }
+}

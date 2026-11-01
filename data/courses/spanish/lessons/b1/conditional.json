@@ -1,0 +1,1356 @@
+{
+  "id": "b1-conditional",
+  "slug": "conditional",
+  "title": "The conditional: hablaría, tendría",
+  "unit": "B1",
+  "group": "Grammar",
+  "order": 24,
+  "summary": "Would in Spanish: -ía endings on the infinitive, the future's irregular stems, and the conditional for advice, polite requests, daydreams and looking back.",
+  "focus": "Forming the simple conditional and using it for advice, politeness, hypotheses, past probability and the future seen from the past",
+  "prerequisites": [
+    "a2-future-simple",
+    "a2-obligation-and-advice"
+  ],
+  "content": "## Forms: endings on the infinitive\n\nThe conditional is the English *would*, as in **hablaría** (I would speak). Like the future, it keeps the whole infinitive and adds endings, and the endings are the same for -ar, -er and -ir verbs:\n\n| | hablar | comer | vivir |\n|---|---|---|---|\n| yo | hablaría | comería | viviría |\n| tú | hablarías | comerías | vivirías |\n| él / ella / usted | hablaría | comería | viviría |\n| nosotros/as | hablaríamos | comeríamos | viviríamos |\n| vosotros/as | hablaríais | comeríais | viviríais |\n| ellos / ellas / ustedes | hablarían | comerían | vivirían |\n\nEvery ending carries an accent on the **í**. Don't mix it up with the imperfect. **Comía** means I was eating, and **comería** means I would eat. The yo and él forms are the same, so add **yo** or **él** when it isn't clear.\n\n## Irregular stems: the same as the future\n\nThe conditional uses exactly the irregular stems of the future, so you only learn them once.\n\n| infinitive | future | conditional |\n|---|---|---|\n| tener | tendré | **tendría** |\n| venir | vendré | **vendría** |\n| poner | pondré | **pondría** |\n| salir | saldré | **saldría** |\n| saber | sabré | **sabría** |\n| haber | habrá | **habría** |\n| hacer | haré | **haría** |\n| decir | diré | **diría** |\n\nYou already know **podría** and **querría**. **Ir** is regular: **iría**. As *there would be*, **habría** has one form only, like **hay**. The six forms of **haber** in the drill are the auxiliary you will use at B2: **habría hecho**.\n\n## Advice and polite requests\n\nTo give advice, imagine yourself in the other person's shoes:\n\n- **Yo que tú, saldría antes.** If I were you, I'd leave earlier.\n- **Yo en tu lugar, no diría nada.** In your place, I wouldn't say anything.\n- **Deberías descansar.** You should rest.\n\nTo ask politely, the conditional softens the question:\n\n- **¿Podrías ayudarme?** Could you help me?\n- **¿Te importaría esperar un momento?** Would you mind waiting a moment? (The pattern is **¿Te importaría** + infinitive?)\n- **¿Tienes un minuto?** becomes **¿Tendrías un minuto?** (Would you have a minute?)\n\n## Wishes and daydreams\n\n**Me encantaría** and **me gustaría** + infinitive say what you would love or like to do:\n\n- **Me encantaría vivir en el campo.** I'd love to live in the countryside.\n\nImagined situations take the conditional too, with a short phrase instead of an *if*-clause:\n\n- **Con más tiempo, aprendería a cocinar.** With more time, I'd learn to cook.\n- **En tu casa, yo pondría un sofá grande.** In your house, I'd put a big sofa.\n- **¿Qué harías con un millón de euros?** What would you do with a million euros?\n\nThe full *if*-sentence (si tuviera dinero, viajaría…) needs the imperfect subjunctive, which comes at B2.\n\n## Guessing about the past, and the future seen from the past\n\nThe future guesses about *now*; the conditional guesses about *then*:\n\n- **Serán las diez.** It's probably about ten (now).\n- **Cuando llegó, serían las diez.** When he arrived, it must have been about ten.\n- **Habría mucho tráfico.** There must have been a lot of traffic.\n\nWhen you report a promise or plan made in the past, its future becomes conditional:\n\n- **Dice que vendrá.** In the past it becomes **Dijo que vendría.** He said he would come.\n- **Sabía que lo harías.** I knew you would do it.",
+  "vocabulary": [
+    {
+      "term": "yo que tú",
+      "meaning": "if I were you",
+      "example": "Yo que tú, iría al médico hoy.",
+      "example_meaning": "If I were you, I'd go to the doctor today."
+    },
+    {
+      "term": "yo en tu lugar",
+      "meaning": "in your place, if I were you",
+      "example": "Yo en tu lugar, no le diría nada.",
+      "example_meaning": "In your place, I wouldn't tell him anything."
+    },
+    {
+      "term": "te importaría",
+      "meaning": "would you mind (+ infinitive)",
+      "example": "¿Te importaría hablar más despacio?",
+      "example_meaning": "Would you mind speaking more slowly?"
+    },
+    {
+      "term": "echar una mano",
+      "meaning": "to lend a hand",
+      "example": "Mañana te echaría una mano, pero trabajo.",
+      "example_meaning": "I'd give you a hand tomorrow, but I'm working."
+    },
+    {
+      "term": "la mudanza",
+      "meaning": "house move, removal",
+      "example": "La mudanza sería más fácil con una furgoneta.",
+      "example_meaning": "The move would be easier with a van."
+    },
+    {
+      "term": "encantar",
+      "meaning": "to delight (I'd love = me encantaría)",
+      "example": "Nos encantaría conocer a tus padres.",
+      "example_meaning": "We'd love to meet your parents."
+    },
+    {
+      "term": "el campo",
+      "meaning": "the countryside",
+      "example": "En el campo viviríamos más tranquilos.",
+      "example_meaning": "In the countryside we'd live more peacefully."
+    },
+    {
+      "term": "el atasco",
+      "meaning": "traffic jam",
+      "example": "Tardó dos horas: habría un atasco.",
+      "example_meaning": "It took him two hours: there must have been a traffic jam."
+    },
+    {
+      "term": "prometer",
+      "meaning": "to promise",
+      "example": "Me prometiste que harías la cena.",
+      "example_meaning": "You promised me you'd make dinner."
+    },
+    {
+      "term": "avisar",
+      "meaning": "to let know, to warn",
+      "example": "Dijeron que nos avisarían por la mañana.",
+      "example_meaning": "They said they'd let us know in the morning."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-conditional-01",
+      "prompt": "Tienes un problema con tu jefe. Yo que tú, ___ con él.",
+      "type": "multiple-choice",
+      "options": [
+        "hablaría",
+        "hablaré",
+        "hablarías"
+      ],
+      "correct_answer": "hablaría",
+      "explanation": "Yo que tú + conditional, in the yo form: hablaría (I would talk). Hablaré is a plan, not advice; hablarías is 'you would'.",
+      "hints": [
+        "The speaker imagines what *I* would do."
+      ],
+      "teaches": [
+        "yo que tú"
+      ]
+    },
+    {
+      "question_id": "b1-conditional-02",
+      "prompt": "Yo en tu lugar, ___ (tener) más paciencia.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "tendría",
+      "accepted_answers": [],
+      "explanation": "Tener has the same irregular stem as the future (tendré): tendr- + -ía gives tendría.",
+      "hints": [
+        "Think of the future: tendré.",
+        "Stem tendr- plus the yo ending -ía."
+      ],
+      "teaches": [
+        "yo en tu lugar"
+      ]
+    },
+    {
+      "question_id": "b1-conditional-03",
+      "prompt": "¿Te importaría ___ una mano con la mudanza?",
+      "type": "multiple-choice",
+      "options": [
+        "echarme",
+        "me echarías",
+        "me echas"
+      ],
+      "correct_answer": "echarme",
+      "explanation": "¿Te importaría…? is followed by an infinitive, with the pronoun attached: ¿Te importaría echarme una mano?",
+      "hints": [
+        "Would you mind + doing: what form follows?"
+      ],
+      "teaches": [
+        "te importaría",
+        "echar una mano",
+        "la mudanza"
+      ]
+    },
+    {
+      "question_id": "b1-conditional-04",
+      "prompt": "Me ___ (encantar) vivir en el campo.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "encantaría",
+      "accepted_answers": [],
+      "explanation": "Encantar works like gustar: the thing loved (vivir en el campo) is the subject, so the verb is singular: me encantaría.",
+      "hints": [
+        "Like me gustaría.",
+        "Singular: an infinitive is the subject."
+      ],
+      "teaches": [
+        "encantar",
+        "el campo"
+      ]
+    },
+    {
+      "question_id": "b1-conditional-05",
+      "prompt": "Anoche Luis no contestó al teléfono. ¿Dónde estaba? ___ en el campo, sin cobertura.",
+      "type": "multiple-choice",
+      "options": [
+        "Estaría",
+        "Estaré",
+        "Estarías"
+      ],
+      "correct_answer": "Estaría",
+      "explanation": "A guess about the past uses the conditional, third person: estaría means he was probably. Estaré is 'I will be'; estarías is 'you would be'.",
+      "hints": [
+        "We are guessing about Luis, last night."
+      ],
+      "teaches": [
+        "el campo"
+      ]
+    },
+    {
+      "question_id": "b1-conditional-06",
+      "prompt": "Ayer Ana me prometió que ___ (venir) a la fiesta, pero al final no vino.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "vendría",
+      "accepted_answers": [
+        "ella vendría"
+      ],
+      "explanation": "A promise made in the past: its future (vendré) becomes the conditional, vendría. Same stem as the future: vendr-.",
+      "hints": [
+        "Future seen from the past.",
+        "Stem vendr-."
+      ],
+      "teaches": [
+        "prometer"
+      ]
+    },
+    {
+      "question_id": "b1-conditional-07",
+      "prompt": "Estoy perdido en la ciudad. ¿Qué ___ tú en mi lugar?",
+      "type": "multiple-choice",
+      "options": [
+        "harías",
+        "hacerías",
+        "harás"
+      ],
+      "correct_answer": "harías",
+      "explanation": "Hacer has the short stem har- (haré, haría): ¿Qué harías tú en mi lugar? Hacerías does not exist, and harás asks about your own plans.",
+      "hints": [
+        "Hacer becomes haré in the future."
+      ],
+      "teaches": [
+        "yo en tu lugar"
+      ]
+    },
+    {
+      "question_id": "b1-conditional-08",
+      "prompt": "Ayer Juan llegó muy tarde: ___ un atasco en la autopista.",
+      "type": "multiple-choice",
+      "options": [
+        "habría",
+        "habrá",
+        "habrían"
+      ],
+      "correct_answer": "habría",
+      "explanation": "A guess about yesterday: the conditional of hay, habría (there must have been). Like hay, it has one form only, so never habrían here; habrá guesses about now.",
+      "hints": [
+        "It's a guess about the past.",
+        "Hay never goes plural."
+      ],
+      "teaches": [
+        "el atasco"
+      ]
+    },
+    {
+      "question_id": "b1-conditional-09",
+      "prompt": "Me dijiste que me ___ (avisar) al llegar, ¡y no me llamaste!",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "avisarías",
+      "accepted_answers": [],
+      "explanation": "Reporting what 'you' said you would do: avisar + -ías gives avisarías. Regular verbs keep the whole infinitive.",
+      "hints": [
+        "The tú form.",
+        "Infinitive + -ías."
+      ],
+      "teaches": [
+        "avisar"
+      ]
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "hablar",
+      "meaning": "to speak, to talk",
+      "set": "conditional",
+      "forms": {
+        "yo": "hablaría",
+        "tu": "hablarías",
+        "el": "hablaría",
+        "nosotros": "hablaríamos",
+        "vosotros": "hablaríais",
+        "ellos": "hablarían"
+      }
+    },
+    {
+      "item": "comer",
+      "meaning": "to eat",
+      "set": "conditional",
+      "forms": {
+        "yo": "comería",
+        "tu": "comerías",
+        "el": "comería",
+        "nosotros": "comeríamos",
+        "vosotros": "comeríais",
+        "ellos": "comerían"
+      }
+    },
+    {
+      "item": "vivir",
+      "meaning": "to live",
+      "set": "conditional",
+      "forms": {
+        "yo": "viviría",
+        "tu": "vivirías",
+        "el": "viviría",
+        "nosotros": "viviríamos",
+        "vosotros": "viviríais",
+        "ellos": "vivirían"
+      }
+    },
+    {
+      "item": "tener",
+      "meaning": "to have",
+      "set": "conditional",
+      "forms": {
+        "yo": "tendría",
+        "tu": "tendrías",
+        "el": "tendría",
+        "nosotros": "tendríamos",
+        "vosotros": "tendríais",
+        "ellos": "tendrían"
+      }
+    },
+    {
+      "item": "hacer",
+      "meaning": "to do, to make",
+      "set": "conditional",
+      "forms": {
+        "yo": "haría",
+        "tu": "harías",
+        "el": "haría",
+        "nosotros": "haríamos",
+        "vosotros": "haríais",
+        "ellos": "harían"
+      }
+    },
+    {
+      "item": "decir",
+      "meaning": "to say, to tell",
+      "set": "conditional",
+      "forms": {
+        "yo": "diría",
+        "tu": "dirías",
+        "el": "diría",
+        "nosotros": "diríamos",
+        "vosotros": "diríais",
+        "ellos": "dirían"
+      }
+    },
+    {
+      "item": "salir",
+      "meaning": "to go out, to leave",
+      "set": "conditional",
+      "forms": {
+        "yo": "saldría",
+        "tu": "saldrías",
+        "el": "saldría",
+        "nosotros": "saldríamos",
+        "vosotros": "saldríais",
+        "ellos": "saldrían"
+      }
+    },
+    {
+      "item": "venir",
+      "meaning": "to come",
+      "set": "conditional",
+      "forms": {
+        "yo": "vendría",
+        "tu": "vendrías",
+        "el": "vendría",
+        "nosotros": "vendríamos",
+        "vosotros": "vendríais",
+        "ellos": "vendrían"
+      }
+    },
+    {
+      "item": "saber",
+      "meaning": "to know",
+      "set": "conditional",
+      "forms": {
+        "yo": "sabría",
+        "tu": "sabrías",
+        "el": "sabría",
+        "nosotros": "sabríamos",
+        "vosotros": "sabríais",
+        "ellos": "sabrían"
+      }
+    },
+    {
+      "item": "poner",
+      "meaning": "to put",
+      "set": "conditional",
+      "forms": {
+        "yo": "pondría",
+        "tu": "pondrías",
+        "el": "pondría",
+        "nosotros": "pondríamos",
+        "vosotros": "pondríais",
+        "ellos": "pondrían"
+      }
+    },
+    {
+      "item": "haber",
+      "meaning": "to have (auxiliary verb); habría = there would be",
+      "set": "conditional",
+      "forms": {
+        "yo": "habría",
+        "tu": "habrías",
+        "el": "habría",
+        "nosotros": "habríamos",
+        "vosotros": "habríais",
+        "ellos": "habrían"
+      }
+    },
+    {
+      "item": "ir",
+      "meaning": "to go",
+      "set": "conditional",
+      "forms": {
+        "yo": "iría",
+        "tu": "irías",
+        "el": "iría",
+        "nosotros": "iríamos",
+        "vosotros": "iríais",
+        "ellos": "irían"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-conditional-conv-job-in-valencia",
+      "title": "A job in Valencia",
+      "scenario": "Javier has been offered a job in another city and asks his friend Lucía what she would do.",
+      "role_a": "Javier",
+      "role_b": "Lucía",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Lucía, ¿tendrías cinco minutos? Necesito un consejo.",
+          "meaning": "Lucía, would you have five minutes? I need some advice."
+        },
+        {
+          "speaker": "b",
+          "text": "Claro. ¿Qué pasa?",
+          "meaning": "Of course. What's up?"
+        },
+        {
+          "speaker": "a",
+          "text": "Me ofrecen un trabajo en Valencia, pero tendría que mudarme.",
+          "meaning": "They're offering me a job in Valencia, but I'd have to move."
+        },
+        {
+          "speaker": "b",
+          "text": "¡Qué bien! Yo que tú, lo aceptaría sin pensarlo.",
+          "meaning": "Great! If I were you, I'd accept it without thinking twice."
+        },
+        {
+          "speaker": "a",
+          "text": "Ya, pero echaría de menos a mis amigos.",
+          "meaning": "Yeah, but I'd miss my friends."
+        },
+        {
+          "speaker": "b",
+          "text": "Podrías volver los fines de semana. Son solo tres horas en tren.",
+          "meaning": "You could come back at weekends. It's only three hours by train."
+        },
+        {
+          "speaker": "a",
+          "text": "Es verdad. Y me encantaría vivir cerca del mar.",
+          "meaning": "That's true. And I'd love to live near the sea."
+        },
+        {
+          "speaker": "b",
+          "text": "¿Ves? Además, yo te visitaría todos los meses.",
+          "meaning": "See? Besides, I'd visit you every month."
+        },
+        {
+          "speaker": "a",
+          "text": "Les dije que les daría una respuesta el lunes.",
+          "meaning": "I told them I'd give them an answer on Monday."
+        },
+        {
+          "speaker": "b",
+          "text": "Pues yo en tu lugar, los llamaría hoy mismo.",
+          "meaning": "Well, in your place, I'd call them today."
+        },
+        {
+          "speaker": "a",
+          "text": "Vale. ¿Me echarías una mano con la mudanza?",
+          "meaning": "OK. Would you give me a hand with the move?"
+        },
+        {
+          "speaker": "b",
+          "text": "¡Por supuesto! Aunque te costaría una paella.",
+          "meaning": "Of course! Although it would cost you a paella."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Yo que tú, saldría ahora.",
+      "meaning": "If I were you, I'd leave now.",
+      "note": "Salir becomes saldría, with the stem saldr-."
+    },
+    {
+      "text": "¿Podrías cerrar la ventana, por favor?",
+      "meaning": "Could you close the window, please?",
+      "note": "The conditional makes a request polite."
+    },
+    {
+      "text": "Me encantaría vivir cerca del puerto.",
+      "meaning": "I'd love to live near the harbour.",
+      "note": "New word: el puerto = the harbour."
+    },
+    {
+      "text": "Mi hermano dijo que vendría a cenar.",
+      "meaning": "My brother said he would come to dinner.",
+      "note": "Dijo que + conditional: the future seen from the past."
+    },
+    {
+      "text": "Yo en tu lugar, no diría nada a nadie.",
+      "meaning": "In your place, I wouldn't say anything to anybody.",
+      "note": "Decir becomes diría."
+    },
+    {
+      "text": "¿Te importaría echarme una mano con estas cajas?",
+      "meaning": "Would you mind giving me a hand with these boxes?",
+      "note": "New word: la caja = the box."
+    },
+    {
+      "text": "Cuando llegamos a casa, serían las doce de la noche.",
+      "meaning": "When we got home, it must have been about midnight.",
+      "note": "Serían: a guess about the past."
+    },
+    {
+      "text": "Con más dinero, compraríamos una casa en el campo y tendríamos gallinas.",
+      "meaning": "With more money, we'd buy a house in the countryside and we'd have hens.",
+      "note": "New word: la gallina = the hen."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Forms"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-conditional-01"
+    },
+    {
+      "section": "Irregular stems"
+    },
+    {
+      "question": "b1-conditional-02"
+    },
+    {
+      "question": "b1-conditional-07"
+    },
+    {
+      "section": "Advice and polite"
+    },
+    {
+      "question": "b1-conditional-03"
+    },
+    {
+      "tip": "Stuck on a stem? Say the future first (tendré, saldré, haré), then swap -é for -ía."
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "section": "Wishes"
+    },
+    {
+      "question": "b1-conditional-04"
+    },
+    {
+      "section": "Guessing"
+    },
+    {
+      "question": "b1-conditional-05"
+    },
+    {
+      "question": "b1-conditional-08"
+    },
+    {
+      "question": "b1-conditional-06"
+    },
+    {
+      "question": "b1-conditional-09"
+    }
+  ],
+  "sprint": {
+    "icon": "💭",
+    "bites": [
+      {
+        "title": "Would is -ía",
+        "emoji": "💭",
+        "rule": "Keep the whole infinitive and add -ía, -ías, -ía, -íamos, -íais, -ían. Same endings for -ar, -er and -ir, always with an accent.",
+        "example": "Viviría en el campo.",
+        "example_meaning": "I'd live in the countryside."
+      },
+      {
+        "title": "Future stems, again",
+        "emoji": "🔑",
+        "rule": "Irregular stems are the future's: tendr-, vendr-, pondr-, saldr-, sabr-, habr-, har-, dir-. Ir stays regular: iría.",
+        "example": "¿Qué harías tú?",
+        "example_meaning": "What would you do?"
+      },
+      {
+        "title": "Advice and favours",
+        "emoji": "🙋",
+        "rule": "Yo que tú / yo en tu lugar + conditional gives advice; ¿Podrías…? and ¿Te importaría + infinitive? ask nicely.",
+        "example": "Yo que tú, saldría ya.",
+        "example_meaning": "If I were you, I'd leave now."
+      },
+      {
+        "title": "Looking back",
+        "emoji": "🕰️",
+        "rule": "A guess about the past (serían las diez) and a past promise about the future (dijo que vendría) both take the conditional.",
+        "example": "Dijo que vendría a las ocho.",
+        "example_meaning": "She said she'd come at eight."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Future or conditional?",
+        "buckets": [
+          "future (will)",
+          "conditional (would)"
+        ],
+        "items": [
+          {
+            "text": "tendré",
+            "bucket": 0
+          },
+          {
+            "text": "tendría",
+            "bucket": 1
+          },
+          {
+            "text": "saldrás",
+            "bucket": 0
+          },
+          {
+            "text": "saldrías",
+            "bucket": 1
+          },
+          {
+            "text": "diremos",
+            "bucket": 0
+          },
+          {
+            "text": "diríamos",
+            "bucket": 1
+          },
+          {
+            "text": "vendrán",
+            "bucket": 0
+          },
+          {
+            "text": "vendrían",
+            "bucket": 1
+          }
+        ],
+        "why": "Both share the stem; the future ends in -é, -ás, -á…, the conditional in -ía, -ías, -ía…"
+      },
+      {
+        "title": "What is the conditional doing?",
+        "buckets": [
+          "advice",
+          "polite request",
+          "guess about the past"
+        ],
+        "items": [
+          {
+            "text": "Yo que tú, iría.",
+            "bucket": 0
+          },
+          {
+            "text": "Deberías dormir más.",
+            "bucket": 0
+          },
+          {
+            "text": "¿Podrías repetirlo?",
+            "bucket": 1
+          },
+          {
+            "text": "¿Te importaría esperar?",
+            "bucket": 1
+          },
+          {
+            "text": "Serían las tres.",
+            "bucket": 2
+          },
+          {
+            "text": "Habría mucha gente.",
+            "bucket": 2
+          }
+        ],
+        "why": "Advice imagines your place; requests soften a question; guesses look back at what was probably true."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Yo que tú, tenería más cuidado.",
+        "wrong": "tenería",
+        "fix": "tendría",
+        "why": "Tener uses the future stem tendr-: tendría."
+      },
+      {
+        "sentence": "Ayer me dijo que vendrá, pero no vino.",
+        "wrong": "vendrá",
+        "fix": "vendría",
+        "why": "Dijo que…: the future seen from the past becomes the conditional."
+      },
+      {
+        "sentence": "Nosotros viviriamos en el campo.",
+        "wrong": "viviriamos",
+        "fix": "viviríamos",
+        "why": "Every conditional ending has an accent on the í: viviríamos."
+      },
+      {
+        "sentence": "¿Qué hacerías tú en mi lugar?",
+        "wrong": "hacerías",
+        "fix": "harías",
+        "why": "Hacer has the short stem har-: harías."
+      },
+      {
+        "sentence": "Me encantarían viajar a México.",
+        "wrong": "encantarían",
+        "fix": "encantaría",
+        "why": "With an infinitive as the subject, encantar stays singular: me encantaría."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Yo que tú, saldría más temprano.",
+        "meaning": "If I were you, I'd leave earlier.",
+        "distractors": [
+          "saldré"
+        ]
+      },
+      {
+        "text": "¿Te importaría cerrar la puerta?",
+        "meaning": "Would you mind closing the door?",
+        "distractors": [
+          "cierres"
+        ]
+      },
+      {
+        "text": "Dijo que vendría a las ocho.",
+        "meaning": "He said he'd come at eight.",
+        "distractors": [
+          "vendrá"
+        ]
+      },
+      {
+        "text": "Con más tiempo, viajaríamos por Europa.",
+        "meaning": "With more time, we'd travel around Europe.",
+        "distractors": [
+          "viajamos"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "📜",
+      "content": "## El condicional en Eldmark\n\nThe guild's mage never orders, she advises: **yo que tú, no entraría en la mazmorra**. The dwarf asks politely: **¿podrías curarme?** The paladin dreams: **me encantaría tener una montura**. And after last night's battle, nobody knows the time: **serían las doce**.",
+      "vocabulary": [
+        {
+          "term": "yo que tú",
+          "example": "Yo que tú, no entraría en el Bosque Umbrío de noche.",
+          "example_meaning": "If I were you, I wouldn't go into the Bosque Umbrío at night."
+        },
+        {
+          "term": "yo en tu lugar",
+          "example": "Yo en tu lugar, iría con un paladín.",
+          "example_meaning": "In your place, I'd go with a paladin."
+        },
+        {
+          "term": "te importaría",
+          "example": "¿Te importaría abrir el cofre?",
+          "example_meaning": "Would you mind opening the chest?"
+        },
+        {
+          "term": "encantar",
+          "example": "Al enano le encantaría volver a Deepanvil.",
+          "example_meaning": "The dwarf would love to go back to Deepanvil."
+        },
+        {
+          "term": "prometer",
+          "example": "La elfa prometió que vendría a Highgate.",
+          "example_meaning": "The elf promised she would come to Highgate."
+        },
+        {
+          "term": "la mazmorra",
+          "meaning": "dungeon",
+          "example": "En esa mazmorra habría orcos.",
+          "example_meaning": "There must have been orcs in that dungeon."
+        },
+        {
+          "term": "el botín",
+          "meaning": "loot",
+          "example": "Con el botín compraríamos una espada nueva.",
+          "example_meaning": "With the loot we'd buy a new sword."
+        },
+        {
+          "term": "la montura",
+          "meaning": "mount",
+          "example": "Con una montura llegaría antes a Frostmarch.",
+          "example_meaning": "With a mount I'd get to Frostmarch sooner."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Consejos del gremio",
+          "emoji": "📜",
+          "rule": "Adventurers advise with yo que tú + conditional and ask favours with ¿podrías…?: entraría, iría, harías, saldría.",
+          "example": "Yo que tú, no abriría esa puerta.",
+          "example_meaning": "If I were you, I wouldn't open that door."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Yo que tú, iría al norte.",
+          "meaning": "If I were you, I'd go north."
+        },
+        {
+          "text": "La maga diría el hechizo.",
+          "meaning": "The mage would say the spell.",
+          "note": "New word: el hechizo = the spell."
+        },
+        {
+          "text": "Con más oro, el enano haría una espada.",
+          "meaning": "With more gold, the dwarf would make a sword."
+        },
+        {
+          "text": "El orco dijo que saldría al amanecer.",
+          "meaning": "The orc said he would leave at dawn.",
+          "note": "New word: el amanecer = the dawn."
+        },
+        {
+          "text": "¿Podrías llevar mi escudo a Emberhold?",
+          "meaning": "Could you take my shield to Emberhold?",
+          "note": "New word: el escudo = the shield."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Yo que tú, no abriría ese cofre.",
+          "meaning": "If I were you, I wouldn't open that chest.",
+          "distractors": [
+            "abriré"
+          ]
+        },
+        {
+          "text": "El paladín dijo que vendría pronto.",
+          "meaning": "The paladin said he'd come soon.",
+          "distractors": [
+            "vendrá"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "¿Qué hacerías con el botín?",
+          "wrong": "hacerías",
+          "fix": "harías",
+          "why": "Hacer has the stem har-: harías."
+        },
+        {
+          "sentence": "Yo en tu lugar, salería de la mazmorra.",
+          "wrong": "salería",
+          "fix": "saldría",
+          "why": "Salir has the stem saldr-: saldría."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "¿Futuro o condicional?",
+          "buckets": [
+            "future (will)",
+            "conditional (would)"
+          ],
+          "items": [
+            {
+              "text": "Mañana iré a Highgate.",
+              "bucket": 0
+            },
+            {
+              "text": "Yo que tú, iría a Highgate.",
+              "bucket": 1
+            },
+            {
+              "text": "El orco saldrá esta noche.",
+              "bucket": 0
+            },
+            {
+              "text": "Dijo que el orco saldría.",
+              "bucket": 1
+            },
+            {
+              "text": "Tendremos botín.",
+              "bucket": 0
+            },
+            {
+              "text": "Con más magia, tendríamos botín.",
+              "bucket": 1
+            }
+          ],
+          "why": "Plans and predictions take the future; advice, daydreams and what someone said they'd do take the conditional."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-conditional-realm-01",
+          "prompt": "Yo en tu lugar, no ___ en la mazmorra sin un paladín.",
+          "type": "multiple-choice",
+          "options": [
+            "entraría",
+            "entraré",
+            "entrarías"
+          ],
+          "correct_answer": "entraría",
+          "explanation": "Advice from my place: yo en tu lugar + conditional in the yo form, entraría.",
+          "hints": [
+            "Who would (not) go in: me or you?"
+          ],
+          "teaches": [
+            "yo en tu lugar",
+            "la mazmorra"
+          ]
+        },
+        {
+          "question_id": "b1-conditional-realm-02",
+          "prompt": "¿Qué ___ (hacer) vosotros con tanto botín?",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "haríais",
+          "accepted_answers": [
+            "vosotros haríais"
+          ],
+          "explanation": "Hacer has the stem har-; the vosotros ending is -íais: haríais.",
+          "hints": [
+            "Stem har-.",
+            "Vosotros: -íais."
+          ],
+          "teaches": [
+            "el botín"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🪴",
+      "content": "## El condicional en la granja\n\nIn Meadowbrook everybody gives advice. Rosa at the seed shop says **yo que tú, plantaría fresas**; Leo the fisherman dreams **me encantaría pescar en la playa**; el alcalde asks **¿podrías ayudar en el festival?** And when Nora got home late from the mine: **serían las nueve**.",
+      "vocabulary": [
+        {
+          "term": "yo que tú",
+          "example": "Yo que tú, plantaría calabazas este otoño.",
+          "example_meaning": "If I were you, I'd plant pumpkins this autumn."
+        },
+        {
+          "term": "te importaría",
+          "example": "¿Te importaría dar de comer a las gallinas?",
+          "example_meaning": "Would you mind feeding the hens?"
+        },
+        {
+          "term": "encantar",
+          "example": "A Leo le encantaría vivir al lado del río.",
+          "example_meaning": "Leo would love to live by the river."
+        },
+        {
+          "term": "prometer",
+          "example": "El alcalde prometió que el festival sería en verano.",
+          "example_meaning": "The mayor promised the festival would be in summer."
+        },
+        {
+          "term": "avisar",
+          "example": "Rosa dijo que nos avisaría el lunes.",
+          "example_meaning": "Rosa said she'd let us know on Monday."
+        },
+        {
+          "term": "echar una mano",
+          "example": "Nora te echaría una mano con las vacas.",
+          "example_meaning": "Nora would give you a hand with the cows."
+        },
+        {
+          "term": "la cosecha",
+          "meaning": "harvest",
+          "example": "La cosecha sería mejor con más lluvia.",
+          "example_meaning": "The harvest would be better with more rain."
+        },
+        {
+          "term": "la semilla",
+          "meaning": "seed",
+          "example": "Yo compraría semillas de maíz en la tienda de Rosa.",
+          "example_meaning": "I'd buy corn seeds at Rosa's shop."
+        },
+        {
+          "term": "la caña de pescar",
+          "meaning": "fishing rod",
+          "example": "Leo dijo que me prestaría su caña de pescar.",
+          "example_meaning": "Leo said he'd lend me his fishing rod."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Consejos de granja",
+          "emoji": "🌻",
+          "rule": "Neighbours advise with yo que tú + conditional and ask favours with ¿te importaría + infinitive?: plantaría, cosecharía, vendría.",
+          "example": "Yo que tú, cosecharía hoy.",
+          "example_meaning": "If I were you, I'd harvest today."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Yo que tú, plantaría maíz.",
+          "meaning": "If I were you, I'd plant corn."
+        },
+        {
+          "text": "Leo pescaría todo el día.",
+          "meaning": "Leo would fish all day."
+        },
+        {
+          "text": "¿Podrías vender mis fresas en el mercado?",
+          "meaning": "Could you sell my strawberries at the market?",
+          "note": "New word: el mercado = the market."
+        },
+        {
+          "text": "Rosa dijo que abriría la tienda tarde.",
+          "meaning": "Rosa said she'd open the shop late."
+        },
+        {
+          "text": "Con más vacas, haríamos más queso.",
+          "meaning": "With more cows, we'd make more cheese.",
+          "note": "New word: el queso = the cheese."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Yo que tú, cosecharía mañana.",
+          "meaning": "If I were you, I'd harvest tomorrow.",
+          "distractors": [
+            "cosecharé"
+          ]
+        },
+        {
+          "text": "El alcalde dijo que vendría al festival.",
+          "meaning": "The mayor said he'd come to the festival.",
+          "distractors": [
+            "vendrá"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Yo en tu lugar, plantaria fresas.",
+          "wrong": "plantaria",
+          "fix": "plantaría",
+          "why": "Conditional endings carry an accent on the í: plantaría."
+        },
+        {
+          "sentence": "Leo prometió que vendrá a la fiesta, pero no vino.",
+          "wrong": "vendrá",
+          "fix": "vendría",
+          "why": "A past promise about the future takes the conditional: vendría."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "¿Consejo o petición?",
+          "buckets": [
+            "advice",
+            "polite request"
+          ],
+          "items": [
+            {
+              "text": "Yo que tú, plantaría maíz.",
+              "bucket": 0
+            },
+            {
+              "text": "Deberías vender las fresas.",
+              "bucket": 0
+            },
+            {
+              "text": "Yo en tu lugar, iría a la mina.",
+              "bucket": 0
+            },
+            {
+              "text": "¿Podrías cuidar la vaca?",
+              "bucket": 1
+            },
+            {
+              "text": "¿Te importaría cerrar el granero?",
+              "bucket": 1
+            },
+            {
+              "text": "¿Me echarías una mano?",
+              "bucket": 1
+            }
+          ],
+          "why": "Advice imagines being in the other person's place; a request asks them, softly, to do something."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-conditional-meadowbrook-01",
+          "prompt": "La cosecha es mala este año. Yo que tú, ___ maíz el año que viene.",
+          "type": "multiple-choice",
+          "options": [
+            "plantaría",
+            "plantaré",
+            "plantarías"
+          ],
+          "correct_answer": "plantaría",
+          "explanation": "Yo que tú + conditional in the yo form: plantaría (I would plant).",
+          "hints": [
+            "Advice: what would *I* do?"
+          ],
+          "teaches": [
+            "yo que tú",
+            "la cosecha"
+          ]
+        },
+        {
+          "question_id": "b1-conditional-meadowbrook-02",
+          "prompt": "El alcalde nos prometió que el festival ___ (ser) en la playa, pero al final fue en la plaza.",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "sería",
+          "accepted_answers": [],
+          "explanation": "A past promise about the future: ser becomes sería.",
+          "hints": [
+            "Future seen from the past.",
+            "Ser is regular here: ser + -ía."
+          ],
+          "teaches": [
+            "prometer"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b1-conditional-conv-meadowbrook-seed-shop",
+          "title": "Advice at the seed shop",
+          "scenario": "Nora, the new farmer, asks Rosa at the seed shop what she should plant.",
+          "role_a": "Nora",
+          "role_b": "Rosa",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Rosa, ¿qué semillas me recomendarías para la primavera?",
+              "meaning": "Rosa, which seeds would you recommend for spring?"
+            },
+            {
+              "speaker": "b",
+              "text": "Yo que tú, plantaría fresas. Se venden muy bien.",
+              "meaning": "If I were you, I'd plant strawberries. They sell very well."
+            },
+            {
+              "speaker": "a",
+              "text": "¿Y no sería mejor el maíz?",
+              "meaning": "And wouldn't corn be better?"
+            },
+            {
+              "speaker": "b",
+              "text": "El maíz necesita más calor. En tu lugar, esperaría al verano.",
+              "meaning": "Corn needs more heat. In your place, I'd wait for summer."
+            },
+            {
+              "speaker": "a",
+              "text": "Vale. ¿Te importaría guardarme dos bolsas de semillas?",
+              "meaning": "OK. Would you mind keeping two bags of seeds for me?"
+            },
+            {
+              "speaker": "b",
+              "text": "Claro. Leo dijo que vendría a por semillas también.",
+              "meaning": "Sure. Leo said he'd come for seeds too."
+            },
+            {
+              "speaker": "a",
+              "text": "¡Me encantaría tener el mejor huerto del pueblo!",
+              "meaning": "I'd love to have the best vegetable garden in town!"
+            },
+            {
+              "speaker": "b",
+              "text": "Con esas fresas, lo tendrías.",
+              "meaning": "With those strawberries, you would."
+            }
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🪫",
+      "content": "## El condicional en el páramo\n\nOutside la cúpula, good advice saves lives: **yo que tú, no saldría con la tormenta de ceniza**. Marta la mercadera asks **¿te importaría pagar en tuercas?** And el capataz Ruiz said he **volvería** pronto… nobody has seen him since. **Estaría** en el taller, ¿no?",
+      "vocabulary": [
+        {
+          "term": "yo que tú",
+          "example": "Yo que tú, repararía el radiorreloj antes de salir.",
+          "example_meaning": "If I were you, I'd fix the wrist radio before going out."
+        },
+        {
+          "term": "avisar",
+          "example": "El radiorreloj nos avisaría de la tormenta.",
+          "example_meaning": "The wrist radio would warn us about the storm."
+        },
+        {
+          "term": "te importaría",
+          "example": "¿Te importaría cambiar agua por tuercas?",
+          "example_meaning": "Would you mind swapping water for nuts?"
+        },
+        {
+          "term": "prometer",
+          "example": "Leo el buscador prometió que traería gaseosa.",
+          "example_meaning": "Leo the scavenger promised he'd bring fizzy drink."
+        },
+        {
+          "term": "echar una mano",
+          "example": "El robot jardinero te echaría una mano.",
+          "example_meaning": "The gardener robot would give you a hand."
+        },
+        {
+          "term": "las tuercas",
+          "meaning": "nuts (the wasteland's money)",
+          "example": "Con cien tuercas compraría una armadura.",
+          "example_meaning": "With a hundred nuts I'd buy some armour."
+        },
+        {
+          "term": "el páramo",
+          "meaning": "the barren plains, wasteland",
+          "example": "Sin agua filtrada, nadie viviría en el páramo.",
+          "example_meaning": "Without filtered water, nobody would live in the wasteland."
+        },
+        {
+          "term": "la tormenta de ceniza",
+          "meaning": "ash storm",
+          "example": "La tormenta de ceniza duraría toda la noche.",
+          "example_meaning": "The ash storm would last all night."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Consejos del páramo",
+          "emoji": "📻",
+          "rule": "Out on the plains, advice comes as yo que tú + conditional and favours as ¿podrías…?: saldría, buscaría, repararía.",
+          "example": "Yo que tú, no bebería esa agua.",
+          "example_meaning": "If I were you, I wouldn't drink that water."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Yo que tú, buscaría agua filtrada.",
+          "meaning": "If I were you, I'd look for filtered water."
+        },
+        {
+          "text": "Marta cambiaría el disco por gaseosa.",
+          "meaning": "Marta would swap the disc for fizzy drink.",
+          "note": "New word: la gaseosa = the fizzy drink."
+        },
+        {
+          "text": "Ruiz dijo que volvería al taller.",
+          "meaning": "Ruiz said he would go back to the workshop.",
+          "note": "New word: el taller = the workshop."
+        },
+        {
+          "text": "¿Podrías reparar mi armadura de chatarra?",
+          "meaning": "Could you repair my scrap armour?",
+          "note": "New word: la chatarra = scrap metal."
+        },
+        {
+          "text": "Serían las tres cuando oímos al escarabajo.",
+          "meaning": "It must have been about three when we heard the beetle."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Yo que tú, no bebería esa agua.",
+          "meaning": "If I were you, I wouldn't drink that water.",
+          "distractors": [
+            "beberé"
+          ]
+        },
+        {
+          "text": "Marta dijo que vendería tónicos.",
+          "meaning": "Marta said she would sell tonics.",
+          "distractors": [
+            "venderá"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Ruiz dijo que volverá, pero no volvió.",
+          "wrong": "volverá",
+          "fix": "volvería",
+          "why": "Dijo que…: the future seen from the past takes the conditional, volvería."
+        },
+        {
+          "sentence": "Yo en tu lugar, ponería la radio.",
+          "wrong": "ponería",
+          "fix": "pondría",
+          "why": "Poner has the stem pondr-: pondría."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "¿Qué hace el condicional?",
+          "buckets": [
+            "advice",
+            "polite request",
+            "guess about the past"
+          ],
+          "items": [
+            {
+              "text": "Yo que tú, no saldría.",
+              "bucket": 0
+            },
+            {
+              "text": "Deberías reparar la antena.",
+              "bucket": 0
+            },
+            {
+              "text": "¿Podrías venderme agua?",
+              "bucket": 1
+            },
+            {
+              "text": "¿Te importaría esperar en el taller?",
+              "bucket": 1
+            },
+            {
+              "text": "Serían las diez cuando sonó la radio.",
+              "bucket": 2
+            },
+            {
+              "text": "Habría polvo en el camino.",
+              "bucket": 2
+            }
+          ],
+          "why": "Advice imagines your place, requests ask softly, and guesses look back at what was probably true."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-conditional-rustwake-01",
+          "prompt": "¿Te importaría ___ tus tuercas por mi agua?",
+          "type": "multiple-choice",
+          "options": [
+            "cambiar",
+            "cambiarías",
+            "cambies"
+          ],
+          "correct_answer": "cambiar",
+          "explanation": "¿Te importaría…? is followed by an infinitive: ¿Te importaría cambiar…?",
+          "hints": [
+            "Would you mind + doing…"
+          ],
+          "teaches": [
+            "te importaría",
+            "las tuercas"
+          ]
+        },
+        {
+          "question_id": "b1-conditional-rustwake-02",
+          "prompt": "Yo que tú, no ___ (salir) con esta tormenta de ceniza.",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "saldría",
+          "accepted_answers": [],
+          "explanation": "Salir has the future stem saldr-: saldría.",
+          "hints": [
+            "Future: saldré.",
+            "Stem saldr- + -ía."
+          ],
+          "teaches": [
+            "yo que tú",
+            "la tormenta de ceniza"
+          ]
+        }
+      ]
+    }
+  }
+}

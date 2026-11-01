@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Garden robot with a rake">
+  <path d="M54 22 L50 60" stroke="#8a5a2b" stroke-width="2.6" stroke-linecap="round"/>
+  <path d="M47 22 H61 M48 22 L47 13 M51.5 22 L51 13 M55 22 L55 13 M58.5 22 L59 13" stroke="#9aa3b2" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <path d="M32 14 L32 8" stroke="#8a9a9a" stroke-width="2.5"/><circle cx="32" cy="7" r="3" fill="#f0c030"/>
+  <path d="M8 64 Q10 44 32 43 Q54 44 56 64Z" fill="#6f8686"/>
+  <rect x="24" y="48" width="16" height="9" rx="1.5" fill="#3e8e5a"/><path d="M27 52 H37" stroke="#b9f0a8" stroke-width="1.4"/>
+  <rect x="28" y="38" width="8" height="7" fill="#4a5a5a"/>
+  <rect x="18" y="14" width="28" height="26" rx="4" fill="#8aa0a0"/>
+  <rect x="22" y="19" width="20" height="12" rx="2" fill="#0a0f0a"/>
+  <rect x="25" y="22" width="5" height="5" fill="#b9f0a8"/><rect x="34" y="22" width="5" height="5" fill="#b9f0a8"/>
+  <path d="M25 35 L39 35" stroke="#4a5a5a" stroke-width="2" stroke-dasharray="2 2"/>
+  <path d="M14 20 L18 20 M14 20 L14 30 L18 30" stroke="#5e6e6e" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+</svg>

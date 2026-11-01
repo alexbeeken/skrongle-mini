@@ -1,0 +1,1135 @@
+{
+  "id": "b1-possessive-demonstrative-pronouns",
+  "slug": "possessive-demonstrative-pronouns",
+  "title": "Le mien, celui-ci, celle de Marie",
+  "unit": "B1",
+  "group": "Grammar",
+  "order": 20,
+  "summary": "Replace a noun with a possessive pronoun (le mien, la tienne, les nôtres) or a demonstrative pronoun (celui-ci, celle de Marie, ceux qui), and use ça, cela and ceci.",
+  "focus": "Possessive and demonstrative pronouns that agree with the thing they replace",
+  "prerequisites": [
+    "a1-demonstratives-colours"
+  ],
+  "content": "## Le mien, la tienne, les nôtres\n\nA **possessive pronoun** replaces *my bag*, *your keys*. It agrees with **the thing owned**, not with the owner:\n\n| owner | m. sg. | f. sg. | m. pl. | f. pl. |\n|---|---|---|---|---|\n| je | le mien | la mienne | les miens | les miennes |\n| tu | le tien | la tienne | les tiens | les tiennes |\n| il / elle | le sien | la sienne | les siens | les siennes |\n| nous | le nôtre | la nôtre | les nôtres | les nôtres |\n| vous | le vôtre | la vôtre | les vôtres | les vôtres |\n| ils / elles | le leur | la leur | les leurs | les leurs |\n\n**Marc aime sa voiture ; Julie préfère la sienne.** — Julie prefers hers (**la**: *une voiture*).\n\n## Au mien, du mien, c'est à moi\n\nThe **le** and **les** of the pronoun contract with **à** and **de**, like any article:\n\n- **Je pense à mon examen. Et toi, au tien ?** — And you, (do you think) about yours?\n- **Il parle de ses parents, et moi des miens.** — He talks about his parents, and I about mine.\n\nTo say who something belongs to, use **être à** + a stress pronoun or a name:\n\n- **Ce stylo est à toi ?** — Is this pen yours? **Oui, il est à moi.** / **Oui, c'est le mien.**\n- **Cette maison est à mes grands-parents.**\n\nSpelling: the pronouns **le nôtre, le vôtre** take a circumflex; the adjectives **notre, votre** don't.\n\n## Celui, celle, ceux, celles\n\nA **demonstrative pronoun** means *the one(s)*. It agrees with the noun it replaces: **celui** (m. sg.), **celle** (f. sg.), **ceux** (m. pl.), **celles** (f. pl.). It never stands alone; add one of these:\n\n- **-ci / -là** (this one / that one): **Je prends celui-ci.** **Tu préfères celle-là ?**\n- **de** + owner (*'s*): **Ce n'est pas mon vélo, c'est celui de Marie.** — It's Marie's.\n- **qui / que** + a clause: **C'est la robe que je préfère** → **C'est celle que je préfère.** **Ceux qui veulent partir peuvent partir.** — Those who want to leave can leave.\n\n## Ça, cela, ceci\n\nWhen there is no named noun to agree with, use the neutral forms:\n\n- **ça** in everyday speech: **Ça me plaît.** — I like it. **C'est ça !** — That's right!\n- **cela** is the same word in writing or careful speech: **Cela ne change rien.**\n- **ceci** (this) points to what comes next or what is right here: **Lisez ceci avant de signer.** — Read this before signing.\n\n**Celui-ci** means *this one* (a thing you could name); **ceci** means *this* (no noun at all).",
+  "vocabulary": [
+    {
+      "term": "le mien",
+      "meaning": "mine (la mienne, les miens, les miennes)",
+      "example": "Ton ordinateur est plus rapide que le mien.",
+      "example_meaning": "Your computer is faster than mine."
+    },
+    {
+      "term": "le tien",
+      "meaning": "yours, for tu (la tienne, les tiens, les tiennes)",
+      "example": "Mes chaussures sont sales ; je peux mettre les tiennes ?",
+      "example_meaning": "My shoes are dirty; can I wear yours?"
+    },
+    {
+      "term": "le sien",
+      "meaning": "his, hers (la sienne, les siens, les siennes)",
+      "example": "Léa a oublié son livre, alors Tom lui prête le sien.",
+      "example_meaning": "Léa forgot her book, so Tom lends her his."
+    },
+    {
+      "term": "le nôtre",
+      "meaning": "ours (la nôtre, les nôtres)",
+      "example": "Votre jardin est joli, mais le nôtre a plus de fleurs.",
+      "example_meaning": "Your garden is pretty, but ours has more flowers."
+    },
+    {
+      "term": "le leur",
+      "meaning": "theirs (la leur, les leurs)",
+      "example": "Nos voisins ont un chien ; le leur aboie toute la nuit.",
+      "example_meaning": "Our neighbours have a dog; theirs barks all night."
+    },
+    {
+      "term": "celui-ci",
+      "meaning": "this one (m); celui-là = that one",
+      "example": "Quel gâteau tu veux ? Celui-ci ou celui-là ?",
+      "example_meaning": "Which cake do you want? This one or that one?"
+    },
+    {
+      "term": "celle de",
+      "meaning": "the one of, someone's (f); celui de (m)",
+      "example": "Ma chambre est petite, mais celle de mon frère est encore plus petite.",
+      "example_meaning": "My room is small, but my brother's is even smaller."
+    },
+    {
+      "term": "ceux qui",
+      "meaning": "those who, the ones that (m pl); celles qui (f pl)",
+      "example": "Ceux qui ont fini peuvent sortir.",
+      "example_meaning": "Those who have finished can go out."
+    },
+    {
+      "term": "ça",
+      "meaning": "that, it (neutral, spoken); cela in writing",
+      "example": "Tu aimes le jazz ? Ça dépend des jours.",
+      "example_meaning": "Do you like jazz? It depends on the day."
+    },
+    {
+      "term": "être à",
+      "meaning": "to belong to",
+      "example": "Cette écharpe est à ma mère.",
+      "example_meaning": "This scarf belongs to my mother."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-possessive-demonstrative-pronouns-01",
+      "prompt": "C'est ta valise, la rouge ? — Oui, c'est ___.",
+      "type": "multiple-choice",
+      "options": [
+        "la mienne",
+        "le mien",
+        "la tienne"
+      ],
+      "correct_answer": "la mienne",
+      "explanation": "The suitcase is mine, and valise is feminine: la mienne. La tienne would mean 'yours'.",
+      "hints": [
+        "Whose suitcase? Mine.",
+        "Une valise: masculine or feminine?"
+      ],
+      "teaches": [
+        "le mien"
+      ]
+    },
+    {
+      "question_id": "b1-possessive-demonstrative-pronouns-02",
+      "prompt": "J'ai oublié mon parapluie. Tu peux me prêter ___ ? (yours, for tu)",
+      "type": "fill-in-blank",
+      "correct_answer": "le tien",
+      "accepted_answers": [],
+      "explanation": "Un parapluie is masculine singular, and it belongs to tu: le tien.",
+      "hints": [
+        "Parapluie is masculine.",
+        "Tu → le tien, la tienne…"
+      ],
+      "teaches": [
+        "le tien"
+      ]
+    },
+    {
+      "question_id": "b1-possessive-demonstrative-pronouns-03",
+      "prompt": "Paul a perdu sa clé, alors il a pris ___ de sa sœur.",
+      "type": "multiple-choice",
+      "options": [
+        "celle",
+        "celui",
+        "la sienne"
+      ],
+      "correct_answer": "celle",
+      "explanation": "The one belonging to his sister: celle de sa sœur (clé is feminine). A possessive pronoun cannot be followed by de + owner.",
+      "hints": [
+        "'The one of his sister' = his sister's.",
+        "Une clé is feminine."
+      ],
+      "teaches": [
+        "celle de"
+      ]
+    },
+    {
+      "question_id": "b1-possessive-demonstrative-pronouns-04",
+      "prompt": "Notre maison est petite ; ___ est immense. (theirs)",
+      "type": "fill-in-blank",
+      "correct_answer": "la leur",
+      "accepted_answers": [],
+      "explanation": "Theirs, replacing une maison (feminine singular): la leur. No -s, because there is only one house.",
+      "hints": [
+        "Maison is feminine singular.",
+        "Ils / elles → le leur, la leur, les leurs."
+      ],
+      "teaches": [
+        "le leur"
+      ]
+    },
+    {
+      "question_id": "b1-possessive-demonstrative-pronouns-05",
+      "prompt": "In 'Marc aime son vélo, et Julie préfère le sien', le sien is masculine because Marc is a man.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "A possessive pronoun agrees with the thing owned (un vélo), not with the owner. Here the owner is Julie, and it is still le sien.",
+      "hints": [
+        "Who owns this bike: Marc or Julie?",
+        "What does the pronoun agree with?"
+      ],
+      "teaches": [
+        "le sien"
+      ]
+    },
+    {
+      "question_id": "b1-possessive-demonstrative-pronouns-06",
+      "prompt": "Quelle robe tu vas mettre ce soir ? — ___ que j'ai achetée samedi.",
+      "type": "multiple-choice",
+      "options": [
+        "Celle",
+        "Celui",
+        "Ça"
+      ],
+      "correct_answer": "Celle",
+      "explanation": "The one (la robe, feminine singular) that I bought: celle que. Ça cannot be followed by que to replace a named noun.",
+      "hints": [
+        "Une robe: which form of celui?"
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b1-possessive-demonstrative-pronouns-07",
+      "prompt": "Je pense souvent à mes grands-parents. Et toi, tu penses ___ ? (yours, for tu)",
+      "type": "fill-in-blank",
+      "correct_answer": "aux tiens",
+      "accepted_answers": [],
+      "explanation": "Penser à + les tiens: à + les = aux, so aux tiens.",
+      "hints": [
+        "Penser à…",
+        "À + les = ?"
+      ],
+      "teaches": [
+        "le tien"
+      ]
+    },
+    {
+      "question_id": "b1-possessive-demonstrative-pronouns-08",
+      "prompt": "Ce livre-ci est passionnant, mais ___ est ennuyeux.",
+      "type": "multiple-choice",
+      "options": [
+        "celui-là",
+        "celle-là",
+        "cela-là"
+      ],
+      "correct_answer": "celui-là",
+      "explanation": "That one, replacing un livre (masculine singular): celui-là. Cela never takes -ci or -là.",
+      "hints": [
+        "Livre is masculine.",
+        "-ci = this one, -là = that one."
+      ],
+      "teaches": [
+        "celui-ci"
+      ]
+    },
+    {
+      "question_id": "b1-possessive-demonstrative-pronouns-09",
+      "prompt": "'Ce stylo est à moi' and 'Ce stylo est le mien' both say that the pen is mine.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Être à + stress pronoun and the possessive pronoun both state ownership: à moi = le mien.",
+      "hints": [
+        "Être à = to belong to."
+      ],
+      "teaches": [
+        "être à",
+        "le mien"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-possessive-demonstrative-pronouns-conv-after-the-party",
+      "title": "After the party",
+      "scenario": "The morning after a party at Lucie's, she and her flatmate Karim sort out what the guests left behind.",
+      "role_a": "Lucie",
+      "role_b": "Karim",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Karim, ces clés sont à toi ?",
+          "meaning": "Karim, are these keys yours?"
+        },
+        {
+          "speaker": "b",
+          "text": "Non, ce ne sont pas les miennes. Les miennes sont dans ma poche.",
+          "meaning": "No, they're not mine. Mine are in my pocket."
+        },
+        {
+          "speaker": "a",
+          "text": "Alors ce sont peut-être celles de Julie.",
+          "meaning": "Then maybe they're Julie's."
+        },
+        {
+          "speaker": "b",
+          "text": "Je crois, oui. Et ce manteau noir, c'est le tien ?",
+          "meaning": "I think so, yes. And this black coat, is it yours?"
+        },
+        {
+          "speaker": "a",
+          "text": "Non, le mien est bleu. Celui-là, c'est celui de Thomas.",
+          "meaning": "No, mine is blue. That one is Thomas's."
+        },
+        {
+          "speaker": "b",
+          "text": "Et ces deux écharpes sur le canapé ?",
+          "meaning": "And these two scarves on the sofa?"
+        },
+        {
+          "speaker": "a",
+          "text": "Celle-ci est à moi, et celle-là est à ma sœur.",
+          "meaning": "This one is mine, and that one is my sister's."
+        },
+        {
+          "speaker": "b",
+          "text": "Tu as vu mon parapluie ? Je ne le trouve pas.",
+          "meaning": "Have you seen my umbrella? I can't find it."
+        },
+        {
+          "speaker": "a",
+          "text": "C'est celui qui est près de la porte ?",
+          "meaning": "Is it the one by the door?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, c'est ça ! Bon, tout est rangé.",
+          "meaning": "Yes, that's it! Right, everything's tidied up."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Ce sac, c'est le mien.",
+      "meaning": "This bag is mine."
+    },
+    {
+      "text": "Ta chambre est plus grande que la mienne.",
+      "meaning": "Your room is bigger than mine."
+    },
+    {
+      "text": "Je préfère celle-ci, elle est moins chère.",
+      "meaning": "I prefer this one, it's cheaper.",
+      "note": "Celle-ci replaces a feminine noun."
+    },
+    {
+      "text": "Ceux qui veulent du café peuvent se servir.",
+      "meaning": "Those who want coffee can help themselves.",
+      "note": "New word: se servir = to help yourself."
+    },
+    {
+      "text": "Nos enfants jouent avec les leurs tous les samedis.",
+      "meaning": "Our children play with theirs every Saturday."
+    },
+    {
+      "text": "Ce n'est pas mon téléphone, c'est celui de mon frère.",
+      "meaning": "It's not my phone, it's my brother's."
+    },
+    {
+      "text": "Cela ne me dérange pas du tout.",
+      "meaning": "That doesn't bother me at all.",
+      "note": "New word: déranger = to bother."
+    },
+    {
+      "text": "Nous avons garé notre voiture à côté de la vôtre, devant la boulangerie.",
+      "meaning": "We parked our car next to yours, in front of the bakery.",
+      "note": "New word: garer = to park."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Le mien"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-possessive-demonstrative-pronouns-01"
+    },
+    {
+      "question": "b1-possessive-demonstrative-pronouns-02"
+    },
+    {
+      "question": "b1-possessive-demonstrative-pronouns-04"
+    },
+    {
+      "question": "b1-possessive-demonstrative-pronouns-05"
+    },
+    {
+      "tip": "Before choosing le mien or la mienne, ask: what is the thing, and is it masculine or feminine? The owner only decides mien, tien, sien, nôtre, vôtre or leur."
+    },
+    {
+      "section": "Au mien"
+    },
+    {
+      "question": "b1-possessive-demonstrative-pronouns-07"
+    },
+    {
+      "question": "b1-possessive-demonstrative-pronouns-09"
+    },
+    {
+      "section": "Celui"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-possessive-demonstrative-pronouns-03"
+    },
+    {
+      "question": "b1-possessive-demonstrative-pronouns-06"
+    },
+    {
+      "question": "b1-possessive-demonstrative-pronouns-08"
+    },
+    {
+      "concept": {
+        "title": "Celui-ci, celui-là: the former and the latter",
+        "markdown": "In writing, **celui-ci** can mean *the latter* (the nearer noun) and **celui-là** *the former*: **Paul et Marc sont frères ; celui-ci est médecin, celui-là est avocat.** — Marc (the latter) is a doctor, Paul (the former) a lawyer."
+      }
+    },
+    {
+      "section": "Ça, cela"
+    }
+  ],
+  "sprint": {
+    "icon": "🫵",
+    "bites": [
+      {
+        "title": "Agree with the thing",
+        "emoji": "🎒",
+        "rule": "Le mien, la mienne, les miens, les miennes: the owner picks the word, the thing owned picks le, la or les.",
+        "example": "Marc aime sa voiture ; Julie préfère la sienne.",
+        "example_meaning": "Marc loves his car; Julie prefers hers."
+      },
+      {
+        "title": "Au mien, du mien",
+        "emoji": "🔗",
+        "rule": "À + le mien = au mien, à + les miens = aux miens; de + le mien = du mien, de + les miens = des miens. Ownership: c'est à moi.",
+        "example": "Je pense à mon examen. Et toi, au tien ?",
+        "example_meaning": "I'm thinking about my exam. And you, about yours?"
+      },
+      {
+        "title": "Celui never stands alone",
+        "emoji": "👉",
+        "rule": "Celui, celle, ceux, celles agree with the noun and always take -ci / -là, de + owner, or qui / que.",
+        "example": "C'est celui de Marie.",
+        "example_meaning": "It's Marie's."
+      },
+      {
+        "title": "No noun? Ça, cela, ceci",
+        "emoji": "💬",
+        "rule": "Ça in speech, cela in writing, ceci for 'this' right here or what comes next: they never agree because there is no noun.",
+        "example": "Ça me plaît beaucoup.",
+        "example_meaning": "I like it a lot."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Mine: which form?",
+        "buckets": [
+          "le mien",
+          "la mienne",
+          "les miens",
+          "les miennes"
+        ],
+        "items": [
+          {
+            "text": "mon frère",
+            "bucket": 0
+          },
+          {
+            "text": "ma sœur",
+            "bucket": 1
+          },
+          {
+            "text": "mes livres",
+            "bucket": 2
+          },
+          {
+            "text": "mes clés",
+            "bucket": 3
+          },
+          {
+            "text": "mon amie",
+            "bucket": 1
+          },
+          {
+            "text": "mes parents",
+            "bucket": 2
+          },
+          {
+            "text": "mon école",
+            "bucket": 1
+          },
+          {
+            "text": "mes chaussures",
+            "bucket": 3
+          }
+        ],
+        "why": "The pronoun follows the real gender of the noun: mon amie and mon école are feminine, so la mienne."
+      },
+      {
+        "title": "Celui, celle, ceux or celles?",
+        "buckets": [
+          "celui",
+          "celle",
+          "ceux",
+          "celles"
+        ],
+        "items": [
+          {
+            "text": "le train",
+            "bucket": 0
+          },
+          {
+            "text": "la chambre",
+            "bucket": 1
+          },
+          {
+            "text": "les enfants",
+            "bucket": 2
+          },
+          {
+            "text": "les photos",
+            "bucket": 3
+          },
+          {
+            "text": "le stylo",
+            "bucket": 0
+          },
+          {
+            "text": "les filles",
+            "bucket": 3
+          }
+        ],
+        "why": "Celui (m. sg.), celle (f. sg.), ceux (m. or mixed pl.), celles (f. pl.) copy the gender and number of the noun."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Ma maison est plus grande que la votre.",
+        "wrong": "votre",
+        "fix": "vôtre",
+        "why": "The pronoun takes a circumflex: la vôtre. Votre without one is the adjective (votre maison)."
+      },
+      {
+        "sentence": "J'aime ce manteau, mais je préfère celle de Paul.",
+        "wrong": "celle",
+        "fix": "celui",
+        "why": "Un manteau is masculine: celui de Paul."
+      },
+      {
+        "sentence": "Leur jardin est beau, mais le notre est plus grand.",
+        "wrong": "notre",
+        "fix": "nôtre",
+        "why": "The pronoun is le nôtre, with a circumflex."
+      },
+      {
+        "sentence": "Celui que je préfère, c'est cette robe.",
+        "wrong": "Celui",
+        "fix": "Celle",
+        "why": "Une robe is feminine: celle que je préfère."
+      },
+      {
+        "sentence": "Les garçons ? Celles qui jouent au foot sont mes cousins.",
+        "wrong": "Celles",
+        "fix": "Ceux",
+        "why": "Les garçons is masculine plural: ceux qui."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Ce n'est pas mon sac, c'est le tien.",
+        "meaning": "It's not my bag, it's yours.",
+        "distractors": [
+          "la"
+        ]
+      },
+      {
+        "text": "Je préfère celle de Marie.",
+        "meaning": "I prefer Marie's.",
+        "distractors": [
+          "celui"
+        ]
+      },
+      {
+        "text": "Celui-ci est moins cher.",
+        "meaning": "This one is cheaper.",
+        "distractors": [
+          "Ceci"
+        ]
+      },
+      {
+        "text": "Leurs enfants jouent avec les nôtres.",
+        "meaning": "Their children play with ours.",
+        "distractors": [
+          "nos"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🏵️",
+      "content": "## Le mien et celui-ci à Eldmark\n\nAfter the battle, the loot is sorted: **cette épée est la mienne**, **ce bouclier, c'est celui de Borin**, **les potions ? Les nôtres sont dans le sac**. The thing decides the form: **la tienne** for une épée, **le tien** for un arc.",
+      "vocabulary": [
+        {
+          "term": "le mien",
+          "example": "Ton épée est plus légère que la mienne.",
+          "example_meaning": "Your sword is lighter than mine."
+        },
+        {
+          "term": "le tien",
+          "example": "Mon arc est cassé ; je peux prendre le tien ?",
+          "example_meaning": "My bow is broken; can I take yours?"
+        },
+        {
+          "term": "le sien",
+          "example": "Nym a perdu sa monture, alors Borin lui prête la sienne.",
+          "example_meaning": "Nym lost her mount, so Borin lends her his."
+        },
+        {
+          "term": "le nôtre",
+          "example": "Le donjon des orcs est sombre, mais le nôtre est pire.",
+          "example_meaning": "The orcs' dungeon is dark, but ours is worse."
+        },
+        {
+          "term": "le leur",
+          "example": "Les nains ont un trésor ; le leur est sous la montagne.",
+          "example_meaning": "The dwarves have a treasure; theirs is under the mountain."
+        },
+        {
+          "term": "celle de",
+          "example": "Cette potion bleue, c'est celle de la prêtresse.",
+          "example_meaning": "This blue potion is the priestess's."
+        },
+        {
+          "term": "ceux qui",
+          "example": "Ceux qui trouvent le parchemin gagneront cent pièces d'or.",
+          "example_meaning": "Those who find the scroll will win a hundred gold coins."
+        },
+        {
+          "term": "l'arc",
+          "meaning": "bow (m)",
+          "example": "Cet arc, c'est celui de la chasseuse.",
+          "example_meaning": "This bow is the huntress's."
+        },
+        {
+          "term": "le bouclier",
+          "meaning": "shield (m)",
+          "example": "Le bouclier d'or ? C'est le mien !",
+          "example_meaning": "The gold shield? It's mine!"
+        },
+        {
+          "term": "la monture",
+          "meaning": "mount (f)",
+          "example": "Ta monture est rapide, mais la mienne vole.",
+          "example_meaning": "Your mount is fast, but mine flies."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Le partage après la bataille",
+          "emoji": "🏵️",
+          "rule": "Sorting loot: le mien, la mienne, les miens agree with the item; celui de, celle de say whose it is.",
+          "example": "Ce bouclier, c'est celui de Borin.",
+          "example_meaning": "This shield is Borin's."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Cet arc est le mien.",
+          "meaning": "This bow is mine."
+        },
+        {
+          "text": "Ce bouclier, c'est celui de Borin.",
+          "meaning": "This shield is Borin's.",
+          "note": "New word: le bouclier = the shield."
+        },
+        {
+          "text": "Les potions ? Les nôtres sont dans le sac.",
+          "meaning": "The potions? Ours are in the bag."
+        },
+        {
+          "text": "Je préfère celui-ci, il est plus léger.",
+          "meaning": "I prefer this one, it's lighter."
+        },
+        {
+          "text": "Ta monture est fatiguée, prends la sienne.",
+          "meaning": "Your mount is tired, take his.",
+          "note": "New word: la monture = the mount."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Cette épée est la mienne.",
+          "meaning": "This sword is mine.",
+          "distractors": [
+            "le"
+          ]
+        },
+        {
+          "text": "C'est celui de la chasseuse.",
+          "meaning": "It's the huntress's.",
+          "distractors": [
+            "celle"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Ton épée ? Non, ce n'est pas la tien.",
+          "wrong": "tien",
+          "fix": "tienne",
+          "why": "Une épée is feminine: la tienne."
+        },
+        {
+          "sentence": "Ce parchemin est celle de la mage Séla.",
+          "wrong": "celle",
+          "fix": "celui",
+          "why": "Un parchemin is masculine: celui de la mage."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Eldmark loot: whose and which form?",
+          "buckets": [
+            "le mien",
+            "la mienne",
+            "les miens"
+          ],
+          "items": [
+            {
+              "text": "mon arc",
+              "bucket": 0
+            },
+            {
+              "text": "mon épée",
+              "bucket": 1
+            },
+            {
+              "text": "mes boucliers",
+              "bucket": 2
+            },
+            {
+              "text": "ma potion",
+              "bucket": 1
+            },
+            {
+              "text": "mon parchemin",
+              "bucket": 0
+            },
+            {
+              "text": "mes trésors",
+              "bucket": 2
+            }
+          ],
+          "why": "The item decides: un arc → le mien, une épée → la mienne (even after mon), des trésors → les miens."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-possessive-demonstrative-pronouns-realm-01",
+          "prompt": "Borin a son épée, et Nym a ___. (hers)",
+          "type": "multiple-choice",
+          "options": [
+            "la sienne",
+            "le sien",
+            "la leur"
+          ],
+          "correct_answer": "la sienne",
+          "explanation": "Une épée is feminine and it belongs to one person: la sienne.",
+          "hints": [
+            "Épée: masculine or feminine?",
+            "One owner: sien, not leur."
+          ],
+          "teaches": [
+            "le sien"
+          ]
+        },
+        {
+          "question_id": "b1-possessive-demonstrative-pronouns-realm-02",
+          "prompt": "Ce bouclier n'est pas à moi, c'est ___ du paladin. (the one)",
+          "type": "fill-in-blank",
+          "correct_answer": "celui",
+          "accepted_answers": [],
+          "explanation": "The one belonging to the paladin, replacing un bouclier (masculine): celui du paladin.",
+          "hints": [
+            "Bouclier is masculine singular."
+          ],
+          "teaches": [
+            "le bouclier"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🫙",
+      "content": "## Le mien et celui-ci à Meadowbrook\n\nAt the harvest festival, everyone shows off their jars and crops: **ce pot de confiture, c'est le mien**, **celui de Rosa est à la fraise**, **nos citrouilles sont belles, mais les leurs sont énormes !** Celui and le mien copy the gender of what they replace.",
+      "vocabulary": [
+        {
+          "term": "le mien",
+          "example": "Ta citrouille est grosse, mais la mienne est plus grosse !",
+          "example_meaning": "Your pumpkin is big, but mine is bigger!"
+        },
+        {
+          "term": "le tien",
+          "example": "Mon arrosoir fuit ; tu me prêtes le tien ?",
+          "example_meaning": "My watering can leaks; will you lend me yours?"
+        },
+        {
+          "term": "le leur",
+          "example": "Nos poules pondent bien, mais les leurs pondent tous les jours.",
+          "example_meaning": "Our hens lay well, but theirs lay every day."
+        },
+        {
+          "term": "celui-ci",
+          "example": "Quel mouton est le plus doux ? Celui-ci, je crois.",
+          "example_meaning": "Which sheep is the softest? This one, I think."
+        },
+        {
+          "term": "celle de",
+          "example": "La plus belle vache de la fête, c'est celle de Nora.",
+          "example_meaning": "The most beautiful cow at the festival is Nora's."
+        },
+        {
+          "term": "ceux qui",
+          "example": "Ceux qui vendent au marché arrivent à six heures.",
+          "example_meaning": "Those who sell at the market arrive at six."
+        },
+        {
+          "term": "le pot",
+          "meaning": "jar, pot (m)",
+          "example": "Ce pot de miel, c'est celui de Léo.",
+          "example_meaning": "This jar of honey is Léo's."
+        },
+        {
+          "term": "la citrouille",
+          "meaning": "pumpkin (f)",
+          "example": "La citrouille du maire est plus petite que la nôtre.",
+          "example_meaning": "The mayor's pumpkin is smaller than ours."
+        },
+        {
+          "term": "le champ",
+          "meaning": "field (m)",
+          "example": "Notre champ est près de la rivière ; le leur est près de la forêt.",
+          "example_meaning": "Our field is near the river; theirs is near the forest."
+        }
+      ],
+      "bites": [
+        {
+          "title": "La fête des récoltes",
+          "emoji": "🫙",
+          "rule": "Showing off at the festival: le mien / la mienne agree with the crop or jar; celui de, celle de say whose it is.",
+          "example": "Ce pot de confiture, c'est le mien.",
+          "example_meaning": "This jar of jam is mine."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Cette citrouille est la nôtre.",
+          "meaning": "This pumpkin is ours.",
+          "note": "New word: la citrouille = the pumpkin."
+        },
+        {
+          "text": "Ce pot, c'est celui de Rosa.",
+          "meaning": "This jar is Rosa's.",
+          "note": "New word: le pot = the jar."
+        },
+        {
+          "text": "Tes fraises sont plus sucrées que les miennes.",
+          "meaning": "Your strawberries are sweeter than mine."
+        },
+        {
+          "text": "Je prends celle-là, elle est mûre.",
+          "meaning": "I'll take that one, it's ripe."
+        },
+        {
+          "text": "Ceux qui pêchent avec Léo rentrent tard.",
+          "meaning": "Those who fish with Léo come home late."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Ce pot de confiture, c'est le mien.",
+          "meaning": "This jar of jam is mine.",
+          "distractors": [
+            "la"
+          ]
+        },
+        {
+          "text": "Ma vache est plus calme que la sienne.",
+          "meaning": "My cow is calmer than hers.",
+          "distractors": [
+            "le"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Ta citrouille est belle, mais le mienne est énorme.",
+          "wrong": "le",
+          "fix": "la",
+          "why": "Une citrouille is feminine: la mienne."
+        },
+        {
+          "sentence": "Ces moutons ? Celles qui sont dans le champ sont à Nora.",
+          "wrong": "Celles",
+          "fix": "Ceux",
+          "why": "Les moutons is masculine plural: ceux qui."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Festival: celui, celle, ceux or celles?",
+          "buckets": [
+            "celui",
+            "celle",
+            "ceux",
+            "celles"
+          ],
+          "items": [
+            {
+              "text": "le pot de miel",
+              "bucket": 0
+            },
+            {
+              "text": "la citrouille",
+              "bucket": 1
+            },
+            {
+              "text": "les moutons",
+              "bucket": 2
+            },
+            {
+              "text": "les fraises",
+              "bucket": 3
+            },
+            {
+              "text": "le champ",
+              "bucket": 0
+            },
+            {
+              "text": "les poules",
+              "bucket": 3
+            }
+          ],
+          "why": "Celui and its forms copy the gender and number of the noun they replace."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-possessive-demonstrative-pronouns-meadowbrook-01",
+          "prompt": "Nos citrouilles sont grosses, mais ___ sont énormes ! (theirs)",
+          "type": "multiple-choice",
+          "options": [
+            "les leurs",
+            "les leur",
+            "la leur"
+          ],
+          "correct_answer": "les leurs",
+          "explanation": "Several pumpkins belonging to them: les leurs, with -s in the plural.",
+          "hints": [
+            "Plural thing, plural pronoun."
+          ],
+          "teaches": [
+            "le leur",
+            "la citrouille"
+          ]
+        },
+        {
+          "question_id": "b1-possessive-demonstrative-pronouns-meadowbrook-02",
+          "prompt": "Ce pot de confiture à la fraise ? C'est ___ de Rosa. (the one)",
+          "type": "fill-in-blank",
+          "correct_answer": "celui",
+          "accepted_answers": [],
+          "explanation": "Un pot is masculine singular: celui de Rosa.",
+          "hints": [
+            "Pot is masculine."
+          ],
+          "teaches": [
+            "le pot"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "📦",
+      "content": "## Le mien et celui-ci à Rustwake\n\nIn the scrap village, every crate has an owner: **cette caisse, c'est la nôtre**, **celle-là, c'est celle de Marta**, **ton casque est cassé ? Prends le mien**. Ask what the thing is before you choose **le mien** or **la mienne**, **celui** or **celle**.",
+      "vocabulary": [
+        {
+          "term": "le mien",
+          "example": "Ton casque est cassé ? Prends le mien.",
+          "example_meaning": "Your helmet is broken? Take mine."
+        },
+        {
+          "term": "le sien",
+          "example": "Léo a réparé sa radio-montre, mais Marta n'a pas réparé la sienne.",
+          "example_meaning": "Léo fixed his wrist radio, but Marta hasn't fixed hers."
+        },
+        {
+          "term": "le nôtre",
+          "example": "Leur abri est solide, mais le nôtre a l'eau filtrée.",
+          "example_meaning": "Their shelter is solid, but ours has filtered water."
+        },
+        {
+          "term": "celui-ci",
+          "example": "Quel robot jardinier marche encore ? Celui-ci.",
+          "example_meaning": "Which robot gardener still works? This one."
+        },
+        {
+          "term": "celle de",
+          "example": "La caisse rouge, c'est celle du contremaître Ruiz.",
+          "example_meaning": "The red crate is foreman Ruiz's."
+        },
+        {
+          "term": "ça",
+          "example": "Échanger des écrous contre du soda Saphir ? Ça m'intéresse.",
+          "example_meaning": "Trade nuts for Saphir soda? That interests me."
+        },
+        {
+          "term": "être à",
+          "example": "Ce chien de garde est à Marta.",
+          "example_meaning": "This guard dog belongs to Marta."
+        },
+        {
+          "term": "la caisse",
+          "meaning": "crate, box (f)",
+          "example": "Cette caisse, c'est la nôtre.",
+          "example_meaning": "This crate is ours."
+        },
+        {
+          "term": "le casque",
+          "meaning": "helmet (m)",
+          "example": "Ce casque est à toi ou à Léo ?",
+          "example_meaning": "Is this helmet yours or Léo's?"
+        },
+        {
+          "term": "la combinaison",
+          "meaning": "jumpsuit (f)",
+          "example": "Ma combinaison bleue est sale ; je peux mettre la tienne ?",
+          "example_meaning": "My blue jumpsuit is dirty; can I wear yours?"
+        }
+      ],
+      "bites": [
+        {
+          "title": "À qui est cette caisse ?",
+          "emoji": "📦",
+          "rule": "Scrap has owners: la nôtre, le mien agree with the item; celle de Marta says whose; ça for things with no name.",
+          "example": "Celle-là, c'est celle de Marta.",
+          "example_meaning": "That one is Marta's."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Ce casque est le mien.",
+          "meaning": "This helmet is mine.",
+          "note": "New word: le casque = the helmet."
+        },
+        {
+          "text": "La caisse bleue, c'est la leur.",
+          "meaning": "The blue crate is theirs.",
+          "note": "New word: la caisse = the crate."
+        },
+        {
+          "text": "Je préfère celui-là, il a une antenne.",
+          "meaning": "I prefer that one, it has an antenna."
+        },
+        {
+          "text": "Ceux qui sortent du Dôme portent une combinaison.",
+          "meaning": "Those who leave the Dome wear a jumpsuit."
+        },
+        {
+          "text": "Ta radio marche mieux que la mienne.",
+          "meaning": "Your radio works better than mine."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Cette caisse, c'est la nôtre.",
+          "meaning": "This crate is ours.",
+          "distractors": [
+            "notre"
+          ]
+        },
+        {
+          "text": "Prends le mien, il marche encore.",
+          "meaning": "Take mine, it still works.",
+          "distractors": [
+            "la"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Ton casque est cassé ? Prends le mienne.",
+          "wrong": "mienne",
+          "fix": "mien",
+          "why": "Un casque is masculine: le mien."
+        },
+        {
+          "sentence": "Ces disques sont celles de Léo.",
+          "wrong": "celles",
+          "fix": "ceux",
+          "why": "Les disques is masculine plural: ceux de Léo."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Scrap village: celui or ça?",
+          "buckets": [
+            "celui / celle: a named thing",
+            "ça: no noun"
+          ],
+          "items": [
+            {
+              "text": "Quel robot ? Celui-ci.",
+              "bucket": 0
+            },
+            {
+              "text": "Ça me fait peur, cette tempête.",
+              "bucket": 1
+            },
+            {
+              "text": "La caisse de Ruiz ? C'est celle-là.",
+              "bucket": 0
+            },
+            {
+              "text": "Échanger de l'eau ? Ça m'intéresse.",
+              "bucket": 1
+            },
+            {
+              "text": "Ces écrous sont ceux de Marta.",
+              "bucket": 0
+            },
+            {
+              "text": "C'est ça ! Bravo, Léo !",
+              "bucket": 1
+            }
+          ],
+          "why": "Celui and celle replace a noun you could name and agree with it; ça stands for an idea or a situation and never agrees."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-possessive-demonstrative-pronouns-rustwake-01",
+          "prompt": "Ma combinaison bleue est déchirée. Tu peux me prêter ___ ? (yours, for tu)",
+          "type": "fill-in-blank",
+          "correct_answer": "la tienne",
+          "accepted_answers": [],
+          "explanation": "Une combinaison is feminine singular, and it belongs to tu: la tienne.",
+          "hints": [
+            "Combinaison is feminine.",
+            "Tu → le tien, la tienne…"
+          ],
+          "teaches": [
+            "la combinaison",
+            "le tien"
+          ]
+        },
+        {
+          "question_id": "b1-possessive-demonstrative-pronouns-rustwake-02",
+          "prompt": "Ces écrous ne sont pas à toi : ce sont ___ du marchand.",
+          "type": "multiple-choice",
+          "options": [
+            "ceux",
+            "celles",
+            "les siens"
+          ],
+          "correct_answer": "ceux",
+          "explanation": "Les écrous is masculine plural, and de + owner needs a demonstrative pronoun: ceux du marchand.",
+          "hints": [
+            "Écrou is masculine.",
+            "Which pronoun can take de + owner?"
+          ],
+          "teaches": []
+        }
+      ]
+    }
+  }
+}

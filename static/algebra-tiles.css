@@ -1,0 +1,22 @@
+/* Algebra tiles (#1355), loaded only on pages with an algebra-tiles question. */
+.atiles { margin: .5rem 0 .75rem; }
+.atiles-board { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 4px; }
+.atiles-svg { display: block; width: 100%; height: auto; touch-action: none; user-select: none; -webkit-user-select: none; }
+.atiles-gridline { fill: none; stroke: var(--line); stroke-width: .6; }
+.atiles-divider { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 4 4; opacity: .5; }
+.atiles-tile { cursor: grab; outline: none; }
+.atiles-tile:active { cursor: grabbing; }
+.atiles-tile rect { stroke: var(--text); stroke-width: 1.2; }
+.atiles-tile text { font: 600 13px var(--font); fill: var(--text); pointer-events: none; }
+.atiles-square rect { fill: #9cc3ef; }
+.atiles-strip rect { fill: #a6d9b4; }
+.atiles-unit rect { fill: #f4d58a; }
+.atiles-strip text { font-size: 11px; }
+.atiles-unit text { font-size: 9px; }
+.atiles-tile.selected rect, .atiles-tile:focus-visible rect { stroke: var(--accent); stroke-width: 2.5; }
+@media (prefers-color-scheme: dark) {
+  .atiles-square rect { fill: #2f5683; }
+  .atiles-strip rect { fill: #2f6a40; }
+  .atiles-unit rect { fill: #7a6222; }
+}
+.atiles-tools { display: flex; gap: .5rem; margin: .4rem 0 0; }

@@ -1,0 +1,1230 @@
+{
+  "id": "b2-relative-clauses",
+  "slug": "relative-clauses-and-mood",
+  "title": "El que, cuyo, donde: relative clauses and the subjunctive",
+  "unit": "B2",
+  "group": "Grammar",
+  "order": 28,
+  "summary": "Join ideas with que, quien, lo que, el que, el cual, cuyo and donde, and choose the indicative for things you know and the subjunctive for things you are still looking for.",
+  "focus": "Relative pronouns (que, quien, lo que, preposition + el que / el cual, cuyo, donde) and indicative vs subjunctive in relative clauses",
+  "prerequisites": [
+    "b1-relative-clauses",
+    "b2-imperfect-subjunctive"
+  ],
+  "content": "## Que, quien and lo que\n\n**Que** is the all-purpose relative and refers to people and things alike.\n\n- **El chico que vive arriba es músico.** (The boy who lives upstairs is a musician.)\n- **La novela que me prestaste es buenísima.** (The novel you lent me is great.)\n\n**Quien / quienes** is only for people, and only after a preposition (**la amiga con quien viajé**) or between commas (**Marta, quien vive en Bilbao, vendrá mañana**). Never **el chico quien vive arriba**.\n\n**Lo que** means *what* in the sense of \"the thing that\": **Lo que necesito es dormir.** It can also sum up a whole idea: **Llegó tarde, lo que me molestó.**\n\n## After a preposition: en la que, el cual, donde\n\nAfter a preposition, put the article before **que**, agreeing with the noun it refers to:\n\n| | singular | plural |\n|---|---|---|\n| masculine | el que | los que |\n| feminine | la que | las que |\n\n- **La casa en la que vivo es antigua.** (The house I live in is old.)\n\nThe preposition never goes at the end, as in English. **El cual / la cual / los cuales / las cuales** do the same job in formal writing (**el motivo por el cual dimití**), and **lo cual** sums up an idea. For places, **donde** is easiest: **la ciudad donde nací** = **la ciudad en la que nací**.\n\n## Cuyo: whose\n\n**Cuyo** means *whose*. It agrees in gender and number with the thing owned, not with the owner:\n\n| thing owned | form | example |\n|---|---|---|\n| el hijo | cuyo | la vecina **cuyo hijo** toca el piano |\n| la casa | cuya | el señor **cuya casa** compramos |\n| los libros | cuyos | la autora **cuyos libros** leo |\n| las ventanas | cuyas | un piso **cuyas ventanas** dan al mar |\n\nIt sounds formal, and in speech people often rephrase (**la vecina que tiene un hijo pianista**). Avoid **que su** (*el chico que su padre…*). Careful Spanish says **el chico cuyo padre…**\n\n## Known or unknown: indicative or subjunctive\n\n- Known, real or existing things take the **indicative**: **Tengo un piso que tiene terraza.** (I have a flat that has a terrace.)\n- Wanted, unknown or non-existent things take the **subjunctive**: **Busco un piso que tenga terraza.** (I'm looking for a flat with a terrace.) **No hay nadie que sepa la respuesta.** (Nobody knows the answer.)\n- In the past the subjunctive becomes imperfect: **Buscaba a alguien que hablara alemán.** (I was looking for someone who spoke German.) **No había ningún bar que abriera tan tarde.** (There was no bar that opened so late.)\n\nAn unknown person often drops the personal **a** (**busco un médico que…**), but **alguien** and **nadie** keep it: **no conozco a nadie que…**",
+  "vocabulary": [
+    {
+      "term": "lo que",
+      "meaning": "what, the thing that",
+      "example": "Lo que más me gusta del barrio es el mercado.",
+      "example_meaning": "What I like most about the neighbourhood is the market."
+    },
+    {
+      "term": "cuyo / cuya",
+      "meaning": "whose",
+      "example": "Es un edificio cuya fachada acaban de pintar.",
+      "example_meaning": "It's a building whose front they've just painted."
+    },
+    {
+      "term": "el cual / la cual",
+      "meaning": "which, who (formal, after a preposition or comma)",
+      "example": "La ley, la cual entró en vigor ayer, protege a los inquilinos.",
+      "example_meaning": "The law, which came into force yesterday, protects tenants."
+    },
+    {
+      "term": "quien / quienes",
+      "meaning": "who, whom (people only)",
+      "example": "Los vecinos con quienes hablé están de acuerdo.",
+      "example_meaning": "The neighbours I spoke to agree."
+    },
+    {
+      "term": "el inquilino / la inquilina",
+      "meaning": "tenant",
+      "example": "La inquilina anterior dejó el piso impecable.",
+      "example_meaning": "The previous tenant left the flat spotless."
+    },
+    {
+      "term": "el casero / la casera",
+      "meaning": "landlord / landlady",
+      "example": "Mi casera es una señora que vive en el tercero.",
+      "example_meaning": "My landlady is a woman who lives on the third floor."
+    },
+    {
+      "term": "el requisito",
+      "meaning": "requirement",
+      "example": "Piden unos requisitos que casi nadie cumple.",
+      "example_meaning": "They ask for requirements that hardly anyone meets."
+    },
+    {
+      "term": "la vivienda",
+      "meaning": "housing, home",
+      "example": "El precio de la vivienda no para de subir.",
+      "example_meaning": "The price of housing keeps going up."
+    },
+    {
+      "term": "el anuncio",
+      "meaning": "advert, listing",
+      "example": "Vi un anuncio que ofrecía un ático en el centro.",
+      "example_meaning": "I saw a listing offering a penthouse in the centre."
+    },
+    {
+      "term": "disponer de",
+      "meaning": "to have, to be equipped with (formal)",
+      "example": "El hotel dispone de aparcamiento gratuito.",
+      "example_meaning": "The hotel has free parking."
+    },
+    {
+      "term": "luminoso / luminosa",
+      "meaning": "bright, full of light",
+      "example": "Quiero un salón que sea luminoso.",
+      "example_meaning": "I want a living room that gets lots of light."
+    },
+    {
+      "term": "la fianza",
+      "meaning": "deposit",
+      "example": "Nos devolvieron la fianza que habíamos pagado.",
+      "example_meaning": "They gave us back the deposit we had paid."
+    },
+    {
+      "term": "exigir",
+      "meaning": "to demand, to require",
+      "example": "No conozco ningún trabajo que no exija sacrificios.",
+      "example_meaning": "I don't know any job that doesn't demand sacrifices."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-relative-clauses-01",
+      "prompt": "El anuncio pide un inquilino que ___ un contrato fijo.",
+      "type": "multiple-choice",
+      "options": [
+        "tenga",
+        "tiene",
+        "tuviera"
+      ],
+      "correct_answer": "tenga",
+      "explanation": "The ad describes the kind of tenant it wants, not a known person, so the relative clause takes the present subjunctive: tenga. Tuviera would need a past main verb (pedía).",
+      "hints": [
+        "Does this tenant exist yet, or is he wanted?"
+      ],
+      "teaches": [
+        "el anuncio",
+        "el inquilino / la inquilina"
+      ]
+    },
+    {
+      "question_id": "b2-relative-clauses-02",
+      "prompt": "La autora, ___ novelas he leído todas, firma libros hoy en la feria.",
+      "type": "multiple-choice",
+      "options": [
+        "cuyas",
+        "cuya",
+        "cuyos",
+        "que"
+      ],
+      "correct_answer": "cuyas",
+      "explanation": "Cuyo agrees with the thing owned, not the owner: novelas is feminine plural, so cuyas. Que alone cannot mean whose.",
+      "hints": [
+        "Look at the noun right after the blank."
+      ],
+      "teaches": [
+        "cuyo / cuya"
+      ]
+    },
+    {
+      "question_id": "b2-relative-clauses-03",
+      "prompt": "El casero con ___ hablé ayer me pidió dos meses de fianza. (article + que: the landlord I spoke to yesterday)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "el que",
+      "accepted_answers": [
+        "quien",
+        "el cual"
+      ],
+      "explanation": "After a preposition, que takes the article that agrees with the antecedent: el casero takes con el que. For a person, con quien and the formal con el cual also work.",
+      "hints": [
+        "Casero is masculine singular.",
+        "The preposition stays in front: con ___."
+      ],
+      "teaches": [
+        "el casero / la casera",
+        "la fianza"
+      ]
+    },
+    {
+      "question_id": "b2-relative-clauses-04",
+      "prompt": "No entiendo ___ dice el contrato.",
+      "type": "multiple-choice",
+      "options": [
+        "lo que",
+        "el que",
+        "que",
+        "cual"
+      ],
+      "correct_answer": "lo que",
+      "explanation": "'What' meaning 'the thing that' is lo que. El que needs a masculine noun to refer to, and que alone cannot stand for 'what' here.",
+      "hints": [
+        "Here what means the thing that."
+      ],
+      "teaches": [
+        "lo que"
+      ]
+    },
+    {
+      "question_id": "b2-relative-clauses-05",
+      "prompt": "No conozco a nadie que ___ todos los requisitos. (cumplir: I don't know anyone who meets all the requirements)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "cumpla",
+      "accepted_answers": [],
+      "explanation": "Nadie means the person does not exist as far as you know, so the relative clause takes the subjunctive: cumpla.",
+      "hints": [
+        "A non-existent person takes the subjunctive.",
+        "Él form of the present subjunctive of cumplir."
+      ],
+      "teaches": [
+        "el requisito"
+      ]
+    },
+    {
+      "question_id": "b2-relative-clauses-06",
+      "prompt": "Vivo en un piso luminoso que ___ de dos terrazas.",
+      "type": "multiple-choice",
+      "options": [
+        "dispone",
+        "disponga"
+      ],
+      "correct_answer": "dispone",
+      "explanation": "You live there, so the flat is real and known and takes the indicative: dispone.",
+      "hints": [
+        "Do you know this flat?"
+      ],
+      "teaches": [
+        "luminoso / luminosa",
+        "disponer de"
+      ]
+    },
+    {
+      "question_id": "b2-relative-clauses-07",
+      "prompt": "El año pasado buscábamos un casero que no ___ tanta fianza. (exigir: we were looking for a landlord who wouldn't demand such a big deposit)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "exigiera",
+      "accepted_answers": [
+        "exigiese"
+      ],
+      "explanation": "An unknown landlord takes the subjunctive, and after a past main verb (buscábamos) it is the imperfect subjunctive, formed from exigieron: exigiera (or exigiese).",
+      "hints": [
+        "An unknown landlord takes the subjunctive, and a past main verb makes it imperfect.",
+        "Start from exigieron."
+      ],
+      "teaches": [
+        "exigir",
+        "el casero / la casera",
+        "la fianza"
+      ]
+    },
+    {
+      "question_id": "b2-relative-clauses-08",
+      "prompt": "Ese es el vecino ___ perro ladra toda la noche. (whose)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "cuyo",
+      "accepted_answers": [],
+      "explanation": "Whose is cuyo, agreeing with perro (masculine singular), not with the neighbour.",
+      "hints": [
+        "Agree with perro."
+      ],
+      "teaches": [
+        "cuyo / cuya"
+      ]
+    },
+    {
+      "question_id": "b2-relative-clauses-09",
+      "prompt": "El ministerio publicó un informe según ___ los precios de la vivienda seguirán subiendo.",
+      "type": "multiple-choice",
+      "options": [
+        "el cual",
+        "lo cual",
+        "cuyo",
+        "quien"
+      ],
+      "correct_answer": "el cual",
+      "explanation": "After a preposition in formal writing, el cual agrees with the noun it refers to (el informe). Lo cual refers to a whole idea, cuyo means whose and quien is for people.",
+      "hints": [
+        "The relative refers to el informe."
+      ],
+      "teaches": [
+        "el cual / la cual",
+        "la vivienda"
+      ]
+    },
+    {
+      "question_id": "b2-relative-clauses-10",
+      "prompt": "Mi hermana, con ___ comparto piso, es enfermera. (who: the pronoun used only for people)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "quien",
+      "accepted_answers": [
+        "la que",
+        "la cual"
+      ],
+      "explanation": "After a preposition, quien refers to a person: con quien. Con la que and con la cual are also correct.",
+      "hints": [
+        "One person, after con."
+      ],
+      "teaches": [
+        "quien / quienes"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-relative-clauses-conv-flat-hunting",
+      "title": "Flat hunting in January",
+      "scenario": "Clara has spent weeks looking for a flat in Madrid; over coffee her friend Óscar mentions one his cousin knows about.",
+      "role_a": "Clara",
+      "role_b": "Óscar",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Estoy harta. Busco un piso que tenga terraza y que no cueste un riñón.",
+          "meaning": "I'm fed up. I'm looking for a flat with a terrace that doesn't cost an arm and a leg.",
+          "note": "A wanted flat takes the subjunctive: tenga, cueste."
+        },
+        {
+          "speaker": "b",
+          "text": "Pues mi prima, la que trabaja en la inmobiliaria, tiene uno que te puede interesar.",
+          "meaning": "Well, my cousin, the one who works at the estate agency, has one that might interest you.",
+          "note": "A real flat takes the indicative: puede."
+        },
+        {
+          "speaker": "a",
+          "text": "¿Ah, sí? ¿Es el piso del que me hablaste la semana pasada?",
+          "meaning": "Oh really? Is it the flat you told me about last week?",
+          "note": "hablar de becomes del que"
+        },
+        {
+          "speaker": "b",
+          "text": "Ese mismo. Está en la calle donde vivíamos de estudiantes.",
+          "meaning": "That very one. It's on the street where we lived as students."
+        },
+        {
+          "speaker": "a",
+          "text": "¡No me digas! ¿Y el casero exige mucha fianza?",
+          "meaning": "No way! And does the landlord ask for a big deposit?"
+        },
+        {
+          "speaker": "b",
+          "text": "Dos meses, lo cual es lo normal en Madrid.",
+          "meaning": "Two months, which is the norm in Madrid.",
+          "note": "lo cual sums up the whole idea"
+        },
+        {
+          "speaker": "a",
+          "text": "Lo que me preocupa es el ruido. No quiero un piso cuyas ventanas den a un bar.",
+          "meaning": "What worries me is the noise. I don't want a flat whose windows face a bar.",
+          "note": "cuyas agrees with ventanas"
+        },
+        {
+          "speaker": "b",
+          "text": "Tranquila, las ventanas dan a un patio en el que solo hay plantas.",
+          "meaning": "Don't worry, the windows face a courtyard with nothing but plants in it."
+        },
+        {
+          "speaker": "a",
+          "text": "Perfecto. ¿Hay algún día en que tu prima pueda enseñármelo?",
+          "meaning": "Perfect. Is there a day your cousin could show it to me?",
+          "note": "An open question about existence takes the subjunctive."
+        },
+        {
+          "speaker": "b",
+          "text": "Le escribo ahora mismo. En enero, quien se duerme se queda sin piso.",
+          "meaning": "I'll message her right now. In January, whoever dozes off ends up without a flat.",
+          "note": "quien = whoever"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Lo que dices es verdad.",
+      "meaning": "What you're saying is true.",
+      "note": "lo que = what, the thing that."
+    },
+    {
+      "text": "El chico con quien salgo es arquitecto.",
+      "meaning": "The guy I'm going out with is an architect.",
+      "note": "After a preposition, quien refers to a person."
+    },
+    {
+      "text": "Quiero un trabajo que me guste de verdad.",
+      "meaning": "I want a job I really like.",
+      "note": "A job you haven't found yet takes the subjunctive."
+    },
+    {
+      "text": "Esta es la biblioteca donde estudiaba mi abuelo.",
+      "meaning": "This is the library where my grandfather used to study.",
+      "note": "donde = en la que."
+    },
+    {
+      "text": "Por aquí no conozco ningún restaurante que abra los lunes.",
+      "meaning": "Around here I don't know any restaurant that opens on Mondays.",
+      "note": "If you know of none, use the subjunctive."
+    },
+    {
+      "text": "La vecina cuyo hijo toca la batería se ha mudado por fin.",
+      "meaning": "The neighbour whose son plays the drums has finally moved out.",
+      "note": "New word: la batería = the drum kit."
+    },
+    {
+      "text": "Buscábamos un hotel que estuviera cerca de la playa y admitiera perros.",
+      "meaning": "We were looking for a hotel near the beach that allowed dogs.",
+      "note": "New word: admitir = to allow."
+    },
+    {
+      "text": "El motivo por el cual me fui de aquella empresa fue el horario.",
+      "meaning": "The reason why I left that company was the working hours.",
+      "note": "New word: el motivo = the reason."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Que, quien and lo que"
+    },
+    {
+      "question": "b2-relative-clauses-04"
+    },
+    {
+      "question": "b2-relative-clauses-10"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "section": "After a preposition"
+    },
+    {
+      "question": "b2-relative-clauses-03"
+    },
+    {
+      "question": "b2-relative-clauses-09"
+    },
+    {
+      "section": "Cuyo"
+    },
+    {
+      "question": "b2-relative-clauses-02"
+    },
+    {
+      "question": "b2-relative-clauses-08"
+    },
+    {
+      "section": "Known or unknown"
+    },
+    {
+      "question": "b2-relative-clauses-01"
+    },
+    {
+      "question": "b2-relative-clauses-06"
+    },
+    {
+      "question": "b2-relative-clauses-05"
+    },
+    {
+      "tip": "Ask yourself: could I point at it? A flat you live in takes the indicative; a flat you are still dreaming of takes the subjunctive."
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-relative-clauses-07"
+    }
+  ],
+  "sprint": {
+    "icon": "🪢",
+    "bites": [
+      {
+        "title": "Que does most of the work",
+        "emoji": "🔗",
+        "rule": "Que links a clause to people or things: el libro que leo, la mujer que vive aquí. After a preposition, add the article: la casa en la que vivo.",
+        "example": "El piso en el que vivo es pequeño.",
+        "example_meaning": "The flat I live in is small."
+      },
+      {
+        "title": "Lo que = what",
+        "emoji": "💭",
+        "rule": "When 'what' means 'the thing that', Spanish says lo que. Lo que (or lo cual) can also sum up a whole idea: llegó tarde, lo que me molestó.",
+        "example": "Lo que necesito es un café.",
+        "example_meaning": "What I need is a coffee."
+      },
+      {
+        "title": "Cuyo matches what's owned",
+        "emoji": "👜",
+        "rule": "Cuyo, cuya, cuyos, cuyas mean whose and agree with the thing owned, not the owner: el chico cuya madre conozco.",
+        "example": "La empresa cuyos productos vendemos es alemana.",
+        "example_meaning": "The company whose products we sell is German."
+      },
+      {
+        "title": "Known or unknown?",
+        "emoji": "🔍",
+        "rule": "A thing you know exists takes the indicative: tengo un piso que tiene terraza. One you are looking for, or that doesn't exist, takes the subjunctive: busco uno que tenga terraza.",
+        "example": "No hay nadie que lo sepa.",
+        "example_meaning": "Nobody knows it."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Indicative or subjunctive?",
+        "buckets": [
+          "indicative (known)",
+          "subjunctive (wanted or none)"
+        ],
+        "items": [
+          {
+            "text": "tengo un jefe que me escucha",
+            "bucket": 0
+          },
+          {
+            "text": "quiero un jefe que me escuche",
+            "bucket": 1
+          },
+          {
+            "text": "no hay nadie que lo sepa",
+            "bucket": 1
+          },
+          {
+            "text": "conozco a alguien que lo sabe",
+            "bucket": 0
+          },
+          {
+            "text": "buscaba un piso que tuviera jardín",
+            "bucket": 1
+          },
+          {
+            "text": "encontré un piso que tenía jardín",
+            "bucket": 0
+          }
+        ],
+        "why": "A real, known antecedent takes the indicative; a wanted, unknown or non-existent one takes the subjunctive (imperfect after a past verb)."
+      },
+      {
+        "title": "Which relative?",
+        "buckets": [
+          "cuyo / cuya",
+          "lo que",
+          "quien / quienes"
+        ],
+        "items": [
+          {
+            "text": "el autor ___ libro leí",
+            "bucket": 0
+          },
+          {
+            "text": "la casa ___ puerta es roja",
+            "bucket": 0
+          },
+          {
+            "text": "___ me molesta es el ruido",
+            "bucket": 1
+          },
+          {
+            "text": "no sé ___ quieres",
+            "bucket": 1
+          },
+          {
+            "text": "la amiga con ___ viajé",
+            "bucket": 2
+          },
+          {
+            "text": "los chicos a ___ invité",
+            "bucket": 2
+          }
+        ],
+        "why": "Whose takes cuyo/cuya, what (the thing that) takes lo que, and people after a preposition take quien/quienes."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Busco un piso que tiene ascensor.",
+        "wrong": "tiene",
+        "fix": "tenga",
+        "why": "The flat is still wanted, not known, so it takes the subjunctive."
+      },
+      {
+        "sentence": "Ese es el vecino cuya perro ladra.",
+        "wrong": "cuya",
+        "fix": "cuyo",
+        "why": "Cuyo agrees with perro, the thing 'owned', not with the neighbour."
+      },
+      {
+        "sentence": "Esta es la mujer quien trabaja conmigo.",
+        "wrong": "quien",
+        "fix": "que",
+        "why": "With no comma and no preposition, a person still takes que: la mujer que trabaja conmigo."
+      },
+      {
+        "sentence": "Que necesito es descansar.",
+        "wrong": "Que",
+        "fix": "Lo que",
+        "why": "'What' as 'the thing that' is lo que."
+      },
+      {
+        "sentence": "Buscaba a alguien que hable inglés.",
+        "wrong": "hable",
+        "fix": "hablara",
+        "why": "After a past main verb, the subjunctive in the relative clause is imperfect: hablara."
+      }
+    ],
+    "builds": [
+      {
+        "text": "La casa en la que vivo es antigua.",
+        "meaning": "The house I live in is old.",
+        "distractors": [
+          "cuya"
+        ]
+      },
+      {
+        "text": "No conozco a nadie que cocine tan bien.",
+        "meaning": "I don't know anyone who cooks so well.",
+        "distractors": [
+          "cocina"
+        ]
+      },
+      {
+        "text": "Lo que más me gusta es el mar.",
+        "meaning": "What I like most is the sea.",
+        "distractors": [
+          "Que"
+        ]
+      },
+      {
+        "text": "El escritor cuyos libros leo vive en Granada.",
+        "meaning": "The writer whose books I read lives in Granada.",
+        "distractors": [
+          "cuyo",
+          "quien"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🕸️",
+      "content": "## Relativos en Eldmark\n\nAt the guild board you want **un guerrero que sepa luchar** (not found yet, so subjunctive), but you already have **una maga que cura** (known, so indicative). The dwarf **cuyo martillo** shines is from Deepanvil, and the dungeon **en la que** the boss sleeps is **donde** the loot is.",
+      "vocabulary": [
+        {
+          "term": "lo que",
+          "example": "Lo que busca el gremio es un buen cazador.",
+          "example_meaning": "What the guild is looking for is a good hunter."
+        },
+        {
+          "term": "cuyo / cuya",
+          "example": "El enano cuya hacha brilla viene de Deepanvil.",
+          "example_meaning": "The dwarf whose axe shines comes from Deepanvil."
+        },
+        {
+          "term": "quien / quienes",
+          "example": "El paladín con quien viajo es de Highgate.",
+          "example_meaning": "The paladin I travel with is from Highgate."
+        },
+        {
+          "term": "el cual / la cual",
+          "example": "La puerta tras la cual duerme el minotauro está cerrada.",
+          "example_meaning": "The door behind which the minotaur sleeps is locked."
+        },
+        {
+          "term": "el requisito",
+          "example": "El único requisito es no tenerles miedo a los orcos.",
+          "example_meaning": "The only requirement is not being afraid of orcs."
+        },
+        {
+          "term": "el gremio",
+          "meaning": "guild",
+          "example": "Busco un gremio que tenga sanadores.",
+          "example_meaning": "I'm looking for a guild that has healers."
+        },
+        {
+          "term": "el botín",
+          "meaning": "loot",
+          "example": "El botín que encontramos era bastante pobre.",
+          "example_meaning": "The loot we found was rather poor."
+        },
+        {
+          "term": "la mazmorra",
+          "meaning": "dungeon",
+          "example": "Es una mazmorra de la que pocos salen.",
+          "example_meaning": "It's a dungeon few come out of."
+        },
+        {
+          "term": "el sanador / la sanadora",
+          "meaning": "healer",
+          "example": "Necesitamos una sanadora que no huya.",
+          "example_meaning": "We need a healer who doesn't run away."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Party seeks healer",
+          "emoji": "🛡️",
+          "rule": "Asking the guild for someone you don't have yet? Subjunctive: buscamos una maga que sepa curar. The one you already have takes the indicative: tenemos una que cura.",
+          "example": "Buscamos un sanador que tenga experiencia.",
+          "example_meaning": "We're looking for a healer with experience."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Busco un gremio que acepte enanos.",
+          "meaning": "I'm looking for a guild that accepts dwarves.",
+          "note": "A guild not found yet takes the subjunctive."
+        },
+        {
+          "text": "La elfa con quien viajo es cazadora.",
+          "meaning": "The elf I travel with is a hunter."
+        },
+        {
+          "text": "Lo que quiero es la montura del jefe.",
+          "meaning": "What I want is the boss's mount.",
+          "note": "New word: la montura = the mount."
+        },
+        {
+          "text": "El minotauro cuyos cuernos brillan guarda la puerta.",
+          "meaning": "The minotaur whose horns shine guards the door.",
+          "note": "New word: el cuerno = the horn."
+        },
+        {
+          "text": "No había nadie en la posada que conociera el camino.",
+          "meaning": "There was nobody at the inn who knew the way."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Necesitamos una maga que sepa curar.",
+          "meaning": "We need a mage who can heal.",
+          "distractors": [
+            "sabe"
+          ]
+        },
+        {
+          "text": "La mazmorra en la que entramos era oscura.",
+          "meaning": "The dungeon we went into was dark.",
+          "distractors": [
+            "cuya"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Buscamos un paladín que tiene escudo.",
+          "wrong": "tiene",
+          "fix": "tenga",
+          "why": "A paladin you're still looking for takes the subjunctive."
+        },
+        {
+          "sentence": "El orco cuyo espada es enorme nos persigue.",
+          "wrong": "cuyo",
+          "fix": "cuya",
+          "why": "Cuyo agrees with espada (feminine), the thing owned."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Known or wanted in the guild?",
+          "buckets": [
+            "indicative",
+            "subjunctive"
+          ],
+          "items": [
+            {
+              "text": "tenemos una maga que cura",
+              "bucket": 0
+            },
+            {
+              "text": "buscamos una maga que cure",
+              "bucket": 1
+            },
+            {
+              "text": "no hay ningún enano que nade",
+              "bucket": 1
+            },
+            {
+              "text": "conozco a una elfa que caza lobos",
+              "bucket": 0
+            },
+            {
+              "text": "¿hay alguien que hable orco?",
+              "bucket": 1
+            },
+            {
+              "text": "el paladín que nos guía es de Highgate",
+              "bucket": 0
+            }
+          ],
+          "why": "Members you have and know take the indicative; the ones you're still looking for, or who don't exist, take the subjunctive."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-relative-clauses-realm-01",
+          "prompt": "En toda la posada no hay nadie que ___ entrar en la mazmorra.",
+          "type": "multiple-choice",
+          "options": [
+            "quiera",
+            "quiere",
+            "querría"
+          ],
+          "correct_answer": "quiera",
+          "explanation": "No hay nadie means the person does not exist, so the subjunctive quiera.",
+          "hints": [
+            "Does this brave person exist?"
+          ],
+          "teaches": [
+            "la mazmorra"
+          ]
+        },
+        {
+          "question_id": "b2-relative-clauses-realm-02",
+          "prompt": "El enano, ___ martillo pesa más que él, es de Deepanvil. (whose)",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "cuyo",
+          "accepted_answers": [],
+          "explanation": "Whose = cuyo, agreeing with martillo (masculine singular).",
+          "hints": [
+            "Agree with martillo."
+          ],
+          "teaches": [
+            "cuyo / cuya"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b2-relative-clauses-conv-realm-guild-board",
+          "title": "The guild board",
+          "scenario": "In the guild hall of Highgate, Ilsa the hunter asks Corvo, the guild master, how to join a dungeon run.",
+          "role_a": "Ilsa",
+          "role_b": "Corvo",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Busco un grupo que vaya mañana a la mazmorra de Frostmarch.",
+              "meaning": "I'm looking for a party going to the Frostmarch dungeon tomorrow.",
+              "note": "A party not found yet takes the subjunctive."
+            },
+            {
+              "speaker": "b",
+              "text": "Hay uno, pero el paladín que lo dirige solo acepta gente con experiencia.",
+              "meaning": "There is one, but the paladin who leads it only takes experienced people."
+            },
+            {
+              "speaker": "a",
+              "text": "Tengo la experiencia que pide. Lo que no tengo es montura.",
+              "meaning": "I have the experience he asks for. What I don't have is a mount."
+            },
+            {
+              "speaker": "b",
+              "text": "Entonces habla con Bruno, el enano cuyas cabras cruzan la nieve sin problema.",
+              "meaning": "Then talk to Bruno, the dwarf whose goats cross the snow with no trouble.",
+              "note": "cuyas agrees with cabras"
+            },
+            {
+              "speaker": "a",
+              "text": "¿El enano con quien discutí ayer en la posada?",
+              "meaning": "The dwarf I argued with yesterday at the inn?"
+            },
+            {
+              "speaker": "b",
+              "text": "Ese mismo. Aunque no hay nadie en Highgate con quien no haya discutido él.",
+              "meaning": "That's the one. Though there's nobody in Highgate he hasn't argued with.",
+              "note": "No hay nadie con quien… takes the subjunctive."
+            },
+            {
+              "speaker": "a",
+              "text": "Bueno, le ofreceré parte del botín, lo cual siempre ayuda.",
+              "meaning": "Well, I'll offer him part of the loot, which always helps."
+            },
+            {
+              "speaker": "b",
+              "text": "Buena idea. Para un enano, lo que brilla vale más que cualquier disculpa.",
+              "meaning": "Good idea. To a dwarf, what glitters is worth more than any apology."
+            }
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🍇",
+      "content": "## Relativos en Meadowbrook\n\nNora wants **una vaca que dé mucha leche** (she hasn't found one yet, so subjunctive). Rosa sells **semillas que crecen en invierno** (they exist, so indicative). Leo is the fisherman **cuya barca** is blue, and the river **donde** he fishes runs behind the farm.",
+      "vocabulary": [
+        {
+          "term": "lo que",
+          "example": "Lo que más vende Rosa son semillas de fresa.",
+          "example_meaning": "What Rosa sells most is strawberry seeds."
+        },
+        {
+          "term": "cuyo / cuya",
+          "example": "El granjero cuyas gallinas se escaparon sigue buscándolas.",
+          "example_meaning": "The farmer whose hens escaped is still looking for them."
+        },
+        {
+          "term": "quien / quienes",
+          "example": "Leo es el pescador con quien hablé en la playa.",
+          "example_meaning": "Leo is the fisherman I talked to on the beach."
+        },
+        {
+          "term": "exigir",
+          "example": "Las fresas exigen mucho sol y poca agua.",
+          "example_meaning": "Strawberries need a lot of sun and little water."
+        },
+        {
+          "term": "disponer de",
+          "example": "Nora busca una granja que disponga de agua todo el año.",
+          "example_meaning": "Nora is looking for a farm that has water all year round."
+        },
+        {
+          "term": "la semilla",
+          "meaning": "seed",
+          "example": "Rosa tiene semillas que crecen hasta en invierno.",
+          "example_meaning": "Rosa has seeds that grow even in winter."
+        },
+        {
+          "term": "la cosecha",
+          "meaning": "harvest",
+          "example": "Fue la mejor cosecha que habíamos tenido nunca.",
+          "example_meaning": "It was the best harvest we had ever had."
+        },
+        {
+          "term": "el huerto",
+          "meaning": "vegetable garden",
+          "example": "Quiero un huerto en el que quepan cien calabazas.",
+          "example_meaning": "I want a vegetable garden that a hundred pumpkins fit into."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Does it exist?",
+          "emoji": "🌱",
+          "rule": "Rosa sells seeds that grow in winter: they exist, so crecen. Nora wants a seed that grows in snow: none exists yet, so crezca.",
+          "example": "Busco una semilla que crezca en la nieve.",
+          "example_meaning": "I'm looking for a seed that grows in the snow."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Esta es la granja donde vivo.",
+          "meaning": "This is the farm where I live."
+        },
+        {
+          "text": "Quiero una vaca que dé mucha leche.",
+          "meaning": "I want a cow that gives lots of milk.",
+          "note": "A cow not found yet takes the subjunctive dé."
+        },
+        {
+          "text": "Rosa vende lo que cultivan los vecinos.",
+          "meaning": "Rosa sells what the neighbours grow."
+        },
+        {
+          "text": "El pescador cuya barca es azul se llama Leo.",
+          "meaning": "The fisherman whose boat is blue is called Leo.",
+          "note": "New word: la barca = the small boat."
+        },
+        {
+          "text": "No había nadie que plantara calabazas tan grandes.",
+          "meaning": "There was nobody who planted such big pumpkins."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Necesito un huerto que tenga más sol.",
+          "meaning": "I need a vegetable garden that gets more sun.",
+          "distractors": [
+            "tiene"
+          ]
+        },
+        {
+          "text": "Leo es el pescador con quien hablé.",
+          "meaning": "Leo is the fisherman I spoke to.",
+          "distractors": [
+            "cuyo"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "No hay ninguna gallina que pone tantos huevos.",
+          "wrong": "pone",
+          "fix": "ponga",
+          "why": "No such hen exists, so use the subjunctive."
+        },
+        {
+          "sentence": "Rosa es la mujer cuyo tienda vende semillas.",
+          "wrong": "cuyo",
+          "fix": "cuya",
+          "why": "Cuyo agrees with tienda (feminine), the thing owned."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Que, cuyo or donde?",
+          "buckets": [
+            "que",
+            "cuyo / cuya",
+            "donde"
+          ],
+          "items": [
+            {
+              "text": "la vaca ___ me regaló el alcalde",
+              "bucket": 0
+            },
+            {
+              "text": "el río ___ pesca Leo",
+              "bucket": 2
+            },
+            {
+              "text": "la granja ___ huerto es enorme",
+              "bucket": 1
+            },
+            {
+              "text": "el festival ___ más me gusta",
+              "bucket": 0
+            },
+            {
+              "text": "Nora, ___ calabazas ganaron el premio",
+              "bucket": 1
+            },
+            {
+              "text": "la mina ___ encontré hierro",
+              "bucket": 2
+            }
+          ],
+          "why": "Que for the thing itself, cuyo/cuya for whose (agreeing with what is owned), donde for the place where."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-relative-clauses-meadowbrook-01",
+          "prompt": "Nora busca a alguien que le ___ en el huerto.",
+          "type": "multiple-choice",
+          "options": [
+            "ayude",
+            "ayuda",
+            "ayudara"
+          ],
+          "correct_answer": "ayude",
+          "explanation": "Nora hasn't found this helper yet and busca is present, so the present subjunctive: ayude.",
+          "hints": [
+            "The helper is unknown and the main verb is present."
+          ],
+          "teaches": [
+            "el huerto"
+          ]
+        },
+        {
+          "question_id": "b2-relative-clauses-meadowbrook-02",
+          "prompt": "Leo es el pescador con ___ voy al río los domingos. (who: the pronoun used only for people)",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "quien",
+          "accepted_answers": [
+            "el que",
+            "el cual"
+          ],
+          "explanation": "After a preposition, quien refers to a person: con quien. Con el que and con el cual are also right.",
+          "hints": [
+            "One person, after con."
+          ],
+          "teaches": [
+            "quien / quienes"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🔌",
+      "content": "## Relativos en el páramo\n\nOutside **la cúpula** you need **un mercader que acepte tuercas** (you haven't met one yet, so subjunctive). Marta is **la mercadera que acepta tuercas** (she exists, so indicative). Leo is the scavenger **cuyo radiorreloj** never works, and the market **donde** you swap them is by the old petrol station.",
+      "vocabulary": [
+        {
+          "term": "lo que",
+          "example": "Lo que más falta en el páramo es agua filtrada.",
+          "example_meaning": "What the wasteland lacks most is filtered water."
+        },
+        {
+          "term": "cuyo / cuya",
+          "example": "El buscador cuyo radiorreloj no funciona se llama Leo.",
+          "example_meaning": "The scavenger whose wrist radio doesn't work is called Leo."
+        },
+        {
+          "term": "el requisito",
+          "example": "El único requisito para salir de la cúpula es llevar el mono azul.",
+          "example_meaning": "The only requirement for leaving the Dome is wearing the blue jumpsuit."
+        },
+        {
+          "term": "disponer de",
+          "example": "El taller dispone de piezas para casi todo.",
+          "example_meaning": "The workshop has parts for almost anything."
+        },
+        {
+          "term": "quien / quienes",
+          "example": "Leo es el buscador con quien exploro el páramo.",
+          "example_meaning": "Leo is the scavenger I explore the wasteland with."
+        },
+        {
+          "term": "las tuercas",
+          "meaning": "nuts (the wasteland's money)",
+          "example": "Busco a alguien que me cambie tuercas por agua.",
+          "example_meaning": "I'm looking for someone to swap me nuts for water."
+        },
+        {
+          "term": "el buscador / la buscadora",
+          "meaning": "scavenger",
+          "example": "No hay buscadora que conozca mejor el páramo.",
+          "example_meaning": "There's no scavenger who knows the wasteland better."
+        },
+        {
+          "term": "la tormenta de ceniza",
+          "meaning": "ash storm",
+          "example": "Fue una tormenta de ceniza que duró tres días.",
+          "example_meaning": "It was an ash storm that lasted three days."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Nuts for water",
+          "emoji": "🪙",
+          "rule": "A trader you haven't met yet takes the subjunctive: busco un mercader que venda agua. Marta, whom you know, takes the indicative: Marta vende agua filtrada.",
+          "example": "¿Hay alguien que repare radiorrelojes?",
+          "example_meaning": "Is there anyone who repairs wrist radios?"
+        }
+      ],
+      "listening": [
+        {
+          "text": "Lo que necesito es agua filtrada.",
+          "meaning": "What I need is filtered water."
+        },
+        {
+          "text": "Marta es la mercadera con quien cambio tuercas.",
+          "meaning": "Marta is the trader I swap nuts with."
+        },
+        {
+          "text": "Busco un refugio que aguante la tormenta de ceniza.",
+          "meaning": "I'm looking for a shelter that can withstand the ash storm.",
+          "note": "New word: el refugio = the shelter."
+        },
+        {
+          "text": "El robot jardinero cuyas ruedas chirrían sigue trabajando.",
+          "meaning": "The gardener robot whose wheels squeak keeps on working.",
+          "note": "New word: chirriar = to squeak."
+        },
+        {
+          "text": "No había ningún buscador que conociera aquel camino.",
+          "meaning": "There was no scavenger who knew that road."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Necesito una armadura que pese menos.",
+          "meaning": "I need armour that weighs less.",
+          "distractors": [
+            "pesa"
+          ]
+        },
+        {
+          "text": "El taller en el que trabajo es pequeño.",
+          "meaning": "The workshop I work in is small.",
+          "distractors": [
+            "cuyo"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "¿Conoces a alguien que vende gaseosa Zafiro?",
+          "wrong": "vende",
+          "fix": "venda",
+          "why": "You don't know whether such a person exists, so use the subjunctive."
+        },
+        {
+          "sentence": "El capataz Ruiz, quienes manda en la cúpula, es muy serio.",
+          "wrong": "quienes",
+          "fix": "quien",
+          "why": "It is one person, so quien is singular."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Known or wanted in the wasteland?",
+          "buckets": [
+            "indicative",
+            "subjunctive"
+          ],
+          "items": [
+            {
+              "text": "Marta tiene un tónico que cura",
+              "bucket": 0
+            },
+            {
+              "text": "busco un tónico que cure la radiación",
+              "bucket": 1
+            },
+            {
+              "text": "no hay nadie que repare antenas",
+              "bucket": 1
+            },
+            {
+              "text": "conozco un taller que repara antenas",
+              "bucket": 0
+            },
+            {
+              "text": "buscaba una cabra que diera leche",
+              "bucket": 1
+            },
+            {
+              "text": "el perro que nos guarda es fiel",
+              "bucket": 0
+            }
+          ],
+          "why": "Things you have or know take the indicative; things you're looking for, or that don't exist, take the subjunctive."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-relative-clauses-rustwake-01",
+          "prompt": "En el mercado no había ningún mercader que ___ tuercas viejas.",
+          "type": "multiple-choice",
+          "options": [
+            "aceptara",
+            "aceptaba",
+            "acepte"
+          ],
+          "correct_answer": "aceptara",
+          "explanation": "No such trader existed and the main verb is past (había), so the imperfect subjunctive: aceptara.",
+          "hints": [
+            "None existed, and it's in the past."
+          ],
+          "teaches": [
+            "las tuercas"
+          ]
+        },
+        {
+          "question_id": "b2-relative-clauses-rustwake-02",
+          "prompt": "___ más me preocupa es la tormenta de ceniza. (what)",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "Lo que",
+          "accepted_answers": [
+            "lo que"
+          ],
+          "explanation": "'What' meaning 'the thing that' is lo que.",
+          "hints": [
+            "Two words: the thing that."
+          ],
+          "teaches": [
+            "lo que",
+            "la tormenta de ceniza"
+          ]
+        }
+      ]
+    }
+  }
+}

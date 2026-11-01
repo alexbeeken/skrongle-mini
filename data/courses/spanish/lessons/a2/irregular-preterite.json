@@ -1,0 +1,902 @@
+{
+  "id": "a2-irregular-preterite",
+  "slug": "irregular-preterite",
+  "title": "Irregular preterites: ser, ir, hacer, tener, estar…",
+  "unit": "A2",
+  "group": "Grammar",
+  "order": 14,
+  "summary": "The most common verbs change their stem in the preterite: fui, hice, tuve, estuve, pude, puse, vine, dije, di, vi.",
+  "focus": "Irregular preterite stems and their unstressed endings",
+  "prerequisites": [
+    "a2-regular-preterite-er-ir"
+  ],
+  "content": "## Ser and ir: the same forms\n\nIn the preterite **ser** (to be) and **ir** (to go) are identical. Context tells you which one it is, and none of the forms carries an accent:\n\n| person | ser / ir |\n|---|---|\n| yo | **fui** |\n| tú | **fuiste** |\n| él / ella / usted | **fue** |\n| nosotros/as | **fuimos** |\n| vosotros/as | **fuisteis** |\n| ellos / ellas / ustedes | **fueron** |\n\n- *Fui a Grecia el año pasado.*: I went to Greece last year. (ir)\n- *Mi abuelo fue médico.*: My grandfather was a doctor. (ser)\n- *Fuimos al cine anoche.*: We went to the cinema last night. (ir)\n\n## Strong stems, soft endings\n\nA group of very common verbs swaps its stem for a **strong stem** and takes its own set of endings: **-e, -iste, -o, -imos, -isteis, -ieron**. The stress stays on the stem, so **yo** and **él/ella** have **no accent**: *tuve*, *tuvo* (compare regular *comí*, *comió*).\n\n| person | tener → tuv- |\n|---|---|\n| yo | tuv**e** |\n| tú | tuv**iste** |\n| él / ella / usted | tuv**o** |\n| nosotros/as | tuv**imos** |\n| vosotros/as | tuv**isteis** |\n| ellos / ellas / ustedes | tuv**ieron** |\n\n- *Tuve un examen ayer.*: I had an exam yesterday.\n- *Ana tuvo que trabajar.*: Ana had to work.\n\n## The seven stems to memorise\n\n| verb | stem | yo | él / ella |\n|---|---|---|---|\n| hacer | **hic-** | hice | **hizo** |\n| tener | **tuv-** | tuve | tuvo |\n| estar | **estuv-** | estuve | estuvo |\n| poder | **pud-** | pude | pudo |\n| poner | **pus-** | puse | puso |\n| venir | **vin-** | vine | vino |\n| decir | **dij-** | dije | dijo |\n\nTwo spelling details:\n\n- **hizo** has a **z** because the **c** becomes **z** before **o** to keep the soft sound (*hice, hiciste, hizo*).\n- **dijeron**, not *dijieron*. After a stem ending in **j**, the **i** of **-ieron** is dropped. The same happens with *trajeron* (traer).\n\n- *¿Qué hiciste el fin de semana?*: What did you do at the weekend?\n- *No pude dormir.*: I couldn't sleep.\n- *Ellos dijeron la verdad.*: They told the truth.\n\n## Dar and ver: short and accent-free\n\n**Dar** and **ver** take the regular **-er/-ir** endings, but the forms are so short that the **yo** and **él/ella** forms are written **without** an accent:\n\n| person | dar | ver |\n|---|---|---|\n| yo | **di** | **vi** |\n| tú | diste | viste |\n| él / ella / usted | **dio** | **vio** |\n| nosotros/as | dimos | vimos |\n| vosotros/as | disteis | visteis |\n| ellos / ellas / ustedes | dieron | vieron |\n\n- *Mi madre me dio un regalo.*: My mother gave me a present.\n- *¿Viste la película?*: Did you see the film?",
+  "vocabulary": [
+    {
+      "term": "ser",
+      "meaning": "to be (identity) — preterite: fui, fue…",
+      "example": "Mi abuelo fue médico.",
+      "example_meaning": "My grandfather was a doctor."
+    },
+    {
+      "term": "ir",
+      "meaning": "to go — preterite: fui, fue…",
+      "example": "El año pasado fuimos a Grecia.",
+      "example_meaning": "Last year we went to Greece."
+    },
+    {
+      "term": "hacer",
+      "meaning": "to do, to make",
+      "example": "¿Qué hiciste el fin de semana?",
+      "example_meaning": "What did you do at the weekend?"
+    },
+    {
+      "term": "tener",
+      "meaning": "to have",
+      "example": "Tuvieron un examen la semana pasada.",
+      "example_meaning": "They had an exam last week."
+    },
+    {
+      "term": "estar",
+      "meaning": "to be (location, states)",
+      "example": "¿Dónde estuvisteis ayer?",
+      "example_meaning": "Where were you all yesterday?"
+    },
+    {
+      "term": "poder",
+      "meaning": "to be able to, can",
+      "example": "Anoche no pude dormir.",
+      "example_meaning": "Last night I couldn't sleep."
+    },
+    {
+      "term": "poner",
+      "meaning": "to put",
+      "example": "Puse el regalo en la mesa.",
+      "example_meaning": "I put the present on the table."
+    },
+    {
+      "term": "venir",
+      "meaning": "to come",
+      "example": "No vinisteis a clase.",
+      "example_meaning": "You didn't come to class."
+    },
+    {
+      "term": "decir",
+      "meaning": "to say, to tell",
+      "example": "Ellos dijeron la verdad.",
+      "example_meaning": "They told the truth."
+    },
+    {
+      "term": "dar",
+      "meaning": "to give",
+      "example": "Mi madre me dio un regalo.",
+      "example_meaning": "My mother gave me a present."
+    },
+    {
+      "term": "ver",
+      "meaning": "to see, to watch",
+      "example": "¿Viste la película anoche?",
+      "example_meaning": "Did you see the film last night?"
+    },
+    {
+      "term": "el viaje",
+      "meaning": "trip, journey",
+      "example": "Hicimos un viaje a Lisboa.",
+      "example_meaning": "We took a trip to Lisbon."
+    },
+    {
+      "term": "el regalo",
+      "meaning": "present, gift",
+      "example": "Me dio un regalo muy bonito.",
+      "example_meaning": "She gave me a very nice present."
+    },
+    {
+      "term": "la verdad",
+      "meaning": "the truth",
+      "example": "Dijeron la verdad.",
+      "example_meaning": "They told the truth."
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "ser",
+      "meaning": "to be (identity, origin, characteristics)",
+      "set": "preterite",
+      "art": [
+        " ___________ ",
+        "| HELLO     |",
+        "| my name   |",
+        "|  is ____  |",
+        "|___________|"
+      ],
+      "forms": {
+        "yo": "fui",
+        "tu": "fuiste",
+        "el": "fue",
+        "nosotros": "fuimos",
+        "vosotros": "fuisteis",
+        "ellos": "fueron"
+      }
+    },
+    {
+      "item": "ir",
+      "meaning": "to go",
+      "set": "preterite",
+      "art": [
+        "    o             ",
+        "   /|\\    ------> ",
+        "   / \\            ",
+        "  ______________  "
+      ],
+      "forms": {
+        "yo": "fui",
+        "tu": "fuiste",
+        "el": "fue",
+        "nosotros": "fuimos",
+        "vosotros": "fuisteis",
+        "ellos": "fueron"
+      }
+    },
+    {
+      "item": "hacer",
+      "meaning": "to do, to make",
+      "set": "preterite",
+      "art": [
+        "    ________  ",
+        "   |________| ",
+        "      ||      ",
+        "      ||      ",
+        "      ||      ",
+        "      ||      "
+      ],
+      "forms": {
+        "yo": "hice",
+        "tu": "hiciste",
+        "el": "hizo",
+        "nosotros": "hicimos",
+        "vosotros": "hicisteis",
+        "ellos": "hicieron"
+      }
+    },
+    {
+      "item": "tener",
+      "meaning": "to have",
+      "set": "preterite",
+      "art": [
+        "    _|_|_|_    ",
+        "   /       \\   ",
+        "  |  ( $ )  |  ",
+        "   \\_______/   ",
+        "      | |      "
+      ],
+      "forms": {
+        "yo": "tuve",
+        "tu": "tuviste",
+        "el": "tuvo",
+        "nosotros": "tuvimos",
+        "vosotros": "tuvisteis",
+        "ellos": "tuvieron"
+      }
+    },
+    {
+      "item": "estar",
+      "meaning": "to be (location, states, feelings)",
+      "set": "preterite",
+      "art": [
+        "   .---.   ",
+        "  /  o  \\  ",
+        "  \\     /  ",
+        "   \\   /   ",
+        "    \\ /    ",
+        "     V     "
+      ],
+      "forms": {
+        "yo": "estuve",
+        "tu": "estuviste",
+        "el": "estuvo",
+        "nosotros": "estuvimos",
+        "vosotros": "estuvisteis",
+        "ellos": "estuvieron"
+      }
+    },
+    {
+      "item": "poder",
+      "meaning": "to be able to, can",
+      "set": "preterite",
+      "art": [
+        "       ____     ",
+        "    __/    \\    ",
+        "   |  \\____/    ",
+        "   |________|   ",
+        "    POWER!      "
+      ],
+      "forms": {
+        "yo": "pude",
+        "tu": "pudiste",
+        "el": "pudo",
+        "nosotros": "pudimos",
+        "vosotros": "pudisteis",
+        "ellos": "pudieron"
+      }
+    },
+    {
+      "item": "poner",
+      "meaning": "to put",
+      "set": "preterite",
+      "art": [
+        "      ___       ",
+        "     |___|      ",
+        "       |        ",
+        "   ___ v ___    ",
+        "  |_________|   ",
+        "   ||     ||    "
+      ],
+      "forms": {
+        "yo": "puse",
+        "tu": "pusiste",
+        "el": "puso",
+        "nosotros": "pusimos",
+        "vosotros": "pusisteis",
+        "ellos": "pusieron"
+      }
+    },
+    {
+      "item": "venir",
+      "meaning": "to come",
+      "set": "preterite",
+      "art": [
+        "            _______ ",
+        "   o       |       |",
+        "  /|\\ ---> |   o   |",
+        "  / \\      |_______|"
+      ],
+      "forms": {
+        "yo": "vine",
+        "tu": "viniste",
+        "el": "vino",
+        "nosotros": "vinimos",
+        "vosotros": "vinisteis",
+        "ellos": "vinieron"
+      }
+    },
+    {
+      "item": "decir",
+      "meaning": "to say, to tell",
+      "set": "preterite",
+      "art": [
+        "  .------------.  ",
+        " (  dijo que... ) ",
+        "  '--. ,-------'  ",
+        "      V           "
+      ],
+      "forms": {
+        "yo": "dije",
+        "tu": "dijiste",
+        "el": "dijo",
+        "nosotros": "dijimos",
+        "vosotros": "dijisteis",
+        "ellos": "dijeron"
+      }
+    },
+    {
+      "item": "dar",
+      "meaning": "to give",
+      "set": "preterite",
+      "art": [
+        "     \\  /       ",
+        "    __\\/__      ",
+        "   |__|__|      ",
+        "   |  |  |      ",
+        "   |__|__|      "
+      ],
+      "forms": {
+        "yo": "di",
+        "tu": "diste",
+        "el": "dio",
+        "nosotros": "dimos",
+        "vosotros": "disteis",
+        "ellos": "dieron"
+      }
+    },
+    {
+      "item": "ver",
+      "meaning": "to see, to watch",
+      "set": "preterite",
+      "art": [
+        "   _______   ",
+        " .'  ___  '. ",
+        "(   ( o )   )",
+        " '.  `-'  .' ",
+        "   '-----'   "
+      ],
+      "forms": {
+        "yo": "vi",
+        "tu": "viste",
+        "el": "vio",
+        "nosotros": "vimos",
+        "vosotros": "visteis",
+        "ellos": "vieron"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-irregular-preterite-01",
+      "prompt": "El año pasado nosotros ___ a Grecia.",
+      "type": "multiple-choice",
+      "options": [
+        "fuimos",
+        "fuemos",
+        "fueron",
+        "vamos"
+      ],
+      "correct_answer": "fuimos",
+      "explanation": "Ir in the preterite: fui, fuiste, fue, fuimos, fuisteis, fueron. 'Fuimos a Grecia' = we went to Greece.",
+      "hints": [
+        "Ser and ir share the forms fui, fuiste, fue…",
+        "Nosotros → -imos."
+      ],
+      "teaches": [
+        "ir"
+      ]
+    },
+    {
+      "question_id": "a2-irregular-preterite-02",
+      "prompt": "¿___ (tú, hacer) el viaje a Lisboa al final?",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "Hiciste",
+      "accepted_answers": [
+        "hiciste",
+        "tú hiciste",
+        "tu hiciste"
+      ],
+      "explanation": "Hacer takes the strong stem hic-: hice, hiciste, hizo… 'Hiciste' = you did/made.",
+      "hints": [
+        "Hacer → hic-.",
+        "Tú → -iste."
+      ],
+      "teaches": [
+        "hacer",
+        "el viaje"
+      ]
+    },
+    {
+      "question_id": "a2-irregular-preterite-03",
+      "prompt": "Mi abuelo ___ médico durante cuarenta años.",
+      "type": "multiple-choice",
+      "options": [
+        "fue",
+        "fui",
+        "fuiste",
+        "fueron"
+      ],
+      "correct_answer": "fue",
+      "explanation": "Ser in the preterite uses the same forms as ir. Mi abuelo = él, so 'fue'. No accent.",
+      "hints": [
+        "Él → fue.",
+        "Same forms as ir."
+      ],
+      "teaches": [
+        "ser"
+      ]
+    },
+    {
+      "question_id": "a2-irregular-preterite-04",
+      "prompt": "La semana pasada mis hermanos ___ (tener) un examen.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "tuvieron",
+      "accepted_answers": [
+        "ellos tuvieron"
+      ],
+      "explanation": "Tener → tuv- plus -ieron: 'tuvieron'.",
+      "hints": [
+        "Tener → tuv-.",
+        "Ellos → -ieron."
+      ],
+      "teaches": [
+        "tener"
+      ]
+    },
+    {
+      "question_id": "a2-irregular-preterite-05",
+      "prompt": "Anoche no ___ dormir. (yo, poder)",
+      "type": "multiple-choice",
+      "options": [
+        "pude",
+        "pudo",
+        "podí",
+        "puedo"
+      ],
+      "correct_answer": "pude",
+      "explanation": "Poder → pud- plus the unstressed yo ending -e: 'pude'. 'Pudo' is he/she, 'puedo' is present.",
+      "hints": [
+        "Poder → pud-.",
+        "Strong stems take -e for yo, no accent."
+      ],
+      "teaches": [
+        "poder"
+      ]
+    },
+    {
+      "question_id": "a2-irregular-preterite-06",
+      "prompt": "¿Dónde ___ (vosotros, estar) ayer? No vinisteis a clase.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "estuvisteis",
+      "accepted_answers": [
+        "vosotros estuvisteis"
+      ],
+      "explanation": "Estar → estuv- plus -isteis: 'estuvisteis'. Venir → vin-: 'vinisteis'.",
+      "hints": [
+        "Estar → estuv-.",
+        "Vosotros → -isteis."
+      ],
+      "teaches": [
+        "estar",
+        "venir"
+      ]
+    },
+    {
+      "question_id": "a2-irregular-preterite-07",
+      "prompt": "Ellos ___ la verdad.",
+      "type": "multiple-choice",
+      "options": [
+        "dijeron",
+        "dijieron",
+        "decieron",
+        "dijimos"
+      ],
+      "correct_answer": "dijeron",
+      "explanation": "Decir → dij-, and after the j the i of -ieron is dropped: 'dijeron'.",
+      "hints": [
+        "Decir → dij-.",
+        "After j, no i: -eron."
+      ],
+      "teaches": [
+        "decir",
+        "la verdad"
+      ]
+    },
+    {
+      "question_id": "a2-irregular-preterite-08",
+      "prompt": "Mi madre me ___ (dar) un regalo y lo puse en la mesa.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "dio",
+      "accepted_answers": [
+        "ella dio"
+      ],
+      "explanation": "Dar: di, diste, dio… 'Dio' is one syllable, so no accent. 'Puse' is poner → pus-.",
+      "hints": [
+        "Dar takes the -er/-ir preterite endings.",
+        "One syllable, so no written accent."
+      ],
+      "teaches": [
+        "dar",
+        "el regalo",
+        "poner"
+      ]
+    },
+    {
+      "question_id": "a2-irregular-preterite-09",
+      "prompt": "¿___ la película anoche? (tú, ver)",
+      "type": "multiple-choice",
+      "options": [
+        "Viste",
+        "Vió",
+        "Veíste",
+        "Visteis"
+      ],
+      "correct_answer": "Viste",
+      "explanation": "Ver: vi, viste, vio, vimos, visteis, vieron. Tú = 'viste'; 'vio' never takes an accent.",
+      "hints": [
+        "Tú → -iste.",
+        "The stem is just v-."
+      ],
+      "teaches": [
+        "ver"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Mis padres me dieron un regalo.",
+      "meaning": "My parents gave me a present.",
+      "note": "Dar: di, diste, dio, dimos, disteis, dieron, no accents."
+    },
+    {
+      "text": "¿Qué hiciste ayer por la tarde?",
+      "meaning": "What did you do yesterday afternoon?"
+    },
+    {
+      "text": "Anoche fui al teatro con Luis.",
+      "meaning": "Last night I went to the theatre with Luis.",
+      "note": "New word: el teatro = the theatre."
+    },
+    {
+      "text": "¿Dónde pusisteis el regalo de Marta?",
+      "meaning": "Where did you all put Marta's present?"
+    },
+    {
+      "text": "Mi abuela fue profesora en un pueblo.",
+      "meaning": "My grandmother was a teacher in a village.",
+      "note": "New word: el pueblo = the village, the town."
+    },
+    {
+      "text": "Carlos no dijo la verdad sobre el viaje.",
+      "meaning": "Carlos didn't tell the truth about the trip."
+    },
+    {
+      "text": "No pude venir a la fiesta porque tuve mucho trabajo.",
+      "meaning": "I couldn't come to the party because I had a lot of work.",
+      "note": "Strong stems pud- and tuv-: no accent on pude, tuve."
+    },
+    {
+      "text": "El año pasado hicimos un viaje a Italia y vimos muchas cosas bonitas.",
+      "meaning": "Last year we took a trip to Italy and saw many beautiful things."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Ser and ir"
+    },
+    {
+      "question": "a2-irregular-preterite-01"
+    },
+    {
+      "question": "a2-irregular-preterite-03"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "section": "Strong stems"
+    },
+    {
+      "question": "a2-irregular-preterite-04"
+    },
+    {
+      "question": "a2-irregular-preterite-05"
+    },
+    {
+      "section": "The seven stems"
+    },
+    {
+      "tip": "Say them as a chant: hice, tuve, estuve, pude, puse, vine, dije. Stress on the stem, never on the ending."
+    },
+    {
+      "question": "a2-irregular-preterite-02"
+    },
+    {
+      "question": "a2-irregular-preterite-06"
+    },
+    {
+      "question": "a2-irregular-preterite-07"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "section": "Dar and ver"
+    },
+    {
+      "question": "a2-irregular-preterite-08"
+    },
+    {
+      "question": "a2-irregular-preterite-09"
+    },
+    {
+      "vocab": 4
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-irregular-preterite-conv-birthday",
+      "title": "The birthday party",
+      "scenario": "Diego missed Sofía's birthday party. The next day he asks her how it went.",
+      "role_a": "Sofía",
+      "role_b": "Diego",
+      "lines": [
+        {
+          "speaker": "b",
+          "text": "¡Hola, Sofía! Lo siento, ayer no pude ir a tu fiesta.",
+          "meaning": "Hi, Sofía! I'm sorry, yesterday I couldn't come to your party.",
+          "note": "poder → pud-: pude"
+        },
+        {
+          "speaker": "a",
+          "text": "No pasa nada. ¿Qué hiciste?",
+          "meaning": "No problem. What did you do?",
+          "note": "hacer → hic-: hiciste"
+        },
+        {
+          "speaker": "b",
+          "text": "Tuve que trabajar hasta las nueve y después estuve en el hospital con mi abuela.",
+          "meaning": "I had to work until nine and afterwards I was at the hospital with my grandmother.",
+          "note": "tener → tuv- · estar → estuv-"
+        },
+        {
+          "speaker": "a",
+          "text": "¡Vaya! ¿Y cómo está ella?",
+          "meaning": "Oh no! And how is she?"
+        },
+        {
+          "speaker": "b",
+          "text": "Mejor, gracias. Bueno, cuéntame: ¿quién vino a la fiesta?",
+          "meaning": "Better, thanks. Anyway, tell me: who came to the party?",
+          "note": "venir → vin-: vino"
+        },
+        {
+          "speaker": "a",
+          "text": "Vinieron casi todos. Marta y Luis fueron los primeros en llegar.",
+          "meaning": "Almost everyone came. Marta and Luis were the first to arrive.",
+          "note": "venir, ellos: vinieron · ser: fueron"
+        },
+        {
+          "speaker": "b",
+          "text": "¿Y qué te dieron?",
+          "meaning": "And what did they give you?",
+          "note": "dar, ellos: dieron"
+        },
+        {
+          "speaker": "a",
+          "text": "Mis padres me dieron un libro y mi hermana me dio un regalo enorme: ¡una bicicleta!",
+          "meaning": "My parents gave me a book and my sister gave me a huge present: a bicycle!",
+          "note": "dar: dieron, dio (no accent)"
+        },
+        {
+          "speaker": "b",
+          "text": "¡Qué bien! ¿Dónde la pusiste?",
+          "meaning": "Great! Where did you put it?",
+          "note": "poner → pus-: pusiste"
+        },
+        {
+          "speaker": "a",
+          "text": "La puse en el garaje. Al final fuimos todos al parque y vimos las estrellas.",
+          "meaning": "I put it in the garage. In the end we all went to the park and watched the stars.",
+          "note": "poner: puse · ir: fuimos · ver: vimos"
+        },
+        {
+          "speaker": "b",
+          "text": "Todos me dijeron que fue una fiesta genial. ¡El año que viene no me la pierdo!",
+          "meaning": "Everyone told me it was a great party. Next year I'm not missing it!",
+          "note": "decir: dijeron (no i) · ser: fue"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🧩",
+    "bites": [
+      {
+        "title": "Ser = ir in the past",
+        "emoji": "👯",
+        "rule": "Fui, fuiste, fue, fuimos, fuisteis, fueron work for both ser and ir. Context decides: fui médico (was) and fui a Madrid (went). No accents.",
+        "example": "Fuimos a Grecia y fue un viaje genial.",
+        "example_meaning": "We went to Greece and it was a great trip."
+      },
+      {
+        "title": "Strong stem, soft ending",
+        "emoji": "💪",
+        "rule": "hic-, tuv-, estuv-, pud-, pus-, vin-, dij- + -e, -iste, -o, -imos, -isteis, -ieron. The stress sits on the stem, so tuve and tuvo have no accent.",
+        "example": "Tuve un examen y no pude dormir.",
+        "example_meaning": "I had an exam and I couldn't sleep."
+      },
+      {
+        "title": "hizo and dijeron",
+        "emoji": "🔧",
+        "rule": "Hacer writes hizo (c → z before o). Decir drops the i after j: dijeron, never dijieron.",
+        "example": "Ella hizo la cena y ellos dijeron gracias.",
+        "example_meaning": "She made dinner and they said thank you."
+      },
+      {
+        "title": "di, dio, vi, vio",
+        "emoji": "🎁",
+        "rule": "Dar and ver use regular -er/-ir endings but are so short that yo and él/ella get no accent: di, dio, vi, vio.",
+        "example": "Mi madre me dio un regalo.",
+        "example_meaning": "My mother gave me a present."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Ser or ir?",
+        "buckets": [
+          "ser (was)",
+          "ir (went)"
+        ],
+        "items": [
+          {
+            "text": "Fui a Madrid.",
+            "bucket": 1
+          },
+          {
+            "text": "Mi abuelo fue médico.",
+            "bucket": 0
+          },
+          {
+            "text": "Fuimos al cine.",
+            "bucket": 1
+          },
+          {
+            "text": "Fueron muy amables.",
+            "bucket": 0
+          },
+          {
+            "text": "¿Fuisteis a la playa?",
+            "bucket": 1
+          },
+          {
+            "text": "Fue una fiesta genial.",
+            "bucket": 0
+          }
+        ],
+        "why": "The forms are identical. A destination (a + place) means ir, a description or identity means ser."
+      },
+      {
+        "title": "Which stem?",
+        "buckets": [
+          "hic-",
+          "tuv-",
+          "pus-",
+          "dij-"
+        ],
+        "items": [
+          {
+            "text": "hice",
+            "bucket": 0
+          },
+          {
+            "text": "tuvo",
+            "bucket": 1
+          },
+          {
+            "text": "pusimos",
+            "bucket": 2
+          },
+          {
+            "text": "dijeron",
+            "bucket": 3
+          },
+          {
+            "text": "hiciste",
+            "bucket": 0
+          },
+          {
+            "text": "tuvieron",
+            "bucket": 1
+          },
+          {
+            "text": "puso",
+            "bucket": 2
+          },
+          {
+            "text": "dije",
+            "bucket": 3
+          }
+        ],
+        "why": "hacer → hic-, tener → tuv-, poner → pus-, decir → dij-."
+      },
+      {
+        "title": "Accent or no accent?",
+        "buckets": [
+          "written accent",
+          "no accent"
+        ],
+        "items": [
+          {
+            "text": "comió",
+            "bucket": 0
+          },
+          {
+            "text": "vio",
+            "bucket": 1
+          },
+          {
+            "text": "habló",
+            "bucket": 0
+          },
+          {
+            "text": "dio",
+            "bucket": 1
+          },
+          {
+            "text": "hizo",
+            "bucket": 1
+          },
+          {
+            "text": "pude",
+            "bucket": 1
+          },
+          {
+            "text": "salí",
+            "bucket": 0
+          },
+          {
+            "text": "fue",
+            "bucket": 1
+          }
+        ],
+        "why": "Regular preterites stress the ending (comió, salí). Strong stems, ser/ir, dar and ver carry no written accent."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Ayer yo hací la cena para toda la familia.",
+        "wrong": "hací",
+        "fix": "hice",
+        "why": "Hacer uses the strong stem hic- and the unstressed ending -e: hice."
+      },
+      {
+        "sentence": "Ellos dijieron la verdad.",
+        "wrong": "dijieron",
+        "fix": "dijeron",
+        "why": "After the j of dij- the i is dropped: dijeron."
+      },
+      {
+        "sentence": "Mi madre me dió un regalo.",
+        "wrong": "dió",
+        "fix": "dio",
+        "why": "Dio is one syllable and never takes an accent."
+      },
+      {
+        "sentence": "Anoche no pudí dormir.",
+        "wrong": "pudí",
+        "fix": "pude",
+        "why": "Strong stems take -e for yo, with no accent: pude."
+      },
+      {
+        "sentence": "El año pasado nosotros fuemos a Grecia.",
+        "wrong": "fuemos",
+        "fix": "fuimos",
+        "why": "Ir in the preterite: fui, fuiste, fue, fuimos, fuisteis, fueron."
+      },
+      {
+        "sentence": "¿Qué haciste el fin de semana?",
+        "wrong": "haciste",
+        "fix": "hiciste",
+        "why": "Hacer uses the strong stem hic-: hiciste. There is no form haciste."
+      }
+    ],
+    "builds": [
+      {
+        "text": "¿Qué hiciste el fin de semana?",
+        "meaning": "What did you do at the weekend?",
+        "distractors": [
+          "hizo"
+        ]
+      },
+      {
+        "text": "Fuimos a Grecia el año pasado.",
+        "meaning": "We went to Greece last year.",
+        "distractors": [
+          "Fuemos",
+          "Vamos"
+        ]
+      },
+      {
+        "text": "Ellos dijeron la verdad.",
+        "meaning": "They told the truth.",
+        "distractors": [
+          "dijieron"
+        ]
+      },
+      {
+        "text": "Mi madre me dio un regalo.",
+        "meaning": "My mother gave me a present.",
+        "distractors": [
+          "dió"
+        ]
+      },
+      {
+        "text": "Anoche no pude dormir.",
+        "meaning": "Last night I couldn't sleep.",
+        "distractors": [
+          "pudí",
+          "puedo"
+        ]
+      }
+    ]
+  }
+}

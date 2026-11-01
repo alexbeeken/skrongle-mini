@@ -1,0 +1,70 @@
+{
+  "id": "french",
+  "title": "French",
+  "subject": "French",
+  "description": "CEFR-aligned French from A1 to B2: greetings, être and avoir, the passé composé, the subjonctif, hypotheses and argument. Grammar and vocabulary lessons with quizzes, verb drills, listening and conversations.",
+  "icon": "🇫🇷",
+  "terms": { "label": "Français", "lang": "fr" },
+  "meanings": { "label": "English", "lang": "en" },
+  "units": [
+    { "id": "A1", "title": "A1", "description": "Beginner" },
+    { "id": "A2", "title": "A2", "description": "Elementary" },
+    { "id": "B1", "title": "B1", "description": "Intermediate" },
+    { "id": "B2", "title": "B2", "description": "Upper intermediate" }
+  ],
+  "levels": true,
+  "groups": [
+    { "id": "Grammar", "title": "Grammar" },
+    { "id": "Vocabulary", "title": "Vocabulary" }
+  ],
+  "paradigm": {
+    "label": "Conjugations",
+    "item_label": "Verb",
+    "slots": [
+      { "key": "je", "who": "me", "label": "je", "hint": "I",
+        "art": ["   |   ", "   |   ", "   |   ", " \\ | / ", "  \\|/  ", "   v   "] },
+      { "key": "tu", "who": "you", "label": "tu", "hint": "you",
+        "art": ["   ^   ", "  /|\\  ", " / | \\ ", "   |   ", "   |   ", "   |   "] },
+      { "key": "il", "who": "other", "label": "il / elle / on", "hint": "he / she / one",
+        "art": ["       ", "       ", "-------\\", "        >", "-------/", "       "] },
+      { "key": "nous", "who": "us", "label": "nous", "hint": "we",
+        "art": [" |  |  | ", " |  |  | ", " |  |  | ", "\\|/\\|/\\|/", " v  v  v ", "         "] },
+      { "key": "vous", "who": "you_all", "label": "vous", "hint": "you (formal or plural)",
+        "art": [" ^  ^  ^ ", "/|\\/|\\/|\\", " |  |  | ", " |  |  | ", " |  |  | ", "         "] },
+      { "key": "ils", "who": "them", "label": "ils / elles", "hint": "they",
+        "art": ["         ", "         ", "-----\\   ", "------>  ", "-----/   ", "         "] }
+    ],
+    "sets": [
+      { "key": "present", "label": "Présent" },
+      { "key": "passe-compose", "label": "Passé composé" },
+      { "key": "imparfait", "label": "Imparfait" },
+      { "key": "futur", "label": "Futur simple" },
+      { "key": "conditionnel", "label": "Conditionnel présent" },
+      { "key": "subjonctif", "label": "Subjonctif présent" }
+    ]
+  },
+  "chars": ["é", "è", "ê", "à", "ç", "ù", "â", "î", "ô", "û", "ë", "ï", "œ"],
+  "calendar": {
+    "days": ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"],
+    "months": ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"],
+    "format": "{day} {d} {month} {year}"
+  },
+  "strings": {
+    "praise": ["Bravo !", "Très bien !", "C'est ça !", "Parfait !", "Génial !"],
+    "almost": ["Not quite", "Presque…", "Hmm, non"]
+  },
+  "themes": {
+    "realm": { "strings": {
+      "praise": ["Victoire !", "Butin épique !", "Tu montes de niveau !", "Pour Eldmark !", "Coup critique !", "Skrongle épique !"],
+      "almost": ["Presque, aventurier", "Presque… recommence la quête", "Hmm, non. Skrong !"]
+    } },
+    "meadowbrook": { "strings": {
+      "praise": ["Belle récolte !", "Ça fleurit !", "Doré comme le blé !", "Très bien !", "Pousse, pousse !", "Skrongle !"],
+      "almost": ["Presque, voisin", "Presque… encore un peu d'eau", "Hmm, non", "Presque… un peu plus de skrong"]
+    } },
+    "rustwake": { "strings": {
+      "praise": ["Des écrous pour toi !", "Tu montes de niveau !", "Zéro radiation !", "Skrong ! Mission accomplie", "Génie du désert !"],
+      "almost": ["Presque, habitant du Dôme", "Presque… ta radio-montre fait skrongle", "Hmm, non"]
+    } }
+  }
+}

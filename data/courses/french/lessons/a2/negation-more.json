@@ -1,0 +1,1150 @@
+{
+  "id": "a2-negation-more",
+  "slug": "negation-more",
+  "title": "More ways to say no: ne… plus, ne… personne, ne… que",
+  "unit": "A2",
+  "group": "Grammar",
+  "order": 20,
+  "summary": "Say no longer, nobody, not a single, nowhere, neither… nor and only, in the present and the passé composé.",
+  "focus": "The negative pairs beyond ne… pas, and where they go in the passé composé",
+  "prerequisites": [
+    "a2-passe-compose-avoir"
+  ],
+  "content": "## More negative pairs\n\nYou know **ne… pas**, **ne… jamais** (never) and **ne… rien** (nothing). The new pairs wrap the verb the same way, **ne** (or **n'**) before it and the second word after it:\n\n| pair | meaning | example |\n|---|---|---|\n| **ne… plus** | no longer, not any more | **Il ne travaille plus.** |\n| **ne… personne** | nobody, not anybody | **Je ne connais personne.** |\n| **ne… aucun / aucune** | not a single, no… at all | **Elle n'a aucune idée.** |\n| **ne… nulle part** | nowhere, not anywhere | **On ne va nulle part.** |\n| **ne… ni… ni…** | neither… nor… | **Je n'aime ni le thé ni le café.** |\n\nAs after **pas**, an article **un, une, du, des** becomes **de** after **plus**: **Il n'y a plus de pain.** **Plus jamais** means never again: **Je ne prends plus jamais ce bus.**\n\n## Ne… que means only\n\n**Ne… que** looks like a negation but it is not one: it means **only**. **Que** goes right before the thing it limits.\n\n- **Je n'ai que dix euros.** I only have ten euros.\n- **Il ne travaille que le matin.** He only works in the mornings.\n\nBecause nothing is denied, the article does **not** change: **Je ne bois que du thé** (I only drink tea), but **Je ne bois pas de thé** (I don't drink tea).\n\n## Personne, rien and short answers\n\n**Personne** and **rien** can be the subject. They come first, keep **ne**, take a singular verb, and never add **pas**:\n\n- **Personne ne répond.** Nobody answers.\n- **Rien ne marche.** Nothing works.\n\nAlone, they answer a question: **Qui est là ? — Personne.** **Tu veux quoi ? — Rien.**\n\nTwo short answers:\n\n- **non plus** agrees with a negative: **Je n'aime pas ça. — Moi non plus.** (Me neither.)\n- **si** says yes to a negative question: **Tu ne viens pas ? — Si !** (Yes, I am!) **Oui** would sound odd here.\n\n## Negation in the passé composé\n\nThe short words **pas, jamais, rien, plus** wrap **avoir** or **être**, so they sit before the participle:\n\n- **Je n'ai rien vu.** I didn't see anything.\n- **Il n'a jamais mangé d'escargots.** He has never eaten snails.\n\nThe longer ones, **personne, aucun, nulle part** and the **que** of **ne… que**, go after the participle:\n\n- **Je n'ai vu personne.** I didn't see anybody.\n- **Nous ne sommes allés nulle part.** We didn't go anywhere.\n- **Elle n'a acheté qu'un livre.** She only bought one book.",
+  "vocabulary": [
+    {
+      "term": "ne… plus",
+      "meaning": "no longer, not any more",
+      "example": "Mon frère ne fume plus.",
+      "example_meaning": "My brother doesn't smoke any more."
+    },
+    {
+      "term": "ne… personne",
+      "meaning": "nobody, not anybody",
+      "example": "Je ne connais personne dans cette ville.",
+      "example_meaning": "I don't know anybody in this town."
+    },
+    {
+      "term": "ne… aucun / aucune",
+      "meaning": "not a single, no… at all",
+      "example": "Il n'a aucune idée.",
+      "example_meaning": "He has no idea at all."
+    },
+    {
+      "term": "ne… nulle part",
+      "meaning": "nowhere, not anywhere",
+      "example": "Je ne trouve mes clés nulle part.",
+      "example_meaning": "I can't find my keys anywhere."
+    },
+    {
+      "term": "ne… que",
+      "meaning": "only",
+      "example": "Elle ne boit que du thé.",
+      "example_meaning": "She only drinks tea."
+    },
+    {
+      "term": "ne… ni… ni…",
+      "meaning": "neither… nor…",
+      "example": "Mon fils ne mange ni poisson ni viande.",
+      "example_meaning": "My son eats neither fish nor meat."
+    },
+    {
+      "term": "plus jamais",
+      "meaning": "never again",
+      "example": "Je ne prends plus jamais l'avion.",
+      "example_meaning": "I never fly any more."
+    },
+    {
+      "term": "non plus",
+      "meaning": "neither, either (after a negative)",
+      "example": "Tu n'as pas faim ? Moi non plus.",
+      "example_meaning": "You're not hungry? Me neither."
+    },
+    {
+      "term": "si",
+      "meaning": "yes (to a negative question)",
+      "example": "Tu ne viens pas ? — Si, j'arrive !",
+      "example_meaning": "Aren't you coming? — Yes, I'm on my way!"
+    },
+    {
+      "term": "personne ne",
+      "meaning": "nobody (as the subject)",
+      "example": "Personne ne répond au téléphone.",
+      "example_meaning": "Nobody is answering the phone."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-negation-more-01",
+      "prompt": "Mon grand-père ne travaille ___ : il est à la retraite. (no longer)",
+      "type": "fill-in-blank",
+      "correct_answer": "plus",
+      "accepted_answers": [
+        "ne travaille plus"
+      ],
+      "explanation": "Ne… plus says that something has stopped: il ne travaille plus. À la retraite = retired.",
+      "hints": [
+        "Not pas: the work has stopped.",
+        "Four letters."
+      ],
+      "teaches": [
+        "ne… plus"
+      ]
+    },
+    {
+      "question_id": "a2-negation-more-02",
+      "prompt": "Which sentence means 'I didn't see anybody'?",
+      "type": "multiple-choice",
+      "options": [
+        "Je n'ai vu personne.",
+        "Je n'ai personne vu.",
+        "Je n'ai pas vu personne."
+      ],
+      "correct_answer": "Je n'ai vu personne.",
+      "explanation": "Personne goes after the participle in the passé composé, and never with pas: je n'ai vu personne.",
+      "hints": [
+        "Personne is one of the longer words.",
+        "No pas with personne."
+      ],
+      "teaches": [
+        "ne… personne"
+      ]
+    },
+    {
+      "question_id": "a2-negation-more-03",
+      "prompt": "Je n'ai ___ dix euros sur moi. (only)",
+      "type": "fill-in-blank",
+      "correct_answer": "que",
+      "accepted_answers": [
+        "que dix euros"
+      ],
+      "explanation": "Ne… que means only: je n'ai que dix euros. Que goes right before the amount.",
+      "hints": [
+        "Ne… ___ = only.",
+        "Three letters."
+      ],
+      "teaches": [
+        "ne… que"
+      ]
+    },
+    {
+      "question_id": "a2-negation-more-04",
+      "prompt": "'Je n'ai que du pain' means 'I have no bread'.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "False: ne… que means only, so it is 'I only have bread'. 'I have no bread' is je n'ai pas de pain; notice du stays after que.",
+      "hints": [
+        "Ne… que is not a real negation."
+      ],
+      "teaches": [
+        "ne… que"
+      ]
+    },
+    {
+      "question_id": "a2-negation-more-05",
+      "prompt": "Tu n'aimes pas le chocolat ? — ___, j'adore ça !",
+      "type": "multiple-choice",
+      "options": [
+        "Si",
+        "Oui",
+        "Non"
+      ],
+      "correct_answer": "Si",
+      "explanation": "To say yes to a negative question, French uses si.",
+      "hints": [
+        "The question is negative, the answer is yes."
+      ],
+      "teaches": [
+        "si"
+      ]
+    },
+    {
+      "question_id": "a2-negation-more-06",
+      "prompt": "___ ne parle pendant le film : la salle est silencieuse. (nobody)",
+      "type": "fill-in-blank",
+      "correct_answer": "Personne",
+      "accepted_answers": [
+        "personne ne"
+      ],
+      "explanation": "As the subject, personne comes first, keeps ne, takes a singular verb and no pas.",
+      "hints": [
+        "Nobody = ?",
+        "It starts the sentence."
+      ],
+      "teaches": [
+        "personne ne"
+      ]
+    },
+    {
+      "question_id": "a2-negation-more-07",
+      "prompt": "Léa n'a ___ ami dans sa nouvelle école. (not a single)",
+      "type": "fill-in-blank",
+      "correct_answer": "aucun",
+      "accepted_answers": [
+        "aucun ami"
+      ],
+      "explanation": "Ne… aucun agrees with the noun: ami is masculine, so aucun (une amie would give aucune).",
+      "hints": [
+        "Ami is masculine.",
+        "a-u-c-…"
+      ],
+      "teaches": [
+        "ne… aucun / aucune"
+      ]
+    },
+    {
+      "question_id": "a2-negation-more-08",
+      "prompt": "How do you say 'I didn't eat anything' in the passé composé?",
+      "type": "multiple-choice",
+      "options": [
+        "Je n'ai rien mangé.",
+        "Je n'ai mangé rien.",
+        "Je ne rien ai mangé."
+      ],
+      "correct_answer": "Je n'ai rien mangé.",
+      "explanation": "Rien is a short word: it wraps avoir with ne and sits before the participle.",
+      "hints": [
+        "Rien goes where pas would go."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a2-negation-more-09",
+      "prompt": "In 'Il n'y a plus de lait', de replaces du because of the negation.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "True: after ne… plus, as after ne… pas, du / de la / des become de: il n'y a plus de lait.",
+      "hints": [
+        "Like il n'y a pas de lait."
+      ],
+      "teaches": [
+        "ne… plus"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Je ne fume plus.",
+      "meaning": "I don't smoke any more.",
+      "note": "ne… plus = no longer."
+    },
+    {
+      "text": "Il n'y a personne à la maison.",
+      "meaning": "There's nobody at home."
+    },
+    {
+      "text": "Nous ne mangeons que des légumes.",
+      "meaning": "We only eat vegetables.",
+      "note": "ne… que = only; the article stays."
+    },
+    {
+      "text": "Elle ne parle ni anglais ni allemand.",
+      "meaning": "She speaks neither English nor German."
+    },
+    {
+      "text": "Je ne vais nulle part ce week-end.",
+      "meaning": "I'm not going anywhere this weekend."
+    },
+    {
+      "text": "Personne ne connaît la réponse à cette question.",
+      "meaning": "Nobody knows the answer to this question.",
+      "note": "New word: la réponse = the answer."
+    },
+    {
+      "text": "Il n'y a plus de place dans le train ce soir.",
+      "meaning": "There's no more room on the train tonight.",
+      "note": "New word: la place = seat, room."
+    },
+    {
+      "text": "Hier, je n'ai rien acheté et je n'ai vu personne au marché.",
+      "meaning": "Yesterday I didn't buy anything and I didn't see anybody at the market.",
+      "note": "Rien before the participle, personne after it."
+    }
+  ],
+  "guide": [
+    {
+      "section": "More negative pairs"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-negation-more-01"
+    },
+    {
+      "question": "a2-negation-more-07"
+    },
+    {
+      "question": "a2-negation-more-09"
+    },
+    {
+      "section": "Ne… que"
+    },
+    {
+      "question": "a2-negation-more-03"
+    },
+    {
+      "question": "a2-negation-more-04"
+    },
+    {
+      "tip": "Test ne… que by deleting it: 'Je n'ai que dix euros' still says you have ten euros. A real negation would take them away."
+    },
+    {
+      "section": "Personne"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-negation-more-06"
+    },
+    {
+      "question": "a2-negation-more-05"
+    },
+    {
+      "section": "Negation in the passé composé"
+    },
+    {
+      "question": "a2-negation-more-08"
+    },
+    {
+      "question": "a2-negation-more-02"
+    },
+    {
+      "concept": {
+        "title": "Ne disappears in speech",
+        "markdown": "In relaxed spoken French the **ne** often drops out: **Je sais pas**, **Il y a personne**, **J'ai plus faim**. The second word carries the meaning. Write the **ne** and use it in careful speech; just recognise the short form when you hear it."
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-negation-more-conv-new-village",
+      "title": "A quiet new village",
+      "scenario": "Chloé has just moved to a small village. Her friend Samir phones to ask how it's going.",
+      "role_a": "Samir",
+      "role_b": "Chloé",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Alors, ta nouvelle vie à la campagne, ça va ?",
+          "meaning": "So, how's your new life in the countryside?"
+        },
+        {
+          "speaker": "b",
+          "text": "Bof. Je ne connais personne ici.",
+          "meaning": "Meh. I don't know anybody here.",
+          "note": "ne… personne"
+        },
+        {
+          "speaker": "a",
+          "text": "Il y a un cinéma, une piscine ?",
+          "meaning": "Is there a cinema, a swimming pool?"
+        },
+        {
+          "speaker": "b",
+          "text": "Il n'y a ni cinéma ni piscine. Et la boulangerie n'ouvre que le matin.",
+          "meaning": "There's neither a cinema nor a pool. And the bakery only opens in the morning.",
+          "note": "ni… ni…; ne… que = only"
+        },
+        {
+          "speaker": "a",
+          "text": "Et tu sors le soir ?",
+          "meaning": "And do you go out in the evening?"
+        },
+        {
+          "speaker": "b",
+          "text": "Non, je ne vais nulle part. Il n'y a plus de bus après sept heures.",
+          "meaning": "No, I don't go anywhere. There are no more buses after seven.",
+          "note": "plus de + noun"
+        },
+        {
+          "speaker": "a",
+          "text": "Tu n'aimes pas ta maison ?",
+          "meaning": "Don't you like your house?"
+        },
+        {
+          "speaker": "b",
+          "text": "Si, j'adore ma maison ! Elle est grande et calme.",
+          "meaning": "Yes, I love my house! It's big and quiet.",
+          "note": "si: yes to a negative question"
+        },
+        {
+          "speaker": "a",
+          "text": "Tu as parlé avec tes voisins ?",
+          "meaning": "Have you talked to your neighbours?"
+        },
+        {
+          "speaker": "b",
+          "text": "Pas encore. Je n'ai vu personne dans la rue.",
+          "meaning": "Not yet. I haven't seen anybody in the street.",
+          "note": "personne after the participle"
+        },
+        {
+          "speaker": "a",
+          "text": "Je viens te voir samedi, d'accord ?",
+          "meaning": "I'm coming to see you on Saturday, OK?"
+        },
+        {
+          "speaker": "b",
+          "text": "Génial ! Je n'ai aucun projet samedi.",
+          "meaning": "Great! I have no plans at all on Saturday.",
+          "note": "ne… aucun"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🚫",
+    "bites": [
+      {
+        "title": "No longer: ne… plus",
+        "emoji": "⏹️",
+        "rule": "Ne… plus wraps the verb like ne… pas and says something has stopped. Plus de + noun, and plus jamais = never again.",
+        "example": "Je ne mange plus de viande.",
+        "example_meaning": "I don't eat meat any more."
+      },
+      {
+        "title": "Nobody, none, nowhere",
+        "emoji": "🫥",
+        "rule": "Ne… personne (nobody), ne… aucun(e) (not a single), ne… nulle part (nowhere), ne… ni… ni… (neither… nor).",
+        "example": "Je ne vois personne.",
+        "example_meaning": "I can't see anybody."
+      },
+      {
+        "title": "Ne… que = only",
+        "emoji": "☝️",
+        "rule": "Ne… que is not a negation: it means only, and the article stays: je ne bois que du thé.",
+        "example": "Il n'a que deux euros.",
+        "example_meaning": "He only has two euros."
+      },
+      {
+        "title": "Si !",
+        "emoji": "✅",
+        "rule": "Say yes to a negative question with si. Personne ne… and rien ne… can start a sentence, with no pas.",
+        "example": "Tu ne viens pas ? — Si !",
+        "example_meaning": "Aren't you coming? — Yes, I am!"
+      }
+    ],
+    "sorts": [
+      {
+        "title": "What does it mean?",
+        "buckets": [
+          "no longer",
+          "nobody",
+          "only",
+          "nowhere"
+        ],
+        "items": [
+          {
+            "text": "Il ne travaille plus.",
+            "bucket": 0
+          },
+          {
+            "text": "Je ne vois personne.",
+            "bucket": 1
+          },
+          {
+            "text": "Elle n'a que dix ans.",
+            "bucket": 2
+          },
+          {
+            "text": "On ne va nulle part.",
+            "bucket": 3
+          },
+          {
+            "text": "Ils n'habitent plus ici.",
+            "bucket": 0
+          },
+          {
+            "text": "Personne ne répond.",
+            "bucket": 1
+          },
+          {
+            "text": "Je ne lis que le soir.",
+            "bucket": 2
+          },
+          {
+            "text": "Je ne voyage nulle part cet été.",
+            "bucket": 3
+          }
+        ],
+        "why": "Plus = no longer, personne = nobody, que = only, nulle part = nowhere."
+      },
+      {
+        "title": "Before or after the participle?",
+        "buckets": [
+          "before: je n'ai … vu",
+          "after: je n'ai vu …"
+        ],
+        "items": [
+          {
+            "text": "rien",
+            "bucket": 0
+          },
+          {
+            "text": "jamais",
+            "bucket": 0
+          },
+          {
+            "text": "plus",
+            "bucket": 0
+          },
+          {
+            "text": "pas",
+            "bucket": 0
+          },
+          {
+            "text": "personne",
+            "bucket": 1
+          },
+          {
+            "text": "nulle part",
+            "bucket": 1
+          },
+          {
+            "text": "aucun film",
+            "bucket": 1
+          }
+        ],
+        "why": "The short words wrap avoir: je n'ai rien vu. Personne, aucun and nulle part come after the participle: je n'ai vu personne."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Il n'y a plus du pain.",
+        "wrong": "du",
+        "fix": "de",
+        "why": "After ne… plus, du becomes de."
+      },
+      {
+        "sentence": "Personne ne parlent français ici.",
+        "wrong": "parlent",
+        "fix": "parle",
+        "why": "Personne takes a singular verb."
+      },
+      {
+        "sentence": "Tu ne viens pas ? — Oui, j'arrive !",
+        "wrong": "Oui",
+        "fix": "Si",
+        "why": "Yes to a negative question is si."
+      },
+      {
+        "sentence": "Elle n'a aucun idée.",
+        "wrong": "aucun",
+        "fix": "aucune",
+        "why": "Idée is feminine: aucune idée."
+      },
+      {
+        "sentence": "Je n'aime ni le thé ou le café.",
+        "wrong": "ou",
+        "fix": "ni",
+        "why": "Neither… nor is ni… ni…"
+      }
+    ],
+    "builds": [
+      {
+        "text": "Je ne fume plus jamais.",
+        "meaning": "I never smoke any more.",
+        "distractors": [
+          "pas"
+        ]
+      },
+      {
+        "text": "Il n'y a personne ici.",
+        "meaning": "There's nobody here.",
+        "distractors": [
+          "pas"
+        ]
+      },
+      {
+        "text": "Nous n'avons que deux chambres.",
+        "meaning": "We only have two bedrooms.",
+        "distractors": [
+          "pas"
+        ]
+      },
+      {
+        "text": "Je n'ai rien vu hier.",
+        "meaning": "I didn't see anything yesterday.",
+        "distractors": [
+          "personne"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🕳️",
+      "content": "## Le donjon vide à Eldmark\n\nThe dungeon is empty: **il n'y a personne**, **il n'y a plus de butin**, **aucun coffre**. Borin **ne trouve son épée nulle part** and Nym **n'a que deux potions**. **Personne ne** parle. « Tu n'as pas peur ? — **Si** ! » Same pairs, same places as in the lesson.",
+      "vocabulary": [
+        {
+          "term": "ne… plus",
+          "example": "Il n'y a plus de potions dans mon sac.",
+          "example_meaning": "There are no potions left in my bag."
+        },
+        {
+          "term": "ne… personne",
+          "example": "Dans le donjon, nous ne voyons personne.",
+          "example_meaning": "In the dungeon we can't see anybody."
+        },
+        {
+          "term": "ne… aucun / aucune",
+          "example": "Le chasseur n'a aucune flèche.",
+          "example_meaning": "The hunter hasn't got a single arrow."
+        },
+        {
+          "term": "ne… nulle part",
+          "example": "Borin ne trouve son épée nulle part.",
+          "example_meaning": "Borin can't find his sword anywhere."
+        },
+        {
+          "term": "ne… que",
+          "example": "La mage n'a qu'un parchemin.",
+          "example_meaning": "The mage has only one scroll."
+        },
+        {
+          "term": "personne ne",
+          "example": "Personne ne veut entrer dans la Forêt Ombreuse.",
+          "example_meaning": "Nobody wants to go into the Shadowed Forest."
+        },
+        {
+          "term": "si",
+          "example": "Tu n'es pas prêt ? — Si, je suis prêt !",
+          "example_meaning": "Aren't you ready? — Yes, I'm ready!"
+        },
+        {
+          "term": "vide",
+          "meaning": "empty",
+          "example": "Le coffre est vide.",
+          "example_meaning": "The chest is empty."
+        },
+        {
+          "term": "la torche",
+          "meaning": "torch (f)",
+          "example": "Nym tient une torche.",
+          "example_meaning": "Nym is holding a torch."
+        },
+        {
+          "term": "le piège",
+          "meaning": "trap (m)",
+          "example": "Attention, il y a un piège !",
+          "example_meaning": "Careful, there's a trap!"
+        }
+      ],
+      "bites": [
+        {
+          "title": "Le donjon vide",
+          "emoji": "🕳️",
+          "rule": "An empty dungeon speaks in negatives: il n'y a personne, plus de butin, aucun coffre; Nym n'a que deux potions.",
+          "example": "Il n'y a plus de butin ici.",
+          "example_meaning": "There's no loot left here."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Le coffre du nain est vide.",
+          "meaning": "The dwarf's chest is empty.",
+          "note": "New word: vide = empty."
+        },
+        {
+          "text": "Nous n'avons plus de torches.",
+          "meaning": "We have no torches left.",
+          "note": "New word: la torche = torch."
+        },
+        {
+          "text": "Il n'y a aucun piège ici.",
+          "meaning": "There isn't a single trap here.",
+          "note": "New word: le piège = trap."
+        },
+        {
+          "text": "Personne ne parle dans la taverne.",
+          "meaning": "Nobody is talking in the tavern."
+        },
+        {
+          "text": "Le paladin n'a vu personne.",
+          "meaning": "The paladin didn't see anybody."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Il n'y a personne dans le donjon.",
+          "meaning": "There's nobody in the dungeon.",
+          "distractors": [
+            "pas"
+          ]
+        },
+        {
+          "text": "Nym n'a que deux potions.",
+          "meaning": "Nym only has two potions.",
+          "distractors": [
+            "de"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Il n'y a plus des potions.",
+          "wrong": "des",
+          "fix": "de",
+          "why": "After ne… plus, des becomes de."
+        },
+        {
+          "sentence": "Personne ne trouvent le trésor.",
+          "wrong": "trouvent",
+          "fix": "trouve",
+          "why": "Personne takes a singular verb."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Negation or only?",
+          "buckets": [
+            "a real negation",
+            "only (ne… que)"
+          ],
+          "items": [
+            {
+              "text": "Je n'ai plus d'or.",
+              "bucket": 0
+            },
+            {
+              "text": "Je n'ai qu'une épée.",
+              "bucket": 1
+            },
+            {
+              "text": "Il ne voit personne.",
+              "bucket": 0
+            },
+            {
+              "text": "Elle n'a que trois flèches.",
+              "bucket": 1
+            },
+            {
+              "text": "On ne va nulle part.",
+              "bucket": 0
+            },
+            {
+              "text": "Nous ne buvons que de l'eau.",
+              "bucket": 1
+            }
+          ],
+          "why": "Ne… que only limits: you still have the thing. Plus, personne and nulle part really deny."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a2-negation-more-realm-01",
+          "prompt": "Dans le donjon vide, Borin ne voit ___. (nobody)",
+          "type": "fill-in-blank",
+          "correct_answer": "personne",
+          "accepted_answers": [
+            "ne voit personne"
+          ],
+          "explanation": "Ne… personne = nobody: Borin ne voit personne.",
+          "hints": [
+            "Nobody = ?"
+          ],
+          "teaches": [
+            "ne… personne",
+            "vide"
+          ]
+        },
+        {
+          "question_id": "a2-negation-more-realm-02",
+          "prompt": "Nym the elf only has one arrow left. Which sentence says so?",
+          "type": "multiple-choice",
+          "options": [
+            "Nym n'a qu'une flèche.",
+            "Nym n'a pas une flèche.",
+            "Nym n'a aucune flèche."
+          ],
+          "correct_answer": "Nym n'a qu'une flèche.",
+          "explanation": "Ne… que = only; before une, que becomes qu'.",
+          "hints": [
+            "Only = ne… que."
+          ],
+          "teaches": [
+            "ne… que"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🐛",
+      "content": "## Les chenilles à Meadowbrook\n\nCaterpillars visited your vegetable patch: **il n'y a plus de fraises**, **je n'ai que trois citrouilles**, and **je ne trouve mes poules nulle part**. **Personne ne** vend de graines today. « Tu n'es pas triste ? — **Si**, un peu. » Next season, **plus jamais** de chenilles!",
+      "vocabulary": [
+        {
+          "term": "ne… plus",
+          "example": "Il n'y a plus de fraises dans le potager.",
+          "example_meaning": "There are no strawberries left in the vegetable patch."
+        },
+        {
+          "term": "ne… que",
+          "example": "Je n'ai que trois citrouilles cette année.",
+          "example_meaning": "I only have three pumpkins this year."
+        },
+        {
+          "term": "ne… nulle part",
+          "example": "Je ne trouve mes poules nulle part.",
+          "example_meaning": "I can't find my hens anywhere."
+        },
+        {
+          "term": "personne ne",
+          "example": "Personne ne pêche quand il pleut.",
+          "example_meaning": "Nobody fishes when it rains."
+        },
+        {
+          "term": "ne… ni… ni…",
+          "example": "La vache ne mange ni maïs ni citrouille.",
+          "example_meaning": "The cow eats neither corn nor pumpkin."
+        },
+        {
+          "term": "si",
+          "example": "Tu ne viens pas au marché ? — Si, j'arrive !",
+          "example_meaning": "Aren't you coming to the market? — Yes, I'm coming!"
+        },
+        {
+          "term": "la chenille",
+          "meaning": "caterpillar (f)",
+          "example": "Une chenille mange ma salade.",
+          "example_meaning": "A caterpillar is eating my lettuce."
+        },
+        {
+          "term": "le potager",
+          "meaning": "vegetable garden, vegetable patch (m)",
+          "example": "Mon potager est derrière la ferme.",
+          "example_meaning": "My vegetable garden is behind the farm."
+        },
+        {
+          "term": "la pluie",
+          "meaning": "rain (f)",
+          "example": "Après la pluie, le champ est vert.",
+          "example_meaning": "After the rain, the field is green."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Plus de fraises !",
+          "emoji": "🐛",
+          "rule": "After the caterpillars: il n'y a plus de fraises, je n'ai que trois citrouilles, personne ne vend de graines.",
+          "example": "Il n'y a plus de maïs.",
+          "example_meaning": "There's no corn left."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Les chenilles ne mangent que les fraises.",
+          "meaning": "The caterpillars only eat the strawberries.",
+          "note": "New word: la chenille = caterpillar."
+        },
+        {
+          "text": "Il n'y a plus rien dans le potager.",
+          "meaning": "There's nothing left in the vegetable patch.",
+          "note": "New word: le potager = vegetable patch."
+        },
+        {
+          "text": "Personne ne travaille sous la pluie.",
+          "meaning": "Nobody works in the rain.",
+          "note": "New word: la pluie = rain."
+        },
+        {
+          "text": "Léo n'a pêché aucun poisson.",
+          "meaning": "Léo didn't catch a single fish."
+        },
+        {
+          "text": "Rosa ne vend plus de graines de maïs.",
+          "meaning": "Rosa doesn't sell corn seeds any more."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Il n'y a plus de fraises.",
+          "meaning": "There are no strawberries left.",
+          "distractors": [
+            "des"
+          ]
+        },
+        {
+          "text": "Personne ne vend de citrouilles.",
+          "meaning": "Nobody is selling pumpkins.",
+          "distractors": [
+            "pas"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Je n'ai trouvé aucun poule dans le champ.",
+          "wrong": "aucun",
+          "fix": "aucune",
+          "why": "Poule is feminine: aucune poule."
+        },
+        {
+          "sentence": "Tu n'aimes pas les champignons ? — Oui, j'adore !",
+          "wrong": "Oui",
+          "fix": "Si",
+          "why": "Yes to a negative question is si."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Before or after the participle?",
+          "buckets": [
+            "before the participle",
+            "after the participle"
+          ],
+          "items": [
+            {
+              "text": "Je n'ai rien récolté.",
+              "bucket": 0
+            },
+            {
+              "text": "Je n'ai vu personne.",
+              "bucket": 1
+            },
+            {
+              "text": "Il n'a jamais pêché.",
+              "bucket": 0
+            },
+            {
+              "text": "Elle n'est allée nulle part.",
+              "bucket": 1
+            },
+            {
+              "text": "Nous n'avons pas arrosé.",
+              "bucket": 0
+            },
+            {
+              "text": "Je n'ai trouvé aucune poule.",
+              "bucket": 1
+            }
+          ],
+          "why": "Rien, jamais and pas wrap avoir / être; personne, nulle part and aucun come after the participle."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a2-negation-more-meadowbrook-01",
+          "prompt": "Les chenilles ont tout mangé : il n'y a ___ de fraises dans le potager. (no more)",
+          "type": "fill-in-blank",
+          "correct_answer": "plus",
+          "accepted_answers": [
+            "n'y a plus"
+          ],
+          "explanation": "Ne… plus says something has stopped or run out: il n'y a plus de fraises.",
+          "hints": [
+            "No more = ne… ___."
+          ],
+          "teaches": [
+            "ne… plus",
+            "le potager"
+          ]
+        },
+        {
+          "question_id": "a2-negation-more-meadowbrook-02",
+          "prompt": "'Je n'ai que trois citrouilles' means Nora has no pumpkins at all.",
+          "type": "true-false",
+          "correct_answer": "false",
+          "explanation": "False: ne… que = only. Nora has three pumpkins, and only three.",
+          "hints": [
+            "Ne… que is not a real negation."
+          ],
+          "teaches": [
+            "ne… que"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🗑️",
+      "content": "## La ferraille à Rustwake\n\nA bad day in the scrap village: **il n'y a plus d'eau filtrée**, Marta **n'a que dix écrous**, **personne ne** répond à la radio, and Léo **n'a rien trouvé** in the bins. « Tu n'as pas soif ? — **Si** ! » In the desert as in Paris, the same negative pairs.",
+      "vocabulary": [
+        {
+          "term": "ne… plus",
+          "example": "Il n'y a plus d'eau filtrée au marché.",
+          "example_meaning": "There's no filtered water left at the market."
+        },
+        {
+          "term": "ne… personne",
+          "example": "Je n'entends personne sur la radio-montre.",
+          "example_meaning": "I can't hear anybody on the wrist radio."
+        },
+        {
+          "term": "ne… aucun / aucune",
+          "example": "Le robot jardinier n'a aucune pile.",
+          "example_meaning": "The gardener robot hasn't got a single battery."
+        },
+        {
+          "term": "ne… que",
+          "example": "Marta n'a que dix écrous.",
+          "example_meaning": "Marta only has ten nuts."
+        },
+        {
+          "term": "personne ne",
+          "example": "Personne ne sort pendant la tempête.",
+          "example_meaning": "Nobody goes out during the storm."
+        },
+        {
+          "term": "plus jamais",
+          "example": "Plus jamais de soda Saphir chaud !",
+          "example_meaning": "Never again warm Saphir soda!"
+        },
+        {
+          "term": "la poubelle",
+          "meaning": "bin, rubbish bin (f)",
+          "example": "Léo cherche des écrous dans la poubelle.",
+          "example_meaning": "Léo is looking for nuts in the bin."
+        },
+        {
+          "term": "la pile",
+          "meaning": "battery (f)",
+          "example": "Ma radio-montre n'a plus de pile.",
+          "example_meaning": "My wrist radio's battery is dead."
+        },
+        {
+          "term": "vide",
+          "meaning": "empty",
+          "example": "La station-service est vide.",
+          "example_meaning": "The petrol station is empty."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Rien dans la poubelle",
+          "emoji": "🗑️",
+          "rule": "A bad day: il n'y a plus d'eau, Marta n'a que dix écrous, personne ne répond, Léo n'a rien trouvé.",
+          "example": "Léo n'a rien trouvé dans la poubelle.",
+          "example_meaning": "Léo didn't find anything in the bin."
+        }
+      ],
+      "listening": [
+        {
+          "text": "La poubelle est vide.",
+          "meaning": "The bin is empty.",
+          "note": "New word: la poubelle = bin."
+        },
+        {
+          "text": "Il n'y a plus de piles.",
+          "meaning": "There are no batteries left.",
+          "note": "New word: la pile = battery."
+        },
+        {
+          "text": "Personne ne répond à la radio.",
+          "meaning": "Nobody is answering on the radio."
+        },
+        {
+          "text": "Ruiz ne boit que de l'eau filtrée.",
+          "meaning": "Ruiz only drinks filtered water."
+        },
+        {
+          "text": "Nous n'avons vu aucun scarabée géant.",
+          "meaning": "We didn't see a single giant beetle."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Je n'ai plus d'écrous.",
+          "meaning": "I have no nuts left.",
+          "distractors": [
+            "des"
+          ]
+        },
+        {
+          "text": "Personne ne répond à la radio-montre.",
+          "meaning": "Nobody answers on the wrist radio.",
+          "distractors": [
+            "pas"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Je n'ai aucun pile pour ma radio-montre.",
+          "wrong": "aucun",
+          "fix": "aucune",
+          "why": "Pile is feminine: aucune pile."
+        },
+        {
+          "sentence": "Il n'y a plus d'eau ni des piles.",
+          "wrong": "des",
+          "fix": "de",
+          "why": "After a negation, des becomes de: ni de piles."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Which pair?",
+          "buckets": [
+            "ne… plus",
+            "ne… personne",
+            "ne… que"
+          ],
+          "items": [
+            {
+              "text": "Il n'y a plus d'eau.",
+              "bucket": 0
+            },
+            {
+              "text": "Je ne vois personne.",
+              "bucket": 1
+            },
+            {
+              "text": "Marta n'a que dix écrous.",
+              "bucket": 2
+            },
+            {
+              "text": "La radio ne marche plus.",
+              "bucket": 0
+            },
+            {
+              "text": "Personne ne sort.",
+              "bucket": 1
+            },
+            {
+              "text": "Je ne bois que du soda.",
+              "bucket": 2
+            }
+          ],
+          "why": "Plus = no longer, personne = nobody, que = only."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a2-negation-more-rustwake-01",
+          "prompt": "Pendant la tempête de cendres, ___ ne sort du village. (nobody)",
+          "type": "fill-in-blank",
+          "correct_answer": "personne",
+          "accepted_answers": [
+            "personne ne"
+          ],
+          "explanation": "As the subject, personne comes first with ne and a singular verb, no pas.",
+          "hints": [
+            "Nobody = ?"
+          ],
+          "teaches": [
+            "personne ne"
+          ]
+        },
+        {
+          "question_id": "a2-negation-more-rustwake-02",
+          "prompt": "Léo searched the bins and found nothing. Which sentence is right?",
+          "type": "multiple-choice",
+          "options": [
+            "Léo n'a rien trouvé.",
+            "Léo n'a trouvé rien.",
+            "Léo n'a pas trouvé rien."
+          ],
+          "correct_answer": "Léo n'a rien trouvé.",
+          "explanation": "Rien wraps avoir and sits before the participle: n'a rien trouvé.",
+          "hints": [
+            "Rien goes where pas would go."
+          ],
+          "teaches": [
+            "la poubelle"
+          ]
+        }
+      ]
+    }
+  }
+}

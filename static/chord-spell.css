@@ -1,0 +1,11 @@
+/* Spell the chord (#1228): loaded by static/chord-spell.js, only on pages with such a question. */
+.chord-spell { margin: .5rem 0 1rem; }
+.chord-spell-staff { max-width: 18rem; margin: 0 auto; min-height: 4rem; }
+.chord-spell-slots { display: flex; justify-content: center; gap: .5rem; margin: .5rem 0 1rem; }
+.chord-spell-slot { min-width: 3.5rem; min-height: 3rem; padding: .25rem .5rem; border: 2px dashed var(--line); border-radius: 10px; background: transparent; color: var(--text); font: inherit; font-weight: 600; cursor: pointer; }
+.chord-spell-slot[data-tile]:not([data-tile=""]) { border-style: solid; border-color: var(--gold); background: var(--surface); }
+.chord-spell-slot:disabled { cursor: default; }
+.chord-spell-tiles { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; }
+.chord-spell-tile { min-width: 3.5rem; min-height: 3rem; padding: .25rem .75rem; border: 2px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--text); font: inherit; cursor: pointer; }
+.chord-spell-tile:hover:not(:disabled) { border-color: var(--gold); }
+.chord-spell-tile:disabled { opacity: .45; cursor: default; }

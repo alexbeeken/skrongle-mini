@@ -1,0 +1,793 @@
+{
+  "id": "a2-regular-preterite-er-ir",
+  "slug": "regular-preterite-er-ir",
+  "title": "Regular -ER and -IR verbs in the preterite",
+  "unit": "A2",
+  "group": "Grammar",
+  "order": 12,
+  "summary": "One set of endings for both -er and -ir verbs: comí, comiste, comió, comimos, comisteis, comieron.",
+  "focus": "Preterite (pretérito indefinido) of regular -er and -ir verbs",
+  "prerequisites": [
+    "a2-regular-preterite-ar"
+  ],
+  "content": "## One set of endings for -er and -ir\n\nIn the preterite, **-er** and **-ir** verbs share the same endings. Remove **-er** or **-ir** and add:\n\n| person | ending | comer | vivir |\n|---|---|---|---|\n| yo | **-í** | com**í** | viv**í** |\n| tú | **-iste** | com**iste** | viv**iste** |\n| él / ella / usted | **-ió** | com**ió** | viv**ió** |\n| nosotros/as | **-imos** | com**imos** | viv**imos** |\n| vosotros/as | **-isteis** | com**isteis** | viv**isteis** |\n| ellos / ellas / ustedes | **-ieron** | com**ieron** | viv**ieron** |\n\n- *Ayer comí paella.* (Yesterday I ate paella.)\n- *Salieron a las diez.* (They went out at ten.)\n- *¿Escribiste el correo?* (Did you write the email?)\n\n## Watch the accents: comí, comió\n\nAs with **-ar** verbs, the **yo** and **él/ella/usted** forms carry a written accent: **-í** and **-ió**. It separates past from present:\n\n- *vivo* = I live vs. *vivió* = he/she lived\n- *como* = I eat vs. *comí* = I ate\n\nThe other forms have **no** accent: *comimos*, *vivimos*, *salisteis*.\n\nFor **-ir** verbs the **nosotros** form looks the same as the present: *vivimos* = we live / we lived. For **-er** verbs it differs: *comemos* (we eat) vs. *comimos* (we ate).\n\n## Time markers for the past\n\nThe preterite usually comes with a time marker that fixes the action in the past:\n\n- **ayer**: *Ayer bebí demasiado café.* (Yesterday I drank too much coffee.)\n- **anoche**: *Anoche salimos con unos amigos.* (Last night we went out with some friends.)\n- **la semana pasada**: *La semana pasada escribí tres correos.* (Last week I wrote three emails.)\n- **el año pasado**: *El año pasado vivimos en Valencia.* (Last year we lived in Valencia.)\n- **hace dos días**: *Hace dos días aprendí la palabra.* (Two days ago I learnt the word.)\n\n**Hace** + a length of time means *ago*: *hace una hora*, *hace tres años*.\n\n## A spelling note: leer → leyó\n\nWhen the stem ends in a vowel (**leer**, **creer**, **oír**), the **i** of **-ió** and **-ieron** turns into a **y** so that it does not sit between two vowels:\n\n- leer → *leyó*, *leyeron* (but *leí*, *leíste*, *leímos*)\n- creer → *creyó*, *creyeron*\n\nJust recognise these for now. Drill the regular endings.",
+  "vocabulary": [
+    {
+      "term": "comer",
+      "meaning": "to eat",
+      "example": "Ayer comimos paella en la playa.",
+      "example_meaning": "Yesterday we ate paella on the beach."
+    },
+    {
+      "term": "beber",
+      "meaning": "to drink",
+      "example": "Anoche bebí demasiado café.",
+      "example_meaning": "Last night I drank too much coffee."
+    },
+    {
+      "term": "vivir",
+      "meaning": "to live",
+      "example": "Viví tres años en Madrid.",
+      "example_meaning": "I lived in Madrid for three years."
+    },
+    {
+      "term": "escribir",
+      "meaning": "to write",
+      "example": "¿Escribiste el correo a tu jefe?",
+      "example_meaning": "Did you write the email to your boss?"
+    },
+    {
+      "term": "salir",
+      "meaning": "to go out, to leave",
+      "example": "Salieron a las diez de la noche.",
+      "example_meaning": "They went out at ten at night."
+    },
+    {
+      "term": "aprender",
+      "meaning": "to learn",
+      "example": "Aprendí mucho en el curso.",
+      "example_meaning": "I learned a lot in the course."
+    },
+    {
+      "term": "el año pasado",
+      "meaning": "last year",
+      "example": "El año pasado vivimos en Valencia.",
+      "example_meaning": "Last year we lived in Valencia."
+    },
+    {
+      "term": "hace dos días",
+      "meaning": "two days ago",
+      "example": "Hace dos días salí con mis amigos.",
+      "example_meaning": "Two days ago I went out with my friends."
+    },
+    {
+      "term": "el correo",
+      "meaning": "email",
+      "example": "Marta escribió un correo a su jefe.",
+      "example_meaning": "Marta wrote an email to her boss."
+    },
+    {
+      "term": "el fin de semana",
+      "meaning": "the weekend",
+      "example": "¿Qué comiste el fin de semana?",
+      "example_meaning": "What did you eat at the weekend?"
+    },
+    {
+      "term": "la paella",
+      "meaning": "paella",
+      "example": "Comimos paella en la playa.",
+      "example_meaning": "We ate paella on the beach."
+    },
+    {
+      "term": "demasiado",
+      "meaning": "too much",
+      "example": "Mis amigos bebieron demasiado café.",
+      "example_meaning": "My friends drank too much coffee."
+    },
+    {
+      "term": "el curso",
+      "meaning": "course, class",
+      "example": "El año pasado aprendí mucho en el curso.",
+      "example_meaning": "Last year I learned a lot in the course."
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "comer",
+      "meaning": "to eat",
+      "set": "preterite",
+      "art": [
+        " \\|/   .-------.    |",
+        "  |   /         \\   |",
+        "  |  (     o     )  |",
+        "  |   \\         /   |",
+        "  |    '-------'    |"
+      ],
+      "forms": {
+        "yo": "comí",
+        "tu": "comiste",
+        "el": "comió",
+        "nosotros": "comimos",
+        "vosotros": "comisteis",
+        "ellos": "comieron"
+      }
+    },
+    {
+      "item": "beber",
+      "meaning": "to drink",
+      "set": "preterite",
+      "art": [
+        "  ___________ ",
+        "  \\         / ",
+        "   \\ ~~~~~ /  ",
+        "    \\     /   ",
+        "     \\___/    ",
+        "     _/ \\_    "
+      ],
+      "forms": {
+        "yo": "bebí",
+        "tu": "bebiste",
+        "el": "bebió",
+        "nosotros": "bebimos",
+        "vosotros": "bebisteis",
+        "ellos": "bebieron"
+      }
+    },
+    {
+      "item": "vivir",
+      "meaning": "to live",
+      "set": "preterite",
+      "art": [
+        "       /\\       ",
+        "      /  \\      ",
+        "     /____\\     ",
+        "     | [] |     ",
+        "     |____|     "
+      ],
+      "forms": {
+        "yo": "viví",
+        "tu": "viviste",
+        "el": "vivió",
+        "nosotros": "vivimos",
+        "vosotros": "vivisteis",
+        "ellos": "vivieron"
+      }
+    },
+    {
+      "item": "escribir",
+      "meaning": "to write",
+      "set": "preterite",
+      "art": [
+        "  .______________.    ",
+        "  | |            |\\   ",
+        "  |_|____________|/   ",
+        "   ~~~ hola ~~~       "
+      ],
+      "forms": {
+        "yo": "escribí",
+        "tu": "escribiste",
+        "el": "escribió",
+        "nosotros": "escribimos",
+        "vosotros": "escribisteis",
+        "ellos": "escribieron"
+      }
+    },
+    {
+      "item": "salir",
+      "meaning": "to go out, to leave",
+      "set": "preterite",
+      "art": [
+        "  _______     ",
+        " |  ___  |    ",
+        " | |   | |    ",
+        " | |  o| |--->",
+        " | |___| |    ",
+        " |_______|    "
+      ],
+      "forms": {
+        "yo": "salí",
+        "tu": "saliste",
+        "el": "salió",
+        "nosotros": "salimos",
+        "vosotros": "salisteis",
+        "ellos": "salieron"
+      }
+    },
+    {
+      "item": "aprender",
+      "meaning": "to learn",
+      "set": "preterite",
+      "art": [
+        "   ____________   ",
+        "  /     ||     \\  ",
+        " |  ab  ||  cd  | ",
+        " |  ef  ||  gh  | ",
+        "  \\_____||_____/  "
+      ],
+      "forms": {
+        "yo": "aprendí",
+        "tu": "aprendiste",
+        "el": "aprendió",
+        "nosotros": "aprendimos",
+        "vosotros": "aprendisteis",
+        "ellos": "aprendieron"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-regular-preterite-er-ir-01",
+      "prompt": "Conjugate in the preterite: (yo) comer → ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "comí",
+      "accepted_answers": [
+        "yo comí"
+      ],
+      "explanation": "The yo ending for -er and -ir verbs is -í with an accent: 'comí'.",
+      "hints": [
+        "Yo → -í.",
+        "Don't forget the accent."
+      ],
+      "teaches": [
+        "comer"
+      ]
+    },
+    {
+      "question_id": "a2-regular-preterite-er-ir-02",
+      "prompt": "Anoche Marta ___ un correo a su jefe.",
+      "type": "multiple-choice",
+      "options": [
+        "escribió",
+        "escribo",
+        "escribiste",
+        "escribieron"
+      ],
+      "correct_answer": "escribió",
+      "explanation": "Marta = ella, which takes -ió in the preterite: 'escribió'. 'Escribo' is present tense 'I write'.",
+      "hints": [
+        "Ella → -ió.",
+        "'Anoche' means last night."
+      ],
+      "teaches": [
+        "escribir",
+        "el correo"
+      ]
+    },
+    {
+      "question_id": "a2-regular-preterite-er-ir-03",
+      "prompt": "Conjugate in the preterite: (nosotros) vivir → ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "vivimos",
+      "accepted_answers": [
+        "nosotros vivimos"
+      ],
+      "explanation": "Nosotros takes -imos: 'vivimos'. For -ir verbs it looks exactly like the present; no accent.",
+      "hints": [
+        "Nosotros → -imos.",
+        "Same as the present for -ir verbs."
+      ],
+      "teaches": [
+        "vivir"
+      ]
+    },
+    {
+      "question_id": "a2-regular-preterite-er-ir-04",
+      "prompt": "¿A qué hora ___ vosotros anoche?",
+      "type": "multiple-choice",
+      "options": [
+        "salisteis",
+        "salieron",
+        "salimos",
+        "saliste"
+      ],
+      "correct_answer": "salisteis",
+      "explanation": "Vosotros takes -isteis: 'salisteis'. 'Saliste' is tú, 'salieron' is ellos.",
+      "hints": [
+        "Vosotros → -isteis."
+      ],
+      "teaches": [
+        "salir"
+      ]
+    },
+    {
+      "question_id": "a2-regular-preterite-er-ir-05",
+      "prompt": "Hace dos días mis amigos ___ (beber) demasiado café.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "bebieron",
+      "accepted_answers": [
+        "ellos bebieron"
+      ],
+      "explanation": "'Mis amigos' = ellos, which takes -ieron: 'bebieron'. 'Hace dos días' means two days ago.",
+      "hints": [
+        "Ellos → -ieron.",
+        "No accent on -ieron."
+      ],
+      "teaches": [
+        "beber",
+        "hace dos días",
+        "demasiado"
+      ]
+    },
+    {
+      "question_id": "a2-regular-preterite-er-ir-06",
+      "prompt": "El año pasado yo ___ mucho en el curso.",
+      "type": "multiple-choice",
+      "options": [
+        "aprendí",
+        "aprendió",
+        "aprendo",
+        "aprendiste"
+      ],
+      "correct_answer": "aprendí",
+      "explanation": "Yo takes -í in the preterite: 'aprendí'. 'Aprendió' is he/she, 'aprendo' is present.",
+      "hints": [
+        "Yo → -í.",
+        "'El año pasado' puts it in the past."
+      ],
+      "teaches": [
+        "aprender",
+        "el año pasado",
+        "el curso"
+      ]
+    },
+    {
+      "question_id": "a2-regular-preterite-er-ir-07",
+      "prompt": "¿Qué ___ (tú, comer) el fin de semana?",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "comiste",
+      "accepted_answers": [
+        "tú comiste",
+        "tu comiste"
+      ],
+      "explanation": "Tú takes -iste: 'comiste'. There is no extra -s at the end.",
+      "hints": [
+        "Tú → -iste.",
+        "No final s."
+      ],
+      "teaches": [
+        "comer",
+        "el fin de semana"
+      ]
+    },
+    {
+      "question_id": "a2-regular-preterite-er-ir-08",
+      "prompt": "Which sentence means 'She read the book'?",
+      "type": "multiple-choice",
+      "options": [
+        "Leyó el libro.",
+        "Leió el libro.",
+        "Leímos el libro.",
+        "Lee el libro."
+      ],
+      "correct_answer": "Leyó el libro.",
+      "explanation": "The stem of leer ends in a vowel, so the i of -ió becomes y: 'leyó'. 'Leímos' is we, 'lee' is present.",
+      "hints": [
+        "Vowel + ió → vowel + yó."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a2-regular-preterite-er-ir-09",
+      "prompt": "Ayer nosotros ___ (comer) paella en la playa.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "comimos",
+      "accepted_answers": [
+        "nosotros comimos"
+      ],
+      "explanation": "Nosotros takes -imos: 'comimos'. Note the difference from the present 'comemos'.",
+      "hints": [
+        "Nosotros → -imos.",
+        "The present has -emos; the preterite swaps the e for an i."
+      ],
+      "teaches": [
+        "comer",
+        "la paella"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Ayer comí en casa.",
+      "meaning": "Yesterday I ate at home.",
+      "note": "Yo form: accent on the final í."
+    },
+    {
+      "text": "¿Escribiste el correo ayer?",
+      "meaning": "Did you write the email yesterday?"
+    },
+    {
+      "text": "Mis abuelos vivieron en Sevilla.",
+      "meaning": "My grandparents lived in Seville."
+    },
+    {
+      "text": "Anoche salimos del cine a las once.",
+      "meaning": "Last night we left the cinema at eleven.",
+      "note": "Salimos is present or past; anoche makes it past."
+    },
+    {
+      "text": "Hace dos días aprendí una canción nueva.",
+      "meaning": "Two days ago I learnt a new song.",
+      "note": "New word: la canción = the song."
+    },
+    {
+      "text": "¿A qué hora salisteis del curso ayer?",
+      "meaning": "What time did you all leave the class yesterday?"
+    },
+    {
+      "text": "El fin de semana bebimos demasiado vino en la boda.",
+      "meaning": "At the weekend we drank too much wine at the wedding.",
+      "note": "New word: la boda = the wedding."
+    },
+    {
+      "text": "El año pasado mi hermano vivió en Alemania y aprendió alemán.",
+      "meaning": "Last year my brother lived in Germany and learnt German.",
+      "note": "Él form: accent on -ió."
+    }
+  ],
+  "guide": [
+    {
+      "section": "One set of endings"
+    },
+    {
+      "question": "a2-regular-preterite-er-ir-01"
+    },
+    {
+      "question": "a2-regular-preterite-er-ir-04"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "section": "Watch the accents"
+    },
+    {
+      "question": "a2-regular-preterite-er-ir-02"
+    },
+    {
+      "question": "a2-regular-preterite-er-ir-03"
+    },
+    {
+      "question": "a2-regular-preterite-er-ir-09"
+    },
+    {
+      "tip": "Hear the stress: comÍ, comIÓ at the end; comISte, comIMos in the middle. Only the end-stressed forms get a written accent."
+    },
+    {
+      "section": "Time markers"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a2-regular-preterite-er-ir-05"
+    },
+    {
+      "question": "a2-regular-preterite-er-ir-06"
+    },
+    {
+      "question": "a2-regular-preterite-er-ir-07"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "section": "A spelling note"
+    },
+    {
+      "question": "a2-regular-preterite-er-ir-08"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-regular-preterite-er-ir-conv-dinner",
+      "title": "Dinner last night",
+      "scenario": "Carmen and Pablo meet at the bus stop and talk about what they did last night and last year.",
+      "role_a": "Carmen",
+      "role_b": "Pablo",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Hola, Pablo. ¿Saliste anoche?",
+          "meaning": "Hi, Pablo. Did you go out last night?",
+          "note": "salir, tú: -iste"
+        },
+        {
+          "speaker": "b",
+          "text": "Sí, salí con mis compañeros del curso. Comimos en un restaurante italiano.",
+          "meaning": "Yes, I went out with my classmates from the course. We ate at an Italian restaurant.",
+          "note": "salir, yo: -í · comer, nosotros: -imos"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Y qué comisteis?",
+          "meaning": "And what did you eat?",
+          "note": "comer, vosotros: -isteis"
+        },
+        {
+          "speaker": "b",
+          "text": "Yo comí pasta y los demás comieron pizza. Bebimos demasiado vino, la verdad.",
+          "meaning": "I ate pasta and the others ate pizza. We drank too much wine, to be honest.",
+          "note": "comer, yo / ellos · beber, nosotros"
+        },
+        {
+          "speaker": "a",
+          "text": "¡Ja! ¿A qué hora volviste a casa?",
+          "meaning": "Ha! What time did you get back home?",
+          "note": "volver, tú: -iste"
+        },
+        {
+          "speaker": "b",
+          "text": "Volví a la una. Y tú, ¿qué hiciste? ¿Escribiste el correo a tu jefe?",
+          "meaning": "I got back at one. And you, what did you do? Did you write the email to your boss?",
+          "note": "volver, yo · escribir, tú"
+        },
+        {
+          "speaker": "a",
+          "text": "Sí, lo escribí anoche. Después leí un poco y me dormí temprano.",
+          "meaning": "Yes, I wrote it last night. Afterwards I read a little and fell asleep early.",
+          "note": "escribir, leer, yo: -í"
+        },
+        {
+          "speaker": "b",
+          "text": "Oye, tú viviste en Italia, ¿no? ¿Aprendiste italiano allí?",
+          "meaning": "Hey, you lived in Italy, right? Did you learn Italian there?",
+          "note": "vivir, aprender, tú: -iste"
+        },
+        {
+          "speaker": "a",
+          "text": "Sí, viví dos años en Roma. Aprendí mucho, pero el año pasado volví a España.",
+          "meaning": "Yes, I lived in Rome for two years. I learnt a lot, but last year I came back to Spain.",
+          "note": "vivir, aprender, volver, yo: -í"
+        },
+        {
+          "speaker": "b",
+          "text": "¡Qué suerte! Mis padres vivieron en Lisboa hace muchos años.",
+          "meaning": "Lucky you! My parents lived in Lisbon many years ago.",
+          "note": "vivir, ellos: -ieron · hace = ago"
+        },
+        {
+          "speaker": "a",
+          "text": "Bueno, ahí viene el autobús. ¡Hasta luego!",
+          "meaning": "Well, here comes the bus. See you later!"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "✍️",
+    "bites": [
+      {
+        "title": "One set for two families",
+        "emoji": "🤝",
+        "rule": "-er and -ir verbs share the same preterite endings: -í, -iste, -ió, -imos, -isteis, -ieron. Learn one set and you know both.",
+        "example": "Comí paella y viví en Valencia.",
+        "example_meaning": "I ate paella and I lived in Valencia."
+      },
+      {
+        "title": "Accent on í and ió",
+        "emoji": "⏳",
+        "rule": "Yo -í and él/ella -ió carry the accent; vivo = I live, vivió = he lived. The other four forms have no accent.",
+        "example": "Marta escribió un correo.",
+        "example_meaning": "Marta wrote an email."
+      },
+      {
+        "title": "Pin it in time",
+        "emoji": "📌",
+        "rule": "Ayer, anoche, la semana pasada, el año pasado and hace dos días (two days ago) all call for the preterite. Hace + time = ago.",
+        "example": "Hace dos días salí con mis amigos.",
+        "example_meaning": "Two days ago I went out with my friends."
+      },
+      {
+        "title": "leer → leyó",
+        "emoji": "📖",
+        "rule": "When the stem ends in a vowel (leer, creer), -ió and -ieron become -yó and -yeron: leyó, leyeron, creyó. Just recognise them for now.",
+        "example": "Ella leyó el libro anoche.",
+        "example_meaning": "She read the book last night."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Present or past?",
+        "buckets": [
+          "present",
+          "preterite"
+        ],
+        "items": [
+          {
+            "text": "vivo",
+            "bucket": 0
+          },
+          {
+            "text": "vivió",
+            "bucket": 1
+          },
+          {
+            "text": "comemos",
+            "bucket": 0
+          },
+          {
+            "text": "comimos",
+            "bucket": 1
+          },
+          {
+            "text": "escribes",
+            "bucket": 0
+          },
+          {
+            "text": "escribiste",
+            "bucket": 1
+          },
+          {
+            "text": "bebí",
+            "bucket": 1
+          },
+          {
+            "text": "bebo",
+            "bucket": 0
+          }
+        ],
+        "why": "The accented -í/-ió and the -iste, -imos endings mark the preterite; -o, -es and -emos are present."
+      },
+      {
+        "title": "Who did it?",
+        "buckets": [
+          "yo",
+          "tú",
+          "él / ella",
+          "ellos"
+        ],
+        "items": [
+          {
+            "text": "salí",
+            "bucket": 0
+          },
+          {
+            "text": "comiste",
+            "bucket": 1
+          },
+          {
+            "text": "escribió",
+            "bucket": 2
+          },
+          {
+            "text": "bebieron",
+            "bucket": 3
+          },
+          {
+            "text": "aprendí",
+            "bucket": 0
+          },
+          {
+            "text": "viviste",
+            "bucket": 1
+          },
+          {
+            "text": "salió",
+            "bucket": 2
+          },
+          {
+            "text": "comieron",
+            "bucket": 3
+          }
+        ],
+        "why": "Yo -í, tú -iste, él/ella -ió, ellos -ieron."
+      },
+      {
+        "title": "Accent or no accent?",
+        "buckets": [
+          "written accent",
+          "no accent"
+        ],
+        "items": [
+          {
+            "text": "comí",
+            "bucket": 0
+          },
+          {
+            "text": "comimos",
+            "bucket": 1
+          },
+          {
+            "text": "salió",
+            "bucket": 0
+          },
+          {
+            "text": "salisteis",
+            "bucket": 1
+          },
+          {
+            "text": "escribiste",
+            "bucket": 1
+          },
+          {
+            "text": "vivió",
+            "bucket": 0
+          }
+        ],
+        "why": "Only yo (-í) and él/ella (-ió) take a written accent."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Ayer yo comó paella con mi familia.",
+        "wrong": "comó",
+        "fix": "comí",
+        "why": "-er and -ir verbs take -í in the yo form, never -ó: comí."
+      },
+      {
+        "sentence": "Anoche Marta escribó un correo a su jefe.",
+        "wrong": "escribó",
+        "fix": "escribió",
+        "why": "Ella takes -ió: escribió."
+      },
+      {
+        "sentence": "¿Tú salistes anoche con tus amigos?",
+        "wrong": "salistes",
+        "fix": "saliste",
+        "why": "The tú preterite ends in -iste, with no final s."
+      },
+      {
+        "sentence": "El año pasado vivímos en Valencia.",
+        "wrong": "vivímos",
+        "fix": "vivimos",
+        "why": "Nosotros -imos has no written accent: vivimos."
+      },
+      {
+        "sentence": "Hace dos días mis amigos bebimos demasiado café.",
+        "wrong": "bebimos",
+        "fix": "bebieron",
+        "why": "Mis amigos = ellos, which takes -ieron: bebieron."
+      },
+      {
+        "sentence": "Ella leió el libro en dos días.",
+        "wrong": "leió",
+        "fix": "leyó",
+        "why": "After a vowel the i of -ió becomes y: leyó."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Ayer comimos paella en la playa.",
+        "meaning": "Yesterday we ate paella on the beach.",
+        "distractors": [
+          "comemos"
+        ]
+      },
+      {
+        "text": "¿Escribiste el correo a tu jefe?",
+        "meaning": "Did you write the email to your boss?",
+        "distractors": [
+          "Escribistes",
+          "Escribes"
+        ]
+      },
+      {
+        "text": "Salieron a las diez de la noche.",
+        "meaning": "They went out at ten at night.",
+        "distractors": [
+          "Salimos"
+        ]
+      },
+      {
+        "text": "Hace dos días aprendí mucho.",
+        "meaning": "Two days ago I learnt a lot.",
+        "distractors": [
+          "aprendió",
+          "hacen"
+        ]
+      },
+      {
+        "text": "Viví tres años en Madrid.",
+        "meaning": "I lived in Madrid for three years.",
+        "distractors": [
+          "Vivo"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,1308 @@
+{
+  "id": "b1-subjonctif",
+  "slug": "subjonctif",
+  "title": "The subjonctif présent: il faut que tu viennes",
+  "unit": "B1",
+  "group": "Grammar",
+  "order": 14,
+  "summary": "Form the subjonctif présent and use it after il faut que, vouloir que, pour que, bien que and other triggers of need, wish, feeling and doubt.",
+  "focus": "Forming the subjonctif présent and knowing when que needs it",
+  "prerequisites": [
+    "b1-passe-compose-vs-imparfait"
+  ],
+  "content": "## Forming the subjonctif\n\nThe subjonctif appears after **que** in sentences of need, wish, feeling and doubt.\n\n**Recipe:** take the **ils** form of the present, drop **-ent**, add **-e, -es, -e, -ions, -iez, -ent**. For **nous** and **vous**, the forms are those of the imparfait.\n\n| | parler (ils parlent) | finir (ils finissent) | prendre (ils prennent) |\n|---|---|---|---|\n| que je | parle | finisse | prenne |\n| que tu | parles | finisses | prennes |\n| qu'il / elle | parle | finisse | prenne |\n| que nous | parlions | finissions | prenions |\n| que vous | parliez | finissiez | preniez |\n| qu'ils / elles | parlent | finissent | prennent |\n\nNote **que nous prenions**. It uses the nous stem (**pren-**), not the ils stem (**prenn-**). The drill writes the forms without **que**.\n\n## The irregulars\n\nSeven common verbs have stems of their own after **que**:\n\n| | être | avoir | aller | faire | pouvoir | savoir | vouloir |\n|---|---|---|---|---|---|---|---|\n| je | sois | aie | aille | fasse | puisse | sache | veuille |\n| tu | sois | aies | ailles | fasses | puisses | saches | veuilles |\n| il | soit | ait | aille | fasse | puisse | sache | veuille |\n| nous | soyons | ayons | allions | fassions | puissions | sachions | voulions |\n| vous | soyez | ayez | alliez | fassiez | puissiez | sachiez | vouliez |\n| ils | soient | aient | aillent | fassent | puissent | sachent | veuillent |\n\n**Aller** and **vouloir** keep their usual stems for nous and vous: **que nous allions**.\n\n## Triggers\n\nThe subjonctif follows **que** after a word of necessity, will, feeling, doubt or purpose, when the two halves have **different subjects**:\n\n- necessity: **Il faut que tu fasses tes devoirs.** (You have to do your homework.)\n- will: **Je veux que vous soyez à l'heure.** (I want you to be on time.)\n- feeling: **Je suis content que tu sois là.** (I'm glad you're here.) **J'ai peur qu'il soit malade.** (I'm afraid he's ill.)\n- doubt: **Je doute qu'elle sache la réponse.** (I doubt she knows the answer.)\n- purpose and concession: **Je parle lentement pour que tu comprennes.** (I speak slowly so that you understand.) **Bien qu'il soit tard, on reste.** (Although it's late, we're staying.)\n\n## Penser que, and the infinitive\n\nCertainty takes the indicative. Doubt takes the subjonctif:\n\n- **Je pense qu'il a raison.** (I think he's right.) This is the indicative.\n- **Je ne pense pas qu'il ait raison.** (I don't think he's right.) This is the subjonctif.\n\n**Croire** works the same way: **je crois que** + indicative, **je ne crois pas que** + subjonctif.\n\nWhen both halves share **the same subject**, drop **que** and use the infinitive:\n\n- **Je veux partir.** (I want to leave.) Never *je veux que je parte*.\n- **Je suis content d'être ici.** (I'm glad to be here.)\n- **J'ai peur de tomber.** (I'm afraid of falling.)",
+  "vocabulary": [
+    {
+      "term": "il faut que",
+      "meaning": "it is necessary that, (someone) must",
+      "example": "Il faut que je parte avant midi.",
+      "example_meaning": "I have to leave before noon."
+    },
+    {
+      "term": "vouloir que",
+      "meaning": "to want (someone) to",
+      "example": "Ma mère veut que je fasse des études de médecine.",
+      "example_meaning": "My mother wants me to study medicine."
+    },
+    {
+      "term": "souhaiter que",
+      "meaning": "to wish that, to hope that",
+      "example": "Je souhaite que vous passiez de bonnes vacances.",
+      "example_meaning": "I hope you have a good holiday."
+    },
+    {
+      "term": "il est important que",
+      "meaning": "it is important that",
+      "example": "Il est important que tout le monde comprenne.",
+      "example_meaning": "It's important that everyone understands."
+    },
+    {
+      "term": "pour que",
+      "meaning": "so that",
+      "example": "Je t'explique tout pour que tu puisses choisir.",
+      "example_meaning": "I'm explaining everything so that you can choose."
+    },
+    {
+      "term": "bien que",
+      "meaning": "although",
+      "example": "Bien qu'il pleuve, nous sortons.",
+      "example_meaning": "Although it's raining, we're going out."
+    },
+    {
+      "term": "avoir peur que",
+      "meaning": "to be afraid that",
+      "example": "J'ai peur qu'il soit trop tard.",
+      "example_meaning": "I'm afraid it's too late."
+    },
+    {
+      "term": "être content que",
+      "meaning": "to be glad that",
+      "example": "Nous sommes contents que tu sois là.",
+      "example_meaning": "We're glad you're here."
+    },
+    {
+      "term": "douter que",
+      "meaning": "to doubt that",
+      "example": "Je doute qu'il sache conduire.",
+      "example_meaning": "I doubt he knows how to drive."
+    },
+    {
+      "term": "penser que",
+      "meaning": "to think that (+ indicative)",
+      "example": "Je pense qu'elle a raison.",
+      "example_meaning": "I think she's right."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-subjonctif-01",
+      "prompt": "Il faut que tu ___ tes devoirs.",
+      "type": "multiple-choice",
+      "options": [
+        "fais",
+        "fasses",
+        "feras"
+      ],
+      "correct_answer": "fasses",
+      "explanation": "Il faut que triggers the subjonctif, and faire has the irregular stem fass-, so que tu fasses.",
+      "hints": [
+        "Which mood does il faut que take?",
+        "Faire's subjonctif stem is fass-."
+      ],
+      "teaches": [
+        "il faut que"
+      ]
+    },
+    {
+      "question_id": "b1-subjonctif-02",
+      "prompt": "Je veux que vous ___ à l'heure. (être)",
+      "type": "fill-in-blank",
+      "correct_answer": "soyez",
+      "accepted_answers": [],
+      "explanation": "Vouloir que + a different subject takes the subjonctif: que vous soyez.",
+      "hints": [
+        "Être is irregular: sois, sois, soit, soyons, soyez, soient."
+      ],
+      "teaches": [
+        "vouloir que"
+      ]
+    },
+    {
+      "question_id": "b1-subjonctif-03",
+      "prompt": "Il faut que nous ___ le train de huit heures. (prendre)",
+      "type": "fill-in-blank",
+      "correct_answer": "prenions",
+      "accepted_answers": [],
+      "explanation": "For nous and vous the subjonctif uses the nous stem: pren- + -ions = prenions (one n).",
+      "hints": [
+        "Nous form: same as the imparfait.",
+        "Only one n."
+      ],
+      "teaches": [
+        "il faut que"
+      ]
+    },
+    {
+      "question_id": "b1-subjonctif-04",
+      "prompt": "Je pense qu'il ___ raison.",
+      "type": "multiple-choice",
+      "options": [
+        "a",
+        "ait"
+      ],
+      "correct_answer": "a",
+      "explanation": "Penser que in the affirmative states what you believe: indicative, il a raison.",
+      "hints": [
+        "Is this a certainty or a doubt?"
+      ],
+      "teaches": [
+        "penser que"
+      ]
+    },
+    {
+      "question_id": "b1-subjonctif-05",
+      "prompt": "Je ne pense pas qu'il ___ raison.",
+      "type": "multiple-choice",
+      "options": [
+        "a",
+        "ait"
+      ],
+      "correct_answer": "ait",
+      "explanation": "Ne pas penser que expresses doubt, so it takes the subjonctif: qu'il ait raison.",
+      "hints": [
+        "The negation turns it into a doubt."
+      ],
+      "teaches": [
+        "penser que"
+      ]
+    },
+    {
+      "question_id": "b1-subjonctif-06",
+      "prompt": "'Je veux que je parte' is the correct way to say 'I want to leave'.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "With the same subject in both halves, French uses the infinitive: je veux partir.",
+      "hints": [
+        "Who wants, and who leaves?"
+      ],
+      "teaches": [
+        "vouloir que"
+      ]
+    },
+    {
+      "question_id": "b1-subjonctif-07",
+      "prompt": "Je doute qu'il ___ la réponse. (savoir)",
+      "type": "fill-in-blank",
+      "correct_answer": "sache",
+      "accepted_answers": [],
+      "explanation": "Douter que expresses doubt, so it takes the subjonctif. Savoir has the irregular stem sach-: qu'il sache.",
+      "hints": [
+        "Savoir: sache, saches, sache…"
+      ],
+      "teaches": [
+        "douter que"
+      ]
+    },
+    {
+      "question_id": "b1-subjonctif-08",
+      "prompt": "Je parle lentement pour que tu ___.",
+      "type": "multiple-choice",
+      "options": [
+        "comprends",
+        "comprennes",
+        "comprendre"
+      ],
+      "correct_answer": "comprennes",
+      "explanation": "Pour que always takes the subjonctif. Start from ils comprennent to get que tu comprennes.",
+      "hints": [
+        "Pour que with a different subject takes the subjonctif."
+      ],
+      "teaches": [
+        "pour que"
+      ]
+    },
+    {
+      "question_id": "b1-subjonctif-09",
+      "prompt": "The nous form of the subjonctif of aller is 'que nous aillions'.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Aller goes back to its usual stem for nous and vous: que nous allions, que vous alliez.",
+      "hints": [
+        "Nous and vous look like the imparfait."
+      ],
+      "teaches": []
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "parler",
+      "meaning": "to speak",
+      "set": "subjonctif",
+      "art": [
+        " .---------.",
+        "( bla bla  )",
+        " '--. .---'",
+        "    V",
+        "  (o_o)"
+      ],
+      "forms": {
+        "je": "parle",
+        "tu": "parles",
+        "il": "parle",
+        "nous": "parlions",
+        "vous": "parliez",
+        "ils": "parlent"
+      }
+    },
+    {
+      "item": "finir",
+      "meaning": "to finish",
+      "set": "subjonctif",
+      "art": [
+        "  _______",
+        " |       |",
+        " |  FIN  |",
+        " |_______|"
+      ],
+      "forms": {
+        "je": "finisse",
+        "tu": "finisses",
+        "il": "finisse",
+        "nous": "finissions",
+        "vous": "finissiez",
+        "ils": "finissent"
+      }
+    },
+    {
+      "item": "être",
+      "meaning": "to be",
+      "set": "subjonctif",
+      "art": [
+        "   ___",
+        "  (o o)",
+        "   \\-/",
+        "   I am"
+      ],
+      "forms": {
+        "je": "sois",
+        "tu": "sois",
+        "il": "soit",
+        "nous": "soyons",
+        "vous": "soyez",
+        "ils": "soient"
+      }
+    },
+    {
+      "item": "avoir",
+      "meaning": "to have",
+      "set": "subjonctif",
+      "art": [
+        "  _____",
+        " | $ $ |",
+        " |_____|",
+        "  I have"
+      ],
+      "forms": {
+        "je": "aie",
+        "tu": "aies",
+        "il": "ait",
+        "nous": "ayons",
+        "vous": "ayez",
+        "ils": "aient"
+      }
+    },
+    {
+      "item": "aller",
+      "meaning": "to go",
+      "set": "subjonctif",
+      "art": [
+        "  o  -->",
+        " /|\\ -->",
+        " / \\ -->",
+        " on my way"
+      ],
+      "forms": {
+        "je": "aille",
+        "tu": "ailles",
+        "il": "aille",
+        "nous": "allions",
+        "vous": "alliez",
+        "ils": "aillent"
+      }
+    },
+    {
+      "item": "faire",
+      "meaning": "to do, to make",
+      "set": "subjonctif",
+      "art": [
+        "   _",
+        "  | |___",
+        "  |_____|",
+        "  make it"
+      ],
+      "forms": {
+        "je": "fasse",
+        "tu": "fasses",
+        "il": "fasse",
+        "nous": "fassions",
+        "vous": "fassiez",
+        "ils": "fassent"
+      }
+    },
+    {
+      "item": "pouvoir",
+      "meaning": "to be able to",
+      "set": "subjonctif",
+      "art": [
+        "   O",
+        "  /|\\_",
+        "  / \\ |",
+        "  yes I can"
+      ],
+      "forms": {
+        "je": "puisse",
+        "tu": "puisses",
+        "il": "puisse",
+        "nous": "puissions",
+        "vous": "puissiez",
+        "ils": "puissent"
+      }
+    },
+    {
+      "item": "savoir",
+      "meaning": "to know",
+      "set": "subjonctif",
+      "art": [
+        "  .-----.",
+        " ( ? -> ! )",
+        "  '-----'",
+        "   I know"
+      ],
+      "forms": {
+        "je": "sache",
+        "tu": "saches",
+        "il": "sache",
+        "nous": "sachions",
+        "vous": "sachiez",
+        "ils": "sachent"
+      }
+    },
+    {
+      "item": "vouloir",
+      "meaning": "to want",
+      "set": "subjonctif",
+      "art": [
+        "  .----.",
+        " (  <3  )",
+        "  '----'",
+        "   I want"
+      ],
+      "forms": {
+        "je": "veuille",
+        "tu": "veuilles",
+        "il": "veuille",
+        "nous": "voulions",
+        "vous": "vouliez",
+        "ils": "veuillent"
+      }
+    },
+    {
+      "item": "prendre",
+      "meaning": "to take",
+      "set": "subjonctif",
+      "art": [
+        "  ___",
+        " |___| <- grab",
+        "   |",
+        "  take it"
+      ],
+      "forms": {
+        "je": "prenne",
+        "tu": "prennes",
+        "il": "prenne",
+        "nous": "prenions",
+        "vous": "preniez",
+        "ils": "prennent"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-subjonctif-conv-party-plans",
+      "title": "Planning the party",
+      "scenario": "Flatmates Léa and Samir organise a party for Saturday and share out the jobs.",
+      "role_a": "Léa",
+      "role_b": "Samir",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Samir, il faut qu'on parle de la fête de samedi.",
+          "meaning": "Samir, we need to talk about Saturday's party."
+        },
+        {
+          "speaker": "b",
+          "text": "D'accord. Tu veux que je fasse les courses ?",
+          "meaning": "OK. Do you want me to do the shopping?"
+        },
+        {
+          "speaker": "a",
+          "text": "Oui, s'il te plaît. Et il faut que tu prennes des boissons.",
+          "meaning": "Yes, please. And you need to get some drinks."
+        },
+        {
+          "speaker": "b",
+          "text": "Pas de problème. Tu penses que Marc va venir ?",
+          "meaning": "No problem. Do you think Marc is going to come?"
+        },
+        {
+          "speaker": "a",
+          "text": "Je ne pense pas qu'il puisse venir : il travaille samedi.",
+          "meaning": "I don't think he can come: he's working on Saturday."
+        },
+        {
+          "speaker": "b",
+          "text": "Dommage. Bien qu'il soit toujours en retard, il est très drôle.",
+          "meaning": "Shame. Although he's always late, he's very funny."
+        },
+        {
+          "speaker": "a",
+          "text": "C'est vrai. Je veux que tout le monde soit là avant neuf heures.",
+          "meaning": "True. I want everyone to be there before nine."
+        },
+        {
+          "speaker": "b",
+          "text": "Alors il faut qu'on écrive à tout le monde aujourd'hui.",
+          "meaning": "Then we need to write to everyone today."
+        },
+        {
+          "speaker": "a",
+          "text": "Je m'en occupe. Je suis contente que tu sois d'accord !",
+          "meaning": "I'll take care of it. I'm glad you agree!"
+        },
+        {
+          "speaker": "b",
+          "text": "Moi aussi. J'ai hâte d'y être !",
+          "meaning": "Me too. I can't wait to be there!"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Il faut que je parte.",
+      "meaning": "I have to leave.",
+      "note": "Il faut que + subjonctif."
+    },
+    {
+      "text": "Je doute qu'elle sache nager.",
+      "meaning": "I doubt she can swim.",
+      "note": "Savoir: que je sache, qu'elle sache."
+    },
+    {
+      "text": "Je veux que tu sois heureux.",
+      "meaning": "I want you to be happy."
+    },
+    {
+      "text": "Nous sommes contents que vous puissiez venir.",
+      "meaning": "We're glad you can come.",
+      "note": "A feeling + que + subjonctif."
+    },
+    {
+      "text": "Bien qu'il fasse froid, les enfants jouent dehors.",
+      "meaning": "Although it's cold, the children are playing outside.",
+      "note": "New word: dehors = outside."
+    },
+    {
+      "text": "Mon patron veut que je finisse ce rapport ce soir.",
+      "meaning": "My boss wants me to finish this report tonight.",
+      "note": "New word: le rapport = the report."
+    },
+    {
+      "text": "Je ne crois pas qu'ils aient le temps de déjeuner.",
+      "meaning": "I don't think they have time to have lunch."
+    },
+    {
+      "text": "Elle parle lentement pour que ses élèves comprennent bien la leçon.",
+      "meaning": "She speaks slowly so that her pupils understand the lesson well.",
+      "note": "New word: l'élève = the pupil."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Forming"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-subjonctif-03"
+    },
+    {
+      "section": "The irregulars"
+    },
+    {
+      "question": "b1-subjonctif-01"
+    },
+    {
+      "question": "b1-subjonctif-02"
+    },
+    {
+      "question": "b1-subjonctif-09"
+    },
+    {
+      "tip": "Spot the trigger. If the first half needs, wants, fears or doubts something and the subjects differ, the verb after que goes into the subjonctif."
+    },
+    {
+      "section": "Triggers"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-subjonctif-07"
+    },
+    {
+      "question": "b1-subjonctif-08"
+    },
+    {
+      "concept": {
+        "title": "Il faut + infinitive",
+        "markdown": "**Il faut** can also take a plain infinitive for a general rule: **Il faut manger.** (One must eat.) With **que** it targets someone: **Il faut que tu manges.** (You must eat.) **Il est important de / que** works the same way."
+      }
+    },
+    {
+      "section": "Penser que"
+    },
+    {
+      "question": "b1-subjonctif-04"
+    },
+    {
+      "question": "b1-subjonctif-05"
+    },
+    {
+      "question": "b1-subjonctif-06"
+    }
+  ],
+  "sprint": {
+    "icon": "🙏",
+    "bites": [
+      {
+        "title": "The recipe",
+        "emoji": "🧪",
+        "rule": "Take the ils form of the present, drop -ent and add -e, -es, -e, -ions, -iez, -ent. Nous and vous look like the imparfait.",
+        "example": "Il faut que nous prenions le bus.",
+        "example_meaning": "We have to take the bus."
+      },
+      {
+        "title": "Seven irregular verbs",
+        "emoji": "⚡",
+        "rule": "Être (sois), avoir (aie), aller (aille), faire (fasse), pouvoir (puisse), savoir (sache), vouloir (veuille) have stems of their own.",
+        "example": "Je veux que tu saches la vérité.",
+        "example_meaning": "I want you to know the truth."
+      },
+      {
+        "title": "Triggers",
+        "emoji": "🎯",
+        "rule": "Need, will, feeling, doubt or purpose, followed by que and a different subject, takes the subjonctif: il faut que, vouloir que, avoir peur que, douter que, pour que, bien que.",
+        "example": "J'ai peur qu'il soit malade.",
+        "example_meaning": "I'm afraid he's ill."
+      },
+      {
+        "title": "Same subject? Infinitive",
+        "emoji": "➡️",
+        "rule": "If both halves have the same subject, drop que and use the infinitive: je veux partir, never je veux que je parte.",
+        "example": "Je suis content d'être ici.",
+        "example_meaning": "I'm glad to be here."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Indicatif or subjonctif?",
+        "buckets": [
+          "indicatif",
+          "subjonctif"
+        ],
+        "items": [
+          {
+            "text": "Je pense que…",
+            "bucket": 0
+          },
+          {
+            "text": "Je ne pense pas que…",
+            "bucket": 1
+          },
+          {
+            "text": "Il faut que…",
+            "bucket": 1
+          },
+          {
+            "text": "Je sais que…",
+            "bucket": 0
+          },
+          {
+            "text": "Bien que…",
+            "bucket": 1
+          },
+          {
+            "text": "Je suis sûr que…",
+            "bucket": 0
+          },
+          {
+            "text": "Je doute que…",
+            "bucket": 1
+          },
+          {
+            "text": "Pour que…",
+            "bucket": 1
+          }
+        ],
+        "why": "Certainty takes the indicative; necessity, doubt, concession and purpose take the subjonctif."
+      },
+      {
+        "title": "How do you say it?",
+        "buckets": [
+          "que + subjonctif",
+          "infinitive"
+        ],
+        "items": [
+          {
+            "text": "I want you to leave.",
+            "bucket": 0
+          },
+          {
+            "text": "I want to leave.",
+            "bucket": 1
+          },
+          {
+            "text": "She's glad he's here.",
+            "bucket": 0
+          },
+          {
+            "text": "She's glad to be here.",
+            "bucket": 1
+          },
+          {
+            "text": "We're afraid of being late.",
+            "bucket": 1
+          },
+          {
+            "text": "We're afraid you'll be late.",
+            "bucket": 0
+          }
+        ],
+        "why": "Two different subjects take que and the subjonctif. One subject takes the infinitive."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Il faut que tu fais tes devoirs.",
+        "wrong": "fais",
+        "fix": "fasses",
+        "why": "Il faut que takes the subjonctif: que tu fasses."
+      },
+      {
+        "sentence": "Je ne pense pas qu'il a raison.",
+        "wrong": "a",
+        "fix": "ait",
+        "why": "Ne pas penser que expresses doubt: subjonctif."
+      },
+      {
+        "sentence": "Je pense qu'elle soit malade.",
+        "wrong": "soit",
+        "fix": "est",
+        "why": "Affirmative penser que takes the indicative."
+      },
+      {
+        "sentence": "Bien qu'il est tard, nous restons.",
+        "wrong": "est",
+        "fix": "soit",
+        "why": "Bien que always takes the subjonctif."
+      },
+      {
+        "sentence": "Il faut que nous prennions le métro.",
+        "wrong": "prennions",
+        "fix": "prenions",
+        "why": "Nous uses the nous stem pren-: one n."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Il faut que tu partes maintenant.",
+        "meaning": "You have to leave now.",
+        "distractors": [
+          "pars"
+        ]
+      },
+      {
+        "text": "Je veux que vous soyez heureux.",
+        "meaning": "I want you to be happy.",
+        "distractors": [
+          "êtes"
+        ]
+      },
+      {
+        "text": "Bien qu'il pleuve, nous sortons.",
+        "meaning": "Although it's raining, we're going out.",
+        "distractors": [
+          "pleut"
+        ]
+      },
+      {
+        "text": "Je ne pense pas qu'elle sache.",
+        "meaning": "I don't think she knows.",
+        "distractors": [
+          "sait"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🔮",
+      "content": "## Le subjonctif à Eldmark\n\nOracles, guild masters and worried companions all need the **subjonctif**: **il faut que tu trouves l'épée**, **la guilde veut que nous partions**, **j'ai peur que le dragon soit réveillé**. A sure thing stays indicative: **je pense que la quête est facile**.",
+      "vocabulary": [
+        {
+          "term": "il faut que",
+          "example": "Il faut que tu boives cette potion.",
+          "example_meaning": "You must drink this potion."
+        },
+        {
+          "term": "vouloir que",
+          "example": "La guilde veut que nous allions à Deepanvil.",
+          "example_meaning": "The guild wants us to go to Deepanvil."
+        },
+        {
+          "term": "pour que",
+          "example": "La prêtresse chante pour que les héros soient forts.",
+          "example_meaning": "The priestess sings so that the heroes are strong."
+        },
+        {
+          "term": "bien que",
+          "example": "Bien que Borin soit petit, il est très fort.",
+          "example_meaning": "Although Borin is small, he is very strong."
+        },
+        {
+          "term": "avoir peur que",
+          "example": "J'ai peur que l'orc ait une épée magique.",
+          "example_meaning": "I'm afraid the orc has a magic sword."
+        },
+        {
+          "term": "douter que",
+          "example": "Je doute que le mage puisse lire ce parchemin.",
+          "example_meaning": "I doubt the mage can read this scroll."
+        },
+        {
+          "term": "l'oracle",
+          "meaning": "oracle (m)",
+          "example": "L'oracle veut que tu saches la vérité.",
+          "example_meaning": "The oracle wants you to know the truth."
+        },
+        {
+          "term": "la quête",
+          "meaning": "quest (f)",
+          "example": "Il faut que nous finissions la quête.",
+          "example_meaning": "We must finish the quest."
+        },
+        {
+          "term": "la prophétie",
+          "meaning": "prophecy (f)",
+          "example": "La prophétie est claire : il faut que l'elfe parte.",
+          "example_meaning": "The prophecy is clear: the elf must leave."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Les ordres de la guilde",
+          "emoji": "🔮",
+          "rule": "Orders, fears and doubts about your quest (il faut que, la guilde veut que, j'ai peur que) put the next verb in the subjonctif.",
+          "example": "La guilde veut que tu partes à l'aube.",
+          "example_meaning": "The guild wants you to leave at dawn."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Il faut que tu partes.",
+          "meaning": "You must leave."
+        },
+        {
+          "text": "Je doute que Nym ait l'épée.",
+          "meaning": "I doubt Nym has the sword.",
+          "note": "Douter que + subjonctif."
+        },
+        {
+          "text": "L'oracle veut que je sache la vérité.",
+          "meaning": "The oracle wants me to know the truth.",
+          "note": "New word: l'oracle = the oracle."
+        },
+        {
+          "text": "Bien que Borin soit petit, il est fort.",
+          "meaning": "Although Borin is small, he is strong."
+        },
+        {
+          "text": "Il faut que nous finissions la quête avant l'hiver.",
+          "meaning": "We must finish the quest before winter.",
+          "note": "New word: la quête = the quest."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Il faut que tu boives la potion.",
+          "meaning": "You must drink the potion.",
+          "distractors": [
+            "bois"
+          ]
+        },
+        {
+          "text": "La guilde veut que nous partions.",
+          "meaning": "The guild wants us to leave.",
+          "distractors": [
+            "partons"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Il faut que le mage fait un sort.",
+          "wrong": "fait",
+          "fix": "fasse",
+          "why": "Il faut que takes the subjonctif: qu'il fasse."
+        },
+        {
+          "sentence": "Je pense que la quête soit facile.",
+          "wrong": "soit",
+          "fix": "est",
+          "why": "Affirmative penser que takes the indicative."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Indicatif or subjonctif in Eldmark?",
+          "buckets": [
+            "indicatif",
+            "subjonctif"
+          ],
+          "items": [
+            {
+              "text": "Je sais que l'orc est là.",
+              "bucket": 0
+            },
+            {
+              "text": "Il faut que l'orc parte.",
+              "bucket": 1
+            },
+            {
+              "text": "Je pense que Nym a l'épée.",
+              "bucket": 0
+            },
+            {
+              "text": "Je doute que Nym ait l'épée.",
+              "bucket": 1
+            },
+            {
+              "text": "Le roi veut que nous venions.",
+              "bucket": 1
+            },
+            {
+              "text": "Je suis sûr que le donjon est vide.",
+              "bucket": 0
+            }
+          ],
+          "why": "Knowing, thinking and being sure take the indicative; needs, wishes and doubts take the subjonctif."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-subjonctif-realm-01",
+          "prompt": "Le roi veut que nous ___ à Highgate.",
+          "type": "multiple-choice",
+          "options": [
+            "allions",
+            "allons",
+            "aillons"
+          ],
+          "correct_answer": "allions",
+          "explanation": "Vouloir que takes the subjonctif, and aller keeps its usual stem for nous: que nous allions.",
+          "hints": [
+            "Nous form of aller in the subjonctif looks like the imparfait."
+          ],
+          "teaches": [
+            "vouloir que"
+          ]
+        },
+        {
+          "question_id": "b1-subjonctif-realm-02",
+          "prompt": "Il faut que le mage ___ un sort. (faire)",
+          "type": "fill-in-blank",
+          "correct_answer": "fasse",
+          "accepted_answers": [],
+          "explanation": "Il faut que takes the subjonctif, so faire becomes qu'il fasse.",
+          "hints": [
+            "Faire's subjonctif stem is fass-."
+          ],
+          "teaches": [
+            "il faut que"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🌷",
+      "content": "## Le subjonctif à Meadowbrook\n\nFarm life is full of needs and wishes: **il faut que les fraises aient de l'eau**, **Rosa veut que tu plantes des tulipes**, **j'ai peur qu'il fasse trop froid pour le maïs**. Same subject? Use the infinitive: **je veux planter des tulipes**.",
+      "vocabulary": [
+        {
+          "term": "il faut que",
+          "example": "Il faut que j'arrose les fraises ce matin.",
+          "example_meaning": "I have to water the strawberries this morning."
+        },
+        {
+          "term": "vouloir que",
+          "example": "Le maire veut que tout le monde vienne à la fête des récoltes.",
+          "example_meaning": "The mayor wants everyone to come to the harvest festival."
+        },
+        {
+          "term": "pour que",
+          "example": "Léo pêche tôt pour que nous puissions manger du poisson.",
+          "example_meaning": "Léo fishes early so that we can eat fish."
+        },
+        {
+          "term": "avoir peur que",
+          "example": "Nora a peur que la vache soit malade.",
+          "example_meaning": "Nora is afraid the cow is ill."
+        },
+        {
+          "term": "être content que",
+          "example": "Rosa est contente que le printemps soit là.",
+          "example_meaning": "Rosa is glad spring is here."
+        },
+        {
+          "term": "souhaiter que",
+          "example": "Je souhaite que ta récolte soit bonne.",
+          "example_meaning": "I hope your harvest is good."
+        },
+        {
+          "term": "la tulipe",
+          "meaning": "tulip (f)",
+          "example": "Rosa veut que tu plantes des tulipes.",
+          "example_meaning": "Rosa wants you to plant tulips."
+        },
+        {
+          "term": "la graine",
+          "meaning": "seed (f)",
+          "example": "Il faut que tu achètes des graines à la graineterie.",
+          "example_meaning": "You need to buy seeds at the seed shop."
+        },
+        {
+          "term": "la gelée",
+          "meaning": "frost (f)",
+          "example": "J'ai peur qu'il y ait de la gelée cette nuit.",
+          "example_meaning": "I'm afraid there'll be frost tonight."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Ce qu'il faut à la ferme",
+          "emoji": "🌷",
+          "rule": "What the farm needs and what the neighbours wish: il faut que, vouloir que, souhaiter que + subjonctif.",
+          "example": "Il faut que les fraises aient de l'eau.",
+          "example_meaning": "The strawberries need water."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Il faut que j'arrose.",
+          "meaning": "I have to water."
+        },
+        {
+          "text": "Le maire veut que nous plantions des tulipes.",
+          "meaning": "The mayor wants us to plant tulips.",
+          "note": "New word: la tulipe = the tulip."
+        },
+        {
+          "text": "Nous sommes contents que l'été soit là.",
+          "meaning": "We're glad summer is here."
+        },
+        {
+          "text": "J'ai peur qu'il y ait de la gelée.",
+          "meaning": "I'm afraid there'll be frost.",
+          "note": "New word: la gelée = the frost."
+        },
+        {
+          "text": "Il faut que Nora vende ses graines.",
+          "meaning": "Nora has to sell her seeds.",
+          "note": "New word: la graine = the seed."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Il faut que j'arrose les fraises.",
+          "meaning": "I have to water the strawberries.",
+          "distractors": [
+            "arrosais"
+          ]
+        },
+        {
+          "text": "Rosa veut que tu plantes des tulipes.",
+          "meaning": "Rosa wants you to plant tulips.",
+          "distractors": [
+            "planter"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Le maire veut que tout le monde vient à la fête.",
+          "wrong": "vient",
+          "fix": "vienne",
+          "why": "Vouloir que + a different subject takes the subjonctif."
+        },
+        {
+          "sentence": "Bien que la vache est vieille, elle donne du lait.",
+          "wrong": "est",
+          "fix": "soit",
+          "why": "Bien que always takes the subjonctif."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Que + subjonctif or infinitive?",
+          "buckets": [
+            "que + subjonctif",
+            "infinitive"
+          ],
+          "items": [
+            {
+              "text": "Nora veut que Léo pêche.",
+              "bucket": 0
+            },
+            {
+              "text": "Nora veut pêcher.",
+              "bucket": 1
+            },
+            {
+              "text": "Rosa est contente de vendre ses fraises.",
+              "bucket": 1
+            },
+            {
+              "text": "Rosa est contente que tu viennes.",
+              "bucket": 0
+            },
+            {
+              "text": "J'ai peur de tomber dans la rivière.",
+              "bucket": 1
+            },
+            {
+              "text": "J'ai peur que la vache tombe.",
+              "bucket": 0
+            }
+          ],
+          "why": "A second subject after the trigger needs que + subjonctif; the same subject takes the infinitive."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-subjonctif-meadowbrook-01",
+          "prompt": "Il faut que les poules ___ de l'eau.",
+          "type": "multiple-choice",
+          "options": [
+            "ont",
+            "aient",
+            "avoir"
+          ],
+          "correct_answer": "aient",
+          "explanation": "Il faut que takes the subjonctif, so avoir becomes qu'elles aient.",
+          "hints": [
+            "Avoir: aie, aies, ait, ayons, ayez, aient."
+          ],
+          "teaches": [
+            "il faut que"
+          ]
+        },
+        {
+          "question_id": "b1-subjonctif-meadowbrook-02",
+          "prompt": "Rosa est contente que le printemps ___ là. (être)",
+          "type": "fill-in-blank",
+          "correct_answer": "soit",
+          "accepted_answers": [],
+          "explanation": "Être content que expresses a feeling, so it takes the subjonctif: que le printemps soit là.",
+          "hints": [
+            "Il form of être in the subjonctif."
+          ],
+          "teaches": [
+            "être content que"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🧃",
+      "content": "## Le subjonctif à Rustwake\n\nOutside the Dome, survival is a list of musts: **il faut que tu boives de l'eau filtrée**, **le contremaître veut que nous réparions l'antenne**, **je doute que ce soda Saphir soit encore bon**. A certainty stays indicative: **je pense que la radio marche**.",
+      "vocabulary": [
+        {
+          "term": "il faut que",
+          "example": "Il faut que tu prennes de l'eau filtrée.",
+          "example_meaning": "You must take filtered water."
+        },
+        {
+          "term": "vouloir que",
+          "example": "Le contremaître Ruiz veut que nous réparions l'antenne.",
+          "example_meaning": "Foreman Ruiz wants us to repair the antenna."
+        },
+        {
+          "term": "douter que",
+          "example": "Je doute que ce soda Saphir soit encore bon.",
+          "example_meaning": "I doubt this Saphir soda is still good."
+        },
+        {
+          "term": "bien que",
+          "example": "Bien qu'il y ait de la poussière, Léo part explorer.",
+          "example_meaning": "Although there's dust, Léo goes off exploring."
+        },
+        {
+          "term": "pour que",
+          "example": "Marta baisse ses prix pour que tout le monde puisse acheter de l'eau.",
+          "example_meaning": "Marta lowers her prices so that everyone can buy water."
+        },
+        {
+          "term": "penser que",
+          "example": "Je pense que la radio-montre marche encore.",
+          "example_meaning": "I think the wrist radio still works."
+        },
+        {
+          "term": "il est important que",
+          "example": "Il est important que tu portes ta combinaison bleue.",
+          "example_meaning": "It's important that you wear your blue jumpsuit."
+        },
+        {
+          "term": "le tonique",
+          "meaning": "tonic",
+          "example": "Marta veut que tu prennes un tonique.",
+          "example_meaning": "Marta wants you to take a tonic."
+        },
+        {
+          "term": "l'eau filtrée",
+          "meaning": "filtered water (f)",
+          "example": "Il est important que tu aies de l'eau filtrée.",
+          "example_meaning": "It's important that you have filtered water."
+        },
+        {
+          "term": "la radiation",
+          "meaning": "radiation (f)",
+          "example": "J'ai peur que la radiation soit forte ici.",
+          "example_meaning": "I'm afraid the radiation is strong here."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Les règles du désert",
+          "emoji": "🧃",
+          "rule": "Survival rules (il faut que, il est important que) and doubts about old supplies (je doute que) take the subjonctif.",
+          "example": "Il faut que tu boives de l'eau filtrée.",
+          "example_meaning": "You must drink filtered water."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Il faut que tu boives.",
+          "meaning": "You must drink."
+        },
+        {
+          "text": "Ruiz veut que nous réparions l'antenne.",
+          "meaning": "Ruiz wants us to repair the antenna."
+        },
+        {
+          "text": "Je doute que ce soda soit bon.",
+          "meaning": "I doubt this soda is good.",
+          "note": "Douter que + subjonctif."
+        },
+        {
+          "text": "Il faut que Léo prenne son tonique.",
+          "meaning": "Léo has to take his tonic.",
+          "note": "New word: le tonique = the tonic."
+        },
+        {
+          "text": "Marta veut que nous buvions de l'eau filtrée.",
+          "meaning": "Marta wants us to drink filtered water.",
+          "note": "New word: l'eau filtrée = filtered water."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Il faut que tu prennes de l'eau.",
+          "meaning": "You must take water.",
+          "distractors": [
+            "prends"
+          ]
+        },
+        {
+          "text": "Je doute que la radio marche.",
+          "meaning": "I doubt the radio works.",
+          "distractors": [
+            "marchait"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Il faut que nous réparons l'antenne.",
+          "wrong": "réparons",
+          "fix": "réparions",
+          "why": "Il faut que + subjonctif: que nous réparions."
+        },
+        {
+          "sentence": "Je ne pense pas que le scarabée est dangereux.",
+          "wrong": "est",
+          "fix": "soit",
+          "why": "Ne pas penser que expresses doubt: subjonctif."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Indicatif or subjonctif in Rustwake?",
+          "buckets": [
+            "indicatif",
+            "subjonctif"
+          ],
+          "items": [
+            {
+              "text": "Je sais que Marta a de l'eau.",
+              "bucket": 0
+            },
+            {
+              "text": "Il faut que Marta ait de l'eau.",
+              "bucket": 1
+            },
+            {
+              "text": "Je pense que le robot marche.",
+              "bucket": 0
+            },
+            {
+              "text": "Je doute que le robot puisse marcher.",
+              "bucket": 1
+            },
+            {
+              "text": "Bien que la tempête soit finie, on reste dedans.",
+              "bucket": 1
+            },
+            {
+              "text": "Je suis sûr que l'antenne est cassée.",
+              "bucket": 0
+            }
+          ],
+          "why": "Knowing, thinking and being sure take the indicative; necessity, doubt and bien que take the subjonctif."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-subjonctif-rustwake-01",
+          "prompt": "Le contremaître veut que nous ___ l'antenne.",
+          "type": "multiple-choice",
+          "options": [
+            "réparons",
+            "réparions"
+          ],
+          "correct_answer": "réparions",
+          "explanation": "Vouloir que with a different subject takes the subjonctif: que nous réparions.",
+          "hints": [
+            "Nous form of the subjonctif ends in -ions."
+          ],
+          "teaches": [
+            "vouloir que"
+          ]
+        },
+        {
+          "question_id": "b1-subjonctif-rustwake-02",
+          "prompt": "In 'Je doute que ce soda soit bon', soit is in the subjonctif because of the doubt.",
+          "type": "true-false",
+          "correct_answer": "true",
+          "explanation": "Douter que expresses doubt, which triggers the subjonctif: soit.",
+          "hints": [
+            "Douter = to doubt."
+          ],
+          "teaches": [
+            "douter que"
+          ]
+        }
+      ]
+    }
+  }
+}

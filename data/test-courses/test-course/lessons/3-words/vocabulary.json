@@ -1,0 +1,70 @@
+{
+  "id": "tc-vocabulary",
+  "slug": "vocabulary",
+  "title": "Colours",
+  "unit": "words",
+  "group": "words",
+  "order": 10,
+  "summary": "Six terms: flashcards, Word Match, pick and match, the word listening exercises.",
+  "focus": "vocabulary",
+  "content": "## Words\n\nTerms are collected when you answer a question that teaches them, then studied as flashcards and played in Word Match.",
+  "vocabulary": [
+    {
+      "term": "rojo",
+      "meaning": "red",
+      "example": "El coche es rojo.",
+      "example_meaning": "The car is red."
+    },
+    {
+      "term": "azul",
+      "meaning": "blue",
+      "example": "El cielo es azul.",
+      "example_meaning": "The sky is blue."
+    },
+    {
+      "term": "verde",
+      "meaning": "green",
+      "example": "La hierba es verde.",
+      "example_meaning": "The grass is green."
+    },
+    {
+      "term": "amarillo",
+      "meaning": "yellow",
+      "example": "El sol es amarillo.",
+      "example_meaning": "The sun is yellow."
+    },
+    {
+      "term": "negro",
+      "meaning": "black",
+      "example": "El gato es negro.",
+      "example_meaning": "The cat is black."
+    },
+    {
+      "term": "blanco",
+      "meaning": "white"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "tc-vocabulary-01",
+      "prompt": "What colour is 'rojo'?",
+      "type": "multiple-choice",
+      "options": [
+        "red",
+        "blue"
+      ],
+      "correct_answer": "red",
+      "explanation": "Rojo is red.",
+      "teaches": [
+        "rojo"
+      ]
+    },
+    {
+      "question_id": "tc-vocabulary-02",
+      "prompt": "El cielo es ___. (blue)",
+      "type": "fill-in-blank",
+      "correct_answer": "azul",
+      "explanation": "Azul is blue."
+    }
+  ]
+}

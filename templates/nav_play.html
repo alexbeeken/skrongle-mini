@@ -1,0 +1,15 @@
+<nav data-testid="nav-play" class="modebar play" aria-label="{{ crate::t("play.nav.aria") }}" data-say-lang="{{ course.say_lang }}">
+  <div class="container">
+    <a class="mode-name" href="{{ crate::base_path() }}/play" data-testid="nav-play-mode" aria-label="{{ crate::t("play.nav.mode_title") }}" title="{{ crate::t("play.nav.mode_title") }}">{{ course.icons.mode_play }} {{ crate::t("play.nav.play") }}</a>
+    <ul>
+      <li><a href="{{ crate::base_path() }}/play" data-testid="nav-play-all"{% if active == "all" %} aria-current="page"{% endif %}>{{ crate::t("play.nav.all") }}</a></li>
+      <li><a href="{{ crate::base_path() }}/play/matching" data-testid="nav-play-matching"{% if active == "matching" %} aria-current="page"{% endif %}>{{ crate::t("play.matching.name") }}</a></li>
+      {% if course.has_paradigm %}<li><a href="{{ crate::base_path() }}/play/conjugation" data-testid="nav-play-drill"{% if active == "drill" %} aria-current="page"{% endif %}>{{ crate::t1("play.drill.name", "item", course.item_label) }}</a></li>{% endif %}
+      {% if course.has_numbers %}<li><a href="{{ crate::base_path() }}/play/numbers" data-testid="nav-play-numbers"{% if active == "numbers" %} aria-current="page"{% endif %}>{{ crate::t("play.nav.numbers") }}</a></li>{% endif %}
+      {% if course.has_dates %}<li><a href="{{ crate::base_path() }}/play/dates" data-testid="nav-play-dates"{% if active == "dates" %} aria-current="page"{% endif %}>{{ crate::t("play.nav.dates") }}</a></li>{% endif %}
+      <li><a href="{{ crate::base_path() }}/vocabulary/study" data-testid="nav-play-flashcards"{% if active == "flashcards" %} aria-current="page"{% endif %}>{{ crate::t("play.nav.flashcards") }}</a></li>
+      <li><a href="{{ crate::base_path() }}/guide" data-testid="nav-play-stages"{% if active == "stages" %} aria-current="page"{% endif %}>{{ crate::t("play.nav.stages") }}</a></li>
+    </ul>
+    <span class="mode-others small muted">{{ crate::t("play.nav.switch") }}<a href="{{ crate::base_path() }}/sprint" data-testid="nav-play-to-sprint" aria-label="{{ crate::t("play.nav.to_sprint") }}" title="{{ crate::t("play.nav.sprint_title") }}">{{ course.icons.mode_sprint }} {{ crate::t("play.nav.sprint") }}</a> · <a href="{{ crate::base_path() }}/lessons" data-testid="nav-play-to-study" aria-label="{{ crate::t("play.nav.to_study") }}" title="{{ crate::t("play.nav.study_title") }}">{{ course.icons.mode_study }} {{ crate::t("play.nav.study") }}</a> · <a href="{{ crate::url("/") }}" data-testid="nav-play-menu" aria-label="{{ crate::t("play.nav.menu_aria") }}">{{ crate::t("play.nav.menu") }}</a></span>
+  </div>
+</nav>

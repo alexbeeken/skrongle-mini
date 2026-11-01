@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Goldfish">
+  <defs><radialGradient id="bg" cx="0.35" cy="0.3" r="0.9"><stop offset="0" stop-color="#ffffff" stop-opacity="0.7"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient></defs>
+  <circle cx="32" cy="32" r="32" fill="url(#bg)"/>
+  <path d="M6 20 Q32 -4 58 20" stroke="#ffffff" stroke-opacity="0.35" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M4 48 Q14 44 24 48 Q34 52 44 48 Q54 44 62 48" stroke="#ffffff" stroke-opacity="0.5" stroke-width="2" fill="none"/>
+  <path d="M8 54 Q20 50 32 54 Q44 58 58 54" stroke="#ffffff" stroke-opacity="0.35" stroke-width="2" fill="none"/>
+  <path d="M40 14 Q52 8 58 18 Q52 26 42 22 Q46 18 40 14Z" fill="#5fae5a"/><path d="M50 18 L42 22" stroke="#3f8a3e" stroke-width="1"/>
+  <path d="M42 30 Q54 16 60 24 Q54 30 46 32 Q54 36 60 42 Q52 50 42 36Z" fill="#f08a5a"/>
+  <path d="M44 31 Q52 24 57 25 M44 34 Q52 42 57 41" stroke="#d9683a" stroke-width="1.2" fill="none"/>
+  <path d="M24 26 Q32 10 40 26Z" fill="#f08a5a"/><path d="M27 24 Q32 15 37 24" stroke="#d9683a" stroke-width="1" fill="none"/>
+  <path d="M10 32 Q24 16 42 30 Q24 48 10 32Z" fill="#f5a05f"/>
+  <path d="M12 32 Q24 22 40 31 Q24 40 12 32Z" fill="#fbd6a0" opacity="0.5"/>
+  <g fill="none" stroke="#d9683a" stroke-width="1" opacity="0.7"><path d="M24 26 Q27 28 24 30 M30 24 Q33 27 30 30 M30 32 Q33 35 30 38 M24 34 Q27 36 24 38 M36 28 Q38 31 36 34"/></g>
+  <path d="M26 36 Q30 46 36 40 Q32 38 26 36Z" fill="#f08a5a"/>
+  <circle cx="17" cy="30" r="3" fill="#fff"/><circle cx="17.5" cy="30" r="2" fill="#3b2a1a"/><circle cx="18.3" cy="29.2" r="0.8" fill="#fff"/>
+  <path d="M10 35 Q12.5 38 16 36.5" stroke="#8a3a1a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <circle cx="20" cy="35" r="2" fill="#ffb0a0" opacity="0.6"/>
+  <circle cx="12" cy="18" r="2" fill="#fff" fill-opacity="0.7"/><circle cx="8" cy="12" r="1.4" fill="#fff" fill-opacity="0.7"/><circle cx="15" cy="12" r="1" fill="#fff" fill-opacity="0.6"/>
+</svg>

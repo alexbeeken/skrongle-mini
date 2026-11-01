@@ -1,0 +1,1125 @@
+{
+  "id": "b2-concession-opposition",
+  "slug": "concession-opposition",
+  "title": "Concession and opposition: avoir beau, alors que, quand bien même",
+  "unit": "B2",
+  "group": "Grammar",
+  "order": 28,
+  "summary": "Set facts against each other and admit a point without giving in: alors que, avoir beau, quand bien même, quoi que, quel que soit, malgré, pour autant.",
+  "focus": "Expressing contrast and concession, and the mood each connector takes",
+  "prerequisites": [
+    "b2-subjonctif-conjunctions"
+  ],
+  "content": "## Contrast: alors que, tandis que, au lieu de, loin de\n\n**Alors que** and **tandis que** set two facts side by side. Both are facts, so they take the **indicative**. **Tandis que** is a little more formal.\n\n- **Mon frère adore la ville, alors que moi, je préfère la campagne.** (My brother loves the city, whereas I prefer the countryside.)\n- **Elle lit tandis que son mari dort.** (She reads while her husband sleeps.)\n\nWith an infinitive:\n\n- **au lieu de** = instead of: **Au lieu de te plaindre, aide-moi.** (Instead of complaining, help me.)\n- **loin de** = far from: **Loin de se décourager, elle a recommencé.** (Far from losing heart, she started again.)\n\n## However hard: avoir beau, quand bien même, même si\n\n**Avoir beau + infinitive** says the effort changes nothing. Conjugate **avoir**; the second half gives the disappointing result.\n\n- **J'ai beau réviser, j'oublie tout.** (However much I revise, I forget everything.)\n- **Ils ont beau être riches, ils ne sont pas heureux.** (Rich as they are, they aren't happy.)\n\n**Quand bien même** (even if, formal) takes the **conditionnel**, usually in both halves:\n\n- **Quand bien même tu insisterais, je ne viendrais pas.** (Even if you insisted, I wouldn't come.)\n\nRecap: **même si** takes the indicative, never the subjonctif nor the conditionnel: **même s'il pleut**, **même s'il pleuvait**.\n\n## Whatever and wherever: quoi que, où que, quel que soit\n\nLike **bien que** and **quoique** (although), these all take the **subjonctif**:\n\n- **quoi que** (two words) = whatever: **Quoi que tu dises, je pars.**\n- **quoique** (one word) = although: **Quoiqu'il soit tard, on continue.**\n- **où que** = wherever: **Où que tu ailles, appelle-moi.**\n- **qui que** = whoever: **Qui que vous soyez, entrez.**\n\n**Quel que soit** + noun = whatever the… **Quel** and **soit** agree with the noun:\n\n| | |\n|---|---|\n| **quel que soit le prix** | **quels que soient les risques** |\n| **quelle que soit la raison** | **quelles que soient tes idées** |\n\n## Even so: malgré, pourtant, pour autant\n\n- **malgré** / **en dépit de** + noun = despite: **malgré la pluie**, **en dépit des difficultés**.\n- **pourtant** = and yet: **Il est riche, pourtant il n'est pas heureux.**\n- **pour autant** = for all that, after a negative: **Il a gagné, mais il n'est pas plus heureux pour autant.**\n- **il n'empêche que** + indicative = all the same, the fact remains: **Il n'empêche que tu aurais pu appeler.**\n- **tout de même** = still, all the same: **C'est cher, mais je l'achète tout de même.**",
+  "vocabulary": [
+    {
+      "term": "alors que",
+      "meaning": "whereas, while (+ indicative)",
+      "example": "Il fait chaud à Nice, alors qu'il neige à Lille.",
+      "example_meaning": "It's hot in Nice, whereas it's snowing in Lille."
+    },
+    {
+      "term": "tandis que",
+      "meaning": "while, whereas (+ indicative)",
+      "example": "Paul range la cuisine tandis que Léa fait les courses.",
+      "example_meaning": "Paul tidies the kitchen while Léa does the shopping."
+    },
+    {
+      "term": "au lieu de",
+      "meaning": "instead of (+ infinitive)",
+      "example": "Au lieu de prendre la voiture, prends le vélo.",
+      "example_meaning": "Instead of taking the car, take the bike."
+    },
+    {
+      "term": "avoir beau",
+      "meaning": "however much, no matter how (+ infinitive)",
+      "example": "J'ai beau essayer, je n'y arrive pas.",
+      "example_meaning": "No matter how hard I try, I can't do it."
+    },
+    {
+      "term": "quand bien même",
+      "meaning": "even if (+ conditionnel, formal)",
+      "example": "Quand bien même tu aurais raison, tu devrais rester poli.",
+      "example_meaning": "Even if you were right, you should stay polite."
+    },
+    {
+      "term": "quoi que",
+      "meaning": "whatever (+ subjonctif)",
+      "example": "Quoi qu'il arrive, je serai là.",
+      "example_meaning": "Whatever happens, I'll be there."
+    },
+    {
+      "term": "quel que soit",
+      "meaning": "whatever, whichever (agrees with its noun)",
+      "example": "Quel que soit le temps, il court tous les matins.",
+      "example_meaning": "Whatever the weather, he runs every morning."
+    },
+    {
+      "term": "en dépit de",
+      "meaning": "despite, in spite of (+ noun)",
+      "example": "En dépit des difficultés, ils ont fini le projet.",
+      "example_meaning": "Despite the difficulties, they finished the project."
+    },
+    {
+      "term": "pour autant",
+      "meaning": "for all that, even so (after a negative)",
+      "example": "Il est célèbre, mais il n'est pas arrogant pour autant.",
+      "example_meaning": "He's famous, but he isn't arrogant for all that."
+    },
+    {
+      "term": "il n'empêche que",
+      "meaning": "all the same, the fact remains that",
+      "example": "Tu as peut-être raison ; il n'empêche que c'est risqué.",
+      "example_meaning": "You may be right; all the same, it's risky."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-concession-opposition-01",
+      "prompt": "J'___ beau lui expliquer la règle, il ne comprend rien. (avoir, présent)",
+      "type": "fill-in-blank",
+      "correct_answer": "ai",
+      "accepted_answers": [
+        "j'ai"
+      ],
+      "explanation": "Avoir beau + infinitive: conjugate avoir for the subject, then the infinitive. J'ai beau expliquer = however much I explain.",
+      "hints": [
+        "Avoir, je form, with elision."
+      ],
+      "teaches": [
+        "avoir beau"
+      ]
+    },
+    {
+      "question_id": "b2-concession-opposition-02",
+      "prompt": "___ tu dises, je ne changerai pas d'avis.",
+      "type": "multiple-choice",
+      "options": [
+        "Quoi que",
+        "Quoique",
+        "Bien que"
+      ],
+      "correct_answer": "Quoi que",
+      "explanation": "Quoi que in two words means whatever: quoi que tu dises = whatever you say. Quoique and bien que mean although and need a full clause with its own subject and verb.",
+      "hints": [
+        "You mean 'whatever'."
+      ],
+      "teaches": [
+        "quoi que"
+      ]
+    },
+    {
+      "question_id": "b2-concession-opposition-03",
+      "prompt": "___ que soit la raison, ton retard n'est pas acceptable. (quel)",
+      "type": "fill-in-blank",
+      "correct_answer": "Quelle",
+      "accepted_answers": [],
+      "explanation": "Quel que soit agrees with the noun that follows: la raison is feminine singular → quelle que soit la raison.",
+      "hints": [
+        "La raison: feminine singular."
+      ],
+      "teaches": [
+        "quel que soit"
+      ]
+    },
+    {
+      "question_id": "b2-concession-opposition-04",
+      "prompt": "Mon frère adore la montagne, ___ ma sœur préfère la mer. Which connector sets the two facts side by side?",
+      "type": "multiple-choice",
+      "options": [
+        "tandis que",
+        "pour que",
+        "parce que"
+      ],
+      "correct_answer": "tandis que",
+      "explanation": "Tandis que (like alors que) contrasts two facts and takes the indicative. Pour que expresses a goal, parce que a cause.",
+      "hints": [
+        "One likes the mountains, the other the sea: a contrast."
+      ],
+      "teaches": [
+        "tandis que"
+      ]
+    },
+    {
+      "question_id": "b2-concession-opposition-05",
+      "prompt": "Quand bien même is followed by the conditionnel: quand bien même il pleuvrait, nous partirions.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Quand bien même (formal even if) takes the conditionnel, usually in both halves of the sentence.",
+      "hints": [
+        "Compare même si, which never takes it."
+      ],
+      "teaches": [
+        "quand bien même"
+      ]
+    },
+    {
+      "question_id": "b2-concession-opposition-06",
+      "prompt": "Ils ont fait la randonnée ___ la tempête annoncée.",
+      "type": "multiple-choice",
+      "options": [
+        "malgré",
+        "bien que",
+        "quoique"
+      ],
+      "correct_answer": "malgré",
+      "explanation": "La tempête annoncée is a noun phrase, so it needs a preposition: malgré (or en dépit de). Bien que and quoique introduce a clause with a verb.",
+      "hints": [
+        "Is there a verb after the gap?"
+      ]
+    },
+    {
+      "question_id": "b2-concession-opposition-07",
+      "prompt": "___ de te plaindre, aide-moi à ranger ! (instead of)",
+      "type": "fill-in-blank",
+      "correct_answer": "Au lieu",
+      "accepted_answers": [
+        "au lieu"
+      ],
+      "explanation": "Au lieu de + infinitive = instead of doing: au lieu de te plaindre.",
+      "hints": [
+        "Two words, then de."
+      ],
+      "teaches": [
+        "au lieu de"
+      ]
+    },
+    {
+      "question_id": "b2-concession-opposition-08",
+      "prompt": "'Même si il soit tard, je t'appelle' is correct French.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Même si takes the indicative, and si elides before il: même s'il est tard, je t'appelle.",
+      "hints": [
+        "Two mistakes: the mood and the elision."
+      ]
+    },
+    {
+      "question_id": "b2-concession-opposition-09",
+      "prompt": "Il a gagné le concours, mais il n'est pas plus heureux ___. Which phrase means 'for all that'?",
+      "type": "multiple-choice",
+      "options": [
+        "pour autant",
+        "quand bien même",
+        "malgré"
+      ],
+      "correct_answer": "pour autant",
+      "explanation": "Pour autant closes a negative sentence: he isn't any happier for all that. Quand bien même needs a clause after it and malgré a noun.",
+      "hints": [
+        "It comes at the end, after a negative."
+      ],
+      "teaches": [
+        "pour autant"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-concession-opposition-conv-driving-test",
+      "title": "The driving test, again",
+      "scenario": "Karim has just failed his driving test for the third time. His flatmate Inès tries to cheer him up.",
+      "role_a": "Inès",
+      "role_b": "Karim",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Alors, ce permis de conduire ? Tu l'as eu ?",
+          "meaning": "So, that driving licence? Did you get it?"
+        },
+        {
+          "speaker": "b",
+          "text": "Non. J'ai beau m'entraîner, je le rate à chaque fois.",
+          "meaning": "No. However much I practise, I fail it every time.",
+          "note": "avoir beau + infinitive"
+        },
+        {
+          "speaker": "a",
+          "text": "Pourtant, tu conduis très bien avec moi.",
+          "meaning": "And yet you drive really well with me."
+        },
+        {
+          "speaker": "b",
+          "text": "Avec toi, je suis calme, alors qu'avec l'examinateur, je panique.",
+          "meaning": "With you I'm calm, whereas with the examiner I panic.",
+          "note": "alors que + indicative"
+        },
+        {
+          "speaker": "a",
+          "text": "Au lieu de paniquer, respire et regarde la route.",
+          "meaning": "Instead of panicking, breathe and watch the road."
+        },
+        {
+          "speaker": "b",
+          "text": "Facile à dire ! Quoi que je fasse, je fais une erreur.",
+          "meaning": "Easy to say! Whatever I do, I make a mistake.",
+          "note": "quoi que + subjonctif"
+        },
+        {
+          "speaker": "a",
+          "text": "Tu as raté, d'accord. Tu n'es pas un mauvais conducteur pour autant.",
+          "meaning": "You failed, fine. That doesn't make you a bad driver."
+        },
+        {
+          "speaker": "b",
+          "text": "Merci. Il n'empêche que chaque examen coûte cher.",
+          "meaning": "Thanks. All the same, every test costs a lot."
+        },
+        {
+          "speaker": "a",
+          "text": "Quel que soit le prix, ça vaut le coup.",
+          "meaning": "Whatever the price, it's worth it."
+        },
+        {
+          "speaker": "b",
+          "text": "Et quand bien même je raterais encore, je réessaierais.",
+          "meaning": "And even if I failed again, I'd try again.",
+          "note": "quand bien même + conditionnel"
+        },
+        {
+          "speaker": "a",
+          "text": "Voilà ! Loin d'abandonner, tu repars au combat.",
+          "meaning": "That's it! Far from giving up, you're going back into battle."
+        },
+        {
+          "speaker": "b",
+          "text": "Bon, je m'inscris tout de même pour le mois prochain.",
+          "meaning": "Right, I'm signing up for next month all the same."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Elle lit tandis que son fils joue.",
+      "meaning": "She reads while her son plays."
+    },
+    {
+      "text": "Malgré le froid, les enfants jouent dehors.",
+      "meaning": "Despite the cold, the children are playing outside."
+    },
+    {
+      "text": "Où que tu ailles, je te suivrai.",
+      "meaning": "Wherever you go, I'll follow you.",
+      "note": "Où que takes the subjonctif."
+    },
+    {
+      "text": "Qui que vous soyez, montrez votre billet à l'entrée.",
+      "meaning": "Whoever you are, show your ticket at the entrance.",
+      "note": "New word: le billet = the ticket."
+    },
+    {
+      "text": "Au lieu de regarder la télé, lis un livre.",
+      "meaning": "Instead of watching TV, read a book."
+    },
+    {
+      "text": "Quelles que soient tes raisons, tu dois t'excuser.",
+      "meaning": "Whatever your reasons, you must apologise.",
+      "note": "New word: s'excuser = to apologise."
+    },
+    {
+      "text": "Loin de se reposer, il a travaillé tout le week-end.",
+      "meaning": "Far from resting, he worked all weekend."
+    },
+    {
+      "text": "Le restaurant était cher, il n'empêche que nous avons très bien mangé.",
+      "meaning": "The restaurant was expensive; all the same, we ate very well."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Contrast"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-concession-opposition-04"
+    },
+    {
+      "question": "b2-concession-opposition-07"
+    },
+    {
+      "section": "However hard"
+    },
+    {
+      "question": "b2-concession-opposition-01"
+    },
+    {
+      "question": "b2-concession-opposition-05"
+    },
+    {
+      "question": "b2-concession-opposition-08"
+    },
+    {
+      "concept": {
+        "title": "Avoir beau in other tenses",
+        "markdown": "**Avoir beau** works in any tense, as long as the result matches it: **J'ai eu beau chercher, je n'ai rien trouvé.** (However hard I looked, I found nothing.) **Elle aura beau protester, rien ne changera.** (However much she protests, nothing will change.)"
+      }
+    },
+    {
+      "section": "Whatever and wherever"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-concession-opposition-02"
+    },
+    {
+      "question": "b2-concession-opposition-03"
+    },
+    {
+      "tip": "Quoique or quoi que? If you could say bien que instead, write quoique in one word. If you mean whatever, write quoi que in two."
+    },
+    {
+      "section": "Even so"
+    },
+    {
+      "question": "b2-concession-opposition-06"
+    },
+    {
+      "question": "b2-concession-opposition-09"
+    }
+  ],
+  "sprint": {
+    "icon": "🤝",
+    "bites": [
+      {
+        "title": "Two facts side by side",
+        "emoji": "↔️",
+        "rule": "Alors que and tandis que contrast two facts and take the indicative. Au lieu de and loin de take an infinitive.",
+        "example": "Il travaille tandis qu'elle dort.",
+        "example_meaning": "He works while she sleeps."
+      },
+      {
+        "title": "Avoir beau",
+        "emoji": "🔁",
+        "rule": "Avoir beau + infinitive: the effort changes nothing. Conjugate avoir, keep the infinitive, then give the result.",
+        "example": "Tu as beau crier, il ne t'entend pas.",
+        "example_meaning": "However loud you shout, he can't hear you."
+      },
+      {
+        "title": "Whatever, wherever",
+        "emoji": "🌀",
+        "rule": "Quoi que, où que, qui que take the subjonctif. Quel que soit agrees with its noun: quelle que soit la raison.",
+        "example": "Quoi que tu fasses, fais-le bien.",
+        "example_meaning": "Whatever you do, do it well."
+      },
+      {
+        "title": "Even so",
+        "emoji": "🧱",
+        "rule": "Malgré / en dépit de + noun. Pourtant = and yet; pour autant = for all that, after a negative; tout de même = all the same.",
+        "example": "Il pleut, mais on sort tout de même.",
+        "example_meaning": "It's raining, but we're going out all the same."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Indicative or subjonctif after it?",
+        "buckets": [
+          "indicative",
+          "subjonctif"
+        ],
+        "items": [
+          {
+            "text": "alors que",
+            "bucket": 0
+          },
+          {
+            "text": "tandis que",
+            "bucket": 0
+          },
+          {
+            "text": "même si",
+            "bucket": 0
+          },
+          {
+            "text": "il n'empêche que",
+            "bucket": 0
+          },
+          {
+            "text": "bien que",
+            "bucket": 1
+          },
+          {
+            "text": "quoique",
+            "bucket": 1
+          },
+          {
+            "text": "quoi que",
+            "bucket": 1
+          },
+          {
+            "text": "où que",
+            "bucket": 1
+          }
+        ],
+        "why": "Contrasting two facts keeps the indicative; conceding something uncertain or open (although, whatever, wherever) calls for the subjonctif."
+      },
+      {
+        "title": "A noun or an infinitive next?",
+        "buckets": [
+          "+ noun",
+          "+ infinitive"
+        ],
+        "items": [
+          {
+            "text": "malgré",
+            "bucket": 0
+          },
+          {
+            "text": "en dépit de",
+            "bucket": 0
+          },
+          {
+            "text": "au lieu de",
+            "bucket": 1
+          },
+          {
+            "text": "loin de",
+            "bucket": 1
+          },
+          {
+            "text": "avoir beau",
+            "bucket": 1
+          }
+        ],
+        "why": "Malgré and en dépit de are prepositions before a noun; au lieu de, loin de and avoir beau are followed by an infinitive."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Bien qu'il est malade, il va au bureau.",
+        "wrong": "est",
+        "fix": "soit",
+        "why": "Bien que takes the subjonctif: bien qu'il soit malade."
+      },
+      {
+        "sentence": "Quoique tu dises, je partirai demain.",
+        "wrong": "Quoique",
+        "fix": "Quoi que",
+        "why": "Whatever is quoi que in two words; quoique means although."
+      },
+      {
+        "sentence": "Quel que soit la raison, je refuse.",
+        "wrong": "Quel",
+        "fix": "Quelle",
+        "why": "Quel agrees with la raison: quelle que soit la raison."
+      },
+      {
+        "sentence": "J'ai beau crie, personne ne m'entend.",
+        "wrong": "crie",
+        "fix": "crier",
+        "why": "Avoir beau is followed by an infinitive: j'ai beau crier."
+      },
+      {
+        "sentence": "Même s'il viendrait, je ne serais pas content.",
+        "wrong": "viendrait",
+        "fix": "venait",
+        "why": "Même si never takes the conditionnel: même s'il venait."
+      }
+    ],
+    "builds": [
+      {
+        "text": "J'ai beau courir, je suis en retard.",
+        "meaning": "However fast I run, I'm late.",
+        "distractors": [
+          "de"
+        ]
+      },
+      {
+        "text": "Quelle que soit la raison, reste calme.",
+        "meaning": "Whatever the reason, stay calm.",
+        "distractors": [
+          "Quel"
+        ]
+      },
+      {
+        "text": "Il dort tandis que je travaille.",
+        "meaning": "He sleeps while I work.",
+        "distractors": [
+          "soit"
+        ]
+      },
+      {
+        "text": "Malgré la pluie, nous sommes sortis.",
+        "meaning": "Despite the rain, we went out.",
+        "distractors": [
+          "que"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🌙",
+      "content": "## La concession à Eldmark\n\nHeroes never give up: **Borin a beau être fatigué, il continue la quête**. **Quel que soit le danger**, the paladin rides on, **tandis que** the orcs flee. **Malgré le froid de Frostmarch**, Nym keeps hunting, and she never complains **pour autant**.",
+      "vocabulary": [
+        {
+          "term": "avoir beau",
+          "example": "Le mage a beau lire son parchemin, le sort ne marche pas.",
+          "example_meaning": "However much the mage reads his scroll, the spell doesn't work."
+        },
+        {
+          "term": "tandis que",
+          "example": "Les nains creusent tandis que les elfes chantent.",
+          "example_meaning": "The dwarves dig while the elves sing."
+        },
+        {
+          "term": "quel que soit",
+          "example": "Quel que soit le dragon, le paladin n'a pas peur.",
+          "example_meaning": "Whatever the dragon, the paladin isn't afraid."
+        },
+        {
+          "term": "au lieu de",
+          "example": "Au lieu de fuir, Nym prend son arc.",
+          "example_meaning": "Instead of running away, Nym takes her bow."
+        },
+        {
+          "term": "en dépit de",
+          "example": "En dépit du danger, la guilde entre dans le donjon.",
+          "example_meaning": "Despite the danger, the guild goes into the dungeon."
+        },
+        {
+          "term": "quoi que",
+          "example": "Quoi que dise l'orc, ne le crois pas.",
+          "example_meaning": "Whatever the orc says, don't believe him."
+        },
+        {
+          "term": "pour autant",
+          "example": "Borin a perdu son bouclier, mais il n'abandonne pas pour autant.",
+          "example_meaning": "Borin has lost his shield, but he isn't giving up for all that."
+        },
+        {
+          "term": "la quête",
+          "meaning": "quest",
+          "example": "La quête commence à Highgate.",
+          "example_meaning": "The quest begins in Highgate."
+        },
+        {
+          "term": "abandonner",
+          "meaning": "to give up, to abandon",
+          "example": "Un vrai héros n'abandonne jamais.",
+          "example_meaning": "A true hero never gives up."
+        },
+        {
+          "term": "le danger",
+          "meaning": "danger",
+          "example": "Le danger est partout dans la Forêt Ombreuse.",
+          "example_meaning": "Danger is everywhere in the Shadow Forest."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Le héros têtu",
+          "emoji": "🌙",
+          "rule": "Avoir beau + infinitive for wasted effort, malgré + noun, quel que soit agreeing with its noun.",
+          "example": "Nym a beau chercher, elle ne trouve pas le dragon.",
+          "example_meaning": "However hard Nym looks, she can't find the dragon."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Malgré la neige, Borin avance.",
+          "meaning": "Despite the snow, Borin moves on."
+        },
+        {
+          "text": "Le mage étudie tandis que l'orc dort.",
+          "meaning": "The mage studies while the orc sleeps."
+        },
+        {
+          "text": "Où que tu ailles, la guilde te protège.",
+          "meaning": "Wherever you go, the guild protects you."
+        },
+        {
+          "text": "Elle a beau courir, le minotaure la suit.",
+          "meaning": "However fast she runs, the minotaur follows her.",
+          "note": "New word: le minotaure = the minotaur."
+        },
+        {
+          "text": "Quels que soient les dangers, nous partirons.",
+          "meaning": "Whatever the dangers, we will leave."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Borin a beau frapper, la porte résiste.",
+          "meaning": "However hard Borin strikes, the door holds.",
+          "distractors": [
+            "de"
+          ]
+        },
+        {
+          "text": "Malgré le froid, Nym continue.",
+          "meaning": "Despite the cold, Nym carries on.",
+          "distractors": [
+            "bien"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Quel que soit la quête, je pars.",
+          "wrong": "Quel",
+          "fix": "Quelle",
+          "why": "Quel agrees with la quête (feminine): quelle que soit la quête."
+        },
+        {
+          "sentence": "Bien que l'orc est fort, Nym gagne.",
+          "wrong": "est",
+          "fix": "soit",
+          "why": "Bien que takes the subjonctif: bien que l'orc soit fort."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Malgré or bien que in the quest?",
+          "buckets": [
+            "malgré (+ noun)",
+            "bien que (+ subjonctif)"
+          ],
+          "items": [
+            {
+              "text": "___ le danger",
+              "bucket": 0
+            },
+            {
+              "text": "___ le dragon soit là",
+              "bucket": 1
+            },
+            {
+              "text": "___ la neige",
+              "bucket": 0
+            },
+            {
+              "text": "___ Borin ait peur",
+              "bucket": 1
+            },
+            {
+              "text": "___ la tempête",
+              "bucket": 0
+            },
+            {
+              "text": "___ l'orc soit fort",
+              "bucket": 1
+            }
+          ],
+          "why": "Malgré goes before a noun; bien que introduces a clause with a verb in the subjonctif."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-concession-opposition-realm-01",
+          "prompt": "Le chasseur ___ beau viser, il rate toujours le dragon. (avoir, présent)",
+          "type": "fill-in-blank",
+          "correct_answer": "a",
+          "accepted_answers": [],
+          "explanation": "Avoir beau + infinitive: avoir agrees with le chasseur → a beau viser (however carefully he aims).",
+          "hints": [
+            "Avoir, il form."
+          ],
+          "teaches": [
+            "avoir beau"
+          ]
+        },
+        {
+          "question_id": "b2-concession-opposition-realm-02",
+          "prompt": "___ que soient les dangers de la quête, nous partirons à l'aube.",
+          "type": "multiple-choice",
+          "options": [
+            "Quels",
+            "Quel",
+            "Quelles"
+          ],
+          "correct_answer": "Quels",
+          "explanation": "Quel que soit agrees with its noun: les dangers is masculine plural → quels que soient les dangers.",
+          "hints": [
+            "Le danger is masculine; here it is plural."
+          ],
+          "teaches": [
+            "quel que soit",
+            "le danger",
+            "la quête"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🍋",
+      "content": "## La concession à Meadowbrook\n\nFarm life is full of buts: **Nora a beau arroser, les fraises ne poussent pas**; **malgré la pluie, le marché a lieu**; Léo fishes **tandis que** Rosa plants. **Quelle que soit la saison**, there is always work on the farm.",
+      "vocabulary": [
+        {
+          "term": "avoir beau",
+          "example": "Nora a beau arroser, ses tomates restent petites.",
+          "example_meaning": "However much Nora waters them, her tomatoes stay small."
+        },
+        {
+          "term": "alors que",
+          "example": "Léo pêche tous les jours, alors que Rosa préfère son jardin.",
+          "example_meaning": "Léo fishes every day, whereas Rosa prefers her garden."
+        },
+        {
+          "term": "tandis que",
+          "example": "Les poules dorment tandis que le coq chante.",
+          "example_meaning": "The hens sleep while the rooster crows."
+        },
+        {
+          "term": "quel que soit",
+          "example": "Quelle que soit la météo, Rosa ouvre la graineterie.",
+          "example_meaning": "Whatever the weather forecast, Rosa opens the seed shop."
+        },
+        {
+          "term": "au lieu de",
+          "example": "Au lieu d'acheter des légumes, plante-les !",
+          "example_meaning": "Instead of buying vegetables, plant them!"
+        },
+        {
+          "term": "en dépit de",
+          "example": "En dépit de la sécheresse, la récolte est bonne.",
+          "example_meaning": "Despite the drought, the harvest is good."
+        },
+        {
+          "term": "il n'empêche que",
+          "example": "La fête était fatigante ; il n'empêche que tout le monde a dansé.",
+          "example_meaning": "The festival was tiring; all the same, everyone danced."
+        },
+        {
+          "term": "arroser",
+          "meaning": "to water",
+          "example": "J'arrose le jardin le soir.",
+          "example_meaning": "I water the garden in the evening."
+        },
+        {
+          "term": "la sécheresse",
+          "meaning": "drought",
+          "example": "La sécheresse a duré tout l'été.",
+          "example_meaning": "The drought lasted all summer."
+        },
+        {
+          "term": "pousser",
+          "meaning": "to grow (plants)",
+          "example": "Le maïs pousse vite en juillet.",
+          "example_meaning": "Corn grows fast in July."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Malgré la pluie",
+          "emoji": "🍋",
+          "rule": "On the farm: avoir beau + infinitive when the effort fails, malgré + noun, tandis que for two things side by side.",
+          "example": "Malgré la pluie, Léo va pêcher.",
+          "example_meaning": "Despite the rain, Léo goes fishing."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Malgré l'orage, la fête continue.",
+          "meaning": "Despite the storm, the festival goes on."
+        },
+        {
+          "text": "Rosa vend des graines tandis que Léo pêche.",
+          "meaning": "Rosa sells seeds while Léo fishes."
+        },
+        {
+          "text": "Il a beau faire chaud, les fraises restent vertes.",
+          "meaning": "However hot it is, the strawberries stay green."
+        },
+        {
+          "text": "Quelle que soit la saison, la ferme travaille.",
+          "meaning": "Whatever the season, the farm keeps working."
+        },
+        {
+          "text": "Au lieu de vendre ses citrouilles, Nora les cuisine.",
+          "meaning": "Instead of selling her pumpkins, Nora cooks them.",
+          "note": "New word: la citrouille = the pumpkin."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Nora a beau arroser, rien ne pousse.",
+          "meaning": "However much Nora waters, nothing grows.",
+          "distractors": [
+            "de"
+          ]
+        },
+        {
+          "text": "Léo pêche tandis que Rosa plante.",
+          "meaning": "Léo fishes while Rosa plants.",
+          "distractors": [
+            "soit"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Au lieu de vends tes fraises, mange-les !",
+          "wrong": "vends",
+          "fix": "vendre",
+          "why": "Au lieu de is followed by an infinitive: au lieu de vendre."
+        },
+        {
+          "sentence": "Quelle que soient les récoltes, nous ferons la fête.",
+          "wrong": "Quelle",
+          "fix": "Quelles",
+          "why": "Quel agrees with les récoltes (feminine plural): quelles que soient."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "On the farm: a noun or an infinitive?",
+          "buckets": [
+            "with an infinitive",
+            "with a noun"
+          ],
+          "items": [
+            {
+              "text": "au lieu de vendre",
+              "bucket": 0
+            },
+            {
+              "text": "malgré la pluie",
+              "bucket": 1
+            },
+            {
+              "text": "avoir beau arroser",
+              "bucket": 0
+            },
+            {
+              "text": "en dépit de la sécheresse",
+              "bucket": 1
+            },
+            {
+              "text": "loin de se plaindre",
+              "bucket": 0
+            },
+            {
+              "text": "malgré le froid",
+              "bucket": 1
+            }
+          ],
+          "why": "Au lieu de, loin de and avoir beau take an infinitive; malgré and en dépit de take a noun."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-concession-opposition-meadowbrook-01",
+          "prompt": "Rosa reste souriante ___ la fatigue de la fête des récoltes.",
+          "type": "multiple-choice",
+          "options": [
+            "malgré",
+            "bien que",
+            "alors que"
+          ],
+          "correct_answer": "malgré",
+          "explanation": "La fatigue is a noun, so it takes malgré (despite). Bien que and alors que need a clause with a verb.",
+          "hints": [
+            "A noun follows the gap."
+          ]
+        },
+        {
+          "question_id": "b2-concession-opposition-meadowbrook-02",
+          "prompt": "In 'Léo pêche alors que Nora plante des fraises', alors que takes the subjonctif.",
+          "type": "true-false",
+          "correct_answer": "false",
+          "explanation": "Alors que contrasts two facts and takes the indicative: Nora plante is a plain fact.",
+          "hints": [
+            "Contrast between two facts: which mood?"
+          ],
+          "teaches": [
+            "alors que"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🪝",
+      "content": "## La concession à Rustwake\n\nIn the rust desert nothing is easy: **Léo a beau fouiller les ruines, il ne trouve pas d'eau filtrée**. **Malgré la tempête de cendres**, he explores, **tandis que** Marta repairs the antenna. **Quoi qu'il arrive**, the scrap village keeps trading.",
+      "vocabulary": [
+        {
+          "term": "avoir beau",
+          "example": "Ruiz a beau réparer la porte, elle grince toujours.",
+          "example_meaning": "However often Ruiz repairs the door, it still creaks."
+        },
+        {
+          "term": "tandis que",
+          "example": "Marta répare la radio tandis que Ruiz monte la garde.",
+          "example_meaning": "Marta repairs the radio while Ruiz stands guard."
+        },
+        {
+          "term": "en dépit de",
+          "example": "En dépit de la poussière, le marché est ouvert.",
+          "example_meaning": "Despite the dust, the market is open."
+        },
+        {
+          "term": "quoi que",
+          "example": "Quoi que dise le marchand, ce tonique est trop cher.",
+          "example_meaning": "Whatever the trader says, this tonic is too expensive."
+        },
+        {
+          "term": "quel que soit",
+          "example": "Quel que soit le prix, j'ai besoin d'eau filtrée.",
+          "example_meaning": "Whatever the price, I need filtered water."
+        },
+        {
+          "term": "pour autant",
+          "example": "La tempête est finie, mais le désert n'est pas sûr pour autant.",
+          "example_meaning": "The storm is over, but that doesn't make the desert safe."
+        },
+        {
+          "term": "au lieu de",
+          "example": "Au lieu d'échanger tes écrous, garde-les.",
+          "example_meaning": "Instead of trading your nuts, keep them."
+        },
+        {
+          "term": "fouiller",
+          "meaning": "to search, to rummage",
+          "example": "Les fouilleurs fouillent la station-service.",
+          "example_meaning": "The scavengers search the petrol station."
+        },
+        {
+          "term": "la poussière",
+          "meaning": "dust",
+          "example": "Il y a de la poussière partout dans l'atelier.",
+          "example_meaning": "There's dust everywhere in the workshop."
+        },
+        {
+          "term": "sûr",
+          "meaning": "safe, sure",
+          "example": "Le Dôme est plus sûr que le désert.",
+          "example_meaning": "The Dome is safer than the desert."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Malgré la tempête",
+          "emoji": "🪝",
+          "rule": "Avoir beau + infinitive for wasted effort, malgré + noun, quoi que + subjonctif for whatever.",
+          "example": "Malgré la radiation, Léo explore.",
+          "example_meaning": "Despite the radiation, Léo explores."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Malgré la poussière, Marta marche.",
+          "meaning": "Despite the dust, Marta walks on."
+        },
+        {
+          "text": "Léo cherche tandis que le robot répare.",
+          "meaning": "Léo searches while the robot repairs."
+        },
+        {
+          "text": "Ruiz a beau appeler, la radio ne répond pas.",
+          "meaning": "However much Ruiz calls, the radio doesn't answer."
+        },
+        {
+          "text": "Où que tu marches, il y a de la rouille.",
+          "meaning": "Wherever you walk, there's rust.",
+          "note": "New word: la rouille = the rust."
+        },
+        {
+          "text": "Qui que tu sois, montre tes écrous.",
+          "meaning": "Whoever you are, show your nuts."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Léo a beau fouiller, il ne trouve rien.",
+          "meaning": "However hard Léo searches, he finds nothing.",
+          "distractors": [
+            "de"
+          ]
+        },
+        {
+          "text": "Malgré la tempête, Marta répare l'antenne.",
+          "meaning": "Despite the storm, Marta repairs the antenna.",
+          "distractors": [
+            "bien"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Bien que la tempête est finie, restez dans le Dôme.",
+          "wrong": "est",
+          "fix": "soit",
+          "why": "Bien que takes the subjonctif: bien que la tempête soit finie."
+        },
+        {
+          "sentence": "Quoique tu dises, je garde mes écrous.",
+          "wrong": "Quoique",
+          "fix": "Quoi que",
+          "why": "Whatever is quoi que in two words."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Quoique or quoi que in the desert?",
+          "buckets": [
+            "quoique (although)",
+            "quoi que (whatever)"
+          ],
+          "items": [
+            {
+              "text": "___ tu trouves, apporte-le.",
+              "bucket": 1
+            },
+            {
+              "text": "___ il soit tard, Marta travaille.",
+              "bucket": 0
+            },
+            {
+              "text": "___ dise Ruiz, je pars.",
+              "bucket": 1
+            },
+            {
+              "text": "___ le robot soit vieux, il marche.",
+              "bucket": 0
+            },
+            {
+              "text": "___ tu fasses, sois prudent.",
+              "bucket": 1
+            },
+            {
+              "text": "___ l'eau soit rare, on la partage.",
+              "bucket": 0
+            }
+          ],
+          "why": "Quoique = although, before a full clause with its own subject; quoi que = whatever, the thing you find, say or do."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-concession-opposition-rustwake-01",
+          "prompt": "___ la tempête de cendres, Marta part au marché. (despite, one word)",
+          "type": "fill-in-blank",
+          "correct_answer": "Malgré",
+          "accepted_answers": [
+            "malgré"
+          ],
+          "explanation": "Malgré + noun = despite: malgré la tempête. En dépit de means the same in a more formal register.",
+          "hints": [
+            "One word, before a noun."
+          ]
+        },
+        {
+          "question_id": "b2-concession-opposition-rustwake-02",
+          "prompt": "___ soit le prix de l'eau filtrée, nous en achèterons.",
+          "type": "multiple-choice",
+          "options": [
+            "Quel que",
+            "Quelle que",
+            "Quoique"
+          ],
+          "correct_answer": "Quel que",
+          "explanation": "Le prix is masculine singular → quel que soit le prix. Quoique (although) would need a subject and verb of its own.",
+          "hints": [
+            "Le prix: masculine singular."
+          ],
+          "teaches": [
+            "quel que soit"
+          ]
+        }
+      ]
+    }
+  }
+}

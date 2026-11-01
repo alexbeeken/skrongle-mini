@@ -1,0 +1,1214 @@
+{
+  "id": "a2-food-restaurant",
+  "slug": "food-restaurant",
+  "title": "At the restaurant: je voudrais…",
+  "unit": "A2",
+  "group": "Vocabulary",
+  "order": 22,
+  "summary": "Order a meal politely with je voudrais, vouloir and pouvoir, ask for quantities, mention allergies and pay in euros.",
+  "focus": "Ordering and paying in a French restaurant with je voudrais, vouloir and pouvoir",
+  "prerequisites": [
+    "a2-ir-re-verbs-partitive"
+  ],
+  "content": "## Vouloir, pouvoir and je voudrais\n\nTwo irregular verbs come up in every restaurant visit: **vouloir** (to want) and **pouvoir** (can, to be able to). Both can take an infinitive: **je peux payer**, **nous voulons commander**.\n\n| | vouloir | pouvoir |\n|---|---|---|\n| je | veux | peux |\n| tu | veux | peux |\n| il / elle / on | veut | peut |\n| nous | voulons | pouvons |\n| vous | voulez | pouvez |\n| ils / elles | veulent | peuvent |\n\nTo a waiter, **je veux** sounds blunt. Say **je voudrais** (I would like) and learn it as a fixed polite phrase.\n\n- **Je voudrais un café, s'il vous plaît.** I'd like a coffee, please.\n- **Vous pouvez m'apporter la carte ?** Can you bring me the menu?\n\n## Ordering a meal\n\n**La carte** is the full list of dishes; **le menu** is a fixed-price set meal, often **entrée + plat + dessert**. Be careful, **l'entrée** is the *starter*, not the main course. The main course is **le plat**.\n\n- **Vous avez choisi ?** Have you chosen?\n- **Je vais prendre le menu à vingt euros.** I'll have the twenty-euro set menu.\n- **Comme entrée, la soupe ; comme plat, le poulet.** As a starter, the soup; as a main, the chicken.\n- **Pour moi, le poisson.** The fish for me.\n- **L'addition, s'il vous plaît !** The bill, please!\n\n## Quantities, likes and allergies\n\nAfter a quantity, use plain **de** (**d'** before a vowel), never du / de la / des:\n\n- **un verre de vin** a glass of wine · **une bouteille d'eau** a bottle of water\n- **un peu de pain** a little bread · **beaucoup de frites** lots of chips\n\nLikes, from warm to cool: **j'adore**, **j'aime bien**, **je n'aime pas trop**, **je déteste**, followed by le / la / les: **J'adore le fromage.**\n\nAllergies: **je suis allergique à** + au / à la / à l' / aux. **Je suis allergique aux fruits de mer.** **Sans** means without: **une salade sans fromage**.\n\n## Paying: euros and the tip\n\nPrices are written with a comma and said with **euros** in the middle: **14,50 €** = **quatorze euros cinquante**. Ask **Ça fait combien ?** and you hear **Ça fait trente euros.**\n\nIn France **le service est compris**, which means the service charge is already in the price. A tip, **le pourboire**, is optional; people leave a few coins when they were happy. To pay by card: **Je peux payer par carte ?**\n\n- **Le menu est à dix-neuf euros quatre-vingt-dix.** The set menu costs €19.90.",
+  "vocabulary": [
+    {
+      "term": "je voudrais",
+      "meaning": "I would like (polite)",
+      "example": "Je voudrais une table pour deux, s'il vous plaît.",
+      "example_meaning": "I'd like a table for two, please."
+    },
+    {
+      "term": "la carte",
+      "meaning": "menu, the full list of dishes (f)",
+      "example": "Le serveur nous apporte la carte.",
+      "example_meaning": "The waiter brings us the menu."
+    },
+    {
+      "term": "le menu",
+      "meaning": "set menu at a fixed price (m)",
+      "example": "Le menu du midi est à quinze euros.",
+      "example_meaning": "The lunch set menu costs fifteen euros."
+    },
+    {
+      "term": "l'entrée",
+      "meaning": "starter (f)",
+      "example": "Comme entrée, je prends la salade de tomates.",
+      "example_meaning": "As a starter, I'm having the tomato salad."
+    },
+    {
+      "term": "le plat",
+      "meaning": "main course; dish (m)",
+      "example": "Le plat du jour, c'est le poulet rôti.",
+      "example_meaning": "The dish of the day is roast chicken."
+    },
+    {
+      "term": "l'addition",
+      "meaning": "bill, check (f)",
+      "example": "Vous pouvez nous apporter l'addition ?",
+      "example_meaning": "Can you bring us the bill?"
+    },
+    {
+      "term": "la bouteille",
+      "meaning": "bottle (f)",
+      "example": "On prend une bouteille de vin rouge.",
+      "example_meaning": "We'll have a bottle of red wine."
+    },
+    {
+      "term": "le verre",
+      "meaning": "glass (m)",
+      "example": "Je voudrais un verre d'eau, s'il vous plaît.",
+      "example_meaning": "I'd like a glass of water, please."
+    },
+    {
+      "term": "allergique à",
+      "meaning": "allergic to",
+      "example": "Mon fils est allergique aux œufs.",
+      "example_meaning": "My son is allergic to eggs."
+    },
+    {
+      "term": "le pourboire",
+      "meaning": "tip (m)",
+      "example": "Nous laissons un petit pourboire sur la table.",
+      "example_meaning": "We leave a small tip on the table."
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "vouloir",
+      "meaning": "to want",
+      "set": "present",
+      "art": [
+        "  _  _   ",
+        " ( \\/ )  ",
+        "  \\  /   ",
+        "   \\/    ",
+        " je veux "
+      ],
+      "forms": {
+        "je": "veux",
+        "tu": "veux",
+        "il": "veut",
+        "nous": "voulons",
+        "vous": "voulez",
+        "ils": "veulent"
+      }
+    },
+    {
+      "item": "pouvoir",
+      "meaning": "can, to be able to",
+      "set": "present",
+      "art": [
+        " ____________ ",
+        "|  YES, YOU  |",
+        "|  CAN DO IT |",
+        "|____________|",
+        "      ||      "
+      ],
+      "forms": {
+        "je": "peux",
+        "tu": "peux",
+        "il": "peut",
+        "nous": "pouvons",
+        "vous": "pouvez",
+        "ils": "peuvent"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-food-restaurant-01",
+      "prompt": "Je ___ le poisson, s'il vous plaît.",
+      "type": "multiple-choice",
+      "options": [
+        "voudrais",
+        "voudrait",
+        "voulez"
+      ],
+      "correct_answer": "voudrais",
+      "explanation": "With je, the polite form is je voudrais: 'Je voudrais le poisson, s'il vous plaît.' Voudrait goes with il / elle, voulez with vous.",
+      "hints": [
+        "The subject is je.",
+        "The polite phrase is a fixed form: je voudr…"
+      ],
+      "teaches": [
+        "je voudrais"
+      ]
+    },
+    {
+      "question_id": "a2-food-restaurant-02",
+      "prompt": "Vous ___ m'apporter l'addition, s'il vous plaît ? (pouvoir)",
+      "type": "fill-in-blank",
+      "correct_answer": "pouvez",
+      "accepted_answers": [
+        "vous pouvez"
+      ],
+      "explanation": "The vous form of pouvoir is pouvez: 'Vous pouvez m'apporter l'addition ?'",
+      "hints": [
+        "Vous forms usually end in -ez.",
+        "The vous form of pouvoir starts vous pouv…"
+      ],
+      "teaches": [
+        "l'addition"
+      ]
+    },
+    {
+      "question_id": "a2-food-restaurant-03",
+      "prompt": "On a French menu, 'l'entrée' is…",
+      "type": "multiple-choice",
+      "options": [
+        "the starter",
+        "the main course",
+        "the dessert"
+      ],
+      "correct_answer": "the starter",
+      "explanation": "In France l'entrée is the first course, the starter. The main course is le plat.",
+      "hints": [
+        "Entrée = the way in: the start of the meal."
+      ],
+      "teaches": [
+        "l'entrée",
+        "le plat"
+      ]
+    },
+    {
+      "question_id": "a2-food-restaurant-04",
+      "prompt": "In a French restaurant, 'le menu' usually means a fixed-price set meal, while the full list of dishes is 'la carte'.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "True: le menu is a set meal at one price (e.g. entrée + plat + dessert); la carte lists every dish.",
+      "hints": [
+        "Think of 'manger à la carte': choosing dish by dish."
+      ],
+      "teaches": [
+        "le menu",
+        "la carte"
+      ]
+    },
+    {
+      "question_id": "a2-food-restaurant-05",
+      "prompt": "A bottle of mineral water, please: Une ___ d'eau minérale, s'il vous plaît.",
+      "type": "fill-in-blank",
+      "correct_answer": "bouteille",
+      "accepted_answers": [
+        "une bouteille"
+      ],
+      "explanation": "A bottle is une bouteille, and after a quantity French uses d': une bouteille d'eau minérale.",
+      "hints": [
+        "It is feminine: une ___.",
+        "It starts with b."
+      ],
+      "teaches": [
+        "la bouteille"
+      ]
+    },
+    {
+      "question_id": "a2-food-restaurant-06",
+      "prompt": "Je voudrais un verre ___ vin rouge.",
+      "type": "multiple-choice",
+      "options": [
+        "de",
+        "du",
+        "des"
+      ],
+      "correct_answer": "de",
+      "explanation": "After a quantity (un verre, une bouteille, un peu, beaucoup) French uses plain de: un verre de vin rouge.",
+      "hints": [
+        "Un verre is a quantity.",
+        "No article after a quantity."
+      ],
+      "teaches": [
+        "le verre"
+      ]
+    },
+    {
+      "question_id": "a2-food-restaurant-07",
+      "prompt": "I'm allergic to seafood: Je suis ___ aux fruits de mer.",
+      "type": "fill-in-blank",
+      "correct_answer": "allergique",
+      "accepted_answers": [],
+      "explanation": "Je suis allergique à + the food; à + les contracts to aux: je suis allergique aux fruits de mer.",
+      "hints": [
+        "It looks almost like the English word.",
+        "It ends in -ique."
+      ],
+      "teaches": [
+        "allergique à"
+      ]
+    },
+    {
+      "question_id": "a2-food-restaurant-08",
+      "prompt": "Le serveur dit : « Ça fait vingt-quatre euros cinquante. » How much is the bill? (Type it with a point, e.g. 9.90.)",
+      "type": "numeric",
+      "correct_answer": "24.50",
+      "unit": "€",
+      "explanation": "Vingt-quatre euros cinquante is €24.50. The euros come first, then the cents.",
+      "hints": [
+        "Vingt-quatre = 24.",
+        "Cinquante cents = .50"
+      ],
+      "teaches": [
+        "l'addition"
+      ]
+    },
+    {
+      "question_id": "a2-food-restaurant-09",
+      "prompt": "Le menu est à dix-neuf euros. Vous êtes deux et vous prenez le menu tous les deux. Ça fait combien ?",
+      "type": "numeric",
+      "correct_answer": "38",
+      "unit": "€",
+      "explanation": "Dix-neuf euros = €19, and two set menus make 2 × 19 = €38.",
+      "hints": [
+        "Dix-neuf = 19.",
+        "Two people, one menu each."
+      ],
+      "teaches": [
+        "le menu"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "L'addition, s'il vous plaît.",
+      "meaning": "The bill, please."
+    },
+    {
+      "text": "Je voudrais un verre d'eau.",
+      "meaning": "I'd like a glass of water.",
+      "note": "Quantity + de: un verre d'eau."
+    },
+    {
+      "text": "Pour moi, le poulet avec des frites.",
+      "meaning": "The chicken with chips for me.",
+      "note": "New word: les frites = chips, fries."
+    },
+    {
+      "text": "Comme entrée, nous voulons la soupe à l'oignon.",
+      "meaning": "As a starter, we want the onion soup.",
+      "note": "vouloir: nous voulons."
+    },
+    {
+      "text": "Est-ce que nous pouvons avoir une table près de la fenêtre ?",
+      "meaning": "Can we have a table near the window?",
+      "note": "pouvoir + infinitive."
+    },
+    {
+      "text": "Je suis allergique aux fruits de mer, je vais prendre la salade.",
+      "meaning": "I'm allergic to seafood, I'll have the salad.",
+      "note": "New word: les fruits de mer = seafood."
+    },
+    {
+      "text": "Le menu à vingt-deux euros, c'est une entrée, un plat et un dessert.",
+      "meaning": "The twenty-two-euro set menu is a starter, a main course and a dessert."
+    },
+    {
+      "text": "Le service est compris, mais on peut laisser un petit pourboire.",
+      "meaning": "Service is included, but you can leave a small tip.",
+      "note": "New word: laisser = to leave."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Vouloir, pouvoir"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-food-restaurant-01"
+    },
+    {
+      "question": "a2-food-restaurant-02"
+    },
+    {
+      "section": "Ordering a meal"
+    },
+    {
+      "question": "a2-food-restaurant-03"
+    },
+    {
+      "question": "a2-food-restaurant-04"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "tip": "Order in three steps: comme entrée…, comme plat…, et comme dessert… Add s'il vous plaît."
+    },
+    {
+      "section": "Quantities"
+    },
+    {
+      "question": "a2-food-restaurant-05"
+    },
+    {
+      "question": "a2-food-restaurant-06"
+    },
+    {
+      "question": "a2-food-restaurant-07"
+    },
+    {
+      "section": "Paying"
+    },
+    {
+      "concept": {
+        "title": "Une carafe d'eau",
+        "markdown": "Ask for **une carafe d'eau** and you get tap water free of charge. French restaurants serve it with a meal at no cost. **Une bouteille d'eau** (minérale or gazeuse) goes on the bill."
+      }
+    },
+    {
+      "question": "a2-food-restaurant-08"
+    },
+    {
+      "question": "a2-food-restaurant-09"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-food-restaurant-conv-bistro",
+      "title": "Dinner at the bistro",
+      "scenario": "Claire has dinner alone at a small bistro; Julien, the waiter, takes her order.",
+      "role_a": "Claire",
+      "role_b": "Julien",
+      "lines": [
+        {
+          "speaker": "b",
+          "text": "Bonsoir, madame. Vous voulez commander ?",
+          "meaning": "Good evening, madam. Would you like to order?",
+          "note": "vouloir: vous voulez"
+        },
+        {
+          "speaker": "a",
+          "text": "Oui, je voudrais le menu à vingt euros, s'il vous plaît.",
+          "meaning": "Yes, I'd like the twenty-euro set menu, please.",
+          "note": "je voudrais: the polite order"
+        },
+        {
+          "speaker": "b",
+          "text": "Très bien. Et comme entrée ?",
+          "meaning": "Very good. And as a starter?"
+        },
+        {
+          "speaker": "a",
+          "text": "Pour moi, la soupe de légumes.",
+          "meaning": "The vegetable soup for me."
+        },
+        {
+          "speaker": "b",
+          "text": "Et comme plat ? Le poisson est excellent aujourd'hui.",
+          "meaning": "And for the main course? The fish is excellent today."
+        },
+        {
+          "speaker": "a",
+          "text": "Je suis allergique au poisson. Je vais prendre le poulet.",
+          "meaning": "I'm allergic to fish. I'll have the chicken.",
+          "note": "allergique à + le = au"
+        },
+        {
+          "speaker": "b",
+          "text": "Pas de problème. Et comme boisson ?",
+          "meaning": "No problem. And to drink?"
+        },
+        {
+          "speaker": "a",
+          "text": "Une carafe d'eau et un verre de vin blanc, s'il vous plaît.",
+          "meaning": "A jug of water and a glass of white wine, please.",
+          "note": "quantity + de"
+        },
+        {
+          "speaker": "b",
+          "text": "Et en dessert, la tarte aux pommes ou la mousse au chocolat ?",
+          "meaning": "And for dessert, the apple tart or the chocolate mousse?"
+        },
+        {
+          "speaker": "a",
+          "text": "La mousse, s'il vous plaît. Le service est compris ?",
+          "meaning": "The mousse, please. Is service included?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, le service est compris. Vous pouvez payer par carte.",
+          "meaning": "Yes, service is included. You can pay by card.",
+          "note": "pouvoir: vous pouvez"
+        },
+        {
+          "speaker": "a",
+          "text": "Parfait, merci beaucoup !",
+          "meaning": "Perfect, thank you very much!"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🥘",
+    "bites": [
+      {
+        "title": "Je voudrais = I'd like",
+        "emoji": "🙋",
+        "rule": "Order with je voudrais or je vais prendre. Je veux sounds blunt to a waiter.",
+        "example": "Je voudrais un café, s'il vous plaît.",
+        "example_meaning": "I'd like a coffee, please."
+      },
+      {
+        "title": "Vouloir and pouvoir",
+        "emoji": "💪",
+        "rule": "Two irregular verbs: je veux / je peux, nous voulons / nous pouvons, ils veulent / ils peuvent. Both can take an infinitive.",
+        "example": "Nous pouvons commander ?",
+        "example_meaning": "Can we order?"
+      },
+      {
+        "title": "A quantity takes de",
+        "emoji": "🍷",
+        "rule": "After un verre, une bouteille, un peu, beaucoup: plain de (d' before a vowel), never du or de la.",
+        "example": "Un verre de vin et une bouteille d'eau.",
+        "example_meaning": "A glass of wine and a bottle of water."
+      },
+      {
+        "title": "Le service est compris",
+        "emoji": "💶",
+        "rule": "Service is already in French prices. A tip (le pourboire) is a small extra, never required.",
+        "example": "Le service est compris ?",
+        "example_meaning": "Is service included?"
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Entrée, plat or dessert?",
+        "buckets": [
+          "entrée",
+          "plat",
+          "dessert"
+        ],
+        "items": [
+          {
+            "text": "la soupe à l'oignon",
+            "bucket": 0
+          },
+          {
+            "text": "la salade de tomates",
+            "bucket": 0
+          },
+          {
+            "text": "le steak-frites",
+            "bucket": 1
+          },
+          {
+            "text": "le poulet rôti",
+            "bucket": 1
+          },
+          {
+            "text": "le saumon grillé",
+            "bucket": 1
+          },
+          {
+            "text": "la mousse au chocolat",
+            "bucket": 2
+          },
+          {
+            "text": "la crème brûlée",
+            "bucket": 2
+          },
+          {
+            "text": "la tarte aux pommes",
+            "bucket": 2
+          }
+        ],
+        "why": "L'entrée is the starter (soup, a light salad), le plat the main course, le dessert the sweet end."
+      },
+      {
+        "title": "de or du / de la?",
+        "buckets": [
+          "de / d' (after a quantity)",
+          "du / de la (partitive)"
+        ],
+        "items": [
+          {
+            "text": "un verre ___ vin",
+            "bucket": 0
+          },
+          {
+            "text": "Je voudrais ___ pain.",
+            "bucket": 1
+          },
+          {
+            "text": "beaucoup ___ frites",
+            "bucket": 0
+          },
+          {
+            "text": "une bouteille ___ eau",
+            "bucket": 0
+          },
+          {
+            "text": "Vous avez ___ soupe ?",
+            "bucket": 1
+          },
+          {
+            "text": "un peu ___ sel",
+            "bucket": 0
+          },
+          {
+            "text": "Je prends ___ fromage.",
+            "bucket": 1
+          }
+        ],
+        "why": "After a quantity word, only de / d' remains; without one, use the partitive du / de la."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Je voudrais un verre du vin rouge.",
+        "wrong": "du",
+        "fix": "de",
+        "why": "After a quantity (un verre) use plain de."
+      },
+      {
+        "sentence": "Je voulez le poisson, s'il vous plaît.",
+        "wrong": "voulez",
+        "fix": "voudrais",
+        "why": "With je, order with the polite je voudrais."
+      },
+      {
+        "sentence": "Vous peux m'apporter la carte ?",
+        "wrong": "peux",
+        "fix": "pouvez",
+        "why": "Vous takes pouvez."
+      },
+      {
+        "sentence": "Une bouteille d'eau et un peu du pain.",
+        "wrong": "du",
+        "fix": "de",
+        "why": "Un peu is a quantity: un peu de pain."
+      },
+      {
+        "sentence": "Mes amis veut une table pour quatre.",
+        "wrong": "veut",
+        "fix": "veulent",
+        "why": "Mes amis = ils, which takes veulent."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Je voudrais la soupe, s'il vous plaît.",
+        "meaning": "I'd like the soup, please.",
+        "distractors": [
+          "voulez"
+        ]
+      },
+      {
+        "text": "Vous pouvez m'apporter l'addition ?",
+        "meaning": "Can you bring me the bill?",
+        "distractors": [
+          "peux"
+        ]
+      },
+      {
+        "text": "Une bouteille d'eau pour la table.",
+        "meaning": "A bottle of water for the table.",
+        "distractors": [
+          "du"
+        ]
+      },
+      {
+        "text": "Je suis allergique aux fruits de mer.",
+        "meaning": "I'm allergic to seafood.",
+        "distractors": [
+          "au"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🍺",
+      "content": "## Commander à Eldmark\n\nAt **la taverne du Dragon Vert**, order as you would anywhere else: **je voudrais une chope de cidre**, **pour moi, le ragoût**. Borin le nain **veut** trois chopes and Nym **peut** payer. A quantity still takes **de**: **une chope de bière**. At the end, **l'addition, s'il vous plaît**, paid in **pièces d'or**.",
+      "vocabulary": [
+        {
+          "term": "je voudrais",
+          "example": "Je voudrais une potion de soin, s'il vous plaît.",
+          "example_meaning": "I'd like a healing potion, please."
+        },
+        {
+          "term": "la carte",
+          "example": "La carte de la taverne est sur le mur.",
+          "example_meaning": "The tavern's menu is on the wall."
+        },
+        {
+          "term": "le plat",
+          "example": "Le plat du jour, c'est le ragoût de sanglier.",
+          "example_meaning": "The dish of the day is boar stew."
+        },
+        {
+          "term": "l'addition",
+          "example": "L'aubergiste apporte l'addition au paladin.",
+          "example_meaning": "The innkeeper brings the bill to the paladin."
+        },
+        {
+          "term": "la bouteille",
+          "example": "Une bouteille de potion coûte dix pièces d'or.",
+          "example_meaning": "A bottle of potion costs ten gold coins."
+        },
+        {
+          "term": "le pourboire",
+          "example": "Le guerrier laisse un pourboire à l'aubergiste.",
+          "example_meaning": "The warrior leaves a tip for the innkeeper."
+        },
+        {
+          "term": "allergique à",
+          "example": "La mage Séla est allergique aux champignons de la forêt.",
+          "example_meaning": "Séla the mage is allergic to the forest mushrooms."
+        },
+        {
+          "term": "la chope",
+          "meaning": "tankard (f)",
+          "example": "Une chope de cidre pour Borin !",
+          "example_meaning": "A tankard of cider for Borin!"
+        },
+        {
+          "term": "le ragoût",
+          "meaning": "stew (m)",
+          "example": "Le ragoût de la taverne est délicieux.",
+          "example_meaning": "The tavern's stew is delicious."
+        },
+        {
+          "term": "la pièce d'or",
+          "meaning": "gold coin (f)",
+          "example": "Ça fait trois pièces d'or.",
+          "example_meaning": "That's three gold coins."
+        },
+        {
+          "term": "l'aubergiste",
+          "meaning": "innkeeper",
+          "example": "L'aubergiste nous apporte la carte.",
+          "example_meaning": "The innkeeper brings us the menu."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Commander à la taverne",
+          "emoji": "🍺",
+          "rule": "Je voudrais and pour moi work in any tavern; a quantity (une chope, une bouteille) takes de.",
+          "example": "Je voudrais une chope de cidre.",
+          "example_meaning": "I'd like a tankard of cider."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Une chope de cidre, s'il vous plaît.",
+          "meaning": "A tankard of cider, please.",
+          "note": "New word: la chope = tankard."
+        },
+        {
+          "text": "Pour moi, le ragoût du jour.",
+          "meaning": "The stew of the day for me.",
+          "note": "New word: le ragoût = stew."
+        },
+        {
+          "text": "Nous voulons une table près du feu.",
+          "meaning": "We want a table near the fire.",
+          "note": "vouloir: nous voulons."
+        },
+        {
+          "text": "Le nain peut payer en pièces d'or.",
+          "meaning": "The dwarf can pay in gold coins.",
+          "note": "New word: la pièce d'or = gold coin."
+        },
+        {
+          "text": "L'addition, s'il vous plaît, aubergiste !",
+          "meaning": "The bill, please, innkeeper!"
+        }
+      ],
+      "builds": [
+        {
+          "text": "Je voudrais une chope de cidre.",
+          "meaning": "I'd like a tankard of cider.",
+          "distractors": [
+            "du"
+          ]
+        },
+        {
+          "text": "Le paladin veut le ragoût.",
+          "meaning": "The paladin wants the stew.",
+          "distractors": [
+            "voulez"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Une chope du cidre pour Borin.",
+          "wrong": "du",
+          "fix": "de",
+          "why": "Une chope is a quantity: une chope de cidre."
+        },
+        {
+          "sentence": "Les elfes veut une table.",
+          "wrong": "veut",
+          "fix": "veulent",
+          "why": "Les elfes = ils, so veulent."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Vouloir or pouvoir?",
+          "buckets": [
+            "vouloir",
+            "pouvoir"
+          ],
+          "items": [
+            {
+              "text": "je veux",
+              "bucket": 0
+            },
+            {
+              "text": "nous pouvons",
+              "bucket": 1
+            },
+            {
+              "text": "ils veulent",
+              "bucket": 0
+            },
+            {
+              "text": "tu peux",
+              "bucket": 1
+            },
+            {
+              "text": "vous voulez",
+              "bucket": 0
+            },
+            {
+              "text": "elle peut",
+              "bucket": 1
+            }
+          ],
+          "why": "Forms with veu- / voul- come from vouloir; forms with peu- / pouv- come from pouvoir."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a2-food-restaurant-realm-01",
+          "prompt": "Borin le nain ___ trois chopes de bière.",
+          "type": "multiple-choice",
+          "options": [
+            "veut",
+            "veux",
+            "veulent"
+          ],
+          "correct_answer": "veut",
+          "explanation": "Borin = il, and the il form of vouloir is veut.",
+          "hints": [
+            "One dwarf: il."
+          ],
+          "teaches": [
+            "la chope"
+          ]
+        },
+        {
+          "question_id": "a2-food-restaurant-realm-02",
+          "prompt": "Une chope ___ cidre, s'il vous plaît.",
+          "type": "fill-in-blank",
+          "correct_answer": "de",
+          "accepted_answers": [],
+          "explanation": "Une chope is a quantity, so plain de: une chope de cidre.",
+          "hints": [
+            "After a quantity, no article."
+          ],
+          "teaches": [
+            "la chope"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🥧",
+      "content": "## Commander à Meadowbrook\n\nAt **la fête des récoltes**, the town tavern cooks the farm's crops. Nora orders **une part de tarte à la citrouille** and **un verre de jus de pomme**. Léo **veut le plat du jour**, the fish he caught. Pay at the end: **l'addition, s'il vous plaît**. A quantity always takes **de**.",
+      "vocabulary": [
+        {
+          "term": "je voudrais",
+          "example": "Je voudrais une soupe aux champignons, s'il vous plaît.",
+          "example_meaning": "I'd like a mushroom soup, please."
+        },
+        {
+          "term": "la carte",
+          "example": "La carte change à chaque saison.",
+          "example_meaning": "The menu changes every season."
+        },
+        {
+          "term": "l'entrée",
+          "example": "Comme entrée, il y a une salade de la ferme.",
+          "example_meaning": "As a starter, there's a farm salad."
+        },
+        {
+          "term": "le plat",
+          "example": "Le plat du jour, c'est le poisson de Léo.",
+          "example_meaning": "The dish of the day is Léo's fish."
+        },
+        {
+          "term": "la bouteille",
+          "example": "Une bouteille de lait de la ferme, s'il vous plaît.",
+          "example_meaning": "A bottle of farm milk, please."
+        },
+        {
+          "term": "le verre",
+          "example": "Un verre de jus de fraise pour Nora.",
+          "example_meaning": "A glass of strawberry juice for Nora."
+        },
+        {
+          "term": "l'addition",
+          "example": "Le maire paie l'addition pour tout le monde.",
+          "example_meaning": "The mayor pays the bill for everyone."
+        },
+        {
+          "term": "la part",
+          "meaning": "slice, portion (f)",
+          "example": "Je voudrais une part de tarte.",
+          "example_meaning": "I'd like a slice of tart."
+        },
+        {
+          "term": "la tarte à la citrouille",
+          "meaning": "pumpkin pie (f)",
+          "example": "La tarte à la citrouille est délicieuse.",
+          "example_meaning": "The pumpkin pie is delicious."
+        },
+        {
+          "term": "le jus de pomme",
+          "meaning": "apple juice (m)",
+          "example": "Un jus de pomme bien frais, s'il vous plaît.",
+          "example_meaning": "A nice cold apple juice, please."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Commander à la fête",
+          "emoji": "🥧",
+          "rule": "At the harvest festival you still say je voudrais or pour moi; a quantity takes de: une part de tarte, un verre de jus.",
+          "example": "Je voudrais une part de tarte, s'il vous plaît.",
+          "example_meaning": "I'd like a slice of tart, please."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Une part de tarte, s'il vous plaît.",
+          "meaning": "A slice of tart, please.",
+          "note": "New word: la part = slice."
+        },
+        {
+          "text": "Pour moi, un jus de pomme.",
+          "meaning": "An apple juice for me.",
+          "note": "New word: le jus de pomme = apple juice."
+        },
+        {
+          "text": "Rosa veut le poisson de Léo.",
+          "meaning": "Rosa wants Léo's fish.",
+          "note": "vouloir: il veut."
+        },
+        {
+          "text": "Nous pouvons manger près de la rivière ?",
+          "meaning": "Can we eat near the river?",
+          "note": "pouvoir + infinitive."
+        },
+        {
+          "text": "La tarte à la citrouille est délicieuse cet automne.",
+          "meaning": "The pumpkin pie is delicious this autumn.",
+          "note": "New word: la citrouille = pumpkin."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Je voudrais une part de tarte.",
+          "meaning": "I'd like a slice of tart.",
+          "distractors": [
+            "du"
+          ]
+        },
+        {
+          "text": "Léo veut le plat du jour.",
+          "meaning": "Léo wants the dish of the day.",
+          "distractors": [
+            "veux"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Un verre du jus de pomme, s'il vous plaît.",
+          "wrong": "du",
+          "fix": "de",
+          "why": "Un verre is a quantity: un verre de jus."
+        },
+        {
+          "sentence": "Nous peuvent manger à la taverne.",
+          "wrong": "peuvent",
+          "fix": "pouvons",
+          "why": "Nous takes pouvons."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Entrée, plat or dessert at the festival?",
+          "buckets": [
+            "entrée",
+            "plat",
+            "dessert"
+          ],
+          "items": [
+            {
+              "text": "la soupe de citrouille",
+              "bucket": 0
+            },
+            {
+              "text": "la salade de la ferme",
+              "bucket": 0
+            },
+            {
+              "text": "le poisson de Léo",
+              "bucket": 1
+            },
+            {
+              "text": "le poulet aux champignons",
+              "bucket": 1
+            },
+            {
+              "text": "la tarte aux fraises",
+              "bucket": 2
+            },
+            {
+              "text": "la tarte à la citrouille",
+              "bucket": 2
+            }
+          ],
+          "why": "Soup and salad open the meal, fish and chicken are mains, and the tarts close it."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a2-food-restaurant-meadowbrook-01",
+          "prompt": "Comme ___, je voudrais la soupe de citrouille.",
+          "type": "multiple-choice",
+          "options": [
+            "entrée",
+            "dessert",
+            "addition"
+          ],
+          "correct_answer": "entrée",
+          "explanation": "A soup opens the meal: comme entrée, la soupe de citrouille.",
+          "hints": [
+            "The first course."
+          ],
+          "teaches": [
+            "l'entrée"
+          ]
+        },
+        {
+          "question_id": "a2-food-restaurant-meadowbrook-02",
+          "prompt": "'Un verre de jus de pomme' is correct: after a quantity, French uses de, not du.",
+          "type": "true-false",
+          "correct_answer": "true",
+          "explanation": "True: un verre is a quantity, so de follows: un verre de jus de pomme.",
+          "hints": [
+            "Is un verre a quantity?"
+          ],
+          "teaches": [
+            "le verre",
+            "le jus de pomme"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🍲",
+      "content": "## Commander à Rustwake\n\nAt **le marché** of the scrap village, Marta la marchande runs a soup stall. Order as usual: **je voudrais une soupe de champignons**, **une bouteille d'eau filtrée**. Léo **veut** un soda Saphir. Prices are in **écrous**, as in **ça fait douze écrous**. **Le service est compris** here too.",
+      "vocabulary": [
+        {
+          "term": "je voudrais",
+          "example": "Je voudrais une soupe et une bouteille d'eau filtrée.",
+          "example_meaning": "I'd like a soup and a bottle of filtered water."
+        },
+        {
+          "term": "la carte",
+          "example": "La carte de Marta est écrite sur une vieille porte.",
+          "example_meaning": "Marta's menu is written on an old door."
+        },
+        {
+          "term": "le plat",
+          "example": "Le plat du jour, c'est une soupe de champignons du désert.",
+          "example_meaning": "The dish of the day is a desert mushroom soup."
+        },
+        {
+          "term": "l'addition",
+          "example": "L'addition fait douze écrous.",
+          "example_meaning": "The bill comes to twelve nuts."
+        },
+        {
+          "term": "la bouteille",
+          "example": "Une bouteille d'eau filtrée coûte cinq écrous.",
+          "example_meaning": "A bottle of filtered water costs five nuts."
+        },
+        {
+          "term": "le verre",
+          "example": "Un verre de soda Saphir, s'il vous plaît.",
+          "example_meaning": "A glass of Saphir soda, please."
+        },
+        {
+          "term": "le pourboire",
+          "example": "Léo laisse deux écrous de pourboire.",
+          "example_meaning": "Léo leaves two nuts as a tip."
+        },
+        {
+          "term": "les écrous",
+          "meaning": "nuts, the wasteland currency (m)",
+          "example": "Ça fait douze écrous.",
+          "example_meaning": "That's twelve nuts."
+        },
+        {
+          "term": "l'eau filtrée",
+          "meaning": "filtered water (f)",
+          "example": "L'eau filtrée est très chère au marché.",
+          "example_meaning": "Filtered water is very expensive at the market."
+        },
+        {
+          "term": "le stand",
+          "meaning": "stall (m)",
+          "example": "Le stand de Marta est près de l'antenne.",
+          "example_meaning": "Marta's stall is near the antenna."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Payer en écrous",
+          "emoji": "🍲",
+          "rule": "Order with je voudrais and listen for the price: ça fait douze écrous. A quantity takes de: une bouteille d'eau filtrée.",
+          "example": "Une bouteille d'eau filtrée, s'il vous plaît.",
+          "example_meaning": "A bottle of filtered water, please."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Le soda coûte trois écrous.",
+          "meaning": "The soda costs three nuts.",
+          "note": "New word: les écrous = nuts, the wasteland money."
+        },
+        {
+          "text": "Je voudrais un soda Saphir bien frais.",
+          "meaning": "I'd like a nice cold Saphir soda."
+        },
+        {
+          "text": "Une bouteille d'eau filtrée pour Léo.",
+          "meaning": "A bottle of filtered water for Léo.",
+          "note": "New word: l'eau filtrée = filtered water."
+        },
+        {
+          "text": "Vous pouvez payer en écrous au stand.",
+          "meaning": "You can pay in nuts at the stall.",
+          "note": "New word: le stand = stall."
+        },
+        {
+          "text": "Marta veut fermer le stand avant la tempête de cendres.",
+          "meaning": "Marta wants to close the stall before the ash storm.",
+          "note": "vouloir + infinitive."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Je voudrais une soupe de champignons.",
+          "meaning": "I'd like a mushroom soup.",
+          "distractors": [
+            "voulez"
+          ]
+        },
+        {
+          "text": "L'addition fait douze écrous.",
+          "meaning": "The bill comes to twelve nuts.",
+          "distractors": [
+            "font"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Tu veut un soda Saphir ?",
+          "wrong": "veut",
+          "fix": "veux",
+          "why": "Tu takes veux."
+        },
+        {
+          "sentence": "Les fouilleurs peut payer en écrous.",
+          "wrong": "peut",
+          "fix": "peuvent",
+          "why": "Les fouilleurs = ils, so peuvent."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Quantity or partitive at the market?",
+          "buckets": [
+            "de / d' (after a quantity)",
+            "du / de la / de l' (partitive)"
+          ],
+          "items": [
+            {
+              "text": "une bouteille ___ eau filtrée",
+              "bucket": 0
+            },
+            {
+              "text": "Je voudrais ___ soupe.",
+              "bucket": 1
+            },
+            {
+              "text": "beaucoup ___ écrous",
+              "bucket": 0
+            },
+            {
+              "text": "un verre ___ soda Saphir",
+              "bucket": 0
+            },
+            {
+              "text": "Vous avez ___ eau filtrée ?",
+              "bucket": 1
+            },
+            {
+              "text": "un peu ___ sel",
+              "bucket": 0
+            }
+          ],
+          "why": "After a quantity word only de / d' remains; without one, use du / de la / de l'."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a2-food-restaurant-rustwake-01",
+          "prompt": "Un soda Saphir et une soupe : ça fait douze écrous. Le soda coûte quatre écrous. La soupe coûte ___ écrous.",
+          "type": "multiple-choice",
+          "options": [
+            "huit",
+            "six",
+            "seize"
+          ],
+          "correct_answer": "huit",
+          "explanation": "Douze moins quatre = huit, so the soup costs eight nuts.",
+          "hints": [
+            "12 − 4"
+          ],
+          "teaches": [
+            "les écrous"
+          ]
+        },
+        {
+          "question_id": "a2-food-restaurant-rustwake-02",
+          "prompt": "Les fouilleurs ___ payer en écrous. (pouvoir)",
+          "type": "fill-in-blank",
+          "correct_answer": "peuvent",
+          "accepted_answers": [
+            "ils peuvent"
+          ],
+          "explanation": "Les fouilleurs = ils, and the ils form of pouvoir is peuvent.",
+          "hints": [
+            "Ils form: peuv…"
+          ],
+          "teaches": [
+            "les écrous"
+          ]
+        }
+      ]
+    }
+  }
+}

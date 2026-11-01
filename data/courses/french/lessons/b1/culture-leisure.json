@@ -1,0 +1,1305 @@
+{
+  "id": "b1-culture-leisure",
+  "slug": "culture-leisure",
+  "title": "Films, books and exhibitions: ça vaut le coup",
+  "unit": "B1",
+  "group": "Vocabulary",
+  "order": 42,
+  "summary": "Talk about films, books, plays and exhibitions, recommend them or warn people off, and summarise a story.",
+  "focus": "Vocabulary of films, books and outings, and how to recommend them",
+  "prerequisites": [
+    "b1-plus-que-parfait-narration"
+  ],
+  "content": "## At the cinema\n\n- **le film** is shown **en version originale** (**en VO**, in the actors' own language), usually **sous-titré** (subtitled), or **doublé** (dubbed: **en VF**, version française).\n- **la séance**: one showing (**la séance de 20 h 30**). Cinema times use the 24-hour clock.\n- **l'affiche**: the poster; **à l'affiche** = now showing.\n- **le réalisateur / la réalisatrice** directs the film; **l'acteur / l'actrice** plays a part (**jouer le rôle de**).\n- Tickets: **une place** (a seat, a ticket), **le tarif réduit** for students. **Deux places pour la séance de 21 h, s'il vous plaît. — Ça fait vingt-deux euros.**\n\n## Books, the stage and exhibitions\n\n- **le roman** (novel) is written by **l'auteur / l'autrice**. A good one has a strong **intrigue** (plot) and memorable **personnages** (characters). **Le personnage** is always masculine, even for a woman: **c'est un personnage très drôle**.\n- **la pièce de théâtre**: a play; **le spectacle**: any show (dance, circus, comedy); **le concert**.\n- **le musée** and **l'exposition** (f, often shortened to **l'expo**): **Il y a une expo de photos au musée.**\n- Going out: **aller au cinéma, au théâtre, au musée, au concert**; **voir un film, une pièce, une expo**.\n\n## Recommending and telling the story\n\nFrom best to worst:\n\n| French | means |\n|---|---|\n| **À voir absolument !** | a must-see |\n| **Je te le conseille.** / **Je vous le conseille.** | I recommend it |\n| **Ça vaut le coup.** | it's worth it (the time, the money) |\n| **Bof, sans plus.** | meh, nothing special |\n| **C'est nul.** | it's rubbish |\n\nSummarise a plot **in the present**, even a film you saw last week: **C'est l'histoire d'une pianiste qui perd la mémoire. Au début, elle vit à Lyon ; ensuite, elle part à Montréal.** Tell your own evening in the past: **Hier, j'ai vu un film génial.**",
+  "vocabulary": [
+    {
+      "term": "la version originale",
+      "meaning": "original language version, not dubbed (VO)",
+      "example": "Ce cinéma passe tous ses films en version originale.",
+      "example_meaning": "This cinema shows all its films in the original language."
+    },
+    {
+      "term": "sous-titré",
+      "meaning": "subtitled",
+      "example": "Le film est en italien, sous-titré en français.",
+      "example_meaning": "The film is in Italian, with French subtitles."
+    },
+    {
+      "term": "doublé",
+      "meaning": "dubbed",
+      "example": "Mes parents préfèrent les films doublés.",
+      "example_meaning": "My parents prefer dubbed films."
+    },
+    {
+      "term": "la séance",
+      "meaning": "showing, screening",
+      "example": "La dernière séance commence à vingt-deux heures.",
+      "example_meaning": "The last showing starts at 10 pm."
+    },
+    {
+      "term": "l'affiche",
+      "meaning": "poster (f); à l'affiche = now showing",
+      "example": "Qu'est-ce qui est à l'affiche cette semaine ?",
+      "example_meaning": "What's showing this week?"
+    },
+    {
+      "term": "le réalisateur",
+      "meaning": "film director (a woman: la réalisatrice)",
+      "example": "Le réalisateur a tourné le film en Bretagne.",
+      "example_meaning": "The director shot the film in Brittany."
+    },
+    {
+      "term": "l'acteur",
+      "meaning": "actor (m; a woman: l'actrice)",
+      "example": "L'acteur principal joue le rôle d'un vieux pêcheur.",
+      "example_meaning": "The lead actor plays the part of an old fisherman."
+    },
+    {
+      "term": "le roman",
+      "meaning": "novel",
+      "example": "J'ai lu ce roman en deux jours.",
+      "example_meaning": "I read this novel in two days."
+    },
+    {
+      "term": "l'auteur",
+      "meaning": "author, writer (m; a woman: l'autrice)",
+      "example": "L'auteur signe ses livres à la librairie samedi.",
+      "example_meaning": "The author is signing his books at the bookshop on Saturday."
+    },
+    {
+      "term": "l'intrigue",
+      "meaning": "plot (f)",
+      "example": "L'intrigue est simple, mais très bien racontée.",
+      "example_meaning": "The plot is simple, but very well told."
+    },
+    {
+      "term": "le personnage",
+      "meaning": "character (in a story; always masculine)",
+      "example": "Mon personnage préféré, c'est la grand-mère.",
+      "example_meaning": "My favourite character is the grandmother."
+    },
+    {
+      "term": "l'exposition",
+      "meaning": "exhibition (f)",
+      "example": "L'exposition sur l'Égypte dure jusqu'en mars.",
+      "example_meaning": "The exhibition on Egypt runs until March."
+    },
+    {
+      "term": "la pièce de théâtre",
+      "meaning": "play (on stage)",
+      "example": "Nous avons vu une pièce de théâtre très drôle samedi.",
+      "example_meaning": "We saw a very funny play on Saturday."
+    },
+    {
+      "term": "valoir le coup",
+      "meaning": "to be worth it",
+      "example": "Le voyage est long, mais ça vaut le coup.",
+      "example_meaning": "The trip is long, but it's worth it."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-culture-leisure-01",
+      "prompt": "Je veux entendre la vraie voix des acteurs, alors je vais voir le film en ___.",
+      "type": "multiple-choice",
+      "options": [
+        "version originale",
+        "version française",
+        "affiche"
+      ],
+      "correct_answer": "version originale",
+      "explanation": "En version originale (en VO) = in the actors' own language. En version française (VF) means dubbed into French, so you would not hear their real voices.",
+      "hints": [
+        "VO or VF: which one keeps the original language?"
+      ],
+      "teaches": [
+        "la version originale",
+        "l'acteur"
+      ]
+    },
+    {
+      "question_id": "b1-culture-leisure-02",
+      "prompt": "Le film est en coréen, mais il est ___ en français : on lit le texte en bas de l'écran.",
+      "type": "fill-in-blank",
+      "correct_answer": "sous-titré",
+      "accepted_answers": [
+        "sous titré"
+      ],
+      "explanation": "Sous-titré = subtitled: the words appear at the bottom of the screen. Masculine, to agree with le film.",
+      "hints": [
+        "The text at the bottom of the screen is le sous-titre.",
+        "sous-…"
+      ],
+      "teaches": [
+        "sous-titré"
+      ]
+    },
+    {
+      "question_id": "b1-culture-leisure-03",
+      "prompt": "A friend asks about a film you found just average, neither good nor bad. You answer…",
+      "type": "multiple-choice",
+      "options": [
+        "Bof, sans plus.",
+        "À voir absolument !",
+        "C'est nul."
+      ],
+      "correct_answer": "Bof, sans plus.",
+      "explanation": "Bof, sans plus = meh, nothing special. À voir absolument is a rave; c'est nul says it's rubbish.",
+      "hints": [
+        "Pick the shrug, not the rave or the insult."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b1-culture-leisure-04",
+      "prompt": "Le musée est un peu cher, mais l'exposition vaut vraiment le ___.",
+      "type": "fill-in-blank",
+      "correct_answer": "coup",
+      "accepted_answers": [],
+      "explanation": "Valoir le coup = to be worth it: l'exposition vaut le coup.",
+      "hints": [
+        "Ça vaut le ___ !",
+        "A short word that also means 'a blow'."
+      ],
+      "teaches": [
+        "valoir le coup",
+        "l'exposition"
+      ]
+    },
+    {
+      "question_id": "b1-culture-leisure-05",
+      "prompt": "Au guichet du cinéma : « Deux places pour la séance de vingt heures, s'il vous plaît. — Ça fait vingt-deux euros. » How much do the two tickets cost?",
+      "type": "numeric",
+      "correct_answer": "22",
+      "unit": "€",
+      "explanation": "Vingt-deux euros = 22 €, that is 11 € a seat.",
+      "hints": [
+        "vingt = 20, deux = 2"
+      ],
+      "teaches": [
+        "la séance"
+      ]
+    },
+    {
+      "question_id": "b1-culture-leisure-06",
+      "prompt": "When you summarise the plot of a novel in French, you normally tell it in the present: 'Au début, l'héroïne quitte Paris…'",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "True: plot summaries use the present (C'est l'histoire d'un homme qui…), even for a book you read years ago. Your own evening out is told in the past.",
+      "hints": [
+        "Think of the back cover of a book."
+      ],
+      "teaches": [
+        "le roman",
+        "l'intrigue"
+      ]
+    },
+    {
+      "question_id": "b1-culture-leisure-07",
+      "prompt": "Dans ce roman, le ___ principal est une jeune avocate qui cherche son frère.",
+      "type": "fill-in-blank",
+      "correct_answer": "personnage",
+      "accepted_answers": [],
+      "explanation": "Le personnage = a character in a story. It stays masculine (le personnage principal) even when the character is a woman.",
+      "hints": [
+        "Not le caractère: that is a person's temperament.",
+        "perso…"
+      ],
+      "teaches": [
+        "le personnage"
+      ]
+    },
+    {
+      "question_id": "b1-culture-leisure-08",
+      "prompt": "Elle ne joue pas dans le film : elle le dirige. C'est la ___.",
+      "type": "multiple-choice",
+      "options": [
+        "réalisatrice",
+        "actrice",
+        "spectatrice"
+      ],
+      "correct_answer": "réalisatrice",
+      "explanation": "The person who directs a film is le réalisateur / la réalisatrice. L'actrice plays in it; la spectatrice watches it.",
+      "hints": [
+        "Who is behind the camera?"
+      ],
+      "teaches": [
+        "le réalisateur"
+      ]
+    },
+    {
+      "question_id": "b1-culture-leisure-09",
+      "prompt": "'Ce film est doublé' means the actors' own voices are kept and you read subtitles.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "False: doublé = dubbed, other actors speak French over the original voices. Original voices with subtitles is en VO sous-titrée.",
+      "hints": [
+        "Doublé or sous-titré: which one replaces the voices?"
+      ],
+      "teaches": [
+        "doublé"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-culture-leisure-conv-saturday-night",
+      "title": "What shall we see?",
+      "scenario": "Chloé and Hugo are planning their Saturday evening: a film first, then maybe an exhibition.",
+      "role_a": "Chloé",
+      "role_b": "Hugo",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Tu fais quoi samedi soir ? Il y a un film coréen à l'affiche.",
+          "meaning": "What are you doing on Saturday night? There's a Korean film showing."
+        },
+        {
+          "speaker": "b",
+          "text": "Il passe en VO ou en VF ?",
+          "meaning": "Is it showing in the original or dubbed into French?"
+        },
+        {
+          "speaker": "a",
+          "text": "En VO sous-titrée, bien sûr. La séance est à vingt heures quarante-cinq.",
+          "meaning": "Original with subtitles, of course. The showing is at 8.45 pm."
+        },
+        {
+          "speaker": "b",
+          "text": "C'est l'histoire de quoi ?",
+          "meaning": "What's it about?"
+        },
+        {
+          "speaker": "a",
+          "text": "C'est l'histoire d'une jeune cheffe qui ouvre un restaurant à Séoul.",
+          "meaning": "It's the story of a young chef who opens a restaurant in Seoul.",
+          "note": "A plot is told in the present."
+        },
+        {
+          "speaker": "b",
+          "text": "Le réalisateur, c'est celui du film sur la mer ?",
+          "meaning": "Is the director the one who made the film about the sea?"
+        },
+        {
+          "speaker": "a",
+          "text": "Oui ! Et ses films valent toujours le coup.",
+          "meaning": "Yes! And his films are always worth it."
+        },
+        {
+          "speaker": "b",
+          "text": "D'accord. Après, on va voir l'expo de photos ? Elle ferme à vingt-deux heures.",
+          "meaning": "OK. Afterwards, shall we see the photo exhibition? It closes at 10 pm."
+        },
+        {
+          "speaker": "a",
+          "text": "Bonne idée, on m'a dit qu'elle était à voir absolument.",
+          "meaning": "Good idea, I was told it's a must-see."
+        },
+        {
+          "speaker": "b",
+          "text": "Parfait. Je réserve deux places pour le film, onze euros chacune.",
+          "meaning": "Perfect. I'll book two seats for the film, eleven euros each."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Tu viens au cinéma ce soir ?",
+      "meaning": "Are you coming to the cinema tonight?"
+    },
+    {
+      "text": "Le film passe en version originale sous-titrée.",
+      "meaning": "The film is showing in the original language with subtitles."
+    },
+    {
+      "text": "Je n'aime pas trop les films doublés.",
+      "meaning": "I don't really like dubbed films."
+    },
+    {
+      "text": "La séance de vingt et une heures est complète.",
+      "meaning": "The 9 pm showing is full.",
+      "note": "New word: complète = full."
+    },
+    {
+      "text": "Cette pièce est à voir absolument, je vous la conseille.",
+      "meaning": "This play is a must-see, I recommend it to you.",
+      "note": "la pièce, so je vous la conseille."
+    },
+    {
+      "text": "Nous avons pris deux places au tarif réduit.",
+      "meaning": "We got two seats at the reduced price.",
+      "note": "New word: le tarif réduit = the reduced price."
+    },
+    {
+      "text": "L'intrigue est compliquée, mais les personnages sont très attachants.",
+      "meaning": "The plot is complicated, but the characters are very endearing.",
+      "note": "New word: attachants = endearing."
+    },
+    {
+      "text": "C'est l'histoire d'un vieux musicien qui retourne dans son village.",
+      "meaning": "It's the story of an old musician who goes back to his village.",
+      "note": "A plot summary is told in the present."
+    }
+  ],
+  "guide": [
+    {
+      "section": "At the cinema"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-culture-leisure-01"
+    },
+    {
+      "question": "b1-culture-leisure-02"
+    },
+    {
+      "question": "b1-culture-leisure-09"
+    },
+    {
+      "question": "b1-culture-leisure-05"
+    },
+    {
+      "section": "Books, the stage"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-culture-leisure-07"
+    },
+    {
+      "question": "b1-culture-leisure-08"
+    },
+    {
+      "tip": "On a cinema listing, VOST means version originale sous-titrée and VF means dubbed into French."
+    },
+    {
+      "section": "Recommending"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b1-culture-leisure-03"
+    },
+    {
+      "question": "b1-culture-leisure-04"
+    },
+    {
+      "question": "b1-culture-leisure-06"
+    },
+    {
+      "concept": {
+        "title": "Le septième art",
+        "markdown": "French calls cinema **le septième art** (the seventh art) and comics **le neuvième art**. **La bande dessinée** (**la BD**) is read at every age: whole shelves of every bookshop, and a big festival in Angoulême each January."
+      }
+    }
+  ],
+  "sprint": {
+    "icon": "🎬",
+    "bites": [
+      {
+        "title": "VO or VF?",
+        "emoji": "🎞️",
+        "rule": "En VO = in the original language, often sous-titrée; en VF = doublé en français. Pick your séance from the films à l'affiche.",
+        "example": "Je préfère voir les films en VO.",
+        "example_meaning": "I prefer seeing films in the original language."
+      },
+      {
+        "title": "Books and the stage",
+        "emoji": "📖",
+        "rule": "Le roman, l'auteur / l'autrice, l'intrigue, le personnage (always masculine); la pièce de théâtre, le spectacle, l'exposition.",
+        "example": "Le personnage principal est une femme médecin.",
+        "example_meaning": "The main character is a woman doctor."
+      },
+      {
+        "title": "Worth it?",
+        "emoji": "👍",
+        "rule": "À voir absolument ! > Je te le conseille > Ça vaut le coup > Bof, sans plus > C'est nul.",
+        "example": "Va voir cette expo, ça vaut le coup !",
+        "example_meaning": "Go and see this exhibition, it's worth it!"
+      },
+      {
+        "title": "Plot in the present",
+        "emoji": "📝",
+        "rule": "Tell what happens in a story in the present: c'est l'histoire de…, au début…, ensuite…, à la fin…",
+        "example": "À la fin, le héros retrouve sa sœur.",
+        "example_meaning": "At the end, the hero finds his sister again."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Screen, page or stage?",
+        "buckets": [
+          "le cinéma",
+          "la lecture",
+          "la scène"
+        ],
+        "items": [
+          {
+            "text": "la séance",
+            "bucket": 0
+          },
+          {
+            "text": "le sous-titrage",
+            "bucket": 0
+          },
+          {
+            "text": "le réalisateur",
+            "bucket": 0
+          },
+          {
+            "text": "le roman",
+            "bucket": 1
+          },
+          {
+            "text": "l'autrice",
+            "bucket": 1
+          },
+          {
+            "text": "le chapitre",
+            "bucket": 1
+          },
+          {
+            "text": "la pièce de théâtre",
+            "bucket": 2
+          },
+          {
+            "text": "le concert",
+            "bucket": 2
+          }
+        ],
+        "why": "Séances, subtitles and directors belong to the cinema; novels, authors and chapters to reading; plays and concerts happen on stage."
+      },
+      {
+        "title": "Go or skip it?",
+        "buckets": [
+          "Go!",
+          "Skip it"
+        ],
+        "items": [
+          {
+            "text": "Ça vaut le coup !",
+            "bucket": 0
+          },
+          {
+            "text": "À voir absolument !",
+            "bucket": 0
+          },
+          {
+            "text": "Je te le conseille.",
+            "bucket": 0
+          },
+          {
+            "text": "C'est nul.",
+            "bucket": 1
+          },
+          {
+            "text": "Bof, sans plus.",
+            "bucket": 1
+          },
+          {
+            "text": "Ce n'est pas la peine.",
+            "bucket": 1
+          },
+          {
+            "text": "Je me suis ennuyé.",
+            "bucket": 1
+          }
+        ],
+        "why": "Ça vaut le coup, à voir absolument and je te le conseille recommend; nul, bof, ce n'est pas la peine and je me suis ennuyé warn people off."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "J'ai vu le film en version originale sous-titré.",
+        "wrong": "sous-titré",
+        "fix": "sous-titrée",
+        "why": "Sous-titrée agrees with la version (feminine)."
+      },
+      {
+        "sentence": "Cette exposition vaut la coup.",
+        "wrong": "la",
+        "fix": "le",
+        "why": "The phrase is valoir le coup."
+      },
+      {
+        "sentence": "Le réalisatrice est aussi actrice.",
+        "wrong": "Le",
+        "fix": "La",
+        "why": "La réalisatrice: a woman director takes la."
+      },
+      {
+        "sentence": "Mon actrice préféré joue dans cette pièce.",
+        "wrong": "préféré",
+        "fix": "préférée",
+        "why": "Préférée agrees with l'actrice (feminine)."
+      },
+      {
+        "sentence": "La personnage principal est une jeune avocate.",
+        "wrong": "La",
+        "fix": "Le",
+        "why": "Le personnage is always masculine, even for a woman."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Ce film vaut vraiment le coup.",
+        "meaning": "This film is really worth it.",
+        "distractors": [
+          "coût"
+        ]
+      },
+      {
+        "text": "Je te le conseille.",
+        "meaning": "I recommend it to you.",
+        "distractors": [
+          "la"
+        ]
+      },
+      {
+        "text": "On va voir une pièce de théâtre ?",
+        "meaning": "Shall we go and see a play?",
+        "distractors": [
+          "jouer"
+        ]
+      },
+      {
+        "text": "Je préfère la version originale sous-titrée.",
+        "meaning": "I prefer the original version with subtitles.",
+        "distractors": [
+          "doublée"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🪕",
+      "content": "## La culture à Eldmark\n\nTonight at **la taverne du Dragon Vert**: **une pièce de théâtre** by a dwarf **auteur**! **L'intrigue**? Borin loses his axe in Deepanvil. The **personnages** are funny: **ça vaut le coup**. Tomorrow, **l'exposition** of elven shields in Highgate: **à voir absolument !**",
+      "vocabulary": [
+        {
+          "term": "la pièce de théâtre",
+          "example": "La troupe joue une pièce de théâtre à la taverne du Dragon Vert.",
+          "example_meaning": "The company is performing a play at the Green Dragon tavern."
+        },
+        {
+          "term": "l'auteur",
+          "example": "L'auteur de la pièce est un vieux nain de Deepanvil.",
+          "example_meaning": "The author of the play is an old dwarf from Deepanvil."
+        },
+        {
+          "term": "l'intrigue",
+          "example": "L'intrigue se passe dans la Forêt Ombreuse.",
+          "example_meaning": "The plot takes place in the Shadowed Forest."
+        },
+        {
+          "term": "le personnage",
+          "example": "Le personnage principal est une prêtresse très courageuse.",
+          "example_meaning": "The main character is a very brave priestess."
+        },
+        {
+          "term": "l'exposition",
+          "example": "L'exposition de boucliers elfiques ouvre demain à Highgate.",
+          "example_meaning": "The exhibition of elven shields opens tomorrow in Highgate."
+        },
+        {
+          "term": "valoir le coup",
+          "example": "La quête est dangereuse, mais ça vaut le coup.",
+          "example_meaning": "The quest is dangerous, but it's worth it."
+        },
+        {
+          "term": "l'affiche",
+          "example": "L'affiche de la pièce est sur la porte de la taverne.",
+          "example_meaning": "The poster for the play is on the tavern door."
+        },
+        {
+          "term": "le barde",
+          "meaning": "bard",
+          "example": "Le barde chante la ballade de Frostmarch.",
+          "example_meaning": "The bard sings the ballad of Frostmarch."
+        },
+        {
+          "term": "la troupe",
+          "meaning": "company of actors, troupe",
+          "example": "La troupe arrive à Highgate ce soir.",
+          "example_meaning": "The company arrives in Highgate tonight."
+        },
+        {
+          "term": "le conte",
+          "meaning": "tale",
+          "example": "Ce conte d'elfes est à lire absolument.",
+          "example_meaning": "This elf tale is a must-read."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Le spectacle de la taverne",
+          "emoji": "🪕",
+          "rule": "Culture words work in Eldmark too: la pièce de théâtre, l'auteur, l'intrigue, le personnage. Recommend it with ça vaut le coup.",
+          "example": "La pièce de la troupe vaut le coup.",
+          "example_meaning": "The company's play is worth it."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Le barde joue ce soir.",
+          "meaning": "The bard is performing tonight.",
+          "note": "New word: le barde = the bard."
+        },
+        {
+          "text": "La pièce se passe à Frostmarch.",
+          "meaning": "The play takes place in Frostmarch."
+        },
+        {
+          "text": "Le personnage du nain est très drôle.",
+          "meaning": "The dwarf character is very funny."
+        },
+        {
+          "text": "La troupe vient de Highgate.",
+          "meaning": "The company comes from Highgate.",
+          "note": "New word: la troupe = the company of actors."
+        },
+        {
+          "text": "Cette exposition d'épées est à voir absolument.",
+          "meaning": "This exhibition of swords is a must-see."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Le conte du barde vaut le coup.",
+          "meaning": "The bard's tale is worth it.",
+          "distractors": [
+            "coût"
+          ]
+        },
+        {
+          "text": "Le personnage principal est une prêtresse.",
+          "meaning": "The main character is a priestess.",
+          "distractors": [
+            "La"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "La personnage du minotaure est très drôle.",
+          "wrong": "La",
+          "fix": "Le",
+          "why": "Le personnage is always masculine."
+        },
+        {
+          "sentence": "Le conte est nulle, je ne le conseille pas.",
+          "wrong": "nulle",
+          "fix": "nul",
+          "why": "Nul agrees with le conte (masculine)."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Read, watch or visit?",
+          "buckets": [
+            "lire",
+            "regarder",
+            "visiter"
+          ],
+          "items": [
+            {
+              "text": "un parchemin de contes",
+              "bucket": 0
+            },
+            {
+              "text": "un roman de chevaliers",
+              "bucket": 0
+            },
+            {
+              "text": "la pièce de la troupe",
+              "bucket": 1
+            },
+            {
+              "text": "le spectacle du barde",
+              "bucket": 1
+            },
+            {
+              "text": "l'exposition d'épées",
+              "bucket": 2
+            },
+            {
+              "text": "le musée de Highgate",
+              "bucket": 2
+            }
+          ],
+          "why": "You read tales and novels, watch plays and shows, and visit exhibitions and museums."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-culture-leisure-realm-01",
+          "prompt": "La troupe joue ce soir à la taverne du Dragon Vert : c'est une ___ de théâtre.",
+          "type": "multiple-choice",
+          "options": [
+            "pièce",
+            "séance",
+            "affiche"
+          ],
+          "correct_answer": "pièce",
+          "explanation": "Une pièce de théâtre = a play. La séance is a showing, l'affiche the poster.",
+          "hints": [
+            "What do actors perform on a stage?"
+          ],
+          "teaches": [
+            "la pièce de théâtre"
+          ]
+        },
+        {
+          "question_id": "b1-culture-leisure-realm-02",
+          "prompt": "La quête est longue, mais le butin vaut le ___.",
+          "type": "fill-in-blank",
+          "correct_answer": "coup",
+          "accepted_answers": [],
+          "explanation": "Valoir le coup = to be worth it.",
+          "hints": [
+            "Ça vaut le ___ !"
+          ],
+          "teaches": [
+            "valoir le coup"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b1-culture-leisure-conv-realm-tavern-play",
+          "title": "After the play",
+          "scenario": "Nym the elf and Borin the dwarf leave the Green Dragon tavern after the troupe's play.",
+          "role_a": "Nym",
+          "role_b": "Borin",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Alors, Borin, tu as aimé la pièce ?",
+              "meaning": "So, Borin, did you like the play?"
+            },
+            {
+              "speaker": "b",
+              "text": "Oui ! L'intrigue est géniale et le minotaure est très drôle.",
+              "meaning": "Yes! The plot is great and the minotaur is very funny."
+            },
+            {
+              "speaker": "a",
+              "text": "L'auteur est un nain de Deepanvil, comme toi.",
+              "meaning": "The author is a dwarf from Deepanvil, like you."
+            },
+            {
+              "speaker": "b",
+              "text": "Demain soir, le barde raconte un conte. Je te le conseille !",
+              "meaning": "Tomorrow night, the bard is telling a tale. I recommend it!"
+            },
+            {
+              "speaker": "a",
+              "text": "Ça vaut le coup ? Les places coûtent cinq pièces d'or.",
+              "meaning": "Is it worth it? Seats cost five gold coins."
+            },
+            {
+              "speaker": "b",
+              "text": "Oui, c'est à voir absolument !",
+              "meaning": "Yes, it's a must-see!"
+            },
+            {
+              "speaker": "a",
+              "text": "D'accord, je prends deux places.",
+              "meaning": "All right, I'll get two seats."
+            },
+            {
+              "speaker": "b",
+              "text": "Parfait, on y va ensemble !",
+              "meaning": "Perfect, we'll go together!"
+            }
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🎠",
+      "content": "## La culture à Meadowbrook\n\nFor **la fête des récoltes**, there's an outdoor film on the square: **la séance** starts at nine, and the film is **doublé** for the children. Rosa's book club reads **un roman** about a fisherman; Léo finds **l'intrigue** slow: **bof**. At the town hall, **l'exposition** of giant pumpkins **vaut le coup**.",
+      "vocabulary": [
+        {
+          "term": "la séance",
+          "example": "La séance en plein air commence à vingt et une heures.",
+          "example_meaning": "The open-air showing starts at 9 pm."
+        },
+        {
+          "term": "doublé",
+          "example": "Le film de la fête est doublé, pour les enfants.",
+          "example_meaning": "The festival film is dubbed, for the children."
+        },
+        {
+          "term": "le roman",
+          "example": "Le club de lecture de Rosa lit un roman sur la mer.",
+          "example_meaning": "Rosa's book club is reading a novel about the sea."
+        },
+        {
+          "term": "l'intrigue",
+          "example": "L'intrigue est un peu lente, mais les paysages sont beaux.",
+          "example_meaning": "The plot is a bit slow, but the landscapes are beautiful."
+        },
+        {
+          "term": "l'exposition",
+          "example": "L'exposition de citrouilles géantes est à la mairie.",
+          "example_meaning": "The giant pumpkin exhibition is at the town hall."
+        },
+        {
+          "term": "valoir le coup",
+          "example": "Le marché d'automne vaut le coup.",
+          "example_meaning": "The autumn market is worth it."
+        },
+        {
+          "term": "le personnage",
+          "example": "Le personnage principal est un pêcheur, comme Léo.",
+          "example_meaning": "The main character is a fisherman, like Léo."
+        },
+        {
+          "term": "le club de lecture",
+          "meaning": "book club",
+          "example": "Le club de lecture se retrouve à la taverne le jeudi.",
+          "example_meaning": "The book club meets at the tavern on Thursdays."
+        },
+        {
+          "term": "en plein air",
+          "meaning": "outdoors, open-air",
+          "example": "Cet été, il y a un concert en plein air sur la plage.",
+          "example_meaning": "This summer there's an open-air concert on the beach."
+        },
+        {
+          "term": "la citrouille géante",
+          "meaning": "giant pumpkin",
+          "example": "Nora montre sa citrouille géante à la fête.",
+          "example_meaning": "Nora shows her giant pumpkin at the festival."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Culture à la fête des récoltes",
+          "emoji": "🎠",
+          "rule": "Une séance en plein air, un roman au club de lecture, une exposition à la mairie: recommend with ça vaut le coup, or shrug with bof.",
+          "example": "L'exposition de citrouilles vaut le coup.",
+          "example_meaning": "The pumpkin exhibition is worth it."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Le film commence à la tombée de la nuit.",
+          "meaning": "The film starts at nightfall.",
+          "note": "New word: la tombée de la nuit = nightfall."
+        },
+        {
+          "text": "Rosa lit un roman d'amour.",
+          "meaning": "Rosa is reading a love story."
+        },
+        {
+          "text": "Léo trouve l'intrigue un peu lente.",
+          "meaning": "Léo finds the plot a bit slow."
+        },
+        {
+          "text": "Le cinéma en plein air est gratuit.",
+          "meaning": "The open-air cinema is free.",
+          "note": "New word: gratuit = free."
+        },
+        {
+          "text": "Je te conseille l'exposition de la mairie.",
+          "meaning": "I recommend the town hall exhibition."
+        }
+      ],
+      "builds": [
+        {
+          "text": "La séance commence à neuf heures.",
+          "meaning": "The showing starts at nine.",
+          "distractors": [
+            "affiche"
+          ]
+        },
+        {
+          "text": "Le club de lecture lit un roman.",
+          "meaning": "The book club is reading a novel.",
+          "distractors": [
+            "lis"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Le film de la fête est doublée pour les enfants.",
+          "wrong": "doublée",
+          "fix": "doublé",
+          "why": "Doublé agrees with le film (masculine)."
+        },
+        {
+          "sentence": "L'exposition de citrouilles vaut la coup !",
+          "wrong": "la",
+          "fix": "le",
+          "why": "The phrase is valoir le coup."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Worth it or meh?",
+          "buckets": [
+            "Ça vaut le coup !",
+            "Bof…"
+          ],
+          "items": [
+            {
+              "text": "une exposition de citrouilles très originale",
+              "bucket": 0
+            },
+            {
+              "text": "un film doublé, mais très drôle",
+              "bucket": 0
+            },
+            {
+              "text": "un spectacle de danse magnifique sur la plage",
+              "bucket": 0
+            },
+            {
+              "text": "un roman trop long, sans intrigue",
+              "bucket": 1
+            },
+            {
+              "text": "une pièce de théâtre ennuyeuse",
+              "bucket": 1
+            },
+            {
+              "text": "un concert où on n'entend rien",
+              "bucket": 1
+            }
+          ],
+          "why": "Original, funny and magnificent things are worth it; too long, boring or inaudible ones only earn a bof."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-culture-leisure-meadowbrook-01",
+          "prompt": "Le cinéma en plein air passe le film à vingt et une heures : c'est la seule ___ de la soirée.",
+          "type": "fill-in-blank",
+          "correct_answer": "séance",
+          "accepted_answers": [],
+          "explanation": "La séance = one showing of a film.",
+          "hints": [
+            "Cinemas list their films by time: la ___ de 21 h.",
+            "s…"
+          ],
+          "teaches": [
+            "la séance"
+          ]
+        },
+        {
+          "question_id": "b1-culture-leisure-meadowbrook-02",
+          "prompt": "In 'Le roman du club de lecture ? Bof, sans plus.', the speaker is warmly recommending the book.",
+          "type": "true-false",
+          "correct_answer": "false",
+          "explanation": "False: bof, sans plus means meh, nothing special. A warm recommendation is je te le conseille or à lire absolument.",
+          "hints": [
+            "Bof is a shrug."
+          ],
+          "teaches": [
+            "le roman"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b1-culture-leisure-conv-meadowbrook-open-air-film",
+          "title": "Film night at the festival",
+          "scenario": "Nora tries to convince Léo the fisherman to come to the open-air film at the harvest festival.",
+          "role_a": "Nora",
+          "role_b": "Léo",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Léo, tu viens à la séance en plein air ce soir ?",
+              "meaning": "Léo, are you coming to the open-air showing tonight?"
+            },
+            {
+              "speaker": "b",
+              "text": "C'est quel film ?",
+              "meaning": "Which film is it?"
+            },
+            {
+              "speaker": "a",
+              "text": "Une comédie sur une famille de fermiers. Il est doublé, mais très drôle.",
+              "meaning": "A comedy about a farming family. It's dubbed, but very funny."
+            },
+            {
+              "speaker": "b",
+              "text": "Et l'intrigue, elle est bien ?",
+              "meaning": "And the plot, is it good?"
+            },
+            {
+              "speaker": "a",
+              "text": "Oui, et le grand-père est un personnage génial. Je te le conseille.",
+              "meaning": "Yes, and the grandfather is a great character. I recommend it."
+            },
+            {
+              "speaker": "b",
+              "text": "D'accord ! Et l'exposition de citrouilles, elle vaut le coup ?",
+              "meaning": "OK! And the pumpkin exhibition, is it worth it?"
+            },
+            {
+              "speaker": "a",
+              "text": "À voir absolument ! La plus grosse fait cent kilos.",
+              "meaning": "A must-see! The biggest one weighs a hundred kilos."
+            }
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "💿",
+      "content": "## La culture à Rustwake\n\nIn the ruined mall, Léo finds old **disques** of films from before the Dome. Marta shows them on Friday: one **séance**, two écrous a seat. The film is **en version originale**, **sous-titré** on a cracked screen. **L'intrigue**? A robot gardener looks for rain. **À voir absolument !** The scrap **exposition** at the workshop? **Bof.**",
+      "vocabulary": [
+        {
+          "term": "la version originale",
+          "example": "Le vieux disque contient le film en version originale.",
+          "example_meaning": "The old disc holds the film in its original language."
+        },
+        {
+          "term": "sous-titré",
+          "example": "Le film est sous-titré, mais l'écran est fissuré.",
+          "example_meaning": "The film is subtitled, but the screen is cracked."
+        },
+        {
+          "term": "la séance",
+          "example": "La séance du vendredi coûte deux écrous.",
+          "example_meaning": "The Friday showing costs two nuts."
+        },
+        {
+          "term": "l'intrigue",
+          "example": "L'intrigue se passe longtemps avant le Dôme.",
+          "example_meaning": "The plot takes place long before the Dome."
+        },
+        {
+          "term": "le réalisateur",
+          "example": "Personne ne connaît le nom du réalisateur.",
+          "example_meaning": "Nobody knows the director's name."
+        },
+        {
+          "term": "l'exposition",
+          "example": "L'exposition d'objets d'avant est à l'atelier.",
+          "example_meaning": "The exhibition of objects from before is at the workshop."
+        },
+        {
+          "term": "l'acteur",
+          "example": "L'acteur principal porte une combinaison bleue.",
+          "example_meaning": "The lead actor wears a blue jumpsuit."
+        },
+        {
+          "term": "le disque",
+          "meaning": "disc, record",
+          "example": "Léo a trouvé trois disques au centre commercial.",
+          "example_meaning": "Léo found three discs at the mall."
+        },
+        {
+          "term": "le projecteur",
+          "meaning": "projector",
+          "example": "Marta répare le vieux projecteur avec des écrous.",
+          "example_meaning": "Marta fixes the old projector with nuts."
+        },
+        {
+          "term": "l'écran",
+          "meaning": "screen (m)",
+          "example": "L'écran est un grand drap blanc.",
+          "example_meaning": "The screen is a big white sheet."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Ciné-club au village de ferraille",
+          "emoji": "💿",
+          "rule": "Even in the rust desert: une séance, un film en VO sous-titré, l'intrigue, l'acteur. Then say à voir absolument, or bof.",
+          "example": "Le film du vendredi est en version originale.",
+          "example_meaning": "The Friday film is in its original language."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Marta répare le projecteur.",
+          "meaning": "Marta is fixing the projector.",
+          "note": "New word: le projecteur = the projector."
+        },
+        {
+          "text": "Ce soir, le film est sous-titré.",
+          "meaning": "Tonight the film is subtitled."
+        },
+        {
+          "text": "Léo a trouvé un disque dans les ruines.",
+          "meaning": "Léo found a disc in the ruins.",
+          "note": "New word: le disque = the disc."
+        },
+        {
+          "text": "L'actrice parle une langue d'avant le Dôme.",
+          "meaning": "The actress speaks a language from before the Dome."
+        },
+        {
+          "text": "La séance coûte deux écrous, ça vaut le coup.",
+          "meaning": "The showing costs two nuts, it's worth it."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Le film est en version originale.",
+          "meaning": "The film is in its original language.",
+          "distractors": [
+            "doublée"
+          ]
+        },
+        {
+          "text": "La séance coûte deux écrous.",
+          "meaning": "The showing costs two nuts.",
+          "distractors": [
+            "écran"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Le film est sous-titrée, mais l'écran est cassé.",
+          "wrong": "sous-titrée",
+          "fix": "sous-titré",
+          "why": "Sous-titré agrees with le film (masculine)."
+        },
+        {
+          "sentence": "La réalisateur du film est inconnu.",
+          "wrong": "La",
+          "fix": "Le",
+          "why": "Le réalisateur is masculine; a woman would be la réalisatrice."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Who does what?",
+          "buckets": [
+            "l'acteur / l'actrice",
+            "le réalisateur / la réalisatrice",
+            "le spectateur / la spectatrice"
+          ],
+          "items": [
+            {
+              "text": "joue un rôle",
+              "bucket": 0
+            },
+            {
+              "text": "porte un costume devant la caméra",
+              "bucket": 0
+            },
+            {
+              "text": "dirige le tournage",
+              "bucket": 1
+            },
+            {
+              "text": "choisit les acteurs",
+              "bucket": 1
+            },
+            {
+              "text": "achète une place pour la séance",
+              "bucket": 2
+            },
+            {
+              "text": "regarde le film sur l'écran",
+              "bucket": 2
+            }
+          ],
+          "why": "Actors play roles in costume, directors run the shoot and choose the cast, and the audience buys seats and watches."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-culture-leisure-rustwake-01",
+          "prompt": "Le film d'avant le Dôme est dans sa langue d'origine, avec du texte en français en bas de l'écran. Il est…",
+          "type": "multiple-choice",
+          "options": [
+            "en VO sous-titrée",
+            "doublé en français",
+            "à l'affiche"
+          ],
+          "correct_answer": "en VO sous-titrée",
+          "explanation": "Original language + French text at the bottom = en VO sous-titrée. Doublé would replace the voices.",
+          "hints": [
+            "The voices are the original ones."
+          ],
+          "teaches": [
+            "la version originale",
+            "sous-titré"
+          ]
+        },
+        {
+          "question_id": "b1-culture-leisure-rustwake-02",
+          "prompt": "Personne ne sait qui a dirigé ce vieux film : le nom du ___ est effacé.",
+          "type": "fill-in-blank",
+          "correct_answer": "réalisateur",
+          "accepted_answers": [],
+          "explanation": "Le réalisateur = the film director (du réalisateur, masculine here).",
+          "hints": [
+            "The person who directs a film.",
+            "réal…"
+          ],
+          "teaches": [
+            "le réalisateur"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b1-culture-leisure-conv-rustwake-old-disc",
+          "title": "A film from before the Dome",
+          "scenario": "Léo the scavenger brings Marta the trader a disc he found in the ruined mall.",
+          "role_a": "Léo",
+          "role_b": "Marta",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Marta, regarde ! J'ai trouvé un disque au centre commercial.",
+              "meaning": "Marta, look! I found a disc at the mall."
+            },
+            {
+              "speaker": "b",
+              "text": "Génial ! C'est un film ? Il est doublé ?",
+              "meaning": "Great! Is it a film? Is it dubbed?"
+            },
+            {
+              "speaker": "a",
+              "text": "Non, il est en version originale, mais il y a des sous-titres.",
+              "meaning": "No, it's in the original language, but there are subtitles."
+            },
+            {
+              "speaker": "b",
+              "text": "C'est l'histoire de quoi ?",
+              "meaning": "What's it about?"
+            },
+            {
+              "speaker": "a",
+              "text": "Un robot jardinier traverse le désert et cherche la pluie.",
+              "meaning": "A robot gardener crosses the desert looking for rain."
+            },
+            {
+              "speaker": "b",
+              "text": "Ça a l'air génial. On fait une séance vendredi au village ?",
+              "meaning": "That sounds great. Shall we hold a showing in the village on Friday?"
+            },
+            {
+              "speaker": "a",
+              "text": "Oui ! Deux écrous la place, ça vaut le coup.",
+              "meaning": "Yes! Two nuts a seat, it's worth it."
+            },
+            {
+              "speaker": "b",
+              "text": "Alors je répare le projecteur demain.",
+              "meaning": "Then I'll fix the projector tomorrow."
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

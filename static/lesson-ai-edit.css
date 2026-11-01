@@ -1,0 +1,6 @@
+/* Edit with AI on a lesson's row (#1242): the ✦ beside ⧉ and ✕, styled as they are (style.css .lt-duplicate). */
+.lt-ai-edit { background: none; border: 0; color: var(--muted); font: inherit; cursor: pointer; padding: .25rem; min-width: 1.9rem; min-height: 1.9rem; border-radius: 6px; line-height: 1; }
+.lt-ai-edit:hover { color: var(--accent); background: var(--bg); }
+/* A lesson not saved yet has no file for the AI to edit. */
+.lt-row[data-lesson-id=""] .lt-ai-edit { display: none; }
+#lt-ai-dialog textarea { width: 100%; }

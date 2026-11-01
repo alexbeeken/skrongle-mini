@@ -1,0 +1,38 @@
+{
+  "id": "tc-staff-note",
+  "slug": "staff-note",
+  "title": "Place the note",
+  "unit": "questions",
+  "group": "quiz",
+  "order": 60,
+  "summary": "A note tapped onto an empty staff, checked by pitch and octave.",
+  "focus": "staff-note questions",
+  "content": "## Lines and spaces\n\nOn a treble staff the lines from the bottom are E, G, B, D and F, and the spaces between them are F, A, C and E. G sits on the second line, where the clef curls.\n\n## Ledger lines\n\nMiddle C sits on a short line of its own: one ledger line below the treble staff, or one above the bass staff.\n\n## Sharps and flats\n\nA sharp raises a note by a half step and a flat lowers it. F sharp is written on the F line or space with a sharp sign in front.",
+  "quiz": [
+    {
+      "question_id": "tc-staff-note-01",
+      "type": "staff-note",
+      "prompt": "Tap where G goes.",
+      "clef": "treble",
+      "correct_answer": "G",
+      "explanation": "G sits on the second line of the treble staff, where the clef curls."
+    },
+    {
+      "question_id": "tc-staff-note-02",
+      "type": "staff-note",
+      "prompt": "Place middle C on the bass staff.",
+      "clef": "bass",
+      "correct_answer": "C",
+      "explanation": "Middle C sits on one ledger line above the bass staff."
+    },
+    {
+      "question_id": "tc-staff-note-03",
+      "type": "staff-note",
+      "prompt": "Place an F sharp, in any octave.",
+      "clef": "treble",
+      "correct_answer": "^F",
+      "any_octave": true,
+      "explanation": "F sharp is an F with a sharp in front: the bottom space or the top line of the treble staff."
+    }
+  ]
+}

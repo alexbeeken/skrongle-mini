@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t("auth.signup.closed_title") }}{% endblock %}
+{% block content %}
+<section class="narrow" data-testid="register-closed">
+  <h1>{{ crate::t("auth.signup.closed_title") }}</h1>
+  <p class="alert" role="status" data-testid="register-closed-message">{{ message }}</p>
+  <p><a class="btn ghost" href="{{ crate::url("/login") }}" data-testid="register-closed-login">{{ crate::t("auth.signup.sign_in") }}</a></p>
+</section>
+{% endblock %}

@@ -1,0 +1,1243 @@
+{
+  "id": "b1-verb-periphrases",
+  "slug": "verb-periphrases",
+  "title": "Verb phrases: acabar de, volver a, dejar de, llevar + gerundio",
+  "unit": "B1",
+  "group": "Grammar",
+  "order": 32,
+  "summary": "Say what you've just done, do again, start, stop, still do, usually do or are about to do with short verb phrases.",
+  "focus": "Verb + infinitive and verb + gerund phrases: acabar de, volver a, dejar de, empezar a, ponerse a, seguir, llevar, soler and estar a punto de",
+  "prerequisites": [
+    "a1-present-progressive",
+    "a2-imperfect"
+  ],
+  "content": "## Just done and again: acabar de, volver a\n\nTwo short verb phrases do the work of English adverbs. Conjugate the first verb and leave the second in the **infinitive**.\n\n| phrase | meaning | example |\n|---|---|---|\n| **acabar de** + infinitive | to have just done | **Acabo de comer.** (I've just eaten.) |\n| **volver a** + infinitive | to do again | **Volvió a llamar.** (He called again.) |\n\n- **Acabamos de llegar del aeropuerto.** (We've just got back from the airport.)\n- **No vuelvas a hacer eso.** (Don't do that again.)\n- In the past, **acababa de** = had just: **Acababa de salir cuando empezó a llover.** (I had just gone out when it started to rain.)\n\n## Starting and stopping: empezar a, ponerse a, dejar de\n\n| phrase | meaning |\n|---|---|\n| **empezar a** + infinitive | to start doing |\n| **ponerse a** + infinitive | to start doing (suddenly, or to get down to it) |\n| **dejar de** + infinitive | to stop doing |\n\n- **Empecé a trabajar aquí en marzo.** (I started working here in March.)\n- **Cuando vio la nota, se puso a llorar.** (When she saw her mark, she burst into tears.)\n- **Mi padre dejó de fumar hace años.** (My father stopped smoking years ago.)\n\n**Ponerse** is reflexive: **me pongo a**, **te pones a**, **se pone a**… Watch the little words: **empezar a**, **dejar de**, never *empezar de* or *dejar a*.\n\n## Still and for how long: seguir, continuar, llevar\n\nThese three take the **gerund** (**-ando / -iendo**), not the infinitive.\n\n| phrase | meaning | example |\n|---|---|---|\n| **seguir** + gerund | to still be doing, keep doing | **Sigo viviendo en Sevilla.** |\n| **continuar** + gerund | to carry on doing | **Continuaron hablando.** |\n| **llevar** + time + gerund | to have been doing for | **Llevo dos años estudiando.** |\n\n- **Seguir** changes its stem: **sigo, sigues, sigue, seguimos, seguís, siguen**.\n- **Llevo dos años estudiando español** = **Hace dos años que estudio español** (I've been studying Spanish for two years): English uses a perfect tense, Spanish the present.\n- The opposite of **seguir** is **ya no**: **Ya no trabajo allí.** (I don't work there any more.)\n\n## Habits and the edge: soler, estar a punto de\n\n**Soler** + infinitive means *usually*. It is a stem-changer (**suelo, sueles, suele, solemos, soléis, suelen**) and in the past it takes the **imperfect**: **solía** = *used to*.\n\n- **Los sábados suelo levantarme tarde.** (On Saturdays I usually get up late.)\n- **De niña solía ir al pueblo en verano.** (As a girl I used to go to the village in summer.)\n\n**Estar a punto de** + infinitive means *to be about to*:\n\n- **Date prisa, la película está a punto de empezar.** (Hurry up, the film is about to start.)\n- **Estaba a punto de llamarte.** (I was about to call you.)\n",
+  "vocabulary": [
+    {
+      "term": "acabar de",
+      "meaning": "to have just (done)",
+      "example": "Acabo de hablar con tu madre por teléfono.",
+      "example_meaning": "I've just spoken to your mother on the phone."
+    },
+    {
+      "term": "volver a",
+      "meaning": "to do (something) again",
+      "example": "Mañana vuelvo a intentarlo con más calma.",
+      "example_meaning": "Tomorrow I'll try again more calmly."
+    },
+    {
+      "term": "dejar de",
+      "meaning": "to stop (doing)",
+      "example": "Mi tío dejó de trabajar a los sesenta años.",
+      "example_meaning": "My uncle stopped working at sixty."
+    },
+    {
+      "term": "empezar a",
+      "meaning": "to start (doing)",
+      "example": "Empecé a estudiar español el año pasado.",
+      "example_meaning": "I started studying Spanish last year."
+    },
+    {
+      "term": "ponerse a",
+      "meaning": "to start (doing), suddenly or in earnest",
+      "example": "Después de cenar, nos pusimos a jugar a las cartas.",
+      "example_meaning": "After dinner, we got down to playing cards."
+    },
+    {
+      "term": "seguir",
+      "meaning": "to still be (doing), to keep (doing) + gerund",
+      "example": "¿Sigues trabajando en la misma oficina?",
+      "example_meaning": "Are you still working in the same office?"
+    },
+    {
+      "term": "continuar",
+      "meaning": "to carry on (doing) + gerund",
+      "example": "Los precios continúan subiendo este año.",
+      "example_meaning": "Prices keep going up this year."
+    },
+    {
+      "term": "llevar",
+      "meaning": "to have been (doing) for + time + gerund",
+      "example": "Llevamos tres meses buscando piso.",
+      "example_meaning": "We've been looking for a flat for three months."
+    },
+    {
+      "term": "soler",
+      "meaning": "to usually (do)",
+      "example": "Los domingos solemos comer en casa de mis abuelos.",
+      "example_meaning": "On Sundays we usually eat at my grandparents' house."
+    },
+    {
+      "term": "solía",
+      "meaning": "used to (soler in the imperfect)",
+      "example": "Cuando era joven, mi abuela solía bailar todos los sábados.",
+      "example_meaning": "When she was young, my grandmother used to dance every Saturday."
+    },
+    {
+      "term": "estar a punto de",
+      "meaning": "to be about to",
+      "example": "Date prisa, el tren está a punto de salir.",
+      "example_meaning": "Hurry up, the train is about to leave."
+    },
+    {
+      "term": "todavía",
+      "meaning": "still; (with no) yet",
+      "example": "Son las once y todavía no ha llegado.",
+      "example_meaning": "It's eleven and he still hasn't arrived."
+    },
+    {
+      "term": "ya no",
+      "meaning": "not any more, no longer",
+      "example": "Ya no vivo en Madrid; ahora vivo en Valencia.",
+      "example_meaning": "I don't live in Madrid any more; now I live in Valencia."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-verb-periphrases-01",
+      "prompt": "Acabo ___ hablar con Marta; está muy contenta.",
+      "type": "multiple-choice",
+      "options": [
+        "de",
+        "a",
+        "que"
+      ],
+      "correct_answer": "de",
+      "explanation": "Acabar de + infinitive means 'to have just done': 'Acabo de hablar con Marta' = I've just spoken to Marta.",
+      "hints": [
+        "Which little word goes with acabar when it means 'just'?"
+      ],
+      "teaches": [
+        "acabar de"
+      ]
+    },
+    {
+      "question_id": "b1-verb-periphrases-02",
+      "prompt": "Anoche ___ (volver, yo, preterite) a ver mi película favorita.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "volví",
+      "accepted_answers": [
+        "volví",
+        "yo volví"
+      ],
+      "explanation": "Volver a + infinitive means 'to do again'. Preterite of volver for yo: volví. 'Anoche volví a ver…' = Last night I watched … again.",
+      "hints": [
+        "Preterite -er ending for yo: -í.",
+        "Don't forget the accent on the final vowel."
+      ],
+      "teaches": [
+        "volver a"
+      ]
+    },
+    {
+      "question_id": "b1-verb-periphrases-03",
+      "prompt": "Mi hermano ___ de fumar el año pasado y ahora está mucho mejor.",
+      "type": "multiple-choice",
+      "options": [
+        "dejó",
+        "empezó",
+        "siguió"
+      ],
+      "correct_answer": "dejó",
+      "explanation": "Dejar de + infinitive = to stop doing. Empezar takes a (empezó a fumar) and seguir takes a gerund (siguió fumando), so only dejó fits before de.",
+      "hints": [
+        "Look at the little word after the gap: de."
+      ],
+      "teaches": [
+        "dejar de"
+      ]
+    },
+    {
+      "question_id": "b1-verb-periphrases-04",
+      "prompt": "Ana ___ a estudiar a las ocho y no terminó hasta medianoche.",
+      "type": "multiple-choice",
+      "options": [
+        "empezó",
+        "dejó",
+        "acabó"
+      ],
+      "correct_answer": "empezó",
+      "explanation": "Empezar a + infinitive = to start doing. Dejar and acabar take de, not a.",
+      "hints": [
+        "Which verb is followed by a?"
+      ],
+      "teaches": [
+        "empezar a"
+      ]
+    },
+    {
+      "question_id": "b1-verb-periphrases-05",
+      "prompt": "Cuando leyó la carta, Pablo se ___ (poner, preterite) a llorar.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "puso",
+      "accepted_answers": [
+        "puso"
+      ],
+      "explanation": "Ponerse a + infinitive = to start doing, often suddenly. Poner has an irregular preterite: puso. 'Se puso a llorar' = he burst into tears.",
+      "hints": [
+        "Irregular preterite stem: pus-.",
+        "Irregular preterites like this one carry no written accent."
+      ],
+      "teaches": [
+        "ponerse a"
+      ]
+    },
+    {
+      "question_id": "b1-verb-periphrases-06",
+      "prompt": "¿Todavía estudias inglés? Sí, sigo ___ (estudiar) los martes y los jueves.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "estudiando",
+      "accepted_answers": [
+        "estudiando"
+      ],
+      "explanation": "Seguir + gerund = to still be doing. The gerund of -ar verbs ends in -ando: estudiando.",
+      "hints": [
+        "Seguir takes a gerund, not an infinitive.",
+        "-ar verbs: -ando."
+      ],
+      "teaches": [
+        "seguir",
+        "todavía"
+      ]
+    },
+    {
+      "question_id": "b1-verb-periphrases-07",
+      "prompt": "Llevo dos horas ___ (esperar) el autobús.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "esperando",
+      "accepted_answers": [
+        "esperando"
+      ],
+      "explanation": "Llevar + time + gerund = to have been doing something for that long: 'Llevo dos horas esperando' = I've been waiting for two hours.",
+      "hints": [
+        "Llevar + time + a form ending in -ando or -iendo."
+      ],
+      "teaches": [
+        "llevar"
+      ]
+    },
+    {
+      "question_id": "b1-verb-periphrases-08",
+      "prompt": "De pequeño, ___ pasar los veranos en la playa con mis abuelos.",
+      "type": "multiple-choice",
+      "options": [
+        "solía",
+        "suelo",
+        "suelen"
+      ],
+      "correct_answer": "solía",
+      "explanation": "'De pequeño' points to a past habit, so soler goes in the imperfect: solía = used to. Suelo is a present habit and suelen is the wrong person.",
+      "hints": [
+        "Is this habit present or past?",
+        "Past habits take the imperfect."
+      ],
+      "teaches": [
+        "solía",
+        "soler"
+      ]
+    },
+    {
+      "question_id": "b1-verb-periphrases-09",
+      "prompt": "Date prisa, el concierto está ___ empezar.",
+      "type": "multiple-choice",
+      "options": [
+        "a punto de",
+        "acabando de",
+        "por punto de"
+      ],
+      "correct_answer": "a punto de",
+      "explanation": "Estar a punto de + infinitive = to be about to. The concert hasn't started yet, so it is a punto de empezar.",
+      "hints": [
+        "You're in a hurry because it hasn't started yet."
+      ],
+      "teaches": [
+        "estar a punto de"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-verb-periphrases-conv-reencuentro",
+      "title": "Bumping into an old friend",
+      "scenario": "Lucía runs into Andrés at a railway station in Madrid; they haven't seen each other for years.",
+      "role_a": "Lucía",
+      "role_b": "Andrés",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¡Andrés! ¡Cuánto tiempo! ¿Sigues viviendo en Zaragoza?",
+          "meaning": "Andrés! It's been ages! Are you still living in Zaragoza?",
+          "note": "seguir + gerund: still"
+        },
+        {
+          "speaker": "b",
+          "text": "No, ya no. Acabo de mudarme a Madrid, hace solo dos semanas.",
+          "meaning": "No, not any more. I've just moved to Madrid, only two weeks ago.",
+          "note": "acabar de: just"
+        },
+        {
+          "speaker": "a",
+          "text": "¡Qué bien! ¿Y sigues de enfermero?",
+          "meaning": "Great! And are you still a nurse?"
+        },
+        {
+          "speaker": "b",
+          "text": "Sí, ahora en un hospital de aquí. Llevo ocho años trabajando de enfermero.",
+          "meaning": "Yes, now at a hospital here. I've been working as a nurse for eight years.",
+          "note": "llevar + time + gerund"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Y la guitarra? Antes solías tocar todos los fines de semana.",
+          "meaning": "And the guitar? You used to play every weekend.",
+          "note": "solía: past habit"
+        },
+        {
+          "speaker": "b",
+          "text": "Dejé de tocar hace tiempo, pero el mes pasado volví a practicar.",
+          "meaning": "I stopped playing a while ago, but last month I started practising again.",
+          "note": "dejar de / volver a"
+        },
+        {
+          "speaker": "a",
+          "text": "¡Me alegro! Yo empecé a estudiar alemán en enero.",
+          "meaning": "I'm glad! I started learning German in January.",
+          "note": "empezar a: start"
+        },
+        {
+          "speaker": "b",
+          "text": "¿Alemán? ¡Qué valiente! ¿Y qué tal?",
+          "meaning": "German? How brave! And how's it going?"
+        },
+        {
+          "speaker": "a",
+          "text": "Difícil, pero sigo. Suelo estudiar una hora cada noche.",
+          "meaning": "Hard, but I'm keeping at it. I usually study for an hour every night.",
+          "note": "soler: usually"
+        },
+        {
+          "speaker": "b",
+          "text": "Oye, ¿tomamos un café y seguimos hablando?",
+          "meaning": "Listen, shall we have a coffee and carry on talking?"
+        },
+        {
+          "speaker": "a",
+          "text": "Me encantaría, pero mi tren está a punto de salir. ¿Te llamo esta semana?",
+          "meaning": "I'd love to, but my train is about to leave. Shall I call you this week?",
+          "note": "estar a punto de: about to"
+        },
+        {
+          "speaker": "b",
+          "text": "¡Claro! Y esta vez no dejes de llamarme, ¿eh?",
+          "meaning": "Of course! And this time make sure you call me, eh?",
+          "note": "no dejes de + infinitive: don't fail to"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Acabo de llegar a casa.",
+      "meaning": "I've just got home.",
+      "note": "Acabar de + infinitive: just done."
+    },
+    {
+      "text": "Mañana vuelvo a intentarlo.",
+      "meaning": "Tomorrow I'll try again.",
+      "note": "Volver a + infinitive: again."
+    },
+    {
+      "text": "Nuestro vecino dejó de fumar hace años.",
+      "meaning": "Our neighbour stopped smoking years ago.",
+      "note": "New word: el vecino = the neighbour."
+    },
+    {
+      "text": "El concierto está a punto de empezar.",
+      "meaning": "The concert is about to start.",
+      "note": "Estar a punto de: about to."
+    },
+    {
+      "text": "Cuando oí el chiste, me puse a reír.",
+      "meaning": "When I heard the joke, I started laughing.",
+      "note": "New word: el chiste = the joke."
+    },
+    {
+      "text": "Llevamos media hora esperando y el autobús no llega.",
+      "meaning": "We've been waiting for half an hour and the bus isn't coming.",
+      "note": "Llevar + time + gerund: have been doing for."
+    },
+    {
+      "text": "Ya no juego al fútbol, pero sigo corriendo todas las mañanas.",
+      "meaning": "I don't play football any more, but I still go running every morning.",
+      "note": "Seguir + gerund: still doing."
+    },
+    {
+      "text": "De pequeña solía pasar los veranos en el pueblo con mis abuelos.",
+      "meaning": "As a girl I used to spend the summers in the village with my grandparents.",
+      "note": "New word: el pueblo = the village."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Just done and again"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b1-verb-periphrases-01"
+    },
+    {
+      "question": "b1-verb-periphrases-02"
+    },
+    {
+      "section": "Starting and stopping"
+    },
+    {
+      "question": "b1-verb-periphrases-03"
+    },
+    {
+      "question": "b1-verb-periphrases-04"
+    },
+    {
+      "question": "b1-verb-periphrases-05"
+    },
+    {
+      "tip": "Learn each phrase with its little word: empezar a, ponerse a, volver a; acabar de, dejar de, estar a punto de. Seguir, continuar and llevar take no little word, just a gerund."
+    },
+    {
+      "section": "Still and for how long"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b1-verb-periphrases-06"
+    },
+    {
+      "question": "b1-verb-periphrases-07"
+    },
+    {
+      "section": "Habits and the edge"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-verb-periphrases-08"
+    },
+    {
+      "question": "b1-verb-periphrases-09"
+    }
+  ],
+  "sprint": {
+    "icon": "🎬",
+    "bites": [
+      {
+        "title": "Just done, again",
+        "emoji": "⏱️",
+        "rule": "Acabar de + infinitive = have just done. Volver a + infinitive = do again. Conjugate the first verb; the second stays an infinitive.",
+        "example": "Acabo de llegar y ya vuelvo a salir.",
+        "example_meaning": "I've just arrived and I'm already going out again."
+      },
+      {
+        "title": "Start and stop",
+        "emoji": "🚦",
+        "rule": "Empezar a and ponerse a (suddenly, in earnest) = start doing. Dejar de = stop doing. Never empezar de or dejar a.",
+        "example": "Se puso a llover y dejamos de jugar.",
+        "example_meaning": "It started raining and we stopped playing."
+      },
+      {
+        "title": "Still and for how long",
+        "emoji": "⌛",
+        "rule": "Seguir / continuar + gerund = still, keep doing. Llevar + time + gerund = have been doing for. The opposite of seguir is ya no.",
+        "example": "Llevo un año viviendo aquí y sigo perdiéndome.",
+        "example_meaning": "I've been living here for a year and I still get lost."
+      },
+      {
+        "title": "Usually, used to, about to",
+        "emoji": "🗓️",
+        "rule": "Soler + infinitive = usually (suelo, sueles…); solía = used to. Estar a punto de + infinitive = be about to.",
+        "example": "Suelo salir a las ocho y ahora estoy a punto de salir.",
+        "example_meaning": "I usually leave at eight and now I'm about to leave."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "What follows the verb?",
+        "buckets": [
+          "a + infinitive",
+          "de + infinitive",
+          "gerund (-ando / -iendo)"
+        ],
+        "why": "Start and repeat take a (empezar a, ponerse a, volver a); just, stop and about to take de (acabar de, dejar de, estar a punto de); seguir, continuar and llevar take a gerund.",
+        "items": [
+          {
+            "text": "volver",
+            "bucket": 0
+          },
+          {
+            "text": "empezar",
+            "bucket": 0
+          },
+          {
+            "text": "ponerse",
+            "bucket": 0
+          },
+          {
+            "text": "acabar",
+            "bucket": 1
+          },
+          {
+            "text": "dejar",
+            "bucket": 1
+          },
+          {
+            "text": "estar a punto",
+            "bucket": 1
+          },
+          {
+            "text": "seguir",
+            "bucket": 2
+          },
+          {
+            "text": "llevar dos años",
+            "bucket": 2
+          }
+        ]
+      },
+      {
+        "title": "Start, stop or still?",
+        "buckets": [
+          "start",
+          "stop",
+          "still / keep"
+        ],
+        "why": "Empezar a and ponerse a start an action; dejar de and ya no end it; seguir and continuar + gerund keep it going.",
+        "items": [
+          {
+            "text": "empezar a correr",
+            "bucket": 0
+          },
+          {
+            "text": "ponerse a cantar",
+            "bucket": 0
+          },
+          {
+            "text": "dejar de fumar",
+            "bucket": 1
+          },
+          {
+            "text": "ya no trabajo",
+            "bucket": 1
+          },
+          {
+            "text": "seguir esperando",
+            "bucket": 2
+          },
+          {
+            "text": "continuar leyendo",
+            "bucket": 2
+          }
+        ]
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Sigo trabajar en la misma empresa.",
+        "wrong": "trabajar",
+        "fix": "trabajando",
+        "why": "Seguir takes a gerund: sigo trabajando."
+      },
+      {
+        "sentence": "Acabo a hablar con el jefe.",
+        "wrong": "a",
+        "fix": "de",
+        "why": "Acabar de + infinitive = have just: acabo de hablar."
+      },
+      {
+        "sentence": "Llevo tres años estudiar alemán.",
+        "wrong": "estudiar",
+        "fix": "estudiando",
+        "why": "Llevar + time + gerund: llevo tres años estudiando."
+      },
+      {
+        "sentence": "De niño suelo jugar en la calle todos los días.",
+        "wrong": "suelo",
+        "fix": "solía",
+        "why": "De niño is a past habit: soler in the imperfect, solía."
+      },
+      {
+        "sentence": "Empezó de llover a las cinco.",
+        "wrong": "de",
+        "fix": "a",
+        "why": "Empezar takes a: empezó a llover."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Acabo de terminar el informe.",
+        "meaning": "I've just finished the report.",
+        "distractors": [
+          "a"
+        ]
+      },
+      {
+        "text": "Llevamos una hora esperando aquí.",
+        "meaning": "We've been waiting here for an hour.",
+        "distractors": [
+          "esperar"
+        ]
+      },
+      {
+        "text": "Mi hermana volvió a llamarme anoche.",
+        "meaning": "My sister called me again last night.",
+        "distractors": [
+          "de"
+        ]
+      },
+      {
+        "text": "El partido está a punto de empezar.",
+        "meaning": "The match is about to start.",
+        "distractors": [
+          "por"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🗡️",
+      "content": "## Acabar de… en Eldmark\n\nIn Eldmark, the paladin **acaba de** salir de la mazmorra, the orc **vuelve a** atacar, the mage **lleva** tres horas **estudiando** un hechizo, the dwarves **suelen** cantar en la taberna and the party **está a punto de** entrar en el Bosque Umbrío.",
+      "vocabulary": [
+        {
+          "term": "acabar de",
+          "example": "El paladín acaba de salir de la mazmorra con el botín.",
+          "example_meaning": "The paladin has just come out of the dungeon with the loot."
+        },
+        {
+          "term": "volver a",
+          "example": "¡Cuidado! El orco vuelve a atacar.",
+          "example_meaning": "Careful! The orc is attacking again."
+        },
+        {
+          "term": "llevar",
+          "example": "La maga lleva tres horas estudiando el mismo hechizo.",
+          "example_meaning": "The mage has been studying the same spell for three hours."
+        },
+        {
+          "term": "soler",
+          "example": "Los enanos de Deepanvil suelen cantar en la taberna.",
+          "example_meaning": "The dwarves of Deepanvil usually sing in the tavern."
+        },
+        {
+          "term": "estar a punto de",
+          "example": "Estamos a punto de entrar en el Bosque Umbrío.",
+          "example_meaning": "We're about to enter the Bosque Umbrío."
+        },
+        {
+          "term": "dejar de",
+          "example": "El cazador dejó de seguir al lobo en Frostmarch.",
+          "example_meaning": "The hunter stopped following the wolf in Frostmarch."
+        },
+        {
+          "term": "la mazmorra",
+          "meaning": "the dungeon",
+          "example": "Llevamos dos días explorando la mazmorra.",
+          "example_meaning": "We've been exploring the dungeon for two days."
+        },
+        {
+          "term": "el hechizo",
+          "meaning": "the spell",
+          "example": "La elfa se puso a preparar un hechizo de fuego.",
+          "example_meaning": "The elf set about preparing a fire spell."
+        },
+        {
+          "term": "el botín",
+          "meaning": "the loot",
+          "example": "Acabamos de repartir el botín.",
+          "example_meaning": "We've just shared out the loot."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Mid-quest",
+          "emoji": "🗡️",
+          "rule": "Acabar de = just; volver a = again; llevar + time + gerund = have been doing for; estar a punto de = about to. You will use all four in a quest log.",
+          "example": "Llevamos una semana buscando el botín.",
+          "example_meaning": "We've been looking for the loot for a week."
+        }
+      ],
+      "listening": [
+        {
+          "text": "El orco vuelve a gritar.",
+          "meaning": "The orc is shouting again."
+        },
+        {
+          "text": "Acabo de encontrar una espada.",
+          "meaning": "I've just found a sword.",
+          "note": "New word: la espada = the sword."
+        },
+        {
+          "text": "El enano sigue durmiendo en la taberna.",
+          "meaning": "The dwarf is still sleeping in the tavern.",
+          "note": "Seguir + gerund: durmiendo, with o to u."
+        },
+        {
+          "text": "La maga está a punto de lanzar el hechizo.",
+          "meaning": "The mage is about to cast the spell."
+        },
+        {
+          "text": "Antes los paladines solían viajar sin montura.",
+          "meaning": "Paladins used to travel without a mount.",
+          "note": "New word: la montura = the mount."
+        }
+      ],
+      "builds": [
+        {
+          "text": "El paladín acaba de volver de Highgate.",
+          "meaning": "The paladin has just come back from Highgate.",
+          "distractors": [
+            "a"
+          ]
+        },
+        {
+          "text": "Llevo una hora luchando contra el orco.",
+          "meaning": "I've been fighting the orc for an hour.",
+          "distractors": [
+            "luchar"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "La maga sigue estudiar el hechizo.",
+          "wrong": "estudiar",
+          "fix": "estudiando",
+          "why": "Seguir takes a gerund: sigue estudiando."
+        },
+        {
+          "sentence": "El orco dejó a atacar cuando vio al paladín.",
+          "wrong": "a",
+          "fix": "de",
+          "why": "Dejar de = stop: dejó de atacar."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "In the quest log",
+          "buckets": [
+            "a + infinitive",
+            "de + infinitive",
+            "gerund"
+          ],
+          "why": "Volver, empezar and ponerse take a; acabar, dejar and estar a punto take de; seguir and llevar take a gerund.",
+          "items": [
+            {
+              "text": "el orco vuelve ___ atacar",
+              "bucket": 0
+            },
+            {
+              "text": "la elfa se pone ___ cantar",
+              "bucket": 0
+            },
+            {
+              "text": "acabamos ___ salir de la mazmorra",
+              "bucket": 1
+            },
+            {
+              "text": "el cazador deja ___ correr",
+              "bucket": 1
+            },
+            {
+              "text": "el enano sigue ___ (dormir)",
+              "bucket": 2
+            },
+            {
+              "text": "llevo un día ___ (caminar)",
+              "bucket": 2
+            }
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-verb-periphrases-realm-01",
+          "prompt": "El paladín acaba ___ salir de la mazmorra con el botín.",
+          "type": "multiple-choice",
+          "options": [
+            "de",
+            "a",
+            "por"
+          ],
+          "correct_answer": "de",
+          "explanation": "Acabar de + infinitive = to have just done: the paladin has just come out of the dungeon.",
+          "hints": [
+            "Just done: acabar + which little word?"
+          ],
+          "teaches": [
+            "acabar de",
+            "la mazmorra",
+            "el botín"
+          ]
+        },
+        {
+          "question_id": "b1-verb-periphrases-realm-02",
+          "prompt": "La maga lleva tres horas ___ (preparar) el hechizo.",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "preparando",
+          "accepted_answers": [
+            "preparando"
+          ],
+          "explanation": "Llevar + time + gerund: lleva tres horas preparando = she has been preparing it for three hours.",
+          "hints": [
+            "Llevar + time + a form in -ando."
+          ],
+          "teaches": [
+            "llevar",
+            "el hechizo"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🥛",
+      "content": "## Acabar de… en la granja\n\nOn the farm, Nora **acaba de** plantar fresas and **lleva** dos semanas **trabajando** en la granja; the corn **sigue** creciendo; Leo **suele** pescar en el río por la mañana; Rosa **vuelve a** vender semillas; and the cow **está a punto de** tener un ternero.",
+      "vocabulary": [
+        {
+          "term": "acabar de",
+          "example": "Nora acaba de plantar fresas al lado de la casa.",
+          "example_meaning": "Nora has just planted strawberries next to the house."
+        },
+        {
+          "term": "llevar",
+          "example": "Llevo dos semanas trabajando en la granja.",
+          "example_meaning": "I've been working on the farm for two weeks."
+        },
+        {
+          "term": "seguir",
+          "example": "El maíz sigue creciendo aunque ya es otoño.",
+          "example_meaning": "The corn is still growing although it's already autumn."
+        },
+        {
+          "term": "soler",
+          "example": "Leo suele pescar en el río por la mañana.",
+          "example_meaning": "Leo usually fishes in the river in the morning."
+        },
+        {
+          "term": "volver a",
+          "example": "En primavera, Rosa vuelve a vender semillas de calabaza.",
+          "example_meaning": "In spring, Rosa sells pumpkin seeds again."
+        },
+        {
+          "term": "estar a punto de",
+          "example": "¡Corre! La vaca está a punto de tener un ternero.",
+          "example_meaning": "Run! The cow is about to have a calf."
+        },
+        {
+          "term": "el ternero",
+          "meaning": "the calf",
+          "example": "El ternero acaba de nacer y ya intenta caminar.",
+          "example_meaning": "The calf has just been born and is already trying to walk."
+        },
+        {
+          "term": "la caña de pescar",
+          "meaning": "the fishing rod",
+          "example": "Leo se puso a reparar su caña de pescar.",
+          "example_meaning": "Leo set about mending his fishing rod."
+        },
+        {
+          "term": "la cosecha",
+          "meaning": "the harvest",
+          "example": "La cosecha está a punto de empezar.",
+          "example_meaning": "The harvest is about to begin."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Farm diary",
+          "emoji": "🌽",
+          "rule": "Llevar + time + gerund = have been doing for; seguir + gerund = still; soler = usually; estar a punto de = about to. All four fit a farm diary.",
+          "example": "Las gallinas siguen durmiendo y el gallo está a punto de cantar.",
+          "example_meaning": "The hens are still asleep and the cockerel is about to crow."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Acabo de cosechar el maíz.",
+          "meaning": "I've just harvested the corn."
+        },
+        {
+          "text": "Leo vuelve a pescar en el río.",
+          "meaning": "Leo is fishing in the river again."
+        },
+        {
+          "text": "Las ovejas siguen comiendo hierba.",
+          "meaning": "The sheep are still eating grass.",
+          "note": "New word: la hierba = the grass."
+        },
+        {
+          "text": "El alcalde suele visitar la granja en verano.",
+          "meaning": "The mayor usually visits the farm in summer."
+        },
+        {
+          "text": "Llevamos todo el día plantando calabazas.",
+          "meaning": "We've been planting pumpkins all day."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Nora lleva un mes trabajando aquí.",
+          "meaning": "Nora has been working here for a month.",
+          "distractors": [
+            "trabajar"
+          ]
+        },
+        {
+          "text": "La vaca está a punto de dormirse.",
+          "meaning": "The cow is about to fall asleep.",
+          "distractors": [
+            "por"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Leo dejó a pescar porque llovía mucho.",
+          "wrong": "a",
+          "fix": "de",
+          "why": "Dejar de = stop doing: dejó de pescar."
+        },
+        {
+          "sentence": "El maíz sigue crecer en el huerto.",
+          "wrong": "crecer",
+          "fix": "creciendo",
+          "why": "Seguir takes a gerund: sigue creciendo."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Now or back then?",
+          "buckets": [
+            "present habit (suele)",
+            "past habit (solía)"
+          ],
+          "why": "Soler in the present is what usually happens now; solía, in the imperfect, is what used to happen.",
+          "items": [
+            {
+              "text": "Rosa suele abrir a las nueve",
+              "bucket": 0
+            },
+            {
+              "text": "Leo suele pescar al amanecer",
+              "bucket": 0
+            },
+            {
+              "text": "las vacas suelen dormir en el granero",
+              "bucket": 0
+            },
+            {
+              "text": "antes Nora solía vivir en la ciudad",
+              "bucket": 1
+            },
+            {
+              "text": "de joven el alcalde solía bailar en el festival",
+              "bucket": 1
+            },
+            {
+              "text": "antes la mina solía estar cerrada",
+              "bucket": 1
+            }
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-verb-periphrases-meadowbrook-01",
+          "prompt": "¡Corre! La vaca está ___ tener un ternero.",
+          "type": "multiple-choice",
+          "options": [
+            "a punto de",
+            "acabando de",
+            "a punto a"
+          ],
+          "correct_answer": "a punto de",
+          "explanation": "Estar a punto de + infinitive = to be about to. The calf isn't born yet: está a punto de tener un ternero.",
+          "hints": [
+            "Has the calf been born yet?"
+          ],
+          "teaches": [
+            "estar a punto de",
+            "el ternero"
+          ]
+        },
+        {
+          "question_id": "b1-verb-periphrases-meadowbrook-02",
+          "prompt": "Antes de venir a la granja, Nora ___ (soler, imperfect) trabajar en una oficina.",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "solía",
+          "accepted_answers": [
+            "solía"
+          ],
+          "explanation": "A past habit takes soler in the imperfect: solía trabajar = she used to work.",
+          "hints": [
+            "Imperfect of an -er verb: -ía."
+          ],
+          "teaches": [
+            "solía",
+            "soler"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🛠️",
+      "content": "## Acabar de… en el páramo\n\nOut on the plains, Leo **acaba de** volver del centro comercial en ruinas, the gardening robot **sigue** cuidando las plantas, you **llevas** tres días **caminando** por el páramo, Marta **suele** cambiar tuercas por agua filtrada, and an ash storm **está a punto de** llegar.",
+      "vocabulary": [
+        {
+          "term": "acabar de",
+          "example": "Leo acaba de volver del centro comercial en ruinas.",
+          "example_meaning": "Leo has just come back from the ruined shopping centre."
+        },
+        {
+          "term": "seguir",
+          "example": "El robot jardinero sigue cuidando las plantas de la cúpula.",
+          "example_meaning": "The gardening robot is still looking after the Dome's plants."
+        },
+        {
+          "term": "llevar",
+          "example": "Llevo tres días caminando por el páramo.",
+          "example_meaning": "I've been walking across the plains for three days."
+        },
+        {
+          "term": "soler",
+          "example": "Marta suele cambiar tuercas por agua filtrada.",
+          "example_meaning": "Marta usually swaps nuts for filtered water."
+        },
+        {
+          "term": "estar a punto de",
+          "example": "Una tormenta de ceniza está a punto de llegar.",
+          "example_meaning": "An ash storm is about to arrive."
+        },
+        {
+          "term": "volver a",
+          "example": "¡La antena vuelve a funcionar!",
+          "example_meaning": "The antenna is working again!"
+        },
+        {
+          "term": "la chatarra",
+          "meaning": "scrap metal",
+          "example": "Leo se puso a buscar chatarra en la gasolinera.",
+          "example_meaning": "Leo set about looking for scrap at the petrol station."
+        },
+        {
+          "term": "el generador",
+          "meaning": "the generator",
+          "example": "El generador dejó de funcionar anoche.",
+          "example_meaning": "The generator stopped working last night."
+        },
+        {
+          "term": "la brújula",
+          "meaning": "the compass",
+          "example": "Sin brújula, llevamos una hora caminando en círculos.",
+          "example_meaning": "Without a compass, we've been walking in circles for an hour."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Scavenger's log",
+          "emoji": "🧭",
+          "rule": "Acabar de = just; dejar de = stop; volver a = again; seguir + gerund = still. All four fit a log of things that break and get fixed.",
+          "example": "El generador dejó de funcionar, pero ya vuelve a funcionar.",
+          "example_meaning": "The generator stopped working, but it's working again now."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Acabo de salir de la cúpula.",
+          "meaning": "I've just left the Dome."
+        },
+        {
+          "text": "El perro guardián sigue ladrando.",
+          "meaning": "The guard dog is still barking.",
+          "note": "New word: ladrar = to bark."
+        },
+        {
+          "text": "Marta suele abrir el mercado temprano.",
+          "meaning": "Marta usually opens the market early."
+        },
+        {
+          "text": "La radio vuelve a funcionar después de la tormenta.",
+          "meaning": "The radio is working again after the storm."
+        },
+        {
+          "text": "Llevamos dos días reparando la armadura de chatarra.",
+          "meaning": "We've been repairing the scrap armour for two days."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Leo acaba de encontrar un disco.",
+          "meaning": "Leo has just found a record.",
+          "distractors": [
+            "a"
+          ]
+        },
+        {
+          "text": "El robot sigue cuidando el huerto.",
+          "meaning": "The robot is still looking after the vegetable patch.",
+          "distractors": [
+            "cuidar"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "El capataz Ruiz lleva una hora buscar su radiorreloj.",
+          "wrong": "buscar",
+          "fix": "buscando",
+          "why": "Llevar + time + gerund: lleva una hora buscando."
+        },
+        {
+          "sentence": "La radio volvió de funcionar esta mañana.",
+          "wrong": "de",
+          "fix": "a",
+          "why": "Volver a + infinitive = again: volvió a funcionar."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Just, still or about to?",
+          "buckets": [
+            "just done (acabar de)",
+            "still going (seguir + gerund)",
+            "about to (estar a punto de)"
+          ],
+          "why": "Acabar de = it has just happened; seguir + gerund = it is still happening; estar a punto de = it is about to happen.",
+          "items": [
+            {
+              "text": "Leo acaba de volver",
+              "bucket": 0
+            },
+            {
+              "text": "acabamos de cambiar tuercas",
+              "bucket": 0
+            },
+            {
+              "text": "la radiación sigue subiendo",
+              "bucket": 1
+            },
+            {
+              "text": "el robot sigue trabajando",
+              "bucket": 1
+            },
+            {
+              "text": "la tormenta está a punto de llegar",
+              "bucket": 2
+            },
+            {
+              "text": "Marta está a punto de cerrar",
+              "bucket": 2
+            }
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-verb-periphrases-rustwake-01",
+          "prompt": "El generador ___ de funcionar anoche y no tenemos luz.",
+          "type": "multiple-choice",
+          "options": [
+            "dejó",
+            "volvió",
+            "siguió"
+          ],
+          "correct_answer": "dejó",
+          "explanation": "Dejar de + infinitive = to stop doing: the generator stopped working. Volver takes a and seguir takes a gerund.",
+          "hints": [
+            "No light: did it start or stop?"
+          ],
+          "teaches": [
+            "dejar de",
+            "el generador"
+          ]
+        },
+        {
+          "question_id": "b1-verb-periphrases-rustwake-02",
+          "prompt": "Sin brújula, Leo lleva dos horas ___ (caminar) en círculos.",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "caminando",
+          "accepted_answers": [
+            "caminando"
+          ],
+          "explanation": "Llevar + time + gerund: lleva dos horas caminando = he has been walking for two hours.",
+          "hints": [
+            "Llevar + time + a form in -ando."
+          ],
+          "teaches": [
+            "llevar",
+            "la brújula"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b1-verb-periphrases-conv-rustwake-generador",
+          "title": "The generator again",
+          "scenario": "Leo el buscador comes back to Marta's stall in the scrap town; her generator has broken down again.",
+          "role_a": "Marta",
+          "role_b": "Leo",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "¡Leo! ¿Acabas de volver del centro comercial?",
+              "meaning": "Leo! Have you just come back from the shopping centre?"
+            },
+            {
+              "speaker": "b",
+              "text": "Sí, llevo cuatro días caminando. ¿Qué pasa? Hay muy poca luz.",
+              "meaning": "Yes, I've been walking for four days. What's wrong? It's very dark in here."
+            },
+            {
+              "speaker": "a",
+              "text": "El generador volvió a fallar. Dejó de funcionar esta mañana.",
+              "meaning": "The generator failed again. It stopped working this morning."
+            },
+            {
+              "speaker": "b",
+              "text": "Otra vez… Suelo llevar tuercas y cables. Déjame ver.",
+              "meaning": "Again… I usually carry nuts and cables. Let me see."
+            },
+            {
+              "speaker": "a",
+              "text": "El capataz Ruiz lleva dos horas intentando repararlo.",
+              "meaning": "Foreman Ruiz has been trying to fix it for two hours."
+            },
+            {
+              "speaker": "b",
+              "text": "Ya veo. Y sigue sin arrancar… Necesito chatarra buena.",
+              "meaning": "I see. And it still won't start… I need good scrap."
+            },
+            {
+              "speaker": "a",
+              "text": "Date prisa, la tormenta de ceniza está a punto de llegar.",
+              "meaning": "Hurry up, the ash storm is about to arrive."
+            },
+            {
+              "speaker": "b",
+              "text": "¡Listo! ¿Lo oyes? ¡Ya vuelve a funcionar!",
+              "meaning": "Done! Can you hear it? It's working again!"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

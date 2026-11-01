@@ -1,0 +1,121 @@
+<link rel="stylesheet" href="{{ crate::routes::asset_url("generate-effort.css") }}"><script src="{{ crate::routes::asset_url("generate-effort.js") }}" defer></script>
+<dialog class="modal gen-dialog" id="gen-dialog" aria-labelledby="gen-dialog-title" data-testid="generate" data-course-id="{{ g.course_id }}" data-resume="{{ g.resume }}"{% if g.open %} open data-open-on-load{% endif %}>
+  <form method="dialog" class="gen-close-form"><button type="submit" class="link gen-close" aria-label="{{ crate::t("courses.generate.close") }}" title="{{ crate::t("courses.generate.close") }}" data-testid="generate-close">✕</button></form>
+  {% if g.resume %}
+    <h2 id="gen-dialog-title">{{ crate::t1("courses.generate.resume_title", "title", g.title) }}</h2>
+    <p class="muted small">{{ crate::t("courses.generate.resume_note") }}</p>
+  {% else %}
+    <h2 id="gen-dialog-title">{% if g.stopped %}{{ crate::t("courses.generate.retry_title") }}{% else %}{{ crate::t("courses.generate.title") }}{% endif %}</h2>
+    <p class="muted small">{{ crate::t("courses.generate.intro") }}</p>
+    {% if g.named.title.is_some() || !g.named.lessons.is_empty() %}
+    <p class="small" data-testid="generate-named">{{ g.named_text() }}</p>
+    {% endif %}
+  {% endif %}
+  {# The error opens smoothly in place (static/courses.js checks the boxes before posting), so nothing jumps. #}
+  <div class="slide-open gen-error-slot" id="gen-error-slot"{% if g.error.is_some() %} data-shown{% endif %}><div><p class="alert error" role="alert" id="gen-error" data-testid="generate-error"{% if g.error.is_none() %} hidden{% endif %}>{% if let Some(e) = g.error %}{{ e }}{% endif %}</p></div></div>
+  {% if let Some(out) = g.ai_out %}{% include "ai_out.html" %}{% endif %}
+
+  {% if g.no_key %}<div class="alert warn gap-row" role="alert" data-testid="generate-no-key"><p>{{ crate::t1("courses.generate.no_key_html", "url", crate::url("/profile#api-keys"))|safe }}</p>{% if let Some(gap) = g.gap %}{% include "not_included.html" %}{% endif %}</div>{% endif %}
+  <form method="post" action="{{ crate::base_path() }}/courses/{{ g.course_id }}/generate" autocomplete="off" id="gen-form" data-testid="generate-form"{% if g.named.title.is_some() %} data-named-title{% endif %} data-too-short="{{ crate::ai::PROMPT_TOO_SHORT }}" data-wish-too-long="{{ crate::routes::courses::wish_too_long() }}" data-notes-too-long="{{ crate::routes::courses::notes_too_long() }}">
+  <fieldset class="gen-fields"{% if g.no_key %} disabled data-testid="generate-disabled"{% endif %}>
+    {% if g.resume %}
+      <label>{{ crate::t("courses.generate.asked_for") }}
+        <textarea rows="3" readonly data-testid="generate-wish-readonly">{{ g.wish }}</textarea>
+      </label>
+    {% else %}
+    <ol class="gen-steps">
+      <li>
+        <label>{{ crate::t("courses.generate.wish_label") }}{% if g.named.title.is_some() %} <span class="muted">{{ crate::t("courses.generate.wish_optional") }}</span>{% endif %}
+          <textarea name="wish" id="gen-wish" data-testid="generate-wish" rows="3" autofocus maxlength="{{ crate::ai::MAX_WISH }}" data-min="{{ crate::ai::MIN_PROMPT }}"{% if g.named.title.is_some() %} data-optional{% endif %} aria-describedby="gen-wish-count" placeholder="{{ crate::t("courses.generate.wish_placeholder") }}">{{ g.wish }}</textarea>
+        </label>
+        <p class="small char-count" id="gen-wish-count" data-testid="generate-wish-count">{{ crate::t1("courses.ai.up_to_chars", "n", crate::ai::grouped(crate::ai::MAX_WISH)) }}</p>
+        <p class="small muted">{{ crate::t("courses.generate.wish_note") }}</p>
+      </li>
+      <li>
+        <label>{{ crate::t("courses.generate.notes_label") }} <span class="muted">{{ crate::t("courses.generate.optional") }}</span>
+          <textarea name="notes" id="gen-notes" data-testid="generate-notes" rows="6" maxlength="{{ g.max_notes }}" data-min="{{ crate::ai::MIN_PROMPT }}" data-optional aria-describedby="gen-notes-count" placeholder="{{ crate::t("courses.generate.notes_placeholder") }}">{{ g.notes }}</textarea>
+        </label>
+        <div class="gen-drop" id="gen-drop">
+          <input type="file" id="gen-files" data-testid="generate-files" aria-label="{{ crate::t("courses.generate.files_label") }}" multiple accept=".txt,.md,.markdown,.csv,.tsv,.tex,.json,.html,.htm,.rtf,.srt,.vtt,text/*">
+          <span>{{ crate::t("courses.generate.drop_html")|safe }}</span>
+        </div>
+        <p class="small char-count" id="gen-notes-count" data-testid="generate-notes-count">{{ crate::t1("courses.ai.up_to_chars", "n", crate::ai::grouped(*g.max_notes)) }}</p>
+        <p class="small muted" data-testid="generate-sensitive-note">{{ crate::t("courses.ai.sensitive_note") }}</p>
+      </li>
+      <li>
+        <fieldset class="kind">
+          <legend>{{ crate::t("courses.generate.kind_legend") }}</legend>
+          <label class="opt"><input type="radio" name="kind" data-testid="generate-kind" value="auto" {% if g.kind == "auto" %}checked{% endif %}> {{ crate::t("courses.generate.kind_auto") }}</label>
+          <label class="opt"><input type="radio" name="kind" data-testid="generate-kind" value="math" {% if g.kind == "math" %}checked{% endif %}> {{ crate::t("courses.generate.kind_math") }} <span class="muted small">{{ crate::t("courses.generate.kind_math_note") }}</span></label>
+          <label class="opt"><input type="radio" name="kind" data-testid="generate-kind" value="language" {% if g.kind == "language" %}checked{% endif %}> {{ crate::t("courses.generate.kind_language") }} <span class="muted small">{{ crate::t("courses.generate.kind_language_note") }}</span></label>
+          <label class="opt"><input type="radio" name="kind" data-testid="generate-kind" value="general" {% if g.kind == "general" %}checked{% endif %}> {{ crate::t("courses.generate.kind_general") }} <span class="muted small">{{ crate::t("courses.generate.kind_general_note") }}</span></label>
+        </fieldset>
+      </li>
+      <li>
+        <fieldset class="kind depth" data-testid="generate-depth-choice">
+          <legend>{{ crate::t("courses.generate.depth_legend") }} <details class="info-tip" data-testid="generate-depth-info"><summary aria-label="{{ crate::t("courses.generate.depth_info") }}" title="{{ crate::t("courses.generate.depth_info") }}">i</summary><p class="small" data-testid="generate-depth-info-text">{{ crate::t("courses.generate.depth_info_text") }}</p></details></legend>
+          <label class="opt"><input type="radio" name="depth" data-testid="generate-depth" value="full" data-lessons="{{ g.depth_lessons("full") }}" {% if g.depth == "full" %}checked{% endif %}> {{ crate::t("courses.generate.depth_full") }}</label>
+          <label class="opt"><input type="radio" name="depth" data-testid="generate-depth" value="preview" data-lessons="{{ g.depth_lessons("preview") }}" {% if g.depth == "preview" %}checked{% endif %}> {{ crate::t("courses.generate.depth_preview") }}</label>
+          <label class="opt"><input type="radio" name="depth" data-testid="generate-depth" value="outline" data-lessons="{{ g.depth_lessons("outline") }}" {% if g.depth == "outline" %}checked{% endif %}> {{ crate::t("courses.generate.depth_outline") }}</label>
+        </fieldset>
+      </li>
+    </ol>
+
+    <p class="small muted gen-estimate"><span id="gen-estimate" data-testid="generate-estimate"{{ g.estimate_attrs()|safe }} data-hosted-label="{{ crate::tutor::hosted_label() }}">{{ g.estimate() }}</span> <button type="button" class="info-btn" data-open-dialog="gen-estimate-info" aria-haspopup="dialog" aria-label="{{ crate::t("courses.generate.estimate_about") }}" title="{{ crate::t("courses.generate.estimate_about") }}" data-testid="generate-estimate-info"><span aria-hidden="true">i</span></button></p>
+    {% endif %}
+
+    {% if g.providers.len() > 1 %}
+    <fieldset class="provider">
+      <legend>{{ crate::t("courses.generate.provider_legend") }}</legend>
+      {% for p in g.providers %}
+        <label class="opt"><input type="radio" name="provider" value="{{ p.id }}" data-testid="generate-provider" data-label="{{ p.label }}"{% if p.id == "hosted" %} data-hosted="true"{% endif %}{{ g.rate_attrs(p.id)|safe }} {% if g.provider == p.id %}checked{% endif %}> {{ p.label }}</label>
+      {% endfor %}
+    </fieldset>
+    {% else if !g.no_key %}
+    <input type="hidden" name="provider" value="{{ g.provider }}" data-testid="generate-provider-only"{{ g.rate_attrs(g.provider)|safe }}>
+    {% endif %}
+    {% if let Some(l) = g.hosted %}<p class="small muted" data-testid="generate-ai-left">{% if g.providers.len() == 1 %}{{ crate::t1("courses.ai.hosted_uses", "hosted", crate::tutor::hosted_label()) }} {% endif %}{{ l }}</p>{% endif %}
+
+    <details class="advanced danger-zone" id="gen-prompt" {% if g.instructions_edited %}open{% endif %}>
+      <summary>{{ crate::t("courses.generate.advanced") }}</summary>
+      <div class="alert warn">
+        {{ crate::t("courses.generate.warn_html")|safe }}
+      </div>
+      <label for="gen-instructions" class="sr-only">{{ crate::t("courses.generate.instructions_label") }}</label>
+      <textarea name="instructions" id="gen-instructions" data-testid="generate-instructions" rows="14" maxlength="{{ crate::ai::MAX_INSTRUCTIONS }}" spellcheck="false" class="mono">{{ g.instructions }}</textarea>
+      <p class="small"><button type="button" class="link" id="gen-reset">{{ crate::t("courses.generate.reset") }}</button> · <span id="gen-edited" class="bad-text" {% if !g.instructions_edited %}hidden{% endif %}>{{ crate::t("courses.generate.edited") }}</span></p>
+      <template id="gen-default">{{ g.default_instructions }}</template>
+    </details>
+
+    {% if g.discloses() %}<p class="small muted" id="gen-disclosure" data-testid="ai-disclosure">{% if g.providers.len() > 1 %}{% if g.provider == "hosted" %}{{ crate::t("courses.generate.sent_to_hosted_choice_html")|safe }}{% else %}{{ crate::t1("courses.generate.sent_to_html", "provider", g.provider_label())|safe }}{% endif %}{% else if g.provider == "hosted" %}{{ crate::t("courses.generate.sent_to_hosted") }}{% else %}{{ crate::t("courses.generate.sent_to_generic") }}{% endif %}</p>{% endif %}
+    <p class="actions gen-actions"><button type="submit" class="btn big" data-testid="generate-submit">{% if g.resume %}{{ crate::t("courses.generate.submit_resume") }}{% else if g.stopped %}{{ crate::t("courses.generate.submit_retry") }}{% else %}{{ crate::t("courses.generate.submit") }}{% endif %}</button>
+      <button type="button" class="btn ghost gen-effort-open" id="gen-effort-open" data-open-dialog="gen-effort" aria-haspopup="dialog" data-testid="generate-effort">{{ crate::t1("courses.generate.effort.button", "level", crate::t(&format!("courses.generate.effort.{}", g.effort.key()))) }}</button></p>
+    {# Effort (#918): its radios belong to the form, so the level goes with Generate whether or not the dialog was opened. #}
+    <dialog class="modal gen-effort" id="gen-effort" aria-labelledby="gen-effort-title" data-testid="generate-effort-dialog">
+      <h2 id="gen-effort-title">{{ crate::t("courses.generate.effort.title") }}</h2>
+      <fieldset class="gen-effort-levels">
+        <legend class="sr-only">{{ crate::t("courses.generate.effort.title") }}</legend>
+        {% for e in g.efforts() %}
+        <label class="gen-effort-level">
+          <input type="radio" name="effort" value="{{ e.id() }}" data-testid="generate-effort-{{ e.key() }}" data-button="{{ crate::t1("courses.generate.effort.button", "level", crate::t(&format!("courses.generate.effort.{}", e.key()))) }}"{% if e == g.effort %} checked{% endif %}>
+          <span class="gen-effort-name">{{ crate::t(&format!("courses.generate.effort.{}", e.key())) }}</span>
+          <span class="gen-effort-use" data-level="{{ e.key() }}" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="gen-effort-note small muted">{{ crate::t(&format!("courses.generate.effort.{}_note", e.key())) }}</span>
+        </label>
+        {% endfor %}
+      </fieldset>
+      <p class="small muted">{{ crate::t("courses.generate.effort.same_model") }}</p>
+      <p class="modal-actions"><button type="button" class="btn" data-dialog-close data-testid="generate-effort-done">{{ crate::t("courses.generate.effort.done") }}</button></p>
+    </dialog>
+  </fieldset>
+  </form>
+  {% if !g.resume %}
+  <dialog class="modal" id="gen-estimate-info" aria-labelledby="gen-estimate-info-title" data-testid="generate-estimate-dialog">
+    <h2 id="gen-estimate-info-title">{{ crate::t("courses.generate.estimate_title") }}</h2>
+    <p>{{ crate::t1("courses.generate.estimate_how", "hosted", crate::tutor::hosted_label()) }}</p>
+    <p>{{ crate::t("courses.generate.estimate_rough") }}</p>
+    <form method="dialog" class="modal-actions"><button type="submit" class="btn" data-testid="generate-estimate-close">{{ crate::t("courses.picker.ok") }}</button></form>
+  </dialog>
+  {% endif %}
+  <p class="small muted" data-testid="generate-own">{% if g.stopped %}{% if g.resume %}{{ crate::t("courses.generate.own_stopped_resume") }}{% else %}{{ crate::t("courses.generate.own_stopped_retry") }}{% endif %}{% else %}{{ crate::t("courses.generate.own_write") }}{% endif %}</p>
+</dialog>

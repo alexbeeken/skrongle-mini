@@ -1,0 +1,1255 @@
+{
+  "id": "a1-ser-vs-estar",
+  "slug": "ser-vs-estar",
+  "title": "Ser vs. Estar: the two verbs 'to be'",
+  "unit": "A1",
+  "group": "Grammar",
+  "order": 20,
+  "summary": "Spanish has two verbs for 'to be'. Ser describes what something is; estar describes how or where it is.",
+  "focus": "Choosing between ser and estar in the present tense",
+  "content": "## Two verbs, one English word\n\nEnglish uses *to be* for everything. Spanish splits the job between **ser** and **estar**.\n\n| | ser | estar |\n|---|---|---|\n| yo | soy | estoy |\n| tú | eres | estás |\n| él / ella / usted | es | está |\n| nosotros/as | somos | estamos |\n| vosotros/as | sois | estáis |\n| ellos / ellas / ustedes | son | están |\n\n## Use *ser* for what something IS\n\nThink of **ser** as *identity* and *essential characteristics*. The mnemonic **DOCTOR** helps:\n\n- **D**escription: *Marta es alta.* (Marta is tall.)\n- **O**ccupation: *Soy profesor.* (I am a teacher.)\n- **C**haracteristic: *Mi hermano es simpático.* (My brother is nice.)\n- **T**ime and date: *Son las tres. Hoy es lunes.* (It is three o'clock. Today is Monday.)\n- **O**rigin: *Somos de Madrid.* (We are from Madrid.)\n- **R**elationship: *Ana es mi amiga.* (Ana is my friend.)\n\nAlso use **ser** for *material* (*La mesa es de madera*) and for the location of an **event** (*La fiesta es en mi casa*, because the party *takes place* at my house).\n\n## Use *estar* for how or where something is\n\n**Estar** covers *states*, *conditions* and *locations*. Its mnemonic is **PLACE**:\n\n- **P**osition: *El libro está en la mesa.* (The book is on the table.)\n- **L**ocation: *Estoy en casa.* (I am at home.)\n- **A**ction in progress: *Estamos comiendo.* (We are eating.)\n- **C**ondition: *Estoy cansado.* (I am tired.)\n- **E**motion: *Ella está contenta.* (She is happy *right now*.)\n\n> The location of a **thing or person** takes *estar*. The location of an **event** takes *ser*.\n\n## Same adjective, different meaning\n\nSome adjectives change meaning depending on the verb:\n\n| adjective | with ser (essence) | with estar (state) |\n|---|---|---|\n| aburrido | *es aburrido* = he is boring | *está aburrido* = he is bored |\n| listo | *es lista* = she is clever | *está lista* = she is ready |\n| rico | *es rico* = he is rich | *está rico* = it is tasty |\n| malo | *es malo* = he is bad (a bad person) | *está malo* = he is ill |\n\n## Quick check\n\nAsk yourself: am I saying what it **is** (ser), or how/where it **is right now** (estar)?\n\n- *La sopa es buena*: soup is a good dish in general.\n- *La sopa está buena*: this soup tastes good today.",
+  "vocabulary": [
+    {
+      "term": "ser",
+      "meaning": "to be (identity, origin, characteristics)",
+      "example": "Soy de Madrid.",
+      "example_meaning": "I'm from Madrid."
+    },
+    {
+      "term": "estar",
+      "meaning": "to be (location, states, feelings)",
+      "example": "Estoy en casa.",
+      "example_meaning": "I'm at home."
+    },
+    {
+      "term": "médico / médica",
+      "meaning": "doctor",
+      "example": "Mi madre es médica.",
+      "example_meaning": "My mother is a doctor."
+    },
+    {
+      "term": "el parque",
+      "meaning": "park",
+      "example": "Los niños están en el parque.",
+      "example_meaning": "The children are in the park."
+    },
+    {
+      "term": "cansado / cansada",
+      "meaning": "tired",
+      "example": "Hoy estoy muy cansada.",
+      "example_meaning": "Today I am very tired."
+    },
+    {
+      "term": "la fiesta",
+      "meaning": "party",
+      "example": "La fiesta es en casa de Pedro.",
+      "example_meaning": "The party is at Pedro's house."
+    },
+    {
+      "term": "las dos y media",
+      "meaning": "half past two",
+      "example": "Son las dos y media.",
+      "example_meaning": "It's half past two."
+    },
+    {
+      "term": "la película",
+      "meaning": "film, movie",
+      "example": "La película es aburrida.",
+      "example_meaning": "The film is boring."
+    },
+    {
+      "term": "aburrido / aburrida",
+      "meaning": "boring (with ser) · bored (with estar)",
+      "example": "Está aburrido en clase.",
+      "example_meaning": "He's bored in class."
+    },
+    {
+      "term": "simpático / simpática",
+      "meaning": "nice, friendly",
+      "example": "Tú eres muy simpático.",
+      "example_meaning": "You're very nice."
+    },
+    {
+      "term": "las llaves",
+      "meaning": "keys",
+      "example": "¿Dónde están mis llaves?",
+      "example_meaning": "Where are my keys?"
+    },
+    {
+      "term": "el café",
+      "meaning": "coffee",
+      "example": "El café está muy rico hoy.",
+      "example_meaning": "The coffee is very tasty today."
+    },
+    {
+      "term": "rico / rica",
+      "meaning": "rich (with ser) · tasty (with estar)",
+      "example": "La sopa está rica.",
+      "example_meaning": "The soup is tasty."
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "ser",
+      "meaning": "to be (identity, origin, characteristics)",
+      "set": "present",
+      "art": [
+        " ___________ ",
+        "| HELLO     |",
+        "| my name   |",
+        "|  is ____  |",
+        "|___________|"
+      ],
+      "forms": {
+        "yo": "soy",
+        "tu": "eres",
+        "el": "es",
+        "nosotros": "somos",
+        "vosotros": "sois",
+        "ellos": "son"
+      }
+    },
+    {
+      "item": "estar",
+      "meaning": "to be (location, states, feelings)",
+      "set": "present",
+      "art": [
+        "   .---.   ",
+        "  /  o  \\  ",
+        "  \\     /  ",
+        "   \\   /   ",
+        "    \\ /    ",
+        "     V     "
+      ],
+      "forms": {
+        "yo": "estoy",
+        "tu": "estás",
+        "el": "está",
+        "nosotros": "estamos",
+        "vosotros": "estáis",
+        "ellos": "están"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-ser-vs-estar-01",
+      "prompt": "Mi madre ___ médica.",
+      "type": "multiple-choice",
+      "options": [
+        "es",
+        "está"
+      ],
+      "correct_answer": "es",
+      "explanation": "Occupation is part of who someone is, so it takes ser: 'Mi madre es médica.'",
+      "hints": [
+        "Is a profession an identity or a temporary state?"
+      ],
+      "teaches": [
+        "ser",
+        "médico / médica"
+      ]
+    },
+    {
+      "question_id": "a1-ser-vs-estar-02",
+      "prompt": "Los niños ___ en el parque.",
+      "type": "multiple-choice",
+      "options": [
+        "son",
+        "están"
+      ],
+      "correct_answer": "están",
+      "explanation": "The location of people or things uses estar: 'Los niños están en el parque.'",
+      "hints": [
+        "Where someone is takes estar."
+      ],
+      "teaches": [
+        "estar",
+        "el parque"
+      ]
+    },
+    {
+      "question_id": "a1-ser-vs-estar-03",
+      "prompt": "Complete with the correct form of ser or estar: Hoy (yo) ___ muy cansada.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "estoy",
+      "accepted_answers": [
+        "yo estoy"
+      ],
+      "explanation": "Being tired is a temporary condition, so it takes estar: 'Hoy estoy muy cansada.'",
+      "hints": [
+        "'Hoy' (today) signals a passing state.",
+        "First person singular of estar."
+      ],
+      "teaches": [
+        "estar",
+        "cansado / cansada"
+      ]
+    },
+    {
+      "question_id": "a1-ser-vs-estar-04",
+      "prompt": "Complete with the correct form of ser or estar: Nosotros ___ de Colombia.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "somos",
+      "accepted_answers": [
+        "nosotros somos"
+      ],
+      "explanation": "Origin (where you are from) is permanent, so it takes ser: 'Somos de Colombia.'",
+      "hints": [
+        "Origin is part of the DOCTOR list.",
+        "Nosotros form of ser."
+      ],
+      "teaches": [
+        "ser"
+      ]
+    },
+    {
+      "question_id": "a1-ser-vs-estar-05",
+      "prompt": "La fiesta ___ en casa de Pedro.",
+      "type": "multiple-choice",
+      "options": [
+        "es",
+        "está"
+      ],
+      "correct_answer": "es",
+      "explanation": "A party is an event. The location of an event uses ser (it 'takes place'): 'La fiesta es en casa de Pedro.'",
+      "hints": [
+        "Is a party a thing with a position, or an event that takes place?"
+      ],
+      "teaches": [
+        "ser",
+        "la fiesta"
+      ]
+    },
+    {
+      "question_id": "a1-ser-vs-estar-06",
+      "prompt": "¿Qué hora es? — ___ las dos y media.",
+      "type": "multiple-choice",
+      "options": [
+        "Son",
+        "Están",
+        "Es"
+      ],
+      "correct_answer": "Son",
+      "explanation": "Clock time uses ser, and it is plural for any hour other than one o'clock: 'Son las dos y media.'",
+      "hints": [
+        "Time is in the DOCTOR list.",
+        "Two o'clock is plural in Spanish."
+      ],
+      "teaches": [
+        "las dos y media"
+      ]
+    },
+    {
+      "question_id": "a1-ser-vs-estar-07",
+      "prompt": "Choose the sentence that means 'The film is boring'.",
+      "type": "multiple-choice",
+      "options": [
+        "La película es aburrida.",
+        "La película está aburrida."
+      ],
+      "correct_answer": "La película es aburrida.",
+      "explanation": "'Aburrido' with ser means boring (a characteristic); with estar it means bored (a feeling). A film can only be boring.",
+      "hints": [
+        "Can a film feel bored?"
+      ],
+      "teaches": [
+        "la película",
+        "aburrido / aburrida"
+      ]
+    },
+    {
+      "question_id": "a1-ser-vs-estar-08",
+      "prompt": "Complete with the correct form of ser or estar: Tú ___ muy simpático.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "eres",
+      "accepted_answers": [
+        "tú eres",
+        "tu eres"
+      ],
+      "explanation": "Being nice is a personality trait, a characteristic, so ser: 'Tú eres muy simpático.'",
+      "hints": [
+        "Personality is a characteristic, and characteristics take ser.",
+        "Tú form of ser."
+      ],
+      "teaches": [
+        "simpático / simpática"
+      ]
+    },
+    {
+      "question_id": "a1-ser-vs-estar-09",
+      "prompt": "Complete with the correct form of ser or estar: ¿Dónde ___ mis llaves?",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "están",
+      "accepted_answers": [],
+      "explanation": "Asking where things are is about location, so estar; 'llaves' is plural: '¿Dónde están mis llaves?'",
+      "hints": [
+        "The location of an object.",
+        "'Mis llaves' is plural."
+      ],
+      "teaches": [
+        "estar",
+        "las llaves"
+      ]
+    },
+    {
+      "question_id": "a1-ser-vs-estar-10",
+      "prompt": "El café ___ muy rico hoy.",
+      "type": "multiple-choice",
+      "options": [
+        "es",
+        "está"
+      ],
+      "correct_answer": "está",
+      "explanation": "'Está rico' means it tastes good (right now); 'es rico' would mean it is rich/wealthy. The word 'hoy' also points to estar.",
+      "hints": [
+        "How something tastes on a given day is a state.",
+        "Look at 'hoy'."
+      ],
+      "teaches": [
+        "el café",
+        "rico / rica"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Mi padre es médico.",
+      "meaning": "My father is a doctor.",
+      "note": "Occupation takes ser."
+    },
+    {
+      "text": "Mis primos son de Sevilla.",
+      "meaning": "My cousins are from Seville.",
+      "note": "Origin takes ser."
+    },
+    {
+      "text": "Este café está muy rico.",
+      "meaning": "This coffee is very tasty.",
+      "note": "Está rico = it tastes good right now."
+    },
+    {
+      "text": "Las llaves están en la mochila.",
+      "meaning": "The keys are in the backpack.",
+      "note": "Location takes estar."
+    },
+    {
+      "text": "La fiesta es en casa de mi prima.",
+      "meaning": "The party is at my cousin's house.",
+      "note": "The location of an event takes ser."
+    },
+    {
+      "text": "Mi abuela está enferma hoy y no come nada.",
+      "meaning": "My grandmother is ill today and isn't eating anything.",
+      "note": "New word: enferma = ill."
+    },
+    {
+      "text": "La película es muy larga y los niños están aburridos.",
+      "meaning": "The film is very long and the children are bored.",
+      "note": "New word: larga = long."
+    },
+    {
+      "text": "Son las dos y media y mis padres están en el parque.",
+      "meaning": "It's half past two and my parents are in the park."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Two verbs, one English word"
+    },
+    {
+      "section": "Use ser"
+    },
+    {
+      "question": "a1-ser-vs-estar-01"
+    },
+    {
+      "question": "a1-ser-vs-estar-04"
+    },
+    {
+      "question": "a1-ser-vs-estar-06"
+    },
+    {
+      "section": "Use estar"
+    },
+    {
+      "question": "a1-ser-vs-estar-02"
+    },
+    {
+      "question": "a1-ser-vs-estar-03"
+    },
+    {
+      "question": "a1-ser-vs-estar-09"
+    },
+    {
+      "tip": "Still unsure? Ask: is it what something IS (ser), or how/where it is right now (estar)?"
+    },
+    {
+      "question": "a1-ser-vs-estar-05"
+    },
+    {
+      "question": "a1-ser-vs-estar-08"
+    },
+    {
+      "section": "Same adjective, different meaning"
+    },
+    {
+      "question": "a1-ser-vs-estar-07"
+    },
+    {
+      "question": "a1-ser-vs-estar-10"
+    },
+    {
+      "section": "Quick check"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-ser-vs-estar-conv-party",
+      "title": "At the party",
+      "scenario": "Marta and Luis meet for the first time at their friend Pedro's party.",
+      "role_a": "Marta",
+      "role_b": "Luis",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¡Hola! ¿Cómo estás?",
+          "meaning": "Hi! How are you?",
+          "note": "estar: how someone is right now"
+        },
+        {
+          "speaker": "b",
+          "text": "Muy bien, gracias. ¿Y tú? ¿Eres amiga de Pedro?",
+          "meaning": "Very well, thanks. And you? Are you a friend of Pedro's?",
+          "note": "ser: relationship"
+        },
+        {
+          "speaker": "a",
+          "text": "Sí, soy Marta. Pedro y yo somos compañeros de trabajo.",
+          "meaning": "Yes, I'm Marta. Pedro and I are colleagues.",
+          "note": "ser: identity"
+        },
+        {
+          "speaker": "b",
+          "text": "Encantado, Marta. Yo soy Luis, el primo de Pedro.",
+          "meaning": "Nice to meet you, Marta. I'm Luis, Pedro's cousin.",
+          "note": "ser: identity, relationship"
+        },
+        {
+          "speaker": "a",
+          "text": "¿De dónde eres, Luis?",
+          "meaning": "Where are you from, Luis?",
+          "note": "ser: origin"
+        },
+        {
+          "speaker": "b",
+          "text": "Soy de Sevilla, pero ahora estoy en Madrid por trabajo.",
+          "meaning": "I'm from Seville, but right now I'm in Madrid for work.",
+          "note": "ser: origin · estar: location"
+        },
+        {
+          "speaker": "a",
+          "text": "¡Qué bien! ¿Y dónde está Pedro? No lo veo.",
+          "meaning": "Great! And where is Pedro? I don't see him.",
+          "note": "estar: location"
+        },
+        {
+          "speaker": "b",
+          "text": "Está en la cocina. Está muy ocupado con la comida.",
+          "meaning": "He's in the kitchen. He's very busy with the food.",
+          "note": "estar: location, condition"
+        },
+        {
+          "speaker": "a",
+          "text": "La comida está deliciosa. Pedro es un cocinero excelente.",
+          "meaning": "The food is delicious. Pedro is an excellent cook.",
+          "note": "estar: taste today · ser: characteristic"
+        },
+        {
+          "speaker": "b",
+          "text": "Es verdad. Bueno, ¿estás cansada o quieres bailar?",
+          "meaning": "That's true. Well, are you tired, or do you want to dance?",
+          "note": "estar: condition"
+        },
+        {
+          "speaker": "a",
+          "text": "¡No estoy cansada! Vamos a bailar.",
+          "meaning": "I'm not tired! Let's dance.",
+          "note": "estar: condition"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🎭",
+    "bites": [
+      {
+        "title": "Two verbs, one job",
+        "emoji": "🎭",
+        "rule": "English has one 'to be'. Spanish splits it: use ser for what something IS and estar for how or where it is right now.",
+        "example": "Marta es alta. Marta está cansada.",
+        "example_meaning": "Marta is tall. Marta is tired."
+      },
+      {
+        "title": "DOCTOR → ser",
+        "emoji": "🩺",
+        "rule": "Description, Occupation, Characteristic, Time, Origin, Relationship: the permanent traits take ser.",
+        "example": "Soy profesor y soy de Madrid.",
+        "example_meaning": "I'm a teacher and I'm from Madrid."
+      },
+      {
+        "title": "PLACE → estar",
+        "emoji": "📍",
+        "rule": "Position, Location, Action (estar + -ando/-iendo), Condition, Emotion: where you are and how you feel take estar.",
+        "example": "Estoy en casa y estoy contenta.",
+        "example_meaning": "I'm at home and I'm happy."
+      },
+      {
+        "title": "Same word, new meaning",
+        "emoji": "🔀",
+        "rule": "Some adjectives change meaning with the verb: ser aburrido = boring, estar aburrido = bored; ser listo = clever, estar listo = ready.",
+        "example": "La película es aburrida. Yo estoy aburrido.",
+        "example_meaning": "The film is boring. I am bored."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Ser or estar?",
+        "buckets": [
+          "ser",
+          "estar"
+        ],
+        "why": "Identity, origin, job and time take ser; location, feelings and temporary states take estar.",
+        "items": [
+          {
+            "text": "médica (job)",
+            "bucket": 0
+          },
+          {
+            "text": "en el parque",
+            "bucket": 1
+          },
+          {
+            "text": "de Colombia",
+            "bucket": 0
+          },
+          {
+            "text": "muy cansada",
+            "bucket": 1
+          },
+          {
+            "text": "las dos y media",
+            "bucket": 0
+          },
+          {
+            "text": "enfermo hoy",
+            "bucket": 1
+          },
+          {
+            "text": "alta y morena",
+            "bucket": 0
+          },
+          {
+            "text": "contento",
+            "bucket": 1
+          }
+        ]
+      },
+      {
+        "title": "Boring or bored?",
+        "buckets": [
+          "ser (what it IS)",
+          "estar (how it IS now)"
+        ],
+        "why": "Ser + aburrido/listo/rico describes a trait; estar + the same word describes a state right now.",
+        "items": [
+          {
+            "text": "La película ___ aburrida.",
+            "bucket": 0
+          },
+          {
+            "text": "Yo ___ aburrido en clase.",
+            "bucket": 1
+          },
+          {
+            "text": "La cena ___ lista.",
+            "bucket": 1
+          },
+          {
+            "text": "Mi hermana ___ muy lista.",
+            "bucket": 0
+          },
+          {
+            "text": "El café ___ rico hoy.",
+            "bucket": 1
+          },
+          {
+            "text": "Mi tío ___ rico.",
+            "bucket": 0
+          }
+        ]
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Mi madre está médica.",
+        "wrong": "está",
+        "fix": "es",
+        "why": "A profession is part of who someone is: ser."
+      },
+      {
+        "sentence": "Los niños son en el parque.",
+        "wrong": "son",
+        "fix": "están",
+        "why": "Location of people and things takes estar."
+      },
+      {
+        "sentence": "Hoy estoy de Colombia.",
+        "wrong": "estoy",
+        "fix": "soy",
+        "why": "Origin never changes: ser."
+      },
+      {
+        "sentence": "¿Qué hora es? Están las dos.",
+        "wrong": "Están",
+        "fix": "Son",
+        "why": "Telling the time uses ser: son las dos."
+      },
+      {
+        "sentence": "El café es muy rico hoy.",
+        "wrong": "es",
+        "fix": "está",
+        "why": "'Hoy' points at how it tastes right now, so it takes estar."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Mi madre es médica.",
+        "meaning": "My mother is a doctor.",
+        "distractors": [
+          "está"
+        ]
+      },
+      {
+        "text": "Los niños están en el parque.",
+        "meaning": "The children are in the park.",
+        "distractors": [
+          "son"
+        ]
+      },
+      {
+        "text": "Hoy estoy muy cansada.",
+        "meaning": "Today I am very tired.",
+        "distractors": [
+          "soy"
+        ]
+      },
+      {
+        "text": "¿De dónde eres tú?",
+        "meaning": "Where are you from?",
+        "distractors": [
+          "estás"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "⚔️",
+      "content": "## Ser y estar en Eldmark\n\nYour character **es** an orc and **es** a warrior: race, class and home town are what you *are*. But you **estás** in Emberhold, **estás** tired after the raid, and the boss **está muerto**: places and states, even final ones, take **estar**.",
+      "vocabulary": [
+        {
+          "term": "ser",
+          "example": "Soy un guerrero de la Hueste de Ceniza.",
+          "example_meaning": "I'm a warrior of the Ash Host."
+        },
+        {
+          "term": "estar",
+          "example": "Estoy en la mazmorra.",
+          "example_meaning": "I'm in the dungeon."
+        },
+        {
+          "term": "cansado / cansada",
+          "example": "La maga está cansada después de la banda.",
+          "example_meaning": "The mage is tired after the raid."
+        },
+        {
+          "term": "aburrido / aburrida",
+          "example": "Esta misión es aburrida.",
+          "example_meaning": "This quest is boring."
+        },
+        {
+          "term": "simpático / simpática",
+          "example": "El posadero es muy simpático.",
+          "example_meaning": "The innkeeper is very friendly."
+        },
+        {
+          "term": "el guerrero / la guerrera",
+          "meaning": "warrior",
+          "example": "El guerrero es fuerte.",
+          "example_meaning": "The warrior is strong."
+        },
+        {
+          "term": "la mazmorra",
+          "meaning": "dungeon",
+          "example": "La mazmorra está lejos.",
+          "example_meaning": "The dungeon is far away."
+        },
+        {
+          "term": "la misión",
+          "meaning": "quest",
+          "example": "La misión es fácil.",
+          "example_meaning": "The quest is easy."
+        },
+        {
+          "term": "el jefe",
+          "meaning": "boss",
+          "example": "El jefe está muerto.",
+          "example_meaning": "The boss is dead."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Ser o estar en Eldmark",
+          "emoji": "⚔️",
+          "rule": "What you ARE (orc, mage, from Emberhold) takes ser. Where you are and how you feel (in the dungeon, tired, ready) takes estar.",
+          "example": "Soy maga y estoy lista.",
+          "example_meaning": "I'm a mage and I'm ready."
+        }
+      ],
+      "listening": [
+        {
+          "text": "La elfa es maga y es de Silvermere.",
+          "meaning": "The elf is a mage and she's from Silvermere.",
+          "note": "Identity and origin take ser."
+        },
+        {
+          "text": "Estoy cansado, la banda es muy larga.",
+          "meaning": "I'm tired, the raid is very long.",
+          "note": "New word: la banda = raid."
+        },
+        {
+          "text": "El dragón está muerto y el jefe es fuerte.",
+          "meaning": "The dragon is dead and the boss is strong.",
+          "note": "A state, even a final one: estar."
+        },
+        {
+          "text": "La mazmorra está lejos de Emberhold.",
+          "meaning": "The dungeon is far from Emberhold.",
+          "note": "Location takes estar."
+        },
+        {
+          "text": "El posadero es simpático.",
+          "meaning": "The innkeeper is friendly."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Soy un guerrero de la Hueste de Ceniza.",
+          "meaning": "I'm a warrior of the Ash Host.",
+          "distractors": [
+            "estoy",
+            "está"
+          ]
+        },
+        {
+          "text": "El jefe está muerto.",
+          "meaning": "The boss is dead.",
+          "distractors": [
+            "es"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "La maga es cansada.",
+          "wrong": "es",
+          "fix": "está",
+          "why": "Tiredness is a state: estar."
+        },
+        {
+          "sentence": "Soy en la mazmorra.",
+          "wrong": "Soy",
+          "fix": "Estoy",
+          "why": "Location takes estar."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Ser or estar in Eldmark?",
+          "buckets": [
+            "ser",
+            "estar"
+          ],
+          "items": [
+            {
+              "text": "orco (race)",
+              "bucket": 0
+            },
+            {
+              "text": "en la mazmorra",
+              "bucket": 1
+            },
+            {
+              "text": "de Emberhold",
+              "bucket": 0
+            },
+            {
+              "text": "listo para la banda",
+              "bucket": 1
+            },
+            {
+              "text": "mago (class)",
+              "bucket": 0
+            },
+            {
+              "text": "muerto",
+              "bucket": 1
+            }
+          ],
+          "why": "Race, class and origin are what you ARE (ser); location and states, even death, take estar."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-ser-vs-estar-realm-01",
+          "prompt": "El jefe ___ muerto.",
+          "type": "multiple-choice",
+          "options": [
+            "está",
+            "es"
+          ],
+          "correct_answer": "está",
+          "explanation": "Dead is a state, not an identity: el jefe está muerto.",
+          "hints": [
+            "A state, not an identity."
+          ],
+          "teaches": [
+            "estar",
+            "el jefe"
+          ]
+        },
+        {
+          "question_id": "a1-ser-vs-estar-realm-02",
+          "prompt": "Nosotros ___ orcos de Emberhold.",
+          "type": "multiple-choice",
+          "options": [
+            "somos",
+            "estamos"
+          ],
+          "correct_answer": "somos",
+          "explanation": "Race and origin are what you are: ser.",
+          "hints": [
+            "What you ARE takes ser."
+          ],
+          "teaches": [
+            "ser"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🥕",
+      "content": "## Ser y estar en la granja\n\nWho you are and whose things are take **ser**: **soy granjera**, **la granja es de mi abuelo**, **la granja es pequeña**. Where the animals are and how things are today take **estar**: **las vacas están en el establo**, **la cosecha está lista**, **estoy cansada después de trabajar**.",
+      "vocabulary": [
+        {
+          "term": "ser",
+          "example": "Soy granjera y soy de la ciudad.",
+          "example_meaning": "I'm a farmer and I'm from the city."
+        },
+        {
+          "term": "estar",
+          "example": "Las gallinas están en el gallinero.",
+          "example_meaning": "The hens are in the coop."
+        },
+        {
+          "term": "cansado / cansada",
+          "example": "Estoy cansada después de trabajar.",
+          "example_meaning": "I'm tired after working."
+        },
+        {
+          "term": "la fiesta",
+          "example": "La fiesta de la cosecha es en otoño.",
+          "example_meaning": "The harvest festival is in autumn."
+        },
+        {
+          "term": "rico / rica",
+          "example": "Las fresas están muy ricas.",
+          "example_meaning": "The strawberries are delicious."
+        },
+        {
+          "term": "simpático / simpática",
+          "example": "El alcalde es simpático.",
+          "example_meaning": "The mayor is nice."
+        },
+        {
+          "term": "la cosecha",
+          "meaning": "harvest",
+          "example": "La cosecha está lista.",
+          "example_meaning": "The harvest is ready."
+        },
+        {
+          "term": "el establo",
+          "meaning": "barn",
+          "example": "Las vacas están en el establo.",
+          "example_meaning": "The cows are in the barn."
+        },
+        {
+          "term": "la gallina",
+          "meaning": "hen",
+          "example": "La gallina es blanca.",
+          "example_meaning": "The hen is white."
+        },
+        {
+          "term": "listo / lista",
+          "meaning": "ready (with estar)",
+          "example": "La cosecha está lista.",
+          "example_meaning": "The harvest is ready."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Ser o estar en la granja",
+          "emoji": "🥕",
+          "rule": "What the farm IS takes ser (es pequeña, es de mi abuelo). Where the animals are and how the crops are today take estar (están en el establo, están listas).",
+          "example": "La granja es pequeña y la cosecha está lista.",
+          "example_meaning": "The farm is small and the harvest is ready."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Nora es granjera y es simpática.",
+          "meaning": "Nora is a farmer and she's nice.",
+          "note": "Job and character take ser."
+        },
+        {
+          "text": "El establo es grande y está cerca.",
+          "meaning": "The barn is big and it's nearby.",
+          "note": "New word: el establo = barn."
+        },
+        {
+          "text": "¿Está lista la cosecha de maíz?",
+          "meaning": "Is the corn harvest ready?",
+          "note": "A state: estar."
+        },
+        {
+          "text": "Hoy la leche está muy rica.",
+          "meaning": "Today the milk is very tasty."
+        },
+        {
+          "text": "La granja es de mi abuelo.",
+          "meaning": "The farm is my grandfather's.",
+          "note": "Belonging takes ser."
+        }
+      ],
+      "builds": [
+        {
+          "text": "La cosecha está lista.",
+          "meaning": "The harvest is ready.",
+          "distractors": [
+            "es"
+          ]
+        },
+        {
+          "text": "Soy granjera y soy de la ciudad.",
+          "meaning": "I'm a farmer and I'm from the city.",
+          "distractors": [
+            "estoy",
+            "está"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Las vacas son en el establo.",
+          "wrong": "son",
+          "fix": "están",
+          "why": "Location takes estar."
+        },
+        {
+          "sentence": "La granja está de mi abuelo.",
+          "wrong": "está",
+          "fix": "es",
+          "why": "Belonging takes ser."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Ser or estar on the farm?",
+          "buckets": [
+            "ser",
+            "estar"
+          ],
+          "items": [
+            {
+              "text": "granjera (job)",
+              "bucket": 0
+            },
+            {
+              "text": "en el establo",
+              "bucket": 1
+            },
+            {
+              "text": "de mi abuelo",
+              "bucket": 0
+            },
+            {
+              "text": "lista para la cosecha",
+              "bucket": 1
+            },
+            {
+              "text": "pequeña (the farm)",
+              "bucket": 0
+            },
+            {
+              "text": "cansada después de trabajar",
+              "bucket": 1
+            }
+          ],
+          "why": "Job, owner and size are what things ARE; place and today's state take estar."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-ser-vs-estar-meadowbrook-01",
+          "prompt": "Las vacas ___ en el establo.",
+          "type": "multiple-choice",
+          "options": [
+            "están",
+            "son"
+          ],
+          "correct_answer": "están",
+          "explanation": "Location takes estar.",
+          "hints": [
+            "Where something is takes estar."
+          ],
+          "teaches": [
+            "estar",
+            "el establo"
+          ]
+        },
+        {
+          "question_id": "a1-ser-vs-estar-meadowbrook-02",
+          "prompt": "La cosecha ___ lista.",
+          "type": "multiple-choice",
+          "options": [
+            "está",
+            "es"
+          ],
+          "correct_answer": "está",
+          "explanation": "Ready is a state: estar.",
+          "hints": [
+            "A state today."
+          ],
+          "teaches": [
+            "listo / lista",
+            "la cosecha"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "☢️",
+      "content": "## Ser y estar en el páramo\n\nWho you are and what a thing is take **ser**: **soy de la cúpula**, **el capataz es serio**, **la armadura de chatarra es del taller**. Where things are and how they are today take **estar**: **el radiorreloj está roto**, **la gaseosa Zafiro está fría**, **estamos cansados por el sol del páramo**.",
+      "vocabulary": [
+        {
+          "term": "ser",
+          "example": "Soy de la cúpula y soy mecánica.",
+          "example_meaning": "I'm from the Dome and I'm a mechanic."
+        },
+        {
+          "term": "estar",
+          "example": "La armadura de chatarra está en el búnker.",
+          "example_meaning": "The scrap armour is in the bunker."
+        },
+        {
+          "term": "cansado / cansada",
+          "example": "Estamos cansados por el polvo y el sol.",
+          "example_meaning": "We're tired from the dust and the sun."
+        },
+        {
+          "term": "las llaves",
+          "example": "¿Dónde están las llaves del búnker?",
+          "example_meaning": "Where are the bunker keys?"
+        },
+        {
+          "term": "rico / rica",
+          "example": "La gaseosa Zafiro está muy rica hoy.",
+          "example_meaning": "The Zafiro soda is very tasty today."
+        },
+        {
+          "term": "aburrido / aburrida",
+          "example": "La radio de la cúpula es muy aburrida.",
+          "example_meaning": "The Dome radio is very boring."
+        },
+        {
+          "term": "el capataz / la capataza",
+          "meaning": "foreman / forewoman (the Dome's boss)",
+          "example": "El capataz Ruiz es muy serio.",
+          "example_meaning": "Foreman Ruiz is very serious."
+        },
+        {
+          "term": "la armadura de chatarra",
+          "meaning": "scrap armour",
+          "example": "La armadura de chatarra es del taller.",
+          "example_meaning": "The scrap armour belongs to the workshop."
+        },
+        {
+          "term": "el búnker",
+          "meaning": "bunker",
+          "example": "El búnker está debajo de la gasolinera.",
+          "example_meaning": "The bunker is under the petrol station."
+        },
+        {
+          "term": "roto / rota",
+          "meaning": "broken (with estar)",
+          "example": "El radiorreloj está roto.",
+          "example_meaning": "The wrist radio is broken."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Ser o estar en el páramo",
+          "emoji": "☢️",
+          "rule": "What a thing IS takes ser (es del taller, es pesada). Where it is and how it is today take estar (está en el búnker, está rota).",
+          "example": "La armadura de chatarra es pesada y está rota.",
+          "example_meaning": "The scrap armour is heavy and it is broken."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Leo es buscador y es del páramo.",
+          "meaning": "Leo is a scavenger and he's from the plains.",
+          "note": "Origin and job take ser."
+        },
+        {
+          "text": "Mi radiorreloj está roto otra vez.",
+          "meaning": "My wrist radio is broken again.",
+          "note": "New word: roto = broken."
+        },
+        {
+          "text": "El búnker está cerca del taller.",
+          "meaning": "The bunker is near the workshop.",
+          "note": "New word: el búnker = bunker."
+        },
+        {
+          "text": "La capataza es simpática.",
+          "meaning": "The forewoman is nice.",
+          "note": "New word: la capataza = forewoman."
+        },
+        {
+          "text": "El agua filtrada está fría hoy.",
+          "meaning": "The filtered water is cold today."
+        }
+      ],
+      "builds": [
+        {
+          "text": "El radiorreloj está roto.",
+          "meaning": "The wrist radio is broken.",
+          "distractors": [
+            "es"
+          ]
+        },
+        {
+          "text": "Soy de la cúpula y soy mecánica.",
+          "meaning": "I'm from the Dome and I'm a mechanic.",
+          "distractors": [
+            "estoy",
+            "está"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "La armadura de chatarra es en el búnker.",
+          "wrong": "es",
+          "fix": "está",
+          "why": "Location of a thing takes estar."
+        },
+        {
+          "sentence": "Mi vecino Leo está buscador.",
+          "wrong": "está",
+          "fix": "es",
+          "why": "What someone is (identity) takes ser."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Ser or estar in the wasteland?",
+          "buckets": [
+            "ser",
+            "estar"
+          ],
+          "items": [
+            {
+              "text": "de la cúpula (origin)",
+              "bucket": 0
+            },
+            {
+              "text": "en el búnker",
+              "bucket": 1
+            },
+            {
+              "text": "roto (the wrist radio)",
+              "bucket": 1
+            },
+            {
+              "text": "del taller (owner)",
+              "bucket": 0
+            },
+            {
+              "text": "cansados por el sol",
+              "bucket": 1
+            },
+            {
+              "text": "mecánica (job)",
+              "bucket": 0
+            }
+          ],
+          "why": "Origin, owner and job are what things ARE; place and today's state take estar."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-ser-vs-estar-rustwake-01",
+          "prompt": "La armadura de chatarra ___ en el búnker.",
+          "type": "multiple-choice",
+          "options": [
+            "está",
+            "es"
+          ],
+          "correct_answer": "está",
+          "explanation": "Location of a thing takes estar.",
+          "hints": [
+            "Where something is takes estar."
+          ],
+          "teaches": [
+            "estar",
+            "el búnker"
+          ]
+        },
+        {
+          "question_id": "a1-ser-vs-estar-rustwake-02",
+          "prompt": "El radiorreloj ___ roto. (The wrist radio is broken.)",
+          "type": "fill-in-blank",
+          "correct_answer": "está",
+          "accepted_answers": [
+            "esta"
+          ],
+          "explanation": "Broken is a state, not an identity, so estar: está roto.",
+          "hints": [
+            "How it is today takes estar."
+          ],
+          "teaches": [
+            "roto / rota",
+            "estar"
+          ]
+        }
+      ]
+    }
+  }
+}

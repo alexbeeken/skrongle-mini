@@ -1,0 +1,1330 @@
+{
+  "id": "a1-greetings",
+  "slug": "greetings",
+  "title": "Greetings and introductions: bonjour, je m'appelle",
+  "unit": "A1",
+  "group": "Vocabulary",
+  "order": 10,
+  "summary": "Say hello and goodbye, choose tu or vous, give your name with je m'appelle, and say please and thank you.",
+  "focus": "Greeting people politely and introducing yourself",
+  "prerequisites": [],
+  "content": "## Hello and goodbye\n\nFrench greetings change with the time of day and with the person in front of you.\n\n| French | Use it… |\n|---|---|\n| **bonjour** | hello, good morning (all day, to anyone) |\n| **bonsoir** | good evening (from about 6 p.m.) |\n| **salut** | hi, bye (friends and family only) |\n| **au revoir** | goodbye (to anyone) |\n\nWhen you leave, add **bonne journée** (have a good day), **à bientôt** (see you soon) or **à demain** (see you tomorrow). To ask how someone is, say **Ça va ?** The usual answer is **Ça va bien, merci.** (I'm fine, thanks.)\n\n> **Bonjour first.** Say **bonjour** before anything else, whether you are entering a shop, getting on a bus or asking the way. Starting straight with your question sounds rude. Add **monsieur** or **madame**: **Bonjour, madame.**\n\n## Tu or vous?\n\nFrench has two words for *you*.\n\n- **tu**: one person you know well, such as a friend, a relative, a child or a classmate.\n- **vous**: one person you don't know, or someone older or senior (a shop assistant, a doctor, your boss); and **always** more than one person, friends included.\n\nWhen in doubt, use **vous** and let the other person suggest **tu**. With **tu** you say **salut** and **s'il te plaît**; with **vous**, **bonjour** and **s'il vous plaît**.\n\n## Je m'appelle: saying your name\n\n**S'appeler** (to be called) gives your name. It is *reflexive*: a small pronoun sits before the verb, and **me, te, se** become **m', t', s'** before the vowel.\n\n| | s'appeler |\n|---|---|\n| je | **m'appelle** |\n| tu | **t'appelles** |\n| il / elle / on | **s'appelle** |\n| nous | **nous appelons** |\n| vous | **vous appelez** |\n| ils / elles | **s'appellent** |\n\nSpelling: **ll** where the ending is silent (*appelle, appelles, appellent*), one **l** in *appelons, appelez*.\n\n- **Comment tu t'appelles ?** What's your name? (tu)\n- **Comment vous appelez-vous ?** What's your name? (vous)\n- **Enchanté.** Pleased to meet you. A woman writes **enchantée**; it sounds the same.\n\n## Polite words\n\n- **merci** (thank you), **merci beaucoup** (thank you very much)\n- **de rien** (you're welcome); more formal: **je vous en prie**\n- **s'il vous plaît** (please, to **vous**), **s'il te plaît** (to **tu**)\n- **oui** (yes), **non** (no), **pardon** (sorry, excuse me)\n- **monsieur** (sir, Mr), **madame** (madam, Mrs, Ms)\n\n**Merci, monsieur. Au revoir, madame. Bonne journée !**",
+  "vocabulary": [
+    {
+      "term": "bonjour",
+      "meaning": "hello, good morning",
+      "example": "Bonjour, madame !",
+      "example_meaning": "Hello, madam!"
+    },
+    {
+      "term": "bonsoir",
+      "meaning": "good evening",
+      "example": "Bonsoir, monsieur, ça va ?",
+      "example_meaning": "Good evening, sir, how are you?"
+    },
+    {
+      "term": "salut",
+      "meaning": "hi, bye (informal)",
+      "example": "Salut, Léa ! À demain !",
+      "example_meaning": "Bye, Léa! See you tomorrow!"
+    },
+    {
+      "term": "au revoir",
+      "meaning": "goodbye",
+      "example": "Au revoir, et bonne journée !",
+      "example_meaning": "Goodbye, and have a good day!"
+    },
+    {
+      "term": "ça va ?",
+      "meaning": "how are you?, how's it going?",
+      "example": "Ça va ? — Oui, ça va bien, merci.",
+      "example_meaning": "How are you? — Yes, I'm fine, thanks."
+    },
+    {
+      "term": "s'appeler",
+      "meaning": "to be called (to give one's name)",
+      "example": "Je m'appelle Hugo.",
+      "example_meaning": "My name is Hugo."
+    },
+    {
+      "term": "enchanté / enchantée",
+      "meaning": "pleased to meet you",
+      "example": "Enchantée, je m'appelle Claire.",
+      "example_meaning": "Pleased to meet you, my name is Claire."
+    },
+    {
+      "term": "merci",
+      "meaning": "thank you",
+      "example": "Merci beaucoup, madame.",
+      "example_meaning": "Thank you very much, madam."
+    },
+    {
+      "term": "de rien",
+      "meaning": "you're welcome",
+      "example": "Merci ! — De rien.",
+      "example_meaning": "Thank you! — You're welcome."
+    },
+    {
+      "term": "s'il vous plaît",
+      "meaning": "please (polite, or to several people)",
+      "example": "Un café, s'il vous plaît.",
+      "example_meaning": "A coffee, please."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-greetings-01",
+      "prompt": "It's 8 p.m. and you walk into a restaurant. You say…",
+      "type": "multiple-choice",
+      "options": [
+        "Bonsoir, madame.",
+        "Bonne nuit, madame.",
+        "Salut, madame."
+      ],
+      "correct_answer": "Bonsoir, madame.",
+      "explanation": "From about 6 p.m. the greeting is bonsoir. Bonne nuit is only said when someone goes to bed, and salut is too casual for a stranger.",
+      "hints": [
+        "Which word means good evening?"
+      ],
+      "teaches": [
+        "bonsoir"
+      ]
+    },
+    {
+      "question_id": "a1-greetings-02",
+      "prompt": "You meet your friend's grandmother for the first time. How do you ask her name?",
+      "type": "multiple-choice",
+      "options": [
+        "Comment vous appelez-vous ?",
+        "Comment tu t'appelles ?",
+        "Comment elle s'appelle ?"
+      ],
+      "correct_answer": "Comment vous appelez-vous ?",
+      "explanation": "An older person you have just met gets vous: Comment vous appelez-vous ? Comment elle s'appelle ? asks about someone else.",
+      "hints": [
+        "Stranger and older: tu or vous?"
+      ],
+      "teaches": [
+        "s'appeler"
+      ]
+    },
+    {
+      "question_id": "a1-greetings-03",
+      "prompt": "You say Merci to a shop assistant. She answers…",
+      "type": "multiple-choice",
+      "options": [
+        "De rien.",
+        "S'il vous plaît.",
+        "Enchantée."
+      ],
+      "correct_answer": "De rien.",
+      "explanation": "De rien (you're welcome) is the reply to merci. Enchantée is for meeting someone, s'il vous plaît for asking.",
+      "hints": [
+        "The reply to thank you."
+      ],
+      "teaches": [
+        "de rien",
+        "merci"
+      ]
+    },
+    {
+      "question_id": "a1-greetings-04",
+      "prompt": "Elle ___ Camille.",
+      "type": "multiple-choice",
+      "options": [
+        "s'appelle",
+        "m'appelle",
+        "t'appelles"
+      ],
+      "correct_answer": "s'appelle",
+      "explanation": "Il and elle take s'appelle: Elle s'appelle Camille. M'appelle goes with je, t'appelles with tu.",
+      "hints": [
+        "Elle, like il, takes se: s'."
+      ],
+      "teaches": [
+        "s'appeler"
+      ]
+    },
+    {
+      "question_id": "a1-greetings-05",
+      "prompt": "Bonjour, je ___ Lucas.",
+      "type": "fill-in-blank",
+      "correct_answer": "m'appelle",
+      "accepted_answers": [
+        "je m'appelle"
+      ],
+      "explanation": "With je, s'appeler is m'appelle: Je m'appelle Lucas. Me becomes m' before the vowel.",
+      "hints": [
+        "Reflexive pronoun for je, then the verb.",
+        "Two l's: the ending is silent."
+      ],
+      "teaches": [
+        "s'appeler"
+      ]
+    },
+    {
+      "question_id": "a1-greetings-06",
+      "prompt": "Vous vous ___ comment, monsieur ?",
+      "type": "fill-in-blank",
+      "correct_answer": "appelez",
+      "accepted_answers": [
+        "vous appelez"
+      ],
+      "explanation": "Vous takes -ez, and the stem keeps one l because the ending is heard: vous vous appelez.",
+      "hints": [
+        "The vous ending is -ez.",
+        "One l only here."
+      ],
+      "teaches": [
+        "s'appeler"
+      ]
+    },
+    {
+      "question_id": "a1-greetings-07",
+      "prompt": "At the bakery: Une baguette, ___, madame. (please)",
+      "type": "fill-in-blank",
+      "correct_answer": "s'il vous plaît",
+      "accepted_answers": [
+        "s'il vous plait"
+      ],
+      "explanation": "To a shop assistant you use vous, so please is s'il vous plaît.",
+      "hints": [
+        "A stranger in a shop: tu or vous?",
+        "Three words with apostrophe: s'il …"
+      ],
+      "teaches": [
+        "s'il vous plaît"
+      ]
+    },
+    {
+      "question_id": "a1-greetings-08",
+      "prompt": "In France, you say bonjour before asking a shop assistant for anything.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "True. Bonjour comes first every time, whether in a shop, on a bus or before asking the way. Skipping it sounds rude.",
+      "hints": [
+        "Think of the politeness rule in the first section."
+      ],
+      "teaches": [
+        "bonjour"
+      ]
+    },
+    {
+      "question_id": "a1-greetings-09",
+      "prompt": "Salut is a good greeting for a job interview.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "False. Salut is for friends and family. An interviewer gets Bonjour, madame or Bonjour, monsieur, and vous.",
+      "hints": [
+        "Is salut casual or formal?"
+      ],
+      "teaches": [
+        "salut",
+        "bonjour"
+      ]
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "s'appeler",
+      "meaning": "to be called",
+      "set": "present",
+      "art": [
+        " .----------------. ",
+        "|  HELLO, je      |",
+        "|  m'appelle ...  |",
+        "|________________|",
+        "   ( ^_^ )  "
+      ],
+      "forms": {
+        "je": "m'appelle",
+        "tu": "t'appelles",
+        "il": "s'appelle",
+        "nous": "nous appelons",
+        "vous": "vous appelez",
+        "ils": "s'appellent"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-greetings-conv-new-neighbour",
+      "title": "On the stairs",
+      "scenario": "Hugo, a student, meets his new neighbour Hélène Martin on the stairs of their building.",
+      "role_a": "Hélène",
+      "role_b": "Hugo",
+      "lines": [
+        {
+          "speaker": "b",
+          "text": "Bonjour, madame !",
+          "meaning": "Hello, madam!"
+        },
+        {
+          "speaker": "a",
+          "text": "Bonjour ! Comment vous appelez-vous ?",
+          "meaning": "Hello! What's your name?",
+          "note": "She says vous because they have just met."
+        },
+        {
+          "speaker": "b",
+          "text": "Je m'appelle Hugo. Et vous ?",
+          "meaning": "My name is Hugo. And you?"
+        },
+        {
+          "speaker": "a",
+          "text": "Je m'appelle Hélène Martin. Enchantée !",
+          "meaning": "My name is Hélène Martin. Pleased to meet you!",
+          "note": "A woman writes enchantée."
+        },
+        {
+          "speaker": "b",
+          "text": "Enchanté, madame.",
+          "meaning": "Pleased to meet you, madam."
+        },
+        {
+          "speaker": "a",
+          "text": "Ça va, Hugo ?",
+          "meaning": "How are you, Hugo?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, ça va bien, merci. Et vous ?",
+          "meaning": "Yes, I'm fine, thanks. And you?"
+        },
+        {
+          "speaker": "a",
+          "text": "Très bien, merci. Bonne journée, Hugo !",
+          "meaning": "Very well, thanks. Have a good day, Hugo!"
+        },
+        {
+          "speaker": "b",
+          "text": "Merci, vous aussi ! Au revoir, madame.",
+          "meaning": "Thanks, you too! Goodbye, madam."
+        },
+        {
+          "speaker": "a",
+          "text": "Au revoir, Hugo. À bientôt !",
+          "meaning": "Goodbye, Hugo. See you soon!"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Bonjour, madame, ça va ?",
+      "meaning": "Hello, madam, how are you?",
+      "note": "Bonjour first, then the question."
+    },
+    {
+      "text": "Salut, je m'appelle Léa.",
+      "meaning": "Hi, my name is Léa."
+    },
+    {
+      "text": "Merci beaucoup, monsieur. De rien !",
+      "meaning": "Thank you very much, sir. You're welcome!",
+      "note": "New word: beaucoup = a lot."
+    },
+    {
+      "text": "Bonsoir, madame. Comment vous appelez-vous ?",
+      "meaning": "Good evening, madam. What's your name?",
+      "note": "Vous is the polite form."
+    },
+    {
+      "text": "Il s'appelle Karim, et elle s'appelle Inès.",
+      "meaning": "His name is Karim, and her name is Inès."
+    },
+    {
+      "text": "Enchanté, madame, je m'appelle Thomas. Et vous ?",
+      "meaning": "Pleased to meet you, madam, my name is Thomas. And you?"
+    },
+    {
+      "text": "Un thé, s'il vous plaît, monsieur. Merci, bonne journée !",
+      "meaning": "A tea, please, sir. Thanks, have a good day!",
+      "note": "New word: un thé = a tea."
+    },
+    {
+      "text": "Nous nous appelons Dubois, et nos enfants s'appellent Jules et Rose.",
+      "meaning": "Our name is Dubois, and our children are called Jules and Rose.",
+      "note": "New word: nos enfants = our children."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Hello and goodbye"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-greetings-01"
+    },
+    {
+      "question": "a1-greetings-08"
+    },
+    {
+      "section": "Tu or vous"
+    },
+    {
+      "question": "a1-greetings-02"
+    },
+    {
+      "question": "a1-greetings-09"
+    },
+    {
+      "section": "Je m'appelle"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-greetings-04"
+    },
+    {
+      "question": "a1-greetings-05"
+    },
+    {
+      "question": "a1-greetings-06"
+    },
+    {
+      "tip": "Say bonjour first, every time. People respond much more helpfully when you do."
+    },
+    {
+      "section": "Polite words"
+    },
+    {
+      "question": "a1-greetings-03"
+    },
+    {
+      "question": "a1-greetings-07"
+    },
+    {
+      "concept": {
+        "title": "La bise or a handshake?",
+        "markdown": "Friends and family often greet with **la bise**, a light kiss on each cheek; how many depends on the region. At work, people shake hands. The words come either way: **Salut, ça va ?** with a bise, **Bonjour, enchanté** with a handshake."
+      }
+    }
+  ],
+  "sprint": {
+    "icon": "👋",
+    "bites": [
+      {
+        "title": "Bonjour first",
+        "emoji": "👋",
+        "rule": "Say bonjour (bonsoir after about 6 p.m.) before anything else, in a shop, on a bus or when asking the way. Salut is for friends only.",
+        "example": "Bonjour, madame. Un café, s'il vous plaît.",
+        "example_meaning": "Hello, madam. A coffee, please."
+      },
+      {
+        "title": "Tu or vous",
+        "emoji": "🤝",
+        "rule": "Use tu for one friend, relative or child. Use vous for a stranger, someone senior, or any group. When in doubt, use vous.",
+        "example": "Tu t'appelles comment ? Vous vous appelez comment ?",
+        "example_meaning": "What's your name? (to a friend) What's your name? (polite)"
+      },
+      {
+        "title": "Je m'appelle",
+        "emoji": "📛",
+        "rule": "S'appeler gives your name: je m'appelle, tu t'appelles, il s'appelle, nous nous appelons, vous vous appelez, ils s'appellent.",
+        "example": "Je m'appelle Inès. Et toi ?",
+        "example_meaning": "My name is Inès. And you?"
+      },
+      {
+        "title": "Thanks and please",
+        "emoji": "🙏",
+        "rule": "Say merci, and de rien in reply. Use s'il vous plaît to vous and s'il te plaît to tu. Say enchanté(e) when you meet someone.",
+        "example": "Merci ! — De rien.",
+        "example_meaning": "Thank you! — You're welcome."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Tu or vous?",
+        "buckets": [
+          "tu",
+          "vous"
+        ],
+        "items": [
+          {
+            "text": "your best friend",
+            "bucket": 0
+          },
+          {
+            "text": "your little brother",
+            "bucket": 0
+          },
+          {
+            "text": "a shop assistant",
+            "bucket": 1
+          },
+          {
+            "text": "a doctor",
+            "bucket": 1
+          },
+          {
+            "text": "two friends together",
+            "bucket": 1
+          },
+          {
+            "text": "a classmate",
+            "bucket": 0
+          },
+          {
+            "text": "a stranger in the street",
+            "bucket": 1
+          }
+        ],
+        "why": "Tu is for one person you know well; vous is for strangers, people senior to you, and any group, even of friends."
+      },
+      {
+        "title": "Arriving or leaving?",
+        "buckets": [
+          "arriving",
+          "leaving"
+        ],
+        "items": [
+          {
+            "text": "Bonjour !",
+            "bucket": 0
+          },
+          {
+            "text": "Enchanté.",
+            "bucket": 0
+          },
+          {
+            "text": "Ça va ?",
+            "bucket": 0
+          },
+          {
+            "text": "Au revoir !",
+            "bucket": 1
+          },
+          {
+            "text": "Bonne journée !",
+            "bucket": 1
+          },
+          {
+            "text": "À bientôt !",
+            "bucket": 1
+          },
+          {
+            "text": "À demain !",
+            "bucket": 1
+          }
+        ],
+        "why": "Bonjour, enchanté and ça va open a meeting; au revoir, bonne journée, à bientôt and à demain close it."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Tu t'appelle comment ?",
+        "wrong": "t'appelle",
+        "fix": "t'appelles",
+        "why": "With tu the verb ends in -es: tu t'appelles."
+      },
+      {
+        "sentence": "Salut, monsieur le directeur.",
+        "wrong": "Salut",
+        "fix": "Bonjour",
+        "why": "Salut is for friends; a director gets bonjour."
+      },
+      {
+        "sentence": "Vous vous appelles comment ?",
+        "wrong": "appelles",
+        "fix": "appelez",
+        "why": "Vous takes -ez: vous vous appelez."
+      },
+      {
+        "sentence": "Nous nous appelez Martin.",
+        "wrong": "appelez",
+        "fix": "appelons",
+        "why": "Nous takes -ons: nous nous appelons."
+      },
+      {
+        "sentence": "Enchanté, madame. Je s'appelle Paul.",
+        "wrong": "s'appelle",
+        "fix": "m'appelle",
+        "why": "With je the pronoun is me: je m'appelle."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Bonjour, je m'appelle Camille.",
+        "meaning": "Hello, my name is Camille.",
+        "distractors": [
+          "s'appelle"
+        ]
+      },
+      {
+        "text": "Enchantée, je m'appelle Claire Martin.",
+        "meaning": "Pleased to meet you, my name is Claire Martin.",
+        "distractors": [
+          "t'appelles"
+        ]
+      },
+      {
+        "text": "Un café, s'il vous plaît, monsieur.",
+        "meaning": "A coffee, please, sir.",
+        "distractors": [
+          "te"
+        ]
+      },
+      {
+        "text": "Ils s'appellent Jules et Rose.",
+        "meaning": "They are called Jules and Rose.",
+        "distractors": [
+          "s'appelle"
+        ]
+      },
+      {
+        "text": "Au revoir, madame, et bonne journée.",
+        "meaning": "Goodbye, madam, and have a good day.",
+        "distractors": [
+          "salut"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🧤",
+      "content": "## Saluer à Eldmark\n\nAt the **taverne du Dragon Vert** in Highgate, greet the innkeeper with **bonjour** and your guild friend Borin le nain with **salut**. The mage Séla is older and wiser: she gets **vous**. Give your name with **je m'appelle**, and never forget **merci**.",
+      "vocabulary": [
+        {
+          "term": "bonjour",
+          "example": "Bonjour, madame la mage !",
+          "example_meaning": "Hello, madam mage!"
+        },
+        {
+          "term": "salut",
+          "example": "Salut, Borin ! Ça va ?",
+          "example_meaning": "Hi, Borin! How are you?"
+        },
+        {
+          "term": "s'appeler",
+          "example": "Je m'appelle Nym l'elfe.",
+          "example_meaning": "My name is Nym the elf."
+        },
+        {
+          "term": "enchanté / enchantée",
+          "example": "Enchantée, je m'appelle Séla la mage.",
+          "example_meaning": "Pleased to meet you, my name is Séla the mage."
+        },
+        {
+          "term": "merci",
+          "example": "Merci, Borin ! — De rien.",
+          "example_meaning": "Thanks, Borin! — You're welcome."
+        },
+        {
+          "term": "au revoir",
+          "example": "Au revoir, Borin, à bientôt !",
+          "example_meaning": "Goodbye, Borin, see you soon!"
+        },
+        {
+          "term": "s'il vous plaît",
+          "example": "Une potion, s'il vous plaît.",
+          "example_meaning": "A potion, please."
+        },
+        {
+          "term": "la taverne",
+          "meaning": "tavern (f)",
+          "example": "Bonsoir ! La taverne du Dragon Vert, s'il vous plaît ?",
+          "example_meaning": "Good evening! The Green Dragon tavern, please?"
+        },
+        {
+          "term": "la potion",
+          "meaning": "potion (f)",
+          "example": "Merci pour la potion, madame.",
+          "example_meaning": "Thanks for the potion, madam."
+        },
+        {
+          "term": "la quête",
+          "meaning": "quest (f)",
+          "example": "Bonne chance pour la quête, Nym !",
+          "example_meaning": "Good luck with the quest, Nym!"
+        }
+      ],
+      "bites": [
+        {
+          "title": "Bonjour, aventurier",
+          "emoji": "🧤",
+          "rule": "In Eldmark too: bonjour to the innkeeper, salut to your guild friends, vous to the old mage, and je m'appelle to give your name.",
+          "example": "Bonjour, madame. Je m'appelle Nym l'elfe.",
+          "example_meaning": "Hello, madam. My name is Nym the elf."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Salut, Borin, ça va ?",
+          "meaning": "Hi, Borin, how are you?"
+        },
+        {
+          "text": "Je m'appelle Séla la mage.",
+          "meaning": "My name is Séla the mage."
+        },
+        {
+          "text": "Bonsoir, et merci pour la potion.",
+          "meaning": "Good evening, and thanks for the potion.",
+          "note": "New word: la potion = potion."
+        },
+        {
+          "text": "Une chambre à la taverne, s'il vous plaît.",
+          "meaning": "A room at the tavern, please.",
+          "note": "New word: une chambre = a room."
+        },
+        {
+          "text": "Enchanté, madame la mage. Comment vous appelez-vous ?",
+          "meaning": "Pleased to meet you, madam mage. What's your name?"
+        }
+      ],
+      "builds": [
+        {
+          "text": "Je m'appelle Borin le nain.",
+          "meaning": "My name is Borin the dwarf.",
+          "distractors": [
+            "s'appelle"
+          ]
+        },
+        {
+          "text": "Merci pour la potion, madame.",
+          "meaning": "Thanks for the potion, madam.",
+          "distractors": [
+            "rien"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Salut, madame la mage.",
+          "wrong": "Salut",
+          "fix": "Bonjour",
+          "why": "An elder mage you hardly know gets bonjour (and vous), not salut."
+        },
+        {
+          "sentence": "Le nain s'appellent Borin.",
+          "wrong": "s'appellent",
+          "fix": "s'appelle",
+          "why": "One dwarf, le nain: s'appelle."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Tu or vous in Eldmark?",
+          "buckets": [
+            "tu",
+            "vous"
+          ],
+          "items": [
+            {
+              "text": "Borin, your guild friend",
+              "bucket": 0
+            },
+            {
+              "text": "the old mage Séla",
+              "bucket": 1
+            },
+            {
+              "text": "the innkeeper, a stranger",
+              "bucket": 1
+            },
+            {
+              "text": "your mount",
+              "bucket": 0
+            },
+            {
+              "text": "the whole guild",
+              "bucket": 1
+            },
+            {
+              "text": "Nym, your best friend",
+              "bucket": 0
+            }
+          ],
+          "why": "Friends (and your faithful mount) get tu; strangers, elders and any group get vous."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-greetings-realm-01",
+          "prompt": "You walk into the taverne du Dragon Vert at night. You say…",
+          "type": "multiple-choice",
+          "options": [
+            "Bonsoir !",
+            "Bonne nuit !",
+            "Au revoir !"
+          ],
+          "correct_answer": "Bonsoir !",
+          "explanation": "Arriving in the evening: bonsoir. Bonne nuit is for bedtime, au revoir for leaving.",
+          "hints": [
+            "Arriving, in the evening."
+          ],
+          "teaches": [
+            "bonsoir",
+            "la taverne"
+          ]
+        },
+        {
+          "question_id": "a1-greetings-realm-02",
+          "prompt": "Borin the dwarf introduces himself: Je ___ Borin.",
+          "type": "fill-in-blank",
+          "correct_answer": "m'appelle",
+          "accepted_answers": [
+            "je m'appelle"
+          ],
+          "explanation": "Je m'appelle Borin: with je, s'appeler is m'appelle.",
+          "hints": [
+            "The je form of s'appeler."
+          ],
+          "teaches": [
+            "s'appeler"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "a1-greetings-conv-realm-tavern",
+          "title": "At the Green Dragon",
+          "scenario": "Nym the elf meets the mage Séla at the taverne du Dragon Vert in Highgate.",
+          "role_a": "Nym",
+          "role_b": "Séla",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Bonsoir, madame. Comment vous appelez-vous ?",
+              "meaning": "Good evening, madam. What's your name?"
+            },
+            {
+              "speaker": "b",
+              "text": "Je m'appelle Séla. Et toi, jeune elfe ?",
+              "meaning": "My name is Séla. And you, young elf?",
+              "note": "Toi is the stressed form of tu. The old mage says tu to the young elf."
+            },
+            {
+              "speaker": "a",
+              "text": "Je m'appelle Nym. Enchantée !",
+              "meaning": "My name is Nym. Pleased to meet you!"
+            },
+            {
+              "speaker": "b",
+              "text": "Enchantée, Nym. Ça va ?",
+              "meaning": "Pleased to meet you, Nym. How are you?"
+            },
+            {
+              "speaker": "a",
+              "text": "Ça va bien, merci. Une potion, s'il vous plaît ?",
+              "meaning": "I'm fine, thanks. A potion, please?"
+            },
+            {
+              "speaker": "b",
+              "text": "Bien sûr. Bonne chance pour la quête !",
+              "meaning": "Of course. Good luck with the quest!"
+            },
+            {
+              "speaker": "a",
+              "text": "Merci beaucoup, madame. Au revoir !",
+              "meaning": "Thank you very much, madam. Goodbye!"
+            },
+            {
+              "speaker": "b",
+              "text": "De rien. Au revoir, Nym !",
+              "meaning": "You're welcome. Goodbye, Nym!"
+            }
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🌼",
+      "content": "## Saluer à Meadowbrook\n\nOn market day you greet everyone: **bonjour, Rosa** at the graineterie, **salut, Léo** down at the river. The mayor gets **bonjour, monsieur le maire** and **vous**. New in town? **Je m'appelle Nora.** And for a bag of seeds: **s'il vous plaît**, then **merci**.",
+      "vocabulary": [
+        {
+          "term": "bonjour",
+          "example": "Bonjour, Rosa, ça va ?",
+          "example_meaning": "Hello, Rosa, how are you?"
+        },
+        {
+          "term": "salut",
+          "example": "Salut, Léo ! Ça va, la pêche ?",
+          "example_meaning": "Hi, Léo! How's the fishing?"
+        },
+        {
+          "term": "s'appeler",
+          "example": "Je m'appelle Nora, la nouvelle fermière.",
+          "example_meaning": "My name is Nora, the new farmer."
+        },
+        {
+          "term": "ça va ?",
+          "example": "Ça va, Rosa ? — Oui, ça va bien !",
+          "example_meaning": "How are you, Rosa? — Yes, I'm fine!"
+        },
+        {
+          "term": "merci",
+          "example": "Merci pour les fraises, Rosa !",
+          "example_meaning": "Thanks for the strawberries, Rosa!"
+        },
+        {
+          "term": "s'il vous plaît",
+          "example": "Des graines de citrouille, s'il vous plaît.",
+          "example_meaning": "Some pumpkin seeds, please."
+        },
+        {
+          "term": "au revoir",
+          "example": "Au revoir, et bonne récolte !",
+          "example_meaning": "Goodbye, and have a good harvest!"
+        },
+        {
+          "term": "la graineterie",
+          "meaning": "seed shop (f)",
+          "example": "La graineterie, s'il vous plaît ?",
+          "example_meaning": "The seed shop, please?"
+        },
+        {
+          "term": "le maire",
+          "meaning": "mayor",
+          "example": "Bonjour, monsieur le maire !",
+          "example_meaning": "Hello, Mr Mayor!"
+        },
+        {
+          "term": "le voisin / la voisine",
+          "meaning": "neighbour",
+          "example": "Salut, voisine ! Ça va ?",
+          "example_meaning": "Hi, neighbour! How are you?"
+        }
+      ],
+      "bites": [
+        {
+          "title": "Bonjour au marché",
+          "emoji": "🌼",
+          "rule": "Market day in Meadowbrook: bonjour to Rosa and the mayor, salut to Léo, s'il vous plaît for seeds, merci when you leave.",
+          "example": "Bonjour, Rosa ! Des graines, s'il vous plaît.",
+          "example_meaning": "Hello, Rosa! Some seeds, please."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Salut, Léo, ça va ?",
+          "meaning": "Hi, Léo, how are you?"
+        },
+        {
+          "text": "Bonjour, monsieur le maire.",
+          "meaning": "Hello, Mr Mayor."
+        },
+        {
+          "text": "Bonjour, je suis la nouvelle fermière.",
+          "meaning": "Hello, I'm the new farmer.",
+          "note": "New word: la fermière = the farmer."
+        },
+        {
+          "text": "Merci beaucoup, Rosa, et à demain.",
+          "meaning": "Thank you very much, Rosa, and see you tomorrow."
+        },
+        {
+          "text": "Des graines de maïs, s'il vous plaît, madame.",
+          "meaning": "Some corn seeds, please, madam.",
+          "note": "New word: les graines = seeds."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Bonjour, je m'appelle Nora.",
+          "meaning": "Hello, my name is Nora.",
+          "distractors": [
+            "s'appelle"
+          ]
+        },
+        {
+          "text": "Au revoir, monsieur le maire.",
+          "meaning": "Goodbye, Mr Mayor.",
+          "distractors": [
+            "salut"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Salut, monsieur le maire.",
+          "wrong": "Salut",
+          "fix": "Bonjour",
+          "why": "The mayor gets bonjour and vous, not salut."
+        },
+        {
+          "sentence": "Nous nous appelez Léo et Nora.",
+          "wrong": "appelez",
+          "fix": "appelons",
+          "why": "Nous takes -ons: nous nous appelons."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Arriving or leaving?",
+          "buckets": [
+            "arriving",
+            "leaving"
+          ],
+          "items": [
+            {
+              "text": "Bonjour, Rosa !",
+              "bucket": 0
+            },
+            {
+              "text": "Au revoir, Léo !",
+              "bucket": 1
+            },
+            {
+              "text": "Enchantée, monsieur le maire.",
+              "bucket": 0
+            },
+            {
+              "text": "À demain, voisin !",
+              "bucket": 1
+            },
+            {
+              "text": "Bonne journée, Rosa !",
+              "bucket": 1
+            },
+            {
+              "text": "Ça va, Léo ?",
+              "bucket": 0
+            }
+          ],
+          "why": "Bonjour, enchanté(e) and ça va open a visit; au revoir, à demain and bonne journée close it."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-greetings-meadowbrook-01",
+          "prompt": "You meet the mayor for the first time. You say…",
+          "type": "multiple-choice",
+          "options": [
+            "Bonjour, monsieur le maire. Enchanté.",
+            "Salut, le maire ! Ça va ?",
+            "Au revoir, monsieur le maire."
+          ],
+          "correct_answer": "Bonjour, monsieur le maire. Enchanté.",
+          "explanation": "A first meeting with the mayor: bonjour, monsieur le maire, and enchanté(e). Salut is too casual, au revoir is for leaving.",
+          "hints": [
+            "Polite, and you are arriving."
+          ],
+          "teaches": [
+            "bonjour",
+            "enchanté / enchantée",
+            "le maire"
+          ]
+        },
+        {
+          "question_id": "a1-greetings-meadowbrook-02",
+          "prompt": "At the graineterie: Des graines de fraise, s'il vous ___, Rosa.",
+          "type": "fill-in-blank",
+          "correct_answer": "plaît",
+          "accepted_answers": [
+            "plait"
+          ],
+          "explanation": "Please, with vous: s'il vous plaît.",
+          "hints": [
+            "S'il vous …"
+          ],
+          "teaches": [
+            "s'il vous plaît"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "a1-greetings-conv-meadowbrook-seed-shop",
+          "title": "At the seed shop",
+          "scenario": "Nora, the new farmer, walks into Rosa's graineterie for the first time.",
+          "role_a": "Nora",
+          "role_b": "Rosa",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Bonjour, madame !",
+              "meaning": "Hello, madam!"
+            },
+            {
+              "speaker": "b",
+              "text": "Bonjour ! Bienvenue à la graineterie.",
+              "meaning": "Hello! Welcome to the seed shop.",
+              "note": "Bienvenue = welcome."
+            },
+            {
+              "speaker": "a",
+              "text": "Merci ! Je m'appelle Nora, la nouvelle fermière.",
+              "meaning": "Thank you! My name is Nora, the new farmer."
+            },
+            {
+              "speaker": "b",
+              "text": "Enchantée, Nora. Je m'appelle Rosa.",
+              "meaning": "Pleased to meet you, Nora. My name is Rosa."
+            },
+            {
+              "speaker": "a",
+              "text": "Enchantée, Rosa. Des graines de fraise, s'il vous plaît.",
+              "meaning": "Pleased to meet you, Rosa. Some strawberry seeds, please."
+            },
+            {
+              "speaker": "b",
+              "text": "Bien sûr ! Bonne journée, Nora.",
+              "meaning": "Of course! Have a good day, Nora."
+            },
+            {
+              "speaker": "a",
+              "text": "Merci beaucoup. Au revoir, Rosa !",
+              "meaning": "Thank you very much. Goodbye, Rosa!"
+            },
+            {
+              "speaker": "b",
+              "text": "Au revoir et à bientôt !",
+              "meaning": "Goodbye and see you soon!"
+            }
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "📻",
+      "content": "## Saluer à Rustwake\n\nYou have just left **le Dôme**. On your **radio-montre**, greet Léo le fouilleur with **salut**. The contremaître Ruiz is your boss: **bonjour, monsieur** and **vous**. At the market of the scrap village, Marta la marchande hears **je m'appelle…**, **s'il vous plaît** and **merci**.",
+      "vocabulary": [
+        {
+          "term": "salut",
+          "example": "Salut, Léo, ça va ?",
+          "example_meaning": "Hi, Léo, how are you?"
+        },
+        {
+          "term": "bonjour",
+          "example": "Bonjour, monsieur Ruiz.",
+          "example_meaning": "Hello, Mr Ruiz."
+        },
+        {
+          "term": "s'appeler",
+          "example": "Je m'appelle Ada, du Dôme.",
+          "example_meaning": "My name is Ada, from the Dome."
+        },
+        {
+          "term": "merci",
+          "example": "Merci pour l'eau filtrée, Marta !",
+          "example_meaning": "Thanks for the filtered water, Marta!"
+        },
+        {
+          "term": "au revoir",
+          "example": "Au revoir, Marta, à bientôt !",
+          "example_meaning": "Goodbye, Marta, see you soon!"
+        },
+        {
+          "term": "de rien",
+          "example": "Merci, Léo ! — De rien, voisin.",
+          "example_meaning": "Thanks, Léo! — You're welcome, neighbour."
+        },
+        {
+          "term": "s'il vous plaît",
+          "example": "Un soda Saphir, s'il vous plaît.",
+          "example_meaning": "A Saphir soda, please."
+        },
+        {
+          "term": "la radio-montre",
+          "meaning": "wrist radio (f)",
+          "example": "Ma radio-montre dit bonjour.",
+          "example_meaning": "My wrist radio says hello."
+        },
+        {
+          "term": "le contremaître",
+          "meaning": "foreman (of the Dome)",
+          "example": "Bonjour, monsieur le contremaître.",
+          "example_meaning": "Hello, foreman."
+        },
+        {
+          "term": "les écrous",
+          "meaning": "nuts (the desert's currency)",
+          "example": "Merci pour les écrous, Marta !",
+          "example_meaning": "Thanks for the nuts, Marta!"
+        }
+      ],
+      "bites": [
+        {
+          "title": "Salut, le désert",
+          "emoji": "📻",
+          "rule": "Outside the Dôme: salut to Léo on the radio-montre, bonjour and vous to the contremaître, s'il vous plaît and merci at Marta's stall.",
+          "example": "Bonjour, Marta. Un soda Saphir, s'il vous plaît.",
+          "example_meaning": "Hello, Marta. A Saphir soda, please."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Salut, Léo, ici Ada.",
+          "meaning": "Hi, Léo, Ada here.",
+          "note": "New word: ici = here."
+        },
+        {
+          "text": "Au revoir, monsieur le contremaître, à demain.",
+          "meaning": "Goodbye, foreman, see you tomorrow."
+        },
+        {
+          "text": "Merci pour les écrous, madame.",
+          "meaning": "Thanks for the nuts, madam."
+        },
+        {
+          "text": "Bonsoir, madame la marchande. Vous vous appelez comment ?",
+          "meaning": "Good evening, madam. What's your name?"
+        },
+        {
+          "text": "Un soda Saphir, s'il vous plaît, et merci.",
+          "meaning": "A Saphir soda, please, and thank you.",
+          "note": "New word: le soda = soda."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Bonjour, monsieur le contremaître.",
+          "meaning": "Hello, foreman.",
+          "distractors": [
+            "salut"
+          ]
+        },
+        {
+          "text": "Elle s'appelle Marta la marchande.",
+          "meaning": "Her name is Marta the merchant.",
+          "distractors": [
+            "m'appelle"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Salut, monsieur le contremaître.",
+          "wrong": "Salut",
+          "fix": "Bonjour",
+          "why": "Your boss gets bonjour and vous, not salut."
+        },
+        {
+          "sentence": "Ils s'appelle Léo et Marta.",
+          "wrong": "s'appelle",
+          "fix": "s'appellent",
+          "why": "Ils takes -ent: ils s'appellent."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Salut or bonjour in the desert?",
+          "buckets": [
+            "salut",
+            "bonjour"
+          ],
+          "items": [
+            {
+              "text": "Léo, your scavenger friend",
+              "bucket": 0
+            },
+            {
+              "text": "the contremaître Ruiz",
+              "bucket": 1
+            },
+            {
+              "text": "a merchant you don't know",
+              "bucket": 1
+            },
+            {
+              "text": "your guard dog",
+              "bucket": 0
+            },
+            {
+              "text": "your best friend from the Dôme",
+              "bucket": 0
+            },
+            {
+              "text": "a group of strangers",
+              "bucket": 1
+            }
+          ],
+          "why": "Friends (and your dog) get salut; your boss, strangers and groups of strangers get bonjour."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-greetings-rustwake-01",
+          "prompt": "Marta hands you filtered water and you say Merci. She answers…",
+          "type": "multiple-choice",
+          "options": [
+            "De rien.",
+            "Enchantée.",
+            "Bonsoir."
+          ],
+          "correct_answer": "De rien.",
+          "explanation": "The reply to merci is de rien.",
+          "hints": [
+            "You're welcome."
+          ],
+          "teaches": [
+            "de rien",
+            "merci"
+          ]
+        },
+        {
+          "question_id": "a1-greetings-rustwake-02",
+          "prompt": "On the radio-montre: Salut, ça ___, Léo ?",
+          "type": "fill-in-blank",
+          "correct_answer": "va",
+          "accepted_answers": [],
+          "explanation": "Ça va ? asks how someone is.",
+          "hints": [
+            "How's it going? Ça …"
+          ],
+          "teaches": [
+            "ça va ?"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "a1-greetings-conv-rustwake-market",
+          "title": "First day at the market",
+          "scenario": "Ada has just left the Dôme and reaches Marta's stall in the scrap village.",
+          "role_a": "Ada",
+          "role_b": "Marta",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Bonjour, madame.",
+              "meaning": "Hello, madam."
+            },
+            {
+              "speaker": "b",
+              "text": "Bonjour ! Comment tu t'appelles ?",
+              "meaning": "Hello! What's your name?",
+              "note": "Out in the desert, Marta says tu at once."
+            },
+            {
+              "speaker": "a",
+              "text": "Je m'appelle Ada. Et vous ?",
+              "meaning": "My name is Ada. And you?"
+            },
+            {
+              "speaker": "b",
+              "text": "Je m'appelle Marta. Salut, Ada !",
+              "meaning": "My name is Marta. Hi, Ada!"
+            },
+            {
+              "speaker": "a",
+              "text": "Enchantée, Marta. Un soda Saphir, s'il vous plaît.",
+              "meaning": "Pleased to meet you, Marta. A Saphir soda, please."
+            },
+            {
+              "speaker": "b",
+              "text": "Trois écrous, s'il te plaît.",
+              "meaning": "Three nuts, please.",
+              "note": "Marta says tu, so she says s'il te plaît."
+            },
+            {
+              "speaker": "a",
+              "text": "Merci, Marta ! Au revoir.",
+              "meaning": "Thanks, Marta! Goodbye."
+            },
+            {
+              "speaker": "b",
+              "text": "De rien. Salut, Ada, à bientôt !",
+              "meaning": "You're welcome. Bye, Ada, see you soon!"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

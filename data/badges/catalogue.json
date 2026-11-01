@@ -1,0 +1,26 @@
+[
+  {
+    "id": "sprout",
+    "price": 50
+  },
+  {
+    "id": "lantern",
+    "price": 100
+  },
+  {
+    "id": "kite",
+    "price": 200
+  },
+  {
+    "id": "compass",
+    "price": 400
+  },
+  {
+    "id": "lighthouse",
+    "price": 800
+  },
+  {
+    "id": "comet",
+    "price": 1500
+  }
+]

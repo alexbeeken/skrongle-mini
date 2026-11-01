@@ -1,0 +1,1154 @@
+{
+  "id": "a1-hay-weather",
+  "slug": "hay-there-is-and-weather",
+  "title": "Hay: there is, there are, and the weather",
+  "unit": "A1",
+  "group": "Grammar",
+  "order": 24,
+  "summary": "Hay never changes, and está points to a specific thing. The lesson also covers hace calor, hay niebla and está nublado.",
+  "focus": "Hay vs está; weather with hace, hay and está",
+  "prerequisites": [
+    "a1-ser-vs-estar",
+    "a1-nouns-articles"
+  ],
+  "content": "## Hay: there is / there are\n\n**Hay** is a special form of *haber* and has one single form for singular and plural:\n\n- *Hay un banco en la plaza.* (There is a bank in the square.)\n- *Hay muchos coches.* (There are lots of cars.)\n- *No hay leche.* (There's no milk.)\n- *¿Hay una farmacia cerca?* (Is there a chemist's nearby?)\n\nUse *hay* with **un/una, unos/unas, numbers, mucho/poco** or **no article**. Never use it with *el/la*.\n\n## Hay or está?\n\n- **hay** introduces something **new or unspecified**: *Hay un libro en la mesa.*\n- **estar** locates a **specific, known** thing: *El libro está en la mesa.*\n\nAs a rule of thumb, use **está / están** with *el/la/los/las* or a name, and **hay** with *un/una*, a number or no article.\n\n## Talking about the weather\n\nSpanish uses three verbs for the weather:\n\n| hacer | hay | estar / ser |\n|---|---|---|\n| hace calor: it's hot | hay sol: it's sunny | está nublado: it's cloudy |\n| hace frío: it's cold | hay niebla: it's foggy | está lloviendo: it's raining |\n| hace sol: it's sunny | hay viento: it's windy | es de noche: it's night |\n| hace buen / mal tiempo: the weather is good / bad | hay tormenta: there's a storm | |\n\n*¿Qué tiempo hace?* means \"What's the weather like?\" *Llueve* (it rains) and *nieva* (it snows) are verbs on their own.",
+  "vocabulary": [
+    {
+      "term": "hay",
+      "meaning": "there is / there are",
+      "example": "Hay un banco aquí.",
+      "example_meaning": "There is a bank here."
+    },
+    {
+      "term": "el banco",
+      "meaning": "bank",
+      "example": "El banco está en la plaza.",
+      "example_meaning": "The bank is in the square."
+    },
+    {
+      "term": "la farmacia",
+      "meaning": "chemist's, pharmacy",
+      "example": "¿Hay una farmacia cerca?",
+      "example_meaning": "Is there a pharmacy nearby?"
+    },
+    {
+      "term": "la plaza",
+      "meaning": "square",
+      "example": "Hay un café en la plaza.",
+      "example_meaning": "There is a cafe in the square."
+    },
+    {
+      "term": "cerca",
+      "meaning": "near, nearby",
+      "example": "Está cerca.",
+      "example_meaning": "It's nearby."
+    },
+    {
+      "term": "lejos",
+      "meaning": "far",
+      "example": "El aeropuerto está lejos.",
+      "example_meaning": "The airport is far away."
+    },
+    {
+      "term": "hace calor",
+      "meaning": "it's hot",
+      "example": "Hoy hace calor.",
+      "example_meaning": "It's hot today."
+    },
+    {
+      "term": "hace frío",
+      "meaning": "it's cold",
+      "example": "En enero hace frío.",
+      "example_meaning": "In January it's cold."
+    },
+    {
+      "term": "hace sol",
+      "meaning": "it's sunny",
+      "example": "Hace sol y hace calor.",
+      "example_meaning": "It's sunny and it's hot."
+    },
+    {
+      "term": "llueve",
+      "meaning": "it rains / it's raining",
+      "example": "Llueve mucho en abril.",
+      "example_meaning": "It rains a lot in April."
+    },
+    {
+      "term": "está nublado",
+      "meaning": "it's cloudy",
+      "example": "Hoy está nublado.",
+      "example_meaning": "It's cloudy today."
+    },
+    {
+      "term": "el tiempo",
+      "meaning": "weather; time",
+      "example": "¿Qué tiempo hace?",
+      "example_meaning": "What's the weather like?"
+    },
+    {
+      "term": "la leche",
+      "meaning": "milk",
+      "example": "No hay leche.",
+      "example_meaning": "There is no milk."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-hay-01",
+      "prompt": "___ un supermercado en esta calle.",
+      "type": "multiple-choice",
+      "options": [
+        "Hay",
+        "Está",
+        "Es"
+      ],
+      "correct_answer": "Hay",
+      "explanation": "Something unspecified (un supermercado) takes hay.",
+      "hints": [
+        "un → hay"
+      ],
+      "teaches": [
+        "hay"
+      ]
+    },
+    {
+      "question_id": "a1-hay-02",
+      "prompt": "El banco ___ en la plaza.",
+      "type": "multiple-choice",
+      "options": [
+        "está",
+        "hay",
+        "es"
+      ],
+      "correct_answer": "está",
+      "explanation": "You locate a specific thing (el banco) with estar.",
+      "hints": [
+        "el → está"
+      ],
+      "teaches": [
+        "el banco",
+        "la plaza"
+      ]
+    },
+    {
+      "question_id": "a1-hay-03",
+      "prompt": "___ muchos estudiantes en la clase.",
+      "type": "multiple-choice",
+      "options": [
+        "Hay",
+        "Están",
+        "Hayn"
+      ],
+      "correct_answer": "Hay",
+      "explanation": "Hay has one form for singular and plural.",
+      "hints": [
+        "hay never changes"
+      ],
+      "teaches": [
+        "hay"
+      ]
+    },
+    {
+      "question_id": "a1-hay-04",
+      "prompt": "Translate: It's hot today. → Hoy ___ calor.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "hace",
+      "accepted_answers": [],
+      "explanation": "Temperature takes hacer: hace calor.",
+      "hints": [
+        "hacer + calor"
+      ],
+      "teaches": [
+        "hace calor"
+      ]
+    },
+    {
+      "question_id": "a1-hay-05",
+      "prompt": "Hoy ___ nublado.",
+      "type": "multiple-choice",
+      "options": [
+        "está",
+        "hay",
+        "hace"
+      ],
+      "correct_answer": "está",
+      "explanation": "Nublado describes a state, so: está nublado.",
+      "hints": [
+        "a state → estar"
+      ],
+      "teaches": [
+        "está nublado"
+      ]
+    },
+    {
+      "question_id": "a1-hay-06",
+      "prompt": "¿___ una farmacia cerca?",
+      "type": "multiple-choice",
+      "options": [
+        "Hay",
+        "Está",
+        "Es"
+      ],
+      "correct_answer": "Hay",
+      "explanation": "To ask whether one exists, use hay.",
+      "hints": [
+        "una → hay"
+      ],
+      "teaches": [
+        "la farmacia",
+        "cerca"
+      ]
+    },
+    {
+      "question_id": "a1-hay-07",
+      "prompt": "Translate: There is no milk. → No ___ leche.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "hay",
+      "accepted_answers": [],
+      "explanation": "Hay takes no article here, and you negate it with no.",
+      "hints": [
+        "No goes before the verb, and 'there is' never changes form."
+      ],
+      "teaches": [
+        "hay",
+        "la leche"
+      ]
+    },
+    {
+      "question_id": "a1-hay-08",
+      "prompt": "¿Qué tiempo hace? — ___ sol.",
+      "type": "multiple-choice",
+      "options": [
+        "Hace",
+        "Está",
+        "Es"
+      ],
+      "correct_answer": "Hace",
+      "explanation": "Use hace sol (or hay sol) for sunshine.",
+      "hints": [
+        "hacer"
+      ],
+      "teaches": [
+        "hace sol",
+        "el tiempo"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Hoy hace mucho frío.",
+      "meaning": "It's very cold today."
+    },
+    {
+      "text": "Hace sol en la plaza.",
+      "meaning": "It's sunny in the square."
+    },
+    {
+      "text": "¿Hay una farmacia cerca del banco?",
+      "meaning": "Is there a chemist's near the bank?",
+      "note": "Hay with un / una, está with el / la."
+    },
+    {
+      "text": "No hay leche en la nevera.",
+      "meaning": "There's no milk in the fridge.",
+      "note": "New word: la nevera = the fridge."
+    },
+    {
+      "text": "Está nublado y llueve un poco.",
+      "meaning": "It's cloudy and it's raining a bit."
+    },
+    {
+      "text": "¿Qué tiempo hace en Madrid en invierno?",
+      "meaning": "What's the weather like in Madrid in winter?",
+      "note": "New word: el invierno = winter."
+    },
+    {
+      "text": "Hay un supermercado grande cerca de mi casa.",
+      "meaning": "There's a big supermarket near my house."
+    },
+    {
+      "text": "No hace frío, pero está nublado y va a llover por la tarde.",
+      "meaning": "It isn't cold, but it's cloudy and it's going to rain in the afternoon."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Hay"
+    },
+    {
+      "vocab": 6
+    },
+    {
+      "question": "a1-hay-01"
+    },
+    {
+      "question": "a1-hay-03"
+    },
+    {
+      "question": "a1-hay-07"
+    },
+    {
+      "section": "Hay or está"
+    },
+    {
+      "question": "a1-hay-02"
+    },
+    {
+      "question": "a1-hay-06"
+    },
+    {
+      "section": "Talking about the weather"
+    },
+    {
+      "vocab": 7
+    },
+    {
+      "question": "a1-hay-04"
+    },
+    {
+      "question": "a1-hay-05"
+    },
+    {
+      "question": "a1-hay-08"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-hay-conv-tourist",
+      "title": "Asking the way",
+      "scenario": "A tourist asks a local what there is nearby.",
+      "role_a": "Turista",
+      "role_b": "Vecina",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Perdone, ¿hay una farmacia cerca?",
+          "meaning": "Excuse me, is there a chemist's nearby?",
+          "note": "hay + una"
+        },
+        {
+          "speaker": "b",
+          "text": "Sí, hay una en la plaza. Está al lado del banco.",
+          "meaning": "Yes, there's one in the square. It's next to the bank.",
+          "note": "está: specific place"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Y hay un supermercado?",
+          "meaning": "And is there a supermarket?"
+        },
+        {
+          "speaker": "b",
+          "text": "Hay dos. El grande está lejos, pero el pequeño está aquí.",
+          "meaning": "There are two. The big one is far, but the small one is here."
+        },
+        {
+          "speaker": "a",
+          "text": "Gracias. ¡Hoy hace mucho calor!",
+          "meaning": "Thanks. It's really hot today!",
+          "note": "hace calor"
+        },
+        {
+          "speaker": "b",
+          "text": "Sí, hace sol, pero mañana llueve.",
+          "meaning": "Yes, it's sunny, but tomorrow it rains."
+        },
+        {
+          "speaker": "a",
+          "text": "¿Hay un parque con sombra?",
+          "meaning": "Is there a park with shade?"
+        },
+        {
+          "speaker": "b",
+          "text": "Claro, el parque está detrás de la iglesia.",
+          "meaning": "Of course, the park is behind the church."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "⛅",
+    "bites": [
+      {
+        "title": "Hay never changes",
+        "emoji": "🧱",
+        "rule": "Hay is the simplest verb in Spanish. It has one form for 'there is' and 'there are'. One bank or ten banks, it's still hay.",
+        "example": "Hay un banco y hay muchos coches.",
+        "example_meaning": "There's a bank and there are lots of cars."
+      },
+      {
+        "title": "Hay meets, está locates",
+        "emoji": "📍",
+        "rule": "Un/una, a number or no article means hay (something new). El/la or a name means está (something you already know).",
+        "example": "Hay una farmacia. La farmacia está en la plaza.",
+        "example_meaning": "There's a chemist's. The chemist's is in the square."
+      },
+      {
+        "title": "Hace for heat",
+        "emoji": "🌡️",
+        "rule": "Temperature and sunshine use hacer: hace calor, hace frío, hace sol. Think of the day as 'making' heat. Also say mucho calor, never muy calor.",
+        "example": "Hoy hace mucho calor.",
+        "example_meaning": "It's really hot today."
+      },
+      {
+        "title": "Three weather verbs",
+        "emoji": "⛅",
+        "rule": "Hacer for temperature (hace frío), hay for things in the air (hay niebla, hay viento), estar for how the sky looks (está nublado). Llueve and nieva work alone.",
+        "example": "Está nublado, pero no llueve.",
+        "example_meaning": "It's cloudy, but it isn't raining."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Hay or está?",
+        "buckets": [
+          "hay",
+          "está / están"
+        ],
+        "items": [
+          {
+            "text": "___ un banco en la plaza.",
+            "bucket": 0
+          },
+          {
+            "text": "El banco ___ en la plaza.",
+            "bucket": 1
+          },
+          {
+            "text": "___ muchos coches.",
+            "bucket": 0
+          },
+          {
+            "text": "La farmacia ___ cerca.",
+            "bucket": 1
+          },
+          {
+            "text": "No ___ leche.",
+            "bucket": 0
+          },
+          {
+            "text": "Los niños ___ en el parque.",
+            "bucket": 1
+          },
+          {
+            "text": "___ dos supermercados.",
+            "bucket": 0
+          },
+          {
+            "text": "Madrid ___ lejos.",
+            "bucket": 1
+          }
+        ],
+        "why": "Hay introduces something new (un, numbers, no article), and está/están locate a specific thing (el/la, a name)."
+      },
+      {
+        "title": "Which weather verb?",
+        "buckets": [
+          "hace",
+          "hay",
+          "está"
+        ],
+        "items": [
+          {
+            "text": "calor",
+            "bucket": 0
+          },
+          {
+            "text": "frío",
+            "bucket": 0
+          },
+          {
+            "text": "niebla",
+            "bucket": 1
+          },
+          {
+            "text": "viento",
+            "bucket": 1
+          },
+          {
+            "text": "nublado",
+            "bucket": 2
+          },
+          {
+            "text": "lloviendo",
+            "bucket": 2
+          },
+          {
+            "text": "buen tiempo",
+            "bucket": 0
+          },
+          {
+            "text": "tormenta",
+            "bucket": 1
+          }
+        ],
+        "why": "Hacer goes with temperature and good or bad weather, hay with niebla, viento and tormenta, estar with nublado and lloviendo."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "La farmacia hay en la plaza.",
+        "wrong": "hay",
+        "fix": "está",
+        "why": "La farmacia is a specific place, so locate it with está."
+      },
+      {
+        "sentence": "Hayn muchos estudiantes en la clase.",
+        "wrong": "Hayn",
+        "fix": "Hay",
+        "why": "Hay never changes, even for plurals."
+      },
+      {
+        "sentence": "¿Está una farmacia cerca?",
+        "wrong": "Está",
+        "fix": "Hay",
+        "why": "A question about whether one exists (una) needs hay."
+      },
+      {
+        "sentence": "Hoy hace nublado.",
+        "wrong": "hace",
+        "fix": "está",
+        "why": "Nublado describes how the sky looks: está nublado."
+      },
+      {
+        "sentence": "En enero está mucho frío.",
+        "wrong": "está",
+        "fix": "hace",
+        "why": "Temperature takes hacer: hace frío."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Hay una farmacia en la plaza.",
+        "meaning": "There's a chemist's in the square.",
+        "distractors": [
+          "está"
+        ]
+      },
+      {
+        "text": "El banco está cerca.",
+        "meaning": "The bank is nearby.",
+        "distractors": [
+          "hay"
+        ]
+      },
+      {
+        "text": "No hay leche en casa.",
+        "meaning": "There's no milk at home.",
+        "distractors": [
+          "está"
+        ]
+      },
+      {
+        "text": "Hoy hace mucho calor.",
+        "meaning": "It's really hot today.",
+        "distractors": [
+          "está",
+          "muy"
+        ]
+      },
+      {
+        "text": "¿Qué tiempo hace hoy?",
+        "meaning": "What's the weather like today?",
+        "distractors": [
+          "está"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🐉",
+      "content": "## Hay en Eldmark\n\n**Hay** names what is there: **hay un dragón**, **hay tres jefes en la mazmorra**. **Está** says where a known thing is: **el dragón está en la montaña**. For the weather, use **hace frío** in Frostmarch and **hace calor** in Redsand. Frostmarch also has snow: **hay nieve**.",
+      "vocabulary": [
+        {
+          "term": "hay",
+          "example": "Hay un jefe en la mazmorra.",
+          "example_meaning": "There is a boss in the dungeon."
+        },
+        {
+          "term": "cerca",
+          "example": "La posada está cerca del banco.",
+          "example_meaning": "The inn is near the bank."
+        },
+        {
+          "term": "lejos",
+          "example": "Emberhold está lejos.",
+          "example_meaning": "Emberhold is far away."
+        },
+        {
+          "term": "hace frío",
+          "example": "En Frostmarch hace mucho frío.",
+          "example_meaning": "In Frostmarch it's very cold."
+        },
+        {
+          "term": "hace calor",
+          "example": "En Redsand hace calor.",
+          "example_meaning": "In Redsand it's hot."
+        },
+        {
+          "term": "está nublado",
+          "example": "En el Bosque Umbrío siempre está nublado.",
+          "example_meaning": "In the Bosque Umbrío it's always cloudy."
+        },
+        {
+          "term": "el jefe",
+          "meaning": "boss",
+          "example": "Hay tres jefes en la mazmorra.",
+          "example_meaning": "There are three bosses in the dungeon."
+        },
+        {
+          "term": "el dragón",
+          "meaning": "dragon",
+          "example": "Hay un dragón en la montaña.",
+          "example_meaning": "There is a dragon on the mountain."
+        },
+        {
+          "term": "la nieve",
+          "meaning": "snow",
+          "example": "En Frostmarch hay nieve.",
+          "example_meaning": "In Frostmarch there is snow."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Hay en Eldmark",
+          "emoji": "🐉",
+          "rule": "Hay counts what's there (hay un dragón, hay tres jefes); está says where a known thing is (el dragón está en la montaña). For weather, hace frío in Frostmarch and hace calor in Redsand.",
+          "example": "Hay un dragón y está en la montaña.",
+          "example_meaning": "There's a dragon and it's on the mountain."
+        }
+      ],
+      "listening": [
+        {
+          "text": "En la mazmorra hay un jefe muy alto.",
+          "meaning": "In the dungeon there's a very tall boss.",
+          "note": "New word: el jefe = boss."
+        },
+        {
+          "text": "En Frostmarch hace mucho frío y hay nieve.",
+          "meaning": "In Frostmarch it's very cold and there's snow.",
+          "note": "New word: la nieve = snow."
+        },
+        {
+          "text": "La posada está cerca y hace frío.",
+          "meaning": "The inn is nearby and it's cold."
+        },
+        {
+          "text": "En Redsand hace calor y hace sol.",
+          "meaning": "In Redsand it's hot and sunny."
+        },
+        {
+          "text": "El dragón está en la montaña.",
+          "meaning": "The dragon is on the mountain.",
+          "note": "A known thing, located: está."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Hay tres jefes en la mazmorra.",
+          "meaning": "There are three bosses in the dungeon.",
+          "distractors": [
+            "están",
+            "está"
+          ]
+        },
+        {
+          "text": "En Frostmarch hace mucho frío.",
+          "meaning": "In Frostmarch it's very cold.",
+          "distractors": [
+            "está",
+            "muy"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Están tres jefes en la mazmorra.",
+          "wrong": "Están",
+          "fix": "Hay",
+          "why": "To count what is there, use hay."
+        },
+        {
+          "sentence": "En Frostmarch está frío.",
+          "wrong": "está",
+          "fix": "hace",
+          "why": "For weather, use hace frío."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Hay or está?",
+          "buckets": [
+            "hay",
+            "está"
+          ],
+          "items": [
+            {
+              "text": "___ un dragón en la montaña",
+              "bucket": 0
+            },
+            {
+              "text": "El dragón ___ en la montaña",
+              "bucket": 1
+            },
+            {
+              "text": "___ tres jefes aquí",
+              "bucket": 0
+            },
+            {
+              "text": "La posada ___ cerca",
+              "bucket": 1
+            },
+            {
+              "text": "___ nieve en Frostmarch",
+              "bucket": 0
+            }
+          ],
+          "why": "Hay introduces something (a, some, numbers), and está locates something known (the)."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-hay-realm-01",
+          "prompt": "___ tres jefes en la mazmorra.",
+          "type": "multiple-choice",
+          "options": [
+            "Hay",
+            "Están",
+            "Son"
+          ],
+          "correct_answer": "Hay",
+          "explanation": "To count what exists somewhere, use hay.",
+          "hints": [
+            "A number: hay."
+          ],
+          "teaches": [
+            "hay",
+            "el jefe"
+          ]
+        },
+        {
+          "question_id": "a1-hay-realm-02",
+          "prompt": "En Frostmarch ___ mucho frío.",
+          "type": "fill-in-blank",
+          "correct_answer": "hace",
+          "accepted_answers": [],
+          "explanation": "Weather takes hacer: hace frío.",
+          "hints": [
+            "The weather does cold."
+          ],
+          "teaches": [
+            "hace frío"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🌧️",
+      "content": "## El tiempo en el valle\n\nThe weather decides the day. When **hace sol**, you work in the garden. When **llueve**, the garden needs no water. In winter **hace frío** and nothing grows. **Hay** names what is there: **hay tres gallinas**, **hay un río cerca del pueblo**.",
+      "vocabulary": [
+        {
+          "term": "hay",
+          "example": "Hay tres gallinas en el gallinero.",
+          "example_meaning": "There are three hens in the henhouse."
+        },
+        {
+          "term": "cerca",
+          "example": "El río está cerca de la granja.",
+          "example_meaning": "The river is near the farm."
+        },
+        {
+          "term": "lejos",
+          "example": "La mina está lejos del pueblo.",
+          "example_meaning": "The mine is far from town."
+        },
+        {
+          "term": "hace sol",
+          "example": "Hoy hace sol y trabajo en el huerto.",
+          "example_meaning": "Today it's sunny and I'm working in the garden."
+        },
+        {
+          "term": "llueve",
+          "example": "Cuando llueve, el huerto no necesita agua.",
+          "example_meaning": "When it rains, the garden doesn't need water."
+        },
+        {
+          "term": "hace frío",
+          "example": "En invierno hace frío y no crece nada.",
+          "example_meaning": "In winter it's cold and nothing grows."
+        },
+        {
+          "term": "está nublado",
+          "example": "Está nublado, va a llover.",
+          "example_meaning": "It's cloudy, it's going to rain."
+        },
+        {
+          "term": "el tiempo",
+          "example": "¿Qué tiempo hace en el valle?",
+          "example_meaning": "What's the weather like in the valley?"
+        },
+        {
+          "term": "la leche",
+          "example": "Hay leche fresca de la vaca.",
+          "example_meaning": "There is fresh milk from the cow."
+        },
+        {
+          "term": "el río",
+          "meaning": "river",
+          "example": "Hay un río cerca del pueblo.",
+          "example_meaning": "There's a river near the town."
+        },
+        {
+          "term": "el invierno",
+          "meaning": "winter",
+          "example": "En invierno hace frío.",
+          "example_meaning": "In winter it's cold."
+        },
+        {
+          "term": "la primavera",
+          "meaning": "spring",
+          "example": "En primavera llueve mucho.",
+          "example_meaning": "In spring it rains a lot."
+        },
+        {
+          "term": "crecer",
+          "meaning": "to grow",
+          "example": "Las fresas crecen en primavera.",
+          "example_meaning": "Strawberries grow in spring."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Hay y el tiempo en el valle",
+          "emoji": "🌧️",
+          "rule": "Hay names what is there (hay tres gallinas, hay un río). The weather takes hace or a verb of its own: hace sol, hace frío, llueve.",
+          "example": "Hay un río y hoy hace sol.",
+          "example_meaning": "There's a river and today it's sunny."
+        }
+      ],
+      "listening": [
+        {
+          "text": "En la granja hay dos vacas y una gallina.",
+          "meaning": "On the farm there are two cows and a hen."
+        },
+        {
+          "text": "Hoy hace sol en el valle.",
+          "meaning": "Today it's sunny in the valley."
+        },
+        {
+          "text": "Hoy llueve y no trabajo en el huerto.",
+          "meaning": "Today it's raining and I'm not working in the garden."
+        },
+        {
+          "text": "En primavera las fresas crecen mucho.",
+          "meaning": "In spring the strawberries grow a lot.",
+          "note": "New word: crecer = to grow."
+        },
+        {
+          "text": "El río está lejos de la mina.",
+          "meaning": "The river is far from the mine.",
+          "note": "New word: el río = river."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Hay tres gallinas en el gallinero.",
+          "meaning": "There are three hens in the henhouse.",
+          "distractors": [
+            "están",
+            "son"
+          ]
+        },
+        {
+          "text": "En invierno hace frío.",
+          "meaning": "In winter it's cold.",
+          "distractors": [
+            "está",
+            "es"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Están tres gallinas en el gallinero.",
+          "wrong": "Están",
+          "fix": "Hay",
+          "why": "To count what is there, use hay."
+        },
+        {
+          "sentence": "Hoy está sol.",
+          "wrong": "está",
+          "fix": "hace",
+          "why": "For weather, use hace sol."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Hay or está?",
+          "buckets": [
+            "hay",
+            "está"
+          ],
+          "items": [
+            {
+              "text": "___ un río cerca",
+              "bucket": 0
+            },
+            {
+              "text": "El río ___ cerca",
+              "bucket": 1
+            },
+            {
+              "text": "___ leche fresca",
+              "bucket": 0
+            },
+            {
+              "text": "La mina ___ lejos",
+              "bucket": 1
+            },
+            {
+              "text": "___ tres gallinas",
+              "bucket": 0
+            }
+          ],
+          "why": "Hay introduces something (a, some, numbers), and está locates something known (the)."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-hay-meadowbrook-01",
+          "prompt": "___ tres gallinas en el gallinero.",
+          "type": "multiple-choice",
+          "options": [
+            "Hay",
+            "Están",
+            "Son"
+          ],
+          "correct_answer": "Hay",
+          "explanation": "To count what exists somewhere, use hay.",
+          "hints": [
+            "A number: hay."
+          ],
+          "teaches": [
+            "hay"
+          ]
+        },
+        {
+          "question_id": "a1-hay-meadowbrook-02",
+          "prompt": "Hoy ___ sol y trabajo en el huerto.",
+          "type": "fill-in-blank",
+          "correct_answer": "hace",
+          "accepted_answers": [],
+          "explanation": "Weather takes hacer: hace sol.",
+          "hints": [
+            "The weather does sun."
+          ],
+          "teaches": [
+            "hace sol"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🌩️",
+      "content": "## Hay y el tiempo en el páramo\n\n**Hay** names what is out there: **hay tres escarabajos gigantes**, **no hay agua filtrada**. **Está** places a known thing: **la cúpula está cerca**. On the plains the weather is **hace calor**, **hace sol**, **hay polvo**, **hay una tormenta de ceniza** and sometimes **está nublado**.",
+      "vocabulary": [
+        {
+          "term": "hay",
+          "example": "Hay tres escarabajos gigantes en la gasolinera.",
+          "example_meaning": "There are three giant beetles at the petrol station."
+        },
+        {
+          "term": "cerca",
+          "example": "El pueblo de chatarra está cerca de la cúpula.",
+          "example_meaning": "The scrap town is near the Dome."
+        },
+        {
+          "term": "lejos",
+          "example": "La antena está lejos.",
+          "example_meaning": "The antenna is far away."
+        },
+        {
+          "term": "hace calor",
+          "example": "En el páramo hace mucho calor.",
+          "example_meaning": "On the plains it's very hot."
+        },
+        {
+          "term": "hace sol",
+          "example": "Hoy hace sol y no hay polvo.",
+          "example_meaning": "Today it's sunny and there is no dust."
+        },
+        {
+          "term": "está nublado",
+          "example": "Está nublado sobre el centro comercial en ruinas.",
+          "example_meaning": "It's cloudy over the ruined shopping centre."
+        },
+        {
+          "term": "la tormenta de ceniza",
+          "meaning": "ash storm",
+          "example": "Esta noche hay una tormenta de ceniza.",
+          "example_meaning": "Tonight there is an ash storm."
+        },
+        {
+          "term": "el polvo",
+          "meaning": "dust",
+          "example": "Hay mucho polvo en el páramo.",
+          "example_meaning": "There's a lot of dust on the plains."
+        },
+        {
+          "term": "el agua filtrada",
+          "meaning": "filtered water",
+          "example": "No hay agua filtrada en el mercado.",
+          "example_meaning": "There's no filtered water at the market."
+        },
+        {
+          "term": "el escarabajo gigante",
+          "meaning": "giant beetle",
+          "example": "Hay un escarabajo gigante en el taller.",
+          "example_meaning": "There is a giant beetle in the workshop."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Hay en el páramo",
+          "emoji": "🌪️",
+          "rule": "Hay names what is out there: hay polvo, hay una tormenta de ceniza, no hay agua. Está places a known thing: la cúpula está cerca. Heat takes hacer: hace calor.",
+          "example": "Hace calor y hay mucho polvo.",
+          "example_meaning": "It's hot and there's a lot of dust."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Hay un escarabajo gigante cerca de la antena.",
+          "meaning": "There's a giant beetle near the antenna.",
+          "note": "New word: el escarabajo gigante = giant beetle."
+        },
+        {
+          "text": "En el pueblo de chatarra hay agua filtrada.",
+          "meaning": "In the scrap town there's filtered water.",
+          "note": "New word: el agua filtrada = filtered water."
+        },
+        {
+          "text": "Hoy hace sol y hace mucho calor.",
+          "meaning": "Today it's sunny and it's very hot."
+        },
+        {
+          "text": "Hay una tormenta de ceniza, ¿está cerca el taller?",
+          "meaning": "There's an ash storm, is the workshop nearby?",
+          "note": "New word: la tormenta de ceniza = ash storm."
+        },
+        {
+          "text": "La cúpula está lejos y está nublado.",
+          "meaning": "The Dome is far away and it's cloudy.",
+          "note": "La cúpula is a known thing: está, not hay."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Hay mucho polvo en el páramo.",
+          "meaning": "There's a lot of dust on the plains.",
+          "distractors": [
+            "está",
+            "es"
+          ]
+        },
+        {
+          "text": "La antena está lejos.",
+          "meaning": "The antenna is far away.",
+          "distractors": [
+            "hay",
+            "son"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Está un escarabajo gigante en el taller.",
+          "wrong": "Está",
+          "fix": "Hay",
+          "why": "Un (an unspecified one) takes hay."
+        },
+        {
+          "sentence": "En el páramo está mucho calor.",
+          "wrong": "está",
+          "fix": "hace",
+          "why": "Heat takes hacer: hace calor."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Hay or está?",
+          "buckets": [
+            "hay",
+            "está"
+          ],
+          "items": [
+            {
+              "text": "___ mucho polvo hoy",
+              "bucket": 0
+            },
+            {
+              "text": "La cúpula ___ cerca",
+              "bucket": 1
+            },
+            {
+              "text": "___ una tormenta de ceniza",
+              "bucket": 0
+            },
+            {
+              "text": "La capataza ___ en el taller",
+              "bucket": 1
+            },
+            {
+              "text": "No ___ agua filtrada",
+              "bucket": 0
+            },
+            {
+              "text": "El mercado ___ lejos",
+              "bucket": 1
+            }
+          ],
+          "why": "Hay introduces something (a, some, numbers, nothing), and está locates a known thing (the, a name)."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-hay-weather-rustwake-01",
+          "prompt": "___ tres escarabajos gigantes en la gasolinera.",
+          "type": "multiple-choice",
+          "options": [
+            "Hay",
+            "Están",
+            "Son"
+          ],
+          "correct_answer": "Hay",
+          "explanation": "To count what is there (a number, no el/la), use hay, which never changes.",
+          "hints": [
+            "A number: hay."
+          ],
+          "teaches": [
+            "hay",
+            "el escarabajo gigante"
+          ]
+        },
+        {
+          "question_id": "a1-hay-weather-rustwake-02",
+          "prompt": "En el páramo ___ mucho calor.",
+          "type": "fill-in-blank",
+          "correct_answer": "hace",
+          "accepted_answers": [],
+          "explanation": "Heat takes hacer: hace calor.",
+          "hints": [
+            "The weather DOES heat."
+          ],
+          "teaches": [
+            "hace calor"
+          ]
+        }
+      ]
+    }
+  }
+}

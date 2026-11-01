@@ -1,0 +1,32 @@
+# /etc/systemd/system/learnmap-backup.service  (the AWS instance)
+#
+# One backup of the database to the stack's S3 bucket
+# (deploy/aws/learnmap-backup.sh). Started every night by
+# learnmap-backup.timer and by `scripts/deploy-aws.sh --backup`. Runs as the
+# app's user so SQLite never leaves a root-owned -wal or -shm file behind.
+# A failure shows in `systemctl --failed` and `journalctl -u learnmap-backup`.
+
+[Unit]
+Description=Back up the Learnmap database to S3
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=learnmap
+Group=learnmap
+Environment=SKRONGLE_DB=/var/lib/learnmap/learn.db
+Environment=HOME=/var/lib/learnmap
+# systemd reads it as root before switching user; AWS_BACKUP_BUCKET, AWS_REGION.
+EnvironmentFile=/etc/learnmap/env
+ExecStart=/opt/learnmap/learnmap-backup
+Nice=10
+IOSchedulingClass=idle
+MemoryMax=128M
+
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadOnlyPaths=/opt/learnmap
+ReadWritePaths=/var/lib/learnmap

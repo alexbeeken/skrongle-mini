@@ -1,0 +1,1288 @@
+{
+  "id": "a1-greetings",
+  "slug": "greetings-and-introductions",
+  "title": "Greetings and introductions",
+  "unit": "A1",
+  "group": "Vocabulary",
+  "order": 1,
+  "summary": "Say hello, goodbye, and introduce yourself.",
+  "focus": "Fixed greeting expressions and 'me llamo'",
+  "content": "## Saying hello\n\n- **Hola**: hi / hello (any time of day)\n- **Buenos días**: good morning (until lunch)\n- **Buenas tardes**: good afternoon / early evening\n- **Buenas noches**: good evening / good night\n\n## Asking how someone is\n\n- **¿Qué tal?**: how's it going? (informal, very common)\n- **¿Cómo estás?**: how are you? (informal, *tú*)\n- **¿Cómo está usted?**: how are you? (formal)\n- **Bien, gracias. ¿Y tú?**: fine, thanks. And you?\n\n## Introducing yourself\n\n- **Me llamo Ana.**: My name is Ana. (literally *I call myself Ana*)\n- **Soy Ana.**: I'm Ana.\n- **¿Cómo te llamas?**: What's your name? (informal)\n- **¿Cómo se llama usted?**: What's your name? (formal)\n- **Mucho gusto.** / **Encantado.** (said by a man) / **Encantada.** (said by a woman): nice to meet you.\n\n## Saying goodbye\n\n- **Adiós**: goodbye\n- **Hasta luego**: see you later\n- **Hasta mañana**: see you tomorrow\n- **Nos vemos**: see you\n\n> Remember the upside-down marks: questions start with **¿** and exclamations with **¡**.",
+  "vocabulary": [
+    {
+      "term": "hola",
+      "meaning": "hello",
+      "example": "¡Hola! ¿Qué tal?",
+      "example_meaning": "Hi! How's it going?"
+    },
+    {
+      "term": "buenos días",
+      "meaning": "good morning",
+      "example": "Buenos días, señora García.",
+      "example_meaning": "Good morning, Mrs García."
+    },
+    {
+      "term": "buenas tardes",
+      "meaning": "good afternoon",
+      "example": "Buenas tardes a todos.",
+      "example_meaning": "Good afternoon, everyone."
+    },
+    {
+      "term": "buenas noches",
+      "meaning": "good evening / good night",
+      "example": "Buenas noches, hasta mañana.",
+      "example_meaning": "Good night, see you tomorrow."
+    },
+    {
+      "term": "me llamo…",
+      "meaning": "my name is…",
+      "example": "Me llamo Carlos.",
+      "example_meaning": "My name is Carlos."
+    },
+    {
+      "term": "¿cómo te llamas?",
+      "meaning": "what's your name? (informal)",
+      "example": "Hola, ¿cómo te llamas?",
+      "example_meaning": "Hi, what's your name?"
+    },
+    {
+      "term": "mucho gusto",
+      "meaning": "nice to meet you",
+      "example": "Mucho gusto, Carlos.",
+      "example_meaning": "Nice to meet you, Carlos."
+    },
+    {
+      "term": "encantado / encantada",
+      "meaning": "pleased to meet you",
+      "example": "Encantada de conocerte.",
+      "example_meaning": "Pleased to meet you."
+    },
+    {
+      "term": "gracias",
+      "meaning": "thank you",
+      "example": "Bien, gracias.",
+      "example_meaning": "Fine, thanks."
+    },
+    {
+      "term": "hasta luego",
+      "meaning": "see you later",
+      "example": "¡Hasta luego!",
+      "example_meaning": "See you later!"
+    },
+    {
+      "term": "adiós",
+      "meaning": "goodbye",
+      "example": "Adiós, hasta mañana.",
+      "example_meaning": "Goodbye, see you tomorrow."
+    },
+    {
+      "term": "hasta mañana",
+      "meaning": "see you tomorrow",
+      "example": "¡Adiós! Hasta mañana.",
+      "example_meaning": "Goodbye! See you tomorrow."
+    },
+    {
+      "term": "¿cómo se llama usted?",
+      "meaning": "what's your name? (formal)",
+      "example": "Buenos días, ¿cómo se llama usted?",
+      "example_meaning": "Good morning, what's your name?"
+    },
+    {
+      "term": "bien",
+      "meaning": "well, fine",
+      "example": "Bien, gracias. ¿Y tú?",
+      "example_meaning": "Fine, thanks. And you?"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-greetings-01",
+      "prompt": "It is 9 in the morning. You greet your neighbour with:",
+      "type": "multiple-choice",
+      "options": [
+        "Buenos días",
+        "Buenas noches",
+        "Buenas tardes"
+      ],
+      "correct_answer": "Buenos días",
+      "explanation": "'Buenos días' is used in the morning, roughly until lunchtime.",
+      "hints": [
+        "Día = day."
+      ],
+      "teaches": [
+        "buenos días"
+      ]
+    },
+    {
+      "question_id": "a1-greetings-02",
+      "prompt": "Translate: My name is Lucía.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "Me llamo Lucía",
+      "accepted_answers": [
+        "me llamo lucia",
+        "Soy Lucía",
+        "Yo me llamo Lucía"
+      ],
+      "explanation": "'Me llamo Lucía' literally means 'I call myself Lucía'. 'Soy Lucía' also works.",
+      "hints": [
+        "Starts with 'Me llamo…'"
+      ],
+      "teaches": [
+        "me llamo…"
+      ]
+    },
+    {
+      "question_id": "a1-greetings-03",
+      "prompt": "A woman is introduced to someone and says 'pleased to meet you'. She says:",
+      "type": "multiple-choice",
+      "options": [
+        "Encantada",
+        "Encantado",
+        "Hasta luego"
+      ],
+      "correct_answer": "Encantada",
+      "explanation": "'Encantado/a' agrees with the speaker: a woman says 'encantada', a man says 'encantado'.",
+      "hints": [
+        "The ending agrees with the speaker's gender."
+      ],
+      "teaches": [
+        "encantado / encantada"
+      ]
+    },
+    {
+      "question_id": "a1-greetings-04",
+      "prompt": "Translate: See you tomorrow.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "Hasta mañana",
+      "accepted_answers": [],
+      "explanation": "'Hasta mañana' means until tomorrow, or see you tomorrow.",
+      "hints": [
+        "Hasta = until.",
+        "Mañana = tomorrow."
+      ],
+      "teaches": [
+        "hasta mañana"
+      ]
+    },
+    {
+      "question_id": "a1-greetings-05",
+      "prompt": "Which question asks a stranger's name politely (formal)?",
+      "type": "multiple-choice",
+      "options": [
+        "¿Cómo se llama usted?",
+        "¿Cómo te llamas?",
+        "¿Qué tal?"
+      ],
+      "correct_answer": "¿Cómo se llama usted?",
+      "explanation": "'¿Cómo se llama usted?' uses the formal 'usted'. '¿Cómo te llamas?' is the informal 'tú' form.",
+      "hints": [
+        "Look for 'usted'."
+      ],
+      "teaches": [
+        "¿cómo se llama usted?"
+      ]
+    },
+    {
+      "question_id": "a1-greetings-06",
+      "prompt": "Reply to '¿Cómo estás?' with 'Fine, thanks':",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "Bien, gracias",
+      "accepted_answers": [
+        "bien gracias",
+        "muy bien, gracias",
+        "muy bien gracias"
+      ],
+      "explanation": "'Bien, gracias' (fine, thanks) is the standard reply. Add '¿y tú?' to ask the question back.",
+      "hints": [
+        "Bien = well/fine."
+      ],
+      "teaches": [
+        "bien",
+        "gracias"
+      ]
+    },
+    {
+      "question_id": "a1-greetings-07",
+      "prompt": "You meet your friend's grandmother for the first time. You ask her how she is:",
+      "type": "multiple-choice",
+      "options": [
+        "¿Cómo está usted?",
+        "¿Cómo estás?",
+        "¿Cómo te llamas?"
+      ],
+      "correct_answer": "¿Cómo está usted?",
+      "explanation": "With an older person you have just met, use the formal 'usted': '¿Cómo está usted?'. '¿Cómo estás?' is for friends, and '¿Cómo te llamas?' asks her name.",
+      "hints": [
+        "Older person, first meeting: formal.",
+        "Tú is for friends and family."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a1-greetings-08",
+      "prompt": "Translate: Good night.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "Buenas noches",
+      "accepted_answers": [
+        "buenas noches"
+      ],
+      "explanation": "'Buenas noches' says both 'good evening' and 'good night'. Noche is feminine, so it is 'buenas', not 'buenos'.",
+      "hints": [
+        "Noche = night.",
+        "Noche is feminine."
+      ],
+      "teaches": [
+        "buenas noches"
+      ]
+    },
+    {
+      "question_id": "a1-greetings-09",
+      "prompt": "Which 'nice to meet you' can anyone say, man or woman?",
+      "type": "multiple-choice",
+      "options": [
+        "Mucho gusto",
+        "Encantado",
+        "Encantada"
+      ],
+      "correct_answer": "Mucho gusto",
+      "explanation": "'Mucho gusto' never changes. 'Encantado' is said by a man and 'encantada' by a woman.",
+      "hints": [
+        "One of them has no -o / -a ending to agree.",
+        "Gusto = pleasure."
+      ],
+      "teaches": [
+        "mucho gusto",
+        "encantado / encantada"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Buenos días, ¿qué tal?",
+      "meaning": "Good morning, how's it going?"
+    },
+    {
+      "text": "Bien, gracias, ¿y usted?",
+      "meaning": "Fine, thanks, and you?",
+      "note": "Usted is the formal you."
+    },
+    {
+      "text": "Hola, me llamo Marta, mucho gusto.",
+      "meaning": "Hello, my name is Marta, nice to meet you."
+    },
+    {
+      "text": "Hola, soy Luis, ¿cómo te llamas?",
+      "meaning": "Hi, I'm Luis, what's your name?"
+    },
+    {
+      "text": "Encantado, soy Pedro, el vecino nuevo.",
+      "meaning": "Pleased to meet you, I'm Pedro, the new neighbour.",
+      "note": "New word: el vecino = the neighbour."
+    },
+    {
+      "text": "Buenas tardes, señora, ¿cómo se llama usted?",
+      "meaning": "Good afternoon, madam, what's your name?"
+    },
+    {
+      "text": "Muchas gracias por la ayuda, hasta luego.",
+      "meaning": "Thanks a lot for the help, see you later.",
+      "note": "New word: la ayuda = the help."
+    },
+    {
+      "text": "Buenas noches a todos, nos vemos mañana en la clase de español.",
+      "meaning": "Good night everyone, see you tomorrow in Spanish class."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Saying hello"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a1-greetings-01"
+    },
+    {
+      "question": "a1-greetings-08"
+    },
+    {
+      "section": "Asking how someone is"
+    },
+    {
+      "question": "a1-greetings-06"
+    },
+    {
+      "question": "a1-greetings-07"
+    },
+    {
+      "section": "Introducing yourself"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a1-greetings-02"
+    },
+    {
+      "question": "a1-greetings-03"
+    },
+    {
+      "question": "a1-greetings-09"
+    },
+    {
+      "question": "a1-greetings-05"
+    },
+    {
+      "section": "Saying goodbye"
+    },
+    {
+      "vocab": 6
+    },
+    {
+      "question": "a1-greetings-04"
+    },
+    {
+      "tip": "Spanish questions start with ¿ and exclamations with ¡. Use the accent buttons when you type them."
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-greetings-conv-first-meeting",
+      "title": "First meeting",
+      "scenario": "Ana and Carlos bump into each other in the corridor on the first day of a course.",
+      "role_a": "Ana",
+      "role_b": "Carlos",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¡Buenos días!",
+          "meaning": "Good morning!"
+        },
+        {
+          "speaker": "b",
+          "text": "Buenos días. ¿Qué tal?",
+          "meaning": "Good morning. How's it going?"
+        },
+        {
+          "speaker": "a",
+          "text": "Bien, gracias. ¿Y tú?",
+          "meaning": "Fine, thanks. And you?"
+        },
+        {
+          "speaker": "b",
+          "text": "Muy bien. ¿Cómo te llamas?",
+          "meaning": "Very well. What's your name?"
+        },
+        {
+          "speaker": "a",
+          "text": "Me llamo Ana. ¿Y tú?",
+          "meaning": "My name is Ana. And you?"
+        },
+        {
+          "speaker": "b",
+          "text": "Soy Carlos. Mucho gusto, Ana.",
+          "meaning": "I'm Carlos. Nice to meet you, Ana."
+        },
+        {
+          "speaker": "a",
+          "text": "Encantada, Carlos.",
+          "meaning": "Pleased to meet you, Carlos.",
+          "note": "a man would say 'encantado'"
+        },
+        {
+          "speaker": "b",
+          "text": "Bueno, hasta luego, Ana.",
+          "meaning": "Well, see you later, Ana."
+        },
+        {
+          "speaker": "a",
+          "text": "¡Adiós! Hasta mañana.",
+          "meaning": "Bye! See you tomorrow."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "👋",
+    "bites": [
+      {
+        "title": "Buenos días, buenas tardes",
+        "emoji": "☀️",
+        "rule": "Día is masculine, so it's buenos días; tardes and noches are feminine, so buenas tardes, buenas noches. They are always plural.",
+        "example": "Buenos días, señora García.",
+        "example_meaning": "Good morning, Mrs García."
+      },
+      {
+        "title": "Te for friends, se for strangers",
+        "emoji": "🤝",
+        "rule": "¿Cómo te llamas? goes with tú (friends, kids, classmates); ¿Cómo se llama usted? is the polite version for strangers and elders.",
+        "example": "Hola, ¿cómo te llamas?",
+        "example_meaning": "Hi, what's your name?"
+      },
+      {
+        "title": "Encantado or encantada?",
+        "emoji": "💐",
+        "rule": "The ending matches the person speaking: a man says encantado, a woman says encantada. Not sure? Mucho gusto works for everyone.",
+        "example": "Me llamo Ana. Encantada.",
+        "example_meaning": "My name is Ana. Pleased to meet you."
+      },
+      {
+        "title": "Questions open twice",
+        "emoji": "❓",
+        "rule": "Spanish flags a question or exclamation from the start with ¿ and ¡, so you know how to read it before you get there.",
+        "example": "¡Hola! ¿Qué tal?",
+        "example_meaning": "Hi! How's it going?"
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Friend or stranger?",
+        "buckets": [
+          "informal (tú)",
+          "formal (usted)"
+        ],
+        "items": [
+          {
+            "text": "¿Cómo estás?",
+            "bucket": 0
+          },
+          {
+            "text": "¿Cómo está usted?",
+            "bucket": 1
+          },
+          {
+            "text": "¿Cómo te llamas?",
+            "bucket": 0
+          },
+          {
+            "text": "¿Cómo se llama usted?",
+            "bucket": 1
+          },
+          {
+            "text": "Bien, gracias. ¿Y tú?",
+            "bucket": 0
+          },
+          {
+            "text": "Bien, gracias. ¿Y usted?",
+            "bucket": 1
+          }
+        ],
+        "why": "Tú forms (estás, te llamas) are for friends; usted forms (está, se llama) are for strangers and elders."
+      },
+      {
+        "title": "Buenos or buenas?",
+        "buckets": [
+          "buenos",
+          "buenas"
+        ],
+        "items": [
+          {
+            "text": "___ días",
+            "bucket": 0
+          },
+          {
+            "text": "___ tardes",
+            "bucket": 1
+          },
+          {
+            "text": "___ noches",
+            "bucket": 1
+          },
+          {
+            "text": "¡___ días a todos!",
+            "bucket": 0
+          }
+        ],
+        "why": "Día is masculine (buenos días); tarde and noche are feminine (buenas tardes, buenas noches)."
+      },
+      {
+        "title": "Hello or goodbye?",
+        "buckets": [
+          "hello",
+          "goodbye"
+        ],
+        "items": [
+          {
+            "text": "Hola",
+            "bucket": 0
+          },
+          {
+            "text": "Buenos días",
+            "bucket": 0
+          },
+          {
+            "text": "Hasta luego",
+            "bucket": 1
+          },
+          {
+            "text": "Adiós",
+            "bucket": 1
+          },
+          {
+            "text": "Buenas tardes",
+            "bucket": 0
+          },
+          {
+            "text": "Hasta mañana",
+            "bucket": 1
+          },
+          {
+            "text": "Nos vemos",
+            "bucket": 1
+          }
+        ],
+        "why": "Greetings open a chat; hasta…, adiós and nos vemos close it."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Buenos tardes, señora García.",
+        "wrong": "Buenos",
+        "fix": "Buenas",
+        "why": "Tarde is feminine, so it's buenas tardes."
+      },
+      {
+        "sentence": "Buenas días, Carlos.",
+        "wrong": "Buenas",
+        "fix": "Buenos",
+        "why": "Día is masculine even though it ends in -a: buenos días."
+      },
+      {
+        "sentence": "Hola, ¿cómo se llamas?",
+        "wrong": "se",
+        "fix": "te",
+        "why": "With tú (llamas) the pronoun is te: ¿cómo te llamas?"
+      },
+      {
+        "sentence": "Buenos días, ¿cómo te llama usted?",
+        "wrong": "te",
+        "fix": "se",
+        "why": "With usted the pronoun is se: ¿cómo se llama usted?"
+      },
+      {
+        "sentence": "Soy Ana. Encantado, Carlos.",
+        "wrong": "Encantado",
+        "fix": "Encantada",
+        "why": "Ana is a woman, so she says encantada."
+      },
+      {
+        "sentence": "Buenas tardes, ¿cómo estás usted?",
+        "wrong": "estás",
+        "fix": "está",
+        "why": "Usted takes the él/ella form: ¿cómo está usted?"
+      }
+    ],
+    "builds": [
+      {
+        "text": "Hola, ¿cómo te llamas?",
+        "meaning": "Hi, what's your name?",
+        "distractors": [
+          "se"
+        ]
+      },
+      {
+        "text": "Buenas tardes, ¿cómo está usted?",
+        "meaning": "Good afternoon, how are you? (formal)",
+        "distractors": [
+          "estás",
+          "Buenos"
+        ]
+      },
+      {
+        "text": "Me llamo Ana. Mucho gusto.",
+        "meaning": "My name is Ana. Nice to meet you.",
+        "distractors": [
+          "llamas"
+        ]
+      },
+      {
+        "text": "Bien, gracias. ¿Y tú?",
+        "meaning": "Fine, thanks. And you?",
+        "distractors": [
+          "tu"
+        ]
+      },
+      {
+        "text": "¡Adiós! Hasta mañana.",
+        "meaning": "Goodbye! See you tomorrow.",
+        "distractors": [
+          "luego"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🧤",
+      "content": "## En la posada\n\nEvery inn in Eldmark opens the same way: a greeting for the time of day, then your name. **Buenas noches, posadera. Me llamo Grok y soy orco.** Guildmates get **¿cómo te llamas?** and a stranger in Highgate gets **¿cómo se llama usted?**.",
+      "vocabulary": [
+        {
+          "term": "hola",
+          "example": "¡Hola! Soy un mago de Silvermere.",
+          "example_meaning": "Hello! I'm a mage from Silvermere."
+        },
+        {
+          "term": "buenas noches",
+          "example": "Buenas noches, posadera.",
+          "example_meaning": "Good evening, innkeeper."
+        },
+        {
+          "term": "me llamo…",
+          "example": "Me llamo Grok y soy orco.",
+          "example_meaning": "My name is Grok and I'm an orc."
+        },
+        {
+          "term": "¿cómo te llamas?",
+          "example": "¿Cómo te llamas, elfa?",
+          "example_meaning": "What's your name, elf?"
+        },
+        {
+          "term": "mucho gusto",
+          "example": "Mucho gusto, paladín.",
+          "example_meaning": "Nice to meet you, paladin."
+        },
+        {
+          "term": "hasta luego",
+          "example": "Hasta luego, nos vemos en la mazmorra.",
+          "example_meaning": "See you later, we'll meet in the dungeon."
+        },
+        {
+          "term": "la hermandad",
+          "meaning": "guild",
+          "example": "Mi hermandad se llama Los Lobos.",
+          "example_meaning": "My guild is called Los Lobos."
+        },
+        {
+          "term": "la posada",
+          "meaning": "inn",
+          "example": "La posada de Highgate está llena.",
+          "example_meaning": "The Highgate inn is full."
+        },
+        {
+          "term": "el orco",
+          "meaning": "orc",
+          "example": "El orco se llama Grok.",
+          "example_meaning": "The orc's name is Grok."
+        },
+        {
+          "term": "el elfo / la elfa",
+          "meaning": "elf",
+          "example": "La elfa se llama Sylra.",
+          "example_meaning": "The elf's name is Sylra."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Saludos en la posada",
+          "emoji": "🍺",
+          "rule": "Every inn in Eldmark opens the same way: a greeting for the time of day, then your name.",
+          "example": "Buenas noches. Me llamo Grok y soy orco.",
+          "example_meaning": "Good evening. My name is Grok and I'm an orc."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Hola, me llamo Grok y soy orco.",
+          "meaning": "Hi, my name is Grok and I'm an orc.",
+          "note": "New word: el orco = orc."
+        },
+        {
+          "text": "Hola, posadera, me llamo Sylra.",
+          "meaning": "Hello, innkeeper, my name is Sylra.",
+          "note": "New word: la posadera = innkeeper."
+        },
+        {
+          "text": "Mucho gusto, soy la maga de la hermandad.",
+          "meaning": "Nice to meet you, I'm the guild's mage.",
+          "note": "New word: la hermandad = guild."
+        },
+        {
+          "text": "Hasta luego, nos vemos en Emberhold.",
+          "meaning": "See you later, see you in Emberhold."
+        },
+        {
+          "text": "Hola, elfa, ¿cómo te llamas?",
+          "meaning": "Hello, elf, what's your name?"
+        }
+      ],
+      "builds": [
+        {
+          "text": "Me llamo Grok y soy orco.",
+          "meaning": "My name is Grok and I'm an orc.",
+          "distractors": [
+            "eres",
+            "llamas"
+          ]
+        },
+        {
+          "text": "Buenas noches, posadera.",
+          "meaning": "Good evening, innkeeper.",
+          "distractors": [
+            "Buenos",
+            "días"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Buenos noches, posadera.",
+          "wrong": "Buenos",
+          "fix": "Buenas",
+          "why": "Noches is feminine: buenas noches."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Who are you talking to?",
+          "buckets": [
+            "a friend (tú)",
+            "a stranger (usted)"
+          ],
+          "items": [
+            {
+              "text": "¿Cómo te llamas, Grok?",
+              "bucket": 0
+            },
+            {
+              "text": "¿Cómo se llama usted, posadero?",
+              "bucket": 1
+            },
+            {
+              "text": "Encantado, señor paladín.",
+              "bucket": 1
+            },
+            {
+              "text": "¡Hola! ¿Qué tal, elfa?",
+              "bucket": 0
+            }
+          ],
+          "why": "Tú for guildmates and friends; usted for strangers and anyone you would call señor."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-greetings-realm-01",
+          "prompt": "___ noches, posadera.",
+          "type": "multiple-choice",
+          "options": [
+            "Buenas",
+            "Buenos"
+          ],
+          "correct_answer": "Buenas",
+          "explanation": "Noche is feminine, so it is buenas noches.",
+          "hints": [
+            "Is noche masculine or feminine?"
+          ],
+          "teaches": [
+            "buenas noches"
+          ]
+        },
+        {
+          "question_id": "a1-greetings-realm-02",
+          "prompt": "Me ___ Grok y soy orco.",
+          "type": "fill-in-blank",
+          "correct_answer": "llamo",
+          "accepted_answers": [],
+          "explanation": "Me llamo means my name is (literally 'I call myself').",
+          "hints": [
+            "Me llam…"
+          ],
+          "teaches": [
+            "me llamo…"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🌼",
+      "content": "## En la granja\n\nYour first morning on the farm starts with **buenos días** to the hens and **hola** to the neighbours in town. Introduce yourself at the shop with **me llamo…**, thank the shopkeeper with **gracias**, and leave with **hasta mañana**, because tomorrow there is work in the garden.",
+      "vocabulary": [
+        {
+          "term": "hola",
+          "example": "¡Hola! Soy la nueva granjera.",
+          "example_meaning": "Hello! I'm the new farmer."
+        },
+        {
+          "term": "buenos días",
+          "example": "Buenos días, gallinas.",
+          "example_meaning": "Good morning, hens."
+        },
+        {
+          "term": "me llamo…",
+          "example": "Me llamo Nora y tengo una granja.",
+          "example_meaning": "My name is Nora and I have a farm."
+        },
+        {
+          "term": "mucho gusto",
+          "example": "Mucho gusto, soy tu vecina.",
+          "example_meaning": "Nice to meet you, I'm your neighbour."
+        },
+        {
+          "term": "gracias",
+          "example": "Gracias por las semillas.",
+          "example_meaning": "Thanks for the seeds."
+        },
+        {
+          "term": "hasta mañana",
+          "example": "Hasta mañana, vecino.",
+          "example_meaning": "See you tomorrow, neighbour."
+        },
+        {
+          "term": "la granja",
+          "meaning": "farm",
+          "example": "Mi granja está al lado del bosque.",
+          "example_meaning": "My farm is next to the forest."
+        },
+        {
+          "term": "el granjero / la granjera",
+          "meaning": "farmer",
+          "example": "La granjera se llama Nora.",
+          "example_meaning": "The farmer's name is Nora."
+        },
+        {
+          "term": "el vecino / la vecina",
+          "meaning": "neighbour",
+          "example": "Mi vecina vende semillas.",
+          "example_meaning": "My neighbour sells seeds."
+        },
+        {
+          "term": "la semilla",
+          "meaning": "seed",
+          "example": "Gracias por las semillas.",
+          "example_meaning": "Thanks for the seeds."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Saludos en el pueblo",
+          "emoji": "🌱",
+          "rule": "A new farmer greets everyone: buenos días at the shop, hola at the saloon, and me llamo… to every neighbour.",
+          "example": "Buenos días. Me llamo Nora, soy la nueva granjera.",
+          "example_meaning": "Good morning. My name is Nora, I'm the new farmer."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Hola, me llamo Nora y tengo una granja.",
+          "meaning": "Hi, my name is Nora and I have a farm.",
+          "note": "New word: la granja = farm."
+        },
+        {
+          "text": "Buenos días, vecina, soy Nora.",
+          "meaning": "Good morning, neighbour, I'm Nora.",
+          "note": "New word: la vecina = neighbour."
+        },
+        {
+          "text": "Muchas gracias por las semillas, Rosa.",
+          "meaning": "Thank you very much for the seeds, Rosa.",
+          "note": "New word: la semilla = seed."
+        },
+        {
+          "text": "Hasta mañana, trabajo en el huerto.",
+          "meaning": "See you tomorrow, I'm working in the garden."
+        },
+        {
+          "text": "¿Cómo te llamas, granjero?",
+          "meaning": "What's your name, farmer?"
+        }
+      ],
+      "builds": [
+        {
+          "text": "Me llamo Nora y tengo una granja.",
+          "meaning": "My name is Nora and I have a farm.",
+          "distractors": [
+            "eres",
+            "llamas"
+          ]
+        },
+        {
+          "text": "Buenos días, vecina.",
+          "meaning": "Good morning, neighbour.",
+          "distractors": [
+            "Buenas",
+            "noches"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Buenas días, vecina.",
+          "wrong": "Buenas",
+          "fix": "Buenos",
+          "why": "Día is masculine: buenos días."
+        },
+        {
+          "sentence": "Hola, me llamas Nora.",
+          "wrong": "llamas",
+          "fix": "llamo",
+          "why": "Yo → me llamo."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Morning, afternoon or night on the farm?",
+          "buckets": [
+            "buenos días",
+            "buenas tardes",
+            "buenas noches"
+          ],
+          "items": [
+            {
+              "text": "plantar fresas a las seis de la mañana",
+              "bucket": 0
+            },
+            {
+              "text": "pescar después de comer",
+              "bucket": 1
+            },
+            {
+              "text": "la taberna a las nueve de la noche",
+              "bucket": 2
+            },
+            {
+              "text": "dar de comer a las gallinas al amanecer",
+              "bucket": 0
+            },
+            {
+              "text": "el atardecer en la playa",
+              "bucket": 1
+            }
+          ],
+          "why": "Días until midday, tardes until sunset, noches after dark."
+        }
+      ],
+      "conversations": [
+        {
+          "id": "a1-greetings-conv-meadowbrook-neighbour",
+          "title": "A new neighbour",
+          "scenario": "Nora has just moved to the farm; Rosa runs the seed shop in town.",
+          "role_a": "Nora",
+          "role_b": "Rosa",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Buenos días. Me llamo Nora.",
+              "meaning": "Good morning. My name is Nora."
+            },
+            {
+              "speaker": "b",
+              "text": "¡Hola, Nora! Mucho gusto. Me llamo Rosa.",
+              "meaning": "Hi, Nora! Nice to meet you. My name is Rosa."
+            },
+            {
+              "speaker": "a",
+              "text": "Encantada. Tengo la granja al lado del bosque.",
+              "meaning": "Pleased to meet you. I have the farm next to the forest."
+            },
+            {
+              "speaker": "b",
+              "text": "¡Qué bien! ¿Necesitas semillas?",
+              "meaning": "Great! Do you need seeds?"
+            },
+            {
+              "speaker": "a",
+              "text": "Sí, gracias. ¿Cómo se llama esta semilla?",
+              "meaning": "Yes, thanks. What is this seed called?"
+            },
+            {
+              "speaker": "b",
+              "text": "Es una semilla de fresa. Hasta luego, Nora.",
+              "meaning": "It's a strawberry seed. See you later, Nora."
+            },
+            {
+              "speaker": "a",
+              "text": "Hasta mañana, Rosa.",
+              "meaning": "See you tomorrow, Rosa."
+            }
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-greetings-meadowbrook-01",
+          "prompt": "___ días, gallinas.",
+          "type": "multiple-choice",
+          "options": [
+            "Buenos",
+            "Buenas"
+          ],
+          "correct_answer": "Buenos",
+          "explanation": "Día is masculine: buenos días.",
+          "hints": [
+            "Is día masculine or feminine?"
+          ],
+          "teaches": [
+            "buenos días"
+          ]
+        },
+        {
+          "question_id": "a1-greetings-meadowbrook-02",
+          "prompt": "Mucho ___, soy tu vecina.",
+          "type": "fill-in-blank",
+          "correct_answer": "gusto",
+          "accepted_answers": [],
+          "explanation": "Mucho gusto means nice to meet you.",
+          "hints": [
+            "Mucho g…"
+          ],
+          "teaches": [
+            "mucho gusto",
+            "el vecino / la vecina"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "📻",
+      "content": "## Saludos en el páramo\n\nThe Dome door opens, and the first thing you need outside is a greeting: **buenos días** to the trader at the market, **hola** to a friendly scavenger. Introduce yourself with **me llamo…**, answer with **mucho gusto**, pay in nuts and say **gracias**, then leave with **hasta luego**. The plains are big.",
+      "vocabulary": [
+        {
+          "term": "hola",
+          "example": "¡Hola! Soy de la cúpula.",
+          "example_meaning": "Hello! I'm from the Dome."
+        },
+        {
+          "term": "buenos días",
+          "example": "Buenos días, mercadera. ¿Qué tal?",
+          "example_meaning": "Good morning, trader. How's it going?"
+        },
+        {
+          "term": "me llamo…",
+          "example": "Me llamo Dani y soy de la cúpula.",
+          "example_meaning": "My name is Dani and I'm from the Dome."
+        },
+        {
+          "term": "mucho gusto",
+          "example": "Mucho gusto, soy Marta, la mercadera.",
+          "example_meaning": "Nice to meet you, I'm Marta, the trader."
+        },
+        {
+          "term": "gracias",
+          "example": "Gracias por el agua filtrada.",
+          "example_meaning": "Thanks for the filtered water."
+        },
+        {
+          "term": "hasta luego",
+          "example": "Hasta luego, nos vemos en el mercado.",
+          "example_meaning": "See you later, we'll meet at the market."
+        },
+        {
+          "term": "la cúpula",
+          "meaning": "Dome (sealed shelter)",
+          "example": "La puerta de la cúpula es muy grande.",
+          "example_meaning": "The Dome door is very big."
+        },
+        {
+          "term": "el mercader / la mercadera",
+          "meaning": "trader",
+          "example": "La mercadera se llama Marta.",
+          "example_meaning": "The trader's name is Marta."
+        },
+        {
+          "term": "la tuerca",
+          "meaning": "nut (the currency of the plains)",
+          "example": "Cinco tuercas por una gaseosa Zafiro, gracias.",
+          "example_meaning": "Five nuts for a Zafiro soda, thanks."
+        },
+        {
+          "term": "el páramo",
+          "meaning": "the barren plains",
+          "example": "El páramo es grande y hay mucho polvo.",
+          "example_meaning": "The plains are big and there's a lot of dust."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Saludos en el mercado",
+          "emoji": "📻",
+          "rule": "Outside the Dome, greetings still come first: buenos días to the trader, me llamo… and mucho gusto to every new face, and gracias when you pay in nuts.",
+          "example": "Buenos días. Me llamo Dani, soy de la cúpula.",
+          "example_meaning": "Good morning. My name is Dani, I'm from the Dome."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Hola, me llamo Dani y soy de la cúpula.",
+          "meaning": "Hi, my name is Dani and I'm from the Dome.",
+          "note": "New word: la cúpula = Dome."
+        },
+        {
+          "text": "Buenos días, mercadera, ¿qué tal?",
+          "meaning": "Good morning, trader, how's it going?",
+          "note": "New word: la mercadera = trader."
+        },
+        {
+          "text": "Gracias, aquí tienes cinco tuercas.",
+          "meaning": "Thanks, here are five nuts.",
+          "note": "New word: la tuerca = nut."
+        },
+        {
+          "text": "Hasta luego, nos vemos en el páramo.",
+          "meaning": "See you later, see you on the plains."
+        },
+        {
+          "text": "¿Cómo se llama usted, capataz?",
+          "meaning": "What's your name, Foreman? (formal)",
+          "note": "Usted is the formal you: se llama."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Me llamo Dani y soy de la cúpula.",
+          "meaning": "My name is Dani and I'm from the Dome.",
+          "distractors": [
+            "llamas",
+            "eres"
+          ]
+        },
+        {
+          "text": "Buenos días, mercadera. ¿Qué tal?",
+          "meaning": "Good morning, trader. How's it going?",
+          "distractors": [
+            "Buenas",
+            "noches"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Buenos noches, capataz Ruiz.",
+          "wrong": "Buenos",
+          "fix": "Buenas",
+          "why": "Noche is feminine: buenas noches."
+        },
+        {
+          "sentence": "Soy Marta, la mercadera. Encantado.",
+          "wrong": "Encantado",
+          "fix": "Encantada",
+          "why": "Marta is a woman, so she says encantada."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Who are you talking to on the plains?",
+          "buckets": [
+            "a friend (tú)",
+            "a stranger (usted)"
+          ],
+          "items": [
+            {
+              "text": "¿Qué tal, Leo?",
+              "bucket": 0
+            },
+            {
+              "text": "¿Cómo se llama usted, capataza?",
+              "bucket": 1
+            },
+            {
+              "text": "Hola, Marta, ¿cómo estás?",
+              "bucket": 0
+            },
+            {
+              "text": "¿Cómo está usted, señor buscador?",
+              "bucket": 1
+            },
+            {
+              "text": "Bien, gracias. ¿Y usted, señor?",
+              "bucket": 1
+            },
+            {
+              "text": "¿Cómo te llamas, perro guardián?",
+              "bucket": 0
+            }
+          ],
+          "why": "Tú for neighbours, friends and the guard dog; usted for the foreman, a stranger or anyone you would call señor."
+        }
+      ],
+      "conversations": [
+        {
+          "id": "a1-greetings-conv-rustwake-market",
+          "title": "At the market",
+          "scenario": "Dani has just left the Dome; Marta runs a stall at the scrap-town market.",
+          "role_a": "Dani",
+          "role_b": "Marta",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Buenos días. Me llamo Dani.",
+              "meaning": "Good morning. My name is Dani."
+            },
+            {
+              "speaker": "b",
+              "text": "¡Hola, Dani! Me llamo Marta. Mucho gusto.",
+              "meaning": "Hi, Dani! My name is Marta. Nice to meet you."
+            },
+            {
+              "speaker": "a",
+              "text": "Encantado. Soy de la cúpula.",
+              "meaning": "Pleased to meet you. I'm from the Dome."
+            },
+            {
+              "speaker": "b",
+              "text": "¿De la cúpula? ¡Bienvenido al páramo! Aquí hay agua filtrada.",
+              "meaning": "From the Dome? Welcome to the plains! There's filtered water here."
+            },
+            {
+              "speaker": "a",
+              "text": "Sí, gracias. ¿Cuántas tuercas?",
+              "meaning": "Yes, thanks. How many nuts?"
+            },
+            {
+              "speaker": "b",
+              "text": "Cinco tuercas. Hasta luego, Dani.",
+              "meaning": "Five nuts. See you later, Dani."
+            },
+            {
+              "speaker": "a",
+              "text": "Adiós, Marta. Hasta mañana.",
+              "meaning": "Bye, Marta. See you tomorrow."
+            }
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-greetings-rustwake-01",
+          "prompt": "It is night in the scrap town. You say goodbye to the trader with:",
+          "type": "multiple-choice",
+          "options": [
+            "Buenas noches",
+            "Buenos días",
+            "Buenas tardes"
+          ],
+          "correct_answer": "Buenas noches",
+          "explanation": "Buenas noches covers good evening and good night; noche is feminine, so buenas.",
+          "hints": [
+            "Noche = night."
+          ],
+          "teaches": [
+            "buenas noches"
+          ]
+        },
+        {
+          "question_id": "a1-greetings-rustwake-02",
+          "prompt": "___ por el agua filtrada. (Thanks for the filtered water.)",
+          "type": "fill-in-blank",
+          "correct_answer": "Gracias",
+          "accepted_answers": [
+            "gracias",
+            "Muchas gracias",
+            "muchas gracias"
+          ],
+          "explanation": "Gracias means thank you, and gracias por… means thanks for….",
+          "hints": [
+            "Gra…"
+          ],
+          "teaches": [
+            "gracias"
+          ]
+        }
+      ]
+    }
+  }
+}

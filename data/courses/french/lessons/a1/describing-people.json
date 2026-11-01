@@ -1,0 +1,1156 @@
+{
+  "id": "a1-describing-people",
+  "slug": "describing-people",
+  "title": "Describing people: il a les yeux bleus",
+  "unit": "A1",
+  "group": "Vocabulary",
+  "order": 36,
+  "summary": "Say what someone looks like and what they are like: il est grand, elle a les cheveux roux, il a l'air sympa.",
+  "focus": "Describing looks and character with être, avoir and agreeing adjectives",
+  "prerequisites": [
+    "a1-family-adjectives"
+  ],
+  "content": "## Il est comment ? Looks\n\nTo ask what someone looks like, say **Il est comment ?** or **Elle est comment ?** Height and build take **être**:\n\n- **Il est grand.** (He's tall.) / **Elle est petite.** (She's short.)\n- **Elle est mince.** (She's slim.) / **Il est de taille moyenne.** (He's of average height.)\n\nHair and eyes take **avoir** + **les**; glasses take **porter**:\n\n- **Elle a les cheveux longs / courts / blonds / bruns / roux.**\n- **Il a les yeux bleus / verts / marron.**\n- **Il porte des lunettes.** (He wears glasses.) / **Il a une barbe.** (He has a beard.)\n\n**Les cheveux** and **les yeux** are masculine plural, so the colour takes **-s**: **les yeux verts**. **Marron** never changes: **les yeux marron**. **Roux** already ends in **-x**: **les cheveux roux**.\n\n## Character: the feminine patterns\n\nCharacter adjectives agree with the person. Many just add **-e**: **bavard → bavarde** (chatty). Others change their ending:\n\n| pattern | masculine | feminine |\n|---|---|---|\n| -eux → -euse | sérieux, généreux | sérieuse, généreuse |\n| -if → -ive | sportif | sportive |\n| -eur → -euse | travailleur | travailleuse |\n| -en → -enne | moyen, italien | moyenne, italienne |\n\nAdjectives that already end in **-e** stay the same: **drôle** (funny), **timide** (shy), **mince**. **Sympa** (nice) is the same for both genders and only adds **-s** in the plural: **des amies sympas**. In the plural, **-eux** stays **-eux**: **ils sont sérieux**.\n\n## Elle a l'air sympa\n\n**Avoir l'air** + adjective means *to look, to seem*: it gives your first impression of someone.\n\n- **Elle a l'air sympa.** (She seems nice.)\n- **Il a l'air sérieux.** (He looks serious.)\n- **Tes cousines ont l'air drôles.** (Your cousins seem funny.)\n\nWith a person, the adjective usually agrees with that person: **elle a l'air sérieuse**.\n\nPut it all together in a portrait: **Mon oncle est grand et drôle, il a les cheveux courts et il porte des lunettes.**",
+  "vocabulary": [
+    {
+      "term": "grand / grande",
+      "meaning": "tall",
+      "example": "Mon frère est très grand.",
+      "example_meaning": "My brother is very tall."
+    },
+    {
+      "term": "de taille moyenne",
+      "meaning": "of average height",
+      "example": "Sa femme est de taille moyenne.",
+      "example_meaning": "His wife is of average height."
+    },
+    {
+      "term": "mince",
+      "meaning": "slim, thin",
+      "example": "Ma cousine est mince et sportive.",
+      "example_meaning": "My cousin is slim and sporty."
+    },
+    {
+      "term": "les cheveux",
+      "meaning": "hair (m pl)",
+      "example": "Ma tante a les cheveux longs.",
+      "example_meaning": "My aunt has long hair."
+    },
+    {
+      "term": "les yeux",
+      "meaning": "eyes (m pl; one eye = l'œil)",
+      "example": "Le bébé a les yeux bleus.",
+      "example_meaning": "The baby has blue eyes."
+    },
+    {
+      "term": "roux / rousse",
+      "meaning": "red-haired; red (of hair)",
+      "example": "Ma sœur est rousse, comme notre mère.",
+      "example_meaning": "My sister is a redhead, like our mother."
+    },
+    {
+      "term": "marron",
+      "meaning": "brown (of eyes; never changes)",
+      "example": "Mes parents ont les yeux marron.",
+      "example_meaning": "My parents have brown eyes."
+    },
+    {
+      "term": "porter des lunettes",
+      "meaning": "to wear glasses",
+      "example": "Mon grand-père porte des lunettes pour lire.",
+      "example_meaning": "My grandfather wears glasses to read."
+    },
+    {
+      "term": "la barbe",
+      "meaning": "beard (f)",
+      "example": "Mon oncle a une barbe.",
+      "example_meaning": "My uncle has a beard."
+    },
+    {
+      "term": "sympa",
+      "meaning": "nice, friendly (same in m and f)",
+      "example": "Tes amis sont très sympas.",
+      "example_meaning": "Your friends are very nice."
+    },
+    {
+      "term": "drôle",
+      "meaning": "funny",
+      "example": "Notre professeur est drôle.",
+      "example_meaning": "Our teacher is funny."
+    },
+    {
+      "term": "généreux / généreuse",
+      "meaning": "generous",
+      "example": "Ma grand-mère est très généreuse.",
+      "example_meaning": "My grandmother is very generous."
+    },
+    {
+      "term": "sportif / sportive",
+      "meaning": "sporty, athletic",
+      "example": "Mon père est sportif : il court tous les matins.",
+      "example_meaning": "My father is sporty: he runs every morning."
+    },
+    {
+      "term": "travailleur / travailleuse",
+      "meaning": "hard-working",
+      "example": "Ta fille est travailleuse.",
+      "example_meaning": "Your daughter is hard-working."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-describing-people-01",
+      "prompt": "Ma sœur est très ___ : elle fait du sport tous les jours.",
+      "type": "multiple-choice",
+      "options": [
+        "sportive",
+        "sportif",
+        "sportives"
+      ],
+      "correct_answer": "sportive",
+      "explanation": "Sœur is feminine, and sportif follows the -if → -ive pattern: elle est sportive.",
+      "hints": [
+        "Sœur is feminine.",
+        "-if becomes -ive."
+      ],
+      "teaches": [
+        "sportif / sportive"
+      ]
+    },
+    {
+      "question_id": "a1-describing-people-02",
+      "prompt": "Paul a les yeux ___ . (brown: the colour word that never changes)",
+      "type": "fill-in-blank",
+      "correct_answer": "marron",
+      "accepted_answers": [],
+      "explanation": "Marron never takes -e or -s: les yeux marron, even though yeux is plural.",
+      "hints": [
+        "It's also the French word for a chestnut.",
+        "No -s, even after les yeux."
+      ],
+      "teaches": [
+        "marron"
+      ]
+    },
+    {
+      "question_id": "a1-describing-people-03",
+      "prompt": "How do you say 'She has long blond hair'?",
+      "type": "multiple-choice",
+      "options": [
+        "Elle a les cheveux longs et blonds.",
+        "Elle a les cheveux longues et blondes.",
+        "Elle est les cheveux longs et blonds."
+      ],
+      "correct_answer": "Elle a les cheveux longs et blonds.",
+      "explanation": "Hair takes avoir + les, and les cheveux is masculine plural, so the adjectives take -s, not -es: les cheveux longs et blonds.",
+      "hints": [
+        "Hair takes avoir, not être.",
+        "Les cheveux is masculine."
+      ],
+      "teaches": [
+        "les cheveux"
+      ]
+    },
+    {
+      "question_id": "a1-describing-people-04",
+      "prompt": "Mes grands-parents sont très ___ : ils offrent toujours des cadeaux. (generous)",
+      "type": "fill-in-blank",
+      "correct_answer": "généreux",
+      "accepted_answers": [],
+      "explanation": "Grands-parents is masculine plural, and an adjective in -eux keeps its -x in the plural: ils sont généreux.",
+      "hints": [
+        "Masculine plural.",
+        "A word ending in -x takes no extra -s."
+      ],
+      "teaches": [
+        "généreux / généreuse"
+      ]
+    },
+    {
+      "question_id": "a1-describing-people-05",
+      "prompt": "___ ? — Il est grand, il a une barbe et il porte des lunettes.",
+      "type": "multiple-choice",
+      "options": [
+        "Il est comment ?",
+        "Il s'appelle comment ?",
+        "Il a quel âge ?"
+      ],
+      "correct_answer": "Il est comment ?",
+      "explanation": "The answer describes his looks, so the question is Il est comment ? (What is he like? / What does he look like?).",
+      "hints": [
+        "The answer is a description, not a name or an age."
+      ]
+    },
+    {
+      "question_id": "a1-describing-people-06",
+      "prompt": "Ta nouvelle voisine ___ l'air sympa. (seems nice)",
+      "type": "fill-in-blank",
+      "correct_answer": "a",
+      "accepted_answers": [
+        "elle a"
+      ],
+      "explanation": "To look or seem is avoir l'air + adjective: elle a l'air sympa.",
+      "hints": [
+        "Not être: the expression uses the other verb.",
+        "Elle ___ = she has."
+      ],
+      "teaches": [
+        "sympa"
+      ]
+    },
+    {
+      "question_id": "a1-describing-people-07",
+      "prompt": "The feminine of 'travailleur' is 'travailleuse', with the same -euse ending as 'sérieuse'.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Adjectives in -eur that come from a verb (travailler → travailleur) make their feminine in -euse: travailleuse.",
+      "hints": [
+        "Think of the -eur → -euse pattern."
+      ],
+      "teaches": [
+        "travailleur / travailleuse"
+      ]
+    },
+    {
+      "question_id": "a1-describing-people-08",
+      "prompt": "Mon cousin n'est ni grand ni petit : il est de taille ___ .",
+      "type": "fill-in-blank",
+      "correct_answer": "moyenne",
+      "accepted_answers": [],
+      "explanation": "Taille is feminine, so moyen becomes moyenne (-en → -enne): de taille moyenne, whoever you describe.",
+      "hints": [
+        "It agrees with la taille, not with the cousin.",
+        "-en becomes -enne."
+      ],
+      "teaches": [
+        "de taille moyenne"
+      ]
+    },
+    {
+      "question_id": "a1-describing-people-09",
+      "prompt": "'Elle a les yeux marrons' is correct, with an -s on marron.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Marron is invariable: it never takes -e or -s. The correct sentence is Elle a les yeux marron.",
+      "hints": [
+        "Is marron one of the colour words that change?"
+      ],
+      "teaches": [
+        "marron"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-describing-people-conv-station",
+      "title": "Who am I looking for?",
+      "scenario": "Inès is going to meet Hugo's brother at the station, but she has never seen him. She phones Hugo to ask what he looks like.",
+      "role_a": "Inès",
+      "role_b": "Hugo",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Hugo, je suis à la gare. Ton frère, il est comment ?",
+          "meaning": "Hugo, I'm at the station. Your brother, what does he look like?",
+          "note": "Il est comment ? asks for a description."
+        },
+        {
+          "speaker": "b",
+          "text": "Il est grand et mince, un peu comme moi.",
+          "meaning": "He's tall and slim, a bit like me."
+        },
+        {
+          "speaker": "a",
+          "text": "Il a les cheveux bruns, comme toi ?",
+          "meaning": "Does he have brown hair, like you?"
+        },
+        {
+          "speaker": "b",
+          "text": "Non, il a les cheveux courts et roux. Et il a une barbe.",
+          "meaning": "No, he has short red hair. And he has a beard.",
+          "note": "avoir + les cheveux"
+        },
+        {
+          "speaker": "a",
+          "text": "Et les yeux ? Bleus ?",
+          "meaning": "And his eyes? Blue?"
+        },
+        {
+          "speaker": "b",
+          "text": "Non, il a les yeux verts. Et il porte des lunettes.",
+          "meaning": "No, he has green eyes. And he wears glasses."
+        },
+        {
+          "speaker": "a",
+          "text": "Je vois un grand roux avec des lunettes ! Il est sympa ?",
+          "meaning": "I can see a tall redhead with glasses! Is he nice?"
+        },
+        {
+          "speaker": "b",
+          "text": "Très sympa, et très drôle. Mais il est un peu timide au début.",
+          "meaning": "Very nice, and very funny. But he's a bit shy at first."
+        },
+        {
+          "speaker": "a",
+          "text": "Pas de problème, moi, je suis bavarde !",
+          "meaning": "No problem, I'm chatty!",
+          "note": "bavard → bavarde for a woman"
+        },
+        {
+          "speaker": "b",
+          "text": "Je sais ! Merci, Inès, tu es vraiment généreuse.",
+          "meaning": "I know! Thanks, Inès, you're really generous.",
+          "note": "généreux → généreuse"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Mon père porte des lunettes.",
+      "meaning": "My father wears glasses."
+    },
+    {
+      "text": "Elle a les cheveux courts et roux.",
+      "meaning": "She has short red hair.",
+      "note": "Hair takes avoir + les."
+    },
+    {
+      "text": "Il est comment, ton nouveau voisin ?",
+      "meaning": "What's your new neighbour like?",
+      "note": "New word: le voisin = the neighbour."
+    },
+    {
+      "text": "Ma tante est petite et très drôle.",
+      "meaning": "My aunt is short and very funny."
+    },
+    {
+      "text": "Mes cousins sont sportifs et travailleurs.",
+      "meaning": "My cousins are sporty and hard-working.",
+      "note": "Masculine plural: -s on both adjectives."
+    },
+    {
+      "text": "La nouvelle prof a l'air sérieuse, mais elle est sympa.",
+      "meaning": "The new teacher looks serious, but she's nice.",
+      "note": "New word: la prof = the teacher."
+    },
+    {
+      "text": "Mon grand-père a une barbe et les yeux bleus.",
+      "meaning": "My grandfather has a beard and blue eyes."
+    },
+    {
+      "text": "Ma meilleure amie est généreuse, bavarde et toujours de bonne humeur.",
+      "meaning": "My best friend is generous, chatty and always in a good mood.",
+      "note": "New word: de bonne humeur = in a good mood."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Il est comment"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-describing-people-05"
+    },
+    {
+      "question": "a1-describing-people-03"
+    },
+    {
+      "question": "a1-describing-people-02"
+    },
+    {
+      "concept": {
+        "title": "Un œil, des yeux",
+        "markdown": "The singular of **les yeux** is **l'œil** (the eye): a completely different word. You need it for **un œil bleu et un œil vert**, but in almost every description you use the plural: **il a les yeux verts**."
+      }
+    },
+    {
+      "question": "a1-describing-people-09"
+    },
+    {
+      "section": "Character"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-describing-people-01"
+    },
+    {
+      "question": "a1-describing-people-04"
+    },
+    {
+      "question": "a1-describing-people-07"
+    },
+    {
+      "question": "a1-describing-people-08"
+    },
+    {
+      "tip": "Hair, eyes and beards: think 'he has'. Il a les cheveux courts, never il est les cheveux courts."
+    },
+    {
+      "section": "Elle a l'air"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a1-describing-people-06"
+    }
+  ],
+  "sprint": {
+    "icon": "👀",
+    "bites": [
+      {
+        "title": "Il est comment ?",
+        "emoji": "📏",
+        "rule": "Ask il est comment ? / elle est comment ? Height and build take être: il est grand, elle est mince, il est de taille moyenne.",
+        "example": "Elle est comment ? — Elle est petite et mince.",
+        "example_meaning": "What does she look like? — She's short and slim."
+      },
+      {
+        "title": "Avoir for hair and eyes",
+        "emoji": "💇",
+        "rule": "Hair and eyes take avoir + les: il a les cheveux courts, elle a les yeux verts. Glasses: porter des lunettes. A beard: avoir une barbe.",
+        "example": "Il a les yeux bleus et une barbe.",
+        "example_meaning": "He has blue eyes and a beard."
+      },
+      {
+        "title": "Feminine endings",
+        "emoji": "🔀",
+        "rule": "-eux → -euse, -if → -ive, -eur → -euse, -en → -enne. Marron never changes; sympa and drôle only add -s in the plural.",
+        "example": "Elle est sportive et généreuse.",
+        "example_meaning": "She's sporty and generous."
+      },
+      {
+        "title": "Avoir l'air",
+        "emoji": "🙂",
+        "rule": "Avoir l'air + adjective = to look, to seem. It is your first impression: elle a l'air sympa.",
+        "example": "Ton cousin a l'air sérieux.",
+        "example_meaning": "Your cousin looks serious."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Il est… or il a… ?",
+        "buckets": [
+          "il est…",
+          "il a…"
+        ],
+        "items": [
+          {
+            "text": "grand",
+            "bucket": 0
+          },
+          {
+            "text": "les cheveux roux",
+            "bucket": 1
+          },
+          {
+            "text": "mince",
+            "bucket": 0
+          },
+          {
+            "text": "une barbe",
+            "bucket": 1
+          },
+          {
+            "text": "les yeux verts",
+            "bucket": 1
+          },
+          {
+            "text": "de taille moyenne",
+            "bucket": 0
+          },
+          {
+            "text": "drôle",
+            "bucket": 0
+          }
+        ],
+        "why": "Height, build and character take être; hair, eyes and a beard take avoir."
+      },
+      {
+        "title": "Masculine or feminine?",
+        "buckets": [
+          "masculine",
+          "feminine"
+        ],
+        "items": [
+          {
+            "text": "sportif",
+            "bucket": 0
+          },
+          {
+            "text": "généreuse",
+            "bucket": 1
+          },
+          {
+            "text": "travailleur",
+            "bucket": 0
+          },
+          {
+            "text": "sérieuse",
+            "bucket": 1
+          },
+          {
+            "text": "rousse",
+            "bucket": 1
+          },
+          {
+            "text": "bavard",
+            "bucket": 0
+          }
+        ],
+        "why": "Feminine endings: -euse, -ive, -sse, or an added -e (bavarde)."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Ma sœur est très sportif.",
+        "wrong": "sportif",
+        "fix": "sportive",
+        "why": "Sœur is feminine: -if becomes -ive."
+      },
+      {
+        "sentence": "Il a les yeux marrons.",
+        "wrong": "marrons",
+        "fix": "marron",
+        "why": "Marron never changes, not even in the plural."
+      },
+      {
+        "sentence": "Elle est les cheveux longs.",
+        "wrong": "est",
+        "fix": "a",
+        "why": "Hair takes avoir: elle a les cheveux longs."
+      },
+      {
+        "sentence": "Ma cousine est très travailleur.",
+        "wrong": "travailleur",
+        "fix": "travailleuse",
+        "why": "-eur becomes -euse in the feminine."
+      },
+      {
+        "sentence": "Mes amies sont généreux.",
+        "wrong": "généreux",
+        "fix": "généreuses",
+        "why": "Amies is feminine plural: généreuses."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Il a les cheveux courts.",
+        "meaning": "He has short hair.",
+        "distractors": [
+          "est"
+        ]
+      },
+      {
+        "text": "Elle a les yeux verts.",
+        "meaning": "She has green eyes.",
+        "distractors": [
+          "vertes"
+        ]
+      },
+      {
+        "text": "Mon père porte des lunettes rondes.",
+        "meaning": "My father wears round glasses.",
+        "distractors": [
+          "les"
+        ]
+      },
+      {
+        "text": "Ta cousine a l'air sympa.",
+        "meaning": "Your cousin seems nice.",
+        "distractors": [
+          "est"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🧔",
+      "content": "## Les portraits à Eldmark\n\nAt the taverne du Dragon Vert, adventurers describe each other: **Borin le nain est petit et courageux, il a une barbe rousse.** **Nym l'elfe est grande et mince, elle a les yeux verts.** Same rules: **être** for size and character, **avoir** for hair, eyes and beards.",
+      "vocabulary": [
+        {
+          "term": "grand / grande",
+          "example": "Le minotaure est très grand.",
+          "example_meaning": "The minotaur is very tall."
+        },
+        {
+          "term": "roux / rousse",
+          "example": "La guerrière a les cheveux roux.",
+          "example_meaning": "The warrior has red hair."
+        },
+        {
+          "term": "la barbe",
+          "example": "Borin a une longue barbe.",
+          "example_meaning": "Borin has a long beard."
+        },
+        {
+          "term": "les yeux",
+          "example": "Nym l'elfe a les yeux verts.",
+          "example_meaning": "Nym the elf has green eyes."
+        },
+        {
+          "term": "sympa",
+          "example": "L'aubergiste du Dragon Vert a l'air sympa.",
+          "example_meaning": "The innkeeper of the Green Dragon seems nice."
+        },
+        {
+          "term": "généreux / généreuse",
+          "example": "La prêtresse est généreuse : elle donne des potions.",
+          "example_meaning": "The priestess is generous: she gives out potions."
+        },
+        {
+          "term": "travailleur / travailleuse",
+          "example": "Les nains de Deepanvil sont travailleurs.",
+          "example_meaning": "The dwarves of Deepanvil are hard-working."
+        },
+        {
+          "term": "le nain",
+          "meaning": "dwarf",
+          "example": "Le nain est petit mais très fort.",
+          "example_meaning": "The dwarf is short but very strong."
+        },
+        {
+          "term": "l'elfe",
+          "meaning": "elf (m or f)",
+          "example": "L'elfe a les cheveux blonds.",
+          "example_meaning": "The elf has blond hair."
+        },
+        {
+          "term": "courageux / courageuse",
+          "meaning": "brave",
+          "example": "La chasseuse est courageuse.",
+          "example_meaning": "The huntress is brave."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Portrait d'aventurier",
+          "emoji": "🧔",
+          "rule": "Size and character take être, hair, eyes and beards take avoir: le nain est petit, il a une barbe rousse.",
+          "example": "Nym est grande, elle a les cheveux longs.",
+          "example_meaning": "Nym is tall, she has long hair."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Borin est petit mais courageux.",
+          "meaning": "Borin is short but brave.",
+          "note": "New word: courageux = brave."
+        },
+        {
+          "text": "L'elfe a les cheveux longs et blonds.",
+          "meaning": "The elf has long blond hair.",
+          "note": "New word: l'elfe = the elf."
+        },
+        {
+          "text": "Le nain est très travailleur.",
+          "meaning": "The dwarf is very hard-working.",
+          "note": "New word: le nain = the dwarf."
+        },
+        {
+          "text": "La mage Séla a l'air sérieuse.",
+          "meaning": "Séla the mage looks serious."
+        },
+        {
+          "text": "Le minotaure est grand et drôle.",
+          "meaning": "The minotaur is tall and funny."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Borin a une barbe rousse.",
+          "meaning": "Borin has a red beard.",
+          "distractors": [
+            "roux"
+          ]
+        },
+        {
+          "text": "Nym est grande et mince.",
+          "meaning": "Nym is tall and slim.",
+          "distractors": [
+            "grand"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Le nain a une barbe roux.",
+          "wrong": "roux",
+          "fix": "rousse",
+          "why": "Barbe is feminine, so the colour is rousse."
+        },
+        {
+          "sentence": "La chasseuse est très courageux.",
+          "wrong": "courageux",
+          "fix": "courageuse",
+          "why": "-eux becomes -euse in the feminine."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Borin or Nym?",
+          "buckets": [
+            "Borin le nain est…",
+            "Nym l'elfe est…"
+          ],
+          "items": [
+            {
+              "text": "courageuse",
+              "bucket": 1
+            },
+            {
+              "text": "travailleur",
+              "bucket": 0
+            },
+            {
+              "text": "sportive",
+              "bucket": 1
+            },
+            {
+              "text": "généreux",
+              "bucket": 0
+            },
+            {
+              "text": "sérieuse",
+              "bucket": 1
+            },
+            {
+              "text": "petit",
+              "bucket": 0
+            }
+          ],
+          "why": "Borin is a man: masculine forms. Nym is a woman: -euse, -ive and -e endings."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-describing-people-realm-01",
+          "prompt": "La guerrière est très ___ : elle n'a jamais peur des orcs.",
+          "type": "multiple-choice",
+          "options": [
+            "courageuse",
+            "courageux",
+            "courageuses"
+          ],
+          "correct_answer": "courageuse",
+          "explanation": "Guerrière is feminine, and courageux follows the -eux → -euse pattern: courageuse.",
+          "hints": [
+            "La guerrière is a woman.",
+            "-eux becomes -euse."
+          ],
+          "teaches": [
+            "courageux / courageuse"
+          ]
+        },
+        {
+          "question_id": "a1-describing-people-realm-02",
+          "prompt": "In 'Borin a une barbe rousse', rousse agrees with la barbe, not with Borin.",
+          "type": "true-false",
+          "correct_answer": "true",
+          "explanation": "An adjective agrees with its own noun: barbe is feminine, so roux becomes rousse, even though Borin is a man.",
+          "hints": [
+            "Which noun does rousse describe?"
+          ],
+          "teaches": [
+            "roux / rousse"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "👒",
+      "content": "## Les voisins à Meadowbrook\n\nOn market day, everyone describes the new neighbours: **Nora est petite et travailleuse.** **Léo le pêcheur est grand, il a une barbe et il porte un chapeau.** **Rosa a l'air sympa.** Size and character take **être**; hair, eyes and beards take **avoir**.",
+      "vocabulary": [
+        {
+          "term": "porter des lunettes",
+          "example": "Rosa porte des lunettes à la graineterie.",
+          "example_meaning": "Rosa wears glasses at the seed shop."
+        },
+        {
+          "term": "travailleur / travailleuse",
+          "example": "Nora est travailleuse : elle arrose les fraises à six heures.",
+          "example_meaning": "Nora is hard-working: she waters the strawberries at six."
+        },
+        {
+          "term": "la barbe",
+          "example": "Léo le pêcheur a une longue barbe.",
+          "example_meaning": "Léo the fisherman has a long beard."
+        },
+        {
+          "term": "drôle",
+          "example": "Le maire est drôle à la fête des récoltes.",
+          "example_meaning": "The mayor is funny at the harvest festival."
+        },
+        {
+          "term": "grand / grande",
+          "example": "Léo est grand et mince.",
+          "example_meaning": "Léo is tall and slim."
+        },
+        {
+          "term": "sympa",
+          "example": "Les voisins de la ferme sont très sympas.",
+          "example_meaning": "The neighbours of the farm are very nice."
+        },
+        {
+          "term": "les cheveux",
+          "example": "Nora a les cheveux courts et roux.",
+          "example_meaning": "Nora has short red hair."
+        },
+        {
+          "term": "le chapeau",
+          "meaning": "hat",
+          "example": "Le maire porte un grand chapeau.",
+          "example_meaning": "The mayor wears a big hat."
+        },
+        {
+          "term": "le voisin / la voisine",
+          "meaning": "neighbour",
+          "example": "Ma voisine est très généreuse.",
+          "example_meaning": "My neighbour is very generous."
+        },
+        {
+          "term": "le pêcheur",
+          "meaning": "fisherman",
+          "example": "Le pêcheur a l'air timide.",
+          "example_meaning": "The fisherman seems shy."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Au marché",
+          "emoji": "👒",
+          "rule": "Describe a neighbour: être + size or character, avoir + hair, eyes or beard, porter + a hat or glasses.",
+          "example": "Léo est grand et il porte un chapeau.",
+          "example_meaning": "Léo is tall and he wears a hat."
+        }
+      ],
+      "listening": [
+        {
+          "text": "La voisine a les yeux marron.",
+          "meaning": "The neighbour has brown eyes.",
+          "note": "New word: la voisine = the neighbour."
+        },
+        {
+          "text": "Léo porte un vieux chapeau.",
+          "meaning": "Léo wears an old hat.",
+          "note": "New word: le chapeau = the hat."
+        },
+        {
+          "text": "Le pêcheur est grand et sportif.",
+          "meaning": "The fisherman is tall and sporty.",
+          "note": "New word: le pêcheur = the fisherman."
+        },
+        {
+          "text": "Rosa est bavarde mais très généreuse.",
+          "meaning": "Rosa is chatty but very generous."
+        },
+        {
+          "text": "Le maire a l'air sérieux.",
+          "meaning": "The mayor looks serious."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Nora est petite et travailleuse.",
+          "meaning": "Nora is short and hard-working.",
+          "distractors": [
+            "travailleur"
+          ]
+        },
+        {
+          "text": "Léo porte un chapeau.",
+          "meaning": "Léo wears a hat.",
+          "distractors": [
+            "est"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Nora est très sportif.",
+          "wrong": "sportif",
+          "fix": "sportive",
+          "why": "Nora is a woman: -if becomes -ive."
+        },
+        {
+          "sentence": "Rosa est l'air sympa.",
+          "wrong": "est",
+          "fix": "a",
+          "why": "To seem is avoir l'air: Rosa a l'air sympa."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Léo est… or Léo a… ?",
+          "buckets": [
+            "Léo est…",
+            "Léo a…"
+          ],
+          "items": [
+            {
+              "text": "grand",
+              "bucket": 0
+            },
+            {
+              "text": "une barbe",
+              "bucket": 1
+            },
+            {
+              "text": "sportif",
+              "bucket": 0
+            },
+            {
+              "text": "les yeux bleus",
+              "bucket": 1
+            },
+            {
+              "text": "drôle",
+              "bucket": 0
+            },
+            {
+              "text": "les cheveux courts",
+              "bucket": 1
+            }
+          ],
+          "why": "Size and character take être; a beard, eyes and hair take avoir."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-describing-people-meadowbrook-01",
+          "prompt": "Nora travaille à la ferme du matin au soir : elle est très ___ .",
+          "type": "fill-in-blank",
+          "correct_answer": "travailleuse",
+          "accepted_answers": [],
+          "explanation": "Nora is a woman, and travailleur makes its feminine in -euse: elle est travailleuse.",
+          "hints": [
+            "Hard-working, feminine.",
+            "-eur becomes -euse."
+          ],
+          "teaches": [
+            "travailleur / travailleuse"
+          ]
+        },
+        {
+          "question_id": "a1-describing-people-meadowbrook-02",
+          "prompt": "Which sentence says that Léo the fisherman wears a hat?",
+          "type": "multiple-choice",
+          "options": [
+            "Léo porte un chapeau.",
+            "Léo est un chapeau.",
+            "Léo a l'air un chapeau."
+          ],
+          "correct_answer": "Léo porte un chapeau.",
+          "explanation": "Clothes and glasses take porter (to wear): Léo porte un chapeau.",
+          "hints": [
+            "To wear = porter."
+          ],
+          "teaches": [
+            "le chapeau"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🥽",
+      "content": "## Les portraits à Rustwake\n\nOn the radio-montre, the foreman Ruiz describes the people of the scrap village: **Marta est petite et bavarde, elle porte des lunettes de protection.** **Léo le fouilleur est grand, il a une barbe et les yeux marron.** **Être** for size and character, **avoir** for hair, eyes and beards.",
+      "vocabulary": [
+        {
+          "term": "porter des lunettes",
+          "example": "Dans le désert, Léo porte des lunettes contre la poussière.",
+          "example_meaning": "In the desert, Léo wears glasses against the dust."
+        },
+        {
+          "term": "marron",
+          "example": "Le chien de garde a les yeux marron.",
+          "example_meaning": "The guard dog has brown eyes."
+        },
+        {
+          "term": "sportif / sportive",
+          "example": "La fouilleuse est sportive : elle marche toute la journée.",
+          "example_meaning": "The scavenger is athletic: she walks all day."
+        },
+        {
+          "term": "généreux / généreuse",
+          "example": "Marta est généreuse : elle échange de l'eau contre deux écrous.",
+          "example_meaning": "Marta is generous: she trades water for two nuts."
+        },
+        {
+          "term": "de taille moyenne",
+          "example": "Le contremaître Ruiz est de taille moyenne.",
+          "example_meaning": "Ruiz the foreman is of average height."
+        },
+        {
+          "term": "drôle",
+          "example": "Le robot jardinier est très drôle.",
+          "example_meaning": "The gardener robot is very funny."
+        },
+        {
+          "term": "la barbe",
+          "example": "Léo a une barbe pleine de poussière.",
+          "example_meaning": "Léo has a beard full of dust."
+        },
+        {
+          "term": "le fouilleur / la fouilleuse",
+          "meaning": "scavenger",
+          "example": "La fouilleuse a les cheveux courts.",
+          "example_meaning": "The scavenger has short hair."
+        },
+        {
+          "term": "les lunettes de protection",
+          "meaning": "goggles (f pl)",
+          "example": "Ruiz porte des lunettes de protection.",
+          "example_meaning": "Ruiz wears goggles."
+        },
+        {
+          "term": "la combinaison",
+          "meaning": "jumpsuit (f)",
+          "example": "Les habitants du Dôme portent une combinaison bleue.",
+          "example_meaning": "The people of the Dome wear a blue jumpsuit."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Fiche d'habitant",
+          "emoji": "🥽",
+          "rule": "Ruiz describes people with être (size, character) and avoir (hair, eyes, beard). Goggles: porter des lunettes de protection.",
+          "example": "La fouilleuse est mince, elle a les cheveux bruns.",
+          "example_meaning": "The scavenger is slim, she has brown hair."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Le fouilleur a les cheveux bruns.",
+          "meaning": "The scavenger has brown hair.",
+          "note": "New word: le fouilleur = the scavenger."
+        },
+        {
+          "text": "Marta porte des lunettes de protection.",
+          "meaning": "Marta wears goggles.",
+          "note": "New word: les lunettes de protection = goggles."
+        },
+        {
+          "text": "Ruiz porte une vieille combinaison bleue.",
+          "meaning": "Ruiz wears an old blue jumpsuit.",
+          "note": "New word: la combinaison = the jumpsuit."
+        },
+        {
+          "text": "Le marchand a l'air sérieux.",
+          "meaning": "The trader looks serious."
+        },
+        {
+          "text": "Les fouilleuses sont sportives et travailleuses.",
+          "meaning": "The scavengers are athletic and hard-working."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Marta est petite et bavarde.",
+          "meaning": "Marta is short and chatty.",
+          "distractors": [
+            "bavard"
+          ]
+        },
+        {
+          "text": "Ruiz a les yeux marron.",
+          "meaning": "Ruiz has brown eyes.",
+          "distractors": [
+            "marrons"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "La fouilleuse est très travailleur.",
+          "wrong": "travailleur",
+          "fix": "travailleuse",
+          "why": "Fouilleuse is feminine: -eur becomes -euse."
+        },
+        {
+          "sentence": "Le contremaître est les cheveux courts.",
+          "wrong": "est",
+          "fix": "a",
+          "why": "Hair takes avoir: il a les cheveux courts."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Léo or Marta?",
+          "buckets": [
+            "Léo le fouilleur est…",
+            "Marta la marchande est…"
+          ],
+          "items": [
+            {
+              "text": "sportive",
+              "bucket": 1
+            },
+            {
+              "text": "généreux",
+              "bucket": 0
+            },
+            {
+              "text": "bavarde",
+              "bucket": 1
+            },
+            {
+              "text": "sérieux",
+              "bucket": 0
+            },
+            {
+              "text": "travailleuse",
+              "bucket": 1
+            },
+            {
+              "text": "petit",
+              "bucket": 0
+            }
+          ],
+          "why": "Léo takes the masculine forms; Marta takes -ive, -euse and the added -e."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-describing-people-rustwake-01",
+          "prompt": "Marta est une ___ : elle cherche des écrous dans le désert. (scavenger, feminine)",
+          "type": "fill-in-blank",
+          "correct_answer": "fouilleuse",
+          "accepted_answers": [],
+          "explanation": "Fouilleur follows the -eur → -euse pattern for a woman: une fouilleuse.",
+          "hints": [
+            "-eur becomes -euse.",
+            "Une ___: a feminine noun."
+          ],
+          "teaches": [
+            "le fouilleur / la fouilleuse"
+          ]
+        },
+        {
+          "question_id": "a1-describing-people-rustwake-02",
+          "prompt": "Ruiz the foreman has brown eyes. Choose the right French.",
+          "type": "multiple-choice",
+          "options": [
+            "Ruiz a les yeux marron.",
+            "Ruiz a les yeux marrons.",
+            "Ruiz est les yeux marron."
+          ],
+          "correct_answer": "Ruiz a les yeux marron.",
+          "explanation": "Eyes take avoir + les, and marron never takes an -s: Ruiz a les yeux marron.",
+          "hints": [
+            "Avoir for eyes.",
+            "Does marron change in the plural?"
+          ],
+          "teaches": [
+            "marron"
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,1148 @@
+{
+  "id": "b1-pronominal-verbs",
+  "slug": "pronominal-verbs",
+  "title": "Pronominal verbs: se souvenir, se rendre compte, s'en aller",
+  "unit": "B1",
+  "group": "Grammar",
+  "order": 32,
+  "summary": "Go beyond the daily routine: the four kinds of se, idiomatic verbs like se rendre compte and s'en aller, se souvenir de vs se rappeler, and the agreement rules of the passé composé.",
+  "focus": "Using idiomatic pronominal verbs and making their passé composé agree",
+  "prerequisites": [
+    "a2-passe-compose-etre"
+  ],
+  "content": "## Four kinds of se\n\nA pronominal verb carries a pronoun (**me, te, se, nous, vous**) that matches the subject. That **se** can do four jobs:\n\n- **reflexive**, the action comes back to you: **Je me lave.** — I wash (myself).\n- **reciprocal**, each other: **Ils se parlent tous les jours.** — They talk to each other every day.\n- **idiomatic**, the verb means something of its own: **Je m'ennuie.** — I'm bored. **Ne t'inquiète pas.** — Don't worry. **Tu te trompes.** — You're wrong.\n- **passive** (just recognise it): **Ça se vend bien.** — It sells well. **Ça ne se dit pas.** — You don't say that.\n\nThe idiomatic kind is the one to learn as vocabulary: **ennuyer** means *to bore someone*, **s'ennuyer** means *to be bored*.\n\n## Idiomatic verbs, and se souvenir\n\n| verb | meaning |\n|---|---|\n| s'en aller | to leave, to go away |\n| se rendre compte de / que | to realise |\n| se douter de / que | to suspect, to guess |\n| se passer de | to do without |\n| s'attendre à | to expect |\n| se débrouiller | to manage, to get by |\n| s'occuper de | to take care of, to deal with |\n| se moquer de | to make fun of |\n\n**Se souvenir de**, but **se rappeler** with no **de**: **Je me souviens de ce film.** = **Je me rappelle ce film.**\n\n| se souvenir | |\n|---|---|\n| je me souviens | nous nous souvenons |\n| tu te souviens | vous vous souvenez |\n| il / elle se souvient | ils / elles se souviennent |\n\n## Passé composé and imperative\n\nEvery pronominal verb takes **être**, and the participle usually agrees with the subject: **Elle s'est trompée. Nous nous sommes débrouillés.** (The drill shows the masculine.)\n\nNo agreement when **se** is an *indirect* object, with verbs built on **à quelqu'un** (parler à, téléphoner à, dire à, écrire à): **Ils se sont parlé. Elles se sont téléphoné.**\n\nIn the affirmative imperative the pronoun goes after, **te** becoming **toi**: **Souviens-toi ! Dépêchez-vous ! Va-t'en !** In the negative it stays in front: **Ne t'inquiète pas. Ne vous moquez pas de lui.**",
+  "vocabulary": [
+    {
+      "term": "s'ennuyer",
+      "meaning": "to be bored",
+      "example": "Les enfants s'ennuient pendant les longs trajets en voiture.",
+      "example_meaning": "The children get bored on long car journeys."
+    },
+    {
+      "term": "s'inquiéter",
+      "meaning": "to worry",
+      "example": "Ma mère s'inquiète quand je rentre tard.",
+      "example_meaning": "My mother worries when I come home late."
+    },
+    {
+      "term": "se tromper",
+      "meaning": "to be wrong, to make a mistake",
+      "example": "Excusez-moi, je me suis trompé de numéro.",
+      "example_meaning": "Sorry, I dialled the wrong number."
+    },
+    {
+      "term": "se souvenir de",
+      "meaning": "to remember",
+      "example": "Tu te souviens de notre prof de maths ?",
+      "example_meaning": "Do you remember our maths teacher?"
+    },
+    {
+      "term": "se rappeler",
+      "meaning": "to remember (+ direct object)",
+      "example": "Je ne me rappelle pas son prénom.",
+      "example_meaning": "I can't remember her first name."
+    },
+    {
+      "term": "s'en aller",
+      "meaning": "to leave, to go away",
+      "example": "Il est minuit, on s'en va ?",
+      "example_meaning": "It's midnight, shall we go?"
+    },
+    {
+      "term": "se rendre compte de",
+      "meaning": "to realise",
+      "example": "Je me rends compte que j'ai oublié mon portefeuille.",
+      "example_meaning": "I realise I've forgotten my wallet."
+    },
+    {
+      "term": "se douter de",
+      "meaning": "to suspect, to guess",
+      "example": "Elle se doute de quelque chose, j'en suis sûr.",
+      "example_meaning": "She suspects something, I'm sure of it."
+    },
+    {
+      "term": "se passer de",
+      "meaning": "to do without",
+      "example": "Je peux me passer de télé, mais pas de musique.",
+      "example_meaning": "I can do without TV, but not without music."
+    },
+    {
+      "term": "s'attendre à",
+      "meaning": "to expect",
+      "example": "Nous ne nous attendions pas à une telle fête !",
+      "example_meaning": "We weren't expecting such a party!"
+    },
+    {
+      "term": "se débrouiller",
+      "meaning": "to manage, to get by",
+      "example": "Je me débrouille bien en espagnol.",
+      "example_meaning": "I get by well in Spanish."
+    },
+    {
+      "term": "s'occuper de",
+      "meaning": "to take care of, to deal with",
+      "example": "Qui s'occupe du chat pendant les vacances ?",
+      "example_meaning": "Who's looking after the cat during the holidays?"
+    },
+    {
+      "term": "se moquer de",
+      "meaning": "to make fun of",
+      "example": "Arrête de te moquer de ton frère !",
+      "example_meaning": "Stop making fun of your brother!"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-pronominal-verbs-01",
+      "prompt": "Tu te souviens ___ notre premier voyage en Bretagne ?",
+      "type": "multiple-choice",
+      "options": [
+        "de",
+        "à",
+        "en"
+      ],
+      "correct_answer": "de",
+      "explanation": "Se souvenir is followed by de: 'tu te souviens de notre premier voyage'.",
+      "hints": [
+        "Se souvenir + which little word?"
+      ],
+      "teaches": [
+        "se souvenir de"
+      ]
+    },
+    {
+      "question_id": "b1-pronominal-verbs-02",
+      "prompt": "Je me rappelle très bien ___ nom de ce petit restaurant.",
+      "type": "multiple-choice",
+      "options": [
+        "le",
+        "du",
+        "au"
+      ],
+      "correct_answer": "le",
+      "explanation": "Se rappeler takes a direct object, with no de: 'je me rappelle le nom'.",
+      "hints": [
+        "Se rappeler is the one without de."
+      ],
+      "teaches": [
+        "se rappeler"
+      ]
+    },
+    {
+      "question_id": "b1-pronominal-verbs-03",
+      "prompt": "Nous nous ___ (se souvenir) très bien de cette soirée.",
+      "type": "fill-in-blank",
+      "correct_answer": "souvenons",
+      "accepted_answers": [
+        "nous souvenons"
+      ],
+      "explanation": "Se souvenir in the nous form: 'nous nous souvenons'. Only je, tu, il and ils take the -ie- stem.",
+      "hints": [
+        "nous form, -ons ending",
+        "Like venir: nous venons."
+      ],
+      "teaches": [
+        "se souvenir de"
+      ]
+    },
+    {
+      "question_id": "b1-pronominal-verbs-04",
+      "prompt": "Hier soir, Claire s'est ___ de numéro et a appelé un inconnu.",
+      "type": "multiple-choice",
+      "options": [
+        "trompée",
+        "trompé",
+        "trompées"
+      ],
+      "correct_answer": "trompée",
+      "explanation": "Pronominal verbs take être and usually agree with the subject: Claire (one woman) → 'trompée'.",
+      "hints": [
+        "Who is the subject, and how many?"
+      ],
+      "teaches": [
+        "se tromper"
+      ]
+    },
+    {
+      "question_id": "b1-pronominal-verbs-05",
+      "prompt": "In « Ils se sont parlé pendant une heure », parlé should be written parlés to agree with ils.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "No agreement: parler à quelqu'un, so se is an indirect object. 'Ils se sont parlé' is correct.",
+      "hints": [
+        "You talk à someone: is se direct or indirect here?"
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b1-pronominal-verbs-06",
+      "prompt": "Il est déjà tard, je m'en ___ : bonne soirée à tous !",
+      "type": "fill-in-blank",
+      "correct_answer": "vais",
+      "accepted_answers": [
+        "m'en vais"
+      ],
+      "explanation": "S'en aller conjugates like aller: 'je m'en vais' = I'm off, I'm leaving.",
+      "hints": [
+        "Aller in the je form."
+      ],
+      "teaches": [
+        "s'en aller"
+      ]
+    },
+    {
+      "question_id": "b1-pronominal-verbs-07",
+      "prompt": "Ne ___ inquiète pas, j'arrive dans cinq minutes !",
+      "type": "multiple-choice",
+      "options": [
+        "t'",
+        "te",
+        "toi"
+      ],
+      "correct_answer": "t'",
+      "explanation": "In the negative imperative the pronoun stays in front of the verb and elides before a vowel: 'ne t'inquiète pas'. Toi is only for the affirmative (souviens-toi).",
+      "hints": [
+        "Negative imperative: pronoun in front, and inquiète starts with a vowel."
+      ],
+      "teaches": [
+        "s'inquiéter"
+      ]
+    },
+    {
+      "question_id": "b1-pronominal-verbs-08",
+      "prompt": "Je ne peux pas me ___ de café le matin, j'en bois toujours deux tasses.",
+      "type": "fill-in-blank",
+      "correct_answer": "passer",
+      "accepted_answers": [],
+      "explanation": "Se passer de = to do without: 'je ne peux pas me passer de café'.",
+      "hints": [
+        "To do without: se … de",
+        "Its everyday meaning is to pass."
+      ],
+      "teaches": [
+        "se passer de"
+      ]
+    },
+    {
+      "question_id": "b1-pronominal-verbs-09",
+      "prompt": "In « Ce livre se vend partout », se gives the verb a passive meaning: the book is sold everywhere.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Yes: a thing can't sell itself, so se here is passive: the book is sold.",
+      "hints": [
+        "Can a book do the selling?"
+      ],
+      "teaches": []
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "se souvenir",
+      "meaning": "to remember",
+      "set": "present",
+      "art": [
+        "   .-~~~~~~-.   ",
+        "  (  1999 ...)  ",
+        "   `-.....-'    ",
+        "     o          ",
+        "   o            ",
+        "  (o_o)  hmm... "
+      ],
+      "forms": {
+        "je": "me souviens",
+        "tu": "te souviens",
+        "il": "se souvient",
+        "nous": "nous souvenons",
+        "vous": "vous souvenez",
+        "ils": "se souviennent"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-pronominal-verbs-conv-class-reunion",
+      "title": "Ten years later",
+      "scenario": "At a school reunion, Élodie and Karim try to remember who is who.",
+      "role_a": "Élodie",
+      "role_b": "Karim",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Karim ? Tu te souviens de moi ? Élodie, de la classe de troisième !",
+          "meaning": "Karim? Do you remember me? Élodie, from Year Ten!"
+        },
+        {
+          "speaker": "b",
+          "text": "Élodie ! Bien sûr, je me rappelle ton rire.",
+          "meaning": "Élodie! Of course, I remember your laugh.",
+          "note": "se rappeler + direct object"
+        },
+        {
+          "speaker": "a",
+          "text": "Je ne m'attendais pas à voir autant de monde.",
+          "meaning": "I wasn't expecting to see so many people."
+        },
+        {
+          "speaker": "b",
+          "text": "Moi non plus. Tu te rends compte, ça fait dix ans !",
+          "meaning": "Nor was I. Can you believe it, it's been ten years!"
+        },
+        {
+          "speaker": "a",
+          "text": "Et toi, qu'est-ce que tu fais maintenant ?",
+          "meaning": "And you, what are you doing now?"
+        },
+        {
+          "speaker": "b",
+          "text": "Je m'occupe d'un petit hôtel à Annecy. Je me débrouille !",
+          "meaning": "I run a little hotel in Annecy. I get by!"
+        },
+        {
+          "speaker": "a",
+          "text": "Tu te moquais toujours de mon accent, tu te souviens ?",
+          "meaning": "You always used to make fun of my accent, remember?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, pardon ! On se disputait, mais on s'amusait bien.",
+          "meaning": "Yes, sorry! We used to argue, but we had fun."
+        },
+        {
+          "speaker": "a",
+          "text": "Je me doutais que tu allais dire ça.",
+          "meaning": "I guessed you were going to say that."
+        },
+        {
+          "speaker": "b",
+          "text": "Allez, ne t'en va pas tout de suite. On boit un verre ?",
+          "meaning": "Come on, don't leave straight away. Shall we have a drink?",
+          "note": "negative imperative: ne t'en va pas"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Je ne me souviens pas de son adresse.",
+      "meaning": "I don't remember his address."
+    },
+    {
+      "text": "Nous nous ennuyons un peu ici.",
+      "meaning": "We're a bit bored here."
+    },
+    {
+      "text": "Tu te rappelles le titre de la chanson ?",
+      "meaning": "Do you remember the title of the song?",
+      "note": "se rappeler: no de"
+    },
+    {
+      "text": "Je me suis trompé de bus ce matin.",
+      "meaning": "I took the wrong bus this morning."
+    },
+    {
+      "text": "Vous vous occupez de la réservation, d'accord ?",
+      "meaning": "You'll deal with the booking, all right?"
+    },
+    {
+      "text": "Je me rends compte que la boulangerie est fermée le lundi.",
+      "meaning": "I realise that the bakery is closed on Mondays.",
+      "note": "New word: la boulangerie = the bakery."
+    },
+    {
+      "text": "Souvenez-vous, la réunion commence à neuf heures précises.",
+      "meaning": "Remember, the meeting starts at nine o'clock sharp.",
+      "note": "New word: précis = exact, sharp."
+    },
+    {
+      "text": "Nous nous sommes bien débrouillés pendant notre premier séjour à l'étranger.",
+      "meaning": "We managed well during our first stay abroad.",
+      "note": "New word: le séjour = the stay."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Four kinds of se"
+    },
+    {
+      "vocab": 3
+    },
+    {
+      "question": "b1-pronominal-verbs-09"
+    },
+    {
+      "tip": "Learn idiomatic verbs with their se, as one block: ennuyer means to bore someone, s'ennuyer means to be bored."
+    },
+    {
+      "section": "Idiomatic verbs"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-pronominal-verbs-01"
+    },
+    {
+      "question": "b1-pronominal-verbs-02"
+    },
+    {
+      "question": "b1-pronominal-verbs-03"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-pronominal-verbs-06"
+    },
+    {
+      "question": "b1-pronominal-verbs-08"
+    },
+    {
+      "section": "Passé composé and imperative"
+    },
+    {
+      "question": "b1-pronominal-verbs-04"
+    },
+    {
+      "question": "b1-pronominal-verbs-05"
+    },
+    {
+      "question": "b1-pronominal-verbs-07"
+    },
+    {
+      "concept": {
+        "title": "Douter or se douter?",
+        "markdown": "The **se** can flip the meaning. **Je doute qu'il vienne** = I doubt he'll come (subjonctif). **Je me doute qu'il viendra** = I suspect he'll come, I'm sure he will (indicative). Likewise **passer** (to pass) and **se passer** (to happen): **Qu'est-ce qui se passe ?** — What's going on?"
+      }
+    }
+  ],
+  "sprint": {
+    "icon": "🪃",
+    "bites": [
+      {
+        "title": "Four kinds of se",
+        "emoji": "🪃",
+        "rule": "Reflexive (se laver), reciprocal (se parler), idiomatic (s'ennuyer) and passive (ça se vend).",
+        "example": "Je m'ennuie.",
+        "example_meaning": "I'm bored."
+      },
+      {
+        "title": "Souvenir de, rappeler",
+        "emoji": "🧠",
+        "rule": "Se souvenir de + thing; se rappeler + thing with no de.",
+        "example": "Je me souviens de lui.",
+        "example_meaning": "I remember him."
+      },
+      {
+        "title": "Être and agreement",
+        "emoji": "✍️",
+        "rule": "Passé composé with être; agree with the subject, except when se is indirect (se parler, se téléphoner).",
+        "example": "Elle s'est trompée.",
+        "example_meaning": "She made a mistake."
+      },
+      {
+        "title": "Imperative",
+        "emoji": "📣",
+        "rule": "Affirmative: pronoun after, te becomes toi (souviens-toi). Negative: in front (ne t'inquiète pas).",
+        "example": "Dépêche-toi !",
+        "example_meaning": "Hurry up!"
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which kind of se?",
+        "buckets": [
+          "reflexive",
+          "reciprocal",
+          "idiomatic"
+        ],
+        "items": [
+          {
+            "text": "Je me lave les mains.",
+            "bucket": 0
+          },
+          {
+            "text": "Elle se brosse les dents.",
+            "bucket": 0
+          },
+          {
+            "text": "Ils s'écrivent chaque semaine.",
+            "bucket": 1
+          },
+          {
+            "text": "On se téléphone ce soir ?",
+            "bucket": 1
+          },
+          {
+            "text": "Je m'ennuie à mourir.",
+            "bucket": 2
+          },
+          {
+            "text": "Tu te rends compte ?",
+            "bucket": 2
+          },
+          {
+            "text": "Il s'en va demain.",
+            "bucket": 2
+          }
+        ],
+        "why": "Reflexive: you do it to yourself; reciprocal: to each other; idiomatic: the verb with se has its own meaning."
+      },
+      {
+        "title": "Agreement or not?",
+        "buckets": [
+          "agrees",
+          "no agreement"
+        ],
+        "items": [
+          {
+            "text": "Elles se sont levées tôt.",
+            "bucket": 0
+          },
+          {
+            "text": "Nous nous sommes trompés.",
+            "bucket": 0
+          },
+          {
+            "text": "Ils se sont rencontrés à Lyon.",
+            "bucket": 0
+          },
+          {
+            "text": "Elles se sont téléphoné.",
+            "bucket": 1
+          },
+          {
+            "text": "Ils se sont écrit pendant des années.",
+            "bucket": 1
+          },
+          {
+            "text": "Nous nous sommes parlé hier.",
+            "bucket": 1
+          }
+        ],
+        "why": "The participle agrees when se is a direct object; with téléphoner à, écrire à, parler à, se is indirect: no agreement."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Je me souviens à notre voyage en Grèce.",
+        "wrong": "à",
+        "fix": "de",
+        "why": "Se souvenir de quelque chose."
+      },
+      {
+        "sentence": "Elle s'est tromper de route.",
+        "wrong": "tromper",
+        "fix": "trompée",
+        "why": "Passé composé: être + participle, agreeing with elle."
+      },
+      {
+        "sentence": "Ils se sont téléphonés hier soir.",
+        "wrong": "téléphonés",
+        "fix": "téléphoné",
+        "why": "Téléphoner à: se is indirect, so no agreement."
+      },
+      {
+        "sentence": "Souviens-te de ton rendez-vous !",
+        "wrong": "Souviens-te",
+        "fix": "Souviens-toi",
+        "why": "In the affirmative imperative, te becomes toi after the verb."
+      },
+      {
+        "sentence": "Nous nous avons bien débrouillés.",
+        "wrong": "avons",
+        "fix": "sommes",
+        "why": "Pronominal verbs take être: nous nous sommes débrouillés."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Je me souviens de cette chanson.",
+        "meaning": "I remember this song.",
+        "distractors": [
+          "à"
+        ]
+      },
+      {
+        "text": "Ne t'inquiète pas pour moi.",
+        "meaning": "Don't worry about me.",
+        "distractors": [
+          "toi"
+        ]
+      },
+      {
+        "text": "Nous nous sommes trompés de train.",
+        "meaning": "We got on the wrong train.",
+        "distractors": [
+          "avons"
+        ]
+      },
+      {
+        "text": "Qui s'occupe des enfants ce soir ?",
+        "meaning": "Who's looking after the children tonight?",
+        "distractors": [
+          "à"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🦄",
+      "content": "## Les verbes pronominaux à Eldmark\n\nOn a quest, Nym **se souvient de** la Forêt Ombreuse, Borin **se rend compte qu'**il a perdu la carte, and the mage **s'occupe des** potions. In the passé composé: **Borin s'est trompé de chemin.** Before the dungeon, the priestess says: **Ne vous inquiétez pas !**",
+      "vocabulary": [
+        {
+          "term": "se souvenir de",
+          "example": "Le vieux nain se souvient de la grande bataille de Frostmarch.",
+          "example_meaning": "The old dwarf remembers the great battle of Frostmarch."
+        },
+        {
+          "term": "se tromper",
+          "example": "Borin s'est trompé de chemin dans la Forêt Ombreuse.",
+          "example_meaning": "Borin took the wrong path in the Shadowy Forest."
+        },
+        {
+          "term": "se rendre compte de",
+          "example": "La mage se rend compte que son sort ne marche pas.",
+          "example_meaning": "The mage realises that her spell isn't working."
+        },
+        {
+          "term": "s'occuper de",
+          "example": "La prêtresse s'occupe des guerriers blessés.",
+          "example_meaning": "The priestess takes care of the wounded warriors."
+        },
+        {
+          "term": "se moquer de",
+          "example": "Les elfes se moquent de la barbe de Borin.",
+          "example_meaning": "The elves make fun of Borin's beard."
+        },
+        {
+          "term": "s'attendre à",
+          "example": "Nous ne nous attendions pas à trouver un dragon ici !",
+          "example_meaning": "We weren't expecting to find a dragon here!"
+        },
+        {
+          "term": "le chemin",
+          "meaning": "path, way",
+          "example": "Souviens-toi du chemin du donjon !",
+          "example_meaning": "Remember the way to the dungeon!"
+        },
+        {
+          "term": "la carte",
+          "meaning": "map (f)",
+          "example": "Ne t'inquiète pas, je m'occupe de la carte.",
+          "example_meaning": "Don't worry, I'll take care of the map."
+        },
+        {
+          "term": "le donjon",
+          "meaning": "dungeon",
+          "example": "Le paladin s'en va seul vers le donjon.",
+          "example_meaning": "The paladin goes off alone towards the dungeon."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Les pronominaux de la quête",
+          "emoji": "🦄",
+          "rule": "Se souvenir de, s'occuper de, se tromper; passé composé with être and agreement.",
+          "example": "Nym s'est souvenue du sort.",
+          "example_meaning": "Nym remembered the spell."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Je me souviens de ce donjon.",
+          "meaning": "I remember this dungeon.",
+          "note": "New word: le donjon = the dungeon."
+        },
+        {
+          "text": "Nous nous occupons du butin.",
+          "meaning": "We'll take care of the loot."
+        },
+        {
+          "text": "Le minotaure s'ennuie dans sa grotte.",
+          "meaning": "The minotaur is bored in his cave.",
+          "note": "New word: la grotte = the cave."
+        },
+        {
+          "text": "Ne vous moquez pas du nain !",
+          "meaning": "Don't make fun of the dwarf!"
+        },
+        {
+          "text": "Souviens-toi du chemin, Nym !",
+          "meaning": "Remember the way, Nym!",
+          "note": "New word: le chemin = the path."
+        }
+      ],
+      "builds": [
+        {
+          "text": "La mage s'occupe des potions.",
+          "meaning": "The mage takes care of the potions.",
+          "distractors": [
+            "à"
+          ]
+        },
+        {
+          "text": "Nous nous sommes trompés de donjon.",
+          "meaning": "We went to the wrong dungeon.",
+          "distractors": [
+            "avons"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "La mage s'occupe à la potion de Borin.",
+          "wrong": "à",
+          "fix": "de",
+          "why": "S'occuper de quelque chose: la mage s'occupe de la potion."
+        },
+        {
+          "sentence": "Les guerrières se sont ennuyé au donjon.",
+          "wrong": "ennuyé",
+          "fix": "ennuyées",
+          "why": "S'ennuyer agrees with the subject: elles se sont ennuyées."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Eldmark: which kind of se?",
+          "buckets": [
+            "reciprocal",
+            "idiomatic"
+          ],
+          "items": [
+            {
+              "text": "Borin et Nym se parlent enfin.",
+              "bucket": 0
+            },
+            {
+              "text": "Les deux guerriers se battent.",
+              "bucket": 0
+            },
+            {
+              "text": "L'orc et l'elfe se saluent.",
+              "bucket": 0
+            },
+            {
+              "text": "Le paladin s'en va.",
+              "bucket": 1
+            },
+            {
+              "text": "La mage se trompe de sort.",
+              "bucket": 1
+            },
+            {
+              "text": "Borin se moque du minotaure.",
+              "bucket": 1
+            }
+          ],
+          "why": "Reciprocal se means each other; idiomatic verbs like s'en aller, se tromper and se moquer have a meaning of their own."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-pronominal-verbs-realm-01",
+          "prompt": "Dans le donjon, la mage Séla s'est ___ de porte et a réveillé le dragon.",
+          "type": "fill-in-blank",
+          "correct_answer": "trompée",
+          "accepted_answers": [],
+          "explanation": "Se tromper de = to pick the wrong one; in the passé composé it agrees with Séla: 's'est trompée'.",
+          "hints": [
+            "Participle of se tromper, feminine."
+          ],
+          "teaches": [
+            "se tromper"
+          ]
+        },
+        {
+          "question_id": "b1-pronominal-verbs-realm-02",
+          "prompt": "Before the battle, the priestess tells Borin: « ___ , le soleil se lève ! » Which is right?",
+          "type": "multiple-choice",
+          "options": [
+            "Dépêche-toi",
+            "Dépêche-te",
+            "Te dépêche"
+          ],
+          "correct_answer": "Dépêche-toi",
+          "explanation": "Affirmative imperative: the pronoun goes after the verb and te becomes toi: 'Dépêche-toi !'",
+          "hints": [
+            "Affirmative imperative: pronoun after, and te changes."
+          ],
+          "teaches": []
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🐇",
+      "content": "## Les verbes pronominaux à Meadowbrook\n\nOn the farm, Nora **s'occupe des** poules, Léo **se débrouille** au potager, and Rosa **se moque** gentiment **de** lui. **Tu te souviens de** la fête des récoltes ? Nora **s'est trompée de** graines, and the pumpkins **se sont vendues** in an hour!",
+      "vocabulary": [
+        {
+          "term": "s'occuper de",
+          "example": "Nora s'occupe des poules tous les matins.",
+          "example_meaning": "Nora looks after the hens every morning."
+        },
+        {
+          "term": "se débrouiller",
+          "example": "Léo se débrouille bien au potager.",
+          "example_meaning": "Léo manages well in the vegetable garden."
+        },
+        {
+          "term": "se moquer de",
+          "example": "Rosa se moque de Léo quand il tombe dans la rivière.",
+          "example_meaning": "Rosa makes fun of Léo when he falls into the river."
+        },
+        {
+          "term": "se souvenir de",
+          "example": "Tu te souviens de la fête des récoltes de l'an dernier ?",
+          "example_meaning": "Do you remember last year's harvest festival?"
+        },
+        {
+          "term": "se tromper",
+          "example": "Je me suis trompée de graines : ce sont des citrouilles !",
+          "example_meaning": "I picked the wrong seeds: they're pumpkins!"
+        },
+        {
+          "term": "se passer de",
+          "example": "Le maire ne peut pas se passer de son café du matin.",
+          "example_meaning": "The mayor can't do without his morning coffee."
+        },
+        {
+          "term": "s'attendre à",
+          "example": "Je m'attends à une belle récolte cet automne.",
+          "example_meaning": "I'm expecting a good harvest this autumn."
+        },
+        {
+          "term": "le potager",
+          "meaning": "vegetable garden",
+          "example": "Ne t'inquiète pas, je m'occupe du potager.",
+          "example_meaning": "Don't worry, I'll look after the vegetable garden."
+        },
+        {
+          "term": "la poule",
+          "meaning": "hen",
+          "example": "Les poules s'ennuient quand il pleut.",
+          "example_meaning": "The hens get bored when it rains."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Les pronominaux de la ferme",
+          "emoji": "🐇",
+          "rule": "S'occuper de, se débrouiller, se moquer de; être in the passé composé, with agreement.",
+          "example": "Nora s'est bien débrouillée.",
+          "example_meaning": "Nora managed well."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Je m'occupe des vaches ce matin.",
+          "meaning": "I'm looking after the cows this morning."
+        },
+        {
+          "text": "Les fraises se vendent bien au marché.",
+          "meaning": "Strawberries sell well at the market."
+        },
+        {
+          "text": "Tu te souviens du maire ?",
+          "meaning": "Do you remember the mayor?",
+          "note": "New word: le maire = the mayor."
+        },
+        {
+          "text": "Léo ne se débrouille pas en cuisine.",
+          "meaning": "Léo can't manage in the kitchen."
+        },
+        {
+          "text": "Nous nous attendons à un hiver froid.",
+          "meaning": "We're expecting a cold winter.",
+          "note": "New word: l'hiver = winter."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Nora s'occupe du potager.",
+          "meaning": "Nora looks after the vegetable garden.",
+          "distractors": [
+            "à"
+          ]
+        },
+        {
+          "text": "Ne te moque pas de Léo !",
+          "meaning": "Don't make fun of Léo!",
+          "distractors": [
+            "toi"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Rosa s'occupe à la graineterie.",
+          "wrong": "à",
+          "fix": "de",
+          "why": "S'occuper de: Rosa s'occupe de la graineterie."
+        },
+        {
+          "sentence": "Les vaches se sont échappé ce matin.",
+          "wrong": "échappé",
+          "fix": "échappées",
+          "why": "S'échapper agrees with the subject: les vaches se sont échappées."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Meadowbrook: agreement or not?",
+          "buckets": [
+            "agrees",
+            "no agreement"
+          ],
+          "items": [
+            {
+              "text": "Les poules se sont réveillées tôt.",
+              "bucket": 0
+            },
+            {
+              "text": "Nora et Rosa se sont rencontrées au marché.",
+              "bucket": 0
+            },
+            {
+              "text": "Nous nous sommes débrouillés.",
+              "bucket": 0
+            },
+            {
+              "text": "Rosa et Nora se sont téléphoné.",
+              "bucket": 1
+            },
+            {
+              "text": "Les voisines se sont écrit.",
+              "bucket": 1
+            },
+            {
+              "text": "Léo et Nora se sont parlé.",
+              "bucket": 1
+            }
+          ],
+          "why": "Agree when se is direct (se réveiller, se rencontrer); no agreement with téléphoner à, écrire à, parler à."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-pronominal-verbs-meadowbrook-01",
+          "prompt": "Rosa et Nora se sont ___ (téléphoner) pour organiser la fête des récoltes.",
+          "type": "fill-in-blank",
+          "correct_answer": "téléphoné",
+          "accepted_answers": [],
+          "explanation": "Téléphoner à quelqu'un: se is indirect, so the participle doesn't agree: 'elles se sont téléphoné'.",
+          "hints": [
+            "You phone à someone.",
+            "No -es at the end."
+          ],
+          "teaches": []
+        },
+        {
+          "question_id": "b1-pronominal-verbs-meadowbrook-02",
+          "prompt": "Léo doesn't need his boat in winter. Which sentence says he can do without it?",
+          "type": "multiple-choice",
+          "options": [
+            "Il peut se passer de son bateau.",
+            "Il peut se douter de son bateau.",
+            "Il peut se moquer à son bateau."
+          ],
+          "correct_answer": "Il peut se passer de son bateau.",
+          "explanation": "Se passer de = to do without. Se douter de = to suspect; se moquer takes de, not à.",
+          "hints": [
+            "To do without: se … de."
+          ],
+          "teaches": [
+            "se passer de"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🪤",
+      "content": "## Les verbes pronominaux à Rustwake\n\nOut of the Dôme, you **te débrouilles**: Léo **s'occupe de** la radio, Ruiz **s'attend à** une tempête de cendres, and nobody **se passe d'**eau filtrée. **Tu te souviens du** Dôme ? Marta **s'est trompée de** route, so: **Ne t'inquiète pas**, the radio-montre knows the way!",
+      "vocabulary": [
+        {
+          "term": "se débrouiller",
+          "example": "Hors du Dôme, il faut se débrouiller seul.",
+          "example_meaning": "Outside the Dome, you have to manage on your own."
+        },
+        {
+          "term": "s'attendre à",
+          "example": "Ruiz s'attend à une tempête de cendres ce soir.",
+          "example_meaning": "Ruiz is expecting an ash storm tonight."
+        },
+        {
+          "term": "se passer de",
+          "example": "Personne ne peut se passer d'eau filtrée.",
+          "example_meaning": "Nobody can do without filtered water."
+        },
+        {
+          "term": "se souvenir de",
+          "example": "Je me souviens du silence du Dôme.",
+          "example_meaning": "I remember the silence of the Dome."
+        },
+        {
+          "term": "se rendre compte de",
+          "example": "Léo se rend compte que sa radio-montre ne marche plus.",
+          "example_meaning": "Léo realises his wrist radio doesn't work any more."
+        },
+        {
+          "term": "s'en aller",
+          "example": "Le scarabée géant s'en va enfin.",
+          "example_meaning": "The giant beetle is finally going away."
+        },
+        {
+          "term": "la tempête de cendres",
+          "meaning": "ash storm",
+          "example": "Ne t'inquiète pas, la tempête de cendres s'en va.",
+          "example_meaning": "Don't worry, the ash storm is moving away."
+        },
+        {
+          "term": "l'eau filtrée",
+          "meaning": "filtered water (f)",
+          "example": "Marta s'occupe de l'eau filtrée du village.",
+          "example_meaning": "Marta looks after the village's filtered water."
+        },
+        {
+          "term": "le fouilleur",
+          "meaning": "scavenger (f: la fouilleuse)",
+          "example": "Les fouilleurs se moquent de ma vieille combinaison bleue.",
+          "example_meaning": "The scavengers make fun of my old blue jumpsuit."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Survivre hors du Dôme",
+          "emoji": "🪤",
+          "rule": "Se débrouiller, s'attendre à, se passer de; ne t'inquiète pas in the negative imperative.",
+          "example": "Débrouille-toi, fouilleur !",
+          "example_meaning": "Sort yourself out, scavenger!"
+        }
+      ],
+      "listening": [
+        {
+          "text": "Je me souviens de ma combinaison bleue.",
+          "meaning": "I remember my blue jumpsuit."
+        },
+        {
+          "text": "Nous nous attendons à une longue marche.",
+          "meaning": "We're expecting a long walk."
+        },
+        {
+          "text": "Ruiz s'occupe des robots du village.",
+          "meaning": "Ruiz looks after the village robots."
+        },
+        {
+          "text": "On se débrouille avec trois écrous.",
+          "meaning": "We get by with three nuts.",
+          "note": "New word: l'écrou = the nut."
+        },
+        {
+          "text": "Ne vous inquiétez pas pour la radiation.",
+          "meaning": "Don't worry about the radiation.",
+          "note": "New word: la radiation = radiation."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Je m'occupe de la radio-montre.",
+          "meaning": "I'll take care of the wrist radio.",
+          "distractors": [
+            "à"
+          ]
+        },
+        {
+          "text": "Nous nous sommes débrouillés sans eau.",
+          "meaning": "We managed without water.",
+          "distractors": [
+            "avons"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Marta s'attend de voir Ruiz ce soir.",
+          "wrong": "de",
+          "fix": "à",
+          "why": "S'attendre à quelque chose."
+        },
+        {
+          "sentence": "Ne inquiète-toi pas, Léo !",
+          "wrong": "inquiète-toi",
+          "fix": "t'inquiète",
+          "why": "Negative imperative: the pronoun stays in front: ne t'inquiète pas."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Rustwake: which kind of se?",
+          "buckets": [
+            "reflexive",
+            "reciprocal",
+            "idiomatic"
+          ],
+          "items": [
+            {
+              "text": "Je me lave à l'eau filtrée.",
+              "bucket": 0
+            },
+            {
+              "text": "Léo s'habille en combinaison bleue.",
+              "bucket": 0
+            },
+            {
+              "text": "Marta et Ruiz se parlent à la radio.",
+              "bucket": 1
+            },
+            {
+              "text": "Les fouilleurs s'aident dans le désert.",
+              "bucket": 1
+            },
+            {
+              "text": "Je me débrouille hors du Dôme.",
+              "bucket": 2
+            },
+            {
+              "text": "Le chien de garde s'ennuie.",
+              "bucket": 2
+            }
+          ],
+          "why": "Reflexive: to yourself; reciprocal: to each other; idiomatic: se débrouiller and s'ennuyer have their own meanings."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-pronominal-verbs-rustwake-01",
+          "prompt": "Léo ___ rend compte que le soda Saphir est périmé.",
+          "type": "multiple-choice",
+          "options": [
+            "se",
+            "s'",
+            "lui"
+          ],
+          "correct_answer": "se",
+          "explanation": "Se rendre compte = to realise; with il / Léo the pronoun is se, and rend starts with a consonant, so no elision.",
+          "hints": [
+            "Third-person pronoun of a pronominal verb, before a consonant."
+          ],
+          "teaches": [
+            "se rendre compte de"
+          ]
+        },
+        {
+          "question_id": "b1-pronominal-verbs-rustwake-02",
+          "prompt": "« Je me rappelle du Dôme » is the careful written way to say that you remember the Dome.",
+          "type": "true-false",
+          "correct_answer": "false",
+          "explanation": "Careful French says 'je me souviens du Dôme' or 'je me rappelle le Dôme'. Se rappeler takes no de.",
+          "hints": [
+            "Which of the two remember verbs takes de?"
+          ],
+          "teaches": [
+            "se souvenir de"
+          ]
+        }
+      ]
+    }
+  }
+}

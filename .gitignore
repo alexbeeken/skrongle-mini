@@ -1,0 +1,25 @@
+/target
+*.db
+*.db-wal
+*.db-shm
+# secret that encrypts stored API keys (created next to the database)
+*.db.key
+# "Download my data" files waiting to be downloaded (src/exports.rs)
+*.db.exports/
+.env
+# deployment secrets (template: deploy/deploy.env.example)
+deploy/deploy.env
+# pinned ssh host keys of AWS instances (scripts/deploy-aws.sh)
+deploy/aws/known_hosts.*
+.DS_Store
+/dist
+# local testing (./.dev-start): captured LLM requests, background server state
+/dev-llm
+/.dev-server.pid
+/.dev-server.url
+/dev-server.log
+/playthrough-*.log
+
+# browser tests (scripts/e2e.sh): its database, Playwright output; the Jev key lives in e2e/.env
+/e2e/node_modules
+/e2e/results

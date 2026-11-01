@@ -1,0 +1,1343 @@
+{
+  "id": "b1-passe-compose-vs-imparfait",
+  "slug": "passe-compose-vs-imparfait",
+  "title": "Passé composé or imparfait?",
+  "unit": "B1",
+  "group": "Grammar",
+  "order": 10,
+  "summary": "Tell a past story with two tenses: the imparfait for the background, the passé composé for what happened, plus venir de for the recent past.",
+  "focus": "Choosing between the passé composé and the imparfait in a past narrative",
+  "prerequisites": [
+    "a2-imparfait"
+  ],
+  "content": "## Event or background?\n\nFrench tells a past story with two tenses, each with its own job.\n\n| imparfait (background) | passé composé (event) |\n|---|---|\n| what was going on | what happened |\n| weather, time, feelings, descriptions | a single, completed action |\n| habits: what used to happen | one step in a sequence |\n| **il pleuvait**, **j'étais fatigué** | **je suis sorti**, **il a téléphoné** |\n\n- **Il pleuvait quand je suis sorti.** (It was raining when I went out.)\n- **J'avais faim, alors j'ai mangé une pomme.** (I was hungry, so I ate an apple.)\n\n## Pendant que, quand and en train de\n\nAn action in progress is often *interrupted* by an event.\n\n- **pendant que** + imparfait sets the background: **Pendant que je dormais, le chat a mangé mon sandwich.** (While I was sleeping, the cat ate my sandwich.)\n- **quand** + passé composé marks the moment something cut in: **Je lisais quand le téléphone a sonné.** (I was reading when the phone rang.)\n- **être en train de** + infinitive, in the imparfait, means *right in the middle of*: **J'étais en train de cuisiner quand Paul est arrivé.** (I was busy cooking when Paul arrived.)\n\nTwo actions running side by side both take the imparfait: **Pendant que je cuisinais, il lisait.**\n\n## Signal words and verbs that shift\n\nSome words point to one tense:\n\n| imparfait | passé composé |\n|---|---|\n| **d'habitude** (usually), **souvent** (often), **tous les jours**, **quand j'étais petit** | **soudain**, **tout à coup** (suddenly), **un jour**, **hier à midi** |\n\nA few verbs change meaning with the tense:\n\n| imparfait (a state) | passé composé (an event) |\n|---|---|\n| **je savais** = I knew | **j'ai su** = I found out |\n| **je connaissais Lyon** = I knew Lyon | **j'ai connu Paul** = I met Paul |\n| **je voulais partir** = I wanted to leave | **je n'ai pas voulu partir** = I refused to leave |\n\n## Venir de: the recent past\n\nFor something that has *just* happened, use **venir** in the present + **de** + infinitive:\n\n- **Je viens de manger.** (I've just eaten.)\n- **Le train vient de partir.** (The train has just left.)\n\n| | venir | partir | sortir |\n|---|---|---|---|\n| je | viens | pars | sors |\n| tu | viens | pars | sors |\n| il / elle / on | vient | part | sort |\n| nous | venons | partons | sortons |\n| vous | venez | partez | sortez |\n| ils / elles | viennent | partent | sortent |\n\n**Partir** and **sortir** drop the **t** in the singular (**je pars**) and keep it in the plural (**nous partons**). In a past story, use the imparfait: **je venais de partir** (I had just left).",
+  "vocabulary": [
+    {
+      "term": "soudain",
+      "meaning": "suddenly",
+      "example": "Soudain, la lumière s'est éteinte.",
+      "example_meaning": "Suddenly the light went out."
+    },
+    {
+      "term": "tout à coup",
+      "meaning": "all of a sudden",
+      "example": "Tout à coup, le chien a aboyé.",
+      "example_meaning": "All of a sudden, the dog barked."
+    },
+    {
+      "term": "d'habitude",
+      "meaning": "usually",
+      "example": "D'habitude, je prenais le bus pour aller au lycée.",
+      "example_meaning": "I usually took the bus to go to school."
+    },
+    {
+      "term": "souvent",
+      "meaning": "often",
+      "example": "Enfant, il allait souvent chez ses cousins.",
+      "example_meaning": "As a child, he often went to his cousins' place."
+    },
+    {
+      "term": "pendant que",
+      "meaning": "while",
+      "example": "Pendant que je cuisinais, les enfants regardaient un film.",
+      "example_meaning": "While I was cooking, the children were watching a film."
+    },
+    {
+      "term": "être en train de",
+      "meaning": "to be in the middle of (doing)",
+      "example": "J'étais en train de travailler quand tu as frappé.",
+      "example_meaning": "I was in the middle of working when you knocked."
+    },
+    {
+      "term": "venir de",
+      "meaning": "to have just (done)",
+      "example": "Je viens de recevoir ton message.",
+      "example_meaning": "I've just received your message."
+    },
+    {
+      "term": "partir",
+      "meaning": "to leave",
+      "example": "Le train part à midi.",
+      "example_meaning": "The train leaves at noon."
+    },
+    {
+      "term": "sortir",
+      "meaning": "to go out",
+      "example": "Ce soir, nous sortons avec des amis.",
+      "example_meaning": "Tonight we're going out with friends."
+    },
+    {
+      "term": "connaître",
+      "meaning": "to know (a person, a place); j'ai connu = I met",
+      "example": "J'ai connu ma femme à l'université.",
+      "example_meaning": "I met my wife at university."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-passe-compose-vs-imparfait-01",
+      "prompt": "Hier soir, il ___ quand je suis sorti.",
+      "type": "multiple-choice",
+      "options": [
+        "pleuvait",
+        "a plu"
+      ],
+      "correct_answer": "pleuvait",
+      "explanation": "The rain is the background, already going on when the event happened, so it takes the imparfait: il pleuvait.",
+      "hints": [
+        "Weather as a backdrop to an event: which tense?"
+      ],
+      "teaches": [
+        "sortir"
+      ]
+    },
+    {
+      "question_id": "b1-passe-compose-vs-imparfait-02",
+      "prompt": "Je regardais la télé quand soudain le téléphone ___.",
+      "type": "multiple-choice",
+      "options": [
+        "sonnait",
+        "a sonné"
+      ],
+      "correct_answer": "a sonné",
+      "explanation": "The phone ringing interrupts the action in progress, and 'soudain' flags a sudden event, so it takes the passé composé.",
+      "hints": [
+        "'Soudain' points to a single event."
+      ],
+      "teaches": [
+        "soudain"
+      ]
+    },
+    {
+      "question_id": "b1-passe-compose-vs-imparfait-03",
+      "prompt": "Tout à coup, Marc ___ dans l'escalier. (tomber, passé composé)",
+      "type": "fill-in-blank",
+      "correct_answer": "est tombé",
+      "accepted_answers": [],
+      "explanation": "A sudden, completed event takes the passé composé; tomber uses être: Marc est tombé.",
+      "hints": [
+        "Tomber is an être verb.",
+        "'Tout à coup' marks a single moment."
+      ],
+      "teaches": [
+        "tout à coup"
+      ]
+    },
+    {
+      "question_id": "b1-passe-compose-vs-imparfait-04",
+      "prompt": "J'étais en ___ de cuisiner quand Paul est arrivé.",
+      "type": "fill-in-blank",
+      "correct_answer": "train",
+      "accepted_answers": [],
+      "explanation": "Être en train de + infinitive means to be in the middle of doing something.",
+      "hints": [
+        "The fixed phrase is 'être en ___ de'."
+      ],
+      "teaches": [
+        "être en train de"
+      ]
+    },
+    {
+      "question_id": "b1-passe-compose-vs-imparfait-05",
+      "prompt": "'Pendant que' is normally followed by the passé composé.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Pendant que introduces an action in progress, so it takes the imparfait: pendant que je dormais…",
+      "hints": [
+        "'While I WAS sleeping': in progress or completed?"
+      ],
+      "teaches": [
+        "pendant que"
+      ]
+    },
+    {
+      "question_id": "b1-passe-compose-vs-imparfait-06",
+      "prompt": "En 2019, ___ Sophie à une fête ; aujourd'hui, c'est ma meilleure amie.",
+      "type": "multiple-choice",
+      "options": [
+        "je connaissais",
+        "j'ai connu"
+      ],
+      "correct_answer": "j'ai connu",
+      "explanation": "Meeting someone for the first time is an event: j'ai connu = I met. Je connaissais = I already knew.",
+      "hints": [
+        "A first meeting is a one-off event."
+      ],
+      "teaches": [
+        "connaître"
+      ]
+    },
+    {
+      "question_id": "b1-passe-compose-vs-imparfait-07",
+      "prompt": "In 'J'ai su la vérité hier', j'ai su means 'I found out'.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "In the passé composé, savoir becomes an event: j'ai su = I found out. Je savais = I knew.",
+      "hints": [
+        "Savoir in the passé composé means the moment you find something out."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b1-passe-compose-vs-imparfait-08",
+      "prompt": "Le train ___ de partir, tu l'as raté !",
+      "type": "multiple-choice",
+      "options": [
+        "vient",
+        "est venu",
+        "va"
+      ],
+      "correct_answer": "vient",
+      "explanation": "Venir in the present + de + infinitive means has just: le train vient de partir.",
+      "hints": [
+        "The recent past uses venir in the present."
+      ],
+      "teaches": [
+        "venir de",
+        "partir"
+      ]
+    },
+    {
+      "question_id": "b1-passe-compose-vs-imparfait-09",
+      "prompt": "Elles ___ d'arriver à la gare. (venir, présent)",
+      "type": "fill-in-blank",
+      "correct_answer": "viennent",
+      "accepted_answers": [
+        "elles viennent"
+      ],
+      "explanation": "Venir de expresses the recent past, and the ils/elles form of venir is viennent.",
+      "hints": [
+        "Ils/elles form of venir: double n."
+      ],
+      "teaches": [
+        "venir de"
+      ]
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "venir",
+      "meaning": "to come",
+      "set": "present",
+      "art": [
+        "  o       ___",
+        " /|\\ --> |   |",
+        " / \\     |___|",
+        "   come here! "
+      ],
+      "forms": {
+        "je": "viens",
+        "tu": "viens",
+        "il": "vient",
+        "nous": "venons",
+        "vous": "venez",
+        "ils": "viennent"
+      }
+    },
+    {
+      "item": "partir",
+      "meaning": "to leave",
+      "set": "present",
+      "art": [
+        " ___        o",
+        "|   |  <-- /|\\",
+        "|___|      / \\",
+        "   bye, I'm off!"
+      ],
+      "forms": {
+        "je": "pars",
+        "tu": "pars",
+        "il": "part",
+        "nous": "partons",
+        "vous": "partez",
+        "ils": "partent"
+      }
+    },
+    {
+      "item": "sortir",
+      "meaning": "to go out",
+      "set": "present",
+      "art": [
+        " _______",
+        "|  ___  |    o",
+        "| |   | | ->/|\\",
+        "| |___| |   / \\",
+        "  going out"
+      ],
+      "forms": {
+        "je": "sors",
+        "tu": "sors",
+        "il": "sort",
+        "nous": "sortons",
+        "vous": "sortez",
+        "ils": "sortent"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-passe-compose-vs-imparfait-conv-late-for-coffee",
+      "title": "Late for coffee",
+      "scenario": "Hugo arrives very late at the café where Camille has been waiting, and tells her why.",
+      "role_a": "Camille",
+      "role_b": "Hugo",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Enfin ! Tu viens d'arriver ?",
+          "meaning": "Finally! Have you just arrived?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, désolé. J'ai eu une matinée incroyable.",
+          "meaning": "Yes, sorry. I had an incredible morning."
+        },
+        {
+          "speaker": "a",
+          "text": "Qu'est-ce qui s'est passé ?",
+          "meaning": "What happened?"
+        },
+        {
+          "speaker": "b",
+          "text": "Je sortais de chez moi quand il a commencé à pleuvoir.",
+          "meaning": "I was leaving home when it started to rain."
+        },
+        {
+          "speaker": "a",
+          "text": "Tu n'avais pas de parapluie ?",
+          "meaning": "You didn't have an umbrella?"
+        },
+        {
+          "speaker": "b",
+          "text": "Non. Et pendant que je cherchais un taxi, j'ai vu mon ancien prof de maths.",
+          "meaning": "No. And while I was looking for a taxi, I saw my old maths teacher."
+        },
+        {
+          "speaker": "a",
+          "text": "Ah bon ? Tu le connaissais bien ?",
+          "meaning": "Really? Did you know him well?"
+        },
+        {
+          "speaker": "b",
+          "text": "Très bien. Il arrivait toujours en retard en cours, comme moi !",
+          "meaning": "Very well. He always arrived late to class, like me!"
+        },
+        {
+          "speaker": "a",
+          "text": "Et alors, vous avez parlé ?",
+          "meaning": "And so, did you talk?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, une heure ! Soudain, j'ai regardé ma montre et je suis vite parti.",
+          "meaning": "Yes, for an hour! Suddenly I looked at my watch and left quickly."
+        },
+        {
+          "speaker": "a",
+          "text": "Bon, tu es là maintenant. On commande ?",
+          "meaning": "Well, you're here now. Shall we order?"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Soudain, il a commencé à neiger.",
+      "meaning": "Suddenly it started to snow.",
+      "note": "Soudain introduces an event, so it takes the passé composé."
+    },
+    {
+      "text": "D'habitude, je partais à sept heures.",
+      "meaning": "I usually left at seven o'clock.",
+      "note": "A habit in the past takes the imparfait."
+    },
+    {
+      "text": "Nous venons de sortir du cinéma.",
+      "meaning": "We've just come out of the cinema.",
+      "note": "Venir de + infinitive means have just."
+    },
+    {
+      "text": "Il faisait beau quand nous sommes arrivés à la plage.",
+      "meaning": "The weather was nice when we arrived at the beach.",
+      "note": "New word: la plage = the beach."
+    },
+    {
+      "text": "Pendant que les enfants jouaient, leurs parents bavardaient.",
+      "meaning": "While the children were playing, their parents were chatting.",
+      "note": "New word: bavarder = to chat."
+    },
+    {
+      "text": "J'étais en train de lire quand tu m'as appelé.",
+      "meaning": "I was in the middle of reading when you called me."
+    },
+    {
+      "text": "Elle connaissait déjà la ville, mais elle s'est perdue.",
+      "meaning": "She already knew the town, but she got lost.",
+      "note": "New word: se perdre = to get lost."
+    },
+    {
+      "text": "Quand j'étais étudiant, je sortais souvent avec mes amis le vendredi soir.",
+      "meaning": "When I was a student, I often went out with my friends on Friday evenings."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Event or background"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-passe-compose-vs-imparfait-01"
+    },
+    {
+      "question": "b1-passe-compose-vs-imparfait-02"
+    },
+    {
+      "section": "Pendant que"
+    },
+    {
+      "question": "b1-passe-compose-vs-imparfait-03"
+    },
+    {
+      "question": "b1-passe-compose-vs-imparfait-04"
+    },
+    {
+      "question": "b1-passe-compose-vs-imparfait-05"
+    },
+    {
+      "tip": "Picture a film: the imparfait is the set and the music, the passé composé is each thing the actors do."
+    },
+    {
+      "section": "Signal words"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-passe-compose-vs-imparfait-06"
+    },
+    {
+      "question": "b1-passe-compose-vs-imparfait-07"
+    },
+    {
+      "concept": {
+        "title": "The passé simple in books",
+        "markdown": "In novels and fairy tales you will meet a third past tense, the **passé simple**: **il entra**, **elle fut**, **ils partirent**. It does the passé composé's job in writing. At B1, just recognise it and read it as a passé composé: **il entra** = **il est entré**."
+      }
+    },
+    {
+      "section": "Venir de"
+    },
+    {
+      "question": "b1-passe-compose-vs-imparfait-08"
+    },
+    {
+      "question": "b1-passe-compose-vs-imparfait-09"
+    }
+  ],
+  "sprint": {
+    "icon": "⚖️",
+    "bites": [
+      {
+        "title": "Scene or event",
+        "emoji": "🎬",
+        "rule": "The imparfait gives the background (weather, feelings, what was going on), and the passé composé tells what happened, one event after another.",
+        "example": "Il pleuvait quand je suis sorti.",
+        "example_meaning": "It was raining when I went out."
+      },
+      {
+        "title": "Interrupted action",
+        "emoji": "✋",
+        "rule": "Imparfait (or être en train de + infinitive) for the action in progress; quand + passé composé for what cuts in.",
+        "example": "J'étais en train de dormir quand tu as appelé.",
+        "example_meaning": "I was in the middle of sleeping when you called."
+      },
+      {
+        "title": "Signal words",
+        "emoji": "🚨",
+        "rule": "Soudain, tout à coup and un jour signal the passé composé. D'habitude, souvent, tous les jours and quand j'étais petit signal the imparfait.",
+        "example": "D'habitude, je partais tôt, mais un jour, je suis parti tard.",
+        "example_meaning": "I usually left early, but one day I left late."
+      },
+      {
+        "title": "Just happened",
+        "emoji": "⏱️",
+        "rule": "Venir in the present + de + infinitive means to have just done something.",
+        "example": "Ils viennent de sortir.",
+        "example_meaning": "They've just gone out."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which tense does it call for?",
+        "buckets": [
+          "imparfait",
+          "passé composé"
+        ],
+        "items": [
+          {
+            "text": "d'habitude",
+            "bucket": 0
+          },
+          {
+            "text": "soudain",
+            "bucket": 1
+          },
+          {
+            "text": "souvent",
+            "bucket": 0
+          },
+          {
+            "text": "tout à coup",
+            "bucket": 1
+          },
+          {
+            "text": "quand j'étais petit",
+            "bucket": 0
+          },
+          {
+            "text": "un jour",
+            "bucket": 1
+          },
+          {
+            "text": "tous les jours",
+            "bucket": 0
+          },
+          {
+            "text": "pendant que",
+            "bucket": 0
+          }
+        ],
+        "why": "Habits and background markers point to the imparfait; markers of a sudden, single event take the passé composé."
+      },
+      {
+        "title": "State or event?",
+        "buckets": [
+          "a state (I knew, I wanted)",
+          "an event (I found out, I met, I refused)"
+        ],
+        "items": [
+          {
+            "text": "je savais",
+            "bucket": 0
+          },
+          {
+            "text": "j'ai su",
+            "bucket": 1
+          },
+          {
+            "text": "je connaissais Paris",
+            "bucket": 0
+          },
+          {
+            "text": "j'ai connu Paul en 2010",
+            "bucket": 1
+          },
+          {
+            "text": "je voulais partir",
+            "bucket": 0
+          },
+          {
+            "text": "je n'ai pas voulu partir",
+            "bucket": 1
+          }
+        ],
+        "why": "In the imparfait these verbs describe a state; in the passé composé they become an event: finding out, meeting, refusing."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Il faisait froid et il neige quand nous sommes arrivés.",
+        "wrong": "neige",
+        "fix": "neigeait",
+        "why": "The weather is the background of a past event, so it takes the imparfait."
+      },
+      {
+        "sentence": "Je dormais quand soudain le téléphone sonnait.",
+        "wrong": "sonnait",
+        "fix": "a sonné",
+        "why": "The phone cuts in suddenly. It is a single event, so it takes the passé composé."
+      },
+      {
+        "sentence": "Quand nous étions étudiants, nous sortons tous les vendredis.",
+        "wrong": "sortons",
+        "fix": "sortions",
+        "why": "A past habit takes the imparfait: nous sortions."
+      },
+      {
+        "sentence": "Elle vient à partir, appelle-la sur son portable.",
+        "wrong": "à",
+        "fix": "de",
+        "why": "The recent past is venir DE + infinitive."
+      },
+      {
+        "sentence": "J'étais en train à lire quand il est arrivé.",
+        "wrong": "à",
+        "fix": "de",
+        "why": "The phrase is être en train DE + infinitive."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Il pleuvait quand je suis sorti.",
+        "meaning": "It was raining when I went out.",
+        "distractors": [
+          "pleut"
+        ]
+      },
+      {
+        "text": "Nous venons de finir le repas.",
+        "meaning": "We've just finished the meal.",
+        "distractors": [
+          "sommes"
+        ]
+      },
+      {
+        "text": "J'étais en train de lire quand tu as appelé.",
+        "meaning": "I was in the middle of reading when you called.",
+        "distractors": [
+          "suis"
+        ]
+      },
+      {
+        "text": "D'habitude, elle partait tôt le matin.",
+        "meaning": "She usually left early in the morning.",
+        "distractors": [
+          "est"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🐉",
+      "content": "## Le passé à Eldmark\n\nIn a tale of Eldmark, the scenery takes the **imparfait**: **il faisait nuit**, **le dragon dormait** dans la grotte. The action takes the **passé composé**: **soudain, Nym est entrée**, **le dragon s'est réveillé**. And **Borin vient de partir** means Borin has *just* left for Deepanvil.",
+      "vocabulary": [
+        {
+          "term": "soudain",
+          "example": "Soudain, le dragon a ouvert un œil.",
+          "example_meaning": "Suddenly the dragon opened one eye."
+        },
+        {
+          "term": "d'habitude",
+          "example": "D'habitude, Borin buvait à la taverne du Dragon Vert.",
+          "example_meaning": "Borin usually drank at the Green Dragon tavern."
+        },
+        {
+          "term": "pendant que",
+          "example": "Pendant que la mage Séla dormait, un orc est entré.",
+          "example_meaning": "While the mage Séla was sleeping, an orc came in."
+        },
+        {
+          "term": "être en train de",
+          "example": "Nym était en train de lire un parchemin quand l'orc a crié.",
+          "example_meaning": "Nym was in the middle of reading a scroll when the orc shouted."
+        },
+        {
+          "term": "venir de",
+          "example": "La guilde vient de finir la quête.",
+          "example_meaning": "The guild has just finished the quest."
+        },
+        {
+          "term": "partir",
+          "example": "Les héros partent pour Frostmarch ce soir.",
+          "example_meaning": "The heroes leave for Frostmarch tonight."
+        },
+        {
+          "term": "sortir",
+          "example": "Le nain sort du donjon avec le butin.",
+          "example_meaning": "The dwarf comes out of the dungeon with the loot."
+        },
+        {
+          "term": "le dragon",
+          "meaning": "dragon",
+          "example": "Le dragon dormait dans la grotte.",
+          "example_meaning": "The dragon was sleeping in the cave."
+        },
+        {
+          "term": "la grotte",
+          "meaning": "cave (f)",
+          "example": "La grotte était sombre et froide.",
+          "example_meaning": "The cave was dark and cold."
+        },
+        {
+          "term": "le butin",
+          "meaning": "loot",
+          "example": "Nous venons de partager le butin.",
+          "example_meaning": "We've just shared out the loot."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Décor ou action ?",
+          "emoji": "🐉",
+          "rule": "In a quest tale, the setting and what was going on take the imparfait; each thing that happens takes the passé composé.",
+          "example": "Le dragon dormait quand Nym est entrée.",
+          "example_meaning": "The dragon was sleeping when Nym came in."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Il faisait noir quand nous sommes entrés dans la grotte.",
+          "meaning": "It was dark when we went into the cave.",
+          "note": "New word: la grotte = the cave."
+        },
+        {
+          "text": "Soudain, le dragon s'est réveillé.",
+          "meaning": "Suddenly the dragon woke up.",
+          "note": "A sudden event takes the passé composé."
+        },
+        {
+          "text": "Borin vient de sortir du donjon.",
+          "meaning": "Borin has just come out of the dungeon."
+        },
+        {
+          "text": "Il neigeait quand nous sommes arrivés à Frostmarch.",
+          "meaning": "It was snowing when we arrived in Frostmarch."
+        },
+        {
+          "text": "Séla lisait un parchemin quand l'orc est entré.",
+          "meaning": "Séla was reading a scroll when the orc came in.",
+          "note": "New word: le parchemin = the scroll."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Le dragon dormait quand Nym est entrée.",
+          "meaning": "The dragon was sleeping when Nym came in.",
+          "distractors": [
+            "dort"
+          ]
+        },
+        {
+          "text": "Borin vient de partir pour Deepanvil.",
+          "meaning": "Borin has just left for Deepanvil.",
+          "distractors": [
+            "est"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Soudain, l'orc entrait dans la taverne.",
+          "wrong": "entrait",
+          "fix": "est entré",
+          "why": "'Soudain' marks a single event, so it takes the passé composé."
+        },
+        {
+          "sentence": "Le dragon dort quand Nym est entrée dans la grotte.",
+          "wrong": "dort",
+          "fix": "dormait",
+          "why": "The background of a past event takes the imparfait."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Scenery or action?",
+          "buckets": [
+            "imparfait (scenery)",
+            "passé composé (action)"
+          ],
+          "items": [
+            {
+              "text": "il faisait nuit",
+              "bucket": 0
+            },
+            {
+              "text": "le dragon dormait",
+              "bucket": 0
+            },
+            {
+              "text": "Nym est entrée",
+              "bucket": 1
+            },
+            {
+              "text": "soudain, l'orc a crié",
+              "bucket": 1
+            },
+            {
+              "text": "la grotte était froide",
+              "bucket": 0
+            },
+            {
+              "text": "le dragon s'est réveillé",
+              "bucket": 1
+            }
+          ],
+          "why": "What the scene looked like and what was going on take the imparfait. Each thing that happened takes the passé composé."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-passe-compose-vs-imparfait-realm-01",
+          "prompt": "Il faisait nuit quand la mage Séla ___ dans le donjon.",
+          "type": "multiple-choice",
+          "options": [
+            "est entrée",
+            "entrait"
+          ],
+          "correct_answer": "est entrée",
+          "explanation": "The night is the background, and Séla's entrance is the event, so the verb takes the passé composé, with agreement (entrée).",
+          "hints": [
+            "Which part of the sentence is the event?"
+          ],
+          "teaches": []
+        },
+        {
+          "question_id": "b1-passe-compose-vs-imparfait-realm-02",
+          "prompt": "Borin ___ de sortir de la grotte avec le butin. (venir, présent)",
+          "type": "fill-in-blank",
+          "correct_answer": "vient",
+          "accepted_answers": [
+            "il vient"
+          ],
+          "explanation": "Venir de + infinitive means has just: Borin vient de sortir.",
+          "hints": [
+            "Il form of venir in the present."
+          ],
+          "teaches": [
+            "venir de",
+            "le butin"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b1-passe-compose-vs-imparfait-conv-realm-dragon-cave",
+          "title": "The dragon's cave",
+          "scenario": "At the Green Dragon tavern, Nym the elf questions Borin the dwarf, just back from the road.",
+          "role_a": "Nym",
+          "role_b": "Borin",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Borin ! Tu viens d'arriver de Deepanvil ?",
+              "meaning": "Borin! Have you just arrived from Deepanvil?"
+            },
+            {
+              "speaker": "b",
+              "text": "Oui. Il neigeait quand je suis parti.",
+              "meaning": "Yes. It was snowing when I left."
+            },
+            {
+              "speaker": "a",
+              "text": "Et tu as vu le dragon de la grotte ?",
+              "meaning": "And did you see the dragon from the cave?"
+            },
+            {
+              "speaker": "b",
+              "text": "Oui ! Il dormait quand je suis passé devant la grotte.",
+              "meaning": "Yes! It was sleeping when I went past the cave."
+            },
+            {
+              "speaker": "a",
+              "text": "Il ne s'est pas réveillé ?",
+              "meaning": "Didn't it wake up?"
+            },
+            {
+              "speaker": "b",
+              "text": "Si ! Soudain, il a ouvert un œil, et je suis parti en vitesse.",
+              "meaning": "It did! Suddenly it opened one eye, and I left in a hurry."
+            },
+            {
+              "speaker": "a",
+              "text": "Bravo, tu es encore là ! Une potion ?",
+              "meaning": "Well done, you're still here! A potion?"
+            },
+            {
+              "speaker": "b",
+              "text": "Deux, s'il te plaît !",
+              "meaning": "Two, please!"
+            }
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🌧️",
+      "content": "## Le passé à Meadowbrook\n\nIn a farm story, weather and routines take the **imparfait**: **il pleuvait**, **d'habitude Nora arrosait les fraises le matin**. What happened takes the **passé composé**: **tout à coup, la vache est sortie du champ**. And **Léo vient de pêcher un poisson** means Léo has just caught a fish.",
+      "vocabulary": [
+        {
+          "term": "d'habitude",
+          "example": "D'habitude, Rosa ouvrait la graineterie à huit heures.",
+          "example_meaning": "Rosa usually opened the seed shop at eight."
+        },
+        {
+          "term": "souvent",
+          "example": "Au printemps, il pleuvait souvent sur la ferme.",
+          "example_meaning": "In spring it often rained on the farm."
+        },
+        {
+          "term": "tout à coup",
+          "example": "Tout à coup, les poules sont sorties dans la cour.",
+          "example_meaning": "All of a sudden, the hens went out into the yard."
+        },
+        {
+          "term": "pendant que",
+          "example": "Pendant que Nora plantait le maïs, Léo pêchait à la rivière.",
+          "example_meaning": "While Nora was planting the corn, Léo was fishing in the river."
+        },
+        {
+          "term": "venir de",
+          "example": "Nous venons de récolter les citrouilles.",
+          "example_meaning": "We've just harvested the pumpkins."
+        },
+        {
+          "term": "sortir",
+          "example": "La vache sort du champ tous les matins.",
+          "example_meaning": "The cow goes out of the field every morning."
+        },
+        {
+          "term": "partir",
+          "example": "Léo part pêcher à six heures.",
+          "example_meaning": "Léo leaves to go fishing at six."
+        },
+        {
+          "term": "l'orage",
+          "meaning": "storm (m)",
+          "example": "Un orage a éclaté pendant la fête des récoltes.",
+          "example_meaning": "A storm broke out during the harvest festival."
+        },
+        {
+          "term": "le champ",
+          "meaning": "field",
+          "example": "Le champ de maïs était tout vert.",
+          "example_meaning": "The cornfield was all green."
+        },
+        {
+          "term": "la récolte",
+          "meaning": "harvest (f)",
+          "example": "La récolte était bonne cette année.",
+          "example_meaning": "The harvest was good this year."
+        }
+      ],
+      "bites": [
+        {
+          "title": "La météo, puis l'événement",
+          "emoji": "🌧️",
+          "rule": "Weather and farm routines are the background and take the imparfait. The surprise that interrupts them takes the passé composé.",
+          "example": "Nora arrosait les fraises quand l'orage a éclaté.",
+          "example_meaning": "Nora was watering the strawberries when the storm broke out."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Il pleuvait sur la ferme.",
+          "meaning": "It was raining on the farm.",
+          "note": "Weather in the past takes the imparfait."
+        },
+        {
+          "text": "Tout à coup, la vache est sortie.",
+          "meaning": "All of a sudden, the cow went out."
+        },
+        {
+          "text": "Léo vient de pêcher un gros poisson.",
+          "meaning": "Léo has just caught a big fish.",
+          "note": "New word: le poisson = the fish."
+        },
+        {
+          "text": "Un orage a éclaté pendant la fête.",
+          "meaning": "A storm broke out during the festival.",
+          "note": "New word: l'orage = the storm."
+        },
+        {
+          "text": "D'habitude, Rosa vendait ses fraises au marché.",
+          "meaning": "Rosa usually sold her strawberries at the market."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Il pleuvait quand Nora est sortie.",
+          "meaning": "It was raining when Nora went out.",
+          "distractors": [
+            "pleut"
+          ]
+        },
+        {
+          "text": "Nous venons de récolter le maïs.",
+          "meaning": "We've just harvested the corn.",
+          "distractors": [
+            "sommes"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Hier, il pleut quand Léo est parti pêcher.",
+          "wrong": "pleut",
+          "fix": "pleuvait",
+          "why": "Weather as the background of a past event takes the imparfait."
+        },
+        {
+          "sentence": "Nous venons à récolter les citrouilles.",
+          "wrong": "à",
+          "fix": "de",
+          "why": "The recent past is venir DE + infinitive."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Background or event?",
+          "buckets": [
+            "imparfait",
+            "passé composé"
+          ],
+          "items": [
+            {
+              "text": "il pleuvait souvent",
+              "bucket": 0
+            },
+            {
+              "text": "d'habitude, Rosa vendait des fraises",
+              "bucket": 0
+            },
+            {
+              "text": "tout à coup, l'orage a éclaté",
+              "bucket": 1
+            },
+            {
+              "text": "la vache est sortie",
+              "bucket": 1
+            },
+            {
+              "text": "le champ était vert",
+              "bucket": 0
+            },
+            {
+              "text": "Léo a pêché un poisson",
+              "bucket": 1
+            }
+          ],
+          "why": "Weather, descriptions and habits are background (imparfait); single things that happened are events (passé composé)."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-passe-compose-vs-imparfait-meadowbrook-01",
+          "prompt": "Nora arrosait les fraises quand l'orage ___.",
+          "type": "multiple-choice",
+          "options": [
+            "a éclaté",
+            "éclatait"
+          ],
+          "correct_answer": "a éclaté",
+          "explanation": "The watering is in progress, and the storm breaking out is the event that interrupts it, so the verb takes the passé composé.",
+          "hints": [
+            "What interrupts the action in progress?"
+          ],
+          "teaches": [
+            "l'orage"
+          ]
+        },
+        {
+          "question_id": "b1-passe-compose-vs-imparfait-meadowbrook-02",
+          "prompt": "Nous ___ de récolter les citrouilles. (venir, présent)",
+          "type": "fill-in-blank",
+          "correct_answer": "venons",
+          "accepted_answers": [
+            "nous venons"
+          ],
+          "explanation": "Venir de + infinitive means have just: nous venons de récolter.",
+          "hints": [
+            "Nous form of venir."
+          ],
+          "teaches": [
+            "venir de"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b1-passe-compose-vs-imparfait-conv-meadowbrook-storm",
+          "title": "The storm",
+          "scenario": "Léo the fisherman meets Nora, the new farmer, by the river the morning after a storm.",
+          "role_a": "Léo",
+          "role_b": "Nora",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Bonjour, Nora ! Tu viens de la ferme ?",
+              "meaning": "Hello, Nora! Are you coming from the farm?"
+            },
+            {
+              "speaker": "b",
+              "text": "Oui, je viens de finir d'arroser les fraises.",
+              "meaning": "Yes, I've just finished watering the strawberries."
+            },
+            {
+              "speaker": "a",
+              "text": "Hier, il pleuvait tellement ! Tu étais où ?",
+              "meaning": "Yesterday it was raining so much! Where were you?"
+            },
+            {
+              "speaker": "b",
+              "text": "J'étais en train de planter le maïs quand l'orage a éclaté.",
+              "meaning": "I was in the middle of planting the corn when the storm broke out."
+            },
+            {
+              "speaker": "a",
+              "text": "Et tes poules ?",
+              "meaning": "And your hens?"
+            },
+            {
+              "speaker": "b",
+              "text": "Tout à coup, elles sont sorties dans le champ !",
+              "meaning": "All of a sudden, they went out into the field!"
+            },
+            {
+              "speaker": "a",
+              "text": "D'habitude, elles restaient sages, non ?",
+              "meaning": "They usually stayed good, didn't they?"
+            },
+            {
+              "speaker": "b",
+              "text": "Oui, mais elles avaient peur de l'orage !",
+              "meaning": "Yes, but they were scared of the storm!"
+            }
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🌩️",
+      "content": "## Le passé à Rustwake\n\nIn a radio log, the scene takes the **imparfait**: **il y avait de la poussière**, **Marta réparait l'antenne**. The event takes the **passé composé**: **soudain, une tempête de cendres a commencé**. And **je viens de sortir du Dôme** means I've just come out of the Dome.",
+      "vocabulary": [
+        {
+          "term": "soudain",
+          "example": "Soudain, la radio-montre a sonné.",
+          "example_meaning": "Suddenly the wrist radio beeped."
+        },
+        {
+          "term": "être en train de",
+          "example": "J'étais en train de réparer l'antenne quand la tempête a commencé.",
+          "example_meaning": "I was in the middle of repairing the antenna when the storm started."
+        },
+        {
+          "term": "pendant que",
+          "example": "Pendant que Léo fouillait le centre commercial, le chien de garde dormait.",
+          "example_meaning": "While Léo was searching the mall, the guard dog was sleeping."
+        },
+        {
+          "term": "d'habitude",
+          "example": "D'habitude, Marta échangeait des écrous contre de l'eau filtrée.",
+          "example_meaning": "Marta usually traded nuts for filtered water."
+        },
+        {
+          "term": "venir de",
+          "example": "Je viens de sortir du Dôme.",
+          "example_meaning": "I've just come out of the Dome."
+        },
+        {
+          "term": "sortir",
+          "example": "Les fouilleurs sortent la nuit.",
+          "example_meaning": "The scavengers go out at night."
+        },
+        {
+          "term": "connaître",
+          "example": "Je connaissais déjà le contremaître Ruiz.",
+          "example_meaning": "I already knew Foreman Ruiz."
+        },
+        {
+          "term": "la tempête de cendres",
+          "meaning": "ash storm (f)",
+          "example": "La tempête de cendres a duré deux jours.",
+          "example_meaning": "The ash storm lasted two days."
+        },
+        {
+          "term": "l'antenne",
+          "meaning": "antenna (f)",
+          "example": "L'antenne était cassée.",
+          "example_meaning": "The antenna was broken."
+        },
+        {
+          "term": "le fouilleur / la fouilleuse",
+          "meaning": "scavenger",
+          "example": "La fouilleuse cherchait des disques dans les ruines.",
+          "example_meaning": "The scavenger was looking for discs in the ruins."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Le journal radio",
+          "emoji": "🌩️",
+          "rule": "Report the scene (dust, wind, who was doing what) in the imparfait, and each thing that happened in the passé composé.",
+          "example": "Marta réparait l'antenne quand la tempête a commencé.",
+          "example_meaning": "Marta was repairing the antenna when the storm started."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Il y avait de la poussière.",
+          "meaning": "There was dust.",
+          "note": "A description takes the imparfait."
+        },
+        {
+          "text": "Soudain, le chien de garde a aboyé.",
+          "meaning": "Suddenly, the guard dog barked."
+        },
+        {
+          "text": "Ruiz vient de rentrer au Dôme.",
+          "meaning": "Ruiz has just come back to the Dome."
+        },
+        {
+          "text": "Marta réparait l'antenne quand la tempête a commencé.",
+          "meaning": "Marta was repairing the antenna when the storm started.",
+          "note": "New word: l'antenne = the antenna."
+        },
+        {
+          "text": "D'habitude, le fouilleur partait le matin.",
+          "meaning": "The scavenger usually left in the morning.",
+          "note": "New word: le fouilleur = the scavenger."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Soudain, une tempête de cendres a commencé.",
+          "meaning": "Suddenly an ash storm started.",
+          "distractors": [
+            "commençait"
+          ]
+        },
+        {
+          "text": "Je viens de sortir du Dôme.",
+          "meaning": "I've just come out of the Dome.",
+          "distractors": [
+            "suis"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Hier, Marta répare l'antenne quand la tempête a commencé.",
+          "wrong": "répare",
+          "fix": "réparait",
+          "why": "The action in progress in a past story takes the imparfait."
+        },
+        {
+          "sentence": "Le chien de garde dormait quand soudain un scarabée géant entrait.",
+          "wrong": "entrait",
+          "fix": "est entré",
+          "why": "'Soudain' marks a single event, so it takes the passé composé."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Scene or event?",
+          "buckets": [
+            "imparfait (the scene)",
+            "passé composé (what happened)"
+          ],
+          "items": [
+            {
+              "text": "il y avait de la poussière",
+              "bucket": 0
+            },
+            {
+              "text": "Marta réparait l'antenne",
+              "bucket": 0
+            },
+            {
+              "text": "la radio-montre a sonné",
+              "bucket": 1
+            },
+            {
+              "text": "le chien de garde dormait",
+              "bucket": 0
+            },
+            {
+              "text": "soudain, la tempête a commencé",
+              "bucket": 1
+            },
+            {
+              "text": "je suis sorti du Dôme",
+              "bucket": 1
+            }
+          ],
+          "why": "The scene and what was going on take the imparfait; what happened takes the passé composé."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-passe-compose-vs-imparfait-rustwake-01",
+          "prompt": "Je réparais l'antenne quand la radio-montre ___.",
+          "type": "multiple-choice",
+          "options": [
+            "a sonné",
+            "sonnait"
+          ],
+          "correct_answer": "a sonné",
+          "explanation": "The repair is in progress, and the beep cuts in, so the verb takes the passé composé.",
+          "hints": [
+            "Which action interrupts the other?"
+          ],
+          "teaches": [
+            "l'antenne"
+          ]
+        },
+        {
+          "question_id": "b1-passe-compose-vs-imparfait-rustwake-02",
+          "prompt": "In 'Il y avait de la poussière', the imparfait describes the scene.",
+          "type": "true-false",
+          "correct_answer": "true",
+          "explanation": "Descriptions of the scene (dust, weather, what things were like) take the imparfait.",
+          "hints": [
+            "Is the dust an event or part of the scenery?"
+          ],
+          "teaches": []
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b1-passe-compose-vs-imparfait-conv-rustwake-ash-storm",
+          "title": "Caught in the ash storm",
+          "scenario": "Marta the trader calls Léo the scavenger on the wrist radio after a storm at the ruined mall.",
+          "role_a": "Marta",
+          "role_b": "Léo",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Léo, tu m'entends ? Tu viens de rentrer ?",
+              "meaning": "Léo, can you hear me? Have you just got back?"
+            },
+            {
+              "speaker": "b",
+              "text": "Oui, je viens d'arriver au village de ferraille.",
+              "meaning": "Yes, I've just arrived at the scrap village."
+            },
+            {
+              "speaker": "a",
+              "text": "Qu'est-ce qui s'est passé au centre commercial ?",
+              "meaning": "What happened at the mall?"
+            },
+            {
+              "speaker": "b",
+              "text": "J'étais en train de fouiller les ruines quand une tempête de cendres a commencé.",
+              "meaning": "I was in the middle of searching the ruins when an ash storm started."
+            },
+            {
+              "speaker": "a",
+              "text": "Il y avait beaucoup de poussière ?",
+              "meaning": "Was there a lot of dust?"
+            },
+            {
+              "speaker": "b",
+              "text": "Énormément ! Soudain, un scarabée géant est sorti d'un magasin.",
+              "meaning": "Loads! Suddenly a giant beetle came out of a shop."
+            },
+            {
+              "speaker": "a",
+              "text": "Tu as eu peur ?",
+              "meaning": "Were you scared?"
+            },
+            {
+              "speaker": "b",
+              "text": "Un peu. Mais il cherchait de l'eau, pas un fouilleur !",
+              "meaning": "A bit. But it was looking for water, not a scavenger!"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

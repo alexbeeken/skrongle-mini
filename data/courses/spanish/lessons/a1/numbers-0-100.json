@@ -1,0 +1,586 @@
+{
+  "id": "a1-numbers",
+  "slug": "numbers-0-100",
+  "title": "Numbers 0–100",
+  "unit": "A1",
+  "group": "Grammar",
+  "order": 18,
+  "summary": "Count to a hundred, and make numbers agree: un libro, veintiuna chicas, cien euros.",
+  "focus": "Cardinal numbers 0–100 and their agreement with nouns",
+  "content": "## 0 to 15: learn these as words\n\ncero, uno, dos, tres, cuatro, cinco, seis, siete, ocho, nueve, diez, once, doce, trece, catorce, quince.\n\n## 16 to 29: one word\n\nFrom 16 to 29 the numbers are written as one word: **dieciséis, diecisiete, dieciocho, diecinueve, veinte, veintiuno, veintidós, veintitrés, veinticuatro, veinticinco, veintiséis, veintisiete, veintiocho, veintinueve**. Note the accents on *dieciséis, veintidós, veintitrés, veintiséis*.\n\n## 30 to 99: tens + y + units\n\nThe tens are **treinta, cuarenta, cincuenta, sesenta, setenta, ochenta, noventa**. Join the units with **y**: *treinta y uno, cuarenta y cinco, noventa y nueve*.\n\n## 100\n\nUse **cien** on its own or directly before a noun: *cien euros, cien personas*. Above 100 it becomes *ciento*: *ciento diez*.\n\n## Numbers with nouns\n\n**Uno** changes before a noun: **un** before a masculine noun, **una** before a feminine one.\n\n- *un libro, una mesa, veintiún años, veintiuna chicas, treinta y una personas*\n\nAll other numbers are invariable: *dos casas, cuarenta coches*.\n\nNumbers themselves are masculine: *el dos, el quince*. Ages use **tener**: *Tengo veintidós años.* Prices use **ser** or **costar**: *Son diez euros.*",
+  "vocabulary": [
+    {
+      "term": "uno / un / una",
+      "meaning": "one",
+      "example": "Un libro y una mesa.",
+      "example_meaning": "A book and a table."
+    },
+    {
+      "term": "dos",
+      "meaning": "two",
+      "example": "Dos cafés, por favor.",
+      "example_meaning": "Two coffees, please."
+    },
+    {
+      "term": "tres",
+      "meaning": "three",
+      "example": "Tres hermanos.",
+      "example_meaning": "Three brothers."
+    },
+    {
+      "term": "cinco",
+      "meaning": "five",
+      "example": "Cinco euros.",
+      "example_meaning": "Five euros."
+    },
+    {
+      "term": "diez",
+      "meaning": "ten",
+      "example": "Diez minutos.",
+      "example_meaning": "Ten minutes."
+    },
+    {
+      "term": "quince",
+      "meaning": "fifteen",
+      "example": "Quince días.",
+      "example_meaning": "Fifteen days."
+    },
+    {
+      "term": "veinte",
+      "meaning": "twenty",
+      "example": "Veinte personas.",
+      "example_meaning": "Twenty people."
+    },
+    {
+      "term": "veintiuno",
+      "meaning": "twenty-one",
+      "example": "Tengo veintiún años.",
+      "example_meaning": "I'm twenty-one."
+    },
+    {
+      "term": "treinta",
+      "meaning": "thirty",
+      "example": "Treinta y dos.",
+      "example_meaning": "Thirty-two."
+    },
+    {
+      "term": "cincuenta",
+      "meaning": "fifty",
+      "example": "Cincuenta euros.",
+      "example_meaning": "Fifty euros."
+    },
+    {
+      "term": "cien",
+      "meaning": "one hundred",
+      "example": "Cien años.",
+      "example_meaning": "A hundred years."
+    },
+    {
+      "term": "el euro",
+      "meaning": "euro",
+      "example": "Son dos euros.",
+      "example_meaning": "That's two euros."
+    },
+    {
+      "term": "el año",
+      "meaning": "year",
+      "example": "Tengo diez años.",
+      "example_meaning": "I'm ten years old."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-num-01",
+      "prompt": "Write in words: 15",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "quince",
+      "accepted_answers": [],
+      "explanation": "Fifteen is quince.",
+      "hints": [
+        "0–15 are single words."
+      ],
+      "teaches": [
+        "quince"
+      ]
+    },
+    {
+      "question_id": "a1-num-02",
+      "prompt": "Write in words: 22",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "veintidós",
+      "accepted_answers": [
+        "veintidos"
+      ],
+      "explanation": "16–29 are one word; veintidós carries an accent.",
+      "hints": [
+        "One word with an accent."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a1-num-03",
+      "prompt": "Write in words: 45",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "cuarenta y cinco",
+      "accepted_answers": [],
+      "explanation": "Tens and units are joined with y.",
+      "hints": [
+        "tens + y + units"
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a1-num-04",
+      "prompt": "Tengo ___ años. (21)",
+      "type": "multiple-choice",
+      "options": [
+        "veintiún",
+        "veintiuno",
+        "veintiuna"
+      ],
+      "correct_answer": "veintiún",
+      "explanation": "Before a masculine noun uno shortens to un: veintiún años.",
+      "hints": [
+        "años is masculine"
+      ],
+      "teaches": [
+        "veintiuno",
+        "el año"
+      ]
+    },
+    {
+      "question_id": "a1-num-05",
+      "prompt": "___ euros (100)",
+      "type": "multiple-choice",
+      "options": [
+        "cien",
+        "ciento",
+        "cientos"
+      ],
+      "correct_answer": "cien",
+      "explanation": "Exactly one hundred before a noun is cien.",
+      "hints": [
+        "cien + noun"
+      ],
+      "teaches": [
+        "cien",
+        "el euro"
+      ]
+    },
+    {
+      "question_id": "a1-num-06",
+      "prompt": "Hay ___ chicas en la clase. (31)",
+      "type": "multiple-choice",
+      "options": [
+        "treinta y una",
+        "treinta y uno",
+        "treinta y un"
+      ],
+      "correct_answer": "treinta y una",
+      "explanation": "Uno becomes una before a feminine noun: treinta y una chicas.",
+      "hints": [
+        "chicas is feminine"
+      ],
+      "teaches": [
+        "uno / un / una"
+      ]
+    },
+    {
+      "question_id": "a1-num-07",
+      "prompt": "Write in words: 90",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "noventa",
+      "accepted_answers": [],
+      "explanation": "Ninety is noventa.",
+      "hints": [
+        "Tens end in -enta (except veinte and treinta)."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a1-num-08",
+      "prompt": "¿Cuántos años tiene? — ___ cincuenta años.",
+      "type": "multiple-choice",
+      "options": [
+        "Tiene",
+        "Es",
+        "Está"
+      ],
+      "correct_answer": "Tiene",
+      "explanation": "Age is expressed with tener: tiene cincuenta años.",
+      "hints": [
+        "Age = tener"
+      ],
+      "teaches": [
+        "cincuenta",
+        "el año"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Son diez euros, señora.",
+      "meaning": "It's ten euros, madam."
+    },
+    {
+      "text": "Dos cafés con leche, por favor.",
+      "meaning": "Two coffees with milk, please."
+    },
+    {
+      "text": "Mi hermano tiene veintitrés años.",
+      "meaning": "My brother is twenty-three years old.",
+      "note": "Age takes tener."
+    },
+    {
+      "text": "Mi abuela tiene ochenta y cuatro años.",
+      "meaning": "My grandmother is eighty-four years old."
+    },
+    {
+      "text": "El libro cuesta veinticinco euros en la tienda.",
+      "meaning": "The book costs twenty-five euros in the shop.",
+      "note": "New word: la tienda = the shop."
+    },
+    {
+      "text": "Vivimos en el número cincuenta y seis.",
+      "meaning": "We live at number fifty-six.",
+      "note": "New word: el número = the number."
+    },
+    {
+      "text": "¿Cuántos años tiene tu madre? Tiene sesenta y un años.",
+      "meaning": "How old is your mother? She is sixty-one.",
+      "note": "Uno becomes un before a masculine noun: sesenta y un años."
+    },
+    {
+      "text": "Mi abuelo tiene noventa y nueve años y vive solo en Madrid.",
+      "meaning": "My grandfather is ninety-nine years old and lives alone in Madrid."
+    }
+  ],
+  "guide": [
+    {
+      "section": "0 to 15"
+    },
+    {
+      "vocab": 6
+    },
+    {
+      "question": "a1-num-01"
+    },
+    {
+      "section": "16 to 29"
+    },
+    {
+      "question": "a1-num-02"
+    },
+    {
+      "section": "30 to 99"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a1-num-03"
+    },
+    {
+      "question": "a1-num-07"
+    },
+    {
+      "section": "100"
+    },
+    {
+      "question": "a1-num-05"
+    },
+    {
+      "section": "Numbers with nouns"
+    },
+    {
+      "vocab": 3
+    },
+    {
+      "question": "a1-num-04"
+    },
+    {
+      "question": "a1-num-06"
+    },
+    {
+      "question": "a1-num-08"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-num-conv-market",
+      "title": "At the market",
+      "scenario": "Carmen buys fruit from a market seller and asks the price.",
+      "role_a": "Carmen",
+      "role_b": "Vendedor",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Buenos días. ¿Cuánto cuestan las naranjas?",
+          "meaning": "Good morning. How much are the oranges?"
+        },
+        {
+          "speaker": "b",
+          "text": "Dos euros el kilo. Las manzanas, uno cincuenta.",
+          "meaning": "Two euros a kilo. The apples, one fifty."
+        },
+        {
+          "speaker": "a",
+          "text": "Quiero tres kilos de naranjas y un kilo de manzanas.",
+          "meaning": "I want three kilos of oranges and one kilo of apples.",
+          "note": "un + masculine noun"
+        },
+        {
+          "speaker": "b",
+          "text": "Son siete euros con cincuenta.",
+          "meaning": "That's seven euros fifty."
+        },
+        {
+          "speaker": "a",
+          "text": "Aquí tiene diez euros.",
+          "meaning": "Here's ten euros."
+        },
+        {
+          "speaker": "b",
+          "text": "Y dos cincuenta de cambio. ¿Cuántos años tiene su hija?",
+          "meaning": "And two fifty change. How old is your daughter?",
+          "note": "tener + años"
+        },
+        {
+          "speaker": "a",
+          "text": "Tiene quince años. ¡Come muchas naranjas!",
+          "meaning": "She's fifteen. She eats lots of oranges!"
+        },
+        {
+          "speaker": "b",
+          "text": "¡Hasta la semana que viene!",
+          "meaning": "See you next week!"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🔢",
+    "bites": [
+      {
+        "title": "16 to 29: squash it",
+        "emoji": "🥪",
+        "rule": "Up to 29, the number is one word: dieciséis, veintidós. Watch the accents on -séis, -dós and -trés.",
+        "example": "Tengo veintidós años.",
+        "example_meaning": "I'm twenty-two."
+      },
+      {
+        "title": "From 30: tens y units",
+        "emoji": "🔗",
+        "rule": "From 30 on, glue tens and units with y: treinta y uno, cuarenta y cinco. The y only goes between tens and units.",
+        "example": "noventa y nueve",
+        "example_meaning": "ninety-nine"
+      },
+      {
+        "title": "Uno shape-shifts",
+        "emoji": "🦎",
+        "rule": "Before a noun, uno turns into un (masculine) or una (feminine), even at the end of a big number: veintiún años, treinta y una personas.",
+        "example": "un libro, una mesa, veintiún años",
+        "example_meaning": "one book, one table, twenty-one years"
+      },
+      {
+        "title": "Cien is a clean hundred",
+        "emoji": "💯",
+        "rule": "Exactly 100, or 100 right before a noun, is cien. It becomes ciento only when more number follows.",
+        "example": "cien euros, ciento diez",
+        "example_meaning": "a hundred euros, a hundred and ten"
+      }
+    ],
+    "sorts": [
+      {
+        "title": "One word or three?",
+        "buckets": [
+          "one word",
+          "tens + y + units"
+        ],
+        "items": [
+          {
+            "text": "16",
+            "bucket": 0
+          },
+          {
+            "text": "18",
+            "bucket": 0
+          },
+          {
+            "text": "22",
+            "bucket": 0
+          },
+          {
+            "text": "29",
+            "bucket": 0
+          },
+          {
+            "text": "31",
+            "bucket": 1
+          },
+          {
+            "text": "45",
+            "bucket": 1
+          },
+          {
+            "text": "68",
+            "bucket": 1
+          },
+          {
+            "text": "99",
+            "bucket": 1
+          }
+        ],
+        "why": "16 to 29 are written as one word; from 31 on it's tens + y + units."
+      },
+      {
+        "title": "Un, una or uno?",
+        "buckets": [
+          "un",
+          "una",
+          "uno"
+        ],
+        "items": [
+          {
+            "text": "___ libro",
+            "bucket": 0
+          },
+          {
+            "text": "cuarenta y ___ euros",
+            "bucket": 0
+          },
+          {
+            "text": "___ mesa",
+            "bucket": 1
+          },
+          {
+            "text": "treinta y ___ personas",
+            "bucket": 1
+          },
+          {
+            "text": "Counting: ___, dos, tres",
+            "bucket": 2
+          },
+          {
+            "text": "¿Cuántos libros? — ___.",
+            "bucket": 2
+          }
+        ],
+        "why": "Before a masculine noun it's un, before a feminine one una; on its own it stays uno."
+      },
+      {
+        "title": "Cien or ciento?",
+        "buckets": [
+          "cien",
+          "ciento"
+        ],
+        "items": [
+          {
+            "text": "___ euros",
+            "bucket": 0
+          },
+          {
+            "text": "___ personas",
+            "bucket": 0
+          },
+          {
+            "text": "just 100, on its own",
+            "bucket": 0
+          },
+          {
+            "text": "___ diez",
+            "bucket": 1
+          },
+          {
+            "text": "___ cinco",
+            "bucket": 1
+          },
+          {
+            "text": "___ veinte",
+            "bucket": 1
+          }
+        ],
+        "why": "Cien is used alone or right before a noun; ciento is followed by more number."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Tengo veintiuno años.",
+        "wrong": "veintiuno",
+        "fix": "veintiún",
+        "why": "Before a masculine noun, -uno shortens: veintiún años."
+      },
+      {
+        "sentence": "Hay treinta y uno chicas.",
+        "wrong": "uno",
+        "fix": "una",
+        "why": "Chicas is feminine, so the number ends in una."
+      },
+      {
+        "sentence": "Son ciento euros.",
+        "wrong": "ciento",
+        "fix": "cien",
+        "why": "Exactly 100 before a noun is cien."
+      },
+      {
+        "sentence": "Hay uno libro en la mesa.",
+        "wrong": "uno",
+        "fix": "un",
+        "why": "Uno shortens to un before a masculine noun."
+      },
+      {
+        "sentence": "Son dieciseis euros.",
+        "wrong": "dieciseis",
+        "fix": "dieciséis",
+        "why": "Dieciséis carries an accent on the last syllable."
+      },
+      {
+        "sentence": "La clase tiene veintiún chicas.",
+        "wrong": "veintiún",
+        "fix": "veintiuna",
+        "why": "Chicas is feminine, so it's veintiuna."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Tengo veintiún años.",
+        "meaning": "I'm twenty-one.",
+        "distractors": [
+          "veintiuno"
+        ]
+      },
+      {
+        "text": "Son cien euros.",
+        "meaning": "It's a hundred euros.",
+        "distractors": [
+          "ciento"
+        ]
+      },
+      {
+        "text": "Hay treinta y una personas.",
+        "meaning": "There are thirty-one people.",
+        "distractors": [
+          "uno"
+        ]
+      },
+      {
+        "text": "Tengo veintidós años.",
+        "meaning": "I'm twenty-two.",
+        "distractors": [
+          "veinte"
+        ]
+      },
+      {
+        "text": "Mi hija tiene quince años.",
+        "meaning": "My daughter is fifteen.",
+        "distractors": [
+          "cinco"
+        ]
+      }
+    ]
+  }
+}

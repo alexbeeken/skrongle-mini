@@ -1,0 +1,641 @@
+{
+  "id": "a1-questions",
+  "slug": "asking-questions",
+  "title": "Asking questions",
+  "unit": "A1",
+  "group": "Grammar",
+  "order": 26,
+  "summary": "¿Qué? ¿Quién? ¿Dónde? ¿Cuándo? ¿Cómo? ¿Cuánto? ¿Por qué? And the difference between qué and cuál.",
+  "focus": "Question words, ¿…?, qué vs cuál",
+  "prerequisites": [
+    "a1-regular-ar-present"
+  ],
+  "content": "## Yes/no questions\n\nRaise your voice at the end, or put the verb first. In writing, open with **¿**:\n\n- *¿Hablas inglés?* (Do you speak English?)\n- *¿Es tu hermano?* (Is he your brother?)\n- *Eres de Madrid, ¿verdad? / ¿no?* (You're from Madrid, right?)\n\n## Question words\n\nEvery one of them carries a written accent:\n\n| | | example |\n|---|---|---|\n| **qué** | what | *¿Qué es esto?* |\n| **quién / quiénes** | who | *¿Quién es? ¿Quiénes son?* |\n| **dónde** | where | *¿Dónde vives?* |\n| **cuándo** | when | *¿Cuándo llegas?* |\n| **cómo** | how | *¿Cómo estás? ¿Cómo es tu casa?* |\n| **cuánto / -a / -os / -as** | how much / many | *¿Cuánto cuesta? ¿Cuántos años tienes?* |\n| **por qué** | why | *¿Por qué estudias español?* |\n| **cuál / cuáles** | which (one) | *¿Cuál prefieres?* |\n\nAnswer *¿por qué?* with **porque** (because), one word, no accent.\n\n## Qué or cuál?\n\n- **qué + noun**: *¿Qué libro lees?* (What/which book are you reading?)\n- **qué + verb** asks for a definition: *¿Qué es una tapa?*\n- **cuál + verb** asks to choose: *¿Cuál es tu número?* (What's your number?) *¿Cuál quieres?* (Which one do you want?)\n\nSo \"What is your name?\" is **¿Cuál es tu nombre?** (choosing from all names), though *¿Cómo te llamas?* is more common.\n\n## Prepositions go first\n\nSpanish never leaves a preposition at the end: *¿**De** dónde eres?* (Where are you from?) *¿**Con** quién vives?* (Who do you live with?) *¿**A** qué hora?* (At what time?)",
+  "vocabulary": [
+    {
+      "term": "¿qué?",
+      "meaning": "what?",
+      "example": "¿Qué es esto?",
+      "example_meaning": "What is this?"
+    },
+    {
+      "term": "¿quién?",
+      "meaning": "who?",
+      "example": "¿Quién es ella?",
+      "example_meaning": "Who is she?"
+    },
+    {
+      "term": "¿dónde?",
+      "meaning": "where?",
+      "example": "¿Dónde vives?",
+      "example_meaning": "Where do you live?"
+    },
+    {
+      "term": "¿de dónde?",
+      "meaning": "where from?",
+      "example": "¿De dónde eres?",
+      "example_meaning": "Where are you from?"
+    },
+    {
+      "term": "¿cuándo?",
+      "meaning": "when?",
+      "example": "¿Cuándo es la fiesta?",
+      "example_meaning": "When is the party?"
+    },
+    {
+      "term": "¿cómo?",
+      "meaning": "how?",
+      "example": "¿Cómo estás?",
+      "example_meaning": "How are you?"
+    },
+    {
+      "term": "¿cuánto?",
+      "meaning": "how much?",
+      "example": "¿Cuánto cuesta?",
+      "example_meaning": "How much does it cost?"
+    },
+    {
+      "term": "¿cuántos?",
+      "meaning": "how many?",
+      "example": "¿Cuántos años tienes?",
+      "example_meaning": "How old are you?"
+    },
+    {
+      "term": "¿por qué?",
+      "meaning": "why?",
+      "example": "¿Por qué estudias?",
+      "example_meaning": "Why do you study?"
+    },
+    {
+      "term": "porque",
+      "meaning": "because",
+      "example": "Porque me gusta.",
+      "example_meaning": "Because I like it."
+    },
+    {
+      "term": "¿cuál?",
+      "meaning": "which (one)?",
+      "example": "¿Cuál prefieres?",
+      "example_meaning": "Which one do you prefer?"
+    },
+    {
+      "term": "¿verdad?",
+      "meaning": "right? isn't it?",
+      "example": "Eres de aquí, ¿verdad?",
+      "example_meaning": "You're from here, right?"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-q-01",
+      "prompt": "¿___ vives? — En Lima.",
+      "type": "multiple-choice",
+      "options": [
+        "Dónde",
+        "Cuándo",
+        "Qué"
+      ],
+      "correct_answer": "Dónde",
+      "explanation": "A place answer needs dónde.",
+      "hints": [
+        "Where?"
+      ],
+      "teaches": [
+        "¿dónde?"
+      ]
+    },
+    {
+      "question_id": "a1-q-02",
+      "prompt": "¿___ es ella? — Mi profesora.",
+      "type": "multiple-choice",
+      "options": [
+        "Quién",
+        "Qué",
+        "Cuál"
+      ],
+      "correct_answer": "Quién",
+      "explanation": "To ask about a person, use quién.",
+      "hints": [
+        "Who?"
+      ],
+      "teaches": [
+        "¿quién?"
+      ]
+    },
+    {
+      "question_id": "a1-q-03",
+      "prompt": "Complete: ¿___ cuesta el libro? (How much…)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "Cuánto",
+      "accepted_answers": [
+        "cuánto"
+      ],
+      "explanation": "How much = cuánto.",
+      "hints": [
+        "Accent!"
+      ],
+      "teaches": [
+        "¿cuánto?"
+      ]
+    },
+    {
+      "question_id": "a1-q-04",
+      "prompt": "¿___ años tienes?",
+      "type": "multiple-choice",
+      "options": [
+        "Cuántos",
+        "Cuánto",
+        "Cuántas"
+      ],
+      "correct_answer": "Cuántos",
+      "explanation": "Años is masculine plural: cuántos años.",
+      "hints": [
+        "Agree with años."
+      ],
+      "teaches": [
+        "¿cuántos?"
+      ]
+    },
+    {
+      "question_id": "a1-q-05",
+      "prompt": "¿___ es tu número de teléfono?",
+      "type": "multiple-choice",
+      "options": [
+        "Cuál",
+        "Qué",
+        "Cómo"
+      ],
+      "correct_answer": "Cuál",
+      "explanation": "To choose one from many with a verb, use cuál es…",
+      "hints": [
+        "cuál + verb"
+      ],
+      "teaches": [
+        "¿cuál?"
+      ]
+    },
+    {
+      "question_id": "a1-q-06",
+      "prompt": "¿___ qué estudias español? — ___ me gusta.",
+      "type": "multiple-choice",
+      "options": [
+        "Por / Porque",
+        "Por / Por que",
+        "Porque / Por qué"
+      ],
+      "correct_answer": "Por / Porque",
+      "explanation": "The question is por qué (two words); the answer is porque (one word).",
+      "hints": [
+        "two words / one word"
+      ],
+      "teaches": [
+        "¿por qué?",
+        "porque"
+      ]
+    },
+    {
+      "question_id": "a1-q-07",
+      "prompt": "Where are you from?",
+      "type": "multiple-choice",
+      "options": [
+        "¿De dónde eres?",
+        "¿Dónde eres de?",
+        "¿Dónde de eres?"
+      ],
+      "correct_answer": "¿De dónde eres?",
+      "explanation": "The preposition goes first: de dónde.",
+      "hints": [
+        "Preposition first."
+      ],
+      "teaches": [
+        "¿de dónde?"
+      ]
+    },
+    {
+      "question_id": "a1-q-08",
+      "prompt": "¿___ estás? — Muy bien, gracias.",
+      "type": "multiple-choice",
+      "options": [
+        "Cómo",
+        "Qué",
+        "Cuándo"
+      ],
+      "correct_answer": "Cómo",
+      "explanation": "To ask how someone is, use cómo.",
+      "hints": [
+        "How?"
+      ],
+      "teaches": [
+        "¿cómo?"
+      ]
+    },
+    {
+      "question_id": "a1-q-09",
+      "prompt": "¿___ libro prefieres, este o ese?",
+      "type": "multiple-choice",
+      "options": [
+        "Qué",
+        "Cuál",
+        "Cuáles"
+      ],
+      "correct_answer": "Qué",
+      "explanation": "Directly before a noun, use qué: qué libro.",
+      "hints": [
+        "qué + noun"
+      ],
+      "teaches": [
+        "¿qué?"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "¿Dónde vive tu hermana?",
+      "meaning": "Where does your sister live?",
+      "note": "Question words carry a written accent."
+    },
+    {
+      "text": "¿Cuánto cuesta este bolso?",
+      "meaning": "How much does this bag cost?",
+      "note": "New word: el bolso = the bag."
+    },
+    {
+      "text": "¿De dónde es tu madre?",
+      "meaning": "Where is your mother from?",
+      "note": "The preposition goes first: de dónde."
+    },
+    {
+      "text": "Tú eres de Sevilla, ¿verdad?",
+      "meaning": "You're from Seville, right?"
+    },
+    {
+      "text": "¿A qué hora abre la tienda por la mañana?",
+      "meaning": "What time does the shop open in the morning?",
+      "note": "New word: la tienda = the shop."
+    },
+    {
+      "text": "¿Por qué no comes carne? Porque no me gusta.",
+      "meaning": "Why don't you eat meat? Because I don't like it.",
+      "note": "New word: la carne = meat."
+    },
+    {
+      "text": "¿Cómo vas al trabajo, en coche o a pie?",
+      "meaning": "How do you get to work, by car or on foot?"
+    },
+    {
+      "text": "¿Con quién vas al cine el sábado por la tarde?",
+      "meaning": "Who are you going to the cinema with on Saturday afternoon?",
+      "note": "Spanish never leaves a preposition at the end of a question."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Yes/no questions"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "section": "Question words"
+    },
+    {
+      "vocab": 8
+    },
+    {
+      "question": "a1-q-01"
+    },
+    {
+      "question": "a1-q-02"
+    },
+    {
+      "question": "a1-q-08"
+    },
+    {
+      "question": "a1-q-03"
+    },
+    {
+      "question": "a1-q-04"
+    },
+    {
+      "question": "a1-q-06"
+    },
+    {
+      "section": "Qué or cuál"
+    },
+    {
+      "question": "a1-q-05"
+    },
+    {
+      "question": "a1-q-09"
+    },
+    {
+      "section": "Prepositions go first"
+    },
+    {
+      "question": "a1-q-07"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-q-conv-interview",
+      "title": "Getting to know you",
+      "scenario": "Two students interview each other in class.",
+      "role_a": "Inés",
+      "role_b": "Rafa",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Hola, ¿cómo te llamas?",
+          "meaning": "Hi, what's your name?",
+          "note": "cómo"
+        },
+        {
+          "speaker": "b",
+          "text": "Me llamo Rafa. ¿Y tú?",
+          "meaning": "My name's Rafa. And you?"
+        },
+        {
+          "speaker": "a",
+          "text": "Inés. ¿De dónde eres, Rafa?",
+          "meaning": "Inés. Where are you from, Rafa?",
+          "note": "de dónde"
+        },
+        {
+          "speaker": "b",
+          "text": "Soy de Córdoba. ¿Dónde vives ahora?",
+          "meaning": "I'm from Córdoba. Where do you live now?",
+          "note": "dónde"
+        },
+        {
+          "speaker": "a",
+          "text": "Vivo cerca de la universidad. ¿Cuántos años tienes?",
+          "meaning": "I live near the university. How old are you?",
+          "note": "cuántos"
+        },
+        {
+          "speaker": "b",
+          "text": "Tengo veintitrés. ¿Por qué estudias español?",
+          "meaning": "I'm twenty-three. Why do you study Spanish?",
+          "note": "por qué"
+        },
+        {
+          "speaker": "a",
+          "text": "Porque mi novio es mexicano. ¿Cuál es tu número de teléfono?",
+          "meaning": "Because my boyfriend is Mexican. What's your phone number?",
+          "note": "porque; cuál es"
+        },
+        {
+          "speaker": "b",
+          "text": "Es el seis, uno, dos… ¿Cuándo es el examen?",
+          "meaning": "It's six, one, two… When is the exam?",
+          "note": "cuándo"
+        },
+        {
+          "speaker": "a",
+          "text": "El viernes, ¿verdad?",
+          "meaning": "On Friday, right?",
+          "note": "¿verdad?"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "❓",
+    "bites": [
+      {
+        "title": "Flip the question mark",
+        "emoji": "❓",
+        "rule": "Spanish tells you a question is coming: open with ¿ and close with ?. For a yes/no question, raise your voice. There is no 'do' to add.",
+        "example": "¿Hablas inglés?",
+        "example_meaning": "Do you speak English?"
+      },
+      {
+        "title": "Question words carry accents",
+        "emoji": "🎩",
+        "rule": "Qué, quién, dónde, cuándo, cómo, cuánto, cuál: every question word has a written accent. Por qué (two words) asks, and porque (one word, no accent) answers.",
+        "example": "¿Por qué estudias? — Porque me gusta.",
+        "example_meaning": "Why do you study? — Because I like it."
+      },
+      {
+        "title": "Qué + noun, cuál + es",
+        "emoji": "⚖️",
+        "rule": "Right before a noun, say qué: ¿qué libro? To pick one with es, say cuál: 'What's your number?' is ¿cuál es tu número?, not ¿qué es…?",
+        "example": "¿Cuál es tu número de teléfono?",
+        "example_meaning": "What's your phone number?"
+      },
+      {
+        "title": "Prepositions go first",
+        "emoji": "🚂",
+        "rule": "Spanish never leaves a preposition at the end of a question. 'Where are you from?' becomes 'From where are you?'",
+        "example": "¿De dónde eres? ¿Con quién vives?",
+        "example_meaning": "Where are you from? Who do you live with?"
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which word asks for this answer?",
+        "buckets": [
+          "dónde",
+          "cuándo",
+          "quién",
+          "cuánto"
+        ],
+        "items": [
+          {
+            "text": "En Lima.",
+            "bucket": 0
+          },
+          {
+            "text": "El viernes.",
+            "bucket": 1
+          },
+          {
+            "text": "Mi profesora.",
+            "bucket": 2
+          },
+          {
+            "text": "Cinco euros.",
+            "bucket": 3
+          },
+          {
+            "text": "Cerca de la universidad.",
+            "bucket": 0
+          },
+          {
+            "text": "A las ocho.",
+            "bucket": 1
+          },
+          {
+            "text": "Mi hermano.",
+            "bucket": 2
+          },
+          {
+            "text": "Diez euros el kilo.",
+            "bucket": 3
+          }
+        ],
+        "why": "Match the type of answer: a place → dónde, a time → cuándo, a person → quién, a price → cuánto."
+      },
+      {
+        "title": "Qué or cuál?",
+        "buckets": [
+          "qué",
+          "cuál"
+        ],
+        "items": [
+          {
+            "text": "¿___ libro lees?",
+            "bucket": 0
+          },
+          {
+            "text": "¿___ es tu número?",
+            "bucket": 1
+          },
+          {
+            "text": "¿___ es esto?",
+            "bucket": 0
+          },
+          {
+            "text": "¿___ prefieres, el rojo o el azul?",
+            "bucket": 1
+          },
+          {
+            "text": "¿___ es tu nombre?",
+            "bucket": 1
+          },
+          {
+            "text": "¿___ hora es?",
+            "bucket": 0
+          },
+          {
+            "text": "¿___ música te gusta?",
+            "bucket": 0
+          },
+          {
+            "text": "¿___ es una tapa?",
+            "bucket": 0
+          }
+        ],
+        "why": "Qué goes before a noun or asks for a definition, and cuál + verb asks you to pick one from a set."
+      },
+      {
+        "title": "Cuánto, cuánta, cuántos or cuántas?",
+        "buckets": [
+          "cuánto",
+          "cuánta",
+          "cuántos",
+          "cuántas"
+        ],
+        "items": [
+          {
+            "text": "¿___ años tienes?",
+            "bucket": 2
+          },
+          {
+            "text": "¿___ cuesta?",
+            "bucket": 0
+          },
+          {
+            "text": "¿___ hermanas tienes?",
+            "bucket": 3
+          },
+          {
+            "text": "¿___ leche quieres?",
+            "bucket": 1
+          },
+          {
+            "text": "¿___ libros hay?",
+            "bucket": 2
+          },
+          {
+            "text": "¿___ personas hay?",
+            "bucket": 3
+          },
+          {
+            "text": "¿___ dinero tienes?",
+            "bucket": 0
+          }
+        ],
+        "why": "Cuánto agrees with the noun it counts. Before a verb with no noun (¿cuánto cuesta?), it stays cuánto."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "¿Donde vives ahora?",
+        "wrong": "Donde",
+        "fix": "Dónde",
+        "why": "Question words always carry an accent: dónde."
+      },
+      {
+        "sentence": "¿Porque estudias español?",
+        "wrong": "Porque",
+        "fix": "Por qué",
+        "why": "The question is por qué (two words, with an accent), and porque is the answer."
+      },
+      {
+        "sentence": "¿Qué es tu número de teléfono?",
+        "wrong": "Qué",
+        "fix": "Cuál",
+        "why": "To pick one item with es, use cuál: ¿cuál es tu número?"
+      },
+      {
+        "sentence": "¿Cuánto años tienes?",
+        "wrong": "Cuánto",
+        "fix": "Cuántos",
+        "why": "Años is masculine plural, so cuántos."
+      },
+      {
+        "sentence": "¿Cuál libro prefieres, este o ese?",
+        "wrong": "Cuál",
+        "fix": "Qué",
+        "why": "Directly before a noun, use qué: ¿qué libro?"
+      },
+      {
+        "sentence": "¿Qué estás hoy? — Muy bien, gracias.",
+        "wrong": "Qué",
+        "fix": "Cómo",
+        "why": "To ask how someone is, use cómo."
+      }
+    ],
+    "builds": [
+      {
+        "text": "¿De dónde eres?",
+        "meaning": "Where are you from?",
+        "distractors": [
+          "qué",
+          "estás"
+        ]
+      },
+      {
+        "text": "¿Dónde vives ahora?",
+        "meaning": "Where do you live now?",
+        "distractors": [
+          "donde"
+        ]
+      },
+      {
+        "text": "¿Cuántos años tienes?",
+        "meaning": "How old are you?",
+        "distractors": [
+          "cuánto",
+          "cuántas"
+        ]
+      },
+      {
+        "text": "¿Por qué estudias español?",
+        "meaning": "Why do you study Spanish?",
+        "distractors": [
+          "porque"
+        ]
+      },
+      {
+        "text": "¿Cuál es tu número de teléfono?",
+        "meaning": "What's your phone number?",
+        "distractors": [
+          "qué"
+        ]
+      }
+    ]
+  }
+}

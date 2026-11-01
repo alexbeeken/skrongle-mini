@@ -1,0 +1,1210 @@
+{
+  "id": "b2-passive-voice",
+  "slug": "passive-voice",
+  "title": "The passive: fue construido, se venden pisos",
+  "unit": "B2",
+  "group": "Grammar",
+  "order": 24,
+  "summary": "Three ways to put the thing done first: ser + participle for formal actions, estar + participle for the result, and se + verb as the everyday passive.",
+  "focus": "Ser + participle, estar + participle and the pasiva refleja (se vende / se venden)",
+  "prerequisites": [
+    "b1-uses-of-se",
+    "a2-present-perfect"
+  ],
+  "content": "## Ser + participle: the formal passive\n\nThe **ser** passive turns the object of an action into the subject. **Ser** carries the tense, the participle agrees with the subject like an adjective, and **por** names who did it.\n\n| active | passive |\n|---|---|\n| Una arquitecta diseñó el museo. | El museo **fue diseñado por** una arquitecta. |\n| La policía detuvo a dos hombres. | Dos hombres **fueron detenidos**. |\n| El Gobierno ha aprobado la ley. | La ley **ha sido aprobada**. |\n| Inaugurarán el puente. | El puente **será inaugurado**. |\n\nIrregular participles still agree: **la carta fue escrita**, **los murales fueron hechos**, **la tumba fue descubierta**.\n\n## Estar + participle: the resulting state\n\n**Ser** + participle tells an *action*: something was done, at some moment, by someone. **Estar** + participle describes the *state* left afterwards, usually with no **por**.\n\n- **La puerta fue cerrada a las diez.** (The door was closed at ten. This is the action.)\n- **La puerta está cerrada.** (The door is closed. This is how it is now.)\n- **Cuando llegamos, el museo ya estaba cerrado.** (When we arrived, the museum was already closed.)\n- **Las entradas están agotadas.** (The tickets are sold out.)\n\nAs a quick test, if you could ask *when?* or *by whom?*, it is **ser**. If you are describing how things are, it is **estar**.\n\n## Se venden pisos: the everyday passive\n\nIn everyday Spanish the usual passive is **se** + a verb in the third person, the *pasiva refleja*. The verb agrees with the thing: one thing, singular verb; several, plural verb.\n\n| singular | plural |\n|---|---|\n| **Se alquila** habitación. | **Se alquilan** habitaciones. |\n| **Se vende** piso. | **Se venden** pisos. |\n| **Se necesita** camarero. | **Se necesitan** camareros. |\n\nThe thing usually follows the verb, and every tense works: **se construyó un puente**, **se han reformado dos escuelas**. Before an infinitive the verb stays singular: **se prohíbe fumar**. Never say *se vende pisos*. The verb must agree.\n\n## Which passive when?\n\n- If you want to say **who** did it, use **ser + participle + por**: **El puente fue inaugurado por la alcaldesa.**\n- If you are speaking and the doer is unknown or unimportant, use **se**: **Aquí se venden entradas.** **En los años setenta se construyeron muchas casas.**\n- If you describe how something **is** now, use **estar**: **Las obras están terminadas.**\n\nThe **ser** passive sounds formal and suits news, history books and reports. Do not add **por** + a doer to the **se** form. Say **el puente fue construido por una empresa**, not *se construyó por una empresa*.",
+  "vocabulary": [
+    {
+      "term": "construir",
+      "meaning": "to build",
+      "example": "Este barrio fue construido en los años cincuenta.",
+      "example_meaning": "This neighbourhood was built in the fifties."
+    },
+    {
+      "term": "derribar",
+      "meaning": "to demolish, to knock down",
+      "example": "La vieja fábrica fue derribada el mes pasado.",
+      "example_meaning": "The old factory was knocked down last month."
+    },
+    {
+      "term": "inaugurar",
+      "meaning": "to open officially, to inaugurate",
+      "example": "El nuevo hospital será inaugurado en junio.",
+      "example_meaning": "The new hospital will be officially opened in June."
+    },
+    {
+      "term": "fundar",
+      "meaning": "to found",
+      "example": "La universidad fue fundada en el siglo dieciséis.",
+      "example_meaning": "The university was founded in the sixteenth century."
+    },
+    {
+      "term": "reformar",
+      "meaning": "to renovate, to refurbish",
+      "example": "La plaza fue reformada por el ayuntamiento.",
+      "example_meaning": "The square was renovated by the town council."
+    },
+    {
+      "term": "diseñar",
+      "meaning": "to design",
+      "example": "El parque fue diseñado por una paisajista japonesa.",
+      "example_meaning": "The park was designed by a Japanese landscape architect."
+    },
+    {
+      "term": "alquilar",
+      "meaning": "to rent, to let",
+      "example": "Se alquila apartamento con vistas al mar.",
+      "example_meaning": "Flat with sea views to let."
+    },
+    {
+      "term": "detener",
+      "meaning": "to arrest, to stop",
+      "example": "Tres sospechosos fueron detenidos en el aeropuerto.",
+      "example_meaning": "Three suspects were arrested at the airport."
+    },
+    {
+      "term": "aprobar",
+      "meaning": "to approve, to pass (a law, an exam)",
+      "example": "El presupuesto fue aprobado por unanimidad.",
+      "example_meaning": "The budget was approved unanimously."
+    },
+    {
+      "term": "el ayuntamiento",
+      "meaning": "the town hall, the town council",
+      "example": "Desde el año pasado, el ayuntamiento está cerrado los sábados.",
+      "example_meaning": "Since last year the town hall has been closed on Saturdays."
+    },
+    {
+      "term": "la obra",
+      "meaning": "the building work (often plural: las obras); a work of art",
+      "example": "Las obras del metro ya están terminadas.",
+      "example_meaning": "The work on the underground is finished now."
+    },
+    {
+      "term": "el puente",
+      "meaning": "the bridge",
+      "example": "Se construyeron tres puentes nuevos sobre el río.",
+      "example_meaning": "Three new bridges were built over the river."
+    },
+    {
+      "term": "el anuncio",
+      "meaning": "the advert, the notice",
+      "example": "En el anuncio pone: se necesitan camareros.",
+      "example_meaning": "The advert says: waiters wanted."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-passive-voice-01",
+      "prompt": "El puente ___ en mil ochocientos noventa. (construir)",
+      "type": "multiple-choice",
+      "options": [
+        "fue construido",
+        "fue construida",
+        "fueron construidos"
+      ],
+      "correct_answer": "fue construido",
+      "explanation": "El puente is masculine singular, so ser is singular (fue) and the participle is masculine singular: construido.",
+      "hints": [
+        "The participle agrees with the subject, like an adjective."
+      ],
+      "teaches": [
+        "construir",
+        "el puente"
+      ]
+    },
+    {
+      "question_id": "b2-passive-voice-02",
+      "prompt": "La nueva ley fue ___ por el Parlamento ayer. (aprobar)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "aprobada",
+      "accepted_answers": [],
+      "explanation": "La ley is feminine singular, so the participle is aprobada; por introduces who did it.",
+      "hints": [
+        "Ley is feminine."
+      ],
+      "teaches": [
+        "aprobar"
+      ]
+    },
+    {
+      "question_id": "b2-passive-voice-03",
+      "prompt": "En este edificio ___ dos pisos. (alquilar)",
+      "type": "multiple-choice",
+      "options": [
+        "se alquilan",
+        "se alquila",
+        "es alquilado"
+      ],
+      "correct_answer": "se alquilan",
+      "explanation": "In the pasiva refleja the verb agrees with the thing: dos pisos is plural, so se alquilan.",
+      "hints": [
+        "How many pisos are there?"
+      ],
+      "teaches": [
+        "alquilar"
+      ]
+    },
+    {
+      "question_id": "b2-passive-voice-04",
+      "prompt": "Ya podemos usar la nueva estación: las obras ___ terminadas. (estar, present)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "están",
+      "accepted_answers": [],
+      "explanation": "You describe the state the work is in now, so estar: las obras están terminadas (plural, to agree with obras).",
+      "hints": [
+        "A resulting state takes estar.",
+        "Obras is plural."
+      ],
+      "teaches": [
+        "la obra"
+      ]
+    },
+    {
+      "question_id": "b2-passive-voice-05",
+      "prompt": "You reach the museum at nine at night and find the door shut. Which sentence describes what you see?",
+      "type": "multiple-choice",
+      "options": [
+        "El museo está cerrado.",
+        "El museo fue cerrado por la mañana.",
+        "El museo está cerrada."
+      ],
+      "correct_answer": "El museo está cerrado.",
+      "explanation": "You describe the state you find, so estar + participle: está cerrado. Fue cerrado tells an action at a moment; cerrada does not agree with el museo.",
+      "hints": [
+        "State now or action then?"
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b2-passive-voice-06",
+      "prompt": "El hospital fue ___ por la reina en mil novecientos treinta. (inaugurar)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "inaugurado",
+      "accepted_answers": [],
+      "explanation": "El hospital is masculine singular: fue inaugurado, with por naming who did it.",
+      "hints": [
+        "Give the participle, agreeing with el hospital."
+      ],
+      "teaches": [
+        "inaugurar"
+      ]
+    },
+    {
+      "question_id": "b2-passive-voice-07",
+      "prompt": "Which sentence would a bar owner put on an anuncio in the window?",
+      "type": "multiple-choice",
+      "options": [
+        "Se necesitan camareros.",
+        "Se necesita camareros.",
+        "Camareros son necesitados."
+      ],
+      "correct_answer": "Se necesitan camareros.",
+      "explanation": "Signs use the pasiva refleja, and the verb agrees with camareros (plural): se necesitan. The ser passive sounds stiff and unnatural here.",
+      "hints": [
+        "Everyday passive: se + verb.",
+        "The verb agrees with the plural noun."
+      ],
+      "teaches": [
+        "el anuncio"
+      ]
+    },
+    {
+      "question_id": "b2-passive-voice-08",
+      "prompt": "Hace dos años ___ un puente nuevo sobre el río. (construir, se passive, preterite)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "se construyó",
+      "accepted_answers": [],
+      "explanation": "The pasiva refleja in the preterite: se construyó, singular because un puente is singular.",
+      "hints": [
+        "Se + third person, agreeing with un puente."
+      ],
+      "teaches": [
+        "construir",
+        "el puente"
+      ]
+    },
+    {
+      "question_id": "b2-passive-voice-09",
+      "prompt": "La empresa fue ___ por dos hermanas en mil novecientos ochenta. (fundar)",
+      "type": "multiple-choice",
+      "options": [
+        "fundada",
+        "fundado",
+        "fundadas"
+      ],
+      "correct_answer": "fundada",
+      "explanation": "La empresa is feminine singular, so the participle is fundada. It agrees with the subject, not with the doer (dos hermanas).",
+      "hints": [
+        "Which word is the subject?"
+      ],
+      "teaches": [
+        "fundar"
+      ]
+    },
+    {
+      "question_id": "b2-passive-voice-10",
+      "prompt": "Los dos ladrones ___ detenidos por la policía anoche. (ser, preterite)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "fueron",
+      "accepted_answers": [],
+      "explanation": "Ser carries the tense and agrees with the plural subject: fueron detenidos.",
+      "hints": [
+        "Plural subject, preterite of ser."
+      ],
+      "teaches": [
+        "detener"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-passive-voice-conv-old-cinema",
+      "title": "The old cinema",
+      "scenario": "Two neighbours, Pablo and Elena, stop outside the old cinema on their street, which is being turned into flats.",
+      "role_a": "Pablo",
+      "role_b": "Elena",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¿Has visto el anuncio del antiguo cine? Se venden pisos.",
+          "meaning": "Have you seen the notice on the old cinema? Flats for sale.",
+          "note": "se venden: plural verb, plural pisos"
+        },
+        {
+          "speaker": "b",
+          "text": "Sí. El cine fue comprado por una constructora el año pasado.",
+          "meaning": "Yes. The cinema was bought by a building company last year.",
+          "note": "ser + participle + por"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Y lo van a derribar?",
+          "meaning": "And are they going to knock it down?"
+        },
+        {
+          "speaker": "b",
+          "text": "No, el edificio está protegido. Solo se va a reformar por dentro.",
+          "meaning": "No, the building is listed. It's only going to be renovated inside.",
+          "note": "está protegido: a state"
+        },
+        {
+          "speaker": "a",
+          "text": "Menos mal. Fue diseñado por un arquitecto muy conocido, ¿no?",
+          "meaning": "Thank goodness. It was designed by a well-known architect, wasn't it?"
+        },
+        {
+          "speaker": "b",
+          "text": "Eso dicen. Y mira, la fachada ya está restaurada.",
+          "meaning": "So they say. And look, the front is already restored."
+        },
+        {
+          "speaker": "a",
+          "text": "¿Cuándo se terminarán las obras?",
+          "meaning": "When will the work be finished?",
+          "note": "se terminarán: agrees with las obras"
+        },
+        {
+          "speaker": "b",
+          "text": "El ayuntamiento dice que el edificio será inaugurado en primavera.",
+          "meaning": "The council says the building will be officially opened in spring."
+        },
+        {
+          "speaker": "a",
+          "text": "¿Y los pisos? ¿Se venden muy caros?",
+          "meaning": "And the flats? Are they selling for a lot?"
+        },
+        {
+          "speaker": "b",
+          "text": "Carísimos. Y ya están casi todos vendidos.",
+          "meaning": "Very expensive. And they're almost all sold already."
+        },
+        {
+          "speaker": "a",
+          "text": "Vaya. Entonces me quedo con mis recuerdos de las películas.",
+          "meaning": "Oh well. Then I'll keep my memories of the films."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Se alquilan dos habitaciones.",
+      "meaning": "Two rooms to let.",
+      "note": "Plural thing, plural verb."
+    },
+    {
+      "text": "El cuadro fue robado anoche.",
+      "meaning": "The painting was stolen last night.",
+      "note": "New word: robar = to steal."
+    },
+    {
+      "text": "Las paredes ya están pintadas.",
+      "meaning": "The walls are already painted.",
+      "note": "Estar + participle describes the result."
+    },
+    {
+      "text": "Aquí se venden libros de segunda mano.",
+      "meaning": "Second-hand books are sold here.",
+      "note": "New word: de segunda mano = second-hand."
+    },
+    {
+      "text": "La biblioteca fue reformada por el ayuntamiento.",
+      "meaning": "The library was renovated by the town council."
+    },
+    {
+      "text": "Cuando llegamos, el restaurante ya estaba cerrado.",
+      "meaning": "When we arrived, the restaurant was already closed."
+    },
+    {
+      "text": "En este barrio se construyeron muchas casas en los años sesenta.",
+      "meaning": "Lots of houses were built in this neighbourhood in the sixties."
+    },
+    {
+      "text": "El contrato será firmado por las dos empresas la semana que viene.",
+      "meaning": "The contract will be signed by the two companies next week.",
+      "note": "New word: firmar = to sign."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Ser + participle"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-passive-voice-01"
+    },
+    {
+      "question": "b2-passive-voice-09"
+    },
+    {
+      "question": "b2-passive-voice-02"
+    },
+    {
+      "question": "b2-passive-voice-06"
+    },
+    {
+      "question": "b2-passive-voice-10"
+    },
+    {
+      "section": "Estar + participle"
+    },
+    {
+      "question": "b2-passive-voice-04"
+    },
+    {
+      "question": "b2-passive-voice-05"
+    },
+    {
+      "tip": "Ask yourself whether you could say when, or by whom. If so, it is ser. If you are only describing how it is now, it is estar."
+    },
+    {
+      "section": "Se venden pisos"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b2-passive-voice-03"
+    },
+    {
+      "question": "b2-passive-voice-08"
+    },
+    {
+      "section": "Which passive when"
+    },
+    {
+      "question": "b2-passive-voice-07"
+    }
+  ],
+  "sprint": {
+    "icon": "🏗️",
+    "bites": [
+      {
+        "title": "Ser + participle + por",
+        "emoji": "📰",
+        "rule": "Ser carries the tense, the participle agrees with the subject, and por names the doer. It sounds formal and suits news, history and reports.",
+        "example": "La catedral fue construida en el siglo trece.",
+        "example_meaning": "The cathedral was built in the thirteenth century."
+      },
+      {
+        "title": "Estar shows the result",
+        "emoji": "🚪",
+        "rule": "Estar + participle describes the state after the action: la puerta está cerrada. It names no moment and usually has no por.",
+        "example": "Las entradas ya están agotadas.",
+        "example_meaning": "The tickets are already sold out."
+      },
+      {
+        "title": "Se + verb agrees",
+        "emoji": "🪧",
+        "rule": "The everyday passive: se + third person, agreeing with the thing. Se vende un piso, se venden pisos. It takes no por + doer.",
+        "example": "Se buscan voluntarios para el festival.",
+        "example_meaning": "Volunteers wanted for the festival."
+      },
+      {
+        "title": "Who did it?",
+        "emoji": "🔎",
+        "rule": "To name the doer, use ser + participle + por. If the doer is unknown or unimportant and you are speaking, use se.",
+        "example": "El puente fue inaugurado por la alcaldesa.",
+        "example_meaning": "The bridge was officially opened by the mayor."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Action or state?",
+        "buckets": [
+          "ser + participle (action)",
+          "estar + participle (state)"
+        ],
+        "why": "Ser + participle tells what was done, and when or by whom; estar + participle describes the state left afterwards.",
+        "items": [
+          {
+            "text": "La casa fue vendida en marzo.",
+            "bucket": 0
+          },
+          {
+            "text": "La casa ya está vendida.",
+            "bucket": 1
+          },
+          {
+            "text": "El ladrón fue detenido anoche.",
+            "bucket": 0
+          },
+          {
+            "text": "El banco está cerrado.",
+            "bucket": 1
+          },
+          {
+            "text": "El libro fue escrito en dos meses.",
+            "bucket": 0
+          },
+          {
+            "text": "El libro ya está escrito.",
+            "bucket": 1
+          }
+        ]
+      },
+      {
+        "title": "Se vende or se venden?",
+        "buckets": [
+          "se vende…",
+          "se venden…"
+        ],
+        "why": "The verb agrees with the thing being sold: singular noun, singular verb; plural noun, plural verb.",
+        "items": [
+          {
+            "text": "coches usados",
+            "bucket": 1
+          },
+          {
+            "text": "piso con terraza",
+            "bucket": 0
+          },
+          {
+            "text": "fruta fresca",
+            "bucket": 0
+          },
+          {
+            "text": "entradas para el concierto",
+            "bucket": 1
+          },
+          {
+            "text": "bicicleta antigua",
+            "bucket": 0
+          },
+          {
+            "text": "muebles de cocina",
+            "bucket": 1
+          }
+        ]
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Se vende dos pisos en el centro.",
+        "wrong": "vende",
+        "fix": "venden",
+        "why": "Dos pisos is plural, so the verb is plural: se venden."
+      },
+      {
+        "sentence": "La carta fue escrito por mi abuela.",
+        "wrong": "escrito",
+        "fix": "escrita",
+        "why": "The participle agrees with la carta: escrita."
+      },
+      {
+        "sentence": "Los puentes fueron construidas por los romanos.",
+        "wrong": "construidas",
+        "fix": "construidos",
+        "why": "The participle agrees with los puentes: construidos."
+      },
+      {
+        "sentence": "Cuando llegué, la puerta ya era cerrada.",
+        "wrong": "era",
+        "fix": "estaba",
+        "why": "A resulting state takes estar: la puerta ya estaba cerrada."
+      },
+      {
+        "sentence": "Las casas fue reformadas el año pasado.",
+        "wrong": "fue",
+        "fix": "fueron",
+        "why": "Ser agrees with the plural subject las casas: fueron."
+      }
+    ],
+    "builds": [
+      {
+        "text": "El museo fue diseñado por una arquitecta.",
+        "meaning": "The museum was designed by an architect.",
+        "distractors": [
+          "diseñada"
+        ]
+      },
+      {
+        "text": "Se alquilan habitaciones cerca de la playa.",
+        "meaning": "Rooms to let near the beach.",
+        "distractors": [
+          "alquila"
+        ]
+      },
+      {
+        "text": "La tienda ya está cerrada.",
+        "meaning": "The shop is already closed.",
+        "distractors": [
+          "es"
+        ]
+      },
+      {
+        "text": "Los dos ladrones fueron detenidos ayer.",
+        "meaning": "The two thieves were arrested yesterday.",
+        "distractors": [
+          "fue"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🧱",
+      "content": "## La pasiva en Eldmark\n\n**La mazmorra fue construida por los enanos** de Deepanvil: an action, with **por**. Today **la entrada está bloqueada**: a state, so **estar**. On the guild board the everyday passive agrees with what is wanted: **se busca un cazador**, **se buscan guerreros**.",
+      "vocabulary": [
+        {
+          "term": "construir",
+          "example": "La torre de Highgate fue construida por los enanos.",
+          "example_meaning": "The tower of Highgate was built by the dwarves."
+        },
+        {
+          "term": "derribar",
+          "example": "El muro norte fue derribado por un minotauro furioso.",
+          "example_meaning": "The north wall was knocked down by a furious minotaur."
+        },
+        {
+          "term": "fundar",
+          "example": "Nuestro gremio fue fundado por tres paladines.",
+          "example_meaning": "Our guild was founded by three paladins."
+        },
+        {
+          "term": "alquilar",
+          "example": "En la posada se alquilan monturas por días.",
+          "example_meaning": "At the inn mounts are rented by the day."
+        },
+        {
+          "term": "el anuncio",
+          "example": "El anuncio del gremio dice: se buscan magas.",
+          "example_meaning": "The guild notice says: mages wanted."
+        },
+        {
+          "term": "detener",
+          "example": "Los ladrones fueron detenidos a las puertas de Frostmarch.",
+          "example_meaning": "The thieves were arrested at the gates of Frostmarch."
+        },
+        {
+          "term": "la mazmorra",
+          "meaning": "the dungeon",
+          "example": "La mazmorra está abandonada desde hace siglos.",
+          "example_meaning": "The dungeon has been abandoned for centuries."
+        },
+        {
+          "term": "el botín",
+          "meaning": "the loot",
+          "example": "El botín fue repartido entre los cazadores.",
+          "example_meaning": "The loot was shared out among the hunters."
+        },
+        {
+          "term": "el gremio",
+          "meaning": "the guild",
+          "example": "En el gremio se aceptan guerreros de todas las razas.",
+          "example_meaning": "Warriors of every race are accepted in the guild."
+        }
+      ],
+      "bites": [
+        {
+          "title": "El tablón del gremio",
+          "emoji": "📜",
+          "rule": "Guild notices agree with what is wanted: se busca un paladín, se buscan cazadores.",
+          "example": "Se buscan guerreros para la mazmorra.",
+          "example_meaning": "Warriors wanted for the dungeon."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Se buscan cazadores.",
+          "meaning": "Hunters wanted."
+        },
+        {
+          "text": "La puerta está sellada con magia.",
+          "meaning": "The door is sealed with magic."
+        },
+        {
+          "text": "El botín fue repartido en la posada.",
+          "meaning": "The loot was shared out at the inn.",
+          "note": "New word: el botín = the loot."
+        },
+        {
+          "text": "La mazmorra fue descubierta por una elfa.",
+          "meaning": "The dungeon was discovered by an elf.",
+          "note": "New word: la mazmorra = the dungeon."
+        },
+        {
+          "text": "Se alquilan habitaciones en la posada de Frostmarch.",
+          "meaning": "Rooms to let at the Frostmarch inn."
+        }
+      ],
+      "builds": [
+        {
+          "text": "El castillo fue defendido por los guerreros.",
+          "meaning": "The castle was defended by the warriors.",
+          "distractors": [
+            "defendida"
+          ]
+        },
+        {
+          "text": "Se alquilan monturas en la posada.",
+          "meaning": "Mounts for hire at the inn.",
+          "distractors": [
+            "alquila"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Se busca tres magas para la mazmorra.",
+          "wrong": "busca",
+          "fix": "buscan",
+          "why": "Tres magas is plural, so the verb is plural: se buscan."
+        },
+        {
+          "sentence": "Cuando llegamos, la mazmorra ya era abierta.",
+          "wrong": "era",
+          "fix": "estaba",
+          "why": "A resulting state takes estar: ya estaba abierta."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Se busca or se buscan?",
+          "buckets": [
+            "se busca…",
+            "se buscan…"
+          ],
+          "why": "The verb agrees with what the guild wants: one thing takes a singular verb, several take a plural verb.",
+          "items": [
+            {
+              "text": "un paladín",
+              "bucket": 0
+            },
+            {
+              "text": "dos cazadores",
+              "bucket": 1
+            },
+            {
+              "text": "una maga valiente",
+              "bucket": 0
+            },
+            {
+              "text": "guerreros sin miedo",
+              "bucket": 1
+            },
+            {
+              "text": "ayuda en la posada",
+              "bucket": 0
+            },
+            {
+              "text": "monturas rápidas",
+              "bucket": 1
+            }
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-passive-voice-realm-01",
+          "prompt": "El muro de Frostmarch fue ___ por un minotauro. (derribar)",
+          "type": "multiple-choice",
+          "options": [
+            "derribado",
+            "derribada",
+            "derribados"
+          ],
+          "correct_answer": "derribado",
+          "explanation": "El muro is masculine singular, so the participle is derribado.",
+          "hints": [
+            "Agree with el muro."
+          ],
+          "teaches": [
+            "derribar"
+          ]
+        },
+        {
+          "question_id": "b2-passive-voice-realm-02",
+          "prompt": "El tesoro ___ escondido en la mazmorra desde hace siglos. (estar, present)",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "está",
+          "accepted_answers": [],
+          "explanation": "It describes a state that lasts, not an action: estar + participle, está escondido.",
+          "hints": [
+            "State, not action."
+          ],
+          "teaches": [
+            "la mazmorra"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🧱",
+      "content": "## La pasiva en Meadowbrook\n\nThe town board reports actions with **ser**: **el granero fue construido por el abuelo de Nora**. Its state today takes **estar**: **el granero está pintado de rojo**. Rosa's sign uses **se**, agreeing with what she sells: **se vende leche fresca**, **se venden semillas**.",
+      "vocabulary": [
+        {
+          "term": "construir",
+          "example": "El granero fue construido hace cien años.",
+          "example_meaning": "The barn was built a hundred years ago."
+        },
+        {
+          "term": "inaugurar",
+          "example": "El festival de otoño fue inaugurado por el alcalde.",
+          "example_meaning": "The autumn festival was opened by the mayor."
+        },
+        {
+          "term": "alquilar",
+          "example": "En verano se alquilan barcas en la playa.",
+          "example_meaning": "In summer boats are rented out on the beach."
+        },
+        {
+          "term": "reformar",
+          "example": "La taberna fue reformada durante el invierno.",
+          "example_meaning": "The tavern was refurbished over the winter."
+        },
+        {
+          "term": "el anuncio",
+          "example": "Rosa puso un anuncio: se venden semillas de calabaza.",
+          "example_meaning": "Rosa put up a notice: pumpkin seeds for sale."
+        },
+        {
+          "term": "el puente",
+          "example": "El puente del río fue reparado por los vecinos.",
+          "example_meaning": "The river bridge was repaired by the neighbours."
+        },
+        {
+          "term": "el granero",
+          "meaning": "the barn",
+          "example": "El granero de Nora ya está pintado y ordenado.",
+          "example_meaning": "Nora's barn is painted and tidy now."
+        },
+        {
+          "term": "la cosecha",
+          "meaning": "the harvest",
+          "example": "Toda la cosecha fue vendida en el mercado.",
+          "example_meaning": "The whole harvest was sold at the market."
+        },
+        {
+          "term": "el tablón",
+          "meaning": "the notice board",
+          "example": "En el tablón se buscan ayudantes para la mina.",
+          "example_meaning": "On the notice board, helpers are wanted for the mine."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Carteles del pueblo",
+          "emoji": "🪧",
+          "rule": "On Rosa's door the verb follows what is sold: se vende miel, se venden fresas. One thing takes a singular verb, several take a plural verb.",
+          "example": "Se venden fresas y se vende miel.",
+          "example_meaning": "Strawberries and honey for sale."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Se venden calabazas.",
+          "meaning": "Pumpkins for sale."
+        },
+        {
+          "text": "El granero fue construido en primavera.",
+          "meaning": "The barn was built in spring.",
+          "note": "New word: el granero = the barn."
+        },
+        {
+          "text": "La mina está cerrada en invierno.",
+          "meaning": "The mine is closed in winter."
+        },
+        {
+          "text": "La cosecha fue vendida en el festival.",
+          "meaning": "The harvest was sold at the festival.",
+          "note": "New word: la cosecha = the harvest."
+        },
+        {
+          "text": "En el tablón se busca ayuda para la granja.",
+          "meaning": "On the notice board, help is wanted for the farm.",
+          "note": "New word: el tablón = the notice board."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Se venden semillas en la tienda de Rosa.",
+          "meaning": "Seeds are sold in Rosa's shop.",
+          "distractors": [
+            "vende"
+          ]
+        },
+        {
+          "text": "El puente fue reparado por los vecinos.",
+          "meaning": "The bridge was repaired by the neighbours.",
+          "distractors": [
+            "reparada"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Se vende muchas fresas en el mercado.",
+          "wrong": "vende",
+          "fix": "venden",
+          "why": "Muchas fresas is plural, so the verb is plural: se venden."
+        },
+        {
+          "sentence": "La taberna fue reformado en invierno.",
+          "wrong": "reformado",
+          "fix": "reformada",
+          "why": "The participle agrees with la taberna: reformada."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Ser or estar on the farm?",
+          "buckets": [
+            "ser + participle (action)",
+            "estar + participle (state)"
+          ],
+          "why": "Ser tells what was done and when; estar describes how things are now.",
+          "items": [
+            {
+              "text": "El granero fue pintado ayer.",
+              "bucket": 0
+            },
+            {
+              "text": "El granero está pintado de rojo.",
+              "bucket": 1
+            },
+            {
+              "text": "Las vacas fueron vendidas en otoño.",
+              "bucket": 0
+            },
+            {
+              "text": "Las fresas ya están cosechadas.",
+              "bucket": 1
+            },
+            {
+              "text": "La mina fue abierta hace cien años.",
+              "bucket": 0
+            },
+            {
+              "text": "La mina está abierta hasta las seis.",
+              "bucket": 1
+            }
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-passive-voice-meadowbrook-01",
+          "prompt": "El anuncio de Rosa dice: ___ semillas de maíz.",
+          "type": "multiple-choice",
+          "options": [
+            "se venden",
+            "se vende"
+          ],
+          "correct_answer": "se venden",
+          "explanation": "Semillas is plural, so the pasiva refleja is plural: se venden semillas.",
+          "hints": [
+            "How many semillas?"
+          ],
+          "teaches": [
+            "el anuncio"
+          ]
+        },
+        {
+          "question_id": "b2-passive-voice-meadowbrook-02",
+          "prompt": "El festival fue ___ por el alcalde a las diez. (inaugurar)",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "inaugurado",
+          "accepted_answers": [],
+          "explanation": "El festival is masculine singular: fue inaugurado, with por naming the mayor.",
+          "hints": [
+            "Give the participle agreeing with el festival."
+          ],
+          "teaches": [
+            "inaugurar"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b2-passive-voice-conv-meadowbrook-storm",
+          "title": "After the storm",
+          "scenario": "Nora meets Leo the fisherman by the river the week before the festival.",
+          "role_a": "Nora",
+          "role_b": "Leo",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Leo, ¿has visto el tablón? Se busca ayuda para la cosecha.",
+              "meaning": "Leo, have you seen the notice board? Help wanted for the harvest."
+            },
+            {
+              "speaker": "b",
+              "text": "Sí. Y este verano se alquilan barcas en la playa.",
+              "meaning": "Yes. And this summer boats are for hire on the beach."
+            },
+            {
+              "speaker": "a",
+              "text": "¿Y el puente viejo? Fue dañado por la tormenta, ¿no?",
+              "meaning": "And the old bridge? It was damaged by the storm, wasn't it?",
+              "note": "ser + participle + por"
+            },
+            {
+              "speaker": "b",
+              "text": "Sí, pero ya está reparado. Fue arreglado por los vecinos en dos días.",
+              "meaning": "Yes, but it's repaired now. The neighbours fixed it in two days.",
+              "note": "está reparado: the result"
+            },
+            {
+              "speaker": "a",
+              "text": "¡Qué rápido! ¿Y la taberna? Esta mañana estaba cerrada.",
+              "meaning": "That was quick! And the tavern? It was closed this morning."
+            },
+            {
+              "speaker": "b",
+              "text": "Va a ser reformada antes del festival.",
+              "meaning": "It's going to be refurbished before the festival."
+            },
+            {
+              "speaker": "a",
+              "text": "Entonces el festival será inaugurado en la plaza, como siempre.",
+              "meaning": "Then the festival will be opened in the square, as always."
+            },
+            {
+              "speaker": "b",
+              "text": "Eso es. Y se venden calabazas a buen precio, así que trae tu cosecha.",
+              "meaning": "That's right. And pumpkins are selling at a good price, so bring your harvest."
+            }
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🏗️",
+      "content": "## La pasiva en el páramo\n\n**La cúpula fue construida** before the storms; today **la puerta está sellada**: a state. Name the doer with **por**: **la antena fue reparada por el robot jardinero**. Marta's sign agrees with her goods: **se vende agua filtrada**, **se venden tuercas**.",
+      "vocabulary": [
+        {
+          "term": "construir",
+          "example": "La cúpula fue construida hace doscientos años.",
+          "example_meaning": "The Dome was built two hundred years ago."
+        },
+        {
+          "term": "derribar",
+          "example": "La gasolinera fue derribada por la tormenta de ceniza.",
+          "example_meaning": "The petrol station was knocked down by the ash storm."
+        },
+        {
+          "term": "reformar",
+          "example": "El taller fue reformado con chatarra del páramo.",
+          "example_meaning": "The workshop was refurbished with scrap from the wasteland."
+        },
+        {
+          "term": "alquilar",
+          "example": "En el mercado se alquilan radiorrelojes.",
+          "example_meaning": "Wrist radios are rented out at the market."
+        },
+        {
+          "term": "el anuncio",
+          "example": "Un anuncio en la antena dice: se busca buscador.",
+          "example_meaning": "A notice on the antenna says: scavenger wanted."
+        },
+        {
+          "term": "detener",
+          "example": "Dos buscadores fueron detenidos en la gasolinera.",
+          "example_meaning": "Two scavengers were arrested at the petrol station."
+        },
+        {
+          "term": "las tuercas",
+          "meaning": "nuts (the wasteland's currency)",
+          "example": "Las tuercas ya están contadas y guardadas.",
+          "example_meaning": "The nuts are counted and put away now."
+        },
+        {
+          "term": "la chatarra",
+          "meaning": "scrap metal",
+          "example": "Toda la chatarra fue vendida en una hora.",
+          "example_meaning": "All the scrap was sold in an hour."
+        },
+        {
+          "term": "la tormenta de ceniza",
+          "meaning": "the ash storm",
+          "example": "El pueblo fue cubierto por la tormenta de ceniza.",
+          "example_meaning": "The town was covered by the ash storm."
+        }
+      ],
+      "bites": [
+        {
+          "title": "El puesto de Marta",
+          "emoji": "🔩",
+          "rule": "At Marta's stall: se vende agua filtrada, se venden tuercas. One thing, singular verb; several, plural.",
+          "example": "Se venden radiorrelojes casi nuevos.",
+          "example_meaning": "Nearly new wrist radios for sale."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Se venden tuercas oxidadas.",
+          "meaning": "Rusty nuts for sale.",
+          "note": "New word: oxidado = rusty."
+        },
+        {
+          "text": "La antena fue reparada ayer.",
+          "meaning": "The antenna was repaired yesterday."
+        },
+        {
+          "text": "El taller ya está abierto.",
+          "meaning": "The workshop is open now."
+        },
+        {
+          "text": "El radiorreloj fue encontrado en el centro comercial.",
+          "meaning": "The wrist radio was found in the shopping centre."
+        },
+        {
+          "text": "La chatarra fue recogida por Leo el buscador.",
+          "meaning": "The scrap was collected by Leo the scavenger.",
+          "note": "New word: la chatarra = scrap metal."
+        }
+      ],
+      "builds": [
+        {
+          "text": "La cúpula fue sellada por el capataz.",
+          "meaning": "The Dome was sealed by the foreman.",
+          "distractors": [
+            "sellado"
+          ]
+        },
+        {
+          "text": "Se venden gaseosas Zafiro en el mercado.",
+          "meaning": "Zafiro sodas are sold at the market.",
+          "distractors": [
+            "vende"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Se repara varios radiorrelojes en el taller.",
+          "wrong": "repara",
+          "fix": "reparan",
+          "why": "Varios radiorrelojes is plural, so the verb is plural: se reparan."
+        },
+        {
+          "sentence": "La gasolinera fue destruido por la tormenta.",
+          "wrong": "destruido",
+          "fix": "destruida",
+          "why": "The participle agrees with la gasolinera: destruida."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Action or state in the wasteland?",
+          "buckets": [
+            "ser + participle (action)",
+            "estar + participle (state)"
+          ],
+          "why": "Ser tells what was done; estar describes how things are now.",
+          "items": [
+            {
+              "text": "La antena fue reparada ayer.",
+              "bucket": 0
+            },
+            {
+              "text": "La antena ya está reparada.",
+              "bucket": 1
+            },
+            {
+              "text": "La gasolinera fue derribada por el viento.",
+              "bucket": 0
+            },
+            {
+              "text": "La puerta de la cúpula está sellada.",
+              "bucket": 1
+            },
+            {
+              "text": "El agua ya está filtrada.",
+              "bucket": 1
+            },
+            {
+              "text": "El robot fue programado por Ruiz.",
+              "bucket": 0
+            }
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-passive-voice-rustwake-01",
+          "prompt": "En el puesto de Marta ___ radiorrelojes. (alquilar)",
+          "type": "multiple-choice",
+          "options": [
+            "se alquilan",
+            "se alquila",
+            "se alquilamos"
+          ],
+          "correct_answer": "se alquilan",
+          "explanation": "Radiorrelojes is plural, so the pasiva refleja is plural: se alquilan.",
+          "hints": [
+            "How many radiorrelojes?"
+          ],
+          "teaches": [
+            "alquilar"
+          ]
+        },
+        {
+          "question_id": "b2-passive-voice-rustwake-02",
+          "prompt": "El ladrón de tuercas fue ___ por el capataz Ruiz. (detener)",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "detenido",
+          "accepted_answers": [],
+          "explanation": "El ladrón is masculine singular: fue detenido, with por naming the foreman.",
+          "hints": [
+            "Give the participle of detener."
+          ],
+          "teaches": [
+            "detener"
+          ]
+        }
+      ]
+    }
+  }
+}

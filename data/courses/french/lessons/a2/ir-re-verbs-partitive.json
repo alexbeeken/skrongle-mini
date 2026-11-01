@@ -1,0 +1,1328 @@
+{
+  "id": "a2-ir-re-verbs-partitive",
+  "slug": "ir-re-verbs-partitive",
+  "title": "-ir and -re verbs, and the partitive",
+  "unit": "A2",
+  "group": "Grammar",
+  "order": 10,
+  "summary": "Conjugate finir, vendre, prendre and boire, and say 'some' with du, de la, de l' and des.",
+  "focus": "Regular -ir and -re verbs, prendre and boire, and the partitive article",
+  "prerequisites": [
+    "a1-er-verbs"
+  ],
+  "content": "## -ir and -re verbs: finir, vendre\n\nTwo more families of regular verbs. Regular **-ir** verbs like **finir** (to finish) and **choisir** (to choose) add **-iss-** in the plural. Regular **-re** verbs like **vendre** (to sell) and **attendre** (to wait for) drop **-re**; the **il** form has no ending at all.\n\n| | finir | vendre |\n|---|---|---|\n| je | finis | vends |\n| tu | finis | vends |\n| il / elle / on | finit | vend |\n| nous | finissons | vendons |\n| vous | finissez | vendez |\n| ils / elles | finissent | vendent |\n\nThe three singular forms sound the same, and the final **d** of **il vend** is silent. **Attendre** needs no word for \"for\": **j'attends le bus** (I'm waiting for the bus).\n\n## Prendre and boire\n\nTwo everyday irregular verbs for eating and drinking. **Prendre** (to take; to have food or drink) drops its **d** in the plural and doubles the **n** in **ils prennent**. **Boire** (to drink) switches to **buv-** for nous and vous and **boiv-** for ils.\n\n| | prendre | boire |\n|---|---|---|\n| je | prends | bois |\n| tu | prends | bois |\n| il / elle / on | prend | boit |\n| nous | prenons | buvons |\n| vous | prenez | buvez |\n| ils / elles | prennent | boivent |\n\n- **Je prends du pain.** (I'm having some bread.)\n- **Nous buvons de l'eau.** (We drink water.)\n\n## The partitive: du, de la, de l', des\n\nFor an amount of food or drink you don't count (\"some\", often unsaid in English), French uses **de** + the article:\n\n| | partitive | example |\n|---|---|---|\n| masculine | **du** | du fromage |\n| feminine | **de la** | de la soupe |\n| before a vowel | **de l'** | de l'eau |\n| plural | **des** | des légumes |\n\nAfter a negation, all of them become **de** (**d'** before a vowel): **je ne mange pas de viande**, **il ne boit pas d'eau**. Likes and dislikes keep **le / la / les**: **j'aime le fromage**, but **je prends du fromage**.",
+  "vocabulary": [
+    {
+      "term": "finir",
+      "meaning": "to finish",
+      "example": "Je finis mon travail à cinq heures.",
+      "example_meaning": "I finish my work at five."
+    },
+    {
+      "term": "vendre",
+      "meaning": "to sell",
+      "example": "Ma grand-mère vend des légumes au marché.",
+      "example_meaning": "My grandmother sells vegetables at the market."
+    },
+    {
+      "term": "prendre",
+      "meaning": "to take; to have (food, drink)",
+      "example": "Vous prenez du sucre ?",
+      "example_meaning": "Do you take sugar?"
+    },
+    {
+      "term": "boire",
+      "meaning": "to drink",
+      "example": "Tu bois du thé ou du café ?",
+      "example_meaning": "Do you drink tea or coffee?"
+    },
+    {
+      "term": "le pain",
+      "meaning": "bread",
+      "example": "Je prends du pain à la boulangerie.",
+      "example_meaning": "I get some bread at the bakery."
+    },
+    {
+      "term": "le fromage",
+      "meaning": "cheese",
+      "example": "En France, on mange beaucoup de fromage.",
+      "example_meaning": "In France, people eat a lot of cheese."
+    },
+    {
+      "term": "le lait",
+      "meaning": "milk",
+      "example": "Il n'y a pas de lait dans le frigo.",
+      "example_meaning": "There's no milk in the fridge."
+    },
+    {
+      "term": "le poisson",
+      "meaning": "fish",
+      "example": "Le vendredi, nous mangeons du poisson.",
+      "example_meaning": "On Fridays we eat fish."
+    },
+    {
+      "term": "la viande",
+      "meaning": "meat",
+      "example": "Mon frère ne mange pas de viande.",
+      "example_meaning": "My brother doesn't eat meat."
+    },
+    {
+      "term": "la soupe",
+      "meaning": "soup",
+      "example": "En hiver, je fais de la soupe.",
+      "example_meaning": "In winter I make soup."
+    },
+    {
+      "term": "la confiture",
+      "meaning": "jam",
+      "example": "Elle met de la confiture sur sa tartine.",
+      "example_meaning": "She puts jam on her slice of bread."
+    },
+    {
+      "term": "l'eau",
+      "meaning": "water (f)",
+      "example": "Vous voulez de l'eau ?",
+      "example_meaning": "Would you like some water?"
+    },
+    {
+      "term": "les légumes",
+      "meaning": "vegetables (m)",
+      "example": "Nous achetons des légumes au marché.",
+      "example_meaning": "We buy vegetables at the market."
+    },
+    {
+      "term": "les pâtes",
+      "meaning": "pasta (f)",
+      "example": "Les enfants adorent les pâtes.",
+      "example_meaning": "The children love pasta."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-ir-re-verbs-partitive-01",
+      "prompt": "Nous ___ nos devoirs avant le dîner.",
+      "type": "multiple-choice",
+      "options": [
+        "finissons",
+        "finons",
+        "finissez"
+      ],
+      "correct_answer": "finissons",
+      "explanation": "Regular -ir verbs add -iss- in the plural: nous finissons. 'Finissez' is the vous form.",
+      "hints": [
+        "Nous takes -ons, and -ir verbs add -iss- before it."
+      ],
+      "teaches": [
+        "finir"
+      ]
+    },
+    {
+      "question_id": "a2-ir-re-verbs-partitive-02",
+      "prompt": "Complete with finir: Les enfants ___ leurs pâtes.",
+      "type": "fill-in-blank",
+      "correct_answer": "finissent",
+      "accepted_answers": [],
+      "explanation": "Ils / elles of finir: finissent. The -ent is silent; you hear the -iss-.",
+      "hints": [
+        "Ils form: -iss- + -ent."
+      ],
+      "teaches": [
+        "finir",
+        "les pâtes"
+      ]
+    },
+    {
+      "question_id": "a2-ir-re-verbs-partitive-03",
+      "prompt": "Complete with vendre: Vous ___ du fromage ?",
+      "type": "fill-in-blank",
+      "correct_answer": "vendez",
+      "accepted_answers": [
+        "vous vendez"
+      ],
+      "explanation": "Vendre drops -re and adds -ez for vous: vous vendez.",
+      "hints": [
+        "Vous form: stem vend- + -ez."
+      ],
+      "teaches": [
+        "vendre",
+        "le fromage"
+      ]
+    },
+    {
+      "question_id": "a2-ir-re-verbs-partitive-04",
+      "prompt": "Au marché, Paul ___ des légumes.",
+      "type": "multiple-choice",
+      "options": [
+        "vend",
+        "vends",
+        "vendent"
+      ],
+      "correct_answer": "vend",
+      "explanation": "The il / elle form of a regular -re verb has no ending: il vend. 'Vends' is je / tu, 'vendent' is ils.",
+      "hints": [
+        "Il / elle: just the stem."
+      ],
+      "teaches": [
+        "vendre",
+        "les légumes"
+      ]
+    },
+    {
+      "question_id": "a2-ir-re-verbs-partitive-05",
+      "prompt": "Complete with prendre: Ce soir, ils ___ du poisson.",
+      "type": "fill-in-blank",
+      "correct_answer": "prennent",
+      "accepted_answers": [
+        "ils prennent"
+      ],
+      "explanation": "Prendre is irregular: ils prennent, with a double n.",
+      "hints": [
+        "Ils form of prendre: double n.",
+        "Pren-, then -nent."
+      ],
+      "teaches": [
+        "prendre",
+        "le poisson"
+      ]
+    },
+    {
+      "question_id": "a2-ir-re-verbs-partitive-06",
+      "prompt": "Le matin, je bois ___ lait.",
+      "type": "multiple-choice",
+      "options": [
+        "du",
+        "de la",
+        "des"
+      ],
+      "correct_answer": "du",
+      "explanation": "Lait is masculine and uncounted: du lait.",
+      "hints": [
+        "Le lait is masculine singular."
+      ],
+      "teaches": [
+        "boire",
+        "le lait"
+      ]
+    },
+    {
+      "question_id": "a2-ir-re-verbs-partitive-07",
+      "prompt": "Complete with du, de la, de l' or des: Elle mange ___ soupe.",
+      "type": "fill-in-blank",
+      "correct_answer": "de la",
+      "accepted_answers": [],
+      "explanation": "Soupe is feminine and uncounted: de la soupe.",
+      "hints": [
+        "La soupe is feminine."
+      ],
+      "teaches": [
+        "la soupe"
+      ]
+    },
+    {
+      "question_id": "a2-ir-re-verbs-partitive-08",
+      "prompt": "'Je ne mange pas de la viande.' is correct French.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "After a negation the partitive becomes de: je ne mange pas de viande.",
+      "hints": [
+        "What happens to du / de la / des after ne … pas?"
+      ],
+      "teaches": [
+        "la viande"
+      ]
+    },
+    {
+      "question_id": "a2-ir-re-verbs-partitive-09",
+      "prompt": "'Vous buvez de l'eau ?' is correct French.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Boire uses the stem buv- for nous and vous (vous buvez), and eau starts with a vowel: de l'eau.",
+      "hints": [
+        "Check the vous form of boire.",
+        "Eau starts with a vowel."
+      ],
+      "teaches": [
+        "boire",
+        "l'eau"
+      ]
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "finir",
+      "meaning": "to finish",
+      "set": "present",
+      "art": [
+        " _________ ",
+        "|# # # # #|",
+        "| # # # # |",
+        "|_________|",
+        "|          ",
+        "|  FINI !  "
+      ],
+      "forms": {
+        "je": "finis",
+        "tu": "finis",
+        "il": "finit",
+        "nous": "finissons",
+        "vous": "finissez",
+        "ils": "finissent"
+      }
+    },
+    {
+      "item": "choisir",
+      "meaning": "to choose",
+      "set": "present",
+      "art": [
+        "     ?     ",
+        "    / \\    ",
+        "   /   \\   ",
+        "  A     B  ",
+        "  choose!  "
+      ],
+      "forms": {
+        "je": "choisis",
+        "tu": "choisis",
+        "il": "choisit",
+        "nous": "choisissons",
+        "vous": "choisissez",
+        "ils": "choisissent"
+      }
+    },
+    {
+      "item": "vendre",
+      "meaning": "to sell",
+      "set": "present",
+      "art": [
+        " __________ ",
+        "|  2 EUR   |",
+        "|__________|",
+        "     ||     ",
+        "   SOLD !   "
+      ],
+      "forms": {
+        "je": "vends",
+        "tu": "vends",
+        "il": "vend",
+        "nous": "vendons",
+        "vous": "vendez",
+        "ils": "vendent"
+      }
+    },
+    {
+      "item": "attendre",
+      "meaning": "to wait (for)",
+      "set": "present",
+      "art": [
+        "   .---.   ",
+        "  / 12  \\  ",
+        " |   |   | ",
+        "  \\  '  /  ",
+        "   '---'   ",
+        "  ...zzz   "
+      ],
+      "forms": {
+        "je": "attends",
+        "tu": "attends",
+        "il": "attend",
+        "nous": "attendons",
+        "vous": "attendez",
+        "ils": "attendent"
+      }
+    },
+    {
+      "item": "prendre",
+      "meaning": "to take; to have (food, drink)",
+      "set": "present",
+      "art": [
+        "  _______  ",
+        " | pain  | ",
+        " |_______| ",
+        "     ^     ",
+        "   \\_|_/   ",
+        "   grab!   "
+      ],
+      "forms": {
+        "je": "prends",
+        "tu": "prends",
+        "il": "prend",
+        "nous": "prenons",
+        "vous": "prenez",
+        "ils": "prennent"
+      }
+    },
+    {
+      "item": "boire",
+      "meaning": "to drink",
+      "set": "present",
+      "art": [
+        "  _______  ",
+        " |~~~~~~~| ",
+        " |       | ",
+        "  \\     /  ",
+        "   |___|   ",
+        "   glug!   "
+      ],
+      "forms": {
+        "je": "bois",
+        "tu": "bois",
+        "il": "boit",
+        "nous": "buvons",
+        "vous": "buvez",
+        "ils": "boivent"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-ir-re-verbs-partitive-conv-epicerie",
+      "title": "At the corner shop",
+      "scenario": "Camille does her shopping at Monsieur Durand's little grocery shop.",
+      "role_a": "Camille",
+      "role_b": "M. Durand",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Bonjour monsieur ! Vous vendez du fromage ?",
+          "meaning": "Hello! Do you sell cheese?",
+          "note": "vendre: vous vendez"
+        },
+        {
+          "speaker": "b",
+          "text": "Bonjour madame. Oui, nous vendons du fromage et du lait.",
+          "meaning": "Hello. Yes, we sell cheese and milk.",
+          "note": "partitive: du"
+        },
+        {
+          "speaker": "a",
+          "text": "Parfait. Je prends du fromage de chèvre, s'il vous plaît.",
+          "meaning": "Perfect. I'll have some goat's cheese, please.",
+          "note": "prendre: je prends"
+        },
+        {
+          "speaker": "b",
+          "text": "Voilà. Vous prenez aussi du pain ?",
+          "meaning": "Here you are. Are you taking some bread too?"
+        },
+        {
+          "speaker": "a",
+          "text": "Non merci, je n'achète pas de pain aujourd'hui.",
+          "meaning": "No thanks, I'm not buying bread today.",
+          "note": "de after a negation"
+        },
+        {
+          "speaker": "b",
+          "text": "Et de la confiture ? Elle est très bonne.",
+          "meaning": "And some jam? It's very good."
+        },
+        {
+          "speaker": "a",
+          "text": "Oui, je choisis la confiture de fraises.",
+          "meaning": "Yes, I'll choose the strawberry jam.",
+          "note": "choisir: je choisis"
+        },
+        {
+          "speaker": "b",
+          "text": "Très bien. Vous voulez aussi de l'eau ?",
+          "meaning": "Very good. Would you like some water too?",
+          "note": "de l' before a vowel"
+        },
+        {
+          "speaker": "a",
+          "text": "Oui, une bouteille. Mes enfants boivent beaucoup d'eau.",
+          "meaning": "Yes, a bottle. My children drink a lot of water.",
+          "note": "boire: ils boivent"
+        },
+        {
+          "speaker": "b",
+          "text": "Alors, ça fait huit euros.",
+          "meaning": "So that's eight euros."
+        },
+        {
+          "speaker": "a",
+          "text": "Voilà. Merci et bonne journée !",
+          "meaning": "Here you are. Thanks, and have a nice day!"
+        },
+        {
+          "speaker": "b",
+          "text": "Merci, madame. À bientôt !",
+          "meaning": "Thank you. See you soon!"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Je bois du lait.",
+      "meaning": "I drink milk.",
+      "note": "Lait is masculine: du lait."
+    },
+    {
+      "text": "Le film finit à dix heures.",
+      "meaning": "The film finishes at ten.",
+      "note": "Il finit: the final t is silent."
+    },
+    {
+      "text": "Le marchand vend des fruits et des légumes.",
+      "meaning": "The shopkeeper sells fruit and vegetables.",
+      "note": "New word: le marchand = the shopkeeper."
+    },
+    {
+      "text": "Tu prends de la soupe ou des pâtes ?",
+      "meaning": "Are you having soup or pasta?"
+    },
+    {
+      "text": "Mon père ne boit pas de café le soir.",
+      "meaning": "My father doesn't drink coffee in the evening.",
+      "note": "De after a negation."
+    },
+    {
+      "text": "Ce soir, nous choisissons du poisson avec du riz.",
+      "meaning": "Tonight we're choosing fish with rice.",
+      "note": "New word: le riz = rice."
+    },
+    {
+      "text": "Nous attendons le serveur et nous prenons de l'eau.",
+      "meaning": "We're waiting for the waiter and having some water.",
+      "note": "New word: le serveur = the waiter."
+    },
+    {
+      "text": "Le matin, je prends du pain avec de la confiture et du café.",
+      "meaning": "In the morning I have bread with jam and coffee."
+    }
+  ],
+  "guide": [
+    {
+      "section": "-ir and -re verbs"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a2-ir-re-verbs-partitive-01"
+    },
+    {
+      "question": "a2-ir-re-verbs-partitive-02"
+    },
+    {
+      "question": "a2-ir-re-verbs-partitive-04"
+    },
+    {
+      "question": "a2-ir-re-verbs-partitive-03"
+    },
+    {
+      "section": "Prendre and boire"
+    },
+    {
+      "question": "a2-ir-re-verbs-partitive-05"
+    },
+    {
+      "concept": {
+        "title": "Prendre at the café",
+        "markdown": "In a café or restaurant, **je prends** means \"I'll have\": **Je prends un croissant.** The same verb hides inside **apprendre** (to learn) and **comprendre** (to understand), with the same forms: **je comprends, nous comprenons, ils comprennent**."
+      }
+    },
+    {
+      "section": "The partitive"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-ir-re-verbs-partitive-06"
+    },
+    {
+      "question": "a2-ir-re-verbs-partitive-07"
+    },
+    {
+      "tip": "Ask: some of it (du / de la / de l' / des), or the thing in general, as in liking it (le / la / les)?"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-ir-re-verbs-partitive-08"
+    },
+    {
+      "question": "a2-ir-re-verbs-partitive-09"
+    }
+  ],
+  "sprint": {
+    "icon": "🍽️",
+    "bites": [
+      {
+        "title": "-ir: add -iss-",
+        "emoji": "🏁",
+        "rule": "Regular -ir verbs (finir, choisir): je finis, tu finis, il finit, nous finissons, vous finissez, ils finissent. The plural adds -iss-.",
+        "example": "Nous choisissons le dessert.",
+        "example_meaning": "We choose the dessert."
+      },
+      {
+        "title": "-re: nothing for il",
+        "emoji": "🏷️",
+        "rule": "Regular -re verbs (vendre, attendre): drop -re, add -s, -s, nothing, -ons, -ez, -ent. Il vend, il attend.",
+        "example": "Il attend le bus.",
+        "example_meaning": "He's waiting for the bus."
+      },
+      {
+        "title": "Prendre and boire",
+        "emoji": "🥛",
+        "rule": "Irregular: je prends, nous prenons, ils prennent; je bois, nous buvons, ils boivent.",
+        "example": "Je prends du pain et je bois du lait.",
+        "example_meaning": "I have bread and I drink milk."
+      },
+      {
+        "title": "Some = du, de la, de l', des",
+        "emoji": "🧀",
+        "rule": "Uncounted food and drink takes the partitive. After ne … pas it becomes de: pas de pain, pas d'eau.",
+        "example": "Je mange du fromage, mais pas de viande.",
+        "example_meaning": "I eat cheese, but not meat."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "du, de la, de l' or des?",
+        "buckets": [
+          "du",
+          "de la",
+          "de l'",
+          "des"
+        ],
+        "items": [
+          {
+            "text": "___ pain",
+            "bucket": 0
+          },
+          {
+            "text": "___ fromage",
+            "bucket": 0
+          },
+          {
+            "text": "___ viande",
+            "bucket": 1
+          },
+          {
+            "text": "___ soupe",
+            "bucket": 1
+          },
+          {
+            "text": "___ eau",
+            "bucket": 2
+          },
+          {
+            "text": "___ huile",
+            "bucket": 2
+          },
+          {
+            "text": "___ légumes",
+            "bucket": 3
+          },
+          {
+            "text": "___ pâtes",
+            "bucket": 3
+          }
+        ],
+        "why": "Masculine du, feminine de la, de l' before a vowel, des for plurals."
+      },
+      {
+        "title": "Which family?",
+        "buckets": [
+          "-ir like finir",
+          "-re like vendre",
+          "irregular"
+        ],
+        "items": [
+          {
+            "text": "choisir",
+            "bucket": 0
+          },
+          {
+            "text": "finir",
+            "bucket": 0
+          },
+          {
+            "text": "réussir",
+            "bucket": 0
+          },
+          {
+            "text": "attendre",
+            "bucket": 1
+          },
+          {
+            "text": "vendre",
+            "bucket": 1
+          },
+          {
+            "text": "répondre",
+            "bucket": 1
+          },
+          {
+            "text": "prendre",
+            "bucket": 2
+          },
+          {
+            "text": "boire",
+            "bucket": 2
+          }
+        ],
+        "why": "Finir, choisir and réussir add -iss- in the plural; vendre, attendre and répondre follow -s -s - -ons -ez -ent; prendre and boire change their stems."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Nous finons le repas à midi.",
+        "wrong": "finons",
+        "fix": "finissons",
+        "why": "Regular -ir verbs add -iss- in the plural: nous finissons."
+      },
+      {
+        "sentence": "Ils vendons du pain.",
+        "wrong": "vendons",
+        "fix": "vendent",
+        "why": "Ils takes -ent: ils vendent."
+      },
+      {
+        "sentence": "Je ne bois pas du café.",
+        "wrong": "du",
+        "fix": "de",
+        "why": "After a negation the partitive becomes de: pas de café."
+      },
+      {
+        "sentence": "Ils prendent le bus.",
+        "wrong": "prendent",
+        "fix": "prennent",
+        "why": "Prendre is irregular: ils prennent, with a double n."
+      },
+      {
+        "sentence": "Vous boivez de l'eau ?",
+        "wrong": "boivez",
+        "fix": "buvez",
+        "why": "Boire uses buv- for nous and vous: vous buvez."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Nous finissons le repas à midi.",
+        "meaning": "We finish the meal at noon.",
+        "distractors": [
+          "finons"
+        ]
+      },
+      {
+        "text": "Je ne mange pas de viande.",
+        "meaning": "I don't eat meat.",
+        "distractors": [
+          "du"
+        ]
+      },
+      {
+        "text": "Ils prennent du pain et du fromage.",
+        "meaning": "They have bread and cheese.",
+        "distractors": [
+          "prendent"
+        ]
+      },
+      {
+        "text": "Tu bois de l'eau ?",
+        "meaning": "Are you drinking water?",
+        "distractors": [
+          "boit"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🍖",
+      "content": "## Manger et boire à Eldmark\n\nAt **la taverne du Dragon Vert**, the innkeeper **vend du ragoût, de la viande et de l'hydromel**. The dwarves **boivent de l'hydromel**; Nym the elf **ne boit pas d'hydromel**, with **de** after a negation. Borin **prend du fromage**, and the guild **finit** its quest.",
+      "vocabulary": [
+        {
+          "term": "finir",
+          "example": "La guilde finit la quête avant la nuit.",
+          "example_meaning": "The guild finishes the quest before nightfall."
+        },
+        {
+          "term": "vendre",
+          "example": "L'aubergiste vend du pain et du fromage.",
+          "example_meaning": "The innkeeper sells bread and cheese."
+        },
+        {
+          "term": "prendre",
+          "example": "Borin prend de la viande et du ragoût.",
+          "example_meaning": "Borin has some meat and some stew."
+        },
+        {
+          "term": "boire",
+          "example": "Les nains boivent de l'hydromel à la taverne.",
+          "example_meaning": "The dwarves drink mead at the tavern."
+        },
+        {
+          "term": "le pain",
+          "example": "La mage Séla mange du pain noir.",
+          "example_meaning": "The mage Séla eats black bread."
+        },
+        {
+          "term": "la viande",
+          "example": "L'orc veut de la viande, pas de soupe.",
+          "example_meaning": "The orc wants meat, not soup."
+        },
+        {
+          "term": "l'eau",
+          "example": "Nym l'elfe boit de l'eau de la rivière.",
+          "example_meaning": "Nym the elf drinks water from the river."
+        },
+        {
+          "term": "l'aubergiste",
+          "meaning": "innkeeper",
+          "example": "L'aubergiste attend les aventuriers.",
+          "example_meaning": "The innkeeper is waiting for the adventurers."
+        },
+        {
+          "term": "l'hydromel",
+          "meaning": "mead (m)",
+          "example": "Nous buvons de l'hydromel après la quête.",
+          "example_meaning": "We drink mead after the quest."
+        },
+        {
+          "term": "le ragoût",
+          "meaning": "stew",
+          "example": "Je prends du ragoût, s'il vous plaît.",
+          "example_meaning": "I'll have some stew, please."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Au Dragon Vert",
+          "emoji": "🍖",
+          "rule": "At the tavern: du ragoût, de la viande, de l'hydromel. After ne … pas: pas d'hydromel for the elf.",
+          "example": "Nym ne boit pas d'hydromel.",
+          "example_meaning": "Nym doesn't drink mead."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Borin boit de l'hydromel.",
+          "meaning": "Borin drinks mead.",
+          "note": "Boire: il boit."
+        },
+        {
+          "text": "Les nains boivent de la bière.",
+          "meaning": "The dwarves drink beer.",
+          "note": "New word: la bière = beer."
+        },
+        {
+          "text": "Les guerriers prennent du pain et du fromage.",
+          "meaning": "The warriors have bread and cheese."
+        },
+        {
+          "text": "Nous finissons la quête ce soir.",
+          "meaning": "We finish the quest tonight.",
+          "note": "New word: la quête = the quest."
+        },
+        {
+          "text": "L'elfe ne mange pas de viande.",
+          "meaning": "The elf doesn't eat meat.",
+          "note": "De after a negation."
+        }
+      ],
+      "builds": [
+        {
+          "text": "L'aubergiste vend de l'hydromel.",
+          "meaning": "The innkeeper sells mead.",
+          "distractors": [
+            "du"
+          ]
+        },
+        {
+          "text": "Le paladin ne boit pas de bière.",
+          "meaning": "The paladin doesn't drink beer.",
+          "distractors": [
+            "la"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Les orcs boient de l'hydromel.",
+          "wrong": "boient",
+          "fix": "boivent",
+          "why": "Ils form of boire: boivent."
+        },
+        {
+          "sentence": "La mage ne prend pas du ragoût.",
+          "wrong": "du",
+          "fix": "de",
+          "why": "After a negation: pas de ragoût."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Partitive at the tavern",
+          "buckets": [
+            "du",
+            "de la",
+            "de l'"
+          ],
+          "items": [
+            {
+              "text": "___ ragoût",
+              "bucket": 0
+            },
+            {
+              "text": "___ pain",
+              "bucket": 0
+            },
+            {
+              "text": "___ viande",
+              "bucket": 1
+            },
+            {
+              "text": "___ bière",
+              "bucket": 1
+            },
+            {
+              "text": "___ hydromel",
+              "bucket": 2
+            },
+            {
+              "text": "___ eau",
+              "bucket": 2
+            }
+          ],
+          "why": "Masculine du, feminine de la, de l' before a vowel or a silent h."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a2-ir-re-verbs-partitive-realm-01",
+          "prompt": "Les nains ___ de l'hydromel.",
+          "type": "multiple-choice",
+          "options": [
+            "boivent",
+            "buvent",
+            "boient"
+          ],
+          "correct_answer": "boivent",
+          "explanation": "Boire is irregular: ils boivent.",
+          "hints": [
+            "Ils form of boire: boiv- + -ent."
+          ],
+          "teaches": [
+            "boire",
+            "l'hydromel"
+          ]
+        },
+        {
+          "question_id": "a2-ir-re-verbs-partitive-realm-02",
+          "prompt": "Complete: Nym ne mange pas ___ viande.",
+          "type": "fill-in-blank",
+          "correct_answer": "de",
+          "accepted_answers": [],
+          "explanation": "After a negation the partitive becomes de: pas de viande.",
+          "hints": [
+            "What does de la become after ne … pas?"
+          ],
+          "teaches": [
+            "la viande"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🍓",
+      "content": "## Au marché de Meadowbrook\n\nAt the market, Nora **vend des fraises, du maïs et de la confiture**, and Rosa **choisit des citrouilles**. Léo **prend du poisson** for dinner; the cows **boivent de l'eau** at the river. In winter **il n'y a pas de fraises**, with **de** after the negation.",
+      "vocabulary": [
+        {
+          "term": "vendre",
+          "example": "Nora vend des fraises au marché.",
+          "example_meaning": "Nora sells strawberries at the market."
+        },
+        {
+          "term": "prendre",
+          "example": "Je prends du lait frais à la ferme.",
+          "example_meaning": "I get fresh milk at the farm."
+        },
+        {
+          "term": "boire",
+          "example": "Les moutons boivent de l'eau de la rivière.",
+          "example_meaning": "The sheep drink water from the river."
+        },
+        {
+          "term": "finir",
+          "example": "Nous finissons la récolte avant l'hiver.",
+          "example_meaning": "We finish the harvest before winter."
+        },
+        {
+          "term": "la confiture",
+          "example": "Rosa fait de la confiture de fraises.",
+          "example_meaning": "Rosa makes strawberry jam."
+        },
+        {
+          "term": "le poisson",
+          "example": "Léo le pêcheur vend du poisson le samedi.",
+          "example_meaning": "Léo the fisherman sells fish on Saturdays."
+        },
+        {
+          "term": "l'eau",
+          "example": "J'arrose les fraises avec de l'eau de pluie.",
+          "example_meaning": "I water the strawberries with rainwater."
+        },
+        {
+          "term": "la fraise",
+          "meaning": "strawberry",
+          "example": "Les fraises poussent au printemps.",
+          "example_meaning": "Strawberries grow in spring."
+        },
+        {
+          "term": "le maïs",
+          "meaning": "corn",
+          "example": "Nous vendons du maïs en été.",
+          "example_meaning": "We sell corn in summer."
+        },
+        {
+          "term": "la citrouille",
+          "meaning": "pumpkin",
+          "example": "Rosa choisit une grosse citrouille.",
+          "example_meaning": "Rosa chooses a big pumpkin."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Au marché",
+          "emoji": "🍓",
+          "rule": "Some strawberries, some corn, some jam: des fraises, du maïs, de la confiture. In winter: pas de fraises.",
+          "example": "En hiver, il n'y a pas de fraises.",
+          "example_meaning": "In winter there are no strawberries."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Nora vend du maïs.",
+          "meaning": "Nora sells corn."
+        },
+        {
+          "text": "Les vaches boivent de l'eau.",
+          "meaning": "The cows drink water.",
+          "note": "New word: la vache = the cow."
+        },
+        {
+          "text": "Je finis la récolte ce matin.",
+          "meaning": "I'm finishing the harvest this morning.",
+          "note": "New word: la récolte = the harvest."
+        },
+        {
+          "text": "Léo prend du poisson pour le dîner.",
+          "meaning": "Léo is having fish for dinner."
+        },
+        {
+          "text": "Il n'y a pas de citrouilles au printemps.",
+          "meaning": "There are no pumpkins in spring.",
+          "note": "De after a negation."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Rosa vend de la confiture de fraises.",
+          "meaning": "Rosa sells strawberry jam.",
+          "distractors": [
+            "du"
+          ]
+        },
+        {
+          "text": "Nous choisissons des citrouilles.",
+          "meaning": "We choose some pumpkins.",
+          "distractors": [
+            "choisons"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Nora vende des fraises.",
+          "wrong": "vende",
+          "fix": "vend",
+          "why": "Il / elle of vendre has no ending: elle vend."
+        },
+        {
+          "sentence": "Il n'y a pas du maïs en hiver.",
+          "wrong": "du",
+          "fix": "de",
+          "why": "After a negation: pas de maïs."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "du, de la or des at the market?",
+          "buckets": [
+            "du",
+            "de la",
+            "des"
+          ],
+          "items": [
+            {
+              "text": "___ maïs",
+              "bucket": 0
+            },
+            {
+              "text": "___ lait",
+              "bucket": 0
+            },
+            {
+              "text": "___ confiture",
+              "bucket": 1
+            },
+            {
+              "text": "___ soupe",
+              "bucket": 1
+            },
+            {
+              "text": "___ fraises",
+              "bucket": 2
+            },
+            {
+              "text": "___ champignons",
+              "bucket": 2
+            }
+          ],
+          "why": "Masculine du, feminine de la, des for plurals."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a2-ir-re-verbs-partitive-meadowbrook-01",
+          "prompt": "Rosa ___ des fraises pour la confiture.",
+          "type": "multiple-choice",
+          "options": [
+            "choisit",
+            "choisis",
+            "choisissent"
+          ],
+          "correct_answer": "choisit",
+          "explanation": "Il / elle of choisir ends in -t: elle choisit.",
+          "hints": [
+            "Elle form: -it."
+          ],
+          "teaches": [
+            "la fraise",
+            "la confiture"
+          ]
+        },
+        {
+          "question_id": "a2-ir-re-verbs-partitive-meadowbrook-02",
+          "prompt": "Complete with boire: Les moutons ___ de l'eau.",
+          "type": "fill-in-blank",
+          "correct_answer": "boivent",
+          "accepted_answers": [
+            "ils boivent"
+          ],
+          "explanation": "Boire is irregular: ils boivent.",
+          "hints": [
+            "Ils form: boiv- + -ent."
+          ],
+          "teaches": [
+            "boire",
+            "l'eau"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🥤",
+      "content": "## Manger et boire à Rustwake\n\nOutside **le Dôme**, Marta **vend de l'eau filtrée et du soda Saphir** for nuts. You **prends du tonique** after the storm, the scavengers **boivent de l'eau**, and the robot gardener **ne boit pas d'eau**, with **de** after a negation.",
+      "vocabulary": [
+        {
+          "term": "vendre",
+          "example": "Marta vend de l'eau filtrée contre des écrous.",
+          "example_meaning": "Marta sells filtered water for nuts."
+        },
+        {
+          "term": "prendre",
+          "example": "Je prends du tonique après la tempête de cendres.",
+          "example_meaning": "I take some tonic after the ash storm."
+        },
+        {
+          "term": "boire",
+          "example": "Le chien de garde boit de l'eau filtrée.",
+          "example_meaning": "The guard dog drinks filtered water."
+        },
+        {
+          "term": "finir",
+          "example": "Les fouilleurs finissent leur exploration le soir.",
+          "example_meaning": "The scavengers finish their exploring in the evening."
+        },
+        {
+          "term": "l'eau",
+          "example": "Il n'y a pas d'eau au centre commercial.",
+          "example_meaning": "There's no water at the shopping centre."
+        },
+        {
+          "term": "la viande",
+          "example": "Léo vend de la viande séchée au marché.",
+          "example_meaning": "Léo sells dried meat at the market."
+        },
+        {
+          "term": "le pain",
+          "example": "Au village de ferraille, on mange du pain dur.",
+          "example_meaning": "In the scrap village, people eat hard bread."
+        },
+        {
+          "term": "le soda",
+          "meaning": "soda, fizzy drink",
+          "example": "Je bois du soda Saphir.",
+          "example_meaning": "I drink Saphir soda."
+        },
+        {
+          "term": "l'écrou",
+          "meaning": "nut (for a bolt), the wasteland's money (m)",
+          "example": "Le tonique coûte trois écrous.",
+          "example_meaning": "The tonic costs three nuts."
+        },
+        {
+          "term": "le tonique",
+          "meaning": "tonic",
+          "example": "Le tonique est très cher.",
+          "example_meaning": "Tonic is very expensive."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Au marché de ferraille",
+          "emoji": "🥤",
+          "rule": "Water, soda, tonic: de l'eau, du soda, du tonique. No nuts? Then pas de soda!",
+          "example": "Pas d'écrous, pas de soda !",
+          "example_meaning": "No nuts, no soda!"
+        }
+      ],
+      "listening": [
+        {
+          "text": "Marta vend du soda.",
+          "meaning": "Marta sells soda."
+        },
+        {
+          "text": "Nous buvons de l'eau filtrée.",
+          "meaning": "We drink filtered water.",
+          "note": "New word: filtrée = filtered."
+        },
+        {
+          "text": "Le robot jardinier ne boit pas d'eau.",
+          "meaning": "The robot gardener doesn't drink water.",
+          "note": "De after a negation."
+        },
+        {
+          "text": "Les fouilleurs prennent du pain et de la viande.",
+          "meaning": "The scavengers have bread and meat.",
+          "note": "New word: le fouilleur = the scavenger."
+        },
+        {
+          "text": "J'attends Marta au marché.",
+          "meaning": "I'm waiting for Marta at the market.",
+          "note": "Attendre: no word for 'for'."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Je prends du tonique, s'il vous plaît.",
+          "meaning": "I'll have some tonic, please.",
+          "distractors": [
+            "prend"
+          ]
+        },
+        {
+          "text": "Ils boivent de l'eau filtrée.",
+          "meaning": "They drink filtered water.",
+          "distractors": [
+            "buvent"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Marta vendent du soda.",
+          "wrong": "vendent",
+          "fix": "vend",
+          "why": "One person, elle: elle vend."
+        },
+        {
+          "sentence": "Je n'ai pas des écrous.",
+          "wrong": "des",
+          "fix": "d'",
+          "why": "After a negation: pas d'écrous."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Partitive in the wasteland",
+          "buckets": [
+            "du",
+            "de la",
+            "de l'"
+          ],
+          "items": [
+            {
+              "text": "___ soda",
+              "bucket": 0
+            },
+            {
+              "text": "___ tonique",
+              "bucket": 0
+            },
+            {
+              "text": "___ viande séchée",
+              "bucket": 1
+            },
+            {
+              "text": "___ ferraille",
+              "bucket": 1
+            },
+            {
+              "text": "___ eau filtrée",
+              "bucket": 2
+            },
+            {
+              "text": "___ huile de moteur",
+              "bucket": 2
+            }
+          ],
+          "why": "Masculine du, feminine de la, de l' before a vowel."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a2-ir-re-verbs-partitive-rustwake-01",
+          "prompt": "Le robot jardinier ne boit pas ___ eau.",
+          "type": "multiple-choice",
+          "options": [
+            "d'",
+            "de l'",
+            "du"
+          ],
+          "correct_answer": "d'",
+          "explanation": "After a negation the partitive becomes de, d' before a vowel: pas d'eau.",
+          "hints": [
+            "Negation, then a vowel."
+          ],
+          "teaches": [
+            "l'eau"
+          ]
+        },
+        {
+          "question_id": "a2-ir-re-verbs-partitive-rustwake-02",
+          "prompt": "Complete with prendre: Les fouilleurs ___ du tonique.",
+          "type": "fill-in-blank",
+          "correct_answer": "prennent",
+          "accepted_answers": [
+            "ils prennent"
+          ],
+          "explanation": "Prendre is irregular: ils prennent, with a double n.",
+          "hints": [
+            "Ils form of prendre: double n."
+          ],
+          "teaches": [
+            "prendre",
+            "le tonique"
+          ]
+        }
+      ]
+    }
+  }
+}

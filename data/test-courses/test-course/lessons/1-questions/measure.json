@@ -1,0 +1,49 @@
+{
+  "id": "tc-measure",
+  "slug": "measure",
+  "title": "Measure the angle",
+  "unit": "questions",
+  "group": "quiz",
+  "order": 60,
+  "summary": "Read an angle off a protractor you drag and turn.",
+  "focus": "measure questions",
+  "content": "## Using a protractor\n\nPut the centre of the protractor on the corner of the angle and its baseline along one arm. Read where the other arm crosses the scale.\n\n## Two scales\n\nA protractor has two scales. Count from the 0 that sits on the arm under the baseline: an angle smaller than a right angle is less than 90°.",
+  "quiz": [
+    {
+      "question_id": "tc-measure-01",
+      "prompt": "How big is this angle?",
+      "type": "measure",
+      "tool": "protractor",
+      "angle": 125,
+      "correct_answer": "125",
+      "tolerance": 2,
+      "unit": "°",
+      "explanation": "The angle is wider than a right angle, so it is more than 90°: 125°.",
+      "hints": [
+        "Line up the baseline with one arm first."
+      ]
+    },
+    {
+      "question_id": "tc-measure-02",
+      "prompt": "How big is this angle?",
+      "type": "measure",
+      "tool": "protractor",
+      "angle": 40,
+      "correct_answer": "40",
+      "tolerance": 2,
+      "unit": "°",
+      "explanation": "The angle is narrower than a right angle, so it is less than 90°: 40°."
+    },
+    {
+      "question_id": "tc-measure-03",
+      "prompt": "Measure this angle.",
+      "type": "measure",
+      "tool": "protractor",
+      "angle": 72,
+      "correct_answer": "72",
+      "tolerance": 2,
+      "unit": "°",
+      "explanation": "Less than a right angle: 72°."
+    }
+  ]
+}

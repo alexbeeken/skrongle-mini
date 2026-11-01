@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Dev: AI call #{{ row.id }}{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ crate::routes::asset_url("devbox.css") }}">
+<section class="narrow wide" data-testid="dev-ai-call-detail" data-id="{{ row.id }}" data-status="{{ row.status }}" data-who="{{ row.who }}">
+  <div class="devbox-bar"><a href="{{ crate::url("/dev/ai") }}" data-testid="dev-ai-back">← AI</a></div>
+  <h1 data-testid="dev-ai-call-purpose">{{ row.purpose }}</h1>
+  <table class="small" data-testid="dev-ai-call-headers">
+    <tr><th>Key</th><td>{{ row.who_label }} <code>{{ row.key_hint }}</code></td></tr>
+    <tr><th>Format</th><td><code>{{ row.format }}</code> · model <code>{{ row.model }}</code></td></tr>
+    <tr><th>Outcome</th><td data-testid="dev-ai-call-result">{% if row.status == 0 %}still answering{% else %}HTTP {{ row.status }}{% endif %} · {{ row.outcome }}</td></tr>
+    {% if !row.fixture.is_empty() %}<tr><th>Fixture</th><td><code data-testid="dev-ai-call-fixture">{{ row.fixture }}</code></td></tr>{% endif %}
+    <tr><th>Tokens</th><td>{{ row.tokens }} (in / out) · {{ dollars }}</td></tr>
+    <tr><th>When</th><td>{{ row.ago }} (call #{{ row.id }})</td></tr>
+  </table>
+  <h2>Request</h2>
+  <pre class="small devai-body" data-testid="dev-ai-call-request">{{ request }}</pre>
+  <h2>Reply</h2>
+  <pre class="small devai-body" data-testid="dev-ai-call-reply">{% if reply.is_empty() %}(none yet){% else %}{{ reply }}{% endif %}</pre>
+</section>
+{% endblock %}

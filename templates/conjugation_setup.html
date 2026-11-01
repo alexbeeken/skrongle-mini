@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t1("play.drill.name", "item", course.item_label) }}{% endblock %}
+{% block modenav %}{% let active = "drill" %}{% include "nav_play.html" %}{% endblock %}
+{% block content %}
+<p class="crumbs"><a href="{{ crate::base_path() }}/play">{{ crate::t("play.common.games") }}</a> › {{ crate::t1("play.drill.name", "item", course.item_label) }}</p>
+<h1>{{ crate::t1("play.drill.name", "item", course.item_label) }}</h1>
+<p class="lead">{{ crate::t1("play.drill.lead", "item", course.item_label.to_lowercase()) }}</p>
+
+{% if !any_items %}
+  <p class="alert" role="status" data-testid="drill-setup-empty">{{ crate::t1("play.drill.no_lessons", "paradigm", course.paradigm_label.to_lowercase()) }}</p>
+{% else if !any_unlocked %}
+  <p class="alert" role="status" data-testid="drill-setup-locked">{{ crate::t2("play.drill.locked_html", "guide_url", crate::url("/guide"), "practice_url", crate::url("/practice"))|safe }}</p>
+{% endif %}
+{% if pick_one %}
+  <p class="alert" role="status" data-testid="drill-setup-pick-one">{{ crate::t1("play.drill.pick_one", "item", course.item_label.to_lowercase()) }}</p>
+{% endif %}
+
+{% if tabs.len() > 1 %}
+{% let tabs_label = crate::t("play.drill.choose_set") %}{% let tabs_id = "drill-setup-sets" %}
+{% include "pick_tabs.html" %}
+{% endif %}
+
+<form method="get" action="{{ crate::base_path() }}/play/conjugation/play" class="conj-setup" id="conj-setup" data-testid="drill-setup-form">
+  {% for t in sets %}
+  <fieldset class="tense-group" data-set="{{ t.key }}">
+    <input type="hidden" data-testid="drill-setup-set" name="set" value="{{ t.key }}">
+    <legend><strong>{{ t.label }}</strong>
+      <span class="muted small">{{ crate::t2("play.drill.unlocked_count", "n", t.unlocked, "total", t.total) }}</span></legend>
+    {% if !t.items.is_empty() %}
+    <ul class="verb-picks" data-set="{{ t.key }}">
+    {% for v in t.items %}
+      <li data-testid="drill-setup-item" data-unlocked="true" data-lesson-id="{{ v.lesson_slug }}">
+        <label class="verb-pick">
+          <input type="checkbox" data-testid="drill-setup-item-check" name="item-{{ t.key }}" value="{{ v.item }}" checked>
+          <span class="verb-text"><span lang="{{ course.term_lang }}"><strong>{{ v.item }}</strong></span> <span class="muted">{{ v.meaning }}</span></span>
+        </label>
+      </li>
+    {% endfor %}
+    </ul>
+    <p class="small"><button type="button" class="link" data-select="all" data-set="{{ t.key }}">{{ crate::t("play.drill.select_all") }}</button> ·
+      <button type="button" class="link" data-select="none" data-set="{{ t.key }}">{{ crate::t("play.drill.select_none") }}</button></p>
+    {% endif %}
+    {% if !t.locked.is_empty() %}
+    <div class="locked-list" data-testid="drill-setup-locked-list">
+      <p class="locked-head small muted"><span class="lock-glyph" aria-hidden="true"></span>{{ crate::t("play.drill.locked_head") }}</p>
+      {% for g in t.locked %}
+      <details class="locked-group" data-testid="drill-setup-locked-group" data-lesson-id="{{ g.lesson_slug }}">
+        <summary>
+          <span class="locked-title">{{ g.lesson_title }}</span>
+          <span class="locked-preview small">{{ g.names() }}</span>
+        </summary>
+        <ul class="verb-picks">
+        {% for v in g.items %}
+          <li data-testid="drill-setup-item" data-unlocked="false" data-lesson-id="{{ v.lesson_slug }}">
+            <label class="verb-pick locked">
+              <input type="checkbox" data-testid="drill-setup-item-check" value="{{ v.item }}" disabled>
+              <span class="verb-text"><span lang="{{ course.term_lang }}"><strong>{{ v.item }}</strong></span> <span class="muted">{{ v.meaning }}</span></span>
+            </label>
+          </li>
+        {% endfor %}
+        </ul>
+        <p class="locked-actions"><a class="btn small ghost" href="{{ crate::base_path() }}/lessons/{{ g.lesson_slug }}" data-testid="drill-setup-locked-lesson">{{ crate::t("play.drill.open_lesson") }}</a></p>
+      </details>
+      {% endfor %}
+      {% include "pager.html" %}
+    </div>
+    {% endif %}
+  </fieldset>
+  {% endfor %}
+
+  <input type="hidden" name="items" id="items-field" value="">
+  <div class="view-options">
+    <label class="opt">{{ crate::t("play.drill.prompts") }}
+      <select name="n" data-testid="drill-setup-count">
+        <option value="10">10</option>
+        <option value="20" selected>20</option>
+        <option value="40">40</option>
+        <option value="0">{{ crate::t("play.drill.every_form_once") }}</option>
+      </select>
+    </label>
+    <label class="opt"><input type="checkbox" data-testid="drill-setup-hide" name="hide" value="1"> {{ crate::t1("play.drill.hard_mode", "item", course.item_label.to_lowercase()) }}</label>
+  </div>
+  <div class="actions">
+    <button type="submit" class="btn big" data-testid="drill-setup-start" {% if !any_unlocked %}disabled{% endif %}>{{ crate::t("play.drill.start") }}</button>
+  </div>
+</form>
+
+<section>
+  <h2>{{ crate::t("play.drill.slot_pictures") }}</h2>
+  <p class="muted small">{{ crate::t1("play.drill.slot_pictures_note", "item", course.item_label.to_lowercase()) }}</p>
+  <ul class="subject-legend" id="subject-legend" data-people="{{ people_json }}">
+  {% for s in slots %}
+    <li><pre class="ascii subject" data-slot="{{ s.key }}" data-art="{{ s.art_json }}" data-who="{{ s.who }}"></pre><span lang="{{ course.term_lang }}"><strong>{{ s.label }}</strong></span><br><span class="muted small">{{ s.hint }}</span></li>
+  {% endfor %}
+  </ul>
+</section>
+{% endblock %}
+{% block scripts %}<script>Object.assign(I18N, {{ crate::i18n::js_json("play.js.drill.people")|safe }});</script><script src="{{ crate::routes::asset_url("conjugation.js") }}" defer></script>{% endblock %}

@@ -1,0 +1,40 @@
+{
+  "id": "tc-expression",
+  "slug": "expression",
+  "title": "Formula answers",
+  "unit": "questions",
+  "group": "quiz",
+  "order": 50,
+  "summary": "Formulas checked by equivalence.",
+  "focus": "expression questions",
+  "content": "## Formulas as answers\n\nA formula is right when it is equivalent to the answer: 2(x+1) for 2x + 2.\n\n## Writing a formula\n\nUse + - * / ^, brackets and implicit multiplication such as 2x. A leading y = is ignored.",
+  "quiz": [
+    {
+      "question_id": "tc-expression-01",
+      "prompt": "Expand (x + 1)².",
+      "type": "expression",
+      "correct_answer": "x^2 + 2x + 1",
+      "explanation": "(x + 1)(x + 1) = x² + 2x + 1."
+    },
+    {
+      "question_id": "tc-expression-02",
+      "prompt": "Simplify 3x + 2x.",
+      "type": "expression",
+      "correct_answer": "5x",
+      "explanation": "3 + 2 = 5, so 5x.",
+      "hints": [
+        "Add the numbers in front of x."
+      ]
+    },
+    {
+      "question_id": "tc-expression-03",
+      "prompt": "A square has side s. Write its perimeter or its area.",
+      "type": "expression",
+      "correct_answer": "4s",
+      "accepted_answers": [
+        "s^2"
+      ],
+      "explanation": "Perimeter 4s; area s²."
+    }
+  ]
+}

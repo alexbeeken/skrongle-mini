@@ -1,0 +1,51 @@
+{# The Skrongle Cash shop (#569, routes/shop.rs): the course's balance,
+   every badge with its price and Buy, and the shelf of badges owned. A
+   refused buy comes back as a modal (an open box without script). #}
+{% extends "base.html" %}
+{% block title %}{{ crate::t("motivator.skc.shop.title") }}{% endblock %}
+{% block content %}
+{# Drawn open so it shows without script (#926); home.js makes it a modal. #}
+{% if let Some(why) = refusal %}
+<dialog class="modal" id="shop-refusal" aria-labelledby="shop-refusal-title" data-testid="shop-refusal" open data-open-on-load>
+  <h2 id="shop-refusal-title">{{ crate::t("motivator.skc.shop.refused_title") }}</h2>
+  <p>{{ why }}</p>
+  <div class="modal-actions"><button type="button" class="btn" commandfor="shop-refusal" command="close" data-closes data-testid="shop-refusal-close">{{ crate::t("home.ok") }}</button></div>
+</dialog>
+{% endif %}
+<div class="shop-head">
+  <h1>{{ crate::t("motivator.skc.shop.title") }} <span class="muted">· {{ course.title }}</span></h1>
+  <p class="skc-balance" data-testid="shop-balance" data-skc="{{ balance }}">{{ crate::motivators::skc::amount(*balance)|safe }} <span>{{ crate::t("motivator.skc.short") }}</span></p>
+</div>
+
+<h2>{{ crate::t("motivator.skc.shop.shelf") }}</h2>
+{% if shelf.is_empty() %}
+<p class="muted" data-testid="shop-shelf-empty">{{ crate::t("motivator.skc.shop.shelf_empty") }}</p>
+{% else %}
+<ul class="skc-shelf" data-testid="shop-shelf">
+  {% for b in shelf %}<li><img src="{{ b.src }}" alt="{{ b.title }}" title="{{ b.title }}" width="56" height="56" data-testid="shop-shelf-badge" data-badge="{{ b.id }}" data-variant="{{ b.variant }}"></li>{% endfor %}
+</ul>
+{% endif %}
+
+<h2>{{ crate::t("motivator.skc.shop.badges") }}</h2>
+<ul class="shop-grid">
+  {% for b in badges %}
+  <li class="shop-badge{% if b.owned %} owned{% endif %}" data-testid="shop-badge" data-badge="{{ b.id }}" data-price="{{ b.price }}" data-owned="{{ b.owned }}">
+    <img src="{{ b.src }}" alt="" width="72" height="72" data-variant="{{ b.variant }}">
+    <strong>{{ b.title }}</strong>
+    <span class="shop-price">{{ crate::motivators::skc::amount(*b.price)|safe }}</span>
+    {% if b.owned %}
+    <span class="shop-owned" data-testid="shop-owned">{{ crate::t("motivator.skc.shop.owned") }}</span>
+    {% else %}
+    <form method="post" action="{{ crate::url("/api/shop/buy") }}">
+      <input type="hidden" name="item" value="{{ b.id }}">
+      <button type="submit" class="btn small" data-testid="shop-buy">{{ crate::t("motivator.skc.shop.buy") }}</button>
+    </form>
+    {% endif %}
+  </li>
+  {% endfor %}
+</ul>
+
+<p><a href="{{ crate::url("/") }}" data-testid="shop-back">‹ {{ crate::t("motivator.skc.shop.back") }}</a></p>
+
+{% endblock %}
+{% block scripts %}<script src="{{ crate::routes::asset_url("home.js") }}" defer></script>{% endblock %}

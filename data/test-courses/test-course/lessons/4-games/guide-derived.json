@@ -1,0 +1,67 @@
+{
+  "id": "tc-guide-derived",
+  "slug": "guide-derived",
+  "title": "The family",
+  "unit": "games",
+  "group": "games",
+  "order": 20,
+  "summary": "No guide array: the Guide stage is derived from sections, vocabulary and questions.",
+  "focus": "the derived Guide",
+  "prerequisites": [
+    "tc-vocabulary"
+  ],
+  "content": "Without a guide array, every section becomes a card, vocabulary comes in hands of five and questions join from the third card.\n\n## Parents\n\n**la madre** is the mother, **el padre** the father.\n\n## Siblings\n\n**el hermano** is the brother, **la hermana** the sister.\n\n## Children\n\n**el hijo** is the son, **la hija** the daughter.",
+  "vocabulary": [
+    {
+      "term": "la madre",
+      "meaning": "mother"
+    },
+    {
+      "term": "el padre",
+      "meaning": "father"
+    },
+    {
+      "term": "el hermano",
+      "meaning": "brother"
+    },
+    {
+      "term": "la hermana",
+      "meaning": "sister"
+    },
+    {
+      "term": "el hijo",
+      "meaning": "son"
+    },
+    {
+      "term": "la hija",
+      "meaning": "daughter"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "tc-guide-derived-01",
+      "prompt": "What does 'la madre' mean?",
+      "type": "multiple-choice",
+      "options": [
+        "mother",
+        "father"
+      ],
+      "correct_answer": "mother",
+      "explanation": "La madre, the mother."
+    },
+    {
+      "question_id": "tc-guide-derived-02",
+      "prompt": "Mi ___ se llama Pedro. (father)",
+      "type": "fill-in-blank",
+      "correct_answer": "padre",
+      "explanation": "El padre, the father."
+    },
+    {
+      "question_id": "tc-guide-derived-03",
+      "prompt": "'La hermana' means 'the sister'.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "La hermana, the sister."
+    }
+  ]
+}

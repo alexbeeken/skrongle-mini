@@ -1,0 +1,1181 @@
+{
+  "id": "b2-news-and-media",
+  "slug": "news-and-the-press",
+  "title": "The news: headlines and reporting verbs",
+  "unit": "B2",
+  "group": "Vocabulary",
+  "order": 40,
+  "summary": "Read and retell the news: the words for headlines, sources and the media, the verbs reporters use instead of decir, and the shorthand of headline style.",
+  "focus": "News vocabulary, reporting verbs, según / al parecer / supuestamente, and headline style",
+  "prerequisites": [
+    "b2-reported-speech",
+    "b2-passive-voice",
+    "b1-news-and-media"
+  ],
+  "content": "## The news: the words you need\n\nTalking about **las noticias** (the news) needs a small core of nouns:\n\n- **la noticia**: a news story, one piece of news\n- **el titular**: the headline\n- **la prensa**: the press, the papers\n- **el periodista / la periodista**: the journalist (same form for both)\n- **la fuente**: the source\n- **los medios (de comunicación)**: the media\n\nExamples:\n\n- *Leí la noticia en la prensa local.* (I read the story in the local press.)\n- *La periodista no citaba ninguna fuente.* (The journalist didn't quote any source.)\n\n## Reporting verbs: more than decir\n\nNews rarely says just **dijo**. Each verb adds a shade:\n\n| verb | shade | example |\n|---|---|---|\n| **afirmar**, **declarar** | states (declarar: officially) | *El alcalde declaró que la obra era urgente.* |\n| **asegurar** | insists it is true | *Aseguró que no había peligro.* |\n| **anunciar** | makes it public | *El club anunció un nuevo entrenador.* |\n| **confirmar** | says it is true | *La policía confirmó la noticia.* |\n| **negar** | says it is not true | *Negó que hubiera problemas.* |\n| **denunciar** | publicly reports a wrong | *Los vecinos denunciaron el ruido.* |\n\nThey follow the rules of reported speech: a past reporting verb backshifts (**anunció que abriría**). **Negar que** takes the subjunctive.\n\n## Según, al parecer, supuestamente\n\nA careful reporter says where a claim comes from, or that it is not proven:\n\n- **según** + source (according to): *Según la policía, el robo ocurrió de noche.* (No **a** after it; with pronouns: **según tú, según ella**.)\n- **al parecer** (apparently): *Al parecer, el concierto se ha aplazado.*\n- **supuestamente** (supposedly, allegedly): *Supuestamente, el cuadro es falso.*\n\nNewspapers also use the **press conditional**, **habría** + participle, for facts not yet confirmed: *El incendio habría empezado en la cocina* (The fire reportedly started in the kitchen). Recognise it when you read it; in conversation, **al parecer** does the job.\n\n## Headline style\n\nHeadlines save words:\n\n- **The present tense** for what has just happened: *El Ayuntamiento aprueba un nuevo carril bici* (The council approves a new cycle lane).\n- **A participle without ser** for the passive: *Detenidos dos jóvenes por pintar un tren* = *Dos jóvenes han sido detenidos…* The participle agrees with the noun: *Cerrada la playa*, *Aplazado el partido*.\n- **Few articles**: *Nueva subida del precio del pan*.\n\nRead a headline as a full sentence: *Cerrada la playa* means *La playa ha sido cerrada*.",
+  "vocabulary": [
+    {
+      "term": "la noticia",
+      "meaning": "a news story, a piece of news",
+      "example": "¿Has oído la noticia? Han encontrado monedas romanas en el pueblo.",
+      "example_meaning": "Have you heard the news? They've found Roman coins in the village."
+    },
+    {
+      "term": "el titular",
+      "meaning": "the headline",
+      "example": "El titular era alarmante, pero el artículo decía otra cosa.",
+      "example_meaning": "The headline was alarming, but the article said something else."
+    },
+    {
+      "term": "la prensa",
+      "meaning": "the press, the newspapers",
+      "example": "La prensa local habló del nuevo mercado durante semanas.",
+      "example_meaning": "The local press talked about the new market for weeks."
+    },
+    {
+      "term": "el/la periodista",
+      "meaning": "the journalist",
+      "example": "La periodista entrevistó a los vecinos del barrio.",
+      "example_meaning": "The journalist interviewed the people of the neighbourhood."
+    },
+    {
+      "term": "la fuente",
+      "meaning": "the source",
+      "example": "Un buen periodista siempre contrasta sus fuentes.",
+      "example_meaning": "A good journalist always cross-checks their sources."
+    },
+    {
+      "term": "los medios",
+      "meaning": "the media (los medios de comunicación)",
+      "example": "Todos los medios abrieron con la noticia del eclipse.",
+      "example_meaning": "All the media led with the news of the eclipse."
+    },
+    {
+      "term": "afirmar",
+      "meaning": "to state, to claim",
+      "example": "El entrenador afirmó que el equipo estaba preparado.",
+      "example_meaning": "The coach stated that the team was ready."
+    },
+    {
+      "term": "negar",
+      "meaning": "to deny",
+      "example": "El cantante negó que fuera a dejar la música.",
+      "example_meaning": "The singer denied that he was going to give up music."
+    },
+    {
+      "term": "anunciar",
+      "meaning": "to announce",
+      "example": "La compañía anunció que bajaría los precios en enero.",
+      "example_meaning": "The company announced that it would lower prices in January."
+    },
+    {
+      "term": "confirmar",
+      "meaning": "to confirm",
+      "example": "El aeropuerto confirmó que todos los vuelos saldrían con retraso.",
+      "example_meaning": "The airport confirmed that all flights would leave late."
+    },
+    {
+      "term": "denunciar",
+      "meaning": "to report (a wrong), to speak out against",
+      "example": "Una asociación denunció la falta de parques en el barrio.",
+      "example_meaning": "An association spoke out against the lack of parks in the neighbourhood."
+    },
+    {
+      "term": "asegurar",
+      "meaning": "to assure, to insist",
+      "example": "El técnico aseguró que la avería estaría arreglada esa misma tarde.",
+      "example_meaning": "The technician assured us the fault would be fixed that same afternoon."
+    },
+    {
+      "term": "según",
+      "meaning": "according to",
+      "example": "Según el informe, el tráfico ha bajado un diez por ciento.",
+      "example_meaning": "According to the report, traffic has fallen by ten per cent."
+    },
+    {
+      "term": "al parecer",
+      "meaning": "apparently",
+      "example": "Al parecer, el autobús nocturno vuelve a funcionar.",
+      "example_meaning": "Apparently the night bus is running again."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-news-and-media-01",
+      "prompt": "Solo leí el ___ en la portada; no tuve tiempo de leer el artículo.",
+      "type": "multiple-choice",
+      "options": [
+        "titular",
+        "periodista",
+        "fuente"
+      ],
+      "correct_answer": "titular",
+      "explanation": "The words in big letters above an article are el titular, the headline.",
+      "hints": [
+        "What do you read on the front page before the article?"
+      ],
+      "teaches": [
+        "el titular"
+      ]
+    },
+    {
+      "question_id": "b2-news-and-media-02",
+      "prompt": "El museo ___ ayer que abriría en junio. (anunciar, preterite: announced)",
+      "type": "fill-in-blank",
+      "correct_answer": "anunció",
+      "explanation": "Anunciar in the preterite, él form: anunció. Because the reporting verb is past, the news backshifts: abriría.",
+      "hints": [
+        "Preterite of an -ar verb, él form: -ó."
+      ],
+      "teaches": [
+        "anunciar"
+      ]
+    },
+    {
+      "question_id": "b2-news-and-media-03",
+      "prompt": "La periodista no quiso revelar su ___: había prometido proteger a quien le dio la información.",
+      "type": "multiple-choice",
+      "options": [
+        "fuente",
+        "prensa",
+        "noticia"
+      ],
+      "correct_answer": "fuente",
+      "explanation": "The person who gives a journalist information is la fuente, the source.",
+      "hints": [
+        "Who gave her the information?"
+      ],
+      "teaches": [
+        "la fuente",
+        "el/la periodista"
+      ]
+    },
+    {
+      "question_id": "b2-news-and-media-04",
+      "prompt": "El director ___ que hubiera problemas en la fábrica. (negar, preterite: denied)",
+      "type": "fill-in-blank",
+      "correct_answer": "negó",
+      "accepted_answers": [
+        "lo negó"
+      ],
+      "explanation": "Negar in the preterite is negó; negar que takes the subjunctive, which is why hubiera follows.",
+      "hints": [
+        "Which verb is followed by the subjunctive here?",
+        "Preterite, él form."
+      ],
+      "teaches": [
+        "negar"
+      ]
+    },
+    {
+      "question_id": "b2-news-and-media-05",
+      "prompt": "Which of these is written in headline style?",
+      "type": "multiple-choice",
+      "options": [
+        "Inaugurado el nuevo puente de Valdelora",
+        "Ayer se inauguró el nuevo puente de Valdelora",
+        "El nuevo puente de Valdelora fue inaugurado ayer por la tarde"
+      ],
+      "correct_answer": "Inaugurado el nuevo puente de Valdelora",
+      "explanation": "Headlines drop ser and keep only the participle, agreeing with the noun: Inaugurado el puente. The other two are ordinary sentences from the article.",
+      "hints": [
+        "Which one has no conjugated verb at all?"
+      ],
+      "teaches": [
+        "el titular"
+      ]
+    },
+    {
+      "question_id": "b2-news-and-media-06",
+      "prompt": "___ los vecinos, el ruido empezó a las tres de la mañana. (According to)",
+      "type": "fill-in-blank",
+      "correct_answer": "Según",
+      "explanation": "Según + source, with no a after it: según los vecinos.",
+      "hints": [
+        "One word, with an accent on the last syllable."
+      ],
+      "teaches": [
+        "según"
+      ]
+    },
+    {
+      "question_id": "b2-news-and-media-07",
+      "prompt": "In a news report, «el fuego habría empezado en la cocina» means…",
+      "type": "multiple-choice",
+      "options": [
+        "the fire reportedly started in the kitchen, but it is not confirmed",
+        "the fire would start in the kitchen",
+        "the fire had started in the kitchen, and this is confirmed"
+      ],
+      "correct_answer": "the fire reportedly started in the kitchen, but it is not confirmed",
+      "explanation": "The press conditional, habría + participle, reports a fact the paper has not been able to confirm.",
+      "hints": [
+        "Is the reporter sure?"
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b2-news-and-media-08",
+      "prompt": "Fuentes del hospital ___ ayer que el paciente está estable. (confirmar, preterite: confirmed)",
+      "type": "fill-in-blank",
+      "correct_answer": "confirmaron",
+      "explanation": "The subject is plural (fuentes), so ellos form: confirmaron. Está stays in the present because the patient is still stable.",
+      "hints": [
+        "Who confirmed it? Fuentes is plural."
+      ],
+      "teaches": [
+        "confirmar",
+        "la fuente"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-news-and-media-conv-closed-bridge",
+      "title": "The closed bridge",
+      "scenario": "Elena and Javi read the morning news over breakfast. The town's bridge is closing for repairs.",
+      "role_a": "Elena",
+      "role_b": "Javi",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¿Has visto el titular de hoy? «Cerrado el puente de Valdelora por obras».",
+          "meaning": "Have you seen today's headline? 'Valdelora bridge closed for repairs'."
+        },
+        {
+          "speaker": "b",
+          "text": "Sí, lo leí en el móvil. Según el periódico, estará cerrado tres meses.",
+          "meaning": "Yes, I read it on my phone. According to the paper, it'll be closed for three months."
+        },
+        {
+          "speaker": "a",
+          "text": "Pues el alcalde aseguró en marzo que las obras empezarían en otoño.",
+          "meaning": "Well, the mayor insisted in March that the work would start in autumn."
+        },
+        {
+          "speaker": "b",
+          "text": "Ya, pero ayer anunció que las adelantaban para evitar las lluvias.",
+          "meaning": "Yes, but yesterday he announced they were bringing it forward to avoid the rains."
+        },
+        {
+          "speaker": "a",
+          "text": "¿Y quién lo ha confirmado? ¿Hay alguna fuente oficial?",
+          "meaning": "And who has confirmed it? Is there an official source?"
+        },
+        {
+          "speaker": "b",
+          "text": "Una periodista de la radio local habló con el portavoz y él lo confirmó.",
+          "meaning": "A journalist from the local radio spoke to the spokesperson and he confirmed it."
+        },
+        {
+          "speaker": "a",
+          "text": "Al parecer, los comerciantes del centro han denunciado que nadie les avisó.",
+          "meaning": "Apparently the shopkeepers in the centre have complained that nobody warned them."
+        },
+        {
+          "speaker": "b",
+          "text": "Normal. Supuestamente iban a mandar una carta a cada vecino.",
+          "meaning": "No wonder. Supposedly they were going to send a letter to every resident."
+        },
+        {
+          "speaker": "a",
+          "text": "Yo no la he recibido. Y en la radio negaron que hubiera un problema con el correo.",
+          "meaning": "I haven't received it. And on the radio they denied there was a problem with the post."
+        },
+        {
+          "speaker": "b",
+          "text": "Los medios exageran a veces, pero esta vez el titular dice la verdad.",
+          "meaning": "The media exaggerate sometimes, but this time the headline is telling the truth."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Al parecer, el tren llega tarde.",
+      "meaning": "Apparently the train is arriving late."
+    },
+    {
+      "text": "Según los bomberos, nadie resultó herido.",
+      "meaning": "According to the fire brigade, nobody was hurt."
+    },
+    {
+      "text": "La noticia salió ayer en la portada.",
+      "meaning": "The story came out on the front page yesterday.",
+      "note": "New word: la portada = the front page."
+    },
+    {
+      "text": "El portavoz confirmó la fecha del festival de jazz.",
+      "meaning": "The spokesperson confirmed the date of the jazz festival.",
+      "note": "New word: el portavoz = the spokesperson."
+    },
+    {
+      "text": "La periodista aseguró que su fuente era totalmente fiable.",
+      "meaning": "The journalist insisted that her source was completely reliable."
+    },
+    {
+      "text": "El Ayuntamiento anunció que la piscina municipal abriría en junio.",
+      "meaning": "The town council announced that the public pool would open in June.",
+      "note": "Past reporting verb: abrirá becomes abriría."
+    },
+    {
+      "text": "La empresa negó que el cierre de la fábrica fuera definitivo.",
+      "meaning": "The company denied that the closure of the factory was permanent.",
+      "note": "Negar que + subjunctive: fuera."
+    },
+    {
+      "text": "Según varios testigos, el incendio habría empezado en el tejado del almacén.",
+      "meaning": "According to several witnesses, the fire reportedly started on the warehouse roof.",
+      "note": "New word: el testigo = the witness."
+    }
+  ],
+  "guide": [
+    {
+      "section": "The news: the words you need"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-news-and-media-01"
+    },
+    {
+      "question": "b2-news-and-media-03"
+    },
+    {
+      "section": "Reporting verbs: more than decir"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-news-and-media-02"
+    },
+    {
+      "question": "b2-news-and-media-04"
+    },
+    {
+      "question": "b2-news-and-media-08"
+    },
+    {
+      "section": "Según, al parecer, supuestamente"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b2-news-and-media-06"
+    },
+    {
+      "tip": "Who says so? A news sentence almost always names its source: según…, fuentes de…, or a reporting verb with a subject."
+    },
+    {
+      "question": "b2-news-and-media-07"
+    },
+    {
+      "section": "Headline style"
+    },
+    {
+      "question": "b2-news-and-media-05"
+    }
+  ],
+  "sprint": {
+    "icon": "🗞️",
+    "bites": [
+      {
+        "title": "Not just dijo",
+        "emoji": "🗣️",
+        "rule": "Afirmar and declarar state, asegurar insists, anunciar makes public, confirmar says it is true, negar says it is not (negar que + subjunctive), denunciar exposes a wrong.",
+        "example": "La directora confirmó que el colegio abriría el lunes.",
+        "example_meaning": "The head teacher confirmed that the school would open on Monday."
+      },
+      {
+        "title": "Who says so?",
+        "emoji": "🔎",
+        "rule": "Según + source names who makes the claim; al parecer (apparently) and supuestamente (supposedly) keep a distance from what nobody has proven.",
+        "example": "Al parecer, la feria se ha suspendido.",
+        "example_meaning": "Apparently the fair has been called off."
+      },
+      {
+        "title": "Headline shorthand",
+        "emoji": "🗞️",
+        "rule": "Headlines use the present for what just happened and drop ser before a participle, which agrees with the noun: Cerrada la playa, Aplazado el partido.",
+        "example": "Cerrada la playa por las medusas.",
+        "example_meaning": "Beach closed because of jellyfish."
+      },
+      {
+        "title": "The press conditional",
+        "emoji": "❔",
+        "rule": "In the news, habría + participle means 'reportedly': the fact is not confirmed. Recognise it when reading; when talking, say al parecer.",
+        "example": "El ladrón habría entrado por la ventana.",
+        "example_meaning": "The thief reportedly got in through the window."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Confirmed or not proven?",
+        "buckets": [
+          "confirmed",
+          "not proven"
+        ],
+        "items": [
+          {
+            "text": "el Ayuntamiento confirmó la fecha",
+            "bucket": 0
+          },
+          {
+            "text": "al parecer, el tren llegará tarde",
+            "bucket": 1
+          },
+          {
+            "text": "supuestamente, el cuadro es falso",
+            "bucket": 1
+          },
+          {
+            "text": "la biblioteca anunció su nuevo horario",
+            "bucket": 0
+          },
+          {
+            "text": "el puente habría costado el doble",
+            "bucket": 1
+          },
+          {
+            "text": "según algunos vecinos, faltan árboles",
+            "bucket": 1
+          },
+          {
+            "text": "la policía confirmó la noticia",
+            "bucket": 0
+          }
+        ],
+        "why": "Confirmar and anunciar present facts; al parecer, supuestamente, según + a vague source and the press conditional keep a distance."
+      },
+      {
+        "title": "Headline or ordinary sentence?",
+        "buckets": [
+          "headline",
+          "ordinary sentence"
+        ],
+        "items": [
+          {
+            "text": "Detenidos dos jóvenes por pintar un tren",
+            "bucket": 0
+          },
+          {
+            "text": "La policía ha detenido a dos jóvenes",
+            "bucket": 1
+          },
+          {
+            "text": "El Ayuntamiento aprueba el nuevo parque",
+            "bucket": 0
+          },
+          {
+            "text": "Ayer se aprobó el nuevo parque",
+            "bucket": 1
+          },
+          {
+            "text": "Cerrada la playa por las medusas",
+            "bucket": 0
+          },
+          {
+            "text": "Han cerrado la playa porque hay medusas",
+            "bucket": 1
+          }
+        ],
+        "why": "Headlines drop ser and articles and use the present; ordinary sentences keep the full verb."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "El portavoz negó que el museo cierra en verano.",
+        "wrong": "cierra",
+        "fix": "cierre",
+        "why": "Negar que takes the subjunctive: cierre."
+      },
+      {
+        "sentence": "La periodista no quiso revelar su fuentes.",
+        "wrong": "su",
+        "fix": "sus",
+        "why": "Fuentes is plural, so the possessive is sus."
+      },
+      {
+        "sentence": "Al parecer, el concierto se cancelaron por la lluvia.",
+        "wrong": "cancelaron",
+        "fix": "canceló",
+        "why": "One concert: se canceló. The verb agrees with the singular subject."
+      },
+      {
+        "sentence": "Los medios anunció ayer el nuevo horario de trenes.",
+        "wrong": "anunció",
+        "fix": "anunciaron",
+        "why": "Los medios is plural: anunciaron."
+      },
+      {
+        "sentence": "Según la policía, el fuego habría empezaba en el almacén.",
+        "wrong": "empezaba",
+        "fix": "empezado",
+        "why": "The press conditional is habría + participle: habría empezado."
+      }
+    ],
+    "builds": [
+      {
+        "text": "La empresa negó que hubiera despidos.",
+        "meaning": "The company denied there were any layoffs.",
+        "distractors": [
+          "hay"
+        ]
+      },
+      {
+        "text": "Según la prensa local, el puente reabre mañana.",
+        "meaning": "According to the local press, the bridge reopens tomorrow.",
+        "distractors": [
+          "a"
+        ]
+      },
+      {
+        "text": "Detenido un hombre por robar cuarenta bicicletas.",
+        "meaning": "Man arrested for stealing forty bicycles.",
+        "distractors": [
+          "fue"
+        ]
+      },
+      {
+        "text": "Los vecinos denunciaron el ruido de la obra.",
+        "meaning": "The residents complained publicly about the noise from the building work.",
+        "distractors": [
+          "denunció"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🦅",
+      "content": "## Las noticias en Eldmark\n\nIn Highgate the news comes from **el pregonero**, the town crier: **«Reabierta la mazmorra de Deepanvil»**. **Según el gremio**, the loot was enormous; **al parecer**, the orcs **negaron** everything. Headlines, reporting verbs and **según** work the same in a fantasy tavern.",
+      "vocabulary": [
+        {
+          "term": "la noticia",
+          "example": "La noticia del tratado entre orcos y enanos llegó pronto a la posada.",
+          "example_meaning": "The news of the treaty between orcs and dwarves soon reached the inn."
+        },
+        {
+          "term": "el titular",
+          "example": "El titular del pergamino decía: «Reabierta la mazmorra de Deepanvil».",
+          "example_meaning": "The scroll's headline said: 'Deepanvil dungeon reopened'."
+        },
+        {
+          "term": "según",
+          "example": "Según el gremio, el botín de la mazmorra era enorme.",
+          "example_meaning": "According to the guild, the dungeon loot was enormous."
+        },
+        {
+          "term": "al parecer",
+          "example": "Al parecer, la maga ha encontrado un mapa del Bosque Umbrío.",
+          "example_meaning": "Apparently the mage has found a map of the Bosque Umbrío."
+        },
+        {
+          "term": "anunciar",
+          "example": "El rey de Highgate anunció que habría un torneo en primavera.",
+          "example_meaning": "The king of Highgate announced there would be a tournament in spring."
+        },
+        {
+          "term": "negar",
+          "example": "Los enanos negaron que hubieran escondido el botín.",
+          "example_meaning": "The dwarves denied that they had hidden the loot."
+        },
+        {
+          "term": "confirmar",
+          "example": "La paladina confirmó que el puente de Frostmarch estaba cortado.",
+          "example_meaning": "The paladin confirmed that the Frostmarch bridge was closed."
+        },
+        {
+          "term": "el pregonero",
+          "meaning": "the town crier",
+          "example": "El pregonero leyó las noticias en la plaza de Highgate.",
+          "example_meaning": "The town crier read the news in Highgate square."
+        },
+        {
+          "term": "el rumor",
+          "meaning": "the rumour",
+          "example": "En la posada corre el rumor de que un minotauro busca trabajo.",
+          "example_meaning": "There's a rumour going round the inn that a minotaur is looking for work."
+        },
+        {
+          "term": "el pergamino",
+          "meaning": "the scroll",
+          "example": "El gremio colgó un pergamino con las noticias de la semana.",
+          "example_meaning": "The guild put up a scroll with the week's news."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Pregones de Highgate",
+          "emoji": "📯",
+          "rule": "A crier's headline drops ser like any newspaper: «Reabierta la mazmorra», «Aplazado el torneo». The participle agrees with the noun.",
+          "example": "Encontrada la montura perdida del paladín.",
+          "example_meaning": "The paladin's lost mount found."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Al parecer, el orco era cocinero.",
+          "meaning": "Apparently the orc used to be a cook."
+        },
+        {
+          "text": "El pregonero anunció un torneo.",
+          "meaning": "The town crier announced a tournament.",
+          "note": "New word: el pregonero = the town crier."
+        },
+        {
+          "text": "Según la elfa, la posada está llena.",
+          "meaning": "According to the elf, the inn is full."
+        },
+        {
+          "text": "El enano negó que hubiera robado el botín.",
+          "meaning": "The dwarf denied that he had stolen the loot."
+        },
+        {
+          "text": "Corre el rumor de que la maga se casa.",
+          "meaning": "There's a rumour going round that the mage is getting married.",
+          "note": "New word: el rumor = the rumour."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Según el gremio, la mazmorra está vacía.",
+          "meaning": "According to the guild, the dungeon is empty.",
+          "distractors": [
+            "a"
+          ]
+        },
+        {
+          "text": "Reabierto el puente de Frostmarch tras la nevada.",
+          "meaning": "Frostmarch bridge reopened after the snowfall.",
+          "distractors": [
+            "fue"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "El pregonero anunciaron que el torneo empieza mañana.",
+          "wrong": "anunciaron",
+          "fix": "anunció",
+          "why": "One crier: anunció."
+        },
+        {
+          "sentence": "Los minotauros negaron que el laberinto estaba encantado.",
+          "wrong": "estaba",
+          "fix": "estuviera",
+          "why": "Negar que takes the subjunctive: estuviera."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "News or rumour?",
+          "buckets": [
+            "confirmed",
+            "not proven"
+          ],
+          "items": [
+            {
+              "text": "el gremio confirmó la fecha del torneo",
+              "bucket": 0
+            },
+            {
+              "text": "al parecer, el orco es vegetariano",
+              "bucket": 1
+            },
+            {
+              "text": "supuestamente, la maga leyó el pergamino",
+              "bucket": 1
+            },
+            {
+              "text": "el rey anunció la paz",
+              "bucket": 0
+            },
+            {
+              "text": "según un rumor, el enano es rico",
+              "bucket": 1
+            },
+            {
+              "text": "el pregonero confirmó la noticia",
+              "bucket": 0
+            }
+          ],
+          "why": "Confirmar and anunciar give facts; al parecer, supuestamente and a rumour do not prove anything."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-news-and-media-realm-01",
+          "prompt": "___ el pregonero, el torneo de Highgate se ha aplazado.",
+          "type": "multiple-choice",
+          "options": [
+            "Según",
+            "Al parecer",
+            "Supuestamente"
+          ],
+          "correct_answer": "Según",
+          "explanation": "Only según is followed by the source: según el pregonero.",
+          "hints": [
+            "Which word introduces who said it?"
+          ],
+          "teaches": [
+            "según",
+            "el pregonero"
+          ]
+        },
+        {
+          "question_id": "b2-news-and-media-realm-02",
+          "prompt": "El orco ___ que hubiera tocado el pergamino. (negar, preterite: denied)",
+          "type": "fill-in-blank",
+          "correct_answer": "negó",
+          "accepted_answers": [
+            "lo negó"
+          ],
+          "explanation": "Preterite of negar, él form: negó. Negar que is followed by the subjunctive (hubiera tocado).",
+          "hints": [
+            "Preterite, él form."
+          ],
+          "teaches": [
+            "negar",
+            "el pergamino"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "📣",
+      "content": "## Las noticias en Meadowbrook\n\nThe town news is **el boletín** pinned to **el tablón de anuncios**: **«Aplazado el festival por la lluvia»**. **El alcalde anunció** a new bridge, Rosa **aseguró** that the seeds would arrive on Monday and, **según Leo**, the fish are back in the river. Even gossip has a source.",
+      "vocabulary": [
+        {
+          "term": "la noticia",
+          "example": "La noticia de la gran cosecha llegó a todo el pueblo.",
+          "example_meaning": "The news of the big harvest reached the whole town."
+        },
+        {
+          "term": "el titular",
+          "example": "El titular del boletín decía: «Premiada la calabaza más grande del valle».",
+          "example_meaning": "The newsletter's headline said: 'Biggest pumpkin in the valley wins a prize'."
+        },
+        {
+          "term": "anunciar",
+          "example": "El alcalde anunció que el festival de otoño sería el sábado.",
+          "example_meaning": "The mayor announced that the autumn festival would be on Saturday."
+        },
+        {
+          "term": "asegurar",
+          "example": "Rosa aseguró que las semillas de fresa llegarían el lunes.",
+          "example_meaning": "Rosa insisted the strawberry seeds would arrive on Monday."
+        },
+        {
+          "term": "según",
+          "example": "Según Leo, este año hay más peces en el río.",
+          "example_meaning": "According to Leo, there are more fish in the river this year."
+        },
+        {
+          "term": "al parecer",
+          "example": "Al parecer, Nora ha plantado maíz en todo el campo.",
+          "example_meaning": "Apparently Nora has planted maize in the whole field."
+        },
+        {
+          "term": "confirmar",
+          "example": "El alcalde confirmó que habría fuegos artificiales.",
+          "example_meaning": "The mayor confirmed there would be fireworks."
+        },
+        {
+          "term": "el boletín",
+          "meaning": "the newsletter",
+          "example": "El boletín del pueblo sale cada viernes.",
+          "example_meaning": "The town newsletter comes out every Friday."
+        },
+        {
+          "term": "el tablón de anuncios",
+          "meaning": "the notice board",
+          "example": "Nora leyó la noticia en el tablón de anuncios de la tienda.",
+          "example_meaning": "Nora read the news on the shop's notice board."
+        },
+        {
+          "term": "el cotilleo",
+          "meaning": "the gossip",
+          "example": "En la taberna, el cotilleo corre más rápido que el boletín.",
+          "example_meaning": "In the tavern, gossip travels faster than the newsletter."
+        }
+      ],
+      "bites": [
+        {
+          "title": "El boletín del pueblo",
+          "emoji": "📌",
+          "rule": "Town headlines drop ser and keep the participle, which agrees with the noun: «Aplazado el festival», «Premiada la calabaza».",
+          "example": "Encontrada la gallina de Nora en la mina.",
+          "example_meaning": "Nora's hen found in the mine."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Según Rosa, mañana llueve.",
+          "meaning": "According to Rosa, it's raining tomorrow."
+        },
+        {
+          "text": "El boletín sale los viernes.",
+          "meaning": "The newsletter comes out on Fridays.",
+          "note": "New word: el boletín = the newsletter."
+        },
+        {
+          "text": "Lo leí en el tablón de anuncios.",
+          "meaning": "I read it on the notice board.",
+          "note": "New word: el tablón de anuncios = the notice board."
+        },
+        {
+          "text": "Leo negó que hubiera pescado una sirena.",
+          "meaning": "Leo denied that he had caught a mermaid."
+        },
+        {
+          "text": "Al parecer, la vaca de Nora ganó el primer premio.",
+          "meaning": "Apparently Nora's cow won first prize."
+        }
+      ],
+      "builds": [
+        {
+          "text": "El alcalde anunció que plantarían cien árboles.",
+          "meaning": "The mayor announced that they would plant a hundred trees.",
+          "distractors": [
+            "anunciaron"
+          ]
+        },
+        {
+          "text": "Aplazado el festival de verano por la tormenta.",
+          "meaning": "Summer festival postponed because of the storm.",
+          "distractors": [
+            "Aplazada"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Cerrado la mina por las lluvias.",
+          "wrong": "Cerrado",
+          "fix": "Cerrada",
+          "why": "La mina is feminine: Cerrada la mina."
+        },
+        {
+          "sentence": "El alcalde confirmaron que habrá fuegos artificiales.",
+          "wrong": "confirmaron",
+          "fix": "confirmó",
+          "why": "One mayor: confirmó."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Headline or ordinary sentence?",
+          "buckets": [
+            "headline",
+            "ordinary sentence"
+          ],
+          "items": [
+            {
+              "text": "Premiada la calabaza de Nora",
+              "bucket": 0
+            },
+            {
+              "text": "Han premiado la calabaza de Nora",
+              "bucket": 1
+            },
+            {
+              "text": "Abierta la nueva tienda de semillas",
+              "bucket": 0
+            },
+            {
+              "text": "Rosa ha abierto una tienda nueva",
+              "bucket": 1
+            },
+            {
+              "text": "Aplazado el festival",
+              "bucket": 0
+            },
+            {
+              "text": "El festival se ha aplazado",
+              "bucket": 1
+            }
+          ],
+          "why": "A headline keeps only the participle and the noun; an ordinary sentence has a full verb."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-news-and-media-meadowbrook-01",
+          "prompt": "En el boletín: «___ el festival de otoño por la lluvia».",
+          "type": "multiple-choice",
+          "options": [
+            "Aplazado",
+            "Aplazada",
+            "Aplazados"
+          ],
+          "correct_answer": "Aplazado",
+          "explanation": "The participle agrees with el festival, masculine singular: Aplazado.",
+          "hints": [
+            "El festival: masculine or feminine? One or many?"
+          ],
+          "teaches": [
+            "el boletín"
+          ]
+        },
+        {
+          "question_id": "b2-news-and-media-meadowbrook-02",
+          "prompt": "Rosa nos ___ que el nuevo abono era el mejor del valle. (asegurar, preterite: assured)",
+          "type": "fill-in-blank",
+          "correct_answer": "aseguró",
+          "explanation": "Asegurar in the preterite, ella form: aseguró. The past reporting verb keeps era in the past.",
+          "hints": [
+            "Preterite of an -ar verb, ella form."
+          ],
+          "teaches": [
+            "asegurar"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "📰",
+      "content": "## Las noticias en el páramo\n\nIn the Dome, the news comes from **el radiorreloj**: **«Cerrada la antena por una tormenta de ceniza»**. **El capataz Ruiz anunció** new water rations; at the market, **según Marta**, Leo found a working disc, and **al parecer** the gardening robot sings. The radio confirms; market rumours are only **supuestamente**.",
+      "vocabulary": [
+        {
+          "term": "la noticia",
+          "example": "La noticia de la tormenta de ceniza sonó en todos los radiorrelojes.",
+          "example_meaning": "The news of the ash storm rang out on every wrist radio."
+        },
+        {
+          "term": "el titular",
+          "example": "El titular de hoy: «Reabierta la gasolinera del cruce».",
+          "example_meaning": "Today's headline: 'Crossroads petrol station reopened'."
+        },
+        {
+          "term": "anunciar",
+          "example": "El capataz Ruiz anunció que repartirían agua filtrada el martes.",
+          "example_meaning": "Foreman Ruiz announced they would hand out filtered water on Tuesday."
+        },
+        {
+          "term": "según",
+          "example": "Según Marta, las tuercas valen menos desde ayer.",
+          "example_meaning": "According to Marta, nuts have been worth less since yesterday."
+        },
+        {
+          "term": "al parecer",
+          "example": "Al parecer, el robot jardinero ha aprendido a silbar.",
+          "example_meaning": "Apparently the gardening robot has learnt to whistle."
+        },
+        {
+          "term": "negar",
+          "example": "Leo negó que hubiera vendido discos rotos.",
+          "example_meaning": "Leo denied that he had sold broken discs."
+        },
+        {
+          "term": "denunciar",
+          "example": "Los buscadores denunciaron el precio de la gaseosa Zafiro.",
+          "example_meaning": "The scavengers spoke out against the price of Zafiro soda."
+        },
+        {
+          "term": "el locutor",
+          "meaning": "the radio announcer",
+          "example": "El locutor de la cúpula lee las noticias a las ocho.",
+          "example_meaning": "The Dome's announcer reads the news at eight."
+        },
+        {
+          "term": "el radiorreloj",
+          "meaning": "the wrist radio",
+          "example": "Escuché el boletín en mi radiorreloj.",
+          "example_meaning": "I listened to the bulletin on my wrist radio."
+        },
+        {
+          "term": "el rumor",
+          "meaning": "the rumour",
+          "example": "En el mercado corre el rumor de que alguien ha visto una cabra del páramo azul.",
+          "example_meaning": "There's a rumour at the market that someone has seen a blue wasteland goat."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Radio o rumor",
+          "emoji": "📻",
+          "rule": "The Dome's radio cites a source with según and reports with confirmar or anunciar; market gossip comes with al parecer or supuestamente.",
+          "example": "Al parecer, Marta tiene gaseosa Zafiro fría.",
+          "example_meaning": "Apparently Marta has cold Zafiro soda."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Al parecer, llega una tormenta.",
+          "meaning": "Apparently a storm is coming."
+        },
+        {
+          "text": "El locutor confirmó la noticia.",
+          "meaning": "The announcer confirmed the news.",
+          "note": "New word: el locutor = the radio announcer."
+        },
+        {
+          "text": "Según Leo, la antena funciona otra vez.",
+          "meaning": "According to Leo, the antenna is working again."
+        },
+        {
+          "text": "Marta negó que subiera el precio del agua.",
+          "meaning": "Marta denied that the price of water was going up."
+        },
+        {
+          "text": "El capataz anunció que abrirían la cúpula mañana.",
+          "meaning": "The foreman announced that they would open the Dome tomorrow."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Según el radiorreloj, hay polvo en el páramo.",
+          "meaning": "According to the wrist radio, it's dusty on the plains.",
+          "distractors": [
+            "a"
+          ]
+        },
+        {
+          "text": "Cerrada la antena por la tormenta de ceniza.",
+          "meaning": "Antenna closed because of the ash storm.",
+          "distractors": [
+            "Cerrado"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Los buscadores denunció el precio del agua filtrada.",
+          "wrong": "denunció",
+          "fix": "denunciaron",
+          "why": "Los buscadores is plural: denunciaron."
+        },
+        {
+          "sentence": "Marta negó que las tuercas eran falsas.",
+          "wrong": "eran",
+          "fix": "fueran",
+          "why": "Negar que takes the subjunctive: fueran."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Radio bulletin or market rumour?",
+          "buckets": [
+            "radio bulletin (confirmed)",
+            "market rumour (not proven)"
+          ],
+          "items": [
+            {
+              "text": "el locutor confirmó la tormenta",
+              "bucket": 0
+            },
+            {
+              "text": "al parecer, Leo es rico",
+              "bucket": 1
+            },
+            {
+              "text": "el capataz anunció el horario",
+              "bucket": 0
+            },
+            {
+              "text": "supuestamente, la cabra habla",
+              "bucket": 1
+            },
+            {
+              "text": "según un buscador, queda agua en la gasolinera",
+              "bucket": 1
+            },
+            {
+              "text": "la cúpula confirmó la reparación",
+              "bucket": 0
+            }
+          ],
+          "why": "Confirmar and anunciar report facts; al parecer, supuestamente and según + an unnamed someone are hearsay."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-news-and-media-rustwake-01",
+          "prompt": "El ___ de la cúpula leyó el boletín de las ocho.",
+          "type": "multiple-choice",
+          "options": [
+            "locutor",
+            "titular",
+            "rumor"
+          ],
+          "correct_answer": "locutor",
+          "explanation": "A person reads the bulletin on the radio: el locutor, the announcer.",
+          "hints": [
+            "Who speaks on the radio?"
+          ],
+          "teaches": [
+            "el locutor"
+          ]
+        },
+        {
+          "question_id": "b2-news-and-media-rustwake-02",
+          "prompt": "Los buscadores ___ el precio del agua ante el capataz. (denunciar, preterite: publicly complained about)",
+          "type": "fill-in-blank",
+          "correct_answer": "denunciaron",
+          "explanation": "Denunciar in the preterite, ellos form (los buscadores): denunciaron.",
+          "hints": [
+            "Plural subject, preterite: -aron."
+          ],
+          "teaches": [
+            "denunciar"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b2-news-and-media-conv-rustwake-radio-bulletin",
+          "title": "The radio bulletin",
+          "scenario": "Marta and Leo compare the Dome's radio bulletin with the rumours at the market.",
+          "role_a": "Marta",
+          "role_b": "Leo",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "¿Has oído el boletín del radiorreloj esta mañana?",
+              "meaning": "Did you hear the wrist-radio bulletin this morning?"
+            },
+            {
+              "speaker": "b",
+              "text": "Solo el titular: «Cerrada la antena por una tormenta de ceniza».",
+              "meaning": "Just the headline: 'Antenna closed because of an ash storm'."
+            },
+            {
+              "speaker": "a",
+              "text": "Pues según el locutor, la tormenta llegará esta tarde.",
+              "meaning": "Well, according to the announcer, the storm will arrive this afternoon."
+            },
+            {
+              "speaker": "b",
+              "text": "En el mercado corre el rumor de que el capataz Ruiz va a cerrar la cúpula.",
+              "meaning": "There's a rumour at the market that Foreman Ruiz is going to close the Dome."
+            },
+            {
+              "speaker": "a",
+              "text": "Al parecer, sí. Pero Ruiz negó que faltara agua filtrada.",
+              "meaning": "Apparently so. But Ruiz denied there was any shortage of filtered water."
+            },
+            {
+              "speaker": "b",
+              "text": "¿Y quién lo ha confirmado? Los rumores del mercado nunca citan fuentes.",
+              "meaning": "And who has confirmed it? Market rumours never quote sources."
+            },
+            {
+              "speaker": "a",
+              "text": "La radio. El locutor aseguró que había reservas para un mes.",
+              "meaning": "The radio. The announcer insisted there were supplies for a month."
+            },
+            {
+              "speaker": "b",
+              "text": "Entonces no hace falta comprar gaseosa Zafiro… pero compraré dos, por si acaso.",
+              "meaning": "So there's no need to buy Zafiro soda… but I'll buy two, just in case."
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

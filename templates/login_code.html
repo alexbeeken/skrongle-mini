@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t("auth.code.title") }}{% endblock %}
+{% block content %}
+<section class="narrow" data-testid="login-code" data-method="{{ method }}"{% if method == "sms" && !fallback %} data-status="{{ crate::url("/login/code/status") }}"{% endif %}>
+  <h1>{{ crate::t("auth.code.title") }}</h1>
+  {% if let Some(e) = error %}<p class="alert error" role="alert" data-testid="login-code-error">{{ e }}</p>{% endif %}
+  {% if let Some(n) = notice %}<p class="alert ok-text" role="status" data-testid="login-code-notice">✓ {{ n }}</p>{% endif %}
+  <p class="muted" data-testid="login-code-sent-to">{% if method == "totp" %}{{ crate::t("auth.code.from_app") }}{% else if fallback %}<span data-testid="login-code-fallback">{{ crate::t2("auth.code.fallback", "app", crate::APP_NAME, "to", sent_to) }}</span>{% else if method == "sms" %}{{ crate::t1("auth.code.texted_to", "to", sent_to) }}{% else %}{{ crate::t1("auth.code.emailed_to", "to", sent_to) }}{% endif %}</p>
+  <form method="post" action="{{ crate::url("/login/code") }}" data-testid="login-code-form">
+    <label>{{ crate::t("auth.code.code_label") }}
+      <input type="text" name="code" data-testid="login-code-input" required autofocus inputmode="numeric" pattern="[0-9 ]*" maxlength="9" autocomplete="one-time-code">
+    </label>
+    <button type="submit" class="btn" data-testid="login-code-submit">{{ crate::t("auth.code.submit") }}</button>
+  </form>
+  <div class="login-code-actions">
+    {% if method != "totp" %}
+    <form method="post" action="{{ crate::url("/login/code/resend") }}" class="inline"><button type="submit" class="link-btn small" data-testid="login-code-resend">{{ crate::t("auth.code.resend") }}</button></form>
+    {% endif %}
+    <form method="post" action="{{ crate::url("/login/code/cancel") }}" class="inline"><button type="submit" class="link-btn small" data-testid="login-code-cancel">{{ crate::t("auth.code.cancel") }}</button></form>
+  </div>
+</section>
+{% if dev %}
+<details class="dev-device" open data-testid="login-code-dev">
+  <summary><span class="dev-device-badge">Dev</span> {% if channel() == "totp" %}Your authenticator{% else if channel() == "sms" %}Your phone{% else %}Your inbox{% endif %} <span class="muted small">(the dev {% if channel() == "totp" %}authenticator{% else if channel() == "sms" %}phone{% else %}mailbox{% endif %}, this sign-in only)</span></summary>
+  <iframe src="{{ crate::url("/login/code/device") }}" title="The dev device this sign-in's code went to" data-testid="login-code-dev-frame"></iframe>
+</details>
+{% endif %}
+{% endblock %}
+{% block scripts %}{% if method == "sms" && !fallback %}<script src="{{ crate::routes::asset_url("login_code.js") }}" defer></script>{% endif %}{% endblock %}

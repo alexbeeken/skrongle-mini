@@ -1,0 +1,1160 @@
+{
+  "id": "b2-hypothesis-conditionnel-passe",
+  "slug": "hypothesis-conditionnel-passe",
+  "title": "Hypotheses and regrets: si j'avais su…",
+  "unit": "B2",
+  "group": "Grammar",
+  "order": 14,
+  "summary": "The conditionnel passé for what would have happened, the three si patterns, regrets and reproaches, au cas où and reported rumours.",
+  "focus": "Forming the conditionnel passé and matching tenses in si clauses",
+  "prerequisites": [
+    "b1-conditionnel"
+  ],
+  "content": "## The conditionnel passé\n\nTo say what **would have** happened, use the **conditionnel passé**: **avoir** or **être** in the conditionnel présent + the participle. Être verbs agree with the subject, as in the passé composé.\n\n| | faire | venir |\n|---|---|---|\n| je / j' | aurais fait | serais venu(e) |\n| tu | aurais fait | serais venu(e) |\n| il / elle | aurait fait | serait venu(e) |\n| nous | aurions fait | serions venu(e)s |\n| vous | auriez fait | seriez venu(e)(s) |\n| ils / elles | auraient fait | seraient venu(e)s |\n\n- **J'aurais fait la même chose.** (I would have done the same.)\n- **Elle serait venue avec plaisir.** (She would gladly have come.)\n\n## Si + plus-que-parfait with the conditionnel passé\n\nFor a past that did **not** happen, put the **plus-que-parfait** after **si** and the **conditionnel passé** in the result.\n\n- **Si j'avais su, je serais venu.** (If I had known, I would have come.)\n- **Si tu m'avais appelé, je t'aurais aidé.** (If you had called me, I would have helped you.)\n\nWhen the result is in the present, use the conditionnel présent: **Si j'avais pris le train, je serais à Paris maintenant.** (If I had taken the train, I'd be in Paris now.)\n\nNever put a conditionnel straight after **si**. *si j'aurais su* is a classic mistake.\n\n## The three si patterns side by side\n\n| si + … | result | meaning |\n|---|---|---|\n| présent | futur | real, still possible |\n| imparfait | conditionnel présent | imagined, now |\n| plus-que-parfait | conditionnel passé | imagined, in the past |\n\n- **Si j'ai le temps, je t'aiderai.** (If I have time, I'll help you.)\n- **Si j'avais le temps, je t'aiderais.** (If I had time, I'd help you.)\n- **Si j'avais eu le temps, je t'aurais aidé.** (If I'd had time, I'd have helped you.)\n\nTwo verbs to drill in the conditionnel présent: **savoir** (je **saurais**) and **dire** (je **dirais**). **À ta place, je ne dirais rien.** (In your place, I wouldn't say anything.)\n\n## Regrets, reproaches, au cas où and rumours\n\n- Regret: **j'aurais dû** (I should have), **j'aurais aimé** (I would have liked). **J'aurais dû partir plus tôt.** (I should have left earlier.)\n- Reproach: **tu aurais pu** (you could have). **Tu aurais pu me prévenir !** (You could have warned me!)\n- **Au cas où** (in case) takes the conditionnel: **Prends une veste au cas où il ferait froid.** (Take a jacket in case it's cold.)\n- Rumour: the news uses the conditionnel for facts not yet confirmed. **Le ministre aurait démissionné.** (The minister has reportedly resigned.)",
+  "vocabulary": [
+    {
+      "term": "au cas où",
+      "meaning": "in case",
+      "example": "Je te donne mon numéro au cas où tu aurais un problème.",
+      "example_meaning": "I'm giving you my number in case you have a problem."
+    },
+    {
+      "term": "j'aurais dû",
+      "meaning": "I should have",
+      "example": "J'aurais dû réserver une table.",
+      "example_meaning": "I should have booked a table."
+    },
+    {
+      "term": "tu aurais pu",
+      "meaning": "you could have (reproach)",
+      "example": "Tu aurais pu me dire que tu étais malade !",
+      "example_meaning": "You could have told me you were ill!"
+    },
+    {
+      "term": "j'aurais aimé",
+      "meaning": "I would have liked",
+      "example": "J'aurais aimé te voir avant ton départ.",
+      "example_meaning": "I would have liked to see you before you left."
+    },
+    {
+      "term": "si j'avais su",
+      "meaning": "if I had known",
+      "example": "Si j'avais su, je ne serais pas venu.",
+      "example_meaning": "If I had known, I wouldn't have come."
+    },
+    {
+      "term": "le regret",
+      "meaning": "regret",
+      "example": "Je n'ai aucun regret.",
+      "example_meaning": "I have no regrets."
+    },
+    {
+      "term": "regretter",
+      "meaning": "to regret, to be sorry",
+      "example": "Je regrette de ne pas avoir appris le piano.",
+      "example_meaning": "I regret not having learnt the piano."
+    },
+    {
+      "term": "prévenir",
+      "meaning": "to warn, to let (someone) know",
+      "example": "Préviens-moi si tu es en retard.",
+      "example_meaning": "Let me know if you're late."
+    },
+    {
+      "term": "démissionner",
+      "meaning": "to resign",
+      "example": "Elle a démissionné après dix ans dans l'entreprise.",
+      "example_meaning": "She resigned after ten years with the company."
+    },
+    {
+      "term": "selon",
+      "meaning": "according to",
+      "example": "Selon la météo, il va neiger ce week-end.",
+      "example_meaning": "According to the forecast, it's going to snow this weekend."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-hypothesis-conditionnel-passe-01",
+      "prompt": "Si j'avais su, je ___ venu plus tôt.",
+      "type": "multiple-choice",
+      "options": [
+        "serais",
+        "aurais",
+        "suis"
+      ],
+      "correct_answer": "serais",
+      "explanation": "Si + plus-que-parfait gives conditionnel passé. Venir takes être: je serais venu.",
+      "hints": [
+        "Venir takes être.",
+        "would have means conditionnel"
+      ],
+      "teaches": [
+        "si j'avais su"
+      ]
+    },
+    {
+      "question_id": "b2-hypothesis-conditionnel-passe-02",
+      "prompt": "Si j'étais toi, je ___ quoi dire. (savoir)",
+      "type": "fill-in-blank",
+      "correct_answer": "saurais",
+      "accepted_answers": [
+        "je saurais"
+      ],
+      "explanation": "Si + imparfait gives conditionnel présent. Savoir has the stem saur-: je saurais.",
+      "hints": [
+        "Future stem saur- + imparfait ending.",
+        "je takes -ais"
+      ]
+    },
+    {
+      "question_id": "b2-hypothesis-conditionnel-passe-03",
+      "prompt": "Si j'ai le temps demain, je ___ te voir.",
+      "type": "multiple-choice",
+      "options": [
+        "viendrai",
+        "viendrais",
+        "serais venu"
+      ],
+      "correct_answer": "viendrai",
+      "explanation": "Si + présent gives futur. It is a real possibility. Si j'ai le temps, je viendrai.",
+      "hints": [
+        "Look at the tense after si: présent."
+      ]
+    },
+    {
+      "question_id": "b2-hypothesis-conditionnel-passe-04",
+      "prompt": "Si elle avait pris le train de huit heures, elle ___ déjà là maintenant.",
+      "type": "multiple-choice",
+      "options": [
+        "serait",
+        "sera",
+        "est"
+      ],
+      "correct_answer": "serait",
+      "explanation": "A past condition with a present result: si + plus-que-parfait gives conditionnel présent. 'Maintenant' points at now.",
+      "hints": [
+        "'maintenant': the result is in the present."
+      ]
+    },
+    {
+      "question_id": "b2-hypothesis-conditionnel-passe-05",
+      "prompt": "J'ai raté le bus. ___ partir plus tôt. (I should have left earlier.)",
+      "type": "fill-in-blank",
+      "correct_answer": "J'aurais dû",
+      "accepted_answers": [
+        "aurais dû",
+        "j'aurais du"
+      ],
+      "explanation": "Regret: devoir in the conditionnel passé, j'aurais dû + infinitive.",
+      "hints": [
+        "devoir gives j'aurais …"
+      ],
+      "teaches": [
+        "j'aurais dû"
+      ]
+    },
+    {
+      "question_id": "b2-hypothesis-conditionnel-passe-06",
+      "prompt": "After si, French never uses the conditionnel: 'si j'aurais su' is wrong.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Si takes the présent, the imparfait or the plus-que-parfait. The conditionnel goes in the other half: si j'avais su, je serais venu.",
+      "hints": [
+        "Where does the -rais form go?"
+      ],
+      "teaches": [
+        "si j'avais su"
+      ]
+    },
+    {
+      "question_id": "b2-hypothesis-conditionnel-passe-07",
+      "prompt": "Prends ton manteau au cas où il ___ froid ce soir.",
+      "type": "multiple-choice",
+      "options": [
+        "ferait",
+        "fait",
+        "fasse"
+      ],
+      "correct_answer": "ferait",
+      "explanation": "Au cas où takes the conditionnel: au cas où il ferait froid.",
+      "hints": [
+        "au cas où + conditionnel"
+      ],
+      "teaches": [
+        "au cas où"
+      ]
+    },
+    {
+      "question_id": "b2-hypothesis-conditionnel-passe-08",
+      "prompt": "Selon la radio, le ministre ___ démissionné hier soir.",
+      "type": "fill-in-blank",
+      "correct_answer": "aurait",
+      "accepted_answers": [
+        "aurait"
+      ],
+      "explanation": "The conditionnel passé reports an unconfirmed fact: il aurait démissionné = he has reportedly resigned.",
+      "hints": [
+        "Avoir in the conditionnel, il form."
+      ],
+      "teaches": [
+        "démissionner",
+        "selon"
+      ]
+    },
+    {
+      "question_id": "b2-hypothesis-conditionnel-passe-09",
+      "prompt": "'Le suspect aurait quitté le pays' states as a confirmed fact that he left.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "The conditionnel passé here signals a rumour: 'the suspect has reportedly left the country'. It is not confirmed.",
+      "hints": [
+        "What does the journalistic conditionnel signal?"
+      ]
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "savoir",
+      "meaning": "to know",
+      "set": "conditionnel",
+      "art": [
+        "    .--.    ",
+        "   ( ?? )   ",
+        "    \\  /    ",
+        "     ||     ",
+        "  je saurais"
+      ],
+      "forms": {
+        "je": "saurais",
+        "tu": "saurais",
+        "il": "saurait",
+        "nous": "saurions",
+        "vous": "sauriez",
+        "ils": "sauraient"
+      }
+    },
+    {
+      "item": "dire",
+      "meaning": "to say, to tell",
+      "set": "conditionnel",
+      "art": [
+        " .-----------. ",
+        "( je dirais...)",
+        " '---. .-----' ",
+        "     \\|       "
+      ],
+      "forms": {
+        "je": "dirais",
+        "tu": "dirais",
+        "il": "dirait",
+        "nous": "dirions",
+        "vous": "diriez",
+        "ils": "diraient"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-hypothesis-conditionnel-passe-conv-concert",
+      "title": "The missed concert",
+      "scenario": "Inès missed a concert last night; Thomas went, and he had a ticket for her.",
+      "role_a": "Inès",
+      "role_b": "Thomas",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Alors, ce concert hier soir ? Je n'ai pas pu venir.",
+          "meaning": "So, how was the concert last night? I couldn't come."
+        },
+        {
+          "speaker": "b",
+          "text": "C'était génial ! Si tu étais venue, tu aurais adoré.",
+          "meaning": "It was brilliant! If you'd come, you would have loved it.",
+          "note": "si + plus-que-parfait gives conditionnel passé"
+        },
+        {
+          "speaker": "a",
+          "text": "Je sais… J'aurais dû quitter le bureau plus tôt.",
+          "meaning": "I know… I should have left the office earlier.",
+          "note": "regret"
+        },
+        {
+          "speaker": "b",
+          "text": "Tu aurais pu me prévenir, je t'aurais gardé une place.",
+          "meaning": "You could have warned me, I would have kept you a seat.",
+          "note": "reproach"
+        },
+        {
+          "speaker": "a",
+          "text": "Pardon. Si j'avais su que tu avais un billet pour moi, je serais venue en courant.",
+          "meaning": "Sorry. If I'd known you had a ticket for me, I'd have come running."
+        },
+        {
+          "speaker": "b",
+          "text": "La prochaine fois, je t'enverrai un message au cas où tu oublierais.",
+          "meaning": "Next time I'll send you a message in case you forget.",
+          "note": "au cas où + conditionnel"
+        },
+        {
+          "speaker": "a",
+          "text": "Bonne idée. Au fait, le chanteur aurait annulé sa tournée, c'est vrai ?",
+          "meaning": "Good idea. By the way, the singer has apparently cancelled his tour, is that true?",
+          "note": "rumour"
+        },
+        {
+          "speaker": "b",
+          "text": "Selon la radio, oui. Il serait malade.",
+          "meaning": "According to the radio, yes. He's said to be ill."
+        },
+        {
+          "speaker": "a",
+          "text": "Quel dommage ! Si je l'avais vu hier, je n'aurais aucun regret aujourd'hui.",
+          "meaning": "What a shame! If I'd seen him yesterday, I'd have no regrets today.",
+          "note": "past condition, present result"
+        },
+        {
+          "speaker": "b",
+          "text": "Si sa tournée reprend, on ira ensemble, promis.",
+          "meaning": "If his tour starts again, we'll go together, I promise.",
+          "note": "si + présent gives futur"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Si nous avions su, nous serions partis.",
+      "meaning": "If we had known, we would have left."
+    },
+    {
+      "text": "Elle aurait aimé voir la mer.",
+      "meaning": "She would have liked to see the sea."
+    },
+    {
+      "text": "J'aurais dû écouter mes parents.",
+      "meaning": "I should have listened to my parents.",
+      "note": "Regret: j'aurais dû + infinitive."
+    },
+    {
+      "text": "Si tu viens samedi, on ira au cinéma.",
+      "meaning": "If you come on Saturday, we'll go to the cinema.",
+      "note": "si + présent gives futur"
+    },
+    {
+      "text": "Si j'avais plus d'argent, j'achèterais une maison.",
+      "meaning": "If I had more money, I'd buy a house.",
+      "note": "si + imparfait gives conditionnel présent"
+    },
+    {
+      "text": "Prends ton parapluie au cas où il pleuvrait cet après-midi.",
+      "meaning": "Take your umbrella in case it rains this afternoon.",
+      "note": "New word: le parapluie = umbrella."
+    },
+    {
+      "text": "Selon le journal, l'incendie aurait commencé dans la cuisine.",
+      "meaning": "According to the paper, the fire apparently started in the kitchen.",
+      "note": "New word: l'incendie = the fire."
+    },
+    {
+      "text": "Si tu avais pris ton billet plus tôt, tu aurais payé moins cher.",
+      "meaning": "If you had bought your ticket earlier, you would have paid less.",
+      "note": "New word: le billet = the ticket."
+    }
+  ],
+  "guide": [
+    {
+      "section": "The conditionnel passé"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "section": "Si + plus-que-parfait"
+    },
+    {
+      "question": "b2-hypothesis-conditionnel-passe-01"
+    },
+    {
+      "question": "b2-hypothesis-conditionnel-passe-04"
+    },
+    {
+      "question": "b2-hypothesis-conditionnel-passe-06"
+    },
+    {
+      "section": "The three si patterns"
+    },
+    {
+      "question": "b2-hypothesis-conditionnel-passe-03"
+    },
+    {
+      "question": "b2-hypothesis-conditionnel-passe-02"
+    },
+    {
+      "tip": "Si is never followed by a -rais form: no 'si j'aurais'. The conditionnel always goes in the other half of the sentence."
+    },
+    {
+      "section": "Regrets"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-hypothesis-conditionnel-passe-05"
+    },
+    {
+      "question": "b2-hypothesis-conditionnel-passe-07"
+    },
+    {
+      "question": "b2-hypothesis-conditionnel-passe-08"
+    },
+    {
+      "question": "b2-hypothesis-conditionnel-passe-09"
+    },
+    {
+      "concept": {
+        "title": "A si clause in disguise",
+        "markdown": "**Sans**, **avec** or **à ta place** can stand in for a whole si clause: **Sans toi, je n'aurais jamais réussi.** (Without you, I would never have made it.) **À ta place, j'aurais refusé.** (In your place, I'd have said no.)"
+      }
+    }
+  ],
+  "sprint": {
+    "icon": "🔀",
+    "bites": [
+      {
+        "title": "Would have done",
+        "emoji": "🔙",
+        "rule": "Conditionnel passé = avoir or être in the conditionnel + participle: j'aurais fait, elle serait venue. Être verbs agree as in the passé composé.",
+        "example": "Nous serions venus avec plaisir.",
+        "example_meaning": "We would gladly have come."
+      },
+      {
+        "title": "Si + plus-que-parfait",
+        "emoji": "🕰️",
+        "rule": "An unreal past: si + plus-que-parfait, then the conditionnel passé. Never a conditionnel right after si.",
+        "example": "Si j'avais su, je serais venu.",
+        "example_meaning": "If I had known, I would have come."
+      },
+      {
+        "title": "Three si patterns",
+        "emoji": "🧮",
+        "rule": "si + présent gives futur; si + imparfait gives conditionnel; si + plus-que-parfait gives conditionnel passé.",
+        "example": "Si j'avais le temps, je lirais plus.",
+        "example_meaning": "If I had time, I would read more."
+      },
+      {
+        "title": "Regrets and rumours",
+        "emoji": "📰",
+        "rule": "J'aurais dû, tu aurais pu: regret and reproach. In the news, the conditionnel passé means 'reportedly': il aurait démissionné.",
+        "example": "Le directeur aurait démissionné.",
+        "example_meaning": "The director has reportedly resigned."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which si pattern?",
+        "buckets": [
+          "si + présent → futur",
+          "si + imparfait → conditionnel",
+          "si + plus-que-parfait → cond. passé"
+        ],
+        "items": [
+          {
+            "text": "Si tu viens, on dînera.",
+            "bucket": 0
+          },
+          {
+            "text": "Si j'avais une voiture, je partirais.",
+            "bucket": 1
+          },
+          {
+            "text": "Si elle avait su, elle serait venue.",
+            "bucket": 2
+          },
+          {
+            "text": "S'il pleut, je resterai.",
+            "bucket": 0
+          },
+          {
+            "text": "Si nous étions riches, nous voyagerions.",
+            "bucket": 1
+          },
+          {
+            "text": "Si tu m'avais appelé, j'aurais répondu.",
+            "bucket": 2
+          }
+        ],
+        "why": "The tense after si fixes the tense of the result: présent gives futur, imparfait gives conditionnel, plus-que-parfait gives conditionnel passé."
+      },
+      {
+        "title": "Regret, reproach or rumour?",
+        "buckets": [
+          "regret",
+          "reproach",
+          "rumour"
+        ],
+        "items": [
+          {
+            "text": "J'aurais dû étudier.",
+            "bucket": 0
+          },
+          {
+            "text": "Tu aurais pu m'aider !",
+            "bucket": 1
+          },
+          {
+            "text": "Le maire aurait menti.",
+            "bucket": 2
+          },
+          {
+            "text": "J'aurais aimé partir.",
+            "bucket": 0
+          },
+          {
+            "text": "Vous auriez dû me prévenir !",
+            "bucket": 1
+          },
+          {
+            "text": "L'acteur aurait quitté Paris.",
+            "bucket": 2
+          }
+        ],
+        "why": "About yourself it's a regret; aimed at someone else it's a reproach; reported news without proof is a rumour."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Si j'aurais su, je serais venu.",
+        "wrong": "j'aurais",
+        "fix": "j'avais",
+        "why": "After si, the plus-que-parfait: si j'avais su."
+      },
+      {
+        "sentence": "Si elle avait pris le train, elle aurait arrivée à l'heure.",
+        "wrong": "aurait",
+        "fix": "serait",
+        "why": "Arriver takes être: elle serait arrivée."
+      },
+      {
+        "sentence": "Si tu viens demain, nous irions au parc.",
+        "wrong": "irions",
+        "fix": "irons",
+        "why": "si + présent gives futur: nous irons."
+      },
+      {
+        "sentence": "Prends une veste au cas où il fasse froid.",
+        "wrong": "fasse",
+        "fix": "ferait",
+        "why": "Au cas où takes the conditionnel: il ferait."
+      },
+      {
+        "sentence": "Si nous avions le temps, nous voyagerons plus.",
+        "wrong": "voyagerons",
+        "fix": "voyagerions",
+        "why": "si + imparfait gives conditionnel présent: nous voyagerions."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Si j'avais su, je serais venu.",
+        "meaning": "If I had known, I would have come.",
+        "distractors": [
+          "aurais"
+        ]
+      },
+      {
+        "text": "Tu aurais dû me le dire.",
+        "meaning": "You should have told me.",
+        "distractors": [
+          "devrais"
+        ]
+      },
+      {
+        "text": "Elle serait partie sans nous.",
+        "meaning": "She would have left without us.",
+        "distractors": [
+          "aurait"
+        ]
+      },
+      {
+        "text": "Au cas où tu aurais faim, voici un sandwich.",
+        "meaning": "In case you're hungry, here's a sandwich.",
+        "distractors": [
+          "as"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🪞",
+      "content": "## Les hypothèses à Eldmark\n\nAfter a failed quest, every hero has regrets: **Si j'avais pris le bouclier, j'aurais gagné.** The guild passes on rumours: **le roi aurait quitté Highgate**. And the mage packs a potion **au cas où** the dragon **se réveillerait**. The same si patterns and the same conditionnel passé apply.",
+      "vocabulary": [
+        {
+          "term": "si j'avais su",
+          "example": "Si j'avais su, je n'aurais pas ouvert ce coffre.",
+          "example_meaning": "If I had known, I wouldn't have opened that chest."
+        },
+        {
+          "term": "j'aurais dû",
+          "example": "J'aurais dû prendre mon bouclier.",
+          "example_meaning": "I should have taken my shield."
+        },
+        {
+          "term": "tu aurais pu",
+          "example": "Tu aurais pu m'aider contre l'orc !",
+          "example_meaning": "You could have helped me against the orc!"
+        },
+        {
+          "term": "au cas où",
+          "example": "Prends une potion au cas où le dragon se réveillerait.",
+          "example_meaning": "Take a potion in case the dragon wakes up."
+        },
+        {
+          "term": "selon",
+          "example": "Selon la guilde, le roi aurait quitté Highgate.",
+          "example_meaning": "According to the guild, the king has reportedly left Highgate."
+        },
+        {
+          "term": "le regret",
+          "example": "Borin n'a qu'un regret : le butin perdu.",
+          "example_meaning": "Borin has only one regret: the lost loot."
+        },
+        {
+          "term": "le bouclier",
+          "meaning": "shield",
+          "example": "Mon bouclier est lourd.",
+          "example_meaning": "My shield is heavy."
+        },
+        {
+          "term": "la potion",
+          "meaning": "potion",
+          "example": "Cette potion rend invisible.",
+          "example_meaning": "This potion makes you invisible."
+        },
+        {
+          "term": "le butin",
+          "meaning": "loot",
+          "example": "Le butin est caché dans le donjon.",
+          "example_meaning": "The loot is hidden in the dungeon."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Regrets d'aventurier",
+          "emoji": "🪞",
+          "rule": "Si + plus-que-parfait, then the conditionnel passé: what would have happened. J'aurais dû, tu aurais pu: regret and reproach.",
+          "example": "Si Nym avait vu le piège, elle l'aurait évité.",
+          "example_meaning": "If Nym had seen the trap, she would have avoided it."
+        }
+      ],
+      "listening": [
+        {
+          "text": "J'aurais dû écouter la mage.",
+          "meaning": "I should have listened to the mage."
+        },
+        {
+          "text": "Si tu avais attaqué, nous aurions gagné.",
+          "meaning": "If you had attacked, we would have won."
+        },
+        {
+          "text": "Le dragon aurait quitté sa grotte.",
+          "meaning": "The dragon has reportedly left its cave.",
+          "note": "New word: la grotte = the cave."
+        },
+        {
+          "text": "Tu aurais pu m'attendre, Borin !",
+          "meaning": "You could have waited for me, Borin!"
+        },
+        {
+          "text": "Si Séla était venue, la quête aurait réussi.",
+          "meaning": "If Séla had come, the quest would have succeeded."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Si j'avais su, je serais resté à Highgate.",
+          "meaning": "If I had known, I would have stayed in Highgate.",
+          "distractors": [
+            "aurais"
+          ]
+        },
+        {
+          "text": "La mage aurait trouvé le parchemin.",
+          "meaning": "The mage has reportedly found the scroll.",
+          "distractors": [
+            "serait"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Si le paladin aurait vu l'orc, il l'aurait arrêté.",
+          "wrong": "aurait",
+          "fix": "avait",
+          "why": "After si, the plus-que-parfait: si le paladin avait vu."
+        },
+        {
+          "sentence": "Si nous étions partis plus tôt, nous aurions arrivés avant la nuit.",
+          "wrong": "aurions",
+          "fix": "serions",
+          "why": "Arriver takes être: nous serions arrivés."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Now or in the past?",
+          "buckets": [
+            "si + imparfait → conditionnel",
+            "si + plus-que-parfait → cond. passé"
+          ],
+          "items": [
+            {
+              "text": "Si j'avais une épée, je combattrais.",
+              "bucket": 0
+            },
+            {
+              "text": "Si j'avais eu une épée, j'aurais combattu.",
+              "bucket": 1
+            },
+            {
+              "text": "Si l'elfe était là, elle nous guiderait.",
+              "bucket": 0
+            },
+            {
+              "text": "Si la mage était venue, nous aurions gagné.",
+              "bucket": 1
+            },
+            {
+              "text": "Si le donjon était ouvert, nous entrerions.",
+              "bucket": 0
+            },
+            {
+              "text": "Si Borin avait trouvé la clé, il serait entré.",
+              "bucket": 1
+            }
+          ],
+          "why": "An imagined present takes si + imparfait and the conditionnel; an imagined past takes si + plus-que-parfait and the conditionnel passé."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-hypothesis-conditionnel-passe-realm-01",
+          "prompt": "Si nous avions écouté la prêtresse, nous ___ le dragon.",
+          "type": "multiple-choice",
+          "options": [
+            "aurions évité",
+            "éviterions",
+            "avions évité"
+          ],
+          "correct_answer": "aurions évité",
+          "explanation": "Si + plus-que-parfait gives conditionnel passé: nous aurions évité.",
+          "hints": [
+            "An imagined past takes the conditionnel passé."
+          ]
+        },
+        {
+          "question_id": "b2-hypothesis-conditionnel-passe-realm-02",
+          "prompt": "Tu ___ partager le butin ! (pouvoir, reproach)",
+          "type": "fill-in-blank",
+          "correct_answer": "aurais pu",
+          "accepted_answers": [
+            "tu aurais pu"
+          ],
+          "explanation": "A reproach: pouvoir in the conditionnel passé, tu aurais pu.",
+          "hints": [
+            "tu aurais …"
+          ],
+          "teaches": [
+            "tu aurais pu",
+            "le butin"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🌦️",
+      "content": "## Les hypothèses à Meadowbrook\n\nAutumn brings farm regrets: **Si j'avais arrosé les fraises, elles n'auraient pas séché.** Neighbours tease: **tu aurais pu planter plus tôt !** Rumours fly at the tavern: **la mairesse aurait gagné le concours**. And you take a basket **au cas où** Rosa **aurait** new seeds.",
+      "vocabulary": [
+        {
+          "term": "j'aurais dû",
+          "example": "J'aurais dû planter le maïs en avril.",
+          "example_meaning": "I should have planted the corn in April."
+        },
+        {
+          "term": "tu aurais pu",
+          "example": "Tu aurais pu m'aider à récolter !",
+          "example_meaning": "You could have helped me harvest!"
+        },
+        {
+          "term": "au cas où",
+          "example": "Prends le panier au cas où Rosa aurait des graines.",
+          "example_meaning": "Take the basket in case Rosa has seeds."
+        },
+        {
+          "term": "si j'avais su",
+          "example": "Si j'avais su, j'aurais planté des citrouilles.",
+          "example_meaning": "If I had known, I would have planted pumpkins."
+        },
+        {
+          "term": "selon",
+          "example": "Selon Léo, la rivière aurait débordé cette nuit.",
+          "example_meaning": "According to Léo, the river apparently overflowed last night."
+        },
+        {
+          "term": "j'aurais aimé",
+          "example": "J'aurais aimé gagner le concours de tartes.",
+          "example_meaning": "I would have liked to win the pie contest."
+        },
+        {
+          "term": "la graine",
+          "meaning": "seed",
+          "example": "Rosa vend des graines de fraise.",
+          "example_meaning": "Rosa sells strawberry seeds."
+        },
+        {
+          "term": "le concours",
+          "meaning": "contest",
+          "example": "Le concours a lieu à la fête des récoltes.",
+          "example_meaning": "The contest takes place at the harvest festival."
+        },
+        {
+          "term": "sécher",
+          "meaning": "to dry (up)",
+          "example": "Sans pluie, les fleurs sèchent.",
+          "example_meaning": "Without rain, the flowers dry up."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Regrets de fermière",
+          "emoji": "🌦️",
+          "rule": "Si + plus-que-parfait gives conditionnel passé for a past that didn't happen. Si + présent gives futur for what can still happen.",
+          "example": "Si j'avais arrosé, les fraises auraient poussé.",
+          "example_meaning": "If I had watered, the strawberries would have grown."
+        }
+      ],
+      "listening": [
+        {
+          "text": "J'aurais dû arroser hier.",
+          "meaning": "I should have watered yesterday."
+        },
+        {
+          "text": "Si tu avais planté plus tôt, tu aurais récolté plus.",
+          "meaning": "If you had planted earlier, you would have harvested more."
+        },
+        {
+          "text": "La vache de Léo aurait gagné le concours.",
+          "meaning": "Léo's cow has reportedly won the contest.",
+          "note": "New word: le concours = the contest."
+        },
+        {
+          "text": "S'il pleut demain, je n'arroserai pas.",
+          "meaning": "If it rains tomorrow, I won't water.",
+          "note": "si + présent gives futur"
+        },
+        {
+          "text": "Si j'avais su, j'aurais apporté un panier.",
+          "meaning": "If I had known, I would have brought a basket.",
+          "note": "New word: le panier = the basket."
+        }
+      ],
+      "builds": [
+        {
+          "text": "J'aurais dû vendre mes fraises au marché.",
+          "meaning": "I should have sold my strawberries at the market.",
+          "distractors": [
+            "devrais"
+          ]
+        },
+        {
+          "text": "Si Léo avait pêché, nous aurions mangé du poisson.",
+          "meaning": "If Léo had gone fishing, we would have eaten fish.",
+          "distractors": [
+            "avions"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Si j'aurais arrosé, les fleurs auraient poussé.",
+          "wrong": "j'aurais",
+          "fix": "j'avais",
+          "why": "After si, the plus-que-parfait: si j'avais arrosé."
+        },
+        {
+          "sentence": "Si tu viens à la fête, tu verrais Rosa.",
+          "wrong": "verrais",
+          "fix": "verras",
+          "why": "si + présent gives futur: tu verras."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Which si pattern on the farm?",
+          "buckets": [
+            "si + présent → futur",
+            "si + imparfait → conditionnel",
+            "si + plus-que-parfait → cond. passé"
+          ],
+          "items": [
+            {
+              "text": "S'il fait beau, je pêcherai.",
+              "bucket": 0
+            },
+            {
+              "text": "Si j'avais une vache, je ferais du fromage.",
+              "bucket": 1
+            },
+            {
+              "text": "Si j'avais planté, j'aurais récolté.",
+              "bucket": 2
+            },
+            {
+              "text": "Si Rosa ouvre, j'achèterai des graines.",
+              "bucket": 0
+            },
+            {
+              "text": "Si la ferme était plus grande, j'aurais des moutons.",
+              "bucket": 1
+            },
+            {
+              "text": "Si Léo était venu, nous aurions dansé.",
+              "bucket": 2
+            }
+          ],
+          "why": "The tense after si fixes the result: présent gives futur, imparfait gives conditionnel, plus-que-parfait gives conditionnel passé."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-hypothesis-conditionnel-passe-meadowbrook-01",
+          "prompt": "Si j'avais arrosé mes fraises, elles ___.",
+          "type": "multiple-choice",
+          "options": [
+            "n'auraient pas séché",
+            "n'avaient pas séché",
+            "ne sèchent pas"
+          ],
+          "correct_answer": "n'auraient pas séché",
+          "explanation": "Si + plus-que-parfait gives conditionnel passé: elles n'auraient pas séché.",
+          "hints": [
+            "would have means conditionnel passé"
+          ],
+          "teaches": [
+            "sécher"
+          ]
+        },
+        {
+          "question_id": "b2-hypothesis-conditionnel-passe-meadowbrook-02",
+          "prompt": "Prends ton panier au cas où Rosa ___ des graines.",
+          "type": "multiple-choice",
+          "options": [
+            "aurait",
+            "a",
+            "ait"
+          ],
+          "correct_answer": "aurait",
+          "explanation": "Au cas où takes the conditionnel: au cas où Rosa aurait des graines.",
+          "hints": [
+            "au cas où + conditionnel"
+          ],
+          "teaches": [
+            "au cas où",
+            "la graine"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🕹️",
+      "content": "## Les hypothèses à Rustwake\n\nOut in the rust desert, hindsight hurts: **Si j'avais pris l'armure, la tempête ne m'aurait pas arrêté.** The radio spreads rumours: **le contremaître aurait démissionné**. And you pack filtered water **au cas où** the storm **reviendrait**. The same si patterns and the same conditionnel passé apply.",
+      "vocabulary": [
+        {
+          "term": "j'aurais dû",
+          "example": "J'aurais dû prendre de l'eau filtrée.",
+          "example_meaning": "I should have taken filtered water."
+        },
+        {
+          "term": "tu aurais pu",
+          "example": "Tu aurais pu réparer l'antenne !",
+          "example_meaning": "You could have fixed the antenna!"
+        },
+        {
+          "term": "au cas où",
+          "example": "Garde des écrous au cas où Marta aurait du tonique.",
+          "example_meaning": "Keep some nuts in case Marta has tonic."
+        },
+        {
+          "term": "selon",
+          "example": "Selon la radio, Ruiz aurait quitté le Dôme.",
+          "example_meaning": "According to the radio, Ruiz has reportedly left the Dome."
+        },
+        {
+          "term": "prévenir",
+          "example": "Préviens-moi s'il y a une tempête de cendres.",
+          "example_meaning": "Let me know if there's an ash storm."
+        },
+        {
+          "term": "démissionner",
+          "example": "Le contremaître aurait démissionné hier.",
+          "example_meaning": "The foreman reportedly resigned yesterday."
+        },
+        {
+          "term": "la radio-montre",
+          "meaning": "wrist radio",
+          "example": "Ma radio-montre ne marche plus.",
+          "example_meaning": "My wrist radio doesn't work any more."
+        },
+        {
+          "term": "l'eau filtrée",
+          "meaning": "filtered water (f)",
+          "example": "L'eau filtrée coûte cher au marché.",
+          "example_meaning": "Filtered water is expensive at the market."
+        },
+        {
+          "term": "l'armure de ferraille",
+          "meaning": "scrap armour (f)",
+          "example": "Mon armure de ferraille est lourde.",
+          "example_meaning": "My scrap armour is heavy."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Si seulement…",
+          "emoji": "🕹️",
+          "rule": "Si + plus-que-parfait gives conditionnel passé: what would have happened out there. On the radio, the conditionnel passé means 'reportedly'.",
+          "example": "Si j'avais pris l'armure, j'aurais traversé la tempête.",
+          "example_meaning": "If I had taken the armour, I would have got through the storm."
+        }
+      ],
+      "listening": [
+        {
+          "text": "J'aurais dû rester au Dôme.",
+          "meaning": "I should have stayed in the Dome."
+        },
+        {
+          "text": "Si tu avais réparé la radio, on t'aurait entendu.",
+          "meaning": "If you had fixed the radio, we would have heard you."
+        },
+        {
+          "text": "Un scarabée géant aurait attaqué le marché.",
+          "meaning": "A giant beetle has reportedly attacked the market.",
+          "note": "New word: le scarabée géant = the giant beetle."
+        },
+        {
+          "text": "Tu aurais pu partager ton eau !",
+          "meaning": "You could have shared your water!"
+        },
+        {
+          "text": "Si Marta était venue, nous aurions échangé des écrous.",
+          "meaning": "If Marta had come, we would have traded nuts."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Si j'avais su, je serais resté au village.",
+          "meaning": "If I had known, I would have stayed in the village.",
+          "distractors": [
+            "aurais"
+          ]
+        },
+        {
+          "text": "Le contremaître aurait quitté le Dôme.",
+          "meaning": "The foreman has reportedly left the Dome.",
+          "distractors": [
+            "serait"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Si tu aurais filtré l'eau, tu ne serais pas malade.",
+          "wrong": "aurais",
+          "fix": "avais",
+          "why": "After si, the plus-que-parfait: si tu avais filtré."
+        },
+        {
+          "sentence": "Prends ton armure au cas où il y a une tempête.",
+          "wrong": "a",
+          "fix": "aurait",
+          "why": "Au cas où takes the conditionnel: au cas où il y aurait."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Regret, reproach or rumour in the desert?",
+          "buckets": [
+            "regret",
+            "reproach",
+            "rumour"
+          ],
+          "items": [
+            {
+              "text": "J'aurais dû garder mes écrous.",
+              "bucket": 0
+            },
+            {
+              "text": "Tu aurais pu réparer la radio !",
+              "bucket": 1
+            },
+            {
+              "text": "Ruiz aurait quitté le Dôme.",
+              "bucket": 2
+            },
+            {
+              "text": "J'aurais aimé explorer l'antenne.",
+              "bucket": 0
+            },
+            {
+              "text": "Vous auriez dû me prévenir !",
+              "bucket": 1
+            },
+            {
+              "text": "Un robot aurait volé l'eau.",
+              "bucket": 2
+            }
+          ],
+          "why": "About yourself it's a regret; aimed at someone else it's a reproach; unconfirmed news on the radio is a rumour."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-hypothesis-conditionnel-passe-rustwake-01",
+          "prompt": "Selon la radio-montre, le contremaître ___ le Dôme hier soir.",
+          "type": "multiple-choice",
+          "options": [
+            "aurait quitté",
+            "quitterait",
+            "avait quitté"
+          ],
+          "correct_answer": "aurait quitté",
+          "explanation": "An unconfirmed past fact takes the conditionnel passé: il aurait quitté = he reportedly left.",
+          "hints": [
+            "A rumour about the past."
+          ],
+          "teaches": [
+            "selon",
+            "la radio-montre"
+          ]
+        },
+        {
+          "question_id": "b2-hypothesis-conditionnel-passe-rustwake-02",
+          "prompt": "Si j'avais pris de l'eau filtrée, je ne ___ pas malade maintenant. (être)",
+          "type": "fill-in-blank",
+          "correct_answer": "serais",
+          "accepted_answers": [
+            "serais"
+          ],
+          "explanation": "A past condition with a present result ('maintenant'): si + plus-que-parfait gives conditionnel présent, je ne serais pas malade.",
+          "hints": [
+            "'maintenant' means a result in the present."
+          ],
+          "teaches": [
+            "l'eau filtrée"
+          ]
+        }
+      ]
+    }
+  }
+}

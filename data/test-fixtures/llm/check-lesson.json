@@ -1,0 +1,81 @@
+{
+  "_comment": "check-lesson replies (a lesson a fact check reads for errors, #1238), for the course the generate-outline 'default' fixture makes. The key is the lesson slug. 'what-is-a-fraction' comes back with one fix and its why line; 'simplifying' comes back unchanged (\"lesson\": null) with one Check line; '*' (any other lesson) comes back unchanged with no lines. See docs/testing.md.",
+  "replies": {
+    "what-is-a-fraction": {
+      "reply": {
+        "lesson": {
+          "id": "ignored",
+          "slug": "{{key}}",
+          "title": "ignored",
+          "content": "## The idea\n\nA fraction names equal parts of a whole: 3/4 is three of four equal parts.\n\n## Worked example\n\n2/4 = 1/2, because both top and bottom divide by 2.\n\n## Check\n\nMultiply back to check your answer.",
+          "vocabulary": [
+            {
+              "term": "numerator",
+              "meaning": "the number on top of a fraction",
+              "example": "In 3/4 the numerator is 3.",
+              "example_meaning": "3 of the 4 parts are taken"
+            },
+            {
+              "term": "denominator",
+              "meaning": "the number on the bottom of a fraction",
+              "example": "In 3/4 the denominator is 4.",
+              "example_meaning": "the whole has 4 parts"
+            }
+          ],
+          "quiz": [
+            {
+              "question_id": "{{key}}-01",
+              "prompt": "Simplify 2/4 and give it as a decimal.",
+              "type": "numeric",
+              "correct_answer": "0.5",
+              "explanation": "2/4 = 1/2 = 0.5",
+              "hint": "Divide top and bottom by 2."
+            },
+            {
+              "question_id": "{{key}}-02",
+              "prompt": "Which number is the denominator of 3/7?",
+              "type": "multiple-choice",
+              "options": [
+                "3",
+                "7",
+                "10"
+              ],
+              "correct_answer": "7",
+              "explanation": "The bottom number.",
+              "teaches": [
+                "denominator"
+              ]
+            },
+            {
+              "question_id": "{{key}}-03",
+              "prompt": "1/2 is bigger than 1/3.",
+              "type": "true-false",
+              "correct_answer": "true",
+              "explanation": "Halves are bigger pieces than thirds."
+            }
+          ]
+        },
+        "why": [
+          "Changed \"3 parts are taken\" to \"3 of the 4 parts are taken\": the numerator counts parts out of the denominator."
+        ],
+        "check": []
+      }
+    },
+    "simplifying": {
+      "reply": {
+        "lesson": null,
+        "why": [],
+        "check": [
+          "Check: \"Multiply back to check your answer\" is a habit, not a rule; left as it is."
+        ]
+      }
+    },
+    "*": {
+      "reply": {
+        "lesson": null,
+        "why": [],
+        "check": []
+      }
+    }
+  }
+}

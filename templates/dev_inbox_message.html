@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Dev: {{ m.subject }}{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ crate::routes::asset_url("devbox.css") }}">
+<section class="narrow wide" data-testid="dev-inbox-message" data-id="{{ m.id }}">
+  <div class="devbox-bar">
+    <a href="{{ crate::url("/dev/inbox") }}" data-testid="dev-inbox-back">← Inbox</a>
+    <form method="post" action="{{ crate::url("/dev/inbox/") }}{{ m.id }}"><input type="hidden" name="do" value="{% if archived %}unarchive{% else %}archive{% endif %}"><button type="submit" class="btn ghost small" data-testid="dev-inbox-message-archive">{% if archived %}Move back{% else %}Archive{% endif %}</button></form>
+    <form method="post" action="{{ crate::url("/dev/inbox/") }}{{ m.id }}"><input type="hidden" name="do" value="delete"><button type="submit" class="btn ghost small" data-testid="dev-inbox-message-delete">Delete</button></form>
+  </div>
+  <h1 data-testid="dev-inbox-subject">{{ m.subject }}</h1>
+  <table class="small" data-testid="dev-inbox-headers">
+    <tr><th>From</th><td>{{ m.from }}</td></tr>
+    <tr><th>To</th><td data-testid="dev-inbox-to-header">{{ m.to }}</td></tr>
+    <tr><th>Date</th><td>{{ m.date }}</td></tr>
+    <tr><th>Envelope</th><td><code>{{ m.envelope_from }}</code> → <code>{{ m.envelope_to.join(", ") }}</code></td></tr>
+    <tr><th>Message-ID</th><td><code>{{ m.message_id }}</code>{% if let Some(o) = m.outbox_id %} (outbox #{{ o }}){% endif %}</td></tr>
+  </table>
+  {% if !links.is_empty() %}
+  <h2>Links</h2>
+  <ul>{% for l in links %}<li><a href="{{ l }}" data-testid="dev-inbox-link">{{ l }}</a></li>{% endfor %}</ul>
+  {% endif %}
+  {% if !srcdoc.is_empty() %}
+  <h2>HTML</h2>
+  <iframe title="The message's HTML part" sandbox="allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation" srcdoc="{{ srcdoc }}" style="width:100%;height:24rem;border:1px solid var(--line);border-radius:6px;background:#fff" data-testid="dev-inbox-html"></iframe>
+  {% endif %}
+  {% if !m.text.is_empty() %}
+  <details{% if srcdoc.is_empty() %} open{% endif %}><summary>Text</summary><pre class="small" style="white-space:pre-wrap" data-testid="dev-inbox-text">{{ m.text }}</pre></details>
+  {% endif %}
+  <details><summary>Source</summary><p class="small"><a href="{{ crate::url("/dev/inbox/") }}{{ m.id }}/raw" data-testid="dev-inbox-raw">As plain text</a></p><pre class="small" style="white-space:pre-wrap">{{ m.raw }}</pre></details>
+</section>
+{% endblock %}

@@ -1,0 +1,1255 @@
+{
+  "id": "a1-tener",
+  "slug": "tener-have-age-needs",
+  "title": "Tener: to have, age, feelings and obligation",
+  "unit": "A1",
+  "group": "Grammar",
+  "order": 22,
+  "summary": "Tengo, tienes, tiene… and the many things Spanish 'has' instead of 'is'.",
+  "focus": "Conjugation of tener; tener + años / hambre / que + infinitive; necesitar",
+  "prerequisites": [
+    "a1-regular-er-ir-present"
+  ],
+  "content": "## Tener is irregular\n\n| | tener (to have) |\n|---|---|\n| yo | **tengo** |\n| tú | tienes |\n| él / ella / usted | tiene |\n| nosotros/as | tenemos |\n| vosotros/as | tenéis |\n| ellos / ellas / ustedes | tienen |\n\nThe **yo** form has a **g** (*tengo*), and *e* becomes *ie* in three forms (tú, él/ella/usted, ellos/ellas/ustedes). *Nosotros* and *vosotros* are regular.\n\n## Possession\n\n- *Tengo dos hermanos.* (I have two brothers.)\n- *¿Tienes coche?* (Do you have a car? There is no article for the general idea.)\n\n## Age, hunger, cold: things you 'have'\n\nSpanish uses **tener + noun** where English uses *to be*:\n\n| Spanish | English |\n|---|---|\n| tener … años | to be … years old |\n| tener hambre / sed | to be hungry / thirsty |\n| tener frío / calor | to be cold / hot |\n| tener sueño | to be sleepy |\n| tener miedo | to be afraid |\n| tener prisa | to be in a hurry |\n| tener razón | to be right |\n\n- *Tengo veinte años.* (I'm twenty.)\n- *¿Tienes hambre?* (Are you hungry?)\n- *Tenemos mucho frío.* (We're very cold. Use *mucho*, not *muy*, because *frío* is a noun here.)\n\n## Tener que: obligation\n\n**tener que + infinitive** means to have to: *Tengo que trabajar.* (I have to work.) *Tienes que estudiar más.* (You have to study more.)\n\n**Necesitar** (to need) is a regular -ar verb: *Necesito un café. Necesitamos tiempo.*",
+  "vocabulary": [
+    {
+      "term": "tener",
+      "meaning": "to have",
+      "example": "Tengo dos hermanos.",
+      "example_meaning": "I have two brothers."
+    },
+    {
+      "term": "tener … años",
+      "meaning": "to be … years old",
+      "example": "Tiene treinta años.",
+      "example_meaning": "He is thirty years old."
+    },
+    {
+      "term": "tener hambre",
+      "meaning": "to be hungry",
+      "example": "Tengo hambre.",
+      "example_meaning": "I'm hungry."
+    },
+    {
+      "term": "tener sed",
+      "meaning": "to be thirsty",
+      "example": "¿Tienes sed?",
+      "example_meaning": "Are you thirsty?"
+    },
+    {
+      "term": "tener frío",
+      "meaning": "to be cold",
+      "example": "Tenemos frío.",
+      "example_meaning": "We're cold."
+    },
+    {
+      "term": "tener calor",
+      "meaning": "to be hot",
+      "example": "Tengo calor.",
+      "example_meaning": "I'm hot."
+    },
+    {
+      "term": "tener sueño",
+      "meaning": "to be sleepy",
+      "example": "Los niños tienen sueño.",
+      "example_meaning": "The children are sleepy."
+    },
+    {
+      "term": "tener prisa",
+      "meaning": "to be in a hurry",
+      "example": "Tengo prisa.",
+      "example_meaning": "I'm in a hurry."
+    },
+    {
+      "term": "tener razón",
+      "meaning": "to be right",
+      "example": "Tienes razón.",
+      "example_meaning": "You're right."
+    },
+    {
+      "term": "tener que",
+      "meaning": "to have to",
+      "example": "Tengo que trabajar.",
+      "example_meaning": "I have to work."
+    },
+    {
+      "term": "necesitar",
+      "meaning": "to need",
+      "example": "Necesito un café.",
+      "example_meaning": "I need a coffee."
+    },
+    {
+      "term": "el hermano / la hermana",
+      "meaning": "brother / sister",
+      "example": "Tengo una hermana.",
+      "example_meaning": "I have a sister."
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "tener",
+      "meaning": "to have",
+      "set": "present",
+      "art": [
+        "   .-----.   ",
+        "  (  o o  )  ",
+        "   \\  -  /   ",
+        "  __|   |__  ",
+        " /  |   |  \\ ",
+        "(___|___|___)"
+      ],
+      "forms": {
+        "yo": "tengo",
+        "tu": "tienes",
+        "el": "tiene",
+        "nosotros": "tenemos",
+        "vosotros": "tenéis",
+        "ellos": "tienen"
+      }
+    },
+    {
+      "item": "necesitar",
+      "meaning": "to need",
+      "set": "present",
+      "art": [
+        "    ___      ",
+        "   |   |     ",
+        "   | ? |     ",
+        "   |___|     ",
+        "   /   \\     ",
+        "  (_____)    "
+      ],
+      "forms": {
+        "yo": "necesito",
+        "tu": "necesitas",
+        "el": "necesita",
+        "nosotros": "necesitamos",
+        "vosotros": "necesitáis",
+        "ellos": "necesitan"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-tener-01",
+      "prompt": "Conjugate: (yo) tener → ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "tengo",
+      "accepted_answers": [
+        "yo tengo"
+      ],
+      "explanation": "The yo form is irregular: tengo.",
+      "hints": [
+        "There is a g."
+      ],
+      "teaches": [
+        "tener"
+      ]
+    },
+    {
+      "question_id": "a1-tener-02",
+      "prompt": "Conjugate: (tú) tener → ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "tienes",
+      "accepted_answers": [
+        "tú tienes"
+      ],
+      "explanation": "e becomes ie: tienes.",
+      "hints": [
+        "e becomes ie."
+      ],
+      "teaches": [
+        "tener"
+      ]
+    },
+    {
+      "question_id": "a1-tener-03",
+      "prompt": "Nosotros ___ dos gatos.",
+      "type": "multiple-choice",
+      "options": [
+        "tenemos",
+        "tienemos",
+        "tienen"
+      ],
+      "correct_answer": "tenemos",
+      "explanation": "Nosotros is regular: tenemos (no ie).",
+      "hints": [
+        "No stem change for nosotros."
+      ],
+      "teaches": [
+        "tener"
+      ]
+    },
+    {
+      "question_id": "a1-tener-04",
+      "prompt": "'I'm hungry' in Spanish:",
+      "type": "multiple-choice",
+      "options": [
+        "Tengo hambre.",
+        "Soy hambre.",
+        "Estoy hambre."
+      ],
+      "correct_answer": "Tengo hambre.",
+      "explanation": "Hunger is something you have: tener hambre.",
+      "hints": [
+        "Spanish 'has' hunger."
+      ],
+      "teaches": [
+        "tener hambre"
+      ]
+    },
+    {
+      "question_id": "a1-tener-05",
+      "prompt": "Translate: She is twenty years old. → ___ veinte años.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "Tiene",
+      "accepted_answers": [
+        "Ella tiene"
+      ],
+      "explanation": "Age uses tener: tiene veinte años.",
+      "hints": [
+        "Age takes tener."
+      ],
+      "teaches": [
+        "tener … años"
+      ]
+    },
+    {
+      "question_id": "a1-tener-06",
+      "prompt": "___ que estudiar esta noche. (I have to…)",
+      "type": "multiple-choice",
+      "options": [
+        "Tengo",
+        "Tengo de",
+        "Necesito"
+      ],
+      "correct_answer": "Tengo",
+      "explanation": "Obligation is tener que + infinitive: tengo que estudiar.",
+      "hints": [
+        "tener que"
+      ],
+      "teaches": [
+        "tener que"
+      ]
+    },
+    {
+      "question_id": "a1-tener-07",
+      "prompt": "Tenemos ___ frío.",
+      "type": "multiple-choice",
+      "options": [
+        "mucho",
+        "muy",
+        "mucha"
+      ],
+      "correct_answer": "mucho",
+      "explanation": "Frío is a masculine noun here, so mucho, not muy.",
+      "hints": [
+        "With a noun, use mucho."
+      ],
+      "teaches": [
+        "tener frío"
+      ]
+    },
+    {
+      "question_id": "a1-tener-08",
+      "prompt": "Conjugate: (vosotros) tener → ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "tenéis",
+      "accepted_answers": [
+        "vosotros tenéis"
+      ],
+      "explanation": "Vosotros is regular with the usual accent: tenéis.",
+      "hints": [
+        "Regular, with -éis."
+      ],
+      "teaches": [
+        "tener"
+      ]
+    },
+    {
+      "question_id": "a1-tener-09",
+      "prompt": "___ un bolígrafo, por favor. (I need…)",
+      "type": "multiple-choice",
+      "options": [
+        "Necesito",
+        "Necesita",
+        "Tengo que"
+      ],
+      "correct_answer": "Necesito",
+      "explanation": "Necesitar is a regular -ar verb: necesito.",
+      "hints": [
+        "The yo form ends in -o."
+      ],
+      "teaches": [
+        "necesitar"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Hoy tengo mucho calor.",
+      "meaning": "Today I am very hot.",
+      "note": "Mucho, not muy: calor is a noun."
+    },
+    {
+      "text": "Mi hermana tiene veinticinco años.",
+      "meaning": "My sister is twenty-five years old."
+    },
+    {
+      "text": "¿Tienes frío? Sí, un poco.",
+      "meaning": "Are you cold? Yes, a little."
+    },
+    {
+      "text": "Tenemos que volver a casa temprano.",
+      "meaning": "We have to go home early."
+    },
+    {
+      "text": "Necesito un vaso de agua, por favor.",
+      "meaning": "I need a glass of water, please.",
+      "note": "New word: el vaso = the glass."
+    },
+    {
+      "text": "Mis hermanos tienen hambre y necesitan comer algo.",
+      "meaning": "My brothers are hungry and need to eat something."
+    },
+    {
+      "text": "Tengo prisa porque la clase empieza a las nueve.",
+      "meaning": "I'm in a hurry because the class starts at nine."
+    },
+    {
+      "text": "Mi abuela tiene ochenta años y tiene que caminar cada día.",
+      "meaning": "My grandmother is eighty years old and has to walk every day.",
+      "note": "New word: caminar = to walk."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Tener is irregular"
+    },
+    {
+      "question": "a1-tener-01"
+    },
+    {
+      "question": "a1-tener-02"
+    },
+    {
+      "question": "a1-tener-03"
+    },
+    {
+      "question": "a1-tener-08"
+    },
+    {
+      "section": "Possession"
+    },
+    {
+      "vocab": 2
+    },
+    {
+      "section": "Age, hunger, cold"
+    },
+    {
+      "vocab": 7
+    },
+    {
+      "question": "a1-tener-04"
+    },
+    {
+      "question": "a1-tener-05"
+    },
+    {
+      "question": "a1-tener-07"
+    },
+    {
+      "section": "Tener que"
+    },
+    {
+      "vocab": 3
+    },
+    {
+      "question": "a1-tener-06"
+    },
+    {
+      "question": "a1-tener-09"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-tener-conv-cafe",
+      "title": "Hungry after class",
+      "scenario": "Nuria and Javi leave class and decide what to do.",
+      "role_a": "Nuria",
+      "role_b": "Javi",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Tengo mucha hambre. ¿Tú tienes hambre?",
+          "meaning": "I'm really hungry. Are you hungry?",
+          "note": "tener hambre"
+        },
+        {
+          "speaker": "b",
+          "text": "Sí, y también tengo sed. ¿Tienes dinero?",
+          "meaning": "Yes, and I'm thirsty too. Do you have money?"
+        },
+        {
+          "speaker": "a",
+          "text": "Tengo cinco euros. Tenemos que comer algo barato.",
+          "meaning": "I have five euros. We have to eat something cheap.",
+          "note": "tener que + infinitive"
+        },
+        {
+          "speaker": "b",
+          "text": "Necesitamos un bocadillo y agua. ¿Cuántos años tiene tu hermano?",
+          "meaning": "We need a sandwich and water. How old is your brother?",
+          "note": "necesitar"
+        },
+        {
+          "speaker": "a",
+          "text": "Tiene dieciocho años. ¿Por qué?",
+          "meaning": "He's eighteen. Why?",
+          "note": "tener … años"
+        },
+        {
+          "speaker": "b",
+          "text": "Porque trabaja en el bar de la esquina, ¿no? Tienes razón, vamos allí.",
+          "meaning": "Because he works at the bar on the corner, right? You're right, let's go there.",
+          "note": "tener razón"
+        },
+        {
+          "speaker": "a",
+          "text": "¡Tengo prisa! Tengo clase a las cuatro.",
+          "meaning": "I'm in a hurry! I have class at four.",
+          "note": "tener prisa"
+        },
+        {
+          "speaker": "b",
+          "text": "Entonces, ¡rápido!",
+          "meaning": "Then, quick!"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🎒",
+    "bites": [
+      {
+        "title": "Spanish HAS feelings",
+        "emoji": "🎒",
+        "rule": "Where English says 'I am hungry, cold, twenty', Spanish says 'I have hunger, cold, twenty years': tener + noun, never ser or estar.",
+        "example": "Tengo hambre y tengo frío.",
+        "example_meaning": "I'm hungry and I'm cold."
+      },
+      {
+        "title": "Tengo, then the boot",
+        "emoji": "🥾",
+        "rule": "The yo form adds a g: tengo. Inside the 'boot' (tú, él, ellos) e becomes ie: tienes, tiene, tienen. Nosotros and vosotros are outside it: tenemos, tenéis.",
+        "example": "Tengo dos hermanos. ¿Tienes coche?",
+        "example_meaning": "I have two brothers. Do you have a car?"
+      },
+      {
+        "title": "Mucho, not muy",
+        "emoji": "💪",
+        "rule": "Hambre, frío and sueño are nouns here, so 'very' is mucho or mucha, never muy: tenemos mucho frío, tengo mucha hambre.",
+        "example": "Tengo mucha hambre.",
+        "example_meaning": "I'm really hungry."
+      },
+      {
+        "title": "Tener que = must",
+        "emoji": "✅",
+        "rule": "Tener + que + infinitive means 'have to'. Need a thing instead? Use regular necesitar: necesito, necesitas, necesita…",
+        "example": "Tengo que trabajar, pero necesito un café.",
+        "example_meaning": "I have to work, but I need a coffee."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Tener or estar?",
+        "buckets": [
+          "tener",
+          "estar"
+        ],
+        "items": [
+          {
+            "text": "hambre",
+            "bucket": 0
+          },
+          {
+            "text": "cansado",
+            "bucket": 1
+          },
+          {
+            "text": "veinte años",
+            "bucket": 0
+          },
+          {
+            "text": "sed",
+            "bucket": 0
+          },
+          {
+            "text": "en casa",
+            "bucket": 1
+          },
+          {
+            "text": "frío",
+            "bucket": 0
+          },
+          {
+            "text": "contenta",
+            "bucket": 1
+          },
+          {
+            "text": "sueño",
+            "bucket": 0
+          },
+          {
+            "text": "razón",
+            "bucket": 0
+          }
+        ],
+        "why": "Hunger, thirst, cold, sleepiness, age and being right are nouns you 'have'; adjectives like cansado and places take estar."
+      },
+      {
+        "title": "Which form of tener?",
+        "buckets": [
+          "tengo",
+          "tienes",
+          "tenemos",
+          "tienen"
+        ],
+        "items": [
+          {
+            "text": "Yo ___ prisa.",
+            "bucket": 0
+          },
+          {
+            "text": "¿Tú ___ sed?",
+            "bucket": 1
+          },
+          {
+            "text": "Nosotros ___ dos gatos.",
+            "bucket": 2
+          },
+          {
+            "text": "Los niños ___ sueño.",
+            "bucket": 3
+          },
+          {
+            "text": "Javi y yo ___ que comer.",
+            "bucket": 2
+          },
+          {
+            "text": "Tú ___ razón.",
+            "bucket": 1
+          },
+          {
+            "text": "Mis hermanos ___ frío.",
+            "bucket": 3
+          },
+          {
+            "text": "Yo ___ veinte años.",
+            "bucket": 0
+          }
+        ],
+        "why": "Yo has the g (tengo), tú and ellos take ie (tienes, tienen), and nosotros stays regular (tenemos)."
+      },
+      {
+        "title": "Mucho or muy?",
+        "buckets": [
+          "mucho / mucha",
+          "muy"
+        ],
+        "items": [
+          {
+            "text": "Tengo ___ hambre.",
+            "bucket": 0
+          },
+          {
+            "text": "Estoy ___ cansado.",
+            "bucket": 1
+          },
+          {
+            "text": "Tenemos ___ frío.",
+            "bucket": 0
+          },
+          {
+            "text": "Es ___ alto.",
+            "bucket": 1
+          },
+          {
+            "text": "Tengo ___ sueño.",
+            "bucket": 0
+          },
+          {
+            "text": "Está ___ contenta.",
+            "bucket": 1
+          }
+        ],
+        "why": "Tener + noun takes mucho/mucha; an adjective after ser or estar takes muy."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Soy hambre, ¿hay algo para comer?",
+        "wrong": "Soy",
+        "fix": "Tengo",
+        "why": "Hunger is something you have: tener hambre."
+      },
+      {
+        "sentence": "Mi hermano está veinte años.",
+        "wrong": "está",
+        "fix": "tiene",
+        "why": "Age uses tener: tiene veinte años."
+      },
+      {
+        "sentence": "Yo tieno dos hermanos.",
+        "wrong": "tieno",
+        "fix": "tengo",
+        "why": "The yo form is irregular, with a g: tengo."
+      },
+      {
+        "sentence": "Nosotros tienemos que trabajar.",
+        "wrong": "tienemos",
+        "fix": "tenemos",
+        "why": "Nosotros has no stem change: tenemos."
+      },
+      {
+        "sentence": "Tenemos muy frío en clase.",
+        "wrong": "muy",
+        "fix": "mucho",
+        "why": "Frío is a noun here, so it takes mucho, not muy."
+      },
+      {
+        "sentence": "Tengo de estudiar esta noche.",
+        "wrong": "de",
+        "fix": "que",
+        "why": "Obligation is tener que + infinitive."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Tengo veinte años.",
+        "meaning": "I'm twenty years old.",
+        "distractors": [
+          "soy",
+          "estoy"
+        ]
+      },
+      {
+        "text": "¿Tienes mucha hambre?",
+        "meaning": "Are you very hungry?",
+        "distractors": [
+          "muy"
+        ]
+      },
+      {
+        "text": "Tengo que trabajar mañana.",
+        "meaning": "I have to work tomorrow.",
+        "distractors": [
+          "de"
+        ]
+      },
+      {
+        "text": "Los niños tienen sueño.",
+        "meaning": "The children are sleepy.",
+        "distractors": [
+          "están"
+        ]
+      },
+      {
+        "text": "Tenemos que comer algo barato.",
+        "meaning": "We have to eat something cheap.",
+        "distractors": [
+          "tienemos"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🧪",
+      "content": "## Tener en Eldmark\n\nYou *have* levels, potions and gold with **tener**: **tengo nivel diez**, **tengo tres pociones**, **no tengo oro**. And after a long quest, Spanish-style, you also *have* hunger and cold: **el orco tiene hambre**, **en Frostmarch tengo frío**.",
+      "vocabulary": [
+        {
+          "term": "tener",
+          "example": "Tengo una espada nueva.",
+          "example_meaning": "I have a new sword."
+        },
+        {
+          "term": "tener hambre",
+          "example": "El orco tiene hambre después de la misión.",
+          "example_meaning": "The orc is hungry after the quest."
+        },
+        {
+          "term": "tener frío",
+          "example": "En Frostmarch tengo frío.",
+          "example_meaning": "In Frostmarch I'm cold."
+        },
+        {
+          "term": "tener prisa",
+          "example": "Tenemos prisa, la banda empieza ahora.",
+          "example_meaning": "We're in a hurry, the raid starts now."
+        },
+        {
+          "term": "tener que",
+          "example": "Tienes que subir de nivel.",
+          "example_meaning": "You have to level up."
+        },
+        {
+          "term": "necesitar",
+          "example": "Necesito una poción.",
+          "example_meaning": "I need a potion."
+        },
+        {
+          "term": "la espada",
+          "meaning": "sword",
+          "example": "La guerrera tiene una espada.",
+          "example_meaning": "The warrior has a sword."
+        },
+        {
+          "term": "la poción",
+          "meaning": "potion",
+          "example": "Tengo tres pociones.",
+          "example_meaning": "I have three potions."
+        },
+        {
+          "term": "el nivel",
+          "meaning": "level",
+          "example": "Mi mago tiene nivel sesenta.",
+          "example_meaning": "My mage is level sixty."
+        },
+        {
+          "term": "el oro",
+          "meaning": "gold",
+          "example": "No tengo oro.",
+          "example_meaning": "I don't have any gold."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Tener en Eldmark",
+          "emoji": "🧪",
+          "rule": "You have levels, potions and gold with tener; and, Spanish-style, you also HAVE hunger and cold after a long quest.",
+          "example": "Tengo nivel diez y tengo hambre.",
+          "example_meaning": "I'm level ten and I'm hungry."
+        }
+      ],
+      "listening": [
+        {
+          "text": "La elfa tiene una espada muy vieja.",
+          "meaning": "The elf has a very old sword.",
+          "note": "New word: la espada = sword."
+        },
+        {
+          "text": "Después de la banda tengo hambre.",
+          "meaning": "After the raid I'm hungry."
+        },
+        {
+          "text": "La maga tiene que estudiar hechizos.",
+          "meaning": "The mage has to study spells.",
+          "note": "Tener que + infinitive = have to."
+        },
+        {
+          "text": "Necesito una poción, por favor.",
+          "meaning": "I need a potion, please."
+        },
+        {
+          "text": "No tenemos oro para la montura.",
+          "meaning": "We don't have gold for the mount.",
+          "note": "New word: la montura = mount."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Tienes que subir de nivel.",
+          "meaning": "You have to level up.",
+          "distractors": [
+            "tiene",
+            "tengo"
+          ]
+        },
+        {
+          "text": "Necesito una poción.",
+          "meaning": "I need a potion.",
+          "distractors": [
+            "tengo"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "El orco está hambre.",
+          "wrong": "está",
+          "fix": "tiene",
+          "why": "Hunger is something you have: tener hambre."
+        },
+        {
+          "sentence": "Tengo que subo de nivel.",
+          "wrong": "subo",
+          "fix": "subir",
+          "why": "Tener que + infinitive."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Tener or estar in Eldmark?",
+          "buckets": [
+            "tener",
+            "estar"
+          ],
+          "items": [
+            {
+              "text": "___ hambre después de la misión",
+              "bucket": 0
+            },
+            {
+              "text": "___ en la posada",
+              "bucket": 1
+            },
+            {
+              "text": "___ nivel sesenta",
+              "bucket": 0
+            },
+            {
+              "text": "___ cansado de la banda",
+              "bucket": 1
+            },
+            {
+              "text": "___ prisa, la banda empieza",
+              "bucket": 0
+            }
+          ],
+          "why": "Hunger, level and hurry take tener. Location and tiredness take estar."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-tener-realm-01",
+          "prompt": "El orco ___ hambre después de la misión.",
+          "type": "multiple-choice",
+          "options": [
+            "tiene",
+            "está",
+            "es"
+          ],
+          "correct_answer": "tiene",
+          "explanation": "Spanish speakers have hunger: tener hambre.",
+          "hints": [
+            "Spanish HAS hunger."
+          ],
+          "teaches": [
+            "tener hambre"
+          ]
+        },
+        {
+          "question_id": "a1-tener-realm-02",
+          "prompt": "Nosotros ___ que subir de nivel.",
+          "type": "fill-in-blank",
+          "correct_answer": "tenemos",
+          "accepted_answers": [],
+          "explanation": "Tener que + infinitive: tenemos que subir.",
+          "hints": [
+            "Tener, nosotros form: no stem change."
+          ],
+          "teaches": [
+            "tener que"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🐔",
+      "content": "## Tener en la granja\n\nA farmer *has* a lot: **tengo diez gallinas**, **tengo una vaca**. After a day in the fields you *have* hunger, thirst and sleep: **tengo hambre**, **tengo sed**, **tengo sueño**. And what must be done is **tener que**: **tengo que trabajar en el huerto**.",
+      "vocabulary": [
+        {
+          "term": "tener",
+          "example": "Tengo diez gallinas y una vaca.",
+          "example_meaning": "I have ten hens and a cow."
+        },
+        {
+          "term": "tener hambre",
+          "example": "Después de la mina tengo hambre.",
+          "example_meaning": "After the mine I'm hungry."
+        },
+        {
+          "term": "tener sed",
+          "example": "En verano las plantas tienen sed.",
+          "example_meaning": "In summer the plants are thirsty."
+        },
+        {
+          "term": "tener sueño",
+          "example": "A las diez tengo sueño.",
+          "example_meaning": "At ten o'clock I'm sleepy."
+        },
+        {
+          "term": "tener prisa",
+          "example": "Tengo prisa, la tienda cierra a las cinco.",
+          "example_meaning": "I'm in a hurry, the shop closes at five."
+        },
+        {
+          "term": "tener que",
+          "example": "Tengo que trabajar en el huerto.",
+          "example_meaning": "I have to work in the garden."
+        },
+        {
+          "term": "necesitar",
+          "example": "Necesito madera para el establo.",
+          "example_meaning": "I need wood for the barn."
+        },
+        {
+          "term": "la gallina",
+          "meaning": "hen",
+          "example": "Tengo diez gallinas.",
+          "example_meaning": "I have ten hens."
+        },
+        {
+          "term": "la vaca",
+          "meaning": "cow",
+          "example": "La vaca tiene hambre.",
+          "example_meaning": "The cow is hungry."
+        },
+        {
+          "term": "el huerto",
+          "meaning": "vegetable garden",
+          "example": "Tengo que trabajar en el huerto.",
+          "example_meaning": "I have to work in the garden."
+        },
+        {
+          "term": "la madera",
+          "meaning": "wood",
+          "example": "Necesito madera.",
+          "example_meaning": "I need wood."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Tener en la granja",
+          "emoji": "🐔",
+          "rule": "You HAVE hens, cows and wood with tener, and after a long day you also HAVE hunger and sleep. Tener que + verb says what must be done.",
+          "example": "Tengo diez gallinas y tengo que trabajar.",
+          "example_meaning": "I have ten hens and I have to work."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Rosa tiene cinco gallinas en la granja.",
+          "meaning": "Rosa has five hens on the farm.",
+          "note": "New word: la gallina = hen."
+        },
+        {
+          "text": "Leo tiene hambre después de pescar.",
+          "meaning": "Leo is hungry after fishing."
+        },
+        {
+          "text": "Mañana Nora tiene que plantar fresas en el huerto.",
+          "meaning": "Tomorrow Nora has to plant strawberries in the garden.",
+          "note": "New word: el huerto = vegetable garden."
+        },
+        {
+          "text": "El alcalde necesita madera para la plaza.",
+          "meaning": "The mayor needs wood for the square.",
+          "note": "New word: la madera = wood."
+        },
+        {
+          "text": "En verano las vacas tienen sed.",
+          "meaning": "In summer the cows are thirsty."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Tengo que trabajar en el huerto.",
+          "meaning": "I have to work in the garden.",
+          "distractors": [
+            "tiene",
+            "trabajo"
+          ]
+        },
+        {
+          "text": "Tengo diez gallinas y una vaca.",
+          "meaning": "I have ten hens and a cow.",
+          "distractors": [
+            "tienes"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "La vaca es hambre.",
+          "wrong": "es",
+          "fix": "tiene",
+          "why": "Hunger is something you have: tener hambre."
+        },
+        {
+          "sentence": "Tengo que trabajo en el huerto.",
+          "wrong": "trabajo",
+          "fix": "trabajar",
+          "why": "Tener que + infinitive."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Tener or estar on the farm?",
+          "buckets": [
+            "tener",
+            "estar"
+          ],
+          "items": [
+            {
+              "text": "___ diez gallinas",
+              "bucket": 0
+            },
+            {
+              "text": "___ en el huerto",
+              "bucket": 1
+            },
+            {
+              "text": "___ sed después de la mina",
+              "bucket": 0
+            },
+            {
+              "text": "___ cansado por la noche",
+              "bucket": 1
+            },
+            {
+              "text": "___ que trabajar",
+              "bucket": 0
+            }
+          ],
+          "why": "Things you have, needs and obligations take tener. Place and tiredness take estar."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-tener-meadowbrook-01",
+          "prompt": "Las plantas ___ sed en verano.",
+          "type": "multiple-choice",
+          "options": [
+            "tienen",
+            "están",
+            "son"
+          ],
+          "correct_answer": "tienen",
+          "explanation": "Thirst is something you have: tener sed.",
+          "hints": [
+            "Spanish HAS thirst."
+          ],
+          "teaches": [
+            "tener sed"
+          ]
+        },
+        {
+          "question_id": "a1-tener-meadowbrook-02",
+          "prompt": "Yo ___ que trabajar en el huerto.",
+          "type": "fill-in-blank",
+          "correct_answer": "tengo",
+          "accepted_answers": [],
+          "explanation": "Tener que + infinitive: tengo que trabajar.",
+          "hints": [
+            "Tener, yo form: it has a g."
+          ],
+          "teaches": [
+            "tener que",
+            "el huerto"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "💊",
+      "content": "## Tener en la cúpula\n\nA dome dweller *has* a lot: **tengo un radiorreloj**, **tengo cincuenta tuercas**. Under the wasteland sun you *have* thirst and heat, Spanish-style: **tengo sed**, **tengo calor**. And what must be done is **tener que**: **tengo que buscar agua filtrada**.",
+      "vocabulary": [
+        {
+          "term": "tener",
+          "example": "Tengo un radiorreloj y una linterna.",
+          "example_meaning": "I have a wrist radio and a torch."
+        },
+        {
+          "term": "tener hambre",
+          "example": "Después de explorar, los habitantes de la cúpula tienen hambre.",
+          "example_meaning": "After exploring, the Dome dwellers are hungry."
+        },
+        {
+          "term": "tener sed",
+          "example": "En el páramo siempre tengo sed.",
+          "example_meaning": "In the wasteland I'm always thirsty."
+        },
+        {
+          "term": "tener calor",
+          "example": "Bajo el sol del páramo tenemos calor.",
+          "example_meaning": "Under the wasteland sun we're hot."
+        },
+        {
+          "term": "tener prisa",
+          "example": "Tengo prisa, la tormenta de ceniza llega pronto.",
+          "example_meaning": "I'm in a hurry, the ash storm is coming soon."
+        },
+        {
+          "term": "tener que",
+          "example": "Tengo que buscar agua filtrada.",
+          "example_meaning": "I have to look for filtered water."
+        },
+        {
+          "term": "necesitar",
+          "example": "Necesito un tónico, por favor.",
+          "example_meaning": "I need a tonic, please."
+        },
+        {
+          "term": "la tuerca",
+          "meaning": "nut (the wasteland money)",
+          "example": "Marta la mercadera tiene cincuenta tuercas.",
+          "example_meaning": "Marta the trader has fifty nuts."
+        },
+        {
+          "term": "el agua filtrada",
+          "meaning": "filtered water",
+          "example": "Tenemos que buscar agua filtrada.",
+          "example_meaning": "We have to look for filtered water."
+        },
+        {
+          "term": "el tónico",
+          "meaning": "tonic",
+          "example": "Necesito un tónico.",
+          "example_meaning": "I need a tonic."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Tener en la cúpula",
+          "emoji": "💊",
+          "rule": "You HAVE a wrist radio, nuts and tonics with tener, and under the wasteland sun you also HAVE thirst and heat. Tener que + verb says what must be done.",
+          "example": "Tengo cincuenta tuercas y tengo que buscar agua.",
+          "example_meaning": "I have fifty nuts and I have to look for water."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Tengo una linterna, pero no tengo radio.",
+          "meaning": "I have a torch, but I don't have a radio.",
+          "note": "The yo form has a g: tengo."
+        },
+        {
+          "text": "Después de explorar, Leo tiene sed.",
+          "meaning": "After exploring, Leo is thirsty.",
+          "note": "Thirst is something you have: tener sed."
+        },
+        {
+          "text": "¿Cuántas tuercas tienes, Leo?",
+          "meaning": "How many nuts do you have, Leo?",
+          "note": "New word: la tuerca = nut (the wasteland money)."
+        },
+        {
+          "text": "Marta tiene agua filtrada en el mercado.",
+          "meaning": "Marta has filtered water at the market.",
+          "note": "New word: el agua filtrada = filtered water."
+        },
+        {
+          "text": "El capataz necesita dos tónicos.",
+          "meaning": "The foreman needs two tonics.",
+          "note": "New word: el tónico = tonic."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Tengo que buscar agua filtrada.",
+          "meaning": "I have to look for filtered water.",
+          "distractors": [
+            "busco",
+            "de"
+          ]
+        },
+        {
+          "text": "Los buscadores tienen sed.",
+          "meaning": "The scavengers are thirsty.",
+          "distractors": [
+            "están",
+            "son"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "El buscador está sed.",
+          "wrong": "está",
+          "fix": "tiene",
+          "why": "Thirst is something you have: tener sed."
+        },
+        {
+          "sentence": "Tengo que busco agua filtrada.",
+          "wrong": "busco",
+          "fix": "buscar",
+          "why": "Tener que + infinitive."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Tener or estar in the wasteland?",
+          "buckets": [
+            "tener",
+            "estar"
+          ],
+          "items": [
+            {
+              "text": "___ un radiorreloj",
+              "bucket": 0
+            },
+            {
+              "text": "___ en la cúpula",
+              "bucket": 1
+            },
+            {
+              "text": "___ sed bajo el sol del páramo",
+              "bucket": 0
+            },
+            {
+              "text": "___ cansado después de explorar",
+              "bucket": 1
+            },
+            {
+              "text": "___ que buscar agua",
+              "bucket": 0
+            }
+          ],
+          "why": "Things you have, needs and obligations take tener. Place and tiredness take estar."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-tener-rustwake-01",
+          "prompt": "Bajo el sol del páramo nosotros ___ calor.",
+          "type": "multiple-choice",
+          "options": [
+            "tenemos",
+            "estamos",
+            "tienemos"
+          ],
+          "correct_answer": "tenemos",
+          "explanation": "Heat is something you have, and nosotros is regular: tenemos calor.",
+          "hints": [
+            "Spanish HAS heat, and nosotros has no ie."
+          ],
+          "teaches": [
+            "tener calor"
+          ]
+        },
+        {
+          "question_id": "a1-tener-rustwake-02",
+          "prompt": "Yo ___ cincuenta tuercas.",
+          "type": "fill-in-blank",
+          "correct_answer": "tengo",
+          "accepted_answers": [],
+          "explanation": "The yo form has a g: tengo cincuenta tuercas.",
+          "hints": [
+            "Tener, yo form: it has a g."
+          ],
+          "teaches": [
+            "tener",
+            "la tuerca"
+          ]
+        }
+      ]
+    }
+  }
+}

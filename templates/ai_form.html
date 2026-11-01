@@ -1,0 +1,39 @@
+<section class="ai-form" id="ai" data-testid="course-ai" data-course-id="{{ af.course_id }}" data-has-key="{{ af.provider.is_some() }}">
+  <div class="ai-head">
+    <h2>{{ crate::t("courses.ai.title") }}</h2>
+    {% if af.provider.is_some() %}
+    <div class="ai-mode">
+      <span class="ai-group">
+        <fieldset class="ai-seg" data-testid="course-ai-mode-choice"><legend class="sr-only">{{ crate::t("courses.ai.mode_legend") }}</legend>
+          <label class="chip"><input type="radio" form="ai-form" name="mode" value="add" data-testid="course-ai-mode" data-ask="{{ crate::t("courses.ai.ask_add") }}" data-placeholder="{{ crate::t("courses.ai.placeholder") }}" data-max="{{ crate::ai::MAX_BRIEF }}"{% if af.mode == "add" %} checked{% endif %}>{{ crate::t("courses.ai.mode_add") }}</label>
+          <label class="chip"><input type="radio" form="ai-form" name="mode" value="edit" data-testid="course-ai-mode" data-ask="{{ crate::t("courses.ai.ask_edit") }}" data-placeholder="{{ crate::t("courses.ai.placeholder_edit") }}" data-max="{{ crate::ai::MAX_FEEDBACK }}"{% if af.mode == "edit" %} checked{% endif %}>{{ crate::t("courses.ai.mode_edit") }}</label>
+          <label class="chip"><input type="radio" form="ai-form" name="mode" value="change" data-testid="course-ai-mode" data-ask="{{ crate::t("courses.ai.ask_add_or_change") }}" data-placeholder="{{ crate::t("courses.ai.placeholder_change") }}" data-max="{{ crate::ai::MAX_FEEDBACK }}"{% if af.mode == "change" %} checked{% endif %}{% if !af.can_change %} disabled{% endif %}>{{ crate::t("courses.ai.mode_change") }}</label>
+        </fieldset>
+        <details class="info-tip" data-testid="course-ai-mode-info"><summary aria-label="{{ crate::t("courses.ai.mode_info") }}" title="{{ crate::t("courses.ai.mode_info") }}">i</summary><p class="small" data-testid="course-ai-mode-info-text"><strong>{{ crate::t("courses.ai.mode_add") }}</strong>: {{ crate::t("courses.ai.mode_add_info") }}<br><strong>{{ crate::t("courses.ai.mode_edit") }}</strong>: {{ crate::t("courses.ai.mode_edit_info") }}<br><strong>{{ crate::t("courses.ai.mode_change") }}</strong>: {{ crate::t("courses.ai.mode_change_info") }}{% if !af.can_change %}<br><span data-testid="course-ai-mode-finished-only">{{ crate::t("courses.ai.mode_change_finished_only") }}</span>{% endif %}</p></details>
+      </span>
+      <span class="ai-group">
+        <label class="ai-switch"><input type="checkbox" role="switch" form="ai-form" name="depth" value="outline" data-testid="course-ai-outline"{% if af.outline %} checked{% endif %}{% if af.mode == "edit" %} disabled{% endif %}><span class="ai-switch-knob" aria-hidden="true"></span> {{ crate::t("courses.ai.outline") }}</label>
+        <details class="info-tip" data-testid="course-ai-outline-info"><summary aria-label="{{ crate::t("courses.ai.outline_info") }}" title="{{ crate::t("courses.ai.outline_info") }}">i</summary><p class="small" data-testid="course-ai-outline-info-text">{{ crate::t("courses.ai.outline_info_text") }}</p></details>
+      </span>
+    </div>
+    {% endif %}
+  </div>
+  {% if af.generate %}<p class="ai-generate"><a class="btn" href="{{ crate::base_path() }}/courses/{{ af.course_id }}?generate=1" data-open-dialog="gen-dialog" data-testid="course-ai-generate">{{ crate::t("courses.ai.generate") }}</a> <span class="small muted">{{ crate::t("courses.ai.generate_note") }}</span></p>{% endif %}
+  {% if let Some(p) = af.provider %}
+  <form method="post" action="{{ crate::base_path() }}/courses/{{ af.course_id }}/ai" id="ai-form" data-testid="course-ai-form">
+    {% if let Some(e) = af.error %}<p class="alert error" role="alert" data-testid="course-ai-error">{{ e }}</p>{% endif %}
+    <p class="ai-ask"><label for="ai-text" data-testid="course-ai-text-label">{{ af.ask() }}</label> <button type="button" class="info-btn" data-open-dialog="ai-examples" aria-haspopup="dialog" aria-label="{{ crate::t("courses.ai.examples_info") }}" title="{{ crate::t("courses.ai.examples_info") }}" data-testid="course-ai-examples-info">i</button></p>
+    <textarea id="ai-text" name="text" rows="3" maxlength="{{ af.max() }}" data-min="{{ crate::ai::MIN_PROMPT }}" aria-describedby="ai-text-count" required data-testid="course-ai-text" placeholder="{{ af.placeholder() }}">{{ af.text }}</textarea>
+    <p class="small char-count" id="ai-text-count" data-testid="course-ai-text-count">{{ crate::t1("courses.ai.up_to_chars", "n", crate::ai::grouped(af.max())) }}</p>
+    <p class="small muted" data-testid="course-ai-sensitive-note">{{ crate::t("courses.ai.sensitive_note") }}</p>
+    <p class="actions"><button type="submit" class="btn" data-testid="course-ai-submit">{{ crate::t("courses.ai.submit") }}</button>{% if let Some(when) = af.reviewable %} <a class="btn ghost" href="{{ crate::base_path() }}/courses/{{ af.course_id }}?review=1" title="{{ crate::t1("courses.ai.review_tip", "when", when) }}" data-testid="course-ai-review">{{ crate::t("courses.ai.review_changes") }}</a>{% endif %}</p>
+    {% if *p == crate::tutor::HOSTED %}<p class="small muted" data-testid="course-ai-provider">{{ crate::t1("courses.ai.hosted_uses", "hosted", crate::tutor::hosted_label()) }}{% if let Some(l) = af.ai_left %} <span data-testid="course-ai-left">{{ l }}</span>.{% endif %}</p>
+    {% else %}<p class="small muted" data-testid="ai-disclosure">{% if af.named_provider %}{{ crate::t1("courses.ai.sent_to_named_html", "provider", p)|safe }}{% else %}{{ crate::t("courses.ai.sent_to_generic") }}{% endif %}</p>{% endif %}
+  </form>
+  {% include "ai_examples.html" %}
+  {% if let Some(out) = af.ai_out %}{% include "ai_out.html" %}{% endif %}
+  {% else %}
+  {% if let Some(when) = af.reviewable %}<p class="actions"><a class="btn ghost" href="{{ crate::base_path() }}/courses/{{ af.course_id }}?review=1" title="{{ crate::t1("courses.ai.review_tip", "when", when) }}" data-testid="course-ai-review">{{ crate::t("courses.ai.review_changes") }}</a></p>{% endif %}
+  <p class="no-key" role="alert" data-testid="course-ai-no-key">{{ crate::t1("courses.ai.no_key_html", "url", crate::url("/profile#api-keys"))|safe }}</p>
+  {% endif %}
+</section>

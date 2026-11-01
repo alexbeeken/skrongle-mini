@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Scavenger with a crowbar">
+  <path d="M52 12 L48 60" stroke="#8a2a1a" stroke-width="3.2" stroke-linecap="round"/><path d="M52 12 Q59 9 58 16" stroke="#8a2a1a" stroke-width="3.2" fill="none" stroke-linecap="round"/><path d="M48 60 L45 63" stroke="#8a2a1a" stroke-width="3.2" stroke-linecap="round"/>
+  <path d="M8 64 Q10 44 32 43 Q54 44 56 64Z" fill="#6a7a4a"/>
+  <path d="M14 46 L44 56" stroke="#8a6a3a" stroke-width="3"/><path d="M24 50 L26 54 M34 53 L36 57" stroke="#5a4a2a" stroke-width="1.2"/>
+  <rect x="28" y="36" width="8" height="9" fill="#c89868"/>
+  <path d="M18 30 Q18 10 32 10 Q46 10 46 30Z" fill="#8a6a3a"/>
+  <ellipse cx="32" cy="30" rx="12" ry="13" fill="#e0b88a"/>
+  <path d="M19 23 L45 23" stroke="#3a2a1a" stroke-width="4"/>
+  <circle cx="25" cy="25" r="6" fill="#3a2a1a"/><circle cx="39" cy="25" r="6" fill="#3a2a1a"/>
+  <circle cx="25" cy="25" r="4" fill="#7ad8e8"/><circle cx="39" cy="25" r="4" fill="#7ad8e8"/>
+  <path d="M23 23 L26 23" stroke="#fff" stroke-width="1.2" opacity="0.8"/>
+  <path d="M21 36 Q32 34 43 36 Q40 44 32 44 Q24 44 21 36Z" fill="#8a8f84"/>
+  <path d="M26 39 L38 39 M28 42 L36 42" stroke="#4a4f44" stroke-width="1"/>
+</svg>

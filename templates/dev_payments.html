@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Dev: payments{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ crate::routes::asset_url("devbox.css") }}">
+<section class="devbox devpay" data-testid="dev-payments" data-on="{{ on }}" data-rows-url="{{ crate::url("/dev/payments/rows") }}">
+  <div class="devbox-head">
+    <h1>Dev mailbox</h1>
+    {% if on %}
+    <button type="button" class="info-btn" data-opens="devpay-info" aria-haspopup="dialog" aria-label="About the dev payment provider" title="About the dev payment provider" data-testid="dev-payments-info"><span aria-hidden="true">i</span></button>
+    {% else %}
+    <button type="button" class="devbox-alert" data-opens="devpay-info" aria-haspopup="dialog" aria-label="Subscriptions are off" title="Subscriptions are off" data-testid="dev-payments-off">!</button>
+    {% endif %}
+  </div>
+
+  {% include "dev_box_kinds.html" %}
+
+  {% if !notice.is_empty() %}<p class="alert ok-text" role="status" data-testid="dev-payments-notice">{{ notice }}</p>{% endif %}
+
+  <div data-rows="state" data-testid="dev-payments-state">{{ state|safe }}</div>
+
+  <div class="devai-section-head">
+    <h2>Log</h2>
+    <form method="post" action="{{ crate::url("/dev/payments/clear") }}" data-live><button type="submit" class="btn ghost small" data-testid="dev-payments-clear">Empty the log</button></form>
+  </div>
+  <div class="devbox-frame">
+    <table class="devbox-table devpay-log" data-testid="dev-payments-log">
+      <tbody data-rows="log">{{ log|safe }}</tbody>
+    </table>
+  </div>
+
+  <p class="devai-line"><form method="post" action="{{ crate::url("/dev/payments/reset") }}"><button type="submit" class="btn ghost small" data-testid="dev-payments-reset">Forget everything</button></form></p>
+</section>
+
+<dialog class="modal" id="devpay-info" aria-labelledby="devpay-info-title" data-testid="dev-payments-info-dialog">
+  <h2 id="devpay-info-title">The dev payment provider</h2>
+  <p>A stand-in for Stripe that speaks its API, hosts a Checkout page (<strong>Pay</strong>, <strong>Fail</strong>, <strong>Cancel</strong>) and a Billing Portal, and sends signed webhooks to the app. Mode: <span data-testid="dev-payments-mode">{{ mode }}</span>.</p>
+  <ul class="small">
+    <li>API base (<code>SKRONGLE_STRIPE_API_URL</code>): <code data-testid="dev-payments-api-base">{{ api_base }}</code></li>
+    <li>Webhooks go to <code data-testid="dev-payments-webhook-url">{{ webhook_url }}</code>, signed with <code>{{ webhook_secret }}</code></li>
+    <li>Secret key: <code>{{ secret_key }}</code> (any <code>sk_test_…</code> key works){% if !price_id.is_empty() %}; the monthly price: <code>{{ price_id }}</code>{% endif %}</li>
+  </ul>
+  <p class="small">Prices: {% for p in prices %}<code>{{ p.0 }}</code> ({{ p.1 }}){% if !loop.last %}, {% endif %}{% endfor %}. A price it does not know is made up at {{ crate::dev_payments::money(crate::dev_payments::MADE_UP_AMOUNT, "eur") }}.</p>
+  <p class="small"><strong>Renew now</strong> plays the end of a period: the next payment goes through, or fails after <strong>Fail the next payment</strong> (past due). Every action sends the events Stripe would; <strong>Send again</strong> repeats one, <strong>Broken signature</strong> sends it as a forger would (the app must answer 400).</p>
+  <p class="small">In memory until the server stops. As JSON: <a href="{{ crate::url("/dev/payments?format=json") }}">state and log</a>.</p>
+  <div class="modal-actions"><button type="button" class="btn" data-closes>OK</button></div>
+</dialog>
+{% endblock %}
+{% block scripts %}<script src="{{ crate::routes::asset_url("devbox.js") }}" defer></script>{% endblock %}

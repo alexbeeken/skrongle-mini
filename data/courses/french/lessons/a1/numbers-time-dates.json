@@ -1,0 +1,1172 @@
+{
+  "id": "a1-numbers-time-dates",
+  "slug": "numbers-time-dates",
+  "title": "Numbers, time and dates",
+  "unit": "A1",
+  "group": "Vocabulary",
+  "order": 22,
+  "summary": "Count from 0 to 100 (soixante-dix, quatre-vingts, quatre-vingt-dix), tell the time, and say the days, months and dates.",
+  "focus": "Numbers to 100, telling the time and giving dates",
+  "prerequisites": [
+    "a1-etre-avoir"
+  ],
+  "content": "## Numbers from 0 to 100\n\n- 0–10: **zéro, un, deux, trois, quatre, cinq, six, sept, huit, neuf, dix**\n- 11–20: **onze, douze, treize, quatorze, quinze, seize, dix-sept, dix-huit, dix-neuf, vingt**\n- tens: **trente** (30), **quarante** (40), **cinquante** (50), **soixante** (60)\n- 21, 31, 41, 51, 61 take **et un** (**vingt et un**), and the others take a hyphen (**vingt-deux, trente-cinq**)\n\nFrom 70, French counts in twenties:\n\n- **soixante-dix** (60 + 10 = 70), **soixante et onze** (71), **soixante-quinze** (75)\n- **quatre-vingts** (4 × 20 = 80). The s goes when a number follows: **quatre-vingt-un** (81, no **et**)\n- **quatre-vingt-dix** (90), **quatre-vingt-dix-neuf** (99), **cent** (100)\n\nTo ask or give your age: **Quel âge as-tu ?** **J'ai trente-cinq ans.**\n\n## Telling the time\n\n**Quelle heure est-il ?** **Il est trois heures.** Always say **heure(s)**, as in **il est une heure**, **il est deux heures**.\n\n- **et quart** (quarter past): **huit heures et quart** (8:15)\n- **et demie** (half past): **huit heures et demie** (8:30)\n- **moins le quart** (quarter to): **neuf heures moins le quart** (8:45)\n- minutes: **neuf heures dix** (9:10), **neuf heures moins dix** (8:50)\n- **midi** (noon), **minuit** (midnight)\n\nTimetables, shops and the radio use the **24-hour clock**, written **17h30**: **Le train part à dix-sept heures trente.** With it you just say the minutes (**quinze heures quarante-cinq**), never *et quart*. At a time is **à**: **à huit heures**.\n\n## Days, months and dates\n\nDays and months are written in **lower case**.\n\n- days: **lundi, mardi, mercredi, jeudi, vendredi, samedi, dimanche**. **Lundi** means this Monday, and **le lundi** means on Mondays.\n- months: **janvier, février, mars, avril, mai, juin, juillet, août, septembre, octobre, novembre, décembre**. In May is **en mai**.\n\nA date is **le** + number + month: **le trois juin** (June 3rd), **le quatorze juillet**. Only the first day is different: **le premier mai** (May 1st). To ask the date, say **On est le combien ?** **On est le vingt mars.**",
+  "vocabulary": [
+    {
+      "term": "soixante-dix",
+      "meaning": "seventy",
+      "example": "Mon grand-père a soixante-dix ans.",
+      "example_meaning": "My grandfather is seventy."
+    },
+    {
+      "term": "quatre-vingts",
+      "meaning": "eighty",
+      "example": "Il y a quatre-vingts élèves dans l'école.",
+      "example_meaning": "There are eighty pupils in the school."
+    },
+    {
+      "term": "quatre-vingt-dix",
+      "meaning": "ninety",
+      "example": "Le manteau coûte quatre-vingt-dix euros.",
+      "example_meaning": "The coat costs ninety euros."
+    },
+    {
+      "term": "cent",
+      "meaning": "a hundred",
+      "example": "Il y a cent pages dans le livre.",
+      "example_meaning": "There are a hundred pages in the book."
+    },
+    {
+      "term": "l'heure",
+      "meaning": "hour, time (of day) (f)",
+      "example": "Quelle heure est-il ? — Il est huit heures.",
+      "example_meaning": "What time is it? — It's eight o'clock."
+    },
+    {
+      "term": "et quart / et demie",
+      "meaning": "quarter past / half past",
+      "example": "Le film commence à neuf heures et demie.",
+      "example_meaning": "The film starts at half past nine."
+    },
+    {
+      "term": "moins le quart",
+      "meaning": "quarter to",
+      "example": "Il est sept heures moins le quart.",
+      "example_meaning": "It's quarter to seven."
+    },
+    {
+      "term": "lundi",
+      "meaning": "Monday",
+      "example": "Le lundi, j'ai cours de piano.",
+      "example_meaning": "On Mondays, I have a piano lesson."
+    },
+    {
+      "term": "le mois",
+      "meaning": "month (m)",
+      "example": "Juillet est le mois des vacances.",
+      "example_meaning": "July is the holiday month."
+    },
+    {
+      "term": "le premier",
+      "meaning": "the first (of the month)",
+      "example": "Mon anniversaire, c'est le premier mai.",
+      "example_meaning": "My birthday is on May 1st."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-numbers-time-dates-01",
+      "prompt": "80 in French is…",
+      "type": "multiple-choice",
+      "options": [
+        "quatre-vingts",
+        "soixante-vingt",
+        "quatre-vingt-dix"
+      ],
+      "correct_answer": "quatre-vingts",
+      "explanation": "80 is four twenties: quatre-vingts. Quatre-vingt-dix is 90.",
+      "hints": [
+        "Four times twenty."
+      ],
+      "teaches": [
+        "quatre-vingts"
+      ]
+    },
+    {
+      "question_id": "a1-numbers-time-dates-02",
+      "prompt": "Il est neuf heures moins le quart. What time is it?",
+      "type": "multiple-choice",
+      "options": [
+        "8:45",
+        "9:15",
+        "9:45"
+      ],
+      "correct_answer": "8:45",
+      "explanation": "Moins le quart is quarter to, so nine minus a quarter is 8:45.",
+      "hints": [
+        "Moins = minus."
+      ],
+      "teaches": [
+        "moins le quart",
+        "l'heure"
+      ]
+    },
+    {
+      "question_id": "a1-numbers-time-dates-03",
+      "prompt": "May 1st in French is…",
+      "type": "multiple-choice",
+      "options": [
+        "le premier mai",
+        "le un mai",
+        "le une mai"
+      ],
+      "correct_answer": "le premier mai",
+      "explanation": "The first of the month is le premier; every other day uses a plain number: le deux mai, le trois mai.",
+      "hints": [
+        "The first day is special."
+      ],
+      "teaches": [
+        "le premier"
+      ]
+    },
+    {
+      "question_id": "a1-numbers-time-dates-04",
+      "prompt": "8:30 = Il est huit heures et ___.",
+      "type": "fill-in-blank",
+      "correct_answer": "demie",
+      "accepted_answers": [],
+      "explanation": "Half past is et demie: huit heures et demie.",
+      "hints": [
+        "Half."
+      ],
+      "teaches": [
+        "et quart / et demie"
+      ]
+    },
+    {
+      "question_id": "a1-numbers-time-dates-05",
+      "prompt": "Quelle ___ est-il ?",
+      "type": "fill-in-blank",
+      "correct_answer": "heure",
+      "accepted_answers": [],
+      "explanation": "Quelle heure est-il ? means What time is it?",
+      "hints": [
+        "The word for hour."
+      ],
+      "teaches": [
+        "l'heure"
+      ]
+    },
+    {
+      "question_id": "a1-numbers-time-dates-06",
+      "prompt": "70 = ___ (write it in French)",
+      "type": "fill-in-blank",
+      "correct_answer": "soixante-dix",
+      "accepted_answers": [
+        "soixante dix"
+      ],
+      "explanation": "70 is sixty-ten: soixante-dix.",
+      "hints": [
+        "Sixty plus ten."
+      ],
+      "teaches": [
+        "soixante-dix"
+      ]
+    },
+    {
+      "question_id": "a1-numbers-time-dates-07",
+      "prompt": "Days and months take a capital letter in French: Lundi, Mai.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "False. In French, days and months are written in lower case: lundi, mai.",
+      "hints": [
+        "Look at how the lesson writes them."
+      ],
+      "teaches": [
+        "lundi",
+        "le mois"
+      ]
+    },
+    {
+      "question_id": "a1-numbers-time-dates-08",
+      "prompt": "Le billet coûte quatre-vingt-dix-neuf euros. How much is the ticket?",
+      "type": "numeric",
+      "correct_answer": "99",
+      "unit": "€",
+      "explanation": "Quatre-vingt-dix-neuf = 4 × 20 + 19 = 99.",
+      "hints": [
+        "Quatre-vingt-dix = 90.",
+        "Add dix-neuf."
+      ],
+      "teaches": [
+        "quatre-vingt-dix"
+      ]
+    },
+    {
+      "question_id": "a1-numbers-time-dates-09",
+      "prompt": "Ma grand-mère a soixante-quinze ans. How old is she?",
+      "type": "numeric",
+      "correct_answer": "75",
+      "unit": "years",
+      "explanation": "Soixante-quinze = 60 + 15 = 75.",
+      "hints": [
+        "Soixante = 60.",
+        "Quinze = 15."
+      ],
+      "teaches": [
+        "soixante-dix"
+      ]
+    },
+    {
+      "question_id": "a1-numbers-time-dates-10",
+      "prompt": "Il y a quatre-vingt-un élèves dans l'école. How many pupils are there?",
+      "type": "numeric",
+      "correct_answer": "81",
+      "explanation": "Quatre-vingt-un = 4 × 20 + 1 = 81. There is no s on vingt and no et.",
+      "hints": [
+        "Quatre-vingts = 80."
+      ],
+      "teaches": [
+        "quatre-vingts"
+      ]
+    },
+    {
+      "question_id": "a1-numbers-time-dates-11",
+      "prompt": "Rendez-vous à dix-neuf heures. On a 12-hour clock, that is … p.m.",
+      "type": "numeric",
+      "correct_answer": "7",
+      "unit": "p.m.",
+      "explanation": "Dix-neuf heures is 19:00, which is 7 p.m.",
+      "hints": [
+        "Take away twelve."
+      ],
+      "teaches": [
+        "l'heure"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-numbers-time-dates-conv-train-ticket",
+      "title": "At the ticket office",
+      "scenario": "Julien buys a train ticket to Lyon at the station.",
+      "role_a": "L'employée",
+      "role_b": "Julien",
+      "lines": [
+        {
+          "speaker": "b",
+          "text": "Bonjour, madame. Un billet pour Lyon, s'il vous plaît.",
+          "meaning": "Hello, madam. A ticket to Lyon, please."
+        },
+        {
+          "speaker": "a",
+          "text": "Bonjour. Pour quel jour ?",
+          "meaning": "Hello. For which day?"
+        },
+        {
+          "speaker": "b",
+          "text": "Pour vendredi, le douze avril.",
+          "meaning": "For Friday, April 12th."
+        },
+        {
+          "speaker": "a",
+          "text": "Il y a un train à huit heures et quart et un train à quatorze heures trente.",
+          "meaning": "There's a train at a quarter past eight and a train at 2:30 p.m."
+        },
+        {
+          "speaker": "b",
+          "text": "À quatorze heures trente, s'il vous plaît.",
+          "meaning": "At 2:30 p.m., please.",
+          "note": "The 24-hour clock: quatorze heures trente is 14:30."
+        },
+        {
+          "speaker": "a",
+          "text": "Très bien. Vous avez quel âge ?",
+          "meaning": "Very well. How old are you?"
+        },
+        {
+          "speaker": "b",
+          "text": "J'ai vingt-six ans.",
+          "meaning": "I'm twenty-six."
+        },
+        {
+          "speaker": "a",
+          "text": "Alors, c'est soixante-dix-huit euros.",
+          "meaning": "Then it's seventy-eight euros.",
+          "note": "Soixante-dix-huit is 60 + 18."
+        },
+        {
+          "speaker": "b",
+          "text": "Voilà. Merci beaucoup !",
+          "meaning": "Here you are. Thank you very much!"
+        },
+        {
+          "speaker": "a",
+          "text": "Merci à vous. Bon voyage !",
+          "meaning": "Thank you. Have a good trip!"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Ma grand-mère a quatre-vingt-dix ans.",
+      "meaning": "My grandmother is ninety."
+    },
+    {
+      "text": "Il est huit heures et quart.",
+      "meaning": "It's a quarter past eight."
+    },
+    {
+      "text": "Mon anniversaire, c'est le trois juin.",
+      "meaning": "My birthday is on June 3rd."
+    },
+    {
+      "text": "Aujourd'hui, on est le quatorze juillet.",
+      "meaning": "Today it's July 14th.",
+      "note": "On est le… means it's the… (a date)."
+    },
+    {
+      "text": "Le magasin ferme à dix-neuf heures.",
+      "meaning": "The shop closes at seven p.m.",
+      "note": "New word: fermer = to close."
+    },
+    {
+      "text": "Le train part à dix-sept heures quarante-cinq.",
+      "meaning": "The train leaves at 5:45 p.m.",
+      "note": "New word: il part = it leaves."
+    },
+    {
+      "text": "Le lundi et le jeudi, j'ai cours à neuf heures moins le quart.",
+      "meaning": "On Mondays and Thursdays, I have class at a quarter to nine."
+    },
+    {
+      "text": "Il y a soixante et onze élèves et trois professeurs dans l'école.",
+      "meaning": "There are seventy-one pupils and three teachers in the school."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Numbers"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-numbers-time-dates-01"
+    },
+    {
+      "question": "a1-numbers-time-dates-06"
+    },
+    {
+      "question": "a1-numbers-time-dates-08"
+    },
+    {
+      "question": "a1-numbers-time-dates-09"
+    },
+    {
+      "question": "a1-numbers-time-dates-10"
+    },
+    {
+      "section": "Telling the time"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-numbers-time-dates-02"
+    },
+    {
+      "question": "a1-numbers-time-dates-04"
+    },
+    {
+      "question": "a1-numbers-time-dates-05"
+    },
+    {
+      "question": "a1-numbers-time-dates-11"
+    },
+    {
+      "tip": "For 70 to 99, do the sum: soixante-quinze = 60 + 15, quatre-vingt-treize = 4 × 20 + 13."
+    },
+    {
+      "section": "Days, months"
+    },
+    {
+      "question": "a1-numbers-time-dates-03"
+    },
+    {
+      "question": "a1-numbers-time-dates-07"
+    },
+    {
+      "concept": {
+        "title": "Septante and nonante",
+        "markdown": "In Belgium and Switzerland, 70 is **septante** and 90 **nonante**; parts of Switzerland also say **huitante** for 80. In France you will only hear **soixante-dix**, **quatre-vingts** and **quatre-vingt-dix**, and they are understood everywhere."
+      }
+    }
+  ],
+  "sprint": {
+    "icon": "🕰️",
+    "bites": [
+      {
+        "title": "Counting to 69",
+        "emoji": "🔢",
+        "rule": "Tens: dix, vingt, trente, quarante, cinquante, soixante. 21, 31, 41, 51 and 61 take et un (vingt et un), and the rest take a hyphen (vingt-deux).",
+        "example": "J'ai trente et un ans.",
+        "example_meaning": "I'm thirty-one."
+      },
+      {
+        "title": "70 to 99",
+        "emoji": "🧮",
+        "rule": "70 = soixante-dix (60 + 10), 80 = quatre-vingts (4 × 20), 90 = quatre-vingt-dix. 80 drops its s before another number: quatre-vingt-un.",
+        "example": "Il a quatre-vingt-trois ans.",
+        "example_meaning": "He's eighty-three."
+      },
+      {
+        "title": "Quelle heure est-il ?",
+        "emoji": "🕰️",
+        "rule": "Say il est + heures, then et quart (:15), et demie (:30) or moins le quart (:45). Timetables use the 24-hour clock: dix-sept heures trente.",
+        "example": "Il est neuf heures moins le quart.",
+        "example_meaning": "It's a quarter to nine."
+      },
+      {
+        "title": "Dates",
+        "emoji": "📅",
+        "rule": "Le + number + month, all lower case: le trois juin. The first is le premier, as in le premier mai.",
+        "example": "On est le premier mai.",
+        "example_meaning": "It's May 1st."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which number?",
+        "buckets": [
+          "70–79",
+          "80–89",
+          "90–99"
+        ],
+        "items": [
+          {
+            "text": "soixante-quinze",
+            "bucket": 0
+          },
+          {
+            "text": "quatre-vingt-deux",
+            "bucket": 1
+          },
+          {
+            "text": "quatre-vingt-dix-huit",
+            "bucket": 2
+          },
+          {
+            "text": "soixante et onze",
+            "bucket": 0
+          },
+          {
+            "text": "quatre-vingts",
+            "bucket": 1
+          },
+          {
+            "text": "quatre-vingt-onze",
+            "bucket": 2
+          },
+          {
+            "text": "soixante-dix-neuf",
+            "bucket": 0
+          },
+          {
+            "text": "quatre-vingt-sept",
+            "bucket": 1
+          }
+        ],
+        "why": "Soixante + 10 to 19 gives 70–79; quatre-vingt + 0 to 9 gives 80–89; quatre-vingt + 10 to 19 gives 90–99."
+      },
+      {
+        "title": "After or before the hour?",
+        "buckets": [
+          "after the hour",
+          "before the hour"
+        ],
+        "items": [
+          {
+            "text": "neuf heures et quart",
+            "bucket": 0
+          },
+          {
+            "text": "neuf heures moins le quart",
+            "bucket": 1
+          },
+          {
+            "text": "neuf heures et demie",
+            "bucket": 0
+          },
+          {
+            "text": "neuf heures moins dix",
+            "bucket": 1
+          },
+          {
+            "text": "neuf heures cinq",
+            "bucket": 0
+          },
+          {
+            "text": "midi moins vingt",
+            "bucket": 1
+          }
+        ],
+        "why": "Et and a plain number of minutes go after the hour, and moins counts down to it."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Il est huit heure et quart.",
+        "wrong": "heure",
+        "fix": "heures",
+        "why": "More than one hour: huit heures."
+      },
+      {
+        "sentence": "Le un mai, c'est la fête du Travail.",
+        "wrong": "un",
+        "fix": "premier",
+        "why": "The first of the month is le premier."
+      },
+      {
+        "sentence": "Elle a quatre-vingts-deux ans.",
+        "wrong": "quatre-vingts-deux",
+        "fix": "quatre-vingt-deux",
+        "why": "Quatre-vingts drops its s when another number follows."
+      },
+      {
+        "sentence": "Quel heure est-il ?",
+        "wrong": "Quel",
+        "fix": "Quelle",
+        "why": "Heure is feminine: quelle heure."
+      },
+      {
+        "sentence": "Mon grand-père a soixante-dix-onze ans.",
+        "wrong": "soixante-dix-onze",
+        "fix": "soixante et onze",
+        "why": "71 is sixty and eleven: soixante et onze."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Il est neuf heures et demie.",
+        "meaning": "It's half past nine.",
+        "distractors": [
+          "moins"
+        ]
+      },
+      {
+        "text": "Mon anniversaire, c'est le premier mai.",
+        "meaning": "My birthday is on May 1st.",
+        "distractors": [
+          "un"
+        ]
+      },
+      {
+        "text": "Elle a quatre-vingts ans.",
+        "meaning": "She's eighty.",
+        "distractors": [
+          "est"
+        ]
+      },
+      {
+        "text": "Le train part à dix-sept heures.",
+        "meaning": "The train leaves at 5 p.m.",
+        "distractors": [
+          "heure"
+        ]
+      },
+      {
+        "text": "On est le trois juin.",
+        "meaning": "It's June 3rd.",
+        "distractors": [
+          "en"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🪙",
+      "content": "## Compter à Eldmark\n\nAt the Highgate market, gold talks. **La potion coûte soixante-quinze pièces d'or.** The guild meets **le premier mars à neuf heures et demie**, and the dungeon opens **à minuit**. Borin counts his loot: **quatre-vingts, quatre-vingt-dix, cent !**",
+      "vocabulary": [
+        {
+          "term": "soixante-dix",
+          "example": "Le minotaure a soixante-dix ans.",
+          "example_meaning": "The minotaur is seventy."
+        },
+        {
+          "term": "quatre-vingts",
+          "example": "Il y a quatre-vingts orcs dans la Horde de Cendre.",
+          "example_meaning": "There are eighty orcs in the Ash Host."
+        },
+        {
+          "term": "quatre-vingt-dix",
+          "example": "L'épée coûte quatre-vingt-dix pièces d'or.",
+          "example_meaning": "The sword costs ninety gold coins."
+        },
+        {
+          "term": "cent",
+          "example": "Cent pièces d'or pour le butin !",
+          "example_meaning": "A hundred gold coins for the loot!"
+        },
+        {
+          "term": "l'heure",
+          "example": "Quelle heure est-il ? L'heure de la quête !",
+          "example_meaning": "What time is it? Time for the quest!"
+        },
+        {
+          "term": "et quart / et demie",
+          "example": "La guilde part à six heures et demie.",
+          "example_meaning": "The guild leaves at half past six."
+        },
+        {
+          "term": "le premier",
+          "example": "Le tournoi, c'est le premier juin.",
+          "example_meaning": "The tournament is on June 1st."
+        },
+        {
+          "term": "lundi",
+          "example": "Le lundi, la taverne est fermée.",
+          "example_meaning": "On Mondays, the tavern is closed."
+        },
+        {
+          "term": "la pièce d'or",
+          "meaning": "gold coin (f)",
+          "example": "Voici dix pièces d'or.",
+          "example_meaning": "Here are ten gold coins."
+        },
+        {
+          "term": "minuit",
+          "meaning": "midnight",
+          "example": "Le donjon ouvre à minuit.",
+          "example_meaning": "The dungeon opens at midnight."
+        },
+        {
+          "term": "le tournoi",
+          "meaning": "tournament (m)",
+          "example": "Le tournoi commence à midi.",
+          "example_meaning": "The tournament starts at noon."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Compter son or",
+          "emoji": "🪙",
+          "rule": "Count your gold the French way: soixante-dix (60 + 10), quatre-vingts (4 × 20), quatre-vingt-dix (4 × 20 + 10), cent.",
+          "example": "La potion coûte quatre-vingt-cinq pièces d'or.",
+          "example_meaning": "The potion costs eighty-five gold coins."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Il est minuit.",
+          "meaning": "It's midnight."
+        },
+        {
+          "text": "Voici quatre-vingts pièces d'or.",
+          "meaning": "Here are eighty gold coins."
+        },
+        {
+          "text": "Le minotaure a quatre-vingt-dix-neuf ans.",
+          "meaning": "The minotaur is ninety-nine."
+        },
+        {
+          "text": "Le tournoi commence le premier avril.",
+          "meaning": "The tournament starts on April 1st."
+        },
+        {
+          "text": "La quête commence à huit heures et quart.",
+          "meaning": "The quest starts at a quarter past eight.",
+          "note": "New word: commencer = to start."
+        }
+      ],
+      "builds": [
+        {
+          "text": "La potion coûte quatre-vingts pièces d'or.",
+          "meaning": "The potion costs eighty gold coins.",
+          "distractors": [
+            "quatre-vingt"
+          ]
+        },
+        {
+          "text": "La guilde part à neuf heures et demie.",
+          "meaning": "The guild leaves at half past nine.",
+          "distractors": [
+            "heure"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "L'épée coûte quatre-vingts-dix pièces d'or.",
+          "wrong": "quatre-vingts-dix",
+          "fix": "quatre-vingt-dix",
+          "why": "Quatre-vingts drops its s when another number follows."
+        },
+        {
+          "sentence": "La quête commence le un mars.",
+          "wrong": "un",
+          "fix": "premier",
+          "why": "The first of the month is le premier."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "How much gold?",
+          "buckets": [
+            "under 80",
+            "80 or more"
+          ],
+          "items": [
+            {
+              "text": "soixante-dix-neuf",
+              "bucket": 0
+            },
+            {
+              "text": "quatre-vingts",
+              "bucket": 1
+            },
+            {
+              "text": "soixante-quinze",
+              "bucket": 0
+            },
+            {
+              "text": "quatre-vingt-dix",
+              "bucket": 1
+            },
+            {
+              "text": "soixante et onze",
+              "bucket": 0
+            },
+            {
+              "text": "cent",
+              "bucket": 1
+            }
+          ],
+          "why": "Everything with soixante is under 80; quatre-vingt… and cent are 80 or more."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-numbers-time-dates-realm-01",
+          "prompt": "L'épée coûte quatre-vingt-quinze pièces d'or. How many gold coins?",
+          "type": "numeric",
+          "correct_answer": "95",
+          "explanation": "Quatre-vingt-quinze = 4 × 20 + 15 = 95.",
+          "hints": [
+            "Quatre-vingts = 80.",
+            "Quinze = 15."
+          ],
+          "teaches": [
+            "quatre-vingt-dix",
+            "la pièce d'or"
+          ]
+        },
+        {
+          "question_id": "a1-numbers-time-dates-realm-02",
+          "prompt": "The dungeon opens à minuit. When is that?",
+          "type": "multiple-choice",
+          "options": [
+            "00:00",
+            "12:00",
+            "06:00"
+          ],
+          "correct_answer": "00:00",
+          "explanation": "Minuit is midnight, and midi is noon.",
+          "hints": [
+            "Minuit, not midi."
+          ],
+          "teaches": [
+            "minuit"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🐓",
+      "content": "## Les heures à Meadowbrook\n\nThe rooster crows **à six heures moins le quart**. Rosa opens the seed shop **à neuf heures**, from **lundi** to **samedi**. Strawberries cost **quatre-vingts centimes**. The fishing contest is **le premier juillet**, and the harvest festival **le vingt-deux septembre**.",
+      "vocabulary": [
+        {
+          "term": "l'heure",
+          "example": "Quelle heure est-il ? Six heures, au travail !",
+          "example_meaning": "What time is it? Six o'clock, time to work!"
+        },
+        {
+          "term": "moins le quart",
+          "example": "Le coq chante à six heures moins le quart.",
+          "example_meaning": "The rooster crows at a quarter to six."
+        },
+        {
+          "term": "lundi",
+          "example": "Le lundi, Rosa ouvre la graineterie.",
+          "example_meaning": "On Mondays, Rosa opens the seed shop."
+        },
+        {
+          "term": "le mois",
+          "example": "Octobre, c'est le mois des citrouilles.",
+          "example_meaning": "October is the month of pumpkins."
+        },
+        {
+          "term": "le premier",
+          "example": "Le concours de pêche, c'est le premier juillet.",
+          "example_meaning": "The fishing contest is on July 1st."
+        },
+        {
+          "term": "quatre-vingts",
+          "example": "J'ai quatre-vingts fraises dans le panier.",
+          "example_meaning": "I have eighty strawberries in the basket."
+        },
+        {
+          "term": "soixante-dix",
+          "example": "Il y a soixante-dix moutons sur la colline.",
+          "example_meaning": "There are seventy sheep on the hill."
+        },
+        {
+          "term": "le coq",
+          "meaning": "rooster",
+          "example": "Le coq chante à cinq heures.",
+          "example_meaning": "The rooster crows at five o'clock."
+        },
+        {
+          "term": "la graine",
+          "meaning": "seed (f)",
+          "example": "Un sachet de graines coûte deux euros.",
+          "example_meaning": "A packet of seeds costs two euros."
+        },
+        {
+          "term": "le centime",
+          "meaning": "cent (a hundredth of a euro)",
+          "example": "Une fraise coûte dix centimes.",
+          "example_meaning": "A strawberry costs ten cents."
+        }
+      ],
+      "bites": [
+        {
+          "title": "La journée à la ferme",
+          "emoji": "🐓",
+          "rule": "Farm hours: the rooster at six heures moins le quart, the seed shop at neuf heures. Dates: le premier juillet, le vingt-deux septembre.",
+          "example": "La fête des récoltes, c'est le vingt-deux septembre.",
+          "example_meaning": "The harvest festival is on September 22nd."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Il est six heures.",
+          "meaning": "It's six o'clock."
+        },
+        {
+          "text": "J'ai quatre-vingt-dix citrouilles.",
+          "meaning": "I have ninety pumpkins."
+        },
+        {
+          "text": "La graineterie ouvre le lundi.",
+          "meaning": "The seed shop opens on Mondays.",
+          "note": "New word: ouvrir = to open."
+        },
+        {
+          "text": "Le coq chante à cinq heures et demie.",
+          "meaning": "The rooster crows at half past five."
+        },
+        {
+          "text": "La fête des récoltes, c'est le vingt-deux septembre.",
+          "meaning": "The harvest festival is on September 22nd."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Le coq chante à six heures moins le quart.",
+          "meaning": "The rooster crows at a quarter to six.",
+          "distractors": [
+            "et"
+          ]
+        },
+        {
+          "text": "Le concours, c'est le premier juillet.",
+          "meaning": "The contest is on July 1st.",
+          "distractors": [
+            "un"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Le coq chante à six heure.",
+          "wrong": "heure",
+          "fix": "heures",
+          "why": "More than one hour: six heures."
+        },
+        {
+          "sentence": "Il y a quatre-vingt moutons.",
+          "wrong": "quatre-vingt",
+          "fix": "quatre-vingts",
+          "why": "80 on its own keeps its s: quatre-vingts."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Morning or later? (24-hour clock)",
+          "buckets": [
+            "morning",
+            "afternoon or evening"
+          ],
+          "items": [
+            {
+              "text": "neuf heures",
+              "bucket": 0
+            },
+            {
+              "text": "dix-huit heures",
+              "bucket": 1
+            },
+            {
+              "text": "six heures moins le quart",
+              "bucket": 0
+            },
+            {
+              "text": "vingt heures trente",
+              "bucket": 1
+            },
+            {
+              "text": "onze heures et demie",
+              "bucket": 0
+            },
+            {
+              "text": "quinze heures",
+              "bucket": 1
+            }
+          ],
+          "why": "Up to midi is the morning; from treize heures on, the 24-hour clock means the afternoon or evening."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-numbers-time-dates-meadowbrook-01",
+          "prompt": "Les fraises coûtent quatre-vingts centimes. How many cents?",
+          "type": "numeric",
+          "correct_answer": "80",
+          "unit": "centimes",
+          "explanation": "Quatre-vingts = 4 × 20 = 80.",
+          "hints": [
+            "Four twenties."
+          ],
+          "teaches": [
+            "quatre-vingts",
+            "le centime"
+          ]
+        },
+        {
+          "question_id": "a1-numbers-time-dates-meadowbrook-02",
+          "prompt": "The rooster crows à six heures moins le quart. What time is that?",
+          "type": "multiple-choice",
+          "options": [
+            "5:45",
+            "6:15",
+            "6:45"
+          ],
+          "correct_answer": "5:45",
+          "explanation": "Six minus a quarter is 5:45.",
+          "hints": [
+            "Moins = minus."
+          ],
+          "teaches": [
+            "moins le quart",
+            "le coq"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "⏱️",
+      "content": "## Le temps à Rustwake\n\nYour **radio-montre** keeps Dôme time on the 24-hour clock. **Il est dix-sept heures quarante.** Marta's stall closes **à dix-neuf heures**. Filtered water costs **soixante-dix écrous**, a Saphir soda **quatre-vingt-quinze**. The ash storm comes **le premier août**.",
+      "vocabulary": [
+        {
+          "term": "l'heure",
+          "example": "Quelle heure est-il ? Ma radio-montre dit midi.",
+          "example_meaning": "What time is it? My wrist radio says noon."
+        },
+        {
+          "term": "soixante-dix",
+          "example": "L'eau filtrée coûte soixante-dix écrous.",
+          "example_meaning": "Filtered water costs seventy nuts."
+        },
+        {
+          "term": "quatre-vingt-dix",
+          "example": "Le tonique coûte quatre-vingt-dix écrous.",
+          "example_meaning": "The tonic costs ninety nuts."
+        },
+        {
+          "term": "cent",
+          "example": "Cent écrous pour un disque ? C'est cher !",
+          "example_meaning": "A hundred nuts for a record? That's expensive!"
+        },
+        {
+          "term": "le premier",
+          "example": "La tempête arrive le premier août.",
+          "example_meaning": "The storm arrives on August 1st."
+        },
+        {
+          "term": "le mois",
+          "example": "Août est le mois des tempêtes.",
+          "example_meaning": "August is the month of storms."
+        },
+        {
+          "term": "et quart / et demie",
+          "example": "Rendez-vous à l'antenne à huit heures et quart.",
+          "example_meaning": "Meet at the antenna at a quarter past eight."
+        },
+        {
+          "term": "le compte à rebours",
+          "meaning": "countdown",
+          "example": "Le compte à rebours commence : dix, neuf, huit…",
+          "example_meaning": "The countdown starts: ten, nine, eight…"
+        },
+        {
+          "term": "la tempête de cendres",
+          "meaning": "ash storm (f)",
+          "example": "La tempête de cendres arrive à minuit.",
+          "example_meaning": "The ash storm arrives at midnight."
+        },
+        {
+          "term": "fermer",
+          "meaning": "to close",
+          "example": "Le marché ferme à dix-neuf heures.",
+          "example_meaning": "The market closes at seven p.m."
+        }
+      ],
+      "bites": [
+        {
+          "title": "L'heure du Dôme",
+          "emoji": "⏱️",
+          "rule": "The radio-montre uses the 24-hour clock: dix-sept heures quarante = 5:40 p.m. Say the hours, then the minutes; no et quart with it.",
+          "example": "Il est vingt heures quinze.",
+          "example_meaning": "It's 8:15 p.m."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Il est vingt heures.",
+          "meaning": "It's eight p.m."
+        },
+        {
+          "text": "Un soda Saphir coûte quatre-vingt-quinze écrous.",
+          "meaning": "A Saphir soda costs ninety-five nuts."
+        },
+        {
+          "text": "Rendez-vous le premier septembre à l'antenne.",
+          "meaning": "Meet on September 1st at the antenna.",
+          "note": "New word: rendez-vous = let's meet."
+        },
+        {
+          "text": "Ma radio-montre dit vingt-trois heures cinquante-neuf.",
+          "meaning": "My wrist radio says 11:59 p.m."
+        },
+        {
+          "text": "Le stand de Marta ferme à dix-huit heures.",
+          "meaning": "Marta's stall closes at six p.m.",
+          "note": "New word: le stand = stall."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Il est dix-sept heures quarante.",
+          "meaning": "It's 5:40 p.m.",
+          "distractors": [
+            "quart"
+          ]
+        },
+        {
+          "text": "L'eau filtrée coûte soixante-dix écrous.",
+          "meaning": "Filtered water costs seventy nuts.",
+          "distractors": [
+            "cent"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Le soda coûte quatre-vingt écrous.",
+          "wrong": "quatre-vingt",
+          "fix": "quatre-vingts",
+          "why": "80 on its own keeps its s: quatre-vingts."
+        },
+        {
+          "sentence": "La tempête arrive le un août.",
+          "wrong": "un",
+          "fix": "premier",
+          "why": "The first of the month is le premier."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Cheap or expensive?",
+          "buckets": [
+            "under 50 écrous",
+            "over 50 écrous"
+          ],
+          "items": [
+            {
+              "text": "quarante-cinq",
+              "bucket": 0
+            },
+            {
+              "text": "soixante-dix",
+              "bucket": 1
+            },
+            {
+              "text": "trente et un",
+              "bucket": 0
+            },
+            {
+              "text": "quatre-vingt-dix",
+              "bucket": 1
+            },
+            {
+              "text": "douze",
+              "bucket": 0
+            },
+            {
+              "text": "cinquante-cinq",
+              "bucket": 1
+            }
+          ],
+          "why": "Quarante (40) and below are under 50; cinquante-cinq, soixante-dix and quatre-vingt-dix are over."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-numbers-time-dates-rustwake-01",
+          "prompt": "Ma radio-montre dit : vingt et une heures. On a 12-hour clock, that is … p.m.",
+          "type": "numeric",
+          "correct_answer": "9",
+          "unit": "p.m.",
+          "explanation": "Vingt et une heures is 21:00, which is 9 p.m.",
+          "hints": [
+            "Take away twelve."
+          ],
+          "teaches": [
+            "l'heure"
+          ]
+        },
+        {
+          "question_id": "a1-numbers-time-dates-rustwake-02",
+          "prompt": "L'eau filtrée coûte soixante-dix écrous. How many nuts?",
+          "type": "multiple-choice",
+          "options": [
+            "70",
+            "60",
+            "17"
+          ],
+          "correct_answer": "70",
+          "explanation": "Soixante-dix = 60 + 10 = 70.",
+          "hints": [
+            "Sixty plus ten."
+          ],
+          "teaches": [
+            "soixante-dix"
+          ]
+        }
+      ]
+    }
+  }
+}

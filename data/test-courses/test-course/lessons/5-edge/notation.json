@@ -1,0 +1,137 @@
+{
+  "id": "tc-notation",
+  "slug": "notation",
+  "title": "Music notation",
+  "unit": "edge",
+  "order": 200,
+  "summary": "An ABC block drawn as a staff, a question with a staff above it, and a staff with one wrong note",
+  "content": "## A scale on the staff\n\nA fenced block marked `abc` holds music notation in ABC text. The lesson page draws it as a staff.\n\n```abc\nX:1\nT:C major scale\nM:4/4\nL:1/4\nK:C\nC D E F | G A B c |]\n```\n\nThe scale climbs from C to the C above it.\n\n## Plain code stays code\n\nA block with another language is not music:\n\n```\nC D E F\n```\n\n## Text that isn't music stays text\n\nA block marked `abc` with no music in it is shown as written:\n\n```abc\nthis is not music at all ~~~\n```\n\nAn empty one is shown as an empty block:\n\n```abc\n```",
+  "quiz": [
+    {
+      "question_id": "tc-notation-q1",
+      "type": "multiple-choice",
+      "prompt": "Which note is this?",
+      "abc": "X:1\nL:1/4\nK:C\nA",
+      "options": [
+        "F",
+        "G",
+        "A",
+        "B"
+      ],
+      "correct_answer": "A",
+      "explanation": "The note sits in the second space from the bottom. Count up from G on the second line: the next space is A."
+    },
+    {
+      "question_id": "tc-notation-q2",
+      "type": "multiple-choice",
+      "prompt": "What is the interval?",
+      "abc": "X:1\nL:1/2\nK:C\nC E",
+      "options": [
+        "minor 3rd",
+        "major 3rd",
+        "perfect 4th",
+        "perfect 5th"
+      ],
+      "correct_answer": "major 3rd",
+      "explanation": "C to E is four half steps: C to C♯, C♯ to D, D to D♯, D♯ to E. Four half steps make a major 3rd."
+    },
+    {
+      "question_id": "tc-notation-q3",
+      "type": "multiple-choice",
+      "prompt": "What is the interval?",
+      "abc": "X:1\nL:1/2\nK:C\n[DF]",
+      "options": [
+        "minor 3rd",
+        "major 3rd",
+        "perfect 4th",
+        "perfect 5th"
+      ],
+      "correct_answer": "minor 3rd",
+      "explanation": "The two notes sound together. D to F is three half steps: D to D♯, D♯ to E, E to F. Three half steps make a minor 3rd."
+    },
+    {
+      "question_id": "tc-notation-q4",
+      "type": "multiple-choice",
+      "prompt": "Name this chord.",
+      "abc": "X:1\nL:1\nK:C\n[DFA]",
+      "options": [
+        "D minor",
+        "D major",
+        "F major",
+        "A minor"
+      ],
+      "correct_answer": "D minor",
+      "explanation": "The chord stacks D, F and A. From D to F is a minor 3rd and from D to A a perfect 5th, so it is D minor."
+    },
+    {
+      "question_id": "tc-notation-q5",
+      "type": "multiple-choice",
+      "prompt": "Name this chord.",
+      "abc": "X:1\nL:1\nK:C\n[FAc]",
+      "options": [
+        "F major",
+        "F minor",
+        "A minor",
+        "D minor"
+      ],
+      "correct_answer": "F major",
+      "explanation": "The chord stacks F, A and C. From F to A is a major 3rd and from F to C a perfect 5th, so it is F major."
+    },
+    {
+      "question_id": "tc-notation-q6",
+      "type": "multiple-choice",
+      "prompt": "Which major key has this signature?",
+      "abc": "X:1\nL:1\nK:D\nB",
+      "options": [
+        "G major",
+        "D major",
+        "A major",
+        "E major"
+      ],
+      "correct_answer": "D major",
+      "explanation": "The signature has two sharps, F♯ and C♯. Two sharps means D major. The last sharp, C♯, is a half step below D."
+    },
+    {
+      "question_id": "tc-notation-q7",
+      "type": "multiple-choice",
+      "prompt": "Which key is this tune in?",
+      "abc": "X:1\nL:1/4\nK:Am\nE A B c|B G A2|",
+      "options": [
+        "C major",
+        "A minor",
+        "G major",
+        "E minor"
+      ],
+      "correct_answer": "A minor",
+      "explanation": "No sharps or flats, so the key is C major or its relative minor, A minor. The tune comes to rest on A, so it is A minor."
+    }
+  ],
+  "sprint": {
+    "builds": [
+      {
+        "text": "C G D A E B",
+        "meaning": "Each key adds one sharp."
+      }
+    ],
+    "spots": [
+      {
+        "abc": "X:1\nT:C major scale\nL:1/8\nK:C\nCDEG GABc|",
+        "wrong": 4,
+        "fix": "F",
+        "why": "A scale climbs one step at a time: after E comes F."
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "spots": [
+        {
+          "abc": "X:1\nT:The elves' march, G major\nL:1/8\nK:C\nGABc defg|",
+          "wrong": 7,
+          "fix": "^f",
+          "why": "G major has one sharp: F sharp, the step below the top G."
+        }
+      ]
+    }
+  }
+}

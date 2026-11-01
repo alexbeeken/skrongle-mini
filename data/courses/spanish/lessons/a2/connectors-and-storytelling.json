@@ -1,0 +1,643 @@
+{
+  "id": "a2-connectors-and-storytelling",
+  "slug": "connectors-and-storytelling",
+  "title": "Telling a story: primero, luego, al final",
+  "unit": "A2",
+  "group": "Grammar",
+  "order": 44,
+  "summary": "Link a past narrative together: primero, luego, como, así que, pero, sin embargo, además, al final.",
+  "focus": "Discourse connectors for sequence, cause, contrast and addition in a past narrative",
+  "prerequisites": [
+    "a2-preterite-vs-imperfect"
+  ],
+  "content": "## Putting events in order\n\nA story needs signposts, words that tell the listener what happened next.\n\n| connector | meaning |\n|---|---|\n| **primero** | first |\n| **luego** / **después** | then, afterwards |\n| **más tarde** | later |\n| **entonces** | then, at that point |\n| **al final** | in the end |\n\n- **Primero preparé un bocadillo; luego cogí la bici y salí de casa.** (First I made a sandwich; then I took the bike and left the house.)\n- **Más tarde empezó a llover.** (Later it started to rain.)\n- **Entonces le pregunté si quería venir.** (Then I asked her if she wanted to come.)\n- **Al final volvimos a casa.** (In the end we went home.)\n\n**Después de** + infinitive or noun gives the order in one clause: **Después de comer, salimos.**\n\n## Because and so: cause and result\n\n| connector | position | example |\n|---|---|---|\n| **porque** (because) | after the result | **Me quedé en casa porque llovía.** |\n| **como** (since, as) | at the start of the sentence | **Como llovía, me quedé en casa.** |\n| **por eso** / **así que** (so, that's why) | before the result | **Llovía, así que me quedé en casa.** |\n\nThe facts are the same in all three; only the order changes. **Como** must open the sentence; **porque** must not (except when answering **¿por qué?**).\n\n## But, although, however, and also\n\nContrast:\n\n- **pero** joins two halves: **Tenía mucho trabajo, pero aceptó.** (She had a lot of work, but she accepted.)\n- **aunque** (although) introduces the obstacle: **Aunque llovía, nos quedamos en la playa.**\n- **sin embargo** (however) opens a new sentence, with a comma: **Empezó a llover. Sin embargo, no nos fuimos.**\n\nAddition:\n\n- **también** (also) sits inside the sentence: **Clara también vino.**\n- **además** (besides, what's more) adds a new point: **Además, el agua estaba caliente.**\n\n## A short story\n\nBackground in the **imperfect**, events in the **preterite**, connectors in between:\n\n> **Era** sábado por la mañana y **hacía** un sol espléndido. **Como** no **tenía** planes, **decidí** ir a la playa. **Primero preparé** un bocadillo; **luego cogí** la bici y **salí** de casa. Mientras **bajaba** por la avenida, **vi** a mi vecina Clara, que **iba** al mercado. **Entonces** le **pregunté** si **quería** venir conmigo. Ella **tenía** mucho trabajo, **pero aceptó**. **Más tarde**, en la playa, **de repente empezó** a llover. **Sin embargo**, no nos **fuimos**: **además**, el agua **estaba** caliente. **Al final volvimos** a casa cansados pero felices.\n\nScene-setting (*era, hacía, tenía, iba, estaba*) is imperfect; each thing that happened (*decidí, preparé, vi, pregunté, aceptó, empezó, volvimos*) is preterite. **De repente** (suddenly) almost always announces a preterite.",
+  "vocabulary": [
+    {
+      "term": "primero",
+      "meaning": "first",
+      "example": "Primero preparé un bocadillo.",
+      "example_meaning": "First I made a sandwich."
+    },
+    {
+      "term": "luego",
+      "meaning": "then, next",
+      "example": "Luego cogí la bici.",
+      "example_meaning": "Then I took the bike."
+    },
+    {
+      "term": "después",
+      "meaning": "afterwards, then",
+      "example": "Después de comer, salimos.",
+      "example_meaning": "After eating, we went out."
+    },
+    {
+      "term": "más tarde",
+      "meaning": "later",
+      "example": "Más tarde empezó a llover.",
+      "example_meaning": "Later it started to rain."
+    },
+    {
+      "term": "entonces",
+      "meaning": "then, at that point",
+      "example": "Entonces le pregunté si quería venir.",
+      "example_meaning": "Then I asked him if he wanted to come."
+    },
+    {
+      "term": "al final",
+      "meaning": "in the end",
+      "example": "Al final volvimos a casa.",
+      "example_meaning": "In the end we went back home."
+    },
+    {
+      "term": "como",
+      "meaning": "since, as (cause, at the start)",
+      "example": "Como llovía, me quedé en casa.",
+      "example_meaning": "Since it was raining, I stayed at home."
+    },
+    {
+      "term": "así que",
+      "meaning": "so, therefore",
+      "example": "No tenía planes, así que fui a la playa.",
+      "example_meaning": "I had no plans, so I went to the beach."
+    },
+    {
+      "term": "aunque",
+      "meaning": "although, even though",
+      "example": "Aunque llovía, nos quedamos.",
+      "example_meaning": "Although it was raining, we stayed."
+    },
+    {
+      "term": "sin embargo",
+      "meaning": "however",
+      "example": "Empezó a llover. Sin embargo, no nos fuimos.",
+      "example_meaning": "It started to rain. However, we didn't leave."
+    },
+    {
+      "term": "además",
+      "meaning": "besides, what's more",
+      "example": "Además, el agua estaba caliente.",
+      "example_meaning": "Besides, the water was warm."
+    },
+    {
+      "term": "de repente",
+      "meaning": "suddenly",
+      "example": "De repente sonó el teléfono.",
+      "example_meaning": "Suddenly the phone rang."
+    },
+    {
+      "term": "el vecino / la vecina",
+      "meaning": "neighbour",
+      "example": "Vi a mi vecina Clara en la calle.",
+      "example_meaning": "I saw my neighbour Clara in the street."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-connectors-and-storytelling-01",
+      "prompt": "___ preparé un bocadillo; luego cogí la bici.",
+      "type": "multiple-choice",
+      "options": [
+        "Primero",
+        "Al final",
+        "Sin embargo",
+        "Además"
+      ],
+      "correct_answer": "Primero",
+      "explanation": "The first step of a sequence is primero; luego follows it.",
+      "hints": [
+        "Luego comes second, so what comes first?"
+      ],
+      "teaches": [
+        "primero",
+        "luego"
+      ]
+    },
+    {
+      "question_id": "a2-connectors-and-storytelling-02",
+      "prompt": "No tenía planes, ___ decidí ir a la playa. (so)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "así que",
+      "accepted_answers": [
+        "asi que",
+        "por eso"
+      ],
+      "explanation": "A result is introduced by así que (or por eso): 'no tenía planes, así que decidí…'.",
+      "hints": [
+        "Cause first, then 'so' + result."
+      ],
+      "teaches": [
+        "así que"
+      ]
+    },
+    {
+      "question_id": "a2-connectors-and-storytelling-03",
+      "prompt": "___ no tenía planes, decidí ir a la playa.",
+      "type": "multiple-choice",
+      "options": [
+        "Como",
+        "Porque",
+        "Por eso",
+        "Aunque"
+      ],
+      "correct_answer": "Como",
+      "explanation": "A cause at the start of the sentence is como (since, as). Porque cannot open the sentence here, and por eso would introduce a result.",
+      "hints": [
+        "Since or as, at the beginning, takes como."
+      ],
+      "teaches": [
+        "como"
+      ]
+    },
+    {
+      "question_id": "a2-connectors-and-storytelling-04",
+      "prompt": "Empezó a llover. ___, no nos fuimos. (however)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "sin embargo",
+      "accepted_answers": [],
+      "explanation": "Sin embargo opens a new sentence and is followed by a comma: 'Sin embargo, no nos fuimos.'",
+      "hints": [
+        "Two words.",
+        "Formal 'however', at the start of a sentence."
+      ],
+      "teaches": [
+        "sin embargo"
+      ]
+    },
+    {
+      "question_id": "a2-connectors-and-storytelling-05",
+      "prompt": "Clara tenía mucho trabajo, ___ aceptó.",
+      "type": "multiple-choice",
+      "options": [
+        "pero",
+        "porque",
+        "además",
+        "como"
+      ],
+      "correct_answer": "pero",
+      "explanation": "Work versus accepting is a contrast inside one sentence: pero.",
+      "hints": [
+        "She had work… but she said yes."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a2-connectors-and-storytelling-06",
+      "prompt": "El agua estaba caliente y, ___, no había mucha gente. (what's more)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "además",
+      "accepted_answers": [
+        "ademas"
+      ],
+      "explanation": "Además adds a further point: 'y, además, no había mucha gente'.",
+      "hints": [
+        "Besides / what's more.",
+        "Accent on the a."
+      ],
+      "teaches": [
+        "además"
+      ]
+    },
+    {
+      "question_id": "a2-connectors-and-storytelling-07",
+      "prompt": "___ volvimos a casa cansados pero felices.",
+      "type": "multiple-choice",
+      "options": [
+        "Al final",
+        "Aunque",
+        "Como",
+        "Porque"
+      ],
+      "correct_answer": "Al final",
+      "explanation": "The closing step of a story is al final (in the end).",
+      "hints": [
+        "How does a story end?"
+      ],
+      "teaches": [
+        "al final"
+      ]
+    },
+    {
+      "question_id": "a2-connectors-and-storytelling-08",
+      "prompt": "Estaba leyendo tranquilamente y ___ sonó el teléfono. (suddenly)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "de repente",
+      "accepted_answers": [],
+      "explanation": "De repente means suddenly and announces an event in the preterite: 'de repente sonó'.",
+      "hints": [
+        "Two words.",
+        "It breaks the background scene."
+      ],
+      "teaches": [
+        "de repente"
+      ]
+    },
+    {
+      "question_id": "a2-connectors-and-storytelling-09",
+      "prompt": "___ llovía, nos quedamos en la playa.",
+      "type": "multiple-choice",
+      "options": [
+        "Aunque",
+        "Sin embargo",
+        "Así que",
+        "Luego"
+      ],
+      "correct_answer": "Aunque",
+      "explanation": "Aunque (although) links the obstacle to the main clause in one sentence; sin embargo would need its own sentence.",
+      "hints": [
+        "Although is one word and joins two clauses."
+      ],
+      "teaches": [
+        "aunque"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Primero desayuné y luego salí.",
+      "meaning": "First I had breakfast and then I went out."
+    },
+    {
+      "text": "De repente empezó a llover.",
+      "meaning": "Suddenly it started to rain.",
+      "note": "De repente announces a sudden event: preterite."
+    },
+    {
+      "text": "Como hacía frío, me quedé en casa.",
+      "meaning": "Since it was cold, I stayed at home.",
+      "note": "Como opens the sentence; porque cannot."
+    },
+    {
+      "text": "Al final fuimos al cine con mis vecinos.",
+      "meaning": "In the end we went to the cinema with my neighbours."
+    },
+    {
+      "text": "Aunque estaba cansada, Marta fue a la fiesta.",
+      "meaning": "Although she was tired, Marta went to the party."
+    },
+    {
+      "text": "La película era muy larga y, además, bastante aburrida.",
+      "meaning": "The film was very long and, what's more, quite boring.",
+      "note": "New word: aburrido = boring."
+    },
+    {
+      "text": "Tenía sueño, así que me fui a la cama temprano.",
+      "meaning": "I was sleepy, so I went to bed early.",
+      "note": "New word: temprano = early."
+    },
+    {
+      "text": "Ayer llegué tarde al trabajo. Sin embargo, nadie me dijo nada.",
+      "meaning": "Yesterday I arrived late at work. However, nobody said anything to me.",
+      "note": "Sin embargo opens a new sentence, with a comma."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Putting events in order"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-connectors-and-storytelling-01"
+    },
+    {
+      "question": "a2-connectors-and-storytelling-07"
+    },
+    {
+      "section": "Because and so"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a2-connectors-and-storytelling-02"
+    },
+    {
+      "question": "a2-connectors-and-storytelling-03"
+    },
+    {
+      "section": "But, although"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a2-connectors-and-storytelling-05"
+    },
+    {
+      "question": "a2-connectors-and-storytelling-09"
+    },
+    {
+      "question": "a2-connectors-and-storytelling-04"
+    },
+    {
+      "question": "a2-connectors-and-storytelling-06"
+    },
+    {
+      "tip": "Tell it like a film. The imperfect is the camera panning over the scene (era, hacía, tenía), and the preterite is each cut (decidí, salí, vi). The connectors are the editing."
+    },
+    {
+      "section": "A short story"
+    },
+    {
+      "question": "a2-connectors-and-storytelling-08"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-connectors-and-storytelling-conv-fin-de-semana",
+      "title": "A weekend adventure",
+      "scenario": "On Monday, Iván asks Nuria about her weekend. She tells the story of a trip that did not go to plan.",
+      "role_a": "Iván",
+      "role_b": "Nuria",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¿Qué tal el fin de semana, Nuria? Tienes cara de cansada.",
+          "meaning": "How was the weekend, Nuria? You look tired."
+        },
+        {
+          "speaker": "b",
+          "text": "¡Fue una aventura! El sábado quería ir a la montaña, pero llovía mucho.",
+          "meaning": "It was an adventure! On Saturday I wanted to go to the mountains, but it was raining a lot.",
+          "note": "pero; imperfect for background"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Y qué hiciste entonces?",
+          "meaning": "And what did you do then?",
+          "note": "entonces"
+        },
+        {
+          "speaker": "b",
+          "text": "Como no podía salir, primero limpié la casa y luego vi una película.",
+          "meaning": "Since I couldn't go out, first I cleaned the house and then I watched a film.",
+          "note": "como; primero, luego"
+        },
+        {
+          "speaker": "a",
+          "text": "Qué tranquilo. ¿Y el domingo?",
+          "meaning": "How relaxing. And Sunday?"
+        },
+        {
+          "speaker": "b",
+          "text": "El domingo hacía sol, así que cogí el tren a Segovia. Sin embargo, me dormí y me bajé en otra ciudad.",
+          "meaning": "On Sunday it was sunny, so I took the train to Segovia. However, I fell asleep and got off in another city.",
+          "note": "así que; sin embargo"
+        },
+        {
+          "speaker": "a",
+          "text": "¡No! ¿Y después?",
+          "meaning": "No! And then?",
+          "note": "después"
+        },
+        {
+          "speaker": "b",
+          "text": "Después esperé dos horas en la estación. Además, no tenía batería en el móvil.",
+          "meaning": "Afterwards I waited two hours at the station. What's more, my phone had no battery.",
+          "note": "además"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Y al final llegaste a Segovia?",
+          "meaning": "And did you get to Segovia in the end?",
+          "note": "al final"
+        },
+        {
+          "speaker": "b",
+          "text": "Al final sí, a las cinco. Aunque solo vi el acueducto, fue un día genial.",
+          "meaning": "In the end yes, at five. Although I only saw the aqueduct, it was a great day.",
+          "note": "aunque"
+        },
+        {
+          "speaker": "a",
+          "text": "Por eso estás tan cansada.",
+          "meaning": "That's why you're so tired.",
+          "note": "por eso"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "📖",
+    "bites": [
+      {
+        "title": "Signpost the order",
+        "emoji": "🪧",
+        "rule": "The order runs primero, luego / después, más tarde, entonces, al final. Give each step one signpost and the listener can follow.",
+        "example": "Primero preparé un bocadillo; luego salí.",
+        "example_meaning": "First I made a sandwich; then I went out."
+      },
+      {
+        "title": "Cause and result",
+        "emoji": "🔗",
+        "rule": "porque goes after the result; como opens the sentence; así que / por eso introduce the result. The facts stay the same; only the order changes.",
+        "example": "Como llovía, me quedé en casa.",
+        "example_meaning": "Since it was raining, I stayed at home."
+      },
+      {
+        "title": "But and besides",
+        "emoji": "↔️",
+        "rule": "pero joins two halves; aunque introduces the obstacle; sin embargo starts a new sentence with a comma. además adds a point; también sits inside the sentence.",
+        "example": "Llovía. Sin embargo, no nos fuimos.",
+        "example_meaning": "It was raining. However, we didn't leave."
+      },
+      {
+        "title": "Scene or action",
+        "emoji": "🎬",
+        "rule": "Imperfect paints the scene (era, hacía, tenía, iba); preterite tells each event (decidí, vi, empezó). De repente announces a preterite.",
+        "example": "Hacía sol y de repente empezó a llover.",
+        "example_meaning": "It was sunny and suddenly it started to rain."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "What does it do?",
+        "buckets": [
+          "order",
+          "cause / result",
+          "contrast",
+          "addition"
+        ],
+        "why": "Sequencers order events; porque and así que link cause and result; pero and aunque contrast; además and también add.",
+        "items": [
+          {
+            "text": "primero",
+            "bucket": 0
+          },
+          {
+            "text": "porque",
+            "bucket": 1
+          },
+          {
+            "text": "pero",
+            "bucket": 2
+          },
+          {
+            "text": "además",
+            "bucket": 3
+          },
+          {
+            "text": "al final",
+            "bucket": 0
+          },
+          {
+            "text": "así que",
+            "bucket": 1
+          },
+          {
+            "text": "aunque",
+            "bucket": 2
+          },
+          {
+            "text": "también",
+            "bucket": 3
+          }
+        ]
+      },
+      {
+        "title": "Scene or event?",
+        "buckets": [
+          "imperfect (background)",
+          "preterite (what happened)"
+        ],
+        "why": "Descriptions, weather, age and ongoing states are imperfect; each completed event is preterite.",
+        "items": [
+          {
+            "text": "Hacía sol.",
+            "bucket": 0
+          },
+          {
+            "text": "Sonó el teléfono.",
+            "bucket": 1
+          },
+          {
+            "text": "Tenía veinte años.",
+            "bucket": 0
+          },
+          {
+            "text": "Llegamos a las cinco.",
+            "bucket": 1
+          },
+          {
+            "text": "Llovía mucho.",
+            "bucket": 0
+          },
+          {
+            "text": "Decidí ir a la playa.",
+            "bucket": 1
+          }
+        ]
+      },
+      {
+        "title": "Where does it go?",
+        "buckets": [
+          "opens the sentence",
+          "joins the two halves"
+        ],
+        "why": "Como and sin embargo open a sentence; pero, porque and así que sit between the two halves.",
+        "items": [
+          {
+            "text": "Sin embargo",
+            "bucket": 0
+          },
+          {
+            "text": "pero",
+            "bucket": 1
+          },
+          {
+            "text": "Como",
+            "bucket": 0
+          },
+          {
+            "text": "porque",
+            "bucket": 1
+          },
+          {
+            "text": "así que",
+            "bucket": 1
+          }
+        ]
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Porque no tenía planes, decidí ir a la playa.",
+        "wrong": "Porque",
+        "fix": "Como",
+        "why": "A cause at the start of the sentence is introduced by como."
+      },
+      {
+        "sentence": "Era sábado y de repente sonaba el teléfono.",
+        "wrong": "sonaba",
+        "fix": "sonó",
+        "why": "De repente announces a sudden event: preterite."
+      },
+      {
+        "sentence": "Llovía mucho, porque nos quedamos en casa.",
+        "wrong": "porque",
+        "fix": "así que",
+        "why": "The rain is the cause and staying in is the result, so you need 'so': así que."
+      },
+      {
+        "sentence": "Tenía mucho trabajo, además aceptó.",
+        "wrong": "además",
+        "fix": "pero",
+        "why": "Having work and accepting anyway is a contrast: pero."
+      },
+      {
+        "sentence": "Al final volvimos a casa cansados pero feliz.",
+        "wrong": "feliz",
+        "fix": "felices",
+        "why": "Adjectives agree with the plural subject: cansados pero felices."
+      },
+      {
+        "sentence": "Primero cogí la bici y después salía de casa.",
+        "wrong": "salía",
+        "fix": "salí",
+        "why": "Leaving the house is the next completed event in the sequence: preterite."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Primero preparé un bocadillo y luego salí.",
+        "meaning": "First I made a sandwich and then I went out.",
+        "distractors": [
+          "salía"
+        ]
+      },
+      {
+        "text": "Como no tenía planes, fui a la playa.",
+        "meaning": "Since I had no plans, I went to the beach.",
+        "distractors": [
+          "Porque"
+        ]
+      },
+      {
+        "text": "Llovía. Sin embargo, no nos fuimos.",
+        "meaning": "It was raining. However, we didn't leave.",
+        "distractors": [
+          "pero"
+        ]
+      },
+      {
+        "text": "Al final volvimos a casa cansados.",
+        "meaning": "In the end we went home tired.",
+        "distractors": [
+          "volvíamos"
+        ]
+      },
+      {
+        "text": "De repente sonó el teléfono.",
+        "meaning": "Suddenly the phone rang.",
+        "distractors": [
+          "sonaba"
+        ]
+      }
+    ]
+  }
+}

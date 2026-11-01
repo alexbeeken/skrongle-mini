@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t("play.matching.name") }}{% endblock %}
+{% block modenav %}{% let active = "matching" %}{% include "nav_play.html" %}{% endblock %}
+{% block content %}
+<p class="crumbs"><a href="{{ crate::base_path() }}/play">{{ crate::t("play.common.games") }}</a> › {{ crate::t("play.matching.name") }}</p>
+<h1>{{ crate::t("play.matching.name") }} <span class="muted">· {{ course.title }}</span></h1>
+<p class="lead">{{ crate::t("play.matching.pick_lead") }}</p>
+<ul class="topics boards">
+{% for b in boards %}
+  <li data-testid="matching-board" data-board="{{ b.query }}">
+    <a href="{{ crate::base_path() }}/play/matching/play?lesson={{ b.query }}">{{ b.title }}</a>
+    <span class="meta">{{ b.subtitle }} · {{ crate::t1("play.matching.terms_count", "n", b.words) }} · {{ crate::tn("play.matching.rounds", b.rounds) }}
+      {% if let Some(r) = b.record %} · {{ crate::t("play.matching.record") }} <strong>{{ r }}</strong>{% if let Some(who) = b.record_by %} {{ crate::t1("play.matching.by", "name", who) }}{% endif %}{% endif %}
+      {% if let Some(y) = b.your_best %} · {{ crate::t1("play.matching.your_best", "time", y) }}{% endif %}</span>
+    <a class="btn small" data-testid="matching-board-play" href="{{ crate::base_path() }}/play/matching/play?lesson={{ b.query }}">{{ crate::t("play.common.play") }}</a>
+  </li>
+{% endfor %}
+</ul>
+{% endblock %}

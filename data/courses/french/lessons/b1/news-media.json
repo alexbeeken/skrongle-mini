@@ -1,0 +1,1288 @@
+{
+  "id": "b1-news-media",
+  "slug": "news-media",
+  "title": "News and media: les infos, un article, les réseaux sociaux",
+  "unit": "B1",
+  "group": "Vocabulary",
+  "order": 40,
+  "summary": "Talk about the news in the press, on TV, in podcasts and on social media, name your sources with selon and d'après, pass on what you heard, and read figures aloud.",
+  "focus": "The words of the news and media, quoting a source, and talking about a piece of news",
+  "prerequisites": [
+    "b1-opinions-agreement"
+  ],
+  "content": "## Press, TV and radio\n\n**Les informations** (always plural; everyday French says **les infos**) is the news. Where you find it:\n\n- **le journal**: the newspaper; **le journal télévisé** (**le JT**): the TV news\n- **la presse**: the press; **un article**; **un titre**: a headline; **à la une**: on the front page\n- **un / une journaliste**: a journalist\n- **une émission**: a programme, a show, on **une chaîne**: a channel\n- **un reportage**: a report from the field, a documentary\n- **un podcast**: a podcast\n\n**Le journal de vingt heures** is the classic evening TV news. One piece of news is **une nouvelle**: **J'ai une bonne nouvelle !**\n\n## Online: les réseaux sociaux\n\nOn **les réseaux sociaux** (social media) you:\n\n- **publier**: post, publish. **Le journal a publié une enquête.**\n- **partager**: share. **Elle partage tout sur les réseaux.**\n- **s'abonner à**: subscribe to, follow. **Je me suis abonné à ce podcast.** (**se désabonner**: to unsubscribe)\n\nWatch out for **une fausse information**, officially called **une infox** (fake news). Before you share a story, check where it comes from: **Qui a publié ça ?**\n\n## Sources, rumours and figures\n\nName the source with **selon** or **d'après** + a noun: **Selon le journal…**, **D'après les experts…**\n\nPass on what people say with **il paraît que** (apparently) or **on dit que** (people say): **Il paraît que le musée va fermer.**\n\nBring up a story: **Tu as entendu parler de… ?** **J'ai lu que…** **J'ai vu aux infos que…**\n\nFigures are read like this:\n\n| written | said |\n|---|---|\n| 25 % | vingt-cinq pour cent |\n| 3,5 % | trois virgule cinq pour cent |\n| 2 millions | deux millions de téléspectateurs |\n\nFrench writes a comma for decimals and a space before **%**; **pour cent** never takes an s.",
+  "vocabulary": [
+    {
+      "term": "les infos",
+      "meaning": "the news (f pl)",
+      "example": "Tu as écouté les infos ce matin ?",
+      "example_meaning": "Did you listen to the news this morning?"
+    },
+    {
+      "term": "le journal télévisé",
+      "meaning": "the TV news",
+      "example": "Le journal télévisé commence à vingt heures.",
+      "example_meaning": "The TV news starts at eight p.m."
+    },
+    {
+      "term": "un article",
+      "meaning": "an article",
+      "example": "J'ai lu un article passionnant sur les abeilles.",
+      "example_meaning": "I read a fascinating article about bees."
+    },
+    {
+      "term": "un titre",
+      "meaning": "a headline, a title",
+      "example": "Le titre de l'article est un peu exagéré.",
+      "example_meaning": "The article's headline is a bit exaggerated."
+    },
+    {
+      "term": "la une",
+      "meaning": "the front page (f)",
+      "example": "Le match de foot fait la une de tous les journaux.",
+      "example_meaning": "The football match is on the front page of every paper."
+    },
+    {
+      "term": "un journaliste",
+      "meaning": "a journalist (f: une journaliste)",
+      "example": "Une journaliste a interviewé le maire hier.",
+      "example_meaning": "A journalist interviewed the mayor yesterday."
+    },
+    {
+      "term": "une émission",
+      "meaning": "a programme, a show (f)",
+      "example": "Cette émission de radio passe le dimanche matin.",
+      "example_meaning": "This radio programme is on on Sunday mornings."
+    },
+    {
+      "term": "une chaîne",
+      "meaning": "a channel (f)",
+      "example": "Sur quelle chaîne passe le match ?",
+      "example_meaning": "Which channel is the match on?"
+    },
+    {
+      "term": "un reportage",
+      "meaning": "a report, a documentary",
+      "example": "J'ai vu un reportage sur la vie en Antarctique.",
+      "example_meaning": "I saw a documentary about life in Antarctica."
+    },
+    {
+      "term": "les réseaux sociaux",
+      "meaning": "social media (m pl)",
+      "example": "Ma sœur passe trop de temps sur les réseaux sociaux.",
+      "example_meaning": "My sister spends too much time on social media."
+    },
+    {
+      "term": "partager",
+      "meaning": "to share",
+      "example": "Ne partage pas cet article avant de vérifier la source.",
+      "example_meaning": "Don't share this article before checking the source."
+    },
+    {
+      "term": "s'abonner à",
+      "meaning": "to subscribe to, to follow",
+      "example": "Je me suis abonné à une chaîne de cuisine.",
+      "example_meaning": "I've subscribed to a cooking channel."
+    },
+    {
+      "term": "une infox",
+      "meaning": "a piece of fake news (f)",
+      "example": "Cette photo est une infox : elle a dix ans.",
+      "example_meaning": "This photo is fake news: it's ten years old."
+    },
+    {
+      "term": "il paraît que",
+      "meaning": "apparently, I hear that",
+      "example": "Il paraît que le nouveau film est excellent.",
+      "example_meaning": "Apparently the new film is excellent."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-news-media-01",
+      "prompt": "Le soir, mes grands-parents regardent toujours ___ de vingt heures.",
+      "type": "multiple-choice",
+      "options": [
+        "le journal télévisé",
+        "la une",
+        "les réseaux sociaux"
+      ],
+      "correct_answer": "le journal télévisé",
+      "explanation": "The evening TV news at eight o'clock is 'le journal télévisé de vingt heures' (le JT). 'La une' is the front page of a paper.",
+      "hints": [
+        "What do you watch on TV at eight p.m.?"
+      ],
+      "teaches": [
+        "le journal télévisé"
+      ]
+    },
+    {
+      "question_id": "b1-news-media-02",
+      "prompt": "Cette histoire est partout : elle fait la ___ de tous les journaux ce matin.",
+      "type": "fill-in-blank",
+      "correct_answer": "une",
+      "accepted_answers": [],
+      "explanation": "'Faire la une' = to be on the front page, to make the headlines.",
+      "hints": [
+        "The front page of a newspaper.",
+        "It looks like the number one."
+      ],
+      "teaches": [
+        "la une"
+      ]
+    },
+    {
+      "question_id": "b1-news-media-03",
+      "prompt": "Ne crois pas tout ce que tu vois en ligne : cette vidéo est une ___.",
+      "type": "multiple-choice",
+      "options": [
+        "infox",
+        "émission",
+        "chaîne"
+      ],
+      "correct_answer": "infox",
+      "explanation": "A false story passed off as news is 'une infox' (une fausse information).",
+      "hints": [
+        "'Don't believe everything you see online…'"
+      ],
+      "teaches": [
+        "une infox"
+      ]
+    },
+    {
+      "question_id": "b1-news-media-04",
+      "prompt": "J'adore ce podcast : je m'y suis ___ hier pour ne rater aucun épisode. (subscribed)",
+      "type": "fill-in-blank",
+      "correct_answer": "abonné",
+      "accepted_answers": [
+        "abonnée"
+      ],
+      "explanation": "S'abonner à takes être in the passé composé: 'je me suis abonné(e)'; y replaces 'à ce podcast'.",
+      "hints": [
+        "Past participle of s'abonner.",
+        "Add an -e if the speaker is a woman."
+      ],
+      "teaches": [
+        "s'abonner à"
+      ]
+    },
+    {
+      "question_id": "b1-news-media-05",
+      "prompt": "'Les informations', meaning the news on TV or the radio, is used in the plural in French.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Yes: 'les informations', 'les infos' (the news). One single piece of news is 'une nouvelle'.",
+      "hints": [
+        "Think of 'tu as écouté les infos ?'"
+      ],
+      "teaches": [
+        "les infos"
+      ]
+    },
+    {
+      "question_id": "b1-news-media-06",
+      "prompt": "Selon un sondage publié ce matin, trente-huit pour cent des jeunes s'informent surtout sur les réseaux sociaux. What percentage is that?",
+      "type": "numeric",
+      "correct_answer": "38",
+      "unit": "%",
+      "explanation": "Trente-huit pour cent = 38 %. In French the % sign has a space before it.",
+      "hints": [
+        "trente = 30, huit = 8"
+      ],
+      "teaches": [
+        "les réseaux sociaux"
+      ]
+    },
+    {
+      "question_id": "b1-news-media-07",
+      "prompt": "___ le journal régional, la grève des trains va durer trois jours.",
+      "type": "multiple-choice",
+      "options": [
+        "Selon",
+        "Il paraît",
+        "On dit"
+      ],
+      "correct_answer": "Selon",
+      "explanation": "A source given as a noun takes 'selon' (or 'd'après'). 'Il paraît' and 'on dit' need que + a clause.",
+      "hints": [
+        "A noun (le journal) follows the blank."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b1-news-media-08",
+      "prompt": "Tu as entendu ___ de ce nouveau festival de musique ? (heard about)",
+      "type": "fill-in-blank",
+      "correct_answer": "parler",
+      "accepted_answers": [],
+      "explanation": "'Entendre parler de' = to hear about: 'Tu as entendu parler de… ?'",
+      "hints": [
+        "An infinitive: to speak."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b1-news-media-09",
+      "prompt": "'Il paraît que…' passes on something you have heard but not checked yourself.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Yes: 'il paraît que' means apparently, I hear that. It reports a rumour or what people say.",
+      "hints": [
+        "Compare 'apparently' in English."
+      ],
+      "teaches": [
+        "il paraît que"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-news-media-conv-free-tram",
+      "title": "A free tram?",
+      "scenario": "Over breakfast, Julie tells her flatmate Karim about a story she saw online, and they check whether it is true.",
+      "role_a": "Julie",
+      "role_b": "Karim",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Tu as entendu parler de la nouvelle ligne de tram ?",
+          "meaning": "Have you heard about the new tram line?"
+        },
+        {
+          "speaker": "b",
+          "text": "Non. C'était aux infos ?",
+          "meaning": "No. Was it on the news?"
+        },
+        {
+          "speaker": "a",
+          "text": "Je l'ai vu sur les réseaux sociaux. Il paraît qu'elle sera gratuite.",
+          "meaning": "I saw it on social media. Apparently it'll be free."
+        },
+        {
+          "speaker": "b",
+          "text": "Gratuite ? Ça ressemble à une infox.",
+          "meaning": "Free? That sounds like fake news."
+        },
+        {
+          "speaker": "a",
+          "text": "Attends, je vérifie… D'après le journal local, c'est vrai !",
+          "meaning": "Wait, I'll check… According to the local paper, it's true!",
+          "note": "d'après + source"
+        },
+        {
+          "speaker": "b",
+          "text": "Ah bon ? Qui a écrit l'article ?",
+          "meaning": "Really? Who wrote the article?"
+        },
+        {
+          "speaker": "a",
+          "text": "Une journaliste de la rubrique ville. Le titre dit que le tram sera gratuit le week-end.",
+          "meaning": "A journalist from the city section. The headline says the tram will be free at weekends."
+        },
+        {
+          "speaker": "b",
+          "text": "Ah, seulement le week-end ! Ce n'est pas pareil.",
+          "meaning": "Ah, only at weekends! That's not the same."
+        },
+        {
+          "speaker": "a",
+          "text": "Selon un sondage, soixante pour cent des habitants sont pour.",
+          "meaning": "According to a poll, sixty per cent of residents are in favour."
+        },
+        {
+          "speaker": "b",
+          "text": "Bon, je vais partager l'article avec ma sœur.",
+          "meaning": "OK, I'll share the article with my sister."
+        },
+        {
+          "speaker": "a",
+          "text": "Et abonne-toi à leur podcast, il est très bien fait.",
+          "meaning": "And subscribe to their podcast, it's really well made."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "J'écoute un podcast dans le train.",
+      "meaning": "I listen to a podcast on the train."
+    },
+    {
+      "text": "Ce reportage passe ce soir sur une autre chaîne.",
+      "meaning": "This documentary is on another channel tonight."
+    },
+    {
+      "text": "Il paraît que la boulangerie va fermer.",
+      "meaning": "Apparently the bakery is going to close."
+    },
+    {
+      "text": "D'après la presse, le maire va démissionner.",
+      "meaning": "According to the press, the mayor is going to resign.",
+      "note": "New word: démissionner = to resign."
+    },
+    {
+      "text": "J'ai lu un article intéressant sur le climat.",
+      "meaning": "I read an interesting article about the climate."
+    },
+    {
+      "text": "Tu as entendu parler de cette nouvelle émission ?",
+      "meaning": "Have you heard about this new programme?"
+    },
+    {
+      "text": "Plus de deux millions de téléspectateurs ont regardé le match hier.",
+      "meaning": "More than two million viewers watched the match yesterday.",
+      "note": "New word: le téléspectateur = the viewer."
+    },
+    {
+      "text": "Selon un sondage, quarante pour cent des Français lisent le journal en ligne.",
+      "meaning": "According to a poll, forty per cent of French people read the newspaper online.",
+      "note": "New word: le sondage = the poll."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Press"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-news-media-01"
+    },
+    {
+      "question": "b1-news-media-02"
+    },
+    {
+      "question": "b1-news-media-05"
+    },
+    {
+      "tip": "Les infos is always plural: les infos sont à vingt heures. One single piece of news is une nouvelle."
+    },
+    {
+      "section": "Online"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-news-media-03"
+    },
+    {
+      "question": "b1-news-media-04"
+    },
+    {
+      "section": "Sources"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b1-news-media-07"
+    },
+    {
+      "question": "b1-news-media-09"
+    },
+    {
+      "question": "b1-news-media-08"
+    },
+    {
+      "question": "b1-news-media-06"
+    },
+    {
+      "concept": {
+        "title": "Daily, weekly, monthly",
+        "markdown": "A newspaper is named by how often it comes out: **un quotidien** (a daily), **un hebdomadaire** or **un hebdo** (a weekly), **un mensuel** (a monthly). **Je lis un quotidien régional et un hebdo le dimanche.**"
+      }
+    }
+  ],
+  "sprint": {
+    "icon": "🗞️",
+    "bites": [
+      {
+        "title": "Les infos",
+        "emoji": "🗞️",
+        "rule": "The news is plural: les informations, les infos. Le journal is the paper; le journal télévisé is the TV news; la une is the front page.",
+        "example": "Les infos sont à vingt heures.",
+        "example_meaning": "The news is at eight p.m."
+      },
+      {
+        "title": "Online",
+        "emoji": "📱",
+        "rule": "Publier, partager, s'abonner à; and check the source before you share une infox.",
+        "example": "Je me suis abonnée à sa chaîne.",
+        "example_meaning": "I've subscribed to her channel."
+      },
+      {
+        "title": "Who says so?",
+        "emoji": "🔎",
+        "rule": "Selon or d'après + a source; il paraît que and on dit que for what people say.",
+        "example": "D'après la radio, il va neiger.",
+        "example_meaning": "According to the radio, it's going to snow."
+      },
+      {
+        "title": "Reading figures",
+        "emoji": "📊",
+        "rule": "25 % = vingt-cinq pour cent (no s). A comma for decimals: 3,5 % = trois virgule cinq pour cent.",
+        "example": "Dix pour cent des gens n'ont pas de télé.",
+        "example_meaning": "Ten per cent of people don't have a TV."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Read, watch or listen?",
+        "buckets": [
+          "on lit",
+          "on regarde",
+          "on écoute"
+        ],
+        "items": [
+          {
+            "text": "un article",
+            "bucket": 0
+          },
+          {
+            "text": "la une du journal",
+            "bucket": 0
+          },
+          {
+            "text": "le journal télévisé",
+            "bucket": 1
+          },
+          {
+            "text": "un reportage à la télé",
+            "bucket": 1
+          },
+          {
+            "text": "un podcast",
+            "bucket": 2
+          },
+          {
+            "text": "une émission de radio",
+            "bucket": 2
+          },
+          {
+            "text": "un titre",
+            "bucket": 0
+          }
+        ],
+        "why": "Articles, headlines and the front page are read; the TV news and TV reports are watched; podcasts and radio shows are listened to."
+      },
+      {
+        "title": "A source or hearsay?",
+        "buckets": [
+          "a named source",
+          "hearsay"
+        ],
+        "items": [
+          {
+            "text": "Selon le ministre, …",
+            "bucket": 0
+          },
+          {
+            "text": "D'après la presse, …",
+            "bucket": 0
+          },
+          {
+            "text": "Il paraît que …",
+            "bucket": 1
+          },
+          {
+            "text": "On dit que …",
+            "bucket": 1
+          },
+          {
+            "text": "Selon une étude récente, …",
+            "bucket": 0
+          },
+          {
+            "text": "J'ai entendu dire que …",
+            "bucket": 1
+          }
+        ],
+        "why": "Selon and d'après name who said it; il paraît que, on dit que and j'ai entendu dire que pass on what people say."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Les infos est très mauvaises ce soir.",
+        "wrong": "est",
+        "fix": "sont",
+        "why": "Les infos is plural: les infos sont."
+      },
+      {
+        "sentence": "Je me suis abonné de cette chaîne.",
+        "wrong": "de",
+        "fix": "à",
+        "why": "S'abonner à: je me suis abonné à cette chaîne."
+      },
+      {
+        "sentence": "Tu as entendu parler à ce festival ?",
+        "wrong": "à",
+        "fix": "de",
+        "why": "Entendre parler de: tu as entendu parler de ce festival ?"
+      },
+      {
+        "sentence": "Cette histoire fait le une de tous les journaux.",
+        "wrong": "le",
+        "fix": "la",
+        "why": "La une is feminine: faire la une."
+      },
+      {
+        "sentence": "Trente pour cents des jeunes écoutent des podcasts.",
+        "wrong": "cents",
+        "fix": "cent",
+        "why": "Pour cent never takes an s."
+      }
+    ],
+    "builds": [
+      {
+        "text": "J'ai lu un article sur la grève.",
+        "meaning": "I read an article about the strike.",
+        "distractors": [
+          "une"
+        ]
+      },
+      {
+        "text": "Il paraît que le concert est annulé.",
+        "meaning": "Apparently the concert is cancelled.",
+        "distractors": [
+          "dit"
+        ]
+      },
+      {
+        "text": "Elle s'est abonnée à mon podcast.",
+        "meaning": "She subscribed to my podcast.",
+        "distractors": [
+          "de"
+        ]
+      },
+      {
+        "text": "Ne partage pas cette fausse information.",
+        "meaning": "Don't share this fake news.",
+        "distractors": [
+          "faux"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🦅",
+      "content": "## Les nouvelles à Eldmark\n\nIn Highgate, **la presse** is **la Gazette de Highgate**, and le crieur reads **les infos** on the square. **Il paraît qu'**un dragon dort à Frostmarch ; **selon** la guilde, c'est **une infox**. The victory of the dwarves **fait la une**, and everyone **partage** the news at la taverne du Dragon Vert.",
+      "vocabulary": [
+        {
+          "term": "les infos",
+          "example": "Le crieur annonce les infos sur la place de Highgate.",
+          "example_meaning": "The town crier announces the news on the square in Highgate."
+        },
+        {
+          "term": "un article",
+          "example": "La Gazette publie un article sur la quête de Nym.",
+          "example_meaning": "The Gazette is publishing an article about Nym's quest."
+        },
+        {
+          "term": "un titre",
+          "example": "Le titre parle d'un dragon dans le donjon.",
+          "example_meaning": "The headline talks about a dragon in the dungeon."
+        },
+        {
+          "term": "la une",
+          "example": "La victoire des nains fait la une de la Gazette.",
+          "example_meaning": "The dwarves' victory is on the front page of the Gazette."
+        },
+        {
+          "term": "il paraît que",
+          "example": "Il paraît que Borin a trouvé un trésor à Deepanvil.",
+          "example_meaning": "Apparently Borin found a treasure in Deepanvil."
+        },
+        {
+          "term": "une infox",
+          "example": "Un dragon à trois têtes ? C'est une infox !",
+          "example_meaning": "A three-headed dragon? That's fake news!"
+        },
+        {
+          "term": "partager",
+          "example": "Les elfes partagent la nouvelle avec toute la forêt.",
+          "example_meaning": "The elves share the news with the whole forest."
+        },
+        {
+          "term": "la gazette",
+          "meaning": "gazette, newspaper (f)",
+          "example": "Selon la gazette, la guilde cherche un mage.",
+          "example_meaning": "According to the gazette, the guild is looking for a mage."
+        },
+        {
+          "term": "le crieur",
+          "meaning": "town crier",
+          "example": "Le crieur lit les titres du jour à midi.",
+          "example_meaning": "The town crier reads the day's headlines at noon."
+        },
+        {
+          "term": "la rumeur",
+          "meaning": "rumour (f)",
+          "example": "D'après la rumeur, l'orc est un ancien paladin.",
+          "example_meaning": "According to the rumour, the orc is a former paladin."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Le crieur de Highgate",
+          "emoji": "🦅",
+          "rule": "Selon or d'après name the source; il paraît que passes on a rumour.",
+          "example": "D'après le crieur, la route est fermée.",
+          "example_meaning": "According to the town crier, the road is closed."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Le crieur lit les nouvelles.",
+          "meaning": "The town crier reads the news.",
+          "note": "New word: le crieur = the town crier."
+        },
+        {
+          "text": "Il paraît que la mage est partie.",
+          "meaning": "Apparently the mage has left."
+        },
+        {
+          "text": "Selon la guilde, le dragon dort.",
+          "meaning": "According to the guild, the dragon is asleep."
+        },
+        {
+          "text": "La quête de Nym fait la une.",
+          "meaning": "Nym's quest is on the front page."
+        },
+        {
+          "text": "Cette rumeur est une infox.",
+          "meaning": "This rumour is fake news.",
+          "note": "New word: la rumeur = the rumour."
+        }
+      ],
+      "builds": [
+        {
+          "text": "La gazette a publié un article.",
+          "meaning": "The gazette has published an article.",
+          "distractors": [
+            "une"
+          ]
+        },
+        {
+          "text": "Il paraît que Borin est riche.",
+          "meaning": "Apparently Borin is rich.",
+          "distractors": [
+            "dit"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Les infos de Highgate est bonnes.",
+          "wrong": "est",
+          "fix": "sont",
+          "why": "Les infos is plural: les infos sont bonnes."
+        },
+        {
+          "sentence": "La victoire des nains fait le une de la gazette.",
+          "wrong": "le",
+          "fix": "la",
+          "why": "La une is feminine: faire la une."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Read or heard?",
+          "buckets": [
+            "on lit",
+            "on écoute"
+          ],
+          "items": [
+            {
+              "text": "la gazette",
+              "bucket": 0
+            },
+            {
+              "text": "le crieur sur la place",
+              "bucket": 1
+            },
+            {
+              "text": "un parchemin",
+              "bucket": 0
+            },
+            {
+              "text": "un article sur la quête",
+              "bucket": 0
+            },
+            {
+              "text": "une rumeur à la taverne",
+              "bucket": 1
+            },
+            {
+              "text": "le chant du barde",
+              "bucket": 1
+            }
+          ],
+          "why": "A gazette, a scroll and an article are read; the crier, tavern rumours and the bard's song are heard."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-news-media-realm-01",
+          "prompt": "___ la Gazette de Highgate, la quête de Nym est un grand succès.",
+          "type": "multiple-choice",
+          "options": [
+            "D'après",
+            "Il paraît",
+            "On dit"
+          ],
+          "correct_answer": "D'après",
+          "explanation": "A source given as a noun takes 'd'après' (or 'selon'). 'Il paraît' and 'on dit' need que + a clause.",
+          "hints": [
+            "A noun (la Gazette) follows the blank."
+          ],
+          "teaches": []
+        },
+        {
+          "question_id": "b1-news-media-realm-02",
+          "prompt": "Un dragon rose à Deepanvil ? Ne partage pas ça, c'est une ___ ! (fake news)",
+          "type": "fill-in-blank",
+          "correct_answer": "infox",
+          "accepted_answers": [
+            "fausse information"
+          ],
+          "explanation": "A false story passed off as news is 'une infox' or 'une fausse information'.",
+          "hints": [
+            "info + x"
+          ],
+          "teaches": [
+            "une infox"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b1-news-media-conv-realm-tavern-rumour",
+          "title": "A rumour at the tavern",
+          "scenario": "Nym the elf and Borin the dwarf meet at the taverne du Dragon Vert and talk about the morning's gazette.",
+          "role_a": "Nym",
+          "role_b": "Borin",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Borin, tu as lu la gazette ce matin ?",
+              "meaning": "Borin, did you read the gazette this morning?"
+            },
+            {
+              "speaker": "b",
+              "text": "Non. Qu'est-ce qui fait la une ?",
+              "meaning": "No. What's on the front page?"
+            },
+            {
+              "speaker": "a",
+              "text": "Il paraît qu'un dragon dort sous Deepanvil.",
+              "meaning": "Apparently a dragon is sleeping under Deepanvil."
+            },
+            {
+              "speaker": "b",
+              "text": "Un dragon ? Selon qui ?",
+              "meaning": "A dragon? According to whom?"
+            },
+            {
+              "speaker": "a",
+              "text": "D'après un journaliste de Highgate.",
+              "meaning": "According to a journalist from Highgate."
+            },
+            {
+              "speaker": "b",
+              "text": "Bah ! C'est sûrement une infox.",
+              "meaning": "Bah! It's surely fake news."
+            },
+            {
+              "speaker": "a",
+              "text": "Peut-être, mais tout le monde la partage à la taverne.",
+              "meaning": "Maybe, but everyone's sharing it at the tavern."
+            },
+            {
+              "speaker": "b",
+              "text": "Alors allons vérifier nous-mêmes !",
+              "meaning": "Then let's go and check for ourselves!"
+            }
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🪺",
+      "content": "## Les nouvelles à Meadowbrook\n\nIn Meadowbrook, **les infos** come from la radio du village and the little **journal** of la mairie. **Selon** Rosa, la fête des récoltes est samedi ; **il paraît que** Léo a pêché un poisson énorme. Nora **publie** des photos de ses citrouilles sur **les réseaux sociaux**, and half the town **partage** them.",
+      "vocabulary": [
+        {
+          "term": "les infos",
+          "example": "À la radio, les infos parlent de la pluie de demain.",
+          "example_meaning": "On the radio, the news is talking about tomorrow's rain."
+        },
+        {
+          "term": "un article",
+          "example": "Le journal du village a publié un article sur la fête des récoltes.",
+          "example_meaning": "The village paper has published an article about the harvest festival."
+        },
+        {
+          "term": "une émission",
+          "example": "Léo écoute une émission sur la pêche le samedi.",
+          "example_meaning": "Léo listens to a programme about fishing on Saturdays."
+        },
+        {
+          "term": "un reportage",
+          "example": "Une journaliste a fait un reportage sur la ferme de Nora.",
+          "example_meaning": "A journalist did a report on Nora's farm."
+        },
+        {
+          "term": "les réseaux sociaux",
+          "example": "Nora montre ses citrouilles sur les réseaux sociaux.",
+          "example_meaning": "Nora shows off her pumpkins on social media."
+        },
+        {
+          "term": "s'abonner à",
+          "example": "Rosa s'est abonnée au journal du village.",
+          "example_meaning": "Rosa has subscribed to the village paper."
+        },
+        {
+          "term": "il paraît que",
+          "example": "Il paraît que les fraises seront mûres en juin.",
+          "example_meaning": "Apparently the strawberries will be ripe in June."
+        },
+        {
+          "term": "la météo",
+          "meaning": "weather forecast (f)",
+          "example": "D'après la météo, il va pleuvoir sur les champs.",
+          "example_meaning": "According to the forecast, it's going to rain on the fields."
+        },
+        {
+          "term": "le concours",
+          "meaning": "contest, competition",
+          "example": "Le journal annonce le concours de la plus grosse citrouille.",
+          "example_meaning": "The paper announces the biggest-pumpkin contest."
+        },
+        {
+          "term": "la mairie",
+          "meaning": "town hall (f)",
+          "example": "La mairie publie un petit journal chaque mois.",
+          "example_meaning": "The town hall publishes a little newspaper every month."
+        }
+      ],
+      "bites": [
+        {
+          "title": "La radio du village",
+          "emoji": "🪺",
+          "rule": "Il paraît que or on dit que for village gossip; selon or d'après to name who said it.",
+          "example": "Selon Rosa, les graines arrivent lundi.",
+          "example_meaning": "According to Rosa, the seeds arrive on Monday."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Rosa écoute la radio du matin.",
+          "meaning": "Rosa listens to the morning radio."
+        },
+        {
+          "text": "Selon la météo, il va neiger.",
+          "meaning": "According to the forecast, it's going to snow.",
+          "note": "New word: la météo = the weather forecast."
+        },
+        {
+          "text": "Il paraît que la vache de Nora a gagné.",
+          "meaning": "Apparently Nora's cow has won."
+        },
+        {
+          "text": "Le concours fait la une du journal.",
+          "meaning": "The contest is on the front page of the paper.",
+          "note": "New word: le concours = the contest."
+        },
+        {
+          "text": "Léo partage la photo de son poisson.",
+          "meaning": "Léo shares the photo of his fish."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Nora publie une photo de sa ferme.",
+          "meaning": "Nora posts a photo of her farm.",
+          "distractors": [
+            "publique"
+          ]
+        },
+        {
+          "text": "D'après la météo, il fera beau.",
+          "meaning": "According to the forecast, the weather will be nice.",
+          "distractors": [
+            "dit"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Rosa s'est abonnée de la radio du village.",
+          "wrong": "de",
+          "fix": "à",
+          "why": "S'abonner à: Rosa s'est abonnée à la radio."
+        },
+        {
+          "sentence": "Il paraît que Léo ont gagné le concours.",
+          "wrong": "ont",
+          "fix": "a",
+          "why": "Léo is one person: Léo a gagné."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "On lit, on regarde ou on écoute ?",
+          "buckets": [
+            "on lit",
+            "on regarde",
+            "on écoute"
+          ],
+          "items": [
+            {
+              "text": "le journal du village",
+              "bucket": 0
+            },
+            {
+              "text": "une émission de radio",
+              "bucket": 2
+            },
+            {
+              "text": "un reportage à la télé",
+              "bucket": 1
+            },
+            {
+              "text": "un article sur la fête",
+              "bucket": 0
+            },
+            {
+              "text": "la météo à la radio",
+              "bucket": 2
+            },
+            {
+              "text": "une vidéo sur les réseaux sociaux",
+              "bucket": 1
+            }
+          ],
+          "why": "Papers and articles are read, TV reports and videos are watched, the radio is listened to."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-news-media-meadowbrook-01",
+          "prompt": "Tous les samedis matin, Léo écoute une ___ sur la pêche à la radio.",
+          "type": "multiple-choice",
+          "options": [
+            "émission",
+            "chaîne",
+            "presse"
+          ],
+          "correct_answer": "émission",
+          "explanation": "A programme you listen to or watch is 'une émission'; 'une chaîne' is the channel it is on.",
+          "hints": [
+            "A show about fishing."
+          ],
+          "teaches": [
+            "une émission"
+          ]
+        },
+        {
+          "question_id": "b1-news-media-meadowbrook-02",
+          "prompt": "Nora a ___ une photo de sa plus grosse citrouille sur les réseaux sociaux. (posted)",
+          "type": "fill-in-blank",
+          "correct_answer": "publié",
+          "accepted_answers": [],
+          "explanation": "To post or publish = 'publier'; passé composé: 'elle a publié'.",
+          "hints": [
+            "Past participle of publier."
+          ],
+          "teaches": []
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b1-news-media-conv-meadowbrook-pumpkin-news",
+          "title": "The pumpkin news",
+          "scenario": "Rosa and Léo chat at the seed shop about the village's latest news.",
+          "role_a": "Rosa",
+          "role_b": "Léo",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Léo, tu as entendu parler du concours de citrouilles ?",
+              "meaning": "Léo, have you heard about the pumpkin contest?"
+            },
+            {
+              "speaker": "b",
+              "text": "Oui, j'ai lu un article dans le journal du village.",
+              "meaning": "Yes, I read an article in the village paper."
+            },
+            {
+              "speaker": "a",
+              "text": "Il paraît que Nora a la plus grosse citrouille.",
+              "meaning": "Apparently Nora has the biggest pumpkin."
+            },
+            {
+              "speaker": "b",
+              "text": "Selon la radio, elle pèse cent kilos !",
+              "meaning": "According to the radio, it weighs a hundred kilos!"
+            },
+            {
+              "speaker": "a",
+              "text": "Cent kilos ? Ça ressemble à une infox.",
+              "meaning": "A hundred kilos? That sounds like fake news."
+            },
+            {
+              "speaker": "b",
+              "text": "Non, regarde, elle a publié une photo sur les réseaux sociaux.",
+              "meaning": "No, look, she's posted a photo on social media."
+            },
+            {
+              "speaker": "a",
+              "text": "Incroyable ! Je la partage tout de suite.",
+              "meaning": "Incredible! I'm sharing it right away."
+            }
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "📺",
+      "content": "## Les nouvelles à Rustwake\n\nIn the rust desert, **les infos** arrivent par la radio-montre : Radio Ferraille a **une émission** chaque soir. **Selon** le contremaître Ruiz, une tempête de cendres arrive ; **il paraît que** Marta vend l'eau filtrée à moitié prix. Beware of **les fausses informations**: check the source before sharing (**partager**).",
+      "vocabulary": [
+        {
+          "term": "les infos",
+          "example": "J'écoute les infos sur ma radio-montre.",
+          "example_meaning": "I listen to the news on my wrist radio."
+        },
+        {
+          "term": "une émission",
+          "example": "L'émission de Radio Ferraille commence au coucher du soleil.",
+          "example_meaning": "The Radio Ferraille programme starts at sunset."
+        },
+        {
+          "term": "une chaîne",
+          "example": "Cette vieille télé ne capte qu'une chaîne.",
+          "example_meaning": "This old TV only picks up one channel."
+        },
+        {
+          "term": "un journaliste",
+          "example": "Un journaliste du village interroge les fouilleurs.",
+          "example_meaning": "A journalist from the village is interviewing the scavengers."
+        },
+        {
+          "term": "une infox",
+          "example": "Un scarabée géant au marché ? C'est une infox !",
+          "example_meaning": "A giant beetle at the market? That's fake news!"
+        },
+        {
+          "term": "partager",
+          "example": "Léo partage la nouvelle sur la radio du village.",
+          "example_meaning": "Léo shares the news on the village radio."
+        },
+        {
+          "term": "il paraît que",
+          "example": "Il paraît que l'antenne marche de nouveau.",
+          "example_meaning": "Apparently the antenna works again."
+        },
+        {
+          "term": "la radio-montre",
+          "meaning": "wrist radio (f)",
+          "example": "D'après ma radio-montre, une tempête arrive.",
+          "example_meaning": "According to my wrist radio, a storm is coming."
+        },
+        {
+          "term": "l'antenne",
+          "meaning": "antenna, aerial (f)",
+          "example": "Ruiz répare l'antenne pour capter les infos.",
+          "example_meaning": "Ruiz is repairing the antenna to pick up the news."
+        },
+        {
+          "term": "le bulletin",
+          "meaning": "news bulletin",
+          "example": "Le bulletin de midi parle de la tempête de cendres.",
+          "example_meaning": "The midday bulletin talks about the ash storm."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Radio Ferraille",
+          "emoji": "📺",
+          "rule": "Selon or d'après + a source; check before you share une infox.",
+          "example": "Selon Ruiz, la tempête arrive ce soir.",
+          "example_meaning": "According to Ruiz, the storm is coming tonight."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Ma radio-montre capte les infos.",
+          "meaning": "My wrist radio picks up the news.",
+          "note": "New word: capter = to pick up a signal."
+        },
+        {
+          "text": "Selon Marta, l'eau est moins chère.",
+          "meaning": "According to Marta, the water is cheaper."
+        },
+        {
+          "text": "Il paraît que le Dôme est fermé.",
+          "meaning": "Apparently the Dome is closed."
+        },
+        {
+          "text": "Le bulletin parle de la tempête.",
+          "meaning": "The bulletin talks about the storm.",
+          "note": "New word: le bulletin = the news bulletin."
+        },
+        {
+          "text": "Cinquante pour cent des fouilleurs écoutent cette émission.",
+          "meaning": "Fifty per cent of the scavengers listen to this programme."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Ruiz écoute le bulletin de midi.",
+          "meaning": "Ruiz listens to the midday bulletin.",
+          "distractors": [
+            "la"
+          ]
+        },
+        {
+          "text": "Selon Léo, l'antenne est réparée.",
+          "meaning": "According to Léo, the antenna is repaired.",
+          "distractors": [
+            "paraît"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Dix pour cents des fouilleurs ont une radio-montre.",
+          "wrong": "cents",
+          "fix": "cent",
+          "why": "Pour cent never takes an s."
+        },
+        {
+          "sentence": "Les infos de Radio Ferraille est inquiétantes.",
+          "wrong": "est",
+          "fix": "sont",
+          "why": "Les infos is plural: les infos sont."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Source or hearsay?",
+          "buckets": [
+            "a named source",
+            "hearsay"
+          ],
+          "items": [
+            {
+              "text": "Selon le contremaître, …",
+              "bucket": 0
+            },
+            {
+              "text": "D'après ma radio-montre, …",
+              "bucket": 0
+            },
+            {
+              "text": "Il paraît qu'au marché …",
+              "bucket": 1
+            },
+            {
+              "text": "On dit dans le village que …",
+              "bucket": 1
+            },
+            {
+              "text": "D'après Marta, …",
+              "bucket": 0
+            },
+            {
+              "text": "J'ai entendu dire au Dôme que …",
+              "bucket": 1
+            }
+          ],
+          "why": "Selon and d'après name who said it; il paraît que, on dit que and j'ai entendu dire que pass on what people say."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-news-media-rustwake-01",
+          "prompt": "La vieille télé de l'atelier ne capte qu'une seule ___ : Télé Rouille.",
+          "type": "multiple-choice",
+          "options": [
+            "chaîne",
+            "une",
+            "presse"
+          ],
+          "correct_answer": "chaîne",
+          "explanation": "A TV channel is 'une chaîne'.",
+          "hints": [
+            "What does a TV pick up?"
+          ],
+          "teaches": [
+            "une chaîne"
+          ]
+        },
+        {
+          "question_id": "b1-news-media-rustwake-02",
+          "prompt": "___ le contremaître Ruiz, la tempête de cendres arrive ce soir. (according to)",
+          "type": "fill-in-blank",
+          "correct_answer": "Selon",
+          "accepted_answers": [
+            "D'après"
+          ],
+          "explanation": "According to + a source = 'selon' or 'd'après'.",
+          "hints": [
+            "Five letters, or d'après."
+          ],
+          "teaches": []
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b1-news-media-conv-rustwake-storm-bulletin",
+          "title": "The storm bulletin",
+          "scenario": "At the scrap market, Marta the trader asks Léo the scavenger whether he has heard the radio bulletin.",
+          "role_a": "Marta",
+          "role_b": "Léo",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Léo, tu as écouté le bulletin de Radio Ferraille ?",
+              "meaning": "Léo, did you listen to the Radio Ferraille bulletin?"
+            },
+            {
+              "speaker": "b",
+              "text": "Non, ma radio-montre ne capte rien aujourd'hui.",
+              "meaning": "No, my wrist radio isn't picking anything up today."
+            },
+            {
+              "speaker": "a",
+              "text": "Il paraît qu'une tempête de cendres arrive ce soir.",
+              "meaning": "Apparently an ash storm is coming tonight."
+            },
+            {
+              "speaker": "b",
+              "text": "Selon qui ? Ce n'est pas encore une infox ?",
+              "meaning": "According to whom? Isn't it fake news again?"
+            },
+            {
+              "speaker": "a",
+              "text": "D'après le contremaître Ruiz. Il a vu les nuages.",
+              "meaning": "According to the foreman Ruiz. He saw the clouds."
+            },
+            {
+              "speaker": "b",
+              "text": "Alors c'est sérieux. Je vais partager la nouvelle au village.",
+              "meaning": "Then it's serious. I'll spread the news in the village."
+            },
+            {
+              "speaker": "a",
+              "text": "Bonne idée. Et répare ton antenne !",
+              "meaning": "Good idea. And fix your antenna!"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

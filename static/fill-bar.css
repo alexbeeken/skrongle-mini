@@ -1,0 +1,15 @@
+/* Fill the bar (#1230): loaded by static/fill-bar.js, only on pages with such a question. */
+.fill-bar { margin: .5rem 0 1rem; }
+.fill-bar-staff { max-width: 20rem; margin: 0 auto; }
+.fill-bar-left { text-align: center; color: var(--muted); margin: .25rem 0 .75rem; }
+.fill-bar-tiles { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; }
+.fill-bar-tile { min-width: 4.5rem; min-height: 3rem; padding: .25rem .5rem; border: 2px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--text); font: inherit; cursor: pointer; }
+.fill-bar-tile:hover:not(:disabled) { border-color: var(--gold); }
+.fill-bar-tile:disabled { opacity: .5; cursor: default; }
+.fill-bar-tile-staff { display: block; width: 4.5rem; pointer-events: none; }
+.fill-bar-undo { display: block; margin: .75rem auto 0; }
+.fill-bar-answer { display: inline-block; width: 14rem; max-width: 100%; vertical-align: middle; }
+.fill-bar svg, .fill-bar-answer svg { color: inherit; }
+/* Sprint mode has no .btn: Undo as a small outlined pill, like Practice's ghost button. */
+.sprint-stage .fill-bar-undo { padding: .3rem .9rem; border-radius: 999px; border: 2px solid var(--accent); background: transparent; color: var(--accent); font-weight: 600; font-size: .9rem; cursor: pointer; }
+.sprint-stage .fill-bar-undo:disabled { opacity: .5; cursor: default; }

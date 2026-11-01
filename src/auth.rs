@@ -1,0 +1,867 @@
+//! Password hashing, session tokens, and the `CurrentUser` extractor.
+
+use argon2::password_hash::phc::PasswordHash;
+use argon2::password_hash::{PasswordHasher, PasswordVerifier};
+use argon2::{Algorithm, Argon2, Params, Version};
+use axum::extract::FromRequestParts;
+use axum::http::header::{COOKIE, SET_COOKIE};
+use axum::http::request::Parts;
+use axum::http::{HeaderMap, HeaderValue};
+use rusqlite::{params, Connection, OptionalExtension};
+use std::sync::Arc;
+
+use crate::db::now;
+use crate::error::AppError;
+use crate::AppState;
+
+pub const SESSION_COOKIE: &str = "sid";
+/// Sessions live for 30 days of inactivity-free time (TTL is fixed, not sliding).
+pub const SESSION_TTL_SECS: i64 = 30 * 24 * 60 * 60;
+
+// Argon2id parameters tuned for a Cortex-A53 at ~1 GHz: ~8 MiB memory, 3 passes.
+// Roughly 60-120 ms per hash on the Pi Zero 2 W, and never more than 8 MiB of
+// transient memory, which matters a lot more than on a desktop.
+const ARGON_M_COST_KIB: u32 = 8 * 1024;
+const ARGON_T_COST: u32 = 3;
+const ARGON_P_COST: u32 = 1;
+
+fn hasher() -> Argon2<'static> {
+    let params = Params::new(ARGON_M_COST_KIB, ARGON_T_COST, ARGON_P_COST, None)
+        .expect("valid argon2 params");
+    Argon2::new(Algorithm::Argon2id, Version::V0x13, params)
+}
+
+pub fn hash_password(password: &str) -> Result<String, AppError> {
+    hasher()
+        .hash_password(password.as_bytes())
+        .map(|h| h.to_string())
+        .map_err(|e| AppError::Internal(format!("hash failure: {e}")))
+}
+
+pub fn verify_password(password: &str, hash: &str) -> bool {
+    match PasswordHash::new(hash) {
+        Ok(parsed) => hasher().verify_password(password.as_bytes(), &parsed).is_ok(),
+        Err(_) => false,
+    }
+}
+
+/// 256-bit random token, hex encoded.
+pub fn generate_token() -> String {
+    let mut bytes = [0u8; 32];
+    crate::random::fill(&mut bytes);
+    let mut s = String::with_capacity(64);
+    for b in bytes {
+        use std::fmt::Write;
+        let _ = write!(s, "{b:02x}");
+    }
+    s
+}
+
+#[derive(Debug, Clone)]
+pub struct CurrentUser {
+    pub id: i64,
+    /// The address the account signs in with; '' for an old account that
+    /// never gave one.
+    pub email: String,
+    /// `users.email_verified_at` is set: the address was confirmed by a link
+    /// (`verify.rs`) or by Google. Nothing is gated on it yet.
+    pub email_verified: bool,
+    /// Profile fields shown in the navigation bar (see `profile.rs`).
+    pub first_name: String,
+    pub last_name: String,
+    /// Id of the chosen picture in the active course (`projects.avatar`, the
+    /// account's `users.avatar` without one); `profile::avatar` resolves it.
+    pub avatar: String,
+    /// No course is in context (the course picker, or no active course): the
+    /// badge shows a gear, with no picture (#565, #577).
+    pub no_picture: bool,
+    /// Character art is on (`SKRONGLE_THEMES_ENABLED=1`, #1153): profile
+    /// pictures, conversation portraits and the backgrounds behind them are
+    /// drawn. Off, the badge shows the gear and a character shows only its
+    /// name.
+    pub character_art: bool,
+    /// The course the user is currently working in (`users.active_course`).
+    pub course_id: Option<String>,
+    /// Its title, for the navigation bar.
+    pub course_title: Option<String>,
+    /// Its owner when it is a user-made course (`courses.owner_id`); `None`
+    /// for a built-in one or an id with no `courses` row. `Project` opens a
+    /// user-made course only for its owner (#383).
+    pub course_owner: Option<i64>,
+    /// The level they start that course at (`projects.start_unit`): a unit
+    /// id, '' for the beginning. `Project::start` is the unit index.
+    pub start_unit: String,
+    /// The theme worn on this page, '' for Default: the active course's
+    /// (`projects.theme`, a course setting), except on the course picker
+    /// and the profile (#951); outside a course the app wears Default (#577).
+    pub theme: String,
+    /// The theme worn, resolved: a built-in one or one the user made. `None`
+    /// for Default, and for an id that no longer exists or is not theirs.
+    pub theme_pack: Option<Arc<crate::themes::ThemePack>>,
+    /// The theme's version of the profile picture, when the theme worn has
+    /// one for `avatar`; `None` shows the built-in icon.
+    pub theme_avatar_url: Option<String>,
+    /// The background chosen behind the picture (`projects.avatar_color`): a
+    /// palette slot 1-8 or a theme's 9-16 (`profile::DEFAULT_COLOR` until one
+    /// is picked).
+    pub avatar_color: u8,
+    /// That background resolved for the theme worn (`profile::badge`): the
+    /// `--av` and `--av-img` of every `.avatar` showing this user's picture
+    /// (`avatar_style`).
+    pub avatar_bg: crate::profile::Badge,
+    /// The plan (`billing::Plan`): Free, Basic or Plus.
+    pub plan: crate::billing::Plan,
+    /// On a paid plan: a paying subscriber, a plan bought on the profile or
+    /// a grant (`billing.rs`).
+    pub premium: bool,
+    /// On Plus: "use my keys when my Skrongle AI limit is hit"
+    /// (`users.own_keys_fallback`, #315). Off, the learner's own API keys
+    /// are not used while Skrongle AI is offered to them.
+    pub own_keys_fallback: bool,
+    /// Accepted the current Terms of Service (`terms::version()`). The
+    /// `CurrentUser` extractor sends anyone else to `/terms/accept`, unless
+    /// `terms_notice` is set.
+    pub terms_ok: bool,
+    /// Not `terms_ok`, but an earlier built-in version was accepted: the
+    /// pages show this notice of what changed (`terms_notice.html`, #966).
+    /// A minor one blocks nothing; a material one lets only GET pages
+    /// through (with the notice over them, until accepted).
+    pub terms_notice: Option<crate::terms::Notice>,
+    /// `users.must_change_password`: signed in with a temporary password the
+    /// owner set (#635, `owner.rs`). The `CurrentUser` extractor sends the
+    /// account to `/password/change` before anything else.
+    pub must_change_password: bool,
+    /// `users.delete_at`: the learner asked to delete the account, and it
+    /// is deleted at this time (#970, `account_deletion.rs`). Until then
+    /// the `CurrentUser` extractor sends every page to `/account/deletion`,
+    /// whose one action is to cancel it.
+    pub delete_at: Option<i64>,
+    /// `users.superuser`: sees the profile's Superuser section, whose actions
+    /// reach any account. Set by hand (and on the dev user in dev mode).
+    pub superuser: bool,
+    /// `users.ai_off`: "Hide all AI features" (profile, or the box at
+    /// sign-up). Pages hide the tutor, course generation, AI revisions and
+    /// theme creation, and their routes refuse through `require_ai`.
+    pub ai_off: bool,
+    /// `users.lang`: the language the app speaks to this account in
+    /// (`i18n`), '' for "whatever the browser asks for".
+    pub lang: String,
+    /// The browser's offset from UTC in seconds (the `tz` cookie
+    /// `sprint.js` sets; 0 without one): where this request's local day
+    /// starts, for the daily goal, the streak and the earnings ledger.
+    pub tz: i64,
+}
+
+impl CurrentUser {
+    #[cfg(test)]
+    pub fn test(id: i64) -> CurrentUser {
+        CurrentUser {
+            id,
+            email: String::new(),
+            email_verified: false,
+            first_name: String::new(),
+            last_name: String::new(),
+            avatar: crate::profile::DEFAULT_AVATAR.to_string(),
+            no_picture: false,
+            character_art: true,
+            course_id: None,
+            course_title: None,
+            course_owner: None,
+            start_unit: String::new(),
+            theme: String::new(),
+            theme_pack: None,
+            theme_avatar_url: None,
+            avatar_color: crate::profile::DEFAULT_COLOR,
+            avatar_bg: crate::profile::badge(crate::profile::DEFAULT_COLOR, None),
+            plan: crate::billing::Plan::Free,
+            premium: false,
+            own_keys_fallback: false,
+            terms_ok: true,
+            terms_notice: None,
+            must_change_password: false,
+            delete_at: None,
+            superuser: false,
+            ai_off: false,
+            lang: String::new(),
+            tz: 0,
+        }
+    }
+
+    /// A page that calls an AI provider: `Err` sends an account with AI
+    /// features off to the profile section that turns them back on.
+    pub fn require_ai(&self) -> Result<(), AppError> {
+        if self.ai_off { Err(AppError::AiOff) } else { Ok(()) }
+    }
+
+    /// The same for a JSON route: a 403 body.
+    pub fn require_ai_api(&self) -> Result<(), AppError> {
+        if self.ai_off { Err(AppError::ApiAiOff) } else { Ok(()) }
+    }
+
+    /// Has an address that is not confirmed yet: the dashboard says so.
+    pub fn needs_email_confirmation(&self) -> bool {
+        !self.email_verified && !self.email.is_empty()
+    }
+
+    /// First name if known, else "Learner": for greetings and the top bar.
+    pub fn short_name(&self) -> String {
+        crate::profile::short_name(&self.first_name)
+    }
+
+    /// "First Last", or "Learner" when no name is set.
+    pub fn display_name(&self) -> String {
+        crate::profile::display_name(&self.first_name, &self.last_name)
+    }
+
+    /// The picture to draw next to the name.
+    pub fn picture(&self) -> crate::profile::Avatar {
+        crate::profile::avatar(&self.avatar)
+    }
+
+    /// The `style` of an `.avatar` showing this user's picture: its background.
+    pub fn avatar_style(&self) -> String {
+        self.avatar_bg.style()
+    }
+}
+
+// ---------- DB helpers (run inside Db::call) ----------
+
+/// Longest password (characters). Longer ones are not hashed at all, so a
+/// huge one can't make argon2 work for nothing; it can't be right anyway.
+pub const PASSWORD_MAX: usize = 128;
+
+pub fn validate_password(p: &str) -> Result<(), String> {
+    let len = p.chars().count();
+    if len < 8 {
+        return Err(crate::t("auth.password.too_short"));
+    }
+    if len > PASSWORD_MAX {
+        return Err(crate::t1("auth.password.too_long", "max", PASSWORD_MAX));
+    }
+    Ok(())
+}
+
+/// A password typed to sign in or confirm that cannot be anyone's (too long to have been set).
+pub fn password_too_long(p: &str) -> bool {
+    p.chars().count() > PASSWORD_MAX
+}
+
+/// Create a password account. The e-mail address (already validated and
+/// lower-cased) names the account and is fixed from here on.
+pub fn create_user(conn: &Connection, email: &str, password_hash: &str) -> rusqlite::Result<i64> {
+    conn.execute(
+        "INSERT INTO users (password_hash, created_at, email, avatar) VALUES (?1, ?2, ?3, ?4)",
+        params![password_hash, now(), email, crate::profile::DEFAULT_AVATAR],
+    )?;
+    Ok(conn.last_insert_rowid())
+}
+
+/// Finds the account through `idx_users_email_lower` (#604): every lookup by
+/// address is written `lower(email) = lower(?)` so it matches that index.
+const CREDENTIALS_SQL: &str = "SELECT id, password_hash FROM users WHERE lower(email) = lower(?1) AND password_hash <> '' ORDER BY id LIMIT 1";
+
+/// The password account an e-mail address signs in to: (id, password hash).
+/// Google-only accounts have no password and are never found here.
+pub fn find_user_credentials(conn: &Connection, email: &str) -> rusqlite::Result<Option<(i64, String)>> {
+    conn.query_row(
+        CREDENTIALS_SQL,
+        [email],
+        |r| Ok((r.get(0)?, r.get(1)?)),
+    )
+    .optional()
+}
+
+/// The user linked to a Google account id (`sub` claim).
+pub fn find_user_by_google(conn: &Connection, sub: &str) -> rusqlite::Result<Option<i64>> {
+    conn.query_row("SELECT id FROM users WHERE google_sub = ?1", [sub], |r| r.get(0)).optional()
+}
+
+/// Attach a Google account to an existing user. Fails with a constraint
+/// violation if that Google account is already attached to someone else.
+/// The Google address only fills in a missing e-mail; a stored one stays.
+/// When the account's address is then Google's, it counts as confirmed.
+pub fn link_google(conn: &Connection, user_id: i64, sub: &str, email: &str) -> rusqlite::Result<()> {
+    conn.execute(
+        "UPDATE users SET google_sub = ?2, email = COALESCE(NULLIF(email, ''), ?3) WHERE id = ?1",
+        params![user_id, sub, email],
+    )?;
+    conn.execute(
+        "UPDATE users SET email_verified_at = COALESCE(email_verified_at, ?3) WHERE id = ?1 AND lower(email) = lower(?2) AND ?2 <> ''",
+        params![user_id, email, now()],
+    )?;
+    Ok(())
+}
+
+/// What a Google sign-in (not a link from the profile) finds for its
+/// identity (#277): one account per address, so a Google address that an
+/// account already has never makes a second one.
+#[derive(Debug, PartialEq, Eq)]
+pub enum GoogleMatch {
+    /// That Google account is already connected to this user.
+    Linked(i64),
+    /// No Google connected yet, and this user's own address is Google's and
+    /// confirmed: Google vouches for it too, so the sign-in joins the account.
+    Join(i64),
+    /// An account has the address but never confirmed it: whoever registered
+    /// it may not own it, so Google must not take it over.
+    Unconfirmed,
+    /// The account with the address has a different Google account connected.
+    OtherGoogle,
+    /// Nobody has the address: a new account, after the confirm step.
+    New,
+}
+
+pub fn google_match(conn: &Connection, sub: &str, email: &str) -> rusqlite::Result<GoogleMatch> {
+    if let Some(id) = find_user_by_google(conn, sub)? {
+        return Ok(GoogleMatch::Linked(id));
+    }
+    // Old duplicates (before #277) may share an address: the oldest decides.
+    let found: Option<(i64, bool, bool)> = conn
+        .query_row(
+            "SELECT id, email_verified_at IS NOT NULL, google_sub IS NOT NULL FROM users WHERE lower(email) = lower(?1) AND ?1 <> '' ORDER BY id LIMIT 1",
+            [email],
+            |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?)),
+        )
+        .optional()?;
+    Ok(match found {
+        None => GoogleMatch::New,
+        Some((_, _, true)) => GoogleMatch::OtherGoogle,
+        Some((id, true, false)) => GoogleMatch::Join(id),
+        Some((_, false, false)) => GoogleMatch::Unconfirmed,
+    })
+}
+
+/// An account with this address signs in with Google only (no password).
+pub fn google_only(conn: &Connection, email: &str) -> rusqlite::Result<bool> {
+    conn.query_row(
+        "SELECT EXISTS(SELECT 1 FROM users WHERE lower(email) = lower(?1) AND password_hash = '' AND google_sub IS NOT NULL)",
+        [email],
+        |r| r.get(0),
+    )
+}
+
+pub fn google_linked(conn: &Connection, user_id: i64) -> rusqlite::Result<bool> {
+    conn.query_row("SELECT google_sub IS NOT NULL FROM users WHERE id = ?1", [user_id], |r| r.get(0))
+}
+
+/// The Google account id linked to a user, if any.
+pub fn google_sub(conn: &Connection, user_id: i64) -> rusqlite::Result<Option<String>> {
+    Ok(conn.query_row("SELECT google_sub FROM users WHERE id = ?1", [user_id], |r| r.get(0)).optional()?.flatten())
+}
+
+/// Detach the Google account (#360). Only an account with a password may:
+/// a Google-only one would have no way left to sign in. `false` when
+/// nothing was detached.
+pub fn unlink_google(conn: &Connection, user_id: i64) -> rusqlite::Result<bool> {
+    Ok(conn.execute("UPDATE users SET google_sub = NULL WHERE id = ?1 AND google_sub IS NOT NULL AND password_hash <> ''", [user_id])? > 0)
+}
+
+/// Create an account that can only sign in with Google (no password). Its
+/// address is confirmed: Google asserted it.
+pub fn create_google_user(conn: &Connection, sub: &str, email: &str) -> rusqlite::Result<i64> {
+    conn.execute(
+        "INSERT INTO users (password_hash, created_at, google_sub, email, email_verified_at, avatar) VALUES ('', ?1, ?2, ?3, ?1, ?4)",
+        params![now(), sub, email, crate::profile::DEFAULT_AVATAR],
+    )?;
+    Ok(conn.last_insert_rowid())
+}
+
+/// What `sessions.session_token` stores: the SHA-256 of the cookie's token,
+/// in hex. A leaked database (or backup) then holds no token that signs
+/// anyone in; the cookie's 256 random bits need no salt or slow hash.
+pub fn hash_token(token: &str) -> String {
+    use sha2::{Digest, Sha256};
+    Sha256::digest(token.as_bytes()).iter().map(|b| format!("{b:02x}")).collect()
+}
+
+/// Start a session; returns the token for the cookie (only its hash is stored).
+pub fn create_session(conn: &Connection, user_id: i64) -> rusqlite::Result<String> {
+    let token = generate_token();
+    let t = now();
+    conn.execute(
+        "INSERT INTO sessions (user_id, session_token, created_at, expires_at) VALUES (?1, ?2, ?3, ?4)",
+        params![user_id, hash_token(&token), t, t + SESSION_TTL_SECS],
+    )?;
+    Ok(token)
+}
+
+pub fn delete_session(conn: &Connection, token: &str) -> rusqlite::Result<()> {
+    conn.execute("DELETE FROM sessions WHERE session_token = ?1", [hash_token(token)])?;
+    Ok(())
+}
+
+/// End every session of `user_id` except `keep` (after a password change).
+pub fn delete_other_sessions(conn: &Connection, user_id: i64, keep: &str) -> rusqlite::Result<usize> {
+    conn.execute("DELETE FROM sessions WHERE user_id = ?1 AND session_token <> ?2", params![user_id, hash_token(keep)])
+}
+
+pub fn purge_expired_sessions(conn: &Connection) -> rusqlite::Result<usize> {
+    conn.execute("DELETE FROM sessions WHERE expires_at < ?1", [now()])
+}
+
+/// The user behind a session token. The course title is filled in for
+/// user-made courses here; built-in ones are titled by the registry.
+pub fn user_for_session(conn: &Connection, token: &str) -> rusqlite::Result<Option<CurrentUser>> {
+    let sql = format!(
+        "SELECT u.id, COALESCE(u.email, ''), u.active_course, c.title, u.first_name, u.last_name, COALESCE(p.avatar, u.avatar), COALESCE(p.theme, ''), {}, {}, u.ai_off, u.email_verified_at IS NOT NULL, u.superuser,
+                COALESCE(p.start_unit, ''), COALESCE(p.avatar_color, u.avatar_color), u.lang, c.owner_id, u.own_keys_fallback, u.must_change_password,
+                (SELECT version FROM terms_acceptances WHERE user_id = u.id ORDER BY accepted_at DESC, rowid DESC LIMIT 1), u.delete_at
+         FROM sessions s JOIN users u ON u.id = s.user_id LEFT JOIN courses c ON c.id = u.active_course
+         LEFT JOIN projects p ON p.user_id = u.id AND p.course_id = u.active_course
+         WHERE s.session_token = ?1 AND s.expires_at > ?2 AND u.suspended_at IS NULL",
+        crate::billing::plan_sql("u.id", "?2"),
+        crate::terms::accepted_sql("u.id")
+    );
+    conn.query_row(
+        &sql,
+        params![hash_token(token), now()],
+        |r| {
+            let plan = crate::billing::Plan::parse(&r.get::<_, String>(8)?).unwrap_or_default();
+            let terms_ok: bool = r.get(9)?;
+            let terms_notice = if terms_ok { None } else { crate::terms::notice(r.get::<_, Option<String>>(19)?.as_deref()) };
+            Ok(CurrentUser {
+                id: r.get(0)?,
+                email: r.get(1)?,
+                course_id: r.get(2)?,
+                course_title: r.get(3)?,
+                course_owner: r.get(16)?,
+                first_name: r.get(4)?,
+                last_name: r.get(5)?,
+                avatar: r.get(6)?,
+                no_picture: false,
+                character_art: true,
+                theme: r.get(7)?,
+                theme_pack: None,
+                theme_avatar_url: None,
+                plan,
+                premium: plan.paid(),
+                own_keys_fallback: r.get(17)?,
+                terms_ok,
+                terms_notice,
+                must_change_password: r.get(18)?,
+                delete_at: r.get(20)?,
+                ai_off: r.get(10)?,
+                email_verified: r.get(11)?,
+                superuser: r.get(12)?,
+                start_unit: r.get(13)?,
+                avatar_color: crate::profile::color_slot(r.get(14)?),
+                avatar_bg: crate::profile::badge(r.get(14)?, None),
+                lang: r.get(15)?,
+                tz: 0,
+            })
+        },
+    )
+    .optional()
+}
+
+// ---------- Cookies ----------
+
+pub fn session_cookie_from_headers(headers: &HeaderMap) -> Option<String> {
+    headers.get_all(COOKIE).iter().find_map(|v| {
+        let raw = v.to_str().ok()?;
+        raw.split(';').find_map(|pair| {
+            let (k, v) = pair.trim().split_once('=')?;
+            if k.trim() == SESSION_COOKIE {
+                let v = v.trim();
+                // Tokens are hex; anything else is garbage.
+                if v.len() == 64 && v.bytes().all(|b| b.is_ascii_hexdigit()) {
+                    return Some(v.to_string());
+                }
+            }
+            None
+        })
+    })
+}
+
+/// `Set-Cookie` header establishing a session. Not `Secure` because the Pi is
+/// typically reached over plain HTTP on a LAN; put a TLS reverse proxy in
+/// front and set `SKRONGLE_SECURE_COOKIES=1` to add the flag.
+pub fn set_session_cookie(token: &str, secure: bool) -> (axum::http::HeaderName, HeaderValue) {
+    let v = format!(
+        "{SESSION_COOKIE}={token}; Path={}; HttpOnly; SameSite=Lax; Max-Age={SESSION_TTL_SECS}{}",
+        crate::cookie_path(),
+        if secure { "; Secure" } else { "" }
+    );
+    (SET_COOKIE, HeaderValue::from_str(&v).expect("valid cookie header"))
+}
+
+pub fn clear_session_cookie() -> (axum::http::HeaderName, HeaderValue) {
+    let v = format!("{SESSION_COOKIE}=; Path={}; HttpOnly; SameSite=Lax; Max-Age=0", crate::cookie_path());
+    (SET_COOKIE, HeaderValue::from_str(&v).expect("valid cookie header"))
+}
+
+// ---------- Extractors ----------
+
+async fn resolve_user(parts: &Parts, state: &AppState) -> Result<Option<(String, CurrentUser)>, AppError> {
+    let Some(token) = session_cookie_from_headers(&parts.headers) else {
+        return Ok(None);
+    };
+    let t = token.clone();
+    let mut user = state.db.call(move |c| user_for_session(c, &t)).await?;
+    if let Some(u) = user.as_mut() {
+        u.tz = crate::routes::sprint::tz_offset_secs(&parts.headers);
+        // No plans on this server (Skrongle mini): every account is Plus.
+        u.plan = crate::billing::effective_plan(crate::billing::plans_on(state), u.plan);
+        u.premium = u.plan.paid();
+        // The account's language wins over the cookie and the browser's.
+        crate::i18n::set_current(&u.lang);
+        if u.course_title.is_none() {
+            u.course_title = u.course_id.as_deref().and_then(|id| state.courses.builtin_by_id(id)).map(|c| c.title().to_string());
+        }
+        // The active course's theme is worn everywhere but the course picker
+        // and the profile (#951); outside a course, Default (#577). One that
+        // no longer loads is Default.
+        let in_course = u.course_id.is_some() && !on_course_picker(parts) && !on_profile(parts);
+        if !in_course {
+            u.theme.clear();
+        }
+        u.theme_pack = state.themes.resolve(&state.db, u.id, &u.theme).await?;
+        if u.theme_pack.is_none() {
+            u.theme.clear();
+        }
+        // Outside a course the badge carries no picture (#565).
+        u.no_picture = u.course_id.is_none() || on_course_picker(parts);
+        // No character art while themes are off (#1153): the badge is the gear.
+        u.character_art = !state.themes.is_off();
+        // The theme worn shows its own version of the picture, when it has one.
+        u.theme_avatar_url = u.theme_pack.as_ref().and_then(|p| p.theme.avatar(&u.avatar)).map(|a| crate::routes::art_url(&u.theme, &a.image));
+        u.avatar_bg = crate::profile::badge(u.avatar_color, u.theme_pack.as_ref().map(|p| &p.theme));
+    }
+    Ok(user.map(|u| (token, u)))
+}
+
+/// The signed-in user of a request with these headers, if any (the error
+/// page's layout, which runs after the handler and has no extractor).
+pub async fn user_from_headers(state: &AppState, headers: &HeaderMap) -> Option<CurrentUser> {
+    let (mut parts, _) = axum::http::Request::new(()).into_parts();
+    parts.headers = headers.clone();
+    resolve_user(&parts, state).await.ok().flatten().map(|(_, u)| u)
+}
+
+/// The course picker and the pages under it (a course's editor, new and
+/// generated courses): about courses in general, so they wear Default and
+/// not the active course's theme (#577).
+fn on_course_picker(parts: &Parts) -> bool {
+    let path = parts.uri.path();
+    let path = path.strip_prefix(crate::base_path()).unwrap_or(path);
+    path == "/courses" || path.starts_with("/courses/")
+}
+
+/// The profile and its forms: about the learner, not a course, so they
+/// always wear Default (#951).
+fn on_profile(parts: &Parts) -> bool {
+    let path = parts.uri.path();
+    let path = path.strip_prefix(crate::base_path()).unwrap_or(path);
+    path == "/profile" || path.starts_with("/profile/")
+}
+
+/// The id of the user whose session cookie is on the request, if any (for
+/// public-looking routes that serve private things only to their owner).
+pub async fn user_id_of(state: &AppState, headers: &HeaderMap) -> Option<i64> {
+    let token = session_cookie_from_headers(headers)?;
+    state.db.call(move |c| user_for_session(c, &token)).await.ok().flatten().map(|u| u.id)
+}
+
+/// Route guard: resolves the session cookie to a user, or rejects.
+/// Browser routes get a redirect to `/login`; `/api/*` routes get a 401 JSON body.
+impl FromRequestParts<Arc<AppState>> for CurrentUser {
+    type Rejection = AppError;
+
+    async fn from_request_parts(parts: &mut Parts, state: &Arc<AppState>) -> Result<Self, Self::Rejection> {
+        let api = parts.uri.path().starts_with("/api/");
+        match resolve_user(parts, state).await? {
+            // Deletion scheduled (#970): nothing but the page that cancels it.
+            Some((_, user)) if user.delete_at.is_some() && api => Err(AppError::ApiDeletionScheduled),
+            Some((_, user)) if user.delete_at.is_some() => Err(AppError::DeletionScheduled),
+            // A temporary password (#635): a new one first, then the rest.
+            Some((_, user)) if user.must_change_password && api => Err(AppError::ApiPasswordChangeRequired),
+            Some((_, user)) if user.must_change_password => Err(AppError::PasswordChangeRequired(terms_next(parts))),
+            Some((_, user)) if user.terms_ok => Ok(user),
+            // A newer version of the built-in terms (#966): a minor change
+            // is a notice and nothing more; a material one shows over GET
+            // pages and refuses everything else until accepted, except
+            // closing the account, which the notice offers instead.
+            Some((_, mut user)) if user.terms_notice.as_ref().is_some_and(|n| !n.material || (!api && ((parts.method == axum::http::Method::GET && !own_layout(parts)) || app_path(parts) == "/profile/delete"))) => {
+                if let Some(n) = user.terms_notice.as_mut() {
+                    n.next = terms_next(parts);
+                }
+                Ok(user)
+            }
+            // Terms not accepted (a new version, or an account from before
+            // them): the gate first, then back where they were going.
+            Some(_) if api => Err(AppError::ApiTermsRequired),
+            Some(_) => Err(AppError::TermsRequired(terms_next(parts))),
+            None if api => Err(AppError::Unauthorized),
+            None => Err(AppError::RedirectToLogin),
+        }
+    }
+}
+
+/// A page with its own layout instead of `base.html` (Sprint, the tutor),
+/// which cannot show the terms notice: a material change sends it to the
+/// gate instead, as before the notice existed.
+fn own_layout(parts: &Parts) -> bool {
+    let path = app_path(parts);
+    ["/sprint", "/tutor"].iter().any(|p| path == *p || path.starts_with(&format!("{p}/")))
+}
+
+/// The request's path inside the app (without the base path).
+fn app_path(parts: &Parts) -> &str {
+    let path = parts.uri.path();
+    path.strip_prefix(crate::base_path()).filter(|p| p.starts_with('/')).unwrap_or(path)
+}
+
+/// Where to return after the terms gate (or the password one): the app path of a GET request, else home.
+fn terms_next(parts: &Parts) -> String {
+    if parts.method != axum::http::Method::GET {
+        return "/".into();
+    }
+    let path = app_path(parts);
+    match parts.uri.query() {
+        Some(q) => format!("{path}?{q}"),
+        None => path.to_string(),
+    }
+}
+
+/// Like `CurrentUser` but never rejects (for pages that work logged-out).
+pub struct MaybeUser(pub Option<CurrentUser>);
+
+impl FromRequestParts<Arc<AppState>> for MaybeUser {
+    type Rejection = AppError;
+
+    async fn from_request_parts(parts: &mut Parts, state: &Arc<AppState>) -> Result<Self, Self::Rejection> {
+        Ok(MaybeUser(resolve_user(parts, state).await?.map(|(_, u)| u)))
+    }
+}
+
+/// A signed-in user working in a course: the extractor every learning page
+/// uses. Without an active course (or with one that no longer loads) browser
+/// routes are sent to the course picker and API routes get a 410
+/// (`AppError::ApiNoCourse`), which the page scripts follow to the picker.
+/// The course comes with the user's theme merged in (`ContentStore::theme`),
+/// so every feature downstream simply sees themed lessons.
+pub struct Project {
+    pub user: CurrentUser,
+    pub course: Arc<crate::content::ContentStore>,
+    /// The unit index the learner starts this course at (0 unless they
+    /// picked a later level of a course with `levels`). Lessons of the units
+    /// below it are skipped until touched (`progress::is_skipped`).
+    pub start: usize,
+}
+
+impl Project {
+    pub fn course_id(&self) -> &str {
+        self.course.id()
+    }
+}
+
+impl FromRequestParts<Arc<AppState>> for Project {
+    type Rejection = AppError;
+
+    async fn from_request_parts(parts: &mut Parts, state: &Arc<AppState>) -> Result<Self, Self::Rejection> {
+        let user = CurrentUser::from_request_parts(parts, state).await?;
+        let is_api = parts.uri.path().starts_with("/api/");
+        let no_course = || if is_api { AppError::ApiNoCourse } else { AppError::RedirectToCourses };
+        let Some(id) = user.course_id.clone() else { return Err(no_course()) };
+        // A user-made course opens for its owner, or for a learner it is
+        // shared with (#451), whatever wrote `users.active_course` (#383);
+        // otherwise it is dropped as active.
+        let allowed = state.courses.is_builtin(&id) || user.course_owner == Some(user.id) || {
+            let (uid, cid) = (user.id, id.clone());
+            user.course_owner.is_some() && state.db.call(move |c| crate::share::can_open(c, uid, &cid)).await?
+        };
+        let course = if allowed {
+            state.courses.get_themed(&state.db, &id, user.theme_pack.as_ref().map(|p| &p.theme)).await?
+        } else {
+            None
+        };
+        match course {
+            Some(course) => {
+                let start = course.start_index(&user.start_unit);
+                Ok(Project { user, course, start })
+            }
+            None => {
+                // The course was deleted, does not validate any more or is not
+                // theirs: drop it as active.
+                let uid = user.id;
+                state.db.call(move |c| crate::courses::clear_active(c, uid)).await?;
+                Err(no_course())
+            }
+        }
+    }
+}
+
+/// The raw session token, for logout.
+pub struct SessionToken(pub Option<String>);
+
+impl<S: Send + Sync> FromRequestParts<S> for SessionToken {
+    type Rejection = std::convert::Infallible;
+
+    async fn from_request_parts(parts: &mut Parts, _state: &S) -> Result<Self, Self::Rejection> {
+        Ok(SessionToken(session_cookie_from_headers(&parts.headers)))
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn sign_in_finds_the_address_in_any_case_through_the_index() {
+        let db = crate::db::Db::open_in_memory().unwrap();
+        db.with(|c| {
+            assert_eq!(crate::db::table_scans(c, CREDENTIALS_SQL).unwrap(), Vec::<String>::new());
+            // One stored before addresses were lower-cased, one after.
+            let ann = create_user(c, "Ann@Example.org", "h1")?;
+            let bob = create_user(c, "bob@example.org", "h2")?;
+            assert_eq!(find_user_credentials(c, "ann@example.org")?, Some((ann, "h1".to_string())));
+            assert_eq!(find_user_credentials(c, "BOB@Example.ORG")?, Some((bob, "h2".to_string())));
+            assert_eq!(find_user_credentials(c, "carol@example.org")?, None);
+            Ok(())
+        })
+        .unwrap();
+    }
+
+    #[test]
+    fn password_roundtrip() {
+        let h = hash_password("correct horse battery").unwrap();
+        assert!(h.starts_with("$argon2id$v=19$m=8192,t=3,p=1$"), "{h}");
+        assert!(verify_password("correct horse battery", &h));
+        assert!(!verify_password("wrong", &h));
+        assert!(!verify_password("x", "not-a-hash"));
+    }
+
+    /// A hash written by an earlier argon2 crate (0.5, a dev account's
+    /// `dev-password`) still verifies after the crate upgrade (#585).
+    #[test]
+    fn old_hashes_still_verify() {
+        let h = "$argon2id$v=19$m=8192,t=3,p=1$pPPj4hcUihbRf+ODyZiZ3A$qS2aYMKnieD73TCIQQ2TWTeJ19mmhj83LAu+nmG2XGE";
+        assert!(verify_password("dev-password", h));
+        assert!(!verify_password("dev-passwor", h));
+    }
+
+    /// Only the token's hash is stored, and every lookup goes through it:
+    /// sign in, sign out, and "every other session" after a password change.
+    #[test]
+    fn sessions_are_stored_and_found_by_hash() {
+        let db = crate::db::Db::open_in_memory().unwrap();
+        db.with(|c| {
+            let ann = create_user(c, "ann@example.org", "h")?;
+            crate::terms::accept(c, ann, crate::terms::version())?;
+            let (here, elsewhere) = (create_session(c, ann)?, create_session(c, ann)?);
+            let stored: Vec<String> = {
+                let mut stmt = c.prepare("SELECT session_token FROM sessions ORDER BY rowid")?;
+                let v = stmt.query_map([], |r| r.get(0))?.collect::<Result<_, _>>()?;
+                v
+            };
+            assert_eq!(stored, vec![hash_token(&here), hash_token(&elsewhere)]);
+            assert!(!stored.contains(&here) && !stored.contains(&elsewhere), "a token stored in plain text");
+            assert_eq!(hash_token("abc"), "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad");
+            assert_eq!(user_for_session(c, &here)?.map(|u| u.id), Some(ann));
+            // The stored hash is no use as a cookie.
+            assert!(user_for_session(c, &stored[0])?.is_none());
+            assert_eq!(delete_other_sessions(c, ann, &here)?, 1);
+            assert!(user_for_session(c, &elsewhere)?.is_none());
+            assert!(user_for_session(c, &here)?.is_some());
+            delete_session(c, &here)?;
+            assert!(user_for_session(c, &here)?.is_none());
+            Ok(())
+        })
+        .unwrap();
+    }
+
+    #[test]
+    fn google_accounts() {
+        let db = crate::db::Db::open_in_memory().unwrap();
+        db.with(|c| {
+            assert_eq!(find_user_by_google(c, "g1")?, None);
+            let id = create_google_user(c, "g1", "ana@example.org")?;
+            assert_eq!(find_user_by_google(c, "g1")?, Some(id));
+            assert!(google_linked(c, id)?);
+            // A Google-only account has no password to sign in with.
+            assert_eq!(find_user_credentials(c, "ana@example.org")?, None);
+            // The password account with the same address does, whatever the case.
+            let pw = create_user(c, "ana@example.org", "h")?;
+            assert_eq!(find_user_credentials(c, "ANA@example.org")?, Some((pw, "h".to_string())));
+            let bob = create_user(c, "bob@work.example", "h")?;
+            assert!(!google_linked(c, bob)?);
+            link_google(c, bob, "g2", "bob@example.org")?;
+            assert!(google_linked(c, bob)?);
+            // Linking never overwrites an address the account already has.
+            let email: String = c.query_row("SELECT email FROM users WHERE id = ?1", [bob], |r| r.get(0))?;
+            assert_eq!(email, "bob@work.example");
+            let verified = |id: i64| c.query_row("SELECT email_verified_at IS NOT NULL FROM users WHERE id = ?1", [id], |r| r.get::<_, bool>(0));
+            assert!(verified(id)?, "Google vouched for a new account's address");
+            assert!(!verified(pw)? && !verified(bob)?, "a different address stays unconfirmed");
+            let carl = create_user(c, "carl@example.org", "h")?;
+            link_google(c, carl, "g3", "carl@example.org")?;
+            assert!(verified(carl)?, "linking Google with the same address confirms it");
+            let email: String = c.query_row("SELECT email FROM users WHERE id = ?1", [carl], |r| r.get(0))?;
+            assert_eq!(email, "carl@example.org");
+            // The same Google account cannot be attached twice.
+            assert!(link_google(c, bob, "g1", "x").is_err());
+            Ok(())
+        })
+        .unwrap();
+    }
+
+    #[test]
+    fn google_sign_in_finds_the_account_with_its_address() {
+        let db = crate::db::Db::open_in_memory().unwrap();
+        db.with(|c| {
+            assert_eq!(google_match(c, "g1", "new@example.org")?, GoogleMatch::New);
+            let ana = create_user(c, "ana@example.org", "h")?;
+            // Unconfirmed: nobody knows the registrant owns the address.
+            assert_eq!(google_match(c, "g1", "ANA@example.org")?, GoogleMatch::Unconfirmed);
+            crate::verify::mark_verified(c, ana, 1)?;
+            assert_eq!(google_match(c, "g1", "ana@example.org")?, GoogleMatch::Join(ana));
+            link_google(c, ana, "g1", "ana@example.org")?;
+            assert_eq!(google_match(c, "g1", "ana@example.org")?, GoogleMatch::Linked(ana));
+            // Another Google account with the same address cannot take it.
+            assert_eq!(google_match(c, "g2", "ana@example.org")?, GoogleMatch::OtherGoogle);
+            assert!(!google_only(c, "ana@example.org")?, "it has a password");
+            create_google_user(c, "g3", "gina@example.org")?;
+            assert!(google_only(c, "Gina@example.org")?);
+            assert!(!google_only(c, "nobody@example.org")?);
+            Ok(())
+        })
+        .unwrap();
+    }
+
+    #[test]
+    fn google_is_unlinked_only_from_an_account_with_a_password() {
+        let db = crate::db::Db::open_in_memory().unwrap();
+        db.with(|c| {
+            let only = create_google_user(c, "g1", "ana@example.org")?;
+            assert_eq!(google_sub(c, only)?.as_deref(), Some("g1"));
+            assert!(!unlink_google(c, only)?, "a Google-only account keeps its one way in");
+            assert!(google_linked(c, only)?);
+            let bob = create_user(c, "bob@example.org", "h")?;
+            assert!(!unlink_google(c, bob)?, "nothing linked");
+            link_google(c, bob, "g2", "bob@example.org")?;
+            assert!(unlink_google(c, bob)?);
+            assert_eq!(google_sub(c, bob)?, None);
+            assert_eq!(find_user_by_google(c, "g2")?, None, "Continue with Google no longer signs in to it");
+            Ok(())
+        })
+        .unwrap();
+    }
+
+    #[test]
+    fn tokens_are_unique_hex() {
+        let a = generate_token();
+        let b = generate_token();
+        assert_eq!(a.len(), 64);
+        assert_ne!(a, b);
+    }
+
+    #[test]
+    fn parses_cookie_header() {
+        let mut h = HeaderMap::new();
+        let tok = "a".repeat(64);
+        h.insert(COOKIE, HeaderValue::from_str(&format!("theme=dark; sid={tok}; x=1")).unwrap());
+        assert_eq!(session_cookie_from_headers(&h).as_deref(), Some(tok.as_str()));
+        h.insert(COOKIE, HeaderValue::from_static("sid=garbage"));
+        assert!(session_cookie_from_headers(&h).is_none());
+    }
+}

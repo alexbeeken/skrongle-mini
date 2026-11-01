@@ -1,0 +1,1236 @@
+{
+  "id": "c1-verbal-periphrases",
+  "slug": "verbal-periphrases",
+  "title": "Llevo años diciéndolo: verbal periphrases",
+  "unit": "C1",
+  "group": "Grammar",
+  "order": 18,
+  "summary": "Say how long, how often and in what spirit: llevar + gerund, seguir sin, venir diciendo, acabar por, echarse a, dar por…",
+  "focus": "Verbal periphrases with the gerund, the infinitive and the participle",
+  "prerequisites": [
+    "b1-verb-periphrases"
+  ],
+  "content": "## How long so far: llevar and seguir\n\n- **llevar + time + gerund** = have been doing: *Llevo tres años viviendo aquí.* *¿Cuánto tiempo llevas estudiando?*\n- **llevar + time + sin + infinitive** = haven't done for: *Llevo dos días sin dormir.*\n- **seguir / continuar + gerund** = still be doing: *Sigue lloviendo.* **seguir sin + infinitive** = still not: *Sigo sin entenderlo.*\n\n| | llevar | seguir |\n|---|---|---|\n| yo | llevo | sigo |\n| tú | llevas | sigues |\n| él / ella | lleva | sigue |\n| nosotros | llevamos | seguimos |\n| vosotros | lleváis | seguís |\n| ellos | llevan | siguen |\n\n## Gerunds with an attitude\n\n- **ir + gerund**: little by little. *Voy entendiendo el sistema.*\n- **venir + gerund**: insistently, up to now. *Te lo vengo diciendo desde enero.*\n- **andar + gerund**: going around doing, often with criticism. *Anda diciendo que es el jefe.*\n- **acabar + gerund**: end up. *Acabó trabajando en un banco.*\n\n## Infinitive periphrases\n\n| periphrasis | adds | example |\n|---|---|---|\n| **volver a** | again | Ha vuelto a llamar. |\n| **dejar de** | stop | Dejé de fumar. |\n| **ponerse a** | start (suddenly) | Se puso a llover. |\n| **echarse a** | burst into (reír, llorar, correr) | Se echó a reír. |\n| **llegar a** | go as far as | Llegó a pedirme dinero. |\n| **acabar por** | end up | Acabé por aceptar. |\n| **estar por** | be tempted to | Estoy por llamarla. |\n\n## With the participle\n\n- **tener + participle** stresses a result; the participle agrees with the object: *Tengo **leídas** tres novelas.*\n- **llevar + participle** = so far: *Llevo **corregidos** veinte exámenes.*\n- **dar por + participle** = consider: *Doy por terminada la reunión.* *Lo dimos por perdido.*\n- **darle a alguien por + infinitive** = take it into one's head: *Le ha dado por correr maratones.*",
+  "vocabulary": [
+    {
+      "term": "llevar",
+      "meaning": "to have been doing (+ time + gerund)",
+      "example": "Llevamos un mes buscando piso y no hay manera.",
+      "example_meaning": "We've been looking for a flat for a month and it's hopeless."
+    },
+    {
+      "term": "seguir",
+      "meaning": "to keep on, to still be (+ gerund); seguir sin = still not",
+      "example": "Mi abuela sigue cosiendo a mano a sus noventa años.",
+      "example_meaning": "My grandmother still sews by hand at ninety."
+    },
+    {
+      "term": "ir mejorando",
+      "meaning": "to gradually improve",
+      "example": "El enfermo va mejorando día a día.",
+      "example_meaning": "The patient is improving day by day."
+    },
+    {
+      "term": "venir diciendo",
+      "meaning": "to have been saying (again and again)",
+      "example": "Los vecinos vienen diciendo que el edificio necesita obras.",
+      "example_meaning": "The neighbours have been saying for ages that the building needs work."
+    },
+    {
+      "term": "andar diciendo",
+      "meaning": "to go around saying",
+      "example": "Anda diciendo por ahí que le van a ascender.",
+      "example_meaning": "He's going around saying he's going to be promoted."
+    },
+    {
+      "term": "acabar por",
+      "meaning": "to end up (+ infinitive)",
+      "example": "Tanto insistió que acabé por decirle que sí.",
+      "example_meaning": "He insisted so much that I ended up saying yes."
+    },
+    {
+      "term": "volver a",
+      "meaning": "to do again (+ infinitive)",
+      "example": "No vuelvas a dejar la puerta abierta.",
+      "example_meaning": "Don't leave the door open again."
+    },
+    {
+      "term": "dejar de",
+      "meaning": "to stop (+ infinitive)",
+      "example": "Por fin ha dejado de llover.",
+      "example_meaning": "It has finally stopped raining."
+    },
+    {
+      "term": "ponerse a",
+      "meaning": "to start (+ infinitive)",
+      "example": "En cuanto llegó, se puso a limpiar la cocina.",
+      "example_meaning": "As soon as she arrived, she started cleaning the kitchen."
+    },
+    {
+      "term": "echarse a reír",
+      "meaning": "to burst out laughing",
+      "example": "Cuando vio mi disfraz, se echó a reír.",
+      "example_meaning": "When she saw my costume, she burst out laughing."
+    },
+    {
+      "term": "llegar a",
+      "meaning": "to go as far as, to manage to (+ infinitive)",
+      "example": "Llegó a ofrecerme el doble para que me quedara.",
+      "example_meaning": "He went as far as offering me double to stay."
+    },
+    {
+      "term": "estar por",
+      "meaning": "to be tempted to, to be inclined to (+ infinitive)",
+      "example": "Estoy por cancelar la suscripción.",
+      "example_meaning": "I'm tempted to cancel the subscription."
+    },
+    {
+      "term": "dar por",
+      "meaning": "to consider, to take as (+ participle)",
+      "example": "Después de tres semanas, dieron el gato por perdido.",
+      "example_meaning": "After three weeks, they gave the cat up for lost."
+    },
+    {
+      "term": "darle a alguien por",
+      "meaning": "to take it into one's head to (+ infinitive)",
+      "example": "A mi padre le ha dado por hacer pan casero.",
+      "example_meaning": "My father has taken it into his head to make homemade bread."
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "llevar",
+      "meaning": "to carry; to have been (+ time + gerund)",
+      "set": "present",
+      "art": [
+        "  _______   ",
+        " |  ___  |  ",
+        " | |   | |  ",
+        " | |___| |  ",
+        " |_______|  ",
+        "  3 years.. "
+      ],
+      "forms": {
+        "yo": "llevo",
+        "tu": "llevas",
+        "el": "lleva",
+        "nosotros": "llevamos",
+        "vosotros": "lleváis",
+        "ellos": "llevan"
+      }
+    },
+    {
+      "item": "seguir",
+      "meaning": "to follow; to keep on (+ gerund)",
+      "set": "present",
+      "art": [
+        "  o    o    o",
+        " /|\\  /|\\  /|\\",
+        " / \\  / \\  / \\",
+        " ---> ---> -->",
+        "  still going "
+      ],
+      "forms": {
+        "yo": "sigo",
+        "tu": "sigues",
+        "el": "sigue",
+        "nosotros": "seguimos",
+        "vosotros": "seguís",
+        "ellos": "siguen"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "c1-verbal-periphrases-01",
+      "prompt": "___ (yo) tres años viviendo en Granada.",
+      "type": "fill-in-blank",
+      "correct_answer": "Llevo",
+      "accepted_answers": [
+        "yo llevo"
+      ],
+      "explanation": "Llevar + time + gerund says how long something has been going on: llevo tres años viviendo.",
+      "hints": [
+        "The verb that also means 'to carry'."
+      ],
+      "teaches": [
+        "llevar"
+      ]
+    },
+    {
+      "question_id": "c1-verbal-periphrases-02",
+      "prompt": "Llevo dos días ___ dormir.",
+      "type": "multiple-choice",
+      "options": [
+        "sin",
+        "no",
+        "nada"
+      ],
+      "correct_answer": "sin",
+      "explanation": "For something you haven't done for a time: llevar + time + sin + infinitive.",
+      "hints": [
+        "A preposition before the infinitive."
+      ],
+      "teaches": [
+        "llevar"
+      ]
+    },
+    {
+      "question_id": "c1-verbal-periphrases-03",
+      "prompt": "¿Todavía ___ (seguir, tú) trabajando en la misma empresa?",
+      "type": "fill-in-blank",
+      "correct_answer": "sigues",
+      "accepted_answers": [
+        "tú sigues"
+      ],
+      "explanation": "Seguir + gerund = still be doing. Seguir changes e to i: sigues (only yo drops the u: sigo).",
+      "hints": [
+        "The e becomes i in the stressed forms."
+      ],
+      "teaches": [
+        "seguir"
+      ]
+    },
+    {
+      "question_id": "c1-verbal-periphrases-04",
+      "prompt": "What does 'Te lo vengo diciendo desde enero' mean?",
+      "type": "multiple-choice",
+      "options": [
+        "I've been telling you since January (over and over).",
+        "I'm coming to tell you in January.",
+        "I told you once in January."
+      ],
+      "correct_answer": "I've been telling you since January (over and over).",
+      "explanation": "Venir + gerund marks an action repeated insistently up to now.",
+      "hints": [
+        "Venir here is not about movement."
+      ],
+      "teaches": [
+        "venir diciendo"
+      ]
+    },
+    {
+      "question_id": "c1-verbal-periphrases-05",
+      "prompt": "Al oír el chiste, todos se echaron a ___.",
+      "type": "multiple-choice",
+      "options": [
+        "reír",
+        "riendo",
+        "reído"
+      ],
+      "correct_answer": "reír",
+      "explanation": "Echarse a takes the infinitive: echarse a reír, a llorar, a correr.",
+      "hints": [
+        "After a preposition, Spanish uses the infinitive."
+      ],
+      "teaches": [
+        "echarse a reír"
+      ]
+    },
+    {
+      "question_id": "c1-verbal-periphrases-06",
+      "prompt": "Después de meses de dudas, Marcos ___ por aceptar el trabajo. (acabar, preterite)",
+      "type": "fill-in-blank",
+      "correct_answer": "acabó",
+      "accepted_answers": [
+        "él acabó"
+      ],
+      "explanation": "Acabar por + infinitive = to end up doing something; preterite, él: acabó.",
+      "hints": [
+        "Preterite of acabar, third person."
+      ],
+      "teaches": [
+        "acabar por"
+      ]
+    },
+    {
+      "question_id": "c1-verbal-periphrases-07",
+      "prompt": "Bueno, señores, ___ por terminada la reunión.",
+      "type": "multiple-choice",
+      "options": [
+        "doy",
+        "tengo",
+        "llevo"
+      ],
+      "correct_answer": "doy",
+      "explanation": "Dar por + participle = to consider something as: doy por terminada la reunión.",
+      "hints": [
+        "'I declare the meeting closed'."
+      ],
+      "teaches": [
+        "dar por"
+      ]
+    },
+    {
+      "question_id": "c1-verbal-periphrases-08",
+      "prompt": "Este verano tengo ___ (leer) tres novelas.",
+      "type": "fill-in-blank",
+      "correct_answer": "leídas",
+      "explanation": "In tener + participle the participle agrees with the object: tres novelas, so leídas.",
+      "hints": [
+        "Feminine plural, with an accent on the í."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "c1-verbal-periphrases-09",
+      "prompt": "A mi vecino le ha dado ___ correr maratones.",
+      "type": "multiple-choice",
+      "options": [
+        "por",
+        "a",
+        "de"
+      ],
+      "correct_answer": "por",
+      "explanation": "Darle a alguien por + infinitive = to take it into one's head to do something.",
+      "hints": [
+        "The same preposition as in dar por terminado."
+      ],
+      "teaches": [
+        "darle a alguien por"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Sigue nevando en la sierra.",
+      "meaning": "It's still snowing in the mountains.",
+      "note": "seguir + gerund."
+    },
+    {
+      "text": "Llevamos media hora esperando el autobús.",
+      "meaning": "We've been waiting for the bus for half an hour."
+    },
+    {
+      "text": "Poco a poco voy entendiendo el sistema.",
+      "meaning": "Little by little I'm getting the hang of the system."
+    },
+    {
+      "text": "Ha vuelto a llamar la chica del seguro.",
+      "meaning": "The girl from the insurance company has called again.",
+      "note": "New word: el seguro = the insurance."
+    },
+    {
+      "text": "Dejé de fumar hace ya diez años.",
+      "meaning": "I stopped smoking ten years ago now."
+    },
+    {
+      "text": "Anda contando a todo el mundo que se casa en mayo.",
+      "meaning": "She's going around telling everyone she's getting married in May."
+    },
+    {
+      "text": "Estoy por mandarlo todo a paseo y mudarme al campo.",
+      "meaning": "I'm tempted to chuck it all in and move to the country.",
+      "note": "New word: mandar a paseo = to chuck in, to send packing."
+    },
+    {
+      "text": "Llevo corregidos treinta exámenes y todavía me quedan otros veinte.",
+      "meaning": "I've marked thirty exams so far and I still have another twenty to go.",
+      "note": "llevar + participle: so far."
+    }
+  ],
+  "guide": [
+    {
+      "section": "How long so far"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "c1-verbal-periphrases-01"
+    },
+    {
+      "question": "c1-verbal-periphrases-02"
+    },
+    {
+      "question": "c1-verbal-periphrases-03"
+    },
+    {
+      "section": "Gerunds with an attitude"
+    },
+    {
+      "question": "c1-verbal-periphrases-04"
+    },
+    {
+      "section": "Infinitive periphrases"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "c1-verbal-periphrases-05"
+    },
+    {
+      "question": "c1-verbal-periphrases-06"
+    },
+    {
+      "tip": "Gerund for something in progress (llevar, seguir, ir, venir, andar); infinitive after a preposition (volver a, dejar de, acabar por); participle for a result (tener, dar por)."
+    },
+    {
+      "section": "With the participle"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "c1-verbal-periphrases-07"
+    },
+    {
+      "question": "c1-verbal-periphrases-08"
+    },
+    {
+      "question": "c1-verbal-periphrases-09"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "c1-verbal-periphrases-conv-guitar",
+      "title": "The guitar",
+      "scenario": "Sofía visits her friend Diego, who has a new hobby.",
+      "role_a": "Sofía",
+      "role_b": "Diego",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¿Una guitarra? ¿Desde cuándo tocas tú?",
+          "meaning": "A guitar? Since when do you play?"
+        },
+        {
+          "speaker": "b",
+          "text": "Llevo seis meses aprendiendo. Me dio por ahí en verano.",
+          "meaning": "I've been learning for six months. I took it into my head in the summer."
+        },
+        {
+          "speaker": "a",
+          "text": "¿Y qué tal? ¿Vas mejorando?",
+          "meaning": "And how's it going? Are you improving?"
+        },
+        {
+          "speaker": "b",
+          "text": "Poco a poco. Sigo sin saber leer partituras, eso sí.",
+          "meaning": "Little by little. I still can't read sheet music, mind you.",
+          "note": "seguir sin + infinitive."
+        },
+        {
+          "speaker": "a",
+          "text": "Mi hermano también se puso a tocar y acabó dejándolo.",
+          "meaning": "My brother also started playing and ended up giving it up."
+        },
+        {
+          "speaker": "b",
+          "text": "Yo no pienso dejar de practicar. Tengo aprendidas cuatro canciones.",
+          "meaning": "I've no intention of giving up practising. I've learnt four songs.",
+          "note": "tener + participle agrees: aprendidas."
+        },
+        {
+          "speaker": "a",
+          "text": "¿Cuatro? Pues toca una, venga.",
+          "meaning": "Four? Go on then, play one."
+        },
+        {
+          "speaker": "b",
+          "text": "Vale, pero no te eches a reír.",
+          "meaning": "OK, but don't burst out laughing."
+        },
+        {
+          "speaker": "a",
+          "text": "¡Si ni has empezado! Llevas cinco minutos afinándola.",
+          "meaning": "You haven't even started! You've been tuning it for five minutes."
+        },
+        {
+          "speaker": "b",
+          "text": "Es que vengo notando que la tercera cuerda suena rara.",
+          "meaning": "It's just that I've been noticing for a while that the third string sounds odd.",
+          "note": "venir + gerund: repeated up to now."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🔁",
+    "bites": [
+      {
+        "title": "Llevar + time + gerund",
+        "emoji": "⏳",
+        "rule": "Llevo tres años viviendo aquí = I've been living here three years. With sin + infinitive: llevo dos días sin dormir.",
+        "example": "¿Cuánto tiempo llevas esperando?",
+        "example_meaning": "How long have you been waiting?"
+      },
+      {
+        "title": "Seguir + gerund, seguir sin",
+        "emoji": "🔁",
+        "rule": "Sigue lloviendo = it's still raining. Sigo sin entenderlo = I still don't understand it. Seguir: sigo, sigues, sigue…",
+        "example": "Sigo sin entenderlo.",
+        "example_meaning": "I still don't get it."
+      },
+      {
+        "title": "Ir, venir, andar + gerund",
+        "emoji": "🚶",
+        "rule": "Ir + gerund: little by little. Venir + gerund: insistently up to now. Andar + gerund: going around doing it, often a complaint.",
+        "example": "Anda diciendo que es el jefe.",
+        "example_meaning": "He goes around saying he's the boss."
+      },
+      {
+        "title": "Start, stop, again, end up",
+        "emoji": "🔀",
+        "rule": "Ponerse a / echarse a (start), dejar de (stop), volver a (again), acabar por (end up) + infinitive. Dar por + participle: consider.",
+        "example": "Se echó a llorar.",
+        "example_meaning": "She burst into tears."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "What does it add?",
+        "buckets": [
+          "start",
+          "stop",
+          "again",
+          "end up"
+        ],
+        "items": [
+          {
+            "text": "ponerse a",
+            "bucket": 0
+          },
+          {
+            "text": "echarse a",
+            "bucket": 0
+          },
+          {
+            "text": "dejar de",
+            "bucket": 1
+          },
+          {
+            "text": "volver a",
+            "bucket": 2
+          },
+          {
+            "text": "acabar por",
+            "bucket": 3
+          },
+          {
+            "text": "acabar + gerund",
+            "bucket": 3
+          }
+        ],
+        "why": "Each periphrasis adds one shade of meaning to the main verb."
+      },
+      {
+        "title": "Gerund, infinitive or participle?",
+        "buckets": [
+          "+ gerund",
+          "+ infinitive",
+          "+ participle"
+        ],
+        "items": [
+          {
+            "text": "llevo tres años…",
+            "bucket": 0
+          },
+          {
+            "text": "sigue…",
+            "bucket": 0
+          },
+          {
+            "text": "anda…",
+            "bucket": 0
+          },
+          {
+            "text": "ha vuelto a…",
+            "bucket": 1
+          },
+          {
+            "text": "dejé de…",
+            "bucket": 1
+          },
+          {
+            "text": "se puso a…",
+            "bucket": 1
+          },
+          {
+            "text": "lo dimos por…",
+            "bucket": 2
+          },
+          {
+            "text": "tengo…",
+            "bucket": 2
+          }
+        ],
+        "why": "Gerund for an action in progress; infinitive after a preposition; participle for a result."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Llevo tres años vivir aquí.",
+        "wrong": "vivir",
+        "fix": "viviendo",
+        "why": "Llevar + time takes the gerund."
+      },
+      {
+        "sentence": "Sigo sin entendiendo el problema.",
+        "wrong": "entendiendo",
+        "fix": "entender",
+        "why": "After sin, use the infinitive."
+      },
+      {
+        "sentence": "Dejé a fumar el año pasado.",
+        "wrong": "a",
+        "fix": "de",
+        "why": "The periphrasis is dejar de + infinitive."
+      },
+      {
+        "sentence": "Tengo leído tres novelas este mes.",
+        "wrong": "leído",
+        "fix": "leídas",
+        "why": "With tener + participle, the participle agrees with the object."
+      },
+      {
+        "sentence": "Se echó de llorar al ver la carta.",
+        "wrong": "de",
+        "fix": "a",
+        "why": "The periphrasis is echarse a + infinitive."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Llevo dos años estudiando ruso.",
+        "meaning": "I've been studying Russian for two years.",
+        "distractors": [
+          "estudiar"
+        ]
+      },
+      {
+        "text": "Sigue lloviendo en Santiago.",
+        "meaning": "It's still raining in Santiago.",
+        "distractors": [
+          "llover"
+        ]
+      },
+      {
+        "text": "Ha vuelto a perder las llaves.",
+        "meaning": "He's lost his keys again.",
+        "distractors": [
+          "de"
+        ]
+      },
+      {
+        "text": "Doy por terminada la reunión.",
+        "meaning": "I declare the meeting closed.",
+        "distractors": [
+          "terminado"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🐢",
+      "content": "## Perífrasis en Eldmark\n\nThe hunter **lleva** tres días **siguiendo** el rastro del grifo; the bard **anda contando** que lo cazará él solo. The mage **sigue sin encontrar** el hechizo correcto, and the ring? **Lo dimos por perdido** hasta que el enano **se puso a cavar** y **volvió a** aparecer.",
+      "vocabulary": [
+        {
+          "term": "llevar",
+          "example": "El cazador lleva tres días siguiendo el rastro del grifo.",
+          "example_meaning": "The hunter has been following the griffin's trail for three days."
+        },
+        {
+          "term": "seguir",
+          "example": "La maga sigue sin encontrar el hechizo correcto.",
+          "example_meaning": "The mage still hasn't found the right spell."
+        },
+        {
+          "term": "andar diciendo",
+          "example": "El bardo anda diciendo que cazará el grifo él solo.",
+          "example_meaning": "The bard goes around saying he'll hunt the griffin on his own."
+        },
+        {
+          "term": "dar por",
+          "example": "Dimos el anillo por perdido en la mazmorra.",
+          "example_meaning": "We gave the ring up for lost in the dungeon."
+        },
+        {
+          "term": "ponerse a",
+          "example": "El enano se puso a cavar y encontró oro.",
+          "example_meaning": "The dwarf started digging and found gold."
+        },
+        {
+          "term": "el grifo",
+          "meaning": "the griffin",
+          "example": "El grifo volvió a escaparse.",
+          "example_meaning": "The griffin escaped again."
+        },
+        {
+          "term": "el bardo",
+          "meaning": "the bard",
+          "example": "El bardo no deja de cantar ni un minuto.",
+          "example_meaning": "The bard doesn't stop singing for a minute."
+        },
+        {
+          "term": "el arco",
+          "meaning": "the bow",
+          "example": "Lleva toda la mañana tensando el arco.",
+          "example_meaning": "He's been stringing the bow all morning."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Tres días tras el grifo",
+          "emoji": "🏹",
+          "rule": "Llevar + time + gerund for a long hunt, seguir sin for what hasn't happened yet, volver a for what happens again.",
+          "example": "Llevamos tres días siguiendo al grifo.",
+          "example_meaning": "We've been following the griffin for three days."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Llevamos tres días siguiendo al grifo.",
+          "meaning": "We've been following the griffin for three days.",
+          "note": "New word: el grifo = the griffin."
+        },
+        {
+          "text": "El cazador sigue sin ver al grifo.",
+          "meaning": "The hunter still hasn't seen the griffin."
+        },
+        {
+          "text": "El bardo no deja de cantar.",
+          "meaning": "The bard doesn't stop singing.",
+          "note": "New word: el bardo = the bard."
+        },
+        {
+          "text": "El orco se echó a correr.",
+          "meaning": "The orc broke into a run."
+        },
+        {
+          "text": "Dimos el anillo por perdido.",
+          "meaning": "We gave the ring up for lost."
+        }
+      ],
+      "builds": [
+        {
+          "text": "La maga sigue sin encontrar el hechizo.",
+          "meaning": "The mage still hasn't found the spell.",
+          "distractors": [
+            "encontrando"
+          ]
+        },
+        {
+          "text": "El orco volvió a atacar.",
+          "meaning": "The orc attacked again.",
+          "distractors": [
+            "de"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "El cazador lleva tres días seguir el rastro.",
+          "wrong": "seguir",
+          "fix": "siguiendo",
+          "why": "Llevar + time takes the gerund."
+        },
+        {
+          "sentence": "El bardo no deja a cantar.",
+          "wrong": "a",
+          "fix": "de",
+          "why": "Dejar de + infinitive."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "¿Qué añade?",
+          "buckets": [
+            "start",
+            "stop",
+            "again"
+          ],
+          "items": [
+            {
+              "text": "El enano se puso a cavar.",
+              "bucket": 0
+            },
+            {
+              "text": "El orco se echó a correr.",
+              "bucket": 0
+            },
+            {
+              "text": "El bardo dejó de cantar.",
+              "bucket": 1
+            },
+            {
+              "text": "El grifo volvió a escaparse.",
+              "bucket": 2
+            },
+            {
+              "text": "La maga volvió a intentarlo.",
+              "bucket": 2
+            }
+          ],
+          "why": "Ponerse a / echarse a start an action, dejar de stops it, volver a repeats it."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "c1-verbal-periphrases-realm-01",
+          "prompt": "El cazador ___ tres días siguiendo el rastro del grifo. (present)",
+          "type": "fill-in-blank",
+          "correct_answer": "lleva",
+          "explanation": "Llevar + time + gerund: lleva tres días siguiendo.",
+          "hints": [
+            "Third person of llevar."
+          ],
+          "teaches": [
+            "llevar",
+            "el grifo"
+          ]
+        },
+        {
+          "question_id": "c1-verbal-periphrases-realm-02",
+          "prompt": "El bardo ___ diciendo que cazará el grifo él solo.",
+          "type": "multiple-choice",
+          "options": [
+            "anda",
+            "deja",
+            "vuelve"
+          ],
+          "correct_answer": "anda",
+          "explanation": "Andar + gerund = going around doing something, often with a critical tone.",
+          "hints": [
+            "Which one takes a gerund?"
+          ],
+          "teaches": [
+            "andar diciendo",
+            "el bardo"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🚜",
+      "content": "## Perífrasis en Meadowbrook\n\nNora **lleva** dos años **cultivando** fresas and **sigue sin** tener tractor. Poco a poco el maíz **va creciendo**. The mayor **vuelve a** dar discursos, Leo **anda diciendo** que pescó un pez de un metro, and the new goat **acabó comiéndose** el sombrero de Rosa.",
+      "vocabulary": [
+        {
+          "term": "llevar",
+          "example": "Nora lleva dos años cultivando fresas.",
+          "example_meaning": "Nora has been growing strawberries for two years."
+        },
+        {
+          "term": "seguir",
+          "example": "Sigo sin tener tractor, así que aro a mano.",
+          "example_meaning": "I still don't have a tractor, so I plough by hand."
+        },
+        {
+          "term": "ir mejorando",
+          "example": "Con la lluvia, el huerto va mejorando.",
+          "example_meaning": "With the rain, the vegetable garden is improving."
+        },
+        {
+          "term": "volver a",
+          "example": "El alcalde ha vuelto a dar un discurso eterno.",
+          "example_meaning": "The mayor has given an endless speech again."
+        },
+        {
+          "term": "andar diciendo",
+          "example": "Leo anda diciendo que pescó un pez de un metro.",
+          "example_meaning": "Leo is going around saying he caught a one-metre fish."
+        },
+        {
+          "term": "cultivar",
+          "meaning": "to grow (crops)",
+          "example": "Rosa lleva años cultivando tomates raros.",
+          "example_meaning": "Rosa has been growing unusual tomatoes for years."
+        },
+        {
+          "term": "el tractor",
+          "meaning": "the tractor",
+          "example": "El tractor viejo ha vuelto a romperse.",
+          "example_meaning": "The old tractor has broken down again."
+        },
+        {
+          "term": "la cabra",
+          "meaning": "the goat",
+          "example": "La cabra acabó comiéndose el sombrero de Rosa.",
+          "example_meaning": "The goat ended up eating Rosa's hat."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Poco a poco en la granja",
+          "emoji": "🚜",
+          "rule": "Farm life is gradual: lleva dos años cultivando, va creciendo, sigue sin llover. And things keep happening again: vuelve a romperse.",
+          "example": "El maíz va creciendo.",
+          "example_meaning": "The maize is gradually growing."
+        }
+      ],
+      "listening": [
+        {
+          "text": "El maíz va creciendo poco a poco.",
+          "meaning": "The maize is growing little by little."
+        },
+        {
+          "text": "Lleva dos años cultivando fresas.",
+          "meaning": "She's been growing strawberries for two years.",
+          "note": "New word: cultivar = to grow (crops)."
+        },
+        {
+          "text": "El tractor de Leo volvió a fallar.",
+          "meaning": "Leo's tractor broke down again.",
+          "note": "New word: el tractor = the tractor."
+        },
+        {
+          "text": "La cabra acabó comiéndose el sombrero.",
+          "meaning": "The goat ate the hat."
+        },
+        {
+          "text": "Sigue sin llover en el valle.",
+          "meaning": "It still hasn't rained in the valley."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Llevo dos años cultivando fresas.",
+          "meaning": "I've been growing strawberries for two years.",
+          "distractors": [
+            "cultivar"
+          ]
+        },
+        {
+          "text": "El tractor ha vuelto a romperse.",
+          "meaning": "The tractor has broken down again.",
+          "distractors": [
+            "de"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Sigue sin lloviendo en el valle.",
+          "wrong": "lloviendo",
+          "fix": "llover",
+          "why": "After sin, use the infinitive."
+        },
+        {
+          "sentence": "Nora lleva dos años cultivar fresas.",
+          "wrong": "cultivar",
+          "fix": "cultivando",
+          "why": "Llevar + time takes the gerund."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "¿Gerundio o infinitivo?",
+          "buckets": [
+            "+ gerund",
+            "+ infinitive"
+          ],
+          "items": [
+            {
+              "text": "El maíz va…",
+              "bucket": 0
+            },
+            {
+              "text": "Nora lleva dos años…",
+              "bucket": 0
+            },
+            {
+              "text": "Leo anda…",
+              "bucket": 0
+            },
+            {
+              "text": "El tractor ha vuelto a…",
+              "bucket": 1
+            },
+            {
+              "text": "La cabra no deja de…",
+              "bucket": 1
+            },
+            {
+              "text": "Sigue sin…",
+              "bucket": 1
+            }
+          ],
+          "why": "Ir, llevar and andar take the gerund; volver a, dejar de and seguir sin take the infinitive."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "c1-verbal-periphrases-meadowbrook-01",
+          "prompt": "Nora lleva dos años ___ (cultivar) fresas.",
+          "type": "fill-in-blank",
+          "correct_answer": "cultivando",
+          "explanation": "Llevar + time + gerund.",
+          "hints": [
+            "Replace -ar with -ando."
+          ],
+          "teaches": [
+            "llevar",
+            "cultivar"
+          ]
+        },
+        {
+          "question_id": "c1-verbal-periphrases-meadowbrook-02",
+          "prompt": "El tractor viejo ha vuelto ___ romperse.",
+          "type": "multiple-choice",
+          "options": [
+            "a",
+            "de",
+            "por"
+          ],
+          "correct_answer": "a",
+          "explanation": "Volver a + infinitive = again.",
+          "hints": [
+            "'Again'."
+          ],
+          "teaches": [
+            "volver a",
+            "el tractor"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "c1-verbal-periphrases-conv-meadowbrook-tractor",
+          "title": "The old tractor",
+          "scenario": "Leo the fisherman finds Nora the farmer next to her broken tractor.",
+          "role_a": "Leo",
+          "role_b": "Nora",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "¿Otra vez el tractor? ¿Cuánto tiempo llevas arreglándolo?",
+              "meaning": "The tractor again? How long have you been fixing it?"
+            },
+            {
+              "speaker": "b",
+              "text": "Llevo toda la mañana, y sigue sin arrancar.",
+              "meaning": "All morning, and it still won't start."
+            },
+            {
+              "speaker": "a",
+              "text": "Te lo vengo diciendo desde la primavera: necesitas uno nuevo.",
+              "meaning": "I've been telling you since spring: you need a new one."
+            },
+            {
+              "speaker": "b",
+              "text": "Ya, pero si dejo de ahorrar, no compro las semillas.",
+              "meaning": "I know, but if I stop saving, I can't buy the seeds."
+            },
+            {
+              "speaker": "a",
+              "text": "Pues acabarás arando a mano, como tu abuela.",
+              "meaning": "Then you'll end up ploughing by hand, like your grandmother."
+            },
+            {
+              "speaker": "b",
+              "text": "Estoy por venderlo al alcalde para su museo.",
+              "meaning": "I'm tempted to sell it to the mayor for his museum."
+            },
+            {
+              "speaker": "a",
+              "text": "¿Su museo? Le ha dado por coleccionar cosas viejas.",
+              "meaning": "His museum? He's taken it into his head to collect old things."
+            },
+            {
+              "speaker": "b",
+              "text": "¡Mira! Ha vuelto a arrancar.",
+              "meaning": "Look! It's started again."
+            },
+            {
+              "speaker": "a",
+              "text": "Doy por perdida la apuesta, entonces.",
+              "meaning": "I'll consider the bet lost, then."
+            },
+            {
+              "speaker": "b",
+              "text": "Me debes un pescado, Leo.",
+              "meaning": "You owe me a fish, Leo."
+            }
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🔁",
+      "content": "## Perífrasis en el páramo\n\nI **llevo** semanas **reparando** el robot jardinero and it **sigue sin arrancar**. One day I **me puse a desmontar** the motor and found a beetle inside. The beetle **se echó a correr**, the robot **volvió a** funcionar, and Leo **anda contando** que fue idea suya.",
+      "vocabulary": [
+        {
+          "term": "llevar",
+          "example": "Llevo semanas reparando el robot jardinero.",
+          "example_meaning": "I've been repairing the gardener robot for weeks."
+        },
+        {
+          "term": "seguir",
+          "example": "El robot sigue sin arrancar.",
+          "example_meaning": "The robot still won't start."
+        },
+        {
+          "term": "ponerse a",
+          "example": "Me puse a desmontar el motor con una cuchara.",
+          "example_meaning": "I started taking the engine apart with a spoon."
+        },
+        {
+          "term": "volver a",
+          "example": "Por fin el robot volvió a funcionar.",
+          "example_meaning": "At last the robot worked again."
+        },
+        {
+          "term": "estar por",
+          "example": "Estoy por cambiar el robot por cien tuercas.",
+          "example_meaning": "I'm tempted to swap the robot for a hundred nuts."
+        },
+        {
+          "term": "arrancar",
+          "meaning": "to start (an engine)",
+          "example": "El camión lleva un mes sin arrancar.",
+          "example_meaning": "The truck hasn't started for a month."
+        },
+        {
+          "term": "desmontar",
+          "meaning": "to take apart",
+          "example": "No vuelvas a desmontar mi radiorreloj.",
+          "example_meaning": "Don't take my wrist radio apart again."
+        },
+        {
+          "term": "la pieza",
+          "meaning": "the part, the piece",
+          "example": "Sigo buscando la pieza que falta.",
+          "example_meaning": "I'm still looking for the missing part."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Semanas en el taller",
+          "emoji": "⚙️",
+          "rule": "Workshop life: llevo semanas reparando, sigue sin arrancar, me puse a desmontar, volvió a funcionar.",
+          "example": "El robot sigue sin arrancar.",
+          "example_meaning": "The robot still won't start."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Llevo dos días buscando pilas.",
+          "meaning": "I've been looking for batteries for two days."
+        },
+        {
+          "text": "El camión sigue sin arrancar.",
+          "meaning": "The truck still won't start.",
+          "note": "New word: arrancar = to start (an engine)."
+        },
+        {
+          "text": "Me puse a desmontar el motor.",
+          "meaning": "I started taking the engine apart.",
+          "note": "New word: desmontar = to take apart."
+        },
+        {
+          "text": "El escarabajo se echó a correr.",
+          "meaning": "The beetle broke into a run."
+        },
+        {
+          "text": "Sigo sin encontrar la última pieza.",
+          "meaning": "I still haven't found the last part.",
+          "note": "New word: la pieza = the part."
+        }
+      ],
+      "builds": [
+        {
+          "text": "El robot sigue sin arrancar.",
+          "meaning": "The robot still won't start.",
+          "distractors": [
+            "arrancando"
+          ]
+        },
+        {
+          "text": "Llevo semanas reparando el robot.",
+          "meaning": "I've been repairing the robot for weeks.",
+          "distractors": [
+            "reparar"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Me puse de desmontar el motor.",
+          "wrong": "de",
+          "fix": "a",
+          "why": "Ponerse a + infinitive."
+        },
+        {
+          "sentence": "El robot volvió de funcionar.",
+          "wrong": "de",
+          "fix": "a",
+          "why": "Volver a + infinitive."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "¿Cuánto tiempo, todavía o de nuevo?",
+          "buckets": [
+            "how long",
+            "still",
+            "again"
+          ],
+          "items": [
+            {
+              "text": "Llevo semanas reparándolo.",
+              "bucket": 0
+            },
+            {
+              "text": "Llevamos un mes sin agua.",
+              "bucket": 0
+            },
+            {
+              "text": "Sigue sin arrancar.",
+              "bucket": 1
+            },
+            {
+              "text": "Sigo buscando la pieza.",
+              "bucket": 1
+            },
+            {
+              "text": "Volvió a funcionar.",
+              "bucket": 2
+            },
+            {
+              "text": "Ha vuelto a llover ceniza.",
+              "bucket": 2
+            }
+          ],
+          "why": "Llevar measures time, seguir says it is still the case, volver a says it happens again."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "c1-verbal-periphrases-rustwake-01",
+          "prompt": "El robot ___ (seguir) sin arrancar.",
+          "type": "fill-in-blank",
+          "correct_answer": "sigue",
+          "explanation": "Seguir sin + infinitive = still not; él: sigue.",
+          "hints": [
+            "The e becomes i, and gu appears before e."
+          ],
+          "teaches": [
+            "seguir",
+            "arrancar"
+          ]
+        },
+        {
+          "question_id": "c1-verbal-periphrases-rustwake-02",
+          "prompt": "Me puse ___ desmontar el motor.",
+          "type": "multiple-choice",
+          "options": [
+            "a",
+            "de",
+            "por"
+          ],
+          "correct_answer": "a",
+          "explanation": "Ponerse a + infinitive = to start doing something.",
+          "hints": [
+            "The same preposition as volver a."
+          ],
+          "teaches": [
+            "ponerse a",
+            "desmontar"
+          ]
+        }
+      ]
+    }
+  }
+}

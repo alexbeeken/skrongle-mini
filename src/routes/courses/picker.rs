@@ -1,0 +1,649 @@
+//! The course list (`/courses`): its cards, their notices, and the editor's notices.
+
+use super::*;
+
+// ---------- picker ----------
+
+pub struct CourseCard {
+    pub id: String,
+    pub title: String,
+    pub icon: String,
+    pub description: String,
+    pub lessons: usize,
+    pub questions: usize,
+    pub terms: usize,
+    pub units: usize,
+    /// Lessons passed / mastered, when the user has a project here.
+    pub progress: Option<(usize, usize)>,
+    pub last_opened: Option<String>,
+    pub is_active: bool,
+    pub editable: bool,
+    pub error: Option<String>,
+    /// 'generating' | 'ready' | 'failed' (built-in courses are 'ready').
+    pub state: &'static str,
+    /// The generation job (for live progress), while it is in memory.
+    pub job: Option<String>,
+    /// While generating: what the job is doing and how far it got.
+    pub phase: String,
+    pub pct: usize,
+    /// A user-made course: only its owner can see it.
+    pub private: bool,
+    /// Its first generation stopped: the card shows the error with Resume
+    /// (the outline is saved) or Retry, and the course has no editor.
+    pub stopped: bool,
+    /// Stopped with its outline saved: Resume writes the missing lessons.
+    pub resumable: bool,
+    /// Shared with this learner by someone else (`share.rs`): who. The card
+    /// opens the course but has no editor.
+    pub shared_by: Option<String>,
+    /// A course the learner opened: the theme worn in it (`projects.theme`),
+    /// as its settings dialog's choice: '' for Default, or an id.
+    pub theme: Option<String>,
+    /// A course the learner opened: what its settings dialog shows (#565).
+    pub settings: Option<CourseSettings>,
+    /// It can be copied (#629): a built-in course, or one of their own that
+    /// loads and is not being generated. The copy icon sits in the course's
+    /// settings dialog (`settings.copyable`), not on the card, and so does
+    /// the editor's pencil (`editable`).
+    pub copyable: bool,
+    /// The language its explanations are in (`meanings.lang`): "Copy and
+    /// translate to…" offers every other app language (#630).
+    pub meanings_lang: String,
+    /// A copy being translated, or whose translation stopped (#630): its
+    /// card resumes the translation rather than a generation.
+    pub translation: bool,
+    /// A course shared with this learner, on a server that sends mail
+    /// (#968): its "shared with you" dialog offers "Report this course",
+    /// whose form starts with this address (the learner's).
+    pub report_email: Option<String>,
+    /// Taken down by a superuser (#967): its owner's card shows why behind
+    /// the red !, and has no Open.
+    pub removed: bool,
+    /// Flagged by the content check (#1033): its owner's card has a red !
+    /// whose dialog lists what matched (each word masked, its lesson and
+    /// field), and no Open.
+    pub flagged: bool,
+    pub flag_matches: Vec<crate::course_flags::view::MatchView>,
+    /// The line above them: listed words, or text the AI check found (#1037).
+    pub flagged_lead: String,
+}
+
+/// A course's settings dialog (`course_settings.html`): the level (a course
+/// with levels), the motivator and theme worn in the course, then the
+/// picture and its background drawn in that theme. On the course list it is
+/// one form behind the card's gear; before the course is first opened it is
+/// a wizard, one step a page (#574): behind the card's Start button (#587),
+/// or on the course home when the course was opened another way.
+pub struct CourseSettings {
+    pub course_id: String,
+    pub course_title: String,
+    /// The first visit's wizard (steps, "Get Started!") rather than the form.
+    pub wizard: bool,
+    /// The wizard behind a Start button on the course list (#587): "Get
+    /// Started!" opens the course (`POST /courses/open/{id}`) and closing it
+    /// opens nothing. Otherwise the wizard is on the home page of a course
+    /// already opened, and closing it counts the course as set up.
+    pub start: bool,
+    /// The theme chosen: '' for Default, or an id.
+    pub theme: String,
+    /// The themes on offer: the app's, then the learner's own.
+    pub themes: Vec<super::ThemeView>,
+    /// Every motivator the app has, the one worn marked.
+    pub motivators: Vec<MotivatorView>,
+    /// Character art is on (#1153): the picture and background are offered,
+    /// with the preview badge. Off, they are left out and the stored choice
+    /// is kept.
+    pub art: bool,
+    /// The picture chosen (a known id).
+    pub avatar: String,
+    /// The background shown: a slot of `palette` (`profile::shown_slot`).
+    pub avatar_color: u8,
+    /// The eight pictures, each in the course's theme's version where it has one.
+    pub avatars: Vec<super::profile::AvatarChoice>,
+    /// The backgrounds on offer (the theme's colours, then its scenes).
+    pub palette: Vec<crate::profile::Swatch>,
+    /// The preview badge: its style and, for a themed picture, its URL.
+    pub badge_style: String,
+    pub badge_url: Option<String>,
+    /// The levels the course can be started at, the one chosen marked;
+    /// empty for a course without levels (#587, was the `/start` page).
+    pub levels: Vec<super::pages::LevelOption>,
+    /// The course's placement test is on offer beside the levels (#1106).
+    pub placement: bool,
+    /// A copy icon at the top right (#629): on the course list, for a course
+    /// the learner may copy (`CourseCard::copyable`). Not on the home page.
+    pub copyable: bool,
+    /// A pencil icon beside it: the course editor, for a course of the
+    /// learner's own (`CourseCard::editable`). Not on the home page.
+    pub editable: bool,
+    /// "Copy and translate to…" left of the copy icon (#630): on the course
+    /// list, for a course the learner may copy, unless AI is off. Its dialog
+    /// offers every app language but `meanings_lang` and the providers.
+    pub translate: bool,
+    pub meanings_lang: String,
+    pub translate_providers: Vec<ProviderChoice>,
+}
+
+/// A motivator on a course's settings chips (#574).
+pub struct MotivatorView {
+    pub id: &'static str,
+    pub icon: &'static str,
+    pub title: String,
+    pub about: String,
+    pub active: bool,
+}
+
+impl MotivatorView {
+    fn all(worn: &str) -> Vec<MotivatorView> {
+        let worn = crate::motivators::get(worn).id();
+        crate::motivators::ALL
+            .iter()
+            .map(|m| MotivatorView { id: m.id(), icon: m.icon(), title: m.title(), about: m.about(), active: m.id() == worn })
+            .collect()
+    }
+}
+
+/// What every course's settings dialog on a page offers: the themes, each
+/// theme choice's pack, and what each looks like (`profile::look_json`,
+/// keyed by the dialog's theme value, as JSON for `course-settings.js`).
+pub(in crate::routes) struct SettingsChoices {
+    themes: Vec<super::ThemeView>,
+    packs: HashMap<String, Option<Arc<crate::themes::ThemePack>>>,
+    pub looks: String,
+    /// Character art is on (themes are, #1153).
+    art: bool,
+}
+
+impl SettingsChoices {
+    /// Default and every theme the learner may wear.
+    pub(in crate::routes) async fn load(state: &AppState, user: &CurrentUser) -> Result<SettingsChoices, AppError> {
+        let mut themes = super::ThemeView::all(&state.themes);
+        themes.extend(super::ThemeView::made(state, user.id).await?);
+        let mut packs: HashMap<String, Option<Arc<crate::themes::ThemePack>>> = HashMap::new();
+        packs.insert(String::new(), None);
+        for t in &themes {
+            packs.insert(t.id.clone(), state.themes.resolve(&state.db, user.id, &t.id).await?);
+        }
+        let looks: serde_json::Map<String, serde_json::Value> =
+            packs.iter().map(|(k, p)| (k.clone(), super::profile::look_json(p.as_ref().map(|p| &p.theme)))).collect();
+        let looks = super::script_json(&looks)?;
+        Ok(SettingsChoices { themes, packs, looks, art: !state.themes.is_off() })
+    }
+
+    /// The dialog of the course `pr` (`content`).
+    pub(in crate::routes) fn view(&self, pr: &courses::ProjectRow, content: &ContentStore, wizard: bool) -> CourseSettings {
+        let choice = pr.theme.clone().unwrap_or_default();
+        // A theme no longer there (or not theirs) shows as Default.
+        let choice = if self.packs.contains_key(&choice) { choice } else { String::new() };
+        let theme = self.packs.get(&choice).cloned().flatten();
+        let theme = theme.as_ref().map(|p| &p.theme);
+        let palette = crate::profile::palette(theme);
+        let badge = super::profile::badge_json(&pr.avatar, pr.avatar_color, theme);
+        CourseSettings {
+            course_id: pr.course_id.clone(),
+            course_title: content.title().to_string(),
+            wizard,
+            start: false,
+            theme: choice,
+            themes: self.themes.clone(),
+            motivators: MotivatorView::all(&pr.motivator),
+            art: self.art,
+            avatar: pr.avatar.clone(),
+            avatar_color: crate::profile::shown_slot(&palette, pr.avatar_color),
+            avatars: super::profile::avatar_choices(theme),
+            palette,
+            badge_style: crate::profile::badge(pr.avatar_color, theme).style(),
+            badge_url: badge.get("url").and_then(|u| u.as_str()).map(str::to_string),
+            levels: super::pages::level_options(content, content.start_index(&pr.start_unit)),
+            placement: crate::placement::offered(content),
+            copyable: false,
+            editable: false,
+            translate: false,
+            meanings_lang: String::new(),
+            translate_providers: Vec::new(),
+        }
+    }
+}
+
+#[derive(Template)]
+#[template(path = "courses.html")]
+pub struct PickerTemplate {
+    pub user: Option<CurrentUser>,
+    pub projects: Vec<CourseCard>,
+    pub builtin: Vec<CourseCard>,
+    pub mine: Vec<CourseCard>,
+    /// Courses others shared with this learner and not opened yet.
+    pub shared: Vec<CourseCard>,
+    pub notice: Option<String>,
+    /// `?generate=<id>`: the Generate dialog of a stopped course (Retry or Resume).
+    pub generate: Option<GenerateView>,
+    /// Each theme choice's pictures and backgrounds, for the settings dialogs
+    /// (`SettingsChoices::looks`).
+    pub looks: String,
+    /// The AI "Copy and translate to…" can use (#630): the providers with a
+    /// saved key, and Skrongle AI when it is offered. Empty with AI off.
+    pub translate_providers: Vec<ProviderChoice>,
+}
+
+#[derive(Deserialize)]
+pub struct PickerParams {
+    pub notice: Option<String>,
+    pub generate: Option<String>,
+}
+
+fn card(content: &ContentStore, editable: bool) -> CourseCard {
+    let m = content.manifest();
+    let (lessons, questions, terms) = content.totals();
+    CourseCard {
+        id: m.id.clone(),
+        title: m.title.clone(),
+        icon: m.icon().to_string(),
+        description: m.description.clone(),
+        lessons,
+        questions,
+        terms,
+        units: m.units.len(),
+        progress: None,
+        last_opened: None,
+        is_active: false,
+        editable,
+        error: None,
+        state: "ready",
+        job: None,
+        phase: String::new(),
+        pct: 0,
+        private: editable,
+        stopped: false,
+        resumable: false,
+        shared_by: None,
+        theme: None,
+        settings: None,
+        copyable: false,
+        meanings_lang: m.meanings.lang.clone(),
+        translation: false,
+        report_email: None,
+        removed: false,
+        flagged: false,
+        flag_matches: Vec::new(),
+        flagged_lead: String::new(),
+    }
+}
+
+impl CourseCard {
+    /// The card's `data-card-theme` (#565): the theme its course wears;
+    /// none for Default, which the course list wears (#577).
+    pub fn card_theme(&self) -> Option<&str> {
+        self.theme.as_deref().filter(|t| !t.is_empty())
+    }
+
+    /// The card's progress chips (#684), one per metric, when the learner
+    /// has a project here: lessons passed, lessons mastered.
+    pub fn stats(&self) -> Vec<CardStat> {
+        let Some((passed, mastered)) = self.progress else { return Vec::new() };
+        [("passed", passed), ("mastered", mastered)]
+            .into_iter()
+            .map(|(metric, n)| {
+                let name = crate::t(&format!("courses.picker.stat_{metric}"));
+                let total = self.lessons;
+                let value = crate::t2("courses.picker.stat_of", "n", n, "total", total);
+                let label = crate::t2("courses.picker.stat_label", "name", &name, "value", &value);
+                let share = if total == 0 { 0 } else { (n * 100 / total).min(100) };
+                let info_label = crate::t(&format!("courses.stat.info_label_{metric}"));
+                CardStat { metric, n, total, share, name, value, label, info_label }
+            })
+            .collect()
+    }
+}
+
+/// One progress chip on a course card and the modal it opens (#684).
+pub struct CardStat {
+    /// `data-metric`: "passed" or "mastered".
+    pub metric: &'static str,
+    pub n: usize,
+    pub total: usize,
+    /// n as a percentage of total: how far the chip's tint has moved to gold.
+    pub share: usize,
+    /// The metric's full name ("Lessons passed").
+    pub name: String,
+    /// "3 of 12".
+    pub value: String,
+    /// "Lessons passed: 3 of 12", for the tooltip and screen readers.
+    pub label: String,
+    /// The (i) in its modal (#900): "What counts as passed".
+    pub info_label: String,
+}
+
+/// A user course that does not load: being generated, stopped, or broken.
+fn broken_card(state: &AppState, row: &CourseRow) -> CourseCard {
+    let job = row.job_id.as_deref().and_then(|j| state.jobs.get(j));
+    let (phase, pct) = match (&job, row.state) {
+        (Some(j), courses::CourseState::Generating) => {
+            let s = state.jobs.status(j);
+            let pct = if s.lessons_total > 0 { s.lessons_done * 100 / s.lessons_total } else { 0 };
+            (crate::i18n::fill(&crate::t("courses.picker.phase_progress"), &[("phase", &s.phase), ("done", &s.lessons_done), ("total", &s.lessons_total)]), pct)
+        }
+        (None, courses::CourseState::Generating) => (crate::t("courses.picker.starting"), 0),
+        _ => (String::new(), 0),
+    };
+    CourseCard {
+        id: row.id.clone(),
+        title: row.title.clone(),
+        icon: match row.state {
+            courses::CourseState::Generating => "⏳".into(),
+            _ if row.source == "translate" => "🌐".into(),
+            _ if row.source == "ai" => "✨".into(),
+            _ => "🛠️".into(),
+        },
+        state: row.state.as_str(),
+        // Only a card still generating follows its job: a stopped one whose
+        // job is still in memory (six hours) would see "done" and reload the
+        // page every few seconds, under the dialog open on it (#81).
+        job: row.job_id.clone().filter(|_| job.is_some() && row.state == courses::CourseState::Generating),
+        phase,
+        pct,
+        private: true,
+        stopped: row.state == courses::CourseState::Failed,
+        resumable: row.state == courses::CourseState::Failed && row.outline.is_some(),
+        description: String::new(),
+        lessons: 0,
+        questions: 0,
+        terms: 0,
+        units: 0,
+        progress: None,
+        last_opened: None,
+        is_active: false,
+        editable: true,
+        error: row.error.clone(),
+        shared_by: None,
+        theme: None,
+        settings: None,
+        copyable: false,
+        meanings_lang: String::new(),
+        translation: row.source == "translate",
+        report_email: None,
+        removed: false,
+        flagged: false,
+        flag_matches: Vec::new(),
+        flagged_lead: String::new(),
+    }
+}
+
+/// The owner's card of a flagged course (#1033): what matched, one line per
+/// term and lesson.
+fn flagged_card(state: &AppState, row: &CourseRow, flag: &crate::course_flags::Flag) -> CourseCard {
+    let flag_matches = crate::course_flags::view::owner_views(flag);
+    let lead = if flag.source == crate::course_flags::Source::Ai { "courses.picker.flagged_lead_ai" } else { "courses.picker.flagged_lead" };
+    CourseCard { flagged: true, flag_matches, flagged_lead: crate::t(lead), stopped: false, resumable: false, job: None, error: None, ..broken_card(state, row) }
+}
+
+/// GET /courses[?generate=<stopped course>]
+pub async fn picker(
+    State(state): State<Arc<AppState>>,
+    user: CurrentUser,
+    Query(q): Query<PickerParams>,
+) -> Result<Response, AppError> {
+    let generate = match q.generate.filter(|g| !g.is_empty()) {
+        Some(id) => match owned(&state, &user, &id).await {
+            Ok(row) if row.state == courses::CourseState::Failed => generate_view(&state, &user, &row, true).await?,
+            _ => None,
+        },
+        None => None,
+    };
+    let notice = q.notice.as_deref().and_then(picker_notice);
+    picker_page(&state, user, notice, generate).await
+}
+
+/// The course list's `?notice=` keys and their text (#385): the URL names a
+/// message, it never carries one, so a link cannot put its own words in the
+/// app's status alert. An unknown key shows nothing.
+pub(super) fn picker_notice(key: &str) -> Option<String> {
+    Some(crate::t(match key {
+        "title-too-long" => "courses.picker.title_too_long",
+        "course-deleted" => "courses.picker.deleted_notice",
+        "dev-reset" => "courses.picker.dev_reset",
+        "share-taken" => "courses.share.link_taken",
+        "share-gone" => "courses.share.link_gone",
+        "share-not-ready" => "courses.share.not_ready",
+        "reported" => "reports.course.sent",
+        "report-limit" => "reports.course.too_many",
+        "too-many-writes" => return Some(too_many_writes_text()),
+        "copy-not-ready" => "courses.picker.copy_not_ready",
+        "translate-same" => "courses.translate.same_language",
+        "translate-no-plan" => "courses.translate.no_plan",
+        _ => {
+            if let Some(bytes) = key.strip_prefix("copy-too-big-") {
+                return Some(crate::t1("courses.picker.copy_too_big", "max", courses::megabytes(bytes.parse::<usize>().ok()?)));
+            }
+            if let Some(bytes) = key.strip_prefix("copy-no-room-") {
+                return Some(crate::t1("courses.picker.copy_no_room", "max", courses::megabytes(bytes.parse::<usize>().ok()?)));
+            }
+            let max = key.strip_prefix("course-count-")?.parse::<usize>().ok()?;
+            return Some(crate::t1("courses.picker.course_count", "max", max));
+        }
+    }))
+}
+
+/// The notice for [`too_many_writes`] (#366), on the course list and in the editor.
+fn too_many_writes_text() -> String {
+    let limit = crate::security::COURSE_WRITES_PER_USER;
+    crate::t2("courses.editor.too_many_writes", "max", limit.max, "minutes", limit.window / 60)
+}
+
+/// The editor's `?notice=` keys and their text (#385), as `picker_notice`.
+/// What a text names comes from the server, never the URL: `undone` and
+/// `redone` name the change from the Undo/Redo buttons' labels and a
+/// `-broken` notice the course's own load error, both from the database; the
+/// Share dialog's counts are digits in the key (`share-sent-2-1`).
+pub(super) fn editor_notice(key: &str, undo: Option<&UndoView>, error: Option<&str>) -> Option<String> {
+    let redo_label = undo.and_then(|u| u.redo.as_deref()).unwrap_or_default();
+    let undo_label = undo.and_then(|u| u.undo.as_deref()).unwrap_or_default();
+    let error = error.unwrap_or_default();
+    if let Some(rest) = key.strip_prefix("accepted-") {
+        let (done, end) = rest.rsplit_once('-')?;
+        let done = crate::t(match done {
+            "again" => "courses.review.done_in_again",
+            "in" => "courses.review.done_in",
+            "left" => "courses.review.done_in_without",
+            "edits" => "courses.review.done_in_edited",
+            "edits-left" => "courses.review.done_in_edited_without",
+            _ => return None,
+        });
+        return Some(match end {
+            "kept" => crate::t1("courses.review.notice_done", "done", done),
+            "undo" => crate::t1("courses.review.notice_undo", "done", done),
+            "broken" => crate::t2("courses.review.notice_broken", "done", done, "error", error),
+            _ => return None,
+        });
+    }
+    if let Some((made, counts)) = key.strip_prefix("share-sent-").map(|c| (false, c)).or_else(|| key.strip_prefix("share-made-").map(|c| (true, c))) {
+        let (sent, already) = counts.split_once('-')?;
+        let (sent, already) = (sent.parse::<u32>().ok()?, already.parse::<u32>().ok()?);
+        let mut text = if sent == 0 { String::new() } else { crate::tn(if made { "courses.share.made" } else { "courses.share.sent" }, sent) };
+        if already > 0 {
+            text = format!("{text} {}", crate::t1("courses.share.already_had", "n", already)).trim().to_string();
+        }
+        return (!text.is_empty()).then_some(text);
+    }
+    Some(match key {
+        "generating" => crate::t("courses.editor.locked_generating"),
+        "revising" => crate::t("courses.editor.locked_revising"),
+        "saved" => crate::t("courses.file.saved_notice"),
+        "saved-broken" => crate::t1("courses.file.saved_broken_notice", "error", error),
+        "file-deleted" => crate::t("courses.file.deleted_notice"),
+        "file-deleted-broken" => crate::t1("courses.file.deleted_broken_notice", "error", error),
+        "loads" => crate::t("courses.editor.loads_notice"),
+        "broken" => crate::t1("courses.editor.not_loading_notice", "error", error),
+        "busy" => crate::t("courses.generate.busy"),
+        "has-content" => crate::t("courses.generate.has_content"),
+        "cancel-revision" => crate::t("courses.generate.cancelling_revision"),
+        "cancel-generation" => crate::t("courses.generate.cancelling_generation"),
+        "no-undo" => crate::t("courses.undo.nothing_to_undo"),
+        "no-redo" => crate::t("courses.undo.nothing_to_redo"),
+        "undone" => crate::t1("courses.undo.undone", "label", redo_label),
+        "undone-broken" => crate::t2("courses.undo.undone_broken", "label", redo_label, "error", error),
+        "redone" => crate::t1("courses.undo.redone", "label", undo_label),
+        "redone-broken" => crate::t2("courses.undo.redone_broken", "label", undo_label, "error", error),
+        "share-own" => crate::t("courses.share.own_address"),
+        "share-full" => crate::t1("courses.share.too_many_course", "max", crate::share::MAX_PER_COURSE),
+        "share-none" => crate::t("courses.share.at_least_one"),
+        "share-many" => crate::t1("courses.share.too_many_request", "max", crate::share::MAX_PER_REQUEST),
+        "share-bad" => crate::t("courses.share.bad_address_notice"),
+        "share-removed" => crate::t("courses.share.removed_notice"),
+        "share-not-on-list" => crate::t("courses.share.not_on_list"),
+        "too-many-writes" => too_many_writes_text(),
+        _ => return None,
+    })
+}
+
+/// What the editor says when Start or Share was refused for a flagged
+/// course (#1033): the words, masked ("w******"), and the lessons they are in.
+pub(super) fn flagged_notice(flag: &crate::course_flags::Flag) -> String {
+    let key = if flag.source == crate::course_flags::Source::Ai { "courses.editor.flagged_notice_ai" } else { "courses.editor.flagged_notice" };
+    crate::t1(key, "matches", flag_lines(flag).join("; "))
+}
+
+/// A flag's matches as "w****** (in lesson)", once each; the AI check's
+/// (#1037) as the quoted text, its lesson and the rule it breaks. The word
+/// or the quote is masked: a page never shows it as it is.
+fn flag_lines(flag: &crate::course_flags::Flag) -> Vec<String> {
+    let mut lines: Vec<String> = Vec::new();
+    for m in &flag.matches {
+        // An AI quote's term is the category it breaks (#1046).
+        let category = (flag.source == crate::course_flags::Source::Ai).then(|| crate::content_check::Category::named(&m.term)).flatten();
+        let line = if let Some(c) = category {
+            let why = crate::t(&format!("courses.picker.flagged_why_{}", c.name));
+            crate::t2("courses.picker.flagged_quote", "text", crate::course_flags::view::mask(&m.text), "lesson", &m.lesson).replace("{why}", &why)
+        } else {
+            crate::t2("courses.picker.flagged_match", "term", crate::course_flags::view::mask(&m.term), "lesson", &m.lesson)
+        };
+        if !lines.contains(&line) {
+            lines.push(line);
+        }
+    }
+    lines
+}
+
+/// The editor at `/courses/{id}` with the notice `key`.
+pub(in crate::routes) fn to_editor(id: &str, key: &str) -> Response {
+    Redirect::to(&crate::url(&format!("/courses/{id}?notice={key}"))).into_response()
+}
+
+pub(super) async fn picker_page(state: &AppState, user: CurrentUser, notice: Option<String>, generate: Option<GenerateView>) -> Result<Response, AppError> {
+    let at = now();
+    let choices = SettingsChoices::load(state, &user).await?;
+    let uid = user.id;
+    let (projects, mine, shared, summary, fresh, passed) = state
+        .db
+        .call(move |c| {
+            Ok((
+                courses::projects_of(c, uid)?,
+                courses::courses_owned_by(c, uid)?,
+                crate::share::shared_with(c, uid)?,
+                crate::mastery::summary_by_course(c, uid, at)?,
+                courses::fresh_project(c, uid, "")?,
+                crate::progress::passed_by_course(c, uid)?,
+            ))
+        })
+        .await?;
+    let translate_providers = if user.ai_off { Vec::new() } else { offered_providers(state, &user).await? };
+    // "Copy and translate to…" beside a settings dialog's copy icon (#630).
+    let translate = |st: &mut CourseSettings, c: &CourseCard| {
+        st.translate = c.copyable && !user.ai_off;
+        st.meanings_lang = c.meanings_lang.clone();
+        st.translate_providers = translate_providers.clone();
+    };
+    // A course not opened yet: its Start button opens the settings wizard (#587).
+    let with_wizard = |content: &ContentStore, mut c: CourseCard| {
+        let pr = courses::ProjectRow { course_id: content.id().to_string(), ..fresh.clone() };
+        let mut st = choices.view(&pr, content, true);
+        st.start = true;
+        st.copyable = c.copyable;
+        st.editable = c.editable;
+        translate(&mut st, &c);
+        c.settings = Some(st);
+        c
+    };
+
+    let mut project_cards = Vec::new();
+    for pr in &projects {
+        let owned = mine.iter().find(|r| r.id == pr.course_id);
+        let shared_by = shared.iter().find(|s| s.course_id == pr.course_id).map(|s| s.owner.clone());
+        // A made course is on the list for its owner and for whoever it is shared with, nobody else.
+        if !state.courses.is_builtin(&pr.course_id) && owned.is_none() && shared_by.is_none() {
+            continue;
+        }
+        let Some(content) = state.courses.get(&state.db, &pr.course_id).await? else { continue };
+        let mut c = card(&content, owned.is_some());
+        c.copyable = owned.map_or(shared_by.is_none(), |r| !matches!(r.state, courses::CourseState::Generating | courses::CourseState::Failed));
+        c.report_email = shared_by.as_ref().filter(|_| state.caps().mail).map(|_| user.email.clone());
+        c.shared_by = shared_by;
+        if let Some(row) = owned {
+            c.state = row.state.as_str(); // "revising" shows as a tag; the course still opens
+        }
+        let mastered = summary.get(&pr.course_id).map_or(0, |s| s.1);
+        c.progress = Some((passed.get(&pr.course_id).copied().unwrap_or(0), mastered));
+        c.last_opened = Some(time_ago(pr.last_opened_at, at));
+        c.is_active = user.course_id.as_deref() == Some(pr.course_id.as_str());
+        let mut settings = choices.view(pr, &content, false);
+        settings.copyable = c.copyable;
+        settings.editable = c.editable;
+        translate(&mut settings, &c);
+        c.theme = Some(settings.theme.clone());
+        c.settings = Some(settings);
+        project_cards.push(c);
+    }
+    let builtin: Vec<CourseCard> = state
+        .courses
+        .builtin()
+        .iter()
+        .filter(|c| !projects.iter().any(|p| p.course_id == c.id()))
+        .map(|c| with_wizard(c, CourseCard { copyable: true, ..card(c, false) }))
+        .collect();
+    let mut my_cards = Vec::new();
+    for row in &mine {
+        // Taken down by a superuser (#967): the card says so behind its red !, and nothing opens.
+        if row.taken_down {
+            my_cards.push(CourseCard { removed: true, stopped: false, resumable: false, job: None, error: Some(crate::moderation::removed_text()), ..broken_card(state, row) });
+            continue;
+        }
+        // A course being revised opens as it is, like a ready one.
+        let opens = matches!(row.state, courses::CourseState::Ready | courses::CourseState::Revising);
+        // Flagged by the content check (#1033): the red ! says what matched, and nothing opens.
+        if opens && row.error.is_none() && state.courses.get(&state.db, &row.id).await?.is_none() {
+            let rid = row.id.clone();
+            if let Some(flag) = state.db.call(move |c| crate::course_flags::get(c, &rid)).await?.filter(|f| f.blocks()) {
+                my_cards.push(flagged_card(state, row, &flag));
+                continue;
+            }
+        }
+        if projects.iter().any(|p| p.course_id == row.id) && row.error.is_none() && opens {
+            continue;
+        }
+        if !opens {
+            my_cards.push(broken_card(state, row));
+            continue;
+        }
+        match state.courses.get(&state.db, &row.id).await? {
+            Some(content) if row.error.is_none() => {
+                let mut c = card(&content, true);
+                c.state = row.state.as_str();
+                c.copyable = true;
+                my_cards.push(with_wizard(&content, c))
+            }
+            _ => my_cards.push(broken_card(state, row)),
+        }
+    }
+    // Shared with this learner and not opened yet: a card of its own, if it loads.
+    let mut shared_cards = Vec::new();
+    for s in &shared {
+        if projects.iter().any(|p| p.course_id == s.course_id) {
+            continue;
+        }
+        let Some(content) = state.courses.get(&state.db, &s.course_id).await? else { continue };
+        let mut c = card(&content, false);
+        c.shared_by = Some(s.owner.clone());
+        c.report_email = state.caps().mail.then(|| user.email.clone());
+        shared_cards.push(with_wizard(&content, c));
+    }
+    Ok(Page(PickerTemplate { user: Some(user), projects: project_cards, builtin, mine: my_cards, shared: shared_cards, notice, generate, looks: choices.looks, translate_providers }).into_response())
+}

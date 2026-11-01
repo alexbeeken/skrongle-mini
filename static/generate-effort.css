@@ -1,0 +1,18 @@
+/* Effort beside Generate (#918): three stacked levels, each with a small
+   meter of how much AI it uses; the picked row takes the accent. */
+.gen-actions { align-items: center; }
+.gen-effort-open { font-weight: 500; }
+dialog.gen-effort { width: min(420px, calc(100vw - 2rem)); }
+.gen-effort-levels { border: 0; padding: 0; margin: .8rem 0 .4rem; display: grid; gap: .5rem; }
+.gen-effort-level { display: grid; grid-template-columns: auto 1fr auto; grid-template-areas: "radio name use" ". note note"; align-items: center; column-gap: .6rem; row-gap: .15rem; margin: 0; padding: .65rem .8rem; border: 2px solid var(--line); border-radius: var(--radius); cursor: pointer; font-weight: 600; }
+.gen-effort-level input { grid-area: radio; width: auto; margin: 0; }
+.gen-effort-name { grid-area: name; }
+.gen-effort-note { grid-area: note; font-weight: 400; }
+.gen-effort-level:has(input:checked) { border-color: var(--accent); }
+.gen-effort-level:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+.gen-effort-use { grid-area: use; display: inline-flex; gap: 3px; align-items: flex-end; }
+.gen-effort-use i { display: block; width: 5px; border-radius: 2px; background: var(--line); }
+.gen-effort-use i:nth-child(1) { height: 6px; }
+.gen-effort-use i:nth-child(2) { height: 10px; }
+.gen-effort-use i:nth-child(3) { height: 14px; }
+.gen-effort-use i:nth-child(1), .gen-effort-use[data-level=balanced] i:nth-child(2), .gen-effort-use[data-level=thorough] i { background: var(--accent); }

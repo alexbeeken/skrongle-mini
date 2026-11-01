@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t("release.title") }}{% endblock %}
+{% block content %}
+<section class="superuser release" data-testid="release-page" data-waitlist="{{ on }}">
+  <p class="small"><a href="{{ crate::url("/superuser") }}" data-testid="release-back">← {{ crate::t("superuser.title") }}</a></p>
+  <h1 class="heading-with-info">{{ crate::t("release.title") }} <button type="button" class="info-btn" data-opens="release-info" aria-haspopup="dialog" aria-label="{{ crate::t("release.about_label") }}" data-testid="release-info">i</button></h1>
+  <dialog class="modal" id="release-info" aria-labelledby="release-info-title" data-testid="release-info-dialog">
+    <h2 id="release-info-title">{{ crate::t("release.title") }}</h2>
+    <p>{{ crate::t("release.about") }}</p>
+    <p>{{ crate::t1("release.about_invites", "days", crate::waitlist::INVITE_TTL_SECS / 86400) }}</p>
+    <div class="modal-actions"><button type="button" class="btn" data-closes>{{ crate::t("profile.data.export_ok") }}</button></div>
+  </dialog>
+  {% if let Some(n) = notice %}<p class="alert ok-text" role="status" data-testid="release-notice">✓ {{ n }}{% if let Some(i) = inbox %} <a href="{{ i }}" data-testid="release-inbox">{{ crate::t("superuser.open_inbox") }}</a>{% endif %}</p>{% endif %}
+  {% if let Some(e) = error %}<p class="alert error" role="alert" data-testid="release-error">{{ e }}</p>{% endif %}
+
+  <section class="card" data-testid="release-switch-card">
+    <h2>{{ crate::t("release.waitlist") }}</h2>
+    <p data-testid="release-state">{% if on %}{{ crate::t("release.state_on") }}{% else %}{{ crate::t("release.state_off") }}{% endif %}</p>
+    <button type="button" class="btn{% if on %} ghost{% endif %}" data-opens="release-switch-dialog" aria-haspopup="dialog" data-testid="release-switch">{% if on %}{{ crate::t("release.turn_off") }}{% else %}{{ crate::t("release.turn_on") }}{% endif %}</button>
+  </section>
+  <dialog class="modal" id="release-switch-dialog" aria-labelledby="release-switch-title" data-testid="release-switch-dialog">
+    <form method="post" action="{{ crate::url("/superuser/release/switch") }}">
+      <input type="hidden" name="to" value="{% if on %}off{% else %}on{% endif %}">
+      <h2 id="release-switch-title">{% if on %}{{ crate::t("release.turn_off") }}{% else %}{{ crate::t("release.turn_on") }}{% endif %}</h2>
+      <p class="small">{% if on %}{{ crate::t("release.turn_off_about") }}{% else %}{{ crate::t("release.turn_on_about") }}{% endif %}</p>
+      <div class="modal-actions">
+        <button type="button" class="btn ghost" data-closes>{{ crate::t("profile.password.cancel") }}</button>
+        <button type="submit" class="btn" data-testid="release-switch-confirm">{% if on %}{{ crate::t("release.turn_off") }}{% else %}{{ crate::t("release.turn_on") }}{% endif %}</button>
+      </div>
+    </form>
+  </dialog>
+
+  <section class="card" data-testid="release-list-card">
+    <h2>{{ crate::t("release.list") }}</h2>
+    <p class="small muted" data-testid="release-counts" data-total="{{ counts.total }}" data-waiting="{{ counts.waiting }}" data-invited="{{ counts.invited }}" data-signed-up="{{ counts.signed_up }}">{{ crate::tn("release.count_total", counts.total) }} · {{ crate::tn("release.count_unconfirmed", counts.unconfirmed) }} · {{ crate::tn("release.count_waiting", counts.waiting) }} · {{ crate::tn("release.count_invited", counts.invited) }} · {{ crate::tn("release.count_signed_up", counts.signed_up) }}</p>
+    <form method="post" action="{{ crate::url("/superuser/release/invite-next") }}" data-testid="release-invite-next-form">
+      <label>{{ crate::t("release.invite_next_label") }}
+        <input type="number" name="n" value="100" min="1" max="{{ max_batch }}" required data-testid="release-invite-next-n">
+      </label>
+      <button type="submit" class="btn" data-testid="release-invite-next"{% if counts.waiting == 0 %} disabled{% endif %}>{{ crate::t("release.invite_next") }}</button>
+    </form>
+    {% if list.is_empty() %}<p class="small muted" data-testid="release-empty">{{ crate::t("release.empty") }}</p>{% else %}
+    <div class="table-scroll"><table class="small" data-testid="release-table">
+      <thead><tr><th>{{ crate::t("superuser.email") }}</th><th>{{ crate::t("release.joined") }}</th><th>{{ crate::t("release.status_h") }}</th><th>{{ crate::t("release.invited_h") }}</th><th></th></tr></thead>
+      <tbody>{% for r in list %}
+        <tr data-testid="release-row" data-email="{{ r.email }}" data-status="{{ r.status }}"><td>{{ r.email }}</td><td>{{ r.joined }}</td><td>{{ r.status_label }}</td><td>{{ r.invited }}{% if r.invites_sent > 1 %} <span class="muted">×{{ r.invites_sent }}</span>{% endif %}</td><td>
+          {% if let Some(a) = r.action %}<form method="post" action="{{ crate::url("/superuser/release/invite") }}"><input type="hidden" name="id" value="{{ r.id }}"><button type="submit" class="link-btn small" data-testid="release-invite">{{ a }}</button></form>{% endif %}
+        </td></tr>{% endfor %}
+      </tbody>
+    </table></div>
+    {% endif %}
+    {% if pages > 1 %}
+    <nav class="pager" aria-label="{{ crate::t("release.list") }}" data-testid="release-pager">
+      {% if let Some(p) = prev %}<a href="{{ p }}" data-testid="release-prev">← {{ crate::t("superuser.prev") }}</a>{% endif %}
+      <span class="muted small">{{ crate::t2("superuser.page_of", "page", page, "pages", pages) }}</span>
+      {% if let Some(n) = next %}<a href="{{ n }}" data-testid="release-next">{{ crate::t("superuser.next") }} →</a>{% endif %}
+    </nav>
+    {% endif %}
+  </section>
+</section>
+{% endblock %}
+{% block scripts %}<script>Object.assign(I18N, {{ crate::i18n::js_json("superuser.js")|safe }});</script>
+<script src="{{ crate::routes::asset_url("superuser.js") }}" defer></script>{% endblock %}

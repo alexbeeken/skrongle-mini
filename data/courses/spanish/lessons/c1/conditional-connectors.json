@@ -1,0 +1,1237 @@
+{
+  "id": "c1-conditional-connectors",
+  "slug": "conditional-connectors",
+  "title": "Con tal de que, a no ser que: conditions beyond si",
+  "unit": "C1",
+  "group": "Grammar",
+  "order": 12,
+  "summary": "Set conditions with con tal de que, siempre y cuando, a menos que, en caso de que, como and por si.",
+  "focus": "Conditional connectors and the mood they take",
+  "prerequisites": [
+    "c1-time-and-concession",
+    "b2-si-clauses"
+  ],
+  "content": "## Connectors that always take the subjunctive\n\nThese set a condition for something not yet real, so the verb after them is **always subjunctive**:\n\n| connector | meaning | example |\n|---|---|---|\n| **con tal de que** | provided that | Te lo presto **con tal de que** me lo devuelvas. |\n| **siempre y cuando** | as long as | Puedes ir **siempre y cuando** vuelvas pronto. |\n| **a condición de que** | on condition that (formal) | Firmará **a condición de que** le suban el sueldo. |\n| **a no ser que / a menos que** | unless | Iremos **a no ser que** llueva. |\n| **salvo que / excepto que** | unless, except if | Nos vemos el lunes, **salvo que** surja algo. |\n| **en caso de que** | if, in the event that | **En caso de que** no conteste, déjele un mensaje. |\n\n## Siempre que: a condition or 'whenever'?\n\n- **siempre que + subjunctive** means provided that: *Te ayudo **siempre que me avises** con tiempo.*\n- **siempre que + indicative** means whenever: *Siempre que viene, trae pasteles.*\n\nThe mood alone changes the meaning.\n\n## Present or past subjunctive?\n\nThe tense follows the main verb.\n\n| main verb | condition |\n|---|---|\n| present, future, imperative | present subjunctive: *Lo haré **con tal de que me paguen**.* |\n| past or conditional | imperfect subjunctive: *Lo hice **con tal de que me pagaran**.* / *Iría **a menos que lloviera**.* |\n\n## Other ways to set a condition\n\n- **como + subjunctive** is a warning or threat: *Como no vengas, me enfado.* With the indicative **como** means 'since': *Como no vino, me fui*.\n- **por si + indicative** means just in case: *Llévate el paraguas **por si llueve**.* Compare **en caso de que llueva**.\n- **en caso de + noun or infinitive**: *en caso de incendio*, *en caso de duda*.\n- **de + infinitive** replaces si in written style: *De tener tiempo, iría.* **De ser así** means if that is the case.",
+  "vocabulary": [
+    {
+      "term": "con tal de que",
+      "meaning": "provided that, as long as",
+      "example": "Te dejo el portátil con tal de que no comas encima.",
+      "example_meaning": "I'll lend you the laptop as long as you don't eat over it."
+    },
+    {
+      "term": "siempre y cuando",
+      "meaning": "as long as, provided that",
+      "example": "Podéis usar la sala siempre y cuando la dejéis limpia.",
+      "example_meaning": "You can use the room as long as you leave it clean."
+    },
+    {
+      "term": "siempre que",
+      "meaning": "provided that (+ subjunctive) / whenever (+ indicative)",
+      "example": "Siempre que paso por aquí, me acuerdo de ti.",
+      "example_meaning": "Whenever I come by here, I think of you."
+    },
+    {
+      "term": "a condición de que",
+      "meaning": "on condition that (formal)",
+      "example": "Le concedieron el préstamo a condición de que presentara un aval.",
+      "example_meaning": "They granted him the loan on condition that he provided a guarantor."
+    },
+    {
+      "term": "a no ser que",
+      "meaning": "unless",
+      "example": "No te llamaré a no ser que sea urgente.",
+      "example_meaning": "I won't call you unless it's urgent."
+    },
+    {
+      "term": "a menos que",
+      "meaning": "unless",
+      "example": "A menos que cambie el tiempo, cenaremos en la terraza.",
+      "example_meaning": "Unless the weather changes, we'll have dinner on the terrace."
+    },
+    {
+      "term": "salvo que",
+      "meaning": "unless, except if",
+      "example": "El museo abre a diario, salvo que sea festivo.",
+      "example_meaning": "The museum opens every day, unless it's a public holiday."
+    },
+    {
+      "term": "en caso de que",
+      "meaning": "in the event that, if",
+      "example": "En caso de que pierdas el vuelo, avisa a la agencia.",
+      "example_meaning": "If you miss the flight, let the agency know."
+    },
+    {
+      "term": "en caso de",
+      "meaning": "in case of (+ noun or infinitive)",
+      "example": "En caso de duda, consulte a su farmacéutico.",
+      "example_meaning": "If in doubt, consult your pharmacist."
+    },
+    {
+      "term": "por si",
+      "meaning": "just in case (+ indicative)",
+      "example": "Apunta mi número por si te pierdes.",
+      "example_meaning": "Write down my number in case you get lost."
+    },
+    {
+      "term": "como",
+      "meaning": "if (warning, + subjunctive) / since (+ indicative)",
+      "example": "Como me vuelvas a mentir, no te hablo más.",
+      "example_meaning": "If you lie to me again, I'm not speaking to you any more."
+    },
+    {
+      "term": "de ser así",
+      "meaning": "if that is the case (written)",
+      "example": "Puede que el envío se retrase; de ser así, le avisaremos.",
+      "example_meaning": "The delivery may be delayed; if so, we will let you know."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "c1-conditional-connectors-01",
+      "prompt": "Te presto el coche con tal de que me lo ___ con el depósito lleno.",
+      "type": "multiple-choice",
+      "options": [
+        "devuelvas",
+        "devuelves",
+        "devolverás"
+      ],
+      "correct_answer": "devuelvas",
+      "explanation": "Con tal de que always takes the subjunctive: devuelvas.",
+      "hints": [
+        "Is this a condition or a fact?"
+      ],
+      "teaches": [
+        "con tal de que"
+      ]
+    },
+    {
+      "question_id": "c1-conditional-connectors-02",
+      "prompt": "Iremos a la playa a no ser que ___ (llover).",
+      "type": "fill-in-blank",
+      "correct_answer": "llueva",
+      "explanation": "A no ser que (unless) always takes the subjunctive. Llover is stem-changing, so the form is llueva.",
+      "hints": [
+        "Unless takes the subjunctive.",
+        "The stem changes from o to ue."
+      ],
+      "teaches": [
+        "a no ser que"
+      ]
+    },
+    {
+      "question_id": "c1-conditional-connectors-03",
+      "prompt": "What does 'Siempre que viene a casa, trae pasteles' mean?",
+      "type": "multiple-choice",
+      "options": [
+        "Whenever he comes round, he brings cakes.",
+        "Provided that he comes round, he'll bring cakes.",
+        "He always comes round unless he brings cakes."
+      ],
+      "correct_answer": "Whenever he comes round, he brings cakes.",
+      "explanation": "Siempre que + indicative (viene) means 'whenever'. With the subjunctive (venga) it would be a condition.",
+      "hints": [
+        "Viene is indicative."
+      ],
+      "teaches": [
+        "siempre que"
+      ]
+    },
+    {
+      "question_id": "c1-conditional-connectors-04",
+      "prompt": "Puedes salir, siempre y cuando ___ (volver, tú) antes de las doce.",
+      "type": "fill-in-blank",
+      "correct_answer": "vuelvas",
+      "accepted_answers": [
+        "tú vuelvas"
+      ],
+      "explanation": "Siempre y cuando always sets a condition, so it takes the subjunctive: vuelvas (the stem changes from o to ue).",
+      "hints": [
+        "A condition takes the subjunctive.",
+        "Volver is stem-changing."
+      ],
+      "teaches": [
+        "siempre y cuando"
+      ]
+    },
+    {
+      "question_id": "c1-conditional-connectors-05",
+      "prompt": "El año pasado acepté el puesto con tal de que me ___ los viernes libres.",
+      "type": "multiple-choice",
+      "options": [
+        "dieran",
+        "daban",
+        "darán"
+      ],
+      "correct_answer": "dieran",
+      "explanation": "The main verb is past (acepté), so the condition takes the imperfect subjunctive: dieran (or diesen).",
+      "hints": [
+        "A past main verb takes the past subjunctive."
+      ],
+      "teaches": [
+        "con tal de que"
+      ]
+    },
+    {
+      "question_id": "c1-conditional-connectors-06",
+      "prompt": "___ no estudies, vas a suspender. (a warning: 'if you don't study…')",
+      "type": "fill-in-blank",
+      "correct_answer": "Como",
+      "explanation": "Como + subjunctive at the start of a sentence is a warning or threat: como no estudies…",
+      "hints": [
+        "A short word that can also mean 'since'."
+      ],
+      "teaches": [
+        "como"
+      ]
+    },
+    {
+      "question_id": "c1-conditional-connectors-07",
+      "prompt": "Llévate el paraguas ___ llueve.",
+      "type": "multiple-choice",
+      "options": [
+        "por si",
+        "en caso de que",
+        "a menos que"
+      ],
+      "correct_answer": "por si",
+      "explanation": "Llueve is indicative, and por si (just in case) takes the indicative. En caso de que and a menos que would need llueva.",
+      "hints": [
+        "Look at the mood of llueve."
+      ],
+      "teaches": [
+        "por si",
+        "en caso de que"
+      ]
+    },
+    {
+      "question_id": "c1-conditional-connectors-08",
+      "prompt": "___ incendio, no utilice el ascensor. (In case of fire)",
+      "type": "fill-in-blank",
+      "correct_answer": "En caso de",
+      "explanation": "Before a noun, use en caso de (without que): en caso de incendio.",
+      "hints": [
+        "The phrase has three words and no que, because a noun follows."
+      ],
+      "teaches": [
+        "en caso de"
+      ]
+    },
+    {
+      "question_id": "c1-conditional-connectors-09",
+      "prompt": "Puede que haya huelga de trenes. ___, aplazaremos la reunión.",
+      "type": "multiple-choice",
+      "options": [
+        "De ser así",
+        "Siempre que",
+        "Por si"
+      ],
+      "correct_answer": "De ser así",
+      "explanation": "De ser así = 'if that is the case', a written way to pick up the condition just mentioned.",
+      "hints": [
+        "You need a complete phrase meaning 'if so'."
+      ],
+      "teaches": [
+        "de ser así"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Te ayudo con tal de que me invites a cenar.",
+      "meaning": "I'll help you as long as you buy me dinner."
+    },
+    {
+      "text": "No saldremos a menos que deje de nevar.",
+      "meaning": "We won't go out unless it stops snowing."
+    },
+    {
+      "text": "Siempre que voy a Sevilla, como en el mismo bar.",
+      "meaning": "Whenever I go to Seville, I eat at the same bar.",
+      "note": "Siempre que + indicative means whenever."
+    },
+    {
+      "text": "En caso de que no funcione, llame al técnico.",
+      "meaning": "If it doesn't work, call the technician.",
+      "note": "New word: el técnico = the technician."
+    },
+    {
+      "text": "Como vuelvas a llegar tarde, te quedas sin postre.",
+      "meaning": "If you're late again, you'll go without pudding.",
+      "note": "Como + subjunctive is a warning."
+    },
+    {
+      "text": "Firmaremos el acuerdo salvo que surja algún problema.",
+      "meaning": "We'll sign the agreement unless some problem arises.",
+      "note": "New word: surgir = to arise."
+    },
+    {
+      "text": "Apúntalo en la agenda por si se te olvida.",
+      "meaning": "Write it in your diary in case you forget.",
+      "note": "Por si + indicative."
+    },
+    {
+      "text": "Aceptó el trabajo a condición de que pudiera trabajar desde casa algunos días.",
+      "meaning": "She accepted the job on condition that she could work from home some days."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Connectors that always"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "c1-conditional-connectors-01"
+    },
+    {
+      "question": "c1-conditional-connectors-02"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "section": "Siempre que"
+    },
+    {
+      "question": "c1-conditional-connectors-03"
+    },
+    {
+      "question": "c1-conditional-connectors-04"
+    },
+    {
+      "section": "Present or past"
+    },
+    {
+      "question": "c1-conditional-connectors-05"
+    },
+    {
+      "tip": "If you can translate it as 'unless', 'provided that' or 'in the event that', use the subjunctive. Only 'por si' and 'siempre que' meaning 'whenever' take the indicative."
+    },
+    {
+      "section": "Other ways"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "c1-conditional-connectors-06"
+    },
+    {
+      "question": "c1-conditional-connectors-07"
+    },
+    {
+      "question": "c1-conditional-connectors-08"
+    },
+    {
+      "question": "c1-conditional-connectors-09"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "c1-conditional-connectors-conv-dog",
+      "title": "A dog in the flat",
+      "scenario": "Pablo wants to adopt a dog, and his flatmate Irene sets her conditions.",
+      "role_a": "Pablo",
+      "role_b": "Irene",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Irene, ¿qué te parece si adoptamos un perro?",
+          "meaning": "Irene, what do you think about adopting a dog?"
+        },
+        {
+          "speaker": "b",
+          "text": "Me parece bien, siempre y cuando lo saques tú por las mañanas.",
+          "meaning": "Fine by me, as long as you take it out in the mornings."
+        },
+        {
+          "speaker": "a",
+          "text": "Hecho. Lo saco todos los días, a no ser que esté de viaje.",
+          "meaning": "Done. I'll take it out every day, unless I'm away."
+        },
+        {
+          "speaker": "b",
+          "text": "¿Y en caso de que estés de viaje?",
+          "meaning": "And if you are away?"
+        },
+        {
+          "speaker": "a",
+          "text": "Le pido a mi hermano que venga, por si tú no puedes.",
+          "meaning": "I'll ask my brother to come, in case you can't.",
+          "note": "Por si + indicative."
+        },
+        {
+          "speaker": "b",
+          "text": "Vale, con tal de que no duerma en el sofá.",
+          "meaning": "OK, as long as it doesn't sleep on the sofa."
+        },
+        {
+          "speaker": "a",
+          "text": "Siempre que me ve en el sofá, se sube conmigo. ¡Es el perro de mi tía!",
+          "meaning": "Whenever it sees me on the sofa, it climbs up with me. It's my aunt's dog!",
+          "note": "Siempre que + indicative means whenever."
+        },
+        {
+          "speaker": "b",
+          "text": "Pablo, como me entere de que ya lo has traído, me mudo.",
+          "meaning": "Pablo, if I find out you've already brought it, I'm moving out.",
+          "note": "Como + subjunctive is a threat."
+        },
+        {
+          "speaker": "a",
+          "text": "Tranquila, todavía está en casa de mi tía. De momento.",
+          "meaning": "Relax, it's still at my aunt's. For now."
+        },
+        {
+          "speaker": "b",
+          "text": "Pues que se quede allí, salvo que me prometas lo del sofá.",
+          "meaning": "Then it stays there, unless you promise me the sofa thing."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🔐",
+    "bites": [
+      {
+        "title": "Conditions take the subjunctive",
+        "emoji": "🔐",
+        "rule": "Con tal de que, siempre y cuando, a no ser que, a menos que, salvo que and en caso de que are always followed by the subjunctive.",
+        "example": "Iremos a menos que llueva.",
+        "example_meaning": "We'll go unless it rains."
+      },
+      {
+        "title": "Siempre que: two meanings",
+        "emoji": "🔄",
+        "rule": "Siempre que + subjunctive means provided that. Siempre que + indicative means whenever.",
+        "example": "Siempre que viene, trae flores.",
+        "example_meaning": "Whenever she comes, she brings flowers."
+      },
+      {
+        "title": "Como + subjunctive is a warning",
+        "emoji": "⚠️",
+        "rule": "At the start of a sentence, como + subjunctive threatens or warns: como no vengas… With the indicative, como means 'since'.",
+        "example": "Como no vengas, me enfado.",
+        "example_meaning": "If you don't come, I'll be cross."
+      },
+      {
+        "title": "Por si: just in case",
+        "emoji": "☂️",
+        "rule": "Por si takes the indicative: por si llueve. En caso de que takes the subjunctive: en caso de que llueva.",
+        "example": "Llévate abrigo por si hace frío.",
+        "example_meaning": "Take a coat in case it's cold."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Indicative or subjunctive?",
+        "buckets": [
+          "indicative",
+          "subjunctive"
+        ],
+        "items": [
+          {
+            "text": "Siempre que llueve, se inunda la calle.",
+            "bucket": 0
+          },
+          {
+            "text": "Te ayudo siempre que me avises antes.",
+            "bucket": 1
+          },
+          {
+            "text": "Lleva agua por si tienes sed.",
+            "bucket": 0
+          },
+          {
+            "text": "En caso de que tengas sed, hay agua.",
+            "bucket": 1
+          },
+          {
+            "text": "Como no llegaste, me fui.",
+            "bucket": 0
+          },
+          {
+            "text": "Como no llegues a tiempo, me voy.",
+            "bucket": 1
+          }
+        ],
+        "why": "Por si, siempre que (whenever) and como (since) take the indicative. Conditions and warnings take the subjunctive."
+      },
+      {
+        "title": "What does it mean?",
+        "buckets": [
+          "unless",
+          "provided that",
+          "in case"
+        ],
+        "items": [
+          {
+            "text": "a no ser que",
+            "bucket": 0
+          },
+          {
+            "text": "a menos que",
+            "bucket": 0
+          },
+          {
+            "text": "salvo que",
+            "bucket": 0
+          },
+          {
+            "text": "con tal de que",
+            "bucket": 1
+          },
+          {
+            "text": "siempre y cuando",
+            "bucket": 1
+          },
+          {
+            "text": "a condición de que",
+            "bucket": 1
+          },
+          {
+            "text": "en caso de que",
+            "bucket": 2
+          },
+          {
+            "text": "por si",
+            "bucket": 2
+          }
+        ],
+        "why": "There are three families: unless, provided that, and just in case."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Te lo presto con tal de que me lo devuelves.",
+        "wrong": "devuelves",
+        "fix": "devuelvas",
+        "why": "Con tal de que always takes the subjunctive."
+      },
+      {
+        "sentence": "Iremos al campo a no ser que llueve.",
+        "wrong": "llueve",
+        "fix": "llueva",
+        "why": "A no ser que (unless) takes the subjunctive."
+      },
+      {
+        "sentence": "Lleva agua por si tengas sed.",
+        "wrong": "tengas",
+        "fix": "tienes",
+        "why": "Por si takes the indicative."
+      },
+      {
+        "sentence": "Nos quedaremos en casa en caso de que hará frío.",
+        "wrong": "hará",
+        "fix": "haga",
+        "why": "En caso de que takes the subjunctive, never the future."
+      },
+      {
+        "sentence": "Aceptó con tal de que le pagan más.",
+        "wrong": "pagan",
+        "fix": "pagaran",
+        "why": "A past main verb (aceptó) asks for the imperfect subjunctive."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Te ayudo con tal de que vengas.",
+        "meaning": "I'll help you as long as you come.",
+        "distractors": [
+          "vienes"
+        ]
+      },
+      {
+        "text": "Saldremos a menos que llueva.",
+        "meaning": "We'll go out unless it rains.",
+        "distractors": [
+          "llueve"
+        ]
+      },
+      {
+        "text": "Llévate abrigo por si hace frío.",
+        "meaning": "Take a coat in case it's cold.",
+        "distractors": [
+          "haga"
+        ]
+      },
+      {
+        "text": "Como no vengas, me enfado.",
+        "meaning": "If you don't come, I'll get cross.",
+        "distractors": [
+          "vendrás"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "⚜️",
+      "content": "## Las condiciones en Eldmark\n\nEvery mercenary has terms. *Lucharé con vosotros **con tal de que** me deis la mitad del botín, **a menos que** aparezca un dragón: eso cuesta extra. **En caso de que** caiga la maga, yo me quedo su pergamino.* A parting warning: ***como** me traicionéis, os vais solos a Frostmarch.*",
+      "vocabulary": [
+        {
+          "term": "con tal de que",
+          "example": "Lucharé con vosotros con tal de que me deis la mitad del botín.",
+          "example_meaning": "I'll fight with you provided you give me half the loot."
+        },
+        {
+          "term": "a menos que",
+          "example": "No entraremos en la mazmorra a menos que el paladín vaya delante.",
+          "example_meaning": "We won't go into the dungeon unless the paladin goes first."
+        },
+        {
+          "term": "en caso de que",
+          "example": "En caso de que caiga la maga, recoge su pergamino.",
+          "example_meaning": "If the mage falls, pick up her scroll."
+        },
+        {
+          "term": "como",
+          "example": "Como me traicionéis, os vais solos a Frostmarch.",
+          "example_meaning": "If you betray me, you're going to Frostmarch on your own."
+        },
+        {
+          "term": "por si",
+          "example": "Lleva otra flecha por si falla la primera.",
+          "example_meaning": "Take another arrow in case the first one misses."
+        },
+        {
+          "term": "el mercenario",
+          "meaning": "the mercenary",
+          "example": "El mercenario solo lucha siempre que le paguen por adelantado.",
+          "example_meaning": "The mercenary only fights provided he's paid in advance."
+        },
+        {
+          "term": "el pergamino",
+          "meaning": "the scroll",
+          "example": "Este pergamino abre la puerta, salvo que esté maldito.",
+          "example_meaning": "This scroll opens the door, unless it's cursed."
+        },
+        {
+          "term": "la recompensa",
+          "meaning": "the reward",
+          "example": "El rey ofrece una recompensa a condición de que traigáis el anillo.",
+          "example_meaning": "The king offers a reward on condition that you bring the ring."
+        }
+      ],
+      "bites": [
+        {
+          "title": "El contrato del mercenario",
+          "emoji": "📜",
+          "rule": "Every term in a mercenary's contract takes the subjunctive: con tal de que me paguéis, a menos que aparezca un dragón, en caso de que caiga la maga.",
+          "example": "Lucharé con tal de que me paguéis.",
+          "example_meaning": "I'll fight provided you pay me."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Os ayudo con tal de que compartáis el botín.",
+          "meaning": "I'll help you provided you share the loot."
+        },
+        {
+          "text": "El mercenario cobra por adelantado.",
+          "meaning": "The mercenary charges in advance.",
+          "note": "New word: el mercenario = the mercenary."
+        },
+        {
+          "text": "Lee el pergamino a menos que esté maldito.",
+          "meaning": "Read the scroll unless it's cursed.",
+          "note": "New word: el pergamino = the scroll."
+        },
+        {
+          "text": "Como me traiciones, te convierto en sapo.",
+          "meaning": "If you betray me, I'll turn you into a toad."
+        },
+        {
+          "text": "Lleva antorchas por si se apaga la luz.",
+          "meaning": "Take torches in case the light goes out."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Lucharé con tal de que me paguéis.",
+          "meaning": "I'll fight provided you pay me.",
+          "distractors": [
+            "pagáis"
+          ]
+        },
+        {
+          "text": "Lleva otra flecha por si fallas.",
+          "meaning": "Take another arrow in case you miss.",
+          "distractors": [
+            "falles"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "El orco nos ayuda a menos que llueve.",
+          "wrong": "llueve",
+          "fix": "llueva",
+          "why": "A menos que takes the subjunctive."
+        },
+        {
+          "sentence": "Lleva una poción por si te hieran.",
+          "wrong": "hieran",
+          "fix": "hieren",
+          "why": "Por si takes the indicative."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Las cláusulas del contrato",
+          "buckets": [
+            "unless",
+            "provided that",
+            "in case"
+          ],
+          "items": [
+            {
+              "text": "a menos que aparezca un dragón",
+              "bucket": 0
+            },
+            {
+              "text": "salvo que esté maldito",
+              "bucket": 0
+            },
+            {
+              "text": "con tal de que me paguéis",
+              "bucket": 1
+            },
+            {
+              "text": "a condición de que traigáis el anillo",
+              "bucket": 1
+            },
+            {
+              "text": "por si falla la primera flecha",
+              "bucket": 2
+            },
+            {
+              "text": "en caso de que caiga la maga",
+              "bucket": 2
+            }
+          ],
+          "why": "Unless, provided that and in case are three kinds of condition, each with its own connectors."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "c1-conditional-connectors-realm-01",
+          "prompt": "El mercenario luchará con tal de que le ___ (pagar, vosotros) por adelantado.",
+          "type": "fill-in-blank",
+          "correct_answer": "paguéis",
+          "accepted_answers": [
+            "vosotros paguéis"
+          ],
+          "explanation": "Con tal de que takes the subjunctive, and pagar keeps its hard g: paguéis.",
+          "hints": [
+            "Use the present subjunctive, vosotros form.",
+            "Verbs in -gar change to -gue-."
+          ],
+          "teaches": [
+            "con tal de que",
+            "el mercenario"
+          ]
+        },
+        {
+          "question_id": "c1-conditional-connectors-realm-02",
+          "prompt": "Este pergamino abre la puerta, ___ esté maldito.",
+          "type": "multiple-choice",
+          "options": [
+            "salvo que",
+            "por si",
+            "siempre que"
+          ],
+          "correct_answer": "salvo que",
+          "explanation": "The meaning is 'unless it's cursed', so use salvo que + subjunctive. Por si needs the indicative, and siempre que would mean 'provided that it is cursed'.",
+          "hints": [
+            "You need 'unless'."
+          ],
+          "teaches": [
+            "el pergamino"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🤝",
+      "content": "## Las condiciones en Meadowbrook\n\nRosa runs her seed shop on trust. *te fío las semillas **con tal de que** me pagues después de la cosecha*. The mayor's festival goes ahead **a no ser que** llueva a cántaros, and Leo always takes bait **por si** pican los peces. ***Como** no recojas la calabaza a tiempo, se la comen los cuervos.*",
+      "vocabulary": [
+        {
+          "term": "con tal de que",
+          "example": "Te fío las semillas con tal de que me pagues después de la cosecha.",
+          "example_meaning": "I'll let you have the seeds on credit as long as you pay me after the harvest."
+        },
+        {
+          "term": "a no ser que",
+          "example": "El festival se celebra a no ser que llueva a cántaros.",
+          "example_meaning": "The festival goes ahead unless it pours down."
+        },
+        {
+          "term": "por si",
+          "example": "Leo lleva cebo de sobra por si pican los peces.",
+          "example_meaning": "Leo takes extra bait in case the fish bite."
+        },
+        {
+          "term": "como",
+          "example": "Como no recojas la calabaza a tiempo, se la comen los cuervos.",
+          "example_meaning": "If you don't pick the pumpkin in time, the crows will eat it."
+        },
+        {
+          "term": "siempre que",
+          "example": "Siempre que voy a la tienda, Rosa me regala una fresa.",
+          "example_meaning": "Whenever I go to the shop, Rosa gives me a strawberry."
+        },
+        {
+          "term": "fiar",
+          "meaning": "to sell on credit, to trust",
+          "example": "Rosa solo fía a los vecinos de toda la vida.",
+          "example_meaning": "Rosa only gives credit to long-standing neighbours."
+        },
+        {
+          "term": "las semillas",
+          "meaning": "the seeds",
+          "example": "Estas semillas crecen rápido, salvo que haga mucho frío.",
+          "example_meaning": "These seeds grow fast, unless it's very cold."
+        },
+        {
+          "term": "el cuervo",
+          "meaning": "the crow",
+          "example": "Pon un espantapájaros por si vuelven los cuervos.",
+          "example_meaning": "Put up a scarecrow in case the crows come back."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Tratos de pueblo",
+          "emoji": "🌾",
+          "rule": "Village deals are conditions, as in con tal de que me pagues and a no ser que llueva. Just in case is por si + indicative: por si pican los peces.",
+          "example": "Te fío las semillas con tal de que me pagues.",
+          "example_meaning": "I'll give you the seeds on credit as long as you pay me."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Te fío las semillas con tal de que me pagues.",
+          "meaning": "I'll sell you the seeds on credit as long as you pay me.",
+          "note": "New word: fiar = to sell on credit."
+        },
+        {
+          "text": "Habrá baile en la plaza a no ser que llueva.",
+          "meaning": "There'll be dancing in the square unless it rains."
+        },
+        {
+          "text": "Leo lleva cebo por si pican.",
+          "meaning": "Leo takes bait in case they bite."
+        },
+        {
+          "text": "Como no riegues, se secan las fresas.",
+          "meaning": "If you don't water them, the strawberries dry up."
+        },
+        {
+          "text": "Siempre que llueve, los cuervos se esconden.",
+          "meaning": "Whenever it rains, the crows hide.",
+          "note": "New word: el cuervo = the crow."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Habrá festival a no ser que llueva.",
+          "meaning": "There'll be a festival unless it rains.",
+          "distractors": [
+            "llueve"
+          ]
+        },
+        {
+          "text": "Lleva cebo por si pican.",
+          "meaning": "Take bait in case they bite.",
+          "distractors": [
+            "piquen"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Rosa te fía con tal de que le pagas mañana.",
+          "wrong": "pagas",
+          "fix": "pagues",
+          "why": "Con tal de que takes the subjunctive."
+        },
+        {
+          "sentence": "Planta más maíz en caso de que hay sequía.",
+          "wrong": "hay",
+          "fix": "haya",
+          "why": "En caso de que takes the subjunctive."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "¿Condición o costumbre?",
+          "buckets": [
+            "whenever (indicative)",
+            "provided that (subjunctive)"
+          ],
+          "items": [
+            {
+              "text": "Siempre que voy al río, veo a Leo.",
+              "bucket": 0
+            },
+            {
+              "text": "Te presto la barca siempre que la cuides.",
+              "bucket": 1
+            },
+            {
+              "text": "Siempre que hay festival, el alcalde canta.",
+              "bucket": 0
+            },
+            {
+              "text": "Puedes venir siempre que traigas pastel.",
+              "bucket": 1
+            },
+            {
+              "text": "Siempre que nieva, las vacas se quedan dentro.",
+              "bucket": 0
+            }
+          ],
+          "why": "Siempre que + indicative describes what happens every time, and siempre que + subjunctive sets a condition."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "c1-conditional-connectors-meadowbrook-01",
+          "prompt": "Rosa te fía las semillas con tal de que le ___ (pagar, tú) después de la cosecha.",
+          "type": "fill-in-blank",
+          "correct_answer": "pagues",
+          "accepted_answers": [
+            "tú pagues"
+          ],
+          "explanation": "Con tal de que takes the subjunctive: pagues (with -gu- to keep the hard g).",
+          "hints": [
+            "Use the present subjunctive, tú form."
+          ],
+          "teaches": [
+            "con tal de que",
+            "fiar",
+            "las semillas"
+          ]
+        },
+        {
+          "question_id": "c1-conditional-connectors-meadowbrook-02",
+          "prompt": "Pon un espantapájaros ___ vuelven los cuervos.",
+          "type": "multiple-choice",
+          "options": [
+            "por si",
+            "en caso de que",
+            "a no ser que"
+          ],
+          "correct_answer": "por si",
+          "explanation": "Vuelven is indicative, which only por si allows here.",
+          "hints": [
+            "Check the mood of vuelven."
+          ],
+          "teaches": [
+            "por si",
+            "el cuervo"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "c1-conditional-connectors-conv-meadowbrook-seeds",
+          "title": "Seeds on credit",
+          "scenario": "Nora, the new farmer, is short of money and asks Rosa at the seed shop for a deal.",
+          "role_a": "Nora",
+          "role_b": "Rosa",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Rosa, necesito semillas de calabaza, pero ando corta de dinero.",
+              "meaning": "Rosa, I need pumpkin seeds, but I'm short of money."
+            },
+            {
+              "speaker": "b",
+              "text": "Te las fío con tal de que me pagues después de la cosecha.",
+              "meaning": "I'll give you them on credit as long as you pay me after the harvest."
+            },
+            {
+              "speaker": "a",
+              "text": "¡Gracias! Te pagaré en otoño, a no ser que me falle la lluvia.",
+              "meaning": "Thanks! I'll pay you in autumn, unless the rain lets me down."
+            },
+            {
+              "speaker": "b",
+              "text": "En caso de que no llueva, me pagas con fresas.",
+              "meaning": "If it doesn't rain, you pay me in strawberries."
+            },
+            {
+              "speaker": "a",
+              "text": "Trato hecho. ¿Me llevo también semillas de maíz, por si acaso?",
+              "meaning": "Deal. Shall I take maize seeds too, just in case?"
+            },
+            {
+              "speaker": "b",
+              "text": "Siempre y cuando no las plantes junto a las calabazas.",
+              "meaning": "As long as you don't plant them next to the pumpkins."
+            },
+            {
+              "speaker": "a",
+              "text": "¿Por qué no? Siempre que lo hago, crece todo muy bien.",
+              "meaning": "Why not? Whenever I do it, everything grows really well.",
+              "note": "Siempre que + indicative means whenever."
+            },
+            {
+              "speaker": "b",
+              "text": "Ya, pero como las vea el alcalde, te da un discurso de una hora.",
+              "meaning": "Yes, but if the mayor sees them, he'll give you an hour-long speech."
+            },
+            {
+              "speaker": "a",
+              "text": "Entonces las planto lejos, salvo que tú me lo cuentes.",
+              "meaning": "Then I'll plant them far away, unless you tell on me."
+            },
+            {
+              "speaker": "b",
+              "text": "Soy una tumba, con tal de que me guardes una calabaza.",
+              "meaning": "I won't say a word, as long as you save me a pumpkin."
+            }
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🔐",
+      "content": "## Las condiciones en el páramo\n\nIn the wasteland nothing is free. Marta la mercadera says: *te cambio el agua filtrada por tuercas **con tal de que** no sean oxidadas*. The caravan leaves at dawn **a menos que** haya una tormenta de ceniza, and every scavenger carries spare fuel **por si** se acaba en el camino.",
+      "vocabulary": [
+        {
+          "term": "con tal de que",
+          "example": "Te cambio el agua por tuercas con tal de que no estén oxidadas.",
+          "example_meaning": "I'll swap you the water for nuts as long as they're not rusty."
+        },
+        {
+          "term": "a menos que",
+          "example": "La caravana sale al amanecer a menos que haya tormenta de ceniza.",
+          "example_meaning": "The caravan leaves at dawn unless there's an ash storm."
+        },
+        {
+          "term": "por si",
+          "example": "Lleva combustible de sobra por si se acaba en el camino.",
+          "example_meaning": "Take spare fuel in case it runs out on the way."
+        },
+        {
+          "term": "en caso de que",
+          "example": "En caso de que suene la alarma, vuelve a la cúpula.",
+          "example_meaning": "If the alarm goes off, go back to the Dome."
+        },
+        {
+          "term": "siempre y cuando",
+          "example": "El robot jardinero te ayuda siempre y cuando le des aceite.",
+          "example_meaning": "The gardener robot helps you as long as you give it oil."
+        },
+        {
+          "term": "el trueque",
+          "meaning": "barter, a swap",
+          "example": "En el mercado todo funciona por trueque.",
+          "example_meaning": "At the market everything works by barter."
+        },
+        {
+          "term": "el combustible",
+          "meaning": "fuel",
+          "example": "Sin combustible, el camión no llega a la antena.",
+          "example_meaning": "Without fuel, the truck won't reach the antenna."
+        },
+        {
+          "term": "oxidado / oxidada",
+          "meaning": "rusty",
+          "example": "Marta no acepta tuercas oxidadas, salvo que le debas un favor.",
+          "example_meaning": "Marta doesn't take rusty nuts, unless you owe her a favour."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Trueques con condiciones",
+          "emoji": "🛢️",
+          "rule": "Every barter has a condition, and con tal de que, a menos que and siempre y cuando take the subjunctive. Spare fuel is por si + indicative.",
+          "example": "Te lo cambio con tal de que funcione.",
+          "example_meaning": "I'll swap it with you as long as it works."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Te lo cambio con tal de que funcione.",
+          "meaning": "I'll swap it with you as long as it works."
+        },
+        {
+          "text": "No salimos a menos que pare el viento.",
+          "meaning": "We won't go out unless the wind drops."
+        },
+        {
+          "text": "Lleva combustible por si se acaba.",
+          "meaning": "Take fuel in case it runs out.",
+          "note": "New word: el combustible = fuel."
+        },
+        {
+          "text": "Aquí todo se paga por trueque.",
+          "meaning": "Here everything is paid for by barter.",
+          "note": "New word: el trueque = barter."
+        },
+        {
+          "text": "Como toques mi radio, te quedas sin cena.",
+          "meaning": "If you touch my radio, you go without dinner."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Saldremos a menos que haya tormenta.",
+          "meaning": "We'll set off unless there's a storm.",
+          "distractors": [
+            "hay"
+          ]
+        },
+        {
+          "text": "Te ayudo con tal de que me pagues.",
+          "meaning": "I'll help you as long as you pay me.",
+          "distractors": [
+            "pagas"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Marta acepta tuercas siempre y cuando brillan.",
+          "wrong": "brillan",
+          "fix": "brillen",
+          "why": "Siempre y cuando always takes the subjunctive."
+        },
+        {
+          "sentence": "Lleva tónico por si te pique un escarabajo.",
+          "wrong": "pique",
+          "fix": "pica",
+          "why": "Por si takes the indicative."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Tratos del páramo",
+          "buckets": [
+            "indicative",
+            "subjunctive"
+          ],
+          "items": [
+            {
+              "text": "Lleva agua por si tienes sed.",
+              "bucket": 0
+            },
+            {
+              "text": "Te doy agua con tal de que me ayudes.",
+              "bucket": 1
+            },
+            {
+              "text": "Como no había agua, bebimos gaseosa.",
+              "bucket": 0
+            },
+            {
+              "text": "Como no traigas agua, no entras.",
+              "bucket": 1
+            },
+            {
+              "text": "Vuelve a la cúpula en caso de que suene la alarma.",
+              "bucket": 1
+            }
+          ],
+          "why": "Por si and como (since) take the indicative; conditions and warnings take the subjunctive."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "c1-conditional-connectors-rustwake-01",
+          "prompt": "La caravana sale al amanecer a menos que ___ (haber) tormenta de ceniza.",
+          "type": "fill-in-blank",
+          "correct_answer": "haya",
+          "explanation": "A menos que takes the subjunctive: haya.",
+          "hints": [
+            "Use the present subjunctive of haber."
+          ],
+          "teaches": [
+            "a menos que"
+          ]
+        },
+        {
+          "question_id": "c1-conditional-connectors-rustwake-02",
+          "prompt": "Marta: «Te cambio el agua por tuercas ___ no estén oxidadas.»",
+          "type": "multiple-choice",
+          "options": [
+            "con tal de que",
+            "por si",
+            "hasta que"
+          ],
+          "correct_answer": "con tal de que",
+          "explanation": "The condition takes the subjunctive (estén), so the answer is con tal de que.",
+          "hints": [
+            "'As long as'."
+          ],
+          "teaches": [
+            "con tal de que",
+            "oxidado / oxidada"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "c1-conditional-connectors-conv-rustwake-barter",
+          "title": "Haggling at the market",
+          "scenario": "Leo the scavenger wants a filter from Marta la mercadera, and she sets the price.",
+          "role_a": "Leo",
+          "role_b": "Marta",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Marta, necesito un filtro de agua nuevo.",
+              "meaning": "Marta, I need a new water filter."
+            },
+            {
+              "speaker": "b",
+              "text": "Te lo doy por treinta tuercas, siempre y cuando no estén oxidadas.",
+              "meaning": "I'll let you have it for thirty nuts, as long as they're not rusty."
+            },
+            {
+              "speaker": "a",
+              "text": "Solo tengo veinte. ¿Aceptas un trueque?",
+              "meaning": "I've only got twenty. Will you take a swap?"
+            },
+            {
+              "speaker": "b",
+              "text": "Depende. Acepto tu radiorreloj, a menos que esté roto.",
+              "meaning": "It depends. I'll take your wrist radio, unless it's broken."
+            },
+            {
+              "speaker": "a",
+              "text": "¡Ni hablar! ¿Y si te traigo combustible mañana?",
+              "meaning": "No way! What if I bring you fuel tomorrow?"
+            },
+            {
+              "speaker": "b",
+              "text": "Vale, con tal de que vengas antes de la tormenta.",
+              "meaning": "OK, as long as you come before the storm."
+            },
+            {
+              "speaker": "a",
+              "text": "En caso de que haya tormenta, vengo pasado mañana.",
+              "meaning": "If there's a storm, I'll come the day after tomorrow."
+            },
+            {
+              "speaker": "b",
+              "text": "Como no vengas, se lo vendo al capataz Ruiz.",
+              "meaning": "If you don't come, I'll sell it to foreman Ruiz."
+            },
+            {
+              "speaker": "a",
+              "text": "Vendré. Guárdamelo por si acaso.",
+              "meaning": "I'll come. Keep it for me just in case."
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

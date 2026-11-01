@@ -1,0 +1,1152 @@
+{
+  "id": "a2-obligation-advice",
+  "slug": "obligation-advice",
+  "title": "Obligation and advice: il faut, devoir, avoir besoin de",
+  "unit": "A2",
+  "group": "Grammar",
+  "order": 40,
+  "summary": "Say what you must do, must not do, need and don't have to do, and give advice with il vaut mieux, conseiller de and the imperative.",
+  "focus": "Expressing obligation, prohibition, need and advice",
+  "prerequisites": [
+    "a2-imperative-directions"
+  ],
+  "content": "## Il faut: what has to be done\n\n**Il faut + infinitive** says what has to be done, without saying who: *you have to, one must*. It only exists in the **il** form.\n\n- **Il faut réserver.** You have to book.\n- **Il faut partir à huit heures.** We have to leave at eight.\n\nIn the negative it means **must not**:\n\n- **Il ne faut pas fumer ici.** You mustn't smoke here.\n\nThe infinitive follows directly, with no **de**. (Later, in B1, **il faut que** comes with the subjonctif.)\n\n## Devoir and être obligé de\n\n**Devoir + infinitive** says that a person must do something.\n\n| je | tu | il / elle / on | nous | vous | ils / elles |\n|---|---|---|---|---|---|\n| dois | dois | doit | devons | devez | doivent |\n\n- **Je dois partir.** I have to go.\n- **Elle est obligée de travailler samedi.** She has to work on Saturday. (**obligé** agrees like an adjective)\n\nCareful with the negative: **tu ne dois pas** means **you must not**, like il ne faut pas. To say **you don't have to**, use:\n\n- **Tu n'es pas obligé(e) de venir.** You don't have to come.\n- **Ce n'est pas la peine de réserver.** There's no need to book.\n\n## Needs and rules\n\n**Avoir besoin de** = to need. It takes a noun or an infinitive, and **de** becomes **d'** before a vowel:\n\n- **J'ai besoin d'un taxi.** I need a taxi.\n- **Nous avons besoin de dormir.** We need to sleep.\n\nSigns and rules use **il est … de + infinitive**:\n\n- **Il est interdit de stationner.** Parking is forbidden. (**défendu** means the same)\n- **Il est important de boire de l'eau.** It's important to drink water.\n\n## Giving advice\n\nThree ways to give advice, from soft to direct:\n\n- **Il vaut mieux + infinitive** = it's better to: **Il vaut mieux partir tôt.**\n- **Conseiller à quelqu'un de + infinitive** = to advise someone to: **Je te conseille de prendre le train.** **Le médecin lui conseille de marcher.**\n- **The imperative**: **Bois de l'eau ! Repose-toi !** (a reflexive verb puts **toi** after the verb, with a hyphen)\n\nA friendly reminder: **N'oublie pas de** + infinitive: **N'oublie pas d'appeler ta mère !**",
+  "vocabulary": [
+    {
+      "term": "il faut",
+      "meaning": "you have to, it is necessary to",
+      "example": "Il faut arriver une heure avant le départ.",
+      "example_meaning": "You have to arrive an hour before departure."
+    },
+    {
+      "term": "il ne faut pas",
+      "meaning": "you must not",
+      "example": "Il ne faut pas toucher les tableaux du musée.",
+      "example_meaning": "You mustn't touch the paintings in the museum."
+    },
+    {
+      "term": "devoir",
+      "meaning": "to have to, must",
+      "example": "Je dois finir ce dossier ce soir.",
+      "example_meaning": "I have to finish this file tonight."
+    },
+    {
+      "term": "être obligé de",
+      "meaning": "to have to, to be obliged to",
+      "example": "Mon frère est obligé de travailler le dimanche.",
+      "example_meaning": "My brother has to work on Sundays."
+    },
+    {
+      "term": "ce n'est pas la peine de",
+      "meaning": "there's no need to",
+      "example": "Ce n'est pas la peine de crier, je t'entends.",
+      "example_meaning": "There's no need to shout, I can hear you."
+    },
+    {
+      "term": "avoir besoin de",
+      "meaning": "to need",
+      "example": "J'ai besoin d'un nouveau téléphone.",
+      "example_meaning": "I need a new phone."
+    },
+    {
+      "term": "il est interdit de",
+      "meaning": "it is forbidden to",
+      "example": "Il est interdit de stationner devant le garage.",
+      "example_meaning": "Parking in front of the garage is forbidden."
+    },
+    {
+      "term": "il est important de",
+      "meaning": "it is important to",
+      "example": "Il est important de manger des légumes.",
+      "example_meaning": "It's important to eat vegetables."
+    },
+    {
+      "term": "il vaut mieux",
+      "meaning": "it's better to, you'd better",
+      "example": "Il vaut mieux partir tôt, il y a des bouchons.",
+      "example_meaning": "It's better to leave early, there are traffic jams."
+    },
+    {
+      "term": "conseiller",
+      "meaning": "to advise, to recommend",
+      "example": "Le médecin m'a conseillé de marcher tous les jours.",
+      "example_meaning": "The doctor advised me to walk every day."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-obligation-advice-01",
+      "prompt": "Le musée ferme à dix-huit heures : il ___ arriver avant dix-sept heures pour tout voir.",
+      "type": "fill-in-blank",
+      "correct_answer": "faut",
+      "accepted_answers": [],
+      "explanation": "Il faut + infinitive says what has to be done, for anyone: il faut arriver.",
+      "hints": [
+        "An impersonal 'you have to'.",
+        "Il f…"
+      ],
+      "teaches": [
+        "il faut"
+      ]
+    },
+    {
+      "question_id": "a2-obligation-advice-02",
+      "prompt": "Au bord de la piscine, le maître-nageur crie : « ___ courir, c'est dangereux ! »",
+      "type": "multiple-choice",
+      "options": [
+        "Il ne faut pas",
+        "Ce n'est pas la peine de",
+        "Il n'a pas besoin de"
+      ],
+      "correct_answer": "Il ne faut pas",
+      "explanation": "It's dangerous, so running is not allowed: il ne faut pas = you must not. Ce n'est pas la peine de only means there's no need.",
+      "hints": [
+        "He is forbidding it, not saying it's useless."
+      ],
+      "teaches": [
+        "il ne faut pas"
+      ]
+    },
+    {
+      "question_id": "a2-obligation-advice-03",
+      "prompt": "Mon train part dans vingt minutes, je ___ partir tout de suite. (devoir)",
+      "type": "fill-in-blank",
+      "correct_answer": "dois",
+      "accepted_answers": [
+        "je dois"
+      ],
+      "explanation": "Devoir with je: je dois, followed directly by the infinitive (partir).",
+      "hints": [
+        "je d…",
+        "Same form as tu."
+      ],
+      "teaches": [
+        "devoir"
+      ]
+    },
+    {
+      "question_id": "a2-obligation-advice-04",
+      "prompt": "Your friend offers to help you move flat, but you already have enough help. Which sentence tells her 'You don't have to come'?",
+      "type": "multiple-choice",
+      "options": [
+        "Tu n'es pas obligée de venir.",
+        "Tu ne dois pas venir.",
+        "Il ne faut pas venir."
+      ],
+      "correct_answer": "Tu n'es pas obligée de venir.",
+      "explanation": "Ne pas être obligé(e) de = not to have to. Tu ne dois pas venir and il ne faut pas venir both forbid her to come.",
+      "hints": [
+        "Devoir and il faut in the negative mean 'must not'."
+      ],
+      "teaches": [
+        "être obligé de"
+      ]
+    },
+    {
+      "question_id": "a2-obligation-advice-05",
+      "prompt": "'Ce n'est pas la peine de réserver' means you are not allowed to book.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "False: it means there's no need to book (you can, but it's useless). Not allowed would be il est interdit de réserver.",
+      "hints": [
+        "La peine here = the trouble, the effort."
+      ],
+      "teaches": [
+        "ce n'est pas la peine de"
+      ]
+    },
+    {
+      "question_id": "a2-obligation-advice-06",
+      "prompt": "Je suis épuisée après ce voyage : j'ai ___ de dormir douze heures.",
+      "type": "fill-in-blank",
+      "correct_answer": "besoin",
+      "accepted_answers": [],
+      "explanation": "Avoir besoin de + infinitive = to need to: j'ai besoin de dormir.",
+      "hints": [
+        "avoir b… de",
+        "It means 'need'."
+      ],
+      "teaches": [
+        "avoir besoin de"
+      ]
+    },
+    {
+      "question_id": "a2-obligation-advice-07",
+      "prompt": "Il pleut très fort et tu n'as pas de manteau. ___ prendre un parapluie.",
+      "type": "multiple-choice",
+      "options": [
+        "Il vaut mieux",
+        "Il vaut meilleur",
+        "Ce n'est pas la peine"
+      ],
+      "correct_answer": "Il vaut mieux",
+      "explanation": "It's better to = il vaut mieux + infinitive. Meilleur is an adjective and never follows vaut here, and ce n'est pas la peine would need de and says the opposite.",
+      "hints": [
+        "mieux = better, as an adverb."
+      ],
+      "teaches": [
+        "il vaut mieux"
+      ]
+    },
+    {
+      "question_id": "a2-obligation-advice-08",
+      "prompt": "Panneau dans le train : « Il est ___ de fumer. » Smoking is not allowed.",
+      "type": "fill-in-blank",
+      "correct_answer": "interdit",
+      "accepted_answers": [
+        "défendu"
+      ],
+      "explanation": "Il est interdit de + infinitive = it is forbidden to. Il est défendu de means the same.",
+      "hints": [
+        "Forbidden = …",
+        "inter…"
+      ],
+      "teaches": [
+        "il est interdit de"
+      ]
+    },
+    {
+      "question_id": "a2-obligation-advice-09",
+      "prompt": "In 'Il est important de dormir, je te conseille de te reposer', both expressions take de before the infinitive.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "True: il est important de + infinitive and conseiller à quelqu'un de + infinitive. Only il faut, il vaut mieux and devoir take the infinitive directly.",
+      "hints": [
+        "Look at the word after important and after conseille."
+      ],
+      "teaches": [
+        "conseiller",
+        "il est important de"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Nous devons rentrer avant minuit.",
+      "meaning": "We have to be home before midnight."
+    },
+    {
+      "text": "Il ne faut pas oublier ton écharpe.",
+      "meaning": "You mustn't forget your scarf.",
+      "note": "New word: l'écharpe = the scarf."
+    },
+    {
+      "text": "J'ai besoin d'une heure pour finir.",
+      "meaning": "I need an hour to finish.",
+      "note": "de becomes d' before a vowel."
+    },
+    {
+      "text": "Il est interdit de marcher sur la pelouse.",
+      "meaning": "Walking on the grass is forbidden.",
+      "note": "New word: la pelouse = the lawn."
+    },
+    {
+      "text": "Il vaut mieux appeler le médecin ce soir.",
+      "meaning": "It's better to call the doctor tonight."
+    },
+    {
+      "text": "Tu n'es pas obligé de répondre tout de suite.",
+      "meaning": "You don't have to answer straight away."
+    },
+    {
+      "text": "Le pharmacien conseille à ma mère de se reposer pendant trois jours.",
+      "meaning": "The pharmacist advises my mother to rest for three days.",
+      "note": "New word: le pharmacien = the pharmacist."
+    },
+    {
+      "text": "Ce n'est pas la peine de prendre un taxi, la gare est tout près.",
+      "meaning": "There's no need to take a taxi, the station is very close."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Il faut"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-obligation-advice-01"
+    },
+    {
+      "question": "a2-obligation-advice-02"
+    },
+    {
+      "section": "Devoir"
+    },
+    {
+      "question": "a2-obligation-advice-03"
+    },
+    {
+      "question": "a2-obligation-advice-04"
+    },
+    {
+      "question": "a2-obligation-advice-05"
+    },
+    {
+      "tip": "Must not: il ne faut pas, tu ne dois pas. Don't have to: tu n'es pas obligé de, ce n'est pas la peine de."
+    },
+    {
+      "section": "Needs and rules"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-obligation-advice-06"
+    },
+    {
+      "question": "a2-obligation-advice-08"
+    },
+    {
+      "section": "Giving advice"
+    },
+    {
+      "concept": {
+        "title": "Il faut + a noun",
+        "markdown": "**Il faut** also takes a noun: **il faut deux heures pour aller à Lyon** (it takes two hours), **il faut du courage** (it takes courage). Add a pronoun to say who needs it: **il me faut un stylo** (I need a pen)."
+      }
+    },
+    {
+      "question": "a2-obligation-advice-07"
+    },
+    {
+      "question": "a2-obligation-advice-09"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-obligation-advice-conv-interview",
+      "title": "The night before the interview",
+      "scenario": "Karim has a job interview tomorrow morning and is nervous. His friend Inès gives him advice.",
+      "role_a": "Inès",
+      "role_b": "Karim",
+      "lines": [
+        {
+          "speaker": "b",
+          "text": "J'ai un entretien demain matin et je suis très stressé.",
+          "meaning": "I have an interview tomorrow morning and I'm really stressed."
+        },
+        {
+          "speaker": "a",
+          "text": "Il ne faut pas paniquer. Tu dois être là à quelle heure ?",
+          "meaning": "Don't panic. What time do you have to be there?",
+          "note": "il ne faut pas = must not"
+        },
+        {
+          "speaker": "b",
+          "text": "À neuf heures. Je dois prendre le métro à huit heures.",
+          "meaning": "At nine. I have to take the metro at eight."
+        },
+        {
+          "speaker": "a",
+          "text": "Il vaut mieux partir plus tôt, il y a souvent des retards.",
+          "meaning": "It's better to leave earlier, there are often delays."
+        },
+        {
+          "speaker": "b",
+          "text": "Tu as raison. Je dois porter un costume ?",
+          "meaning": "You're right. Do I have to wear a suit?"
+        },
+        {
+          "speaker": "a",
+          "text": "Tu n'es pas obligé, mais il faut être bien habillé.",
+          "meaning": "You don't have to, but you need to be well dressed.",
+          "note": "pas obligé = don't have to"
+        },
+        {
+          "speaker": "b",
+          "text": "Et j'ai besoin d'apporter mon CV ?",
+          "meaning": "And do I need to bring my CV?"
+        },
+        {
+          "speaker": "a",
+          "text": "Oui, il est important d'avoir une copie. N'oublie pas de l'imprimer !",
+          "meaning": "Yes, it's important to have a copy. Don't forget to print it!"
+        },
+        {
+          "speaker": "b",
+          "text": "D'accord. Je vais réviser mes réponses toute la nuit.",
+          "meaning": "OK. I'm going to go over my answers all night."
+        },
+        {
+          "speaker": "a",
+          "text": "Ce n'est pas la peine de travailler toute la nuit. Repose-toi !",
+          "meaning": "There's no need to work all night. Get some rest!"
+        },
+        {
+          "speaker": "b",
+          "text": "Merci, Inès. Je te conseille de devenir coach !",
+          "meaning": "Thanks, Inès. I advise you to become a coach!"
+        },
+        {
+          "speaker": "a",
+          "text": "Bonne chance demain !",
+          "meaning": "Good luck tomorrow!"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "☝️",
+    "bites": [
+      {
+        "title": "Il faut",
+        "emoji": "📌",
+        "rule": "Il faut + infinitive = you have to, one must. It only has the il form. Il ne faut pas = you must not.",
+        "example": "Il faut réserver une table.",
+        "example_meaning": "You have to book a table."
+      },
+      {
+        "title": "Devoir",
+        "emoji": "💼",
+        "rule": "je dois, tu dois, il doit, nous devons, vous devez, ils doivent + infinitive. Être obligé(e) de says the same.",
+        "example": "Je dois partir à six heures.",
+        "example_meaning": "I have to leave at six."
+      },
+      {
+        "title": "Must not ≠ don't have to",
+        "emoji": "⚠️",
+        "rule": "Tu ne dois pas / il ne faut pas = must not. Tu n'es pas obligé de / ce n'est pas la peine de = no need to.",
+        "example": "Tu n'es pas obligé de venir.",
+        "example_meaning": "You don't have to come."
+      },
+      {
+        "title": "Advice",
+        "emoji": "💡",
+        "rule": "Il vaut mieux + infinitive, je te conseille de + infinitive, or simply the imperative: repose-toi, n'oublie pas de…",
+        "example": "Il vaut mieux rester à la maison.",
+        "example_meaning": "It's better to stay at home."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Must not, or no need to?",
+        "buckets": [
+          "must not",
+          "no need to"
+        ],
+        "items": [
+          {
+            "text": "Il ne faut pas fumer ici.",
+            "bucket": 0
+          },
+          {
+            "text": "Tu n'es pas obligé de venir.",
+            "bucket": 1
+          },
+          {
+            "text": "Tu ne dois pas toucher ça.",
+            "bucket": 0
+          },
+          {
+            "text": "Ce n'est pas la peine de réserver.",
+            "bucket": 1
+          },
+          {
+            "text": "Il est interdit de nager.",
+            "bucket": 0
+          },
+          {
+            "text": "Vous n'êtes pas obligés de payer.",
+            "bucket": 1
+          },
+          {
+            "text": "Il est défendu de courir.",
+            "bucket": 0
+          }
+        ],
+        "why": "Il ne faut pas, ne pas devoir, interdit and défendu forbid. Pas obligé de and ce n'est pas la peine de only say it isn't necessary."
+      },
+      {
+        "title": "De before the infinitive, or not?",
+        "buckets": [
+          "… de + infinitive",
+          "… + infinitive directly"
+        ],
+        "items": [
+          {
+            "text": "avoir besoin",
+            "bucket": 0
+          },
+          {
+            "text": "il faut",
+            "bucket": 1
+          },
+          {
+            "text": "être obligé",
+            "bucket": 0
+          },
+          {
+            "text": "devoir",
+            "bucket": 1
+          },
+          {
+            "text": "il est interdit",
+            "bucket": 0
+          },
+          {
+            "text": "il vaut mieux",
+            "bucket": 1
+          },
+          {
+            "text": "conseiller à quelqu'un",
+            "bucket": 0
+          },
+          {
+            "text": "n'oublie pas",
+            "bucket": 0
+          }
+        ],
+        "why": "Il faut, il vaut mieux and devoir take the infinitive directly; the others need de (d' before a vowel)."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Nous faut partir tout de suite.",
+        "wrong": "Nous",
+        "fix": "Il",
+        "why": "Il faut is impersonal: it only exists with il."
+      },
+      {
+        "sentence": "Je doit finir mes devoirs ce soir.",
+        "wrong": "doit",
+        "fix": "dois",
+        "why": "With je, devoir is je dois."
+      },
+      {
+        "sentence": "J'ai besoin un parapluie.",
+        "wrong": "un",
+        "fix": "d'un",
+        "why": "Avoir besoin always takes de: j'ai besoin d'un parapluie."
+      },
+      {
+        "sentence": "Il vaut meilleur partir tôt.",
+        "wrong": "meilleur",
+        "fix": "mieux",
+        "why": "The expression is il vaut mieux."
+      },
+      {
+        "sentence": "Elle est obligé de travailler samedi.",
+        "wrong": "obligé",
+        "fix": "obligée",
+        "why": "Obligé agrees with the subject like an adjective: elle est obligée."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Il faut partir maintenant.",
+        "meaning": "We have to leave now.",
+        "distractors": [
+          "dois"
+        ]
+      },
+      {
+        "text": "Tu n'es pas obligé de venir.",
+        "meaning": "You don't have to come.",
+        "distractors": [
+          "dois"
+        ]
+      },
+      {
+        "text": "J'ai besoin de dormir.",
+        "meaning": "I need to sleep.",
+        "distractors": [
+          "à"
+        ]
+      },
+      {
+        "text": "Il vaut mieux prendre le train.",
+        "meaning": "It's better to take the train.",
+        "distractors": [
+          "meilleur"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "⚜️",
+      "content": "## Les règles de la guilde à Eldmark\n\nThe guild has rules: **il faut** finir la quête, **il est interdit de** voler le butin d'un ami, **il ne faut pas** entrer seul dans le donjon. Before the fight, la prêtresse gives advice: **repose-toi**, **bois cette potion**, **il vaut mieux** attendre le paladin.",
+      "vocabulary": [
+        {
+          "term": "il faut",
+          "example": "Il faut finir la quête avant la nuit.",
+          "example_meaning": "We have to finish the quest before nightfall."
+        },
+        {
+          "term": "il ne faut pas",
+          "example": "Il ne faut pas réveiller le dragon.",
+          "example_meaning": "You mustn't wake the dragon."
+        },
+        {
+          "term": "devoir",
+          "example": "Les nains doivent protéger la mine de Deepanvil.",
+          "example_meaning": "The dwarves have to protect the Deepanvil mine."
+        },
+        {
+          "term": "avoir besoin de",
+          "example": "Le guerrier a besoin d'un nouveau bouclier.",
+          "example_meaning": "The warrior needs a new shield."
+        },
+        {
+          "term": "il est interdit de",
+          "example": "Il est interdit de voler le butin d'un ami.",
+          "example_meaning": "It's forbidden to steal a friend's loot."
+        },
+        {
+          "term": "il vaut mieux",
+          "example": "Il vaut mieux attendre le paladin.",
+          "example_meaning": "It's better to wait for the paladin."
+        },
+        {
+          "term": "conseiller",
+          "example": "La prêtresse conseille à Nym de prendre une potion.",
+          "example_meaning": "The priestess advises Nym to take a potion."
+        },
+        {
+          "term": "la règle",
+          "meaning": "rule (f)",
+          "example": "Chaque guilde a ses règles.",
+          "example_meaning": "Every guild has its rules."
+        },
+        {
+          "term": "le donjon",
+          "meaning": "dungeon, keep (m)",
+          "example": "Le donjon est froid et sombre.",
+          "example_meaning": "The dungeon is cold and dark."
+        },
+        {
+          "term": "se reposer",
+          "meaning": "to rest",
+          "example": "Après la bataille, Borin se repose à la taverne.",
+          "example_meaning": "After the battle, Borin rests at the tavern."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Les règles de la guilde",
+          "emoji": "⚜️",
+          "rule": "Guild rules: il faut, il ne faut pas, il est interdit de. A healer's advice: il vaut mieux, or the imperative (repose-toi).",
+          "example": "Il ne faut pas entrer seul dans le donjon.",
+          "example_meaning": "You mustn't go into the dungeon alone."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Il faut suivre les règles.",
+          "meaning": "You have to follow the rules.",
+          "note": "New word: la règle = the rule."
+        },
+        {
+          "text": "Nous devons trouver le parchemin.",
+          "meaning": "We have to find the scroll."
+        },
+        {
+          "text": "J'ai besoin d'une nouvelle épée.",
+          "meaning": "I need a new sword."
+        },
+        {
+          "text": "Il est interdit d'entrer dans le donjon.",
+          "meaning": "Entering the dungeon is forbidden.",
+          "note": "New word: le donjon = the dungeon."
+        },
+        {
+          "text": "Repose-toi, la quête commence demain.",
+          "meaning": "Get some rest, the quest starts tomorrow."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Il faut finir la quête.",
+          "meaning": "We have to finish the quest.",
+          "distractors": [
+            "dois"
+          ]
+        },
+        {
+          "text": "Tu dois boire cette potion.",
+          "meaning": "You have to drink this potion.",
+          "distractors": [
+            "faut"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Les nains doit protéger la mine.",
+          "wrong": "doit",
+          "fix": "doivent",
+          "why": "Les nains = ils: ils doivent."
+        },
+        {
+          "sentence": "La mage a besoin une potion.",
+          "wrong": "une",
+          "fix": "d'une",
+          "why": "Avoir besoin takes de: besoin d'une potion."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "A rule, or advice?",
+          "buckets": [
+            "a rule",
+            "advice"
+          ],
+          "items": [
+            {
+              "text": "Il est interdit de voler le butin.",
+              "bucket": 0
+            },
+            {
+              "text": "Il vaut mieux attendre le paladin.",
+              "bucket": 1
+            },
+            {
+              "text": "Il ne faut pas entrer seul dans le donjon.",
+              "bucket": 0
+            },
+            {
+              "text": "Repose-toi avant la quête.",
+              "bucket": 1
+            },
+            {
+              "text": "Les membres doivent payer la guilde.",
+              "bucket": 0
+            },
+            {
+              "text": "Je te conseille de prendre un bouclier.",
+              "bucket": 1
+            }
+          ],
+          "why": "Interdit, il ne faut pas and devoir state the rules; il vaut mieux, conseiller de and the imperative give advice."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a2-obligation-advice-realm-01",
+          "prompt": "Avant d'entrer dans le donjon, nous ___ trouver une torche. (devoir)",
+          "type": "fill-in-blank",
+          "correct_answer": "devons",
+          "accepted_answers": [
+            "nous devons"
+          ],
+          "explanation": "Devoir with nous: nous devons, then the infinitive (trouver).",
+          "hints": [
+            "The nous form keeps the e of devoir."
+          ],
+          "teaches": [
+            "devoir",
+            "le donjon"
+          ]
+        },
+        {
+          "question_id": "a2-obligation-advice-realm-02",
+          "prompt": "La prêtresse dit au guerrier blessé : « ___, la bataille est finie ! » Which imperative gives the advice to rest?",
+          "type": "multiple-choice",
+          "options": [
+            "Repose-toi",
+            "Reposes-toi",
+            "Toi repose"
+          ],
+          "correct_answer": "Repose-toi",
+          "explanation": "An -er verb drops the s of tu in the imperative, and a reflexive verb puts toi after it with a hyphen: repose-toi.",
+          "hints": [
+            "Tu reposes → no -s in the imperative.",
+            "The pronoun comes after the verb."
+          ],
+          "teaches": [
+            "se reposer"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🪴",
+      "content": "## Les conseils de Rosa à Meadowbrook\n\nAt la graineterie, Rosa gives the new farmer advice: **il faut arroser** les fraises tous les jours, **il ne faut pas** planter le maïs en hiver, and **tu n'es pas obligée d'**acheter beaucoup de graines: **il vaut mieux** commencer petit. And **n'oublie pas de** nourrir les poules !",
+      "vocabulary": [
+        {
+          "term": "il faut",
+          "example": "Il faut récolter les citrouilles avant la fête.",
+          "example_meaning": "The pumpkins have to be harvested before the festival."
+        },
+        {
+          "term": "il ne faut pas",
+          "example": "Il ne faut pas laisser les moutons dans la forêt.",
+          "example_meaning": "You mustn't leave the sheep in the forest."
+        },
+        {
+          "term": "être obligé de",
+          "example": "Nora n'est pas obligée de tout vendre au marché.",
+          "example_meaning": "Nora doesn't have to sell everything at the market."
+        },
+        {
+          "term": "avoir besoin de",
+          "example": "La vache a besoin d'eau fraîche.",
+          "example_meaning": "The cow needs fresh water."
+        },
+        {
+          "term": "il vaut mieux",
+          "example": "Il vaut mieux pêcher tôt le matin.",
+          "example_meaning": "It's better to fish early in the morning."
+        },
+        {
+          "term": "conseiller",
+          "example": "Le maire me conseille de planter des fraises.",
+          "example_meaning": "The mayor advises me to plant strawberries."
+        },
+        {
+          "term": "ce n'est pas la peine de",
+          "example": "Il pleut : ce n'est pas la peine d'arroser aujourd'hui.",
+          "example_meaning": "It's raining: there's no need to water today."
+        },
+        {
+          "term": "arroser",
+          "meaning": "to water",
+          "example": "J'arrose le jardin le soir.",
+          "example_meaning": "I water the garden in the evening."
+        },
+        {
+          "term": "les graines",
+          "meaning": "seeds (f pl)",
+          "example": "Rosa vend des graines de maïs.",
+          "example_meaning": "Rosa sells corn seeds."
+        },
+        {
+          "term": "nourrir",
+          "meaning": "to feed",
+          "example": "Léo nourrit le cochon tous les matins.",
+          "example_meaning": "Léo feeds the pig every morning."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Les conseils de Rosa",
+          "emoji": "🪴",
+          "rule": "Farm advice: il faut arroser, il ne faut pas planter en hiver, il vaut mieux commencer petit, n'oublie pas de nourrir les poules.",
+          "example": "Il vaut mieux planter au printemps.",
+          "example_meaning": "It's better to plant in spring."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Il faut arroser les fraises.",
+          "meaning": "The strawberries need watering.",
+          "note": "New word: arroser = to water."
+        },
+        {
+          "text": "Nora doit vendre ses citrouilles.",
+          "meaning": "Nora has to sell her pumpkins."
+        },
+        {
+          "text": "J'ai besoin de graines de maïs.",
+          "meaning": "I need corn seeds.",
+          "note": "New word: les graines = seeds."
+        },
+        {
+          "text": "N'oublie pas de nourrir les poules.",
+          "meaning": "Don't forget to feed the hens.",
+          "note": "New word: nourrir = to feed."
+        },
+        {
+          "text": "Tu n'es pas obligée de tout planter.",
+          "meaning": "You don't have to plant everything."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Il faut arroser le maïs.",
+          "meaning": "The corn needs watering.",
+          "distractors": [
+            "dois"
+          ]
+        },
+        {
+          "text": "Il vaut mieux commencer petit.",
+          "meaning": "It's better to start small.",
+          "distractors": [
+            "meilleur"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Nous doit récolter les citrouilles.",
+          "wrong": "doit",
+          "fix": "devons",
+          "why": "With nous, devoir is nous devons."
+        },
+        {
+          "sentence": "Nora est obligé de nourrir les poules.",
+          "wrong": "obligé",
+          "fix": "obligée",
+          "why": "Nora is a woman: obligée."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Il faut, or il ne faut pas?",
+          "buckets": [
+            "il faut",
+            "il ne faut pas"
+          ],
+          "items": [
+            {
+              "text": "… arroser les fraises en été.",
+              "bucket": 0
+            },
+            {
+              "text": "… planter le maïs en hiver.",
+              "bucket": 1
+            },
+            {
+              "text": "… nourrir les poules.",
+              "bucket": 0
+            },
+            {
+              "text": "… laisser la vache dehors pendant l'orage.",
+              "bucket": 1
+            },
+            {
+              "text": "… récolter les citrouilles en automne.",
+              "bucket": 0
+            },
+            {
+              "text": "… oublier la fête des récoltes !",
+              "bucket": 1
+            }
+          ],
+          "why": "Good farm habits take il faut; mistakes to avoid take il ne faut pas (must not)."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a2-obligation-advice-meadowbrook-01",
+          "prompt": "Rosa explique : « Les fraises ont soif ! ___ les arroser tous les jours. »",
+          "type": "multiple-choice",
+          "options": [
+            "Il faut",
+            "Il ne faut pas",
+            "Ce n'est pas la peine de"
+          ],
+          "correct_answer": "Il faut",
+          "explanation": "Thirsty strawberries have to be watered: il faut + infinitive.",
+          "hints": [
+            "Ont soif = are thirsty."
+          ],
+          "teaches": [
+            "il faut",
+            "arroser"
+          ]
+        },
+        {
+          "question_id": "a2-obligation-advice-meadowbrook-02",
+          "prompt": "When Rosa says 'Tu n'es pas obligée d'acheter beaucoup de graines', she means Nora must not buy many seeds.",
+          "type": "true-false",
+          "correct_answer": "false",
+          "explanation": "False: pas obligée de means she doesn't have to. She may still buy them if she wants.",
+          "hints": [
+            "Pas obligé = not necessary, not forbidden."
+          ],
+          "teaches": [
+            "être obligé de",
+            "les graines"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🪛",
+      "content": "## Les règles du désert à Rustwake\n\nOutside le Dôme, **il faut** porter l'armure de ferraille, **il est interdit de** boire l'eau de la rivière, and **il ne faut pas** sortir pendant une tempête de cendres. Marta advises: **tu dois** échanger tes écrous contre de l'eau filtrée, and **il vaut mieux** écouter la radio-montre.",
+      "vocabulary": [
+        {
+          "term": "il faut",
+          "example": "Il faut réparer l'antenne avant la nuit.",
+          "example_meaning": "The antenna has to be repaired before nightfall."
+        },
+        {
+          "term": "il ne faut pas",
+          "example": "Il ne faut pas sortir pendant une tempête de cendres.",
+          "example_meaning": "You mustn't go out during an ash storm."
+        },
+        {
+          "term": "devoir",
+          "example": "Vous devez échanger vos écrous contre de l'eau.",
+          "example_meaning": "You have to trade your nuts for water."
+        },
+        {
+          "term": "avoir besoin de",
+          "example": "Le robot jardinier a besoin d'une nouvelle batterie.",
+          "example_meaning": "The gardener robot needs a new battery."
+        },
+        {
+          "term": "il est interdit de",
+          "example": "Il est interdit de boire l'eau de la rivière.",
+          "example_meaning": "It's forbidden to drink the river water."
+        },
+        {
+          "term": "il est important de",
+          "example": "Il est important d'écouter la radio le matin.",
+          "example_meaning": "It's important to listen to the radio in the morning."
+        },
+        {
+          "term": "il vaut mieux",
+          "example": "Il vaut mieux marcher avec le chien de garde.",
+          "example_meaning": "It's better to walk with the guard dog."
+        },
+        {
+          "term": "l'armure de ferraille",
+          "meaning": "scrap armour (f)",
+          "example": "Mon armure de ferraille est trop lourde.",
+          "example_meaning": "My scrap armour is too heavy."
+        },
+        {
+          "term": "l'eau filtrée",
+          "meaning": "filtered water (f)",
+          "example": "Marta vend de l'eau filtrée au marché.",
+          "example_meaning": "Marta sells filtered water at the market."
+        },
+        {
+          "term": "réparer",
+          "meaning": "to repair",
+          "example": "Léo répare la radio-montre de Marta.",
+          "example_meaning": "Léo repairs Marta's wrist radio."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Survivre dehors",
+          "emoji": "🪛",
+          "rule": "Desert rules: il faut porter l'armure, il ne faut pas sortir dans la tempête, il vaut mieux écouter la radio-montre.",
+          "example": "Il faut porter l'armure de ferraille.",
+          "example_meaning": "You have to wear the scrap armour."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Il faut réparer la vieille radio.",
+          "meaning": "The old radio has to be repaired.",
+          "note": "New word: réparer = to repair."
+        },
+        {
+          "text": "Nous devons trouver de l'eau filtrée.",
+          "meaning": "We have to find filtered water."
+        },
+        {
+          "text": "J'ai besoin d'une armure plus légère.",
+          "meaning": "I need lighter armour.",
+          "note": "New word: l'armure = the armour."
+        },
+        {
+          "text": "Il vaut mieux rester dans l'atelier ce soir.",
+          "meaning": "It's better to stay in the workshop tonight."
+        },
+        {
+          "text": "Tu n'es pas obligé de marcher seul.",
+          "meaning": "You don't have to walk alone."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Il faut porter l'armure.",
+          "meaning": "You have to wear the armour.",
+          "distractors": [
+            "dois"
+          ]
+        },
+        {
+          "text": "Tu dois réparer la radio.",
+          "meaning": "You have to repair the radio.",
+          "distractors": [
+            "faut"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Il est interdit à boire cette eau.",
+          "wrong": "à",
+          "fix": "de",
+          "why": "Il est interdit takes de before the infinitive."
+        },
+        {
+          "sentence": "Vous doivent échanger vos écrous.",
+          "wrong": "doivent",
+          "fix": "devez",
+          "why": "With vous, devoir is vous devez."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Il faut, or j'ai besoin?",
+          "buckets": [
+            "il faut + infinitive",
+            "j'ai besoin de + noun"
+          ],
+          "items": [
+            {
+              "text": "… réparer l'antenne",
+              "bucket": 0
+            },
+            {
+              "text": "… d'eau filtrée",
+              "bucket": 1
+            },
+            {
+              "text": "… porter l'armure",
+              "bucket": 0
+            },
+            {
+              "text": "… d'écrous",
+              "bucket": 1
+            },
+            {
+              "text": "… écouter la radio",
+              "bucket": 0
+            },
+            {
+              "text": "… d'un tonique",
+              "bucket": 1
+            }
+          ],
+          "why": "Il faut is followed directly by an infinitive; avoir besoin takes de (d') before a noun."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a2-obligation-advice-rustwake-01",
+          "prompt": "Pendant une tempête de cendres, il ne ___ pas sortir du Dôme.",
+          "type": "fill-in-blank",
+          "correct_answer": "faut",
+          "accepted_answers": [],
+          "explanation": "Il ne faut pas + infinitive = you must not: il ne faut pas sortir.",
+          "hints": [
+            "il ne f… pas"
+          ],
+          "teaches": [
+            "il ne faut pas"
+          ]
+        },
+        {
+          "question_id": "a2-obligation-advice-rustwake-02",
+          "prompt": "Le contremaître Ruiz conseille : « Dehors, il ___ porter l'armure de ferraille. »",
+          "type": "multiple-choice",
+          "options": [
+            "vaut mieux",
+            "vaut meilleur",
+            "a besoin"
+          ],
+          "correct_answer": "vaut mieux",
+          "explanation": "It's better to = il vaut mieux + infinitive. Il a besoin would need de and means 'he needs'.",
+          "hints": [
+            "mieux, not meilleur."
+          ],
+          "teaches": [
+            "il vaut mieux",
+            "l'armure de ferraille"
+          ]
+        }
+      ]
+    }
+  }
+}

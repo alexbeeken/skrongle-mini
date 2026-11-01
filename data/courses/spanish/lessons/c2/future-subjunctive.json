@@ -1,0 +1,1203 @@
+{
+  "id": "c2-future-subjunctive",
+  "slug": "future-subjunctive",
+  "title": "The future subjunctive and other fossils",
+  "unit": "C2",
+  "group": "Grammar",
+  "order": 12,
+  "summary": "The future subjunctive (hablare, fuere, hubiere) and other relics of formal Spanish: where they survive, what they mean today and how to read them.",
+  "focus": "Recognising the future subjunctive and archaic formulas in legal, proverbial and literary prose",
+  "prerequisites": [
+    "c2-literary-subjunctive",
+    "b2-relative-clauses"
+  ],
+  "content": "## A future built on the preterite\n\nThe **futuro de subjuntivo** takes the stem of the preterite *ellos* form (the same stem as **hablara / hablase**) and adds **-re**: **hablaron → hablare**, **tuvieron → tuviere**.\n\n| | hablar | tener | ser / ir | haber |\n|---|---|---|---|---|\n| yo | hablare | tuviere | fuere | hubiere |\n| tú | hablares | tuvieres | fueres | hubieres |\n| él / ella / usted | hablare | tuviere | fuere | hubiere |\n| nosotros/as | habláremos | tuviéremos | fuéremos | hubiéremos |\n| vosotros/as | hablareis | tuviereis | fuereis | hubiereis |\n| ellos / ellas / ustedes | hablaren | tuvieren | fueren | hubieren |\n\nOnly **nosotros** carries a written accent, so **hablare** is not the future **hablaré**. Likewise **hacer → hiciere**, **venir → viniere**, **ver → viere**.\n\n## Where it survives\n\nEveryday Spanish dropped it centuries ago. You meet it in three places:\n\n- **Laws, contracts and rulebooks**, especially older codes still in force: *El que hiciere uso indebido del sello será sancionado.* (Anyone who misuses the seal shall be penalised.) *Si no hubiere quórum, se levantará la sesión.* (Should there be no quorum, the meeting shall be adjourned.)\n- **Proverbs and set phrases**: **adonde fueres, haz lo que vieres** (when in Rome, do as the Romans do), **sea lo que fuere** (be that as it may), **venga lo que viniere** (come what may).\n- **Deliberately archaic or mock-solemn writing**, where it sounds like a notary reading out a deed.\n\n## Reading it: the modern equivalents\n\nRecognise it, but do not produce it. To read a fossil, swap in a present form:\n\n| fossil | modern | rule |\n|---|---|---|\n| si no hubiere acuerdo | si no **hay** acuerdo | after **si**: present indicative |\n| el que hiciere trampa | el que **haga** trampa | relative clause: present subjunctive |\n| cuando llegare el plazo | cuando **llegue** el plazo | time clause: present subjunctive |\n| sea lo que fuere | sea lo que **sea** | set phrase: present subjunctive |\n| adonde fueres | adonde **vayas** | present subjunctive |\n\nIn a work e-mail, **si tuviere alguna duda** sounds like a deed from another century: write **si tiene alguna duda**.\n\n## Other fossils of formal prose\n\n- **Pronouns stuck to a finite verb**: **díjole** = *le dijo*; **érase una vez** = *había una vez* (once upon a time); **hízose el silencio** = *se hizo el silencio*. Today: fairy tales, parody, very literary prose.\n- **so pena de** (on pain of; *so* is the old word for *bajo*): *so pena de multa*.\n- **a la sazón** (at that time): *el ministro, a la sazón embajador en Lima, …*\n- **otrora** (formerly, once): *la otrora próspera ciudad*.\n- **el susodicho / la susodicha** (the aforementioned): legal, but often ironic in speech: *Y entonces apareció la susodicha.*",
+  "vocabulary": [
+    {
+      "term": "hablare",
+      "meaning": "future subjunctive of hablar (legal, archaic; today hable)",
+      "example": "El testigo que hablare sin permiso será amonestado.",
+      "example_meaning": "Any witness who speaks without permission shall be warned."
+    },
+    {
+      "term": "fuere",
+      "meaning": "future subjunctive of ser / ir (today sea / vaya)",
+      "example": "Si el acusado fuere menor de edad, se aplicará la ley especial.",
+      "example_meaning": "Should the accused be a minor, the special law shall apply."
+    },
+    {
+      "term": "hubiere",
+      "meaning": "future subjunctive of haber (today haya / hay)",
+      "example": "Si no hubiere herederos, los bienes pasarán al Estado.",
+      "example_meaning": "Should there be no heirs, the property shall pass to the State."
+    },
+    {
+      "term": "hiciere",
+      "meaning": "future subjunctive of hacer (today haga)",
+      "example": "El que hiciere trampa perderá la fianza.",
+      "example_meaning": "Whoever cheats shall forfeit the deposit."
+    },
+    {
+      "term": "tuviere",
+      "meaning": "future subjunctive of tener (today tenga)",
+      "example": "Quien tuviere noticia del hecho deberá comunicarlo.",
+      "example_meaning": "Anyone who has knowledge of the event must report it."
+    },
+    {
+      "term": "sea lo que fuere",
+      "meaning": "be that as it may, whatever it is (today sea lo que sea)",
+      "example": "Sea lo que fuere, el contrato ya está firmado.",
+      "example_meaning": "Be that as it may, the contract is already signed."
+    },
+    {
+      "term": "venga lo que viniere",
+      "meaning": "come what may (today venga lo que venga)",
+      "example": "Venga lo que viniere, el lunes abrimos la librería.",
+      "example_meaning": "Come what may, we open the bookshop on Monday."
+    },
+    {
+      "term": "adonde fueres, haz lo que vieres",
+      "meaning": "when in Rome, do as the Romans do (lit. wherever you go, do what you see)",
+      "example": "Aquí se cena a las diez: adonde fueres, haz lo que vieres.",
+      "example_meaning": "Here people have dinner at ten: when in Rome, do as the Romans do."
+    },
+    {
+      "term": "díjole",
+      "meaning": "he / she said to him / her (literary; today le dijo)",
+      "example": "Díjole el notario que volviera al día siguiente.",
+      "example_meaning": "The notary told him to come back the next day."
+    },
+    {
+      "term": "érase una vez",
+      "meaning": "once upon a time (érase = se era, there was)",
+      "example": "Érase una vez un archivero que no tiraba ningún papel.",
+      "example_meaning": "Once upon a time there was an archivist who never threw a single paper away."
+    },
+    {
+      "term": "so pena de",
+      "meaning": "on pain of, under penalty of",
+      "example": "Deberá abonar la cuota antes del día quince, so pena de recargo.",
+      "example_meaning": "You must pay the fee before the fifteenth, on pain of a surcharge."
+    },
+    {
+      "term": "a la sazón",
+      "meaning": "at that time, then (formal)",
+      "example": "El alcalde, a la sazón notario del pueblo, firmó el acta.",
+      "example_meaning": "The mayor, at that time the town notary, signed the record."
+    },
+    {
+      "term": "otrora",
+      "meaning": "formerly, once (literary)",
+      "example": "La otrora próspera fábrica es hoy un museo.",
+      "example_meaning": "The once-prosperous factory is now a museum."
+    },
+    {
+      "term": "el susodicho / la susodicha",
+      "meaning": "the aforementioned (legal; often ironic in speech)",
+      "example": "El susodicho no se presentó a la vista.",
+      "example_meaning": "The aforementioned did not appear at the hearing."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "c2-future-subjunctive-01",
+      "prompt": "Old statute: «El que ___ uso indebido del sello oficial será sancionado.» Which future subjunctive fits?",
+      "type": "multiple-choice",
+      "options": [
+        "hiciere",
+        "hiciera",
+        "haría"
+      ],
+      "correct_answer": "hiciere",
+      "explanation": "Legal texts use the future subjunctive for any case the law foresees: hicieron → hiciere. Hiciera is imperfect subjunctive and haría is conditional; neither fits a rule about the future.",
+      "hints": [
+        "Take the preterite ellos form, remove -ron and add -re."
+      ],
+      "teaches": [
+        "hiciere"
+      ]
+    },
+    {
+      "question_id": "c2-future-subjunctive-02",
+      "prompt": "Modern Spanish for «Si no hubiere quórum, se aplaza la sesión»: Si no ___ quórum, se aplaza la sesión.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "hay",
+      "accepted_answers": [],
+      "explanation": "After si, the future subjunctive becomes a present indicative: si no hay quórum. Modern Spanish never uses si with the present subjunctive.",
+      "hints": [
+        "After si, which mood does modern Spanish use?",
+        "Si no hubiere → si no ___."
+      ],
+      "teaches": [
+        "hubiere"
+      ]
+    },
+    {
+      "question_id": "c2-future-subjunctive-03",
+      "prompt": "Complete the set phrase with its fossil form: Sea lo que ___, firmaremos mañana.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "fuere",
+      "accepted_answers": [],
+      "explanation": "The fixed phrase is sea lo que fuere (be that as it may), with the future subjunctive of ser; today people also say sea lo que sea.",
+      "hints": [
+        "Future subjunctive of ser.",
+        "Start from the ellos preterite of ser and swap -ron for -re."
+      ],
+      "teaches": [
+        "sea lo que fuere",
+        "fuere"
+      ]
+    },
+    {
+      "question_id": "c2-future-subjunctive-04",
+      "prompt": "Which stem is the future subjunctive built on?",
+      "type": "multiple-choice",
+      "options": [
+        "the preterite ellos form (hablaron, tuvieron)",
+        "the infinitive (hablar-, tener-)",
+        "the present yo form (hablo, tengo)"
+      ],
+      "correct_answer": "the preterite ellos form (hablaron, tuvieron)",
+      "explanation": "Like hablara and hablase, it takes the preterite ellos stem: hablaron → hablare, tuvieron → tuviere. The ordinary future (hablaré) is built on the infinitive instead.",
+      "hints": [
+        "It shares its stem with hablara / hablase."
+      ],
+      "teaches": [
+        "hablare",
+        "tuviere"
+      ]
+    },
+    {
+      "question_id": "c2-future-subjunctive-05",
+      "prompt": "Rewrite in modern word order: «Díjole el juez que callase.» → ___ dijo el juez que callase.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "le",
+      "accepted_answers": [],
+      "explanation": "A pronoun stuck to a finite verb (díjole) is a fossil of literary prose; today it goes in front: le dijo.",
+      "hints": [
+        "Move the pronoun in front of the verb."
+      ],
+      "teaches": [
+        "díjole"
+      ]
+    },
+    {
+      "question_id": "c2-future-subjunctive-06",
+      "prompt": "Complete the proverb: Adonde fueres, haz lo que ___.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "vieres",
+      "accepted_answers": [],
+      "explanation": "Both halves are future subjunctive: fueres (from fueron) and vieres (from vieron). Modern sense: adonde vayas, haz lo que veas.",
+      "hints": [
+        "Future subjunctive of ver, tú form.",
+        "Start from the ellos preterite of ver: -ron becomes -res."
+      ],
+      "teaches": [
+        "adonde fueres, haz lo que vieres"
+      ]
+    },
+    {
+      "question_id": "c2-future-subjunctive-07",
+      "prompt": "«Deberá presentar el recibo antes del viernes, so pena de perder la plaza.» So pena de means…",
+      "type": "multiple-choice",
+      "options": [
+        "on pain of",
+        "in spite of",
+        "instead of"
+      ],
+      "correct_answer": "on pain of",
+      "explanation": "So is the old preposition bajo (under): so pena de = under penalty of. Missing the deadline costs you the place.",
+      "hints": [
+        "So = bajo, under."
+      ],
+      "teaches": [
+        "so pena de"
+      ]
+    },
+    {
+      "question_id": "c2-future-subjunctive-08",
+      "prompt": "«El ministro, a la sazón embajador en Lima, firmó el tratado.» A la sazón tells you that he was ambassador…",
+      "type": "multiple-choice",
+      "options": [
+        "at that time",
+        "for many years",
+        "by chance"
+      ],
+      "correct_answer": "at that time",
+      "explanation": "A la sazón = entonces, en aquel momento: he was ambassador when he signed.",
+      "hints": [
+        "It places the fact in time."
+      ],
+      "teaches": [
+        "a la sazón"
+      ]
+    },
+    {
+      "question_id": "c2-future-subjunctive-09",
+      "prompt": "In a modern work e-mail, «Si tuviere alguna duda, llámeme» is the natural choice.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "The future subjunctive is for recognising, not producing. Today you write si tiene alguna duda; tuviere would sound like an old deed.",
+      "hints": [
+        "Recognise it; do not produce it."
+      ],
+      "teaches": [
+        "tuviere"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Sea lo que fuere, cenamos aquí.",
+      "meaning": "Be that as it may, we're having dinner here.",
+      "note": "Sea lo que fuere = sea lo que sea."
+    },
+    {
+      "text": "La otrora famosa posada está cerrada.",
+      "meaning": "The once-famous inn is closed.",
+      "note": "New word: la posada = the inn."
+    },
+    {
+      "text": "Venga lo que viniere, no pienso rendirme.",
+      "meaning": "Come what may, I don't intend to give up."
+    },
+    {
+      "text": "Díjole el capitán que no volviera sin noticias.",
+      "meaning": "The captain told him not to come back without news.",
+      "note": "Díjole = le dijo."
+    },
+    {
+      "text": "Mi abuela, a la sazón maestra, vivía en Toledo.",
+      "meaning": "My grandmother, a teacher at the time, lived in Toledo."
+    },
+    {
+      "text": "El reglamento prohíbe fumar en el patio, so pena de multa.",
+      "meaning": "The rules forbid smoking in the courtyard, on pain of a fine.",
+      "note": "New word: la multa = the fine."
+    },
+    {
+      "text": "Si el inquilino no pagare la renta, el contrato quedará anulado.",
+      "meaning": "Should the tenant fail to pay the rent, the contract shall be void.",
+      "note": "Pagare without an accent is future subjunctive: read it as paga."
+    },
+    {
+      "text": "Según la ley antigua, el que hallare un tesoro deberá avisar al ayuntamiento.",
+      "meaning": "Under the old law, whoever finds a treasure must inform the town hall.",
+      "note": "New word: hallar = to find."
+    }
+  ],
+  "guide": [
+    {
+      "section": "A future built on the preterite"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "c2-future-subjunctive-04"
+    },
+    {
+      "question": "c2-future-subjunctive-01"
+    },
+    {
+      "section": "Where it survives"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "c2-future-subjunctive-03"
+    },
+    {
+      "question": "c2-future-subjunctive-06"
+    },
+    {
+      "section": "Reading it"
+    },
+    {
+      "question": "c2-future-subjunctive-02"
+    },
+    {
+      "question": "c2-future-subjunctive-09"
+    },
+    {
+      "tip": "If you meet a -re form you do not know, read it as a present: after si, the indicative (si hubiere → si hay); anywhere else, the subjunctive (el que hiciere → el que haga)."
+    },
+    {
+      "section": "Other fossils"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "c2-future-subjunctive-05"
+    },
+    {
+      "question": "c2-future-subjunctive-07"
+    },
+    {
+      "question": "c2-future-subjunctive-08"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "c2-future-subjunctive-conv-old-deed",
+      "title": "An old deed",
+      "scenario": "Tomás has inherited his great-grandparents' house; his lawyer, Inés, reads him the deed of sale from nineteen twenty-eight.",
+      "role_a": "Inés",
+      "role_b": "Tomás",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Esta escritura de mil novecientos veintiocho está llena de fósiles gramaticales.",
+          "meaning": "This deed from nineteen twenty-eight is full of grammatical fossils."
+        },
+        {
+          "speaker": "b",
+          "text": "Ya lo veo. ¿Qué quiere decir «si el comprador no pagare en plazo»?",
+          "meaning": "So I see. What does 'si el comprador no pagare en plazo' mean?"
+        },
+        {
+          "speaker": "a",
+          "text": "Pagare, sin tilde, es futuro de subjuntivo. Hoy diríamos: si el comprador no paga a tiempo.",
+          "meaning": "Pagare, without an accent, is future subjunctive. Today we'd say: if the buyer doesn't pay on time.",
+          "note": "after si: present indicative"
+        },
+        {
+          "speaker": "b",
+          "text": "¿Y lo de «so pena de perder la finca»?",
+          "meaning": "And the bit about 'so pena de perder la finca'?"
+        },
+        {
+          "speaker": "a",
+          "text": "Significa que, si no pagaba, perdería la finca. So es el antiguo bajo.",
+          "meaning": "It means that if he didn't pay, he would lose the property. So is the old word for bajo."
+        },
+        {
+          "speaker": "b",
+          "text": "Aquí pone que el vendedor, a la sazón alcalde, firmó como testigo.",
+          "meaning": "It says here that the seller, at that time mayor, signed as a witness."
+        },
+        {
+          "speaker": "a",
+          "text": "A la sazón es entonces: cuando se firmó, él era el alcalde.",
+          "meaning": "A la sazón means then: when it was signed, he was the mayor."
+        },
+        {
+          "speaker": "b",
+          "text": "¿Y quién es ese susodicho que aparece en cada párrafo?",
+          "meaning": "And who is this 'aforementioned' who turns up in every paragraph?"
+        },
+        {
+          "speaker": "a",
+          "text": "El propio comprador. Hoy pondríamos el citado comprador, o simplemente su nombre.",
+          "meaning": "The buyer himself. Today we'd write the said buyer, or simply his name."
+        },
+        {
+          "speaker": "b",
+          "text": "Pues sea lo que fuere, la casa es de mi familia desde entonces.",
+          "meaning": "Well, be that as it may, the house has belonged to my family ever since.",
+          "note": "sea lo que fuere = sea lo que sea"
+        },
+        {
+          "speaker": "a",
+          "text": "Exacto. Y tranquilo: nadie le pedirá que escriba así; basta con saber leerlo.",
+          "meaning": "Exactly. And don't worry: no one will ask you to write like that; it's enough to be able to read it."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "📜",
+    "bites": [
+      {
+        "title": "Built on the preterite",
+        "emoji": "🔨",
+        "rule": "Take the preterite ellos form, drop -ron, add -re: hablaron → hablare, tuvieron → tuviere, fueron → fuere. Only nosotros has a written accent: habláremos.",
+        "example": "Si el inquilino no pagare, se rescindirá el contrato.",
+        "example_meaning": "Should the tenant fail to pay, the contract shall be terminated."
+      },
+      {
+        "title": "Read it, don't write it",
+        "emoji": "📜",
+        "rule": "It lives in old laws, contracts and proverbs. Read it as a present: after si use the indicative (si hubiere → si hay); elsewhere use the subjunctive (el que hiciere → el que haga).",
+        "example": "Quien tuviere dudas → quien tenga dudas.",
+        "example_meaning": "Whoever has doubts."
+      },
+      {
+        "title": "Other fossils",
+        "emoji": "🦴",
+        "rule": "Formal prose keeps other relics: pronouns stuck to the verb (díjole, érase), so pena de (on pain of), a la sazón (at that time), otrora (formerly), el susodicho.",
+        "example": "La otrora bulliciosa plaza dormía.",
+        "example_meaning": "The once-bustling square lay asleep."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Fossil or modern?",
+        "buckets": [
+          "future subjunctive (fossil)",
+          "modern form"
+        ],
+        "items": [
+          {
+            "text": "hubiere",
+            "bucket": 0
+          },
+          {
+            "text": "haya",
+            "bucket": 1
+          },
+          {
+            "text": "fuere",
+            "bucket": 0
+          },
+          {
+            "text": "sea",
+            "bucket": 1
+          },
+          {
+            "text": "tuviere",
+            "bucket": 0
+          },
+          {
+            "text": "tenga",
+            "bucket": 1
+          },
+          {
+            "text": "viniere",
+            "bucket": 0
+          },
+          {
+            "text": "venga",
+            "bucket": 1
+          }
+        ],
+        "why": "The fossil ends in -re on the preterite stem (hubie-, fue-, tuvie-, vinie-); the modern form is the present subjunctive."
+      },
+      {
+        "title": "Which modern equivalent?",
+        "buckets": [
+          "present indicative",
+          "present subjunctive"
+        ],
+        "items": [
+          {
+            "text": "si no hubiere acuerdo",
+            "bucket": 0
+          },
+          {
+            "text": "el que hiciere trampa",
+            "bucket": 1
+          },
+          {
+            "text": "si el deudor no pagare",
+            "bucket": 0
+          },
+          {
+            "text": "quien tuviere noticia",
+            "bucket": 1
+          },
+          {
+            "text": "sea lo que fuere",
+            "bucket": 1
+          },
+          {
+            "text": "si fuere necesario",
+            "bucket": 0
+          }
+        ],
+        "why": "After si, the fossil becomes a present indicative (si no hay, si no paga, si es necesario); in relative clauses and set phrases, a present subjunctive (el que haga, quien tenga, sea lo que sea)."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Adonde fueres, haz lo que vieras.",
+        "wrong": "vieras",
+        "fix": "vieres",
+        "why": "Both halves of the proverb are future subjunctive: fueres… vieres."
+      },
+      {
+        "sentence": "Si no haya acuerdo, decidirá el juez.",
+        "wrong": "haya",
+        "fix": "hay",
+        "why": "Modern si takes the present indicative, never the present subjunctive: si no hay acuerdo."
+      },
+      {
+        "sentence": "El testigo que hablaren sin permiso será amonestado.",
+        "wrong": "hablaren",
+        "fix": "hablare",
+        "why": "One witness, so the singular: el testigo que hablare."
+      },
+      {
+        "sentence": "Deberá pagar antes del lunes, so pena por recargo.",
+        "wrong": "por",
+        "fix": "de",
+        "why": "The formula is so pena de: under penalty of."
+      },
+      {
+        "sentence": "Si el comprador no pagaré en plazo, perderá la finca.",
+        "wrong": "pagaré",
+        "fix": "pagare",
+        "why": "The future subjunctive has no written accent; pagaré is the ordinary future (and a promissory note)."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Sea lo que fuere, firmaremos.",
+        "meaning": "Be that as it may, we will sign.",
+        "distractors": [
+          "será"
+        ]
+      },
+      {
+        "text": "Venga lo que viniere, seguiremos adelante.",
+        "meaning": "Come what may, we will carry on.",
+        "distractors": [
+          "vendrá"
+        ]
+      },
+      {
+        "text": "Díjole el notario que esperase.",
+        "meaning": "The notary told him to wait.",
+        "distractors": [
+          "dijo"
+        ]
+      },
+      {
+        "text": "Si no hubiere acuerdo, decidirá el juez.",
+        "meaning": "Should there be no agreement, the judge shall decide.",
+        "distractors": [
+          "habrá"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🦴",
+      "content": "## Fueros antiguos en Eldmark\n\nThe old charters of Highgate still speak in fossils: **el que hallare la espada la devolverá al rey**; **si el dragón despertare, sonarán las campanas**. Chroniclers like **díjole el enano**, **so pena de destierro** and **la otrora gloriosa Deepanvil**. Read each **-re** as a present: **el que halle**, **si despierta**.",
+      "vocabulary": [
+        {
+          "term": "fuere",
+          "example": "Fuere orco o elfa, el viajero paga peaje en Highgate.",
+          "example_meaning": "Be they orc or elf, the traveller pays a toll in Highgate."
+        },
+        {
+          "term": "hubiere",
+          "example": "Si hubiere dragón en la mazmorra, huid.",
+          "example_meaning": "Should there be a dragon in the dungeon, flee."
+        },
+        {
+          "term": "díjole",
+          "example": "Díjole la maga al paladín que guardara silencio.",
+          "example_meaning": "The mage told the paladin to keep quiet."
+        },
+        {
+          "term": "so pena de",
+          "example": "Nadie entra en el Bosque Umbrío de noche, so pena de destierro.",
+          "example_meaning": "No one enters the Bosque Umbrío at night, on pain of exile."
+        },
+        {
+          "term": "otrora",
+          "example": "La otrora orgullosa Deepanvil es hoy una mina vacía.",
+          "example_meaning": "The once-proud Deepanvil is now an empty mine."
+        },
+        {
+          "term": "el susodicho / la susodicha",
+          "example": "El susodicho minotauro no pagó la cerveza.",
+          "example_meaning": "The aforementioned minotaur did not pay for his beer."
+        },
+        {
+          "term": "el fuero",
+          "meaning": "charter, a town's ancient code of law",
+          "example": "El fuero de Highgate data de tiempos remotos.",
+          "example_meaning": "Highgate's charter dates from ancient times."
+        },
+        {
+          "term": "el destierro",
+          "meaning": "exile, banishment",
+          "example": "El destierro del cazador duró siete inviernos.",
+          "example_meaning": "The hunter's exile lasted seven winters."
+        },
+        {
+          "term": "el cronista / la cronista",
+          "meaning": "chronicler",
+          "example": "La cronista anota cada batalla con letra diminuta.",
+          "example_meaning": "The chronicler records every battle in tiny handwriting."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Leyes de Highgate",
+          "emoji": "📜",
+          "rule": "Eldmark's charters use the future subjunctive for every case the law foresees: el que robare, si el rey muriere. Read it as a present: el que robe, si muere.",
+          "example": "Si el rey muriere sin heredero, reinará su hermana.",
+          "example_meaning": "Should the king die without an heir, his sister shall reign."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Díjole el enano que siguiera.",
+          "meaning": "The dwarf told him to carry on."
+        },
+        {
+          "text": "La otrora gloriosa Deepanvil duerme.",
+          "meaning": "Once-glorious Deepanvil sleeps."
+        },
+        {
+          "text": "So pena de destierro, nadie cruza el puente.",
+          "meaning": "On pain of exile, no one crosses the bridge.",
+          "note": "New word: el destierro = exile."
+        },
+        {
+          "text": "El que hallare la corona la devolverá.",
+          "meaning": "Whoever finds the crown shall return it.",
+          "note": "Hallare reads as halle."
+        },
+        {
+          "text": "La cronista escribió: sea lo que fuere, vencimos.",
+          "meaning": "The chronicler wrote: be that as it may, we won.",
+          "note": "New word: la cronista = the chronicler."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Venga lo que viniere, el paladín resiste.",
+          "meaning": "Come what may, the paladin holds firm.",
+          "distractors": [
+            "vendrá"
+          ]
+        },
+        {
+          "text": "Díjole la elfa que callara.",
+          "meaning": "The elf told him to be quiet.",
+          "distractors": [
+            "le"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "El guerrero que robaren el botín será desterrado.",
+          "wrong": "robaren",
+          "fix": "robare",
+          "why": "One warrior, so the singular: el guerrero que robare."
+        },
+        {
+          "sentence": "Si el dragón despertaré, sonarán las campanas.",
+          "wrong": "despertaré",
+          "fix": "despertare",
+          "why": "The future subjunctive has no written accent: despertare, not the future despertaré."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Fossil or modern in the chronicle?",
+          "buckets": [
+            "fossil",
+            "modern"
+          ],
+          "items": [
+            {
+              "text": "díjole",
+              "bucket": 0
+            },
+            {
+              "text": "le dijo",
+              "bucket": 1
+            },
+            {
+              "text": "si hubiere dragón",
+              "bucket": 0
+            },
+            {
+              "text": "si hay dragón",
+              "bucket": 1
+            },
+            {
+              "text": "la otrora gloriosa ciudad",
+              "bucket": 0
+            },
+            {
+              "text": "la ciudad, antes gloriosa",
+              "bucket": 1
+            }
+          ],
+          "why": "Enclitics on finite verbs, the future subjunctive and otrora belong to old chronicles; the modern versions put the pronoun first, use the present and say antes."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "c2-future-subjunctive-realm-01",
+          "prompt": "Highgate charter: «Si hubiere dragón en la mazmorra, huid.» In modern Spanish: Si ___ dragón en la mazmorra, huid.",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "hay",
+          "accepted_answers": [],
+          "explanation": "After si, the future subjunctive becomes a present indicative: si hay dragón.",
+          "hints": [
+            "After si, modern Spanish uses the present indicative."
+          ],
+          "teaches": [
+            "hubiere"
+          ]
+        },
+        {
+          "question_id": "c2-future-subjunctive-realm-02",
+          "prompt": "«Nadie entra en el Bosque Umbrío de noche, so pena de destierro.» So pena de destierro means…",
+          "type": "multiple-choice",
+          "options": [
+            "on pain of exile",
+            "in spite of exile",
+            "after the exile"
+          ],
+          "correct_answer": "on pain of exile",
+          "explanation": "So pena de = bajo pena de. Break the rule and you are banished.",
+          "hints": [
+            "So = bajo."
+          ],
+          "teaches": [
+            "so pena de",
+            "el destierro"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🐚",
+      "content": "## Refranes en Meadowbrook\n\nThe Meadowbrook almanac is full of old sayings: **el que plantare en invierno, cosechará poco**. The town bylaws still say **si la cosecha se perdiere, el alcalde perdonará el impuesto**. Rosa reads them aloud and translates on the spot: **si se pierde**. Nora shrugs and plants anyway: **venga lo que viniere**.",
+      "vocabulary": [
+        {
+          "term": "venga lo que viniere",
+          "example": "Venga lo que viniere, mañana plantamos maíz.",
+          "example_meaning": "Come what may, tomorrow we plant corn."
+        },
+        {
+          "term": "hubiere",
+          "example": "Si hubiere helada, se taparán las fresas.",
+          "example_meaning": "Should there be a frost, the strawberries shall be covered."
+        },
+        {
+          "term": "sea lo que fuere",
+          "example": "Sea lo que fuere, la calabaza de Nora ganó el concurso.",
+          "example_meaning": "Be that as it may, Nora's pumpkin won the contest."
+        },
+        {
+          "term": "a la sazón",
+          "example": "Leo, a la sazón aprendiz de pescador, encontró el almanaque en el río.",
+          "example_meaning": "Leo, at that time an apprentice fisherman, found the almanac in the river."
+        },
+        {
+          "term": "otrora",
+          "example": "La mina, otrora tranquila, está llena de visitantes.",
+          "example_meaning": "The mine, once quiet, is full of visitors."
+        },
+        {
+          "term": "el susodicho / la susodicha",
+          "example": "La susodicha vaca se comió las fresas del alcalde.",
+          "example_meaning": "The aforementioned cow ate the mayor's strawberries."
+        },
+        {
+          "term": "el almanaque",
+          "meaning": "almanac",
+          "example": "El almanaque predice lluvia para la fiesta de otoño.",
+          "example_meaning": "The almanac predicts rain for the autumn festival."
+        },
+        {
+          "term": "el refrán",
+          "meaning": "proverb, saying",
+          "example": "Cada página del almanaque trae un refrán.",
+          "example_meaning": "Every page of the almanac carries a saying."
+        },
+        {
+          "term": "la helada",
+          "meaning": "frost",
+          "example": "La helada llegó antes de tiempo.",
+          "example_meaning": "The frost came early."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Refranes del almanaque",
+          "emoji": "🌾",
+          "rule": "Old sayings keep the future subjunctive: el que plantare… cosechará. Read the -re form as a present: el que plante. You meet it in the almanac, rarely at Rosa's counter.",
+          "example": "El que madrugare, cosechará primero.",
+          "example_meaning": "Whoever rises early shall harvest first."
+        }
+      ],
+      "listening": [
+        {
+          "text": "El almanaque no miente.",
+          "meaning": "The almanac doesn't lie.",
+          "note": "New word: el almanaque = the almanac."
+        },
+        {
+          "text": "Si hubiere helada, tapad las fresas.",
+          "meaning": "Should there be a frost, cover the strawberries.",
+          "note": "New word: la helada = frost."
+        },
+        {
+          "text": "La susodicha gallina volvió a escaparse.",
+          "meaning": "The aforementioned hen got out again."
+        },
+        {
+          "text": "El que cosechare tarde venderá barato.",
+          "meaning": "Whoever harvests late shall sell cheap.",
+          "note": "Cosechare reads as coseche."
+        },
+        {
+          "text": "Leo, a la sazón pescador, vivía junto al río.",
+          "meaning": "Leo, a fisherman at the time, lived by the river."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Sea lo que fuere, la vaca ganó.",
+          "meaning": "Be that as it may, the cow won.",
+          "distractors": [
+            "será"
+          ]
+        },
+        {
+          "text": "Díjole el alcalde a Nora que esperase.",
+          "meaning": "The mayor told Nora to wait.",
+          "distractors": [
+            "dijo"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Si la cosecha se perdieré, el alcalde perdonará el impuesto.",
+          "wrong": "perdieré",
+          "fix": "perdiere",
+          "why": "The future subjunctive has no written accent: perdiere."
+        },
+        {
+          "sentence": "El que plantaren en invierno cosechará poco.",
+          "wrong": "plantaren",
+          "fix": "plantare",
+          "why": "El que is singular, so plantare."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Almanac or shop counter?",
+          "buckets": [
+            "future subjunctive",
+            "modern present"
+          ],
+          "items": [
+            {
+              "text": "plantare",
+              "bucket": 0
+            },
+            {
+              "text": "plante",
+              "bucket": 1
+            },
+            {
+              "text": "cosechare",
+              "bucket": 0
+            },
+            {
+              "text": "coseche",
+              "bucket": 1
+            },
+            {
+              "text": "hubiere",
+              "bucket": 0
+            },
+            {
+              "text": "haya",
+              "bucket": 1
+            }
+          ],
+          "why": "The almanac's -re forms sit on the preterite stem; at Rosa's counter people use the present subjunctive."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "c2-future-subjunctive-meadowbrook-01",
+          "prompt": "«Leo, a la sazón pescador, vivía junto al río.» This tells you that Leo…",
+          "type": "multiple-choice",
+          "options": [
+            "was a fisherman at that time",
+            "fished only in season",
+            "became a fisherman later"
+          ],
+          "correct_answer": "was a fisherman at that time",
+          "explanation": "A la sazón means then, at that time, whatever sazón (season, seasoning) suggests in the kitchen.",
+          "hints": [
+            "It places the fact in time."
+          ],
+          "teaches": [
+            "a la sazón"
+          ]
+        },
+        {
+          "question_id": "c2-future-subjunctive-meadowbrook-02",
+          "prompt": "Modern version of the almanac's refrán: «El que cosechare tarde venderá barato» → El que ___ tarde venderá barato.",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "coseche",
+          "accepted_answers": [],
+          "explanation": "In a relative clause the fossil becomes a present subjunctive: el que coseche.",
+          "hints": [
+            "A relative clause takes the present subjunctive.",
+            "-ar verbs take the opposite vowel, e, in the subjunctive."
+          ],
+          "teaches": [
+            "el refrán"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "c2-future-subjunctive-conv-meadowbrook-bylaws",
+          "title": "The old bylaws",
+          "scenario": "Nora brings the town's old bylaws to Rosa's seed shop and asks for a translation.",
+          "role_a": "Nora",
+          "role_b": "Rosa",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Rosa, ¿qué significa esto del reglamento: si la cosecha se perdiere?",
+              "meaning": "Rosa, what does this bit of the bylaws mean: si la cosecha se perdiere?"
+            },
+            {
+              "speaker": "b",
+              "text": "Es futuro de subjuntivo. Hoy diríamos: si se pierde la cosecha.",
+              "meaning": "It's future subjunctive. Today we'd say: if the harvest is lost."
+            },
+            {
+              "speaker": "a",
+              "text": "¿Y entonces el alcalde perdona el impuesto?",
+              "meaning": "And then the mayor waives the tax?"
+            },
+            {
+              "speaker": "b",
+              "text": "Eso dice. Aunque el susodicho alcalde no ha leído el reglamento en su vida.",
+              "meaning": "So it says. Although the aforementioned mayor has never read the bylaws in his life."
+            },
+            {
+              "speaker": "a",
+              "text": "Aquí pone también: el que vendiere fresas sin permiso pagará una multa.",
+              "meaning": "It also says here: whoever sells strawberries without a permit shall pay a fine."
+            },
+            {
+              "speaker": "b",
+              "text": "O sea, el que venda fresas sin permiso. Tú lo tienes, tranquila.",
+              "meaning": "In other words, whoever sells strawberries without a permit. You've got one, don't worry."
+            },
+            {
+              "speaker": "a",
+              "text": "Menos mal. Sea lo que fuere, este año pienso plantar el doble.",
+              "meaning": "Thank goodness. Be that as it may, this year I'm planning to plant twice as much."
+            },
+            {
+              "speaker": "b",
+              "text": "Pues venga lo que viniere, aquí tendrás semillas.",
+              "meaning": "Well, come what may, you'll have seeds here."
+            }
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🦴",
+      "content": "## Bandos en el páramo\n\nThe Dome's old rulebook, read out on Radio Páramo, sounds like a notary: **el que saliere de la cúpula sin permiso perderá sus tuercas**; **si hubiere tormenta de ceniza, nadie abrirá la puerta**. The capataz Ruiz translates: **el que salga**, **si hay tormenta**. Old-timers still say **otrora** for the days before the Dome.",
+      "vocabulary": [
+        {
+          "term": "hubiere",
+          "example": "Si hubiere radiación, beba un tónico.",
+          "example_meaning": "Should there be radiation, drink a tonic."
+        },
+        {
+          "term": "tuviere",
+          "example": "Quien tuviere agua filtrada deberá compartirla.",
+          "example_meaning": "Whoever has filtered water must share it."
+        },
+        {
+          "term": "so pena de",
+          "example": "Prohibido tocar la antena, so pena de multa.",
+          "example_meaning": "Touching the antenna is forbidden, on pain of a fine."
+        },
+        {
+          "term": "otrora",
+          "example": "El otrora brillante centro comercial está en ruinas.",
+          "example_meaning": "The once-gleaming shopping centre lies in ruins."
+        },
+        {
+          "term": "el susodicho / la susodicha",
+          "example": "El susodicho escarabajo gigante volvió al taller.",
+          "example_meaning": "The aforementioned giant beetle came back to the workshop."
+        },
+        {
+          "term": "venga lo que viniere",
+          "example": "Venga lo que viniere, la radio sigue emitiendo.",
+          "example_meaning": "Come what may, the radio stays on the air."
+        },
+        {
+          "term": "el bando",
+          "meaning": "public notice, proclamation",
+          "example": "El capataz leyó el bando por la radio.",
+          "example_meaning": "The foreman read the proclamation over the radio."
+        },
+        {
+          "term": "el reglamento",
+          "meaning": "rulebook, regulations",
+          "example": "El reglamento de la cúpula tiene cien páginas.",
+          "example_meaning": "The Dome's rulebook runs to a hundred pages."
+        },
+        {
+          "term": "la multa",
+          "meaning": "fine (penalty)",
+          "example": "La multa es de cien tuercas.",
+          "example_meaning": "The fine is a hundred nuts."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Bandos de la cúpula",
+          "emoji": "📻",
+          "rule": "The Dome's rulebook is written like an old law: el que saliere, si hubiere. Read each -re form as a present: el que salga, si hay.",
+          "example": "El que reparare la antena recibirá diez tuercas.",
+          "example_meaning": "Whoever repairs the antenna shall receive ten nuts."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Venga lo que viniere, seguimos emitiendo.",
+          "meaning": "Come what may, we stay on the air."
+        },
+        {
+          "text": "Si hubiere polvo, cerrad las ventanas.",
+          "meaning": "Should there be dust, shut the windows.",
+          "note": "Si hubiere reads as si hay."
+        },
+        {
+          "text": "El bando prohíbe salir de noche.",
+          "meaning": "The proclamation forbids going out at night.",
+          "note": "New word: el bando = public notice."
+        },
+        {
+          "text": "La otrora brillante gasolinera es hoy un mercado.",
+          "meaning": "The once-gleaming petrol station is now a market."
+        },
+        {
+          "text": "El que hallare un disco lo traerá al taller.",
+          "meaning": "Whoever finds a disc shall bring it to the workshop.",
+          "note": "Hallare reads as halle."
+        }
+      ],
+      "builds": [
+        {
+          "text": "El que saliere perderá sus tuercas.",
+          "meaning": "Whoever goes out shall lose their nuts.",
+          "distractors": [
+            "saldrá"
+          ]
+        },
+        {
+          "text": "Si hubiere tormenta, nadie sale.",
+          "meaning": "Should there be a storm, nobody goes out.",
+          "distractors": [
+            "habrá"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "El buscador que salieren sin permiso perderá sus tuercas.",
+          "wrong": "salieren",
+          "fix": "saliere",
+          "why": "One scavenger, so the singular: el buscador que saliere."
+        },
+        {
+          "sentence": "Prohibido tocar la antena, so pena en multa.",
+          "wrong": "en",
+          "fix": "de",
+          "why": "The formula is so pena de."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Rulebook or radio chat?",
+          "buckets": [
+            "fossil",
+            "modern"
+          ],
+          "items": [
+            {
+              "text": "el que saliere",
+              "bucket": 0
+            },
+            {
+              "text": "el que salga",
+              "bucket": 1
+            },
+            {
+              "text": "si hubiere polvo",
+              "bucket": 0
+            },
+            {
+              "text": "si hay polvo",
+              "bucket": 1
+            },
+            {
+              "text": "otrora",
+              "bucket": 0
+            },
+            {
+              "text": "antes",
+              "bucket": 1
+            }
+          ],
+          "why": "The rulebook keeps the future subjunctive and otrora; on the radio people say el que salga, si hay and antes."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "c2-future-subjunctive-rustwake-01",
+          "prompt": "Radio bulletin: «Quien tuviere agua filtrada deberá compartirla.» The modern version is…",
+          "type": "multiple-choice",
+          "options": [
+            "Quien tenga agua filtrada deberá compartirla.",
+            "Quien tendrá agua filtrada deberá compartirla.",
+            "Quien tuviera agua filtrada deberá compartirla."
+          ],
+          "correct_answer": "Quien tenga agua filtrada deberá compartirla.",
+          "explanation": "In a relative clause about the future, the fossil becomes a present subjunctive: quien tenga.",
+          "hints": [
+            "A relative clause takes the present subjunctive."
+          ],
+          "teaches": [
+            "tuviere"
+          ]
+        },
+        {
+          "question_id": "c2-future-subjunctive-rustwake-02",
+          "prompt": "From the Dome's rulebook: Prohibido tocar la antena, so pena ___ multa.",
+          "type": "fill-in-blank",
+          "options": [],
+          "correct_answer": "de",
+          "accepted_answers": [],
+          "explanation": "The fixed formula is so pena de: under penalty of.",
+          "hints": [
+            "The same preposition as in bajo pena ___."
+          ],
+          "teaches": [
+            "so pena de",
+            "la multa"
+          ]
+        }
+      ]
+    }
+  }
+}

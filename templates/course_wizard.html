@@ -1,0 +1,104 @@
+{# The first visit's wizard for a course's settings (`st`, routes::courses::CourseSettings, `st.wizard`):
+   one step a page (motivator, theme while themes are on (#1138), then picture and background together under a big preview while character art is on (#1153), and
+   last the level for a course with levels, with its placement test when it has one, #1106), arrows on
+   either side sliding between them (#574) and "Get Started!" under every step, so whatever is not
+   picked yet keeps its default (#896). Behind a card's Start button it opens the course (`st.start`,
+   #587); over the home page of a course opened another way it opens on load. The gear's one-form
+   settings are course_settings.html, a separate dialog (#576). course-settings.js runs both; without
+   a script the steps stack. #}
+{% let id = st.course_id.as_str() %}
+<dialog class="modal course-settings cs-wizard" id="course-settings-{{ id }}" aria-labelledby="course-settings-{{ id }}-title" data-testid="courses-settings-dialog" data-course-id="{{ id }}"{% if st.start %} data-wizard data-start{% else %} data-wizard data-open-on-load{% endif %}>
+  <button type="button" class="icon-btn modal-x" data-dialog-close aria-label="{{ crate::t("courses.settings.close") }}" data-testid="courses-settings-close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  {# No editor, copy or translate icons here: they are behind the card's gear only (course_settings.html). #}
+  <h2 id="course-settings-{{ id }}-title">{{ crate::t1("courses.settings.wizard_title", "course", st.course_title.as_str()) }}</h2>
+  <form method="post" action="{{ crate::base_path() }}{% if st.start %}/courses/open/{{ id }}{% else %}/courses/{{ id }}/settings{% endif %}" data-testid="courses-settings-form">
+    {% if st.start %}<input type="hidden" name="wizard" value="1">{% else %}<input type="hidden" name="next" value="home">{% endif %}
+    <div class="cs-viewport">
+      <div class="cs-track">
+        <section class="cs-step" data-step="motivator" data-testid="courses-settings-step" aria-labelledby="course-settings-{{ id }}-motivator">
+          <h3 id="course-settings-{{ id }}-motivator" class="heading-with-info">{{ crate::t("courses.settings.motivator_ask") }} <button type="button" class="info-btn" commandfor="course-settings-{{ id }}-motivator-info" command="show-modal" data-opens="course-settings-{{ id }}-motivator-info" aria-haspopup="dialog" aria-label="{{ crate::t("courses.settings.motivator_info") }}" data-testid="courses-settings-motivator-info">i</button></h3>
+          <div class="theme-chips" role="radiogroup" aria-labelledby="course-settings-{{ id }}-motivator">
+            {% for m in st.motivators %}
+            <label class="chip" data-testid="courses-settings-motivator" data-motivator-id="{{ m.id }}" title="{{ m.about }}"><input type="radio" name="motivator" value="{{ m.id }}" class="sr-only"{% if m.active %} checked{% endif %}> {{ m.icon }} {{ m.title }}</label>
+            {% endfor %}
+          </div>
+        </section>
+        {%- if !st.themes.is_empty() %}
+        <section class="cs-step" data-step="theme" data-testid="courses-settings-step" aria-labelledby="course-settings-{{ id }}-theme">
+          <h3 id="course-settings-{{ id }}-theme" class="heading-with-info">{{ crate::t("courses.settings.theme_ask") }} <button type="button" class="info-btn" commandfor="course-settings-{{ id }}-theme-info" command="show-modal" data-opens="course-settings-{{ id }}-theme-info" aria-haspopup="dialog" aria-label="{{ crate::t("courses.settings.theme_info") }}" data-testid="courses-settings-theme-info">i</button></h3>
+          <div class="theme-chips" role="radiogroup" aria-labelledby="course-settings-{{ id }}-theme">
+            <label class="chip" data-testid="courses-settings-theme" data-theme-id=""><input type="radio" name="theme" value="" class="sr-only"{% if st.theme.is_empty() %} checked{% endif %}> {{ crate::t("courses.settings.theme_default") }}</label>
+            {% for t in st.themes %}
+            <label class="chip" data-testid="courses-settings-theme" data-theme-id="{{ t.id }}" title="{{ t.description }}"><input type="radio" name="theme" value="{{ t.id }}" class="sr-only"{% if st.theme == t.id %} checked{% endif %}>{% if !t.mark.is_empty() %}<img src="{{ t.mark }}" alt="">{% else %}{{ t.icon }}{% endif %} {{ t.title }}</label>
+            {% endfor %}
+          </div>
+        </section>
+        {%- endif %}
+        {%- if st.art %}
+        <section class="cs-step" data-step="picture" data-testid="courses-settings-step" aria-labelledby="course-settings-{{ id }}-picture">
+          <h3 id="course-settings-{{ id }}-picture">{{ crate::t("courses.settings.picture_ask") }}</h3>
+          <div class="cs-preview" aria-hidden="true">{% if let Some(url) = st.badge_url %}<span class="avatar hero themed" style="{{ st.badge_style }}"><img src="{{ url }}" alt=""></span>{% else %}<span class="avatar hero" style="{{ st.badge_style }}"><svg><use href="#av-{{ st.avatar }}"/></svg></span>{% endif %}</div>
+          <div class="avatar-grid" role="radiogroup" aria-labelledby="course-settings-{{ id }}-picture">
+            {% for a in st.avatars %}
+            <label class="avatar-pick" data-label="{{ crate::profile::avatar(a.id).label }}" data-shows="{{ a.shows }}"{% if a.url.is_none() %} title="{{ a.shows }}"{% endif %}>
+              <input type="radio" name="avatar" data-testid="courses-settings-avatar" value="{{ a.id }}"{% if a.id == st.avatar.as_str() %} checked{% endif %}>
+              {% if let Some(url) = a.url %}<span class="avatar lg themed" style="--av:{{ a.color }}"><img src="{{ url }}" alt=""></span>{% else %}<span class="avatar lg" style="--av:{{ a.color }}"><svg><use href="#av-{{ a.id }}"/></svg></span>{% endif %}
+              <span class="small" data-avatar-label>{{ a.label }}</span>
+            </label>
+            {% endfor %}
+          </div>
+          <h4 id="course-settings-{{ id }}-background">{{ crate::t("courses.settings.background_ask") }}</h4>
+          <div class="avatar-colors" role="radiogroup" aria-labelledby="course-settings-{{ id }}-background" data-testid="courses-settings-colors">
+            {%- for s in st.palette %}
+            <label class="color-pick" title="{{ s.label }}"><input type="radio" name="avatar_color" data-testid="courses-settings-color" value="{{ s.slot }}" data-color="{{ s.color }}" data-image="{{ s.image }}" aria-label="{{ s.label }}"{% if st.avatar_color == s.slot %} checked{% endif %}><span class="swatch" style="{{ s.style() }}"></span></label>
+            {%- endfor %}
+          </div>
+        </section>
+        {%- endif %}
+        {% if !st.levels.is_empty() %}
+        <section class="cs-step" data-step="level" data-testid="courses-settings-step" aria-labelledby="course-settings-{{ id }}-level">
+          <h3 id="course-settings-{{ id }}-level" class="heading-with-info">{{ crate::t("study.start.where_start") }} <button type="button" class="info-btn" commandfor="course-settings-{{ id }}-level-info" command="show-modal" data-opens="course-settings-{{ id }}-level-info" aria-haspopup="dialog" aria-label="{{ crate::t("courses.settings.level_info") }}" data-testid="courses-settings-level-info">i</button></h3>
+          {% if st.placement %}{% include "placement_test.html" %}{% endif %}
+          <div class="levels cs-levels" role="radiogroup" aria-labelledby="course-settings-{{ id }}-level">
+            {% for l in st.levels %}
+            <label class="level-card start-level" data-testid="courses-settings-level" data-unit="{{ l.id }}">
+              <header>
+                <input type="radio" name="start_unit" value="{{ l.id }}" class="sr-only" data-testid="courses-settings-level-radio"{% if l.chosen %} checked{% endif %}>
+                <strong>{{ l.title }}</strong> <span class="muted">{{ l.description }}</span>
+              </header>
+              <span class="small muted">{{ crate::tn("study.counts.n_lessons", l.lessons) }}</span>
+            </label>
+            {% endfor %}
+          </div>
+        </section>
+        {% endif %}
+      </div>
+    </div>
+    <div class="modal-actions cs-go">
+      <button type="submit" class="btn" data-testid="courses-settings-save">{{ crate::t("courses.settings.get_started") }}</button>
+    </div>
+    <button type="button" class="cs-arrow prev" data-cs-go="-1" aria-label="{{ crate::t("courses.settings.prev") }}" data-testid="courses-settings-prev" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button type="button" class="cs-arrow next" data-cs-go="1" aria-label="{{ crate::t("courses.settings.next") }}" data-testid="courses-settings-next" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    <div class="cs-dots" aria-hidden="true" hidden>{% for _ in st.levels.iter().take(1) %}<span></span>{% endfor %}<span></span>{% if !st.themes.is_empty() %}<span></span>{% endif %}{% if st.art %}<span></span>{% endif %}</div>
+  </form>
+  {% if !st.levels.is_empty() %}
+  <dialog class="modal" id="course-settings-{{ id }}-level-info" aria-labelledby="course-settings-{{ id }}-level-info-title" data-testid="courses-settings-level-dialog">
+    <h2 id="course-settings-{{ id }}-level-info-title">{{ crate::t("courses.settings.level") }}</h2>
+    <p>{{ crate::t("study.start.lead") }}</p>
+    <div class="modal-actions"><button type="button" class="btn" data-closes data-testid="courses-settings-level-close">{{ crate::t("courses.settings.ok") }}</button></div>
+  </dialog>
+  {% endif %}
+  <dialog class="modal" id="course-settings-{{ id }}-motivator-info" aria-labelledby="course-settings-{{ id }}-motivator-info-title" data-testid="courses-settings-motivator-dialog">
+    <h2 id="course-settings-{{ id }}-motivator-info-title">{{ crate::t("courses.settings.motivator") }}</h2>
+    <p>{{ crate::t("courses.settings.motivator_info_p") }}</p>
+    <dl>{% for m in st.motivators %}<dt>{{ m.icon }} {{ m.title }}</dt><dd>{{ m.about }}</dd>{% endfor %}</dl>
+    <div class="modal-actions"><button type="button" class="btn" data-closes data-testid="courses-settings-motivator-close">{{ crate::t("courses.settings.ok") }}</button></div>
+  </dialog>
+  {%- if !st.themes.is_empty() %}
+  <dialog class="modal" id="course-settings-{{ id }}-theme-info" aria-labelledby="course-settings-{{ id }}-theme-info-title" data-testid="courses-settings-theme-dialog">
+    <h2 id="course-settings-{{ id }}-theme-info-title">{{ crate::t("courses.settings.theme") }}</h2>
+    <p>{{ crate::t("courses.settings.theme_info_p") }}</p>
+    <div class="modal-actions"><button type="button" class="btn" data-closes data-testid="courses-settings-theme-close">{{ crate::t("courses.settings.ok") }}</button></div>
+  </dialog>
+  {%- endif %}
+</dialog>

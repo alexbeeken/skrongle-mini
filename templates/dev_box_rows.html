@@ -1,0 +1,21 @@
+{% for r in rows %}
+<tr class="devbox-row{% if !r.read %} unread{% endif %}{% if r.archived %} archived{% endif %}" data-testid="{{ row_testid }}" data-id="{{ r.id }}" data-to="{{ r.to }}" data-href="{{ r.href }}" data-read="{{ r.read }}" data-archived="{{ r.archived }}"{% if !r.state.is_empty() %} data-state="{{ r.state }}" data-purpose="{{ r.purpose }}"{% endif %}>
+  {% if kind == "sms" %}
+  <td class="devbox-avatar"><span aria-hidden="true">{{ r.badge }}</span></td>
+  <td class="devbox-chat">
+    <div class="devbox-line"><a href="{{ r.href }}" class="devbox-number devbox-subject" title="{{ r.to }}" data-testid="{{ open_testid }}">{{ r.to }}</a>{% if !r.state.is_empty() %} <span class="devbox-state" data-state="{{ r.state }}" data-testid="{{ prefix }}-state"{% if !r.lease.is_empty() %} title="{{ r.lease }}"{% endif %}>{{ r.state }}</span>{% endif %}<span class="devbox-when">{{ r.ago }}</span></div>
+    <div class="devbox-preview">{{ r.snippet }}</div>
+  </td>
+  {% else %}
+  <td class="devbox-who" title="{{ r.to }}">{{ r.to }}</td>
+  <td class="devbox-what"><a href="{{ r.href }}" class="devbox-subject" data-testid="{{ open_testid }}">{{ r.subject }}</a>{% if !r.state.is_empty() %} <span class="devbox-state" data-state="{{ r.state }}" data-testid="{{ prefix }}-state"{% if !r.lease.is_empty() %} title="{{ r.lease }}"{% endif %}>{{ r.state }}</span>{% endif %}{% if !r.snippet.is_empty() %}<span class="devbox-snippet"> – {{ r.snippet }}</span>{% endif %}</td>
+  <td class="devbox-when">{{ r.ago }}</td>
+  {% endif %}
+  <td class="devbox-actions">
+    {% if let Some(i) = r.inbox_href %}<a class="devbox-icon" href="{{ i }}" title="Open the copy in the inbox" aria-label="Open the copy in the inbox" data-testid="{% if kind == "sms" %}dev-sms-open{% else %}dev-mail-open{% endif %}"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 11h4l1 2h4l1-2h4M3 11l2-6h10l2 6v4H3z"/></svg></a>{% endif %}
+    <form method="post" action="{{ r.href }}" data-live><input type="hidden" name="do" value="{% if r.archived %}unarchive{% else %}archive{% endif %}"><button type="submit" class="devbox-icon" title="{% if r.archived %}Move back{% else %}Archive (mark done){% endif %}" aria-label="{% if r.archived %}Move back{% else %}Archive{% endif %}" data-testid="{{ prefix }}-{% if r.archived %}unarchive{% else %}archive{% endif %}"><svg viewBox="0 0 20 20" aria-hidden="true">{% if r.archived %}<path d="M5 8h8a4 4 0 0 1 0 8H9M5 8l3-3M5 8l3 3"/>{% else %}<path d="M3 4h14v3H3zM4 7v9h12V7M8 10h4"/>{% endif %}</svg></button></form>
+    <form method="post" action="{{ r.href }}" data-live><input type="hidden" name="do" value="delete"><button type="submit" class="devbox-icon danger" title="Delete for good" aria-label="Delete" data-testid="{{ prefix }}-delete"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 6h12M8 6V4h4v2M6 6l1 10h6l1-10"/></svg></button></form>
+  </td>
+</tr>
+{% endfor %}
+{% if rows.is_empty() %}<tr class="devbox-empty"><td colspan="4" data-testid="{{ prefix }}-empty">{{ empty }}</td></tr>{% endif %}

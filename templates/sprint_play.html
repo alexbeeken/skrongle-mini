@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="{{ crate::i18n::lang() }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+<meta name="theme-color" content="#c0392b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>{{ title }} · {{ crate::t("sprint.mode_name") }} · {{ course_title }}</title>
+<script>if (/[?&]reduce-motion=1\b/.test(location.search)) document.documentElement.classList.add('reduce-motion');</script>
+<link rel="stylesheet" href="{{ crate::routes::asset_url("sprint.css") }}">
+{% if let Some(t) = course.theme %}<link rel="stylesheet" href="{{ crate::routes::theme_css_url(t.id) }}">{% endif %}
+<link rel="icon" href="{{ crate::routes::asset_url("favicon.svg") }}" type="image/svg+xml">
+<link rel="manifest" href="{{ crate::url("/manifest.webmanifest") }}">
+</head>
+<body class="sprint play" data-base="{{ crate::base_path() }}"{% if let Some(t) = course.theme %} data-theme="{{ t.id }}"{% endif %}>
+<div class="phone">
+  <header class="sprint-top play-top">
+    <a class="sprint-exit" data-testid="sprint-play-exit" href="{{ crate::base_path() }}/sprint" aria-label="{{ crate::t("sprint.play.quit") }}">✕</a>
+    <div class="sprint-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="p-bar" data-testid="sprint-play-progress"><div class="fill" id="p-fill"></div></div>
+    <span class="sprint-combo" id="combo" hidden>🔥<b>0</b></span>
+    <span class="sprint-timer" id="timer" hidden>60</span>
+    {% if !course.say_lang.is_empty() %}<button type="button" class="sprint-sound" id="audio" data-testid="sprint-play-audio" aria-label="{{ crate::t("sprint.play.audio_toggle") }}">🔊</button>{% endif %}
+    <button type="button" class="sprint-sound fx" id="sound" data-testid="sprint-play-sound" aria-label="{{ crate::t("sprint.sound_toggle") }}">🎵</button>
+  </header>
+
+  <main class="sprint-play-main" data-testid="sprint-play-main">
+    <div class="sprint-main sprint-stage" id="stage" data-testid="sprint-play-stage" aria-live="polite"></div>
+
+    <div class="sprint-result" id="result" role="status" data-testid="sprint-play-result" hidden>
+      <div class="sprint-result-body">
+        <p class="sprint-verdict" id="r-verdict" data-testid="sprint-play-verdict"></p>
+        <div class="sprint-result-text" id="r-text"></div>
+      </div>
+      <button type="button" class="sprint-btn big" id="btn-next" data-testid="sprint-play-next">{{ crate::t("sprint.play.continue") }}</button>
+    </div>
+
+    <section class="sprint-done" id="done" data-testid="sprint-play-done" hidden>
+      <div class="confetti" id="confetti" aria-hidden="true"></div>
+      <p class="sprint-done-emoji" id="done-emoji">{{ course.icons.goal }}</p>
+      <h1 id="done-title">{{ crate::t("sprint.play.session_complete") }}</h1>
+      <p class="sprint-stars" id="done-stars" hidden></p>
+      <div class="sprint-done-stats">
+        <div class="sprint-done-stat"><b id="done-acc">0%</b><span>{{ crate::t("sprint.play.accuracy") }}</span></div>
+        <div class="sprint-done-stat"><b id="done-time">0:00</b><span>{{ crate::t("sprint.play.time") }}</span></div>
+        <div class="sprint-done-stat"><b id="done-streak">0</b><span>{{ crate::t("sprint.play.day_streak") }}</span></div>
+      </div>
+      <p class="sprint-done-goal" id="done-goal"></p>
+      <p class="sprint-done-note" id="done-note"></p>
+      <div class="sprint-done-actions">
+        <a class="sprint-btn big" href="{{ crate::base_path() }}/sprint" id="done-home" data-testid="sprint-play-done-home">{{ crate::t("sprint.play.continue") }}</a>
+        <button type="button" class="sprint-btn ghost" id="done-again" data-testid="sprint-play-again">{{ crate::t("sprint.play.play_again") }}</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="sprint-foot" id="foot">
+    <button type="button" class="sprint-btn big" id="btn-check" data-testid="sprint-play-check" disabled>{{ crate::t("sprint.play.check") }}</button>
+  </footer>
+</div>
+<script id="session" type="application/json">{{ session_json|safe }}</script>
+<script>
+// The app's text for sprint.js (this page does not extend base.html, so the
+// table and t()/tn() are defined here the same way; i18n/README.md).
+window.I18N = {{ crate::i18n::js_json("common.js")|safe }};
+Object.assign(I18N, {{ crate::i18n::js_json("sprint.js")|safe }});
+window.t = function (key, args) {
+  var s = I18N[key];
+  if (s == null) { console.warn('i18n: no text for ' + key); s = key; }
+  return args ? s.replace(/\{(\w+)\}/g, function (m, n) { return n in args ? args[n] : m; }) : s;
+};
+window.tn = function (key, n) { return t(key + (n === 1 ? '.one' : '.other'), { n: n }); };
+</script>
+<script src="{{ crate::routes::asset_url("speech.js") }}" defer></script>
+{% if notation %}<script src="{{ crate::routes::asset_url("vendor/abcjs-basic-min.js") }}" defer></script><script src="{{ crate::routes::asset_url("notation.js") }}" defer></script><script src="{{ crate::routes::asset_url("wrong-note.js") }}" defer></script>{% endif %}
+{% if sound %}<script src="{{ crate::routes::asset_url("music-sound.js") }}" defer></script>{% endif %}
+{% if notation %}<script src="{{ crate::routes::asset_url("fill-bar.js") }}" defer></script>{% endif %}
+{% if notation %}<script src="{{ crate::routes::asset_url("chord-spell.js") }}" defer></script>{% endif %}
+{% if staff_note %}<script src="{{ crate::routes::asset_url("staff-note.js") }}" defer></script>{% endif %}
+{% if keyboard %}<script src="{{ crate::routes::asset_url("keyboard.js") }}" defer></script>{% endif %}
+{% if notation %}<script src="{{ crate::routes::asset_url("scale-ladder.js") }}" defer></script>{% endif %}
+<script>Object.assign(I18N, {{ crate::i18n::js_json("clock.js")|safe }});</script><script src="{{ crate::routes::asset_url("clock.js") }}" defer></script>
+<script src="{{ crate::routes::asset_url("sprint.js") }}" defer></script>
+</body>
+</html>

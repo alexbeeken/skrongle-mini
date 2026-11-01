@@ -1,0 +1,23 @@
+{# The placement test in the start wizard's level step (#1106), for a course with placement.json.
+   static/placement.js asks the questions one at a time (GET /courses/{id}/placement), marks them
+   (POST) and picks the suggested level card below; the report card shows each level's tally.
+   Its texts ride on data attributes ({n}, {total}, {unit} filled in by the script). #}
+<div class="pt" data-testid="placement" data-url="{{ crate::base_path() }}/courses/{{ id }}/placement"
+     data-count="{{ crate::t("courses.placement.question_of") }}" data-suggest="{{ crate::t("courses.placement.suggest") }}"
+     data-failed="{{ crate::t("courses.placement.failed") }}" data-show="{{ crate::t("courses.placement.show_card") }}" data-hide="{{ crate::t("courses.placement.hide_card") }}"
+     data-all="{{ crate::t("courses.placement.all_right") }}" data-some="{{ crate::t("courses.placement.some_right") }}" data-none="{{ crate::t("courses.placement.none_right") }}">
+  <p class="pt-offer"><button type="button" class="btn ghost" data-pt-start data-testid="placement-start">{{ crate::t("courses.placement.take") }}</button></p>
+  <div class="pt-quiz" data-testid="placement-quiz" hidden>
+    <p class="small muted" data-pt-count data-testid="placement-count" aria-live="polite"></p>
+    <p class="pt-prompt" data-pt-prompt data-testid="placement-prompt"></p>
+    <div class="pt-options" role="group" data-pt-options data-testid="placement-options"></div>
+  </div>
+  <div class="pt-result" data-testid="placement-result" hidden>
+    <p class="pt-suggest" role="status" data-pt-suggest data-testid="placement-suggest"></p>
+    <p class="pt-links"><button type="button" class="link small" aria-expanded="false" data-pt-card data-testid="placement-card-toggle">{{ crate::t("courses.placement.show_card") }}</button> · <button type="button" class="link small" data-pt-start data-testid="placement-retake">{{ crate::t("courses.placement.retake") }}</button></p>
+    <table class="pt-card" data-testid="placement-card" hidden>
+      <thead><tr><th scope="col">{{ crate::t("courses.placement.col_level") }}</th><th scope="col">{{ crate::t("courses.placement.col_correct") }}</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>

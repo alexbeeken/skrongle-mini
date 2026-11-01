@@ -1,0 +1,1226 @@
+{
+  "id": "b2-register",
+  "slug": "register",
+  "title": "Formal or casual: register in emails and speech",
+  "unit": "B2",
+  "group": "Vocabulary",
+  "order": 36,
+  "summary": "Choose between tú and usted, soften requests, write a formal email and recognise casual Spanish from Spain.",
+  "focus": "Matching register: usted and formal email formulas vs colloquial Spanish from Spain",
+  "prerequisites": [
+    "b2-imperfect-subjunctive",
+    "b1-conditional"
+  ],
+  "content": "## Tú or usted?\n\n**Usted** is the polite *you*. It takes the third-person verb and the pronouns **le** and **su**. Use it with strangers, clients, older people, officials and anyone you write a formal letter to. **Tú** is for friends, family, children and, in Spain, most colleagues, often the boss too.\n\n| tú | usted |\n|---|---|\n| ¿Tienes un momento? | ¿Tiene un momento? |\n| Te escribo para… | Le escribo para… |\n| tu correo | su correo |\n| Siéntate. | Siéntese. |\n\nWhen in doubt, start with **usted** and let the other person offer **tú**: *¿Nos tuteamos?* (Shall we say tú?) **Tutear** means to address someone as tú; **hablar de usted** means to use usted.\n\n## Softening a request\n\nA bare command (**Mándeme el informe**) sounds blunt. Spanish softens a request by stepping back into the past or into the conditional:\n\n- **Quería pedirle** un favor. (I wanted to ask you a favour; polite, not past)\n- **Quisiera** hablar con la directora. (I would like to speak to the director.)\n- **¿Podría** enviarme el horario? (Could you send me the timetable?)\n- **¿Le importaría** esperar un momento? (Would you mind waiting a moment?)\n- **¿Sería tan amable de** firmar aquí? (Would you be so kind as to sign here?)\n\n**¿Le importaría que** + imperfect subjunctive asks for permission: *¿Le importaría que abriera la ventana?* (Would you mind if I opened the window?)\n\n## The formal email\n\n| Part | Formal | Informal |\n|---|---|---|\n| Greeting | **Estimado señor Gil:** / **Estimada Sra. Ruiz:** | **Hola, Ana:** |\n| Purpose | **Le escribo para** solicitar información. | Te escribo para contarte… |\n| Attachment | **Adjunto le envío** el currículum. | Te mando las fotos. |\n| Before closing | **Quedo a la espera de su respuesta.** | Escríbeme pronto. |\n| Sign-off | **Atentamente,** | **Un abrazo,** / **Besos,** |\n\nThe greeting ends with a colon, not a comma; to a company with no name, write **Estimados señores:**. **Un saludo** (or **Saludos**) sits in between. It is polite but friendly, right for colleagues and most work emails. **Atentamente** is for strangers, companies and officials.\n\n## Casual Spain, and when each fits\n\nThese words are everyday spoken Spanish in Spain. They are colloquial and friendly, never for a formal email or a client.\n\n- **vale**: OK, fine. *—¿A las ocho? —Vale.*\n- **guay**: cool, great. *¡Qué guay!*\n- **tío / tía**: mate, dude, between friends (literally *uncle / aunt*).\n- **¡qué va!**: no way, not at all. *—¿Estás cansada? —¡Qué va!*\n- **me mola**: I love it, I'm into it. *Me mola tu chaqueta.*\n\nMatch the other person. A job application, a complaint, a first email to a stranger: **usted** and the formal formulas. Colleagues: **tú** and **Un saludo**. Friends: **tú** and as much **vale** and **guay** as you like. Mixing the two (*Estimado tío*) sounds like a joke.",
+  "vocabulary": [
+    {
+      "term": "tutear",
+      "meaning": "to address someone as tú",
+      "example": "¿Nos tuteamos? Somos compañeros.",
+      "example_meaning": "Shall we say tú to each other? We're colleagues."
+    },
+    {
+      "term": "le importaría",
+      "meaning": "would you mind (formal, + infinitive)",
+      "example": "¿Le importaría repetir su apellido?",
+      "example_meaning": "Would you mind repeating your surname?"
+    },
+    {
+      "term": "ser tan amable de",
+      "meaning": "to be so kind as to (formal request)",
+      "example": "¿Sería tan amable de indicarme la salida?",
+      "example_meaning": "Would you be so kind as to show me the way out?"
+    },
+    {
+      "term": "quería pedirle",
+      "meaning": "I wanted to ask you (polite, usted)",
+      "example": "Quería pedirle un día libre el viernes.",
+      "example_meaning": "I wanted to ask you for a day off on Friday."
+    },
+    {
+      "term": "estimado / estimada",
+      "meaning": "dear (formal letters, followed by a colon)",
+      "example": "Estimada señora Ortega:",
+      "example_meaning": "Dear Mrs Ortega,"
+    },
+    {
+      "term": "adjuntar",
+      "meaning": "to attach (to an email)",
+      "example": "Le adjunto las facturas de enero.",
+      "example_meaning": "I'm attaching January's invoices."
+    },
+    {
+      "term": "quedar a la espera de",
+      "meaning": "to await, to look forward to (formal)",
+      "example": "Quedamos a la espera de sus instrucciones.",
+      "example_meaning": "We look forward to your instructions."
+    },
+    {
+      "term": "atentamente",
+      "meaning": "yours sincerely, yours faithfully (formal sign-off)",
+      "example": "Atentamente, Carmen Ibáñez",
+      "example_meaning": "Yours sincerely, Carmen Ibáñez"
+    },
+    {
+      "term": "un saludo",
+      "meaning": "kind regards (neutral sign-off)",
+      "example": "Gracias por todo. Un saludo, Pablo.",
+      "example_meaning": "Thanks for everything. Kind regards, Pablo."
+    },
+    {
+      "term": "vale",
+      "meaning": "OK, fine (colloquial, Spain)",
+      "example": "Vale, te espero en la puerta.",
+      "example_meaning": "OK, I'll wait for you at the door."
+    },
+    {
+      "term": "guay",
+      "meaning": "cool, great (colloquial, Spain)",
+      "example": "Tu piso nuevo es muy guay.",
+      "example_meaning": "Your new flat is really cool."
+    },
+    {
+      "term": "tío / tía",
+      "meaning": "mate, dude, between friends (colloquial, Spain)",
+      "example": "Tía, ¡cuánto tiempo sin verte!",
+      "example_meaning": "Hey, it's been ages since I saw you!"
+    },
+    {
+      "term": "qué va",
+      "meaning": "no way, not at all (colloquial, Spain)",
+      "example": "—¿Te molesta la música? —¡Qué va!",
+      "example_meaning": "—Does the music bother you? —Not at all!"
+    },
+    {
+      "term": "me mola",
+      "meaning": "I love it, I'm into it (colloquial, Spain)",
+      "example": "Me mola mucho este barrio.",
+      "example_meaning": "I really love this neighbourhood."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-register-01",
+      "prompt": "You are writing to a company for the first time and know nobody's name. Which greeting fits?",
+      "type": "multiple-choice",
+      "options": [
+        "Estimados señores:",
+        "¡Hola, chicos!",
+        "¿Qué tal, tío?"
+      ],
+      "correct_answer": "Estimados señores:",
+      "explanation": "A formal email to an unknown company opens with Estimados señores: and a colon. ¡Hola, chicos! and ¿Qué tal, tío? are for friends.",
+      "hints": [
+        "Formal letter, nobody's name: estimado + colon."
+      ],
+      "teaches": [
+        "estimado / estimada"
+      ]
+    },
+    {
+      "question_id": "b2-register-02",
+      "prompt": "___ le envío mi currículum. (adjuntar, yo: I attach)",
+      "type": "fill-in-blank",
+      "correct_answer": "Adjunto",
+      "explanation": "Adjunto le envío… (I attach…) is the standard formal formula: adjuntar in the yo form.",
+      "hints": [
+        "The yo form of adjuntar ends in -o."
+      ],
+      "teaches": [
+        "adjuntar"
+      ]
+    },
+    {
+      "question_id": "b2-register-03",
+      "prompt": "You end a formal complaint to an airline. Which closing fits?",
+      "type": "multiple-choice",
+      "options": [
+        "Quedo a la espera de su respuesta. Atentamente,",
+        "Un abrazo muy fuerte,",
+        "¡Hasta luego, tío!"
+      ],
+      "correct_answer": "Quedo a la espera de su respuesta. Atentamente,",
+      "explanation": "A complaint to a company is formal: Quedo a la espera de su respuesta (I look forward to your reply) and Atentamente. Hugs and tío are for friends.",
+      "hints": [
+        "Su respuesta, not tu: the airline gets usted."
+      ],
+      "teaches": [
+        "atentamente",
+        "quedar a la espera de"
+      ]
+    },
+    {
+      "question_id": "b2-register-04",
+      "prompt": "You write to the director of a museum you have never met. Which request fits?",
+      "type": "multiple-choice",
+      "options": [
+        "¿Sería tan amable de enviarme el programa?",
+        "Mándame el programa, tío.",
+        "¿Me pasas el programa, vale?"
+      ],
+      "correct_answer": "¿Sería tan amable de enviarme el programa?",
+      "explanation": "A stranger in a formal email gets usted and a softened request: ¿Sería tan amable de…? The other two use tú and colloquial words.",
+      "hints": [
+        "Look for usted and a polite formula."
+      ],
+      "teaches": [
+        "ser tan amable de"
+      ]
+    },
+    {
+      "question_id": "b2-register-05",
+      "prompt": "¿Le ___ cerrar la ventana? (importar, polite: Would you mind closing the window?)",
+      "type": "fill-in-blank",
+      "correct_answer": "importaría",
+      "explanation": "¿Le importaría + infinitive? asks politely. It is the conditional of importar in the usted (third-person) form.",
+      "hints": [
+        "Conditional, third person: -ría."
+      ],
+      "teaches": [
+        "le importaría"
+      ]
+    },
+    {
+      "question_id": "b2-register-06",
+      "prompt": "Your friend Marta says: «Tu chaqueta nueva me mola, es muy guay.» What does she mean?",
+      "type": "multiple-choice",
+      "options": [
+        "She really likes your new jacket.",
+        "She thinks your new jacket is too big.",
+        "She wants to borrow your new jacket."
+      ],
+      "correct_answer": "She really likes your new jacket.",
+      "explanation": "Me mola (I love it) and guay (cool) are colloquial Spanish from Spain: she is paying you a compliment.",
+      "hints": [
+        "Both words are casual praise."
+      ],
+      "teaches": [
+        "me mola",
+        "guay"
+      ]
+    },
+    {
+      "question_id": "b2-register-07",
+      "prompt": "Somos compañeros, ¿nos ___? (tutear, nosotros: Shall we say tú to each other?)",
+      "type": "fill-in-blank",
+      "correct_answer": "tuteamos",
+      "explanation": "Tutear is a regular -ar verb: nosotros tuteamos. ¿Nos tuteamos? is how Spaniards offer to drop usted.",
+      "hints": [
+        "Regular -ar verb, nosotros form."
+      ],
+      "teaches": [
+        "tutear"
+      ]
+    },
+    {
+      "question_id": "b2-register-08",
+      "prompt": "Señora Molina, quería ___ un favor. (pedir + le: I wanted to ask you a favour)",
+      "type": "fill-in-blank",
+      "correct_answer": "pedirle",
+      "explanation": "The pronoun le (to you, usted) is attached to the infinitive: quería pedirle. The imperfect quería softens the request.",
+      "hints": [
+        "Attach le to the infinitive."
+      ],
+      "teaches": [
+        "quería pedirle"
+      ]
+    },
+    {
+      "question_id": "b2-register-09",
+      "prompt": "—¿Estás enfadado conmigo? —¡___! Solo estoy cansado.",
+      "type": "multiple-choice",
+      "options": [
+        "Qué va",
+        "Vale",
+        "Guay"
+      ],
+      "correct_answer": "Qué va",
+      "explanation": "¡Qué va! (not at all) denies what was asked; vale means OK and guay means cool, which make no sense as an answer here.",
+      "hints": [
+        "He is saying no, he isn't angry."
+      ],
+      "teaches": [
+        "qué va"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-register-conv-first-day",
+      "title": "First day at the studio",
+      "scenario": "Elena Vidal starts as a designer at a small studio in Valencia and meets her manager, Andrés Prieto.",
+      "role_a": "Elena",
+      "role_b": "Andrés",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Buenos días. ¿Es usted el señor Prieto? Soy Elena Vidal, la nueva diseñadora.",
+          "meaning": "Good morning. Are you Mr Prieto? I'm Elena Vidal, the new designer.",
+          "note": "A stranger and a boss: she starts with usted."
+        },
+        {
+          "speaker": "b",
+          "text": "Encantado, Elena. Pero llámame Andrés, por favor: aquí nos tuteamos todos.",
+          "meaning": "Nice to meet you, Elena. But call me Andrés, please: we all say tú here."
+        },
+        {
+          "speaker": "a",
+          "text": "Vale, perfecto. Entonces, ¿me enseñas dónde está mi mesa?",
+          "meaning": "OK, great. So, will you show me where my desk is?",
+          "note": "Offered tú, she switches at once."
+        },
+        {
+          "speaker": "b",
+          "text": "Claro, junto a la ventana. ¿Has traído el contrato firmado?",
+          "meaning": "Sure, by the window. Have you brought the signed contract?"
+        },
+        {
+          "speaker": "a",
+          "text": "Sí, y ayer también te lo adjunté en un correo.",
+          "meaning": "Yes, and yesterday I also attached it to an email for you."
+        },
+        {
+          "speaker": "b",
+          "text": "Ah, es verdad. Una cosa: a los clientes, siempre de usted.",
+          "meaning": "Oh, that's right. One thing: clients, always usted."
+        },
+        {
+          "speaker": "a",
+          "text": "Entendido. «Estimado señor», «Le escribo para…» y «Un saludo».",
+          "meaning": "Understood. 'Dear Sir', 'I am writing to…' and 'Kind regards'."
+        },
+        {
+          "speaker": "b",
+          "text": "Exacto. Y nada de «tío» ni «guay» en los correos, ¿eh?",
+          "meaning": "Exactly. And no 'mate' or 'cool' in the emails, OK?"
+        },
+        {
+          "speaker": "a",
+          "text": "¡Qué va! Eso solo se lo digo a mis amigos.",
+          "meaning": "No way! I only say that to my friends."
+        },
+        {
+          "speaker": "b",
+          "text": "Me parece genial. Bienvenida al equipo.",
+          "meaning": "Sounds great to me. Welcome to the team."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "¡Qué va, no estoy enfadada!",
+      "meaning": "No way, I'm not angry!",
+      "note": "¡Qué va! is colloquial and means not at all."
+    },
+    {
+      "text": "¿Le importaría hablar un poco más despacio?",
+      "meaning": "Would you mind speaking a little more slowly?"
+    },
+    {
+      "text": "Quería pedirle información sobre el curso de verano.",
+      "meaning": "I wanted to ask you for information about the summer course.",
+      "note": "Quería softens the request; it is not really past."
+    },
+    {
+      "text": "Tío, el concierto de anoche fue muy guay.",
+      "meaning": "Mate, last night's concert was really cool.",
+      "note": "Colloquial Spanish from Spain, only with friends."
+    },
+    {
+      "text": "Le escribo para reclamar el dinero de mi billete.",
+      "meaning": "I am writing to claim back the money for my ticket.",
+      "note": "New word: reclamar = to claim back."
+    },
+    {
+      "text": "¿Sería usted tan amable de firmar en la última página?",
+      "meaning": "Would you be so kind as to sign on the last page?",
+      "note": "New word: firmar = to sign."
+    },
+    {
+      "text": "Mi nueva jefa me pidió que la tuteara desde el primer día.",
+      "meaning": "My new boss asked me to call her tú from the first day."
+    },
+    {
+      "text": "Quedamos a la espera de su respuesta y le enviamos un cordial saludo.",
+      "meaning": "We look forward to your reply and send you our warm regards.",
+      "note": "New word: cordial = warm, cordial."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Tú or usted?"
+    },
+    {
+      "question": "b2-register-07"
+    },
+    {
+      "section": "Softening a request"
+    },
+    {
+      "question": "b2-register-05"
+    },
+    {
+      "question": "b2-register-04"
+    },
+    {
+      "question": "b2-register-08"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "tip": "Not sure which to use? Start with usted and wait: if they say «puedes tutearme», switch to tú."
+    },
+    {
+      "section": "The formal email"
+    },
+    {
+      "question": "b2-register-01"
+    },
+    {
+      "question": "b2-register-02"
+    },
+    {
+      "question": "b2-register-03"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "section": "Casual Spain"
+    },
+    {
+      "question": "b2-register-06"
+    },
+    {
+      "question": "b2-register-09"
+    },
+    {
+      "vocab": 4
+    }
+  ],
+  "sprint": {
+    "icon": "🎩",
+    "bites": [
+      {
+        "title": "Tú or usted?",
+        "emoji": "🤝",
+        "rule": "Usted (third-person verb, le, su) for strangers, clients, older people and formal letters; tú for friends, family and most colleagues in Spain. Wait to be offered tú.",
+        "example": "Perdone, ¿me puede ayudar?",
+        "example_meaning": "Excuse me, could you help me?"
+      },
+      {
+        "title": "Soften it",
+        "emoji": "🪶",
+        "rule": "Wrap a request in quería, quisiera, ¿le importaría…? or ¿sería tan amable de…? The imperfect and the conditional make it sound less pushy.",
+        "example": "¿Le importaría esperar fuera?",
+        "example_meaning": "Would you mind waiting outside?"
+      },
+      {
+        "title": "The formal email",
+        "emoji": "✉️",
+        "rule": "Estimado/a + colon, Le escribo para…, Adjunto le envío…, Quedo a la espera de su respuesta, Atentamente. Un saludo is the friendlier, neutral close.",
+        "example": "Estimada señora Ruiz: le escribo para solicitar una cita.",
+        "example_meaning": "Dear Mrs Ruiz, I am writing to request an appointment."
+      },
+      {
+        "title": "Casual Spain",
+        "emoji": "😎",
+        "rule": "Vale, guay, tío/tía, ¡qué va! and me mola are colloquial Spanish from Spain: great with friends, out of place with a client or in a formal email.",
+        "example": "Vale, tía, ¡qué guay!",
+        "example_meaning": "OK, girl, how cool!"
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Formal or casual?",
+        "buckets": [
+          "formal",
+          "colloquial (Spain)"
+        ],
+        "why": "Formal formulas use usted and fixed phrases; vale, guay, tío, qué va and mola are casual words from Spain.",
+        "items": [
+          {
+            "text": "Atentamente",
+            "bucket": 0
+          },
+          {
+            "text": "Me mola",
+            "bucket": 1
+          },
+          {
+            "text": "Estimada señora:",
+            "bucket": 0
+          },
+          {
+            "text": "¡Qué va!",
+            "bucket": 1
+          },
+          {
+            "text": "Quedo a la espera",
+            "bucket": 0
+          },
+          {
+            "text": "Tío, ¿qué pasa?",
+            "bucket": 1
+          },
+          {
+            "text": "¿Sería tan amable de…?",
+            "bucket": 0
+          },
+          {
+            "text": "¡Qué guay!",
+            "bucket": 1
+          }
+        ]
+      },
+      {
+        "title": "Tú or usted?",
+        "buckets": [
+          "tú",
+          "usted"
+        ],
+        "why": "Usted takes the third-person verb and le/su; tú takes the second person and te/tu.",
+        "items": [
+          {
+            "text": "¿Tienes un momento?",
+            "bucket": 0
+          },
+          {
+            "text": "¿Tiene un momento?",
+            "bucket": 1
+          },
+          {
+            "text": "Siéntate, por favor.",
+            "bucket": 0
+          },
+          {
+            "text": "Siéntese, por favor.",
+            "bucket": 1
+          },
+          {
+            "text": "Te escribo para…",
+            "bucket": 0
+          },
+          {
+            "text": "Le escribo para…",
+            "bucket": 1
+          }
+        ]
+      },
+      {
+        "title": "Where does it go in the email?",
+        "buckets": [
+          "greeting",
+          "body",
+          "closing"
+        ],
+        "why": "Estimado/a opens, le escribo and adjunto carry the message, Atentamente and Un saludo close.",
+        "items": [
+          {
+            "text": "Estimado señor Gil:",
+            "bucket": 0
+          },
+          {
+            "text": "Estimados señores:",
+            "bucket": 0
+          },
+          {
+            "text": "Le escribo para…",
+            "bucket": 1
+          },
+          {
+            "text": "Adjunto le envío…",
+            "bucket": 1
+          },
+          {
+            "text": "Atentamente,",
+            "bucket": 2
+          },
+          {
+            "text": "Un saludo,",
+            "bucket": 2
+          }
+        ]
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Estimado señor López: te escribo para pedir información.",
+        "wrong": "te",
+        "fix": "le",
+        "why": "Estimado sets a formal tone: usted, so le escribo."
+      },
+      {
+        "sentence": "¿Le importarías cerrar la puerta?",
+        "wrong": "importarías",
+        "fix": "importaría",
+        "why": "Le marks usted, which takes the third-person verb: importaría."
+      },
+      {
+        "sentence": "Quedo a la espera de tu respuesta. Atentamente, Pablo Ruiz.",
+        "wrong": "tu",
+        "fix": "su",
+        "why": "A letter signed Atentamente uses usted: su respuesta."
+      },
+      {
+        "sentence": "Adjunto te envío el informe, señor director.",
+        "wrong": "te",
+        "fix": "le",
+        "why": "Señor director gets usted: Adjunto le envío."
+      },
+      {
+        "sentence": "Perdone, ¿puedes decirme dónde está la estación?",
+        "wrong": "puedes",
+        "fix": "puede",
+        "why": "Perdone is usted, so keep it: ¿puede decirme…?"
+      }
+    ],
+    "builds": [
+      {
+        "text": "Le escribo para pedir información.",
+        "meaning": "I am writing to ask for information.",
+        "distractors": [
+          "te"
+        ]
+      },
+      {
+        "text": "¿Le importaría esperar un momento?",
+        "meaning": "Would you mind waiting a moment?",
+        "distractors": [
+          "importarías"
+        ]
+      },
+      {
+        "text": "Quedo a la espera de su respuesta.",
+        "meaning": "I look forward to your reply.",
+        "distractors": [
+          "tu"
+        ]
+      },
+      {
+        "text": "¿Sería tan amable de ayudarme?",
+        "meaning": "Would you be so kind as to help me?",
+        "distractors": [
+          "serías"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "👑",
+      "content": "## El registro en Eldmark\n\nAt the court of Highgate you speak **de usted**: **Majestad, quisiera pedirle un favor**, **¿le importaría escucharme?** Letters to the guild open with **Estimados miembros del gremio:** and close with **Atentamente**. At the posada with your party it's **tú**, **vale**, **tío** and **¡qué va!**",
+      "vocabulary": [
+        {
+          "term": "le importaría",
+          "example": "Posadero, ¿le importaría guardar mi espada?",
+          "example_meaning": "Innkeeper, would you mind looking after my sword?"
+        },
+        {
+          "term": "quería pedirle",
+          "example": "Majestad, quería pedirle permiso para cazar en el Bosque Umbrío.",
+          "example_meaning": "Your Majesty, I wanted to ask your permission to hunt in the Bosque Umbrío."
+        },
+        {
+          "term": "estimado / estimada",
+          "example": "Estimados miembros del gremio de cazadores:",
+          "example_meaning": "Dear members of the hunters' guild,"
+        },
+        {
+          "term": "atentamente",
+          "example": "Atentamente, Brena, cazadora de Frostmarch.",
+          "example_meaning": "Yours faithfully, Brena, huntress of Frostmarch."
+        },
+        {
+          "term": "vale",
+          "example": "Vale, repartimos el botín a medias.",
+          "example_meaning": "OK, we split the loot half and half."
+        },
+        {
+          "term": "qué va",
+          "example": "¿Miedo de los orcos? ¡Qué va!",
+          "example_meaning": "Scared of the orcs? No way!"
+        },
+        {
+          "term": "la audiencia",
+          "meaning": "audience (a formal meeting with a ruler)",
+          "example": "La reina concede audiencia los lunes.",
+          "example_meaning": "The queen grants audiences on Mondays."
+        },
+        {
+          "term": "Su Majestad",
+          "meaning": "Your / Her / His Majesty",
+          "example": "Su Majestad la recibirá ahora.",
+          "example_meaning": "Her Majesty will see you now."
+        },
+        {
+          "term": "el posadero / la posadera",
+          "meaning": "innkeeper",
+          "example": "La posadera nos tutea a todos.",
+          "example_meaning": "The innkeeper says tú to all of us."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Court or tavern?",
+          "emoji": "👑",
+          "rule": "At court, with the guild or a stranger: usted, ¿le importaría…?, Atentamente. At the posada with your party: tú, vale, tío, ¡qué va!",
+          "example": "Majestad, quisiera pedirle un favor.",
+          "example_meaning": "Your Majesty, I would like to ask you a favour."
+        }
+      ],
+      "listening": [
+        {
+          "text": "¡Qué va, el orco no me asusta!",
+          "meaning": "No way, the orc doesn't scare me!",
+          "note": "New word: asustar = to scare."
+        },
+        {
+          "text": "Majestad, ¿le importaría escucharme un momento?",
+          "meaning": "Your Majesty, would you mind listening to me for a moment?"
+        },
+        {
+          "text": "Estimados miembros del gremio de magas:",
+          "meaning": "Dear members of the mages' guild,",
+          "note": "A formal letter opens with estimado and a colon."
+        },
+        {
+          "text": "Tío, ¿cenamos algo en la posada?",
+          "meaning": "Mate, shall we have something to eat at the inn?",
+          "note": "Colloquial, only with your party."
+        },
+        {
+          "text": "Su Majestad la recibirá en audiencia mañana.",
+          "meaning": "Her Majesty will receive you in audience tomorrow.",
+          "note": "New word: la audiencia = the audience."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Majestad, quisiera pedirle un favor.",
+          "meaning": "Your Majesty, I would like to ask you a favour.",
+          "distractors": [
+            "pedirte"
+          ]
+        },
+        {
+          "text": "¿Le importaría vigilar mi montura?",
+          "meaning": "Would you mind watching my mount?",
+          "distractors": [
+            "importarías"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Majestad, ¿puedes escucharme un momento?",
+          "wrong": "puedes",
+          "fix": "puede",
+          "why": "A queen gets usted: ¿puede escucharme?"
+        },
+        {
+          "sentence": "Estimada maestra del gremio: te escribo para pedir una montura.",
+          "wrong": "te",
+          "fix": "le",
+          "why": "Estimada opens a formal letter: usted, le escribo."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Court or tavern?",
+          "buckets": [
+            "la corte (formal)",
+            "la posada (coloquial)"
+          ],
+          "why": "Court and guild letters take usted and fixed formulas; at the posada friends use tú and colloquial words.",
+          "items": [
+            {
+              "text": "¿Le importaría…?",
+              "bucket": 0
+            },
+            {
+              "text": "¡Qué va!",
+              "bucket": 1
+            },
+            {
+              "text": "Atentamente",
+              "bucket": 0
+            },
+            {
+              "text": "Tío, ¿qué pasa?",
+              "bucket": 1
+            },
+            {
+              "text": "Quisiera pedirle…",
+              "bucket": 0
+            },
+            {
+              "text": "¡Qué guay!",
+              "bucket": 1
+            }
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-register-realm-01",
+          "prompt": "Your audience with the queen of Highgate begins. Which line fits?",
+          "type": "multiple-choice",
+          "options": [
+            "Majestad, quisiera pedirle un favor.",
+            "Tía, hazme un favor.",
+            "Oye, ¿me haces un favor, vale?"
+          ],
+          "correct_answer": "Majestad, quisiera pedirle un favor.",
+          "explanation": "A queen in audience gets usted and a softened request: quisiera pedirle. Tía and oye with tú belong to the posada.",
+          "hints": [
+            "Usted and a polite formula."
+          ],
+          "teaches": [
+            "la audiencia",
+            "Su Majestad"
+          ]
+        },
+        {
+          "question_id": "b2-register-realm-02",
+          "prompt": "Posadero, ¿le ___ guardar mi espada? (importar, polite: Would you mind…?)",
+          "type": "fill-in-blank",
+          "correct_answer": "importaría",
+          "explanation": "¿Le importaría + infinitive? is the polite request. It uses the conditional in the usted form.",
+          "hints": [
+            "Conditional, third person: -ría."
+          ],
+          "teaches": [
+            "le importaría",
+            "el posadero / la posadera"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b2-register-conv-realm-court-and-tavern",
+          "title": "Court by day, tavern by night",
+          "scenario": "Brena, a huntress from Frostmarch, asks Torvo, the dwarf chamberlain at the court of Highgate, for an audience; that night they meet at the posada, where they are old friends.",
+          "role_a": "Torvo",
+          "role_b": "Brena",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Buenos días, señora cazadora. ¿En qué puedo ayudarla?",
+              "meaning": "Good morning, huntress. How may I help you?",
+              "note": "At court, use usted."
+            },
+            {
+              "speaker": "b",
+              "text": "Quisiera pedir audiencia con Su Majestad, si es tan amable.",
+              "meaning": "I would like to request an audience with Her Majesty, if you would be so kind."
+            },
+            {
+              "speaker": "a",
+              "text": "Su Majestad la recibirá mañana. ¿Le importaría dejar el arco en la puerta?",
+              "meaning": "Her Majesty will see you tomorrow. Would you mind leaving your bow at the door?"
+            },
+            {
+              "speaker": "b",
+              "text": "Por supuesto. Muchas gracias por su ayuda.",
+              "meaning": "Of course. Thank you very much for your help."
+            },
+            {
+              "speaker": "a",
+              "text": "¡Brena! ¿Qué pasa, tía? ¿Ya no me tuteas?",
+              "meaning": "Brena! What's up? Not saying tú to me any more?",
+              "note": "That night, at the posada."
+            },
+            {
+              "speaker": "b",
+              "text": "¡Qué va! En la corte, de usted; en la posada, de tú.",
+              "meaning": "No way! At court, usted; at the inn, tú."
+            },
+            {
+              "speaker": "a",
+              "text": "Vale, pues te invito a un pastel. ¿Te mola?",
+              "meaning": "OK, then the pie's on me. Fancy it?"
+            },
+            {
+              "speaker": "b",
+              "text": "Me mola mucho. ¡Y mañana, otra vez de usted!",
+              "meaning": "I'd love that. And tomorrow, usted again!"
+            }
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "📮",
+      "content": "## El registro en Meadowbrook\n\nNora writes to the mayor for a stall at the festival: **Estimado señor alcalde:**, **Le escribo para pedir un puesto**, **Adjunto le envío la solicitud**, **Atentamente**. At Rosa's seed shop or by the river with Leo, it's **tú**: **¡Vale!**, **¡Qué guay!**",
+      "vocabulary": [
+        {
+          "term": "estimado / estimada",
+          "example": "Estimado señor alcalde:",
+          "example_meaning": "Dear Mr Mayor,"
+        },
+        {
+          "term": "le importaría",
+          "example": "Señor alcalde, ¿le importaría leer mi propuesta?",
+          "example_meaning": "Mr Mayor, would you mind reading my proposal?"
+        },
+        {
+          "term": "adjuntar",
+          "example": "Adjunto le envío la solicitud firmada.",
+          "example_meaning": "Please find attached the signed application."
+        },
+        {
+          "term": "atentamente",
+          "example": "Atentamente, Nora, la nueva granjera.",
+          "example_meaning": "Yours sincerely, Nora, the new farmer."
+        },
+        {
+          "term": "vale",
+          "example": "Vale, Rosa, mañana te compro más semillas.",
+          "example_meaning": "OK, Rosa, I'll buy more seeds from you tomorrow."
+        },
+        {
+          "term": "guay",
+          "example": "¡Qué calabaza tan guay, Nora!",
+          "example_meaning": "What a cool pumpkin, Nora!"
+        },
+        {
+          "term": "el puesto",
+          "meaning": "stall (at a market or fair)",
+          "example": "Quisiera un puesto en el festival de otoño.",
+          "example_meaning": "I would like a stall at the autumn festival."
+        },
+        {
+          "term": "la propuesta",
+          "meaning": "proposal",
+          "example": "Mi propuesta es un concurso de calabazas.",
+          "example_meaning": "My proposal is a pumpkin contest."
+        },
+        {
+          "term": "la solicitud",
+          "meaning": "application, application form",
+          "example": "La solicitud tiene dos páginas.",
+          "example_meaning": "The application form has two pages."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Mayor or neighbour?",
+          "emoji": "📮",
+          "rule": "A letter to the alcalde takes usted: Estimado señor alcalde:, Le escribo para…, Atentamente. Rosa and Leo get tú, vale and ¡qué guay!",
+          "example": "Estimado señor alcalde: le escribo para pedir un puesto.",
+          "example_meaning": "Dear Mr Mayor, I am writing to ask for a stall."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Vale, Rosa, nos vemos en la tienda.",
+          "meaning": "OK, Rosa, see you at the shop.",
+          "note": "Vale is casual, for neighbours."
+        },
+        {
+          "text": "Le escribo para pedir un puesto en el festival.",
+          "meaning": "I am writing to ask for a stall at the festival.",
+          "note": "New word: el puesto = the stall."
+        },
+        {
+          "text": "¡Qué guay, Leo! ¿Has pescado eso tú solo?",
+          "meaning": "How cool, Leo! Did you catch that all by yourself?"
+        },
+        {
+          "text": "Adjunto le envío mi propuesta para el concurso.",
+          "meaning": "Please find attached my proposal for the contest.",
+          "note": "New word: la propuesta = the proposal."
+        },
+        {
+          "text": "Quedo a la espera de su respuesta, señor alcalde.",
+          "meaning": "I look forward to your reply, Mr Mayor."
+        }
+      ],
+      "builds": [
+        {
+          "text": "¿Le importaría leer mi propuesta?",
+          "meaning": "Would you mind reading my proposal?",
+          "distractors": [
+            "importarías"
+          ]
+        },
+        {
+          "text": "Atentamente, Nora, la nueva granjera.",
+          "meaning": "Yours sincerely, Nora, the new farmer.",
+          "distractors": [
+            "besos"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Estimado señor alcalde: te escribo por el festival.",
+          "wrong": "te",
+          "fix": "le",
+          "why": "A letter to the mayor takes usted: le escribo."
+        },
+        {
+          "sentence": "Señor alcalde, ¿puedes firmar mi solicitud?",
+          "wrong": "puedes",
+          "fix": "puede",
+          "why": "Señor alcalde gets usted: ¿puede firmar?"
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Mayor or neighbour?",
+          "buckets": [
+            "al alcalde (formal)",
+            "a Rosa o a Leo (coloquial)"
+          ],
+          "why": "The mayor's letter takes usted and formulas; neighbours and friends get tú and casual words.",
+          "items": [
+            {
+              "text": "Estimado señor:",
+              "bucket": 0
+            },
+            {
+              "text": "¡Qué guay!",
+              "bucket": 1
+            },
+            {
+              "text": "Atentamente",
+              "bucket": 0
+            },
+            {
+              "text": "Vale, hasta luego",
+              "bucket": 1
+            },
+            {
+              "text": "Le escribo para…",
+              "bucket": 0
+            },
+            {
+              "text": "Tía, ¿qué tal la cosecha?",
+              "bucket": 1
+            }
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-register-meadowbrook-01",
+          "prompt": "Nora writes to the alcalde to ask for a stall at the festival. Which closing fits?",
+          "type": "multiple-choice",
+          "options": [
+            "Atentamente, Nora",
+            "Besos, Nora",
+            "¡Hasta luego, tío!"
+          ],
+          "correct_answer": "Atentamente, Nora",
+          "explanation": "A formal letter to the mayor closes with Atentamente; besos and tío are for friends.",
+          "hints": [
+            "The mayor is not her friend yet."
+          ],
+          "teaches": [
+            "atentamente",
+            "el puesto"
+          ]
+        },
+        {
+          "question_id": "b2-register-meadowbrook-02",
+          "prompt": "___ le envío la solicitud para el festival. (adjuntar, yo: I attach)",
+          "type": "fill-in-blank",
+          "correct_answer": "Adjunto",
+          "explanation": "Adjunto le envío… is the formal formula for an attachment: adjuntar in the yo form.",
+          "hints": [
+            "The yo form of adjuntar ends in -o."
+          ],
+          "teaches": [
+            "adjuntar",
+            "la solicitud"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "👔",
+      "content": "## El registro en el páramo\n\nA message to el capataz Ruiz on the radiorreloj is formal: **Estimado capataz Ruiz:**, **quería pedirle permiso**, **¿sería tan amable de abrir la cúpula?** Trading tuercas with Marta la mercadera, it's **tú**: **vale, tía**, **¡qué va!**, **me mola tu armadura**.",
+      "vocabulary": [
+        {
+          "term": "ser tan amable de",
+          "example": "Capataz, ¿sería tan amable de abrir la cúpula?",
+          "example_meaning": "Foreman, would you be so kind as to open the Dome?"
+        },
+        {
+          "term": "quería pedirle",
+          "example": "Capataz Ruiz, quería pedirle más agua filtrada.",
+          "example_meaning": "Foreman Ruiz, I wanted to ask you for more filtered water."
+        },
+        {
+          "term": "estimado / estimada",
+          "example": "Estimado capataz Ruiz:",
+          "example_meaning": "Dear Foreman Ruiz,"
+        },
+        {
+          "term": "qué va",
+          "example": "¿Miedo de la tormenta de ceniza? ¡Qué va!",
+          "example_meaning": "Scared of the ash storm? No way!"
+        },
+        {
+          "term": "tío / tía",
+          "example": "Tía, ¿cuántas tuercas por esta gaseosa?",
+          "example_meaning": "Hey, how many nuts for this soda?"
+        },
+        {
+          "term": "me mola",
+          "example": "Me mola tu armadura de chatarra, Leo.",
+          "example_meaning": "I love your scrap armour, Leo."
+        },
+        {
+          "term": "el permiso",
+          "meaning": "permission, permit",
+          "example": "Necesito un permiso para salir al páramo.",
+          "example_meaning": "I need a permit to go out into the wasteland."
+        },
+        {
+          "term": "el informe",
+          "meaning": "report",
+          "example": "Le envío el informe sobre la antena.",
+          "example_meaning": "I'm sending you the report on the antenna."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Foreman or trader?",
+          "emoji": "📟",
+          "rule": "To el capataz on the radiorreloj: usted, quería pedirle, ¿sería tan amable de…? With Marta at the market: tú, vale, tía, ¡qué va!",
+          "example": "Capataz, quería pedirle permiso para explorar.",
+          "example_meaning": "Foreman, I wanted to ask your permission to explore."
+        }
+      ],
+      "listening": [
+        {
+          "text": "¡Qué va, tía, la cabra no muerde!",
+          "meaning": "No way, the goat doesn't bite!",
+          "note": "New word: morder = to bite."
+        },
+        {
+          "text": "Vale, Marta, te cambio diez tuercas por agua.",
+          "meaning": "OK, Marta, I'll swap you ten nuts for water.",
+          "note": "With a trader friend, use tú."
+        },
+        {
+          "text": "¿Sería tan amable de reparar mi radiorreloj?",
+          "meaning": "Would you be so kind as to repair my wrist radio?"
+        },
+        {
+          "text": "Capataz, quería pedirle permiso para salir.",
+          "meaning": "Foreman, I wanted to ask your permission to go out.",
+          "note": "New word: el permiso = the permission."
+        },
+        {
+          "text": "Tío, tu robot jardinero me mola mucho.",
+          "meaning": "Mate, I really love your gardener robot."
+        }
+      ],
+      "builds": [
+        {
+          "text": "¿Sería tan amable de abrir la cúpula?",
+          "meaning": "Would you be so kind as to open the Dome?",
+          "distractors": [
+            "serías"
+          ]
+        },
+        {
+          "text": "Vale, tía, te cambio agua por tuercas.",
+          "meaning": "OK, I'll swap you water for nuts.",
+          "distractors": [
+            "atentamente"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Perdone, capataz, ¿puedes abrir la cúpula?",
+          "wrong": "puedes",
+          "fix": "puede",
+          "why": "Perdone is usted, so keep it: ¿puede abrir…?"
+        },
+        {
+          "sentence": "Estimado capataz Ruiz: te envío el informe de la antena.",
+          "wrong": "te",
+          "fix": "le",
+          "why": "Estimado sets usted: le envío."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Foreman or trader?",
+          "buckets": [
+            "al capataz (formal)",
+            "a Marta (coloquial)"
+          ],
+          "why": "The foreman gets usted and formulas; a trader friend gets tú and colloquial words.",
+          "items": [
+            {
+              "text": "¿Sería tan amable de…?",
+              "bucket": 0
+            },
+            {
+              "text": "¡Qué va!",
+              "bucket": 1
+            },
+            {
+              "text": "Estimado capataz:",
+              "bucket": 0
+            },
+            {
+              "text": "Tía, ¿cuánto cuesta?",
+              "bucket": 1
+            },
+            {
+              "text": "Quería pedirle permiso",
+              "bucket": 0
+            },
+            {
+              "text": "¡Me mola!",
+              "bucket": 1
+            }
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-register-rustwake-01",
+          "prompt": "You send a message to el capataz Ruiz asking him to open the Dome. Which line fits?",
+          "type": "multiple-choice",
+          "options": [
+            "¿Sería tan amable de abrir la cúpula?",
+            "Tío, ábreme la cúpula, ¿vale?",
+            "Oye, abre la cúpula ya."
+          ],
+          "correct_answer": "¿Sería tan amable de abrir la cúpula?",
+          "explanation": "The foreman gets usted and a softened request: ¿Sería tan amable de…? The other two are casual tú.",
+          "hints": [
+            "Usted and a polite formula."
+          ],
+          "teaches": [
+            "ser tan amable de"
+          ]
+        },
+        {
+          "question_id": "b2-register-rustwake-02",
+          "prompt": "—¿Te da miedo la tormenta de ceniza, Leo? —¡___! Ya he visto muchas. (colloquial: Not at all!)",
+          "type": "fill-in-blank",
+          "correct_answer": "Qué va",
+          "explanation": "¡Qué va! is the colloquial Spanish way to say not at all.",
+          "hints": [
+            "Two words, colloquial Spain."
+          ],
+          "teaches": [
+            "qué va"
+          ]
+        }
+      ]
+    }
+  }
+}

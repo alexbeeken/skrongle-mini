@@ -1,0 +1,43 @@
+{# The Statistics and metrics motivator's hero on the course home page
+   (motivators.rs, #559): the daily goal's ring, the streak, lessons passed,
+   terms, where to continue and the current unit. #}
+<section class="today" data-testid="home-today" data-motivator="stats" aria-label="{{ crate::t("home.your_progress") }}">
+  <div class="today-main">
+    <div class="goal-ring{% if today.done() %} done{% endif %}" style="--pct:{{ today.pct() }}" role="progressbar" aria-label="{{ crate::t2("goal.ring_label", "n", today.points, "goal", today.goal) }}" aria-valuenow="{{ today.points }}" aria-valuemin="0" aria-valuemax="{{ today.goal }}" data-testid="home-goal-ring" data-points="{{ today.points }}" data-goal="{{ today.goal }}">
+      <span class="goal-ring-num">{{ today.points }}</span><span class="goal-ring-goal">/ {{ today.goal }}</span>
+    </div>
+    <div class="today-body">
+      <div class="today-head">
+        {% include "goal_message.html" %}
+        <button type="button" class="info-btn" commandfor="home-info-goal" command="show-modal" data-opens="home-info-goal" aria-haspopup="dialog" aria-label="{{ crate::t("goal.info_label") }}" data-testid="home-info-goal">i</button>
+      </div>
+      <ul class="today-chips" data-testid="home-stats">
+        <li class="today-chip streak{% if practised_today %} lit{% endif %}" data-testid="home-stat-streak" title="{{ crate::t("home.day_streak") }}">{{ course.icons.streak }} <strong>{{ streak }}</strong> <span>{{ crate::t("home.day_streak") }}</span></li>
+        <li class="today-chip" data-testid="home-stat-passed">✓ <strong>{{ p.passed_count }}<span class="muted"> / {{ p.total_lessons }}</span></strong> <span>{{ crate::t("home.lessons_passed") }}</span></li>
+        <li class="today-chip"><a href="{{ crate::base_path() }}/vocabulary" data-testid="home-stat-words">{{ course.icons.words }} <strong>{{ p.words_learned }}</strong> <span>{{ crate::t("home.terms") }}</span></a></li>
+        {% if p.skipped_count > 0 %}<li class="today-chip"><a href="{{ crate::base_path() }}/lessons" data-testid="home-skipped"><strong>{{ p.skipped_count }}</strong> <span>{{ crate::t("home.skipped") }}</span></a></li>{% endif %}
+      </ul>
+      {% if let Some((slug, title, url)) = p.resume %}
+      <a class="btn big today-continue" href="{{ url }}" data-testid="home-continue" data-lesson-id="{{ slug }}">{{ crate::t1("goal.continue", "title", title) }} ›</a>
+      {% else %}
+      <a class="btn big today-continue" href="{{ crate::base_path() }}/practice" data-testid="home-continue">{{ crate::t("goal.all_done") }} ›</a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="today-unit" data-testid="home-map">
+    <p class="today-unit-where" data-testid="home-map-unit">{{ course.icons.path }} {{ crate::t2("home.unit_of", "n", p.unit_number, "total", p.unit_count) }} · <strong>{{ p.current_unit }}</strong></p>
+    <div class="bar" role="progressbar" aria-label="{{ crate::t1("home.unit_bar_label", "unit", p.current_unit) }}" aria-valuemin="0" aria-valuemax="{{ p.unit_total }}" aria-valuenow="{{ p.unit_passed }}"><div class="fill" style="width:{{ p.unit_percent }}%"></div></div>
+    <p class="today-unit-count"><span data-testid="home-map-progress" data-passed="{{ p.unit_passed }}" data-total="{{ p.unit_total }}">{{ crate::t2("home.unit_passed_html", "passed", p.unit_passed, "total", p.unit_total)|safe }}</span></p>
+  </div>
+</section>
+
+<dialog class="modal" id="home-info-goal" aria-labelledby="home-info-goal-title" data-testid="home-info-goal-dialog">
+  <h2 id="home-info-goal-title">{{ crate::t("goal.info_title") }}</h2>
+  <p>{{ crate::t1("goal.info_p", "goal", today.goal) }}</p>
+  <table class="goal-points" data-testid="home-goal-points">
+    <thead><tr><th scope="col">{{ crate::t("goal.col_activity") }}</th><th scope="col">{{ crate::t("goal.col_points") }}</th></tr></thead>
+    <tbody>{% for (what, pts) in p.effort_table %}<tr><td>{{ what }}</td><td>{{ pts }}</td></tr>{% endfor %}</tbody>
+  </table>
+  <div class="modal-actions"><button type="button" class="btn" commandfor="home-info-goal" command="close" data-closes data-testid="home-info-close">{{ crate::t("home.ok") }}</button></div>
+</dialog>

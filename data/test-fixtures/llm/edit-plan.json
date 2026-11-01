@@ -1,0 +1,231 @@
+{
+  "_comment": "edit-plan replies (Edit lessons, #1240), for the course the generate-outline 'default' fixture makes (lessons u1-simplify, u1-what, u2-add, in that order: the fixture lessons have no `order`, so they sort by title within a unit). The key is a [fixture:NAME] token in the learner's feedback (default: 'default'). 'default' rewrites u1-simplify and renames it \"Simplifying fractions\"; each rewrite is written from revise-lesson.json's '*'. 'adds', 'drops' and 'reorders' break the edit's rules, so the plan is refused (asked again once, then the run stops); 'nothing' keeps every lesson ('Nothing changed'); 'slow' is 'default' after 4 s. See docs/testing.md. 'check' checks every lesson (each from check-lesson.json: one fix in \"What a fraction is\", a Check line on \"Simplifying\"); 'check-clean' checks only \"Adding fractions\", which comes back unchanged ('The check found nothing to fix').",
+  "replies": {
+    "default": {
+      "reply": {
+        "lessons": [
+          {
+            "id": "u1-simplify",
+            "title": "Simplifying fractions",
+            "summary": "Simplifying, with more worked examples",
+            "focus": "simplifying",
+            "change": "rewrite",
+            "instructions": "More worked examples, simpler words."
+          },
+          {
+            "id": "u1-what",
+            "title": "What a fraction is",
+            "summary": "What a fraction is",
+            "focus": "what a fraction is",
+            "change": "keep"
+          },
+          {
+            "id": "u2-add",
+            "title": "Adding fractions",
+            "summary": "Adding fractions",
+            "focus": "adding fractions",
+            "change": "keep"
+          }
+        ]
+      }
+    },
+    "slow": {
+      "reply": {
+        "lessons": [
+          {
+            "id": "u1-simplify",
+            "title": "Simplifying fractions",
+            "summary": "Simplifying, with more worked examples",
+            "focus": "simplifying",
+            "change": "rewrite",
+            "instructions": "More worked examples, simpler words."
+          },
+          {
+            "id": "u1-what",
+            "title": "What a fraction is",
+            "summary": "What a fraction is",
+            "focus": "what a fraction is",
+            "change": "keep"
+          },
+          {
+            "id": "u2-add",
+            "title": "Adding fractions",
+            "summary": "Adding fractions",
+            "focus": "adding fractions",
+            "change": "keep"
+          }
+        ]
+      },
+      "delay_ms": 4000
+    },
+    "adds": {
+      "reply": {
+        "lessons": [
+          {
+            "id": "u1-simplify",
+            "title": "Simplifying fractions",
+            "summary": "Simplifying, with more worked examples",
+            "focus": "simplifying",
+            "change": "rewrite",
+            "instructions": "More worked examples, simpler words."
+          },
+          {
+            "id": "u1-what",
+            "title": "What a fraction is",
+            "summary": "What a fraction is",
+            "focus": "what a fraction is",
+            "change": "keep"
+          },
+          {
+            "id": "u2-add",
+            "title": "Adding fractions",
+            "summary": "Adding fractions",
+            "focus": "adding fractions",
+            "change": "keep"
+          },
+          {
+            "id": "u2-word",
+            "title": "Word problems",
+            "summary": "Word problems",
+            "focus": "word problems",
+            "change": "new",
+            "instructions": "Fractions in everyday word problems."
+          }
+        ]
+      }
+    },
+    "drops": {
+      "reply": {
+        "lessons": [
+          {
+            "id": "u1-simplify",
+            "title": "Simplifying fractions",
+            "summary": "Simplifying, with more worked examples",
+            "focus": "simplifying",
+            "change": "rewrite",
+            "instructions": "More worked examples, simpler words."
+          },
+          {
+            "id": "u1-what",
+            "title": "What a fraction is",
+            "summary": "What a fraction is",
+            "focus": "what a fraction is",
+            "change": "keep"
+          }
+        ]
+      }
+    },
+    "reorders": {
+      "reply": {
+        "lessons": [
+          {
+            "id": "u1-what",
+            "title": "What a fraction is",
+            "summary": "What a fraction is",
+            "focus": "what a fraction is",
+            "change": "keep"
+          },
+          {
+            "id": "u1-simplify",
+            "title": "Simplifying fractions",
+            "summary": "Simplifying, with more worked examples",
+            "focus": "simplifying",
+            "change": "rewrite",
+            "instructions": "More worked examples, simpler words."
+          },
+          {
+            "id": "u2-add",
+            "title": "Adding fractions",
+            "summary": "Adding fractions",
+            "focus": "adding fractions",
+            "change": "keep"
+          }
+        ]
+      }
+    },
+    "nothing": {
+      "reply": {
+        "lessons": [
+          {
+            "id": "u1-simplify",
+            "title": "Simplifying",
+            "summary": "Simplifying, with more worked examples",
+            "focus": "simplifying",
+            "change": "keep"
+          },
+          {
+            "id": "u1-what",
+            "title": "What a fraction is",
+            "summary": "What a fraction is",
+            "focus": "what a fraction is",
+            "change": "keep"
+          },
+          {
+            "id": "u2-add",
+            "title": "Adding fractions",
+            "summary": "Adding fractions",
+            "focus": "adding fractions",
+            "change": "keep"
+          }
+        ]
+      }
+    },
+    "invalid-json": {
+      "reply": "I would rather not plan anything today."
+    },
+    "check": {
+      "reply": {
+        "lessons": [
+          {
+            "id": "u1-simplify",
+            "title": "Simplifying",
+            "summary": "Simplifying, with more worked examples",
+            "focus": "simplifying",
+            "change": "check"
+          },
+          {
+            "id": "u1-what",
+            "title": "What a fraction is",
+            "summary": "What a fraction is",
+            "focus": "what a fraction is",
+            "change": "check"
+          },
+          {
+            "id": "u2-add",
+            "title": "Adding fractions",
+            "summary": "Adding fractions",
+            "focus": "adding fractions",
+            "change": "check"
+          }
+        ]
+      }
+    },
+    "check-clean": {
+      "reply": {
+        "lessons": [
+          {
+            "id": "u1-simplify",
+            "title": "Simplifying",
+            "summary": "Simplifying, with more worked examples",
+            "focus": "simplifying",
+            "change": "keep"
+          },
+          {
+            "id": "u1-what",
+            "title": "What a fraction is",
+            "summary": "What a fraction is",
+            "focus": "what a fraction is",
+            "change": "keep"
+          },
+          {
+            "id": "u2-add",
+            "title": "Adding fractions",
+            "summary": "Adding fractions",
+            "focus": "adding fractions",
+            "change": "check"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t("study.lessons.title") }}{% endblock %}
+{% block modenav %}{% let active = "lessons" %}{% include "nav_study.html" %}{% endblock %}
+{% block content %}
+<h1 id="lessons-top">{{ crate::t("study.lessons.title") }} <span class="muted">· {{ course.title }}</span></h1>
+<div class="lessons-bar" data-testid="lessons-bar">
+<form class="lessons-filter" method="get" action="{{ crate::base_path() }}/lessons" role="search">
+  <label for="lessons-filter">{{ crate::t("study.lessons.find") }}</label>
+  <input type="search" id="lessons-filter" name="q" value="{{ q }}" data-testid="lessons-filter" maxlength="100" placeholder="{{ crate::t("study.lessons.find_placeholder") }}" autocomplete="off">
+  <span class="small muted" id="lessons-filter-status" data-testid="lessons-filter-status" role="status">{% if !q.is_empty() && groups.is_empty() %}{{ crate::t1("study.js.filter_none", "query", q) }}{% endif %}</span>
+  <a class="small" id="lessons-lookup" data-testid="lessons-lookup" href="{{ crate::base_path() }}/lookup?q={{ crate::oauth::urlencode(q) }}"{% if q.is_empty() %} hidden{% endif %}>{{ crate::t1("study.js.lookup_link", "query", q) }}</a>
+</form>
+{% if tabs.len() > 1 %}
+{% let tabs_label = crate::t("study.lessons.jump") %}{% let tabs_id = "lessons-units" %}
+{% include "pick_tabs.html" %}
+{% endif %}
+</div>
+<div id="lessons-shown" data-testid="lessons-shown" data-search="{{ search }}">
+{% for g in groups %}
+<section id="{{ g.anchor }}" class="lessons-unit" data-testid="lessons-unit">
+  <h2>{{ g.unit }} <span class="muted">{{ g.description }}</span></h2>
+  <ul class="topics" data-testid="lessons-list">
+  {% for t in g.lessons %}
+    <li data-testid="lessons-item" data-lesson-id="{{ t.slug }}" data-passed="{{ t.passed }}" data-read="{{ t.read }}" data-status="{{ t.status_css }}" data-search="{{ t.title }} {{ t.group }} {{ t.summary }}">
+      <a href="{{ crate::base_path() }}/lessons/{{ t.slug }}" data-testid="lessons-item-link">{{ t.title }}</a>
+      <span class="meta">
+        {% if t.passed %}<span class="pill mastered" title="{{ t.pass }}">{{ crate::t("study.pill_passed") }}</span>{% endif %}
+        {% if t.status_css != "untested" %}<span class="pill {{ t.status_css }}" title="{{ crate::t("study.pill_mastery_title") }}" data-testid="lessons-item-mastery">{{ t.status_label }}{% if t.times_tested > 0 %} · {{ t.score }}%{% endif %}</span>{% endif %}{% if t.read %} <span class="pill read" title="{{ crate::t("study.lessons.read_title") }}">{{ crate::t("study.pill_read") }}</span>{% else if t.question_count > 0 && t.status_css != "skipped" %} <span class="pill unread" title="{{ crate::t("study.lessons.unread_title") }}">{{ crate::t("study.lessons.unread") }}</span>{% endif %}
+        {{ t.group }} · {{ crate::t1("study.counts.n_questions", "n", t.question_count) }}{% if !t.summary.is_empty() %} — {{ t.summary }}{% endif %}
+      </span>
+      {% if t.question_count > 0 %}<a class="btn small ghost" href="{{ crate::base_path() }}/practice?lesson={{ t.slug }}" data-testid="lessons-item-practise">{{ crate::t("study.practise") }}</a>{% endif %}
+    </li>
+  {% endfor %}
+  </ul>
+</section>
+{% endfor %}
+</div>
+<div id="lessons-pager">{% include "pager.html" %}</div>
+<a class="to-top" href="#lessons-top" data-testid="lessons-to-top">{{ crate::t("study.lessons.to_top") }}</a>
+{% endblock %}
+{% block scripts %}<script>Object.assign(I18N, {{ crate::i18n::js_json("study.js")|safe }});</script>
+<script src="{{ crate::routes::asset_url("lessons.js") }}" defer></script>{% endblock %}

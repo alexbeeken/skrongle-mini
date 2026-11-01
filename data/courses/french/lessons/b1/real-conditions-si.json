@@ -1,0 +1,1261 @@
+{
+  "id": "b1-real-conditions-si",
+  "slug": "real-conditions-si",
+  "title": "Real conditions: si tu viens, on ira au cinéma",
+  "unit": "B1",
+  "group": "Grammar",
+  "order": 12,
+  "summary": "Talk about real possibilities with si + présent, followed by the futur, the présent or the impératif, plus même si, sauf si, sinon and à condition de.",
+  "focus": "Si + présent for a real condition, and never the futur right after si",
+  "prerequisites": [
+    "a2-futur-simple"
+  ],
+  "content": "## Si + présent → futur\n\nTo talk about something that can really happen, put **si** (if) + the **présent** in one half and the **futur** in the other:\n\n- **Si tu viens, on ira au cinéma.** — If you come, we'll go to the cinema.\n- **S'il fait beau demain, nous mangerons dehors.** — If the weather's nice tomorrow, we'll eat outside.\n- **Je t'appellerai si j'ai le temps.** — I'll call you if I have time.\n\nThe halves can swap places; the comma goes only when **si** comes first. The futur proche works too: **Si tu viens, on va bien rire.**\n\n## Habits, truths and orders\n\nThe other half is not always in the futur.\n\n- A habit or a general truth: **présent + présent**. **Si je suis fatigué, je dors.** — If (whenever) I'm tired, I sleep. **Si on chauffe la glace, elle fond.** — If you heat ice, it melts.\n- Advice or an order: **présent + impératif**. **Si tu as faim, mange !** — If you're hungry, eat! **Si vous avez une question, levez la main.** — If you have a question, raise your hand.\n\nAsk yourself: one future event, an every-time rule, or an instruction?\n\n## Never the futur after si\n\nEnglish says *if you come*, not *if you will come*, and French is just as strict: after **si** meaning *if*, use the présent, **never the futur or the conditionnel**.\n\n- **Si tu viens** ✓ — never *si tu viendras*\n- **Si nous avons le temps** ✓ — never *si nous aurons le temps*\n\nWhen **si** means *whether* (after **savoir**, **demander**), the futur is fine: **Je ne sais pas s'il viendra.** — I don't know whether he'll come.\n\n**Si** elides only before **il** and **ils**: **s'il**, **s'ils**. Never before elle or on: **si elle part**, **si on sort**.\n\n## Même si, sauf si, sinon\n\nThe same tenses follow these:\n\n- **même si** = even if: **Même s'il pleut, je sortirai.**\n- **sauf si** = unless: **On ira à la plage, sauf s'il fait froid.**\n- **sinon** = otherwise, or else: **Dépêche-toi, sinon tu vas rater le train.**\n- **à condition de** + infinitive = provided that (same subject): **Tu peux sortir, à condition de rentrer avant minuit.**\n\nOne to recognise: **au cas où** (in case) takes the **conditionnel**: **Prends un pull au cas où il ferait froid.**",
+  "vocabulary": [
+    {
+      "term": "si",
+      "meaning": "if; whether",
+      "example": "Si tu veux, je t'aide à porter ta valise.",
+      "example_meaning": "If you like, I'll help you carry your suitcase."
+    },
+    {
+      "term": "même si",
+      "meaning": "even if",
+      "example": "Même si le film est long, je resterai jusqu'à la fin.",
+      "example_meaning": "Even if the film is long, I'll stay until the end."
+    },
+    {
+      "term": "sauf si",
+      "meaning": "unless",
+      "example": "Nous partirons à huit heures, sauf si tu es malade.",
+      "example_meaning": "We'll leave at eight, unless you're ill."
+    },
+    {
+      "term": "à condition de",
+      "meaning": "provided that, on condition of (+ infinitive)",
+      "example": "Tu peux prendre ma voiture, à condition de faire le plein.",
+      "example_meaning": "You can take my car, provided you fill it up."
+    },
+    {
+      "term": "sinon",
+      "meaning": "otherwise, or else",
+      "example": "Mange quelque chose, sinon tu auras faim en route.",
+      "example_meaning": "Eat something, or else you'll be hungry on the way."
+    },
+    {
+      "term": "au cas où",
+      "meaning": "in case (+ conditionnel)",
+      "example": "Je garde ton numéro au cas où j'aurais un problème.",
+      "example_meaning": "I'm keeping your number in case I have a problem."
+    },
+    {
+      "term": "prévenir",
+      "meaning": "to let (someone) know, to warn",
+      "example": "Si tu es en retard, préviens-moi.",
+      "example_meaning": "If you're late, let me know."
+    },
+    {
+      "term": "rater",
+      "meaning": "to miss (a train, a bus, a chance)",
+      "example": "Si nous ratons le dernier métro, nous rentrerons à pied.",
+      "example_meaning": "If we miss the last metro, we'll walk home."
+    },
+    {
+      "term": "se dépêcher",
+      "meaning": "to hurry",
+      "example": "Si on se dépêche, on arrivera avant le début.",
+      "example_meaning": "If we hurry, we'll get there before the start."
+    },
+    {
+      "term": "le parapluie",
+      "meaning": "umbrella (m)",
+      "example": "S'il pleut, je prends toujours mon parapluie.",
+      "example_meaning": "If it rains, I always take my umbrella."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-real-conditions-si-01",
+      "prompt": "Si tu viens samedi, on ___ au cinéma.",
+      "type": "multiple-choice",
+      "options": [
+        "ira",
+        "irait",
+        "irais"
+      ],
+      "correct_answer": "ira",
+      "explanation": "A real possibility: si + présent (tu viens) → futur (on ira). The conditionnel irait belongs to unreal hypotheses with si + imparfait.",
+      "hints": [
+        "Si + présent in one half… which tense in the other?",
+        "On takes the il form."
+      ],
+      "teaches": [
+        "si"
+      ]
+    },
+    {
+      "question_id": "b1-real-conditions-si-02",
+      "prompt": "S'il ___ demain, nous resterons à la maison. (pleuvoir)",
+      "type": "fill-in-blank",
+      "correct_answer": "pleut",
+      "accepted_answers": [
+        "il pleut"
+      ],
+      "explanation": "After si meaning 'if', the présent: s'il pleut. Never s'il pleuvra. Note the elision s'il.",
+      "hints": [
+        "The présent of pleuvoir: il pl…",
+        "Not the futur: that goes in the other half."
+      ],
+      "teaches": [
+        "si"
+      ]
+    },
+    {
+      "question_id": "b1-real-conditions-si-03",
+      "prompt": "Si tu as faim avant le dîner, ___ une pomme ! (prendre, impératif)",
+      "type": "fill-in-blank",
+      "correct_answer": "prends",
+      "accepted_answers": [],
+      "explanation": "Advice after a real condition: si + présent → impératif. The tu form of prendre in the impératif is prends.",
+      "hints": [
+        "An instruction to tu, with no subject pronoun.",
+        "Prendre is not an -er verb, so it keeps its -s."
+      ],
+      "teaches": [
+        "si"
+      ]
+    },
+    {
+      "question_id": "b1-real-conditions-si-04",
+      "prompt": "Le soir, si je suis fatigué, je ___ toujours tôt.",
+      "type": "multiple-choice",
+      "options": [
+        "me couche",
+        "me coucherais",
+        "me couchais"
+      ],
+      "correct_answer": "me couche",
+      "explanation": "Toujours shows a habit: si + présent → présent. Si je suis fatigué, je me couche tôt.",
+      "hints": [
+        "Is this one event or something that happens every time?"
+      ],
+      "teaches": [
+        "si"
+      ]
+    },
+    {
+      "question_id": "b1-real-conditions-si-05",
+      "prompt": "'Si tu viendras, je serai content' is correct French.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "After si meaning 'if', French never uses the futur: si tu viens, je serai content.",
+      "hints": [
+        "English doesn't say 'if you will come' either."
+      ],
+      "teaches": [
+        "si"
+      ]
+    },
+    {
+      "question_id": "b1-real-conditions-si-06",
+      "prompt": "Je ne sais pas s'il ___ à la réunion de demain. (venir)",
+      "type": "fill-in-blank",
+      "correct_answer": "viendra",
+      "accepted_answers": [
+        "vient"
+      ],
+      "explanation": "Here si means 'whether' (after savoir), so the futur is allowed: je ne sais pas s'il viendra. The présent vient is also heard for a near future.",
+      "hints": [
+        "Does si mean 'if' or 'whether' here?",
+        "Venir in the futur: viendr- + ending."
+      ],
+      "teaches": [
+        "si"
+      ]
+    },
+    {
+      "question_id": "b1-real-conditions-si-07",
+      "prompt": "Ma sœur viendra ___ elle est fatiguée : elle ne rate jamais une fête.",
+      "type": "multiple-choice",
+      "options": [
+        "même si",
+        "sauf si",
+        "sinon"
+      ],
+      "correct_answer": "même si",
+      "explanation": "She never misses a party, so she'll come even if she's tired: même si. Sauf si (unless) would say the opposite; sinon cannot introduce a condition.",
+      "hints": [
+        "Tiredness won't stop her.",
+        "Même si = even if."
+      ],
+      "teaches": [
+        "même si",
+        "rater"
+      ]
+    },
+    {
+      "question_id": "b1-real-conditions-si-08",
+      "prompt": "Dépêche-toi, ___ tu vas rater ton bus !",
+      "type": "fill-in-blank",
+      "correct_answer": "sinon",
+      "accepted_answers": [],
+      "explanation": "Sinon = otherwise, or else: hurry, or else you'll miss your bus.",
+      "hints": [
+        "One word meaning 'or else'.",
+        "It is si + non."
+      ],
+      "teaches": [
+        "sinon",
+        "se dépêcher",
+        "rater"
+      ]
+    },
+    {
+      "question_id": "b1-real-conditions-si-09",
+      "prompt": "Au cas où takes the conditionnel: 'Prends ton parapluie au cas où il pleuvrait.'",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Unlike si, au cas où (in case) is followed by the conditionnel: au cas où il pleuvrait.",
+      "hints": [
+        "Au cas où is the one exception in this lesson."
+      ],
+      "teaches": [
+        "au cas où",
+        "le parapluie"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-real-conditions-si-conv-saturday",
+      "title": "Plans for Saturday",
+      "scenario": "Inès wants to see a film with Hugo on Saturday, but Hugo isn't sure he'll be free.",
+      "role_a": "Inès",
+      "role_b": "Hugo",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Hugo, tu es libre samedi soir ?",
+          "meaning": "Hugo, are you free on Saturday evening?"
+        },
+        {
+          "speaker": "b",
+          "text": "Ça dépend. Si je finis mon rapport, je serai libre.",
+          "meaning": "It depends. If I finish my report, I'll be free."
+        },
+        {
+          "speaker": "a",
+          "text": "Si tu viens, on ira voir le nouveau film de science-fiction.",
+          "meaning": "If you come, we'll go and see the new science-fiction film."
+        },
+        {
+          "speaker": "b",
+          "text": "D'accord, sauf s'il y a un problème au bureau.",
+          "meaning": "OK, unless there's a problem at the office."
+        },
+        {
+          "speaker": "a",
+          "text": "Et s'il fait beau, on mangera en terrasse avant.",
+          "meaning": "And if the weather's nice, we'll eat outside on a terrace first."
+        },
+        {
+          "speaker": "b",
+          "text": "Bonne idée. Mais si tu es en retard, je commande sans toi !",
+          "meaning": "Good idea. But if you're late, I'm ordering without you!"
+        },
+        {
+          "speaker": "a",
+          "text": "Si je suis en retard, je te préviendrai, promis.",
+          "meaning": "If I'm late, I'll let you know, I promise."
+        },
+        {
+          "speaker": "b",
+          "text": "Prends un parapluie au cas où il pleuvrait.",
+          "meaning": "Take an umbrella in case it rains."
+        },
+        {
+          "speaker": "a",
+          "text": "Même s'il pleut, on passera une bonne soirée.",
+          "meaning": "Even if it rains, we'll have a nice evening."
+        },
+        {
+          "speaker": "b",
+          "text": "Parfait. Si tu veux, je réserve les places ce soir.",
+          "meaning": "Perfect. If you like, I'll book the seats tonight."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Si tu as soif, bois de l'eau.",
+      "meaning": "If you're thirsty, drink some water.",
+      "note": "Si + présent → impératif."
+    },
+    {
+      "text": "S'il fait beau, nous irons à la plage.",
+      "meaning": "If the weather's nice, we'll go to the beach."
+    },
+    {
+      "text": "Si je rate le bus, je prends un taxi.",
+      "meaning": "If I miss the bus, I take a taxi.",
+      "note": "A habit: présent + présent."
+    },
+    {
+      "text": "Même s'il est tard, je t'appellerai ce soir.",
+      "meaning": "Even if it's late, I'll call you tonight."
+    },
+    {
+      "text": "Sauf si tu es malade, tu viendras avec nous.",
+      "meaning": "Unless you're ill, you'll come with us."
+    },
+    {
+      "text": "Tu peux sortir, à condition de rentrer avant minuit.",
+      "meaning": "You can go out, provided you're back before midnight.",
+      "note": "New word: minuit = midnight."
+    },
+    {
+      "text": "Mets ton manteau, sinon tu vas avoir froid.",
+      "meaning": "Put your coat on, or else you'll be cold.",
+      "note": "New word: le manteau = the coat."
+    },
+    {
+      "text": "Si vous arrivez avant nous, prévenez la réception de l'hôtel.",
+      "meaning": "If you arrive before us, let the hotel reception know.",
+      "note": "New word: la réception = the reception desk."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Si + présent"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-real-conditions-si-01"
+    },
+    {
+      "question": "b1-real-conditions-si-02"
+    },
+    {
+      "section": "Habits"
+    },
+    {
+      "question": "b1-real-conditions-si-04"
+    },
+    {
+      "question": "b1-real-conditions-si-03"
+    },
+    {
+      "tip": "Find the half with si: it is in the présent. Then choose the other half: futur for one event, présent for a habit, impératif for advice."
+    },
+    {
+      "section": "Never the futur"
+    },
+    {
+      "question": "b1-real-conditions-si-05"
+    },
+    {
+      "question": "b1-real-conditions-si-06"
+    },
+    {
+      "concept": {
+        "title": "Quand vs si",
+        "markdown": "**Quand** is for something you expect to happen, **si** for something that may or may not. With quand, a future moment takes the futur: **Quand tu viendras, on ira au cinéma.** With si it stays présent: **Si tu viens, on ira au cinéma.**"
+      }
+    },
+    {
+      "section": "Même si"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-real-conditions-si-07"
+    },
+    {
+      "question": "b1-real-conditions-si-08"
+    },
+    {
+      "question": "b1-real-conditions-si-09"
+    }
+  ],
+  "sprint": {
+    "icon": "🤔",
+    "bites": [
+      {
+        "title": "Si + présent → futur",
+        "emoji": "🔜",
+        "rule": "For something that can really happen: si + présent in one half, futur in the other.",
+        "example": "Si tu viens, on ira au cinéma.",
+        "example_meaning": "If you come, we'll go to the cinema."
+      },
+      {
+        "title": "Habits and advice",
+        "emoji": "🔁",
+        "rule": "An every-time rule takes présent + présent; advice or an order takes présent + impératif.",
+        "example": "Si tu as faim, mange !",
+        "example_meaning": "If you're hungry, eat!"
+      },
+      {
+        "title": "No futur after si",
+        "emoji": "🚫",
+        "rule": "Si meaning 'if' takes the présent, never the futur or the conditionnel. Si meaning 'whether' may take the futur.",
+        "example": "Je ne sais pas s'il viendra.",
+        "example_meaning": "I don't know whether he'll come."
+      },
+      {
+        "title": "Même si, sauf si, sinon",
+        "emoji": "🔀",
+        "rule": "Même si = even if, sauf si = unless (both + présent), sinon = or else. Si elides only before il and ils: s'il, s'ils.",
+        "example": "Même s'il pleut, je sortirai.",
+        "example_meaning": "Even if it rains, I'll go out."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "What does the other half use?",
+        "buckets": [
+          "futur",
+          "présent",
+          "impératif"
+        ],
+        "items": [
+          {
+            "text": "S'il fait beau dimanche, nous ferons un pique-nique.",
+            "bucket": 0
+          },
+          {
+            "text": "Si l'eau atteint cent degrés, elle bout.",
+            "bucket": 1
+          },
+          {
+            "text": "Si tu es fatigué, couche-toi.",
+            "bucket": 2
+          },
+          {
+            "text": "Si je finis tôt, je passerai chez toi.",
+            "bucket": 0
+          },
+          {
+            "text": "Si je bois du café le soir, je dors mal.",
+            "bucket": 1
+          },
+          {
+            "text": "Si vous avez une question, levez la main.",
+            "bucket": 2
+          }
+        ],
+        "why": "One future event takes the futur; a habit or a general truth takes the présent; advice or an order takes the impératif."
+      },
+      {
+        "title": "Right or wrong after si?",
+        "buckets": [
+          "correct",
+          "wrong"
+        ],
+        "items": [
+          {
+            "text": "si tu viens",
+            "bucket": 0
+          },
+          {
+            "text": "si tu viendras",
+            "bucket": 1
+          },
+          {
+            "text": "s'il pleut",
+            "bucket": 0
+          },
+          {
+            "text": "si il pleut",
+            "bucket": 1
+          },
+          {
+            "text": "si elle arrive",
+            "bucket": 0
+          },
+          {
+            "text": "s'elle arrive",
+            "bucket": 1
+          },
+          {
+            "text": "si on part",
+            "bucket": 0
+          },
+          {
+            "text": "si nous aurons",
+            "bucket": 1
+          }
+        ],
+        "why": "Si takes the présent, never the futur; it elides only before il and ils."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Si tu viendras, on ira au cinéma.",
+        "wrong": "viendras",
+        "fix": "viens",
+        "why": "After si meaning 'if', use the présent: si tu viens."
+      },
+      {
+        "sentence": "S'elle arrive tôt, elle m'aidera.",
+        "wrong": "S'elle",
+        "fix": "Si elle",
+        "why": "Si elides only before il and ils: si elle, s'il."
+      },
+      {
+        "sentence": "Si nous aurons le temps, nous viendrons.",
+        "wrong": "aurons",
+        "fix": "avons",
+        "why": "No futur after si: si nous avons le temps."
+      },
+      {
+        "sentence": "Si je suis fatigué le soir, je dormirais tout de suite.",
+        "wrong": "dormirais",
+        "fix": "dors",
+        "why": "A habit takes présent + présent; the conditionnel never pairs with si + présent."
+      },
+      {
+        "sentence": "Mets ton pull, si tu vas avoir froid.",
+        "wrong": "si",
+        "fix": "sinon",
+        "why": "'Or else' is sinon: mets ton pull, sinon tu vas avoir froid."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Si tu viens, on ira au cinéma.",
+        "meaning": "If you come, we'll go to the cinema.",
+        "distractors": [
+          "viendras"
+        ]
+      },
+      {
+        "text": "S'il pleut, je reste chez moi.",
+        "meaning": "If it rains, I stay at home.",
+        "distractors": [
+          "pleuvra"
+        ]
+      },
+      {
+        "text": "Dépêche-toi, sinon tu vas rater le train.",
+        "meaning": "Hurry up, or else you'll miss the train.",
+        "distractors": [
+          "si"
+        ]
+      },
+      {
+        "text": "Même si c'est difficile, je continuerai.",
+        "meaning": "Even if it's difficult, I'll keep going.",
+        "distractors": [
+          "sauf"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🧿",
+      "content": "## Les conditions à Eldmark\n\nEvery quest comes with conditions: **si tu trouves l'épée, la guilde te paiera**, **si un orc attaque, lève ton bouclier !**, **même si le donjon est sombre, nous entrerons**. After **si**, the présent: never *si le dragon se réveillera*.",
+      "vocabulary": [
+        {
+          "term": "si",
+          "example": "Si tu trouves l'épée, la guilde te paiera.",
+          "example_meaning": "If you find the sword, the guild will pay you."
+        },
+        {
+          "term": "même si",
+          "example": "Même si le donjon est sombre, nous entrerons.",
+          "example_meaning": "Even if the dungeon is dark, we'll go in."
+        },
+        {
+          "term": "sauf si",
+          "example": "Borin partagera le butin, sauf si tu triches.",
+          "example_meaning": "Borin will share the loot, unless you cheat."
+        },
+        {
+          "term": "sinon",
+          "example": "Bois la potion, sinon tu seras trop faible.",
+          "example_meaning": "Drink the potion, or else you'll be too weak."
+        },
+        {
+          "term": "à condition de",
+          "example": "Tu peux entrer dans la guilde, à condition de finir la quête.",
+          "example_meaning": "You can join the guild, provided you finish the quest."
+        },
+        {
+          "term": "se dépêcher",
+          "example": "Si nous nous dépêchons, nous arriverons à Highgate ce soir.",
+          "example_meaning": "If we hurry, we'll reach Highgate tonight."
+        },
+        {
+          "term": "le butin",
+          "meaning": "loot (m)",
+          "example": "Si nous gagnons, le butin sera à nous.",
+          "example_meaning": "If we win, the loot will be ours."
+        },
+        {
+          "term": "le dragon",
+          "meaning": "dragon (m)",
+          "example": "Si le dragon dort, passe sans bruit.",
+          "example_meaning": "If the dragon is asleep, go past without a sound."
+        },
+        {
+          "term": "se réveiller",
+          "meaning": "to wake up",
+          "example": "S'il se réveille, nous courrons.",
+          "example_meaning": "If it wakes up, we'll run."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Les règles de la quête",
+          "emoji": "🧿",
+          "rule": "Conditions of a quest: si + présent, then the futur for what will happen or the impératif for an order.",
+          "example": "Si un orc attaque, lève ton bouclier !",
+          "example_meaning": "If an orc attacks, raise your shield!"
+        }
+      ],
+      "listening": [
+        {
+          "text": "Si tu as peur, reste ici.",
+          "meaning": "If you're scared, stay here."
+        },
+        {
+          "text": "S'il fait nuit, nous camperons.",
+          "meaning": "If it's dark, we'll camp.",
+          "note": "New word: camper = to camp."
+        },
+        {
+          "text": "Si Nym gagne, elle aura le butin.",
+          "meaning": "If Nym wins, she'll get the loot.",
+          "note": "New word: le butin = the loot."
+        },
+        {
+          "text": "Même si le minotaure est fort, nous entrerons.",
+          "meaning": "Even if the minotaur is strong, we'll go in."
+        },
+        {
+          "text": "Prends ton épée, sinon les orcs te verront sans arme.",
+          "meaning": "Take your sword, or else the orcs will see you unarmed."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Si un orc attaque, lève ton bouclier.",
+          "meaning": "If an orc attacks, raise your shield.",
+          "distractors": [
+            "attaquera"
+          ]
+        },
+        {
+          "text": "Même si le donjon est sombre, nous entrerons.",
+          "meaning": "Even if the dungeon is dark, we'll go in.",
+          "distractors": [
+            "sera"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Si le dragon se réveillera, nous partirons.",
+          "wrong": "réveillera",
+          "fix": "réveille",
+          "why": "After si, the présent: si le dragon se réveille."
+        },
+        {
+          "sentence": "Si le minotaure dort, nous passerions sans bruit.",
+          "wrong": "passerions",
+          "fix": "passerons",
+          "why": "Si + présent → futur: si le minotaure dort, nous passerons."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Si in Eldmark: futur or impératif?",
+          "buckets": [
+            "futur",
+            "impératif"
+          ],
+          "items": [
+            {
+              "text": "Si tu trouves la clé, nous ouvrirons le donjon.",
+              "bucket": 0
+            },
+            {
+              "text": "Si tu vois un orc, cache-toi.",
+              "bucket": 1
+            },
+            {
+              "text": "Si la mage lance un sort, la porte s'ouvrira.",
+              "bucket": 0
+            },
+            {
+              "text": "Si vous êtes blessés, buvez une potion.",
+              "bucket": 1
+            },
+            {
+              "text": "Si nous gagnons, la guilde fera une fête.",
+              "bucket": 0
+            },
+            {
+              "text": "Si le pont tombe, prends ta monture.",
+              "bucket": 1
+            }
+          ],
+          "why": "What will happen takes the futur; an order to a companion takes the impératif."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-real-conditions-si-realm-01",
+          "prompt": "Si tu trouves l'épée magique, la guilde te ___ cent pièces d'or.",
+          "type": "multiple-choice",
+          "options": [
+            "donnera",
+            "donnerait",
+            "donneras"
+          ],
+          "correct_answer": "donnera",
+          "explanation": "A real condition: si + présent (tu trouves) → futur (la guilde donnera). Donneras is the tu form, but the subject is la guilde.",
+          "hints": [
+            "Who gives? La guilde: il/elle form.",
+            "Si + présent → futur."
+          ],
+          "teaches": [
+            "si"
+          ]
+        },
+        {
+          "question_id": "b1-real-conditions-si-realm-02",
+          "prompt": "Bois cette potion, ___ tu n'auras pas la force de combattre le minotaure.",
+          "type": "fill-in-blank",
+          "correct_answer": "sinon",
+          "accepted_answers": [],
+          "explanation": "Sinon = or else: drink this potion, or else you won't have the strength.",
+          "hints": [
+            "One word: 'or else'."
+          ],
+          "teaches": [
+            "sinon"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b1-real-conditions-si-conv-realm-dungeon-door",
+          "title": "At the dungeon door",
+          "scenario": "The elf Nym and the dwarf Borin stand at a dungeon door and agree on a plan.",
+          "role_a": "Nym",
+          "role_b": "Borin",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Borin, si la porte est fermée, que ferons-nous ?",
+              "meaning": "Borin, if the door is locked, what will we do?"
+            },
+            {
+              "speaker": "b",
+              "text": "Si elle est fermée, je la casserai avec ma hache.",
+              "meaning": "If it's locked, I'll break it with my axe."
+            },
+            {
+              "speaker": "a",
+              "text": "Doucement ! S'il y a un dragon, il se réveillera.",
+              "meaning": "Gently! If there's a dragon, it will wake up."
+            },
+            {
+              "speaker": "b",
+              "text": "Même s'il se réveille, nous gagnerons.",
+              "meaning": "Even if it wakes up, we'll win."
+            },
+            {
+              "speaker": "a",
+              "text": "D'accord, mais si tu es blessé, bois une potion.",
+              "meaning": "OK, but if you're hurt, drink a potion."
+            },
+            {
+              "speaker": "b",
+              "text": "Promis. Et si nous trouvons le butin, on partage ?",
+              "meaning": "Promise. And if we find the loot, do we share?"
+            },
+            {
+              "speaker": "a",
+              "text": "Oui, à condition de rentrer vivants à Highgate !",
+              "meaning": "Yes, provided we get back to Highgate alive!"
+            }
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🌨️",
+      "content": "## Les conditions à Meadowbrook\n\nA farmer always plans for the weather: **s'il gèle cette nuit, je couvrirai les fraises**, **s'il pleut, je n'arrose pas**, **si tu vas au marché, prends des œufs !** After **si**, the présent, even when the frost is still to come.",
+      "vocabulary": [
+        {
+          "term": "si",
+          "example": "Si tu vas à la graineterie, achète des graines de maïs.",
+          "example_meaning": "If you go to the seed shop, buy some corn seeds."
+        },
+        {
+          "term": "même si",
+          "example": "Même s'il neige, Léo ira pêcher.",
+          "example_meaning": "Even if it snows, Léo will go fishing."
+        },
+        {
+          "term": "sauf si",
+          "example": "La fête des récoltes aura lieu samedi, sauf s'il pleut.",
+          "example_meaning": "The harvest festival will take place on Saturday, unless it rains."
+        },
+        {
+          "term": "sinon",
+          "example": "Ferme la porte de la grange, sinon les poules vont sortir.",
+          "example_meaning": "Shut the barn door, or else the hens will get out."
+        },
+        {
+          "term": "prévenir",
+          "example": "Si la vache est malade, préviens Nora.",
+          "example_meaning": "If the cow is ill, let Nora know."
+        },
+        {
+          "term": "le parapluie",
+          "example": "Rosa prend son parapluie au cas où il y aurait un orage.",
+          "example_meaning": "Rosa takes her umbrella in case there's a storm."
+        },
+        {
+          "term": "geler",
+          "meaning": "to freeze",
+          "example": "S'il gèle cette nuit, je couvrirai les fraises.",
+          "example_meaning": "If it freezes tonight, I'll cover the strawberries."
+        },
+        {
+          "term": "la récolte",
+          "meaning": "harvest, crop (f)",
+          "example": "Si la récolte est bonne, nous vendrons des citrouilles.",
+          "example_meaning": "If the harvest is good, we'll sell pumpkins."
+        },
+        {
+          "term": "l'arrosoir",
+          "meaning": "watering can (m)",
+          "example": "Si tu trouves mon arrosoir, laisse-le devant la grange.",
+          "example_meaning": "If you find my watering can, leave it in front of the barn."
+        }
+      ],
+      "bites": [
+        {
+          "title": "La météo de la ferme",
+          "emoji": "🌨️",
+          "rule": "Plan for the weather with si + présent: the futur for tomorrow's job, the présent for a farm habit.",
+          "example": "S'il gèle, je couvrirai les fraises.",
+          "example_meaning": "If it freezes, I'll cover the strawberries."
+        }
+      ],
+      "listening": [
+        {
+          "text": "S'il pleut, je n'arrose pas.",
+          "meaning": "If it rains, I don't water."
+        },
+        {
+          "text": "Si tu as froid, rentre à la ferme.",
+          "meaning": "If you're cold, come back into the farmhouse."
+        },
+        {
+          "text": "S'il neige, les vaches resteront dans la grange.",
+          "meaning": "If it snows, the cows will stay in the barn.",
+          "note": "New word: la grange = the barn."
+        },
+        {
+          "text": "Même s'il fait froid, Léo pêchera à la rivière.",
+          "meaning": "Even if it's cold, Léo will fish in the river."
+        },
+        {
+          "text": "Si la récolte est bonne, le maire fera une fête.",
+          "meaning": "If the harvest is good, the mayor will throw a party.",
+          "note": "New word: la récolte = the harvest."
+        }
+      ],
+      "builds": [
+        {
+          "text": "S'il gèle, je couvrirai les fraises.",
+          "meaning": "If it freezes, I'll cover the strawberries.",
+          "distractors": [
+            "gèlera"
+          ]
+        },
+        {
+          "text": "Si tu vas au marché, prends des œufs.",
+          "meaning": "If you go to the market, get some eggs.",
+          "distractors": [
+            "iras"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "S'il pleuvra demain, je n'arroserai pas.",
+          "wrong": "pleuvra",
+          "fix": "pleut",
+          "why": "After si, the présent, even for tomorrow: s'il pleut."
+        },
+        {
+          "sentence": "Nora achètera une vache si elle aura assez d'argent.",
+          "wrong": "aura",
+          "fix": "a",
+          "why": "No futur after si: si elle a assez d'argent."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Farm habit or tomorrow's plan?",
+          "buckets": [
+            "habit: présent",
+            "one event: futur"
+          ],
+          "items": [
+            {
+              "text": "S'il pleut, je n'arrose jamais.",
+              "bucket": 0
+            },
+            {
+              "text": "S'il gèle cette nuit, je couvrirai les fraises.",
+              "bucket": 1
+            },
+            {
+              "text": "Si les poules ont faim, elles crient.",
+              "bucket": 0
+            },
+            {
+              "text": "Si Rosa a des graines demain, j'en achèterai.",
+              "bucket": 1
+            },
+            {
+              "text": "Si le soleil brille, les fraises poussent vite.",
+              "bucket": 0
+            },
+            {
+              "text": "Si tu viens samedi, nous ferons de la confiture.",
+              "bucket": 1
+            }
+          ],
+          "why": "A rule that is true every time takes présent + présent; a single future event takes si + présent → futur."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-real-conditions-si-meadowbrook-01",
+          "prompt": "S'il ___ cette nuit, Nora couvrira ses fraises. (geler)",
+          "type": "fill-in-blank",
+          "correct_answer": "gèle",
+          "accepted_answers": [
+            "il gèle"
+          ],
+          "explanation": "After si, the présent, even for a night still to come: s'il gèle. Geler takes an accent grave in il gèle.",
+          "hints": [
+            "Présent of geler, il form.",
+            "Like acheter: e → è."
+          ],
+          "teaches": [
+            "geler",
+            "si"
+          ]
+        },
+        {
+          "question_id": "b1-real-conditions-si-meadowbrook-02",
+          "prompt": "In 'La fête des récoltes aura lieu samedi, sauf s'il pleut', sauf si means 'even if'.",
+          "type": "true-false",
+          "correct_answer": "false",
+          "explanation": "Sauf si means 'unless': the festival will take place unless it rains. 'Even if' is même si.",
+          "hints": [
+            "Sauf = except."
+          ],
+          "teaches": [
+            "sauf si"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b1-real-conditions-si-conv-meadowbrook-frost",
+          "title": "Frost tonight?",
+          "scenario": "Nora, the new farmer, asks Rosa from the seed shop what to do if the frost comes.",
+          "role_a": "Nora",
+          "role_b": "Rosa",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Rosa, la météo annonce du froid. Que faire ?",
+              "meaning": "Rosa, the forecast says it'll be cold. What should I do?"
+            },
+            {
+              "speaker": "b",
+              "text": "S'il gèle cette nuit, couvre tes fraises.",
+              "meaning": "If it freezes tonight, cover your strawberries."
+            },
+            {
+              "speaker": "a",
+              "text": "Et si la neige tombe, les poules auront froid ?",
+              "meaning": "And if snow falls, will the hens be cold?"
+            },
+            {
+              "speaker": "b",
+              "text": "Si tu fermes bien la grange, elles seront au chaud.",
+              "meaning": "If you shut the barn properly, they'll be warm."
+            },
+            {
+              "speaker": "a",
+              "text": "D'accord. Je planterai le maïs demain, sauf s'il neige.",
+              "meaning": "OK. I'll plant the corn tomorrow, unless it snows."
+            },
+            {
+              "speaker": "b",
+              "text": "Attends le printemps, sinon tes graines vont geler.",
+              "meaning": "Wait for spring, or else your seeds will freeze."
+            },
+            {
+              "speaker": "a",
+              "text": "Merci ! Si j'ai un problème, je te préviendrai.",
+              "meaning": "Thanks! If I have a problem, I'll let you know."
+            }
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🧲",
+      "content": "## Les conditions à Rustwake\n\nOutside the Dome, plan every trip: **si tu sors, prends ta radio-montre**, **s'il y a une tempête de cendres, nous resterons à l'atelier**, **même si le marché est loin, j'irai échanger mes écrous**. After **si**, always the présent.",
+      "vocabulary": [
+        {
+          "term": "si",
+          "example": "Si tu sors du Dôme, prends ta radio-montre.",
+          "example_meaning": "If you leave the Dome, take your wrist radio."
+        },
+        {
+          "term": "même si",
+          "example": "Même si le marché est loin, j'irai échanger mes écrous.",
+          "example_meaning": "Even if the market is far, I'll go and trade my nuts."
+        },
+        {
+          "term": "sauf si",
+          "example": "Léo partira explorer demain, sauf s'il y a de la poussière.",
+          "example_meaning": "Léo will go exploring tomorrow, unless there's dust."
+        },
+        {
+          "term": "sinon",
+          "example": "Mets ta combinaison bleue, sinon la radiation va te brûler.",
+          "example_meaning": "Put on your blue jumpsuit, or else the radiation will burn you."
+        },
+        {
+          "term": "au cas où",
+          "example": "Garde de l'eau filtrée au cas où le puits serait vide.",
+          "example_meaning": "Keep some filtered water in case the well is empty."
+        },
+        {
+          "term": "prévenir",
+          "example": "Si tu vois un scarabée géant, préviens-moi à la radio.",
+          "example_meaning": "If you see a giant beetle, warn me on the radio."
+        },
+        {
+          "term": "la tempête de cendres",
+          "meaning": "ash storm (f)",
+          "example": "S'il y a une tempête de cendres, nous resterons à l'atelier.",
+          "example_meaning": "If there's an ash storm, we'll stay in the workshop."
+        },
+        {
+          "term": "les écrous",
+          "meaning": "nuts, the currency (m pl)",
+          "example": "Si tu as assez d'écrous, Marta te vendra un tonique.",
+          "example_meaning": "If you have enough nuts, Marta will sell you a tonic."
+        },
+        {
+          "term": "le scarabée géant",
+          "meaning": "giant beetle (m)",
+          "example": "Si le scarabée géant approche, ne bouge pas.",
+          "example_meaning": "If the giant beetle comes closer, don't move."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Les règles du désert",
+          "emoji": "🧲",
+          "rule": "Every trip out of the Dome starts with si + présent: futur for the plan, impératif for a safety rule.",
+          "example": "Si tu sors, prends ta radio-montre.",
+          "example_meaning": "If you go out, take your wrist radio."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Si la radio sonne, réponds vite.",
+          "meaning": "If the radio rings, answer quickly."
+        },
+        {
+          "text": "S'il fait soleil, nous marcherons jusqu'à l'antenne.",
+          "meaning": "If it's sunny, we'll walk to the antenna."
+        },
+        {
+          "text": "Si tu as des écrous, Marta t'aidera.",
+          "meaning": "If you have nuts, Marta will help you.",
+          "note": "New word: les écrous = the nuts."
+        },
+        {
+          "text": "Même s'il y a du vent, Léo cherchera des disques.",
+          "meaning": "Even if it's windy, Léo will look for records."
+        },
+        {
+          "text": "Répare le robot, sinon le jardin va mourir.",
+          "meaning": "Fix the robot, or else the garden will die.",
+          "note": "New word: le jardin = the garden."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Si tu sors, prends ta radio-montre.",
+          "meaning": "If you go out, take your wrist radio.",
+          "distractors": [
+            "sortiras"
+          ]
+        },
+        {
+          "text": "S'il y a une tempête, nous resterons ici.",
+          "meaning": "If there's a storm, we'll stay here.",
+          "distractors": [
+            "aura"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Si Ruiz répare l'antenne, nous écoutions la radio.",
+          "wrong": "écoutions",
+          "fix": "écouterons",
+          "why": "Si + présent → futur: si Ruiz répare l'antenne, nous écouterons la radio."
+        },
+        {
+          "sentence": "Si tu verras un scarabée géant, ne bouge pas.",
+          "wrong": "verras",
+          "fix": "vois",
+          "why": "After si, the présent: si tu vois un scarabée géant."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Si in Rustwake: right or wrong?",
+          "buckets": [
+            "correct",
+            "wrong"
+          ],
+          "items": [
+            {
+              "text": "Si tu trouves de l'eau, tu seras riche.",
+              "bucket": 0
+            },
+            {
+              "text": "Si tu trouveras de l'eau, tu seras riche.",
+              "bucket": 1
+            },
+            {
+              "text": "S'ils arrivent au marché, ils échangeront leurs écrous.",
+              "bucket": 0
+            },
+            {
+              "text": "Si ils arrivent au marché, ils échangeront leurs écrous.",
+              "bucket": 1
+            },
+            {
+              "text": "Si elle répare la radio, nous écouterons les nouvelles.",
+              "bucket": 0
+            },
+            {
+              "text": "Si le chien aboie, on serait en danger.",
+              "bucket": 1
+            }
+          ],
+          "why": "Si takes the présent and elides before il and ils; the other half is futur, présent or impératif, not the conditionnel."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-real-conditions-si-rustwake-01",
+          "prompt": "S'il y a une tempête de cendres, nous ___ à l'atelier.",
+          "type": "multiple-choice",
+          "options": [
+            "resterons",
+            "resterions",
+            "restions"
+          ],
+          "correct_answer": "resterons",
+          "explanation": "Si + présent (il y a) → futur (nous resterons). Resterions is the conditionnel, which needs si + imparfait.",
+          "hints": [
+            "A real possibility: the futur in the other half."
+          ],
+          "teaches": [
+            "la tempête de cendres",
+            "si"
+          ]
+        },
+        {
+          "question_id": "b1-real-conditions-si-rustwake-02",
+          "prompt": "Garde ton tonique ___ tu serais blessé dans le désert.",
+          "type": "fill-in-blank",
+          "correct_answer": "au cas où",
+          "accepted_answers": [],
+          "explanation": "The verb serais is in the conditionnel, so the condition word is au cas où (in case), not si.",
+          "hints": [
+            "Three words meaning 'in case'.",
+            "Look at the tense of serais."
+          ],
+          "teaches": [
+            "au cas où"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b1-real-conditions-si-conv-rustwake-first-trip",
+          "title": "First trip outside",
+          "scenario": "Léo the scavenger is leaving the Dome for the first time; Marta the trader gives him advice.",
+          "role_a": "Léo",
+          "role_b": "Marta",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "Marta, je sors du Dôme demain matin.",
+              "meaning": "Marta, I'm leaving the Dome tomorrow morning."
+            },
+            {
+              "speaker": "b",
+              "text": "Si tu sors, prends de l'eau filtrée.",
+              "meaning": "If you go out, take some filtered water."
+            },
+            {
+              "speaker": "a",
+              "text": "Et s'il y a une tempête de cendres ?",
+              "meaning": "And if there's an ash storm?"
+            },
+            {
+              "speaker": "b",
+              "text": "S'il y a une tempête, cache-toi à la station-service.",
+              "meaning": "If there's a storm, hide at the petrol station."
+            },
+            {
+              "speaker": "a",
+              "text": "Si je trouve des disques, tu me les achèteras ?",
+              "meaning": "If I find some records, will you buy them from me?"
+            },
+            {
+              "speaker": "b",
+              "text": "Oui, si tu me fais un bon prix.",
+              "meaning": "Yes, if you give me a good price."
+            },
+            {
+              "speaker": "a",
+              "text": "Marché conclu ! Je te préviendrai à la radio si j'ai un problème.",
+              "meaning": "Deal! I'll let you know on the radio if I have a problem."
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{# The XP motivator's hero on the course home page (motivators/xp.rs, #561):
+   the character level, the bar to the next level, where to continue and
+   today's daily goal counted in XP. How XP is earned is behind the (i). #}
+<section class="today xp-hero" data-testid="home-today" data-motivator="xp" data-xp="{{ xp }}" aria-label="{{ crate::t("home.your_progress") }}">
+  <div class="today-main">
+    <div class="xp-badge" role="img" aria-label="{{ crate::t1("motivator.xp.level_label", "n", level.level) }}" data-testid="xp-level" data-level="{{ level.level }}">
+      <span class="xp-badge-lv">{{ crate::t("motivator.xp.lv") }}</span><span class="xp-badge-num">{{ level.level }}</span>
+    </div>
+    <div class="today-body">
+      <div class="today-head">
+        <p class="xp-next" data-testid="xp-next" data-into="{{ level.into }}" data-need="{{ level.need }}">{{ crate::t2("motivator.xp.to_next", "n", level.into, "need", level.need) }}</p>
+        <button type="button" class="info-btn" commandfor="home-info-xp" command="show-modal" data-opens="home-info-xp" aria-haspopup="dialog" aria-label="{{ crate::t("motivator.xp.info_label") }}" data-testid="xp-info">i</button>
+      </div>
+      <div class="bar xp-bar" role="progressbar" aria-label="{{ crate::t1("motivator.xp.bar_label", "n", level.level + 1) }}" aria-valuemin="0" aria-valuemax="{{ level.need }}" aria-valuenow="{{ level.into }}" data-testid="xp-bar"><div class="fill" style="width:{{ level.pct() }}%"></div></div>
+      <p class="xp-today{% if p.today.done() %} done{% endif %}" data-testid="xp-today" data-xp="{{ today_xp }}" data-goal="{{ goal_xp }}">{{ course.icons.goal }} {{ crate::t2("motivator.xp.today", "n", today_xp, "goal", goal_xp) }}</p>
+      {% if let Some((slug, title, url)) = p.resume %}
+      <a class="btn big today-continue" href="{{ url }}" data-testid="home-continue" data-lesson-id="{{ slug }}">{{ crate::t1("goal.continue", "title", title) }} ›</a>
+      {% else %}
+      <a class="btn big today-continue" href="{{ crate::base_path() }}/practice" data-testid="home-continue">{{ crate::t("goal.all_done") }} ›</a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<dialog class="modal" id="home-info-xp" aria-labelledby="home-info-xp-title" data-testid="xp-info-dialog">
+  <h2 id="home-info-xp-title">{{ crate::t("motivator.xp.info_title") }}</h2>
+  <p>{{ crate::t("motivator.xp.info_p") }}</p>
+  <table class="goal-points" data-testid="xp-info-table">
+    <thead><tr><th scope="col">{{ crate::t("goal.col_activity") }}</th><th scope="col">{{ crate::t("motivator.xp.col_xp") }}</th></tr></thead>
+    <tbody>
+      {% for (what, n) in earning %}<tr><td>{{ what }}</td><td>{{ n }}</td></tr>{% endfor %}
+      {% for (what, n) in bonuses %}<tr><td>{{ what }}</td><td>+{{ n }}</td></tr>{% endfor %}
+    </tbody>
+  </table>
+  <p>{{ crate::t1("motivator.xp.info_levels", "step", step) }}</p>
+  <div class="modal-actions"><button type="button" class="btn" commandfor="home-info-xp" command="close" data-closes data-testid="xp-info-close">{{ crate::t("home.ok") }}</button></div>
+</dialog>

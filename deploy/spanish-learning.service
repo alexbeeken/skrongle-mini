@@ -1,0 +1,70 @@
+# /etc/systemd/system/spanish-learning.service
+#
+# Runs the Learnmap learning app (the service keeps its original name so
+# existing installs upgrade in place) as an unprivileged user with a hardened
+# sandbox and a hard memory ceiling appropriate for a Pi Zero 2 W.
+
+[Unit]
+Description=Learnmap learning web app
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=spanish
+Group=spanish
+WorkingDirectory=/opt/spanish-learning
+ExecStart=/opt/spanish-learning/spanish-learning
+Restart=on-failure
+RestartSec=3
+
+# App configuration. The app sits behind nginx at PI_PUBLIC_URL (deploy/deploy.env),
+# so it listens on localhost only, knows its URL prefix, and marks cookies Secure.
+Environment=SKRONGLE_BIND=127.0.0.1:8080
+Environment=SKRONGLE_BASE_PATH=/spanish
+Environment=SKRONGLE_SECURE_COOKIES=1
+Environment=SKRONGLE_DATA_DIR=/opt/spanish-learning/data
+Environment=SKRONGLE_DB=/var/lib/spanish-learning/spanish.db
+Environment=SKRONGLE_LOG=info
+# Public URL (for the Google sign-in redirect URI). The client id and secret
+# live outside the repo: /etc/spanish-learning/env (see deploy/env.example).
+# scripts/deploy.sh fills in the URL below from PI_PUBLIC_URL in deploy/deploy.env.
+Environment=SKRONGLE_PUBLIC_URL=@PI_PUBLIC_URL@
+# This Pi is a Skrongle mini: no plans, and no e-mail, SMS, Google or Stripe
+# required (a hosted server refuses to start without them).
+Environment=SKRONGLE_MINI=1
+EnvironmentFile=-/etc/spanish-learning/env
+# glibc malloc: one arena per thread by default; two is plenty and keeps RSS flat.
+Environment=MALLOC_ARENA_MAX=2
+Environment=MALLOC_TRIM_THRESHOLD_=65536
+
+# Resource limits
+MemoryMax=64M
+MemoryHigh=48M
+TasksMax=32
+# Open files: the listener allows SKRONGLE_MAX_CONNECTIONS (256) connections;
+# the rest is SQLite and outgoing calls. Set explicitly, not left to the distro.
+LimitNOFILE=1024
+CPUWeight=80
+Nice=2
+
+# Sandboxing
+StateDirectory=spanish-learning
+StateDirectoryMode=0750
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6
+RestrictNamespaces=true
+LockPersonality=true
+SystemCallArchitectures=native
+ReadOnlyPaths=/opt/spanish-learning
+ReadWritePaths=/var/lib/spanish-learning
+
+[Install]
+WantedBy=multi-user.target

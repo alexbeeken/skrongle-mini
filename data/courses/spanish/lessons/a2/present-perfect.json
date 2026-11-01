@@ -1,0 +1,694 @@
+{
+  "id": "a2-present-perfect",
+  "slug": "present-perfect",
+  "title": "The present perfect: he hablado",
+  "unit": "A2",
+  "group": "Grammar",
+  "order": 20,
+  "summary": "Talk about today, this week and life experience: he comido, has visto, hemos vuelto.",
+  "focus": "Pretérito perfecto: haber + past participle",
+  "prerequisites": [
+    "a2-regular-preterite-er-ir"
+  ],
+  "content": "## What the present perfect is for\n\nThe **pretérito perfecto** links the past to now. Use it for a period that is still open (**hoy**, **esta semana**, **este año**), for recent news and for life experience with no date attached.\n\n- *Hoy he trabajado mucho.* (Today I have worked a lot.)\n- *Esta semana hemos visto dos películas.* (This week we have seen two films.)\n- *He estado en Japón.* (I have been to Japan.)\n\nIf the moment is closed (*ayer*, *el año pasado*), use the preterite instead: *Ayer trabajé mucho.*\n\n> In Spain *hoy he comido* is normal for today. Most of Latin America says *hoy comí* and keeps the present perfect for experiences. Both are correct.\n\n## Haber + participle\n\nThe tense has two pieces. The first is the present of **haber**, an auxiliary that never means *to have* in the sense of owning. The second is the **past participle**, which never changes.\n\n| | haber | + participle |\n|---|---|---|\n| yo | **he** | hablado |\n| tú | **has** | comido |\n| él / ella / usted | **ha** | vivido |\n| nosotros/as | **hemos** | hablado |\n| vosotros/as | **habéis** | comido |\n| ellos / ellas / ustedes | **han** | vivido |\n\nRegular participles: **-ar** verbs take **-ado** (*hablar → hablado*), and **-er / -ir** verbs take **-ido** (*comer → comido*, *vivir → vivido*).\n\nNothing goes between haber and the participle. **No** and pronouns go **before haber**: *No lo he visto.* *Me he levantado tarde.* (Never *he me levantado*.)\n\n## Irregular participles\n\nA short list of very common verbs has its own participle. Learn them as a set.\n\n| verb | participle | verb | participle |\n|---|---|---|---|\n| hacer | **hecho** | escribir | **escrito** |\n| decir | **dicho** | abrir | **abierto** |\n| ver | **visto** | volver | **vuelto** |\n| poner | **puesto** | romper | **roto** |\n| morir | **muerto** | | |\n\n- *¿Qué has hecho hoy?* (What have you done today?)\n- *No me han dicho nada.* (They haven't told me anything.)\n- *¿Dónde has puesto las llaves?* (Where have you put the keys?)\n\nCompounds follow suit: *describir → descrito*, *devolver → devuelto*.\n\n## Ya, todavía no, alguna vez, nunca\n\nFour small words often go with this tense.\n\n- **ya** = already: *Ya he terminado.* (I have already finished.)\n- **todavía no** = not yet: *Todavía no he desayunado.* (I haven't had breakfast yet.)\n- **alguna vez** = ever (in questions): *¿Has estado alguna vez en Cuba?* (Have you ever been to Cuba?)\n- **nunca** = never: *Nunca he comido paella.* or *No he comido nunca paella.*\n\nA typical exchange: *¿Ya has visto la película?* (Have you seen the film yet?) *No, todavía no la he visto.* (No, I haven't seen it yet.)",
+  "vocabulary": [
+    {
+      "term": "haber",
+      "meaning": "to have (auxiliary verb for compound tenses)",
+      "example": "Hoy he comido en casa.",
+      "example_meaning": "Today I have eaten at home."
+    },
+    {
+      "term": "hoy",
+      "meaning": "today",
+      "example": "Hoy he trabajado mucho.",
+      "example_meaning": "Today I have worked a lot."
+    },
+    {
+      "term": "esta semana",
+      "meaning": "this week",
+      "example": "Esta semana hemos visto dos películas.",
+      "example_meaning": "This week we have seen two films."
+    },
+    {
+      "term": "ya",
+      "meaning": "already",
+      "example": "Ya he terminado los deberes.",
+      "example_meaning": "I have already finished my homework."
+    },
+    {
+      "term": "todavía no",
+      "meaning": "not yet",
+      "example": "Todavía no he desayunado.",
+      "example_meaning": "I haven't had breakfast yet."
+    },
+    {
+      "term": "alguna vez",
+      "meaning": "ever (in a question)",
+      "example": "¿Has estado alguna vez en Japón?",
+      "example_meaning": "Have you ever been to Japan?"
+    },
+    {
+      "term": "hecho",
+      "meaning": "done, made (participle of hacer)",
+      "example": "¿Qué has hecho hoy?",
+      "example_meaning": "What have you done today?"
+    },
+    {
+      "term": "dicho",
+      "meaning": "said, told (participle of decir)",
+      "example": "No me han dicho nada.",
+      "example_meaning": "They haven't told me anything."
+    },
+    {
+      "term": "visto",
+      "meaning": "seen (participle of ver)",
+      "example": "No he visto esa película.",
+      "example_meaning": "I haven't seen that film."
+    },
+    {
+      "term": "puesto",
+      "meaning": "put (participle of poner)",
+      "example": "¿Dónde has puesto las llaves?",
+      "example_meaning": "Where have you put the keys?"
+    },
+    {
+      "term": "escrito",
+      "meaning": "written (participle of escribir)",
+      "example": "Hemos escrito un correo al hotel.",
+      "example_meaning": "We have written an email to the hotel."
+    },
+    {
+      "term": "abierto",
+      "meaning": "opened (participle of abrir)",
+      "example": "¿Quién ha abierto la ventana?",
+      "example_meaning": "Who has opened the window?"
+    },
+    {
+      "term": "vuelto",
+      "meaning": "returned (participle of volver)",
+      "example": "Mis padres han vuelto de Galicia.",
+      "example_meaning": "My parents have come back from Galicia."
+    },
+    {
+      "term": "roto",
+      "meaning": "broken (participle of romper)",
+      "example": "He roto el móvil.",
+      "example_meaning": "I have broken my phone."
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "haber",
+      "meaning": "to have (auxiliary verb)",
+      "set": "present",
+      "art": [
+        "  he  +  [-ado]  ",
+        "  ______________ ",
+        " |  DONE TODAY  |",
+        " |   [x] [x]    |",
+        " |______________|"
+      ],
+      "forms": {
+        "yo": "he",
+        "tu": "has",
+        "el": "ha",
+        "nosotros": "hemos",
+        "vosotros": "habéis",
+        "ellos": "han"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-present-perfect-01",
+      "prompt": "Hoy (yo) ___ mucho.",
+      "type": "multiple-choice",
+      "options": [
+        "he trabajado",
+        "has trabajado",
+        "he trabajar",
+        "ha trabajado"
+      ],
+      "correct_answer": "he trabajado",
+      "explanation": "Yo takes 'he' plus the participle: 'Hoy he trabajado mucho.' Haber is followed by the participle, not the infinitive.",
+      "hints": [
+        "Yo takes he.",
+        "Haber is followed by a participle in -ado / -ido."
+      ],
+      "teaches": [
+        "haber",
+        "hoy"
+      ]
+    },
+    {
+      "question_id": "a2-present-perfect-02",
+      "prompt": "Conjugate in the present perfect: (nosotros) comer → ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "hemos comido",
+      "accepted_answers": [
+        "nosotros hemos comido"
+      ],
+      "explanation": "Nosotros takes 'hemos', and -er verbs form the participle in -ido: 'hemos comido'.",
+      "hints": [
+        "Nosotros takes hemos.",
+        "-er verbs take -ido."
+      ],
+      "teaches": [
+        "haber"
+      ]
+    },
+    {
+      "question_id": "a2-present-perfect-03",
+      "prompt": "¿Qué (tú) ___ hoy? (present perfect)",
+      "type": "multiple-choice",
+      "options": [
+        "has hecho",
+        "has hacido",
+        "ha hecho",
+        "he hecho"
+      ],
+      "correct_answer": "has hecho",
+      "explanation": "Tú takes 'has', and hacer has the irregular participle 'hecho': '¿Qué has hecho hoy?'",
+      "hints": [
+        "Tú takes has.",
+        "Hacer has an irregular participle."
+      ],
+      "teaches": [
+        "hecho"
+      ]
+    },
+    {
+      "question_id": "a2-present-perfect-04",
+      "prompt": "Complete with the present perfect of ver: Todavía no (yo) ___ la película.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "he visto",
+      "accepted_answers": [
+        "yo he visto"
+      ],
+      "explanation": "'Todavía no' (not yet) calls for the present perfect, and ver has the irregular participle 'visto': 'Todavía no he visto la película.'",
+      "hints": [
+        "Yo takes he.",
+        "The participle of ver is irregular."
+      ],
+      "teaches": [
+        "visto",
+        "todavía no"
+      ]
+    },
+    {
+      "question_id": "a2-present-perfect-05",
+      "prompt": "¿___ alguna vez en México?",
+      "type": "multiple-choice",
+      "options": [
+        "Has estado",
+        "Has estar",
+        "Estás estado"
+      ],
+      "correct_answer": "Has estado",
+      "explanation": "'Alguna vez' asks about life experience, so the present perfect: 'has' + the participle 'estado'.",
+      "hints": [
+        "Alguna vez means ever.",
+        "Haber + participle, never haber + infinitive."
+      ],
+      "teaches": [
+        "alguna vez"
+      ]
+    },
+    {
+      "question_id": "a2-present-perfect-06",
+      "prompt": "Complete with the present perfect of volver: Mis padres ___ de Galicia esta semana.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "han vuelto",
+      "accepted_answers": [
+        "ellos han vuelto"
+      ],
+      "explanation": "Mis padres means ellos, so the verb is 'han', and volver has the irregular participle 'vuelto': 'han vuelto'.",
+      "hints": [
+        "Ellos takes han.",
+        "The participle of volver is vuelto, not volvido."
+      ],
+      "teaches": [
+        "vuelto",
+        "esta semana"
+      ]
+    },
+    {
+      "question_id": "a2-present-perfect-07",
+      "prompt": "Where does the pronoun go with he levantado? Pick the correct sentence.",
+      "type": "multiple-choice",
+      "options": [
+        "Me he levantado tarde.",
+        "He me levantado tarde.",
+        "He levantado me tarde."
+      ],
+      "correct_answer": "Me he levantado tarde.",
+      "explanation": "Nothing can come between haber and the participle, and pronouns go before haber: 'Me he levantado tarde.'",
+      "hints": [
+        "Where does the pronoun go: before haber, between, or after?"
+      ],
+      "teaches": [
+        "haber"
+      ]
+    },
+    {
+      "question_id": "a2-present-perfect-08",
+      "prompt": "Complete with the present perfect of poner: ¿Dónde (tú) ___ las llaves?",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "has puesto",
+      "accepted_answers": [
+        "tú has puesto",
+        "tu has puesto"
+      ],
+      "explanation": "Tú takes 'has', and poner has the irregular participle 'puesto': '¿Dónde has puesto las llaves?'",
+      "hints": [
+        "Tú takes has.",
+        "The participle of poner is puesto."
+      ],
+      "teaches": [
+        "puesto"
+      ]
+    },
+    {
+      "question_id": "a2-present-perfect-09",
+      "prompt": "Ya (nosotros) ___ un correo al hotel.",
+      "type": "multiple-choice",
+      "options": [
+        "hemos escrito",
+        "hemos escribido",
+        "habéis escrito",
+        "hemos escrita"
+      ],
+      "correct_answer": "hemos escrito",
+      "explanation": "Nosotros takes 'hemos', and escribir has the irregular participle 'escrito'. The participle never agrees with the subject after haber: 'Ya hemos escrito un correo.'",
+      "hints": [
+        "Nosotros takes hemos.",
+        "The participle of escribir is escrito."
+      ],
+      "teaches": [
+        "escrito",
+        "ya"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Hoy he comido paella.",
+      "meaning": "Today I have eaten paella."
+    },
+    {
+      "text": "¿Has visto mis gafas?",
+      "meaning": "Have you seen my glasses?",
+      "note": "New word: las gafas = the glasses."
+    },
+    {
+      "text": "¿Ya has terminado el trabajo?",
+      "meaning": "Have you already finished the work?"
+    },
+    {
+      "text": "Todavía no he leído el periódico.",
+      "meaning": "I haven't read the newspaper yet.",
+      "note": "New word: el periódico = the newspaper."
+    },
+    {
+      "text": "¿Habéis estado alguna vez en Sevilla?",
+      "meaning": "Have you all ever been to Seville?"
+    },
+    {
+      "text": "Mi hermano ha roto la ventana de la cocina.",
+      "meaning": "My brother has broken the kitchen window."
+    },
+    {
+      "text": "Esta semana he escrito dos correos a mi jefe.",
+      "meaning": "This week I have written two emails to my boss."
+    },
+    {
+      "text": "No le he dicho nada porque todavía no he abierto la carta.",
+      "meaning": "I haven't told her anything because I haven't opened the letter yet.",
+      "note": "New word: la carta = the letter."
+    }
+  ],
+  "guide": [
+    {
+      "section": "What the present perfect is for"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "section": "Haber + participle"
+    },
+    {
+      "question": "a2-present-perfect-01"
+    },
+    {
+      "question": "a2-present-perfect-02"
+    },
+    {
+      "question": "a2-present-perfect-07"
+    },
+    {
+      "section": "Irregular participles"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-present-perfect-03"
+    },
+    {
+      "question": "a2-present-perfect-08"
+    },
+    {
+      "question": "a2-present-perfect-06"
+    },
+    {
+      "tip": "Say the nine irregular participles in a rhythm: hecho, dicho, visto, puesto, escrito, abierto, vuelto, roto, muerto. Every other participle you need for now ends in -ado or -ido."
+    },
+    {
+      "section": "Ya, todavía no"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a2-present-perfect-04"
+    },
+    {
+      "question": "a2-present-perfect-05"
+    },
+    {
+      "question": "a2-present-perfect-09"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-present-perfect-conv-today",
+      "title": "What have you done today?",
+      "scenario": "Carmen phones Diego on a Monday evening to catch up on the day and make plans.",
+      "role_a": "Carmen",
+      "role_b": "Diego",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Hola, Diego. ¿Qué has hecho hoy?",
+          "meaning": "Hi, Diego. What have you done today?",
+          "note": "hacer gives hecho"
+        },
+        {
+          "speaker": "b",
+          "text": "Pues he trabajado toda la mañana y por la tarde he ido al gimnasio. ¿Y tú?",
+          "meaning": "Well, I've worked all morning and in the afternoon I've been to the gym. And you?",
+          "note": "regular endings -ado and -ido"
+        },
+        {
+          "speaker": "a",
+          "text": "Yo me he levantado tarde y todavía no he salido de casa.",
+          "meaning": "I got up late and I haven't left the house yet.",
+          "note": "The pronoun goes before haber. Also todavía no."
+        },
+        {
+          "speaker": "b",
+          "text": "¿Has visto la nueva película de Almodóvar? La ponen esta semana.",
+          "meaning": "Have you seen the new Almodóvar film? It's on this week.",
+          "note": "ver gives visto"
+        },
+        {
+          "speaker": "a",
+          "text": "No, todavía no la he visto. ¿Tú ya la has visto?",
+          "meaning": "No, I haven't seen it yet. Have you already seen it?",
+          "note": "todavía no and ya"
+        },
+        {
+          "speaker": "b",
+          "text": "Sí, la he visto dos veces. ¡Es buenísima!",
+          "meaning": "Yes, I've seen it twice. It's really good!"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Has estado alguna vez en el cine Doré? Es muy bonito.",
+          "meaning": "Have you ever been to the Doré cinema? It's very pretty.",
+          "note": "alguna vez = ever"
+        },
+        {
+          "speaker": "b",
+          "text": "Nunca he estado. ¿Vamos el sábado?",
+          "meaning": "I've never been. Shall we go on Saturday?",
+          "note": "nunca with the present perfect"
+        },
+        {
+          "speaker": "a",
+          "text": "Vale. Ah, ¿has hablado con Marta? Me ha dicho que ha vuelto de Galicia.",
+          "meaning": "OK. Oh, have you spoken to Marta? She told me she's back from Galicia.",
+          "note": "decir gives dicho, volver gives vuelto"
+        },
+        {
+          "speaker": "b",
+          "text": "Sí, me ha escrito un mensaje esta mañana. Ha roto el móvil en el viaje.",
+          "meaning": "Yes, she wrote me a message this morning. She broke her phone on the trip.",
+          "note": "escribir gives escrito, romper gives roto"
+        },
+        {
+          "speaker": "a",
+          "text": "¡Pobre Marta! Bueno, hasta el sábado.",
+          "meaning": "Poor Marta! Well, see you on Saturday."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "✅",
+    "bites": [
+      {
+        "title": "Past, but touching now",
+        "emoji": "🔗",
+        "rule": "Use haber plus a participle for things done in a period that is still open: hoy, esta semana, este año. A closed moment (ayer, el año pasado) takes the preterite.",
+        "example": "Hoy he trabajado mucho.",
+        "example_meaning": "Today I have worked a lot."
+      },
+      {
+        "title": "Two pieces together",
+        "emoji": "🧩",
+        "rule": "Use he, has, ha, hemos, habéis or han plus a participle (-ado / -ido). Nothing goes between them. No and pronouns go before haber.",
+        "example": "No lo he visto. Me he levantado tarde.",
+        "example_meaning": "I haven't seen it. I got up late."
+      },
+      {
+        "title": "The nine irregulars",
+        "emoji": "🏴",
+        "rule": "Nine common participles do not end in -ado or -ido: hecho, dicho, visto, puesto, escrito, abierto, vuelto, roto, muerto.",
+        "example": "¿Qué has hecho hoy?",
+        "example_meaning": "What have you done today?"
+      },
+      {
+        "title": "Ya or todavía no",
+        "emoji": "⏱️",
+        "rule": "Ya means already, todavía no means not yet, alguna vez means ever (in questions) and nunca means never. All four go with the present perfect.",
+        "example": "¿Ya has comido? — Todavía no.",
+        "example_meaning": "Have you eaten already? — Not yet."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Regular or irregular participle?",
+        "buckets": [
+          "regular (-ado / -ido)",
+          "irregular"
+        ],
+        "items": [
+          {
+            "text": "comido",
+            "bucket": 0
+          },
+          {
+            "text": "hecho",
+            "bucket": 1
+          },
+          {
+            "text": "hablado",
+            "bucket": 0
+          },
+          {
+            "text": "visto",
+            "bucket": 1
+          },
+          {
+            "text": "vivido",
+            "bucket": 0
+          },
+          {
+            "text": "escrito",
+            "bucket": 1
+          },
+          {
+            "text": "tenido",
+            "bucket": 0
+          },
+          {
+            "text": "puesto",
+            "bucket": 1
+          }
+        ],
+        "why": "Most participles end in -ado or -ido. Hecho, visto, escrito and puesto belong to the short irregular list."
+      },
+      {
+        "title": "Which tense does the marker want?",
+        "buckets": [
+          "present perfect",
+          "preterite"
+        ],
+        "items": [
+          {
+            "text": "hoy",
+            "bucket": 0
+          },
+          {
+            "text": "ayer",
+            "bucket": 1
+          },
+          {
+            "text": "esta semana",
+            "bucket": 0
+          },
+          {
+            "text": "la semana pasada",
+            "bucket": 1
+          },
+          {
+            "text": "todavía no",
+            "bucket": 0
+          },
+          {
+            "text": "el año pasado",
+            "bucket": 1
+          },
+          {
+            "text": "alguna vez",
+            "bucket": 0
+          },
+          {
+            "text": "anoche",
+            "bucket": 1
+          }
+        ],
+        "why": "Open periods (hoy, esta semana) and ya, todavía no and alguna vez take the present perfect. Closed moments (ayer, anoche, pasado/a) take the preterite."
+      },
+      {
+        "title": "Who has done it?",
+        "buckets": [
+          "yo",
+          "tú",
+          "él / ella",
+          "ellos"
+        ],
+        "items": [
+          {
+            "text": "he comido",
+            "bucket": 0
+          },
+          {
+            "text": "has visto",
+            "bucket": 1
+          },
+          {
+            "text": "ha hecho",
+            "bucket": 2
+          },
+          {
+            "text": "han vuelto",
+            "bucket": 3
+          },
+          {
+            "text": "he dicho",
+            "bucket": 0
+          },
+          {
+            "text": "ha puesto",
+            "bucket": 2
+          }
+        ],
+        "why": "The person is in haber: he = yo, has = tú, ha = él/ella, han = ellos."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Hoy he comer mucho.",
+        "wrong": "comer",
+        "fix": "comido",
+        "why": "Haber is followed by the participle, not the infinitive: he comido."
+      },
+      {
+        "sentence": "¿Qué has hacido hoy?",
+        "wrong": "hacido",
+        "fix": "hecho",
+        "why": "Hacer has the irregular participle hecho."
+      },
+      {
+        "sentence": "Mis padres ha vuelto de Galicia.",
+        "wrong": "ha",
+        "fix": "han",
+        "why": "Mis padres = ellos, so han vuelto."
+      },
+      {
+        "sentence": "Nunca he estar en Japón.",
+        "wrong": "estar",
+        "fix": "estado",
+        "why": "After haber comes the participle: estado."
+      },
+      {
+        "sentence": "Ya hemos escribido el correo.",
+        "wrong": "escribido",
+        "fix": "escrito",
+        "why": "Escribir has the irregular participle escrito."
+      },
+      {
+        "sentence": "Nosotros habemos comido ya.",
+        "wrong": "habemos",
+        "fix": "hemos",
+        "why": "The nosotros form of haber is hemos."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Hoy he trabajado mucho.",
+        "meaning": "Today I have worked a lot.",
+        "distractors": [
+          "trabajé"
+        ]
+      },
+      {
+        "text": "¿Qué has hecho esta semana?",
+        "meaning": "What have you done this week?",
+        "distractors": [
+          "hacido"
+        ]
+      },
+      {
+        "text": "Todavía no he visto la película.",
+        "meaning": "I haven't seen the film yet.",
+        "distractors": [
+          "vi",
+          "ya"
+        ]
+      },
+      {
+        "text": "Me he levantado tarde hoy.",
+        "meaning": "I got up late today.",
+        "distractors": [
+          "ha"
+        ]
+      },
+      {
+        "text": "¿Has estado alguna vez en México?",
+        "meaning": "Have you ever been to Mexico?",
+        "distractors": [
+          "estar"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t("study.mistakes.title") }}{% endblock %}
+{% block modenav %}{% let active = "mistakes" %}{% include "nav_study.html" %}{% endblock %}
+{% block content %}
+<h1>{{ crate::t("study.mistakes.title") }} <span class="muted">· {{ course.title }}</span> <button type="button" class="info-btn" commandfor="mistakes-info" command="show-modal" data-opens="mistakes-info" aria-haspopup="dialog" aria-label="{{ crate::t("study.mistakes.about") }}" data-testid="mistakes-info">i</button></h1>
+{% if rows.is_empty() %}
+  <p class="muted" data-testid="mistakes-empty">{{ crate::t1("study.mistakes.none_html", "url", crate::url("/practice"))|safe }}</p>
+{% else %}
+<div class="table-scroll" data-testid="mistakes-scroll">
+<table class="history">
+  <thead><tr><th>{{ crate::t("study.mistakes.when") }}</th><th>{{ crate::t("study.mistakes.lesson") }}</th><th>{{ crate::t("study.mistakes.question") }}</th><th>{{ crate::t("study.mistakes.your_answer") }}</th><th>{{ crate::t("study.mistakes.right_answer") }}</th></tr></thead>
+  <tbody>
+  {% for r in rows %}
+    <tr data-testid="mistake" data-lesson-id="{{ r.lesson_slug }}" data-question-id="{{ r.question_id }}">
+      <td class="nowrap muted">{{ r.when }}</td>
+      <td><a href="{{ crate::base_path() }}/lessons/{{ r.lesson_slug }}">{{ r.lesson_title }}</a></td>
+      <td lang="{{ course.term_lang }}" data-testid="mistake-prompt">{{ r.prompt }}</td>
+      <td lang="{{ course.term_lang }}" data-testid="mistake-yours">{{ r.selected }}</td>
+      <td lang="{{ course.term_lang }}" data-testid="mistake-right"><strong>{{ r.correct_answer }}</strong></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endif %}
+<dialog class="modal" id="mistakes-info" aria-labelledby="mistakes-info-title" data-testid="mistakes-info-dialog">
+  <h2 id="mistakes-info-title">{{ crate::t("study.mistakes.title") }}</h2>
+  <p>{{ crate::t1("study.mistakes.info_p", "n", limit) }}</p>
+  <div class="modal-actions"><button type="button" class="btn" commandfor="mistakes-info" command="close" data-closes data-testid="mistakes-info-close">{{ crate::t("study.mistakes.ok") }}</button></div>
+</dialog>
+{% endblock %}

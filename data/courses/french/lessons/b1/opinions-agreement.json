@@ -1,0 +1,1152 @@
+{
+  "id": "b1-opinions-agreement",
+  "slug": "opinions-agreement",
+  "title": "Giving your opinion and (dis)agreeing",
+  "unit": "B1",
+  "group": "Vocabulary",
+  "order": 30,
+  "summary": "Say what you think with à mon avis and je trouve que, agree or disagree politely, and link your arguments with par contre, pourtant and en fait.",
+  "focus": "Expressing opinions, agreeing and disagreeing, and linking arguments",
+  "prerequisites": [
+    "b1-subjonctif"
+  ],
+  "content": "## Giving your opinion\n\nStart with **à mon avis** (in my opinion) or **selon moi** (in my view), or use a verb of opinion + **que** + the **indicative**:\n\n- **Je pense que** c'est une bonne idée.\n- **Je crois qu'**il a raison.\n- **Je trouve que** ce film **est** trop long.\n\nNegate the opinion verb and the next verb goes into the **subjonctif**: **Je ne pense pas que** ce **soit** une bonne idée. **Je ne crois pas qu'**il **ait** raison.\n\n| croire | |\n|---|---|\n| je crois | nous croyons |\n| tu crois | vous croyez |\n| il / elle croit | ils / elles croient |\n\n## Agreeing and disagreeing\n\n- **Je suis d'accord avec toi / vous.** The opposite is **Je ne suis pas d'accord.**\n- **Tu as raison.** (You're right.) The opposite is **Tu as tort.** (You're wrong.)\n- Debate politely: **C'est vrai, mais…** (That's true, but…)\n\nTune the strength with **plutôt** (rather), **assez** (fairly), **tout à fait** (completely), **pas du tout** (not at all): **Je suis plutôt d'accord. Je ne suis pas du tout d'accord.**\n\n## Linking your arguments\n\n- **par contre** / **cependant**: on the other hand, however. **C'est cher ; par contre, c'est très bon.**\n- **pourtant**: and yet. **Il a travaillé ; pourtant, il a raté.**\n- **d'ailleurs**: besides, what's more. **D'ailleurs, il pleut.**\n- **en fait**: actually (correcting). **En fait, il est belge.**\n- **bref**: in short, to sum up. **Bref, c'était génial.**\n\n**Par contre** is everyday spoken French; **cependant** sounds more formal.",
+  "vocabulary": [
+    {
+      "term": "à mon avis",
+      "meaning": "in my opinion",
+      "example": "À mon avis, ce film est trop long.",
+      "example_meaning": "In my opinion, this film is too long."
+    },
+    {
+      "term": "selon moi",
+      "meaning": "in my view",
+      "example": "Selon moi, le télétravail a beaucoup d'avantages.",
+      "example_meaning": "In my view, working from home has a lot of advantages."
+    },
+    {
+      "term": "croire",
+      "meaning": "to believe, to think",
+      "example": "Je crois qu'il va pleuvoir ce soir.",
+      "example_meaning": "I think it's going to rain tonight."
+    },
+    {
+      "term": "trouver que",
+      "meaning": "to find that, to think that",
+      "example": "Je trouve que cette ville est très agréable.",
+      "example_meaning": "I find this town very pleasant."
+    },
+    {
+      "term": "être d'accord",
+      "meaning": "to agree",
+      "example": "Je suis d'accord avec toi sur ce point.",
+      "example_meaning": "I agree with you on this point."
+    },
+    {
+      "term": "avoir raison",
+      "meaning": "to be right",
+      "example": "Tu as raison, c'est trop cher.",
+      "example_meaning": "You're right, it's too expensive."
+    },
+    {
+      "term": "avoir tort",
+      "meaning": "to be wrong",
+      "example": "Il a tort de ne pas écouter ses collègues.",
+      "example_meaning": "He's wrong not to listen to his colleagues."
+    },
+    {
+      "term": "plutôt",
+      "meaning": "rather, fairly",
+      "example": "Je suis plutôt d'accord avec vous.",
+      "example_meaning": "I rather agree with you."
+    },
+    {
+      "term": "tout à fait",
+      "meaning": "completely, absolutely",
+      "example": "Vous avez tout à fait raison.",
+      "example_meaning": "You're absolutely right."
+    },
+    {
+      "term": "par contre",
+      "meaning": "on the other hand, however",
+      "example": "Le restaurant est cher ; par contre, la cuisine est excellente.",
+      "example_meaning": "The restaurant is expensive; on the other hand, the food is excellent."
+    },
+    {
+      "term": "pourtant",
+      "meaning": "yet, and yet",
+      "example": "Il a raté son examen ; pourtant, il avait beaucoup travaillé.",
+      "example_meaning": "He failed his exam; and yet he had worked a lot."
+    },
+    {
+      "term": "d'ailleurs",
+      "meaning": "besides, what's more",
+      "example": "Je n'aime pas ce quartier ; d'ailleurs, je vais déménager.",
+      "example_meaning": "I don't like this area; besides, I'm going to move."
+    },
+    {
+      "term": "en fait",
+      "meaning": "actually, in fact",
+      "example": "Je croyais qu'il était français ; en fait, il est belge.",
+      "example_meaning": "I thought he was French; actually, he's Belgian."
+    },
+    {
+      "term": "bref",
+      "meaning": "in short, anyway",
+      "example": "On a raté le train et il pleuvait. Bref, une journée horrible.",
+      "example_meaning": "We missed the train and it was raining. In short, a horrible day."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-opinions-agreement-01",
+      "prompt": "Je ne pense pas que ce ___ une bonne idée.",
+      "type": "multiple-choice",
+      "options": [
+        "soit",
+        "est",
+        "sera"
+      ],
+      "correct_answer": "soit",
+      "explanation": "A negated opinion verb is followed by the subjonctif: 'que ce soit'.",
+      "hints": [
+        "Look at the ne … pas before pense.",
+        "Subjonctif of être, il form."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b1-opinions-agreement-02",
+      "prompt": "Je pense que tu ___ raison.",
+      "type": "multiple-choice",
+      "options": [
+        "as",
+        "aies",
+        "avoir"
+      ],
+      "correct_answer": "as",
+      "explanation": "A positive 'je pense que' takes the indicative: 'tu as raison'.",
+      "hints": [
+        "Is the opinion verb negated?"
+      ],
+      "teaches": [
+        "avoir raison"
+      ]
+    },
+    {
+      "question_id": "b1-opinions-agreement-03",
+      "prompt": "Je ___ (croire) que le magasin ferme à vingt heures.",
+      "type": "fill-in-blank",
+      "correct_answer": "crois",
+      "accepted_answers": [
+        "je crois"
+      ],
+      "explanation": "Croire in the present: je crois, tu crois, il croit.",
+      "hints": [
+        "je form of croire",
+        "It ends in -s."
+      ],
+      "teaches": [
+        "croire"
+      ]
+    },
+    {
+      "question_id": "b1-opinions-agreement-04",
+      "prompt": "After 'je ne crois pas que', French normally uses the subjonctif.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Yes: 'Je ne crois pas qu'il vienne.' The doubt calls for the subjonctif.",
+      "hints": [
+        "A negated opinion expresses doubt."
+      ],
+      "teaches": [
+        "croire"
+      ]
+    },
+    {
+      "question_id": "b1-opinions-agreement-05",
+      "prompt": "Le film était long ; ___, les acteurs étaient excellents.",
+      "type": "multiple-choice",
+      "options": [
+        "par contre",
+        "d'ailleurs",
+        "bref"
+      ],
+      "correct_answer": "par contre",
+      "explanation": "The second half contrasts with the first, so 'par contre' (on the other hand).",
+      "hints": [
+        "Long film, excellent actors: is that a contrast or an extra point?"
+      ],
+      "teaches": [
+        "par contre"
+      ]
+    },
+    {
+      "question_id": "b1-opinions-agreement-06",
+      "prompt": "Nous ne sommes pas d'___ avec cette décision.",
+      "type": "fill-in-blank",
+      "correct_answer": "accord",
+      "accepted_answers": [
+        "d'accord"
+      ],
+      "explanation": "Être d'accord avec = to agree with; negated: 'nous ne sommes pas d'accord'.",
+      "hints": [
+        "The expression is être d'… avec."
+      ],
+      "teaches": [
+        "être d'accord"
+      ]
+    },
+    {
+      "question_id": "b1-opinions-agreement-07",
+      "prompt": "Il croit que la Terre est plate : il a ___ !",
+      "type": "fill-in-blank",
+      "correct_answer": "tort",
+      "accepted_answers": [],
+      "explanation": "The Earth isn't flat, so he is wrong: 'il a tort'.",
+      "hints": [
+        "Avoir raison or avoir … ?"
+      ],
+      "teaches": [
+        "avoir tort"
+      ]
+    },
+    {
+      "question_id": "b1-opinions-agreement-08",
+      "prompt": "'Pourtant' and 'd'ailleurs' mean the same thing.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Pourtant = and yet (a contrast); d'ailleurs = besides (an extra point in the same direction).",
+      "hints": [
+        "One contrasts, one adds."
+      ],
+      "teaches": [
+        "pourtant",
+        "d'ailleurs"
+      ]
+    },
+    {
+      "question_id": "b1-opinions-agreement-09",
+      "prompt": "Je suis ___ d'accord : c'est exactement ce que je pense.",
+      "type": "multiple-choice",
+      "options": [
+        "tout à fait",
+        "pas du tout",
+        "pourtant"
+      ],
+      "correct_answer": "tout à fait",
+      "explanation": "'Exactly what I think' means complete agreement: 'tout à fait d'accord'.",
+      "hints": [
+        "How strongly does the speaker agree?"
+      ],
+      "teaches": [
+        "tout à fait"
+      ]
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "croire",
+      "meaning": "to believe, to think",
+      "set": "present",
+      "art": [
+        "   .-~~~~~~~-.   ",
+        "  ( je crois.. )  ",
+        "   `-.......-'   ",
+        "      o          ",
+        "    o            ",
+        "  :-)            "
+      ],
+      "forms": {
+        "je": "crois",
+        "tu": "crois",
+        "il": "croit",
+        "nous": "croyons",
+        "vous": "croyez",
+        "ils": "croient"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-opinions-agreement-conv-car-free-centre",
+      "title": "A car-free centre?",
+      "scenario": "Camille and Thomas, two neighbours, talk about the town hall's plan to ban cars from the town centre.",
+      "role_a": "Camille",
+      "role_b": "Thomas",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Tu as vu ? La mairie veut interdire les voitures dans le centre-ville.",
+          "meaning": "Did you see? The town hall wants to ban cars from the town centre."
+        },
+        {
+          "speaker": "b",
+          "text": "Oui. À mon avis, c'est une très bonne idée.",
+          "meaning": "Yes. In my opinion, it's a very good idea."
+        },
+        {
+          "speaker": "a",
+          "text": "Tu crois ? Moi, je ne pense pas que ce soit réaliste.",
+          "meaning": "Do you think so? I don't think it's realistic.",
+          "note": "ne pas penser que + subjonctif"
+        },
+        {
+          "speaker": "b",
+          "text": "Pourquoi ? Il y a déjà des bus et des vélos partout.",
+          "meaning": "Why? There are already buses and bikes everywhere."
+        },
+        {
+          "speaker": "a",
+          "text": "C'est vrai, mais beaucoup de gens habitent loin du centre.",
+          "meaning": "That's true, but lots of people live far from the centre.",
+          "note": "C'est vrai, mais…: polite disagreement"
+        },
+        {
+          "speaker": "b",
+          "text": "Tu n'as pas tort. Par contre, l'air sera plus propre.",
+          "meaning": "You're not wrong. On the other hand, the air will be cleaner."
+        },
+        {
+          "speaker": "a",
+          "text": "Je suis d'accord avec toi sur ce point. D'ailleurs, il y aura moins de bruit.",
+          "meaning": "I agree with you on that point. Besides, there will be less noise."
+        },
+        {
+          "speaker": "b",
+          "text": "Alors tu changes d'avis ?",
+          "meaning": "So you're changing your mind?"
+        },
+        {
+          "speaker": "a",
+          "text": "Pas du tout ! Je trouve que c'est une bonne idée pour le week-end, c'est tout.",
+          "meaning": "Not at all! I think it's a good idea for weekends, that's all."
+        },
+        {
+          "speaker": "b",
+          "text": "Bref, on est à moitié d'accord !",
+          "meaning": "In short, we half agree!"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "À mon avis, il a raison.",
+      "meaning": "In my opinion, he's right."
+    },
+    {
+      "text": "Je ne crois pas qu'elle vienne.",
+      "meaning": "I don't think she's coming.",
+      "note": "Negated opinion: subjonctif."
+    },
+    {
+      "text": "Nous sommes tout à fait d'accord avec vous.",
+      "meaning": "We completely agree with you."
+    },
+    {
+      "text": "Je trouve que ce quartier est plutôt calme.",
+      "meaning": "I find this neighbourhood rather quiet.",
+      "note": "New word: le quartier = the neighbourhood."
+    },
+    {
+      "text": "Tu as tort, la boulangerie est ouverte le dimanche.",
+      "meaning": "You're wrong, the bakery is open on Sundays.",
+      "note": "New word: la boulangerie = the bakery."
+    },
+    {
+      "text": "Il fait beau ; pourtant, personne ne veut sortir.",
+      "meaning": "The weather is nice; and yet nobody wants to go out."
+    },
+    {
+      "text": "Selon moi, ce livre est intéressant ; par contre, la fin est décevante.",
+      "meaning": "In my view, this book is interesting; on the other hand, the ending is disappointing.",
+      "note": "New word: décevant = disappointing."
+    },
+    {
+      "text": "En fait, je ne pense pas que ce soit le bon moment pour partir.",
+      "meaning": "Actually, I don't think it's the right time to leave."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Giving your opinion"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b1-opinions-agreement-03"
+    },
+    {
+      "question": "b1-opinions-agreement-02"
+    },
+    {
+      "question": "b1-opinions-agreement-01"
+    },
+    {
+      "question": "b1-opinions-agreement-04"
+    },
+    {
+      "tip": "Spot the ne … pas: je pense que + indicative, je ne pense pas que + subjonctif."
+    },
+    {
+      "section": "Agreeing"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-opinions-agreement-06"
+    },
+    {
+      "question": "b1-opinions-agreement-07"
+    },
+    {
+      "question": "b1-opinions-agreement-09"
+    },
+    {
+      "section": "Linking"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-opinions-agreement-05"
+    },
+    {
+      "question": "b1-opinions-agreement-08"
+    },
+    {
+      "concept": {
+        "title": "Softening with the conditionnel",
+        "markdown": "To sound less blunt, put the opinion in the conditionnel: **Je dirais que…** (I'd say that…), **J'aurais tendance à penser que…** (I'd tend to think that…). In a meeting, **Je ne suis pas sûr que ce soit la meilleure solution** is a polite way to say no."
+      }
+    }
+  ],
+  "sprint": {
+    "icon": "🗯️",
+    "bites": [
+      {
+        "title": "Say what you think",
+        "emoji": "🗯️",
+        "rule": "À mon avis, selon moi, or je pense / je crois / je trouve que + indicative.",
+        "example": "Je trouve que c'est cher.",
+        "example_meaning": "I think it's expensive."
+      },
+      {
+        "title": "Negated opinion takes the subjonctif",
+        "emoji": "🔄",
+        "rule": "Negate the opinion verb and the next verb goes into the subjonctif: je ne pense pas que ce soit vrai.",
+        "example": "Je ne crois pas qu'il ait raison.",
+        "example_meaning": "I don't think he's right."
+      },
+      {
+        "title": "Agree, disagree, nuance",
+        "emoji": "🤝",
+        "rule": "Être d'accord (avec), avoir raison or tort; tune it with plutôt, assez, tout à fait, pas du tout.",
+        "example": "Je suis plutôt d'accord avec toi.",
+        "example_meaning": "I rather agree with you."
+      },
+      {
+        "title": "Linking words",
+        "emoji": "🔗",
+        "rule": "Par contre and cependant contrast, pourtant means and yet, d'ailleurs adds a point, en fait corrects, bref sums up.",
+        "example": "En fait, il a tort.",
+        "example_meaning": "Actually, he's wrong."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Indicative or subjonctif?",
+        "buckets": [
+          "indicative",
+          "subjonctif"
+        ],
+        "items": [
+          {
+            "text": "Je pense que c'est vrai.",
+            "bucket": 0
+          },
+          {
+            "text": "Je ne pense pas que ce soit vrai.",
+            "bucket": 1
+          },
+          {
+            "text": "Je crois qu'il vient.",
+            "bucket": 0
+          },
+          {
+            "text": "Je ne crois pas qu'il vienne.",
+            "bucket": 1
+          },
+          {
+            "text": "Je trouve que tu as raison.",
+            "bucket": 0
+          },
+          {
+            "text": "Je ne trouve pas que tu aies raison.",
+            "bucket": 1
+          }
+        ],
+        "why": "A positive opinion verb takes the indicative; negated, it expresses doubt and takes the subjonctif."
+      },
+      {
+        "title": "Agree or disagree?",
+        "buckets": [
+          "I agree",
+          "I disagree"
+        ],
+        "items": [
+          {
+            "text": "Tout à fait !",
+            "bucket": 0
+          },
+          {
+            "text": "Pas du tout !",
+            "bucket": 1
+          },
+          {
+            "text": "Tu as raison.",
+            "bucket": 0
+          },
+          {
+            "text": "Tu as tort.",
+            "bucket": 1
+          },
+          {
+            "text": "Je suis d'accord avec toi.",
+            "bucket": 0
+          },
+          {
+            "text": "Je ne suis pas d'accord.",
+            "bucket": 1
+          },
+          {
+            "text": "C'est vrai.",
+            "bucket": 0
+          }
+        ],
+        "why": "Tout à fait, tu as raison, c'est vrai and je suis d'accord agree; pas du tout and tu as tort disagree."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Je ne pense pas que c'est une bonne idée.",
+        "wrong": "c'est",
+        "fix": "ce soit",
+        "why": "A negated opinion verb takes the subjonctif: que ce soit."
+      },
+      {
+        "sentence": "Je pense que tu aies raison.",
+        "wrong": "aies",
+        "fix": "as",
+        "why": "A positive je pense que takes the indicative: tu as."
+      },
+      {
+        "sentence": "Je suis d'accord de toi.",
+        "wrong": "de",
+        "fix": "avec",
+        "why": "Être d'accord avec quelqu'un."
+      },
+      {
+        "sentence": "Tu es raison, c'est trop cher.",
+        "wrong": "es",
+        "fix": "as",
+        "why": "French says avoir raison: tu as raison."
+      },
+      {
+        "sentence": "Vous croiez que c'est vrai ?",
+        "wrong": "croiez",
+        "fix": "croyez",
+        "why": "Croire: nous croyons, vous croyez, with a y."
+      }
+    ],
+    "builds": [
+      {
+        "text": "À mon avis, tu as raison.",
+        "meaning": "In my opinion, you're right.",
+        "distractors": [
+          "es"
+        ]
+      },
+      {
+        "text": "Je ne crois pas qu'il vienne.",
+        "meaning": "I don't think he's coming.",
+        "distractors": [
+          "vient"
+        ]
+      },
+      {
+        "text": "Nous sommes tout à fait d'accord.",
+        "meaning": "We completely agree.",
+        "distractors": [
+          "avons"
+        ]
+      },
+      {
+        "text": "En fait, je suis plutôt d'accord.",
+        "meaning": "Actually, I rather agree.",
+        "distractors": [
+          "pourtant"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🦉",
+      "content": "## Les avis à Eldmark\n\nAt the guild council everyone speaks: **à mon avis**, la quête est dangereuse ; **je ne crois pas que** l'orc **soit** un ennemi. Agree with **je suis d'accord avec toi**, contradict with **tu as tort**, and link your points with **pourtant** or **par contre**.",
+      "vocabulary": [
+        {
+          "term": "à mon avis",
+          "example": "À mon avis, le donjon est trop dangereux.",
+          "example_meaning": "In my opinion, the dungeon is too dangerous."
+        },
+        {
+          "term": "croire",
+          "example": "Je crois que le dragon dort.",
+          "example_meaning": "I think the dragon is asleep."
+        },
+        {
+          "term": "avoir raison",
+          "example": "La prêtresse a raison : il faut attendre.",
+          "example_meaning": "The priestess is right: we must wait."
+        },
+        {
+          "term": "avoir tort",
+          "example": "Tu as tort, Borin : les elfes sont nos amis.",
+          "example_meaning": "You're wrong, Borin: the elves are our friends."
+        },
+        {
+          "term": "pourtant",
+          "example": "L'orc est grand ; pourtant, il est très gentil.",
+          "example_meaning": "The orc is big; and yet he's very kind."
+        },
+        {
+          "term": "être d'accord",
+          "example": "Le paladin n'est pas d'accord avec la mage.",
+          "example_meaning": "The paladin doesn't agree with the mage."
+        },
+        {
+          "term": "le conseil",
+          "meaning": "council",
+          "example": "Le conseil de la guilde se réunit ce soir.",
+          "example_meaning": "The guild council meets tonight."
+        },
+        {
+          "term": "la guilde",
+          "meaning": "guild",
+          "example": "Je pense que la guilde a besoin d'un mage.",
+          "example_meaning": "I think the guild needs a mage."
+        },
+        {
+          "term": "le sort",
+          "meaning": "spell",
+          "example": "Selon moi, ce sort est trop risqué.",
+          "example_meaning": "In my view, this spell is too risky."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Le conseil de la guilde",
+          "emoji": "🦉",
+          "rule": "Opinion verbs take the indicative; negated, they take the subjonctif: je ne pense pas que ce soit sûr.",
+          "example": "Je ne crois pas que la quête soit facile.",
+          "example_meaning": "I don't think the quest is easy."
+        }
+      ],
+      "listening": [
+        {
+          "text": "À mon avis, le dragon dort.",
+          "meaning": "In my opinion, the dragon is asleep."
+        },
+        {
+          "text": "Je ne crois pas que l'orc soit méchant.",
+          "meaning": "I don't think the orc is nasty."
+        },
+        {
+          "text": "Borin a tort, la forêt est dangereuse.",
+          "meaning": "Borin is wrong, the forest is dangerous."
+        },
+        {
+          "text": "Le conseil est tout à fait d'accord.",
+          "meaning": "The council completely agrees.",
+          "note": "New word: le conseil = the council."
+        },
+        {
+          "text": "Selon Borin, ce plan est trop risqué.",
+          "meaning": "According to Borin, this plan is too risky.",
+          "note": "New word: risqué = risky."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Je pense que la mage a raison.",
+          "meaning": "I think the mage is right.",
+          "distractors": [
+            "ait"
+          ]
+        },
+        {
+          "text": "Je ne crois pas que ce soit sûr.",
+          "meaning": "I don't think it's safe.",
+          "distractors": [
+            "est"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Je ne pense pas que le dragon est réveillé.",
+          "wrong": "est",
+          "fix": "soit",
+          "why": "A negated opinion verb takes the subjonctif: que le dragon soit."
+        },
+        {
+          "sentence": "Borin est tort : les elfes sont gentils.",
+          "wrong": "est",
+          "fix": "a",
+          "why": "French says avoir tort: Borin a tort."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Indicative or subjonctif?",
+          "buckets": [
+            "indicative",
+            "subjonctif"
+          ],
+          "items": [
+            {
+              "text": "Je crois que l'orc est gentil.",
+              "bucket": 0
+            },
+            {
+              "text": "Je ne crois pas que l'orc soit gentil.",
+              "bucket": 1
+            },
+            {
+              "text": "Je pense que la quête est longue.",
+              "bucket": 0
+            },
+            {
+              "text": "Je ne pense pas que la quête soit longue.",
+              "bucket": 1
+            },
+            {
+              "text": "Je trouve que ce sort est utile.",
+              "bucket": 0
+            },
+            {
+              "text": "Je ne trouve pas que ce sort soit utile.",
+              "bucket": 1
+            }
+          ],
+          "why": "Positive opinion verbs take the indicative; with ne … pas they take the subjonctif."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-opinions-agreement-realm-01",
+          "prompt": "Je ne pense pas que le donjon ___ sûr.",
+          "type": "multiple-choice",
+          "options": [
+            "soit",
+            "est"
+          ],
+          "correct_answer": "soit",
+          "explanation": "A negated opinion verb takes the subjonctif: 'que le donjon soit sûr'.",
+          "hints": [
+            "Look for ne … pas."
+          ],
+          "teaches": []
+        },
+        {
+          "question_id": "b1-opinions-agreement-realm-02",
+          "prompt": "La prêtresse a ___ : il faut attendre le matin.",
+          "type": "fill-in-blank",
+          "correct_answer": "raison",
+          "accepted_answers": [],
+          "explanation": "Avoir raison = to be right.",
+          "hints": [
+            "The opposite of avoir tort."
+          ],
+          "teaches": [
+            "avoir raison"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🐝",
+      "content": "## Les avis à Meadowbrook\n\nAt the harvest festival everyone has an opinion: **je trouve que** tes fraises **sont** délicieuses ; **je ne pense pas que** la citrouille de Léo **soit** la plus grosse. Agree with **tout à fait**, disagree with **pas du tout**, and add a point with **d'ailleurs**.",
+      "vocabulary": [
+        {
+          "term": "trouver que",
+          "example": "Je trouve que tes fraises sont délicieuses.",
+          "example_meaning": "I think your strawberries are delicious."
+        },
+        {
+          "term": "selon moi",
+          "example": "Selon moi, le maïs pousse mieux près de la rivière.",
+          "example_meaning": "In my view, corn grows better near the river."
+        },
+        {
+          "term": "plutôt",
+          "example": "Le temps est plutôt doux ce printemps.",
+          "example_meaning": "The weather is rather mild this spring."
+        },
+        {
+          "term": "tout à fait",
+          "example": "Tu as tout à fait raison, il faut arroser le matin.",
+          "example_meaning": "You're absolutely right, you have to water in the morning."
+        },
+        {
+          "term": "d'ailleurs",
+          "example": "La graineterie est loin ; d'ailleurs, elle ferme tôt.",
+          "example_meaning": "The seed shop is far away; besides, it closes early."
+        },
+        {
+          "term": "en fait",
+          "example": "Je croyais que c'était une poule ; en fait, c'est un coq.",
+          "example_meaning": "I thought it was a hen; actually, it's a rooster."
+        },
+        {
+          "term": "bref",
+          "example": "Il a plu et la vache s'est échappée. Bref, une journée de ferme !",
+          "example_meaning": "It rained and the cow ran off. In short, a farm day!"
+        },
+        {
+          "term": "le jury",
+          "meaning": "the judges, the jury",
+          "example": "Le jury trouve que ta citrouille est magnifique.",
+          "example_meaning": "The judges think your pumpkin is magnificent."
+        },
+        {
+          "term": "la récolte",
+          "meaning": "harvest",
+          "example": "À mon avis, la récolte sera bonne cette année.",
+          "example_meaning": "In my opinion, the harvest will be good this year."
+        }
+      ],
+      "bites": [
+        {
+          "title": "La fête des récoltes",
+          "emoji": "🐝",
+          "rule": "Je trouve que + indicative; je ne trouve pas que + subjonctif; tune it with plutôt or tout à fait.",
+          "example": "Je ne trouve pas que ce maïs soit mûr.",
+          "example_meaning": "I don't think this corn is ripe."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Je trouve que ta citrouille est énorme.",
+          "meaning": "I think your pumpkin is huge."
+        },
+        {
+          "text": "Selon moi, il faut arroser le matin.",
+          "meaning": "In my view, you should water in the morning."
+        },
+        {
+          "text": "Rosa est tout à fait d'accord.",
+          "meaning": "Rosa completely agrees."
+        },
+        {
+          "text": "En fait, Léo n'aime pas pêcher.",
+          "meaning": "Actually, Léo doesn't like fishing.",
+          "note": "New word: pêcher = to fish."
+        },
+        {
+          "text": "Je ne crois pas que la récolte soit finie.",
+          "meaning": "I don't think the harvest is over.",
+          "note": "New word: la récolte = the harvest."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Je trouve que tes fraises sont délicieuses.",
+          "meaning": "I think your strawberries are delicious.",
+          "distractors": [
+            "soient"
+          ]
+        },
+        {
+          "text": "Le maire est plutôt d'accord.",
+          "meaning": "The mayor rather agrees.",
+          "distractors": [
+            "a"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Je trouve que ta citrouille soit énorme.",
+          "wrong": "soit",
+          "fix": "est",
+          "why": "A positive je trouve que takes the indicative."
+        },
+        {
+          "sentence": "Rosa a d'accord avec Léo.",
+          "wrong": "a",
+          "fix": "est",
+          "why": "French says être d'accord: Rosa est d'accord."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Agree or disagree?",
+          "buckets": [
+            "d'accord",
+            "pas d'accord"
+          ],
+          "items": [
+            {
+              "text": "Tout à fait !",
+              "bucket": 0
+            },
+            {
+              "text": "Pas du tout !",
+              "bucket": 1
+            },
+            {
+              "text": "Tu as raison, Rosa.",
+              "bucket": 0
+            },
+            {
+              "text": "Tu as tort, Léo.",
+              "bucket": 1
+            },
+            {
+              "text": "Moi aussi, je trouve ça.",
+              "bucket": 0
+            },
+            {
+              "text": "Je ne suis pas de ton avis.",
+              "bucket": 1
+            }
+          ],
+          "why": "Tout à fait, tu as raison and moi aussi agree; pas du tout, tu as tort and je ne suis pas de ton avis disagree."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-opinions-agreement-meadowbrook-01",
+          "prompt": "Je ne pense pas que ces fraises ___ mûres.",
+          "type": "multiple-choice",
+          "options": [
+            "soient",
+            "sont"
+          ],
+          "correct_answer": "soient",
+          "explanation": "A negated opinion verb takes the subjonctif: 'que ces fraises soient mûres' (ripe).",
+          "hints": [
+            "Look for ne … pas.",
+            "mûr = ripe"
+          ],
+          "teaches": []
+        },
+        {
+          "question_id": "b1-opinions-agreement-meadowbrook-02",
+          "prompt": "'Je trouve que ta citrouille est belle' uses the indicative because the opinion verb is not negated.",
+          "type": "true-false",
+          "correct_answer": "true",
+          "explanation": "Yes: a positive je trouve que takes the indicative.",
+          "hints": [
+            "Is there a ne … pas?"
+          ],
+          "teaches": [
+            "trouver que"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🥊",
+      "content": "## Les avis à Rustwake\n\nAt the scrap market people argue about everything. **À mon avis**, l'eau filtrée est trop chère ; **je ne pense pas que** Marta **ait** raison. Answer **tu as raison** or **tu as tort**, and contrast with **par contre** or **pourtant**.",
+      "vocabulary": [
+        {
+          "term": "à mon avis",
+          "example": "À mon avis, cette armure de ferraille est trop lourde.",
+          "example_meaning": "In my opinion, this scrap armour is too heavy."
+        },
+        {
+          "term": "croire",
+          "example": "Ruiz croit que la tempête va arriver ce soir.",
+          "example_meaning": "Ruiz thinks the storm is going to come tonight."
+        },
+        {
+          "term": "avoir tort",
+          "example": "Tu as tort : ce robot marche encore.",
+          "example_meaning": "You're wrong: this robot still works."
+        },
+        {
+          "term": "par contre",
+          "example": "L'eau filtrée est chère ; par contre, le tonique est bon marché.",
+          "example_meaning": "Filtered water is expensive; on the other hand, tonic is cheap."
+        },
+        {
+          "term": "en fait",
+          "example": "Je croyais que c'était un scarabée ; en fait, c'est un robot.",
+          "example_meaning": "I thought it was a beetle; actually, it's a robot."
+        },
+        {
+          "term": "selon moi",
+          "example": "Selon moi, le Dôme est plus sûr que le désert.",
+          "example_meaning": "In my view, the Dome is safer than the desert."
+        },
+        {
+          "term": "les écrous",
+          "meaning": "nuts (the currency)",
+          "example": "Dix écrous pour ce disque ? À mon avis, c'est trop cher.",
+          "example_meaning": "Ten nuts for this record? In my opinion, it's too expensive."
+        },
+        {
+          "term": "la marchande",
+          "meaning": "trader, merchant (f)",
+          "example": "La marchande trouve que mes écrous sont rouillés.",
+          "example_meaning": "The trader thinks my nuts are rusty."
+        },
+        {
+          "term": "échanger",
+          "meaning": "to trade, to swap",
+          "example": "Je ne crois pas qu'elle veuille échanger son eau.",
+          "example_meaning": "I don't think she wants to trade her water."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Débat au marché",
+          "emoji": "🥊",
+          "rule": "À mon avis or je crois que + indicative; je ne crois pas que + subjonctif.",
+          "example": "Je ne crois pas que Ruiz ait raison.",
+          "example_meaning": "I don't think Ruiz is right."
+        }
+      ],
+      "listening": [
+        {
+          "text": "À mon avis, l'eau est trop chère.",
+          "meaning": "In my opinion, the water is too expensive."
+        },
+        {
+          "text": "Tu as tort, ce robot marche encore.",
+          "meaning": "You're wrong, this robot still works."
+        },
+        {
+          "text": "Je ne crois pas que Ruiz ait raison.",
+          "meaning": "I don't think Ruiz is right."
+        },
+        {
+          "text": "Par contre, le tonique est bon marché.",
+          "meaning": "On the other hand, the tonic is cheap.",
+          "note": "New word: bon marché = cheap."
+        },
+        {
+          "text": "En fait, la marchande est plutôt gentille.",
+          "meaning": "Actually, the trader is rather nice."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Je crois que la tempête arrive.",
+          "meaning": "I think the storm is coming.",
+          "distractors": [
+            "soit"
+          ]
+        },
+        {
+          "text": "Selon moi, le désert est dangereux.",
+          "meaning": "In my view, the desert is dangerous.",
+          "distractors": [
+            "soit"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Je ne crois pas que Ruiz a raison.",
+          "wrong": "a",
+          "fix": "ait",
+          "why": "A negated opinion verb takes the subjonctif: qu'il ait raison."
+        },
+        {
+          "sentence": "Tu es tort, ce robot marche encore.",
+          "wrong": "es",
+          "fix": "as",
+          "why": "French says avoir tort: tu as tort."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Contrast, add or correct?",
+          "buckets": [
+            "contrast",
+            "add a point",
+            "correct"
+          ],
+          "items": [
+            {
+              "text": "L'eau est chère ; par contre, le tonique est bon marché.",
+              "bucket": 0
+            },
+            {
+              "text": "Le désert est dangereux ; pourtant, j'aime l'explorer.",
+              "bucket": 0
+            },
+            {
+              "text": "Le Dôme est sûr ; d'ailleurs, il y a de l'eau filtrée.",
+              "bucket": 1
+            },
+            {
+              "text": "Ruiz est gentil ; d'ailleurs, il m'a donné une radio.",
+              "bucket": 1
+            },
+            {
+              "text": "Je croyais que c'était un chien ; en fait, c'est un robot.",
+              "bucket": 2
+            },
+            {
+              "text": "Marta n'est pas méchante ; en fait, elle est timide.",
+              "bucket": 2
+            }
+          ],
+          "why": "Par contre and pourtant contrast, d'ailleurs adds a point in the same direction, en fait corrects what came before."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-opinions-agreement-rustwake-01",
+          "prompt": "Le scarabée est énorme ; ___, il n'est pas dangereux.",
+          "type": "multiple-choice",
+          "options": [
+            "pourtant",
+            "d'ailleurs",
+            "bref"
+          ],
+          "correct_answer": "pourtant",
+          "explanation": "Huge but not dangerous: a contrast, so 'pourtant' (and yet).",
+          "hints": [
+            "Is the second idea surprising after the first?"
+          ],
+          "teaches": [
+            "pourtant"
+          ]
+        },
+        {
+          "question_id": "b1-opinions-agreement-rustwake-02",
+          "prompt": "Je ne crois pas que Marta ___ (avoir) de l'eau filtrée.",
+          "type": "fill-in-blank",
+          "correct_answer": "ait",
+          "accepted_answers": [],
+          "explanation": "A negated opinion verb takes the subjonctif of avoir: 'qu'elle ait'.",
+          "hints": [
+            "Subjonctif of avoir, elle form."
+          ],
+          "teaches": [
+            "croire"
+          ]
+        }
+      ]
+    }
+  }
+}

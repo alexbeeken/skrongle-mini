@@ -1,0 +1,775 @@
+{
+  "id": "a2-imperfect",
+  "slug": "imperfect",
+  "title": "The imperfect: what used to be",
+  "unit": "A2",
+  "group": "Grammar",
+  "order": 16,
+  "summary": "Habits, descriptions and background in the past: hablaba, comía, vivía; era, iba, veía.",
+  "focus": "Forms and uses of the imperfect (pretérito imperfecto)",
+  "prerequisites": [
+    "a2-irregular-preterite"
+  ],
+  "content": "## What the imperfect is for\n\nThe **pretérito imperfecto** describes the past as it *used to be* or *was going on*, without saying when it started or ended. Use it for:\n\n- **Habits and repeated actions**: *Antes vivíamos en un pueblo.* (We used to live in a village.) *Siempre comía en casa.* (I always ate at home.)\n- **Descriptions** of people, places and things: *Mi abuela era muy simpática.* (My grandmother was very kind.)\n- **Background** to a story: *Hacía frío y no había nadie en la calle.* (It was cold and there was nobody in the street.)\n\nTypical markers: **antes**, **siempre**, **todos los días**, **cada verano**, **de pequeño / de pequeña** (as a child), **cuando era joven**.\n\n## The endings: -aba and -ía\n\nRemove the infinitive ending and add:\n\n| person | -ar (hablar) | -er (comer) | -ir (vivir) |\n|---|---|---|---|\n| yo | habl**aba** | com**ía** | viv**ía** |\n| tú | habl**abas** | com**ías** | viv**ías** |\n| él / ella / usted | habl**aba** | com**ía** | viv**ía** |\n| nosotros/as | habl**ábamos** | com**íamos** | viv**íamos** |\n| vosotros/as | habl**abais** | com**íais** | viv**íais** |\n| ellos / ellas / ustedes | habl**aban** | com**ían** | viv**ían** |\n\nThree things to notice:\n\n- **-er** and **-ir** verbs share the **-ía** endings, and every **-ía** form carries an accent.\n- The **yo** and **él/ella** forms are identical: *yo hablaba, ella hablaba*.\n- The only accent in **-aba** is on **nosotros**: *hablábamos*.\n\n## Only three irregulars\n\nEvery other verb is regular in the imperfect, including *tener*, *hacer* and *estar* (*tenía*, *hacía*, *estaba*). Learn these three:\n\n| person | ser | ir | ver |\n|---|---|---|---|\n| yo | **era** | **iba** | **veía** |\n| tú | eras | ibas | veías |\n| él / ella / usted | era | iba | veía |\n| nosotros/as | éramos | íbamos | veíamos |\n| vosotros/as | erais | ibais | veíais |\n| ellos / ellas / ustedes | eran | iban | veían |\n\n- *De pequeño iba al colegio a pie.* (As a child I walked to school.)\n- *Veía dibujos animados todos los sábados.* (I watched cartoons every Saturday.)\n\n## Age, time and weather in the past\n\nAge, clock time, weather and *there was/were* are all background, so they take the imperfect:\n\n- **Age**: *Tenía diez años.* (I was ten.)\n- **Time**: *Eran las tres de la tarde.* (It was three in the afternoon.) *Era la una.* (It was one o'clock.)\n- **Weather**: *Hacía mucho frío y llovía.* (It was very cold and it was raining.)\n- **Había**: *Había un parque cerca de casa.* (There was a park near home.) *Había* is both singular and plural.",
+  "vocabulary": [
+    {
+      "term": "ser",
+      "meaning": "to be — imperfect: era, eras, era…",
+      "example": "Mis vecinos eran muy simpáticos.",
+      "example_meaning": "My neighbours were very nice."
+    },
+    {
+      "term": "ir",
+      "meaning": "to go — imperfect: iba, ibas, iba…",
+      "example": "Cada verano íbamos a la playa.",
+      "example_meaning": "Every summer we went to the beach."
+    },
+    {
+      "term": "ver",
+      "meaning": "to see, to watch — imperfect: veía, veías…",
+      "example": "De pequeña veía dibujos animados.",
+      "example_meaning": "As a child I used to watch cartoons."
+    },
+    {
+      "term": "antes",
+      "meaning": "before, in the past",
+      "example": "Antes vivíamos en un pueblo.",
+      "example_meaning": "We used to live in a village."
+    },
+    {
+      "term": "de pequeño / de pequeña",
+      "meaning": "as a child",
+      "example": "De pequeño vivía en un pueblo.",
+      "example_meaning": "As a child I lived in a village."
+    },
+    {
+      "term": "el pueblo",
+      "meaning": "village, small town",
+      "example": "El pueblo era muy tranquilo.",
+      "example_meaning": "The village was very quiet."
+    },
+    {
+      "term": "el colegio",
+      "meaning": "school (primary)",
+      "example": "Iba al colegio a pie.",
+      "example_meaning": "I used to walk to school."
+    },
+    {
+      "term": "los dibujos animados",
+      "meaning": "cartoons",
+      "example": "Veía dibujos animados todos los sábados.",
+      "example_meaning": "I watched cartoons every Saturday."
+    },
+    {
+      "term": "había",
+      "meaning": "there was, there were",
+      "example": "Había un parque cerca de casa.",
+      "example_meaning": "There was a park near our house."
+    },
+    {
+      "term": "cada verano",
+      "meaning": "every summer",
+      "example": "Cada verano íbamos a la playa.",
+      "example_meaning": "Every summer we went to the beach."
+    },
+    {
+      "term": "la calle",
+      "meaning": "street",
+      "example": "Jugábamos en la calle.",
+      "example_meaning": "We used to play in the street."
+    },
+    {
+      "term": "el vecino / la vecina",
+      "meaning": "neighbour",
+      "example": "Mis vecinos eran muy simpáticos.",
+      "example_meaning": "My neighbours were very nice."
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "hablar",
+      "meaning": "to speak, to talk",
+      "set": "imperfect",
+      "art": [
+        "  .----------.  ",
+        " (   hola!    ) ",
+        "  '---. ,----'  ",
+        "       V        "
+      ],
+      "forms": {
+        "yo": "hablaba",
+        "tu": "hablabas",
+        "el": "hablaba",
+        "nosotros": "hablábamos",
+        "vosotros": "hablabais",
+        "ellos": "hablaban"
+      }
+    },
+    {
+      "item": "comer",
+      "meaning": "to eat",
+      "set": "imperfect",
+      "art": [
+        " \\|/   .-------.    |",
+        "  |   /         \\   |",
+        "  |  (     o     )  |",
+        "  |   \\         /   |",
+        "  |    '-------'    |"
+      ],
+      "forms": {
+        "yo": "comía",
+        "tu": "comías",
+        "el": "comía",
+        "nosotros": "comíamos",
+        "vosotros": "comíais",
+        "ellos": "comían"
+      }
+    },
+    {
+      "item": "vivir",
+      "meaning": "to live",
+      "set": "imperfect",
+      "art": [
+        "       /\\       ",
+        "      /  \\      ",
+        "     /____\\     ",
+        "     | [] |     ",
+        "     |____|     "
+      ],
+      "forms": {
+        "yo": "vivía",
+        "tu": "vivías",
+        "el": "vivía",
+        "nosotros": "vivíamos",
+        "vosotros": "vivíais",
+        "ellos": "vivían"
+      }
+    },
+    {
+      "item": "ser",
+      "meaning": "to be (identity, origin, characteristics)",
+      "set": "imperfect",
+      "art": [
+        " ___________ ",
+        "| HELLO     |",
+        "| my name   |",
+        "|  is ____  |",
+        "|___________|"
+      ],
+      "forms": {
+        "yo": "era",
+        "tu": "eras",
+        "el": "era",
+        "nosotros": "éramos",
+        "vosotros": "erais",
+        "ellos": "eran"
+      }
+    },
+    {
+      "item": "ir",
+      "meaning": "to go",
+      "set": "imperfect",
+      "art": [
+        "    o             ",
+        "   /|\\    ------> ",
+        "   / \\            ",
+        "  ______________  "
+      ],
+      "forms": {
+        "yo": "iba",
+        "tu": "ibas",
+        "el": "iba",
+        "nosotros": "íbamos",
+        "vosotros": "ibais",
+        "ellos": "iban"
+      }
+    },
+    {
+      "item": "ver",
+      "meaning": "to see, to watch",
+      "set": "imperfect",
+      "art": [
+        "   _______   ",
+        " .'  ___  '. ",
+        "(   ( o )   )",
+        " '.  `-'  .' ",
+        "   '-----'   "
+      ],
+      "forms": {
+        "yo": "veía",
+        "tu": "veías",
+        "el": "veía",
+        "nosotros": "veíamos",
+        "vosotros": "veíais",
+        "ellos": "veían"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-imperfect-01",
+      "prompt": "De pequeño yo ___ (vivir) en un pueblo y jugaba en la calle.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "vivía",
+      "accepted_answers": [
+        "yo vivía"
+      ],
+      "explanation": "-ir verbs take -ía in the imperfect: 'vivía'. 'De pequeño' (as a child) signals a habit or description in the past.",
+      "hints": [
+        "-er/-ir → -ía.",
+        "Every -ía form has an accent."
+      ],
+      "teaches": [
+        "de pequeño / de pequeña",
+        "el pueblo",
+        "la calle"
+      ]
+    },
+    {
+      "question_id": "a2-imperfect-02",
+      "prompt": "Antes vosotros ___ (comer) en el colegio, ¿no?",
+      "type": "multiple-choice",
+      "options": [
+        "comíais",
+        "comíamos",
+        "comisteis",
+        "coméis"
+      ],
+      "correct_answer": "comíais",
+      "explanation": "Vosotros takes -íais in the imperfect: 'comíais'. 'Comisteis' is the preterite (one occasion), 'coméis' is present.",
+      "hints": [
+        "Vosotros → -íais.",
+        "'Antes' points to a past habit."
+      ],
+      "teaches": [
+        "antes",
+        "el colegio"
+      ]
+    },
+    {
+      "question_id": "a2-imperfect-03",
+      "prompt": "Mis vecinos ___ (ser) muy simpáticos.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "eran",
+      "accepted_answers": [
+        "ellos eran"
+      ],
+      "explanation": "Ser is irregular in the imperfect: era, eras, era, éramos, erais, eran. A description of people takes the imperfect.",
+      "hints": [
+        "Ser → era, eras, era…",
+        "Mis vecinos = ellos."
+      ],
+      "teaches": [
+        "ser",
+        "el vecino / la vecina"
+      ]
+    },
+    {
+      "question_id": "a2-imperfect-04",
+      "prompt": "Cada verano nosotros ___ a la playa.",
+      "type": "multiple-choice",
+      "options": [
+        "íbamos",
+        "ibamos",
+        "fuimos",
+        "vamos"
+      ],
+      "correct_answer": "íbamos",
+      "explanation": "'Cada verano' describes a repeated habit, so the imperfect of ir: 'íbamos', with an accent on the í.",
+      "hints": [
+        "Ir → iba, ibas, iba, íbamos…",
+        "Look for the accent."
+      ],
+      "teaches": [
+        "ir",
+        "cada verano"
+      ]
+    },
+    {
+      "question_id": "a2-imperfect-05",
+      "prompt": "De pequeña yo ___ (ver) dibujos animados todos los sábados.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "veía",
+      "accepted_answers": [
+        "yo veía"
+      ],
+      "explanation": "Ver keeps its e in the imperfect: veía, veías, veía… It is one of the three irregulars.",
+      "hints": [
+        "Ver is irregular here: it keeps the e of its stem before the ending.",
+        "'Todos los sábados' = a habit."
+      ],
+      "teaches": [
+        "ver",
+        "los dibujos animados"
+      ]
+    },
+    {
+      "question_id": "a2-imperfect-06",
+      "prompt": "¿Qué hora era cuando llegaste? — ___",
+      "type": "multiple-choice",
+      "options": [
+        "Eran las tres.",
+        "Fueron las tres.",
+        "Era las tres.",
+        "Son las tres."
+      ],
+      "correct_answer": "Eran las tres.",
+      "explanation": "Clock time in the past takes the imperfect of ser, plural for any hour except one: 'Eran las tres'.",
+      "hints": [
+        "Time in the past = imperfect.",
+        "Three o'clock is plural."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a2-imperfect-07",
+      "prompt": "Cuando tenía diez años, yo ___ (ir) al colegio a pie.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "iba",
+      "accepted_answers": [
+        "yo iba"
+      ],
+      "explanation": "Ir in the imperfect: iba, ibas, iba, íbamos, ibais, iban. Age ('tenía diez años') also takes the imperfect.",
+      "hints": [
+        "Ir is one of the three irregular imperfects.",
+        "Yo and él/ella share the same form."
+      ],
+      "teaches": [
+        "ir",
+        "el colegio"
+      ]
+    },
+    {
+      "question_id": "a2-imperfect-08",
+      "prompt": "Cuando vivíamos en el pueblo, en invierno ___ mucho frío.",
+      "type": "multiple-choice",
+      "options": [
+        "hacía",
+        "hizo",
+        "hacían",
+        "hace"
+      ],
+      "correct_answer": "hacía",
+      "explanation": "Weather as background to a habitual past takes the imperfect: 'hacía frío'. Hacer is regular in the imperfect.",
+      "hints": [
+        "Weather in the past = imperfect.",
+        "Hacer is regular here: hac-ía."
+      ],
+      "teaches": [
+        "el pueblo"
+      ]
+    },
+    {
+      "question_id": "a2-imperfect-09",
+      "prompt": "Cerca de mi casa ___ (haber) un parque muy grande.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "había",
+      "accepted_answers": [],
+      "explanation": "'There was / there were' in the imperfect is 'había', the same form for singular and plural.",
+      "hints": [
+        "The imperfect of haber: the past of 'there is'.",
+        "One form for singular and plural."
+      ],
+      "teaches": [
+        "había"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "De pequeña vivía en Sevilla.",
+      "meaning": "As a child I lived in Seville."
+    },
+    {
+      "text": "Los sábados veíamos dibujos animados en casa.",
+      "meaning": "On Saturdays we watched cartoons at home."
+    },
+    {
+      "text": "En mi calle había un cine muy pequeño.",
+      "meaning": "In my street there was a very small cinema."
+    },
+    {
+      "text": "Cada verano íbamos al pueblo de mi padre.",
+      "meaning": "Every summer we went to my father's village.",
+      "note": "The nosotros form of ir carries an accent: íbamos."
+    },
+    {
+      "text": "Cuando era pequeño, iba al colegio en autobús.",
+      "meaning": "When I was little, I went to school by bus."
+    },
+    {
+      "text": "Antes había un jardín detrás de la casa.",
+      "meaning": "There used to be a garden behind the house.",
+      "note": "New word: el jardín = the garden."
+    },
+    {
+      "text": "Mis vecinos tenían un gato blanco y negro.",
+      "meaning": "My neighbours had a black and white cat.",
+      "note": "New word: el gato = the cat."
+    },
+    {
+      "text": "De pequeño mi hermano siempre llevaba gafas y era muy tímido.",
+      "meaning": "As a child my brother always wore glasses and was very shy.",
+      "note": "New word: tímido = shy."
+    }
+  ],
+  "guide": [
+    {
+      "section": "What the imperfect is for"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "section": "The endings"
+    },
+    {
+      "question": "a2-imperfect-01"
+    },
+    {
+      "question": "a2-imperfect-02"
+    },
+    {
+      "tip": "Two sounds to remember: -aba for -ar verbs, -ía for everything else. Yo and él/ella take the same form: yo hablaba, ella hablaba."
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "section": "Only three irregulars"
+    },
+    {
+      "question": "a2-imperfect-03"
+    },
+    {
+      "question": "a2-imperfect-04"
+    },
+    {
+      "question": "a2-imperfect-05"
+    },
+    {
+      "question": "a2-imperfect-07"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "section": "Age, time and weather"
+    },
+    {
+      "question": "a2-imperfect-06"
+    },
+    {
+      "question": "a2-imperfect-08"
+    },
+    {
+      "question": "a2-imperfect-09"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-imperfect-conv-grandmother",
+      "title": "When grandma was little",
+      "scenario": "Nico asks his grandmother Rosa what her life was like when she was a child in the village.",
+      "role_a": "Nico",
+      "role_b": "Rosa",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Abuela, ¿cómo era tu vida de pequeña?",
+          "meaning": "Grandma, what was your life like as a child?",
+          "note": "ser → era: description"
+        },
+        {
+          "speaker": "b",
+          "text": "Muy diferente. Vivíamos en un pueblo pequeño y no había coches en la calle.",
+          "meaning": "Very different. We lived in a small village and there were no cars in the street.",
+          "note": "vivir → vivíamos · había = there were"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Y cómo ibas al colegio?",
+          "meaning": "And how did you get to school?",
+          "note": "ir → ibas"
+        },
+        {
+          "speaker": "b",
+          "text": "Iba a pie, con mis hermanos. El colegio estaba lejos y en invierno hacía mucho frío.",
+          "meaning": "I walked, with my brothers. The school was far away and in winter it was very cold.",
+          "note": "estar, hacer: regular (estaba, hacía)"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Teníais televisión?",
+          "meaning": "Did you have a television?",
+          "note": "tener → teníais"
+        },
+        {
+          "speaker": "b",
+          "text": "No, no teníamos. Por la tarde jugábamos en la calle y los domingos veíamos una película en el cine del pueblo.",
+          "meaning": "No, we didn't. In the afternoon we played in the street and on Sundays we watched a film at the village cinema.",
+          "note": "jugar → jugábamos · ver → veíamos"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Y qué comíais?",
+          "meaning": "And what did you eat?",
+          "note": "comer → comíais"
+        },
+        {
+          "speaker": "b",
+          "text": "Comíamos lo que había en el huerto: patatas, tomates… Mi madre cocinaba muy bien.",
+          "meaning": "We ate what there was in the vegetable garden: potatoes, tomatoes… My mother cooked very well.",
+          "note": "comer, cocinar: habits"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Eras feliz, abuela?",
+          "meaning": "Were you happy, grandma?",
+          "note": "ser → eras"
+        },
+        {
+          "speaker": "b",
+          "text": "Sí, mucho. Los vecinos eran como una familia y siempre había alguien con quien hablar.",
+          "meaning": "Yes, very. The neighbours were like a family and there was always someone to talk to.",
+          "note": "ser → eran · había"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🎞️",
+    "bites": [
+      {
+        "title": "Used to, was -ing",
+        "emoji": "🔁",
+        "rule": "The imperfect is for habits, descriptions and background in the past: what used to happen or was going on. Markers: antes, siempre, de pequeño, cada verano.",
+        "example": "Antes vivíamos en un pueblo.",
+        "example_meaning": "We used to live in a village."
+      },
+      {
+        "title": "-aba and -ía",
+        "emoji": "🎵",
+        "rule": "-ar: -aba, -abas, -aba, -ábamos, -abais, -aban. -er/-ir: -ía, -ías, -ía, -íamos, -íais, -ían. Yo and él/ella are identical.",
+        "example": "Yo hablaba y ella comía.",
+        "example_meaning": "I was talking and she was eating."
+      },
+      {
+        "title": "Only three irregulars",
+        "emoji": "🎯",
+        "rule": "Ser → era, ir → iba, ver → veía. Everything else is regular, even tener (tenía), hacer (hacía) and estar (estaba).",
+        "example": "De pequeño iba al colegio a pie.",
+        "example_meaning": "As a child I walked to school."
+      },
+      {
+        "title": "Age, time, weather",
+        "emoji": "🌧️",
+        "rule": "Background facts take the imperfect: tenía diez años, eran las tres, hacía frío, había un parque.",
+        "example": "Eran las tres y hacía frío.",
+        "example_meaning": "It was three o'clock and it was cold."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Imperfect or preterite?",
+        "buckets": [
+          "imperfect (used to)",
+          "preterite (once)"
+        ],
+        "items": [
+          {
+            "text": "vivía",
+            "bucket": 0
+          },
+          {
+            "text": "viví",
+            "bucket": 1
+          },
+          {
+            "text": "hablaba",
+            "bucket": 0
+          },
+          {
+            "text": "habló",
+            "bucket": 1
+          },
+          {
+            "text": "éramos",
+            "bucket": 0
+          },
+          {
+            "text": "fuimos",
+            "bucket": 1
+          },
+          {
+            "text": "iba",
+            "bucket": 0
+          },
+          {
+            "text": "fue",
+            "bucket": 1
+          }
+        ],
+        "why": "-aba and -ía endings (and era, iba) are imperfect; -í, -ó and fui/fue are preterite."
+      },
+      {
+        "title": "-aba or -ía?",
+        "buckets": [
+          "-aba",
+          "-ía"
+        ],
+        "items": [
+          {
+            "text": "hablar",
+            "bucket": 0
+          },
+          {
+            "text": "comer",
+            "bucket": 1
+          },
+          {
+            "text": "vivir",
+            "bucket": 1
+          },
+          {
+            "text": "jugar",
+            "bucket": 0
+          },
+          {
+            "text": "tener",
+            "bucket": 1
+          },
+          {
+            "text": "estar",
+            "bucket": 0
+          },
+          {
+            "text": "hacer",
+            "bucket": 1
+          },
+          {
+            "text": "cantar",
+            "bucket": 0
+          }
+        ],
+        "why": "-ar verbs take -aba. -er and -ir verbs take -ía."
+      },
+      {
+        "title": "Regular or irregular in the imperfect?",
+        "buckets": [
+          "regular",
+          "irregular"
+        ],
+        "items": [
+          {
+            "text": "ser",
+            "bucket": 1
+          },
+          {
+            "text": "tener",
+            "bucket": 0
+          },
+          {
+            "text": "ir",
+            "bucket": 1
+          },
+          {
+            "text": "hacer",
+            "bucket": 0
+          },
+          {
+            "text": "ver",
+            "bucket": 1
+          },
+          {
+            "text": "estar",
+            "bucket": 0
+          }
+        ],
+        "why": "Only ser, ir and ver are irregular. Tener, hacer and estar follow the normal pattern (tenía, hacía, estaba)."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "De pequeño yo vivaba en un pueblo.",
+        "wrong": "vivaba",
+        "fix": "vivía",
+        "why": "-ir verbs take -ía, not -aba: vivía."
+      },
+      {
+        "sentence": "Cuando yo era pequeño, mi abuela es muy simpática.",
+        "wrong": "es",
+        "fix": "era",
+        "why": "A description in the past takes the imperfect of ser: era."
+      },
+      {
+        "sentence": "Cada verano ibamos a la playa.",
+        "wrong": "ibamos",
+        "fix": "íbamos",
+        "why": "The nosotros form of ir carries an accent: íbamos."
+      },
+      {
+        "sentence": "Antes nosotros hablabamos mucho por teléfono.",
+        "wrong": "hablabamos",
+        "fix": "hablábamos",
+        "why": "The only accented -aba form is nosotros: hablábamos."
+      },
+      {
+        "sentence": "De pequeña veí dibujos animados todos los sábados.",
+        "wrong": "veí",
+        "fix": "veía",
+        "why": "'Todos los sábados' is a habit, so the imperfect: veía."
+      },
+      {
+        "sentence": "Era las tres de la tarde cuando llegó.",
+        "wrong": "Era",
+        "fix": "Eran",
+        "why": "Hours other than one o'clock are plural: eran las tres."
+      }
+    ],
+    "builds": [
+      {
+        "text": "De pequeño vivía en un pueblo.",
+        "meaning": "As a child I lived in a village.",
+        "distractors": [
+          "vivió"
+        ]
+      },
+      {
+        "text": "Cada verano íbamos a la playa.",
+        "meaning": "Every summer we went to the beach.",
+        "distractors": [
+          "fuimos",
+          "ibamos"
+        ]
+      },
+      {
+        "text": "Mi abuela era muy simpática.",
+        "meaning": "My grandmother was very kind.",
+        "distractors": [
+          "es"
+        ]
+      },
+      {
+        "text": "Veía dibujos animados todos los sábados.",
+        "meaning": "I watched cartoons every Saturday.",
+        "distractors": [
+          "Vi"
+        ]
+      },
+      {
+        "text": "Eran las tres y hacía frío.",
+        "meaning": "It was three o'clock and it was cold.",
+        "distractors": [
+          "Fueron",
+          "hizo"
+        ]
+      }
+    ]
+  }
+}

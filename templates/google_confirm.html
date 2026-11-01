@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t("auth.google_confirm.title") }}{% endblock %}
+{% block content %}
+<section class="narrow" data-testid="google-confirm">
+  <h1>{{ crate::t("auth.google_confirm.title") }}</h1>
+  <p class="lead">{{ crate::t("auth.google_confirm.lead") }}</p>
+  <div class="identity" data-testid="google-confirm-identity">
+    {% include "google_mark.html" %}
+    <div class="identity-who">
+      <span class="muted small">{{ crate::t("auth.google_confirm.as") }}</span>
+      <strong data-testid="google-confirm-email">{{ email }}</strong>
+    </div>
+    <a class="small" href="{{ crate::url("/login") }}" data-testid="google-confirm-cancel">{{ crate::t("auth.google_confirm.not_you") }}</a>
+  </div>
+  <form method="post" action="{{ crate::url("/auth/google/confirm") }}" data-testid="google-confirm-form">
+    {% let tid = "google-confirm" %}{% let inline = true %}{% include "terms_check.html" %}
+    {% include "ai_switch.html" %}
+    <button type="submit" class="btn" data-testid="google-confirm-submit">{{ crate::t("auth.google_confirm.submit") }}</button>
+  </form>
+  <p class="muted small"><a href="{{ crate::url("/login") }}">{{ crate::t("auth.google_confirm.back") }}</a></p>
+</section>
+{% endblock %}

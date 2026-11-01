@@ -1,0 +1,64 @@
+# One shard of a browser test suite: its own fresh seeded server
+# (scripts/e2e.sh) and Playwright's `--shard`. Used by the e2e jobs in
+# .github/workflows/smoke.yml, after actions/checkout.
+name: e2e shard
+description: Run one Playwright shard of a suite against a fresh server
+inputs:
+  specs:
+    description: Spec files or folders, as scripts/e2e.sh takes them
+    required: true
+  shard:
+    description: This shard and the count, e.g. 1/3
+    required: true
+  report-name:
+    description: Name of the report kept when the shard fails
+    required: true
+  ts-checks:
+    description: Also type-check the specs and run the e2e unit tests (one shard per run does)
+    default: "false"
+runs:
+  using: composite
+  steps:
+    - uses: dtolnay/rust-toolchain@stable
+    - uses: Swatinem/rust-cache@v2
+      if: runner.environment == 'github-hosted'
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 24
+        cache: ${{ runner.environment == 'github-hosted' && 'npm' || '' }}
+        cache-dependency-path: e2e/package-lock.json
+
+    - name: Install the browser test tools
+      shell: bash
+      working-directory: e2e
+      run: |
+        npm ci --no-fund --no-audit
+        # The laptop runner image has Chromium and its libraries baked in
+        # (ci/runner/Dockerfile), so this finds them; hosted runners install.
+        npx playwright install ${{ runner.environment == 'github-hosted' && '--with-deps' || '' }} chromium
+
+    - name: Type-check the specs, unit-test their helpers
+      if: inputs.ts-checks == 'true'
+      shell: bash
+      working-directory: e2e
+      run: |
+        npx tsc -p .
+        npm run unit
+
+    - name: Browser tests
+      shell: bash
+      # The database is thrown away after the run: keep it in RAM, where
+      # SQLite's syncs cost nothing.
+      env:
+        E2E_DB: /dev/shm/e2e.db
+      run: SERVER_BIN=$(scripts/ci-build.sh) scripts/e2e.sh ${{ inputs.specs }} --shard ${{ inputs.shard }} --grep-invert @jev
+
+    - name: Keep the report of a failed run
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.report-name }}
+        path: |
+          e2e/results/report
+          e2e/results/artifacts
+        retention-days: 7

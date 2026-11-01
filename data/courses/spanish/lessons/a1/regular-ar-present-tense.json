@@ -1,0 +1,1406 @@
+{
+  "id": "a1-regular-ar-present",
+  "slug": "regular-ar-present-tense",
+  "title": "Regular -AR verbs in the present tense",
+  "unit": "A1",
+  "group": "Grammar",
+  "order": 10,
+  "summary": "Drop -ar and add the six endings: -o, -as, -a, -amos, -áis, -an.",
+  "focus": "Present indicative conjugation of regular -ar verbs",
+  "content": "## The biggest verb family\n\nMost Spanish verbs end in **-ar** (*hablar*, *trabajar*, *estudiar*, *cantar*…). Regular ones all follow the same pattern, so once you know one, you know hundreds.\n\n## The pattern\n\n1. Take the infinitive: **hablar** (to speak)\n2. Remove **-ar** to get the stem: **habl-**\n3. Add the ending for the person:\n\n| person | ending | hablar |\n|---|---|---|\n| yo | **-o** | habl**o** |\n| tú | **-as** | habl**as** |\n| él / ella / usted | **-a** | habl**a** |\n| nosotros/as | **-amos** | habl**amos** |\n| vosotros/as | **-áis** | habl**áis** |\n| ellos / ellas / ustedes | **-an** | habl**an** |\n\nNote the accent on **-áis**: *habláis*, *trabajáis*. It is the only ending with a written accent.\n\n## More examples\n\n| | trabajar (to work) | estudiar (to study) | cantar (to sing) |\n|---|---|---|---|\n| yo | trabajo | estudio | canto |\n| tú | trabajas | estudias | cantas |\n| él/ella/usted | trabaja | estudia | canta |\n| nosotros/as | trabajamos | estudiamos | cantamos |\n| vosotros/as | trabajáis | estudiáis | cantáis |\n| ellos/ellas/ustedes | trabajan | estudian | cantan |\n\n## Subject pronouns are optional\n\nBecause the ending already tells you who is doing the action, Spanish usually **drops the pronoun**:\n\n- *Hablo español.* (I speak Spanish.)\n- *¿Trabajas aquí?* (Do you work here?)\n- *Estudiamos mucho.* (We study a lot.)\n\nKeep the pronoun for emphasis or contrast: *Yo trabajo, pero él no trabaja.*\n\n## Usted and ustedes\n\n*Usted* (formal *you*) uses the **él/ella** form and *ustedes* uses the **ellos/ellas** form: *¿Usted habla inglés?* In Latin America *ustedes* is used for all plural *you*, so the *vosotros* form is mainly heard in Spain.\n\n## One present, three English meanings\n\n*Canto* can mean *I sing*, *I am singing* or *I do sing*. Everyday speech has no separate simple and continuous forms to choose between.",
+  "vocabulary": [
+    {
+      "term": "hablar",
+      "meaning": "to speak, to talk",
+      "example": "Hablo español.",
+      "example_meaning": "I speak Spanish."
+    },
+    {
+      "term": "trabajar",
+      "meaning": "to work",
+      "example": "Trabajamos en un banco.",
+      "example_meaning": "We work in a bank."
+    },
+    {
+      "term": "estudiar",
+      "meaning": "to study",
+      "example": "¿Tú estudias español?",
+      "example_meaning": "Do you study Spanish?"
+    },
+    {
+      "term": "cantar",
+      "meaning": "to sing",
+      "example": "Cantáis muy bien.",
+      "example_meaning": "You all sing very well."
+    },
+    {
+      "term": "bailar",
+      "meaning": "to dance",
+      "example": "Ella baila salsa.",
+      "example_meaning": "She dances salsa."
+    },
+    {
+      "term": "escuchar",
+      "meaning": "to listen (to)",
+      "example": "Ustedes escuchan música.",
+      "example_meaning": "You all listen to music."
+    },
+    {
+      "term": "tocar",
+      "meaning": "to play (an instrument), to touch",
+      "example": "Toco la guitarra.",
+      "example_meaning": "I play the guitar."
+    },
+    {
+      "term": "la guitarra",
+      "meaning": "guitar",
+      "example": "Toco la guitarra todos los días.",
+      "example_meaning": "I play the guitar every day."
+    },
+    {
+      "term": "el banco",
+      "meaning": "bank",
+      "example": "Mis padres trabajan en un banco.",
+      "example_meaning": "My parents work in a bank."
+    },
+    {
+      "term": "todos los días",
+      "meaning": "every day",
+      "example": "Estudio todos los días.",
+      "example_meaning": "I study every day."
+    },
+    {
+      "term": "español",
+      "meaning": "Spanish (language)",
+      "example": "Estudiamos español.",
+      "example_meaning": "We study Spanish."
+    },
+    {
+      "term": "inglés",
+      "meaning": "English (language)",
+      "example": "¿Usted habla inglés?",
+      "example_meaning": "Do you speak English?"
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "hablar",
+      "meaning": "to speak, to talk",
+      "set": "present",
+      "art": [
+        " .--------. ",
+        "( ¡hola!   )",
+        " `---. ,--' ",
+        "      V     "
+      ],
+      "forms": {
+        "yo": "hablo",
+        "tu": "hablas",
+        "el": "habla",
+        "nosotros": "hablamos",
+        "vosotros": "habláis",
+        "ellos": "hablan"
+      }
+    },
+    {
+      "item": "trabajar",
+      "meaning": "to work",
+      "set": "present",
+      "art": [
+        "    ____    ",
+        "   |____|   ",
+        " __|____|__ ",
+        "|   ____   |",
+        "|  |____|  |",
+        "|__________|"
+      ],
+      "forms": {
+        "yo": "trabajo",
+        "tu": "trabajas",
+        "el": "trabaja",
+        "nosotros": "trabajamos",
+        "vosotros": "trabajáis",
+        "ellos": "trabajan"
+      }
+    },
+    {
+      "item": "estudiar",
+      "meaning": "to study",
+      "set": "present",
+      "art": [
+        " ___________ ",
+        "/ ========= \\",
+        "| ========= |",
+        "| ========= |",
+        "\\___________/"
+      ],
+      "forms": {
+        "yo": "estudio",
+        "tu": "estudias",
+        "el": "estudia",
+        "nosotros": "estudiamos",
+        "vosotros": "estudiáis",
+        "ellos": "estudian"
+      }
+    },
+    {
+      "item": "cantar",
+      "meaning": "to sing",
+      "set": "present",
+      "art": [
+        "      |\\    ",
+        "  |\\  | \\   ",
+        "  | \\ |  |  ",
+        " (_) (_) |  ",
+        "       (_)  "
+      ],
+      "forms": {
+        "yo": "canto",
+        "tu": "cantas",
+        "el": "canta",
+        "nosotros": "cantamos",
+        "vosotros": "cantáis",
+        "ellos": "cantan"
+      }
+    },
+    {
+      "item": "bailar",
+      "meaning": "to dance",
+      "set": "present",
+      "art": [
+        "    O  /   ",
+        "   /|\\/    ",
+        "    |      ",
+        "   / \\     ",
+        " _/   \\_   "
+      ],
+      "forms": {
+        "yo": "bailo",
+        "tu": "bailas",
+        "el": "baila",
+        "nosotros": "bailamos",
+        "vosotros": "bailáis",
+        "ellos": "bailan"
+      }
+    },
+    {
+      "item": "escuchar",
+      "meaning": "to listen (to)",
+      "set": "present",
+      "art": [
+        "  .-----.  ",
+        " /  ___  \\ ",
+        "|  (   )  |",
+        "|   `-'   |",
+        "|_|     |_|"
+      ],
+      "forms": {
+        "yo": "escucho",
+        "tu": "escuchas",
+        "el": "escucha",
+        "nosotros": "escuchamos",
+        "vosotros": "escucháis",
+        "ellos": "escuchan"
+      }
+    },
+    {
+      "item": "tocar",
+      "meaning": "to play (an instrument), to touch",
+      "set": "present",
+      "art": [
+        "   ___   ",
+        "  (_O_)  ",
+        "   | |   ",
+        "  _|_|_  ",
+        " ( o o ) ",
+        "  \\___/  "
+      ],
+      "forms": {
+        "yo": "toco",
+        "tu": "tocas",
+        "el": "toca",
+        "nosotros": "tocamos",
+        "vosotros": "tocáis",
+        "ellos": "tocan"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-ar-present-01",
+      "prompt": "Conjugate: (yo) hablar → ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "hablo",
+      "accepted_answers": [
+        "yo hablo"
+      ],
+      "explanation": "Stem habl- plus the yo ending -o: 'hablo'.",
+      "hints": [
+        "The yo ending is -o."
+      ],
+      "teaches": [
+        "hablar"
+      ]
+    },
+    {
+      "question_id": "a1-ar-present-02",
+      "prompt": "Conjugate: (nosotros) trabajar → ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "trabajamos",
+      "accepted_answers": [
+        "nosotros trabajamos"
+      ],
+      "explanation": "Stem trabaj- plus the nosotros ending -amos: 'trabajamos'.",
+      "hints": [
+        "The nosotros ending is -amos."
+      ],
+      "teaches": [
+        "trabajar"
+      ]
+    },
+    {
+      "question_id": "a1-ar-present-03",
+      "prompt": "¿Tú ___ español?",
+      "type": "multiple-choice",
+      "options": [
+        "estudias",
+        "estudia",
+        "estudio",
+        "estudiamos"
+      ],
+      "correct_answer": "estudias",
+      "explanation": "Tú takes the -as ending: 'estudias'.",
+      "hints": [
+        "Tú → -as."
+      ],
+      "teaches": [
+        "estudiar",
+        "español"
+      ]
+    },
+    {
+      "question_id": "a1-ar-present-04",
+      "prompt": "Mis padres ___ en un banco.",
+      "type": "multiple-choice",
+      "options": [
+        "trabajan",
+        "trabaja",
+        "trabajamos",
+        "trabajáis"
+      ],
+      "correct_answer": "trabajan",
+      "explanation": "'Mis padres' = ellos, which takes -an: 'trabajan'.",
+      "hints": [
+        "'Mis padres' is third person plural."
+      ],
+      "teaches": [
+        "trabajar",
+        "el banco"
+      ]
+    },
+    {
+      "question_id": "a1-ar-present-05",
+      "prompt": "Conjugate: (vosotros) cantar → ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "cantáis",
+      "accepted_answers": [
+        "vosotros cantáis"
+      ],
+      "explanation": "Vosotros takes -áis, with a written accent on the a: 'cantáis'.",
+      "hints": [
+        "This is the only ending with an accent.",
+        "Use the accent buttons if you need them."
+      ],
+      "teaches": [
+        "cantar"
+      ]
+    },
+    {
+      "question_id": "a1-ar-present-06",
+      "prompt": "Conjugate: (ella) bailar → ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "baila",
+      "accepted_answers": [
+        "ella baila"
+      ],
+      "explanation": "Ella takes the -a ending: 'baila'.",
+      "hints": [
+        "Él / ella / usted → -a."
+      ],
+      "teaches": [
+        "bailar"
+      ]
+    },
+    {
+      "question_id": "a1-ar-present-07",
+      "prompt": "¿Usted ___ inglés?",
+      "type": "multiple-choice",
+      "options": [
+        "habla",
+        "hablas",
+        "hablan",
+        "hablo"
+      ],
+      "correct_answer": "habla",
+      "explanation": "Usted is grammatically third person singular, so it takes the same form as él/ella: 'habla'.",
+      "hints": [
+        "Usted uses the él/ella form, not the tú form."
+      ],
+      "teaches": [
+        "hablar",
+        "inglés"
+      ]
+    },
+    {
+      "question_id": "a1-ar-present-08",
+      "prompt": "Which sentence is correct for 'We are studying Spanish'?",
+      "type": "multiple-choice",
+      "options": [
+        "Estudiamos español.",
+        "Estudian español.",
+        "Estudiáis español.",
+        "Estudio español."
+      ],
+      "correct_answer": "Estudiamos español.",
+      "explanation": "The simple present covers 'we study' and 'we are studying'; the nosotros form is 'estudiamos'.",
+      "hints": [
+        "'We' is nosotros → -amos."
+      ],
+      "teaches": [
+        "estudiar",
+        "español"
+      ]
+    },
+    {
+      "question_id": "a1-ar-present-09",
+      "prompt": "Conjugate: (ustedes) escuchar → ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "escuchan",
+      "accepted_answers": [
+        "ustedes escuchan"
+      ],
+      "explanation": "Ustedes takes the ellos/ellas form, ending -an: 'escuchan'.",
+      "hints": [
+        "Ustedes → same as ellos."
+      ],
+      "teaches": [
+        "escuchar"
+      ]
+    },
+    {
+      "question_id": "a1-ar-present-10",
+      "prompt": "Yo ___ la guitarra todos los días.",
+      "type": "multiple-choice",
+      "options": [
+        "toco",
+        "toca",
+        "tocas",
+        "tocamos"
+      ],
+      "correct_answer": "toco",
+      "explanation": "Yo takes the -o ending: 'toco'.",
+      "hints": [
+        "Yo → -o."
+      ],
+      "teaches": [
+        "tocar",
+        "la guitarra",
+        "todos los días"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Mi madre habla inglés.",
+      "meaning": "My mother speaks English."
+    },
+    {
+      "text": "¿Trabajas en un banco?",
+      "meaning": "Do you work in a bank?"
+    },
+    {
+      "text": "Estudiamos español por la tarde.",
+      "meaning": "We study Spanish in the afternoon."
+    },
+    {
+      "text": "¿Vosotros habláis español en la oficina?",
+      "meaning": "Do you all speak Spanish at the office?",
+      "note": "New word: la oficina = the office."
+    },
+    {
+      "text": "Los niños cantan y bailan en la fiesta.",
+      "meaning": "The children sing and dance at the party."
+    },
+    {
+      "text": "Escucho música en el coche todos los días.",
+      "meaning": "I listen to music in the car every day."
+    },
+    {
+      "text": "Mi padre toca la guitarra en casa los sábados.",
+      "meaning": "My father plays the guitar at home on Saturdays."
+    },
+    {
+      "text": "Yo trabajo en una tienda y mi hermano estudia en Madrid.",
+      "meaning": "I work in a shop and my brother studies in Madrid.",
+      "note": "New word: la tienda = the shop."
+    }
+  ],
+  "guide": [
+    {
+      "section": "The biggest verb family"
+    },
+    {
+      "section": "The pattern"
+    },
+    {
+      "question": "a1-ar-present-01"
+    },
+    {
+      "question": "a1-ar-present-03"
+    },
+    {
+      "tip": "Only one ending carries a written accent, vosotros -áis. The other five have none."
+    },
+    {
+      "question": "a1-ar-present-05"
+    },
+    {
+      "section": "More examples"
+    },
+    {
+      "question": "a1-ar-present-02"
+    },
+    {
+      "question": "a1-ar-present-04"
+    },
+    {
+      "question": "a1-ar-present-06"
+    },
+    {
+      "section": "Subject pronouns are optional"
+    },
+    {
+      "question": "a1-ar-present-10"
+    },
+    {
+      "section": "Usted and ustedes"
+    },
+    {
+      "question": "a1-ar-present-07"
+    },
+    {
+      "question": "a1-ar-present-09"
+    },
+    {
+      "section": "One present, three English meanings"
+    },
+    {
+      "question": "a1-ar-present-08"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-ar-present-conv-work",
+      "title": "What do you do?",
+      "scenario": "Sofía and Daniel, two new neighbours, chat about work and weekends.",
+      "role_a": "Sofía",
+      "role_b": "Daniel",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Hola, Daniel. ¿Dónde trabajas?",
+          "meaning": "Hi, Daniel. Where do you work?",
+          "note": "trabajar, tú"
+        },
+        {
+          "speaker": "b",
+          "text": "Trabajo en una escuela. Enseño inglés. ¿Y tú?",
+          "meaning": "I work in a school. I teach English. And you?",
+          "note": "trabajar, enseñar, yo"
+        },
+        {
+          "speaker": "a",
+          "text": "Yo trabajo en un hospital. Hablo con muchos pacientes todos los días.",
+          "meaning": "I work in a hospital. I talk with lots of patients every day.",
+          "note": "hablar, yo"
+        },
+        {
+          "speaker": "b",
+          "text": "¿Hablas inglés en el trabajo?",
+          "meaning": "Do you speak English at work?",
+          "note": "hablar, tú"
+        },
+        {
+          "speaker": "a",
+          "text": "Sí, a veces. Y por la noche estudio francés.",
+          "meaning": "Yes, sometimes. And in the evening I study French.",
+          "note": "estudiar, yo"
+        },
+        {
+          "speaker": "b",
+          "text": "¡Qué interesante! Mis hijos también estudian francés.",
+          "meaning": "How interesting! My kids study French too.",
+          "note": "estudiar, ellos"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Cocináis en casa los fines de semana?",
+          "meaning": "Do you (all) cook at home at weekends?",
+          "note": "cocinar, vosotros"
+        },
+        {
+          "speaker": "b",
+          "text": "Sí, cocinamos juntos y después caminamos por el parque.",
+          "meaning": "Yes, we cook together and afterwards we walk in the park.",
+          "note": "cocinar, caminar, nosotros"
+        },
+        {
+          "speaker": "a",
+          "text": "Mi novio y yo bailamos salsa los sábados.",
+          "meaning": "My boyfriend and I dance salsa on Saturdays.",
+          "note": "bailar, nosotros"
+        },
+        {
+          "speaker": "b",
+          "text": "¡Yo canto fatal, pero bailo bien!",
+          "meaning": "I sing terribly, but I dance well!",
+          "note": "cantar, bailar, yo"
+        },
+        {
+          "speaker": "a",
+          "text": "Entonces, ¿bailamos juntos el sábado?",
+          "meaning": "So, shall we dance together on Saturday?",
+          "note": "bailar, nosotros (as a suggestion)"
+        },
+        {
+          "speaker": "b",
+          "text": "¡Claro! Nos vemos el sábado.",
+          "meaning": "Sure! See you on Saturday."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🗣️",
+    "bites": [
+      {
+        "title": "Remove and add",
+        "emoji": "🔪",
+        "rule": "Remove -ar, then add -o, -as, -a, -amos, -áis or -an. One pattern works for hundreds of verbs.",
+        "example": "hablar → habl- → hablo, hablas, habla",
+        "example_meaning": "to speak → I speak, you speak, he speaks"
+      },
+      {
+        "title": "The one accent",
+        "emoji": "🎓",
+        "rule": "Of all six endings, only vosotros gets a written accent: habláis, cantáis, trabajáis.",
+        "example": "¡Cantáis muy bien!",
+        "example_meaning": "You (all) sing really well!"
+      },
+      {
+        "title": "Usted uses the él form",
+        "emoji": "🎩",
+        "rule": "Usted means you but takes the él/ella ending -a, never the tú ending -as. Ustedes takes -an.",
+        "example": "¿Usted habla inglés?",
+        "example_meaning": "Do you speak English? (formal)"
+      },
+      {
+        "title": "One verb, three English meanings",
+        "emoji": "🎤",
+        "rule": "Canto covers I sing, I am singing and I do sing. No need for an extra 'am' or 'do'.",
+        "example": "Estudio español.",
+        "example_meaning": "I study / I'm studying Spanish."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Who is doing it?",
+        "buckets": [
+          "yo",
+          "tú",
+          "él / ella / usted",
+          "nosotros"
+        ],
+        "items": [
+          {
+            "text": "hablo",
+            "bucket": 0
+          },
+          {
+            "text": "trabajo",
+            "bucket": 0
+          },
+          {
+            "text": "estudias",
+            "bucket": 1
+          },
+          {
+            "text": "escuchas",
+            "bucket": 1
+          },
+          {
+            "text": "baila",
+            "bucket": 2
+          },
+          {
+            "text": "toca",
+            "bucket": 2
+          },
+          {
+            "text": "cantamos",
+            "bucket": 3
+          },
+          {
+            "text": "bailamos",
+            "bucket": 3
+          }
+        ],
+        "why": "The ending tells you who: -o is yo, -as is tú, -a is él/ella/usted, -amos is nosotros."
+      },
+      {
+        "title": "Habla or hablan?",
+        "buckets": [
+          "habla",
+          "hablan"
+        ],
+        "items": [
+          {
+            "text": "Usted ___",
+            "bucket": 0
+          },
+          {
+            "text": "Ustedes ___",
+            "bucket": 1
+          },
+          {
+            "text": "Mis padres ___",
+            "bucket": 1
+          },
+          {
+            "text": "Ella ___",
+            "bucket": 0
+          },
+          {
+            "text": "El profesor ___",
+            "bucket": 0
+          },
+          {
+            "text": "Ana y Pablo ___",
+            "bucket": 1
+          }
+        ],
+        "why": "One person (including usted) takes -a; more than one (including ustedes) takes -an."
+      },
+      {
+        "title": "We or you all?",
+        "buckets": [
+          "nosotros (-amos)",
+          "vosotros (-áis)"
+        ],
+        "items": [
+          {
+            "text": "cantamos",
+            "bucket": 0
+          },
+          {
+            "text": "cantáis",
+            "bucket": 1
+          },
+          {
+            "text": "trabajáis",
+            "bucket": 1
+          },
+          {
+            "text": "estudiamos",
+            "bucket": 0
+          },
+          {
+            "text": "bailáis",
+            "bucket": 1
+          },
+          {
+            "text": "escuchamos",
+            "bucket": 0
+          }
+        ],
+        "why": "-amos means we; -áis (with its accent) means you all in Spain."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Mi hermano hablas español.",
+        "wrong": "hablas",
+        "fix": "habla",
+        "why": "Mi hermano = él, so the ending is -a: habla."
+      },
+      {
+        "sentence": "¿Tus padres habla inglés?",
+        "wrong": "habla",
+        "fix": "hablan",
+        "why": "Tus padres = ellos, so the ending is -an: hablan."
+      },
+      {
+        "sentence": "Mis padres trabaja en un banco.",
+        "wrong": "trabaja",
+        "fix": "trabajan",
+        "why": "Mis padres = ellos, so the ending is -an."
+      },
+      {
+        "sentence": "Mi hermana estudian español todos los días.",
+        "wrong": "estudian",
+        "fix": "estudia",
+        "why": "Mi hermana = ella, so the ending is -a: estudia."
+      },
+      {
+        "sentence": "Mi abuela bailo salsa.",
+        "wrong": "bailo",
+        "fix": "baila",
+        "why": "Mi abuela = ella, so -a; -o is for yo."
+      },
+      {
+        "sentence": "Vosotros cantais muy bien.",
+        "wrong": "cantais",
+        "fix": "cantáis",
+        "why": "The vosotros ending -áis needs its accent."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Hablo español todos los días.",
+        "meaning": "I speak Spanish every day.",
+        "distractors": [
+          "hablas"
+        ]
+      },
+      {
+        "text": "Mis padres trabajan en un banco.",
+        "meaning": "My parents work in a bank.",
+        "distractors": [
+          "trabaja"
+        ]
+      },
+      {
+        "text": "¿Usted habla inglés?",
+        "meaning": "Do you speak English? (formal)",
+        "distractors": [
+          "hablas"
+        ]
+      },
+      {
+        "text": "Toco la guitarra.",
+        "meaning": "I play the guitar.",
+        "distractors": [
+          "toca"
+        ]
+      },
+      {
+        "text": "Nosotros escuchamos música.",
+        "meaning": "We listen to music.",
+        "distractors": [
+          "escuchan"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "⛏️",
+      "content": "## -ar en la mazmorra\n\n**Entrar**, **luchar**, **hablar**: chop off -ar and add -o, -as, -a, -amos, -áis, -an. **Entramos en la mazmorra y luchamos.** The dwarves **trabajan** in the mine, the mage **estudia** spells, the orc **habla** with the innkeeper.",
+      "vocabulary": [
+        {
+          "term": "hablar",
+          "example": "El orco habla con la posadera.",
+          "example_meaning": "The orc talks to the innkeeper."
+        },
+        {
+          "term": "trabajar",
+          "example": "Los enanos trabajan en la mina.",
+          "example_meaning": "The dwarves work in the mine."
+        },
+        {
+          "term": "estudiar",
+          "example": "La maga estudia hechizos.",
+          "example_meaning": "The mage studies spells."
+        },
+        {
+          "term": "bailar",
+          "example": "Los elfos bailan en Silvermere.",
+          "example_meaning": "The elves dance in Silvermere."
+        },
+        {
+          "term": "escuchar",
+          "example": "Escuchamos al jefe de la hermandad.",
+          "example_meaning": "We listen to the guild leader."
+        },
+        {
+          "term": "todos los días",
+          "example": "Todos los días entro en una mazmorra.",
+          "example_meaning": "Every day I enter a dungeon."
+        },
+        {
+          "term": "entrar",
+          "meaning": "to enter",
+          "example": "Entramos en la mazmorra.",
+          "example_meaning": "We enter the dungeon."
+        },
+        {
+          "term": "luchar",
+          "meaning": "to fight",
+          "example": "Los guerreros luchan con espadas.",
+          "example_meaning": "The warriors fight with swords."
+        },
+        {
+          "term": "el enano / la enana",
+          "meaning": "dwarf",
+          "example": "El enano trabaja en la mina.",
+          "example_meaning": "The dwarf works in the mine."
+        },
+        {
+          "term": "la mina",
+          "meaning": "mine",
+          "example": "La mina está en Deepanvil.",
+          "example_meaning": "The mine is in Deepanvil."
+        }
+      ],
+      "bites": [
+        {
+          "title": "-ar en la mazmorra",
+          "emoji": "⛏️",
+          "rule": "Entrar, luchar, hablar: chop -ar, add -o -as -a -amos -áis -an. Same recipe in every dungeon.",
+          "example": "Entramos en la mazmorra y luchamos.",
+          "example_meaning": "We enter the dungeon and we fight."
+        }
+      ],
+      "listening": [
+        {
+          "text": "El enano trabaja en la mina todos los días.",
+          "meaning": "The dwarf works in the mine every day.",
+          "note": "New word: la mina = mine."
+        },
+        {
+          "text": "La maga estudia hechizos todos los días.",
+          "meaning": "The mage studies spells every day."
+        },
+        {
+          "text": "Entramos en la mazmorra a las nueve.",
+          "meaning": "We enter the dungeon at nine.",
+          "note": "New word: entrar = to enter."
+        },
+        {
+          "text": "En la mazmorra luchamos con el jefe.",
+          "meaning": "In the dungeon we fight the boss.",
+          "note": "New word: luchar = to fight."
+        },
+        {
+          "text": "¿Habláis con el posadero?",
+          "meaning": "Are you all talking to the innkeeper?"
+        }
+      ],
+      "builds": [
+        {
+          "text": "Los enanos trabajan en la mina.",
+          "meaning": "The dwarves work in the mine.",
+          "distractors": [
+            "trabaja",
+            "trabajo"
+          ]
+        },
+        {
+          "text": "Entramos en la mazmorra y luchamos.",
+          "meaning": "We enter the dungeon and we fight.",
+          "distractors": [
+            "entran",
+            "lucháis"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Los enanos trabaja en la mina.",
+          "wrong": "trabaja",
+          "fix": "trabajan",
+          "why": "Ellos → -an."
+        },
+        {
+          "sentence": "Yo lucho, tú luchas y el mago luchan.",
+          "wrong": "luchan",
+          "fix": "lucha",
+          "why": "El mago = él → -a."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Who is fighting?",
+          "buckets": [
+            "yo",
+            "nosotros",
+            "ellos"
+          ],
+          "items": [
+            {
+              "text": "lucho",
+              "bucket": 0
+            },
+            {
+              "text": "luchamos",
+              "bucket": 1
+            },
+            {
+              "text": "luchan",
+              "bucket": 2
+            },
+            {
+              "text": "entro",
+              "bucket": 0
+            },
+            {
+              "text": "entran",
+              "bucket": 2
+            },
+            {
+              "text": "hablamos",
+              "bucket": 1
+            }
+          ],
+          "why": "-o = yo, -amos = nosotros, -an = ellos."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-ar-present-realm-01",
+          "prompt": "Los enanos ___ en la mina. (trabajar)",
+          "type": "fill-in-blank",
+          "correct_answer": "trabajan",
+          "accepted_answers": [],
+          "explanation": "Ellos → -an: trabajan.",
+          "hints": [
+            "They → -an"
+          ],
+          "teaches": [
+            "trabajar",
+            "el enano / la enana"
+          ]
+        },
+        {
+          "question_id": "a1-ar-present-realm-02",
+          "prompt": "Nosotros ___ en la mazmorra a las nueve.",
+          "type": "multiple-choice",
+          "options": [
+            "entramos",
+            "entran",
+            "entráis"
+          ],
+          "correct_answer": "entramos",
+          "explanation": "Nosotros → -amos.",
+          "hints": [
+            "We → -amos"
+          ],
+          "teaches": [
+            "entrar"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🌽",
+      "content": "## -ar en el huerto\n\nFarm life runs on -ar verbs: **plantar**, **cosechar**, **trabajar**, **cantar**. Chop off -ar and add -o, -as, -a, -amos, -áis, -an: **planto fresas**, **cosechamos el maíz**, **los gallos cantan al amanecer**.",
+      "vocabulary": [
+        {
+          "term": "hablar",
+          "example": "Hablo con los vecinos en la tienda.",
+          "example_meaning": "I talk to the neighbours at the shop."
+        },
+        {
+          "term": "trabajar",
+          "example": "Trabajo en la granja todos los días.",
+          "example_meaning": "I work on the farm every day."
+        },
+        {
+          "term": "cantar",
+          "example": "Los gallos cantan al amanecer.",
+          "example_meaning": "The roosters crow at dawn."
+        },
+        {
+          "term": "bailar",
+          "example": "En el festival bailamos en la plaza.",
+          "example_meaning": "At the festival we dance in the square."
+        },
+        {
+          "term": "escuchar",
+          "example": "Escucho la lluvia en el tejado.",
+          "example_meaning": "I listen to the rain on the roof."
+        },
+        {
+          "term": "todos los días",
+          "example": "Todos los días planto algo nuevo.",
+          "example_meaning": "Every day I plant something new."
+        },
+        {
+          "term": "plantar",
+          "meaning": "to plant",
+          "example": "Planto fresas en primavera.",
+          "example_meaning": "I plant strawberries in spring."
+        },
+        {
+          "term": "cosechar",
+          "meaning": "to harvest",
+          "example": "Cosechamos el maíz en otoño.",
+          "example_meaning": "We harvest the corn in autumn."
+        },
+        {
+          "term": "el maíz",
+          "meaning": "corn",
+          "example": "El maíz crece en verano.",
+          "example_meaning": "Corn grows in summer."
+        },
+        {
+          "term": "la granja",
+          "meaning": "farm",
+          "example": "Trabajo en la granja.",
+          "example_meaning": "I work on the farm."
+        }
+      ],
+      "bites": [
+        {
+          "title": "-ar en la granja",
+          "emoji": "🌽",
+          "rule": "Plantar, cosechar, trabajar: chop -ar, add -o -as -a -amos -áis -an. Same recipe every season.",
+          "example": "Planto en primavera y cosecho en otoño.",
+          "example_meaning": "I plant in spring and harvest in autumn."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Nora trabaja en la granja con Rosa.",
+          "meaning": "Nora works on the farm with Rosa."
+        },
+        {
+          "text": "Al amanecer el gallo canta en la granja.",
+          "meaning": "At dawn the rooster crows on the farm."
+        },
+        {
+          "text": "En primavera plantamos maíz.",
+          "meaning": "In spring we plant corn.",
+          "note": "New word: plantar = to plant."
+        },
+        {
+          "text": "En otoño Nora cosecha las fresas.",
+          "meaning": "In autumn Nora harvests the strawberries.",
+          "note": "New word: cosechar = to harvest."
+        },
+        {
+          "text": "¿Habláis con los vecinos en la tienda?",
+          "meaning": "Do you all talk to the neighbours at the shop?"
+        }
+      ],
+      "builds": [
+        {
+          "text": "Los gallos cantan al amanecer.",
+          "meaning": "The roosters crow at dawn.",
+          "distractors": [
+            "canta",
+            "canto"
+          ]
+        },
+        {
+          "text": "Cosechamos el maíz en otoño.",
+          "meaning": "We harvest the corn in autumn.",
+          "distractors": [
+            "cosechan",
+            "cosecháis"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Los gallos canta al amanecer.",
+          "wrong": "canta",
+          "fix": "cantan",
+          "why": "Ellos → -an."
+        },
+        {
+          "sentence": "La granjera plantan fresas.",
+          "wrong": "plantan",
+          "fix": "planta",
+          "why": "Ella → -a."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Who is working?",
+          "buckets": [
+            "yo",
+            "nosotros",
+            "ellos"
+          ],
+          "items": [
+            {
+              "text": "planto",
+              "bucket": 0
+            },
+            {
+              "text": "cosechamos",
+              "bucket": 1
+            },
+            {
+              "text": "trabajan",
+              "bucket": 2
+            },
+            {
+              "text": "canto",
+              "bucket": 0
+            },
+            {
+              "text": "plantan",
+              "bucket": 2
+            },
+            {
+              "text": "hablamos",
+              "bucket": 1
+            }
+          ],
+          "why": "-o = yo, -amos = nosotros, -an = ellos."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-ar-present-meadowbrook-01",
+          "prompt": "Los gallos ___ al amanecer. (cantar)",
+          "type": "fill-in-blank",
+          "correct_answer": "cantan",
+          "accepted_answers": [],
+          "explanation": "Ellos → -an: cantan.",
+          "hints": [
+            "They → -an"
+          ],
+          "teaches": [
+            "cantar"
+          ]
+        },
+        {
+          "question_id": "a1-ar-present-meadowbrook-02",
+          "prompt": "Nosotros ___ el maíz en otoño.",
+          "type": "multiple-choice",
+          "options": [
+            "cosechamos",
+            "cosechan",
+            "cosecháis"
+          ],
+          "correct_answer": "cosechamos",
+          "explanation": "Nosotros → -amos.",
+          "hints": [
+            "We → -amos"
+          ],
+          "teaches": [
+            "cosechar",
+            "el maíz"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🔩",
+      "content": "## -ar en el páramo\n\nLife outside the Dome runs on -ar verbs: **explorar**, **buscar**, **reparar**, **cambiar**. Chop off -ar and add -o, -as, -a, -amos, -áis, -an: **exploro el páramo**, **buscamos agua filtrada**, **los mercaderes cambian tuercas**.",
+      "vocabulary": [
+        {
+          "term": "hablar",
+          "example": "Hablo con Marta la mercadera en el mercado.",
+          "example_meaning": "I talk to Marta the trader at the market."
+        },
+        {
+          "term": "trabajar",
+          "example": "Mi madre trabaja en la cúpula.",
+          "example_meaning": "My mother works in the Dome."
+        },
+        {
+          "term": "estudiar",
+          "example": "Estudio el mapa del radiorreloj.",
+          "example_meaning": "I study the map on the wrist radio."
+        },
+        {
+          "term": "cantar",
+          "example": "Leo el buscador canta en la radio.",
+          "example_meaning": "Leo the scavenger sings on the radio."
+        },
+        {
+          "term": "escuchar",
+          "example": "Escuchamos la radio por la noche.",
+          "example_meaning": "We listen to the radio at night."
+        },
+        {
+          "term": "todos los días",
+          "example": "Todos los días exploro el páramo con mi perro.",
+          "example_meaning": "Every day I explore the wasteland with my dog."
+        },
+        {
+          "term": "explorar",
+          "meaning": "to explore",
+          "example": "Exploramos la ciudad en ruinas.",
+          "example_meaning": "We explore the ruined city."
+        },
+        {
+          "term": "buscar",
+          "meaning": "to look for",
+          "example": "Busco agua filtrada en el centro comercial en ruinas.",
+          "example_meaning": "I look for filtered water in the ruined mall."
+        },
+        {
+          "term": "reparar",
+          "meaning": "to repair",
+          "example": "Nora repara la armadura de chatarra.",
+          "example_meaning": "Nora repairs the scrap armour."
+        },
+        {
+          "term": "la tuerca",
+          "meaning": "nut (the wasteland money)",
+          "example": "Marta cambia tuercas por agua filtrada.",
+          "example_meaning": "Marta trades nuts for filtered water."
+        }
+      ],
+      "bites": [
+        {
+          "title": "-ar en el páramo",
+          "emoji": "🔩",
+          "rule": "Explorar, buscar, reparar: chop -ar, add -o -as -a -amos -áis -an. The same six endings from the Dome to the wasteland.",
+          "example": "Exploro el páramo y busco agua.",
+          "example_meaning": "I explore the wasteland and look for water."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Exploro el páramo con mi perro.",
+          "meaning": "I explore the wasteland with my dog.",
+          "note": "New word: explorar = to explore."
+        },
+        {
+          "text": "Cambio diez tuercas por un tónico.",
+          "meaning": "I trade ten nuts for a tonic.",
+          "note": "New word: la tuerca = nut (the wasteland money)."
+        },
+        {
+          "text": "¿Vosotros trabajáis en la cúpula?",
+          "meaning": "Do you all work in the Dome?",
+          "note": "Vosotros → -áis, with the written accent."
+        },
+        {
+          "text": "Los buscadores escuchan la radio por la noche.",
+          "meaning": "The scavengers listen to the radio at night."
+        },
+        {
+          "text": "Buscamos latas de comida en el centro comercial.",
+          "meaning": "We look for cans of food in the mall.",
+          "note": "New word: buscar = to look for."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Nora repara la armadura de chatarra.",
+          "meaning": "Nora repairs the scrap armour.",
+          "distractors": [
+            "reparo",
+            "reparan"
+          ]
+        },
+        {
+          "text": "Escuchamos la radio por la noche.",
+          "meaning": "We listen to the radio at night.",
+          "distractors": [
+            "escuchan",
+            "escucháis"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Mi perro exploras el páramo.",
+          "wrong": "exploras",
+          "fix": "explora",
+          "why": "Él → -a."
+        },
+        {
+          "sentence": "Los buscadores camina por el páramo.",
+          "wrong": "camina",
+          "fix": "caminan",
+          "why": "Ellos → -an."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Who is out in the páramo?",
+          "buckets": [
+            "yo",
+            "nosotros",
+            "ellos"
+          ],
+          "items": [
+            {
+              "text": "exploro",
+              "bucket": 0
+            },
+            {
+              "text": "buscamos",
+              "bucket": 1
+            },
+            {
+              "text": "reparan",
+              "bucket": 2
+            },
+            {
+              "text": "cambio",
+              "bucket": 0
+            },
+            {
+              "text": "trabajan",
+              "bucket": 2
+            },
+            {
+              "text": "caminamos",
+              "bucket": 1
+            }
+          ],
+          "why": "-o = yo, -amos = nosotros, -an = ellos."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-regular-ar-present-rustwake-01",
+          "prompt": "Nosotros ___ el páramo todos los días.",
+          "type": "multiple-choice",
+          "options": [
+            "exploramos",
+            "exploran",
+            "exploráis"
+          ],
+          "correct_answer": "exploramos",
+          "explanation": "Nosotros → -amos.",
+          "hints": [
+            "We → -amos"
+          ],
+          "teaches": [
+            "explorar",
+            "todos los días"
+          ]
+        },
+        {
+          "question_id": "a1-regular-ar-present-rustwake-02",
+          "prompt": "Marta ___ tuercas por agua filtrada. (cambiar)",
+          "type": "fill-in-blank",
+          "correct_answer": "cambia",
+          "accepted_answers": [],
+          "explanation": "Ella → -a: cambia.",
+          "hints": [
+            "She → -a"
+          ],
+          "teaches": [
+            "la tuerca"
+          ]
+        }
+      ]
+    }
+  }
+}

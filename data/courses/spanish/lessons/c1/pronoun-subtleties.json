@@ -1,0 +1,1156 @@
+{
+  "id": "c1-pronoun-subtleties",
+  "slug": "pronoun-subtleties",
+  "title": "Se me olvidó: accidental se, datives and leísmo",
+  "unit": "C1",
+  "group": "Grammar",
+  "order": 24,
+  "summary": "Say things happened to you (se me olvidó), stress the whole action (comerse), show who is affected (no me llores), and know when le, lo and la are standard.",
+  "focus": "Accidental se, aspectual se, datives of interest, leísmo and laísmo",
+  "prerequisites": [
+    "b2-se-constructions"
+  ],
+  "content": "## Accidental se: it happened to me\n\nIn **se + indirect pronoun + verb**, the pronoun is the person it happened to, and the verb agrees with the **thing**:\n\n| | singular thing | plural things |\n|---|---|---|\n| me | se me olvid**ó** la cartera | se me olvid**aron** las llaves |\n| te | se te rompi**ó** el móvil | se te rompi**eron** las gafas |\n| le | se le cay**ó** el vaso | se le cay**eron** los platos |\n| nos | se nos acab**ó** la leche | se nos acab**aron** los huevos |\n\nIt sounds less guilty than *rompí el vaso* (I broke it). **Se** always comes first: *se me*, never *me se*.\n\n## Aspectual se: the whole thing\n\nSome verbs take **se** to stress that the action is complete or done with gusto. The object is then definite or counted:\n\n- **comerse** toda la tarta, **beberse** dos litros, **leerse** un libro entero\n- **saberse** la lección = know it by heart\n- **irse** = to leave (*ir* = to go somewhere), **dormirse** = to fall asleep\n\nWith a bare noun there is no se: *comí pan*, but *me comí el pan*.\n\n## Datives of interest\n\nAn extra pronoun can show who is affected, even if they are not part of the action:\n\n- ***No me llores**.* (Don't cry; it upsets me.)\n- *Mi hijo **no me come** nada.* (My son won't eat a thing, and I worry.)\n- ***Se le murió** el perro.* (Her dog died, and it hit her.)\n- ***Cuídamelo**.* (Look after him for me.)\n\n## Le, lo, la: what is standard?\n\nStandard Spanish uses **lo / la** for direct objects and **le / les** for indirect ones. There are two departures:\n\n- **Leísmo** with a male person: *A Juan **le** vi ayer.* Common in central and northern Spain and accepted in the singular.\n- **Laísmo** and **loísmo**: *la dije la verdad*, *lo dije que no*. Heard in central Spain, but non-standard. Write ***le** dije*.\n\nA redundant **le** with a noun is normal: ***Le** di el libro **a Ana***. With a plural, careful style uses **les**: ***les** dije a mis padres*.",
+  "vocabulary": [
+    {
+      "term": "se me olvidó",
+      "meaning": "I forgot (it slipped my mind)",
+      "example": "Se me olvidó por completo que hoy era su cumpleaños.",
+      "example_meaning": "It completely slipped my mind that it was her birthday today."
+    },
+    {
+      "term": "se le cayó",
+      "meaning": "he/she dropped (it fell from him/her)",
+      "example": "Al camarero se le cayó la bandeja delante de todos.",
+      "example_meaning": "The waiter dropped the tray in front of everyone."
+    },
+    {
+      "term": "se nos acabó",
+      "meaning": "we ran out of",
+      "example": "A mitad de la cena se nos acabó el vino.",
+      "example_meaning": "Halfway through dinner we ran out of wine."
+    },
+    {
+      "term": "se te rompió",
+      "meaning": "you broke (it broke on you)",
+      "example": "¿Se te rompió la pantalla otra vez?",
+      "example_meaning": "Did your screen break again?"
+    },
+    {
+      "term": "se me ocurrió",
+      "meaning": "it occurred to me, I had an idea",
+      "example": "Se me ocurrió una idea en la ducha.",
+      "example_meaning": "An idea came to me in the shower."
+    },
+    {
+      "term": "se les perdió",
+      "meaning": "they lost (it got lost on them)",
+      "example": "A los vecinos se les perdió el gato y lo encontramos en nuestro balcón.",
+      "example_meaning": "The neighbours lost their cat and we found it on our balcony."
+    },
+    {
+      "term": "comerse",
+      "meaning": "to eat up, to eat (all of)",
+      "example": "Los niños se comieron todas las galletas.",
+      "example_meaning": "The children ate up all the biscuits."
+    },
+    {
+      "term": "beberse",
+      "meaning": "to drink up, to down",
+      "example": "Se bebió el café de un trago y salió corriendo.",
+      "example_meaning": "He downed his coffee in one gulp and dashed out."
+    },
+    {
+      "term": "saberse",
+      "meaning": "to know by heart",
+      "example": "Mi sobrina se sabe todas las capitales de Europa.",
+      "example_meaning": "My niece knows all the capitals of Europe by heart."
+    },
+    {
+      "term": "irse",
+      "meaning": "to leave, to go away",
+      "example": "Se fue de la fiesta sin decir adiós.",
+      "example_meaning": "She left the party without saying goodbye."
+    },
+    {
+      "term": "dormirse",
+      "meaning": "to fall asleep; to oversleep",
+      "example": "Me dormí y llegué tarde a la entrevista.",
+      "example_meaning": "I overslept and was late for the interview."
+    },
+    {
+      "term": "el leísmo",
+      "meaning": "using le as a direct object for a male person (accepted in Spain)",
+      "example": "El leísmo es muy frecuente en Madrid y en Castilla.",
+      "example_meaning": "Leísmo is very common in Madrid and Castile."
+    },
+    {
+      "term": "el laísmo",
+      "meaning": "using la as an indirect object (non-standard)",
+      "example": "Decir la dije en vez de le dije es un caso de laísmo.",
+      "example_meaning": "Saying la dije instead of le dije is a case of laísmo."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "c1-pronoun-subtleties-01",
+      "prompt": "Perdona, ___ tu cumpleaños.",
+      "type": "multiple-choice",
+      "options": [
+        "se me olvidó",
+        "se me olvidaron",
+        "me se olvidó"
+      ],
+      "correct_answer": "se me olvidó",
+      "explanation": "The verb agrees with the thing forgotten (tu cumpleaños, singular), and se always comes first.",
+      "hints": [
+        "One birthday; se goes first."
+      ],
+      "teaches": [
+        "se me olvidó"
+      ]
+    },
+    {
+      "question_id": "c1-pronoun-subtleties-02",
+      "prompt": "A Pedro se ___ cayeron las gafas al río.",
+      "type": "fill-in-blank",
+      "correct_answer": "le",
+      "explanation": "The person it happened to (Pedro) is the indirect pronoun le: se le cayeron.",
+      "hints": [
+        "Indirect pronoun for él."
+      ],
+      "teaches": [
+        "se le cayó"
+      ]
+    },
+    {
+      "question_id": "c1-pronoun-subtleties-03",
+      "prompt": "Se nos ___ la leche; hay que comprar más.",
+      "type": "multiple-choice",
+      "options": [
+        "acabó",
+        "acabamos",
+        "acabaron"
+      ],
+      "correct_answer": "acabó",
+      "explanation": "The verb agrees with la leche (singular), not with nosotros.",
+      "hints": [
+        "What ran out? One thing or several?"
+      ],
+      "teaches": [
+        "se nos acabó"
+      ]
+    },
+    {
+      "question_id": "c1-pronoun-subtleties-04",
+      "prompt": "Which sentence presents breaking the vase as an accident?",
+      "type": "multiple-choice",
+      "options": [
+        "Se me rompió el jarrón.",
+        "Rompí el jarrón.",
+        "El jarrón rompí."
+      ],
+      "correct_answer": "Se me rompió el jarrón.",
+      "explanation": "Accidental se makes the vase the subject and the speaker the person it happened to.",
+      "hints": [
+        "Which sentence has se + me?"
+      ],
+      "teaches": [
+        "se te rompió"
+      ]
+    },
+    {
+      "question_id": "c1-pronoun-subtleties-05",
+      "prompt": "Mi hijo se ___ (comer) toda la tarta él solito. (preterite)",
+      "type": "fill-in-blank",
+      "correct_answer": "comió",
+      "explanation": "Comerse + a whole, definite object: se comió toda la tarta.",
+      "hints": [
+        "Preterite, él."
+      ],
+      "teaches": [
+        "comerse"
+      ]
+    },
+    {
+      "question_id": "c1-pronoun-subtleties-06",
+      "prompt": "Ana ___ a las diez sin despedirse.",
+      "type": "multiple-choice",
+      "options": [
+        "se fue",
+        "fue"
+      ],
+      "correct_answer": "se fue",
+      "explanation": "To leave = irse. Ir needs a destination (fue a casa).",
+      "hints": [
+        "She left; she didn't go anywhere in particular."
+      ],
+      "teaches": [
+        "irse"
+      ]
+    },
+    {
+      "question_id": "c1-pronoun-subtleties-07",
+      "prompt": "Which sentence is non-standard (laísmo)?",
+      "type": "multiple-choice",
+      "options": [
+        "La dije que viniera.",
+        "Le dije que viniera.",
+        "La vi en el cine."
+      ],
+      "correct_answer": "La dije que viniera.",
+      "explanation": "Decir takes an indirect object: le dije. La vi is fine because ver takes a direct object.",
+      "hints": [
+        "Who is told something: direct or indirect object?"
+      ],
+      "teaches": [
+        "el laísmo"
+      ]
+    },
+    {
+      "question_id": "c1-pronoun-subtleties-08",
+      "prompt": "A tu hermano ___ vi ayer en el metro.",
+      "type": "fill-in-blank",
+      "correct_answer": "lo",
+      "accepted_answers": [
+        "le"
+      ],
+      "explanation": "The direct object pronoun is lo; le for a male person (leísmo) is also accepted in Spain.",
+      "hints": [
+        "A direct object, masculine."
+      ],
+      "teaches": [
+        "el leísmo"
+      ]
+    },
+    {
+      "question_id": "c1-pronoun-subtleties-09",
+      "prompt": "In 'No me llores, cariño', what does me add?",
+      "type": "multiple-choice",
+      "options": [
+        "The speaker is emotionally affected by the crying.",
+        "The crying is aimed at the speaker as an object.",
+        "The verb is reflexive."
+      ],
+      "correct_answer": "The speaker is emotionally affected by the crying.",
+      "explanation": "This is a dative of interest: it shows who is affected, not who is the object.",
+      "hints": [
+        "Llorar has no object."
+      ],
+      "teaches": []
+    }
+  ],
+  "listening": [
+    {
+      "text": "Se me ha olvidado la contraseña.",
+      "meaning": "I've forgotten the password.",
+      "note": "New word: la contraseña = the password."
+    },
+    {
+      "text": "Se le cayó el móvil al agua.",
+      "meaning": "He dropped his phone in the water."
+    },
+    {
+      "text": "Me sé la canción de memoria.",
+      "meaning": "I know the song by heart."
+    },
+    {
+      "text": "Se nos fue la luz durante la tormenta.",
+      "meaning": "Our power went off during the storm."
+    },
+    {
+      "text": "El niño se durmió en el coche.",
+      "meaning": "The little boy fell asleep in the car."
+    },
+    {
+      "text": "Se me ha manchado la camisa de tomate.",
+      "meaning": "I've got tomato on my shirt.",
+      "note": "New word: mancharse = to get stained."
+    },
+    {
+      "text": "A mi vecina se le murió el gato la semana pasada.",
+      "meaning": "My neighbour's cat died last week.",
+      "note": "Dative of interest: she is affected."
+    },
+    {
+      "text": "Cuídamelo mucho, que es lo que más quiero en el mundo.",
+      "meaning": "Look after him well for me, he's what I love most in the world."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Accidental se"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "c1-pronoun-subtleties-01"
+    },
+    {
+      "question": "c1-pronoun-subtleties-02"
+    },
+    {
+      "question": "c1-pronoun-subtleties-03"
+    },
+    {
+      "question": "c1-pronoun-subtleties-04"
+    },
+    {
+      "tip": "In se me olvidó, find the thing that was forgotten. That is the subject, and the verb agrees with it."
+    },
+    {
+      "section": "Aspectual se"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "c1-pronoun-subtleties-05"
+    },
+    {
+      "question": "c1-pronoun-subtleties-06"
+    },
+    {
+      "section": "Datives of interest"
+    },
+    {
+      "question": "c1-pronoun-subtleties-09"
+    },
+    {
+      "section": "Le, lo, la"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "c1-pronoun-subtleties-07"
+    },
+    {
+      "question": "c1-pronoun-subtleties-08"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "c1-pronoun-subtleties-conv-bad-morning",
+      "title": "One of those mornings",
+      "scenario": "Marina arrives late at the office; her colleague Hugo asks what happened.",
+      "role_a": "Hugo",
+      "role_b": "Marina",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¡Por fin! ¿Qué te ha pasado?",
+          "meaning": "At last! What happened to you?"
+        },
+        {
+          "speaker": "b",
+          "text": "De todo. Primero me dormí.",
+          "meaning": "Everything. First I overslept."
+        },
+        {
+          "speaker": "a",
+          "text": "¿No te sonó el despertador?",
+          "meaning": "Didn't your alarm go off?"
+        },
+        {
+          "speaker": "b",
+          "text": "Se le acabó la batería. Luego se me cayó el café encima.",
+          "meaning": "Its battery ran out. Then I spilt my coffee on myself."
+        },
+        {
+          "speaker": "a",
+          "text": "Vaya mañana. ¿Y por eso llegas a las diez?",
+          "meaning": "What a morning. And that's why you're arriving at ten?"
+        },
+        {
+          "speaker": "b",
+          "text": "No, en el metro se me olvidaron las llaves de la oficina.",
+          "meaning": "No, I left the office keys on the underground."
+        },
+        {
+          "speaker": "a",
+          "text": "Tranquila, se me ocurrió dejar la puerta abierta.",
+          "meaning": "Relax, I had the idea of leaving the door open."
+        },
+        {
+          "speaker": "b",
+          "text": "Gracias. ¿Y el jefe? ¿Ya se ha ido?",
+          "meaning": "Thanks. And the boss? Has he left already?"
+        },
+        {
+          "speaker": "a",
+          "text": "No, está en su despacho. Se ha comido todos los cruasanes.",
+          "meaning": "No, he's in his office. He's eaten all the croissants."
+        },
+        {
+          "speaker": "b",
+          "text": "No me digas eso, que no he desayunado.",
+          "meaning": "Don't tell me that, I haven't had breakfast."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "👥",
+    "bites": [
+      {
+        "title": "It happened to me",
+        "emoji": "🫳",
+        "rule": "Se + me/te/le/nos/os/les + verb: se me olvidó, se le cayó, se nos acabó. It sounds like an accident, not a deed.",
+        "example": "Se me cayó el vaso.",
+        "example_meaning": "I dropped the glass."
+      },
+      {
+        "title": "The verb agrees with the thing",
+        "emoji": "🔑",
+        "rule": "Se me olvidó la cartera; se me olvidaron las llaves. The person is the pronoun; the thing is the subject.",
+        "example": "Se nos acabaron los huevos.",
+        "example_meaning": "We've run out of eggs."
+      },
+      {
+        "title": "Comerse, irse, saberse",
+        "emoji": "🍰",
+        "rule": "Se stresses the whole action: comerse toda la tarta, saberse la lección. Irse = leave; dormirse = fall asleep.",
+        "example": "Se comió toda la tarta.",
+        "example_meaning": "He ate the whole cake."
+      },
+      {
+        "title": "Le, lo, la",
+        "emoji": "📏",
+        "rule": "Lo/la = direct object, le = indirect. Le for a man as direct object is accepted in Spain; la dije (laísmo) is not standard.",
+        "example": "Le dije la verdad a María.",
+        "example_meaning": "I told María the truth."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Olvidó or olvidaron?",
+        "buckets": [
+          "se me olvidó…",
+          "se me olvidaron…"
+        ],
+        "items": [
+          {
+            "text": "el paraguas",
+            "bucket": 0
+          },
+          {
+            "text": "las llaves",
+            "bucket": 1
+          },
+          {
+            "text": "la cartera",
+            "bucket": 0
+          },
+          {
+            "text": "los guantes",
+            "bucket": 1
+          },
+          {
+            "text": "comprar pan",
+            "bucket": 0
+          },
+          {
+            "text": "tus libros",
+            "bucket": 1
+          }
+        ],
+        "why": "The verb agrees with what was forgotten; an infinitive counts as singular."
+      },
+      {
+        "title": "Standard or not?",
+        "buckets": [
+          "standard",
+          "accepted in Spain",
+          "non-standard"
+        ],
+        "items": [
+          {
+            "text": "A Juan lo vi ayer.",
+            "bucket": 0
+          },
+          {
+            "text": "Le dije la verdad a María.",
+            "bucket": 0
+          },
+          {
+            "text": "A Juan le vi ayer.",
+            "bucket": 1
+          },
+          {
+            "text": "La dije la verdad a María.",
+            "bucket": 2
+          },
+          {
+            "text": "A Luis lo dije que no.",
+            "bucket": 2
+          },
+          {
+            "text": "La vi en el cine.",
+            "bucket": 0
+          }
+        ],
+        "why": "Le for a male direct object is accepted; la or lo for an indirect object is not."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Se me olvidaron el paraguas nuevo.",
+        "wrong": "olvidaron",
+        "fix": "olvidó",
+        "why": "El paraguas nuevo is singular, so the verb is singular."
+      },
+      {
+        "sentence": "Se me cayeron el vaso.",
+        "wrong": "cayeron",
+        "fix": "cayó",
+        "why": "El vaso is singular, so the verb is singular."
+      },
+      {
+        "sentence": "La dije a Marta que viniera.",
+        "wrong": "La",
+        "fix": "Le",
+        "why": "Decir takes an indirect object: le dije (la dije is laísmo)."
+      },
+      {
+        "sentence": "Se nos acabaron la gasolina.",
+        "wrong": "acabaron",
+        "fix": "acabó",
+        "why": "La gasolina is singular."
+      },
+      {
+        "sentence": "Ana fue sin despedirse.",
+        "wrong": "fue",
+        "fix": "se fue",
+        "why": "To leave is irse."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Se me olvidaron las llaves.",
+        "meaning": "I forgot my keys.",
+        "distractors": [
+          "olvidó"
+        ]
+      },
+      {
+        "text": "Se le cayó el vaso.",
+        "meaning": "He dropped the glass.",
+        "distractors": [
+          "cayeron"
+        ]
+      },
+      {
+        "text": "Me sé la lección de memoria.",
+        "meaning": "I know the lesson by heart.",
+        "distractors": [
+          "sabe"
+        ]
+      },
+      {
+        "text": "Se comió toda la tarta.",
+        "meaning": "She ate the whole cake.",
+        "distractors": [
+          "comí"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🍲",
+      "content": "## Pronombres traviesos en Eldmark\n\nA feast at the inn: **al enano se le cayó la bandeja**, **se nos acabó el pan** before midnight and the orc **se comió** the last pot of stew on his own. Worst of all, **al mago se le perdió el bastón** and **se le olvidó** the way home.",
+      "vocabulary": [
+        {
+          "term": "se le cayó",
+          "example": "Al enano se le cayó la bandeja encima del mapa.",
+          "example_meaning": "The dwarf dropped his tray on the map."
+        },
+        {
+          "term": "se nos acabó",
+          "example": "Se nos acabó el pan antes de medianoche.",
+          "example_meaning": "We ran out of bread before midnight."
+        },
+        {
+          "term": "comerse",
+          "example": "El orco se comió la última olla de estofado él solo.",
+          "example_meaning": "The orc ate the last pot of stew on his own."
+        },
+        {
+          "term": "se me olvidó",
+          "example": "Se me olvidó el hechizo justo delante del dragón.",
+          "example_meaning": "I forgot the spell right in front of the dragon."
+        },
+        {
+          "term": "se les perdió",
+          "example": "A los elfos se les perdió el mapa en el Bosque Umbrío.",
+          "example_meaning": "The elves lost their map in the Bosque Umbrío."
+        },
+        {
+          "term": "la bandeja",
+          "meaning": "the tray",
+          "example": "La posadera nos trajo la cena en una bandeja.",
+          "example_meaning": "The innkeeper brought us dinner on a tray."
+        },
+        {
+          "term": "la olla",
+          "meaning": "the cooking pot",
+          "example": "Se nos rompió la olla y se perdió todo el estofado.",
+          "example_meaning": "Our pot broke and all the stew was lost."
+        },
+        {
+          "term": "el bastón",
+          "meaning": "the staff, the walking stick",
+          "example": "Al mago se le perdió el bastón en la taberna.",
+          "example_meaning": "The wizard lost his staff in the tavern."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Noche en la posada",
+          "emoji": "🍲",
+          "rule": "Inn disasters are never anyone's fault: se le cayó la bandeja, se nos acabó el pan, se le perdió el bastón.",
+          "example": "Al enano se le cayó la bandeja.",
+          "example_meaning": "The dwarf dropped his tray."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Se nos acabó la sopa a medianoche.",
+          "meaning": "We ran out of soup at midnight."
+        },
+        {
+          "text": "A la posadera se le cayó otra bandeja.",
+          "meaning": "The innkeeper dropped another tray.",
+          "note": "New word: la bandeja = the tray."
+        },
+        {
+          "text": "El orco se comió la olla entera.",
+          "meaning": "The orc ate the whole pot.",
+          "note": "New word: la olla = the cooking pot."
+        },
+        {
+          "text": "Al mago se le perdió el bastón.",
+          "meaning": "The wizard lost his staff.",
+          "note": "New word: el bastón = the staff."
+        },
+        {
+          "text": "Se me olvidó el hechizo.",
+          "meaning": "I forgot the spell."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Al enano se le cayó la bandeja.",
+          "meaning": "The dwarf dropped his tray.",
+          "distractors": [
+            "cayeron"
+          ]
+        },
+        {
+          "text": "Se nos acabó el pan.",
+          "meaning": "We ran out of bread.",
+          "distractors": [
+            "acabamos"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Al mago se le perdieron el bastón.",
+          "wrong": "perdieron",
+          "fix": "perdió",
+          "why": "El bastón is singular."
+        },
+        {
+          "sentence": "Se me olvidaron el hechizo.",
+          "wrong": "olvidaron",
+          "fix": "olvidó",
+          "why": "El hechizo is singular."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "¿Singular o plural?",
+          "buckets": [
+            "se le cayó…",
+            "se le cayeron…"
+          ],
+          "items": [
+            {
+              "text": "la bandeja",
+              "bucket": 0
+            },
+            {
+              "text": "las flechas",
+              "bucket": 1
+            },
+            {
+              "text": "el escudo",
+              "bucket": 0
+            },
+            {
+              "text": "los dados",
+              "bucket": 1
+            },
+            {
+              "text": "la espada",
+              "bucket": 0
+            }
+          ],
+          "why": "The verb agrees with the thing that fell."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "c1-pronoun-subtleties-realm-01",
+          "prompt": "Al mago se le ___ el bastón en la taberna. (perder, preterite)",
+          "type": "fill-in-blank",
+          "correct_answer": "perdió",
+          "explanation": "The verb agrees with el bastón: se le perdió.",
+          "hints": [
+            "Singular thing."
+          ],
+          "teaches": [
+            "se les perdió",
+            "el bastón"
+          ]
+        },
+        {
+          "question_id": "c1-pronoun-subtleties-realm-02",
+          "prompt": "El orco ___ la última olla de estofado él solo.",
+          "type": "multiple-choice",
+          "options": [
+            "se comió",
+            "se comieron",
+            "se le comió"
+          ],
+          "correct_answer": "se comió",
+          "explanation": "Comerse + a whole, definite amount: se comió la olla.",
+          "hints": [
+            "The whole pot, with gusto."
+          ],
+          "teaches": [
+            "comerse",
+            "la olla"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🥚",
+      "content": "## Pronombres traviesos en Meadowbrook\n\nA chaotic market day: **se me rompieron los huevos** on the way, **a Leo se le escapó** the biggest fish, and the goat **se comió** Rosa's hat. Then the mayor **se durmió** during his own speech. ***No me llores**, Nora*, says Rosa, *que mañana hay más huevos*.",
+      "vocabulary": [
+        {
+          "term": "se te rompió",
+          "example": "¿Se te rompió algún huevo en el camino?",
+          "example_meaning": "Did any of your eggs break on the way?"
+        },
+        {
+          "term": "comerse",
+          "example": "La cabra se comió el sombrero de Rosa.",
+          "example_meaning": "The goat ate Rosa's hat."
+        },
+        {
+          "term": "dormirse",
+          "example": "El alcalde se durmió durante su propio discurso.",
+          "example_meaning": "The mayor fell asleep during his own speech."
+        },
+        {
+          "term": "se me ocurrió",
+          "example": "Se me ocurrió plantar girasoles junto al río.",
+          "example_meaning": "I had the idea of planting sunflowers by the river."
+        },
+        {
+          "term": "se nos acabó",
+          "example": "Se nos acabó la mermelada en una hora.",
+          "example_meaning": "We sold out of jam in an hour."
+        },
+        {
+          "term": "escaparse",
+          "meaning": "to escape, to get away",
+          "example": "A Leo se le escapó el pez más grande del río.",
+          "example_meaning": "The biggest fish in the river got away from Leo."
+        },
+        {
+          "term": "el sombrero",
+          "meaning": "the hat",
+          "example": "Rosa se compró otro sombrero, aún más grande.",
+          "example_meaning": "Rosa bought herself another hat, even bigger."
+        },
+        {
+          "term": "el corral",
+          "meaning": "the farmyard, the pen",
+          "example": "Se nos abrió la puerta del corral y salieron las gallinas.",
+          "example_meaning": "The pen gate came open and the hens got out."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Día de mercado",
+          "emoji": "🥚",
+          "rule": "Farm mishaps: se me rompieron los huevos, a Leo se le escapó el pez. The verb agrees with what broke or escaped.",
+          "example": "Se me rompieron los huevos.",
+          "example_meaning": "My eggs broke."
+        }
+      ],
+      "listening": [
+        {
+          "text": "A Nora se le rompieron tres huevos.",
+          "meaning": "Three of Nora's eggs got broken."
+        },
+        {
+          "text": "Se nos escaparon las gallinas.",
+          "meaning": "Our hens got away from us.",
+          "note": "New word: escaparse = to get away."
+        },
+        {
+          "text": "La cabra se comió el sombrero.",
+          "meaning": "The goat ate the hat.",
+          "note": "New word: el sombrero = the hat."
+        },
+        {
+          "text": "Se nos abrió el corral.",
+          "meaning": "Our pen came open.",
+          "note": "New word: el corral = the pen, the farmyard."
+        },
+        {
+          "text": "El alcalde se durmió en su discurso.",
+          "meaning": "The mayor fell asleep during his speech."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Se me rompieron los huevos.",
+          "meaning": "My eggs broke.",
+          "distractors": [
+            "rompió"
+          ]
+        },
+        {
+          "text": "A Leo se le escapó el pez.",
+          "meaning": "The fish got away from Leo.",
+          "distractors": [
+            "escaparon"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Se me rompió los huevos.",
+          "wrong": "rompió",
+          "fix": "rompieron",
+          "why": "Los huevos is plural."
+        },
+        {
+          "sentence": "A Rosa se le cayeron el sombrero.",
+          "wrong": "cayeron",
+          "fix": "cayó",
+          "why": "El sombrero is singular."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "¿Accidente o a propósito?",
+          "buckets": [
+            "by accident (se me…)",
+            "on purpose"
+          ],
+          "items": [
+            {
+              "text": "Se me rompieron los huevos.",
+              "bucket": 0
+            },
+            {
+              "text": "Rompí los huevos para la tortilla.",
+              "bucket": 1
+            },
+            {
+              "text": "Se nos abrió el corral.",
+              "bucket": 0
+            },
+            {
+              "text": "Abrimos el corral por la mañana.",
+              "bucket": 1
+            },
+            {
+              "text": "A Leo se le escapó el pez.",
+              "bucket": 0
+            }
+          ],
+          "why": "Accidental se presents what happened as something that befell the person."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "c1-pronoun-subtleties-meadowbrook-01",
+          "prompt": "Se me ___ los huevos en el camino. (romper, preterite)",
+          "type": "fill-in-blank",
+          "correct_answer": "rompieron",
+          "explanation": "A plural thing takes a plural verb: se me rompieron.",
+          "hints": [
+            "Los huevos: plural."
+          ],
+          "teaches": [
+            "se te rompió"
+          ]
+        },
+        {
+          "question_id": "c1-pronoun-subtleties-meadowbrook-02",
+          "prompt": "A Leo se le ___ el pez más grande del río.",
+          "type": "multiple-choice",
+          "options": [
+            "escapó",
+            "escaparon",
+            "escapé"
+          ],
+          "correct_answer": "escapó",
+          "explanation": "The verb agrees with el pez, singular.",
+          "hints": [
+            "One fish."
+          ],
+          "teaches": [
+            "escaparse"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "c1-pronoun-subtleties-conv-meadowbrook-market",
+          "title": "A bad market day",
+          "scenario": "Nora arrives at Rosa's stall with a basket of broken eggs.",
+          "role_a": "Rosa",
+          "role_b": "Nora",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "¡Nora! ¿Qué le ha pasado a tu cesta?",
+              "meaning": "Nora! What's happened to your basket?"
+            },
+            {
+              "speaker": "b",
+              "text": "Se me cayó en el puente y se me rompieron casi todos los huevos.",
+              "meaning": "I dropped it on the bridge and almost all my eggs broke."
+            },
+            {
+              "speaker": "a",
+              "text": "No me llores, mujer, que mañana tus gallinas ponen más.",
+              "meaning": "Don't cry, love, your hens will lay more tomorrow.",
+              "note": "Dative of interest: no me llores."
+            },
+            {
+              "speaker": "b",
+              "text": "Ya. Además, se me escaparon dos gallinas del corral.",
+              "meaning": "I know. Besides, two of my hens got out of the pen."
+            },
+            {
+              "speaker": "a",
+              "text": "¿Y a Leo qué tal le ha ido en el río?",
+              "meaning": "And how did Leo get on at the river?"
+            },
+            {
+              "speaker": "b",
+              "text": "Fatal. Se le escapó un pez enorme y se le rompió la caña.",
+              "meaning": "Terribly. A huge fish got away and his rod broke."
+            },
+            {
+              "speaker": "a",
+              "text": "Pues a mí la cabra se me comió el sombrero nuevo.",
+              "meaning": "Well, the goat ate my new hat."
+            },
+            {
+              "speaker": "b",
+              "text": "¡Qué día! Se me ocurre una cosa: cerremos pronto.",
+              "meaning": "What a day! I've got an idea: let's close early."
+            },
+            {
+              "speaker": "a",
+              "text": "Buena idea, antes de que se nos acabe la paciencia.",
+              "meaning": "Good idea, before we run out of patience."
+            }
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🧷",
+      "content": "## Pronombres traviesos en el páramo\n\nIn the workshop nothing is ever your fault: **se me rompió la llave inglesa**, **se nos acabaron las tuercas**, and **a Leo se le perdió** the wrist radio again. Then a beetle **se comió** the antenna cable, and **se nos apagó** the radio in the middle of the news.",
+      "vocabulary": [
+        {
+          "term": "se te rompió",
+          "example": "¿Se te rompió la llave inglesa otra vez?",
+          "example_meaning": "Did your spanner break again?"
+        },
+        {
+          "term": "se nos acabó",
+          "example": "Se nos acabaron las tuercas y no podemos comprar agua.",
+          "example_meaning": "We've run out of nuts and can't buy water."
+        },
+        {
+          "term": "se les perdió",
+          "example": "A los buscadores se les perdió el camino de vuelta.",
+          "example_meaning": "The scavengers lost their way back."
+        },
+        {
+          "term": "comerse",
+          "example": "Un escarabajo se comió el cable de la antena.",
+          "example_meaning": "A beetle ate the antenna cable."
+        },
+        {
+          "term": "irse",
+          "example": "El capataz se fue a la cúpula sin avisar.",
+          "example_meaning": "The foreman went off to the Dome without telling anyone."
+        },
+        {
+          "term": "la llave inglesa",
+          "meaning": "the spanner, the wrench",
+          "example": "Pásame la llave inglesa, que se me ha soltado una tuerca.",
+          "example_meaning": "Pass me the spanner, a nut has come loose."
+        },
+        {
+          "term": "el cable",
+          "meaning": "the cable, the wire",
+          "example": "Se nos quemó el cable del generador.",
+          "example_meaning": "The generator cable burnt out on us."
+        },
+        {
+          "term": "apagarse",
+          "meaning": "to go off, to switch off",
+          "example": "Se nos apagó la radio en mitad de las noticias.",
+          "example_meaning": "The radio went off in the middle of the news."
+        }
+      ],
+      "bites": [
+        {
+          "title": "No fue culpa mía",
+          "emoji": "🔧",
+          "rule": "In the workshop: se me rompió la llave inglesa, se nos acabaron las tuercas, se nos apagó la radio. The verb agrees with the thing.",
+          "example": "Se nos acabaron las tuercas.",
+          "example_meaning": "We've run out of nuts."
+        }
+      ],
+      "listening": [
+        {
+          "text": "A Marta se le perdió la llave inglesa.",
+          "meaning": "Marta lost her spanner.",
+          "note": "New word: la llave inglesa = the spanner."
+        },
+        {
+          "text": "Se nos acabó el agua filtrada.",
+          "meaning": "We've run out of filtered water."
+        },
+        {
+          "text": "Se nos apagó la radio.",
+          "meaning": "The radio went off on us.",
+          "note": "New word: apagarse = to go off."
+        },
+        {
+          "text": "El escarabajo se comió el cable.",
+          "meaning": "The beetle ate the cable.",
+          "note": "New word: el cable = the cable."
+        },
+        {
+          "text": "A Leo se le perdió el radiorreloj.",
+          "meaning": "Leo lost his wrist radio."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Se nos acabaron las tuercas.",
+          "meaning": "We've run out of nuts.",
+          "distractors": [
+            "acabó"
+          ]
+        },
+        {
+          "text": "Se me rompió la llave inglesa.",
+          "meaning": "My spanner broke.",
+          "distractors": [
+            "rompieron"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Se nos acabó las tuercas.",
+          "wrong": "acabó",
+          "fix": "acabaron",
+          "why": "Las tuercas is plural."
+        },
+        {
+          "sentence": "A Leo se lo perdió el radiorreloj.",
+          "wrong": "lo",
+          "fix": "le",
+          "why": "The person it happened to is an indirect object: se le perdió."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "¿Acabó o acabaron?",
+          "buckets": [
+            "se nos acabó…",
+            "se nos acabaron…"
+          ],
+          "items": [
+            {
+              "text": "el agua filtrada",
+              "bucket": 0
+            },
+            {
+              "text": "las tuercas",
+              "bucket": 1
+            },
+            {
+              "text": "la gaseosa",
+              "bucket": 0
+            },
+            {
+              "text": "los tónicos",
+              "bucket": 1
+            },
+            {
+              "text": "las pilas",
+              "bucket": 1
+            }
+          ],
+          "why": "The verb agrees with what ran out."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "c1-pronoun-subtleties-rustwake-01",
+          "prompt": "Se nos ___ las tuercas y no podemos comprar agua. (acabar, preterite)",
+          "type": "fill-in-blank",
+          "correct_answer": "acabaron",
+          "explanation": "Las tuercas is plural: se nos acabaron.",
+          "hints": [
+            "Agree with las tuercas."
+          ],
+          "teaches": [
+            "se nos acabó"
+          ]
+        },
+        {
+          "question_id": "c1-pronoun-subtleties-rustwake-02",
+          "prompt": "Un escarabajo ___ el cable de la antena.",
+          "type": "multiple-choice",
+          "options": [
+            "se comió",
+            "se le comió",
+            "se comieron"
+          ],
+          "correct_answer": "se comió",
+          "explanation": "Comerse + a whole, definite object.",
+          "hints": [
+            "The whole cable."
+          ],
+          "teaches": [
+            "comerse",
+            "el cable"
+          ]
+        }
+      ]
+    }
+  }
+}

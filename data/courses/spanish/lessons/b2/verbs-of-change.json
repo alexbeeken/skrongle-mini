@@ -1,0 +1,1207 @@
+{
+  "id": "b2-verbs-of-change",
+  "slug": "verbs-of-change",
+  "title": "Ponerse, volverse, hacerse: verbs of change",
+  "unit": "B2",
+  "group": "Grammar",
+  "order": 32,
+  "summary": "Spanish has no single verb for 'to become': ponerse for a sudden mood, volverse for a change of character, hacerse for a chosen path, quedarse for the result, convertirse en and llegar a ser for transformations and goals.",
+  "focus": "Choosing the right verb of change: ponerse, volverse, hacerse, quedarse, convertirse en, llegar a ser",
+  "prerequisites": [
+    "b1-ser-estar-and-change"
+  ],
+  "content": "## Ponerse: a sudden, passing change\n\nSpanish has no single verb for *to become*. The verb depends on how the change happens. **Ponerse** + adjective is a quick change of mood, health or looks, usually temporary:\n\n- **Se puso rojo cuando lo vieron.** (He went red when they saw him.)\n- **Me pongo nervioso antes de los exámenes.** (I get nervous before exams.)\n- **La niña se puso enferma el domingo.** (The girl got ill on Sunday.)\n- **Se puso muy contenta con la noticia.** (She was delighted at the news.)\n\n**Ponerse** takes an adjective, never a noun: *se puso médico* is wrong.\n\n## Volverse and hacerse\n\n**Volverse** + adjective is a deep, lasting change of character, often one nobody chose:\n\n- **Con los años se volvió muy desconfiado.** (Over the years he became very distrustful.)\n- **Desde que es famoso, se ha vuelto insoportable.** (Since he got famous, he's become unbearable.)\n- **volverse loco** (to go mad)\n\n**Hacerse** + noun or adjective is a change someone chooses or works for, or one that comes slowly: jobs, beliefs, money, age.\n\n- **Se hizo médica.** (She became a doctor.)\n- **Se hicieron ricos.** (They got rich.) = **se enriquecieron**\n- **Nos hacemos mayores.** (We're getting older.)\n\nA passing feeling never takes **hacerse**: *se hizo nervioso* is wrong.\n\n## Quedarse: how things ended up\n\n**Quedarse** + adjective, or **quedarse sin** + noun, is the state left after an event, very often a loss:\n\n- **Se quedó ciego tras el accidente.** (He went blind after the accident.)\n- **Mi tío se quedó calvo muy joven.** (My uncle went bald very young.)\n- **Me quedé sin trabajo en marzo.** (I lost my job in March.)\n- **Nos quedamos sin batería.** (Our battery ran out.)\n\nIt also describes being left frozen by something: **se quedó callado / sorprendido / dormido** (he fell silent / was stunned / fell asleep).\n\nBe careful, because **quedarse** alone also means *to stay* (**me quedo en casa**). The adjective or **sin** tells you it is a change.\n\n## Convertirse en and llegar a ser\n\n**Convertirse en** + noun is a transformation into something else. It always takes **en**:\n\n- **La oruga se convirtió en mariposa.** (The caterpillar turned into a butterfly.)\n- **El pueblo se ha convertido en una ciudad turística.** (The village has turned into a tourist town.)\n\n**Llegar a ser** + noun or adjective is reaching a point at the end of a long road, often after effort. It is not reflexive:\n\n- **Llegó a ser directora del hospital.** (She eventually became head of the hospital.)\n- **Con el tiempo llegaron a ser muy amigos.** (In time they became close friends.)\n\nSo use **se convirtió en** for *what* it turned into and **llegó a ser** for *how far* someone got.",
+  "vocabulary": [
+    {
+      "term": "ponerse",
+      "meaning": "to become, to get (a sudden, usually temporary change: + adjective)",
+      "example": "Siempre me pongo nerviosa cuando hablo en público.",
+      "example_meaning": "I always get nervous when I speak in public."
+    },
+    {
+      "term": "ponerse colorado",
+      "meaning": "to blush, to go red",
+      "example": "Se puso colorado cuando le preguntaron por su novia.",
+      "example_meaning": "He went red when they asked him about his girlfriend."
+    },
+    {
+      "term": "volverse",
+      "meaning": "to become (a deep, lasting change of character)",
+      "example": "Desde que vive solo, se ha vuelto un poco raro.",
+      "example_meaning": "Since he started living alone, he's become a bit odd."
+    },
+    {
+      "term": "desconfiado",
+      "meaning": "distrustful, suspicious",
+      "example": "Después del robo, mi vecino se volvió muy desconfiado.",
+      "example_meaning": "After the burglary, my neighbour became very distrustful."
+    },
+    {
+      "term": "hacerse",
+      "meaning": "to become (by choice, effort or gradually: jobs, beliefs, money, age)",
+      "example": "Mi hermana se hizo enfermera para ayudar a la gente.",
+      "example_meaning": "My sister became a nurse to help people."
+    },
+    {
+      "term": "hacerse mayor",
+      "meaning": "to get older, to grow up",
+      "example": "Cuando te haces mayor, valoras más el tiempo libre.",
+      "example_meaning": "When you get older, you value free time more."
+    },
+    {
+      "term": "enriquecerse",
+      "meaning": "to get rich",
+      "example": "Se enriqueció vendiendo pisos en la costa.",
+      "example_meaning": "He got rich selling flats on the coast."
+    },
+    {
+      "term": "quedarse",
+      "meaning": "to end up, to be left (the result of an event, often a loss: + adjective)",
+      "example": "Tras la enfermedad, se quedó sordo de un oído.",
+      "example_meaning": "After the illness, he went deaf in one ear."
+    },
+    {
+      "term": "quedarse sin",
+      "meaning": "to be left without, to run out of, to lose",
+      "example": "Nos quedamos sin gasolina a diez kilómetros del pueblo.",
+      "example_meaning": "We ran out of petrol ten kilometres from the village."
+    },
+    {
+      "term": "quedarse calvo",
+      "meaning": "to go bald",
+      "example": "Mi padre se quedó calvo a los treinta años.",
+      "example_meaning": "My father went bald at thirty."
+    },
+    {
+      "term": "convertirse en",
+      "meaning": "to turn into, to become (+ noun)",
+      "example": "Su afición a la cocina se convirtió en un negocio.",
+      "example_meaning": "His love of cooking turned into a business."
+    },
+    {
+      "term": "llegar a ser",
+      "meaning": "to (eventually) become, to get to be (after a long road)",
+      "example": "Empezó como camarero y llegó a ser dueño del restaurante.",
+      "example_meaning": "He started as a waiter and ended up owning the restaurant."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-verbs-of-change-01",
+      "prompt": "Cuando vio la primera pregunta del examen, Luis ___ muy nervioso.",
+      "type": "multiple-choice",
+      "options": [
+        "se puso",
+        "se hizo",
+        "se convirtió en"
+      ],
+      "correct_answer": "se puso",
+      "explanation": "A sudden, passing feeling takes ponerse. Hacerse is for chosen or gradual changes, and convertirse en needs a noun.",
+      "hints": [
+        "Is this a sudden change or a chosen one?"
+      ],
+      "teaches": [
+        "ponerse"
+      ]
+    },
+    {
+      "question_id": "b2-verbs-of-change-02",
+      "prompt": "Cuando el profesor la felicitó delante de todos, Lucía ___ colorada. (ponerse, preterite)",
+      "type": "fill-in-blank",
+      "correct_answer": "se puso",
+      "accepted_answers": [
+        "ella se puso"
+      ],
+      "explanation": "Blushing is a quick, temporary change in how someone looks: ponerse colorado/a. Ella becomes se puso.",
+      "hints": [
+        "Ponerse is irregular in the preterite: puse, pusiste, puso…",
+        "Don't forget se."
+      ],
+      "teaches": [
+        "ponerse colorado",
+        "ponerse"
+      ]
+    },
+    {
+      "question_id": "b2-verbs-of-change-03",
+      "prompt": "Después del accidente, mi abuelo ___ ciego de un ojo.",
+      "type": "multiple-choice",
+      "options": [
+        "se quedó",
+        "se hizo",
+        "llegó a ser"
+      ],
+      "correct_answer": "se quedó",
+      "explanation": "Losing your sight is the result of an event, a loss: quedarse ciego. Hacerse and llegar a ser describe changes someone chooses or works towards.",
+      "hints": [
+        "Is this a goal he reached, or what was left after the accident?"
+      ],
+      "teaches": [
+        "quedarse"
+      ]
+    },
+    {
+      "question_id": "b2-verbs-of-change-04",
+      "prompt": "Anoche ___ sin batería en mitad de la llamada. (quedarse, preterite, yo: I ran out of battery)",
+      "type": "fill-in-blank",
+      "correct_answer": "me quedé",
+      "accepted_answers": [
+        "yo me quedé"
+      ],
+      "explanation": "Running out of something is quedarse sin + noun. Yo becomes me quedé.",
+      "hints": [
+        "Quedarse sin + noun.",
+        "Yo takes me plus the preterite ending -é."
+      ],
+      "teaches": [
+        "quedarse sin"
+      ]
+    },
+    {
+      "question_id": "b2-verbs-of-change-05",
+      "prompt": "Mi prima estudió siete años y ___ médica.",
+      "type": "multiple-choice",
+      "options": [
+        "se hizo",
+        "se puso",
+        "se quedó"
+      ],
+      "correct_answer": "se hizo",
+      "explanation": "A profession reached by choice and study takes hacerse. Ponerse never takes a noun, and quedarse is for what is left after an event.",
+      "hints": [
+        "A job is something you choose and work for."
+      ],
+      "teaches": [
+        "hacerse"
+      ]
+    },
+    {
+      "question_id": "b2-verbs-of-change-06",
+      "prompt": "Después de tantas mentiras, Pablo ___ muy desconfiado. (volverse, preterite)",
+      "type": "fill-in-blank",
+      "correct_answer": "se volvió",
+      "accepted_answers": [
+        "él se volvió"
+      ],
+      "explanation": "A lasting change of character takes volverse. Él becomes se volvió.",
+      "hints": [
+        "Which verb describes a change in who someone is?",
+        "Volver is regular in the preterite: volví, volviste, volvió…"
+      ],
+      "teaches": [
+        "volverse",
+        "desconfiado"
+      ]
+    },
+    {
+      "question_id": "b2-verbs-of-change-07",
+      "prompt": "Desde que se hizo famoso, Jorge ___ insoportable: ya no saluda a nadie.",
+      "type": "multiple-choice",
+      "options": [
+        "se ha vuelto",
+        "se ha convertido",
+        "se ha quedado"
+      ],
+      "correct_answer": "se ha vuelto",
+      "explanation": "A change of character takes volverse + adjective. Convertirse needs en + a noun, and quedarse describes what is left after an event, not a personality.",
+      "hints": [
+        "Insoportable is an adjective about character."
+      ],
+      "teaches": [
+        "volverse"
+      ]
+    },
+    {
+      "question_id": "b2-verbs-of-change-08",
+      "prompt": "El antiguo convento ___ un hotel de lujo. (convertirse en, preterite)",
+      "type": "fill-in-blank",
+      "correct_answer": "se convirtió en",
+      "explanation": "A transformation into something else is convertirse en + noun. Convertir has a stem change in the preterite: convirtió.",
+      "hints": [
+        "Keep the en.",
+        "Convertir becomes convirtió, like pedir becomes pidió."
+      ],
+      "teaches": [
+        "convertirse en"
+      ]
+    },
+    {
+      "question_id": "b2-verbs-of-change-09",
+      "prompt": "Tras veinte años en el club, Andrés ___ capitán del equipo.",
+      "type": "multiple-choice",
+      "options": [
+        "llegó a ser",
+        "se llegó a ser",
+        "se puso"
+      ],
+      "correct_answer": "llegó a ser",
+      "explanation": "Reaching a position after a long road is llegar a ser, which is not reflexive. Ponerse never takes a noun.",
+      "hints": [
+        "Is llegar a ser reflexive?"
+      ],
+      "teaches": [
+        "llegar a ser"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-verbs-of-change-conv-reunion",
+      "title": "The school reunion",
+      "scenario": "Elena and Carlos meet at their twenty-year school reunion and catch up on how their classmates have changed.",
+      "role_a": "Elena",
+      "role_b": "Carlos",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¿Has visto a Raúl? Se ha hecho mayor, pero sigue igual de simpático.",
+          "meaning": "Have you seen Raúl? He's got older, but he's just as nice as ever."
+        },
+        {
+          "speaker": "b",
+          "text": "Sí. ¿Sabías que se hizo abogado? Llegó a ser socio de un bufete enorme.",
+          "meaning": "Yes. Did you know he became a lawyer? He ended up a partner in a huge law firm.",
+          "note": "Hacerse for a chosen job, llegar a ser for how far he got."
+        },
+        {
+          "speaker": "a",
+          "text": "¡Quién lo diría! En el instituto se ponía colorado cada vez que hablaba en clase.",
+          "meaning": "Who'd have thought it! At school he went red every time he spoke in class."
+        },
+        {
+          "speaker": "b",
+          "text": "Pues ahora habla delante de jueces. ¿Y Marisa?",
+          "meaning": "Well, now he speaks in front of judges. What about Marisa?"
+        },
+        {
+          "speaker": "a",
+          "text": "Se quedó sin trabajo hace dos años, pero no se rindió.",
+          "meaning": "She lost her job two years ago, but she didn't give up."
+        },
+        {
+          "speaker": "b",
+          "text": "¿Y qué hizo? Siempre hacía unas tartas buenísimas.",
+          "meaning": "And what did she do? She always made amazing cakes."
+        },
+        {
+          "speaker": "a",
+          "text": "Exacto. Su afición se convirtió en una pastelería, la más famosa del barrio.",
+          "meaning": "Exactly. Her hobby turned into a cake shop, the most famous one in the neighbourhood."
+        },
+        {
+          "speaker": "b",
+          "text": "Me alegro. ¿Y el profesor de química? Se volvió muy cascarrabias, ¿no?",
+          "meaning": "I'm glad. And the chemistry teacher? He became really grumpy, didn't he?"
+        },
+        {
+          "speaker": "a",
+          "text": "Un poco. Ahora se pone de mal humor si alguien llega tarde.",
+          "meaning": "A bit. Now he gets in a bad mood if anyone is late."
+        },
+        {
+          "speaker": "b",
+          "text": "Bueno, todos cambiamos. Yo me estoy quedando calvo.",
+          "meaning": "Well, we all change. I'm going bald."
+        },
+        {
+          "speaker": "a",
+          "text": "¡Y yo me pongo nerviosa en estas reuniones!",
+          "meaning": "And I get nervous at these reunions!"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Se puso pálida de repente.",
+      "meaning": "She suddenly went pale.",
+      "note": "Ponerse describes a sudden change."
+    },
+    {
+      "text": "Mi abuelo se quedó sordo.",
+      "meaning": "My grandfather went deaf.",
+      "note": "Quedarse describes what was left, a loss."
+    },
+    {
+      "text": "Con la edad se ha vuelto más tranquilo.",
+      "meaning": "With age he has become calmer."
+    },
+    {
+      "text": "Mi vecina se hizo abogada a los cuarenta años.",
+      "meaning": "My neighbour became a lawyer at forty."
+    },
+    {
+      "text": "El pequeño bar se convirtió en un restaurante famoso.",
+      "meaning": "The little bar turned into a famous restaurant."
+    },
+    {
+      "text": "Cuando cerraron la fábrica, muchos se quedaron sin trabajo.",
+      "meaning": "When they closed the factory, many people lost their jobs.",
+      "note": "New word: la fábrica = the factory."
+    },
+    {
+      "text": "Después de muchos años de trabajo, llegó a ser alcaldesa del pueblo.",
+      "meaning": "After many years of work, she became mayor of the town.",
+      "note": "New word: la alcaldesa = the mayor."
+    },
+    {
+      "text": "Desde que trabaja de noche, mi hermano se ha vuelto un poco huraño.",
+      "meaning": "Since he started working nights, my brother has become a bit unsociable.",
+      "note": "New word: huraño = unsociable."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Ponerse"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b2-verbs-of-change-01"
+    },
+    {
+      "question": "b2-verbs-of-change-02"
+    },
+    {
+      "section": "Volverse and hacerse"
+    },
+    {
+      "question": "b2-verbs-of-change-06"
+    },
+    {
+      "question": "b2-verbs-of-change-07"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b2-verbs-of-change-05"
+    },
+    {
+      "section": "Quedarse"
+    },
+    {
+      "question": "b2-verbs-of-change-03"
+    },
+    {
+      "question": "b2-verbs-of-change-04"
+    },
+    {
+      "section": "Convertirse en"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b2-verbs-of-change-08"
+    },
+    {
+      "question": "b2-verbs-of-change-09"
+    },
+    {
+      "tip": "Ask how the change happened: in a flash (ponerse), deep inside (volverse), by choice or slowly (hacerse), as the result of an event (quedarse), into something new (convertirse en), after a long road (llegar a ser)."
+    }
+  ],
+  "sprint": {
+    "icon": "🔄",
+    "bites": [
+      {
+        "title": "Ponerse: quick and passing",
+        "emoji": "😳",
+        "rule": "Ponerse + adjective: a sudden, usually temporary change of mood, health or looks. Never a noun: se puso médico is wrong.",
+        "example": "Se puso nerviosa al ver la cámara.",
+        "example_meaning": "She got nervous when she saw the camera."
+      },
+      {
+        "title": "Volverse: who you are",
+        "emoji": "🌀",
+        "rule": "Volverse + adjective: a deep, lasting change in someone's character, often unwanted: se volvió desconfiado, se volvió loco.",
+        "example": "Con los años se volvió muy callado.",
+        "example_meaning": "Over the years he became very quiet."
+      },
+      {
+        "title": "Hacerse: chosen or gradual",
+        "emoji": "🎓",
+        "rule": "Hacerse + noun or adjective: a change you choose or work for, or that comes slowly: hacerse médico, rico, vegetariano, mayor.",
+        "example": "Se hizo profesora a los treinta años.",
+        "example_meaning": "She became a teacher at thirty."
+      },
+      {
+        "title": "The result, the new thing, the goal",
+        "emoji": "🏁",
+        "rule": "Quedarse: what is left, often a loss (quedarse ciego, sin trabajo). Convertirse en + noun: a transformation. Llegar a ser: the end of a long road.",
+        "example": "La oruga se convirtió en mariposa.",
+        "example_meaning": "The caterpillar turned into a butterfly."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "What kind of change?",
+        "buckets": [
+          "sudden, passing",
+          "character",
+          "chosen or gradual",
+          "the result of an event"
+        ],
+        "items": [
+          {
+            "text": "se puso pálido",
+            "bucket": 0
+          },
+          {
+            "text": "se puso contenta",
+            "bucket": 0
+          },
+          {
+            "text": "se volvió desconfiado",
+            "bucket": 1
+          },
+          {
+            "text": "se volvió egoísta",
+            "bucket": 1
+          },
+          {
+            "text": "se hizo abogada",
+            "bucket": 2
+          },
+          {
+            "text": "se hizo rico",
+            "bucket": 2
+          },
+          {
+            "text": "se quedó ciego",
+            "bucket": 3
+          },
+          {
+            "text": "se quedó sin trabajo",
+            "bucket": 3
+          }
+        ],
+        "why": "Ponerse is a flash, volverse changes who you are, hacerse is chosen or slow, quedarse is what is left after something happened."
+      },
+      {
+        "title": "Right or wrong?",
+        "buckets": [
+          "correct",
+          "wrong"
+        ],
+        "items": [
+          {
+            "text": "se puso nervioso",
+            "bucket": 0
+          },
+          {
+            "text": "se puso médico",
+            "bucket": 1
+          },
+          {
+            "text": "se convirtió en mariposa",
+            "bucket": 0
+          },
+          {
+            "text": "se convirtió mariposa",
+            "bucket": 1
+          },
+          {
+            "text": "llegó a ser jefa",
+            "bucket": 0
+          },
+          {
+            "text": "se llegó a ser jefa",
+            "bucket": 1
+          }
+        ],
+        "why": "Ponerse never takes a noun, convertirse always needs en, and llegar a ser is not reflexive."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Cuando vio a su ex, Lola se hizo muy nerviosa.",
+        "wrong": "hizo",
+        "fix": "puso",
+        "why": "A sudden, passing feeling takes ponerse, not hacerse."
+      },
+      {
+        "sentence": "Mi hermana se puso abogada el año pasado.",
+        "wrong": "puso",
+        "fix": "hizo",
+        "why": "A profession is a noun, and ponerse never takes a noun: se hizo abogada."
+      },
+      {
+        "sentence": "La oruga se convirtió de mariposa.",
+        "wrong": "de",
+        "fix": "en",
+        "why": "Convertirse always takes en: se convirtió en mariposa."
+      },
+      {
+        "sentence": "Con mucho esfuerzo, llegó a hacer directora del banco.",
+        "wrong": "hacer",
+        "fix": "ser",
+        "why": "Reaching a position after a long road is llegar a ser."
+      },
+      {
+        "sentence": "Desde que es rico, Jorge se ha convertido insoportable.",
+        "wrong": "convertido",
+        "fix": "vuelto",
+        "why": "A change of character with an adjective takes volverse. Convertirse needs en and a noun."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Se puso roja de vergüenza.",
+        "meaning": "She went red with embarrassment.",
+        "distractors": [
+          "hizo"
+        ]
+      },
+      {
+        "text": "Con los años se volvió muy desconfiado.",
+        "meaning": "Over the years he became very distrustful.",
+        "distractors": [
+          "puso"
+        ]
+      },
+      {
+        "text": "Mi tío se hizo rico con un restaurante.",
+        "meaning": "My uncle got rich with a restaurant.",
+        "distractors": [
+          "quedó"
+        ]
+      },
+      {
+        "text": "Nos quedamos sin pan para la cena.",
+        "meaning": "We ran out of bread for dinner.",
+        "distractors": [
+          "pusimos"
+        ]
+      },
+      {
+        "text": "El pueblo se convirtió en una ciudad.",
+        "meaning": "The village turned into a city.",
+        "distractors": [
+          "de"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🐸",
+      "content": "## Los verbos de cambio en Eldmark\n\nAdventurers change all the time: **el guerrero se puso pálido** at the sight of the minotaur, **la maga se volvió desconfiada** after the betrayal, **el cazador se hizo rico** with the loot, **el enano se quedó sin hacha**, and the old inn **se convirtió en una tienda de pociones**.",
+      "vocabulary": [
+        {
+          "term": "ponerse",
+          "example": "El guerrero se puso pálido al ver al minotauro.",
+          "example_meaning": "The warrior went pale when he saw the minotaur."
+        },
+        {
+          "term": "volverse",
+          "example": "Después de la traición, la maga se volvió muy desconfiada.",
+          "example_meaning": "After the betrayal, the mage became very distrustful."
+        },
+        {
+          "term": "hacerse",
+          "example": "El cazador se hizo rico con el botín de la mazmorra.",
+          "example_meaning": "The hunter got rich with the loot from the dungeon."
+        },
+        {
+          "term": "quedarse sin",
+          "example": "El enano se quedó sin hacha en mitad del combate.",
+          "example_meaning": "The dwarf was left without his axe in the middle of the fight."
+        },
+        {
+          "term": "convertirse en",
+          "example": "La vieja posada de Highgate se convirtió en una tienda de pociones.",
+          "example_meaning": "The old inn in Highgate turned into a potion shop."
+        },
+        {
+          "term": "llegar a ser",
+          "example": "Aquel orco tímido llegó a ser jefe del gremio.",
+          "example_meaning": "That shy orc ended up as head of the guild."
+        },
+        {
+          "term": "el gremio",
+          "meaning": "guild",
+          "example": "Me hice miembro del gremio de cazadores.",
+          "example_meaning": "I became a member of the hunters' guild."
+        },
+        {
+          "term": "el botín",
+          "meaning": "loot",
+          "example": "Al ver el botín, el paladín se puso muy contento.",
+          "example_meaning": "When he saw the loot, the paladin got very happy."
+        },
+        {
+          "term": "la traición",
+          "meaning": "betrayal",
+          "example": "La traición convirtió al paladín en un hombre callado.",
+          "example_meaning": "The betrayal turned the paladin into a quiet man."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Cambios en la aventura",
+          "emoji": "🐉",
+          "rule": "Scared for a moment? Ponerse. Changed for good? Volverse. Rich or a guild member by choice? Hacerse. Left without your axe? Quedarse sin.",
+          "example": "El guerrero se puso pálido ante el minotauro.",
+          "example_meaning": "The warrior went pale in front of the minotaur."
+        }
+      ],
+      "listening": [
+        {
+          "text": "La elfa se puso nerviosa.",
+          "meaning": "The elf got nervous."
+        },
+        {
+          "text": "El enano se quedó sin oro.",
+          "meaning": "The dwarf ran out of gold."
+        },
+        {
+          "text": "El cazador se hizo miembro del gremio.",
+          "meaning": "The hunter became a member of the guild.",
+          "note": "New word: el gremio = the guild."
+        },
+        {
+          "text": "Tras la traición, el paladín se volvió desconfiado.",
+          "meaning": "After the betrayal, the paladin became distrustful.",
+          "note": "New word: la traición = the betrayal."
+        },
+        {
+          "text": "La vieja mazmorra se convirtió en una posada.",
+          "meaning": "The old dungeon turned into an inn."
+        }
+      ],
+      "builds": [
+        {
+          "text": "La maga se puso pálida.",
+          "meaning": "The mage went pale.",
+          "distractors": [
+            "hizo"
+          ]
+        },
+        {
+          "text": "El orco llegó a ser jefe del gremio.",
+          "meaning": "The orc ended up as head of the guild.",
+          "distractors": [
+            "se"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "La maga se hizo furiosa al ver la trampa.",
+          "wrong": "hizo",
+          "fix": "puso",
+          "why": "A sudden fit of anger takes ponerse, not hacerse."
+        },
+        {
+          "sentence": "El paladín se puso jefe del gremio.",
+          "wrong": "puso",
+          "fix": "hizo",
+          "why": "Jefe is a noun, and ponerse never takes a noun: se hizo jefe."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "What kind of change?",
+          "buckets": [
+            "sudden, passing",
+            "chosen or worked for",
+            "the result of a loss"
+          ],
+          "items": [
+            {
+              "text": "el guerrero se puso pálido",
+              "bucket": 0
+            },
+            {
+              "text": "la elfa se puso furiosa",
+              "bucket": 0
+            },
+            {
+              "text": "el enano se hizo herrero",
+              "bucket": 1
+            },
+            {
+              "text": "me hice miembro del gremio",
+              "bucket": 1
+            },
+            {
+              "text": "el orco se quedó sin espada",
+              "bucket": 2
+            },
+            {
+              "text": "el cazador se quedó sin montura",
+              "bucket": 2
+            }
+          ],
+          "why": "Ponerse is a flash of fear or anger, hacerse a path you chose, quedarse sin what you lost."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-verbs-of-change-realm-01",
+          "prompt": "Al ver al minotauro, el guerrero ___ pálido.",
+          "type": "multiple-choice",
+          "options": [
+            "se puso",
+            "se hizo",
+            "se convirtió en"
+          ],
+          "correct_answer": "se puso",
+          "explanation": "Going pale with fear is sudden and passing: ponerse.",
+          "hints": [
+            "A flash of fear, or a chosen path?"
+          ],
+          "teaches": [
+            "ponerse"
+          ]
+        },
+        {
+          "question_id": "b2-verbs-of-change-realm-02",
+          "prompt": "Después de años de misiones, la cazadora ___ jefa del gremio. (llegar a ser, preterite)",
+          "type": "fill-in-blank",
+          "correct_answer": "llegó a ser",
+          "accepted_answers": [
+            "ella llegó a ser"
+          ],
+          "explanation": "Reaching a position after a long road is llegar a ser, not reflexive. Ella becomes llegó.",
+          "hints": [
+            "No se here."
+          ],
+          "teaches": [
+            "llegar a ser",
+            "el gremio"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🐛",
+      "content": "## Los verbos de cambio en Meadowbrook\n\nFarm life changes people: **Nora se puso nerviosa** at her first harvest, **Leo se hizo pescador** as a boy, **el alcalde se ha vuelto más generoso** with the years, **el huerto se quedó sin agua** in August, and one tiny seed **se convirtió en una calabaza enorme**.",
+      "vocabulary": [
+        {
+          "term": "ponerse",
+          "example": "Nora se puso muy contenta con su primera cosecha.",
+          "example_meaning": "Nora was delighted with her first harvest."
+        },
+        {
+          "term": "hacerse",
+          "example": "Leo se hizo pescador cuando era joven.",
+          "example_meaning": "Leo became a fisherman when he was young."
+        },
+        {
+          "term": "volverse",
+          "example": "Con los años, el alcalde se ha vuelto más generoso.",
+          "example_meaning": "Over the years, the mayor has become more generous."
+        },
+        {
+          "term": "quedarse sin",
+          "example": "En agosto, los campos se quedaron sin agua.",
+          "example_meaning": "In August, the fields were left without water."
+        },
+        {
+          "term": "convertirse en",
+          "example": "La semilla se convirtió en una calabaza enorme.",
+          "example_meaning": "The seed turned into a huge pumpkin."
+        },
+        {
+          "term": "hacerse mayor",
+          "example": "Las gallinas se hacen mayores y ponen menos huevos.",
+          "example_meaning": "The hens are getting older and lay fewer eggs."
+        },
+        {
+          "term": "la cosecha",
+          "meaning": "harvest",
+          "example": "Con la buena cosecha, Nora llegó a ser la granjera más conocida del pueblo.",
+          "example_meaning": "With the good harvest, Nora became the best-known farmer in town."
+        },
+        {
+          "term": "el huerto",
+          "meaning": "vegetable garden",
+          "example": "El huerto se convirtió en un mar de fresas.",
+          "example_meaning": "The vegetable garden turned into a sea of strawberries."
+        },
+        {
+          "term": "la granjera",
+          "meaning": "farmer (a woman)",
+          "example": "Nora se hizo granjera el año pasado.",
+          "example_meaning": "Nora became a farmer last year."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Cambios en la granja",
+          "emoji": "🌻",
+          "rule": "Nervous at the festival? Ponerse. A fisherman by choice? Hacerse. A field without water? Quedarse sin. A seed into a pumpkin? Convertirse en.",
+          "example": "La semilla se convirtió en una calabaza.",
+          "example_meaning": "The seed turned into a pumpkin."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Nora se puso colorada.",
+          "meaning": "Nora went red."
+        },
+        {
+          "text": "Leo se hizo pescador.",
+          "meaning": "Leo became a fisherman."
+        },
+        {
+          "text": "El huerto se quedó sin agua.",
+          "meaning": "The vegetable garden ran out of water.",
+          "note": "New word: el huerto = the vegetable garden."
+        },
+        {
+          "text": "Rosa se ha vuelto muy paciente.",
+          "meaning": "Rosa has become very patient."
+        },
+        {
+          "text": "Con la cosecha, Nora se hizo bastante rica.",
+          "meaning": "With the harvest, Nora got quite rich.",
+          "note": "New word: la cosecha = the harvest."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Nora se hizo granjera.",
+          "meaning": "Nora became a farmer.",
+          "distractors": [
+            "puso"
+          ]
+        },
+        {
+          "text": "La semilla se convirtió en una calabaza.",
+          "meaning": "The seed turned into a pumpkin.",
+          "distractors": [
+            "de"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Nora se hizo nerviosa en el festival.",
+          "wrong": "hizo",
+          "fix": "puso",
+          "why": "A sudden, passing feeling takes ponerse, not hacerse."
+        },
+        {
+          "sentence": "Leo se puso pescador de joven.",
+          "wrong": "puso",
+          "fix": "hizo",
+          "why": "Pescador is a noun, a chosen job: hacerse, never ponerse."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "What kind of change?",
+          "buckets": [
+            "a sudden feeling",
+            "a chosen job",
+            "a loss"
+          ],
+          "items": [
+            {
+              "text": "Nora se puso contenta",
+              "bucket": 0
+            },
+            {
+              "text": "Rosa se puso seria",
+              "bucket": 0
+            },
+            {
+              "text": "Leo se hizo pescador",
+              "bucket": 1
+            },
+            {
+              "text": "Nora se hizo granjera",
+              "bucket": 1
+            },
+            {
+              "text": "el huerto se quedó sin agua",
+              "bucket": 2
+            },
+            {
+              "text": "la tienda se quedó sin semillas",
+              "bucket": 2
+            }
+          ],
+          "why": "Ponerse for a feeling that comes and goes, hacerse for a job you choose, quedarse sin for what is lost."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-verbs-of-change-meadowbrook-01",
+          "prompt": "Con los años, el alcalde ___ más generoso.",
+          "type": "multiple-choice",
+          "options": [
+            "se ha vuelto",
+            "se ha convertido",
+            "se ha quedado"
+          ],
+          "correct_answer": "se ha vuelto",
+          "explanation": "A lasting change of character takes volverse + adjective. Convertirse needs en + a noun, and quedarse describes what is left after an event.",
+          "hints": [
+            "Generoso describes his character."
+          ],
+          "teaches": [
+            "volverse"
+          ]
+        },
+        {
+          "question_id": "b2-verbs-of-change-meadowbrook-02",
+          "prompt": "En agosto, la tienda de Rosa ___ sin semillas de fresa. (quedarse, preterite)",
+          "type": "fill-in-blank",
+          "correct_answer": "se quedó",
+          "explanation": "Running out of something is quedarse sin + noun. La tienda becomes se quedó.",
+          "hints": [
+            "Quedarse sin + noun."
+          ],
+          "teaches": [
+            "quedarse sin"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🧟",
+      "content": "## Los verbos de cambio en el páramo\n\nOutside **la cúpula** everybody changes: **me puse pálido** in my first ash storm, **Leo se hizo buscador**, **el capataz Ruiz se volvió desconfiado** after so many thefts, **mi radiorreloj se quedó sin batería**, and the old petrol station **se convirtió en el mercado de Marta**.",
+      "vocabulary": [
+        {
+          "term": "ponerse",
+          "example": "Me puse pálido al ver la tormenta de ceniza.",
+          "example_meaning": "I went pale when I saw the ash storm."
+        },
+        {
+          "term": "hacerse",
+          "example": "Leo se hizo buscador al salir de la cúpula.",
+          "example_meaning": "Leo became a scavenger when he left the Dome."
+        },
+        {
+          "term": "volverse",
+          "example": "El capataz Ruiz se ha vuelto muy desconfiado.",
+          "example_meaning": "Foreman Ruiz has become very distrustful."
+        },
+        {
+          "term": "quedarse sin",
+          "example": "Nos quedamos sin agua filtrada en el camino.",
+          "example_meaning": "We ran out of filtered water on the way."
+        },
+        {
+          "term": "convertirse en",
+          "example": "La vieja gasolinera se convirtió en el mercado de Marta.",
+          "example_meaning": "The old petrol station turned into Marta's market."
+        },
+        {
+          "term": "llegar a ser",
+          "example": "Marta llegó a ser la mercadera más rica del páramo.",
+          "example_meaning": "Marta ended up the richest trader in the wasteland."
+        },
+        {
+          "term": "las tuercas",
+          "meaning": "nuts (the wasteland's money)",
+          "example": "Me quedé sin tuercas después del mercado.",
+          "example_meaning": "I was out of nuts after the market."
+        },
+        {
+          "term": "la tormenta de ceniza",
+          "meaning": "ash storm",
+          "example": "Durante la tormenta de ceniza, la cabra se puso muy nerviosa.",
+          "example_meaning": "During the ash storm, the goat got very nervous."
+        },
+        {
+          "term": "el radiorreloj",
+          "meaning": "wrist radio",
+          "example": "Mi radiorreloj se quedó sin batería otra vez.",
+          "example_meaning": "My wrist radio ran out of battery again."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Cambios en el páramo",
+          "emoji": "🔩",
+          "rule": "Scared in an ash storm? Ponerse. A scavenger by choice? Hacerse. Out of nuts? Quedarse sin. A petrol station into a market? Convertirse en.",
+          "example": "La gasolinera se convirtió en un mercado.",
+          "example_meaning": "The petrol station turned into a market."
+        }
+      ],
+      "listening": [
+        {
+          "text": "La cabra se puso nerviosa.",
+          "meaning": "The goat got nervous."
+        },
+        {
+          "text": "Me quedé sin tuercas.",
+          "meaning": "I ran out of nuts.",
+          "note": "New word: las tuercas = the nuts."
+        },
+        {
+          "text": "Leo se hizo buscador de chatarra.",
+          "meaning": "Leo became a scrap scavenger.",
+          "note": "New word: la chatarra = the scrap."
+        },
+        {
+          "text": "El robot jardinero se ha vuelto muy charlatán.",
+          "meaning": "The gardening robot has become very chatty."
+        },
+        {
+          "text": "El viejo taller se convirtió en una tienda.",
+          "meaning": "The old workshop turned into a shop."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Leo se hizo buscador.",
+          "meaning": "Leo became a scavenger.",
+          "distractors": [
+            "puso"
+          ]
+        },
+        {
+          "text": "Me quedé sin agua filtrada.",
+          "meaning": "I ran out of filtered water.",
+          "distractors": [
+            "puse"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Ruiz se hizo furioso con la tormenta.",
+          "wrong": "hizo",
+          "fix": "puso",
+          "why": "A sudden fit of anger takes ponerse, not hacerse."
+        },
+        {
+          "sentence": "La gasolinera se convirtió de mercado.",
+          "wrong": "de",
+          "fix": "en",
+          "why": "Convertirse always takes en."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "What kind of change?",
+          "buckets": [
+            "a passing state",
+            "character",
+            "a new thing"
+          ],
+          "items": [
+            {
+              "text": "la cabra se puso nerviosa",
+              "bucket": 0
+            },
+            {
+              "text": "me puse pálido",
+              "bucket": 0
+            },
+            {
+              "text": "Ruiz se volvió desconfiado",
+              "bucket": 1
+            },
+            {
+              "text": "el robot se volvió charlatán",
+              "bucket": 1
+            },
+            {
+              "text": "la gasolinera se convirtió en mercado",
+              "bucket": 2
+            },
+            {
+              "text": "el taller se convirtió en tienda",
+              "bucket": 2
+            }
+          ],
+          "why": "Ponerse for a passing state, volverse for character, convertirse en for becoming a different thing."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b2-verbs-of-change-rustwake-01",
+          "prompt": "La vieja gasolinera ___ el mercado de Marta.",
+          "type": "multiple-choice",
+          "options": [
+            "se convirtió en",
+            "se puso",
+            "se volvió de"
+          ],
+          "correct_answer": "se convirtió en",
+          "explanation": "Turning into a different thing (a noun) is convertirse en. Ponerse never takes a noun, and volverse takes no de.",
+          "hints": [
+            "Mercado is a noun: which verb takes en + noun?"
+          ],
+          "teaches": [
+            "convertirse en"
+          ]
+        },
+        {
+          "question_id": "b2-verbs-of-change-rustwake-02",
+          "prompt": "En plena tormenta de ceniza, mi radiorreloj ___ sin batería. (quedarse, preterite)",
+          "type": "fill-in-blank",
+          "correct_answer": "se quedó",
+          "explanation": "Running out of something is quedarse sin + noun. El radiorreloj becomes se quedó.",
+          "hints": [
+            "Quedarse sin + noun."
+          ],
+          "teaches": [
+            "quedarse sin",
+            "el radiorreloj"
+          ]
+        }
+      ],
+      "conversations": [
+        {
+          "id": "b2-verbs-of-change-conv-rustwake-back-at-the-dome",
+          "title": "Back at the Dome",
+          "scenario": "Leo the scavenger visits the Dome, and Foreman Ruiz notices how much has changed.",
+          "role_a": "Ruiz",
+          "role_b": "Leo",
+          "lines": [
+            {
+              "speaker": "a",
+              "text": "¡Leo! Te has puesto muy moreno en el páramo.",
+              "meaning": "Leo! You've got very tanned out in the wasteland."
+            },
+            {
+              "speaker": "b",
+              "text": "Y tú te has vuelto muy serio, capataz.",
+              "meaning": "And you've become very serious, Foreman."
+            },
+            {
+              "speaker": "a",
+              "text": "Es que la cúpula se ha quedado sin agua filtrada.",
+              "meaning": "It's because the Dome has run out of filtered water."
+            },
+            {
+              "speaker": "b",
+              "text": "Por eso me hice buscador: fuera hay de todo.",
+              "meaning": "That's why I became a scavenger: there's everything out there."
+            },
+            {
+              "speaker": "a",
+              "text": "Dicen que la vieja gasolinera se ha convertido en un mercado.",
+              "meaning": "They say the old petrol station has turned into a market."
+            },
+            {
+              "speaker": "b",
+              "text": "Sí, es de Marta. Ha llegado a ser la mercadera más famosa del páramo.",
+              "meaning": "Yes, it's Marta's. She's become the most famous trader in the wasteland."
+            },
+            {
+              "speaker": "a",
+              "text": "¿Y todavía vende gaseosa Zafiro?",
+              "meaning": "And does she still sell Zafiro soda?"
+            },
+            {
+              "speaker": "b",
+              "text": "Claro. Si la pruebas, te pondrás contentísimo.",
+              "meaning": "Of course. If you try it, you'll be over the moon."
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

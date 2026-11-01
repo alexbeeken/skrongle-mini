@@ -1,0 +1,50 @@
+# Provenance of the built-in courses, on PRs that touch course content, themes
+# or the briefs. The free layer always runs and fails on a lint hit: the briefs
+# must never tell an agent to imitate a product's text. Jev judges the
+# passages when the TYPESAFE_API_KEY secret exists (cached by content, so a PR
+# pays for what it changed). Not a required check. See docs/testing.md,
+# "Plagiarism check".
+name: plagiarism
+
+on:
+  pull_request:
+    paths:
+      - "data/courses/**"
+      - "data/themes/**"
+      - "docs/**"
+      - "README.md"
+      - "src/ai.rs"
+      - "e2e/plagiarism/**"
+      - "scripts/plagiarism-check.sh"
+      - ".github/workflows/plagiarism.yml"
+
+concurrency:
+  group: plagiarism-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  provenance:
+    name: provenance check
+    runs-on: ${{ vars.CI_RUNNER || 'laptop' }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: e2e/package-lock.json
+      - name: Free checks (briefs lint, shingle overlap)
+        run: scripts/plagiarism-check.sh --prefilter-only --test-course --fail
+      - name: Restore the answer cache
+        uses: actions/cache@v4
+        with:
+          path: e2e/results/plagiarism/cache.json
+          key: plagiarism-${{ github.sha }}
+          restore-keys: plagiarism-
+      - name: Jev on the passages
+        env:
+          TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
+        run: |
+          if [ -z "$TYPESAFE_API_KEY" ]; then echo "no TYPESAFE_API_KEY secret; Jev layer skipped"; exit 0; fi
+          scripts/plagiarism-check.sh --test-course --fail

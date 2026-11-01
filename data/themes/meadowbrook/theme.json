@@ -1,0 +1,55 @@
+{
+  "id": "meadowbrook",
+  "title": "Meadowbrook",
+  "description": "Cozy meadow colours, a barnyard of profile pictures (the farmer, the beekeeper and their animals), and, in courses that have them, example sentences about the farm (and the occasional skrongle), the brook, the market and the festival. The lessons are the same.",
+  "icon": "🌻",
+  "colors": {
+    "bg": "#f6efd8", "surface": "#fffaf0", "text": "#3b2a1a", "muted": "#7a6a52", "line": "#e0d3b0",
+    "accent": "#4e8f3a", "accent_dark": "#37702a", "gold": "#e8b43a", "gold_dark": "#c2921a",
+    "ok": "#5a9e3c", "ok_dark": "#3f7a28", "ok_bg": "#e3f2d6",
+    "bad": "#c74a3a", "bad_bg": "#f8e1dc", "warn_bg": "#fbf0c8",
+    "sky": "#6fb3e0", "violet": "#9b6fc9"
+  },
+  "dark": {
+    "bg": "#1f1a12", "surface": "#2a2418", "text": "#f0e6cc", "muted": "#b3a689", "line": "#4a4030",
+    "ok_bg": "#22361a", "bad_bg": "#3e1f1a", "warn_bg": "#3a3016"
+  },
+  "font": "'Nunito', 'Quicksand', 'Varela Round', 'Trebuchet MS', sans-serif",
+  "art": { "banner": "pictures/banner.svg", "mark": "pictures/mark.svg" },
+  "strings": {
+    "praise": ["Good harvest!", "It's blooming!", "Golden as grain!", "Lovely!", "Grow, grow!", "Skrongle!"],
+    "almost": ["Not quite, neighbour", "Close… a little more water", "Hmm, no", "Close… a little more skrong"]
+  },
+  "avatars": [
+    { "id": "noor",   "label": "Ama",      "image": "pictures/avatars/beekeeper.svg", "color": "#f2b24a" },
+    { "id": "amani",  "label": "Finn",     "image": "pictures/avatars/fish.svg", "color": "#4fb0c8" },
+    { "id": "yuki",   "label": "Rosie",    "image": "pictures/avatars/pig.svg", "color": "#f08aa8" },
+    { "id": "kai",    "label": "Dot",      "image": "pictures/avatars/hen.svg", "color": "#7fc0e8" },
+    { "id": "arjun",  "label": "Sam",      "image": "pictures/avatars/farmer.svg", "color": "#f2b24a" },
+    { "id": "sofia",  "label": "Bo",       "image": "pictures/avatars/sheep.svg", "color": "#a58ad4" },
+    { "id": "mochi",  "label": "Pepper",   "image": "pictures/avatars/cat.svg", "color": "#f09a6a" },
+    { "id": "coco",   "label": "Clover",   "image": "pictures/avatars/cow.svg", "color": "#8cc46a" }
+  ],
+  "avatar_colors": [
+    { "slot": 1, "label": "Honey", "color": "#f2b24a" },
+    { "slot": 2, "label": "Clover", "color": "#8cc46a" },
+    { "slot": 3, "label": "Blossom", "color": "#f08aa8" },
+    { "slot": 4, "label": "Pond", "color": "#4fb0c8" },
+    { "slot": 5, "label": "Sky", "color": "#7fc0e8" },
+    { "slot": 6, "label": "Peach", "color": "#f09a6a" },
+    { "slot": 7, "label": "Lavender", "color": "#a58ad4" },
+    { "slot": 8, "label": "Wheat", "color": "#d9b866" }
+  ],
+  "avatar_backgrounds": [
+    { "slot": 9, "label": "Crop fields", "image": "pictures/backgrounds/crop-fields.svg", "color": "#8fd0f0" },
+    { "slot": 10, "label": "Orchard hills", "image": "pictures/backgrounds/orchard-hills.svg", "color": "#8cc46a" },
+    { "slot": 11, "label": "Fishing pond", "image": "pictures/backgrounds/fishing-pond.svg", "color": "#4fb0c8" },
+    { "slot": 12, "label": "Harvest sunset", "image": "pictures/backgrounds/harvest-sunset.svg", "color": "#e8b43a" }
+  ],
+  "icons": {
+    "streak": "🌞", "xp": "✨", "words": "🌾", "goal": "🧺", "flawless": "💫", "effort": "🌧️",
+    "mastery": "🍓", "locked": "🪵", "trophy": "🏡", "review": "💧", "path": "🗺️", "site": "🚜",
+    "start": "🌱", "bite": "🍄", "hint": "🐓", "mode_sprint": "🎣", "mode_study": "📔", "mode_play": "🎪", "mode_ai": "🧚"
+  },
+  "lesson_icons": ["🥕", "🍓", "🌽", "🎃", "🐔", "🐄", "🐑", "🐖", "🍄", "🎣", "⛏️", "🍎"]
+}

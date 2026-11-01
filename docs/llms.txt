@@ -1,0 +1,21 @@
+# Skrongle
+
+> A learning app driven by JSON courses: a `course.json` manifest plus one JSON file per lesson. Every mode (Sprint, Study, Play, Guide, AI tutoring) reads the same files.
+
+To write a course: read the course format (it is complete and self-contained), write `course.json` first, then one lesson file at a time, and reply with JSON only. Check files against the JSON Schema. In the app, add them on the course page (`/courses/<id>`); every save validates the whole course and the error names the file and field.
+
+## Course authoring
+
+- [Course format]({base}/docs/course-format.md): every field and rule of `course.json` and lesson files, with a minimal valid course. The app's own course generator uses this exact text.
+- [Course JSON Schema]({base}/docs/course.schema.json): the same rules as JSON Schema (manifest<!-- no-themes --> and<!-- /no-themes --><!-- themes -->,<!-- /themes --> lesson<!-- themes -->, theme<!-- /themes --> definitions).
+- [How a course is built]({base}/docs/course-structure.md): a worked example from the Spanish course and which field switches on which feature.
+
+## Optional
+
+- [Features]({base}/docs/features.md): what each part of the app does and which lesson fields it reads.
+<!-- themes -->
+- [Theming]({base}/docs/themes.md): theme files and the themed material a lesson can carry.
+<!-- /themes -->
+- [Progress across modes]({base}/docs/progress.md): the pass rule, and the API and brief for an AI agent that teaches the learner.
+- [Building and generating courses]({base}/docs/making-courses.md): the editor, the upload API, AI generation, fixing validation errors.
+- [Getting started]({base}/docs/getting-started.md): the modes and how "passed" works.

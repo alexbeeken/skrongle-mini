@@ -1,0 +1,9 @@
+{
+  "_about": "The dev server's Jev stand-in (POST /dev/ai/jev/v1/systemone, #1036). A question gets the score of the first rule whose 'contains' is in the text (any case) and that names it, else 'default'. The questions are the categories of content_check::CATEGORIES (#1046), each with its own threshold. 'el caballo es negro' scores high on 'hate' on purpose: a language-course false friend that stage 2 (#1037, data/test-fixtures/llm/content-review.json) passes.",
+  "default": 0.02,
+  "rules": [
+    { "contains": "hurting yourself is the answer", "self_harm": 0.97, "violence": 0.4 },
+    { "contains": "people like them are vermin", "hate": 0.93 },
+    { "contains": "el caballo es negro", "hate": 0.81 }
+  ]
+}

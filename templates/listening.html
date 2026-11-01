@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t("listening.index.title") }}{% endblock %}
+{% block modenav %}{% let active = "listening" %}{% include "nav_study.html" %}{% endblock %}
+{% block content %}
+<section class="hero">
+  <div>
+    <h1>{{ crate::t("listening.index.heading") }} <span class="muted">{{ crate::t("listening.index.tagline") }}</span></h1>
+    <p class="lead">{{ crate::t1("listening.index.lead", "language", course.term_label) }}</p>
+    <p class="small muted">{{ crate::t1("listening.index.sentences_total", "n", sentences) }}{% if rounds_played > 0 %} · {{ crate::tn("listening.index.rounds_played", rounds_played) }}{% endif %}</p>
+  </div>
+  <div class="actions">
+    <a class="btn big" href="{{ crate::base_path() }}/listening/play" data-testid="listening-mixed">{{ crate::t1("listening.index.mixed_round", "n", mixed_len) }}</a>
+  </div>
+</section>
+
+<p class="muted small">{{ crate::t("listening.index.intro") }}</p>
+
+{% for u in units %}
+<section>
+  <h2>{{ u.unit }} <span class="muted">{{ u.description }}</span></h2>
+  <ul class="topics">
+  {% for r in u.lessons %}
+    <li data-testid="listening-lesson" data-lesson-id="{{ r.topic.slug }}" data-passed="{{ r.topic.passed }}" data-status="{{ r.topic.status_css }}">
+      <a href="{{ crate::base_path() }}/listening/play?lesson={{ r.topic.slug }}">{{ r.topic.title }}</a>
+      <span class="meta">
+        {% if r.topic.passed %}<span class="pill mastered" title="{{ r.topic.pass }}">{{ crate::t("study.pill_passed") }}</span>{% endif %}
+        {% if r.topic.status_css != "untested" %}<span class="pill {{ r.topic.status_css }}" title="{{ crate::t("study.pill_mastery_title") }}" data-testid="listening-lesson-mastery">{{ r.topic.status_label }}{% if r.topic.times_tested > 0 %} · {{ r.topic.score }}%{% endif %}</span>{% endif %}
+        {{ r.topic.group }} · {{ crate::tn("listening.index.sentence_count", r.sentences) }} · <a href="{{ crate::base_path() }}/lessons/{{ r.topic.slug }}">{{ crate::t("listening.index.read_lesson") }}</a>
+      </span>
+      <a class="btn small ghost" href="{{ crate::base_path() }}/listening/play?lesson={{ r.topic.slug }}" data-testid="listening-lesson-play">{{ crate::t("listening.index.listen") }}</a>
+    </li>
+  {% endfor %}
+  </ul>
+</section>
+{% endfor %}
+{% endblock %}

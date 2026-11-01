@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t("play.numbers.name") }}{% endblock %}
+{% block modenav %}{% let active = "numbers" %}{% include "nav_play.html" %}{% endblock %}
+{% block content %}
+<section class="numbers" id="numbers" data-testid="numbers" data-lang="{{ course.term_lang }}" data-label="{{ course.term_label }}" data-praise="{{ course.praise }}" data-limit="{{ limit }}">
+  <p class="crumbs"><a href="{{ crate::base_path() }}/play">{{ crate::t("play.common.games") }}</a> › {{ crate::t("play.numbers.name") }}</p>
+  <h1>{{ crate::t("play.numbers.name") }}</h1>
+  <p class="lead">{{ crate::t1("play.numbers.lead", "lang", course.term_label) }}</p>
+
+  <p class="alert" id="n-unsupported" role="alert" data-testid="numbers-unsupported" hidden>{{ crate::t("play.numbers.unsupported") }}</p>
+  <p class="alert" id="n-novoice" role="alert" data-testid="numbers-novoice" hidden>{{ crate::t1("play.numbers.novoice_html", "lang", course.term_label|e)|safe }}</p>
+
+  <form class="num-setup" id="n-setup" data-testid="numbers-setup">
+    <div class="view-options">
+      <label class="opt">{{ crate::t("play.numbers.range") }}
+        <select id="n-range" data-testid="numbers-range">
+          {% for r in presets %}<option value="{{ r.min }},{{ r.max }}">{{ r.label }}</option>{% endfor %}
+          <option value="custom">{{ crate::t("play.numbers.custom") }}</option>
+        </select>
+      </label>
+      <span class="custom" id="n-custom" hidden>
+        <input type="number" id="n-min" data-testid="numbers-min" min="0" max="{{ limit }}" value="0" aria-label="{{ crate::t("play.numbers.smallest") }}"> {{ crate::t("play.numbers.to") }}
+        <input type="number" id="n-max" data-testid="numbers-max" min="1" max="{{ limit }}" value="100" aria-label="{{ crate::t("play.numbers.largest") }}">
+      </span>
+    </div>
+    <div class="view-options">
+      <label class="opt">{{ crate::t("play.numbers.voice") }} <select id="n-voice" data-testid="numbers-voice"><option value="">{{ crate::t("play.numbers.loading_voices") }}</option></select></label>
+      <label class="opt">{{ crate::t("play.numbers.speed") }}
+        <select id="n-rate" data-testid="numbers-rate">
+          <option value="0.7">{{ crate::t("play.numbers.slow") }}</option>
+          <option value="0.85">{{ crate::t("play.numbers.unhurried") }}</option>
+          <option value="1" selected>{{ crate::t("play.numbers.normal") }}</option>
+          <option value="1.2">{{ crate::t("play.numbers.fast") }}</option>
+        </select>
+      </label>
+      <label class="opt">{{ crate::t("play.numbers.count") }}
+        <select id="n-count" data-testid="numbers-count">
+          <option value="10">10</option>
+          <option value="20" selected>20</option>
+          <option value="50">50</option>
+          <option value="0">{{ crate::t("play.numbers.endless") }}</option>
+        </select>
+      </label>
+    </div>
+    <div class="actions">
+      <button type="submit" class="btn big" id="n-start" data-testid="numbers-start">{{ crate::t("play.common.start") }}</button>
+      <span class="muted small" id="n-stats">{% if rounds_played > 0 %}{{ crate::tn("play.common.rounds_played", rounds_played) }} · {{ crate::t1("play.numbers.best_streak", "n", best_streak) }}{% else %}{{ crate::t("play.common.first_round") }}{% endif %}</span>
+    </div>
+  </form>
+
+  <div class="num-counters" id="n-counters" hidden>
+    <div class="stat"><span class="num" id="n-streak">0</span><span class="lbl">{{ crate::t("play.numbers.streak") }}</span></div>
+    <div class="stat"><span class="num" id="n-best">0</span><span class="lbl">{{ crate::t("play.numbers.best_streak_label") }}</span></div>
+    <div class="stat"><span class="num" id="n-score">0 / 0</span><span class="lbl">{{ crate::t("play.numbers.right") }}<span id="n-total-label">{{ crate::t("play.numbers.heard") }}</span></span></div>
+  </div>
+
+  <div class="num-card" id="n-card" data-testid="numbers-card" hidden>
+    <div class="num-speaker" id="n-speaker" aria-hidden="true">🔊</div>
+    <p class="muted small" id="n-status" role="status" data-testid="numbers-status">{{ crate::t("play.numbers.listen") }}</p>
+    <form class="question" id="n-form" data-testid="numbers-form">
+      <input class="fill" type="text" id="n-answer" data-testid="numbers-answer" maxlength="60" inputmode="numeric" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="{{ crate::t("play.numbers.answer_placeholder") }}" aria-label="{{ crate::t("play.numbers.answer_aria") }}">
+      <div class="actions">
+        <button type="submit" class="btn" id="n-check" data-testid="numbers-check">{{ crate::t("play.numbers.answer") }}</button>
+        <button type="button" class="btn ghost" id="n-replay" data-testid="numbers-replay">{{ crate::t("play.numbers.replay") }}</button>
+        <button type="button" class="btn ghost" id="n-reveal" data-testid="numbers-reveal">{{ crate::t("play.numbers.reveal") }}</button>
+        <button type="button" class="btn ghost" id="n-stop" data-testid="numbers-stop">{{ crate::t("play.common.stop") }}</button>
+      </div>
+      <div class="feedback" id="n-feedback" role="status" data-testid="numbers-feedback" hidden></div>
+    </form>
+    <p class="num-keys muted small">{{ crate::t("play.numbers.keys_html")|safe }}</p>
+  </div>
+
+  <section class="summary" id="n-done" data-testid="numbers-done" hidden>
+    <h2>{{ crate::t("play.common.round_complete") }}</h2>
+    <p class="stars-big" id="n-done-score">0 / 0</p>
+    <p class="lead" id="n-done-detail"></p>
+    <ul class="topics" id="n-misses"></ul>
+    <div class="actions">
+      <button type="button" class="btn big" id="n-again" data-testid="numbers-again">{{ crate::t("play.numbers.another_round") }}</button>
+      <button type="button" class="btn ghost" id="n-settings" data-testid="numbers-settings">{{ crate::t("play.common.change_settings") }}</button>
+    </div>
+  </section>
+</section>
+{% endblock %}
+{% block scripts %}<script>Object.assign(I18N, {{ crate::i18n::js_json("play.js")|safe }});</script><script src="{{ crate::routes::asset_url("numbers.js") }}" defer></script>{% endblock %}

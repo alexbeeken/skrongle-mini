@@ -1,0 +1,1156 @@
+{
+  "id": "a1-family-adjectives",
+  "slug": "family-adjectives",
+  "title": "Family, adjectives and possessives",
+  "unit": "A1",
+  "group": "Grammar",
+  "order": 34,
+  "summary": "Talk about your family: possessives agree with the noun (ma sœur, mon frère), adjectives agree and mostly follow it.",
+  "focus": "Family words, possessive adjectives, and adjective agreement and position",
+  "prerequisites": [
+    "a1-etre-avoir"
+  ],
+  "content": "## Possessives: mon, ma, mes\n\nA possessive agrees with the **thing owned**, not with the owner:\n\n| | masculine | feminine | plural |\n|---|---|---|---|\n| my | **mon** père | **ma** mère | **mes** parents |\n| your (tu) | **ton** frère | **ta** sœur | **tes** cousins |\n| his / her | **son** fils | **sa** fille | **ses** enfants |\n| our | **notre** oncle | **notre** tante | **nos** grands-parents |\n| your (vous) | **votre** mari | **votre** femme | **vos** cousines |\n| their | **leur** père | **leur** mère | **leurs** enfants |\n\nSo **sa mère** is *his mother* or *her mother*. The context tells you whose. Before a vowel or silent **h**, use **mon / ton / son** even for a feminine noun: **mon amie**, **ton école**, **son histoire**.\n\n## Adjectives agree\n\nAn adjective takes the gender and number of its noun. Add **-e** for feminine, **-s** for plural, **-es** for both:\n\n| | singular | plural |\n|---|---|---|\n| masculine | grand | grands |\n| feminine | grande | grandes |\n\nAn adjective that already ends in **-e** does not change for the feminine: **un frère jeune**, **une sœur jeune**. A few change more:\n\n- **beau**, feminine **belle** (beautiful, handsome), plural **beaux / belles**\n- **vieux**, feminine **vieille** (old), plural **vieux / vieilles**\n- **gentil**, feminine **gentille** (kind), plural **gentils / gentilles**\n- **bon**, feminine **bonne** (good)\n\nThe final consonant you don't hear in **grand** is heard in **grande**. That is often how you hear the feminine.\n\n## Before or after the noun\n\nMost adjectives come **after** the noun, unlike in English: **une voiture rouge**, **un frère intelligent**, **une tante sympa**.\n\nA short list of very common adjectives comes **before** it: **petit**, **grand**, **beau**, **jeune**, **vieux**, **bon**.\n\n- **une petite maison** (a small house)\n- **un grand jardin** (a big garden)\n- **une belle ville** (a beautiful town)\n- **un bon restaurant** (a good restaurant)\n\nBoth kinds can share one noun, one before and one after: **une petite voiture rouge** (a small red car).",
+  "vocabulary": [
+    {
+      "term": "le père",
+      "meaning": "father",
+      "example": "Mon père est grand.",
+      "example_meaning": "My father is tall."
+    },
+    {
+      "term": "la mère",
+      "meaning": "mother",
+      "example": "Ma mère est médecin.",
+      "example_meaning": "My mother is a doctor."
+    },
+    {
+      "term": "le frère",
+      "meaning": "brother",
+      "example": "Ton frère est très sympa.",
+      "example_meaning": "Your brother is really nice."
+    },
+    {
+      "term": "la sœur",
+      "meaning": "sister",
+      "example": "Sa sœur habite à Bruxelles.",
+      "example_meaning": "His sister lives in Brussels."
+    },
+    {
+      "term": "le fils",
+      "meaning": "son (the s is pronounced, the l is not)",
+      "example": "Leur fils a dix ans.",
+      "example_meaning": "Their son is ten."
+    },
+    {
+      "term": "la fille",
+      "meaning": "daughter; girl",
+      "example": "Notre fille est petite.",
+      "example_meaning": "Our daughter is little."
+    },
+    {
+      "term": "le mari",
+      "meaning": "husband",
+      "example": "Son mari travaille à Lyon.",
+      "example_meaning": "Her husband works in Lyon."
+    },
+    {
+      "term": "la femme",
+      "meaning": "wife; woman",
+      "example": "Sa femme est architecte.",
+      "example_meaning": "His wife is an architect."
+    },
+    {
+      "term": "les grands-parents",
+      "meaning": "grandparents",
+      "example": "Mes grands-parents habitent à la campagne.",
+      "example_meaning": "My grandparents live in the country."
+    },
+    {
+      "term": "l'oncle",
+      "meaning": "uncle (m)",
+      "example": "Mon oncle a une vieille voiture.",
+      "example_meaning": "My uncle has an old car."
+    },
+    {
+      "term": "la tante",
+      "meaning": "aunt",
+      "example": "Ma tante est très gentille.",
+      "example_meaning": "My aunt is very kind."
+    },
+    {
+      "term": "le cousin / la cousine",
+      "meaning": "cousin",
+      "example": "Vos cousins sont gentils.",
+      "example_meaning": "Your cousins are kind."
+    },
+    {
+      "term": "beau / belle",
+      "meaning": "beautiful, handsome",
+      "example": "C'est une belle maison.",
+      "example_meaning": "It's a beautiful house."
+    },
+    {
+      "term": "vieux / vieille",
+      "meaning": "old",
+      "example": "Il habite dans une vieille maison.",
+      "example_meaning": "He lives in an old house."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-family-adjectives-01",
+      "prompt": "___ mère s'appelle Anne. (my)",
+      "type": "multiple-choice",
+      "options": [
+        "Ma",
+        "Mon",
+        "Mes"
+      ],
+      "correct_answer": "Ma",
+      "explanation": "Mère is feminine singular and starts with a consonant, so 'my' is ma: ma mère.",
+      "hints": [
+        "Is mère masculine or feminine?"
+      ],
+      "teaches": [
+        "la mère"
+      ]
+    },
+    {
+      "question_id": "a1-family-adjectives-02",
+      "prompt": "___ amie Julie habite à Nantes. (my)",
+      "type": "multiple-choice",
+      "options": [
+        "Mon",
+        "Ma",
+        "Mes"
+      ],
+      "correct_answer": "Mon",
+      "explanation": "Amie is feminine, but it starts with a vowel, so ma becomes mon: mon amie.",
+      "hints": [
+        "Look at the first letter of amie."
+      ]
+    },
+    {
+      "question_id": "a1-family-adjectives-03",
+      "prompt": "Voici ___ grands-parents. (my)",
+      "type": "fill-in-blank",
+      "correct_answer": "mes",
+      "accepted_answers": [],
+      "explanation": "Grands-parents is plural, so 'my' is mes: mes grands-parents.",
+      "hints": [
+        "The noun is plural."
+      ],
+      "teaches": [
+        "les grands-parents"
+      ]
+    },
+    {
+      "question_id": "a1-family-adjectives-04",
+      "prompt": "'Sa sœur' can mean 'his sister'.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Sa agrees with sœur (feminine), not with the owner. Sa sœur means his sister or her sister.",
+      "hints": [
+        "Possessives agree with the thing owned."
+      ],
+      "teaches": [
+        "la sœur"
+      ]
+    },
+    {
+      "question_id": "a1-family-adjectives-05",
+      "prompt": "Ma sœur est ___. (grand)",
+      "type": "fill-in-blank",
+      "correct_answer": "grande",
+      "accepted_answers": [],
+      "explanation": "Sœur is feminine singular, so add -e: ma sœur est grande.",
+      "hints": [
+        "Feminine: add -e."
+      ],
+      "teaches": [
+        "la sœur"
+      ]
+    },
+    {
+      "question_id": "a1-family-adjectives-06",
+      "prompt": "Choose the correct phrase: 'a beautiful house'.",
+      "type": "multiple-choice",
+      "options": [
+        "une belle maison",
+        "une maison belle",
+        "une beau maison"
+      ],
+      "correct_answer": "une belle maison",
+      "explanation": "Beau is one of the adjectives that go before the noun, and its feminine is belle: une belle maison.",
+      "hints": [
+        "Beau is on the short list that goes first.",
+        "Maison is feminine."
+      ],
+      "teaches": [
+        "beau / belle"
+      ]
+    },
+    {
+      "question_id": "a1-family-adjectives-07",
+      "prompt": "La maison de ma tante est ___. (vieux)",
+      "type": "fill-in-blank",
+      "correct_answer": "vieille",
+      "accepted_answers": [],
+      "explanation": "Maison is feminine, and the feminine of vieux is vieille.",
+      "hints": [
+        "The adjective agrees with maison.",
+        "Vieux has an irregular feminine."
+      ],
+      "teaches": [
+        "la tante",
+        "vieux / vieille"
+      ]
+    },
+    {
+      "question_id": "a1-family-adjectives-08",
+      "prompt": "Mes cousins sont ___.",
+      "type": "multiple-choice",
+      "options": [
+        "gentils",
+        "gentilles",
+        "gentil"
+      ],
+      "correct_answer": "gentils",
+      "explanation": "Cousins is masculine plural, so gentil takes -s: mes cousins sont gentils.",
+      "hints": [
+        "Cousins: masculine and plural."
+      ],
+      "teaches": [
+        "le cousin / la cousine"
+      ]
+    },
+    {
+      "question_id": "a1-family-adjectives-09",
+      "prompt": "'Une rouge voiture' is correct French.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Colours come after the noun: une voiture rouge. Only a short list (petit, grand, beau, jeune, vieux, bon) goes before.",
+      "hints": [
+        "Is rouge on the short list?"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Mon frère est petit.",
+      "meaning": "My brother is short."
+    },
+    {
+      "text": "Nos grands-parents habitent à Lille.",
+      "meaning": "Our grandparents live in Lille.",
+      "note": "Nos is the plural of notre."
+    },
+    {
+      "text": "Ma tante a une belle maison.",
+      "meaning": "My aunt has a beautiful house.",
+      "note": "Belle is the feminine of beau, and it goes before the noun."
+    },
+    {
+      "text": "Mon amie Claire a un vieux chat.",
+      "meaning": "My friend Claire has an old cat.",
+      "note": "New word: le chat = the cat."
+    },
+    {
+      "text": "Sa fille est grande et très gentille.",
+      "meaning": "Her daughter is tall and very kind."
+    },
+    {
+      "text": "Leur fils travaille dans une petite boulangerie.",
+      "meaning": "Their son works in a small bakery.",
+      "note": "New word: la boulangerie = the bakery."
+    },
+    {
+      "text": "Mes cousines sont jeunes et elles habitent à Paris.",
+      "meaning": "My cousins are young and they live in Paris.",
+      "note": "Jeune already ends in -e: only the plural -s is added."
+    },
+    {
+      "text": "Votre mari est un homme très intelligent et très drôle.",
+      "meaning": "Your husband is a very intelligent and very funny man.",
+      "note": "New word: drôle = funny."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Possessives"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-family-adjectives-01"
+    },
+    {
+      "question": "a1-family-adjectives-03"
+    },
+    {
+      "question": "a1-family-adjectives-04"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-family-adjectives-02"
+    },
+    {
+      "section": "Adjectives agree"
+    },
+    {
+      "question": "a1-family-adjectives-05"
+    },
+    {
+      "question": "a1-family-adjectives-08"
+    },
+    {
+      "tip": "Hear the feminine: grand ends silent, grande ends on a d. Petit / petite, gentil / gentille work the same way."
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a1-family-adjectives-07"
+    },
+    {
+      "section": "Before or after"
+    },
+    {
+      "question": "a1-family-adjectives-06"
+    },
+    {
+      "question": "a1-family-adjectives-09"
+    },
+    {
+      "concept": {
+        "title": "Bel and vieil",
+        "markdown": "Before a masculine noun that starts with a vowel, **beau** becomes **bel** and **vieux** becomes **vieil**, so the words flow:\n\n- **un bel homme** (a handsome man)\n- **un vieil ami** (an old friend)"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-family-adjectives-conv-photos",
+      "title": "Family photos",
+      "scenario": "Lucie shows her friend Malik photos of her family on her phone.",
+      "role_a": "Malik",
+      "role_b": "Lucie",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "C'est qui, sur la photo ?",
+          "meaning": "Who's that in the photo?"
+        },
+        {
+          "speaker": "b",
+          "text": "C'est ma mère et mon père, devant leur maison.",
+          "meaning": "That's my mother and my father, in front of their house.",
+          "note": "leur: one house, two owners"
+        },
+        {
+          "speaker": "a",
+          "text": "Elle est belle, leur maison ! Elle est vieille ?",
+          "meaning": "Their house is beautiful! Is it old?",
+          "note": "belle, vieille: feminine, like maison"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, très vieille. Et là, c'est mon frère Hugo.",
+          "meaning": "Yes, very old. And there, that's my brother Hugo."
+        },
+        {
+          "speaker": "a",
+          "text": "Il est grand ! Il est marié ?",
+          "meaning": "He's tall! Is he married?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui. Sa femme s'appelle Inès. Elle est très gentille.",
+          "meaning": "Yes. His wife is called Inès. She's very kind.",
+          "note": "sa femme means his wife"
+        },
+        {
+          "speaker": "a",
+          "text": "Et la petite fille blonde ?",
+          "meaning": "And the little blonde girl?",
+          "note": "petite before the noun, blonde after"
+        },
+        {
+          "speaker": "b",
+          "text": "C'est leur fille, Jade. Elle a quatre ans.",
+          "meaning": "That's their daughter, Jade. She's four."
+        },
+        {
+          "speaker": "a",
+          "text": "Elle est mignonne ! Tu as des cousins aussi ?",
+          "meaning": "She's cute! Do you have cousins too?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, trois cousines. Elles sont jeunes et très drôles.",
+          "meaning": "Yes, three cousins. They're young and very funny.",
+          "note": "jeunes, drôles: already end in -e, only -s"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "👪",
+    "bites": [
+      {
+        "title": "Agree with the thing owned",
+        "emoji": "👪",
+        "rule": "Mon / ma / mes follow the noun, not the owner: ma mère, mon père, mes parents. Sa mère means his or her mother.",
+        "example": "Paul aime sa sœur.",
+        "example_meaning": "Paul loves his sister."
+      },
+      {
+        "title": "Mon before a vowel",
+        "emoji": "🔤",
+        "rule": "Before a vowel or a silent h, ma / ta / sa become mon / ton / son, even for a feminine noun.",
+        "example": "Mon amie s'appelle Léa.",
+        "example_meaning": "My friend is called Léa."
+      },
+      {
+        "title": "-e, -s, -es",
+        "emoji": "➕",
+        "rule": "Adjectives agree: grand, grande, grands, grandes. Watch beau / belle, vieux / vieille, gentil / gentille.",
+        "example": "Mes tantes sont gentilles.",
+        "example_meaning": "My aunts are kind."
+      },
+      {
+        "title": "Most go after",
+        "emoji": "↔️",
+        "rule": "Most adjectives follow the noun (une voiture rouge). Petit, grand, beau, jeune, vieux, bon go before it.",
+        "example": "Une petite voiture rouge.",
+        "example_meaning": "A small red car."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Mon, ma or mes?",
+        "buckets": [
+          "mon",
+          "ma",
+          "mes"
+        ],
+        "items": [
+          {
+            "text": "père",
+            "bucket": 0
+          },
+          {
+            "text": "mère",
+            "bucket": 1
+          },
+          {
+            "text": "parents",
+            "bucket": 2
+          },
+          {
+            "text": "amie",
+            "bucket": 0
+          },
+          {
+            "text": "sœur",
+            "bucket": 1
+          },
+          {
+            "text": "cousins",
+            "bucket": 2
+          },
+          {
+            "text": "oncle",
+            "bucket": 0
+          },
+          {
+            "text": "tante",
+            "bucket": 1
+          }
+        ],
+        "why": "Use mon with a masculine noun or before a vowel, ma with a feminine noun and mes with a plural."
+      },
+      {
+        "title": "Before or after the noun?",
+        "buckets": [
+          "before",
+          "after"
+        ],
+        "items": [
+          {
+            "text": "petit",
+            "bucket": 0
+          },
+          {
+            "text": "rouge",
+            "bucket": 1
+          },
+          {
+            "text": "vieux",
+            "bucket": 0
+          },
+          {
+            "text": "intelligent",
+            "bucket": 1
+          },
+          {
+            "text": "bon",
+            "bucket": 0
+          },
+          {
+            "text": "français",
+            "bucket": 1
+          },
+          {
+            "text": "beau",
+            "bucket": 0
+          },
+          {
+            "text": "sympa",
+            "bucket": 1
+          }
+        ],
+        "why": "Petit, grand, beau, jeune, vieux and bon go before; most others, colours and nationalities included, go after."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Ma amie habite à Paris.",
+        "wrong": "Ma",
+        "fix": "Mon",
+        "why": "Before a vowel, ma becomes mon: mon amie."
+      },
+      {
+        "sentence": "Ma sœur est petit.",
+        "wrong": "petit",
+        "fix": "petite",
+        "why": "Sœur is feminine: add -e."
+      },
+      {
+        "sentence": "C'est une beau maison.",
+        "wrong": "beau",
+        "fix": "belle",
+        "why": "The feminine of beau is belle."
+      },
+      {
+        "sentence": "Paul aime son mère.",
+        "wrong": "son",
+        "fix": "sa",
+        "why": "Mère is feminine; the owner doesn't matter: sa mère."
+      },
+      {
+        "sentence": "Mes cousins sont gentilles.",
+        "wrong": "gentilles",
+        "fix": "gentils",
+        "why": "Cousins is masculine plural: gentils."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Ma sœur est très gentille.",
+        "meaning": "My sister is very kind.",
+        "distractors": [
+          "gentil"
+        ]
+      },
+      {
+        "text": "Mon oncle a une vieille voiture.",
+        "meaning": "My uncle has an old car.",
+        "distractors": [
+          "vieux"
+        ]
+      },
+      {
+        "text": "Nos grands-parents habitent à Nice.",
+        "meaning": "Our grandparents live in Nice.",
+        "distractors": [
+          "notre"
+        ]
+      },
+      {
+        "text": "C'est une petite maison bleue.",
+        "meaning": "It's a small blue house.",
+        "distractors": [
+          "petit"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🏰",
+      "content": "## La famille à Eldmark\n\nIn Eldmark, families are legendary. Borin **et son vieux père** forge **une belle épée** at Deepanvil; la mage Séla **et sa sœur** live in **une petite tour**. Possessives follow the noun, adjectives agree: **un guerrier fort, une guerrière forte, des nains forts**.",
+      "vocabulary": [
+        {
+          "term": "le père",
+          "example": "Borin et son père travaillent à Deepanvil.",
+          "example_meaning": "Borin and his father work in Deepanvil."
+        },
+        {
+          "term": "la sœur",
+          "example": "Séla et sa sœur sont mages.",
+          "example_meaning": "Séla and her sister are mages."
+        },
+        {
+          "term": "le frère",
+          "example": "Le frère de Nym est chasseur.",
+          "example_meaning": "Nym's brother is a hunter."
+        },
+        {
+          "term": "la fille",
+          "example": "Leur fille est une grande guerrière.",
+          "example_meaning": "Their daughter is a great warrior."
+        },
+        {
+          "term": "beau / belle",
+          "example": "Le paladin a une belle épée.",
+          "example_meaning": "The paladin has a beautiful sword."
+        },
+        {
+          "term": "vieux / vieille",
+          "example": "La vieille prêtresse habite dans la tour.",
+          "example_meaning": "The old priestess lives in the tower."
+        },
+        {
+          "term": "l'oncle",
+          "example": "Mon oncle est un nain très fort.",
+          "example_meaning": "My uncle is a very strong dwarf."
+        },
+        {
+          "term": "l'épée",
+          "meaning": "sword (f)",
+          "example": "Mon épée est vieille.",
+          "example_meaning": "My sword is old."
+        },
+        {
+          "term": "la tour",
+          "meaning": "tower",
+          "example": "La tour est grande.",
+          "example_meaning": "The tower is tall."
+        },
+        {
+          "term": "fort / forte",
+          "meaning": "strong",
+          "example": "La guerrière est forte.",
+          "example_meaning": "The warrior is strong."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Famille de héros",
+          "emoji": "🏰",
+          "rule": "Son épée, sa tour, ses frères: the possessive follows the noun. Adjectives agree too: un nain fort, une naine forte.",
+          "example": "Séla et sa sœur habitent dans une petite tour.",
+          "example_meaning": "Séla and her sister live in a small tower."
+        }
+      ],
+      "listening": [
+        {
+          "text": "L'épée de mon père est vieille.",
+          "meaning": "My father's sword is old.",
+          "note": "New word: l'épée = the sword."
+        },
+        {
+          "text": "La guerrière est très forte.",
+          "meaning": "The warrior is very strong.",
+          "note": "New word: fort = strong."
+        },
+        {
+          "text": "Séla habite dans une petite tour.",
+          "meaning": "Séla lives in a small tower.",
+          "note": "New word: la tour = the tower."
+        },
+        {
+          "text": "Borin et son père sont nains.",
+          "meaning": "Borin and his father are dwarves."
+        },
+        {
+          "text": "Leurs filles sont de grandes chasseuses.",
+          "meaning": "Their daughters are great hunters."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Le paladin a une belle épée.",
+          "meaning": "The paladin has a beautiful sword.",
+          "distractors": [
+            "beau"
+          ]
+        },
+        {
+          "text": "Séla et sa sœur sont mages.",
+          "meaning": "Séla and her sister are mages.",
+          "distractors": [
+            "son"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Mon épée est vieux.",
+          "wrong": "vieux",
+          "fix": "vieille",
+          "why": "Épée is feminine: vieille."
+        },
+        {
+          "sentence": "Borin aime sa père.",
+          "wrong": "sa",
+          "fix": "son",
+          "why": "Père is masculine: son père, whoever the owner is."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Son, sa or ses in Eldmark?",
+          "buckets": [
+            "son",
+            "sa",
+            "ses"
+          ],
+          "items": [
+            {
+              "text": "épée",
+              "bucket": 0
+            },
+            {
+              "text": "tour",
+              "bucket": 1
+            },
+            {
+              "text": "frères",
+              "bucket": 2
+            },
+            {
+              "text": "bouclier",
+              "bucket": 0
+            },
+            {
+              "text": "sœur",
+              "bucket": 1
+            },
+            {
+              "text": "potions",
+              "bucket": 2
+            }
+          ],
+          "why": "Use son with a masculine noun or before a vowel (son épée), sa with a feminine noun and ses with a plural."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-family-adjectives-realm-01",
+          "prompt": "Le nain a ___ épée. (his)",
+          "type": "multiple-choice",
+          "options": [
+            "son",
+            "sa",
+            "ses"
+          ],
+          "correct_answer": "son",
+          "explanation": "Épée is feminine, but it starts with a vowel, so sa becomes son: son épée.",
+          "hints": [
+            "Look at the first letter of épée."
+          ],
+          "teaches": [
+            "l'épée"
+          ]
+        },
+        {
+          "question_id": "a1-family-adjectives-realm-02",
+          "prompt": "La guerrière est ___. (fort)",
+          "type": "fill-in-blank",
+          "correct_answer": "forte",
+          "accepted_answers": [],
+          "explanation": "Guerrière is feminine singular: add -e, forte.",
+          "hints": [
+            "Feminine: add -e."
+          ],
+          "teaches": [
+            "fort / forte"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🐑",
+      "content": "## La famille à Meadowbrook\n\nNora's family farm is small but busy. Here **sa grand-mère** waters **les belles fraises**, **son petit frère** feeds **le vieux mouton**, and **leurs poules** are **noires**. Possessives follow the noun, adjectives agree: **un petit mouton, une petite poule, des poules noires**.",
+      "vocabulary": [
+        {
+          "term": "le frère",
+          "example": "Mon petit frère aime les poules.",
+          "example_meaning": "My little brother likes the hens."
+        },
+        {
+          "term": "les grands-parents",
+          "example": "Mes grands-parents ont une vieille ferme.",
+          "example_meaning": "My grandparents have an old farm."
+        },
+        {
+          "term": "la tante",
+          "example": "Ma tante est la mairesse de Meadowbrook.",
+          "example_meaning": "My aunt is the mayor of Meadowbrook."
+        },
+        {
+          "term": "le cousin / la cousine",
+          "example": "Ma cousine aide Rosa à la graineterie.",
+          "example_meaning": "My cousin helps Rosa at the seed shop."
+        },
+        {
+          "term": "beau / belle",
+          "example": "Les fraises sont belles cette année.",
+          "example_meaning": "The strawberries are beautiful this year."
+        },
+        {
+          "term": "vieux / vieille",
+          "example": "Notre vache est vieille mais gentille.",
+          "example_meaning": "Our cow is old but gentle."
+        },
+        {
+          "term": "le mouton",
+          "meaning": "sheep",
+          "example": "Le mouton de Nora est vieux.",
+          "example_meaning": "Nora's sheep is old."
+        },
+        {
+          "term": "la poule",
+          "meaning": "hen",
+          "example": "Nos poules sont noires.",
+          "example_meaning": "Our hens are black."
+        },
+        {
+          "term": "noir / noire",
+          "meaning": "black",
+          "example": "La vache noire est à mon oncle.",
+          "example_meaning": "The black cow belongs to my uncle."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Ma ferme, mes animaux",
+          "emoji": "🐑",
+          "rule": "Mon mouton, ma poule, mes vaches: the possessive follows the animal. Adjectives agree: un petit mouton, une petite poule.",
+          "example": "Nos poules sont noires.",
+          "example_meaning": "Our hens are black."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Le vieux mouton mange.",
+          "meaning": "The old sheep is eating.",
+          "note": "New word: le mouton = the sheep."
+        },
+        {
+          "text": "Ma poule noire est très vieille.",
+          "meaning": "My black hen is very old.",
+          "note": "New word: la poule = the hen."
+        },
+        {
+          "text": "Ma grand-mère arrose les belles fraises.",
+          "meaning": "My grandmother waters the beautiful strawberries."
+        },
+        {
+          "text": "Leur ferme est petite mais jolie.",
+          "meaning": "Their farm is small but pretty.",
+          "note": "New word: joli = pretty."
+        },
+        {
+          "text": "Mon frère et ma cousine pêchent ensemble.",
+          "meaning": "My brother and my cousin fish together."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Nos poules sont noires.",
+          "meaning": "Our hens are black.",
+          "distractors": [
+            "noirs"
+          ]
+        },
+        {
+          "text": "Ma tante a une vieille vache.",
+          "meaning": "My aunt has an old cow.",
+          "distractors": [
+            "vieux"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Ma vache est vieux.",
+          "wrong": "vieux",
+          "fix": "vieille",
+          "why": "Vache is feminine: vieille."
+        },
+        {
+          "sentence": "Nora aime ses deux mouton.",
+          "wrong": "mouton",
+          "fix": "moutons",
+          "why": "Ses deux is plural, so the noun is plural too: ses deux moutons."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Masculine or feminine on the farm?",
+          "buckets": [
+            "un petit …",
+            "une petite …"
+          ],
+          "items": [
+            {
+              "text": "mouton",
+              "bucket": 0
+            },
+            {
+              "text": "poule",
+              "bucket": 1
+            },
+            {
+              "text": "cochon",
+              "bucket": 0
+            },
+            {
+              "text": "vache",
+              "bucket": 1
+            },
+            {
+              "text": "champignon",
+              "bucket": 0
+            },
+            {
+              "text": "fraise",
+              "bucket": 1
+            }
+          ],
+          "why": "The adjective agrees with the noun's gender: un petit mouton, une petite vache."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-family-adjectives-meadowbrook-01",
+          "prompt": "___ poules sont noires. (our)",
+          "type": "multiple-choice",
+          "options": [
+            "Nos",
+            "Notre",
+            "Leur"
+          ],
+          "correct_answer": "Nos",
+          "explanation": "Poules is plural, so 'our' is nos: nos poules.",
+          "hints": [
+            "The noun is plural."
+          ],
+          "teaches": [
+            "la poule",
+            "noir / noire"
+          ]
+        },
+        {
+          "question_id": "a1-family-adjectives-meadowbrook-02",
+          "prompt": "Notre vache est ___. (vieux)",
+          "type": "fill-in-blank",
+          "correct_answer": "vieille",
+          "accepted_answers": [],
+          "explanation": "Vache is feminine, and the feminine of vieux is vieille.",
+          "hints": [
+            "Vieux has an irregular feminine."
+          ],
+          "teaches": [
+            "vieux / vieille"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🧰",
+      "content": "## La famille à Rustwake\n\nIn the scrap village, families stick together. Léo **et sa sœur** fix **un vieux robot**, Marta **et son mari** repair **des radios**. Possessives follow the noun, adjectives agree: **une combinaison bleue, des combinaisons bleues**.",
+      "vocabulary": [
+        {
+          "term": "la sœur",
+          "example": "Léo et sa sœur réparent la radio.",
+          "example_meaning": "Léo and his sister repair the radio."
+        },
+        {
+          "term": "le mari",
+          "example": "Le mari de Marta est fouilleur.",
+          "example_meaning": "Marta's husband is a scavenger."
+        },
+        {
+          "term": "le père",
+          "example": "Mon père habite encore dans le Dôme.",
+          "example_meaning": "My father still lives in the Dome."
+        },
+        {
+          "term": "les grands-parents",
+          "example": "Nos grands-parents racontent la vie avant le désert.",
+          "example_meaning": "Our grandparents tell of life before the desert."
+        },
+        {
+          "term": "vieux / vieille",
+          "example": "Le vieux robot jardinier est gentil.",
+          "example_meaning": "The old gardener robot is kind."
+        },
+        {
+          "term": "beau / belle",
+          "example": "Marta a une belle radio-montre.",
+          "example_meaning": "Marta has a beautiful wrist radio."
+        },
+        {
+          "term": "le robot",
+          "meaning": "robot",
+          "example": "Notre robot est petit.",
+          "example_meaning": "Our robot is small."
+        },
+        {
+          "term": "la combinaison",
+          "meaning": "jumpsuit",
+          "example": "Ma combinaison est bleue.",
+          "example_meaning": "My jumpsuit is blue."
+        },
+        {
+          "term": "bleu / bleue",
+          "meaning": "blue",
+          "example": "Leurs combinaisons sont bleues.",
+          "example_meaning": "Their jumpsuits are blue."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Famille du désert",
+          "emoji": "🧰",
+          "rule": "Son robot, sa combinaison, ses écrous: the possessive follows the noun. Adjectives agree: un robot bleu, une combinaison bleue.",
+          "example": "Léo et sa sœur réparent un vieux robot.",
+          "example_meaning": "Léo and his sister repair an old robot."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Ta combinaison est vieille et bleue.",
+          "meaning": "Your jumpsuit is old and blue.",
+          "note": "New word: la combinaison = the jumpsuit."
+        },
+        {
+          "text": "Notre robot est vieux.",
+          "meaning": "Our robot is old.",
+          "note": "New word: le robot = the robot."
+        },
+        {
+          "text": "Léo et sa sœur cherchent des écrous.",
+          "meaning": "Léo and his sister are looking for nuts."
+        },
+        {
+          "text": "Leur fils est un petit fouilleur.",
+          "meaning": "Their son is a little scavenger."
+        },
+        {
+          "text": "Mon oncle a une vieille radio-montre.",
+          "meaning": "My uncle has an old wrist radio."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Leurs combinaisons sont bleues.",
+          "meaning": "Their jumpsuits are blue.",
+          "distractors": [
+            "bleus"
+          ]
+        },
+        {
+          "text": "Léo et sa sœur réparent la radio.",
+          "meaning": "Léo and his sister repair the radio.",
+          "distractors": [
+            "son"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Ma combinaison est bleu.",
+          "wrong": "bleu",
+          "fix": "bleue",
+          "why": "Combinaison is feminine: add -e."
+        },
+        {
+          "sentence": "Marta et sa mari réparent des radios.",
+          "wrong": "sa",
+          "fix": "son",
+          "why": "Mari is masculine: son mari."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Bleu, bleue, bleus or bleues?",
+          "buckets": [
+            "bleu",
+            "bleue",
+            "bleus / bleues"
+          ],
+          "items": [
+            {
+              "text": "un robot …",
+              "bucket": 0
+            },
+            {
+              "text": "une combinaison …",
+              "bucket": 1
+            },
+            {
+              "text": "des écrous …",
+              "bucket": 2
+            },
+            {
+              "text": "un disque …",
+              "bucket": 0
+            },
+            {
+              "text": "une radio …",
+              "bucket": 1
+            },
+            {
+              "text": "des combinaisons …",
+              "bucket": 2
+            }
+          ],
+          "why": "The adjective agrees: -e for feminine, -s for plural, -es for both."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "a1-family-adjectives-rustwake-01",
+          "prompt": "Leurs combinaisons sont ___.",
+          "type": "multiple-choice",
+          "options": [
+            "bleues",
+            "bleus",
+            "bleu"
+          ],
+          "correct_answer": "bleues",
+          "explanation": "Combinaisons is feminine plural, so add -es: bleues.",
+          "hints": [
+            "Feminine and plural."
+          ],
+          "teaches": [
+            "la combinaison",
+            "bleu / bleue"
+          ]
+        },
+        {
+          "question_id": "a1-family-adjectives-rustwake-02",
+          "prompt": "'Son robot' can mean 'her robot'.",
+          "type": "true-false",
+          "correct_answer": "true",
+          "explanation": "Son agrees with robot (masculine), not with the owner: son robot is his robot or her robot.",
+          "hints": [
+            "Possessives agree with the thing owned."
+          ],
+          "teaches": [
+            "le robot"
+          ]
+        }
+      ]
+    }
+  }
+}

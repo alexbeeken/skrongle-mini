@@ -1,0 +1,1139 @@
+{
+  "id": "b1-relative-pronouns",
+  "slug": "relative-pronouns",
+  "title": "Relative pronouns: qui, que, où, dont",
+  "unit": "B1",
+  "group": "Grammar",
+  "order": 22,
+  "summary": "Join sentences with qui, que, où and dont, say 'what' with ce qui, ce que and ce dont, and use lequel after a preposition.",
+  "focus": "Choosing the right relative pronoun",
+  "prerequisites": [
+    "a2-object-pronouns"
+  ],
+  "content": "## Qui and que\n\nRelative pronouns join two sentences about the same noun. Choose by the job the noun does in the second half.\n\n- **qui** = subject (a verb follows): **J'ai un ami qui habite à Lyon.** (I have a friend who lives in Lyon.)\n- **que** = direct object (a subject + verb follows): **C'est le film que j'ai vu hier.** (It's the film (that) I saw yesterday.)\n\n**Que** becomes **qu'** before a vowel (**le livre qu'il lit**); **qui** never shortens (**l'homme qui arrive**). English can drop *that*; French can never drop **que**.\n\n## Où and dont\n\n- **où** = where, and also *when* after a time word: **la ville où je suis né** (the town where I was born), **le jour où nous nous sommes rencontrés** (the day we met).\n- **dont** replaces **de** + noun, with verbs built with **de** (**parler de**, **avoir besoin de**, **rêver de**):\n  - **le livre dont je parle**: the book I'm talking about\n  - **l'outil dont j'ai besoin**: the tool I need\n- **dont** also means *whose*: **la fille dont le père est médecin**: the girl whose father is a doctor.\n\n## Ce qui, ce que, ce dont\n\nWith no noun before the pronoun, add **ce**. It means *what*:\n\n| | job | example |\n|---|---|---|\n| **ce qui** | subject | **Ce qui m'intéresse, c'est l'histoire.** (What interests me is history.) |\n| **ce que** | object | **Dis-moi ce que tu veux.** (Tell me what you want.) |\n| **ce dont** | with de | **C'est ce dont j'ai besoin.** (That's what I need.) |\n\n**Tout ce que** = everything (that): **Je fais tout ce que je peux.**\n\n## Lequel, and agreement after que\n\nAfter a preposition (**avec**, **pour**, **sur**, **dans**), use **lequel**, **laquelle**, **lesquels**, **lesquelles**, agreeing with the noun:\n\n- **le stylo avec lequel j'écris**: the pen I write with\n- **la raison pour laquelle je suis venu**: the reason (why) I came\n\nWith **à** and **de** it contracts: **auquel**, **duquel**. For people, **qui** is usual: **l'amie avec qui je voyage**.\n\n**Agreement:** with avoir, the participle agrees with a direct object placed before it, so **que** passes on gender and number: **la lettre que j'ai écrite**, **les photos que tu as prises**.",
+  "vocabulary": [
+    {
+      "term": "qui",
+      "meaning": "who, which, that (subject)",
+      "example": "La femme qui chante est ma tante.",
+      "example_meaning": "The woman who is singing is my aunt."
+    },
+    {
+      "term": "que",
+      "meaning": "whom, which, that (object)",
+      "example": "Le gâteau que tu as fait est délicieux.",
+      "example_meaning": "The cake you made is delicious."
+    },
+    {
+      "term": "où",
+      "meaning": "where; when (after a time word)",
+      "example": "Je me souviens du jour où tu es né.",
+      "example_meaning": "I remember the day you were born."
+    },
+    {
+      "term": "dont",
+      "meaning": "of which, about which, whose",
+      "example": "Voici le collègue dont je t'ai parlé.",
+      "example_meaning": "Here's the colleague I told you about."
+    },
+    {
+      "term": "parler de",
+      "meaning": "to talk about",
+      "example": "Nous parlons souvent de nos voyages.",
+      "example_meaning": "We often talk about our trips."
+    },
+    {
+      "term": "ce qui",
+      "meaning": "what (subject)",
+      "example": "Ce qui compte, c'est la santé.",
+      "example_meaning": "What matters is health."
+    },
+    {
+      "term": "ce que",
+      "meaning": "what (object)",
+      "example": "Je ne comprends pas ce que tu dis.",
+      "example_meaning": "I don't understand what you're saying."
+    },
+    {
+      "term": "ce dont",
+      "meaning": "what (with a verb taking de)",
+      "example": "Ce dont tu as besoin, c'est de vacances.",
+      "example_meaning": "What you need is a holiday."
+    },
+    {
+      "term": "avoir besoin de",
+      "meaning": "to need",
+      "example": "J'ai besoin de ton aide.",
+      "example_meaning": "I need your help."
+    },
+    {
+      "term": "lequel / laquelle",
+      "meaning": "which (after a preposition)",
+      "example": "C'est la raison pour laquelle je suis parti.",
+      "example_meaning": "That's the reason why I left."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-relative-pronouns-01",
+      "prompt": "J'ai un ami ___ habite à Lyon.",
+      "type": "multiple-choice",
+      "options": [
+        "qui",
+        "que",
+        "dont"
+      ],
+      "correct_answer": "qui",
+      "explanation": "A verb follows directly (habite), so the pronoun is the subject: qui.",
+      "hints": [
+        "Is the friend doing the living (subject) or receiving the action?"
+      ],
+      "teaches": [
+        "qui"
+      ]
+    },
+    {
+      "question_id": "b1-relative-pronouns-02",
+      "prompt": "C'est le film ___ j'ai vu hier.",
+      "type": "multiple-choice",
+      "options": [
+        "qui",
+        "que",
+        "où"
+      ],
+      "correct_answer": "que",
+      "explanation": "A subject + verb follows (j'ai vu): the film is the object, so que.",
+      "hints": [
+        "Who does the seeing? Then what is the film?"
+      ],
+      "teaches": [
+        "que"
+      ]
+    },
+    {
+      "question_id": "b1-relative-pronouns-03",
+      "prompt": "La ville ___ je suis né est petite.",
+      "type": "fill-in-blank",
+      "correct_answer": "où",
+      "accepted_answers": [],
+      "explanation": "For a place, the relative pronoun is où: la ville où je suis né.",
+      "hints": [
+        "Where?"
+      ],
+      "teaches": [
+        "où"
+      ]
+    },
+    {
+      "question_id": "b1-relative-pronouns-04",
+      "prompt": "Voici le livre ___ je t'ai parlé.",
+      "type": "multiple-choice",
+      "options": [
+        "que",
+        "dont",
+        "où"
+      ],
+      "correct_answer": "dont",
+      "explanation": "Parler is built with de (parler de ce livre), so the pronoun is dont.",
+      "hints": [
+        "Parler ___ quelque chose."
+      ],
+      "teaches": [
+        "dont",
+        "parler de"
+      ]
+    },
+    {
+      "question_id": "b1-relative-pronouns-05",
+      "prompt": "Dis-moi ___ tu veux pour ton anniversaire.",
+      "type": "fill-in-blank",
+      "correct_answer": "ce que",
+      "accepted_answers": [],
+      "explanation": "No noun before the pronoun, and it is the object of veux: ce que = what.",
+      "hints": [
+        "Two words: ce + the object pronoun."
+      ],
+      "teaches": [
+        "ce que"
+      ]
+    },
+    {
+      "question_id": "b1-relative-pronouns-06",
+      "prompt": "In 'la lettre que j'ai écrite', écrite agrees because que stands for la lettre, placed before the verb.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "With avoir, the participle agrees with a direct object placed before it; que carries the feminine of la lettre.",
+      "hints": [
+        "Where is the direct object: before or after ai écrit?"
+      ],
+      "teaches": [
+        "que"
+      ]
+    },
+    {
+      "question_id": "b1-relative-pronouns-07",
+      "prompt": "C'est le stylo avec ___ j'écris.",
+      "type": "fill-in-blank",
+      "correct_answer": "lequel",
+      "accepted_answers": [],
+      "explanation": "After a preposition, for a thing, use lequel; le stylo is masculine singular.",
+      "hints": [
+        "Masculine singular form after avec."
+      ],
+      "teaches": [
+        "lequel / laquelle"
+      ]
+    },
+    {
+      "question_id": "b1-relative-pronouns-08",
+      "prompt": "___ me plaît dans cette ville, c'est le marché.",
+      "type": "multiple-choice",
+      "options": [
+        "Ce qui",
+        "Ce que",
+        "Ce dont"
+      ],
+      "correct_answer": "Ce qui",
+      "explanation": "The pronoun is the subject of plaît, and no noun comes before it: ce qui.",
+      "hints": [
+        "A verb follows directly."
+      ],
+      "teaches": [
+        "ce qui"
+      ]
+    },
+    {
+      "question_id": "b1-relative-pronouns-09",
+      "prompt": "Like English 'that', French que can be left out: 'le film j'ai vu'.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "French never drops que: le film que j'ai vu.",
+      "hints": [
+        "English can say 'the film I saw'. Can French?"
+      ],
+      "teaches": [
+        "que"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-relative-pronouns-conv-holiday-photos",
+      "title": "Holiday photos",
+      "scenario": "Inès shows her friend Marc the photos from her trip to Lisbon.",
+      "role_a": "Inès",
+      "role_b": "Marc",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Regarde les photos que j'ai prises à Lisbonne !",
+          "meaning": "Look at the photos I took in Lisbon!"
+        },
+        {
+          "speaker": "b",
+          "text": "Super ! C'est qui, la fille qui porte un chapeau ?",
+          "meaning": "Great! Who's the girl wearing a hat?"
+        },
+        {
+          "speaker": "a",
+          "text": "C'est Ana, l'amie dont je t'ai parlé.",
+          "meaning": "That's Ana, the friend I told you about."
+        },
+        {
+          "speaker": "b",
+          "text": "Ah, celle qui parle cinq langues ?",
+          "meaning": "Ah, the one who speaks five languages?"
+        },
+        {
+          "speaker": "a",
+          "text": "Oui ! Et voici le café où nous prenions le petit-déjeuner.",
+          "meaning": "Yes! And here's the café where we used to have breakfast."
+        },
+        {
+          "speaker": "b",
+          "text": "Il a l'air sympa. C'est la ville où tu voudrais habiter, non ?",
+          "meaning": "It looks nice. That's the city where you'd like to live, isn't it?"
+        },
+        {
+          "speaker": "a",
+          "text": "Exactement. C'est la raison pour laquelle j'apprends le portugais.",
+          "meaning": "Exactly. That's the reason I'm learning Portuguese."
+        },
+        {
+          "speaker": "b",
+          "text": "Et ce que tu préfères là-bas, c'est quoi ?",
+          "meaning": "And what do you like best there?"
+        },
+        {
+          "speaker": "a",
+          "text": "Ce qui me plaît le plus, c'est la lumière.",
+          "meaning": "What I like most is the light."
+        },
+        {
+          "speaker": "b",
+          "text": "Et le livre dont tu as besoin pour tes cours ?",
+          "meaning": "And the book you need for your classes?"
+        },
+        {
+          "speaker": "a",
+          "text": "C'est celui qu'Ana m'a donné. Il est là, dans mon sac.",
+          "meaning": "It's the one Ana gave me. It's here, in my bag."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "C'est l'homme qui chante.",
+      "meaning": "That's the man who is singing.",
+      "note": "Qui: a verb follows."
+    },
+    {
+      "text": "Voici la maison où j'habite.",
+      "meaning": "Here is the house where I live."
+    },
+    {
+      "text": "C'est exactement ce dont j'ai besoin.",
+      "meaning": "That's exactly what I need.",
+      "note": "Avoir besoin de takes ce dont."
+    },
+    {
+      "text": "Le livre que je lis est passionnant.",
+      "meaning": "The book I'm reading is gripping.",
+      "note": "New word: passionnant = gripping."
+    },
+    {
+      "text": "Je n'oublierai jamais le jour où je t'ai rencontré.",
+      "meaning": "I'll never forget the day I met you.",
+      "note": "Où after a time word means when."
+    },
+    {
+      "text": "Ce qui m'intéresse, c'est la cuisine de ma grand-mère.",
+      "meaning": "What interests me is my grandmother's cooking."
+    },
+    {
+      "text": "Les chaussures que j'ai achetées hier sont déjà trop petites.",
+      "meaning": "The shoes I bought yesterday are already too small.",
+      "note": "New word: les chaussures = the shoes."
+    },
+    {
+      "text": "La table sur laquelle tu as posé tes clés est cassée.",
+      "meaning": "The table you put your keys on is broken.",
+      "note": "New word: poser = to put down."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Qui and que"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-relative-pronouns-01"
+    },
+    {
+      "question": "b1-relative-pronouns-02"
+    },
+    {
+      "question": "b1-relative-pronouns-09"
+    },
+    {
+      "section": "Où and dont"
+    },
+    {
+      "question": "b1-relative-pronouns-03"
+    },
+    {
+      "question": "b1-relative-pronouns-04"
+    },
+    {
+      "tip": "Look right after the gap: a verb means qui, a subject + verb means que, and a verb built with de means dont."
+    },
+    {
+      "section": "Ce qui"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-relative-pronouns-08"
+    },
+    {
+      "question": "b1-relative-pronouns-05"
+    },
+    {
+      "concept": {
+        "title": "Dont or duquel?",
+        "markdown": "**Dont** is the everyday choice for **de** + noun. But after a longer preposition ending in **de** (**à côté de**, **près de**, **au milieu de**), use **duquel / de laquelle**, or **de qui** for people: **la maison à côté de laquelle j'habite**: the house I live next to."
+      }
+    },
+    {
+      "section": "Lequel"
+    },
+    {
+      "question": "b1-relative-pronouns-07"
+    },
+    {
+      "question": "b1-relative-pronouns-06"
+    }
+  ],
+  "sprint": {
+    "icon": "🪢",
+    "bites": [
+      {
+        "title": "Qui or que?",
+        "emoji": "🔍",
+        "rule": "Qui is the subject (a verb follows); que is the object (a subject + verb follows). Que becomes qu' before a vowel; qui never does.",
+        "example": "C'est l'ami qui m'aide et le film que j'aime.",
+        "example_meaning": "It's the friend who helps me and the film I love."
+      },
+      {
+        "title": "Où and dont",
+        "emoji": "📍",
+        "rule": "Où means where, and also when after a time word (le jour où). Dont replaces de + noun: le livre dont je parle, la fille dont le père est médecin.",
+        "example": "C'est le jour où je suis arrivé.",
+        "example_meaning": "It's the day I arrived."
+      },
+      {
+        "title": "Ce qui, ce que, ce dont",
+        "emoji": "🧩",
+        "rule": "With no noun before the pronoun, add ce: ce qui (subject), ce que (object), ce dont (with de). They all mean 'what'.",
+        "example": "Je sais ce que tu veux.",
+        "example_meaning": "I know what you want."
+      },
+      {
+        "title": "Lequel after a preposition",
+        "emoji": "🖊️",
+        "rule": "After avec, pour, sur, dans: lequel, laquelle, lesquels, lesquelles, agreeing with the noun. With à and de: auquel, duquel.",
+        "example": "C'est le stylo avec lequel j'écris.",
+        "example_meaning": "It's the pen I write with."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Qui or que?",
+        "buckets": [
+          "qui",
+          "que"
+        ],
+        "items": [
+          {
+            "text": "La fille ___ chante.",
+            "bucket": 0
+          },
+          {
+            "text": "Le gâteau ___ je mange.",
+            "bucket": 1
+          },
+          {
+            "text": "Le bus ___ arrive.",
+            "bucket": 0
+          },
+          {
+            "text": "La robe ___ elle porte.",
+            "bucket": 1
+          },
+          {
+            "text": "Les gens ___ travaillent ici.",
+            "bucket": 0
+          },
+          {
+            "text": "Le livre ___ tu lis.",
+            "bucket": 1
+          },
+          {
+            "text": "Le chien ___ aboie.",
+            "bucket": 0
+          },
+          {
+            "text": "La ville ___ nous visitons.",
+            "bucket": 1
+          }
+        ],
+        "why": "A verb right after the gap takes qui (subject). A subject + verb takes que (object)."
+      },
+      {
+        "title": "Où, dont or ce que?",
+        "buckets": [
+          "où",
+          "dont",
+          "ce que"
+        ],
+        "items": [
+          {
+            "text": "la ville ___ je suis né",
+            "bucket": 0
+          },
+          {
+            "text": "le jour ___ il est parti",
+            "bucket": 0
+          },
+          {
+            "text": "le livre ___ je parle",
+            "bucket": 1
+          },
+          {
+            "text": "l'outil ___ j'ai besoin",
+            "bucket": 1
+          },
+          {
+            "text": "Dis-moi ___ tu penses.",
+            "bucket": 2
+          },
+          {
+            "text": "Je fais ___ je veux.",
+            "bucket": 2
+          }
+        ],
+        "why": "Places and times take où; verbs built with de take dont; 'what' as an object with no noun is ce que."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "J'ai un ami que habite à Paris.",
+        "wrong": "que",
+        "fix": "qui",
+        "why": "A verb follows directly: the subject pronoun qui."
+      },
+      {
+        "sentence": "C'est le film qui j'ai vu hier.",
+        "wrong": "qui",
+        "fix": "que",
+        "why": "A subject + verb follows: the object pronoun que."
+      },
+      {
+        "sentence": "Voici le livre que je t'ai parlé.",
+        "wrong": "que",
+        "fix": "dont",
+        "why": "Parler de takes dont."
+      },
+      {
+        "sentence": "Je ne sais pas ce qui tu veux.",
+        "wrong": "qui",
+        "fix": "que",
+        "why": "Tu is the subject, so 'what' is the object: ce que."
+      },
+      {
+        "sentence": "La lettre que j'ai écrit est sur la table.",
+        "wrong": "écrit",
+        "fix": "écrite",
+        "why": "The participle agrees with que = la lettre, placed before it."
+      },
+      {
+        "sentence": "Je me souviens du jour quand nous sommes arrivés.",
+        "wrong": "quand",
+        "fix": "où",
+        "why": "After a time word, French uses où, not quand."
+      }
+    ],
+    "builds": [
+      {
+        "text": "C'est le film que j'ai vu.",
+        "meaning": "It's the film I saw.",
+        "distractors": [
+          "qui"
+        ]
+      },
+      {
+        "text": "J'ai une amie qui parle chinois.",
+        "meaning": "I have a friend who speaks Chinese.",
+        "distractors": [
+          "que"
+        ]
+      },
+      {
+        "text": "Voici le livre dont je parle.",
+        "meaning": "Here's the book I'm talking about.",
+        "distractors": [
+          "que"
+        ]
+      },
+      {
+        "text": "Dis-moi ce que tu veux.",
+        "meaning": "Tell me what you want.",
+        "distractors": [
+          "qui"
+        ]
+      },
+      {
+        "text": "C'est la raison pour laquelle je pars.",
+        "meaning": "That's the reason why I'm leaving.",
+        "distractors": [
+          "lequel"
+        ]
+      }
+    ]
+  },
+  "themes": {
+    "realm": {
+      "icon": "🕸️",
+      "content": "## Les pronoms relatifs à Eldmark\n\nA bard's tale links its heroes and things with relative pronouns: **l'elfe qui chasse**, **l'épée que Borin a forgée**, **la forêt où vivent les araignées**, **la quête dont tout le monde parle**, **le bouclier avec lequel Nym se protège**.",
+      "vocabulary": [
+        {
+          "term": "qui",
+          "example": "Nym est l'elfe qui chasse dans la Forêt Ombreuse.",
+          "example_meaning": "Nym is the elf who hunts in the Shadow Forest."
+        },
+        {
+          "term": "que",
+          "example": "L'épée que Borin a forgée brille dans le noir.",
+          "example_meaning": "The sword Borin forged shines in the dark."
+        },
+        {
+          "term": "où",
+          "example": "Deepanvil est la mine où travaillent les nains.",
+          "example_meaning": "Deepanvil is the mine where the dwarves work."
+        },
+        {
+          "term": "dont",
+          "example": "C'est la quête dont tout le monde parle à la taverne.",
+          "example_meaning": "It's the quest everyone at the tavern is talking about."
+        },
+        {
+          "term": "ce que",
+          "example": "Le mage sait ce que dit le parchemin.",
+          "example_meaning": "The mage knows what the scroll says."
+        },
+        {
+          "term": "lequel / laquelle",
+          "example": "Voici le bouclier avec lequel Borin a protégé la guilde.",
+          "example_meaning": "Here's the shield Borin protected the guild with."
+        },
+        {
+          "term": "l'araignée",
+          "meaning": "spider (f)",
+          "example": "La forêt où vivent les araignées est sombre.",
+          "example_meaning": "The forest where the spiders live is dark."
+        },
+        {
+          "term": "la toile",
+          "meaning": "web (f)",
+          "example": "La toile que l'araignée a tissée bloque la porte.",
+          "example_meaning": "The web the spider wove blocks the door."
+        },
+        {
+          "term": "le barde",
+          "meaning": "bard",
+          "example": "Le barde dont tu parles chante à la taverne du Dragon Vert.",
+          "example_meaning": "The bard you're talking about sings at the Green Dragon tavern."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Le conte du barde",
+          "emoji": "🕸️",
+          "rule": "A bard links heroes and things with qui (subject), que (object), où (place), dont (de) and lequel after a preposition.",
+          "example": "C'est l'épée que Borin a forgée.",
+          "example_meaning": "It's the sword Borin forged."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Voici l'elfe qui chasse.",
+          "meaning": "Here's the elf who hunts."
+        },
+        {
+          "text": "L'épée que Borin a forgée brille.",
+          "meaning": "The sword Borin forged shines.",
+          "note": "Que + agreement: forgée."
+        },
+        {
+          "text": "C'est la quête dont tout le monde parle.",
+          "meaning": "It's the quest everyone is talking about."
+        },
+        {
+          "text": "L'araignée que Nym a vue était énorme.",
+          "meaning": "The spider Nym saw was huge.",
+          "note": "New word: l'araignée = the spider."
+        },
+        {
+          "text": "La grotte où dort le dragon est froide.",
+          "meaning": "The cave where the dragon sleeps is cold."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Voici l'épée que Borin a forgée.",
+          "meaning": "Here's the sword Borin forged.",
+          "distractors": [
+            "qui"
+          ]
+        },
+        {
+          "text": "C'est la forêt où vivent les araignées.",
+          "meaning": "It's the forest where the spiders live.",
+          "distractors": [
+            "dont"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Nym est l'elfe que chasse dans la forêt.",
+          "wrong": "que",
+          "fix": "qui",
+          "why": "A verb follows directly: qui."
+        },
+        {
+          "sentence": "C'est la quête que tout le monde parle.",
+          "wrong": "que",
+          "fix": "dont",
+          "why": "Parler de takes dont."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Qui, que or dont in Eldmark?",
+          "buckets": [
+            "qui",
+            "que",
+            "dont"
+          ],
+          "items": [
+            {
+              "text": "l'orc ___ crie",
+              "bucket": 0
+            },
+            {
+              "text": "le nain ___ forge une épée",
+              "bucket": 0
+            },
+            {
+              "text": "le butin ___ nous avons trouvé",
+              "bucket": 1
+            },
+            {
+              "text": "la potion ___ Séla prépare",
+              "bucket": 1
+            },
+            {
+              "text": "le dragon ___ tout le monde parle",
+              "bucket": 2
+            },
+            {
+              "text": "la monture ___ j'ai besoin",
+              "bucket": 2
+            }
+          ],
+          "why": "A verb next takes qui, a subject + verb next takes que, and a verb built with de takes dont."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-relative-pronouns-realm-01",
+          "prompt": "Voici le bouclier avec ___ Borin protège la guilde.",
+          "type": "multiple-choice",
+          "options": [
+            "lequel",
+            "laquelle",
+            "qui"
+          ],
+          "correct_answer": "lequel",
+          "explanation": "After a preposition, for a thing, use lequel; le bouclier is masculine.",
+          "hints": [
+            "A shield is a thing, and masculine."
+          ],
+          "teaches": [
+            "lequel / laquelle"
+          ]
+        },
+        {
+          "question_id": "b1-relative-pronouns-realm-02",
+          "prompt": "C'est la quête ___ tout le monde parle.",
+          "type": "fill-in-blank",
+          "correct_answer": "dont",
+          "accepted_answers": [],
+          "explanation": "Parler de takes dont.",
+          "hints": [
+            "Parler ___ la quête."
+          ],
+          "teaches": [
+            "dont"
+          ]
+        }
+      ]
+    },
+    "meadowbrook": {
+      "icon": "🍇",
+      "content": "## Les pronoms relatifs à Meadowbrook\n\nIn town, people point things out with relatives: **la fermière qui vend du raisin**, **les fraises que Nora a cueillies**, **la rivière où Léo pêche**, **la graine dont j'ai besoin**, **ce que Rosa vend**.",
+      "vocabulary": [
+        {
+          "term": "qui",
+          "example": "Nora est la fermière qui vend du raisin au marché.",
+          "example_meaning": "Nora is the farmer who sells grapes at the market."
+        },
+        {
+          "term": "que",
+          "example": "Les fraises que Nora a cueillies sont délicieuses.",
+          "example_meaning": "The strawberries Nora picked are delicious."
+        },
+        {
+          "term": "où",
+          "example": "La rivière où Léo pêche est très calme.",
+          "example_meaning": "The river where Léo fishes is very calm."
+        },
+        {
+          "term": "dont",
+          "example": "Voici la graine dont tu as besoin.",
+          "example_meaning": "Here's the seed you need."
+        },
+        {
+          "term": "ce qui",
+          "example": "Ce qui plaît à Rosa, c'est le printemps.",
+          "example_meaning": "What Rosa likes is spring."
+        },
+        {
+          "term": "avoir besoin de",
+          "example": "Nora a besoin d'un nouvel arrosoir.",
+          "example_meaning": "Nora needs a new watering can."
+        },
+        {
+          "term": "le raisin",
+          "meaning": "grapes",
+          "example": "Le raisin qui pousse près de la rivière est très sucré.",
+          "example_meaning": "The grapes growing near the river are very sweet."
+        },
+        {
+          "term": "cueillir",
+          "meaning": "to pick (fruit, flowers)",
+          "example": "Nous cueillons le raisin en automne.",
+          "example_meaning": "We pick the grapes in autumn."
+        },
+        {
+          "term": "la vigne",
+          "meaning": "vine (f)",
+          "example": "La vigne que le maire a plantée donne du raisin.",
+          "example_meaning": "The vine the mayor planted gives grapes."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Au marché de Meadowbrook",
+          "emoji": "🍇",
+          "rule": "Point things out at the market: qui (who does it), que (what you picked), où (where it grows), dont (what you need).",
+          "example": "Les fraises que Nora a cueillies sont sucrées.",
+          "example_meaning": "The strawberries Nora picked are sweet."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Voici le raisin que j'ai cueilli.",
+          "meaning": "Here are the grapes I picked.",
+          "note": "New word: cueillir = to pick."
+        },
+        {
+          "text": "Voici l'arrosoir dont Nora a besoin.",
+          "meaning": "Here's the watering can Nora needs."
+        },
+        {
+          "text": "La rivière où Léo pêche est calme.",
+          "meaning": "The river where Léo fishes is calm."
+        },
+        {
+          "text": "Rosa est la voisine qui vend des graines.",
+          "meaning": "Rosa is the neighbour who sells seeds."
+        },
+        {
+          "text": "La vigne qui pousse près de la ferme est vieille.",
+          "meaning": "The vine growing near the farm is old.",
+          "note": "New word: la vigne = the vine."
+        }
+      ],
+      "builds": [
+        {
+          "text": "C'est la graine dont j'ai besoin.",
+          "meaning": "It's the seed I need.",
+          "distractors": [
+            "que"
+          ]
+        },
+        {
+          "text": "Nora est la fermière qui vend du raisin.",
+          "meaning": "Nora is the farmer who sells grapes.",
+          "distractors": [
+            "que"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Les fraises que Nora a cueilli sont délicieuses.",
+          "wrong": "cueilli",
+          "fix": "cueillies",
+          "why": "The participle agrees with que = les fraises, placed before it."
+        },
+        {
+          "sentence": "La rivière dont Léo pêche est calme.",
+          "wrong": "dont",
+          "fix": "où",
+          "why": "A place takes où."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Qui, que or où on the farm?",
+          "buckets": [
+            "qui",
+            "que",
+            "où"
+          ],
+          "items": [
+            {
+              "text": "la vache ___ donne du lait",
+              "bucket": 0
+            },
+            {
+              "text": "la poule ___ pond des œufs",
+              "bucket": 0
+            },
+            {
+              "text": "le maïs ___ Nora plante",
+              "bucket": 1
+            },
+            {
+              "text": "la citrouille ___ Léo a choisie",
+              "bucket": 1
+            },
+            {
+              "text": "le champ ___ poussent les fraises",
+              "bucket": 2
+            },
+            {
+              "text": "la plage ___ nous pêchons",
+              "bucket": 2
+            }
+          ],
+          "why": "A verb next takes qui, a subject + verb next takes que, and a place takes où."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-relative-pronouns-meadowbrook-01",
+          "prompt": "Les fraises ___ Nora a cueillies sont sucrées.",
+          "type": "multiple-choice",
+          "options": [
+            "que",
+            "qui",
+            "dont"
+          ],
+          "correct_answer": "que",
+          "explanation": "Nora is the subject of a cueillies; the strawberries are the object: que (hence the agreement cueillies).",
+          "hints": [
+            "Who does the picking?"
+          ],
+          "teaches": [
+            "que"
+          ]
+        },
+        {
+          "question_id": "b1-relative-pronouns-meadowbrook-02",
+          "prompt": "La rivière ___ Léo pêche est calme.",
+          "type": "fill-in-blank",
+          "correct_answer": "où",
+          "accepted_answers": [],
+          "explanation": "A place takes où: la rivière où Léo pêche.",
+          "hints": [
+            "Where does Léo fish?"
+          ],
+          "teaches": [
+            "où"
+          ]
+        }
+      ]
+    },
+    "rustwake": {
+      "icon": "🔗",
+      "content": "## Les pronoms relatifs à Rustwake\n\nAt the scrap market, you identify gear with relatives: **la radio qui marche**, **les écrous que j'ai trouvés**, **l'atelier où Ruiz répare tout**, **la pièce dont j'ai besoin**, **la clé avec laquelle on ouvre le Dôme**.",
+      "vocabulary": [
+        {
+          "term": "qui",
+          "example": "Je cherche une radio qui marche.",
+          "example_meaning": "I'm looking for a radio that works."
+        },
+        {
+          "term": "que",
+          "example": "Les écrous que j'ai trouvés sont rouillés.",
+          "example_meaning": "The nuts I found are rusty."
+        },
+        {
+          "term": "où",
+          "example": "L'atelier où Ruiz répare les robots est près de l'antenne.",
+          "example_meaning": "The workshop where Ruiz repairs the robots is near the antenna."
+        },
+        {
+          "term": "dont",
+          "example": "Voici la pièce dont j'ai besoin pour l'antenne.",
+          "example_meaning": "Here's the part I need for the antenna."
+        },
+        {
+          "term": "ce dont",
+          "example": "Marta a toujours ce dont tu as besoin.",
+          "example_meaning": "Marta always has what you need."
+        },
+        {
+          "term": "ce que",
+          "example": "Montre-moi ce que tu as trouvé.",
+          "example_meaning": "Show me what you found."
+        },
+        {
+          "term": "lequel / laquelle",
+          "example": "C'est la clé avec laquelle on ouvre le Dôme.",
+          "example_meaning": "It's the key you open the Dome with."
+        },
+        {
+          "term": "la pièce",
+          "meaning": "part, spare part (f)",
+          "example": "La pièce que Léo a trouvée est cassée.",
+          "example_meaning": "The part Léo found is broken."
+        },
+        {
+          "term": "la clé",
+          "meaning": "key (f)",
+          "example": "La clé dont tu parles est chez Ruiz.",
+          "example_meaning": "The key you're talking about is at Ruiz's."
+        },
+        {
+          "term": "rouillé",
+          "meaning": "rusty",
+          "example": "Le robot jardinier qui marchait est maintenant rouillé.",
+          "example_meaning": "The gardener robot that used to work is now rusty."
+        }
+      ],
+      "bites": [
+        {
+          "title": "Inventaire du fouilleur",
+          "emoji": "🔗",
+          "rule": "Describe your finds with qui (it works), que (I found it), où (where), dont (I need it) and laquelle after a preposition.",
+          "example": "Voici la pièce dont j'ai besoin.",
+          "example_meaning": "Here's the part I need."
+        }
+      ],
+      "listening": [
+        {
+          "text": "Marta vend une radio qui ne marche plus.",
+          "meaning": "Marta is selling a radio that no longer works."
+        },
+        {
+          "text": "Voici les écrous que j'ai trouvés.",
+          "meaning": "Here are the nuts I found.",
+          "note": "Que + agreement: trouvés."
+        },
+        {
+          "text": "Voici la pièce dont j'ai besoin.",
+          "meaning": "Here's the part I need.",
+          "note": "New word: la pièce = the part."
+        },
+        {
+          "text": "L'atelier où Ruiz travaille est fermé.",
+          "meaning": "The workshop where Ruiz works is closed."
+        },
+        {
+          "text": "La clé avec laquelle Léo ouvre l'atelier est rouillée.",
+          "meaning": "The key Léo opens the workshop with is rusty.",
+          "note": "New word: la clé = the key."
+        }
+      ],
+      "builds": [
+        {
+          "text": "Je cherche une radio qui marche.",
+          "meaning": "I'm looking for a radio that works.",
+          "distractors": [
+            "que"
+          ]
+        },
+        {
+          "text": "Montre-moi ce que tu as trouvé.",
+          "meaning": "Show me what you found.",
+          "distractors": [
+            "qui"
+          ]
+        }
+      ],
+      "spots": [
+        {
+          "sentence": "Les écrous que j'ai trouvé sont rouillés.",
+          "wrong": "trouvé",
+          "fix": "trouvés",
+          "why": "The participle agrees with que = les écrous, placed before it."
+        },
+        {
+          "sentence": "C'est la clé avec lequel on ouvre le Dôme.",
+          "wrong": "lequel",
+          "fix": "laquelle",
+          "why": "La clé is feminine: laquelle."
+        }
+      ],
+      "sorts": [
+        {
+          "title": "Ce qui, ce que or ce dont?",
+          "buckets": [
+            "ce qui",
+            "ce que",
+            "ce dont"
+          ],
+          "items": [
+            {
+              "text": "___ m'inquiète, c'est la tempête.",
+              "bucket": 0
+            },
+            {
+              "text": "___ marche encore, c'est la radio.",
+              "bucket": 0
+            },
+            {
+              "text": "Montre-moi ___ tu as trouvé.",
+              "bucket": 1
+            },
+            {
+              "text": "Je prends ___ Marta vend.",
+              "bucket": 1
+            },
+            {
+              "text": "Marta a ___ tu as besoin.",
+              "bucket": 2
+            },
+            {
+              "text": "C'est ___ je rêve : de l'eau fraîche !",
+              "bucket": 2
+            }
+          ],
+          "why": "A subject takes ce qui, an object takes ce que, and a verb built with de (avoir besoin de, rêver de) takes ce dont."
+        }
+      ],
+      "quiz": [
+        {
+          "question_id": "b1-relative-pronouns-rustwake-01",
+          "prompt": "Je cherche une radio ___ marche.",
+          "type": "multiple-choice",
+          "options": [
+            "qui",
+            "que",
+            "où"
+          ],
+          "correct_answer": "qui",
+          "explanation": "A verb follows directly (marche): the subject pronoun qui.",
+          "hints": [
+            "Is the radio doing the working?"
+          ],
+          "teaches": [
+            "qui"
+          ]
+        },
+        {
+          "question_id": "b1-relative-pronouns-rustwake-02",
+          "prompt": "In 'les écrous que j'ai trouvés', trouvés agrees with les écrous.",
+          "type": "true-false",
+          "correct_answer": "true",
+          "explanation": "With avoir, the participle agrees with a direct object placed before it: que = les écrous (masculine plural).",
+          "hints": [
+            "Where is the direct object?"
+          ],
+          "teaches": [
+            "que"
+          ]
+        }
+      ]
+    }
+  }
+}
