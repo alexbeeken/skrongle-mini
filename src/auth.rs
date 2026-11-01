@@ -408,7 +408,7 @@ pub fn user_for_session(conn: &Connection, token: &str) -> rusqlite::Result<Opti
                 (SELECT version FROM terms_acceptances WHERE user_id = u.id ORDER BY accepted_at DESC, rowid DESC LIMIT 1), u.delete_at
          FROM sessions s JOIN users u ON u.id = s.user_id LEFT JOIN courses c ON c.id = u.active_course
          LEFT JOIN projects p ON p.user_id = u.id AND p.course_id = u.active_course
-         WHERE s.session_token = ?1 AND s.expires_at > ?2 AND u.suspended_at IS NULL",
+         WHERE s.session_token = ?1 AND s.expires_at > ?2",
         crate::billing::plan_sql("u.id", "?2"),
         crate::terms::accepted_sql("u.id")
     );

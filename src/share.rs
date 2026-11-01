@@ -153,12 +153,12 @@ fn address_matches(conn: &Connection, user_id: i64, email: &str) -> rusqlite::Re
 }
 
 /// May this account open the course through a share? Not while its owner
-/// is suspended (#967) or waiting to be deleted (#970).
+/// is waiting to be deleted (#970).
 pub fn can_open(conn: &Connection, user_id: i64, course_id: &str) -> rusqlite::Result<bool> {
     conn.query_row(
         "SELECT EXISTS(SELECT 1 FROM course_shares s JOIN users u ON u.id = ?1
             JOIN courses c ON c.id = s.course_id JOIN users o ON o.id = c.owner_id
-            WHERE s.course_id = ?2 AND o.suspended_at IS NULL AND o.delete_at IS NULL
+            WHERE s.course_id = ?2 AND o.delete_at IS NULL
               AND (s.user_id = u.id OR (s.email = lower(u.email) AND u.email_verified_at IS NOT NULL)))",
         params![user_id, course_id],
         |r| r.get(0),
@@ -175,12 +175,12 @@ const SHARED_WITH_SQL: &str = "SELECT s.course_id, o.first_name, o.last_name, CO
                SELECT id, course_id FROM course_shares
                WHERE email = (SELECT lower(email) FROM users WHERE id = ?1 AND email_verified_at IS NOT NULL)) s
          JOIN courses c ON c.id = s.course_id JOIN users o ON o.id = c.owner_id
-         WHERE c.owner_id != ?1 AND o.suspended_at IS NULL AND o.delete_at IS NULL AND c.taken_down_at IS NULL
+         WHERE c.owner_id != ?1 AND o.delete_at IS NULL
          ORDER BY s.id DESC";
 
 /// The courses shared with this account (opened link or confirmed
 /// address), newest share first, leaving out the ones taken down or of a
-/// suspended owner (#967) or one waiting to be deleted (#970). The caller skips the ones that do not load.
+/// owner waiting to be deleted (#970). The caller skips the ones that do not load.
 pub fn shared_with(conn: &Connection, user_id: i64) -> rusqlite::Result<Vec<SharedCourse>> {
     let mut stmt = conn.prepare_cached(SHARED_WITH_SQL)?;
     let rows = stmt.query_map([user_id], |r| {

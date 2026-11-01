@@ -3,7 +3,7 @@
 //!
 //! - Sign out: every account, or the accounts a pasted list of addresses
 //!   names. Their sessions, sign-ins waiting for a second-step code and
-//!   unused password-reset links go, as `moderation::suspend` does for one
+//!   unused password-reset links go,
 //!   account. The superuser's own session on this device stays.
 //! - Notice: a plain-text e-mail (subject and body as typed) to every
 //!   account with a confirmed address, or to the listed ones, through the

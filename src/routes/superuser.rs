@@ -8,9 +8,6 @@
 //! that e-mails it to every account (#966, `terms.rs`); and on a server that
 //! sends mail, the open content reports and copyright notices with Forward
 //! to owner and Resolve (#968, `routes/reports.rs`);
-//! and on the hosted site, moderation (#967, `moderation.rs`): the course
-//! table (#1034, `superuser/courses.rs`) with the flag of each course and
-//! what to do about it, suspend or delete an account, block an address;
 //! privacy requests that came by e-mail (#981, `superuser/privacy.rs`);
 //! the breach tools: sign everyone out, e-mail a notice (#1068, `superuser/breach.rs`);
 //! and a card that opens Release, the waitlist (#934, `superuser/release.rs`).
@@ -32,7 +29,6 @@ use crate::profile;
 use crate::AppState;
 
 pub mod breach;
-pub mod courses;
 pub mod privacy;
 pub mod release;
 
@@ -73,12 +69,8 @@ pub struct SuperuserTemplate {
     pub terms_owed: i64,
     /// Open content reports and copyright notices, oldest first (#968).
     pub reports: Vec<ReportRow>,
-    /// Moderation (#967): on the hosted site only, not Skrongle mini.
+    /// The privacy and breach cards are shown.
     pub moderate: bool,
-    /// The course table (#1034): with `moderate` only.
-    pub courses: Option<courses::CourseTable>,
-    /// Blocked addresses and ranges: id, range.
-    pub blocked: Vec<(i64, String)>,
     /// The privacy request log (#981): with `moderate` only.
     pub privacy_log: Vec<privacy::LogRow>,
     /// The breach tools (#1068): with `moderate` only.
@@ -156,20 +148,10 @@ pub struct AccountRow {
     /// '' when no session is on record.
     pub last_sign_in: String,
     pub superuser: bool,
-    pub suspended: bool,
-    /// The superuser's own row: no Suspend or Delete account, which would
-    /// lock them out (#967).
-    pub me: bool,
 }
 
-/// The page, for a superuser, at `page` (clamped to what exists). `site`
-/// is where links in e-mail point (`verify::public_base`).
-async fn load(state: &AppState, user: CurrentUser, page: i64, site: &str) -> Result<SuperuserTemplate, AppError> {
-    load_at(state, user, page, &courses::CourseQuery::default(), site).await
-}
-
-/// The page at accounts page `page` and the course table at `course`.
-async fn load_at(state: &AppState, user: CurrentUser, page: i64, course: &courses::CourseQuery, site: &str) -> Result<SuperuserTemplate, AppError> {
+/// The page, for a superuser, at `page` (clamped to what exists).
+async fn load(state: &AppState, user: CurrentUser, page: i64) -> Result<SuperuserTemplate, AppError> {
     let now = crate::db::now();
     let meter = Arc::clone(&state.meter);
     let (invites, accounts, spent, reports) = state
@@ -185,13 +167,9 @@ async fn load_at(state: &AppState, user: CurrentUser, page: i64, course: &course
         .await?;
     let terms_owed = crate::terms::unannounced(state).await?;
     let moderate = moderates(&user);
-    let me = user.email.to_lowercase();
-    let blocked = if moderate { state.db.call(|c| crate::moderation::blocked(c)).await? } else { Vec::new() };
-    let course_table = if moderate { Some(courses::load(state, &user, course, page, site).await?) } else { None };
     let privacy_log = if moderate { privacy::log(state).await? } else { Vec::new() };
     let breach = if moderate { Some(breach::card(state).await?) } else { None };
-    let course_params = if moderate { course.params() } else { String::new() };
-    let link = |p: i64| crate::url(&format!("/superuser?page={p}{course_params}"));
+    let link = |p: i64| crate::url(&format!("/superuser?page={p}"));
     Ok(SuperuserTemplate {
         user: Some(user),
         notice: None,
@@ -206,12 +184,10 @@ async fn load_at(state: &AppState, user: CurrentUser, page: i64, course: &course
             .list
             .into_iter()
             .map(|a| AccountRow {
-                me: a.email.to_lowercase() == me,
                 email: a.email,
                 created: profile::long_date(a.created_at),
                 last_sign_in: a.last_sign_in.map(profile::long_date).unwrap_or_default(),
                 superuser: a.superuser,
-                suspended: a.suspended,
             })
             .collect(),
         total: accounts.total,
@@ -224,8 +200,6 @@ async fn load_at(state: &AppState, user: CurrentUser, page: i64, course: &course
         terms_owed,
         reports: reports.into_iter().map(ReportRow::new).collect(),
         moderate,
-        courses: course_table,
-        blocked,
         privacy_log,
         breach,
     })
@@ -235,29 +209,21 @@ async fn load_at(state: &AppState, user: CurrentUser, page: i64, course: &course
 pub struct ShowQuery {
     pub page: Option<i64>,
     /// Back from an action: `reset`, `unknown`, `revoked` or
-    /// `two-factor-off`, about `email`; or `terms-sent`, `n` e-mails; or a moderation
-    /// action (`moderated`).
+    /// `two-factor-off`, about `email`; or `terms-sent`, `n` e-mails;.
     pub did: Option<String>,
     pub email: Option<String>,
     pub n: Option<i64>,
     /// More counts of a breach action (#1068).
     pub m: Option<i64>,
     pub k: Option<i64>,
-    /// A moderation action's course id or address range.
-    pub about: Option<String>,
-    /// The course table's search, filter and page (#1034).
-    pub course_q: Option<String>,
-    pub course_show: Option<String>,
-    pub course_page: Option<i64>,
 }
 
 /// GET /superuser?page=N
-pub async fn show(State(state): State<Arc<AppState>>, user: CurrentUser, headers: HeaderMap, Query(q): Query<ShowQuery>) -> Result<Response, AppError> {
+pub async fn show(State(state): State<Arc<AppState>>, user: CurrentUser, Query(q): Query<ShowQuery>) -> Result<Response, AppError> {
     if !user.superuser {
         return Err(AppError::NotFound);
     }
-    let course = courses::CourseQuery::new(q.course_q.as_deref(), q.course_show.as_deref(), q.course_page);
-    let mut t = load_at(&state, user, q.page.unwrap_or(1), &course, &crate::verify::public_base(&state, &headers)).await?;
+    let mut t = load(&state, user, q.page.unwrap_or(1)).await?;
     let email = q.email.as_deref().unwrap_or_default();
     match q.did.as_deref() {
         Some("reset") => {
@@ -274,18 +240,12 @@ pub async fn show(State(state): State<Arc<AppState>>, user: CurrentUser, headers
         Some("report-resolved") => t.notice = Some(crate::t("reports.superuser.resolved")),
         Some("report-no-owner") => t.error = Some(crate::t("reports.superuser.no_owner")),
         Some("report-unknown") => t.error = Some(crate::t("reports.superuser.unknown")),
-        Some("owner-emailed") => {
-            t.notice = Some(crate::t1("superuser.courses.owner_emailed", "id", q.about.as_deref().unwrap_or_default()));
-            if state.dev_inbox.is_some() {
-                t.inbox = Some(crate::url(&format!("/dev/inbox/latest?to={}", crate::oauth::urlencode(email))));
-            }
-        }
         Some(did) if did.starts_with("breach-") => {
             if let Some((notice, error)) = breach::notice(did, q.n.unwrap_or(0), q.m.unwrap_or(0), q.k.unwrap_or(0)) {
                 (t.notice, t.error) = (notice, error);
             }
         }
-        Some(did) => moderated(&mut t, did, email, q.about.as_deref().unwrap_or_default()),
+        Some(did) => moderated(&mut t, did, email),
         None => {}
     }
     Ok(Page(t).into_response())
@@ -334,7 +294,7 @@ pub async fn make_invite(State(state): State<Arc<AppState>>, user: CurrentUser, 
     tracing::info!("superuser {uid} made an invitation link");
     let site = crate::verify::public_base(&state, &headers);
     let link = format!("{site}/register?invite={token}");
-    let mut t = load(&state, user, 1, &site).await?;
+    let mut t = load(&state, user, 1).await?;
     t.new_link = Some(link);
     // The link is a key to the server: not to be cached anywhere.
     Ok(([(header::CACHE_CONTROL, "no-store")], Page(t)).into_response())
@@ -368,7 +328,6 @@ pub async fn set_temp_password(
     State(state): State<Arc<AppState>>,
     user: CurrentUser,
     auth::SessionToken(token): auth::SessionToken,
-    headers: HeaderMap,
     Form(form): Form<AccountForm>,
 ) -> Result<Response, AppError> {
     if !user.superuser {
@@ -385,7 +344,7 @@ pub async fn set_temp_password(
     let keep = if target == user.id { token } else { None };
     let ended = state.db.call(move |c| crate::owner::set_temporary_password(c, target, &hash, keep.as_deref())).await?;
     tracing::info!("superuser {} set a temporary password for user {target} ({ended} sessions signed out)", user.id);
-    let mut t = load(&state, user, 1, &crate::verify::public_base(&state, &headers)).await?;
+    let mut t = load(&state, user, 1).await?;
     t.temp_password = Some((email, password));
     // The password is a key to the account: not to be cached anywhere.
     Ok(([(header::CACHE_CONTROL, "no-store")], Page(t)).into_response())
@@ -420,209 +379,17 @@ pub async fn announce_terms(State(state): State<Arc<AppState>>, user: CurrentUse
     Ok(Redirect::to(&crate::url(&format!("/superuser?did=terms-sent&n={n}"))).into_response())
 }
 
-// ---------- moderation (#967) ----------
+// ---------- privacy and breach cards ----------
 
-/// May this user moderate? A superuser on the hosted site: Skrongle mini's
-/// owner has the database.
+/// May this user use the privacy and breach cards? (Removed with them, #7.)
 fn moderates(user: &CurrentUser) -> bool {
     user.superuser && !crate::is_mini()
 }
 
-/// The notice or error a moderation action left (`?did=`), about an
-/// account (`email`) or a course or address (`about`). An unknown key shows nothing.
-fn moderated(t: &mut SuperuserTemplate, did: &str, email: &str, about: &str) {
+/// The notice or error a privacy action left (`?did=`), about an account
+/// (`email`). An unknown key shows nothing.
+fn moderated(t: &mut SuperuserTemplate, did: &str, email: &str) {
     if let Some((notice, error)) = privacy::notice(did, email) {
         (t.notice, t.error) = (notice, error);
-        return;
     }
-    let ok = |key: &str, name: &str, value: &str| Some(crate::t1(key, name, value));
-    let (notice, error) = match did {
-        "taken-down" => (ok("superuser.mod.taken_down", "id", about), None),
-        "put-back" => (ok("superuser.mod.put_back", "id", about), None),
-        "no-course" => (None, ok("superuser.mod.no_course", "id", &format!("{about:?}"))),
-        "overridden" => (ok("superuser.courses.overridden", "id", about), None),
-        "override-cleared" => (ok("superuser.courses.override_cleared", "id", about), None),
-        "no-note" => (None, Some(crate::t("superuser.courses.no_note"))),
-        "course-deleted" => (ok("superuser.courses.deleted", "id", about), None),
-        "course-busy" => (None, ok("superuser.courses.busy", "id", about)),
-        "no-mail-text" => (None, Some(crate::t("superuser.courses.no_mail_text"))),
-        "no-owner-address" => (None, ok("superuser.courses.no_owner_address", "id", about)),
-        "suspended" => (ok("superuser.mod.suspended", "email", email), None),
-        "unsuspended" => (ok("superuser.mod.unsuspended", "email", email), None),
-        "deleted" => (ok("superuser.mod.deleted", "email", email), None),
-        "yourself" => (None, Some(crate::t("superuser.mod.yourself"))),
-        "subscribed" => (None, ok("superuser.mod.subscribed", "email", email)),
-        "blocked" => (ok("superuser.mod.blocked", "ip", about), None),
-        "unblocked" => (ok("superuser.mod.unblocked", "ip", about), None),
-        "bad-ip" => (None, ok("superuser.mod.bad_ip", "ip", &format!("{about:?}"))),
-        _ => (None, None),
-    };
-    t.notice = notice.or(t.notice.take());
-    t.error = error.or(t.error.take());
-}
-
-/// Back to the page after a moderation action about a course or address.
-fn done_about(did: &str, about: &str) -> Response {
-    let to = format!("/superuser?did={did}&about={}", crate::oauth::urlencode(about));
-    Redirect::to(&crate::url(&to)).into_response()
-}
-
-#[derive(Deserialize)]
-pub struct CourseForm {
-    #[serde(default)]
-    pub course: String,
-}
-
-/// POST /superuser/courses/take-down (course=…): a made course stops
-/// opening for everyone; its owner sees why. Superusers on the hosted site
-/// only: a 404 otherwise.
-pub async fn take_down_course(State(state): State<Arc<AppState>>, user: CurrentUser, Form(form): Form<CourseForm>) -> Result<Response, AppError> {
-    if !moderates(&user) {
-        return Err(AppError::NotFound);
-    }
-    let id = form.course.trim().to_string();
-    let cid = id.clone();
-    if !state.db.call(move |c| crate::moderation::take_down(c, &cid, crate::db::now())).await? {
-        return Ok(done_about("no-course", &id));
-    }
-    state.courses.invalidate(&id);
-    tracing::info!("superuser {} took down course {id}", user.id);
-    Ok(done_about("taken-down", &id))
-}
-
-/// POST /superuser/courses/put-back (course=…): a course taken down opens
-/// again, for its owner and everyone it is shared with.
-pub async fn put_back_course(State(state): State<Arc<AppState>>, user: CurrentUser, Form(form): Form<CourseForm>) -> Result<Response, AppError> {
-    if !moderates(&user) {
-        return Err(AppError::NotFound);
-    }
-    let id = form.course.trim().to_string();
-    let cid = id.clone();
-    if !state.db.call(move |c| crate::moderation::put_back(c, &cid)).await? {
-        return Ok(done_about("no-course", &id));
-    }
-    state.courses.invalidate(&id);
-    tracing::info!("superuser {} put course {id} back", user.id);
-    Ok(done_about("put-back", &id))
-}
-
-/// The account `email` names, unless it is the superuser's own (suspending
-/// or deleting that would lock them out): the redirect to show otherwise.
-async fn other_account(state: &AppState, user: &CurrentUser, email: &str) -> Result<Result<i64, Response>, AppError> {
-    let e = email.to_string();
-    Ok(match state.db.call(move |c| crate::owner::find(c, &e)).await? {
-        None => Err(done("unknown", email)),
-        Some(id) if id == user.id => Err(done("yourself", email)),
-        Some(id) => Ok(id),
-    })
-}
-
-/// POST /superuser/suspend (email=…): the account is signed out
-/// everywhere, cannot sign in, and its courses are not shared out until the
-/// suspension is lifted.
-pub async fn suspend(State(state): State<Arc<AppState>>, user: CurrentUser, Form(form): Form<AccountForm>) -> Result<Response, AppError> {
-    if !moderates(&user) {
-        return Err(AppError::NotFound);
-    }
-    let email = form.email.trim().to_lowercase();
-    let target = match other_account(&state, &user, &email).await? {
-        Ok(id) => id,
-        Err(back) => return Ok(back),
-    };
-    if let Some(ended) = state.db.call(move |c| crate::moderation::suspend(c, target, crate::db::now())).await? {
-        tracing::info!("superuser {} suspended user {target} ({ended} sessions signed out)", user.id);
-    }
-    Ok(done("suspended", &email))
-}
-
-/// POST /superuser/unsuspend (email=…): the suspension is lifted.
-pub async fn unsuspend(State(state): State<Arc<AppState>>, user: CurrentUser, Form(form): Form<AccountForm>) -> Result<Response, AppError> {
-    if !moderates(&user) {
-        return Err(AppError::NotFound);
-    }
-    let email = form.email.trim().to_lowercase();
-    let e = email.clone();
-    let Some(target) = state.db.call(move |c| crate::owner::find(c, &e)).await? else {
-        return Ok(done("unknown", &email));
-    };
-    if state.db.call(move |c| crate::moderation::lift(c, target)).await? {
-        tracing::info!("superuser {} lifted the suspension of user {target}", user.id);
-    }
-    Ok(done("unsuspended", &email))
-}
-
-/// POST /superuser/delete-account (email, reason): the account and
-/// everything it owns are deleted, as from its own profile (a terms breach,
-/// a child's data, a privacy request). Not undone. Refused while a
-/// subscription would keep billing. The reason goes in the privacy log (#981).
-pub async fn delete_account(State(state): State<Arc<AppState>>, user: CurrentUser, Form(form): Form<privacy::RequestForm>) -> Result<Response, AppError> {
-    if !moderates(&user) {
-        return Err(AppError::NotFound);
-    }
-    let email = form.email.trim().to_lowercase();
-    let Some(reason) = crate::privacy_requests::reason(&form.reason) else { return Ok(done("no-reason", &email)) };
-    let target = match other_account(&state, &user, &email).await? {
-        Ok(id) => id,
-        Err(back) => return Ok(back),
-    };
-    if state.db.call(move |c| crate::privacy::has_live_subscription(c, target)).await? {
-        return Ok(done("subscribed", &email));
-    }
-    let deleted = super::profile::erase_account(&state, target).await?;
-    let su = user.id;
-    state.db.call(move |c| crate::privacy_requests::record(c, su, crate::privacy_requests::Action::DeleteAccount, &reason, crate::db::now())).await?;
-    tracing::info!("superuser {} deleted user {target} ({} courses, {} themes)", user.id, deleted.courses.len(), deleted.themes.len());
-    Ok(done("deleted", &email))
-}
-
-#[derive(Deserialize)]
-pub struct BlockForm {
-    #[serde(default)]
-    pub ip: String,
-}
-
-/// POST /superuser/block-ip (ip=…): every request from the address or
-/// range gets a plain 403 (`moderation::block`).
-pub async fn block_ip(State(state): State<Arc<AppState>>, user: CurrentUser, Form(form): Form<BlockForm>) -> Result<Response, AppError> {
-    if !moderates(&user) {
-        return Err(AppError::NotFound);
-    }
-    let Some(net) = crate::moderation::Net::parse(&form.ip) else {
-        return Ok(done_about("bad-ip", form.ip.trim()));
-    };
-    let st = Arc::clone(&state);
-    state
-        .db
-        .call(move |c| {
-            crate::moderation::block_net(c, net, crate::db::now())?;
-            st.blocked.reload(c)
-        })
-        .await?;
-    tracing::info!("superuser {} blocked {net}", user.id);
-    Ok(done_about("blocked", &net.to_string()))
-}
-
-#[derive(Deserialize)]
-pub struct UnblockForm {
-    #[serde(default)]
-    pub id: i64,
-}
-
-/// POST /superuser/unblock-ip (id=…): a block is removed.
-pub async fn unblock_ip(State(state): State<Arc<AppState>>, user: CurrentUser, Form(form): Form<UnblockForm>) -> Result<Response, AppError> {
-    if !moderates(&user) {
-        return Err(AppError::NotFound);
-    }
-    let (id, st) = (form.id, Arc::clone(&state));
-    let removed = state
-        .db
-        .call(move |c| {
-            let r = crate::moderation::unblock(c, id)?;
-            st.blocked.reload(c)?;
-            Ok(r)
-        })
-        .await?;
-    let Some(net) = removed else { return Ok(Redirect::to(&crate::url("/superuser")).into_response()) };
-    tracing::info!("superuser {} removed the block on {net}", user.id);
-    Ok(done_about("unblocked", &net))
 }

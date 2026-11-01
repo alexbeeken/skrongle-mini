@@ -82,8 +82,8 @@ with "not verified" and send a last note saying why nothing was done.
 
 ## 3. Do what they asked
 
-All of these are on `/superuser` (the Moderation and Privacy requests
-cards, [features](features)). Each one asks for a reason, and the reason
+All of these are on `/superuser` (the Privacy requests
+card, [features](features)). Each one asks for a reason, and the reason
 goes in the privacy log on the page. That log names no learner, so write
 the request log's entry number as the reason, for example
 `privacy request PR-2026-004`.

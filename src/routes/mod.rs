@@ -290,21 +290,10 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/superuser/terms-announce", post(superuser::announce_terms))
         .route("/superuser/reports/forward", post(reports::forward))
         .route("/superuser/reports/resolve", post(reports::resolve))
-        .route("/superuser/courses/take-down", post(superuser::take_down_course))
-        .route("/superuser/courses/put-back", post(superuser::put_back_course))
-        .route("/superuser/courses/override", post(superuser::courses::override_flag))
-        .route("/superuser/courses/clear-override", post(superuser::courses::clear_override))
-        .route("/superuser/courses/delete", post(superuser::courses::delete_course))
-        .route("/superuser/courses/email-owner", post(superuser::courses::email_owner))
-        .route("/superuser/suspend", post(superuser::suspend))
-        .route("/superuser/unsuspend", post(superuser::unsuspend))
-        .route("/superuser/delete-account", post(superuser::delete_account))
         .route("/superuser/privacy/export", post(superuser::privacy::export))
         .route("/superuser/privacy/forget", post(superuser::privacy::forget))
         .route("/superuser/breach/sign-out", post(superuser::breach::sign_out))
         .route("/superuser/breach/notice", post(superuser::breach::send_notice))
-        .route("/superuser/block-ip", post(superuser::block_ip))
-        .route("/superuser/unblock-ip", post(superuser::unblock_ip))
         // api
         .route("/api/answer", post(quiz::answer))
         .route("/api/lesson-check", post(quiz::lesson_check))
@@ -391,7 +380,6 @@ pub fn router(state: Arc<AppState>) -> Router {
                 .route("/dev/ai/google/v1beta/openai/chat/completions", post(dev_ai::google_chat))
                 .route("/dev/ai/google/v1beta/openai/models", get(dev_ai::google_models))
                 // The content check's Jev stand-in (#1036).
-                .route("/dev/ai/jev/v1/systemone", post(dev_ai::jev_systemone))
                 // The simulated Stripe's API: the app's billing code calls it with its secret key.
                 .route("/dev/payments/stripe/v1/{*path}", axum::routing::any(dev_payments::api))
                 .route("/dev/google/auth", get(dev::google_auth))
@@ -417,7 +405,6 @@ pub fn router(state: Arc<AppState>) -> Router {
         app
     };
     // A blocked address (#967) is refused before any session lookup.
-    let app = app.layer(axum::middleware::from_fn_with_state(state.clone(), crate::moderation::block));
     // The waitlist switch (#934) for templates, error pages included.
     let app = app.layer(axum::middleware::from_fn_with_state(state.clone(), crate::waitlist::middleware));
     let app = app.with_state(state);
@@ -947,7 +934,6 @@ pub(crate) fn test_state_with(
         signup: Default::default(),
         waitlist: Default::default(),
         proxy_auth: None,
-        blocked: Default::default(),
     })
 }
 

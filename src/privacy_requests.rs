@@ -26,8 +26,6 @@ pub enum Action {
     Export,
     /// An address with no account was forgotten.
     Forget,
-    /// An account was deleted (moderation's Delete account).
-    DeleteAccount,
     /// Every account, or a list, was signed out (breach tools, #1068).
     SignOut,
     /// A breach notice was e-mailed (#1068).
@@ -39,7 +37,6 @@ impl Action {
         match self {
             Action::Export => "export",
             Action::Forget => "forget",
-            Action::DeleteAccount => "delete-account",
             Action::SignOut => "sign-out",
             Action::Notice => "notice",
         }

@@ -17,7 +17,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 
 ### Server and plumbing
 
-- Start-up: `main.rs` (env config, commands, `require_providers`), `shape.rs` (Skrongle mini or the hosted site, `SKRONGLE_MINI`), `startup.rs` (start-up errors), `doctor.rs` (`skrongle doctor`), `check_worker.rs` (`skrongle content-check`), `server.rs` (listener limits).
+- Start-up: `main.rs` (env config, commands, `require_providers`), `shape.rs` (Skrongle mini or the hosted site, `SKRONGLE_MINI`), `startup.rs` (start-up errors), `doctor.rs` (`skrongle doctor`), `server.rs` (listener limits).
 - HTTP: `routes/mod.rs` (Router, embedded static files and docs, CourseView), `error.rs` (AppError to responses), `security.rs` (headers, CSRF, rate limits).
 - Database: `db.rs` (connection, `Db::call`), `db/migrations.rs` (`MIGRATIONS`); schema in "SQLite schema" below; background jobs (the hourly housekeeping) in `jobs.rs`.
 - App text: `i18n.rs` reads `i18n/<code>.yaml` (`docs/i18n.md`). Randomness: `random.rs` (OS bytes), `quiz.rs` has the small PRNG.
@@ -29,7 +29,6 @@ under `static/`, `templates/` or `data/` is missing from this list.
 - Editing helpers: `arrange.rs` (lesson table, Undo), `word_list.rs` + `static/word-list.js` (Paste a word list), `problems.rs` (refusal messages), `report.rs` (feature usage report), `lint.rs` (course lints, `lint/language.rs` the language guess), `review.rs` (Review AI changes; its why and check lines styled by `static/review-notes.css`).
 - AI generation: `ai.rs` (LLM client, job runner), `ai/queue.rs` (the line, slots and leases of AI jobs, #874), `ai/prompt.rs` (the instructions and each kind of course's rules), `ai/budget.rs` (effort levels and the tokens a job reserves, #918), `ai/edit.rs` (Edit lessons, #1240), `ai/check.rs` (the `check` plan action and the why lines of a fact check, #1238), `ai/edit_lesson.rs` (Edit with AI on one row, #1242), `translate.rs` (copy and translate a course), `metering.rs` (Skrongle AI usage and limits), `routes/hosted.rs` (Skrongle AI on the pages).
 - Sharing: `share.rs`, `routes/share.rs`; reports and copyright notices: `content_reports.rs`, `routes/reports.rs`.
-- Content check: `course_flags.rs` (the flag on a made course), `course_flags/terms.rs` (the listed-term check), `course_flags/view.rs` (how a page shows matches: masked, `templates/flag_matches.html` and `masked_word.html`), list in `data/moderation/`; `content_check.rs` (the AI check, stage 1: Jev scores), `content_check/jev.rs` (the Jev client and the dev stand-in), `content_check/review.rs` (stage 2: a model reviews what scored high), `content_check/nightly.rs` (the nightly run), `content_check/nightly/zone.rs` (local midnight from a POSIX TZ rule), `content_check/worker.rs` (the checks in their own process, its check-in), `content_check/controls.rs` (tests only, #1061: the control set in `data/moderation/controls/`, notes in `data/moderation/CONTROLS.md`).
 - <!-- themes -->Themes: `themes.rs`, `data/themes/`; course<!-- /themes --><!-- no-themes -->Course<!-- /no-themes --> pickers in `static/courses.js`, `static/course-settings.js`.
 - Test course: `test_course.rs` (tests only), `data/test-courses/`.
 
@@ -50,7 +49,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 - Two-factor: `two_factor.rs`, `totp.rs`.
 - Profile: `profile.rs`, `routes/profile.rs`, `static/profile.js`, `static/autosave.js`, `static/avatar-bg/` (picture backgrounds); keys in `secrets.rs`.
 - Data rights: `privacy.rs` (export columns, deletion), `exports.rs` (Download my data), `storage.rs` and `storage/s3.rs` (where finished exports live: disk, or the hosted site's S3 bucket, #871), `consent.rs` (optional consents for the Privacy and consent card), `account_deletion.rs` and `routes/account_deletion.rs` (deleting an account after 14 days, #970).
-- Plans: `billing.rs`, `routes/billing.rs`. Terms: `terms.rs`, `routes/terms.rs`. Owner and superuser: `owner.rs`, `routes/superuser.rs`, `routes/superuser/courses.rs` and `course_flags/table.rs` (the course table), `course_flags/owner_mail.rs` (e-mailing a course's owner, #1035), `moderation.rs` (take-downs, suspensions, blocked addresses), `breach.rs` and `routes/superuser/breach.rs` (breach tools: sign accounts out, e-mail a notice, #1068), `privacy_requests.rs` and `routes/superuser/privacy.rs` (privacy requests by e-mail and their log), `routes/password.rs` (temporary password gate).
+- Plans: `billing.rs`, `routes/billing.rs`. Terms: `terms.rs`, `routes/terms.rs`. Owner and superuser: `owner.rs`, `routes/superuser.rs`, `breach.rs` and `routes/superuser/breach.rs` (breach tools: sign accounts out, e-mail a notice, #1068), `privacy_requests.rs` and `routes/superuser/privacy.rs` (privacy requests by e-mail and their log), `routes/password.rs` (temporary password gate).
 - Docs pages: `routes/docs.rs` (`/docs` sidebar `SECTIONS`, `/llms.txt`).
 
 ### Dev mode only
@@ -122,12 +121,6 @@ src/
   progress.rs    lesson passes shared by every mode: the rule (seen + a run of >= 70 %), the RULES text for tutors and agents, table lesson_passes
   quiz.rs        adaptive question selection, answer normalisation/checking, tiny PRNG
   problems.rs    what the editor and the file page say when a course file is refused: kind, lesson, field, line, message, fix hint (every ContentError and arrange.rs refusal)
-  course_flags.rs the content flag of a made course (#1033, hosted only; table course_flags): the listed-term check (course_flags/terms.rs over data/moderation/terms.txt, whole word, case- and accent-blind), run when the files change (courses::revalidate, courses::load_ready_files) and before a share; a flagged course doesn't load, so it doesn't start or open for sharees. The AI scan records through it too
-  content_check.rs the AI content check, stage 1 (#1036, hosted only; tables content_scores, content_category_scores): a made course split into parts (a lesson, or pieces of a long one), each scored by Jev (content_check/jev.rs, POST /v1/systemone over ureq) on one yes/no question per category of CATEGORIES (#1046: misinformation, violence, self-harm, weapons, firearms, hate, tragedy, adult, minors, sexual crimes, Terms of Use), all in one call; a part's hash and model cached so an unchanged part isn't sent again; a part at a category's threshold or above is queued for stage 2 (review = 'queued', a `content_check.review` job) and the course shows as needs review in the superuser course table while it waits. Run by the `content_check.scan` job when an AI generation or revision finishes, and before a share (its own thread, waited for up to 20 s). No routes or templates
-  content_check/review.rs the AI content check, stage 2 (#1037, hosted only): the queued parts with their scores, the course title and languages, its lesson list and any override note go to the hosted model (ai::chat, purpose content-review); it may read up to 2 more batches of lessons, then answers JSON (verdict harmful | fine, the rule, exact quotes, a 2 to 4 sentence report). Harmful: course_flags flagged, source ai, the report as reason and the quotes located to file and field. Fine: the parts marked 'fine' on their hash. settle() clears an AI flag whose harmful parts are gone (run by every scan). Calls recorded in ai_usage under the owner but kept out of their month (Meter::record_own_cost, migration 76); waits past the daily cap. No routes or templates
-  content_check/worker.rs `skrongle content-check` (#1041, hosted only; table content_check_worker): the checks in their own process beside the server, on the same SQLite file. The server with SKRONGLE_CONTENT_CHECK=external queues the content_check.* jobs and its jobs thread doesn't register them; the worker registers only those, polls the jobs table every 2 s, checks in every minute, and hands a course it flagged back as a courses.flagged job (the server drops it from its cache). Process setup (settings, dev stand-ins, the meter) in src/check_worker.rs. The whole content_check module reaches only db, jobs, content, courses, course_flags, ai, metering and mail; a test fails on any other crate path or on axum, askama or the routes
-  content_check/nightly.rs the nightly content check (#1038, hosted only; table content_checks): at midnight in SKRONGLE_CONTENT_CHECK_TZ (default America/Vancouver; nightly/zone.rs reads the zone's rule from /usr/share/zoneinfo, no tz crate), the made courses edited since their last scan (oldest edit first, at most SKRONGLE_CONTENT_CHECK_PER_NIGHT) go through the term check, stage 1 and stage 2 in place; a failure is queued as a scan job; then, within the same cap, the unedited courses whose AI check is SKRONGLE_CONTENT_CHECK_RECHECK_BEHIND or more versions old are rechecked, oldest check first (#1040). No routes or templates
-  moderation.rs  what a superuser does to keep the Terms (#967, hosted only): take a course down (courses.taken_down_at), suspend an account (users.suspended_at), block an address or range (blocked_ips, kept in memory and checked on every request before the session lookup)
   privacy_requests.rs  privacy requests that came by e-mail (#981, hosted only): the privacy log (privacy_actions) and forgetting an address with no account (its course_shares and mail_outbox rows)
   breach.rs      breach tools (#1068, hosted only): sign every account or a list out (sessions, two_factor_challenges, unused password_resets), and e-mail a plain-text notice through the outbox, once per account and text (breach_notices); both logged in privacy_actions
   owner.rs       what the owner does to an account with no message sent (#635): a temporary password (users.must_change_password), two-factor off, make a superuser; the binary's commands (reset-password, disable-2fa, make-owner, help)
@@ -176,9 +169,8 @@ src/
     terms.rs     /terms, /terms.md (public), /terms/accept (the gate for accounts without the current version, and the notice's accept form), /terms/dismiss (closes a minor change's notice)
     account_deletion.rs  /account/deletion (the only page of an account scheduled for deletion: its date, Cancel deletion, Log out)
     password.rs  /password/change (the gate after signing in with a temporary password: the new one twice, no old one)
-    superuser/courses.rs  the course table on /superuser (#1034, hosted only): every made course 25 to a page, searched by title, id or owner (course_q), filtered (course_show: all | flagged | review | overridden | down), flagged first, then needs review (course_flags/table.rs); a row's detail dialog with what matched and the actions; POST /superuser/courses/override|clear-override|delete|email-owner (the last sends the owner_mail draft as edited, by hand only, #1035)
     reports.rs   POST /courses/{id}/report (a shared course), GET|POST /legal/copyright (public; the contact address without mail), POST /superuser/reports/forward|resolve
-    superuser.rs /superuser (superusers only, 404 otherwise: every account 25 to a page with Temporary password, Turn off two-factor and Reset email verification per row; invitation links under SKRONGLE_SIGNUP=invite; Skrongle AI today, everyone, against the daily cap; while a material terms change is coming, a notice and Send the announcement; on the hosted site Suspend and Delete account per row, the course table and blocked addresses, #967, and Privacy requests with their log, #981, superuser/privacy.rs), POST /superuser/reset-email-verification|invites|invites/revoke|temp-password|two-factor-off|terms-announce|courses/take-down|courses/put-back|suspend|unsuspend|delete-account|block-ip|unblock-ip|privacy/export|privacy/forget
+    superuser.rs /superuser (superusers only, 404 otherwise: every account 25 to a page with Temporary password, Turn off two-factor and Reset email verification per row; invitation links under SKRONGLE_SIGNUP=invite; Skrongle AI today, everyone, against the daily cap; while a material terms change is coming, a notice and Send the announcement; and Privacy requests with their log, #981, superuser/privacy.rs), POST /superuser/reset-email-verification|invites|invites/revoke|temp-password|two-factor-off|terms-announce|privacy/export|privacy/forget
     superuser/release.rs /superuser/release (#934, hosted only): the waitlist switch, counts and list, POST /superuser/release/switch|invite|invite-next
     waitlist.rs  POST /waitlist (join: a confirmation link is mailed, the same page either way), GET /waitlist/confirm; GET / is the waitlist page for anyone signed out while it is on
     profile.rs   /profile (picture, personal information, account, subscription with the plans and cancel modals, Skrongle AI this month as a bar (Plus), AI API keys with the own-keys pill (Plus), ), POST /api/profile (autosave), POST /profile/password|api-keys…|own-keys|verify-email/resend, POST /profile/export (queue "Download my data"), GET /profile/export/download?token=… (the mailed link), POST /profile/delete
@@ -233,26 +225,7 @@ purge (`housekeeping.sessions`, `.games`, `.ai_jobs`, `.tutor_chats`,
 `.rate_limits`, `.retention`, `.outbox`, `.links`, `.exports`, `.jobs`,
 `.deletions`, `.wal_checkpoint`), each holding the database for its own short piece. At
 boot each gets a row due now if it has none, so a server restarted more
-often than hourly still cleans up. `content_check.scan` (payload
-`{"course": id}`, #1036) scans one made course with Jev; it is queued when
-an AI generation or revision finishes (`courses::finish_generation`,
-`finish_revision`) and is registered only on a server that scans (not
-Skrongle mini). A scan that leaves a part queued queues `content_check.review`
-(payload `{"course": id}`, #1037), registered only when the server also has
-Skrongle AI; Share wakes the runner so it starts at once.
-`content_check.nightly` (#1038) is periodic with `at` instead of `every`:
-its first row and each next one are due at the next local midnight
-(`content_check::nightly::next_midnight`), not at boot. With
-`SKRONGLE_CONTENT_CHECK=external` (#1041) the server registers none of the
-`content_check.*` kinds: `skrongle content-check`, a second process on the
-same database, registers only those and takes them with the same claim and
-lease. SQLite's write lock makes the one-statement claim safe across the
-two processes (WAL, `busy_timeout` 5 s on every connection); a worker
-stopped mid-check leaves a running row that is taken again after its
-lease. Nobody wakes the worker, so it looks every 2 s. A course it flags
-comes back to the server as a `courses.flagged` job (payload
-`{"course": id}`), which drops it from the server's course cache within a
-minute. Long work runs in slices so the one
+often than hourly still cleans up. Long work runs in slices so the one
 runner is never held for long: the handler returns `Step::Again` with its
 place as the new payload, and the row goes back to `queued`, due now,
 attempts reset, behind any row already due. Data exports work this way
@@ -416,7 +389,7 @@ users          (id AUTOINCREMENT, password_hash, created_at, google_sub UNIQUE, 
                 -- two_factor: the second sign-in step, '' (off) | 'sms' | 'email' | 'totp' (src/two_factor.rs)
                 -- must_change_password 1: signed in with a temporary password the owner set (src/owner.rs, v62);
                 -- CurrentUser sends the account to /password/change until it picks its own
-                -- suspended_at: a superuser suspended it (src/moderation.rs, v70): no session resolves, sign-in is refused, its courses are not shared out
+                -- suspended_at: unused (moderation is gone, #9)
                 -- beta 1: made through an e-mailed waitlist invitation (src/waitlist.rs, v86, #934); nothing reads it yet
                 -- delete_at: the learner asked to delete it; deleted then by housekeeping.deletions (src/account_deletion.rs, v88, #970);
                 -- CurrentUser sends it to /account/deletion until then, its courses are not shared out
@@ -429,7 +402,7 @@ user_theme_files (theme_id, path, content)  PRIMARY KEY (theme_id, path)   -- th
 courses        (id, owner_id, title, created_at, updated_at, error, state, source, visibility, job_id, brief, outline, notes, taken_down_at)
                 -- user-made courses; state 'generating' | 'revising' | 'ready' | 'failed', source 'hand' | 'ai',
                 -- visibility 'private' (publishing to come); brief/notes/outline let a stopped AI run resume
-                -- taken_down_at: a superuser took it down (v70, #967): it opens for nobody, its owner's card says why
+                -- taken_down_at: unused (moderation is gone, #9)
 course_files   (course_id, path, content, updated_at)  PRIMARY KEY (course_id, path)
 course_undo    (course_id, seq, title, outline, label, created_at, session, started_at)  PRIMARY KEY (course_id, seq)
 course_undo_files (course_id, seq, path, content)  PRIMARY KEY (course_id, seq, path)
@@ -453,12 +426,7 @@ course_shares  (id, course_id, email, token_hash UNIQUE, user_id, created_at, op
                 -- open to that account and to any account whose confirmed address is `email`
 course_flags   (course_id PRIMARY KEY, state, source, matches_json, reason, content_hash, checked_at,
                 override_note, overridden_by, overridden_at)
-                -- the content flag of a made course (src/course_flags.rs, v74, #1033): state 'clear' |
-                -- 'flagged' | 'overridden'; a flagged course doesn't start or share. source 'terms' (the
-                -- listed-term check) | 'ai' (the AI scan, #1036/#1037); matches_json what triggered it
-                -- ([{term, path, field, lesson, text}]); reason a short text for the superuser;
-                -- content_hash the SHA-256 of the files and term list checked. The override columns
-                -- are a superuser's decision (#1034), kept whatever a later check writes
+                -- unused: the content check and moderation are gone (#9); the table goes with the schema squash (#2)
 signup_invites (id, token_hash UNIQUE, created_by, created_at, expires_at, used_at, used_by, email)
                 -- invitation links for SKRONGLE_SIGNUP=invite (src/signup.rs, v61): token_hash is the SHA-256
                 -- of the link's token; one use (used_at, used_by), 7 days; created_by cascades,
@@ -530,21 +498,8 @@ jobs           (id, kind, payload_json, state, priority, run_at, attempts, max_a
                 last_error, created_at, finished_at)
                 -- background jobs (src/jobs.rs, v72, #872); state 'queued' | 'running' | 'done' | 'failed';
                 -- locked_by/locked_until: the lease of a running row. Done rows deleted after a day, failed after 30
-content_scores (course_id, chunk, lesson, hash, high, model, input_tokens, cost_usd,
-                review, scanned_at, ai_version, PRIMARY KEY (course_id, chunk))
-                -- the AI content check's stage 1 (src/content_check.rs, v75, #1036): one row per part of a made
-                -- course (`lessons/x.json`, `lessons/x.json#2`…). hash = SHA-256 of the text Jev was sent; the
-                -- same hash and model are not sent again. high = the categories it scored high on, comma
-                -- separated (v80, #1046); review NULL when none, 'queued' for stage 2, then its verdict 'fine' | 'harmful' (#1037), kept
-                -- while the hash stays. Cascades with the course
-content_category_scores (course_id, chunk, category, score, PRIMARY KEY (course_id, chunk, category))
-                -- Jev's probability per part and category (v80, #1046; the names of content_check::CATEGORIES).
-                -- Cascades with its content_scores row
-content_checks (course_id PRIMARY KEY, checked_at)
-                -- when the content check last read a made course's files (v77, #1038): a course whose
-                -- updated_at is at or after it is due for the nightly run. Cascades with the course
-content_check_worker (id PRIMARY KEY CHECK (id = 1), name, seen_at)
-                -- when `skrongle content-check` last checked in (v79, #1041): one row, name = its pid@start
+content_scores, content_category_scores, content_checks, content_check_worker: unused tables of the content check
+                (#9); they go with the schema squash (#2)
 email_verifications (id, user_id, email, token_hash UNIQUE, created_at, expires_at, used_at)
                 -- e-mail confirmation links (src/verify.rs): only the SHA-256 of the token; 24 h, single use;
                 -- users.email_verified_at is set when one is opened. Rows deleted after 7 days
@@ -578,7 +533,7 @@ ai_spend_days  (day PRIMARY KEY, cost_micros)
                 -- everyone's hosted spend per UTC day (day = its first second), for the daily cap; v65, #623.
                 -- Triggers on ai_usage (insert, delete) move both tables; the meter reads one row of each
 blocked_ips    (id, cidr UNIQUE, created_at)
-                -- addresses and ranges a superuser blocked (v70, #967); read into memory at startup and after each change
+                -- unused: the content check and moderation are gone (#9); the table goes with the schema squash (#2)
 privacy_actions (id, superuser_id, action, reason, created_at)
                 -- the privacy log on /superuser (v85, #981): export | forget | delete-account | sign-out | notice with the reason typed; no learner named
 breach_notices (user_id, notice, mailed_at)  PRIMARY KEY (user_id, notice)
@@ -772,11 +727,6 @@ posture are in `docs/self-hosting.md`, "Skrongle mini".
 | `SKRONGLE_MINI` | unset (*mini:* `1`) | `1`: the server is a Skrongle mini (`shape.rs`); unset: the hosted site. Anything but `1`, `true`, `0`, `false` or unset refuses to start. Read once at startup, directly (no older spelling) |
 | *(plans)* | on (*mini:* off) | Follow the shape (`shape::Shape::has_plans`); there is no setting. Off in a mini: no plans or payments. Every account counts as Plus (`billing::plans_on`, the one switch every gate asks), the profile shows no Subscription section or plans modal, `/billing/*` answers 404 (Stripe settings are ignored), and `SKRONGLE_AI_KEY` is shared by every account with no monthly allowance: only `SKRONGLE_AI_DAILY_CAP` and `SKRONGLE_AI_RATE_PER_MINUTE` guard it |
 | `SKRONGLE_STRIPE_SECRET_KEY` / `_WEBHOOK_SECRET` / `_PRICE_ID` | — | Enable paid subscriptions (all three plus `SKRONGLE_PUBLIC_URL`); see [Subscriptions](features#subscriptions) |
-| `TYPESAFE_API_KEY` | — | The Jev key for the AI content check (#1036); the hosted server refuses to start without it, unless `SKRONGLE_CONTENT_CHECK=external` (then the worker needs it). Not in Skrongle mini. `TYPESAFE_BASE_URL` points it at another server. In dev mode the check calls the stand-in at `/dev/ai/jev` unless `SKRONGLE_JEV_MODE=live` and the key are set |
-| `SKRONGLE_CONTENT_CHECK` | `internal` | Where the AI content check runs (#1041): `internal` on the server's jobs thread, or `external`: the server only queues the checks and `skrongle content-check`, beside it on the same database, runs them. In `external` mode the Jev key and Skrongle AI's key are set for the worker, and the server doesn't ask for `TYPESAFE_API_KEY`. Hosted only |
-| `SKRONGLE_CONTENT_CHECK_TZ` | `America/Vancouver` | The time zone whose midnight starts the nightly content check (#1038): a zoneinfo name (read from `/usr/share/zoneinfo`) or a POSIX TZ rule such as `PST8PDT,M3.2.0,M11.1.0`. Hosted only |
-| `SKRONGLE_CONTENT_CHECK_PER_NIGHT` | 200 | The most courses the nightly content check looks at in one night, oldest edit first; the rest wait for the next night (#1038). AI rechecks share the cap (#1040). Hosted only |
-| `SKRONGLE_CONTENT_CHECK_RECHECK_BEHIND` | 3 | How many versions behind `AI_CHECK_VERSION` a course's AI check may fall before the nightly run checks it again, within the nightly cap (#1040). Hosted only |
 | `SKRONGLE_S3_BUCKET` | — | The private S3 bucket finished data exports go to, under `exports/` (#871, `storage.rs`); its region is `AWS_REGION`. Keys come from `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY` / `AWS_SESSION_TOKEN` when set, else from the instance role (IMDSv2). Required on the hosted site (`scripts/deploy-aws.sh` writes it from the stack's `FilesBucket`); refused by Skrongle mini; unset on the dev server, exports stay on disk |
 | `SKRONGLE_STRIPE_PRICE_ID_BASIC` | — | The Basic plan's recurring price, not the same as `SKRONGLE_STRIPE_PRICE_ID`: the webhook takes the plan from the subscription's price, never its metadata (#963). Required on the hosted site; unset, Basic is not sold |
 | `SKRONGLE_STRIPE_PRICE_LABEL` | `Monthly` | What a Stripe-sold subscription is said to cost; the profile's plan chooser prices Basic and Plus itself (`billing::Plan`) |

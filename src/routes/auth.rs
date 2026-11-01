@@ -671,22 +671,6 @@ fn twofa_token(headers: &HeaderMap) -> Option<String> {
 /// done, so after the code when there is one (#677); the learner then
 /// lands on the profile, whose notice says so.
 async fn sign_in(state: &AppState, user_id: i64, mut cookies: Vec<(axum::http::HeaderName, HeaderValue)>, share: Option<&ShareNotice>, join: Option<oauth::Identity>) -> Result<Response, AppError> {
-    // A superuser suspended the account (#967): refused, with whom to write to.
-    if state.db.call(move |c| crate::moderation::is_suspended(c, user_id)).await? {
-        tracing::info!("user {user_id} cannot sign in: the account is suspended");
-        let page = Page(LoginTemplate {
-            user: None,
-            reset: state.caps().mail,
-            error: Some(crate::moderation::suspended_text()),
-            email: String::new(),
-            google: state.google.is_some(),
-            dev: state.dev,
-            google_mock: state.google_mock(),
-            notice: None,
-            share: None,
-        });
-        return Ok((StatusCode::FORBIDDEN, AppendHeaders(cookies), page).into_response());
-    }
     // The account's second step goes by a channel this server lost (a
     // self-hoster removed the provider): no code could reach it, so the
     // sign-in is refused, naming the setting (#633).

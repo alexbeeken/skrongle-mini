@@ -2136,24 +2136,4 @@ dialog.modal.stat-modal { width: min(480px, calc(100vw - 2rem)); }
 .stat-unit-n { text-align: end; color: var(--muted); font-variant-numeric: tabular-nums; }
 
 /* The superuser's course table (#1034): search row, flag state pills, the detail dialog. */
-.course-table-search { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin: .4rem 0 .8rem; }
-.course-table-search input[type=search] { flex: 1 1 14rem; min-width: 0; }
-.course-table-search select { width: auto; }
-.pill.course-state.flagged { background: var(--bad-bg); color: var(--bad); }
-.pill.course-state.overridden, .pill.course-state.review { background: var(--warn-bg); color: #8a6d00; }
-.pill.course-state.down { background: var(--surface); color: var(--muted); border: 1px solid var(--line); }
-.course-flag-matches { padding-left: 1.1rem; margin: .3rem 0 .6rem; }
-.course-flag-matches li { margin: .3rem 0; overflow-wrap: anywhere; }
-.course-detail h3 { font-size: 1rem; margin: .8rem 0 .2rem; }
-.course-detail-actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .8rem; }
-/* A masked word or quote (templates/masked_word.html, #1033 review): its first letter and asterisks; held down, the text. Its hint shows on hover or focus. */
-.masked-word { position: relative; cursor: pointer; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; border-bottom: 1px dotted var(--muted); }
-.masked-word::after { content: attr(data-tip); display: none; position: absolute; left: 0; bottom: calc(100% + .3rem); z-index: 20; padding: .2rem .5rem; border-radius: var(--radius); background: var(--text); color: var(--surface); font-size: .78rem; font-weight: 600; white-space: nowrap; pointer-events: none; }
-.masked-word:hover::after, .masked-word:focus-visible::after { display: block; }
-.masked-word.revealed::after { display: none; }
 .modal-actions.pager { align-items: center; }
-/* The AI check's scores (#1046 review): one category per row, the numbers lined up on the right; a row at or over its threshold is red. */
-.score-table { width: 100%; border-collapse: collapse; margin: .2rem 0 .6rem; }
-.score-table th, .score-table td { padding: .25rem .5rem; border-bottom: 1px solid var(--line); text-align: left; }
-.score-table .num { text-align: right; font-variant-numeric: tabular-nums; }
-.score-table tr.high td { background: var(--bad-bg); color: var(--bad); }

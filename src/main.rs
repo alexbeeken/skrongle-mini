@@ -10,14 +10,11 @@ mod arrange;
 mod auth;
 mod billing;
 mod breach;
-mod check_worker;
 mod clock;
 mod conjugation;
 mod consent;
 mod content;
 mod content_reports;
-mod content_check;
-mod course_flags;
 mod courses;
 mod db;
 mod dev;
@@ -38,7 +35,6 @@ mod listening;
 mod mail;
 mod mathcheck;
 mod measure;
-mod moderation;
 mod notation;
 mod notes;
 mod mastery;
@@ -223,8 +219,6 @@ pub struct AppState {
     /// `SKRONGLE_PROXY_AUTH_HEADER` + `SKRONGLE_PROXY_AUTH_FROM`: the proxy in
     /// front signs people in (`proxy_auth.rs`); `None` when unset.
     pub proxy_auth: Option<proxy_auth::Config>,
-    /// Addresses a superuser blocked (#967), checked on every request.
-    pub blocked: moderation::Blocklist,
 }
 
 /// What this server can send (#633): features that would e-mail or text
@@ -494,7 +488,6 @@ Usage:
                                give the account a temporary password, printed here; it must be changed at the next sign-in
   skrongle disable-2fa <email> turn the account's two-factor sign-in off
   skrongle make-owner <email>  make the account a superuser (the Superuser page)
-  skrongle content-check       run the content check beside the server (with SKRONGLE_CONTENT_CHECK=external); hosted only
   skrongle --version           print the version
   skrongle --schema-version    print the database schema version this binary migrates to
 
@@ -507,7 +500,6 @@ fn main() {
     match args.first().map(String::as_str) {
         None => {}
         Some("doctor" | "--doctor") => std::process::exit(doctor::main(&args[1..])),
-        Some("content-check") => std::process::exit(check_worker::main(&args[1..])),
         Some("--version" | "-V" | "version") => {
             println!("skrongle {VERSION}");
             return;
@@ -787,7 +779,6 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         Some(n) => tracing::info!("{n}"),
         None => tracing::info!("Skrongle AI disabled (no SKRONGLE_AI_KEY): AI features use learners' own keys"),
     }
-    let check_mode = content_check::Mode::from_env()?;
     let mut mail_cfg = mail::Config::from_env()?;
     let mut sms_cfg = sms::Config::from_env()?;
     let storage = Arc::new(storage::Storage::from_settings(env("S3_BUCKET"), &|k| std::env::var(k).ok())?);
@@ -797,7 +788,6 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         (sms_cfg.logging_only, "SKRONGLE_SMS_PROVIDERS"),
         (cfg.google.is_none(), "SKRONGLE_GOOGLE_CLIENT_ID"),
         (cfg.stripe.is_none(), "SKRONGLE_STRIPE_SECRET_KEY"),
-        (content_check::key_missing(check_mode), content_check::KEY_VAR),
         // Both plans are sold, each at its own price: the webhook tells them apart by price (#963).
         (cfg.stripe.as_ref().is_some_and(|s| s.price_for(billing::Plan::Basic).is_none()), "SKRONGLE_STRIPE_PRICE_ID_BASIC (its own price, not SKRONGLE_STRIPE_PRICE_ID)"),
     ]
@@ -908,9 +898,7 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         signup,
         waitlist: Default::default(),
         proxy_auth,
-        blocked: Default::default(),
     });
-    db.with(|c| state.blocked.reload(c))?;
     match &google {
         Some(g) if g.mock => tracing::warn!(
             "DEV MODE: Google sign-in is mocked: {} stands in for Google; /auth/google?mock_email=…&mock_error=… picks the account or the failure (SKRONGLE_GOOGLE_MOCK=0 to disable)",
@@ -942,9 +930,6 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
     let mut runner = jobs::housekeeping(jobs::Runner::new().drain(mail_outbox.drain()).drain(sms_outbox.drain()), &state, retention)
         .handle_steps(jobs::EXPORT, move |db, payload| export_builder.run(db, payload))
         .handle_claimed(ai::GENERATE, move || ai::slot_free(&gen_state.jobs), ai::handler(Arc::clone(&state)));
-    tracing::info!("{}", content_check::init(is_mini(), dev, cfg.bind.port(), check_mode));
-    let cache = state.courses.clone();
-    runner = content_check::jobs(runner, state.meter.clone(), Arc::new(move |id: &str| cache.invalidate(id)));
     if dev {
         runner = jobs::dev(runner);
     }
@@ -1073,7 +1058,7 @@ mod tests {
 
     #[test]
     fn only_the_hosted_server_requires_providers() {
-        let none = ["SKRONGLE_MAIL_PROVIDERS", "SKRONGLE_SMS_PROVIDERS", "SKRONGLE_GOOGLE_CLIENT_ID", "SKRONGLE_STRIPE_SECRET_KEY", "TYPESAFE_API_KEY"];
+        let none = ["SKRONGLE_MAIL_PROVIDERS", "SKRONGLE_SMS_PROVIDERS", "SKRONGLE_GOOGLE_CLIENT_ID", "SKRONGLE_STRIPE_SECRET_KEY"];
         let why = require_providers(false, false, &none, true, false).unwrap_err();
         assert!(none.iter().all(|n| why.contains(n)), "{why}");
         assert!(why.contains("SKRONGLE_MINI=1"), "{why}");

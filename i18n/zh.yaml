@@ -29,7 +29,6 @@ lang:
   unknown: 没有这种语言。
 
 error:
-  blocked: "此服务器已屏蔽来自你的网络地址的请求。"
   not_found: 找不到页面
   form_only: "此页面只能通过其按钮打开。请返回并使用页面上的按钮。"
   database: 数据库错误
@@ -112,7 +111,6 @@ common:
 
 auth:
   login:
-    suspended: "此账户因违反条款已被暂停。如果你认为这是误会，请写信给 {email}。"
     deletion_scheduled: "你的账户将于 {date} 被删除。如要保留，请在此之前登录并取消删除。"
     title: 登录
     email_label: 电子邮箱地址
@@ -933,120 +931,6 @@ profile:
     confirm: "确认取消"
 
 superuser:
-  courses:
-    title: "课程"
-    about_label: "关于课程表"
-    about: "此服务器上创建的所有课程。含有列表中词语的课程，或 AI 检查发现问题的课程，会被标记：在修正或你解除标记之前，它不能开始也不能分享。被标记的课程排在最前。"
-    about_review: "AI 检查评分较高的课程需要审核。一两分钟内，AI 审核会结合上下文阅读这些部分，如果有害就标记课程。在此之前它仍可开始和分享；其对话框会列出评分较高的部分。"
-    shown: "课程：{total} 门。每页 {per_page} 门。"
-    search: "标题、课程 id 或所有者邮箱"
-    show: "显示"
-    show_all: "全部"
-    show_flagged: "已标记"
-    show_review: "待审核"
-    show_overridden: "已解除"
-    show_down: "已下架"
-    show_behind: "AI 检查落后 {n} 个或更多版本（{count}）"
-    find: "搜索"
-    none: "没有匹配的课程。"
-    edited: "最后编辑"
-    state: "标记"
-    source: "标记来源"
-    state_clear: "无"
-    state_flagged: "已标记"
-    state_review: "待审核"
-    state_overridden: "已解除"
-    state_down: "已下架"
-    source_terms: "词语列表"
-    source_ai: "AI 检查"
-    owner_suspended: "已停用"
-    checked: "最后检查"
-    never_checked: "尚未检查"
-    ai_checked: "AI 检查"
-    last_ai_check: "上次 AI 检查"
-    checker_label: "内容检查程序"
-    checker_about: "内容检查在单独的进程 skrongle content-check 中运行，与服务器并行（SKRONGLE_CONTENT_CHECK=external）。"
-    checker_seen: "上次报到：{when}"
-    checker_never: "尚未报到。"
-    checker_waiting: "等待中的检查：{n}"
-    checker_silent: "已经一天没有报到。请用 skrongle content-check 重新启动。"
-    checker_alert_since: "内容检查程序自 {when} 起没有报到。等待中的检查：{n}。"
-    checker_alert_never: "内容检查程序从未报到。等待中的检查：{n}。"
-    checker_details: "详情"
-    versions: "规则"
-    version_terms: "词表 v{version}"
-    version_ai: "AI v{version}"
-    version_behind: "按旧规则检查。当前版本是 {current}。"
-    about_versions: "规则一栏显示每门课程上次检查时所用的词表版本和 AI 检查版本。高亮的版本比当前规则旧，词表更新后，夜间检查会立即重新检查课程；AI 检查更新后，课程落后 {n} 个或更多版本时才会重新检查。"
-    versions_link: "每个版本的改动"
-    scores: "AI 评分"
-    score_category: "类别"
-    score_value: "分数"
-    high_in: "偏高项"
-    category:
-      misinformation: "虚假信息"
-      violence: "暴力"
-      self_harm: "自残"
-      weapons: "武器"
-      firearms: "枪支"
-      hate: "仇恨言论"
-      tragedy: "轻视大规模惨剧"
-      adult: "成人内容"
-      minors: "剥削未成年人"
-      sexual_crimes: "轻视性犯罪"
-      terms: "使用条款"
-    review_queued: "等待 AI 审核"
-    review_fine: "AI 审核：没问题"
-    review_harmful: "AI 审核：有害"
-    ai_cost: "AI 检查费用"
-    ai_cost_parts: "{cost}，共 {parts} 部分"
-    high_parts: "AI 评分较高的部分"
-    why: "标记原因"
-    report: "AI 报告"
-    override_note: "解除说明"
-    overridden_by: "{email}，{when}"
-    override: "解除标记"
-    override_about: "标记有误。课程可以重新开始和分享。之后的检查对相同的词保持解除；出现新词会再次标记。"
-    note: "为什么没问题？"
-    note_example: "这里 'coger' 的意思是 '拿'；没问题"
-    override_confirm: "解除"
-    clear_override: "撤销解除"
-    clear_override_about: "按课程现在的内容重新检查。如果这些词还在，它会再次被标记，不能开始也不能分享。"
-    take_down: "下架"
-    put_back_about: "课程重新对所有者和被分享的人开放。"
-    suspend_owner: "停用所有者"
-    delete: "删除课程"
-    delete_about: "课程、它的文件和分享都会被删除。此操作无法撤销。关于它的举报会保留。"
-    overridden: "{id} 的标记已解除。它可以重新开始和分享。"
-    override_cleared: "{id} 的解除已撤销。"
-    no_note: "请写一句简短说明，解释为什么标记有误。"
-    deleted: "课程 {id} 已删除。"
-    busy: "课程 {id} 正在生成或修改中。完成后再试。"
-    email_owner: "给所有者发邮件"
-    email_to: "发给 {email}，用对方的语言。你可以修改内容。按下发送之前不会发出任何邮件。"
-    email_subject: "主题"
-    email_text: "内容"
-    email_send: "发送"
-    emailed: "已于 {when} 通知所有者"
-    emailed_label: "已通知所有者"
-    emailed_before: "已于 {when} 就这门课程给所有者发过邮件。"
-    owner_emailed: "给 {id} 所有者的邮件正在发送。"
-    no_mail_text: "发送前请写好主题和内容。"
-    no_owner_address: "{id} 的所有者没有可以发送的邮箱地址。"
-    mail:
-      subject: "{app}：你的课程“{title}”无法开始或分享"
-      text: |
-        你好，
-
-        你在 {app} 上的课程“{title}”目前无法开始或分享。{why}
-
-        {fix}
-
-        如有疑问，或你认为我们弄错了，请写信到 {contact}。
-      why_flagged: "我们的内容检查标记了它。"
-      why_down: "因为它违反了条款，我们已将其下架。"
-      fix_flagged: "登录查看需要修改的内容：{link}"
-      fix_down: "下架期间你无法编辑它。如果你认为它没有违反条款，请写信给我们，我们会再看一次。"
   privacy:
     title: "隐私请求"
     about_label: "关于隐私请求"
@@ -1118,37 +1002,6 @@ superuser:
     sent_left:
       one: "{n} 个账户在等待：每小时上限已满。稍后再按一次发送。"
       other: "{n} 个账户在等待：每小时上限已满。稍后再按一次发送。"
-  mod:
-    course_id: "课程 id"
-    take_down_about: "课程的所有者和被分享的人都将无法打开它。所有者会看到它因违反条款被下架。分享记录会保留，恢复后分享也会恢复。"
-    take_down_confirm: "下架"
-    course: "课程"
-    owner: "所有者"
-    put_back_btn: "恢复"
-    taken_down: "课程 {id} 已下架。"
-    put_back: "课程 {id} 已恢复。"
-    no_course: "没有 id 为 {id} 的自建课程，或它已处于该状态。"
-    suspend: "暂停"
-    unsuspend: "解除暂停"
-    suspend_about: "该账户会在所有设备上退出登录，在你解除暂停前无法登录。它的课程不再分享给他人。不会删除任何内容。"
-    suspend_confirm: "暂停账户"
-    suspended: "{email} 已被暂停。"
-    unsuspended: "{email} 可以重新登录。"
-    delete: "删除账户"
-    delete_about: "账户及其创建的一切都会被删除：进度、课程、主题。此操作无法撤销。用于违反条款或儿童数据的情况。"
-    delete_confirm: "永久删除"
-    deleted: "{email} 及其数据已删除。"
-    yourself: "这是你自己的账户。请在个人资料中操作。"
-    subscribed: "{email} 有仍在计费的订阅。请先在 Stripe 中取消。"
-    blocked_title: "已屏蔽的地址"
-    block: "屏蔽地址"
-    address: "地址或范围"
-    block_about: "来自该地址的每个请求都会得到 403 页面，包括登录。范围写作 203.0.113.0/24。如果屏蔽了自己的地址，你也会被挡在外面；之后只能从 blocked_ips 删除该行并重启服务器。"
-    block_confirm: "屏蔽"
-    unblock: "移除"
-    blocked: "{ip} 已屏蔽。"
-    unblocked: "{ip} 已解除屏蔽。"
-    bad_ip: "{ip} 不是此页面能屏蔽的地址或范围（IPv4 /8 或更窄，IPv6 /16 或更窄）。"
   title: 超级用户
   about: "对任何账户的操作。只有超级用户能看到此页面。"
   open_inbox: 在开发收件箱中打开
@@ -2742,15 +2595,6 @@ courses:
     description: "用一两句话介绍这门课程。"
     unit: "第 1 单元"
     lesson: "你的第一课"
-  masked:
-    reveal_word: "点击查看该词"
-    reveal_text: "点击查看文本"
-    count: "{n} 处匹配"
-    list_title: "匹配到的内容"
-    prev: "上一页"
-    next: "下一页"
-    page: "第 {n} 页，共 {total} 页"
-    close: "关闭"
   translate:
     button: "复制并翻译为…"
     title: "复制并翻译“{title}”"
@@ -2772,26 +2616,6 @@ courses:
     phase_start: "正在翻译"
     phase_file: "正在翻译 {file}（第 {n} 个，共 {total} 个）"
   picker:
-    removed_info: "此课程因违反条款已被下架。你和你分享过的人都无法打开它。如果你认为这是误会，请写信给 {email}。"
-    removed: "已下架"
-    flagged: "暂时无法开始或分享"
-    flagged_title: "此课程暂时无法开始或分享"
-    flagged_lead: "它使用了课程中不允许的词语："
-    flagged_match: "{term}（在 {lesson} 中）"
-    flagged_edit: "编辑课程以修正"
-    flagged_lead_ai: "AI 检查发现了课程中不能出现的文字："
-    flagged_quote: "\"{text}\"（在 {lesson} 中）：{why}"
-    flagged_why_misinformation: "把虚假说法当作事实"
-    flagged_why_violence: "美化暴力"
-    flagged_why_self_harm: "鼓励自残"
-    flagged_why_weapons: "教人用武器伤人"
-    flagged_why_firearms: "教人用枪伤人"
-    flagged_why_hate: "攻击某一群体"
-    flagged_why_tragedy: "轻视大规模惨剧"
-    flagged_why_adult: "含有露骨的性内容"
-    flagged_why_minors: "危及儿童"
-    flagged_why_sexual_crimes: "轻视性犯罪"
-    flagged_why_terms: "违反使用条款"
     title: 你想学什么？
     lead_anon: 选一门现成的课程。每门课程都保留自己的进度、词汇、游戏和记录。
     lead_ai_off: 选一门现成的课程，或自己写一门。每门课程都保留自己的进度、词汇、游戏和记录。
@@ -2890,8 +2714,6 @@ courses:
     manifest_undeletable: course.json 无法删除；请改为编辑它。
     loads_notice: 课程已可加载。请从课程列表中打开它。
     not_loading_notice: "课程尚无法加载：{error}"
-    flagged_notice: "此课程暂时无法开始或分享。它使用了课程中不允许的词语：{matches}。删除它们并保存后，课程会重新开放。"
-    flagged_notice_ai: "此课程暂时无法开始或分享。AI 检查发现了课程中不能出现的文字：{matches}。修改后点“分享”即可重新检查。"
     gone: 此课程已不存在（可能已在其他标签页中删除），因此这些更改无法保存。
     busy_generating: 课程仍在生成中
     busy_revising: 课程正在修改中

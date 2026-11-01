@@ -632,33 +632,6 @@ the app deletes the file five minutes after it is downloaded, and the
 bucket's lifecycle rule deletes anything under `exports/` two days after
 upload. Like the backup bucket, it is kept when the stack is deleted.
 
-## The content check in its own process
-
-The AI content check (Jev and the AI review of what scored high) can run
-in a process of its own, so its work and its keys stay apart from the
-web server. Set `SKRONGLE_CONTENT_CHECK=external` in Parameter Store; the
-server then only queues the checks. Start the binary's `content-check`
-command on the same box, with the server's settings (the same
-`SKRONGLE_DB`, and `TYPESAFE_API_KEY` and `SKRONGLE_AI_KEY` from Parameter
-Store):
-
-```sh
-sudo systemd-run --unit=learnmap-check --uid=learnmap --gid=learnmap \
-  -p EnvironmentFile=/etc/learnmap/env -p EnvironmentFile=/run/learnmap/env \
-  -E SKRONGLE_DB=/var/lib/learnmap/learn.db -E SKRONGLE_DATA_DIR=/opt/learnmap/data \
-  /opt/learnmap/learnmap content-check
-sudo journalctl -u learnmap-check -f        # its log
-sudo systemctl stop learnmap-check          # stop it
-```
-
-The course table on /superuser shows when the worker last checked in and
-how many checks wait; a red ! means it has been silent for a day. Stop it
-any time: a check it was in the middle of runs again after 10 minutes.
-It doesn't come back after a reboot; start it again.
-
-It has to run on the server's computer: the database is one SQLite file.
-Running it on your own computer waits for the shared database (#581).
-
 ## If something goes wrong
 
 If personal data may have leaked (someone got into the box, a key turned

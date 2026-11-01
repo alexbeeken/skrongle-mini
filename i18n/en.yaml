@@ -31,7 +31,6 @@ lang:
   unknown: No such language.
 
 error:
-  blocked: "Requests from your network address are blocked on this server."
   not_found: Page not found
   form_only: "This page only works from its button. Go back and use the button on the page."
   database: Database error
@@ -114,7 +113,6 @@ common:
 
 auth:
   login:
-    suspended: "This account is suspended for breaking the Terms. If you think that's a mistake, write to {email}."
     deletion_scheduled: "Your account will be deleted on {date}. To keep it, sign in before then and cancel the deletion."
     title: Log in
     email_label: E-mail address
@@ -938,120 +936,6 @@ profile:
     confirm: "Confirm cancellation"
 
 superuser:
-  courses:
-    title: "Courses"
-    about_label: "About the course table"
-    about: "Every course made on this server. A course with a listed word, or one the AI check found a problem in, is flagged: it doesn't start or share until it is fixed or you override the flag. Flagged courses come first."
-    about_review: "A course the AI check scored high needs review. Within a minute or two an AI review reads those parts in context and flags the course if they are harmful. Until then it still starts and shares; its dialog names the parts that scored high."
-    shown: "Courses: {total}. {per_page} per page."
-    search: "Title, course id or owner's address"
-    show: "Show"
-    show_all: "All"
-    show_flagged: "Flagged"
-    show_review: "Needs review"
-    show_overridden: "Overridden"
-    show_down: "Taken down"
-    show_behind: "AI check {n} or more versions behind ({count})"
-    find: "Search"
-    none: "No course matches."
-    edited: "Last edited"
-    state: "Flag"
-    source: "Flagged by"
-    state_clear: "Clear"
-    state_flagged: "Flagged"
-    state_review: "Needs review"
-    state_overridden: "Overridden"
-    state_down: "Taken down"
-    source_terms: "Term list"
-    source_ai: "AI check"
-    owner_suspended: "suspended"
-    checked: "Last checked"
-    never_checked: "Not checked yet"
-    ai_checked: "AI check"
-    last_ai_check: "Last AI check"
-    checker_label: "Content checker"
-    checker_about: "The content check runs in its own process, skrongle content-check, beside the server (SKRONGLE_CONTENT_CHECK=external)."
-    checker_seen: "Last check-in: {when}"
-    checker_never: "It has not checked in yet."
-    checker_waiting: "Checks waiting: {n}"
-    checker_silent: "It has not checked in for a day. Start it again with skrongle content-check."
-    checker_alert_since: "The content checker hasn't checked in since {when}. Checks waiting: {n}."
-    checker_alert_never: "The content checker has never checked in. Checks waiting: {n}."
-    checker_details: "Details"
-    versions: "Rules"
-    version_terms: "Terms v{version}"
-    version_ai: "AI v{version}"
-    version_behind: "Checked under older rules. The current version is {current}."
-    about_versions: "Rules shows the version of the term list and of the AI check that each course was last checked under. A highlighted one is older than the current rules. The nightly run checks a course again against a newer term list at once, and against a newer AI check once it is {n} or more versions behind."
-    versions_link: "What changed in each version"
-    scores: "AI scores"
-    score_category: "Category"
-    score_value: "Score"
-    high_in: "High on"
-    category:
-      misinformation: "Misinformation"
-      violence: "Violence"
-      self_harm: "Self-harm"
-      weapons: "Weapons"
-      firearms: "Firearms"
-      hate: "Hate speech"
-      tragedy: "Trivialising mass tragedies"
-      adult: "Adult content"
-      minors: "Exploiting minors"
-      sexual_crimes: "Trivialising sexual crimes"
-      terms: "Terms of Use"
-    review_queued: "waiting for the AI review"
-    review_fine: "AI review: fine"
-    review_harmful: "AI review: harmful"
-    ai_cost: "AI check cost"
-    ai_cost_parts: "{cost} for {parts} parts"
-    high_parts: "Parts with a high AI score"
-    why: "Why it was flagged"
-    report: "AI report"
-    override_note: "Override note"
-    overridden_by: "By {email}, {when}"
-    override: "Override the flag"
-    override_about: "The flag was wrong. The course starts and shares again. Later checks keep the override for the same words; a new word flags it again."
-    note: "Why is it fine?"
-    note_example: "'coger' here means 'to take'; fine"
-    override_confirm: "Override"
-    clear_override: "Clear the override"
-    clear_override_about: "The course is checked again as it is now. If the words are still there, it is flagged again and stops starting and sharing."
-    take_down: "Take down"
-    put_back_about: "The course opens again for its owner and for everyone it is shared with."
-    suspend_owner: "Suspend the owner"
-    delete: "Delete the course"
-    delete_about: "The course, its files and its shares are deleted. This can't be undone. Content reports about it are kept."
-    overridden: "The flag on {id} is overridden. It starts and shares again."
-    override_cleared: "The override on {id} is cleared."
-    no_note: "Write a short note saying why the flag is wrong."
-    deleted: "Course {id} is deleted."
-    busy: "Course {id} is being generated or revised. Try again when that finishes."
-    email_owner: "E-mail the owner"
-    email_to: "To {email}, in their language. Edit it as you like. Nothing goes out until you press Send."
-    email_subject: "Subject"
-    email_text: "Message"
-    email_send: "Send"
-    emailed: "owner e-mailed {when}"
-    emailed_label: "Owner e-mailed"
-    emailed_before: "The owner was already e-mailed about this course on {when}."
-    owner_emailed: "The e-mail to the owner of {id} is on its way."
-    no_mail_text: "Write a subject and a message before you send."
-    no_owner_address: "The owner of {id} has no address we can e-mail."
-    mail:
-      subject: "{app}: your course \"{title}\" can't be started or shared"
-      text: |
-        Hello,
-
-        Your course "{title}" on {app} can't be started or shared at the moment. {why}
-
-        {fix}
-
-        If you have a question or think we got this wrong, write to {contact}.
-      why_flagged: "Our content check flagged it."
-      why_down: "We took it down because it breaks the Terms."
-      fix_flagged: "Sign in to see what to fix: {link}"
-      fix_down: "You can't edit it while it is down. If you think it doesn't break the Terms, write to us and we will look at it again."
   privacy:
     title: "Privacy requests"
     about_label: "About privacy requests"
@@ -1123,37 +1007,6 @@ superuser:
     sent_left:
       one: "{n} account waits: the hourly limit is full. Press Send again later."
       other: "{n} accounts wait: the hourly limit is full. Press Send again later."
-  mod:
-    course_id: "Course id"
-    take_down_about: "The course stops opening for its owner and for everyone it is shared with. Its owner sees that it was removed for breaking the Terms. Its shares are kept, so Put back restores them."
-    take_down_confirm: "Take it down"
-    course: "Course"
-    owner: "Owner"
-    put_back_btn: "Put back"
-    taken_down: "Course {id} is taken down."
-    put_back: "Course {id} is back up."
-    no_course: "No made course has the id {id}, or it is already in that state."
-    suspend: "Suspend"
-    unsuspend: "Lift suspension"
-    suspend_about: "The account is signed out everywhere and can't sign in until you lift the suspension. Its courses stop being shared with others. Nothing is deleted."
-    suspend_confirm: "Suspend it"
-    suspended: "{email} is suspended."
-    unsuspended: "{email} can sign in again."
-    delete: "Delete account"
-    delete_about: "The account and everything it made are deleted: progress, courses, themes. This can't be undone. Use it for a breach of the Terms or for a child's data."
-    delete_confirm: "Delete it for good"
-    deleted: "{email} and its data are deleted."
-    yourself: "That is your own account. Use your profile for it."
-    subscribed: "{email} has a subscription that is still billing. Cancel it in Stripe first."
-    blocked_title: "Blocked addresses"
-    block: "Block an address"
-    address: "Address or range"
-    block_about: "Every request from it gets a 403 page, sign-in included. Write a range as 203.0.113.0/24. If you block your own address you are locked out too, and removing the block then means deleting its row from blocked_ips and restarting the server."
-    block_confirm: "Block it"
-    unblock: "Remove"
-    blocked: "{ip} is blocked."
-    unblocked: "{ip} is no longer blocked."
-    bad_ip: "{ip} is not an address or range this page can block (IPv4 /8 or narrower, IPv6 /16 or narrower)."
   title: Superuser
   about: "Actions on any account. Only superusers see this page."
   open_inbox: Open it in the dev inbox
@@ -2748,15 +2601,6 @@ courses:
     description: "Describe the course in a sentence or two."
     unit: "Unit 1"
     lesson: "Your first lesson"
-  masked:
-    reveal_word: "Click to reveal word"
-    reveal_text: "Click to reveal text"
-    count: "{n} matches"
-    list_title: "What matched"
-    prev: "Previous"
-    next: "Next"
-    page: "Page {n} of {total}"
-    close: "Close"
   translate:
     button: "Copy and translate to…"
     title: "Copy and translate “{title}”"
@@ -2778,26 +2622,6 @@ courses:
     phase_start: "Translating"
     phase_file: "Translating {file} ({n} of {total})"
   picker:
-    removed_info: "This course was taken down for breaking the Terms. It doesn't open for you or for anyone you shared it with. If you think that's a mistake, write to {email}."
-    removed: "Removed"
-    flagged: "Can't be started or shared yet"
-    flagged_title: "This course can't be started or shared yet"
-    flagged_lead: "It uses words that aren't allowed in a course:"
-    flagged_match: "{term} (in {lesson})"
-    flagged_edit: "Edit the course to fix it"
-    flagged_lead_ai: "The AI check found text that can't be in a course:"
-    flagged_quote: "\"{text}\" in {lesson}: {why}"
-    flagged_why_misinformation: "spreads false claims as facts"
-    flagged_why_violence: "glorifies violence"
-    flagged_why_self_harm: "encourages self-harm"
-    flagged_why_weapons: "helps people hurt others with weapons"
-    flagged_why_firearms: "helps people hurt others with guns"
-    flagged_why_hate: "attacks a group of people"
-    flagged_why_tragedy: "makes light of a mass tragedy"
-    flagged_why_adult: "is sexually explicit"
-    flagged_why_minors: "puts children at risk"
-    flagged_why_sexual_crimes: "makes light of sexual crimes"
-    flagged_why_terms: "breaks the Terms of Use"
     title: What would you like to learn?
     lead_anon: Pick a ready-made course. Each course keeps its own progress, vocabulary, games and history.
     lead_ai_off: Pick a ready-made course or write your own. Each course keeps its own progress, vocabulary, games and history.
@@ -2896,8 +2720,6 @@ courses:
     manifest_undeletable: course.json cannot be deleted; edit it instead
     loads_notice: The course loads. Open it from the course list.
     not_loading_notice: "The course does not load yet: {error}"
-    flagged_notice: "This course can't be started or shared yet. It uses words that aren't allowed in a course: {matches}. Take them out and save, and it opens again."
-    flagged_notice_ai: "This course can't be started or shared yet. The AI check found text that can't be in a course: {matches}. Change it, then press Share to have it checked again."
     gone: This course is gone (deleted, perhaps in another tab), so these changes cannot be saved.
     busy_generating: The course is still being generated
     busy_revising: The course is being revised

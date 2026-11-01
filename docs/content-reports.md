@@ -30,54 +30,12 @@ or to every superuser when that is unset. Open reports are listed on
    carries the claimant's name and address. For a harmful or other report,
    forward it when the owner can fix it; that copy never carries the
    reporter's address.
-4. **Take it down** when the claim holds up: clearly copied material, or
+4. **Remove it** when the claim holds up: clearly copied material, or
    content that is harmful under the Terms. For a copyright notice, do this
-   within five working days of a complete notice. Find the course in the
-   **Courses** table on `/superuser` (search by its id or the owner's
-   address), open it and press *Take down*.
+   within five working days of a complete notice. Ask the owner to delete
+   the course, or delete it from the database.
 5. **Resolve** the report when nothing more is to be done (taken down,
    rejected, or the owner fixed it). It leaves the open list; the row stays.
-
-## Flagged courses
-
-A made course with a listed word (`data/moderation/terms.txt`), or one the
-AI check found a problem in, is **flagged**: it doesn't start and can't be
-shared, and its owner's card says which words matched. Nobody reports it;
-it shows up first in the **Courses** table on `/superuser`.
-
-1. **Look at it within two working days.** Filter the table to *Flagged*
-   and open the course. The dialog shows each match with its lesson, file
-   and field and the text around it. For a course the AI check flagged
-   (*Flagged by: AI check*), it shows the AI's report (a few sentences on
-   what is wrong) and the exact text it quoted, under the rule it breaks
-   (one of the AI check's categories, such as Hate speech or Self-harm),
-   and the parts Jev scored high, with the categories they scored high on
-   and the review's word on each.
-2. **The check was wrong** (a word that means something ordinary in the
-   language taught, a quote in a lesson about the word itself): press
-   *Override the flag* and write a short note saying why. The course starts
-   and shares again. The next check keeps the override for the same words;
-   a new word flags it again. For an AI flag, write the note for the AI
-   too: the review reads it the next time the course changes, and follows
-   it unless the new content goes beyond it (its report then says why the
-   note doesn't cover it). *Clear the override* takes it back and checks
-   the course again as it is.
-3. **The check was right**: leave it flagged. The owner can fix it, and the
-   flag clears on its own when they save (an AI flag when they save and
-   press Share, which checks the course again). For content that breaks the Terms
-   badly, *Take down* (the owner sees why, and the shares stay for *Put
-   back*) or *Delete the course* (the course, its files and its shares go;
-   not undone). For an account that keeps doing it, *Suspend the owner*.
-4. **Tell the owner** when the card's red ! is not enough: a flag on a
-   course they shared, a take-down, or a flag that has stayed for a few
-   days. Press *E-mail the owner* in the course's dialog. The form comes
-   filled in their language with the reason and how to fix it; change what
-   you like and press *Send*. Never add who reported the course. The row
-   then says "owner e-mailed" with the date, so check it before you send
-   another. Nothing sends this e-mail on its own.
-
-Every action is logged as which superuser did what to which course, never
-the content or the note.
 
 ## Counter-notices
 
