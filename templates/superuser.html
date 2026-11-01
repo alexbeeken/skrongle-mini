@@ -13,7 +13,6 @@
   </dialog>
   {% if let Some(n) = notice %}<p class="alert ok-text" role="status" data-testid="superuser-notice">✓ {{ n }}{% if let Some(i) = inbox %} <a href="{{ i }}" data-testid="superuser-inbox">{{ crate::t("superuser.open_inbox") }}</a>{% endif %}</p>{% endif %}
   {% if let Some(e) = error %}<p class="alert error" role="alert" data-testid="superuser-error">{{ e }}</p>{% endif %}
-  {% if let Some(ct) = courses %}{% if let Some(w) = ct.worker %}{% if w.silent %}<p class="alert error" role="alert" data-testid="superuser-checker-alert">{{ w.alert }} <button type="button" class="link-btn" data-opens="superuser-checker" aria-haspopup="dialog" data-testid="superuser-checker-alert-details">{{ crate::t("superuser.courses.checker_details") }}</button></p>{% endif %}{% endif %}{% endif %}
   {% if terms_owed > 0 %}<p class="alert" role="status" data-testid="superuser-terms-changed">{{ crate::t("superuser.terms_changed") }}</p>{% endif %}
 
   {% if terms_owed > 0 %}
@@ -76,15 +75,10 @@
     <div class="table-scroll"><table class="small" data-testid="superuser-accounts">
       <thead><tr><th>{{ crate::t("superuser.email") }}</th><th>{{ crate::t("superuser.created") }}</th><th>{{ crate::t("superuser.last_sign_in") }}</th><th></th></tr></thead>
       <tbody>{% for a in list %}
-        <tr data-testid="superuser-account-row" data-superuser="{{ a.superuser }}" data-suspended="{{ a.suspended }}"><td>{{ a.email }}</td><td>{{ a.created }}</td><td>{{ a.last_sign_in }}</td><td class="account-actions">{% if !a.email.is_empty() %}
+        <tr data-testid="superuser-account-row" data-superuser="{{ a.superuser }}"><td>{{ a.email }}</td><td>{{ a.created }}</td><td>{{ a.last_sign_in }}</td><td class="account-actions">{% if !a.email.is_empty() %}
           <button type="button" class="link-btn small" data-opens="superuser-password-dialog" data-account-email="{{ a.email }}" aria-haspopup="dialog" data-testid="superuser-account-temp-password">{{ crate::t("superuser.temp_password") }}</button>
           <button type="button" class="link-btn small" data-opens="superuser-two-factor-dialog" data-account-email="{{ a.email }}" aria-haspopup="dialog" data-testid="superuser-account-two-factor-off">{{ crate::t("superuser.two_factor_off") }}</button>
           {% if mail %}<button type="button" class="link-btn small" data-opens="superuser-verify-dialog" data-account-email="{{ a.email }}" aria-haspopup="dialog" data-testid="superuser-account-reset-verification">{{ crate::t("superuser.reset") }}</button>{% endif %}
-          {% if moderate && !a.me %}
-          {% if a.suspended %}<form method="post" action="{{ crate::url("/superuser/unsuspend") }}"><input type="hidden" name="email" value="{{ a.email }}"><button type="submit" class="link-btn small" data-testid="superuser-account-unsuspend">{{ crate::t("superuser.mod.unsuspend") }}</button></form>
-          {% else %}<button type="button" class="link-btn small" data-opens="superuser-suspend-dialog" data-account-email="{{ a.email }}" aria-haspopup="dialog" data-testid="superuser-account-suspend">{{ crate::t("superuser.mod.suspend") }}</button>{% endif %}
-          <button type="button" class="link-btn small" data-opens="superuser-delete-dialog" data-account-email="{{ a.email }}" aria-haspopup="dialog" data-testid="superuser-account-delete">{{ crate::t("superuser.mod.delete") }}</button>
-          {% endif %}
         {% endif %}</td></tr>{% endfor %}
       </tbody>
     </table></div>
@@ -96,63 +90,6 @@
     </nav>
     {% endif %}
   </section>
-
-  {% include "superuser_courses.html" %}
-
-  {% if moderate %}
-  <section class="card" data-testid="superuser-blocked-card">
-    <h2>{{ crate::t("superuser.mod.blocked_title") }}</h2>
-    <button type="button" class="btn ghost" data-opens="superuser-block-dialog" aria-haspopup="dialog" data-testid="superuser-block">{{ crate::t("superuser.mod.block") }}</button>
-    {% if !blocked.is_empty() %}
-    <div class="table-scroll"><table class="small" data-testid="superuser-blocked">
-      <thead><tr><th>{{ crate::t("superuser.mod.address") }}</th><th></th></tr></thead>
-      <tbody>{% for (id, cidr) in blocked %}
-        <tr data-testid="superuser-blocked-row" data-ip="{{ cidr }}"><td>{{ cidr }}</td><td>
-          <form method="post" action="{{ crate::url("/superuser/unblock-ip") }}"><input type="hidden" name="id" value="{{ id }}"><button type="submit" class="link-btn small" data-testid="superuser-unblock">{{ crate::t("superuser.mod.unblock") }}</button></form>
-        </td></tr>{% endfor %}
-      </tbody>
-    </table></div>
-    {% endif %}
-  </section>
-
-
-  <dialog class="modal" id="superuser-block-dialog" aria-labelledby="superuser-block-title" data-testid="superuser-block-dialog">
-    <form method="post" action="{{ crate::url("/superuser/block-ip") }}" data-testid="superuser-block-form">
-      <h2 id="superuser-block-title">{{ crate::t("superuser.mod.block") }}</h2>
-      <label>{{ crate::t("superuser.mod.address") }} <input type="text" name="ip" required autocomplete="off" placeholder="203.0.113.7, 203.0.113.0/24" data-testid="superuser-block-ip"></label>
-      <p class="small">{{ crate::t("superuser.mod.block_about") }}</p>
-      <div class="modal-actions">
-        <button type="button" class="btn ghost" data-closes>{{ crate::t("profile.password.cancel") }}</button>
-        <button type="submit" class="btn danger" data-testid="superuser-block-confirm">{{ crate::t("superuser.mod.block_confirm") }}</button>
-      </div>
-    </form>
-  </dialog>
-  <dialog class="modal" id="superuser-suspend-dialog" aria-labelledby="superuser-suspend-title" data-testid="superuser-suspend-dialog">
-    <form method="post" action="{{ crate::url("/superuser/suspend") }}" data-testid="superuser-suspend-form">
-      <h2 id="superuser-suspend-title">{{ crate::t("superuser.mod.suspend") }}</h2>
-      <input type="hidden" name="email" value="" data-account-field>
-      <p><strong data-account-name></strong></p>
-      <p class="small">{{ crate::t("superuser.mod.suspend_about") }}</p>
-      <div class="modal-actions">
-        <button type="button" class="btn ghost" data-closes>{{ crate::t("profile.password.cancel") }}</button>
-        <button type="submit" class="btn danger" data-testid="superuser-suspend-confirm">{{ crate::t("superuser.mod.suspend_confirm") }}</button>
-      </div>
-    </form>
-  </dialog>
-  <dialog class="modal" id="superuser-delete-dialog" aria-labelledby="superuser-delete-title" data-testid="superuser-delete-dialog">
-    <form method="post" action="{{ crate::url("/superuser/delete-account") }}" data-testid="superuser-delete-form">
-      <h2 id="superuser-delete-title">{{ crate::t("superuser.mod.delete") }}</h2>
-      <input type="hidden" name="email" value="" data-account-field>
-      <p><strong data-account-name></strong></p>
-      <p class="small error-text" data-testid="superuser-delete-warning">{{ crate::t("superuser.mod.delete_about") }}</p>
-      <label>{{ crate::t("superuser.privacy.reason") }} <input type="text" name="reason" required maxlength="200" autocomplete="off" placeholder="{{ crate::t("superuser.privacy.reason_hint") }}" data-testid="superuser-delete-reason"></label>
-      <div class="modal-actions">
-        <button type="button" class="btn ghost" data-closes>{{ crate::t("profile.password.cancel") }}</button>
-        <button type="submit" class="btn danger" data-testid="superuser-delete-confirm">{{ crate::t("superuser.mod.delete_confirm") }}</button>
-      </div>
-    </form>
-  </dialog>
-  {% endif %}
 
   <dialog class="modal" id="superuser-password-dialog" aria-labelledby="superuser-password-title" data-testid="superuser-password-dialog">
     <form method="post" action="{{ crate::url("/superuser/temp-password") }}" data-testid="superuser-password-form">

@@ -29,7 +29,6 @@ lang:
   unknown: Diese Sprache gibt es nicht.
 
 error:
-  blocked: "Anfragen von deiner Netzwerkadresse sind auf diesem Server gesperrt."
   not_found: Seite nicht gefunden
   form_only: "Diese Seite funktioniert nur über ihre Schaltfläche. Geh zurück und nutze die Schaltfläche auf der Seite."
   database: Datenbankfehler
@@ -112,7 +111,6 @@ common:
 
 auth:
   login:
-    suspended: "Dieses Konto ist wegen eines Verstoßes gegen die Nutzungsbedingungen gesperrt. Wenn du das für einen Fehler hältst, schreib an {email}."
     deletion_scheduled: "Dein Konto wird am {date} gelöscht. Wenn du es behalten willst, melde dich vorher an und brich die Löschung ab."
     title: Anmelden
     email_label: E-Mail-Adresse
@@ -932,155 +930,6 @@ profile:
     confirm: "Kündigung bestätigen"
 
 superuser:
-  courses:
-    title: "Kurse"
-    about_label: "Über die Kurstabelle"
-    about: "Alle auf diesem Server erstellten Kurse. Ein Kurs mit einem gelisteten Wort, oder einer, in dem die KI-Prüfung ein Problem fand, ist markiert: Er startet nicht und wird nicht geteilt, bis er korrigiert ist oder du die Markierung aufhebst. Markierte Kurse stehen oben."
-    about_review: "Ein Kurs, den die KI-Prüfung hoch bewertet hat, muss geprüft werden. Innerhalb von ein, zwei Minuten liest eine KI-Prüfung diese Teile im Zusammenhang und markiert den Kurs, wenn sie schädlich sind. Bis dahin startet er und lässt sich teilen; sein Dialog nennt die hoch bewerteten Teile."
-    shown: "Kurse: {total}. {per_page} pro Seite."
-    search: "Titel, Kurs-ID oder Adresse des Besitzers"
-    show: "Zeigen"
-    show_all: "Alle"
-    show_flagged: "Markiert"
-    show_review: "Zu prüfen"
-    show_overridden: "Freigegeben"
-    show_down: "Entfernt"
-    show_behind: "KI-Prüfung {n} oder mehr Versionen zurück ({count})"
-    find: "Suchen"
-    none: "Kein Kurs passt."
-    edited: "Zuletzt bearbeitet"
-    state: "Markierung"
-    source: "Markiert von"
-    state_clear: "Ohne Befund"
-    state_flagged: "Markiert"
-    state_review: "Zu prüfen"
-    state_overridden: "Freigegeben"
-    state_down: "Entfernt"
-    source_terms: "Wortliste"
-    source_ai: "KI-Prüfung"
-    owner_suspended: "gesperrt"
-    checked: "Zuletzt geprüft"
-    never_checked: "Noch nicht geprüft"
-    ai_checked: "KI-Prüfung"
-    last_ai_check: "Letzte KI-Prüfung"
-    checker_label: "Inhaltsprüfer"
-    checker_about: "Die Inhaltsprüfung läuft in einem eigenen Prozess, skrongle content-check, neben dem Server (SKRONGLE_CONTENT_CHECK=external)."
-    checker_seen: "Zuletzt gemeldet: {when}"
-    checker_never: "Er hat sich noch nicht gemeldet."
-    checker_waiting: "Wartende Prüfungen: {n}"
-    checker_silent: "Er hat sich seit einem Tag nicht gemeldet. Starte ihn neu mit skrongle content-check."
-    checker_alert_since: "Der Inhaltsprüfer hat sich seit {when} nicht gemeldet. Wartende Prüfungen: {n}."
-    checker_alert_never: "Der Inhaltsprüfer hat sich noch nie gemeldet. Wartende Prüfungen: {n}."
-    checker_details: "Details"
-    versions: "Regeln"
-    version_terms: "Begriffe v{version}"
-    version_ai: "KI v{version}"
-    version_behind: "Mit älteren Regeln geprüft. Die aktuelle Version ist {current}."
-    about_versions: "Regeln zeigt, unter welcher Version der Begriffsliste und der KI-Prüfung jeder Kurs zuletzt geprüft wurde. Eine hervorgehobene Version ist älter als die aktuellen Regeln. Der nächtliche Lauf prüft einen Kurs gegen eine neue Begriffsliste sofort erneut, mit einer neuen KI-Prüfung erst, wenn er {n} oder mehr Versionen zurückliegt."
-    versions_link: "Was sich in jeder Version geändert hat"
-    scores: "KI-Werte"
-    score_category: "Kategorie"
-    score_value: "Wert"
-    high_in: "Hoch bei"
-    category:
-      misinformation: "Falschinformation"
-      violence: "Gewalt"
-      self_harm: "Selbstverletzung"
-      weapons: "Waffen"
-      firearms: "Schusswaffen"
-      hate: "Hassrede"
-      tragedy: "Verharmlosung von Massentragödien"
-      adult: "Inhalte für Erwachsene"
-      minors: "Ausbeutung Minderjähriger"
-      sexual_crimes: "Verharmlosung von Sexualverbrechen"
-      terms: "Nutzungsbedingungen"
-    review_queued: "wartet auf die KI-Prüfung"
-    review_fine: "KI-Prüfung: in Ordnung"
-    review_harmful: "KI-Prüfung: schädlich"
-    ai_cost: "Kosten der KI-Prüfung"
-    ai_cost_parts: "{cost} für {parts} Teile"
-    high_parts: "Teile mit hohem KI-Wert"
-    why: "Warum er markiert ist"
-    report: "KI-Bericht"
-    override_note: "Notiz zur Freigabe"
-    overridden_by: "Von {email}, {when}"
-    override: "Markierung aufheben"
-    override_about: "Die Markierung war falsch. Der Kurs startet und wird wieder geteilt. Spätere Prüfungen behalten die Freigabe für dieselben Wörter; ein neues Wort markiert ihn wieder."
-    note: "Warum ist es in Ordnung?"
-    note_example: "'coger' heißt hier 'nehmen'; in Ordnung"
-    override_confirm: "Freigeben"
-    clear_override: "Freigabe zurücknehmen"
-    clear_override_about: "Der Kurs wird so, wie er jetzt ist, neu geprüft. Sind die Wörter noch da, wird er wieder markiert und startet und teilt nicht mehr."
-    take_down: "Entfernen"
-    put_back_about: "Der Kurs öffnet sich wieder für den Besitzer und für alle, mit denen er geteilt ist."
-    suspend_owner: "Besitzer sperren"
-    delete: "Kurs löschen"
-    delete_about: "Der Kurs, seine Dateien und seine Freigaben werden gelöscht. Das lässt sich nicht rückgängig machen."
-    overridden: "Die Markierung von {id} ist aufgehoben. Er startet und wird wieder geteilt."
-    override_cleared: "Die Freigabe von {id} ist zurückgenommen."
-    no_note: "Schreib eine kurze Notiz, warum die Markierung falsch ist."
-    deleted: "Kurs {id} ist gelöscht."
-    busy: "Kurs {id} wird gerade erstellt oder überarbeitet. Versuch es, wenn das fertig ist."
-    email_owner: "Dem Besitzer schreiben"
-    email_to: "An {email}, in seiner Sprache. Du kannst den Text ändern. Nichts geht raus, bevor du auf Senden drückst."
-    email_subject: "Betreff"
-    email_text: "Nachricht"
-    email_send: "Senden"
-    emailed: "Besitzer am {when} angeschrieben"
-    emailed_label: "Besitzer angeschrieben"
-    emailed_before: "Der Besitzer wurde am {when} schon wegen dieses Kurses angeschrieben."
-    owner_emailed: "Die E-Mail an den Besitzer von {id} ist unterwegs."
-    no_mail_text: "Schreib vor dem Senden einen Betreff und eine Nachricht."
-    no_owner_address: "Der Besitzer von {id} hat keine Adresse, an die wir schreiben können."
-    mail:
-      subject: "{app}: Dein Kurs \"{title}\" kann nicht gestartet oder geteilt werden"
-      text: |
-        Hallo,
-
-        Dein Kurs "{title}" auf {app} kann im Moment nicht gestartet oder geteilt werden. {why}
-
-        {fix}
-
-        Wenn du eine Frage hast oder meinst, dass wir uns geirrt haben, schreib an {contact}.
-      why_flagged: "Unsere Inhaltsprüfung hat ihn markiert."
-      why_down: "Wir haben ihn entfernt, weil er gegen die Bedingungen verstößt."
-      fix_flagged: "Melde dich an, um zu sehen, was du ändern musst: {link}"
-      fix_down: "Solange er entfernt ist, kannst du ihn nicht bearbeiten. Wenn du meinst, dass er nicht gegen die Bedingungen verstößt, schreib uns, dann sehen wir ihn uns noch einmal an."
-  privacy:
-    reason: "Grund"
-    reason_hint: "Anfrage 12 im Anfragenprotokoll"
-    no_reason: "Gib zuerst einen Grund ein."
-  mod:
-    course_id: "Kurs-ID"
-    take_down_about: "Der Kurs öffnet sich nicht mehr für seinen Besitzer und alle, mit denen er geteilt ist. Der Besitzer sieht, dass er wegen eines Verstoßes gegen die Nutzungsbedingungen entfernt wurde. Die Freigaben bleiben, Wiederherstellen bringt sie zurück."
-    take_down_confirm: "Entfernen"
-    course: "Kurs"
-    owner: "Besitzer"
-    put_back_btn: "Wiederherstellen"
-    taken_down: "Kurs {id} ist entfernt."
-    put_back: "Kurs {id} ist wieder da."
-    no_course: "Kein selbst erstellter Kurs hat die ID {id}, oder er ist schon in diesem Zustand."
-    suspend: "Sperren"
-    unsuspend: "Sperre aufheben"
-    suspend_about: "Das Konto wird überall abgemeldet und kann sich nicht anmelden, bis du die Sperre aufhebst. Seine Kurse werden nicht mehr mit anderen geteilt. Nichts wird gelöscht."
-    suspend_confirm: "Sperren"
-    suspended: "{email} ist gesperrt."
-    unsuspended: "{email} kann sich wieder anmelden."
-    delete: "Konto löschen"
-    delete_about: "Das Konto und alles, was es erstellt hat, wird gelöscht: Fortschritt, Kurse, Themes. Das lässt sich nicht rückgängig machen. Für Verstöße gegen die Nutzungsbedingungen oder Daten eines Kindes."
-    delete_confirm: "Endgültig löschen"
-    deleted: "{email} und die Daten sind gelöscht."
-    yourself: "Das ist dein eigenes Konto. Nutze dafür dein Profil."
-    subscribed: "{email} hat ein Abo, das noch abgerechnet wird. Kündige es zuerst in Stripe."
-    blocked_title: "Gesperrte Adressen"
-    block: "Eine Adresse sperren"
-    address: "Adresse oder Bereich"
-    block_about: "Jede Anfrage von dort bekommt eine 403-Seite, auch die Anmeldung. Einen Bereich schreibst du als 203.0.113.0/24. Sperrst du deine eigene Adresse, bist du auch ausgesperrt; dann hilft nur, die Zeile aus blocked_ips zu löschen und den Server neu zu starten."
-    block_confirm: "Sperren"
-    unblock: "Entfernen"
-    blocked: "{ip} ist gesperrt."
-    unblocked: "{ip} ist nicht mehr gesperrt."
-    bad_ip: "{ip} ist keine Adresse oder kein Bereich, den diese Seite sperren kann (IPv4 /8 oder enger, IPv6 /16 oder enger)."
   title: Superuser
   about: "Aktionen für jedes Konto. Nur Superuser sehen diese Seite."
   open_inbox: Im Dev-Postfach öffnen
@@ -2674,15 +2523,6 @@ courses:
     description: "Beschreib den Kurs in ein oder zwei Sätzen."
     unit: "Einheit 1"
     lesson: "Deine erste Lektion"
-  masked:
-    reveal_word: "Klicken, um das Wort zu zeigen"
-    reveal_text: "Klicken, um den Text zu zeigen"
-    count: "{n} Treffer"
-    list_title: "Was gefunden wurde"
-    prev: "Zurück"
-    next: "Weiter"
-    page: "Seite {n} von {total}"
-    close: "Schließen"
   translate:
     button: "Kopieren und übersetzen in…"
     title: "„{title}“ kopieren und übersetzen"
@@ -2704,26 +2544,6 @@ courses:
     phase_start: "Wird übersetzt"
     phase_file: "{file} wird übersetzt ({n} von {total})"
   picker:
-    removed_info: "Dieser Kurs wurde wegen eines Verstoßes gegen die Nutzungsbedingungen entfernt. Er öffnet sich weder für dich noch für alle, mit denen du ihn geteilt hast. Wenn du das für einen Fehler hältst, schreib an {email}."
-    removed: "Entfernt"
-    flagged: "Kann noch nicht gestartet oder geteilt werden"
-    flagged_title: "Dieser Kurs kann noch nicht gestartet oder geteilt werden"
-    flagged_lead: "Er enthält Wörter, die in einem Kurs nicht erlaubt sind:"
-    flagged_match: "{term} (in {lesson})"
-    flagged_edit: "Kurs bearbeiten, um es zu beheben"
-    flagged_lead_ai: "Die KI-Prüfung hat Text gefunden, der nicht in einem Kurs stehen darf:"
-    flagged_quote: "\"{text}\" in {lesson}: {why}"
-    flagged_why_misinformation: "stellt falsche Behauptungen als Tatsachen dar"
-    flagged_why_violence: "verherrlicht Gewalt"
-    flagged_why_self_harm: "ermutigt zur Selbstverletzung"
-    flagged_why_weapons: "hilft, anderen mit Waffen zu schaden"
-    flagged_why_firearms: "hilft, anderen mit Schusswaffen zu schaden"
-    flagged_why_hate: "greift eine Gruppe von Menschen an"
-    flagged_why_tragedy: "verharmlost eine Massentragödie"
-    flagged_why_adult: "ist sexuell explizit"
-    flagged_why_minors: "gefährdet Kinder"
-    flagged_why_sexual_crimes: "verharmlost Sexualverbrechen"
-    flagged_why_terms: "verstößt gegen die Nutzungsbedingungen"
     title: Was möchtest du lernen?
     lead_anon: Wähle einen fertigen Kurs. Jeder Kurs behält seinen eigenen Fortschritt, Wortschatz, Spiele und Verlauf.
     lead_ai_off: Wähle einen fertigen Kurs oder schreibe deinen eigenen. Jeder Kurs behält seinen eigenen Fortschritt, Wortschatz, Spiele und Verlauf.
@@ -2822,8 +2642,6 @@ courses:
     manifest_undeletable: course.json kann nicht gelöscht werden; bearbeite es stattdessen
     loads_notice: Der Kurs lässt sich laden. Öffne ihn aus der Kursliste.
     not_loading_notice: "Der Kurs lässt sich noch nicht laden: {error}"
-    flagged_notice: "Dieser Kurs kann noch nicht gestartet oder geteilt werden. Er enthält Wörter, die in einem Kurs nicht erlaubt sind: {matches}. Nimm sie heraus und speichere, dann öffnet er sich wieder."
-    flagged_notice_ai: "Dieser Kurs kann noch nicht gestartet oder geteilt werden. Die KI-Prüfung hat Text gefunden, der nicht in einem Kurs stehen darf: {matches}. Ändere ihn und tippe dann auf Teilen, damit er erneut geprüft wird."
     gone: Dieser Kurs ist weg (gelöscht, vielleicht in einem anderen Tab), daher können diese Änderungen nicht gespeichert werden.
     busy_generating: Der Kurs wird noch erstellt
     busy_revising: Der Kurs wird gerade überarbeitet

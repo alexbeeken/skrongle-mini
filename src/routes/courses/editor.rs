@@ -473,9 +473,6 @@ pub(in crate::routes) async fn owned(state: &AppState, user: &CurrentUser, id: &
     if row.owner_id != user.id {
         return Err(AppError::NotFound);
     }
-    if row.taken_down {
-        return Err(AppError::CourseRemoved);
-    }
     Ok(row)
 }
 
@@ -518,11 +515,6 @@ pub async fn editor(
     // row has not caught up, the modal keeps following the job, #183.)
     let finished = !row.is_busy() && modal.as_ref().is_some_and(|m| m.status.done && m.status.error.is_none());
     let mut notice = match q.notice.as_deref() {
-        // Start or Share refused for a flagged course (#1033): what matched, from the database.
-        Some("flagged" | "share-flagged") => {
-            let cid = row.id.clone();
-            state.db.call(move |c| crate::course_flags::get(c, &cid)).await?.filter(|f| f.blocks()).map(|f| flagged_notice(&f))
-        }
         Some(key) => editor_notice(key, undo_view(&state, &row, false).await?.as_ref(), row.error.as_deref()),
         None => None,
     };

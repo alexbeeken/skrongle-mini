@@ -1,2 +1,0 @@
-{# A matched word or quote, masked as its first letter and asterisks (#1033 review). Holding it down with the mouse, a finger, Space or Enter shows it (static/modal.js); letting go hides it again. The clear text is only in data-word. Takes mw_text and mw_hint (an i18n key). #}
-<span class="masked-word" tabindex="0" role="button" data-tip="{{ crate::t(mw_hint) }}" data-word="{{ mw_text }}" data-testid="masked-word">{{ crate::course_flags::view::mask(mw_text) }}</span>

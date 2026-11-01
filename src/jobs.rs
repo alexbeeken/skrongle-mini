@@ -6,8 +6,8 @@
 //!   kind not in [`KINDS`] is refused, with a log line.
 //! - One OS thread (`jobs`) takes due rows one at a time with [`claim`], a
 //!   single `UPDATE … RETURNING` statement. On SQLite that one statement
-//!   holds the database's write lock, so it is safe across processes too
-//!   (the server and `skrongle content-check` on one file, #1041); a Postgres store adds
+//!   holds the database's write lock, so it is safe across processes too;
+//!   a Postgres store adds
 //!   `FOR UPDATE SKIP LOCKED` to the inner select so several servers never
 //!   take the same row.
 //! - Taking a row leases it to this server until `locked_until`
@@ -127,7 +127,7 @@ pub const EXPORT: Kind = Kind { name: "export", max_attempts: 1, delays: RETRY_D
 pub const DEV_FAIL: Kind = Kind { name: "dev.fail", max_attempts: RETRY_DELAYS.len() as i64 + 1, delays: RETRY_DELAYS, every: None, at: None };
 
 /// Every kind there is. A row of another kind is refused by [`enqueue`].
-pub const KINDS: &[Kind] = &[SESSIONS, GAMES, AI_JOBS, TUTOR_CHATS, RATE_LIMITS, RETENTION, OUTBOX, LINKS, EXPORTS, JOBS, WAL_CHECKPOINT, DELETIONS, EXPORT, DEV_FAIL, crate::ai::GENERATE, crate::content_check::FLAGGED, crate::content_check::SCAN, crate::content_check::review::REVIEW, crate::content_check::nightly::NIGHTLY];
+pub const KINDS: &[Kind] = &[SESSIONS, GAMES, AI_JOBS, TUTOR_CHATS, RATE_LIMITS, RETENTION, OUTBOX, LINKS, EXPORTS, JOBS, WAL_CHECKPOINT, DELETIONS, EXPORT, DEV_FAIL, crate::ai::GENERATE];
 
 pub fn kind(name: &str) -> Option<Kind> {
     KINDS.iter().find(|k| k.name == name).copied()
@@ -448,24 +448,6 @@ pub struct Runner {
 impl Runner {
     pub fn new() -> Runner {
         Runner { handlers: HashMap::new(), gates: HashMap::new(), drains: Vec::new(), worker: format!("pid{}@{}", std::process::id(), crate::db::now()), poll: MAX_WAIT }
-    }
-
-    /// Look at the table every `secs` seconds: a process nobody wakes (the
-    /// content-check worker, #1041) sees a job the server queued that soon.
-    pub fn poll_every(mut self, secs: i64) -> Runner {
-        self.poll = secs.clamp(1, MAX_WAIT);
-        self
-    }
-
-    /// The name on the rows it takes (`locked_by`).
-    pub fn worker(&self) -> &str {
-        &self.worker
-    }
-
-    /// Does it run jobs of this kind?
-    #[cfg(test)]
-    pub fn runs(&self, name: &str) -> bool {
-        self.handlers.contains_key(name)
     }
 
     /// Run kind `k` with `f`: `Ok` with a note for the log, or the error.

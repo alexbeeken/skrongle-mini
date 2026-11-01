@@ -29,7 +29,6 @@ lang:
   unknown: Idioma inexistente.
 
 error:
-  blocked: "Os pedidos vindos do teu endereço de rede estão bloqueados neste servidor."
   not_found: Página não encontrada
   form_only: "Esta página só funciona a partir do seu botão. Volte e use o botão da página."
   database: Erro no banco de dados
@@ -112,7 +111,6 @@ common:
 
 auth:
   login:
-    suspended: "Esta conta está suspensa por violar os Termos. Se achas que é um erro, escreve para {email}."
     deletion_scheduled: "Sua conta será excluída em {date}. Para mantê-la, entre antes dessa data e cancele a exclusão."
     title: Entrar
     email_label: Endereço de e-mail
@@ -932,155 +930,6 @@ profile:
     confirm: "Confirmar cancelamento"
 
 superuser:
-  courses:
-    title: "Cursos"
-    about_label: "Sobre a tabela de cursos"
-    about: "Todos os cursos criados neste servidor. Um curso com uma palavra da lista, ou um em que a verificação por IA encontrou um problema, fica marcado: não começa nem é partilhado até ser corrigido ou até anulares a marca. Os marcados aparecem primeiro."
-    about_review: "Um curso com pontuação alta na verificação de IA precisa de revisão. Dentro de um ou dois minutos, uma revisão de IA lê essas partes no contexto e assinala o curso se forem prejudiciais. Até lá continua a iniciar e a ser partilhado; a sua janela indica as partes com pontuação alta."
-    shown: "Cursos: {total}. {per_page} por página."
-    search: "Título, id do curso ou e-mail do dono"
-    show: "Mostrar"
-    show_all: "Todos"
-    show_flagged: "Marcados"
-    show_review: "A rever"
-    show_overridden: "Anulados"
-    show_down: "Removidos"
-    show_behind: "Verificação de IA com {n} ou mais versões de atraso ({count})"
-    find: "Procurar"
-    none: "Nenhum curso corresponde."
-    edited: "Última edição"
-    state: "Marca"
-    source: "Marcado por"
-    state_clear: "Sem marca"
-    state_flagged: "Marcado"
-    state_review: "A rever"
-    state_overridden: "Anulado"
-    state_down: "Removido"
-    source_terms: "Lista de palavras"
-    source_ai: "Verificação por IA"
-    owner_suspended: "suspenso"
-    checked: "Última verificação"
-    never_checked: "Ainda não verificado"
-    ai_checked: "Verificação de IA"
-    last_ai_check: "Última verificação de IA"
-    checker_label: "Verificador de conteúdo"
-    checker_about: "A verificação de conteúdo roda num processo próprio, skrongle content-check, ao lado do servidor (SKRONGLE_CONTENT_CHECK=external)."
-    checker_seen: "Último sinal: {when}"
-    checker_never: "Ainda não deu sinal."
-    checker_waiting: "Verificações na fila: {n}"
-    checker_silent: "Não dá sinal há um dia. Inicie-o de novo com skrongle content-check."
-    checker_alert_since: "O verificador de conteúdo não dá sinal desde {when}. Verificações em espera: {n}."
-    checker_alert_never: "O verificador de conteúdo nunca deu sinal. Verificações em espera: {n}."
-    checker_details: "Detalhes"
-    versions: "Regras"
-    version_terms: "Termos v{version}"
-    version_ai: "IA v{version}"
-    version_behind: "Verificado com regras anteriores. A versão atual é {current}."
-    about_versions: "Regras mostra com que versão da lista de termos e da verificação de IA cada curso foi verificado pela última vez. Uma versão destacada é mais antiga que as regras atuais. A verificação noturna verifica um curso de novo logo com uma nova lista de termos, e com uma nova verificação de IA quando ele tem {n} ou mais versões de atraso."
-    versions_link: "O que mudou em cada versão"
-    scores: "Pontuações da IA"
-    score_category: "Categoria"
-    score_value: "Pontuação"
-    high_in: "Alta em"
-    category:
-      misinformation: "Desinformação"
-      violence: "Violência"
-      self_harm: "Automutilação"
-      weapons: "Armas"
-      firearms: "Armas de fogo"
-      hate: "Discurso de ódio"
-      tragedy: "Banalizar tragédias em massa"
-      adult: "Conteúdo adulto"
-      minors: "Exploração de menores"
-      sexual_crimes: "Banalizar crimes sexuais"
-      terms: "Termos de uso"
-    review_queued: "à espera da revisão de IA"
-    review_fine: "Revisão de IA: sem problemas"
-    review_harmful: "Revisão de IA: prejudicial"
-    ai_cost: "Custo da verificação de IA"
-    ai_cost_parts: "{cost} por {parts} partes"
-    high_parts: "Partes com pontuação alta de IA"
-    why: "Porque foi marcado"
-    report: "Relatório da IA"
-    override_note: "Nota de anulação"
-    overridden_by: "Por {email}, {when}"
-    override: "Anular a marca"
-    override_about: "A marca estava errada. O curso volta a começar e a ser partilhado. As verificações seguintes mantêm a anulação para as mesmas palavras; uma palavra nova marca-o outra vez."
-    note: "Porque está bem?"
-    note_example: "'coger' aqui quer dizer 'pegar'; está bem"
-    override_confirm: "Anular"
-    clear_override: "Retirar a anulação"
-    clear_override_about: "O curso é verificado outra vez tal como está agora. Se as palavras ainda lá estiverem, volta a ser marcado e deixa de começar e de ser partilhado."
-    take_down: "Remover"
-    put_back_about: "O curso volta a abrir para o dono e para todos com quem está partilhado."
-    suspend_owner: "Suspender o dono"
-    delete: "Apagar o curso"
-    delete_about: "O curso, os seus ficheiros e as suas partilhas são apagados. Não se pode desfazer."
-    overridden: "A marca de {id} está anulada. Volta a começar e a ser partilhado."
-    override_cleared: "A anulação de {id} foi retirada."
-    no_note: "Escreve uma nota curta a dizer porque a marca está errada."
-    deleted: "O curso {id} foi apagado."
-    busy: "O curso {id} está a ser gerado ou revisto. Tenta quando terminar."
-    email_owner: "Escrever ao dono"
-    email_to: "Para {email}, na língua dele. Podes alterar o texto. Nada é enviado até carregares em Enviar."
-    email_subject: "Assunto"
-    email_text: "Mensagem"
-    email_send: "Enviar"
-    emailed: "dono avisado a {when}"
-    emailed_label: "Dono avisado"
-    emailed_before: "O dono já recebeu um e-mail sobre este curso a {when}."
-    owner_emailed: "O e-mail para o dono de {id} está a caminho."
-    no_mail_text: "Escreve um assunto e uma mensagem antes de enviar."
-    no_owner_address: "O dono de {id} não tem um endereço para onde escrever."
-    mail:
-      subject: "{app}: o teu curso \"{title}\" não pode ser começado nem partilhado"
-      text: |
-        Olá,
-
-        O teu curso "{title}" no {app} não pode ser começado nem partilhado de momento. {why}
-
-        {fix}
-
-        Se tiveres alguma pergunta ou achares que nos enganámos, escreve para {contact}.
-      why_flagged: "A nossa verificação de conteúdo assinalou-o."
-      why_down: "Retirámo-lo porque viola os Termos."
-      fix_flagged: "Inicia sessão para ver o que tens de corrigir: {link}"
-      fix_down: "Não podes editá-lo enquanto estiver retirado. Se achas que não viola os Termos, escreve-nos e voltamos a vê-lo."
-  privacy:
-    reason: "Motivo"
-    reason_hint: "Pedido 12 no registro de pedidos"
-    no_reason: "Escreva um motivo primeiro."
-  mod:
-    course_id: "Id do curso"
-    take_down_about: "O curso deixa de abrir para o dono e para todos com quem está partilhado. O dono vê que foi removido por violar os Termos. As partilhas ficam guardadas, por isso Repor devolve-as."
-    take_down_confirm: "Remover"
-    course: "Curso"
-    owner: "Dono"
-    put_back_btn: "Repor"
-    taken_down: "O curso {id} foi removido."
-    put_back: "O curso {id} voltou."
-    no_course: "Nenhum curso criado tem o id {id}, ou já está nesse estado."
-    suspend: "Suspender"
-    unsuspend: "Levantar a suspensão"
-    suspend_about: "A conta sai de todas as sessões e não pode entrar até levantares a suspensão. Os cursos dela deixam de ser partilhados. Nada é apagado."
-    suspend_confirm: "Suspender"
-    suspended: "{email} está suspensa."
-    unsuspended: "{email} pode voltar a entrar."
-    delete: "Apagar a conta"
-    delete_about: "A conta e tudo o que criou são apagados: progresso, cursos, temas. Não dá para desfazer. Usa-o por violação dos Termos ou por dados de uma criança."
-    delete_confirm: "Apagar de vez"
-    deleted: "{email} e os seus dados foram apagados."
-    yourself: "Essa é a tua própria conta. Usa o teu perfil para isso."
-    subscribed: "{email} tem uma assinatura que ainda está a ser cobrada. Cancela-a primeiro no Stripe."
-    blocked_title: "Endereços bloqueados"
-    block: "Bloquear um endereço"
-    address: "Endereço ou intervalo"
-    block_about: "Cada pedido vindo daí recebe uma página 403, incluindo o início de sessão. Um intervalo escreve-se 203.0.113.0/24. Se bloqueares o teu próprio endereço, também ficas de fora; aí é preciso apagar a linha em blocked_ips e reiniciar o servidor."
-    block_confirm: "Bloquear"
-    unblock: "Remover"
-    blocked: "{ip} está bloqueado."
-    unblocked: "{ip} já não está bloqueado."
-    bad_ip: "{ip} não é um endereço ou intervalo que esta página possa bloquear (IPv4 /8 ou mais estreito, IPv6 /16 ou mais estreito)."
   title: Superusuário
   about: "Ações em qualquer conta. Só superusuários veem esta página."
   open_inbox: Abrir na caixa de entrada de desenvolvimento
@@ -2674,15 +2523,6 @@ courses:
     description: "Descreva o curso em uma ou duas frases."
     unit: "Unidade 1"
     lesson: "Sua primeira lição"
-  masked:
-    reveal_word: "Clique para ver a palavra"
-    reveal_text: "Clique para ver o texto"
-    count: "{n} ocorrências"
-    list_title: "O que foi encontrado"
-    prev: "Anterior"
-    next: "Seguinte"
-    page: "Página {n} de {total}"
-    close: "Fechar"
   translate:
     button: "Copiar e traduzir para…"
     title: "Copiar e traduzir “{title}”"
@@ -2704,26 +2544,6 @@ courses:
     phase_start: "Traduzindo"
     phase_file: "Traduzindo {file} ({n} de {total})"
   picker:
-    removed_info: "Este curso foi removido por violar os Termos. Não abre para ti nem para quem o partilhaste. Se achas que é um erro, escreve para {email}."
-    removed: "Removido"
-    flagged: "Ainda não pode ser iniciado nem partilhado"
-    flagged_title: "Este curso ainda não pode ser iniciado nem partilhado"
-    flagged_lead: "Usa palavras que não são permitidas num curso:"
-    flagged_match: "{term} (em {lesson})"
-    flagged_edit: "Editar o curso para corrigir"
-    flagged_lead_ai: "A verificação de IA encontrou texto que não pode estar num curso:"
-    flagged_quote: "«{text}» em {lesson}: {why}"
-    flagged_why_misinformation: "apresenta afirmações falsas como fatos"
-    flagged_why_violence: "glorifica a violência"
-    flagged_why_self_harm: "incentiva a automutilação"
-    flagged_why_weapons: "ajuda a ferir pessoas com armas"
-    flagged_why_firearms: "ajuda a ferir pessoas com armas de fogo"
-    flagged_why_hate: "ataca um grupo de pessoas"
-    flagged_why_tragedy: "faz pouco de uma tragédia em massa"
-    flagged_why_adult: "é sexualmente explícito"
-    flagged_why_minors: "põe crianças em risco"
-    flagged_why_sexual_crimes: "faz pouco de crimes sexuais"
-    flagged_why_terms: "viola os termos de uso"
     title: O que você quer aprender?
     lead_anon: Escolha um curso pronto. Cada curso guarda o próprio progresso, vocabulário, jogos e histórico.
     lead_ai_off: Escolha um curso pronto ou escreva o seu. Cada curso guarda o próprio progresso, vocabulário, jogos e histórico.
@@ -2822,8 +2642,6 @@ courses:
     manifest_undeletable: course.json não pode ser excluído; edite-o em vez disso
     loads_notice: O curso carrega. Abra-o na lista de cursos.
     not_loading_notice: "O curso ainda não carrega: {error}"
-    flagged_notice: "Este curso ainda não pode ser iniciado nem partilhado. Usa palavras que não são permitidas num curso: {matches}. Tira-as e guarda, e ele volta a abrir."
-    flagged_notice_ai: "Este curso ainda não pode ser iniciado nem partilhado. A verificação de IA encontrou texto que não pode estar num curso: {matches}. Altera-o e carrega em Partilhar para ser verificado de novo."
     gone: Este curso não existe mais (foi excluído, talvez em outra aba), então essas alterações não podem ser salvas.
     busy_generating: O curso ainda está sendo gerado
     busy_revising: O curso está sendo revisado

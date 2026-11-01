@@ -49,9 +49,6 @@ pub enum AppError {
     /// Over a rate limit on a JSON API (`security::RateLimits`): a 429 with
     /// `{"error": "..."}`.
     ApiTooManyRequests(String),
-    /// A made course a superuser took down (#967): a 403 saying so, with
-    /// the contact address.
-    CourseRemoved,
     Db(rusqlite::Error),
     Internal(String),
 }
@@ -72,7 +69,6 @@ impl fmt::Display for AppError {
             AppError::DeletionScheduled | AppError::ApiDeletionScheduled => f.write_str("the account is scheduled for deletion"),
             AppError::AiOff | AppError::ApiAiOff => f.write_str("AI features are off"),
             AppError::ApiTooManyRequests(m) => write!(f, "too many requests: {m}"),
-            AppError::CourseRemoved => f.write_str("course taken down"),
             AppError::Db(e) => write!(f, "database error: {e}"),
             AppError::Internal(m) => write!(f, "internal error: {m}"),
         }
@@ -163,7 +159,6 @@ impl IntoResponse for AppError {
                 serde_json::json!({ "error": m }).to_string(),
             )
                 .into_response(),
-            AppError::CourseRemoved => error_page(StatusCode::FORBIDDEN, &crate::moderation::removed_text()),
             AppError::Db(e) => {
                 tracing::error!("database error: {e}");
                 error_page(StatusCode::INTERNAL_SERVER_ERROR, &crate::t("error.database"))

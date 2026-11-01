@@ -23,8 +23,6 @@
 #   ./.dev-start --stop         # stop the background server
 #   ./.dev-start --lan          # listen on 0.0.0.0 so phones can try it (turns dev mode off)
 #   ./.dev-start --watch        # rebuild + restart on changes (same port and DB), pages reload themselves
-#   ./.dev-start --content-check   # in another terminal: run `skrongle content-check` against the running
-#                               # dev server (started with SKRONGLE_CONTENT_CHECK=external), its DB and stand-ins
 #
 # Flags can be combined: ./.dev-start --reset --seed --background
 # Each worktree has its own DB and pid file, so two checkouts can run at once.
@@ -70,7 +68,6 @@ WATCH=0
 SEED=0
 BACKGROUND=0
 LLM=""
-CHECK_WORKER=0
 while [ $# -gt 0 ]; do
   case "$1" in
     --release)    PROFILE_FLAG="--release"; PROFILE_DIR=release ;;
@@ -87,7 +84,6 @@ while [ $# -gt 0 ]; do
     --llm)        LLM="$2"; shift ;;
     --llm-delay)  export SKRONGLE_LLM_DELAY_MS="$2"; shift ;;
     --test-course) export TEST_COURSE=1 ;;
-    --content-check) CHECK_WORKER=1 ;;
     --mini)       export SKRONGLE_AI_KEY= SKRONGLE_MINI=1 ;;
     -h|--help)    sed -n '2,30p' "$0"; exit 0 ;;
     *) echo "unknown flag: $1 (try --help)"; exit 1 ;;
@@ -95,14 +91,6 @@ while [ $# -gt 0 ]; do
   shift
 done
 command -v cargo >/dev/null 2>&1 || { echo "cargo not found. Install Rust: https://rustup.rs"; exit 1; }
-
-# The content-check worker talks to the running dev server's stand-ins (Jev, the model): its port.
-if [ "$CHECK_WORKER" = 1 ]; then
-  RUNNING=$(cat "$URLFILE" 2>/dev/null || true)
-  [ -n "$RUNNING" ] || { echo "no dev server is running here; start one first (SKRONGLE_CONTENT_CHECK=external ./.dev-start --background)"; exit 1; }
-  PORT="${RUNNING##*:}"
-  RESET=0 SEED=0
-fi
 
 # A random free port in 8100-8999: clear of 8080 (the Pi's port, and other
 # worktrees' old default) and of the OS's ephemeral range.
@@ -179,12 +167,6 @@ build() {
   if ! cargo build $PROFILE_FLAG >"$out" 2>&1; then cat "$out" >&2; rm -f "$out"; exit 1; fi
   rm -f "$out"
 }
-
-if [ "$CHECK_WORKER" = 1 ]; then
-  build
-  echo "==> content check worker on $SKRONGLE_DB, stand-ins at $URL (Ctrl-C stops it)"
-  exec "$BIN" content-check
-fi
 
 # The latest "dev crowd: n/N learners" line in the log, if any.
 crowd_progress() { grep -o 'dev crowd: [0-9]*/[0-9]* learners' "$LOGFILE" 2>/dev/null | tail -1 || true; }

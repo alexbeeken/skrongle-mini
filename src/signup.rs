@@ -277,8 +277,6 @@ pub struct Account {
     /// The newest session still on record (sessions last 30 days), if any.
     pub last_sign_in: Option<i64>,
     pub superuser: bool,
-    /// Suspended by a superuser (#967).
-    pub suspended: bool,
 }
 
 /// One page of the accounts, newest first.
@@ -298,10 +296,10 @@ pub fn accounts(conn: &Connection, page: i64) -> rusqlite::Result<AccountsPage> 
     let pages = (total + ACCOUNTS_PER_PAGE - 1).max(ACCOUNTS_PER_PAGE) / ACCOUNTS_PER_PAGE;
     let page = page.clamp(1, pages);
     let mut stmt = conn.prepare_cached(
-        "SELECT COALESCE(u.email, ''), u.created_at, (SELECT MAX(s.created_at) FROM sessions s WHERE s.user_id = u.id), u.superuser, u.suspended_at IS NOT NULL
+        "SELECT COALESCE(u.email, ''), u.created_at, (SELECT MAX(s.created_at) FROM sessions s WHERE s.user_id = u.id), u.superuser
          FROM users u ORDER BY u.id DESC LIMIT ?1 OFFSET ?2",
     )?;
-    let rows = stmt.query_map([ACCOUNTS_PER_PAGE, (page - 1) * ACCOUNTS_PER_PAGE], |r| Ok(Account { email: r.get(0)?, created_at: r.get(1)?, last_sign_in: r.get(2)?, superuser: r.get(3)?, suspended: r.get(4)? }))?;
+    let rows = stmt.query_map([ACCOUNTS_PER_PAGE, (page - 1) * ACCOUNTS_PER_PAGE], |r| Ok(Account { email: r.get(0)?, created_at: r.get(1)?, last_sign_in: r.get(2)?, superuser: r.get(3)? }))?;
     Ok(AccountsPage { list: rows.collect::<Result<_, _>>()?, total, page, pages })
 }
 

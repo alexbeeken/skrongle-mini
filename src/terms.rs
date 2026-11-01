@@ -226,11 +226,6 @@ pub fn min_age() -> u32 {
     SETTINGS.get().map(|s| s.min_age).unwrap_or(DEFAULT_MIN_AGE)
 }
 
-/// The copyright / legal contact, or the placeholder.
-pub fn legal_email() -> String {
-    SETTINGS.get().and_then(|s| s.legal_email.clone()).unwrap_or_else(|| EMAIL_PLACEHOLDER.to_string())
-}
-
 /// The raw Markdown, as committed.
 pub fn markdown_raw() -> String {
     crate::routes::Docs::get("terms.md").map(|f| String::from_utf8_lossy(&f.data).into_owned()).unwrap_or_default()

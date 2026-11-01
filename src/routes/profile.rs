@@ -1465,16 +1465,5 @@ pub async fn delete_account(
     Ok(([auth::clear_session_cookie()], Redirect::to(&crate::url(&format!("/login?deletion={at}")))).into_response())
 }
 
-/// Delete the account (`privacy::delete_account`) at once and forget what
-/// the server holds of it in memory and on disk: a superuser's delete
-/// (#967). The learner's own delete waits 14 days (#970).
-pub(crate) async fn erase_account(state: &AppState, uid: i64) -> Result<crate::privacy::Deleted, AppError> {
-    // What lives in memory goes first, so nothing writes for the account afterwards.
-    crate::account_deletion::forget_in_memory(state, uid);
-    let deleted = state.db.call(move |c| crate::privacy::delete_account(c, uid)).await?.unwrap_or_default();
-    crate::account_deletion::forget_deleted(state, &deleted);
-    Ok(deleted)
-}
-
 #[cfg(test)]
 mod tests;

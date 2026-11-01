@@ -120,7 +120,7 @@ pub const SECTIONS: &[(&str, &str, &[&str])] = &[
     (
         "reference",
         "docs.section_reference",
-        &["course-format", "features", "themes", "progress", "i18n", "pricing", "data-inventory", "privacy", "cookies", "content-check-versions"],
+        &["course-format", "features", "themes", "progress", "i18n", "pricing", "data-inventory", "privacy", "cookies"],
     ),
     (
         "dev",

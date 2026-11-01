@@ -127,13 +127,10 @@ teenager on a phone in Sprint, 6), `testing-bot` (sees only markup, 12).
 | `specs/chord-spell.spec.ts` | 5 | yes |  |
 | `specs/clock.spec.ts` | 3 | yes |  |
 | `specs/consent.spec.ts` | 2 | yes |  |
-| `specs/content-check.spec.ts` | 3 | yes |  |
-| `specs/content-review.spec.ts` | 2 | yes |  |
 | `specs/course-card-stats.spec.ts` | 3 | yes |  |
 | `specs/course-copy.spec.ts` | 5 | yes |  |
 | `specs/course-lints.spec.ts` | 2 | yes |  |
 | `specs/course-report.spec.ts` | 3 | **no** |  |
-| `specs/course-table.spec.ts` | 6 | yes |  |
 | `specs/course-translate.spec.ts` | 2 | yes |  |
 | `specs/create.spec.ts` | 15 | yes |  |
 <!-- themes -->
@@ -145,7 +142,6 @@ teenager on a phone in Sprint, 6), `testing-bot` (sees only markup, 12).
 | `specs/editor-autosave.spec.ts` | 5 | yes |  |
 | `specs/editor-errors.spec.ts` | 4 | **no** |  |
 | `specs/editor-fixes.spec.ts` | 3 | **no** |  |
-| `specs/email-owner.spec.ts` | 2 | yes |  |
 | `specs/exact.spec.ts` | 37 | yes |  |
 | `specs/explore.spec.ts` | 3 | **no** | yes |
 | `specs/fact-check.spec.ts` | 1 | yes |  |
@@ -171,7 +167,6 @@ teenager on a phone in Sprint, 6), `testing-bot` (sees only markup, 12).
 | `specs/measure.spec.ts` | 2 | yes |  |
 | `specs/mistakes.spec.ts` | 1 | yes |  |
 | `specs/modals.spec.ts` | 6 | yes |  |
-| `specs/moderation.spec.ts` | 4 | yes |  |
 | `specs/music-sound.spec.ts` | 10 | yes |  |
 | `specs/notation.spec.ts` | 14 | yes |  |
 | `specs/owner-resets.spec.ts` | 3 | yes |  |
@@ -222,7 +217,6 @@ teenager on a phone in Sprint, 6), `testing-bot` (sees only markup, 12).
 | `specs/smoke/wrong-answers.spec.ts` | 7 | yes |  |
 | `specs/staff-note.spec.ts` | 5 | yes |  |
 | `specs/subscription.spec.ts` | 3 | **no** |  |
-| `specs/term-flag.spec.ts` | 3 | yes |  |
 | `specs/terms.spec.ts` | 5 | yes |  |
 | `specs/two-factor.spec.ts` | 4 | yes |  |
 | `specs/word-list.spec.ts` | 3 | yes |  |
@@ -278,13 +272,6 @@ No e2e file names them; a spec drives the form, link (its testid) or script that
 - `POST /superuser/invites`: `superuser-invite-form`
 - `POST /superuser/invites/revoke`: `superuser-invite-revoke`
 - `POST /superuser/terms-announce`: `superuser-terms-form`
-- `POST /superuser/courses/put-back`: `superuser-put-back-form`
-- `POST /superuser/courses/override`: `superuser-override-form`
-- `POST /superuser/courses/clear-override`: `superuser-clear-override-form`
-- `POST /superuser/courses/delete`: `superuser-course-delete-form`
-- `POST /superuser/courses/email-owner`: `superuser-email-owner-form`
-- `POST /superuser/unsuspend`: `superuser-account-unsuspend`
-- `POST /superuser/unblock-ip`: `superuser-unblock`
 - `POST /api/lesson-check`: `static/lesson-check.js`
 - `POST /billing/cancel`: `cancel-form`
 - `POST /billing/checkout`: `plans-form`
@@ -416,12 +403,10 @@ Not named by an e2e file, and no driven form, link or script calls them.
 | `static/conjugation.js` | 3 | 3 |  |
 | `templates/error.html` | 5 | 5 |  |
 | `static/fill-bar.js` | 6 | 6 |  |
-| `templates/flag_matches.html` | 6 | 6 |  |
 | `templates/vocab_study.html` | 12 | 12 |  |
 | `static/keyboard.js` | 2 | 2 |  |
 | `static/lesson-check.js` | 1 | 1 |  |
 | `templates/lesson_pager.html` | 3 | 3 |  |
-| `templates/masked_word.html` | 1 | 1 |  |
 | `templates/nav_play.html` | 12 | 12 |  |
 | `templates/nav_study.html` | 12 | 12 |  |
 | `templates/pager.html` | 4 | 4 |  |
@@ -441,7 +426,6 @@ Not named by an e2e file, and no driven form, link or script calls them.
 | `templates/stage.html` | 12 | 12 |  |
 | `static/guide.js` | 1 | 1 |  |
 | `templates/superuser.html` | 86 | 86 |  |
-| `templates/superuser_courses.html` | 78 | 78 |  |
 | `static/algebra-tiles.js` | 1 | 1 |  |
 | `templates/algebra_tiles.html` | 4 | 4 |  |
 | `static/landing-kit.js` | 2 | 2 |  |
@@ -469,13 +453,10 @@ Titles as Playwright lists them (from the source: run `npm ci` in e2e/ for loops
 - **`specs/chord-spell.spec.ts`** (5, CI): Practice: tap tiles into the slots, take one out, hear about a wrong spelling, and spell the others in any order · a wrong set that isn't the same sounds gets no spelling note · the reading check, Sprint mode and the Guide take the chord in any order · a lesson without a chord-spell question loads no chord-spell script · the lesson editor has the answer and tiles boxes, and its preview plays the question
 - **`specs/clock.spec.ts`** (3, CI): Practice: drag the minute hand, use the keys, read a clock · the Guide and Sprint mode show the clock too · the tutor draws a clock to read, with its times to tap
 - **`specs/consent.spec.ts`** (2, CI): the consent card shows each consent, and Do Not Show Me AI Features hides them and shows them again across a reload · with a key on file the card's AI switch asks first, and the key line goes
-- **`specs/content-check.spec.ts`** (3, CI): a course is scanned before it is shared; a high score the AI review passes blocks nothing · the nightly check waits in the job table for the next midnight (#1038)
-- **`specs/content-review.spec.ts`** (2, CI): a harmful course is flagged with a short report; an override note is followed until new harm comes
 - **`specs/course-card-stats.spec.ts`** (3, CI): a course card shows passed and mastered as a bar and chips; a chip opens its stat in a modal and its name fits a phone (#684) · a chip's modal fetches what is next as it opens: the next lesson to pass and each unit, the lessons to practise, and opens the course at one (#900) · with the app in French, when a course was last opened fits its card at 1280 and 390 px, without an ellipsis (#1182)
 - **`specs/course-copy.spec.ts`** (5, CI): the copy icon in Spanish's settings opens Copy of Spanish in the editor, with every file, and lists it · copies count against the account's course bytes: past the limit the copy is refused with a notice · no copy or translate icon in the settings of a course shared with you; copying or translating it, or another user's private course, is a 404 · no copy icon while a course is being generated, nor after it stopped; a POST says why · at phone width the copy icon sits beside the X, inside the dialog and clear of its title
 - **`specs/course-lints.spec.ts`** (2, CI): a prerequisite after its lesson shows up as a thing to check · the lesson editor shows a lint as an amber ! on its field after the save, opens it in a modal, and drops it after the fix
 - **`specs/course-report.spec.ts`** (3, local only): the report shows which features each lesson uses · the report fits a phone · the report follows a save
-- **`specs/course-table.spec.ts`** (6, CI): a flagged course: search, the reason, override with a note, clear the override · more than five matches show as a count that opens them all · take down and put back from the course's dialog · delete a course after a warning: gone from the table and the owner's list · suspend a course's owner from its dialog: their session ends
 - **`specs/course-translate.spec.ts`** (2, CI): Copy and translate to Español makes a translated copy; the original stays as it was · the dialog does not offer the language a course is already explained in
 - **`specs/create.spec.ts`** (15, CI): create, close the dialog, name the course and its lessons, then generate into it · a new course's card counts in the singular: 1 lesson · 1 unit, 1 Lektion · 1 Einheit (#1254) · editing a lesson's content takes Generate away · a refused generate form comes back open with what was typed · the effort beside Generate opens its own dialog and the account keeps the last level (#918) · the old pages lead to the new flow · the dialog asks which provider only when two or more keys are saved · the progress modal can't be dismissed while it runs; stopped, the course waits on the list with Resume · a generation that fails before its outline: Retry on the card, the dialog filled in, and a retry writes the same course · a stopped course can be deleted from its card · a stopped course's red ! does not widen the course list on a phone (#675) · a stopped course's red ! tip stays on a phone screen while it shows (#864) · the old status page leads to the editor · the dialog shows the lesson count, the time and the cost before generating (#443) · in German, a new course starts with German names and description
 <!-- themes -->
@@ -487,7 +468,6 @@ Titles as Playwright lists them (from the source: run `npm ci` in e2e/ for loops
 - **`specs/editor-autosave.spec.ts`** (5, CI): typing in a lesson's JSON saves 3 s after the last keystroke, or when the drawer loses focus · a hidden tab sends what waits at once · what does not validate turns the circle red, says why, and is not stored but stays on the page · a save the server fails is tried again, and a page behind another tab is told to reload · an AI job locks the editor: what was typed is saved first, then nothing is saved until it ends
 - **`specs/editor-errors.spec.ts`** (4, local only): a parse error, an unknown prerequisite and a duplicate id each say what, where and how to fix it · a problem in another lesson opens that lesson's drawer · the file page words a parse error as the editor does · Undo takes back changes that cannot be saved, after saving what can (#288)
 - **`specs/editor-fixes.spec.ts`** (3, local only): the file page's path box checks the path and logs no console error (#273) · on a phone, Course settings and + Add unit do not overlap (#274) · closing a rename box by clicking elsewhere leaves focus where the click went (#275)
-- **`specs/email-owner.spec.ts`** (2, CI): e-mail a flagged course's owner from its dialog, with an edit
 - **`specs/exact.spec.ts`** (37, CI): generate a course from the fixtures and open it · revise a generated course with feedback, then undo it · Use AI's Add / Edit / Add and edit choice: the box follows it, and an Edit run rewrites lessons in place (#1241) · the lesson table: move, rename, delete, add, edit JSON, each saved as it is made, then undo each page's edits · a course someone makes stays private to them · a failed generation explains itself in the dialog; its card keeps the raw detail behind a red ! · a key the provider does not know is refused by the provider, not by the app · the course list fills a desktop row and stacks on a phone (#428) · filter the lessons list, and say when nothing matches · look a word up from the lessons filter: its meaning and the lesson that teaches it (#348) · lessons show one unit at a time, with a tab per unit and page links for a long unit (#837) · the verb drill setup shows one set at a time, and its locked lessons a page at a time (#837) · the verb drill draws the person slots with profile pictures, the learner's own for yo (#879) · pass a lesson's reading check · a note written on a lesson is there when the lesson opens again (#336) · a lesson's tappable words look tappable and take the keyboard (#403) · tapping a word shows its meaning in a bubble that fits the screen · finish a Sprint mode session · Sprint home fits a phone in every app language (#670) · on a phone the History table scrolls in its box, not the page (#424) · on a phone the Vocabulary term table scrolls in its box, not the page (#933) · on a phone the Study and Play mode bars take two rows and scroll sideways (#423) · the modes' old paths redirect, keeping the query string · the mode bars link to Study's Lessons, not to the /study redirect · Free has no Skrongle AI: no usage card, no own-keys pill, the tutor offers only the saved keys · the dev toggle switches the plan on the profile · the profile has no Dev section for anyone; the seeded keys answer generate and the tutor · the profile's e-mail field: a Verified check, and an (i) dialog with the name others see · Start asks for a course's settings before it opens, then keeps them behind its gear; the password changes in a dialog · a page that does not exist is a 404 inside the normal layout, with ways back (#397) · a form-only URL opened by address is a 405 inside the normal layout, with a way home (#1253) · the site installs as an app: every layout links a manifest that opens at the home page (#345) · #1154 a lesson without questions offers no practice · #1253 a form-only URL opened directly shows the error page, not a blank one · #1254 the course card says 1 lesson · 1 unit, not 1 lessons · 1 units · the Guide list folds locked stages under one lock per unit (#1213) · #1306 no Practise link for a lesson without quiz questions
 - **`specs/explore.spec.ts`** (3, needs a key): explore ${replayPath ? "replay" : who}
 - **`specs/fact-check.spec.ts`** (1, CI): a fact check shows a why line under the fixed lesson and the Check lines of the rest
@@ -515,7 +495,6 @@ Titles as Playwright lists them (from the source: run `npm ci` in e2e/ for loops
 - **`specs/measure.spec.ts`** (2, CI): drag and turn the protractor, read the angle, type it · the reading check and the Guide draw it; Sprint mode leaves it out
 - **`specs/mistakes.spec.ts`** (1, CI): a wrong quiz answer shows on the mistakes list, and a right one clears it (#338)
 - **`specs/modals.spec.ts`** (6, CI): a Sprint mode stop's sheet closes on a tap outside it and on Escape (#233) · profile dialogs close on a click outside; one with something typed in its form stays (#226) · the Generate dialog closes on a click outside until a wish is typed; a running job's box stays (#226) · the /dev/jobs (i) opens its dialog; OK and a click outside close it (#872) · without JavaScript a server-opened dialog opens in view at ${viewport.width}px (#1057) · /dev/jobs fits a desktop window: Run now is in view, in German too (#1110)
-- **`specs/moderation.spec.ts`** (4, CI): a course taken down shows its owner why, and comes back when put back · a suspended account is signed out and can't sign in until the suspension is lifted · a superuser deletes an account after a warning; the address can register again · a superuser blocks an address range and removes the block; others get 404
 - **`specs/music-sound.spec.ts`** (10, CI): Practice: the speaker plays the interval, the staff comes after the answer, and staves are options · no sound a second after the tap: the speaker says so · Can't listen now: off for an hour, the notes to read instead, and a tap turns it back on · Sprint mode: the speaker, staves as options and speaker tiles in Sort it · a wrong melody: the answer line shows the right one as a staff, not as ABC · a lesson without play loads no sound code · the lesson editor has the Sound box, the options switch and a sort item's sound · Guide: the options are three staves, a wrong melody grades wrong and the right one is marked · speaker tiles, a wrong tap keeps the chord on the pile to hear again, each placed chord replays · a percussion bar plays one pitch, the options are one-bar percussion staves, the right bar grades right
 - **`specs/notation.spec.ts`** (14, CI): an abc block in the lesson text is drawn as a staff · on a wide page a staff is as tall as its drawing, and the lesson's staff stays wider than a question's · a lesson without notation loads no notation script · a music course's Sprint session has the circle-of-fifths build, graded exactly (#1232) · a question's abc is drawn as a staff above its prompt in Practice, the reading check, Sprint and the Guide · the lesson editor has the question's Music box and previews the staff · an empty and a non-ABC block in the lesson text keep their text · a question's abc that isn't music shows as text in the editor's preview · shows two notes on a staff and grades the interval · the learner taps the wrong note, then picks its fix; both must be right · dragging the wrong note down a step (or the down arrow) picks the tile of the note it lands on · the editor's spot form has the Music box, the note number and the fix, and previews the staff · shows a stacked chord on a staff and grades its name · shows a key signature or a tune and grades the key
 - **`specs/owner-resets.spec.ts`** (3, CI): a superuser sets a temporary password; the learner signs in with it and must choose a new one · a superuser turns off another account's two-factor; others get 404 · reloading after a temporary password is set does not set another
@@ -574,7 +553,6 @@ Titles as Playwright lists them (from the source: run `npm ci` in e2e/ for loops
 - **`specs/smoke/wrong-answers.spec.ts`** (7, CI): K: every question type, answered wrong, is marked wrong and doesn't pass · K: one lesson answered wrong reads as \"1 lesson needs practice\" on the course home and map · K: the 70 % line, 3 of 5 doesn't pass and 4 of 5 does · near misses are wrong, and the answers they nearly are stay right · a reading check with one wrong answer fails, the lesson stays unread, and a retry passes · D: every exercise kind, answered wrong, is marked wrong, and no lesson passes on wrong answers · D: the session's score is the answers given, on the screen, in History and in progress
 - **`specs/staff-note.spec.ts`** (5, CI): Practice: tap, drag and the keyboard place the note; the octave counts unless any octave does · a note a step off is wrong with no octave note · the reading check, Sprint mode and the Guide take the note · a lesson without a staff-note question loads no staff-note script · the lesson editor has the note, clef and any-octave boxes, and its preview plays the question
 - **`specs/subscription.spec.ts`** (3, local only): Plus: bought through Checkout, shown with its renewal date, the AI bar and the own-keys pill; cancelled, it lasts the month · Basic: no Skrongle AI card or pill, an Upgrade to Plus button that opens the Billing Portal, and the chooser marks Basic as the current plan · dev login ?plan= takes basic, plus and the old pro (now Plus) through the dev Checkout; anything else names the plans
-- **`specs/term-flag.spec.ts`** (3, CI): a course with a listed word can't start or be shared until the word is gone · more than five matches show as a count that opens the list, ten to a page
 - **`specs/terms.spec.ts`** (5, CI): the terms page is public and says when it was last updated · registration needs the terms checkbox, and records the acceptance · a material change: the notice cannot be dismissed and blocks the API until accepted · a minor change: the notice shows what changed and Continue closes it for good · the profile's read link shows the terms in a dialog and closes back to the profile (#152)
 - **`specs/two-factor.spec.ts`** (4, CI): a phone number is verified with a texted code, and text-message sign-in then works (#292) · e-mail sign-in codes are not offered until the address is verified; then the code comes by e-mail and a wrong one is refused (#292) · an authenticator app is added through the dev authenticator and its codes sign in, each once (#292) · a number that replied STOP gets its sign-in code by e-mail, and START plus a new code turns texts back on (#969)
 - **`specs/word-list.spec.ts`** (3, CI): a pasted word list previews, flags what it can't read, and becomes a lesson that opens with the words · a paste past the cap is refused in words, not with a body-limit error · the button follows the Language features switch
