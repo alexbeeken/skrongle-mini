@@ -289,15 +289,15 @@ fn the_server_pays_for_a_review_not_the_owner() {
     let cost = db.with(|c| meter.record_own_cost(c, uid, &call, &model, usage)).unwrap();
     assert!(cost > 0);
     assert_eq!(db.with(|c| meter.spent_today(c)).unwrap(), cost, "the day's spend counts it");
-    let status = db.with(|c| meter.status(c, uid)).unwrap();
-    assert_eq!((status.used, status.hosted_calls), (0, 0), "the owner's month doesn't");
+    let months = |db: &Db| db.with(|c| c.query_row("SELECT COALESCE(SUM(cost_micros + hosted_calls), 0) FROM ai_usage_months WHERE user_id = ?1", [uid], |r| r.get::<_, i64>(0))).unwrap();
+    assert_eq!(months(&db), 0, "the owner's month doesn't");
     let (purpose, source, course): (String, String, String) =
         db.with(|c| c.query_row("SELECT purpose, key_source, course_id FROM ai_usage", [], |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?)))).unwrap();
     assert_eq!((purpose.as_str(), source.as_str(), course.as_str()), (PURPOSE, "hosted", "c1"));
     // Deleting the row takes it off the day again.
     db.with(|c| c.execute("DELETE FROM ai_usage", [])).unwrap();
     assert_eq!(db.with(|c| meter.spent_today(c)).unwrap(), 0);
-    assert_eq!(db.with(|c| meter.status(c, uid)).unwrap().used, 0);
+    assert_eq!(months(&db), 0);
 }
 
 #[test]

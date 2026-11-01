@@ -1880,8 +1880,7 @@ keep their explicit buttons. The page needs JavaScript.
   an optional e-mail such as reminders gets a switch here, off by default);
   and *Do Not Show Me AI Features*, "Shown since …" or "Hidden since …"
   with the profile's only AI switch (below; on hides them, `POST /profile/ai`
-  returns here), a line when an own API key is on file and, where hosted AI is
-  offered, how much of this month's allowance is used. Optional consents are
+  returns here) and a line when an own API key is on file. Optional consents are
   rows in `consents` (`src/consent.rs`): given at `granted_at`, taken back
   at `withdrawn_at`, a new row each time one is given again; they are in
   *Download my data* and go with the account.
@@ -1921,11 +1920,6 @@ keep their explicit buttons. The page needs JavaScript.
   shut (name and status); its triangle opens the box to paste a key into
   and *Remove key*. Features call
   `secrets::get(conn, &state.vault, user_id, provider)` to use one.
-- **Subscription**: the learner's plan (Free, Basic or Plus), its renewal
-  or end date, *Choose a plan* (the plans modal: pick Basic or Plus, then pay on Stripe
-  Checkout),
-  *Cancel subscription*, and for Stripe customers *Card and invoices, on
-  Stripe* (the Billing Portal). See [Subscriptions](#subscriptions).
 - **Your data**: *Download my data* (#430): *Prepare my data*
   (`POST /profile/export`) queues an export; the `export` job on the
   background runner (`src/exports.rs`, `src/jobs.rs`) writes every row stored for the account, by table, with
@@ -1951,10 +1945,8 @@ keep their explicit buttons. The page needs JavaScript.
   Google-only account its e-mail address typed out and a code from its
   second step (`profile-delete-code`, *Send code* `profile-delete-send`
   for a texted or e-mailed one) or, with none, *Confirm with Google*
-  (`profile-delete-google`, then `profile-delete-google-done`; #376); refused while a Stripe
-  subscription would keep billing. It does not delete at once (#970,
-  `src/account_deletion.rs`): it sets `users.delete_at` 14 days out (or
-  to the end of a cancelled plan's paid time, if later), ends every session
+  (`profile-delete-google`, then `profile-delete-google-done`; #376). It does not delete at once (#970,
+  `src/account_deletion.rs`): it sets `users.delete_at` 14 days out, ends every session
   of the account and, where the server sends mail, mails the date
   (`account-deletion`). The login page says the date (`login-notice`).
   Signing in again works as usual, but every page then leads to
@@ -2089,8 +2081,7 @@ keep their explicit buttons. The page needs JavaScript.
       (`POST /superuser/unsuspend`) undoes it.
     - **Delete account** (row action, `POST /superuser/delete-account`):
       the learner's own deletion (`privacy::delete_account`), for a breach
-      of the Terms, a child's data or a privacy request. Not undone;
-      refused while a Stripe subscription is still billing. Its dialog
+      of the Terms, a child's data or a privacy request. Not undone. Its dialog
       asks for a reason, kept in the privacy log below.
     - A superuser can't suspend or delete their own account here.
     - **Courses** (#1034, `routes/superuser/courses.rs`,
@@ -2516,7 +2507,7 @@ an account (#379, `src/reset.rs`):
   and one to `/reset`.
 - **An unconfirmed account old enough**: a password account whose address
   was never confirmed, made `SKRONGLE_UNCONFIRMED_DAYS` (default 7; `0` never)
-  days or more ago, with no subscription that would keep billing, gives the
+  days or more ago, gives the
   address up: registering it again deletes that account and everything in
   it (`privacy::delete_account`, as *Delete account* does) and makes the new
   one. Nobody can hold an address they cannot read.
@@ -2744,165 +2735,24 @@ for the whole server, counted from a ledger that outlives deleted accounts
 verification texts cannot use it up. `docs/self-hosting.md` "Text
 messages" has the numbers.
 
-## Subscriptions
-
-**Not in Skrongle mini.** With `SKRONGLE_MINI=1` (`src/shape.rs`) there are no plans: every account counts
-as Plus (`billing::plans_on`, asked by `CurrentUser`'s plan, `RequirePremium`,
-the meter and the profile), the profile has no Subscription section, nav
-link or plans modal, every `/billing/*` path (the Stripe webhook too)
-answers 404 and Stripe settings are ignored. The rest of this section is
-about plans on, the default.
-
-Three plans (`billing::Plan`, `src/billing.rs`, `src/routes/billing.rs`):
-**Free**, **Skrongle Basic** (CA$3 a month: supports the project, gets the paid
-features as they land) and **Skrongle Plus** (CA$15 a month: Basic, and
-[Skrongle AI](#skrongle-ai-allowances-and-credits) included each month).
-"Premium" means any paid plan.
-
-- **Choosing a plan.** The profile's Subscription card has *Choose a plan*
-  (Free) or *Upgrade to Plus* (Basic), which opens a modal with the two plan
-  cards (`plan-card[data-plan]`: name, price, what is included) and
-  *Pay with Stripe*. Picking a card prices the button; it posts the plan to
-  `/billing/checkout`, which sends the learner to Stripe Checkout (below).
-  There are no card fields on our page: the card is typed on Stripe's. A
-  learner who already pays (an upgrade, or taking back a cancellation) is
-  sent to Stripe's Billing Portal instead, where plans change. The pretend
-  card payment of #315 (`POST /billing/subscribe`, `plan_subscriptions`)
-  was removed in #963, with its table (v83): it gave plans away free.
-- **What the card shows.** The plan's name (`profile-plan`), the renewal
-  date (`profile-renewal`, under "Renewal date"; under "Ends on" once
-  cancelled), *Cancel subscription* while the plan renews, and for a Stripe
-  customer a link to the Billing Portal (card and invoices). Prices appear
-  only in the chooser.
-- **Cancelling.** *Cancel subscription* opens one confirm dialog
-  (`cancel-dialog`): an optional reason (a radio with four:
-  `billing::CANCEL_REASONS`), an optional feedback box, and *Confirm
-  cancellation*; there is no second "are you sure?". `POST /billing/cancel`
-  asks Stripe to end the subscription at its period's end
-  (`cancel_at_period_end=true`); the learner keeps the plan until then, and
-  Stripe's webhook confirms it. The reason and words go to
-  `plan_cancellations`.
-- **Where the plan comes from.** `plan_sql` decides, in this order: a Stripe
-  subscription in a paying status (`active`, `trialing`, `past_due`) is the
-  plan sold at its price (`subscriptions.plan`); an unexpired **grant**
-  (`plan_grants`: Plus given by hand, or by the dev toggle) is Plus.
-  Everyone else is Free. Nothing else can make a learner paid.
-  `CurrentUser::plan` and `::premium` carry the answer on every request;
-  templates read `user.premium` to show or hide entry points.
-- **Gating a feature.** Add `_: billing::RequirePremium` to the handler's
-  arguments. A free learner's page request is redirected to
-  `/profile?upgrade=1#subscription` (the plans modal opens, with "That
-  feature comes with a subscription."), an `/api/*` request gets `402
-  {"error":"subscription required"}`. Keep the rule from the course
-  features: what a free learner cannot use does not appear, or
-  appears with the offer. `?plans=1` opens the modal from anywhere (the
-  *Upgrade to Plus* buttons where Skrongle AI runs out).
-- **Stripe** handles every payment. `/billing/checkout {plan}` creates a
-  Stripe Checkout session for that plan's monthly price and redirects
-  there. The account's Stripe customer is created before its first Checkout
-  and stored (`users.stripe_customer`), so every Checkout (two tabs, a double
-  submit, a resubscription) shares it; the subscription's metadata carries
-  the account's random `billing_ref`, never its id. While a payment is still
-  being confirmed (an `incomplete` subscription) Checkout refuses to start
-  another. Stripe sends the learner back to
-  `/profile?billing=done` or `?billing=cancelled`.
-- **Managing.** *Card and invoices, on Stripe* posts to `/billing/portal`, which opens
-  Stripe's Billing Portal for the customer: card, invoices, cancelling.
-  Cancelling there keeps the plan until the end of the paid period.
-- **Webhooks decide the plan.** The plan changes only when Stripe's signed
-  webhook (`POST /billing/webhook`) reports a `customer.subscription.*`
-  event; the browser coming back from Checkout proves nothing. **The plan is
-  the one sold at the subscription's price** (`StripeConfig::plan_for_price`:
-  `SKRONGLE_STRIPE_PRICE_ID` is Plus, `SKRONGLE_STRIPE_PRICE_ID_BASIC` is
-  Basic), never the metadata, which anyone with a Stripe account could set;
-  a paying subscription at any other price is ignored (#963). Each event
-  carries the whole subscription and overwrites the learner's row; older
-  events than the last one applied are skipped, since Stripe does not
-  promise order. An event is ignored when its `billing_ref` names no
-  account, its customer is not the account's, or the subscription is older
-  than the account (a deleted account's subscription never reaches anyone
-  else). A second subscription paying beside the first is not tracked: the
-  server logs a warning naming both, to refund or cancel in Stripe.
-
-### Setting up Stripe
-
-1. In the Stripe dashboard create two **recurring monthly prices** in CAD:
-   Plus (CA$15, `SKRONGLE_STRIPE_PRICE_ID`) and Basic (CA$3,
-   `SKRONGLE_STRIPE_PRICE_ID_BASIC`); note their ids (`price_…`). Both are
-   required on the hosted site and must differ: the webhook tells the plans
-   apart by price.
-2. Under *Developers → Webhooks* add an endpoint at
-   `<SKRONGLE_PUBLIC_URL>/billing/webhook` listening to
-   `customer.subscription.created`, `customer.subscription.updated` and
-   `customer.subscription.deleted`; note its signing secret (`whsec_…`).
-3. Turn on the *Customer portal* (Settings → Billing → Customer portal) and
-   allow cancelling, updating the payment method and switching plans
-   between the two prices (an upgrade from Basic to Plus happens there).
-4. Set `SKRONGLE_STRIPE_SECRET_KEY`, `SKRONGLE_STRIPE_WEBHOOK_SECRET`,
-   `SKRONGLE_STRIPE_PRICE_ID`, `SKRONGLE_STRIPE_PRICE_ID_BASIC` and
-   `SKRONGLE_PUBLIC_URL` (optionally
-   `SKRONGLE_STRIPE_PRICE_LABEL`, e.g. `€4 a month`, for the button). All four
-   or none; see [configuration](architecture#configuration). On the AWS
-   server they are Parameter Store settings (`scripts/aws-env.sh set …`,
-   [AWS setup](aws-setup) step 8).
-
-Locally, dev mode needs none of this: without `SKRONGLE_STRIPE_*` it points
-the app at [the dev payment provider](testing#payments-the-dev-payment-provider)
-(`/dev/payments`, #314), a stand-in that speaks Stripe's API with fake keys,
-so the plans modal pays through it as it would through Stripe; it
-hosts a Checkout page (**Pay**, **Fail**, **Cancel**) and a Billing Portal,
-and sends signed webhooks to `/billing/webhook`; its Payments section in the
-dev mailbox renews, fails, cancels and refunds. To try the real Stripe in
-test mode, set the four settings and forward webhooks with the Stripe CLI:
-`stripe listen --forward-to localhost:9000/billing/webhook` prints the
-`whsec_…` to use. The dev toggle grants premium either way, and
-`/dev/login?plan=basic|plus|free` buys or cancels a plan through the dev
-provider (see [testing](testing#dev-routes)).
-
-**Granting premium by hand** (no Stripe needed):
-
-```sh
-sqlite3 /var/lib/spanish-learning/learn.db \
-  "INSERT OR REPLACE INTO plan_grants (user_id, granted_at, expires_at, note)
-   SELECT id, unixepoch(), NULL, 'friend' FROM users WHERE email = 'ana@example.org';"
-```
-
-`expires_at` is a Unix time, or `NULL` for no end; `DELETE FROM plan_grants
-WHERE user_id = …` takes it back.
-
-## Skrongle AI, allowances and credits
+## Skrongle AI
 
 The tutor and the course generator can run on the server's own AI key
-(*Skrongle AI*), so a learner without a key can still use them, within their
-plan's monthly allowance (`src/metering.rs`, `src/routes/hosted.rs`).
-Without `SKRONGLE_AI_KEY` none of this is offered and every AI feature works on
-the learner's own keys. The numbers (allowances, prices, cap, packs, models)
-are config values; the defaults and the margin math are in
-[Pricing](pricing): **Plus (CA$15 a month) includes $1.50 of list-price AI;
-Free and Basic get none** and bring their own keys. A new account can get a
-one-time amount of credits when its address is first confirmed
-(`SKRONGLE_AI_ALLOWANCE_FREE`, none by default). **Credit packs** are
-sold on every plan, as pay-as-you-go Skrongle AI on top of a plan or
-instead of one (#931). Learners never see dollar amounts: what is left
-is a bar and percentages.
-
-In Skrongle mini ([Subscriptions](#subscriptions)) the server's key
-is shared by every account: Skrongle AI is offered to everyone, no monthly
-allowance applies (`metering::UNMETERED`), only the daily cap and the rate
-limit guard it, credit packs are not sold, and "Skrongle AI left this
-month" (the profile's bar, the tutor's and generator's line) is left out.
-Own keys always work beside it (no "use my keys" switch). `ai_usage` rows
-are written as ever.
+(*Skrongle AI*), so a learner without a key can still use them
+(`src/metering.rs`, `src/routes/hosted.rs`). Every account may use it; only
+the daily cap and the per-minute rate limit guard it. Without
+`SKRONGLE_AI_KEY` none of this is offered and every AI feature works on the
+learner's own keys. Learners never see dollar amounts. Own keys always work
+beside it. `ai_usage` rows are written as ever.
 
 - **One key, our meter.** Anthropic's workspaces and keys cannot be made per
-  learner from the app, so the server keeps one key and meters each learner
-  itself; Anthropic's Cost API is for reconciling the month
-  ([Pricing](pricing#reconciling-with-anthropic)).
+  learner from the app, so the server keeps one key and records every call
+  itself.
 - **The same client as an own key.** A Skrongle AI call is an ordinary
   `ai::Provider` (same `ai::Call`, wire format, timeouts and error handling)
   whose key is the server's and whose `source` is `Hosted`. Every call, own
   key or not, goes through `Meter::call`: with the server's key it checks the
-  allowance first, and it writes the `ai_usage` row either way.
+  day's cap first, and it writes the `ai_usage` row either way.
 - **The server's key** (`SKRONGLE_AI_KEY`, for `SKRONGLE_AI_PROVIDER`, default
   `anthropic`, at `SKRONGLE_AI_BASE_URL` or the provider's default) is read at
   boot, removed from the environment and kept in memory sealed by the same
@@ -2917,60 +2767,28 @@ are written as ever.
   prices by default; unknown models at the dearest `*` rate; a cache write
   counts as 1.25 input tokens); a call on the learner's own key is recorded
   at cost 0 and never limited. Amounts are micro-dollars.
-- **Who is offered it.** A learner on Plus (the month's allowance,
-  `SKRONGLE_AI_ALLOWANCE_PLUS`, default $1.50, see Subscriptions) or a
-  learner on any plan who holds credits (#931); Free and Basic have no
-  allowance. It is offered only for a use the month could pay for at all:
-  the allowance plus credits must reach the estimate of that use's smallest
-  request (`Meter::cheapest`: one tutor reply, a course's outline and one
-  lesson, or one added lesson; `AiStatus::covers`). Anyone else is never
-  offered Skrongle AI for it (#283): the tutor, the Generate dialog and *Use
-  AI* show only their own keys (or "add an API key"), the API refuses
-  `provider: hosted`, and the profile has no *Skrongle AI this month* card.
-  With no key either, the home page's AI tutoring card shows a red ! in place
-  of its (i) (tip: "No AI keys set"), and *Start a conversation* (or the !) opens the
-  tutor's "add an API key" page as a modal instead of going to `/tutor`; a
-  learner with a usable key or Skrongle AI for the tutor goes straight there.
-  That modal, the `/tutor` page itself and the Generate dialog's "add a key"
-  line say why (none included, or too little for this) and what to do
-  instead: an own key (with the pill on, on Plus), or Plus when Plus's
-  allowance would cover it, with an *Upgrade to Plus* button
-  (`templates/not_included.html`, `hosted::NotIncluded`). A Plus allowance too
-  small for a course says so in *Skrongle AI this month*'s (i). Running out
-  during the month is different: the choice stays, and the refusal offers
-  the ways on.
-- **Plus and own keys.** On Plus, Skrongle AI comes first: the tutor, the
-  Generate dialog and *Use AI* use it, and the learner's own keys are not
-  used at all unless the profile's pill *use my keys when my Skrongle AI
-  limit is hit* is on (`users.own_keys_fallback`, `POST /profile/own-keys`,
-  `hosted::own_keys_usable`). On, the saved keys are offered after Skrongle
-  AI, and when a hosted call or job is refused for want of allowance the
-  first saved key takes over: the tutor switches the conversation to it and
-  says so (`notice` in the turn's JSON), a generation or revision starts on
-  it instead. The API keys card shows only the pill while it is off, the
-  key rows when it is on (`profile-own-keys-switch`, `profile-own-keys-body`).
-- **Allowance.** Dollars of AI a calendar month (UTC). Spending order: the
-  allowance first, then prepaid credits. The check happens **before** every
-  hosted call, never during one: a reply is never cut off. The tutor
-  estimates a turn (its prompt plus the longest reply) and does not call the
-  model when it is not covered; the turn's grading still happens and the
-  chat says why, with links to upgrade (free plan, Stripe on), to buy
-  credits (when sold) and to add an own key (`tutor-out-of-ai`,
-  `tutor-upgrade` to the plans modal, `tutor-buy-credits`, `tutor-own-key`).
+- **Who is offered it.** Everyone, when the server has the key. The tutor
+  lists *Skrongle AI (included)* first, then any own keys; the Generate
+  dialog and *Use AI* use it the same way. With neither a key of their own
+  nor Skrongle AI, the home page's AI tutoring card shows a red ! in place of
+  its (i) (tip: "No AI keys set"), and *Start a conversation* (or the !) opens
+  the tutor's "add an API key" page as a modal instead of going to `/tutor`;
+  a learner with a usable key or Skrongle AI goes straight there.
+- **Checked before a call.** The check happens **before** every hosted call,
+  never during one: a reply is never cut off. The tutor estimates a turn (its
+  prompt plus the longest reply) and does not call the model when the day's
+  cap would be passed; the turn's grading still happens and the chat says
+  why, with a link to add an own key (`tutor-out-of-ai`, `tutor-own-key`).
 - **Jobs reserve.** Generating, revising or adding a lesson on the server's
   key estimates the whole job up front (`ai::job_tokens`: the format
   reference and the material with each request, a plan, lessons of about
-  6 000 output tokens) and holds that much. The Generate dialog says what is
-  left and about what a lesson costs ("AI left this month: $1.20 · about
-  $0.08 a lesson", `generate-ai-left`), and refuses a job the learner cannot
-  cover before it starts, with the ways on as buttons under the message
-  (`ai-out`: `ai-out-upgrade` to the plans modal with Plus's price,
-  `ai-out-buy` per pack with its price, `ai-out-own-key`); *Use AI* on a
-  course does the same. Each call settles against the hold; when the job
-  ends, however it ends, the rest is released. A job that outruns its
-  estimate goes on while the learner has allowance or credits, and stops
-  between lessons (keeping what it wrote, ready to resume) when nothing is
-  left. Holds live in memory, like the jobs.
+  6 000 output tokens) and holds that much against the day's cap. A job the
+  day cannot cover is refused before it starts, with the way on as a button
+  under the message (`ai-out`: `ai-out-own-key`); *Use AI* on a course does
+  the same. Each call settles against the hold; when the job ends, however it
+  ends, the rest is released. A job that outruns its estimate goes on while
+  the day has room, and stops between lessons (keeping what it wrote, ready
+  to resume) when the cap is reached. Holds live in memory, like the jobs.
 - **When the server's key fails.** A refused key or an exhausted account on
   the server's side is not the learner's to fix: they read "Skrongle AI is
   not available right now. Try again later, or add your own API key on your
@@ -2982,32 +2800,6 @@ are written as ever.
   day). `SKRONGLE_AI_RATE_PER_MINUTE` (default 12): hosted requests one account
   may start in a minute (tutor calls and job starts; a job's own calls are
   not counted).
-- **What the learner sees.** Never a dollar amount (#315). The tutor offers
-  *Skrongle AI (included)* (first on Plus, after any own keys otherwise), and
-  its header shows "Skrongle AI left this month: 83 %" (`tutor-ai-left`),
-  updated after each turn. The **Generate the course** dialog offers
-  *Skrongle AI* (the only choice, so not shown, when it is alone) and says
-  what is left and about what a lesson takes ("… · about 6 % a lesson",
-  `generate-ai-left`); **Use AI** on a course says the same
-  (`course-ai-left`). The profile's *Skrongle AI this month* card
-  (`#ai-usage`, Plus only) is a bar (`profile-ai-bar`, `aria-valuenow` the
-  percent used, `data-left`) with "83 % left · fills up again on
-  1 November 2026"; its (i) explains the allowance and the own-keys pill.
-  The percentages are of the month's total: the allowance plus any credits
-  held or spent; a job's hold counts as used. *Hide all AI features* hides
-  all of this (the section too) like every other AI feature.
-- **Credits.** Prepaid packs (`SKRONGLE_AI_CREDIT_PACKS`, `price_id:credit
-  dollars:label`, e.g. `price_123:3.00:$5`) are sold as one-off Stripe
-  Checkout payments (`POST /billing/credits`; 400 when Stripe or the pack is
-  not configured), offered only when Stripe is configured, on every plan:
-  on Plus they are spent after the allowance, on Free and Basic they are the
-  only Skrongle AI (#931). The signed webhook
-  adds them: `checkout.session.completed` (or
-  `checkout.session.async_payment_succeeded`) for a session with
-  `metadata.kind = ai-credits`, once per session (`ai_credit_purchases`); a
-  `charge.refunded` (refund in the Stripe dashboard) takes back the refunded
-  share. Credits do not expire. Add those event types to the webhook endpoint
-  and create one-off prices for the packs.
 - **In dev** (`./.dev-start`, `scripts/e2e.sh`) the server's key is the
   simulator's platform key `sk-ant-dev-platform`, which the dev-mode default
   Anthropic base URL sends to `/dev/ai`: its own counters, limits and

@@ -561,7 +561,6 @@ profile:
     personal: Persönliche Angaben
     account: Konto
     two_factor: Zwei-Faktor-Authentifizierung
-    subscription: Abo
     api_keys: KI-API-Schlüssel
     data: Deine Daten
     consent: "Datenschutz und Einwilligung"
@@ -648,7 +647,6 @@ profile:
     ai_off: "Ausgeblendet"
     ai_key: "Eigener API-Schlüssel gespeichert"
     ai_keys_manage: "Schlüssel verwalten"
-    ai_hosted: "{hosted}: {n} % dieses Monats verbraucht"
   google_link:
     link_title: "Google-Konto verbinden"
     one_tap: "um sich mit einem Tipp anzumelden"
@@ -755,37 +753,6 @@ profile:
     too_many_texts: "Zu viele SMS an diese Nummer. Versuche es in {minutes} Minuten erneut."
     number_no_texts: "An diese Nummer können keine SMS gesendet werden: {why}."
     phone_code_expired: Dieser Code ist abgelaufen oder wurde schon benutzt. Schick einen neuen.
-  subscription:
-    title: Abo
-    plan: Tarif
-    premium: ✓ Premium
-    free: Kostenlos
-    subscription: Abo
-    granted_label: Gewährt
-    granted: "Premium für dieses Konto gewährt, {note}"
-    manage: Abo verwalten
-    manage_note: Karte ändern, Rechnungen ansehen oder kündigen, bei Stripe.
-    subscribe: Abonnieren
-    subscribe_note: Monatlich über Stripe bezahlt; jederzeit kündbar.
-    unavailable: Abos werden auf diesem Server nicht angeboten.
-    dev_revoke: "Dev: Premium-Gewährung zurückziehen"
-    dev_grant: "Dev: Premium gewähren"
-    thanks_active: Danke! Dein Abo ist aktiv.
-    thanks_pending: Danke! Stripe bestätigt deine Zahlung; lade in einem Moment neu, um dein Abo zu sehen.
-    cancelled: Bezahlvorgang abgebrochen; es wurde nichts abgebucht.
-    required: Diese Funktion gibt es mit einem Abo.
-    plan_thanks: "Du hast {plan}. Danke!"
-    cancelled_notice: "Dein Abo ist gekündigt. {note}"
-    credits_thanks: "Danke! Dein KI-Guthaben wird gutgeschrieben, sobald Stripe die Zahlung bestätigt."
-    ends_on: "Endet am"
-    renewal_date: "Verlängerungsdatum"
-    cancelled_mark: "(gekündigt)"
-    granted_plan: "{plan} für dieses Konto freigeschaltet, {note}"
-    choose: "Tarif wählen"
-    upgrade_plus: "Auf Plus upgraden"
-    cancel_open: "Abo kündigen"
-    portal: "Karte und Rechnungen, bei Stripe"
-    past_due: "Die letzte Zahlung ist fehlgeschlagen; Stripe versucht es erneut mit der Karte."
   ai:
     on: "Ein"
     off: "Aus"
@@ -817,9 +784,6 @@ profile:
     too_long: "Das ist zu lang für einen API-Schlüssel (maximal {max} Zeichen)."
     bad_chars: Ein API-Schlüssel enthält nur Buchstaben, Ziffern und Satzzeichen, ohne Leerzeichen.
     wrong_provider: "Das sieht nicht nach einem {provider}-Schlüssel aus: sie beginnen mit {prefix}."
-    own_keys_on: "Deine eigenen API-Schlüssel übernehmen, wenn dein {hosted}-Kontingent für den Monat aufgebraucht ist."
-    own_keys_off: "Es wird nur {hosted} verwendet; deine eigenen API-Schlüssel bleiben ungenutzt."
-    own_keys_switch: "Meine Schlüssel nutzen, wenn mein {hosted}-Limit erreicht ist"
     about_hosted: "Der KI-Tutor, „Kurs erstellen“ und „KI verwenden“ rufen diese Anbieter mit deinem Schlüssel auf, abgerechnet über dein Konto, ohne dein {hosted}-Kontingent anzutasten."
   data:
     export_download: "Meine Daten herunterladen"
@@ -857,7 +821,6 @@ profile:
     type_email: Gib deine E-Mail-Adresse ein, um zu bestätigen.
     code_app: "Code aus deiner Authenticator-App"
     code_sent_to: "an {to} geschickt"
-    cancel_first: Kündige zuerst dein Abo (oben unter Abo verwalten), dann lösche das Konto.
   deletion:
     title: "Konto wird gelöscht"
     on: "Dieses Konto wird am {date} endgültig gelöscht."
@@ -905,33 +868,6 @@ profile:
     turn_off: Zwei-Faktor-Anmeldung ausschalten
     switch_to: "Zwei-Faktor-Anmeldung auf {method} umstellen"
     turn_on_by: "Zwei-Faktor-Anmeldung per {method} einschalten"
-    pay_with_stripe: "Mit Stripe bezahlen"
-  ai_usage:
-    title: "{hosted} in diesem Monat"
-    about: "Über {hosted} in diesem Monat"
-    info_p1: "Dein Tarif enthält jeden Monat ein Kontingent an {hosted} für den Tutor und zum Schreiben von Kursen. Der Balken zeigt, wie viel davon die Anfragen dieses Monats verbraucht haben; am {date} füllt er sich wieder auf. Anfragen mit deinen eigenen API-Schlüsseln zählen nicht dazu."
-    info_p2_html: "Wenn es aufgebraucht ist, warten der Tutor und der Kursautor auf den nächsten Monat, es sei denn, <em>Meine Schlüssel nutzen, wenn mein {hosted}-Limit erreicht ist</em> ist unter KI-API-Schlüssel aktiviert: Dann übernehmen deine eigenen Schlüssel."
-    bar_label: "{hosted} in diesem Monat verbraucht"
-    used: "{n} % verbraucht"
-    left: "{n} % übrig"
-    refills: "füllt sich am {date} wieder auf"
-    info_p1_tutor: "Dein Tarif enthält jeden Monat ein Kontingent an {hosted} für den Tutor. Es ist zu wenig, um damit einen Kurs zu schreiben: Nutze dafür deinen eigenen API-Schlüssel. Der Balken zeigt, wie viel davon die Anfragen dieses Monats verbraucht haben; am {date} füllt er sich wieder auf. Anfragen mit deinen eigenen API-Schlüsseln zählen nicht dazu."
-  plans:
-    title: "Wähle deinen Tarif"
-    plans_label: "Tarife"
-    flag: "{hosted} inklusive"
-    current: "Dein Tarif"
-    terms: "Monatliche Abrechnung; jederzeit kündbar, der Tarif bleibt bis zum Ende des bezahlten Monats."
-    not_now: "Nicht jetzt"
-    purchase: "Kaufen"
-  cancel:
-    title: "Abo kündigen?"
-    why: "Warum gehst du?"
-    optional: "(optional)"
-    feedback: "Möchtest du uns noch etwas sagen?"
-    keep: "Tarif behalten"
-    confirm: "Kündigung bestätigen"
-
 superuser:
   courses:
     title: "Kurse"
@@ -1139,7 +1075,6 @@ superuser:
     delete_confirm: "Endgültig löschen"
     deleted: "{email} und die Daten sind gelöscht."
     yourself: "Das ist dein eigenes Konto. Nutze dafür dein Profil."
-    subscribed: "{email} hat ein Abo, das noch abgerechnet wird. Kündige es zuerst in Stripe."
     blocked_title: "Gesperrte Adressen"
     block: "Eine Adresse sperren"
     address: "Adresse oder Bereich"
@@ -1201,47 +1136,10 @@ superuser:
   ai_today_info: "Was alle heute (UTC) für {hosted} ausgegeben haben, gemessen am Tageslimit des Servers von {cap}. Ist das Limit erreicht, pausiert {hosted} für alle bis Mitternacht UTC; eigene API-Schlüssel funktionieren weiter. Nur Superuser sehen das; Lernende sehen nur ihren eigenen Monat."
   ai_today_spent: "{spent} von {cap} · wird um Mitternacht UTC zurückgesetzt"
 
-billing:
-  not_offered: Abos werden auf diesem Server nicht angeboten.
-  stripe_unreachable: Stripe war gerade nicht erreichbar. Bitte versuche es gleich noch einmal.
-  past_due: Die letzte Zahlung ist fehlgeschlagen; Stripe versucht die Karte erneut. Aktualisiere sie unter Verwalten.
-  cancelled_ends: "Gekündigt: endet am {date}."
-  renews: "Verlängert sich am {date}."
-  grant_until: "bis {date}"
-  grant_no_end: kein Enddatum
-  choose_plan: "Wähle einen Tarif."
-  pack_not_offered: "Dieses Guthabenpaket wird nicht angeboten."
-  cancel_note: "Du behältst {plan} bis {date}. Danach hast du Free."
-  cancel_note_free: "Danach hast du Free."
-  cancel_reason:
-    price: "Es kostet zu viel"
-    unused: "Ich nutze es zu wenig"
-    missing: "Mir fehlt etwas, das ich brauche"
-    problems: "Etwas hat nicht funktioniert"
-  plan:
-    price: "{price} im Monat"
-    free:
-      name: "Free"
-      blurb: "Alle Kurse und Modi, mit deinen eigenen KI-Schlüsseln."
-      perks: "Alle integrierten Kurse und Modi\nEigene Kurse erstellen\nKI-Funktionen mit deinen eigenen API-Schlüsseln"
-    basic:
-      name: "{app} Basic"
-      blurb: "Hilf mit, dass die Lichter anbleiben, und erhalte die Bezahlfunktionen, sobald sie erscheinen."
-      perks: "Alles aus Free\nUnterstützt eine unabhängige, werbefreie App\nNeue Bezahlfunktionen, sobald sie erscheinen\nJederzeit kündbar"
-    plus:
-      name: "{app} Plus"
-      blurb: "{hosted} inklusive: der Tutor und der Kursautor, ohne API-Schlüssel."
-      perks: "Alles aus Basic\n{hosted} jeden Monat inklusive\nTutor und Kurse schreiben ohne API-Schlüssel\nDeine eigenen Schlüssel können übernehmen, wenn es aufgebraucht ist\nJederzeit kündbar"
-  ai:
-    not_enough: "Dafür ist in diesem Monat nicht genug {hosted} übrig. Upgrade oder nutze deinen eigenen API-Schlüssel."
-    not_enough_credits: "Dafür ist in diesem Monat nicht genug {hosted} übrig. Upgrade, kaufe KI-Guthaben oder nutze deinen eigenen API-Schlüssel."
-    used_up: "Dein {hosted}-Kontingent für diesen Monat ist aufgebraucht. Upgrade oder nutze deinen eigenen API-Schlüssel."
-    used_up_credits: "Dein {hosted}-Kontingent für diesen Monat ist aufgebraucht. Upgrade, kaufe KI-Guthaben oder nutze deinen eigenen API-Schlüssel."
-    daily_cap: "{hosted} ist für heute pausiert: Der Server hat sein tägliches Ausgabenlimit erreicht. Nach Mitternacht UTC geht es weiter; dein eigener API-Schlüssel funktioniert weiterhin."
-    rate: "Das sind sehr viele KI-Anfragen in einer Minute. Warte einen Moment und versuche es dann erneut."
-    job_daily_cap: "Die KI hat angehalten: {hosted} ist für heute pausiert (der Server hat sein tägliches Ausgabenlimit erreicht). Bisher Geschriebenes geht nicht verloren; mach nach Mitternacht UTC weiter oder mit deinem eigenen API-Schlüssel."
-    job_used_up: "Die KI hat angehalten: Dein {hosted}-Kontingent für diesen Monat ist aufgebraucht. Bisher Geschriebenes geht nicht verloren; mach nach einem Upgrade weiter oder mit deinem eigenen API-Schlüssel."
-    job_used_up_credits: "Die KI hat angehalten: Dein {hosted}-Kontingent für diesen Monat ist aufgebraucht. Bisher Geschriebenes geht nicht verloren; mach nach einem Upgrade, nach dem Kauf von KI-Guthaben oder mit deinem eigenen API-Schlüssel weiter."
+ai_refused:
+  daily_cap: "{hosted} ist für heute pausiert: Der Server hat sein tägliches Ausgabenlimit erreicht. Nach Mitternacht UTC geht es weiter; dein eigener API-Schlüssel funktioniert weiterhin."
+  rate: "Das sind sehr viele KI-Anfragen in einer Minute. Warte einen Moment und versuche es dann erneut."
+  job_daily_cap: "Die KI hat angehalten: {hosted} ist für heute pausiert (der Server hat sein tägliches Ausgabenlimit erreicht). Bisher Geschriebenes geht nicht verloren; mach nach Mitternacht UTC weiter oder mit deinem eigenen API-Schlüssel."
 
 landing:
   title: "Lerne alles aus einem Ordner mit JSON-Dateien"
@@ -2727,14 +2625,10 @@ tutor:
     lesson_passed: "✓ Lektion bestanden: {title}"
     could_not_reply: "Der Tutor konnte nicht antworten: {error}"
     last_exercise: Das war vorerst die letzte Übung. Chatte weiter oder wähle eine andere Lektion.
-    upgrade_plus: "Auf Plus upgraden"
     own_key: "Eigenen API-Schlüssel nutzen"
-    buy_credits: "Guthaben kaufen"
   hosted_label: "{app} AI"
   disclosure_hosted: "Deine Nachrichten werden mit dem Schlüssel dieses Servers an den KI-Anbieter gesendet, den er verwendet."
   hosted_included: "{hosted} (inklusive)"
-  own_key_took_over: "Dein {hosted}-Kontingent für diesen Monat ist aufgebraucht, daher antwortet ab jetzt dein eigener {provider}-Schlüssel."
-
 courses:
   # What a new course from "Create a course" starts with, in the author's app language (#1255).
   starter:
@@ -3452,7 +3346,6 @@ courses:
       one: "etwa {n} Minute"
       other: "etwa {n} Minuten"
     estimate_cost: "etwa {cost} CA-$"
-    estimate_share: "etwa {n} % von {hosted} dieses Monats"
     estimate_sep: " · "
   stat:
     next_lesson: "Nächste Lektion zum Bestehen"
@@ -3548,23 +3441,9 @@ courses:
     shared_body: "Dieser Kurs gehört {owner}, der ihn mit dir geteilt hat. Du kannst mit deinem eigenen Fortschritt daraus lernen; nur {owner} kann die Lektionen ändern."
     ok: OK
   ai_out:
-    upgrade: "Auf Plus upgraden · {price}"
-    buy: "{credit} KI kaufen · {price}"
     own_key: "Eigenen API-Schlüssel nutzen"
   hosted:
-    not_offered: "Das {hosted}-Kontingent deines Tarifs reicht dafür nicht. Füge in deinem Profil einen eigenen API-Schlüssel hinzu oder upgrade."
-    own_keys_off: "Dein Tarif nutzt {hosted}. Aktiviere in deinem Profil „Meine Schlüssel nutzen, wenn mein {hosted}-Limit erreicht ist“, um deinen eigenen Schlüssel zu verwenden."
-    left: "{hosted} übrig in diesem Monat: {n} %"
-    percent: "{n} %"
-    left_per_lesson: "{left} · etwa {per} pro Lektion"
-    gap:
-      none: "Dein Tarif enthält kein {hosted}."
-      too_little_tutor: "Das {hosted}-Kontingent, das dein Tarif pro Monat enthält, ist für eine Tutor-Sitzung zu klein."
-      too_little_course: "Das {hosted}-Kontingent, das dein Tarif pro Monat enthält, reicht nicht einmal für den kleinsten Kurs."
-      too_little_lesson: "Das {hosted}-Kontingent, das dein Tarif pro Monat enthält, reicht nicht für eine Lektion."
-      instead_key: "Füge stattdessen in deinem Profil einen eigenen API-Schlüssel hinzu: Er wird über dein eigenes Konto beim KI-Anbieter abgerechnet."
-      instead_upgrade: "Füge in deinem Profil einen eigenen API-Schlüssel hinzu (abgerechnet über dein eigenes Konto beim KI-Anbieter) oder upgrade auf Plus, das jeden Monat {hosted} enthält."
-      instead_pill: "Füge in deinem Profil einen eigenen API-Schlüssel hinzu und aktiviere dort „Meine Schlüssel nutzen, wenn mein {hosted}-Limit erreicht ist“; dein Schlüssel wird über dein eigenes Konto beim KI-Anbieter abgerechnet."
+    not_offered: "{hosted} ist auf diesem Server nicht eingerichtet. Füge in deinem Profil einen eigenen API-Schlüssel hinzu."
 motivator:
   stats:
     title: "Statistiken und Kennzahlen"

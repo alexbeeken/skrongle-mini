@@ -221,13 +221,11 @@ pub async fn translate(State(state): State<Arc<AppState>>, user: CurrentUser, Pa
         }
     };
     // The same checks as Generate, before anything is made.
-    let mut provider = if form.provider == crate::tutor::HOSTED {
-        match crate::routes::hosted::hosted_provider(&state, user.id, "translate-course", Need::Course).await? {
+    let provider = if form.provider == crate::tutor::HOSTED {
+        match crate::routes::hosted::hosted_provider(&state, "translate-course") {
             Some(p) => p,
-            None => return picker_page(&state, user, Some(crate::routes::hosted::not_offered()), None).await,
+            None => return picker_page(&state, user, Some(crate::t1("courses.hosted.not_offered", "hosted", crate::tutor::hosted_label())), None).await,
         }
-    } else if !crate::routes::hosted::own_keys_usable(&state, &user) {
-        return picker_page(&state, user, Some(crate::routes::hosted::own_keys_off()), None).await;
     } else {
         match ai_provider(&state, &user, &form.provider, "", false, "", "").await? {
             Ok(p) => p,
@@ -253,10 +251,7 @@ pub async fn translate(State(state): State<Arc<AppState>>, user: CurrentUser, Pa
     let job = ai::new_job_id();
     if provider.source == crate::metering::KeySource::Hosted {
         if let Err(r) = reserve_hosted(&state, user.id, &job, files_left, false, 0, None).await? {
-            match fallback_key(&state, &user, &r).await? {
-                Some(own) => provider = own,
-                None => return picker_page(&state, user, Some(r.message(state.meter.credits_offered())), None).await,
-            }
+            return picker_page(&state, user, Some(r.message()), None).await;
         }
     }
     let course_id = match (copy, &resume) {

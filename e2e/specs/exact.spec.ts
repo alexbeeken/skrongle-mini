@@ -789,48 +789,6 @@ test("the mode bars link to Study's Lessons, not to the /study redirect", async 
   await expect(page.getByTestId("nav-play-to-study")).toHaveAttribute("href", /\/lessons$/);
 });
 
-test("Free has no Skrongle AI: no usage card, no own-keys pill, the tutor offers only the saved keys", async ({ page }) => {
-  // The e2e server runs Skrongle AI on the simulator's platform key, and Free
-  // includes none (#283): the dev user (free) is not offered it, and the
-  // usage card is for Plus only (#315).
-  await devLogin(page, "open=spanish&keys=fake&premium=0&plan=free&next=/profile");
-  await expect(page.getByTestId("profile-subscription")).toHaveAttribute("data-plan", "free");
-  await expect(page.getByTestId("profile-ai-usage")).toHaveCount(0);
-  await expect(page.locator('[data-testid="profile-nav-link"][data-section="ai-usage"]')).toHaveCount(0);
-  const keys = page.getByTestId("profile-api-keys");
-  await expect(keys).toHaveAttribute("data-plus-ai", "false");
-  await expect(keys.getByTestId("profile-own-keys-switch")).toHaveCount(0);
-  await expect(keys.getByTestId("profile-own-keys-body")).toBeVisible();
-  // Nothing on the card is priced in dollars; only the plan chooser's cards are.
-  await expect(page.getByTestId("profile-subscription").locator("dl")).not.toContainText("$");
-
-  await page.goto("/tutor");
-  await expect(page.getByTestId("tutor-ai-left")).toHaveCount(0);
-  await expect(page.locator('[data-testid="tutor-provider"] option[value="hosted"]')).toHaveCount(0);
-  await expect(page.locator("#thread .msg.tutor").first()).toBeVisible();
-});
-
-test("the dev toggle switches the plan on the profile", async ({ page }) => {
-  await devLogin(page, "premium=0&plan=free&next=/profile");
-  const section = page.getByTestId("profile-subscription");
-  await expect(section).toHaveAttribute("data-premium", "false");
-  await expect(page.getByTestId("profile-plan")).toHaveText("Free");
-  await expect(page.getByTestId("profile-plan-choose")).toHaveText("Choose a plan");
-  await expect(page.getByTestId("profile-cancel-open")).toHaveCount(0);
-
-  await page.getByTestId("profile-dev-premium").click();
-  await expect(section).toHaveAttribute("data-premium", "true");
-  await expect(section).toHaveAttribute("data-source", "grant");
-  await expect(page.getByTestId("profile-plan")).toHaveText("Skrongle Plus");
-  await expect(page.getByTestId("profile-grant")).toContainText("no end date");
-  // A grant is not a subscription: nothing to cancel, nothing to upgrade to.
-  await expect(page.getByTestId("profile-cancel-open")).toHaveCount(0);
-  await expect(page.getByTestId("profile-plan-choose")).toHaveCount(0);
-
-  await page.getByTestId("profile-dev-premium").click();
-  await expect(section).toHaveAttribute("data-premium", "false");
-});
-
 test("the profile has no Dev section for anyone; the seeded keys answer generate and the tutor", async ({ page, browser }) => {
   // A plain learner: no Dev section, and posting its old form does nothing.
   const other = await browser.newContext();

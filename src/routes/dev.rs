@@ -23,11 +23,6 @@ pub struct LoginParams {
     pub keys: Option<String>,
     /// Where to land, an app path such as `/courses/generate`.
     pub next: Option<String>,
-    /// `1`: give the dev user premium (a Plus grant); `0`: take it away.
-    pub premium: Option<String>,
-    /// `basic` | `plus`: put the dev user on that plan through the dev
-    /// payment provider (a Checkout paid at once, #963); `free`: cancel it.
-    pub plan: Option<String>,
     /// `old`: leave the dev user with only an older Terms version accepted,
     /// so the material "terms updated" notice shows; `minor`: one a minor
     /// change behind, so the dismissable notice shows (#966). The next login
@@ -89,14 +84,6 @@ pub async fn login(State(state): State<Arc<AppState>>, Query(q): Query<LoginPara
         }
         Some(other) => return Err(AppError::BadRequest(format!("keys={other}: keys=fake or keys=dev"))),
     }
-    if let Some(p) = q.premium.as_deref() {
-        set_premium(&state, uid, p).await?;
-    }
-    if let Some(p) = q.plan.as_deref() {
-        let plan = crate::billing::Plan::parse(p).ok_or_else(|| AppError::BadRequest(format!("plan={p}: use basic, plus or free")))?;
-        super::dev_payments::set_plan(&state, uid, plan).await?;
-        tracing::info!("dev: user {uid} put on the {} plan", plan.as_str());
-    }
     match q.terms.as_deref() {
         None | Some("") => {}
         Some(which @ ("old" | "minor")) => {
@@ -114,34 +101,6 @@ pub async fn login(State(state): State<Arc<AppState>>, Query(q): Query<LoginPara
     let token = state.db.call(move |c| auth::create_session(c, uid)).await?;
     tracing::info!("dev: logged in as '{}'", dev::DEV_EMAIL);
     Ok(([auth::set_session_cookie(&token, state.secure_cookies)], Redirect::to(&landing(q.next.as_deref()))).into_response())
-}
-
-/// `1` grants Plus (no end), `0` revokes the grant; a Stripe subscription or
-/// a plan bought on the profile, if any, is left alone.
-async fn set_premium(state: &AppState, uid: i64, on: &str) -> Result<(), AppError> {
-    let on = match on {
-        "1" => true,
-        "0" => false,
-        other => return Err(AppError::BadRequest(format!("premium={other}: use 1 or 0"))),
-    };
-    state
-        .db
-        .call(move |c| if on { crate::billing::set_grant(c, uid, None, "dev toggle") } else { crate::billing::revoke_grant(c, uid) })
-        .await?;
-    tracing::info!("dev: premium {} for user {uid}", if on { "granted" } else { "revoked" });
-    Ok(())
-}
-
-#[derive(Deserialize)]
-pub struct PremiumForm {
-    #[serde(default)]
-    pub premium: String,
-}
-
-/// POST /dev/premium (premium=1|0): the profile page's dev toggle, for whoever is signed in.
-pub async fn premium(State(state): State<Arc<AppState>>, user: CurrentUser, Form(f): Form<PremiumForm>) -> Result<Response, AppError> {
-    set_premium(&state, user.id, &f.premium).await?;
-    Ok(Redirect::to(&crate::url("/profile#subscription")).into_response())
 }
 
 #[derive(Deserialize)]

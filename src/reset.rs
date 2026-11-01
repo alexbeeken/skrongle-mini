@@ -59,23 +59,18 @@ pub fn account_for(conn: &Connection, email: &str) -> rusqlite::Result<Option<(i
 
 /// The account with `email` that a new registration may replace: a password
 /// account whose address was never confirmed, made at least `days` days
-/// before `now`, with no Stripe subscription that would keep billing.
+/// before `now`.
 pub fn replaceable(conn: &Connection, email: &str, now: i64, days: i64) -> rusqlite::Result<Option<i64>> {
     if days <= 0 {
         return Ok(None);
     }
-    let found: Option<i64> = conn
-        .query_row(
+    conn.query_row(
             "SELECT id FROM users WHERE lower(email) = lower(?1) AND email_verified_at IS NULL AND google_sub IS NULL
                AND password_hash <> '' AND superuser = 0 AND created_at <= ?2 ORDER BY id LIMIT 1",
             params![email, now - days * 86_400],
             |r| r.get(0),
         )
-        .optional()?;
-    match found {
-        Some(id) if !crate::privacy::has_live_subscription(conn, id)? => Ok(Some(id)),
-        _ => Ok(None),
-    }
+        .optional()
 }
 
 /// A new link token for `user_id` at `email`; the unused ones sent before
@@ -268,11 +263,6 @@ mod tests {
             made("young@example.org", now - 6 * day)?;
             let confirmed = made("confirmed@example.org", now - 30 * day)?;
             crate::verify::mark_verified(c, confirmed, 1)?;
-            let paying = made("paying@example.org", now - 30 * day)?;
-            c.execute(
-                "INSERT INTO subscriptions (user_id, customer_id, subscription_id, status, event_at, updated_at) VALUES (?1, 'cus', 'sub', 'active', 1, 1)",
-                [paying],
-            )?;
             let g = crate::auth::create_google_user(c, "g-1", "google@example.org")?;
             c.execute("UPDATE users SET created_at = 1, email_verified_at = NULL WHERE id = ?1", [g])?;
 
@@ -281,7 +271,6 @@ mod tests {
             assert_eq!(replaceable(c, "old@example.org", now, 8)?, None);
             assert_eq!(replaceable(c, "young@example.org", now, 7)?, None);
             assert_eq!(replaceable(c, "confirmed@example.org", now, 7)?, None);
-            assert_eq!(replaceable(c, "paying@example.org", now, 7)?, None, "a subscription that keeps billing");
             assert_eq!(replaceable(c, "google@example.org", now, 7)?, None);
             assert_eq!(replaceable(c, "nobody@example.org", now, 7)?, None);
             assert_eq!(account_for(c, "Old@Example.org")?, Some((old, "old@example.org".into())));

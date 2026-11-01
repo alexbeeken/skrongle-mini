@@ -54,11 +54,6 @@ impl Shape {
         }
     }
 
-    /// Plans and payments: the hosted site has them, a mini never does.
-    pub fn has_plans(self) -> bool {
-        self == Shape::Hosted
-    }
-
     /// Whether `crate::env` reads `SKRONGLE_<name>` as unset: in a mini,
     /// the settings in [`HOSTED_ONLY`].
     pub fn hides(self, name: &str) -> bool {
@@ -117,11 +112,10 @@ mod tests {
         assert!(Shape::Mini.describe().contains("Skrongle mini"));
     }
 
-    /// A mini has no plans and none of the hosted-only settings; the
-    /// hosted site has plans and reads every setting.
+    /// A mini has none of the hosted-only settings; the hosted site reads
+    /// every setting.
     #[test]
     fn a_mini_has_no_production_features() {
-        assert!(Shape::Hosted.has_plans() && !Shape::Mini.has_plans());
         for name in HOSTED_ONLY {
             assert!(Shape::Mini.hides(name) && !Shape::Hosted.hides(name), "{name}");
         }

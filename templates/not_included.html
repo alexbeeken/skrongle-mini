@@ -1,4 +1,0 @@
-{# Skrongle AI is not offered here (`routes::hosted::NotIncluded`, bound as `gap`, #283): why, and what to do instead. #}
-<p data-testid="hosted-gap-reason" data-none="{{ gap.none }}">{{ gap.reason() }}</p>
-<p data-testid="hosted-gap-instead">{{ gap.instead() }}</p>
-{% if let Some(price) = gap.upgrade %}<p><a class="btn ghost" href="{{ crate::base_path() }}/profile?plans=1#subscription" data-testid="hosted-gap-upgrade">{{ crate::t1("courses.ai_out.upgrade", "price", price) }}</a></p>{% endif %}

@@ -63,11 +63,6 @@ pub fn https_warnings(bind: SocketAddr, secure_cookies: bool, public_url: Option
 
 // ---------- CSRF ----------
 
-/// Paths another site may post to: Stripe's webhook (signed, no cookie).
-fn exempt(path: &str) -> bool {
-    path.ends_with("/billing/webhook")
-}
-
 /// Did a browser send this request from another site? Browsers say so in
 /// `Sec-Fetch-Site`; older ones only send `Origin`, compared with the host
 /// the request was made to. A request with neither is not from a browser
@@ -92,7 +87,7 @@ pub fn is_cross_site(headers: &HeaderMap) -> bool {
 /// sibling subdomains and browsers without SameSite.
 pub async fn csrf(req: Request, next: Next) -> Response {
     let safe = matches!(*req.method(), Method::GET | Method::HEAD | Method::OPTIONS);
-    if !safe && !exempt(req.uri().path()) && is_cross_site(req.headers()) {
+    if !safe && is_cross_site(req.headers()) {
         tracing::warn!("refused a cross-site {} {}", req.method(), req.uri().path());
         return (StatusCode::FORBIDDEN, crate::t("error.cross_site")).into_response();
     }

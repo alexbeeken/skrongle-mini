@@ -148,8 +148,6 @@ pub struct HomeTemplate {
     /// Skrongle AI for it. The card shows a red ! and "Start a conversation"
     /// opens the tutor's "add an API key" page in a modal instead (#283).
     pub tutor_blocked: bool,
-    /// Why Skrongle AI is not offered for the tutor, for that modal.
-    pub tutor_gap: Option<super::hosted::NotIncluded>,
     /// Guide stages complete, of the stages not skipped.
     pub guide_completed: usize,
     pub guide_total: usize,
@@ -592,14 +590,7 @@ pub async fn home(State(state): State<Arc<AppState>>, p: Project, headers: Heade
     let guide_total = stages.iter().filter(|(_, s)| *s != super::guide::StageState::Skipped).count();
     let guide_completed = stages.iter().filter(|(_, s)| *s == super::guide::StageState::Complete).count();
     let guide_next = stages.iter().find(|(c, _)| c.is_current).map(|(c, _)| (c.slug.clone(), c.title.clone()));
-    let (tutor_blocked, tutor_gap) = if ai_off {
-        (false, None)
-    } else {
-        let own = tutor_provider.is_some() && super::hosted::own_keys_usable(&state, &p.user);
-        let hosted = super::hosted::hosted_offer(&state, uid, crate::metering::Need::Tutor).await?.is_some();
-        let blocked = !own && !hosted;
-        (blocked, if blocked { super::hosted::NotIncluded::of(&state, &p.user, crate::metering::Need::Tutor).await? } else { None })
-    };
+    let tutor_blocked = !ai_off && tutor_provider.is_none() && !state.meter.hosted();
     let measures = crate::motivators::Progress {
         today,
         practised_today,
@@ -639,7 +630,6 @@ pub async fn home(State(state): State<Arc<AppState>>, p: Project, headers: Heade
         games_week,
         tutor_provider,
         tutor_blocked,
-        tutor_gap,
         guide_completed,
         guide_total,
         guide_begun: guide_completed > 0 || !stage_progress.is_empty(),

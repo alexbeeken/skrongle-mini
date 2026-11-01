@@ -5,7 +5,7 @@ use super::*;
 const DEV_TOKEN: &str = "d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0";
 
 fn state(dev: bool) -> Arc<AppState> {
-    let s = crate::routes::test_state(dev, None);
+    let s = crate::routes::test_state(dev);
     s.db.with(|c| {
         let id = crate::auth::create_user(c, dev::DEV_EMAIL, "x")?;
         crate::terms::accept(c, id, crate::terms::version())?;

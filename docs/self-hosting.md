@@ -17,7 +17,6 @@ no outside services. What it leaves out:
 
 - **No e-mail or text messages.** Links that would be mailed are shown in
   the page ([Without e-mail or text messages](#without-e-mail-or-text-messages)).
-- **No plans or payments.** Everyone has everything.
 - **No Google sign-in or S3.** Their settings are ignored in a mini, and the
   log says so.
 - **Sign-up by invitation.** The first account is yours, the owner's;
@@ -127,7 +126,7 @@ paste into a bug report. It shows the version, OS and architecture, the
 device model, the listen address and whether the port is free, the data
 folder and how many courses<!-- themes --> and themes<!-- /themes --> it holds, the database path, size
 and schema (migration) level, and whether the database folder is writable.
-It also shows whether a secret key, Google sign-in and subscriptions are
+It also shows whether a secret key and Google sign-in are
 configured, how many AI keys learners have saved, and free disk and memory.
 Secrets show as yes/no only, never their values. It only reads. It opens
 the database read-only and creates nothing.
@@ -156,8 +155,8 @@ A line that starts with `PROBLEM:` says what to fix.
   not start without that file, see [Your own Terms](#your-own-terms));
 - lets people sign up only with an invitation from you
   (`SKRONGLE_SIGNUP=invite`, see [Accounts and AI keys](#accounts-and-ai-keys));
-- makes the server a Skrongle mini (`SKRONGLE_MINI=1`), which turns plans,
-  payments, e-mail, texts, Google sign-in and S3 off (see
+- makes the server a Skrongle mini (`SKRONGLE_MINI=1`), which turns e-mail,
+  texts, Google sign-in and S3 off (see
   [Accounts and AI keys](#accounts-and-ai-keys));
 - reads optional settings from `/etc/skrongle/env`.
 
@@ -202,7 +201,7 @@ starts `SKRONGLE_`; see [Renamed settings](#renamed-settings) if yours start `LE
 | `SKRONGLE_COURSE_BYTES` | `8388608` (8 MB) | Total size of one course's files (the Spanish course is 3.7 MB). A save, upload or lesson-table change past it is refused and stores nothing. |
 | `SKRONGLE_COURSE_BYTES_PER_USER` | `33554432` (32 MB) | Total size of the files of all the courses one account owns. Undo copies are not counted. |
 
-[Architecture](architecture) lists the rest (subscriptions, developer
+[Architecture](architecture) lists the rest (developer
 settings).
 
 ### Renamed settings
@@ -256,7 +255,7 @@ once at start (`e-mail: not configured; features that need it are off`,
 and the same for texts), and every feature that would send a message
 hides itself instead. The e-mail and text settings of the hosted site
 (`SKRONGLE_MAIL_PROVIDERS`, `SKRONGLE_SMS_PROVIDERS`) are ignored in a
-mini, and so are Google sign-in, Stripe and `SKRONGLE_S3_BUCKET`; the log
+mini, and so are Google sign-in and `SKRONGLE_S3_BUCKET`; the log
 names any that are set.
 
 | Feature | Without e-mail | Without texts |
@@ -355,11 +354,8 @@ under *Profile settings → AI API keys* (Anthropic, OpenAI or Google). The
 secret key encrypts saved keys, so a database without its `.key` file can't
 use them.
 
-Your server has no plans or payments: a Skrongle mini (`SKRONGLE_MINI=1`)
-has none, so every account has every feature and the profile
-shows no subscription. To let everyone use the tutor and the course
-generator without a key of their own, set one key for the whole server in
-`/etc/skrongle/env`:
+To let everyone use the tutor and the course generator without a key of
+their own, set one key for the whole server in `/etc/skrongle/env`:
 
 ```sh
 SKRONGLE_AI_KEY=sk-ant-…          # shared by every account on this server
@@ -367,8 +363,7 @@ SKRONGLE_AI_DAILY_CAP=2.00        # dollars a day across everyone (default 10.00
 SKRONGLE_AI_RATE_PER_MINUTE=12    # requests one account may start a minute
 ```
 
-Everyone shares a server key. There is no monthly allowance per account,
-you pay the provider's bill, and the daily cap is the only brake. Past it,
+Everyone shares a server key. You pay the provider's bill, and the daily cap is the only brake. Past it,
 AI on the server's key stops until midnight UTC and the log says `ALERT`;
 learners' own keys keep working. Every call is recorded in the
 `ai_usage` table of the database.

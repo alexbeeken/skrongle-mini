@@ -1,8 +1,7 @@
 //! Deleting an account when the learner asks, after a grace period (#970).
 //!
 //! - *Delete my account* on the profile does not delete at once: it sets
-//!   `users.delete_at` to [`GRACE_DAYS`] from now (or to the end of a paid
-//!   period that is cancelled but still running, when that is later), ends
+//!   `users.delete_at` to [`GRACE_DAYS`] from now, ends
 //!   every session and pending second step of the account, and, where the
 //!   server sends mail, mails the learner the date.
 //! - Until then the account can be signed in to as usual (password, second
@@ -15,7 +14,7 @@
 //!   (`privacy::delete_account`, plus what the server holds in memory and on
 //!   disk). A superuser's delete (#967) stays immediate.
 
-use rusqlite::{params, Connection, OptionalExtension};
+use rusqlite::{params, Connection};
 
 use crate::db::Db;
 use crate::AppState;
@@ -29,18 +28,9 @@ pub const PURPOSE: &str = "account-deletion";
 /// Accounts deleted per run of the hourly job; the rest wait an hour.
 const BATCH: i64 = 50;
 
-/// When an account asked to be deleted at `now` is deleted: [`GRACE_DAYS`]
-/// later, or at the end of a paid period that still runs (a subscription
-/// cancelled at its period's end), whichever is later.
-pub fn due_date(conn: &Connection, user_id: i64, now: i64) -> rusqlite::Result<i64> {
-    let paid_until: Option<i64> = conn
-        .query_row(
-            "SELECT current_period_end FROM subscriptions WHERE user_id = ?1 AND status IN ('active', 'trialing', 'past_due') AND current_period_end IS NOT NULL",
-            [user_id],
-            |r| r.get(0),
-        )
-        .optional()?;
-    Ok((now + GRACE_DAYS * 86_400).max(paid_until.unwrap_or(0)))
+/// When an account asked to be deleted at `now` is deleted: [`GRACE_DAYS`] later.
+pub fn due_date(now: i64) -> i64 {
+    now + GRACE_DAYS * 86_400
 }
 
 /// Schedule the deletion: set `delete_at`, end every session and pending
@@ -48,7 +38,7 @@ pub fn due_date(conn: &Connection, user_id: i64, now: i64) -> rusqlite::Result<i
 /// transaction. The date, or `None` when there is no such account.
 pub fn schedule(conn: &mut Connection, user_id: i64, now: i64, mail: bool) -> rusqlite::Result<Option<i64>> {
     let tx = conn.transaction()?;
-    let at = due_date(&tx, user_id, now)?;
+    let at = due_date(now);
     if tx.execute("UPDATE users SET delete_at = ?2 WHERE id = ?1", params![user_id, at])? == 0 {
         return Ok(None);
     }
@@ -112,18 +102,12 @@ pub fn forget_deleted(state: &AppState, deleted: &crate::privacy::Deleted) {
     state.exports.remove(&deleted.export_files);
 }
 
-/// The hourly job: delete every account whose time has come. One that
-/// took out a subscription that would keep billing waits (and is logged)
-/// rather than be deleted with it running.
+/// The hourly job: delete every account whose time has come.
 pub fn sweep(state: &AppState, db: &Db) -> Result<String, String> {
     let now = crate::db::now();
     let ids = db.with(|c| due(c, now)).map_err(|e| e.to_string())?;
     let mut n = 0;
     for uid in ids {
-        if db.with(|c| crate::privacy::has_live_subscription(c, uid)).map_err(|e| e.to_string())? {
-            tracing::warn!("user {uid}: deletion due but a subscription is still billing; not deleted");
-            continue;
-        }
         forget_in_memory(state, uid);
         // Checked again next to the delete: a sign-in may have cancelled it since.
         let deleted = db

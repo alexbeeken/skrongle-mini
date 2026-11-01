@@ -23,8 +23,6 @@ For working on Skrongle's code. Start with `CLAUDE.md` in the repository.
   stack, so bottlenecks show up before a crowd does.
 - [AWS setup](aws-setup): the account, IAM user, keys and tools needed
   before `scripts/deploy-all.sh aws`.
-- [Pricing Skrongle AI](pricing) — the AI Skrongle provides on its own key,
-  what each plan includes, the list prices and the margin.
 
 The contract between content and code is the [course format](course-format)
 and its [JSON Schema](course.schema.json): `src/ai.rs` embeds the format in

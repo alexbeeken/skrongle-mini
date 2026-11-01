@@ -144,9 +144,7 @@ pub struct AiFormView {
     /// The provider whose saved key it uses ("hosted": the server's key,
     /// Skrongle AI); `None`: nothing to use.
     pub provider: Option<&'static str>,
-    /// With the server's key: "Skrongle AI left this month: 83 %".
-    pub ai_left: Option<String>,
-    /// Skrongle AI did not cover the job: the ways on.
+    /// Skrongle AI did not cover the job: the way on.
     pub ai_out: Option<crate::routes::hosted::OutOfAi>,
     /// Two or more keys are saved: say which one it uses.
     pub named_provider: bool,
@@ -263,9 +261,8 @@ pub struct LessonsView {
 
 /// The row's Edit with AI modal (`lessons_ai_dialog.html`, #1242).
 pub struct LessonAi {
-    /// As `AiFormView`: the provider, Skrongle AI left, which key.
+    /// As `AiFormView`: the provider, which key.
     pub provider: &'static str,
-    pub ai_left: Option<String>,
     pub named_provider: bool,
     /// After a refused request: the lesson's file, what was sent and why.
     pub path: String,
@@ -319,19 +316,12 @@ async fn ai_view(state: &AppState, user: &CurrentUser, row: &CourseRow, refill: 
     if (row.is_busy() && !locked) || row.error.is_some() || user.ai_off {
         return Ok(None);
     }
-    // The learner's first saved key, else the server's key (Skrongle AI)
-    // when their plan includes some or they hold credits. On Plus it is the
-    // other way round, and the saved keys count only with "use my keys when
-    // my Skrongle AI limit is hit" on (`hosted::own_keys_usable`).
-    let saved = if crate::routes::hosted::own_keys_usable(state, user) { saved_providers(state, user.id).await? } else { Vec::new() };
-    let offer = crate::routes::hosted::hosted_offer(state, user.id, Need::Lesson).await?;
-    let hosted_id = offer.as_ref().map(|_| crate::tutor::HOSTED);
+    // The server's key (Skrongle AI) first when it has one, else the
+    // learner's first saved key.
+    let saved = saved_providers(state, user.id).await?;
+    let hosted_id = state.meter.hosted().then_some(crate::tutor::HOSTED);
     let first_saved = saved.first().map(|p| p.label());
-    let provider = if crate::routes::hosted::hosted_first(state, user) { hosted_id.or(first_saved) } else { first_saved.or(hosted_id) };
-    let ai_left = match provider {
-        Some(crate::tutor::HOSTED) => offer.as_ref().and_then(crate::routes::hosted::left_line),
-        _ => None,
-    };
+    let provider = hosted_id.or(first_saved);
     // Which provider is only worth saying when there was a choice.
     let named_provider = saved.len() > 1;
     // Under a running job's modal the form looks as it did before (inert).
@@ -343,7 +333,6 @@ async fn ai_view(state: &AppState, user: &CurrentUser, row: &CourseRow, refill: 
     Ok(Some(AiFormView {
         course_id: row.id.clone(),
         provider,
-        ai_left,
         ai_out: refill.ai_out.clone(),
         named_provider,
         can_change,
@@ -616,7 +605,6 @@ async fn editor_template(
     if let (Some(lp), Some(af)) = (arrange.as_mut(), ai.as_ref()) {
         lp.ai = af.provider.map(|provider| LessonAi {
             provider,
-            ai_left: af.ai_left.clone(),
             named_provider: af.named_provider,
             path: refill.lesson.clone().unwrap_or_default(),
             text: if refill.lesson.is_some() { refill.text.clone() } else { String::new() },

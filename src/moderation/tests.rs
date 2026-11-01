@@ -66,7 +66,7 @@ fn superusers_moderate_over_http() {
         .enable_all()
         .build()
         .unwrap();
-    let state = crate::routes::test_state(false, None);
+    let state = crate::routes::test_state(false);
     let app = crate::routes::router(state.clone());
     let base = rt.block_on(async {
         let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();

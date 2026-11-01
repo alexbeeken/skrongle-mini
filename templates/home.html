@@ -108,16 +108,10 @@
 {# The tutor's "add an API key" page (tutor.html), as a modal: nothing to run the tutor on (#283). #}
 <dialog class="modal" id="home-tutor-gate" aria-labelledby="home-tutor-gate-title" data-testid="home-tutor-gate">
   <h2 id="home-tutor-gate-title">{{ course.icons.mode_ai }} {{ crate::t("tutor.no_key.title") }}</h2>
-  {% if let Some(gap) = tutor_gap %}
-  <p data-testid="hosted-gap-reason" data-none="{{ gap.none }}">{{ gap.reason() }}</p>
-  <p data-testid="hosted-gap-instead">{{ gap.instead() }}</p>
-  {% else %}
   <p>{{ crate::t1("tutor.no_key.p1", "app", crate::APP_NAME) }}</p>
   <p>{{ crate::t("tutor.no_key.p2") }}</p>
-  {% endif %}
   <div class="modal-actions">
     <button type="button" class="btn ghost" commandfor="home-tutor-gate" command="close" data-closes data-testid="home-tutor-gate-close">{{ crate::t("profile.ai.close") }}</button>
-    {% if let Some(gap) = tutor_gap %}{% if let Some(price) = gap.upgrade %}<a class="btn ghost" href="{{ crate::base_path() }}/profile?plans=1#subscription" data-testid="hosted-gap-upgrade">{{ crate::t1("courses.ai_out.upgrade", "price", price) }}</a>{% endif %}{% endif %}
     <a class="btn" href="{{ crate::base_path() }}/profile#api-keys" data-testid="home-tutor-gate-add-key">{{ crate::t("tutor.no_key.add_key") }}</a>
   </div>
 </dialog>

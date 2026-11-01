@@ -96,9 +96,7 @@ the request log's entry number as the reason, for example
   a Temporary password and send it to the account's address, in its own
   message.
 - **Deleting their account** (erasure): Delete account, on the account's
-  row. It deletes everything the learner's own deletion deletes. It is
-  refused while a Stripe subscription is still billing. Cancel that first
-  in the Stripe dashboard, then delete.
+  row. It deletes everything the learner's own deletion deletes.
 - **Forgetting an address with no account**: Forget an address. It
   deletes every course share invitation to that address and every mail to
   it still waiting to be sent. An address that has an account is refused.

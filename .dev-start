@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 # Run the app locally for testing before deploying to the Pi. Dev mode is on
 # (SKRONGLE_DEV=1: /dev/login, /dev/reset, the simulated AI provider at /dev/ai,
-# a stand-in Google, a stand-in Stripe at /dev/payments so the plans modal
-# offers Stripe Checkout with fake keys (SKRONGLE_DEV_STRIPE=0 turns it off);
-# see docs/testing.md).
+# a stand-in Google; see docs/testing.md).
 #
 #   ./.dev-start                # debug build on a free port in 8100-8999, DB in ./dev.db
 #   ./.dev-start --release      # same, but with the release profile (what the Pi runs)

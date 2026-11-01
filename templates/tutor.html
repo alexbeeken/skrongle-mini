@@ -9,7 +9,7 @@
 <link rel="icon" href="{{ crate::routes::asset_url("favicon.svg") }}" type="image/svg+xml">
 <link rel="manifest" href="{{ crate::url("/manifest.webmanifest") }}">
 </head>
-<body class="tutor" data-base="{{ crate::base_path() }}" data-provider="{{ provider }}" data-lesson="{{ lesson_slug }}" data-course="{{ course.title }}" data-praise="{{ course.praise }}" data-chars="{{ chars_json }}" data-credits="{{ credits_offered }}" data-upgrade="{{ upgrade_offered }}">
+<body class="tutor" data-base="{{ crate::base_path() }}" data-provider="{{ provider }}" data-lesson="{{ lesson_slug }}" data-course="{{ course.title }}" data-praise="{{ course.praise }}" data-chars="{{ chars_json }}">
 <div class="shell">
   <header class="t-top">
     <a class="t-exit" data-testid="tutor-exit" href="{{ crate::url("/") }}" aria-label="{{ crate::t("tutor.exit") }}">✕</a>
@@ -28,7 +28,6 @@
     {% else if providers.len() == 1 %}
     <span class="t-model small">{{ providers[0].label }}</span>
     {% endif %}
-    {% if let Some(l) = ai_left %}<span class="t-ai-left" id="ai-left" data-testid="tutor-ai-left">{{ l }}</span>{% endif %}
     <span class="t-score" id="score" data-testid="tutor-score" hidden><b id="score-right">0</b>/<span id="score-total">0</span></span>
   </header>
 
@@ -36,15 +35,9 @@
   <main class="t-main t-empty" data-testid="tutor-no-key">
     <p class="t-empty-icon">🤖</p>
     <h1>{{ crate::t("tutor.no_key.title") }}</h1>
-    {% if let Some(gap) = gap %}
-    <p data-testid="hosted-gap-reason" data-none="{{ gap.none }}">{{ gap.reason() }}</p>
-    <p data-testid="hosted-gap-instead">{{ gap.instead() }}</p>
-    {% else %}
     <p>{{ crate::t1("tutor.no_key.p1", "app", crate::APP_NAME) }}</p>
     <p>{{ crate::t("tutor.no_key.p2") }}</p>
-    {% endif %}
     <a class="t-btn" href="{{ crate::base_path() }}/profile#api-keys" data-testid="tutor-add-key">{{ crate::t("tutor.no_key.add_key") }}</a>
-    {% if let Some(gap) = gap %}{% if let Some(price) = gap.upgrade %}<a class="t-btn ghost" href="{{ crate::base_path() }}/profile?plans=1#subscription" data-testid="hosted-gap-upgrade">{{ crate::t1("courses.ai_out.upgrade", "price", price) }}</a>{% endif %}{% endif %}
     <a class="t-link" href="{{ crate::url("/") }}">{{ crate::t("tutor.no_key.back") }}</a>
   </main>
   {% else %}

@@ -60,7 +60,7 @@ fn run() -> Result<(), String> {
     crate::random::fill(&mut secret);
     let hex: String = secret.iter().map(|b| format!("{b:02x}")).collect();
     let (vault, _) = crate::secrets::Vault::load(Some(hex), std::path::Path::new("unused.db"))?;
-    let meter = Arc::new(crate::metering::Meter::new(crate::metering::MeterConfig::from_env()?, ai_key, &vault, false));
+    let meter = Arc::new(crate::metering::Meter::new(crate::metering::MeterConfig::from_env()?, ai_key, &vault));
     if !meter.hosted() {
         tracing::warn!("content check: no SKRONGLE_AI_KEY: stage 2 (the AI review) is off; parts that score high stay queued");
     }

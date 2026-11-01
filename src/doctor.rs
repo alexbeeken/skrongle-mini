@@ -4,7 +4,7 @@
 //!
 //! It only reads: the database is opened read-only, nothing is migrated and
 //! no key file is created. Secrets are reported as yes/no (a secret key, the
-//! Google and Stripe secrets, learners' saved AI keys): their values, and
+//! Google secrets, learners' saved AI keys): their values, and
 //! values that may embed credentials (URLs), never reach the output.
 
 use std::fmt::Write as _;
@@ -154,7 +154,6 @@ pub fn report(cfg: &Config, env: &dyn Fn(&str) -> Option<String>) -> Vec<Line> {
     // The breach notice and the terms name it as the contact (#1068): hosted needs it.
     out.push(Line::new("legal e-mail set", yes_no(env("LEGAL_EMAIL").is_some_and(|v| !v.trim().is_empty()))));
     out.push(Line::new("Google sign-in", yes_no(cfg.google.is_some())));
-    out.push(Line::new("subscriptions", yes_no(cfg.stripe.is_some())));
     out.push(Line::new("secure cookies", yes_no(cfg.secure_cookies)));
     if !cfg.base_path.is_empty() {
         out.push(Line::new("base path", cfg.base_path.clone()));
@@ -373,9 +372,6 @@ mod tests {
             ("GOOGLE_CLIENT_ID", "client-id-7f3e.apps.googleusercontent.com".to_string()),
             ("GOOGLE_CLIENT_SECRET", "GOCSPX-sekrit-google-9q8w".to_string()),
             ("PUBLIC_URL", "https://admin:hunter2@learn.example.org".to_string()),
-            ("STRIPE_SECRET_KEY", "sk_live_sekrit_stripe_4h5j".to_string()),
-            ("STRIPE_WEBHOOK_SECRET", "whsec_sekrit_hook_1a2b".to_string()),
-            ("STRIPE_PRICE_ID", "price_sekrit_77".to_string()),
             ("OPENAI_BASE_URL", "https://user:pa55word@llm.internal:11434".to_string()),
             ("LEGAL_EMAIL", "legal-desk-3k@example.org".to_string()),
         ])
@@ -406,7 +402,7 @@ mod tests {
             .unwrap();
         }
         let out = render(&report(&cfg, &env));
-        let mut needles: Vec<String> = ["SECRET_KEY", "GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET", "STRIPE_SECRET_KEY", "STRIPE_WEBHOOK_SECRET", "STRIPE_PRICE_ID", "PUBLIC_URL", "OPENAI_BASE_URL", "LEGAL_EMAIL"]
+        let mut needles: Vec<String> = ["SECRET_KEY", "GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET", "PUBLIC_URL", "OPENAI_BASE_URL", "LEGAL_EMAIL"]
             .iter()
             .map(|k| map[k].clone())
             .collect();
@@ -417,7 +413,6 @@ mod tests {
         // It still says what is configured.
         assert!(out.contains("yes (from SKRONGLE_SECRET_KEY)"), "{out}");
         assert!(out.lines().any(|l| l.starts_with("Google sign-in") && l.ends_with("yes")), "{out}");
-        assert!(out.lines().any(|l| l.starts_with("subscriptions") && l.ends_with("yes")), "{out}");
         assert!(out.lines().any(|l| l.starts_with("legal e-mail set") && l.ends_with("yes")), "{out}");
         assert!(out.lines().any(|l| l.starts_with("saved AI keys") && l.contains(" 1 ")), "{out}");
         assert!(out.contains(&format!("v{} (up to date)", crate::db::schema_version())), "{out}");
@@ -484,14 +479,14 @@ mod tests {
     #[test]
     fn env_file_lines() {
         let parsed = parse_env_file(
-            "# comment\n\nSKRONGLE_BIND=0.0.0.0:9000\nexport SKRONGLE_LOG=debug\nSKRONGLE_STRIPE_PRICE_LABEL=\"€4 a month\"\n; other\nnot a line\n",
+            "# comment\n\nSKRONGLE_BIND=0.0.0.0:9000\nexport SKRONGLE_LOG=debug\nSKRONGLE_AI_PROVIDER=\"anthropic\"\n; other\nnot a line\n",
         );
         assert_eq!(
             parsed,
             vec![
                 ("SKRONGLE_BIND".into(), "0.0.0.0:9000".into()),
                 ("SKRONGLE_LOG".into(), "debug".into()),
-                ("SKRONGLE_STRIPE_PRICE_LABEL".into(), "€4 a month".into()),
+                ("SKRONGLE_AI_PROVIDER".into(), "anthropic".into()),
             ]
         );
     }

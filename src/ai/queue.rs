@@ -39,9 +39,8 @@ use crate::jobs::{Claimed, Kind, Step, LEASE};
 pub const GENERATE: Kind = Kind { name: "generate_course", max_attempts: 3, delays: crate::mail::RETRY_DELAYS, every: None, at: None };
 /// Jobs running at once unless `SKRONGLE_AI_JOBS` says otherwise.
 pub const DEFAULT_SLOTS: usize = 2;
-/// Jobs that may wait in line on the hosted site and on Skrongle mini.
-pub const LINE_HOSTED: usize = 10;
-pub const LINE_MINI: usize = 3;
+/// Jobs that may wait in line.
+pub const LINE: usize = 3;
 /// How often the heartbeat renews the leases of running jobs.
 pub const HEARTBEAT: Duration = Duration::from_secs(120);
 
@@ -52,7 +51,7 @@ pub fn slots() -> usize {
 
 /// Jobs that may wait in line.
 pub fn line_limit() -> usize {
-    if crate::is_mini() { LINE_MINI } else { LINE_HOSTED }
+    LINE
 }
 
 /// `locked_by` on the rows this server's generator threads hold.

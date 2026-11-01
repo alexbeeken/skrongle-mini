@@ -26,7 +26,7 @@ all driven by JSON course files.
   [raw Markdown](course-format.md) and a [JSON Schema](course.schema.json).
 - [Features](features): what each part of the app does and which lesson
   fields it reads: Lessons, Quizzes, Guide, Sprint mode, Games, Map, Vocabulary,
-  History,<!-- themes --> Themes,<!-- /themes --> Subscriptions.
+  History,<!-- themes --> Themes,<!-- /themes --> Skrongle AI.
 <!-- themes -->
 - [Theming](themes): theme files and everything a course can carry for a
   theme: themed examples, exercises, questions, conversations and icons.
@@ -36,9 +36,6 @@ all driven by JSON course files.
 - [Languages (i18n)](i18n): the app's own text in the learner's language:
   one `i18n/<code>.yaml` per language, the pickers, how code reads it, and
   how a course gets translated (a translated copy).
-- [Pricing Skrongle AI](pricing): the AI Skrongle provides on its own
-  key: what each plan includes, the list prices, the margin, and why one
-  key with our own meter.
 - [Data inventory](data-inventory): what is stored about a learner, where,
   why, what leaves the server and for how long. The
   [privacy policy](privacy) (served at `/privacy`) is written from it.

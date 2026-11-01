@@ -20,11 +20,6 @@ pub enum AppError {
     /// removed mid-session (#1083): a 410 the page scripts answer by going
     /// to the course list, the way they answer a 401 with the login page.
     ApiNoCourse,
-    /// A paid feature asked for by a free learner (`billing::RequirePremium`):
-    /// redirect to the profile's subscription section.
-    PaymentRequired,
-    /// The same on an API route: a 402 JSON body.
-    ApiPaymentRequired,
     /// Signed in, but the current Terms of Service are not accepted yet:
     /// redirect to the gate, which returns to this app path afterwards.
     TermsRequired(String),
@@ -66,7 +61,6 @@ impl fmt::Display for AppError {
             AppError::RedirectToCourses => f.write_str("no course chosen"),
             AppError::Unauthorized => f.write_str("unauthorized"),
             AppError::ApiNoCourse => f.write_str("no course chosen"),
-            AppError::PaymentRequired | AppError::ApiPaymentRequired => f.write_str("subscription required"),
             AppError::TermsRequired(_) | AppError::ApiTermsRequired => f.write_str("terms not accepted"),
             AppError::PasswordChangeRequired(_) | AppError::ApiPasswordChangeRequired => f.write_str("a new password is needed"),
             AppError::DeletionScheduled | AppError::ApiDeletionScheduled => f.write_str("the account is scheduled for deletion"),
@@ -116,13 +110,6 @@ impl IntoResponse for AppError {
                 StatusCode::GONE,
                 [(axum::http::header::CONTENT_TYPE, "application/json")],
                 r#"{"error":"choose a course first"}"#,
-            )
-                .into_response(),
-            AppError::PaymentRequired => Redirect::to(&crate::url("/profile?upgrade=1#subscription")).into_response(),
-            AppError::ApiPaymentRequired => (
-                StatusCode::PAYMENT_REQUIRED,
-                [(axum::http::header::CONTENT_TYPE, "application/json")],
-                r#"{"error":"subscription required"}"#,
             )
                 .into_response(),
             AppError::TermsRequired(next) => {

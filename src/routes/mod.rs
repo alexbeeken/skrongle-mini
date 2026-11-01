@@ -15,12 +15,10 @@ use crate::AppState;
 
 pub mod account_deletion;
 pub mod auth;
-pub mod billing;
 pub mod courses;
 pub mod share;
 pub mod dev;
 pub mod dev_ai;
-pub mod dev_payments;
 pub mod sprint;
 pub mod docs;
 pub mod games;
@@ -72,8 +70,6 @@ pub const BODY_LIMIT: usize = 64 * 1024;
 /// own default, what they always had. All of them need a session (the dev
 /// tools a local request).
 pub const BIG_BODY_LIMIT: usize = 2 * 1024 * 1024;
-/// Stripe's webhook: no session, but its events can outgrow `BODY_LIMIT`.
-pub const WEBHOOK_BODY_LIMIT: usize = 256 * 1024;
 
 /// Reads a small request body (up to `BODY_LIMIT`, by its Content-Length)
 /// before any handler runs (#1063). A handler that answers without reading
@@ -265,7 +261,6 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/profile/google/confirm", post(profile::confirm_with_google))
         .route("/profile/api-keys/remove", post(profile::remove_api_key))
         .route("/profile/ai", post(profile::set_ai))
-        .route("/profile/own-keys", post(profile::set_own_keys))
         .route("/profile/export", post(profile::export))
         .route("/profile/export/download", get(profile::export_download).post(profile::export_download_now))
         .route("/profile/delete", post(profile::delete_account))
@@ -312,17 +307,6 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/static/{*path}", get(static_asset))
         .route("/manifest.webmanifest", get(web_manifest))
         .route("/healthz", get(healthz));
-    // Plans and subscriptions (Stripe). In Skrongle mini there are
-    // none, and every `/billing/*` path 404s, Stripe's webhook too. Stripe
-    // is the only way to pay: there is no route that sets a plan (#963).
-    if crate::billing::plans_on(&state) {
-        app = app
-            .route("/billing/cancel", post(billing::cancel))
-            .route("/billing/checkout", post(billing::checkout))
-            .route("/billing/portal", post(billing::portal))
-            .route("/billing/credits", post(billing::credits))
-            .route("/billing/webhook", post(billing::webhook).layer(axum::extract::DefaultBodyLimit::max(WEBHOOK_BODY_LIMIT)));
-    }
     // Local testing only (`SKRONGLE_DEV=1` on a loopback bind): without it these paths 404.
     // And even then only for requests made on this machine, not through a proxy.
     if state.dev {
@@ -359,18 +343,7 @@ pub fn router(state: Arc<AppState>) -> Router {
             .route("/dev/ai/profiles/{who}", post(dev_ai::profile_act))
             .route("/dev/ai/calls/{id}", get(dev_ai::call))
             .route("/dev/ai/fixtures", post(dev_ai::scenario_add))
-            .route("/dev/ai/fixtures/{name}", get(dev_ai::fixture).post(dev_ai::fixture_act))
-            .route("/dev/payments", get(dev_payments::page))
-            .route("/dev/payments/rows", get(dev_payments::rows))
-            .route("/dev/payments/clear", post(dev_payments::clear))
-            .route("/dev/payments/reset", post(dev_payments::reset))
-            .route("/dev/payments/log/{id}", get(dev_payments::entry))
-            .route("/dev/payments/subscriptions/{id}", post(dev_payments::subscription_act))
-            .route("/dev/payments/payments/{id}", post(dev_payments::payment_act))
-            .route("/dev/payments/events/{id}", post(dev_payments::event_act))
-            // The pages Stripe hosts: Checkout and the Billing Portal.
-            .route("/dev/payments/checkout/{id}", get(dev_payments::checkout_page).post(dev_payments::checkout_act))
-            .route("/dev/payments/portal/{id}", get(dev_payments::portal_page).post(dev_payments::portal_act));
+            .route("/dev/ai/fixtures/{name}", get(dev_ai::fixture).post(dev_ai::fixture_act));
         app = app.merge(
             Router::new()
                 .route("/dev/login", get(dev::login))
@@ -378,7 +351,6 @@ pub fn router(state: Arc<AppState>) -> Router {
                 // pending sign-in's twofa cookie, no session (see the handler).
                 .route("/login/code/device", get(auth::login_code_device))
                 .route("/dev/reset", get(dev::reset))
-                .route("/dev/premium", post(dev::premium))
                 .route("/dev/theme", post(dev::theme))
                 .route("/dev/vocab", post(dev::vocab))
                 .merge(devbox)
@@ -392,8 +364,6 @@ pub fn router(state: Arc<AppState>) -> Router {
                 .route("/dev/ai/google/v1beta/openai/models", get(dev_ai::google_models))
                 // The content check's Jev stand-in (#1036).
                 .route("/dev/ai/jev/v1/systemone", post(dev_ai::jev_systemone))
-                // The simulated Stripe's API: the app's billing code calls it with its secret key.
-                .route("/dev/payments/stripe/v1/{*path}", axum::routing::any(dev_payments::api))
                 .route("/dev/google/auth", get(dev::google_auth))
                 .route("/dev/google/token", post(dev::google_token))
                 .route("/dev/google/forget", post(dev::google_forget))
@@ -878,15 +848,15 @@ pub(crate) async fn reward_line(
 
 /// An app state for router tests: in-memory database, the built-in courses, no themes.
 #[cfg(test)]
-pub(crate) fn test_state(dev: bool, stripe: Option<crate::billing::StripeConfig>) -> Arc<AppState> {
-    test_state_with(dev, stripe, None)
+pub(crate) fn test_state(dev: bool) -> Arc<AppState> {
+    test_state_with(dev, None)
 }
 
 /// `test_state` (dev mode off unless `dev`) on a server without a mail
 /// provider (`mail` false) or a text message provider (`sms` false) (#633).
 #[cfg(test)]
 pub(crate) fn test_state_without(mail: bool, sms: bool) -> Arc<AppState> {
-    let state = test_state(false, None);
+    let state = test_state(false);
     let Ok(mut s) = Arc::try_unwrap(state) else { unreachable!("a new state has one owner") }; // panic-ok: tests only, a new state has one owner
     if !mail {
         s.mail = crate::mail::Mailer::idle_unconfigured();
@@ -901,7 +871,6 @@ pub(crate) fn test_state_without(mail: bool, sms: bool) -> Arc<AppState> {
 #[cfg(test)]
 pub(crate) fn test_state_with(
     dev: bool,
-    stripe: Option<crate::billing::StripeConfig>,
     hosted: Option<(String, crate::metering::MeterConfig)>,
 ) -> Arc<AppState> {
     let (vault, _) = crate::secrets::Vault::load(Some("ab".repeat(32)), std::path::Path::new("unused.db")).unwrap();
@@ -911,7 +880,7 @@ pub(crate) fn test_state_with(
             if cfg.base_url.is_empty() {
                 cfg.base_url = simulator_base(cfg.provider);
             }
-            crate::metering::Meter::new(cfg, Some(key), &vault, stripe.is_some())
+            crate::metering::Meter::new(cfg, Some(key), &vault)
         }
         None => crate::metering::Meter::off(),
     };
@@ -927,7 +896,6 @@ pub(crate) fn test_state_with(
         signups: Default::default(),
         google_joins: Default::default(),
         step_ups: Default::default(),
-        stripe,
         vault,
         tutors: Default::default(),
         meter: Arc::new(meter),
@@ -942,7 +910,6 @@ pub(crate) fn test_state_with(
         dev_marks: Default::default(),
         dev_ai: Default::default(),
         dev_authenticator: Default::default(),
-        dev_payments: Default::default(),
         public_url: None,
         signup: Default::default(),
         waitlist: Default::default(),
@@ -970,7 +937,7 @@ fn simulator_root() -> &'static str {
             rt.block_on(async move {
                 let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
                 tx.send(format!("http://{}{}", listener.local_addr().unwrap(), crate::url("/dev/ai"))).unwrap();
-                axum::serve(listener, router(test_state(true, None))).await.unwrap();
+                axum::serve(listener, router(test_state(true))).await.unwrap();
             });
         });
         rx.recv().unwrap()

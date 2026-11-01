@@ -166,7 +166,7 @@ mod tests {
     #[test]
     fn password_reset_over_http() {
         let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-        let state = crate::routes::test_state(false, None);
+        let state = crate::routes::test_state(false);
         let hash = crate::auth::hash_password("old-password").unwrap();
         let ann = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", &hash)).unwrap();
         state.db.with(|c| crate::terms::accept(c, ann, crate::terms::version())).unwrap();
@@ -251,7 +251,7 @@ mod tests {
     #[test]
     fn registering_a_taken_address_over_http() {
         let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-        let state = crate::routes::test_state(false, None);
+        let state = crate::routes::test_state(false);
         let app = crate::routes::router(state.clone());
         let base = rt.block_on(async {
             let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();

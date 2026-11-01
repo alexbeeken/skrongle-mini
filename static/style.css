@@ -1626,46 +1626,18 @@ details.info-tip { position: static; }
 .dev-device-row .devauth-code { font-size: 1.4rem; }
 .dev-device-row .btn.small { white-space: nowrap; margin: 0; }
 
-/* Plans (#315): the subscription card's buttons, the chooser's plan cards
-   and payment fields, and the cancel dialog's reasons. */
-.plan-actions { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; margin-top: .9rem; }
-.plan-actions form { margin: 0; }
-.plan-actions .btn { margin: 0; }
-/* The chooser is wider than other modals, so the two cards sit side by side (the generic .modal caps width at 480px). */
-dialog.modal.plans { max-width: min(760px, calc(100vw - 2rem)); }
-.plan-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: .9rem; margin: 1.2rem 0 1rem; }
-.plan-card { position: relative; display: flex; flex-direction: column; gap: .35rem; margin: 0; padding: 1.1rem 1.1rem 1.2rem; border: 2px solid var(--line); border-radius: var(--radius); background: var(--bg); cursor: pointer; font-weight: 400; }
-.plan-card input { position: absolute; opacity: 0; width: 0; height: 0; }
-.plan-card.featured { border-color: var(--gold); }
-.plan-card:hover { border-color: var(--accent); }
-.plan-card:has(input:checked) { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
-.plan-card:has(input:focus-visible) { outline: 2px solid var(--gold); outline-offset: 2px; }
-.plan-card:has(input:disabled) { cursor: default; opacity: .8; }
-.plan-flag { position: absolute; top: -.75rem; right: 1rem; padding: .1rem .6rem; border-radius: 999px; background: var(--gold); color: #222; font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
-.plan-name { font-weight: 700; font-size: 1.05rem; }
-.plan-price { font-size: 1.5rem; font-weight: 800; line-height: 1.15; }
-.plan-blurb { color: var(--muted); font-size: .92rem; }
-.plan-perks { margin: .3rem 0 0; padding: 0 0 0 1.1rem; font-size: .9rem; }
-.plan-perks li { margin: .15rem 0; }
-.plan-current { align-self: flex-start; margin-top: .3rem; padding: .1rem .5rem; border-radius: 999px; background: var(--ok-bg); color: var(--ok-text, var(--ok)); font-size: .75rem; font-weight: 700; }
-.cancel-reasons { border: 0; padding: 0; margin: .8rem 0; display: grid; gap: .35rem; }
-.cancel-reasons legend { font-weight: 600; margin-bottom: .3rem; }
-.cancel-reasons label { margin: 0; font-weight: 500; }
-#cancel-dialog textarea { width: 100%; margin: .25rem 0 0; }
-/* Skrongle AI this month: a bar, never dollar amounts. */
-.ai-bar { height: .8rem; border-radius: 999px; background: var(--line); overflow: hidden; margin-top: .6rem; }
-.ai-bar-fill { display: block; height: 100%; border-radius: 999px; background: var(--accent); transition: width .4s ease; }
-[data-level=low] .ai-bar-fill { background: var(--gold); }
-[data-level=out] .ai-bar-fill { background: var(--bad); }
-.ai-bar-caption { margin: .4rem 0 0; }
-/* A switch whose label is a sentence (the own-keys pill) wraps on a phone. */
-.switch.wide { white-space: normal; text-align: left; line-height: 1.2; padding-right: .9rem; }
 /* The language picker on the login and register pages (templates/lang_picker.html). */
 .lang-picker { margin-top: 1.5rem; }
 .lang-picker label { display: inline-flex; align-items: center; gap: .5rem; }
 .lang-picker select { width: auto; margin: 0; }
 
-/* Why there is no Skrongle AI here (#283): the "add a key" line, then why and what to do instead (templates/not_included.html). */
+/* The superuser's bar of the day's Skrongle AI spend. */
+.ai-bar { height: .8rem; border-radius: 999px; background: var(--line); overflow: hidden; margin-top: .6rem; }
+.ai-bar-fill { display: block; height: 100%; border-radius: 999px; background: var(--accent); transition: width .4s ease; }
+[data-level=low] .ai-bar-fill { background: var(--gold); }
+[data-level=out] .ai-bar-fill { background: var(--bad); }
+.ai-bar-caption { margin: .4rem 0 0; }
+/* The "add a key" line, with its paragraphs. */
 .gap-row > p { margin: 0; }
 .gap-row > p + p { margin-top: .5rem; }
 /* The worn motivator's line at the end of a lesson or session (#568). */

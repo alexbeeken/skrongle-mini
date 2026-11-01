@@ -27,16 +27,16 @@ pub struct TermsTemplate {
 }
 
 /// GET /terms
-pub async fn page(State(state): State<Arc<AppState>>, MaybeUser(user): MaybeUser) -> Page<TermsTemplate> {
-    let html = super::docs::render_doc(&terms::markdown(state.stripe.is_some()));
+pub async fn page(MaybeUser(user): MaybeUser) -> Page<TermsTemplate> {
+    let html = super::docs::render_doc(&terms::markdown());
     Page(TermsTemplate { user, html, version: terms::version() })
 }
 
 /// GET /terms.md: the same text as Markdown.
-pub async fn markdown(State(state): State<Arc<AppState>>) -> Response {
+pub async fn markdown() -> Response {
     (
         [(header::CONTENT_TYPE, HeaderValue::from_static("text/markdown; charset=utf-8"))],
-        terms::markdown(state.stripe.is_some()),
+        terms::markdown(),
     )
         .into_response()
 }
@@ -182,7 +182,7 @@ mod tests {
     #[test]
     fn the_gate_holds_until_accepted() {
         let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-        let state = crate::routes::test_state(false, None);
+        let state = crate::routes::test_state(false);
         let ann = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", "x")).unwrap();
         let bea = state.db.with(|c| crate::auth::create_user(c, "bea@example.org", "x")).unwrap();
         let cat = state.db.with(|c| crate::auth::create_user(c, "cat@example.org", "x")).unwrap();

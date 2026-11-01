@@ -140,31 +140,6 @@ test("the /dev/jobs (i) opens its dialog; OK and a click outside close it (#872)
   await expect(dialog).toBeHidden();
 });
 
-// Without JavaScript a dialog the server draws open is not modal (#1057).
-// The Plans dialog's markup sits far down the profile; it still opens in view,
-// at the top of the page, or inside #subscription when the link scrolls there.
-for (const viewport of [{ width: 1280, height: 800 }, { width: 390, height: 844 }]) {
-  test(`without JavaScript a server-opened dialog opens in view at ${viewport.width}px (#1057)`, async ({ page, browser }) => {
-    await devLogin(page);
-    const ctx = await browser.newContext({ javaScriptEnabled: false, viewport, storageState: await page.context().storageState() });
-    const plain = await ctx.newPage();
-    for (const url of ["/profile?plans=1", "/profile?plans=1#subscription"]) {
-      await plain.goto(url);
-      const dialog = plain.getByTestId("plans-dialog");
-      await expect(dialog).toBeVisible();
-      const box = (await dialog.boundingBox())!;
-      expect(box.y, url).toBeGreaterThanOrEqual(0);
-      expect(box.y, url).toBeLessThan(viewport.height / 2);
-      expect(box.x, url).toBeGreaterThanOrEqual(0);
-      expect(box.x + box.width, url).toBeLessThanOrEqual(viewport.width);
-      // Its heading is on screen, and the page gained no sideways scroll.
-      await expect(dialog.locator("#plans-dialog-title")).toBeInViewport();
-      expect(await plain.evaluate(() => document.documentElement.scrollWidth), url).toBeLessThanOrEqual(viewport.width);
-    }
-    await ctx.close();
-  });
-}
-
 test("/dev/jobs fits a desktop window: Run now is in view, in German too (#1110)", async ({ browser }) => {
   // German has the longest labels; a failed job fills the Last error column.
   const ctx = await browser.newContext({ locale: "de-DE", viewport: { width: 1280, height: 800 } });

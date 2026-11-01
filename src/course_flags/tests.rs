@@ -99,7 +99,7 @@ fn the_check_flags_clears_and_keeps_an_override() {
 #[test]
 fn a_flagged_course_does_not_start_or_share_until_fixed() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let state = crate::routes::test_state(false, None);
+    let state = crate::routes::test_state(false);
     let app = crate::routes::router(state.clone());
     let base = rt.block_on(async {
         let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
@@ -218,7 +218,7 @@ fn the_course_table_searches_filters_and_overrides() {
 #[test]
 fn superusers_act_on_courses_from_the_table() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let state = crate::routes::test_state(false, None);
+    let state = crate::routes::test_state(false);
     let app = crate::routes::router(state.clone());
     let base = rt.block_on(async {
         let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();

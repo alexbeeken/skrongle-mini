@@ -44,15 +44,9 @@ pub struct GenerateView {
     pub resume: bool,
     /// The names already given, which the AI keeps.
     pub named: courses::Draft,
-    /// Skrongle AI is offered to this learner: "Skrongle AI left this month:
-    /// 83 % · about 6 % a lesson".
-    pub hosted: Option<String>,
-    /// Skrongle AI did not cover the job: the ways on (upgrade, a credit
-    /// pack, an own key), shown under the error.
+    /// Skrongle AI did not cover the job: the way on (an own key), shown
+    /// under the error.
     pub ai_out: Option<crate::routes::hosted::OutOfAi>,
-    /// No key, and the server's Skrongle AI is not offered for a course:
-    /// why, and what to do instead, under the "add a key" line (#283).
-    pub gap: Option<crate::routes::hosted::NotIncluded>,
     /// What each offered provider charges, for the cost estimate under
     /// *How much to write* (#443).
     pub rates: Vec<Rate>,
@@ -84,13 +78,11 @@ pub fn job_minutes(lessons: usize, plan: bool) -> u64 {
 
 /// One provider's prices for the Generate dialog's estimate, in
 /// micro-dollars per million tokens. No prices: the model's price is not
-/// known (only the time is shown). `month`: Skrongle AI, shown as a share
-/// of this month's total (learners never see its dollar amounts).
+/// known (only the time is shown).
 #[derive(Clone, Debug, PartialEq)]
 pub struct Rate {
     pub id: &'static str,
     pub price: Option<crate::metering::Price>,
-    pub month: Option<i64>,
 }
 
 impl Rate {
@@ -102,36 +94,30 @@ impl Rate {
         if let Some(p) = self.price {
             a += &format!(" data-price-in=\"{}\" data-price-out=\"{}\"", p.input, p.output);
         }
-        if let Some(m) = self.month {
-            a += &format!(" data-month=\"{m}\"");
-        }
         a
     }
 }
 
 /// The prices behind each offered provider's estimate: an own key's
-/// provider default model (the dialog has no model field), Skrongle AI's
-/// course model as a share of the month.
-pub(super) async fn rates(state: &AppState, user_id: i64, providers: &[ProviderChoice]) -> Result<Vec<Rate>, AppError> {
+/// provider default model (the dialog has no model field); Skrongle AI is
+/// not priced to the learner.
+pub(super) fn rates(state: &AppState, providers: &[ProviderChoice]) -> Vec<Rate> {
     let prices = &state.meter.cfg.prices;
     let priced = |model: &str| prices.listed(model).then(|| prices.price(model));
     let mut out = Vec::new();
     for p in providers {
         let rate = if p.id == crate::tutor::HOSTED {
-            let s = crate::routes::hosted::status(state, user_id).await?;
-            let month = (!s.unmetered && s.total() > 0).then(|| s.total());
-            Rate { id: p.id, price: month.and(priced(&state.meter.cfg.courses_model)), month }
+            Rate { id: p.id, price: None }
         } else {
             let model = crate::secrets::Provider::parse(p.id).map(|k| ai::ProviderKind::from_secret(k).default_model());
-            Rate { id: p.id, price: model.and_then(priced), month: None }
+            Rate { id: p.id, price: model.and_then(priced) }
         };
         out.push(rate);
     }
-    Ok(out)
+    out
 }
 
-/// "6 lessons · about 5 minutes · roughly CA$1.48" (or "about 12 % of this
-/// month's Skrongle AI"): the estimate of a job of `lessons` lessons and an
+/// "6 lessons · about 5 minutes · roughly CA$1.48": the estimate of a job of `lessons` lessons and an
 /// outline with `notes_chars` characters of material, on `rate`. The same
 /// sums as `ai::job_tokens` and `Meter::estimate`; static/courses.js
 /// redoes them in the browser.
@@ -140,10 +126,7 @@ pub fn estimate_line(lessons: usize, notes_chars: usize, rate: Option<&Rate>) ->
     if let Some(p) = rate.and_then(|r| r.price) {
         let (input, output) = ai::job_tokens(lessons, true, notes_chars);
         let cost = crate::metering::PriceTable::cost_at(p, input, output);
-        match rate.and_then(|r| r.month) {
-            Some(total) => parts.push(crate::t2("courses.js.estimate_share", "n", ((cost * 100 + total - 1) / total).clamp(1, 100), "hosted", crate::tutor::hosted_label())),
-            None => parts.push(crate::t1("courses.js.estimate_cost", "cost", format!("{:.2}", to_cad(cost).max(10_000) as f64 / 1_000_000.0))),
-        }
+        parts.push(crate::t1("courses.js.estimate_cost", "cost", format!("{:.2}", to_cad(cost).max(10_000) as f64 / 1_000_000.0)));
     }
     parts.join(&crate::t("courses.js.estimate_sep"))
 }
@@ -215,39 +198,15 @@ impl GenerateView {
     }
 }
 
-/// The providers "Generate the course" can use: those with a saved key,
-/// then the server's own key when it is offered to this learner (Skrongle
-/// AI). On Plus, Skrongle AI comes first and the saved keys only count with
-/// "use my keys when my Skrongle AI limit is hit" on (`hosted::own_keys_usable`).
+/// The providers "Generate the course" can use: the server's own key
+/// (Skrongle AI) when it has one, then those with a saved key.
 pub(super) async fn offered_providers(state: &AppState, user: &CurrentUser) -> Result<Vec<ProviderChoice>, AppError> {
-    let own: Vec<ProviderChoice> = if crate::routes::hosted::own_keys_usable(state, user) {
-        provider_choices(state, user.id).await?.into_iter().filter(|p| p.saved_hint.is_some()).collect()
-    } else {
-        Vec::new()
-    };
-    let hosted = crate::routes::hosted::hosted_offer(state, user.id, Need::Course)
-        .await?
-        .map(|_| ProviderChoice { id: crate::tutor::HOSTED, label: crate::tutor::hosted_label(), saved_hint: Some(String::new()) });
     let mut offered = Vec::new();
-    if crate::routes::hosted::hosted_first(state, user) {
-        offered.extend(hosted);
-        offered.extend(own);
-    } else {
-        offered.extend(own);
-        offered.extend(hosted);
+    if state.meter.hosted() {
+        offered.push(ProviderChoice { id: crate::tutor::HOSTED, label: crate::tutor::hosted_label(), saved_hint: Some(String::new()) });
     }
+    offered.extend(provider_choices(state, user.id).await?.into_iter().filter(|p| p.saved_hint.is_some()));
     Ok(offered)
-}
-
-/// "Use my keys when my Skrongle AI limit is hit": when Skrongle AI did not
-/// cover a job for want of allowance, the learner's first saved key takes
-/// it, if their keys may be used. `None`: no way round the refusal.
-pub(super) async fn fallback_key(state: &AppState, user: &CurrentUser, refusal: &crate::metering::Refusal) -> Result<Option<ai::Provider>, AppError> {
-    if !matches!(refusal, crate::metering::Refusal::OutOfAllowance { .. }) || !crate::routes::hosted::own_keys_usable(state, user) {
-        return Ok(None);
-    }
-    let Some(saved) = saved_provider(state, user.id).await? else { return Ok(None) };
-    Ok(ai_provider(state, user, saved.id(), "", false, "", "").await?.ok())
 }
 
 /// The provider a form uses when nothing else is said: the first saved
@@ -304,7 +263,7 @@ pub(super) async fn generate_view(state: &AppState, user: &CurrentUser, row: &Co
     } else {
         String::new()
     };
-    let rates = rates(state, user.id, &providers).await?;
+    let rates = rates(state, &providers);
     let error = row.error.as_deref().filter(|_| stopped).map(|e| ai::plain_failure(e).map(str::to_string).unwrap_or_else(|| e.to_string()));
     Ok(Some(GenerateView {
         course_id: row.id.clone(),
@@ -325,10 +284,8 @@ pub(super) async fn generate_view(state: &AppState, user: &CurrentUser, row: &Co
         instructions_edited: false,
         resume,
         named,
-        hosted: hosted_left(state, user.id).await?,
         rates,
         ai_out: None,
-        gap: if provider.is_none() { crate::routes::hosted::NotIncluded::of(state, user, Need::Course).await? } else { None },
         effort: effort_of(state, user.id).await?,
     }))
 }
@@ -395,17 +352,6 @@ pub async fn generate_form(Query(q): Query<GenerateParams>) -> Response {
     Redirect::to(&crate::url(&to)).into_response()
 }
 
-/// "AI left this month: … · about … a lesson" when Skrongle AI is offered
-/// to this learner, else `None` (and `None` with plans off: no monthly
-/// allowance to count down).
-async fn hosted_left(state: &AppState, user_id: i64) -> Result<Option<String>, AppError> {
-    let offer = crate::routes::hosted::hosted_offer(state, user_id, Need::Course).await?;
-    Ok(offer.and_then(|s| {
-        let left = crate::routes::hosted::left_line(&s)?;
-        Some(crate::t2("courses.hosted.left_per_lesson", "left", left, "per", crate::routes::hosted::per_lesson(state, &s)))
-    }))
-}
-
 /// Hold the estimated cost of a job on the server's key (`lessons` lesson
 /// requests, plus a plan or outline request when `plan`). `Ok(Err(r))`:
 /// refused (`Refusal::message` says why to the learner).
@@ -427,7 +373,7 @@ pub(super) async fn reserve_hosted(
     let output = effort.map_or(output, |e| e.output_tokens(output));
     let estimate = meter.estimate(&meter.cfg.courses_model, input, output);
     let job = job.to_string();
-    state.db.call(move |c| meter.reserve(c, user_id, &job, estimate)).await
+    state.db.call(move |c| meter.reserve(c, &job, estimate)).await
 }
 
 /// Why this account may not start another AI job yet, if it may not: its
@@ -569,11 +515,9 @@ pub async fn generate_in(
     };
     let depth = ai::Depth::parse(&form.depth);
     let lessons = depth.expected_lessons();
-    let hosted = hosted_left(&state, user.id).await?;
     let providers = offered_providers(&state, &user).await?;
-    let rates = rates(&state, user.id, &providers).await?;
+    let rates = rates(&state, &providers);
     let no_key = default_provider(&providers).is_none();
-    let gap = if no_key { crate::routes::hosted::NotIncluded::of(&state, &user, Need::Course).await? } else { None };
     // Browsers send textareas with CRLF line ends.
     let mut form = form;
     form.instructions = form.instructions.replace("\r\n", "\n");
@@ -612,9 +556,7 @@ pub async fn generate_in(
         instructions_edited,
         resume: mode == GenMode::Resume,
         named: named.clone(),
-        hosted: hosted.clone(),
         ai_out,
-        gap: gap.clone(),
         rates: rates.clone(),
         effort,
     };
@@ -633,15 +575,13 @@ pub async fn generate_in(
     }
     // A key pasted into the form lives only in memory: after a restart that
     // job keeps its Resume button rather than going on by itself (#874).
-    let mut saved_key = form.api_key.trim().is_empty() || (form.save_key.is_some() && form.base_url.trim().is_empty());
+    let saved_key = form.api_key.trim().is_empty() || (form.save_key.is_some() && form.base_url.trim().is_empty());
     let mut provider = if form.provider == crate::tutor::HOSTED {
         // The server's key needs no key, model or server.
-        match crate::routes::hosted::hosted_provider(&state, user.id, "generate-lesson", Need::Course).await? {
+        match crate::routes::hosted::hosted_provider(&state, "generate-lesson") {
             Some(p) => p,
-            None => fail!(crate::routes::hosted::not_offered()),
+            None => fail!(crate::t1("courses.hosted.not_offered", "hosted", crate::tutor::hosted_label())),
         }
-    } else if !crate::routes::hosted::own_keys_usable(&state, &user) {
-        fail!(crate::routes::hosted::own_keys_off())
     } else {
         match ai_provider(&state, &user, &form.provider, &form.api_key, form.save_key.is_some(), &form.model, &form.base_url).await? {
             Ok(p) => p,
@@ -688,14 +628,7 @@ pub async fn generate_in(
             None => (lessons, true),
         };
         if let Err(r) = reserve_hosted(&state, user.id, &job, n, plan, notes.chars().count(), Some(effort)).await? {
-            // "Use my keys when my Skrongle AI limit is hit": a saved key takes the job.
-            match fallback_key(&state, &user, &r).await? {
-                Some(own) => {
-                    provider = own;
-                    saved_key = true;
-                }
-                None => fail!(r.message(state.meter.credits_offered()), Some(crate::routes::hosted::OutOfAi::of(&state, user.plan))),
-            }
+            fail!(r.message(), Some(crate::routes::hosted::OutOfAi));
         }
     }
 

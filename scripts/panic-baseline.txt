@@ -1,7 +1,6 @@
 25 src/ai.rs
 9 src/arrange.rs
 3 src/auth.rs
-18 src/billing.rs
 5 src/conjugation.rs
 19 src/content.rs
 6 src/courses.rs
@@ -23,7 +22,6 @@
 2 src/report.rs
 27 src/review.rs
 3 src/routes/auth.rs
-1 src/routes/billing.rs
 2 src/routes/courses/files.rs
 2 src/routes/dev_ai.rs
 18 src/routes/dev.rs

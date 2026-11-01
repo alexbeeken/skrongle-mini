@@ -8,7 +8,6 @@ mod algebra_tiles;
 mod ai;
 mod arrange;
 mod auth;
-mod billing;
 mod breach;
 mod check_worker;
 mod clock;
@@ -23,7 +22,6 @@ mod db;
 mod dev;
 mod dev_ai;
 mod dev_crowd;
-mod dev_payments;
 mod doctor;
 mod earnings;
 mod sprint;
@@ -178,9 +176,6 @@ pub struct AppState {
     pub google_joins: oauth::Joins,
     /// Google trips started from the profile (link, confirm it's you).
     pub step_ups: oauth::StepUps,
-    /// Paid subscriptions through Stripe, when configured. Without it
-    /// nobody can subscribe and only grants make a learner premium.
-    pub stripe: Option<billing::StripeConfig>,
     /// Encrypts learners' AI API keys at rest.
     pub vault: secrets::Vault,
     /// AI tutoring conversations (in memory only).
@@ -209,8 +204,6 @@ pub struct AppState {
     pub dev_marks: dev::Marks,
     /// Dev mode: the simulated AI provider's log, usage and settings (`/dev/ai`).
     pub dev_ai: dev_ai::Simulator,
-    /// Dev mode: the simulated Stripe's customers, subscriptions, payments and log (`/dev/payments`).
-    pub dev_payments: dev_payments::Simulator,
     /// Dev mode: the dev authenticator app's accounts (`/dev/authenticator`).
     pub dev_authenticator: dev::Authenticator,
     /// `SKRONGLE_PUBLIC_URL` without a trailing slash: where links in e-mail
@@ -248,7 +241,7 @@ impl Caps {
 }
 
 /// The hosted site needs every provider; only Skrongle mini (`SKRONGLE_MINI=1`;
-/// and the dev server, whose mailbox, phone, Google and Stripe stand in)
+/// and the dev server, whose mailbox, phone and Google stand in)
 /// runs without them. Self-hosting the full build is not supported (CLAUDE.md, "Two
 /// shapes"). `missing` names the settings that are not set. The hosted site
 /// is served over HTTPS, so it also needs `Secure` cookies, and proxy
@@ -298,7 +291,6 @@ struct Config {
     base_path: String,
     log_level: tracing::Level,
     google: Option<oauth::GoogleConfig>,
-    stripe: Option<billing::StripeConfig>,
     /// `SKRONGLE_SECRET_KEY`; without it the secret lives in `<db>.key`.
     secret_key: Option<String>,
     /// `SKRONGLE_DEV=1`: asked for; `dev::resolve` decides.
@@ -350,7 +342,7 @@ fn take_env(name: &str) -> Option<String> {
 /// `LEARN_<name>` and `SPANISH_<name>` spellings. Empty counts as unset.
 ///
 /// In Skrongle mini the hosted-only settings (`shape::HOSTED_ONLY`) read as
-/// unset, so e-mail, texts, Google, Stripe and S3 are off wherever they
+/// unset, so e-mail, texts, Google and S3 are off wherever they
 /// are read.
 pub fn env(name: &str) -> Option<String> {
     if shape::current().hides(name) {
@@ -460,22 +452,6 @@ impl Config {
                 (None, None, _) => None,
                 _ => {
                     eprintln!("Google sign-in needs SKRONGLE_GOOGLE_CLIENT_ID, SKRONGLE_GOOGLE_CLIENT_SECRET and SKRONGLE_PUBLIC_URL; disabled");
-                    None
-                }
-            },
-            stripe: match (env("STRIPE_SECRET_KEY"), env("STRIPE_WEBHOOK_SECRET"), env("STRIPE_PRICE_ID"), env("PUBLIC_URL")) {
-                (Some(secret_key), Some(webhook_secret), Some(price_id), Some(public_url)) => Some(billing::StripeConfig {
-                    secret_key,
-                    webhook_secret,
-                    price_id,
-                    price_id_basic: env("STRIPE_PRICE_ID_BASIC").or_else(|| env("STRIPE_PRICE_ID_PLUS")), // the old name, still read
-                    price_label: env("STRIPE_PRICE_LABEL").unwrap_or_else(|| "Monthly".to_string()),
-                    public_url: public_url.trim_end_matches('/').to_string(),
-                    api_base: env("STRIPE_API_URL").unwrap_or_else(|| billing::STRIPE_API.to_string()),
-                }),
-                (None, None, None, _) => None,
-                _ => {
-                    eprintln!("Subscriptions need SKRONGLE_STRIPE_SECRET_KEY, SKRONGLE_STRIPE_WEBHOOK_SECRET, SKRONGLE_STRIPE_PRICE_ID and SKRONGLE_PUBLIC_URL; disabled");
                     None
                 }
             },
@@ -710,19 +686,9 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
     let llm_mode = dev::init_llm(dev, cfg.bind)?;
     // Dev mode without a real Google client: this server stands in for Google
     // (`/dev/google/*`), so "Continue with Google" works locally. SKRONGLE_GOOGLE_MOCK=0 opts out.
-    // Dev mode without real Stripe settings: this server stands in for
-    // Stripe (`/dev/payments`), with fake keys, so subscribing works locally.
-    // SKRONGLE_DEV_STRIPE=0 opts out.
-    // Skrongle mini (`billing::plans_on`) has no plans and sells nothing, and
-    // no dev stand-in for Google, e-mail or texts either: it looks like a
-    // real mini in dev mode too.
+    // Skrongle mini has no dev stand-in for Google, e-mail or texts: it looks
+    // like a real mini in dev mode too.
     let meter_cfg = cfg.meter.clone()?;
-    let stripe = match cfg.stripe.clone() {
-        _ if !meter_cfg.plans => None,
-        Some(s) => Some(s),
-        None if dev_payments::wanted(dev, false) => Some(dev_payments::dev_config(cfg.bind.port(), env("PUBLIC_URL").as_deref())),
-        None => None,
-    };
     let google = cfg.google.clone().or_else(|| (!is_mini() && dev::mock_google_wanted(dev, cfg.google.is_some())).then(|| dev::mock_google(cfg.bind)));
     if dev {
         tracing::warn!("DEV MODE: /dev/login, /dev/reset and the dev mailbox (/dev/inbox, /dev/ai) are open to anyone who can reach {}", cfg.bind);
@@ -760,29 +726,16 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
     }
 
     let hosted_note = cfg.ai_key.is_some().then(|| {
-        if !meter_cfg.plans {
-            return format!(
-                "Skrongle AI enabled for every account ({:?}; tutor {}, courses {}; no plans, no monthly allowance; daily cap {}; {} calls a minute)",
-                meter_cfg.provider,
-                meter_cfg.tutor_model,
-                meter_cfg.courses_model,
-                metering::dollars(meter_cfg.daily_cap),
-                meter_cfg.rate_per_minute
-            );
-        }
         format!(
-            "Skrongle AI enabled ({:?}; tutor {}, courses {}; allowance {} a month on Plus; sign-up credit {}; daily cap {}; {} calls a minute; {} credit packs)",
+            "Skrongle AI enabled for every account ({:?}; tutor {}, courses {}; daily cap {}; {} calls a minute)",
             meter_cfg.provider,
             meter_cfg.tutor_model,
             meter_cfg.courses_model,
-            metering::dollars(meter_cfg.allowance_plus),
-            metering::dollars(meter_cfg.signup_credit),
             metering::dollars(meter_cfg.daily_cap),
-            meter_cfg.rate_per_minute,
-            meter_cfg.packs.len()
+            meter_cfg.rate_per_minute
         )
     });
-    let meter = Arc::new(metering::Meter::new(meter_cfg, cfg.ai_key.clone(), &vault, stripe.is_some()));
+    let meter = Arc::new(metering::Meter::new(meter_cfg, cfg.ai_key.clone(), &vault));
     match hosted_note {
         Some(n) => tracing::info!("{n}"),
         None => tracing::info!("Skrongle AI disabled (no SKRONGLE_AI_KEY): AI features use learners' own keys"),
@@ -796,10 +749,7 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         (storage.bucket().is_none(), storage::BUCKET_VAR),
         (sms_cfg.logging_only, "SKRONGLE_SMS_PROVIDERS"),
         (cfg.google.is_none(), "SKRONGLE_GOOGLE_CLIENT_ID"),
-        (cfg.stripe.is_none(), "SKRONGLE_STRIPE_SECRET_KEY"),
         (content_check::key_missing(check_mode), content_check::KEY_VAR),
-        // Both plans are sold, each at its own price: the webhook tells them apart by price (#963).
-        (cfg.stripe.as_ref().is_some_and(|s| s.price_for(billing::Plan::Basic).is_none()), "SKRONGLE_STRIPE_PRICE_ID_BASIC (its own price, not SKRONGLE_STRIPE_PRICE_ID)"),
     ]
     .into_iter()
     .filter_map(|(gone, name)| gone.then_some(name))
@@ -888,7 +838,6 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         signups: Default::default(),
         google_joins: Default::default(),
         step_ups: Default::default(),
-        stripe: stripe.clone(),
         vault,
         tutors: tutor::Sessions::default(),
         meter,
@@ -903,7 +852,6 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         dev_marks: Default::default(),
         dev_ai: if llm_mode == Some(dev::LlmMode::Capture) { dev_ai::Simulator::holding_from_start() } else { Default::default() },
         dev_authenticator: Default::default(),
-        dev_payments: Default::default(),
         public_url: env("PUBLIC_URL").map(|u| u.trim_end_matches('/').to_string()),
         signup,
         waitlist: Default::default(),
@@ -918,15 +866,6 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         ),
         Some(g) => tracing::info!("Google sign-in enabled (redirect URI {})", g.redirect_uri),
         None => tracing::info!("Google sign-in disabled (no SKRONGLE_GOOGLE_CLIENT_ID)"),
-    }
-    match &stripe {
-        _ if !billing::plans_on(&state) => tracing::info!("plans: off (every account has every feature)"),
-        Some(s) if s.api_base.contains("/dev/payments/stripe") => tracing::warn!(
-            "DEV MODE: subscriptions go to the simulated Stripe at {} with fake keys; pay on its Checkout page, watch /dev/payments (SKRONGLE_DEV_STRIPE=0 to turn it off)",
-            s.api_base
-        ),
-        Some(s) => tracing::info!("subscriptions enabled (Stripe price {}, webhook at {}/billing/webhook)", s.price_id, s.public_url),
-        None => tracing::info!("subscriptions disabled (no SKRONGLE_STRIPE_SECRET_KEY): every learner without a grant is on the free plan"),
     }
 
     // Background jobs: the mail and text outboxes (drained first on every
@@ -1073,7 +1012,7 @@ mod tests {
 
     #[test]
     fn only_the_hosted_server_requires_providers() {
-        let none = ["SKRONGLE_MAIL_PROVIDERS", "SKRONGLE_SMS_PROVIDERS", "SKRONGLE_GOOGLE_CLIENT_ID", "SKRONGLE_STRIPE_SECRET_KEY", "TYPESAFE_API_KEY"];
+        let none = ["SKRONGLE_MAIL_PROVIDERS", "SKRONGLE_SMS_PROVIDERS", "SKRONGLE_GOOGLE_CLIENT_ID", "TYPESAFE_API_KEY"];
         let why = require_providers(false, false, &none, true, false).unwrap_err();
         assert!(none.iter().all(|n| why.contains(n)), "{why}");
         assert!(why.contains("SKRONGLE_MINI=1"), "{why}");

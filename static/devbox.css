@@ -173,28 +173,6 @@
 .devai-answer p { margin: .4rem 0 0; }
 .devai-held-empty { margin: 0; padding: 1.2rem; text-align: center; color: var(--muted); }
 
-/* The Payments section (/dev/payments) and the pages the dev payment
-   provider hosts in Stripe's place (Checkout, the Billing Portal). */
-.devpay-list { display: grid; gap: .5rem; }
-.devpay-item { border: 1px solid var(--line); border-radius: 10px; background: var(--surface); padding: .6rem .9rem; min-width: 0; }
-.devpay-item p { margin: .15rem 0; overflow-wrap: anywhere; }
-.devpay-empty { margin: .2rem 0; }
-.devpay-log td.devpay-kind { width: 5.5rem; }
-.devpay-log td.devai-outcome { width: 10.5rem; }
-.devpay-resend { display: inline; margin: 0 0 0 .3rem; }
-.devpay-hosted { background: var(--bg); min-height: 100vh; margin: 0; }
-.devpay-sheet { max-width: 30rem; margin: 0 auto; padding: 1.5rem 16px 2rem; }
-.devpay-banner { display: inline-block; padding: .15rem .6rem; border-radius: 999px; background: var(--warn-bg); font-weight: 700; }
-.devpay-summary h1 { margin: .1rem 0; font-size: 1.4rem; }
-.devpay-amount { font-size: 2rem; font-weight: 700; margin: .2rem 0 1rem; }
-.devpay-form { display: grid; gap: .6rem; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); padding: 1rem; }
-.devpay-form label { display: grid; gap: .2rem; font-size: .9rem; }
-.devpay-form input { padding: .45rem .6rem; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--text); font: inherit; }
-@media (max-width: 40rem) {
-  .devpay-log td.devpay-kind { display: none; }
-  .devpay-log td.devai-outcome { width: 7rem; }
-}
-
 /* /dev/jobs (#872) */
 .devjobs-table { table-layout: auto; }
 .devjobs-table th { padding: .4rem .8rem; text-align: left; font-size: .78rem; color: var(--muted); border-bottom: 1px solid var(--line); }

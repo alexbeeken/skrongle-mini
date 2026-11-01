@@ -451,7 +451,6 @@ fn moderated(t: &mut SuperuserTemplate, did: &str, email: &str, about: &str) {
         "unsuspended" => (ok("superuser.mod.unsuspended", "email", email), None),
         "deleted" => (ok("superuser.mod.deleted", "email", email), None),
         "yourself" => (None, Some(crate::t("superuser.mod.yourself"))),
-        "subscribed" => (None, ok("superuser.mod.subscribed", "email", email)),
         "blocked" => (ok("superuser.mod.blocked", "ip", about), None),
         "unblocked" => (ok("superuser.mod.unblocked", "ip", about), None),
         "bad-ip" => (None, ok("superuser.mod.bad_ip", "ip", &format!("{about:?}"))),
@@ -553,8 +552,7 @@ pub async fn unsuspend(State(state): State<Arc<AppState>>, user: CurrentUser, Fo
 
 /// POST /superuser/delete-account (email, reason): the account and
 /// everything it owns are deleted, as from its own profile (a terms breach,
-/// a child's data, a privacy request). Not undone. Refused while a
-/// subscription would keep billing. The reason goes in the privacy log (#981).
+/// a child's data, a privacy request). Not undone. The reason goes in the privacy log (#981).
 pub async fn delete_account(State(state): State<Arc<AppState>>, user: CurrentUser, Form(form): Form<privacy::RequestForm>) -> Result<Response, AppError> {
     if !moderates(&user) {
         return Err(AppError::NotFound);
@@ -565,9 +563,6 @@ pub async fn delete_account(State(state): State<Arc<AppState>>, user: CurrentUse
         Ok(id) => id,
         Err(back) => return Ok(back),
     };
-    if state.db.call(move |c| crate::privacy::has_live_subscription(c, target)).await? {
-        return Ok(done("subscribed", &email));
-    }
     let deleted = super::profile::erase_account(&state, target).await?;
     let su = user.id;
     state.db.call(move |c| crate::privacy_requests::record(c, su, crate::privacy_requests::Action::DeleteAccount, &reason, crate::db::now())).await?;

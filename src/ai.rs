@@ -449,7 +449,7 @@ impl Job {
         let Some(m) = req.meter.as_deref() else { return send().map(|r| r.text) };
         match m.call(db, req.user_id, &req.provider, call, 0, send) {
             Ok(reply) => Ok(reply.text),
-            Err(CallError::Refused(refusal)) => Err(refusal.job_message(m.credits_offered())),
+            Err(CallError::Refused(refusal)) => Err(refusal.job_message()),
             Err(CallError::Failed(e)) => Err(e),
         }
     }

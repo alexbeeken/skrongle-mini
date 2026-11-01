@@ -44,13 +44,10 @@ test("the server says it is a Skrongle mini", async ({ request }) => {
   expect(await res.text(), "/healthz names the edition (#641)").toMatch(/^ok skrongle mini \d+\.\d+\.\d+/);
 });
 
-test("the profile has no Subscription, no phone field and no red ! on the e-mail", async ({ page }) => {
+test("the profile has no phone field and no red ! on the e-mail", async ({ page }) => {
   await signUp(page, newAccount("mini-profile"));
   await page.goto("/profile");
   await expect(page.getByTestId("profile-form")).toBeVisible();
-  // #636: no plans, so no Subscription section or nav link.
-  await expect(page.getByTestId("profile-subscription")).toHaveCount(0);
-  await expect(page.locator('[data-testid="profile-nav-link"][data-section="subscription"]')).toHaveCount(0);
   // #633: no texts, so no phone field; no mail, so an (i), not the red !.
   await expect(page.getByTestId("profile-phone")).toHaveCount(0);
   await expect(page.getByTestId("email-unverified")).toHaveCount(0);
