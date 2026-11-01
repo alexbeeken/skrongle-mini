@@ -11,8 +11,6 @@
 //! and on the hosted site, moderation (#967, `moderation.rs`): the course
 //! table (#1034, `superuser/courses.rs`) with the flag of each course and
 //! what to do about it, suspend or delete an account, block an address;
-//! privacy requests that came by e-mail (#981, `superuser/privacy.rs`);
-//! the breach tools: sign everyone out, e-mail a notice (#1068, `superuser/breach.rs`);
 //! and a card that opens Release, the waitlist (#934, `superuser/release.rs`).
 //! Anyone else gets a 404, as if the page did not exist; the account menu
 //! links here only for superusers.
@@ -31,9 +29,7 @@ use crate::error::AppError;
 use crate::profile;
 use crate::AppState;
 
-pub mod breach;
 pub mod courses;
-pub mod privacy;
 pub mod release;
 
 #[derive(Template)]
@@ -79,10 +75,6 @@ pub struct SuperuserTemplate {
     pub courses: Option<courses::CourseTable>,
     /// Blocked addresses and ranges: id, range.
     pub blocked: Vec<(i64, String)>,
-    /// The privacy request log (#981): with `moderate` only.
-    pub privacy_log: Vec<privacy::LogRow>,
-    /// The breach tools (#1068): with `moderate` only.
-    pub breach: Option<breach::Card>,
 }
 
 /// One open report on the page (#968, `content_reports::Report`).
@@ -188,8 +180,6 @@ async fn load_at(state: &AppState, user: CurrentUser, page: i64, course: &course
     let me = user.email.to_lowercase();
     let blocked = if moderate { state.db.call(|c| crate::moderation::blocked(c)).await? } else { Vec::new() };
     let course_table = if moderate { Some(courses::load(state, &user, course, page, site).await?) } else { None };
-    let privacy_log = if moderate { privacy::log(state).await? } else { Vec::new() };
-    let breach = if moderate { Some(breach::card(state).await?) } else { None };
     let course_params = if moderate { course.params() } else { String::new() };
     let link = |p: i64| crate::url(&format!("/superuser?page={p}{course_params}"));
     Ok(SuperuserTemplate {
@@ -226,8 +216,6 @@ async fn load_at(state: &AppState, user: CurrentUser, page: i64, course: &course
         moderate,
         courses: course_table,
         blocked,
-        privacy_log,
-        breach,
     })
 }
 
@@ -240,9 +228,6 @@ pub struct ShowQuery {
     pub did: Option<String>,
     pub email: Option<String>,
     pub n: Option<i64>,
-    /// More counts of a breach action (#1068).
-    pub m: Option<i64>,
-    pub k: Option<i64>,
     /// A moderation action's course id or address range.
     pub about: Option<String>,
     /// The course table's search, filter and page (#1034).
@@ -278,11 +263,6 @@ pub async fn show(State(state): State<Arc<AppState>>, user: CurrentUser, headers
             t.notice = Some(crate::t1("superuser.courses.owner_emailed", "id", q.about.as_deref().unwrap_or_default()));
             if state.dev_inbox.is_some() {
                 t.inbox = Some(crate::url(&format!("/dev/inbox/latest?to={}", crate::oauth::urlencode(email))));
-            }
-        }
-        Some(did) if did.starts_with("breach-") => {
-            if let Some((notice, error)) = breach::notice(did, q.n.unwrap_or(0), q.m.unwrap_or(0), q.k.unwrap_or(0)) {
-                (t.notice, t.error) = (notice, error);
             }
         }
         Some(did) => moderated(&mut t, did, email, q.about.as_deref().unwrap_or_default()),
@@ -431,8 +411,8 @@ fn moderates(user: &CurrentUser) -> bool {
 /// The notice or error a moderation action left (`?did=`), about an
 /// account (`email`) or a course or address (`about`). An unknown key shows nothing.
 fn moderated(t: &mut SuperuserTemplate, did: &str, email: &str, about: &str) {
-    if let Some((notice, error)) = privacy::notice(did, email) {
-        (t.notice, t.error) = (notice, error);
+    if did == "no-reason" {
+        t.error = Some(crate::t("superuser.privacy.no_reason"));
         return;
     }
     let ok = |key: &str, name: &str, value: &str| Some(crate::t1(key, name, value));
@@ -551,16 +531,27 @@ pub async fn unsuspend(State(state): State<Arc<AppState>>, user: CurrentUser, Fo
     Ok(done("unsuspended", &email))
 }
 
+#[derive(Deserialize)]
+pub struct DeleteForm {
+    #[serde(default)]
+    pub email: String,
+    #[serde(default)]
+    pub reason: String,
+}
+
 /// POST /superuser/delete-account (email, reason): the account and
 /// everything it owns are deleted, as from its own profile (a terms breach,
 /// a child's data, a privacy request). Not undone. Refused while a
-/// subscription would keep billing. The reason goes in the privacy log (#981).
-pub async fn delete_account(State(state): State<Arc<AppState>>, user: CurrentUser, Form(form): Form<privacy::RequestForm>) -> Result<Response, AppError> {
+/// subscription would keep billing. A reason is required and goes in the server log.
+pub async fn delete_account(State(state): State<Arc<AppState>>, user: CurrentUser, Form(form): Form<DeleteForm>) -> Result<Response, AppError> {
     if !moderates(&user) {
         return Err(AppError::NotFound);
     }
     let email = form.email.trim().to_lowercase();
-    let Some(reason) = crate::privacy_requests::reason(&form.reason) else { return Ok(done("no-reason", &email)) };
+    let reason: String = form.reason.trim().chars().take(200).collect();
+    if reason.is_empty() {
+        return Ok(done("no-reason", &email));
+    }
     let target = match other_account(&state, &user, &email).await? {
         Ok(id) => id,
         Err(back) => return Ok(back),
@@ -569,9 +560,7 @@ pub async fn delete_account(State(state): State<Arc<AppState>>, user: CurrentUse
         return Ok(done("subscribed", &email));
     }
     let deleted = super::profile::erase_account(&state, target).await?;
-    let su = user.id;
-    state.db.call(move |c| crate::privacy_requests::record(c, su, crate::privacy_requests::Action::DeleteAccount, &reason, crate::db::now())).await?;
-    tracing::info!("superuser {} deleted user {target} ({} courses, {} themes)", user.id, deleted.courses.len(), deleted.themes.len());
+    tracing::info!("superuser {} deleted user {target} ({} courses, {} themes): {reason}", user.id, deleted.courses.len(), deleted.themes.len());
     Ok(done("deleted", &email))
 }
 

@@ -124,7 +124,6 @@ teenager on a phone in Sprint, 6), `testing-bot` (sees only markup, 12).
 | `specs/algebra-tiles.spec.ts` | 4 | yes |  |
 | `specs/authenticator.spec.ts` | 4 | yes |  |
 | `specs/avatar-colour.spec.ts` | 3 | **no** |  |
-| `specs/breach-tools.spec.ts` | 2 | yes |  |
 | `specs/chord-spell.spec.ts` | 5 | yes |  |
 | `specs/clock.spec.ts` | 3 | yes |  |
 | `specs/consent.spec.ts` | 2 | yes |  |
@@ -178,7 +177,6 @@ teenager on a phone in Sprint, 6), `testing-bot` (sees only markup, 12).
 | `specs/notation.spec.ts` | 14 | yes |  |
 | `specs/owner-resets.spec.ts` | 3 | yes |  |
 | `specs/pathways.spec.ts` | 7 | yes |  |
-| `specs/privacy-requests.spec.ts` | 2 | yes |  |
 | `specs/privacy.spec.ts` | 3 | yes |  |
 | `specs/profile-autosave.spec.ts` | 8 | **no** |  |
 | `specs/profile-nav.spec.ts` | 1 | yes |  |
@@ -293,10 +291,6 @@ No e2e file names them; a spec drives the form, link (its testid) or script that
 - `POST /superuser/courses/delete`: `superuser-course-delete-form`
 - `POST /superuser/courses/email-owner`: `superuser-email-owner-form`
 - `POST /superuser/unsuspend`: `superuser-account-unsuspend`
-- `POST /superuser/privacy/export`: `superuser-privacy-export-form`
-- `POST /superuser/privacy/forget`: `superuser-privacy-forget-form`
-- `POST /superuser/breach/sign-out`: `superuser-breach-sign-out-form`
-- `POST /superuser/breach/notice`: `superuser-breach-notice-form`
 - `POST /superuser/unblock-ip`: `superuser-unblock`
 - `POST /api/lesson-check`: `static/lesson-check.js`
 - `POST /billing/cancel`: `cancel-form`
@@ -459,9 +453,7 @@ Not named by an e2e file, and no driven form, link or script calls them.
 | `templates/stage.html` | 12 | 12 |  |
 | `static/guide.js` | 1 | 1 |  |
 | `templates/superuser.html` | 86 | 86 |  |
-| `templates/superuser_breach.html` | 23 | 23 |  |
 | `templates/superuser_courses.html` | 78 | 78 |  |
-| `templates/superuser_privacy.html` | 19 | 19 |  |
 | `static/algebra-tiles.js` | 1 | 1 |  |
 | `templates/algebra_tiles.html` | 4 | 4 |  |
 | `static/landing-kit.js` | 2 | 2 |  |
@@ -487,7 +479,6 @@ Titles as Playwright lists them (from the source: run `npm ci` in e2e/ for loops
 <!-- themes -->
 - **`specs/avatar-colour.spec.ts`** (3, local only): a colour is picked in the course's settings and the corner wears it in the course · a theme picked in the settings adds scenes of its world, offered only while it is picked · a theme brings its own colours for the same slot
 <!-- /themes -->
-- **`specs/breach-tools.spec.ts`** (2, CI): a superuser signs a listed account out after typing the word · a superuser e-mails a notice to a confirmed address once, however often Send is pressed
 - **`specs/chord-spell.spec.ts`** (5, CI): Practice: tap tiles into the slots, take one out, hear about a wrong spelling, and spell the others in any order · a wrong set that isn't the same sounds gets no spelling note · the reading check, Sprint mode and the Guide take the chord in any order · a lesson without a chord-spell question loads no chord-spell script · the lesson editor has the answer and tiles boxes, and its preview plays the question
 - **`specs/clock.spec.ts`** (3, CI): Practice: drag the minute hand, use the keys, read a clock · the Guide and Sprint mode show the clock too · the tutor draws a clock to read, with its times to tap
 - **`specs/consent.spec.ts`** (2, CI): the consent card shows each consent, and Do Not Show Me AI Features hides them and shows them again across a reload · with a key on file the card's AI switch asks first, and the key line goes
@@ -543,7 +534,6 @@ Titles as Playwright lists them (from the source: run `npm ci` in e2e/ for loops
 - **`specs/notation.spec.ts`** (14, CI): an abc block in the lesson text is drawn as a staff · on a wide page a staff is as tall as its drawing, and the lesson's staff stays wider than a question's · a lesson without notation loads no notation script · a music course's Sprint session has the circle-of-fifths build, graded exactly (#1232) · a question's abc is drawn as a staff above its prompt in Practice, the reading check, Sprint and the Guide · the lesson editor has the question's Music box and previews the staff · an empty and a non-ABC block in the lesson text keep their text · a question's abc that isn't music shows as text in the editor's preview · shows two notes on a staff and grades the interval · the learner taps the wrong note, then picks its fix; both must be right · dragging the wrong note down a step (or the down arrow) picks the tile of the note it lands on · the editor's spot form has the Music box, the note number and the fix, and previews the staff · shows a stacked chord on a staff and grades its name · shows a key signature or a tune and grades the key
 - **`specs/owner-resets.spec.ts`** (3, CI): a superuser sets a temporary password; the learner signs in with it and must choose a new one · a superuser turns off another account's two-factor; others get 404 · reloading after a temporary password is set does not set another
 - **`specs/pathways.spec.ts`** (7, CI): switch course: Spanish, then a generated course, then back · generate from notes and uploaded files, with no wish · cancel a slow generation, then resume it to a ready course · resume a run that stopped on a lesson: the resumed job keeps what was written · saving into a stopped run keeps it resumable, and Resume keeps the edit (#81) · the editor opened between the outline and lesson 1 still follows the job to its end · remove an API key: the profile says no key, and generating no longer offers it
-- **`specs/privacy-requests.spec.ts`** (2, CI): a superuser sends an account its data; the link goes to that account's address · a superuser forgets an address with no account, not one with an account
 - **`specs/privacy.spec.ts`** (3, CI): the privacy notice is public, dated, and no longer a draft · the notice has one heading per section, the summary list and the US-rights table · at phone width the notice does not scroll sideways and the table can be scrolled on its own
 <!-- themes -->
 - **`specs/profile-autosave.spec.ts`** (8, local only): the green checks come a moment after the save, fade after 5 s, and come back with the next edit · names save a second after typing stops, in one request, and the heading follows · a field that needs attention turns red at once, is not sent, and leaving asks first · the server refusing a field marks it red with the server's reason · without a connection the circle turns red, leaving asks, and it saves once back online · the phone number wears a +1 and punctuates the digits as they are typed (#496) · the profile has no picture and no theme: both are a course's settings · API keys: folded away, a pasted key saves at once, a typed one 3 s after typing stops

@@ -181,8 +181,6 @@ fn superusers_moderate_over_http() {
         "/superuser/delete-account",
         "/superuser/block-ip",
         "/superuser/unblock-ip",
-        "/superuser/privacy/export",
-        "/superuser/privacy/forget",
     ] {
         assert_eq!(
             post(
@@ -329,27 +327,6 @@ fn superusers_moderate_over_http() {
         .2,
         "/superuser?did=unknown&email=bob%40example.org"
     );
-
-    // Privacy requests (#981): carol's data goes to her own address; an
-    // address with an account can't be forgotten, one without can; each
-    // action is in the log with its reason.
-    let su = |path: &str, email: &str, reason: &str| post(path, &root, &[("email", email), ("reason", reason)]).2;
-    assert!(su("/superuser/privacy/export", "carol@example.org", "").contains("did=no-reason"));
-    assert_eq!(su("/superuser/privacy/export", "Carol@example.org", "request 7"), "/superuser?did=export-queued&email=carol%40example.org");
-    assert!(su("/superuser/privacy/export", "carol@example.org", "request 7").contains("did=export-busy"));
-    assert_eq!(su("/superuser/privacy/forget", "carol@example.org", "request 8"), "/superuser?did=has-account&email=");
-    assert_eq!(su("/superuser/privacy/forget", "dave@example.org", "request 9"), "/superuser?did=forgot&email=");
-    let log = state
-        .db
-        .with(|c| {
-            let mut s = c.prepare("SELECT action || ':' || reason FROM privacy_actions ORDER BY id")?;
-            let v: Vec<String> = s.query_map([], |r| r.get(0))?.collect::<Result<_, _>>()?;
-            Ok(v)
-        })
-        .unwrap();
-    assert_eq!(log, ["delete-account:terms breach, case 3", "export:request 7", "forget:request 9"]);
-    let page = get("/superuser", &root).1;
-    assert!(page.contains(r#"data-testid="superuser-privacy-log-row" data-action="forget""#) && page.contains("request 7"), "{page}");
 
     // Block: a bad range is refused; a range is listed; this test's own address gets a 403 everywhere.
     assert!(post("/superuser/block-ip", &root, &[("ip", "10.0.0.0/4")])
