@@ -171,9 +171,7 @@ auth:
   code:
     title: Enter your code
     from_app: From your authenticator app.
-    texted_to: "Texted to {to}."
     emailed_to: "E-mailed to {to}."
-    fallback: "Your phone replied STOP to texts from {app}, so we e-mailed the code to {to} instead."
     code_label: Code
     submit: Sign in
     resend: Send a new code
@@ -189,13 +187,8 @@ auth:
     your_authenticator: your authenticator app
   two_factor:
     channel_off_email: "Your account signs in with a code by e-mail, but this server cannot send e-mail ({setting} is not set). Ask whoever runs it to set {setting}, or to turn two-factor sign-in off for your account."
-    channel_off_sms: "Your account signs in with a code by text message, but this server cannot send text messages ({setting} is not set). Ask whoever runs it to set {setting}, or to turn two-factor sign-in off for your account."
     needs_email: Confirm your e-mail address first.
-    needs_phone: Add and verify a phone number first.
     needs_app: Set up the authenticator app first.
-    phone_in_use: Two-factor sign-in texts this number. Choose another method before changing it.
-    needs_confirmed_email: Confirm your e-mail address before adding a phone number.
-    phone_taken: This number is verified on another account. Remove it there first, or use another number.
     app_already: An authenticator app is already set up. Remove it first.
   google:
     cancelled: Google sign-in was cancelled.
@@ -424,7 +417,6 @@ mail:
     subject: "Two-factor sign-in on {app} changed"
     now_off: is now off
     now_email: now e-mails you a code
-    now_sms: now texts a code to your phone
     now_totp: now asks for a code from an authenticator app
     text: |
       Hello,
@@ -482,18 +474,6 @@ mail:
       <p><a href="{link}">Open the course</a></p>
       <p>Or paste this link into your browser: {link}</p>
       <p>You can learn from the course with your own progress; only {owner} can change it. If you do not have a {app} account yet, the link lets you create one. If you were not expecting this, ignore this message.</p>
-
-sms:
-  login_code: "{code} is your {app} sign-in code. It works for 10 minutes. Do not share it."
-  phone_code: "{code} is your {app} code to confirm this phone number. It works for 10 minutes."
-  two_factor_confirm: "{code} is your {app} code to change two-factor sign-in. It works for 10 minutes. Do not share it."
-  number:
-    needs_plus: a phone number starts with + and the country code
-    not_a_digit: "a phone number has digits only, not {char}"
-    bad_length: a phone number has 8 to 15 digits after the +, the first not 0
-    us_length: "a US or Canada number has 10 digits, like (555) 555 - 5555"
-    us_only: only US and Canada numbers for now, so a number starts with +1
-    us_area: neither the area code nor the three digits after it start with 0 or 1
 
 profile:
   email_no_mail:
@@ -568,11 +548,6 @@ profile:
     data: Your data
     consent: "Privacy and consent"
   personal:
-    phone_locked_label: Why the phone number is locked
-    phone_locked_title: Confirm your e-mail first
-    phone_locked_text: A phone number can be added once your e-mail address is confirmed (or you sign in with Google). Check your inbox for the link.
-    phone_locked_close: Close
-    phone_locked_resend: Resend the link
     title: Personal information
     first_name: First name
     last_name: Last name
@@ -580,29 +555,8 @@ profile:
     no_email: No e-mail on file
     verified: Verified
     not_verified: Not verified
-    phone: Phone number
-    phone_placeholder: "(555) 555 - 5555"
-    phone_problem: Check the phone number
-    phone_stopped: "Texts to this number are stopped"
     language: Language
     language_unavailable: That language is not available.
-  phone_problem:
-    title: Check the phone number
-    close: Close
-  phone_stopped:
-    title: "Texts are stopped"
-    text: "This number replied STOP to texts from {app}, so your sign-in codes come by e-mail for now. To get texts again, text START from this phone to the number our texts come from, then send yourself a code."
-    close: "Close"
-    send: "Send a code"
-  phone_dialog:
-    title: Verify your phone
-    type_code: Type the code texted to your phone.
-    not_verified: Phone number not yet verified. Send a code to it.
-    code: Code
-    close: Close
-    send_again: Send again
-    send_code: Send code
-    verify: Verify
   account:
     title: Account
     member_since: Member since
@@ -632,10 +586,6 @@ profile:
     age: "Age"
     age_confirmed: "Confirmed {date}"
     age_not_confirmed: "Not confirmed"
-    phone: "Phone for sign-in codes"
-    phone_none: "No number"
-    phone_add: "add one"
-    phone_edit: "change or remove"
     google: "Google sign-in"
     google_on: "Connected"
     google_off: "Not connected"
@@ -696,8 +646,6 @@ profile:
     off: "Off"
     email: E-mail
     email_unverified: E-mail not verified
-    sms: Text message
-    phone_unverified: Phone not verified
     totp: Authenticator app
     save: Save
     confirm_title: Confirm it's you
@@ -715,16 +663,13 @@ profile:
     totp_added: "Authenticator app added {date}"
     remove: Remove
     info_title: Two-factor authentication
-    info_text: "After your password (or Google), signing in asks for a code: e-mailed, texted to your phone, or shown by an authenticator app such as Google Authenticator. One method at a time; choosing another replaces it."
+    info_text: "After your password (or Google), signing in asks for a code: e-mailed, or shown by an authenticator app such as Google Authenticator. One method at a time; choosing another replaces it."
     info_small: E-mail and text need a verified address or number. Codes work for 10 minutes; five wrong ones end the sign-in.
     ok: OK
     email_first_title: Verify your e-mail first
     email_first_text: E-mail codes need a verified address. Check your inbox for the link.
     close: Close
     resend: Resend
-    sms_first_title: Verify your phone first
-    sms_first_text: Text message codes need a verified phone number.
-    add_number: Add a number
     totp_title: Add an authenticator app
     totp_how: How to add the app
     totp_dev_link: "Dev: add it to the dev authenticator"
@@ -736,13 +681,11 @@ profile:
     turn_off: Turn two-factor sign-in off
     switch_to: "Switch two-factor sign-in to {method}"
     turn_on_by: "Turn on two-factor sign-in by {method}"
-    method_sms: text message
     method_email: e-mail
     method_totp: authenticator app
     is_off: Two-factor sign-in is off.
     is_method: "Two-factor sign-in: {method}."
     totp_removed: Authenticator app removed.
-    phone_verified: Phone number verified.
     too_many_attempts: Too many attempts. Wait a few minutes and try again.
     type_password: Type your password to make this change.
     password_wrong: That password is not right.
@@ -754,9 +697,6 @@ profile:
     code_gone: No code is waiting, or it expired. Send a new one.
     too_many_codes: Too many codes sent. Wait a few minutes and try again.
     code_not_sent: The code could not be sent. Try again in a moment.
-    too_many_texts: "Too many texts to this number. Try again in {minutes} minutes."
-    number_no_texts: "That number cannot get texts: {why}."
-    phone_code_expired: That code has expired or was used up. Send a new one.
   subscription:
     title: Subscription
     plan: Plan
@@ -867,14 +807,11 @@ profile:
     about: "Until that day the account can only cancel the deletion or log out. Cancel it and everything stays as it was. After that day your progress, courses and saved keys are gone for good."
     cancel: "Cancel deletion"
   save:
-    sms_off: "This server cannot send text messages, so it keeps no phone number."
     pick_picture: Please pick one of the pictures.
     pick_colour: Please pick one of the colours.
     not_a_field: This field is not part of the profile.
     theme_unavailable: That theme is not available.
     motivator_unavailable: "That motivator is not available."
-    not_a_phone: "Not a phone number: {why}."
-    sms_country: This server does not send texts to numbers in that country.
     sent_to: "Sent to {email}."
   name:
     too_long: "{label} is too long (max {max} characters)."
@@ -901,9 +838,6 @@ profile:
     name_too_long: "{label} is too long (max {max} characters)."
     name_bad_chars: "{label} contains characters that are not allowed."
     password_mismatch: The new passwords do not match.
-    phone_digits: "A phone number has 10 digits, like (555) 555 - 5555."
-    phone_us_only: Only US and Canada numbers for now. Type the 10 digits after the +1.
-    phone_area: Neither the area code nor the three digits after it start with 0 or 1.
     turn_off: Turn two-factor sign-in off
     switch_to: "Switch two-factor sign-in to {method}"
     turn_on_by: "Turn on two-factor sign-in by {method}"
@@ -965,7 +899,7 @@ superuser:
   temp_password_for: "Temporary password for {email}:"
   temp_password_once: "It is shown only now. Copy it and give it to the person; they choose their own at the next sign-in."
   two_factor_off: "Turn off two-factor"
-  two_factor_off_about: "The account signs in with its password alone until it turns two-factor on again. An authenticator app set up for it is removed; a confirmed phone number stays."
+  two_factor_off_about: "The account signs in with its password alone until it turns two-factor on again. An authenticator app set up for it is removed."
   two_factor_off_confirm: "Turn it off"
   two_factor_off_done: "Two-factor sign-in is off for {email}."
   page_of: "Page {page} of {pages}"

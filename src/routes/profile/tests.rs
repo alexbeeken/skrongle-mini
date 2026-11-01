@@ -309,21 +309,20 @@ fn account_changes_need_proof_and_sign_out_other_devices() {
     // to turn it on: the Google account it signs in with, once.
     let gil_t = session(gil);
     let gil_c = format!("sid={gil_t}");
-    state.db.with(|c| crate::two_factor::set_phone(c, gil, "+447700900123")).unwrap();
-    state.db.with(|c| c.execute("UPDATE users SET phone_verified_at = 1 WHERE id = ?1", [gil])).unwrap();
-    let (status, _, _, body) = post("/profile/two-factor", &gil_c, &[("method", "sms")]);
+    state.db.with(|c| c.execute("UPDATE users SET email_verified_at = 1 WHERE id = ?1", [gil])).unwrap();
+    let (status, _, _, body) = post("/profile/two-factor", &gil_c, &[("method", "email")]);
     assert_eq!(status, 403);
     assert!(body.contains("two-factor-confirm-with-google"));
-    let (status, to_google, oauth, _) = post("/profile/google/confirm", &gil_c, &[("then", "two-factor"), ("method", "sms")]);
+    let (status, to_google, oauth, _) = post("/profile/google/confirm", &gil_c, &[("then", "two-factor"), ("method", "email")]);
     assert_eq!(status, 303);
     assert!(to_google.contains("login_hint=gil%40example.org"));
     let (status, back, _, _) = via_google(&to_google, &oauth, &gil_c);
-    assert_eq!((status, back.as_str()), (303, "/profile?confirmed=google&method=sms#two-factor"));
-    let page = get("/profile?confirmed=google&method=sms", &gil_c).3;
+    assert_eq!((status, back.as_str()), (303, "/profile?confirmed=google&method=email#two-factor"));
+    let page = get("/profile?confirmed=google&method=email", &gil_c).3;
     assert!(page.contains("two-factor-confirm-google-done") && page.contains("data-open-on-load"));
-    assert_eq!(post("/profile/two-factor", &gil_c, &[("method", "sms")]).0, 303);
+    assert_eq!(post("/profile/two-factor", &gil_c, &[("method", "email")]).0, 303);
     let gil_method = || state.db.with(|c| crate::two_factor::settings(c, gil)).unwrap().method;
-    assert_eq!(gil_method(), Some(crate::two_factor::Method::Sms));
+    assert_eq!(gil_method(), Some(crate::two_factor::Method::Email));
     assert_eq!(post("/profile/two-factor", &gil_c, &[("method", "")]).0, 403, "the confirmation was used up");
     // Another Google account does not confirm this one.
     let (_, to_google, oauth, _) = post("/profile/google/confirm", &gil_c, &[("then", "delete")]);

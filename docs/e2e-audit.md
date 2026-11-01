@@ -163,7 +163,7 @@ teenager on a phone in Sprint, 6), `testing-bot` (sees only markup, 12).
 | `specs/lesson-header.spec.ts` | 1 | yes |  |
 | `specs/lesson-tables.spec.ts` | 2 | yes |  |
 | `specs/lessons.spec.ts` | 17 | **no** |  |
-| `specs/mail.spec.ts` | 7 | yes |  |
+| `specs/mail.spec.ts` | 6 | yes |  |
 | `specs/measure.spec.ts` | 2 | yes |  |
 | `specs/mistakes.spec.ts` | 1 | yes |  |
 | `specs/modals.spec.ts` | 6 | yes |  |
@@ -172,7 +172,7 @@ teenager on a phone in Sprint, 6), `testing-bot` (sees only markup, 12).
 | `specs/owner-resets.spec.ts` | 3 | yes |  |
 | `specs/pathways.spec.ts` | 7 | yes |  |
 | `specs/privacy.spec.ts` | 3 | yes |  |
-| `specs/profile-autosave.spec.ts` | 8 | **no** |  |
+| `specs/profile-autosave.spec.ts` | 7 | **no** |  |
 | `specs/profile-nav.spec.ts` | 1 | yes |  |
 | `specs/prompt-limits.spec.ts` | 5 | **no** |  |
 | `specs/record.spec.ts` | 3 | **no** | yes |
@@ -218,7 +218,7 @@ teenager on a phone in Sprint, 6), `testing-bot` (sees only markup, 12).
 | `specs/staff-note.spec.ts` | 5 | yes |  |
 | `specs/subscription.spec.ts` | 3 | **no** |  |
 | `specs/terms.spec.ts` | 5 | yes |  |
-| `specs/two-factor.spec.ts` | 4 | yes |  |
+| `specs/two-factor.spec.ts` | 2 | yes |  |
 | `specs/word-list.spec.ts` | 3 | yes |  |
 | `specs/words-due.spec.ts` | 2 | yes |  |
 
@@ -252,7 +252,6 @@ No e2e file names them; a spec drives the form, link (its testid) or script that
 - `GET /api/vocabulary/due`: `static/vocab.js`
 - `GET POST /login/code`: `login-code-input`
 - `POST /login/code/resend`: `login-code-cancel`
-- `GET /login/code/status`: `login-code`
 - `POST /login/code/cancel`: `login-code-cancel`
 - `POST /account/deletion/cancel`: `account-deletion-cancel`
 - `POST /profile/password`: `profile-password-form`
@@ -266,8 +265,6 @@ No e2e file names them; a spec drives the form, link (its testid) or script that
 - `GET POST /profile/export/download`: `profile-export-download-form`
 - `POST /profile/delete`: `profile-delete-form`
 - `POST /profile/verify-email/resend`: `verify-email-resend`
-- `POST /profile/phone/send`: `phone-locked-dialog`
-- `POST /profile/phone/verify`: `phone-verify-form`
 - `POST /profile/two-factor/totp/confirm`: `two-factor-totp-code`
 - `POST /superuser/invites`: `superuser-invite-form`
 - `POST /superuser/invites/revoke`: `superuser-invite-revoke`
@@ -312,7 +309,6 @@ Not named by an e2e file, and no driven form, link or script calls them.
 | `templates/lesson.html` | 54 | 45 | `lesson-check-form`, `lesson-head`, `lesson-note-error`, `lesson-pass`, `lesson-prerequisite`, `lesson-read-form`, `lesson-scale-play`, `lesson-scale-staff`, `quiz-play` |
 | `templates/dev_inbox_message.html` | 11 | 3 | `dev-inbox-back`, `dev-inbox-headers`, `dev-inbox-link`, `dev-inbox-message`, `dev-inbox-message-archive`, `dev-inbox-message-delete`, `dev-inbox-raw`, `dev-inbox-text` |
 | `templates/dev_mail_message.html` | 12 | 4 | `dev-mail-back`, `dev-mail-detail`, `dev-mail-error`, `dev-mail-headers`, `dev-mail-html`, `dev-mail-message-archive`, `dev-mail-message-delete`, `dev-mail-text` |
-| `templates/dev_text_message.html` | 15 | 7 | `dev-text-back`, `dev-text-compose-error`, `dev-text-compose-form`, `dev-text-error`, `dev-text-headers`, `dev-text-thread`, `{{ prefix() }}-message-archive`, `{{ prefix() }}-message-delete` |
 | `templates/home.html` | 37 | 29 | `home-ai-open`, `home-guide-open`, `home-play-open`, `home-sprint-open`, `home-start-play`, `home-start-sprint`, `home-start-study`, `home-study-open` |
 | `templates/dates.html` | 16 | 9 | `dates-again`, `dates-card`, `dates-ear`, `dates-hud`, `dates-replay`, `dates-score`, `dates-setup` |
 | `templates/dev_payments_entry.html` | 8 | 1 | `dev-payments-back`, `dev-payments-entry-detail`, `dev-payments-entry-request`, `dev-payments-entry-resend`, `dev-payments-entry-response`, `dev-payments-entry-result`, `dev-payments-entry-what` |
@@ -359,7 +355,6 @@ Not named by an e2e file, and no driven form, link or script calls them.
 | `templates/goal_message.html` | 1 | 0 | `goal-message` |
 | `templates/history.html` | 4 | 3 | `history-games-scroll` |
 | `static/lessons.js` | 3 | 2 | `lessons-to-top` |
-| `static/login_code.js` | 2 | 1 | `login-code-resend` |
 | `templates/login_code_device.html` | 2 | 1 | `login-code-device-off` |
 | `static/measure.js` | 2 | 1 | `measure-handle` |
 | `templates/mistakes.html` | 9 | 8 | `mistakes-scroll` |
@@ -491,7 +486,7 @@ Titles as Playwright lists them (from the source: run `npm ci` in e2e/ for loops
 - **`specs/lesson-header.spec.ts`** (1, CI): on a phone the lesson text starts under 420 px down a 390x844 screen: one main button, the rest under More ways, the details behind an (i) (#999)
 - **`specs/lesson-tables.spec.ts`** (2, CI): the test course's lessons with tables fit a phone · Spanish paradigm tables scroll in their box, not the page
 - **`specs/lessons.spec.ts`** (17, local only): the server refuses a table it cannot use, and changes nothing · the last lesson cannot be deleted, and Escape keeps a lesson's name · a stopped run keeps its Resume, and has no editor until it is finished · while an AI lesson is being written, every way to change the course is refused · three saves at once leave a course that loads · a folded unit hides its lessons and still takes new ones · Add unit: named in place, saved in the settings, it takes lessons, an empty one goes at once and one with lessons asks first (#232) · course settings are the first row: pinned, kept, and their units reshape the table as they are typed · add-lesson refusals: short brief, and a reply that cannot be used leaves the course alone · Use AI: Only add appends a lesson each time; Allow overall changes can replace the whole course · a hand-made course can be changed overall too · the download is every file by path, with a format version · Delete this course is a red button that warns first · without JavaScript the table still lists the lessons, and Edit opens one · the lesson table fits a phone · a course with progress warns before a delete, and the table is for the owner's own courses only · a lesson page links the lessons before and after it in course order, below the lesson only, and neither past the ends (#402, #999)
-- **`specs/mail.spec.ts`** (7, CI): a new account's confirmation e-mail opens in the dev inbox, and its link confirms the address · the outbox's test message arrives in the inbox and opens from the outbox · the dev mailbox is a mail client's table: bold until opened, archive strikes out and sinks, delete removes, all without a reload (#223) · a superuser resets another account's e-mail verification, and the new link confirms it again · only a superuser sees the Superuser page · the Text section works like the e-mail one, styled like a messaging app (#225) · the dev mailbox needs no sign-in: signed out and as a learner, every section and its JSON open
+- **`specs/mail.spec.ts`** (6, CI): a new account's confirmation e-mail opens in the dev inbox, and its link confirms the address · the outbox's test message arrives in the inbox and opens from the outbox · the dev mailbox is a mail client's table: bold until opened, archive strikes out and sinks, delete removes, all without a reload (#223) · a superuser resets another account's e-mail verification, and the new link confirms it again · only a superuser sees the Superuser page · the dev mailbox needs no sign-in: signed out and as a learner, every section and its JSON open
 - **`specs/measure.spec.ts`** (2, CI): drag and turn the protractor, read the angle, type it · the reading check and the Guide draw it; Sprint mode leaves it out
 - **`specs/mistakes.spec.ts`** (1, CI): a wrong quiz answer shows on the mistakes list, and a right one clears it (#338)
 - **`specs/modals.spec.ts`** (6, CI): a Sprint mode stop's sheet closes on a tap outside it and on Escape (#233) · profile dialogs close on a click outside; one with something typed in its form stays (#226) · the Generate dialog closes on a click outside until a wish is typed; a running job's box stays (#226) · the /dev/jobs (i) opens its dialog; OK and a click outside close it (#872) · without JavaScript a server-opened dialog opens in view at ${viewport.width}px (#1057) · /dev/jobs fits a desktop window: Run now is in view, in German too (#1110)
@@ -501,7 +496,7 @@ Titles as Playwright lists them (from the source: run `npm ci` in e2e/ for loops
 - **`specs/pathways.spec.ts`** (7, CI): switch course: Spanish, then a generated course, then back · generate from notes and uploaded files, with no wish · cancel a slow generation, then resume it to a ready course · resume a run that stopped on a lesson: the resumed job keeps what was written · saving into a stopped run keeps it resumable, and Resume keeps the edit (#81) · the editor opened between the outline and lesson 1 still follows the job to its end · remove an API key: the profile says no key, and generating no longer offers it
 - **`specs/privacy.spec.ts`** (3, CI): the privacy notice is public, dated, and no longer a draft · the notice has one heading per section, the summary list and the US-rights table · at phone width the notice does not scroll sideways and the table can be scrolled on its own
 <!-- themes -->
-- **`specs/profile-autosave.spec.ts`** (8, local only): the green checks come a moment after the save, fade after 5 s, and come back with the next edit · names save a second after typing stops, in one request, and the heading follows · a field that needs attention turns red at once, is not sent, and leaving asks first · the server refusing a field marks it red with the server's reason · without a connection the circle turns red, leaving asks, and it saves once back online · the phone number wears a +1 and punctuates the digits as they are typed (#496) · the profile has no picture and no theme: both are a course's settings · API keys: folded away, a pasted key saves at once, a typed one 3 s after typing stops
+- **`specs/profile-autosave.spec.ts`** (7, local only): the green checks come a moment after the save, fade after 5 s, and come back with the next edit · names save a second after typing stops, in one request, and the heading follows · a field that needs attention turns red at once, is not sent, and leaving asks first · the server refusing a field marks it red with the server's reason · without a connection the circle turns red, leaving asks, and it saves once back online · the profile has no picture and no theme: both are a course's settings · API keys: folded away, a pasted key saves at once, a typed one 3 s after typing stops
 <!-- /themes -->
 - **`specs/profile-nav.spec.ts`** (1, CI): the profile nav marks the section in view
 - **`specs/prompt-limits.spec.ts`** (5, local only): the Generate dialog counts the wish and the notes, red outside 20 to the maximum · the server refuses Generate prompts outside the limits, in the same words · Use AI counts its text, red outside 20 to the maximum, and the server agrees · a Generate form that is too short is refused in place, calmly · short notes are refused in place too, and the notes box is the one marked
@@ -522,7 +517,7 @@ Titles as Playwright lists them (from the source: run `npm ci` in e2e/ for loops
 - **`specs/smoke/french.spec.ts`** (6, CI): the course is on /courses, offers its four levels, and starts at greetings · Study: read greetings, pass its check, practise it; numbers' numeric questions grade · Sprint: play greetings' session right at phone width · Play: play the first stage · Realm: the theme's French material comes first and the course's French praise is used · games: the verb drill (être, avoir) and Date Dash
 <!-- /themes -->
 - **`specs/smoke/happy-paths.spec.ts`** (10, CI): 1. a new learner sees lesson 1 as next · 1b. a stage read in Study but never played says Start in the Guide, not Try again (#417) · 1c. a Guide stage played to the end under 70 % says Try again, not Continue past its last step (#417) · 2. Study: read lesson 1, pass its check, practise it: passed everywhere · 3. Sprint: play lesson 1's session right: passed everywhere · 4. Play: play stage 1: passed everywhere · 5. a lesson passed in one mode is passed in the other two · 6. progress survives logging out and back in · 7. a lesson whose every answer was right is not listed as needing practice (#681) · 8. a Guide stage's quick checks mix their options, so the right one is not always first (#962)
-- **`specs/smoke/mini.spec.ts`** (6, CI): a learner registers, signs in again and passes a lesson with nothing configured · there is no dev mailbox and no dev phone · the server says it is a Skrongle mini · the profile has no Subscription, no phone field and no red ! on the e-mail · sharing shows the link once, and a reload goes back to the dialog without inviting again
+- **`specs/smoke/mini.spec.ts`** (6, CI): a learner registers, signs in again and passes a lesson with nothing configured · there is no dev mailbox · the server says it is a Skrongle mini · the profile has no Subscription and no red ! on the e-mail · sharing shows the link once, and a reload goes back to the dialog without inviting again
 - **`specs/smoke/motivator-reward.spec.ts`** (1, CI): every mode's end screen shows the worn motivator's reward line
 - **`specs/smoke/motivator-skc.spec.ts`** (1, CI): Skrongle Cash draws the hero and reward line, and keeps counting while another motivator is worn
 - **`specs/smoke/motivator-social.spec.ts`** (1, CI): Social compares the learner with the course's other learners, anonymously
@@ -554,6 +549,6 @@ Titles as Playwright lists them (from the source: run `npm ci` in e2e/ for loops
 - **`specs/staff-note.spec.ts`** (5, CI): Practice: tap, drag and the keyboard place the note; the octave counts unless any octave does · a note a step off is wrong with no octave note · the reading check, Sprint mode and the Guide take the note · a lesson without a staff-note question loads no staff-note script · the lesson editor has the note, clef and any-octave boxes, and its preview plays the question
 - **`specs/subscription.spec.ts`** (3, local only): Plus: bought through Checkout, shown with its renewal date, the AI bar and the own-keys pill; cancelled, it lasts the month · Basic: no Skrongle AI card or pill, an Upgrade to Plus button that opens the Billing Portal, and the chooser marks Basic as the current plan · dev login ?plan= takes basic, plus and the old pro (now Plus) through the dev Checkout; anything else names the plans
 - **`specs/terms.spec.ts`** (5, CI): the terms page is public and says when it was last updated · registration needs the terms checkbox, and records the acceptance · a material change: the notice cannot be dismissed and blocks the API until accepted · a minor change: the notice shows what changed and Continue closes it for good · the profile's read link shows the terms in a dialog and closes back to the profile (#152)
-- **`specs/two-factor.spec.ts`** (4, CI): a phone number is verified with a texted code, and text-message sign-in then works (#292) · e-mail sign-in codes are not offered until the address is verified; then the code comes by e-mail and a wrong one is refused (#292) · an authenticator app is added through the dev authenticator and its codes sign in, each once (#292) · a number that replied STOP gets its sign-in code by e-mail, and START plus a new code turns texts back on (#969)
+- **`specs/two-factor.spec.ts`** (2, CI): e-mail sign-in codes are not offered until the address is verified; then the code comes by e-mail and a wrong one is refused (#292) · an authenticator app is added through the dev authenticator and its codes sign in, each once (#292)
 - **`specs/word-list.spec.ts`** (3, CI): a pasted word list previews, flags what it can't read, and becomes a lesson that opens with the words · a paste past the cap is refused in words, not with a body-limit error · the button follows the Language features switch
 - **`specs/words-due.spec.ts`** (2, CI): due words show on the course home, a due round reviews them, and the card goes (#1360) · on a phone the card stacks: the button runs the full width under the words (#1360)

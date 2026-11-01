@@ -71,11 +71,6 @@ pub struct ProfileTemplate {
     pub confirm_remove: bool,
     pub confirm_error: Option<String>,
     pub confirm_sent: Option<String>,
-    /// The phone number's verify dialog opens on load (a code was just
-    /// sent, or a wrong one typed), and what went wrong.
-    pub phone_open: bool,
-    pub phone_sent: bool,
-    pub phone_error: Option<String>,
     /// A Google-only account without a second step just confirmed it's
     /// its owner with Google (#376): the next change goes ahead.
     pub google_confirmed: bool,
@@ -89,14 +84,14 @@ pub struct ProfileTemplate {
     pub export: Option<crate::exports::Status>,
     pub export_error: Option<String>,
     /// What this server can send (#633): without mail no confirmation
-    /// link or e-mailed codes; without texts no phone number.
+    /// link or e-mailed codes.
     pub caps: crate::Caps,
 }
 
 impl ProfileTemplate {
     /// How this account proves it is its owner (`prove_owner`): `password`;
     /// a Google-only account a `code` from its app, one it is `send`
-    /// (texted or e-mailed), or, without a second step, `google`.
+    /// (e-mailed), or, without a second step, `google`.
     pub fn proof_kind(&self) -> &'static str {
         match (self.profile.has_password, self.profile.two_factor.method) {
             (true, _) => "password",
@@ -136,7 +131,7 @@ impl ProfileTemplate {
         s
     }
 
-    /// `''` (off), `sms`, `email` or `totp`.
+    /// `''` (off), `email` or `totp`.
     pub fn two_factor_method(&self) -> &'static str {
         self.profile.two_factor.method.map(crate::two_factor::Method::as_str).unwrap_or("")
     }
@@ -145,17 +140,9 @@ impl ProfileTemplate {
         self.profile.two_factor.refusal(crate::two_factor::Method::Email).is_none()
     }
 
-    pub fn sms_2fa_ok(&self) -> bool {
-        self.profile.two_factor.refusal(crate::two_factor::Method::Sms).is_none()
-    }
-
     /// Is the method offered at all? Not when its channel is off (#633).
     pub fn email_2fa_offered(&self) -> bool {
         self.caps.mail
-    }
-
-    pub fn sms_2fa_offered(&self) -> bool {
-        self.caps.sms
     }
 
     /// The e-mail field's red ! (confirm your address): only on a server
@@ -189,10 +176,9 @@ impl ProfileTemplate {
     }
 
     /// A Google-only account proves it with a code: from the app, or one
-    /// sent by the current method (`sms` / `email`).
+    /// sent by the current method (`email`).
     pub fn confirm_code_sent_by(&self) -> &'static str {
         match self.profile.two_factor.method {
-            Some(crate::two_factor::Method::Sms) => "sms",
             Some(crate::two_factor::Method::Email) => "email",
             _ => "",
         }
@@ -314,8 +300,6 @@ pub struct ShowQuery {
     pub ai: Option<String>,
     /// `enrol`: an authenticator app's enrolment just started.
     pub totp: Option<String>,
-    /// `sent`: a code was just texted to the phone number.
-    pub phone: Option<String>,
     /// `google`: back from confirming it's you with Google (#376), for
     /// the two-factor `method` being chosen (else to delete the account).
     pub confirmed: Option<String>,
@@ -397,9 +381,6 @@ fn page(state: &AppState, user: CurrentUser, (p, api_keys, subscription, ai): Lo
         confirm_remove: false,
         confirm_error: None,
         confirm_sent: None,
-        phone_open: false,
-        phone_sent: false,
-        phone_error: None,
         export: None,
         export_error: None,
         caps: state.caps(),
@@ -446,7 +427,6 @@ pub async fn show(
             Some(m) => crate::t1("profile.two_factor.is_method", "method", method_label(m)),
         }),
         (Some("totp-removed"), _) => Some(crate::t("profile.two_factor.totp_removed")),
-        (Some("phone-verified"), _) => Some(crate::t("profile.two_factor.phone_verified")),
         // No mail on this server: no link is coming; the Download button is (#633).
         (Some("export-queued"), _) if !t.caps.mail => Some(crate::t("profile.data.export_building_no_mail")),
         (Some("export-queued"), _) => Some(crate::t("profile.data.export_queued")),
@@ -492,11 +472,6 @@ pub async fn show(
         Some("export-gone") => Some(crate::t("profile.data.export_gone")),
         _ => None,
     };
-    t.phone_sent = q.phone.as_deref() == Some("sent");
-    // `?phone=sent` comes only after a code went out: to an unconfirmed
-    // number, or a confirmed one checking it takes texts again (#969),
-    // whose flag may already be cleared by the text getting through.
-    t.phone_open = t.phone_sent;
     Ok(Page(t).into_response())
 }
 
@@ -548,8 +523,6 @@ pub(super) fn look_json(theme: Option<&crate::content::Theme>) -> serde_json::Va
 pub struct ProfileChanges {
     pub first_name: Option<String>,
     pub last_name: Option<String>,
-    /// The phone number, international format; '' removes it.
-    pub phone: Option<String>,
     /// The language the app speaks to this account in (`i18n::languages`).
     pub lang: Option<String>,
     /// AI API keys, as `key_<provider>` (`key_anthropic`, …).
@@ -586,32 +559,10 @@ pub async fn save(
         };
         check(field, r.map(|()| String::new()));
     }
-    let phone = match changes.phone.as_deref().map(str::trim) {
-        None => None,
-        // No text messages on this server: no phone number either (#633).
-        Some(_) if !state.caps().sms => check("phone", Err(crate::t("profile.save.sms_off"))),
-        Some("") => Some(String::new()),
-        Some(v) => check(
-            "phone",
-            crate::sms::normalize_us_number(v).map_err(|e| crate::t1("profile.save.not_a_phone", "why", e)).and_then(|n| {
-                if state.sms.policy.allows(&n) {
-                    Ok(n)
-                } else {
-                    Err(crate::t("profile.save.sms_country"))
-                }
-            }),
-        ),
-    };
     let lang = changes.lang.as_deref().map(str::trim).and_then(|v| {
         let ok = if crate::i18n::is_language(v) { Ok(v.to_string()) } else { Err(crate::t("profile.personal.language_unavailable")) };
         check("lang", ok)
     });
-    if let Some(p) = phone.clone() {
-        let uid = user.id;
-        if let Some(why) = state.db.call(move |c| crate::two_factor::phone_change_refusal(c, uid, &p)).await? {
-            errors.insert("phone".into(), crate::t(why).into());
-        }
-    }
     if user.ai_off {
         for field in changes.keys.keys() {
             errors.insert(field.clone(), crate::t("profile.ai.keys_off").into());
@@ -623,16 +574,12 @@ pub async fn save(
     }
 
     let (uid, vault) = (user.id, state.vault.clone());
-    let phone_saved = phone.clone();
     let saved_keys: Vec<Provider> = keys.iter().map(|(p, _)| *p).collect();
     let (p, statuses) = state
         .db
         .call(move |c| {
             let tx = c.transaction()?;
             profile::update(&tx, uid, first.as_deref(), last.as_deref())?;
-            if let Some(p) = &phone_saved {
-                crate::two_factor::set_phone(&tx, uid, p)?;
-            }
             if let Some(l) = &lang {
                 profile::set_lang(&tx, uid, l)?;
             }
@@ -649,9 +596,6 @@ pub async fn save(
     tracing::info!("user {uid} updated their profile");
 
     let mut body = serde_json::json!({ "display_name": profile::display_name(&p.first_name, &p.last_name) });
-    if phone.is_some() {
-        body["phone"] = serde_json::json!({ "number": p.two_factor.phone, "verified": p.two_factor.phone_verified, "opted_out": p.two_factor.phone_opted_out });
-    }
     if !saved_keys.is_empty() {
         let hints: serde_json::Map<String, serde_json::Value> = statuses
             .iter()
@@ -688,11 +632,10 @@ pub async fn resend_verification(
     Ok(Redirect::to(&crate::url("/profile?saved=verify-sent")).into_response())
 }
 
-// ---------- two-factor sign-in and the phone number (two_factor.rs) ----------
+// ---------- two-factor sign-in (two_factor.rs) ----------
 
 fn method_label(m: crate::two_factor::Method) -> String {
     match m {
-        crate::two_factor::Method::Sms => crate::t("profile.two_factor.method_sms"),
         crate::two_factor::Method::Email => crate::t("profile.two_factor.method_email"),
         crate::two_factor::Method::Totp => crate::t("profile.two_factor.method_totp"),
     }
@@ -718,7 +661,7 @@ async fn pending_totp_key(state: &AppState, uid: i64) -> Result<Option<crate::to
 
 #[derive(Deserialize)]
 pub struct MethodForm {
-    /// `''` (off), `sms`, `email` or `totp`.
+    /// `''` (off), `email` or `totp`.
     #[serde(default)]
     pub method: String,
     /// Turning two-factor off or switching it: the account's password, or
@@ -896,7 +839,7 @@ async fn code_sent_page(state: &AppState, user: CurrentUser, f: ConfirmCodeForm,
 
 /// POST /profile/two-factor/code (method, remove | then=delete): a
 /// Google-only account (no password) asks for a code from its current
-/// texted or e-mailed second step, to change two-factor sign-in or delete
+/// e-mailed second step, to change two-factor sign-in or delete
 /// the account. Limited like a sign-in's "Send a new code"; the page comes
 /// back with the dialog (or the delete form) waiting for it.
 pub async fn send_confirm_code(State(state): State<Arc<AppState>>, user: CurrentUser, Form(f): Form<ConfirmCodeForm>) -> Result<Response, AppError> {
@@ -911,7 +854,6 @@ pub async fn send_confirm_code(State(state): State<Arc<AppState>>, user: Current
         return Ok(Redirect::to(&crate::url("/profile#two-factor")).into_response());
     };
     let sent = match method {
-        Method::Sms => state.sms.send_sms(&state.db, two_factor::PURPOSE_CONFIRM, &to, &two_factor::confirm_text(&code), Some(uid)).await.map(|_| ()).map_err(|e| e.to_string()),
         Method::Email => match two_factor::confirm_mail(&to, &code, uid) {
             Ok(mail) => state.mail.queue(&state.db, mail).await.map(|_| ()).map_err(|e| format!("{e:?}")),
             Err(e) => Err(e),
@@ -923,8 +865,7 @@ pub async fn send_confirm_code(State(state): State<Arc<AppState>>, user: Current
         return code_sent_page(&state, user, f, StatusCode::SERVICE_UNAVAILABLE, Some(crate::t("profile.two_factor.code_not_sent")), None).await;
     }
     tracing::info!("user {uid} asked for a code to confirm an account change");
-    let (email, phone) = if method == Method::Email { (to, String::new()) } else { (String::new(), to) };
-    let sent = two_factor::masked(method, &email, &phone);
+    let sent = two_factor::masked(method, &to);
     code_sent_page(&state, user, f, StatusCode::OK, None, Some(sent)).await
 }
 
@@ -991,92 +932,6 @@ pub async fn remove_totp(
         two_factor_changed(&state, &user, token, None).await?;
     }
     Ok(Redirect::to(&crate::url("/profile?saved=totp-removed#two-factor")).into_response())
-}
-
-/// POST /profile/phone/send: text a code to the profile's number to
-/// confirm it (limited per account, and by the texts' own limits). Only for
-/// an account with a confirmed address or Google (#431), and never to a
-/// number another account has verified (#363).
-pub async fn send_phone_code(State(state): State<Arc<AppState>>, user: CurrentUser) -> Result<Response, AppError> {
-    // No text messages on this server: the phone field is not offered (#633).
-    if !state.caps().sms {
-        return Err(AppError::NotFound);
-    }
-    let uid = user.id;
-    let now = crate::db::now();
-    let fail = |msg: String| (StatusCode::TOO_MANY_REQUESTS, move |t: &mut ProfileTemplate| {
-        t.phone_open = true;
-        t.phone_error = Some(msg);
-    });
-    if !state.limits.hit(crate::security::TWO_FACTOR_SEND_PER_USER, &uid.to_string(), now) {
-        tracing::warn!("phone code limit hit for user {uid}");
-        let (status, f) = fail(crate::t("profile.two_factor.too_many_codes"));
-        return profile_with(&state, user, status, f).await;
-    }
-    let (phone, code) = match state.db.call(move |c| crate::two_factor::issue_phone_code(c, uid, now)).await? {
-        crate::two_factor::PhoneCode::Send { phone, code } => (phone, code),
-        crate::two_factor::PhoneCode::Nothing => return Ok(Redirect::to(&crate::url("/profile#personal")).into_response()),
-        crate::two_factor::PhoneCode::Refused(why) => {
-            tracing::warn!("phone code refused for user {uid}: {why}");
-            return profile_with(&state, user, StatusCode::FORBIDDEN, |t| {
-                t.phone_open = true;
-                t.phone_error = Some(crate::t(why));
-            })
-            .await;
-        }
-    };
-    match state.sms.send_sms(&state.db, crate::two_factor::PURPOSE_PHONE, &phone, &crate::two_factor::phone_text(&code), Some(uid)).await {
-        Ok(_) => {
-            tracing::info!("user {uid} asked for a phone code");
-            Ok(Redirect::to(&crate::url("/profile?phone=sent#personal")).into_response())
-        }
-        Err(crate::sms::SmsError::RateLimited { retry_after }) => {
-            let (status, f) = fail(crate::t1("profile.two_factor.too_many_texts", "minutes", (retry_after + 59) / 60));
-            profile_with(&state, user, status, f).await
-        }
-        Err(crate::sms::SmsError::Invalid(why)) => profile_with(&state, user, StatusCode::UNPROCESSABLE_ENTITY, |t| {
-            t.phone_open = true;
-            t.phone_error = Some(crate::t1("profile.two_factor.number_no_texts", "why", why));
-        })
-        .await,
-        Err(crate::sms::SmsError::Country) => profile_with(&state, user, StatusCode::UNPROCESSABLE_ENTITY, |t| {
-            t.phone_open = true;
-            t.phone_error = Some(crate::t("profile.save.sms_country"));
-        })
-        .await,
-        Err(crate::sms::SmsError::Db(e)) => Err(e),
-    }
-}
-
-/// POST /profile/phone/verify (code): the texted code confirms the number.
-pub async fn verify_phone(State(state): State<Arc<AppState>>, user: CurrentUser, Form(f): Form<CodeForm>) -> Result<Response, AppError> {
-    use crate::two_factor::Checked;
-    let uid = user.id;
-    let code = f.code;
-    let checked = state.db.call(move |c| crate::two_factor::confirm_phone(c, uid, &code, crate::db::now())).await?;
-    let msg = match checked {
-        Checked::Ok => {
-            tracing::info!("user {uid} verified their phone number");
-            return Ok(Redirect::to(&crate::url("/profile?saved=phone-verified#personal")).into_response());
-        }
-        Checked::Wrong(left) => crate::tn("profile.two_factor.code_wrong_tries", left),
-        Checked::Gone => {
-            let taken = state
-                .db
-                .call(move |c| {
-                    let phone: String = c.query_row("SELECT phone FROM users WHERE id = ?1", [uid], |r| r.get(0))?;
-                    crate::two_factor::phone_taken(c, uid, &phone)
-                })
-                .await?;
-            crate::t(if taken { crate::two_factor::PHONE_TAKEN } else { "profile.two_factor.phone_code_expired" })
-        }
-    };
-    profile_with(&state, user, StatusCode::UNPROCESSABLE_ENTITY, |t| {
-        t.phone_open = true;
-        t.phone_sent = true;
-        t.phone_error = Some(msg);
-    })
-    .await
 }
 
 /// POST /profile/password

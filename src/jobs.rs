@@ -30,8 +30,8 @@
 //!   row is queued again, due now, behind anything already due ([`again`]).
 //!   Data exports work this way (#875, `exports.rs`, kind [`EXPORT`]).
 //!
-//! - The mail and text outboxes (`mail_outbox`, `sms_outbox`) keep their own
-//!   tables but are drained by this runner too (#873): each is a [`Drain`].
+//! - The mail outbox (`mail_outbox`) keeps its own
+//!   table but is drained by this runner too (#873): it is a [`Drain`].
 //!   A row is leased the same way, with [`lease_outbox`] (`locked_by`,
 //!   `locked_until`; it stays `queued` until it is sent or fails), so a row
 //!   being sent is never handed out twice. Each pass sends at most
@@ -273,7 +273,7 @@ pub fn next_due(conn: &Connection, kinds: &[&str]) -> rusqlite::Result<Option<i6
 
 // ---------- the outbox tables ----------
 
-/// Lease the next due row of an outbox table (`mail_outbox`, `sms_outbox`)
+/// Lease the next due row of an outbox table (`mail_outbox`)
 /// to `worker`: a `queued` row whose `next_attempt_at` has come and that no
 /// live lease holds (none, or one that ran out because its server stopped
 /// mid-send). One statement, like [`claim`]; the row stays `queued` until the
@@ -602,7 +602,7 @@ impl Runner {
 
 /// The hourly housekeeping, one job per purge: expired sessions, abandoned
 /// games, old generation jobs, idle tutor chats, rate-limit windows, the
-/// retention rules (privacy.rs), old outbox rows (mail.rs, sms.rs), old
+/// retention rules (privacy.rs), old outbox rows (mail.rs), old
 /// verification, reset, two-factor and invitation links, expired data
 /// exports with their files, old job rows, accounts due for deletion
 /// (#970), and a WAL checkpoint so the -wal
@@ -644,7 +644,7 @@ pub fn housekeeping(runner: Runner, state: &Arc<crate::AppState>, retention: cra
         .handle(TUTOR_CHATS, tutors)
         .handle(RATE_LIMITS, limits)
         .handle(RETENTION, retain)
-        .handle(OUTBOX, |db, _| sql(db, |c, now| Ok(note(crate::mail::purge(c, now)? + crate::sms::purge(c, now)?, "old outbox rows deleted"))))
+        .handle(OUTBOX, |db, _| sql(db, |c, now| Ok(note(crate::mail::purge(c, now)?, "old outbox rows deleted"))))
         .handle(LINKS, |db, _| {
             sql(db, |c, now| {
                 let n = crate::verify::purge(c, now)? + crate::reset::purge(c, now)? + crate::two_factor::purge(c, now)? + crate::signup::purge(c, now)?;

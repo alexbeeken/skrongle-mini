@@ -230,7 +230,7 @@ fn the_dev_mailbox_needs_no_sign_in_and_the_simulator_speaks_the_wire_protocols(
         }
         req.call().unwrap().status().as_u16()
     };
-    for path in ["/dev/inbox", "/dev/mail", "/dev/phone", "/dev/sms", "/dev/inbox/rows", "/dev/authenticator", "/dev/ai", "/dev/ai/rows"] {
+    for path in ["/dev/inbox", "/dev/mail", "/dev/inbox/rows", "/dev/authenticator", "/dev/ai", "/dev/ai/rows"] {
         assert!(matches!(get(path, None, "text/html"), 200 | 404), "{path}: signed out, a browser");
         assert!(matches!(get(path, None, "application/json"), 200 | 404), "{path}: signed out");
         assert!(matches!(get(path, Some(&learner), "application/json"), 200 | 404), "{path}: a learner");

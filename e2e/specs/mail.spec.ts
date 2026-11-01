@@ -164,122 +164,15 @@ test("only a superuser sees the Superuser page", async ({ page }) => {
   expect((await page.request.post("/superuser/reset-email-verification", { form: { email: "dev@example.com" }, maxRedirects: 0 })).status()).toBe(404);
 });
 
-test("the Text section works like the e-mail one, styled like a messaging app (#225)", async ({ page }) => {
-  // A number of this test's own; the filter compares digits.
-  const number = `+4477009${String(Math.floor(Math.random() * 100000)).padStart(5, "0")}`;
-  await devLogin(page);
-  await page.goto("/dev/inbox");
-  await page.getByTestId("dev-box-kind-sms").click();
-  await expect(page).toHaveURL(/\/dev\/phone$/);
-  await page.goto(`/dev/phone?to=${encodeURIComponent(number)}`);
-  await expect(page.getByTestId("dev-box")).toHaveAttribute("data-kind", "sms");
-  await expect(page.getByTestId("dev-phone-empty")).toBeVisible();
-  const texts = page.getByTestId("dev-phone-item");
-
-  // Two texts from the outbox tab's form arrive on the phone without a reload,
-  // as one conversation: a second text to the same number joins its row (#252).
-  await page.getByTestId("dev-box-tab-out").click();
-  await expect(page).toHaveURL(/\/dev\/sms\?to=/);
-  await expect(page.getByTestId("dev-sms-to")).toHaveValue("+447700900123");
-  await expect(page.getByTestId("dev-sms-text")).toHaveValue("test123");
-  for (const text of ["First code 1111", "Second code 2222"]) {
-    await page.getByTestId("dev-sms-to").fill(number);
-    await page.getByTestId("dev-sms-text").fill(text);
-    await page.getByTestId("dev-sms-send").click();
-    await expect(page.getByTestId("dev-sms-message").filter({ hasText: text })).toHaveAttribute("data-state", "sent");
-  }
-  await expect(page.getByTestId("dev-sms-message")).toHaveCount(1);
-  await page.getByTestId("dev-box-tab-in").click();
-  await expect(texts).toHaveCount(1);
-  await expect(texts.nth(0)).toContainText("Second code 2222");
-  await expect(texts.nth(0)).toHaveAttribute("data-read", "false");
-  await expect(texts.nth(0).locator(".devbox-subject")).toHaveCSS("font-weight", "700");
-  await expect(page.getByTestId("dev-box-tab-in")).toContainText("1");
-
-  // Archive: struck out. Unarchive brings it back.
-  await texts.nth(0).getByTestId("dev-phone-archive").click();
-  await expect(texts.nth(0)).toHaveAttribute("data-archived", "true");
-  await expect(texts.nth(0).locator(".devbox-preview")).toHaveCSS("text-decoration-line", "line-through");
-  await texts.nth(0).getByTestId("dev-phone-unarchive").click();
-  await expect(texts.nth(0)).toHaveAttribute("data-archived", "false");
-
-  // A text opens as a conversation with that number; then it reads as read.
-  await texts.nth(0).locator(".devbox-preview").click();
-  await expect(page.getByTestId("dev-text-to")).toHaveText(number);
-  await expect(page.getByTestId("dev-text-body")).toHaveText(["First code 1111", "Second code 2222"]);
-  // The phone's side: the app's texts come in on the left; a reply typed here is the number's, on the right.
-  await expect(page.getByTestId("dev-text-phone")).toHaveAttribute("data-side", "in");
-  await expect(page.getByTestId("dev-text-bubble").nth(1)).toHaveCSS("align-self", "flex-start");
-  await page.getByTestId("dev-text-compose").fill("Got it");
-  await page.getByTestId("dev-text-compose-send").click();
-  await expect(page.getByTestId("dev-text-body")).toHaveText(["First code 1111", "Second code 2222", "Got it"]);
-  await expect(page.getByTestId("dev-text-bubble").nth(2)).toHaveAttribute("data-from", "phone");
-  await expect(page.getByTestId("dev-text-bubble").nth(2)).toHaveCSS("align-self", "flex-end");
-  await expect(page.getByTestId("dev-text-compose")).toHaveValue("");
-  await expect(page).toHaveURL(/\/dev\/phone\/\d+$/);
-
-  // The outbox's side of the same conversation: the app's texts on the right, the reply on the left.
-  // The switch swaps the page in place (a view transition, #252) and moves to the outbox row's URL.
-  await page.evaluate(() => ((window as any).__sameDocument = true));
-  await page.getByTestId("dev-text-other").click();
-  await expect(page).toHaveURL(/\/dev\/sms\/\d+$/);
-  await expect(page.getByTestId("dev-text-state")).toContainText("sent via dev-phone");
-  await expect(page.getByTestId("dev-text-phone")).toHaveAttribute("data-side", "out");
-  await expect(page.getByTestId("dev-text-to")).toHaveText(number);
-  await expect(page.getByTestId("dev-text-body")).toHaveText(["First code 1111", "Second code 2222", "Got it"]);
-  await expect(page.getByTestId("dev-text-bubble").nth(1)).toHaveCSS("align-self", "flex-end");
-  await expect(page.getByTestId("dev-text-bubble").nth(1)).toHaveClass(/current/);
-  await expect(page.getByTestId("dev-text-bubble").nth(2)).toHaveCSS("align-self", "flex-start");
-  expect(await page.evaluate(() => (window as any).__sameDocument)).toBe(true);
-  await expect(page).toHaveTitle(/text to/);
-  // Back and forward show the side the URL names.
-  await page.goBack();
-  await expect(page).toHaveURL(/\/dev\/phone\/\d+$/);
-  await expect(page.getByTestId("dev-text-phone")).toHaveAttribute("data-side", "in");
-  await expect(page.getByTestId("dev-text-bubble").nth(1)).toHaveCSS("align-self", "flex-start");
-  await page.goForward();
-  await expect(page).toHaveURL(/\/dev\/sms\/\d+$/);
-  await expect(page.getByTestId("dev-text-phone")).toHaveAttribute("data-side", "out");
-  await expect(page.getByTestId("dev-text-state")).toContainText("sent via dev-phone");
-
-  // Texting from here sends it to that number: the bubble appears without leaving the page.
-  await page.getByTestId("dev-text-compose").fill("Third code 3333");
-  await page.getByTestId("dev-text-compose-send").click();
-  await expect(page.getByTestId("dev-text-body")).toHaveText(["First code 1111", "Second code 2222", "Got it", "Third code 3333"]);
-  await expect(page.getByTestId("dev-text-bubble").nth(3)).toHaveAttribute("data-state", "sent");
-  await expect(page).toHaveURL(/\/dev\/sms\/\d+$/);
-  // It arrived on the phone's side as well.
-  await page.getByTestId("dev-text-other").click();
-  await expect(page.getByTestId("dev-text-phone")).toHaveAttribute("data-side", "in");
-  await expect(page.getByTestId("dev-text-body")).toHaveText(["First code 1111", "Second code 2222", "Got it", "Third code 3333"]);
-
-  // Still one row per number, showing the newest text. Delete removes the whole conversation.
-  await page.goto(`/dev/phone?to=${encodeURIComponent(number)}`);
-  await expect(texts).toHaveCount(1);
-  // The newest text was never opened on the phone, so the conversation is unread again.
-  await expect(texts.nth(0)).toContainText("Third code 3333");
-  await expect(texts.nth(0)).toHaveAttribute("data-read", "false");
-  await texts.nth(0).getByTestId("dev-phone-delete").click();
-  await expect(page.getByTestId("dev-phone-empty")).toBeVisible();
-
-  // The outbox's conversation goes for good too: every row to that number.
-  await page.getByTestId("dev-box-tab-out").click();
-  const rows = page.getByTestId("dev-sms-message");
-  await expect(rows).toHaveCount(1);
-  await expect(rows.nth(0)).toContainText("Third code 3333");
-  await rows.nth(0).getByTestId("dev-sms-delete").click();
-  await expect(page.getByTestId("dev-sms-empty")).toBeVisible();
-});
-
 test("the dev mailbox needs no sign-in: signed out and as a learner, every section and its JSON open", async ({ page, playwright }) => {
   const anon = await playwright.request.newContext({ baseURL: test.info().project.use.baseURL });
-  for (const path of ["/dev/inbox", "/dev/mail", "/dev/phone", "/dev/sms", "/dev/authenticator", "/dev/ai", "/dev/payments"]) {
+  for (const path of ["/dev/inbox", "/dev/mail", "/dev/authenticator", "/dev/ai", "/dev/payments"]) {
     expect((await anon.get(`${path}?format=json`)).status(), `${path} signed out`).toBe(200);
   }
   await anon.dispose();
 
   // A browser that is not signed in opens every section.
-  for (const [path, testid] of [["/dev/inbox", "dev-box"], ["/dev/phone", "dev-box"], ["/dev/authenticator", "dev-authenticator"], ["/dev/ai", "dev-ai"], ["/dev/payments", "dev-payments"]]) {
+  for (const [path, testid] of [["/dev/inbox", "dev-box"], ["/dev/authenticator", "dev-authenticator"], ["/dev/ai", "dev-ai"], ["/dev/payments", "dev-payments"]]) {
     await page.goto(path);
     await expect(page.getByTestId(testid)).toBeVisible();
   }
@@ -288,7 +181,7 @@ test("the dev mailbox needs no sign-in: signed out and as a learner, every secti
 
   // So does a learner, as themselves.
   await register(page, newAccount("notdev"), "spanish");
-  for (const path of ["/dev/inbox", "/dev/phone", "/dev/authenticator", "/dev/ai"]) {
+  for (const path of ["/dev/inbox", "/dev/authenticator", "/dev/ai"]) {
     expect((await page.request.get(`${path}?format=json`)).status(), `${path} as a learner`).toBe(200);
   }
   await page.goto("/dev/ai");

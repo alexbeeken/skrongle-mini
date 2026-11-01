@@ -67,8 +67,6 @@ export default {
         await check(5, `${first.slug} shows passed on /lessons`, () => expect(item).toHaveAttribute("data-passed", "true"));
         const mail = await (await page.request.get("/dev/inbox?format=json")).json();
         await check(5, `no mail anywhere: /dev/inbox messages=${mail.messages.length}, smtp=${mail.smtp}`, async () => { expect(mail.messages).toEqual([]); expect(mail.smtp).toBeNull(); });
-        const phone = await (await page.request.get("/dev/phone?format=json")).json();
-        await check(5, `no dev phone: phone=${phone.phone}`, async () => expect(phone.phone).toBe(false));
       },
     },
   ],

@@ -1,10 +1,10 @@
 // The mini shape (#632, lane #639): what a self-hoster runs, with no mail,
-// SMS, Google, payments or Skrongle AI configured. CI runs this in the
+// Google, payments or Skrongle AI configured. CI runs this in the
 // e2e-mini job (E2E_MINI=1 scripts/e2e.sh, docs/testing.md "The mini lane"),
 // where the server has the dev stand-ins off; elsewhere it skips.
 //
 // Each #632 issue adds its browser check here as it lands. Here: #633 no
-// red ! on the e-mail field and no phone field, #636 no Subscription
+// red ! on the e-mail field, #636 no Subscription
 // section, #641 /healthz names the mini, #667 the share flow shows the
 // link once and a reload goes back to the dialog. Still to come: the export's Download button, #637 the Terms file, #634
 // the closed register page (the lane keeps sign-up open: the specs register).
@@ -31,11 +31,10 @@ test("a learner registers, signs in again and passes a lesson with nothing confi
   await expectProgressAgrees(page);
 });
 
-test("there is no dev mailbox and no dev phone", async ({ request }) => {
+test("there is no dev mailbox", async ({ request }) => {
   const mail = await (await request.get("/dev/inbox?format=json")).json();
   expect(mail.smtp, "/dev/inbox: no SMTP mailbox").toBeNull();
-  const phone = await (await request.get("/dev/phone?format=json")).json();
-  expect(phone.phone, "/dev/phone: no dev phone").toBe(false);
+  expect((await request.get("/dev/phone?format=json")).status(), "/dev/phone is gone").toBe(404);
 });
 
 test("the server says it is a Skrongle mini", async ({ request }) => {
@@ -44,15 +43,14 @@ test("the server says it is a Skrongle mini", async ({ request }) => {
   expect(await res.text(), "/healthz names the edition (#641)").toMatch(/^ok skrongle mini \d+\.\d+\.\d+/);
 });
 
-test("the profile has no Subscription, no phone field and no red ! on the e-mail", async ({ page }) => {
+test("the profile has no Subscription and no red ! on the e-mail", async ({ page }) => {
   await signUp(page, newAccount("mini-profile"));
   await page.goto("/profile");
   await expect(page.getByTestId("profile-form")).toBeVisible();
   // #636: no plans, so no Subscription section or nav link.
   await expect(page.getByTestId("profile-subscription")).toHaveCount(0);
   await expect(page.locator('[data-testid="profile-nav-link"][data-section="subscription"]')).toHaveCount(0);
-  // #633: no texts, so no phone field; no mail, so an (i), not the red !.
-  await expect(page.getByTestId("profile-phone")).toHaveCount(0);
+  // #633: no mail, so an (i), not the red !.
   await expect(page.getByTestId("email-unverified")).toHaveCount(0);
   await expect(page.getByTestId("email-no-mail-info")).toBeVisible();
 });

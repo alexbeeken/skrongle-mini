@@ -13,18 +13,6 @@ fn verify_email(c: &Connection, u: i64) {
     crate::verify::mark_verified(c, u, 1).unwrap();
 }
 
-/// The code `issue_phone_code` made can't be read back (hashed), so the
-/// tests make their own row with a known code.
-fn put_phone_code(c: &Connection, u: i64, code: &str, now: i64) {
-    let phone: String = c.query_row("SELECT phone FROM users WHERE id = ?1", [u], |r| r.get(0)).unwrap();
-    c.execute("DELETE FROM phone_verifications WHERE user_id = ?1", [u]).unwrap();
-    c.execute(
-        "INSERT INTO phone_verifications (user_id, phone, code_hash, salt, created_at, expires_at) VALUES (?1, ?2, ?3, 's', ?4, ?5)",
-        params![u, phone, hash(&["s", code]), now, now + CODE_TTL_SECS],
-    )
-    .unwrap();
-}
-
 #[test]
 fn codes_are_six_digits() {
     for _ in 0..200 {
@@ -36,116 +24,15 @@ fn codes_are_six_digits() {
 }
 
 #[test]
-fn methods_need_a_verified_address_number_or_app() {
+fn methods_need_a_verified_address_or_app() {
     let db = Db::open_in_memory().unwrap();
     db.with(|c| {
         let u = user(c, "ann@example.org");
         assert_eq!(set_method(c, u, Some(Method::Email))?, Err(crate::t("auth.two_factor.needs_email")));
-        assert_eq!(set_method(c, u, Some(Method::Sms))?, Err(crate::t("auth.two_factor.needs_phone")));
         assert_eq!(set_method(c, u, Some(Method::Totp))?, Err(crate::t("auth.two_factor.needs_app")));
         verify_email(c, u);
         assert_eq!(set_method(c, u, Some(Method::Email))?, Ok(()));
         assert_eq!(settings(c, u)?.method, Some(Method::Email));
-        // A number is not enough until a code confirms it.
-        set_phone(c, u, "+447700900123")?;
-        assert_eq!(set_method(c, u, Some(Method::Sms))?, Err(crate::t("auth.two_factor.needs_phone")));
-        assert!(matches!(issue_phone_code(c, u, 100)?, PhoneCode::Send { .. }));
-        put_phone_code(c, u, "123456", 100);
-        assert_eq!(confirm_phone(c, u, "000000", 101)?, Checked::Wrong(4));
-        assert_eq!(confirm_phone(c, u, "123 456", 102)?, Checked::Ok);
-        assert!(settings(c, u)?.phone_verified);
-        assert_eq!(issue_phone_code(c, u, 103)?, PhoneCode::Nothing, "already confirmed");
-        assert_eq!(set_method(c, u, Some(Method::Sms))?, Ok(()));
-        // The number can't change under SMS sign-in; once off it can, unconfirmed again.
-        assert!(phone_change_refusal(c, u, "+447700900999")?.is_some());
-        assert!(phone_change_refusal(c, u, "+447700900123")?.is_none());
-        assert_eq!(set_method(c, u, None)?, Ok(()));
-        assert!(phone_change_refusal(c, u, "+447700900999")?.is_none());
-        set_phone(c, u, "+447700900999")?;
-        assert!(!settings(c, u)?.phone_verified);
-        Ok(())
-    })
-    .unwrap();
-}
-
-/// #431: a phone number (and its code) needs a confirmed address or a
-/// Google account; clearing one never does.
-#[test]
-fn a_phone_needs_a_confirmed_address_or_google() {
-    let db = Db::open_in_memory().unwrap();
-    db.with(|c| {
-        let u = user(c, "ann@example.org");
-        assert_eq!(phone_change_refusal(c, u, "+447700900123")?, Some(NEEDS_CONFIRMED_EMAIL));
-        set_phone(c, u, "+447700900123")?;
-        assert_eq!(issue_phone_code(c, u, 1)?, PhoneCode::Refused(NEEDS_CONFIRMED_EMAIL));
-        assert_eq!(phone_change_refusal(c, u, "")?, None, "clearing is always allowed");
-        verify_email(c, u);
-        assert_eq!(phone_change_refusal(c, u, "+447700900999")?, None);
-        assert!(matches!(issue_phone_code(c, u, 2)?, PhoneCode::Send { .. }));
-        let g = user(c, "gus@example.org");
-        c.execute("UPDATE users SET google_sub = 'g-1' WHERE id = ?1", [g])?;
-        assert!(may_add_phone(c, g)?);
-        assert_eq!(phone_change_refusal(c, g, "+447700900555")?, None);
-        Ok(())
-    })
-    .unwrap();
-}
-
-/// #363: a number verified on one account is refused, not texted and
-/// not verified on another; the database holds it to one account.
-#[test]
-fn a_number_verified_on_one_account_is_refused_on_another() {
-    let db = Db::open_in_memory().unwrap();
-    db.with(|c| {
-        let (ann, bob) = (user(c, "ann@example.org"), user(c, "bob@example.org"));
-        verify_email(c, ann);
-        verify_email(c, bob);
-        let n = "+447700900123";
-        // Both set it before either verified it.
-        set_phone(c, ann, n)?;
-        set_phone(c, bob, n)?;
-        put_phone_code(c, bob, "222222", 100);
-        put_phone_code(c, ann, "111111", 100);
-        assert_eq!(confirm_phone(c, ann, "111111", 101)?, Checked::Ok);
-        assert_eq!(phone_change_refusal(c, bob, "+44 7700 900999")?, None);
-        set_phone(c, bob, "")?;
-        assert_eq!(phone_change_refusal(c, bob, n)?, Some(PHONE_TAKEN));
-        c.execute("UPDATE users SET phone = ?2 WHERE id = ?1", params![bob, n])?;
-        assert_eq!(issue_phone_code(c, bob, 102)?, PhoneCode::Refused(PHONE_TAKEN));
-        put_phone_code(c, bob, "222222", 102);
-        assert_eq!(confirm_phone(c, bob, "222222", 103)?, Checked::Gone);
-        assert!(phone_taken(c, bob, n)? && !settings(c, bob)?.phone_verified);
-        // The unique index refuses a second verified copy outright.
-        assert!(c.execute("UPDATE users SET phone_verified_at = 1 WHERE id = ?1", [bob]).is_err());
-        // Ann frees it: Bob may verify it.
-        set_phone(c, ann, "")?;
-        assert!(!phone_taken(c, bob, n)?);
-        put_phone_code(c, bob, "222222", 104);
-        assert_eq!(confirm_phone(c, bob, "222222", 105)?, Checked::Ok);
-        Ok(())
-    })
-    .unwrap();
-}
-
-#[test]
-fn a_phone_code_expires_and_allows_five_tries() {
-    let db = Db::open_in_memory().unwrap();
-    db.with(|c| {
-        let u = user(c, "ann@example.org");
-        assert_eq!(issue_phone_code(c, u, 1)?, PhoneCode::Nothing, "no number");
-        set_phone(c, u, "+447700900123")?;
-        put_phone_code(c, u, "111111", 1000);
-        assert_eq!(confirm_phone(c, u, "111111", 1000 + CODE_TTL_SECS)?, Checked::Gone, "expired");
-        put_phone_code(c, u, "111111", 1000);
-        for left in (1..MAX_ATTEMPTS).rev() {
-            assert_eq!(confirm_phone(c, u, "222222", 1001)?, Checked::Wrong(left));
-        }
-        assert_eq!(confirm_phone(c, u, "222222", 1001)?, Checked::Gone);
-        assert_eq!(confirm_phone(c, u, "111111", 1001)?, Checked::Gone, "used up");
-        // A code sent to the old number does not confirm a new one.
-        put_phone_code(c, u, "111111", 1000);
-        set_phone(c, u, "+447700900999")?;
-        assert_eq!(confirm_phone(c, u, "111111", 1001)?, Checked::Gone);
         Ok(())
     })
     .unwrap();
@@ -303,15 +190,14 @@ fn the_mails_say_how_to_sign_out_everywhere_else() {
     let off = changed_mail("ana@example.org", None, 1).unwrap();
     assert_eq!((off.purpose, off.user_id), (PURPOSE_CHANGED, Some(1)));
     assert!(off.text.contains("is now off") && off.text.contains("Sign out everywhere else"));
-    assert!(changed_mail("ana@example.org", Some(Method::Sms), 1).unwrap().text.contains("texts a code"));
 }
 
 #[test]
 fn every_change_of_method_needs_proof() {
     use Method::*;
-    assert!(needs_proof(None, Some(Email)) && needs_proof(None, Some(Totp)) && needs_proof(None, Some(Sms)), "turning it on too (#374)");
-    assert!(!needs_proof(None, None) && !needs_proof(Some(Sms), Some(Sms)));
-    assert!(needs_proof(Some(Sms), None) && needs_proof(Some(Sms), Some(Email)) && needs_proof(Some(Totp), Some(Sms)) && needs_proof(Some(Email), Some(Totp)));
+    assert!(needs_proof(None, Some(Email)) && needs_proof(None, Some(Totp)), "turning it on too (#374)");
+    assert!(!needs_proof(None, None) && !needs_proof(Some(Email), Some(Email)));
+    assert!(needs_proof(Some(Email), None) && needs_proof(Some(Totp), Some(Email)) && needs_proof(Some(Email), Some(Totp)));
 }
 
 #[test]
@@ -356,13 +242,8 @@ fn a_confirm_code_goes_to_the_current_method_and_allows_five_tries() {
         }
         assert_eq!(check_confirm_code(c, &v, u, if code == "999999" { "999998" } else { "999999" }, 201)?, Checked::Gone);
         assert_eq!(check_confirm_code(c, &v, u, &code, 201)?, Checked::Gone, "five wrong codes use it up");
-        // A code sent for e-mail does not count once the method changed.
-        let (_, _, code) = issue_confirm_code(c, u, 300)?.unwrap();
-        set_phone(c, u, "+447700900123")?;
-        put_phone_code(c, u, "123456", 300);
-        confirm_phone(c, u, "123456", 300)?;
-        assert_eq!(set_method(c, u, Some(Method::Sms))?, Ok(()));
-        assert_eq!(check_confirm_code(c, &v, u, &code, 301)?, Checked::Gone);
+        // An unused code is cleared by the hourly purge.
+        issue_confirm_code(c, u, 300)?.unwrap();
         assert_eq!(purge(c, 300 + CODE_TTL_SECS + 1)?, 1);
         Ok(())
     })
@@ -370,53 +251,17 @@ fn a_confirm_code_goes_to_the_current_method_and_allows_five_tries() {
 }
 
 #[test]
-fn sms_sign_in_texts_the_confirmed_number_and_purge_clears_old_rows() {
-    let db = Db::open_in_memory().unwrap();
-    db.with(|c| {
-        let u = user(c, "ann@example.org");
-        set_phone(c, u, "+447700900123")?;
-        put_phone_code(c, u, "123456", 1);
-        assert_eq!(confirm_phone(c, u, "123456", 2)?, Checked::Ok);
-        assert_eq!(set_method(c, u, Some(Method::Sms))?, Ok(()));
-        let ch = start_login(c, u, 100)?.unwrap();
-        assert_eq!(ch.send.as_ref().unwrap().0, "+447700900123");
-        assert_eq!(masked(Method::Sms, "", "+447700900123"), "•••• 23");
-        assert_eq!(masked(Method::Email, "ann@example.org", ""), "a•••@example.org");
-        totp_start(c, &vault(), u, 100)?.unwrap();
-        assert_eq!(purge(c, 100 + CODE_TTL_SECS + 1)?, 1);
-        assert_eq!(purge(c, 100 + 86_401)?, 1, "an abandoned enrolment");
-        Ok(())
-    })
-    .unwrap();
-}
-
-/// #969: a number that opted out of texts gets its sign-in and confirm
-/// codes by e-mail, and is offered a new phone code; a new number starts
-/// over.
-#[test]
-fn an_opted_out_number_gets_its_codes_by_email() {
+fn the_purge_clears_old_challenges_and_abandoned_enrolments() {
     let db = Db::open_in_memory().unwrap();
     db.with(|c| {
         let u = user(c, "ann@example.org");
         verify_email(c, u);
-        set_phone(c, u, "+447700900123")?;
-        put_phone_code(c, u, "123456", 1);
-        assert_eq!(confirm_phone(c, u, "123456", 2)?, Checked::Ok);
-        assert_eq!(set_method(c, u, Some(Method::Sms))?, Ok(()));
-        assert_eq!(issue_phone_code(c, u, 3)?, PhoneCode::Nothing);
-        c.execute("UPDATE users SET phone_opted_out_at = 50 WHERE id = ?1", [u])?;
-        let ch = start_login(c, u, 100)?.unwrap();
-        assert!(ch.by_email);
-        let (to, code) = ch.send.clone().unwrap();
-        assert_eq!(to, "ann@example.org");
-        let p = pending(c, &ch.token, 101)?.unwrap();
-        assert!(p.emailed && p.by_email());
-        assert_eq!(p.sent_to(), "a•••@example.org");
-        assert_eq!(check_login(c, &vault(), &ch.token, &code, 102)?.0, Checked::Ok);
-        assert_eq!(issue_confirm_code(c, u, 103)?.map(|(m, to, _)| (m, to)), Some((Method::Email, "ann@example.org".to_string())));
-        assert!(matches!(issue_phone_code(c, u, 104)?, PhoneCode::Send { .. }), "a code to check the number takes texts again");
-        set_phone(c, u, "+447700900999")?;
-        assert!(!settings(c, u)?.phone_opted_out);
+        assert_eq!(set_method(c, u, Some(Method::Email))?, Ok(()));
+        start_login(c, u, 100)?.unwrap();
+        assert_eq!(masked(Method::Email, "ann@example.org"), "a•••@example.org");
+        totp_start(c, &vault(), u, 100)?.unwrap();
+        assert_eq!(purge(c, 100 + CODE_TTL_SECS + 1)?, 1);
+        assert_eq!(purge(c, 100 + 86_401)?, 1, "an abandoned enrolment");
         Ok(())
     })
     .unwrap();

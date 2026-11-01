@@ -12,8 +12,8 @@
 #   ./.dev-start --seed-users 1000   # also a crowd of 1000 made-up learners with 90 days of history (#583)
 #   ./.dev-start --seed-days 30 # how many days of history the crowd gets (default 90)
 #   ./.dev-start --test-course  # also offer the test course (TEST_COURSE=1; data/test-courses/)
-#   ./.dev-start --mini         # the mini shape a self-hoster runs: no dev mailbox, dev phone, stand-in
-#                               # Google, dev Stripe or Skrongle AI (mail and texts only logged), no plans
+#   ./.dev-start --mini         # the mini shape a self-hoster runs: no dev mailbox, stand-in
+#                               # Google, dev Stripe or Skrongle AI (mail only logged), no plans
 #   ./.dev-start --port 9000    # a fixed port instead (--port auto = the default)
 #   ./.dev-start --llm capture  # the simulated provider holds each request for a reply on /dev/ai (Manual replies)
 #                               # (default: it answers from the fixtures; --llm live: the real providers)
@@ -208,11 +208,9 @@ wait_up() {
 summary() {
   echo "site:  $URL"
   if [ -n "$LAN_IP" ]; then echo "phone: http://$LAN_IP:$PORT"; fi
-  # The dev mailbox page holds the e-mail and the texts. Only when either is
-  # on (the mailbox: not with SKRONGLE_MAIL_PROVIDERS or SKRONGLE_DEV_SMTP=0; the
-  # phone: not with SKRONGLE_SMS_PROVIDERS).
-  if curl -fsS "$URL/dev/inbox?format=json" 2>/dev/null | grep -q '"smtp":"' \
-     || curl -fsS "$URL/dev/phone?format=json" 2>/dev/null | grep -q '"phone":true'; then
+  # The dev mailbox page holds the e-mail. Only when it is on (not with
+  # SKRONGLE_MAIL_PROVIDERS or SKRONGLE_DEV_SMTP=0).
+  if curl -fsS "$URL/dev/inbox?format=json" 2>/dev/null | grep -q '"smtp":"'; then
     echo "inbox: $URL/dev/inbox"
   fi
   # dev::DEV_EMAIL / DEV_PASSWORD (src/dev.rs); dev mode only.

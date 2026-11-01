@@ -45,7 +45,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 ### Accounts
 
 - Sign-in: `auth.rs` (sessions, CurrentUser, Project), `routes/auth.rs`, `routes/auth/code.rs` (the two-factor step), `oauth.rs` (Google), `proxy_auth.rs` (proxy header), `signup.rs` (who may register).
-- Mail and texts: `mail.rs` (`mail/resend.rs`, `mail/postmark.rs`, `mail/brevo.rs`, `mail/sink.rs`), `sms.rs` (`sms/phone.rs`), `verify.rs` (address check), `reset.rs` + `routes/reset.rs` (password reset).
+- Mail: `mail.rs` (`mail/resend.rs`, `mail/postmark.rs`, `mail/brevo.rs`, `mail/sink.rs`), `verify.rs` (address check), `reset.rs` + `routes/reset.rs` (password reset).
 - Two-factor: `two_factor.rs`, `totp.rs`.
 - Profile: `profile.rs`, `routes/profile.rs`, `static/profile.js`, `static/autosave.js`, `static/avatar-bg/` (picture backgrounds); keys in `secrets.rs`.
 - Data rights: `privacy.rs` (export columns, deletion), `exports.rs` (Download my data), `consent.rs` (optional consents for the Privacy and consent card), `account_deletion.rs` and `routes/account_deletion.rs` (deleting an account after 14 days, #970).
@@ -99,10 +99,8 @@ src/
   share.rs       sharing a course with other learners by e-mail address (#451): invitations (table course_shares, the link's token hashed), who may open a shared course, the message
   verify.rs      e-mail verification: link tokens (table email_verifications, SHA-256 only), confirm, the message, the link's host (SKRONGLE_PUBLIC_URL or the request)
   reset.rs       password reset links (table password_resets, SHA-256 only, 1 h, single use), the "you already have an account" message, which unconfirmed accounts a registration replaces (SKRONGLE_UNCONFIRMED_DAYS)
-  sms.rs         text messages: the outbox (table sms_outbox) with per-account, per-number and server-wide limits counted from the sms_sends ledger, a country allow-list, the same chain-with-fallback design as mail.rs, the sender the job runner drains (`sms::Outbox`), the log and generic HTTP providers, SKRONGLE_SMS_* config
-  sms/phone.rs   the dev phone: the `dev-phone` provider dev mode uses without SKRONGLE_SMS_PROVIDERS, keeping the texts in memory (/dev/phone)
   totp.rs        time-based one-time passwords: RFC 6238 TOTP over RFC 4226 HOTP (SHA-1 written out, SHA-256/512 via sha2), base32, the otpauth://totp/ Key Uri Format and its QR code as inline SVG (the qrcode crate, no image feature); the dev authenticator (/dev/authenticator) reads its keys with it
-  two_factor.rs  two-factor sign-in: the method in use, the phone number's texted check, the authenticator app's enrolment, sign-in challenges, the proof for turning it off (tables totp_keys, phone_verifications, two_factor_challenges, two_factor_confirmations)
+  two_factor.rs  two-factor sign-in: the method in use, the authenticator app's enrolment, sign-in challenges, the proof for turning it off (tables totp_keys, two_factor_challenges, two_factor_confirmations)
   terms.rs       Terms of Service: the source (built-in text or SKRONGLE_TERMS file), the built-in changelog (docs/terms-changes.json) and the version in effect, the notice of a newer version (minor or material), acceptances, the 30-day e-mail of a material change, sent from /superuser (table terms_announcements)
   billing.rs     paid subscriptions: who is premium (Stripe subscription or grant; everyone in Skrongle mini, plans_on), RequirePremium, webhook signature + events, Stripe Checkout/Portal calls
   profile.rs     user profiles: the eight named pictures (and the old ids as aliases), name/e-mail validation, profile persistence
@@ -180,7 +178,7 @@ src/
     vocab.rs     /vocabulary, /vocabulary/study, /lookup, POST /api/vocabulary/review
     games.rs     /play (Play mode hub; /g and /games redirect here), /play/matching…, /play/conjugation…, /play/numbers, /play/dates, their APIs
     sprint.rs     /sprint, /sprint/play, POST /api/sprint/check|finish
-    dev.rs       /dev/login, /dev/reset, /dev/mail, /dev/jobs, /dev/inbox, /dev/phone, /dev/sms, /dev/authenticator, /dev/google/auth + /dev/google/token (the stand-in Google), /dev/boot (the --watch reload poll); all mounted only in dev mode and for local clients, see testing.md; the dev mailbox needs no sign-in
+    dev.rs       /dev/login, /dev/reset, /dev/mail, /dev/jobs, /dev/inbox, /dev/authenticator, /dev/google/auth + /dev/google/token (the stand-in Google), /dev/boot (the --watch reload poll); all mounted only in dev mode and for local clients, see testing.md; the dev mailbox needs no sign-in
     dev_ai.rs    /dev/ai: the dev AI provider's wire API (Anthropic Messages, OpenAI chat completions, Gemini's OpenAI endpoint; checked by API key; a held request waits for its reply file) and its page in the dev mailbox (log, limits, failures, Manual replies with the held requests and their reply forms, fixture editor)
 templates/       askama templates (compiled in)
 static/          CSS + dependency-free JS (compiled in); vendor/ holds the one third-party script, abcjs
@@ -225,15 +223,15 @@ attempts reset, behind any row already due. Data exports work this way
 (kind `export`, #875): each run writes 50 pages, then saves the table, the
 last key and the good byte count; after a stop, the lease runs out, the
 next run cuts the part file back to that byte count and goes on. The
-same thread sends the mail and text
-outboxes (#873): they keep their own tables (`mail_outbox`, `sms_outbox`)
-but take a row with the same kind of lease (`jobs::lease_outbox` sets
+same thread sends the mail
+outbox (#873): it keeps its own table (`mail_outbox`)
+but takes a row with the same kind of lease (`jobs::lease_outbox` sets
 `locked_by` and `locked_until`; the row stays `queued`), so a row being sent
 is never handed out twice and one whose server stopped mid-send is sent
-again once its lease is over. Each pass sends up to 10 rows per outbox
-before the next job, outboxes first, so a sign-in code never waits behind
+again once its lease is over. Each pass sends up to 10 rows from the outbox
+before the next job, the outbox first, so a sign-in code never waits behind
 housekeeping. AI generation still has its own thread.
-`/dev/jobs` lists the job rows in dev mode; `/dev/mail` and `/dev/sms` show
+`/dev/jobs` lists the job rows in dev mode; `/dev/mail` shows
 a leased row as `sending`.
 
 **Proxy sign-in.** With `SKRONGLE_PROXY_AUTH_HEADER` and `_FROM` set,
@@ -286,12 +284,12 @@ visible to its owner, and read only to whoever the owner shared it with
 (`share::can_open`; [features](features#sharing-a-course)): `POST
 /courses/open/{id}` checks both, the editor and file routes the owner only.
 
-**What the server can send.** `AppState::caps()` is a `Caps { mail, sms }`
-(`Mailer::can_send`, `Texter::can_send`, fixed at boot): false when the
-channel's chain is the `log` provider alone; dev mode's mailbox and phone
-count as providers. Features ask it, not the mode, and hide what would send
+**What the server can send.** `AppState::caps()` is a `Caps { mail }`
+(`Mailer::can_send`, fixed at boot): false when the
+chain is the `log` provider alone; dev mode's mailbox
+counts as a provider. Features ask it, not the mode, and hide what would send
 a message (#633); templates that need it carry a copy (`caps`, or a `mail`
-flag). `docs/self-hosting.md`, "Without e-mail or text messages", lists
+flag). `docs/self-hosting.md`, "Without e-mail", lists
 what changes.
 
 <!-- themes -->
@@ -379,7 +377,7 @@ users          (id AUTOINCREMENT, password_hash, created_at, google_sub UNIQUE, 
                 -- phone: E.164 or ''; phone_verified_at: when a texted code confirmed it (v39);
                 -- phone_opted_out_at: a provider refused a text to it as opted out (STOP, v69, #969);
                 -- cleared when a text to it goes through or the number changes; codes go by e-mail meanwhile
-                -- two_factor: the second sign-in step, '' (off) | 'sms' | 'email' | 'totp' (src/two_factor.rs)
+                -- two_factor: the second sign-in step, '' (off) | 'email' | 'totp' (src/two_factor.rs)
                 -- must_change_password 1: signed in with a temporary password the owner set (src/owner.rs, v62);
                 -- CurrentUser sends the account to /password/change until it picks its own
                 -- suspended_at: unused (moderation is gone, #9)
@@ -663,25 +661,24 @@ startup logs one warning naming each old variable and its new name.
 binary with `SKRONGLE_MINI=1`, the one setting that makes a server a mini,
 plus the defaults `deploy/skrongle.service` sets, marked *mini* in the table
 below: `SKRONGLE_SIGNUP=invite`, `SKRONGLE_TERMS=/etc/skrongle/terms.md`,
-and no mail or text providers (#633). `shape.rs` reads `SKRONGLE_MINI` once
+and no mail provider (#633). `shape.rs` reads `SKRONGLE_MINI` once
 at startup (`Shape::Mini` or `Shape::Hosted`, `shape::current()`,
 `crate::is_mini()`); nothing else reads the variable (a test checks).
 A mini has none of the hosted site's production features and no second
 switch for any of them: plans are off (`Shape::has_plans`, below), and
-`crate::env` reads the settings in `shape::HOSTED_ONLY` (mail and text
-providers, Google, Stripe) as unset, so those
+`crate::env` reads the settings in `shape::HOSTED_ONLY` (the mail
+provider, Google, Stripe) as unset, so those
 features are off wherever they are read; the startup log names any that
-are set and ignored. Dev mode's stand-ins for them (dev mailbox and phone,
+are set and ignored. Dev mode's stand-ins for them (the dev mailbox,
 mock Google, simulated Stripe) are off in a mini too. `SKRONGLE_PLANS` is
 gone; a server that still sets it logs a warning. The startup
 line and `/healthz` (`ok skrongle mini <version>`) say which shape runs.
 Self-hosting the full build is not supported: outside mini and dev mode the
-server refuses to start until e-mail (`SKRONGLE_MAIL_PROVIDERS`), texts
-(`SKRONGLE_SMS_PROVIDERS`), Google (`SKRONGLE_GOOGLE_CLIENT_ID`) and Stripe
+server refuses to start until e-mail (`SKRONGLE_MAIL_PROVIDERS`), Google (`SKRONGLE_GOOGLE_CLIENT_ID`) and Stripe
 (`SKRONGLE_STRIPE_SECRET_KEY`) are all set (`require_providers` in `main.rs`).
 It also refuses to start without `SKRONGLE_SECURE_COOKIES=1` (the hosted site
 is served over HTTPS) and with `SKRONGLE_PROXY_AUTH_*` set (proxy sign-in is
-a mini feature; #980). The dev server's mailbox, phone, Google and Stripe stand in for them. The
+a mini feature; #980). The dev server's mailbox, Google and Stripe stand in for them. The
 release tarballs are `skrongle-<version>-<arch>.tar.gz`
 (`routes::docs::RELEASE_TARBALL`, `scripts/package-release.sh`); each
 carries `terms.example.md` for `SKRONGLE_TERMS`. The pitch and the security
@@ -741,8 +738,6 @@ posture are in `docs/self-hosting.md`, "Skrongle mini".
 | `SKRONGLE_MAIL_<NAME>_API_KEY` / `_API_URL` | — / `https://api.resend.com` | For `_KIND=resend` (Resend's HTTP API): the API key (required) and where calls go (a mock in tests) |
 | `SKRONGLE_MAIL_<NAME>_API_KEY` / `_API_URL` / `_STREAM` | — / `https://api.postmarkapp.com` / `outbound` | For `_KIND=postmark` (Postmark's HTTP API): the Server API token (required), where calls go (a mock in tests) and the message stream |
 | `SKRONGLE_MAIL_<NAME>_API_KEY` / `_API_URL` | — / `https://api.brevo.com/v3/smtp/email` | For `_KIND=brevo` (Brevo's HTTP API): the API key (required) and the endpoint (tests point it at a fake server) |
-| `SKRONGLE_SMS_PROVIDERS` | — | Text message (SMS) provider names in fallback order, e.g. `twilio,hook`; each is configured by `SKRONGLE_SMS_<NAME>_*` (`_KIND` `http` or `log`, and for HTTP `_URL`, `_FORMAT`, `_BODY`, `_AUTH`/`_AUTH_HEADER` or `_USER`/`_PASS`, `_FROM`, `_OPT_OUT`). Unset: texts are logged, not sent (in dev mode they go to the dev phone), and the features that would send them switch off (`AppState::caps`, #633). See [Text messages](#text-messages); Skrongle mini ignores it |
-| `SKRONGLE_SMS_FROM` | — | Default sender number or ID for every SMS provider (`{from}` in a body template) |
 | `SKRONGLE_OPENAI_BASE_URL` | `https://api.openai.com` | Where the OpenAI provider sends requests: any OpenAI-compatible server (Ollama, LM Studio) |
 | `SKRONGLE_ANTHROPIC_BASE_URL` | `https://api.anthropic.com` | Where the Anthropic provider sends requests (a proxy, the dev AI provider) |
 | `SKRONGLE_GOOGLE_BASE_URL` | `https://generativelanguage.googleapis.com/v1beta/openai` | Where the Google provider sends requests |
@@ -755,8 +750,7 @@ posture are in `docs/self-hosting.md`, "Skrongle mini".
 | `SKRONGLE_SECRET_KEY` | *(generated)* | 64 hex characters; encrypts stored API keys. Unset: read from or created at `<SKRONGLE_DB>.key` (mode 0600) |
 | `SKRONGLE_NEW_SECRET_KEY` | `0` | `1`: the secret key is lost for good; create a new one, delete the saved API keys it cannot read, and turn off the authenticator apps it cannot read (two-factor off for those accounts, #1068). Without it the server refuses to start when the database has saved keys but neither `SKRONGLE_SECRET_KEY` nor `<SKRONGLE_DB>.key` is there, or the key there opens none of them |
 | `SKRONGLE_DEV_SMTP` | `1` | Dev mode without `SKRONGLE_MAIL_PROVIDERS`: `1` sends e-mail to the dev mailbox on a free port, a number pins the port, `0` only logs it ([testing](testing#e-mail-the-dev-mailbox)) |
-| `SKRONGLE_DEV_PHONE` | `1` | Dev mode without `SKRONGLE_SMS_PROVIDERS`: `1` sends texts to the dev phone (`/dev/phone`), `0` only logs them, as on a server ([testing](testing#text-messages-the-dev-phone)) |
-| `SKRONGLE_DEV` | `0` | `1`: dev mode (`/dev/login`, `/dev/reset`, `/dev/mail`, `/dev/mail/send`, `/dev/jobs`, `/dev/inbox` and its SMTP mailbox, `/dev/sms`, `/dev/phone`, `/dev/ai` (the dev AI provider, which the default base URLs point at), the stand-in Google; sent e-mail and texts keep their body; the dev mailbox needs no sign-in). Refused unless `SKRONGLE_BIND` is loopback, `SKRONGLE_SECURE_COOKIES` is not `1` and `SKRONGLE_PUBLIC_URL` is unset or local; the `/dev/*` routes also refuse proxied or non-loopback-`Host` requests. Set by `./.dev-start`, never by `deploy/` |
+| `SKRONGLE_DEV` | `0` | `1`: dev mode (`/dev/login`, `/dev/reset`, `/dev/mail`, `/dev/mail/send`, `/dev/jobs`, `/dev/inbox` and its SMTP mailbox, `/dev/ai` (the dev AI provider, which the default base URLs point at), the stand-in Google; sent e-mail keeps its body; the dev mailbox needs no sign-in). Refused unless `SKRONGLE_BIND` is loopback, `SKRONGLE_SECURE_COOKIES` is not `1` and `SKRONGLE_PUBLIC_URL` is unset or local; the `/dev/*` routes also refuse proxied or non-loopback-`Host` requests. Set by `./.dev-start`, never by `deploy/` |
 | `SKRONGLE_DEV_RELOAD` | `0` | Dev mode only: `1` (set by `./.dev-start --watch`) appends a script to every HTML page that reloads it after the server restarts; see [testing](testing#live-reload---watch) |
 | `TEST_COURSE` | `0` | `1`: also offer the courses under `data/test-courses/` (the test course, for automated tests). `SKRONGLE_TEST_COURSE` works too. Never set in production |
 | `SKRONGLE_DEV_SEED` | `0` | Dev mode only: at boot, create the dev user with a course open and some progress |
@@ -770,67 +764,6 @@ posture are in `docs/self-hosting.md`, "Skrongle mini".
 | `SKRONGLE_LLM_DELAY_MS` | `0` | Dev mode only: how long a canned reply takes without its own `delay_ms`; `./.dev-start` sets 500 |
 
 Dev mode and the dev AI provider are described in [testing](testing).
-
-## Text messages
-
-`src/sms.rs` sends text messages (SMS) the way `src/mail.rs` sends e-mail,
-and nothing outside it knows which vendor is used. Nothing sends texts yet;
-the first callers (a sign-in code, reminders) come with their features.
-
-- **Sending:** `state.sms.send_sms(&state.db, purpose, to, text, user_id)`.
-  It normalizes `to` to E.164 (`+44 7700 900-123` → `+447700900123`;
-  a number without `+` and its country code is refused), checks the text
-  (not empty, at most 1600 characters), applies the limits and writes the
-  row to `sms_outbox` and the `sms_sends` ledger. It answers the row id,
-  `SmsError::Invalid`, `SmsError::Country` (not in `SKRONGLE_SMS_COUNTRIES`,
-  `sms::Policy`), or `SmsError::RateLimited { retry_after }` (seconds).
-  Nothing touches the network in the request.
-- **Limits** (`sms::LIMITS` and `sms::Policy`), counted from the
-  `sms_sends` ledger so they survive restarts, hold in dev mode and outlive
-  a deleted account: 5 an hour and 20 a day per account, 5 an hour and 10
-  a day per destination number (whoever sends), and
-  `SKRONGLE_SMS_MAX_PER_HOUR`/`_PER_DAY` for the whole server. Per number and
-  per server, sign-in codes (`login-code`, `two-factor-confirm`) and other
-  texts are counted apart (`sms::Kind`), so verification texts cannot use
-  up sign-in codes. Failed texts count too.
-- **Delivery:** the job runner (`jobs.rs`) sends due rows through the providers
-  in `SKRONGLE_SMS_PROVIDERS` order, with the e-mail stack's rules (it reuses
-  `mail::SendError`, `COOLDOWN` and `RETRY_DELAYS`): a provider that could
-  not be reached (connection error, timeout, HTTP 5xx, 408, 429) is tried
-  last for 5 minutes; one that refused the message (any other 4xx) passes
-  it to the next with no cooldown; a text every provider refused fails at
-  once, one nobody took is retried after 1m, 5m, 30m, 2h and 12h, then
-  marked `failed`.
-- **Providers:** `log` (the default when unconfigured outside dev mode, where
-  the `dev-phone` provider keeps the texts for `/dev/phone` instead: logs the id,
-  purpose, the number's last two digits and the length, and marks it sent;
-  not allowed in a chain) and `http`, which POSTs a templated body to any
-  URL, so Twilio, Vonage, Plivo or an own webhook need configuration only.
-  A vendor that needs more (signed requests, two calls) is a new
-  `sms::Provider` impl plus a kind in `sms::build_provider`.
-- **The `http` provider:** `_URL` (https; `http://` only for this
-  machine), `_FORMAT` `json` (default) or `form`, `_BODY` a template with
-  `{to}`, `{from}`, `{text}`, `{id}` and `{purpose}` filled in once and
-  escaped for the format (JSON-escaped inside quotes, or percent-encoded).
-  The default JSON body is
-  `{"to":"{to}","from":"{from}","text":"{text}","id":"{id}","purpose":"{purpose}"}`;
-  the default form body is Twilio's `To={to}&From={from}&Body={text}`.
-  Auth is `_AUTH` (a header value; `_AUTH_HEADER` names the header,
-  default `Authorization`) or `_USER` + `_PASS` (HTTP Basic). Every
-  request carries `Idempotency-Key: sms-<outbox id>`. A refusal whose body
-  contains one of `_OPT_OUT` (comma-separated, default `21610`, Twilio's
-  "attempt to send to unsubscribed recipient") means the number opted out
-  of texts (`sms::opted_out`): the outbox sets `users.phone_opted_out_at`
-  for the account it was about (#969). The dev phone refuses the same way
-  once its number replies STOP, until it replies START. A JSON template that
-  is not JSON once filled in, a missing `{to}`/`{text}`, or a half-set
-  credential stops startup with an error naming the variable.
-- **Privacy:** sent bodies are emptied (kept in dev mode, for `/dev/sms`),
-  finished rows are deleted after 30 days, digit runs that look like phone
-  numbers are scrubbed from stored and logged errors, and log lines never
-  carry the full number. `sms_outbox` is in `privacy::USER_TABLES`;
-  `sms_sends` holds only the number's SHA-256 and is in
-  `privacy::KEPT_ON_DELETE`.
 
 ## Generating courses with an LLM
 
@@ -983,7 +916,7 @@ writable path, and a release never touches the database.
   with a method on, the password (or Google) only leaves a challenge named
   by a 256-bit token in the `twofa` cookie (HttpOnly, SameSite=Lax, 10
   minutes; the table keeps its SHA-256); the session is made after the
-  code. Texted and e-mailed codes are 6 random digits, 10 minutes, 5 tries
+  code. E-mailed codes are 6 random digits, 10 minutes, 5 tries
   per sign-in, kept across *Send a new code* (in the database, so on in
   dev mode too), stored as
   SHA-256(salt:token:code): a 6-digit code can't be protected by hashing
