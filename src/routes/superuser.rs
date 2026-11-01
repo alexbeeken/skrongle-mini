@@ -5,9 +5,7 @@
 //! `SKRONGLE_SIGNUP=invite`, the invitation links (#634, `signup.rs`); and
 //! with Skrongle AI, everyone's spend today against the daily cap (#623);
 //! while a material change of the terms is coming, a notice and the button
-//! that e-mails it to every account (#966, `terms.rs`); and on a server that
-//! sends mail, the open content reports and copyright notices with Forward
-//! to owner and Resolve (#968, `routes/reports.rs`);
+//! that e-mails it to every account (#966, `terms.rs`);
 //! and on the hosted site, moderation (#967, `moderation.rs`): the course
 //! table (#1034, `superuser/courses.rs`) with the flag of each course and
 //! what to do about it, suspend or delete an account, block an address;
@@ -67,51 +65,12 @@ pub struct SuperuserTemplate {
     /// Accounts still to e-mail about a coming change of the terms: above 0,
     /// the page says the terms have changed and offers Send.
     pub terms_owed: i64,
-    /// Open content reports and copyright notices, oldest first (#968).
-    pub reports: Vec<ReportRow>,
     /// Moderation (#967): on the hosted site only, not Skrongle mini.
     pub moderate: bool,
     /// The course table (#1034): with `moderate` only.
     pub courses: Option<courses::CourseTable>,
     /// Blocked addresses and ranges: id, range.
     pub blocked: Vec<(i64, String)>,
-}
-
-/// One open report on the page (#968, `content_reports::Report`).
-pub struct ReportRow {
-    pub id: i64,
-    pub received: String,
-    pub reason: String,
-    pub reason_label: String,
-    /// The course's title, or '' when the notice names no course here.
-    pub course_title: String,
-    pub course_id: String,
-    pub location: String,
-    pub name: String,
-    pub email: String,
-    pub work: String,
-    pub details: String,
-    /// When it was forwarded to the owner, or ''.
-    pub forwarded: String,
-}
-
-impl ReportRow {
-    fn new(r: crate::content_reports::Report) -> ReportRow {
-        ReportRow {
-            id: r.id,
-            received: profile::long_date(r.created_at),
-            reason_label: crate::content_reports::reason_label(&r.reason),
-            reason: r.reason,
-            course_title: r.course_title,
-            course_id: r.course_id.unwrap_or_default(),
-            location: r.location,
-            name: r.name,
-            email: r.email,
-            work: r.work,
-            details: r.details,
-            forwarded: r.forwarded_at.map(profile::long_date).unwrap_or_default(),
-        }
-    }
 }
 
 /// Everyone's Skrongle AI spend today against the daily cap (#623): the one
@@ -164,14 +123,13 @@ async fn load(state: &AppState, user: CurrentUser, page: i64, site: &str) -> Res
 async fn load_at(state: &AppState, user: CurrentUser, page: i64, course: &courses::CourseQuery, site: &str) -> Result<SuperuserTemplate, AppError> {
     let now = crate::db::now();
     let meter = Arc::clone(&state.meter);
-    let (invites, accounts, spent, reports) = state
+    let (invites, accounts, spent) = state
         .db
         .call(move |c| {
             Ok((
                 crate::signup::open_invites(c, now)?,
                 crate::signup::accounts(c, page)?,
                 if meter.hosted() { Some(meter.spent_today(c)?) } else { None },
-                crate::content_reports::open(c)?,
             ))
         })
         .await?;
@@ -212,7 +170,6 @@ async fn load_at(state: &AppState, user: CurrentUser, page: i64, course: &course
         next: (accounts.page < accounts.pages).then(|| link(accounts.page + 1)),
         ai_today: spent.map(|s| AiTodayView::new(s, state.meter.cfg.daily_cap)),
         terms_owed,
-        reports: reports.into_iter().map(ReportRow::new).collect(),
         moderate,
         courses: course_table,
         blocked,
@@ -255,10 +212,6 @@ pub async fn show(State(state): State<Arc<AppState>>, user: CurrentUser, headers
         Some("revoked") => t.notice = Some(crate::t("superuser.invite_revoked")),
         Some("two-factor-off") => t.notice = Some(crate::t1("superuser.two_factor_off_done", "email", email)),
         Some("terms-sent") => t.notice = Some(crate::tn("superuser.terms_sent", q.n.unwrap_or(0))),
-        Some("report-forwarded") => t.notice = Some(crate::t("reports.superuser.forwarded")),
-        Some("report-resolved") => t.notice = Some(crate::t("reports.superuser.resolved")),
-        Some("report-no-owner") => t.error = Some(crate::t("reports.superuser.no_owner")),
-        Some("report-unknown") => t.error = Some(crate::t("reports.superuser.unknown")),
         Some("owner-emailed") => {
             t.notice = Some(crate::t1("superuser.courses.owner_emailed", "id", q.about.as_deref().unwrap_or_default()));
             if state.dev_inbox.is_some() {

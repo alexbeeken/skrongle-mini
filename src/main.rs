@@ -14,7 +14,6 @@ mod clock;
 mod conjugation;
 mod consent;
 mod content;
-mod content_reports;
 mod content_check;
 mod course_flags;
 mod courses;

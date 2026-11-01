@@ -4,9 +4,8 @@
 //! language, the superuser edits it and presses Send. Nothing here sends on
 //! its own. For a flagged course the draft only says that it was flagged
 //! and links to the site, where the owner sees what to fix: never the
-//! words, the quotes or the AI's report, and never who reported the course
-//! (docs/content-reports.md). Hosted only: it needs e-mail, which Skrongle
-//! mini doesn't have.
+//! words, the quotes or the AI's report, and never who reported the course.
+//! Hosted only: it needs e-mail, which Skrongle mini doesn't have.
 
 use rusqlite::{params, Connection, OptionalExtension};
 

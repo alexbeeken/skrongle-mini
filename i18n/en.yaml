@@ -1021,7 +1021,7 @@ superuser:
     put_back_about: "The course opens again for its owner and for everyone it is shared with."
     suspend_owner: "Suspend the owner"
     delete: "Delete the course"
-    delete_about: "The course, its files and its shares are deleted. This can't be undone. Content reports about it are kept."
+    delete_about: "The course, its files and its shares are deleted. This can't be undone."
     overridden: "The flag on {id} is overridden. It starts and shares again."
     override_cleared: "The override on {id} is cleared."
     no_note: "Write a short note saying why the flag is wrong."
@@ -4041,76 +4041,6 @@ editor:
       other: "{n} things to check"
     advice_none: "Nothing to check."
     advice_close: "Close"
-reports:
-  reason:
-    harmful: Harmful
-    copyright: Copyright
-    other: Other
-  course:
-    open: Report this course
-    title: Report this course
-    reason: Why are you reporting it?
-    details: What is wrong, and where in the course?
-    email: Your e-mail address
-    cancel: Cancel
-    send: Send report
-    sent: Thanks. Your report reached us, and we will look at the course.
-    too_many: You have sent a lot of reports this hour. Try again later.
-    pick_reason: Pick a reason.
-    details_empty: Say what is wrong with the course.
-  copyright:
-    title: Copyright notice
-    contact: "To report a copyright problem, write to {email}."
-    intro: Use this form if you believe a course here copies your work without permission. We send a copy of the notice, with your name and address, to the person who made the course.
-    name: Your full name (your signature)
-    email: Your e-mail address
-    work: The work you say is copied
-    location: Where it is (a link to the course)
-    details: What is copied, and how you own it
-    good_faith: I believe in good faith that this use is not allowed by me, my agent or the law. The information in this notice is accurate, and under penalty of perjury I am the owner or allowed to act for them.
-    send: Send notice
-    sent: Thanks. Your notice reached us. We will reply by e-mail.
-    terms: Back to the Terms
-    too_many: Too many notices from here in the last minute. Wait a minute and try again.
-    missing: Fill in every field.
-    tick_good_faith: Tick the statement to send the notice.
-  superuser:
-    title: Reports
-    about_label: About reports
-    about: Course reports from learners and copyright notices from anyone. Forward to owner e-mails the course's owner a copy (the reporter's address only on a copyright notice). Resolve takes a report off this list.
-    runbook: What to do with a report
-    none: No open reports.
-    forward: Forward to owner
-    forward_again: "Forwarded {when}. Send again"
-    resolve: Resolve
-    forwarded: A copy went to the course's owner.
-    resolved: The report is resolved.
-    no_owner: That report names no course with an owner to write to.
-    unknown: There is no such open report.
-  mail:
-    none: (none given)
-    course: Course
-    reason: Reason
-    location: Where
-    work: Work
-    name: Name
-    email: E-mail
-    operator_subject: "{app}: new report ({reason})"
-    operator_text: |
-      A new report reached {app}:
-
-      {report}
-
-      Open reports are on the Superuser page: {link}
-    owner_subject: "{app}: a report about your course {title}"
-    owner_text: |
-      Hello,
-
-      Someone sent {app} a report about your course "{title}". Here is a copy:
-
-      {report}
-
-      If you think the report is mistaken, reply to this message and say why. On a copyright notice, that reply can be a counter-notice. We may hide the course while we look into it.
 waitlist:
   hero_h1: "Learn anything."
   hero_lead: "Tell {app} what you want to learn. Minutes later you have a whole course: lessons, quizzes, drills, games and a daily goal, built around the way you like to learn."
