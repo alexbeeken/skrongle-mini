@@ -12,7 +12,7 @@ use std::sync::Arc;
 use crate::auth::{CurrentUser, MaybeUser};
 use crate::db::now;
 use crate::error::AppError;
-use crate::oauth::urlencode;
+use crate::urlenc::urlencode;
 use crate::share;
 use crate::AppState;
 

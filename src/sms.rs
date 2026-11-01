@@ -833,7 +833,7 @@ fn build_provider(name: &str, kind: &str, from: &str, get: &dyn Fn(&str) -> Opti
 
 /// `Basic base64(user:pass)`, as Twilio and most SMS APIs take their keys.
 fn basic_auth(user: &str, pass: &str) -> String {
-    let b64url = crate::oauth::b64url_encode(format!("{user}:{pass}").as_bytes());
+    let b64url = crate::urlenc::b64url_encode(format!("{user}:{pass}").as_bytes());
     let mut b64: String = b64url.chars().map(|c| match c {
         '-' => '+',
         '_' => '/',
@@ -900,7 +900,7 @@ fn render(template: &str, format: BodyFormat, from: &str, sms: &Outgoing) -> Str
             let quoted = serde_json::to_string(v).unwrap_or_default();
             quoted[1..quoted.len() - 1].to_string()
         }
-        BodyFormat::Form => crate::oauth::urlencode(v),
+        BodyFormat::Form => crate::urlenc::urlencode(v),
     };
     let mut out = String::with_capacity(template.len() + sms.text.len());
     let mut rest = template;

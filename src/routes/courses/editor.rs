@@ -551,7 +551,7 @@ pub async fn editor(
 /// progress modal reloading), the list opens that dialog straight away.
 pub(super) fn stopped_redirect(row: &CourseRow, from_job: bool) -> Option<Response> {
     (row.state == courses::CourseState::Failed).then(|| {
-        let to = if from_job { format!("/courses?generate={}", crate::oauth::urlencode(&row.id)) } else { "/courses".into() };
+        let to = if from_job { format!("/courses?generate={}", crate::urlenc::urlencode(&row.id)) } else { "/courses".into() };
         Redirect::to(&crate::url(&to)).into_response()
     })
 }

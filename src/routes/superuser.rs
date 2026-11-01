@@ -263,7 +263,7 @@ pub async fn show(State(state): State<Arc<AppState>>, user: CurrentUser, headers
         Some("reset") => {
             t.notice = Some(crate::t1("superuser.reset_done", "email", email));
             if state.dev_inbox.is_some() {
-                t.inbox = Some(crate::url(&format!("/dev/inbox/latest?to={}", crate::oauth::urlencode(email))));
+                t.inbox = Some(crate::url(&format!("/dev/inbox/latest?to={}", crate::urlenc::urlencode(email))));
             }
         }
         Some("unknown") => t.error = Some(crate::t1("superuser.unknown", "email", format!("{email:?}"))),
@@ -277,7 +277,7 @@ pub async fn show(State(state): State<Arc<AppState>>, user: CurrentUser, headers
         Some("owner-emailed") => {
             t.notice = Some(crate::t1("superuser.courses.owner_emailed", "id", q.about.as_deref().unwrap_or_default()));
             if state.dev_inbox.is_some() {
-                t.inbox = Some(crate::url(&format!("/dev/inbox/latest?to={}", crate::oauth::urlencode(email))));
+                t.inbox = Some(crate::url(&format!("/dev/inbox/latest?to={}", crate::urlenc::urlencode(email))));
             }
         }
         Some(did) if did.starts_with("breach-") => {
@@ -293,7 +293,7 @@ pub async fn show(State(state): State<Arc<AppState>>, user: CurrentUser, headers
 
 /// Back to the page after an action: what it did, about which address.
 fn done(did: &str, email: &str) -> Response {
-    let to = format!("/superuser?did={did}&email={}", crate::oauth::urlencode(email));
+    let to = format!("/superuser?did={did}&email={}", crate::urlenc::urlencode(email));
     Redirect::to(&crate::url(&to)).into_response()
 }
 
@@ -463,7 +463,7 @@ fn moderated(t: &mut SuperuserTemplate, did: &str, email: &str, about: &str) {
 
 /// Back to the page after a moderation action about a course or address.
 fn done_about(did: &str, about: &str) -> Response {
-    let to = format!("/superuser?did={did}&about={}", crate::oauth::urlencode(about));
+    let to = format!("/superuser?did={did}&about={}", crate::urlenc::urlencode(about));
     Redirect::to(&crate::url(&to)).into_response()
 }
 

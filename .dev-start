@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Run the app locally for testing before deploying to the Pi. Dev mode is on
 # (SKRONGLE_DEV=1: /dev/login, /dev/reset, the simulated AI provider at /dev/ai,
-# a stand-in Google, a stand-in Stripe at /dev/payments so the plans modal
+# a stand-in Stripe at /dev/payments so the plans modal
 # offers Stripe Checkout with fake keys (SKRONGLE_DEV_STRIPE=0 turns it off);
 # see docs/testing.md).
 #
@@ -13,7 +13,7 @@
 #   ./.dev-start --seed-days 30 # how many days of history the crowd gets (default 90)
 #   ./.dev-start --test-course  # also offer the test course (TEST_COURSE=1; data/test-courses/)
 #   ./.dev-start --mini         # the mini shape a self-hoster runs: no dev mailbox, dev phone, stand-in
-#                               # Google, dev Stripe or Skrongle AI (mail and texts only logged), no plans
+#                               # dev Stripe or Skrongle AI (mail and texts only logged), no plans
 #   ./.dev-start --port 9000    # a fixed port instead (--port auto = the default)
 #   ./.dev-start --llm capture  # the simulated provider holds each request for a reply on /dev/ai (Manual replies)
 #                               # (default: it answers from the fixtures; --llm live: the real providers)

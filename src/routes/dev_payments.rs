@@ -679,7 +679,7 @@ fn back(headers: &HeaderMap, notice: &str) -> Response {
     if headers.contains_key("x-dev-box") {
         return StatusCode::NO_CONTENT.into_response();
     }
-    let url = if notice.is_empty() { crate::url("/dev/payments") } else { format!("{}?notice={}", crate::url("/dev/payments"), crate::oauth::urlencode(notice)) };
+    let url = if notice.is_empty() { crate::url("/dev/payments") } else { format!("{}?notice={}", crate::url("/dev/payments"), crate::urlenc::urlencode(notice)) };
     Redirect::to(&url).into_response()
 }
 

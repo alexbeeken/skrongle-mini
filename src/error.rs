@@ -126,7 +126,7 @@ impl IntoResponse for AppError {
             )
                 .into_response(),
             AppError::TermsRequired(next) => {
-                Redirect::to(&format!("{}?next={}", crate::url("/terms/accept"), crate::oauth::urlencode(&next))).into_response()
+                Redirect::to(&format!("{}?next={}", crate::url("/terms/accept"), crate::urlenc::urlencode(&next))).into_response()
             }
             AppError::ApiTermsRequired => (
                 StatusCode::FORBIDDEN,
@@ -142,7 +142,7 @@ impl IntoResponse for AppError {
             )
                 .into_response(),
             AppError::PasswordChangeRequired(next) => {
-                Redirect::to(&format!("{}?next={}", crate::url("/password/change"), crate::oauth::urlencode(&next))).into_response()
+                Redirect::to(&format!("{}?next={}", crate::url("/password/change"), crate::urlenc::urlencode(&next))).into_response()
             }
             AppError::ApiPasswordChangeRequired => (
                 StatusCode::FORBIDDEN,

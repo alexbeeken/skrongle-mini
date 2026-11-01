@@ -8,10 +8,7 @@ track you. The [privacy policy](privacy) covers the rest of your data.
 | Cookie | What it is for | How long it lasts | Type |
 |---|---|---|---|
 | `sid` | Keeps you signed in. | 30 days, or until you sign out | Strictly necessary |
-| `oauth` | Carries a one-time code while you sign in with Google. | 10 minutes | Strictly necessary |
-| `signup` | Carries your Google sign-up to the page where you confirm your age and accept the terms. | 10 minutes | Strictly necessary |
-| `signup_invite` | Carries an invitation through a Google sign-up. | 10 minutes | Strictly necessary |
-| `share_next` | Carries a course's share link through the two-factor step or Google sign-in, so you land on the course after. | 10 minutes | Strictly necessary |
+| `share_next` | Carries a course's share link through the two-factor step, so you land on the course after. | 10 minutes | Strictly necessary |
 | `twofa` | Holds a sign-in while it waits for your two-factor code. | 10 minutes | Strictly necessary |
 | `lang` | Remembers the language you picked for the app. | 1 year | Functional |
 | `tz` | Your time zone, so streaks and the daily goal follow your local day. Set when you start a Sprint session. | 1 year | Functional |

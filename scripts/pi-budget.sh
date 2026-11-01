@@ -9,7 +9,7 @@
 #   rss      resident memory of an idle server, in KiB (VmRSS)
 #   threads  its thread count (Threads)
 #
-# The server runs with no optional settings (no mail, SMS, Google, Stripe or
+# The server runs with no optional settings (no mail, SMS, Stripe or
 # AI key, no SKRONGLE_DEV), only what deploy/skrongle.service sets, on a temp
 # database and a free loopback port. It answers /, /login and /healthz
 # twenty times each; then the numbers are read and the server stopped.

@@ -1,4 +1,4 @@
-//! Two-factor sign-in (#292): after the password (or Google) a second step
+//! Two-factor sign-in (#292): after the password a second step
 //! asks for a code, from one method at a time (`users.two_factor`):
 //!
 //! - `email`: a 6-digit code e-mailed to the account's address, which must
@@ -25,7 +25,7 @@
 //!
 //! Turning the second step off, or switching it to another method, needs
 //! proof that it is the account's owner, not just a session ([`needs_proof`]):
-//! the password, or, for a Google-only account (no password), a code from
+//! the password, or, for an account without one, a code from
 //! the current second step ([`issue_confirm_code`], [`check_confirm_code`]).
 
 use rusqlite::{params, Connection, OptionalExtension};
@@ -137,7 +137,7 @@ pub fn settings(conn: &Connection, user_id: i64) -> rusqlite::Result<Settings> {
 }
 
 /// Does going from the current method to `to` need the password (or a
-/// code, or Google)? Every change does (#374): turning it on as well, or a
+/// code)? Every change does (#374): turning it on as well, or a
 /// session holder could put their own phone or app in front of the
 /// owner's next sign-in. Only choosing the method already in use does not.
 pub fn needs_proof(current: Option<Method>, to: Option<Method>) -> bool {
@@ -209,10 +209,10 @@ pub const NEEDS_CONFIRMED_EMAIL: &str = "auth.two_factor.needs_confirmed_email";
 pub const PHONE_TAKEN: &str = "auth.two_factor.phone_taken";
 
 /// May the account add a phone number and have it texted (#431)? Only with
-/// a confirmed e-mail address or a Google account: every text then goes out
+/// a confirmed e-mail address: every text then goes out
 /// on behalf of an account with a real mailbox.
 pub fn may_add_phone(conn: &Connection, user_id: i64) -> rusqlite::Result<bool> {
-    conn.query_row("SELECT email_verified_at IS NOT NULL OR google_sub IS NOT NULL FROM users WHERE id = ?1", [user_id], |r| r.get(0))
+    conn.query_row("SELECT email_verified_at IS NOT NULL FROM users WHERE id = ?1", [user_id], |r| r.get(0))
         .optional()
         .map(|v| v.unwrap_or(false))
 }
@@ -535,7 +535,7 @@ pub fn check_login(conn: &Connection, vault: &Vault, token: &str, code: &str, no
 
 // ---------- proving it is the owner, without a password ----------
 
-/// A Google-only account turning its texted or e-mailed second step off (or
+/// An account without a password turning its texted or e-mailed second step off (or
 /// switching it): a new code to the current method's address or number
 /// (older ones stop working), as `(method, to, code)`. `None` with no such
 /// method in use; an authenticator app needs no code sent.

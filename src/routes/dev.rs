@@ -145,57 +145,6 @@ pub async fn premium(State(state): State<Arc<AppState>>, user: CurrentUser, Form
 }
 
 #[derive(Deserialize)]
-pub struct ForgetGoogleForm {
-    #[serde(default)]
-    pub email: String,
-}
-
-/// POST /dev/google/forget (email): for testing sign-in with Google, from
-/// the login page's dev-mode line. The account signed up or connected with
-/// Google under that address forgets Google: a Google-only account is
-/// deleted, a password account is disconnected, so the next Google sign-in
-/// with the address starts over at the confirm step. Dev mode and the
-/// local-only check every `/dev` route gets are the whole gate, like
-/// `/dev/login`: there is no user to check on the login page.
-pub async fn google_forget(State(state): State<Arc<AppState>>, MaybeUser(user): MaybeUser, Form(f): Form<ForgetGoogleForm>) -> Result<Response, AppError> {
-    let email = f.email.trim().to_string();
-    if email.is_empty() {
-        return Err(AppError::BadRequest("which e-mail address?".into()));
-    }
-    let e = email.clone();
-    let found = state.db.call(move |c| dev::google_account_by_email(c, &e)).await?;
-    let forgot = match found {
-        dev::GoogleAccount::None => "none",
-        dev::GoogleAccount::Linked(id) => {
-            state.db.call(move |c| dev::unlink_google(c, id)).await?;
-            tracing::info!("dev: Google disconnected from user {id} ({email})");
-            "unlinked"
-        }
-        dev::GoogleAccount::GoogleOnly(id) => {
-            // As /profile/delete: what lives in memory goes first.
-            state.jobs.drop_user(id);
-            state.tutors.drop_user(id);
-            state.games.drop_user(id);
-            let deleted = state.db.call(move |c| crate::privacy::delete_account(c, id)).await?.unwrap_or_default();
-            for c in &deleted.courses {
-                state.courses.invalidate(c);
-            }
-            for t in &deleted.themes {
-                state.themes.forget(t);
-                state.courses.forget_theme(t);
-            }
-            state.exports.remove(&deleted.export_files);
-            tracing::info!("dev: Google-only user {id} ({email}) deleted");
-            if user.as_ref().is_some_and(|u| u.id == id) {
-                return Ok(([crate::auth::clear_session_cookie()], Redirect::to(&crate::url("/login?forgot=deleted"))).into_response());
-            }
-            "deleted"
-        }
-    };
-    Ok(Redirect::to(&format!("{}?forgot={forgot}", crate::url("/login"))).into_response())
-}
-
-#[derive(Deserialize)]
 pub struct ThemeBody {
     /// Path -> content: `theme.json` and `pictures/*.svg`, as a made theme stores them.
     pub files: std::collections::BTreeMap<String, String>,
@@ -807,7 +756,7 @@ async fn box_page(state: &AppState, user: Option<CurrentUser>, kind: &'static st
         kind,
         tab,
         to: to.unwrap_or_default().to_string(),
-        to_query: to.map(|t| format!("?to={}", crate::oauth::urlencode(t))).unwrap_or_default(),
+        to_query: to.map(|t| format!("?to={}", crate::urlenc::urlencode(t))).unwrap_or_default(),
         sink,
         providers,
         default_to,
@@ -1353,128 +1302,6 @@ pub async fn authenticator_act(State(state): State<Arc<AppState>>, headers: axum
         return Err(AppError::NotFound);
     }
     Ok(done(&headers, "/dev/authenticator"))
-}
-
-// ---------- the Google stand-in (crate::dev, "the Google stand-in") ----------
-
-type Params = std::collections::HashMap<String, String>;
-
-fn mock_google_cfg(state: &AppState) -> Result<&crate::oauth::GoogleConfig, AppError> {
-    state.google.as_ref().filter(|g| g.mock).ok_or(AppError::NotFound)
-}
-
-/// GET /dev/google/auth: Google's authorization endpoint. Checks the request
-/// the way Google does (client, redirect URI, response type, PKCE) and sends
-/// the browser straight back with a code (or `error=access_denied` for
-/// `mock_error=cancel`); there is no account picker, the account comes from
-/// `login_hint`. Anything else wrong is a 400 that names it, like Google's
-/// own error page.
-pub async fn google_auth(State(state): State<Arc<AppState>>, Query(q): Query<Params>) -> Result<Response, AppError> {
-    let cfg = mock_google_cfg(&state)?;
-    let p = |k: &str| q.get(k).map(String::as_str).unwrap_or("");
-    let bad = |what: &str| AppError::BadRequest(format!("Mock Google: {what}"));
-    if p("client_id") != cfg.client_id {
-        return Err(bad("invalid_client: the OAuth client was not found"));
-    }
-    if p("redirect_uri") != cfg.redirect_uri {
-        return Err(bad("redirect_uri_mismatch"));
-    }
-    if p("response_type") != "code" {
-        return Err(bad("unsupported_response_type"));
-    }
-    if p("code_challenge_method") != "S256" || p("code_challenge").is_empty() {
-        return Err(bad("invalid_request: code_challenge (S256) is required"));
-    }
-    let state_param = p("state");
-    if state_param.is_empty() {
-        return Err(bad("invalid_request: state is required"));
-    }
-    let error = match p("mock_error") {
-        "" => None,
-        e => Some(dev::MockGoogleError::parse(e).ok_or_else(|| {
-            let known: Vec<_> = dev::MockGoogleError::ALL.iter().map(|e| e.as_str()).collect();
-            bad(&format!("unknown mock_error {e:?}; one of {}", known.join(", ")))
-        })?),
-    };
-    let email = match p("login_hint").trim() {
-        "" => dev::MOCK_GOOGLE_EMAIL.to_string(),
-        e if e.contains('@') => e.to_lowercase(),
-        e => return Err(bad(&format!("login_hint {e:?} is not an e-mail address"))),
-    };
-    let back = &cfg.redirect_uri;
-    let state_q = crate::oauth::urlencode(state_param);
-    if error == Some(dev::MockGoogleError::Cancel) {
-        tracing::info!("mock google: {email} cancelled");
-        return Ok(Redirect::to(&format!("{back}?error=access_denied&state={state_q}")).into_response());
-    }
-    let code = dev::MockCode {
-        email: email.clone(),
-        nonce: p("nonce").to_string(),
-        challenge: p("code_challenge").to_string(),
-        error,
-        issued_at: crate::db::now(),
-    };
-    tracing::info!("mock google: {email} signed in{}", error.map(|e| format!(" (then: {})", e.as_str())).unwrap_or_default());
-    let scope = crate::oauth::urlencode("email profile openid");
-    Ok(Redirect::to(&format!("{back}?state={state_q}&code={}&scope={scope}&authuser=0&prompt=consent", crate::oauth::urlencode(&code.encode())))
-        .into_response())
-}
-
-/// POST /dev/google/token: Google's token endpoint, as `oauth::exchange_code`
-/// calls it. Checks the client, the grant type and the PKCE verifier, then
-/// answers with tokens, or with what the code was told to fail with.
-pub async fn google_token(State(state): State<Arc<AppState>>, Form(f): Form<Params>) -> Result<Response, AppError> {
-    use axum::http::StatusCode;
-    let cfg = mock_google_cfg(&state)?;
-    let p = |k: &str| f.get(k).map(String::as_str).unwrap_or("");
-    let refuse = |status: StatusCode, error: &str, desc: &str| {
-        tracing::info!("mock google token: {error} ({desc})");
-        (status, Json(serde_json::json!({ "error": error, "error_description": desc }))).into_response()
-    };
-    if p("grant_type") != "authorization_code" {
-        return Ok(refuse(StatusCode::BAD_REQUEST, "unsupported_grant_type", "Invalid grant_type"));
-    }
-    if p("client_id") != cfg.client_id || p("client_secret") != cfg.client_secret {
-        return Ok(refuse(StatusCode::UNAUTHORIZED, "invalid_client", "Unauthorized"));
-    }
-    let Some(code) = dev::MockCode::decode(p("code")) else {
-        return Ok(refuse(StatusCode::BAD_REQUEST, "invalid_grant", "Malformed auth code."));
-    };
-    let now = crate::db::now();
-    if now - code.issued_at > dev::MOCK_CODE_TTL_SECS || p("redirect_uri") != cfg.redirect_uri {
-        return Ok(refuse(StatusCode::BAD_REQUEST, "invalid_grant", "Bad Request"));
-    }
-    if crate::oauth::pkce_challenge(p("code_verifier")) != code.challenge {
-        return Ok(refuse(StatusCode::BAD_REQUEST, "invalid_grant", "Invalid code verifier."));
-    }
-    match code.error {
-        Some(dev::MockGoogleError::InvalidGrant) => return Ok(refuse(StatusCode::BAD_REQUEST, "invalid_grant", "Bad Request")),
-        Some(dev::MockGoogleError::Timeout) => {
-            // Longer than the app waits (15 s), so its request times out.
-            tracing::info!("mock google token: holding the answer for 20 s");
-            tokio::time::sleep(std::time::Duration::from_secs(20)).await;
-        }
-        Some(dev::MockGoogleError::Unavailable) => {
-            tracing::info!("mock google token: 503");
-            return Ok((
-                StatusCode::SERVICE_UNAVAILABLE,
-                [(axum::http::header::CONTENT_TYPE, "text/html; charset=utf-8")],
-                "<html><body><h1>503 Service Unavailable</h1><p>The service you requested is not available at this time.</p></body></html>",
-            )
-                .into_response());
-        }
-        Some(dev::MockGoogleError::Cancel) | Some(dev::MockGoogleError::Unverified) | None => {}
-    }
-    let verified = code.error != Some(dev::MockGoogleError::Unverified);
-    let id_token = dev::mock_id_token(&cfg.client_id, &code.email, verified, &code.nonce, now);
-    Ok(Json(serde_json::json!({
-        "access_token": format!("ya29.mock.{}", crate::oauth::random_token()),
-        "expires_in": 3599,
-        "scope": "openid https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile",
-        "token_type": "Bearer",
-        "id_token": id_token,
-    }))
-    .into_response())
 }
 
 // ---------- /dev/jobs: the background job table (dev/jobs_page.rs) ----------

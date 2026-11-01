@@ -119,7 +119,6 @@ auth:
     password_label: Senha
     submit: Entrar
     or: ou
-    google: Continuar com o Google
     no_account_html: "Ainda não tem conta? <a href=\"{url}\" data-testid=\"login-register-link\">Cadastre-se</a>."
     terms_link: Termos
     privacy_link: Privacidade
@@ -135,11 +134,9 @@ auth:
     password_note: (pelo menos 8 caracteres)
     submit: Cadastrar-se
     or: ou
-    google: Cadastrar-se com o Google
     have_account_html: "Já tem cadastro? <a href=\"{url}\" data-testid=\"register-login-link\">Entre</a>."
     too_many_signups: Muitos cadastros da sua rede. Tente de novo em uma hora.
     email_taken: Já existe uma conta com esse endereço de e-mail.
-    email_taken_google: "Uma conta com esse endereço de e-mail entra com o Google. Use \"Continuar com o Google\"."
   signup:
     closed_title: "Os cadastros estão fechados"
     closed: "Este servidor não aceita novas contas. Fale com quem o administra."
@@ -198,27 +195,6 @@ auth:
     needs_confirmed_email: "Confirme seu endereço de e-mail antes de adicionar um número de telefone."
     phone_taken: "Este número está verificado em outra conta. Remova-o de lá primeiro, ou use outro número."
     app_already: Um aplicativo autenticador já está configurado. Remova-o primeiro.
-  google:
-    cancelled: A entrada com o Google foi cancelada.
-    error: O Google informou um erro.
-    expired: Esta tentativa de entrada expirou. Tente de novo.
-    mismatch: Esta tentativa de entrada não confere. Tente de novo.
-    no_code: O Google não devolveu um código de entrada.
-    exchange_failed: Não foi possível concluir a entrada com o Google. Tente de novo.
-    bad_identity: O Google devolveu uma identidade que este site não pode aceitar.
-    already_linked: Essa conta do Google já está vinculada a outro usuário.
-    attempt_expired: "Esta tentativa expirou. Tente de novo."
-    not_this_account: "Esta não é a conta do Google com que esta conta entra."
-    unconfirmed_account: "Existe uma conta com este endereço, mas o e-mail não está confirmado. Entre com sua senha e confirme-o, depois conecte o Google pelo seu perfil."
-    other_google: "A conta com este endereço já tem outra conta do Google conectada. Entre com essa, ou com sua senha."
-    signup_expired: Este cadastro expirou. Tente de novo.
-  google_confirm:
-    title: Crie sua conta
-    lead: "Falta pouco: o Google confirmou quem você é. Marque as duas caixas e sua conta estará pronta."
-    as: Cadastrando-se com o Google como
-    not_you: Não é você?
-    submit: Criar conta
-    back: Voltar para entrar
   ai_switch:
     label: Ocultar todos os recursos de IA
     about: Sobre os recursos de IA
@@ -568,7 +544,7 @@ profile:
   personal:
     phone_locked_label: "Por que o número de telefone está bloqueado"
     phone_locked_title: "Confirme primeiro o seu e-mail"
-    phone_locked_text: "Um número de telefone pode ser adicionado depois que o seu endereço de e-mail for confirmado (ou quando você entrar com o Google). Procure o link na sua caixa de entrada."
+    phone_locked_text: "Um número de telefone pode ser adicionado depois que o seu endereço de e-mail for confirmado. Procure o link na sua caixa de entrada."
     phone_locked_close: "Fechar"
     phone_locked_resend: "Reenviar o link"
     title: Informações pessoais
@@ -607,8 +583,6 @@ profile:
     sign_in: Login
     password: Senha
     and: e
-    google_connected: Conta do Google conectada
-    connect_google_html: "· <a href=\"{url}\" data-testid=\"profile-google-connect\">Conecte uma conta do Google</a> para entrar com um toque"
     terms: Termos
     terms_accepted: "Versão {version}, aceita em {date}"
     terms_not_accepted: Não aceita
@@ -617,7 +591,7 @@ profile:
     terms_title: Termos de Serviço
     terms_close: Fechar
     terms_open_page: Abrir como página
-    no_password: Esta conta entra com o Google, então não há senha para trocar.
+    no_password: Esta conta não tem senha para trocar.
   consent:
     title: "Privacidade e consentimento"
     info: "Sobre seus consentimentos"
@@ -634,11 +608,6 @@ profile:
     phone_none: "Sem número"
     phone_add: "adicionar um"
     phone_edit: "alterar ou remover"
-    google: "Acesso com Google"
-    google_on: "Conectado"
-    google_off: "Não conectado"
-    google_connect: "conectar"
-    google_disconnect: "desconectar"
     email: "E-mail"
     email_service: "Só mensagens de serviço"
     ai: "Não me mostrar recursos de IA"
@@ -649,29 +618,11 @@ profile:
     ai_key: "Chave de API própria salva"
     ai_keys_manage: "gerenciar chaves"
     ai_hosted: "{hosted}: {n}% deste mês usado"
-  google_link:
-    link_title: "Conectar uma conta do Google"
-    one_tap: "para entrar com um toque"
-    link_text: "Digite sua senha e depois escolha a conta do Google. Seus outros dispositivos serão desconectados."
-    password: "Senha"
-    cancel: "Cancelar"
-    continue: "Continuar com o Google"
-    unlink_title: "Desvincular o Google"
-    unlink_text: "“Continuar com o Google” deixa de entrar nesta conta, e seus outros dispositivos são desconectados. Digite sua senha para confirmar."
-    unlink: "Desvincular"
-    linked_notice: "Conta do Google conectada. Seus outros dispositivos foram desconectados."
-    unlinked_notice: "Conta do Google desvinculada. Seus outros dispositivos foram desconectados."
-    joined_notice: "Conta do Google conectada: o Google confirmou este endereço, então ela entra nesta conta. Sua senha continua funcionando."
-    stays_connected: "Esta conta entra só com o Google, então continua conectada."
-    confirm_needed: "Confirme com o Google para fazer esta alteração."
-    confirm: "Confirmar com o Google"
-    confirmed: "Confirmado com o Google."
-    confirm_why: "Esta conta entra com o Google e não tem senha, então confirme primeiro com o Google."
   sessions:
     sign_out_others: "Sair de todos os outros lugares"
     info_label: "Sobre sair de todos os outros lugares"
     text: "Encerra todas as outras sessões desta conta: outros navegadores, celulares e computadores, e quem não deveria estar conectado. Este navegador continua conectado."
-    text_same: "Trocar a senha ou a verificação em duas etapas, e conectar ou desvincular o Google, faz o mesmo."
+    text_same: "Trocar a senha ou a verificação em duas etapas faz o mesmo."
     ok: "OK"
     signed_out_notice: "Saiu de todos os outros lugares."
   password:
@@ -684,7 +635,7 @@ profile:
     save: Salvar
     changed: Senha alterada.
     mismatch: As novas senhas não coincidem.
-    google_only: Esta conta entra com o Google e não tem senha.
+    none: Esta conta não tem senha.
     too_many: Muitas tentativas. Aguarde alguns minutos e tente novamente.
     current_wrong: A senha atual não está correta.
   two_factor:
@@ -700,8 +651,8 @@ profile:
     save: Salvar
     confirm_title: Confirme que é você
     confirm_password_why: "Para que alguém que use este navegador já conectado não consiga alterar sua verificação em duas etapas, digite a senha da sua conta."
-    confirm_app_code: Esta conta entra com o Google e não tem senha, então digite o código que o seu aplicativo autenticador mostra agora.
-    confirm_sent_code: Esta conta entra com o Google e não tem senha, então confirme com um código da sua segunda etapa atual.
+    confirm_app_code: Esta conta não tem senha, então digite o código que o seu aplicativo autenticador mostra agora.
+    confirm_sent_code: Esta conta não tem senha, então confirme com um código da sua segunda etapa atual.
     sent_to: "Enviado para {to}."
     send_one_first: Envie um primeiro.
     password: Senha
@@ -713,7 +664,7 @@ profile:
     totp_added: "Aplicativo autenticador adicionado em {date}"
     remove: Remover
     info_title: Autenticação em duas etapas
-    info_text: "Depois da sua senha (ou do Google), o login pede um código: enviado por e-mail, por SMS para o seu telefone ou mostrado por um aplicativo autenticador, como o Google Authenticator. Um método por vez; escolher outro substitui o atual."
+    info_text: "Depois da sua senha, o login pede um código: enviado por e-mail, por SMS para o seu telefone ou mostrado por um aplicativo autenticador, como o Google Authenticator. Um método por vez; escolher outro substitui o atual."
     info_small: E-mail e SMS precisam de um endereço ou número confirmado. Os códigos valem por 10 minutos; cinco erros encerram o login.
     ok: OK
     email_first_title: Confirme seu e-mail primeiro
@@ -1250,7 +1201,6 @@ landing:
   create_account: Criar uma conta
   read_format: Leia o formato do curso
   have_account_html: "Já tem uma conta? <a href=\"{url}\" data-testid=\"landing-login\">Entrar</a>."
-  have_account_google_html: "Já tem uma conta? <a href=\"{url}\" data-testid=\"landing-login\">Entrar</a> ou <a href=\"{google_url}\">continue com o Google</a>."
   two_files_h2: Um curso são dois arquivos. Todo o resto é opcional.
   two_files_lead_html: Um <code>course.json</code> nomeia as unidades e os dois lados de cada cartão. Cada lição é um arquivo. Adicione um campo e um recurso é ativado; deixe-o de fora e esse recurso simplesmente não aparece nessa lição. Nada quebra, nada incomoda.
   field_content_html: Markdown. Cada seção <code>##</code> vira um cartão de lição, um passo do Guia e um bocado do modo Sprint.
@@ -1294,7 +1244,7 @@ landing:
   spec_footprint_h: Pegada mínima
   spec_footprint_p: "Dimensionado para um Pi Zero 2 W: alguns megabytes em disco, dezenas de megabytes na memória, dois workers assíncronos."
   spec_data_h: Seus dados continuam seus
-  spec_data_p: Roda na sua própria máquina ou na rede local. Login opcional com Google, proxy TLS opcional, sem scripts de terceiros, sem rastreamento.
+  spec_data_p: Roda na sua própria máquina ou na rede local. Proxy TLS opcional, sem scripts de terceiros, sem rastreamento.
   spec_docs_h: Documentação incluída
   spec_docs_p: O formato, os recursos e a arquitetura são servidos pelo próprio aplicativo, como páginas ou como Markdown puro para um LLM.
   final_h2: "Cadastre-se e responda uma pergunta: o que você gostaria de aprender?"

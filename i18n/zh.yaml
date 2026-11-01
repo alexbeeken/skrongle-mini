@@ -119,7 +119,6 @@ auth:
     password_label: 密码
     submit: 登录
     or: 或
-    google: 使用 Google 继续
     no_account_html: "还没有账户？<a href=\"{url}\" data-testid=\"login-register-link\">注册</a>。"
     terms_link: 条款
     privacy_link: 隐私
@@ -135,11 +134,9 @@ auth:
     password_note: （至少 8 个字符）
     submit: 注册
     or: 或
-    google: 使用 Google 注册
     have_account_html: "已经注册过？<a href=\"{url}\" data-testid=\"register-login-link\">登录</a>。"
     too_many_signups: 你的网络注册次数过多。请一小时后再试。
     email_taken: 该电子邮箱地址已有账户。
-    email_taken_google: "使用该电子邮箱的账户通过 Google 登录。请改用“继续使用 Google”。"
   signup:
     closed_title: "注册已关闭"
     closed: "此服务器不接受新账户。请联系服务器的管理者。"
@@ -198,27 +195,6 @@ auth:
     needs_confirmed_email: 添加电话号码前，请先确认你的电子邮箱地址。
     phone_taken: "此号码已在另一个账户上验证。请先在那里将其移除，或使用其他号码。"
     app_already: 已设置验证器应用。请先将其移除。
-  google:
-    cancelled: 已取消 Google 登录。
-    error: Google 报告了一个错误。
-    expired: 此次登录已过期。请重试。
-    mismatch: 此次登录与发起时不匹配。请重试。
-    no_code: Google 没有返回登录代码。
-    exchange_failed: 无法完成 Google 登录。请重试。
-    bad_identity: Google 返回的身份信息本网站无法接受。
-    already_linked: 该 Google 账户已绑定到另一个用户。
-    attempt_expired: 此次尝试已过期。请重试。
-    not_this_account: 这不是本账户登录时使用的 Google 账户。
-    unconfirmed_account: "该地址已有账户，但其电子邮箱尚未确认。请用密码登录并确认，然后在个人资料中连接 Google。"
-    other_google: "该地址的账户已连接了另一个 Google 账户。请用那个账户登录，或使用密码登录。"
-    signup_expired: 此次注册已过期。请重试。
-  google_confirm:
-    title: 创建你的账户
-    lead: "即将完成：Google 已确认你的身份。勾选两个方框，你的账户就准备好了。"
-    as: 正在以以下身份通过 Google 注册
-    not_you: 不是你？
-    submit: 创建账户
-    back: 返回登录
   ai_switch:
     label: 隐藏所有 AI 功能
     about: 关于 AI 功能
@@ -568,7 +544,7 @@ profile:
   personal:
     phone_locked_label: 为什么电话号码被锁定
     phone_locked_title: 请先确认你的电子邮箱地址
-    phone_locked_text: 确认电子邮箱地址（或使用 Google 登录）后，即可添加电话号码。请查看收件箱中的链接。
+    phone_locked_text: 确认电子邮箱地址后，即可添加电话号码。请查看收件箱中的链接。
     phone_locked_close: 关闭
     phone_locked_resend: 重新发送链接
     title: 个人信息
@@ -607,8 +583,6 @@ profile:
     sign_in: 登录方式
     password: 密码
     and: 和
-    google_connected: 已连接 Google 账户
-    connect_google_html: "· <a href=\"{url}\" data-testid=\"profile-google-connect\">连接 Google 账户</a>，即可一键登录"
     terms: 条款
     terms_accepted: "版本 {version}，于 {date} 同意"
     terms_not_accepted: 未同意
@@ -617,7 +591,7 @@ profile:
     terms_title: 服务条款
     terms_close: 关闭
     terms_open_page: 在新页面中打开
-    no_password: 此账户通过 Google 登录，因此没有可更改的密码。
+    no_password: 此账户没有可更改的密码。
   consent:
     title: "隐私与同意"
     info: "关于你的同意"
@@ -634,11 +608,6 @@ profile:
     phone_none: "没有号码"
     phone_add: "添加"
     phone_edit: "更改或删除"
-    google: "Google 登录"
-    google_on: "已连接"
-    google_off: "未连接"
-    google_connect: "连接"
-    google_disconnect: "断开"
     email: "邮件"
     email_service: "仅服务消息"
     ai: "不显示 AI 功能"
@@ -649,29 +618,11 @@ profile:
     ai_key: "已保存自己的 API 密钥"
     ai_keys_manage: "管理密钥"
     ai_hosted: "{hosted}：本月已用 {n}%"
-  google_link:
-    link_title: 连接 Google 账户
-    one_tap: 以便一键登录
-    link_text: 输入密码，然后选择 Google 账户。你的其他设备将退出登录。
-    password: 密码
-    cancel: 取消
-    continue: 使用 Google 继续
-    unlink_title: 解除 Google 绑定
-    unlink_text: "“使用 Google 继续”将不再用于登录此账户，且其他设备将退出登录。请输入密码以确认。"
-    unlink: 解除绑定
-    linked_notice: Google 账户已连接。你的其他设备已退出登录。
-    unlinked_notice: Google 账户已解除绑定。你的其他设备已退出登录。
-    joined_notice: "已连接 Google 账户：Google 确认了这个地址，所以它可以登录此账户。你的密码仍然有效。"
-    stays_connected: 此账户只能通过 Google 登录，因此保持连接。
-    confirm_needed: 请通过 Google 确认以进行此更改。
-    confirm: 通过 Google 确认
-    confirmed: 已通过 Google 确认。
-    confirm_why: 此账户通过 Google 登录，没有密码，因此请先通过 Google 确认。
   sessions:
     sign_out_others: 退出其他所有设备
     info_label: 关于退出其他所有设备
     text: "结束此账户的所有其他会话：其他浏览器、手机和电脑，以及任何不应保持登录的人。此浏览器将保持登录。"
-    text_same: 更改密码或两步验证，以及连接或解除 Google 绑定，也会执行同样的操作。
+    text_same: 更改密码或两步验证，也会执行同样的操作。
     ok: 好
     signed_out_notice: 已退出其他所有设备。
   password:
@@ -684,7 +635,7 @@ profile:
     save: 保存
     changed: 密码已更改。
     mismatch: 两次输入的新密码不一致。
-    google_only: 此账户通过 Google 登录，没有密码。
+    none: 此账户没有密码。
     too_many: 尝试次数过多。请稍等几分钟后再试。
     current_wrong: 当前密码不正确。
   two_factor:
@@ -700,8 +651,8 @@ profile:
     save: 保存
     confirm_title: 请确认是你本人
     confirm_password_why: 为防止使用此已登录浏览器的其他人更改你的第二步验证，请输入此账户的密码。
-    confirm_app_code: 此账户通过 Google 登录，没有密码，因此请输入你的验证器应用当前显示的验证码。
-    confirm_sent_code: 此账户通过 Google 登录，没有密码，因此请输入你当前第二步验证方式收到的验证码进行确认。
+    confirm_app_code: 此账户没有密码，因此请输入你的验证器应用当前显示的验证码。
+    confirm_sent_code: 此账户没有密码，因此请输入你当前第二步验证方式收到的验证码进行确认。
     sent_to: "已发送至 {to}。"
     send_one_first: 请先发送一个验证码。
     password: 密码
@@ -713,7 +664,7 @@ profile:
     totp_added: "验证器应用已于 {date} 添加"
     remove: 移除
     info_title: 两步验证
-    info_text: "输入密码（或通过 Google 登录）后，登录时还需输入一个验证码：可以是通过电子邮件发送的、短信发到手机的，或是由 Google Authenticator 等验证器应用显示的。同一时间只能使用一种方式；选择另一种方式会替换当前方式。"
+    info_text: "输入密码后，登录时还需输入一个验证码：可以是通过电子邮件发送的、短信发到手机的，或是由 Google Authenticator 等验证器应用显示的。同一时间只能使用一种方式；选择另一种方式会替换当前方式。"
     info_small: 电子邮件和短信需要已验证的邮箱地址或电话号码。验证码有效期为 10 分钟；连续输错五次，本次登录将结束。
     ok: 好
     email_first_title: 请先验证你的电子邮箱
@@ -1250,7 +1201,6 @@ landing:
   create_account: 创建账户
   read_format: 阅读课程格式
   have_account_html: "已有账户？<a href=\"{url}\" data-testid=\"landing-login\">登录</a>。"
-  have_account_google_html: "已有账户？<a href=\"{url}\" data-testid=\"landing-login\">登录</a>，或<a href=\"{google_url}\">使用 Google 继续</a>。"
   two_files_h2: 一门课程只需两个文件，其余都是可选的。
   two_files_lead_html: "<code>course.json</code> 列出单元，以及每张单词卡的两面。每节课是一个文件。添加一个字段，对应功能就会开启；不写，该功能就不会出现在这节课里。什么都不会出错，也不会有任何提醒。"
   field_content_html: Markdown。每个 <code>##</code> 小节会变成一张课节卡片、一个指南步骤和一个冲刺模式小节。
@@ -1294,7 +1244,7 @@ landing:
   spec_footprint_h: 占用极小
   spec_footprint_p: "为 Pi Zero 2 W 设计：磁盘占用几兆字节，内存占用几十兆字节，两个异步工作线程。"
   spec_data_h: 你的数据归你所有
-  spec_data_p: 运行在你自己的机器或局域网上。可选的 Google 登录、可选的 TLS 代理，没有第三方脚本，没有追踪。
+  spec_data_p: 运行在你自己的机器或局域网上。可选的 TLS 代理，没有第三方脚本，没有追踪。
   spec_docs_h: 内置文档
   spec_docs_p: 格式、功能和架构都直接由应用提供，既可以是网页，也可以是供 LLM 使用的原始 Markdown。
   final_h2: "注册，然后回答一个问题：你想学什么？"

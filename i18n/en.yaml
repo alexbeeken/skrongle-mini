@@ -121,7 +121,6 @@ auth:
     password_label: Password
     submit: Log in
     or: or
-    google: Continue with Google
     no_account_html: "No account yet? <a href=\"{url}\" data-testid=\"login-register-link\">Register</a>."
     terms_link: Terms
     privacy_link: Privacy
@@ -137,11 +136,9 @@ auth:
     password_note: (at least 8 characters)
     submit: Register
     or: or
-    google: Sign up with Google
     have_account_html: "Already registered? <a href=\"{url}\" data-testid=\"register-login-link\">Log in</a>."
     too_many_signups: Too many sign-ups from your network. Try again in an hour.
     email_taken: An account with that e-mail address already exists.
-    email_taken_google: An account with that e-mail address signs in with Google. Use "Continue with Google" instead.
   signup:
     closed_title: "Sign-ups are closed"
     closed: "This server is not taking new accounts. Ask whoever runs it."
@@ -200,27 +197,6 @@ auth:
     needs_confirmed_email: Confirm your e-mail address before adding a phone number.
     phone_taken: This number is verified on another account. Remove it there first, or use another number.
     app_already: An authenticator app is already set up. Remove it first.
-  google:
-    cancelled: Google sign-in was cancelled.
-    error: Google reported an error.
-    expired: This sign-in attempt has expired. Please try again.
-    mismatch: This sign-in attempt does not match. Please try again.
-    no_code: Google did not return a sign-in code.
-    exchange_failed: Could not complete the sign-in with Google. Please try again.
-    bad_identity: Google returned an identity this site cannot accept.
-    already_linked: That Google account is already attached to another user.
-    attempt_expired: This attempt has expired. Please try again.
-    not_this_account: That is not the Google account this account signs in with.
-    unconfirmed_account: An account with this address exists, but its e-mail address isn't confirmed. Sign in with your password and confirm it, then connect Google from your profile.
-    other_google: An account with this address already has a different Google account connected. Sign in with that one, or with your password.
-    signup_expired: This sign-up has expired. Please try again.
-  google_confirm:
-    title: Create your account
-    lead: "You're almost done: Google has confirmed who you are. Tick the two boxes and your account is ready."
-    as: Signing up with Google as
-    not_you: Not you?
-    submit: Create account
-    back: Back to log in
   ai_switch:
     label: Hide all AI features
     about: About AI features
@@ -573,7 +549,7 @@ profile:
   personal:
     phone_locked_label: Why the phone number is locked
     phone_locked_title: Confirm your e-mail first
-    phone_locked_text: A phone number can be added once your e-mail address is confirmed (or you sign in with Google). Check your inbox for the link.
+    phone_locked_text: A phone number can be added once your e-mail address is confirmed. Check your inbox for the link.
     phone_locked_close: Close
     phone_locked_resend: Resend the link
     title: Personal information
@@ -612,8 +588,6 @@ profile:
     sign_in: Sign-in
     password: Password
     and: and
-    google_connected: Google account connected
-    connect_google_html: "· <a href=\"{url}\" data-testid=\"profile-google-connect\">Connect a Google account</a> to sign in with one tap"
     terms: Terms
     terms_accepted: "Version {version}, accepted {date}"
     terms_not_accepted: Not accepted
@@ -622,7 +596,7 @@ profile:
     terms_title: Terms of Service
     terms_close: Close
     terms_open_page: Open as a page
-    no_password: This account signs in with Google, so there is no password to change.
+    no_password: This account has no password to change.
   consent:
     title: "Privacy and consent"
     info: "About your consents"
@@ -639,11 +613,6 @@ profile:
     phone_none: "No number"
     phone_add: "add one"
     phone_edit: "change or remove"
-    google: "Google sign-in"
-    google_on: "Connected"
-    google_off: "Not connected"
-    google_connect: "connect"
-    google_disconnect: "disconnect"
     email: "E-mail"
     email_service: "Service messages only"
     ai: "Do Not Show Me AI Features"
@@ -654,29 +623,11 @@ profile:
     ai_key: "Own API key on file"
     ai_keys_manage: "manage keys"
     ai_hosted: "{hosted}: {n}% of this month used"
-  google_link:
-    link_title: Connect a Google account
-    one_tap: to sign in with one tap
-    link_text: Type your password, then choose the Google account. Your other devices are signed out.
-    password: Password
-    cancel: Cancel
-    continue: Continue with Google
-    unlink_title: Unlink Google
-    unlink_text: "“Continue with Google” stops signing in to this account, and your other devices are signed out. Type your password to confirm."
-    unlink: Unlink
-    linked_notice: Google account connected. Your other devices were signed out.
-    unlinked_notice: Google account unlinked. Your other devices were signed out.
-    joined_notice: "Google account connected: Google confirmed this address, so it signs in to this account. Your password still works."
-    stays_connected: This account signs in only with Google, so it stays connected.
-    confirm_needed: Confirm with Google to make this change.
-    confirm: Confirm with Google
-    confirmed: Confirmed with Google.
-    confirm_why: This account signs in with Google and has no password, so confirm with Google first.
   sessions:
     sign_out_others: Sign out everywhere else
     info_label: About signing out everywhere else
     text: "Ends every other session of this account: other browsers, phones and computers, and anyone who should not be signed in. This browser stays signed in."
-    text_same: Changing your password or two-factor sign-in, and connecting or unlinking Google, does the same.
+    text_same: Changing your password or two-factor sign-in does the same.
     ok: OK
     signed_out_notice: Signed out everywhere else.
   password:
@@ -689,7 +640,7 @@ profile:
     save: Save
     changed: Password changed.
     mismatch: The new passwords do not match.
-    google_only: This account signs in with Google and has no password.
+    none: This account has no password.
     too_many: Too many attempts. Wait a few minutes and try again.
     current_wrong: The current password is not right.
   two_factor:
@@ -705,8 +656,8 @@ profile:
     save: Save
     confirm_title: Confirm it's you
     confirm_password_why: So that someone using this signed-in browser can't change your second step, type your account's password.
-    confirm_app_code: This account signs in with Google and has no password, so type the code your authenticator app shows now.
-    confirm_sent_code: This account signs in with Google and has no password, so confirm with a code from your current second step.
+    confirm_app_code: This account has no password, so type the code your authenticator app shows now.
+    confirm_sent_code: This account has no password, so confirm with a code from your current second step.
     sent_to: "Sent to {to}."
     send_one_first: Send one first.
     password: Password
@@ -718,7 +669,7 @@ profile:
     totp_added: "Authenticator app added {date}"
     remove: Remove
     info_title: Two-factor authentication
-    info_text: "After your password (or Google), signing in asks for a code: e-mailed, texted to your phone, or shown by an authenticator app such as Google Authenticator. One method at a time; choosing another replaces it."
+    info_text: "After your password, signing in asks for a code: e-mailed, texted to your phone, or shown by an authenticator app such as Google Authenticator. One method at a time; choosing another replaces it."
     info_small: E-mail and text need a verified address or number. Codes work for 10 minutes; five wrong ones end the sign-in.
     ok: OK
     email_first_title: Verify your e-mail first
@@ -1255,7 +1206,6 @@ landing:
   create_account: Create an account
   read_format: Read the course format
   have_account_html: "Already have an account? <a href=\"{url}\" data-testid=\"landing-login\">Log in</a>."
-  have_account_google_html: "Already have an account? <a href=\"{url}\" data-testid=\"landing-login\">Log in</a> or <a href=\"{google_url}\">continue with Google</a>."
   two_files_h2: A course is two files. Everything else is optional.
   two_files_lead_html: A <code>course.json</code> names the units and the two sides of every flashcard. Each lesson is one file. Add a field and a feature switches on; leave it out and that feature simply does not show for that lesson. Nothing breaks, nothing nags.
   field_content_html: Markdown. Each <code>##</code> section becomes a lesson card, a Guide step and a Sprint mode bite.
@@ -1300,7 +1250,7 @@ landing:
   spec_footprint_h: Tiny footprint
   spec_footprint_p: "Sized for a Pi Zero 2 W: a few megabytes on disk, tens of megabytes in memory, two async workers."
   spec_data_h: Your data stays yours
-  spec_data_p: Runs on your own machine or LAN. Optional Google sign-in, optional TLS proxy, no third-party scripts, no tracking.
+  spec_data_p: Runs on your own machine or LAN. Optional TLS proxy, no third-party scripts, no tracking.
   spec_docs_h: Documentation inside
   spec_docs_p: The format, the features and the architecture are served from the app itself, as pages or as raw Markdown for an LLM.
   final_h2: "Register, then answer one question: what would you like to learn?"

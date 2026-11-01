@@ -1518,7 +1518,7 @@ fn anthropic_body(p: &Provider, system: &str, messages: &[ChatMessage], max_toke
 pub const CALL_HEADER: &str = "x-skrongle-call";
 
 pub fn call_header(call: &Call) -> String {
-    let enc = crate::oauth::urlencode;
+    let enc = crate::urlenc::urlencode;
     let mut out = format!("purpose={}", enc(call.purpose));
     if !call.key.is_empty() {
         out.push_str(&format!("&key={}", enc(&call.key)));

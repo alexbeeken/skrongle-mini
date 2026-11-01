@@ -119,7 +119,6 @@ auth:
     password_label: Passwort
     submit: Anmelden
     or: oder
-    google: Mit Google fortfahren
     no_account_html: "Noch kein Konto? <a href=\"{url}\" data-testid=\"login-register-link\">Registrieren</a>."
     terms_link: Nutzungsbedingungen
     privacy_link: Datenschutz
@@ -135,11 +134,9 @@ auth:
     password_note: (mindestens 8 Zeichen)
     submit: Registrieren
     or: oder
-    google: Mit Google registrieren
     have_account_html: "Schon registriert? <a href=\"{url}\" data-testid=\"register-login-link\">Anmelden</a>."
     too_many_signups: Zu viele Registrierungen aus deinem Netzwerk. Versuch es in einer Stunde noch einmal.
     email_taken: Für diese E-Mail-Adresse gibt es bereits ein Konto.
-    email_taken_google: "Ein Konto mit dieser E-Mail-Adresse meldet sich mit Google an. Nutze stattdessen „Mit Google fortfahren“."
   signup:
     closed_title: "Registrierung geschlossen"
     closed: "Dieser Server nimmt keine neuen Konten an. Frag die Person, die ihn betreibt."
@@ -198,27 +195,6 @@ auth:
     needs_confirmed_email: "Bestätige deine E-Mail-Adresse, bevor du eine Handynummer hinzufügst."
     phone_taken: "Diese Nummer ist bei einem anderen Konto bestätigt. Entferne sie dort zuerst oder nimm eine andere Nummer."
     app_already: Eine Authenticator-App ist schon eingerichtet. Entferne sie zuerst.
-  google:
-    cancelled: Die Google-Anmeldung wurde abgebrochen.
-    error: Google hat einen Fehler gemeldet.
-    expired: Dieser Anmeldeversuch ist abgelaufen. Bitte versuch es noch einmal.
-    mismatch: Dieser Anmeldeversuch passt nicht. Bitte versuch es noch einmal.
-    no_code: Google hat keinen Anmeldecode zurückgegeben.
-    exchange_failed: Die Anmeldung mit Google konnte nicht abgeschlossen werden. Bitte versuch es noch einmal.
-    bad_identity: Google hat eine Identität zurückgegeben, die diese Seite nicht annehmen kann.
-    already_linked: Dieses Google-Konto ist schon mit einem anderen Benutzer verknüpft.
-    attempt_expired: "Dieser Versuch ist abgelaufen. Bitte versuch es noch einmal."
-    not_this_account: "Das ist nicht das Google-Konto, mit dem sich dieses Konto anmeldet."
-    unconfirmed_account: "Ein Konto mit dieser Adresse existiert, aber seine E-Mail-Adresse ist nicht bestätigt. Melde dich mit deinem Passwort an und bestätige sie, dann verbinde Google in deinem Profil."
-    other_google: "Mit dem Konto dieser Adresse ist bereits ein anderes Google-Konto verbunden. Melde dich mit diesem an oder mit deinem Passwort."
-    signup_expired: Diese Registrierung ist abgelaufen. Bitte versuch es noch einmal.
-  google_confirm:
-    title: Lege dein Konto an
-    lead: "Fast geschafft: Google hat bestätigt, wer du bist. Setz die beiden Häkchen, dann ist dein Konto bereit."
-    as: Registrierung mit Google als
-    not_you: Nicht du?
-    submit: Konto anlegen
-    back: Zurück zur Anmeldung
   ai_switch:
     label: Alle KI-Funktionen ausblenden
     about: Über KI-Funktionen
@@ -568,7 +544,7 @@ profile:
   personal:
     phone_locked_label: "Warum die Handynummer gesperrt ist"
     phone_locked_title: "Bestätige zuerst deine E-Mail-Adresse"
-    phone_locked_text: "Eine Handynummer kann hinzugefügt werden, sobald deine E-Mail-Adresse bestätigt ist (oder du dich mit Google anmeldest). Schau in dein Postfach nach dem Link."
+    phone_locked_text: "Eine Handynummer kann hinzugefügt werden, sobald deine E-Mail-Adresse bestätigt ist. Schau in dein Postfach nach dem Link."
     phone_locked_close: "Schließen"
     phone_locked_resend: "Link noch einmal senden"
     title: Persönliche Angaben
@@ -607,8 +583,6 @@ profile:
     sign_in: Anmeldung
     password: Passwort
     and: und
-    google_connected: Google-Konto verbunden
-    connect_google_html: "· <a href=\"{url}\" data-testid=\"profile-google-connect\">Verbinde ein Google-Konto</a>, um dich mit einem Tipp anzumelden"
     terms: Bedingungen
     terms_accepted: "Version {version}, akzeptiert am {date}"
     terms_not_accepted: Nicht akzeptiert
@@ -617,7 +591,7 @@ profile:
     terms_title: Nutzungsbedingungen
     terms_close: Schließen
     terms_open_page: Als Seite öffnen
-    no_password: Dieses Konto meldet sich über Google an, deshalb gibt es kein Passwort zum Ändern.
+    no_password: Dieses Konto hat kein Passwort, das man ändern könnte.
   consent:
     title: "Datenschutz und Einwilligung"
     info: "Über deine Einwilligungen"
@@ -634,11 +608,6 @@ profile:
     phone_none: "Keine Nummer"
     phone_add: "hinzufügen"
     phone_edit: "ändern oder entfernen"
-    google: "Google-Anmeldung"
-    google_on: "Verbunden"
-    google_off: "Nicht verbunden"
-    google_connect: "verbinden"
-    google_disconnect: "trennen"
     email: "E-Mail"
     email_service: "Nur Service-Nachrichten"
     ai: "KI-Funktionen nicht anzeigen"
@@ -649,29 +618,11 @@ profile:
     ai_key: "Eigener API-Schlüssel gespeichert"
     ai_keys_manage: "Schlüssel verwalten"
     ai_hosted: "{hosted}: {n} % dieses Monats verbraucht"
-  google_link:
-    link_title: "Google-Konto verbinden"
-    one_tap: "um sich mit einem Tipp anzumelden"
-    link_text: "Gib dein Passwort ein und wähle dann das Google-Konto aus. Deine anderen Geräte werden abgemeldet."
-    password: "Passwort"
-    cancel: "Abbrechen"
-    continue: "Mit Google fortfahren"
-    unlink_title: "Google-Verknüpfung aufheben"
-    unlink_text: "„Mit Google fortfahren“ meldet dich bei diesem Konto nicht mehr an, und deine anderen Geräte werden abgemeldet. Gib dein Passwort ein, um zu bestätigen."
-    unlink: "Verknüpfung aufheben"
-    linked_notice: "Google-Konto verbunden. Deine anderen Geräte wurden abgemeldet."
-    unlinked_notice: "Google-Konto getrennt. Deine anderen Geräte wurden abgemeldet."
-    joined_notice: "Google-Konto verbunden: Google hat diese Adresse bestätigt, also meldet es sich bei diesem Konto an. Dein Passwort funktioniert weiterhin."
-    stays_connected: "Dieses Konto meldet sich nur mit Google an, deshalb bleibt es verbunden."
-    confirm_needed: "Bestätige mit Google, um diese Änderung vorzunehmen."
-    confirm: "Mit Google bestätigen"
-    confirmed: "Mit Google bestätigt."
-    confirm_why: "Dieses Konto meldet sich mit Google an und hat kein Passwort, deshalb bestätige zuerst mit Google."
   sessions:
     sign_out_others: "Überall sonst abmelden"
     info_label: "Über das Abmelden überall sonst"
     text: "Beendet jede andere Sitzung dieses Kontos: andere Browser, Handys und Computer sowie alle, die nicht angemeldet sein sollten. Dieser Browser bleibt angemeldet."
-    text_same: "Das Ändern deines Passworts oder der Zwei-Faktor-Anmeldung sowie das Verbinden oder Trennen von Google macht dasselbe."
+    text_same: "Das Ändern deines Passworts oder der Zwei-Faktor-Anmeldung macht dasselbe."
     ok: "OK"
     signed_out_notice: "Überall sonst abgemeldet."
   password:
@@ -684,7 +635,7 @@ profile:
     save: Speichern
     changed: Passwort geändert.
     mismatch: Die neuen Passwörter stimmen nicht überein.
-    google_only: Dieses Konto meldet sich über Google an und hat kein Passwort.
+    none: Dieses Konto hat kein Passwort.
     too_many: Zu viele Versuche. Warte ein paar Minuten und versuche es erneut.
     current_wrong: Das aktuelle Passwort stimmt nicht.
   two_factor:
@@ -700,8 +651,8 @@ profile:
     save: Speichern
     confirm_title: Bestätige, dass du es bist
     confirm_password_why: "Damit jemand, der diesen angemeldeten Browser benutzt, deinen zweiten Schritt nicht ändern kann, gib das Passwort deines Kontos ein."
-    confirm_app_code: Dieses Konto meldet sich über Google an und hat kein Passwort, deshalb gib jetzt den Code ein, den deine Authenticator-App anzeigt.
-    confirm_sent_code: Dieses Konto meldet sich über Google an und hat kein Passwort, deshalb bestätige mit einem Code aus deinem aktuellen zweiten Schritt.
+    confirm_app_code: Dieses Konto hat kein Passwort, deshalb gib jetzt den Code ein, den deine Authenticator-App anzeigt.
+    confirm_sent_code: Dieses Konto hat kein Passwort, deshalb bestätige mit einem Code aus deinem aktuellen zweiten Schritt.
     sent_to: "Gesendet an {to}."
     send_one_first: Sende zuerst einen.
     password: Passwort
@@ -713,7 +664,7 @@ profile:
     totp_added: "Authenticator-App hinzugefügt am {date}"
     remove: Entfernen
     info_title: Zwei-Faktor-Authentifizierung
-    info_text: "Nach deinem Passwort (oder Google) fragt die Anmeldung nach einem Code: per E-Mail, per SMS auf dein Handy oder angezeigt von einer Authenticator-App wie Google Authenticator. Immer nur eine Methode; wenn du eine andere wählst, ersetzt sie die alte."
+    info_text: "Nach deinem Passwort fragt die Anmeldung nach einem Code: per E-Mail, per SMS auf dein Handy oder angezeigt von einer Authenticator-App wie Google Authenticator. Immer nur eine Methode; wenn du eine andere wählst, ersetzt sie die alte."
     info_small: E-Mail und SMS brauchen eine bestätigte Adresse bzw. Nummer. Codes gelten 10 Minuten; nach fünf falschen endet die Anmeldung.
     ok: OK
     email_first_title: Bestätige zuerst deine E-Mail
@@ -1250,7 +1201,6 @@ landing:
   create_account: "Konto erstellen"
   read_format: "Das Kursformat lesen"
   have_account_html: "Du hast schon ein Konto? <a href=\"{url}\" data-testid=\"landing-login\">Anmelden</a>."
-  have_account_google_html: "Du hast schon ein Konto? <a href=\"{url}\" data-testid=\"landing-login\">Anmelden</a> oder <a href=\"{google_url}\">mit Google weitermachen</a>."
   two_files_h2: "Ein Kurs besteht aus zwei Dateien. Alles andere ist optional."
   two_files_lead_html: "Eine <code>course.json</code> benennt die Einheiten und die beiden Seiten jeder Karteikarte. Jede Lektion ist eine Datei. Füg ein Feld hinzu, und eine Funktion wird aktiv; lass es weg, und diese Funktion erscheint für diese Lektion einfach nicht. Nichts bricht, nichts nervt."
   field_content_html: "Markdown. Jeder <code>##</code>-Abschnitt wird zu einer Lektionskarte, einem Leitfaden-Schritt und einem Happen im Sprint-Modus."
@@ -1294,7 +1244,7 @@ landing:
   spec_footprint_h: "Winziger Fußabdruck"
   spec_footprint_p: "Für einen Pi Zero 2 W bemessen: ein paar Megabyte auf der Platte, Dutzende Megabyte im Speicher, zwei asynchrone Worker."
   spec_data_h: "Deine Daten bleiben deine"
-  spec_data_p: "Läuft auf deinem eigenen Rechner oder im LAN. Optionale Google-Anmeldung, optionaler TLS-Proxy, keine Skripte von Drittanbietern, kein Tracking."
+  spec_data_p: "Läuft auf deinem eigenen Rechner oder im LAN. Optionaler TLS-Proxy, keine Skripte von Drittanbietern, kein Tracking."
   spec_docs_h: "Dokumentation inklusive"
   spec_docs_p: "Das Format, die Funktionen und die Architektur werden von der App selbst ausgeliefert, als Seiten oder als reines Markdown für ein LLM."
   final_h2: "Registrier dich, dann beantworte eine Frage: Was möchtest du lernen?"

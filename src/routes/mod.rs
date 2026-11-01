@@ -250,9 +250,6 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/logout", post(auth::logout))
         .route("/account/deletion", get(account_deletion::page))
         .route("/account/deletion/cancel", post(account_deletion::cancel))
-        .route("/auth/google", get(auth::google_start))
-        .route("/auth/google/callback", get(auth::google_callback))
-        .route("/auth/google/confirm", get(auth::google_confirm_form).post(auth::google_confirm))
         .route("/verify-email", get(auth::verify_email))
         .route("/reset", get(reset::form).post(reset::submit))
         // profile (works without an active course)
@@ -260,9 +257,6 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/api/profile", post(profile::save))
         .route("/profile/password", post(profile::change_password))
         .route("/profile/sessions/end-others", post(profile::end_other_sessions))
-        .route("/profile/google/link", post(profile::link_google))
-        .route("/profile/google/unlink", post(profile::unlink_google))
-        .route("/profile/google/confirm", post(profile::confirm_with_google))
         .route("/profile/api-keys/remove", post(profile::remove_api_key))
         .route("/profile/ai", post(profile::set_ai))
         .route("/profile/own-keys", post(profile::set_own_keys))
@@ -394,9 +388,6 @@ pub fn router(state: Arc<AppState>) -> Router {
                 .route("/dev/ai/jev/v1/systemone", post(dev_ai::jev_systemone))
                 // The simulated Stripe's API: the app's billing code calls it with its secret key.
                 .route("/dev/payments/stripe/v1/{*path}", axum::routing::any(dev_payments::api))
-                .route("/dev/google/auth", get(dev::google_auth))
-                .route("/dev/google/token", post(dev::google_token))
-                .route("/dev/google/forget", post(dev::google_forget))
                 .route("/dev/boot", get(|| async { crate::dev::boot_id() }))
                 .route_layer(axum::middleware::from_fn(crate::dev::local_only))
                 // Pasted LLM replies and fixtures are whole courses.
@@ -527,7 +518,7 @@ pub fn art_url(theme: &str, path: &str) -> String {
 
 /// Versioned URL of the active theme's stylesheet (`/theme.css`).
 pub fn theme_css_url(theme: &str) -> String {
-    format!("{}/theme.css?v={}-{theme}&t={}", crate::base_path(), asset_version(), crate::oauth::urlencode(theme))
+    format!("{}/theme.css?v={}-{theme}&t={}", crate::base_path(), asset_version(), crate::urlenc::urlencode(theme))
 }
 
 impl CourseView {
@@ -923,10 +914,6 @@ pub(crate) fn test_state_with(
         dummy_hash: "x".into(),
         games: Default::default(),
         jobs: Default::default(),
-        google: None,
-        signups: Default::default(),
-        google_joins: Default::default(),
-        step_ups: Default::default(),
         stripe,
         vault,
         tutors: Default::default(),

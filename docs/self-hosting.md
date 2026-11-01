@@ -18,8 +18,7 @@ no outside services. What it leaves out:
 - **No e-mail or text messages.** Links that would be mailed are shown in
   the page ([Without e-mail or text messages](#without-e-mail-or-text-messages)).
 - **No plans or payments.** Everyone has everything.
-- **No Google sign-in or S3.** Their settings are ignored in a mini, and the
-  log says so.
+- **No S3.** Its setting is ignored in a mini, and the log says so.
 - **Sign-up by invitation.** The first account is yours, the owner's;
   everyone else needs a link you make (`SKRONGLE_SIGNUP=invite`,
   [Accounts and AI keys](#accounts-and-ai-keys)).
@@ -127,7 +126,7 @@ paste into a bug report. It shows the version, OS and architecture, the
 device model, the listen address and whether the port is free, the data
 folder and how many courses<!-- themes --> and themes<!-- /themes --> it holds, the database path, size
 and schema (migration) level, and whether the database folder is writable.
-It also shows whether a secret key, Google sign-in and subscriptions are
+It also shows whether a secret key and subscriptions are
 configured, how many AI keys learners have saved, and free disk and memory.
 Secrets show as yes/no only, never their values. It only reads. It opens
 the database read-only and creates nothing.
@@ -157,7 +156,7 @@ A line that starts with `PROBLEM:` says what to fix.
 - lets people sign up only with an invitation from you
   (`SKRONGLE_SIGNUP=invite`, see [Accounts and AI keys](#accounts-and-ai-keys));
 - makes the server a Skrongle mini (`SKRONGLE_MINI=1`), which turns plans,
-  payments, e-mail, texts, Google sign-in and S3 off (see
+  payments, e-mail, texts and S3 off (see
   [Accounts and AI keys](#accounts-and-ai-keys));
 - reads optional settings from `/etc/skrongle/env`.
 
@@ -256,7 +255,7 @@ once at start (`e-mail: not configured; features that need it are off`,
 and the same for texts), and every feature that would send a message
 hides itself instead. The e-mail and text settings of the hosted site
 (`SKRONGLE_MAIL_PROVIDERS`, `SKRONGLE_SMS_PROVIDERS`) are ignored in a
-mini, and so are Google sign-in, Stripe and `SKRONGLE_S3_BUCKET`; the log
+mini, and so are Stripe and `SKRONGLE_S3_BUCKET`; the log
 names any that are set.
 
 | Feature | Without e-mail | Without texts |
@@ -300,8 +299,7 @@ to `invite`:
    **Make an invitation link**. Copy the link (it is shown only then) and
    send it to one person. It works once, for 7 days; **Revoke** takes back
    one nobody has used yet.
-3. The person opens the link and registers, with a password or "Sign up
-   with Google". Without a link, `/register` only says that sign-ups are
+3. The person opens the link and registers with a password. Without a link, `/register` only says that sign-ups are
    closed and to ask whoever runs the server.
 
 The same page lists the open invitations and the accounts (e-mail address,
@@ -315,7 +313,7 @@ when it was made, last sign-in; 25 to a page). The other values:
 
 Any other value stops the server at
 startup with a message naming it; the log says which mode is on. Existing
-accounts always sign in, Google included. A server that already has
+accounts always sign in. A server that already has
 accounts when you turn `invite` on gets no new owner: make one a superuser
 with `make-owner` (below).
 

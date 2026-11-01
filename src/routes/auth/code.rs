@@ -45,7 +45,7 @@ fn code_page(state: &AppState, p: &two_factor::Pending, error: Option<String>, n
 
 /// Back to the login form, saying why the second step ended.
 fn code_gone(state: &AppState, msg: &str) -> Response {
-    let page = Page(LoginTemplate { user: None, reset: state.caps().mail, error: Some(msg.to_string()), email: String::new(), google: state.google.is_some(), dev: state.dev, google_mock: state.google_mock(), notice: None, share: None });
+    let page = Page(LoginTemplate { user: None, reset: state.caps().mail, error: Some(msg.to_string()), email: String::new(), dev: state.dev, notice: None, share: None });
     ([twofa_cookie("", 0, state.secure_cookies)], page).into_response()
 }
 
@@ -220,11 +220,10 @@ pub async fn login_code(State(state): State<Arc<AppState>>, ClientIp(ip): Client
     match checked {
         two_factor::Checked::Ok => {
             let user_id = user_id.ok_or_else(|| AppError::Internal("a passed code without its user".into()))?;
-            let joined = finish_join(&state, user_id, state.google_joins.take(&token, t)).await?;
             let session = state.db.call(move |c| auth::create_session(c, user_id)).await?;
             tracing::info!("user {user_id} logged in with a second step");
             let share = share_notice(&state, &hex_cookie(&headers, SHARE_COOKIE)).await?;
-            let to = if joined { JOINED_PROFILE.to_string() } else { after_sign_in(share.as_ref()) };
+            let to = after_sign_in(share.as_ref());
             let cookies = [twofa_cookie("", 0, state.secure_cookies), auth::set_session_cookie(&session, state.secure_cookies), named_cookie(SHARE_COOKIE, "", 0, state.secure_cookies)];
             Ok((AppendHeaders(cookies), Redirect::to(&crate::url(&to))).into_response())
         }
@@ -236,7 +235,6 @@ pub async fn login_code(State(state): State<Arc<AppState>>, ClientIp(ip): Client
             Ok((StatusCode::UNPROCESSABLE_ENTITY, code_page(&state, &p, Some(msg), None)).into_response())
         }
         two_factor::Checked::Gone => {
-            state.google_joins.take(&token, t);
             // With a user id this was the last wrong code; it counts too.
             if let Some(uid) = user_id {
                 tracing::warn!("user {uid} used up the tries for a sign-in code");
@@ -275,7 +273,6 @@ pub async fn login_code_resend(State(state): State<Arc<AppState>>, headers: Head
 /// (still for the share link, if one brought the visitor).
 pub async fn login_code_cancel(State(state): State<Arc<AppState>>, headers: HeaderMap) -> Result<Response, AppError> {
     if let Some(token) = twofa_token(&headers) {
-        state.google_joins.take(&token, now());
         state.db.call(move |c| two_factor::cancel(c, &token)).await?;
     }
     let share = share_notice(&state, &hex_cookie(&headers, SHARE_COOKIE)).await?;

@@ -636,14 +636,13 @@ fn superusers_reset_passwords_and_two_factor() {
 }
 
 /// A server on `SKRONGLE_SIGNUP` (#634), its router served on a free
-/// port, with "Continue with Google" pointed at the stand-in.
+/// port.
 fn signup_server(mode: crate::signup::Mode) -> (tokio::runtime::Runtime, std::sync::Arc<crate::AppState>, String) {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
     let listener = rt.block_on(tokio::net::TcpListener::bind("127.0.0.1:0")).unwrap();
     let addr = listener.local_addr().unwrap();
     let mut s = std::sync::Arc::into_inner(super::test_state(false, None)).unwrap();
     s.signup = mode;
-    s.google = Some(crate::dev::mock_google(addr));
     let state = std::sync::Arc::new(s);
     let app = super::router(state.clone());
     rt.spawn(async move { axum::serve(listener, app.into_make_service_with_connect_info::<std::net::SocketAddr>()).await.unwrap() });
@@ -723,7 +722,6 @@ fn signup_by_invitation() {
     assert!(!get("/superuser", &owner).1.contains(&token), "the link is shown only when made");
     let (_, page) = get(&format!("/register?invite={token}"), "");
     assert!(page.contains(&format!(r#"name="invite" value="{token}""#)) && !page.contains("register-owner-note"), "{page}");
-    assert!(page.contains(&format!("/auth/google?invite={token}")), "Google sign-up carries the link");
     assert_eq!(register("ann@example.org", &token).0, 200);
     let (status, ann, _) = post("/login", "", &[("email", "ann@example.org"), ("password", "long-enough-pw")]);
     assert_eq!(status, 303);
@@ -756,8 +754,7 @@ fn signup_by_invitation() {
 
 /// `SKRONGLE_SIGNUP=closed`: the first account is still made, through
 /// the owner link, and is the owner's; then nobody registers, not with
-/// a link either, nor with Google, while existing accounts still sign
-/// in with Google.
+/// a link either.
 #[test]
 fn closed_signup_lets_only_the_owner_in() {
     let (_rt, state, base) = signup_server(crate::signup::Mode::Closed);
@@ -767,43 +764,24 @@ fn closed_signup_lets_only_the_owner_in() {
         let form = [("email", email), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on"), ("invite", invite)];
         agent.post(&format!("{base}/register")).send_form(form).unwrap().status().as_u16()
     };
-    let confirm_with = |token: &str, invite: &str| {
-        let cookie = format!("signup={token}; signup_invite={invite}");
-        let mut r = agent.post(&format!("{base}/auth/google/confirm")).header("cookie", &cookie).send_form([("age", "on"), ("accept", "on")]).unwrap();
-        (r.status().as_u16(), r.body_mut().read_to_string().unwrap())
-    };
-    let confirm = |token: &str| confirm_with(token, "");
     let users = || state.db.with(|c| c.query_row("SELECT COUNT(*) FROM users", [], |r| r.get::<_, i64>(0))).unwrap();
 
-    // The first account comes in with Google here, through the owner
-    // link (carried by the Google button), and is the owner's.
+    // The first account comes in through the owner link and is the owner's.
     let owner_link = state.db.with(|c| crate::signup::owner_link(c, crate::db::now())).unwrap().unwrap();
     assert!(get("/register").contains("no owner yet"));
     let page = get(&format!("/register?invite={owner_link}"));
-    assert!(page.contains("register-owner-note") && page.contains(&format!("/auth/google?invite={owner_link}")), "{page}");
-    let (sub, _) = crate::dev::mock_google_account("owner@example.org");
-    let identity = |sub: &str| crate::oauth::Identity { sub: sub.into(), email: "owner@example.org".into(), name: None };
-    let t = state.signups.insert(identity(&sub), crate::db::now());
-    assert_eq!(confirm(&t).0, 403, "not without the owner link");
+    assert!(page.contains("register-owner-note"), "{page}");
+    assert_eq!(register("owner@example.org", ""), 403, "not without the owner link");
     assert_eq!(users(), 0);
-    let t = state.signups.insert(identity(&sub), crate::db::now());
-    assert_eq!(confirm_with(&t, &owner_link).0, 303);
-    let su: bool = state.db.with(|c| c.query_row("SELECT superuser FROM users WHERE google_sub = ?1", [&sub], |r| r.get(0))).unwrap();
-    assert!(su, "the first account, made with Google, is the owner");
+    assert_eq!(register("owner@example.org", &owner_link), 200);
+    let su: bool = state.db.with(|c| c.query_row("SELECT superuser FROM users WHERE email = 'owner@example.org'", [], |r| r.get(0))).unwrap();
+    assert!(su, "the first account is the owner");
 
-    // Then: closed, with or without a link, by password or by Google.
+    // Then: closed, with or without a link.
     assert!(get("/register").contains("register-closed"));
     assert!(get("/register?invite=abc123").contains("This server is not taking new accounts"));
     assert_eq!(register("eve@example.org", ""), 403);
-    let t = state.signups.insert(crate::oauth::Identity { sub: "g-eve".into(), email: "eve@example.org".into(), name: None }, crate::db::now());
-    let (status, page) = confirm(&t);
-    assert_eq!(status, 403);
-    assert!(page.contains("register-closed"), "{page}");
-    assert_eq!(users(), 1);
-
-    // The owner's Google account still signs in.
-    let t = state.signups.insert(crate::oauth::Identity { sub, email: "owner@example.org".into(), name: None }, crate::db::now());
-    assert_eq!(confirm(&t).0, 303);
+    assert_eq!(register("eve@example.org", "abc123"), 403);
     assert_eq!(users(), 1);
     // No invitations in closed mode.
     let owner_cookie = state.db.with(|c| {
@@ -988,7 +966,7 @@ fn proxy_header_for_an_unknown_address_follows_the_signup_rule() {
         .db
         .with(|c| c.query_row("SELECT password_hash, email_verified_at IS NOT NULL FROM users WHERE email = 'new@example.org'", [], |r| Ok((r.get(0)?, r.get(1)?))))
         .unwrap();
-    assert_eq!(hash, "", "no password, like a Google-only account");
+    assert_eq!(hash, "", "no password, like a proxy-signed-in account");
     assert!(verified, "the proxy vouched for the address");
     // Not an address: nobody is made.
     proxied(&base, "GET", "/", "", Some("just-a-name"));
@@ -2002,7 +1980,7 @@ fn with_mail_and_sms_everything_is_offered() {
     assert_eq!(mails, 1);
 }
 
-/// #431, #363: only an account with a confirmed address (or Google)
+/// #431, #363: only an account with a confirmed address
 /// may add a phone or have it texted; the profile shows the field
 /// locked with an (i); a number verified on one account is refused on
 /// another; numbers outside `SKRONGLE_SMS_COUNTRIES` are refused.
@@ -2066,8 +2044,8 @@ fn a_phone_needs_a_confirmed_address_and_a_number_of_its_own() {
     assert_eq!(send(&ann_c).0, 303);
     assert_eq!(texts(), 1);
 
-    // A Google account counts as confirmed; a number Ann verified is not Bob's to use.
-    state.db.with(|c| c.execute("UPDATE users SET google_sub = 'g-bob' WHERE id = ?1", [bob])).unwrap();
+    // Bob's address is confirmed too; a number Ann verified is not Bob's to use.
+    state.db.with(|c| crate::verify::mark_verified(c, bob, 1)).unwrap();
     state.db.with(|c| c.execute("UPDATE users SET phone_verified_at = 5 WHERE id = ?1", [ann])).unwrap();
     let (status, body) = save(&bob_c, "(555) 555 - 0123");
     assert_eq!(status, 422);

@@ -45,7 +45,7 @@ impl CourseQuery {
     pub fn params(&self) -> String {
         let mut s = String::new();
         if !self.q.is_empty() {
-            s.push_str(&format!("&course_q={}", crate::oauth::urlencode(&self.q)));
+            s.push_str(&format!("&course_q={}", crate::urlenc::urlencode(&self.q)));
         }
         if self.show != Show::All {
             s.push_str(&format!("&course_show={}", self.show.as_str()));
@@ -474,7 +474,7 @@ pub async fn email_owner(State(state): State<Arc<AppState>>, user: CurrentUser, 
     let cid = id.clone();
     state.db.call(move |c| owner_mail::mark_emailed(c, &cid, crate::db::now())).await?;
     tracing::info!("superuser {} e-mailed the owner (user {owner_id}) of course {id}: {}", user.id, why.kind());
-    let to = format!("/superuser?did=owner-emailed&about={}&email={}", crate::oauth::urlencode(&id), crate::oauth::urlencode(&email));
+    let to = format!("/superuser?did=owner-emailed&about={}&email={}", crate::urlenc::urlencode(&id), crate::urlenc::urlencode(&email));
     Ok(axum::response::Redirect::to(&crate::url(&to)).into_response())
 }
 #[cfg(test)]

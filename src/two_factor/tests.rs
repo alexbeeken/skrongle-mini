@@ -68,10 +68,10 @@ fn methods_need_a_verified_address_number_or_app() {
     .unwrap();
 }
 
-/// #431: a phone number (and its code) needs a confirmed address or a
-/// Google account; clearing one never does.
+/// #431: a phone number (and its code) needs a confirmed address;
+/// clearing one never does.
 #[test]
-fn a_phone_needs_a_confirmed_address_or_google() {
+fn a_phone_needs_a_confirmed_address() {
     let db = Db::open_in_memory().unwrap();
     db.with(|c| {
         let u = user(c, "ann@example.org");
@@ -82,10 +82,6 @@ fn a_phone_needs_a_confirmed_address_or_google() {
         verify_email(c, u);
         assert_eq!(phone_change_refusal(c, u, "+447700900999")?, None);
         assert!(matches!(issue_phone_code(c, u, 2)?, PhoneCode::Send { .. }));
-        let g = user(c, "gus@example.org");
-        c.execute("UPDATE users SET google_sub = 'g-1' WHERE id = ?1", [g])?;
-        assert!(may_add_phone(c, g)?);
-        assert_eq!(phone_change_refusal(c, g, "+447700900555")?, None);
         Ok(())
     })
     .unwrap();

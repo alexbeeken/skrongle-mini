@@ -84,7 +84,7 @@ pub async fn show(State(state): State<Arc<AppState>>, user: CurrentUser, Query(q
         Some("invited") => {
             notice = Some(crate::t1("release.invited_one", "email", &email));
             if state.dev_inbox.is_some() {
-                inbox = Some(crate::url(&format!("/dev/inbox/latest?to={}", crate::oauth::urlencode(&email))));
+                inbox = Some(crate::url(&format!("/dev/inbox/latest?to={}", crate::urlenc::urlencode(&email))));
             }
         }
         Some("invited-n") => notice = Some(crate::tn("release.invited_n", q.n.unwrap_or(0))),
@@ -188,11 +188,11 @@ pub async fn invite(State(state): State<Arc<AppState>>, user: CurrentUser, heade
         .await?;
     let (sent, email) = found;
     if !sent {
-        return Ok(back(&format!("did=not-invited&email={}", crate::oauth::urlencode(&email))));
+        return Ok(back(&format!("did=not-invited&email={}", crate::urlenc::urlencode(&email))));
     }
     state.mail.notify();
     tracing::info!("superuser {uid} invited waitlist entry {id}");
-    Ok(back(&format!("did=invited&email={}", crate::oauth::urlencode(&email))))
+    Ok(back(&format!("did=invited&email={}", crate::urlenc::urlencode(&email))))
 }
 
 #[derive(Deserialize)]
