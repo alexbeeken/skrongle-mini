@@ -61,7 +61,6 @@ mod share;
 mod shape;
 mod signup;
 mod startup;
-mod storage;
 mod security;
 mod server;
 mod sms;
@@ -787,10 +786,8 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
     let check_mode = content_check::Mode::from_env()?;
     let mut mail_cfg = mail::Config::from_env()?;
     let mut sms_cfg = sms::Config::from_env()?;
-    let storage = Arc::new(storage::Storage::from_settings(env("S3_BUCKET"), &|k| std::env::var(k).ok())?);
     let missing: Vec<&str> = [
         (mail_cfg.logging_only, "SKRONGLE_MAIL_PROVIDERS"),
-        (storage.bucket().is_none(), storage::BUCKET_VAR),
         (sms_cfg.logging_only, "SKRONGLE_SMS_PROVIDERS"),
         (cfg.google.is_none(), "SKRONGLE_GOOGLE_CLIENT_ID"),
         (cfg.stripe.is_none(), "SKRONGLE_STRIPE_SECRET_KEY"),
@@ -851,8 +848,8 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
     }
     let sms_outbox = sms::Outbox::new(sms_cfg.chain, dev);
     let texter = sms::Texter::new(&sms_outbox, sms_cfg.policy, sms_on, queue.waker());
-    tracing::info!("{}", storage.describe());
-    let exports_dir = exports::Exports::open(&cfg.db_path, Arc::clone(&storage)).map_err(|e| format!("data exports folder for {}: {e}", cfg.db_path.display()))?;
+    tracing::info!("data exports: on disk, next to the database");
+    let exports_dir = exports::Exports::open(&cfg.db_path).map_err(|e| format!("data exports folder for {}: {e}", cfg.db_path.display()))?;
     let export_mail: Option<Box<dyn Fn() + Send>> = mail_on.then(|| {
         let wake = mailer.waker();
         Box::new(move || {
@@ -860,7 +857,6 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         }) as Box<dyn Fn() + Send>
     });
     let mut export_builder = exports::Builder::new(exports_dir.dir.clone(), export_mail);
-    export_builder.storage = storage;
     // Dev: a slow export, to watch it in slices on /dev/jobs or stop the
     // server halfway through (SKRONGLE_DEV_EXPORT_PAUSE_MS after each page,
     // five pages a slice).

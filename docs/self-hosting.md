@@ -18,7 +18,7 @@ no outside services. What it leaves out:
 - **No e-mail or text messages.** Links that would be mailed are shown in
   the page ([Without e-mail or text messages](#without-e-mail-or-text-messages)).
 - **No plans or payments.** Everyone has everything.
-- **No Google sign-in or S3.** Their settings are ignored in a mini, and the
+- **No Google sign-in.** Its settings are ignored in a mini, and the
   log says so.
 - **Sign-up by invitation.** The first account is yours, the owner's;
   everyone else needs a link you make (`SKRONGLE_SIGNUP=invite`,
@@ -157,7 +157,7 @@ A line that starts with `PROBLEM:` says what to fix.
 - lets people sign up only with an invitation from you
   (`SKRONGLE_SIGNUP=invite`, see [Accounts and AI keys](#accounts-and-ai-keys));
 - makes the server a Skrongle mini (`SKRONGLE_MINI=1`), which turns plans,
-  payments, e-mail, texts, Google sign-in and S3 off (see
+  payments, e-mail, texts, Google sign-in off (see
   [Accounts and AI keys](#accounts-and-ai-keys));
 - reads optional settings from `/etc/skrongle/env`.
 
@@ -256,7 +256,7 @@ once at start (`e-mail: not configured; features that need it are off`,
 and the same for texts), and every feature that would send a message
 hides itself instead. The e-mail and text settings of the hosted site
 (`SKRONGLE_MAIL_PROVIDERS`, `SKRONGLE_SMS_PROVIDERS`) are ignored in a
-mini, and so are Google sign-in, Stripe and `SKRONGLE_S3_BUCKET`; the log
+mini, and so are Google sign-in and Stripe; the log
 names any that are set.
 
 | Feature | Without e-mail | Without texts |

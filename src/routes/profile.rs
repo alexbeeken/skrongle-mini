@@ -1362,26 +1362,11 @@ pub async fn export_download_now(State(state): State<Arc<AppState>>, user: Curre
     send_export(&state, uid, file).await
 }
 
-/// The export file `file` names (in the exports folder), sent and deleted;
-/// on the hosted site a redirect to its pre-signed link in the bucket (#871).
+/// The export file `file` names (in the exports folder), sent and deleted.
 /// `None` (or a file that is gone): back to the profile, which says so.
 async fn send_export(state: &AppState, uid: i64, file: Option<String>) -> Result<Response, AppError> {
     use std::io::Read;
     let gone = || Redirect::to(&crate::url("/profile?saved=export-gone#data")).into_response();
-    match (&file, state.exports.storage.bucket()) {
-        (Some(f), Some(_)) => match state.exports.link(f).await {
-            Some(Ok(link)) => {
-                tracing::info!("user {uid} downloaded their data (from the bucket)");
-                return Ok(([(header::CACHE_CONTROL, "no-store")], Redirect::to(&link)).into_response());
-            }
-            other => {
-                tracing::warn!("export for user {uid}: no download link: {other:?}");
-                return Ok(gone());
-            }
-        },
-        (None, _) => return Ok(gone()),
-        (Some(_), None) => {}
-    }
     let Some(path) = file.and_then(|f| crate::exports::file_path(&state.exports.dir, &f)) else { return Ok(gone()) };
     let mut f = match std::fs::File::open(&path) {
         Ok(f) => f,

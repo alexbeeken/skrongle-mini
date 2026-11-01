@@ -926,7 +926,7 @@ pub(crate) fn test_state_with(
         limits: crate::security::RateLimits::new(dev),
         mail: crate::mail::Mailer::idle(),
         sms: crate::sms::Texter::idle(),
-        exports: crate::exports::Exports { dir: std::env::temp_dir().join(format!("skrongle-test-exports-{}", std::process::id())), storage: Arc::new(crate::storage::Storage::Disk) },
+        exports: crate::exports::Exports { dir: std::env::temp_dir().join(format!("skrongle-test-exports-{}", std::process::id())) },
         queue: crate::jobs::Queue::idle(),
         dev_inbox: None,
         dev_phone: None,
