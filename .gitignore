@@ -9,8 +9,6 @@
 .env
 # deployment secrets (template: deploy/deploy.env.example)
 deploy/deploy.env
-# pinned ssh host keys of AWS instances (scripts/deploy-aws.sh)
-deploy/aws/known_hosts.*
 .DS_Store
 /dist
 # local testing (./.dev-start): captured LLM requests, background server state

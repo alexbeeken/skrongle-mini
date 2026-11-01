@@ -60,8 +60,6 @@ PR and its merge commit.
 | #377 | Google confirm | An already-linked `sub` at the confirm step got a session without the second step. | That branch calls `sign_in`. | #438 (`5ad30a3`) | `google_confirm_step_signs_in_to_an_existing_account_through_its_second_step` |
 | #378 | Profile password checks | Password change and account deletion neither checked nor hit `LOGIN_FAILURES_PER_USER`. | Both go through `prove_owner`. | #438 (`5ad30a3`) | `account_forms_are_rate_limited` |
 | #390 | Deploy files | The owner's DuckDNS host and the Pi's LAN address were tracked in `deploy/` and `scripts/`. | Placeholders in the unit and nginx snippets, rendered by `deploy.sh` from `PI_PUBLIC_URL`; `PI_HOST` / `PI_PUBLIC_URL` required from `deploy/deploy.env`. | #439 (`da6d26e`) | `git grep` (manual) |
-| #391 | AWS deploy | `StrictHostKeyChecking=no` while pushing Stripe/Google secrets. | Host key pinned per instance from the boot console (AWS API) or `AWS_SSH_HOST_KEY_FINGERPRINT`; `StrictHostKeyChecking=yes`. | #439 (`da6d26e`) | manual (needs AWS) |
-| #392 | AWS first boot | Caddy downloaded unpinned, unchecked, as root. | Caddy 2.11.7 from the GitHub release, `sha512sum -c` against the release's checksum. | #439 (`da6d26e`) | manual (needs AWS) |
 | #392 | Self-hosting docs | No tarball checksum; backup tarball world-readable. | `sha256sum -c` of the published `.sha256`; backup under `umask 077`. | #439 (`da6d26e`) | docs |
 | #393 | Mail providers | Brevo accepted any `http://`; Postmark matched loopback by prefix. | Shared `api_url_is_safe` checks the parsed host. | #439 (`da6d26e`) | `brevo_api_url_must_be_https_or_this_machine`, `postmark_api_url_loopback_is_checked_on_the_parsed_host`, `config_reads_the_key_and_url_and_names_missing_variables` |
 | #365, #430 | Export | `/profile/export.json` built the whole account as one JSON value in memory inside one `Db::call`, holding the only connection, with no rate limit (OOM and stall risk on the Pi). | Built in the background: a queued row, then the `export` job on the shared `jobs` runner (#875) writes the file page by page (short calls, a pause between them, 50 pages a run). A one-time, hashed, 24 h link that only works for the signed-in owner is mailed. One in flight and one a day per account. The file is deleted on download, on expiry and with the account. | #456 (`fdc18d2`) | `one_export_in_flight_and_one_a_day`, `an_export_is_built_in_pages_mailed_and_downloaded_once`, `expired_exports_and_strays_are_deleted`, `a_deleted_account_leaves_no_export`, `privacy_page_export_and_account_deletion_over_http` |
@@ -195,7 +193,7 @@ Still open from this review:
   submitted and resolved again by the HTTP client when it connects, so a DNS
   server that changes its answer in between could still reach an internal
   address. Closing it needs a resolver hook in ureq (its API for that is
-  unstable). The hosted site can also block it at the network level.
+  unstable).
 - **CSP allows inline scripts** (`'unsafe-inline'`): the templates still have
   three inline `<script>` blocks and a few `onsubmit`/`onchange` attributes.
   The policy still blocks scripts from other origins, framing, plugins and
@@ -204,8 +202,7 @@ Still open from this review:
 - **`Secure` cookies and HSTS are opt-in in Skrongle mini**
   (`SKRONGLE_SECURE_COOKIES=1`), because a Pi on a home network is usually
   reached over plain HTTP. The startup warning says when to turn it on. The
-  hosted site refuses to start without it (#980); both deploy targets serve
-  HTTPS.
+  hosted site refuses to start without it (#980).
 - **Rate limits live in memory**: they reset on restart and are per process.
   Behind a proxy that does not set `X-Forwarded-For` every client shares one
   address bucket (the per-account limit still applies).

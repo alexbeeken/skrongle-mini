@@ -1036,7 +1036,7 @@ mod tests {
     /// tell people to rename theirs. Remove this list with the fallback.
     #[test]
     fn the_old_prefix_does_not_come_back() {
-        let allowed = ["src/main.rs", "docs/self-hosting.md", "docs/architecture.md", "scripts/deploy-env.sh", "scripts/deploy.sh", "deploy/update.sh", "scripts/aws-env.sh", "scripts/deploy-aws.sh"];
+        let allowed = ["src/main.rs", "docs/self-hosting.md", "docs/architecture.md", "scripts/deploy-env.sh", "scripts/deploy.sh", "deploy/update.sh"];
         let needle = concat!("LEA", "RN_");
         let root = env!("CARGO_MANIFEST_DIR");
         let Ok(out) = std::process::Command::new("git").args(["-C", root, "ls-files", "-z"]).output() else {
