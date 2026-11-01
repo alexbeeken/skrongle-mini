@@ -1,9 +1,7 @@
-{# The circle on a course someone shared with this learner (`c`, `o` = who): it opens what the share means,
-   and on a server that sends mail, "Report this course" (#968, src/content_reports.rs), whose form is
-   content_report_dialog.html (outside the card's heading). #}
+{# The circle on a course someone shared with this learner (`c`, `o` = who): it opens what the share means. #}
 <button type="button" class="share-dot" data-open-dialog="course-shared-{{ c.id }}" aria-haspopup="dialog" aria-label="{{ crate::t1("courses.share.dot_label", "owner", o) }}" data-tip="{{ crate::t1("courses.share.dot_label", "owner", o) }}" data-testid="courses-card-shared" data-owner="{{ o }}"></button>
 <dialog class="modal" id="course-shared-{{ c.id }}" aria-labelledby="course-shared-{{ c.id }}-title" data-testid="courses-card-shared-dialog">
   <h2 id="course-shared-{{ c.id }}-title">{{ crate::t("courses.share.shared_title") }}</h2>
   <p>{{ crate::t1("courses.share.shared_body", "owner", o) }}</p>
-  <form method="dialog" class="modal-actions">{% if c.report_email.is_some() %}<button type="button" class="btn ghost" data-open-dialog="content-report-{{ c.id }}" aria-haspopup="dialog" data-testid="content-report-open">{{ crate::t("reports.course.open") }}</button>{% endif %}<button type="submit" class="btn" data-testid="courses-card-shared-close">{{ crate::t("courses.share.ok") }}</button></form>
+  <form method="dialog" class="modal-actions"><button type="submit" class="btn" data-testid="courses-card-shared-close">{{ crate::t("courses.share.ok") }}</button></form>
 </dialog>

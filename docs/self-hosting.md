@@ -15,11 +15,9 @@ The release you install is **Skrongle mini**: the same binary as the hosted
 site, with `skrongle.service` set for a handful of people who know you and
 no outside services. What it leaves out:
 
-- **No e-mail or text messages.** Links that would be mailed are shown in
-  the page ([Without e-mail or text messages](#without-e-mail-or-text-messages)).
+- **No e-mail.** Links that would be mailed are shown in
+  the page ([Without e-mail](#without-e-mail)).
 - **No plans or payments.** Everyone has everything.
-- **No Google sign-in or S3.** Their settings are ignored in a mini, and the
-  log says so.
 - **Sign-up by invitation.** The first account is yours, the owner's;
   everyone else needs a link you make (`SKRONGLE_SIGNUP=invite`,
   [Accounts and AI keys](#accounts-and-ai-keys)).
@@ -41,7 +39,7 @@ You secure the login, as with any self-hosted app:
 
 - A strong password for every account.
 - Two-factor sign-in with an authenticator app (*Profile → Two-factor
-  authentication*). It needs no e-mail or texts.
+  authentication*). It needs no e-mail.
 - The server reachable only over Tailscale or a VPN
   ([Reaching it from outside](#reaching-it-from-outside)). **Never forward
   a port** on the router.
@@ -127,7 +125,7 @@ paste into a bug report. It shows the version, OS and architecture, the
 device model, the listen address and whether the port is free, the data
 folder and how many courses<!-- themes --> and themes<!-- /themes --> it holds, the database path, size
 and schema (migration) level, and whether the database folder is writable.
-It also shows whether a secret key, Google sign-in and subscriptions are
+It also shows whether a secret key and subscriptions are
 configured, how many AI keys learners have saved, and free disk and memory.
 Secrets show as yes/no only, never their values. It only reads. It opens
 the database read-only and creates nothing.
@@ -157,7 +155,7 @@ A line that starts with `PROBLEM:` says what to fix.
 - lets people sign up only with an invitation from you
   (`SKRONGLE_SIGNUP=invite`, see [Accounts and AI keys](#accounts-and-ai-keys));
 - makes the server a Skrongle mini (`SKRONGLE_MINI=1`), which turns plans,
-  payments, e-mail, texts, Google sign-in and S3 off (see
+  payments and e-mail off (see
   [Accounts and AI keys](#accounts-and-ai-keys));
 - reads optional settings from `/etc/skrongle/env`.
 
@@ -179,7 +177,7 @@ starts `SKRONGLE_`; see [Renamed settings](#renamed-settings) if yours start `LE
 
 | Variable | Default | Meaning |
 |---|---|---|
-| `SKRONGLE_MINI` | unset (mini: `1`) | `1`: this server is a Skrongle mini, the self-hosted version. It is what makes the server a mini: without it the server is the hosted site, which refuses to start without e-mail, texts, Google and Stripe. In a mini there are no plans or payments (every account has every feature and the server's AI key is shared, see [Accounts and AI keys](#accounts-and-ai-keys)), and the e-mail, text, Google, Stripe and S3 settings are ignored. Read once at startup. |
+| `SKRONGLE_MINI` | unset (mini: `1`) | `1`: this server is a Skrongle mini, the self-hosted version. It is what makes the server a mini: without it the server is the hosted site, which refuses to start without e-mail, Google and Stripe. In a mini there are no plans or payments (every account has every feature and the server's AI key is shared, see [Accounts and AI keys](#accounts-and-ai-keys)), and the e-mail, text, Google, Stripe and S3 settings are ignored. Read once at startup. |
 | `SKRONGLE_BIND` | `0.0.0.0:8080` | Address and port to listen on; a bare port (`8081`) means every interface. |
 | `SKRONGLE_SIGNUP` | `open` (mini: `invite`) | Who may make an account: `open`, `invite` or `closed`; see [Accounts and AI keys](#accounts-and-ai-keys). |
 | `SKRONGLE_PROXY_AUTH_HEADER`, `SKRONGLE_PROXY_AUTH_FROM` | — | Let the proxy in front sign people in; see [Signing in at the proxy](#signing-in-at-the-proxy). Both or neither. |
@@ -249,26 +247,25 @@ names the path. `SKRONGLE_TERMS=builtin` shows the hosted service's terms
 instead. The age box ("I am at least 14") stays either way
 (`SKRONGLE_MIN_AGE`).
 
-## Without e-mail or text messages
+## Without e-mail
 
-A Skrongle mini sends no e-mail or text messages (#633): the log says so
-once at start (`e-mail: not configured; features that need it are off`,
-and the same for texts), and every feature that would send a message
-hides itself instead. The e-mail and text settings of the hosted site
-(`SKRONGLE_MAIL_PROVIDERS`, `SKRONGLE_SMS_PROVIDERS`) are ignored in a
-mini, and so are Google sign-in, Stripe and `SKRONGLE_S3_BUCKET`; the log
+A Skrongle mini sends no e-mail (#633): the log says so
+once at start (`e-mail: not configured; features that need it are off`),
+and every feature that would send a message
+hides itself instead. The e-mail setting of the hosted site
+(`SKRONGLE_MAIL_PROVIDERS`) is ignored in a
+mini, and so is Stripe; the log
 names any that are set.
 
-| Feature | Without e-mail | Without texts |
-|---|---|---|
-| Confirming an address | No link is sent. The e-mail field shows an (i), not the red !, and nothing asks to send it again. | — |
-| Phone number | — | The profile has no phone field. |
-| Two-factor sign-in | The e-mail method is not offered. | The text message method is not offered. |
-| Sharing a course | After inviting, the Share dialog shows each address's link with a Copy button, once (links are stored only hashed); pass it on yourself. | — |
-| Download my data | No mail: when the copy is ready, the Data section's **Download my data** button gets it (the button is there with mail too). | — |
+| Feature | Without e-mail |
+|---|---|
+| Confirming an address | No link is sent. The e-mail field shows an (i), not the red !, and nothing asks to send it again. |
+| Two-factor sign-in | The e-mail method is not offered. |
+| Sharing a course | After inviting, the Share dialog shows each address's link with a Copy button, once (links are stored only hashed); pass it on yourself. |
+| Download my data | No mail: when the copy is ready, the Data section's **Download my data** button gets it (the button is there with mail too). |
 
-The authenticator app needs neither, so two-factor sign-in still works. An
-account whose second step was e-mail or texts (a database moved over from
+The authenticator app needs no e-mail, so two-factor sign-in still works. An
+account whose second step was e-mail (a database moved over from
 elsewhere) cannot sign in: the login page says so. Turn two-factor sign-in
 off for that account (see [If you lock yourself out](#if-you-lock-yourself-out)).
 
@@ -300,8 +297,7 @@ to `invite`:
    **Make an invitation link**. Copy the link (it is shown only then) and
    send it to one person. It works once, for 7 days; **Revoke** takes back
    one nobody has used yet.
-3. The person opens the link and registers, with a password or "Sign up
-   with Google". Without a link, `/register` only says that sign-ups are
+3. The person opens the link and registers with a password. Without a link, `/register` only says that sign-ups are
    closed and to ask whoever runs the server.
 
 The same page lists the open invitations and the accounts (e-mail address,
@@ -315,7 +311,7 @@ when it was made, last sign-in; 25 to a page). The other values:
 
 Any other value stops the server at
 startup with a message naming it; the log says which mode is on. Existing
-accounts always sign in, Google included. A server that already has
+accounts always sign in. A server that already has
 accounts when you turn `invite` on gets no new owner: make one a superuser
 with `make-owner` (below).
 

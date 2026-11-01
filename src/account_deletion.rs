@@ -6,10 +6,10 @@
 //!   every session and pending second step of the account, and, where the
 //!   server sends mail, mails the learner the date.
 //! - Until then the account can be signed in to as usual (password, second
-//!   step, Google), but the `CurrentUser` extractor sends every page to
+//!   step), but the `CurrentUser` extractor sends every page to
 //!   `/account/deletion` (`routes/account_deletion.rs`), whose one action is
 //!   *Cancel deletion*; the other is signing out. Its courses are not shared
-//!   out meanwhile (`share.rs`), as for a suspended owner.
+//!   out meanwhile (`share.rs`).
 //! - The hourly job [`crate::jobs::DELETIONS`] deletes every account whose
 //!   time has come, with the same full deletion as before
 //!   (`privacy::delete_account`, plus what the server holds in memory and on

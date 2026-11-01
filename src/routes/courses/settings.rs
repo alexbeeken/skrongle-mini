@@ -138,13 +138,9 @@ pub async fn open(
     if !accessible(&state, &user, &id).await? {
         return Err(AppError::NotFound);
     }
-    // A course of their own that does not load: its editor says why, and
-    // names what matched when the content check flagged it (#1033).
+    // A course of their own that does not load: its editor says why.
     let Some(content) = state.courses.get(&state.db, &id).await? else {
-        let cid = id.clone();
-        let flagged = state.db.call(move |c| crate::course_flags::blocks(c, &cid)).await?;
-        let to = if flagged { format!("/courses/{id}?notice=flagged") } else { format!("/courses/{id}") };
-        return Ok(Redirect::to(&crate::url(&to)).into_response());
+        return Ok(Redirect::to(&crate::url(&format!("/courses/{id}"))).into_response());
     };
     let change = if form.wizard == "1" { Some(settings_change(&state, &user, &content, &form).await?) } else { None };
     let then = match content.lessons().iter().find(|l| !form.lesson.is_empty() && l.slug == form.lesson) {

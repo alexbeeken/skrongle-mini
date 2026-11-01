@@ -14,10 +14,6 @@
 //! reaches `/register` first gets the closed page. With the setting unset
 //! nothing changes.
 //!
-//! On the hosted site the waitlist (#934, `waitlist.rs`) makes `open` act
-//! as `invite` while it is on, and e-mails invitations tied to one address
-//! (`signup_invites.email`): only an account with that address can use one.
-//!
 //! Table `signup_invites`: one row per link; the owner's link is the row
 //! with no `created_by`. The token is stored as its SHA-256 only, like
 //! course share links (`share.rs`).
@@ -108,8 +104,6 @@ pub enum Refusal {
     NoOwner,
     /// `invite` with a token that cannot be used.
     Used,
-    /// An e-mailed invitation (#934), for another address.
-    WrongEmail,
     Expired,
     Unknown,
 }
@@ -121,7 +115,6 @@ impl Refusal {
             Refusal::Closed => "auth.signup.closed",
             Refusal::NoOwner => "auth.signup.no_owner",
             Refusal::Used => "auth.signup.invite_used",
-            Refusal::WrongEmail => "auth.signup.invite_wrong_email",
             Refusal::Expired => "auth.signup.invite_expired",
             Refusal::Unknown => "auth.signup.invite_unknown",
         })
@@ -157,7 +150,7 @@ pub fn check_invite(conn: &Connection, token: &str, now: i64) -> rusqlite::Resul
 
 /// May an account be made now, in `mode`, with this invitation token ('' for
 /// none), for `email` (`None` before the address is known: the form)?
-pub fn admit(conn: &Connection, mode: Mode, invite: &str, email: Option<&str>, now: i64) -> rusqlite::Result<Result<Admit, Refusal>> {
+pub fn admit(conn: &Connection, mode: Mode, invite: &str, _email: Option<&str>, now: i64) -> rusqlite::Result<Result<Admit, Refusal>> {
     if mode == Mode::Open {
         return Ok(Ok(Admit::Open));
     }
@@ -172,10 +165,7 @@ pub fn admit(conn: &Connection, mode: Mode, invite: &str, email: Option<&str>, n
         return Ok(Err(Refusal::Closed));
     }
     Ok(match check_invite(conn, invite, now)? {
-        Invite::Valid(id) => match (crate::waitlist::invite_email(conn, id)?, email) {
-            (Some(bound), Some(e)) if !bound.eq_ignore_ascii_case(e.trim()) => Err(Refusal::WrongEmail),
-            _ => Ok(Admit::Invited(id)),
-        },
+        Invite::Valid(id) => Ok(Admit::Invited(id)),
         Invite::Used => Err(Refusal::Used),
         Invite::Expired => Err(Refusal::Expired),
         // An owner's link left over once there are accounts lets nobody in.
@@ -185,7 +175,7 @@ pub fn admit(conn: &Connection, mode: Mode, invite: &str, email: Option<&str>, n
 
 /// After the account `user_id` was made on `admit`'s word, in the same
 /// transaction: the link is used up, and the owner becomes a superuser
-/// (only while it is the one account), and the waitlist hears of it.
+/// (only while it is the one account).
 /// `false` when the link was used meanwhile, an e-mailed one names another
 /// address, or another account came first: the caller rolls back.
 pub fn finish(conn: &Connection, admitted: Admit, user_id: i64, now: i64) -> rusqlite::Result<bool> {
@@ -202,9 +192,6 @@ pub fn finish(conn: &Connection, admitted: Admit, user_id: i64, now: i64) -> rus
         Admit::Owner(id) => use_up(id)? && conn.execute("UPDATE users SET superuser = 1 WHERE id = ?1 AND (SELECT COUNT(*) FROM users) = 1", [user_id])? == 1,
         Admit::Invited(id) => use_up(id)?,
     };
-    if ok {
-        crate::waitlist::signed_up(conn, if let Admit::Invited(id) = admitted { Some(id) } else { None }, user_id, now)?;
-    }
     Ok(ok)
 }
 
@@ -290,8 +277,6 @@ pub struct Account {
     /// The newest session still on record (sessions last 30 days), if any.
     pub last_sign_in: Option<i64>,
     pub superuser: bool,
-    /// Suspended by a superuser (#967).
-    pub suspended: bool,
 }
 
 /// One page of the accounts, newest first.
@@ -311,10 +296,10 @@ pub fn accounts(conn: &Connection, page: i64) -> rusqlite::Result<AccountsPage> 
     let pages = (total + ACCOUNTS_PER_PAGE - 1).max(ACCOUNTS_PER_PAGE) / ACCOUNTS_PER_PAGE;
     let page = page.clamp(1, pages);
     let mut stmt = conn.prepare_cached(
-        "SELECT COALESCE(u.email, ''), u.created_at, (SELECT MAX(s.created_at) FROM sessions s WHERE s.user_id = u.id), u.superuser, u.suspended_at IS NOT NULL
+        "SELECT COALESCE(u.email, ''), u.created_at, (SELECT MAX(s.created_at) FROM sessions s WHERE s.user_id = u.id), u.superuser
          FROM users u ORDER BY u.id DESC LIMIT ?1 OFFSET ?2",
     )?;
-    let rows = stmt.query_map([ACCOUNTS_PER_PAGE, (page - 1) * ACCOUNTS_PER_PAGE], |r| Ok(Account { email: r.get(0)?, created_at: r.get(1)?, last_sign_in: r.get(2)?, superuser: r.get(3)?, suspended: r.get(4)? }))?;
+    let rows = stmt.query_map([ACCOUNTS_PER_PAGE, (page - 1) * ACCOUNTS_PER_PAGE], |r| Ok(Account { email: r.get(0)?, created_at: r.get(1)?, last_sign_in: r.get(2)?, superuser: r.get(3)? }))?;
     Ok(AccountsPage { list: rows.collect::<Result<_, _>>()?, total, page, pages })
 }
 

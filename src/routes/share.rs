@@ -12,7 +12,7 @@ use std::sync::Arc;
 use crate::auth::{CurrentUser, MaybeUser};
 use crate::db::now;
 use crate::error::AppError;
-use crate::oauth::urlencode;
+use crate::urlenc::urlencode;
 use crate::share;
 use crate::AppState;
 
@@ -49,27 +49,6 @@ pub async fn invite(
     Form(form): Form<InviteForm>,
 ) -> Result<Response, AppError> {
     let row = super::courses::owned(&state, &user, &id).await?;
-    // The AI content check (#1036) scans what changed before the course
-    // reaches anyone else; a few seconds, nothing when nothing changed. It
-    // comes first so a fixed course loses its AI flag (#1037). A part that
-    // scored high goes to the AI review at once, on the jobs thread.
-    if let Some(Ok(r)) = crate::content_check::scan_and_wait(state.db.clone(), id.clone()).await {
-        if r.needs_review {
-            state.queue.notify();
-        }
-    }
-    // A flagged course (#1033) is not shared; the check runs again if the files changed.
-    let cid = id.clone();
-    let flagged = state
-        .db
-        .call(move |c| {
-            let files = crate::courses::load_files(c, &cid)?;
-            Ok(crate::course_flags::check(c, &cid, &files)?.is_some_and(|f| f.blocks()))
-        })
-        .await?;
-    if flagged {
-        return Ok(back(&id, "share-flagged"));
-    }
     let emails = match share::parse_addresses(&form.emails) {
         Ok(e) => e,
         // The notice names the problem; the typed address stays out of the URL.

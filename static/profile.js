@@ -291,158 +291,8 @@
     row.querySelector("[data-key-prompt]").textContent = t("profile.js.paste_new_key");
   }
 
-  // The phone number (#292) autosaves like the names; its saved check sits on
-  // the label, since the field's own corner shows whether it is verified. A
-  // new number is unverified: the red ! (its dialog sends the code) shows,
-  // and text-message sign-in can't be chosen until it is verified.
-  //
-  // US and Canada only for now (#496): the field wears the +1 in its left
-  // edge, takes the ten digits and punctuates them as they are typed, so
-  // (555) 555 - 5555 appears without anyone typing a bracket. The digits go
-  // to the server as E.164 (+15555555555), the one form it stores, and come
-  // back punctuated again (`sms::format_us_number`). A number pasted with
-  // another country's code is left as it is and marked, never reshaped into
-  // a +1 number. The field takes more characters than a formatted number
-  // needs, so a pasted one is not cut short before it is formatted.
-  var phone = document.querySelector("[data-testid=profile-phone]");
-  var phoneLabel = document.querySelector("[data-testid=profile-phone-label]");
-  // Another country's number, pasted with its code: left exactly as typed
-  // and marked (below), since bending it into a +1 number would make a
-  // number nobody can be texted on out of a real one.
-  function phoneForeign(v) {
-    var s = String(v).trim();
-    return s.charAt(0) === "+" && s.charAt(1) !== "1";
-  }
-  // What the field holds once the +1 it already shows is taken off, typed
-  // again or pasted along with the number.
-  function phoneBody(v) {
-    return String(v).replace(/^\s*\+\s*1/, "");
-  }
-  // Its digits, at most ten. A leading 1 with ten digits behind it is the
-  // country code too (pasted, or autofilled from a full number): no area
-  // code starts with 1, so it can be nothing else.
-  function phoneDigits(v) {
-    var d = phoneBody(v).replace(/[^0-9]/g, "");
-    if (d.length > 10 && d.charAt(0) === "1") d = d.slice(1);
-    return d.slice(0, 10);
-  }
-  // How they are shown, as far as they go: 555 → "(555", 5555 → "(555) 5".
-  function phoneShown(d) {
-    if (!d) return "";
-    if (d.length <= 3) return "(" + d;
-    if (d.length <= 6) return "(" + d.slice(0, 3) + ") " + d.slice(3);
-    return "(" + d.slice(0, 3) + ") " + d.slice(3, 6) + " - " + d.slice(6);
-  }
-  // Where the caret belongs: after the same digit it was after before, so
-  // typing or deleting in the middle of a number does not jump to the end.
-  function phoneCaret(shown, digitsBefore) {
-    if (digitsBefore < 1) return Math.min(1, shown.length);
-    var seen = 0;
-    for (var i = 0; i < shown.length; i++) {
-      var c = shown.charAt(i);
-      if (c >= "0" && c <= "9" && ++seen === digitsBefore) return i + 1;
-    }
-    return shown.length;
-  }
-  function formatPhone() {
-    var typed = String(phone.value);
-    if (phoneForeign(typed)) return;
-    var shown = phoneShown(phoneDigits(typed));
-    if (shown === typed) return;
-    // The digits the caret sat behind, to put it behind the same ones again.
-    // Neither the country code taken off the front nor a stray 1 before ten
-    // digits is one of them.
-    var body = phoneBody(typed);
-    var raw = body.replace(/[^0-9]/g, "");
-    var dropped = raw.length > 10 && raw.charAt(0) === "1" ? 1 : 0;
-    var at = phone.selectionStart;
-    var into = at == null ? null : Math.max(0, at - (typed.length - body.length));
-    var before = into == null ? null : Math.max(0, body.slice(0, into).replace(/[^0-9]/g, "").length - dropped);
-    phone.value = shown;
-    if (before != null && document.activeElement === phone) {
-      var i = phoneCaret(shown, before);
-      try { phone.setSelectionRange(i, i); } catch (e) { /* a field that keeps no caret */ }
-    }
-  }
-  // What the number the field holds is not, if it is not a number yet.
-  function phoneProblem(v) {
-    if (!v) return "";
-    if (v.slice(0, 2) !== "+1") return t("profile.js.phone_us_only");
-    var d = v.slice(2);
-    if (d.length !== 10) return t("profile.js.phone_digits");
-    if (d.charAt(0) < "2" || d.charAt(3) < "2") return t("profile.js.phone_area");
-    return "";
-  }
-
-  // A number is wrong on the way to being right: every number is too short
-  // before its last digit. So the field says nothing while it is being
-  // typed. The problem waits for a break — QUIET_MS without a keystroke, or
-  // the field losing focus, whichever comes first — and then shows as a red
-  // ! in the field's corner, faded in (style.css), never as text that moves
-  // the page or covers what was typed. It goes the moment the number is
-  // right again. The ! carries the message as its tip and opens a dialog
-  // with it, the page's way with something that needs attention.
-  var QUIET_MS = 2000;
-  var phoneBad = document.querySelector("[data-testid=profile-phone-invalid]");
-  var phoneWhy = document.querySelector("[data-testid=phone-problem-why]");
-  var phoneErrorBox = document.getElementById("phone-error");
-  var phoneWrap = phone && phone.closest(".field-with-icon");
-  var phoneWait = null;   // the break being waited for
-  var phonePending = "";  // what is wrong now
-  var phoneSaid = "";     // what the ! is saying
-
-  function phoneSay() {
-    clearTimeout(phoneWait);
-    phoneWait = null;
-    if (phonePending === phoneSaid) return;
-    phoneSaid = phonePending;
-    phone.toggleAttribute("aria-invalid", !!phoneSaid);
-    if (phoneWrap) phoneWrap.toggleAttribute("data-invalid", !!phoneSaid);
-    if (phoneErrorBox) {
-      phoneErrorBox.textContent = phoneSaid;
-      phoneErrorBox.hidden = !phoneSaid;
-    }
-    if (phoneWhy) phoneWhy.textContent = phoneSaid;
-    if (phoneBad) {
-      if (phoneSaid) {
-        phoneBad.setAttribute("aria-label", phoneSaid);
-        phoneBad.setAttribute("data-tip", phoneSaid);
-      }
-      phoneBad.hidden = !phoneSaid;
-    }
-  }
-  // The saver hands the field its problem ('' when there is none) on every
-  // edit and on a refusal from the server.
-  function phoneTrouble(text) {
-    phonePending = text || "";
-    clearTimeout(phoneWait);
-    phoneWait = null;
-    if (!phonePending || phonePending === phoneSaid) return phoneSay();
-    phoneWait = setTimeout(phoneSay, QUIET_MS);
-  }
-
-  if (phone) {
-    // Before the saver's own listener, so what it sends and validates is the
-    // formatted number, not the half-punctuated one the keystroke left. The
-    // stored number arrives punctuated, and a number from before #496 is
-    // left alone until it is edited, so nothing is reformatted on load.
-    phone.addEventListener("input", formatPhone);
-    // Leaving the field is the break the ! was waiting for.
-    phone.addEventListener("blur", phoneSay);
-    saver.watch(phone, {
-      field: "phone",
-      mark: function () { return phoneLabel; },
-      value: function (el) {
-        if (phoneForeign(el.value)) return String(el.value).trim();
-        var d = phoneDigits(el.value);
-        return d ? "+1" + d : "";
-      },
-      validate: phoneProblem,
-      error: phoneTrouble,
-    });
-  }
   // The language (#462) saves as soon as one is picked; the page then
-  // reloads in it (onSaved above). Its check sits on the label, like the phone's.
+  // reloads in it (onSaved above). Its check sits on the label.
   var lang = document.querySelector("[data-testid=profile-lang]");
   var langLabel = document.querySelector("[data-testid=profile-lang-label]");
   if (lang) saver.watch(lang, { field: "lang", immediate: true, mark: function () { return langLabel; } });
@@ -474,31 +324,18 @@
       saver.saved("lang");
     }
   } catch (e) { /* no storage */ }
-  function phoneSaved(p) {
-    var ok = document.querySelector("[data-testid=phone-verified]");
-    var bad = document.querySelector("[data-testid=phone-unverified]");
-    var stopped = document.querySelector("[data-testid=phone-opted-out]");
-    if (ok) ok.hidden = !p.number || !p.verified || p.opted_out;
-    if (bad) bad.hidden = !p.number || p.verified || p.opted_out;
-    if (stopped) stopped.hidden = !p.number || !p.opted_out;
-    var sms = document.querySelector("[data-testid=profile-two-factor-method][data-method=sms] input");
-    if (sms && !p.verified && !sms.checked) sms.disabled = true;
-  }
-  document.addEventListener("profile:saved", function (e) { if (e.detail && e.detail.phone) phoneSaved(e.detail.phone); });
-
   // Two-factor sign-in: choosing a method posts the form (the page comes
   // back saying what changed, or with the authenticator's setup dialog).
   // Every change (a chip, or the app's Remove; turning it on too, #374)
   // opens the "Confirm it's you" dialog first, which posts the same change
-  // with the password (or a Google-only account's code, or after "Confirm
-  // with Google"); closing it puts the chips back. The server checks it
+  // with the password (or the code of an account without one);
+  // closing it puts the chips back. The server checks it
   // either way.
   var tfCard = document.querySelector("[data-testid=profile-two-factor]");
   var tfForm = document.querySelector("[data-testid=profile-two-factor-form]");
   var confirmDlg = document.getElementById("two-factor-confirm-dialog");
   var confirmForm = document.getElementById("two-factor-confirm-form");
   var confirmSend = document.getElementById("two-factor-confirm-send-form");
-  var confirmGoogle = document.getElementById("two-factor-confirm-google-form");
   var current = tfCard ? tfCard.dataset.method : "";
   function askToConfirm(method, remove) {
     confirmForm.action = remove ? confirmForm.dataset.removeAction : confirmForm.dataset.methodAction;
@@ -507,7 +344,6 @@
       confirmSend.elements.method.value = method;
       confirmSend.elements.remove.value = remove ? "1" : "";
     }
-    if (confirmGoogle) confirmGoogle.elements.method.value = method;
     var what = confirmDlg.querySelector("[data-testid=two-factor-confirm-what]");
     var chip = document.querySelector('[data-testid=profile-two-factor-method][data-method="' + method + '"]');
     var label = chip ? chip.textContent.trim().toLowerCase() : "";

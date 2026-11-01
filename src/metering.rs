@@ -607,7 +607,7 @@ impl Meter {
 
     /// A new account's one-time Skrongle AI (#931): `signup_credit` added to
     /// its credits the first time the meter looks at it with its address
-    /// confirmed (a link, a password reset or Google), so every way of
+    /// confirmed (a link or a password reset), so every way of
     /// confirming counts. `users.signup_credit_at` records it; accounts made
     /// before v87 have it set already and get nothing. With the setting at 0,
     /// plans off or no server key, nothing is given and nothing is recorded.

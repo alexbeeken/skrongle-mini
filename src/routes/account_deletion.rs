@@ -30,7 +30,7 @@ pub async fn page(MaybeUser(user): MaybeUser) -> Result<Response, AppError> {
 
 /// POST /account/deletion/cancel: keep the account. Only a session started
 /// after the deletion was asked for gets here (asking ended every session),
-/// so it took the full sign-in: password or Google, and the second step.
+/// so it took the full sign-in: the password, and the second step.
 pub async fn cancel(State(state): State<Arc<AppState>>, MaybeUser(user): MaybeUser) -> Result<Response, AppError> {
     let Some(user) = user else { return Err(AppError::RedirectToLogin) };
     let uid = user.id;

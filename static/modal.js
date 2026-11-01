@@ -16,11 +16,8 @@
 // A form with data-confirm asks its text with confirm() before it is sent
 // (#387: the text is an attribute, not JavaScript inside an inline handler).
 //
-// A masked word (templates/masked_word.html, #1033 review) shows its word
-// while it is held down: mouse, finger, or Space/Enter on it. Letting go
-// hides it again. [data-show-dialog=<id>] opens that <dialog>, and a list
-// with data-pager="<n>" shows n items at a time behind its Previous/Next
-// buttons (templates/flag_matches.html).
+// [data-show-dialog=<id>] opens that <dialog>, and a list with
+// data-pager="<n>" shows n items at a time behind its Previous/Next buttons.
 (function () {
   "use strict";
 
@@ -92,43 +89,6 @@
       ev.stopImmediatePropagation();
     }
   }, true);
-
-  var held = null;
-  function show(el) {
-    if (held && held !== el) hide();
-    if (!el.hasAttribute("data-mask")) el.setAttribute("data-mask", el.textContent);
-    el.textContent = el.getAttribute("data-word");
-    el.classList.add("revealed");
-    held = el;
-  }
-  function hide() {
-    if (!held) return;
-    held.textContent = held.getAttribute("data-mask");
-    held.classList.remove("revealed");
-    held = null;
-  }
-  function masked(ev) {
-    return ev.target && ev.target.closest ? ev.target.closest(".masked-word") : null;
-  }
-  document.addEventListener("mousedown", function (ev) {
-    var el = masked(ev);
-    if (el && ev.button === 0) { ev.preventDefault(); show(el); }
-  });
-  document.addEventListener("touchstart", function (ev) {
-    var el = masked(ev);
-    if (el) show(el);
-  }, { passive: true });
-  document.addEventListener("keydown", function (ev) {
-    var el = masked(ev);
-    if (el && (ev.key === " " || ev.key === "Enter")) { ev.preventDefault(); show(el); }
-  });
-  ["mouseup", "touchend", "touchcancel", "keyup", "dragend"].forEach(function (name) {
-    document.addEventListener(name, hide);
-  });
-  document.addEventListener("mouseout", function (ev) {
-    if (held && masked(ev) === held && !held.contains(ev.relatedTarget)) hide();
-  });
-  document.addEventListener("focusout", hide);
 
   function page(list, to) {
     var size = parseInt(list.getAttribute("data-pager"), 10) || 10;

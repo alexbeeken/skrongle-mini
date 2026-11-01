@@ -8,4 +8,4 @@
   {% if !r.code.is_empty() %}<button type="button" class="btn small" data-use="{{ r.code }}" data-testid="login-code-device-use">Use {{ r.code }}</button>{% endif %}
 </li>
 {% endfor %}
-{% if rows.is_empty() %}<li class="devbox-empty" data-testid="login-code-device-empty">{% if method == "totp" %}Not in the dev authenticator. Add it from the profile's set-up dialog, or paste the setup key at /dev/authenticator.{% else if method == "sms" %}Nothing yet. The text arrives in a moment.{% else %}Nothing yet. The mail arrives in a moment.{% endif %}</li>{% endif %}
+{% if rows.is_empty() %}<li class="devbox-empty" data-testid="login-code-device-empty">{% if method == "totp" %}Not in the dev authenticator. Add it from the profile's set-up dialog, or paste the setup key at /dev/authenticator.{% else %}Nothing yet. The mail arrives in a moment.{% endif %}</li>{% endif %}

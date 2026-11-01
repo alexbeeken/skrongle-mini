@@ -244,7 +244,7 @@ fn resolve(conn: &mut Connection, value: &str, session: Option<&str>, mode: sign
                     return Ok(Outcome::Refused(r));
                 }
             };
-            // No password, like a Google-only account; the proxy vouched for the address.
+            // No password; the proxy vouched for the address.
             tx.execute(
                 "INSERT INTO users (password_hash, created_at, email, email_verified_at, avatar) VALUES ('', ?1, ?2, ?1, ?3)",
                 params![now, email, crate::profile::DEFAULT_AVATAR],

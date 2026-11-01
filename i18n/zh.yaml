@@ -29,7 +29,6 @@ lang:
   unknown: 没有这种语言。
 
 error:
-  blocked: "此服务器已屏蔽来自你的网络地址的请求。"
   not_found: 找不到页面
   form_only: "此页面只能通过其按钮打开。请返回并使用页面上的按钮。"
   database: 数据库错误
@@ -112,14 +111,12 @@ common:
 
 auth:
   login:
-    suspended: "此账户因违反条款已被暂停。如果你认为这是误会，请写信给 {email}。"
     deletion_scheduled: "你的账户将于 {date} 被删除。如要保留，请在此之前登录并取消删除。"
     title: 登录
     email_label: 电子邮箱地址
     password_label: 密码
     submit: 登录
     or: 或
-    google: 使用 Google 继续
     no_account_html: "还没有账户？<a href=\"{url}\" data-testid=\"login-register-link\">注册</a>。"
     terms_link: 条款
     privacy_link: 隐私
@@ -135,18 +132,15 @@ auth:
     password_note: （至少 8 个字符）
     submit: 注册
     or: 或
-    google: 使用 Google 注册
     have_account_html: "已经注册过？<a href=\"{url}\" data-testid=\"register-login-link\">登录</a>。"
     too_many_signups: 你的网络注册次数过多。请一小时后再试。
     email_taken: 该电子邮箱地址已有账户。
-    email_taken_google: "使用该电子邮箱的账户通过 Google 登录。请改用“继续使用 Google”。"
   signup:
     closed_title: "注册已关闭"
     closed: "此服务器不接受新账户。请联系服务器的管理者。"
     invite_used: "此邀请链接已被使用。请向此服务器的管理者索取新链接。"
     invite_expired: "此邀请链接已过期。请向此服务器的管理者索取新链接。"
     invite_unknown: "此邀请链接无效。请向此服务器的管理者索取新链接。"
-    invite_wrong_email: "这个邀请是给另一个电子邮件地址的。请用收到邀请的地址注册。"
     sign_in: "登录"
     first_account: "此服务器还没有账户：你现在创建的账户将属于服务器的所有者。"
     no_owner: "此服务器还没有所有者。服务器的管理者用服务器日志中的所有者链接创建第一个账户。"
@@ -172,9 +166,7 @@ auth:
   code:
     title: 输入你的验证码
     from_app: 来自你的验证器应用。
-    texted_to: "已发送短信至 {to}。"
     emailed_to: "已发送邮件至 {to}。"
-    fallback: "你的手机对 {app} 的短信回复了 STOP，所以我们把验证码发到了邮箱 {to}。"
     code_label: 验证码
     submit: 登录
     resend: 发送新验证码
@@ -190,35 +182,9 @@ auth:
     your_authenticator: 你的验证器应用
   two_factor:
     channel_off_email: "你的账户登录时需要通过电子邮件接收验证码，但此服务器无法发送电子邮件（未设置 {setting}）。请联系服务器管理员设置 {setting}，或为你的账户关闭两步登录。"
-    channel_off_sms: "你的账户登录时需要通过短信接收验证码，但此服务器无法发送短信（未设置 {setting}）。请联系服务器管理员设置 {setting}，或为你的账户关闭两步登录。"
     needs_email: 请先确认你的电子邮箱地址。
-    needs_phone: 请先添加并验证手机号码。
     needs_app: 请先设置验证器应用。
-    phone_in_use: 两步验证会向此号码发送短信。更改前请先选择其他方式。
-    needs_confirmed_email: 添加电话号码前，请先确认你的电子邮箱地址。
-    phone_taken: "此号码已在另一个账户上验证。请先在那里将其移除，或使用其他号码。"
     app_already: 已设置验证器应用。请先将其移除。
-  google:
-    cancelled: 已取消 Google 登录。
-    error: Google 报告了一个错误。
-    expired: 此次登录已过期。请重试。
-    mismatch: 此次登录与发起时不匹配。请重试。
-    no_code: Google 没有返回登录代码。
-    exchange_failed: 无法完成 Google 登录。请重试。
-    bad_identity: Google 返回的身份信息本网站无法接受。
-    already_linked: 该 Google 账户已绑定到另一个用户。
-    attempt_expired: 此次尝试已过期。请重试。
-    not_this_account: 这不是本账户登录时使用的 Google 账户。
-    unconfirmed_account: "该地址已有账户，但其电子邮箱尚未确认。请用密码登录并确认，然后在个人资料中连接 Google。"
-    other_google: "该地址的账户已连接了另一个 Google 账户。请用那个账户登录，或使用密码登录。"
-    signup_expired: 此次注册已过期。请重试。
-  google_confirm:
-    title: 创建你的账户
-    lead: "即将完成：Google 已确认你的身份。勾选两个方框，你的账户就准备好了。"
-    as: 正在以以下身份通过 Google 注册
-    not_you: 不是你？
-    submit: 创建账户
-    back: 返回登录
   ai_switch:
     label: 隐藏所有 AI 功能
     about: 关于 AI 功能
@@ -425,7 +391,6 @@ mail:
     subject: "{app} 上的两步验证已更改"
     now_off: 已关闭
     now_email: 现在会通过电子邮件发送验证码给你
-    now_sms: 现在会把验证码通过短信发送到你的手机
     now_totp: 现在要求输入验证器应用中的验证码
     text: |
       你好，
@@ -480,18 +445,6 @@ mail:
       <p><a href="{link}">打开课程</a></p>
       <p>或将此链接粘贴到浏览器中：{link}</p>
       <p>你可以用自己的学习进度学习这门课程；只有 {owner} 可以修改它。如果你还没有 {app} 账户，可以通过此链接注册。如果你并未期待这封邮件，请忽略。</p>
-
-sms:
-  login_code: "{code} 是你的 {app} 登录验证码，有效期为 10 分钟。请勿告诉他人。"
-  phone_code: "{code} 是你用于确认此手机号码的 {app} 验证码，有效期为 10 分钟。"
-  two_factor_confirm: "{code} 是你用于更改两步验证的 {app} 验证码，有效期为 10 分钟。请勿告诉他人。"
-  number:
-    needs_plus: 手机号码需要以 + 和国家代码开头
-    not_a_digit: "手机号码只能包含数字，不能包含 {char}"
-    bad_length: 手机号码在 + 之后需要 8 到 15 位数字，且第一位不能是 0
-    us_length: "美国或加拿大的号码有 10 位数字，例如 (555) 555 - 5555"
-    us_only: 目前只支持美国和加拿大的号码，所以号码以 +1 开头
-    us_area: 区号和其后的三位数字都不能以 0 或 1 开头
 
 profile:
   email_no_mail:
@@ -566,11 +519,6 @@ profile:
     data: 你的数据
     consent: "隐私与同意"
   personal:
-    phone_locked_label: 为什么电话号码被锁定
-    phone_locked_title: 请先确认你的电子邮箱地址
-    phone_locked_text: 确认电子邮箱地址（或使用 Google 登录）后，即可添加电话号码。请查看收件箱中的链接。
-    phone_locked_close: 关闭
-    phone_locked_resend: 重新发送链接
     title: 个人信息
     first_name: 名字
     last_name: 姓氏
@@ -578,37 +526,14 @@ profile:
     no_email: 尚未设置电子邮箱
     verified: 已验证
     not_verified: 未验证
-    phone: 电话号码
-    phone_placeholder: "(555) 555 - 5555"
-    phone_problem: 请检查电话号码
-    phone_stopped: "此号码的短信已停止"
     language: 语言
     language_unavailable: 该语言暂不可用。
-  phone_problem:
-    title: 请检查电话号码
-    close: 关闭
-  phone_stopped:
-    title: "短信已停止"
-    text: "此号码对 {app} 的短信回复了 STOP，所以你的登录验证码暂时通过邮件发送。要重新接收短信，请用这部手机向我们发短信的号码发送 START，然后给自己发一个验证码。"
-    close: "关闭"
-    send: "发送验证码"
-  phone_dialog:
-    title: 验证你的手机
-    type_code: 请输入发到你手机上的验证码。
-    not_verified: 电话号码尚未验证。请向该号码发送验证码。
-    code: 验证码
-    close: 关闭
-    send_again: 再次发送
-    send_code: 发送验证码
-    verify: 验证
   account:
     title: 账户
     member_since: 注册于
     sign_in: 登录方式
     password: 密码
     and: 和
-    google_connected: 已连接 Google 账户
-    connect_google_html: "· <a href=\"{url}\" data-testid=\"profile-google-connect\">连接 Google 账户</a>，即可一键登录"
     terms: 条款
     terms_accepted: "版本 {version}，于 {date} 同意"
     terms_not_accepted: 未同意
@@ -617,7 +542,7 @@ profile:
     terms_title: 服务条款
     terms_close: 关闭
     terms_open_page: 在新页面中打开
-    no_password: 此账户通过 Google 登录，因此没有可更改的密码。
+    no_password: 此账户没有可更改的密码。
   consent:
     title: "隐私与同意"
     info: "关于你的同意"
@@ -630,15 +555,6 @@ profile:
     age: "年龄"
     age_confirmed: "已于 {date} 确认"
     age_not_confirmed: "未确认"
-    phone: "用于登录验证码的手机"
-    phone_none: "没有号码"
-    phone_add: "添加"
-    phone_edit: "更改或删除"
-    google: "Google 登录"
-    google_on: "已连接"
-    google_off: "未连接"
-    google_connect: "连接"
-    google_disconnect: "断开"
     email: "邮件"
     email_service: "仅服务消息"
     ai: "不显示 AI 功能"
@@ -649,29 +565,11 @@ profile:
     ai_key: "已保存自己的 API 密钥"
     ai_keys_manage: "管理密钥"
     ai_hosted: "{hosted}：本月已用 {n}%"
-  google_link:
-    link_title: 连接 Google 账户
-    one_tap: 以便一键登录
-    link_text: 输入密码，然后选择 Google 账户。你的其他设备将退出登录。
-    password: 密码
-    cancel: 取消
-    continue: 使用 Google 继续
-    unlink_title: 解除 Google 绑定
-    unlink_text: "“使用 Google 继续”将不再用于登录此账户，且其他设备将退出登录。请输入密码以确认。"
-    unlink: 解除绑定
-    linked_notice: Google 账户已连接。你的其他设备已退出登录。
-    unlinked_notice: Google 账户已解除绑定。你的其他设备已退出登录。
-    joined_notice: "已连接 Google 账户：Google 确认了这个地址，所以它可以登录此账户。你的密码仍然有效。"
-    stays_connected: 此账户只能通过 Google 登录，因此保持连接。
-    confirm_needed: 请通过 Google 确认以进行此更改。
-    confirm: 通过 Google 确认
-    confirmed: 已通过 Google 确认。
-    confirm_why: 此账户通过 Google 登录，没有密码，因此请先通过 Google 确认。
   sessions:
     sign_out_others: 退出其他所有设备
     info_label: 关于退出其他所有设备
     text: "结束此账户的所有其他会话：其他浏览器、手机和电脑，以及任何不应保持登录的人。此浏览器将保持登录。"
-    text_same: 更改密码或两步验证，以及连接或解除 Google 绑定，也会执行同样的操作。
+    text_same: 更改密码或两步验证，也会执行同样的操作。
     ok: 好
     signed_out_notice: 已退出其他所有设备。
   password:
@@ -684,7 +582,7 @@ profile:
     save: 保存
     changed: 密码已更改。
     mismatch: 两次输入的新密码不一致。
-    google_only: 此账户通过 Google 登录，没有密码。
+    none: 此账户没有密码。
     too_many: 尝试次数过多。请稍等几分钟后再试。
     current_wrong: 当前密码不正确。
   two_factor:
@@ -694,14 +592,12 @@ profile:
     off: "关闭"
     email: 电子邮件
     email_unverified: 电子邮箱未验证
-    sms: 短信
-    phone_unverified: 手机号未验证
     totp: 验证器应用
     save: 保存
     confirm_title: 请确认是你本人
     confirm_password_why: 为防止使用此已登录浏览器的其他人更改你的第二步验证，请输入此账户的密码。
-    confirm_app_code: 此账户通过 Google 登录，没有密码，因此请输入你的验证器应用当前显示的验证码。
-    confirm_sent_code: 此账户通过 Google 登录，没有密码，因此请输入你当前第二步验证方式收到的验证码进行确认。
+    confirm_app_code: 此账户没有密码，因此请输入你的验证器应用当前显示的验证码。
+    confirm_sent_code: 此账户没有密码，因此请输入你当前第二步验证方式收到的验证码进行确认。
     sent_to: "已发送至 {to}。"
     send_one_first: 请先发送一个验证码。
     password: 密码
@@ -713,16 +609,13 @@ profile:
     totp_added: "验证器应用已于 {date} 添加"
     remove: 移除
     info_title: 两步验证
-    info_text: "输入密码（或通过 Google 登录）后，登录时还需输入一个验证码：可以是通过电子邮件发送的、短信发到手机的，或是由 Google Authenticator 等验证器应用显示的。同一时间只能使用一种方式；选择另一种方式会替换当前方式。"
+    info_text: "输入密码后，登录时还需输入一个验证码：可以是通过电子邮件发送的，或是由 Google Authenticator 等验证器应用显示的。同一时间只能使用一种方式；选择另一种方式会替换当前方式。"
     info_small: 电子邮件和短信需要已验证的邮箱地址或电话号码。验证码有效期为 10 分钟；连续输错五次，本次登录将结束。
     ok: 好
     email_first_title: 请先验证你的电子邮箱
     email_first_text: 电子邮件验证码需要已验证的邮箱地址。请到收件箱中查找链接。
     close: 关闭
     resend: 重新发送
-    sms_first_title: 请先验证你的手机
-    sms_first_text: 短信验证码需要已验证的手机号码。
-    add_number: 添加号码
     totp_title: 添加验证器应用
     totp_how: 如何添加应用
     totp_dev_link: "开发：添加到开发验证器"
@@ -734,13 +627,11 @@ profile:
     turn_off: 关闭两步登录验证
     switch_to: "将两步登录验证切换为{method}"
     turn_on_by: "通过{method}开启两步验证"
-    method_sms: 短信
     method_email: 电子邮件
     method_totp: 验证器应用
     is_off: 两步登录验证已关闭。
     is_method: "两步登录验证：{method}。"
     totp_removed: 验证器应用已移除。
-    phone_verified: 电话号码已验证。
     too_many_attempts: 尝试次数过多。请稍等几分钟后再试。
     type_password: 请输入你的密码以进行此更改。
     password_wrong: 该密码不正确。
@@ -752,9 +643,6 @@ profile:
     code_gone: 没有等待中的验证码，或验证码已过期。请重新发送一个。
     too_many_codes: 发送的验证码过多。请稍等几分钟后再试。
     code_not_sent: 验证码未能发送。请稍后再试。
-    too_many_texts: "发送到此号码的短信过多。请 {minutes} 分钟后再试。"
-    number_no_texts: "该号码无法接收短信：{why}。"
-    phone_code_expired: 该验证码已过期或已用完。请重新发送一个。
   subscription:
     title: 订阅
     plan: 方案
@@ -865,14 +753,11 @@ profile:
     about: "在那天之前，此账户只能取消删除或登出。取消后一切保持原样。那天之后，你的学习进度、课程和已保存的密钥将被永久删除。"
     cancel: "取消删除"
   save:
-    sms_off: "此服务器无法发送短信，因此不保存电话号码。"
     pick_picture: 请选择一张图片。
     pick_colour: 请选择一种颜色。
     not_a_field: 此字段不属于个人资料。
     theme_unavailable: 该主题不可用。
     motivator_unavailable: "该激励方式不可用。"
-    not_a_phone: "不是有效的电话号码：{why}。"
-    sms_country: 本服务器不向该国家或地区的号码发送短信。
     sent_to: "已发送至 {email}。"
   name:
     too_long: "{label} 太长（最多 {max} 个字符）。"
@@ -899,9 +784,6 @@ profile:
     name_too_long: "{label} 太长（最多 {max} 个字符）。"
     name_bad_chars: "{label} 包含不允许使用的字符。"
     password_mismatch: 两次输入的新密码不一致。
-    phone_digits: "电话号码有 10 位数字，例如 (555) 555 - 5555。"
-    phone_us_only: 目前只支持美国和加拿大的号码。请输入 +1 之后的 10 位数字。
-    phone_area: 区号和其后的三位数字都不能以 0 或 1 开头。
     turn_off: 关闭两步登录验证
     switch_to: "将两步登录验证切换为{method}"
     turn_on_by: "通过{method}开启两步验证"
@@ -933,222 +815,6 @@ profile:
     confirm: "确认取消"
 
 superuser:
-  courses:
-    title: "课程"
-    about_label: "关于课程表"
-    about: "此服务器上创建的所有课程。含有列表中词语的课程，或 AI 检查发现问题的课程，会被标记：在修正或你解除标记之前，它不能开始也不能分享。被标记的课程排在最前。"
-    about_review: "AI 检查评分较高的课程需要审核。一两分钟内，AI 审核会结合上下文阅读这些部分，如果有害就标记课程。在此之前它仍可开始和分享；其对话框会列出评分较高的部分。"
-    shown: "课程：{total} 门。每页 {per_page} 门。"
-    search: "标题、课程 id 或所有者邮箱"
-    show: "显示"
-    show_all: "全部"
-    show_flagged: "已标记"
-    show_review: "待审核"
-    show_overridden: "已解除"
-    show_down: "已下架"
-    show_behind: "AI 检查落后 {n} 个或更多版本（{count}）"
-    find: "搜索"
-    none: "没有匹配的课程。"
-    edited: "最后编辑"
-    state: "标记"
-    source: "标记来源"
-    state_clear: "无"
-    state_flagged: "已标记"
-    state_review: "待审核"
-    state_overridden: "已解除"
-    state_down: "已下架"
-    source_terms: "词语列表"
-    source_ai: "AI 检查"
-    owner_suspended: "已停用"
-    checked: "最后检查"
-    never_checked: "尚未检查"
-    ai_checked: "AI 检查"
-    last_ai_check: "上次 AI 检查"
-    checker_label: "内容检查程序"
-    checker_about: "内容检查在单独的进程 skrongle content-check 中运行，与服务器并行（SKRONGLE_CONTENT_CHECK=external）。"
-    checker_seen: "上次报到：{when}"
-    checker_never: "尚未报到。"
-    checker_waiting: "等待中的检查：{n}"
-    checker_silent: "已经一天没有报到。请用 skrongle content-check 重新启动。"
-    checker_alert_since: "内容检查程序自 {when} 起没有报到。等待中的检查：{n}。"
-    checker_alert_never: "内容检查程序从未报到。等待中的检查：{n}。"
-    checker_details: "详情"
-    versions: "规则"
-    version_terms: "词表 v{version}"
-    version_ai: "AI v{version}"
-    version_behind: "按旧规则检查。当前版本是 {current}。"
-    about_versions: "规则一栏显示每门课程上次检查时所用的词表版本和 AI 检查版本。高亮的版本比当前规则旧，词表更新后，夜间检查会立即重新检查课程；AI 检查更新后，课程落后 {n} 个或更多版本时才会重新检查。"
-    versions_link: "每个版本的改动"
-    scores: "AI 评分"
-    score_category: "类别"
-    score_value: "分数"
-    high_in: "偏高项"
-    category:
-      misinformation: "虚假信息"
-      violence: "暴力"
-      self_harm: "自残"
-      weapons: "武器"
-      firearms: "枪支"
-      hate: "仇恨言论"
-      tragedy: "轻视大规模惨剧"
-      adult: "成人内容"
-      minors: "剥削未成年人"
-      sexual_crimes: "轻视性犯罪"
-      terms: "使用条款"
-    review_queued: "等待 AI 审核"
-    review_fine: "AI 审核：没问题"
-    review_harmful: "AI 审核：有害"
-    ai_cost: "AI 检查费用"
-    ai_cost_parts: "{cost}，共 {parts} 部分"
-    high_parts: "AI 评分较高的部分"
-    why: "标记原因"
-    report: "AI 报告"
-    override_note: "解除说明"
-    overridden_by: "{email}，{when}"
-    override: "解除标记"
-    override_about: "标记有误。课程可以重新开始和分享。之后的检查对相同的词保持解除；出现新词会再次标记。"
-    note: "为什么没问题？"
-    note_example: "这里 'coger' 的意思是 '拿'；没问题"
-    override_confirm: "解除"
-    clear_override: "撤销解除"
-    clear_override_about: "按课程现在的内容重新检查。如果这些词还在，它会再次被标记，不能开始也不能分享。"
-    take_down: "下架"
-    put_back_about: "课程重新对所有者和被分享的人开放。"
-    suspend_owner: "停用所有者"
-    delete: "删除课程"
-    delete_about: "课程、它的文件和分享都会被删除。此操作无法撤销。关于它的举报会保留。"
-    overridden: "{id} 的标记已解除。它可以重新开始和分享。"
-    override_cleared: "{id} 的解除已撤销。"
-    no_note: "请写一句简短说明，解释为什么标记有误。"
-    deleted: "课程 {id} 已删除。"
-    busy: "课程 {id} 正在生成或修改中。完成后再试。"
-    email_owner: "给所有者发邮件"
-    email_to: "发给 {email}，用对方的语言。你可以修改内容。按下发送之前不会发出任何邮件。"
-    email_subject: "主题"
-    email_text: "内容"
-    email_send: "发送"
-    emailed: "已于 {when} 通知所有者"
-    emailed_label: "已通知所有者"
-    emailed_before: "已于 {when} 就这门课程给所有者发过邮件。"
-    owner_emailed: "给 {id} 所有者的邮件正在发送。"
-    no_mail_text: "发送前请写好主题和内容。"
-    no_owner_address: "{id} 的所有者没有可以发送的邮箱地址。"
-    mail:
-      subject: "{app}：你的课程“{title}”无法开始或分享"
-      text: |
-        你好，
-
-        你在 {app} 上的课程“{title}”目前无法开始或分享。{why}
-
-        {fix}
-
-        如有疑问，或你认为我们弄错了，请写信到 {contact}。
-      why_flagged: "我们的内容检查标记了它。"
-      why_down: "因为它违反了条款，我们已将其下架。"
-      fix_flagged: "登录查看需要修改的内容：{link}"
-      fix_down: "下架期间你无法编辑它。如果你认为它没有违反条款，请写信给我们，我们会再看一次。"
-  privacy:
-    title: "隐私请求"
-    about_label: "关于隐私请求"
-    about: "用于通过电子邮件收到的请求，来自无法使用“个人资料 → 你的数据”的人。先确认是谁在请求。回复应来自该账户的地址；对没有账户的人，应来自请求所涉及的地址。"
-    about_log: "这里的每个操作以及“删除账户”都需要填写原因。日志会记录操作、原因、执行者和时间。让原因指向你自己的请求记录，不要写入对方的姓名或地址。"
-    export: "向账户发送其数据"
-    export_about: "生成与个人资料中“下载我的数据”相同的文件。链接只发送到该账户自己的地址，绝不发送到提出请求的地址，并且只有登录该账户后才能打开。"
-    export_confirm: "发送"
-    export_queued: "正在整理 {email} 的数据。链接会发送到该地址。"
-    export_busy: "{email} 的导出已在生成中。"
-    export_soon: "{email} 在过去一天内已有一次导出。请明天再试。"
-    forget: "忘记一个地址"
-    forget_about: "删除发送到此地址的所有课程邀请，以及服务器上仍保留的发给它的所有邮件。仅适用于没有账户的地址。"
-    forget_confirm: "忘记它"
-    forgot: "该地址已被忘记。"
-    has_account: "该地址属于一个账户。请改为删除该账户。"
-    reason: "原因"
-    reason_hint: "请求记录中的第 12 号请求"
-    no_reason: "请先填写原因。"
-    log_empty: "还没有隐私操作。"
-    log_when: "时间"
-    log_action: "操作"
-    log_who: "执行者"
-    action_export: "已发送数据"
-    action_forget: "已忘记地址"
-    action_delete_account: "已删除账户"
-    action_sign_out: "已退出账户"
-    action_notice: "已发送泄露通知"
-  breach:
-    title: "数据泄露工具"
-    about_label: "关于数据泄露工具"
-    about: "用于数据泄露事件，按事件处理手册操作。退出账户会结束这些账户的会话、等待第二步验证码的登录和未使用的重置密码链接。发送通知会把你的文字发到每个账户已确认的地址，每段文字只发一次。"
-    about_log: "两者都需要填写原因，原因记在隐私日志里；运行前还要你输入一个词。"
-    sign_out: "退出账户"
-    sign_out_about: "他们用密码重新登录。你在这台设备上的会话保留。"
-    sign_out_confirm: "让他们退出"
-    notice: "发送邮件通知"
-    notice_about: "纯文本，按你输入的原样发送。再次发送相同文字只会发给还没收到的账户。每小时最多 SKRONGLE_MAIL_PER_HOUR 封，其余的等待。"
-    notice_confirm: "发送"
-    who: "对象"
-    everyone:
-      one: "所有账户（{n}）"
-      other: "所有账户（{n}）"
-    everyone_confirmed:
-      one: "所有地址已确认的账户（{n}）"
-      other: "所有地址已确认的账户（{n}）"
-    only_list: "只发给这些地址"
-    list: "地址，用逗号或换行分隔"
-    subject: "主题"
-    body: "内容"
-    reason_hint: "10 月 28 日的事件"
-    confirm: "输入 {word} 以确认"
-    confirm_word: "确认"
-    confirm_wrong: "没有执行任何操作。输入 {word} 以确认。"
-    no_list: "至少粘贴一个地址，或选择所有账户。"
-    no_text: "请填写主题和内容。"
-    signed_out:
-      one: "已让 {n} 个账户退出。"
-      other: "已让 {n} 个账户退出。"
-    sessions_ended:
-      one: "结束了 {n} 个会话。"
-      other: "结束了 {n} 个会话。"
-    sent:
-      one: "已为 {n} 个账户排队发送通知。"
-      other: "已为 {n} 个账户排队发送通知。"
-    sent_already:
-      one: "{n} 个账户已经收到过。"
-      other: "{n} 个账户已经收到过。"
-    sent_left:
-      one: "{n} 个账户在等待：每小时上限已满。稍后再按一次发送。"
-      other: "{n} 个账户在等待：每小时上限已满。稍后再按一次发送。"
-  mod:
-    course_id: "课程 id"
-    take_down_about: "课程的所有者和被分享的人都将无法打开它。所有者会看到它因违反条款被下架。分享记录会保留，恢复后分享也会恢复。"
-    take_down_confirm: "下架"
-    course: "课程"
-    owner: "所有者"
-    put_back_btn: "恢复"
-    taken_down: "课程 {id} 已下架。"
-    put_back: "课程 {id} 已恢复。"
-    no_course: "没有 id 为 {id} 的自建课程，或它已处于该状态。"
-    suspend: "暂停"
-    unsuspend: "解除暂停"
-    suspend_about: "该账户会在所有设备上退出登录，在你解除暂停前无法登录。它的课程不再分享给他人。不会删除任何内容。"
-    suspend_confirm: "暂停账户"
-    suspended: "{email} 已被暂停。"
-    unsuspended: "{email} 可以重新登录。"
-    delete: "删除账户"
-    delete_about: "账户及其创建的一切都会被删除：进度、课程、主题。此操作无法撤销。用于违反条款或儿童数据的情况。"
-    delete_confirm: "永久删除"
-    deleted: "{email} 及其数据已删除。"
-    yourself: "这是你自己的账户。请在个人资料中操作。"
-    subscribed: "{email} 有仍在计费的订阅。请先在 Stripe 中取消。"
-    blocked_title: "已屏蔽的地址"
-    block: "屏蔽地址"
-    address: "地址或范围"
-    block_about: "来自该地址的每个请求都会得到 403 页面，包括登录。范围写作 203.0.113.0/24。如果屏蔽了自己的地址，你也会被挡在外面；之后只能从 blocked_ips 删除该行并重启服务器。"
-    block_confirm: "屏蔽"
-    unblock: "移除"
-    blocked: "{ip} 已屏蔽。"
-    unblocked: "{ip} 已解除屏蔽。"
-    bad_ip: "{ip} 不是此页面能屏蔽的地址或范围（IPv4 /8 或更窄，IPv6 /16 或更窄）。"
   title: 超级用户
   about: "对任何账户的操作。只有超级用户能看到此页面。"
   open_inbox: 在开发收件箱中打开
@@ -1179,7 +845,7 @@ superuser:
   temp_password_for: "{email} 的临时密码："
   temp_password_once: "只在此刻显示。请复制后交给对方；对方会在下次登录时设置自己的密码。"
   two_factor_off: "关闭两步验证"
-  two_factor_off_about: "在重新开启两步验证之前，该账户只凭密码登录。为其设置的身份验证器应用会被移除；已确认的手机号码保留。"
+  two_factor_off_about: "在重新开启两步验证之前，该账户只凭密码登录。为其设置的身份验证器应用会被移除。"
   two_factor_off_confirm: "关闭"
   two_factor_off_done: "{email} 的两步验证已关闭。"
   page_of: "第 {page} 页，共 {pages} 页"
@@ -1250,7 +916,6 @@ landing:
   create_account: 创建账户
   read_format: 阅读课程格式
   have_account_html: "已有账户？<a href=\"{url}\" data-testid=\"landing-login\">登录</a>。"
-  have_account_google_html: "已有账户？<a href=\"{url}\" data-testid=\"landing-login\">登录</a>，或<a href=\"{google_url}\">使用 Google 继续</a>。"
   two_files_h2: 一门课程只需两个文件，其余都是可选的。
   two_files_lead_html: "<code>course.json</code> 列出单元，以及每张单词卡的两面。每节课是一个文件。添加一个字段，对应功能就会开启；不写，该功能就不会出现在这节课里。什么都不会出错，也不会有任何提醒。"
   field_content_html: Markdown。每个 <code>##</code> 小节会变成一张课节卡片、一个指南步骤和一个冲刺模式小节。
@@ -1294,7 +959,7 @@ landing:
   spec_footprint_h: 占用极小
   spec_footprint_p: "为 Pi Zero 2 W 设计：磁盘占用几兆字节，内存占用几十兆字节，两个异步工作线程。"
   spec_data_h: 你的数据归你所有
-  spec_data_p: 运行在你自己的机器或局域网上。可选的 Google 登录、可选的 TLS 代理，没有第三方脚本，没有追踪。
+  spec_data_p: 运行在你自己的机器或局域网上。可选的 TLS 代理，没有第三方脚本，没有追踪。
   spec_docs_h: 内置文档
   spec_docs_p: 格式、功能和架构都直接由应用提供，既可以是网页，也可以是供 LLM 使用的原始 Markdown。
   final_h2: "注册，然后回答一个问题：你想学什么？"
@@ -2742,15 +2407,6 @@ courses:
     description: "用一两句话介绍这门课程。"
     unit: "第 1 单元"
     lesson: "你的第一课"
-  masked:
-    reveal_word: "点击查看该词"
-    reveal_text: "点击查看文本"
-    count: "{n} 处匹配"
-    list_title: "匹配到的内容"
-    prev: "上一页"
-    next: "下一页"
-    page: "第 {n} 页，共 {total} 页"
-    close: "关闭"
   translate:
     button: "复制并翻译为…"
     title: "复制并翻译“{title}”"
@@ -2772,26 +2428,6 @@ courses:
     phase_start: "正在翻译"
     phase_file: "正在翻译 {file}（第 {n} 个，共 {total} 个）"
   picker:
-    removed_info: "此课程因违反条款已被下架。你和你分享过的人都无法打开它。如果你认为这是误会，请写信给 {email}。"
-    removed: "已下架"
-    flagged: "暂时无法开始或分享"
-    flagged_title: "此课程暂时无法开始或分享"
-    flagged_lead: "它使用了课程中不允许的词语："
-    flagged_match: "{term}（在 {lesson} 中）"
-    flagged_edit: "编辑课程以修正"
-    flagged_lead_ai: "AI 检查发现了课程中不能出现的文字："
-    flagged_quote: "\"{text}\"（在 {lesson} 中）：{why}"
-    flagged_why_misinformation: "把虚假说法当作事实"
-    flagged_why_violence: "美化暴力"
-    flagged_why_self_harm: "鼓励自残"
-    flagged_why_weapons: "教人用武器伤人"
-    flagged_why_firearms: "教人用枪伤人"
-    flagged_why_hate: "攻击某一群体"
-    flagged_why_tragedy: "轻视大规模惨剧"
-    flagged_why_adult: "含有露骨的性内容"
-    flagged_why_minors: "危及儿童"
-    flagged_why_sexual_crimes: "轻视性犯罪"
-    flagged_why_terms: "违反使用条款"
     title: 你想学什么？
     lead_anon: 选一门现成的课程。每门课程都保留自己的进度、词汇、游戏和记录。
     lead_ai_off: 选一门现成的课程，或自己写一门。每门课程都保留自己的进度、词汇、游戏和记录。
@@ -2890,8 +2526,6 @@ courses:
     manifest_undeletable: course.json 无法删除；请改为编辑它。
     loads_notice: 课程已可加载。请从课程列表中打开它。
     not_loading_notice: "课程尚无法加载：{error}"
-    flagged_notice: "此课程暂时无法开始或分享。它使用了课程中不允许的词语：{matches}。删除它们并保存后，课程会重新开放。"
-    flagged_notice_ai: "此课程暂时无法开始或分享。AI 检查发现了课程中不能出现的文字：{matches}。修改后点“分享”即可重新检查。"
     gone: 此课程已不存在（可能已在其他标签页中删除），因此这些更改无法保存。
     busy_generating: 课程仍在生成中
     busy_revising: 课程正在修改中
@@ -4102,152 +3736,7 @@ editor:
       other: "{n} 项待检查"
     advice_none: "没有需要检查的地方。"
     advice_close: "关闭"
-reports:
-  reason:
-    harmful: "有害"
-    copyright: "版权"
-    other: "其他"
-  course:
-    open: "举报此课程"
-    title: "举报此课程"
-    reason: "你为什么举报它？"
-    details: "哪里有问题，在课程的哪一部分？"
-    email: "你的电子邮箱"
-    cancel: "取消"
-    send: "发送举报"
-    sent: "谢谢。我们已收到你的举报，会查看这门课程。"
-    too_many: "你这一小时发送的举报太多了。请稍后再试。"
-    pick_reason: "请选择一个原因。"
-    details_empty: "请说明课程哪里有问题。"
-  copyright:
-    title: "版权通知"
-    contact: "如需报告版权问题，请写信至 {email}。"
-    intro: "如果你认为这里的某门课程未经许可复制了你的作品，请使用此表单。我们会把通知的副本（包括你的姓名和邮箱）发送给创建该课程的人。"
-    name: "你的全名（作为签名）"
-    email: "你的电子邮箱"
-    work: "你认为被复制的作品"
-    location: "它在哪里（课程链接）"
-    details: "复制了什么，以及你为何拥有它"
-    good_faith: "我真诚地相信，这种使用未经我本人、我的代理人或法律许可。本通知中的信息准确无误，我愿承担伪证责任声明：我是权利人或有权代表权利人行事。"
-    send: "发送通知"
-    sent: "谢谢。我们已收到你的通知，会通过电子邮件回复。"
-    terms: "返回条款"
-    too_many: "过去一分钟内从这里发送的通知太多。请等一分钟再试。"
-    missing: "请填写所有字段。"
-    tick_good_faith: "请勾选声明以发送通知。"
-  superuser:
-    title: "举报"
-    about_label: "关于举报"
-    about: "学习者对课程的举报，以及任何人发送的版权通知。“转发给所有者”会把副本通过邮件发送给课程所有者（只有版权通知会附上举报人的邮箱）。“已处理”会把举报从此列表中移除。"
-    runbook: "如何处理举报"
-    none: "没有待处理的举报。"
-    forward: "转发给所有者"
-    forward_again: "已于 {when} 转发。再次发送"
-    resolve: "已处理"
-    forwarded: "副本已发送给课程所有者。"
-    resolved: "该举报已处理。"
-    no_owner: "该举报没有指明一门有所有者可联系的课程。"
-    unknown: "没有这条待处理的举报。"
-  mail:
-    none: "（未提供）"
-    course: "课程"
-    reason: "原因"
-    location: "位置"
-    work: "作品"
-    name: "姓名"
-    email: "电子邮箱"
-    operator_subject: "{app}：新举报（{reason}）"
-    operator_text: "{app} 收到一条新举报：\n\n{report}\n\n待处理的举报在超级用户页面：{link}\n"
-    owner_subject: "{app}：关于你的课程 {title} 的举报"
-    owner_text: "你好，\n\n有人向 {app} 发送了关于你的课程“{title}”的举报。以下是副本：\n\n{report}\n\n如果你认为举报有误，请回复此邮件并说明原因。对于版权通知，这封回复可以作为反通知。在我们核查期间，可能会暂时隐藏这门课程。\n"
-waitlist:
-  hero_h1: "学任何东西。"
-  hero_lead: "告诉 {app} 你想学什么。几分钟后，你就有了一整门课程：课文、测验、练习、游戏和每日目标，按你喜欢的学习方式打造。"
-  build_label: "用一句话生成的课程"
-  build_ready: "完成。开始第一课吧。"
-  built_units:
-    one: "{n} 个单元"
-    other: "{n} 个单元"
-  built_lessons:
-    one: "{n} 节课"
-    other: "{n} 节课"
-  built_questions:
-    one: "{n} 道测验题"
-    other: "{n} 道测验题"
-  built_cards:
-    one: "{n} 张抽认卡"
-    other: "{n} 张抽认卡"
-  built_more: "练习、游戏、听力和每日目标"
-  gen_h2: "别只满足于一段解释。要一整门课程。"
-  gen_p: "问聊天机器人，你得到一大段只读一次的文字。问 {app}，你得到一门每天练习、直到学会的课程。"
-  chat_label: "聊天机器人"
-  modes_h2: "然后用各种方式练习。"
-  themes_h2: "让它变成你的世界。"
-  themes_p: "主题会改变颜色、字体、图片，以及你答对时应用欢呼的话。"
-  motivators_h2: "选择让你坚持回来的方式。"
-  motivators_p: "无论选哪个，你的进度都一样。由你决定如何展示。"
-  write_h2: "或者自己写。"
-  write_p: "一门课程就是一个装着 JSON 文件的文件夹。手写、在浏览器里编辑，或者让 AI 起草后随意修改。"
-  final_h2: "你的第一门课程只需几分钟。"
-  title: "加入候补名单"
-  lead: "{app} 每次只向少数人开放。留下你的电子邮件地址，轮到你时我们会发送邀请。"
-  email_label: "电子邮件地址"
-  submit: "加入候补名单"
-  joined: "请查收邮件：打开我们发送的链接来确认你的位置。"
-  confirmed: "你已在名单上。轮到你时，我们会用电子邮件发送邀请。"
-  bad_link: "这个链接已失效。请重新加入候补名单以获取新链接。"
-  too_many: "你的网络尝试次数太多。请一小时后再试。"
-  login_html: "已收到邀请？<a href=\"{url}\" data-testid=\"waitlist-login-link\">登录</a>"
-release:
-  title: "发布"
-  about_label: "关于发布"
-  open: "打开"
-  about: "候补名单开启时，首页只有一个电子邮件输入框，没有邀请就无法注册。用户先确认地址，你才能邀请他们。关闭候补名单就是正式发布：普通首页和注册会恢复。"
-  about_invites: "邀请某一个人，或按加入顺序邀请接下来的若干人。每人会收到一封电子邮件，内含只限其本人地址的邀请，有效期 {days} 天；“重新发送”会生成新的邀请。通过邀请创建的账户会标记为测试版用户。"
-  waitlist: "候补名单"
-  state_on: "开启：仅凭邀请注册。"
-  state_off: "关闭：任何人都可以注册。"
-  turn_on: "开启候补名单"
-  turn_off: "关闭候补名单"
-  turn_on_about: "首页会变成候补名单表单，注册需要邀请。已有账户的人仍可登录。"
-  turn_off_about: "这就是正式发布：普通首页恢复，任何人都可以注册。未使用的邀请仍然有效。"
-  list: "候补名单上的人"
-  count_total:
-    one: "{n} 人加入"
-    other: "{n} 人加入"
-  count_unconfirmed:
-    one: "{n} 人未确认"
-    other: "{n} 人未确认"
-  count_waiting:
-    one: "{n} 人等待中"
-    other: "{n} 人等待中"
-  count_invited:
-    one: "{n} 人已邀请"
-    other: "{n} 人已邀请"
-  count_signed_up:
-    one: "{n} 人已注册"
-    other: "{n} 人已注册"
-  invite_next_label: "人数"
-  invite_next: "邀请接下来的人"
-  empty: "还没有人加入。"
-  joined: "加入时间"
-  status_h: "状态"
-  invited_h: "邀请时间"
-  invite: "邀请"
-  resend: "重新发送"
-  turned_on: "候补名单已开启。"
-  turned_off: "候补名单已关闭：任何人都可以注册。"
-  invited_one: "已向 {email} 发送邀请。"
-  invited_n:
-    one: "已发送 {n} 份邀请。"
-    other: "已发送 {n} 份邀请。"
-  not_invited: "没有向 {email} 发送邀请：该地址未确认、已注册，或已达到邮件发送上限。"
-  status:
-    unconfirmed: "未确认"
-    waiting: "等待中"
-    invited: "已邀请"
-    expired: "邀请已过期"
-    signed_up: "已注册"
+
 clock:
   js:
     set_label: "时钟。拖动分针，或用方向键；Page Up 和 Page Down 调一小时。"

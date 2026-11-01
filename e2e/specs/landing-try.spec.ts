@@ -2,27 +2,8 @@
 // of each mode in each subject (language, maths, music), each with its own
 // kind of question: listening and typing, shading, number lines, graphs,
 // formulas, a staff, a keyboard. Then the "What can I do with it?" section,
-// on the landing page and on the waitlist page (hosted only). No key, no network.
+// on the landing page. No key, no network.
 import { expect, test, type Locator, type Page } from "@playwright/test";
-import { devLogin } from "../lib/app";
-
-/** Turn the waitlist on or off from the Release page, if it isn't already. */
-async function setWaitlist(page: Page, on: boolean): Promise<void> {
-  await page.goto("/superuser/release");
-  if ((await page.getByTestId("release-page").getAttribute("data-waitlist")) === String(on)) return;
-  await page.getByTestId("release-switch").click();
-  await page.getByTestId("release-switch-confirm").click();
-  await expect(page.getByTestId("release-page")).toHaveAttribute("data-waitlist", String(on));
-}
-
-// Every other spec signs up the normal way: the waitlist never stays on.
-test.afterAll(async ({ browser }) => {
-  if (process.env.E2E_MINI === "1") return;
-  const page = await browser.newPage();
-  await devLogin(page, "next=/superuser");
-  await setWaitlist(page, false);
-  await page.close();
-});
 
 /** Click a drawing at a spot given as fractions of its width and height. */
 async function clickAt(target: Locator, fx: number, fy: number): Promise<void> {
@@ -217,25 +198,4 @@ test("the try-it stage fits a phone in every subject and mode", async ({ page })
       expect(overflow, `${subject} ${mode}: horizontal overflow in px`).toBeLessThanOrEqual(0);
     }
   }
-});
-
-test("the waitlist page has the same samples and use cases", async ({ page, browser }) => {
-  test.skip(process.env.E2E_MINI === "1", "the waitlist is not in Skrongle mini");
-  await devLogin(page, "next=/superuser");
-  await setWaitlist(page, true);
-  const visitor = await browser.newPage();
-  await visitor.goto("/");
-  await expect(visitor.getByTestId("waitlist-page")).toBeVisible();
-  await playLanguage(visitor);
-  await checkUses(visitor);
-  await visitor.setViewportSize({ width: 375, height: 740 });
-  for (const subject of ["maths", "music"]) {
-    await visitor.getByTestId(`try-subject-${subject}`).click();
-    for (const mode of ["sprint", "study", "play", "guide"]) {
-      await visitor.getByTestId(`try-tab-${mode}`).click();
-      const overflow = await visitor.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
-      expect(overflow, `waitlist ${subject} ${mode}: horizontal overflow in px`).toBeLessThanOrEqual(0);
-    }
-  }
-  await visitor.close();
 });

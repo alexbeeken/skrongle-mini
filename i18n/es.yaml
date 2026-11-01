@@ -29,7 +29,6 @@ lang:
   unknown: No existe ese idioma.
 
 error:
-  blocked: "Las solicitudes desde tu dirección de red están bloqueadas en este servidor."
   not_found: Página no encontrada
   form_only: "Esta página solo funciona desde su botón. Vuelve atrás y usa el botón de la página."
   database: Error de la base de datos
@@ -112,14 +111,12 @@ common:
 
 auth:
   login:
-    suspended: "Esta cuenta está suspendida por incumplir los Términos. Si crees que es un error, escribe a {email}."
     deletion_scheduled: "Tu cuenta se eliminará el {date}. Para conservarla, inicia sesión antes y cancela la eliminación."
     title: Iniciar sesión
     email_label: Correo electrónico
     password_label: Contraseña
     submit: Iniciar sesión
     or: o
-    google: Continuar con Google
     no_account_html: "¿Aún no tienes cuenta? <a href=\"{url}\" data-testid=\"login-register-link\">Regístrate</a>."
     terms_link: Términos
     privacy_link: Privacidad
@@ -135,18 +132,15 @@ auth:
     password_note: (al menos 8 caracteres)
     submit: Registrarse
     or: o
-    google: Registrarse con Google
     have_account_html: "¿Ya tienes cuenta? <a href=\"{url}\" data-testid=\"register-login-link\">Inicia sesión</a>."
     too_many_signups: Demasiados registros desde tu red. Inténtalo de nuevo dentro de una hora.
     email_taken: Ya existe una cuenta con ese correo electrónico.
-    email_taken_google: Una cuenta con ese correo electrónico inicia sesión con Google. Usa «Continuar con Google».
   signup:
     closed_title: "El registro está cerrado"
     closed: "Este servidor no admite cuentas nuevas. Pregunta a quien lo administra."
     invite_used: "Este enlace de invitación ya se ha usado. Pide uno nuevo a quien administra este servidor."
     invite_expired: "Este enlace de invitación ha caducado. Pide uno nuevo a quien administra este servidor."
     invite_unknown: "Este enlace de invitación no es válido. Pide uno nuevo a quien administra este servidor."
-    invite_wrong_email: "Esta invitación es para otra dirección de correo. Regístrate con la dirección a la que se envió."
     sign_in: "Iniciar sesión"
     first_account: "Este servidor aún no tiene cuentas: la que crees ahora será la de su propietario."
     no_owner: "Este servidor aún no tiene propietario. Quien lo administra crea la primera cuenta con el enlace de propietario del registro del servidor."
@@ -172,9 +166,7 @@ auth:
   code:
     title: Ingresa tu código
     from_app: De tu aplicación de autenticación.
-    texted_to: "Enviado por SMS a {to}."
     emailed_to: "Enviado por correo a {to}."
-    fallback: "Tu teléfono respondió STOP a los mensajes de {app}, así que enviamos el código por correo a {to}."
     code_label: Código
     submit: Iniciar sesión
     resend: Enviar un código nuevo
@@ -190,35 +182,9 @@ auth:
     your_authenticator: tu aplicación de autenticación
   two_factor:
     channel_off_email: "Tu cuenta inicia sesión con un código por correo, pero este servidor no puede enviar correos ({setting} no está configurado). Pide a quien lo administra que configure {setting} o que desactive el inicio de sesión en dos pasos de tu cuenta."
-    channel_off_sms: "Tu cuenta inicia sesión con un código por SMS, pero este servidor no puede enviar SMS ({setting} no está configurado). Pide a quien lo administra que configure {setting} o que desactive el inicio de sesión en dos pasos de tu cuenta."
     needs_email: Confirma primero tu correo electrónico.
-    needs_phone: Agrega y verifica primero un número de teléfono.
     needs_app: Configura primero la aplicación de autenticación.
-    phone_in_use: La verificación en dos pasos envía SMS a este número. Elige otro método antes de cambiarlo.
-    needs_confirmed_email: Confirma tu dirección de correo electrónico antes de añadir un número de teléfono.
-    phone_taken: Este número está verificado en otra cuenta. Quítalo de allí primero o usa otro número.
     app_already: Ya hay una aplicación de autenticación configurada. Elimínala primero.
-  google:
-    cancelled: Se canceló el inicio de sesión con Google.
-    error: Google informó un error.
-    expired: Este intento de inicio de sesión ha caducado. Inténtalo de nuevo.
-    mismatch: Este intento de inicio de sesión no coincide. Inténtalo de nuevo.
-    no_code: Google no devolvió un código de inicio de sesión.
-    exchange_failed: No se pudo completar el inicio de sesión con Google. Inténtalo de nuevo.
-    bad_identity: Google devolvió una identidad que este sitio no puede aceptar.
-    already_linked: Esa cuenta de Google ya está vinculada a otro usuario.
-    attempt_expired: Este intento ha caducado. Inténtalo de nuevo.
-    not_this_account: Esa no es la cuenta de Google con la que inicia sesión esta cuenta.
-    unconfirmed_account: Ya existe una cuenta con este correo, pero su dirección no está confirmada. Inicia sesión con tu contraseña y confírmala; después conecta Google desde tu perfil.
-    other_google: La cuenta con este correo ya tiene conectada otra cuenta de Google. Inicia sesión con esa o con tu contraseña.
-    signup_expired: Este registro ha caducado. Inténtalo de nuevo.
-  google_confirm:
-    title: Crea tu cuenta
-    lead: "Ya casi está: Google ha confirmado quién eres. Marca las dos casillas y tu cuenta estará lista."
-    as: Registrándote con Google como
-    not_you: ¿No eres tú?
-    submit: Crear cuenta
-    back: Volver a iniciar sesión
   ai_switch:
     label: Ocultar todas las funciones de IA
     about: Acerca de las funciones de IA
@@ -425,7 +391,6 @@ mail:
     subject: "La verificación en dos pasos de {app} ha cambiado"
     now_off: ahora está desactivada
     now_email: ahora te envía un código por correo electrónico
-    now_sms: ahora envía un código por SMS a tu teléfono
     now_totp: ahora pide un código de una aplicación de autenticación
     text: |
       Hola,
@@ -483,18 +448,6 @@ mail:
       <p><a href="{link}">Abrir el curso</a></p>
       <p>O pega este enlace en tu navegador: {link}</p>
       <p>Puedes aprender del curso con tu propio progreso; solo {owner} puede cambiarlo. Si aún no tienes una cuenta en {app}, el enlace te permite crear una. Si no esperabas este mensaje, ignóralo.</p>
-
-sms:
-  login_code: "{code} es tu código de inicio de sesión de {app}. Funciona durante 10 minutos. No lo compartas."
-  phone_code: "{code} es tu código de {app} para confirmar este número de teléfono. Funciona durante 10 minutos."
-  two_factor_confirm: "{code} es tu código de {app} para cambiar la verificación en dos pasos. Funciona durante 10 minutos. No lo compartas."
-  number:
-    needs_plus: un número de teléfono empieza con + y el código de país
-    not_a_digit: "un número de teléfono solo tiene dígitos, no {char}"
-    bad_length: un número de teléfono tiene de 8 a 15 dígitos después del +, y el primero no es 0
-    us_length: "un número de EE. UU. o Canadá tiene 10 dígitos, como (555) 555 - 5555"
-    us_only: por ahora solo números de EE. UU. y Canadá, así que un número empieza por +1
-    us_area: ni el código de área ni los tres dígitos siguientes empiezan por 0 o 1
 
 quiz:
   page:
@@ -843,7 +796,6 @@ landing:
   create_account: Crear una cuenta
   read_format: Leer el formato de curso
   have_account_html: "¿Ya tienes cuenta? <a href=\"{url}\" data-testid=\"landing-login\">Inicia sesión</a>."
-  have_account_google_html: "¿Ya tienes cuenta? <a href=\"{url}\" data-testid=\"landing-login\">Inicia sesión</a> o <a href=\"{google_url}\">continúa con Google</a>."
   two_files_h2: Un curso son dos archivos. Todo lo demás es opcional.
   two_files_lead_html: Un <code>course.json</code> nombra las unidades y las dos caras de cada tarjeta. Cada lección es un archivo. Agrega un campo y se activa una función; omítelo y esa función simplemente no aparece para esa lección. Nada se rompe, nada molesta.
   field_content_html: Markdown. Cada sección <code>##</code> se convierte en una tarjeta de lección, un paso de la Guía y un bocado del modo Sprint.
@@ -887,7 +839,7 @@ landing:
   spec_footprint_h: Huella diminuta
   spec_footprint_p: "Dimensionado para una Pi Zero 2 W: unos pocos megabytes en disco, decenas de megabytes en memoria, dos workers asíncronos."
   spec_data_h: Tus datos siguen siendo tuyos
-  spec_data_p: Funciona en tu propia máquina o red local. Inicio de sesión con Google opcional, proxy TLS opcional, sin scripts de terceros, sin rastreo.
+  spec_data_p: Funciona en tu propia máquina o red local. Proxy TLS opcional, sin scripts de terceros, sin rastreo.
   spec_docs_h: Documentación incluida
   spec_docs_p: El formato, las funciones y la arquitectura se sirven desde la propia aplicación, como páginas o como Markdown sin formato para un LLM.
   final_h2: "Regístrate y responde una sola pregunta: ¿qué te gustaría aprender?"
@@ -1039,11 +991,6 @@ profile:
     data: Tus datos
     consent: "Privacidad y consentimiento"
   personal:
-    phone_locked_label: Por qué el número de teléfono está bloqueado
-    phone_locked_title: Primero confirma tu correo electrónico
-    phone_locked_text: Podrás añadir un número de teléfono cuando tu dirección de correo electrónico esté confirmada (o si inicias sesión con Google). Busca el enlace en tu bandeja de entrada.
-    phone_locked_close: Cerrar
-    phone_locked_resend: Reenviar el enlace
     title: Información personal
     first_name: Nombre
     last_name: Apellidos
@@ -1051,37 +998,14 @@ profile:
     no_email: Sin correo electrónico registrado
     verified: Verificado
     not_verified: No verificado
-    phone: Número de teléfono
-    phone_placeholder: "(555) 555 - 5555"
-    phone_problem: Revisa el número de teléfono
-    phone_stopped: "Los mensajes a este número están detenidos"
     language: Idioma
     language_unavailable: Ese idioma no está disponible.
-  phone_problem:
-    title: Revisa el número de teléfono
-    close: Cerrar
-  phone_stopped:
-    title: "Mensajes detenidos"
-    text: "Este número respondió STOP a los mensajes de {app}, así que por ahora tus códigos de inicio de sesión llegan por correo. Para volver a recibir mensajes, envía START desde este teléfono al número del que llegan nuestros mensajes y luego envíate un código."
-    close: "Cerrar"
-    send: "Enviar un código"
-  phone_dialog:
-    title: Verifica tu teléfono
-    type_code: Escribe el código que enviamos por mensaje de texto a tu teléfono.
-    not_verified: Número de teléfono aún no verificado. Envíale un código.
-    code: Código
-    close: Cerrar
-    send_again: Enviar de nuevo
-    send_code: Enviar código
-    verify: Verificar
   account:
     title: Cuenta
     member_since: Miembro desde
     sign_in: Inicio de sesión
     password: Contraseña
     and: y
-    google_connected: Cuenta de Google conectada
-    connect_google_html: "· <a href=\"{url}\" data-testid=\"profile-google-connect\">Conecta una cuenta de Google</a> para iniciar sesión con un toque"
     terms: Términos
     terms_accepted: "Versión {version}, aceptada el {date}"
     terms_not_accepted: No aceptados
@@ -1090,7 +1014,7 @@ profile:
     terms_title: Términos del servicio
     terms_close: Cerrar
     terms_open_page: Abrir como página
-    no_password: Esta cuenta inicia sesión con Google, así que no hay contraseña que cambiar.
+    no_password: Esta cuenta no tiene contraseña que cambiar.
   consent:
     title: "Privacidad y consentimiento"
     info: "Sobre tus consentimientos"
@@ -1103,15 +1027,6 @@ profile:
     age: "Edad"
     age_confirmed: "Confirmada el {date}"
     age_not_confirmed: "Sin confirmar"
-    phone: "Teléfono para códigos de acceso"
-    phone_none: "Sin número"
-    phone_add: "añadir uno"
-    phone_edit: "cambiar o quitar"
-    google: "Acceso con Google"
-    google_on: "Conectado"
-    google_off: "No conectado"
-    google_connect: "conectar"
-    google_disconnect: "desconectar"
     email: "Correo"
     email_service: "Solo mensajes de servicio"
     ai: "No mostrarme funciones de IA"
@@ -1122,29 +1037,11 @@ profile:
     ai_key: "Clave API propia guardada"
     ai_keys_manage: "gestionar claves"
     ai_hosted: "{hosted}: {n} % de este mes usado"
-  google_link:
-    link_title: Conectar una cuenta de Google
-    one_tap: para iniciar sesión con un toque
-    link_text: Escribe tu contraseña y elige la cuenta de Google. Se cerrará la sesión en tus otros dispositivos.
-    password: Contraseña
-    cancel: Cancelar
-    continue: Continuar con Google
-    unlink_title: Desvincular Google
-    unlink_text: "«Continuar con Google» dejará de iniciar sesión en esta cuenta y se cerrará la sesión en tus otros dispositivos. Escribe tu contraseña para confirmar."
-    unlink: Desvincular
-    linked_notice: Cuenta de Google conectada. Se cerró la sesión en tus otros dispositivos.
-    unlinked_notice: Cuenta de Google desvinculada. Se cerró la sesión en tus otros dispositivos.
-    joined_notice: "Cuenta de Google conectada: Google confirmó esta dirección, así que inicia sesión en esta cuenta. Tu contraseña sigue funcionando."
-    stays_connected: Esta cuenta solo inicia sesión con Google, así que sigue conectada.
-    confirm_needed: Confirma con Google para hacer este cambio.
-    confirm: Confirmar con Google
-    confirmed: Confirmado con Google.
-    confirm_why: Esta cuenta inicia sesión con Google y no tiene contraseña, así que primero confirma con Google.
   sessions:
     sign_out_others: Cerrar sesión en todos los demás sitios
     info_label: Sobre cerrar sesión en todos los demás sitios
     text: "Cierra todas las demás sesiones de esta cuenta: otros navegadores, teléfonos y ordenadores, y cualquiera que no deba tener la sesión iniciada. Este navegador sigue con la sesión iniciada."
-    text_same: Cambiar tu contraseña o la verificación en dos pasos, y conectar o desvincular Google, hace lo mismo.
+    text_same: Cambiar tu contraseña o la verificación en dos pasos hace lo mismo.
     ok: Aceptar
     signed_out_notice: Se cerró la sesión en todos los demás sitios.
   password:
@@ -1157,7 +1054,7 @@ profile:
     save: Guardar
     changed: Contraseña cambiada.
     mismatch: Las nuevas contraseñas no coinciden.
-    google_only: Esta cuenta inicia sesión con Google y no tiene contraseña.
+    none: Esta cuenta no tiene contraseña.
     too_many: Demasiados intentos. Espera unos minutos e inténtalo de nuevo.
     current_wrong: La contraseña actual no es correcta.
   two_factor:
@@ -1167,14 +1064,12 @@ profile:
     off: Desactivado
     email: Correo electrónico
     email_unverified: Correo electrónico no verificado
-    sms: Mensaje de texto
-    phone_unverified: Teléfono no verificado
     totp: Aplicación de autenticación
     save: Guardar
     confirm_title: Confirma que eres tú
     confirm_password_why: Para que nadie que use este navegador con la sesión iniciada pueda cambiar tu segundo paso, escribe la contraseña de tu cuenta.
-    confirm_app_code: Esta cuenta inicia sesión con Google y no tiene contraseña, así que escribe el código que muestra ahora tu aplicación de autenticación.
-    confirm_sent_code: Esta cuenta inicia sesión con Google y no tiene contraseña, así que confirma con un código de tu segundo paso actual.
+    confirm_app_code: Esta cuenta no tiene contraseña, así que escribe el código que muestra ahora tu aplicación de autenticación.
+    confirm_sent_code: Esta cuenta no tiene contraseña, así que confirma con un código de tu segundo paso actual.
     sent_to: "Enviado a {to}."
     send_one_first: Envía uno primero.
     password: Contraseña
@@ -1186,16 +1081,13 @@ profile:
     totp_added: "Aplicación de autenticación añadida el {date}"
     remove: Quitar
     info_title: Autenticación en dos pasos
-    info_text: "Después de tu contraseña (o de Google), el inicio de sesión pide un código: enviado por correo electrónico, por mensaje de texto a tu teléfono o mostrado por una aplicación de autenticación como Google Authenticator. Un método a la vez; elegir otro lo reemplaza."
+    info_text: "Después de tu contraseña, el inicio de sesión pide un código: enviado por correo electrónico o mostrado por una aplicación de autenticación como Google Authenticator. Un método a la vez; elegir otro lo reemplaza."
     info_small: El correo electrónico y el mensaje de texto necesitan una dirección o un número verificados. Los códigos valen 10 minutos; cinco códigos incorrectos terminan el inicio de sesión.
     ok: OK
     email_first_title: Verifica primero tu correo electrónico
     email_first_text: Los códigos por correo electrónico necesitan una dirección verificada. Busca el enlace en tu bandeja de entrada.
     close: Cerrar
     resend: Reenviar
-    sms_first_title: Verifica primero tu teléfono
-    sms_first_text: Los códigos por mensaje de texto necesitan un número de teléfono verificado.
-    add_number: Añadir un número
     totp_title: Añadir una aplicación de autenticación
     totp_how: Cómo añadir la aplicación
     totp_dev_link: "Dev: añadirla al autenticador de desarrollo"
@@ -1207,13 +1099,11 @@ profile:
     turn_off: Desactivar el inicio de sesión en dos pasos
     switch_to: "Cambiar el inicio de sesión en dos pasos a {method}"
     turn_on_by: "Activar la verificación en dos pasos por {method}"
-    method_sms: mensaje de texto
     method_email: correo electrónico
     method_totp: aplicación de autenticación
     is_off: El inicio de sesión en dos pasos está desactivado.
     is_method: "Inicio de sesión en dos pasos: {method}."
     totp_removed: Aplicación de autenticación quitada.
-    phone_verified: Número de teléfono verificado.
     too_many_attempts: Demasiados intentos. Espera unos minutos e inténtalo de nuevo.
     type_password: Escribe tu contraseña para hacer este cambio.
     password_wrong: Esa contraseña no es correcta.
@@ -1225,9 +1115,6 @@ profile:
     code_gone: No hay ningún código pendiente, o ya caducó. Envía uno nuevo.
     too_many_codes: Demasiados códigos enviados. Espera unos minutos e inténtalo de nuevo.
     code_not_sent: No se pudo enviar el código. Inténtalo de nuevo en un momento.
-    too_many_texts: "Demasiados mensajes de texto a este número. Inténtalo de nuevo en {minutes} minutos."
-    number_no_texts: "Ese número no puede recibir mensajes de texto: {why}."
-    phone_code_expired: Ese código caducó o ya se usó. Envía uno nuevo.
   subscription:
     title: Suscripción
     plan: Plan
@@ -1338,14 +1225,11 @@ profile:
     about: "Hasta ese día la cuenta solo puede cancelar la eliminación o cerrar sesión. Si la cancelas, todo queda como estaba. Después de ese día tu progreso, tus cursos y tus claves guardadas desaparecen para siempre."
     cancel: "Cancelar la eliminación"
   save:
-    sms_off: "Este servidor no puede enviar SMS, así que no guarda ningún número de teléfono."
     pick_picture: Elige una de las fotos.
     pick_colour: Elige uno de los colores.
     not_a_field: Este campo no forma parte del perfil.
     theme_unavailable: Ese tema no está disponible.
     motivator_unavailable: "Ese motivador no está disponible."
-    not_a_phone: "No es un número de teléfono: {why}."
-    sms_country: Este servidor no envía mensajes de texto a números de ese país.
     sent_to: "Enviado a {email}."
   name:
     too_long: "{label} es demasiado largo (máximo {max} caracteres)."
@@ -1372,9 +1256,6 @@ profile:
     name_too_long: "{label} es demasiado largo (máximo {max} caracteres)."
     name_bad_chars: "{label} contiene caracteres no permitidos."
     password_mismatch: Las nuevas contraseñas no coinciden.
-    phone_digits: "Un número de teléfono tiene 10 dígitos, como (555) 555 - 5555."
-    phone_us_only: Por ahora solo números de EE. UU. y Canadá. Escribe los 10 dígitos después del +1.
-    phone_area: Ni el código de área ni los tres dígitos siguientes empiezan por 0 o 1.
     turn_off: Desactivar el inicio de sesión en dos pasos
     switch_to: "Cambiar el inicio de sesión en dos pasos a {method}"
     turn_on_by: "Activar la verificación en dos pasos por {method}"
@@ -1406,222 +1287,6 @@ profile:
     confirm: "Confirmar la cancelación"
 
 superuser:
-  courses:
-    title: "Cursos"
-    about_label: "Sobre la tabla de cursos"
-    about: "Todos los cursos creados en este servidor. Un curso con una palabra de la lista, o uno en el que la revisión de IA encontró un problema, queda marcado: no empieza ni se comparte hasta que se corrija o anules la marca. Los marcados van primero."
-    about_review: "Un curso con una puntuación alta en la revisión de IA necesita revisión. En uno o dos minutos, una revisión de IA lee esas partes en contexto y marca el curso si son dañinas. Hasta entonces sigue empezando y compartiéndose; su diálogo nombra las partes con puntuación alta."
-    shown: "Cursos: {total}. {per_page} por página."
-    search: "Título, id del curso o correo del dueño"
-    show: "Mostrar"
-    show_all: "Todos"
-    show_flagged: "Marcados"
-    show_review: "Por revisar"
-    show_overridden: "Anulados"
-    show_down: "Retirados"
-    show_behind: "Revisión de IA con {n} o más versiones de retraso ({count})"
-    find: "Buscar"
-    none: "Ningún curso coincide."
-    edited: "Última edición"
-    state: "Marca"
-    source: "Marcado por"
-    state_clear: "Sin marca"
-    state_flagged: "Marcado"
-    state_review: "Por revisar"
-    state_overridden: "Anulado"
-    state_down: "Retirado"
-    source_terms: "Lista de palabras"
-    source_ai: "Revisión de IA"
-    owner_suspended: "suspendido"
-    checked: "Última revisión"
-    never_checked: "Aún sin revisar"
-    ai_checked: "Revisión de IA"
-    last_ai_check: "Última revisión de IA"
-    checker_label: "Revisor de contenido"
-    checker_about: "La revisión de contenido se ejecuta en su propio proceso, skrongle content-check, junto al servidor (SKRONGLE_CONTENT_CHECK=external)."
-    checker_seen: "Última conexión: {when}"
-    checker_never: "Todavía no se ha conectado."
-    checker_waiting: "Revisiones en espera: {n}"
-    checker_silent: "No se conecta desde hace un día. Vuelve a iniciarlo con skrongle content-check."
-    checker_alert_since: "El revisor de contenido no se ha reportado desde {when}. Revisiones en espera: {n}."
-    checker_alert_never: "El revisor de contenido nunca se ha reportado. Revisiones en espera: {n}."
-    checker_details: "Detalles"
-    versions: "Reglas"
-    version_terms: "Términos v{version}"
-    version_ai: "IA v{version}"
-    version_behind: "Revisado con reglas anteriores. La versión actual es {current}."
-    about_versions: "Reglas muestra con qué versión de la lista de términos y de la revisión de IA se revisó cada curso por última vez. Una versión resaltada es anterior a las reglas actuales. La revisión nocturna vuelve a revisar un curso con una lista de términos nueva enseguida, y con una revisión de IA nueva cuando lleva {n} o más versiones de retraso."
-    versions_link: "Qué cambió en cada versión"
-    scores: "Puntuaciones de la IA"
-    score_category: "Categoría"
-    score_value: "Puntuación"
-    high_in: "Alta en"
-    category:
-      misinformation: "Desinformación"
-      violence: "Violencia"
-      self_harm: "Autolesión"
-      weapons: "Armas"
-      firearms: "Armas de fuego"
-      hate: "Discurso de odio"
-      tragedy: "Trivializar tragedias masivas"
-      adult: "Contenido para adultos"
-      minors: "Explotación de menores"
-      sexual_crimes: "Trivializar delitos sexuales"
-      terms: "Condiciones de uso"
-    review_queued: "esperando la revisión de IA"
-    review_fine: "Revisión de IA: bien"
-    review_harmful: "Revisión de IA: dañino"
-    ai_cost: "Coste de la revisión de IA"
-    ai_cost_parts: "{cost} por {parts} partes"
-    high_parts: "Partes con puntuación alta de IA"
-    why: "Por qué se marcó"
-    report: "Informe de la IA"
-    override_note: "Nota de anulación"
-    overridden_by: "Por {email}, {when}"
-    override: "Anular la marca"
-    override_about: "La marca era un error. El curso vuelve a empezar y compartirse. Las revisiones siguientes mantienen la anulación para las mismas palabras; una palabra nueva lo marca otra vez."
-    note: "¿Por qué está bien?"
-    note_example: "'coger' aquí significa 'tomar'; está bien"
-    override_confirm: "Anular"
-    clear_override: "Quitar la anulación"
-    clear_override_about: "El curso se revisa otra vez tal como está ahora. Si las palabras siguen ahí, se marca de nuevo y deja de empezar y compartirse."
-    take_down: "Retirar"
-    put_back_about: "El curso vuelve a abrirse para su dueño y para todos con quienes está compartido."
-    suspend_owner: "Suspender al dueño"
-    delete: "Borrar el curso"
-    delete_about: "Se borran el curso, sus archivos y sus enlaces compartidos. No se puede deshacer. Las denuncias sobre él se conservan."
-    overridden: "La marca de {id} está anulada. Vuelve a empezar y compartirse."
-    override_cleared: "Se quitó la anulación de {id}."
-    no_note: "Escribe una nota corta que diga por qué la marca es un error."
-    deleted: "El curso {id} está borrado."
-    busy: "El curso {id} se está generando o revisando. Inténtalo cuando termine."
-    email_owner: "Escribir al propietario"
-    email_to: "Para {email}, en su idioma. Puedes cambiarlo. No se envía nada hasta que pulses Enviar."
-    email_subject: "Asunto"
-    email_text: "Mensaje"
-    email_send: "Enviar"
-    emailed: "propietario avisado el {when}"
-    emailed_label: "Propietario avisado"
-    emailed_before: "Ya se escribió al propietario sobre este curso el {when}."
-    owner_emailed: "El correo al propietario de {id} está en camino."
-    no_mail_text: "Escribe un asunto y un mensaje antes de enviar."
-    no_owner_address: "El propietario de {id} no tiene una dirección a la que escribir."
-    mail:
-      subject: "{app}: tu curso \"{title}\" no se puede empezar ni compartir"
-      text: |
-        Hola:
-
-        Tu curso "{title}" en {app} no se puede empezar ni compartir por ahora. {why}
-
-        {fix}
-
-        Si tienes alguna pregunta o crees que nos hemos equivocado, escribe a {contact}.
-      why_flagged: "Nuestra revisión de contenido lo marcó."
-      why_down: "Lo retiramos porque incumple las Condiciones."
-      fix_flagged: "Inicia sesión para ver qué tienes que arreglar: {link}"
-      fix_down: "No puedes editarlo mientras está retirado. Si crees que no incumple las Condiciones, escríbenos y lo volveremos a mirar."
-  privacy:
-    title: "Solicitudes de privacidad"
-    about_label: "Sobre las solicitudes de privacidad"
-    about: "Para una solicitud que llegó por correo de alguien que no puede usar Perfil → Tus datos. Comprueba primero quién pregunta. La respuesta debe venir de la dirección de la cuenta o, si no tiene cuenta, de la dirección a la que se refiere la solicitud."
-    about_log: "Cada acción de aquí, y Eliminar cuenta, necesita un motivo. El registro guarda la acción, el motivo, quién la hizo y cuándo. Haz que el motivo remita a tu propio registro de solicitudes y no pongas en él el nombre ni la dirección de la persona."
-    export: "Enviar a una cuenta sus datos"
-    export_about: "Crea el mismo archivo que Descargar mis datos en el perfil. El enlace va a la dirección de la propia cuenta, nunca a la dirección de la que vino la solicitud, y solo se abre con la sesión de esa cuenta iniciada."
-    export_confirm: "Enviar"
-    export_queued: "Se están reuniendo los datos de {email}. El enlace va a esa dirección."
-    export_busy: "Ya se está creando una exportación para {email}."
-    export_soon: "{email} ya tuvo una exportación en el último día. Inténtalo mañana."
-    forget: "Olvidar una dirección"
-    forget_about: "Elimina todas las invitaciones a cursos enviadas a esta dirección y todos los correos a ella que siguen en el servidor. Solo para una dirección sin cuenta."
-    forget_confirm: "Olvidarla"
-    forgot: "La dirección está olvidada."
-    has_account: "Esa dirección pertenece a una cuenta. Elimina la cuenta en su lugar."
-    reason: "Motivo"
-    reason_hint: "Solicitud 12 del registro de solicitudes"
-    no_reason: "Escribe primero un motivo."
-    log_empty: "Todavía no hay acciones de privacidad."
-    log_when: "Cuándo"
-    log_action: "Acción"
-    log_who: "Por"
-    action_export: "Datos enviados"
-    action_forget: "Dirección olvidada"
-    action_delete_account: "Cuenta eliminada"
-    action_sign_out: "Sesiones cerradas"
-    action_notice: "Aviso de brecha enviado"
-  breach:
-    title: "Herramientas para brechas"
-    about_label: "Sobre las herramientas para brechas"
-    about: "Para una brecha de datos, como indica el procedimiento de incidentes. Cerrar sesiones termina las sesiones de las cuentas, los inicios de sesión que esperan un código de segundo paso y los enlaces de restablecimiento de contraseña sin usar. Enviar un aviso manda tu texto a la dirección confirmada de cada cuenta, una vez por texto."
-    about_log: "Las dos piden un motivo, que queda en el registro de privacidad, y te piden escribir una palabra antes de ejecutarse."
-    sign_out: "Cerrar sesiones"
-    sign_out_about: "Vuelven a entrar con su contraseña. Tu propia sesión en este dispositivo se mantiene."
-    sign_out_confirm: "Cerrar sus sesiones"
-    notice: "Enviar un aviso por correo"
-    notice_about: "Texto plano, tal como lo escribes. Enviar el mismo texto otra vez solo llega a las cuentas que no lo recibieron. Como máximo SKRONGLE_MAIL_PER_HOUR por hora; el resto espera."
-    notice_confirm: "Enviarlo"
-    who: "A quién"
-    everyone:
-      one: "Todas las cuentas ({n})"
-      other: "Todas las cuentas ({n})"
-    everyone_confirmed:
-      one: "Todas las cuentas con dirección confirmada ({n})"
-      other: "Todas las cuentas con dirección confirmada ({n})"
-    only_list: "Solo estas direcciones"
-    list: "Direcciones, separadas por comas o saltos de línea"
-    subject: "Asunto"
-    body: "Mensaje"
-    reason_hint: "Incidente del 28 de octubre"
-    confirm: "Escribe {word} para confirmar"
-    confirm_word: "confirmar"
-    confirm_wrong: "No se hizo nada. Escribe {word} para confirmar."
-    no_list: "Pega al menos una dirección o elige todas las cuentas."
-    no_text: "Escribe un asunto y un mensaje."
-    signed_out:
-      one: "Se cerró la sesión de {n} cuenta."
-      other: "Se cerró la sesión de {n} cuentas."
-    sessions_ended:
-      one: "{n} sesión terminada."
-      other: "{n} sesiones terminadas."
-    sent:
-      one: "Aviso en cola para {n} cuenta."
-      other: "Aviso en cola para {n} cuentas."
-    sent_already:
-      one: "{n} cuenta ya lo tenía."
-      other: "{n} cuentas ya lo tenían."
-    sent_left:
-      one: "{n} cuenta espera: el límite por hora está lleno. Pulsa Enviar más tarde."
-      other: "{n} cuentas esperan: el límite por hora está lleno. Pulsa Enviar más tarde."
-  mod:
-    course_id: "Id del curso"
-    take_down_about: "El curso deja de abrirse para su dueño y para todos con quienes está compartido. El dueño ve que se retiró por incumplir los Términos. Lo compartido se conserva, así que Restaurar lo devuelve."
-    take_down_confirm: "Retirarlo"
-    course: "Curso"
-    owner: "Dueño"
-    put_back_btn: "Restaurar"
-    taken_down: "El curso {id} está retirado."
-    put_back: "El curso {id} vuelve a estar disponible."
-    no_course: "Ningún curso creado tiene el id {id}, o ya está en ese estado."
-    suspend: "Suspender"
-    unsuspend: "Quitar la suspensión"
-    suspend_about: "La cuenta se cierra en todas partes y no puede iniciar sesión hasta que quites la suspensión. Sus cursos dejan de compartirse. No se borra nada."
-    suspend_confirm: "Suspenderla"
-    suspended: "{email} está suspendida."
-    unsuspended: "{email} puede volver a iniciar sesión."
-    delete: "Borrar la cuenta"
-    delete_about: "Se borran la cuenta y todo lo que creó: progreso, cursos, temas. No se puede deshacer. Úsalo por incumplir los Términos o por datos de un menor."
-    delete_confirm: "Borrarla para siempre"
-    deleted: "{email} y sus datos están borrados."
-    yourself: "Es tu propia cuenta. Usa tu perfil para eso."
-    subscribed: "{email} tiene una suscripción que sigue cobrando. Cancélala primero en Stripe."
-    blocked_title: "Direcciones bloqueadas"
-    block: "Bloquear una dirección"
-    address: "Dirección o rango"
-    block_about: "Cada solicitud desde ahí recibe una página 403, también el inicio de sesión. Un rango se escribe como 203.0.113.0/24. Si bloqueas tu propia dirección, también te quedas fuera; entonces hay que borrar su fila de blocked_ips y reiniciar el servidor."
-    block_confirm: "Bloquearla"
-    unblock: "Quitar"
-    blocked: "{ip} está bloqueada."
-    unblocked: "{ip} ya no está bloqueada."
-    bad_ip: "{ip} no es una dirección ni un rango que esta página pueda bloquear (IPv4 /8 o más estrecho, IPv6 /16 o más estrecho)."
   title: Superusuario
   about: "Acciones sobre cualquier cuenta. Solo los superusuarios ven esta página."
   open_inbox: Abrirlo en la bandeja de entrada de desarrollo
@@ -1652,7 +1317,7 @@ superuser:
   temp_password_for: "Contraseña temporal para {email}:"
   temp_password_once: "Solo se muestra ahora. Cópiala y dásela a la persona; elegirá la suya al iniciar sesión de nuevo."
   two_factor_off: "Desactivar la verificación en dos pasos"
-  two_factor_off_about: "La cuenta inicia sesión solo con su contraseña hasta que vuelva a activar la verificación en dos pasos. Se quita la app de autenticación configurada; un número de teléfono confirmado se queda."
+  two_factor_off_about: "La cuenta inicia sesión solo con su contraseña hasta que vuelva a activar la verificación en dos pasos. Se quita la app de autenticación configurada."
   two_factor_off_confirm: "Desactivarla"
   two_factor_off_done: "La verificación en dos pasos está desactivada para {email}."
   page_of: "Página {page} de {pages}"
@@ -2745,15 +2410,6 @@ courses:
     description: "Describe el curso en una o dos frases."
     unit: "Unidad 1"
     lesson: "Tu primera lección"
-  masked:
-    reveal_word: "Haz clic para ver la palabra"
-    reveal_text: "Haz clic para ver el texto"
-    count: "{n} coincidencias"
-    list_title: "Lo que se encontró"
-    prev: "Anterior"
-    next: "Siguiente"
-    page: "Página {n} de {total}"
-    close: "Cerrar"
   translate:
     button: "Copiar y traducir a…"
     title: "Copiar y traducir «{title}»"
@@ -2775,26 +2431,6 @@ courses:
     phase_start: "Traduciendo"
     phase_file: "Traduciendo {file} ({n} de {total})"
   picker:
-    removed_info: "Este curso se retiró por incumplir los Términos. No se abre para ti ni para nadie con quien lo compartiste. Si crees que es un error, escribe a {email}."
-    removed: "Retirado"
-    flagged: "Todavía no se puede empezar ni compartir"
-    flagged_title: "Este curso todavía no se puede empezar ni compartir"
-    flagged_lead: "Usa palabras que no se permiten en un curso:"
-    flagged_match: "{term} (en {lesson})"
-    flagged_edit: "Edita el curso para arreglarlo"
-    flagged_lead_ai: "La revisión de IA encontró texto que no puede estar en un curso:"
-    flagged_quote: "«{text}» en {lesson}: {why}"
-    flagged_why_misinformation: "presenta afirmaciones falsas como hechos"
-    flagged_why_violence: "glorifica la violencia"
-    flagged_why_self_harm: "anima a autolesionarse"
-    flagged_why_weapons: "ayuda a hacer daño con armas"
-    flagged_why_firearms: "ayuda a hacer daño con armas de fuego"
-    flagged_why_hate: "ataca a un grupo de personas"
-    flagged_why_tragedy: "se burla de una tragedia masiva"
-    flagged_why_adult: "es sexualmente explícito"
-    flagged_why_minors: "pone en riesgo a menores"
-    flagged_why_sexual_crimes: "se burla de los delitos sexuales"
-    flagged_why_terms: "incumple las condiciones de uso"
     title: ¿Qué te gustaría aprender?
     lead_anon: Elige un curso ya hecho. Cada curso guarda su propio progreso, vocabulario, juegos e historial.
     lead_ai_off: Elige un curso ya hecho o escribe el tuyo. Cada curso guarda su propio progreso, vocabulario, juegos e historial.
@@ -2893,8 +2529,6 @@ courses:
     manifest_undeletable: course.json no se puede eliminar; edítalo en su lugar
     loads_notice: El curso carga. Ábrelo desde la lista de cursos.
     not_loading_notice: "El curso todavía no carga: {error}"
-    flagged_notice: "Este curso todavía no se puede empezar ni compartir. Usa palabras que no se permiten en un curso: {matches}. Quítalas y guarda, y se abre de nuevo."
-    flagged_notice_ai: "Este curso todavía no se puede empezar ni compartir. La revisión de IA encontró texto que no puede estar en un curso: {matches}. Cámbialo y pulsa Compartir para que se revise de nuevo."
     gone: Este curso ya no existe (se eliminó, quizá en otra pestaña), así que estos cambios no se pueden guardar.
     busy_generating: El curso todavía se está generando
     busy_revising: El curso se está revisando
@@ -4105,152 +3739,7 @@ editor:
       other: "{n} cosas por revisar"
     advice_none: "Nada por revisar."
     advice_close: "Cerrar"
-reports:
-  reason:
-    harmful: "Dañino"
-    copyright: "Derechos de autor"
-    other: "Otro"
-  course:
-    open: "Denunciar este curso"
-    title: "Denunciar este curso"
-    reason: "¿Por qué lo denuncias?"
-    details: "¿Qué está mal, y en qué parte del curso?"
-    email: "Tu dirección de correo"
-    cancel: "Cancelar"
-    send: "Enviar denuncia"
-    sent: "Gracias. Recibimos tu denuncia y revisaremos el curso."
-    too_many: "Has enviado muchas denuncias en esta hora. Vuelve a intentarlo más tarde."
-    pick_reason: "Elige un motivo."
-    details_empty: "Di qué está mal en el curso."
-  copyright:
-    title: "Aviso de derechos de autor"
-    contact: "Para avisar de un problema de derechos de autor, escribe a {email}."
-    intro: "Usa este formulario si crees que un curso de aquí copia tu obra sin permiso. Enviamos una copia del aviso, con tu nombre y dirección, a la persona que creó el curso."
-    name: "Tu nombre completo (tu firma)"
-    email: "Tu dirección de correo"
-    work: "La obra que dices que se copió"
-    location: "Dónde está (un enlace al curso)"
-    details: "Qué se copió y por qué es tuyo"
-    good_faith: "Creo de buena fe que ni yo, ni mi representante, ni la ley permiten este uso. La información de este aviso es exacta y, bajo pena de perjurio, soy el titular o tengo permiso para actuar en su nombre."
-    send: "Enviar aviso"
-    sent: "Gracias. Recibimos tu aviso. Te responderemos por correo."
-    terms: "Volver a los Términos"
-    too_many: "Demasiados avisos desde aquí en el último minuto. Espera un minuto y vuelve a intentarlo."
-    missing: "Rellena todos los campos."
-    tick_good_faith: "Marca la declaración para enviar el aviso."
-  superuser:
-    title: "Denuncias"
-    about_label: "Sobre las denuncias"
-    about: "Denuncias de cursos hechas por estudiantes y avisos de derechos de autor de cualquiera. Reenviar al dueño manda al dueño del curso una copia por correo (la dirección de quien denuncia solo en un aviso de derechos de autor). Resolver quita la denuncia de esta lista."
-    runbook: "Qué hacer con una denuncia"
-    none: "No hay denuncias abiertas."
-    forward: "Reenviar al dueño"
-    forward_again: "Reenviada {when}. Enviar otra vez"
-    resolve: "Resolver"
-    forwarded: "Se envió una copia al dueño del curso."
-    resolved: "La denuncia está resuelta."
-    no_owner: "Esa denuncia no nombra ningún curso con un dueño al que escribir."
-    unknown: "No existe esa denuncia abierta."
-  mail:
-    none: "(no se indicó)"
-    course: "Curso"
-    reason: "Motivo"
-    location: "Dónde"
-    work: "Obra"
-    name: "Nombre"
-    email: "Correo"
-    operator_subject: "{app}: nueva denuncia ({reason})"
-    operator_text: "Llegó una nueva denuncia a {app}:\n\n{report}\n\nLas denuncias abiertas están en la página de Superusuario: {link}\n"
-    owner_subject: "{app}: una denuncia sobre tu curso {title}"
-    owner_text: "Hola:\n\nAlguien envió a {app} una denuncia sobre tu curso \"{title}\". Aquí tienes una copia:\n\n{report}\n\nSi crees que la denuncia es un error, responde a este mensaje y explica por qué. En un aviso de derechos de autor, esa respuesta puede ser un contraaviso. Puede que ocultemos el curso mientras lo revisamos.\n"
-waitlist:
-  hero_h1: "Aprende lo que sea."
-  hero_lead: "Dile a {app} qué quieres aprender. Minutos después tienes un curso entero: lecciones, cuestionarios, ejercicios, juegos y una meta diaria, hecho a tu manera de aprender."
-  build_label: "Un curso que se crea a partir de una frase"
-  build_ready: "Listo. Empieza tu primera lección."
-  built_units:
-    one: "{n} unidad"
-    other: "{n} unidades"
-  built_lessons:
-    one: "{n} lección"
-    other: "{n} lecciones"
-  built_questions:
-    one: "{n} pregunta"
-    other: "{n} preguntas"
-  built_cards:
-    one: "{n} tarjeta"
-    other: "{n} tarjetas"
-  built_more: "Ejercicios, juegos, escucha y una meta diaria"
-  gen_h2: "No te conformes con una explicación. Consigue un curso."
-  gen_p: "Pregunta a un chatbot y recibes un muro de texto para leer una vez. Pregunta a {app} y recibes un curso para practicar cada día hasta saberlo."
-  chat_label: "Un chatbot"
-  modes_h2: "Y practícalo de todas las formas posibles."
-  themes_h2: "Haz que se parezca a tu mundo."
-  themes_p: "Un tema cambia los colores, la tipografía, las imágenes y lo que la app celebra cuando aciertas."
-  motivators_h2: "Elige lo que te hace volver."
-  motivators_p: "Tu progreso es el mismo elijas lo que elijas. Tú decides cómo se muestra."
-  write_h2: "O escríbelo tú."
-  write_p: "Un curso es una carpeta de archivos JSON. Escríbelo a mano, edítalo en el navegador o deja que la IA haga un borrador y cambia lo que quieras."
-  final_h2: "Tu primer curso está a minutos."
-  title: "Únete a la lista de espera"
-  lead: "{app} abre a pocas personas cada vez. Deja tu correo y te enviaremos una invitación cuando sea tu turno."
-  email_label: "Correo electrónico"
-  submit: "Unirme a la lista de espera"
-  joined: "Revisa tu correo: abre el enlace que te enviamos para confirmar tu lugar."
-  confirmed: "Estás en la lista. Te enviaremos una invitación por correo cuando sea tu turno."
-  bad_link: "Este enlace ya no funciona. Únete otra vez a la lista de espera para recibir uno nuevo."
-  too_many: "Demasiados intentos desde tu red. Vuelve a intentarlo en una hora."
-  login_html: "¿Ya tienes invitación? <a href=\"{url}\" data-testid=\"waitlist-login-link\">Inicia sesión</a>"
-release:
-  title: "Lanzamiento"
-  about_label: "Sobre Lanzamiento"
-  open: "Abrir"
-  about: "Mientras la lista de espera está activa, la página de inicio es un solo campo de correo y nadie puede registrarse sin invitación. Las personas confirman su dirección antes de que puedas invitarlas. Desactivar la lista de espera es el lanzamiento: vuelven la página de inicio normal y el registro."
-  about_invites: "Invita a una persona, o a las siguientes en el orden en que se unieron. Cada una recibe un correo con una invitación para su propia dirección, válida durante {days} días; Reenviar crea una nueva. Las cuentas creadas con una invitación se marcan como beta."
-  waitlist: "Lista de espera"
-  state_on: "Activa: registro solo con invitación."
-  state_off: "Desactivada: cualquiera puede registrarse."
-  turn_on: "Activar la lista de espera"
-  turn_off: "Desactivar la lista de espera"
-  turn_on_about: "La página de inicio pasa a ser el formulario de la lista de espera y para registrarse hace falta una invitación. Quienes ya tienen cuenta pueden seguir iniciando sesión."
-  turn_off_about: "Este es el lanzamiento: vuelve la página de inicio normal y cualquiera puede registrarse. Las invitaciones abiertas siguen funcionando."
-  list: "Personas en la lista de espera"
-  count_total:
-    one: "{n} unida"
-    other: "{n} unidas"
-  count_unconfirmed:
-    one: "{n} sin confirmar"
-    other: "{n} sin confirmar"
-  count_waiting:
-    one: "{n} esperando"
-    other: "{n} esperando"
-  count_invited:
-    one: "{n} invitada"
-    other: "{n} invitadas"
-  count_signed_up:
-    one: "{n} registrada"
-    other: "{n} registradas"
-  invite_next_label: "Cuántas"
-  invite_next: "Invitar a las siguientes"
-  empty: "Todavía no se ha unido nadie."
-  joined: "Se unió"
-  status_h: "Estado"
-  invited_h: "Invitada"
-  invite: "Invitar"
-  resend: "Reenviar"
-  turned_on: "La lista de espera está activa."
-  turned_off: "La lista de espera está desactivada: cualquiera puede registrarse."
-  invited_one: "Invitación enviada a {email}."
-  invited_n:
-    one: "{n} invitación enviada."
-    other: "{n} invitaciones enviadas."
-  not_invited: "No se envió ninguna invitación a {email}: la dirección no está confirmada, ya se registró o se llegó al límite de correo."
-  status:
-    unconfirmed: "Sin confirmar"
-    waiting: "Esperando"
-    invited: "Invitada"
-    expired: "Invitación caducada"
-    signed_up: "Registrada"
+
 clock:
   js:
     set_label: "Reloj. Arrastra el minutero o usa las flechas; Re Pág y Av Pág mueven una hora."

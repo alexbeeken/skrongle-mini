@@ -4,7 +4,7 @@
 # helpers. Source it; do not run it.
 #
 #   . scripts/deploy-env.sh
-#   need_pi_env / need_aws_env   -> exit with a clear message if settings are missing
+#   need_pi_env   -> exit with a clear message if settings are missing
 
 DEPLOY_ENV="${DEPLOY_ENV:-deploy/deploy.env}"
 
@@ -28,9 +28,7 @@ fi
 # The Pi's e-mail and text message settings (#579, #641): every
 # SKRONGLE_MAIL_* and SKRONGLE_SMS_* variable set in deploy.env (or the
 # environment), one NAME=value line each, for the env file scripts/deploy.sh
-# writes. The AWS target does not use this: its settings come from Parameter
-# Store (scripts/aws-env.sh, #914).
-#
+# writes.
 # For one release (#584) a deploy.env still spelled LEARN_MAIL_* / LEARN_SMS_*
 # works too: those lines are written under their SKRONGLE_ name, and a
 # SKRONGLE_ one set as well wins. The env file only ever gets SKRONGLE_ names.
@@ -62,24 +60,4 @@ need_pi_env() {
   : "${PI_PUBLIC_URL:?set PI_PUBLIC_URL in $DEPLOY_ENV (the https URL the app is reached at)}"
   : "${PI_BASE_PATH:=/spanish}"
   export PI_HOST PI_PUBLIC_URL PI_BASE_PATH
-}
-
-need_aws_cli() {
-  command -v aws >/dev/null 2>&1 || { echo "the AWS CLI is not installed: brew install awscli  (https://aws.amazon.com/cli/)" >&2; exit 1; }
-}
-
-need_aws_env() {
-  : "${AWS_REGION:?set AWS_REGION in $DEPLOY_ENV}"
-  if [ -z "${AWS_ACCESS_KEY_ID:-}" ] && [ -z "${AWS_PROFILE:-}" ]; then
-    echo "set AWS_ACCESS_KEY_ID + AWS_SECRET_ACCESS_KEY (or AWS_PROFILE) in $DEPLOY_ENV" >&2; exit 1
-  fi
-  # An empty AWS_PROFILE must not reach the CLI (it would look for a profile named "").
-  [ -n "${AWS_PROFILE:-}" ] || unset AWS_PROFILE
-  : "${AWS_SSH_KEY:?set AWS_SSH_KEY in $DEPLOY_ENV (path to an ssh private key)}"
-  : "${AWS_STACK_NAME:=learnmap}"
-  : "${AWS_INSTANCE_TYPE:=t4g.nano}"
-  : "${AWS_ADMIN_CIDR:=auto}"
-  # Where the hosted server's provider settings live (scripts/aws-env.sh).
-  : "${AWS_SSM_PATH:=/skrongle/$AWS_STACK_NAME}"
-  export AWS_REGION AWS_DEFAULT_REGION="$AWS_REGION" AWS_STACK_NAME AWS_INSTANCE_TYPE AWS_ADMIN_CIDR AWS_SSM_PATH
 }

@@ -34,10 +34,8 @@ pub mod progress;
 pub mod quiz;
 pub mod password;
 pub mod reset;
-pub mod reports;
 pub mod shop;
 pub mod superuser;
-pub mod waitlist;
 pub mod terms;
 pub mod tutor;
 pub mod vocab;
@@ -156,7 +154,6 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/courses/{id}/settings", post(courses::set_settings))
         .route("/courses/{id}/stat/{metric}", get(courses::stat_detail))
         .route("/courses/{id}/placement", get(courses::placement).post(courses::mark_placement))
-        .route("/courses/{id}/report", post(reports::report_course))
         // sharing a course with other learners (#451)
         .route("/courses/shared/{token}", get(share::open_link))
         .route("/courses/{id}/share", get(share::to_course).post(share::invite))
@@ -180,7 +177,6 @@ pub fn router(state: Arc<AppState>) -> Router {
         // Terms of Service (public) and the gate for accounts that have not accepted them
         .route("/terms", get(terms::page))
         .route("/terms.md", get(terms::markdown))
-        .route("/legal/copyright", get(reports::copyright_form).post(reports::copyright_submit))
         .route("/terms/accept", get(terms::accept_form).post(terms::accept))
         .route("/terms/dismiss", post(terms::dismiss))
         .route("/password/change", get(password::change_form).post(password::change))
@@ -242,17 +238,11 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/login", get(auth::login_form).post(auth::login))
         .route("/login/code", get(auth::login_code_form).post(auth::login_code))
         .route("/login/code/resend", post(auth::login_code_resend))
-        .route("/login/code/status", get(auth::login_code_status))
         .route("/login/code/cancel", post(auth::login_code_cancel))
         .route("/register", get(auth::register_form).post(auth::register))
-        .route("/waitlist", post(waitlist::join))
-        .route("/waitlist/confirm", get(waitlist::confirm))
         .route("/logout", post(auth::logout))
         .route("/account/deletion", get(account_deletion::page))
         .route("/account/deletion/cancel", post(account_deletion::cancel))
-        .route("/auth/google", get(auth::google_start))
-        .route("/auth/google/callback", get(auth::google_callback))
-        .route("/auth/google/confirm", get(auth::google_confirm_form).post(auth::google_confirm))
         .route("/verify-email", get(auth::verify_email))
         .route("/reset", get(reset::form).post(reset::submit))
         // profile (works without an active course)
@@ -260,9 +250,6 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/api/profile", post(profile::save))
         .route("/profile/password", post(profile::change_password))
         .route("/profile/sessions/end-others", post(profile::end_other_sessions))
-        .route("/profile/google/link", post(profile::link_google))
-        .route("/profile/google/unlink", post(profile::unlink_google))
-        .route("/profile/google/confirm", post(profile::confirm_with_google))
         .route("/profile/api-keys/remove", post(profile::remove_api_key))
         .route("/profile/ai", post(profile::set_ai))
         .route("/profile/own-keys", post(profile::set_own_keys))
@@ -270,8 +257,6 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/profile/export/download", get(profile::export_download).post(profile::export_download_now))
         .route("/profile/delete", post(profile::delete_account))
         .route("/profile/verify-email/resend", post(profile::resend_verification))
-        .route("/profile/phone/send", post(profile::send_phone_code))
-        .route("/profile/phone/verify", post(profile::verify_phone))
         .route("/profile/two-factor", post(profile::set_two_factor))
         .route("/profile/two-factor/totp/confirm", post(profile::confirm_totp))
         .route("/profile/two-factor/totp/remove", post(profile::remove_totp))
@@ -279,32 +264,11 @@ pub fn router(state: Arc<AppState>) -> Router {
         // superusers (404 for anyone else)
         .route("/superuser", get(superuser::show))
         .route("/superuser/reset-email-verification", post(superuser::reset_email_verification))
-        .route("/superuser/release", get(superuser::release::show))
-        .route("/superuser/release/switch", post(superuser::release::switch))
-        .route("/superuser/release/invite", post(superuser::release::invite))
-        .route("/superuser/release/invite-next", post(superuser::release::invite_next))
         .route("/superuser/invites", post(superuser::make_invite))
         .route("/superuser/invites/revoke", post(superuser::revoke_invite))
         .route("/superuser/temp-password", post(superuser::set_temp_password))
         .route("/superuser/two-factor-off", post(superuser::turn_off_two_factor))
         .route("/superuser/terms-announce", post(superuser::announce_terms))
-        .route("/superuser/reports/forward", post(reports::forward))
-        .route("/superuser/reports/resolve", post(reports::resolve))
-        .route("/superuser/courses/take-down", post(superuser::take_down_course))
-        .route("/superuser/courses/put-back", post(superuser::put_back_course))
-        .route("/superuser/courses/override", post(superuser::courses::override_flag))
-        .route("/superuser/courses/clear-override", post(superuser::courses::clear_override))
-        .route("/superuser/courses/delete", post(superuser::courses::delete_course))
-        .route("/superuser/courses/email-owner", post(superuser::courses::email_owner))
-        .route("/superuser/suspend", post(superuser::suspend))
-        .route("/superuser/unsuspend", post(superuser::unsuspend))
-        .route("/superuser/delete-account", post(superuser::delete_account))
-        .route("/superuser/privacy/export", post(superuser::privacy::export))
-        .route("/superuser/privacy/forget", post(superuser::privacy::forget))
-        .route("/superuser/breach/sign-out", post(superuser::breach::sign_out))
-        .route("/superuser/breach/notice", post(superuser::breach::send_notice))
-        .route("/superuser/block-ip", post(superuser::block_ip))
-        .route("/superuser/unblock-ip", post(superuser::unblock_ip))
         // api
         .route("/api/answer", post(quiz::answer))
         .route("/api/lesson-check", post(quiz::lesson_check))
@@ -326,20 +290,13 @@ pub fn router(state: Arc<AppState>) -> Router {
     // Local testing only (`SKRONGLE_DEV=1` on a loopback bind): without it these paths 404.
     // And even then only for requests made on this machine, not through a proxy.
     if state.dev {
-        // The dev mailbox (e-mail, texts, the authenticator, the AI provider's
+        // The dev mailbox (e-mail, the authenticator, the AI provider's
         // page): for whoever is testing, no sign-in (it is for all accounts).
         let devbox = Router::new()
             .route("/dev/mail", get(dev::mail))
             .route("/dev/jobs", get(dev::jobs))
             .route("/dev/jobs/fail", post(dev::jobs_fail))
             .route("/dev/jobs/{id}", post(dev::jobs_act))
-            .route("/dev/sms", get(dev::sms).post(dev::sms_send))
-            .route("/dev/sms/send", post(dev::sms_form_send))
-            .route("/dev/sms/{id}", get(dev::sms_message).post(dev::sms_act))
-            .route("/dev/phone", get(dev::phone))
-            .route("/dev/phone/clear", post(dev::phone_clear))
-            .route("/dev/phone/reply", post(dev::phone_reply))
-            .route("/dev/phone/{id}", get(dev::phone_message).post(dev::phone_act))
             .route("/dev/mail/send", post(dev::mail_send))
             .route("/dev/mail/{id}", get(dev::mail_message).post(dev::mail_act))
             .route("/dev/inbox", get(dev::inbox))
@@ -391,12 +348,8 @@ pub fn router(state: Arc<AppState>) -> Router {
                 .route("/dev/ai/google/v1beta/openai/chat/completions", post(dev_ai::google_chat))
                 .route("/dev/ai/google/v1beta/openai/models", get(dev_ai::google_models))
                 // The content check's Jev stand-in (#1036).
-                .route("/dev/ai/jev/v1/systemone", post(dev_ai::jev_systemone))
                 // The simulated Stripe's API: the app's billing code calls it with its secret key.
                 .route("/dev/payments/stripe/v1/{*path}", axum::routing::any(dev_payments::api))
-                .route("/dev/google/auth", get(dev::google_auth))
-                .route("/dev/google/token", post(dev::google_token))
-                .route("/dev/google/forget", post(dev::google_forget))
                 .route("/dev/boot", get(|| async { crate::dev::boot_id() }))
                 .route_layer(axum::middleware::from_fn(crate::dev::local_only))
                 // Pasted LLM replies and fixtures are whole courses.
@@ -417,9 +370,6 @@ pub fn router(state: Arc<AppState>) -> Router {
         app
     };
     // A blocked address (#967) is refused before any session lookup.
-    let app = app.layer(axum::middleware::from_fn_with_state(state.clone(), crate::moderation::block));
-    // The waitlist switch (#934) for templates, error pages included.
-    let app = app.layer(axum::middleware::from_fn_with_state(state.clone(), crate::waitlist::middleware));
     let app = app.with_state(state);
 
     let base = crate::base_path();
@@ -527,7 +477,7 @@ pub fn art_url(theme: &str, path: &str) -> String {
 
 /// Versioned URL of the active theme's stylesheet (`/theme.css`).
 pub fn theme_css_url(theme: &str) -> String {
-    format!("{}/theme.css?v={}-{theme}&t={}", crate::base_path(), asset_version(), crate::oauth::urlencode(theme))
+    format!("{}/theme.css?v={}-{theme}&t={}", crate::base_path(), asset_version(), crate::urlenc::urlencode(theme))
 }
 
 impl CourseView {
@@ -882,17 +832,13 @@ pub(crate) fn test_state(dev: bool, stripe: Option<crate::billing::StripeConfig>
     test_state_with(dev, stripe, None)
 }
 
-/// `test_state` (dev mode off unless `dev`) on a server without a mail
-/// provider (`mail` false) or a text message provider (`sms` false) (#633).
+/// `test_state` on a server without a mail provider (#633).
 #[cfg(test)]
-pub(crate) fn test_state_without(mail: bool, sms: bool) -> Arc<AppState> {
+pub(crate) fn test_state_without(mail: bool) -> Arc<AppState> {
     let state = test_state(false, None);
     let Ok(mut s) = Arc::try_unwrap(state) else { unreachable!("a new state has one owner") }; // panic-ok: tests only, a new state has one owner
     if !mail {
         s.mail = crate::mail::Mailer::idle_unconfigured();
-    }
-    if !sms {
-        s.sms = crate::sms::Texter::idle_unconfigured();
     }
     Arc::new(s)
 }
@@ -923,10 +869,6 @@ pub(crate) fn test_state_with(
         dummy_hash: "x".into(),
         games: Default::default(),
         jobs: Default::default(),
-        google: None,
-        signups: Default::default(),
-        google_joins: Default::default(),
-        step_ups: Default::default(),
         stripe,
         vault,
         tutors: Default::default(),
@@ -934,20 +876,16 @@ pub(crate) fn test_state_with(
         dev,
         limits: crate::security::RateLimits::new(dev),
         mail: crate::mail::Mailer::idle(),
-        sms: crate::sms::Texter::idle(),
-        exports: crate::exports::Exports { dir: std::env::temp_dir().join(format!("skrongle-test-exports-{}", std::process::id())), storage: Arc::new(crate::storage::Storage::Disk) },
+        exports: crate::exports::Exports { dir: std::env::temp_dir().join(format!("skrongle-test-exports-{}", std::process::id())) },
         queue: crate::jobs::Queue::idle(),
         dev_inbox: None,
-        dev_phone: None,
         dev_marks: Default::default(),
         dev_ai: Default::default(),
         dev_authenticator: Default::default(),
         dev_payments: Default::default(),
         public_url: None,
         signup: Default::default(),
-        waitlist: Default::default(),
         proxy_auth: None,
-        blocked: Default::default(),
     })
 }
 

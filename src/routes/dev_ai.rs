@@ -247,21 +247,6 @@ pub async fn google_chat(State(state): State<Arc<AppState>>, headers: HeaderMap,
     serve(&state, Format::Google, &headers, &body).await
 }
 
-/// POST /dev/ai/jev/v1/systemone: a stand-in for Jev (TypeSafe System One)
-/// for the content check (#1036), answering from its fixture
-/// (`content_check::jev::stand_in`). Key: `dev-jev`.
-pub async fn jev_systemone(headers: HeaderMap, body: Bytes) -> Response {
-    use crate::content_check::jev;
-    if header(&headers, "authorization") != format!("Bearer {}", jev::STAND_IN_KEY) {
-        return (StatusCode::UNAUTHORIZED, Json(serde_json::json!({"error": {"message": "invalid API key"}}))).into_response();
-    }
-    let Ok(req) = serde_json::from_slice::<serde_json::Value>(&body) else {
-        return (StatusCode::BAD_REQUEST, Json(serde_json::json!({"error": {"message": "the body is not JSON"}}))).into_response();
-    };
-    let fixture: serde_json::Value = std::fs::read_to_string(jev::STAND_IN_FIXTURE).ok().and_then(|t| serde_json::from_str(&t).ok()).unwrap_or_default();
-    (StatusCode::OK, Json(jev::stand_in(&fixture, &req))).into_response()
-}
-
 async fn models(format: Format, headers: HeaderMap) -> Response {
     if dev_ai::who(&api_key(format, &headers)).is_none() {
         let kind = if format == Format::Anthropic { "authentication_error" } else { "invalid_request_error" };
@@ -654,7 +639,7 @@ fn back(headers: &HeaderMap, to: &str, notice: &str) -> Response {
     if headers.contains_key("x-dev-box") {
         return StatusCode::NO_CONTENT.into_response();
     }
-    let url = if notice.is_empty() { crate::url(to) } else { format!("{}?notice={}", crate::url(to), crate::oauth::urlencode(notice)) };
+    let url = if notice.is_empty() { crate::url(to) } else { format!("{}?notice={}", crate::url(to), crate::urlenc::urlencode(notice)) };
     Redirect::to(&url).into_response()
 }
 

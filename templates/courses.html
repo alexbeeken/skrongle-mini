@@ -42,7 +42,6 @@
         {% if c.theme.is_some() %}<button type="button" class="icon-btn course-gear" data-tip="{{ crate::t("courses.settings.title") }}" aria-label="{{ crate::t1("courses.settings.open_label", "title", c.title.as_str()) }}" aria-haspopup="dialog" data-open-dialog="course-settings-{{ c.id }}" data-testid="courses-settings"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>{% endif %}
       </div>
       {% if let Some(st) = c.settings %}{% if st.wizard %}{% include "course_wizard.html" %}{% else %}{% include "course_settings.html" %}{% endif %}{% endif %}
-      {% include "content_report_dialog.html" %}
     </article>
   {% endfor %}
   </div>
@@ -65,7 +64,6 @@
         <form method="post" action="{{ crate::base_path() }}/courses/open/{{ c.id }}"><button type="submit" class="btn" data-testid="courses-open">{{ crate::t("courses.picker.start_learning") }}</button></form>
       </div>
       {% if let Some(st) = c.settings %}{% if st.wizard %}{% include "course_wizard.html" %}{% else %}{% include "course_settings.html" %}{% endif %}{% endif %}
-      {% include "content_report_dialog.html" %}
     </article>
   {% endfor %}
   </div>
@@ -77,28 +75,17 @@
   <h2>{{ crate::t("courses.picker.mine_heading") }} <span class="muted small">{{ crate::t("courses.picker.mine_private") }}</span></h2>
   <div class="course-grid">
   {% for c in mine %}
-    <article class="course-card{% if c.state == "generating" %} generating{% else if c.error.is_some() || c.flagged %} broken{% endif %}"{% if let Some(j) = c.job %} data-job="{{ j }}"{% endif %} data-testid="courses-card" data-course-id="{{ c.id }}" data-course-status="{{ c.state }}">
+    <article class="course-card{% if c.state == "generating" %} generating{% else if c.error.is_some() %} broken{% endif %}"{% if let Some(j) = c.job %} data-job="{{ j }}"{% endif %} data-testid="courses-card" data-course-id="{{ c.id }}" data-course-status="{{ c.state }}">
       <div class="course-icon">{{ c.icon }}</div>
       <div class="course-body">
-        <h3>{{ c.title }}{% if c.state == "generating" %} <span class="tag">{{ crate::t("courses.picker.tag_generating") }}</span>{% else if c.state == "revising" %} <span class="tag" data-testid="courses-card-revising" title="{{ crate::t("courses.picker.revising_tip") }}">{{ crate::t("courses.picker.tag_revising") }}</span>{% else if c.removed %} <button type="button" class="field-check bad inline" data-open-dialog="course-error-{{ c.id }}" aria-haspopup="dialog" aria-label="{{ crate::t("courses.picker.removed") }}" data-tip="{{ crate::t("courses.picker.removed") }}" data-testid="courses-card-removed">!</button>{% else if c.flagged %} <button type="button" class="field-check bad inline" data-open-dialog="course-flag-{{ c.id }}" aria-haspopup="dialog" aria-label="{{ crate::t("courses.picker.flagged") }}" data-tip="{{ crate::t("courses.picker.flagged") }}" data-testid="courses-card-flagged">!</button>{% else if c.error.is_some() %} <button type="button" class="field-check bad inline" data-open-dialog="course-error-{{ c.id }}" aria-haspopup="dialog" aria-label="{% if c.stopped %}{{ crate::t("courses.picker.error_generation") }}{% else %}{{ crate::t("courses.picker.error_not_load") }}{% endif %}" data-tip="{% if c.stopped %}{{ crate::t("courses.picker.error_generation") }}{% else %}{{ crate::t("courses.picker.error_not_load") }}{% endif %}" data-testid="courses-card-stopped">!</button>{% endif %}</h3>
+        <h3>{{ c.title }}{% if c.state == "generating" %} <span class="tag">{{ crate::t("courses.picker.tag_generating") }}</span>{% else if c.state == "revising" %} <span class="tag" data-testid="courses-card-revising" title="{{ crate::t("courses.picker.revising_tip") }}">{{ crate::t("courses.picker.tag_revising") }}</span>{% else if c.error.is_some() %} <button type="button" class="field-check bad inline" data-open-dialog="course-error-{{ c.id }}" aria-haspopup="dialog" aria-label="{% if c.stopped %}{{ crate::t("courses.picker.error_generation") }}{% else %}{{ crate::t("courses.picker.error_not_load") }}{% endif %}" data-tip="{% if c.stopped %}{{ crate::t("courses.picker.error_generation") }}{% else %}{{ crate::t("courses.picker.error_not_load") }}{% endif %}" data-testid="courses-card-stopped">!</button>{% endif %}</h3>
         {% if c.state == "generating" %}
           <p class="small muted gen-phase" role="status" data-testid="courses-card-phase">{{ c.phase }}</p>
           <div class="bar"><div class="fill" style="width:{{ c.pct }}%"></div></div>
-        {% else if c.flagged %}
-          {# Flagged by the content check (#1033): what matched and where, behind the red !; the fix is in the editor. #}
-          <dialog class="modal" id="course-flag-{{ c.id }}" aria-labelledby="course-flag-{{ c.id }}-title" data-testid="courses-card-flag-dialog">
-            <h2 id="course-flag-{{ c.id }}-title">{{ crate::t("courses.picker.flagged_title") }}</h2>
-            <p>{{ c.flagged_lead }}</p>
-            {% let fm_id = format!("course-flag-{}", c.id) %}{% let fm_matches = c.flag_matches %}{% let fm_testid = "courses-card-flag-match" %}{% include "flag_matches.html" %}
-            <div class="modal-actions">
-              <a class="btn" href="{{ crate::base_path() }}/courses/{{ c.id }}" data-testid="courses-card-flag-edit">{{ crate::t("courses.picker.flagged_edit") }}</a>
-              <form method="dialog"><button type="submit" class="btn ghost" data-testid="courses-card-flag-close">{{ crate::t("courses.picker.ok") }}</button></form>
-            </div>
-          </dialog>
         {% else if let Some(e) = c.error %}
           {# The reason stays behind the red !: the modal holds the error as the provider or the validator gave it, nothing else. #}
           <dialog class="modal" id="course-error-{{ c.id }}" aria-labelledby="course-error-{{ c.id }}-title" data-testid="courses-card-error-dialog">
-            <h2 id="course-error-{{ c.id }}-title">{% if c.removed %}{{ crate::t("courses.picker.removed") }}{% else if c.stopped %}{{ crate::t("courses.picker.error_generation") }}{% else %}{{ crate::t("courses.picker.error_not_load") }}{% endif %}</h2>
+            <h2 id="course-error-{{ c.id }}-title">{% if c.stopped %}{{ crate::t("courses.picker.error_generation") }}{% else %}{{ crate::t("courses.picker.error_not_load") }}{% endif %}</h2>
             <p class="error-text" data-testid="courses-card-error">{{ e }}</p>
             <form method="dialog" class="modal-actions"><button type="submit" class="btn" data-testid="courses-card-error-close">{{ crate::t("courses.picker.ok") }}</button></form>
           </dialog>
@@ -113,7 +100,7 @@
           {% if let Some(u) = user %}{% if !u.ai_off && c.job.is_some() %}<a class="btn ghost" href="{{ crate::base_path() }}/courses/{{ c.id }}" data-testid="courses-watch">{{ crate::t("courses.picker.watch") }}</a>{% endif %}{% endif %}
           <form method="post" action="{{ crate::base_path() }}/courses/{{ c.id }}/cancel"><button type="submit" class="btn ghost" data-testid="courses-cancel">{{ crate::t("courses.picker.cancel") }}</button></form>
         {% else %}
-          {% if c.error.is_none() && !c.flagged %}<form method="post" action="{{ crate::base_path() }}/courses/open/{{ c.id }}"><button type="submit" class="btn" data-testid="courses-open">{{ crate::t("courses.picker.open") }}</button></form>{% endif %}
+          {% if c.error.is_none() %}<form method="post" action="{{ crate::base_path() }}/courses/open/{{ c.id }}"><button type="submit" class="btn" data-testid="courses-open">{{ crate::t("courses.picker.open") }}</button></form>{% endif %}
           {% if c.stopped %}
             {% if let Some(u) = user %}{% if !u.ai_off %}
             {% if c.translation %}{% let tr_id = c.id.as_str() %}{% let tr_title = c.title.as_str() %}{% let tr_lang = c.meanings_lang.as_str() %}{% let tr_resume = true %}{% let tr_providers = translate_providers %}{% include "course_translate.html" %}
@@ -125,7 +112,6 @@
         {% endif %}
       </div>
       {% if let Some(st) = c.settings %}{% if st.wizard %}{% include "course_wizard.html" %}{% else %}{% include "course_settings.html" %}{% endif %}{% endif %}
-      {% include "content_report_dialog.html" %}
     </article>
   {% endfor %}
   </div>
@@ -148,7 +134,6 @@
         <form method="post" action="{{ crate::base_path() }}/courses/open/{{ c.id }}"><button type="submit" class="btn" data-testid="courses-open">{{ crate::t("courses.picker.start_learning") }}</button></form>
       </div>
       {% if let Some(st) = c.settings %}{% if st.wizard %}{% include "course_wizard.html" %}{% else %}{% include "course_settings.html" %}{% endif %}{% endif %}
-      {% include "content_report_dialog.html" %}
     </article>
   {% endfor %}
   </div>

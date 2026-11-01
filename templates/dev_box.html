@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Dev: {% if kind == "sms" %}text {% else %}e-mail {% endif %}{% if tab == "out" %}outbox{% else %}inbox{% endif %}{% endblock %}
+{% block title %}Dev: e-mail {% if tab == "out" %}outbox{% else %}inbox{% endif %}{% endblock %}
 {% block content %}
 <link rel="stylesheet" href="{{ crate::routes::asset_url("devbox.css") }}">
 <section class="devbox" data-testid="dev-box" data-kind="{{ kind }}" data-tab="{{ tab }}" data-rows-url="{{ rows_url() }}">
@@ -8,17 +8,17 @@
     {% if sink.is_some() %}
     <button type="button" class="info-btn" data-opens="devbox-info" aria-haspopup="dialog" aria-label="About this box" title="About this box" data-testid="dev-box-info"><span aria-hidden="true">i</span></button>
     {% else %}
-    <button type="button" class="devbox-alert" data-opens="devbox-off" aria-haspopup="dialog" aria-label="{% if kind == "sms" %}The dev phone{% else %}The dev mailbox{% endif %} is off" title="{% if kind == "sms" %}The dev phone{% else %}The dev mailbox{% endif %} is off" data-testid="dev-box-off">!</button>
+    <button type="button" class="devbox-alert" data-opens="devbox-off" aria-haspopup="dialog" aria-label="The dev mailbox is off" title="The dev mailbox is off" data-testid="dev-box-off">!</button>
     {% endif %}
     <form class="devbox-filter" method="get" action="{% if tab == "out" %}{{ out_url() }}{% else %}{{ in_url() }}{% endif %}" data-testid="dev-inbox-filter">
-      <label class="sr-only" for="dev-inbox-to">{% if kind == "sms" %}Number{% else %}To{% endif %}</label>
-      <input id="dev-inbox-to" name="to" type="search" value="{{ to }}" placeholder="{% if kind == "sms" %}Filter by number{% else %}Filter by address{% endif %}" data-testid="dev-inbox-to">
+      <label class="sr-only" for="dev-inbox-to">To</label>
+      <input id="dev-inbox-to" name="to" type="search" value="{{ to }}" placeholder="Filter by address" data-testid="dev-inbox-to">
     </form>
   </div>
 
   {% include "dev_box_kinds.html" %}
 
-  <div class="devbox-frame{% if kind == "sms" %} phone{% endif %}">
+  <div class="devbox-frame">
     <div class="devbox-tabs" role="tablist">
       <a role="tab" href="{{ in_url() }}{{ to_query }}" data-tab="in" aria-selected="{% if tab == "in" %}true{% else %}false{% endif %}" aria-controls="devbox-in" data-testid="dev-box-tab-in">Inbox <span class="devbox-count" data-count="in">{% if inbox.unread() > 0 %}{{ inbox.unread() }}{% endif %}</span></a>
       <a role="tab" href="{{ out_url() }}{{ to_query }}" data-tab="out" aria-selected="{% if tab == "out" %}true{% else %}false{% endif %}" aria-controls="devbox-out" data-testid="dev-box-tab-out">Outbox <span class="devbox-count" data-count="out">{% if outbox.unread() > 0 %}{{ outbox.unread() }}{% endif %}</span></a>
@@ -27,11 +27,7 @@
     <div class="devbox-panel" id="devbox-in" role="tabpanel" data-panel="in" data-testid="{{ inbox.prefix }}"{% if tab != "in" %} hidden{% endif %}>
       {% if sink.is_some() %}
       <div class="devbox-tools">
-        {% if kind == "sms" %}
-        <form method="post" action="{{ crate::url("/dev/phone/clear") }}" data-live><button type="submit" class="btn ghost small" data-testid="dev-phone-clear">Empty the phone</button></form>
-        {% else %}
         <form method="post" action="{{ crate::url("/dev/inbox/clear") }}" data-live><button type="submit" class="btn ghost small" data-testid="dev-inbox-clear">Empty the inbox</button></form>
-        {% endif %}
       </div>
       {% endif %}
       <table class="devbox-table" data-testid="{{ inbox.prefix }}-table">
@@ -41,21 +37,11 @@
 
     <div class="devbox-panel" id="devbox-out" role="tabpanel" data-panel="out" data-testid="{{ outbox.prefix }}"{% if tab != "out" %} hidden{% endif %}>
       <div class="devbox-tools">
-        {% if kind == "sms" %}
-        <form method="post" action="{{ crate::url("/dev/sms/send") }}" data-live data-testid="dev-sms-send-form">
-          <label class="sr-only" for="dev-sms-to">Send a test text to</label>
-          <input id="dev-sms-to" name="to" type="tel" value="+447700900123" placeholder="+447700900123" required data-testid="dev-sms-to">
-          <label class="sr-only" for="dev-sms-text">Text</label>
-          <input id="dev-sms-text" name="text" type="text" value="test123" placeholder="Text (optional)" data-testid="dev-sms-text">
-          <button type="submit" class="btn small" data-testid="dev-sms-send">Send a test text</button>
-        </form>
-        {% else %}
         <form method="post" action="{{ crate::url("/dev/mail/send") }}" data-live data-testid="dev-mail-send-form">
           <label class="sr-only" for="dev-mail-to">Send a test message to</label>
           <input id="dev-mail-to" name="to" type="email" value="{{ default_to }}" data-testid="dev-mail-to">
           <button type="submit" class="btn small" data-testid="dev-mail-send">Send a test message</button>
         </form>
-        {% endif %}
       </div>
       <table class="devbox-table" data-testid="{{ outbox.prefix }}-table">
         <tbody data-rows="out">{{ outbox|safe }}</tbody>
@@ -66,22 +52,9 @@
 
 {% if let Some(s) = sink %}
 <dialog class="modal" id="devbox-info" aria-labelledby="devbox-info-title" data-testid="dev-box-info-dialog">
-  {% if kind == "sms" %}
-  <h2 id="devbox-info-title">The dev phone</h2>
-  <p data-testid="dev-phone-on">Every text the app sends arrives in the Inbox, through the <code>{{ s }}</code> provider (no SMS leaves this machine). The Outbox is the app's queue: each text's state and provider (<code data-testid="dev-sms-providers">{{ providers }}</code>). The per-number limits still apply; deleting outbox rows frees them.</p>
-  <p class="small">Newest first; archived at the bottom. Kept in memory until the server stops (the outbox: its newest 50 rows). As JSON: <a href="{{ crate::url("/dev/phone?format=json") }}">inbox</a>, <a href="{{ crate::url("/dev/sms?format=json") }}">outbox</a>.</p>
-  {% else %}
   <h2 id="devbox-info-title">The dev mailbox</h2>
   <p data-testid="dev-inbox-smtp" data-addr="{{ s }}">Everything the app sends arrives in the Inbox, over SMTP on <code>{{ s }}</code>. The Outbox is the app's queue: each message's state and provider (<code data-testid="dev-mail-providers">{{ providers }}</code>).</p>
   <p class="small">Newest first; archived at the bottom. Kept in memory until the server stops (the outbox: its newest 50 rows). As JSON: <a href="{{ crate::url("/dev/inbox?format=json") }}">inbox</a>, <a href="{{ crate::url("/dev/mail?format=json") }}">outbox</a>.</p>
-  {% endif %}
-  <div class="modal-actions"><button type="button" class="btn" data-closes>OK</button></div>
-</dialog>
-{% else %}
-{% if kind == "sms" %}
-<dialog class="modal" id="devbox-off" aria-labelledby="devbox-off-title" data-testid="dev-phone-off">
-  <h2 id="devbox-off-title">The dev phone is off</h2>
-  <p>Texts go via <code data-testid="dev-sms-providers">{{ providers }}</code>, so the Inbox stays empty; the Outbox still shows what the app queued. The dev phone is on in dev mode unless <code>SKRONGLE_SMS_PROVIDERS</code> is set.</p>
   <div class="modal-actions"><button type="button" class="btn" data-closes>OK</button></div>
 </dialog>
 {% else %}
@@ -90,7 +63,6 @@
   <p>Mail goes via <code data-testid="dev-mail-providers">{{ providers }}</code>, so the Inbox stays empty; the Outbox still shows what the app queued. The mailbox is on in dev mode unless <code>SKRONGLE_MAIL_PROVIDERS</code> is set or <code>SKRONGLE_DEV_SMTP=0</code>.</p>
   <div class="modal-actions"><button type="button" class="btn" data-closes>OK</button></div>
 </dialog>
-{% endif %}
 {% endif %}
 {% endblock %}
 {% block scripts %}<script src="{{ crate::routes::asset_url("devbox.js") }}" defer></script>{% endblock %}
