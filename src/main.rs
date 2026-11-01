@@ -67,7 +67,6 @@ mod startup;
 mod storage;
 mod security;
 mod server;
-mod sms;
 mod terms;
 mod totp;
 mod translate;
@@ -194,8 +193,6 @@ pub struct AppState {
     pub limits: security::RateLimits,
     /// The e-mail outbox's sender (`SKRONGLE_MAIL_*`; logs only when unset).
     pub mail: mail::Mailer,
-    /// The text message outbox's sender (`SKRONGLE_SMS_*`; logs only when unset).
-    pub sms: sms::Texter,
     /// "Download my data": the folder the export job writes to.
     pub exports: exports::Exports,
     /// Wakes the background job runner (`jobs.rs`).
@@ -203,8 +200,6 @@ pub struct AppState {
     /// Dev mode: the SMTP mailbox the mail goes to (`/dev/inbox`); `None`
     /// with `SKRONGLE_MAIL_PROVIDERS`, `SKRONGLE_DEV_SMTP=0` or outside dev mode.
     pub dev_inbox: Option<Arc<mail::sink::Inbox>>,
-    /// Dev mode without `SKRONGLE_SMS_PROVIDERS`: where texts go (`/dev/phone`).
-    pub dev_phone: Option<Arc<sms::phone::Phone>>,
     /// Dev mode: which rows of the dev inbox pages were opened or archived.
     pub dev_marks: dev::Marks,
     /// Dev mode: the simulated AI provider's log, usage and settings (`/dev/ai`).
@@ -227,20 +222,18 @@ pub struct AppState {
     pub blocked: moderation::Blocklist,
 }
 
-/// What this server can send (#633): features that would e-mail or text
-/// someone ask here, and hide themselves when the channel is off. Templates
+/// What this server can send (#633): features that would e-mail someone
+/// ask here, and hide themselves when the channel is off. Templates
 /// that need it carry a copy (`caps`).
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct Caps {
     /// `SKRONGLE_MAIL_PROVIDERS` is set (or dev mode's mailbox stands in).
     pub mail: bool,
-    /// `SKRONGLE_SMS_PROVIDERS` is set (or dev mode's phone stands in).
-    pub sms: bool,
 }
 
 impl Caps {
     /// Does a channel reach anyone? Not when its chain is the `log`
-    /// provider alone, unless dev mode's mailbox or phone stands in for a
+    /// provider alone, unless dev mode's mailbox stands in for a
     /// provider (so the dev server and its specs work as before).
     pub fn reaches(logging_only: bool, dev_stand_in: bool) -> bool {
         !logging_only || dev_stand_in
@@ -248,7 +241,7 @@ impl Caps {
 }
 
 /// The hosted site needs every provider; only Skrongle mini (`SKRONGLE_MINI=1`;
-/// and the dev server, whose mailbox, phone, Google and Stripe stand in)
+/// and the dev server, whose mailbox, Google and Stripe stand in)
 /// runs without them. Self-hosting the full build is not supported (CLAUDE.md, "Two
 /// shapes"). `missing` names the settings that are not set. The hosted site
 /// is served over HTTPS, so it also needs `Secure` cookies, and proxy
@@ -281,7 +274,7 @@ pub fn require_providers(mini: bool, dev: bool, missing: &[&str], secure_cookies
 impl AppState {
     /// What this server can send: [`Caps`].
     pub fn caps(&self) -> Caps {
-        Caps { mail: self.mail.can_send(), sms: self.sms.can_send() }
+        Caps { mail: self.mail.can_send() }
     }
 
     /// "Continue with Google" goes to dev mode's stand-in, not to Google.
@@ -789,12 +782,10 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
     }
     let check_mode = content_check::Mode::from_env()?;
     let mut mail_cfg = mail::Config::from_env()?;
-    let mut sms_cfg = sms::Config::from_env()?;
     let storage = Arc::new(storage::Storage::from_settings(env("S3_BUCKET"), &|k| std::env::var(k).ok())?);
     let missing: Vec<&str> = [
         (mail_cfg.logging_only, "SKRONGLE_MAIL_PROVIDERS"),
         (storage.bucket().is_none(), storage::BUCKET_VAR),
-        (sms_cfg.logging_only, "SKRONGLE_SMS_PROVIDERS"),
         (cfg.google.is_none(), "SKRONGLE_GOOGLE_CLIENT_ID"),
         (cfg.stripe.is_none(), "SKRONGLE_STRIPE_SECRET_KEY"),
         (content_check::key_missing(check_mode), content_check::KEY_VAR),
@@ -829,31 +820,15 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         Some(c) => tracing::info!("e-mail: at most {} messages of each purpose due per {}s (SKRONGLE_MAIL_PER_HOUR); more wait for the next window", c.per_window, c.window),
         None => tracing::info!("e-mail: no hourly ceiling (SKRONGLE_MAIL_PER_HOUR)"),
     }
-    // The job runner (jobs.rs) sends the mail and the texts; the handles
+    // The job runner (jobs.rs) sends the mail; the handles
     // in AppState queue them and wake it.
     let (queue, queue_wake) = jobs::Queue::new();
     let mail_outbox = mail::Outbox::new(mail_cfg.chain, mail_cfg.from, mail_cfg.reply_to, dev);
     let mailer = mail::Mailer::new(&mail_outbox, ceiling, mail_on, queue.waker());
-    // Dev mode without providers: texts go to the dev phone (sms/phone.rs),
-    // unless SKRONGLE_DEV_PHONE=0 (then they are only logged, as on a server).
-    let dev_phone = (dev && !is_mini() && sms_cfg.logging_only && env("DEV_PHONE").as_deref() != Some("0")).then(sms::phone::Phone::new);
-    let sms_on = Caps::reaches(sms_cfg.logging_only, dev_phone.is_some());
-    if let Some(phone) = &dev_phone {
-        sms_cfg.chain = sms::Chain::new(vec![sms::phone::provider(phone)]);
-    } else if sms_cfg.logging_only {
-        tracing::info!("text messages: not configured; features that need them are off (SKRONGLE_SMS_PROVIDERS)");
-    } else {
-        tracing::info!("text messages via {}", sms_cfg.chain.names().join(", then "));
+    match &dev_inbox {
+        Some(inbox) => tracing::info!("dev: e-mail goes to the dev mailbox (SMTP on {}); read it at http://{}{} (SKRONGLE_DEV_SMTP=0 to only log it)", inbox.addr(), cfg.bind, url("/dev/inbox")),
+        None => {}
     }
-    // The dev mailbox page holds the e-mail and the texts: one link for both.
-    match (&dev_inbox, dev_phone.is_some()) {
-        (Some(inbox), true) => tracing::info!("dev: e-mail (SMTP on {}) and text messages go to the dev mailbox; read them at http://{}{} (SKRONGLE_DEV_SMTP=0 to only log e-mail)", inbox.addr(), cfg.bind, url("/dev/inbox")),
-        (Some(inbox), false) => tracing::info!("dev: e-mail goes to the dev mailbox (SMTP on {}); read it at http://{}{} (SKRONGLE_DEV_SMTP=0 to only log it)", inbox.addr(), cfg.bind, url("/dev/inbox")),
-        (None, true) => tracing::info!("dev: text messages go to the dev mailbox; read them at http://{}{}", cfg.bind, url("/dev/phone")),
-        (None, false) => {}
-    }
-    let sms_outbox = sms::Outbox::new(sms_cfg.chain, dev);
-    let texter = sms::Texter::new(&sms_outbox, sms_cfg.policy, sms_on, queue.waker());
     tracing::info!("{}", storage.describe());
     let exports_dir = exports::Exports::open(&cfg.db_path, Arc::clone(&storage)).map_err(|e| format!("data exports folder for {}: {e}", cfg.db_path.display()))?;
     let export_mail: Option<Box<dyn Fn() + Send>> = mail_on.then(|| {
@@ -895,11 +870,9 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         dev,
         limits: security::RateLimits::new(dev),
         mail: mailer,
-        sms: texter,
         exports: exports_dir,
         queue,
         dev_inbox,
-        dev_phone,
         dev_marks: Default::default(),
         dev_ai: if llm_mode == Some(dev::LlmMode::Capture) { dev_ai::Simulator::holding_from_start() } else { Default::default() },
         dev_authenticator: Default::default(),
@@ -929,17 +902,16 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         None => tracing::info!("subscriptions disabled (no SKRONGLE_STRIPE_SECRET_KEY): every learner without a grant is on the free plan"),
     }
 
-    // Background jobs: the mail and text outboxes (drained first on every
+    // Background jobs: the mail outbox (drained first on every
     // pass), the hourly housekeeping (one job per purge, each queuing its
     // next run; due at once on a fresh database), data exports (a slice per
     // run), AI jobs waiting in line (each started on its own thread), and in
     // dev mode the always-failing kind /dev/jobs queues.
     mail_outbox.blank_at_start(&db);
-    sms_outbox.blank_at_start(&db);
     state.jobs.wake_with(state.queue.waker());
     ai::adopt(&state.jobs, &db)?;
     let gen_state = Arc::clone(&state);
-    let mut runner = jobs::housekeeping(jobs::Runner::new().drain(mail_outbox.drain()).drain(sms_outbox.drain()), &state, retention)
+    let mut runner = jobs::housekeeping(jobs::Runner::new().drain(mail_outbox.drain()), &state, retention)
         .handle_steps(jobs::EXPORT, move |db, payload| export_builder.run(db, payload))
         .handle_claimed(ai::GENERATE, move || ai::slot_free(&gen_state.jobs), ai::handler(Arc::clone(&state)));
     tracing::info!("{}", content_check::init(is_mini(), dev, cfg.bind.port(), check_mode));
@@ -1073,11 +1045,11 @@ mod tests {
 
     #[test]
     fn only_the_hosted_server_requires_providers() {
-        let none = ["SKRONGLE_MAIL_PROVIDERS", "SKRONGLE_SMS_PROVIDERS", "SKRONGLE_GOOGLE_CLIENT_ID", "SKRONGLE_STRIPE_SECRET_KEY", "TYPESAFE_API_KEY"];
+        let none = ["SKRONGLE_MAIL_PROVIDERS", "SKRONGLE_GOOGLE_CLIENT_ID", "SKRONGLE_STRIPE_SECRET_KEY", "TYPESAFE_API_KEY"];
         let why = require_providers(false, false, &none, true, false).unwrap_err();
         assert!(none.iter().all(|n| why.contains(n)), "{why}");
         assert!(why.contains("SKRONGLE_MINI=1"), "{why}");
-        assert!(require_providers(false, false, &["SKRONGLE_SMS_PROVIDERS"], true, false).is_err());
+        assert!(require_providers(false, false, &["SKRONGLE_MAIL_PROVIDERS"], true, false).is_err());
         assert_eq!(require_providers(false, false, &[], true, false), Ok(()));
         assert_eq!(require_providers(true, false, &none, false, false), Ok(()), "mini needs none");
         assert_eq!(require_providers(false, true, &none, false, false), Ok(()), "dev stands in");
@@ -1087,8 +1059,8 @@ mod tests {
     fn the_hosted_server_requires_secure_cookies() {
         let why = require_providers(false, false, &[], false, false).unwrap_err();
         assert!(why.contains("SKRONGLE_SECURE_COOKIES=1") && why.contains("SKRONGLE_MINI=1"), "{why}");
-        let why = require_providers(false, false, &["SKRONGLE_SMS_PROVIDERS"], false, false).unwrap_err();
-        assert!(why.contains("SKRONGLE_SMS_PROVIDERS") && why.contains("SKRONGLE_SECURE_COOKIES=1"), "{why}");
+        let why = require_providers(false, false, &["SKRONGLE_MAIL_PROVIDERS"], false, false).unwrap_err();
+        assert!(why.contains("SKRONGLE_MAIL_PROVIDERS") && why.contains("SKRONGLE_SECURE_COOKIES=1"), "{why}");
         assert_eq!(require_providers(false, false, &[], true, false), Ok(()));
         assert_eq!(require_providers(true, false, &[], false, false), Ok(()), "mini may run on plain HTTP");
         assert_eq!(require_providers(false, true, &[], false, false), Ok(()), "dev mode refuses secure cookies");

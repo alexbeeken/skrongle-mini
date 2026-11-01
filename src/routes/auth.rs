@@ -722,9 +722,8 @@ async fn sign_in(state: &AppState, user_id: i64, mut cookies: Vec<(axum::http::H
         state.google_joins.insert(&ch.token, identity, now());
     }
     tracing::info!("user {user_id} asked for a {} code", ch.method.as_str());
-    let by = if ch.by_email { two_factor::Method::Email } else { ch.method };
     let sent = match ch.send {
-        Some((to, code)) => send_code(state, user_id, by, &to, &code).await,
+        Some((to, code)) => send_code(state, user_id, ch.method, &to, &code).await,
         None => true,
     };
     cookies.push(twofa_cookie(&ch.token, two_factor::CODE_TTL_SECS, state.secure_cookies));
@@ -735,12 +734,10 @@ async fn sign_in(state: &AppState, user_id: i64, mut cookies: Vec<(axum::http::H
     Ok((AppendHeaders(cookies), Redirect::to(&crate::url(to))).into_response())
 }
 
-/// Text or e-mail a sign-in code (`method` is how it goes: e-mail for a
-/// number that opted out of texts). `false` when it could not be queued
-/// (the texts' limits, a bad address); the page then says so.
+/// E-mail a sign-in code. `false` when it could not be queued (a bad
+/// address); the page then says so.
 async fn send_code(state: &AppState, user_id: i64, method: two_factor::Method, to: &str, code: &str) -> bool {
     let r = match method {
-        two_factor::Method::Sms => state.sms.send_sms(&state.db, two_factor::PURPOSE_LOGIN, to, &two_factor::login_text(code), Some(user_id)).await.map(|_| ()).map_err(|e| e.to_string()),
         two_factor::Method::Email => match two_factor::login_mail(to, code, user_id) {
             Ok(mail) => state.mail.queue(&state.db, mail).await.map(|_| ()).map_err(|e| format!("{e:?}")),
             Err(e) => Err(e),

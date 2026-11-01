@@ -82,24 +82,6 @@
       </span>
     </div>
     {% let tf = profile.two_factor %}
-    {% let phone_allowed = tf.email_verified || profile.google_linked %}
-    {% if caps.sms %}
-    <div class="field">
-      <label for="profile-phone" data-testid="profile-phone-label">{{ crate::t("profile.personal.phone") }}</label>
-      <span class="field-with-icon has-prefix">
-        <span class="field-prefix" id="phone-country" data-testid="profile-phone-country">+1</span>
-        <input type="tel" id="profile-phone" name="phone" value="{{ crate::sms::format_us_number(tf.phone.as_str()) }}" placeholder="{{ crate::t("profile.personal.phone_placeholder") }}" inputmode="numeric" maxlength="24" autocomplete="tel-national" data-testid="profile-phone" aria-describedby="phone-country phone-error"{% if !phone_allowed %} disabled{% endif %}>
-        {% if !phone_allowed %}<button type="button" class="info-btn field-info" data-opens="phone-locked-dialog" aria-haspopup="dialog" aria-label="{{ crate::t("profile.personal.phone_locked_label") }}" data-testid="phone-locked-info">i</button>{% endif %}
-        <span class="field-check" tabindex="0" role="img" aria-label="{{ crate::t("profile.personal.verified") }}" data-tip="{{ crate::t("profile.personal.verified") }}" data-testid="phone-verified"{% if tf.phone.is_empty() || !tf.phone_verified || tf.phone_opted_out %} hidden{% endif %}>✓</span>
-        <button type="button" class="field-check bad field-problem" data-opens="phone-problem-dialog" aria-haspopup="dialog" aria-label="{{ crate::t("profile.personal.phone_problem") }}" data-testid="profile-phone-invalid" hidden>!</button>
-        <button type="button" class="field-check bad" data-opens="phone-dialog" aria-haspopup="dialog" aria-label="{{ crate::t("profile.personal.not_verified") }}" data-tip="{{ crate::t("profile.personal.not_verified") }}" data-testid="phone-unverified"{% if tf.phone.is_empty() || tf.phone_verified || !phone_allowed || tf.phone_opted_out %} hidden{% endif %}>!</button>
-        <button type="button" class="field-check bad" data-opens="phone-stopped-dialog" aria-haspopup="dialog" aria-label="{{ crate::t("profile.personal.phone_stopped") }}" data-tip="{{ crate::t("profile.personal.phone_stopped") }}" data-testid="phone-opted-out"{% if tf.phone.is_empty() || !tf.phone_opted_out %} hidden{% endif %}>!</button>
-      </span>
-      <!-- What the red ! says, for a screen reader: it describes the field,
-           and takes no room under it (static/profile.js). -->
-      <span class="field-error sr-only" id="phone-error" data-testid="profile-phone-error" hidden></span>
-    </div>
-    {% endif %}
     <div class="field">
       <label for="profile-lang" data-testid="profile-lang-label">{{ crate::t("profile.personal.language") }}</label>
       <select id="profile-lang" name="lang" data-testid="profile-lang" aria-describedby="lang-error">
@@ -110,51 +92,6 @@
       <span class="field-error" id="lang-error" data-testid="profile-lang-error" hidden></span>
     </div>
   </section>
-  {% if caps.sms %}
-  <form method="post" action="{{ crate::url("/profile/phone/send") }}" id="phone-send-form" hidden></form>
-  {% if !phone_allowed %}
-  <dialog class="modal" id="phone-locked-dialog" aria-labelledby="phone-locked-dialog-title" data-testid="phone-locked-dialog">
-    <h2 id="phone-locked-dialog-title">{{ crate::t("profile.personal.phone_locked_title") }}</h2>
-    <p>{{ crate::t("profile.personal.phone_locked_text") }}</p>
-    <div class="modal-actions">
-      <button type="button" class="btn ghost" data-closes data-testid="phone-locked-close">{{ crate::t("profile.personal.phone_locked_close") }}</button>
-      {% if profile.email.is_some() && caps.mail %}<button type="submit" form="verify-resend-form" class="btn" data-testid="phone-locked-resend">{{ crate::t("profile.personal.phone_locked_resend") }}</button>{% endif %}
-    </div>
-  </dialog>
-  {% endif %}
-  <dialog class="modal" id="phone-dialog" aria-labelledby="phone-dialog-title" data-testid="phone-unverified-dialog"{% if phone_open %} data-open-on-load{% endif %}>
-    <h2 id="phone-dialog-title">{{ crate::t("profile.phone_dialog.title") }}</h2>
-    {% if let Some(e) = phone_error %}<p class="alert error" role="alert" data-testid="phone-verify-error">{{ e }}</p>{% endif %}
-    <p>{% if phone_sent %}{{ crate::t("profile.phone_dialog.type_code") }}{% else %}{{ crate::t("profile.phone_dialog.not_verified") }}{% endif %}</p>
-    <form method="post" action="{{ crate::url("/profile/phone/verify") }}" id="phone-verify-form" data-testid="phone-verify-form">
-      <label>{{ crate::t("profile.phone_dialog.code") }}
-        <input type="text" name="code" inputmode="numeric" pattern="[0-9 ]*" maxlength="9" autocomplete="one-time-code" required data-testid="phone-verify-code">
-      </label>
-    </form>
-    <div class="modal-actions">
-      <button type="button" class="btn ghost" data-closes data-testid="phone-verify-close">{{ crate::t("profile.phone_dialog.close") }}</button>
-      <button type="submit" form="phone-send-form" class="btn ghost" data-testid="phone-verify-send">{% if phone_sent %}{{ crate::t("profile.phone_dialog.send_again") }}{% else %}{{ crate::t("profile.phone_dialog.send_code") }}{% endif %}</button>
-      <button type="submit" form="phone-verify-form" class="btn" data-testid="phone-verify-submit">{{ crate::t("profile.phone_dialog.verify") }}</button>
-    </div>
-  </dialog>
-  {% if tf.phone_opted_out %}
-  <dialog class="modal" id="phone-stopped-dialog" aria-labelledby="phone-stopped-title" data-testid="phone-stopped-dialog">
-    <h2 id="phone-stopped-title">{{ crate::t("profile.phone_stopped.title") }}</h2>
-    <p>{{ crate::t1("profile.phone_stopped.text", "app", crate::APP_NAME) }}</p>
-    <div class="modal-actions">
-      <button type="button" class="btn ghost" data-closes data-testid="phone-stopped-close">{{ crate::t("profile.phone_stopped.close") }}</button>
-      <button type="submit" form="phone-send-form" class="btn" data-testid="phone-stopped-send">{{ crate::t("profile.phone_stopped.send") }}</button>
-    </div>
-  </dialog>
-  {% endif %}
-  <dialog class="modal" id="phone-problem-dialog" aria-labelledby="phone-problem-title" data-testid="phone-problem-dialog">
-    <h2 id="phone-problem-title">{{ crate::t("profile.phone_problem.title") }}</h2>
-    <p data-testid="phone-problem-why"></p>
-    <div class="modal-actions">
-      <button type="button" class="btn" data-closes data-testid="phone-problem-close">{{ crate::t("profile.phone_problem.close") }}</button>
-    </div>
-  </dialog>
-  {% endif %}
   <form method="post" action="{{ crate::url("/profile/verify-email/resend") }}" id="verify-resend-form" hidden></form>
 
   <section class="card" id="account">
@@ -262,8 +199,6 @@
         <label class="chip" data-testid="profile-two-factor-method" data-method=""><input type="radio" name="method" value="" class="sr-only"{% if two_factor_method() == "" %} checked{% endif %}> {{ crate::t("profile.two_factor.off") }}</label>
         {% if email_2fa_offered() %}<span class="chip-alert"><label class="chip" data-testid="profile-two-factor-method" data-method="email"><input type="radio" name="method" value="email" class="sr-only"{% if two_factor_method() == "email" %} checked{% endif %}{% if !email_2fa_ok() %} disabled{% endif %}> {{ crate::t("profile.two_factor.email") }}</label>
         {% if !email_2fa_ok() %}<button type="button" class="field-check bad inline" data-opens="two-factor-email-dialog" aria-haspopup="dialog" aria-label="{{ crate::t("profile.two_factor.email_unverified") }}" data-testid="profile-two-factor-email-unavailable">!</button>{% endif %}</span>{% endif %}
-        {% if sms_2fa_offered() %}<span class="chip-alert"><label class="chip" data-testid="profile-two-factor-method" data-method="sms"><input type="radio" name="method" value="sms" class="sr-only"{% if two_factor_method() == "sms" %} checked{% endif %}{% if !sms_2fa_ok() %} disabled{% endif %}> {{ crate::t("profile.two_factor.sms") }}</label>
-        {% if sms_2fa_offered() && !sms_2fa_ok() %}<button type="button" class="field-check bad inline" data-opens="two-factor-sms-dialog" aria-haspopup="dialog" aria-label="{{ crate::t("profile.two_factor.phone_unverified") }}" data-testid="profile-two-factor-sms-unavailable">!</button>{% endif %}</span>{% endif %}
         <label class="chip" data-testid="profile-two-factor-method" data-method="totp"><input type="radio" name="method" value="totp" class="sr-only"{% if two_factor_method() == "totp" %} checked{% endif %}> {{ crate::t("profile.two_factor.totp") }}</label>
       </div>
       <noscript><button type="submit" class="btn small">{{ crate::t("profile.two_factor.save") }}</button></noscript>
@@ -335,16 +270,6 @@
       <div class="modal-actions">
         <button type="button" class="btn ghost" data-closes>{{ crate::t("profile.two_factor.close") }}</button>
         {% if profile.email.is_some() %}<button type="submit" form="verify-resend-form" class="btn" data-testid="profile-two-factor-email-resend">{{ crate::t("profile.two_factor.resend") }}</button>{% endif %}
-      </div>
-    </dialog>
-    {% endif %}
-    {% if !sms_2fa_ok() %}
-    <dialog class="modal" id="two-factor-sms-dialog" aria-labelledby="two-factor-sms-title" data-testid="profile-two-factor-sms-dialog">
-      <h2 id="two-factor-sms-title">{{ crate::t("profile.two_factor.sms_first_title") }}</h2>
-      <p>{{ crate::t("profile.two_factor.sms_first_text") }}</p>
-      <div class="modal-actions">
-        <button type="button" class="btn ghost" data-closes>{{ crate::t("profile.two_factor.close") }}</button>
-        {% if profile.two_factor.phone.is_empty() %}<a class="btn" href="#personal" data-closes data-testid="profile-two-factor-sms-add">{{ crate::t("profile.two_factor.add_number") }}</a>{% else %}<button type="submit" form="phone-send-form" class="btn" data-testid="profile-two-factor-sms-send">{{ crate::t("profile.two_factor.send_code") }}</button>{% endif %}
       </div>
     </dialog>
     {% endif %}
@@ -538,10 +463,6 @@
       {% endif %}
       <dt>{{ crate::t("profile.consent.age") }}</dt>
       <dd data-testid="consent-age">{{ profile.age_text() }}</dd>
-      {% if caps.sms %}
-      <dt>{{ crate::t("profile.consent.phone") }}</dt>
-      <dd data-testid="consent-phone" data-phone-set="{{ !profile.two_factor.phone.is_empty() }}">{% if profile.two_factor.phone.is_empty() %}{{ crate::t("profile.consent.phone_none") }} · <a href="#personal" data-testid="consent-phone-edit">{{ crate::t("profile.consent.phone_add") }}</a>{% else %}{{ crate::sms::format_us_number(profile.two_factor.phone.as_str()) }} · <a href="#personal" data-testid="consent-phone-edit">{{ crate::t("profile.consent.phone_edit") }}</a>{% endif %}</dd>
-      {% endif %}
       {% if google_enabled || profile.google_linked %}
       <dt>{{ crate::t("profile.consent.google") }}</dt>
       <dd data-testid="consent-google" data-linked="{{ profile.google_linked }}">{% if profile.google_linked %}{{ crate::t("profile.consent.google_on") }}{% if profile.has_password %} · <button type="button" class="link-btn" data-opens="google-unlink-dialog" aria-haspopup="dialog" data-testid="consent-google-unlink">{{ crate::t("profile.consent.google_disconnect") }}</button>{% endif %}{% else %}{{ crate::t("profile.consent.google_off") }} · <button type="button" class="link-btn" data-opens="google-link-dialog" aria-haspopup="dialog" data-testid="consent-google-connect">{{ crate::t("profile.consent.google_connect") }}</button>{% endif %}</dd>

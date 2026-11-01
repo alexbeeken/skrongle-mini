@@ -242,7 +242,6 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/login", get(auth::login_form).post(auth::login))
         .route("/login/code", get(auth::login_code_form).post(auth::login_code))
         .route("/login/code/resend", post(auth::login_code_resend))
-        .route("/login/code/status", get(auth::login_code_status))
         .route("/login/code/cancel", post(auth::login_code_cancel))
         .route("/register", get(auth::register_form).post(auth::register))
         .route("/waitlist", post(waitlist::join))
@@ -270,8 +269,6 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/profile/export/download", get(profile::export_download).post(profile::export_download_now))
         .route("/profile/delete", post(profile::delete_account))
         .route("/profile/verify-email/resend", post(profile::resend_verification))
-        .route("/profile/phone/send", post(profile::send_phone_code))
-        .route("/profile/phone/verify", post(profile::verify_phone))
         .route("/profile/two-factor", post(profile::set_two_factor))
         .route("/profile/two-factor/totp/confirm", post(profile::confirm_totp))
         .route("/profile/two-factor/totp/remove", post(profile::remove_totp))
@@ -326,20 +323,13 @@ pub fn router(state: Arc<AppState>) -> Router {
     // Local testing only (`SKRONGLE_DEV=1` on a loopback bind): without it these paths 404.
     // And even then only for requests made on this machine, not through a proxy.
     if state.dev {
-        // The dev mailbox (e-mail, texts, the authenticator, the AI provider's
+        // The dev mailbox (e-mail, the authenticator, the AI provider's
         // page): for whoever is testing, no sign-in (it is for all accounts).
         let devbox = Router::new()
             .route("/dev/mail", get(dev::mail))
             .route("/dev/jobs", get(dev::jobs))
             .route("/dev/jobs/fail", post(dev::jobs_fail))
             .route("/dev/jobs/{id}", post(dev::jobs_act))
-            .route("/dev/sms", get(dev::sms).post(dev::sms_send))
-            .route("/dev/sms/send", post(dev::sms_form_send))
-            .route("/dev/sms/{id}", get(dev::sms_message).post(dev::sms_act))
-            .route("/dev/phone", get(dev::phone))
-            .route("/dev/phone/clear", post(dev::phone_clear))
-            .route("/dev/phone/reply", post(dev::phone_reply))
-            .route("/dev/phone/{id}", get(dev::phone_message).post(dev::phone_act))
             .route("/dev/mail/send", post(dev::mail_send))
             .route("/dev/mail/{id}", get(dev::mail_message).post(dev::mail_act))
             .route("/dev/inbox", get(dev::inbox))
@@ -882,17 +872,13 @@ pub(crate) fn test_state(dev: bool, stripe: Option<crate::billing::StripeConfig>
     test_state_with(dev, stripe, None)
 }
 
-/// `test_state` (dev mode off unless `dev`) on a server without a mail
-/// provider (`mail` false) or a text message provider (`sms` false) (#633).
+/// `test_state` on a server without a mail provider (#633).
 #[cfg(test)]
-pub(crate) fn test_state_without(mail: bool, sms: bool) -> Arc<AppState> {
+pub(crate) fn test_state_without(mail: bool) -> Arc<AppState> {
     let state = test_state(false, None);
     let Ok(mut s) = Arc::try_unwrap(state) else { unreachable!("a new state has one owner") }; // panic-ok: tests only, a new state has one owner
     if !mail {
         s.mail = crate::mail::Mailer::idle_unconfigured();
-    }
-    if !sms {
-        s.sms = crate::sms::Texter::idle_unconfigured();
     }
     Arc::new(s)
 }
@@ -934,11 +920,9 @@ pub(crate) fn test_state_with(
         dev,
         limits: crate::security::RateLimits::new(dev),
         mail: crate::mail::Mailer::idle(),
-        sms: crate::sms::Texter::idle(),
         exports: crate::exports::Exports { dir: std::env::temp_dir().join(format!("skrongle-test-exports-{}", std::process::id())), storage: Arc::new(crate::storage::Storage::Disk) },
         queue: crate::jobs::Queue::idle(),
         dev_inbox: None,
-        dev_phone: None,
         dev_marks: Default::default(),
         dev_ai: Default::default(),
         dev_authenticator: Default::default(),

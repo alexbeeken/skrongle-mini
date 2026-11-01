@@ -1873,8 +1873,7 @@ keep their explicit buttons. The page needs JavaScript.
   when, with links to the Terms and the privacy policy (see
   [Terms of Service](#terms-of-service)); the age confirmation (the date of
   the first Terms acceptance, read-only: taking it back means deleting the
-  account); the phone number for sign-in codes with a link to the field
-  that changes or removes it (hosted only); Google sign-in, connected or
+  account); Google sign-in, connected or
   not, opening the same connect and disconnect dialogs as the Account card
   (where Google is offered); e-mail, service messages only (hosted only;
   an optional e-mail such as reminders gets a switch here, off by default);
@@ -1946,11 +1945,11 @@ keep their explicit buttons. The page needs JavaScript.
   a day per account; the (i) next to the heading says where it stands. The
   file has the columns `privacy::EXPORTED` lists: never the password hash,
   session tokens, keys (only which providers have one), codes, links or the
-  text of mails and texts. And
+  text of mails. And
   *Delete account* (`POST /profile/delete`): the password, or for a
   Google-only account its e-mail address typed out and a code from its
   second step (`profile-delete-code`, *Send code* `profile-delete-send`
-  for a texted or e-mailed one) or, with none, *Confirm with Google*
+  for an e-mailed one) or, with none, *Confirm with Google*
   (`profile-delete-google`, then `profile-delete-google-done`; #376); refused while a Stripe
   subscription would keep billing. It does not delete at once (#970,
   `src/account_deletion.rs`): it sets `users.delete_at` 14 days out (or
@@ -2035,8 +2034,7 @@ keep their explicit buttons. The page needs JavaScript.
     - **Turn off two-factor** (`POST /superuser/two-factor-off`):
       `users.two_factor` is cleared, and the account's `totp_keys`,
       waiting sign-ins (`two_factor_challenges`) and change confirmations
-      (`two_factor_confirmations`) are deleted. A confirmed phone number
-      stays.
+      (`two_factor_confirmations`) are deleted.
     An address no account has comes back as `No account has the address …`.
     The same three actions exist as commands on the binary for an owner
     who can't sign in: `reset-password`, `disable-2fa`, `make-owner`
@@ -2596,18 +2594,15 @@ After the password (or *Continue with Google*) an account can be asked for
 a code too (#292, `src/two_factor.rs`). One method at a time
 (`users.two_factor`), chosen on the profile's **Two-factor authentication**
 card (`profile-two-factor[data-method]`, chips `profile-two-factor-method[data-method]`
-for Off, E-mail, Text message and Authenticator app; picking one posts
+for Off, E-mail and Authenticator app; picking one posts
 `POST /profile/two-factor` and the page comes back saying what is on).
 Choosing another method replaces the one in use.
 
 **Only what the server can send** (#633). Without a mail provider the
-E-mail chip is left out, without a text message provider the Text message
-chip (and the profile's phone field with its dialogs); the authenticator
-app needs neither. Posting such a method anyway is refused (422) with a
+E-mail chip is left out; the authenticator app needs none. Posting such a method anyway is refused (422) with a
 message naming the setting. An account already on a method whose channel
 the server has lost cannot sign in: after the password (or Google) the
-login page comes back (403) saying so and naming `SKRONGLE_MAIL_PROVIDERS` or
-`SKRONGLE_SMS_PROVIDERS`; no code is made.
+login page comes back (403) saying so and naming `SKRONGLE_MAIL_PROVIDERS`; no code is made.
 
 **Every change asks who it is** (#374). Choosing Off, another method or,
 with it off, any method (or the app's *Remove*) opens *Confirm it's you*
@@ -2619,7 +2614,7 @@ wrong ones count against the sign-in limit). A missing or wrong password is
 refused (403) with the dialog open again and `two-factor-confirm-error`.
 A Google-only account has no password, so it types a code from its current
 method instead (`two-factor-confirm-code`): the authenticator's, or one
-texted or e-mailed by *Send code* (`two-factor-confirm-send`,
+e-mailed by *Send code* (`two-factor-confirm-send`,
 `POST /profile/two-factor/code`, purpose `two-factor-confirm`, 10 minutes,
 five tries, 5 sends per 15 minutes). A Google-only account with it off has
 neither, so the dialog offers *Confirm with Google*
@@ -2635,19 +2630,6 @@ comes back with the dialog shown as a form.
   purpose `login-code`). Not offered until the address is
   [confirmed](#e-mail-verification): the chip is disabled, with a red !
   (`profile-two-factor-email-unavailable`) whose dialog has *Resend*.
-- **Text message**: the same code texted to the profile's phone number
-  (purpose `login-code`, through the SMS outbox and its limits). Not offered
-  until the number is verified: a red ! (`profile-two-factor-sms-unavailable`)
-  whose dialog adds a number or sends the code. A number that replied STOP
-  (the provider refuses texts to it, Twilio's 21610; #969) gets its codes
-  by e-mail instead: `/login/code` polls `/login/code/status`
-  (`static/login_code.js`), asks for a new code once the text is refused,
-  and then says the code went to the address and why
-  (`login-code-fallback`). Codes to confirm a change go by e-mail too. The
-  profile's phone field shows a red ! (`phone-opted-out`) whose dialog
-  (`phone-stopped-dialog`) says to text START and send a code; the first
-  text that gets through, or a new number, turns texts back on. Hosted
-  only: Skrongle mini has no texts.
 - **Authenticator app** (Google Authenticator and the like; RFC 6238 TOTP,
   SHA-1, 6 digits, 30 s, `src/totp.rs`): picking it starts the set-up, a
   dialog (`two-factor-totp-dialog`) with a QR code of the
@@ -2668,14 +2650,14 @@ comes back with the dialog shown as a form.
   method gets no session yet but a `twofa` cookie (10 minutes) naming a
   challenge, and `/login/code` (`login-code[data-method]`) asks for the
   code (`login-code-input`, `login-code-submit`), saying where it went
-  (`login-code-sent-to`: `a•••@example.org`, `•••• 23`, or the app).
+  (`login-code-sent-to`: `a•••@example.org`, or the app).
   *Send a new code* (`login-code-resend`, 5 per account per 15 minutes) and
   *Cancel* (`login-code-cancel`). The session is made only after the right
   code. In dev mode a small window floats at the bottom (`login-code-dev`)
   framing [the dev device the code went to](testing#two-factor-sign-in-the-dev-device):
-  this sign-in's texts, mail or authenticator entry, each with a *Use*
+  this sign-in's mail or authenticator entry, each with a *Use*
   button that types the code.
-- **The rules**: a texted or e-mailed code works for 10 minutes and five
+- **The rules**: an e-mailed code works for 10 minutes and five
   tries (`login-code-error` says how many are left; the fifth wrong one ends
   the sign-in); a new code voids the old one but keeps the tries already
   used (five per sign-in, not per code). Codes are stored only as
@@ -2686,63 +2668,6 @@ comes back with the dialog shown as a form.
   passwords. There is no "remember this device": every sign-in asks.
 - `/dev/login` skips the second step (it is the dev shortcut); the real
   `/login` never does.
-
-### The phone number
-
-Profile → Personal information has a **Phone number** (`profile-phone`),
-saved as you type like the names. US and Canada only for now (#496): the
-field carries the `+1` in its left edge (`profile-phone-country`, also the
-field's description, so a screen reader reads it with the label), takes
-digits only and punctuates them as they are typed, so ten digits become
-`(555) 555 - 5555` without anyone typing a bracket. A `+1` or `1` pasted in
-front is dropped, since it is the only country code taken. The ten digits
-travel as E.164 (`+15555555555`) and are stored that way (`users.phone`,
-`sms::normalize_us_number`); the field shows them punctuated again on the
-next visit (`sms::format_us_number`, which leaves an international number
-stored before #496 as it is). Half a number, or an area code starting with
-0 or 1, is not sent. A number pasted with another country's code is kept as
-it is and marked too, rather than reshaped into a `+1` number nobody can be
-texted on; the server refuses the same three cases
-(`sms::normalize_us_number`), so a client that skips the field cannot store
-one either, and refuses a number its own `SMS_COUNTRIES` leaves out.
-
-What is wrong is said by a red ! in the field's corner
-(`profile-phone-invalid`), not by text under the field: its tip says it, and
-it opens a dialog with it (`phone-problem-dialog`, `phone-problem-why`).
-Screen readers get the same words from the field's description
-(`profile-phone-error`, which takes no room on the page). The ! waits for a
-break, either two seconds without a keystroke or the field losing focus,
-since every number is too short before its last digit. It fades in over half
-a second and goes the moment the number is right again. While it shows, it
-takes the corner from the verified check and the unverified !, which are
-about the number on file. Nothing appears at the top of the page: a field
-that says what is wrong itself is not repeated in the page's message
-(`profile-save-error`), which is left to a problem with no field of its own
-(a save that failed, no connection).
-
-A new number is unverified: a red ! inside the field (`phone-unverified`)
-opens a dialog (`phone-unverified-dialog`)
-with *Send code* (`phone-verify-send`, `POST /profile/phone/send`: a
-6-digit code texted with purpose `phone-verify`, 10 minutes, five tries, 5
-sends per account per 15 minutes plus the SMS limits), the code field
-(`phone-verify-code`) and *Verify* (`phone-verify-submit`). Once verified
-the field shows a green check (`phone-verified`) and text-message sign-in
-can be chosen. While text-message sign-in is on, the number cannot change
-(the field says to choose another method first).
-
-Only an account with a confirmed e-mail address (or a Google account) may
-add a number or have it texted (#431): until then the field is disabled
-and an (i) inside it (`phone-locked-info`) opens a dialog
-(`phone-locked-dialog`) that explains why, with *Resend the link*
-(`phone-locked-resend`). The server refuses the number and the code
-regardless. A number verified on one account cannot be saved, texted or
-verified on another (#363; a unique index on verified numbers holds it),
-and a number outside the server's countries (`SKRONGLE_SMS_COUNTRIES`) is
-refused when it is saved. Texts are limited per account, per number and
-for the whole server, counted from a ledger that outlives deleted accounts
-(#362); a number's sign-in codes have an allowance of their own, so
-verification texts cannot use it up. `docs/self-hosting.md` "Text
-messages" has the numbers.
 
 ## Subscriptions
 

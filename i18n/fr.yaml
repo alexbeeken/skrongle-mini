@@ -172,9 +172,7 @@ auth:
   code:
     title: Saisissez votre code
     from_app: Depuis votre application d'authentification.
-    texted_to: "Envoyé par SMS à {to}."
     emailed_to: "Envoyé par e-mail à {to}."
-    fallback: "Votre téléphone a répondu STOP aux SMS de {app}, nous avons donc envoyé le code par e-mail à {to}."
     code_label: Code
     submit: Se connecter
     resend: Envoyer un nouveau code
@@ -190,13 +188,8 @@ auth:
     your_authenticator: votre application d'authentification
   two_factor:
     channel_off_email: "Votre compte se connecte avec un code par e-mail, mais ce serveur ne peut pas envoyer d'e-mails ({setting} n'est pas défini). Demandez à la personne qui le gère de définir {setting}, ou de désactiver la connexion en deux étapes de votre compte."
-    channel_off_sms: "Votre compte se connecte avec un code par SMS, mais ce serveur ne peut pas envoyer de SMS ({setting} n'est pas défini). Demandez à la personne qui le gère de définir {setting}, ou de désactiver la connexion en deux étapes de votre compte."
     needs_email: Confirmez d'abord votre adresse e-mail.
-    needs_phone: Ajoutez et vérifiez d'abord un numéro de téléphone.
     needs_app: Configurez d'abord l'application d'authentification.
-    phone_in_use: La connexion en deux étapes envoie des SMS à ce numéro. Choisissez une autre méthode avant de le modifier.
-    needs_confirmed_email: Confirmez votre adresse e-mail avant d'ajouter un numéro de téléphone.
-    phone_taken: Ce numéro est vérifié sur un autre compte. Retirez-le d'abord de ce compte, ou utilisez un autre numéro.
     app_already: Une application d'authentification est déjà configurée. Supprimez-la d'abord.
   google:
     cancelled: La connexion avec Google a été annulée.
@@ -425,7 +418,6 @@ mail:
     subject: "La connexion en deux étapes sur {app} a changé"
     now_off: est désactivée
     now_email: envoie maintenant un code par e-mail
-    now_sms: envoie maintenant un code par SMS sur votre téléphone
     now_totp: demande maintenant un code d'une application d'authentification
     text: |
       Bonjour,
@@ -480,18 +472,6 @@ mail:
       <p><a href="{link}">Ouvrir le cours</a></p>
       <p>Ou collez ce lien dans votre navigateur : {link}</p>
       <p>Vous pouvez suivre le cours avec votre propre progression ; seul {owner} peut le modifier. Si vous n'avez pas encore de compte {app}, le lien vous permet d'en créer un. Si vous n'attendiez pas ce message, ignorez-le.</p>
-
-sms:
-  login_code: "{code} est votre code de connexion {app}. Il fonctionne pendant 10 minutes. Ne le partagez pas."
-  phone_code: "{code} est votre code {app} pour confirmer ce numéro de téléphone. Il fonctionne pendant 10 minutes."
-  two_factor_confirm: "{code} est votre code {app} pour modifier la connexion en deux étapes. Il fonctionne pendant 10 minutes. Ne le partagez pas."
-  number:
-    needs_plus: un numéro de téléphone commence par + et l'indicatif du pays
-    not_a_digit: "un numéro de téléphone ne contient que des chiffres, pas {char}"
-    bad_length: un numéro de téléphone compte de 8 à 15 chiffres après le +, le premier n'étant pas 0
-    us_length: "un numéro américain ou canadien compte 10 chiffres, par exemple (555) 555 - 5555"
-    us_only: pour l'instant, seulement des numéros américains et canadiens, un numéro commence donc par +1
-    us_area: ni l'indicatif régional ni les trois chiffres qui suivent ne commencent par 0 ou 1
 
 profile:
   email_no_mail:
@@ -566,11 +546,6 @@ profile:
     data: Vos données
     consent: "Confidentialité et consentement"
   personal:
-    phone_locked_label: Pourquoi le numéro de téléphone est verrouillé
-    phone_locked_title: Confirmez d'abord votre e-mail
-    phone_locked_text: Un numéro de téléphone peut être ajouté une fois votre adresse e-mail confirmée (ou si vous vous connectez avec Google). Consultez votre boîte de réception pour le lien.
-    phone_locked_close: Fermer
-    phone_locked_resend: Renvoyer le lien
     title: Informations personnelles
     first_name: Prénom
     last_name: Nom
@@ -578,29 +553,8 @@ profile:
     no_email: Aucune adresse e-mail enregistrée
     verified: Vérifiée
     not_verified: Non vérifiée
-    phone: Numéro de téléphone
-    phone_placeholder: "(555) 555 - 5555"
-    phone_problem: Vérifiez le numéro de téléphone
-    phone_stopped: "Les SMS vers ce numéro sont arrêtés"
     language: Langue
     language_unavailable: Cette langue n'est pas disponible.
-  phone_problem:
-    title: Vérifiez le numéro de téléphone
-    close: Fermer
-  phone_stopped:
-    title: "SMS arrêtés"
-    text: "Ce numéro a répondu STOP aux SMS de {app}, vos codes de connexion arrivent donc par e-mail pour le moment. Pour recevoir à nouveau les SMS, envoyez START depuis ce téléphone au numéro d'où viennent nos SMS, puis envoyez-vous un code."
-    close: "Fermer"
-    send: "Envoyer un code"
-  phone_dialog:
-    title: Vérifiez votre téléphone
-    type_code: Saisissez le code reçu par SMS sur votre téléphone.
-    not_verified: Numéro de téléphone pas encore vérifié. Envoyez-lui un code.
-    code: Code
-    close: Fermer
-    send_again: Renvoyer
-    send_code: Envoyer le code
-    verify: Vérifier
   account:
     title: Compte
     member_since: Membre depuis
@@ -630,10 +584,6 @@ profile:
     age: "Âge"
     age_confirmed: "Confirmé le {date}"
     age_not_confirmed: "Non confirmé"
-    phone: "Téléphone pour les codes de connexion"
-    phone_none: "Aucun numéro"
-    phone_add: "en ajouter un"
-    phone_edit: "modifier ou retirer"
     google: "Connexion Google"
     google_on: "Connecté"
     google_off: "Non connecté"
@@ -694,8 +644,6 @@ profile:
     off: "Désactivée"
     email: E-mail
     email_unverified: Adresse e-mail non vérifiée
-    sms: SMS
-    phone_unverified: Téléphone non vérifié
     totp: Application d'authentification
     save: Enregistrer
     confirm_title: Confirmez que c'est bien vous
@@ -713,16 +661,13 @@ profile:
     totp_added: "Application d'authentification ajoutée le {date}"
     remove: Supprimer
     info_title: Double authentification
-    info_text: "Après votre mot de passe (ou Google), la connexion demande un code : envoyé par e-mail, par SMS sur votre téléphone, ou affiché par une application d'authentification comme Google Authenticator. Une seule méthode à la fois ; en choisir une autre remplace la précédente."
+    info_text: "Après votre mot de passe (ou Google), la connexion demande un code : envoyé par e-mail ou affiché par une application d'authentification comme Google Authenticator. Une seule méthode à la fois ; en choisir une autre remplace la précédente."
     info_small: L'e-mail et le SMS nécessitent une adresse ou un numéro vérifié. Les codes valent 10 minutes ; cinq erreurs mettent fin à la connexion.
     ok: OK
     email_first_title: Vérifiez d'abord votre e-mail
     email_first_text: Les codes par e-mail nécessitent une adresse vérifiée. Consultez votre boîte de réception pour le lien.
     close: Fermer
     resend: Renvoyer
-    sms_first_title: Vérifiez d'abord votre téléphone
-    sms_first_text: Les codes par SMS nécessitent un numéro de téléphone vérifié.
-    add_number: Ajouter un numéro
     totp_title: Ajouter une application d'authentification
     totp_how: Comment ajouter l'application
     totp_dev_link: "Dev : l'ajouter à l'authentificateur de développement"
@@ -734,13 +679,11 @@ profile:
     turn_off: Désactiver la double authentification
     switch_to: "Passer la double authentification à {method}"
     turn_on_by: "Activer la connexion en deux étapes par {method}"
-    method_sms: SMS
     method_email: e-mail
     method_totp: application d'authentification
     is_off: La double authentification est désactivée.
     is_method: "Double authentification : {method}."
     totp_removed: Application d'authentification supprimée.
-    phone_verified: Numéro de téléphone vérifié.
     too_many_attempts: Trop de tentatives. Attendez quelques minutes et réessayez.
     type_password: Saisissez votre mot de passe pour effectuer cette modification.
     password_wrong: Ce mot de passe n'est pas bon.
@@ -752,9 +695,6 @@ profile:
     code_gone: Aucun code n'est en attente, ou il a expiré. Demandez-en un nouveau.
     too_many_codes: Trop de codes envoyés. Attendez quelques minutes et réessayez.
     code_not_sent: Le code n'a pas pu être envoyé. Réessayez dans un instant.
-    too_many_texts: "Trop de SMS vers ce numéro. Réessayez dans {minutes} minutes."
-    number_no_texts: "Ce numéro ne peut pas recevoir de SMS : {why}."
-    phone_code_expired: Ce code a expiré ou a déjà été utilisé. Demandez-en un nouveau.
   subscription:
     title: Abonnement
     plan: Formule
@@ -865,14 +805,11 @@ profile:
     about: "Jusqu'à ce jour, le compte peut seulement annuler la suppression ou se déconnecter. Si vous annulez, tout reste comme avant. Après ce jour, votre progression, vos cours et clés enregistrées sont supprimés définitivement."
     cancel: "Annuler la suppression"
   save:
-    sms_off: "Ce serveur ne peut pas envoyer de SMS, il ne garde donc aucun numéro de téléphone."
     pick_picture: Choisissez l'une des photos.
     pick_colour: Choisissez l'une des couleurs.
     not_a_field: Ce champ ne fait pas partie du profil.
     theme_unavailable: Ce thème n'est pas disponible.
     motivator_unavailable: "Cette motivation n'est pas disponible."
-    not_a_phone: "Ce n'est pas un numéro de téléphone : {why}."
-    sms_country: Ce serveur n'envoie pas de SMS vers les numéros de ce pays.
     sent_to: "Envoyé à {email}."
   name:
     too_long: "{label} est trop long (max. {max} caractères)."
@@ -899,9 +836,6 @@ profile:
     name_too_long: "{label} est trop long (max. {max} caractères)."
     name_bad_chars: "{label} contient des caractères non autorisés."
     password_mismatch: Les nouveaux mots de passe ne correspondent pas.
-    phone_digits: "Un numéro de téléphone compte 10 chiffres, par exemple (555) 555 - 5555."
-    phone_us_only: Pour l'instant, seulement des numéros américains et canadiens. Saisissez les 10 chiffres après le +1.
-    phone_area: Ni l'indicatif régional ni les trois chiffres qui suivent ne commencent par 0 ou 1.
     turn_off: Désactiver la double authentification
     switch_to: "Passer la double authentification à {method}"
     turn_on_by: "Activer la connexion en deux étapes par {method}"
@@ -1179,7 +1113,7 @@ superuser:
   temp_password_for: "Mot de passe provisoire pour {email} :"
   temp_password_once: "Il n'est affiché que maintenant. Copiez-le et donnez-le à la personne ; elle choisira le sien à la prochaine connexion."
   two_factor_off: "Désactiver la double authentification"
-  two_factor_off_about: "Le compte se connecte avec son seul mot de passe jusqu'à ce qu'il réactive la double authentification. L'application d'authentification configurée est retirée ; un numéro de téléphone confirmé reste."
+  two_factor_off_about: "Le compte se connecte avec son seul mot de passe jusqu'à ce qu'il réactive la double authentification. L'application d'authentification configurée est retirée ."
   two_factor_off_confirm: "La désactiver"
   two_factor_off_done: "La double authentification est désactivée pour {email}."
   page_of: "Page {page} sur {pages}"

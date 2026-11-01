@@ -299,7 +299,7 @@ mod tests {
     /// Without a mail provider no link is issued and nothing is queued (#633).
     #[tokio::test]
     async fn no_mail_provider_sends_no_link() {
-        let state = crate::routes::test_state_without(false, true);
+        let state = crate::routes::test_state_without(false);
         let uid = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", "h")).unwrap();
         send(&state, &HeaderMap::new(), uid, "ann@example.org").await.unwrap();
         let (links, mails): (i64, i64) =

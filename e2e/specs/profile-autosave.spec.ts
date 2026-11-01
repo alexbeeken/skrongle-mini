@@ -6,7 +6,6 @@
 // and fade out 5 s later (#249, #255).
 import { expect, test, type Page } from "@playwright/test";
 import { newAccount, register, type Account } from "../lib/learner";
-import { mailLink, waitForMail } from "../lib/mail";
 
 const status = (page: Page) => page.getByTestId("profile-save-status");
 
@@ -177,104 +176,6 @@ test("without a connection the circle turns red, leaving asks, and it saves once
   await expect(page.getByTestId("profile-save-error")).toBeHidden();
   await page.reload();
   await expect(page.getByTestId("profile-first-name")).toHaveValue("Offline");
-});
-
-test("the phone number wears a +1 and punctuates the digits as they are typed (#496)", async ({ page }) => {
-  // The field is locked until the e-mail address is confirmed (#431).
-  await expect(page.getByTestId("profile-phone")).toBeDisabled();
-  const mail = await waitForMail(account.email, /Confirm your e-mail address/);
-  await page.goto(mailLink(mail, /\/verify-email\?/));
-  await expect(page.getByTestId("verify-email-confirmed")).toBeVisible();
-  await page.goto("/profile");
-
-  const phone = page.getByTestId("profile-phone");
-  // What is wrong is behind the red ! in the field's corner; the text under
-  // the same name is for a screen reader, and takes no room on the page.
-  const bad = page.getByTestId("profile-phone-invalid");
-  const error = page.getByTestId("profile-phone-error");
-  // The country code sits in the field, so nobody types it.
-  await expect(page.getByTestId("profile-phone-country")).toHaveText("+1");
-  await expect(phone).toHaveValue("");
-  await expect(phone).toHaveAttribute("placeholder", "(555) 555 - 5555");
-
-  // What goes to the server: the ten digits as E.164, whatever the field shows.
-  const sent = new Promise<unknown>((resolve) => {
-    page.on("request", (r) => {
-      if (r.url().endsWith("/api/profile") && r.method() === "POST") resolve(JSON.parse(r.postData() || "{}").phone);
-    });
-  });
-
-  // Digits only: the brackets, the space and the dash appear on their own.
-  await phone.click();
-  await page.keyboard.type("555");
-  await expect(phone).toHaveValue("(555");
-  await page.keyboard.type("555");
-  await expect(phone).toHaveValue("(555) 555");
-  // Half a number is not sent. Nothing is said about it while it is still
-  // being typed: every number is too short before its last digit.
-  await expect(bad).toBeHidden();
-  await expect(status(page)).toHaveAttribute("data-state", "error");
-  // Typing stops: the red ! comes, in the field's corner, and says what is
-  // missing without covering what was typed or moving the page.
-  await expect(bad).toBeVisible({ timeout: 4000 });
-  await expect(bad).toHaveAttribute("data-tip", "A phone number has 10 digits, like (555) 555 - 5555.");
-  await expect(error).toHaveText("A phone number has 10 digits, like (555) 555 - 5555.");
-  await expect(page.getByTestId("profile-save-error")).toBeHidden();
-  await expect(phone).toHaveValue("(555) 555");
-  await page.keyboard.type("1234");
-  await expect(phone).toHaveValue("(555) 555 - 1234");
-  // Right again: the ! goes at once, without waiting for a break.
-  await expect(bad).toBeHidden();
-  await expect(error).toBeHidden();
-  await phone.blur();
-  await expect(status(page)).toHaveAttribute("data-state", "saved");
-  expect(await sent).toBe("+15555551234");
-
-  // Stored as E.164, shown punctuated again on the next visit.
-  await page.reload();
-  await expect(phone).toHaveValue("(555) 555 - 1234");
-
-  // Pasted with the country code and the punctuation of the day: the same ten digits.
-  await phone.fill("+1 (555) 555.6789");
-  await expect(phone).toHaveValue("(555) 555 - 6789");
-  await expect(status(page)).toHaveAttribute("data-state", "saved");
-
-  // A caret in the middle: the digit lands where it was typed, not at the end.
-  await phone.focus();
-  await phone.evaluate((el: HTMLInputElement) => el.setSelectionRange(2, 2));
-  await page.keyboard.type("0");
-  await expect(phone).toHaveValue("(505) 555 - 5678");
-  await expect(bad).toBeHidden();
-  expect(await phone.evaluate((el: HTMLInputElement) => el.selectionStart)).toBe(3);
-
-  // An area code that starts with 0 or 1 is not a number anyone can be texted on.
-  // Leaving the field is a break too: the ! does not wait for the 2 s.
-  await phone.fill("1555551234");
-  await expect(phone).toHaveValue("(155) 555 - 1234");
-  await phone.blur();
-  await expect(bad).toBeVisible();
-  await expect(status(page)).toHaveAttribute("data-state", "error");
-  // The ! holds the message, in its tip and in the dialog it opens.
-  await bad.click();
-  await expect(page.getByTestId("phone-problem-why")).toHaveText("Neither the area code nor the three digits after it start with 0 or 1.");
-  await page.getByTestId("phone-problem-close").click();
-  await expect(page.getByTestId("phone-problem-dialog")).toBeHidden();
-
-  // Another country's number is left as it is and named, not reshaped into a +1 one.
-  await phone.fill("+44 7700 900123");
-  await expect(phone).toHaveValue("+44 7700 900123");
-  await phone.blur();
-  await expect(bad).toHaveAttribute("data-tip", "Only US and Canada numbers for now. Type the 10 digits after the +1.");
-  await expect(error).toHaveText("Only US and Canada numbers for now. Type the 10 digits after the +1.");
-  await expect(status(page)).toHaveAttribute("data-state", "error");
-
-  // Emptied, the number is removed.
-  await phone.fill("");
-  await expect(bad).toBeHidden();
-  await expect(error).toBeHidden();
-  await expect(status(page)).toHaveAttribute("data-state", "saved");
-  await page.reload();
-  await expect(phone).toHaveValue("");
 });
 
 test("the profile has no picture and no theme: both are a course's settings", async ({ page }) => {

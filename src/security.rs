@@ -174,8 +174,7 @@ pub const WAITLIST_PER_IP: Limit = Limit { name: "waitlist-ip", max: 10, window:
 pub const PASSWORD_PER_USER: Limit = Limit { name: "password-user", max: 10, window: 900 };
 /// "Send the e-mail again" (address confirmation) by one account.
 pub const VERIFY_RESEND_PER_USER: Limit = Limit { name: "verify-resend-user", max: 5, window: 3600 };
-/// Texted or e-mailed codes sent again by one account (a sign-in's
-/// "Send a new code", the phone number's "Send a code").
+/// E-mailed codes sent again by one account (a sign-in's "Send a new code").
 pub const TWO_FACTOR_SEND_PER_USER: Limit = Limit { name: "two-factor-send-user", max: 5, window: 900 };
 /// Password reset links asked for from one address (#379).
 pub const RESET_PER_IP: Limit = Limit { name: "reset-ip", max: 10, window: 3600 };

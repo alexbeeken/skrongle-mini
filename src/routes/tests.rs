@@ -434,7 +434,7 @@ fn content_reports_reach_the_operator_and_the_owner() {
     assert_eq!(post(&base, "/legal/copyright", "", &notice).0, 429);
 
     // Skrongle mini: no mail, so the contact address only, and nothing to post to.
-    let mini = serve(super::test_state_without(false, true));
+    let mini = serve(super::test_state_without(false));
     let page = get(&mini, "/legal/copyright", "");
     assert!(page.contains(r#"data-testid="copyright-contact""#) && !page.contains(r#"data-testid="copyright-form""#), "{page}");
     assert_eq!(post(&mini, "/legal/copyright", "", &notice).0, 404);
@@ -1860,26 +1860,24 @@ fn a_shared_course_is_on_the_recipients_list_read_only() {
 }
 
 /// #633: a channel reaches someone with a provider, or dev mode's
-/// mailbox or phone standing in; the `log` provider alone does not.
+/// mailbox standing in; the `log` provider alone does not.
 #[test]
 fn caps_follow_the_providers() {
     assert!(crate::Caps::reaches(false, false), "a provider");
-    assert!(crate::Caps::reaches(true, true), "dev mode's mailbox or phone");
+    assert!(crate::Caps::reaches(true, true), "dev mode's mailbox");
     assert!(!crate::Caps::reaches(true, false), "log alone");
-    assert_eq!(super::test_state(false, None).caps(), crate::Caps { mail: true, sms: true });
-    assert_eq!(super::test_state_without(false, true).caps(), crate::Caps { mail: false, sms: true });
-    assert_eq!(super::test_state_without(true, false).caps(), crate::Caps { mail: true, sms: false });
+    assert_eq!(super::test_state(false, None).caps(), crate::Caps { mail: true });
+    assert_eq!(super::test_state_without(false).caps(), crate::Caps { mail: false });
 }
 
-/// #633: on a server with no mail and no SMS provider nothing offers to
-/// send a message: no confirmation link or red !, no phone field, no
-/// e-mailed or texted second step (an account already on one cannot
+/// #633: on a server with no mail provider nothing offers to send a
+/// message: no confirmation link or red !, no e-mailed second step (an account already on one cannot
 /// sign in, and is told the setting), share links are shown to the
 /// owner, and the data export is a Download button on the profile.
 #[test]
-fn without_mail_or_sms_nothing_offers_to_send() {
+fn without_mail_nothing_offers_to_send() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let state = super::test_state_without(false, false);
+    let state = super::test_state_without(false);
     let app = super::router(state.clone());
     let base = rt.block_on(async {
         let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
@@ -1906,10 +1904,10 @@ fn without_mail_or_sms_nothing_offers_to_send() {
     assert_eq!(status, 303);
     assert_eq!(count("SELECT COUNT(*) FROM mail_outbox") + count("SELECT COUNT(*) FROM email_verifications"), 0);
 
-    // The profile: the (i) in place of the red !, no phone, no e-mailed or texted second step.
+    // The profile: the (i) in place of the red !, no e-mailed second step.
     let profile = get("/profile", &ann).2;
     assert!(profile.contains(r#"data-testid="email-no-mail-info""#) && profile.contains(r#"data-testid="email-no-mail-dialog""#), "{profile}");
-    for gone in [r#"data-testid="email-unverified""#, r#"data-testid="email-verify-resend""#, r#"data-testid="profile-phone""#, r#"id="phone-send-form""#, r#"data-method="email""#, r#"data-method="sms""#] {
+    for gone in [r#"data-testid="email-unverified""#, r#"data-testid="email-verify-resend""#, r#"data-method="email""#] {
         assert!(!profile.contains(gone), "{gone} is on the page");
     }
     assert!(profile.contains(r#"data-method="totp""#), "the authenticator app needs nothing");
@@ -1917,15 +1915,9 @@ fn without_mail_or_sms_nothing_offers_to_send() {
     let (status, _, _, page) = post("/profile/two-factor", &ann, &[("method", "email"), ("password", "long-enough-pw")]);
     assert_eq!(status, 422);
     assert!(page.contains("SKRONGLE_MAIL_PROVIDERS"), "{page}");
-    let (status, _, _, page) = post("/profile/two-factor", &ann, &[("method", "sms"), ("password", "long-enough-pw")]);
-    assert_eq!(status, 422);
-    assert!(page.contains("SKRONGLE_SMS_PROVIDERS"), "{page}");
-    assert_eq!(post("/profile/phone/send", &ann, &[]).0, 404);
-    let r = agent.post(&format!("{base}/api/profile")).header("cookie", &ann).send_json(serde_json::json!({"phone": "+1 415 555 0100"})).unwrap();
-    assert_eq!(r.status().as_u16(), 422, "no phone number without texts");
     let (status, _, loc, _) = post("/profile/verify-email/resend", &ann, &[]);
     assert_eq!((status, loc.as_str()), (303, "/profile"), "nothing to send again");
-    assert_eq!(count("SELECT COUNT(*) FROM mail_outbox") + count("SELECT COUNT(*) FROM sms_outbox"), 0);
+    assert_eq!(count("SELECT COUNT(*) FROM mail_outbox"), 0);
 
     // Sharing: the dialog makes links, shows them, and mails nothing; a link works.
     let (_, _, loc, _) = post("/courses/new", &ann, &[("title", "Fractions")]);
@@ -1968,9 +1960,6 @@ fn without_mail_or_sms_nothing_offers_to_send() {
     let (status, cookie, _, page) = sign_in();
     assert_eq!(status, 403);
     assert!(page.contains("SKRONGLE_MAIL_PROVIDERS") && !cookie.starts_with("sid="), "{page}");
-    state.db.with(|c| c.execute("UPDATE users SET two_factor = 'sms' WHERE email = 'ann@example.org'", [])).unwrap();
-    let (status, _, _, page) = sign_in();
-    assert!(status == 403 && page.contains("SKRONGLE_SMS_PROVIDERS"), "{page}");
     assert_eq!(count("SELECT COUNT(*) FROM two_factor_challenges"), 0, "no code was made");
     state.db.with(|c| c.execute("UPDATE users SET two_factor = '' WHERE email = 'ann@example.org'", [])).unwrap();
     assert_eq!(sign_in().0, 303);
@@ -1978,7 +1967,7 @@ fn without_mail_or_sms_nothing_offers_to_send() {
 
 /// #633: with providers the same pages offer what they always did.
 #[test]
-fn with_mail_and_sms_everything_is_offered() {
+fn with_mail_everything_is_offered() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
     let state = super::test_state(false, None);
     let app = super::router(state.clone());
@@ -1994,98 +1983,12 @@ fn with_mail_and_sms_everything_is_offered() {
     let r = agent.post(&format!("{base}/login")).send_form([("email", "ann@example.org"), ("password", "long-enough-pw")]).unwrap();
     let ann = r.headers().get("set-cookie").map(|v| v.to_str().unwrap().split(';').next().unwrap().to_string()).unwrap_or_default();
     let profile = agent.get(&format!("{base}/profile")).header("cookie", &ann).call().unwrap().body_mut().read_to_string().unwrap();
-    for shown in [r#"data-testid="email-unverified""#, r#"data-testid="email-verify-resend""#, r#"data-testid="profile-phone""#, r#"data-method="email""#, r#"data-method="sms""#, r#"data-method="totp""#] {
+    for shown in [r#"data-testid="email-unverified""#, r#"data-testid="email-verify-resend""#, r#"data-method="email""#, r#"data-method="totp""#] {
         assert!(profile.contains(shown), "{shown} is missing");
     }
     assert!(!profile.contains("email-no-mail-info"));
     let mails: i64 = state.db.with(|c| c.query_row("SELECT COUNT(*) FROM mail_outbox WHERE purpose = 'email-verify'", [], |r| r.get(0))).unwrap();
     assert_eq!(mails, 1);
-}
-
-/// #431, #363: only an account with a confirmed address (or Google)
-/// may add a phone or have it texted; the profile shows the field
-/// locked with an (i); a number verified on one account is refused on
-/// another; numbers outside `SKRONGLE_SMS_COUNTRIES` are refused.
-#[test]
-fn a_phone_needs_a_confirmed_address_and_a_number_of_its_own() {
-    let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let state = super::test_state(false, None);
-    let (ann, bob) = state
-        .db
-        .with(|c| {
-            let ann = crate::auth::create_user(c, "ann@example.org", "x")?;
-            let bob = crate::auth::create_user(c, "bob@example.org", "x")?;
-            for u in [ann, bob] {
-                crate::terms::accept(c, u, crate::terms::version())?;
-            }
-            Ok((ann, bob))
-        })
-        .unwrap();
-    let cookie = |u| format!("sid={}", state.db.with(|c| crate::auth::create_session(c, u)).unwrap());
-    let (ann_c, bob_c) = (cookie(ann), cookie(bob));
-    let app = super::router(state.clone());
-    let base = rt.block_on(async {
-        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
-        let addr = listener.local_addr().unwrap();
-        tokio::spawn(async move { axum::serve(listener, app).await.unwrap() });
-        format!("http://{addr}")
-    });
-    let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
-    let get = |path: &str, c: &str| {
-        let mut r = agent.get(&format!("{base}{path}")).header("cookie", c).call().unwrap();
-        r.body_mut().read_to_string().unwrap()
-    };
-    let send = |c: &str| {
-        let mut r = agent.post(&format!("{base}/profile/phone/send")).header("cookie", c).send_form([("x", "")]).unwrap();
-        (r.status().as_u16(), r.body_mut().read_to_string().unwrap())
-    };
-    let save = |c: &str, phone: &str| {
-        let mut r = agent.post(&format!("{base}/api/profile")).header("cookie", c).send_json(serde_json::json!({ "phone": phone })).unwrap();
-        (r.status().as_u16(), r.body_mut().read_to_string().unwrap())
-    };
-    let texts = || state.db.with(|c| c.query_row("SELECT COUNT(*) FROM sms_outbox", [], |r| r.get::<_, i64>(0))).unwrap();
-    let ann_number = "+15555550123";
-
-    // Unconfirmed: the field is locked with an (i), saving and texting are refused.
-    let html = get("/profile", &ann_c);
-    assert!(html.contains(r#"data-testid="phone-locked-info""#) && html.contains(r#"data-testid="profile-phone" aria-describedby="phone-country phone-error" disabled"#), "{html}");
-    let (status, body) = save(&ann_c, ann_number);
-    assert_eq!(status, 422);
-    assert!(body.contains(&crate::t(crate::two_factor::NEEDS_CONFIRMED_EMAIL)), "{body}");
-    state.db.with(|c| c.execute("UPDATE users SET phone = ?2 WHERE id = ?1", rusqlite::params![ann, ann_number])).unwrap();
-    let (status, body) = send(&ann_c);
-    assert_eq!(status, 403);
-    assert!(body.contains("Confirm your e-mail address before adding a phone number."), "{body}");
-    assert_eq!(texts(), 0);
-
-    // Confirmed: the field is open; the number saves and gets its code.
-    state.db.with(|c| crate::verify::mark_verified(c, ann, 1)).unwrap();
-    assert!(!get("/profile", &ann_c).contains("phone-locked-info"));
-    assert_eq!(save(&ann_c, "").0, 200);
-    assert_eq!(save(&ann_c, ann_number).0, 200);
-    assert_eq!(send(&ann_c).0, 303);
-    assert_eq!(texts(), 1);
-
-    // A Google account counts as confirmed; a number Ann verified is not Bob's to use.
-    state.db.with(|c| c.execute("UPDATE users SET google_sub = 'g-bob' WHERE id = ?1", [bob])).unwrap();
-    state.db.with(|c| c.execute("UPDATE users SET phone_verified_at = 5 WHERE id = ?1", [ann])).unwrap();
-    let (status, body) = save(&bob_c, "(555) 555 - 0123");
-    assert_eq!(status, 422);
-    assert!(body.contains("verified on another account"), "{body}");
-    // Set behind the check's back (before Ann verified it): still not texted.
-    state.db.with(|c| c.execute("UPDATE users SET phone = ?2 WHERE id = ?1", rusqlite::params![bob, ann_number])).unwrap();
-    let (status, body) = send(&bob_c);
-    assert_eq!(status, 403);
-    assert!(body.contains("verified on another account"), "{body}");
-    assert_eq!(texts(), 1);
-
-    // Another country's number: the field takes US and Canada only (#496).
-    // A server whose SMS_COUNTRIES leaves +1 out refuses it behind that
-    // (profile::save), which is what sms::Policy is tested on.
-    let (status, body) = save(&bob_c, "+8613800138000");
-    assert_eq!(status, 422);
-    assert!(body.contains("US and Canada"), "{body}");
-    assert_eq!(save(&bob_c, "+15555550456").0, 200);
 }
 
 /// #558: every mode moves the same daily goal, and every mode resumes at

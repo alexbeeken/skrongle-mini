@@ -172,9 +172,7 @@ auth:
   code:
     title: Gib deinen Code ein
     from_app: Aus deiner Authenticator-App.
-    texted_to: "Per SMS an {to} geschickt."
     emailed_to: "Per E-Mail an {to} geschickt."
-    fallback: "Dein Telefon hat auf SMS von {app} mit STOP geantwortet, deshalb haben wir den Code an {to} gemailt."
     code_label: Code
     submit: Anmelden
     resend: Neuen Code senden
@@ -190,13 +188,8 @@ auth:
     your_authenticator: deine Authenticator-App
   two_factor:
     channel_off_email: "Dein Konto meldet sich mit einem Code per E-Mail an, aber dieser Server kann keine E-Mails senden ({setting} ist nicht gesetzt). Bitte die Person, die ihn betreibt, {setting} zu setzen oder die Zwei-Faktor-Anmeldung für dein Konto auszuschalten."
-    channel_off_sms: "Dein Konto meldet sich mit einem Code per SMS an, aber dieser Server kann keine SMS senden ({setting} ist nicht gesetzt). Bitte die Person, die ihn betreibt, {setting} zu setzen oder die Zwei-Faktor-Anmeldung für dein Konto auszuschalten."
     needs_email: Bestätige zuerst deine E-Mail-Adresse.
-    needs_phone: Füge zuerst eine Telefonnummer hinzu und bestätige sie.
     needs_app: Richte zuerst die Authenticator-App ein.
-    phone_in_use: Die Zwei-Faktor-Anmeldung schickt SMS an diese Nummer. Wähle vor einer Änderung eine andere Methode.
-    needs_confirmed_email: "Bestätige deine E-Mail-Adresse, bevor du eine Handynummer hinzufügst."
-    phone_taken: "Diese Nummer ist bei einem anderen Konto bestätigt. Entferne sie dort zuerst oder nimm eine andere Nummer."
     app_already: Eine Authenticator-App ist schon eingerichtet. Entferne sie zuerst.
   google:
     cancelled: Die Google-Anmeldung wurde abgebrochen.
@@ -425,7 +418,6 @@ mail:
     subject: "Zwei-Faktor-Anmeldung bei {app} geändert"
     now_off: "ist jetzt aus"
     now_email: "schickt dir jetzt einen Code per E-Mail"
-    now_sms: "schickt dir jetzt einen Code per SMS aufs Handy"
     now_totp: "fragt dich jetzt nach einem Code aus einer Authenticator-App"
     text: |
       Hallo,
@@ -480,18 +472,6 @@ mail:
       <p><a href="{link}">Kurs öffnen</a></p>
       <p>Oder füge diesen Link in deinen Browser ein: {link}</p>
       <p>Du kannst aus dem Kurs mit deinem eigenen Fortschritt lernen; nur {owner} kann ihn ändern. Falls du noch kein {app}-Konto hast, kannst du über den Link eines erstellen. Wenn du damit nicht gerechnet hast, ignoriere diese Nachricht einfach.</p>
-
-sms:
-  login_code: "{code} ist dein {app}-Anmeldecode. Er funktioniert 10 Minuten lang. Gib ihn nicht weiter."
-  phone_code: "{code} ist dein {app}-Code, um diese Telefonnummer zu bestätigen. Er funktioniert 10 Minuten lang."
-  two_factor_confirm: "{code} ist dein {app}-Code, um die Zwei-Faktor-Anmeldung zu ändern. Er funktioniert 10 Minuten lang. Gib ihn nicht weiter."
-  number:
-    needs_plus: eine Telefonnummer beginnt mit + und der Ländervorwahl
-    not_a_digit: "eine Telefonnummer enthält nur Ziffern, nicht {char}"
-    bad_length: eine Telefonnummer hat 8 bis 15 Ziffern nach dem +, die erste darf nicht 0 sein
-    us_length: "eine US- oder Kanada-Nummer hat 10 Ziffern, zum Beispiel (555) 555 - 5555"
-    us_only: vorerst nur Nummern aus den USA und Kanada, eine Nummer beginnt also mit +1
-    us_area: weder die Vorwahl noch die drei Ziffern danach beginnen mit 0 oder 1
 
 profile:
   email_no_mail:
@@ -566,11 +546,6 @@ profile:
     data: Deine Daten
     consent: "Datenschutz und Einwilligung"
   personal:
-    phone_locked_label: "Warum die Handynummer gesperrt ist"
-    phone_locked_title: "Bestätige zuerst deine E-Mail-Adresse"
-    phone_locked_text: "Eine Handynummer kann hinzugefügt werden, sobald deine E-Mail-Adresse bestätigt ist (oder du dich mit Google anmeldest). Schau in dein Postfach nach dem Link."
-    phone_locked_close: "Schließen"
-    phone_locked_resend: "Link noch einmal senden"
     title: Persönliche Angaben
     first_name: Vorname
     last_name: Nachname
@@ -578,29 +553,8 @@ profile:
     no_email: Keine E-Mail-Adresse hinterlegt
     verified: Bestätigt
     not_verified: Nicht bestätigt
-    phone: Telefonnummer
-    phone_placeholder: "(555) 555 - 5555"
-    phone_problem: Telefonnummer prüfen
-    phone_stopped: "SMS an diese Nummer sind abbestellt"
     language: Sprache
     language_unavailable: Diese Sprache ist nicht verfügbar.
-  phone_problem:
-    title: Telefonnummer prüfen
-    close: Schließen
-  phone_stopped:
-    title: "SMS sind abbestellt"
-    text: "Diese Nummer hat auf SMS von {app} mit STOP geantwortet, deshalb kommen deine Anmeldecodes vorerst per E-Mail. Um wieder SMS zu bekommen, schick START von diesem Telefon an die Nummer, von der unsere SMS kommen, und lass dir dann einen Code schicken."
-    close: "Schließen"
-    send: "Code senden"
-  phone_dialog:
-    title: Telefonnummer bestätigen
-    type_code: Gib den Code ein, der dir per SMS geschickt wurde.
-    not_verified: Telefonnummer noch nicht bestätigt. Sende einen Code dorthin.
-    code: Code
-    close: Schließen
-    send_again: Erneut senden
-    send_code: Code senden
-    verify: Bestätigen
   account:
     title: Konto
     member_since: Mitglied seit
@@ -630,10 +584,6 @@ profile:
     age: "Alter"
     age_confirmed: "Bestätigt am {date}"
     age_not_confirmed: "Nicht bestätigt"
-    phone: "Telefon für Anmeldecodes"
-    phone_none: "Keine Nummer"
-    phone_add: "hinzufügen"
-    phone_edit: "ändern oder entfernen"
     google: "Google-Anmeldung"
     google_on: "Verbunden"
     google_off: "Nicht verbunden"
@@ -694,8 +644,6 @@ profile:
     off: "Aus"
     email: E-Mail
     email_unverified: E-Mail nicht bestätigt
-    sms: SMS
-    phone_unverified: Telefon nicht bestätigt
     totp: Authenticator-App
     save: Speichern
     confirm_title: Bestätige, dass du es bist
@@ -713,16 +661,13 @@ profile:
     totp_added: "Authenticator-App hinzugefügt am {date}"
     remove: Entfernen
     info_title: Zwei-Faktor-Authentifizierung
-    info_text: "Nach deinem Passwort (oder Google) fragt die Anmeldung nach einem Code: per E-Mail, per SMS auf dein Handy oder angezeigt von einer Authenticator-App wie Google Authenticator. Immer nur eine Methode; wenn du eine andere wählst, ersetzt sie die alte."
+    info_text: "Nach deinem Passwort (oder Google) fragt die Anmeldung nach einem Code: per E-Mail oder angezeigt von einer Authenticator-App wie Google Authenticator. Immer nur eine Methode; wenn du eine andere wählst, ersetzt sie die alte."
     info_small: E-Mail und SMS brauchen eine bestätigte Adresse bzw. Nummer. Codes gelten 10 Minuten; nach fünf falschen endet die Anmeldung.
     ok: OK
     email_first_title: Bestätige zuerst deine E-Mail
     email_first_text: E-Mail-Codes brauchen eine bestätigte Adresse. Schau in dein Postfach, dort ist der Link.
     close: Schließen
     resend: Erneut senden
-    sms_first_title: Bestätige zuerst dein Telefon
-    sms_first_text: SMS-Codes brauchen eine bestätigte Telefonnummer.
-    add_number: Nummer hinzufügen
     totp_title: Authenticator-App hinzufügen
     totp_how: So fügst du die App hinzu
     totp_dev_link: "Dev: zur Dev-Authenticator-App hinzufügen"
@@ -734,13 +679,11 @@ profile:
     turn_off: Zwei-Faktor-Anmeldung ausschalten
     switch_to: "Zwei-Faktor-Anmeldung auf {method} umstellen"
     turn_on_by: "Zwei-Faktor-Anmeldung per {method} einschalten"
-    method_sms: SMS
     method_email: E-Mail
     method_totp: Authenticator-App
     is_off: Zwei-Faktor-Anmeldung ist aus.
     is_method: "Zwei-Faktor-Anmeldung: {method}."
     totp_removed: Authenticator-App entfernt.
-    phone_verified: Telefonnummer bestätigt.
     too_many_attempts: Zu viele Versuche. Warte ein paar Minuten und versuche es erneut.
     type_password: Gib dein Passwort ein, um diese Änderung vorzunehmen.
     password_wrong: Das Passwort stimmt nicht.
@@ -752,9 +695,6 @@ profile:
     code_gone: Kein Code wartet, oder er ist abgelaufen. Schick einen neuen.
     too_many_codes: Zu viele Codes gesendet. Warte ein paar Minuten und versuche es erneut.
     code_not_sent: Der Code konnte nicht gesendet werden. Versuche es gleich noch einmal.
-    too_many_texts: "Zu viele SMS an diese Nummer. Versuche es in {minutes} Minuten erneut."
-    number_no_texts: "An diese Nummer können keine SMS gesendet werden: {why}."
-    phone_code_expired: Dieser Code ist abgelaufen oder wurde schon benutzt. Schick einen neuen.
   subscription:
     title: Abo
     plan: Tarif
@@ -865,14 +805,11 @@ profile:
     about: "Bis zu diesem Tag kann das Konto nur die Löschung abbrechen oder sich abmelden. Brichst du ab, bleibt alles, wie es war. Danach sind dein Fortschritt, deine Kurse und gespeicherten Schlüssel endgültig weg."
     cancel: "Löschung abbrechen"
   save:
-    sms_off: "Dieser Server kann keine SMS senden und speichert daher keine Telefonnummer."
     pick_picture: Bitte wähle eines der Bilder aus.
     pick_colour: Bitte wähle eine der Farben aus.
     not_a_field: Dieses Feld gehört nicht zum Profil.
     theme_unavailable: Dieses Design ist nicht verfügbar.
     motivator_unavailable: "Dieser Motivator ist nicht verfügbar."
-    not_a_phone: "Keine Telefonnummer: {why}."
-    sms_country: "Dieser Server schickt keine SMS an Nummern in diesem Land."
     sent_to: "Gesendet an {email}."
   name:
     too_long: "{label} ist zu lang (maximal {max} Zeichen)."
@@ -899,9 +836,6 @@ profile:
     name_too_long: "{label} ist zu lang (maximal {max} Zeichen)."
     name_bad_chars: "{label} enthält nicht erlaubte Zeichen."
     password_mismatch: Die neuen Passwörter stimmen nicht überein.
-    phone_digits: "Eine Telefonnummer hat 10 Ziffern, zum Beispiel (555) 555 - 5555."
-    phone_us_only: Vorerst nur Nummern aus den USA und Kanada. Gib die 10 Ziffern nach der +1 ein.
-    phone_area: Weder die Vorwahl noch die drei Ziffern danach beginnen mit 0 oder 1.
     turn_off: Zwei-Faktor-Anmeldung ausschalten
     switch_to: "Zwei-Faktor-Anmeldung auf {method} umstellen"
     turn_on_by: "Zwei-Faktor-Anmeldung per {method} einschalten"
@@ -1179,7 +1113,7 @@ superuser:
   temp_password_for: "Vorläufiges Passwort für {email}:"
   temp_password_once: "Es wird nur jetzt angezeigt. Kopiere es und gib es der Person; bei der nächsten Anmeldung wählt sie ein eigenes."
   two_factor_off: "Zwei-Faktor ausschalten"
-  two_factor_off_about: "Das Konto meldet sich nur mit dem Passwort an, bis es die Zwei-Faktor-Anmeldung wieder einschaltet. Eine dafür eingerichtete Authenticator-App wird entfernt; eine bestätigte Telefonnummer bleibt."
+  two_factor_off_about: "Das Konto meldet sich nur mit dem Passwort an, bis es die Zwei-Faktor-Anmeldung wieder einschaltet. Eine dafür eingerichtete Authenticator-App wird entfernt."
   two_factor_off_confirm: "Ausschalten"
   two_factor_off_done: "Die Zwei-Faktor-Anmeldung ist für {email} ausgeschaltet."
   page_of: "Seite {page} von {pages}"

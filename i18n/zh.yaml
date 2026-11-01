@@ -172,9 +172,7 @@ auth:
   code:
     title: 输入你的验证码
     from_app: 来自你的验证器应用。
-    texted_to: "已发送短信至 {to}。"
     emailed_to: "已发送邮件至 {to}。"
-    fallback: "你的手机对 {app} 的短信回复了 STOP，所以我们把验证码发到了邮箱 {to}。"
     code_label: 验证码
     submit: 登录
     resend: 发送新验证码
@@ -190,13 +188,8 @@ auth:
     your_authenticator: 你的验证器应用
   two_factor:
     channel_off_email: "你的账户登录时需要通过电子邮件接收验证码，但此服务器无法发送电子邮件（未设置 {setting}）。请联系服务器管理员设置 {setting}，或为你的账户关闭两步登录。"
-    channel_off_sms: "你的账户登录时需要通过短信接收验证码，但此服务器无法发送短信（未设置 {setting}）。请联系服务器管理员设置 {setting}，或为你的账户关闭两步登录。"
     needs_email: 请先确认你的电子邮箱地址。
-    needs_phone: 请先添加并验证手机号码。
     needs_app: 请先设置验证器应用。
-    phone_in_use: 两步验证会向此号码发送短信。更改前请先选择其他方式。
-    needs_confirmed_email: 添加电话号码前，请先确认你的电子邮箱地址。
-    phone_taken: "此号码已在另一个账户上验证。请先在那里将其移除，或使用其他号码。"
     app_already: 已设置验证器应用。请先将其移除。
   google:
     cancelled: 已取消 Google 登录。
@@ -425,7 +418,6 @@ mail:
     subject: "{app} 上的两步验证已更改"
     now_off: 已关闭
     now_email: 现在会通过电子邮件发送验证码给你
-    now_sms: 现在会把验证码通过短信发送到你的手机
     now_totp: 现在要求输入验证器应用中的验证码
     text: |
       你好，
@@ -480,18 +472,6 @@ mail:
       <p><a href="{link}">打开课程</a></p>
       <p>或将此链接粘贴到浏览器中：{link}</p>
       <p>你可以用自己的学习进度学习这门课程；只有 {owner} 可以修改它。如果你还没有 {app} 账户，可以通过此链接注册。如果你并未期待这封邮件，请忽略。</p>
-
-sms:
-  login_code: "{code} 是你的 {app} 登录验证码，有效期为 10 分钟。请勿告诉他人。"
-  phone_code: "{code} 是你用于确认此手机号码的 {app} 验证码，有效期为 10 分钟。"
-  two_factor_confirm: "{code} 是你用于更改两步验证的 {app} 验证码，有效期为 10 分钟。请勿告诉他人。"
-  number:
-    needs_plus: 手机号码需要以 + 和国家代码开头
-    not_a_digit: "手机号码只能包含数字，不能包含 {char}"
-    bad_length: 手机号码在 + 之后需要 8 到 15 位数字，且第一位不能是 0
-    us_length: "美国或加拿大的号码有 10 位数字，例如 (555) 555 - 5555"
-    us_only: 目前只支持美国和加拿大的号码，所以号码以 +1 开头
-    us_area: 区号和其后的三位数字都不能以 0 或 1 开头
 
 profile:
   email_no_mail:
@@ -566,11 +546,6 @@ profile:
     data: 你的数据
     consent: "隐私与同意"
   personal:
-    phone_locked_label: 为什么电话号码被锁定
-    phone_locked_title: 请先确认你的电子邮箱地址
-    phone_locked_text: 确认电子邮箱地址（或使用 Google 登录）后，即可添加电话号码。请查看收件箱中的链接。
-    phone_locked_close: 关闭
-    phone_locked_resend: 重新发送链接
     title: 个人信息
     first_name: 名字
     last_name: 姓氏
@@ -578,29 +553,8 @@ profile:
     no_email: 尚未设置电子邮箱
     verified: 已验证
     not_verified: 未验证
-    phone: 电话号码
-    phone_placeholder: "(555) 555 - 5555"
-    phone_problem: 请检查电话号码
-    phone_stopped: "此号码的短信已停止"
     language: 语言
     language_unavailable: 该语言暂不可用。
-  phone_problem:
-    title: 请检查电话号码
-    close: 关闭
-  phone_stopped:
-    title: "短信已停止"
-    text: "此号码对 {app} 的短信回复了 STOP，所以你的登录验证码暂时通过邮件发送。要重新接收短信，请用这部手机向我们发短信的号码发送 START，然后给自己发一个验证码。"
-    close: "关闭"
-    send: "发送验证码"
-  phone_dialog:
-    title: 验证你的手机
-    type_code: 请输入发到你手机上的验证码。
-    not_verified: 电话号码尚未验证。请向该号码发送验证码。
-    code: 验证码
-    close: 关闭
-    send_again: 再次发送
-    send_code: 发送验证码
-    verify: 验证
   account:
     title: 账户
     member_since: 注册于
@@ -630,10 +584,6 @@ profile:
     age: "年龄"
     age_confirmed: "已于 {date} 确认"
     age_not_confirmed: "未确认"
-    phone: "用于登录验证码的手机"
-    phone_none: "没有号码"
-    phone_add: "添加"
-    phone_edit: "更改或删除"
     google: "Google 登录"
     google_on: "已连接"
     google_off: "未连接"
@@ -694,8 +644,6 @@ profile:
     off: "关闭"
     email: 电子邮件
     email_unverified: 电子邮箱未验证
-    sms: 短信
-    phone_unverified: 手机号未验证
     totp: 验证器应用
     save: 保存
     confirm_title: 请确认是你本人
@@ -713,16 +661,13 @@ profile:
     totp_added: "验证器应用已于 {date} 添加"
     remove: 移除
     info_title: 两步验证
-    info_text: "输入密码（或通过 Google 登录）后，登录时还需输入一个验证码：可以是通过电子邮件发送的、短信发到手机的，或是由 Google Authenticator 等验证器应用显示的。同一时间只能使用一种方式；选择另一种方式会替换当前方式。"
+    info_text: "输入密码（或通过 Google 登录）后，登录时还需输入一个验证码：可以是通过电子邮件发送的，或是由 Google Authenticator 等验证器应用显示的。同一时间只能使用一种方式；选择另一种方式会替换当前方式。"
     info_small: 电子邮件和短信需要已验证的邮箱地址或电话号码。验证码有效期为 10 分钟；连续输错五次，本次登录将结束。
     ok: 好
     email_first_title: 请先验证你的电子邮箱
     email_first_text: 电子邮件验证码需要已验证的邮箱地址。请到收件箱中查找链接。
     close: 关闭
     resend: 重新发送
-    sms_first_title: 请先验证你的手机
-    sms_first_text: 短信验证码需要已验证的手机号码。
-    add_number: 添加号码
     totp_title: 添加验证器应用
     totp_how: 如何添加应用
     totp_dev_link: "开发：添加到开发验证器"
@@ -734,13 +679,11 @@ profile:
     turn_off: 关闭两步登录验证
     switch_to: "将两步登录验证切换为{method}"
     turn_on_by: "通过{method}开启两步验证"
-    method_sms: 短信
     method_email: 电子邮件
     method_totp: 验证器应用
     is_off: 两步登录验证已关闭。
     is_method: "两步登录验证：{method}。"
     totp_removed: 验证器应用已移除。
-    phone_verified: 电话号码已验证。
     too_many_attempts: 尝试次数过多。请稍等几分钟后再试。
     type_password: 请输入你的密码以进行此更改。
     password_wrong: 该密码不正确。
@@ -752,9 +695,6 @@ profile:
     code_gone: 没有等待中的验证码，或验证码已过期。请重新发送一个。
     too_many_codes: 发送的验证码过多。请稍等几分钟后再试。
     code_not_sent: 验证码未能发送。请稍后再试。
-    too_many_texts: "发送到此号码的短信过多。请 {minutes} 分钟后再试。"
-    number_no_texts: "该号码无法接收短信：{why}。"
-    phone_code_expired: 该验证码已过期或已用完。请重新发送一个。
   subscription:
     title: 订阅
     plan: 方案
@@ -865,14 +805,11 @@ profile:
     about: "在那天之前，此账户只能取消删除或登出。取消后一切保持原样。那天之后，你的学习进度、课程和已保存的密钥将被永久删除。"
     cancel: "取消删除"
   save:
-    sms_off: "此服务器无法发送短信，因此不保存电话号码。"
     pick_picture: 请选择一张图片。
     pick_colour: 请选择一种颜色。
     not_a_field: 此字段不属于个人资料。
     theme_unavailable: 该主题不可用。
     motivator_unavailable: "该激励方式不可用。"
-    not_a_phone: "不是有效的电话号码：{why}。"
-    sms_country: 本服务器不向该国家或地区的号码发送短信。
     sent_to: "已发送至 {email}。"
   name:
     too_long: "{label} 太长（最多 {max} 个字符）。"
@@ -899,9 +836,6 @@ profile:
     name_too_long: "{label} 太长（最多 {max} 个字符）。"
     name_bad_chars: "{label} 包含不允许使用的字符。"
     password_mismatch: 两次输入的新密码不一致。
-    phone_digits: "电话号码有 10 位数字，例如 (555) 555 - 5555。"
-    phone_us_only: 目前只支持美国和加拿大的号码。请输入 +1 之后的 10 位数字。
-    phone_area: 区号和其后的三位数字都不能以 0 或 1 开头。
     turn_off: 关闭两步登录验证
     switch_to: "将两步登录验证切换为{method}"
     turn_on_by: "通过{method}开启两步验证"
@@ -1179,7 +1113,7 @@ superuser:
   temp_password_for: "{email} 的临时密码："
   temp_password_once: "只在此刻显示。请复制后交给对方；对方会在下次登录时设置自己的密码。"
   two_factor_off: "关闭两步验证"
-  two_factor_off_about: "在重新开启两步验证之前，该账户只凭密码登录。为其设置的身份验证器应用会被移除；已确认的手机号码保留。"
+  two_factor_off_about: "在重新开启两步验证之前，该账户只凭密码登录。为其设置的身份验证器应用会被移除。"
   two_factor_off_confirm: "关闭"
   two_factor_off_done: "{email} 的两步验证已关闭。"
   page_of: "第 {page} 页，共 {pages} 页"

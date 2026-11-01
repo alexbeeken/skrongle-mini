@@ -15,8 +15,8 @@ The release you install is **Skrongle mini**: the same binary as the hosted
 site, with `skrongle.service` set for a handful of people who know you and
 no outside services. What it leaves out:
 
-- **No e-mail or text messages.** Links that would be mailed are shown in
-  the page ([Without e-mail or text messages](#without-e-mail-or-text-messages)).
+- **No e-mail.** Links that would be mailed are shown in
+  the page ([Without e-mail](#without-e-mail)).
 - **No plans or payments.** Everyone has everything.
 - **No Google sign-in or S3.** Their settings are ignored in a mini, and the
   log says so.
@@ -41,7 +41,7 @@ You secure the login, as with any self-hosted app:
 
 - A strong password for every account.
 - Two-factor sign-in with an authenticator app (*Profile → Two-factor
-  authentication*). It needs no e-mail or texts.
+  authentication*). It needs no e-mail.
 - The server reachable only over Tailscale or a VPN
   ([Reaching it from outside](#reaching-it-from-outside)). **Never forward
   a port** on the router.
@@ -157,7 +157,7 @@ A line that starts with `PROBLEM:` says what to fix.
 - lets people sign up only with an invitation from you
   (`SKRONGLE_SIGNUP=invite`, see [Accounts and AI keys](#accounts-and-ai-keys));
 - makes the server a Skrongle mini (`SKRONGLE_MINI=1`), which turns plans,
-  payments, e-mail, texts, Google sign-in and S3 off (see
+  payments, e-mail, Google sign-in and S3 off (see
   [Accounts and AI keys](#accounts-and-ai-keys));
 - reads optional settings from `/etc/skrongle/env`.
 
@@ -179,7 +179,7 @@ starts `SKRONGLE_`; see [Renamed settings](#renamed-settings) if yours start `LE
 
 | Variable | Default | Meaning |
 |---|---|---|
-| `SKRONGLE_MINI` | unset (mini: `1`) | `1`: this server is a Skrongle mini, the self-hosted version. It is what makes the server a mini: without it the server is the hosted site, which refuses to start without e-mail, texts, Google and Stripe. In a mini there are no plans or payments (every account has every feature and the server's AI key is shared, see [Accounts and AI keys](#accounts-and-ai-keys)), and the e-mail, text, Google, Stripe and S3 settings are ignored. Read once at startup. |
+| `SKRONGLE_MINI` | unset (mini: `1`) | `1`: this server is a Skrongle mini, the self-hosted version. It is what makes the server a mini: without it the server is the hosted site, which refuses to start without e-mail, Google and Stripe. In a mini there are no plans or payments (every account has every feature and the server's AI key is shared, see [Accounts and AI keys](#accounts-and-ai-keys)), and the e-mail, text, Google, Stripe and S3 settings are ignored. Read once at startup. |
 | `SKRONGLE_BIND` | `0.0.0.0:8080` | Address and port to listen on; a bare port (`8081`) means every interface. |
 | `SKRONGLE_SIGNUP` | `open` (mini: `invite`) | Who may make an account: `open`, `invite` or `closed`; see [Accounts and AI keys](#accounts-and-ai-keys). |
 | `SKRONGLE_PROXY_AUTH_HEADER`, `SKRONGLE_PROXY_AUTH_FROM` | — | Let the proxy in front sign people in; see [Signing in at the proxy](#signing-in-at-the-proxy). Both or neither. |
@@ -249,26 +249,25 @@ names the path. `SKRONGLE_TERMS=builtin` shows the hosted service's terms
 instead. The age box ("I am at least 14") stays either way
 (`SKRONGLE_MIN_AGE`).
 
-## Without e-mail or text messages
+## Without e-mail
 
-A Skrongle mini sends no e-mail or text messages (#633): the log says so
-once at start (`e-mail: not configured; features that need it are off`,
-and the same for texts), and every feature that would send a message
-hides itself instead. The e-mail and text settings of the hosted site
-(`SKRONGLE_MAIL_PROVIDERS`, `SKRONGLE_SMS_PROVIDERS`) are ignored in a
+A Skrongle mini sends no e-mail (#633): the log says so
+once at start (`e-mail: not configured; features that need it are off`),
+and every feature that would send a message
+hides itself instead. The e-mail setting of the hosted site
+(`SKRONGLE_MAIL_PROVIDERS`) is ignored in a
 mini, and so are Google sign-in, Stripe and `SKRONGLE_S3_BUCKET`; the log
 names any that are set.
 
-| Feature | Without e-mail | Without texts |
-|---|---|---|
-| Confirming an address | No link is sent. The e-mail field shows an (i), not the red !, and nothing asks to send it again. | — |
-| Phone number | — | The profile has no phone field. |
-| Two-factor sign-in | The e-mail method is not offered. | The text message method is not offered. |
-| Sharing a course | After inviting, the Share dialog shows each address's link with a Copy button, once (links are stored only hashed); pass it on yourself. | — |
-| Download my data | No mail: when the copy is ready, the Data section's **Download my data** button gets it (the button is there with mail too). | — |
+| Feature | Without e-mail |
+|---|---|
+| Confirming an address | No link is sent. The e-mail field shows an (i), not the red !, and nothing asks to send it again. |
+| Two-factor sign-in | The e-mail method is not offered. |
+| Sharing a course | After inviting, the Share dialog shows each address's link with a Copy button, once (links are stored only hashed); pass it on yourself. |
+| Download my data | No mail: when the copy is ready, the Data section's **Download my data** button gets it (the button is there with mail too). |
 
-The authenticator app needs neither, so two-factor sign-in still works. An
-account whose second step was e-mail or texts (a database moved over from
+The authenticator app needs no e-mail, so two-factor sign-in still works. An
+account whose second step was e-mail (a database moved over from
 elsewhere) cannot sign in: the login page says so. Turn two-factor sign-in
 off for that account (see [If you lock yourself out](#if-you-lock-yourself-out)).
 
