@@ -26,8 +26,6 @@ pub const VAR: &str = "SKRONGLE_SIGNUP";
 pub const INVITE_TTL_SECS: i64 = 7 * 86_400;
 /// How long the owner's link works; a restart replaces it sooner.
 pub const OWNER_LINK_TTL_SECS: i64 = 365 * 86_400;
-/// Accounts the Superuser section lists (newest first).
-pub const ACCOUNTS_PER_PAGE: i64 = 25;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
 pub enum Mode {
@@ -293,28 +291,15 @@ pub struct Account {
     pub superuser: bool,
 }
 
-/// One page of the accounts, newest first.
-pub struct AccountsPage {
-    pub list: Vec<Account>,
-    /// How many accounts there are in all.
-    pub total: i64,
-    /// This page (from 1) and how many there are (at least 1).
-    pub page: i64,
-    pub pages: i64,
-}
-
-/// Page `page` (from 1; out of range means the nearest page) of
-/// [`ACCOUNTS_PER_PAGE`] accounts, newest first.
-pub fn accounts(conn: &Connection, page: i64) -> rusqlite::Result<AccountsPage> {
-    let total: i64 = conn.query_row("SELECT COUNT(*) FROM users", [], |r| r.get(0))?;
-    let pages = (total + ACCOUNTS_PER_PAGE - 1).max(ACCOUNTS_PER_PAGE) / ACCOUNTS_PER_PAGE;
-    let page = page.clamp(1, pages);
+/// Every account, newest first. The server holds at most
+/// `caps::MAX_ACCOUNTS`, so there is no paging.
+pub fn accounts(conn: &Connection) -> rusqlite::Result<Vec<Account>> {
     let mut stmt = conn.prepare_cached(
         "SELECT COALESCE(u.email, ''), u.created_at, (SELECT MAX(s.created_at) FROM sessions s WHERE s.user_id = u.id), u.superuser
-         FROM users u ORDER BY u.id DESC LIMIT ?1 OFFSET ?2",
+         FROM users u ORDER BY u.created_at DESC, u.id DESC",
     )?;
-    let rows = stmt.query_map([ACCOUNTS_PER_PAGE, (page - 1) * ACCOUNTS_PER_PAGE], |r| Ok(Account { email: r.get(0)?, created_at: r.get(1)?, last_sign_in: r.get(2)?, superuser: r.get(3)? }))?;
-    Ok(AccountsPage { list: rows.collect::<Result<_, _>>()?, total, page, pages })
+    let rows = stmt.query_map([], |r| Ok(Account { email: r.get(0)?, created_at: r.get(1)?, last_sign_in: r.get(2)?, superuser: r.get(3)? }))?;
+    rows.collect()
 }
 
 #[cfg(test)]
@@ -432,25 +417,19 @@ mod tests {
         assert!(u.starts_with("http://") && u.contains(":8080/") && u.ends_with("/register?invite=ab"), "{u}");
     }
 
-    /// The account list comes in pages of 25, newest first; an empty server
-    /// has one empty page; a page past the end is the last one.
+    /// Every account shows, newest first, however many there are up to the cap.
     #[test]
-    fn accounts_come_in_pages() {
+    fn accounts_list_every_account() {
         let db = Db::open_in_memory().unwrap();
         db.with(|c| {
-            let p = accounts(c, 1)?;
-            assert!((p.total, p.page, p.pages, p.list.len()) == (0, 1, 1, 0));
-            for n in 0..26 {
+            assert!(accounts(c)?.is_empty());
+            for n in 0..crate::caps::MAX_ACCOUNTS {
                 crate::auth::create_user(c, &format!("u{n:02}@example.org"), "h")?;
             }
-            let p = accounts(c, 1)?;
-            assert_eq!((p.total, p.page, p.pages, p.list.len()), (26, 1, 2, 25));
-            assert_eq!(p.list[0].email, "u25@example.org");
-            let p = accounts(c, 2)?;
-            assert_eq!((p.page, p.list.len()), (2, 1));
-            assert_eq!(p.list[0].email, "u00@example.org");
-            assert_eq!(accounts(c, 7)?.page, 2);
-            assert_eq!(accounts(c, -1)?.page, 1);
+            let list = accounts(c)?;
+            assert_eq!(list.len(), crate::caps::MAX_ACCOUNTS);
+            assert_eq!(list[0].email, format!("u{:02}@example.org", crate::caps::MAX_ACCOUNTS - 1));
+            assert_eq!(list[list.len() - 1].email, "u00@example.org");
             Ok(())
         })
         .unwrap();
@@ -497,9 +476,9 @@ mod tests {
             assert!(!revoke(c, used_id)?);
             assert_eq!(purge(c, t0 + INVITE_TTL_SECS + 30 * 86_400 + 1)?, 2);
 
-            let p = accounts(c, 1)?;
-            assert_eq!(p.total, 2);
-            assert_eq!(p.list.first().map(|a| a.email.as_str()), Some("ann@example.org"));
+            let p = accounts(c)?;
+            assert_eq!(p.len(), 2);
+            assert_eq!(p.first().map(|a| a.email.as_str()), Some("ann@example.org"));
             Ok(())
         })
         .unwrap();

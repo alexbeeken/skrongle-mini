@@ -1947,8 +1947,7 @@ keep their explicit buttons. The page needs JavaScript.
     its SHA-256 in `signup_invites`, and works once, for 7 days. The open
     invitations are listed (made, expires) with **Revoke**
     (`POST /superuser/invites/revoke`). Below, every account, newest
-    first, 25 to a page (`?page=N`; Newer / Older links and "Page 1 of 3"
-    once there is more than one): e-mail address, created, last sign-in
+    first, all on one page (the server holds at most 8): e-mail address, created, last sign-in
     (the newest session on record; sessions last 30 days), and three
     actions per row, each opening a dialog with the address, what it does
     and a confirm button. Nothing is sent to the account; each writes one

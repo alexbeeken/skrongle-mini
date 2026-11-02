@@ -9,7 +9,6 @@
     <p data-testid="superuser-signup-mode" data-mode="{{ mode }}">{% if mode == "invite" %}{{ crate::t("superuser.mode_invite") }}{% else if mode == "closed" %}{{ crate::t("superuser.mode_closed") }}{% else %}{{ crate::t("superuser.mode_open") }}{% endif %}</p>
     {% if mode == "invite" %}<p>{{ crate::t("superuser.invite_about") }}</p>{% endif %}
     <p class="small" data-testid="superuser-account-count">{{ crate::t2("superuser.accounts_of", "total", total, "max", max_accounts) }}</p>
-    <p class="small">{{ crate::t2("superuser.accounts_shown", "total", total, "per_page", per_page) }}</p>
     <div class="modal-actions"><button type="button" class="btn" data-closes>{{ crate::t("profile.data.export_ok") }}</button></div>
   </dialog>
   {% if let Some(n) = notice %}<p class="alert ok-text" role="status" data-testid="superuser-notice">✓ {{ n }}{% if let Some(i) = inbox %} <a href="{{ i }}" data-testid="superuser-inbox">{{ crate::t("superuser.open_inbox") }}</a>{% endif %}</p>{% endif %}
@@ -87,13 +86,6 @@
         {% endif %}</td></tr>{% endfor %}
       </tbody>
     </table></div>
-    {% if pages > 1 %}
-    <nav class="pager" aria-label="{{ crate::t("superuser.accounts") }}" data-testid="superuser-pager">
-      {% if let Some(p) = prev %}<a href="{{ p }}" data-testid="superuser-prev">← {{ crate::t("superuser.prev") }}</a>{% endif %}
-      <span class="muted small" data-testid="superuser-page-of">{{ crate::t2("superuser.page_of", "page", page, "pages", pages) }}</span>
-      {% if let Some(n) = next %}<a href="{{ n }}" data-testid="superuser-next">{{ crate::t("superuser.next") }} →</a>{% endif %}
-    </nav>
-    {% endif %}
   </section>
 
   <dialog class="modal" id="superuser-password-dialog" aria-labelledby="superuser-password-title" data-testid="superuser-password-dialog">
