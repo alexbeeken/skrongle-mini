@@ -13,10 +13,13 @@ use std::path::Path;
 use std::sync::{Arc, Mutex, OnceLock};
 
 use crate::error::AppError;
+use crate::mastery::cache::ProgressCache;
 
 #[derive(Clone)]
 pub struct Db {
     conn: Arc<Mutex<Connection>>,
+    /// Learners' progress for their course, in memory (#38).
+    progress: Arc<ProgressCache>,
 }
 
 /// Pragmas applied to every connection. See the README for the reasoning.
@@ -70,7 +73,7 @@ impl Db {
         conn.execute_batch(PRAGMAS)?;
         migrate(&conn)?;
         start_trace(&conn);
-        Ok(Db { conn: Arc::new(Mutex::new(conn)) })
+        Db::wrap(conn)
     }
 
     /// Open an in-memory database (tests).
@@ -79,7 +82,18 @@ impl Db {
         let conn = Connection::open_in_memory()?;
         conn.execute_batch("PRAGMA foreign_keys = ON;")?;
         migrate(&conn)?;
-        Ok(Db { conn: Arc::new(Mutex::new(conn)) })
+        Db::wrap(conn)
+    }
+
+    /// Hold a migrated connection, with an empty progress cache.
+    fn wrap(conn: Connection) -> rusqlite::Result<Db> {
+        Ok(Db { conn: Arc::new(Mutex::new(conn)), progress: Arc::default() })
+    }
+
+    /// The progress cache (#38), for the tests.
+    #[cfg(test)]
+    pub fn progress_cache(&self) -> &ProgressCache {
+        &self.progress
     }
 
     /// Run a closure against the connection on the blocking thread pool.
@@ -89,10 +103,11 @@ impl Db {
         T: Send + 'static,
     {
         let conn = Arc::clone(&self.conn);
+        let progress = Arc::clone(&self.progress);
         let lang = crate::i18n::snapshot();
         tokio::task::spawn_blocking(move || {
             let mut guard = conn.lock().unwrap_or_else(|poisoned| poisoned.into_inner());
-            crate::i18n::in_scope(lang, || f(&mut guard))
+            crate::mastery::cache::in_scope(&progress, || crate::i18n::in_scope(lang, || f(&mut guard)))
         })
         .await
         .map_err(|e| AppError::Internal(format!("db task failed: {e}")))?
@@ -105,7 +120,7 @@ impl Db {
         F: FnOnce(&mut Connection) -> rusqlite::Result<T>,
     {
         let mut guard = self.conn.lock().unwrap_or_else(|poisoned| poisoned.into_inner());
-        f(&mut guard)
+        crate::mastery::cache::in_scope(&self.progress, || f(&mut guard))
     }
 }
 

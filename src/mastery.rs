@@ -12,6 +12,8 @@ use std::collections::HashMap;
 
 use crate::db::now;
 
+pub mod cache;
+
 /// Mastery at or above this is considered "mastered".
 pub const MASTERED_AT: f64 = 80.0;
 /// Below this (once tested) the topic "needs practice", if it has earned it:
@@ -178,7 +180,26 @@ fn row(r: &rusqlite::Row<'_>) -> rusqlite::Result<Progress> {
     })
 }
 
+/// The learner's progress rows for a course, by lesson id: from the
+/// [`cache`] when it holds them, else read and held.
 pub fn load_progress(conn: &Connection, user_id: i64, course_id: &str) -> rusqlite::Result<HashMap<String, Progress>> {
+    let cache = cache::current();
+    if let Some(map) = cache.as_ref().and_then(|c| c.get(user_id, course_id)) {
+        return Ok(map);
+    }
+    let map = read_progress(conn, user_id, course_id)?;
+    if let Some(c) = cache {
+        #[cfg(test)]
+        c.reads.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
+        // Inside a transaction the rows may include writes not yet kept.
+        if conn.is_autocommit() {
+            c.fill(user_id, course_id, map.clone());
+        }
+    }
+    Ok(map)
+}
+
+fn read_progress(conn: &Connection, user_id: i64, course_id: &str) -> rusqlite::Result<HashMap<String, Progress>> {
     let mut stmt =
         conn.prepare_cached(&format!("SELECT {COLS} FROM user_progress WHERE user_id = ?1 AND course_id = ?2"))?;
     let rows = stmt.query_map(params![user_id, course_id], row)?;
@@ -192,6 +213,9 @@ pub fn load_progress(conn: &Connection, user_id: i64, course_id: &str) -> rusqli
 
 pub fn load_one(conn: &Connection, user_id: i64, course_id: &str, lesson_id: &str) -> rusqlite::Result<Option<Progress>> {
     use rusqlite::OptionalExtension;
+    if let Some(held) = cache::current().and_then(|c| c.get_one(user_id, course_id, lesson_id)) {
+        return Ok(held);
+    }
     conn.query_row(
         &format!("SELECT {COLS} FROM user_progress WHERE user_id = ?1 AND course_id = ?2 AND lesson_id = ?3"),
         params![user_id, course_id, lesson_id],
@@ -200,6 +224,8 @@ pub fn load_one(conn: &Connection, user_id: i64, course_id: &str, lesson_id: &st
     .optional()
 }
 
+/// Write a lesson's progress row and update the [`cache`]: the one place
+/// a `user_progress` row is written (see `cache` for the others).
 pub fn save(conn: &Connection, user_id: i64, course_id: &str, p: &Progress) -> rusqlite::Result<()> {
     conn.execute(
         "INSERT INTO user_progress
@@ -224,6 +250,16 @@ pub fn save(conn: &Connection, user_id: i64, course_id: &str, p: &Progress) -> r
             p.read_at
         ],
     )?;
+    if let Some(c) = cache::current() {
+        // Inside a transaction the write may yet be rolled back: forget the
+        // learner's map rather than hold a row the table may not keep.
+        // `record_answer` puts it back after its commit.
+        if conn.is_autocommit() {
+            c.put(user_id, course_id, p);
+        } else {
+            c.forget_user(user_id);
+        }
+    }
     Ok(())
 }
 
@@ -250,9 +286,18 @@ pub fn record_answer(
     selected_answer: &str,
     correct: bool,
 ) -> rusqlite::Result<Progress> {
+    // The learner's held map, taken out while the transaction runs (its
+    // `save` would forget it) and put back, with the new row, once the
+    // answer is committed. An error leaves it out: the next load reads.
+    let cache = cache::current();
+    let held = cache.as_ref().and_then(|c| c.take(user_id, course_id));
     let tx = conn.transaction()?;
     let progress = record_answer_at(&tx, user_id, course_id, lesson_id, question_id, selected_answer, correct, now())?;
     tx.commit()?;
+    if let (Some(c), Some(mut map)) = (cache, held) {
+        map.insert(progress.lesson_id.clone(), progress.clone());
+        c.fill(user_id, course_id, map);
+    }
     Ok(progress)
 }
 

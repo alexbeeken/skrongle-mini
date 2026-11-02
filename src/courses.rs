@@ -842,6 +842,9 @@ pub fn delete_course(conn: &Connection, id: &str) -> rusqlite::Result<()> {
     conn.execute("DELETE FROM courses WHERE id = ?1", [id])?;
     conn.execute("DELETE FROM projects WHERE course_id = ?1", [id])?;
     conn.execute("UPDATE users SET active_course = NULL WHERE active_course = ?1", [id])?;
+    // Progress rows stay (a course re-added under its id finds them), but
+    // nobody is on this course any more (#38).
+    crate::mastery::cache::forget_course(id);
     Ok(())
 }
 

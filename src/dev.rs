@@ -447,6 +447,7 @@ pub fn reset_user(conn: &Connection, user_id: i64) -> rusqlite::Result<Vec<Strin
     for t in PROGRESS_TABLES.iter().chain(["projects", "ai_usage"].iter()) {
         conn.execute(&format!("DELETE FROM {t} WHERE user_id = ?1"), [user_id])?;
     }
+    crate::mastery::cache::forget_all();
     crate::courses::clear_active(conn, user_id)?;
     conn.execute("UPDATE users SET review_quiet = 0, lang = '' WHERE id = ?1", [user_id])?;
     Ok(owned)
