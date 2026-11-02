@@ -820,7 +820,7 @@ pub(crate) fn test_state(dev: bool) -> Arc<AppState> {
         jobs: Default::default(),
         vault,
         tutors: Default::default(),
-        prices: crate::prices::PriceTable::parse(crate::prices::DEFAULT_PRICES).unwrap(),
+        prices: crate::prices::PriceTable::parse(crate::prices::DEFAULT_PRICES).unwrap(), // panic-ok: tests only, the built-in defaults parse
         dev,
         limits: crate::security::RateLimits::new(dev),
         mail: crate::mail::Mailer::idle(),
