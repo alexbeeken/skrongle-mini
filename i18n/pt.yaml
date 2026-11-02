@@ -2938,7 +2938,7 @@ courses:
     has_content: "Este curso já tem conteúdo próprio, então a IA não o gera de novo. Peça o que quiser na caixa Usar IA."
     instructions_too_long: "As instruções têm mais de {max} caracteres."
     cancelled: Cancelado.
-    in_line: "Você é o número {n} na fila."
+    busy_other: "Já há um curso sendo gerado; tente de novo quando ele terminar."
     cancelling_revision: "Cancelando: o curso fica como estava."
     cancelling_generation: "Cancelando: o curso para depois da lição que está sendo escrita."
     sent_to_hosted_choice_html: "Suas anotações são enviadas para <span id=\"gen-disclosure-provider\">o provedor de IA que este servidor usa</span><span id=\"gen-disclosure-key\" hidden> usando sua chave</span>."

@@ -6,8 +6,8 @@
 //! first on the server's key and records each call in `ai_usage`.
 //!
 //! The key is used for one generation job and never stored: it lives in the
-//! job struct in memory and is dropped when the job finishes. A job past the
-//! free slots waits in line as a `jobs` row (`queue.rs`, #874). Generation runs
+//! job struct in memory and is dropped when the job finishes. A second job
+//! while one runs is refused, there is no line (`queue.rs`, #874, #43). Generation runs
 //! on a plain OS thread (not Tokio's small blocking pool, which SQLite and
 //! argon2 need), makes one request for the outline and then one per lesson,
 //! validates every file with the normal course loader and saves it into the
@@ -343,9 +343,6 @@ pub struct Status {
     pub lesson_title: Option<String>,
     /// A copy being translated (#630).
     pub translating: bool,
-    /// Waiting in line: its place, 1 for next (`Jobs::status`).
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub place: Option<usize>,
     #[serde(skip)]
     pub finished_at: Option<i64>,
     /// The why and check lines of the lessons it wrote (#1238), kept with the run.

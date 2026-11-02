@@ -38,7 +38,7 @@
 //!   [`OUTBOX_BATCH`] rows per outbox before the next job, and the outboxes
 //!   go first, so a sign-in code never waits behind housekeeping.
 //!
-//! - AI jobs (#874, `ai/queue.rs`, kind [`crate::ai::GENERATE`]) wait in line
+//! - AI jobs (#874, `ai/queue.rs`, kind [`crate::ai::GENERATE`]): a generation resumed after a restart is queued
 //!   here but never run on this thread: the handler starts the job's own OS
 //!   thread and returns [`Step::Handed`], and that thread renews the lease and
 //!   records the end. A gate ([`Runner::handle_claimed`]) keeps the runner

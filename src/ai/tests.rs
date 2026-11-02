@@ -194,8 +194,8 @@ fn ai_generation_keeps_to_the_course_caps() {
 
 /// The generation slots (#368, #874): taken under one lock, so two requests
 /// at once cannot both get one; held until the generator thread exits, even
-/// after the job is dropped with its account; past the free slots a job
-/// waits in line with its place; and a job stops when its time budget runs out.
+/// after the job is dropped with its account; a second job while one runs is
+/// refused, never queued (#43); and a job stops when its time budget runs out.
 #[test]
 fn ai_job_slots_are_taken_atomically_and_held_until_the_thread_exits() {
     let db = Db::open_in_memory().unwrap();
@@ -217,28 +217,16 @@ fn ai_job_slots_are_taken_atomically_and_held_until_the_thread_exits() {
         .collect();
     assert_eq!(started.iter().filter(|ok| **ok).count(), 1, "{started:?}");
 
+    // One job at a time: Bob is refused at once, with the message, and
+    // nothing is left waiting.
     let bob = generating(&db, "bob", "bob-course", url.clone());
-    assert_eq!(start(&jobs, db.clone(), Arc::clone(&registry), bob, "bob".into(), 0), Ok(Started::Now));
-    // Both slots busy: Cat and Dan wait in line, in order.
-    let cat = generating(&db, "cat", "cat-course", url.clone());
-    assert_eq!(start(&jobs, db.clone(), Arc::clone(&registry), cat.clone(), "cat".into(), 7), Ok(Started::Waiting));
-    let dan = generating(&db, "dan", "dan-course", url.clone());
-    assert_eq!(start(&jobs, db.clone(), Arc::clone(&registry), dan.clone(), "dan".into(), 8), Ok(Started::Waiting));
-    assert!(check_capacity(&jobs, cat.user_id).unwrap_err().contains("already have"), "one job each, waiting or not");
-    let place = |id: &str| jobs.status(&jobs.get(id).unwrap());
-    assert_eq!((place("cat").place, place("dan").place), (Some(1), Some(2)));
-    assert_eq!(place("dan").phase, "You're number 2 in line.");
-    assert_eq!(place("bob").place, None, "a running job has no place");
+    let refused = start(&jobs, db.clone(), Arc::clone(&registry), bob.clone(), "bob".into(), 0).unwrap_err();
+    assert_eq!(refused, crate::t("courses.generate.busy_other"));
+    assert_eq!(check_capacity(&jobs, bob.user_id), Err(refused));
+    assert!(jobs.get("bob").is_none(), "a refused job is not in the table");
+    assert!(jobs.lock().waiting.is_empty());
+    assert!(check_capacity(&jobs, ann.user_id).unwrap_err().contains("already have"), "one job each");
     assert!(!slot_free(&jobs));
-
-    // The line holds `line_limit()`; one more is refused.
-    for i in 2..line_limit() {
-        let r = generating(&db, &format!("w{i}"), &format!("w{i}-course"), url.clone());
-        assert_eq!(start(&jobs, db.clone(), Arc::clone(&registry), r, format!("w{i}"), 10 + i as i64), Ok(Started::Waiting));
-    }
-    let eve = generating(&db, "eve", "eve-course", url.clone());
-    assert!(check_capacity(&jobs, eve.user_id).unwrap_err().contains("Too many"));
-    assert!(start(&jobs, db.clone(), Arc::clone(&registry), eve, "eve".into(), 0).is_err());
 
     // Ann's account goes: her job leaves the table, but its thread is
     // still waiting on the model, so the slot stays taken.
@@ -254,12 +242,13 @@ fn ai_job_slots_are_taken_atomically_and_held_until_the_thread_exits() {
         std::thread::sleep(Duration::from_millis(20));
     }
     assert!(jobs.lock().live.is_empty());
-    assert_eq!(place("cat").place, Some(1), "still waiting: the runner starts it (none runs in this test)");
+    // With the slot free, Bob may start.
+    assert!(check_capacity(&jobs, bob.user_id).is_ok());
 
     // Out of budget: no request is made, and the job says why.
     let job = test_job("c");
     let job = Job { deadline: Mutex::new(std::time::Instant::now()), ..job };
-    let err = job.llm(&db, &cat, &Call::new("generate-outline"), "s", "u").unwrap_err();
+    let err = job.llm(&db, &ann, &Call::new("generate-outline"), "s", "u").unwrap_err();
     assert!(err.contains("took longer than") && err.contains("resume"), "{err}");
 }
 
@@ -291,7 +280,7 @@ fn interrupted_generations_wait_again_unless_the_key_was_pasted() {
     // Back in the table, waiting, so the learner's page follows it.
     let jobs = Jobs::default();
     assert_eq!(adopt(&jobs, &db).unwrap(), 1);
-    assert_eq!(jobs.status(&jobs.get("j").unwrap()).place, Some(1));
+    assert_eq!(jobs.status(&jobs.get("j").unwrap()).phase, "Waiting", "until the runner starts it");
     assert!(check_capacity(&jobs, saved.user_id).is_err(), "it is still their job");
 }
 
@@ -397,7 +386,6 @@ fn test_job(course_id: &str) -> Job {
             editing: false,
             lesson_title: None,
             translating: false,
-            place: None,
             finished_at: None,
             notes: vec![],
         }),

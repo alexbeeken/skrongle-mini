@@ -27,7 +27,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 - Course model and validation: `content.rs` (Manifest, Lesson, ContentStore), `content/paradigm.rs` (paradigm slots and sets, `who`), `content/quiz_type.rs` (the quiz question types); contract in `docs/course-format.md`. Placement test (`placement.json`, #1106): `placement.rs` (format, drawing, marking), routes in `routes/courses/settings.rs`, `templates/placement_test.html`, `static/placement.js`.
 - Course registry: `courses.rs` (built-in, user-made<!-- themes -->, themed copies<!-- /themes -->, projects); pages in `routes/courses/` (`routes/courses/mod.rs` routes and shared views, `routes/courses/picker.rs` the list, `routes/courses/settings.rs` the settings dialog and opening, `routes/courses/stat.rs` the body of a card's stat modal (fetched by `static/course-stat.js`), `routes/courses/create.rs` new, copy and translate, `routes/courses/editor.rs` the editor page, `routes/courses/files.rs` files, upload and export, `routes/courses/lessons.rs` the lesson table, `routes/courses/generate.rs` AI generation, `routes/courses/revise.rs` Add content, Review AI changes, Undo), `static/json-problems.js` (JSON problems worded as the server words them), `static/lesson-editor.js`, `static/advice.js` (the yellow ! on lesson rows and its *Things to check* modal), `static/lesson-preview.js`, `static/schema-form.js`, `static/lesson-duplicate.js` (a lesson row's ⧉), `static/lesson-ai-edit.js` + `static/lesson-ai-edit.css` + `templates/lessons_ai_dialog.html` (a lesson row's ✦, Edit with AI, #1242), `static/ai-examples.js` + `static/ai-examples.css` (Use AI's example requests, `templates/ai_examples.html`), `templates/course_edit.html`.
 - Editing helpers: `arrange.rs` (lesson table, Undo), `word_list.rs` + `static/word-list.js` (Paste a word list), `problems.rs` (refusal messages), `report.rs` (feature usage report), `lint.rs` (course lints, `lint/language.rs` the language guess), `review.rs` (Review AI changes; its why and check lines styled by `static/review-notes.css`).
-- AI generation: `ai.rs` (LLM client, job runner), `ai/queue.rs` (the line, slots and leases of AI jobs, #874), `ai/prompt.rs` (the instructions and each kind of course's rules), `ai/budget.rs` (effort levels and the tokens a job reserves, #918), `ai/edit.rs` (Edit lessons, #1240), `ai/check.rs` (the `check` plan action and the why lines of a fact check, #1238), `ai/edit_lesson.rs` (Edit with AI on one row, #1242), `translate.rs` (copy and translate a course), `metering.rs` (Skrongle AI usage and limits), `routes/hosted.rs` (Skrongle AI on the pages).
+- AI generation: `ai.rs` (LLM client, job runner), `ai/queue.rs` (the one slot and the lease of AI jobs, #874, #43), `ai/prompt.rs` (the instructions and each kind of course's rules), `ai/budget.rs` (effort levels and the tokens a job reserves, #918), `ai/edit.rs` (Edit lessons, #1240), `ai/check.rs` (the `check` plan action and the why lines of a fact check, #1238), `ai/edit_lesson.rs` (Edit with AI on one row, #1242), `translate.rs` (copy and translate a course), `metering.rs` (Skrongle AI usage and limits), `routes/hosted.rs` (Skrongle AI on the pages).
 - Sharing: `share.rs`, `routes/share.rs`.
 - <!-- themes -->Themes: `themes.rs`, `data/themes/`; course<!-- /themes --><!-- no-themes -->Course<!-- /no-themes --> pickers in `static/courses.js`, `static/course-settings.js`.
 - Test course: `test_course.rs` (tests only), `data/test-courses/`.
@@ -76,8 +76,8 @@ src/
   ai/
     edit.rs      Edit lessons (#1240): rewrite lessons, add, remove or move none; the per-lesson writer shared with revise
     edit_lesson.rs  Edit with AI on one lesson's row (#1242): one `edit-lesson` request, checked by `arrange::only_edits_one`
-    queue.rs     the line for AI jobs (#874): slots, the `generate_course` rows on the jobs table, the lease heartbeat, going on after a restart
-    tests.rs     generation, resume, revision, slots and line tests
+    queue.rs     AI jobs, one at a time (#874, #43): the one slot, the `generate_course` rows on the jobs table, the lease heartbeat, going on after a restart
+    tests.rs     generation, resume, revision and slot tests
   review.rs      "Review AI changes": side-by-side line diff (Hirschberg LCS) of the files the latest AI run changed,
                  JSON shown as labelled text, summaries in words, and Accept minus what was left out (Exclusions)
   arrange.rs     restructure a course by lesson: apply the editor's lesson table (order, units, names, deletions, new and edited lessons), place an AI lesson; `only_adds`, `only_edits` and `only_edits_one` check an Only add, an Edit lessons run and a one-lesson edit; the result is one Undo step; the digest of written lessons, the course map and the neighbouring lessons for the next lesson's request
@@ -741,7 +741,6 @@ posture are in `docs/self-hosting.md`, "Skrongle mini".
 | `SKRONGLE_AI_TIMEOUT_SECS` | — | How long one model request may take, in place of 900 s for generation and 120 s for a chat turn (`scripts/e2e.sh` sets 8) |
 | `SKRONGLE_SQL_TRACE` | — | A file: every SQL statement the server runs is appended to it as a JSON line with its time, duration, SQLite's step and scan counters and the filled-in SQL (docs/testing.md, "Query trace") |
 | `SKRONGLE_SOCIAL_CACHE_SECS` | 300 | How long the Social motivator reuses a course's cross-learner numbers (`motivators/social.rs`); 0 reads them afresh every time (`scripts/e2e.sh` sets 0) |
-| `SKRONGLE_AI_JOBS` | `2` | AI jobs (generations, revisions, translations) that run at once, each on its own thread; the rest wait in line, at most 10 on the hosted site and 3 on Skrongle mini (#874) |
 | `SKRONGLE_AI_JOB_BUDGET_SECS` | `3600` | How long one AI job (a generation, Only add, Edit lessons, Allow overall changes) may run in all; past it the job stops before its next request, and no request runs past it |
 | `SKRONGLE_ALLOW_PRIVATE_AI_URLS` | `0` | `1`: a base URL typed into an AI form may point at loopback, private or link-local addresses (a self-hosted Ollama on the LAN), on any port. Off, such URLs are refused, and only ports 443 and 80 are allowed, so learners cannot make the server call its own network (dev mode always allows them). `SKRONGLE_OPENAI_BASE_URL` is never checked |
 | `SKRONGLE_SECRET_KEY` | *(generated)* | 64 hex characters; encrypts stored API keys. Unset: read from or created at `<SKRONGLE_DB>.key` (mode 0600) |
@@ -788,21 +787,21 @@ failed validation is sent back to the model (up to three attempts per
 lesson). Files are saved as they arrive. When the job ends the row becomes
 `ready` or `failed` (`courses::finish_generation`). Each job is also a `jobs` row of kind
 `generate_course` (`src/ai/queue.rs`, #874) that names the job, the course
-and how to rebuild the request, never the key. `SKRONGLE_AI_JOBS` jobs
-(default 2) run at once; past that a job waits in line (10 on the hosted
-site, 3 on Skrongle mini, then refused with a log line) and its progress
-reads "you're number N". The runner (`jobs.rs`) takes the next row when a
-slot frees and starts its generator thread (`Step::Handed`); one heartbeat
-thread renews the leases of running rows every two minutes, and the
-generator thread marks its row done or failed. At boot `ai::at_boot` puts a
-generation with the server's key or a saved key back in line, and it
-resumes by itself; any other unfinished job (a pasted key, a revision, a
+and how to rebuild the request, never the key. One job runs at
+once (`ai::slots()`, #43); a second request while it runs is refused at
+once ("a course is already being generated; try again when it finishes")
+and leaves no row waiting. That holds for generations, revisions, added
+lessons and translations alike. One heartbeat thread renews the lease of
+the running row every two minutes, and the generator thread marks its row
+done or failed. At boot `ai::at_boot` queues a generation with the
+server's key or a saved key again; the runner (`jobs.rs`) hands it to a
+new generator thread (`Step::Handed`) and it resumes by itself; any other unfinished job (a pasted key, a revision, a
 translation) is failed, and `fail_interrupted` marks its course `failed`,
 as before. A failed run resumes from the saved outline and notes, writing only the
 lessons that are missing. Cancelling sets a flag the job checks before each
 request; so does the job's time budget (`ai::JOB_BUDGET`, one hour), which
 also cuts each request's timeout to what is left. `ai::start` checks
-capacity and takes the slot (or the place in line) under one lock; a slot is held by the
+capacity and takes the slot under one lock; a slot is held by the
 generator thread and freed when it exits, so a job dropped from the table
 (its account deleted) still counts until then. The routes add a per-account
 quota (`security::AI_JOBS_PER_USER_HOUR`/`_DAY`), and at most

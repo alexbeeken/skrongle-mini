@@ -2938,7 +2938,7 @@ courses:
     has_content: "Dieser Kurs hat inzwischen eigenen Inhalt, daher erstellt die KI ihn nicht neu. Sag im Bereich KI verwenden, was du möchtest."
     instructions_too_long: "Die Anweisungen sind länger als {max} Zeichen."
     cancelled: Abgebrochen.
-    in_line: "Du bist Nummer {n} in der Warteschlange."
+    busy_other: "Es wird gerade ein Kurs erstellt; versuche es noch einmal, wenn er fertig ist."
     cancelling_revision: "Wird abgebrochen: Der Kurs bleibt, wie er war."
     cancelling_generation: "Wird abgebrochen: Der Kurs hört nach der gerade geschriebenen Lektion auf."
     sent_to_hosted_choice_html: "Deine Notizen werden an <span id=\"gen-disclosure-provider\">den KI-Anbieter gesendet, den dieser Server verwendet</span><span id=\"gen-disclosure-key\" hidden>, mit deinem Schlüssel</span>."

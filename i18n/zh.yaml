@@ -2938,7 +2938,7 @@ courses:
     has_content: "此课程已有自己的内容，因此 AI 不会重新生成它。请在“使用 AI”框中说明你想要的内容。"
     instructions_too_long: "指令超过 {max} 个字符。"
     cancelled: 已取消。
-    in_line: "你排在第 {n} 位。"
+    busy_other: "已有一门课程正在生成；请在它完成后再试。"
     cancelling_revision: "正在取消：课程保持原样。"
     cancelling_generation: "正在取消：课程将在正在编写的课节之后停止。"
     sent_to_hosted_choice_html: "你的笔记会发送给<span id=\"gen-disclosure-provider\">本服务器所使用的 AI 服务提供商</span><span id=\"gen-disclosure-key\" hidden>，并使用你的密钥</span>。"
