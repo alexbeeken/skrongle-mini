@@ -602,3 +602,23 @@ fn vocab_schedule_backfill() {
     }
     assert_eq!(days.len(), 7, "{days:?}");
 }
+
+/// #40: a project (or account) that wore the removed Social motivator wears
+/// the default again, and the indexes only it read are gone.
+#[test]
+fn the_social_removal_migration_puts_its_wearers_back_on_the_default() {
+    let v = MIGRATIONS.iter().position(|m| m.contains("DROP INDEX idx_earnings_course_day")).unwrap();
+    let conn = Connection::open_in_memory().unwrap();
+    for sql in &MIGRATIONS[..v] {
+        conn.execute_batch(sql).unwrap();
+    }
+    conn.execute_batch(&format!("PRAGMA user_version = {v};")).unwrap();
+    conn.execute("INSERT INTO users (id, password_hash, created_at, email, motivator) VALUES (1, 'h', 1, 'a@example.org', 'social'), (2, 'h', 1, 'b@example.org', 'xp')", []).unwrap();
+    for (user, course, m) in [(1, "es", "social"), (1, "fr", "skc"), (2, "es", "xp")] {
+        conn.execute("INSERT INTO projects (user_id, course_id, motivator, created_at, last_opened_at) VALUES (?1, ?2, ?3, 1, 1)", rusqlite::params![user, course, m]).unwrap();
+    }
+    migrate(&conn).unwrap();
+    let col = |sql: &str| -> Vec<String> { conn.prepare(sql).unwrap().query_map([], |r| r.get(0)).unwrap().map(Result::unwrap).collect() };
+    assert_eq!(col("SELECT motivator FROM users ORDER BY id"), ["", "xp"]);
+    assert_eq!(col("SELECT motivator FROM projects ORDER BY user_id, course_id"), ["", "skc", "xp"]);
+}

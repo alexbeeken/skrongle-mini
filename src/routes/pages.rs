@@ -612,7 +612,6 @@ pub async fn home(State(state): State<Arc<AppState>>, p: Project, headers: Heade
         unit_passed,
         unit_total,
         unit_percent: if unit_total == 0 { 0 } else { unit_passed * 100 / unit_total },
-        day_start,
     };
     let (due_count, due) = super::vocab::due_cards(&state, &p, 3).await?;
     let course = CourseView::of(content);

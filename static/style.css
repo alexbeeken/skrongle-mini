@@ -1686,13 +1686,6 @@ dialog.modal.plans { max-width: min(760px, calc(100vw - 2rem)); }
 .shop-price .skc-symbol { color: var(--accent); }
 .shop-owned { font-size: .85rem; color: var(--ok-text, var(--ok)); font-weight: 600; }
 
-/* Social motivator's hero (#563) */
-.social-hero .today-head { width: 100%; justify-content: space-between; }
-.social-lines { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .35rem; font-size: 1.1rem; font-weight: 600; }
-.social-goal { margin: 0; font-variant-numeric: tabular-nums; }
-.social-goal .muted { margin-left: .25rem; }
-.social-goal.done strong { color: var(--ok-text, var(--ok)); }
-
 /* The first visit's settings wizard (#574, templates/course_wizard.html): one step a page.
    course-settings.js adds .cs-on: the steps sit side by side and slide, an arrow on either side and
    dots for where you are; without it they stack. Both dialogs are .course-settings, which is what

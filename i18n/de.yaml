@@ -3267,27 +3267,6 @@ motivator:
       compass: "Kompass"
       lighthouse: "Leuchtturm"
       comet: "Komet"
-  social:
-    title: "Sozial"
-    about: "Wie du im Vergleich zu den anderen Lernenden dieses Kurses stehst und wie viele gerade lernen: nur anonyme Zahlen, niemand wird genannt."
-    week_effort: "Du hast diese Woche mehr geleistet als {pct} % der Lernenden in diesem Kurs."
-    week_count: "{n} Personen haben diese Woche mit diesem Kurs gelernt."
-    today_count: "{n} Personen lernen heute mit diesem Kurs."
-    streak_count: "{n} Lernende haben heute ihre Serie fortgesetzt."
-    streak_count_you: "{n} Lernende haben heute ihre Serie fortgesetzt. Du bist eine davon."
-    lesson_now: "{n} Lernende haben in der letzten Stunde an {title} gearbeitet."
-    goal: "Heute: {n} / {goal}"
-    ahead_today: ", mehr als {pct} % der heutigen Lernenden bisher"
-    info_label: "Was verglichen wird"
-    info_title: "Vergleiche mit anderen Lernenden"
-    info_compared: "Deine Einsatzpunkte dieser Woche und von heute (dieselben Punkte wie beim Tagesziel) werden mit denen aller verglichen, die in dieser Zeit mit diesem Kurs gelernt haben, egal welchen Motivator sie tragen, und die diese Woche bestandenen Lektionen werden gezählt."
-    info_anonymous: "Es werden nur Summen und Prozente gezeigt. Niemand wird genannt oder gezeigt, auch du nicht: Andere sehen dich nur als Teil der Zahlen."
-    info_crowd: "Ein Vergleich erscheint erst, wenn in diesem Zeitraum mindestens {n} Lernende aktiv waren. Bei weniger würde er zu viel über zu wenige Personen verraten."
-    info_lesson: "Bei der Lektion, mit der du weitermachen würdest, steht auch, wie viele Lernende sie in der letzten Stunde geöffnet oder bearbeitet haben."
-    reward:
-      passed: "Du bist eine von {n} Personen, die diese Lektion diese Woche bestanden haben."
-      first: "Du bist diese Woche die erste Person, die diese Lektion bestanden hat."
-      effort: "Mehr Einsatz als {pct} % der Lernenden dieses Kurses diese Woche."
 
 # Der Lektionseditor (#841): static/lesson-editor.js und static/lesson-preview.js.
 editor:

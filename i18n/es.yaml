@@ -3270,27 +3270,6 @@ motivator:
       compass: "Brújula"
       lighthouse: "Faro"
       comet: "Cometa"
-  social:
-    title: "Social"
-    about: "Cómo te comparas con los demás estudiantes de este curso y cuántos están estudiando: solo cifras anónimas, sin nombres."
-    week_effort: "Esta semana te has esforzado más que el {pct} % de los estudiantes de este curso."
-    week_count: "{n} personas han estudiado este curso esta semana."
-    today_count: "{n} personas están estudiando este curso hoy."
-    streak_count: "{n} estudiantes mantuvieron su racha hoy."
-    streak_count_you: "{n} estudiantes mantuvieron su racha hoy. Tú eres uno de ellos."
-    lesson_now: "{n} estudiantes trabajaron en {title} en la última hora."
-    goal: "Hoy: {n} / {goal}"
-    ahead_today: ", más que el {pct} % de los estudiantes de hoy por ahora"
-    info_label: "Qué se compara"
-    info_title: "Comparaciones con otros estudiantes"
-    info_compared: "Tus puntos de esfuerzo de esta semana y de hoy (los mismos del objetivo diario) se comparan con los de todos los que estudiaron este curso en ese tiempo, lleven el motivador que lleven, y se cuentan las lecciones aprobadas esta semana."
-    info_anonymous: "Solo se muestran totales y porcentajes. No se nombra ni se muestra a nadie, tampoco a ti: los demás solo te ven como parte de las cifras."
-    info_crowd: "Una comparación solo aparece cuando al menos {n} estudiantes estuvieron activos en ese tiempo. Con menos, diría demasiado de muy pocas personas."
-    info_lesson: "La lección con la que seguirías también muestra cuántos estudiantes la abrieron o trabajaron en ella en la última hora."
-    reward:
-      passed: "Eres una de las {n} personas que aprobaron esta lección esta semana."
-      first: "Eres la primera persona en aprobar esta lección esta semana."
-      effort: "Más esfuerzo que el {pct} % de los estudiantes de este curso esta semana."
 
 # El editor de lecciones (#841): static/lesson-editor.js y static/lesson-preview.js.
 editor:
