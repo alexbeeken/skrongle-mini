@@ -138,7 +138,7 @@ async fn load(state: &AppState, user: CurrentUser, page: i64) -> Result<Superuse
             .collect(),
         total: accounts.total,
         max_accounts: crate::caps::MAX_ACCOUNTS,
-        full: crate::caps::accounts_full(accounts.total),
+        full: crate::caps::accounts_full(accounts.total, state.dev),
         page: accounts.page,
         pages: accounts.pages,
         per_page: crate::signup::ACCOUNTS_PER_PAGE,
@@ -220,10 +220,10 @@ pub async fn make_invite(State(state): State<Arc<AppState>>, user: CurrentUser, 
     if !user.superuser || state.signup != crate::signup::Mode::Invite {
         return Err(AppError::NotFound);
     }
-    let uid = user.id;
+    let (uid, dev) = (user.id, state.dev);
     let token = state
         .db
-        .call(move |c| Ok(if crate::signup::is_full(c)? { None } else { Some(crate::signup::make(c, uid, crate::db::now())?) }))
+        .call(move |c| Ok(if crate::signup::is_full(c, dev)? { None } else { Some(crate::signup::make(c, uid, crate::db::now())?) }))
         .await?;
     let Some(token) = token else {
         let mut t = load(&state, user, 1).await?;

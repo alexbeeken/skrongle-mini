@@ -657,9 +657,6 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
             false
         }
     };
-    if dev || !is_mini() {
-        caps::exempt_accounts();
-    }
     for w in security::https_warnings(cfg.bind, cfg.secure_cookies, env("PUBLIC_URL").as_deref()) {
         tracing::warn!("{w}");
     }
