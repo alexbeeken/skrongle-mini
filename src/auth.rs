@@ -17,6 +17,8 @@ use crate::AppState;
 pub const SESSION_COOKIE: &str = "sid";
 /// Sessions live for 30 days of inactivity-free time (TTL is fixed, not sliding).
 pub const SESSION_TTL_SECS: i64 = 30 * 24 * 60 * 60;
+/// Live sessions one account keeps; signing in again ends the oldest (#30).
+pub use crate::caps::MAX_SESSIONS_PER_ACCOUNT;
 
 // Argon2id parameters tuned for a Cortex-A53 at ~1 GHz: ~8 MiB memory, 3 passes.
 // Roughly 60-120 ms per hash on the Pi Zero 2 W, and never more than 8 MiB of
@@ -280,13 +282,33 @@ pub fn hash_token(token: &str) -> String {
 }
 
 /// Start a session; returns the token for the cookie (only its hash is stored).
+/// The only place a `sessions` row is inserted: it first ends the account's
+/// oldest sessions so that, with the new one, it holds at most
+/// [`MAX_SESSIONS_PER_ACCOUNT`] (#30). A savepoint keeps both steps atomic
+/// whether or not the caller already has a transaction open.
 pub fn create_session(conn: &Connection, user_id: i64) -> rusqlite::Result<String> {
     let token = generate_token();
     let t = now();
-    conn.execute(
-        "INSERT INTO sessions (user_id, session_token, created_at, expires_at) VALUES (?1, ?2, ?3, ?4)",
-        params![user_id, hash_token(&token), t, t + SESSION_TTL_SECS],
-    )?;
+    conn.execute_batch("SAVEPOINT create_session")?;
+    let res = conn
+        .execute(
+            "DELETE FROM sessions WHERE user_id = ?1 AND id NOT IN \
+             (SELECT id FROM sessions WHERE user_id = ?1 ORDER BY created_at DESC, id DESC LIMIT ?2)",
+            params![user_id, MAX_SESSIONS_PER_ACCOUNT as i64 - 1],
+        )
+        .and_then(|_| {
+            conn.execute(
+                "INSERT INTO sessions (user_id, session_token, created_at, expires_at) VALUES (?1, ?2, ?3, ?4)",
+                params![user_id, hash_token(&token), t, t + SESSION_TTL_SECS],
+            )
+        });
+    match res {
+        Ok(_) => conn.execute_batch("RELEASE create_session")?,
+        Err(e) => {
+            let _ = conn.execute_batch("ROLLBACK TO create_session; RELEASE create_session");
+            return Err(e);
+        }
+    }
     Ok(token)
 }
 
@@ -670,6 +692,28 @@ mod tests {
             assert!(user_for_session(c, &here)?.is_some());
             delete_session(c, &here)?;
             assert!(user_for_session(c, &here)?.is_none());
+            Ok(())
+        })
+        .unwrap();
+    }
+
+    /// The fifth sign-in ends the oldest session; the other four work (#30).
+    #[test]
+    fn fifth_session_ends_the_oldest() {
+        let db = crate::db::Db::open_in_memory().unwrap();
+        db.with(|c| {
+            let ann = create_user(c, "ann@example.org", "h")?;
+            let bea = create_user(c, "bea@example.org", "h")?;
+            crate::terms::accept(c, ann, crate::terms::version())?;
+            crate::terms::accept(c, bea, crate::terms::version())?;
+            let other = create_session(c, bea)?;
+            let tokens: Vec<String> = (0..5).map(|_| create_session(c, ann)).collect::<Result<_, _>>()?;
+            assert!(user_for_session(c, &tokens[0])?.is_none());
+            for t in &tokens[1..] {
+                assert_eq!(user_for_session(c, t)?.map(|u| u.id), Some(ann));
+            }
+            // Another account's session is not counted against Ann's.
+            assert_eq!(user_for_session(c, &other)?.map(|u| u.id), Some(bea));
             Ok(())
         })
         .unwrap();
