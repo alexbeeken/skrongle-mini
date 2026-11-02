@@ -284,31 +284,21 @@ pub fn hash_token(token: &str) -> String {
 /// Start a session; returns the token for the cookie (only its hash is stored).
 /// The only place a `sessions` row is inserted: it first ends the account's
 /// oldest sessions so that, with the new one, it holds at most
-/// [`MAX_SESSIONS_PER_ACCOUNT`] (#30). A savepoint keeps both steps atomic
-/// whether or not the caller already has a transaction open.
+/// [`MAX_SESSIONS_PER_ACCOUNT`] (#30). Two plain statements, no savepoint of
+/// its own: the one connection sits behind a mutex, so nothing runs between
+/// them, and inside a caller's transaction they commit or roll back with it.
 pub fn create_session(conn: &Connection, user_id: i64) -> rusqlite::Result<String> {
     let token = generate_token();
     let t = now();
-    conn.execute_batch("SAVEPOINT create_session")?;
-    let res = conn
-        .execute(
-            "DELETE FROM sessions WHERE user_id = ?1 AND id NOT IN \
-             (SELECT id FROM sessions WHERE user_id = ?1 ORDER BY created_at DESC, id DESC LIMIT ?2)",
-            params![user_id, MAX_SESSIONS_PER_ACCOUNT as i64 - 1],
-        )
-        .and_then(|_| {
-            conn.execute(
-                "INSERT INTO sessions (user_id, session_token, created_at, expires_at) VALUES (?1, ?2, ?3, ?4)",
-                params![user_id, hash_token(&token), t, t + SESSION_TTL_SECS],
-            )
-        });
-    match res {
-        Ok(_) => conn.execute_batch("RELEASE create_session")?,
-        Err(e) => {
-            let _ = conn.execute_batch("ROLLBACK TO create_session; RELEASE create_session");
-            return Err(e);
-        }
-    }
+    conn.execute(
+        "DELETE FROM sessions WHERE id IN \
+         (SELECT id FROM sessions WHERE user_id = ?1 ORDER BY created_at DESC, id DESC LIMIT -1 OFFSET ?2)",
+        params![user_id, MAX_SESSIONS_PER_ACCOUNT as i64 - 1],
+    )?;
+    conn.execute(
+        "INSERT INTO sessions (user_id, session_token, created_at, expires_at) VALUES (?1, ?2, ?3, ?4)",
+        params![user_id, hash_token(&token), t, t + SESSION_TTL_SECS],
+    )?;
     Ok(token)
 }
 
