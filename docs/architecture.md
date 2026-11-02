@@ -93,7 +93,7 @@ src/
   proxy_auth.rs  sign-in through a reverse proxy's identity header (SKRONGLE_PROXY_AUTH_HEADER / _FROM, #642): a middleware before every handler
   signup.rs      who may make an account (SKRONGLE_SIGNUP: open / invite / closed, #634): the first account is the owner, through the owner link written to the log at startup, invitation links (table signup_invites, the token hashed), the Superuser page's Accounts part and invitation links (routes/superuser.rs)
 
-  account_deletion.rs  the learner's own account deletion after 14 days of grace (#970): users.delete_at, signing out, the dated mail, the hourly job housekeeping.deletions that deletes due accounts
+  account_deletion.rs  the learner's own account deletion after 14 days of grace (#970): users.delete_at, signing out, the dated mail, the housekeeping step that deletes due accounts
   shape.rs       the two shapes (#578): SKRONGLE_MINI=1 is Skrongle mini, unset is the hosted site; read once at startup (shape::current, crate::is_mini); a mini has no plans (has_plans) and crate::env reads the hosted-only settings (HOSTED_ONLY: mail, SMS, Google, Stripe, S3) as unset
   share.rs       sharing a course with other learners by e-mail address (#451): invitations (table course_shares, the link's token hashed), who may open a shared course, the message
   verify.rs      e-mail verification: link tokens (table email_verifications, SHA-256 only), confirm, the message, the link's host (SKRONGLE_PUBLIC_URL or the request)
@@ -119,7 +119,7 @@ src/
   problems.rs    what the editor and the file page say when a course file is refused: kind, lesson, field, line, message, fix hint (every ContentError and arrange.rs refusal)
   owner.rs       what the owner does to an account with no message sent (#635): a temporary password (users.must_change_password), two-factor off, make a superuser; the binary's commands (reset-password, disable-2fa, make-owner, help)
   privacy.rs     a learner's data as a whole: USER_TABLES, the exported columns (EXPORTED/WITHHELD), account deletion, retention rules, the age confirmation (docs/data-inventory.md)
-  jobs.rs        background jobs (table jobs, #872): enqueue, the one-statement claim with a lease, retries with per-kind delays, periodic kinds that queue their next run, sliced kinds that queue themselves again (`Step::Again`); the `jobs` runner thread, which also drains the mail and text outboxes with a lease (#873); the hourly housekeeping as one job per purge
+  jobs.rs        background jobs (table jobs, #872): enqueue, the one-statement claim with a lease, retries with per-kind delays, periodic kinds that queue their next run, sliced kinds that queue themselves again (`Step::Again`); the `jobs` runner thread, which also drains the mail and text outboxes with a lease (#873); the hourly housekeeping as one job with a step per purge
   exports.rs     "Download my data" in the background (table data_exports): the `export` job (jobs.rs runner, #875) writes the file page by page to <db>.exports/, a slice per run, mails a one-time link, retention
   mathcheck.rs   numeric and expression answers: a small parser/evaluator, numbers in every spelling, equivalence by sampling
   algebra_tiles.rs  algebra-tiles questions: the pile from `tiles`, an answer must be two sides whose product is the tiles
@@ -210,11 +210,12 @@ outbox's `RETRY_DELAYS` unless the kind says otherwise) until
 line, and so is a job of an unknown kind, which is refused. A periodic kind
 queues its next run when a run ends. The thread wakes on `AppState::queue`
 or when the next row is due, at least once a minute, and reaches SQLite
-through `Db::with`. The first user is the hourly housekeeping, one kind per
-purge (`housekeeping.sessions`, `.games`, `.ai_jobs`, `.tutor_chats`,
-`.rate_limits`, `.retention`, `.outbox`, `.links`, `.exports`, `.jobs`,
-`.deletions`, `.wal_checkpoint`), each holding the database for its own short piece. At
-boot each gets a row due now if it has none, so a server restarted more
+through `Db::with`. The first user is the hourly housekeeping, one kind
+(`housekeeping`, #45) that runs every purge as a step in turn (sessions, the
+game, AI job and tutor maps, rate limits, account deletions, retention, outbox,
+links, exports, old job rows, then the WAL checkpoint); each step logs its
+count, a failing step is logged and the next still runs. At
+boot it gets a row due now if it has none, so a server restarted more
 often than hourly still cleans up. Long work runs in slices so the one
 runner is never held for long: the handler returns `Step::Again` with its
 place as the new payload, and the row goes back to `queued`, due now,

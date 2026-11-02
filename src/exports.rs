@@ -818,13 +818,13 @@ mod tests {
         let Requested::Queued(id) = db.with(|c| request(c, ann, "http://site", 10)).unwrap() else { panic!() };
         let (woken, wake) = counter();
         let builder = Builder { slice_pages: 1, pause: Duration::ZERO, ..Builder::new(dir.clone(), wake) };
-        let runner = jobs::Runner::new().handle_steps(jobs::EXPORT, move |db, p| builder.run(db, p)).handle(jobs::GAMES, |_, _| Ok(String::new()));
+        let runner = jobs::Runner::new().handle_steps(jobs::EXPORT, move |db, p| builder.run(db, p)).handle(jobs::HOUSEKEEPING, |_, _| Ok(String::new()));
         let now = crate::db::now() + 1000; // ahead of the clock, so a requeued slice is due at once
         let (job, outcome) = runner.run_one(&db, now).unwrap().unwrap();
         assert_eq!(outcome, jobs::Outcome::Again);
         assert_eq!(db.with(|c| status(c, ann, now)).unwrap().unwrap().state, "building");
         // A job queued meanwhile (mail, say) goes before the next slice.
-        let other = db.with(|c| jobs::enqueue(c, jobs::GAMES.name, &serde_json::json!({}), now - 1, now)).unwrap().unwrap();
+        let other = db.with(|c| jobs::enqueue(c, jobs::HOUSEKEEPING.name, &serde_json::json!({}), now - 1, now)).unwrap().unwrap();
         assert_eq!(runner.run_one(&db, now).unwrap().unwrap().0.id, other);
         // A few slices on, the server stops mid-slice: the row stays leased
         // and the part file has a half-written tail.

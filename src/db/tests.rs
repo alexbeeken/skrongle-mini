@@ -602,3 +602,15 @@ fn vocab_schedule_backfill() {
     }
     assert_eq!(days.len(), 7, "{days:?}");
 }
+
+/// #45: the twelve `housekeeping.*` kinds became one; the last migration
+/// drops the old rows and leaves the others.
+#[test]
+fn the_housekeeping_migration_drops_rows_of_the_old_kinds() {
+    let conn = Connection::open_in_memory().unwrap();
+    migrate(&conn).unwrap();
+    conn.execute("INSERT INTO jobs (kind, payload_json, run_at, max_attempts, created_at) VALUES ('housekeeping.games', '{}', 0, 3, 0), ('housekeeping', '{}', 0, 3, 0)", []).unwrap();
+    conn.execute_batch(MIGRATIONS.last().unwrap()).unwrap();
+    let kinds: Vec<String> = conn.prepare("SELECT kind FROM jobs").unwrap().query_map([], |r| r.get(0)).unwrap().map(Result::unwrap).collect();
+    assert_eq!(kinds, ["housekeeping"]);
+}
