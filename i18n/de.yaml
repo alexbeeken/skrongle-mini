@@ -29,7 +29,6 @@ lang:
   unknown: Diese Sprache gibt es nicht.
 
 error:
-  blocked: "Anfragen von deiner Netzwerkadresse sind auf diesem Server gesperrt."
   not_found: Seite nicht gefunden
   form_only: "Diese Seite funktioniert nur über ihre Schaltfläche. Geh zurück und nutze die Schaltfläche auf der Seite."
   database: Datenbankfehler
@@ -112,14 +111,12 @@ common:
 
 auth:
   login:
-    suspended: "Dieses Konto ist wegen eines Verstoßes gegen die Nutzungsbedingungen gesperrt. Wenn du das für einen Fehler hältst, schreib an {email}."
     deletion_scheduled: "Dein Konto wird am {date} gelöscht. Wenn du es behalten willst, melde dich vorher an und brich die Löschung ab."
     title: Anmelden
     email_label: E-Mail-Adresse
     password_label: Passwort
     submit: Anmelden
     or: oder
-    google: Mit Google fortfahren
     no_account_html: "Noch kein Konto? <a href=\"{url}\" data-testid=\"login-register-link\">Registrieren</a>."
     terms_link: Nutzungsbedingungen
     privacy_link: Datenschutz
@@ -135,18 +132,15 @@ auth:
     password_note: (mindestens 8 Zeichen)
     submit: Registrieren
     or: oder
-    google: Mit Google registrieren
     have_account_html: "Schon registriert? <a href=\"{url}\" data-testid=\"register-login-link\">Anmelden</a>."
     too_many_signups: Zu viele Registrierungen aus deinem Netzwerk. Versuch es in einer Stunde noch einmal.
     email_taken: Für diese E-Mail-Adresse gibt es bereits ein Konto.
-    email_taken_google: "Ein Konto mit dieser E-Mail-Adresse meldet sich mit Google an. Nutze stattdessen „Mit Google fortfahren“."
   signup:
     closed_title: "Registrierung geschlossen"
     closed: "Dieser Server nimmt keine neuen Konten an. Frag die Person, die ihn betreibt."
     invite_used: "Dieser Einladungslink wurde schon benutzt. Bitte die Person, die diesen Server betreibt, um einen neuen."
     invite_expired: "Dieser Einladungslink ist abgelaufen. Bitte die Person, die diesen Server betreibt, um einen neuen."
     invite_unknown: "Dieser Einladungslink ist ungültig. Bitte die Person, die diesen Server betreibt, um einen neuen."
-    invite_wrong_email: "Diese Einladung gilt für eine andere E-Mail-Adresse. Registriere dich mit der Adresse, an die sie geschickt wurde."
     sign_in: "Anmelden"
     first_account: "Dieser Server hat noch keine Konten: Das Konto, das du jetzt anlegst, gehört seinem Betreiber."
     no_owner: "Dieser Server hat noch keinen Betreiber. Wer ihn betreibt, legt das erste Konto mit dem Betreiber-Link aus dem Server-Log an."
@@ -172,9 +166,7 @@ auth:
   code:
     title: Gib deinen Code ein
     from_app: Aus deiner Authenticator-App.
-    texted_to: "Per SMS an {to} geschickt."
     emailed_to: "Per E-Mail an {to} geschickt."
-    fallback: "Dein Telefon hat auf SMS von {app} mit STOP geantwortet, deshalb haben wir den Code an {to} gemailt."
     code_label: Code
     submit: Anmelden
     resend: Neuen Code senden
@@ -190,35 +182,9 @@ auth:
     your_authenticator: deine Authenticator-App
   two_factor:
     channel_off_email: "Dein Konto meldet sich mit einem Code per E-Mail an, aber dieser Server kann keine E-Mails senden ({setting} ist nicht gesetzt). Bitte die Person, die ihn betreibt, {setting} zu setzen oder die Zwei-Faktor-Anmeldung für dein Konto auszuschalten."
-    channel_off_sms: "Dein Konto meldet sich mit einem Code per SMS an, aber dieser Server kann keine SMS senden ({setting} ist nicht gesetzt). Bitte die Person, die ihn betreibt, {setting} zu setzen oder die Zwei-Faktor-Anmeldung für dein Konto auszuschalten."
     needs_email: Bestätige zuerst deine E-Mail-Adresse.
-    needs_phone: Füge zuerst eine Telefonnummer hinzu und bestätige sie.
     needs_app: Richte zuerst die Authenticator-App ein.
-    phone_in_use: Die Zwei-Faktor-Anmeldung schickt SMS an diese Nummer. Wähle vor einer Änderung eine andere Methode.
-    needs_confirmed_email: "Bestätige deine E-Mail-Adresse, bevor du eine Handynummer hinzufügst."
-    phone_taken: "Diese Nummer ist bei einem anderen Konto bestätigt. Entferne sie dort zuerst oder nimm eine andere Nummer."
     app_already: Eine Authenticator-App ist schon eingerichtet. Entferne sie zuerst.
-  google:
-    cancelled: Die Google-Anmeldung wurde abgebrochen.
-    error: Google hat einen Fehler gemeldet.
-    expired: Dieser Anmeldeversuch ist abgelaufen. Bitte versuch es noch einmal.
-    mismatch: Dieser Anmeldeversuch passt nicht. Bitte versuch es noch einmal.
-    no_code: Google hat keinen Anmeldecode zurückgegeben.
-    exchange_failed: Die Anmeldung mit Google konnte nicht abgeschlossen werden. Bitte versuch es noch einmal.
-    bad_identity: Google hat eine Identität zurückgegeben, die diese Seite nicht annehmen kann.
-    already_linked: Dieses Google-Konto ist schon mit einem anderen Benutzer verknüpft.
-    attempt_expired: "Dieser Versuch ist abgelaufen. Bitte versuch es noch einmal."
-    not_this_account: "Das ist nicht das Google-Konto, mit dem sich dieses Konto anmeldet."
-    unconfirmed_account: "Ein Konto mit dieser Adresse existiert, aber seine E-Mail-Adresse ist nicht bestätigt. Melde dich mit deinem Passwort an und bestätige sie, dann verbinde Google in deinem Profil."
-    other_google: "Mit dem Konto dieser Adresse ist bereits ein anderes Google-Konto verbunden. Melde dich mit diesem an oder mit deinem Passwort."
-    signup_expired: Diese Registrierung ist abgelaufen. Bitte versuch es noch einmal.
-  google_confirm:
-    title: Lege dein Konto an
-    lead: "Fast geschafft: Google hat bestätigt, wer du bist. Setz die beiden Häkchen, dann ist dein Konto bereit."
-    as: Registrierung mit Google als
-    not_you: Nicht du?
-    submit: Konto anlegen
-    back: Zurück zur Anmeldung
   ai_switch:
     label: Alle KI-Funktionen ausblenden
     about: Über KI-Funktionen
@@ -425,7 +391,6 @@ mail:
     subject: "Zwei-Faktor-Anmeldung bei {app} geändert"
     now_off: "ist jetzt aus"
     now_email: "schickt dir jetzt einen Code per E-Mail"
-    now_sms: "schickt dir jetzt einen Code per SMS aufs Handy"
     now_totp: "fragt dich jetzt nach einem Code aus einer Authenticator-App"
     text: |
       Hallo,
@@ -480,18 +445,6 @@ mail:
       <p><a href="{link}">Kurs öffnen</a></p>
       <p>Oder füge diesen Link in deinen Browser ein: {link}</p>
       <p>Du kannst aus dem Kurs mit deinem eigenen Fortschritt lernen; nur {owner} kann ihn ändern. Falls du noch kein {app}-Konto hast, kannst du über den Link eines erstellen. Wenn du damit nicht gerechnet hast, ignoriere diese Nachricht einfach.</p>
-
-sms:
-  login_code: "{code} ist dein {app}-Anmeldecode. Er funktioniert 10 Minuten lang. Gib ihn nicht weiter."
-  phone_code: "{code} ist dein {app}-Code, um diese Telefonnummer zu bestätigen. Er funktioniert 10 Minuten lang."
-  two_factor_confirm: "{code} ist dein {app}-Code, um die Zwei-Faktor-Anmeldung zu ändern. Er funktioniert 10 Minuten lang. Gib ihn nicht weiter."
-  number:
-    needs_plus: eine Telefonnummer beginnt mit + und der Ländervorwahl
-    not_a_digit: "eine Telefonnummer enthält nur Ziffern, nicht {char}"
-    bad_length: eine Telefonnummer hat 8 bis 15 Ziffern nach dem +, die erste darf nicht 0 sein
-    us_length: "eine US- oder Kanada-Nummer hat 10 Ziffern, zum Beispiel (555) 555 - 5555"
-    us_only: vorerst nur Nummern aus den USA und Kanada, eine Nummer beginnt also mit +1
-    us_area: weder die Vorwahl noch die drei Ziffern danach beginnen mit 0 oder 1
 
 profile:
   email_no_mail:
@@ -565,11 +518,6 @@ profile:
     data: Deine Daten
     consent: "Datenschutz und Einwilligung"
   personal:
-    phone_locked_label: "Warum die Handynummer gesperrt ist"
-    phone_locked_title: "Bestätige zuerst deine E-Mail-Adresse"
-    phone_locked_text: "Eine Handynummer kann hinzugefügt werden, sobald deine E-Mail-Adresse bestätigt ist (oder du dich mit Google anmeldest). Schau in dein Postfach nach dem Link."
-    phone_locked_close: "Schließen"
-    phone_locked_resend: "Link noch einmal senden"
     title: Persönliche Angaben
     first_name: Vorname
     last_name: Nachname
@@ -577,37 +525,14 @@ profile:
     no_email: Keine E-Mail-Adresse hinterlegt
     verified: Bestätigt
     not_verified: Nicht bestätigt
-    phone: Telefonnummer
-    phone_placeholder: "(555) 555 - 5555"
-    phone_problem: Telefonnummer prüfen
-    phone_stopped: "SMS an diese Nummer sind abbestellt"
     language: Sprache
     language_unavailable: Diese Sprache ist nicht verfügbar.
-  phone_problem:
-    title: Telefonnummer prüfen
-    close: Schließen
-  phone_stopped:
-    title: "SMS sind abbestellt"
-    text: "Diese Nummer hat auf SMS von {app} mit STOP geantwortet, deshalb kommen deine Anmeldecodes vorerst per E-Mail. Um wieder SMS zu bekommen, schick START von diesem Telefon an die Nummer, von der unsere SMS kommen, und lass dir dann einen Code schicken."
-    close: "Schließen"
-    send: "Code senden"
-  phone_dialog:
-    title: Telefonnummer bestätigen
-    type_code: Gib den Code ein, der dir per SMS geschickt wurde.
-    not_verified: Telefonnummer noch nicht bestätigt. Sende einen Code dorthin.
-    code: Code
-    close: Schließen
-    send_again: Erneut senden
-    send_code: Code senden
-    verify: Bestätigen
   account:
     title: Konto
     member_since: Mitglied seit
     sign_in: Anmeldung
     password: Passwort
     and: und
-    google_connected: Google-Konto verbunden
-    connect_google_html: "· <a href=\"{url}\" data-testid=\"profile-google-connect\">Verbinde ein Google-Konto</a>, um dich mit einem Tipp anzumelden"
     terms: Bedingungen
     terms_accepted: "Version {version}, akzeptiert am {date}"
     terms_not_accepted: Nicht akzeptiert
@@ -616,7 +541,7 @@ profile:
     terms_title: Nutzungsbedingungen
     terms_close: Schließen
     terms_open_page: Als Seite öffnen
-    no_password: Dieses Konto meldet sich über Google an, deshalb gibt es kein Passwort zum Ändern.
+    no_password: Dieses Konto hat kein Passwort, das man ändern könnte.
   consent:
     title: "Datenschutz und Einwilligung"
     info: "Über deine Einwilligungen"
@@ -629,15 +554,6 @@ profile:
     age: "Alter"
     age_confirmed: "Bestätigt am {date}"
     age_not_confirmed: "Nicht bestätigt"
-    phone: "Telefon für Anmeldecodes"
-    phone_none: "Keine Nummer"
-    phone_add: "hinzufügen"
-    phone_edit: "ändern oder entfernen"
-    google: "Google-Anmeldung"
-    google_on: "Verbunden"
-    google_off: "Nicht verbunden"
-    google_connect: "verbinden"
-    google_disconnect: "trennen"
     email: "E-Mail"
     email_service: "Nur Service-Nachrichten"
     ai: "KI-Funktionen nicht anzeigen"
@@ -647,29 +563,11 @@ profile:
     ai_off: "Ausgeblendet"
     ai_key: "Eigener API-Schlüssel gespeichert"
     ai_keys_manage: "Schlüssel verwalten"
-  google_link:
-    link_title: "Google-Konto verbinden"
-    one_tap: "um sich mit einem Tipp anzumelden"
-    link_text: "Gib dein Passwort ein und wähle dann das Google-Konto aus. Deine anderen Geräte werden abgemeldet."
-    password: "Passwort"
-    cancel: "Abbrechen"
-    continue: "Mit Google fortfahren"
-    unlink_title: "Google-Verknüpfung aufheben"
-    unlink_text: "„Mit Google fortfahren“ meldet dich bei diesem Konto nicht mehr an, und deine anderen Geräte werden abgemeldet. Gib dein Passwort ein, um zu bestätigen."
-    unlink: "Verknüpfung aufheben"
-    linked_notice: "Google-Konto verbunden. Deine anderen Geräte wurden abgemeldet."
-    unlinked_notice: "Google-Konto getrennt. Deine anderen Geräte wurden abgemeldet."
-    joined_notice: "Google-Konto verbunden: Google hat diese Adresse bestätigt, also meldet es sich bei diesem Konto an. Dein Passwort funktioniert weiterhin."
-    stays_connected: "Dieses Konto meldet sich nur mit Google an, deshalb bleibt es verbunden."
-    confirm_needed: "Bestätige mit Google, um diese Änderung vorzunehmen."
-    confirm: "Mit Google bestätigen"
-    confirmed: "Mit Google bestätigt."
-    confirm_why: "Dieses Konto meldet sich mit Google an und hat kein Passwort, deshalb bestätige zuerst mit Google."
   sessions:
     sign_out_others: "Überall sonst abmelden"
     info_label: "Über das Abmelden überall sonst"
     text: "Beendet jede andere Sitzung dieses Kontos: andere Browser, Handys und Computer sowie alle, die nicht angemeldet sein sollten. Dieser Browser bleibt angemeldet."
-    text_same: "Das Ändern deines Passworts oder der Zwei-Faktor-Anmeldung sowie das Verbinden oder Trennen von Google macht dasselbe."
+    text_same: "Das Ändern deines Passworts oder der Zwei-Faktor-Anmeldung macht dasselbe."
     ok: "OK"
     signed_out_notice: "Überall sonst abgemeldet."
   password:
@@ -682,7 +580,7 @@ profile:
     save: Speichern
     changed: Passwort geändert.
     mismatch: Die neuen Passwörter stimmen nicht überein.
-    google_only: Dieses Konto meldet sich über Google an und hat kein Passwort.
+    none: Dieses Konto hat kein Passwort.
     too_many: Zu viele Versuche. Warte ein paar Minuten und versuche es erneut.
     current_wrong: Das aktuelle Passwort stimmt nicht.
   two_factor:
@@ -692,14 +590,12 @@ profile:
     off: "Aus"
     email: E-Mail
     email_unverified: E-Mail nicht bestätigt
-    sms: SMS
-    phone_unverified: Telefon nicht bestätigt
     totp: Authenticator-App
     save: Speichern
     confirm_title: Bestätige, dass du es bist
     confirm_password_why: "Damit jemand, der diesen angemeldeten Browser benutzt, deinen zweiten Schritt nicht ändern kann, gib das Passwort deines Kontos ein."
-    confirm_app_code: Dieses Konto meldet sich über Google an und hat kein Passwort, deshalb gib jetzt den Code ein, den deine Authenticator-App anzeigt.
-    confirm_sent_code: Dieses Konto meldet sich über Google an und hat kein Passwort, deshalb bestätige mit einem Code aus deinem aktuellen zweiten Schritt.
+    confirm_app_code: Dieses Konto hat kein Passwort, deshalb gib jetzt den Code ein, den deine Authenticator-App anzeigt.
+    confirm_sent_code: Dieses Konto hat kein Passwort, deshalb bestätige mit einem Code aus deinem aktuellen zweiten Schritt.
     sent_to: "Gesendet an {to}."
     send_one_first: Sende zuerst einen.
     password: Passwort
@@ -711,16 +607,13 @@ profile:
     totp_added: "Authenticator-App hinzugefügt am {date}"
     remove: Entfernen
     info_title: Zwei-Faktor-Authentifizierung
-    info_text: "Nach deinem Passwort (oder Google) fragt die Anmeldung nach einem Code: per E-Mail, per SMS auf dein Handy oder angezeigt von einer Authenticator-App wie Google Authenticator. Immer nur eine Methode; wenn du eine andere wählst, ersetzt sie die alte."
+    info_text: "Nach deinem Passwort fragt die Anmeldung nach einem Code: per E-Mail oder angezeigt von einer Authenticator-App wie Google Authenticator. Immer nur eine Methode; wenn du eine andere wählst, ersetzt sie die alte."
     info_small: E-Mail und SMS brauchen eine bestätigte Adresse bzw. Nummer. Codes gelten 10 Minuten; nach fünf falschen endet die Anmeldung.
     ok: OK
     email_first_title: Bestätige zuerst deine E-Mail
     email_first_text: E-Mail-Codes brauchen eine bestätigte Adresse. Schau in dein Postfach, dort ist der Link.
     close: Schließen
     resend: Erneut senden
-    sms_first_title: Bestätige zuerst dein Telefon
-    sms_first_text: SMS-Codes brauchen eine bestätigte Telefonnummer.
-    add_number: Nummer hinzufügen
     totp_title: Authenticator-App hinzufügen
     totp_how: So fügst du die App hinzu
     totp_dev_link: "Dev: zur Dev-Authenticator-App hinzufügen"
@@ -732,13 +625,11 @@ profile:
     turn_off: Zwei-Faktor-Anmeldung ausschalten
     switch_to: "Zwei-Faktor-Anmeldung auf {method} umstellen"
     turn_on_by: "Zwei-Faktor-Anmeldung per {method} einschalten"
-    method_sms: SMS
     method_email: E-Mail
     method_totp: Authenticator-App
     is_off: Zwei-Faktor-Anmeldung ist aus.
     is_method: "Zwei-Faktor-Anmeldung: {method}."
     totp_removed: Authenticator-App entfernt.
-    phone_verified: Telefonnummer bestätigt.
     too_many_attempts: Zu viele Versuche. Warte ein paar Minuten und versuche es erneut.
     type_password: Gib dein Passwort ein, um diese Änderung vorzunehmen.
     password_wrong: Das Passwort stimmt nicht.
@@ -750,9 +641,6 @@ profile:
     code_gone: Kein Code wartet, oder er ist abgelaufen. Schick einen neuen.
     too_many_codes: Zu viele Codes gesendet. Warte ein paar Minuten und versuche es erneut.
     code_not_sent: Der Code konnte nicht gesendet werden. Versuche es gleich noch einmal.
-    too_many_texts: "Zu viele SMS an diese Nummer. Versuche es in {minutes} Minuten erneut."
-    number_no_texts: "An diese Nummer können keine SMS gesendet werden: {why}."
-    phone_code_expired: Dieser Code ist abgelaufen oder wurde schon benutzt. Schick einen neuen.
   ai:
     on: "Ein"
     off: "Aus"
@@ -828,14 +716,11 @@ profile:
     about: "Bis zu diesem Tag kann das Konto nur die Löschung abbrechen oder sich abmelden. Brichst du ab, bleibt alles, wie es war. Danach sind dein Fortschritt, deine Kurse und gespeicherten Schlüssel endgültig weg."
     cancel: "Löschung abbrechen"
   save:
-    sms_off: "Dieser Server kann keine SMS senden und speichert daher keine Telefonnummer."
     pick_picture: Bitte wähle eines der Bilder aus.
     pick_colour: Bitte wähle eine der Farben aus.
     not_a_field: Dieses Feld gehört nicht zum Profil.
     theme_unavailable: Dieses Design ist nicht verfügbar.
     motivator_unavailable: "Dieser Motivator ist nicht verfügbar."
-    not_a_phone: "Keine Telefonnummer: {why}."
-    sms_country: "Dieser Server schickt keine SMS an Nummern in diesem Land."
     sent_to: "Gesendet an {email}."
   name:
     too_long: "{label} ist zu lang (maximal {max} Zeichen)."
@@ -862,228 +747,10 @@ profile:
     name_too_long: "{label} ist zu lang (maximal {max} Zeichen)."
     name_bad_chars: "{label} enthält nicht erlaubte Zeichen."
     password_mismatch: Die neuen Passwörter stimmen nicht überein.
-    phone_digits: "Eine Telefonnummer hat 10 Ziffern, zum Beispiel (555) 555 - 5555."
-    phone_us_only: Vorerst nur Nummern aus den USA und Kanada. Gib die 10 Ziffern nach der +1 ein.
-    phone_area: Weder die Vorwahl noch die drei Ziffern danach beginnen mit 0 oder 1.
     turn_off: Zwei-Faktor-Anmeldung ausschalten
     switch_to: "Zwei-Faktor-Anmeldung auf {method} umstellen"
     turn_on_by: "Zwei-Faktor-Anmeldung per {method} einschalten"
 superuser:
-  courses:
-    title: "Kurse"
-    about_label: "Über die Kurstabelle"
-    about: "Alle auf diesem Server erstellten Kurse. Ein Kurs mit einem gelisteten Wort, oder einer, in dem die KI-Prüfung ein Problem fand, ist markiert: Er startet nicht und wird nicht geteilt, bis er korrigiert ist oder du die Markierung aufhebst. Markierte Kurse stehen oben."
-    about_review: "Ein Kurs, den die KI-Prüfung hoch bewertet hat, muss geprüft werden. Innerhalb von ein, zwei Minuten liest eine KI-Prüfung diese Teile im Zusammenhang und markiert den Kurs, wenn sie schädlich sind. Bis dahin startet er und lässt sich teilen; sein Dialog nennt die hoch bewerteten Teile."
-    shown: "Kurse: {total}. {per_page} pro Seite."
-    search: "Titel, Kurs-ID oder Adresse des Besitzers"
-    show: "Zeigen"
-    show_all: "Alle"
-    show_flagged: "Markiert"
-    show_review: "Zu prüfen"
-    show_overridden: "Freigegeben"
-    show_down: "Entfernt"
-    show_behind: "KI-Prüfung {n} oder mehr Versionen zurück ({count})"
-    find: "Suchen"
-    none: "Kein Kurs passt."
-    edited: "Zuletzt bearbeitet"
-    state: "Markierung"
-    source: "Markiert von"
-    state_clear: "Ohne Befund"
-    state_flagged: "Markiert"
-    state_review: "Zu prüfen"
-    state_overridden: "Freigegeben"
-    state_down: "Entfernt"
-    source_terms: "Wortliste"
-    source_ai: "KI-Prüfung"
-    owner_suspended: "gesperrt"
-    checked: "Zuletzt geprüft"
-    never_checked: "Noch nicht geprüft"
-    ai_checked: "KI-Prüfung"
-    last_ai_check: "Letzte KI-Prüfung"
-    checker_label: "Inhaltsprüfer"
-    checker_about: "Die Inhaltsprüfung läuft in einem eigenen Prozess, skrongle content-check, neben dem Server (SKRONGLE_CONTENT_CHECK=external)."
-    checker_seen: "Zuletzt gemeldet: {when}"
-    checker_never: "Er hat sich noch nicht gemeldet."
-    checker_waiting: "Wartende Prüfungen: {n}"
-    checker_silent: "Er hat sich seit einem Tag nicht gemeldet. Starte ihn neu mit skrongle content-check."
-    checker_alert_since: "Der Inhaltsprüfer hat sich seit {when} nicht gemeldet. Wartende Prüfungen: {n}."
-    checker_alert_never: "Der Inhaltsprüfer hat sich noch nie gemeldet. Wartende Prüfungen: {n}."
-    checker_details: "Details"
-    versions: "Regeln"
-    version_terms: "Begriffe v{version}"
-    version_ai: "KI v{version}"
-    version_behind: "Mit älteren Regeln geprüft. Die aktuelle Version ist {current}."
-    about_versions: "Regeln zeigt, unter welcher Version der Begriffsliste und der KI-Prüfung jeder Kurs zuletzt geprüft wurde. Eine hervorgehobene Version ist älter als die aktuellen Regeln. Der nächtliche Lauf prüft einen Kurs gegen eine neue Begriffsliste sofort erneut, mit einer neuen KI-Prüfung erst, wenn er {n} oder mehr Versionen zurückliegt."
-    versions_link: "Was sich in jeder Version geändert hat"
-    scores: "KI-Werte"
-    score_category: "Kategorie"
-    score_value: "Wert"
-    high_in: "Hoch bei"
-    category:
-      misinformation: "Falschinformation"
-      violence: "Gewalt"
-      self_harm: "Selbstverletzung"
-      weapons: "Waffen"
-      firearms: "Schusswaffen"
-      hate: "Hassrede"
-      tragedy: "Verharmlosung von Massentragödien"
-      adult: "Inhalte für Erwachsene"
-      minors: "Ausbeutung Minderjähriger"
-      sexual_crimes: "Verharmlosung von Sexualverbrechen"
-      terms: "Nutzungsbedingungen"
-    review_queued: "wartet auf die KI-Prüfung"
-    review_fine: "KI-Prüfung: in Ordnung"
-    review_harmful: "KI-Prüfung: schädlich"
-    ai_cost: "Kosten der KI-Prüfung"
-    ai_cost_parts: "{cost} für {parts} Teile"
-    high_parts: "Teile mit hohem KI-Wert"
-    why: "Warum er markiert ist"
-    report: "KI-Bericht"
-    override_note: "Notiz zur Freigabe"
-    overridden_by: "Von {email}, {when}"
-    override: "Markierung aufheben"
-    override_about: "Die Markierung war falsch. Der Kurs startet und wird wieder geteilt. Spätere Prüfungen behalten die Freigabe für dieselben Wörter; ein neues Wort markiert ihn wieder."
-    note: "Warum ist es in Ordnung?"
-    note_example: "'coger' heißt hier 'nehmen'; in Ordnung"
-    override_confirm: "Freigeben"
-    clear_override: "Freigabe zurücknehmen"
-    clear_override_about: "Der Kurs wird so, wie er jetzt ist, neu geprüft. Sind die Wörter noch da, wird er wieder markiert und startet und teilt nicht mehr."
-    take_down: "Entfernen"
-    put_back_about: "Der Kurs öffnet sich wieder für den Besitzer und für alle, mit denen er geteilt ist."
-    suspend_owner: "Besitzer sperren"
-    delete: "Kurs löschen"
-    delete_about: "Der Kurs, seine Dateien und seine Freigaben werden gelöscht. Das lässt sich nicht rückgängig machen. Meldungen zu ihm bleiben erhalten."
-    overridden: "Die Markierung von {id} ist aufgehoben. Er startet und wird wieder geteilt."
-    override_cleared: "Die Freigabe von {id} ist zurückgenommen."
-    no_note: "Schreib eine kurze Notiz, warum die Markierung falsch ist."
-    deleted: "Kurs {id} ist gelöscht."
-    busy: "Kurs {id} wird gerade erstellt oder überarbeitet. Versuch es, wenn das fertig ist."
-    email_owner: "Dem Besitzer schreiben"
-    email_to: "An {email}, in seiner Sprache. Du kannst den Text ändern. Nichts geht raus, bevor du auf Senden drückst."
-    email_subject: "Betreff"
-    email_text: "Nachricht"
-    email_send: "Senden"
-    emailed: "Besitzer am {when} angeschrieben"
-    emailed_label: "Besitzer angeschrieben"
-    emailed_before: "Der Besitzer wurde am {when} schon wegen dieses Kurses angeschrieben."
-    owner_emailed: "Die E-Mail an den Besitzer von {id} ist unterwegs."
-    no_mail_text: "Schreib vor dem Senden einen Betreff und eine Nachricht."
-    no_owner_address: "Der Besitzer von {id} hat keine Adresse, an die wir schreiben können."
-    mail:
-      subject: "{app}: Dein Kurs \"{title}\" kann nicht gestartet oder geteilt werden"
-      text: |
-        Hallo,
-
-        Dein Kurs "{title}" auf {app} kann im Moment nicht gestartet oder geteilt werden. {why}
-
-        {fix}
-
-        Wenn du eine Frage hast oder meinst, dass wir uns geirrt haben, schreib an {contact}.
-      why_flagged: "Unsere Inhaltsprüfung hat ihn markiert."
-      why_down: "Wir haben ihn entfernt, weil er gegen die Bedingungen verstößt."
-      fix_flagged: "Melde dich an, um zu sehen, was du ändern musst: {link}"
-      fix_down: "Solange er entfernt ist, kannst du ihn nicht bearbeiten. Wenn du meinst, dass er nicht gegen die Bedingungen verstößt, schreib uns, dann sehen wir ihn uns noch einmal an."
-  privacy:
-    title: "Datenschutzanfragen"
-    about_label: "Über Datenschutzanfragen"
-    about: "Für eine Anfrage per E-Mail von jemandem, der Profil → Deine Daten nicht nutzen kann. Prüfe zuerst, wer fragt. Die Antwort sollte von der Adresse des Kontos kommen, oder, bei jemandem ohne Konto, von der Adresse, um die es geht."
-    about_log: "Jede Aktion hier und Konto löschen braucht einen Grund. Das Protokoll speichert die Aktion, den Grund, wer sie ausgeführt hat und wann. Lass den Grund auf dein eigenes Anfragenprotokoll verweisen, ohne Namen oder Adresse der Person."
-    export: "Einem Konto seine Daten senden"
-    export_about: "Erstellt dieselbe Datei wie Meine Daten herunterladen im Profil. Der Link geht an die eigene Adresse des Kontos, nie an die Adresse, von der die Anfrage kam, und öffnet sich nur, wenn man in diesem Konto angemeldet ist."
-    export_confirm: "Senden"
-    export_queued: "Die Daten von {email} werden zusammengestellt. Der Link geht an diese Adresse."
-    export_busy: "Ein Export für {email} wird bereits erstellt."
-    export_soon: "{email} hatte am letzten Tag schon einen Export. Versuche es morgen wieder."
-    forget: "Eine Adresse vergessen"
-    forget_about: "Löscht jede Kurseinladung an diese Adresse und jede E-Mail an sie, die noch auf dem Server liegt. Nur für eine Adresse ohne Konto."
-    forget_confirm: "Vergessen"
-    forgot: "Die Adresse ist vergessen."
-    has_account: "Zu dieser Adresse gehört ein Konto. Lösche stattdessen das Konto."
-    reason: "Grund"
-    reason_hint: "Anfrage 12 im Anfragenprotokoll"
-    no_reason: "Gib zuerst einen Grund ein."
-    log_empty: "Noch keine Datenschutzaktionen."
-    log_when: "Wann"
-    log_action: "Aktion"
-    log_who: "Von"
-    action_export: "Daten gesendet"
-    action_forget: "Adresse vergessen"
-    action_delete_account: "Konto gelöscht"
-    action_sign_out: "Konten abgemeldet"
-    action_notice: "Hinweis zur Datenpanne gesendet"
-  breach:
-    title: "Werkzeuge bei Datenpannen"
-    about_label: "Über die Werkzeuge bei Datenpannen"
-    about: "Für eine Datenpanne, wie im Ablauf für Vorfälle beschrieben. Konten abmelden beendet ihre Sitzungen, Anmeldungen, die auf einen Code für den zweiten Schritt warten, und unbenutzte Links zum Zurücksetzen des Passworts. Hinweis per E-Mail schickt deinen Text an die bestätigte Adresse jedes Kontos, einmal pro Text."
-    about_log: "Beide brauchen einen Grund, der im Datenschutzprotokoll bleibt, und verlangen ein getipptes Wort, bevor sie laufen."
-    sign_out: "Konten abmelden"
-    sign_out_about: "Sie melden sich mit ihrem Passwort wieder an. Deine eigene Sitzung auf diesem Gerät bleibt."
-    sign_out_confirm: "Abmelden"
-    notice: "Hinweis per E-Mail"
-    notice_about: "Reiner Text, so wie du ihn tippst. Derselbe Text erreicht beim zweiten Senden nur Konten, die ihn noch nicht hatten. Höchstens SKRONGLE_MAIL_PER_HOUR pro Stunde; der Rest wartet."
-    notice_confirm: "Senden"
-    who: "Wer"
-    everyone:
-      one: "Alle Konten ({n})"
-      other: "Alle Konten ({n})"
-    everyone_confirmed:
-      one: "Alle Konten mit bestätigter Adresse ({n})"
-      other: "Alle Konten mit bestätigter Adresse ({n})"
-    only_list: "Nur diese Adressen"
-    list: "Adressen, durch Kommas oder Zeilen getrennt"
-    subject: "Betreff"
-    body: "Nachricht"
-    reason_hint: "Vorfall vom 28. Oktober"
-    confirm: "Tippe {word} zum Bestätigen"
-    confirm_word: "bestätigen"
-    confirm_wrong: "Nichts wurde getan. Tippe {word} zum Bestätigen."
-    no_list: "Füge mindestens eine Adresse ein oder wähle alle Konten."
-    no_text: "Schreibe einen Betreff und eine Nachricht."
-    signed_out:
-      one: "{n} Konto abgemeldet."
-      other: "{n} Konten abgemeldet."
-    sessions_ended:
-      one: "{n} Sitzung beendet."
-      other: "{n} Sitzungen beendet."
-    sent:
-      one: "Hinweis für {n} Konto in der Warteschlange."
-      other: "Hinweis für {n} Konten in der Warteschlange."
-    sent_already:
-      one: "{n} Konto hatte ihn schon."
-      other: "{n} Konten hatten ihn schon."
-    sent_left:
-      one: "{n} Konto wartet: Das Stundenlimit ist voll. Drücke später noch einmal auf Senden."
-      other: "{n} Konten warten: Das Stundenlimit ist voll. Drücke später noch einmal auf Senden."
-  mod:
-    course_id: "Kurs-ID"
-    take_down_about: "Der Kurs öffnet sich nicht mehr für seinen Besitzer und alle, mit denen er geteilt ist. Der Besitzer sieht, dass er wegen eines Verstoßes gegen die Nutzungsbedingungen entfernt wurde. Die Freigaben bleiben, Wiederherstellen bringt sie zurück."
-    take_down_confirm: "Entfernen"
-    course: "Kurs"
-    owner: "Besitzer"
-    put_back_btn: "Wiederherstellen"
-    taken_down: "Kurs {id} ist entfernt."
-    put_back: "Kurs {id} ist wieder da."
-    no_course: "Kein selbst erstellter Kurs hat die ID {id}, oder er ist schon in diesem Zustand."
-    suspend: "Sperren"
-    unsuspend: "Sperre aufheben"
-    suspend_about: "Das Konto wird überall abgemeldet und kann sich nicht anmelden, bis du die Sperre aufhebst. Seine Kurse werden nicht mehr mit anderen geteilt. Nichts wird gelöscht."
-    suspend_confirm: "Sperren"
-    suspended: "{email} ist gesperrt."
-    unsuspended: "{email} kann sich wieder anmelden."
-    delete: "Konto löschen"
-    delete_about: "Das Konto und alles, was es erstellt hat, wird gelöscht: Fortschritt, Kurse, Themes. Das lässt sich nicht rückgängig machen. Für Verstöße gegen die Nutzungsbedingungen oder Daten eines Kindes."
-    delete_confirm: "Endgültig löschen"
-    deleted: "{email} und die Daten sind gelöscht."
-    yourself: "Das ist dein eigenes Konto. Nutze dafür dein Profil."
-    blocked_title: "Gesperrte Adressen"
-    block: "Eine Adresse sperren"
-    address: "Adresse oder Bereich"
-    block_about: "Jede Anfrage von dort bekommt eine 403-Seite, auch die Anmeldung. Einen Bereich schreibst du als 203.0.113.0/24. Sperrst du deine eigene Adresse, bist du auch ausgesperrt; dann hilft nur, die Zeile aus blocked_ips zu löschen und den Server neu zu starten."
-    block_confirm: "Sperren"
-    unblock: "Entfernen"
-    blocked: "{ip} ist gesperrt."
-    unblocked: "{ip} ist nicht mehr gesperrt."
-    bad_ip: "{ip} ist keine Adresse oder kein Bereich, den diese Seite sperren kann (IPv4 /8 oder enger, IPv6 /16 oder enger)."
   title: Superuser
   about: "Aktionen für jedes Konto. Nur Superuser sehen diese Seite."
   open_inbox: Im Dev-Postfach öffnen
@@ -1114,7 +781,7 @@ superuser:
   temp_password_for: "Vorläufiges Passwort für {email}:"
   temp_password_once: "Es wird nur jetzt angezeigt. Kopiere es und gib es der Person; bei der nächsten Anmeldung wählt sie ein eigenes."
   two_factor_off: "Zwei-Faktor ausschalten"
-  two_factor_off_about: "Das Konto meldet sich nur mit dem Passwort an, bis es die Zwei-Faktor-Anmeldung wieder einschaltet. Eine dafür eingerichtete Authenticator-App wird entfernt; eine bestätigte Telefonnummer bleibt."
+  two_factor_off_about: "Das Konto meldet sich nur mit dem Passwort an, bis es die Zwei-Faktor-Anmeldung wieder einschaltet. Eine dafür eingerichtete Authenticator-App wird entfernt."
   two_factor_off_confirm: "Ausschalten"
   two_factor_off_done: "Die Zwei-Faktor-Anmeldung ist für {email} ausgeschaltet."
   page_of: "Seite {page} von {pages}"
@@ -1148,7 +815,6 @@ landing:
   create_account: "Konto erstellen"
   read_format: "Das Kursformat lesen"
   have_account_html: "Du hast schon ein Konto? <a href=\"{url}\" data-testid=\"landing-login\">Anmelden</a>."
-  have_account_google_html: "Du hast schon ein Konto? <a href=\"{url}\" data-testid=\"landing-login\">Anmelden</a> oder <a href=\"{google_url}\">mit Google weitermachen</a>."
   two_files_h2: "Ein Kurs besteht aus zwei Dateien. Alles andere ist optional."
   two_files_lead_html: "Eine <code>course.json</code> benennt die Einheiten und die beiden Seiten jeder Karteikarte. Jede Lektion ist eine Datei. Füg ein Feld hinzu, und eine Funktion wird aktiv; lass es weg, und diese Funktion erscheint für diese Lektion einfach nicht. Nichts bricht, nichts nervt."
   field_content_html: "Markdown. Jeder <code>##</code>-Abschnitt wird zu einer Lektionskarte, einem Leitfaden-Schritt und einem Happen im Sprint-Modus."
@@ -1192,7 +858,7 @@ landing:
   spec_footprint_h: "Winziger Fußabdruck"
   spec_footprint_p: "Für einen Pi Zero 2 W bemessen: ein paar Megabyte auf der Platte, Dutzende Megabyte im Speicher, zwei asynchrone Worker."
   spec_data_h: "Deine Daten bleiben deine"
-  spec_data_p: "Läuft auf deinem eigenen Rechner oder im LAN. Optionale Google-Anmeldung, optionaler TLS-Proxy, keine Skripte von Drittanbietern, kein Tracking."
+  spec_data_p: "Läuft auf deinem eigenen Rechner oder im LAN. Optionaler TLS-Proxy, keine Skripte von Drittanbietern, kein Tracking."
   spec_docs_h: "Dokumentation inklusive"
   spec_docs_p: "Das Format, die Funktionen und die Architektur werden von der App selbst ausgeliefert, als Seiten oder als reines Markdown für ein LLM."
   final_h2: "Registrier dich, dann beantworte eine Frage: Was möchtest du lernen?"
@@ -2636,15 +2302,6 @@ courses:
     description: "Beschreib den Kurs in ein oder zwei Sätzen."
     unit: "Einheit 1"
     lesson: "Deine erste Lektion"
-  masked:
-    reveal_word: "Klicken, um das Wort zu zeigen"
-    reveal_text: "Klicken, um den Text zu zeigen"
-    count: "{n} Treffer"
-    list_title: "Was gefunden wurde"
-    prev: "Zurück"
-    next: "Weiter"
-    page: "Seite {n} von {total}"
-    close: "Schließen"
   translate:
     button: "Kopieren und übersetzen in…"
     title: "„{title}“ kopieren und übersetzen"
@@ -2666,26 +2323,6 @@ courses:
     phase_start: "Wird übersetzt"
     phase_file: "{file} wird übersetzt ({n} von {total})"
   picker:
-    removed_info: "Dieser Kurs wurde wegen eines Verstoßes gegen die Nutzungsbedingungen entfernt. Er öffnet sich weder für dich noch für alle, mit denen du ihn geteilt hast. Wenn du das für einen Fehler hältst, schreib an {email}."
-    removed: "Entfernt"
-    flagged: "Kann noch nicht gestartet oder geteilt werden"
-    flagged_title: "Dieser Kurs kann noch nicht gestartet oder geteilt werden"
-    flagged_lead: "Er enthält Wörter, die in einem Kurs nicht erlaubt sind:"
-    flagged_match: "{term} (in {lesson})"
-    flagged_edit: "Kurs bearbeiten, um es zu beheben"
-    flagged_lead_ai: "Die KI-Prüfung hat Text gefunden, der nicht in einem Kurs stehen darf:"
-    flagged_quote: "\"{text}\" in {lesson}: {why}"
-    flagged_why_misinformation: "stellt falsche Behauptungen als Tatsachen dar"
-    flagged_why_violence: "verherrlicht Gewalt"
-    flagged_why_self_harm: "ermutigt zur Selbstverletzung"
-    flagged_why_weapons: "hilft, anderen mit Waffen zu schaden"
-    flagged_why_firearms: "hilft, anderen mit Schusswaffen zu schaden"
-    flagged_why_hate: "greift eine Gruppe von Menschen an"
-    flagged_why_tragedy: "verharmlost eine Massentragödie"
-    flagged_why_adult: "ist sexuell explizit"
-    flagged_why_minors: "gefährdet Kinder"
-    flagged_why_sexual_crimes: "verharmlost Sexualverbrechen"
-    flagged_why_terms: "verstößt gegen die Nutzungsbedingungen"
     title: Was möchtest du lernen?
     lead_anon: Wähle einen fertigen Kurs. Jeder Kurs behält seinen eigenen Fortschritt, Wortschatz, Spiele und Verlauf.
     lead_ai_off: Wähle einen fertigen Kurs oder schreibe deinen eigenen. Jeder Kurs behält seinen eigenen Fortschritt, Wortschatz, Spiele und Verlauf.
@@ -2784,8 +2421,6 @@ courses:
     manifest_undeletable: course.json kann nicht gelöscht werden; bearbeite es stattdessen
     loads_notice: Der Kurs lässt sich laden. Öffne ihn aus der Kursliste.
     not_loading_notice: "Der Kurs lässt sich noch nicht laden: {error}"
-    flagged_notice: "Dieser Kurs kann noch nicht gestartet oder geteilt werden. Er enthält Wörter, die in einem Kurs nicht erlaubt sind: {matches}. Nimm sie heraus und speichere, dann öffnet er sich wieder."
-    flagged_notice_ai: "Dieser Kurs kann noch nicht gestartet oder geteilt werden. Die KI-Prüfung hat Text gefunden, der nicht in einem Kurs stehen darf: {matches}. Ändere ihn und tippe dann auf Teilen, damit er erneut geprüft wird."
     gone: Dieser Kurs ist weg (gelöscht, vielleicht in einem anderen Tab), daher können diese Änderungen nicht gespeichert werden.
     busy_generating: Der Kurs wird noch erstellt
     busy_revising: Der Kurs wird gerade überarbeitet
@@ -3981,152 +3616,7 @@ editor:
       other: "{n} Punkte zu prüfen"
     advice_none: "Nichts zu prüfen."
     advice_close: "Schließen"
-reports:
-  reason:
-    harmful: "Schädlich"
-    copyright: "Urheberrecht"
-    other: "Anderes"
-  course:
-    open: "Diesen Kurs melden"
-    title: "Diesen Kurs melden"
-    reason: "Warum meldest du ihn?"
-    details: "Was ist falsch, und wo im Kurs?"
-    email: "Deine E-Mail-Adresse"
-    cancel: "Abbrechen"
-    send: "Meldung senden"
-    sent: "Danke. Deine Meldung ist bei uns angekommen, wir sehen uns den Kurs an."
-    too_many: "Du hast in dieser Stunde viele Meldungen gesendet. Versuch es später noch einmal."
-    pick_reason: "Wähle einen Grund."
-    details_empty: "Schreib, was mit dem Kurs nicht stimmt."
-  copyright:
-    title: "Urheberrechtshinweis"
-    contact: "Um ein Urheberrechtsproblem zu melden, schreib an {email}."
-    intro: "Nutze dieses Formular, wenn du glaubst, dass ein Kurs hier dein Werk ohne Erlaubnis kopiert. Wir senden eine Kopie des Hinweises mit deinem Namen und deiner Adresse an die Person, die den Kurs erstellt hat."
-    name: "Dein vollständiger Name (deine Unterschrift)"
-    email: "Deine E-Mail-Adresse"
-    work: "Das Werk, das kopiert sein soll"
-    location: "Wo es ist (ein Link zum Kurs)"
-    details: "Was kopiert ist, und warum es dir gehört"
-    good_faith: "Ich glaube in gutem Glauben, dass diese Nutzung weder von mir noch von meinem Vertreter noch vom Gesetz erlaubt ist. Die Angaben in diesem Hinweis sind richtig, und ich bin, bei Strafe des Meineids, der Rechteinhaber oder befugt, für ihn zu handeln."
-    send: "Hinweis senden"
-    sent: "Danke. Dein Hinweis ist bei uns angekommen. Wir antworten per E-Mail."
-    terms: "Zurück zu den Bedingungen"
-    too_many: "Zu viele Hinweise von hier in der letzten Minute. Warte eine Minute und versuch es erneut."
-    missing: "Füll alle Felder aus."
-    tick_good_faith: "Hak die Erklärung an, um den Hinweis zu senden."
-  superuser:
-    title: "Meldungen"
-    about_label: "Über Meldungen"
-    about: "Kursmeldungen von Lernenden und Urheberrechtshinweise von allen. An Eigentümer weiterleiten schickt dem Eigentümer des Kurses eine Kopie per E-Mail (die Adresse der meldenden Person nur bei einem Urheberrechtshinweis). Erledigt nimmt eine Meldung von dieser Liste."
-    runbook: "Was mit einer Meldung zu tun ist"
-    none: "Keine offenen Meldungen."
-    forward: "An Eigentümer weiterleiten"
-    forward_again: "Weitergeleitet {when}. Erneut senden"
-    resolve: "Erledigt"
-    forwarded: "Eine Kopie ging an den Eigentümer des Kurses."
-    resolved: "Die Meldung ist erledigt."
-    no_owner: "Diese Meldung nennt keinen Kurs mit einem Eigentümer, dem man schreiben kann."
-    unknown: "Diese offene Meldung gibt es nicht."
-  mail:
-    none: "(keine Angabe)"
-    course: "Kurs"
-    reason: "Grund"
-    location: "Wo"
-    work: "Werk"
-    name: "Name"
-    email: "E-Mail"
-    operator_subject: "{app}: neue Meldung ({reason})"
-    operator_text: "Eine neue Meldung ist bei {app} eingegangen:\n\n{report}\n\nOffene Meldungen stehen auf der Superuser-Seite: {link}\n"
-    owner_subject: "{app}: eine Meldung zu deinem Kurs {title}"
-    owner_text: "Hallo,\n\njemand hat {app} eine Meldung zu deinem Kurs \"{title}\" geschickt. Hier ist eine Kopie:\n\n{report}\n\nWenn du die Meldung für falsch hältst, antworte auf diese Nachricht und sag warum. Bei einem Urheberrechtshinweis kann diese Antwort ein Gegenhinweis sein. Wir blenden den Kurs eventuell aus, solange wir ihn prüfen.\n"
-waitlist:
-  hero_h1: "Lerne alles."
-  hero_lead: "Sag {app}, was du lernen willst. Ein paar Minuten später hast du einen ganzen Kurs: Lektionen, Quiz, Drills, Spiele und ein Tagesziel, gebaut für deine Art zu lernen."
-  build_label: "Ein Kurs entsteht aus einem Satz"
-  build_ready: "Fertig. Starte deine erste Lektion."
-  built_units:
-    one: "{n} Einheit"
-    other: "{n} Einheiten"
-  built_lessons:
-    one: "{n} Lektion"
-    other: "{n} Lektionen"
-  built_questions:
-    one: "{n} Quizfrage"
-    other: "{n} Quizfragen"
-  built_cards:
-    one: "{n} Lernkarte"
-    other: "{n} Lernkarten"
-  built_more: "Drills, Spiele, Hörübungen und ein Tagesziel"
-  gen_h2: "Gib dich nicht mit einer Erklärung zufrieden. Hol dir einen Kurs."
-  gen_p: "Frag einen Chatbot, und du bekommst eine Textwand zum einmal Lesen. Frag {app}, und du bekommst einen Kurs, den du jeden Tag übst, bis du es kannst."
-  chat_label: "Ein Chatbot"
-  modes_h2: "Dann übe es auf jede erdenkliche Art."
-  themes_h2: "Lass es aussehen wie deine Welt."
-  themes_p: "Ein Thema ändert die Farben, die Schrift, die Bilder und was die App ruft, wenn du richtig liegst."
-  motivators_h2: "Wähle, was dich wiederkommen lässt."
-  motivators_p: "Dein Fortschritt bleibt gleich, egal was du wählst. Du bestimmst, wie er angezeigt wird."
-  write_h2: "Oder schreib ihn selbst."
-  write_p: "Ein Kurs ist ein Ordner mit JSON-Dateien. Schreib ihn von Hand, bearbeite ihn im Browser oder lass die KI einen Entwurf machen und ändere, was du willst."
-  final_h2: "Dein erster Kurs ist nur Minuten entfernt."
-  title: "Auf die Warteliste"
-  lead: "{app} öffnet sich für wenige Leute auf einmal. Hinterlass deine E-Mail-Adresse, und wir schicken dir eine Einladung, wenn du an der Reihe bist."
-  email_label: "E-Mail-Adresse"
-  submit: "Auf die Warteliste"
-  joined: "Schau in dein Postfach: Öffne den Link, den wir dir geschickt haben, um deinen Platz zu bestätigen."
-  confirmed: "Du stehst auf der Liste. Wir schicken dir eine Einladung per E-Mail, wenn du an der Reihe bist."
-  bad_link: "Dieser Link funktioniert nicht mehr. Trag dich erneut in die Warteliste ein, um einen neuen zu bekommen."
-  too_many: "Zu viele Versuche aus deinem Netzwerk. Versuch es in einer Stunde noch einmal."
-  login_html: "Schon eingeladen? <a href=\"{url}\" data-testid=\"waitlist-login-link\">Anmelden</a>"
-release:
-  title: "Start"
-  about_label: "Über Start"
-  open: "Öffnen"
-  about: "Solange die Warteliste an ist, besteht die Startseite nur aus einem E-Mail-Feld, und ohne Einladung kann sich niemand registrieren. Leute bestätigen ihre Adresse, bevor du sie einladen kannst. Die Warteliste auszuschalten ist der Start: Die normale Startseite und die Registrierung kommen zurück."
-  about_invites: "Lade eine Person ein oder die nächsten in der Reihenfolge, in der sie sich eingetragen haben. Jede bekommt eine E-Mail mit einer Einladung für ihre eigene Adresse, gültig {days} Tage; Erneut senden macht eine neue. Konten, die über eine Einladung entstehen, sind als Beta markiert."
-  waitlist: "Warteliste"
-  state_on: "An: Registrierung nur mit Einladung."
-  state_off: "Aus: Jeder kann sich registrieren."
-  turn_on: "Warteliste einschalten"
-  turn_off: "Warteliste ausschalten"
-  turn_on_about: "Die Startseite wird zum Wartelisten-Formular, und zum Registrieren braucht es eine Einladung. Wer schon ein Konto hat, kann sich weiter anmelden."
-  turn_off_about: "Das ist der Start: Die normale Startseite kommt zurück, und jeder kann sich registrieren. Offene Einladungen gelten weiter."
-  list: "Leute auf der Warteliste"
-  count_total:
-    one: "{n} eingetragen"
-    other: "{n} eingetragen"
-  count_unconfirmed:
-    one: "{n} nicht bestätigt"
-    other: "{n} nicht bestätigt"
-  count_waiting:
-    one: "{n} wartet"
-    other: "{n} warten"
-  count_invited:
-    one: "{n} eingeladen"
-    other: "{n} eingeladen"
-  count_signed_up:
-    one: "{n} registriert"
-    other: "{n} registriert"
-  invite_next_label: "Wie viele"
-  invite_next: "Die nächsten einladen"
-  empty: "Noch hat sich niemand eingetragen."
-  joined: "Eingetragen"
-  status_h: "Status"
-  invited_h: "Eingeladen"
-  invite: "Einladen"
-  resend: "Erneut senden"
-  turned_on: "Die Warteliste ist an."
-  turned_off: "Die Warteliste ist aus: Jeder kann sich registrieren."
-  invited_one: "Einladung an {email} geschickt."
-  invited_n:
-    one: "{n} Einladung geschickt."
-    other: "{n} Einladungen geschickt."
-  not_invited: "An {email} ging keine Einladung: Die Adresse ist nicht bestätigt, hat schon ein Konto, oder das Mail-Limit ist erreicht."
-  status:
-    unconfirmed: "Nicht bestätigt"
-    waiting: "Wartet"
-    invited: "Eingeladen"
-    expired: "Einladung abgelaufen"
-    signed_up: "Registriert"
+
 clock:
   js:
     set_label: "Uhr. Zieh den Minutenzeiger oder nutze die Pfeiltasten; Bild auf und Bild ab verstellen eine Stunde."

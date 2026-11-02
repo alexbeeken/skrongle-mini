@@ -367,6 +367,7 @@ impl Meter {
         self.lock_res().get(job).map(|r| r.remaining)
     }
 
+    /// confirmed (a link or a password reset), so every way of
     /// Hosted spend since midnight UTC, across everyone: the day's running
     /// total (`ai_spend_days`, moved by triggers on `ai_usage`), one row.
     pub fn spent_today(&self, conn: &Connection) -> rusqlite::Result<i64> {

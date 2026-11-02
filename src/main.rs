@@ -8,15 +8,10 @@ mod algebra_tiles;
 mod ai;
 mod arrange;
 mod auth;
-mod breach;
-mod check_worker;
 mod clock;
 mod conjugation;
 mod consent;
 mod content;
-mod content_reports;
-mod content_check;
-mod course_flags;
 mod courses;
 mod db;
 mod dev;
@@ -36,17 +31,15 @@ mod listening;
 mod mail;
 mod mathcheck;
 mod measure;
-mod moderation;
 mod notation;
 mod notes;
 mod mastery;
 mod metering;
 mod motivators;
-mod oauth;
+mod urlenc;
 mod owner;
 mod placement;
 mod privacy;
-mod privacy_requests;
 mod problems;
 mod profile;
 mod progress;
@@ -62,10 +55,8 @@ mod share;
 mod shape;
 mod signup;
 mod startup;
-mod storage;
 mod security;
 mod server;
-mod sms;
 mod terms;
 mod totp;
 mod translate;
@@ -75,7 +66,6 @@ mod test_course;
 mod themes;
 mod tutor;
 mod verify;
-mod waitlist;
 mod vocab;
 mod word_list;
 
@@ -168,14 +158,6 @@ pub struct AppState {
     pub games: games::Sessions,
     /// Running and recently finished course-generation jobs.
     pub jobs: ai::Jobs,
-    /// "Continue with Google", when configured.
-    pub google: Option<oauth::GoogleConfig>,
-    /// New Google accounts waiting for the Terms confirm step.
-    pub signups: oauth::Signups,
-    /// Google joins waiting for the two-factor code (#677).
-    pub google_joins: oauth::Joins,
-    /// Google trips started from the profile (link, confirm it's you).
-    pub step_ups: oauth::StepUps,
     /// Encrypts learners' AI API keys at rest.
     pub vault: secrets::Vault,
     /// AI tutoring conversations (in memory only).
@@ -189,8 +171,6 @@ pub struct AppState {
     pub limits: security::RateLimits,
     /// The e-mail outbox's sender (`SKRONGLE_MAIL_*`; logs only when unset).
     pub mail: mail::Mailer,
-    /// The text message outbox's sender (`SKRONGLE_SMS_*`; logs only when unset).
-    pub sms: sms::Texter,
     /// "Download my data": the folder the export job writes to.
     pub exports: exports::Exports,
     /// Wakes the background job runner (`jobs.rs`).
@@ -198,8 +178,6 @@ pub struct AppState {
     /// Dev mode: the SMTP mailbox the mail goes to (`/dev/inbox`); `None`
     /// with `SKRONGLE_MAIL_PROVIDERS`, `SKRONGLE_DEV_SMTP=0` or outside dev mode.
     pub dev_inbox: Option<Arc<mail::sink::Inbox>>,
-    /// Dev mode without `SKRONGLE_SMS_PROVIDERS`: where texts go (`/dev/phone`).
-    pub dev_phone: Option<Arc<sms::phone::Phone>>,
     /// Dev mode: which rows of the dev inbox pages were opened or archived.
     pub dev_marks: dev::Marks,
     /// Dev mode: the simulated AI provider's log, usage and settings (`/dev/ai`).
@@ -211,29 +189,23 @@ pub struct AppState {
     pub public_url: Option<String>,
     /// `SKRONGLE_SIGNUP`: who may make an account (`signup.rs`).
     pub signup: signup::Mode,
-    /// The waitlist switch (#934), set on Superuser → Release.
-    pub waitlist: waitlist::Switch,
     /// `SKRONGLE_PROXY_AUTH_HEADER` + `SKRONGLE_PROXY_AUTH_FROM`: the proxy in
     /// front signs people in (`proxy_auth.rs`); `None` when unset.
     pub proxy_auth: Option<proxy_auth::Config>,
-    /// Addresses a superuser blocked (#967), checked on every request.
-    pub blocked: moderation::Blocklist,
 }
 
-/// What this server can send (#633): features that would e-mail or text
-/// someone ask here, and hide themselves when the channel is off. Templates
+/// What this server can send (#633): features that would e-mail someone
+/// ask here, and hide themselves when the channel is off. Templates
 /// that need it carry a copy (`caps`).
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct Caps {
     /// `SKRONGLE_MAIL_PROVIDERS` is set (or dev mode's mailbox stands in).
     pub mail: bool,
-    /// `SKRONGLE_SMS_PROVIDERS` is set (or dev mode's phone stands in).
-    pub sms: bool,
 }
 
 impl Caps {
     /// Does a channel reach anyone? Not when its chain is the `log`
-    /// provider alone, unless dev mode's mailbox or phone stands in for a
+    /// provider alone, unless dev mode's mailbox stands in for a
     /// provider (so the dev server and its specs work as before).
     pub fn reaches(logging_only: bool, dev_stand_in: bool) -> bool {
         !logging_only || dev_stand_in
@@ -241,7 +213,7 @@ impl Caps {
 }
 
 /// The hosted site needs every provider; only Skrongle mini (`SKRONGLE_MINI=1`;
-/// and the dev server, whose mailbox, phone and Google stand in)
+/// and the dev server, whose mailbox stands in)
 /// runs without them. Self-hosting the full build is not supported (CLAUDE.md, "Two
 /// shapes"). `missing` names the settings that are not set. The hosted site
 /// is served over HTTPS, so it also needs `Secure` cookies, and proxy
@@ -274,12 +246,7 @@ pub fn require_providers(mini: bool, dev: bool, missing: &[&str], secure_cookies
 impl AppState {
     /// What this server can send: [`Caps`].
     pub fn caps(&self) -> Caps {
-        Caps { mail: self.mail.can_send(), sms: self.sms.can_send() }
-    }
-
-    /// "Continue with Google" goes to dev mode's stand-in, not to Google.
-    pub fn google_mock(&self) -> bool {
-        self.google.as_ref().is_some_and(|g| g.mock)
+        Caps { mail: self.mail.can_send() }
     }
 }
 
@@ -290,7 +257,6 @@ struct Config {
     secure_cookies: bool,
     base_path: String,
     log_level: tracing::Level,
-    google: Option<oauth::GoogleConfig>,
     /// `SKRONGLE_SECRET_KEY`; without it the secret lives in `<db>.key`.
     secret_key: Option<String>,
     /// `SKRONGLE_DEV=1`: asked for; `dev::resolve` decides.
@@ -443,18 +409,6 @@ impl Config {
                 ..server::Limits::default()
             },
             test_course: std::env::var("TEST_COURSE").ok().or_else(|| env("TEST_COURSE")).is_some_and(|v| v == "1" || v == "true"),
-            google: match (env("GOOGLE_CLIENT_ID"), env("GOOGLE_CLIENT_SECRET"), env("PUBLIC_URL")) {
-                (Some(client_id), Some(client_secret), Some(public_url)) => Some(oauth::GoogleConfig::new(
-                    client_id,
-                    client_secret,
-                    format!("{}/auth/google/callback", public_url.trim_end_matches('/')),
-                )),
-                (None, None, _) => None,
-                _ => {
-                    eprintln!("Google sign-in needs SKRONGLE_GOOGLE_CLIENT_ID, SKRONGLE_GOOGLE_CLIENT_SECRET and SKRONGLE_PUBLIC_URL; disabled");
-                    None
-                }
-            },
         })
     }
 }
@@ -470,7 +424,6 @@ Usage:
                                give the account a temporary password, printed here; it must be changed at the next sign-in
   skrongle disable-2fa <email> turn the account's two-factor sign-in off
   skrongle make-owner <email>  make the account a superuser (the Superuser page)
-  skrongle content-check       run the content check beside the server (with SKRONGLE_CONTENT_CHECK=external); hosted only
   skrongle --version           print the version
   skrongle --schema-version    print the database schema version this binary migrates to
 
@@ -483,7 +436,6 @@ fn main() {
     match args.first().map(String::as_str) {
         None => {}
         Some("doctor" | "--doctor") => std::process::exit(doctor::main(&args[1..])),
-        Some("content-check") => std::process::exit(check_worker::main(&args[1..])),
         Some("--version" | "-V" | "version") => {
             println!("skrongle {VERSION}");
             return;
@@ -684,12 +636,9 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         tracing::warn!("{w}");
     }
     let llm_mode = dev::init_llm(dev, cfg.bind)?;
-    // Dev mode without a real Google client: this server stands in for Google
-    // (`/dev/google/*`), so "Continue with Google" works locally. SKRONGLE_GOOGLE_MOCK=0 opts out.
     // Skrongle mini has no dev stand-in for Google, e-mail or texts: it looks
     // like a real mini in dev mode too.
     let meter_cfg = cfg.meter.clone()?;
-    let google = cfg.google.clone().or_else(|| (!is_mini() && dev::mock_google_wanted(dev, cfg.google.is_some())).then(|| dev::mock_google(cfg.bind)));
     if dev {
         tracing::warn!("DEV MODE: /dev/login, /dev/reset and the dev mailbox (/dev/inbox, /dev/ai) are open to anyone who can reach {}", cfg.bind);
         match llm_mode {
@@ -740,16 +689,9 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         Some(n) => tracing::info!("{n}"),
         None => tracing::info!("Skrongle AI disabled (no SKRONGLE_AI_KEY): AI features use learners' own keys"),
     }
-    let check_mode = content_check::Mode::from_env()?;
     let mut mail_cfg = mail::Config::from_env()?;
-    let mut sms_cfg = sms::Config::from_env()?;
-    let storage = Arc::new(storage::Storage::from_settings(env("S3_BUCKET"), &|k| std::env::var(k).ok())?);
     let missing: Vec<&str> = [
         (mail_cfg.logging_only, "SKRONGLE_MAIL_PROVIDERS"),
-        (storage.bucket().is_none(), storage::BUCKET_VAR),
-        (sms_cfg.logging_only, "SKRONGLE_SMS_PROVIDERS"),
-        (cfg.google.is_none(), "SKRONGLE_GOOGLE_CLIENT_ID"),
-        (content_check::key_missing(check_mode), content_check::KEY_VAR),
     ]
     .into_iter()
     .filter_map(|(gone, name)| gone.then_some(name))
@@ -779,33 +721,17 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         Some(c) => tracing::info!("e-mail: at most {} messages of each purpose due per {}s (SKRONGLE_MAIL_PER_HOUR); more wait for the next window", c.per_window, c.window),
         None => tracing::info!("e-mail: no hourly ceiling (SKRONGLE_MAIL_PER_HOUR)"),
     }
-    // The job runner (jobs.rs) sends the mail and the texts; the handles
+    // The job runner (jobs.rs) sends the mail; the handles
     // in AppState queue them and wake it.
     let (queue, queue_wake) = jobs::Queue::new();
     let mail_outbox = mail::Outbox::new(mail_cfg.chain, mail_cfg.from, mail_cfg.reply_to, dev);
     let mailer = mail::Mailer::new(&mail_outbox, ceiling, mail_on, queue.waker());
-    // Dev mode without providers: texts go to the dev phone (sms/phone.rs),
-    // unless SKRONGLE_DEV_PHONE=0 (then they are only logged, as on a server).
-    let dev_phone = (dev && !is_mini() && sms_cfg.logging_only && env("DEV_PHONE").as_deref() != Some("0")).then(sms::phone::Phone::new);
-    let sms_on = Caps::reaches(sms_cfg.logging_only, dev_phone.is_some());
-    if let Some(phone) = &dev_phone {
-        sms_cfg.chain = sms::Chain::new(vec![sms::phone::provider(phone)]);
-    } else if sms_cfg.logging_only {
-        tracing::info!("text messages: not configured; features that need them are off (SKRONGLE_SMS_PROVIDERS)");
-    } else {
-        tracing::info!("text messages via {}", sms_cfg.chain.names().join(", then "));
+    match &dev_inbox {
+        Some(inbox) => tracing::info!("dev: e-mail goes to the dev mailbox (SMTP on {}); read it at http://{}{} (SKRONGLE_DEV_SMTP=0 to only log it)", inbox.addr(), cfg.bind, url("/dev/inbox")),
+        None => {}
     }
-    // The dev mailbox page holds the e-mail and the texts: one link for both.
-    match (&dev_inbox, dev_phone.is_some()) {
-        (Some(inbox), true) => tracing::info!("dev: e-mail (SMTP on {}) and text messages go to the dev mailbox; read them at http://{}{} (SKRONGLE_DEV_SMTP=0 to only log e-mail)", inbox.addr(), cfg.bind, url("/dev/inbox")),
-        (Some(inbox), false) => tracing::info!("dev: e-mail goes to the dev mailbox (SMTP on {}); read it at http://{}{} (SKRONGLE_DEV_SMTP=0 to only log it)", inbox.addr(), cfg.bind, url("/dev/inbox")),
-        (None, true) => tracing::info!("dev: text messages go to the dev mailbox; read them at http://{}{}", cfg.bind, url("/dev/phone")),
-        (None, false) => {}
-    }
-    let sms_outbox = sms::Outbox::new(sms_cfg.chain, dev);
-    let texter = sms::Texter::new(&sms_outbox, sms_cfg.policy, sms_on, queue.waker());
-    tracing::info!("{}", storage.describe());
-    let exports_dir = exports::Exports::open(&cfg.db_path, Arc::clone(&storage)).map_err(|e| format!("data exports folder for {}: {e}", cfg.db_path.display()))?;
+    tracing::info!("data exports: on disk, next to the database");
+    let exports_dir = exports::Exports::open(&cfg.db_path).map_err(|e| format!("data exports folder for {}: {e}", cfg.db_path.display()))?;
     let export_mail: Option<Box<dyn Fn() + Send>> = mail_on.then(|| {
         let wake = mailer.waker();
         Box::new(move || {
@@ -813,7 +739,6 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         }) as Box<dyn Fn() + Send>
     });
     let mut export_builder = exports::Builder::new(exports_dir.dir.clone(), export_mail);
-    export_builder.storage = storage;
     // Dev: a slow export, to watch it in slices on /dev/jobs or stop the
     // server halfway through (SKRONGLE_DEV_EXPORT_PAUSE_MS after each page,
     // five pages a slice).
@@ -834,56 +759,35 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         dummy_hash: auth::hash_password("placeholder-for-timing-only")?,
         games: games::Sessions::default(),
         jobs: ai::Jobs::default(),
-        google: google.clone(),
-        signups: Default::default(),
-        google_joins: Default::default(),
-        step_ups: Default::default(),
         vault,
         tutors: tutor::Sessions::default(),
         meter,
         dev,
         limits: security::RateLimits::new(dev),
         mail: mailer,
-        sms: texter,
         exports: exports_dir,
         queue,
         dev_inbox,
-        dev_phone,
         dev_marks: Default::default(),
         dev_ai: if llm_mode == Some(dev::LlmMode::Capture) { dev_ai::Simulator::holding_from_start() } else { Default::default() },
         dev_authenticator: Default::default(),
         public_url: env("PUBLIC_URL").map(|u| u.trim_end_matches('/').to_string()),
         signup,
-        waitlist: Default::default(),
         proxy_auth,
-        blocked: Default::default(),
     });
-    db.with(|c| state.blocked.reload(c))?;
-    match &google {
-        Some(g) if g.mock => tracing::warn!(
-            "DEV MODE: Google sign-in is mocked: {} stands in for Google; /auth/google?mock_email=…&mock_error=… picks the account or the failure (SKRONGLE_GOOGLE_MOCK=0 to disable)",
-            g.auth_url
-        ),
-        Some(g) => tracing::info!("Google sign-in enabled (redirect URI {})", g.redirect_uri),
-        None => tracing::info!("Google sign-in disabled (no SKRONGLE_GOOGLE_CLIENT_ID)"),
-    }
 
-    // Background jobs: the mail and text outboxes (drained first on every
+    // Background jobs: the mail outbox (drained first on every
     // pass), the hourly housekeeping (one job per purge, each queuing its
     // next run; due at once on a fresh database), data exports (a slice per
     // run), AI jobs waiting in line (each started on its own thread), and in
     // dev mode the always-failing kind /dev/jobs queues.
     mail_outbox.blank_at_start(&db);
-    sms_outbox.blank_at_start(&db);
     state.jobs.wake_with(state.queue.waker());
     ai::adopt(&state.jobs, &db)?;
     let gen_state = Arc::clone(&state);
-    let mut runner = jobs::housekeeping(jobs::Runner::new().drain(mail_outbox.drain()).drain(sms_outbox.drain()), &state, retention)
+    let mut runner = jobs::housekeeping(jobs::Runner::new().drain(mail_outbox.drain()), &state, retention)
         .handle_steps(jobs::EXPORT, move |db, payload| export_builder.run(db, payload))
         .handle_claimed(ai::GENERATE, move || ai::slot_free(&gen_state.jobs), ai::handler(Arc::clone(&state)));
-    tracing::info!("{}", content_check::init(is_mini(), dev, cfg.bind.port(), check_mode));
-    let cache = state.courses.clone();
-    runner = content_check::jobs(runner, state.meter.clone(), Arc::new(move |id: &str| cache.invalidate(id)));
     if dev {
         runner = jobs::dev(runner);
     }
@@ -897,13 +801,6 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         if let Some(token) = state.db.with(|c| signup::owner_link(c, db::now()))? {
             let link = signup::owner_link_url(state.public_url.as_deref(), cfg.bind, &token);
             tracing::warn!("no account yet. Owner link, to make your own account (the owner's): {link}");
-        }
-    }
-    // The waitlist switch (#934), set on Superuser → Release; never on Skrongle mini.
-    if !is_mini() {
-        state.db.with(|c| state.waitlist.load(c, env(waitlist::LOGIN_VAR).is_some_and(|v| v.trim() == "1")))?;
-        if state.waitlist.is_on() {
-            tracing::info!("waitlist: on; sign-up only through an e-mailed invitation (Superuser → Release)");
         }
     }
     let app = routes::router(state);
@@ -993,7 +890,7 @@ mod tests {
     /// tell people to rename theirs. Remove this list with the fallback.
     #[test]
     fn the_old_prefix_does_not_come_back() {
-        let allowed = ["src/main.rs", "docs/self-hosting.md", "docs/architecture.md", "scripts/deploy-env.sh", "scripts/deploy.sh", "deploy/update.sh", "scripts/aws-env.sh", "scripts/deploy-aws.sh"];
+        let allowed = ["src/main.rs", "docs/self-hosting.md", "docs/architecture.md", "scripts/deploy-env.sh", "scripts/deploy.sh", "deploy/update.sh"];
         let needle = concat!("LEA", "RN_");
         let root = env!("CARGO_MANIFEST_DIR");
         let Ok(out) = std::process::Command::new("git").args(["-C", root, "ls-files", "-z"]).output() else {
@@ -1012,11 +909,11 @@ mod tests {
 
     #[test]
     fn only_the_hosted_server_requires_providers() {
-        let none = ["SKRONGLE_MAIL_PROVIDERS", "SKRONGLE_SMS_PROVIDERS", "SKRONGLE_GOOGLE_CLIENT_ID", "TYPESAFE_API_KEY"];
+        let none = ["SKRONGLE_MAIL_PROVIDERS"];
         let why = require_providers(false, false, &none, true, false).unwrap_err();
         assert!(none.iter().all(|n| why.contains(n)), "{why}");
         assert!(why.contains("SKRONGLE_MINI=1"), "{why}");
-        assert!(require_providers(false, false, &["SKRONGLE_SMS_PROVIDERS"], true, false).is_err());
+        assert!(require_providers(false, false, &["SKRONGLE_MAIL_PROVIDERS"], true, false).is_err());
         assert_eq!(require_providers(false, false, &[], true, false), Ok(()));
         assert_eq!(require_providers(true, false, &none, false, false), Ok(()), "mini needs none");
         assert_eq!(require_providers(false, true, &none, false, false), Ok(()), "dev stands in");
@@ -1026,8 +923,8 @@ mod tests {
     fn the_hosted_server_requires_secure_cookies() {
         let why = require_providers(false, false, &[], false, false).unwrap_err();
         assert!(why.contains("SKRONGLE_SECURE_COOKIES=1") && why.contains("SKRONGLE_MINI=1"), "{why}");
-        let why = require_providers(false, false, &["SKRONGLE_SMS_PROVIDERS"], false, false).unwrap_err();
-        assert!(why.contains("SKRONGLE_SMS_PROVIDERS") && why.contains("SKRONGLE_SECURE_COOKIES=1"), "{why}");
+        let why = require_providers(false, false, &["SKRONGLE_MAIL_PROVIDERS"], false, false).unwrap_err();
+        assert!(why.contains("SKRONGLE_MAIL_PROVIDERS") && why.contains("SKRONGLE_SECURE_COOKIES=1"), "{why}");
         assert_eq!(require_providers(false, false, &[], true, false), Ok(()));
         assert_eq!(require_providers(true, false, &[], false, false), Ok(()), "mini may run on plain HTTP");
         assert_eq!(require_providers(false, true, &[], false, false), Ok(()), "dev mode refuses secure cookies");

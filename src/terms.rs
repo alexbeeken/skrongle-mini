@@ -1,8 +1,7 @@
 //! Terms of Service: the text (`docs/terms.md`), its version, and who
 //! accepted which version when (table `terms_acceptances`).
 //!
-//! A learner accepts at registration (the checkbox; for Google sign-ups the
-//! confirm step) and again whenever the version (`version()`) changes.
+//! A learner accepts at registration (the checkbox) and again whenever the version (`version()`) changes.
 //!
 //! The built-in text has a changelog, `docs/terms-changes.json` (#966): one
 //! [`Change`] per version with its dates, whether it is material and a
@@ -224,11 +223,6 @@ pub fn version() -> &'static str {
 
 pub fn min_age() -> u32 {
     SETTINGS.get().map(|s| s.min_age).unwrap_or(DEFAULT_MIN_AGE)
-}
-
-/// The copyright / legal contact, or the placeholder.
-pub fn legal_email() -> String {
-    SETTINGS.get().and_then(|s| s.legal_email.clone()).unwrap_or_else(|| EMAIL_PLACEHOLDER.to_string())
 }
 
 /// The raw Markdown, as committed.

@@ -26,7 +26,7 @@
 #
 # E2E_MINI=1 is the mini lane (docs/testing.md, "The mini lane"): the
 # server runs without the dev stand-ins a self-hoster lacks (no dev mailbox,
-# no dev phone, no stand-in Google, no dev Stripe, no Skrongle AI key), and
+# no dev Stripe, no Skrongle AI key), and
 # the specs see E2E_MINI=1 so the ones that need a stand-in skip.
 #
 # Uses its own database (./e2e.db, or E2E_DB) and a free port, so a running
@@ -60,7 +60,7 @@ rm -f "$DB" "$DB-wal" "$DB-shm" "$DB.key"
 AI_KEY="sk-ant-dev-platform"
 [ "${E2E_LLM_MODE:-}" = live ] && AI_KEY=""
 MINI="${E2E_MINI:-0}"
-# The mini lane: mail and texts only logged, no stand-in Google or Stripe,
+# The mini lane: mail and texts only logged, no stand-in Stripe,
 # learners' own AI keys only (they still reach the dev AI provider), and
 # SKRONGLE_MINI=1, which makes the server a Skrongle mini (#578: no plans and
 # no dev stand-ins, the hosted-only settings ignored;

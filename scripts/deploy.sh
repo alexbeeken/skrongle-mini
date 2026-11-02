@@ -8,7 +8,7 @@
 # Assumes the Pi user can sudo (default on Raspberry Pi OS).
 # Honours SSH_OPTS (e.g. "-i ~/.ssh/localpi -o IdentitiesOnly=yes"; release.sh sets it
 # from PI_SSH_KEY in deploy/deploy.env), PI_BASE_PATH, PI_PUBLIC_URL and, when
-# GOOGLE_CLIENT_ID/SECRET, STRIPE_* or SKRONGLE_MAIL_* are set, writes /etc/spanish-learning/env on the Pi.
+# STRIPE_* or SKRONGLE_MAIL_* are set, writes /etc/spanish-learning/env on the Pi.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 SSH_OPTS="${SSH_OPTS:--o BatchMode=yes -o ConnectTimeout=15}"
@@ -51,17 +51,12 @@ for f in spanish-learning.service nginx-spanish.conf nginx-spanish-http.conf; do
 done
 RSYNC -az "$RENDER/spanish-learning.service" "$RENDER/nginx-spanish.conf" "$RENDER/nginx-spanish-http.conf" "$HOST:$STAGE/"
 rm -rf "$RENDER"
-# App settings that live outside the repo: the public URL and, if configured,
-# the Google OAuth client. Written to /etc/spanish-learning/env (root, 0600).
+# App settings that live outside the repo: the public URL. Written to /etc/spanish-learning/env (root, 0600).
 ENVFILE=$(mktemp)
 {
   echo "# written by scripts/deploy.sh from deploy/deploy.env"
   echo "SKRONGLE_PUBLIC_URL=$PI_PUBLIC_URL"
   echo "SKRONGLE_BASE_PATH=$PI_BASE_PATH"
-  if [ -n "${GOOGLE_CLIENT_ID:-}" ] && [ -n "${GOOGLE_CLIENT_SECRET:-}" ]; then
-    echo "SKRONGLE_GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID"
-    echo "SKRONGLE_GOOGLE_CLIENT_SECRET=$GOOGLE_CLIENT_SECRET"
-  fi
   if [ -n "${STRIPE_SECRET_KEY:-}" ] && [ -n "${STRIPE_WEBHOOK_SECRET:-}" ] && [ -n "${STRIPE_PRICE_ID:-}" ]; then
     echo "SKRONGLE_STRIPE_SECRET_KEY=$STRIPE_SECRET_KEY"
     echo "SKRONGLE_STRIPE_WEBHOOK_SECRET=$STRIPE_WEBHOOK_SECRET"
@@ -81,7 +76,7 @@ ENVFILE=$(mktemp)
 RSYNC -az "$ENVFILE" "$HOST:$STAGE/app.env"
 rm -f "$ENVFILE"
 MAIL_SET=$(env | grep -cE '^(LEARN|SKRONGLE)_MAIL_[A-Z0-9_]+=' || true)
-WRITE_ENV=$([ -n "${GOOGLE_CLIENT_ID:-}${STRIPE_SECRET_KEY:-}" ] || [ "${MAIL_SET:-0}" -gt 0 ] && echo 1 || echo 0)
+WRITE_ENV=$([ -n "${STRIPE_SECRET_KEY:-}" ] || [ "${MAIL_SET:-0}" -gt 0 ] && echo 1 || echo 0)
 
 echo "==> installing"
 SSH "$HOST" "NGINX_TLS_VHOST='$NGINX_TLS_VHOST' NGINX_HTTP_VHOST='$NGINX_HTTP_VHOST' WRITE_ENV='$WRITE_ENV' bash -s" <<'REMOTE'

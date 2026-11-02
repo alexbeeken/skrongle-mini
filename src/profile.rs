@@ -355,8 +355,7 @@ pub struct Profile {
     /// (9-16), `DEFAULT_COLOR` until one is picked.
     pub avatar_color: u8,
     pub created_at: i64,
-    pub google_linked: bool,
-    /// Google-only accounts have no password to change.
+    /// Accounts without one (signed in through a proxy) have no password to change.
     pub has_password: bool,
     /// The Terms of Service version last accepted, and when.
     pub terms: Option<crate::terms::Acceptance>,
@@ -413,7 +412,7 @@ pub fn load(conn: &Connection, user_id: i64) -> rusqlite::Result<Option<Profile>
     };
     conn.query_row(
         "SELECT first_name, last_name, NULLIF(email, ''), avatar, created_at,
-                google_sub IS NOT NULL, password_hash != '', ai_off, avatar_color
+                password_hash != '', ai_off, avatar_color
          FROM users WHERE id = ?1",
         [user_id],
         |r| {
@@ -423,13 +422,12 @@ pub fn load(conn: &Connection, user_id: i64) -> rusqlite::Result<Option<Profile>
                 email: r.get(2)?,
                 avatar: r.get(3)?,
                 created_at: r.get(4)?,
-                google_linked: r.get(5)?,
-                has_password: r.get(6)?,
+                has_password: r.get(5)?,
                 terms: terms.clone(),
-                ai_off: r.get(7)?,
+                ai_off: r.get(6)?,
                 age_confirmed_at,
                 ai_consent,
-                avatar_color: color_slot(r.get(8)?),
+                avatar_color: color_slot(r.get(7)?),
                 two_factor: two_factor.clone(),
             })
         },
@@ -779,7 +777,7 @@ mod tests {
             let id = auth::create_user(c, "ana@example.org", "h")?;
             let p = load(c, id)?.unwrap();
             assert_eq!((p.avatar.as_str(), p.email.as_deref(), p.avatar_color), (DEFAULT_AVATAR, Some("ana@example.org"), DEFAULT_COLOR));
-            assert!(p.has_password && !p.google_linked);
+            assert!(p.has_password);
 
             update(c, id, Some("Ana"), Some("López"))?;
             // Fields left out keep their value.

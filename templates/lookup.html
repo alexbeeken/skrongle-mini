@@ -2,7 +2,7 @@
 {% block title %}{{ crate::t1("vocab.lookup.title", "query", q) }}{% endblock %}
 {% block modenav %}{% let active = "lessons" %}{% include "nav_study.html" %}{% endblock %}
 {% block content %}
-<p class="crumbs"><a href="{{ crate::base_path() }}/lessons?q={{ crate::oauth::urlencode(q) }}" data-testid="lookup-back">{{ crate::t("vocab.lookup.back") }}</a></p>
+<p class="crumbs"><a href="{{ crate::base_path() }}/lessons?q={{ crate::urlenc::urlencode(q) }}" data-testid="lookup-back">{{ crate::t("vocab.lookup.back") }}</a></p>
 <h1>{{ crate::t1("vocab.lookup.heading", "query", q) }} <span class="muted">· {{ course.title }}</span></h1>
 {% if rows.is_empty() %}
 <p class="muted" role="status" data-testid="lookup-none">{{ crate::t1("vocab.lookup.none", "query", q) }}</p>

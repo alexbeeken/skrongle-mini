@@ -9,8 +9,6 @@
 .env
 # deployment secrets (template: deploy/deploy.env.example)
 deploy/deploy.env
-# pinned ssh host keys of AWS instances (scripts/deploy-aws.sh)
-deploy/aws/known_hosts.*
 .DS_Store
 /dist
 # local testing (./.dev-start): captured LLM requests, background server state
@@ -23,3 +21,6 @@ deploy/aws/known_hosts.*
 # browser tests (scripts/e2e.sh): its database, Playwright output; the Jev key lives in e2e/.env
 /e2e/node_modules
 /e2e/results
+
+# Agent worktrees (Claude Code)
+.claude/worktrees/

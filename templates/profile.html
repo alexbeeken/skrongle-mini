@@ -80,24 +80,6 @@
       </span>
     </div>
     {% let tf = profile.two_factor %}
-    {% let phone_allowed = tf.email_verified || profile.google_linked %}
-    {% if caps.sms %}
-    <div class="field">
-      <label for="profile-phone" data-testid="profile-phone-label">{{ crate::t("profile.personal.phone") }}</label>
-      <span class="field-with-icon has-prefix">
-        <span class="field-prefix" id="phone-country" data-testid="profile-phone-country">+1</span>
-        <input type="tel" id="profile-phone" name="phone" value="{{ crate::sms::format_us_number(tf.phone.as_str()) }}" placeholder="{{ crate::t("profile.personal.phone_placeholder") }}" inputmode="numeric" maxlength="24" autocomplete="tel-national" data-testid="profile-phone" aria-describedby="phone-country phone-error"{% if !phone_allowed %} disabled{% endif %}>
-        {% if !phone_allowed %}<button type="button" class="info-btn field-info" data-opens="phone-locked-dialog" aria-haspopup="dialog" aria-label="{{ crate::t("profile.personal.phone_locked_label") }}" data-testid="phone-locked-info">i</button>{% endif %}
-        <span class="field-check" tabindex="0" role="img" aria-label="{{ crate::t("profile.personal.verified") }}" data-tip="{{ crate::t("profile.personal.verified") }}" data-testid="phone-verified"{% if tf.phone.is_empty() || !tf.phone_verified || tf.phone_opted_out %} hidden{% endif %}>✓</span>
-        <button type="button" class="field-check bad field-problem" data-opens="phone-problem-dialog" aria-haspopup="dialog" aria-label="{{ crate::t("profile.personal.phone_problem") }}" data-testid="profile-phone-invalid" hidden>!</button>
-        <button type="button" class="field-check bad" data-opens="phone-dialog" aria-haspopup="dialog" aria-label="{{ crate::t("profile.personal.not_verified") }}" data-tip="{{ crate::t("profile.personal.not_verified") }}" data-testid="phone-unverified"{% if tf.phone.is_empty() || tf.phone_verified || !phone_allowed || tf.phone_opted_out %} hidden{% endif %}>!</button>
-        <button type="button" class="field-check bad" data-opens="phone-stopped-dialog" aria-haspopup="dialog" aria-label="{{ crate::t("profile.personal.phone_stopped") }}" data-tip="{{ crate::t("profile.personal.phone_stopped") }}" data-testid="phone-opted-out"{% if tf.phone.is_empty() || !tf.phone_opted_out %} hidden{% endif %}>!</button>
-      </span>
-      <!-- What the red ! says, for a screen reader: it describes the field,
-           and takes no room under it (static/profile.js). -->
-      <span class="field-error sr-only" id="phone-error" data-testid="profile-phone-error" hidden></span>
-    </div>
-    {% endif %}
     <div class="field">
       <label for="profile-lang" data-testid="profile-lang-label">{{ crate::t("profile.personal.language") }}</label>
       <select id="profile-lang" name="lang" data-testid="profile-lang" aria-describedby="lang-error">
@@ -108,51 +90,6 @@
       <span class="field-error" id="lang-error" data-testid="profile-lang-error" hidden></span>
     </div>
   </section>
-  {% if caps.sms %}
-  <form method="post" action="{{ crate::url("/profile/phone/send") }}" id="phone-send-form" hidden></form>
-  {% if !phone_allowed %}
-  <dialog class="modal" id="phone-locked-dialog" aria-labelledby="phone-locked-dialog-title" data-testid="phone-locked-dialog">
-    <h2 id="phone-locked-dialog-title">{{ crate::t("profile.personal.phone_locked_title") }}</h2>
-    <p>{{ crate::t("profile.personal.phone_locked_text") }}</p>
-    <div class="modal-actions">
-      <button type="button" class="btn ghost" data-closes data-testid="phone-locked-close">{{ crate::t("profile.personal.phone_locked_close") }}</button>
-      {% if profile.email.is_some() && caps.mail %}<button type="submit" form="verify-resend-form" class="btn" data-testid="phone-locked-resend">{{ crate::t("profile.personal.phone_locked_resend") }}</button>{% endif %}
-    </div>
-  </dialog>
-  {% endif %}
-  <dialog class="modal" id="phone-dialog" aria-labelledby="phone-dialog-title" data-testid="phone-unverified-dialog"{% if phone_open %} data-open-on-load{% endif %}>
-    <h2 id="phone-dialog-title">{{ crate::t("profile.phone_dialog.title") }}</h2>
-    {% if let Some(e) = phone_error %}<p class="alert error" role="alert" data-testid="phone-verify-error">{{ e }}</p>{% endif %}
-    <p>{% if phone_sent %}{{ crate::t("profile.phone_dialog.type_code") }}{% else %}{{ crate::t("profile.phone_dialog.not_verified") }}{% endif %}</p>
-    <form method="post" action="{{ crate::url("/profile/phone/verify") }}" id="phone-verify-form" data-testid="phone-verify-form">
-      <label>{{ crate::t("profile.phone_dialog.code") }}
-        <input type="text" name="code" inputmode="numeric" pattern="[0-9 ]*" maxlength="9" autocomplete="one-time-code" required data-testid="phone-verify-code">
-      </label>
-    </form>
-    <div class="modal-actions">
-      <button type="button" class="btn ghost" data-closes data-testid="phone-verify-close">{{ crate::t("profile.phone_dialog.close") }}</button>
-      <button type="submit" form="phone-send-form" class="btn ghost" data-testid="phone-verify-send">{% if phone_sent %}{{ crate::t("profile.phone_dialog.send_again") }}{% else %}{{ crate::t("profile.phone_dialog.send_code") }}{% endif %}</button>
-      <button type="submit" form="phone-verify-form" class="btn" data-testid="phone-verify-submit">{{ crate::t("profile.phone_dialog.verify") }}</button>
-    </div>
-  </dialog>
-  {% if tf.phone_opted_out %}
-  <dialog class="modal" id="phone-stopped-dialog" aria-labelledby="phone-stopped-title" data-testid="phone-stopped-dialog">
-    <h2 id="phone-stopped-title">{{ crate::t("profile.phone_stopped.title") }}</h2>
-    <p>{{ crate::t1("profile.phone_stopped.text", "app", crate::APP_NAME) }}</p>
-    <div class="modal-actions">
-      <button type="button" class="btn ghost" data-closes data-testid="phone-stopped-close">{{ crate::t("profile.phone_stopped.close") }}</button>
-      <button type="submit" form="phone-send-form" class="btn" data-testid="phone-stopped-send">{{ crate::t("profile.phone_stopped.send") }}</button>
-    </div>
-  </dialog>
-  {% endif %}
-  <dialog class="modal" id="phone-problem-dialog" aria-labelledby="phone-problem-title" data-testid="phone-problem-dialog">
-    <h2 id="phone-problem-title">{{ crate::t("profile.phone_problem.title") }}</h2>
-    <p data-testid="phone-problem-why"></p>
-    <div class="modal-actions">
-      <button type="button" class="btn" data-closes data-testid="phone-problem-close">{{ crate::t("profile.phone_problem.close") }}</button>
-    </div>
-  </dialog>
-  {% endif %}
   <form method="post" action="{{ crate::url("/profile/verify-email/resend") }}" id="verify-resend-form" hidden></form>
 
   <section class="card" id="account">
@@ -162,11 +99,6 @@
       <dt>{{ crate::t("profile.account.sign_in") }}</dt>
       <dd data-testid="profile-sign-in">
         {% if profile.has_password %}{{ crate::t("profile.account.password") }}{% endif %}
-        {% if profile.has_password && profile.google_linked %} {{ crate::t("profile.account.and") }} {% endif %}
-        {% if profile.google_linked %}{{ crate::t("profile.account.google_connected") }}{% if profile.has_password %} · <button type="button" class="link-btn" data-opens="google-unlink-dialog" aria-haspopup="dialog" data-testid="profile-google-unlink-open">{{ crate::t("profile.google_link.unlink") }}</button>{% endif %}{% endif %}
-        {% if google_enabled && !profile.google_linked %}
-          · <button type="button" class="link-btn" data-opens="google-link-dialog" aria-haspopup="dialog" data-testid="profile-google-connect">{{ crate::t("profile.google_link.link_title") }}</button> {{ crate::t("profile.google_link.one_tap") }}
-        {% endif %}
       </dd>
     </dl>
     <dialog class="modal wide" id="terms-dialog" aria-labelledby="terms-dialog-title" data-testid="profile-terms-dialog">
@@ -177,38 +109,6 @@
       <article class="prose" data-testid="profile-terms-text">{{ terms_html|safe }}</article>
       <p class="muted small"><a href="{{ crate::url("/terms") }}" data-testid="profile-terms-page-link">{{ crate::t("profile.account.terms_open_page") }}</a></p>
     </dialog>
-    {% if google_enabled && !profile.google_linked %}
-    <dialog class="modal" id="google-link-dialog" aria-labelledby="google-link-title" data-testid="profile-google-link-dialog"{% if google_open == "link" %} data-open-on-load{% endif %}>
-      <form method="post" action="{{ crate::url("/profile/google/link") }}" class="profile-form" data-testid="profile-google-link-form">
-        <h2 id="google-link-title">{{ crate::t("profile.google_link.link_title") }}</h2>
-        {% if google_open == "link" %}{% if let Some(e) = google_error %}<p class="alert error" role="alert" data-testid="profile-google-error">{{ e }}</p>{% endif %}{% endif %}
-        <p>{{ crate::t("profile.google_link.link_text") }}</p>
-        <label>{{ crate::t("profile.google_link.password") }}
-          <input type="password" name="password" required maxlength="{{ crate::auth::PASSWORD_MAX }}" autocomplete="current-password" data-testid="profile-google-link-password">
-        </label>
-        <div class="modal-actions">
-          <button type="button" class="btn ghost" data-closes data-testid="profile-google-link-cancel">{{ crate::t("profile.google_link.cancel") }}</button>
-          <button type="submit" class="btn" data-testid="profile-google-link-submit">{{ crate::t("profile.google_link.continue") }}</button>
-        </div>
-      </form>
-    </dialog>
-    {% endif %}
-    {% if profile.google_linked && profile.has_password %}
-    <dialog class="modal" id="google-unlink-dialog" aria-labelledby="google-unlink-title" data-testid="profile-google-unlink-dialog"{% if google_open == "unlink" %} data-open-on-load{% endif %}>
-      <form method="post" action="{{ crate::url("/profile/google/unlink") }}" class="profile-form" data-testid="profile-google-unlink-form">
-        <h2 id="google-unlink-title">{{ crate::t("profile.google_link.unlink_title") }}</h2>
-        {% if google_open == "unlink" %}{% if let Some(e) = google_error %}<p class="alert error" role="alert" data-testid="profile-google-error">{{ e }}</p>{% endif %}{% endif %}
-        <p>{{ crate::t("profile.google_link.unlink_text") }}</p>
-        <label>{{ crate::t("profile.google_link.password") }}
-          <input type="password" name="password" required maxlength="{{ crate::auth::PASSWORD_MAX }}" autocomplete="current-password" data-testid="profile-google-unlink-password">
-        </label>
-        <div class="modal-actions">
-          <button type="button" class="btn ghost" data-closes data-testid="profile-google-unlink-cancel">{{ crate::t("profile.google_link.cancel") }}</button>
-          <button type="submit" class="btn danger" data-testid="profile-google-unlink-submit">{{ crate::t("profile.google_link.unlink") }}</button>
-        </div>
-      </form>
-    </dialog>
-    {% endif %}
 
     <div class="profile-actions">
     {% if profile.has_password %}
@@ -260,8 +160,6 @@
         <label class="chip" data-testid="profile-two-factor-method" data-method=""><input type="radio" name="method" value="" class="sr-only"{% if two_factor_method() == "" %} checked{% endif %}> {{ crate::t("profile.two_factor.off") }}</label>
         {% if email_2fa_offered() %}<span class="chip-alert"><label class="chip" data-testid="profile-two-factor-method" data-method="email"><input type="radio" name="method" value="email" class="sr-only"{% if two_factor_method() == "email" %} checked{% endif %}{% if !email_2fa_ok() %} disabled{% endif %}> {{ crate::t("profile.two_factor.email") }}</label>
         {% if !email_2fa_ok() %}<button type="button" class="field-check bad inline" data-opens="two-factor-email-dialog" aria-haspopup="dialog" aria-label="{{ crate::t("profile.two_factor.email_unverified") }}" data-testid="profile-two-factor-email-unavailable">!</button>{% endif %}</span>{% endif %}
-        {% if sms_2fa_offered() %}<span class="chip-alert"><label class="chip" data-testid="profile-two-factor-method" data-method="sms"><input type="radio" name="method" value="sms" class="sr-only"{% if two_factor_method() == "sms" %} checked{% endif %}{% if !sms_2fa_ok() %} disabled{% endif %}> {{ crate::t("profile.two_factor.sms") }}</label>
-        {% if sms_2fa_offered() && !sms_2fa_ok() %}<button type="button" class="field-check bad inline" data-opens="two-factor-sms-dialog" aria-haspopup="dialog" aria-label="{{ crate::t("profile.two_factor.phone_unverified") }}" data-testid="profile-two-factor-sms-unavailable">!</button>{% endif %}</span>{% endif %}
         <label class="chip" data-testid="profile-two-factor-method" data-method="totp"><input type="radio" name="method" value="totp" class="sr-only"{% if two_factor_method() == "totp" %} checked{% endif %}> {{ crate::t("profile.two_factor.totp") }}</label>
       </div>
       <noscript><button type="submit" class="btn small">{{ crate::t("profile.two_factor.save") }}</button></noscript>
@@ -273,12 +171,11 @@
       <p><strong data-testid="two-factor-confirm-what">{{ confirm_what() }}</strong></p>
       {% if profile.has_password %}
       <p>{{ crate::t("profile.two_factor.confirm_password_why") }}</p>
-      {% else if proof_kind() == "google" %}
-      <p data-testid="two-factor-confirm-google">{{ crate::t("profile.google_link.confirm_why") }} {% if google_confirmed %}<span data-testid="two-factor-confirm-google-done">{{ crate::t("profile.google_link.confirmed") }}</span>{% endif %}</p>
+      {% else if proof_kind() == "none" %}
       {% else if confirm_code_sent_by() == "" %}
       <p>{{ crate::t("profile.two_factor.confirm_app_code") }}</p>
       {% else %}
-      <p data-testid="two-factor-confirm-google">{{ crate::t("profile.two_factor.confirm_sent_code") }} {% if let Some(to) = confirm_sent %}<span data-testid="two-factor-confirm-sent">{{ crate::t1("profile.two_factor.sent_to", "to", to.as_str()) }}</span>{% else %}{{ crate::t("profile.two_factor.send_one_first") }}{% endif %}</p>
+      <p data-testid="two-factor-confirm-sent-why">{{ crate::t("profile.two_factor.confirm_sent_code") }} {% if let Some(to) = confirm_sent %}<span data-testid="two-factor-confirm-sent">{{ crate::t1("profile.two_factor.sent_to", "to", to.as_str()) }}</span>{% else %}{{ crate::t("profile.two_factor.send_one_first") }}{% endif %}</p>
       {% endif %}
       <form method="post" action="{{ confirm_action() }}" id="two-factor-confirm-form" data-testid="two-factor-confirm-form" data-method-action="{{ crate::url("/profile/two-factor") }}" data-remove-action="{{ crate::url("/profile/two-factor/totp/remove") }}">
         <input type="hidden" name="method" value="{{ confirm_method }}" data-testid="two-factor-confirm-method">
@@ -286,7 +183,7 @@
         <label>{{ crate::t("profile.two_factor.password") }}
           <input type="password" name="password" required maxlength="{{ crate::auth::PASSWORD_MAX }}" autocomplete="current-password" data-testid="two-factor-confirm-password">
         </label>
-        {% else if proof_kind() != "google" %}
+        {% else if proof_kind() != "none" %}
         <label>{{ crate::t("profile.two_factor.code") }}
           <input type="text" name="code" inputmode="numeric" pattern="[0-9 ]*" maxlength="9" autocomplete="one-time-code" required data-testid="two-factor-confirm-code">
         </label>
@@ -298,20 +195,10 @@
         <input type="hidden" name="remove" value="{% if confirm_remove %}1{% endif %}">
       </form>
       {% endif %}
-      {% if proof_kind() == "google" && !google_confirmed %}
-      <form method="post" action="{{ crate::url("/profile/google/confirm") }}" id="two-factor-confirm-google-form" hidden>
-        <input type="hidden" name="then" value="two-factor">
-        <input type="hidden" name="method" value="{{ confirm_method }}">
-      </form>
-      {% endif %}
       <div class="modal-actions">
         <button type="button" class="btn ghost" data-closes data-testid="two-factor-confirm-cancel">{{ crate::t("profile.two_factor.cancel") }}</button>
         {% if !profile.has_password && confirm_code_sent_by() != "" %}<button type="submit" form="two-factor-confirm-send-form" class="btn ghost" data-testid="two-factor-confirm-send">{% if confirm_sent.is_some() %}{{ crate::t("profile.two_factor.send_again") }}{% else %}{{ crate::t("profile.two_factor.send_code") }}{% endif %}</button>{% endif %}
-        {% if proof_kind() == "google" && !google_confirmed %}
-        <button type="submit" form="two-factor-confirm-google-form" class="btn" data-testid="two-factor-confirm-with-google">{{ crate::t("profile.google_link.confirm") }}</button>
-        {% else %}
         <button type="submit" form="two-factor-confirm-form" class="btn" data-testid="two-factor-confirm-submit">{{ crate::t("profile.two_factor.confirm") }}</button>
-        {% endif %}
       </div>
     </dialog>
     {% if let Some(since) = totp_since() %}
@@ -333,16 +220,6 @@
       <div class="modal-actions">
         <button type="button" class="btn ghost" data-closes>{{ crate::t("profile.two_factor.close") }}</button>
         {% if profile.email.is_some() %}<button type="submit" form="verify-resend-form" class="btn" data-testid="profile-two-factor-email-resend">{{ crate::t("profile.two_factor.resend") }}</button>{% endif %}
-      </div>
-    </dialog>
-    {% endif %}
-    {% if !sms_2fa_ok() %}
-    <dialog class="modal" id="two-factor-sms-dialog" aria-labelledby="two-factor-sms-title" data-testid="profile-two-factor-sms-dialog">
-      <h2 id="two-factor-sms-title">{{ crate::t("profile.two_factor.sms_first_title") }}</h2>
-      <p>{{ crate::t("profile.two_factor.sms_first_text") }}</p>
-      <div class="modal-actions">
-        <button type="button" class="btn ghost" data-closes>{{ crate::t("profile.two_factor.close") }}</button>
-        {% if profile.two_factor.phone.is_empty() %}<a class="btn" href="#personal" data-closes data-testid="profile-two-factor-sms-add">{{ crate::t("profile.two_factor.add_number") }}</a>{% else %}<button type="submit" form="phone-send-form" class="btn" data-testid="profile-two-factor-sms-send">{{ crate::t("profile.two_factor.send_code") }}</button>{% endif %}
       </div>
     </dialog>
     {% endif %}
@@ -430,14 +307,6 @@
       {% endif %}
       <dt>{{ crate::t("profile.consent.age") }}</dt>
       <dd data-testid="consent-age">{{ profile.age_text() }}</dd>
-      {% if caps.sms %}
-      <dt>{{ crate::t("profile.consent.phone") }}</dt>
-      <dd data-testid="consent-phone" data-phone-set="{{ !profile.two_factor.phone.is_empty() }}">{% if profile.two_factor.phone.is_empty() %}{{ crate::t("profile.consent.phone_none") }} · <a href="#personal" data-testid="consent-phone-edit">{{ crate::t("profile.consent.phone_add") }}</a>{% else %}{{ crate::sms::format_us_number(profile.two_factor.phone.as_str()) }} · <a href="#personal" data-testid="consent-phone-edit">{{ crate::t("profile.consent.phone_edit") }}</a>{% endif %}</dd>
-      {% endif %}
-      {% if google_enabled || profile.google_linked %}
-      <dt>{{ crate::t("profile.consent.google") }}</dt>
-      <dd data-testid="consent-google" data-linked="{{ profile.google_linked }}">{% if profile.google_linked %}{{ crate::t("profile.consent.google_on") }}{% if profile.has_password %} · <button type="button" class="link-btn" data-opens="google-unlink-dialog" aria-haspopup="dialog" data-testid="consent-google-unlink">{{ crate::t("profile.consent.google_disconnect") }}</button>{% endif %}{% else %}{{ crate::t("profile.consent.google_off") }} · <button type="button" class="link-btn" data-opens="google-link-dialog" aria-haspopup="dialog" data-testid="consent-google-connect">{{ crate::t("profile.consent.google_connect") }}</button>{% endif %}</dd>
-      {% endif %}
       {% if caps.mail && profile.email.is_some() %}
       <dt>{{ crate::t("profile.consent.email") }}</dt>
       <dd data-testid="consent-email">{{ crate::t("profile.consent.email_service") }}</dd>
@@ -505,10 +374,7 @@
       <label>{{ crate::t("profile.data.confirm_before") }}<strong>{{ profile.delete_phrase() }}</strong>{{ crate::t("profile.data.confirm_after") }}
         <input type="text" name="confirm" data-testid="profile-delete-confirm" maxlength="{{ crate::profile::EMAIL_MAX }}" required autocomplete="off" spellcheck="false">
       </label>
-      {% if proof_kind() == "google" %}
-      {% if google_confirmed %}<p class="small" data-testid="profile-delete-google-done">✓ {{ crate::t("profile.google_link.confirmed") }}</p>
-      {% else %}<p><button type="submit" form="profile-delete-google-form" class="btn ghost" data-testid="profile-delete-google">{{ crate::t("profile.google_link.confirm") }}</button></p>{% endif %}
-      {% else %}
+      {% if proof_kind() != "none" %}
       <label>{% if proof_kind() == "code" %}{{ crate::t("profile.data.code_app") }}{% else %}{{ crate::t("profile.two_factor.code") }}{% if let Some(to) = delete_sent %} <span class="muted small" data-testid="profile-delete-sent">{{ crate::t1("profile.data.code_sent_to", "to", to) }}</span>{% endif %}{% endif %}
         <input type="text" name="code" inputmode="numeric" pattern="[0-9 ]*" maxlength="9" autocomplete="one-time-code" required data-testid="profile-delete-code">
       </label>
@@ -517,9 +383,6 @@
       {% endif %}
       <button type="submit" class="btn danger" data-testid="profile-delete-submit">{{ crate::t("profile.data.delete") }}</button>
     </form>
-    {% if proof_kind() == "google" && !google_confirmed %}
-    <form method="post" action="{{ crate::url("/profile/google/confirm") }}" id="profile-delete-google-form" hidden><input type="hidden" name="then" value="delete"></form>
-    {% endif %}
     {% if proof_kind() == "send" %}
     <form method="post" action="{{ crate::url("/profile/two-factor/code") }}" id="profile-delete-send-form" hidden><input type="hidden" name="then" value="delete"></form>
     {% endif %}

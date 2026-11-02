@@ -48,5 +48,4 @@ Every page here is also raw Markdown. Add `.md` to its address.
 ## For developers
 
 Working on the code? See [Developer documentation](dev): architecture,
-testing, QA, the security review, [scalability](scalability) and
-[load testing](load-testing).
+testing, QA and the security review.

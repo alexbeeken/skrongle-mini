@@ -65,7 +65,7 @@ pub fn replaceable(conn: &Connection, email: &str, now: i64, days: i64) -> rusql
         return Ok(None);
     }
     conn.query_row(
-            "SELECT id FROM users WHERE lower(email) = lower(?1) AND email_verified_at IS NULL AND google_sub IS NULL
+            "SELECT id FROM users WHERE lower(email) = lower(?1) AND email_verified_at IS NULL
                AND password_hash <> '' AND superuser = 0 AND created_at <= ?2 ORDER BY id LIMIT 1",
             params![email, now - days * 86_400],
             |r| r.get(0),
@@ -263,8 +263,6 @@ mod tests {
             made("young@example.org", now - 6 * day)?;
             let confirmed = made("confirmed@example.org", now - 30 * day)?;
             crate::verify::mark_verified(c, confirmed, 1)?;
-            let g = crate::auth::create_google_user(c, "g-1", "google@example.org")?;
-            c.execute("UPDATE users SET created_at = 1, email_verified_at = NULL WHERE id = ?1", [g])?;
 
             assert_eq!(replaceable(c, "OLD@example.org", now, 7)?, Some(old));
             assert_eq!(replaceable(c, "old@example.org", now, 0)?, None, "0 turns it off");

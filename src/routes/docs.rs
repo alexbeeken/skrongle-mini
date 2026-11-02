@@ -104,19 +104,8 @@ pub fn schema_without_themes(raw: &[u8]) -> Vec<u8> {
     serde_json::to_vec_pretty(&v).unwrap_or_else(|_| raw.to_vec())
 }
 
-/// The self-hosting pages, hidden on the hosted site until Skrongle mini
-/// ships (#1435): not served, not in the sidebar, not picked up by the
-/// catch-all section. A mini still serves them. Bringing them back is a
-/// revert of that issue's PR.
-pub const HIDDEN_UNTIL_MINI_SHIPS: &[&str] = &["self-hosting", "self-hosting-faq"];
-
-/// Whether a page is hidden on this server.
-pub fn hidden(slug: &str) -> bool {
-    !crate::is_mini() && HIDDEN_UNTIL_MINI_SHIPS.contains(&slug)
-}
-
 fn md_of(slug: &str, on: bool) -> Option<String> {
-    if (!on && THEME_PAGES.contains(&slug)) || hidden(slug) {
+    if !on && THEME_PAGES.contains(&slug) {
         return None;
     }
     let f = Docs::get(&format!("{slug}.md"))?;
@@ -125,18 +114,18 @@ fn md_of(slug: &str, on: bool) -> Option<String> {
 
 /// The sidebar, in order: (id, title key in `i18n/<code>.yaml`, page slugs).
 /// User pages are listed by name; the last section also takes every page not
-/// named anywhere, except the hidden ones ([`HIDDEN_UNTIL_MINI_SHIPS`]).
+/// named anywhere.
 pub const SECTIONS: &[(&str, &str, &[&str])] = &[
     ("guides", "docs.section_guides", &["index", "getting-started", "course-structure", "making-courses", "using-themes", "faq"]),
     (
         "reference",
         "docs.section_reference",
-        &["course-format", "features", "themes", "progress", "i18n", "data-inventory", "privacy", "cookies", "content-reports", "content-check-versions"],
+        &["course-format", "features", "themes", "progress", "i18n", "data-inventory", "privacy", "cookies"],
     ),
     (
         "dev",
         "docs.section_dev",
-        &["dev", "architecture", "testing", "qa", "e2e-audit", "security-review", "scalability", "scalability-aws", "load-testing", "aws-setup"],
+        &["dev", "architecture", "testing", "qa", "e2e-audit", "security-review"],
     ),
 ];
 
@@ -180,12 +169,8 @@ pub struct SelfHostTemplate {
     pub user: Option<CurrentUser>,
 }
 
-/// GET /self-host. 404 on the hosted site until Skrongle mini ships (#1435),
-/// like the pages in [`HIDDEN_UNTIL_MINI_SHIPS`].
+/// GET /self-host.
 pub async fn self_host(MaybeUser(user): MaybeUser) -> Result<Page<SelfHostTemplate>, AppError> {
-    if !crate::is_mini() {
-        return Err(AppError::NotFound);
-    }
     Ok(Page(SelfHostTemplate { user }))
 }
 
@@ -434,27 +419,6 @@ mod tests {
         }
     }
 
-    /// Until Skrongle mini ships (#1435) the hosted site (the shape tests
-    /// run as) serves no self-hosting page and lists none, and no public
-    /// page links to one.
-    #[test]
-    fn self_hosting_pages_are_hidden_until_mini_ships() {
-        assert!(!crate::is_mini());
-        for on in [true, false] {
-            for slug in HIDDEN_UNTIL_MINI_SHIPS {
-                assert!(md_of(slug, on).is_none(), "docs/{slug}.md is served");
-                assert!(sections(on).iter().all(|s| s.pages.iter().all(|p| p.slug != *slug)), "{slug} is in the sidebar");
-            }
-            for slug in ["index", "faq", "getting-started", "course-structure", "making-courses", "using-themes"] {
-                let Some(md) = md_of(slug, on) else { continue };
-                let html = render_doc(&md);
-                assert!(!html.contains("/self-host") && !html.contains("self-hosting"), "docs/{slug}.md links to self-hosting");
-            }
-            let llms = llms_body(on);
-            assert!(!llms.contains("self-host"), "llms.txt mentions self-hosting");
-        }
-    }
-
     /// Each section title is a key that exists, so the sidebar never shows
     /// the bare key ("docs.using").
     #[test]
@@ -602,7 +566,7 @@ mod tests {
         for part in js.iter().flat_map(|f| f.split("document.cookie = \"").skip(1)) {
             names.extend(part.split('=').next().map(str::to_string));
         }
-        for must in ["sid", "oauth", "signup", "twofa", "lang", "tz"] {
+        for must in ["sid", "twofa", "lang", "tz"] {
             assert!(names.iter().any(|n| n == must), "the scan missed the {must} cookie: {names:?}");
         }
         let md = String::from_utf8_lossy(&Docs::get("cookies.md").unwrap().data).into_owned();

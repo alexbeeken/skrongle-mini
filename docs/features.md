@@ -827,8 +827,7 @@ like you don't have an account with us! Please login or signup to continue
 viewing your course: title* above the form (the register page says the same,
 and the two link to each other with the token). Logging in or registering
 there goes on to the link, which puts the course on the list and opens it,
-also through the two-factor code step and with *Continue with Google*
-(sign-in, or a new account's confirm step): a short-lived `share_next`
+also through the two-factor code step: a short-lived `share_next`
 cookie carries the token there (#1016). *Cancel* on the code step goes back
 to the login page for the same link.
 
@@ -1828,55 +1827,26 @@ keep their explicit buttons. The page needs JavaScript.
   dialog that says so, with the learner's own "Ana L." (updated as they type),
   and that the address is private.
 - **E-mail address**: what the account signs in with (there are no
-  usernames). Asked for at registration (Google sign-in brings its own) and
+  usernames). Asked for at registration and
   fixed from then on. The profile shows it read-only ("No e-mail on file"
   for an account from before addresses were asked for).
-- **One account per address** (#277, `auth::google_match`): *Continue with
-  Google* with no Google account connected yet, whose (Google-verified)
-  address an account already has, never makes a second account. If that
-  account's address is confirmed, Google is connected to it and the sign-in
-  lands on the profile with "Google account connected …" (the password, if
-  any, still works). With two-factor sign-in on, Google is connected only
-  once the code is accepted, and the notice shows then; a sign-in given up
-  at the code leaves Google unconnected (#677). If it is not confirmed, the login page refuses ("An
-  account with this address exists, but its e-mail address isn't confirmed
-  …"): sign in with the password, confirm, then connect Google from the
-  profile. An account with a different Google account connected is refused
-  too. The other way round, `/register` refuses an address that signs in
-  with Google only and says to use *Continue with Google*. Duplicates made
-  before #277 are left alone; the oldest account with the address decides.
-- **Account**: member since, how the account signs in, a link to
-  connect a Google account (locally, dev mode stands in for Google: see
-  [testing](testing#google-sign-in)), and for password accounts a
+- **Account**: member since, how the account signs in, and for password accounts a
   *Change password* button that opens a dialog (current password, the new
   one twice). The browser keeps it open until the two new ones match and are
   8 characters or more; a refusal from the server (wrong current password)
   comes back with the dialog open and the reason in it. Saved, the dialog
   closes and the page says "Password changed." (`static/profile.js` opens
   and closes both dialogs.)
-  *Connect a Google account* (`profile-google-connect`) opens a dialog
-  that asks for the password (`profile-google-link-dialog`,
-  `POST /profile/google/link`) before the trip to Google (#360); the
-  callback links only a trip this account started (`oauth::StepUps`, in
-  memory, 10 minutes, once), so a signed-in `GET /auth/google` just goes
-  to the profile. A linked account with a password has *Unlink*
-  (`profile-google-unlink-open`, the password again,
-  `POST /profile/google/unlink`); a Google-only account can't unlink its
-  only way in. The Google address itself is not stored, so the card says
-  "Google account connected". *Sign out everywhere else*
+  *Sign out everywhere else*
   (`profile-sign-out-others`, `POST /profile/sessions/end-others`, #375,
   explained behind its (i)) ends every other session; changing the
-  password or two-factor sign-in and linking or unlinking Google do the
-  same.
+  password or two-factor sign-in does the same.
 - **Privacy and consent** (#974, `profile-consent`): one row per consent
   with its date, explained behind an (i). The Terms version accepted and
   when, with links to the Terms and the privacy policy (see
   [Terms of Service](#terms-of-service)); the age confirmation (the date of
   the first Terms acceptance, read-only: taking it back means deleting the
-  account); the phone number for sign-in codes with a link to the field
-  that changes or removes it (hosted only); Google sign-in, connected or
-  not, opening the same connect and disconnect dialogs as the Account card
-  (where Google is offered); e-mail, service messages only (hosted only;
+  account); e-mail, service messages only (hosted only;
   an optional e-mail such as reminders gets a switch here, off by default);
   and *Do Not Show Me AI Features*, "Shown since …" or "Hidden since …"
   with the profile's only AI switch (below; on hides them, `POST /profile/ai`
@@ -1887,16 +1857,13 @@ keep their explicit buttons. The page needs JavaScript.
 - **Proof that it is the owner** (`prove_owner` in `src/routes/profile.rs`):
   every change a stolen session must not make asks for it: the password
   (checked like `/login`: 10 per account per 15 minutes, a wrong one
-  counting against sign-in, refused while sign-in is blocked, #378); a
-  Google-only account has none, so a code from its second step, or with
-  no second step *Confirm with Google* (`POST /profile/google/confirm`: a
-  new trip to Google for the account it signs in with, which lets the next
-  change through once, #376). It guards the password change, deleting the
-  account, linking and unlinking Google and every two-factor change.
+  counting against sign-in, refused while sign-in is blocked, #378); an
+  account without one (signed in through a proxy) gives a code from its
+  second step, or with no second step nothing (#376). It guards the
+  password change, deleting the account and every two-factor change.
 - **Do Not Show Me AI Features**: an On/Off toggle pill in the Privacy and
   consent card (#147, #974, `users.ai_off`, off for every account unless the
-  "Hide all AI features" pill on the registration form or the Google
-  sign-up's confirm step was turned on: `templates/ai_switch.html`, a
+  "Hide all AI features" pill on the registration form was turned on: `templates/ai_switch.html`, a
   checkbox `no_ai` dressed as the pill, its info dot a hover tooltip).
   The card's (i) says what it covers. Switching it on posts
   `POST /profile/ai` (`off=1`) at once, or first opens a confirm dialog
@@ -1928,24 +1895,17 @@ keep their explicit buttons. The page needs JavaScript.
   account only; the file is deleted once sent). Once it is ready the Data
   section also shows *Download my data* (`profile-export-download`,
   `POST /profile/export/download`: the same file, once, for the account
-  signed in). Where the finished file lives (#871, `src/storage.rs`): on
-  Skrongle mini and the dev server it stays on the server's disk and the
-  download streams it. On the hosted site it is uploaded to a private S3
-  bucket (`SKRONGLE_S3_BUCKET`) and the local copy deleted; after the same
-  session and link checks, the download redirects to a pre-signed S3 link
-  that works for 60 seconds, and the app deletes the bucket's copy five
-  minutes later. The bucket deletes anything under `exports/` after two
-  days. Not in Skrongle mini. On a server without mail (#633) that button is the only way:
+  signed in). The finished file stays on the server's disk, next to the
+  database, and the download streams it. On a server without mail (#633) that button is the only way:
   no link is mailed and the (i) says so. One export in flight and one
   a day per account; the (i) next to the heading says where it stands. The
   file has the columns `privacy::EXPORTED` lists: never the password hash,
   session tokens, keys (only which providers have one), codes, links or the
-  text of mails and texts. And
-  *Delete account* (`POST /profile/delete`): the password, or for a
-  Google-only account its e-mail address typed out and a code from its
-  second step (`profile-delete-code`, *Send code* `profile-delete-send`
-  for a texted or e-mailed one) or, with none, *Confirm with Google*
-  (`profile-delete-google`, then `profile-delete-google-done`; #376). It does not delete at once (#970,
+  text of mails. And
+  *Delete account* (`POST /profile/delete`): the password, or for an
+  account without one its e-mail address typed out and, with a second
+  step, a code from it (`profile-delete-code`, *Send code*
+  `profile-delete-send` for an e-mailed one; #376). It does not delete at once (#970,
   `src/account_deletion.rs`): it sets `users.delete_at` 14 days out, ends every session
   of the account and, where the server sends mail, mails the date
   (`account-deletion`). The login page says the date (`login-notice`).
@@ -1955,7 +1915,7 @@ keep their explicit buttons. The page needs JavaScript.
   `account-deletion-logout`; API routes answer 403), and the account's
   shared courses are hidden from their recipients meanwhile. The hourly job
   `housekeeping.deletions` then removes the account and everything it
-  owns. A superuser's delete (#967) is still immediate. What is kept and for how long:
+  owns. What is kept and for how long:
   [data inventory](data-inventory); the privacy notice is at `/privacy`
   ([privacy](privacy), public, with a "Last updated" line at the top).
 - **Superuser page** (`/superuser`, superuser accounts only, #220): actions
@@ -1963,38 +1923,12 @@ keep their explicit buttons. The page needs JavaScript.
   links to it. An account is a superuser when `users.superuser` is 1. With `SKRONGLE_SIGNUP` `invite` or `closed` (#634)
   the first account made on a server with no accounts becomes one (the
   owner, made only through the owner link from the log; one query in the
-  registration transaction, password or Google);
+  registration transaction);
   otherwise no page sets it: run `./spanish-learning make-owner <email>`
   (#635; see `docs/self-hosting.md`, "If you lock yourself out").
   In dev mode the
   dev user (`dev@example.com`) always is one. For anyone else the menu has
   no link, and the page and its forms answer 404 (`src/routes/superuser.rs`).
-  - **Release** (#934, `src/waitlist.rs`, `/superuser/release`; on the
-    hosted site only, 404 on Skrongle mini or without mail): a card on
-    `/superuser` says whether the waitlist is on and opens the page.
-    **Turn on the waitlist** / **Turn off the waitlist** (a confirm dialog,
-    `POST /superuser/release/switch`) takes effect at once and survives a
-    restart (`release_settings`). While it is on, `/` for anyone signed out
-    is the launch's marketing page (`templates/waitlist.html`, `static/waitlist.css`, #1071): full-width bands for a course built from one sentence, a chatbot's answer against a course, the modes with the same playable samples as the landing page (`templates/landing_try.html`, drawn as a poster), "What can I do with it?" (`templates/landing_uses.html`, #1365)<!-- themes -->, every built-in theme in its own colours, font, banner, profile pictures, badges and praise (drawn from the theme files)<!-- /themes -->, the motivators and a course file, with the e-mail field at the top and the bottom (`waitlist-form`, `waitlist-form-end`). No Create account anywhere, no
-    Log in unless `SKRONGLE_WAITLIST_LOGIN=1`, and `/register` without an
-    invitation goes back to `/`. `open` acts as `invite`. **Join the
-    waitlist** (`POST /waitlist`) mails a confirmation link
-    (`/waitlist/confirm?token=`, at most 3 a day to one address) and shows
-    "check your e-mail" whether or not the address was new; addresses never
-    confirmed go after 30 days. The page counts joined, not confirmed,
-    waiting, invited and signed up, and lists everyone in the order they
-    joined (50 to a page) with their status. **Invite** (a waiting person)
-    and **Resend** (invited or expired; the old link stops working) mail an
-    invitation tied to that address, good for 14 days
-    (`POST /superuser/release/invite`); **Invite the next ones** with a
-    number (100 by default, at most 1,000) does the same for the next
-    confirmed people not yet invited (`POST /superuser/release/invite-next`),
-    stopping when the mail ceiling is full. The register page fills in the
-    invited address; another address is refused ("This invitation is for a
-    different e-mail address"), with a password or Google. An account made
-    through one gets `users.beta = 1`, which nothing else reads yet. Turning
-    the waitlist off is the launch: the normal home page and sign-up return,
-    and open invitations still work.
   - **Accounts** (#634, `src/signup.rs`): the (i) says which sign-up mode
     the server is in (`SKRONGLE_SIGNUP`: `open`, the default and the hosted
     site's; `invite`; `closed`), how invitations work and how many accounts
@@ -2027,8 +1961,7 @@ keep their explicit buttons. The page needs JavaScript.
     - **Turn off two-factor** (`POST /superuser/two-factor-off`):
       `users.two_factor` is cleared, and the account's `totp_keys`,
       waiting sign-ins (`two_factor_challenges`) and change confirmations
-      (`two_factor_confirmations`) are deleted. A confirmed phone number
-      stays.
+      (`two_factor_confirmations`) are deleted.
     An address no account has comes back as `No account has the address …`.
     The same three actions exist as commands on the binary for an owner
     who can't sign in: `reset-password`, `disable-2fa`, `make-owner`
@@ -2042,15 +1975,12 @@ keep their explicit buttons. The page needs JavaScript.
     first can't claim it: only someone who reads the log can. `/register`
     without it is the closed page saying the server has no owner yet;
     with it, the form with a line saying this account is the owner's
-    (Google too, as for invitations). Once an account exists, unused owner
+    Once an account exists, unused owner
     links are deleted at startup and refused meanwhile. After that, `/register` without a usable link is a short page
     ("Sign-ups are closed", ask whoever runs the server; no address, no
     form) and `POST /register` answers 403 with it; a used, expired or
     unknown link says which. `/register?invite=<token>` shows the form,
-    which carries the token; its "Sign up with Google" carries it too
-    (`/auth/google?invite=` puts it in a `signup_invite` cookie for the
-    confirm step). A new Google account is refused the same way at the
-    callback and again at the confirm step; existing accounts always sign
+    which carries the token. Existing accounts always sign
     in. Under `closed` an invitation never works. Rate limits are as for
     any registration.
   - **Reset email verification** (`POST /superuser/reset-email-verification`,
@@ -2068,303 +1998,6 @@ keep their explicit buttons. The page needs JavaScript.
     `POST /superuser/terms-announce` queues them (`terms::announce_upcoming`)
     and the notice says how many were queued. Once everyone has it, the
     notice and the card go away.
-  - **Moderation** (#967, the hosted site only; on Skrongle mini these
-    are 404 and not shown, since its owner has the database). What the
-    Terms say we may do, each behind a confirm dialog and logged as which
-    superuser did what to which account or course id (never the content):
-    - **Suspend** (row action, `POST /superuser/suspend`): the account's
-      sessions and waiting sign-ins end, `users.suspended_at` is set, no
-      session of it resolves, and signing in (password, Google, the code
-      step) is refused with a 403 that names the contact address
-      (`SKRONGLE_LEGAL_EMAIL`). Its courses stop being shared out
-      (`share::can_open`, `share::shared_with`). **Lift suspension**
-      (`POST /superuser/unsuspend`) undoes it.
-    - **Delete account** (row action, `POST /superuser/delete-account`):
-      the learner's own deletion (`privacy::delete_account`), for a breach
-      of the Terms, a child's data or a privacy request. Not undone. Its dialog
-      asks for a reason, kept in the privacy log below.
-    - A superuser can't suspend or delete their own account here.
-    - **Courses** (#1034, `routes/superuser/courses.rs`,
-      `course_flags/table.rs`): every made course, 25 to a page, with its
-      title and id, owner, created, last edited, flag (Clear, Flagged,
-      Overridden, Taken down) and what flagged it (Term list or AI check).
-      Flagged courses come first, then the most recently edited. The
-      search box matches the title, the id or the owner's address (any
-      case); the picker shows All, Flagged, Needs review, Overridden or Taken down
-      (`?course_q=…&course_show=…&course_page=…`, kept on both tables'
-      pager links). A course's title opens its dialog: id, owner, flag,
-      when it was last checked and by which check, each match (the word,
-      the lesson, the file and field, the text around it; the word and the
-      text masked as on the owner's card, held down to read them; more than
-      five as a count that opens them all, ten to a page), the AI's report
-      when there is one, and any override note with who wrote it and when.
-      Its buttons each open a confirm dialog:
-      **Override the flag** (flagged only; `POST
-      /superuser/courses/override`) needs a short note (up to 500
-      characters) and sets `course_flags.state` to overridden with the
-      note, who and when: the course starts and shares again, and later
-      checks keep the override for the same words (a new word flags it
-      again). **Clear the override** (`POST
-      /superuser/courses/clear-override`) sets it back to flagged, drops
-      the note and checks the files again at once, so a course whose words
-      are gone comes out clear. **Take down** and **Put back** are below.
-      **Delete the course** (`POST /superuser/courses/delete`) removes it,
-      its files, flag and shares; not undone, and not offered while it is
-      being generated or revised. Its `content_reports` rows stay.
-      **Suspend the owner** is the account's Suspend (not offered for your
-      own courses).
-      **E-mail the owner** (#1035; flagged or taken-down courses whose
-      owner has an address) opens a form drafted in the owner's language
-      (`users.lang`, `course_flags/owner_mail.rs`): the course title, that
-      it can't be started or shared, and the contact address
-      (`SKRONGLE_LEGAL_EMAIL`). For a flagged course it says the content
-      check flagged it and links to the site's course list
-      (`SKRONGLE_PUBLIC_URL/courses`) to sign in and see what to fix; it
-      never names the words, the quotes or the AI's report. For a taken-down
-      course it says so. It never names who reported the course. The superuser edits it and presses *Send* (`POST
-      /superuser/courses/email-owner`, purpose `course-flag-owner`, through
-      the outbox, so the dev mailbox shows it). Nothing sends it on its
-      own. The course remembers when (`courses.owner_emailed_at`, v75): the
-      row says "owner e-mailed" with the date, and the form warns before a
-      second one. The log line names the superuser, the owner and the kind
-      of e-mail, never the text. Not in Skrongle mini (no e-mail).
-    - **Take down** (from a course's dialog,
-      `POST /superuser/courses/take-down`). It stops opening
-      for its owner and everyone it is shared with
-      (`courses::load_ready_files` gives nothing), drops off the sharees'
-      lists, and its owner's card shows a red ! whose dialog says it was
-      removed for breaking the Terms, with the contact address; its editor
-      is a 403 with the same text. The shares stay, so **Put back**
-      (`POST /superuser/courses/put-back`) restores everything.
-    - **Blocked addresses**: **Block an address** takes an address or a
-      range (`203.0.113.0/24`, IPv6 too; no wider than /8 or /16). Every
-      request from it gets a plain 403 before any session lookup
-      (`moderation::block`, the client address as the rate limits read
-      it). The list lives in memory, reloaded when the page changes it;
-      **Remove** takes a block off. Blocking your own address locks you
-      out until the row is deleted from `blocked_ips` and the server
-      restarted.
-    - **Listed terms** (#1033, part of #919): a made course with a word
-      from `data/moderation/terms.txt` is **flagged** (`course_flags`,
-      `src/course_flags.rs`). The list is short on purpose: slurs and hate
-      phrases that are never fine in a language course, not words that are
-      ordinary in another language ("negro", "coger", "retard"). Matching
-      is whole word, case-insensitive and ignores accents, over every text
-      field of every file. It runs when a course's files change (editor
-      save, upload, AI generation or revision, copy or translation, through
-      `courses::revalidate`), when the course is loaded and before a share,
-      and only if the files or the list changed since the last check (a
-      SHA-256 of both). Built-in courses are not checked; Skrongle mini
-      checks nothing. A flagged course doesn't load
-      (`courses::load_ready_files` gives nothing), so **Start** is refused
-      (`POST /courses/open/{id}` goes to the editor with a notice naming
-      the words, masked, and the lessons) and it drops off the lists of
-      everyone it is shared with. **Share** is refused too
-      (`share-flagged`). The owner's card has a red !
-      (`courses-card-flagged`) whose dialog lists each word with its lesson
-      and field, with **Edit the course to fix it**. A page never shows a
-      matched word as it is: it shows its first letter and asterisks
-      ("w******", `templates/masked_word.html`), the hint "Click to reveal
-      word" on hover, and the word only while it is held down with the
-      mouse, a finger, Space or Enter (`static/modal.js`). More than five
-      matches show as a count ("12 matches") that opens the whole list, ten
-      to a page (`templates/flag_matches.html`).
-      Saving the course without the word clears the flag on its own.
-    - **AI check, stage 1** (#1036, part of #919; `src/content_check.rs`,
-      tables `content_scores` and `content_category_scores`): Jev
-      (TypeSafe's model, the one `scripts/fact-check.sh` uses) scores every
-      part of a made course on eleven categories, one yes/no question each,
-      all asked in one call (#1046, `content_check::CATEGORIES`):
-      misinformation, violence, self-harm, weapons, firearms, hate speech
-      toward any group, trivialising genocide or mass tragedies, adult
-      content, content that exploits minors, trivialising sexual crimes,
-      and anything else against the Terms of Use (harassing a person,
-      crime, scams). A part is one lesson file, or a piece of up to 12,000
-      characters of a long one; its text fields only, not ids or pictures.
-      Each part's score per category, hash, model, cost, rules version
-      and the categories it scored high on are stored; a part whose text didn't change is not sent again (unless the
-      rules changed, #1039), so an edit costs one lesson.
-      Each category has its own threshold (all 0.5 for now, picked from
-      the calibration run in [testing](testing#content-check-calibration)).
-      A course whose parts are below every threshold passes. A part at a
-      threshold or more is queued for stage 2 (`review = 'queued'`,
-      below), and while it waits the course shows as **Needs review**
-      in the course table, after the flagged ones, with the categories that
-      scored high next to its state, and in its dialog a table of the
-      highest score per category (one category per row, the scores lined
-      up on the right, a row at or over its threshold in red) and the parts that scored high
-      with their categories. Stage 1 blocks nothing.
-      It runs when an AI generation, revision or added lesson finishes (a
-      `content_check.scan` job, within a minute) and before a share: Share
-      waits for the scan (a few seconds; nothing to send when nothing
-      changed, at most 20 s, after which the share goes ahead and the scan
-      is retried as a job). The owner can start their own course while it
-      runs. Hand edits are scanned by the nightly run (below). It
-      costs about $0.0003 a lesson, so a course of eight lessons is
-      $0.0025 and the whole built-in Spanish course would be $0.029 (the
-      text is read once per call, so eleven questions cost about 16 % more
-      than the two of version 1; a call per category would cost 4.7 times
-      as much). Built-in
-      courses are not scanned. Hosted only: the hosted server needs
-      `TYPESAFE_API_KEY`; not in Skrongle mini. The dev server scores with
-      a stand-in that answers from `data/test-fixtures/jev/content-check.json`
-      ("hurting yourself is the answer" scores high on self-harm, "people
-      like them are vermin" on hate, "el caballo es negro" on hate on
-      purpose, a false friend stage 2 passes);
-      `SKRONGLE_JEV_MODE=live` with the key calls the real Jev.
-    - **AI check, stage 2** (#1037, part of #919;
-      `src/content_check/review.rs`): a `content_check.review` job, queued
-      by a scan that leaves a part queued (Share wakes the jobs thread, so
-      it starts at once). The hosted model (Skrongle AI's key, the courses
-      model, `ai::chat` with purpose `content-review`) gets the parts that
-      scored high with the categories they scored high on, the whole lesson around a piece of
-      a long one, the course title and languages, the list of its lessons
-      and the superuser's override note with the earlier report, if there
-      is one. Its prompt says that language courses teach words that look
-      bad out of context, and that the note is to be followed unless the
-      content clearly changed or goes beyond it. It may read other lessons
-      of the course, twice at most, three at a time; then it answers JSON:
-      `harmful` or `fine`, which category it breaks, the
-      exact quotes and a report of 2 to 4 sentences. A harmful verdict
-      flags the course (`course_flags`, source `ai`, the report as the reason, each
-      quote located to its file and JSON field), so it doesn't start or
-      share. The superuser's dialog shows the report and the quotes under
-      the category they break; the owner's red ! says "The AI check found
-      text that can't be in a course:" and lists each quote with its lesson
-      and why ("encourages self-harm", "attacks a group of people"). Both
-      mask each quote like a listed word (first letter, asterisks, "Click
-      to reveal text" on hover, shown while held down). A course a
-      superuser overrode is flagged again only by new content the model
-      finds harmful in spite of the note, and the report says so; the note
-      stays. A fine verdict marks the parts `fine` on their hash, so the same
-      text is not reviewed again until it changes; the course stays as it
-      was. An AI flag clears when a later scan finds none of its harmful
-      parts (the owner edits the text and presses Share). Each call is
-      logged with its cost and recorded in `ai_usage` under the course
-      owner, but it is the server's own cost: it counts in **Skrongle AI
-      today** and not in the owner's month (migration 76). Past the daily
-      cap the review waits and is tried again. A bad answer (no verdict, a
-      harmful one without a quote) is retried as a job. Each part of each
-      high-scoring course is one review of 1 to 3 calls, around $0.01 to
-      $0.03 on the default courses model; at the calibrated threshold no
-      ordinary lesson and no part of the built-in courses went to stage 2
-      ([testing](testing#content-check-calibration)). Needs Skrongle AI as
-      well as Jev; not in Skrongle mini. The dev server's simulated model
-      answers from `data/test-fixtures/llm/content-review.json`.
-    - **Nightly check** (#1038, part of #919;
-      `src/content_check/nightly.rs`): a `content_check.nightly` job runs
-      at midnight Pacific time (`America/Vancouver`) unless
-      `SKRONGLE_CONTENT_CHECK_TZ` names another zone. It checks every made
-      course that was never checked or was edited since its last check
-      (`content_checks.checked_at`, the time a scan last read its files; the
-      scans after a generation and before a share count). Oldest edit first,
-      at most `SKRONGLE_CONTENT_CHECK_PER_NIGHT` courses (200 by default);
-      the rest wait for the next night. Each course goes through the
-      listed-term check, then Jev, then the AI review of what scored high,
-      one course at a time on the jobs thread. An owner who edits all
-      afternoon is scanned once, and only the lessons that changed are
-      sent. A course whose check fails (Jev or the model down) is queued as
-      its own scan or review job and retried by the jobs retry rules; the
-      night goes on. The log line gives how many were checked, passed,
-      flagged, still waiting for the review, failed and left over, and the
-      cost. Then the job queues itself for the next midnight. Taken-down
-      courses and courses being written wait. The course table shows each
-      course's **Last AI check** (its date, or "Not checked yet"). Hosted
-      only; not in Skrongle mini. On the dev server, `/dev/jobs` lists the
-      queued `content_check.nightly` row and its Run now button runs it.
-    - **Check versions** (#1039, part of #919): the term list and the AI
-      check's rules each have a version (`TERMS_VERSION`,
-      `AI_CHECK_VERSION`), raised by hand when a change could flip a
-      verdict. Every check saves the version it ran under. A Jev score
-      counts only at the current AI version, and the nightly run first
-      checks every made course whose term check is older than
-      `TERMS_VERSION` against the list again (no cap). The course table's
-      **Rules** column shows "Terms v1" and "AI v1" and highlights a version
-      older than the current one. CI fails a PR that changes the rules
-      without a bump. The [changelog](content-check-versions) lists every
-      version. Hosted only; not in Skrongle mini.
-    - **AI rechecks** (#1040, part of #919): a course nobody edits is never
-      scanned again, so it would keep a verdict from old rules. Once its AI
-      check is 3 or more versions behind `AI_CHECK_VERSION`
-      (`SKRONGLE_CONTENT_CHECK_RECHECK_BEHIND` changes the 3), the nightly
-      run checks it again through Jev and the AI review, after the new and
-      edited courses and within the same nightly cap, oldest check first.
-      Not after every bump, because each recheck costs money. A course's
-      AI version is the oldest version among its stored Jev scores. An
-      override stays unless the review finds the course harmful in spite
-      of its note; a course flagged by a recheck has a report that starts
-      "Rechecked under AI check version N (it was last checked under
-      version M)." A course that passes gets the current version and drops
-      out. The log line adds how many were rechecked, flagged, still
-      waiting for a recheck, and what the rechecks cost. The course table's
-      filter has "AI check 3 or more versions behind (count)". Hosted only;
-      not in Skrongle mini.
-    - **The check in its own process** (#1041, part of #919;
-      `src/content_check/worker.rs`): with `SKRONGLE_CONTENT_CHECK=external`
-      the server queues the scans, reviews and the nightly run but doesn't
-      run them, and needs no Jev key. `skrongle content-check`, started
-      beside it with the same `SKRONGLE_DB`, `TYPESAFE_API_KEY` and
-      `SKRONGLE_AI_KEY`, takes them from the jobs table. Share waits up to
-      20 s for the worker's scan, as it waits for its own. A worker stopped
-      mid-check leaves the job to be taken again after its 10-minute lease.
-      A course the worker flags stops opening within a minute. The course
-      table's heading gets a **Content checker** (i): when the worker last
-      checked in and how many scans and reviews wait. While the worker is
-      silent for a day, or was never seen, a red banner at the top of
-      /superuser says so ("The content checker hasn't checked in since …"
-      or "has never checked in", with the number of checks waiting) and its
-      **Details** opens the same dialog. The worker runs on the
-      server's computer for now: running it on another computer waits for
-      the shared database (#581). Without the setting (`internal`, the
-      default) the server runs the checks itself. Hosted only; not in
-      Skrongle mini. On the dev server: `SKRONGLE_CONTENT_CHECK=external
-      ./.dev-start …`, then `./.dev-start --content-check` in another
-      terminal runs the worker against it.
-  - **Privacy requests** (#981, the hosted site only, like moderation): for
-    a request that came by e-mail from someone who can't use Profile →
-    Your data. Each action asks for a reason (up to 200 characters) and
-    adds a row to the log on the card (`privacy_actions`, newest 50: when,
-    the action, the reason, which superuser), as Delete account does. The
-    log names no learner; the reason should point at the private request
-    log. The (i) says to check who is asking first.
-    How to verify, the deadlines, appeals and the request log are in
-    [privacy requests](privacy-requests).
-    - **Send an account its data** (`POST /superuser/privacy/export`,
-      address and reason): the profile's export (`exports::request`) for
-      that account, with its one-a-day limit. The link goes to the
-      account's own address, never to the address the request came from,
-      and opens only signed in to that account (a locked-out learner gets
-      a temporary password first).
-    - **Forget an address** (`POST /superuser/privacy/forget`): for a
-      person with no account whose address is in a course share
-      invitation. Every invitation to it (`course_shares`) and every mail
-      to it still in `mail_outbox` are deleted. An address that belongs to
-      an account is refused (delete the account instead). The address is
-      not echoed back in the redirect or the notice. Copyright notices sent
-      signed out (`content_reports`) are kept as a record.
-  - **Breach tools** (#1068, the hosted site only, like moderation; not in
-    Skrongle mini): the mass actions of the incident runbook
-    (`ops/incident-response.md`) as buttons, under Privacy requests. Each
-    dialog asks who (every account, or only the addresses pasted in a box,
-    split on commas, spaces or new lines), a reason (into the privacy log,
-    as `sign-out` or `notice`) and a typed word (`confirm` in English, the
-    page's language otherwise) before it runs; a wrong word does nothing.
-    - **Sign accounts out** (`POST /superuser/breach/sign-out`): their
-      sessions, sign-ins waiting for a second-step code and unused
-      password-reset links are deleted, as Suspend does for one account
-      (`breach::sign_out`). The superuser's own session on this device
-      stays. Passwords are not reset: they are argon2id hashes, so the
-      runbook signs everyone out after a leaked database and asks learners
-      to change a password they use elsewhere.
-    - **E-mail a notice** (`POST /superuser/breach/notice`): a plain-text
-      subject and message, as typed, to every account with a confirmed
-      address (or the listed ones that have one), through the mail outbox
-      (purpose `breach-notice`, so `SKRONGLE_MAIL_PER_HOUR` applies and a
-      mail over it waits for a later hour). `breach_notices` records each
-      account and notice text in the same transaction, so pressing Send
-      again with the same text mails nobody twice and carries on where the
-      hourly limit stopped. The notice says how many were queued, how many
-      had it already and how many still wait.
   - **Skrongle AI today, everyone** (a card at the top, servers with Skrongle AI, #623): a
     bar and "$3.20 of $10.00 · resets at midnight UTC", the day's hosted
     spend of every learner (`ai_spend_days`) against the daily cap
@@ -2395,12 +2028,7 @@ address (#1328).
   and "I agree to the Terms and Privacy Policy" (`accept`;
   `templates/terms_check.html`, each sentence with a rounded check box on
   its right in the AI pill's style); the server refuses the form without
-  both, naming the missing one. A new
-  Google account is not created at the callback but at a confirm step
-  (`/auth/google/confirm`: the Google mark and address you are signing up as,
-  the same two boxes, the same "Hide all AI features" pill; a missing
-  tick comes back under the boxes, not as a banner); the verified
-  identity waits in memory for ten minutes. Each acceptance is a row in `terms_acceptances`
+  both, naming the missing one. Each acceptance is a row in `terms_acceptances`
   (user, version, time; no IP address), so the history is kept.
 - **The changelog.** Every version of the built-in text is an entry in
   `docs/terms-changes.json` (#966): `version`, `announced` and `effective`
@@ -2457,35 +2085,6 @@ address (#1328).
   dialog over the profile (the link still goes to `/terms` in a new tab
   or without JavaScript).
 
-## Content reports and copyright notices
-
-Hosted only (not in Skrongle mini, which has no mail). `src/content_reports.rs`,
-`src/routes/reports.rs`, table `content_reports` (v68, #968).
-
-- **Report this course.** The circle on a course someone shared with the
-  learner (`/courses`, `courses-card-shared`) opens its "shared with you"
-  dialog, which has *Report this course* (`content-report-open`). The form
-  (`templates/content_report_dialog.html`) asks for a reason (harmful,
-  copyright, other), what is wrong, and the learner's address, filled in
-  from the account. `POST /courses/{id}/report` stores the report, mails the
-  operator (purpose `content-report`) and comes back to
-  `/courses?notice=reported`. Built-in courses, the learner's own and courses
-  they cannot open are a 404. Ten reports an hour per account.
-- **Copyright form.** `/legal/copyright` (public, linked from `/terms`):
-  name, address, the work, where it is (a link to the course; the first
-  word that is a course id names the course), what is copied, and the
-  good-faith statement, which must be ticked. Five tries a minute from one
-  address, counted in dev mode too (`RateLimits::hit_always`); the sixth gets
-  a 429. Without mail the page shows only `SKRONGLE_LEGAL_EMAIL` and a post is a 404.
-- **The operator** is `SKRONGLE_LEGAL_EMAIL`, or every superuser with an
-  address when it is unset. The mail has the report and a link to
-  `/superuser#reports`.
-- **Superuser page.** *Reports* lists the open ones, oldest first, with
-  *Forward to owner* (`POST /superuser/reports/forward`, purpose
-  `content-report-forward`; the reporter's name and address only on a
-  copyright notice) and *Resolve* (`POST /superuser/reports/resolve`). What
-  the operator does with them: the [runbook](content-reports).
-
 ## Registration and password reset
 
 `/register` (e-mail address, password, the [Terms](#terms-of-service)
@@ -2523,7 +2122,7 @@ password?*, `login-reset-link`):
 
 - **Asking** (`reset-email`, `reset-submit`): the page always says "If
   that address has an account, a link was sent" (`reset-sent`). An account
-  (password or Google-only) gets a message (outbox purpose
+  gets a message (outbox purpose
   `password-reset`) with `<SKRONGLE_PUBLIC_URL or the request's host>/reset?token=…`.
   At most 3 links per address and 10 requests per network per hour; past
   the address's limit nothing is sent and the page says the same.
@@ -2557,8 +2156,7 @@ gives its address up to a new registration after `SKRONGLE_UNCONFIRMED_DAYS`
   superuser resets the account's verification (the Superuser page, it starts
   unconfirmed again); and on *Send the e-mail again*
   (`POST /profile/verify-email/resend`, 5 per account per hour, past that it
-  silently sends nothing). Google accounts are confirmed when created, and
-  when Google is linked to an account with the same address.
+  silently sends nothing).
 - **The link** is `<SKRONGLE_PUBLIC_URL or the request's host>/verify-email?token=…`:
   32 random bytes, hex; only the SHA-256 is stored, in
   `email_verifications`. It works once, for 24 hours, and only while the
@@ -2583,22 +2181,19 @@ gives its address up to a new registration after `SKRONGLE_UNCONFIRMED_DAYS`
 
 ## Two-factor sign-in
 
-After the password (or *Continue with Google*) an account can be asked for
+After the password an account can be asked for
 a code too (#292, `src/two_factor.rs`). One method at a time
 (`users.two_factor`), chosen on the profile's **Two-factor authentication**
 card (`profile-two-factor[data-method]`, chips `profile-two-factor-method[data-method]`
-for Off, E-mail, Text message and Authenticator app; picking one posts
+for Off, E-mail and Authenticator app; picking one posts
 `POST /profile/two-factor` and the page comes back saying what is on).
 Choosing another method replaces the one in use.
 
 **Only what the server can send** (#633). Without a mail provider the
-E-mail chip is left out, without a text message provider the Text message
-chip (and the profile's phone field with its dialogs); the authenticator
-app needs neither. Posting such a method anyway is refused (422) with a
+E-mail chip is left out; the authenticator app needs none. Posting such a method anyway is refused (422) with a
 message naming the setting. An account already on a method whose channel
-the server has lost cannot sign in: after the password (or Google) the
-login page comes back (403) saying so and naming `SKRONGLE_MAIL_PROVIDERS` or
-`SKRONGLE_SMS_PROVIDERS`; no code is made.
+the server has lost cannot sign in: after the password the
+login page comes back (403) saying so and naming `SKRONGLE_MAIL_PROVIDERS`; no code is made.
 
 **Every change asks who it is** (#374). Choosing Off, another method or,
 with it off, any method (or the app's *Remove*) opens *Confirm it's you*
@@ -2608,15 +2203,12 @@ with it off, any method (or the app's *Remove*) opens *Confirm it's you*
 checked on the server like `/login` (10 tries per account per 15 minutes;
 wrong ones count against the sign-in limit). A missing or wrong password is
 refused (403) with the dialog open again and `two-factor-confirm-error`.
-A Google-only account has no password, so it types a code from its current
+An account without a password (signed in through a proxy) types a code from its current
 method instead (`two-factor-confirm-code`): the authenticator's, or one
-texted or e-mailed by *Send code* (`two-factor-confirm-send`,
+e-mailed by *Send code* (`two-factor-confirm-send`,
 `POST /profile/two-factor/code`, purpose `two-factor-confirm`, 10 minutes,
-five tries, 5 sends per 15 minutes). A Google-only account with it off has
-neither, so the dialog offers *Confirm with Google*
-(`two-factor-confirm-with-google`); back from Google it opens again
-saying so (`two-factor-confirm-google-done`) and *Confirm* makes the
-change. Once made, every other session of the account ends and the
+five tries, 5 sends per 15 minutes). One with it off has nothing to type:
+*Confirm* makes the change. Once made, every other session of the account ends and the
 account's address is e-mailed (purpose `two-factor-changed`), so an
 owner whose session someone else used hears of it. Recovery codes are not
 offered yet. Without JavaScript the chips post with *Save* and the page
@@ -2626,19 +2218,6 @@ comes back with the dialog shown as a form.
   purpose `login-code`). Not offered until the address is
   [confirmed](#e-mail-verification): the chip is disabled, with a red !
   (`profile-two-factor-email-unavailable`) whose dialog has *Resend*.
-- **Text message**: the same code texted to the profile's phone number
-  (purpose `login-code`, through the SMS outbox and its limits). Not offered
-  until the number is verified: a red ! (`profile-two-factor-sms-unavailable`)
-  whose dialog adds a number or sends the code. A number that replied STOP
-  (the provider refuses texts to it, Twilio's 21610; #969) gets its codes
-  by e-mail instead: `/login/code` polls `/login/code/status`
-  (`static/login_code.js`), asks for a new code once the text is refused,
-  and then says the code went to the address and why
-  (`login-code-fallback`). Codes to confirm a change go by e-mail too. The
-  profile's phone field shows a red ! (`phone-opted-out`) whose dialog
-  (`phone-stopped-dialog`) says to text START and send a code; the first
-  text that gets through, or a new number, turns texts back on. Hosted
-  only: Skrongle mini has no texts.
 - **Authenticator app** (Google Authenticator and the like; RFC 6238 TOTP,
   SHA-1, 6 digits, 30 s, `src/totp.rs`): picking it starts the set-up, a
   dialog (`two-factor-totp-dialog`) with a QR code of the
@@ -2655,18 +2234,18 @@ comes back with the dialog shown as a form.
   forgets it and turns two-factor sign-in off (so it asks for the password
   like Off). The app's secret is stored encrypted, like the AI API keys. Leaving it for another
   method removes it too: its secret is not kept unused.
-- **Signing in**: once the password (or Google) is right, an account with a
+- **Signing in**: once the password is right, an account with a
   method gets no session yet but a `twofa` cookie (10 minutes) naming a
   challenge, and `/login/code` (`login-code[data-method]`) asks for the
   code (`login-code-input`, `login-code-submit`), saying where it went
-  (`login-code-sent-to`: `a•••@example.org`, `•••• 23`, or the app).
+  (`login-code-sent-to`: `a•••@example.org`, or the app).
   *Send a new code* (`login-code-resend`, 5 per account per 15 minutes) and
   *Cancel* (`login-code-cancel`). The session is made only after the right
   code. In dev mode a small window floats at the bottom (`login-code-dev`)
   framing [the dev device the code went to](testing#two-factor-sign-in-the-dev-device):
-  this sign-in's texts, mail or authenticator entry, each with a *Use*
+  this sign-in's mail or authenticator entry, each with a *Use*
   button that types the code.
-- **The rules**: a texted or e-mailed code works for 10 minutes and five
+- **The rules**: an e-mailed code works for 10 minutes and five
   tries (`login-code-error` says how many are left; the fifth wrong one ends
   the sign-in); a new code voids the old one but keeps the tries already
   used (five per sign-in, not per code). Codes are stored only as
@@ -2678,64 +2257,8 @@ comes back with the dialog shown as a form.
 - `/dev/login` skips the second step (it is the dev shortcut); the real
   `/login` never does.
 
-### The phone number
-
-Profile → Personal information has a **Phone number** (`profile-phone`),
-saved as you type like the names. US and Canada only for now (#496): the
-field carries the `+1` in its left edge (`profile-phone-country`, also the
-field's description, so a screen reader reads it with the label), takes
-digits only and punctuates them as they are typed, so ten digits become
-`(555) 555 - 5555` without anyone typing a bracket. A `+1` or `1` pasted in
-front is dropped, since it is the only country code taken. The ten digits
-travel as E.164 (`+15555555555`) and are stored that way (`users.phone`,
-`sms::normalize_us_number`); the field shows them punctuated again on the
-next visit (`sms::format_us_number`, which leaves an international number
-stored before #496 as it is). Half a number, or an area code starting with
-0 or 1, is not sent. A number pasted with another country's code is kept as
-it is and marked too, rather than reshaped into a `+1` number nobody can be
-texted on; the server refuses the same three cases
-(`sms::normalize_us_number`), so a client that skips the field cannot store
-one either, and refuses a number its own `SMS_COUNTRIES` leaves out.
-
-What is wrong is said by a red ! in the field's corner
-(`profile-phone-invalid`), not by text under the field: its tip says it, and
-it opens a dialog with it (`phone-problem-dialog`, `phone-problem-why`).
-Screen readers get the same words from the field's description
-(`profile-phone-error`, which takes no room on the page). The ! waits for a
-break, either two seconds without a keystroke or the field losing focus,
-since every number is too short before its last digit. It fades in over half
-a second and goes the moment the number is right again. While it shows, it
-takes the corner from the verified check and the unverified !, which are
-about the number on file. Nothing appears at the top of the page: a field
-that says what is wrong itself is not repeated in the page's message
-(`profile-save-error`), which is left to a problem with no field of its own
-(a save that failed, no connection).
-
-A new number is unverified: a red ! inside the field (`phone-unverified`)
-opens a dialog (`phone-unverified-dialog`)
-with *Send code* (`phone-verify-send`, `POST /profile/phone/send`: a
-6-digit code texted with purpose `phone-verify`, 10 minutes, five tries, 5
-sends per account per 15 minutes plus the SMS limits), the code field
-(`phone-verify-code`) and *Verify* (`phone-verify-submit`). Once verified
-the field shows a green check (`phone-verified`) and text-message sign-in
-can be chosen. While text-message sign-in is on, the number cannot change
-(the field says to choose another method first).
-
-Only an account with a confirmed e-mail address (or a Google account) may
-add a number or have it texted (#431): until then the field is disabled
-and an (i) inside it (`phone-locked-info`) opens a dialog
-(`phone-locked-dialog`) that explains why, with *Resend the link*
-(`phone-locked-resend`). The server refuses the number and the code
-regardless. A number verified on one account cannot be saved, texted or
-verified on another (#363; a unique index on verified numbers holds it),
-and a number outside the server's countries (`SKRONGLE_SMS_COUNTRIES`) is
-refused when it is saved. Texts are limited per account, per number and
-for the whole server, counted from a ledger that outlives deleted accounts
-(#362); a number's sign-in codes have an allowance of their own, so
-verification texts cannot use it up. `docs/self-hosting.md` "Text
-messages" has the numbers.
-
 ## Skrongle AI
+   or none; see [configuration](architecture#configuration).
 
 The tutor and the course generator can run on the server's own AI key
 (*Skrongle AI*), so a learner without a key can still use them

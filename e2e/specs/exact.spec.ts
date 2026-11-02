@@ -1070,7 +1070,7 @@ test("a page that does not exist is a 404 inside the normal layout, with ways ba
 test("a form-only URL opened by address is a 405 inside the normal layout, with a way home (#1253)", async ({ page, browser }) => {
   const formOnly = "This page only works from its button. Go back and use the button on the page.";
   // Signed in: the error page with the learner's top bar. A GET does not sign out.
-  for (const path of ["/waitlist", "/logout"]) {
+  for (const path of ["/logout"]) {
     const res = await page.goto(path);
     expect(res!.status()).toBe(405);
     expect(res!.headers()["allow"]).toBe("POST");
@@ -1081,7 +1081,7 @@ test("a form-only URL opened by address is a 405 inside the normal layout, with 
   }
   // Signed out: the same page, with the signed-out top bar.
   const anon = await browser.newPage();
-  for (const path of ["/waitlist", "/logout"]) {
+  for (const path of ["/logout"]) {
     const res = await anon.goto(new URL(path, page.url()).href);
     expect(res!.status()).toBe(405);
     await expect(anon.getByTestId("error-message")).toHaveText(formOnly);
@@ -1153,11 +1153,11 @@ test("#1154 a lesson without questions offers no practice", async ({ page }) => 
   await expect(page.getByTestId("lesson")).toHaveAttribute("data-lesson-id", "sort");
 });
 
-// #1253: a GET to a form-only URL (/waitlist, /logout, …) gets the error page
+// #1253: a GET to a form-only URL (/logout, …) gets the error page
 // in the normal layout with ways back, like a 404 does (#397), not a blank body.
 test.fixme("#1253 a form-only URL opened directly shows the error page, not a blank one", async ({ page }) => {
   await devLogin(page, "open=spanish");
-  for (const path of ["/waitlist", "/logout", "/terms/dismiss"]) {
+  for (const path of ["/logout", "/terms/dismiss"]) {
     const r = await page.goto(path);
     expect(r?.status()).toBe(405);
     await expect(page.getByTestId("error-page")).toBeVisible();

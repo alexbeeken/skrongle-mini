@@ -104,57 +104,6 @@ pub async fn login(State(state): State<Arc<AppState>>, Query(q): Query<LoginPara
 }
 
 #[derive(Deserialize)]
-pub struct ForgetGoogleForm {
-    #[serde(default)]
-    pub email: String,
-}
-
-/// POST /dev/google/forget (email): for testing sign-in with Google, from
-/// the login page's dev-mode line. The account signed up or connected with
-/// Google under that address forgets Google: a Google-only account is
-/// deleted, a password account is disconnected, so the next Google sign-in
-/// with the address starts over at the confirm step. Dev mode and the
-/// local-only check every `/dev` route gets are the whole gate, like
-/// `/dev/login`: there is no user to check on the login page.
-pub async fn google_forget(State(state): State<Arc<AppState>>, MaybeUser(user): MaybeUser, Form(f): Form<ForgetGoogleForm>) -> Result<Response, AppError> {
-    let email = f.email.trim().to_string();
-    if email.is_empty() {
-        return Err(AppError::BadRequest("which e-mail address?".into()));
-    }
-    let e = email.clone();
-    let found = state.db.call(move |c| dev::google_account_by_email(c, &e)).await?;
-    let forgot = match found {
-        dev::GoogleAccount::None => "none",
-        dev::GoogleAccount::Linked(id) => {
-            state.db.call(move |c| dev::unlink_google(c, id)).await?;
-            tracing::info!("dev: Google disconnected from user {id} ({email})");
-            "unlinked"
-        }
-        dev::GoogleAccount::GoogleOnly(id) => {
-            // As /profile/delete: what lives in memory goes first.
-            state.jobs.drop_user(id);
-            state.tutors.drop_user(id);
-            state.games.drop_user(id);
-            let deleted = state.db.call(move |c| crate::privacy::delete_account(c, id)).await?.unwrap_or_default();
-            for c in &deleted.courses {
-                state.courses.invalidate(c);
-            }
-            for t in &deleted.themes {
-                state.themes.forget(t);
-                state.courses.forget_theme(t);
-            }
-            state.exports.remove(&deleted.export_files);
-            tracing::info!("dev: Google-only user {id} ({email}) deleted");
-            if user.as_ref().is_some_and(|u| u.id == id) {
-                return Ok(([crate::auth::clear_session_cookie()], Redirect::to(&crate::url("/login?forgot=deleted"))).into_response());
-            }
-            "deleted"
-        }
-    };
-    Ok(Redirect::to(&format!("{}?forgot={forgot}", crate::url("/login"))).into_response())
-}
-
-#[derive(Deserialize)]
 pub struct ThemeBody {
     /// Path -> content: `theme.json` and `pictures/*.svg`, as a made theme stores them.
     pub files: std::collections::BTreeMap<String, String>,
@@ -240,7 +189,7 @@ pub async fn mail(
         let rows = state.db.call(|c| crate::mail::recent(c, 50)).await?;
         return Ok(Json(serde_json::json!({ "providers": state.mail.providers, "messages": rows })).into_response());
     }
-    box_page(&state, user, "mail", "out", q.to.as_deref()).await
+    box_page(&state, user, "out", q.to.as_deref()).await
 }
 
 #[derive(Deserialize)]
@@ -272,88 +221,11 @@ pub async fn mail_send(
     Ok(done(&headers, "/dev/mail"))
 }
 
-/// GET /dev/sms: the newest 50 text message outbox rows (bodies kept in dev
-/// mode), newest first, so tests can read a code the app texted. JSON,
-/// unless a browser asks for a page: the dev mailbox's Text section with its
-/// Outbox tab showing (see [`inbox`]).
-pub async fn sms(
-    State(state): State<Arc<AppState>>,
-    MaybeUser(user): MaybeUser,
-    headers: axum::http::HeaderMap,
-    Query(q): Query<InboxParams>,
-) -> Result<Response, AppError> {
-    if !wants_html(&headers, q.format.as_deref()) {
-        let rows = state.db.call(|c| crate::sms::recent(c, 50)).await?;
-        return Ok(Json(serde_json::json!({ "providers": state.sms.providers, "messages": rows })).into_response());
-    }
-    box_page(&state, user, "sms", "out", q.to.as_deref()).await
-}
-
-#[derive(Deserialize)]
-pub struct SmsSendForm {
-    #[serde(default)]
-    pub to: String,
-    #[serde(default)]
-    pub text: String,
-}
-
-/// POST /dev/sms/send (form `to`, `text`): the Text outbox's "Send a test
-/// text", through `send_sms` like `POST /dev/sms`; then back to /dev/sms
-/// (204 for the page's own posts). 400 or 429 with why, as text.
-pub async fn sms_form_send(
-    State(state): State<Arc<AppState>>,
-    MaybeUser(user): MaybeUser,
-    headers: axum::http::HeaderMap,
-    Form(f): Form<SmsSendForm>,
-) -> Result<Response, AppError> {
-    use crate::sms::SmsError;
-    let text = if f.text.trim().is_empty() { format!("A test text from {} in dev mode.", crate::APP_NAME) } else { f.text };
-    match state.sms.send_sms(&state.db, "dev-test", &f.to, &text, user.map(|u| u.id)).await {
-        Ok(id) => {
-            tracing::info!("dev: queued test sms #{id}");
-            Ok(done(&headers, "/dev/sms"))
-        }
-        Err(SmsError::Invalid(why)) => Err(AppError::BadRequest(why)),
-        Err(e @ SmsError::Country) => Err(AppError::BadRequest(e.to_string())),
-        Err(SmsError::RateLimited { retry_after }) => {
-            Ok((axum::http::StatusCode::TOO_MANY_REQUESTS, format!("Too many texts to that number; try again in {retry_after} s, or delete some from the outbox.")).into_response())
-        }
-        Err(SmsError::Db(e)) => Err(e),
-    }
-}
-
-#[derive(Deserialize)]
-pub struct SmsBody {
-    pub to: String,
-    pub text: String,
-}
-
-/// POST /dev/sms {"to": "+44…", "text": "…"}: queue a text through
-/// `sms::Texter::send_sms` (purpose `dev-test`, for whoever is signed in, if
-/// anyone), to try a provider configuration or the limits by hand.
-/// `{"id": n}`, 400 with why, or 429 with `retry_after`.
-pub async fn sms_send(State(state): State<Arc<AppState>>, MaybeUser(user): MaybeUser, Json(body): Json<SmsBody>) -> Result<Response, AppError> {
-    use crate::sms::SmsError;
-    match state.sms.send_sms(&state.db, "dev-test", &body.to, &body.text, user.map(|u| u.id)).await {
-        Ok(id) => Ok(Json(serde_json::json!({ "id": id })).into_response()),
-        Err(SmsError::Invalid(why)) => Err(AppError::ApiBadRequest(why)),
-        Err(e @ SmsError::Country) => Err(AppError::ApiBadRequest(e.to_string())),
-        Err(SmsError::RateLimited { retry_after }) => Ok((
-            axum::http::StatusCode::TOO_MANY_REQUESTS,
-            Json(serde_json::json!({ "error": "too many text messages", "retry_after": retry_after })),
-        )
-            .into_response()),
-        Err(SmsError::Db(e)) => Err(e),
-    }
-}
-
-// ---------- the dev mailbox page: e-mail and texts, inbox and outbox ----------
+// ---------- the dev mailbox page: e-mail, inbox and outbox ----------
 //
-// One page with two sections, E-mail (`/dev/inbox`, `/dev/mail`: the dev
-// mailbox, mail/sink.rs, and the mail outbox) and Text (`/dev/phone`,
-// `/dev/sms`: the dev phone, sms/phone.rs, and the SMS outbox), each with
-// an Inbox and an Outbox tab. Every box is a list like a mail client's (the
-// texts styled like a messaging app's): unopened rows in bold, archived ones
+// One page with an Inbox and an Outbox tab (`/dev/inbox`, `/dev/mail`: the
+// dev mailbox, mail/sink.rs, and the mail outbox). Every box is a list like
+// a mail client's: unopened rows in bold, archived ones
 // struck out at the bottom, Delete removes a row for good. The page polls
 // `/dev/inbox/rows` (static/devbox.js) so new messages, state changes and
 // the buttons show without a reload. Opened and archived are `dev::Marks`,
@@ -362,14 +234,10 @@ pub async fn sms_send(State(state): State<Arc<AppState>>, MaybeUser(user): Maybe
 /// `dev::Marks` boxes.
 const MAIL_IN: &str = "mail-in";
 const MAIL_OUT: &str = "mail-out";
-const SMS_IN: &str = "sms-in";
-const SMS_OUT: &str = "sms-out";
 
 /// One row of a dev box's table.
 pub struct BoxRow {
     pub id: i64,
-    /// Texts: the avatar's label (the number's last two digits).
-    pub badge: String,
     /// The message's page; its buttons post there too.
     pub href: String,
     pub to: String,
@@ -385,7 +253,7 @@ pub struct BoxRow {
     pub purpose: String,
     pub read: bool,
     pub archived: bool,
-    /// Outbox: the copy the dev mailbox (or phone) received, if it did.
+    /// Outbox: the copy the dev mailbox received, if it did.
     pub inbox_href: Option<String>,
 }
 
@@ -393,9 +261,7 @@ pub struct BoxRow {
 #[derive(Template)]
 #[template(path = "dev_box_rows.html")]
 pub struct BoxRows {
-    /// `mail` (a mail client's table) or `sms` (a messaging app's list).
-    pub kind: &'static str,
-    /// Test id prefix of the buttons: `dev-inbox`, `dev-mail`, `dev-phone`, `dev-sms`.
+    /// Test id prefix of the buttons: `dev-inbox`, `dev-mail`.
     pub prefix: &'static str,
     /// The row's test id (`dev-inbox-item`, `dev-mail-message`).
     pub row_testid: &'static str,
@@ -416,15 +282,15 @@ impl BoxRows {
 #[template(path = "dev_box.html")]
 pub struct BoxTemplate {
     pub user: Option<CurrentUser>,
-    /// The section: `mail` or `sms`.
+    /// The section: `mail`.
     pub kind: &'static str,
     /// The tab showing when the page opens: `in` or `out`.
     pub tab: &'static str,
-    /// The address (or number) filter, for both tabs.
+    /// The address filter, for both tabs.
     pub to: String,
     /// `?to=…` for the tabs' links; empty without a filter.
     pub to_query: String,
-    /// E-mail: `127.0.0.1:<port>` of the dev mailbox; texts: `dev-phone`.
+    /// `127.0.0.1:<port>` of the dev mailbox.
     /// `None`: off (providers are configured).
     pub sink: Option<String>,
     pub providers: String,
@@ -441,71 +307,14 @@ impl BoxTemplate {
     }
     /// The section's two list URLs.
     pub fn in_url(&self) -> String {
-        crate::url(if self.kind == "sms" { "/dev/phone" } else { "/dev/inbox" })
+        crate::url("/dev/inbox")
     }
     pub fn out_url(&self) -> String {
-        crate::url(if self.kind == "sms" { "/dev/sms" } else { "/dev/mail" })
+        crate::url("/dev/mail")
     }
     /// What the page polls.
     pub fn rows_url(&self) -> String {
         format!("{}?kind={}{}", crate::url("/dev/inbox/rows"), self.kind, self.to_query.replacen('?', "&", 1))
-    }
-}
-
-#[derive(Template)]
-#[template(path = "dev_text_message.html")]
-pub struct TextMessageTemplate {
-    pub user: Option<CurrentUser>,
-    /// `in` (a text the dev phone received) or `out` (an outbox row).
-    pub tab: &'static str,
-    pub id: i64,
-    /// Where its buttons post, and the list to go back to.
-    pub href: String,
-    pub back: String,
-    pub to: String,
-    pub purpose: String,
-    /// Outbox: queued, sent or failed, the provider, attempts, last error.
-    pub state: String,
-    pub provider: String,
-    pub attempts: i64,
-    pub last_error: String,
-    pub ago: String,
-    /// The conversation with this number, oldest first: on the phone every
-    /// text it holds to the number; in the outbox every row to it.
-    pub thread: Vec<Bubble>,
-    /// The other side's page: the outbox row, or the phone's copy.
-    pub other: Option<String>,
-    pub archived: bool,
-}
-
-/// One text in a conversation (`dev_text_message.html`).
-pub struct Bubble {
-    pub id: i64,
-    /// The same text on both sides (`o<outbox id>` for the app's, `r<phone
-    /// id>` for a reply), so switching sides can slide each bubble across.
-    pub key: String,
-    pub text: String,
-    pub ago: String,
-    /// Outbox rows: queued, sent or failed; `""` for the phone's copies and replies.
-    pub state: String,
-    /// Typed on the phone's page (the number texting the app).
-    pub from_phone: bool,
-    /// Sent by whoever is looking at this side (right, blue): the phone's
-    /// replies on the phone, the app's texts in the outbox.
-    pub mine: bool,
-    /// The text the page is about.
-    pub current: bool,
-}
-
-impl TextMessageTemplate {
-    /// Test id prefix of its buttons.
-    pub fn prefix(&self) -> &'static str {
-        if self.tab == "out" { "dev-sms" } else { "dev-phone" }
-    }
-
-    /// The number's avatar on the outbox side.
-    pub fn badge(&self) -> String {
-        badge(&self.to)
     }
 }
 
@@ -545,8 +354,6 @@ pub struct InboxParams {
     pub format: Option<String>,
     /// Only messages to this address.
     pub to: Option<String>,
-    /// `/dev/inbox/rows`: `mail` (default) or `sms`.
-    pub kind: Option<String>,
 }
 
 #[derive(Deserialize)]
@@ -601,7 +408,6 @@ fn inbox_rows(state: &AppState, to: Option<&str>, now: i64) -> BoxRows {
             let mark = state.dev_marks.get(MAIL_IN, m.id);
             BoxRow {
                 id: m.id,
-                badge: String::new(),
                 href: crate::url(&format!("/dev/inbox/{}", m.id)),
                 to: if m.to.is_empty() { m.envelope_to.join(", ") } else { m.to.clone() },
                 subject: if m.subject.is_empty() { "(no subject)".into() } else { m.subject.clone() },
@@ -616,7 +422,7 @@ fn inbox_rows(state: &AppState, to: Option<&str>, now: i64) -> BoxRows {
             }
         })
         .collect();
-    BoxRows { kind: "mail", prefix: "dev-inbox", row_testid: "dev-inbox-item", open_testid: "dev-inbox-open", empty: no_messages(to), rows: ordered(rows) }
+    BoxRows { prefix: "dev-inbox", row_testid: "dev-inbox-item", open_testid: "dev-inbox-open", empty: no_messages(to), rows: ordered(rows) }
 }
 
 /// An outbox row's state for the dev boxes, and its lease as a tooltip: a
@@ -645,7 +451,6 @@ async fn outbox_rows(state: &AppState, to: Option<&str>, now: i64) -> Result<Box
             let subject = s(r, "subject");
             BoxRow {
                 id,
-                badge: String::new(),
                 href: crate::url(&format!("/dev/mail/{id}")),
                 to: s(r, "to"),
                 subject: if subject.is_empty() { "(no subject)".into() } else { subject },
@@ -660,113 +465,31 @@ async fn outbox_rows(state: &AppState, to: Option<&str>, now: i64) -> Result<Box
             }
         })
         .collect();
-    Ok(BoxRows { kind: "mail", prefix: "dev-mail", row_testid: "dev-mail-message", open_testid: "dev-mail-view", empty: no_messages(to), rows: ordered(rows) })
+    Ok(BoxRows { prefix: "dev-mail", row_testid: "dev-mail-message", open_testid: "dev-mail-view", empty: no_messages(to), rows: ordered(rows) })
 }
 
-
-/// The number's last two digits, for a text row's avatar.
-fn badge(number: &str) -> String {
-    let d: Vec<char> = number.chars().filter(char::is_ascii_digit).collect();
-    d[d.len().saturating_sub(2)..].iter().collect()
-}
-
-/// A Text box lists conversations, not texts: one row per number, its
-/// newest text (the rows come newest first), which opens the conversation.
-/// So a second text to the same number joins its conversation instead of
-/// starting another.
-fn one_per_number<T>(rows: impl IntoIterator<Item = T>, number: impl Fn(&T) -> String) -> Vec<T> {
-    let mut seen = std::collections::HashSet::new();
-    rows.into_iter().filter(|r| seen.insert(number(r))).collect()
-}
-
-fn phone_rows(state: &AppState, to: Option<&str>, now: i64) -> BoxRows {
-    let messages = one_per_number(state.dev_phone.as_ref().map(|p| p.list(to)).unwrap_or_default(), |m| m.to.clone());
-    let rows = messages
-        .iter()
-        .map(|m| {
-            let mark = state.dev_marks.get(SMS_IN, m.id);
-            BoxRow {
-                id: m.id,
-                badge: badge(&m.to),
-                href: crate::url(&format!("/dev/phone/{}", m.id)),
-                to: m.to.clone(),
-                subject: String::new(),
-                snippet: snippet(&m.text),
-                ago: super::time_ago(m.received_at, now),
-                state: String::new(),
-                lease: String::new(),
-                purpose: m.purpose.clone(),
-                read: mark.read,
-                archived: mark.archived,
-                inbox_href: None,
-            }
-        })
-        .collect();
-    BoxRows { kind: "sms", prefix: "dev-phone", row_testid: "dev-phone-item", open_testid: "dev-phone-open", empty: no_texts(to), rows: ordered(rows) }
-}
-
-async fn sms_rows(state: &AppState, to: Option<&str>, now: i64) -> Result<BoxRows, AppError> {
-    let all = state.db.call(|c| crate::sms::recent(c, 50)).await?;
-    let want: Option<String> = to.map(|t| t.chars().filter(char::is_ascii_digit).collect());
-    let s = |v: &serde_json::Value, k: &str| v.get(k).and_then(|x| x.as_str()).unwrap_or_default().to_string();
-    let rows = one_per_number(all.iter().filter(|r| want.as_deref().is_none_or(|w| s(r, "to").contains(w))), |r| s(r, "to"))
-        .into_iter()
-        .map(|r| {
-            let id = r["id"].as_i64().unwrap_or_default();
-            let mark = state.dev_marks.get(SMS_OUT, id);
-            let to = s(r, "to");
-            BoxRow {
-                id,
-                badge: badge(&to),
-                href: crate::url(&format!("/dev/sms/{id}")),
-                to,
-                subject: String::new(),
-                snippet: snippet(&s(r, "text")),
-                ago: super::time_ago(r["created_at"].as_i64().unwrap_or(now), now),
-                state: outbox_state(r, now).0,
-                lease: outbox_state(r, now).1,
-                purpose: s(r, "purpose"),
-                read: mark.read,
-                archived: mark.archived,
-                inbox_href: state.dev_phone.as_ref().and_then(|p| p.by_outbox(id)).map(|i| crate::url(&format!("/dev/phone/{i}"))),
-            }
-        })
-        .collect();
-    Ok(BoxRows { kind: "sms", prefix: "dev-sms", row_testid: "dev-sms-message", open_testid: "dev-sms-view", empty: no_texts(to), rows: ordered(rows) })
-}
-
-fn no_texts(to: Option<&str>) -> String {
-    match to {
-        Some(t) => format!("No texts to {t}."),
-        None => "No texts.".into(),
-    }
-}
 
 fn filter_of(to: Option<&str>) -> Option<&str> {
     to.map(str::trim).filter(|t| !t.is_empty())
 }
 
-/// Both boxes of a section (`mail` or `sms`).
-async fn boxes(state: &AppState, kind: &str, to: Option<&str>) -> Result<(BoxRows, BoxRows), AppError> {
+/// Both boxes.
+async fn boxes(state: &AppState, to: Option<&str>) -> Result<(BoxRows, BoxRows), AppError> {
     let now = crate::db::now();
-    Ok(if kind == "sms" { (phone_rows(state, to, now), sms_rows(state, to, now).await?) } else { (inbox_rows(state, to, now), outbox_rows(state, to, now).await?) })
+    Ok((inbox_rows(state, to, now), outbox_rows(state, to, now).await?))
 }
 
-async fn box_page(state: &AppState, user: Option<CurrentUser>, kind: &'static str, tab: &'static str, to: Option<&str>) -> Result<Response, AppError> {
+async fn box_page(state: &AppState, user: Option<CurrentUser>, tab: &'static str, to: Option<&str>) -> Result<Response, AppError> {
     let to = filter_of(to);
-    let (inbox, outbox) = boxes(state, kind, to).await?;
+    let (inbox, outbox) = boxes(state, to).await?;
     let default_to = user.as_ref().map(|u| u.email.clone()).unwrap_or_else(|| dev::DEV_EMAIL.to_string());
-    let (sink, providers) = if kind == "sms" {
-        (state.dev_phone.as_ref().map(|_| "dev-phone".to_string()), state.sms.providers.join(", then "))
-    } else {
-        (state.dev_inbox.as_ref().map(|i| i.addr().to_string()), state.mail.providers.join(", then "))
-    };
+    let (sink, providers) = (state.dev_inbox.as_ref().map(|i| i.addr().to_string()), state.mail.providers.join(", then "));
     Ok(Page(BoxTemplate {
         user,
-        kind,
+        kind: "mail",
         tab,
         to: to.unwrap_or_default().to_string(),
-        to_query: to.map(|t| format!("?to={}", crate::oauth::urlencode(t))).unwrap_or_default(),
+        to_query: to.map(|t| format!("?to={}", crate::urlenc::urlencode(t))).unwrap_or_default(),
         sink,
         providers,
         default_to,
@@ -792,231 +515,19 @@ pub async fn inbox(
         let smtp = state.dev_inbox.as_ref().map(|i| i.addr().to_string());
         return Ok(Json(serde_json::json!({ "smtp": smtp, "messages": messages.iter().map(|m| m.json()).collect::<Vec<_>>() })).into_response());
     }
-    box_page(&state, user, "mail", "in", q.to.as_deref()).await
+    box_page(&state, user, "in", q.to.as_deref()).await
 }
 
-/// GET /dev/inbox/rows (`?kind=mail|sms`, `?to=`): one section's two lists
+/// GET /dev/inbox/rows (`?to=`): one section's two lists
 /// as HTML, and the unread counts, for the page's poll:
 /// `{"in": {"html", "unread"}, "out": {…}}`.
 pub async fn box_rows(State(state): State<Arc<AppState>>, Query(q): Query<InboxParams>) -> Result<Response, AppError> {
-    let kind = if q.kind.as_deref() == Some("sms") { "sms" } else { "mail" };
-    let (inbox, outbox) = boxes(&state, kind, filter_of(q.to.as_deref())).await?;
+    let (inbox, outbox) = boxes(&state, filter_of(q.to.as_deref())).await?;
     let mut out = serde_json::Map::new();
     for (key, rows) in [("in", inbox), ("out", outbox)] {
         out.insert(key.into(), serde_json::json!({ "html": rows.render()?, "unread": rows.unread() }));
     }
     Ok(Json(serde_json::Value::Object(out)).into_response())
-}
-
-fn phone_of(state: &AppState) -> Result<&crate::sms::phone::Phone, AppError> {
-    state.dev_phone.as_deref().ok_or(AppError::NotFound)
-}
-
-/// GET /dev/phone: the texts the dev phone received, newest first (`?to=`:
-/// numbers containing those digits). JSON `{"phone": bool, "messages":
-/// [{id, outbox_id, to, text, purpose, received_at}]}`; for a browser, the
-/// dev mailbox page with its Text section's Inbox tab showing.
-pub async fn phone(
-    State(state): State<Arc<AppState>>,
-    MaybeUser(user): MaybeUser,
-    headers: axum::http::HeaderMap,
-    Query(q): Query<InboxParams>,
-) -> Result<Response, AppError> {
-    if !wants_html(&headers, q.format.as_deref()) {
-        let messages = state.dev_phone.as_ref().map(|p| p.list(filter_of(q.to.as_deref()))).unwrap_or_default();
-        return Ok(Json(serde_json::json!({ "phone": state.dev_phone.is_some(), "messages": messages.iter().map(|m| m.json()).collect::<Vec<_>>() })).into_response());
-    }
-    box_page(&state, user, "sms", "in", q.to.as_deref()).await
-}
-
-/// The conversation on a phone text's page, as that phone sees it: every
-/// text it holds to `to` and its replies; `current` is the opened text.
-fn thread_of(state: &AppState, to: &str, current: i64, now: i64) -> Vec<Bubble> {
-    state
-        .dev_phone
-        .as_ref()
-        .map(|p| p.thread(to))
-        .unwrap_or_default()
-        .iter()
-        .map(|m| Bubble { id: m.id, key: if m.from_phone { format!("r{}", m.id) } else { format!("o{}", m.outbox_id) }, text: m.text.clone(), ago: super::time_ago(m.received_at, now), state: String::new(), from_phone: m.from_phone, mine: m.from_phone, current: m.id == current })
-        .collect()
-}
-
-/// GET /dev/phone/{id}: one text, in its conversation with that number, as
-/// a messaging app shows it. Opening it in a browser marks it read.
-/// `?format=json`: the text.
-pub async fn phone_message(
-    State(state): State<Arc<AppState>>,
-    MaybeUser(user): MaybeUser,
-    headers: axum::http::HeaderMap,
-    Path(id): Path<i64>,
-    Query(q): Query<InboxParams>,
-) -> Result<Response, AppError> {
-    let m = phone_of(&state)?.get(id).ok_or(AppError::NotFound)?;
-    if !wants_html(&headers, q.format.as_deref()) {
-        return Ok(Json(m.json()).into_response());
-    }
-    state.dev_marks.set_read(SMS_IN, id, true);
-    let now = crate::db::now();
-    Ok(Page(TextMessageTemplate {
-        user,
-        tab: "in",
-        id,
-        href: crate::url(&format!("/dev/phone/{id}")),
-        back: crate::url("/dev/phone"),
-        to: m.to.clone(),
-        purpose: m.purpose.clone(),
-        state: String::new(),
-        provider: String::new(),
-        attempts: 0,
-        last_error: String::new(),
-        ago: super::time_ago(m.received_at, now),
-        thread: thread_of(&state, &m.to, id, now),
-        other: Some(crate::url(&format!("/dev/sms/{}", m.outbox_id))),
-        archived: state.dev_marks.get(SMS_IN, id).archived,
-    })
-    .into_response())
-}
-
-/// POST /dev/phone/{id} (`do=archive|unarchive|delete`), as on the e-mail
-/// inbox. A row is a conversation, so Delete removes every text with that
-/// number from the phone, replies too.
-pub async fn phone_act(State(state): State<Arc<AppState>>, headers: axum::http::HeaderMap, Path(id): Path<i64>, Form(f): Form<BoxActForm>) -> Result<Response, AppError> {
-    let phone = phone_of(&state)?;
-    let m = phone.get(id).ok_or(AppError::NotFound)?;
-    match f.action.as_str() {
-        "archive" | "unarchive" => state.dev_marks.set_archived(SMS_IN, id, f.action == "archive"),
-        "delete" => {
-            for gone in phone.remove_thread(&m.to) {
-                state.dev_marks.forget(SMS_IN, gone);
-            }
-        }
-        other => return Err(AppError::BadRequest(format!("do must be archive, unarchive or delete, not {other:?}"))),
-    }
-    Ok(done(&headers, "/dev/phone"))
-}
-
-/// POST /dev/phone/reply (form `to`, `text`): a reply typed on a text's page,
-/// the number texting the app; it joins the conversation on both sides.
-/// Back to /dev/phone (204 for the page's own posts); 400 for an empty text.
-pub async fn phone_reply(State(state): State<Arc<AppState>>, headers: axum::http::HeaderMap, Form(f): Form<SmsSendForm>) -> Result<Response, AppError> {
-    let phone = phone_of(&state)?;
-    let text = f.text.trim();
-    if text.is_empty() || f.to.trim().is_empty() {
-        return Err(AppError::BadRequest("Type a text to send.".into()));
-    }
-    let id = phone.reply(f.to.trim(), text);
-    tracing::info!("dev-phone: {} replied (#{id})", f.to.trim());
-    Ok(done(&headers, "/dev/phone"))
-}
-
-/// POST /dev/phone/clear: empty the dev phone, then back to it.
-pub async fn phone_clear(State(state): State<Arc<AppState>>, headers: axum::http::HeaderMap) -> Result<Response, AppError> {
-    phone_of(&state)?.clear();
-    state.dev_marks.clear(SMS_IN);
-    Ok(done(&headers, "/dev/phone"))
-}
-
-/// GET /dev/sms/{id}: one text outbox row: its state, provider and last
-/// error, in the outbox's conversation with that number (every row to it,
-/// as sent bubbles). Opening it in a browser marks it read.
-/// `?format=json`: the row.
-pub async fn sms_message(
-    State(state): State<Arc<AppState>>,
-    MaybeUser(user): MaybeUser,
-    headers: axum::http::HeaderMap,
-    Path(id): Path<i64>,
-    Query(q): Query<InboxParams>,
-) -> Result<Response, AppError> {
-    let (r, rows) = state
-        .db
-        .call(move |c| {
-            let r = crate::sms::outbox_row(c, id)?;
-            let rows = match &r {
-                Some(r) => crate::sms::thread(c, r["to"].as_str().unwrap_or_default())?,
-                None => Vec::new(),
-            };
-            Ok((r, rows))
-        })
-        .await?;
-    let r = r.ok_or(AppError::NotFound)?;
-    if !wants_html(&headers, q.format.as_deref()) {
-        return Ok(Json(r).into_response());
-    }
-    state.dev_marks.set_read(SMS_OUT, id, true);
-    let s = |k: &str| r.get(k).and_then(|x| x.as_str()).unwrap_or_default().to_string();
-    let now = crate::db::now();
-    let ago = super::time_ago(r["created_at"].as_i64().unwrap_or(now), now);
-    let phone_id = state.dev_phone.as_ref().and_then(|p| p.by_outbox(id));
-    // The app's side of the conversation: its rows to the number and the
-    // replies typed on the phone's page, in time order. Times are only
-    // seconds, so within a second the phone's sequence (its ids) decides,
-    // each received text standing in for its outbox row. A row the phone
-    // does not hold sits at its own time: a sent one is from before a
-    // restart emptied the phone, so it goes before that second's arrivals;
-    // a queued or failed one is still on its way, so after.
-    let str_of = |v: &serde_json::Value, k: &str| v.get(k).and_then(|x| x.as_str()).unwrap_or_default().to_string();
-    let to = s("to");
-    let mut by_row: std::collections::HashMap<i64, &serde_json::Value> = rows.iter().map(|v| (v["id"].as_i64().unwrap_or_default(), v)).collect();
-    let row_bubble = |v: &serde_json::Value| {
-        let rid = v["id"].as_i64().unwrap_or_default();
-        Bubble { id: rid, key: format!("o{rid}"), text: str_of(v, "text"), ago: super::time_ago(v["created_at"].as_i64().unwrap_or(now), now), state: str_of(v, "state"), from_phone: false, mine: true, current: rid == id }
-    };
-    let mut thread: Vec<((i64, u8, i64), Bubble)> = Vec::new();
-    for m in state.dev_phone.as_ref().map(|p| p.thread(&to)).unwrap_or_default().iter() {
-        let key = (m.received_at, 1, m.id);
-        if m.from_phone {
-            thread.push((key, Bubble { id: m.id, key: format!("r{}", m.id), text: m.text.clone(), ago: super::time_ago(m.received_at, now), state: String::new(), from_phone: true, mine: false, current: false }));
-        } else if let Some(v) = by_row.remove(&m.outbox_id) {
-            thread.push((key, row_bubble(v)));
-        } else {
-            // The row was deleted; the phone still has the text.
-            thread.push((key, Bubble { id: m.outbox_id, key: format!("o{}", m.outbox_id), text: m.text.clone(), ago: super::time_ago(m.received_at, now), state: String::new(), from_phone: false, mine: true, current: m.outbox_id == id }));
-        }
-    }
-    for (rid, v) in by_row {
-        let group = if v["state"].as_str() == Some("sent") { 0 } else { 2 };
-        thread.push(((v["created_at"].as_i64().unwrap_or_default(), group, rid), row_bubble(v)));
-    }
-    thread.sort_by_key(|(key, _)| *key);
-    let thread: Vec<Bubble> = thread.into_iter().map(|(_, b)| b).collect();
-    Ok(Page(TextMessageTemplate {
-        user,
-        tab: "out",
-        id,
-        href: crate::url(&format!("/dev/sms/{id}")),
-        back: crate::url("/dev/sms"),
-        to,
-        purpose: s("purpose"),
-        state: s("state"),
-        provider: s("provider"),
-        attempts: r["attempts"].as_i64().unwrap_or_default(),
-        last_error: s("last_error"),
-        thread,
-        ago,
-        other: phone_id.map(|i| crate::url(&format!("/dev/phone/{i}"))),
-        archived: state.dev_marks.get(SMS_OUT, id).archived,
-    })
-    .into_response())
-}
-
-/// POST /dev/sms/{id} (`do=archive|unarchive|delete`): as on the e-mail
-/// outbox. A row is a conversation, so Delete removes every row to that
-/// number (a queued text is then never sent, and the number's limit starts
-/// over).
-pub async fn sms_act(State(state): State<Arc<AppState>>, headers: axum::http::HeaderMap, Path(id): Path<i64>, Form(f): Form<BoxActForm>) -> Result<Response, AppError> {
-    let row = state.db.call(move |c| crate::sms::outbox_row(c, id)).await?.ok_or(AppError::NotFound)?;
-    match f.action.as_str() {
-        "archive" | "unarchive" => state.dev_marks.set_archived(SMS_OUT, id, f.action == "archive"),
-        "delete" => {
-            let to = row["to"].as_str().unwrap_or_default().to_string();
-            for gone in state.db.call(move |c| crate::sms::delete_thread(c, &to)).await? {
-                state.dev_marks.forget(SMS_OUT, gone);
-            }
-        }
-        other => return Err(AppError::BadRequest(format!("do must be archive, unarchive or delete, not {other:?}"))),
-    }
-    Ok(done(&headers, "/dev/sms"))
 }
 
 /// GET /dev/inbox/latest (`?to=`, default the signed-in user's address):
@@ -1312,128 +823,6 @@ pub async fn authenticator_act(State(state): State<Arc<AppState>>, headers: axum
         return Err(AppError::NotFound);
     }
     Ok(done(&headers, "/dev/authenticator"))
-}
-
-// ---------- the Google stand-in (crate::dev, "the Google stand-in") ----------
-
-type Params = std::collections::HashMap<String, String>;
-
-fn mock_google_cfg(state: &AppState) -> Result<&crate::oauth::GoogleConfig, AppError> {
-    state.google.as_ref().filter(|g| g.mock).ok_or(AppError::NotFound)
-}
-
-/// GET /dev/google/auth: Google's authorization endpoint. Checks the request
-/// the way Google does (client, redirect URI, response type, PKCE) and sends
-/// the browser straight back with a code (or `error=access_denied` for
-/// `mock_error=cancel`); there is no account picker, the account comes from
-/// `login_hint`. Anything else wrong is a 400 that names it, like Google's
-/// own error page.
-pub async fn google_auth(State(state): State<Arc<AppState>>, Query(q): Query<Params>) -> Result<Response, AppError> {
-    let cfg = mock_google_cfg(&state)?;
-    let p = |k: &str| q.get(k).map(String::as_str).unwrap_or("");
-    let bad = |what: &str| AppError::BadRequest(format!("Mock Google: {what}"));
-    if p("client_id") != cfg.client_id {
-        return Err(bad("invalid_client: the OAuth client was not found"));
-    }
-    if p("redirect_uri") != cfg.redirect_uri {
-        return Err(bad("redirect_uri_mismatch"));
-    }
-    if p("response_type") != "code" {
-        return Err(bad("unsupported_response_type"));
-    }
-    if p("code_challenge_method") != "S256" || p("code_challenge").is_empty() {
-        return Err(bad("invalid_request: code_challenge (S256) is required"));
-    }
-    let state_param = p("state");
-    if state_param.is_empty() {
-        return Err(bad("invalid_request: state is required"));
-    }
-    let error = match p("mock_error") {
-        "" => None,
-        e => Some(dev::MockGoogleError::parse(e).ok_or_else(|| {
-            let known: Vec<_> = dev::MockGoogleError::ALL.iter().map(|e| e.as_str()).collect();
-            bad(&format!("unknown mock_error {e:?}; one of {}", known.join(", ")))
-        })?),
-    };
-    let email = match p("login_hint").trim() {
-        "" => dev::MOCK_GOOGLE_EMAIL.to_string(),
-        e if e.contains('@') => e.to_lowercase(),
-        e => return Err(bad(&format!("login_hint {e:?} is not an e-mail address"))),
-    };
-    let back = &cfg.redirect_uri;
-    let state_q = crate::oauth::urlencode(state_param);
-    if error == Some(dev::MockGoogleError::Cancel) {
-        tracing::info!("mock google: {email} cancelled");
-        return Ok(Redirect::to(&format!("{back}?error=access_denied&state={state_q}")).into_response());
-    }
-    let code = dev::MockCode {
-        email: email.clone(),
-        nonce: p("nonce").to_string(),
-        challenge: p("code_challenge").to_string(),
-        error,
-        issued_at: crate::db::now(),
-    };
-    tracing::info!("mock google: {email} signed in{}", error.map(|e| format!(" (then: {})", e.as_str())).unwrap_or_default());
-    let scope = crate::oauth::urlencode("email profile openid");
-    Ok(Redirect::to(&format!("{back}?state={state_q}&code={}&scope={scope}&authuser=0&prompt=consent", crate::oauth::urlencode(&code.encode())))
-        .into_response())
-}
-
-/// POST /dev/google/token: Google's token endpoint, as `oauth::exchange_code`
-/// calls it. Checks the client, the grant type and the PKCE verifier, then
-/// answers with tokens, or with what the code was told to fail with.
-pub async fn google_token(State(state): State<Arc<AppState>>, Form(f): Form<Params>) -> Result<Response, AppError> {
-    use axum::http::StatusCode;
-    let cfg = mock_google_cfg(&state)?;
-    let p = |k: &str| f.get(k).map(String::as_str).unwrap_or("");
-    let refuse = |status: StatusCode, error: &str, desc: &str| {
-        tracing::info!("mock google token: {error} ({desc})");
-        (status, Json(serde_json::json!({ "error": error, "error_description": desc }))).into_response()
-    };
-    if p("grant_type") != "authorization_code" {
-        return Ok(refuse(StatusCode::BAD_REQUEST, "unsupported_grant_type", "Invalid grant_type"));
-    }
-    if p("client_id") != cfg.client_id || p("client_secret") != cfg.client_secret {
-        return Ok(refuse(StatusCode::UNAUTHORIZED, "invalid_client", "Unauthorized"));
-    }
-    let Some(code) = dev::MockCode::decode(p("code")) else {
-        return Ok(refuse(StatusCode::BAD_REQUEST, "invalid_grant", "Malformed auth code."));
-    };
-    let now = crate::db::now();
-    if now - code.issued_at > dev::MOCK_CODE_TTL_SECS || p("redirect_uri") != cfg.redirect_uri {
-        return Ok(refuse(StatusCode::BAD_REQUEST, "invalid_grant", "Bad Request"));
-    }
-    if crate::oauth::pkce_challenge(p("code_verifier")) != code.challenge {
-        return Ok(refuse(StatusCode::BAD_REQUEST, "invalid_grant", "Invalid code verifier."));
-    }
-    match code.error {
-        Some(dev::MockGoogleError::InvalidGrant) => return Ok(refuse(StatusCode::BAD_REQUEST, "invalid_grant", "Bad Request")),
-        Some(dev::MockGoogleError::Timeout) => {
-            // Longer than the app waits (15 s), so its request times out.
-            tracing::info!("mock google token: holding the answer for 20 s");
-            tokio::time::sleep(std::time::Duration::from_secs(20)).await;
-        }
-        Some(dev::MockGoogleError::Unavailable) => {
-            tracing::info!("mock google token: 503");
-            return Ok((
-                StatusCode::SERVICE_UNAVAILABLE,
-                [(axum::http::header::CONTENT_TYPE, "text/html; charset=utf-8")],
-                "<html><body><h1>503 Service Unavailable</h1><p>The service you requested is not available at this time.</p></body></html>",
-            )
-                .into_response());
-        }
-        Some(dev::MockGoogleError::Cancel) | Some(dev::MockGoogleError::Unverified) | None => {}
-    }
-    let verified = code.error != Some(dev::MockGoogleError::Unverified);
-    let id_token = dev::mock_id_token(&cfg.client_id, &code.email, verified, &code.nonce, now);
-    Ok(Json(serde_json::json!({
-        "access_token": format!("ya29.mock.{}", crate::oauth::random_token()),
-        "expires_in": 3599,
-        "scope": "openid https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile",
-        "token_type": "Bearer",
-        "id_token": id_token,
-    }))
-    .into_response())
 }
 
 // ---------- /dev/jobs: the background job table (dev/jobs_page.rs) ----------

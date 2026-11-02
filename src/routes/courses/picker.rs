@@ -52,20 +52,6 @@ pub struct CourseCard {
     /// A copy being translated, or whose translation stopped (#630): its
     /// card resumes the translation rather than a generation.
     pub translation: bool,
-    /// A course shared with this learner, on a server that sends mail
-    /// (#968): its "shared with you" dialog offers "Report this course",
-    /// whose form starts with this address (the learner's).
-    pub report_email: Option<String>,
-    /// Taken down by a superuser (#967): its owner's card shows why behind
-    /// the red !, and has no Open.
-    pub removed: bool,
-    /// Flagged by the content check (#1033): its owner's card has a red !
-    /// whose dialog lists what matched (each word masked, its lesson and
-    /// field), and no Open.
-    pub flagged: bool,
-    pub flag_matches: Vec<crate::course_flags::view::MatchView>,
-    /// The line above them: listed words, or text the AI check found (#1037).
-    pub flagged_lead: String,
 }
 
 /// A course's settings dialog (`course_settings.html`): the level (a course
@@ -261,11 +247,6 @@ fn card(content: &ContentStore, editable: bool) -> CourseCard {
         copyable: false,
         meanings_lang: m.meanings.lang.clone(),
         translation: false,
-        report_email: None,
-        removed: false,
-        flagged: false,
-        flag_matches: Vec::new(),
-        flagged_lead: String::new(),
     }
 }
 
@@ -360,20 +341,7 @@ fn broken_card(state: &AppState, row: &CourseRow) -> CourseCard {
         copyable: false,
         meanings_lang: String::new(),
         translation: row.source == "translate",
-        report_email: None,
-        removed: false,
-        flagged: false,
-        flag_matches: Vec::new(),
-        flagged_lead: String::new(),
     }
-}
-
-/// The owner's card of a flagged course (#1033): what matched, one line per
-/// term and lesson.
-fn flagged_card(state: &AppState, row: &CourseRow, flag: &crate::course_flags::Flag) -> CourseCard {
-    let flag_matches = crate::course_flags::view::owner_views(flag);
-    let lead = if flag.source == crate::course_flags::Source::Ai { "courses.picker.flagged_lead_ai" } else { "courses.picker.flagged_lead" };
-    CourseCard { flagged: true, flag_matches, flagged_lead: crate::t(lead), stopped: false, resumable: false, job: None, error: None, ..broken_card(state, row) }
 }
 
 /// GET /courses[?generate=<stopped course>]
@@ -404,8 +372,6 @@ pub(super) fn picker_notice(key: &str) -> Option<String> {
         "share-taken" => "courses.share.link_taken",
         "share-gone" => "courses.share.link_gone",
         "share-not-ready" => "courses.share.not_ready",
-        "reported" => "reports.course.sent",
-        "report-limit" => "reports.course.too_many",
         "too-many-writes" => return Some(too_many_writes_text()),
         "copy-not-ready" => "courses.picker.copy_not_ready",
         "translate-same" => "courses.translate.same_language",
@@ -495,34 +461,6 @@ pub(super) fn editor_notice(key: &str, undo: Option<&UndoView>, error: Option<&s
     })
 }
 
-/// What the editor says when Start or Share was refused for a flagged
-/// course (#1033): the words, masked ("w******"), and the lessons they are in.
-pub(super) fn flagged_notice(flag: &crate::course_flags::Flag) -> String {
-    let key = if flag.source == crate::course_flags::Source::Ai { "courses.editor.flagged_notice_ai" } else { "courses.editor.flagged_notice" };
-    crate::t1(key, "matches", flag_lines(flag).join("; "))
-}
-
-/// A flag's matches as "w****** (in lesson)", once each; the AI check's
-/// (#1037) as the quoted text, its lesson and the rule it breaks. The word
-/// or the quote is masked: a page never shows it as it is.
-fn flag_lines(flag: &crate::course_flags::Flag) -> Vec<String> {
-    let mut lines: Vec<String> = Vec::new();
-    for m in &flag.matches {
-        // An AI quote's term is the category it breaks (#1046).
-        let category = (flag.source == crate::course_flags::Source::Ai).then(|| crate::content_check::Category::named(&m.term)).flatten();
-        let line = if let Some(c) = category {
-            let why = crate::t(&format!("courses.picker.flagged_why_{}", c.name));
-            crate::t2("courses.picker.flagged_quote", "text", crate::course_flags::view::mask(&m.text), "lesson", &m.lesson).replace("{why}", &why)
-        } else {
-            crate::t2("courses.picker.flagged_match", "term", crate::course_flags::view::mask(&m.term), "lesson", &m.lesson)
-        };
-        if !lines.contains(&line) {
-            lines.push(line);
-        }
-    }
-    lines
-}
-
 /// The editor at `/courses/{id}` with the notice `key`.
 pub(in crate::routes) fn to_editor(id: &str, key: &str) -> Response {
     Redirect::to(&crate::url(&format!("/courses/{id}?notice={key}"))).into_response()
@@ -575,7 +513,6 @@ pub(super) async fn picker_page(state: &AppState, user: CurrentUser, notice: Opt
         let Some(content) = state.courses.get(&state.db, &pr.course_id).await? else { continue };
         let mut c = card(&content, owned.is_some());
         c.copyable = owned.map_or(shared_by.is_none(), |r| !matches!(r.state, courses::CourseState::Generating | courses::CourseState::Failed));
-        c.report_email = shared_by.as_ref().filter(|_| state.caps().mail).map(|_| user.email.clone());
         c.shared_by = shared_by;
         if let Some(row) = owned {
             c.state = row.state.as_str(); // "revising" shows as a tag; the course still opens
@@ -601,21 +538,8 @@ pub(super) async fn picker_page(state: &AppState, user: CurrentUser, notice: Opt
         .collect();
     let mut my_cards = Vec::new();
     for row in &mine {
-        // Taken down by a superuser (#967): the card says so behind its red !, and nothing opens.
-        if row.taken_down {
-            my_cards.push(CourseCard { removed: true, stopped: false, resumable: false, job: None, error: Some(crate::moderation::removed_text()), ..broken_card(state, row) });
-            continue;
-        }
         // A course being revised opens as it is, like a ready one.
         let opens = matches!(row.state, courses::CourseState::Ready | courses::CourseState::Revising);
-        // Flagged by the content check (#1033): the red ! says what matched, and nothing opens.
-        if opens && row.error.is_none() && state.courses.get(&state.db, &row.id).await?.is_none() {
-            let rid = row.id.clone();
-            if let Some(flag) = state.db.call(move |c| crate::course_flags::get(c, &rid)).await?.filter(|f| f.blocks()) {
-                my_cards.push(flagged_card(state, row, &flag));
-                continue;
-            }
-        }
         if projects.iter().any(|p| p.course_id == row.id) && row.error.is_none() && opens {
             continue;
         }
@@ -642,7 +566,6 @@ pub(super) async fn picker_page(state: &AppState, user: CurrentUser, notice: Opt
         let Some(content) = state.courses.get(&state.db, &s.course_id).await? else { continue };
         let mut c = card(&content, false);
         c.shared_by = Some(s.owner.clone());
-        c.report_email = state.caps().mail.then(|| user.email.clone());
         shared_cards.push(with_wizard(&content, c));
     }
     Ok(Page(PickerTemplate { user: Some(user), projects: project_cards, builtin, mine: my_cards, shared: shared_cards, notice, generate, looks: choices.looks, translate_providers }).into_response())

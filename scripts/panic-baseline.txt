@@ -15,7 +15,6 @@
 3 src/mail/resend.rs
 18 src/mail/sink.rs
 24 src/mathcheck.rs
-2 src/oauth.rs
 17 src/problems.rs
 1 src/profile.rs
 2 src/quiz.rs
@@ -34,8 +33,6 @@
 4 src/secrets.rs
 1 src/security.rs
 1 src/server.rs
-8 src/sms.rs
-8 src/sms/phone.rs
 14 src/sprint.rs
 27 src/test_course.rs
 13 src/totp.rs

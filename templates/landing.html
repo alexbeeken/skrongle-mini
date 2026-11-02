@@ -12,7 +12,7 @@
       <a class="btn big" href="{{ crate::base_path() }}/register" data-testid="landing-register">{{ crate::t("landing.create_account") }}</a>
       <a class="btn big ghost" href="{{ crate::base_path() }}/docs/course-format">{{ crate::t("landing.read_format") }}</a>
     </p>
-    <p class="small muted">{% if google %}{{ crate::t2("landing.have_account_google_html", "url", crate::url("/login"), "google_url", crate::url("/auth/google"))|safe }}{% else %}{{ crate::t1("landing.have_account_html", "url", crate::url("/login"))|safe }}{% endif %}</p>
+    <p class="small muted">{{ crate::t1("landing.have_account_html", "url", crate::url("/login"))|safe }}</p>
   </div>
   {# The file, and the quiz card its "quiz" lines become. Course data, so not translated. #}
   <div class="land-demo" aria-hidden="true">

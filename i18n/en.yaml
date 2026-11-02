@@ -31,7 +31,6 @@ lang:
   unknown: No such language.
 
 error:
-  blocked: "Requests from your network address are blocked on this server."
   not_found: Page not found
   form_only: "This page only works from its button. Go back and use the button on the page."
   database: Database error
@@ -114,14 +113,12 @@ common:
 
 auth:
   login:
-    suspended: "This account is suspended for breaking the Terms. If you think that's a mistake, write to {email}."
     deletion_scheduled: "Your account will be deleted on {date}. To keep it, sign in before then and cancel the deletion."
     title: Log in
     email_label: E-mail address
     password_label: Password
     submit: Log in
     or: or
-    google: Continue with Google
     no_account_html: "No account yet? <a href=\"{url}\" data-testid=\"login-register-link\">Register</a>."
     terms_link: Terms
     privacy_link: Privacy
@@ -137,18 +134,15 @@ auth:
     password_note: (at least 8 characters)
     submit: Register
     or: or
-    google: Sign up with Google
     have_account_html: "Already registered? <a href=\"{url}\" data-testid=\"register-login-link\">Log in</a>."
     too_many_signups: Too many sign-ups from your network. Try again in an hour.
     email_taken: An account with that e-mail address already exists.
-    email_taken_google: An account with that e-mail address signs in with Google. Use "Continue with Google" instead.
   signup:
     closed_title: "Sign-ups are closed"
     closed: "This server is not taking new accounts. Ask whoever runs it."
     invite_used: "This invitation link has already been used. Ask whoever runs this server for a new one."
     invite_expired: "This invitation link has expired. Ask whoever runs this server for a new one."
     invite_unknown: "This invitation link is not valid. Ask whoever runs this server for a new one."
-    invite_wrong_email: "This invitation is for a different e-mail address. Sign up with the address it was sent to."
     sign_in: "Log in"
     first_account: "This server has no accounts yet: the one you make now is its owner's."
     no_owner: "This server has no owner yet. Whoever runs it makes the first account with the owner link from the server's log."
@@ -174,9 +168,7 @@ auth:
   code:
     title: Enter your code
     from_app: From your authenticator app.
-    texted_to: "Texted to {to}."
     emailed_to: "E-mailed to {to}."
-    fallback: "Your phone replied STOP to texts from {app}, so we e-mailed the code to {to} instead."
     code_label: Code
     submit: Sign in
     resend: Send a new code
@@ -192,35 +184,9 @@ auth:
     your_authenticator: your authenticator app
   two_factor:
     channel_off_email: "Your account signs in with a code by e-mail, but this server cannot send e-mail ({setting} is not set). Ask whoever runs it to set {setting}, or to turn two-factor sign-in off for your account."
-    channel_off_sms: "Your account signs in with a code by text message, but this server cannot send text messages ({setting} is not set). Ask whoever runs it to set {setting}, or to turn two-factor sign-in off for your account."
     needs_email: Confirm your e-mail address first.
-    needs_phone: Add and verify a phone number first.
     needs_app: Set up the authenticator app first.
-    phone_in_use: Two-factor sign-in texts this number. Choose another method before changing it.
-    needs_confirmed_email: Confirm your e-mail address before adding a phone number.
-    phone_taken: This number is verified on another account. Remove it there first, or use another number.
     app_already: An authenticator app is already set up. Remove it first.
-  google:
-    cancelled: Google sign-in was cancelled.
-    error: Google reported an error.
-    expired: This sign-in attempt has expired. Please try again.
-    mismatch: This sign-in attempt does not match. Please try again.
-    no_code: Google did not return a sign-in code.
-    exchange_failed: Could not complete the sign-in with Google. Please try again.
-    bad_identity: Google returned an identity this site cannot accept.
-    already_linked: That Google account is already attached to another user.
-    attempt_expired: This attempt has expired. Please try again.
-    not_this_account: That is not the Google account this account signs in with.
-    unconfirmed_account: An account with this address exists, but its e-mail address isn't confirmed. Sign in with your password and confirm it, then connect Google from your profile.
-    other_google: An account with this address already has a different Google account connected. Sign in with that one, or with your password.
-    signup_expired: This sign-up has expired. Please try again.
-  google_confirm:
-    title: Create your account
-    lead: "You're almost done: Google has confirmed who you are. Tick the two boxes and your account is ready."
-    as: Signing up with Google as
-    not_you: Not you?
-    submit: Create account
-    back: Back to log in
   ai_switch:
     label: Hide all AI features
     about: About AI features
@@ -427,7 +393,6 @@ mail:
     subject: "Two-factor sign-in on {app} changed"
     now_off: is now off
     now_email: now e-mails you a code
-    now_sms: now texts a code to your phone
     now_totp: now asks for a code from an authenticator app
     text: |
       Hello,
@@ -485,18 +450,6 @@ mail:
       <p><a href="{link}">Open the course</a></p>
       <p>Or paste this link into your browser: {link}</p>
       <p>You can learn from the course with your own progress; only {owner} can change it. If you do not have a {app} account yet, the link lets you create one. If you were not expecting this, ignore this message.</p>
-
-sms:
-  login_code: "{code} is your {app} sign-in code. It works for 10 minutes. Do not share it."
-  phone_code: "{code} is your {app} code to confirm this phone number. It works for 10 minutes."
-  two_factor_confirm: "{code} is your {app} code to change two-factor sign-in. It works for 10 minutes. Do not share it."
-  number:
-    needs_plus: a phone number starts with + and the country code
-    not_a_digit: "a phone number has digits only, not {char}"
-    bad_length: a phone number has 8 to 15 digits after the +, the first not 0
-    us_length: "a US or Canada number has 10 digits, like (555) 555 - 5555"
-    us_only: only US and Canada numbers for now, so a number starts with +1
-    us_area: neither the area code nor the three digits after it start with 0 or 1
 
 profile:
   email_no_mail:
@@ -570,11 +523,6 @@ profile:
     data: Your data
     consent: "Privacy and consent"
   personal:
-    phone_locked_label: Why the phone number is locked
-    phone_locked_title: Confirm your e-mail first
-    phone_locked_text: A phone number can be added once your e-mail address is confirmed (or you sign in with Google). Check your inbox for the link.
-    phone_locked_close: Close
-    phone_locked_resend: Resend the link
     title: Personal information
     first_name: First name
     last_name: Last name
@@ -582,37 +530,14 @@ profile:
     no_email: No e-mail on file
     verified: Verified
     not_verified: Not verified
-    phone: Phone number
-    phone_placeholder: "(555) 555 - 5555"
-    phone_problem: Check the phone number
-    phone_stopped: "Texts to this number are stopped"
     language: Language
     language_unavailable: That language is not available.
-  phone_problem:
-    title: Check the phone number
-    close: Close
-  phone_stopped:
-    title: "Texts are stopped"
-    text: "This number replied STOP to texts from {app}, so your sign-in codes come by e-mail for now. To get texts again, text START from this phone to the number our texts come from, then send yourself a code."
-    close: "Close"
-    send: "Send a code"
-  phone_dialog:
-    title: Verify your phone
-    type_code: Type the code texted to your phone.
-    not_verified: Phone number not yet verified. Send a code to it.
-    code: Code
-    close: Close
-    send_again: Send again
-    send_code: Send code
-    verify: Verify
   account:
     title: Account
     member_since: Member since
     sign_in: Sign-in
     password: Password
     and: and
-    google_connected: Google account connected
-    connect_google_html: "· <a href=\"{url}\" data-testid=\"profile-google-connect\">Connect a Google account</a> to sign in with one tap"
     terms: Terms
     terms_accepted: "Version {version}, accepted {date}"
     terms_not_accepted: Not accepted
@@ -621,7 +546,7 @@ profile:
     terms_title: Terms of Service
     terms_close: Close
     terms_open_page: Open as a page
-    no_password: This account signs in with Google, so there is no password to change.
+    no_password: This account has no password to change.
   consent:
     title: "Privacy and consent"
     info: "About your consents"
@@ -634,15 +559,6 @@ profile:
     age: "Age"
     age_confirmed: "Confirmed {date}"
     age_not_confirmed: "Not confirmed"
-    phone: "Phone for sign-in codes"
-    phone_none: "No number"
-    phone_add: "add one"
-    phone_edit: "change or remove"
-    google: "Google sign-in"
-    google_on: "Connected"
-    google_off: "Not connected"
-    google_connect: "connect"
-    google_disconnect: "disconnect"
     email: "E-mail"
     email_service: "Service messages only"
     ai: "Do Not Show Me AI Features"
@@ -652,29 +568,11 @@ profile:
     ai_off: "Hidden"
     ai_key: "Own API key on file"
     ai_keys_manage: "manage keys"
-  google_link:
-    link_title: Connect a Google account
-    one_tap: to sign in with one tap
-    link_text: Type your password, then choose the Google account. Your other devices are signed out.
-    password: Password
-    cancel: Cancel
-    continue: Continue with Google
-    unlink_title: Unlink Google
-    unlink_text: "“Continue with Google” stops signing in to this account, and your other devices are signed out. Type your password to confirm."
-    unlink: Unlink
-    linked_notice: Google account connected. Your other devices were signed out.
-    unlinked_notice: Google account unlinked. Your other devices were signed out.
-    joined_notice: "Google account connected: Google confirmed this address, so it signs in to this account. Your password still works."
-    stays_connected: This account signs in only with Google, so it stays connected.
-    confirm_needed: Confirm with Google to make this change.
-    confirm: Confirm with Google
-    confirmed: Confirmed with Google.
-    confirm_why: This account signs in with Google and has no password, so confirm with Google first.
   sessions:
     sign_out_others: Sign out everywhere else
     info_label: About signing out everywhere else
     text: "Ends every other session of this account: other browsers, phones and computers, and anyone who should not be signed in. This browser stays signed in."
-    text_same: Changing your password or two-factor sign-in, and connecting or unlinking Google, does the same.
+    text_same: Changing your password or two-factor sign-in does the same.
     ok: OK
     signed_out_notice: Signed out everywhere else.
   password:
@@ -687,7 +585,7 @@ profile:
     save: Save
     changed: Password changed.
     mismatch: The new passwords do not match.
-    google_only: This account signs in with Google and has no password.
+    none: This account has no password.
     too_many: Too many attempts. Wait a few minutes and try again.
     current_wrong: The current password is not right.
   two_factor:
@@ -697,14 +595,12 @@ profile:
     off: "Off"
     email: E-mail
     email_unverified: E-mail not verified
-    sms: Text message
-    phone_unverified: Phone not verified
     totp: Authenticator app
     save: Save
     confirm_title: Confirm it's you
     confirm_password_why: So that someone using this signed-in browser can't change your second step, type your account's password.
-    confirm_app_code: This account signs in with Google and has no password, so type the code your authenticator app shows now.
-    confirm_sent_code: This account signs in with Google and has no password, so confirm with a code from your current second step.
+    confirm_app_code: This account has no password, so type the code your authenticator app shows now.
+    confirm_sent_code: This account has no password, so confirm with a code from your current second step.
     sent_to: "Sent to {to}."
     send_one_first: Send one first.
     password: Password
@@ -716,16 +612,13 @@ profile:
     totp_added: "Authenticator app added {date}"
     remove: Remove
     info_title: Two-factor authentication
-    info_text: "After your password (or Google), signing in asks for a code: e-mailed, texted to your phone, or shown by an authenticator app such as Google Authenticator. One method at a time; choosing another replaces it."
+    info_text: "After your password, signing in asks for a code: e-mailed, or shown by an authenticator app such as Google Authenticator. One method at a time; choosing another replaces it."
     info_small: E-mail and text need a verified address or number. Codes work for 10 minutes; five wrong ones end the sign-in.
     ok: OK
     email_first_title: Verify your e-mail first
     email_first_text: E-mail codes need a verified address. Check your inbox for the link.
     close: Close
     resend: Resend
-    sms_first_title: Verify your phone first
-    sms_first_text: Text message codes need a verified phone number.
-    add_number: Add a number
     totp_title: Add an authenticator app
     totp_how: How to add the app
     totp_dev_link: "Dev: add it to the dev authenticator"
@@ -737,13 +630,11 @@ profile:
     turn_off: Turn two-factor sign-in off
     switch_to: "Switch two-factor sign-in to {method}"
     turn_on_by: "Turn on two-factor sign-in by {method}"
-    method_sms: text message
     method_email: e-mail
     method_totp: authenticator app
     is_off: Two-factor sign-in is off.
     is_method: "Two-factor sign-in: {method}."
     totp_removed: Authenticator app removed.
-    phone_verified: Phone number verified.
     too_many_attempts: Too many attempts. Wait a few minutes and try again.
     type_password: Type your password to make this change.
     password_wrong: That password is not right.
@@ -755,9 +646,6 @@ profile:
     code_gone: No code is waiting, or it expired. Send a new one.
     too_many_codes: Too many codes sent. Wait a few minutes and try again.
     code_not_sent: The code could not be sent. Try again in a moment.
-    too_many_texts: "Too many texts to this number. Try again in {minutes} minutes."
-    number_no_texts: "That number cannot get texts: {why}."
-    phone_code_expired: That code has expired or was used up. Send a new one.
   ai:
     on: "On"
     off: "Off"
@@ -833,14 +721,11 @@ profile:
     about: "Until that day the account can only cancel the deletion or log out. Cancel it and everything stays as it was. After that day your progress, courses and saved keys are gone for good."
     cancel: "Cancel deletion"
   save:
-    sms_off: "This server cannot send text messages, so it keeps no phone number."
     pick_picture: Please pick one of the pictures.
     pick_colour: Please pick one of the colours.
     not_a_field: This field is not part of the profile.
     theme_unavailable: That theme is not available.
     motivator_unavailable: "That motivator is not available."
-    not_a_phone: "Not a phone number: {why}."
-    sms_country: This server does not send texts to numbers in that country.
     sent_to: "Sent to {email}."
   name:
     too_long: "{label} is too long (max {max} characters)."
@@ -867,228 +752,10 @@ profile:
     name_too_long: "{label} is too long (max {max} characters)."
     name_bad_chars: "{label} contains characters that are not allowed."
     password_mismatch: The new passwords do not match.
-    phone_digits: "A phone number has 10 digits, like (555) 555 - 5555."
-    phone_us_only: Only US and Canada numbers for now. Type the 10 digits after the +1.
-    phone_area: Neither the area code nor the three digits after it start with 0 or 1.
     turn_off: Turn two-factor sign-in off
     switch_to: "Switch two-factor sign-in to {method}"
     turn_on_by: "Turn on two-factor sign-in by {method}"
 superuser:
-  courses:
-    title: "Courses"
-    about_label: "About the course table"
-    about: "Every course made on this server. A course with a listed word, or one the AI check found a problem in, is flagged: it doesn't start or share until it is fixed or you override the flag. Flagged courses come first."
-    about_review: "A course the AI check scored high needs review. Within a minute or two an AI review reads those parts in context and flags the course if they are harmful. Until then it still starts and shares; its dialog names the parts that scored high."
-    shown: "Courses: {total}. {per_page} per page."
-    search: "Title, course id or owner's address"
-    show: "Show"
-    show_all: "All"
-    show_flagged: "Flagged"
-    show_review: "Needs review"
-    show_overridden: "Overridden"
-    show_down: "Taken down"
-    show_behind: "AI check {n} or more versions behind ({count})"
-    find: "Search"
-    none: "No course matches."
-    edited: "Last edited"
-    state: "Flag"
-    source: "Flagged by"
-    state_clear: "Clear"
-    state_flagged: "Flagged"
-    state_review: "Needs review"
-    state_overridden: "Overridden"
-    state_down: "Taken down"
-    source_terms: "Term list"
-    source_ai: "AI check"
-    owner_suspended: "suspended"
-    checked: "Last checked"
-    never_checked: "Not checked yet"
-    ai_checked: "AI check"
-    last_ai_check: "Last AI check"
-    checker_label: "Content checker"
-    checker_about: "The content check runs in its own process, skrongle content-check, beside the server (SKRONGLE_CONTENT_CHECK=external)."
-    checker_seen: "Last check-in: {when}"
-    checker_never: "It has not checked in yet."
-    checker_waiting: "Checks waiting: {n}"
-    checker_silent: "It has not checked in for a day. Start it again with skrongle content-check."
-    checker_alert_since: "The content checker hasn't checked in since {when}. Checks waiting: {n}."
-    checker_alert_never: "The content checker has never checked in. Checks waiting: {n}."
-    checker_details: "Details"
-    versions: "Rules"
-    version_terms: "Terms v{version}"
-    version_ai: "AI v{version}"
-    version_behind: "Checked under older rules. The current version is {current}."
-    about_versions: "Rules shows the version of the term list and of the AI check that each course was last checked under. A highlighted one is older than the current rules. The nightly run checks a course again against a newer term list at once, and against a newer AI check once it is {n} or more versions behind."
-    versions_link: "What changed in each version"
-    scores: "AI scores"
-    score_category: "Category"
-    score_value: "Score"
-    high_in: "High on"
-    category:
-      misinformation: "Misinformation"
-      violence: "Violence"
-      self_harm: "Self-harm"
-      weapons: "Weapons"
-      firearms: "Firearms"
-      hate: "Hate speech"
-      tragedy: "Trivialising mass tragedies"
-      adult: "Adult content"
-      minors: "Exploiting minors"
-      sexual_crimes: "Trivialising sexual crimes"
-      terms: "Terms of Use"
-    review_queued: "waiting for the AI review"
-    review_fine: "AI review: fine"
-    review_harmful: "AI review: harmful"
-    ai_cost: "AI check cost"
-    ai_cost_parts: "{cost} for {parts} parts"
-    high_parts: "Parts with a high AI score"
-    why: "Why it was flagged"
-    report: "AI report"
-    override_note: "Override note"
-    overridden_by: "By {email}, {when}"
-    override: "Override the flag"
-    override_about: "The flag was wrong. The course starts and shares again. Later checks keep the override for the same words; a new word flags it again."
-    note: "Why is it fine?"
-    note_example: "'coger' here means 'to take'; fine"
-    override_confirm: "Override"
-    clear_override: "Clear the override"
-    clear_override_about: "The course is checked again as it is now. If the words are still there, it is flagged again and stops starting and sharing."
-    take_down: "Take down"
-    put_back_about: "The course opens again for its owner and for everyone it is shared with."
-    suspend_owner: "Suspend the owner"
-    delete: "Delete the course"
-    delete_about: "The course, its files and its shares are deleted. This can't be undone. Content reports about it are kept."
-    overridden: "The flag on {id} is overridden. It starts and shares again."
-    override_cleared: "The override on {id} is cleared."
-    no_note: "Write a short note saying why the flag is wrong."
-    deleted: "Course {id} is deleted."
-    busy: "Course {id} is being generated or revised. Try again when that finishes."
-    email_owner: "E-mail the owner"
-    email_to: "To {email}, in their language. Edit it as you like. Nothing goes out until you press Send."
-    email_subject: "Subject"
-    email_text: "Message"
-    email_send: "Send"
-    emailed: "owner e-mailed {when}"
-    emailed_label: "Owner e-mailed"
-    emailed_before: "The owner was already e-mailed about this course on {when}."
-    owner_emailed: "The e-mail to the owner of {id} is on its way."
-    no_mail_text: "Write a subject and a message before you send."
-    no_owner_address: "The owner of {id} has no address we can e-mail."
-    mail:
-      subject: "{app}: your course \"{title}\" can't be started or shared"
-      text: |
-        Hello,
-
-        Your course "{title}" on {app} can't be started or shared at the moment. {why}
-
-        {fix}
-
-        If you have a question or think we got this wrong, write to {contact}.
-      why_flagged: "Our content check flagged it."
-      why_down: "We took it down because it breaks the Terms."
-      fix_flagged: "Sign in to see what to fix: {link}"
-      fix_down: "You can't edit it while it is down. If you think it doesn't break the Terms, write to us and we will look at it again."
-  privacy:
-    title: "Privacy requests"
-    about_label: "About privacy requests"
-    about: "For a request that came by e-mail from someone who can't use Profile → Your data. Check who is asking first. The reply should come from the account's address, or, for someone with no account, from the address the request is about."
-    about_log: "Every action here, and Delete account, needs a reason. The log keeps the action, the reason, who did it and when. Make the reason point at your own request log, and leave the person's name and address out of it."
-    export: "Send an account its data"
-    export_about: "Builds the same file as Download my data on the profile. The link goes to the account's own address, never to the address the request came from, and opens only when signed in to that account."
-    export_confirm: "Send it"
-    export_queued: "The data of {email} is being gathered. The link goes to that address."
-    export_busy: "An export for {email} is already being built."
-    export_soon: "{email} had an export in the last day. Try again tomorrow."
-    forget: "Forget an address"
-    forget_about: "Deletes every course invitation sent to this address and every e-mail to it still on the server. Only for an address with no account."
-    forget_confirm: "Forget it"
-    forgot: "The address is forgotten."
-    has_account: "That address belongs to an account. Delete the account instead."
-    reason: "Reason"
-    reason_hint: "Request 12 in the request log"
-    no_reason: "Write a reason first."
-    log_empty: "No privacy actions yet."
-    log_when: "When"
-    log_action: "Action"
-    log_who: "By"
-    action_export: "Data sent"
-    action_forget: "Address forgotten"
-    action_delete_account: "Account deleted"
-    action_sign_out: "Accounts signed out"
-    action_notice: "Breach notice sent"
-  breach:
-    title: "Breach tools"
-    about_label: "About the breach tools"
-    about: "For a data breach, as the incident runbook says. Sign accounts out ends their sessions, sign-ins waiting for a second-step code and unused password-reset links. E-mail a notice sends your text to each account's confirmed address, once per text."
-    about_log: "Both need a reason, kept in the privacy log, and ask you to type a word before they run."
-    sign_out: "Sign accounts out"
-    sign_out_about: "They sign in again with their password. Your own session on this device stays."
-    sign_out_confirm: "Sign them out"
-    notice: "E-mail a notice"
-    notice_about: "Plain text, as you type it. Sending the same text again only reaches accounts that have not had it. At most SKRONGLE_MAIL_PER_HOUR an hour; the rest wait."
-    notice_confirm: "Send it"
-    who: "Who"
-    everyone:
-      one: "Every account ({n})"
-      other: "Every account ({n})"
-    everyone_confirmed:
-      one: "Every account with a confirmed address ({n})"
-      other: "Every account with a confirmed address ({n})"
-    only_list: "Only these addresses"
-    list: "Addresses, separated by commas or new lines"
-    subject: "Subject"
-    body: "Message"
-    reason_hint: "Incident of 28 October"
-    confirm: "Type {word} to confirm"
-    confirm_word: "confirm"
-    confirm_wrong: "Nothing was done. Type {word} to confirm."
-    no_list: "Paste at least one address, or choose every account."
-    no_text: "Write a subject and a message."
-    signed_out:
-      one: "Signed out {n} account."
-      other: "Signed out {n} accounts."
-    sessions_ended:
-      one: "{n} session ended."
-      other: "{n} sessions ended."
-    sent:
-      one: "Notice queued for {n} account."
-      other: "Notice queued for {n} accounts."
-    sent_already:
-      one: "{n} account had it already."
-      other: "{n} accounts had it already."
-    sent_left:
-      one: "{n} account waits: the hourly limit is full. Press Send again later."
-      other: "{n} accounts wait: the hourly limit is full. Press Send again later."
-  mod:
-    course_id: "Course id"
-    take_down_about: "The course stops opening for its owner and for everyone it is shared with. Its owner sees that it was removed for breaking the Terms. Its shares are kept, so Put back restores them."
-    take_down_confirm: "Take it down"
-    course: "Course"
-    owner: "Owner"
-    put_back_btn: "Put back"
-    taken_down: "Course {id} is taken down."
-    put_back: "Course {id} is back up."
-    no_course: "No made course has the id {id}, or it is already in that state."
-    suspend: "Suspend"
-    unsuspend: "Lift suspension"
-    suspend_about: "The account is signed out everywhere and can't sign in until you lift the suspension. Its courses stop being shared with others. Nothing is deleted."
-    suspend_confirm: "Suspend it"
-    suspended: "{email} is suspended."
-    unsuspended: "{email} can sign in again."
-    delete: "Delete account"
-    delete_about: "The account and everything it made are deleted: progress, courses, themes. This can't be undone. Use it for a breach of the Terms or for a child's data."
-    delete_confirm: "Delete it for good"
-    deleted: "{email} and its data are deleted."
-    yourself: "That is your own account. Use your profile for it."
-    blocked_title: "Blocked addresses"
-    block: "Block an address"
-    address: "Address or range"
-    block_about: "Every request from it gets a 403 page, sign-in included. Write a range as 203.0.113.0/24. If you block your own address you are locked out too, and removing the block then means deleting its row from blocked_ips and restarting the server."
-    block_confirm: "Block it"
-    unblock: "Remove"
-    blocked: "{ip} is blocked."
-    unblocked: "{ip} is no longer blocked."
-    bad_ip: "{ip} is not an address or range this page can block (IPv4 /8 or narrower, IPv6 /16 or narrower)."
   title: Superuser
   about: "Actions on any account. Only superusers see this page."
   open_inbox: Open it in the dev inbox
@@ -1119,7 +786,7 @@ superuser:
   temp_password_for: "Temporary password for {email}:"
   temp_password_once: "It is shown only now. Copy it and give it to the person; they choose their own at the next sign-in."
   two_factor_off: "Turn off two-factor"
-  two_factor_off_about: "The account signs in with its password alone until it turns two-factor on again. An authenticator app set up for it is removed; a confirmed phone number stays."
+  two_factor_off_about: "The account signs in with its password alone until it turns two-factor on again. An authenticator app set up for it is removed."
   two_factor_off_confirm: "Turn it off"
   two_factor_off_done: "Two-factor sign-in is off for {email}."
   page_of: "Page {page} of {pages}"
@@ -1153,7 +820,6 @@ landing:
   create_account: Create an account
   read_format: Read the course format
   have_account_html: "Already have an account? <a href=\"{url}\" data-testid=\"landing-login\">Log in</a>."
-  have_account_google_html: "Already have an account? <a href=\"{url}\" data-testid=\"landing-login\">Log in</a> or <a href=\"{google_url}\">continue with Google</a>."
   two_files_h2: A course is two files. Everything else is optional.
   two_files_lead_html: A <code>course.json</code> names the units and the two sides of every flashcard. Each lesson is one file. Add a field and a feature switches on; leave it out and that feature simply does not show for that lesson. Nothing breaks, nothing nags.
   field_content_html: Markdown. Each <code>##</code> section becomes a lesson card, a Guide step and a Sprint mode bite.
@@ -1198,7 +864,7 @@ landing:
   spec_footprint_h: Tiny footprint
   spec_footprint_p: "Sized for a Pi Zero 2 W: a few megabytes on disk, tens of megabytes in memory, two async workers."
   spec_data_h: Your data stays yours
-  spec_data_p: Runs on your own machine or LAN. Optional Google sign-in, optional TLS proxy, no third-party scripts, no tracking.
+  spec_data_p: Runs on your own machine or LAN. Optional TLS proxy, no third-party scripts, no tracking.
   spec_docs_h: Documentation inside
   spec_docs_p: The format, the features and the architecture are served from the app itself, as pages or as raw Markdown for an LLM.
   final_h2: "Register, then answer one question: what would you like to learn?"
@@ -2642,15 +2308,6 @@ courses:
     description: "Describe the course in a sentence or two."
     unit: "Unit 1"
     lesson: "Your first lesson"
-  masked:
-    reveal_word: "Click to reveal word"
-    reveal_text: "Click to reveal text"
-    count: "{n} matches"
-    list_title: "What matched"
-    prev: "Previous"
-    next: "Next"
-    page: "Page {n} of {total}"
-    close: "Close"
   translate:
     button: "Copy and translate to…"
     title: "Copy and translate “{title}”"
@@ -2672,26 +2329,6 @@ courses:
     phase_start: "Translating"
     phase_file: "Translating {file} ({n} of {total})"
   picker:
-    removed_info: "This course was taken down for breaking the Terms. It doesn't open for you or for anyone you shared it with. If you think that's a mistake, write to {email}."
-    removed: "Removed"
-    flagged: "Can't be started or shared yet"
-    flagged_title: "This course can't be started or shared yet"
-    flagged_lead: "It uses words that aren't allowed in a course:"
-    flagged_match: "{term} (in {lesson})"
-    flagged_edit: "Edit the course to fix it"
-    flagged_lead_ai: "The AI check found text that can't be in a course:"
-    flagged_quote: "\"{text}\" in {lesson}: {why}"
-    flagged_why_misinformation: "spreads false claims as facts"
-    flagged_why_violence: "glorifies violence"
-    flagged_why_self_harm: "encourages self-harm"
-    flagged_why_weapons: "helps people hurt others with weapons"
-    flagged_why_firearms: "helps people hurt others with guns"
-    flagged_why_hate: "attacks a group of people"
-    flagged_why_tragedy: "makes light of a mass tragedy"
-    flagged_why_adult: "is sexually explicit"
-    flagged_why_minors: "puts children at risk"
-    flagged_why_sexual_crimes: "makes light of sexual crimes"
-    flagged_why_terms: "breaks the Terms of Use"
     title: What would you like to learn?
     lead_anon: Pick a ready-made course. Each course keeps its own progress, vocabulary, games and history.
     lead_ai_off: Pick a ready-made course or write your own. Each course keeps its own progress, vocabulary, games and history.
@@ -2790,8 +2427,6 @@ courses:
     manifest_undeletable: course.json cannot be deleted; edit it instead
     loads_notice: The course loads. Open it from the course list.
     not_loading_notice: "The course does not load yet: {error}"
-    flagged_notice: "This course can't be started or shared yet. It uses words that aren't allowed in a course: {matches}. Take them out and save, and it opens again."
-    flagged_notice_ai: "This course can't be started or shared yet. The AI check found text that can't be in a course: {matches}. Change it, then press Share to have it checked again."
     gone: This course is gone (deleted, perhaps in another tab), so these changes cannot be saved.
     busy_generating: The course is still being generated
     busy_revising: The course is being revised
@@ -3987,164 +3622,7 @@ editor:
       other: "{n} things to check"
     advice_none: "Nothing to check."
     advice_close: "Close"
-reports:
-  reason:
-    harmful: Harmful
-    copyright: Copyright
-    other: Other
-  course:
-    open: Report this course
-    title: Report this course
-    reason: Why are you reporting it?
-    details: What is wrong, and where in the course?
-    email: Your e-mail address
-    cancel: Cancel
-    send: Send report
-    sent: Thanks. Your report reached us, and we will look at the course.
-    too_many: You have sent a lot of reports this hour. Try again later.
-    pick_reason: Pick a reason.
-    details_empty: Say what is wrong with the course.
-  copyright:
-    title: Copyright notice
-    contact: "To report a copyright problem, write to {email}."
-    intro: Use this form if you believe a course here copies your work without permission. We send a copy of the notice, with your name and address, to the person who made the course.
-    name: Your full name (your signature)
-    email: Your e-mail address
-    work: The work you say is copied
-    location: Where it is (a link to the course)
-    details: What is copied, and how you own it
-    good_faith: I believe in good faith that this use is not allowed by me, my agent or the law. The information in this notice is accurate, and under penalty of perjury I am the owner or allowed to act for them.
-    send: Send notice
-    sent: Thanks. Your notice reached us. We will reply by e-mail.
-    terms: Back to the Terms
-    too_many: Too many notices from here in the last minute. Wait a minute and try again.
-    missing: Fill in every field.
-    tick_good_faith: Tick the statement to send the notice.
-  superuser:
-    title: Reports
-    about_label: About reports
-    about: Course reports from learners and copyright notices from anyone. Forward to owner e-mails the course's owner a copy (the reporter's address only on a copyright notice). Resolve takes a report off this list.
-    runbook: What to do with a report
-    none: No open reports.
-    forward: Forward to owner
-    forward_again: "Forwarded {when}. Send again"
-    resolve: Resolve
-    forwarded: A copy went to the course's owner.
-    resolved: The report is resolved.
-    no_owner: That report names no course with an owner to write to.
-    unknown: There is no such open report.
-  mail:
-    none: (none given)
-    course: Course
-    reason: Reason
-    location: Where
-    work: Work
-    name: Name
-    email: E-mail
-    operator_subject: "{app}: new report ({reason})"
-    operator_text: |
-      A new report reached {app}:
 
-      {report}
-
-      Open reports are on the Superuser page: {link}
-    owner_subject: "{app}: a report about your course {title}"
-    owner_text: |
-      Hello,
-
-      Someone sent {app} a report about your course "{title}". Here is a copy:
-
-      {report}
-
-      If you think the report is mistaken, reply to this message and say why. On a copyright notice, that reply can be a counter-notice. We may hide the course while we look into it.
-waitlist:
-  hero_h1: "Learn anything."
-  hero_lead: "Tell {app} what you want to learn. Minutes later you have a whole course: lessons, quizzes, drills, games and a daily goal, built around the way you like to learn."
-  build_label: "A course being built from one sentence"
-  build_ready: "Ready. Start your first lesson."
-  built_units:
-    one: "{n} unit"
-    other: "{n} units"
-  built_lessons:
-    one: "{n} lesson"
-    other: "{n} lessons"
-  built_questions:
-    one: "{n} quiz question"
-    other: "{n} quiz questions"
-  built_cards:
-    one: "{n} flashcard"
-    other: "{n} flashcards"
-  built_more: "Drills, games, listening and a daily goal"
-  gen_h2: "Don't settle for an explanation. Get a course."
-  gen_p: "Ask a chatbot and you get a wall of text to read once. Ask {app} and you get a course you practise every day until you know it."
-  chat_label: "A chatbot"
-  modes_h2: "Then practise it every way there is."
-  themes_h2: "Make it look like your world."
-  themes_p: "A theme changes the colours, the type, the pictures and what the app cheers when you get it right."
-  motivators_h2: "Pick what keeps you coming back."
-  motivators_p: "Your progress is the same whichever you pick. You choose how it's shown."
-  write_h2: "Or write it yourself."
-  write_p: "A course is a folder of plain JSON files. Write one by hand, edit it in the browser, or let AI draft it and change whatever you like."
-  final_h2: "Your first course is minutes away."
-  title: "Join the waitlist"
-  lead: "{app} is opening a few people at a time. Leave your e-mail address and we'll send you an invitation when it's your turn."
-  email_label: "E-mail address"
-  submit: "Join the waitlist"
-  joined: "Check your e-mail: open the link we sent to confirm your place."
-  confirmed: "You're on the list. We'll e-mail you an invitation when it's your turn."
-  bad_link: "This link doesn't work any more. Join the waitlist again to get a new one."
-  too_many: "Too many tries from your network. Try again in an hour."
-  login_html: "Already invited? <a href=\"{url}\" data-testid=\"waitlist-login-link\">Log in</a>"
-release:
-  title: "Release"
-  about_label: "About Release"
-  open: "Open"
-  about: "While the waitlist is on, the home page is one e-mail field and nobody can sign up without an invitation. People confirm their address before you can invite them. Turning the waitlist off is the launch: the normal home page and sign-up come back."
-  about_invites: "Invite one person, or the next ones in the order they joined. Each gets an e-mail with an invitation for their own address, good for {days} days; Resend makes a new one. Accounts made through an invitation are marked beta."
-  waitlist: "Waitlist"
-  state_on: "On: sign-up by invitation only."
-  state_off: "Off: anyone can sign up."
-  turn_on: "Turn on the waitlist"
-  turn_off: "Turn off the waitlist"
-  turn_on_about: "The home page becomes the waitlist form, and sign-up needs an invitation. People already signed up can still log in."
-  turn_off_about: "This is the launch: the normal home page comes back and anyone can sign up. Open invitations still work."
-  list: "People on the waitlist"
-  count_total:
-    one: "{n} joined"
-    other: "{n} joined"
-  count_unconfirmed:
-    one: "{n} not confirmed"
-    other: "{n} not confirmed"
-  count_waiting:
-    one: "{n} waiting"
-    other: "{n} waiting"
-  count_invited:
-    one: "{n} invited"
-    other: "{n} invited"
-  count_signed_up:
-    one: "{n} signed up"
-    other: "{n} signed up"
-  invite_next_label: "How many"
-  invite_next: "Invite the next ones"
-  empty: "Nobody has joined yet."
-  joined: "Joined"
-  status_h: "Status"
-  invited_h: "Invited"
-  invite: "Invite"
-  resend: "Resend"
-  turned_on: "The waitlist is on."
-  turned_off: "The waitlist is off: anyone can sign up."
-  invited_one: "Invitation sent to {email}."
-  invited_n:
-    one: "{n} invitation sent."
-    other: "{n} invitations sent."
-  not_invited: "No invitation went to {email}: the address isn't confirmed, has signed up, or the mail limit was reached."
-  status:
-    unconfirmed: "Not confirmed"
-    waiting: "Waiting"
-    invited: "Invited"
-    expired: "Invitation expired"
-    signed_up: "Signed up"
 clock:
   js:
     set_label: "Clock. Drag the minute hand, or use the arrow keys; Page Up and Page Down move an hour."

@@ -44,9 +44,6 @@ pub enum AppError {
     /// Over a rate limit on a JSON API (`security::RateLimits`): a 429 with
     /// `{"error": "..."}`.
     ApiTooManyRequests(String),
-    /// A made course a superuser took down (#967): a 403 saying so, with
-    /// the contact address.
-    CourseRemoved,
     Db(rusqlite::Error),
     Internal(String),
 }
@@ -66,7 +63,6 @@ impl fmt::Display for AppError {
             AppError::DeletionScheduled | AppError::ApiDeletionScheduled => f.write_str("the account is scheduled for deletion"),
             AppError::AiOff | AppError::ApiAiOff => f.write_str("AI features are off"),
             AppError::ApiTooManyRequests(m) => write!(f, "too many requests: {m}"),
-            AppError::CourseRemoved => f.write_str("course taken down"),
             AppError::Db(e) => write!(f, "database error: {e}"),
             AppError::Internal(m) => write!(f, "internal error: {m}"),
         }
@@ -113,7 +109,7 @@ impl IntoResponse for AppError {
             )
                 .into_response(),
             AppError::TermsRequired(next) => {
-                Redirect::to(&format!("{}?next={}", crate::url("/terms/accept"), crate::oauth::urlencode(&next))).into_response()
+                Redirect::to(&format!("{}?next={}", crate::url("/terms/accept"), crate::urlenc::urlencode(&next))).into_response()
             }
             AppError::ApiTermsRequired => (
                 StatusCode::FORBIDDEN,
@@ -129,7 +125,7 @@ impl IntoResponse for AppError {
             )
                 .into_response(),
             AppError::PasswordChangeRequired(next) => {
-                Redirect::to(&format!("{}?next={}", crate::url("/password/change"), crate::oauth::urlencode(&next))).into_response()
+                Redirect::to(&format!("{}?next={}", crate::url("/password/change"), crate::urlenc::urlencode(&next))).into_response()
             }
             AppError::ApiPasswordChangeRequired => (
                 StatusCode::FORBIDDEN,
@@ -150,7 +146,6 @@ impl IntoResponse for AppError {
                 serde_json::json!({ "error": m }).to_string(),
             )
                 .into_response(),
-            AppError::CourseRemoved => error_page(StatusCode::FORBIDDEN, &crate::moderation::removed_text()),
             AppError::Db(e) => {
                 tracing::error!("database error: {e}");
                 error_page(StatusCode::INTERNAL_SERVER_ERROR, &crate::t("error.database"))
@@ -227,7 +222,7 @@ pub async fn in_layout(
 }
 
 /// A page opened by address whose route only takes a form (GET /logout,
-/// /waitlist, ...) gets axum's bare 405 with an empty body (#1253). Give it
+/// /logout, ...) gets axum's bare 405 with an empty body (#1253). Give it
 /// the error page instead, keeping the 405 status and the `Allow` header.
 /// A 405 a handler wrote itself, with a body, is left alone; so are API
 /// routes (the caller skips them), whose clients read the status only.

@@ -7,24 +7,15 @@ use super::*;
 #[template(path = "login_code.html")]
 pub struct LoginCodeTemplate {
     pub user: Option<CurrentUser>,
-    /// `sms`, `email` or `totp`.
+    /// `email` or `totp`.
     pub method: &'static str,
     /// Where the code went, partly hidden.
     pub sent_to: String,
-    /// A texted code went by e-mail: the number opted out of texts (#969).
-    pub fallback: bool,
     pub error: Option<String>,
     pub notice: Option<String>,
     /// Dev mode: the page floats the dev device for this sign-in
     /// (`/login/code/device`) at the bottom, so the code is a click away.
     pub dev: bool,
-}
-
-impl LoginCodeTemplate {
-    /// Where the newest code went: `method`, or `email` for a fallback.
-    pub fn channel(&self) -> &str {
-        if self.fallback { "email" } else { self.method }
-    }
 }
 
 #[derive(Deserialize)]
@@ -38,14 +29,13 @@ pub struct LoginCodeQuery {
 }
 
 fn code_page(state: &AppState, p: &two_factor::Pending, error: Option<String>, notice: Option<String>) -> Response {
-    let fallback = p.method == two_factor::Method::Sms && p.emailed;
-    let page = Page(LoginCodeTemplate { user: None, method: p.method.as_str(), sent_to: p.sent_to(), fallback, error, notice, dev: state.dev }).into_response();
+    let page = Page(LoginCodeTemplate { user: None, method: p.method.as_str(), sent_to: p.sent_to(), error, notice, dev: state.dev }).into_response();
     ([(axum::http::header::CACHE_CONTROL, "no-store")], page).into_response()
 }
 
 /// Back to the login form, saying why the second step ended.
 fn code_gone(state: &AppState, msg: &str) -> Response {
-    let page = Page(LoginTemplate { user: None, reset: state.caps().mail, error: Some(msg.to_string()), email: String::new(), google: state.google.is_some(), dev: state.dev, google_mock: state.google_mock(), notice: None, share: None });
+    let page = Page(LoginTemplate { user: None, reset: state.caps().mail, error: Some(msg.to_string()), email: String::new(), dev: state.dev, notice: None, share: None });
     ([twofa_cookie("", 0, state.secure_cookies)], page).into_response()
 }
 
@@ -58,11 +48,11 @@ const FRAMED_CSP: &str = "default-src 'self'; script-src 'self' 'unsafe-inline';
 img-src 'self' data: https:; font-src 'self'; connect-src 'self'; media-src 'self'; object-src 'none'; \
 base-uri 'self'; frame-ancestors 'self'";
 
-/// What the dev device shows for a sign-in: one text, mail or
+/// What the dev device shows for a sign-in: one mail or
 /// authenticator account, with the code picked out so the page can fill it in.
 pub struct DeviceRow {
     pub key: String,
-    /// The text, the mail's subject, or the authenticator's account.
+    /// The mail's subject, or the authenticator's account.
     pub title: String,
     pub body: String,
     pub code: String,
@@ -89,20 +79,19 @@ fn code_in(text: &str) -> String {
 #[derive(Template)]
 #[template(path = "login_code_device.html")]
 pub struct LoginCodeDeviceTemplate {
-    /// `sms`, `email` or `totp`.
+    /// `email` or `totp`.
     pub method: &'static str,
     /// Where the code goes, in full (the dev device is the learner's own).
     pub to: String,
     pub now: u64,
     pub rows: Vec<DeviceRow>,
-    /// The device is off (no dev phone, no dev inbox).
+    /// The device is off (no dev inbox).
     pub off: bool,
 }
 
 /// GET /login/code/device (dev mode, local clients): the dev device the
 /// pending sign-in's code went to, as a bare page for the frame at the
-/// bottom of `/login/code`: the texts the dev phone got for that number,
-/// the mail the dev inbox got for that address, or the dev authenticator's
+/// bottom of `/login/code`: the mail the dev inbox got for that address, or the dev authenticator's
 /// entry for that address, each with its code and a *Use* button. The
 /// `twofa` cookie names the sign-in, so a learner who proved the password
 /// sees their own device only; the dev mailbox itself stays for developers.
@@ -112,21 +101,8 @@ pub async fn login_code_device(State(state): State<Arc<AppState>>, headers: Head
     let Some(p) = state.db.call(move |c| two_factor::pending(c, &token, now())).await? else { return Err(AppError::NotFound) };
     let now = crate::db::now();
     let unix = now as u64;
-    // A texted code that went by e-mail is in the dev inbox.
-    let channel = if p.emailed { two_factor::Method::Email } else { p.method };
+    let channel = p.method;
     let (to, rows, off): (String, Vec<DeviceRow>, bool) = match channel {
-        two_factor::Method::Sms => {
-            let rows = state
-                .dev_phone
-                .as_ref()
-                .map(|ph| ph.list(Some(&p.phone)))
-                .unwrap_or_default()
-                .into_iter()
-                .take(5)
-                .map(|m| DeviceRow { key: format!("sms{}", m.id), title: m.to.clone(), body: m.text.clone(), code: code_in(&m.text), ago: crate::routes::time_ago(m.received_at, now), expires: 0, remaining: 0, period: 0 })
-                .collect();
-            (p.phone.clone(), rows, state.dev_phone.is_none())
-        }
         two_factor::Method::Email => {
             let rows = state
                 .dev_inbox
@@ -180,18 +156,6 @@ pub async fn login_code_form(State(state): State<Arc<AppState>>, MaybeUser(user)
     Ok(code_page(&state, &p, error, notice))
 }
 
-/// GET /login/code/status: `{"texts_stopped": true}` once the number a
-/// sign-in code was texted to turns out to have opted out of texts (the
-/// provider refused it after the page was shown). The page polls it
-/// (`static/login_code.js`) and then asks for a new code, which goes by
-/// e-mail (#969).
-pub async fn login_code_status(State(state): State<Arc<AppState>>, headers: HeaderMap) -> Result<Response, AppError> {
-    let Some(token) = twofa_token(&headers) else { return Err(AppError::NotFound) };
-    let Some(p) = state.db.call(move |c| two_factor::pending(c, &token, now())).await? else { return Err(AppError::NotFound) };
-    let stopped = p.by_email() && !p.emailed;
-    Ok(([(axum::http::header::CACHE_CONTROL, "no-store")], axum::Json(serde_json::json!({ "texts_stopped": stopped }))).into_response())
-}
-
 #[derive(Deserialize)]
 pub struct CodeForm {
     #[serde(default)]
@@ -220,11 +184,10 @@ pub async fn login_code(State(state): State<Arc<AppState>>, ClientIp(ip): Client
     match checked {
         two_factor::Checked::Ok => {
             let user_id = user_id.ok_or_else(|| AppError::Internal("a passed code without its user".into()))?;
-            let joined = finish_join(&state, user_id, state.google_joins.take(&token, t)).await?;
             let session = state.db.call(move |c| auth::create_session(c, user_id)).await?;
             tracing::info!("user {user_id} logged in with a second step");
             let share = share_notice(&state, &hex_cookie(&headers, SHARE_COOKIE)).await?;
-            let to = if joined { JOINED_PROFILE.to_string() } else { after_sign_in(share.as_ref()) };
+            let to = after_sign_in(share.as_ref());
             let cookies = [twofa_cookie("", 0, state.secure_cookies), auth::set_session_cookie(&session, state.secure_cookies), named_cookie(SHARE_COOKIE, "", 0, state.secure_cookies)];
             Ok((AppendHeaders(cookies), Redirect::to(&crate::url(&to))).into_response())
         }
@@ -236,7 +199,6 @@ pub async fn login_code(State(state): State<Arc<AppState>>, ClientIp(ip): Client
             Ok((StatusCode::UNPROCESSABLE_ENTITY, code_page(&state, &p, Some(msg), None)).into_response())
         }
         two_factor::Checked::Gone => {
-            state.google_joins.take(&token, t);
             // With a user id this was the last wrong code; it counts too.
             if let Some(uid) = user_id {
                 tracing::warn!("user {uid} used up the tries for a sign-in code");
@@ -247,7 +209,7 @@ pub async fn login_code(State(state): State<Arc<AppState>>, ClientIp(ip): Client
     }
 }
 
-/// POST /login/code/resend: a new texted or e-mailed code (the old one
+/// POST /login/code/resend: a new e-mailed code (the old one
 /// stops working). Limited per account like "Send the e-mail again"; past
 /// it nothing is sent but the page says the same.
 pub async fn login_code_resend(State(state): State<Arc<AppState>>, headers: HeaderMap) -> Result<Response, AppError> {
@@ -261,9 +223,8 @@ pub async fn login_code_resend(State(state): State<Arc<AppState>>, headers: Head
     }
     let mut sent = true;
     if state.limits.hit(security::TWO_FACTOR_SEND_PER_USER, &p.user_id.to_string(), t) {
-        let by = if p.by_email() { two_factor::Method::Email } else { p.method };
         if let Some((to, code)) = state.db.call(move |c| two_factor::new_login_code(c, &token, t)).await? {
-            sent = send_code(&state, p.user_id, by, &to, &code).await;
+            sent = send_code(&state, p.user_id, p.method, &to, &code).await;
         }
     } else {
         tracing::warn!("sign-in code resend limit hit for user {}", p.user_id);
@@ -275,7 +236,6 @@ pub async fn login_code_resend(State(state): State<Arc<AppState>>, headers: Head
 /// (still for the share link, if one brought the visitor).
 pub async fn login_code_cancel(State(state): State<Arc<AppState>>, headers: HeaderMap) -> Result<Response, AppError> {
     if let Some(token) = twofa_token(&headers) {
-        state.google_joins.take(&token, now());
         state.db.call(move |c| two_factor::cancel(c, &token)).await?;
     }
     let share = share_notice(&state, &hex_cookie(&headers, SHARE_COOKIE)).await?;

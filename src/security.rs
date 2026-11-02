@@ -163,14 +163,11 @@ pub const LOGIN_PER_IP: Limit = Limit { name: "login-ip", max: 30, window: 600 }
 pub const LOGIN_FAILURES_PER_USER: Limit = Limit { name: "login-user", max: 10, window: 900 };
 /// Registration attempts from one address.
 pub const REGISTER_PER_IP: Limit = Limit { name: "register-ip", max: 20, window: 3600 };
-/// Waitlist sign-ups from one address (#934).
-pub const WAITLIST_PER_IP: Limit = Limit { name: "waitlist-ip", max: 10, window: 3600 };
 /// Password changes tried by one account.
 pub const PASSWORD_PER_USER: Limit = Limit { name: "password-user", max: 10, window: 900 };
 /// "Send the e-mail again" (address confirmation) by one account.
 pub const VERIFY_RESEND_PER_USER: Limit = Limit { name: "verify-resend-user", max: 5, window: 3600 };
-/// Texted or e-mailed codes sent again by one account (a sign-in's
-/// "Send a new code", the phone number's "Send a code").
+/// E-mailed codes sent again by one account (a sign-in's "Send a new code").
 pub const TWO_FACTOR_SEND_PER_USER: Limit = Limit { name: "two-factor-send-user", max: 5, window: 900 };
 /// Password reset links asked for from one address (#379).
 pub const RESET_PER_IP: Limit = Limit { name: "reset-ip", max: 10, window: 3600 };
@@ -196,11 +193,6 @@ pub const AI_JOBS_PER_USER_DAY: Limit = Limit { name: "ai-jobs-user-day", max: 4
 /// script cannot keep the server busy (#366). The editor's autosave saves at
 /// most about once a second while someone works, well under this.
 pub const COURSE_WRITES_PER_USER: Limit = Limit { name: "course-writes-user", max: 120, window: 300 };
-/// Copyright notices sent from one address (`/legal/copyright`, #968),
-/// counted in dev mode too (`hit_always`).
-pub const COPYRIGHT_PER_IP: Limit = Limit { name: "copyright-ip", max: 5, window: 60 };
-/// Courses reported by one account (#968).
-pub const REPORTS_PER_USER: Limit = Limit { name: "reports-user", max: 10, window: 3600 };
 
 /// Most keys kept per limit, so memory stays bounded on the Pi. Each limit
 /// has its own table: a flood of one kind of key (fresh addresses) cannot
@@ -262,7 +254,7 @@ impl RateLimits {
     }
 
     /// [`RateLimits::hit`], counted in dev mode too: for a limit small
-    /// enough to try by hand (the copyright form's five a minute).
+    /// enough to try by hand.
     pub fn hit_always(&self, limit: Limit, key: &str, now: i64) -> bool {
         let mut tables = self.windows.lock().unwrap_or_else(|e| e.into_inner());
         let table = tables.entry(limit.name).or_insert_with(|| (limit.window, HashMap::new()));

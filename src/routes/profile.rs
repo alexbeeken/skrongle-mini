@@ -28,7 +28,6 @@ pub struct ProfileTemplate {
     /// How other learners see the name being edited ("Ana L."), for the privacy note.
     pub public_name: String,
     pub member_since: String,
-    pub google_enabled: bool,
     pub notice: Option<String>,
     /// Which form failed, so the message sits next to it.
     pub password_error: Option<String>,
@@ -61,38 +60,26 @@ pub struct ProfileTemplate {
     pub confirm_remove: bool,
     pub confirm_error: Option<String>,
     pub confirm_sent: Option<String>,
-    /// The phone number's verify dialog opens on load (a code was just
-    /// sent, or a wrong one typed), and what went wrong.
-    pub phone_open: bool,
-    pub phone_sent: bool,
-    pub phone_error: Option<String>,
-    /// A Google-only account without a second step just confirmed it's
-    /// its owner with Google (#376): the next change goes ahead.
-    pub google_confirmed: bool,
-    /// The Google link / unlink dialog to open on load (`link`, `unlink`,
-    /// `''`), and why it was refused.
-    pub google_open: String,
-    pub google_error: Option<String>,
-    /// Deleting a Google-only account: where its code went.
+    /// Deleting an account without a password: where its code went.
     pub delete_sent: Option<String>,
     /// "Download my data": the newest export (exports.rs), and why a link did not work.
     pub export: Option<crate::exports::Status>,
     pub export_error: Option<String>,
     /// What this server can send (#633): without mail no confirmation
-    /// link or e-mailed codes; without texts no phone number.
+    /// link or e-mailed codes.
     pub caps: crate::Caps,
 }
 
 impl ProfileTemplate {
     /// How this account proves it is its owner (`prove_owner`): `password`;
-    /// a Google-only account a `code` from its app, one it is `send`
-    /// (texted or e-mailed), or, without a second step, `google`.
+    /// an account without one a `code` from its app, one it is `send`
+    /// (e-mailed), or, without a second step, `none`.
     pub fn proof_kind(&self) -> &'static str {
         match (self.profile.has_password, self.profile.two_factor.method) {
             (true, _) => "password",
             (false, Some(crate::two_factor::Method::Totp)) => "code",
             (false, Some(_)) => "send",
-            (false, None) => "google",
+            (false, None) => "none",
         }
     }
 
@@ -126,7 +113,7 @@ impl ProfileTemplate {
         s
     }
 
-    /// `''` (off), `sms`, `email` or `totp`.
+    /// `''` (off), `email` or `totp`.
     pub fn two_factor_method(&self) -> &'static str {
         self.profile.two_factor.method.map(crate::two_factor::Method::as_str).unwrap_or("")
     }
@@ -135,17 +122,9 @@ impl ProfileTemplate {
         self.profile.two_factor.refusal(crate::two_factor::Method::Email).is_none()
     }
 
-    pub fn sms_2fa_ok(&self) -> bool {
-        self.profile.two_factor.refusal(crate::two_factor::Method::Sms).is_none()
-    }
-
     /// Is the method offered at all? Not when its channel is off (#633).
     pub fn email_2fa_offered(&self) -> bool {
         self.caps.mail
-    }
-
-    pub fn sms_2fa_offered(&self) -> bool {
-        self.caps.sms
     }
 
     /// The e-mail field's red ! (confirm your address): only on a server
@@ -179,10 +158,9 @@ impl ProfileTemplate {
     }
 
     /// A Google-only account proves it with a code: from the app, or one
-    /// sent by the current method (`sms` / `email`).
+    /// sent by the current method (`email`).
     pub fn confirm_code_sent_by(&self) -> &'static str {
         match self.profile.two_factor.method {
-            Some(crate::two_factor::Method::Sms) => "sms",
             Some(crate::two_factor::Method::Email) => "email",
             _ => "",
         }
@@ -205,7 +183,7 @@ impl ProfileTemplate {
 
     /// Dev mode: the "scan" into the dev authenticator.
     pub fn totp_dev_link(&self) -> String {
-        crate::url(&format!("/dev/authenticator?uri={}", crate::oauth::urlencode(&self.totp_uri())))
+        crate::url(&format!("/dev/authenticator?uri={}", crate::urlenc::urlencode(&self.totp_uri())))
     }
 }
 
@@ -251,12 +229,6 @@ pub struct ShowQuery {
     pub ai: Option<String>,
     /// `enrol`: an authenticator app's enrolment just started.
     pub totp: Option<String>,
-    /// `sent`: a code was just texted to the phone number.
-    pub phone: Option<String>,
-    /// `google`: back from confirming it's you with Google (#376), for
-    /// the two-factor `method` being chosen (else to delete the account).
-    pub confirmed: Option<String>,
-    pub method: Option<String>,
 }
 
 #[derive(Deserialize)]
@@ -299,16 +271,11 @@ async fn load_profile(state: &AppState, user: &CurrentUser) -> Result<Loaded, Ap
 }
 
 fn page(state: &AppState, user: CurrentUser, (p, api_keys): Loaded) -> ProfileTemplate {
-    let google_confirmed = state.step_ups.is_confirmed(user.id, crate::db::now());
     ProfileTemplate {
-        google_confirmed,
-        google_open: String::new(),
-        google_error: None,
         delete_sent: None,
         display_name: profile::display_name(&p.first_name, &p.last_name),
         public_name: profile::public_name(&p.first_name, &p.last_name),
         member_since: profile::member_since(p.created_at),
-        google_enabled: state.google.is_some(),
         user: Some(user),
         profile: p,
         notice: None,
@@ -323,9 +290,6 @@ fn page(state: &AppState, user: CurrentUser, (p, api_keys): Loaded) -> ProfileTe
         confirm_remove: false,
         confirm_error: None,
         confirm_sent: None,
-        phone_open: false,
-        phone_sent: false,
-        phone_error: None,
         export: None,
         export_error: None,
         caps: state.caps(),
@@ -358,7 +322,6 @@ pub async fn show(
     let provider = q.provider.as_deref().and_then(Provider::parse);
     t.notice = match (q.saved.as_deref(), provider) {
         (Some("password"), _) => Some(crate::t("profile.password.changed")),
-        (Some("google-joined"), _) => Some(crate::t("profile.google_link.joined_notice")),
         (Some("verify-sent"), _) if t.user.as_ref().is_some_and(|u| u.needs_email_confirmation()) => Some(crate::t1("profile.save.sent_to", "email", t.profile.email.as_deref().unwrap_or_default())),
         (Some("key-removed"), Some(p)) => Some(crate::t1("profile.api_keys.removed", "provider", p.label())),
         (Some("ai-off"), _) => Some(crate::t("profile.ai.hidden_notice")),
@@ -368,26 +331,16 @@ pub async fn show(
             Some(m) => crate::t1("profile.two_factor.is_method", "method", method_label(m)),
         }),
         (Some("totp-removed"), _) => Some(crate::t("profile.two_factor.totp_removed")),
-        (Some("phone-verified"), _) => Some(crate::t("profile.two_factor.phone_verified")),
         // No mail on this server: no link is coming; the Download button is (#633).
         (Some("export-queued"), _) if !t.caps.mail => Some(crate::t("profile.data.export_building_no_mail")),
         (Some("export-queued"), _) => Some(crate::t("profile.data.export_queued")),
         (Some("signed-out"), _) => Some(crate::t("profile.sessions.signed_out_notice")),
-        (Some("google-linked"), _) => Some(crate::t("profile.google_link.linked_notice")),
-        (Some("google-unlinked"), _) => Some(crate::t("profile.google_link.unlinked_notice")),
         _ if q.ai.as_deref() == Some("off") => Some(crate::t("profile.ai.feature_hidden")),
         _ => None,
     };
     if q.totp.as_deref() == Some("enrol") && t.profile.two_factor.totp_pending {
         t.totp_key = pending_totp_key(&state, user_id(&t)).await?;
         t.totp_open = t.totp_key.is_some();
-    }
-    // Back from Google with a two-factor change waiting: its dialog again, ready to confirm.
-    if let (Some("google"), Some(m), true) = (q.confirmed.as_deref(), q.method.as_deref(), t.google_confirmed) {
-        if parse_method(m).is_ok() {
-            t.confirm_open = true;
-            t.confirm_method = m.to_string();
-        }
     }
     let uid = user_id(&t);
     t.export = state.db.call(move |c| crate::exports::status(c, uid, crate::db::now())).await?;
@@ -397,11 +350,6 @@ pub async fn show(
         Some("export-gone") => Some(crate::t("profile.data.export_gone")),
         _ => None,
     };
-    t.phone_sent = q.phone.as_deref() == Some("sent");
-    // `?phone=sent` comes only after a code went out: to an unconfirmed
-    // number, or a confirmed one checking it takes texts again (#969),
-    // whose flag may already be cleared by the text getting through.
-    t.phone_open = t.phone_sent;
     Ok(Page(t).into_response())
 }
 
@@ -453,8 +401,6 @@ pub(super) fn look_json(theme: Option<&crate::content::Theme>) -> serde_json::Va
 pub struct ProfileChanges {
     pub first_name: Option<String>,
     pub last_name: Option<String>,
-    /// The phone number, international format; '' removes it.
-    pub phone: Option<String>,
     /// The language the app speaks to this account in (`i18n::languages`).
     pub lang: Option<String>,
     /// AI API keys, as `key_<provider>` (`key_anthropic`, …).
@@ -491,32 +437,10 @@ pub async fn save(
         };
         check(field, r.map(|()| String::new()));
     }
-    let phone = match changes.phone.as_deref().map(str::trim) {
-        None => None,
-        // No text messages on this server: no phone number either (#633).
-        Some(_) if !state.caps().sms => check("phone", Err(crate::t("profile.save.sms_off"))),
-        Some("") => Some(String::new()),
-        Some(v) => check(
-            "phone",
-            crate::sms::normalize_us_number(v).map_err(|e| crate::t1("profile.save.not_a_phone", "why", e)).and_then(|n| {
-                if state.sms.policy.allows(&n) {
-                    Ok(n)
-                } else {
-                    Err(crate::t("profile.save.sms_country"))
-                }
-            }),
-        ),
-    };
     let lang = changes.lang.as_deref().map(str::trim).and_then(|v| {
         let ok = if crate::i18n::is_language(v) { Ok(v.to_string()) } else { Err(crate::t("profile.personal.language_unavailable")) };
         check("lang", ok)
     });
-    if let Some(p) = phone.clone() {
-        let uid = user.id;
-        if let Some(why) = state.db.call(move |c| crate::two_factor::phone_change_refusal(c, uid, &p)).await? {
-            errors.insert("phone".into(), crate::t(why).into());
-        }
-    }
     if user.ai_off {
         for field in changes.keys.keys() {
             errors.insert(field.clone(), crate::t("profile.ai.keys_off").into());
@@ -528,16 +452,12 @@ pub async fn save(
     }
 
     let (uid, vault) = (user.id, state.vault.clone());
-    let phone_saved = phone.clone();
     let saved_keys: Vec<Provider> = keys.iter().map(|(p, _)| *p).collect();
     let (p, statuses) = state
         .db
         .call(move |c| {
             let tx = c.transaction()?;
             profile::update(&tx, uid, first.as_deref(), last.as_deref())?;
-            if let Some(p) = &phone_saved {
-                crate::two_factor::set_phone(&tx, uid, p)?;
-            }
             if let Some(l) = &lang {
                 profile::set_lang(&tx, uid, l)?;
             }
@@ -554,9 +474,6 @@ pub async fn save(
     tracing::info!("user {uid} updated their profile");
 
     let mut body = serde_json::json!({ "display_name": profile::display_name(&p.first_name, &p.last_name) });
-    if phone.is_some() {
-        body["phone"] = serde_json::json!({ "number": p.two_factor.phone, "verified": p.two_factor.phone_verified, "opted_out": p.two_factor.phone_opted_out });
-    }
     if !saved_keys.is_empty() {
         let hints: serde_json::Map<String, serde_json::Value> = statuses
             .iter()
@@ -593,11 +510,10 @@ pub async fn resend_verification(
     Ok(Redirect::to(&crate::url("/profile?saved=verify-sent")).into_response())
 }
 
-// ---------- two-factor sign-in and the phone number (two_factor.rs) ----------
+// ---------- two-factor sign-in (two_factor.rs) ----------
 
 fn method_label(m: crate::two_factor::Method) -> String {
     match m {
-        crate::two_factor::Method::Sms => crate::t("profile.two_factor.method_sms"),
         crate::two_factor::Method::Email => crate::t("profile.two_factor.method_email"),
         crate::two_factor::Method::Totp => crate::t("profile.two_factor.method_totp"),
     }
@@ -623,7 +539,7 @@ async fn pending_totp_key(state: &AppState, uid: i64) -> Result<Option<crate::to
 
 #[derive(Deserialize)]
 pub struct MethodForm {
-    /// `''` (off), `sms`, `email` or `totp`.
+    /// `''` (off), `email` or `totp`.
     #[serde(default)]
     pub method: String,
     /// Turning two-factor off or switching it: the account's password, or
@@ -644,9 +560,9 @@ fn parse_method(m: &str) -> Result<Option<crate::two_factor::Method>, AppError> 
 /// Is it the account's owner, not just someone with the session? The
 /// password, checked like `/login` (argon2 off the async workers, limited
 /// per account, a wrong one counting against sign-in, refused while sign-in
-/// is blocked); a Google-only account has none, so a code from its current
-/// second step instead, or without one a fresh "Confirm with Google"
-/// (`StepUps`, #376). Every account change that a stolen session must not
+/// is blocked); an account without one (signed in through a proxy) gives a
+/// code from its current second step instead, or without one nothing: the
+/// proxy vouches for it on every request. Every account change that a stolen session must not
 /// make goes through here. `Some((status, message))` refuses.
 async fn prove_owner(state: &AppState, user: &CurrentUser, password: &str, code: &str) -> Result<Option<(StatusCode, String)>, AppError> {
     use crate::security::{LOGIN_FAILURES_PER_USER, PASSWORD_PER_USER};
@@ -672,11 +588,8 @@ async fn prove_owner(state: &AppState, user: &CurrentUser, password: &str, code:
         return Ok(None);
     }
     if state.db.call(move |c| crate::two_factor::settings(c, uid)).await?.method.is_none() {
-        // No password and no second step: Google itself vouches, once.
-        if state.step_ups.spend(uid, now) {
-            return Ok(None);
-        }
-        return Ok(Some((StatusCode::FORBIDDEN, crate::t("profile.google_link.confirm_needed"))));
+        // No password and no second step: nothing to ask.
+        return Ok(None);
     }
     if code.trim().is_empty() {
         return Ok(Some((StatusCode::FORBIDDEN, crate::t("profile.two_factor.type_code"))));
@@ -801,7 +714,7 @@ async fn code_sent_page(state: &AppState, user: CurrentUser, f: ConfirmCodeForm,
 
 /// POST /profile/two-factor/code (method, remove | then=delete): a
 /// Google-only account (no password) asks for a code from its current
-/// texted or e-mailed second step, to change two-factor sign-in or delete
+/// e-mailed second step, to change two-factor sign-in or delete
 /// the account. Limited like a sign-in's "Send a new code"; the page comes
 /// back with the dialog (or the delete form) waiting for it.
 pub async fn send_confirm_code(State(state): State<Arc<AppState>>, user: CurrentUser, Form(f): Form<ConfirmCodeForm>) -> Result<Response, AppError> {
@@ -816,7 +729,6 @@ pub async fn send_confirm_code(State(state): State<Arc<AppState>>, user: Current
         return Ok(Redirect::to(&crate::url("/profile#two-factor")).into_response());
     };
     let sent = match method {
-        Method::Sms => state.sms.send_sms(&state.db, two_factor::PURPOSE_CONFIRM, &to, &two_factor::confirm_text(&code), Some(uid)).await.map(|_| ()).map_err(|e| e.to_string()),
         Method::Email => match two_factor::confirm_mail(&to, &code, uid) {
             Ok(mail) => state.mail.queue(&state.db, mail).await.map(|_| ()).map_err(|e| format!("{e:?}")),
             Err(e) => Err(e),
@@ -828,8 +740,7 @@ pub async fn send_confirm_code(State(state): State<Arc<AppState>>, user: Current
         return code_sent_page(&state, user, f, StatusCode::SERVICE_UNAVAILABLE, Some(crate::t("profile.two_factor.code_not_sent")), None).await;
     }
     tracing::info!("user {uid} asked for a code to confirm an account change");
-    let (email, phone) = if method == Method::Email { (to, String::new()) } else { (String::new(), to) };
-    let sent = two_factor::masked(method, &email, &phone);
+    let sent = two_factor::masked(method, &to);
     code_sent_page(&state, user, f, StatusCode::OK, None, Some(sent)).await
 }
 
@@ -898,92 +809,6 @@ pub async fn remove_totp(
     Ok(Redirect::to(&crate::url("/profile?saved=totp-removed#two-factor")).into_response())
 }
 
-/// POST /profile/phone/send: text a code to the profile's number to
-/// confirm it (limited per account, and by the texts' own limits). Only for
-/// an account with a confirmed address or Google (#431), and never to a
-/// number another account has verified (#363).
-pub async fn send_phone_code(State(state): State<Arc<AppState>>, user: CurrentUser) -> Result<Response, AppError> {
-    // No text messages on this server: the phone field is not offered (#633).
-    if !state.caps().sms {
-        return Err(AppError::NotFound);
-    }
-    let uid = user.id;
-    let now = crate::db::now();
-    let fail = |msg: String| (StatusCode::TOO_MANY_REQUESTS, move |t: &mut ProfileTemplate| {
-        t.phone_open = true;
-        t.phone_error = Some(msg);
-    });
-    if !state.limits.hit(crate::security::TWO_FACTOR_SEND_PER_USER, &uid.to_string(), now) {
-        tracing::warn!("phone code limit hit for user {uid}");
-        let (status, f) = fail(crate::t("profile.two_factor.too_many_codes"));
-        return profile_with(&state, user, status, f).await;
-    }
-    let (phone, code) = match state.db.call(move |c| crate::two_factor::issue_phone_code(c, uid, now)).await? {
-        crate::two_factor::PhoneCode::Send { phone, code } => (phone, code),
-        crate::two_factor::PhoneCode::Nothing => return Ok(Redirect::to(&crate::url("/profile#personal")).into_response()),
-        crate::two_factor::PhoneCode::Refused(why) => {
-            tracing::warn!("phone code refused for user {uid}: {why}");
-            return profile_with(&state, user, StatusCode::FORBIDDEN, |t| {
-                t.phone_open = true;
-                t.phone_error = Some(crate::t(why));
-            })
-            .await;
-        }
-    };
-    match state.sms.send_sms(&state.db, crate::two_factor::PURPOSE_PHONE, &phone, &crate::two_factor::phone_text(&code), Some(uid)).await {
-        Ok(_) => {
-            tracing::info!("user {uid} asked for a phone code");
-            Ok(Redirect::to(&crate::url("/profile?phone=sent#personal")).into_response())
-        }
-        Err(crate::sms::SmsError::RateLimited { retry_after }) => {
-            let (status, f) = fail(crate::t1("profile.two_factor.too_many_texts", "minutes", (retry_after + 59) / 60));
-            profile_with(&state, user, status, f).await
-        }
-        Err(crate::sms::SmsError::Invalid(why)) => profile_with(&state, user, StatusCode::UNPROCESSABLE_ENTITY, |t| {
-            t.phone_open = true;
-            t.phone_error = Some(crate::t1("profile.two_factor.number_no_texts", "why", why));
-        })
-        .await,
-        Err(crate::sms::SmsError::Country) => profile_with(&state, user, StatusCode::UNPROCESSABLE_ENTITY, |t| {
-            t.phone_open = true;
-            t.phone_error = Some(crate::t("profile.save.sms_country"));
-        })
-        .await,
-        Err(crate::sms::SmsError::Db(e)) => Err(e),
-    }
-}
-
-/// POST /profile/phone/verify (code): the texted code confirms the number.
-pub async fn verify_phone(State(state): State<Arc<AppState>>, user: CurrentUser, Form(f): Form<CodeForm>) -> Result<Response, AppError> {
-    use crate::two_factor::Checked;
-    let uid = user.id;
-    let code = f.code;
-    let checked = state.db.call(move |c| crate::two_factor::confirm_phone(c, uid, &code, crate::db::now())).await?;
-    let msg = match checked {
-        Checked::Ok => {
-            tracing::info!("user {uid} verified their phone number");
-            return Ok(Redirect::to(&crate::url("/profile?saved=phone-verified#personal")).into_response());
-        }
-        Checked::Wrong(left) => crate::tn("profile.two_factor.code_wrong_tries", left),
-        Checked::Gone => {
-            let taken = state
-                .db
-                .call(move |c| {
-                    let phone: String = c.query_row("SELECT phone FROM users WHERE id = ?1", [uid], |r| r.get(0))?;
-                    crate::two_factor::phone_taken(c, uid, &phone)
-                })
-                .await?;
-            crate::t(if taken { crate::two_factor::PHONE_TAKEN } else { "profile.two_factor.phone_code_expired" })
-        }
-    };
-    profile_with(&state, user, StatusCode::UNPROCESSABLE_ENTITY, |t| {
-        t.phone_open = true;
-        t.phone_sent = true;
-        t.phone_error = Some(msg);
-    })
-    .await
-}
-
 /// POST /profile/password
 pub async fn change_password(
     State(state): State<Arc<AppState>>,
@@ -998,7 +823,7 @@ pub async fn change_password(
         Page(t).into_response()
     };
     if !p.has_password {
-        return Ok(fail(&state, user, p, &crate::t("profile.password.google_only")));
+        return Ok(fail(&state, user, p, &crate::t("profile.password.none")));
     }
     if form.new != form.confirm {
         return Ok(fail(&state, user, p, &crate::t("profile.password.mismatch")));
@@ -1041,96 +866,6 @@ pub async fn end_other_sessions(State(state): State<Arc<AppState>>, user: Curren
     let ended = state.db.call(move |c| auth::delete_other_sessions(c, uid, &keep)).await?;
     tracing::info!("user {uid} signed out everywhere else ({ended} sessions)");
     Ok(Redirect::to(&crate::url("/profile?saved=signed-out#account")).into_response())
-}
-
-#[derive(Deserialize)]
-pub struct ProofForm {
-    #[serde(default)]
-    pub password: String,
-}
-
-/// The profile again with the Google link or unlink dialog open, saying why.
-async fn google_again(state: &AppState, user: CurrentUser, status: StatusCode, open: &str, why: String) -> Result<Response, AppError> {
-    let open = open.to_string();
-    profile_with(state, user, status, move |t| {
-        t.google_open = open;
-        t.google_error = Some(why);
-    })
-    .await
-}
-
-/// POST /profile/google/link (password): connect a Google account (#360).
-/// The password first (`prove_owner`), then Google; the callback links it
-/// only for the account that started (`StepUps`) and signs out the other
-/// devices. A Google-only account is already linked.
-pub async fn link_google(State(state): State<Arc<AppState>>, user: CurrentUser, Form(f): Form<ProofForm>) -> Result<Response, AppError> {
-    state.google.as_ref().ok_or(AppError::NotFound)?;
-    let uid = user.id;
-    if state.db.call(move |c| auth::google_linked(c, uid)).await? {
-        return Ok(Redirect::to(&crate::url("/profile#account")).into_response());
-    }
-    if let Some((status, why)) = prove_owner(&state, &user, &f.password, "").await? {
-        return google_again(&state, user, status, "link", why).await;
-    }
-    tracing::info!("user {uid} is connecting a Google account");
-    super::auth::to_google(&state, uid, crate::oauth::StepUp::Link, "/profile?saved=google-linked#account", None)
-}
-
-/// POST /profile/google/unlink (password): "Continue with Google" stops
-/// signing in to this account (#360), and the other devices are signed
-/// out. Only an account with a password: a Google-only one would be left
-/// with no way in.
-pub async fn unlink_google(
-    State(state): State<Arc<AppState>>,
-    user: CurrentUser,
-    auth::SessionToken(token): auth::SessionToken,
-    Form(f): Form<ProofForm>,
-) -> Result<Response, AppError> {
-    let uid = user.id;
-    let has_password = !state.db.call(move |c| profile::password_hash(c, uid)).await?.unwrap_or_default().is_empty();
-    if !has_password {
-        return google_again(&state, user, StatusCode::UNPROCESSABLE_ENTITY, "unlink", crate::t("profile.google_link.stays_connected")).await;
-    }
-    if let Some((status, why)) = prove_owner(&state, &user, &f.password, "").await? {
-        return google_again(&state, user, status, "unlink", why).await;
-    }
-    let keep = token.unwrap_or_default();
-    let (unlinked, ended) = state
-        .db
-        .call(move |c| {
-            let unlinked = auth::unlink_google(c, uid)?;
-            let ended = if unlinked { auth::delete_other_sessions(c, uid, &keep)? } else { 0 };
-            Ok((unlinked, ended))
-        })
-        .await?;
-    if unlinked {
-        tracing::info!("user {uid} unlinked their Google account ({ended} other sessions signed out)");
-    }
-    Ok(Redirect::to(&crate::url("/profile?saved=google-unlinked#account")).into_response())
-}
-
-#[derive(Deserialize)]
-pub struct GoogleConfirmForm {
-    /// `two-factor` (with the `method` being chosen) or `delete`.
-    #[serde(default)]
-    pub then: String,
-    #[serde(default)]
-    pub method: String,
-}
-
-/// POST /profile/google/confirm (then, method): a Google-only account with
-/// no second step proves it is its owner by going through Google again
-/// (#374, #376). Back on the profile, the change it was making goes ahead
-/// once (`prove_owner` spends the confirmation).
-pub async fn confirm_with_google(State(state): State<Arc<AppState>>, user: CurrentUser, Form(f): Form<GoogleConfirmForm>) -> Result<Response, AppError> {
-    state.google.as_ref().ok_or(AppError::NotFound)?;
-    let back = if f.then == "delete" {
-        "/profile?confirmed=google#data".to_string()
-    } else {
-        parse_method(&f.method)?;
-        format!("/profile?confirmed=google&method={}#two-factor", crate::oauth::urlencode(&f.method))
-    };
-    super::auth::to_google(&state, user.id, crate::oauth::StepUp::Confirm, &back, Some(&user.email))
 }
 
 /// POST /profile/ai (off=1|0): "Do Not Show Me AI Features" on or off. On, the
@@ -1243,26 +978,11 @@ pub async fn export_download_now(State(state): State<Arc<AppState>>, user: Curre
     send_export(&state, uid, file).await
 }
 
-/// The export file `file` names (in the exports folder), sent and deleted;
-/// on the hosted site a redirect to its pre-signed link in the bucket (#871).
+/// The export file `file` names (in the exports folder), sent and deleted.
 /// `None` (or a file that is gone): back to the profile, which says so.
 async fn send_export(state: &AppState, uid: i64, file: Option<String>) -> Result<Response, AppError> {
     use std::io::Read;
     let gone = || Redirect::to(&crate::url("/profile?saved=export-gone#data")).into_response();
-    match (&file, state.exports.storage.bucket()) {
-        (Some(f), Some(_)) => match state.exports.link(f).await {
-            Some(Ok(link)) => {
-                tracing::info!("user {uid} downloaded their data (from the bucket)");
-                return Ok(([(header::CACHE_CONTROL, "no-store")], Redirect::to(&link)).into_response());
-            }
-            other => {
-                tracing::warn!("export for user {uid}: no download link: {other:?}");
-                return Ok(gone());
-            }
-        },
-        (None, _) => return Ok(gone()),
-        (Some(_), None) => {}
-    }
     let Some(path) = file.and_then(|f| crate::exports::file_path(&state.exports.dir, &f)) else { return Ok(gone()) };
     let mut f = match std::fs::File::open(&path) {
         Ok(f) => f,
@@ -1355,17 +1075,6 @@ pub async fn delete_account(
     state.mail.notify();
     tracing::info!("user {uid} asked to delete their account: deleted at {at} unless they cancel");
     Ok(([auth::clear_session_cookie()], Redirect::to(&crate::url(&format!("/login?deletion={at}")))).into_response())
-}
-
-/// Delete the account (`privacy::delete_account`) at once and forget what
-/// the server holds of it in memory and on disk: a superuser's delete
-/// (#967). The learner's own delete waits 14 days (#970).
-pub(crate) async fn erase_account(state: &AppState, uid: i64) -> Result<crate::privacy::Deleted, AppError> {
-    // What lives in memory goes first, so nothing writes for the account afterwards.
-    crate::account_deletion::forget_in_memory(state, uid);
-    let deleted = state.db.call(move |c| crate::privacy::delete_account(c, uid)).await?.unwrap_or_default();
-    crate::account_deletion::forget_deleted(state, &deleted);
-    Ok(deleted)
 }
 
 #[cfg(test)]

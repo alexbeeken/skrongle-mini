@@ -31,5 +31,15 @@
       "New contact addresses: one for help with the site, plans and payments, and one for privacy requests, copyright notices and other legal matters. Section 32 lists both.",
       "Nothing else changed."
     ]
+  },
+  {
+    "version": "2026-11-01",
+    "announced": "2026-11-01",
+    "effective": "2026-11-01",
+    "material": false,
+    "summary": [
+      "The privacy policy changed: sign-in with Google is gone, so the notice no longer describes social logins or Google's API policy, and no longer lists Google as an authentication service.",
+      "Nothing else changed."
+    ]
   }
 ]

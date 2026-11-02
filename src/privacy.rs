@@ -69,10 +69,9 @@ pub const USER_TABLES: &[(&str, &str)] = &[
 ];
 
 /// User tables whose rows outlive the account: deleting it sets their
-/// `user_id` to NULL instead (`ON DELETE SET NULL`). `sms_sends` is the
-/// texts' rate-limit ledger (#362): a new account must not get a number's
-/// allowance back. It holds no number, only its SHA-256, and goes after two
-/// days (`sms::purge`). `privacy_actions` is the log of privacy requests
+/// `user_id` to NULL instead (`ON DELETE SET NULL`). `sms_sends` is
+/// the leftover texts' rate-limit ledger; its table goes with the schema
+/// squash. `privacy_actions` is the log of privacy requests
 /// answered (#981): a superuser's rows stay, without their id.
 #[cfg_attr(not(test), allow(dead_code))]
 pub const KEPT_ON_DELETE: &[&str] = &["sms_sends", "privacy_actions"];
@@ -80,9 +79,8 @@ pub const KEPT_ON_DELETE: &[&str] = &["sms_sends", "privacy_actions"];
 /// Tables that hold no learner's rows, only server-wide figures:
 /// `ai_spend_days` is everyone's hosted AI spend per day (the daily cap,
 /// #623). Not exported; an account's deletion only lowers it.
-/// `blocked_ips` is the addresses a superuser blocked (#967), tied to no account.
+/// `blocked_ips` and `content_check_worker` are unused tables (#9), tied to no account; they go with the schema squash (#2).
 /// `jobs` is the background job queue (jobs.rs, #872): housekeeping rows, no account.
-/// `content_check_worker` is when `skrongle content-check` last checked in (#1041).
 /// `release_settings` is the waitlist switch (#934).
 #[cfg_attr(not(test), allow(dead_code))]
 pub const SHARED_TABLES: &[&str] = &["ai_spend_days", "blocked_ips", "jobs", "content_check_worker", "release_settings"];
@@ -493,7 +491,7 @@ pub fn apply_retention(conn: &Connection, r: &Retention, now: i64) -> rusqlite::
 
 /// The "I am at least N" confirmation at sign-up. It is part of the Terms
 /// checkbox ("I am at least N and agree to the Terms and Privacy Policy",
-/// #72), which registration and the Google confirm step both require, so
+/// #72), which registration requires, so
 /// the gate is always on; N is `SKRONGLE_MIN_AGE` (`terms::min_age`, 14 by
 /// default, #976). `check` refuses a sign-up without the
 /// box, and `record_age_confirmed` stores it on the new account.

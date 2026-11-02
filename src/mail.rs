@@ -81,8 +81,6 @@ pub const NO_WAIT: &[&str] = &[crate::two_factor::PURPOSE_LOGIN, crate::two_fact
 /// often, and deleting and re-registering the account does not reset it.
 pub const PER_ADDRESS: &[AddressCap] = &[
     AddressCap { purpose: crate::verify::PURPOSE, max: 10, window: 86_400 },
-    // Joining the waitlist with a stranger's address (#934).
-    AddressCap { purpose: crate::waitlist::PURPOSE_CONFIRM, max: 3, window: 86_400 },
 ];
 
 pub struct AddressCap {
