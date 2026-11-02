@@ -207,14 +207,19 @@ test("a wrong melody: the answer line shows the right one as a staff, not as ABC
     await expect(line.getByTestId("answer-staff").locator("svg .abcjs-note")).toHaveCount(4);
     await expect(line).not.toContainText("CDEC");
   };
+  // Practice: the melody wrong, the other two right, so the lesson check
+  // (two of the three, fresh ones first: quiz::check_questions) is sure to
+  // hold the melody question.
   await page.goto("/practice?lesson=ear");
-  for (let n = 0; n < 2; n++) {
+  for (let n = 0; n < 3; n++) {
     const q = page.locator('[data-testid="quiz-question"]:visible');
-    const melody = (await q.getAttribute("data-qid")) === "tc-ear-q2";
-    await q.locator(melody ? 'label.option:has(input[value="CEDC"])' : "label.option").first().click();
+    const id = await q.getAttribute("data-qid");
+    const melody = id === "tc-ear-q2";
+    const pick = melody ? "CEDC" : id === "tc-ear-q1" ? "perfect 5th" : BAR;
+    await q.locator(`label.option:has(input[value="${pick}"])`).click();
     await q.getByTestId("quiz-check").click();
+    await expect(q.getByTestId("quiz-feedback")).toHaveAttribute("data-state", melody ? "wrong" : "right");
     if (melody) {
-      await expect(q.getByTestId("quiz-feedback")).toHaveAttribute("data-state", "wrong");
       await staffNotABC(q.getByTestId("quiz-feedback"));
       await fitsPhone(page);
     }
@@ -222,33 +227,38 @@ test("a wrong melody: the answer line shows the right one as a staff, not as ABC
   }
   await page.goto("/lessons/ear");
   const check = page.locator('[data-testid="lesson-check-question"][data-qid="tc-ear-q2"]');
-  await page.locator('[data-testid="lesson-check-question"][data-qid="tc-ear-q1"] label.option').first().click();
+  await page.locator('[data-testid="lesson-check-question"]:not([data-qid="tc-ear-q2"]) label.option').first().click();
   await check.locator('label.option:has(input[value="CEDC"])').click();
   await page.getByTestId("lesson-check-submit").click();
   await expect(check.getByTestId("lesson-check-feedback")).toHaveAttribute("data-state", "wrong");
   await staffNotABC(check.getByTestId("lesson-check-feedback"));
   await page.goto("/sprint/play?lesson=ear");
   const stage = page.getByTestId("sprint-play-stage");
+  const result = page.getByTestId("sprint-play-result");
   for (let i = 0; i < 30 && !(await page.getByTestId("sprint-play-done").isVisible()); i++) {
-    if (await page.getByTestId("sprint-play-result").isVisible()) { await page.getByTestId("sprint-play-next").click(); continue; }
+    if (await result.isVisible()) { await page.getByTestId("sprint-play-next").click(); continue; }
     const kind = await stage.getAttribute("data-kind");
     if (kind === "sort") {
       for (let k = 0; k < 4; k++) {
         const play = (await stage.locator(".sprint-sort-item [data-play]").getAttribute("data-play"))!;
         await stage.locator(".sprint-bucket").nth(["[CEG]2", "[GBd]2"].includes(play) ? 0 : 1).click();
       }
-      await expect(page.getByTestId("sprint-play-result")).toBeVisible();
+      await expect(result).toBeVisible();
       continue;
     }
     if ((await stage.getAttribute("data-exercise-id")) !== "tc-ear-q2") {
       if (kind === "choice") await stage.locator(".sprint-opt").first().click();
       await page.getByTestId("sprint-play-check").click();
+      // A graded answer's result is a request away: wait for the sheet before
+      // going on, or the next pass taps the options it has just disabled. A
+      // bite's Check just moves on.
+      if (kind === "choice") await expect(result).toBeVisible();
       continue;
     }
     await stage.locator('.sprint-opt[data-value="CEDC"]').click();
     await page.getByTestId("sprint-play-check").click();
-    await expect(page.getByTestId("sprint-play-result")).toHaveAttribute("data-state", "wrong");
-    await staffNotABC(page.getByTestId("sprint-play-result").locator(".r-answer"));
+    await expect(result).toHaveAttribute("data-state", "wrong");
+    await staffNotABC(result.locator(".r-answer"));
     await fitsPhone(page);
     return;
   }
