@@ -158,6 +158,17 @@ impl SettingsChoices {
 
     /// The dialog of the course `pr` (`content`).
     pub(in crate::routes) fn view(&self, pr: &courses::ProjectRow, content: &ContentStore, wizard: bool) -> CourseSettings {
+        let levels = super::pages::level_options(content, content.start_index(&pr.start_unit));
+        self.view_with(pr, content.title(), levels, crate::placement::offered(content), wizard)
+    }
+
+    /// `view` for a built-in course from its summary, without building it (#32).
+    fn view_builtin(&self, pr: &courses::ProjectRow, course: &courses::BuiltinCourse, wizard: bool) -> CourseSettings {
+        let levels = super::pages::level_options_of(course.units(), course.levels(), course.start_index(&pr.start_unit));
+        self.view_with(pr, course.title(), levels, course.placement_offered(), wizard)
+    }
+
+    fn view_with(&self, pr: &courses::ProjectRow, title: &str, levels: Vec<super::pages::LevelOption>, placement: bool, wizard: bool) -> CourseSettings {
         let choice = pr.theme.clone().unwrap_or_default();
         // A theme no longer there (or not theirs) shows as Default.
         let choice = if self.packs.contains_key(&choice) { choice } else { String::new() };
@@ -167,7 +178,7 @@ impl SettingsChoices {
         let badge = super::profile::badge_json(&pr.avatar, pr.avatar_color, theme);
         CourseSettings {
             course_id: pr.course_id.clone(),
-            course_title: content.title().to_string(),
+            course_title: title.to_string(),
             wizard,
             start: false,
             theme: choice,
@@ -180,8 +191,8 @@ impl SettingsChoices {
             palette,
             badge_style: crate::profile::badge(pr.avatar_color, theme).style(),
             badge_url: badge.get("url").and_then(|u| u.as_str()).map(str::to_string),
-            levels: super::pages::level_options(content, content.start_index(&pr.start_unit)),
-            placement: crate::placement::offered(content),
+            levels,
+            placement,
             copyable: false,
             editable: false,
             translate: false,
@@ -218,8 +229,12 @@ pub struct PickerParams {
 }
 
 fn card(content: &ContentStore, editable: bool) -> CourseCard {
-    let m = content.manifest();
-    let (lessons, questions, terms) = content.totals();
+    card_of(content.manifest(), content.totals(), editable)
+}
+
+/// `card` from a course's manifest and totals: a built-in course's summary
+/// makes one without being built (#32).
+fn card_of(m: &crate::content::Manifest, (lessons, questions, terms): (usize, usize, usize), editable: bool) -> CourseCard {
     CourseCard {
         id: m.id.clone(),
         title: m.title.clone(),
@@ -491,9 +506,8 @@ pub(super) async fn picker_page(state: &AppState, user: CurrentUser, notice: Opt
         st.translate_providers = translate_providers.clone();
     };
     // A course not opened yet: its Start button opens the settings wizard (#587).
-    let with_wizard = |content: &ContentStore, mut c: CourseCard| {
-        let pr = courses::ProjectRow { course_id: content.id().to_string(), ..fresh.clone() };
-        let mut st = choices.view(&pr, content, true);
+    let fresh_for = |id: &str| courses::ProjectRow { course_id: id.to_string(), ..fresh.clone() };
+    let with_wizard = |mut st: CourseSettings, mut c: CourseCard| {
         st.start = true;
         st.copyable = c.copyable;
         st.editable = c.editable;
@@ -510,8 +524,15 @@ pub(super) async fn picker_page(state: &AppState, user: CurrentUser, notice: Opt
         if !state.courses.is_builtin(&pr.course_id) && owned.is_none() && shared_by.is_none() {
             continue;
         }
-        let Some(content) = state.courses.get(&state.db, &pr.course_id).await? else { continue };
-        let mut c = card(&content, owned.is_some());
+        // A built-in course's card and dialog come from its summary: listing
+        // it does not build it (#32).
+        let (mut c, mut settings) = match state.courses.builtin_by_id(&pr.course_id) {
+            Some(b) => (card_of(b.manifest(), b.totals(), false), choices.view_builtin(pr, b, false)),
+            None => {
+                let Some(content) = state.courses.get(&state.db, &pr.course_id).await? else { continue };
+                (card(&content, owned.is_some()), choices.view(pr, &content, false))
+            }
+        };
         c.copyable = owned.map_or(shared_by.is_none(), |r| !matches!(r.state, courses::CourseState::Generating | courses::CourseState::Failed));
         c.shared_by = shared_by;
         if let Some(row) = owned {
@@ -521,7 +542,6 @@ pub(super) async fn picker_page(state: &AppState, user: CurrentUser, notice: Opt
         c.progress = Some((passed.get(&pr.course_id).copied().unwrap_or(0), mastered));
         c.last_opened = Some(time_ago(pr.last_opened_at, at));
         c.is_active = user.course_id.as_deref() == Some(pr.course_id.as_str());
-        let mut settings = choices.view(pr, &content, false);
         settings.copyable = c.copyable;
         settings.editable = c.editable;
         translate(&mut settings, &c);
@@ -534,7 +554,7 @@ pub(super) async fn picker_page(state: &AppState, user: CurrentUser, notice: Opt
         .builtin()
         .iter()
         .filter(|c| !projects.iter().any(|p| p.course_id == c.id()))
-        .map(|c| with_wizard(c, CourseCard { copyable: true, ..card(c, false) }))
+        .map(|c| with_wizard(choices.view_builtin(&fresh_for(c.id()), c, true), CourseCard { copyable: true, ..card_of(c.manifest(), c.totals(), false) }))
         .collect();
     let mut my_cards = Vec::new();
     for row in &mine {
@@ -552,7 +572,7 @@ pub(super) async fn picker_page(state: &AppState, user: CurrentUser, notice: Opt
                 let mut c = card(&content, true);
                 c.state = row.state.as_str();
                 c.copyable = true;
-                my_cards.push(with_wizard(&content, c))
+                my_cards.push(with_wizard(choices.view(&fresh_for(content.id()), &content, true), c))
             }
             _ => my_cards.push(broken_card(state, row)),
         }
@@ -566,7 +586,7 @@ pub(super) async fn picker_page(state: &AppState, user: CurrentUser, notice: Opt
         let Some(content) = state.courses.get(&state.db, &s.course_id).await? else { continue };
         let mut c = card(&content, false);
         c.shared_by = Some(s.owner.clone());
-        shared_cards.push(with_wizard(&content, c));
+        shared_cards.push(with_wizard(choices.view(&fresh_for(content.id()), &content, true), c));
     }
     Ok(Page(PickerTemplate { user: Some(user), projects: project_cards, builtin, mine: my_cards, shared: shared_cards, notice, generate, looks: choices.looks, translate_providers }).into_response())
 }

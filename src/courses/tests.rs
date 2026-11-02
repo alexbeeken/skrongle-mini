@@ -502,3 +502,33 @@ fn a_course_claiming_another_id_does_not_open() {
     assert_eq!(rt.block_on(registry.get(&db, id)).unwrap().unwrap().id(), id);
     assert!(registry.lock().get(id).is_some());
 }
+
+/// #32: loading the registry checks every built-in course but keeps none
+/// built, only its summary; the first `get` builds it from its folder and
+/// caches it like a user-made course, and the cache may drop it again.
+#[test]
+fn builtin_courses_are_built_on_first_use() {
+    let rt = tokio::runtime::Builder::new_current_thread().enable_all().build().unwrap();
+    let db = crate::db::Db::open_in_memory().unwrap();
+    let registry = Courses::load_builtin(Path::new("data")).unwrap();
+    let summary = registry.builtin_by_id("spanish").expect("spanish is listed");
+    assert!(registry.is_builtin("spanish"));
+    assert!(registry.lock().entries.is_empty(), "boot keeps no course built");
+
+    let built = rt.block_on(registry.get(&db, "spanish")).unwrap().expect("spanish builds");
+    assert_eq!(summary.totals(), built.totals());
+    let levels: Vec<(usize, usize)> = built.start_units().into_iter().map(|u| (u, built.lessons_in(u).count())).collect();
+    assert_eq!(summary.levels(), levels.as_slice());
+    let second = &built.units()[levels[1].0].id;
+    assert_eq!(summary.start_index(second), built.start_index(second));
+    assert_eq!(summary.placement_offered(), crate::placement::offered(&built));
+    assert_eq!(registry.lock().entries.keys().collect::<Vec<_>>(), ["spanish"], "only the course asked for");
+    let again = rt.block_on(registry.get(&db, "spanish")).unwrap().unwrap();
+    assert!(Arc::ptr_eq(&built, &again), "the second request is served from the cache");
+
+    registry.invalidate("spanish");
+    assert!(registry.lock().get("spanish").is_none());
+    let rebuilt = rt.block_on(registry.get(&db, "spanish")).unwrap().unwrap();
+    assert!(!Arc::ptr_eq(&built, &rebuilt), "dropped from the cache, it is built again");
+    assert!(rt.block_on(registry.get(&db, "no-such-course")).unwrap().is_none());
+}

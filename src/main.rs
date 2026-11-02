@@ -700,7 +700,7 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         }
         if cfg.dev_seed_users > 0 {
             // The seed course first, so most of the crowd is where the dev user is.
-            let mut crowd_courses = courses.builtin().to_vec();
+            let mut crowd_courses: Vec<_> = courses.builtin().iter().filter_map(|c| courses.builtin_store(c.id())).collect();
             crowd_courses.sort_by_key(|c| c.id() != dev::SEED_COURSE);
             let added = dev_crowd::seed(&db, &crowd_courses, cfg.dev_seed_users, cfg.dev_seed_days)?;
             tracing::info!("dev: a crowd of {} learner(s) ({added} new), learner-<n>@{} / '{}'", cfg.dev_seed_users, dev_crowd::DOMAIN, dev::DEV_PASSWORD);

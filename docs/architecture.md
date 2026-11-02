@@ -270,11 +270,16 @@ query). No active course, or one that no longer loads, sends
 browser routes to `/courses` and API routes a 410, which the page
 scripts answer by going to `/courses` too (#1083).
 
-**Courses.** Built-in courses are loaded once at boot from
-`data/courses/<id>/`; the folder name must equal the manifest `id`. User-made
-courses are rows in `courses` with their files in `course_files`; the first
-request for one builds a `ContentStore` from those files and caches it in
-memory until the next edit (`Courses::invalidate`). Both go through
+**Courses.** Built-in courses live in `data/courses/<id>/`; the folder name
+must equal the manifest `id`. Boot builds each one once to validate it (a
+broken course stops the server) and keeps only a `BuiltinCourse` summary
+(manifest, totals, start levels) for the landing page, the course list and
+its dialogs; the first request that needs a course's lessons builds it
+again (#32). User-made courses are rows in `courses` with their files in
+`course_files`; the first request for one builds a `ContentStore` from those
+files. Both kinds share one cache, bounded by the bytes of their files
+(least recently used out first), and a user-made one leaves it at its next
+edit (`Courses::invalidate`). Both go through
 `ContentStore::from_files`, so validation is identical. A course's non-JSON
 files (the SVG pictures under `pictures/`) are kept in the `ContentStore` as
 text and served by `/pictures/{name}` for the active course, with an ETag and

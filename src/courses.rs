@@ -1,6 +1,7 @@
-//! The course registry: built-in courses loaded from `data/courses/<id>/` at
-//! boot, plus courses people build in the app, stored in SQLite as the same
-//! files (`courses` + `course_files`) and loaded on first use.
+//! The course registry: built-in courses under `data/courses/<id>/`, checked
+//! at boot and built on first use (#32), plus courses people build in the
+//! app, stored in SQLite as the same files (`courses` + `course_files`) and
+//! built on first use too.
 //!
 //! A *project* is a (user, course) pair: opening a course records it in
 //! `projects` and makes it the user's active course (`users.active_course`).
@@ -11,7 +12,7 @@ use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 use std::sync::{Arc, Mutex};
 
-use crate::content::{Theme, ContentError, ContentStore, CourseFile, MANIFEST_FILE};
+use crate::content::{Theme, ContentError, ContentStore, CourseFile, Manifest, Unit, MANIFEST_FILE};
 use crate::db::{now, Db};
 use crate::error::AppError;
 
@@ -26,9 +27,10 @@ pub const MAX_COURSE_BYTES: usize = 8 * 1024 * 1024;
 pub const MAX_ACCOUNT_BYTES: usize = 32 * 1024 * 1024;
 /// Courses one account may own.
 pub const MAX_COURSES_PER_USER: usize = 50;
-/// How much of the user-made courses the in-memory cache keeps, counted as
-/// the bytes of their files (a built course takes two to three times that):
-/// past it the least recently used ones are dropped and rebuilt on demand.
+/// How much of the built courses (built-in and user-made) the in-memory cache
+/// keeps, counted as the bytes of their files (a built course takes two to
+/// three times that): past it the least recently used ones are dropped and
+/// rebuilt on demand.
 pub const CACHE_BYTES: usize = 24 * 1024 * 1024;
 
 /// What one account may store in courses. `Default` gives the constants
@@ -48,7 +50,7 @@ impl Default for Limits {
     }
 }
 
-/// A cached user-made course: the store, the bytes of its files and when it
+/// A cached course: the store, the bytes of its files and when it
 /// was last used (a counter), for the cache's LRU eviction.
 struct Cached {
     store: Arc<ContentStore>,
@@ -101,13 +103,78 @@ impl Cache {
 /// there uses every feature a course file can switch on (see its AUTHORING.md).
 pub const TEST_COURSES_DIR: &str = "test-courses";
 
+/// What the registry keeps of a built-in course while it is not built
+/// (#32): its manifest and the numbers its card, the landing page and the
+/// settings wizard show. The lessons are built on first use (`Courses::get`).
+pub struct BuiltinCourse {
+    manifest: Manifest,
+    /// `ContentStore::totals`: lessons, questions, terms.
+    totals: (usize, usize, usize),
+    /// The levels a learner may start at (`ContentStore::start_units`), each
+    /// with the number of lessons in it.
+    levels: Vec<(usize, usize)>,
+    /// `placement::offered`.
+    placement: bool,
+}
+
+impl BuiltinCourse {
+    fn of(store: &ContentStore) -> BuiltinCourse {
+        BuiltinCourse {
+            manifest: store.manifest().clone(),
+            totals: store.totals(),
+            levels: store.start_units().into_iter().map(|u| (u, store.lessons_in(u).count())).collect(),
+            placement: crate::placement::offered(store),
+        }
+    }
+
+    pub fn id(&self) -> &str {
+        &self.manifest.id
+    }
+
+    pub fn title(&self) -> &str {
+        &self.manifest.title
+    }
+
+    pub fn manifest(&self) -> &Manifest {
+        &self.manifest
+    }
+
+    pub fn units(&self) -> &[Unit] {
+        &self.manifest.units
+    }
+
+    pub fn totals(&self) -> (usize, usize, usize) {
+        self.totals
+    }
+
+    /// `ContentStore::start_units` with each level's lesson count.
+    pub fn levels(&self) -> &[(usize, usize)] {
+        &self.levels
+    }
+
+    /// `ContentStore::start_index`.
+    pub fn start_index(&self, id: &str) -> usize {
+        self.manifest.unit_index(id).filter(|u| self.levels.iter().any(|(l, _)| l == u)).unwrap_or(0)
+    }
+
+    /// `placement::offered`: the course has a placement test to take.
+    pub fn placement_offered(&self) -> bool {
+        self.placement
+    }
+}
+
 pub struct Courses {
-    builtin: Vec<Arc<ContentStore>>,
-    /// Where each built-in course was loaded from, to build themed copies on demand.
+    builtin: Vec<BuiltinCourse>,
+    /// Where each built-in course was loaded from, to build it (and its
+    /// themed copies) on demand.
     builtin_dirs: HashMap<String, PathBuf>,
-    /// Cache of user-made courses already built from the database, bounded
-    /// by `cache_bytes` (least recently used out first).
+    /// Cache of the courses already built, built-in ones from their folder
+    /// and user-made ones from the database, bounded by `cache_bytes`
+    /// (least recently used out first).
     custom: Mutex<Cache>,
+    /// Held while a built-in course is built, so two first requests for it
+    /// wait for one build instead of making two.
+    building: Mutex<()>,
     cache_bytes: usize,
     /// What one account may store in courses.
     limits: Limits,
@@ -118,8 +185,10 @@ pub struct Courses {
 }
 
 impl Courses {
-    /// Load every `data/courses/*/course.json`. An empty or missing directory
-    /// is fine (the app then only offers "build your own").
+    /// Check every `data/courses/*/course.json`. An empty or missing directory
+    /// is fine (the app then only offers "build your own"). Each course is
+    /// built once to validate it, then dropped: only its `BuiltinCourse`
+    /// stays, and `get` builds it again on first use (#32).
     pub fn load_builtin(data_dir: &Path) -> Result<Courses, ContentError> {
         Courses::load(data_dir, false)
     }
@@ -155,15 +224,27 @@ impl Courses {
                     return Err(ContentError::Duplicate(format!("course id '{}' ({})", store.id(), dir.display())));
                 }
                 builtin_dirs.insert(store.id().to_string(), dir);
-                builtin.push(Arc::new(store));
+                builtin.push(BuiltinCourse::of(&store));
             }
         }
-        Ok(Courses { builtin, builtin_dirs, custom: Mutex::default(), cache_bytes: CACHE_BYTES, limits: Limits::default(), themed: Mutex::new(HashMap::new()) })
+        Ok(Courses::with_builtin(builtin, builtin_dirs))
+    }
+
+    fn with_builtin(builtin: Vec<BuiltinCourse>, builtin_dirs: HashMap<String, PathBuf>) -> Courses {
+        Courses {
+            builtin,
+            builtin_dirs,
+            custom: Mutex::default(),
+            building: Mutex::new(()),
+            cache_bytes: CACHE_BYTES,
+            limits: Limits::default(),
+            themed: Mutex::new(HashMap::new()),
+        }
     }
 
     #[cfg(test)]
     pub fn empty() -> Courses {
-        Courses { builtin: Vec::new(), builtin_dirs: HashMap::new(), custom: Mutex::default(), cache_bytes: CACHE_BYTES, limits: Limits::default(), themed: Mutex::new(HashMap::new()) }
+        Courses::with_builtin(Vec::new(), HashMap::new())
     }
 
     /// The same registry with other storage limits (from the environment).
@@ -176,12 +257,40 @@ impl Courses {
         self.limits
     }
 
-    pub fn builtin(&self) -> &[Arc<ContentStore>] {
+    /// The built-in courses, as their summaries; `builtin_store` (or `get`)
+    /// for the lessons.
+    pub fn builtin(&self) -> &[BuiltinCourse] {
         &self.builtin
     }
 
-    pub fn builtin_by_id(&self, id: &str) -> Option<Arc<ContentStore>> {
-        self.builtin.iter().find(|c| c.id() == id).cloned()
+    pub fn builtin_by_id(&self, id: &str) -> Option<&BuiltinCourse> {
+        self.builtin.iter().find(|c| c.id() == id)
+    }
+
+    /// A built-in course built: from the cache, or from its folder the first
+    /// time (and again after the cache dropped it). `None` for any other id,
+    /// or when its files no longer load (they did at boot).
+    pub fn builtin_store(&self, id: &str) -> Option<Arc<ContentStore>> {
+        let dir = self.builtin_dirs.get(id)?;
+        if let Some(c) = self.lock().get(id) {
+            return Some(c);
+        }
+        let _one = self.building.lock().unwrap_or_else(|p| p.into_inner());
+        if let Some(c) = self.lock().get(id) {
+            return Some(c);
+        }
+        let built = crate::content::read_course_dir(dir).and_then(|files| Ok((ContentStore::from_files(&files)?, size_of(&files))));
+        match built {
+            Ok((store, bytes)) => {
+                let store = Arc::new(store);
+                self.cache(id, Arc::clone(&store), bytes);
+                Some(store)
+            }
+            Err(e) => {
+                tracing::warn!("built-in course {id} does not load: {e}");
+                None
+            }
+        }
     }
 
     /// The files of a built-in course, read from its folder (`None` for any
@@ -191,7 +300,7 @@ impl Courses {
     }
 
     pub fn is_builtin(&self, id: &str) -> bool {
-        self.builtin.iter().any(|c| c.id() == id)
+        self.builtin_dirs.contains_key(id)
     }
 
     /// Whether a theme's material is offered with this course.
@@ -199,14 +308,15 @@ impl Courses {
         self.is_builtin(id)
     }
 
-    /// Resolve a course by id: built-in, cached, or built from the database.
+    /// Resolve a course by id: cached, or built from its folder (built-in)
+    /// or from the database.
     /// `Ok(None)` when it does not exist or does not currently load, which
     /// includes a manifest whose id is not the course's own (#380: the
     /// learning tables key on the manifest id, so such a course would write
     /// under another course's id).
     pub async fn get(&self, db: &Db, id: &str) -> Result<Option<Arc<ContentStore>>, AppError> {
-        if let Some(c) = self.builtin_by_id(id) {
-            return Ok(Some(c));
+        if self.is_builtin(id) {
+            return Ok(self.builtin_store(id));
         }
         if let Some(c) = self.lock().get(id) {
             return Ok(Some(c));
@@ -267,7 +377,7 @@ impl Courses {
         }
     }
 
-    /// Forget a cached user-made course (after an edit), themed copies included.
+    /// Forget a cached course (after an edit), themed copies included.
     pub fn invalidate(&self, id: &str) {
         self.lock().remove(id);
         self.themed.lock().unwrap_or_else(|p| p.into_inner()).retain(|(cid, _), _| cid != id);

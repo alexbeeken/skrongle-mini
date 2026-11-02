@@ -59,11 +59,11 @@ pub async fn create(State(state): State<Arc<AppState>>, user: CurrentUser, Form(
 /// the course list's notice key saying why it cannot be copied now. A
 /// built-in course or one of the user's own; anything else is a 404.
 async fn copy_source(state: &AppState, user: &CurrentUser, id: &str) -> Result<Result<(Vec<CourseFile>, String), &'static str>, AppError> {
-    if let Some(content) = state.courses.builtin_by_id(id) {
+    if let Some(title) = state.courses.builtin_by_id(id).map(|c| c.title().to_string()) {
         let (registry, cid) = (Arc::clone(&state.courses), id.to_string());
         let read = tokio::task::spawn_blocking(move || registry.builtin_files(&cid)).await.map_err(|e| AppError::Internal(e.to_string()))?;
         let files = read.ok_or(AppError::NotFound)?.map_err(|e| AppError::Internal(e.to_string()))?;
-        return Ok(Ok((files, content.title().to_string())));
+        return Ok(Ok((files, title)));
     }
     let row = owned(state, user, id).await?;
     // Half written, or stopped half way: nothing whole to copy yet.
