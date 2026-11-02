@@ -2,8 +2,8 @@
 
 A single Rust binary (axum + SQLite + askama; templates, static files and docs
 compiled in, courses<!-- themes --> and themes<!-- /themes --> read from `data/` at startup) sized
-for a Raspberry Pi Zero 2 W: ~3.5 MB, 15–25 MB RSS, two async workers, one
-SQLite connection in WAL mode.
+for a Raspberry Pi Zero 2 W: ~3.5 MB, 15–25 MB RSS, one async worker, two
+blocking threads, one SQLite connection in WAL mode.
 
 ## Where things live
 
@@ -64,7 +64,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 
 ```
 src/
-  main.rs        config from env, command line (`doctor`, `--version`), tokio runtime (2 workers), startup, graceful shutdown
+  main.rs        config from env, command line (`doctor`, `--version`), tokio runtime (1 worker, 2 blocking threads), startup, graceful shutdown
   startup.rs     startup errors for the usual self-hosting mistakes: port in use, database folder not writable, secret key missing
   doctor.rs      `skrongle doctor`: read-only diagnostics for bug reports (version, OS, database, schema level, yes/no for secrets and SKRONGLE_LEGAL_EMAIL, disk, memory)
   content.rs     course model: Manifest, Lesson, QuizItem, …; <!-- themes -->the Theme model and LessonTheme / apply_theme; <!-- /themes -->validation; ContentStore (one course in memory<!-- themes -->, optionally with a theme merged in<!-- /themes -->)
@@ -195,7 +195,7 @@ scripts/         release.sh (one-shot), build-pi.sh (cross-compile), deploy.sh, 
 ## Request flow
 
 Every handler is `async`; all SQLite and argon2 work goes to Tokio's blocking
-pool (`Db::call`) so the two async workers never stall. Course generation runs
+pool (`Db::call`) so the one async worker never stalls. Course generation runs
 on its own OS thread (it is minutes of HTTP waiting) and writes through
 `Db::with`.
 
@@ -923,7 +923,7 @@ writable path, and a release never touches the database.
   AI API keys' vault (`secrets::seal_totp`: same master secret, its own
   associated data bound to the user). Turning the second step off or
   switching it needs the password (checked like `/login`: argon2 off the
-  async workers, 10 tries per account per 15 minutes, wrong ones count
+  async worker, 10 tries per account per 15 minutes, wrong ones count
   against the sign-in limit); an account without a password gives a code from its
   current method instead. `/dev/login` skips the second step.
 - Course files are validated on every save and limited to 1 MiB each and 400

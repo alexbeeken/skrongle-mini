@@ -513,11 +513,14 @@ fn main() {
         tracing::warn!("{w}");
     }
 
-    // Two async workers for the Cortex-A53; a small blocking pool for SQLite
-    // and argon2. Everything else (thread stacks, etc.) stays at tokio defaults.
+    // One async worker and two blocking threads (#35): at most 8 accounts and
+    // 32 connections, so one worker serves every request, and two blocking
+    // threads let a `Db::call` overlap an argon2 hash. Multi-thread flavour
+    // stays so `spawn_blocking` exists. Nothing on a request path may block
+    // the worker (docs/architecture.md, "Request flow").
     let rt = tokio::runtime::Builder::new_multi_thread()
-        .worker_threads(2)
-        .max_blocking_threads(3)
+        .worker_threads(1)
+        .max_blocking_threads(2)
         .thread_name("learn-worker")
         .enable_io()
         .enable_time()
