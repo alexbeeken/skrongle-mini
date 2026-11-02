@@ -72,7 +72,7 @@ fn privacy_page_export_and_account_deletion_over_http() {
     assert_eq!(state.db.with(|c| c.query_row("SELECT COUNT(*) FROM data_exports", [], |r| r.get::<_, i64>(0))).unwrap(), 1, "one in flight");
     assert!(get("/profile?saved=export-busy", &ann_c).1.contains("already being prepared"));
     assert!(get("/profile", &ann_c).1.contains(r#"data-testid="profile-export-state" data-state="queued""#));
-    assert_eq!(crate::exports::run_queued(&state.db, &state.exports.dir, Some(Box::new(|| {})), std::time::Duration::ZERO), 1);
+    assert_eq!(crate::exports::run_queued(&state.db, &state.exports.dir, Some(Box::new(|| {}))), 1);
     let mail: String = state
         .db
         .with(|c| c.query_row("SELECT body_text FROM mail_outbox WHERE user_id = ?1 AND purpose = 'data-export'", [ann], |r| r.get(0)))

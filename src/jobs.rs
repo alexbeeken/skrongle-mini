@@ -25,11 +25,6 @@
 //!   A kind with `at` queues it at the time `at` names instead, and its
 //!   first row waits for that time too (the nightly content check, #1038).
 //!
-//! - Long work runs in slices so it never holds the one runner for long: a
-//!   handler returns [`Step::Again`] with its place (a new payload), and the
-//!   row is queued again, due now, behind anything already due ([`again`]).
-//!   Data exports work this way (#875, `exports.rs`, kind [`EXPORT`]).
-//!
 //! - The mail outbox (`mail_outbox`) keeps its own
 //!   table but is drained by this runner too (#873): it is a [`Drain`].
 //!   A row is leased the same way, with [`lease_outbox`] (`locked_by`,
@@ -107,9 +102,9 @@ const fn hourly(name: &'static str) -> Kind {
 
 /// The hourly housekeeping: every purge in one job ([`housekeeping`]).
 pub const HOUSEKEEPING: Kind = hourly("housekeeping");
-/// "Download my data" (exports.rs), one slice of the file per run. A
-/// failed slice fails the export (the learner can ask again at once); a
-/// server that stopped mid-slice takes the row again when its lease runs out.
+/// "Download my data" (exports.rs), the whole file in one run. A failed run
+/// fails the export (the learner can ask again at once, so one attempt); a
+/// server that stopped mid-run takes the row again when its lease runs out.
 pub const EXPORT: Kind = Kind { name: "export", max_attempts: 1, delays: RETRY_DELAYS, every: None, at: None };
 /// Dev mode only (`/dev/jobs`): a job that always fails, to watch retries.
 pub const DEV_FAIL: Kind = Kind { name: "dev.fail", max_attempts: RETRY_DELAYS.len() as i64 + 1, delays: RETRY_DELAYS, every: None, at: None };
@@ -192,8 +187,6 @@ pub enum Outcome {
     Retry(i64),
     /// Failed for the last time.
     Failed,
-    /// A slice is done and the job queued again, due now ([`again`]).
-    Again,
     /// The handler took the row over ([`Step::Handed`]).
     Handed,
 }
@@ -234,16 +227,6 @@ pub fn finish(conn: &mut Connection, job: &Claimed, result: Result<(), &str>, no
     }
     tx.commit()?;
     Ok(outcome)
-}
-
-/// A slice of `job` is done: queue it again, due `now`, with `payload` (its
-/// place). Its attempts start over, so a failure counts against this slice.
-pub fn again(conn: &Connection, job: &Claimed, payload: &str, now: i64) -> rusqlite::Result<Outcome> {
-    conn.execute(
-        "UPDATE jobs SET state = 'queued', locked_by = NULL, locked_until = NULL, run_at = ?2, attempts = 0, payload_json = ?3, last_error = NULL WHERE id = ?1",
-        params![job.id, now, payload],
-    )?;
-    Ok(Outcome::Again)
 }
 
 /// When the next job of `kinds` is due (a run time, or a lease running out).
@@ -410,8 +393,6 @@ impl Drain {
 pub enum Step {
     /// Finished, with a short note for the log (empty: nothing to say).
     Done(String),
-    /// One slice done: run again with `payload`, which holds the place.
-    Again { payload: String, note: String },
     /// The handler took the row over (a thread of its own renews its lease
     /// and records the end): the runner leaves it as it is.
     Handed(String),
@@ -443,7 +424,7 @@ impl Runner {
         self.handle_steps(k, move |db, payload| f(db, payload).map(Step::Done))
     }
 
-    /// Run kind `k` with `f`, which may do its work in slices ([`Step::Again`]).
+    /// Run kind `k` with `f`, which returns a [`Step`] (it may hand the row on).
     pub fn handle_steps(mut self, k: Kind, f: impl Fn(&Db, &str) -> Result<Step, String> + Send + 'static) -> Runner {
         self.handlers.insert(k.name, Box::new(move |db: &Db, job: &Claimed| f(db, &job.payload)));
         self
@@ -527,13 +508,11 @@ impl Runner {
         let done_at = crate::db::now().max(now);
         let outcome = match &result {
             Ok(Step::Handed(_)) => Outcome::Handed,
-            Ok(Step::Again { payload, .. }) => db.with(|c| again(c, &job, payload, done_at))?,
             Ok(Step::Done(_)) => db.with(|c| finish(c, &job, Ok(()), done_at))?,
             Err(e) => db.with(|c| finish(c, &job, Err(e.as_str()), done_at))?,
         };
         match (&result, outcome) {
             (Ok(Step::Handed(note)), _) => tracing::debug!("job #{} {} handed on ({note})", job.id, job.kind),
-            (Ok(Step::Again { note, .. }), _) => tracing::debug!("job #{} {}: slice done ({note})", job.id, job.kind),
             (Ok(Step::Done(note)), _) if note.is_empty() => tracing::debug!("job #{} {} done", job.id, job.kind),
             (Ok(Step::Done(note)), _) => tracing::info!("job #{} {}: {note}", job.id, job.kind),
             (Err(e), Outcome::Retry(at)) => tracing::warn!(

@@ -119,8 +119,8 @@ src/
   problems.rs    what the editor and the file page say when a course file is refused: kind, lesson, field, line, message, fix hint (every ContentError and arrange.rs refusal)
   owner.rs       what the owner does to an account with no message sent (#635): a temporary password (users.must_change_password), two-factor off, make a superuser; the binary's commands (reset-password, disable-2fa, make-owner, help)
   privacy.rs     a learner's data as a whole: USER_TABLES, the exported columns (EXPORTED/WITHHELD), account deletion, retention rules, the age confirmation (docs/data-inventory.md)
-  jobs.rs        background jobs (table jobs, #872): enqueue, the one-statement claim with a lease, retries with per-kind delays, periodic kinds that queue their next run, sliced kinds that queue themselves again (`Step::Again`); the `jobs` runner thread, which also drains the mail and text outboxes with a lease (#873); the hourly housekeeping as one job with a step per purge
-  exports.rs     "Download my data" in the background (table data_exports): the `export` job (jobs.rs runner, #875) writes the file page by page to <db>.exports/, a slice per run, mails a one-time link, retention
+  jobs.rs        background jobs (table jobs, #872): enqueue, the one-statement claim with a lease, retries with per-kind delays, periodic kinds that queue their next run; the `jobs` runner thread, which also drains the mail and text outboxes with a lease (#873); the hourly housekeeping as one job with a step per purge
+  exports.rs     "Download my data" in the background (table data_exports): the `export` job (jobs.rs runner, #875) writes the file page by page to <db>.exports/, in one run, mails a one-time link, retention
   mathcheck.rs   numeric and expression answers: a small parser/evaluator, numbers in every spelling, equivalence by sampling
   algebra_tiles.rs  algebra-tiles questions: the pile from `tiles`, an answer must be two sides whose product is the tiles
   clock.rs       clock answers: H:MM on the 12-hour face, the hands' angles, what a clock question may say
@@ -216,14 +216,11 @@ game, AI job and tutor maps, rate limits, account deletions, retention, outbox,
 links, exports, old job rows, then the WAL checkpoint); each step logs its
 count, a failing step is logged and the next still runs. At
 boot it gets a row due now if it has none, so a server restarted more
-often than hourly still cleans up. Long work runs in slices so the one
-runner is never held for long: the handler returns `Step::Again` with its
-place as the new payload, and the row goes back to `queued`, due now,
-attempts reset, behind any row already due. Data exports work this way
-(kind `export`, #875): each run writes 50 pages, then saves the table, the
-last key and the good byte count; after a stop, the lease runs out, the
-next run cuts the part file back to that byte count and goes on. The
-same thread sends the mail
+often than hourly still cleans up. Data exports
+(kind `export`, #875, `max_attempts` 1) write the whole file in one run (a
+family's data is a few MB): a failure deletes the part file and the
+learner asks again, and a server that stopped mid-run starts over after
+its lease runs out. The same thread sends the mail
 outbox (#873): it keeps its own table (`mail_outbox`)
 but takes a row with the same kind of lease (`jobs::lease_outbox` sets
 `locked_by` and `locked_until`; the row stays `queued`), so a row being sent
@@ -752,7 +749,6 @@ posture are in `docs/self-hosting.md`, "Skrongle mini".
 | `SKRONGLE_DEV_RELOAD` | `0` | Dev mode only: `1` (set by `./.dev-start --watch`) appends a script to every HTML page that reloads it after the server restarts; see [testing](testing#live-reload---watch) |
 | `TEST_COURSE` | `0` | `1`: also offer the courses under `data/test-courses/` (the test course, for automated tests). `SKRONGLE_TEST_COURSE` works too. Never set in production |
 | `SKRONGLE_DEV_SEED` | `0` | Dev mode only: at boot, create the dev user with a course open and some progress |
-| `SKRONGLE_DEV_EXPORT_PAUSE_MS` | unset | Dev mode only: data exports pause this long after each page and write five pages a slice, so you can watch one on `/dev/jobs` or stop the server halfway through (`exports.rs`, #875) |
 | `SKRONGLE_DEV_SEED_USERS` | `0` | Dev mode only: at boot, a crowd of this many made-up learners with weeks of history (`dev_crowd.rs`, [testing](testing#a-crowd-of-learners-with-history)); `SKRONGLE_DEV_SEED_DAYS` (90) is how far back it goes |
 | `SKRONGLE_RNG_SEED` | — | Dev mode only: a number; quizzes, sessions and games draw from it instead of the OS, so a browser test replays exactly (`scripts/e2e.sh` sets it from `E2E_SEED`) |
 | `SKRONGLE_LLM_MODE` | (empty) | Dev mode only. Empty (or `dev`): the providers' default base URLs point at the dev AI provider (`/dev/ai`, [testing](testing#the-dev-ai-provider)), which answers from the fixtures over their wire protocols; `capture`: the same, holding each request for a reply typed at the bottom of `/dev/ai` (Manual replies); `live`: the real providers (and the seed saves no keys). `fixtures` is read as the default |

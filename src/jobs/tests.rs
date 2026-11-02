@@ -106,7 +106,7 @@ fn a_periodic_job_that_fails_for_good_still_comes_back() {
         match runner.run_one(&db, now).unwrap().unwrap().1 {
             Outcome::Retry(at) => now = at,
             Outcome::Failed => break,
-            Outcome::Done | Outcome::Again | Outcome::Handed => panic!("it always fails"),
+            Outcome::Done | Outcome::Handed => panic!("it always fails"),
         }
     }
     let rows = db.with(|c| recent(c, 10)).unwrap();
@@ -151,28 +151,6 @@ fn dev_run_now_makes_rows_due() {
     db.with(|c| claim(c, &["dev.fail"], "a", T)).unwrap().unwrap();
     assert_eq!(db.with(|c| dev_run_now(c, id, T + 1)).unwrap(), 1);
     assert!(db.with(|c| claim(c, &["dev.fail"], "b", T + 1)).unwrap().is_some(), "its lease was ended");
-}
-
-/// A sliced job comes back due now with its new place, its attempts start
-/// over, and a job already due runs before its next slice.
-#[test]
-fn a_sliced_job_is_queued_again_with_its_place() {
-    let db = db();
-    let runner = Runner::new()
-        .handle_steps(EXPORT, |_, payload| {
-            let n = serde_json::from_str::<serde_json::Value>(payload).unwrap()["n"].as_i64().unwrap();
-            Ok(if n < 2 { Step::Again { payload: format!(r#"{{"n":{}}}"#, n + 1), note: String::new() } } else { Step::Done(format!("done at {n}")) })
-        })
-        .handle(HOUSEKEEPING, |_, _| Ok(String::new()));
-    let id = db.with(|c| enqueue(c, EXPORT.name, &serde_json::json!({"n": 0}), T, T)).unwrap().unwrap();
-    assert_eq!(runner.run_one(&db, T).unwrap().unwrap().1, Outcome::Again);
-    assert_eq!(state(&db, id), ("queued".to_string(), T, 0, None));
-    let other = db.with(|c| enqueue(c, HOUSEKEEPING.name, &serde_json::json!({}), T - 1, T)).unwrap().unwrap();
-    assert_eq!(runner.run_one(&db, T).unwrap().unwrap().0.id, other);
-    let (job, outcome) = runner.run_one(&db, T).unwrap().unwrap();
-    assert_eq!((job.id, job.payload.as_str(), job.attempts, outcome), (id, r#"{"n":1}"#, 1, Outcome::Again));
-    assert_eq!(runner.run_one(&db, T).unwrap().unwrap().1, Outcome::Done);
-    assert_eq!(state(&db, id).0, "done");
 }
 
 /// #873: each pass sends a batch from every outbox before one job, so mail
