@@ -45,6 +45,50 @@ pub fn verify_password(password: &str, hash: &str) -> bool {
     }
 }
 
+/// One argon2 hash or verify at a time (#31, part of the `mini-caps` epic
+/// #48). Each one holds `ARGON_M_COST_KIB` of transient memory, and the
+/// Tokio blocking pool has three threads: three at once would cost 24 MiB on
+/// a box with `MemoryMax=64M`. A family never needs parallel hashing; a short
+/// queue is invisible, an OOM kill is not. Request handlers go through
+/// [`hash_password_async`] and [`verify_password_async`], so nothing bypasses it.
+static HASH_SLOT: tokio::sync::Semaphore = tokio::sync::Semaphore::const_new(1);
+
+/// Hashes running right now, and the most there ever were (tests only).
+#[cfg(test)]
+static HASHES_RUNNING: std::sync::atomic::AtomicUsize = std::sync::atomic::AtomicUsize::new(0);
+#[cfg(test)]
+static HASHES_PEAK: std::sync::atomic::AtomicUsize = std::sync::atomic::AtomicUsize::new(0);
+
+/// Run `work` on the blocking pool while holding the one hash slot. Only the
+/// hashing waits; the rest of the request does not.
+async fn in_hash_slot<T: Send + 'static>(work: impl FnOnce() -> T + Send + 'static) -> Result<T, AppError> {
+    let _permit = HASH_SLOT.acquire().await.map_err(|e| AppError::Internal(e.to_string()))?;
+    tokio::task::spawn_blocking(move || {
+        #[cfg(test)]
+        {
+            use std::sync::atomic::Ordering::SeqCst;
+            let now = HASHES_RUNNING.fetch_add(1, SeqCst) + 1;
+            HASHES_PEAK.fetch_max(now, SeqCst);
+        }
+        let out = work();
+        #[cfg(test)]
+        HASHES_RUNNING.fetch_sub(1, std::sync::atomic::Ordering::SeqCst);
+        out
+    })
+    .await
+    .map_err(|e| AppError::Internal(e.to_string()))
+}
+
+/// [`hash_password`] behind the one hash slot.
+pub async fn hash_password_async(password: String) -> Result<String, AppError> {
+    in_hash_slot(move || hash_password(&password)).await?
+}
+
+/// [`verify_password`] behind the one hash slot.
+pub async fn verify_password_async(password: String, hash: String) -> Result<bool, AppError> {
+    in_hash_slot(move || verify_password(&password, &hash)).await
+}
+
 /// 256-bit random token, hex encoded.
 pub fn generate_token() -> String {
     let mut bytes = [0u8; 32];
@@ -634,6 +678,30 @@ mod tests {
         assert!(verify_password("correct horse battery", &h));
         assert!(!verify_password("wrong", &h));
         assert!(!verify_password("x", "not-a-hash"));
+    }
+
+    /// Many sign-ins at once still hash one after another (#31).
+    #[tokio::test(flavor = "multi_thread", worker_threads = 4)]
+    async fn hashes_run_one_at_a_time() {
+        use std::sync::atomic::Ordering::SeqCst;
+        let hash = hash_password("pw-for-the-queue").unwrap();
+        HASHES_PEAK.store(0, SeqCst);
+        let mut jobs = Vec::new();
+        for i in 0..6 {
+            let hash = hash.clone();
+            jobs.push(tokio::spawn(async move {
+                if i % 2 == 0 {
+                    verify_password_async("pw-for-the-queue".into(), hash).await.unwrap()
+                } else {
+                    hash_password_async("another-pw".into()).await.unwrap().starts_with("$argon2id$")
+                }
+            }));
+        }
+        for j in jobs {
+            assert!(j.await.unwrap());
+        }
+        assert_eq!(HASHES_PEAK.load(SeqCst), 1, "more than one hash ran at once");
+        assert_eq!(HASHES_RUNNING.load(SeqCst), 0);
     }
 
     /// A hash written by an earlier argon2 crate (0.5, a dev account's

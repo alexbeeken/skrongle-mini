@@ -79,7 +79,7 @@ pub async fn change(
         return Ok(form(user, next, Some(e)));
     }
     let new = f.new;
-    let hash = tokio::task::spawn_blocking(move || auth::hash_password(&new)).await.map_err(|e| AppError::Internal(e.to_string()))??;
+    let hash = auth::hash_password_async(new).await?;
     let uid = user.id;
     let keep = token.unwrap_or_default();
     state
