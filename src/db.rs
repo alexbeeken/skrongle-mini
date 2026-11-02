@@ -18,7 +18,7 @@ use crate::error::AppError;
 pub struct Db {
     conn: Arc<Mutex<Connection>>,
     /// The signed-in users by session (#37), forgotten by this connection's
-    /// update hook whenever a table they are read from changes.
+    /// temporary triggers whenever a table they are read from changes.
     sessions: Arc<crate::auth::SessionCache>,
 }
 
@@ -79,11 +79,11 @@ impl Db {
     fn new(conn: Connection) -> rusqlite::Result<Db> {
         let sessions = Arc::new(crate::auth::SessionCache::default());
         let watched = Arc::clone(&sessions);
-        conn.update_hook(Some(move |_: rusqlite::hooks::Action, _: &str, table: &str, _: i64| {
-            if crate::auth::SessionCache::watches(table) {
-                watched.forget_all();
-            }
-        }))?;
+        conn.create_scalar_function("forget_sessions", 0, rusqlite::functions::FunctionFlags::SQLITE_UTF8, move |_| {
+            watched.forget_all();
+            Ok(0)
+        })?;
+        conn.execute_batch(&crate::auth::SessionCache::triggers_sql())?;
         Ok(Db { conn: Arc::new(Mutex::new(conn)), sessions })
     }
 

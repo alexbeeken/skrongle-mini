@@ -4,10 +4,10 @@
 //! terms subqueries). The working set is a few dozen `CurrentUser`s: at most
 //! `MAX_ACCOUNTS * MAX_SESSIONS_PER_ACCOUNT` sessions exist.
 //!
-//! Kept true by the connection, not by each write path: `Db` installs an
-//! update hook that forgets every entry when a row of a table the query
-//! reads ([`WATCHED`]) is inserted, updated or deleted, whichever code does
-//! it (sign-in and sign-out, profile and course changes, terms, plans,
+//! Kept true by the connection, not by each write path: `Db` creates
+//! temporary triggers ([`SessionCache::triggers_sql`]) that forget every
+//! entry when a row of a table the query reads ([`WATCHED`]) is inserted,
+//! updated or deleted, whichever code does it (sign-in and sign-out, profile and course changes, terms, plans,
 //! account deletion, the hourly purge, and any write added later). An entry
 //! is also dropped when its session expires and after [`MAX_AGE_SECS`], for
 //! what changes with time alone (a plan grant running out, the terms notice
@@ -77,9 +77,22 @@ impl SessionCache {
         entries.insert(hash, Entry { user, until: expires_at.min(now + MAX_AGE_SECS) });
     }
 
-    /// Does a write to `table` change what the cache holds?
-    pub fn watches(table: &str) -> bool {
-        WATCHED.contains(&table)
+    /// The connection's temporary triggers: after every insert, update or
+    /// delete of a row of a [`WATCHED`] table, the `forget_sessions()` SQL
+    /// function `Db` registers runs `forget_all`. Triggers and not an update
+    /// hook: SQLite calls no update hook for a `WITHOUT ROWID` table, which
+    /// `courses` and `projects` are, nor for a `DELETE` without `WHERE`.
+    pub fn triggers_sql() -> String {
+        let mut sql = String::new();
+        for table in WATCHED {
+            for op in ["INSERT", "UPDATE", "DELETE"] {
+                let name = format!("forget_sessions_{}_{}", table, op.to_lowercase());
+                sql.push_str(&format!(
+                    "CREATE TEMP TRIGGER IF NOT EXISTS {name} AFTER {op} ON {table} BEGIN SELECT forget_sessions(); END;\n"
+                ));
+            }
+        }
+        sql
     }
 
     /// Forget every user: something they were read from changed.
@@ -120,6 +133,34 @@ mod tests {
             cache.put(format!("s{i}"), CurrentUser::test(3), 0, i64::MAX);
             assert!(cache.len() <= CAPACITY);
         }
+    }
+
+    /// Every watched table has its three triggers on a real connection, and
+    /// a write empties the cache whatever the kind of table (`courses` is
+    /// WITHOUT ROWID) or statement (a DELETE without WHERE).
+    #[test]
+    fn a_write_to_any_watched_table_forgets_the_cache() {
+        let db = crate::db::Db::open_in_memory().unwrap();
+        let cache = db.sessions();
+        db.with(|c| {
+            for table in WATCHED {
+                let n: i64 = c.query_row("SELECT COUNT(*) FROM sqlite_temp_master WHERE type = 'trigger' AND tbl_name = ?1", [table], |r| r.get(0))?;
+                assert_eq!(n, 3, "{table}");
+                let sql: String = c.query_row("SELECT group_concat(sql) FROM sqlite_temp_master WHERE tbl_name = ?1", [table], |r| r.get(0))?;
+                assert!(sql.contains("forget_sessions()"), "{table}");
+            }
+            cache.put("x".into(), CurrentUser::test(1), 0, i64::MAX);
+            c.execute("INSERT INTO users (password_hash, created_at, email) VALUES ('', 0, 'a@example.org')", [])?;
+            assert_eq!(cache.len(), 0, "users");
+            cache.put("x".into(), CurrentUser::test(1), 0, i64::MAX);
+            c.execute("INSERT INTO courses (id, owner_id, title, created_at, updated_at) VALUES ('c', 1, 'C', 1, 1)", [])?;
+            assert_eq!(cache.len(), 0, "courses (WITHOUT ROWID)");
+            cache.put("x".into(), CurrentUser::test(1), 0, i64::MAX);
+            c.execute("DELETE FROM courses", [])?;
+            assert_eq!(cache.len(), 0, "a DELETE without WHERE");
+            Ok(())
+        })
+        .unwrap();
     }
 
     /// Every table the session query reads is watched: a new join or

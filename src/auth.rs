@@ -705,6 +705,17 @@ mod tests {
         state.db.with(|c| crate::courses::open_project(c, ann, "spanish")).unwrap();
         assert_eq!(request(&here).unwrap().course_id.as_deref(), Some("spanish"), "course switched");
 
+        // `projects` and `courses` are WITHOUT ROWID tables: no update hook
+        // sees them, the triggers do.
+        let change = crate::courses::SettingsChange { start_unit: Some("2".into()), ..Default::default() };
+        state.db.with(|c| crate::courses::set_project_settings(c, ann, "spanish", &change)).unwrap();
+        assert_eq!(request(&here).unwrap().start_unit, "2", "course setting");
+        state.db.with(|c| c.execute("INSERT INTO courses (id, owner_id, title, created_at, updated_at) VALUES ('mine', ?1, 'Mine', 1, 1)", [ann])).unwrap();
+        state.db.with(|c| crate::courses::open_project(c, ann, "mine")).unwrap();
+        assert_eq!(request(&here).unwrap().course_title.as_deref(), Some("Mine"));
+        state.db.with(|c| c.execute("UPDATE courses SET title = 'Renamed' WHERE id = 'mine'", [])).unwrap();
+        assert_eq!(request(&here).unwrap().course_title.as_deref(), Some("Renamed"), "course title");
+
         assert!(request(&elsewhere).is_some());
         state.db.with(|c| delete_other_sessions(c, ann, &here)).unwrap();
         assert!(request(&elsewhere).is_none(), "signed out elsewhere");
