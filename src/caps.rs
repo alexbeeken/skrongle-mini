@@ -13,3 +13,8 @@ pub const MAX_ACCOUNTS: usize = 8;
 pub fn accounts_full(count: i64, dev: bool) -> bool {
     !dev && count >= MAX_ACCOUNTS as i64
 }
+
+/// Tutor model calls in flight at once, for all learners (#47). Each holds an
+/// OS thread and a TLS connection for up to two minutes on a 512 MB Pi; a
+/// third call is refused with the busy message (`tutor::ALL_BUSY`).
+pub const MAX_TUTOR_CALLS: usize = 2;

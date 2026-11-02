@@ -39,9 +39,6 @@ use crate::ai::ProviderKind;
 
 /// Idle sessions are dropped after this long.
 pub const IDLE_TTL_SECS: i64 = 2 * 3600;
-/// Tutor model calls in flight at once, for all learners (#382): each holds
-/// an OS thread and a TLS connection for up to two minutes on a 512 MB Pi.
-pub const MAX_CALLS: usize = 4;
 /// Refusal of a turn while this learner's previous one is still with the
 /// model (in this tab or another).
 pub const STILL_ANSWERING: &str = "the tutor is still answering; wait for its reply and try again";
@@ -783,8 +780,8 @@ impl Drop for Slot<'_> {
     }
 }
 
-/// The tutor threads of the whole server ([`MAX_CALLS`]).
-static CALLS: Slots = Slots::new(MAX_CALLS);
+/// The tutor threads of the whole server ([`crate::caps::MAX_TUTOR_CALLS`]).
+static CALLS: Slots = Slots::new(crate::caps::MAX_TUTOR_CALLS);
 
 /// Whether `user_id` has a tutor call with the model. A learner who left
 /// mid-turn keeps it until the provider answers or times out, so the next
@@ -805,7 +802,7 @@ pub fn cancel(user_id: i64) -> Result<bool, &'static str> {
 /// One tutor reply through the meter (`metering::Meter::call`: checked
 /// first on the server's key, recorded either way), on an OS thread of its
 /// own, so neither the two async workers nor the small blocking pool wait
-/// on the network. At most [`MAX_CALLS`] run at once and one live call per
+/// on the network. At most [`crate::caps::MAX_TUTOR_CALLS`] run at once and one live call per
 /// learner; past that the call is refused at once, in the learner's
 /// language (a thread keeps its slot until the provider answers or times
 /// out, even if the request that started it has gone or was cancelled).
@@ -1060,7 +1057,7 @@ mod tests {
 
     #[test]
     fn tutor_threads_are_capped() {
-        let slots = Slots::new(2);
+        let slots = Slots::new(crate::caps::MAX_TUTOR_CALLS);
         let one = slots.try_take(1).unwrap();
         let two = slots.try_take(2).unwrap();
         assert_eq!(slots.try_take(3).err(), Some(ALL_BUSY));
@@ -1075,7 +1072,7 @@ mod tests {
     /// cannot start another one and fill the server's slots.
     #[test]
     fn one_tutor_thread_per_learner() {
-        let slots = Slots::new(4);
+        let slots = Slots::new(crate::caps::MAX_TUTOR_CALLS);
         let first = slots.try_take(1).unwrap();
         assert!(slots.holds(1) && !slots.holds(2));
         assert_eq!(slots.try_take(1).err(), Some(STILL_ANSWERING));
@@ -1091,7 +1088,7 @@ mod tests {
     /// the learner; a second cancel waits until the first call has ended.
     #[test]
     fn a_cancelled_call_frees_the_learner_not_the_thread() {
-        let slots = Slots::new(3);
+        let slots = Slots::new(crate::caps::MAX_TUTOR_CALLS);
         assert_eq!(slots.cancel(1), Ok(false));
         let first = slots.try_take(1).unwrap();
         assert_eq!(slots.cancel(1), Ok(true));
@@ -1100,12 +1097,11 @@ mod tests {
         assert!(slots.holds(1));
         assert_eq!(slots.cancel(1), Err(ALREADY_CANCELLED));
         assert!(slots.holds(1));
-        // Both threads still count towards the cap.
-        let other = slots.try_take(2).unwrap();
-        assert_eq!(slots.try_take(3).err(), Some(ALL_BUSY));
+        // Both threads still count towards the cap, so a second learner is refused.
+        assert_eq!(slots.try_take(2).err(), Some(ALL_BUSY));
         drop(first);
         assert_eq!(slots.cancel(1), Ok(true));
-        drop((second, other));
+        drop(second);
         assert!(slots.lock().taken.is_empty());
     }
 
