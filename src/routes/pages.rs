@@ -318,15 +318,15 @@ pub fn level_options_of(units: &[crate::content::Unit], levels: &[(usize, usize)
     levels
         .iter()
         .enumerate()
-        .map(|(i, &(u, lessons))| {
-            let unit = &units[u];
-            LevelOption {
+        .filter_map(|(i, &(u, lessons))| {
+            let unit = units.get(u)?;
+            Some(LevelOption {
                 id: if i == 0 { String::new() } else { unit.id.clone() },
                 title: unit.title.clone(),
                 description: unit.description.clone(),
                 lessons,
                 chosen: Some(u) == chosen,
-            }
+            })
         })
         .collect()
 }
