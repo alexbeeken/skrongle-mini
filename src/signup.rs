@@ -102,6 +102,8 @@ pub enum Refusal {
     Closed,
     /// No account yet, and no owner's link: the owner finds it in the log.
     NoOwner,
+    /// The server holds [`crate::caps::MAX_ACCOUNTS`] accounts already.
+    Full,
     /// `invite` with a token that cannot be used.
     Used,
     Expired,
@@ -112,6 +114,7 @@ impl Refusal {
     /// The page's text.
     pub fn message(self) -> String {
         crate::t(match self {
+            Refusal::Full => "auth.signup.full",
             Refusal::Closed => "auth.signup.closed",
             Refusal::NoOwner => "auth.signup.no_owner",
             Refusal::Used => "auth.signup.invite_used",
@@ -124,6 +127,12 @@ impl Refusal {
 /// Does the server have no account yet?
 pub fn no_accounts(conn: &Connection) -> rusqlite::Result<bool> {
     conn.query_row("SELECT NOT EXISTS (SELECT 1 FROM users)", [], |r| r.get(0))
+}
+
+/// Does the server hold [`crate::caps::MAX_ACCOUNTS`] accounts already?
+pub fn is_full(conn: &Connection) -> rusqlite::Result<bool> {
+    let n: i64 = conn.query_row("SELECT COUNT(*) FROM users", [], |r| r.get(0))?;
+    Ok(n >= crate::caps::MAX_ACCOUNTS as i64)
 }
 
 /// What `token` (as typed in `?invite=`) names at `now`.
@@ -151,6 +160,11 @@ pub fn check_invite(conn: &Connection, token: &str, now: i64) -> rusqlite::Resul
 /// May an account be made now, in `mode`, with this invitation token ('' for
 /// none), for `email` (`None` before the address is known: the form)?
 pub fn admit(conn: &Connection, mode: Mode, invite: &str, _email: Option<&str>, now: i64) -> rusqlite::Result<Result<Admit, Refusal>> {
+    // First, in every mode: callers run this in the transaction that
+    // inserts the account, so the count and the insert can't be split.
+    if is_full(conn)? {
+        return Ok(Err(Refusal::Full));
+    }
     if mode == Mode::Open {
         return Ok(Ok(Admit::Open));
     }
@@ -380,6 +394,30 @@ mod tests {
             Ok(())
         })
         .unwrap();
+    }
+
+    /// The ninth account is refused in every mode, with the one message;
+    /// the register form, an invitation link and the proxy all ask `admit`.
+    #[test]
+    fn the_ninth_account_is_refused() {
+        let max = crate::caps::MAX_ACCOUNTS;
+        for mode in [Mode::Open, Mode::Invite, Mode::Closed] {
+            let db = Db::open_in_memory().unwrap();
+            db.with(|c| {
+                for n in 0..max {
+                    assert!(!is_full(c)?);
+                    crate::auth::create_user(c, &format!("u{n}@example.org"), "h")?;
+                }
+                assert!(is_full(c)?);
+                // An unused, valid invitation does not get past the cap.
+                let token = make(c, 1, 1)?;
+                assert_eq!(admit(c, mode, &token, None, 2)?, Err(Refusal::Full), "{mode:?}");
+                assert_eq!(admit(c, mode, "", None, 2)?, Err(Refusal::Full), "{mode:?}");
+                Ok(())
+            })
+            .unwrap();
+        }
+        assert_eq!(Refusal::Full.message(), crate::t("auth.signup.full"));
     }
 
     #[test]

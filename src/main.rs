@@ -9,6 +9,7 @@ mod ai;
 mod arrange;
 mod auth;
 mod billing;
+mod caps;
 mod clock;
 mod conjugation;
 mod consent;

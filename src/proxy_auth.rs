@@ -352,6 +352,28 @@ mod tests {
         assert!(Config::parse(Some("X"), Some("0.0.0.0/0")).unwrap().unwrap().too_wide());
     }
 
+    /// The proxy makes accounts up to the cap and refuses the next one;
+    /// someone who already has an account still signs in.
+    #[test]
+    fn the_proxy_makes_no_ninth_account() {
+        let db = crate::db::Db::open_in_memory().unwrap();
+        db.with(|c| {
+            let now = 100;
+            for n in 0..crate::caps::MAX_ACCOUNTS {
+                let o = resolve(c, &format!("u{n}@example.org"), None, signup::Mode::Open, now)?;
+                assert!(matches!(o, Outcome::Created(..)), "account {n}");
+            }
+            let o = resolve(c, "late@example.org", None, signup::Mode::Open, now)?;
+            assert!(matches!(o, Outcome::Refused(Refusal::Full)));
+            let count: i64 = c.query_row("SELECT COUNT(*) FROM users", [], |r| r.get(0))?;
+            assert_eq!(count, crate::caps::MAX_ACCOUNTS as i64);
+            let o = resolve(c, "u0@example.org", None, signup::Mode::Open, now)?;
+            assert!(matches!(o, Outcome::SignedIn(..)), "an existing account still signs in");
+            Ok(())
+        })
+        .unwrap();
+    }
+
     #[test]
     fn address_ranges() {
         let ip = |s: &str| s.parse::<IpAddr>().unwrap();

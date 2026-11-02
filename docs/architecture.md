@@ -17,7 +17,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 
 ### Server and plumbing
 
-- Start-up: `main.rs` (env config, commands, `require_providers`), `shape.rs` (Skrongle mini or the hosted site, `SKRONGLE_MINI`), `startup.rs` (start-up errors), `doctor.rs` (`skrongle doctor`), `server.rs` (listener limits).
+- Start-up: `main.rs` (env config, commands, `require_providers`), `caps.rs` (the fixed limits of a mini, `MAX_ACCOUNTS`, #29), `shape.rs` (Skrongle mini or the hosted site, `SKRONGLE_MINI`), `startup.rs` (start-up errors), `doctor.rs` (`skrongle doctor`), `server.rs` (listener limits).
 - HTTP: `routes/mod.rs` (Router, embedded static files and docs, CourseView), `error.rs` (AppError to responses), `security.rs` (headers, CSRF, rate limits).
 - Database: `db.rs` (connection, `Db::call`), `db/migrations.rs` (`MIGRATIONS`); schema in "SQLite schema" below; background jobs (the hourly housekeeping) in `jobs.rs`.
 - App text: `i18n.rs` reads `i18n/<code>.yaml` (`docs/i18n.md`). Randomness: `random.rs` (OS bytes), `quiz.rs` has the small PRNG.

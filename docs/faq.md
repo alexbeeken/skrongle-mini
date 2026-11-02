@@ -37,6 +37,13 @@ Themed material is shown in built-in courses only for now; your course gets
 the theme's colours. See [Themes](using-themes).
 <!-- /themes -->
 
+**Why does my Skrongle mini say it has all the accounts it can hold?**
+A Skrongle mini holds at most 8 accounts (a household plus a couple of
+guests). The number is fixed, not a setting: a small known size keeps the
+server light enough for a Pi Zero 2 W. Nobody new can register, by form,
+invitation link or proxy sign-in, until an account is deleted. See
+[Accounts and AI keys](self-hosting#accounts-and-ai-keys).
+
 **Can an AI agent outside the app record my progress?**
 Yes, through `/api/progress`. Give the agent [Progress across modes](progress).
 
