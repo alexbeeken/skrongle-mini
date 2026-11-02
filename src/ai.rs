@@ -1,9 +1,8 @@
 //! "Describe what you want to learn" → a whole course, written by an LLM with
-//! the learner's own API key, or the server's (hosted AI, `metering.rs`).
+//! the learner's own API key.
 //!
 //! Every call goes through `complete`, which returns the reply with its
-//! token usage; a job's calls go through `ask`, which checks the allowance
-//! first on the server's key and records each call in `ai_usage`.
+//! token usage.
 //!
 //! The key is used for one generation job and never stored: it lives in the
 //! job struct in memory and is dropped when the job finishes. A job past the
@@ -27,7 +26,6 @@ use crate::arrange::{outline_entry, patch_lesson, without_prerequisites};
 use crate::content::{ContentStore, CourseFile, MANIFEST_FILE};
 use crate::courses;
 use crate::db::Db;
-use crate::metering::{CallError, KeySource, Meter};
 
 mod queue;
 pub use queue::*;
@@ -129,7 +127,7 @@ impl ProviderKind {
 
     /// A provider configured with its defaults and this key.
     pub fn provider(self, api_key: String) -> Provider {
-        Provider { kind: self, base_url: self.default_base_url(), api_key, model: self.default_model().to_string(), source: KeySource::Own, effort: None }
+        Provider { kind: self, base_url: self.default_base_url(), api_key, model: self.default_model().to_string(), effort: None }
     }
 }
 
@@ -147,9 +145,6 @@ pub struct Provider {
     pub base_url: String,
     pub api_key: String,
     pub model: String,
-    /// Whose key this is: the learner's own (recorded, never limited) or
-    /// the server's (`metering::Meter::provider`: metered and limited).
-    pub source: KeySource,
     /// Course generation only: how hard the model works (`budget::Effort`).
     pub effort: Option<Effort>,
 }
@@ -190,7 +185,6 @@ impl std::fmt::Debug for Provider {
             .field("base_url", &self.base_url)
             .field("api_key", &"<redacted>")
             .field("model", &self.model)
-            .field("source", &self.source)
             .finish()
     }
 }
@@ -295,10 +289,6 @@ pub struct Request {
     /// Edit lessons (#1240) from this feedback: rewrite lessons, add, remove or move none (`edit.rs`);
     /// with `lesson`, only that one (#1242, `edit_lesson.rs`).
     pub edit: Option<EditRun>,
-    /// Records every call in `ai_usage`; with the server's key also checks
-    /// the allowance before each call and settles the job's reservation.
-    /// `None` (tests) records nothing.
-    pub meter: Option<Arc<Meter>>,
     /// Names the learner gave the course before generating it: the outline
     /// keeps the course title and plans these lessons first.
     pub named: crate::courses::Draft,
@@ -441,17 +431,12 @@ impl Job {
     /// server's key the allowance is checked first (the job's reservation
     /// counts as available to it), and every call that answers is recorded.
     /// Blocking; the job's thread writes through `Db::with` as for its files.
-    fn llm(&self, db: &Db, req: &Request, call: &Call, system: &str, user: &str) -> Result<String, String> {
+    fn llm(&self, req: &Request, call: &Call, system: &str, user: &str) -> Result<String, String> {
         self.check_cancelled()?;
         let msgs = [ChatMessage { role: "user", content: user.to_string() }];
         let timeout = request_timeout(GENERATE_TIMEOUT).min(self.remaining()).max(Duration::from_secs(1));
         let send = || complete(&req.provider, call, system, &msgs, budget::max_tokens(&req.provider), timeout);
-        let Some(m) = req.meter.as_deref() else { return send().map(|r| r.text) };
-        match m.call(db, req.user_id, &req.provider, call, 0, send) {
-            Ok(reply) => Ok(reply.text),
-            Err(CallError::Refused(refusal)) => Err(refusal.job_message()),
-            Err(CallError::Failed(e)) => Err(e),
-        }
+        send().map(|r| r.text)
     }
 }
 
@@ -535,7 +520,7 @@ fn run(job: &Job, db: &Db, registry: &crate::courses::Courses, req: &Request) ->
                 named_block(&named),
             );
             let call = Call::new("generate-outline").course(&course_id).job(&job_id);
-            let text = job.llm(db, req, &call, system, &format!("{outline_prompt}{}\n\n----- Course format reference -----\n\n{FORMAT_DOC}", req.kind.rules()))?;
+            let text = job.llm(req, &call, system, &format!("{outline_prompt}{}\n\n----- Course format reference -----\n\n{FORMAT_DOC}", req.kind.rules()))?;
             let outline: serde_json::Value = parse_json(&text)?;
             let mut manifest = outline.get("course").cloned().ok_or("the outline has no \"course\" object")?;
             let mut entries = outline
@@ -633,7 +618,7 @@ fn run(job: &Job, db: &Db, registry: &crate::courses::Courses, req: &Request) ->
         let mut feedback = String::new();
         let file = loop {
             attempt += 1;
-            let text = job.llm(db, req, &call, system, &format!("{prompt}{feedback}"))?;
+            let text = job.llm(req, &call, system, &format!("{prompt}{feedback}"))?;
             let candidate = match parse_json(&text).and_then(|v| lesson_file(&v, entry)) {
                 Ok(f) => f,
                 Err(e) => {
@@ -906,7 +891,7 @@ fn revise(job: &Job, db: &Db, registry: &crate::courses::Courses, req: &Request,
     let mut attempt = 0;
     let (new_manifest, mut slots) = loop {
         attempt += 1;
-        let text = job.llm(db, req, &call, system, &format!("{plan_prompt}{retry}{rules}\n\n----- Course format reference -----\n\n{FORMAT_DOC}"))?;
+        let text = job.llm(req, &call, system, &format!("{plan_prompt}{retry}{rules}\n\n----- Course format reference -----\n\n{FORMAT_DOC}"))?;
         let planned = parse_json(&text).and_then(|p| read_plan(&p, &lessons, &course_id, &manifest)).and_then(|(m, slots)| {
             let text = serde_json::to_string_pretty(&m).map_err(|e| e.to_string())? + "\n";
             // The plan must fit the lessons it keeps before anything is written.
@@ -956,7 +941,7 @@ fn revise(job: &Job, db: &Db, registry: &crate::courses::Courses, req: &Request,
     }
 
     // ---- 2. one request per lesson to write ----
-    let rewrite = edit::Rewrite { job, db, req, system, files: &files, others: &others, manifest_text: &manifest_text, title: &new_title, feedback, material: &material, kind, depth: req.depth };
+    let rewrite = edit::Rewrite { job, req, system, files: &files, others: &others, manifest_text: &manifest_text, title: &new_title, feedback, material: &material, kind, depth: req.depth };
     edit::write_slots(&rewrite, &mut slots, to_write)?;
 
     // ---- 3. the new course, in the planned order ----
@@ -1075,7 +1060,7 @@ fn add_lesson(job: &Job, db: &Db, registry: &crate::courses::Courses, req: &Requ
     let mut retry = String::new();
     let (final_files, lesson_title) = loop {
         attempt += 1;
-        let text = job.llm(db, req, &call, system, &format!("{prompt}{retry}"))?;
+        let text = job.llm(req, &call, system, &format!("{prompt}{retry}"))?;
         let placed = parse_json(&text).and_then(|reply| {
             // A bare lesson (no wrapper) goes first.
             let (after, lesson) = match reply.get("lesson") {
@@ -1179,7 +1164,7 @@ fn translate(job: &Job, db: &Db, registry: &crate::courses::Courses, req: &Reque
             attempt += 1;
             let mut value = original.clone();
             if !texts.is_empty() {
-                let text = job.llm(db, req, &call, &system, &tr::prompt(&title, path, &texts, &feedback))?;
+                let text = job.llm(req, &call, &system, &tr::prompt(&title, path, &texts, &feedback))?;
                 let map = match parse_json(&text).and_then(|v| tr::translations(&v, &texts)) {
                     Ok(m) => m,
                     Err(e) if attempt < 3 => {
@@ -1705,21 +1690,6 @@ pub fn plain_failure(raw: &str) -> Option<&'static str> {
         Failure::Declined => "Writing your course stopped. The AI declined to write this course. Try rewording your wish.",
     })
 }
-
-/// What a learner reads when the server's key (Skrongle AI) fails in a way
-/// only the operator can fix: the key itself, or its account's credit or
-/// usage limit. `None` for every other failure, which reads as it does on a
-/// learner's own key (busy, timed out, an unusable reply).
-pub fn hosted_failure(raw: &str) -> Option<&'static str> {
-    match failure_kind(raw)? {
-        Failure::Key | Failure::Quota => Some(HOSTED_UNAVAILABLE),
-        _ => None,
-    }
-}
-
-/// `hosted_failure`'s sentence; it names no provider account, since the
-/// learner has none.
-pub const HOSTED_UNAVAILABLE: &str = "Skrongle AI is not available right now. Try again later, or add your own API key on your profile.";
 
 /// `plain_failure` for an "Add content with AI" job (a lesson added, or the
 /// course revised), which has no Resume: it changed nothing, so try again.

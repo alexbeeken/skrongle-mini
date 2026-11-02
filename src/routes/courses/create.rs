@@ -169,8 +169,7 @@ pub struct TranslateForm {
 /// generation: the editor follows it in its progress modal, the course list
 /// greys the card out, Cancel stops it. On a stopped translation of the
 /// user's own it resumes with the files not done yet. The original is
-/// never changed. Metered like generation: Skrongle AI reserves the job's
-/// estimate first, an own key is the learner's.
+/// never changed. It runs on the learner's own key, like generation.
 pub async fn translate(State(state): State<Arc<AppState>>, user: CurrentUser, Path(id): Path<String>, Form(form): Form<TranslateForm>) -> Result<Response, AppError> {
     user.require_ai()?;
     let courses_notice = |key: &str| Redirect::to(&crate::url(&format!("/courses?notice={key}"))).into_response();
@@ -221,16 +220,9 @@ pub async fn translate(State(state): State<Arc<AppState>>, user: CurrentUser, Pa
         }
     };
     // The same checks as Generate, before anything is made.
-    let provider = if form.provider == crate::tutor::HOSTED {
-        match crate::routes::hosted::hosted_provider(&state, "translate-course") {
-            Some(p) => p,
-            None => return picker_page(&state, user, Some(crate::t1("courses.hosted.not_offered", "hosted", crate::tutor::hosted_label())), None).await,
-        }
-    } else {
-        match ai_provider(&state, &user, &form.provider, "", false, "", "").await? {
-            Ok(p) => p,
-            Err(e) => return picker_page(&state, user, Some(e), None).await,
-        }
+    let provider = match ai_provider(&state, &user, &form.provider, "", false, "", "").await? {
+        Ok(p) => p,
+        Err(e) => return picker_page(&state, user, Some(e), None).await,
     };
     if let Some(e) = ai::check_capacity(&state.jobs, user.id).err().or_else(|| ai_quota_problem(&state, user.id)) {
         return picker_page(&state, user, Some(e), None).await;
@@ -249,18 +241,10 @@ pub async fn translate(State(state): State<Arc<AppState>>, user: CurrentUser, Pa
         (None, None) => 0,
     };
     let job = ai::new_job_id();
-    if provider.source == crate::metering::KeySource::Hosted {
-        if let Err(r) = reserve_hosted(&state, user.id, &job, files_left, false, 0, None).await? {
-            return picker_page(&state, user, Some(r.message()), None).await;
-        }
-    }
     let course_id = match (copy, &resume) {
         (Some((files, title)), _) => match store_copy_as(&state, &user, &files, &title, Some((job.clone(), plan.to_json()))).await? {
             Ok(new_id) => new_id,
-            Err(key) => {
-                state.meter.release(&job);
-                return Ok(courses_notice(&key));
-            }
+            Err(key) => return Ok(courses_notice(&key)),
         },
         (None, Some(row)) => {
             let (cid, j) = (row.id.clone(), job.clone());
@@ -284,7 +268,6 @@ pub async fn translate(State(state): State<Arc<AppState>>, user: CurrentUser, Pa
         revise: None,
         add_lesson: None,
         edit: None,
-        meter: Some(Arc::clone(&state.meter)),
         translate: Some(ai::Translation { plan, i18n: crate::i18n::snapshot() }),
         named: courses::Draft::default(),
     };
@@ -295,7 +278,6 @@ pub async fn translate(State(state): State<Arc<AppState>>, user: CurrentUser, Pa
             Ok(Redirect::to(&crate::url(&format!("/courses/{course_id}?job={job}"))).into_response())
         }
         Err(e) => {
-            state.meter.release(&job);
             let (cid, msg) = (course_id.clone(), e.clone());
             state.db.call(move |c| courses::finish_generation(c, &cid, Some(&msg))).await?;
             picker_page(&state, user, Some(e), None).await

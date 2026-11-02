@@ -141,11 +141,8 @@ async fn settled(
 /// without one it only says where to add a key.
 pub struct AiFormView {
     pub course_id: String,
-    /// The provider whose saved key it uses ("hosted": the server's key,
-    /// Skrongle AI); `None`: nothing to use.
+    /// The provider whose saved key it uses; `None`: nothing to use.
     pub provider: Option<&'static str>,
-    /// Skrongle AI did not cover the job: the way on.
-    pub ai_out: Option<crate::routes::hosted::OutOfAi>,
     /// Two or more keys are saved: say which one it uses.
     pub named_provider: bool,
     /// "Add and edit" (a revision): a finished course that loads.
@@ -293,7 +290,6 @@ pub struct Refill {
     /// The Outline switch (#1119): lessons come out as outlines.
     pub outline: bool,
     pub error: Option<String>,
-    pub ai_out: Option<crate::routes::hosted::OutOfAi>,
     /// The refused request came from Edit with AI on this lesson's row
     /// (#1242): its modal opens again with the text and the error.
     pub lesson: Option<String>,
@@ -316,12 +312,9 @@ async fn ai_view(state: &AppState, user: &CurrentUser, row: &CourseRow, refill: 
     if (row.is_busy() && !locked) || row.error.is_some() || user.ai_off {
         return Ok(None);
     }
-    // The server's key (Skrongle AI) first when it has one, else the
-    // learner's first saved key.
+    // The learner's first saved key.
     let saved = saved_providers(state, user.id).await?;
-    let hosted_id = state.meter.hosted().then_some(crate::tutor::HOSTED);
-    let first_saved = saved.first().map(|p| p.label());
-    let provider = hosted_id.or(first_saved);
+    let provider = saved.first().map(|p| p.label());
     // Which provider is only worth saying when there was a choice.
     let named_provider = saved.len() > 1;
     // Under a running job's modal the form looks as it did before (inert).
@@ -333,7 +326,6 @@ async fn ai_view(state: &AppState, user: &CurrentUser, row: &CourseRow, refill: 
     Ok(Some(AiFormView {
         course_id: row.id.clone(),
         provider,
-        ai_out: refill.ai_out.clone(),
         named_provider,
         can_change,
         generate: false,

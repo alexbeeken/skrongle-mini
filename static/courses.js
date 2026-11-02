@@ -1929,11 +1929,7 @@
       var r = form.querySelector("input[name=provider]:checked");
       var label = document.getElementById("gen-disclosure-provider");
       if (!r || !label) return;
-      var hosted = !!r.dataset.hosted;
-      label.textContent = hosted ? t('courses.js.hosted_provider') : r.dataset.label || t('courses.js.your_provider');
-      // The server's key (Skrongle AI) is not the learner's.
-      var key = document.getElementById("gen-disclosure-key");
-      if (key) key.hidden = hosted;
+      label.textContent = r.dataset.label || t('courses.js.your_provider');
     }
     Array.prototype.forEach.call(form.querySelectorAll("input[name=provider]"), function (r) { r.addEventListener("change", provider); });
     provider();

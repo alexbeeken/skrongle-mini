@@ -20,7 +20,6 @@ impl Request {
 /// What the lesson requests of a revision or an edit share.
 pub(super) struct Rewrite<'a> {
     pub job: &'a Job,
-    pub db: &'a Db,
     pub req: &'a Request,
     pub system: &'a str,
     /// The course as it is.
@@ -39,7 +38,7 @@ pub(super) struct Rewrite<'a> {
 /// Write every slot that is not kept, one request each, each validated with
 /// the whole course as it would be (up to three tries).
 pub(super) fn write_slots(w: &Rewrite, slots: &mut [Slot], to_write: usize) -> Result<(), String> {
-    let (job, db, req) = (w.job, w.db, w.req);
+    let (job, req) = (w.job, w.req);
     let (course_id, job_id, rules) = (&req.course_id, job.snapshot().id, w.kind.rules());
     let (files, others, manifest_text, new_title, feedback, material) = (w.files, w.others, w.manifest_text, w.title, w.feedback, w.material);
     let outline_summary: Vec<serde_json::Value> = slots
@@ -98,7 +97,7 @@ pub(super) fn write_slots(w: &Rewrite, slots: &mut [Slot], to_write: usize) -> R
         let (mut why, mut unsure) = (vec![], vec![]);
         let file = loop {
             attempt += 1;
-            let text = job.llm(db, req, &call, w.system, &format!("{prompt}{retry}"))?;
+            let text = job.llm(req, &call, w.system, &format!("{prompt}{retry}"))?;
             let read = parse_json(&text).map(|v| check::read_reply(&v)).and_then(|(lesson, y, c)| {
                 (why, unsure) = (y, c);
                 // A check that found nothing wrong leaves the file byte for byte.
@@ -254,7 +253,7 @@ pub(super) fn edit(job: &Job, db: &Db, registry: &crate::courses::Courses, req: 
     let mut attempt = 0;
     let mut slots = loop {
         attempt += 1;
-        let text = job.llm(db, req, &call, system, &format!("{plan_prompt}{retry}{rules}\n\n----- Course format reference -----\n\n{FORMAT_DOC}"))?;
+        let text = job.llm(req, &call, system, &format!("{plan_prompt}{retry}{rules}\n\n----- Course format reference -----\n\n{FORMAT_DOC}"))?;
         let planned = parse_json(&text).and_then(|p| read_edit_plan(&p, &lessons, &focus)).and_then(|slots| {
             // New titles must fit the course, and leave every lesson where it is (lessons without `order` sort by title).
             let planned = ContentStore::from_files(&trial(&manifest.content, &slots, &others, None)?).map_err(|e| format!("the planned course does not load: {e}"))?;
@@ -292,7 +291,6 @@ pub(super) fn edit(job: &Job, db: &Db, registry: &crate::courses::Courses, req: 
     // ---- 2. one request per lesson to rewrite, always full lessons ----
     let rewrite = Rewrite {
         job,
-        db,
         req,
         system,
         files: &files,

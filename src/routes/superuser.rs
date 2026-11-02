@@ -3,7 +3,6 @@
 //! the actions on one: a temporary password and two-factor off (#635,
 //! `owner.rs`), reset e-mail verification (#220); and with
 //! `SKRONGLE_SIGNUP=invite`, the invitation links (#634, `signup.rs`); and
-//! with Skrongle AI, everyone's spend today against the daily cap (#623);
 //! while a material change of the terms is coming, a notice and the button
 //! that e-mails it to every account (#966, `terms.rs`).
 //! Anyone else gets a 404, as if the page did not exist; the account menu
@@ -53,39 +52,9 @@ pub struct SuperuserTemplate {
     /// The newer and older pages, when there are any.
     pub prev: Option<String>,
     pub next: Option<String>,
-    /// Skrongle AI today, everyone: on a server with Skrongle AI only.
-    pub ai_today: Option<AiTodayView>,
     /// Accounts still to e-mail about a coming change of the terms: above 0,
     /// the page says the terms have changed and offers Send.
     pub terms_owed: i64,
-}
-
-/// Everyone's Skrongle AI spend today against the daily cap (#623): the one
-/// place the server-wide figure (`ai_spend_days`) is shown. Learners only
-/// ever see their own month, as a bar without dollars (#315).
-#[derive(Clone, Debug)]
-pub struct AiTodayView {
-    /// "$3.20" and "$10.00".
-    pub spent: String,
-    pub cap: String,
-    /// Of the cap, what today's spend used, 0–100.
-    pub percent_used: u8,
-}
-
-impl AiTodayView {
-    fn new(spent: i64, cap: i64) -> AiTodayView {
-        let percent_used = if cap <= 0 { 100 } else { (spent.clamp(0, cap) * 100 / cap) as u8 };
-        AiTodayView { spent: crate::metering::dollars(spent), cap: crate::metering::dollars(cap), percent_used }
-    }
-
-    /// The bar's colour, as on the learner's card: `low` past four fifths, `out` at the cap.
-    pub fn level(&self) -> &'static str {
-        match self.percent_used {
-            100.. => "out",
-            80..=99 => "low",
-            _ => "ok",
-        }
-    }
 }
 
 pub struct AccountRow {
@@ -99,17 +68,7 @@ pub struct AccountRow {
 /// The page, for a superuser, at `page` (clamped to what exists).
 async fn load(state: &AppState, user: CurrentUser, page: i64) -> Result<SuperuserTemplate, AppError> {
     let now = crate::db::now();
-    let meter = Arc::clone(&state.meter);
-    let (invites, accounts, spent) = state
-        .db
-        .call(move |c| {
-            Ok((
-                crate::signup::open_invites(c, now)?,
-                crate::signup::accounts(c, page)?,
-                if meter.hosted() { Some(meter.spent_today(c)?) } else { None },
-            ))
-        })
-        .await?;
+    let (invites, accounts) = state.db.call(move |c| Ok((crate::signup::open_invites(c, now)?, crate::signup::accounts(c, page)?))).await?;
     let terms_owed = crate::terms::unannounced(state).await?;
     let link = |p: i64| crate::url(&format!("/superuser?page={p}"));
     Ok(SuperuserTemplate {
@@ -138,7 +97,6 @@ async fn load(state: &AppState, user: CurrentUser, page: i64) -> Result<Superuse
         per_page: crate::signup::ACCOUNTS_PER_PAGE,
         prev: (accounts.page > 1).then(|| link(accounts.page - 1)),
         next: (accounts.page < accounts.pages).then(|| link(accounts.page + 1)),
-        ai_today: spent.map(|s| AiTodayView::new(s, state.meter.cfg.daily_cap)),
         terms_owed,
     })
 }

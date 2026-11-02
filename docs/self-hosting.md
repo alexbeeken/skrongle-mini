@@ -350,20 +350,6 @@ under *Profile settings → AI API keys* (Anthropic, OpenAI or Google). The
 secret key encrypts saved keys, so a database without its `.key` file can't
 use them.
 
-To let everyone use the tutor and the course generator without a key of
-their own, set one key for the whole server in `/etc/skrongle/env`:
-
-```sh
-SKRONGLE_AI_KEY=sk-ant-…          # shared by every account on this server
-SKRONGLE_AI_DAILY_CAP=2.00        # dollars a day across everyone (default 10.00)
-SKRONGLE_AI_RATE_PER_MINUTE=12    # requests one account may start a minute
-```
-
-Everyone shares a server key. You pay the provider's bill, and the daily cap is the only brake. Past it,
-AI on the server's key stops until midnight UTC and the log says `ALERT`;
-learners' own keys keep working. Every call is recorded in the
-`ai_usage` table of the database.
-
 ## Reaching it from outside
 
 Don't forward a port on the router. Install [Tailscale](https://tailscale.com)

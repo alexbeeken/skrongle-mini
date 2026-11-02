@@ -35,8 +35,6 @@ pub struct ProfileTemplate {
     pub api_keys: Vec<KeyStatus>,
     /// Any key on file (readable or not): hiding the AI features asks first, since it deletes them.
     pub keys_on_file: bool,
-    /// The server offers its own AI key (Skrongle AI).
-    pub ai_hosted: bool,
     /// Dev mode: show the dev authenticator link.
     pub dev: bool,
     /// Why deleting the account was refused.
@@ -294,7 +292,6 @@ fn page(state: &AppState, user: CurrentUser, (p, api_keys): Loaded) -> ProfileTe
         export_error: None,
         caps: state.caps(),
         api_keys,
-        ai_hosted: state.meter.hosted(),
         dev: state.dev,
         delete_error: None,
         terms_html: terms_html(),

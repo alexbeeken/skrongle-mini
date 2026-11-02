@@ -672,7 +672,6 @@ profile:
     too_long: "该内容对 API 密钥来说太长了（最多 {max} 个字符）。"
     bad_chars: API 密钥只能包含字母、数字和标点符号，不能有空格。
     wrong_provider: "这看起来不像是 {provider} 的密钥：它们以 {prefix} 开头。"
-    about_hosted: "AI 导师、“生成课程”和“使用 AI”会用你的密钥调用这些服务商，费用记在你的账户上，不占用你的 {hosted}。"
   data:
     export_download: "下载我的数据"
     export_building_no_mail: "正在准备你的数据。准备好后，这里会出现“下载”按钮。"
@@ -798,15 +797,7 @@ superuser:
     other: "已为 {n} 个账户排队发送通知。"
   js:
     copied: "已复制"
-  ai_today: "今天的 {hosted}（所有人）"
-  ai_today_about: "关于今天的 {hosted}"
-  ai_today_info: "今天（UTC）所有人在 {hosted} 上的花费，对照服务器每日上限 {cap}。达到上限后，{hosted} 对所有人暂停，直到 UTC 午夜；自己的 API 密钥仍然可用。只有超级用户能看到；学习者只能看到自己当月的用量。"
-  ai_today_spent: "{spent} / {cap} · UTC 午夜重置"
 
-ai_refused:
-  daily_cap: "{hosted} 今天已暂停：服务器已达到每日支出上限。UTC 午夜后恢复；你自己的 API 密钥仍可使用。"
-  rate: "一分钟内的 AI 请求太多了。请稍等片刻再试。"
-  job_daily_cap: "AI 已停止：{hosted} 今天已暂停（服务器已达到每日支出上限）。已写好的内容不会丢失；请在 UTC 午夜后继续，或使用你自己的 API 密钥。"
 
 landing:
   title: 从一个 JSON 文件夹学习任何内容
@@ -2291,10 +2282,6 @@ tutor:
     lesson_passed: "✓ 课程已通过：{title}"
     could_not_reply: "导师无法回复：{error}"
     last_exercise: 这是目前最后一道练习。可以继续聊天，或返回选择其他课程。
-    own_key: "使用你自己的 API 密钥"
-  hosted_label: "{app} AI"
-  disclosure_hosted: "你的消息会通过本服务器的密钥发送给它所使用的 AI 服务提供商。"
-  hosted_included: "{hosted}（已包含）"
 courses:
   # What a new course from "Create a course" starts with, in the author's app language (#1255).
   starter:
@@ -2732,7 +2719,6 @@ courses:
     only_finished: "只有已完成的课程才能修改现有内容。请关闭“允许修改现有内容”，AI 将只添加内容。"
     another_started: 此课程刚开始了另一项修改。请等待其完成。
     lesson_gone: "这一课已不在课程中。请刷新页面后再试。"
-    hosted_uses: "使用你的账户中包含的 {hosted}。"
     # The (i) by the box: example requests to click into it (#1236).
     examples_info: AI 能做什么？
     examples_title: AI 能做什么？
@@ -2792,7 +2778,7 @@ courses:
     depth_outline: "大纲（每节课节的简要内容）"
     estimate_about: "估算是怎么算出来的"
     estimate_title: "关于估算"
-    estimate_how: "模型会收到一次生成大纲的请求，每节课再各一次。每次请求都带上课程格式参考和你的材料，所以材料越多费用越高。用你自己的密钥时，费用按服务商对应用所用模型的标价计算，并按固定汇率从美元换算成加元。用 {hosted} 时，显示的是这项任务占本月额度的比例。"
+    estimate_how: "模型会收到一次生成大纲的请求，每节课再各一次。每次请求都带上课程格式参考和你的材料，所以材料越多费用越高。用你自己的密钥时，费用按服务商对应用所用模型的标价计算，并按固定汇率从美元换算成加元。"
     estimate_rough: "这只是粗略估计，不是承诺。模型需要重写的课程会花更多钱和时间。如果应用不知道某个模型的价格，就只显示时间。"
     provider_legend: 你的 AI 服务提供商
     advanced: "高级：编辑发给 AI 的指令"
@@ -2836,8 +2822,6 @@ courses:
     in_line: "你排在第 {n} 位。"
     cancelling_revision: "正在取消：课程保持原样。"
     cancelling_generation: "正在取消：课程将在正在编写的课节之后停止。"
-    sent_to_hosted_choice_html: "你的笔记会发送给<span id=\"gen-disclosure-provider\">本服务器所使用的 AI 服务提供商</span><span id=\"gen-disclosure-key\" hidden>，并使用你的密钥</span>。"
-    sent_to_hosted: "你的笔记会发送给本服务器所使用的 AI 服务提供商。"
   undo:
     undo: 撤销
     redo: 重做
@@ -2973,7 +2957,6 @@ courses:
     form_add_key: 添加键
     form_kind: 类型
     form_option: "选项 {n}"
-    hosted_provider: "本服务器所使用的 AI 服务提供商"
     estimate_lessons:
       one: "{n} 节课"
       other: "{n} 节课"
@@ -3075,10 +3058,6 @@ courses:
     shared_title: 与你分享
     shared_body: "此课程属于 {owner}，对方与你分享了它。你可以用自己的学习进度学习；只有 {owner} 可以修改其课程内容。"
     ok: 好
-  ai_out:
-    own_key: "使用你自己的 API 密钥"
-  hosted:
-    not_offered: "此服务器未设置 {hosted}。请在个人资料中添加你自己的 API 密钥。"
 motivator:
   stats:
     title: "统计与指标"

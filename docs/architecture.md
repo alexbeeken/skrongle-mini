@@ -27,7 +27,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 - Course model and validation: `content.rs` (Manifest, Lesson, ContentStore), `content/paradigm.rs` (paradigm slots and sets, `who`), `content/quiz_type.rs` (the quiz question types); contract in `docs/course-format.md`. Placement test (`placement.json`, #1106): `placement.rs` (format, drawing, marking), routes in `routes/courses/settings.rs`, `templates/placement_test.html`, `static/placement.js`.
 - Course registry: `courses.rs` (built-in, user-made<!-- themes -->, themed copies<!-- /themes -->, projects); pages in `routes/courses/` (`routes/courses/mod.rs` routes and shared views, `routes/courses/picker.rs` the list, `routes/courses/settings.rs` the settings dialog and opening, `routes/courses/stat.rs` the body of a card's stat modal (fetched by `static/course-stat.js`), `routes/courses/create.rs` new, copy and translate, `routes/courses/editor.rs` the editor page, `routes/courses/files.rs` files, upload and export, `routes/courses/lessons.rs` the lesson table, `routes/courses/generate.rs` AI generation, `routes/courses/revise.rs` Add content, Review AI changes, Undo), `static/json-problems.js` (JSON problems worded as the server words them), `static/lesson-editor.js`, `static/advice.js` (the yellow ! on lesson rows and its *Things to check* modal), `static/lesson-preview.js`, `static/schema-form.js`, `static/lesson-duplicate.js` (a lesson row's ⧉), `static/lesson-ai-edit.js` + `static/lesson-ai-edit.css` + `templates/lessons_ai_dialog.html` (a lesson row's ✦, Edit with AI, #1242), `static/ai-examples.js` + `static/ai-examples.css` (Use AI's example requests, `templates/ai_examples.html`), `templates/course_edit.html`.
 - Editing helpers: `arrange.rs` (lesson table, Undo), `word_list.rs` + `static/word-list.js` (Paste a word list), `problems.rs` (refusal messages), `report.rs` (feature usage report), `lint.rs` (course lints, `lint/language.rs` the language guess), `review.rs` (Review AI changes; its why and check lines styled by `static/review-notes.css`).
-- AI generation: `ai.rs` (LLM client, job runner), `ai/queue.rs` (the line, slots and leases of AI jobs, #874), `ai/prompt.rs` (the instructions and each kind of course's rules), `ai/budget.rs` (effort levels and the tokens a job reserves, #918), `ai/edit.rs` (Edit lessons, #1240), `ai/check.rs` (the `check` plan action and the why lines of a fact check, #1238), `ai/edit_lesson.rs` (Edit with AI on one row, #1242), `translate.rs` (copy and translate a course), `metering.rs` (Skrongle AI usage and limits), `routes/hosted.rs` (Skrongle AI on the pages).
+- AI generation: `ai.rs` (LLM client, job runner), `ai/queue.rs` (the line, slots and leases of AI jobs, #874), `ai/prompt.rs` (the instructions and each kind of course's rules), `ai/budget.rs` (effort levels and the tokens a job reserves, #918), `ai/edit.rs` (Edit lessons, #1240), `ai/check.rs` (the `check` plan action and the why lines of a fact check, #1238), `ai/edit_lesson.rs` (Edit with AI on one row, #1242), `translate.rs` (copy and translate a course), `prices.rs` (the estimate's price table)).
 - Sharing: `share.rs`, `routes/share.rs`.
 - <!-- themes -->Themes: `themes.rs`, `data/themes/`; course<!-- /themes --><!-- no-themes -->Course<!-- /no-themes --> pickers in `static/courses.js`, `static/course-settings.js`.
 - Test course: `test_course.rs` (tests only), `data/test-courses/`.
@@ -102,8 +102,8 @@ src/
   two_factor.rs  two-factor sign-in: the method in use, the authenticator app's enrolment, sign-in challenges, the proof for turning it off (tables totp_keys, two_factor_challenges, two_factor_confirmations)
   terms.rs       Terms of Service: the source (built-in text or SKRONGLE_TERMS file), the built-in changelog (docs/terms-changes.json) and the version in effect, the notice of a newer version (minor or material), acceptances, the 30-day e-mail of a material change, sent from /superuser (table terms_announcements)
   profile.rs     user profiles: the eight named pictures (and the old ids as aliases), name/e-mail validation, profile persistence
-  secrets.rs     learners' AI API keys: master secret, ChaCha20-Poly1305 sealing, per-user storage; the sealed server key
-  metering.rs    Skrongle AI: the server's key, model per purpose, price table, ai_usage rows, job reservations, daily cap, rate limit; Meter::call, the gate every model call goes through
+  secrets.rs     learners' AI API keys: master secret, ChaCha20-Poly1305 sealing, per-user storage
+  prices.rs      the price table behind the Generate dialog's cost estimate (SKRONGLE_AI_PRICES)
   server.rs      the listener: header and body timeouts, a connection cap (axum::serve plus limits)
   security.rs    security headers and the cross-site (CSRF) check on every request, client address, rate limits
   tutor.rs       AI tutoring: in-memory chat sessions, exercise picking, prompts, the reply markers ([[ask]], [[skip]], [[answer: …]]), the model call thread
@@ -160,9 +160,8 @@ src/
     terms.rs     /terms, /terms.md (public), /terms/accept (the gate for accounts without the current version, and the notice's accept form), /terms/dismiss (closes a minor change's notice)
     account_deletion.rs  /account/deletion (the only page of an account scheduled for deletion: its date, Cancel deletion, Log out)
     password.rs  /password/change (the gate after signing in with a temporary password: the new one twice, no old one)
-    superuser.rs /superuser (superusers only, 404 otherwise: every account 25 to a page with Temporary password, Turn off two-factor and Reset email verification per row; invitation links under SKRONGLE_SIGNUP=invite; Skrongle AI today, everyone, against the daily cap; while a material terms change is coming, a notice and Send the announcement), POST /superuser/reset-email-verification|invites|invites/revoke|temp-password|two-factor-off|terms-announce
+    superuser.rs /superuser (superusers only, 404 otherwise: every account 25 to a page with Temporary password, Turn off two-factor and Reset email verification per row; invitation links under SKRONGLE_SIGNUP=invite; while a material terms change is coming, a notice and Send the announcement), POST /superuser/reset-email-verification|invites|invites/revoke|temp-password|two-factor-off|terms-announce
     profile.rs   /profile (picture, personal information, account, AI API keys), POST /api/profile (autosave), POST /profile/password|api-keys…|verify-email/resend, POST /profile/export (queue "Download my data"), GET /profile/export/download?token=… (the mailed link), POST /profile/delete
-    hosted.rs    Skrongle AI on the pages: the provider for one call on the server's key (hosted_provider), OutOfAi (the own-key button when it does not cover a job)
     pages.rs     / (landing for visitors, home: the three modes) /lessons /lessons/{slug} /history /mistakes, POST /api/lessons/{slug}/note (the lesson note, autosave)
     map.rs       /map
     quiz.rs      /practice, POST /api/answer (grade_and_record: the one grading path for every mode), POST /api/lesson-check (the reading check)
@@ -703,15 +702,7 @@ posture are in `docs/self-hosting.md`, "Skrongle mini".
 | `SKRONGLE_BASE_PATH` | *(empty)* | URL prefix when mounted behind a reverse proxy, e.g. `/spanish` |
 | `SKRONGLE_PUBLIC_URL` | — | Public URL, for the links in e-mail (unset: links use the request's host, `X-Forwarded-Host` behind a proxy) |
 | `SKRONGLE_MINI` | unset (*mini:* `1`) | `1`: the server is a Skrongle mini (`shape.rs`); unset: the hosted site. Anything but `1`, `true`, `0`, `false` or unset refuses to start. Read once at startup, directly (no older spelling) |
-| `SKRONGLE_AI_KEY` | — | The server's own AI key: turns Skrongle AI on (see [Skrongle AI](features#skrongle-ai)). Read once, removed from the environment, kept sealed in memory. Unset: every AI feature uses learners' own keys. `./.dev-start` and `scripts/e2e.sh` set it to the simulator's platform key `sk-ant-dev-platform` |
-| `SKRONGLE_AI_PROVIDER` | `anthropic` | What the server's key is for: `anthropic`, `openai` or `google` |
-| `SKRONGLE_AI_BASE_URL` | *(the provider's)* | Where hosted calls go |
-| `SKRONGLE_AI_MODEL_TUTOR` | `claude-haiku-5-5` | Skrongle AI's model for the tutor |
-| `SKRONGLE_AI_MODEL_COURSES` | `claude-sonnet-5-5` | Skrongle AI's model for generating, revising and adding lessons |
-| `SKRONGLE_AI_PRICES` | see `metering::DEFAULT_PRICES` | `model=in/out[/cached],…` in dollars per million tokens, added to (or replacing) the built-in table of Anthropic's list prices; `*` prices unknown models (default: the dearest rate) |
-| `SKRONGLE_AI_ALLOWANCE_FREE` | `0` | Dollars of Skrongle AI a new account gets once, as credits, when its address is first confirmed (a link or a password reset; #931). Not monthly, and accounts made before v87 get nothing. Spent like bought credits, on any plan |
-| `SKRONGLE_AI_DAILY_CAP` | `10.00` | Skrongle AI spend across all learners per UTC day; past it hosted calls stop and the log says `ALERT` |
-| `SKRONGLE_AI_RATE_PER_MINUTE` | `12` | Skrongle AI requests one account may start per minute |
+| `SKRONGLE_AI_PRICES` | see `prices::DEFAULT_PRICES` | `model=in/out[/cached],…` in dollars per million tokens, added to (or replacing) the built-in table of Anthropic's list prices; `*` prices unknown models (default: the dearest rate) |
 | `SKRONGLE_LEGAL_EMAIL` | — | Copyright / legal contact shown on `/terms` in place of `[CONTACT EMAIL]` (built-in text only); self-hosters set their own. Unset: the placeholder shows. The hosted site uses `privacy@skrongle.com` |
 | `SKRONGLE_SUPPORT_EMAIL` | — | Hosted: the help address (`support@skrongle.com`), shown on `/terms` in place of `[SUPPORT EMAIL]` and the `Reply-To` of every e-mail, so a reply to the no-reply sender reaches support. Unset: `/terms` shows `SKRONGLE_LEGAL_EMAIL` there and mail has no `Reply-To` |
 | `SKRONGLE_TERMS` | `builtin` (*mini:* `/etc/skrongle/terms.md`) | The Terms of Service text: `builtin` (`docs/terms.md`, versioned by `docs/terms-changes.json`; see [features](features#terms-of-service)) or the path of the self-hoster's own Markdown file, served as it is at `/terms` with the first 16 hex characters of its SHA-256 as the version, so editing it asks every account to accept again. A missing, unreadable or empty file refuses to start, naming the variable and the path. No older spelling (read directly). `deploy/skrongle.service` sets `/etc/skrongle/terms.md` |
@@ -759,14 +750,7 @@ resumes a stopped generation. On submit the handler empties the draft
 so `Courses::get` never loads or caches a half-written course: it reads
 `load_ready_files`), then starts the job on its own OS thread. The key, from
 the form or decrypted from the profile, is held in the job in memory and
-dropped when the job ends; it is never written with the course. With the
-server's key (Skrongle AI) the handler first reserves the job's estimated cost
-(`metering::Meter::reserve`); every request of the job goes through
-`metering::Meter::call` (`ai::ask`), which checks it on the server's key and
-records it either way, and the hold is released when the job ends. A
-Skrongle AI call uses the same `ai::Provider`, client and errors as an own
-key; only the key and `Provider::source` differ (`src/routes/hosted.rs`
-decides who is offered it).
+dropped when the job ends; it is never written with the course.
 
 One request produces the manifest and an outline, both saved at once
 (`course.json`, `courses.outline`); one request per lesson produces the
@@ -927,11 +911,6 @@ writable path, and a release never touches the database.
   an XML prologue); they are served with `Content-Security-Policy:
   default-src 'none'` so a script inside one does not run even when the file
   is opened directly, and `nosniff`.
-- The server's AI key (`SKRONGLE_AI_KEY`) is taken out of the process
-  environment at boot and held only sealed (the vault, its own associated
-  data); it is opened for one call at a time and never logged or rendered.
-  The daily cap and the per-account rate limit bound
-  hosted spend, and each is checked before a call is made.
 - API keys pasted into the course generator are used for that job only and
   never stored. Keys saved on the profile page (`src/secrets.rs`) are sealed
   with ChaCha20-Poly1305 under a key derived (SHA-256, labelled) from the

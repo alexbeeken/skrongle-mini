@@ -23,7 +23,6 @@ pub mod sprint;
 pub mod docs;
 pub mod games;
 pub mod guide;
-pub mod hosted;
 pub mod listening;
 pub mod map;
 pub mod pages;
@@ -796,12 +795,6 @@ pub(crate) async fn reward_line(
     Ok(crate::motivators::reward_html(line))
 }
 
-/// An app state for router tests: in-memory database, the built-in courses, no themes.
-#[cfg(test)]
-pub(crate) fn test_state(dev: bool) -> Arc<AppState> {
-    test_state_with(dev, None)
-}
-
 /// `test_state` on a server without a mail provider (#633).
 #[cfg(test)]
 pub(crate) fn test_state_without(mail: bool) -> Arc<AppState> {
@@ -813,23 +806,10 @@ pub(crate) fn test_state_without(mail: bool) -> Arc<AppState> {
     Arc::new(s)
 }
 
-/// `test_state` with hosted AI on this key and config (`None`: off).
+/// An app state for router tests: in-memory database, the built-in courses, no themes.
 #[cfg(test)]
-pub(crate) fn test_state_with(
-    dev: bool,
-    hosted: Option<(String, crate::metering::MeterConfig)>,
-) -> Arc<AppState> {
+pub(crate) fn test_state(dev: bool) -> Arc<AppState> {
     let (vault, _) = crate::secrets::Vault::load(Some("ab".repeat(32)), std::path::Path::new("unused.db")).unwrap();
-    let meter = match hosted {
-        // Hosted calls in tests go to the test simulator, never a provider.
-        Some((key, mut cfg)) => {
-            if cfg.base_url.is_empty() {
-                cfg.base_url = simulator_base(cfg.provider);
-            }
-            crate::metering::Meter::new(cfg, Some(key), &vault)
-        }
-        None => crate::metering::Meter::off(),
-    };
     Arc::new(AppState {
         db: crate::db::Db::open_in_memory().unwrap(),
         courses: Arc::new(crate::courses::Courses::load_builtin(std::path::Path::new("data")).unwrap()),
@@ -840,7 +820,7 @@ pub(crate) fn test_state_with(
         jobs: Default::default(),
         vault,
         tutors: Default::default(),
-        meter: Arc::new(meter),
+        prices: crate::prices::PriceTable::parse(crate::prices::DEFAULT_PRICES).unwrap(),
         dev,
         limits: crate::security::RateLimits::new(dev),
         mail: crate::mail::Mailer::idle(),
@@ -880,12 +860,6 @@ fn simulator_root() -> &'static str {
         });
         rx.recv().unwrap()
     })
-}
-
-/// The test simulator's base URL for `kind` (`simulated_provider`).
-#[cfg(test)]
-pub(crate) fn simulator_base(kind: crate::ai::ProviderKind) -> String {
-    crate::dev::simulator_base_url(simulator_root(), kind)
 }
 
 /// The dev simulator for unit tests: this app's router on a free loopback

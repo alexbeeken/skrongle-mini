@@ -165,14 +165,13 @@ with the table, like any other change (the editor saves as you edit; see
      Under *How much to write*, an estimate: "6 lessons · about 5 minutes ·
      roughly CA$1.48" (#443). It counts an outline request and one request
      per lesson (the depth's expected count: 6, or 1 for a Preview), each carrying the format reference and the material
-     (`ai::job_tokens`, the sum Skrongle AI reserves), at about 45 seconds a
+     (`ai::job_tokens`), at about 45 seconds a
      lesson (`job_minutes`, `src/routes/courses/generate.rs`). An own key is priced at its provider's
-     default model from the metering price table (`SKRONGLE_AI_PRICES`),
+     default model from the price table (`src/prices.rs`, `SKRONGLE_AI_PRICES`),
      turned from US into Canadian dollars at a fixed 1.40
      (`CAD_CENTS_PER_USD`);
      a model the table does not list (it would get the high `*` rate) shows
-     only the lessons and the time. Skrongle AI shows a share of the month
-     ("about 12 % of this month's Skrongle AI"), never dollars. `static/gen-estimate.js`
+     only the lessons and the time. `static/gen-estimate.js`
      works it out again as the count, the material or the provider changes;
      the (i) beside it says how it is worked out and that it is rough.
   6. *Advanced: edit the instructions*. The system prompt every request
@@ -188,8 +187,7 @@ with the table, like any other change (the editor saves as you edit; see
      same model at every level, with `output_config.effort` (Anthropic) or
      `reasoning_effort` (OpenAI, Gemini) set to `low`, `medium` or `high`
      (`ai::Effort`, `src/ai/budget.rs`). Thorough lets each request write
-     twice as much (`max_tokens` 32,000) and reserves twice the output on
-     Skrongle AI, so a job does not run past what it held. The level posted
+     twice as much (`max_tokens` 32,000). The level posted
      is saved on the account (`users.ai_effort`) and is where the dialog
      starts next time. It applies to *Generate the course* and its Resume
      only; the tutor, *Use AI* and translations send no effort.
@@ -332,8 +330,7 @@ with the table, like any other change (the editor saves as you edit; see
   nothing is saved ("the edit was refused because it added or removed a
   lesson (…). The course is unchanged."). It always writes full lessons:
   *Outline only* is ignored, since an outline would throw away a lesson's
-  content. Its text takes 20 to 4,000 characters, as a change does; on
-  Skrongle AI it reserves one lesson per lesson in the course. The modal reads
+  content. Its text takes 20 to 4,000 characters, as a change does. The modal reads
   *Editing "…"…* and "2 of 3 lessons rewritten", *Editing stopped* when it
   fails, and the Undo row and Review AI changes say *Edited with feedback:
   "…"*.
@@ -362,10 +359,10 @@ with the table, like any other change (the editor saves as you edit; see
   unchanged ("the edit was refused because it changed the lesson's id
   …"). The modal reads *Editing "<lesson title>"…* and *Editing stopped*;
   Undo and Review AI changes say *Edited with feedback: "…"*, as for a
-  course-wide edit. On Skrongle AI it reserves one lesson. A refused request
-  (too short, the lesson gone, no AI left) opens the dialog again with the
+  course-wide edit. A refused request
+  (too short, the lesson gone) opens the dialog again with the
   text and the reason. The icon is only there when the Use AI box has a key
-  to use (a saved key or Skrongle AI), and not on a row that is not saved
+  to use (a saved key), and not on a row that is not saved
   yet. Edits across many lessons still go through *Edit* in the Use AI box.
   *Download all files* (`/courses/{id}/export.json`) is one JSON
   object: `"version": "1.0"` first, then every file by its path.
@@ -875,7 +872,7 @@ limit nothing is made and the course list says which limit (`?notice=`
 
 **Copy and translate to…**, an icon left of the copy icon in the same
 settings dialogs (not with AI off), opens a dialog of its own: the language to translate into, the AI
-to use (when there is more than one: the saved keys and Skrongle AI, as
+to use (when there is more than one: the saved keys, as
 Generate offers them) and **Start**; what gets translated is behind its
 (i). The languages are the app's own (`i18n/*.yaml`, each in its own
 name), less the one the course is already explained in (`meanings.lang`).
@@ -904,10 +901,7 @@ validated with the rest of the course before it is saved, like any lesson
 
 The job is a generation in every other way (`src/ai.rs`): its own OS
 thread, one job per learner, `SKRONGLE_AI_JOBS` at once and the rest waiting in line, the hourly and daily AI
-job quotas, and the same metering (`src/metering.rs`): on Skrongle AI the
-job's estimate is reserved first (one lesson request a file), every call is
-recorded, and what it did not spend comes back; an own key is the
-learner's. Its calls carry the purpose `translate-course` (the file's path
+job quotas, on the learner's own key. Its calls carry the purpose `translate-course` (the file's path
 as the key). The copy's `courses.source` is `translate` and its notes hold
 the job's plan (the language, and the files done so far), so a stopped
 translation keeps what it translated: its card has the red ! with the
@@ -1998,12 +1992,6 @@ keep their explicit buttons. The page needs JavaScript.
     `POST /superuser/terms-announce` queues them (`terms::announce_upcoming`)
     and the notice says how many were queued. Once everyone has it, the
     notice and the card go away.
-  - **Skrongle AI today, everyone** (a card at the top, servers with Skrongle AI, #623): a
-    bar and "$3.20 of $10.00 · resets at midnight UTC", the day's hosted
-    spend of every learner (`ai_spend_days`) against the daily cap
-    (`SKRONGLE_AI_DAILY_CAP`); the (i) says what the cap does. This is the only
-    place the server-wide figure shows: learners see their own month, as a
-    bar without dollars.
 
 Each AI form says where the learner's words go (`data-testid="ai-disclosure"`):
 "Your notes are sent to your AI provider using your key." on *Generate* and
@@ -2256,77 +2244,6 @@ comes back with the dialog shown as a form.
   passwords. There is no "remember this device": every sign-in asks.
 - `/dev/login` skips the second step (it is the dev shortcut); the real
   `/login` never does.
-
-## Skrongle AI
-   or none; see [configuration](architecture#configuration).
-
-The tutor and the course generator can run on the server's own AI key
-(*Skrongle AI*), so a learner without a key can still use them
-(`src/metering.rs`, `src/routes/hosted.rs`). Every account may use it; only
-the daily cap and the per-minute rate limit guard it. Without
-`SKRONGLE_AI_KEY` none of this is offered and every AI feature works on the
-learner's own keys. Learners never see dollar amounts. Own keys always work
-beside it. `ai_usage` rows are written as ever.
-
-- **One key, our meter.** Anthropic's workspaces and keys cannot be made per
-  learner from the app, so the server keeps one key and records every call
-  itself.
-- **The same client as an own key.** A Skrongle AI call is an ordinary
-  `ai::Provider` (same `ai::Call`, wire format, timeouts and error handling)
-  whose key is the server's and whose `source` is `Hosted`. Every call, own
-  key or not, goes through `Meter::call`: with the server's key it checks the
-  day's cap first, and it writes the `ai_usage` row either way.
-- **The server's key** (`SKRONGLE_AI_KEY`, for `SKRONGLE_AI_PROVIDER`, default
-  `anthropic`, at `SKRONGLE_AI_BASE_URL` or the provider's default) is read at
-  boot, removed from the environment and kept in memory sealed by the same
-  vault as the learners' keys; it is opened only to make one call. Each
-  purpose has its model: `SKRONGLE_AI_MODEL_TUTOR` (default Claude Haiku 5.5)
-  for the tutor, `SKRONGLE_AI_MODEL_COURSES` (default Claude Sonnet 5.5) for
-  generating, revising and adding lessons.
-- **Every call is recorded** in `ai_usage`: learner, course, job, purpose
-  (`tutor-turn`, `generate-lesson`, …), provider, model, input / output /
-  cached tokens, cost and key source. A hosted call is costed from the price
-  table (`SKRONGLE_AI_PRICES`, dollars per million tokens, Anthropic's list
-  prices by default; unknown models at the dearest `*` rate; a cache write
-  counts as 1.25 input tokens); a call on the learner's own key is recorded
-  at cost 0 and never limited. Amounts are micro-dollars.
-- **Who is offered it.** Everyone, when the server has the key. The tutor
-  lists *Skrongle AI (included)* first, then any own keys; the Generate
-  dialog and *Use AI* use it the same way. With neither a key of their own
-  nor Skrongle AI, the home page's AI tutoring card shows a red ! in place of
-  its (i) (tip: "No AI keys set"), and *Start a conversation* (or the !) opens
-  the tutor's "add an API key" page as a modal instead of going to `/tutor`;
-  a learner with a usable key or Skrongle AI goes straight there.
-- **Checked before a call.** The check happens **before** every hosted call,
-  never during one: a reply is never cut off. The tutor estimates a turn (its
-  prompt plus the longest reply) and does not call the model when the day's
-  cap would be passed; the turn's grading still happens and the chat says
-  why, with a link to add an own key (`tutor-out-of-ai`, `tutor-own-key`).
-- **Jobs reserve.** Generating, revising or adding a lesson on the server's
-  key estimates the whole job up front (`ai::job_tokens`: the format
-  reference and the material with each request, a plan, lessons of about
-  6 000 output tokens) and holds that much against the day's cap. A job the
-  day cannot cover is refused before it starts, with the way on as a button
-  under the message (`ai-out`: `ai-out-own-key`); *Use AI* on a course does
-  the same. Each call settles against the hold; when the job ends, however it
-  ends, the rest is released. A job that outruns its estimate goes on while
-  the day has room, and stops between lessons (keeping what it wrote, ready
-  to resume) when the cap is reached. Holds live in memory, like the jobs.
-- **When the server's key fails.** A refused key or an exhausted account on
-  the server's side is not the learner's to fix: they read "Skrongle AI is
-  not available right now. Try again later, or add your own API key on your
-  profile." and the log has an error line for the operator. Other failures
-  (busy, timed out, an unusable reply) read as they do on an own key.
-- **Guards.** `SKRONGLE_AI_DAILY_CAP` (default $10): hosted spend across
-  everyone per UTC day, holds included; when it is reached hosted calls are
-  refused until midnight and the log carries an `ALERT` error line (once a
-  day). `SKRONGLE_AI_RATE_PER_MINUTE` (default 12): hosted requests one account
-  may start in a minute (tutor calls and job starts; a job's own calls are
-  not counted).
-- **In dev** (`./.dev-start`, `scripts/e2e.sh`) the server's key is the
-  simulator's platform key `sk-ant-dev-platform`, which the dev-mode default
-  Anthropic base URL sends to `/dev/ai`: its own counters, limits and
-  failure injection on the **Platform key** card there.
 
 ## Install as an app
 

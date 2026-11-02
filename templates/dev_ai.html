@@ -118,7 +118,7 @@
   <p>A stand-in for Anthropic and OpenAI (and Gemini's OpenAI endpoint) that speaks their real APIs and answers from the fixtures. Mode: <span data-testid="dev-ai-mode">{{ mode }}</span>.</p>
   <p>Base URLs:</p>
   <ul class="small">{% for b in bases %}<li><code>{{ b.0 }}</code>: <code data-testid="dev-ai-base" data-format="{{ b.0 }}">{{ b.1 }}</code></li>{% endfor %}</ul>
-  <p class="small">The <strong>platform key</strong> profile is what the app would use on a learner's behalf; <strong>the learner's own keys</strong> are the ones on their profile. Each has its own usage, limit and injected failure. Once over the limit, Anthropic answers HTTP 400 "You have reached your specified API usage limits", OpenAI HTTP 429 <code>insufficient_quota</code>. Dollars come from a made-up price table (per million tokens; tokens are 4 characters). The app's client gives up after {{ timeout }}.</p>
+  <p class="small">The <strong>learner's own keys</strong> profile is the keys on a learner's profile, with its usage, limit and injected failure. Once over the limit, Anthropic answers HTTP 400 "You have reached your specified API usage limits", OpenAI HTTP 429 <code>insufficient_quota</code>. Dollars come from a made-up price table (per million tokens; tokens are 4 characters). The app's client gives up after {{ timeout }}.</p>
   <p class="small">In memory until the server stops. As JSON: <a href="{{ crate::url("/dev/ai?format=json") }}">state, log and fixtures</a>.</p>
   <div class="modal-actions"><button type="button" class="btn" data-closes>OK</button></div>
 </dialog>

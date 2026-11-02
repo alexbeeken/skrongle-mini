@@ -81,7 +81,7 @@ pub async fn ai_start(
     let outline = depth == ai::Depth::Outline;
     let text = form.text.replace("\r\n", "\n").trim().to_string();
     let lesson_refill = lesson_path.clone();
-    let refuse = |msg: String| editor_page(&state, user.clone(), row.clone(), None, Refill { text: text.clone(), mode, outline, error: Some(msg), ai_out: None, lesson: lesson_refill.clone() });
+    let refuse = |msg: String| editor_page(&state, user.clone(), row.clone(), None, Refill { text: text.clone(), mode, outline, error: Some(msg), lesson: lesson_refill.clone() });
     if row.error.is_some() {
         return refuse(crate::t("courses.ai.not_loading")).await;
     }
@@ -104,16 +104,13 @@ pub async fn ai_start(
         }
         None => None,
     };
-    // The server's key first when it has one, else the first saved key.
-    let saved = saved_provider(&state, user.id).await?;
-    let purpose = if lesson.is_some() { "edit-lesson" } else { "revise-lesson" };
-    let provider = match (crate::routes::hosted::hosted_provider(&state, purpose), saved) {
-        (Some(hosted), _) => hosted,
-        (None, Some(saved)) => match ai_provider(&state, &user, saved.id(), "", false, "", "").await? {
+    // The first saved key.
+    let provider = match saved_provider(&state, user.id).await? {
+        Some(saved) => match ai_provider(&state, &user, saved.id(), "", false, "", "").await? {
             Ok(p) => p,
             Err(e) => return refuse(e).await,
         },
-        (None, None) => return refuse(no_key()).await,
+        None => return refuse(no_key()).await,
     };
     if let Err(e) = ai::check_capacity(&state.jobs, user.id) {
         return refuse(e).await;
@@ -122,27 +119,8 @@ pub async fn ai_start(
         return refuse(e).await;
     }
     let job = ai::new_job_id();
-    if provider.source == crate::metering::KeySource::Hosted {
-        // A revision or an edit may rewrite every lesson after its plan; an added or row-edited lesson is one request.
-        let cid = id.clone();
-        let one = mode == AiMode::Add || lesson.is_some();
-        let lessons = if !one {
-            state
-                .db
-                .call(move |c| c.query_row("SELECT COUNT(*) FROM course_files WHERE course_id = ?1 AND path LIKE 'lessons/%'", [cid], |r| r.get::<_, i64>(0)))
-                .await? as usize
-        } else {
-            1
-        };
-        if let Err(r) = reserve_hosted(&state, user.id, &job, lessons, !one, 0, None).await? {
-            let out = Some(crate::routes::hosted::OutOfAi);
-            return editor_page(&state, user.clone(), row.clone(), None, Refill { text, mode, outline, error: Some(r.message()), ai_out: out, lesson: lesson_path }).await;
-        }
-    }
     let (cid, j) = (id.clone(), job.clone());
     if !state.db.call(move |c| courses::set_revising(c, &cid, &j)).await? {
-        // The job never starts: give back what it reserved on the server's key.
-        state.meter.release(&job);
         return refuse(crate::t("courses.ai.another_started")).await;
     }
     let req = ai::Request {
@@ -159,7 +137,6 @@ pub async fn ai_start(
         revise: change.then(|| text.clone()),
         add_lesson: (mode == AiMode::Add).then(|| text.clone()),
         edit: (mode == AiMode::Edit).then(|| ai::EditRun { feedback: text.clone(), lesson: lesson.clone() }),
-        meter: Some(Arc::clone(&state.meter)),
         translate: None,
         named: Default::default(),
     };
@@ -176,11 +153,10 @@ pub async fn ai_start(
             Ok(Redirect::to(&crate::url(&format!("/courses/{id}?job={job}"))).into_response())
         }
         Err(e) => {
-            state.meter.release(&job);
             let cid = id.clone();
             state.db.call(move |c| courses::finish_revision(c, &cid)).await?;
             let row = owned(&state, &user, &id).await?;
-            editor_page(&state, user, row, None, Refill { text, mode, outline, error: Some(e), ai_out: None, lesson: lesson_path }).await
+            editor_page(&state, user, row, None, Refill { text, mode, outline, error: Some(e), lesson: lesson_path }).await
         }
     }
 }

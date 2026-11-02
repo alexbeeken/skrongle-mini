@@ -75,7 +75,7 @@ pub(super) fn edit_lesson(job: &Job, db: &Db, registry: &crate::courses::Courses
     let mut attempt = 0;
     let mut after = loop {
         attempt += 1;
-        let text = job.llm(db, req, &call, system, &format!("{prompt}{retry}"))?;
+        let text = job.llm(req, &call, system, &format!("{prompt}{retry}"))?;
         let checked = parse_json(&text)
             .and_then(|v| if v.is_object() { serde_json::to_string_pretty(&v).map_err(|e| e.to_string()) } else { Err("the lesson is not a JSON object".into()) })
             .map(|content| files.iter().map(|f| if f.path == path { CourseFile { path: f.path.clone(), content: content.clone() + "\n" } } else { f.clone() }).collect::<Vec<_>>())

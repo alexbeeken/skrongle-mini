@@ -223,12 +223,12 @@ fn the_dev_mailbox_needs_no_sign_in_and_the_simulator_speaks_the_wire_protocols(
     assert!(crate::ai::plain_failure(&err).unwrap().contains("run out of credit"));
     let err = crate::ai::chat(&provider(crate::ai::ProviderKind::OpenAi, "sk-dev-openai"), &call, "s", &msgs, 100).unwrap_err();
     assert!(err.starts_with("the API answered HTTP 429. You exceeded your current quota"), "{err}");
-    // The platform key is a profile of its own.
-    assert!(crate::ai::chat(&provider(crate::ai::ProviderKind::OpenAi, "sk-dev-platform"), &call, "s", &msgs, 100).is_ok());
-    assert_eq!(state.dev_ai.profile(crate::dev_ai::Who::Platform).usage.requests, 1);
     // An injected malformed body and a reply that is not JSON for a JSON call.
-    state.dev_ai.update(crate::dev_ai::Who::Platform, |p| p.inject = Some(crate::dev_ai::Injection { fault: crate::dev_ai::Fault::Malformed, sticky: false, hang_secs: 0 }));
-    let err = crate::ai::chat(&provider(crate::ai::ProviderKind::Anthropic, "sk-ant-dev-platform"), &call, "s", &msgs, 100).unwrap_err();
+    state.dev_ai.update(crate::dev_ai::Who::Learner, |p| {
+        p.exhausted = false;
+        p.inject = Some(crate::dev_ai::Injection { fault: crate::dev_ai::Fault::Malformed, sticky: false, hang_secs: 0 });
+    });
+    let err = crate::ai::chat(&provider(crate::ai::ProviderKind::Anthropic, "sk-ant-dev-anthropic"), &call, "s", &msgs, 100).unwrap_err();
     assert!(err.contains("not JSON"), "{err}");
 }
 

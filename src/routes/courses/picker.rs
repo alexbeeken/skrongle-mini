@@ -207,7 +207,7 @@ pub struct PickerTemplate {
     /// (`SettingsChoices::looks`).
     pub looks: String,
     /// The AI "Copy and translate to…" can use (#630): the providers with a
-    /// saved key, and Skrongle AI when it is offered. Empty with AI off.
+    /// saved key. Empty with AI off.
     pub translate_providers: Vec<ProviderChoice>,
 }
 

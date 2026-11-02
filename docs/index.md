@@ -26,7 +26,7 @@ all driven by JSON course files.
   [raw Markdown](course-format.md) and a [JSON Schema](course.schema.json).
 - [Features](features): what each part of the app does and which lesson
   fields it reads: Lessons, Quizzes, Guide, Sprint mode, Games, Map, Vocabulary,
-  History,<!-- themes --> Themes,<!-- /themes --> Skrongle AI.
+  History,<!-- themes --> Themes.<!-- /themes -->
 <!-- themes -->
 - [Theming](themes): theme files and everything a course can carry for a
   theme: themed examples, exercises, questions, conversations and icons.

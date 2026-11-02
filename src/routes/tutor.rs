@@ -1,6 +1,6 @@
 //! `/tutor`: the AI tutoring chat, and its JSON API.
 //!
-//! GET  /tutor                 the page (empty state when no API key is on file and no hosted AI)
+//! GET  /tutor                 the page (empty state when no API key is on file)
 //! GET  /api/tutor/session?id= rebuild the page after a reload
 //! POST /api/tutor/start       { provider, lesson? } -> first turn
 //! POST /api/tutor/turn        { session, kind: say|answer|skip, text? } -> the entries this turn added
@@ -19,7 +19,6 @@ use serde::{Deserialize, Serialize};
 use std::collections::HashSet;
 use std::sync::Arc;
 
-use super::hosted::hosted_provider;
 use super::quiz::grade_and_record;
 use super::{CourseView, Page};
 use crate::ai;
@@ -27,11 +26,10 @@ use crate::auth::Project;
 use crate::db::now;
 use crate::error::AppError;
 use crate::mastery;
-use crate::metering::{CallError, KeySource, Refusal};
 use crate::progress;
 use crate::quiz::Rng;
 use crate::secrets::{self, Provider};
-use crate::tutor::{self, Control, Entry, KeyChoice, QuestionCard, Session};
+use crate::tutor::{self, Control, Entry, QuestionCard, Session};
 use crate::AppState;
 
 pub struct ProviderChoice {
@@ -67,15 +65,11 @@ pub async fn page(State(state): State<Arc<AppState>>, p: Project, Query(q): Quer
         Some(slug) => Some(content.lesson_by_slug(slug).ok_or(AppError::NotFound)?),
         None => None,
     };
-    // The server's key first when it has one, then the learner's own keys.
-    let mut choices: Vec<KeyChoice> = Vec::new();
-    if state.meter.hosted() {
-        choices.push(KeyChoice::Hosted);
-    }
-    choices.extend(keys_on_file(&state, p.user.id).await?.into_iter().map(|k| KeyChoice::Own(ai::ProviderKind::from_secret(k))));
+    // The learner's own keys, in the profile's order.
+    let choices: Vec<ai::ProviderKind> = keys_on_file(&state, p.user.id).await?.into_iter().map(ai::ProviderKind::from_secret).collect();
     let wanted = q.provider.as_deref().and_then(|w| choices.iter().copied().find(|c| c.id() == w));
     let chosen = wanted.or_else(|| choices.first().copied());
-    let providers = choices.iter().map(|c| ProviderChoice { id: c.id(), label: choice_label(*c), selected: Some(*c) == chosen }).collect();
+    let providers = choices.iter().map(|c| ProviderChoice { id: c.id(), label: c.secret().label().to_string(), selected: Some(*c) == chosen }).collect();
     let chars_json = serde_json::to_string(&content.manifest().chars).unwrap_or_else(|_| "[]".into());
     Ok(Page(TutorTemplate {
         chars_json,
@@ -86,13 +80,6 @@ pub async fn page(State(state): State<Arc<AppState>>, p: Project, Query(q): Quer
         lesson_title: lesson.map(|l| l.title.clone()).unwrap_or_default(),
     })
     .into_response())
-}
-
-fn choice_label(c: KeyChoice) -> String {
-    match c {
-        KeyChoice::Own(kind) => kind.secret().label().to_string(),
-        KeyChoice::Hosted => crate::t1("tutor.hosted_included", "hosted", tutor::hosted_label()),
-    }
 }
 
 async fn keys_on_file(state: &AppState, user_id: i64) -> Result<Vec<Provider>, AppError> {
@@ -135,9 +122,6 @@ pub struct TurnResponse {
     pub done: bool,
     /// The model could not answer; everything else in the turn still happened.
     pub error: Option<String>,
-    /// The model was not asked because Skrongle AI paused:
-    /// `daily-cap` | `rate`. `error` says it in words.
-    pub ai_out: Option<&'static str>,
 }
 
 /// POST /api/tutor/start
@@ -148,11 +132,7 @@ pub async fn start(
     Json(req): Json<StartRequest>,
 ) -> Result<Json<TurnResponse>, AppError> {
     p.user.require_ai_api()?;
-    let provider = match req.provider.as_str() {
-        tutor::HOSTED if state.meter.hosted() => KeyChoice::Hosted,
-        tutor::HOSTED => return Err(AppError::ApiBadRequest(crate::t1("courses.hosted.not_offered", "hosted", tutor::hosted_label()))),
-        other => KeyChoice::Own(Provider::parse(other).map(ai::ProviderKind::from_secret).ok_or_else(|| AppError::ApiBadRequest(crate::t("tutor.api.unknown_provider")))?),
-    };
+    let provider = Provider::parse(&req.provider).map(ai::ProviderKind::from_secret).ok_or_else(|| AppError::ApiBadRequest(crate::t("tutor.api.unknown_provider")))?;
     let lesson = if req.lesson.is_empty() {
         None
     } else {
@@ -269,27 +249,14 @@ async fn run_turn(state: &AppState, p: &Project, session: Session, kind: Turn, t
         snap = Some((s.pending.clone(), s.answered, s.correct, s.done()));
     });
     let (pending, answered, correct, done) = snap.unwrap_or((None, 0, 0, true));
-    let (error, ai_out) = match failure {
-        None => (None, None),
-        Some(Fail::Model(e)) => (Some(e), None),
-        Some(Fail::Refused(r)) => (Some(r.message()), Some(r.kind())),
-    };
-    Ok(TurnResponse { session: id, entries: added, pending, answered, correct, done, error, ai_out })
-}
-
-/// Why the model did not reply in a turn.
-enum Fail {
-    /// It was asked and failed (network, key, provider).
-    Model(String),
-    /// It was not asked: Skrongle AI does not cover the call.
-    Refused(Refusal),
+    Ok(TurnResponse { session: id, entries: added, pending, answered, correct, done, error: failure })
 }
 
 /// The turn itself. `session` is the working copy: `on_deck` and `pending`
 /// are kept current here so each model call sees the right exercise; the
 /// entries to append are returned.
 /// Returns the entries added and why the model did not reply (if it did not).
-async fn turn_inner(state: &AppState, p: &Project, session: &mut Session, kind: Turn) -> Result<(Vec<Entry>, Option<Fail>), AppError> {
+async fn turn_inner(state: &AppState, p: &Project, session: &mut Session, kind: Turn) -> Result<(Vec<Entry>, Option<String>), AppError> {
     let content = &p.course;
     let mut added: Vec<Entry> = Vec::new();
     let pending_item = |s: &Session| s.pending.as_deref().and_then(|q| content.question(q)).map(|(_, q)| q);
@@ -320,12 +287,9 @@ async fn turn_inner(state: &AppState, p: &Project, session: &mut Session, kind: 
     };
 
     // 2. The model's part, and what its reply asks for.
-    let llm = match session.provider {
-        KeyChoice::Hosted => hosted_provider(state, "tutor-turn").ok_or_else(|| AppError::ApiBadRequest(crate::t1("courses.hosted.not_offered", "hosted", tutor::hosted_label())))?,
-        KeyChoice::Own(kind) => own_provider(state, p, kind).await?,
-    };
+    let llm = own_provider(state, p, session.provider).await?;
     let instruction = (!instruction.is_empty()).then_some(instruction);
-    let reply = match talk(state, p, &llm, session, &mut added, instruction).await {
+    let reply = match talk(p, &llm, session, &mut added, instruction).await {
         Ok(r) => r,
         Err(e) => return Ok((added, Some(e))),
     };
@@ -333,7 +297,7 @@ async fn turn_inner(state: &AppState, p: &Project, session: &mut Session, kind: 
         Control::Answer(attempt) if session.pending.is_some() => {
             // The typed message was an attempt: grade it, then let the model react.
             let instruction = answer(state, p, session, &mut added, attempt).await?;
-            match talk(state, p, &llm, session, &mut added, Some(instruction)).await {
+            match talk(p, &llm, session, &mut added, Some(instruction)).await {
                 Ok(Control::Ask) => show_on_deck(session, &mut added),
                 Ok(_) => {}
                 Err(e) => return Ok((added, Some(e))),
@@ -364,17 +328,13 @@ async fn own_provider(state: &AppState, p: &Project, kind: ai::ProviderKind) -> 
 /// One model call over the transcript plus `added`; the words go into
 /// `added` as a tutor entry and the control comes back. An `[[ask]]` from
 /// the model is applied by the caller, since only some replies may use it.
-/// With the server's key the allowance is checked first: a call it does not
-/// cover is never started, so no reply is ever cut off. Every call that
-/// answers is recorded (`ai_usage`).
 async fn talk(
-    state: &AppState,
     p: &Project,
     llm: &ai::Provider,
     session: &Session,
     added: &mut Vec<Entry>,
     instruction: Option<&str>,
-) -> Result<Control, Fail> {
+) -> Result<Control, String> {
     let content = &p.course;
     let pending = session.pending.as_deref().and_then(|q| content.question(q));
     let on_deck = session.on_deck.as_ref().and_then(|c| content.question(&c.question_id));
@@ -384,20 +344,11 @@ async fn talk(
     transcript.extend(added.iter().cloned());
     let msgs = tutor::messages(&transcript, instruction);
     let call = ai::Call::new("tutor-turn").course(p.course_id());
-    let uid = p.user.id;
-    let estimate = if llm.source == KeySource::Hosted {
-        state.meter.rate_limit(uid).map_err(Fail::Refused)?;
-        let tokens = ai::Usage::estimate(&system, &msgs, "");
-        state.meter.estimate(&llm.model, tokens.input, u64::from(tutor::REPLY_MAX_TOKENS))
-    } else {
-        0
-    };
-    let reply = match tutor::ask(state.db.clone(), Arc::clone(&state.meter), uid, llm.clone(), call, system, msgs, estimate).await {
+    let reply = match tutor::ask(p.user.id, llm.clone(), call, system, msgs).await {
         Ok(r) => r,
-        Err(CallError::Refused(r)) => return Err(Fail::Refused(r)),
-        Err(CallError::Failed(e)) => {
+        Err(e) => {
             tracing::warn!("tutor ({}) for user {}: {e}", session.provider.id(), p.user.id);
-            return Err(Fail::Model(e));
+            return Err(e);
         }
     };
     let (text, control) = tutor::parse_reply(&reply.text);
@@ -510,14 +461,13 @@ async fn next_card(state: &AppState, p: &Project, session: &Session) -> Result<O
 
 #[cfg(test)]
 mod tests {
-    use crate::metering::{dollars_to_micros, KeySource, MeterConfig, Record};
-    use serde_json::{json, Value};
+    use serde_json::json;
 
-    /// Without the server's key nothing is offered: the tutor, the home
-    /// card and the Generate dialog say to add a key, and the API refuses it.
+    /// Without a key nothing is offered: the tutor, the home card and the
+    /// Generate dialog say to add one, and the API refuses a provider.
     #[test]
-    fn without_the_servers_key_skrongle_ai_is_not_offered() {
-        let state = crate::routes::test_state_with(true, None);
+    fn without_a_key_nothing_is_offered() {
+        let state = crate::routes::test_state(true);
         let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
         let app_state = state.clone();
         let addr = rt.block_on(async move {
@@ -533,7 +483,6 @@ mod tests {
             let cookie = r.headers().get("set-cookie").unwrap().to_str().unwrap().split(';').next().unwrap().to_string();
             let get = |p: &str| agent.get(&url(p)).header("cookie", &cookie).call().unwrap().body_mut().read_to_string().unwrap();
             let tutor = get("/tutor");
-            assert!(!tutor.contains("Skrongle AI (included)") && !tutor.contains(r#"data-provider="hosted""#), "{tutor}");
             assert!(tutor.contains(r#"data-testid="tutor-no-key""#), "{tutor}");
             // The home page's tutor card: a red ! saying so, and "Start a
             // conversation" opens that page as a modal instead of going there.
@@ -541,136 +490,12 @@ mod tests {
             assert!(home.contains(r#"data-tip="No AI keys set" data-testid="home-ai-blocked""#) && !home.contains(r#"data-testid="home-info-ai""#), "the ! replaces the (i): {home}");
             assert!(home.contains(r#"<button type="button" class="btn big tutor" data-testid="home-start-tutor" commandfor="home-tutor-gate""#), "{home}");
             assert!(home.contains(r#"data-testid="home-tutor-gate""#), "{home}");
-            let start = agent.post(&url("/api/tutor/start")).header("cookie", &cookie).send_json(json!({ "provider": "hosted" })).unwrap();
+            let start = agent.post(&url("/api/tutor/start")).header("cookie", &cookie).send_json(json!({ "provider": "anthropic" })).unwrap();
             assert_eq!(start.status().as_u16(), 400);
             let made = agent.post(&url("/courses/new")).header("cookie", &cookie).send_form([("title", "")]).unwrap();
             let editor = made.headers().get("location").unwrap().to_str().unwrap().to_string();
             let form = get(&editor);
-            assert!(form.contains("generate-no-key") && !form.contains(r#"value="hosted""#), "{form}");
-        };
-        rt.block_on(async move { tokio::task::spawn_blocking(work).await }).unwrap();
-    }
-
-    /// Hosted AI end to end over HTTP, through the test simulator on its platform key: the tutor and the
-    /// generator offer the server's key to a learner without one, meter it,
-    /// refuse before calling once the day's cap is reached (with the way
-    /// on), and a generation job reserves and gives back.
-    #[test]
-    fn hosted_ai_over_http() {
-        let mut cfg = MeterConfig {
-            tutor_model: "tutor-model".into(),
-            courses_model: "course-model".into(),
-            daily_cap: dollars_to_micros("1").unwrap(),
-            ..MeterConfig::default()
-        };
-        cfg.prices.merge("tutor-model=1/2,course-model=1/2").unwrap();
-        let state = crate::routes::test_state_with(true, Some((crate::dev_ai::PLATFORM_KEYS[0].into(), cfg)));
-        let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-        let app_state = state.clone();
-        let addr = rt.block_on(async move {
-            let app = crate::routes::router(app_state);
-            let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
-            let addr = listener.local_addr().unwrap();
-            tokio::spawn(async move { axum::serve(listener, app).await.unwrap() });
-            addr
-        });
-        let st = state.clone();
-        let work = move || {
-            let state = st;
-            let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
-            let url = |p: &str| format!("http://{addr}{p}");
-            let r = agent.get(&url("/dev/login?open=spanish")).call().unwrap();
-            let cookie = r.headers().get("set-cookie").unwrap().to_str().unwrap().split(';').next().unwrap().to_string();
-            let get = |p: &str| agent.get(&url(p)).header("cookie", &cookie).call().unwrap().body_mut().read_to_string().unwrap();
-            let post = |p: &str, body: Value| -> Value {
-                agent.post(&url(p)).header("cookie", &cookie).send_json(&body).unwrap().body_mut().read_json().unwrap()
-            };
-            let uid: i64 = state.db.with(|c| c.query_row("SELECT id FROM users WHERE email = 'dev@example.com'", [], |r| r.get(0))).unwrap();
-            // No key of their own: the tutor runs on the server's key. The home card goes straight to it, with no red !.
-            let home = get("/");
-            assert!(home.contains(r#"data-testid="home-start-tutor" href="/tutor""#) && !home.contains("home-ai-blocked") && !home.contains("home-tutor-gate") && home.contains(r#"data-testid="home-info-ai""#), "{home}");
-            let page = get("/tutor");
-            assert!(page.contains(r#"data-provider="hosted""#) && page.contains("Skrongle AI (included)"), "{page}");
-            assert!(page.contains("Your messages are sent to the AI provider this server uses, on its key."), "not \"your key\": {page}");
-            let t = post("/api/tutor/start", json!({ "provider": "hosted" }));
-            assert_eq!(t["error"], Value::Null, "{t}");
-            assert!(t["entries"].as_array().unwrap().iter().any(|e| e["kind"] == "tutor"));
-            // The simulator's usage at $1 / $2 per MTok.
-            let (cost, source, purpose): (i64, String, String) = state
-                .db
-                .with(|c| c.query_row("SELECT cost_micros, key_source, purpose FROM ai_usage", [], |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?))))
-                .unwrap();
-            assert!(cost > 0 && cost < 10_000, "{cost}");
-            assert_eq!((source.as_str(), purpose.as_str()), ("hosted", "tutor-turn"));
-            // A hosted generation job reserves the estimate, writes the course, settles and releases.
-            let made = agent.post(&url("/courses/new")).header("cookie", &cookie).send_form([("title", "")]).unwrap();
-            let editor = made.headers().get("location").unwrap().to_str().unwrap().to_string();
-            let id = editor.strip_prefix("/courses/").and_then(|l| l.strip_suffix("?generate=1")).unwrap().to_string();
-            let form = get(&editor);
-            assert!(form.contains(r#"value="hosted""#) && !form.contains("generate-no-key"), "{form}");
-            let mut r = agent
-                .post(&url(&format!("/courses/{id}/generate")))
-                .header("cookie", &cookie)
-                .send_form([("provider", "hosted"), ("wish", "Fractions, for the simulator test"), ("lessons", "3")])
-                .unwrap();
-            assert_eq!(r.status().as_u16(), 303, "{}", r.body_mut().read_to_string().unwrap());
-            let loc = r.headers().get("location").unwrap().to_str().unwrap().to_string();
-            let job = loc.strip_prefix(&format!("/courses/{id}?job=")).expect("to the editor's progress modal").to_string();
-            let mut done = false;
-            for _ in 0..100 {
-                let s: Value = agent.get(&url(&format!("/api/generate/{job}"))).header("cookie", &cookie).call().unwrap().body_mut().read_json().unwrap();
-                if s["done"] == true {
-                    assert_eq!(s["error"], Value::Null, "{s}");
-                    done = true;
-                    break;
-                }
-                std::thread::sleep(std::time::Duration::from_millis(50));
-            }
-            assert!(done, "the hosted generation did not finish");
-            assert_eq!(state.meter.reservation(&job), None, "released");
-            let rows: Vec<(String, String, String)> = state
-                .db
-                .with(|c| {
-                    c.prepare("SELECT purpose, model, key_source FROM ai_usage WHERE job_id = ?1 ORDER BY id")?
-                        .query_map([&job], |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?)))?
-                        .collect()
-                })
-                .unwrap();
-            assert_eq!(rows.len(), 4, "{rows:?}");
-            assert!(rows.iter().all(|(_, m, s)| m == "course-model" && s == "hosted"));
-            assert_eq!(rows[0].0, "generate-outline");
-            let calls = |state: &crate::AppState| state.db.with(|c| c.query_row("SELECT COUNT(*) FROM ai_usage", [], |r| r.get::<_, i64>(0))).unwrap();
-            let before = calls(&state);
-
-            // The day's cap is reached: the turn is graded as usual but the model is not asked.
-            let call = crate::ai::Call::new("tutor-turn");
-            let big = Record {
-                user_id: uid,
-                call: &call,
-                provider: "anthropic",
-                model: "tutor-model",
-                usage: crate::ai::Usage { input: 2_000_000, output: 0, cached: 0 },
-                source: KeySource::Hosted,
-            };
-            state.db.with(|c| state.meter.record(c, &big)).unwrap();
-            let t2 = post("/api/tutor/turn", json!({ "session": t["session"], "kind": "say", "text": "hola" }));
-            assert_eq!(t2["ai_out"], "daily-cap", "{t2}");
-            assert!(t2["error"].as_str().unwrap().contains("own API key"), "{t2}");
-            assert_eq!(t2["entries"][0]["kind"], "learner");
-            assert_eq!(calls(&state), before + 1, "only the recorded row: the model was not asked");
-            // Asking for a course the same day is refused before any job starts, with the way on.
-            let made = agent.post(&url("/courses/new")).header("cookie", &cookie).send_form([("title", "")]).unwrap();
-            let editor = made.headers().get("location").unwrap().to_str().unwrap().to_string();
-            let id2 = editor.strip_prefix("/courses/").and_then(|l| l.strip_suffix("?generate=1")).unwrap().to_string();
-            let mut r = agent
-                .post(&url(&format!("/courses/{id2}/generate")))
-                .header("cookie", &cookie)
-                .send_form([("provider", "hosted"), ("wish", "Fractions, for the simulator test"), ("lessons", "3")])
-                .unwrap();
-            assert_eq!(r.status().as_u16(), 200);
-            let refused = r.body_mut().read_to_string().unwrap();
-            assert!(refused.contains("daily spending limit") && refused.contains("ai-out-own-key"), "{refused}");
-            assert_eq!(calls(&state), before + 1, "no model call");
+            assert!(form.contains("generate-no-key"), "{form}");
         };
         rt.block_on(async move { tokio::task::spawn_blocking(work).await }).unwrap();
     }
