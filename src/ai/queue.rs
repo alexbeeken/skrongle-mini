@@ -80,6 +80,10 @@ pub(super) struct JobTable {
     heartbeat: bool,
 }
 
+/// Every AI job by id. One entry per account at most (so at most
+/// `caps::MAX_ACCOUNTS`): starting a job drops expired jobs and the
+/// account's earlier finished ones first (#42), and capacity allows one
+/// running or waiting job per account.
 #[derive(Default)]
 pub struct Jobs {
     inner: Arc<Mutex<JobTable>>,
@@ -119,22 +123,20 @@ impl JobTable {
         Ok(false)
     }
 
-    /// Keep at most `MAX_FINISHED_PER_USER` finished jobs of `user_id`, the newest.
-    pub(super) fn trim_finished(&mut self, user_id: i64) {
-        let mut finished: Vec<(i64, String)> = self
-            .map
-            .iter()
-            .filter(|(_, j)| j.user_id == user_id)
-            .filter_map(|(id, j)| j.snapshot().finished_at.map(|t| (t, id.clone())))
-            .collect();
-        if finished.len() <= MAX_FINISHED_PER_USER {
-            return;
-        }
-        finished.sort();
-        let extra = finished.len() - MAX_FINISHED_PER_USER;
-        for (_, id) in finished.into_iter().take(extra) {
-            self.map.remove(&id);
-        }
+    /// Make room for a new job of `user_id`: drop expired finished jobs,
+    /// then the user's own finished ones. A running or waiting job keeps
+    /// its entry (and its thread).
+    pub(super) fn make_room(&mut self, user_id: i64) {
+        self.drop_expired();
+        self.map.retain(|_, j| j.user_id != user_id || j.snapshot().finished_at.is_none());
+    }
+
+    /// Drop finished jobs older than `JOB_TTL_SECS`.
+    fn drop_expired(&mut self) -> usize {
+        let cutoff = crate::db::now() - JOB_TTL_SECS;
+        let before = self.map.len();
+        self.map.retain(|_, j| j.snapshot().finished_at.map(|t| t > cutoff).unwrap_or(true));
+        before - self.map.len()
     }
 }
 
@@ -209,11 +211,7 @@ impl Jobs {
     }
 
     pub fn purge_expired(&self) -> usize {
-        let cutoff = crate::db::now() - JOB_TTL_SECS;
-        let mut table = self.lock();
-        let before = table.map.len();
-        table.map.retain(|_, j| j.snapshot().finished_at.map(|t| t > cutoff).unwrap_or(true));
-        before - table.map.len()
+        self.lock().drop_expired()
     }
 
     pub(super) fn lock(&self) -> std::sync::MutexGuard<'_, JobTable> {
@@ -278,8 +276,8 @@ pub fn start(jobs: &Jobs, db: Db, registry: Arc<crate::courses::Courses>, req: R
     // requests at once cannot both pass the check.
     let mut table = jobs.lock();
     let now = table.capacity(req.user_id)?;
+    table.make_room(req.user_id);
     table.map.insert(id.clone(), Arc::clone(&job));
-    table.trim_finished(req.user_id);
     if !now {
         job.update(|s| s.phase = "Waiting".into());
         table.waiting.insert(id.clone(), (req.user_id, row));
