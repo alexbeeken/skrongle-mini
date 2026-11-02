@@ -14,6 +14,9 @@ use crate::db::now;
 use crate::error::AppError;
 use crate::AppState;
 
+mod cache;
+pub use cache::SessionCache;
+
 pub const SESSION_COOKIE: &str = "sid";
 /// Sessions live for 30 days of inactivity-free time (TTL is fixed, not sliding).
 pub const SESSION_TTL_SECS: i64 = 30 * 24 * 60 * 60;
@@ -328,25 +331,37 @@ pub fn purge_expired_sessions(conn: &Connection) -> rusqlite::Result<usize> {
 
 /// The user behind a session token. The course title is filled in for
 /// user-made courses here; built-in ones are titled by the registry.
+/// Requests go through `cached_user`, which asks this only on a miss.
+#[cfg(test)]
 pub fn user_for_session(conn: &Connection, token: &str) -> rusqlite::Result<Option<CurrentUser>> {
-    let sql = format!(
+    Ok(read_session(conn, &hash_token(token), now())?.map(|(u, _)| u))
+}
+
+/// The session query: every table it reads must be in `cache::WATCHED`.
+fn session_sql() -> String {
+    format!(
         "SELECT u.id, COALESCE(u.email, ''), u.active_course, c.title, u.first_name, u.last_name, COALESCE(p.avatar, u.avatar), COALESCE(p.theme, ''), {}, {}, u.ai_off, u.email_verified_at IS NOT NULL, u.superuser,
                 COALESCE(p.start_unit, ''), COALESCE(p.avatar_color, u.avatar_color), u.lang, c.owner_id, u.own_keys_fallback, u.must_change_password,
-                (SELECT version FROM terms_acceptances WHERE user_id = u.id ORDER BY accepted_at DESC, rowid DESC LIMIT 1), u.delete_at
+                (SELECT version FROM terms_acceptances WHERE user_id = u.id ORDER BY accepted_at DESC, rowid DESC LIMIT 1), u.delete_at, s.expires_at
          FROM sessions s JOIN users u ON u.id = s.user_id LEFT JOIN courses c ON c.id = u.active_course
          LEFT JOIN projects p ON p.user_id = u.id AND p.course_id = u.active_course
          WHERE s.session_token = ?1 AND s.expires_at > ?2",
         crate::billing::plan_sql("u.id", "?2"),
         crate::terms::accepted_sql("u.id")
-    );
+    )
+}
+
+/// The user of the session whose token hashes to `hash`, at time `now`,
+/// and when that session expires.
+fn read_session(conn: &Connection, hash: &str, now: i64) -> rusqlite::Result<Option<(CurrentUser, i64)>> {
     conn.query_row(
-        &sql,
-        params![hash_token(token), now()],
+        &session_sql(),
+        params![hash, now],
         |r| {
             let plan = crate::billing::Plan::parse(&r.get::<_, String>(8)?).unwrap_or_default();
             let terms_ok: bool = r.get(9)?;
             let terms_notice = if terms_ok { None } else { crate::terms::notice(r.get::<_, Option<String>>(19)?.as_deref()) };
-            Ok(CurrentUser {
+            let user = CurrentUser {
                 id: r.get(0)?,
                 email: r.get(1)?,
                 course_id: r.get(2)?,
@@ -375,10 +390,34 @@ pub fn user_for_session(conn: &Connection, token: &str) -> rusqlite::Result<Opti
                 avatar_bg: crate::profile::badge(r.get(14)?, None),
                 lang: r.get(15)?,
                 tz: 0,
-            })
+            };
+            Ok((user, r.get(21)?))
         },
     )
     .optional()
+}
+
+/// `user_for_session` for a request: from the in-memory cache when the
+/// session is there (#37), else from the database, caching what it finds.
+async fn cached_user(state: &AppState, token: &str) -> Result<Option<CurrentUser>, AppError> {
+    let hash = hash_token(token);
+    let cache = state.db.sessions();
+    if let Some(user) = cache.get(&hash, now()) {
+        return Ok(Some(user));
+    }
+    state
+        .db
+        .call(move |c| {
+            let t = now();
+            let found = read_session(c, &hash, t)?;
+            // Under the database's lock: no write (and so no forget_all) can
+            // come between the read and the put.
+            if let Some((user, expires_at)) = &found {
+                cache.put(hash, user.clone(), t, *expires_at);
+            }
+            Ok(found.map(|(u, _)| u))
+        })
+        .await
 }
 
 // ---------- Cookies ----------
@@ -423,8 +462,7 @@ async fn resolve_user(parts: &Parts, state: &AppState) -> Result<Option<(String,
     let Some(token) = session_cookie_from_headers(&parts.headers) else {
         return Ok(None);
     };
-    let t = token.clone();
-    let mut user = state.db.call(move |c| user_for_session(c, &t)).await?;
+    let mut user = cached_user(state, &token).await?;
     if let Some(u) = user.as_mut() {
         u.tz = crate::routes::sprint::tz_offset_secs(&parts.headers);
         // No plans on this server (Skrongle mini): every account is Plus.
@@ -486,7 +524,7 @@ fn on_profile(parts: &Parts) -> bool {
 /// public-looking routes that serve private things only to their owner).
 pub async fn user_id_of(state: &AppState, headers: &HeaderMap) -> Option<i64> {
     let token = session_cookie_from_headers(headers)?;
-    state.db.call(move |c| user_for_session(c, &token)).await.ok().flatten().map(|u| u.id)
+    cached_user(state, &token).await.ok().flatten().map(|u| u.id)
 }
 
 /// Route guard: resolves the session cookie to a user, or rejects.
@@ -632,6 +670,54 @@ impl<S: Send + Sync> FromRequestParts<S> for SessionToken {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// A request after the first finds its user in memory (#37), and every
+    /// change to what the session query reads is seen on the next request:
+    /// a profile field, the course, terms, signing out elsewhere.
+    #[test]
+    fn the_signed_in_user_is_cached_until_something_it_shows_changes() {
+        let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
+        let state = crate::routes::test_state(false, None);
+        let ann = state.db.with(|c| create_user(c, "ann@example.org", "h")).unwrap();
+        let session = |u| state.db.with(|c| create_session(c, u)).unwrap();
+        let (here, elsewhere) = (session(ann), session(ann));
+        let cache = state.db.sessions();
+        let request = |token: &str| {
+            let mut headers = HeaderMap::new();
+            headers.insert(COOKIE, HeaderValue::from_str(&format!("sid={token}")).unwrap());
+            rt.block_on(user_from_headers(&state, &headers))
+        };
+
+        let first = request(&here).unwrap();
+        assert!(!first.terms_ok);
+        let reads = cache.reads();
+        for _ in 0..3 {
+            assert_eq!(request(&here).map(|u| u.id), Some(ann));
+        }
+        assert_eq!(cache.reads(), reads, "later requests make no session query");
+
+        state.db.with(|c| crate::terms::accept(c, ann, crate::terms::version())).unwrap();
+        assert!(request(&here).unwrap().terms_ok, "terms accepted");
+
+        state.db.with(|c| crate::profile::update(c, ann, Some("Ann"), None)).unwrap();
+        assert_eq!(request(&here).unwrap().first_name, "Ann", "profile field");
+
+        state.db.with(|c| crate::courses::open_project(c, ann, "spanish")).unwrap();
+        assert_eq!(request(&here).unwrap().course_id.as_deref(), Some("spanish"), "course switched");
+
+        assert!(request(&elsewhere).is_some());
+        state.db.with(|c| delete_other_sessions(c, ann, &here)).unwrap();
+        assert!(request(&elsewhere).is_none(), "signed out elsewhere");
+        assert!(request(&here).is_some());
+        state.db.with(|c| delete_session(c, &here)).unwrap();
+        assert!(request(&here).is_none(), "signed out");
+
+        let reads = cache.reads();
+        let last = session(ann);
+        request(&last);
+        request(&last);
+        assert_eq!(cache.reads(), reads + 1);
+    }
 
     #[test]
     fn sign_in_finds_the_address_in_any_case_through_the_index() {
