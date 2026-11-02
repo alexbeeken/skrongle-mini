@@ -27,11 +27,12 @@ pub const MAX_COURSE_BYTES: usize = 8 * 1024 * 1024;
 pub const MAX_ACCOUNT_BYTES: usize = 32 * 1024 * 1024;
 /// Courses one account may own.
 pub const MAX_COURSES_PER_USER: usize = 50;
-/// How much of the built courses (built-in and user-made) the in-memory cache
-/// keeps, counted as the bytes of their files (a built course takes two to
-/// three times that): past it the least recently used ones are dropped and
-/// rebuilt on demand.
-pub const CACHE_BYTES: usize = 24 * 1024 * 1024;
+/// How many built courses (built-in, user-made and themed copies together)
+/// the in-memory cache keeps: past it the least recently used one is dropped
+/// and rebuilt on its next use (#33). Equal to `caps::MAX_ACCOUNTS`: each
+/// account has one active course, so this is the most anyone can be using.
+/// Becomes `crate::caps::MAX_ACCOUNTS` once that module lands (#49).
+pub const MAX_STORES: usize = 8;
 
 /// What one account may store in courses. `Default` gives the constants
 /// above; the server reads `SKRONGLE_COURSES_PER_USER`, `SKRONGLE_COURSE_BYTES` and
@@ -50,54 +51,63 @@ impl Default for Limits {
     }
 }
 
-/// A cached course: the store, the bytes of its files and when it
-/// was last used (a counter), for the cache's LRU eviction.
+/// A cached course: the store and when it was last used (a counter), for
+/// the cache's LRU eviction.
 struct Cached {
     store: Arc<ContentStore>,
-    bytes: usize,
     used: u64,
 }
 
-#[derive(Default)]
+/// The built courses, keyed by (course id, theme id or "" for the plain
+/// course), at most `max_entries` of them, least recently used out first.
 struct Cache {
-    entries: HashMap<String, Cached>,
-    bytes: usize,
+    entries: HashMap<(String, String), Cached>,
     tick: u64,
+    max_entries: usize,
+}
+
+impl Default for Cache {
+    fn default() -> Cache {
+        Cache { entries: HashMap::new(), tick: 0, max_entries: MAX_STORES }
+    }
 }
 
 impl Cache {
-    fn get(&mut self, id: &str) -> Option<Arc<ContentStore>> {
+    fn get(&mut self, id: &str, theme: &str) -> Option<Arc<ContentStore>> {
         self.tick += 1;
         let tick = self.tick;
-        self.entries.get_mut(id).map(|e| {
+        self.entries.get_mut(&(id.to_string(), theme.to_string())).map(|e| {
             e.used = tick;
             Arc::clone(&e.store)
         })
     }
 
-    /// Keep `store` (built from `bytes` of files), then drop the least
-    /// recently used courses until the cache is within `budget` again. The
-    /// course just put in always stays, however big.
-    fn insert(&mut self, id: &str, store: Arc<ContentStore>, bytes: usize, budget: usize) {
-        self.remove(id);
+    /// Keep `store`, then drop the least recently used courses until the
+    /// cache holds `max_entries` again. The store just put in always stays.
+    fn insert(&mut self, id: &str, theme: &str, store: Arc<ContentStore>) {
         self.tick += 1;
-        self.entries.insert(id.to_string(), Cached { store, bytes, used: self.tick });
-        self.bytes += bytes;
-        while self.bytes > budget && self.entries.len() > 1 {
-            let oldest = self.entries.iter().filter(|(k, _)| k.as_str() != id).min_by_key(|(_, e)| e.used).map(|(k, _)| k.clone());
+        let key = (id.to_string(), theme.to_string());
+        self.entries.insert(key.clone(), Cached { store, used: self.tick });
+        while self.entries.len() > self.max_entries.max(1) {
+            let oldest = self.entries.iter().filter(|(k, _)| **k != key).min_by_key(|(_, e)| e.used).map(|(k, _)| k.clone());
             match oldest {
-                Some(k) => self.remove(&k),
+                Some(k) => self.entries.remove(&k),
                 None => break,
-            }
+            };
         }
     }
 
-    fn remove(&mut self, id: &str) {
-        if let Some(e) = self.entries.remove(id) {
-            self.bytes -= e.bytes;
-        }
+    /// Drop course `id`, plain and every themed copy.
+    fn remove_course(&mut self, id: &str) {
+        self.entries.retain(|(cid, _), _| cid != id);
+    }
+
+    /// Drop every course's copy themed with `theme`.
+    fn remove_theme(&mut self, theme: &str) {
+        self.entries.retain(|(_, tid), _| tid.is_empty() || tid != theme);
     }
 }
+
 /// Courses for automated tests only, under `<data>/test-courses/<id>/`: loaded
 /// as built-in courses when `TEST_COURSE=1`, never otherwise. The test course
 /// there uses every feature a course file can switch on (see its AUTHORING.md).
@@ -168,20 +178,15 @@ pub struct Courses {
     /// Where each built-in course was loaded from, to build it (and its
     /// themed copies) on demand.
     builtin_dirs: HashMap<String, PathBuf>,
-    /// Cache of the courses already built, built-in ones from their folder
-    /// and user-made ones from the database, bounded by `cache_bytes`
-    /// (least recently used out first).
-    custom: Mutex<Cache>,
-    /// Held while a built-in course is built, so two first requests for it
-    /// wait for one build instead of making two.
+    /// Cache of the courses already built: built-in ones from their folder,
+    /// user-made ones from the database and copies with a theme switched on,
+    /// at most `MAX_STORES` together (least recently used out first, #33).
+    cache: Mutex<Cache>,
+    /// Held while a built-in course (plain or themed) is built, so two first
+    /// requests for it wait for one build instead of making two.
     building: Mutex<()>,
-    cache_bytes: usize,
     /// What one account may store in courses.
     limits: Limits,
-    /// Courses with a theme switched on, by (course id, theme id). Built the
-    /// first time a learner opens the course with that theme and kept until
-    /// the course changes; one extra copy of the course per theme in use.
-    themed: Mutex<HashMap<(String, String), Arc<ContentStore>>>,
 }
 
 impl Courses {
@@ -234,11 +239,9 @@ impl Courses {
         Courses {
             builtin,
             builtin_dirs,
-            custom: Mutex::default(),
+            cache: Mutex::default(),
             building: Mutex::new(()),
-            cache_bytes: CACHE_BYTES,
             limits: Limits::default(),
-            themed: Mutex::new(HashMap::new()),
         }
     }
 
@@ -272,22 +275,28 @@ impl Courses {
     /// or when its files no longer load (they did at boot).
     pub fn builtin_store(&self, id: &str) -> Option<Arc<ContentStore>> {
         let dir = self.builtin_dirs.get(id)?;
-        if let Some(c) = self.lock().get(id) {
+        self.build_builtin(id, "", || ContentStore::load_dir(dir))
+    }
+
+    /// Built-in course `id` with theme `theme` ("" for none): from the cache,
+    /// or built by `build` under the `building` lock and cached. `None` when
+    /// it does not build.
+    fn build_builtin(&self, id: &str, theme: &str, build: impl FnOnce() -> Result<ContentStore, ContentError>) -> Option<Arc<ContentStore>> {
+        if let Some(c) = self.lock().get(id, theme) {
             return Some(c);
         }
         let _one = self.building.lock().unwrap_or_else(|p| p.into_inner());
-        if let Some(c) = self.lock().get(id) {
+        if let Some(c) = self.lock().get(id, theme) {
             return Some(c);
         }
-        let built = crate::content::read_course_dir(dir).and_then(|files| Ok((ContentStore::from_files(&files)?, size_of(&files))));
-        match built {
-            Ok((store, bytes)) => {
+        match build() {
+            Ok(store) => {
                 let store = Arc::new(store);
-                self.cache(id, Arc::clone(&store), bytes);
+                self.lock().insert(id, theme, Arc::clone(&store));
                 Some(store)
             }
             Err(e) => {
-                tracing::warn!("built-in course {id} does not load: {e}");
+                tracing::warn!("built-in course {id} (theme {theme:?}) does not load: {e}");
                 None
             }
         }
@@ -318,7 +327,7 @@ impl Courses {
         if self.is_builtin(id) {
             return Ok(self.builtin_store(id));
         }
-        if let Some(c) = self.lock().get(id) {
+        if let Some(c) = self.lock().get(id, "") {
             return Ok(Some(c));
         }
         let id_owned = id.to_string();
@@ -333,7 +342,7 @@ impl Courses {
             }
             Ok(store) => {
                 let store = Arc::new(store);
-                self.cache(id, Arc::clone(&store), size_of(&files));
+                self.lock().insert(id, "", Arc::clone(&store));
                 Ok(Some(store))
             }
             Err(e) => {
@@ -348,29 +357,30 @@ impl Courses {
     /// Themes apply to the built-in courses only for now: a course made in
     /// the app is always served plain.
     pub async fn get_themed(&self, db: &Db, id: &str, theme: Option<&Theme>) -> Result<Option<Arc<ContentStore>>, AppError> {
+        let Some(theme) = theme.filter(|_| self.supports_themes(id)) else { return self.get(db, id).await };
+        // A themed copy is its own cache entry, built straight from the
+        // folder: wearing a theme does not keep the plain course built too.
+        if let Some(dir) = self.builtin_dirs.get(id) {
+            if let Some(c) = self.build_builtin(id, &theme.id, || ContentStore::load_dir_themed(dir, Some(theme))) {
+                return Ok(Some(c));
+            }
+            // Cannot happen for a course that loads (every theme is validated
+            // with it); fall back to the plain course rather than fail.
+            return self.get(db, id).await;
+        }
         let Some(plain) = self.get(db, id).await? else { return Ok(None) };
-        let Some(theme) = theme.filter(|_| self.supports_themes(id)) else { return Ok(Some(plain)) };
-        let key = (id.to_string(), theme.id.clone());
-        if let Some(c) = self.themed.lock().unwrap_or_else(|p| p.into_inner()).get(&key).cloned() {
+        if let Some(c) = self.lock().get(id, &theme.id) {
             return Ok(Some(c));
         }
-        let built = match self.builtin_dirs.get(id) {
-            Some(dir) => ContentStore::load_dir_themed(dir, Some(theme)),
-            None => {
-                let id_owned = id.to_string();
-                let files = db.call(move |c| load_files(c, &id_owned)).await?;
-                ContentStore::from_files_themed(&files, Some(theme))
-            }
-        };
-        match built {
+        let id_owned = id.to_string();
+        let files = db.call(move |c| load_files(c, &id_owned)).await?;
+        match ContentStore::from_files_themed(&files, Some(theme)) {
             Ok(store) => {
                 let store = Arc::new(store);
-                self.themed.lock().unwrap_or_else(|p| p.into_inner()).insert(key, Arc::clone(&store));
+                self.lock().insert(id, &theme.id, Arc::clone(&store));
                 Ok(Some(store))
             }
             Err(e) => {
-                // Cannot happen for a course that loads (every theme is validated
-                // with it); fall back to the plain course rather than fail.
                 tracing::warn!("course {id} with theme {} does not load: {e}", theme.id);
                 Ok(Some(plain))
             }
@@ -379,22 +389,16 @@ impl Courses {
 
     /// Forget a cached course (after an edit), themed copies included.
     pub fn invalidate(&self, id: &str) {
-        self.lock().remove(id);
-        self.themed.lock().unwrap_or_else(|p| p.into_inner()).retain(|(cid, _), _| cid != id);
+        self.lock().remove_course(id);
     }
 
     /// Forget every course's copy themed with `theme` (after the theme changed or went).
     pub fn forget_theme(&self, theme: &str) {
-        self.themed.lock().unwrap_or_else(|p| p.into_inner()).retain(|(_, tid), _| tid != theme);
-    }
-
-    fn cache(&self, id: &str, store: Arc<ContentStore>, bytes: usize) {
-        let budget = self.cache_bytes;
-        self.lock().insert(id, store, bytes, budget);
+        self.lock().remove_theme(theme);
     }
 
     fn lock(&self) -> std::sync::MutexGuard<'_, Cache> {
-        self.custom.lock().unwrap_or_else(|p| p.into_inner())
+        self.cache.lock().unwrap_or_else(|p| p.into_inner())
     }
 }
 
@@ -1201,7 +1205,7 @@ pub fn revalidate(conn: &Connection, registry: &Courses, course_id: &str) -> rus
                 // A generation that stopped before its outline, fixed by hand, is a course now.
                 conn.execute("UPDATE courses SET state = 'ready' WHERE id = ?1 AND state = 'failed'", [course_id])?;
             }
-            registry.cache(course_id, Arc::new(store), size_of(&files));
+            registry.lock().insert(course_id, "", Arc::new(store));
             Ok(None)
         }
         Err(e) => {

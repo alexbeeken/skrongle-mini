@@ -187,7 +187,7 @@ fn courses_round_trip_through_the_database() {
         let err = revalidate(c, &registry, id)?.unwrap();
         assert!(err.starts_with("Not valid JSON in the course settings, line 1"), "{err}");
         assert!(course(c, id)?.unwrap().error.is_some());
-        assert!(registry.lock().get(id).is_none());
+        assert!(registry.lock().get(id, "").is_none());
         // Fix it again and open it as a project.
         let good = starter_files(id, "My course");
         write_file(c, id, "course.json", &good[0].content)?;
@@ -454,28 +454,92 @@ fn a_copy_has_every_file_under_its_own_id() {
     .unwrap();
 }
 
-/// #366: the cache of user-made courses keeps the most recently used ones
-/// within its byte budget; the course just added always stays.
+/// #33: the course cache keeps at most `MAX_STORES` built courses, least
+/// recently used out first; the course just added always stays.
 #[test]
 fn the_course_cache_drops_the_least_recently_used() {
     let store = |id: &str| Arc::new(ContentStore::from_files(&starter_files(id, "C")).unwrap());
-    let mut cache = Cache::default();
-    cache.insert("a", store("a"), 40, 100);
-    cache.insert("b", store("b"), 40, 100);
-    assert!(cache.get("a").is_some(), "a is now the most recently used");
-    cache.insert("c", store("c"), 40, 100);
-    assert!(cache.get("b").is_none(), "b was the least recently used");
-    assert!(cache.get("a").is_some() && cache.get("c").is_some());
-    assert_eq!(cache.bytes, 80);
+    let mut cache = Cache { max_entries: 2, ..Cache::default() };
+    cache.insert("a", "", store("a"));
+    cache.insert("b", "", store("b"));
+    assert!(cache.get("a", "").is_some(), "a is now the most recently used");
+    cache.insert("c", "", store("c"));
+    assert!(cache.get("b", "").is_none(), "b was the least recently used");
+    assert!(cache.get("a", "").is_some() && cache.get("c", "").is_some());
     // Replacing an entry does not count it twice.
-    cache.insert("c", store("c"), 50, 100);
-    assert_eq!(cache.bytes, 90);
-    // A course over the whole budget stays alone.
-    cache.insert("big", store("big"), 500, 100);
-    assert_eq!((cache.entries.len(), cache.bytes), (1, 500));
-    assert!(cache.get("big").is_some());
-    cache.remove("big");
-    assert_eq!((cache.entries.len(), cache.bytes), (0, 0));
+    cache.insert("c", "", store("c"));
+    assert_eq!(cache.entries.len(), 2);
+    // A themed copy is an entry of its own.
+    assert!(cache.get("a", "").is_some(), "c is now the least recently used");
+    cache.insert("a", "realm", store("a"));
+    assert!(cache.get("c", "").is_none(), "c went to make room for a's themed copy");
+    assert!(cache.get("a", "realm").is_some() && cache.get("a", "").is_some());
+    // The store just put in stays, whatever the bound.
+    let mut tiny = Cache { max_entries: 0, ..Cache::default() };
+    tiny.insert("x", "", store("x"));
+    assert!(tiny.get("x", "").is_some());
+}
+
+/// #33: with 9 courses opened in turn, 8 stay built and the oldest is built
+/// again on its next use.
+#[test]
+fn nine_courses_keep_eight_built() {
+    assert_eq!(MAX_STORES, 8);
+    let rt = tokio::runtime::Builder::new_current_thread().enable_all().build().unwrap();
+    let db = crate::db::Db::open_in_memory().unwrap();
+    let registry = Courses::empty();
+    let ids: Vec<String> = (0..9).map(|i| format!("c{i}-abc123")).collect();
+    db.with(|c| {
+        let uid = crate::auth::create_user(c, "ann@example.org", "h")?;
+        for id in &ids {
+            create_course(c, uid, id, "C", &starter_files(id, "C"))?;
+        }
+        Ok(())
+    })
+    .unwrap();
+    let first = rt.block_on(registry.get(&db, &ids[0])).unwrap().unwrap();
+    for id in &ids[1..] {
+        rt.block_on(registry.get(&db, id)).unwrap().unwrap();
+        assert!(registry.lock().entries.len() <= MAX_STORES);
+    }
+    assert_eq!(registry.lock().entries.len(), MAX_STORES);
+    assert!(registry.lock().get(&ids[0], "").is_none(), "the oldest was dropped");
+    let again = rt.block_on(registry.get(&db, &ids[0])).unwrap().unwrap();
+    assert!(!Arc::ptr_eq(&first, &again), "and is built again on its next use");
+    assert!(registry.lock().get(&ids[1], "").is_none(), "which pushed out the next oldest");
+}
+
+/// #33: a themed copy is a cache entry like any other; `forget_theme` drops
+/// that theme's copies and `invalidate` a course with all of its copies.
+#[test]
+fn themed_copies_are_cache_entries() {
+    let rt = tokio::runtime::Builder::new_current_thread().enable_all().build().unwrap();
+    let db = crate::db::Db::open_in_memory().unwrap();
+    let registry = Courses::load_builtin(Path::new("data")).unwrap();
+    let themes = crate::themes::Themes::load(Path::new("data")).unwrap();
+    let realm = themes.get("realm").expect("realm theme").theme.clone();
+    let rustwake = themes.get("rustwake").expect("rustwake theme").theme.clone();
+    let keys = |r: &Courses| {
+        let mut k: Vec<(String, String)> = r.lock().entries.keys().cloned().collect();
+        k.sort();
+        k
+    };
+    let key = |c: &str, t: &str| (c.to_string(), t.to_string());
+
+    let themed = rt.block_on(registry.get_themed(&db, "spanish", Some(&realm))).unwrap().unwrap();
+    assert_eq!(keys(&registry), [key("spanish", "realm")], "wearing a theme builds only the themed copy");
+    let again = rt.block_on(registry.get_themed(&db, "spanish", Some(&realm))).unwrap().unwrap();
+    assert!(Arc::ptr_eq(&themed, &again), "served from the cache");
+    rt.block_on(registry.get_themed(&db, "spanish", None)).unwrap().unwrap();
+    rt.block_on(registry.get_themed(&db, "spanish", Some(&rustwake))).unwrap().unwrap();
+    rt.block_on(registry.get_themed(&db, "french", Some(&realm))).unwrap().unwrap();
+    assert_eq!(keys(&registry), [key("french", "realm"), key("spanish", ""), key("spanish", "realm"), key("spanish", "rustwake")]);
+
+    registry.forget_theme("realm");
+    assert_eq!(keys(&registry), [key("spanish", ""), key("spanish", "rustwake")]);
+    rt.block_on(registry.get_themed(&db, "french", Some(&realm))).unwrap().unwrap();
+    registry.invalidate("spanish");
+    assert_eq!(keys(&registry), [key("french", "realm")]);
 }
 
 /// #380: a course whose manifest names another course's id does not
@@ -495,12 +559,12 @@ fn a_course_claiming_another_id_does_not_open() {
         .unwrap();
     assert!(err.unwrap().contains("must be “mine-abc123”"));
     assert!(rt.block_on(registry.get(&db, id)).unwrap().is_none());
-    assert!(registry.lock().get(id).is_none(), "not cached");
+    assert!(registry.lock().get(id, "").is_none(), "not cached");
     assert!(rt.block_on(registry.get(&db, "spanish")).unwrap().is_none());
     // Its own id again: it opens and is cached.
     db.with(|c| write_file(c, id, MANIFEST_FILE, &starter_files(id, "Mine")[0].content)).unwrap();
     assert_eq!(rt.block_on(registry.get(&db, id)).unwrap().unwrap().id(), id);
-    assert!(registry.lock().get(id).is_some());
+    assert!(registry.lock().get(id, "").is_some());
 }
 
 /// #32: loading the registry checks every built-in course but keeps none
@@ -522,12 +586,12 @@ fn builtin_courses_are_built_on_first_use() {
     let second = &built.units()[levels[1].0].id;
     assert_eq!(summary.start_index(second), built.start_index(second));
     assert_eq!(summary.placement_offered(), crate::placement::offered(&built));
-    assert_eq!(registry.lock().entries.keys().collect::<Vec<_>>(), ["spanish"], "only the course asked for");
+    assert_eq!(registry.lock().entries.keys().collect::<Vec<_>>(), [&("spanish".to_string(), String::new())], "only the course asked for");
     let again = rt.block_on(registry.get(&db, "spanish")).unwrap().unwrap();
     assert!(Arc::ptr_eq(&built, &again), "the second request is served from the cache");
 
     registry.invalidate("spanish");
-    assert!(registry.lock().get("spanish").is_none());
+    assert!(registry.lock().get("spanish", "").is_none());
     let rebuilt = rt.block_on(registry.get(&db, "spanish")).unwrap().unwrap();
     assert!(!Arc::ptr_eq(&built, &rebuilt), "dropped from the cache, it is built again");
     assert!(rt.block_on(registry.get(&db, "no-such-course")).unwrap().is_none());
