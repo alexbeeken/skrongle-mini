@@ -50,12 +50,69 @@ pub struct Language {
     pub code: String,
     /// Its own name for itself (`meta.name`): "English", "Español".
     pub name: String,
-    strings: BTreeMap<String, String>,
+    /// The file's texts, parsed the first time something asks (`strings`).
+    strings: OnceLock<BTreeMap<String, String>>,
+}
+
+#[cfg(test)]
+thread_local! {
+    /// Full-file parses done on this thread (the lazy-loading test counts them).
+    static PARSES: Cell<usize> = const { Cell::new(0) };
+}
+
+impl Language {
+    fn new(code: String, name: String) -> Self {
+        Language { code, name, strings: OnceLock::new() }
+    }
+
+    /// This language's texts, parsed from its embedded file on first use.
+    fn strings(&self) -> &BTreeMap<String, String> {
+        self.strings.get_or_init(|| {
+            #[cfg(test)]
+            PARSES.with(|c| c.set(c.get() + 1));
+            let file = format!("{}.yaml", self.code);
+            let text = file_text(&file);
+            parse(&text).unwrap_or_else(|e| panic!("i18n/{file}: {e}")) // panic-ok: embedded file, cargo test i18n parses every one
+        })
+    }
+}
+
+fn file_text(file: &str) -> String {
+    let data = Files::get(file).unwrap_or_else(|| panic!("i18n/{file}: missing")); // panic-ok: embedded file, cargo test i18n parses every one
+    std::str::from_utf8(&data.data).unwrap_or_else(|e| panic!("i18n/{file}: not UTF-8: {e}")).to_string() // panic-ok: embedded file, cargo test i18n parses every one
+}
+
+/// `meta.name` from the top of a file without parsing the rest: the
+/// `meta:` block's `name:` line. `None` when the file does not start that
+/// way (the caller then parses the whole file).
+fn scan_name(text: &str) -> Option<String> {
+    let mut in_meta = false;
+    for line in text.lines().map(|l| l.trim_end_matches('\r')) {
+        let content = line.trim_start_matches(' ');
+        if content.is_empty() || content.starts_with('#') {
+            continue;
+        }
+        if content.len() == line.len() {
+            if in_meta {
+                return None;
+            }
+            in_meta = content.trim_end() == "meta:";
+            if !in_meta {
+                return None;
+            }
+        } else if in_meta {
+            if let Some(v) = content.strip_prefix("name:").filter(|v| v.starts_with(' ')) {
+                return scalar(v.trim()).ok().filter(|n| !n.is_empty());
+            }
+        }
+    }
+    None
 }
 
 static LANGUAGES: OnceLock<Vec<Language>> = OnceLock::new();
 
-/// Every language shipped, the default first, the rest by code.
+/// Every language shipped, the default first, the rest by code. Reads only
+/// each file's `meta.name`; a language's texts load when first asked for.
 pub fn languages() -> &'static [Language] {
     LANGUAGES.get_or_init(|| {
         let mut all: Vec<Language> = Files::iter()
@@ -64,11 +121,15 @@ pub fn languages() -> &'static [Language] {
                 if code.contains('/') {
                     return None;
                 }
-                let file = Files::get(&name)?;
-                let text = std::str::from_utf8(&file.data).unwrap_or_else(|e| panic!("i18n/{name}: not UTF-8: {e}"));
-                let strings = parse(text).unwrap_or_else(|e| panic!("i18n/{name}: {e}"));
-                let name = strings.get("meta.name").cloned().unwrap_or_else(|| panic!("i18n/{name}: no meta.name"));
-                Some(Language { code, name, strings })
+                let lang = match scan_name(&file_text(&name)) {
+                    Some(n) => Language::new(code, n),
+                    None => {
+                        let l = Language::new(code, String::new());
+                        let n = l.strings().get("meta.name").cloned().unwrap_or_else(|| panic!("i18n/{name}: no meta.name")); // panic-ok: embedded file, cargo test i18n parses every one
+                        Language { name: n, ..l }
+                    }
+                };
+                Some(lang)
             })
             .collect();
         all.sort_by(|a, b| (a.code != DEFAULT).cmp(&(b.code != DEFAULT)).then_with(|| a.code.cmp(&b.code)));
@@ -208,10 +269,10 @@ impl Language {
     /// The text under `key`, falling back to the default language, then to
     /// the key itself (a missing key is a bug `cargo test` catches).
     pub fn get<'a>(&'a self, key: &'a str) -> &'a str {
-        if let Some(s) = self.strings.get(key) {
+        if let Some(s) = self.strings().get(key) {
             return s;
         }
-        if let Some(s) = languages()[0].strings.get(key) {
+        if let Some(s) = languages()[0].strings().get(key) {
             return s;
         }
         tracing::warn!("i18n: no text for {key}");
@@ -220,13 +281,13 @@ impl Language {
 
     #[cfg(test)]
     pub fn has(&self, key: &str) -> bool {
-        self.strings.contains_key(key)
+        self.strings().contains_key(key)
     }
 
     /// Every key, in order.
     #[cfg(test)]
     pub fn keys(&self) -> impl Iterator<Item = &str> {
-        self.strings.keys().map(String::as_str)
+        self.strings().keys().map(String::as_str)
     }
 
     /// The keys under `prefix.` with their texts, as a JSON object (what
@@ -236,7 +297,7 @@ impl Language {
         let mut map = serde_json::Map::new();
         // The default's keys first so a missing translation falls back.
         for lang in [&languages()[0], self] {
-            for (k, v) in lang.strings.range(full.clone()..) {
+            for (k, v) in lang.strings().range(full.clone()..) {
                 if !k.starts_with(&full) {
                     break;
                 }
@@ -257,7 +318,7 @@ pub fn t(key: &str) -> String {
 /// as a theme's (`themes.<id>.title`), where a theme a learner made has none.
 pub fn lookup(key: &str) -> Option<&'static str> {
     let cur = current();
-    cur.strings.get(key).or_else(|| languages().first()?.strings.get(key)).map(String::as_str)
+    cur.strings().get(key).or_else(|| languages().first()?.strings().get(key)).map(String::as_str)
 }
 
 /// `t`, with `{name}` replaced by `value`.
@@ -490,6 +551,29 @@ fn scalar(value: &str) -> Result<String, String> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn scan_name_agrees_with_the_full_parse() {
+        for f in Files::iter().filter(|f| f.ends_with(".yaml")) {
+            let text = file_text(&f);
+            let full = parse(&text).unwrap()["meta.name"].clone();
+            assert_eq!(scan_name(&text), Some(full), "{f}");
+        }
+        assert_eq!(scan_name("meta:\n  name: \"A: b\"\nx: 1\n"), Some("A: b".into()));
+        assert_eq!(scan_name("x: 1\nmeta:\n  name: A\n"), None);
+    }
+
+    #[test]
+    fn a_language_parses_once_and_the_list_parses_none() {
+        let before = PARSES.with(Cell::get);
+        let all = languages();
+        assert_eq!(PARSES.with(Cell::get), before, "languages() must not parse a file");
+        assert!(all.len() >= 6);
+        let en = Language::new("en".into(), "English".into());
+        assert_eq!(en.get("meta.name"), "English");
+        assert_eq!(en.get("meta.name"), "English");
+        assert_eq!(PARSES.with(Cell::get), before + 1, "English twice is one parse");
+    }
 
     #[test]
     fn parses_the_subset() {
