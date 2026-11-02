@@ -13,19 +13,22 @@ use askama::Template;
 use axum::extract::{Path, State};
 use axum::http::{header, HeaderValue};
 use axum::response::{IntoResponse, Response};
-use std::sync::Arc;
+use std::collections::HashMap;
+use std::sync::{Arc, Mutex};
 
 use super::{Docs, Page};
 use crate::auth::{CurrentUser, MaybeUser};
 use crate::error::AppError;
 use crate::AppState;
 
+#[derive(Clone)]
 pub struct DocLink {
     pub slug: String,
     pub title: String,
 }
 
 /// One heading of the docs sidebar and its pages.
+#[derive(Clone)]
 pub struct DocSection {
     pub id: &'static str,
     /// The heading's i18n key (`docs.section_*`).
@@ -273,10 +276,41 @@ fn render(state: &AppState, slug: &str, user: Option<CurrentUser>) -> Result<Res
         return Ok(axum::response::Redirect::to(&crate::url("/terms")).into_response());
     }
     let on = !state.themes.is_off();
-    let md = md_of(slug, on).ok_or(AppError::NotFound)?;
-    let title = title_of(&md, slug);
-    let html = render_doc(&md);
-    Ok(Page(DocsTemplate { user, title, slug: slug.to_string(), html, sections: sections(on) }).into_response())
+    let (title, html) = rendered(slug, on).ok_or(AppError::NotFound)?;
+    Ok(Page(DocsTemplate { user, title, slug: slug.to_string(), html, sections: sections_cached(on) }).into_response())
+}
+
+/// (title, body HTML) of a page, rendered on its first visit and kept for
+/// the life of the process (#39). The body depends only on the page, the
+/// themes setting and the base path, all fixed at startup; the signed-in
+/// user and the sidebar's current-page marker live in the template. Only
+/// pages that exist are stored, so the map is bounded by the docs.
+fn rendered(slug: &str, on: bool) -> Option<(String, String)> {
+    static CACHE: Mutex<Option<HashMap<(String, bool), (String, String)>>> = Mutex::new(None);
+    let mut guard = CACHE.lock().unwrap_or_else(|e| e.into_inner());
+    let map = guard.get_or_insert_with(HashMap::new);
+    if let Some(hit) = map.get(&(slug.to_string(), on)) {
+        return Some(hit.clone());
+    }
+    let md = md_of(slug, on)?;
+    let entry = (title_of(&md, slug), render_doc(&md));
+    map.insert((slug.to_string(), on), entry.clone());
+    Some(entry)
+}
+
+/// [`sections`], built once per themes setting.
+fn sections_cached(on: bool) -> Vec<DocSection> {
+    static CACHE: Mutex<Option<HashMap<bool, Vec<DocSection>>>> = Mutex::new(None);
+    let mut guard = CACHE.lock().unwrap_or_else(|e| e.into_inner());
+    let map = guard.get_or_insert_with(HashMap::new);
+    map.entry(on).or_insert_with(|| sections(on)).clone()
+}
+
+#[cfg(test)]
+thread_local! {
+    /// Markdown renders on this thread, for the test that a second request
+    /// of a page does not parse again.
+    pub(crate) static RENDERS: std::cell::Cell<usize> = const { std::cell::Cell::new(0) };
 }
 
 /// Markdown to HTML for a docs page. The files link to each other relatively
@@ -285,6 +319,8 @@ fn render(state: &AppState, slug: &str, user: Option<CurrentUser>) -> Result<Res
 /// `/docs/<page>`. Every link also gets a testid, and links to another page
 /// its slug, so a test can tell them apart.
 pub(crate) fn render_doc(md: &str) -> String {
+    #[cfg(test)]
+    RENDERS.with(|c| c.set(c.get() + 1));
     use pulldown_cmark::{html, CowStr, Event, Options, Parser, Tag, TagEnd};
     let mut opts = Options::empty();
     opts.insert(Options::ENABLE_TABLES);
@@ -377,6 +413,16 @@ mod tests {
     fn release_tarball_is_this_version() {
         assert!(RELEASE_TARBALL.ends_with(&format!("/{RELEASE_TARBALL_NAME}")));
         assert_eq!(RELEASE_TARBALL_NAME, format!("skrongle-{}-aarch64.tar.gz", env!("CARGO_PKG_VERSION")));
+    }
+
+    /// A page is parsed on its first request only (#39).
+    #[test]
+    fn page_is_rendered_once() {
+        let first = rendered("faq", true).expect("page exists");
+        assert_eq!(RENDERS.with(|c| c.get()), 1);
+        assert_eq!(rendered("faq", true), Some(first));
+        assert_eq!(RENDERS.with(|c| c.get()), 1, "second request parsed again");
+        assert!(rendered("no-such-page", true).is_none());
     }
 
     #[test]
