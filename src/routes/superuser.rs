@@ -138,7 +138,7 @@ async fn load(state: &AppState, user: CurrentUser, page: i64) -> Result<Superuse
             .collect(),
         total: accounts.total,
         max_accounts: crate::caps::MAX_ACCOUNTS,
-        full: accounts.total >= crate::caps::MAX_ACCOUNTS as i64,
+        full: crate::caps::accounts_full(accounts.total),
         page: accounts.page,
         pages: accounts.pages,
         per_page: crate::signup::ACCOUNTS_PER_PAGE,

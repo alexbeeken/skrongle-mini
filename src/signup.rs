@@ -132,7 +132,7 @@ pub fn no_accounts(conn: &Connection) -> rusqlite::Result<bool> {
 /// Does the server hold [`crate::caps::MAX_ACCOUNTS`] accounts already?
 pub fn is_full(conn: &Connection) -> rusqlite::Result<bool> {
     let n: i64 = conn.query_row("SELECT COUNT(*) FROM users", [], |r| r.get(0))?;
-    Ok(n >= crate::caps::MAX_ACCOUNTS as i64)
+    Ok(crate::caps::accounts_full(n))
 }
 
 /// What `token` (as typed in `?invite=`) names at `now`.
