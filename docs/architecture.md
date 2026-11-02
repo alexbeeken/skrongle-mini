@@ -898,9 +898,10 @@ writable path, and a release never touches the database.
   page says the same, and 10 new passwords per address per 10 minutes. The address is the peer, or
   the last `X-Forwarded-For` entry when the peer is a proxy on loopback;
   an IPv6 address counts by its /64. Each limit keeps its own table of at
-  most 10,000 keys; a full table drops ended windows and otherwise refuses
-  new keys (as over the limit) rather than evicting a running one, so a
-  flood cannot reset an account's wrong-password count.
+  most 64 keys (`caps::MAX_RATE_LIMIT_KEYS`); a full table drops ended
+  windows and otherwise refuses new keys (as over the limit) rather than
+  evicting a running one, so a flood cannot reset an account's
+  wrong-password count.
   Changing the password or two-factor sign-in
   and *Sign out everywhere else* sign out the account's other sessions; a
   reset link signs out all of them. Registration never says whether an

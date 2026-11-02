@@ -7,6 +7,12 @@
 /// guests. The other caps are derived from this number.
 pub const MAX_ACCOUNTS: usize = 8;
 
+/// Keys one rate-limit table holds (#36). A mini has a handful of accounts
+/// and addresses, so 8 keys per account is ample; a full table only ever
+/// refuses a stranger's address during a flood. Keeps the in-memory tables
+/// a few KiB on the Pi.
+pub const MAX_RATE_LIMIT_KEYS: usize = MAX_ACCOUNTS * 8;
+
 /// Is a server holding `count` accounts at its cap? The dev server is never
 /// at it: it registers an account per e2e spec and seeds a crowd, and the
 /// cap is for the mini the family runs (#29).

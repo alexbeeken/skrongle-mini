@@ -199,10 +199,10 @@ pub const AI_JOBS_PER_USER_DAY: Limit = Limit { name: "ai-jobs-user-day", max: 4
 /// most about once a second while someone works, well under this.
 pub const COURSE_WRITES_PER_USER: Limit = Limit { name: "course-writes-user", max: 120, window: 300 };
 
-/// Most keys kept per limit, so memory stays bounded on the Pi. Each limit
-/// has its own table: a flood of one kind of key (fresh addresses) cannot
-/// crowd out another (the per-account counters).
-const MAX_KEYS: usize = 10_000;
+/// Most keys kept per limit, so memory stays bounded on the Pi (#36). Each
+/// limit has its own table: a flood of one kind of key (fresh addresses)
+/// cannot crowd out another (the per-account counters).
+const MAX_KEYS: usize = crate::caps::MAX_RATE_LIMIT_KEYS;
 
 /// One limit's counters: its window length and `key -> (window start, hits)`.
 type Table = (i64, HashMap<String, (i64, u32)>);
