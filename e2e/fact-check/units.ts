@@ -26,7 +26,7 @@ interface Base {
   file: string;
   /** Where in the file: `listening[3]`, `quiz[0] <id>`, `content § Heading › row 3`. */
   at: string;
-  /** Course, lesson and theme, put at the top of every state. */
+  /** Course and lesson, put at the top of every state. */
   ctx: Json;
 }
 
@@ -68,15 +68,6 @@ function jsonFiles(dir: string): string[] {
       const p = join(dir, n);
       return statSync(p).isDirectory() ? jsonFiles(p) : n.endsWith(".json") ? [p] : [];
     });
-}
-
-const themeTitles = new Map<string, string>();
-function themeTitle(repo: string, id: string): string {
-  if (!themeTitles.has(id)) {
-    const f = join(repo, "data", "themes", id, "theme.json");
-    themeTitles.set(id, existsSync(f) ? (JSON.parse(readFileSync(f, "utf8")).title ?? id) : id);
-  }
-  return themeTitles.get(id)!;
 }
 
 /** Split Markdown into lines worth judging alone, each with its section (and table header). */
@@ -147,19 +138,6 @@ export function loadCourse(repo: string, dir: string, lessonFilter: string): Cou
     const ctx: Json = { course: lang.lang ? `${lang.L} for ${lang.M} speakers` : lang.L, lesson: l.title, focus: l.focus ?? l.target_grammar_point };
     const push = (u: Omit<Base, "course" | "file" | "ctx"> & { ctx?: Json } & Record<string, any>) => units.push({ course: id, file, ctx, ...u } as Unit);
     lessonUnits(l, "", ctx, push, lang, slots, sets);
-    for (const [tid, t] of Object.entries<Json>(l.themes ?? {})) {
-      const title = themeTitle(repo, tid);
-      // Without this, invented names and places read as factual mistakes.
-      const tctx = { ...ctx, theme: `${title}: set in the world of ${title} on purpose; its invented names, places and creatures are not mistakes` };
-      const meanings = new Map<string, string>(arr(l.vocabulary).map((v) => [v.term ?? v.es, v.meaning ?? v.en]));
-      const tl: Json = {
-        content: t.content,
-        vocabulary: arr(t.vocabulary).map((v) => ({ ...v, meaning: v.meaning ?? meanings.get(v.term) })),
-        quiz: t.quiz, listening: t.listening, conversations: t.conversations,
-        sprint: { bites: t.bites, sorts: t.sorts, spots: t.spots, builds: t.builds },
-      };
-      lessonUnits(tl, `themes.${tid}.`, tctx, (u) => push({ ...u, ctx: tctx }), lang, slots, sets);
-    }
   }
   for (const t of tables) {
     const all = Object.values(t.forms).filter((v) => !v.includes(" "));

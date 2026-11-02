@@ -64,10 +64,7 @@ the Map and "current unit" all follow this structure.
   "strings": {                     // optional
     "praise": ["¡Correcto!", "¡Muy bien!"],   // shown on a right answer (one at random)
     "almost": ["Not quite", "Casi…"]          // shown on a wrong answer
-  }<!-- themes -->,
-  "themes": {                      // optional, see "Themes": praise for a theme, in the course's language
-    "realm": { "strings": { "praise": ["¡Victoria!"], "almost": ["Casi… repite la misión"] } }
-  }<!-- /themes -->
+  }
 }
 ```
 
@@ -114,9 +111,9 @@ then carry `conjugations`, which power the Conjugation Drill game and the
   "label": "Conjugations",         // heading on lesson pages and in Games
   "item_label": "Verb",            // what one table describes
   "slots": [                       // 2 to 12 rows
-    { "key": "yo", "label": "yo", "hint": "I", "who": "me",   // optional: which person the slot is (below)
+    { "key": "yo", "label": "yo", "hint": "I",
       "art": ["   |   ", "   |   ", " \\ | / ", "  \\|/  ", "   v   "] },   // optional ASCII picture, ≤ 8 lines × 24 chars
-    { "key": "tu", "label": "tú", "hint": "you", "who": "you" }
+    { "key": "tu", "label": "tú", "hint": "you" }
   ],
   "sets": [                        // 1 or more columns
     { "key": "present", "label": "Present" },
@@ -124,13 +121,6 @@ then carry `conjugations`, which power the Conjugation Drill game and the
   ]
 }
 ```
-
-`who` says which grammatical person a slot is, and the drill draws it with
-the learner's profile pictures instead of `art`: `me` (I: the learner's own
-picture), `you` (you, one person: another picture), `other` (he, she: another
-picture, off to the side), `us` (we: the learner and two others), `you_all`
-(you, several: three others) and `them` (they: three others, farther away).
-Leave it out for slots that are not people (cases, scales); they show `art`.
 
 Slot labels may list alternatives separated by ` / ` (e.g. `"él / ella / usted"`);
 the drill accepts an answer typed with any of them in front ("ella habla").
@@ -155,96 +145,6 @@ months come from the browser, in `meanings.lang`, so they are not listed.
 }
 ```
 
-<!-- themes -->
-### Themes
-
-A *theme* is a skin for the whole app, not part of a course: it lives in
-`data/themes/<id>/theme.json` (with its pictures under `pictures/`), a
-learner wears it in their profile settings whatever course is open, and it
-changes the colours of every page. A course never needs a theme. What a
-course *may* do is carry material for a theme in its lessons (see "Themed
-material" below): example sentences, exercises and questions in the theme's
-world, shown first while that theme is on; and, in `course.json`
-`themes.<id>.strings`, praise and "not quite" lines for the theme in the
-course's language, which win over the theme's own while it is worn.
-
-A theme file belongs to the app, not to a course, so everything it says
-(picture names, praise) is in English, or the learner's app language for a built-in theme, and fits any course; words in the
-course's language come from the course. The profile never depends on the
-course at all ([Theming](themes#themes-courses-and-profiles)). The app ships three themes:
-`realm` (The Realm of Eldmark, an original fantasy world: gold on night, folk portraits for the profile, and
-the Spanish course has sentences about orcs, mages, dungeons and loot for
-it), `meadowbrook` (a cozy original farm town) and `rustwake` (an original
-retro-futurist wasteland: terminal green on dark, scavenger portraits,
-sentences about the Dome, nuts and the radio wrist-watch).
-[Theming](themes) is the complete reference for theme files and for
-everything a course can carry for a theme.
-
-**The lesson comes first; a theme is flair.** Everything a theme does is
-declared in JSON files, which are the only source of truth: the app renders
-what the files declare and nothing more. A lesson may carry material for
-any number of themes or none; a theme can only *add* to a lesson, never take
-its own teaching away; and a course without any themed material is simply
-shown in the theme's colours, its content unchanged. Switching theme changes
-how the site looks and which examples come up first, not what is taught,
-and switching back restores everything as it was. Design lessons so that
-they are complete without any theme, then layer the themed material on top.
-
-```jsonc
-// data/themes/realm/theme.json
-{
-  "id": "realm",                            // lowercase a-z, 0-9, '-'; must equal the folder name; lessons refer to it
-  "title": "The Realm of Eldmark",
-  "description": "Eldmark's colours everywhere, race portraits, and sentences about orcs where a course has them.",
-  "icon": "⚔️",
-  "colors": {                             // CSS colour tokens, hex only (#rgb, #rrggbb, #rrggbbaa)
-    "bg": "#0f0c16", "surface": "#1b1626", "text": "#ead9b0", "muted": "#a89a7b", "line": "#3a2f4a",
-    "accent": "#b07d1f", "accent_dark": "#7d5710", "gold": "#f5c542", "gold_dark": "#c99a1e",
-    "ok": "#5bb450", "ok_dark": "#3f8f36", "ok_bg": "#16331f", "bad": "#d2382c", "bad_bg": "#3b1a16",
-    "warn_bg": "#3a2e12", "sky": "#4d8fe0", "violet": "#a335ee"
-  },
-  "dark": { "surface": "#1b1626" },       // optional: the same tokens for browsers that prefer a dark scheme
-  "font": "'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif",   // optional font-family stack
-  "art": {                                // optional; files of the theme under pictures/, or https:// URLs
-    "banner": "pictures/banner.svg",      // wide picture on the home page and the Sprint mode home
-    "mark": "pictures/mark.svg"           // small emblem in the picker and next to the course title
-  },
-  "strings": { "praise": ["Victory!"], "almost": ["Not quite, adventurer"] },  // optional, in English (a built-in theme's also in i18n/); replace a course's while worn (a course's themes.<id>.strings win)
-  "avatars": [                            // optional: the theme's version of the built-in profile pictures, by their id
-    { "id": "sofia", "label": "Nym", "image": "pictures/avatars/night-elf.svg" }   // id: one of noor, amani, yuki, kai, arjun, sofia, mochi, coco; label: the picture's name, in English
-  ],
-  "icons": {                              // optional: the app's own little icons, by slot (an emoji or short glyph each)
-    "streak": "🔥", "xp": "💠", "words": "📜", "goal": "👑", "flawless": "💎", "effort": "🛡️",
-    "mastery": "⚔️", "locked": "⛓️", "trophy": "🏰", "review": "🔮", "path": "🗺️", "site": "🏰",
-    "start": "🧤", "bite": "📜", "hint": "🕯️", "mode_sprint": "🗡️", "mode_study": "📖", "mode_play": "🎲", "mode_guide": "🧭", "mode_ai": "🧙"
-  },
-  "lesson_icons": ["🛡️", "⚔️", "🏹", "🪄", "🧪", "🗝️"]   // optional: icons for lessons that set none, used in turn along the Sprint mode path
-}
-```
-
-The icon slots and what the app shows by default: `streak` 🔥 (the day
-streak and a hot run of answers), `xp` ⚡ (the lightning round),
-`words` 📚, `goal` 🎉 (goal done, session complete), `flawless` 🌟,
-`effort` 💪, `mastery` 🌶️ (one unit of mastery on the path), `locked` 🔒,
-`trophy` 🏆, `review` 🔁, `path` 🗺️, `site` 🖥️, `start` 🏁 (the first
-lesson when it has no icon), `bite` 💡, `hint` 💡, and `mode_sprint` 📱,
-`mode_study` 📖, `mode_play` 🎲, `mode_guide` 🧭, `mode_ai` 🤖 for the modes. A slot left out keeps
-the default; an unknown slot is an error. A lesson's own icon on the path
-(`sprint.icon`) is content and stays unless the lesson's theme block gives
-an `icon` of its own (the waving hand of the greetings lesson becomes a
-gauntlet in Eldmark, say).
-
-Every token in `colors` and `dark` is optional; the ones given override the
-app's defaults (both its light and its dark look, so a dark theme is simply
-one whose `colors` are dark). Unknown tokens, non-hex colours and anything
-but a font name list are validation errors, so a theme file can never put
-CSS of its own into the page. `avatars` gives the theme's own version of
-each built-in profile picture, keyed by the picture's id: a learner who
-chose the leaf sees the wood elf while the theme is on and the leaf again
-when it comes off, and a picture the theme has no version of keeps its plain
-look. Themes are loaded when the app starts; a broken one stops it with the
-file and field named.
-<!-- /themes -->
 
 ## placement.json (placement test)
 
@@ -300,10 +200,7 @@ with any [starting level](features#starting-level).
   "conversations": [ ... ],         // dialogues; Sprint mode builds sentences from their lines
   "listening": [ ... ],             // hear it, type it (language courses)
   "guide": [ ... ],                 // optional hand-ordered Guide steps
-  "sprint": { ... }<!-- themes -->,<!-- /themes -->                 // optional phone-session extras
-<!-- themes -->
-  "themes": { "realm": { ... } }      // optional themed material, by theme id; see "Themed material"
-<!-- /themes -->
+  "sprint": { ... }                 // optional phone-session extras
 }
 ```
 
@@ -868,53 +765,6 @@ swapping one key term makes a
 statement false ("Exiles protect the system from pain": wrong `Exiles`, fix
 `Managers`), never for grammar, spelling or an everyday word.
 
-<!-- themes -->
-### Themed material (optional)
-
-Themed material is shown in the built-in courses only, for now: a course
-made in the app (by hand or with AI) is always served plain, and its theme
-blocks are validated but not shown. Generated courses never get any.
-
-A lesson may carry material for any theme of the app (see "Themes" above),
-under `themes.<id>`. The lesson's own fields stay the teaching; the themed
-block is flair in the theme's world, written with the same shapes as the
-fields it mirrors. A lesson with no block for a theme simply shows its plain
-material when that theme is worn, so a theme never needs to cover every
-lesson (nor every course). Every theme block is validated with the course
-whether or not anyone wears the theme (errors name the file and the theme);
-a block for a theme this installation does not have is kept and never
-shown.
-
-```jsonc
-"themes": {
-  "realm": {
-    "icon": "🧤",               // the lesson's stop on the Sprint mode path while the theme is on (instead of sprint.icon)
-    "content": "## Ser y estar en Eldmark\n\nYour character **es** an orc…",   // Markdown appended as extra section(s)
-    "vocabulary": [
-      { "term": "ser", "example": "Soy un guerrero de la Hueste de Ceniza.", "example_meaning": "I'm a warrior of the Ash Host." },   // a term of the lesson: only its example changes
-      { "term": "la mazmorra", "meaning": "dungeon", "example": "La mazmorra está lejos.", "example_meaning": "The dungeon is far away." }   // a new term: needs a meaning, added at the end
-    ],
-    "quiz": [ ... ],            // same shape as the lesson's quiz; ids must be unique across the course (suffix them, e.g. "-realm-01")
-    "listening": [ ... ],       // same shape as listening
-    "conversations": [ ... ],   // same shape as conversations; ids unique across the course
-    "bites": [ ... ], "sorts": [ ... ], "spots": [ ... ], "builds": [ ... ]   // same shapes as the sprint fields
-  }
-}
-```
-
-When the theme is on, the merged lesson is: themed bites, sentences,
-exercises, questions and conversations **first**, then the lesson's own (so
-anything that takes "the first few" shows the theme first and falls back to
-the lesson); vocabulary with the themed examples swapped in and new terms added
-after the lesson's; the themed Markdown as extra sections after the lesson's.
-A themed `icon` should differ from every other stop on the path while that
-theme is worn: from the other lessons' icons for the same theme and from
-the plain `sprint.icon` of lessons without one, and from the theme's
-`locked` icon, which a locked stop shows (built-in courses are tested
-for it, as for the plain icons). A themed `vocabulary` entry for a term the lesson already teaches may not
-change its meaning, and a new term must give one. Themed questions count
-towards mastery like any other; themed terms are collected like any other.
-<!-- /themes -->
 
 ## Field aliases
 
@@ -948,9 +798,6 @@ the canonical names shown above.
 | `listening` | Listening practice (hear it, type it), Sprint mode listening exercises (tap / fill in what you hear, what does it mean) |
 | `guide` | Hand-ordered Guide steps |
 | `sprint` | Sprint mode bites and sort / spot / build exercises |
-<!-- themes -->
-| `themes.<id>` | Every feature above, merged in front of the lesson's own material while that theme is worn |
-<!-- /themes -->
 | `prerequisites`, `unit`, `order` | Lesson order, quiz weighting, Map, Guide stage order |
 
 `placement.json` (course-level) is read by the start wizard's placement

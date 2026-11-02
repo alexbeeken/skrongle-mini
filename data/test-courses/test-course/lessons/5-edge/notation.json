@@ -121,17 +121,5 @@
         "why": "A scale climbs one step at a time: after E comes F."
       }
     ]
-  },
-  "themes": {
-    "realm": {
-      "spots": [
-        {
-          "abc": "X:1\nT:The elves' march, G major\nL:1/8\nK:C\nGABc defg|",
-          "wrong": 7,
-          "fix": "^f",
-          "why": "G major has one sharp: F sharp, the step below the top G."
-        }
-      ]
-    }
   }
 }

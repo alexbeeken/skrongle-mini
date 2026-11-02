@@ -1,7 +1,7 @@
 // "Hide all AI features" (#147): a switch at sign-up (a pill with an info
 // dot, over a checkbox) and "Do Not Show Me AI Features" on the profile's
-// Privacy and consent card (#974). On, nothing on the site offers the AI tutor, AI course creation
-// or AI theme creation, their routes refuse, and any saved AI API keys are
+// Privacy and consent card (#974). On, nothing on the site offers the AI tutor or AI course
+// creation, their routes refuse, and any saved AI API keys are
 // deleted (the switch asks first when there is one). The profile turns it
 // back off.
 import { expect, test, type Page } from "@playwright/test";

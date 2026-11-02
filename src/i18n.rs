@@ -18,7 +18,7 @@
 //! `tn`); a key ending in `_html` may hold markup and is rendered unescaped
 //! by the template, so only trusted values go into its placeholders.
 //!
-//! Courses are not translated here; a built-in theme's text is (`themes.<id>`, #463).
+//! Courses are not translated here (a translated copy is, #630).
 
 use axum::extract::Request;
 use axum::http::header::{ACCEPT_LANGUAGE, SET_COOKIE};
@@ -250,14 +250,6 @@ impl Language {
 /// The text under `key` in the request's language.
 pub fn t(key: &str) -> String {
     current().get(key).to_string()
-}
-
-/// The text under `key` in the request's language (else English), or
-/// `None` when en.yaml has no such key: for a key built at run time, such
-/// as a theme's (`themes.<id>.title`), where a theme a learner made has none.
-pub fn lookup(key: &str) -> Option<&'static str> {
-    let cur = current();
-    cur.strings.get(key).or_else(|| languages().first()?.strings.get(key)).map(String::as_str)
 }
 
 /// `t`, with `{name}` replaced by `value`.

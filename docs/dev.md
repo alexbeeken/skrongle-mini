@@ -22,7 +22,7 @@ The contract between content and code is the [course format](course-format)
 and its [JSON Schema](course.schema.json): `src/ai.rs` embeds the format in
 the generator's prompt, and `cargo test` checks the schema against the test
 course. Change a lesson field and you change both. The user guides
-(`getting-started`, `course-structure`, `making-courses`, <!-- themes -->`using-themes`,<!-- /themes -->
+(`getting-started`, `course-structure`, `making-courses`, 
 `faq`) link to those pages instead of copying field tables; keep them true
 when a feature changes. The sidebar is `SECTIONS` in `src/routes/docs.rs`;
 `/llms.txt` is `docs/llms.txt`.

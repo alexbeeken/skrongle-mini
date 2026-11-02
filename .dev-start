@@ -18,7 +18,6 @@
 #   ./.dev-start --llm capture  # the simulated provider holds each request for a reply on /dev/ai (Manual replies)
 #                               # (default: it answers from the fixtures; --llm live: the real providers)
 #   ./.dev-start --llm-delay 0  # the simulator's canned replies wait this many ms; default 500
-#   ./.dev-start --themes       # offer and wear themes (SKRONGLE_THEMES_ENABLED=1; off by default, #1138)
 #   ./.dev-start --background   # build, start detached, wait until it answers, print the URL
 #   ./.dev-start --stop         # stop the background server
 #   ./.dev-start --lan          # listen on 0.0.0.0 so phones can try it (turns dev mode off)
@@ -76,7 +75,6 @@ while [ $# -gt 0 ]; do
     --seed-users) export SKRONGLE_DEV_SEED_USERS="$2"; shift ;;
     --seed-days)  export SKRONGLE_DEV_SEED_DAYS="$2"; shift ;;
     --lan)        HOST=0.0.0.0 ;;
-    --themes)     export SKRONGLE_THEMES_ENABLED=1 ;;
     --watch)      WATCH=1 ;;
     --background) BACKGROUND=1 ;;
     --stop)       stop_server; exit 0 ;;

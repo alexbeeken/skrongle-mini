@@ -456,7 +456,6 @@ fn name_of(key: &str) -> Option<Name> {
         "guide" => list("name_guide"),
         "units" => list("name_unit"),
         "sprint" => Name::Whole(crate::t("courses.review.name_sprint")),
-        "themes" => Name::Whole(crate::t("courses.review.name_themes")),
         "unit" | "order" | "prerequisites" => Name::Whole(crate::t("courses.review.name_place")),
         _ => return None,
     })
@@ -658,7 +657,7 @@ fn label(key: &str) -> String {
 /// Course-format keys with a plain name (`label`), at
 /// `courses.review.labels.<key>` in `i18n/`.
 const LABELS: &[&str] = &[
-    "prompt", "question", "content", "correct_answer", "accepted_answers", "options", "hints", "teaches", "type", "tolerance", "question_id", "id", "slug", "order", "prerequisites", "vocabulary", "term", "conjugations", "guide", "vocab", "sprint", "themes", "role_a", "role_b", "markdown", "wrong", "fix", "chars",
+    "prompt", "question", "content", "correct_answer", "accepted_answers", "options", "hints", "teaches", "type", "tolerance", "question_id", "id", "slug", "order", "prerequisites", "vocabulary", "term", "conjugations", "guide", "vocab", "sprint", "role_a", "role_b", "markdown", "wrong", "fix", "chars",
 ];
 
 /// `LABELS` as a JSON object, for the page's script that redraws an edited line.

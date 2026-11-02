@@ -89,15 +89,14 @@ test("deleting the option that is the answer leaves no answer to pick, and a que
   await loads(page);
 });
 
-test("a deleted word leaves the questions and theme that named it; a deleted question leaves the Guide", async ({ page }) => {
+test("a deleted word leaves the questions that named it; a deleted question leaves the Guide", async ({ page }) => {
   const { form, doc, saved } = await open(page, "vocabulary");
-  // "hola" is taught by question 1 and re-exampled by the realm theme.
+  // "hola" is taught by question 1.
   await item(form, "vocabulary", 0).click();
   await at(form, "course-form-remove", "vocabulary.0").click();
   const d = await doc();
   expect(d.vocabulary.map((v: { term: string }) => v.term)).not.toContain("hola");
   expect(d.quiz[0].teaches).toBeUndefined();
-  expect(d.themes.realm.vocabulary).toEqual([]);
   await loads(page);
   // Question 1 is a step of the hand-ordered Guide; deleting it takes the step out.
   const head = form.locator('[data-testid="course-outline-section"][data-sec="quiz"]');

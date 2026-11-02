@@ -65,7 +65,6 @@ mod translate;
 mod two_factor;
 #[cfg(test)]
 mod test_course;
-mod themes;
 mod tutor;
 mod verify;
 mod vocab;
@@ -151,8 +150,6 @@ pub struct AppState {
     pub db: Db,
     /// Built-in courses plus a cache of user-made ones.
     pub courses: Arc<Courses>,
-    /// The themes under data/themes/, loaded at boot.
-    pub themes: Arc<themes::Themes>,
     pub secure_cookies: bool,
     /// Hash verified against for unknown addresses, to keep login timing uniform.
     pub dummy_hash: String,
@@ -278,11 +275,6 @@ struct Config {
     /// `TEST_COURSE=1` (or `SKRONGLE_TEST_COURSE=1`): also load the courses for
     /// automated tests under `data/test-courses/`.
     test_course: bool,
-    /// `SKRONGLE_THEMES_ENABLED=1`: offer and wear themes. Off by default
-    /// until the themes have art people made (#1138).
-    themes_enabled: bool,
-    /// `SKRONGLE_THEMES_PER_USER` / `SKRONGLE_THEME_BYTES`: limits on themes a learner makes.
-    theme_limits: themes::Limits,
     /// `SKRONGLE_COURSES_PER_USER` / `SKRONGLE_COURSE_BYTES` / `SKRONGLE_COURSE_BYTES_PER_USER`:
     /// limits on the courses a learner makes. `None` for the course count
     /// when unset: the default, or no limit in dev mode (browser tests make
@@ -395,14 +387,6 @@ impl Config {
             dev_seed: env("DEV_SEED").is_some_and(|v| v == "1" || v == "true"),
             dev_seed_users: env("DEV_SEED_USERS").and_then(|v| v.parse().ok()).unwrap_or(0),
             dev_seed_days: env("DEV_SEED_DAYS").and_then(|v| v.parse().ok()).unwrap_or(90),
-            themes_enabled: env("THEMES_ENABLED").is_some_and(|v| v.trim() == "1"),
-            theme_limits: {
-                let d = themes::Limits::default();
-                themes::Limits {
-                    max_themes: env("THEMES_PER_USER").and_then(|v| v.parse().ok()).unwrap_or(d.max_themes),
-                    max_bytes: env("THEME_BYTES").and_then(|v| v.parse().ok()).unwrap_or(d.max_bytes),
-                }
-            },
             course_limits: {
                 let d = courses::Limits::default();
                 courses::Limits {
@@ -576,7 +560,7 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
     }
     if courses.builtin().is_empty() {
         tracing::warn!(
-            "no built-in courses under {}; only user-made courses will be offered (set SKRONGLE_DATA_DIR to the folder that holds courses/ and themes/)",
+            "no built-in courses under {}; only user-made courses will be offered (set SKRONGLE_DATA_DIR to the folder that holds courses/)",
             cfg.data_dir.join("courses").display()
         );
     }
@@ -634,15 +618,6 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
     }
     tracing::info!("API keys are encrypted with the secret from {secret_source}");
 
-    let themes = if cfg.themes_enabled {
-        themes::Themes::load(&cfg.data_dir).map_err(|e| format!("failed to load themes from {}: {e}", cfg.data_dir.join("themes").display()))?
-    } else {
-        tracing::info!("themes are off (set SKRONGLE_THEMES_ENABLED=1 to offer them)");
-        themes::Themes::off()
-    };
-    for t in themes.all() {
-        tracing::info!("theme {}: {} ({} pictures)", t.theme.id, t.theme.title, t.theme.avatars.len());
-    }
     let shop = motivators::shop::init(&cfg.data_dir).map_err(|e| format!("failed to load the shop's badges from {}: {e}", cfg.data_dir.join("badges").display()))?;
     tracing::info!("shop: {} badges", shop.badges.len());
 
@@ -804,7 +779,6 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
             max_courses: cfg.courses_per_user.unwrap_or(if dev { usize::MAX } else { cfg.course_limits.max_courses }),
             ..cfg.course_limits
         })),
-        themes: Arc::new(themes.with_limits(cfg.theme_limits)),
         secure_cookies: cfg.secure_cookies,
         dummy_hash: auth::hash_password("placeholder-for-timing-only")?,
         games: games::Sessions::default(),

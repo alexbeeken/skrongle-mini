@@ -1,5 +1,5 @@
-//! Motivators (#559): how a learner's progress is dressed up. A theme skins
-//! the app; a motivator decides what keeps the learner coming back: plain
+//! Motivators (#559): how a learner's progress is dressed up. A motivator
+//! decides what keeps the learner coming back: plain
 //! statistics, XP and levels, a currency to spend, a leaderboard. The
 //! learner picks one per course in its settings (`projects.motivator`,
 //! '' for [`DEFAULT`]; #574). It owns two places: the top of the course home page (its
@@ -247,8 +247,8 @@ impl Motivator for Stats {
     fn load(&self, _: &Connection, _: i64, _: &ContentStore, _: i64) -> rusqlite::Result<Box<dyn Hero>> {
         Ok(Box::new(Stats))
     }
-    fn reward(&self, _: &Connection, _: i64, course: &ContentStore, run: &RunOutcome) -> rusqlite::Result<Option<Box<dyn Reward>>> {
-        let icons = crate::content::Icons::of(course.theme());
+    fn reward(&self, _: &Connection, _: i64, _: &ContentStore, run: &RunOutcome) -> rusqlite::Result<Option<Box<dyn Reward>>> {
+        let icons = crate::content::Icons::default();
         Ok(Some(Box::new(StatsReward { run: run.clone(), streak_icon: icons.streak, goal_icon: icons.goal })))
     }
 }

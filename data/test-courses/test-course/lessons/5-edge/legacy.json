@@ -96,13 +96,5 @@
         "en": "I live in the city."
       }
     ]
-  },
-  "themes": {
-    "stardew": {
-      "icon": "🐝"
-    },
-    "fallout": {
-      "icon": "🥫"
-    }
   }
 }

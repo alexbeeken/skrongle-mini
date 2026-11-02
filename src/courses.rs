@@ -11,7 +11,7 @@ use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 use std::sync::{Arc, Mutex};
 
-use crate::content::{Theme, ContentError, ContentStore, CourseFile, MANIFEST_FILE};
+use crate::content::{ContentError, ContentStore, CourseFile, MANIFEST_FILE};
 use crate::db::{now, Db};
 use crate::error::AppError;
 
@@ -103,7 +103,7 @@ pub const TEST_COURSES_DIR: &str = "test-courses";
 
 pub struct Courses {
     builtin: Vec<Arc<ContentStore>>,
-    /// Where each built-in course was loaded from, to build themed copies on demand.
+    /// Where each built-in course was loaded from (`builtin_files`).
     builtin_dirs: HashMap<String, PathBuf>,
     /// Cache of user-made courses already built from the database, bounded
     /// by `cache_bytes` (least recently used out first).
@@ -111,10 +111,6 @@ pub struct Courses {
     cache_bytes: usize,
     /// What one account may store in courses.
     limits: Limits,
-    /// Courses with a theme switched on, by (course id, theme id). Built the
-    /// first time a learner opens the course with that theme and kept until
-    /// the course changes; one extra copy of the course per theme in use.
-    themed: Mutex<HashMap<(String, String), Arc<ContentStore>>>,
 }
 
 impl Courses {
@@ -158,12 +154,12 @@ impl Courses {
                 builtin.push(Arc::new(store));
             }
         }
-        Ok(Courses { builtin, builtin_dirs, custom: Mutex::default(), cache_bytes: CACHE_BYTES, limits: Limits::default(), themed: Mutex::new(HashMap::new()) })
+        Ok(Courses { builtin, builtin_dirs, custom: Mutex::default(), cache_bytes: CACHE_BYTES, limits: Limits::default() })
     }
 
     #[cfg(test)]
     pub fn empty() -> Courses {
-        Courses { builtin: Vec::new(), builtin_dirs: HashMap::new(), custom: Mutex::default(), cache_bytes: CACHE_BYTES, limits: Limits::default(), themed: Mutex::new(HashMap::new()) }
+        Courses { builtin: Vec::new(), builtin_dirs: HashMap::new(), custom: Mutex::default(), cache_bytes: CACHE_BYTES, limits: Limits::default() }
     }
 
     /// The same registry with other storage limits (from the environment).
@@ -192,11 +188,6 @@ impl Courses {
 
     pub fn is_builtin(&self, id: &str) -> bool {
         self.builtin.iter().any(|c| c.id() == id)
-    }
-
-    /// Whether a theme's material is offered with this course.
-    pub fn supports_themes(&self, id: &str) -> bool {
-        self.is_builtin(id)
     }
 
     /// Resolve a course by id: built-in, cached, or built from the database.
@@ -233,49 +224,9 @@ impl Courses {
         }
     }
 
-    /// `get` with a theme switched on: the lessons' material for it merged
-    /// in and its strings applied (`None` gives the plain course).
-    /// Themes apply to the built-in courses only for now: a course made in
-    /// the app is always served plain.
-    pub async fn get_themed(&self, db: &Db, id: &str, theme: Option<&Theme>) -> Result<Option<Arc<ContentStore>>, AppError> {
-        let Some(plain) = self.get(db, id).await? else { return Ok(None) };
-        let Some(theme) = theme.filter(|_| self.supports_themes(id)) else { return Ok(Some(plain)) };
-        let key = (id.to_string(), theme.id.clone());
-        if let Some(c) = self.themed.lock().unwrap_or_else(|p| p.into_inner()).get(&key).cloned() {
-            return Ok(Some(c));
-        }
-        let built = match self.builtin_dirs.get(id) {
-            Some(dir) => ContentStore::load_dir_themed(dir, Some(theme)),
-            None => {
-                let id_owned = id.to_string();
-                let files = db.call(move |c| load_files(c, &id_owned)).await?;
-                ContentStore::from_files_themed(&files, Some(theme))
-            }
-        };
-        match built {
-            Ok(store) => {
-                let store = Arc::new(store);
-                self.themed.lock().unwrap_or_else(|p| p.into_inner()).insert(key, Arc::clone(&store));
-                Ok(Some(store))
-            }
-            Err(e) => {
-                // Cannot happen for a course that loads (every theme is validated
-                // with it); fall back to the plain course rather than fail.
-                tracing::warn!("course {id} with theme {} does not load: {e}", theme.id);
-                Ok(Some(plain))
-            }
-        }
-    }
-
-    /// Forget a cached user-made course (after an edit), themed copies included.
+    /// Forget a cached user-made course (after an edit).
     pub fn invalidate(&self, id: &str) {
         self.lock().remove(id);
-        self.themed.lock().unwrap_or_else(|p| p.into_inner()).retain(|(cid, _), _| cid != id);
-    }
-
-    /// Forget every course's copy themed with `theme` (after the theme changed or went).
-    pub fn forget_theme(&self, theme: &str) {
-        self.themed.lock().unwrap_or_else(|p| p.into_inner()).retain(|(_, tid), _| tid != theme);
     }
 
     fn cache(&self, id: &str, store: Arc<ContentStore>, bytes: usize) {
@@ -1111,12 +1062,6 @@ pub fn revalidate(conn: &Connection, registry: &Courses, course_id: &str) -> rus
 pub struct ProjectRow {
     pub course_id: String,
     pub last_opened_at: i64,
-    /// The theme worn in this course (`projects.theme`): `None` or `Some("")`
-    /// for Default.
-    pub theme: Option<String>,
-    /// The profile picture and its background in this course (#565).
-    pub avatar: String,
-    pub avatar_color: u8,
     /// The motivator worn in this course (#574), '' for the default.
     pub motivator: String,
     /// False until the learner leaves the settings wizard of the course's
@@ -1134,11 +1079,10 @@ pub fn open_project(conn: &Connection, user_id: i64, course_id: &str) -> rusqlit
         .query_row("SELECT 1 FROM projects WHERE user_id = ?1 AND course_id = ?2", params![user_id, course_id], |_| Ok(()))
         .optional()?
         .is_none();
-    // A course opened for the first time starts with the account's picture
-    // (#565) and motivator (#574).
+    // A course opened for the first time starts with the account's motivator (#574).
     conn.execute(
-        "INSERT INTO projects (user_id, course_id, created_at, last_opened_at, avatar, avatar_color, motivator)
-         SELECT ?1, ?2, ?3, ?3, avatar, avatar_color, motivator FROM users WHERE id = ?1
+        "INSERT INTO projects (user_id, course_id, created_at, last_opened_at, motivator)
+         SELECT ?1, ?2, ?3, ?3, motivator FROM users WHERE id = ?1
          ON CONFLICT(user_id, course_id) DO UPDATE SET last_opened_at = excluded.last_opened_at",
         params![user_id, course_id, t],
     )?;
@@ -1147,17 +1091,14 @@ pub fn open_project(conn: &Connection, user_id: i64, course_id: &str) -> rusqlit
 }
 
 /// What a course the user has not opened yet would start with (#587): the
-/// account's picture and motivator, Default, the beginning. The settings
-/// wizard behind its Start button shows these.
+/// account's motivator, the beginning. The settings wizard behind its Start
+/// button shows these.
 pub fn fresh_project(conn: &Connection, user_id: i64, course_id: &str) -> rusqlite::Result<ProjectRow> {
-    conn.query_row("SELECT avatar, avatar_color, motivator FROM users WHERE id = ?1", [user_id], |r| {
+    conn.query_row("SELECT motivator FROM users WHERE id = ?1", [user_id], |r| {
         Ok(ProjectRow {
             course_id: course_id.to_string(),
             last_opened_at: 0,
-            theme: None,
-            avatar: crate::profile::avatar(&r.get::<_, String>(0)?).id.to_string(),
-            avatar_color: crate::profile::color_slot(r.get(1)?),
-            motivator: r.get(2)?,
+            motivator: r.get(0)?,
             set_up: false,
             start_unit: String::new(),
         })
@@ -1168,11 +1109,6 @@ pub fn fresh_project(conn: &Connection, user_id: i64, course_id: &str) -> rusqli
 /// its stored value.
 #[derive(Debug, Default)]
 pub struct SettingsChange {
-    /// The theme worn in it, '' for Default.
-    pub theme: Option<String>,
-    /// The profile picture (a known id) and its background slot.
-    pub avatar: Option<String>,
-    pub avatar_color: Option<u8>,
     /// The motivator worn (a known id).
     pub motivator: Option<String>,
     /// The level started at (#587): a unit id, '' for the beginning
@@ -1186,13 +1122,10 @@ pub struct SettingsChange {
 pub fn set_project_settings(conn: &Connection, user_id: i64, course_id: &str, change: &SettingsChange) -> rusqlite::Result<bool> {
     let n = conn.execute(
         "UPDATE projects SET set_up = 1,
-                theme = COALESCE(?3, theme),
-                avatar = COALESCE(?4, avatar),
-                avatar_color = COALESCE(?5, avatar_color),
-                motivator = COALESCE(?6, motivator),
-                start_unit = COALESCE(?7, start_unit)
+                motivator = COALESCE(?3, motivator),
+                start_unit = COALESCE(?4, start_unit)
          WHERE user_id = ?1 AND course_id = ?2",
-        params![user_id, course_id, change.theme, change.avatar, change.avatar_color, change.motivator, change.start_unit],
+        params![user_id, course_id, change.motivator, change.start_unit],
     )?;
     Ok(n > 0)
 }
@@ -1204,7 +1137,7 @@ pub fn clear_active(conn: &Connection, user_id: i64) -> rusqlite::Result<()> {
 
 pub fn projects_of(conn: &Connection, user_id: i64) -> rusqlite::Result<Vec<ProjectRow>> {
     let mut stmt = conn.prepare_cached(
-        "SELECT course_id, last_opened_at, theme, avatar, avatar_color, motivator, set_up, start_unit FROM projects WHERE user_id = ?1 ORDER BY last_opened_at DESC",
+        "SELECT course_id, last_opened_at, motivator, set_up, start_unit FROM projects WHERE user_id = ?1 ORDER BY last_opened_at DESC",
     )?;
     let rows = stmt.query_map([user_id], project_row)?;
     rows.collect()
@@ -1221,7 +1154,7 @@ const HAS_PROJECT: &str = "SELECT 1 FROM projects WHERE user_id = ?1 AND course_
 /// The user's project in one course, if they opened it.
 pub fn project(conn: &Connection, user_id: i64, course_id: &str) -> rusqlite::Result<Option<ProjectRow>> {
     conn.query_row(
-        "SELECT course_id, last_opened_at, theme, avatar, avatar_color, motivator, set_up, start_unit FROM projects WHERE user_id = ?1 AND course_id = ?2",
+        "SELECT course_id, last_opened_at, motivator, set_up, start_unit FROM projects WHERE user_id = ?1 AND course_id = ?2",
         params![user_id, course_id],
         project_row,
     )
@@ -1232,12 +1165,9 @@ fn project_row(r: &rusqlite::Row) -> rusqlite::Result<ProjectRow> {
     Ok(ProjectRow {
         course_id: r.get(0)?,
         last_opened_at: r.get(1)?,
-        theme: r.get(2)?,
-        avatar: crate::profile::avatar(&r.get::<_, String>(3)?).id.to_string(),
-        avatar_color: crate::profile::color_slot(r.get(4)?),
-        motivator: r.get(5)?,
-        set_up: r.get(6)?,
-        start_unit: r.get(7)?,
+        motivator: r.get(2)?,
+        set_up: r.get(3)?,
+        start_unit: r.get(4)?,
     })
 }
 

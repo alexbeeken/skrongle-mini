@@ -78,7 +78,7 @@ pub(super) fn write_slots(w: &Rewrite, slots: &mut [Slot], to_write: usize) -> R
              Use exactly these values for id, slug, title, unit, group and prerequisites:\n{}\n\n\
              The course manifest is:\n{manifest_text}\n\nThe lessons of the course, in order:\n{}\n\n\
              Keep what the feedback does not ask to change, and keep a question's id when the question stays. \
-             Do not add `themes`. {}{}{}{material}{rules}\n\n\
+             {}{}{}{material}{rules}\n\n\
              ----- Course format reference -----\n\n{FORMAT_DOC}",
             feedback.trim(),
             serde_json::to_string_pretty(&entry).unwrap_or_default(),

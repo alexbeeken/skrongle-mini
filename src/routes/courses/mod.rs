@@ -10,7 +10,7 @@ use axum::{Form, Json};
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;
 
-use super::{pages, profile, script_json, time_ago, Page, ThemeView};
+use super::{pages, time_ago, Page};
 use crate::ai;
 use crate::auth::CurrentUser;
 use crate::content::{ContentStore, CourseFile, MANIFEST_FILE};

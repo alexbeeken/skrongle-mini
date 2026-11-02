@@ -2,7 +2,7 @@
 // copies it as "<title> (copy)" right below, with a fresh id, and saves it
 // with the table (POST /api/courses/{id}/lessons). Against a copy of the
 // test course, whose "Everything at once" lesson has questions,
-// conversations, a guide, themes and conjugations, so the copy has every
+// conversations, a guide and conjugations, so the copy has every
 // id that must stay unique in the course.
 import { expect, test, type Page } from "@playwright/test";
 import { copyCourse, devLogin, devReset, editorSaved, fastAutosave, TEST_COURSE } from "../lib/app";

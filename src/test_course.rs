@@ -6,7 +6,7 @@
 //! These tests fail when something a course can use is missing from it: a
 //! field of `docs/course.schema.json` or one of its enum values, a legacy
 //! alias of `src/content.rs`, a quiz type, a Sprint mode exercise kind, a Guide
-//! step, an installed theme. Adding a feature means adding it to the test
+//! step. Adding a feature means adding it to the test
 //! course (and to the browser tests that use it); its AUTHORING.md says how.
 
 use serde_json::Value;
@@ -64,7 +64,7 @@ fn deref<'a>(root: &'a Value, r: &str) -> &'a Value {
 }
 
 /// Walk `schema` over `values`, gathering the values that reach each `$ref`
-/// (a quiz item is checked once, whether it sits in a lesson or a theme block).
+/// (a quiz item is checked once wherever it sits).
 fn gather<'a>(root: &'a Value, schema: &'a Value, values: Vec<&'a Value>, seen: &mut BTreeMap<String, Vec<&'a Value>>) {
     if let Some(r) = schema.get("$ref").and_then(Value::as_str) {
         seen.entry(r.to_string()).or_default().extend(values.iter().copied());
@@ -369,27 +369,4 @@ fn every_course_level_feature_is_on() {
     assert!(listening.iter().any(|i| i.meaning.is_empty()), "a listening sentence without a meaning");
     assert!(listening.iter().any(|i| crate::content::words_of(&i.text).len() > 10), "a listening sentence too long for tiles");
     assert!(lessons.iter().flat_map(|l| &l.sections).any(|s| s.heading.to_lowercase().starts_with("quick check")), "a Quick check section");
-}
-
-#[test]
-fn every_installed_theme_has_complete_material() {
-    let themes = crate::themes::Themes::load(Path::new("data")).expect("themes load");
-    assert!(!themes.is_empty());
-    let root = schema();
-    let fields: Vec<&String> = deref(&root, "#/$defs/lesson_theme")["properties"].as_object().unwrap().keys().collect();
-    let lesson = raw_lesson("tc-themes");
-    let blocks = lesson["themes"].as_object().unwrap();
-    for pack in themes.all() {
-        let id = &pack.theme.id;
-        let block = blocks.get(id).unwrap_or_else(|| panic!("lessons/5-edge/themes.json has no block for the theme '{id}'"));
-        let missing: Vec<&&String> = fields.iter().filter(|f| block.get(f.as_str()).is_none()).collect();
-        assert!(missing.is_empty(), "the '{id}' block of lessons/5-edge/themes.json lacks {missing:?}");
-        let s = ContentStore::load_dir_themed(&dir(), Some(&pack.theme)).unwrap_or_else(|e| panic!("with theme {id}: {e}"));
-        let l = s.lesson_by_id("tc-themes").unwrap();
-        assert!(l.quiz[0].themed && l.sprint.bites[0].themed, "theme {id} material comes first");
-    }
-    assert!(
-        blocks.keys().any(|k| themes.get(k).is_none()),
-        "a block for a theme that is not installed (kept and never shown)"
-    );
 }

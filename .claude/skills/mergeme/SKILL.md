@@ -246,8 +246,8 @@ one line), so you aren't polling by hand. Don't read the full CI log into
 this session; `gh run view <id> --log-failed | tail -40` shows the part
 that failed.
 
-- **Known flaky specs**: custom-themes "fit a phone", profile-nav "marks the
-  section in view", the authenticator TOTP period. If one of these fails on
+- **Known flaky specs**: profile-nav "marks the section in view", the
+  authenticator TOTP period. If one of these fails on
   its own, rerun it once: `gh run rerun <run-id> --failed`. Two failures on
   the same commit means it's real.
 - **A real failure in the merge itself** (a migration number, a missing

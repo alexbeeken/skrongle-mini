@@ -21,17 +21,17 @@
     "label": "Conjugations",
     "item_label": "Verb",
     "slots": [
-      { "key": "je", "who": "me", "label": "je", "hint": "I",
+      { "key": "je", "label": "je", "hint": "I",
         "art": ["   |   ", "   |   ", "   |   ", " \\ | / ", "  \\|/  ", "   v   "] },
-      { "key": "tu", "who": "you", "label": "tu", "hint": "you",
+      { "key": "tu", "label": "tu", "hint": "you",
         "art": ["   ^   ", "  /|\\  ", " / | \\ ", "   |   ", "   |   ", "   |   "] },
-      { "key": "il", "who": "other", "label": "il / elle / on", "hint": "he / she / one",
+      { "key": "il", "label": "il / elle / on", "hint": "he / she / one",
         "art": ["       ", "       ", "-------\\", "        >", "-------/", "       "] },
-      { "key": "nous", "who": "us", "label": "nous", "hint": "we",
+      { "key": "nous", "label": "nous", "hint": "we",
         "art": [" |  |  | ", " |  |  | ", " |  |  | ", "\\|/\\|/\\|/", " v  v  v ", "         "] },
-      { "key": "vous", "who": "you_all", "label": "vous", "hint": "you (formal or plural)",
+      { "key": "vous", "label": "vous", "hint": "you (formal or plural)",
         "art": [" ^  ^  ^ ", "/|\\/|\\/|\\", " |  |  | ", " |  |  | ", " |  |  | ", "         "] },
-      { "key": "ils", "who": "them", "label": "ils / elles", "hint": "they",
+      { "key": "ils", "label": "ils / elles", "hint": "they",
         "art": ["         ", "         ", "-----\\   ", "------>  ", "-----/   ", "         "] }
     ],
     "sets": [
@@ -52,19 +52,5 @@
   "strings": {
     "praise": ["Bravo !", "Très bien !", "C'est ça !", "Parfait !", "Génial !"],
     "almost": ["Not quite", "Presque…", "Hmm, non"]
-  },
-  "themes": {
-    "realm": { "strings": {
-      "praise": ["Victoire !", "Butin épique !", "Tu montes de niveau !", "Pour Eldmark !", "Coup critique !", "Skrongle épique !"],
-      "almost": ["Presque, aventurier", "Presque… recommence la quête", "Hmm, non. Skrong !"]
-    } },
-    "meadowbrook": { "strings": {
-      "praise": ["Belle récolte !", "Ça fleurit !", "Doré comme le blé !", "Très bien !", "Pousse, pousse !", "Skrongle !"],
-      "almost": ["Presque, voisin", "Presque… encore un peu d'eau", "Hmm, non", "Presque… un peu plus de skrong"]
-    } },
-    "rustwake": { "strings": {
-      "praise": ["Des écrous pour toi !", "Tu montes de niveau !", "Zéro radiation !", "Skrong ! Mission accomplie", "Génie du désert !"],
-      "almost": ["Presque, habitant du Dôme", "Presque… ta radio-montre fait skrongle", "Hmm, non"]
-    } }
   }
 }

@@ -65,8 +65,6 @@ MINI="${E2E_MINI:-0}"
 # SKRONGLE_MINI=1, which makes the server a Skrongle mini (#578: no plans and
 # no dev stand-ins, the hosted-only settings ignored;
 # /healthz says so, #641).
-# Themes are off by default (#1138); the specs cover them, so they are on here
-# unless SKRONGLE_THEMES_ENABLED says otherwise (empty: off).
 MINI_ENV=()
 if [ "$MINI" = 1 ]; then
   AI_KEY=""
@@ -74,7 +72,7 @@ if [ "$MINI" = 1 ]; then
 fi
 env ${MINI_ENV[@]+"${MINI_ENV[@]}"} SKRONGLE_AI_KEY="$AI_KEY" SKRONGLE_BIND="127.0.0.1:$PORT" SKRONGLE_DB="$DB" SKRONGLE_DATA_DIR=./data SKRONGLE_LOG=info \
   SKRONGLE_DEV=1 SKRONGLE_DEV_SEED=1 SKRONGLE_LLM_MODE="${E2E_LLM_MODE:-}" SKRONGLE_LLM_TIMEOUT_SECS=30 SKRONGLE_AI_TIMEOUT_SECS=8 SKRONGLE_SOCIAL_CACHE_SECS=0 \
-  TEST_COURSE=1 SKRONGLE_RNG_SEED="$SEED" SKRONGLE_THEMES_ENABLED="${SKRONGLE_THEMES_ENABLED-1}" \
+  TEST_COURSE=1 SKRONGLE_RNG_SEED="$SEED" \
   "$BIN" >"$LOG" 2>&1 &
 PID=$!
 for _ in $(seq 1 100); do curl -fsS "$URL/healthz" >/dev/null 2>&1 && break; sleep 0.2; done

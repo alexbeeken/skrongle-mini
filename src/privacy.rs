@@ -361,28 +361,20 @@ pub fn row_json(r: &rusqlite::Row, cols: &[&str]) -> rusqlite::Result<Value> {
 pub struct Deleted {
     /// The user's courses (their cached `ContentStore`s must go).
     pub courses: Vec<String>,
-    /// The user's themes, as worn ids (`user-<n>`).
-    pub themes: Vec<String>,
     /// Files of the user's data exports still on disk (names in the
     /// exports folder, `exports.rs`): the caller deletes them.
     pub export_files: Vec<String>,
 }
 
 /// Delete the account and everything it owns, in one transaction. Every
-/// user table cascades from `users(id)` (the courses' and themes' files
-/// through their parent rows); the few rows that only name a course by id
-/// (`projects`, `users.active_course`) and wearers of the user's themes are
-/// cleared here. `None` when there was no such user.
+/// user table cascades from `users(id)` (the courses' files through their
+/// parent rows); the few rows that only name a course by id (`projects`,
+/// `users.active_course`) are cleared here. `None` when there was no such user.
 pub fn delete_account(conn: &mut Connection, user_id: i64) -> rusqlite::Result<Option<Deleted>> {
     let tx = conn.transaction()?;
     let courses: Vec<String> = {
         let mut stmt = tx.prepare("SELECT id FROM courses WHERE owner_id = ?1 ORDER BY id")?;
         let v = stmt.query_map([user_id], |r| r.get(0))?.collect::<Result<_, _>>()?;
-        v
-    };
-    let themes: Vec<String> = {
-        let mut stmt = tx.prepare("SELECT id FROM user_themes WHERE owner_id = ?1 ORDER BY id")?;
-        let v = stmt.query_map([user_id], |r| r.get::<_, i64>(0))?.map(|r| r.map(crate::themes::user_theme_id)).collect::<Result<_, _>>()?;
         v
     };
     let export_files: Vec<String> = {
@@ -394,16 +386,11 @@ pub fn delete_account(conn: &mut Connection, user_id: i64) -> rusqlite::Result<O
         tx.execute("DELETE FROM projects WHERE course_id = ?1", [c])?;
         tx.execute("UPDATE users SET active_course = NULL WHERE active_course = ?1", [c])?;
     }
-    for t in &themes {
-        // `theme <> ''` lets the partial `idx_users_theme` answer it; a
-        // worn id is never empty.
-        tx.execute("UPDATE users SET theme = '' WHERE theme = ?1 AND theme <> ''", [t])?;
-    }
     // Recent verification mail outlives the account for its day (#395).
     crate::mail::keep_for_caps(&tx, user_id, crate::db::now())?;
     let n = tx.execute("DELETE FROM users WHERE id = ?1", [user_id])?;
     tx.commit()?;
-    Ok((n > 0).then_some(Deleted { courses, themes, export_files }))
+    Ok((n > 0).then_some(Deleted { courses, export_files }))
 }
 
 /// Does the account have a Stripe subscription that would keep billing

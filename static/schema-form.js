@@ -404,31 +404,5 @@
     });
   }
 
-  // One top-level field of a document (the lesson editor's Themes
-  // section): the same form, for that part only.
-  function renderPart(el, schema, def, doc, key, onChange) {
-    var ctx = { root: schema, doc: doc, open: {}, openItems: new WeakSet(), id: ++forms };
-    var top = schema.$defs[def];
-    var first = !el.sfCtx;
-    el.sfCtx = ctx;
-    ctx.top = top;
-    ctx.open[key] = true;
-    function draw() {
-      var focus = document.activeElement && el.contains(document.activeElement) ? document.activeElement : null;
-      var fp = focus && focus.dataset.path, ft = focus && focus.dataset.testid;
-      el.textContent = "";
-      var req = (top.required || []).indexOf(key) >= 0;
-      el.appendChild(field(ctx, top.properties[key], [key], key, req));
-      if (fp !== null && fp !== undefined) {
-        var again = el.querySelector('[data-testid="' + ft + '"][data-path="' + fp.replace(/"/g, '\\"') + '"]');
-        if (again) again.focus();
-      }
-    }
-    ctx.changed = function (redraw) { onChange(doc); if (redraw) draw(); };
-    ctx.typed = function () {};
-    if (first) listen(el);
-    draw();
-  }
-
-  window.SchemaForm = { load: load, render: render, renderPart: renderPart };
+  window.SchemaForm = { load: load, render: render };
 })();

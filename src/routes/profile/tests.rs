@@ -280,7 +280,7 @@ fn profile_fields_save_as_they_change() {
     assert!(body["errors"]["last_name"].as_str().unwrap().contains("too long"), "{body}");
     assert!(body["errors"]["avatar"].as_str().unwrap().contains("not part of the profile") && body["errors"].get("first_name").is_none(), "{body}");
     let p = stored();
-    assert_eq!((p.first_name.as_str(), p.last_name.as_str(), p.avatar.as_str()), ("Ana", "López", crate::profile::DEFAULT_AVATAR));
+    assert_eq!((p.first_name.as_str(), p.last_name.as_str()), ("Ana", "López"));
     let (status, body) = save(&cookie, serde_json::json!({"avatar_color": 4}));
     assert!(status == 422 && body["errors"]["avatar_color"].is_string(), "{body}");
     // The old "Mock AI responses" option is not part of the profile any more (#298).

@@ -2,7 +2,7 @@
 // course (data/test-courses/test-course, one lesson per feature) in Study, in Sprint
 // and in Play, each as its own account, answering from the course files. Every
 // Sprint exercise kind must turn up, and every page must agree at the end. The
-// games, the tutor and themes are in test-course-games.spec.ts.
+// games and the tutor are in test-course-games.spec.ts.
 import type { Page } from "@playwright/test";
 import { passReadingCheck, playPractice, playStage } from "../../lib/answer.ts";
 import { ALL_KINDS, playSprintRight } from "../../lib/sprint-play.ts";

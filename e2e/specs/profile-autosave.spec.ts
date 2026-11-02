@@ -178,11 +178,11 @@ test("without a connection the circle turns red, leaving asks, and it saves once
   await expect(page.getByTestId("profile-first-name")).toHaveValue("Offline");
 });
 
-test("the profile has no picture and no theme: both are a course's settings", async ({ page }) => {
+test("the profile has no picture and no theme", async ({ page }) => {
   await expect(page.getByTestId("profile-avatar-shown")).toHaveCount(0);
-  await expect(page.locator('[data-testid="profile-theme"]')).toHaveCount(0);
   await expect(page.locator('[data-testid="profile-nav-link"][data-section="theme"]')).toHaveCount(0);
   expect((await page.request.post("/api/profile", { data: { theme: "realm" } })).status()).toBe(422);
+  expect((await page.request.post("/api/profile", { data: { avatar: "kai" } })).status()).toBe(422);
 });
 
 test("API keys: folded away, a pasted key saves at once, a typed one 3 s after typing stops", async ({ page }) => {

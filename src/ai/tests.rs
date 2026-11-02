@@ -1076,12 +1076,12 @@ fn revision_plans_are_read_leniently_but_keep_ids() {
     let mut lessons = HashMap::new();
     lessons.insert("a".to_string(), ("lessons/a.json".to_string(), serde_json::json!({ "id": "a", "slug": "a", "title": "A", "prerequisites": [] })));
     lessons.insert("b".to_string(), ("lessons/b.json".to_string(), serde_json::json!({ "id": "b", "slug": "b", "title": "B", "prerequisites": ["a"] })));
-    let plan = serde_json::json!({ "course": { "id": "other", "title": "T2", "themes": {} }, "lessons": [
+    let plan = serde_json::json!({ "course": { "id": "other", "title": "T2" }, "lessons": [
         { "id": "b", "slug": "renamed", "title": "B again", "change": "new", "prerequisites": ["a", "gone"] },
         { "id": "z", "slug": "z", "title": "Z", "change": "keep" },
     ] });
     let (m, slots) = read_plan(&plan, &lessons, "c", &manifest).unwrap();
-    assert_eq!((m["id"].as_str(), m.get("themes")), (Some("c"), None));
+    assert_eq!(m["id"].as_str(), Some("c"));
     // "new" for a lesson that exists is a rewrite, and it keeps its slug.
     assert_eq!((slots[0].change, slots[0].entry["slug"].as_str()), (Change::Rewrite, Some("b")));
     // Prerequisites that leave the course are dropped.

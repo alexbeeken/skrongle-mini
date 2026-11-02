@@ -55,7 +55,7 @@ pub(super) fn edit_lesson(job: &Job, db: &Db, registry: &crate::courses::Courses
          The learner's request, between the <request> tags:\n<request>\n{}\n</request>\n\n\
          The course manifest is:\n{}\n\n\
          Keep its id, slug, unit, group, level, order and prerequisites exactly as they are, and keep what the request does not ask to change, \
-         a question's id too when the question stays. Do not add `themes`. Reply with the complete lesson JSON object only.{}{}\n\n\
+         a question's id too when the question stays. Reply with the complete lesson JSON object only.{}{}\n\n\
          ----- Course format reference -----\n\n{FORMAT_DOC}",
         old.trim(),
         request.trim(),

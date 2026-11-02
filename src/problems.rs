@@ -299,13 +299,10 @@ impl<'a> Course<'a> {
             "conjugation" => ("conjugations", "a conjugation of"),
             _ => ("", "the id"),
         };
-        let theme_too = note.and_then(|n| n.strip_suffix(" uses it too")).and_then(|n| n.strip_prefix("theme ")).map(unquote);
         let in_set = note.and_then(|n| n.strip_prefix("in set ")).map(|s| format!(" in the set “{}”", unquote(s))).unwrap_or_default();
-        let in_theme = note.and_then(|n| n.strip_prefix("theme ")).filter(|_| theme_too.is_none()).map(|t| format!(" in the material for the theme “{}”", unquote(t))).unwrap_or_default();
-        let message = match (&other, &theme_too) {
-            (_, Some(t)) => format!("{} “{id}” is used here and by the material for the theme “{t}” too", cap(thing)),
-            (Some(o), None) => format!("{} and {} both use {thing} “{id}”{in_set}", self.name_of(&main), self.name_of(o)),
-            (None, None) => format!("{} “{id}” is used twice in this lesson{in_set}{in_theme}", cap(thing)),
+        let message = match &other {
+            Some(o) => format!("{} and {} both use {thing} “{id}”{in_set}", self.name_of(&main), self.name_of(o)),
+            None => format!("{} “{id}” is used twice in this lesson{in_set}", cap(thing)),
         };
         let taken: Vec<String> = match what {
             "lesson id" => self.lessons().into_iter().map(|(_, i, _)| i).collect(),
@@ -359,7 +356,7 @@ impl<'a> Course<'a> {
     }
 
     fn invalid(&self, msg: &str) -> Problem {
-        // "<path>: …" or "<path> (theme 'x'): …"; the longest path that fits.
+        // "<path>: …"; the longest path that fits.
         let path = self
             .files
             .iter()
@@ -369,15 +366,7 @@ impl<'a> Course<'a> {
         let Some(path) = path else {
             return Problem::rules(msg.replace("the manifest", "the course settings"));
         };
-        let mut rest = &msg[path.len()..];
-        let mut theme = None;
-        if let Some(r) = rest.strip_prefix(" (theme '") {
-            if let Some(end) = r.find("')") {
-                theme = Some(r[..end].to_string());
-                rest = &r[end + 2..];
-            }
-        }
-        let rest = rest.trim_start_matches(':').trim();
+        let rest = msg[path.len()..].trim_start_matches(':').trim();
         let manifest = path == MANIFEST_FILE;
         // The placement test's fields are its own (#1106): no lesson hints.
         let field = if path == crate::placement::FILE {
@@ -386,10 +375,7 @@ impl<'a> Course<'a> {
             field_of(rest, manifest)
         };
         let said = if field == Some("content") { rest.trim_start_matches("guide: ") } else { rest };
-        let mut message = said.replace("the manifest", "the course settings");
-        if let Some(t) = &theme {
-            message = format!("{} (in its material for the theme “{t}”)", sentence(&message).trim_end_matches('.'));
-        }
+        let message = said.replace("the manifest", "the course settings");
         let mut p = self.at(Problem::rules(message), path);
         if let Some(f) = field {
             let keys: Vec<&str> = match f {
@@ -403,9 +389,6 @@ impl<'a> Course<'a> {
             } else if let Some(h) = self.hint_for(f, rest, manifest) {
                 p = p.hint(h);
             }
-        }
-        if p.line.is_none() && theme.is_some() {
-            p = p.line(self.key_line(path, &["themes"]));
         }
         p
     }
@@ -488,8 +471,6 @@ fn field_of(rest: &str, manifest: bool) -> Option<&'static str> {
             "chars"
         } else if starts("calendar") {
             "calendar"
-        } else if starts("themes") {
-            "themes"
         } else {
             return None;
         });
@@ -516,8 +497,6 @@ fn field_of(rest: &str, manifest: bool) -> Option<&'static str> {
         "listening"
     } else if starts("conversation") {
         "conversations"
-    } else if starts("themes") {
-        "themes"
     } else if has("produced no guide steps") {
         "content"
     } else if starts("guide") {

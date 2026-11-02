@@ -49,8 +49,8 @@ Then read two existing lessons as exemplars of tone and depth:
   `New word: la oficina = the office.`; the others may carry a one-line
   grammar pointer as the note, or none. Avoid sentences whose spelling the
   ear cannot settle (hay/ahí, a ver/haber, tuvo/tubo). Do not copy quiz
-  prompts, builds or vocabulary examples, in theme blocks too (the content
-  test `listening_does_not_copy_builds_or_examples` checks it).
+  prompts, builds or vocabulary examples (the content test
+  `listening_does_not_copy_builds_or_examples` checks it).
 - Pretty-printed JSON, 2-space indent, UTF-8, trailing newline.
 
 Validate after every file:
@@ -93,65 +93,6 @@ Group ids are `Grammar` and `Vocabulary` (exact spelling). Every lesson's
 `sprint.icon` should differ from the others in A2. Keep A2 vocabulary from
 repeating A1 terms except where recap is the point.
 
-## Themes (The Realm of Eldmark, Meadowbrook, Rustwake)
-
-Three themes ship with the app (`data/themes/realm/`, `data/themes/meadowbrook/`,
-`data/themes/rustwake/`; `docs/themes.md` is the complete reference) and the
-same eight A1 lessons carry a block for each (`themes.realm`, `themes.meadowbrook`,
-`themes.rustwake`). Meadowbrook's house
-style: a farm by the forest, a town with a seed shop, a tavern, a mine, a
-river and a beach, the four seasons and the festival; crops and animals (la
-fresa, el maíz, la calabaza, la gallina, la vaca, la oveja); -ar verbs of
-farm work (plantar, cosechar, trabajar; avoid regar, whose stem changes);
-invented neighbours (Rosa at the shop, Leo the fisherman, Nora the new
-farmer, el alcalde) and nobody from any game, book or film. Meadowbrook blocks also carry a `conversations` entry in
-two lessons, so a themed block can use every field.
-
-### Rustwake
-
-House style (an original retro-futurist wasteland; nothing from any game):
-the learner has just left **la cúpula** (the Dome, a sealed shelter) for
-**el páramo** (the barren plains). Places are el pueblo de chatarra, el
-taller, la gasolinera, el centro comercial en ruinas, la antena, el mercado;
-people and creatures are el capataz / la capataza (the Dome's foreman), el
-mercader / la mercadera, el buscador / la buscadora (scavenger), el robot
-jardinero, el escarabajo gigante, la cabra del páramo, el perro guardián;
-things are las tuercas (nuts, the currency), el radiorreloj (wrist radio),
-la armadura de chatarra, la radiación, el tónico, la gaseosa Zafiro, el
-agua filtrada, el disco, el mono azul; weather is hace sol, hay polvo, hay
-una tormenta de ceniza. Regular -ar verbs of the wasteland: explorar,
-buscar, caminar, cambiar (tuercas por agua), reparar, escuchar la radio.
-Invented neighbours only (Marta la mercadera, Leo el buscador, el capataz
-Ruiz); friendly and A1, no gore, and never any name, item, creature, faction
-or place from a game. The old id `fallout` is still read as `rustwake`.
-Rustwake blocks carry a `conversations` entry in three lessons.
-
-### The Realm of Eldmark
-
-The app ships one theme, `realm` (`data/themes/realm/`: colours, font, a banner,
-a mark, a folk portrait for each of the ten profile pictures, its own praise strings,
-all named in English since a theme belongs to the app, not to this course);
-Spanish for a theme lives here: in lesson `themes.<id>` blocks and in
-`course.json` `themes.<id>.strings` (the praise and "almost" lines for each
-theme, every one in Spanish: they are the theme speaking this course's language). A
-course never needs a theme. Eight A1 lessons carry a `themes.realm` block;
-the rest show their plain material when the theme is worn, which is fine: a
-theme is flair and never needs to cover every lesson. The
-lesson comes first: write and finish the lesson without the theme, then add
-the block (see `docs/course-format.md`, "Themed material"). A good block is
-an `icon` for the lesson's stop on the path (the greetings hand becomes a
-gauntlet), one `content` section (`## … en Eldmark`, ≤ 60 words, Spanish in bold),
-5–10 `vocabulary` entries with `example` + `example_meaning` (mostly re-examples of the lesson's own terms, plus
-2–4 new game terms with a meaning: la mazmorra, el botín, la montura…), one
-`bite`, five `listening` sentences (2–10 words, a `New word:` note where a
-game term is new), two `builds`, two `spots`, one `sort` and two `quiz`
-questions whose ids end in `-realm-01`, `-realm-02`. Use the Spanish
-localisation's names (Highgate, Deepanvil, Frostmarch, el Bosque Umbrío;
-the forest keeps its Spanish name in English glosses too, *the Bosque
-Umbrío*, never Shadow Wood or another translation), races and classes (el orco, la elfa, el enano, el minotauro; el guerrero, la
-maga, el paladín, el cazador) and everyday game nouns; keep real characters
-out and the grammar exactly that of the lesson.
-
 ## The B1 syllabus (CEFR B1 / Plan Curricular del Instituto Cervantes)
 
 Files go in `data/courses/spanish/lessons/b1/<slug>.json`, `unit` = `"B1"`,
@@ -168,12 +109,7 @@ Reserved conjugations already taught elsewhere: the present subjunctive of
 hablar, comer, escribir, hacer, poner, decir, ir, venir, tener, salir, ser
 (`a2-imperative`); the conditional of gustar, deber, poder, querer
 (`a2-obligation-and-advice`). B1 reserves the present subjunctive and
-conditional items listed below. Every B1 lesson carries all three theme
-blocks (`realm`, `meadowbrook`, `rustwake`) in the house styles above, with
-B1 grammar and register (still friendly, nothing from any game, book or
-film); the themed `conversations` rotate so each theme has one in six B1
-lessons (realm: orders 10, 16, 22, 28, 34, 40; meadowbrook: 12, 18, 24, 30,
-36, 42; rustwake: 14, 20, 26, 32, 38, 44).
+conditional items listed below.
 
 | order | id | slug | group | title | prerequisites | conjugations to include (item/set) | must cover |
 |---|---|---|---|---|---|---|---|
@@ -240,16 +176,7 @@ and **haya** in tables.
 | 40 | b2-news-and-media | news-and-media | Vocabulary | The news: headlines and reporting verbs | b2-reported-speech, b2-passive-voice, b1-news-and-media | (none) | la noticia, el titular, la prensa, el/la periodista, la fuente, los medios; reporting verbs (afirmar, declarar, asegurar, negar, anunciar, confirmar, denunciar); según, al parecer, supuestamente; headline style (present tense, participle without ser: Detenido un hombre…; El Gobierno aprueba…); the press conditional (habría + participle) for unconfirmed facts, mentioned only |
 | 42 | b2-environment-and-society | environment-and-society | Vocabulary | The environment: arguing a point | b2-si-clauses, b2-discourse-markers, b1-environment | (none) | el medio ambiente, el cambio climático, la contaminación, los residuos, reciclar, las energías renovables, la sequía, el transporte público, el consumo, sostenible; creo que + indicative vs no creo que + subjunctive; es fundamental/urgente que + subjunctive; si no reducimos…, si todos usáramos…; a short argued paragraph with markers |
 
-Every B2 lesson carries all three theme blocks (`realm`, `meadowbrook`,
-`rustwake`) with the grammar exactly that of the lesson, in B2 register;
-each theme has a `conversations` entry in six of the seventeen lessons
-(realm: imperfect-subjunctive, future-and-conditional-perfect,
-reported-speech, relative-clauses, register, environment-and-society;
-meadowbrook: sequence-of-tenses, present-perfect-subjunctive,
-passive-voice, concessive-and-conditional-links, work-and-careers,
-environment-and-society; rustwake: pluperfect, si-clauses,
-se-constructions, verbs-of-change, news-and-media,
-environment-and-society). Every B2 `sprint.icon` differs from every other
+Every B2 `sprint.icon` differs from every other
 lesson's in the course.
 
 ## The C1 syllabus (CEFR C1 / Plan Curricular del Instituto Cervantes)
@@ -284,11 +211,8 @@ builds on, never at a later level or a later lesson.
 | 34 | c1-colloquial-and-idioms | colloquial-and-idioms | Vocabulary | Meter la pata: colloquial Spanish and idioms | c1-ser-estar-nuances, b2-register | (none) | idioms with meaning and register (meter la pata, tomar el pelo, no tener pelos en la lengua, costar un ojo de la cara, echar una mano, ponerse las pilas, dar la lata, estar como una cabra, hacer la pelota, ser uña y carne, quedarse de piedra, ir al grano); colloquial markers of Spain (vale, venga, o sea, pues nada, ¿sabes?, en plan, tío/tía among friends); intensifiers (súper, un montón de, la mar de); when not to use them (writing, formal settings) |
 | 36 | c1-regional-variation | regional-variation | Vocabulary | Vos tenés: regional variation | b2-register, c1-colloquial-and-idioms | (none; voseo in tables) | voseo (vos sos, vos tenés, vos hablás, vení, ¿querés?) in Argentina, Uruguay and Central America; ustedes for both formal and informal plural in Latin America and the Canaries; seseo and ceceo vs distinción, yeísmo; preterite vs present perfect preferences; vocabulary pairs (coche/carro/auto, ordenador/computadora, móvil/celular, zumo/jugo, gafas/anteojos/lentes, piso/departamento, conducir/manejar); diminutives (ahorita, -ico, -illo); every variety is standard in its region |
 
-Group ids are `Grammar` and `Vocabulary`. Every C1 lesson carries all three
-theme blocks (`realm`, `meadowbrook`, `rustwake`), with the grammar exactly
-that of the lesson and a C1 register (witty and idiomatic, still friendly);
-each theme has a `conversations` entry in at least five C1 lessons. Keep C1
-vocabulary from repeating A1–B2 terms except where recap is the point.
+Group ids are `Grammar` and `Vocabulary`. Keep C1 vocabulary from repeating
+A1–B2 terms except where recap is the point.
 
 ## The C2 syllabus (PCIC C2 / CEFR C2: mastery)
 
@@ -303,12 +227,6 @@ every other paradigm (the -ra/-se and the future subjunctive, the pretérito
 anterior) is taught in content tables, since the course has no set for it.
 Every passage, example, joke and "literary" text is written for the course:
 never quote a published work, a known poem or a famous line.
-
-Every C2 lesson carries all three theme blocks. At C2 the themed material
-is witty, idiomatic and literary in the theme's world (a chronicler of
-Eldmark, the Meadowbrook almanac, a Rustwake radio bulletin), still
-friendly and still original. Themed `conversations`: realm in lessons
-10, 16, 22, 28; meadowbrook in 12, 18, 24, 30; rustwake in 14, 20, 26, 32.
 
 | order | id | slug | group | title | prerequisites | conjugations to include (item/set) | must cover |
 |---|---|---|---|---|---|---|---|

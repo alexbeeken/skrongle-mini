@@ -68,10 +68,6 @@
     {
       "id": "games",
       "title": "Games"
-    },
-    {
-      "id": "themes",
-      "title": "Themes"
     }
   ],
   "paradigm": {
@@ -192,24 +188,5 @@
     "almost": [
       "Casi…"
     ]
-  },
-  "themes": {
-    "realm": {
-      "strings": {
-        "praise": [
-          "¡Victoria de prueba!"
-        ],
-        "almost": [
-          "Casi, aventurero de prueba"
-        ]
-      }
-    },
-    "not-installed": {
-      "strings": {
-        "praise": [
-          "¡Nunca!"
-        ]
-      }
-    }
   }
 }

@@ -36,9 +36,6 @@ pub struct CourseCard {
     /// Shared with this learner by someone else (`share.rs`): who. The card
     /// opens the course but has no editor.
     pub shared_by: Option<String>,
-    /// A course the learner opened: the theme worn in it (`projects.theme`),
-    /// as its settings dialog's choice: '' for Default, or an id.
-    pub theme: Option<String>,
     /// A course the learner opened: what its settings dialog shows (#565).
     pub settings: Option<CourseSettings>,
     /// It can be copied (#629): a built-in course, or one of their own that
@@ -55,8 +52,7 @@ pub struct CourseCard {
 }
 
 /// A course's settings dialog (`course_settings.html`): the level (a course
-/// with levels), the motivator and theme worn in the course, then the
-/// picture and its background drawn in that theme. On the course list it is
+/// with levels) and the motivator worn in the course. On the course list it is
 /// one form behind the card's gear; before the course is first opened it is
 /// a wizard, one step a page (#574): behind the card's Start button (#587),
 /// or on the course home when the course was opened another way.
@@ -70,27 +66,8 @@ pub struct CourseSettings {
     /// opens nothing. Otherwise the wizard is on the home page of a course
     /// already opened, and closing it counts the course as set up.
     pub start: bool,
-    /// The theme chosen: '' for Default, or an id.
-    pub theme: String,
-    /// The themes on offer: the app's, then the learner's own.
-    pub themes: Vec<super::ThemeView>,
     /// Every motivator the app has, the one worn marked.
     pub motivators: Vec<MotivatorView>,
-    /// Character art is on (#1153): the picture and background are offered,
-    /// with the preview badge. Off, they are left out and the stored choice
-    /// is kept.
-    pub art: bool,
-    /// The picture chosen (a known id).
-    pub avatar: String,
-    /// The background shown: a slot of `palette` (`profile::shown_slot`).
-    pub avatar_color: u8,
-    /// The eight pictures, each in the course's theme's version where it has one.
-    pub avatars: Vec<super::profile::AvatarChoice>,
-    /// The backgrounds on offer (the theme's colours, then its scenes).
-    pub palette: Vec<crate::profile::Swatch>,
-    /// The preview badge: its style and, for a themed picture, its URL.
-    pub badge_style: String,
-    pub badge_url: Option<String>,
     /// The levels the course can be started at, the one chosen marked;
     /// empty for a course without levels (#587, was the `/start` page).
     pub levels: Vec<super::pages::LevelOption>,
@@ -129,65 +106,21 @@ impl MotivatorView {
     }
 }
 
-/// What every course's settings dialog on a page offers: the themes, each
-/// theme choice's pack, and what each looks like (`profile::look_json`,
-/// keyed by the dialog's theme value, as JSON for `course-settings.js`).
-pub(in crate::routes) struct SettingsChoices {
-    themes: Vec<super::ThemeView>,
-    packs: HashMap<String, Option<Arc<crate::themes::ThemePack>>>,
-    pub looks: String,
-    /// Character art is on (themes are, #1153).
-    art: bool,
-}
-
-impl SettingsChoices {
-    /// Default and every theme the learner may wear.
-    pub(in crate::routes) async fn load(state: &AppState, user: &CurrentUser) -> Result<SettingsChoices, AppError> {
-        let mut themes = super::ThemeView::all(&state.themes);
-        themes.extend(super::ThemeView::made(state, user.id).await?);
-        let mut packs: HashMap<String, Option<Arc<crate::themes::ThemePack>>> = HashMap::new();
-        packs.insert(String::new(), None);
-        for t in &themes {
-            packs.insert(t.id.clone(), state.themes.resolve(&state.db, user.id, &t.id).await?);
-        }
-        let looks: serde_json::Map<String, serde_json::Value> =
-            packs.iter().map(|(k, p)| (k.clone(), super::profile::look_json(p.as_ref().map(|p| &p.theme)))).collect();
-        let looks = super::script_json(&looks)?;
-        Ok(SettingsChoices { themes, packs, looks, art: !state.themes.is_off() })
-    }
-
-    /// The dialog of the course `pr` (`content`).
-    pub(in crate::routes) fn view(&self, pr: &courses::ProjectRow, content: &ContentStore, wizard: bool) -> CourseSettings {
-        let choice = pr.theme.clone().unwrap_or_default();
-        // A theme no longer there (or not theirs) shows as Default.
-        let choice = if self.packs.contains_key(&choice) { choice } else { String::new() };
-        let theme = self.packs.get(&choice).cloned().flatten();
-        let theme = theme.as_ref().map(|p| &p.theme);
-        let palette = crate::profile::palette(theme);
-        let badge = super::profile::badge_json(&pr.avatar, pr.avatar_color, theme);
-        CourseSettings {
-            course_id: pr.course_id.clone(),
-            course_title: content.title().to_string(),
-            wizard,
-            start: false,
-            theme: choice,
-            themes: self.themes.clone(),
-            motivators: MotivatorView::all(&pr.motivator),
-            art: self.art,
-            avatar: pr.avatar.clone(),
-            avatar_color: crate::profile::shown_slot(&palette, pr.avatar_color),
-            avatars: super::profile::avatar_choices(theme),
-            palette,
-            badge_style: crate::profile::badge(pr.avatar_color, theme).style(),
-            badge_url: badge.get("url").and_then(|u| u.as_str()).map(str::to_string),
-            levels: super::pages::level_options(content, content.start_index(&pr.start_unit)),
-            placement: crate::placement::offered(content),
-            copyable: false,
-            editable: false,
-            translate: false,
-            meanings_lang: String::new(),
-            translate_providers: Vec::new(),
-        }
+/// The settings dialog of the course `pr` (`content`).
+pub(in crate::routes) fn settings_view(pr: &courses::ProjectRow, content: &ContentStore, wizard: bool) -> CourseSettings {
+    CourseSettings {
+        course_id: pr.course_id.clone(),
+        course_title: content.title().to_string(),
+        wizard,
+        start: false,
+        motivators: MotivatorView::all(&pr.motivator),
+        levels: super::pages::level_options(content, content.start_index(&pr.start_unit)),
+        placement: crate::placement::offered(content),
+        copyable: false,
+        editable: false,
+        translate: false,
+        meanings_lang: String::new(),
+        translate_providers: Vec::new(),
     }
 }
 
@@ -203,9 +136,6 @@ pub struct PickerTemplate {
     pub notice: Option<String>,
     /// `?generate=<id>`: the Generate dialog of a stopped course (Retry or Resume).
     pub generate: Option<GenerateView>,
-    /// Each theme choice's pictures and backgrounds, for the settings dialogs
-    /// (`SettingsChoices::looks`).
-    pub looks: String,
     /// The AI "Copy and translate to…" can use (#630): the providers with a
     /// saved key, and Skrongle AI when it is offered. Empty with AI off.
     pub translate_providers: Vec<ProviderChoice>,
@@ -242,7 +172,6 @@ fn card(content: &ContentStore, editable: bool) -> CourseCard {
         stopped: false,
         resumable: false,
         shared_by: None,
-        theme: None,
         settings: None,
         copyable: false,
         meanings_lang: m.meanings.lang.clone(),
@@ -251,12 +180,6 @@ fn card(content: &ContentStore, editable: bool) -> CourseCard {
 }
 
 impl CourseCard {
-    /// The card's `data-card-theme` (#565): the theme its course wears;
-    /// none for Default, which the course list wears (#577).
-    pub fn card_theme(&self) -> Option<&str> {
-        self.theme.as_deref().filter(|t| !t.is_empty())
-    }
-
     /// The card's progress chips (#684), one per metric, when the learner
     /// has a project here: lessons passed, lessons mastered.
     pub fn stats(&self) -> Vec<CardStat> {
@@ -336,7 +259,6 @@ fn broken_card(state: &AppState, row: &CourseRow) -> CourseCard {
         editable: true,
         error: row.error.clone(),
         shared_by: None,
-        theme: None,
         settings: None,
         copyable: false,
         meanings_lang: String::new(),
@@ -468,7 +390,6 @@ pub(in crate::routes) fn to_editor(id: &str, key: &str) -> Response {
 
 pub(super) async fn picker_page(state: &AppState, user: CurrentUser, notice: Option<String>, generate: Option<GenerateView>) -> Result<Response, AppError> {
     let at = now();
-    let choices = SettingsChoices::load(state, &user).await?;
     let uid = user.id;
     let (projects, mine, shared, summary, fresh, passed) = state
         .db
@@ -493,7 +414,7 @@ pub(super) async fn picker_page(state: &AppState, user: CurrentUser, notice: Opt
     // A course not opened yet: its Start button opens the settings wizard (#587).
     let with_wizard = |content: &ContentStore, mut c: CourseCard| {
         let pr = courses::ProjectRow { course_id: content.id().to_string(), ..fresh.clone() };
-        let mut st = choices.view(&pr, content, true);
+        let mut st = settings_view(&pr, content, true);
         st.start = true;
         st.copyable = c.copyable;
         st.editable = c.editable;
@@ -521,11 +442,10 @@ pub(super) async fn picker_page(state: &AppState, user: CurrentUser, notice: Opt
         c.progress = Some((passed.get(&pr.course_id).copied().unwrap_or(0), mastered));
         c.last_opened = Some(time_ago(pr.last_opened_at, at));
         c.is_active = user.course_id.as_deref() == Some(pr.course_id.as_str());
-        let mut settings = choices.view(pr, &content, false);
+        let mut settings = settings_view(pr, &content, false);
         settings.copyable = c.copyable;
         settings.editable = c.editable;
         translate(&mut settings, &c);
-        c.theme = Some(settings.theme.clone());
         c.settings = Some(settings);
         project_cards.push(c);
     }
@@ -568,5 +488,5 @@ pub(super) async fn picker_page(state: &AppState, user: CurrentUser, notice: Opt
         c.shared_by = Some(s.owner.clone());
         shared_cards.push(with_wizard(&content, c));
     }
-    Ok(Page(PickerTemplate { user: Some(user), projects: project_cards, builtin, mine: my_cards, shared: shared_cards, notice, generate, looks: choices.looks, translate_providers }).into_response())
+    Ok(Page(PickerTemplate { user: Some(user), projects: project_cards, builtin, mine: my_cards, shared: shared_cards, notice, generate, translate_providers }).into_response())
 }

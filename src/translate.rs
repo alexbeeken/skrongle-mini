@@ -61,7 +61,7 @@ impl Plan {
 /// translated heading (`fix_sections`).
 const STRUCTURAL: &[&str] = &[
     "id", "slug", "question_id", "unit", "group", "type", "lang", "icon", "emoji", "image", "box", "set", "speaker", "prerequisites",
-    "question", "section", "levels", "chars", "art", "who", "role_a", "role_b", "tolerance", "bucket",
+    "question", "section", "levels", "chars", "art", "role_a", "role_b", "tolerance", "bucket",
 ];
 
 /// Keys whose strings are in the language a language course teaches: kept

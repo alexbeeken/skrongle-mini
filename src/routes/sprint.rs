@@ -137,8 +137,8 @@ pub async fn home(State(state): State<Arc<AppState>>, p: Project, headers: Heade
     let current_icon = current
         .as_ref()
         .and_then(|(slug, _)| content.lesson_by_slug(slug))
-        .map(|l| sprint::lesson_icon(content, l, content.lessons().iter().position(|x| x.id == l.id).unwrap_or(0)))
-        .unwrap_or_else(|| crate::content::Icons::of(content.theme()).start);
+        .map(|l| sprint::lesson_icon(l, content.lessons().iter().position(|x| x.id == l.id).unwrap_or(0)))
+        .unwrap_or_else(|| crate::content::Icons::default().start);
 
     let mut units: Vec<UnitGroup> = Vec::new();
     for (i, ((card, st), lesson)) in all.iter().zip(content.lessons()).enumerate() {
@@ -147,7 +147,7 @@ pub async fn home(State(state): State<Arc<AppState>>, p: Project, headers: Heade
             number: card.number,
             slug: card.slug.clone(),
             title: card.title.clone(),
-            icon: sprint::lesson_icon(content, lesson, i),
+            icon: sprint::lesson_icon(lesson, i),
             state: card.state,
             stars: card.stars,
             mastery: m.round() as u32,

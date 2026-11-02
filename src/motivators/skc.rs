@@ -23,7 +23,7 @@ pub const RATES: Rates = SKC_RATES;
 
 /// SKC's glyph: an arcade ticket (notched at both ends) with a spark on it.
 /// An original shape, not a currency sign; drawn in `currentColor`, 1em
-/// high, so it follows the text's colour in every theme and colour scheme.
+/// high, so it follows the text's colour in either colour scheme.
 pub fn symbol() -> String {
     format!(
         r#"<svg class="skc-symbol" data-testid="skc-symbol" viewBox="0 0 24 24" width="1em" height="1em" role="img" aria-label="{}" focusable="false"><path d="M4 6h16a1 1 0 0 1 1 1v2.5a2.5 2.5 0 0 0 0 5V17a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-2.5a2.5 2.5 0 0 0 0-5V7a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M12 8.6l1.05 2.35 2.35 1.05-2.35 1.05L12 15.4l-1.05-2.35L8.6 12l2.35-1.05z" fill="currentColor"/></svg>"#,
@@ -98,7 +98,7 @@ impl Reward for SkcReward {
 struct SkcHero {
     balance: i64,
     today: i64,
-    /// The badges bought in this course, in the worn theme's look.
+    /// The badges bought in this course.
     shelf: Vec<super::shop::BadgeView>,
 }
 
@@ -109,7 +109,7 @@ impl SkcHero {
         let shelf = super::shop::owned(conn, user_id, course.id())?
             .iter()
             .filter_map(|id| super::shop::catalogue().get(id))
-            .map(|b| super::shop::BadgeView::of(b, course.theme(), true))
+            .map(|b| super::shop::BadgeView::of(b, true))
             .collect();
         Ok(SkcHero { balance, today, shelf })
     }

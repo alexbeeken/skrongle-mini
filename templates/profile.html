@@ -158,7 +158,7 @@
     <h2 class="heading-with-info">{{ crate::t("profile.two_factor.title") }} <button type="button" class="info-btn" data-opens="two-factor-info" aria-haspopup="dialog" aria-label="{{ crate::t("profile.two_factor.info") }}" data-testid="profile-two-factor-info">i</button></h2>
     {% if let Some(e) = two_factor_error %}<p class="alert error" role="alert" data-testid="profile-two-factor-error">{{ e }}</p>{% endif %}
     <form method="post" action="{{ crate::url("/profile/two-factor") }}" data-testid="profile-two-factor-form">
-      <div class="theme-chips" role="radiogroup" aria-label="{{ crate::t("profile.two_factor.second_step") }}">
+      <div class="choice-chips" role="radiogroup" aria-label="{{ crate::t("profile.two_factor.second_step") }}">
         <label class="chip" data-testid="profile-two-factor-method" data-method=""><input type="radio" name="method" value="" class="sr-only"{% if two_factor_method() == "" %} checked{% endif %}> {{ crate::t("profile.two_factor.off") }}</label>
         {% if email_2fa_offered() %}<span class="chip-alert"><label class="chip" data-testid="profile-two-factor-method" data-method="email"><input type="radio" name="method" value="email" class="sr-only"{% if two_factor_method() == "email" %} checked{% endif %}{% if !email_2fa_ok() %} disabled{% endif %}> {{ crate::t("profile.two_factor.email") }}</label>
         {% if !email_2fa_ok() %}<button type="button" class="field-check bad inline" data-opens="two-factor-email-dialog" aria-haspopup="dialog" aria-label="{{ crate::t("profile.two_factor.email_unverified") }}" data-testid="profile-two-factor-email-unavailable">!</button>{% endif %}</span>{% endif %}

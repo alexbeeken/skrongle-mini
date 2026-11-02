@@ -31,11 +31,6 @@ Yes. Give it [`/llms.txt`](/llms.txt) or paste the
 [course format](course-format.md), then add its replies on the course page.
 See [Write lessons with an LLM](making-courses#write-lessons-with-an-llm-you-already-use).
 
-<!-- themes -->
-**Why doesn't my theme change my own course's lessons?**
-Themed material is shown in built-in courses only for now; your course gets
-the theme's colours. See [Themes](using-themes).
-<!-- /themes -->
 
 **Can an AI agent outside the app record my progress?**
 Yes, through `/api/progress`. Give the agent [Progress across modes](progress).

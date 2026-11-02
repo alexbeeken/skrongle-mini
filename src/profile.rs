@@ -1,293 +1,15 @@
-//! User profiles: the picture (one of a fixed set of named people and
-//! animals), personal information and the account settings behind the
+//! User profiles: personal information and the account settings behind the
 //! top-right menu.
 //!
 //! A profile never depends on a course: nothing here reads the active
-//! course, and picture names are English (the app's language) like the
-//! labels below. The worn theme may show its own version of the picture,
-//! named in English too; practice in a course's language comes from the
-//! course, not the profile (docs/themes.md, "Themes, courses and profiles").
+//! course; practice in a course's language comes from the course, not the
+//! profile.
 //!
 //! The e-mail address is set once (at registration, by Google sign-in, or on
 //! the profile page for accounts that predate it) and never changes after
 //! that; everything else here can be edited at any time.
 
 use rusqlite::{params, Connection, OptionalExtension};
-
-/// One of the pictures a learner can pick. `id` is what `users.avatar`
-/// stores and what the SVG sprite in `templates/avatars.html` is keyed by;
-/// `label` is the picture's name (every picture is a person or an animal
-/// with a name of their own, not a thing).
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub struct Avatar {
-    pub id: &'static str,
-    pub label: &'static str,
-    /// Who or what the picture shows, for authors drawing a theme's version.
-    pub shows: &'static str,
-    /// Background colour of the badge behind the portrait.
-    pub color: &'static str,
-}
-
-impl Avatar {
-    /// `shows`, in the learner's language: the tooltip of the built-in picture.
-    pub fn description(&self) -> String {
-        match self.id {
-            "noor" => crate::t("profile.avatar.shows.noor"),
-            "amani" => crate::t("profile.avatar.shows.amani"),
-            "yuki" => crate::t("profile.avatar.shows.yuki"),
-            "kai" => crate::t("profile.avatar.shows.kai"),
-            "arjun" => crate::t("profile.avatar.shows.arjun"),
-            "sofia" => crate::t("profile.avatar.shows.sofia"),
-            "mochi" => crate::t("profile.avatar.shows.mochi"),
-            "coco" => crate::t("profile.avatar.shows.coco"),
-            _ => self.shows.to_string(),
-        }
-    }
-}
-
-/// The eight pictures on offer, in the order the profile page shows them:
-/// six people from around the world and two pets, with short names most of
-/// which fit anyone. A theme gives its own version of each by id.
-pub const AVATARS: [Avatar; 8] = [
-    Avatar { id: "noor", label: "Noor", shows: "a person in a blue hijab", color: "#c9873a" },
-    Avatar { id: "amani", label: "Amani", shows: "a Black woman in a bright head wrap and hoop earrings", color: "#2e8b57" },
-    Avatar { id: "yuki", label: "Yuki", shows: "a person in a navy haori, hair in a bun with a hair stick", color: "#c2556f" },
-    Avatar { id: "kai", label: "Kai", shows: "a brown-skinned person with short curls and a pale blue, pink and white scarf", color: "#3b8ea5" },
-    Avatar { id: "arjun", label: "Arjun", shows: "a bearded Sikh man in a saffron dastar", color: "#4f6d8f" },
-    Avatar { id: "sofia", label: "Sofía", shows: "a Latina woman with a braid, in an embroidered white blouse", color: "#7f8c3a" },
-    Avatar { id: "mochi", label: "Mochi", shows: "a white cat with orange and black patches", color: "#6b4f9e" },
-    Avatar { id: "coco", label: "Coco", shows: "a brown dog with floppy ears and a red collar", color: "#d4941a" },
-];
-
-/// The ids the pictures had before #180 (ten icons: an owl, a fox, a leaf…),
-/// each mapped to one of today's. `users.avatar` was rewritten by migration
-/// v31; theme files and requests may still say them and are read as the new
-/// id, the way a renamed lesson field keeps its old spelling as an alias.
-pub const ALIASES: [(&str, &str); 10] = [
-    ("owl", "noor"),
-    ("fox", "kai"),
-    ("cat", "mochi"),
-    ("bear", "coco"),
-    ("rabbit", "sofia"),
-    ("robot", "arjun"),
-    ("rocket", "yuki"),
-    ("star", "amani"),
-    ("leaf", "sofia"),
-    ("bolt", "mochi"),
-];
-
-pub const DEFAULT_AVATAR: &str = "noor";
-
-/// One of the backgrounds a learner can put behind their picture: the badge
-/// disc of the round avatar, a colour with a light pattern over it. Slot `n`
-/// (1-8) is `AVATAR_COLORS[n - 1]`, and a theme may give its own colour for
-/// any slot (`avatar_colors` in theme.json), the way it gives its own version
-/// of each picture; the pattern stays. A theme adds scenes of its world in
-/// slots 9-16 (`THEME_SLOTS`, `avatar_backgrounds`).
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub struct AvatarColor {
-    /// The background's name: the swatch's accessible name, in English.
-    pub label: &'static str,
-    pub color: &'static str,
-    /// The pattern drawn over the colour: `static/avatar-bg/<pattern>.svg`,
-    /// white shapes at low opacity, so it suits any colour a theme gives.
-    pub pattern: &'static str,
-}
-
-impl AvatarColor {
-    /// `label`, in the learner's language.
-    pub fn name(&self) -> String {
-        match self.pattern {
-            "sunburst" => crate::t("profile.colors.sunburst"),
-            "waves" => crate::t("profile.colors.waves"),
-            "confetti" => crate::t("profile.colors.confetti"),
-            "stars" => crate::t("profile.colors.stars"),
-            "stripes" => crate::t("profile.colors.stripes"),
-            "dots" => crate::t("profile.colors.dots"),
-            "rings" => crate::t("profile.colors.rings"),
-            "zigzag" => crate::t("profile.colors.zigzag"),
-            _ => self.label.to_string(),
-        }
-    }
-}
-
-/// The default palette, slots 1 to 8: the pictures' own badge colours (so
-/// any picture can wear any other's), each with a pattern.
-pub const AVATAR_COLORS: [AvatarColor; 8] = [
-    AvatarColor { label: "Amber sunburst", color: "#c9873a", pattern: "sunburst" },
-    AvatarColor { label: "Green waves", color: "#2e8b57", pattern: "waves" },
-    AvatarColor { label: "Rose confetti", color: "#c2556f", pattern: "confetti" },
-    AvatarColor { label: "Teal stars", color: "#3b8ea5", pattern: "stars" },
-    AvatarColor { label: "Slate stripes", color: "#4f6d8f", pattern: "stripes" },
-    AvatarColor { label: "Olive dots", color: "#7f8c3a", pattern: "dots" },
-    AvatarColor { label: "Violet rings", color: "#6b4f9e", pattern: "rings" },
-    AvatarColor { label: "Gold zigzag", color: "#d4941a", pattern: "zigzag" },
-];
-
-/// The slots a theme's own backgrounds (`avatar_backgrounds`) go in. A slot
-/// is what is stored, so a background follows the theme like a colour does:
-/// slot 9 is each theme's first scene, and while a theme without one is worn
-/// (or none) `DEFAULT_COLOR` shows instead.
-pub const THEME_SLOTS: std::ops::RangeInclusive<u8> = 9..=16;
-
-/// The background of an account that has picked none (`users.avatar_color`
-/// is 0 until then): slot 1, Amber sunburst. The background belongs to the
-/// account, not the picture, so changing the picture keeps it (#263).
-pub const DEFAULT_COLOR: u8 = 1;
-
-/// A background slot a learner can pick: 1-8, or a theme's 9-16.
-pub fn is_color_slot(slot: u8) -> bool {
-    (1..=*THEME_SLOTS.end()).contains(&slot)
-}
-
-/// The slot an account has chosen: the one stored, else `DEFAULT_COLOR`.
-pub fn color_slot(stored: u8) -> u8 {
-    if is_color_slot(stored) { stored } else { DEFAULT_COLOR }
-}
-
-/// The slot shown with `palette` worn: the one chosen when the palette offers
-/// it, else `DEFAULT_COLOR` (a theme's scene on Default, or on a theme without
-/// that slot). The choice stays stored, so the theme brings it back.
-pub fn shown_slot(palette: &[Swatch], stored: u8) -> u8 {
-    let slot = color_slot(stored);
-    if palette.iter().any(|s| s.slot == slot) { slot } else { DEFAULT_COLOR }
-}
-
-/// One swatch of the palette worn.
-#[derive(Debug, Clone, PartialEq, Eq, serde::Serialize)]
-pub struct Swatch {
-    pub slot: u8,
-    pub label: String,
-    pub color: String,
-    /// The picture over the colour (a pattern, or a theme's scene), as a URL.
-    pub image: String,
-}
-
-impl Swatch {
-    /// The swatch's look, for its `style`: `--sw` and `--sw-img`.
-    pub fn style(&self) -> String {
-        format!("--sw:{};--sw-img:{}", self.color, css_image(&self.image))
-    }
-}
-
-/// A URL as a CSS `url(…)`, or `none` for no picture (or one whose URL
-/// could break out of the declaration: a theme learners make may give any
-/// `https://` URL).
-pub fn css_image(url: &str) -> String {
-    let safe = !url.is_empty() && !url.chars().any(|c| c.is_whitespace() || c.is_control() || "\"'()\\;<>".contains(c));
-    if safe { format!("url({url})") } else { "none".to_string() }
-}
-
-/// The eight backgrounds on offer while `theme` is worn, then the theme's own
-/// scenes: the theme's colour for each slot it gives one for, the default
-/// for the rest (a theme only adds; a theme without `avatar_colors` offers
-/// the default palette, one without `avatar_backgrounds` no scenes).
-pub fn palette(theme: Option<&crate::content::Theme>) -> Vec<Swatch> {
-    let defaults = AVATAR_COLORS.iter().zip(1u8..).map(|(d, slot)| {
-        let image = crate::routes::asset_url(&format!("avatar-bg/{}.svg", d.pattern));
-        match theme.and_then(|t| t.avatar_colors.iter().find(|c| c.slot == slot).map(|c| (t, c))) {
-            Some((t, c)) => Swatch { slot, label: t.slot_said(slot, &c.label), color: c.color.clone(), image },
-            None => Swatch { slot, label: d.name(), color: d.color.to_string(), image },
-        }
-    });
-    let mut scenes: Vec<Swatch> = theme
-        .map(|t| {
-            t.avatar_backgrounds
-                .iter()
-                .map(|b| Swatch { slot: b.slot, label: t.slot_said(b.slot, &b.label), color: b.color.clone(), image: crate::routes::art_url(&t.id, &b.image) })
-                .collect()
-        })
-        .unwrap_or_default();
-    scenes.sort_by_key(|s| s.slot);
-    defaults.chain(scenes).collect()
-}
-
-/// The colour a picture brings of its own while `theme` is worn, for its
-/// tile in the picture dialog: the theme's version's `color`, else the
-/// built-in picture's. A theme's version without one has the page's surface
-/// behind it (its art usually paints its own badge).
-pub fn own_color(avatar_id: &str, theme: Option<&crate::content::Theme>) -> String {
-    match theme.and_then(|t| t.avatar(avatar_id)) {
-        Some(t) if !t.color.is_empty() => t.color.clone(),
-        Some(_) => "var(--surface)".to_string(),
-        None => avatar(avatar_id).color.to_string(),
-    }
-}
-
-/// What is behind a learner's picture: a colour and, over it, a picture.
-#[derive(Debug, Clone, PartialEq, Eq)]
-pub struct Badge {
-    pub color: String,
-    /// A URL, empty for a plain colour.
-    pub image: String,
-}
-
-impl Badge {
-    /// The `style` of every `.avatar` showing it: `--av` and `--av-img`.
-    pub fn style(&self) -> String {
-        format!("--av:{};--av-img:{}", self.color, css_image(&self.image))
-    }
-}
-
-/// The background behind a learner's picture: the chosen slot of the palette
-/// worn (`shown_slot`: `DEFAULT_COLOR` if none, or a theme's slot that the
-/// theme worn does not have).
-pub fn badge(slot: u8, theme: Option<&crate::content::Theme>) -> Badge {
-    let palette = palette(theme);
-    let slot = shown_slot(&palette, slot);
-    palette
-        .into_iter()
-        .find(|s| s.slot == slot)
-        .map(|s| Badge { color: s.color, image: s.image })
-        .unwrap_or_else(|| Badge { color: String::new(), image: String::new() })
-}
-
-/// The badge colour behind a learner's picture (the `--av` of `.avatar`).
-#[cfg(test)]
-pub fn badge_color(slot: u8, theme: Option<&crate::content::Theme>) -> String {
-    badge(slot, theme).color
-}
-
-/// The id as stored today: a current id as is, an old id (`ALIASES`) as
-/// the picture it became, anything else `None`.
-pub fn canonical(id: &str) -> Option<&'static str> {
-    AVATARS
-        .iter()
-        .map(|a| a.id)
-        .find(|a| *a == id)
-        .or_else(|| ALIASES.iter().find(|(old, _)| *old == id).map(|(_, new)| *new))
-}
-
-/// The avatar with this id (an old id resolves too), or the default one for
-/// anything unknown (a hand-edited value): a profile never fails to render.
-pub fn avatar(id: &str) -> Avatar {
-    canonical(id).and_then(|c| AVATARS.iter().copied().find(|a| a.id == c)).unwrap_or(AVATARS[0])
-}
-
-/// The two portraits that speak a lesson conversation's roles (#989): two
-/// of the six people in `AVATARS` (the pets don't take a named role), never
-/// the learner's own picture `own`, so the exchange reads as two other
-/// people. A role keeps its portrait wherever its name comes back (Lucía is
-/// the same face in every lesson she is in, for the same learner).
-pub fn cast(role_a: &str, role_b: &str, own: &str) -> [&'static str; 2] {
-    let own = canonical(own);
-    let people: Vec<&'static str> = AVATARS.iter().take(6).map(|a| a.id).filter(|id| Some(*id) != own).collect();
-    // FNV-1a: stable across builds, unlike `DefaultHasher`.
-    let hash = |s: &str| s.trim().to_lowercase().bytes().fold(0xcbf2_9ce4_8422_2325u64, |h, b| (h ^ u64::from(b)).wrapping_mul(0x100_0000_01b3));
-    let n = people.len() as u64;
-    let a = (hash(role_a) % n) as usize;
-    let mut b = (hash(role_b) % n) as usize;
-    if b == a {
-        b = (b + 1) % people.len();
-    }
-    [people.get(a).copied().unwrap_or(DEFAULT_AVATAR), people.get(b).copied().unwrap_or(DEFAULT_AVATAR)]
-}
-
-/// A picture id, current or old.
-pub fn is_avatar(id: &str) -> bool {
-    canonical(id).is_some()
-}
-
 
 // ---------- validation ----------
 
@@ -350,10 +72,6 @@ pub struct Profile {
     pub last_name: String,
     /// `None` until the account has one; afterwards fixed.
     pub email: Option<String>,
-    pub avatar: String,
-    /// The background behind the picture: a palette slot (1-8) or a theme's
-    /// (9-16), `DEFAULT_COLOR` until one is picked.
-    pub avatar_color: u8,
     pub created_at: i64,
     /// Accounts without one (signed in through a proxy) have no password to change.
     pub has_password: bool,
@@ -413,8 +131,8 @@ pub fn load(conn: &Connection, user_id: i64) -> rusqlite::Result<Option<Profile>
         r => r?,
     };
     conn.query_row(
-        "SELECT first_name, last_name, NULLIF(email, ''), avatar, created_at,
-                password_hash != '', ai_off, avatar_color, own_keys_fallback
+        "SELECT first_name, last_name, NULLIF(email, ''), created_at,
+                password_hash != '', ai_off, own_keys_fallback
          FROM users WHERE id = ?1",
         [user_id],
         |r| {
@@ -422,15 +140,13 @@ pub fn load(conn: &Connection, user_id: i64) -> rusqlite::Result<Option<Profile>
                 first_name: r.get(0)?,
                 last_name: r.get(1)?,
                 email: r.get(2)?,
-                avatar: r.get(3)?,
-                created_at: r.get(4)?,
-                has_password: r.get(5)?,
+                created_at: r.get(3)?,
+                has_password: r.get(4)?,
                 terms: terms.clone(),
-                ai_off: r.get(6)?,
+                ai_off: r.get(5)?,
                 age_confirmed_at,
                 ai_consent,
-                avatar_color: color_slot(r.get(7)?),
-                own_keys_fallback: r.get(8)?,
+                own_keys_fallback: r.get(6)?,
                 two_factor: two_factor.clone(),
             })
         },
@@ -628,31 +344,6 @@ mod tests {
     }
 
     #[test]
-    fn a_conversation_is_cast_with_two_other_people() {
-        for own in AVATARS.iter().map(|a| a.id) {
-            for (a, b) in [("Lucía", "Leo"), ("Marta", "Marta"), ("", ""), ("Nora", "Javier")] {
-                let [x, y] = cast(a, b, own);
-                assert_ne!(x, y, "{a}/{b} for {own}");
-                assert!(x != own && y != own, "{a}/{b} for {own}");
-                assert!(!["mochi", "coco"].contains(&x) && !["mochi", "coco"].contains(&y));
-            }
-        }
-        assert_eq!(cast("Lucía", "Leo", "noor"), cast("lucía", "Leo", "noor"), "a name keeps its face");
-        assert_eq!(cast("Lucía", "Leo", "owl"), cast("Lucía", "Leo", "noor"), "an old id is its new one");
-    }
-
-    #[test]
-    fn avatars_are_distinct_and_default_exists() {
-        let mut ids: Vec<_> = AVATARS.iter().map(|a| a.id).collect();
-        ids.sort();
-        ids.dedup();
-        assert_eq!(ids.len(), 8);
-        assert!(is_avatar(DEFAULT_AVATAR));
-        assert_eq!(avatar("kai").label, "Kai");
-        assert_eq!(avatar("no-such-thing").id, DEFAULT_AVATAR);
-    }
-
-    #[test]
     fn validates_names() {
         assert_eq!(validate_name("First name", "  Ana ").unwrap(), "Ana");
         assert_eq!(validate_name("First name", "").unwrap(), "");
@@ -713,89 +404,12 @@ mod tests {
     }
 
     #[test]
-    fn pictures_resolve_by_new_and_old_ids() {
-        assert_eq!(avatar("noor").label, "Noor");
-        assert_eq!(avatar("coco").id, "coco");
-        // The ids from before #180 still name a picture; anything else is the default.
-        assert_eq!((canonical("owl"), canonical("leaf"), canonical("dragon")), (Some("noor"), Some("sofia"), None));
-        assert_eq!((avatar("fox").id, avatar("dragon").id, avatar("").id), ("kai", DEFAULT_AVATAR, DEFAULT_AVATAR));
-        assert!(is_avatar("bolt") && is_avatar("mochi") && !is_avatar("Mochi"));
-        assert!(ALIASES.iter().all(|(_, new)| AVATARS.iter().any(|a| a.id == *new)));
-        assert_eq!(AVATARS.len(), 8);
-        assert!(AVATARS.iter().all(|a| !a.label.is_empty() && !a.shows.is_empty() && a.color.starts_with('#')));
-    }
-
-    #[test]
-    fn avatar_colours_fall_back_to_the_default_palette() {
-        use crate::content::{Theme, ThemeAvatar, ThemeAvatarBackground, ThemeAvatarColor};
-        let plain = palette(None);
-        assert_eq!(plain.len(), 8);
-        assert_eq!((plain[0].slot, plain[0].label.as_str(), plain[7].slot), (1, "Amber sunburst", 8));
-        assert!(plain.iter().all(|s| s.image.contains("/static/avatar-bg/") && s.image.contains(".svg")));
-        // No colour chosen: Amber sunburst, whichever the picture.
-        assert_eq!(badge_color(0, None), "#c9873a");
-        assert_eq!(badge_color(2, None), "#2e8b57");
-        assert!(!is_color_slot(0) && is_color_slot(1) && is_color_slot(8) && is_color_slot(16) && !is_color_slot(17));
-        assert_eq!((color_slot(0), color_slot(5), color_slot(9), color_slot(17)), (DEFAULT_COLOR, 5, 9, DEFAULT_COLOR));
-        // A theme's slot with no theme worn: the first background.
-        assert_eq!(shown_slot(&plain, 9), DEFAULT_COLOR);
-        assert_eq!(badge(9, None), badge(DEFAULT_COLOR, None));
-        assert!(badge(4, None).style().starts_with("--av:#3b8ea5;--av-img:url(/static/avatar-bg/stars.svg"));
-
-        // A theme without a palette offers the default one; one that gives
-        // some slots changes only those.
-        let bare = Theme { id: "bare".into(), title: "Bare".into(), ..Theme::default() };
-        assert_eq!(palette(Some(&bare)), plain);
-        let some = Theme {
-            avatar_colors: vec![ThemeAvatarColor { slot: 3, label: "Ember".into(), color: "#aa3311".into() }],
-            avatars: vec![
-                ThemeAvatar { id: "kai".into(), label: "Night fox".into(), image: "pictures/fox.svg".into(), color: "#102030".into() },
-                ThemeAvatar { id: "noor".into(), label: String::new(), image: "pictures/owl.svg".into(), color: String::new() },
-            ],
-            ..bare.clone()
-        };
-        let p = palette(Some(&some));
-        assert_eq!((p[2].label.as_str(), p[2].color.as_str()), ("Ember", "#aa3311"));
-        assert_eq!(p.iter().filter(|s| *s != &plain[s.slot as usize - 1]).count(), 1);
-        assert_eq!(badge_color(3, Some(&some)), "#aa3311");
-        assert_eq!(badge_color(4, Some(&some)), "#3b8ea5");
-        // A picture's own colour (its tile in the dialog) while worn: the
-        // theme's version's, else the surface (a version without one), else
-        // the built-in picture's.
-        assert_eq!(own_color("kai", Some(&some)), "#102030");
-        assert_eq!(own_color("noor", Some(&some)), "var(--surface)");
-        assert_eq!(own_color("coco", Some(&some)), avatar("coco").color);
-        // None chosen while worn: the theme's slot 1, whatever the picture.
-        assert_eq!(badge_color(0, Some(&some)), "#c9873a");
-
-        // A theme's scenes come after the eight, in slot order, as theme files.
-        let scenic = Theme {
-            avatar_backgrounds: vec![
-                ThemeAvatarBackground { slot: 11, label: "Dunes".into(), image: "pictures/backgrounds/dunes.svg".into(), color: "#aa8844".into() },
-                ThemeAvatarBackground { slot: 9, label: "Hills".into(), image: "https://example.org/hills.svg".into(), color: "#335533".into() },
-            ],
-            ..some.clone()
-        };
-        let p = palette(Some(&scenic));
-        assert_eq!(p.iter().map(|s| s.slot).collect::<Vec<_>>(), [1, 2, 3, 4, 5, 6, 7, 8, 9, 11]);
-        assert_eq!((p[8].label.as_str(), p[8].image.as_str()), ("Hills", "https://example.org/hills.svg"));
-        assert!(p[9].image.ends_with("/themes/bare/pictures/backgrounds/dunes.svg"));
-        assert_eq!(badge(11, Some(&scenic)).color, "#aa8844");
-        // Slot 10 is not this theme's: the first background of the palette worn.
-        assert_eq!(shown_slot(&p, 10), DEFAULT_COLOR);
-        assert_eq!(badge(10, Some(&scenic)), badge(DEFAULT_COLOR, Some(&scenic)));
-        // A URL that could break out of the style is dropped.
-        assert_eq!(css_image("https://x.org/a.svg);color:red"), "none");
-        assert_eq!(css_image(""), "none");
-    }
-
-    #[test]
     fn profile_roundtrip() {
         let db = crate::db::Db::open_in_memory().unwrap();
         db.with(|c| {
             let id = auth::create_user(c, "ana@example.org", "h")?;
             let p = load(c, id)?.unwrap();
-            assert_eq!((p.avatar.as_str(), p.email.as_deref(), p.avatar_color), (DEFAULT_AVATAR, Some("ana@example.org"), DEFAULT_COLOR));
+            assert_eq!(p.email.as_deref(), Some("ana@example.org"));
             assert!(p.has_password);
 
             update(c, id, Some("Ana"), Some("López"))?;

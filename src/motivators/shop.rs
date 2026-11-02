@@ -4,14 +4,11 @@
 //!
 //! ```text
 //! data/badges/catalogue.json     [{"id": "sprout", "price": 50}, ...]
-//! data/badges/<id>.svg           the plain art
-//! data/themes/<t>/badges/<id>.svg  a theme's variant (optional)
+//! data/badges/<id>.svg           the art
 //! ```
 //!
 //! A badge is bought once, per course, and kept whichever motivator is worn
-//! (`motivator_purchases`). It draws in the worn theme's variant when that
-//! theme has one, plain otherwise (learner-made themes carry none). A
-//! badge's title is app text: `motivator.skc.badge.<id>` in every
+//! (`motivator_purchases`). A badge's title is app text: `motivator.skc.badge.<id>` in every
 //! `i18n/<code>.yaml`.
 
 use std::collections::HashMap;
@@ -21,7 +18,7 @@ use std::sync::OnceLock;
 use rusqlite::{params, Connection};
 use serde::Deserialize;
 
-use crate::content::{ContentError, ContentStore, Theme};
+use crate::content::{ContentError, ContentStore};
 
 pub const CATALOGUE_FILE: &str = "catalogue.json";
 
@@ -108,13 +105,9 @@ pub fn catalogue() -> &'static Catalogue {
     })
 }
 
-/// Where a badge's picture is, and the theme whose variant it is (None:
-/// the plain art).
-pub fn art_url(id: &str, theme: Option<&Theme>) -> (String, Option<String>) {
-    match theme.filter(|t| t.badges.contains(id)) {
-        Some(t) => (crate::routes::art_url(&t.id, &format!("badges/{id}.svg")), Some(t.id.clone())),
-        None => (format!("{}/badges/{id}.svg", crate::base_path()), None),
-    }
+/// Where a badge's picture is served from.
+pub fn art_url(id: &str) -> String {
+    format!("{}/badges/{id}.svg", crate::base_path())
 }
 
 /// A badge ready to draw: on the hero's shelf and in the shop.
@@ -124,15 +117,12 @@ pub struct BadgeView {
     pub title: String,
     pub price: i64,
     pub src: String,
-    /// The theme whose variant this is, or "plain".
-    pub variant: String,
     pub owned: bool,
 }
 
 impl BadgeView {
-    pub fn of(b: &Badge, theme: Option<&Theme>, owned: bool) -> BadgeView {
-        let (src, variant) = art_url(&b.id, theme);
-        BadgeView { id: b.id.clone(), title: b.title(), price: b.price, src, variant: variant.unwrap_or_else(|| "plain".into()), owned }
+    pub fn of(b: &Badge, owned: bool) -> BadgeView {
+        BadgeView { id: b.id.clone(), title: b.title(), price: b.price, src: art_url(&b.id), owned }
     }
 }
 

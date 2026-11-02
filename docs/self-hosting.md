@@ -73,7 +73,7 @@ Each comes with a `.sha256` file. A tarball unpacks (flat, no top folder) to:
 | Path | What it is |
 |---|---|
 | `skrongle` | The server: one binary. Templates, CSS, scripts and these docs are compiled in. |
-| `data/courses/`<!-- themes -->, `data/themes/`<!-- /themes --> | The built-in courses<!-- themes --> and themes<!-- /themes -->, read from disk when the server starts (`SKRONGLE_DATA_DIR`). |
+| `data/courses/` | The built-in courses, read from disk when the server starts (`SKRONGLE_DATA_DIR`). |
 | `skrongle.service` | The systemd unit below (`deploy/skrongle.service` in the repo). |
 | `terms.example.md` | A template for your own Terms of Service (`deploy/terms.example.md`); see [Your own Terms](#your-own-terms). |
 | `update.sh` | Updates the install in place: see [Updating](#updating). |
@@ -123,7 +123,7 @@ To try it without systemd, run it from its folder:
 `skrongle doctor` prints one screen about the install, to read yourself or
 paste into a bug report. It shows the version, OS and architecture, the
 device model, the listen address and whether the port is free, the data
-folder and how many courses<!-- themes --> and themes<!-- /themes --> it holds, the database path, size
+folder and how many courses it holds, the database path, size
 and schema (migration) level, and whether the database folder is writable.
 It also shows whether a secret key and subscriptions are
 configured, how many AI keys learners have saved, and free disk and memory.
@@ -181,7 +181,7 @@ starts `SKRONGLE_`; see [Renamed settings](#renamed-settings) if yours start `LE
 | `SKRONGLE_BIND` | `0.0.0.0:8080` | Address and port to listen on; a bare port (`8081`) means every interface. |
 | `SKRONGLE_SIGNUP` | `open` (mini: `invite`) | Who may make an account: `open`, `invite` or `closed`; see [Accounts and AI keys](#accounts-and-ai-keys). |
 | `SKRONGLE_PROXY_AUTH_HEADER`, `SKRONGLE_PROXY_AUTH_FROM` | — | Let the proxy in front sign people in; see [Signing in at the proxy](#signing-in-at-the-proxy). Both or neither. |
-| `SKRONGLE_DATA_DIR` | `data` | Folder with `courses/`<!-- themes --> and `themes/`<!-- /themes -->. |
+| `SKRONGLE_DATA_DIR` | `data` | Folder with `courses/`. |
 | `SKRONGLE_DB` | `learn.db` | SQLite database path. The secret key is created next to it as `<db>.key`. |
 | `SKRONGLE_SECRET_KEY` | (from `<db>.key`) | 64 hex characters; encrypts saved AI keys. Set it to keep the secret out of the data folder. |
 | `SKRONGLE_NEW_SECRET_KEY` | off | `1` only when the secret key is lost for good: see [Backup and restore](#backup-and-restore). |

@@ -45,8 +45,6 @@ pub struct EditorTemplate {
     /// Without mail, the links just made, one per new address, each with a
     /// Copy button (they are stored only hashed: shown this once).
     pub share_links: Vec<ShareLink>,
-    /// Themes are on (#1138): the lesson outline has its Themes section.
-    pub themes: bool,
 }
 
 /// An invitation link made on a server without mail (#633).
@@ -459,7 +457,7 @@ async fn lessons_view(state: &AppState, user: &CurrentUser, row: &CourseRow, loc
         levels: store.manifest().levels,
         placement: files.iter().any(|f| f.path == crate::placement::FILE),
         version,
-        report: crate::report::feature_usage(&store, !state.themes.is_off()),
+        report: crate::report::feature_usage(&store),
         lints: crate::lint::lint(&store),
         ai: None,
     }))
@@ -636,7 +634,6 @@ async fn editor_template(
         shares,
         share_open,
         mail: state.caps().mail,
-        themes: !state.themes.is_off(),
         share_links: Vec::new(),
     })
 }

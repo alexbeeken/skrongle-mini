@@ -15,7 +15,7 @@ Read `docs/` before changing anything substantial:
 - `docs/architecture.md` — module layout, request flow, schema, config.
   Start at its "Where things live" map; it names the file to open first.
 - User guides (`docs/index.md`, `getting-started`, `course-structure`,
-  `making-courses`, `using-themes`, `faq`) explain for people and link to the
+  `making-courses`, `faq`) explain for people and link to the
   reference pages instead of copying field tables; keep them true when a
   feature changes. The `/docs` sidebar is `SECTIONS` in `src/routes/docs.rs`
   (a page not listed lands under Developers); `/llms.txt` is `docs/llms.txt`.
@@ -23,7 +23,7 @@ Read `docs/` before changing anything substantial:
 Rules for one area live in `.claude/rules/` and load when you open a
 matching file: `content.md` (course files, the format contract, the test
 course, fact and plagiarism checks), `i18n.md` (app text), `ui.md`
-(information behind icons), `themes.md`, `e2e.md` (testids, journeys, model
+(information behind icons), `e2e.md` (testids, journeys, model
 call fixtures, Jev scripts). They don't load on their own in a worktree
 other than the one the session started in, so read the ones for your area.
 

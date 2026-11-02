@@ -56,7 +56,7 @@ fn the_shop_sells_each_badge_once_and_only_when_affordable() {
     // Bought: the balance drops by the price, the badge is on the hero.
     assert_eq!(post("/api/shop/buy", &[("item", cheap.id.as_str())]), (303, "/shop".to_string()));
     assert_eq!(balance(), before - cheap.price);
-    assert!(get("/").1.contains(&format!(r#"data-testid="skc-badge" data-badge="{}" data-variant="plain""#, cheap.id)));
+    assert!(get("/").1.contains(&format!(r#"data-testid="skc-badge" data-badge="{}""#, cheap.id)));
     // Twice: refused, nothing charged.
     assert_eq!(post("/api/shop/buy", &[("item", cheap.id.as_str())]).1, format!("/shop?refused=owned&item={}", cheap.id));
     assert_eq!(balance(), before - cheap.price);

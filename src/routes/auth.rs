@@ -478,10 +478,6 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
         for c in &d.courses {
             state.courses.invalidate(c);
         }
-        for th in &d.themes {
-            state.themes.forget(th);
-            state.courses.forget_theme(th);
-        }
         tracing::info!("unconfirmed user {old} was replaced by a new registration of its address");
     }
     match outcome {

@@ -12,7 +12,7 @@ of the app practises the same lessons.
    (Spanish and French ship with the app), or *Create a course* of your own, by hand
    or [with AI](making-courses).
 3. The first time you open a course, a short wizard sets it up: the
-   motivator<!-- themes -->, a theme, a picture<!-- /themes --> and, last, where to start (for a course whose units are
+   motivator and, last, where to start (for a course whose units are
    levels, like Spanish's A1, A2…; a course with a placement test lets you
    take it to find out). Starting further in skips the earlier lessons
    without passing them. Change any of it later from the gear on the
@@ -65,11 +65,10 @@ Full rule: [Progress across modes](progress). Every feature in detail:
 ## Your profile
 
 The badge in the top-right corner opens the menu: profile, switch course,
-documentation, log out. <!-- themes -->Inside a course it shows the picture you picked for
-that course; outside one, a gear.<!-- /themes --><!-- no-themes -->It shows a gear.<!-- /no-themes --> On the profile you
+documentation, log out. It shows a gear. On the profile you
 set your name, the app's language and your AI API keys. A course's
-<!-- themes -->picture, theme and motivator belong<!-- /themes --><!-- no-themes -->motivator belongs<!-- /no-themes --> to the course: the gear on its card on
-`/courses`<!-- themes --> (see [Themes](using-themes))<!-- /themes -->.
+motivator belongs to the course: the gear on its card on
+`/courses`.
 Changes save as you make them; there is no Save button. *Do Not Show Me AI
 Features* (under Privacy and consent) takes the tutor and AI course creation
 out of the app and deletes the API keys you saved.

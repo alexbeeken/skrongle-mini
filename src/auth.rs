@@ -69,17 +69,6 @@ pub struct CurrentUser {
     /// Profile fields shown in the navigation bar (see `profile.rs`).
     pub first_name: String,
     pub last_name: String,
-    /// Id of the chosen picture in the active course (`projects.avatar`, the
-    /// account's `users.avatar` without one); `profile::avatar` resolves it.
-    pub avatar: String,
-    /// No course is in context (the course picker, or no active course): the
-    /// badge shows a gear, with no picture (#565, #577).
-    pub no_picture: bool,
-    /// Character art is on (`SKRONGLE_THEMES_ENABLED=1`, #1153): profile
-    /// pictures, conversation portraits and the backgrounds behind them are
-    /// drawn. Off, the badge shows the gear and a character shows only its
-    /// name.
-    pub character_art: bool,
     /// The course the user is currently working in (`users.active_course`).
     pub course_id: Option<String>,
     /// Its title, for the navigation bar.
@@ -91,24 +80,6 @@ pub struct CurrentUser {
     /// The level they start that course at (`projects.start_unit`): a unit
     /// id, '' for the beginning. `Project::start` is the unit index.
     pub start_unit: String,
-    /// The theme worn on this page, '' for Default: the active course's
-    /// (`projects.theme`, a course setting), except on the course picker
-    /// and the profile (#951); outside a course the app wears Default (#577).
-    pub theme: String,
-    /// The theme worn, resolved: a built-in one or one the user made. `None`
-    /// for Default, and for an id that no longer exists or is not theirs.
-    pub theme_pack: Option<Arc<crate::themes::ThemePack>>,
-    /// The theme's version of the profile picture, when the theme worn has
-    /// one for `avatar`; `None` shows the built-in icon.
-    pub theme_avatar_url: Option<String>,
-    /// The background chosen behind the picture (`projects.avatar_color`): a
-    /// palette slot 1-8 or a theme's 9-16 (`profile::DEFAULT_COLOR` until one
-    /// is picked).
-    pub avatar_color: u8,
-    /// That background resolved for the theme worn (`profile::badge`): the
-    /// `--av` and `--av-img` of every `.avatar` showing this user's picture
-    /// (`avatar_style`).
-    pub avatar_bg: crate::profile::Badge,
     /// The plan (`billing::Plan`): Free, Basic or Plus.
     pub plan: crate::billing::Plan,
     /// On a paid plan: a paying subscriber, a plan bought on the profile or
@@ -140,8 +111,8 @@ pub struct CurrentUser {
     /// reach any account. Set by hand (and on the dev user in dev mode).
     pub superuser: bool,
     /// `users.ai_off`: "Hide all AI features" (profile, or the box at
-    /// sign-up). Pages hide the tutor, course generation, AI revisions and
-    /// theme creation, and their routes refuse through `require_ai`.
+    /// sign-up). Pages hide the tutor, course generation and AI revisions,
+    /// and their routes refuse through `require_ai`.
     pub ai_off: bool,
     /// `users.lang`: the language the app speaks to this account in
     /// (`i18n`), '' for "whatever the browser asks for".
@@ -161,18 +132,10 @@ impl CurrentUser {
             email_verified: false,
             first_name: String::new(),
             last_name: String::new(),
-            avatar: crate::profile::DEFAULT_AVATAR.to_string(),
-            no_picture: false,
-            character_art: true,
             course_id: None,
             course_title: None,
             course_owner: None,
             start_unit: String::new(),
-            theme: String::new(),
-            theme_pack: None,
-            theme_avatar_url: None,
-            avatar_color: crate::profile::DEFAULT_COLOR,
-            avatar_bg: crate::profile::badge(crate::profile::DEFAULT_COLOR, None),
             plan: crate::billing::Plan::Free,
             premium: false,
             own_keys_fallback: false,
@@ -213,15 +176,6 @@ impl CurrentUser {
         crate::profile::display_name(&self.first_name, &self.last_name)
     }
 
-    /// The picture to draw next to the name.
-    pub fn picture(&self) -> crate::profile::Avatar {
-        crate::profile::avatar(&self.avatar)
-    }
-
-    /// The `style` of an `.avatar` showing this user's picture: its background.
-    pub fn avatar_style(&self) -> String {
-        self.avatar_bg.style()
-    }
 }
 
 // ---------- DB helpers (run inside Db::call) ----------
@@ -250,8 +204,8 @@ pub fn password_too_long(p: &str) -> bool {
 /// lower-cased) names the account and is fixed from here on.
 pub fn create_user(conn: &Connection, email: &str, password_hash: &str) -> rusqlite::Result<i64> {
     conn.execute(
-        "INSERT INTO users (password_hash, created_at, email, avatar) VALUES (?1, ?2, ?3, ?4)",
-        params![password_hash, now(), email, crate::profile::DEFAULT_AVATAR],
+        "INSERT INTO users (password_hash, created_at, email) VALUES (?1, ?2, ?3)",
+        params![password_hash, now(), email],
     )?;
     Ok(conn.last_insert_rowid())
 }
@@ -308,8 +262,8 @@ pub fn purge_expired_sessions(conn: &Connection) -> rusqlite::Result<usize> {
 /// user-made courses here; built-in ones are titled by the registry.
 pub fn user_for_session(conn: &Connection, token: &str) -> rusqlite::Result<Option<CurrentUser>> {
     let sql = format!(
-        "SELECT u.id, COALESCE(u.email, ''), u.active_course, c.title, u.first_name, u.last_name, COALESCE(p.avatar, u.avatar), COALESCE(p.theme, ''), {}, {}, u.ai_off, u.email_verified_at IS NOT NULL, u.superuser,
-                COALESCE(p.start_unit, ''), COALESCE(p.avatar_color, u.avatar_color), u.lang, c.owner_id, u.own_keys_fallback, u.must_change_password,
+        "SELECT u.id, COALESCE(u.email, ''), u.active_course, c.title, u.first_name, u.last_name, NULL, NULL, {}, {}, u.ai_off, u.email_verified_at IS NOT NULL, u.superuser,
+                COALESCE(p.start_unit, ''), NULL, u.lang, c.owner_id, u.own_keys_fallback, u.must_change_password,
                 (SELECT version FROM terms_acceptances WHERE user_id = u.id ORDER BY accepted_at DESC, rowid DESC LIMIT 1), u.delete_at
          FROM sessions s JOIN users u ON u.id = s.user_id LEFT JOIN courses c ON c.id = u.active_course
          LEFT JOIN projects p ON p.user_id = u.id AND p.course_id = u.active_course
@@ -332,12 +286,6 @@ pub fn user_for_session(conn: &Connection, token: &str) -> rusqlite::Result<Opti
                 course_owner: r.get(16)?,
                 first_name: r.get(4)?,
                 last_name: r.get(5)?,
-                avatar: r.get(6)?,
-                no_picture: false,
-                character_art: true,
-                theme: r.get(7)?,
-                theme_pack: None,
-                theme_avatar_url: None,
                 plan,
                 premium: plan.paid(),
                 own_keys_fallback: r.get(17)?,
@@ -349,8 +297,6 @@ pub fn user_for_session(conn: &Connection, token: &str) -> rusqlite::Result<Opti
                 email_verified: r.get(11)?,
                 superuser: r.get(12)?,
                 start_unit: r.get(13)?,
-                avatar_color: crate::profile::color_slot(r.get(14)?),
-                avatar_bg: crate::profile::badge(r.get(14)?, None),
                 lang: r.get(15)?,
                 tz: 0,
             })
@@ -413,24 +359,6 @@ async fn resolve_user(parts: &Parts, state: &AppState) -> Result<Option<(String,
         if u.course_title.is_none() {
             u.course_title = u.course_id.as_deref().and_then(|id| state.courses.builtin_by_id(id)).map(|c| c.title().to_string());
         }
-        // The active course's theme is worn everywhere but the course picker
-        // and the profile (#951); outside a course, Default (#577). One that
-        // no longer loads is Default.
-        let in_course = u.course_id.is_some() && !on_course_picker(parts) && !on_profile(parts);
-        if !in_course {
-            u.theme.clear();
-        }
-        u.theme_pack = state.themes.resolve(&state.db, u.id, &u.theme).await?;
-        if u.theme_pack.is_none() {
-            u.theme.clear();
-        }
-        // Outside a course the badge carries no picture (#565).
-        u.no_picture = u.course_id.is_none() || on_course_picker(parts);
-        // No character art while themes are off (#1153): the badge is the gear.
-        u.character_art = !state.themes.is_off();
-        // The theme worn shows its own version of the picture, when it has one.
-        u.theme_avatar_url = u.theme_pack.as_ref().and_then(|p| p.theme.avatar(&u.avatar)).map(|a| crate::routes::art_url(&u.theme, &a.image));
-        u.avatar_bg = crate::profile::badge(u.avatar_color, u.theme_pack.as_ref().map(|p| &p.theme));
     }
     Ok(user.map(|u| (token, u)))
 }
@@ -441,30 +369,6 @@ pub async fn user_from_headers(state: &AppState, headers: &HeaderMap) -> Option<
     let (mut parts, _) = axum::http::Request::new(()).into_parts();
     parts.headers = headers.clone();
     resolve_user(&parts, state).await.ok().flatten().map(|(_, u)| u)
-}
-
-/// The course picker and the pages under it (a course's editor, new and
-/// generated courses): about courses in general, so they wear Default and
-/// not the active course's theme (#577).
-fn on_course_picker(parts: &Parts) -> bool {
-    let path = parts.uri.path();
-    let path = path.strip_prefix(crate::base_path()).unwrap_or(path);
-    path == "/courses" || path.starts_with("/courses/")
-}
-
-/// The profile and its forms: about the learner, not a course, so they
-/// always wear Default (#951).
-fn on_profile(parts: &Parts) -> bool {
-    let path = parts.uri.path();
-    let path = path.strip_prefix(crate::base_path()).unwrap_or(path);
-    path == "/profile" || path.starts_with("/profile/")
-}
-
-/// The id of the user whose session cookie is on the request, if any (for
-/// public-looking routes that serve private things only to their owner).
-pub async fn user_id_of(state: &AppState, headers: &HeaderMap) -> Option<i64> {
-    let token = session_cookie_from_headers(headers)?;
-    state.db.call(move |c| user_for_session(c, &token)).await.ok().flatten().map(|u| u.id)
 }
 
 /// Route guard: resolves the session cookie to a user, or rejects.
@@ -543,8 +447,6 @@ impl FromRequestParts<Arc<AppState>> for MaybeUser {
 /// uses. Without an active course (or with one that no longer loads) browser
 /// routes are sent to the course picker and API routes get a 410
 /// (`AppError::ApiNoCourse`), which the page scripts follow to the picker.
-/// The course comes with the user's theme merged in (`ContentStore::theme`),
-/// so every feature downstream simply sees themed lessons.
 pub struct Project {
     pub user: CurrentUser,
     pub course: Arc<crate::content::ContentStore>,
@@ -576,7 +478,7 @@ impl FromRequestParts<Arc<AppState>> for Project {
             user.course_owner.is_some() && state.db.call(move |c| crate::share::can_open(c, uid, &cid)).await?
         };
         let course = if allowed {
-            state.courses.get_themed(&state.db, &id, user.theme_pack.as_ref().map(|p| &p.theme)).await?
+            state.courses.get(&state.db, &id).await?
         } else {
             None
         };

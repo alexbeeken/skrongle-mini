@@ -136,7 +136,7 @@ async function readPage(page: Page, journey: Pick<Journey, "avoid">) {
         );
         if (Object.keys(attrs).length && visible(el)) state[el.getAttribute("data-testid")!] ??= attrs;
       }
-      // The page-wide state on <html> (data-theme, …): a choice that only changes that still has an effect.
+      // The page-wide state on <html> (data-… attributes): a choice that only changes that still has an effect.
       const root = Object.fromEntries(Array.from(document.documentElement.attributes).filter((a) => a.name.startsWith("data-")).map((a) => [a.name.slice(5), a.value]));
       if (Object.keys(root).length) state.html = root;
       // The page's own content is <main>: Sprint mode keeps its answer sheet and results in there too.

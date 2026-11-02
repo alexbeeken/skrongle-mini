@@ -7,8 +7,7 @@
 // carries the exercise's id (`sprint-play-stage[data-exercise-id]`), which names
 // where the exercise came from: `sort:<lesson id>:<n>`, `pick:s:<lesson
 // id>:<vocabulary index>`, … (see src/sprint.rs). The lookups mirror those
-// builders, including the old field names (`es`/`en`, `verb`/`tense`) and
-// a worn theme's material, which goes first.
+// builders, including the old field names (`es`/`en`, `verb`/`tense`).
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { courseDir } from "./app.ts";
@@ -46,7 +45,6 @@ interface Lesson {
   spots: { sentence?: string; abc?: string; wrong: string | number; fix: string }[];
   builds: { text: string }[];
   scales: { title: string; notes: string; decoys?: string }[];
-  themes: Record<string, Json>;
 }
 
 /** What to do on a Sprint mode exercise to get it right. */
@@ -111,7 +109,6 @@ function readLesson(path: string): Lesson {
     spots: d.spots ?? [],
     builds: (d.builds ?? []).map((b: Json) => ({ text: b.text ?? b.es })),
     scales: d.scales ?? [],
-    themes: j.themes ?? {},
   };
 }
 
@@ -121,24 +118,6 @@ export function noteName(abc: string): string {
   if (!m) return abc;
   const sign: Record<string, string> = { "": "", "^": "♯", "^^": "𝄪", _: "♭", __: "𝄫", "=": "♮" };
   return m[2].toUpperCase() + (sign[m[1]] ?? "");
-}
-
-/** The lesson as the server serves it while `theme` is worn (apply_theme in src/content.rs). */
-function themed(l: Lesson, theme: string | undefined): Lesson {
-  const t = theme ? l.themes[theme] : undefined;
-  if (!t) return l;
-  const vocabulary = l.vocabulary.slice();
-  for (const tv of t.vocabulary ?? []) if (!vocabulary.some((v) => v.term === tv.term)) vocabulary.push(vocab(tv));
-  return {
-    ...l,
-    quiz: [...(t.quiz ?? []).map(question(l.id)), ...l.quiz],
-    vocabulary,
-    listening: [...(t.listening ?? []).map(line), ...l.listening],
-    conversations: [...(t.conversations ?? []).map(conversation), ...l.conversations],
-    sorts: [...(t.sorts ?? []), ...l.sorts],
-    spots: [...(t.spots ?? []), ...l.spots],
-    builds: [...(t.builds ?? []).map((b: Json) => ({ text: b.text ?? b.es })), ...l.builds],
-  };
 }
 
 /** A typed answer that is wrong for every question of the type, in the test course and Spanish. */
@@ -153,33 +132,25 @@ export class AnswerKey {
   readonly course: string;
   readonly lessons: Lesson[];
   private readonly slots: string[];
-  private theme: string | undefined;
 
-  constructor(courseId = "spanish", theme?: string) {
+  constructor(courseId = "spanish") {
     const dir = courseDir(courseId);
     const manifest = JSON.parse(readFileSync(join(dir, "course.json"), "utf8"));
     this.course = courseId;
     this.slots = (manifest.paradigm?.slots ?? []).map((s: Json) => s.key);
     this.lessons = walk(join(dir, "lessons")).map(readLesson);
-    this.theme = theme;
-  }
-
-  /** The theme the learner wears from now on (`undefined`: none). */
-  wear(theme: string | undefined): this {
-    this.theme = theme;
-    return this;
   }
 
   lesson(idOrSlug: string): Lesson {
     const l = this.lessons.find((x) => x.id === idOrSlug || x.slug === idOrSlug);
     if (!l) throw new Error(`answer key: no lesson "${idOrSlug}" in course ${this.course}`);
-    return themed(l, this.theme);
+    return l;
   }
 
-  /** A quiz question by id, themed ones included (they exist only while their theme is worn). */
+  /** A quiz question by id. */
   question(id: string): Question {
     for (const l of this.lessons) {
-      const q = l.quiz.find((x) => x.question_id === id) ?? Object.values(l.themes).flatMap((t: Json) => (t.quiz ?? []).map(question(l.id))).find((x) => x.question_id === id);
+      const q = l.quiz.find((x) => x.question_id === id);
       if (q) return q;
     }
     throw new Error(`answer key: no question "${id}" in course ${this.course}`);
@@ -245,7 +216,7 @@ export class AnswerKey {
         return { kind: "option", value: rest[0] === "s" ? v.term : v.meaning };
       }
       case "match": {
-        const ls = rest[0] === "*" ? this.lessons.map((l) => themed(l, this.theme)) : [this.lesson(rest[0])];
+        const ls = rest[0] === "*" ? this.lessons : [this.lesson(rest[0])];
         return { kind: "pairs", meaningOf: new Map(ls.flatMap((l) => l.vocabulary.map((v) => [v.term, v.meaning] as [string, string]))) };
       }
       case "hbuild":

@@ -2,7 +2,7 @@
 {% block title %}{{ crate::t1("courses.editor.title", "title", title) }}{% endblock %}
 {% block content %}
 <div class="workspace"{% if locked %} inert data-testid="course-edit-locked"{% endif %}>
-<section class="hero" data-testid="course-edit" data-course-id="{{ id }}" data-course-status="{{ state }}" data-loads="{{ error.is_none() }}" data-themes="{{ themes }}">
+<section class="hero" data-testid="course-edit" data-course-id="{{ id }}" data-course-status="{{ state }}" data-loads="{{ error.is_none() }}">
   <div>
     <p class="crumbs"><a href="{{ crate::base_path() }}/courses">{{ crate::t("courses.editor.crumb_courses") }}</a> › {{ crate::t("courses.editor.crumb_edit") }}</p>
     <div class="edit-title-row">

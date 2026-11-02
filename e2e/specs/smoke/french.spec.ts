@@ -1,6 +1,6 @@
 // Smoke spec for the French course (issue #464): the course is on /courses
 // with its four levels, a new learner passes its first lesson in Study,
-// Sprint and Play, numeric questions grade, the Realm theme's French
+// Sprint and Play, numeric questions grade,
 // material comes first, and the games that read course data (the verb
 // drill with j'ai, Date Dash) play. Answers come from the
 // course files (lib/key.ts); no key, no network. Each test is its own
@@ -14,13 +14,12 @@ import { playSprintRight } from "../../lib/sprint-play.ts";
 import { expect, test } from "../../lib/fixtures.ts";
 import { expectHistory, playDates, playDrill, watchBugs } from "../../lib/games.ts";
 import { AnswerKey } from "../../lib/key.ts";
-import { apiProgress, expectProgressAgrees, login, newAccount, openCourse, register, signUp, wearTheme } from "../../lib/learner.ts";
+import { apiProgress, expectProgressAgrees, login, newAccount, openCourse, register, signUp } from "../../lib/learner.ts";
 
 const COURSE = "french";
 const FIRST = "greetings";
 const key = new AnswerKey(COURSE);
 const course = JSON.parse(readFileSync(join(courseDir(COURSE), "course.json"), "utf8"));
-const lessonFile = (path: string) => JSON.parse(readFileSync(join(courseDir(COURSE), "lessons", path), "utf8"));
 
 async function newLearner(page: Page, info: TestInfo) {
   const bugs = watchBugs(page, info);
@@ -114,51 +113,6 @@ test("Play: play the first stage", async ({ page }, info) => {
   const [right, total] = await playStage(page, key);
   expect(right, "every quick check right").toBe(total);
   await expectPassedEverywhere(page, first, second);
-  bugs.none();
-});
-
-test("Realm: the theme's French material comes first and the course's French praise is used", async ({ page }, info) => {
-  test.setTimeout(120_000);
-  const bugs = await newLearner(page, info);
-  const plain = lessonFile("a1/greetings.json");
-  const realm = plain.themes.realm;
-  await bugs.go(`/lessons/${FIRST}`);
-  await expect(page.getByTestId("lesson-vocab-item")).toHaveCount(plain.vocabulary.length);
-  await expect(page.getByTestId("lesson-check")).toHaveAttribute("data-praise", course.strings.praise[0]);
-
-  await wearTheme(page, COURSE, "realm");
-  await bugs.go(`/lessons/${FIRST}`);
-  await expect(page.locator("html")).toHaveAttribute("data-theme", "realm");
-  const newTerms = realm.vocabulary.filter((v: { meaning?: string }) => v.meaning).length;
-  await expect(page.getByTestId("lesson-vocab-item")).toHaveCount(plain.vocabulary.length + newTerms);
-  await expect(page.locator('[data-testid="lesson-vocab-item"][data-themed="true"]')).toHaveCount(realm.vocabulary.length);
-  await expect(page.getByTestId("lesson-content")).toContainText(realm.content.split("\n")[0].replace(/^## /, ""));
-  await expect(page.getByTestId("lesson-check")).toHaveAttribute("data-praise", course.themes.realm.strings.praise[0]);
-
-  const ids: string[] = [];
-  page.on("request", (r) => {
-    if (/\/api\/(sprint\/check|answer)$/.test(r.url())) ids.push(JSON.parse(r.postData() ?? "{}").id ?? JSON.parse(r.postData() ?? "{}").question_id);
-  });
-  await page.setViewportSize({ width: 390, height: 844 });
-  await bugs.go(`/sprint/play?lesson=${FIRST}&reduce-motion=1`);
-  expect((await playSprintRight(page, new AnswerKey(COURSE, "realm"))).wrong).toEqual([]);
-  // The session takes a few of each kind, the themed ones (merged in front, so the lowest
-  // indices) before the lesson's own, then plays them in a shuffled order: a plain exercise
-  // is drawn only once every themed one of its kind is.
-  let themedPlayed = 0;
-  for (const [kind, field] of [["sort", "sorts"], ["spot", "spots"], ["build", "builds"]]) {
-    const themed: number = realm[field].length;
-    const drawn = ids.filter((id) => id.startsWith(`${kind}:${plain.id}:`)).map((id) => Number(id.split(":").pop()));
-    const themedDrawn = drawn.filter((i) => i < themed);
-    themedPlayed += themedDrawn.length;
-    if (drawn.some((i) => i >= themed)) expect(new Set(themedDrawn).size, `every themed ${kind} is drawn before a plain one`).toBe(themed);
-  }
-  expect(themedPlayed, "a themed exercise is played").toBeGreaterThan(0);
-  await page.setViewportSize({ width: 1280, height: 900 });
-
-  await bugs.go(`/guide/${FIRST}`);
-  const qids = await page.locator('[data-testid="stage-step"][data-qid]').evaluateAll((els) => els.map((e) => e.getAttribute("data-qid")));
-  expect(qids[0], "the themed question first").toBe(realm.quiz[0].question_id);
   bugs.none();
 });
 

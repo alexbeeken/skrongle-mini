@@ -210,8 +210,8 @@ feature" makes neither.
 Watch with a loop that polls `.claude/skills/pr-qa-demo/scripts/find-prs.sh | awk -F'\t' '$1==<PR>'`
 until its checks column is no longer `pending`
 (there is no `timeout` command on this Mac, and `--watch` has exited while
-two checks were still pending). Known flaky specs: custom-themes "fit a
-phone" and the authenticator TOTP period. If one fails alone,
+two checks were still pending). Known flaky specs: the authenticator TOTP
+period. If one fails alone,
 `gh run rerun <run-id> --failed` once. To find the failure, save the
 failed job's log (`gh run view <run-id> --log-failed > $S/ci-<N>.log`) and
 ask Qwen "Which test failed, and the first error line, as `test | line`.

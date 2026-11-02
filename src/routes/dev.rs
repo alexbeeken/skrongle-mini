@@ -145,22 +145,6 @@ pub async fn premium(State(state): State<Arc<AppState>>, user: CurrentUser, Form
 }
 
 #[derive(Deserialize)]
-pub struct ThemeBody {
-    /// Path -> content: `theme.json` and `pictures/*.svg`, as a made theme stores them.
-    pub files: std::collections::BTreeMap<String, String>,
-}
-
-/// POST /dev/theme {"files": {...}}: store a made theme for whoever is signed
-/// in, as the theme editor (#64) will. `{"id": "user-<n>"}`, or 400 with why.
-pub async fn theme(State(state): State<Arc<AppState>>, user: CurrentUser, Json(body): Json<ThemeBody>) -> Result<Response, AppError> {
-    let files = body.files.into_iter().collect();
-    match state.themes.create(&state.db, user.id, files).await {
-        Ok(id) => Ok(Json(serde_json::json!({ "id": id })).into_response()),
-        Err(e) => Err(AppError::ApiBadRequest(e.to_string())),
-    }
-}
-
-#[derive(Deserialize)]
 pub struct VocabBody {
     /// The lesson whose words to collect.
     pub lesson: String,
@@ -195,10 +179,6 @@ pub async fn reset(State(state): State<Arc<AppState>>, Query(q): Query<ResetPara
     let gone = state.db.call(move |c| dev::reset_user(c, uid)).await?;
     for id in &gone {
         state.courses.invalidate(id);
-    }
-    // Through Themes::delete, so its cache and the themed courses forget them too.
-    for t in state.themes.made_by(&state.db, uid).await? {
-        state.themes.delete(&state.db, &state.courses, uid, &t.theme.id).await?;
     }
     tracing::info!("dev: reset '{}' ({} courses deleted)", dev::DEV_EMAIL, gone.len());
     let next = q.next.unwrap_or_else(|| "/courses?notice=dev-reset".into());

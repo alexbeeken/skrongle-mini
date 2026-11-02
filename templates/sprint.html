@@ -8,12 +8,11 @@
 <title>{{ crate::t("sprint.mode_name") }} · {{ course.title }}</title>
 <script>if (/[?&]reduce-motion=1\b/.test(location.search)) document.documentElement.classList.add('reduce-motion');</script>
 <link rel="stylesheet" href="{{ crate::routes::asset_url("sprint.css") }}">
-{% if let Some(t) = course.theme %}<link rel="stylesheet" href="{{ crate::routes::theme_css_url(t.id) }}">{% endif %}
 <link rel="icon" href="{{ crate::routes::asset_url("favicon.svg") }}" type="image/svg+xml">
 <link rel="manifest" href="{{ crate::url("/manifest.webmanifest") }}">
 <link rel="apple-touch-icon" href="{{ crate::routes::asset_url("apple-touch-icon.png") }}">
 </head>
-<body class="sprint" data-base="{{ crate::base_path() }}"{% if let Some(t) = course.theme %} data-theme="{{ t.id }}"{% endif %}>
+<body class="sprint" data-base="{{ crate::base_path() }}">
 <div class="phone">
   <header class="sprint-top">
     <a class="sprint-exit" data-testid="sprint-exit" href="{{ crate::url("/") }}" title="{{ crate::t("sprint.home.exit") }}" aria-label="{{ crate::t("sprint.home.exit") }}">✕</a>
@@ -27,7 +26,6 @@
 
   <main class="sprint-main">
     <h1 class="sr-only" data-testid="sprint-title">{{ crate::t("sprint.mode_name") }} · {{ course.title }}</h1>
-    {% if let Some(t) = course.theme %}{% if !t.banner.is_empty() %}<img class="sprint-banner" src="{{ t.banner }}" alt="" title="{{ t.title }}">{% endif %}{% endif %}
     <section class="sprint-hero">
       <div class="ring" style="--pct:{{ today.pct() }}" role="progressbar" aria-label="{{ crate::t2("goal.ring_label", "n", today.points, "goal", today.goal) }}" aria-valuenow="{{ today.points }}" aria-valuemin="0" aria-valuemax="{{ today.goal }}" data-testid="sprint-goal-ring" data-points="{{ today.points }}" data-goal="{{ today.goal }}">
         <span class="ring-num">{{ today.points }}</span><span class="ring-goal">/ {{ today.goal }}</span>

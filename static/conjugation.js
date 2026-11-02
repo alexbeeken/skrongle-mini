@@ -6,59 +6,13 @@
   "use strict";
   var base = document.body.dataset.base || "";
 
-  var SLOT_ART = {}, SLOT_WHO = {}, PEOPLE = { me: null, others: [] };
+  var SLOT_ART = {};
   function art(lines) { return (lines || []).join("\n"); }
 
-  // A slot with a "who" (#879) is drawn with profile pictures: the learner's
-  // own for "me", others picked at random (never the learner's) for the rest.
-  var CAST = { me: [1, 0], you: [0, 1], other: [0, 1], us: [1, 2], you_all: [0, 3], them: [0, 3] };
-  function portrait(p, person) {
-    var span = document.createElement("span");
-    span.className = "avatar" + (p.url ? " themed" : "");
-    span.setAttribute("style", p.style || "");
-    span.dataset.testid = "drill-portrait";
-    span.dataset.person = person;
-    span.dataset.avatar = p.id;
-    if (p.url) {
-      var img = document.createElement("img"); img.src = p.url; img.alt = ""; span.appendChild(img);
-    } else {
-      var ns = "http://www.w3.org/2000/svg", svg = document.createElementNS(ns, "svg"), use = document.createElementNS(ns, "use");
-      use.setAttribute("href", "#av-" + p.id); svg.appendChild(use); span.appendChild(svg);
-    }
-    return span;
-  }
-  function drawPeople(el, who) {
-    el.textContent = "";
-    var cast = CAST[who];
-    if (!cast || !PEOPLE.me) return false;
-    el.className = "people who-" + who;
-    el.dataset.who = who;
-    el.setAttribute("role", "img");
-    el.setAttribute("aria-label", ({
-      me: t("play.js.drill.people.me"), you: t("play.js.drill.people.you"), other: t("play.js.drill.people.other"),
-      us: t("play.js.drill.people.us"), you_all: t("play.js.drill.people.you_all"), them: t("play.js.drill.people.them")
-    })[who]);
-    if (cast[0]) el.appendChild(portrait(PEOPLE.me, "me"));
-    var pool = PEOPLE.others.slice();
-    for (var i = 0; i < cast[1] && pool.length; i++) {
-      el.appendChild(portrait(pool.splice(Math.floor(Math.random() * pool.length), 1)[0], "other"));
-    }
-    return true;
-  }
   function readLegend(sel) {
-    var ul = document.querySelector(sel);
-    if (ul && ul.dataset.people) { try { PEOPLE = JSON.parse(ul.dataset.people); } catch (e) { /* ASCII only */ } }
     document.querySelectorAll(sel + " pre.subject").forEach(function (p) {
       try { SLOT_ART[p.dataset.slot] = JSON.parse(p.dataset.art || "[]"); } catch (e) { SLOT_ART[p.dataset.slot] = []; }
-      SLOT_WHO[p.dataset.slot] = p.dataset.who || "";
-      var people = document.createElement("div");
-      if (drawPeople(people, SLOT_WHO[p.dataset.slot])) {
-        people.dataset.testid = "drill-legend-people";
-        people.dataset.slot = p.dataset.slot;
-        p.replaceWith(people);
-      } else {
-        p.textContent = art(SLOT_ART[p.dataset.slot]);
-      }
+      p.textContent = art(SLOT_ART[p.dataset.slot]);
     });
   }
 
@@ -142,10 +96,7 @@
     document.getElementById("c-infinitive").textContent = hideInfinitive ? "" : p.item;
     document.getElementById("c-meaning").textContent = hideInfinitive ? "" : "· " + p.meaning;
     document.getElementById("c-caption").hidden = hideInfinitive;
-    var subjectArt = document.getElementById("c-subject-art"), people = document.getElementById("c-subject-people");
-    var drawn = drawPeople(people, SLOT_WHO[p.slot]);
-    people.hidden = !drawn; subjectArt.hidden = drawn;
-    subjectArt.textContent = drawn ? "" : art(SLOT_ART[p.slot] || []);
+    document.getElementById("c-subject-art").textContent = art(SLOT_ART[p.slot] || []);
     document.getElementById("c-subject-caption").textContent = t("play.js.drill.which_slot");
     input.value = ""; input.disabled = false;
     fb.hidden = true; fb.innerHTML = "";

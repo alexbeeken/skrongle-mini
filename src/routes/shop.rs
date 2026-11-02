@@ -55,8 +55,7 @@ pub async fn page(State(state): State<Arc<AppState>>, p: Project, headers: Heade
         })
         .await?;
     let Some((balance, owned)) = found else { return Ok(Redirect::to(&crate::url("/")).into_response()) };
-    let theme = p.course.theme();
-    let badges: Vec<BadgeView> = shop::catalogue().badges.iter().map(|b| BadgeView::of(b, theme, owned.contains(&b.id))).collect();
+    let badges: Vec<BadgeView> = shop::catalogue().badges.iter().map(|b| BadgeView::of(b, owned.contains(&b.id))).collect();
     let shelf = badges.iter().filter(|b| b.owned).cloned().collect();
     let title = shop::catalogue().get(&q.item).map(|b| b.title()).unwrap_or_default();
     let refusal = match q.refused.as_str() {

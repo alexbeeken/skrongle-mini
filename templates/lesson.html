@@ -59,7 +59,7 @@
     <thead><tr><th>{{ course.term_label }}</th><th>{{ course.meaning_label }}</th><th>{{ crate::t("study.lesson.example") }}</th></tr></thead>
     <tbody>
     {% for v in lesson.vocabulary %}
-      <tr data-testid="lesson-vocab-item" data-themed="{{ v.themed }}"><td lang="{{ course.term_lang }}" title="{{ v.meaning }}">{{ v.term }}</td><td lang="{{ course.meaning_lang }}">{{ v.meaning }}</td><td lang="{{ course.term_lang }}"{% if let Some(em) = v.example_meaning %} title="{{ em }}"{% endif %}>{% if let Some(ex) = v.example %}{{ ex }}{% endif %}{% if v.themed %}{% if let Some(t) = course.theme %} <span class="themed-mark" title="{{ crate::t1("study.lesson.from_theme", "theme", t.title) }}">{{ t.icon }}</span>{% endif %}{% endif %}</td></tr>
+      <tr data-testid="lesson-vocab-item"><td lang="{{ course.term_lang }}" title="{{ v.meaning }}">{{ v.term }}</td><td lang="{{ course.meaning_lang }}">{{ v.meaning }}</td><td lang="{{ course.term_lang }}"{% if let Some(em) = v.example_meaning %} title="{{ em }}"{% endif %}>{% if let Some(ex) = v.example %}{{ ex }}{% endif %}</td></tr>
     {% endfor %}
     </tbody>
   </table>
@@ -106,9 +106,6 @@
     {% for l in c.lines %}
       {% let s = c.who(l) %}
       <li class="conv-line{% if l.b %} b{% endif %}" data-testid="lesson-conversation-line" data-speaker="{% if l.b %}b{% else %}a{% endif %}">
-        {%- if c.portraits %}
-        {% if let Some(url) = s.image %}<span class="avatar lg themed" style="{{ s.style }}" aria-hidden="true"><img src="{{ url }}" alt=""></span>{% else %}<span class="avatar lg" style="{{ s.style }}" aria-hidden="true"><svg><use href="#av-{{ s.avatar }}"/></svg></span>{% endif %}
-        {%- endif %}
         <button type="button" class="conv-bubble" data-testid="lesson-conversation-bubble">
           <span class="conv-name" data-testid="lesson-conversation-speaker">{{ s.name }}</span>
           <span class="conv-text" lang="{{ course.term_lang }}" data-testid="lesson-conversation-text">{{ l.text }}</span>

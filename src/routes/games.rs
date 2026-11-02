@@ -419,9 +419,6 @@ pub struct SlotLegend {
     pub hint: String,
     /// The slot's ASCII picture as a JSON array, for the script.
     pub art_json: String,
-    /// The person it stands for (`content::Who`), '' for none: the script
-    /// draws profile pictures instead of `art` (#879).
-    pub who: &'static str,
 }
 
 #[derive(Template)]
@@ -435,8 +432,6 @@ pub struct ConjugationSetupTemplate {
     pub sets: Vec<SetGroup>,
     pub pager: super::pages::Pager,
     pub slots: Vec<SlotLegend>,
-    /// The pictures the person slots are drawn with (`profile::people_json`).
-    pub people_json: String,
     pub any_unlocked: bool,
     pub any_items: bool,
     /// Start drill came back with nothing picked (#949): say why.
@@ -455,8 +450,6 @@ pub struct ConjugationTemplate {
     pub count: usize,
     pub hide_item: bool,
     pub slots: Vec<SlotLegend>,
-    /// The pictures the person slots are drawn with (`profile::people_json`).
-    pub people_json: String,
 }
 
 fn slot_legend(content: &crate::content::ContentStore) -> Vec<SlotLegend> {
@@ -470,7 +463,6 @@ fn slot_legend(content: &crate::content::ContentStore) -> Vec<SlotLegend> {
                     label: s.label.clone(),
                     hint: s.hint.clone(),
                     art_json: serde_json::to_string(&s.art).unwrap_or_else(|_| "[]".into()),
-                    who: s.who.map(|w| w.as_str()).unwrap_or(""),
                 })
                 .collect()
         })
@@ -565,7 +557,6 @@ pub async fn conjugation_setup(State(state): State<Arc<AppState>>, p: Project, Q
     };
     Ok(Page(ConjugationSetupTemplate {
         course: CourseView::of(content),
-        people_json: super::profile::people_json(&p.user),
         user: Some(p.user),
         tabs,
         sets,
@@ -641,7 +632,6 @@ pub async fn conjugation_play(
     let count = q.n.unwrap_or(20).min(120);
     Ok(Page(ConjugationTemplate {
         course: CourseView::of(content),
-        people_json: super::profile::people_json(&p.user),
         user: Some(p.user),
         set: set.key.clone(),
         set_label: set.label.clone(),

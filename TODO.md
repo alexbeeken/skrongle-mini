@@ -26,8 +26,7 @@ An item here that unblocks an issue says so; tick it, then say so in the issue.
       same session as privacy (#74) and AI-output ownership (#75).
 - [ ] Get written answers from the lawyer on: anything too close to Duolingo
       or Kwiziq; whether a patent search is worthwhile; comparative marketing
-      wording; trademark search/registration for "Skrongle"; the third-party
-      franchise themes (wow, stardew, fallout). (from #72)
+      wording; trademark search/registration for "Skrongle". (from #72)
 - [ ] Fill the ToS placeholders: company name, jurisdiction, contact and
       postal address, minimum age, refund policy, liability cap, arbitration.
       Unblocks the `/terms` page in #72. (from #72)
