@@ -3,7 +3,14 @@
 //! (`static/clock.js`) posts the time it shows in that form, and it is
 //! graded here as the same time on the clock face (`12:05` = `0:05`).
 
-use crate::content::QuizItem;
+use crate::content::{Lesson, QuizItem, QuizType};
+
+impl Lesson {
+    /// Does the lesson ask a clock question (load static/clock.js)?
+    pub fn has_clock(&self) -> bool {
+        self.quiz.iter().any(|q| q.kind == QuizType::Clock)
+    }
+}
 
 /// The minute hand's step when the question names none.
 pub const DEFAULT_STEP: u32 = 5;

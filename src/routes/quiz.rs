@@ -131,6 +131,16 @@ impl QuizTemplate {
         self.questions.iter().any(|q| !q.abc.is_empty() || !q.play.is_empty() || !q.staves.is_empty() || !q.bar.is_empty() || q.slots > 0)
     }
 
+    /// Is there a clock question (load static/clock.js)?
+    pub fn has_clock(&self) -> bool {
+        self.questions.iter().any(|q| q.kind == "clock")
+    }
+
+    /// Is there a measure question (load static/measure.js)?
+    pub fn has_measure(&self) -> bool {
+        self.questions.iter().any(|q| q.kind == "measure")
+    }
+
     /// Is there music to play (load the sound engine)?
     pub fn sound(&self) -> bool {
         self.questions.iter().any(|q| !q.play.is_empty()) || self.keyboard()
