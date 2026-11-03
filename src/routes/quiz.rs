@@ -393,10 +393,11 @@ pub async fn grade_and_record(state: &AppState, p: &Project, question_id: &str, 
         .db
         .call(move |c| {
             let before = mastery::load_one(c, uid, &cid, &lesson_id)?.map(|p| p.effective(at)).unwrap_or(0.0);
-            let after = mastery::record_answer(c, uid, &cid, &lesson_id, &qid, &selected, correct)?;
-            activity::record(c, uid, &cid, kind, 1, tz)?;
-            let words: Vec<&str> = taught.iter().map(String::as_str).collect();
-            let new_words = vocab::record_learned(c, uid, &cid, &lesson_id, &words, tz)?;
+            let (after, new_words) = mastery::record_answer_with(c, uid, &cid, &lesson_id, &qid, &selected, correct, |tx| {
+                activity::record(tx, uid, &cid, kind, 1, tz)?;
+                let words: Vec<&str> = taught.iter().map(String::as_str).collect();
+                vocab::record_learned(tx, uid, &cid, &lesson_id, &words, tz)
+            })?;
             Ok((before, after, new_words))
         })
         .await?;
