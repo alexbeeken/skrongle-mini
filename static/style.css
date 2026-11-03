@@ -1517,7 +1517,6 @@ details.info-tip { position: static; }
 /* Generate dialog without a key: everything greyed out until one is added. */
 .gen-fields { border: 0; padding: 0; margin: 0; min-width: 0; }
 .gen-fields[disabled] { opacity: .5; }
-.ai-out form { display: inline; margin: 0; }
 
 /* Two-factor sign-in (#292): the profile's method chips and the code page. */
 .chip:has(input:disabled) { opacity: .5; cursor: not-allowed; }
@@ -1553,12 +1552,6 @@ details.info-tip { position: static; }
 .lang-picker label { display: inline-flex; align-items: center; gap: .5rem; }
 .lang-picker select { width: auto; margin: 0; }
 
-/* The superuser's bar of the day's Skrongle AI spend. */
-.ai-bar { height: .8rem; border-radius: 999px; background: var(--line); overflow: hidden; margin-top: .6rem; }
-.ai-bar-fill { display: block; height: 100%; border-radius: 999px; background: var(--accent); transition: width .4s ease; }
-[data-level=low] .ai-bar-fill { background: var(--gold); }
-[data-level=out] .ai-bar-fill { background: var(--bad); }
-.ai-bar-caption { margin: .4rem 0 0; }
 /* The "add a key" line, with its paragraphs. */
 .gap-row > p { margin: 0; }
 .gap-row > p + p { margin-top: .5rem; }

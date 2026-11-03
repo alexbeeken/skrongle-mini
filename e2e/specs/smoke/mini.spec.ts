@@ -1,5 +1,5 @@
 // The mini shape (#632, lane #639): what a self-hoster runs, with no mail,
-// Google, payments or Skrongle AI configured. CI runs this in the
+// Google or payments configured. CI runs this in the
 // e2e-mini job (E2E_MINI=1 scripts/e2e.sh, docs/testing.md "The mini lane"),
 // where the server has the dev stand-ins off; elsewhere it skips.
 //

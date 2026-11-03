@@ -122,7 +122,6 @@ const MASTER_LEN: usize = 32;
 const NONCE_LEN: usize = 12;
 const BLOB_VERSION: u8 = 1;
 /// Associated data of the sealed server key: no learner's row can be opened as it.
-const SERVER_KEY_AAD: &[u8] = b"learnmap/server-ai-key/v1";
 
 /// Holds the derived encryption key. Cheap to clone into `Db::call` closures.
 #[derive(Clone)]
@@ -181,16 +180,6 @@ impl Vault {
         blob.extend_from_slice(&nonce);
         blob.extend_from_slice(&ct);
         blob
-    }
-
-    /// The server's own AI key (`SKRONGLE_AI_KEY`), sealed so it sits in
-    /// memory only as ciphertext between calls (`metering::Meter`).
-    pub fn seal_server_key(&self, key: &str) -> Vec<u8> {
-        self.seal(SERVER_KEY_AAD, key.as_bytes())
-    }
-
-    pub fn open_server_key(&self, blob: &[u8]) -> Option<String> {
-        self.open(SERVER_KEY_AAD, blob).and_then(|b| String::from_utf8(b).ok())
     }
 
     /// `None` when the blob is malformed, tampered with, bound to a

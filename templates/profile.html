@@ -257,7 +257,7 @@
     </dialog>
     <h2 class="heading-with-info">{{ crate::t("profile.api_keys.title") }} <button type="button" class="info-btn" data-opens="api-keys-info-dialog" aria-haspopup="dialog" aria-label="{{ crate::t("profile.api_keys.info") }}" title="{{ crate::t("profile.api_keys.info") }}" data-testid="profile-api-keys-info"><span aria-hidden="true">i</span></button></h2>
     <div class="own-keys-body" data-testid="profile-own-keys-body">
-    <p class="muted small" data-testid="profile-api-keys-about">{% if ai_hosted %}{{ crate::t1("profile.api_keys.about_hosted", "hosted", crate::tutor::hosted_label()) }}{% else %}{{ crate::t("profile.api_keys.about") }}{% endif %}</p>
+    <p class="muted small" data-testid="profile-api-keys-about">{{ crate::t("profile.api_keys.about") }}</p>
     {% for k in api_keys %}
     <details class="key-row" data-testid="profile-api-key" data-provider="{{ k.provider.id() }}" data-key-set="{{ k.is_set() }}" data-unreadable="{{ k.unreadable }}">
       <summary class="key-head" data-testid="profile-api-key-toggle">

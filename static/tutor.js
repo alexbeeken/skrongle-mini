@@ -92,19 +92,6 @@
     thread.appendChild(el("div", "msg system" + (isError ? " error" : ""), esc(text)));
     scrollDown();
   }
-  // Skrongle AI did not cover the turn (nothing was cut off: the model was
-  // never asked). Offer the way on: an own key.
-  function addOutOfAi(text, kind) {
-    var box = el("div", "msg system error ai-out", esc(text) + "<br>");
-    box.setAttribute("data-testid", "tutor-out-of-ai");
-    box.dataset.kind = kind;
-    var key = el("a", "", esc(t('tutor.js.own_key')));
-    key.href = base + "/profile#api-keys";
-    key.setAttribute("data-testid", "tutor-own-key");
-    box.appendChild(key);
-    thread.appendChild(box);
-    scrollDown();
-  }
   function render(entry) {
     if (entry.kind === "tutor") thread.appendChild(el("div", "msg tutor", md(entry.text)));
     else if (entry.kind === "learner") thread.appendChild(el("div", "msg learner", esc(entry.text)));
@@ -240,8 +227,7 @@
     // The learner's own words were drawn when they were sent.
     resp.entries.filter(function (e) { return e.kind !== "learner"; }).forEach(render);
     setScore(resp.correct, resp.answered);
-    if (resp.ai_out) addOutOfAi(resp.error, resp.ai_out);
-    else if (resp.error && cancelling) addSystem(t('tutor.js.cancelled'), false);
+    if (resp.error && cancelling) addSystem(t('tutor.js.cancelled'), false);
     else if (resp.error) addSystem(t('tutor.js.could_not_reply', { error: resp.error }), true);
     cancelling = false;
     if (!resp.pending && pending) setPending(null);

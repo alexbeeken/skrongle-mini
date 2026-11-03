@@ -22,7 +22,7 @@ all driven by JSON course files.
   [raw Markdown](course-format.md) and a [JSON Schema](course.schema.json).
 - [Features](features): what each part of the app does and which lesson
   fields it reads: Lessons, Quizzes, Guide, Sprint mode, Games, Map, Vocabulary,
-  History, Skrongle AI.
+  History.
 - [Progress across modes](progress): the pass rule, and the API (and brief)
   for AI agents that teach the learner.
 - [Languages (i18n)](i18n): the app's own text in the learner's language:

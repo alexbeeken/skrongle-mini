@@ -114,7 +114,7 @@ fn generating(db: &Db, user: &str, id: &str, base_url: String) -> Request {
         .unwrap();
     Request {
         user_id: uid,
-        provider: Provider { kind: ProviderKind::OpenAi, base_url, api_key: "k".into(), model: "fake".into(), source: KeySource::Own, effort: None },
+        provider: Provider { kind: ProviderKind::OpenAi, base_url, api_key: "k".into(), model: "fake".into(), effort: None },
         course_id: id.into(),
         wish: "anything".into(),
         lesson_count: 3,
@@ -126,7 +126,6 @@ fn generating(db: &Db, user: &str, id: &str, base_url: String) -> Request {
         revise: None,
         add_lesson: None,
         edit: None,
-        meter: None,
         translate: None,
         named: Default::default(),
     }
@@ -259,7 +258,7 @@ fn ai_job_slots_are_taken_atomically_and_held_until_the_thread_exits() {
     // Out of budget: no request is made, and the job says why.
     let job = test_job("c");
     let job = Job { deadline: Mutex::new(std::time::Instant::now()), ..job };
-    let err = job.llm(&db, &cat, &Call::new("generate-outline"), "s", "u").unwrap_err();
+    let err = job.llm(&cat, &Call::new("generate-outline"), "s", "u").unwrap_err();
     assert!(err.contains("took longer than") && err.contains("resume"), "{err}");
 }
 
@@ -418,7 +417,7 @@ fn generates_a_maths_course_and_resumes_after_a_failure() {
     })
     .unwrap();
     let (url, seen) = fake_llm(vec!["roots"]);
-    let provider = Provider { kind: ProviderKind::OpenAi, base_url: url, api_key: "k".into(), model: "fake".into(), source: KeySource::Own, effort: None };
+    let provider = Provider { kind: ProviderKind::OpenAi, base_url: url, api_key: "k".into(), model: "fake".into(), effort: None };
     let mut req = Request {
         user_id: 1,
         provider,
@@ -433,7 +432,6 @@ fn generates_a_maths_course_and_resumes_after_a_failure() {
         revise: None,
         add_lesson: None,
         edit: None,
-        meter: None,
         translate: None,
         named: Default::default(),
     };
@@ -509,7 +507,6 @@ fn generates_from_the_llm_fixtures() {
             revise: None,
             add_lesson: None,
             edit: None,
-            meter: None,
             translate: None,
             named,
         };
@@ -580,7 +577,6 @@ fn translates_a_copy_from_the_llm_fixtures() {
             revise: None,
             add_lesson: None,
             edit: None,
-            meter: None,
             translate: Some(Translation { plan: plan.clone(), i18n: 0 }),
             named: Default::default(),
         };
@@ -725,7 +721,6 @@ fn revises_a_course_from_feedback_and_undoes_it() {
         revise: None,
         add_lesson: None,
         edit: None,
-        meter: None,
         translate: None,
         named: Default::default(),
     };
@@ -834,7 +829,6 @@ fn edits_lessons_from_feedback_and_undoes_it() {
         revise: None,
         add_lesson: None,
         edit: None,
-        meter: None,
         translate: None,
         named: Default::default(),
     };
@@ -936,7 +930,6 @@ fn adds_a_lesson_where_the_ai_puts_it_and_undoes_it() {
         revise: None,
         add_lesson: None,
         edit: None,
-        meter: None,
         translate: None,
         named: Default::default(),
     };
@@ -1034,7 +1027,6 @@ fn each_ai_run_keeps_its_changes_for_review() {
         add_lesson: None,
         edit: None,
         named: Default::default(),
-        meter: None,
         translate: None,
     };
     let finish = |jid: &str| {
@@ -1451,7 +1443,6 @@ fn a_fact_check_fixes_and_says_why() {
         add_lesson: None,
         edit: None,
         named: Default::default(),
-        meter: None,
         translate: None,
     };
     let finish = |jid: &str| {

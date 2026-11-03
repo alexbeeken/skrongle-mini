@@ -26,7 +26,7 @@
 #
 # E2E_MINI=1 is the mini lane (docs/testing.md, "The mini lane"): the
 # server runs without the dev stand-ins a self-hoster lacks (no dev mailbox,
-# no dev Stripe, no Skrongle AI key), and
+# no dev Stripe), and
 # the specs see E2E_MINI=1 so the ones that need a stand-in skip.
 #
 # Uses its own database (./e2e.db, or E2E_DB) and a free port, so a running
@@ -55,22 +55,16 @@ BIN="${SERVER_BIN:-}" # a server already built (CI: scripts/ci-build.sh)
 [ -n "$BIN" ] || { cargo build -q; BIN="${CARGO_TARGET_DIR:-target}/debug/spanish-learning"; }
 DB="${E2E_DB:-./e2e.db}" # another name lets two runs share the checkout
 rm -f "$DB" "$DB-wal" "$DB-shm" "$DB.key"
-# Skrongle AI runs on the simulator's platform key (hosted-ai.spec.ts); with
-# E2E_LLM_MODE=live the real providers would refuse it, so it is off.
-AI_KEY="sk-ant-dev-platform"
-[ "${E2E_LLM_MODE:-}" = live ] && AI_KEY=""
 MINI="${E2E_MINI:-0}"
-# The mini lane: mail and texts only logged, no stand-in Stripe,
-# learners' own AI keys only (they still reach the dev AI provider), and
+# The mini lane: mail and texts only logged, no stand-in Stripe, and
 # SKRONGLE_MINI=1, which makes the server a Skrongle mini (#578: no plans and
 # no dev stand-ins, the hosted-only settings ignored;
 # /healthz says so, #641).
 MINI_ENV=()
 if [ "$MINI" = 1 ]; then
-  AI_KEY=""
   MINI_ENV=(SKRONGLE_MINI=1)
 fi
-env ${MINI_ENV[@]+"${MINI_ENV[@]}"} SKRONGLE_AI_KEY="$AI_KEY" SKRONGLE_BIND="127.0.0.1:$PORT" SKRONGLE_DB="$DB" SKRONGLE_DATA_DIR=./data SKRONGLE_LOG=info \
+env ${MINI_ENV[@]+"${MINI_ENV[@]}"} SKRONGLE_BIND="127.0.0.1:$PORT" SKRONGLE_DB="$DB" SKRONGLE_DATA_DIR=./data SKRONGLE_LOG=info \
   SKRONGLE_DEV=1 SKRONGLE_DEV_SEED=1 SKRONGLE_LLM_MODE="${E2E_LLM_MODE:-}" SKRONGLE_LLM_TIMEOUT_SECS=30 SKRONGLE_AI_TIMEOUT_SECS=8 SKRONGLE_SOCIAL_CACHE_SECS=0 \
   TEST_COURSE=1 SKRONGLE_RNG_SEED="$SEED" \
   "$BIN" >"$LOG" 2>&1 &

@@ -850,61 +850,6 @@ fn proxy_header_for_an_unknown_address_follows_the_signup_rule() {
     assert_eq!(users, 1);
 }
 
-/// #623: everyone's Skrongle AI spend today shows on `/superuser` only; a
-/// learner gets a 404 there and never sees it on the profile (their own
-/// month is a bar without dollars); without Skrongle AI there is no card.
-#[test]
-fn only_superusers_see_the_days_ai_spend() {
-    let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    for hosted in [true, false] {
-        let state = super::test_state_with(false, hosted.then(|| ("sk-ant-server".to_string(), crate::metering::MeterConfig::default())));
-        let app = super::router(state.clone());
-        let base = rt.block_on(async {
-            let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
-            let addr = listener.local_addr().unwrap();
-            tokio::spawn(async move { axum::serve(listener, app.into_make_service_with_connect_info::<std::net::SocketAddr>()).await.unwrap() });
-            format!("http://{addr}")
-        });
-        let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
-        let get = |path: &str, cookie: &str| {
-            let mut r = agent.get(&format!("{base}{path}")).header("cookie", cookie).call().unwrap();
-            (r.status().as_u16(), r.body_mut().read_to_string().unwrap())
-        };
-        // Registering signs nobody in (#379): the session comes from /login.
-        let register = |email: &str| {
-            agent.post(&format!("{base}/register")).send_form([("email", email), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on")]).unwrap();
-            let r = agent.post(&format!("{base}/login")).send_form([("email", email), ("password", "long-enough-pw")]).unwrap();
-            r.headers().get("set-cookie").unwrap().to_str().unwrap().split(';').next().unwrap().to_string()
-        };
-        let (root, bob) = (register("root@example.org"), register("bob@example.org"));
-        state
-            .db
-            .with(|c| {
-                c.execute("UPDATE users SET superuser = 1 WHERE email = 'root@example.org'", [])?;
-                // Bob's hosted call today and yesterday's, which does not count.
-                for at in [crate::db::now(), crate::metering::day_start(crate::db::now()) - 1] {
-                    c.execute(
-                        "INSERT INTO ai_usage (user_id, purpose, provider, model, cost_micros, key_source, created_at)
-                             SELECT id, 'tutor-turn', 'anthropic', 'm', 3200000, 'hosted', ?1 FROM users WHERE email = 'bob@example.org'",
-                        [at],
-                    )?;
-                }
-                Ok(())
-            })
-            .unwrap();
-        let (status, page) = get("/superuser", &root);
-        assert_eq!(status, 200);
-        if hosted {
-            assert!(page.contains(r#"data-testid="superuser-ai-today" data-level="ok""#) && page.contains(r#"data-testid="superuser-ai-today-bar" data-used="32""#), "{page}");
-            assert!(page.contains("$3.20 of $10.00 · resets at midnight UTC"), "{page}");
-        } else {
-            assert!(page.contains("superuser-accounts") && !page.contains("superuser-ai-today"), "no Skrongle AI, no card: {page}");
-        }
-        assert_eq!(get("/superuser", &bob).0, 404, "a learner has no such page");
-        let (_, page) = get("/profile", &bob);
-        assert!(!page.contains("ai-today") && !page.contains("$3.20") && !page.contains("$10.00"), "a learner never sees it: {page}");
-    }
-}
 
 #[test]
 fn email_verification_over_http() {

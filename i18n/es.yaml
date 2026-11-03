@@ -1121,7 +1121,6 @@ profile:
     too_long: "Es demasiado larga para una clave API (máximo {max} caracteres)."
     bad_chars: Una clave API solo contiene letras, dígitos y signos de puntuación, sin espacios.
     wrong_provider: "Eso no parece una clave de {provider}: empiezan por {prefix}."
-    about_hosted: "El tutor de IA, Generar el curso y Usar IA llaman a estos proveedores con tu clave, con cargo a tu cuenta, sin tocar tu {hosted}."
   data:
     export_download: "Descargar mis datos"
     export_building_no_mail: "Estamos preparando tus datos. Cuando estén listos, aparecerá aquí un botón Descargar."
@@ -1244,15 +1243,7 @@ superuser:
     other: "Aviso en cola para {n} cuentas."
   js:
     copied: "Copiado"
-  ai_today: "{hosted} hoy, todos"
-  ai_today_about: "Sobre {hosted} hoy"
-  ai_today_info: "Lo que todos han gastado hoy en {hosted} (UTC), frente al límite diario del servidor de {cap}. Al llegar al límite, {hosted} se pausa para todos hasta la medianoche UTC; las claves de API propias siguen funcionando. Solo lo ven los superusuarios; los estudiantes solo ven su propio mes."
-  ai_today_spent: "{spent} de {cap} · se reinicia a medianoche UTC"
 
-ai_refused:
-  daily_cap: "{hosted} está en pausa por hoy: el servidor ha alcanzado su límite de gasto diario. Vuelve después de medianoche UTC; tu propia clave de API sigue funcionando."
-  rate: "Son muchas peticiones de IA en un minuto. Espera un momento y vuelve a intentarlo."
-  job_daily_cap: "La IA se detuvo: {hosted} está en pausa por hoy (el servidor ha alcanzado su límite de gasto diario). No se pierde nada de lo escrito; continúa después de medianoche UTC o con tu propia clave de API."
 
 home:
   due:
@@ -2184,10 +2175,6 @@ tutor:
     lesson_passed: "✓ Lección aprobada: {title}"
     could_not_reply: "El tutor no pudo responder: {error}"
     last_exercise: Ese era el último ejercicio por ahora. Sigue charlando o vuelve y elige otra lección.
-    own_key: "Usar tu propia clave de API"
-  hosted_label: "IA de {app}"
-  disclosure_hosted: "Tus mensajes se envían al proveedor de IA que usa este servidor, con su clave."
-  hosted_included: "{hosted} (incluida)"
 courses:
   # What a new course from "Create a course" starts with, in the author's app language (#1255).
   starter:
@@ -2622,7 +2609,6 @@ courses:
     only_finished: "Solo un curso terminado puede cambiar su contenido existente. Desactiva Permitir cambios al contenido existente y la IA solo añadirá contenido."
     another_started: Acaba de empezar otro cambio en este curso. Espera a que termine.
     lesson_gone: "Esa lección ya no está en el curso. Recarga la página e inténtalo de nuevo."
-    hosted_uses: "Usa la {hosted} incluida en tu cuenta."
     # The (i) by the box: example requests to click into it (#1236).
     examples_info: ¿Qué puede hacer la IA?
     examples_title: ¿Qué puede hacer la IA?
@@ -2682,7 +2668,7 @@ courses:
     depth_outline: "Esquema (cada lección, en breve)"
     estimate_about: "Cómo se calcula la estimación"
     estimate_title: "Sobre la estimación"
-    estimate_how: "El modelo recibe una petición para el índice y una por cada lección. Cada petición lleva la referencia del formato del curso y tu material, así que más material cuesta más. Con tu propia clave, el coste es el precio de lista del proveedor para el modelo que usa la app, pasado de dólares estadounidenses a canadienses a un cambio fijo. Con {hosted} es la parte de la asignación de este mes que se lleva el trabajo."
+    estimate_how: "El modelo recibe una petición para el índice y una por cada lección. Cada petición lleva la referencia del formato del curso y tu material, así que más material cuesta más. Con tu propia clave, el coste es el precio de lista del proveedor para el modelo que usa la app, pasado de dólares estadounidenses a canadienses a un cambio fijo."
     estimate_rough: "Es una guía aproximada, no una promesa. Una lección que el modelo tiene que escribir de nuevo cuesta más y tarda más. Si la app no conoce el precio de un modelo, solo muestra el tiempo."
     provider_legend: Tu proveedor de IA
     advanced: "Avanzado: editar las instrucciones que recibe la IA"
@@ -2726,8 +2712,6 @@ courses:
     in_line: "Eres el número {n} en la cola."
     cancelling_revision: "Cancelando: el curso se queda como estaba."
     cancelling_generation: "Cancelando: el curso se detiene después de la lección que se está escribiendo."
-    sent_to_hosted_choice_html: "Tus apuntes se envían a <span id=\"gen-disclosure-provider\">el proveedor de IA que usa este servidor</span><span id=\"gen-disclosure-key\" hidden> con tu clave</span>."
-    sent_to_hosted: "Tus apuntes se envían al proveedor de IA que usa este servidor."
   undo:
     undo: Deshacer
     redo: Rehacer
@@ -2863,7 +2847,6 @@ courses:
     form_add_key: Añadir una clave
     form_kind: Tipo
     form_option: "opción {n}"
-    hosted_provider: "el proveedor de IA que usa este servidor"
     estimate_lessons:
       one: "{n} lección"
       other: "{n} lecciones"
@@ -2956,10 +2939,6 @@ courses:
     shared_title: Compartido contigo
     shared_body: "Este curso es de {owner}, que lo compartió contigo. Puedes aprender de él con tu propio progreso; solo {owner} puede cambiar sus lecciones."
     ok: Aceptar
-  ai_out:
-    own_key: "Usar tu propia clave de API"
-  hosted:
-    not_offered: "{hosted} no está configurada en este servidor. Añade tu propia clave de API en tu perfil."
 motivator:
   stats:
     title: "Estadísticas y métricas"

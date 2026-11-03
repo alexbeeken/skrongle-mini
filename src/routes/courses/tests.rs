@@ -331,13 +331,12 @@ fn notices_are_keys_not_text() {
 fn the_generate_estimate_counts_lessons_time_and_cost() {
     use generate::{estimate_line, Rate};
     assert_eq!(estimate_line(6, 0, None), "6 lessons · about 5 minutes");
-    let prices = crate::metering::PriceTable::parse(crate::metering::DEFAULT_PRICES).unwrap();
+    let prices = crate::prices::PriceTable::parse(crate::prices::DEFAULT_PRICES).unwrap();
     assert!(prices.listed("claude-opus-5-5") && !prices.listed("gpt-5"));
     let opus = prices.price("claude-opus-5-5");
     let own = Rate { id: "anthropic", price: Some(opus) };
     let (input, output) = crate::ai::job_tokens(6, true, 0);
-    let cost = crate::metering::PriceTable::cost_at(opus, input, output);
-    assert_eq!(cost, prices.cost("claude-opus-5-5", crate::ai::Usage { input, output, cached: 0 }));
+    let cost = crate::prices::PriceTable::cost_at(opus, input, output);
     assert_eq!(estimate_line(6, 0, Some(&own)), format!("6 lessons · about 5 minutes · roughly CA${:.2}", generate::to_cad(cost) as f64 / 1e6));
     assert_eq!(generate::to_cad(1_000_000), 1_400_000, "shown in Canadian dollars");
     let more = |notes: usize| estimate_line(6, notes, Some(&own));
@@ -356,7 +355,6 @@ fn ai_form_html(mode: &'static str, can_change: bool) -> String {
     let af = editor::AiFormView {
         course_id: "c".into(),
         provider: Some("Claude"),
-        ai_out: None,
         named_provider: false,
         can_change,
         generate: false,

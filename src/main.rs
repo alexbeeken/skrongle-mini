@@ -34,7 +34,7 @@ mod measure;
 mod notation;
 mod notes;
 mod mastery;
-mod metering;
+mod prices;
 mod motivators;
 mod urlenc;
 mod owner;
@@ -159,9 +159,8 @@ pub struct AppState {
     pub vault: secrets::Vault,
     /// AI tutoring conversations (in memory only).
     pub tutors: tutor::Sessions,
-    /// Hosted AI (the server's key, when configured) and the meter every
-    /// model call is recorded by.
-    pub meter: Arc<metering::Meter>,
+    /// The price table behind the Generate dialog's cost estimate.
+    pub prices: prices::PriceTable,
     /// `SKRONGLE_DEV=1` on a loopback bind: the `/dev/*` routes exist.
     pub dev: bool,
     /// Rate limits for sign-in, registration and password changes (in memory; off in dev mode).
@@ -275,26 +274,14 @@ struct Config {
     courses_per_user: Option<usize>,
     /// `SKRONGLE_MAX_CONNECTIONS`: open connections the listener allows (#369).
     server: server::Limits,
-    /// `SKRONGLE_AI_KEY`: the server's AI key; hosted AI is off without it.
-    ai_key: Option<String>,
-    /// The other `SKRONGLE_AI_*` settings (models, prices, allowances, caps).
-    meter: Result<metering::MeterConfig, String>,
+    /// `SKRONGLE_AI_PRICES`: the price table behind the cost estimate.
+    prices: Result<prices::PriceTable, String>,
 }
 
 /// The settings' prefix, then the old ones `env` still reads, newest first.
 /// The old prefixes are read for one release only (#584); the next release
 /// drops them, and with them `old_prefix_warning`.
 const ENV_PREFIXES: [&str; 3] = ["SKRONGLE_", "LEARN_", "SPANISH_"];
-
-/// Take a secret out of the environment: read it, then remove every
-/// spelling so threads and child processes never see it.
-fn take_env(name: &str) -> Option<String> {
-    let v = env(name);
-    for prefix in ENV_PREFIXES {
-        std::env::remove_var(format!("{prefix}{name}"));
-    }
-    v
-}
 
 /// `SKRONGLE_<name>`, falling back for one release to the old
 /// `LEARN_<name>` and `SPANISH_<name>` spellings. Empty counts as unset.
@@ -373,8 +360,7 @@ impl Config {
             base_path: normalize_base_path(&env("BASE_PATH").unwrap_or_default()),
             log_level: env("LOG").and_then(|v| v.parse().ok()).unwrap_or(tracing::Level::INFO),
             secret_key: env("SECRET_KEY"),
-            ai_key: take_env("AI_KEY"),
-            meter: metering::MeterConfig::from_env(),
+            prices: prices::PriceTable::from_env(),
             dev: env("DEV").is_some_and(|v| v == "1" || v == "true"),
             dev_seed: env("DEV_SEED").is_some_and(|v| v == "1" || v == "true"),
             dev_seed_users: env("DEV_SEED_USERS").and_then(|v| v.parse().ok()).unwrap_or(0),
@@ -613,7 +599,7 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
     let llm_mode = dev::init_llm(dev, cfg.bind)?;
     // Skrongle mini has no dev stand-in for Google, e-mail or texts: it looks
     // like a real mini in dev mode too.
-    let meter_cfg = cfg.meter.clone()?;
+    let prices = cfg.prices.clone()?;
     if dev {
         tracing::warn!("DEV MODE: /dev/login, /dev/reset and the dev mailbox (/dev/inbox, /dev/ai) are open to anyone who can reach {}", cfg.bind);
         match llm_mode {
@@ -649,21 +635,6 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         tracing::info!("dev: log in as '{}' / '{}', or open /dev/login", dev::DEV_EMAIL, dev::DEV_PASSWORD);
     }
 
-    let hosted_note = cfg.ai_key.is_some().then(|| {
-        format!(
-            "Skrongle AI enabled for every account ({:?}; tutor {}, courses {}; daily cap {}; {} calls a minute)",
-            meter_cfg.provider,
-            meter_cfg.tutor_model,
-            meter_cfg.courses_model,
-            metering::dollars(meter_cfg.daily_cap),
-            meter_cfg.rate_per_minute
-        )
-    });
-    let meter = Arc::new(metering::Meter::new(meter_cfg, cfg.ai_key.clone(), &vault));
-    match hosted_note {
-        Some(n) => tracing::info!("{n}"),
-        None => tracing::info!("Skrongle AI disabled (no SKRONGLE_AI_KEY): AI features use learners' own keys"),
-    }
     let mut mail_cfg = mail::Config::from_env()?;
     let missing: Vec<&str> = [
         (mail_cfg.logging_only, "SKRONGLE_MAIL_PROVIDERS"),
@@ -735,7 +706,7 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         jobs: ai::Jobs::default(),
         vault,
         tutors: tutor::Sessions::default(),
-        meter,
+        prices,
         dev,
         limits: security::RateLimits::new(dev),
         mail: mailer,

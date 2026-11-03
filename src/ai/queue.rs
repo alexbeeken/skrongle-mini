@@ -7,17 +7,16 @@
 //! - [`slots`] jobs run at once (`SKRONGLE_AI_JOBS`, default 2), each on its
 //!   own OS thread: never on Tokio's blocking pool, never on the one runner
 //!   thread. A job that finds a slot free (and nobody waiting) starts at
-//!   once. Past that it waits in line, at most [`line_limit`] deep (10 on the
-//!   hosted site, 3 on Skrongle mini); past that it is refused, as before,
-//!   with a log line.
+//!   once. Past that it waits in line, at most [`line_limit`] deep; past that
+//!   it is refused, as before, with a log line.
 //! - The runner (`jobs.rs`) takes the next waiting row when a slot frees and
 //!   hands it to a new generator thread ([`handler`], `Step::Handed`). While a
 //!   job runs, one heartbeat thread renews the leases of this server's rows
 //!   every [`HEARTBEAT`], so a run of up to an hour keeps its row; the
 //!   generator thread records the end itself.
 //! - After a restart ([`at_boot`], [`adopt`]) a generation goes on by itself
-//!   from the lessons already written, when its key can be had again: the
-//!   server's own (Skrongle AI) or one saved on the profile. A key pasted into
+//!   from the lessons already written, when its key can be had again: one
+//!   saved on the profile. A key pasted into
 //!   the form lived only in memory, so that job stops and keeps its *Resume*
 //!   button, as before. Revisions, added lessons and translations stop too.
 
@@ -311,10 +310,6 @@ fn launch(jobs: &Jobs, job: Arc<Job>, db: Db, registry: Arc<crate::courses::Cour
             (None, None, None, Some(t)) => crate::i18n::in_scope(t.i18n, || translate(&job, &db, &registry, &req, &t.plan)),
             (None, None, None, None) => run(&job, &db, &registry, &req),
         };
-        if let Some(m) = &req.meter {
-            // Whatever the outcome, what the job did not spend goes back.
-            m.release(&job.snapshot().id);
-        }
         let err = outcome.as_ref().err().cloned();
         // Still 'generating' or 'revising', so the files are what the AI
         // wrote. A stopped generation keeps the lessons it wrote, so they
@@ -396,11 +391,9 @@ pub struct Payload {
     pub user: i64,
     /// "generate", "revise" or "translate".
     pub mode: String,
-    /// A generation whose key can be had again (Skrongle AI or a saved key):
-    /// it goes on by itself after a restart.
+    /// A generation whose key can be had again (a saved key): it goes on
+    /// by itself after a restart.
     pub resume: bool,
-    /// "hosted" or "own".
-    pub key: String,
     pub provider: String,
     pub model: String,
     /// The effort a generation runs at (`Effort::id`), '' for none.
@@ -422,14 +415,12 @@ pub fn payload(req: &Request, id: &str, saved_key: bool) -> Payload {
         (false, None) => "generate",
         (false, Some(_)) => "translate",
     };
-    let hosted = req.provider.source == KeySource::Hosted;
     Payload {
         job: id.to_string(),
         course: req.course_id.clone(),
         user: req.user_id,
         mode: mode.into(),
-        resume: mode == "generate" && (hosted || saved_key),
-        key: req.provider.source.as_str().into(),
+        resume: mode == "generate" && saved_key,
         provider: req.provider.kind.id().into(),
         model: req.provider.model.clone(),
         effort: req.provider.effort.map(|e| e.id().to_string()).unwrap_or_default(),
@@ -585,7 +576,7 @@ pub fn handler(state: Arc<crate::AppState>) -> impl Fn(&Db, &Claimed) -> Result<
         };
         let req = match req {
             Ok(r) => r,
-            Err(e) => return give_up(&state, db, claimed.id, &p, job.as_ref(), &e),
+            Err(e) => return give_up(db, claimed.id, &p, job.as_ref(), &e),
         };
         let job = job.unwrap_or_else(|| Arc::new(new_job(&req, &p.job)));
         {
@@ -601,7 +592,7 @@ pub fn handler(state: Arc<crate::AppState>) -> impl Fn(&Db, &Claimed) -> Result<
 
 /// Stop a job that cannot go on: its course stopped (a generation keeps what
 /// it wrote and offers *Resume*), its row failed.
-fn give_up(state: &crate::AppState, db: &Db, row: i64, p: &Payload, job: Option<&Arc<Job>>, why: &str) -> Result<Step, String> {
+fn give_up(db: &Db, row: i64, p: &Payload, job: Option<&Arc<Job>>, why: &str) -> Result<Step, String> {
     let current = db.with(|c| crate::courses::course(c, &p.course)).map_err(|e| e.to_string())?;
     let ours = current.as_ref().is_some_and(|c| c.job_id.as_deref() == Some(p.job.as_str()) && c.is_busy());
     db.with(|c| {
@@ -613,7 +604,6 @@ fn give_up(state: &crate::AppState, db: &Db, row: i64, p: &Payload, job: Option<
         settle(c, row, Some(why), crate::db::now()).map(drop)
     })
     .map_err(|e| e.to_string())?;
-    state.meter.release(&p.job);
     if let Some(j) = job {
         j.update(|s| {
             s.done = true;
@@ -638,12 +628,8 @@ fn rebuild(state: &crate::AppState, db: &Db, p: &Payload) -> Result<Request, Str
     }
     let notes = db.with(|c| crate::courses::notes_of(c, &p.course)).map_err(|e| e.to_string())?;
     let kind = ProviderKind::parse(&p.provider).ok_or(INTERRUPTED)?;
-    let mut provider = if p.key == KeySource::Hosted.as_str() {
-        state.meter.provider("generate-lesson").ok_or(INTERRUPTED)?
-    } else {
-        let key = db.with(|c| crate::secrets::get(c, &state.vault, p.user, kind.secret())).map_err(|e| e.to_string())?.ok_or(INTERRUPTED)?;
-        Provider { kind, base_url: kind.default_base_url(), api_key: key, model: p.model.clone(), source: KeySource::Own, effort: None }
-    };
+    let key = db.with(|c| crate::secrets::get(c, &state.vault, p.user, kind.secret())).map_err(|e| e.to_string())?.ok_or(INTERRUPTED)?;
+    let mut provider = Provider { kind, base_url: kind.default_base_url(), api_key: key, model: p.model.clone(), effort: None };
     provider.effort = super::Effort::parse(&p.effort);
     Ok(Request {
         user_id: p.user,
@@ -659,7 +645,6 @@ fn rebuild(state: &crate::AppState, db: &Db, p: &Payload) -> Result<Request, Str
         revise: None,
         add_lesson: None,
         edit: None,
-        meter: Some(Arc::clone(&state.meter)),
         named: crate::courses::Draft { title: p.title.clone(), lessons: p.named.clone() },
         translate: None,
     })
@@ -709,7 +694,6 @@ pub async fn cancel(state: &crate::AppState, job: &Arc<Job>) -> Result<(), crate
         return Ok(());
     };
     let msg = job.check_cancelled().err().unwrap_or_default();
-    state.meter.release(&id);
     let (cid, revision, why) = (job.course_id.clone(), job.snapshot().revision, msg.clone());
     state
         .db

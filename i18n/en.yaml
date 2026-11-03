@@ -654,7 +654,6 @@ profile:
     too_long: "That is too long for an API key (max {max} characters)."
     bad_chars: An API key contains only letters, digits and punctuation, with no spaces.
     wrong_provider: "That does not look like a {provider} key: they start with {prefix}."
-    about_hosted: "The AI tutor, Generate the course and Use AI call these providers with your key, billed to your account, without touching your {hosted}."
   data:
     export_download: "Download my data"
     export_building_no_mail: "Your data is being prepared. When it is ready, a Download button appears here."
@@ -777,15 +776,7 @@ superuser:
     other: "Announcement queued for {n} accounts."
   js:
     copied: "Copied"
-  ai_today: "{hosted} today, everyone"
-  ai_today_about: "About {hosted} today"
-  ai_today_info: "What everyone has spent on {hosted} today (UTC), against the server's daily cap of {cap}. At the cap, {hosted} pauses for everyone until midnight UTC; own API keys still work. Only superusers see this; learners only see their own month."
-  ai_today_spent: "{spent} of {cap} · resets at midnight UTC"
 
-ai_refused:
-  daily_cap: "{hosted} is paused for today: the server reached its daily spending limit. It comes back after midnight UTC; your own API key still works."
-  rate: "That is a lot of AI requests in one minute. Wait a moment, then try again."
-  job_daily_cap: "The AI stopped: {hosted} is paused for today (the server reached its daily spending limit). Nothing written so far is lost; continue after midnight UTC, or with your own API key."
 
 landing:
   title: Learn anything from a folder of JSON files
@@ -2187,10 +2178,6 @@ tutor:
     lesson_passed: "✓ Lesson passed: {title}"
     could_not_reply: "The tutor could not reply: {error}"
     last_exercise: That was the last exercise for now. Keep chatting, or go back and pick another lesson.
-    own_key: "Use your own API key"
-  hosted_label: "{app} AI"
-  disclosure_hosted: "Your messages are sent to the AI provider this server uses, on its key."
-  hosted_included: "{hosted} (included)"
 courses:
   # What a new course from "Create a course" starts with, in the author's app language (#1255).
   starter:
@@ -2625,7 +2612,6 @@ courses:
     only_finished: "Only a finished course can have its existing content changed. Turn off Allow changes to existing content, and the AI will only add to it."
     another_started: Another change to this course has just started. Wait for it to finish.
     lesson_gone: "That lesson is no longer in the course. Reload the page and try again."
-    hosted_uses: "Uses the {hosted} included with your account."
     # The (i) by the box: example requests to click into it (#1236).
     examples_info: What can the AI do?
     examples_title: What can the AI do?
@@ -2685,7 +2671,7 @@ courses:
     depth_outline: "Outline (every lesson, in brief)"
     estimate_about: "How the estimate is worked out"
     estimate_title: "About the estimate"
-    estimate_how: "The model gets one request for the outline and one for each lesson. Each request carries the course format reference and your material, so more material costs more. With your own key the cost is the provider's list price for the model the app uses, turned from US into Canadian dollars at a fixed rate. With {hosted} it is the share of this month's allowance the job takes."
+    estimate_how: "The model gets one request for the outline and one for each lesson. Each request carries the course format reference and your material, so more material costs more. With your own key the cost is the provider's list price for the model the app uses, turned from US into Canadian dollars at a fixed rate."
     estimate_rough: "It is a rough guide, not a promise. A lesson the model has to write again costs more and takes longer. When the app does not know a model's price, it shows only the time."
     provider_legend: Your AI provider
     advanced: "Advanced: edit the instructions given to the AI"
@@ -2729,8 +2715,6 @@ courses:
     in_line: "You're number {n} in line."
     cancelling_revision: "Cancelling: the course stays as it was."
     cancelling_generation: "Cancelling: the course stops after the lesson being written."
-    sent_to_hosted_choice_html: "Your notes are sent to <span id=\"gen-disclosure-provider\">the AI provider this server uses</span><span id=\"gen-disclosure-key\" hidden> using your key</span>."
-    sent_to_hosted: "Your notes are sent to the AI provider this server uses."
   undo:
     undo: Undo
     redo: Redo
@@ -2866,7 +2850,6 @@ courses:
     form_add_key: Add a key
     form_kind: Kind
     form_option: "option {n}"
-    hosted_provider: "the AI provider this server uses"
     estimate_lessons:
       one: "{n} lesson"
       other: "{n} lessons"
@@ -2959,10 +2942,6 @@ courses:
     shared_title: Shared with you
     shared_body: "This course belongs to {owner}, who shared it with you. You can learn from it with your own progress; only {owner} can change its lessons."
     ok: OK
-  ai_out:
-    own_key: "Use your own API key"
-  hosted:
-    not_offered: "{hosted} is not set up on this server. Add your own API key on your profile."
 motivator:
   stats:
     title: "Statistics and metrics"

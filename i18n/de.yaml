@@ -649,7 +649,6 @@ profile:
     too_long: "Das ist zu lang für einen API-Schlüssel (maximal {max} Zeichen)."
     bad_chars: Ein API-Schlüssel enthält nur Buchstaben, Ziffern und Satzzeichen, ohne Leerzeichen.
     wrong_provider: "Das sieht nicht nach einem {provider}-Schlüssel aus: sie beginnen mit {prefix}."
-    about_hosted: "Der KI-Tutor, „Kurs erstellen“ und „KI verwenden“ rufen diese Anbieter mit deinem Schlüssel auf, abgerechnet über dein Konto, ohne dein {hosted}-Kontingent anzutasten."
   data:
     export_download: "Meine Daten herunterladen"
     export_building_no_mail: "Deine Daten werden vorbereitet. Sobald sie fertig sind, erscheint hier ein Herunterladen-Knopf."
@@ -772,15 +771,7 @@ superuser:
     other: "Ankündigung für {n} Konten in der Warteschlange."
   js:
     copied: "Kopiert"
-  ai_today: "{hosted} heute, alle"
-  ai_today_about: "Über {hosted} heute"
-  ai_today_info: "Was alle heute (UTC) für {hosted} ausgegeben haben, gemessen am Tageslimit des Servers von {cap}. Ist das Limit erreicht, pausiert {hosted} für alle bis Mitternacht UTC; eigene API-Schlüssel funktionieren weiter. Nur Superuser sehen das; Lernende sehen nur ihren eigenen Monat."
-  ai_today_spent: "{spent} von {cap} · wird um Mitternacht UTC zurückgesetzt"
 
-ai_refused:
-  daily_cap: "{hosted} ist für heute pausiert: Der Server hat sein tägliches Ausgabenlimit erreicht. Nach Mitternacht UTC geht es weiter; dein eigener API-Schlüssel funktioniert weiterhin."
-  rate: "Das sind sehr viele KI-Anfragen in einer Minute. Warte einen Moment und versuche es dann erneut."
-  job_daily_cap: "Die KI hat angehalten: {hosted} ist für heute pausiert (der Server hat sein tägliches Ausgabenlimit erreicht). Bisher Geschriebenes geht nicht verloren; mach nach Mitternacht UTC weiter oder mit deinem eigenen API-Schlüssel."
 
 landing:
   title: "Lerne alles aus einem Ordner mit JSON-Dateien"
@@ -2181,10 +2172,6 @@ tutor:
     lesson_passed: "✓ Lektion bestanden: {title}"
     could_not_reply: "Der Tutor konnte nicht antworten: {error}"
     last_exercise: Das war vorerst die letzte Übung. Chatte weiter oder wähle eine andere Lektion.
-    own_key: "Eigenen API-Schlüssel nutzen"
-  hosted_label: "{app} AI"
-  disclosure_hosted: "Deine Nachrichten werden mit dem Schlüssel dieses Servers an den KI-Anbieter gesendet, den er verwendet."
-  hosted_included: "{hosted} (inklusive)"
 courses:
   # What a new course from "Create a course" starts with, in the author's app language (#1255).
   starter:
@@ -2619,7 +2606,6 @@ courses:
     only_finished: "Nur bei einem fertigen Kurs lassen sich vorhandene Inhalte ändern. Schalte Änderungen an vorhandenen Inhalten erlauben aus, dann fügt die KI nur hinzu."
     another_started: Eine andere Änderung an diesem Kurs hat gerade begonnen. Warte, bis sie fertig ist.
     lesson_gone: "Diese Lektion ist nicht mehr im Kurs. Lade die Seite neu und versuche es noch einmal."
-    hosted_uses: "Nutzt das {hosted}, das in deinem Konto enthalten ist."
     # The (i) by the box: example requests to click into it (#1236).
     examples_info: Was kann die KI?
     examples_title: Was kann die KI?
@@ -2679,7 +2665,7 @@ courses:
     depth_outline: "Gliederung (jede Lektion in Kurzform)"
     estimate_about: "Wie die Schätzung berechnet wird"
     estimate_title: "Über die Schätzung"
-    estimate_how: "Das Modell bekommt eine Anfrage für die Gliederung und eine für jede Lektion. Jede Anfrage enthält die Referenz zum Kursformat und dein Material, mehr Material kostet also mehr. Mit deinem eigenen Schlüssel ist der Preis der Listenpreis des Anbieters für das Modell, das die App nutzt, zu einem festen Kurs von US- in kanadische Dollar umgerechnet. Mit {hosted} ist es der Anteil am Kontingent dieses Monats, den der Auftrag braucht."
+    estimate_how: "Das Modell bekommt eine Anfrage für die Gliederung und eine für jede Lektion. Jede Anfrage enthält die Referenz zum Kursformat und dein Material, mehr Material kostet also mehr. Mit deinem eigenen Schlüssel ist der Preis der Listenpreis des Anbieters für das Modell, das die App nutzt, zu einem festen Kurs von US- in kanadische Dollar umgerechnet."
     estimate_rough: "Das ist ein grober Richtwert, kein Versprechen. Eine Lektion, die das Modell neu schreiben muss, kostet mehr und dauert länger. Kennt die App den Preis eines Modells nicht, zeigt sie nur die Zeit."
     provider_legend: Dein KI-Anbieter
     advanced: "Erweitert: die Anweisungen an die KI bearbeiten"
@@ -2723,8 +2709,6 @@ courses:
     in_line: "Du bist Nummer {n} in der Warteschlange."
     cancelling_revision: "Wird abgebrochen: Der Kurs bleibt, wie er war."
     cancelling_generation: "Wird abgebrochen: Der Kurs hört nach der gerade geschriebenen Lektion auf."
-    sent_to_hosted_choice_html: "Deine Notizen werden an <span id=\"gen-disclosure-provider\">den KI-Anbieter gesendet, den dieser Server verwendet</span><span id=\"gen-disclosure-key\" hidden>, mit deinem Schlüssel</span>."
-    sent_to_hosted: "Deine Notizen werden an den KI-Anbieter gesendet, den dieser Server verwendet."
   undo:
     undo: Rückgängig
     redo: Wiederholen
@@ -2860,7 +2844,6 @@ courses:
     form_add_key: Schlüssel hinzufügen
     form_kind: Art
     form_option: "Option {n}"
-    hosted_provider: "der KI-Anbieter, den dieser Server verwendet"
     estimate_lessons:
       one: "{n} Lektion"
       other: "{n} Lektionen"
@@ -2953,10 +2936,6 @@ courses:
     shared_title: Mit dir geteilt
     shared_body: "Dieser Kurs gehört {owner}, der ihn mit dir geteilt hat. Du kannst mit deinem eigenen Fortschritt daraus lernen; nur {owner} kann die Lektionen ändern."
     ok: OK
-  ai_out:
-    own_key: "Eigenen API-Schlüssel nutzen"
-  hosted:
-    not_offered: "{hosted} ist auf diesem Server nicht eingerichtet. Füge in deinem Profil einen eigenen API-Schlüssel hinzu."
 motivator:
   stats:
     title: "Statistiken und Kennzahlen"

@@ -649,7 +649,6 @@ profile:
     too_long: "Cette clé est trop longue pour une clé d'API (max. {max} caractères)."
     bad_chars: Une clé d'API ne contient que des lettres, des chiffres et de la ponctuation, sans espaces.
     wrong_provider: "Cela ne ressemble pas à une clé {provider} : elles commencent par {prefix}."
-    about_hosted: "Le tuteur IA, « Générer le cours » et « Utiliser l'IA » appellent ces fournisseurs avec votre clé, facturés sur votre compte, sans toucher à votre {hosted}."
   data:
     export_download: "Télécharger mes données"
     export_building_no_mail: "Vos données sont en cours de préparation. Quand elles seront prêtes, un bouton Télécharger apparaîtra ici."
@@ -772,15 +771,7 @@ superuser:
     other: "Annonce en file pour {n} comptes."
   js:
     copied: "Copié"
-  ai_today: "{hosted} aujourd'hui, tout le monde"
-  ai_today_about: "À propos de {hosted} aujourd'hui"
-  ai_today_info: "Ce que tout le monde a dépensé aujourd'hui (UTC) en {hosted}, face au plafond quotidien du serveur de {cap}. Au plafond, {hosted} est en pause pour tous jusqu'à minuit UTC ; les clés d'API personnelles fonctionnent toujours. Seuls les superutilisateurs voient ceci ; les apprenants ne voient que leur propre mois."
-  ai_today_spent: "{spent} sur {cap} · remis à zéro à minuit UTC"
 
-ai_refused:
-  daily_cap: "{hosted} est en pause pour aujourd'hui : le serveur a atteint sa limite de dépenses quotidienne. Il revient après minuit UTC ; votre propre clé d'API fonctionne toujours."
-  rate: "Cela fait beaucoup de requêtes IA en une minute. Patientez un instant, puis réessayez."
-  job_daily_cap: "L'IA s'est arrêtée : {hosted} est en pause pour aujourd'hui (le serveur a atteint sa limite de dépenses quotidienne). Rien de ce qui a été écrit n'est perdu ; continuez après minuit UTC, ou avec votre propre clé d'API."
 
 landing:
   title: "Apprends n'importe quoi à partir d'un dossier de fichiers JSON"
@@ -2181,10 +2172,6 @@ tutor:
     lesson_passed: "✓ Leçon réussie : {title}"
     could_not_reply: "Le tuteur n'a pas pu répondre : {error}"
     last_exercise: "C'était le dernier exercice pour l'instant. Continuez à discuter, ou revenez choisir une autre leçon."
-    own_key: "Utiliser votre propre clé d'API"
-  hosted_label: "{app} AI"
-  disclosure_hosted: "Vos messages sont envoyés au fournisseur d'IA que ce serveur utilise, avec sa clé."
-  hosted_included: "{hosted} (inclus)"
 courses:
   # What a new course from "Create a course" starts with, in the author's app language (#1255).
   starter:
@@ -2619,7 +2606,6 @@ courses:
     only_finished: "Seul un cours terminé peut voir son contenu existant modifié. Désactivez Autoriser les modifications du contenu existant, et l'IA ne fera qu'ajouter."
     another_started: Une autre modification de ce cours vient de commencer. Attendez qu'elle soit terminée.
     lesson_gone: "Cette leçon n’est plus dans le cours. Rechargez la page et réessayez."
-    hosted_uses: "Utilise le {hosted} inclus avec votre compte."
     # The (i) by the box: example requests to click into it (#1236).
     examples_info: Que peut faire l'IA ?
     examples_title: Que peut faire l'IA ?
@@ -2679,7 +2665,7 @@ courses:
     depth_outline: "Plan (chaque leçon, en bref)"
     estimate_about: "Comment l'estimation est calculée"
     estimate_title: "À propos de l'estimation"
-    estimate_how: "Le modèle reçoit une requête pour le plan et une pour chaque leçon. Chaque requête contient la référence du format de cours et votre matériel : plus de matériel coûte plus cher. Avec votre propre clé, le coût est le prix catalogue du fournisseur pour le modèle que l'app utilise, converti de dollars américains en dollars canadiens à un taux fixe. Avec {hosted}, c'est la part de l'allocation de ce mois que prend la tâche."
+    estimate_how: "Le modèle reçoit une requête pour le plan et une pour chaque leçon. Chaque requête contient la référence du format de cours et votre matériel : plus de matériel coûte plus cher. Avec votre propre clé, le coût est le prix catalogue du fournisseur pour le modèle que l'app utilise, converti de dollars américains en dollars canadiens à un taux fixe."
     estimate_rough: "C'est un ordre de grandeur, pas une promesse. Une leçon que le modèle doit réécrire coûte plus et prend plus de temps. Quand l'app ne connaît pas le prix d'un modèle, elle n'affiche que le temps."
     provider_legend: Votre fournisseur d'IA
     advanced: "Avancé : modifier les instructions données à l'IA"
@@ -2723,8 +2709,6 @@ courses:
     in_line: "Vous êtes le numéro {n} dans la file d'attente."
     cancelling_revision: "Annulation : le cours reste tel qu'il était."
     cancelling_generation: "Annulation : le cours s'arrête après la leçon en cours d'écriture."
-    sent_to_hosted_choice_html: "Vos notes sont envoyées à <span id=\"gen-disclosure-provider\">le fournisseur d'IA que ce serveur utilise</span><span id=\"gen-disclosure-key\" hidden> avec votre clé</span>."
-    sent_to_hosted: "Vos notes sont envoyées au fournisseur d'IA que ce serveur utilise."
   undo:
     undo: Annuler
     redo: Rétablir
@@ -2860,7 +2844,6 @@ courses:
     form_add_key: Ajouter une clé
     form_kind: Type
     form_option: "option {n}"
-    hosted_provider: "le fournisseur d'IA que ce serveur utilise"
     estimate_lessons:
       one: "{n} leçon"
       other: "{n} leçons"
@@ -2953,10 +2936,6 @@ courses:
     shared_title: Partagé avec vous
     shared_body: "Ce cours appartient à {owner}, qui l'a partagé avec vous. Vous pouvez le suivre avec votre propre progression ; seul {owner} peut modifier ses leçons."
     ok: OK
-  ai_out:
-    own_key: "Utiliser votre propre clé d'API"
-  hosted:
-    not_offered: "{hosted} n'est pas configuré sur ce serveur. Ajoutez votre propre clé d'API dans votre profil."
 motivator:
   stats:
     title: "Statistiques et mesures"

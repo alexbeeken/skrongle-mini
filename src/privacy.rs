@@ -125,7 +125,7 @@ pub const EXPORTED: &[(&str, &[&str])] = &[
     ),
     ("plan_grants", &["user_id", "granted_at", "expires_at", "note"]),
     ("plan_cancellations", &["id", "user_id", "plan", "reason", "feedback", "created_at"]),
-    // Skrongle AI metering (#299): what each model call cost, and the credit packs bought.
+    // The old AI meter's rows (#299, gone with #52): what each model call cost, and the credit packs bought.
     (
         "ai_usage",
         &[

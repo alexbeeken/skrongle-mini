@@ -47,7 +47,7 @@
 
   <footer class="t-foot">
     <div class="t-chars" id="chars" hidden aria-label="{{ crate::t("tutor.chars_label") }}"></div>
-    {% for p in providers %}{% if p.selected %}<p class="t-disclosure small" data-testid="ai-disclosure">{% if p.id == "hosted" %}{{ crate::t("tutor.disclosure_hosted") }}{% else %}{{ crate::t1("tutor.disclosure", "provider", p.label) }}{% endif %}</p>{% endif %}{% endfor %}
+    {% for p in providers %}{% if p.selected %}<p class="t-disclosure small" data-testid="ai-disclosure">{{ crate::t1("tutor.disclosure", "provider", p.label) }}</p>{% endif %}{% endfor %}
     <form id="composer" data-testid="tutor-form" class="t-composer" autocomplete="off">
       <textarea id="say" data-testid="tutor-input" rows="1" maxlength="1000" placeholder="{{ crate::t("tutor.placeholder") }}" aria-label="{{ crate::t("tutor.input_label") }}" autocapitalize="sentences"></textarea>
       <button type="submit" class="t-send" id="send" data-testid="tutor-send" aria-label="{{ crate::t("tutor.send") }}">➤</button>
