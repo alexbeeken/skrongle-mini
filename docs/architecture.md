@@ -49,12 +49,12 @@ under `static/`, `templates/` or `data/` is missing from this list.
 - Two-factor: `two_factor.rs`, `totp.rs`.
 - Profile: `profile.rs`, `routes/profile.rs`, `static/profile.js`, `static/autosave.js`; keys in `secrets.rs`.
 - Data rights: `privacy.rs` (export columns, deletion), `exports.rs` (Download my data), `consent.rs` (optional consents for the Privacy and consent card), `account_deletion.rs` and `routes/account_deletion.rs` (deleting an account after 14 days, #970).
-- Plans: `billing.rs`, `routes/billing.rs`. Terms: `terms.rs`, `routes/terms.rs`. Owner and superuser: `owner.rs`, `routes/superuser.rs`, `routes/password.rs` (temporary password gate).
+- Terms: `terms.rs`, `routes/terms.rs`. Owner and superuser: `owner.rs`, `routes/superuser.rs`, `routes/password.rs` (temporary password gate).
 - Docs pages: `routes/docs.rs` (`/docs` sidebar `SECTIONS`, `/llms.txt`).
 
 ### Dev mode only
 
-- `dev.rs` + `routes/dev.rs` (`/dev/login`, mailbox; `routes/dev/jobs_page.rs` is `/dev/jobs`), `dev_ai.rs` + `routes/dev_ai.rs` (`/dev/ai`, fixtures in `data/test-fixtures/`), `dev_payments.rs` + `routes/dev_payments.rs` (stand-in Stripe), `dev_crowd.rs` (made-up learners), `static/devbox.js`.
+- `dev.rs` + `routes/dev.rs` (`/dev/login`, mailbox; `routes/dev/jobs_page.rs` is `/dev/jobs`), `dev_ai.rs` + `routes/dev_ai.rs` (`/dev/ai`, fixtures in `data/test-fixtures/`), `dev_crowd.rs` (made-up learners), `static/devbox.js`.
 
 ### Elsewhere
 
@@ -91,17 +91,16 @@ src/
   signup.rs      who may make an account (SKRONGLE_SIGNUP: open / invite / closed, #634): the first account is the owner, through the owner link written to the log at startup, invitation links (table signup_invites, the token hashed), the Superuser page's Accounts part and invitation links (routes/superuser.rs)
 
   account_deletion.rs  the learner's own account deletion after 14 days of grace (#970): users.delete_at, signing out, the dated mail, the hourly job housekeeping.deletions that deletes due accounts
-  shape.rs       the two shapes (#578): SKRONGLE_MINI=1 is Skrongle mini, unset is the hosted site; read once at startup (shape::current, crate::is_mini); a mini has no plans (has_plans) and crate::env reads the hosted-only settings (HOSTED_ONLY: mail, SMS, Google, Stripe, S3) as unset
+  shape.rs       the two shapes (#578): SKRONGLE_MINI=1 is Skrongle mini, unset is the hosted site; read once at startup (shape::current, crate::is_mini); in a mini crate::env reads the hosted-only settings (HOSTED_ONLY: mail, SMS, Google, S3) as unset
   share.rs       sharing a course with other learners by e-mail address (#451): invitations (table course_shares, the link's token hashed), who may open a shared course, the message
   verify.rs      e-mail verification: link tokens (table email_verifications, SHA-256 only), confirm, the message, the link's host (SKRONGLE_PUBLIC_URL or the request)
   reset.rs       password reset links (table password_resets, SHA-256 only, 1 h, single use), the "you already have an account" message, which unconfirmed accounts a registration replaces (SKRONGLE_UNCONFIRMED_DAYS)
   totp.rs        time-based one-time passwords: RFC 6238 TOTP over RFC 4226 HOTP (SHA-1 written out, SHA-256/512 via sha2), base32, the otpauth://totp/ Key Uri Format and its QR code as inline SVG (the qrcode crate, no image feature); the dev authenticator (/dev/authenticator) reads its keys with it
   two_factor.rs  two-factor sign-in: the method in use, the authenticator app's enrolment, sign-in challenges, the proof for turning it off (tables totp_keys, two_factor_challenges, two_factor_confirmations)
   terms.rs       Terms of Service: the source (built-in text or SKRONGLE_TERMS file), the built-in changelog (docs/terms-changes.json) and the version in effect, the notice of a newer version (minor or material), acceptances, the 30-day e-mail of a material change, sent from /superuser (table terms_announcements)
-  billing.rs     paid subscriptions: who is premium (Stripe subscription or grant; everyone in Skrongle mini, plans_on), RequirePremium, webhook signature + events, Stripe Checkout/Portal calls
   profile.rs     user profiles: name/e-mail validation, profile persistence
   secrets.rs     learners' AI API keys: master secret, ChaCha20-Poly1305 sealing, per-user storage; the sealed server key
-  metering.rs    Skrongle AI: the server's key, model per purpose, price table, ai_usage rows, monthly allowance (none in Skrongle mini), credits, job reservations, daily cap, rate limit; Meter::call, the gate every model call goes through (docs/pricing.md)
+  metering.rs    Skrongle AI: the server's key, model per purpose, price table, ai_usage rows, job reservations, daily cap, rate limit; Meter::call, the gate every model call goes through
   server.rs      the listener: header and body timeouts, a connection cap (axum::serve plus limits)
   security.rs    security headers and the cross-site (CSRF) check on every request, client address, rate limits
   tutor.rs       AI tutoring: in-memory chat sessions, exercise picking, prompts, the reply markers ([[ask]], [[skip]], [[answer: …]]), the model call thread
@@ -133,7 +132,6 @@ src/
   translate.rs   copy and translate a course (#630): which texts the AI translates, one file's request and reply, putting the translations back
   error.rs       AppError -> HTTP responses (incl. redirects to /login and /courses)
   dev_ai.rs      the dev AI provider's logic (#297): key profiles (platform, learner), usage limits and their quota errors, injected failures, the fixture reply for a wire request, Manual replies (held requests), the call log; in memory
-  dev_payments.rs the dev payment provider (#314): a Stripe stand-in's state (prices, customers, Checkout sessions, subscriptions, invoices and one-off payments, events, the log) and its rules (pay, decline, renew, fail a renewal, cancel, refund), each returning the events to deliver; dev mode's Stripe settings; in memory
   dev_crowd.rs   a crowd of made-up learners with weeks of backdated history (SKRONGLE_DEV_SEED_USERS, #583), written through the modes' own progress functions; deterministic per learner
   dev.rs         local testing (SKRONGLE_DEV): the gate, the dev user (seed with the simulator's keys, reset), SKRONGLE_LLM_MODE and the dev AI provider's default base URLs, the fixture directory and its in-memory edits, held requests on disk (Manual replies on /dev/ai)
   test_course.rs tests only: keep the test course covering every feature (schema, aliases, quiz types, exercises)
@@ -160,10 +158,8 @@ src/
     account_deletion.rs  /account/deletion (the only page of an account scheduled for deletion: its date, Cancel deletion, Log out)
     password.rs  /password/change (the gate after signing in with a temporary password: the new one twice, no old one)
     superuser.rs /superuser (superusers only, 404 otherwise: every account 25 to a page with Temporary password, Turn off two-factor and Reset email verification per row; invitation links under SKRONGLE_SIGNUP=invite; Skrongle AI today, everyone, against the daily cap; while a material terms change is coming, a notice and Send the announcement), POST /superuser/reset-email-verification|invites|invites/revoke|temp-password|two-factor-off|terms-announce
-    profile.rs   /profile (personal information, account, subscription with the plans and cancel modals, Skrongle AI this month as a bar (Plus), AI API keys with the own-keys pill (Plus), ), POST /api/profile (autosave), POST /profile/password|api-keys…|own-keys|verify-email/resend, POST /profile/export (queue "Download my data"), GET /profile/export/download?token=… (the mailed link), POST /profile/delete
-    dev_payments.rs /dev/payments/stripe/v1/* (Stripe's API), the hosted Checkout and Billing Portal pages, the dev mailbox's Payments section; delivers signed webhooks to /billing/webhook on a thread of its own
-    billing.rs   POST /billing/cancel (reason + feedback; Stripe ends it with the month), /billing/checkout (a plan from the modal; a paying learner goes to the portal), /billing/credits (on the account's one Stripe customer, named by its billing_ref), /billing/portal (redirects to Stripe), /billing/webhook (Stripe's signed events); none of them exist in Skrongle mini
-    hosted.rs    Skrongle AI on the pages: who is offered it (hosted_offer: the plan includes some, or credits), whether own keys may be used (own_keys_usable: Plus only with the pill on; always with plans off), the provider for one call, "Skrongle AI left this month: 83 %" (not with plans off), OutOfAi (upgrade / pack / own key buttons when it does not cover a job)
+    profile.rs   /profile (personal information, account, AI API keys), POST /api/profile (autosave), POST /profile/password|api-keys…|verify-email/resend, POST /profile/export (queue "Download my data"), GET /profile/export/download?token=… (the mailed link), POST /profile/delete
+    hosted.rs    Skrongle AI on the pages: the provider for one call on the server's key (hosted_provider), OutOfAi (the own-key button when it does not cover a job)
     pages.rs     / (landing for visitors, home: the three modes) /lessons /lessons/{slug} /history /mistakes, POST /api/lessons/{slug}/note (the lesson note, autosave)
     map.rs       /map
     quiz.rs      /practice, POST /api/answer (grade_and_record: the one grading path for every mode), POST /api/lesson-check (the reading check)
@@ -610,20 +606,19 @@ and no mail provider (#633). `shape.rs` reads `SKRONGLE_MINI` once
 at startup (`Shape::Mini` or `Shape::Hosted`, `shape::current()`,
 `crate::is_mini()`); nothing else reads the variable (a test checks).
 A mini has none of the hosted site's production features and no second
-switch for any of them: plans are off (`Shape::has_plans`, below), and
-`crate::env` reads the settings in `shape::HOSTED_ONLY` (the mail
-provider, Google, Stripe) as unset, so those
+switch for any of them: `crate::env` reads the settings in `shape::HOSTED_ONLY` (the mail
+provider) as unset, so those
 features are off wherever they are read; the startup log names any that
-are set and ignored. Dev mode's stand-ins for them (the dev mailbox,
-simulated Stripe) are off in a mini too. `SKRONGLE_PLANS` is
+are set and ignored. Dev mode's stand-in for it (the dev mailbox) is off
+in a mini too. `SKRONGLE_PLANS` is
 gone; a server that still sets it logs a warning. The startup
 line and `/healthz` (`ok skrongle mini <version>`) say which shape runs.
 Self-hosting the full build is not supported: outside mini and dev mode the
-server refuses to start until e-mail (`SKRONGLE_MAIL_PROVIDERS`) and Stripe
-(`SKRONGLE_STRIPE_SECRET_KEY`) are all set (`require_providers` in `main.rs`).
+server refuses to start until e-mail (`SKRONGLE_MAIL_PROVIDERS`) is set
+(`require_providers` in `main.rs`).
 It also refuses to start without `SKRONGLE_SECURE_COOKIES=1` (the hosted site
 is served over HTTPS) and with `SKRONGLE_PROXY_AUTH_*` set (proxy sign-in is
-a mini feature; #980). The dev server's mailbox and Stripe stand in for them. The
+a mini feature; #980). The dev server's mailbox stands in for it. The
 release tarballs are `skrongle-<version>-<arch>.tar.gz`
 (`routes::docs::RELEASE_TARBALL`, `scripts/package-release.sh`); each
 carries `terms.example.md` for `SKRONGLE_TERMS`. The pitch and the security
@@ -648,23 +643,15 @@ posture are in `docs/self-hosting.md`, "Skrongle mini".
 | `SKRONGLE_BASE_PATH` | *(empty)* | URL prefix when mounted behind a reverse proxy, e.g. `/spanish` |
 | `SKRONGLE_PUBLIC_URL` | — | Public URL, for the links in e-mail (unset: links use the request's host, `X-Forwarded-Host` behind a proxy) |
 | `SKRONGLE_MINI` | unset (*mini:* `1`) | `1`: the server is a Skrongle mini (`shape.rs`); unset: the hosted site. Anything but `1`, `true`, `0`, `false` or unset refuses to start. Read once at startup, directly (no older spelling) |
-| *(plans)* | on (*mini:* off) | Follow the shape (`shape::Shape::has_plans`); there is no setting. Off in a mini: no plans or payments. Every account counts as Plus (`billing::plans_on`, the one switch every gate asks), the profile shows no Subscription section or plans modal, `/billing/*` answers 404 (Stripe settings are ignored), and `SKRONGLE_AI_KEY` is shared by every account with no monthly allowance: only `SKRONGLE_AI_DAILY_CAP` and `SKRONGLE_AI_RATE_PER_MINUTE` guard it |
-| `SKRONGLE_STRIPE_SECRET_KEY` / `_WEBHOOK_SECRET` / `_PRICE_ID` | — | Enable paid subscriptions (all three plus `SKRONGLE_PUBLIC_URL`); see [Subscriptions](features#subscriptions) |
-| `SKRONGLE_STRIPE_PRICE_ID_BASIC` | — | The Basic plan's recurring price, not the same as `SKRONGLE_STRIPE_PRICE_ID`: the webhook takes the plan from the subscription's price, never its metadata (#963). Required on the hosted site; unset, Basic is not sold |
-| `SKRONGLE_STRIPE_PRICE_LABEL` | `Monthly` | What a Stripe-sold subscription is said to cost; the profile's plan chooser prices Basic and Plus itself (`billing::Plan`) |
-| `SKRONGLE_STRIPE_API_URL` | `https://api.stripe.com` | Where Stripe calls go; for pointing at a mock (dev mode without `SKRONGLE_STRIPE_*`: the dev payment provider) |
-| `SKRONGLE_DEV_STRIPE` | `1` | Dev mode only, without real `SKRONGLE_STRIPE_*` settings: `0` turns off the [dev payment provider](testing#payments-the-dev-payment-provider) (`/dev/payments`) that otherwise stands in for Stripe with fake keys |
-| `SKRONGLE_AI_KEY` | — | The server's own AI key: turns Skrongle AI on (see [Skrongle AI](features#skrongle-ai-allowances-and-credits) and [Pricing](pricing)). Read once, removed from the environment, kept sealed in memory. Unset: every AI feature uses learners' own keys. `./.dev-start` and `scripts/e2e.sh` set it to the simulator's platform key `sk-ant-dev-platform` |
+| `SKRONGLE_AI_KEY` | — | The server's own AI key: turns Skrongle AI on (see [Skrongle AI](features#skrongle-ai)). Read once, removed from the environment, kept sealed in memory. Unset: every AI feature uses learners' own keys. `./.dev-start` and `scripts/e2e.sh` set it to the simulator's platform key `sk-ant-dev-platform` |
 | `SKRONGLE_AI_PROVIDER` | `anthropic` | What the server's key is for: `anthropic`, `openai` or `google` |
 | `SKRONGLE_AI_BASE_URL` | *(the provider's)* | Where hosted calls go |
 | `SKRONGLE_AI_MODEL_TUTOR` | `claude-haiku-5-5` | Skrongle AI's model for the tutor |
 | `SKRONGLE_AI_MODEL_COURSES` | `claude-sonnet-5-5` | Skrongle AI's model for generating, revising and adding lessons |
 | `SKRONGLE_AI_PRICES` | see `metering::DEFAULT_PRICES` | `model=in/out[/cached],…` in dollars per million tokens, added to (or replacing) the built-in table of Anthropic's list prices; `*` prices unknown models (default: the dearest rate) |
-| `SKRONGLE_AI_ALLOWANCE_PLUS` | `1.50` | Dollars of Skrongle AI a month on the Plus plan (CA$15 a month). Only Plus has an allowance; Free and Basic bring their own keys or buy credit packs (#931). Learners see it as a bar, never in dollars. The old name `SKRONGLE_AI_ALLOWANCE_PRO` is still read |
 | `SKRONGLE_AI_ALLOWANCE_FREE` | `0` | Dollars of Skrongle AI a new account gets once, as credits, when its address is first confirmed (a link or a password reset; #931). Not monthly, and accounts made before v87 get nothing. Spent like bought credits, on any plan |
 | `SKRONGLE_AI_DAILY_CAP` | `10.00` | Skrongle AI spend across all learners per UTC day; past it hosted calls stop and the log says `ALERT` |
 | `SKRONGLE_AI_RATE_PER_MINUTE` | `12` | Skrongle AI requests one account may start per minute |
-| `SKRONGLE_AI_CREDIT_PACKS` | *(none)* | `price_id:credit dollars:label,…` credit packs sold through Stripe Checkout (needs Stripe), e.g. `price_x:3.00:$5` |
 | `SKRONGLE_LEGAL_EMAIL` | — | Copyright / legal contact shown on `/terms` in place of `[CONTACT EMAIL]` (built-in text only); self-hosters set their own. Unset: the placeholder shows. The hosted site uses `privacy@skrongle.com` |
 | `SKRONGLE_SUPPORT_EMAIL` | — | Hosted: the help address (`support@skrongle.com`), shown on `/terms` in place of `[SUPPORT EMAIL]` and the `Reply-To` of every e-mail, so a reply to the no-reply sender reaches support. Unset: `/terms` shows `SKRONGLE_LEGAL_EMAIL` there and mail has no `Reply-To` |
 | `SKRONGLE_TERMS` | `builtin` (*mini:* `/etc/skrongle/terms.md`) | The Terms of Service text: `builtin` (`docs/terms.md`, versioned by `docs/terms-changes.json`; see [features](features#terms-of-service)) or the path of the self-hoster's own Markdown file, served as it is at `/terms` with the first 16 hex characters of its SHA-256 as the version, so editing it asks every account to accept again. A missing, unreadable or empty file refuses to start, naming the variable and the path. No older spelling (read directly). `deploy/skrongle.service` sets `/etc/skrongle/terms.md` |
@@ -819,7 +806,7 @@ writable path, and a release never touches the database.
   `Content-Type: application/json`, and every POST from another site is
   refused with a 403 before its handler runs (`security::csrf`: the
   browser's `Sec-Fetch-Site`, or else `Origin` against `Host`); requests with
-  neither header (curl, agents) pass. Stripe's webhook is exempt (signed).
+  neither header (curl, agents) pass.
 - Every response carries `Content-Security-Policy` (`security::CSP`: scripts
   and styles from the app only, `frame-ancestors 'none'`), `X-Frame-Options:
   DENY`, `X-Content-Type-Options: nosniff` and `Referrer-Policy:
@@ -880,16 +867,10 @@ writable path, and a release never touches the database.
   an XML prologue); they are served with `Content-Security-Policy:
   default-src 'none'` so a script inside one does not run even when the file
   is opened directly, and `nosniff`.
-- Subscriptions: the plan changes only on a Stripe webhook whose
-  `Stripe-Signature` (HMAC-SHA256 of `<t>.<body>` under the endpoint's
-  secret) matches and whose timestamp is within five minutes; nothing the
-  browser sends can make a learner premium. The Stripe secret key never
-  leaves the server; card details never reach it (Checkout and the Portal
-  are Stripe's pages).
 - The server's AI key (`SKRONGLE_AI_KEY`) is taken out of the process
   environment at boot and held only sealed (the vault, its own associated
   data); it is opened for one call at a time and never logged or rendered.
-  The allowances, the daily cap and the per-account rate limit bound
+  The daily cap and the per-account rate limit bound
   hosted spend, and each is checked before a call is made.
 - API keys pasted into the course generator are used for that job only and
   never stored. Keys saved on the profile page (`src/secrets.rs`) are sealed
@@ -911,8 +892,7 @@ writable path, and a release never touches the database.
   `privacy::USER_TABLES` a page at a time, the columns in
   `privacy::EXPORTED`, into `<db>.exports/`) and deletes the account (`POST /profile/delete`: the password,
   or for an account without one the e-mail address typed out plus its
-  second step's code, if it has one; refused while a
-  Stripe subscription would keep billing). Deletion stops the account's
+  second step's code, if it has one). Deletion stops the account's
   generation jobs, tutor chats and games in memory, removes the `users` row
   (every user table cascades from it) and the caches of its courses, and clears the cookie.
 - Logs name users by id, never by name or address; model errors are scrubbed of

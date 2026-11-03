@@ -26,23 +26,13 @@ fn scheduling_signs_out_and_waits_fourteen_days() {
     assert_eq!(mails, 1, "the date is mailed");
     assert_eq!(db.with(|c| schedule(c, 999, now, false)).unwrap(), None);
 
-    // Bea's cancelled plan is paid for 40 more days: the deletion waits for its end.
-    db.with(|c| {
-        c.execute(
-            "INSERT INTO subscriptions (user_id, customer_id, subscription_id, status, current_period_end, cancel_at_period_end, event_at, updated_at) VALUES (?1, 'cus_b', 'sub_b', 'active', ?2, 1, 1, 1)",
-            params![bea, now + 40 * DAY],
-        )
-    })
-    .unwrap();
-    assert_eq!(db.with(|c| due_date(c, bea, now)).unwrap(), now + 40 * DAY);
-    assert_eq!(db.with(|c| schedule(c, bea, now, false)).unwrap(), Some(now + 40 * DAY));
+    assert_eq!(db.with(|c| schedule(c, bea, now, false)).unwrap(), Some(now + 14 * DAY));
 
     assert!(db.with(|c| due(c, now + 14 * DAY - 1)).unwrap().is_empty());
-    assert_eq!(db.with(|c| due(c, now + 14 * DAY)).unwrap(), vec![ann]);
-    assert_eq!(db.with(|c| due(c, now + 40 * DAY)).unwrap(), vec![ann, bea]);
+    assert_eq!(db.with(|c| due(c, now + 14 * DAY)).unwrap(), vec![ann, bea]);
     assert!(db.with(|c| cancel(c, ann)).unwrap());
     assert!(!db.with(|c| cancel(c, ann)).unwrap(), "nothing left to cancel");
-    assert_eq!(db.with(|c| due(c, now + 40 * DAY)).unwrap(), vec![bea]);
+    assert_eq!(db.with(|c| due(c, now + 14 * DAY)).unwrap(), vec![bea]);
 }
 
 /// The due-accounts query reads the partial index, not the whole table.

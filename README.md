@@ -49,7 +49,6 @@ the app's *Host it yourself* page (`/self-host`, linked from `/docs`), or
 | | Hosted | Skrongle mini |
 |---|---|---|
 | Who signs up | Anyone (`SKRONGLE_SIGNUP=open`) | Only people the owner invites (`invite`) |
-| Plans and payments | Free / Basic / Plus, Stripe | None: everyone has everything (`SKRONGLE_MINI=1` turns them off) |
 | E-mail | Sent through providers | None: links are shown in the page |
 | Terms of Service | The service's own | Yours (`SKRONGLE_TERMS=/etc/skrongle/terms.md`) |
 | Background work | In process, in SQLite | The same: no Redis or queue service |

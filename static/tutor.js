@@ -93,27 +93,15 @@
     scrollDown();
   }
   // Skrongle AI did not cover the turn (nothing was cut off: the model was
-  // never asked). Offer the ways on: upgrade and credits when sold, an own key.
+  // never asked). Offer the way on: an own key.
   function addOutOfAi(text, kind) {
     var box = el("div", "msg system error ai-out", esc(text) + "<br>");
     box.setAttribute("data-testid", "tutor-out-of-ai");
     box.dataset.kind = kind;
-    if (document.body.dataset.upgrade === "true") {
-      var up = el("a", "", esc(t('tutor.js.upgrade_plus')));
-      up.href = base + "/profile?plans=1#subscription";
-      up.setAttribute("data-testid", "tutor-upgrade");
-      box.appendChild(up);
-    }
     var key = el("a", "", esc(t('tutor.js.own_key')));
     key.href = base + "/profile#api-keys";
     key.setAttribute("data-testid", "tutor-own-key");
     box.appendChild(key);
-    if (document.body.dataset.credits === "true") {
-      var buy = el("a", "", esc(t('tutor.js.buy_credits')));
-      buy.href = base + "/profile#ai-usage";
-      buy.setAttribute("data-testid", "tutor-buy-credits");
-      box.appendChild(buy);
-    }
     thread.appendChild(box);
     scrollDown();
   }
@@ -256,10 +244,6 @@
     else if (resp.error && cancelling) addSystem(t('tutor.js.cancelled'), false);
     else if (resp.error) addSystem(t('tutor.js.could_not_reply', { error: resp.error }), true);
     cancelling = false;
-    // Skrongle AI ran out and the learner's own key took over (their choice on the profile).
-    if (resp.notice) addSystem(resp.notice, false);
-    var left = document.getElementById("ai-left");
-    if (left && resp.ai_left) left.textContent = resp.ai_left;
     if (!resp.pending && pending) setPending(null);
     var resolved = resp.entries.some(function (e) { return e.kind === "answer" || e.kind === "skipped"; });
     if (resp.done && resolved) addSystem(t('tutor.js.last_exercise'));

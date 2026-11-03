@@ -115,66 +115,6 @@
     });
   })();
 
-  // The plans modal: pick a plan card, then "Pay with Stripe · price". The
-  // form posts (a real navigation) to /billing/checkout, which sends the
-  // browser to Stripe's Checkout page (dev mode's stand-in, #314, in dev);
-  // only Stripe's signed webhook sets the plan (#963). A learner already
-  // paying is sent to the Billing Portal instead.
-  var plansForm = document.querySelector("[data-testid=plans-form]");
-  if (plansForm) (function () {
-    var purchase = plansForm.querySelector("[data-testid=plans-purchase]");
-    function picked() { return plansForm.querySelector("input[name=plan]:checked"); }
-    function sync() {
-      var p = picked();
-      var price = p ? " · " + p.closest("[data-plan]").dataset.price : "";
-      purchase.textContent = t("profile.js.pay_with_stripe") + price;
-      plansForm.dataset.picked = p ? p.value : "";
-    }
-    plansForm.querySelectorAll("input[name=plan]").forEach(function (r) { r.addEventListener("change", sync); });
-    sync();
-    plansForm.addEventListener("submit", function (e) {
-      if (!picked() || purchase.disabled) { e.preventDefault(); return; }
-      purchase.disabled = true;
-    });
-  })();
-
-  // Plus: "use my keys when my Skrongle AI limit is hit". The pill posts in
-  // place (POST /profile/own-keys, JSON) and shows or hides the key rows.
-  var ownForm = document.querySelector("[data-testid=profile-own-keys-form]");
-  if (ownForm) (function () {
-    var sw = ownForm.querySelector("[data-testid=profile-own-keys-switch]");
-    var body = document.querySelector("[data-testid=profile-own-keys-body]");
-    var card = document.querySelector("[data-testid=profile-api-keys]");
-    var busy = false;
-    ownForm.addEventListener("submit", function (e) {
-      e.preventDefault();
-      if (busy) return;
-      busy = true;
-      sw.setAttribute("aria-busy", "true");
-      var on = ownForm.elements.on.value === "1";
-      fetch(base + "/profile/own-keys", {
-        method: "POST",
-        credentials: "same-origin",
-        headers: { accept: "application/json", "content-type": "application/x-www-form-urlencoded" },
-        body: "on=" + (on ? "1" : "0")
-      }).then(function (r) {
-        if (!r.ok) throw new Error("HTTP " + r.status);
-        return r.json();
-      }).then(function (d) {
-        var now = !!d.own_keys_fallback;
-        sw.setAttribute("aria-checked", now ? "true" : "false");
-        ownForm.elements.on.value = now ? "0" : "1";
-        if (card) card.dataset.ownKeys = now ? "true" : "false";
-        if (body) body.hidden = !now;
-      }).catch(function () {
-        location.href = base + "/profile#api-keys"; // the server-rendered state
-      }).then(function () {
-        busy = false;
-        sw.removeAttribute("aria-busy");
-      });
-    });
-  })();
-
   function openDialog(dialog) { dialog.showModal(); }
   function closeDialog(dialog) { dialog.close(); }
 

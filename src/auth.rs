@@ -80,15 +80,6 @@ pub struct CurrentUser {
     /// The level they start that course at (`projects.start_unit`): a unit
     /// id, '' for the beginning. `Project::start` is the unit index.
     pub start_unit: String,
-    /// The plan (`billing::Plan`): Free, Basic or Plus.
-    pub plan: crate::billing::Plan,
-    /// On a paid plan: a paying subscriber, a plan bought on the profile or
-    /// a grant (`billing.rs`).
-    pub premium: bool,
-    /// On Plus: "use my keys when my Skrongle AI limit is hit"
-    /// (`users.own_keys_fallback`, #315). Off, the learner's own API keys
-    /// are not used while Skrongle AI is offered to them.
-    pub own_keys_fallback: bool,
     /// Accepted the current Terms of Service (`terms::version()`). The
     /// `CurrentUser` extractor sends anyone else to `/terms/accept`, unless
     /// `terms_notice` is set.
@@ -124,32 +115,6 @@ pub struct CurrentUser {
 }
 
 impl CurrentUser {
-    #[cfg(test)]
-    pub fn test(id: i64) -> CurrentUser {
-        CurrentUser {
-            id,
-            email: String::new(),
-            email_verified: false,
-            first_name: String::new(),
-            last_name: String::new(),
-            course_id: None,
-            course_title: None,
-            course_owner: None,
-            start_unit: String::new(),
-            plan: crate::billing::Plan::Free,
-            premium: false,
-            own_keys_fallback: false,
-            terms_ok: true,
-            terms_notice: None,
-            must_change_password: false,
-            delete_at: None,
-            superuser: false,
-            ai_off: false,
-            lang: String::new(),
-            tz: 0,
-        }
-    }
-
     /// A page that calls an AI provider: `Err` sends an account with AI
     /// features off to the profile section that turns them back on.
     pub fn require_ai(&self) -> Result<(), AppError> {
@@ -262,42 +227,37 @@ pub fn purge_expired_sessions(conn: &Connection) -> rusqlite::Result<usize> {
 /// user-made courses here; built-in ones are titled by the registry.
 pub fn user_for_session(conn: &Connection, token: &str) -> rusqlite::Result<Option<CurrentUser>> {
     let sql = format!(
-        "SELECT u.id, COALESCE(u.email, ''), u.active_course, c.title, u.first_name, u.last_name, NULL, NULL, {}, {}, u.ai_off, u.email_verified_at IS NOT NULL, u.superuser,
-                COALESCE(p.start_unit, ''), NULL, u.lang, c.owner_id, u.own_keys_fallback, u.must_change_password,
+        "SELECT u.id, COALESCE(u.email, ''), u.active_course, c.title, u.first_name, u.last_name, NULL, NULL, {}, u.ai_off, u.email_verified_at IS NOT NULL, u.superuser,
+                COALESCE(p.start_unit, ''), NULL, u.lang, c.owner_id, u.must_change_password,
                 (SELECT version FROM terms_acceptances WHERE user_id = u.id ORDER BY accepted_at DESC, rowid DESC LIMIT 1), u.delete_at
          FROM sessions s JOIN users u ON u.id = s.user_id LEFT JOIN courses c ON c.id = u.active_course
          LEFT JOIN projects p ON p.user_id = u.id AND p.course_id = u.active_course
          WHERE s.session_token = ?1 AND s.expires_at > ?2",
-        crate::billing::plan_sql("u.id", "?2"),
         crate::terms::accepted_sql("u.id")
     );
     conn.query_row(
         &sql,
         params![hash_token(token), now()],
         |r| {
-            let plan = crate::billing::Plan::parse(&r.get::<_, String>(8)?).unwrap_or_default();
-            let terms_ok: bool = r.get(9)?;
-            let terms_notice = if terms_ok { None } else { crate::terms::notice(r.get::<_, Option<String>>(19)?.as_deref()) };
+            let terms_ok: bool = r.get(8)?;
+            let terms_notice = if terms_ok { None } else { crate::terms::notice(r.get::<_, Option<String>>(17)?.as_deref()) };
             Ok(CurrentUser {
                 id: r.get(0)?,
                 email: r.get(1)?,
                 course_id: r.get(2)?,
                 course_title: r.get(3)?,
-                course_owner: r.get(16)?,
+                course_owner: r.get(15)?,
                 first_name: r.get(4)?,
                 last_name: r.get(5)?,
-                plan,
-                premium: plan.paid(),
-                own_keys_fallback: r.get(17)?,
                 terms_ok,
                 terms_notice,
-                must_change_password: r.get(18)?,
-                delete_at: r.get(20)?,
-                ai_off: r.get(10)?,
-                email_verified: r.get(11)?,
-                superuser: r.get(12)?,
-                start_unit: r.get(13)?,
-                lang: r.get(15)?,
+                must_change_password: r.get(16)?,
+                delete_at: r.get(18)?,
+                ai_off: r.get(9)?,
+                email_verified: r.get(10)?,
+                superuser: r.get(11)?,
+                start_unit: r.get(12)?,
+                lang: r.get(14)?,
                 tz: 0,
             })
         },
@@ -351,9 +311,6 @@ async fn resolve_user(parts: &Parts, state: &AppState) -> Result<Option<(String,
     let mut user = state.db.call(move |c| user_for_session(c, &t)).await?;
     if let Some(u) = user.as_mut() {
         u.tz = crate::routes::sprint::tz_offset_secs(&parts.headers);
-        // No plans on this server (Skrongle mini): every account is Plus.
-        u.plan = crate::billing::effective_plan(crate::billing::plans_on(state), u.plan);
-        u.premium = u.plan.paid();
         // The account's language wins over the cookie and the browser's.
         crate::i18n::set_current(&u.lang);
         if u.course_title.is_none() {

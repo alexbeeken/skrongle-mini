@@ -393,17 +393,6 @@ pub fn delete_account(conn: &mut Connection, user_id: i64) -> rusqlite::Result<O
     Ok((n > 0).then_some(Deleted { courses, export_files }))
 }
 
-/// Does the account have a Stripe subscription that would keep billing
-/// after the account is gone? Deletion asks the learner to cancel it first.
-pub fn has_live_subscription(conn: &Connection, user_id: i64) -> rusqlite::Result<bool> {
-    conn.query_row(
-        "SELECT EXISTS(SELECT 1 FROM subscriptions WHERE user_id = ?1
-            AND status IN ('active', 'trialing', 'past_due', 'unpaid', 'incomplete') AND cancel_at_period_end = 0)",
-        [user_id],
-        |r| r.get(0),
-    )
-}
-
 // ---------- retention ----------
 
 /// `SKRONGLE_FAILED_COURSE_RETENTION_DAYS` when unset.

@@ -2,14 +2,14 @@ use crate::content::CourseFile;
 
 /// The privacy page is public; the export holds the learner's data and
 /// no secrets; deleting the account needs the password (or the e-mail address,
-/// for accounts without one), refuses while a subscription bills, signs the
+/// for accounts without one), signs the
 /// account out and schedules the deletion 14 days out (#970): signing in
 /// again shows only the page that cancels it, and once due the hourly job
 /// leaves nothing to sign in with.
 #[test]
 fn privacy_page_export_and_account_deletion_over_http() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let state = crate::routes::test_state(false, None);
+    let state = crate::routes::test_state(false);
     let hash = crate::auth::hash_password("right-password").unwrap();
     let (ann, gil) = state
         .db
@@ -94,17 +94,10 @@ fn privacy_page_export_and_account_deletion_over_http() {
     assert!(!body.contains(&hash) && !body.contains(&ann_t) && !body.contains("gil"));
     assert!(!body.contains("0123456789abcdef"));
 
-    // Deletion: the wrong password, then a live subscription, refuse it.
+    // Deletion: the wrong password, refuse it.
     let (status, _, html) = post("/profile/delete", &format!("sid={ann_t}"), &[("password", "wrong")]);
     assert_eq!(status, 200);
     assert!(html.contains("profile-delete-error"));
-    state
-        .db
-        .with(|c| c.execute("INSERT INTO subscriptions (user_id, customer_id, subscription_id, status, event_at, updated_at) VALUES (?1, 'cus_1', 'sub_1', 'active', 1, 1)", [ann]))
-        .unwrap();
-    let (_, _, html) = post("/profile/delete", &format!("sid={ann_t}"), &[("password", "right-password")]);
-    assert!(html.contains("Cancel your subscription first"));
-    state.db.with(|c| c.execute("UPDATE subscriptions SET cancel_at_period_end = 1", [])).unwrap();
     let before = crate::db::now();
     let (status, cookie, _) = post("/profile/delete", &format!("sid={ann_t}"), &[("password", "right-password")]);
     assert_eq!(status, 303);
@@ -166,7 +159,7 @@ fn account_changes_need_proof_and_sign_out_other_devices() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
     let listener = rt.block_on(tokio::net::TcpListener::bind("127.0.0.1:0")).unwrap();
     let addr = listener.local_addr().unwrap();
-    let state = crate::routes::test_state(true, None);
+    let state = crate::routes::test_state(true);
     let hash = crate::auth::hash_password("right-password").unwrap();
     let (ann, gil) = state
         .db
@@ -249,7 +242,7 @@ fn account_changes_need_proof_and_sign_out_other_devices() {
 #[test]
 fn profile_fields_save_as_they_change() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let state = crate::routes::test_state(false, None);
+    let state = crate::routes::test_state(false);
     let ann = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", "x")).unwrap();
     state.db.with(|c| crate::terms::accept(c, ann, crate::terms::version())).unwrap();
     let cookie = format!("sid={}", state.db.with(|c| crate::auth::create_session(c, ann)).unwrap());
@@ -314,7 +307,7 @@ fn profile_fields_save_as_they_change() {
 #[test]
 fn ai_features_can_be_turned_off_over_http() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let state = crate::routes::test_state(true, None);
+    let state = crate::routes::test_state(true);
     let app = crate::routes::router(state.clone());
     let base = rt.block_on(async {
         let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();

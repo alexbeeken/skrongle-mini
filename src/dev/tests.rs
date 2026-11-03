@@ -75,7 +75,7 @@ fn dev_mode_needs_a_loopback_bind_and_no_secure_cookies() {
 #[test]
 fn dev_routes_refuse_proxied_and_non_local_requests() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let app = crate::routes::router(crate::routes::test_state(true, None));
+    let app = crate::routes::router(crate::routes::test_state(true));
     let base = rt.block_on(async {
         let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
         let addr = listener.local_addr().unwrap();
@@ -120,7 +120,7 @@ fn dev_mode_refuses_a_database_with_other_accounts() {
 fn dev_mode_answers_only_local_hosts_on_every_route() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
     let serve = |dev: bool| {
-        let app = crate::routes::router(crate::routes::test_state(dev, None));
+        let app = crate::routes::router(crate::routes::test_state(dev));
         rt.block_on(async {
             let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
             let addr = listener.local_addr().unwrap();
@@ -158,7 +158,7 @@ fn dev_mode_answers_only_local_hosts_on_every_route() {
 #[test]
 fn the_dev_mailbox_needs_no_sign_in_and_the_simulator_speaks_the_wire_protocols() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let state = crate::routes::test_state(true, None);
+    let state = crate::routes::test_state(true);
     let (learner, dev) = state
         .db
         .with(|c| {

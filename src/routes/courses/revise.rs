@@ -104,21 +104,15 @@ pub async fn ai_start(
         }
         None => None,
     };
-    // The first saved key, else the server's key when the plan includes AI;
-    // on Plus the server's key first (`hosted::hosted_first`), and the saved
-    // keys only with "use my keys when my Skrongle AI limit is hit" on.
-    let saved = if crate::routes::hosted::own_keys_usable(&state, &user) { saved_provider(&state, user.id).await? } else { None };
-    let hosted_first = crate::routes::hosted::hosted_first(&state, &user);
+    // The server's key first when it has one, else the first saved key.
+    let saved = saved_provider(&state, user.id).await?;
     let purpose = if lesson.is_some() { "edit-lesson" } else { "revise-lesson" };
-    let hosted = if saved.is_none() || hosted_first { crate::routes::hosted::hosted_provider(&state, user.id, purpose, Need::Lesson).await? } else { None };
-    let mut provider = match (saved, hosted) {
-        (_, Some(hosted)) if hosted_first => hosted,
-        (Some(saved), _) => match ai_provider(&state, &user, saved.id(), "", false, "", "").await? {
+    let provider = match (crate::routes::hosted::hosted_provider(&state, purpose), saved) {
+        (Some(hosted), _) => hosted,
+        (None, Some(saved)) => match ai_provider(&state, &user, saved.id(), "", false, "", "").await? {
             Ok(p) => p,
             Err(e) => return refuse(e).await,
         },
-        // No key saved: the server's key, when the plan includes AI.
-        (None, Some(hosted)) => hosted,
         (None, None) => return refuse(no_key()).await,
     };
     if let Err(e) = ai::check_capacity(&state.jobs, user.id) {
@@ -141,14 +135,8 @@ pub async fn ai_start(
             1
         };
         if let Err(r) = reserve_hosted(&state, user.id, &job, lessons, !one, 0, None).await? {
-            match fallback_key(&state, &user, &r).await? {
-                Some(own) => provider = own,
-                None => {
-                    let out = Some(crate::routes::hosted::OutOfAi::of(&state, user.plan));
-                    let msg = r.message(state.meter.credits_offered());
-                    return editor_page(&state, user.clone(), row.clone(), None, Refill { text, mode, outline, error: Some(msg), ai_out: out, lesson: lesson_path }).await;
-                }
-            }
+            let out = Some(crate::routes::hosted::OutOfAi);
+            return editor_page(&state, user.clone(), row.clone(), None, Refill { text, mode, outline, error: Some(r.message()), ai_out: out, lesson: lesson_path }).await;
         }
     }
     let (cid, j) = (id.clone(), job.clone());

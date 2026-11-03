@@ -235,23 +235,21 @@ const SUBS_END: &str = "<!-- /subscriptions -->";
 
 /// The text as this server shows it: the self-hoster's file as it is, or the
 /// built-in text with the contact address filled in and the subscription
-/// section only when paid plans exist (`subscriptions`).
-pub fn markdown(subscriptions: bool) -> String {
+/// section left out (nothing is sold here).
+pub fn markdown() -> String {
     match SETTINGS.get().map(|s| &s.source) {
         Some(Source::File { markdown, .. }) => markdown.clone(),
-        _ => builtin_markdown(subscriptions),
+        _ => builtin_markdown(),
     }
 }
 
-fn builtin_markdown(subscriptions: bool) -> String {
+fn builtin_markdown() -> String {
     let mut md = markdown_raw();
-    if !subscriptions {
-        while let (Some(a), Some(b)) = (md.find(SUBS_START), md.find(SUBS_END)) {
-            if b < a {
-                break;
-            }
-            md.replace_range(a..b + SUBS_END.len(), "");
+    while let (Some(a), Some(b)) = (md.find(SUBS_START), md.find(SUBS_END)) {
+        if b < a {
+            break;
         }
+        md.replace_range(a..b + SUBS_END.len(), "");
     }
     let s = SETTINGS.get();
     fill_contacts(&md, s.and_then(|s| s.legal_email.as_deref()), s.and_then(|s| s.support_email.as_deref()))
@@ -444,7 +442,7 @@ mod tests {
         let raw = markdown_raw();
         assert!(raw.starts_with("# Terms and Conditions\n"));
         assert!(!raw.contains("Draft, not yet reviewed") && !raw.contains("[COMPANY NAME]"));
-        assert!(builtin_markdown(false).contains("## 6. SUBSCRIPTIONS"));
+        assert!(builtin_markdown().contains("## 6. SUBSCRIPTIONS"));
         // No address is written into the text: they come from the settings (#1328).
         assert!(!raw.contains("gmail") && !raw.contains("@skrongle.com") && !raw.contains("mailto:"), "an address in docs/terms.md");
         assert!(raw.contains(SUPPORT_PLACEHOLDER) && raw.contains(EMAIL_PLACEHOLDER));
@@ -595,7 +593,7 @@ mod tests {
         assert_eq!(Source::Builtin.version(), builtin_version());
         // Tests never call init: the server-wide values are the built-in ones.
         assert_eq!(version(), builtin_version());
-        assert!(markdown(false).contains("# Terms and Conditions"));
+        assert!(markdown().contains("# Terms and Conditions"));
     }
 
     #[test]

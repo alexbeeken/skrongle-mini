@@ -20,13 +20,8 @@
       var perRequest = Math.ceil((num(d.formatChars) + chars) / 4) + num(d.promptTokens);
       var input = (n + 1) * perRequest, output = n * num(d.lessonOut) + num(d.outlineOut);
       var cost = Math.ceil((input * num(p.dataset.priceIn) + output * num(p.dataset.priceOut)) / 1e6);
-      if (p.dataset.month) {
-        var total = num(p.dataset.month);
-        parts.push(t('courses.js.estimate_share', { n: Math.min(100, Math.max(1, Math.ceil(cost * 100 / total))), hosted: d.hostedLabel || "" }));
-      } else {
-        var cad = Math.ceil(cost * num(d.cadCents) / 100); // to_cad
-        parts.push(t('courses.js.estimate_cost', { cost: (Math.max(cad, 10000) / 1e6).toFixed(2) }));
-      }
+      var cad = Math.ceil(cost * num(d.cadCents) / 100); // to_cad
+      parts.push(t('courses.js.estimate_cost', { cost: (Math.max(cad, 10000) / 1e6).toFixed(2) }));
     }
     est.textContent = parts.join(t('courses.js.estimate_sep'));
   }

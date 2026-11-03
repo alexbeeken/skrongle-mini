@@ -491,7 +491,6 @@ profile:
     personal: Informações pessoais
     account: Conta
     two_factor: Autenticação em duas etapas
-    subscription: Assinatura
     api_keys: Chaves de API de IA
     data: Seus dados
     consent: "Privacidade e consentimento"
@@ -541,7 +540,6 @@ profile:
     ai_off: "Ocultos"
     ai_key: "Chave de API própria salva"
     ai_keys_manage: "gerenciar chaves"
-    ai_hosted: "{hosted}: {n}% deste mês usado"
   sessions:
     sign_out_others: "Sair de todos os outros lugares"
     info_label: "Sobre sair de todos os outros lugares"
@@ -620,37 +618,6 @@ profile:
     code_gone: Nenhum código está aguardando, ou ele expirou. Envie um novo.
     too_many_codes: Muitos códigos enviados. Aguarde alguns minutos e tente novamente.
     code_not_sent: Não foi possível enviar o código. Tente novamente em instantes.
-  subscription:
-    title: Assinatura
-    plan: Plano
-    premium: ✓ Premium
-    free: Gratuito
-    subscription: Assinatura
-    granted_label: Concedido
-    granted: "Premium concedido a esta conta, {note}"
-    manage: Gerenciar assinatura
-    manage_note: Trocar o cartão, ver faturas ou cancelar, no Stripe.
-    subscribe: Assinar
-    subscribe_note: Pago mensalmente pelo Stripe; cancele quando quiser.
-    unavailable: As assinaturas não são oferecidas neste servidor.
-    dev_revoke: "Dev: revogar o Premium concedido"
-    dev_grant: "Dev: conceder Premium"
-    thanks_active: Obrigado! Sua assinatura está ativa.
-    thanks_pending: Obrigado! O Stripe está confirmando seu pagamento; recarregue a página em instantes para ver sua assinatura.
-    cancelled: Pagamento cancelado; nada foi cobrado.
-    required: Esse recurso faz parte de uma assinatura.
-    plan_thanks: "Você está no {plan}. Obrigado!"
-    cancelled_notice: "Sua assinatura foi cancelada. {note}"
-    credits_thanks: "Obrigado! Seus créditos de IA são adicionados assim que o Stripe confirmar o pagamento."
-    ends_on: "Termina em"
-    renewal_date: "Data de renovação"
-    cancelled_mark: "(cancelado)"
-    granted_plan: "{plan} concedido a esta conta, {note}"
-    choose: "Escolha um plano"
-    upgrade_plus: "Fazer upgrade para o Plus"
-    cancel_open: "Cancelar assinatura"
-    portal: "Cartão e faturas, no Stripe"
-    past_due: "O último pagamento falhou; o Stripe tentará o cartão novamente."
   ai:
     on: "Ligado"
     off: "Desligado"
@@ -682,9 +649,6 @@ profile:
     too_long: "Essa chave é longa demais para uma chave de API (máximo de {max} caracteres)."
     bad_chars: Uma chave de API contém apenas letras, números e pontuação, sem espaços.
     wrong_provider: "Isso não parece uma chave de {provider}: elas começam com {prefix}."
-    own_keys_on: "Suas próprias chaves de API assumem quando o seu {hosted} do mês acabar."
-    own_keys_off: "Só o {hosted} é usado; suas próprias chaves de API ficam sem uso."
-    own_keys_switch: "Usar minhas chaves quando o limite do meu {hosted} for atingido"
     about_hosted: "O tutor de IA, Gerar o curso e Usar IA chamam estes provedores com a sua chave, cobrados na sua conta, sem tocar no seu {hosted}."
   data:
     export_download: "Baixar meus dados"
@@ -722,7 +686,6 @@ profile:
     type_email: Digite seu endereço de e-mail para confirmar.
     code_app: "Código do seu aplicativo autenticador"
     code_sent_to: "enviado para {to}"
-    cancel_first: Cancele sua assinatura primeiro (Gerenciar assinatura, acima) e depois exclua a conta.
   deletion:
     title: "Conta com exclusão agendada"
     on: "Esta conta será excluída de vez em {date}."
@@ -761,33 +724,6 @@ profile:
     turn_off: Desligar a autenticação em duas etapas
     switch_to: "Trocar a autenticação em duas etapas para {method}"
     turn_on_by: "Ligar a verificação em duas etapas por {method}"
-    pay_with_stripe: "Pagar com o Stripe"
-  ai_usage:
-    title: "{hosted} neste mês"
-    about: "Sobre o {hosted} neste mês"
-    info_p1: "Seu plano inclui uma quantidade mensal de {hosted} para o tutor e para a criação de cursos. A barra mostra quanto dela as requisições deste mês já usaram; ela volta a encher em {date}. Requisições com suas próprias chaves de API não contam."
-    info_p2_html: "Quando acabar, o tutor e o criador de cursos esperam o próximo mês, a menos que <em>usar minhas chaves quando o limite do meu {hosted} for atingido</em> esteja ligado em Chaves de API de IA: aí suas próprias chaves assumem."
-    bar_label: "{hosted} usado neste mês"
-    used: "{n} % usado"
-    left: "{n} % restante"
-    refills: "volta a encher em {date}"
-    info_p1_tutor: "Seu plano inclui uma quantidade mensal de {hosted} para o tutor. É pouco para criar um curso: use sua própria chave de API para isso. A barra mostra quanto dela as requisições deste mês já usaram; ela volta a encher em {date}. Requisições com suas próprias chaves de API não contam."
-  plans:
-    title: "Escolha seu plano"
-    plans_label: "Planos"
-    flag: "{hosted} incluído"
-    current: "Seu plano"
-    terms: "Cobrança mensal; cancele quando quiser e mantenha o plano até o fim do mês pago."
-    not_now: "Agora não"
-    purchase: "Comprar"
-  cancel:
-    title: "Cancelar sua assinatura?"
-    why: "Por que você está saindo?"
-    optional: "(opcional)"
-    feedback: "Quer nos contar mais alguma coisa?"
-    keep: "Manter meu plano"
-    confirm: "Confirmar cancelamento"
-
 superuser:
   title: Superusuário
   about: "Ações em qualquer conta. Só superusuários veem esta página."
@@ -841,47 +777,10 @@ superuser:
   ai_today_info: "O que todos gastaram hoje (UTC) em {hosted}, face ao limite diário do servidor de {cap}. No limite, {hosted} fica em pausa para todos até à meia-noite UTC; as chaves de API próprias continuam a funcionar. Só os superutilizadores veem isto; os alunos só veem o seu próprio mês."
   ai_today_spent: "{spent} de {cap} · reinicia à meia-noite UTC"
 
-billing:
-  not_offered: As assinaturas não são oferecidas neste servidor.
-  stripe_unreachable: Não foi possível contatar o Stripe agora. Tente novamente em instantes.
-  past_due: O último pagamento falhou; o Stripe vai tentar o cartão de novo. Atualize-o em Gerenciar.
-  cancelled_ends: "Cancelado: termina em {date}."
-  renews: "Renova em {date}."
-  grant_until: "até {date}"
-  grant_no_end: sem data de término
-  choose_plan: "Escolha um plano."
-  pack_not_offered: "Esse pacote de créditos não é oferecido."
-  cancel_note: "Você mantém o {plan} até {date}. Depois disso, você passa para o Gratuito."
-  cancel_note_free: "Depois disso, você passa para o Gratuito."
-  cancel_reason:
-    price: "Custa caro demais"
-    unused: "Não uso o bastante"
-    missing: "Falta algo de que preciso"
-    problems: "Algo não funcionou"
-  plan:
-    price: "{price} por mês"
-    free:
-      name: "Gratuito"
-      blurb: "Todos os cursos e modos, com suas próprias chaves de IA."
-      perks: "Todos os cursos e modos integrados\nCrie seus próprios cursos\nRecursos de IA com suas próprias chaves de API"
-    basic:
-      name: "{app} Basic"
-      blurb: "Ajude a manter tudo no ar e receba os recursos pagos assim que chegarem."
-      perks: "Tudo do Gratuito\nApoia um aplicativo independente e sem anúncios\nNovos recursos pagos assim que chegarem\nCancele quando quiser"
-    plus:
-      name: "{app} Plus"
-      blurb: "{hosted} incluído: o tutor e o criador de cursos, sem precisar de chave de API."
-      perks: "Tudo do Basic\n{hosted} incluído todo mês\nTutor e criação de cursos sem chave de API\nSuas próprias chaves podem assumir quando acabar\nCancele quando quiser"
-  ai:
-    not_enough: "Não resta {hosted} suficiente neste mês para isso. Faça upgrade ou use sua própria chave de API."
-    not_enough_credits: "Não resta {hosted} suficiente neste mês para isso. Faça upgrade, compre crédito de IA ou use sua própria chave de API."
-    used_up: "Seu {hosted} deste mês acabou. Faça upgrade ou use sua própria chave de API."
-    used_up_credits: "Seu {hosted} deste mês acabou. Faça upgrade, compre crédito de IA ou use sua própria chave de API."
-    daily_cap: "O {hosted} está pausado por hoje: o servidor atingiu o limite diário de gastos. Ele volta depois da meia-noite UTC; sua própria chave de API continua funcionando."
-    rate: "São muitas requisições de IA em um minuto. Espere um momento e tente de novo."
-    job_daily_cap: "A IA parou: o {hosted} está pausado por hoje (o servidor atingiu o limite diário de gastos). Nada do que foi escrito até agora se perde; continue depois da meia-noite UTC ou com sua própria chave de API."
-    job_used_up: "A IA parou: seu {hosted} deste mês acabou. Nada do que foi escrito até agora se perde; continue depois de fazer upgrade ou com sua própria chave de API."
-    job_used_up_credits: "A IA parou: seu {hosted} deste mês acabou. Nada do que foi escrito até agora se perde; continue depois de fazer upgrade, de comprar crédito de IA ou com sua própria chave de API."
+ai_refused:
+  daily_cap: "O {hosted} está pausado por hoje: o servidor atingiu o limite diário de gastos. Ele volta depois da meia-noite UTC; sua própria chave de API continua funcionando."
+  rate: "São muitas requisições de IA em um minuto. Espere um momento e tente de novo."
+  job_daily_cap: "A IA parou: o {hosted} está pausado por hoje (o servidor atingiu o limite diário de gastos). Nada do que foi escrito até agora se perde; continue depois da meia-noite UTC ou com sua própria chave de API."
 
 landing:
   title: Aprenda qualquer coisa a partir de uma pasta de arquivos JSON
@@ -2282,14 +2181,10 @@ tutor:
     lesson_passed: "✓ Lição concluída: {title}"
     could_not_reply: "O tutor não conseguiu responder: {error}"
     last_exercise: Esse foi o último exercício por enquanto. Continue conversando ou volte e escolha outra lição.
-    upgrade_plus: "Fazer upgrade para o Plus"
     own_key: "Usar sua própria chave de API"
-    buy_credits: "Comprar créditos"
   hosted_label: "{app} AI"
   disclosure_hosted: "Suas mensagens são enviadas ao provedor de IA que este servidor usa, com a chave dele."
   hosted_included: "{hosted} (incluído)"
-  own_key_took_over: "Seu {hosted} deste mês acabou, então sua própria chave {provider} responde daqui em diante."
-
 courses:
   # What a new course from "Create a course" starts with, in the author's app language (#1255).
   starter:
@@ -2973,7 +2868,6 @@ courses:
       one: "cerca de {n} minuto"
       other: "cerca de {n} minutos"
     estimate_cost: "cerca de CA$ {cost}"
-    estimate_share: "cerca de {n} % do {hosted} deste mês"
     estimate_sep: " · "
   stat:
     next_lesson: "Próxima lição a passar"
@@ -3060,23 +2954,9 @@ courses:
     shared_body: "Este curso pertence a {owner}, que o compartilhou com você. Você pode estudar com o seu próprio progresso; só {owner} pode alterar as lições."
     ok: OK
   ai_out:
-    upgrade: "Fazer upgrade para o Plus · {price}"
-    buy: "Comprar {credit} de IA · {price}"
     own_key: "Usar sua própria chave de API"
   hosted:
-    not_offered: "O {hosted} do seu plano não cobre isso. Adicione sua própria chave de API no perfil ou faça upgrade."
-    own_keys_off: "Seu plano usa o {hosted}. Ligue \"usar minhas chaves quando o limite do meu {hosted} for atingido\" no seu perfil para usar sua própria chave."
-    left: "{hosted} restante neste mês: {n} %"
-    percent: "{n} %"
-    left_per_lesson: "{left} · cerca de {per} por lição"
-    gap:
-      none: "Seu plano não inclui {hosted}."
-      too_little_tutor: "O {hosted} que seu plano inclui por mês é pouco para uma sessão de tutor."
-      too_little_course: "O {hosted} que seu plano inclui por mês é pouco para criar até o menor curso."
-      too_little_lesson: "O {hosted} que seu plano inclui por mês é pouco para criar uma lição."
-      instead_key: "Adicione sua própria chave de API no perfil: ela é cobrada na sua própria conta com o provedor de IA."
-      instead_upgrade: "Adicione sua própria chave de API no perfil (cobrada na sua própria conta com o provedor de IA) ou faça upgrade para o Plus, que inclui {hosted} todo mês."
-      instead_pill: "Adicione sua própria chave de API no perfil e ligue lá \"usar minhas chaves quando o limite do meu {hosted} for atingido\"; sua chave é cobrada na sua própria conta com o provedor de IA."
+    not_offered: "{hosted} não está configurado neste servidor. Adicione sua própria chave de API no perfil."
 motivator:
   stats:
     title: "Estatísticas e métricas"

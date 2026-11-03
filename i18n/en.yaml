@@ -496,7 +496,6 @@ profile:
     personal: Personal information
     account: Account
     two_factor: Two-factor authentication
-    subscription: Subscription
     api_keys: AI API keys
     data: Your data
     consent: "Privacy and consent"
@@ -546,7 +545,6 @@ profile:
     ai_off: "Hidden"
     ai_key: "Own API key on file"
     ai_keys_manage: "manage keys"
-    ai_hosted: "{hosted}: {n}% of this month used"
   sessions:
     sign_out_others: Sign out everywhere else
     info_label: About signing out everywhere else
@@ -625,37 +623,6 @@ profile:
     code_gone: No code is waiting, or it expired. Send a new one.
     too_many_codes: Too many codes sent. Wait a few minutes and try again.
     code_not_sent: The code could not be sent. Try again in a moment.
-  subscription:
-    title: Subscription
-    plan: Plan
-    premium: ✓ Premium
-    free: Free
-    subscription: Subscription
-    granted_label: Granted
-    granted: "Premium given to this account, {note}"
-    manage: Manage subscription
-    manage_note: Change card, see invoices or cancel, on Stripe.
-    subscribe: Subscribe
-    subscribe_note: Paid monthly through Stripe; cancel any time.
-    unavailable: Subscriptions are not offered on this server.
-    dev_revoke: "Dev: revoke the Plus grant"
-    dev_grant: "Dev: grant Plus"
-    thanks_active: Thank you! Your subscription is active.
-    thanks_pending: Thank you! Stripe is confirming your payment; reload in a moment to see your subscription.
-    cancelled: Checkout cancelled; nothing was charged.
-    required: That feature comes with a subscription.
-    plan_thanks: "You're on {plan}. Thank you!"
-    cancelled_notice: "Your subscription is cancelled. {note}"
-    credits_thanks: "Thank you! Your AI credits are added as soon as Stripe confirms the payment."
-    ends_on: "Ends on"
-    renewal_date: "Renewal date"
-    cancelled_mark: "(cancelled)"
-    granted_plan: "{plan} given to this account, {note}"
-    choose: "Choose a plan"
-    upgrade_plus: "Upgrade to Plus"
-    cancel_open: "Cancel subscription"
-    portal: "Card and invoices, on Stripe"
-    past_due: "The last payment failed; Stripe will try the card again."
   ai:
     on: "On"
     off: "Off"
@@ -687,9 +654,6 @@ profile:
     too_long: "That is too long for an API key (max {max} characters)."
     bad_chars: An API key contains only letters, digits and punctuation, with no spaces.
     wrong_provider: "That does not look like a {provider} key: they start with {prefix}."
-    own_keys_on: "Your own API keys take over when your {hosted} for the month is used up."
-    own_keys_off: "Only {hosted} is used; your own API keys stay unused."
-    own_keys_switch: "Use my keys when my {hosted} limit is hit"
     about_hosted: "The AI tutor, Generate the course and Use AI call these providers with your key, billed to your account, without touching your {hosted}."
   data:
     export_download: "Download my data"
@@ -727,7 +691,6 @@ profile:
     type_email: Type your e-mail address to confirm.
     code_app: Code from your authenticator app
     code_sent_to: "sent to {to}"
-    cancel_first: Cancel your subscription first (Manage subscription, above), then delete the account.
   deletion:
     title: "Account scheduled for deletion"
     on: "This account will be deleted for good on {date}."
@@ -766,33 +729,6 @@ profile:
     turn_off: Turn two-factor sign-in off
     switch_to: "Switch two-factor sign-in to {method}"
     turn_on_by: "Turn on two-factor sign-in by {method}"
-    pay_with_stripe: "Pay with Stripe"
-  ai_usage:
-    title: "{hosted} this month"
-    about: "About {hosted} this month"
-    info_p1: "Your plan includes a monthly amount of {hosted} for the tutor and for writing courses. The bar shows how much of it this month's requests have used; it fills back up on {date}. Requests with your own API keys don't count against it."
-    info_p2_html: "When it runs out, the tutor and the course writer wait for next month, unless <em>use my keys when my {hosted} limit is hit</em> is on under AI API keys: then your own keys take over."
-    bar_label: "{hosted} used this month"
-    used: "{n} % used"
-    left: "{n} % left"
-    refills: "fills up again on {date}"
-    info_p1_tutor: "Your plan includes a monthly amount of {hosted} for the tutor. It is too little to write a course with: use your own API key for that. The bar shows how much of it this month's requests have used; it fills back up on {date}. Requests with your own API keys don't count against it."
-  plans:
-    title: "Choose your plan"
-    plans_label: "Plans"
-    flag: "{hosted} included"
-    current: "Your plan"
-    terms: "Billed monthly; cancel any time and keep the plan to the end of the month paid for."
-    not_now: "Not now"
-    purchase: "Purchase"
-  cancel:
-    title: "Cancel your subscription?"
-    why: "Why are you leaving?"
-    optional: "(optional)"
-    feedback: "Anything you'd like to tell us?"
-    keep: "Keep my plan"
-    confirm: "Confirm cancellation"
-
 superuser:
   title: Superuser
   about: "Actions on any account. Only superusers see this page."
@@ -846,47 +782,10 @@ superuser:
   ai_today_info: "What everyone has spent on {hosted} today (UTC), against the server's daily cap of {cap}. At the cap, {hosted} pauses for everyone until midnight UTC; own API keys still work. Only superusers see this; learners only see their own month."
   ai_today_spent: "{spent} of {cap} · resets at midnight UTC"
 
-billing:
-  not_offered: Subscriptions are not offered on this server.
-  stripe_unreachable: Stripe could not be reached just now. Please try again in a moment.
-  past_due: The last payment failed; Stripe will try the card again. Update it under Manage.
-  cancelled_ends: "Cancelled: ends on {date}."
-  renews: "Renews on {date}."
-  grant_until: "until {date}"
-  grant_no_end: no end date
-  choose_plan: "Choose a plan."
-  pack_not_offered: "That credit pack is not offered."
-  cancel_note: "You keep {plan} until {date}. After that you're on Free."
-  cancel_note_free: "After that you're on Free."
-  cancel_reason:
-    price: "It costs too much"
-    unused: "I don't use it enough"
-    missing: "It's missing something I need"
-    problems: "Something didn't work"
-  plan:
-    price: "{price} a month"
-    free:
-      name: "Free"
-      blurb: "Every course and mode, with your own AI keys."
-      perks: "All built-in courses and modes\nMake your own courses\nAI features with your own API keys"
-    basic:
-      name: "{app} Basic"
-      blurb: "Keep the lights on, and get the paid features as they land."
-      perks: "Everything in Free\nSupports an independent, ad-free app\nNew paid features as they land\nCancel any time"
-    plus:
-      name: "{app} Plus"
-      blurb: "{hosted} included: the tutor and the course writer, no API key needed."
-      perks: "Everything in Basic\n{hosted} included every month\nTutor and write courses with no API key\nYour own keys can take over when it runs out\nCancel any time"
-  ai:
-    not_enough: "Not enough {hosted} left this month for this. Upgrade, or use your own API key."
-    not_enough_credits: "Not enough {hosted} left this month for this. Upgrade, buy AI credit, or use your own API key."
-    used_up: "Your {hosted} for this month is used up. Upgrade, or use your own API key."
-    used_up_credits: "Your {hosted} for this month is used up. Upgrade, buy AI credit, or use your own API key."
-    daily_cap: "{hosted} is paused for today: the server reached its daily spending limit. It comes back after midnight UTC; your own API key still works."
-    rate: "That is a lot of AI requests in one minute. Wait a moment, then try again."
-    job_daily_cap: "The AI stopped: {hosted} is paused for today (the server reached its daily spending limit). Nothing written so far is lost; continue after midnight UTC, or with your own API key."
-    job_used_up: "The AI stopped: your {hosted} for this month is used up. Nothing written so far is lost; continue after upgrading, or with your own API key."
-    job_used_up_credits: "The AI stopped: your {hosted} for this month is used up. Nothing written so far is lost; continue after upgrading, after buying AI credit, or with your own API key."
+ai_refused:
+  daily_cap: "{hosted} is paused for today: the server reached its daily spending limit. It comes back after midnight UTC; your own API key still works."
+  rate: "That is a lot of AI requests in one minute. Wait a moment, then try again."
+  job_daily_cap: "The AI stopped: {hosted} is paused for today (the server reached its daily spending limit). Nothing written so far is lost; continue after midnight UTC, or with your own API key."
 
 landing:
   title: Learn anything from a folder of JSON files
@@ -2288,14 +2187,10 @@ tutor:
     lesson_passed: "✓ Lesson passed: {title}"
     could_not_reply: "The tutor could not reply: {error}"
     last_exercise: That was the last exercise for now. Keep chatting, or go back and pick another lesson.
-    upgrade_plus: "Upgrade to Plus"
     own_key: "Use your own API key"
-    buy_credits: "Buy credits"
   hosted_label: "{app} AI"
   disclosure_hosted: "Your messages are sent to the AI provider this server uses, on its key."
   hosted_included: "{hosted} (included)"
-  own_key_took_over: "Your {hosted} for this month is used up, so your own {provider} key is answering from here on."
-
 courses:
   # What a new course from "Create a course" starts with, in the author's app language (#1255).
   starter:
@@ -2979,7 +2874,6 @@ courses:
       one: "about {n} minute"
       other: "about {n} minutes"
     estimate_cost: "roughly CA${cost}"
-    estimate_share: "about {n} % of this month's {hosted}"
     estimate_sep: " · "
   stat:
     next_lesson: "Next lesson to pass"
@@ -3066,23 +2960,9 @@ courses:
     shared_body: "This course belongs to {owner}, who shared it with you. You can learn from it with your own progress; only {owner} can change its lessons."
     ok: OK
   ai_out:
-    upgrade: "Upgrade to Plus · {price}"
-    buy: "Buy {credit} of AI · {price}"
     own_key: "Use your own API key"
   hosted:
-    not_offered: "Your plan's {hosted} does not cover this. Add your own API key on your profile, or upgrade."
-    own_keys_off: "Your plan uses {hosted}. Turn on \"use my keys when my {hosted} limit is hit\" on your profile to use your own key."
-    left: "{hosted} left this month: {n} %"
-    percent: "{n} %"
-    left_per_lesson: "{left} · about {per} a lesson"
-    gap:
-      none: "Your plan includes no {hosted}."
-      too_little_tutor: "The {hosted} your plan includes each month is too little for a tutor session."
-      too_little_course: "The {hosted} your plan includes each month is too little to write even the smallest course."
-      too_little_lesson: "The {hosted} your plan includes each month is too little to write a lesson."
-      instead_key: "Add your own API key on your profile instead: it is billed to your own account with the AI provider."
-      instead_upgrade: "Add your own API key on your profile (billed to your own account with the AI provider), or upgrade to Plus, which includes {hosted} every month."
-      instead_pill: "Add your own API key on your profile and turn on \"use my keys when my {hosted} limit is hit\" there; your key is billed to your own account with the AI provider."
+    not_offered: "{hosted} is not set up on this server. Add your own API key on your profile."
 motivator:
   stats:
     title: "Statistics and metrics"

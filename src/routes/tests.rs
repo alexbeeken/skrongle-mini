@@ -42,11 +42,11 @@ fn time_ago_formats() {
 }
 
 /// Every response carries the security headers; a POST from another site
-/// is refused before its handler runs, except Stripe's webhook.
+/// is refused before its handler runs.
 #[test]
 fn security_headers_and_cross_site_posts() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let app = super::router(super::test_state(false, None));
+    let app = super::router(super::test_state(false));
     let base = rt.block_on(async {
         let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
         let addr = listener.local_addr().unwrap();
@@ -76,8 +76,6 @@ fn security_headers_and_cross_site_posts() {
     assert_eq!(login(&[("origin", &base)]), 200);
     assert_eq!(login(&[("sec-fetch-site", "cross-site")]), 403);
     assert_eq!(login(&[("origin", "https://evil.example"), ("host", host)]), 403);
-    let webhook = agent.post(&format!("{base}/billing/webhook")).header("sec-fetch-site", "cross-site").send("{}").unwrap();
-    assert_ne!(webhook.status().as_u16(), 403, "the webhook is exempt");
 }
 
 /// #370: bodies are capped at 64 KiB, except on the session-gated editor
@@ -86,7 +84,7 @@ fn security_headers_and_cross_site_posts() {
 #[test]
 fn request_bodies_are_capped() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let state = super::test_state(false, None);
+    let state = super::test_state(false);
     let hash = crate::auth::hash_password("right-password").unwrap();
     let ann = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", &hash)).unwrap();
     state.db.with(|c| crate::terms::accept(c, ann, crate::terms::version())).unwrap();
@@ -135,7 +133,7 @@ fn request_bodies_are_capped() {
 fn learning_writes_are_rate_limited() {
     use crate::security::LEARNING_WRITES_PER_USER;
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let state = super::test_state(false, None);
+    let state = super::test_state(false);
     let learner = |email: &str| {
         state
             .db
@@ -198,7 +196,7 @@ fn learning_writes_are_rate_limited() {
 #[test]
 fn account_forms_are_rate_limited() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let state = super::test_state(false, None);
+    let state = super::test_state(false);
     let hash = crate::auth::hash_password("right-password").unwrap();
     let ann = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", &hash)).unwrap();
     state.db.with(|c| crate::terms::accept(c, ann, crate::terms::version())).unwrap();
@@ -277,7 +275,7 @@ fn account_forms_are_rate_limited() {
 fn sign_in_codes_count_against_the_account_limit() {
     use crate::two_factor;
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let state = super::test_state(false, None);
+    let state = super::test_state(false);
     let ann = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", "h")).unwrap();
     state.db.with(|c| crate::verify::mark_verified(c, ann, 1)).unwrap();
     state.db.with(|c| two_factor::set_method(c, ann, Some(two_factor::Method::Email)).map(|r| r.unwrap())).unwrap();
@@ -324,7 +322,7 @@ fn sign_in_codes_count_against_the_account_limit() {
 #[test]
 fn superusers_reset_email_verification() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let state = super::test_state(false, None);
+    let state = super::test_state(false);
     let app = super::router(state.clone());
     let base = rt.block_on(async {
         let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
@@ -406,7 +404,7 @@ fn superusers_reset_email_verification() {
 #[test]
 fn superusers_reset_passwords_and_two_factor() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let state = super::test_state(false, None);
+    let state = super::test_state(false);
     let app = super::router(state.clone());
     let base = rt.block_on(async {
         let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
@@ -519,7 +517,7 @@ fn signup_server(mode: crate::signup::Mode) -> (tokio::runtime::Runtime, std::sy
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
     let listener = rt.block_on(tokio::net::TcpListener::bind("127.0.0.1:0")).unwrap();
     let addr = listener.local_addr().unwrap();
-    let mut s = std::sync::Arc::into_inner(super::test_state(false, None)).unwrap();
+    let mut s = std::sync::Arc::into_inner(super::test_state(false)).unwrap();
     s.signup = mode;
     let state = std::sync::Arc::new(s);
     let app = super::router(state.clone());
@@ -694,7 +692,7 @@ fn proxy_server(mode: crate::signup::Mode, from: Option<&str>) -> (tokio::runtim
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
     let listener = rt.block_on(tokio::net::TcpListener::bind("127.0.0.1:0")).unwrap();
     let addr = listener.local_addr().unwrap();
-    let mut s = std::sync::Arc::into_inner(super::test_state(false, None)).unwrap();
+    let mut s = std::sync::Arc::into_inner(super::test_state(false)).unwrap();
     s.signup = mode;
     s.proxy_auth = from.map(|f| crate::proxy_auth::Config::parse(Some("Remote-Email"), Some(f)).unwrap().unwrap());
     let state = std::sync::Arc::new(s);
@@ -859,7 +857,7 @@ fn proxy_header_for_an_unknown_address_follows_the_signup_rule() {
 fn only_superusers_see_the_days_ai_spend() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
     for hosted in [true, false] {
-        let state = super::test_state_with(false, None, hosted.then(|| ("sk-ant-server".to_string(), crate::metering::MeterConfig::default())));
+        let state = super::test_state_with(false, hosted.then(|| ("sk-ant-server".to_string(), crate::metering::MeterConfig::default())));
         let app = super::router(state.clone());
         let base = rt.block_on(async {
             let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
@@ -911,7 +909,7 @@ fn only_superusers_see_the_days_ai_spend() {
 #[test]
 fn email_verification_over_http() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let state = super::test_state(false, None);
+    let state = super::test_state(false);
     let app = super::router(state.clone());
     let base = rt.block_on(async {
         let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
@@ -1005,7 +1003,7 @@ fn email_verification_over_http() {
 #[test]
 fn a_new_course_asks_for_its_settings_once() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let state = super::test_state(false, None);
+    let state = super::test_state(false);
     let ann = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", "x")).unwrap();
     state.db.with(|c| crate::terms::accept(c, ann, crate::terms::version())).unwrap();
     let cookie = format!("sid={}", state.db.with(|c| crate::auth::create_session(c, ann)).unwrap());
@@ -1054,7 +1052,7 @@ fn a_new_course_asks_for_its_settings_once() {
 #[test]
 fn start_opens_the_course_with_its_wizard_settings() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let state = super::test_state(false, None);
+    let state = super::test_state(false);
     let ann = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", "x")).unwrap();
     state.db.with(|c| crate::terms::accept(c, ann, crate::terms::version())).unwrap();
     let cookie = format!("sid={}", state.db.with(|c| crate::auth::create_session(c, ann)).unwrap());
@@ -1107,7 +1105,7 @@ fn start_opens_the_course_with_its_wizard_settings() {
 fn ai_features_with_saved_keys_answered_by_the_simulator() {
     super::point_defaults_at_the_simulator();
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let state = super::test_state(false, None);
+    let state = super::test_state(false);
     let (ann, dev) = state
         .db
         .with(|c| {
@@ -1332,7 +1330,7 @@ fn ai_features_with_saved_keys_answered_by_the_simulator() {
 #[test]
 fn editor_of_a_course_whose_job_just_finished() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let state = super::test_state(true, None);
+    let state = super::test_state(true);
     let ann = state
         .db
         .with(|c| {
@@ -1386,7 +1384,7 @@ fn editor_of_a_course_whose_job_just_finished() {
 #[test]
 fn a_shared_course_is_on_the_recipients_list_read_only() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let state = super::test_state(false, None);
+    let state = super::test_state(false);
     let app = super::router(state.clone());
     let base = rt.block_on(async {
         let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
@@ -1526,7 +1524,7 @@ fn caps_follow_the_providers() {
     assert!(crate::Caps::reaches(false, false), "a provider");
     assert!(crate::Caps::reaches(true, true), "dev mode's mailbox");
     assert!(!crate::Caps::reaches(true, false), "log alone");
-    assert_eq!(super::test_state(false, None).caps(), crate::Caps { mail: true });
+    assert_eq!(super::test_state(false).caps(), crate::Caps { mail: true });
     assert_eq!(super::test_state_without(false).caps(), crate::Caps { mail: false });
 }
 
@@ -1629,7 +1627,7 @@ fn without_mail_nothing_offers_to_send() {
 #[test]
 fn with_mail_everything_is_offered() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let state = super::test_state(false, None);
+    let state = super::test_state(false);
     let app = super::router(state.clone());
     let base = rt.block_on(async {
         let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
@@ -1656,7 +1654,7 @@ fn with_mail_everything_is_offered() {
 #[test]
 fn every_mode_shares_the_daily_goal_and_where_you_left_off() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let state = super::test_state(false, None);
+    let state = super::test_state(false);
     let ann = state
         .db
         .with(|c| {
@@ -1729,7 +1727,7 @@ fn every_mode_shares_the_daily_goal_and_where_you_left_off() {
 fn a_body_the_handler_ignores_does_not_cost_the_connection() {
     use std::io::{BufRead, BufReader, Read, Write};
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let app = super::router(super::test_state(false, None));
+    let app = super::router(super::test_state(false));
     let addr = rt.block_on(async {
         let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
         let addr = listener.local_addr().unwrap();

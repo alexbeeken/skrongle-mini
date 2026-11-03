@@ -19,7 +19,7 @@ use serde::{Deserialize, Serialize};
 use std::collections::HashSet;
 use std::sync::Arc;
 
-use super::hosted::{ai_left, hosted_first, hosted_offer, hosted_provider, left_line, own_keys_usable, not_offered, own_keys_off};
+use super::hosted::hosted_provider;
 use super::quiz::grade_and_record;
 use super::{CourseView, Page};
 use crate::ai;
@@ -27,7 +27,7 @@ use crate::auth::Project;
 use crate::db::now;
 use crate::error::AppError;
 use crate::mastery;
-use crate::metering::{CallError, KeySource, Need, Refusal};
+use crate::metering::{CallError, KeySource, Refusal};
 use crate::progress;
 use crate::quiz::Rng;
 use crate::secrets::{self, Provider};
@@ -51,16 +51,6 @@ pub struct TutorTemplate {
     pub lesson_title: String,
     /// The course's helper characters as a JSON array, for typing answers.
     pub chars_json: String,
-    /// The hosted choice is selected: "AI left this month: $0.042".
-    pub ai_left: Option<String>,
-    /// Buying credits is offered (the out-of-allowance message links to it).
-    pub credits_offered: bool,
-    /// Subscribing is offered to this learner (free plan, Stripe on): the
-    /// out-of-AI message links to it.
-    pub upgrade_offered: bool,
-    /// No key, and Skrongle AI is not offered for the tutor: why, on the
-    /// "add an API key" page (#283).
-    pub gap: Option<crate::routes::hosted::NotIncluded>,
 }
 
 #[derive(Deserialize)]
@@ -77,42 +67,20 @@ pub async fn page(State(state): State<Arc<AppState>>, p: Project, Query(q): Quer
         Some(slug) => Some(content.lesson_by_slug(slug).ok_or(AppError::NotFound)?),
         None => None,
     };
-    // The learner's own keys first (never limited), then the server's when
-    // their plan includes AI or they hold credits. On Plus the server's key
-    // comes first, and the own keys only with "use my keys when my Skrongle
-    // AI limit is hit" on (`hosted::own_keys_usable`).
-    let own: Vec<KeyChoice> = if own_keys_usable(&state, &p.user) {
-        keys_on_file(&state, p.user.id).await?.into_iter().map(|k| KeyChoice::Own(ai::ProviderKind::from_secret(k))).collect()
-    } else {
-        Vec::new()
-    };
-    let offer = hosted_offer(&state, p.user.id, Need::Tutor).await?;
-    let hosted = offer.as_ref().map(|_| KeyChoice::Hosted);
+    // The server's key first when it has one, then the learner's own keys.
     let mut choices: Vec<KeyChoice> = Vec::new();
-    if hosted_first(&state, &p.user) {
-        choices.extend(hosted);
-        choices.extend(own);
-    } else {
-        choices.extend(own);
-        choices.extend(hosted);
+    if state.meter.hosted() {
+        choices.push(KeyChoice::Hosted);
     }
+    choices.extend(keys_on_file(&state, p.user.id).await?.into_iter().map(|k| KeyChoice::Own(ai::ProviderKind::from_secret(k))));
     let wanted = q.provider.as_deref().and_then(|w| choices.iter().copied().find(|c| c.id() == w));
     let chosen = wanted.or_else(|| choices.first().copied());
     let providers = choices.iter().map(|c| ProviderChoice { id: c.id(), label: choice_label(*c), selected: Some(*c) == chosen }).collect();
-    let ai_left = match chosen {
-        Some(KeyChoice::Hosted) => offer.as_ref().and_then(left_line),
-        _ => None,
-    };
     let chars_json = serde_json::to_string(&content.manifest().chars).unwrap_or_else(|_| "[]".into());
-    let gap = if choices.is_empty() { crate::routes::hosted::NotIncluded::of(&state, &p.user, Need::Tutor).await? } else { None };
     Ok(Page(TutorTemplate {
         chars_json,
         course: CourseView::of(content),
         providers,
-        ai_left,
-        credits_offered: state.meter.credits_offered(),
-        upgrade_offered: crate::routes::hosted::OutOfAi::of(&state, p.user.plan).upgrade.is_some(),
-        gap,
         provider: chosen.map(|p| p.id().to_string()).unwrap_or_default(),
         lesson_slug: lesson.map(|l| l.slug.clone()).unwrap_or_default(),
         lesson_title: lesson.map(|l| l.title.clone()).unwrap_or_default(),
@@ -167,14 +135,9 @@ pub struct TurnResponse {
     pub done: bool,
     /// The model could not answer; everything else in the turn still happened.
     pub error: Option<String>,
-    /// The model was not asked because Skrongle AI ran out (or paused):
-    /// `allowance` | `daily-cap` | `rate`. `error` says it in words.
+    /// The model was not asked because Skrongle AI paused:
+    /// `daily-cap` | `rate`. `error` says it in words.
     pub ai_out: Option<&'static str>,
-    /// With the server's key: what is left this month, after this turn.
-    pub ai_left: Option<String>,
-    /// Something to tell the learner besides the entries: Skrongle AI ran out
-    /// and their own key took over for the rest of the conversation.
-    pub notice: Option<String>,
 }
 
 /// POST /api/tutor/start
@@ -186,9 +149,8 @@ pub async fn start(
 ) -> Result<Json<TurnResponse>, AppError> {
     p.user.require_ai_api()?;
     let provider = match req.provider.as_str() {
-        tutor::HOSTED if hosted_offer(&state, p.user.id, Need::Tutor).await?.is_some() => KeyChoice::Hosted,
-        tutor::HOSTED => return Err(AppError::ApiBadRequest(not_offered())),
-        _ if !own_keys_usable(&state, &p.user) => return Err(AppError::ApiBadRequest(own_keys_off())),
+        tutor::HOSTED if state.meter.hosted() => KeyChoice::Hosted,
+        tutor::HOSTED => return Err(AppError::ApiBadRequest(crate::t1("courses.hosted.not_offered", "hosted", tutor::hosted_label()))),
         other => KeyChoice::Own(Provider::parse(other).map(ai::ProviderKind::from_secret).ok_or_else(|| AppError::ApiBadRequest(crate::t("tutor.api.unknown_provider")))?),
     };
     let lesson = if req.lesson.is_empty() {
@@ -282,18 +244,13 @@ async fn run_turn(state: &AppState, p: &Project, session: Session, kind: Turn, t
     let mut work = session;
     work.tz = tz;
     let outcome = turn_inner(state, p, &mut work, kind).await;
-    let (added, failure, switched) = match outcome {
+    let (added, failure) = match outcome {
         Ok(r) => r,
         Err(e) => {
             claim.finish(|_| {});
             return Err(e);
         }
     };
-    // The key that took over stays the conversation's.
-    if let Some(k) = switched {
-        work.provider = k;
-    }
-    let hosted = work.provider == KeyChoice::Hosted;
     let provider = work.provider;
     let mut snap = None;
     claim.finish(|s| {
@@ -315,17 +272,9 @@ async fn run_turn(state: &AppState, p: &Project, session: Session, kind: Turn, t
     let (error, ai_out) = match failure {
         None => (None, None),
         Some(Fail::Model(e)) => (Some(e), None),
-        Some(Fail::Refused(r)) => (Some(r.message(state.meter.credits_offered())), Some(r.kind())),
+        Some(Fail::Refused(r)) => (Some(r.message()), Some(r.kind())),
     };
-    let ai_left = if hosted { ai_left(state, uid).await? } else { None };
-    let notice = switched.map(|k| {
-        let own = match k {
-            KeyChoice::Own(kind) => kind.secret().label().to_string(),
-            KeyChoice::Hosted => tutor::hosted_label(),
-        };
-        crate::t2("tutor.own_key_took_over", "hosted", tutor::hosted_label(), "provider", own)
-    });
-    Ok(TurnResponse { session: id, entries: added, pending, answered, correct, done, error, ai_out, ai_left, notice })
+    Ok(TurnResponse { session: id, entries: added, pending, answered, correct, done, error, ai_out })
 }
 
 /// Why the model did not reply in a turn.
@@ -339,10 +288,8 @@ enum Fail {
 /// The turn itself. `session` is the working copy: `on_deck` and `pending`
 /// are kept current here so each model call sees the right exercise; the
 /// entries to append are returned.
-/// Returns the entries added, why the model did not reply (if it did not),
-/// and the learner's own key when it took over from Skrongle AI this turn
-/// ("use my keys when my Skrongle AI limit is hit").
-async fn turn_inner(state: &AppState, p: &Project, session: &mut Session, kind: Turn) -> Result<(Vec<Entry>, Option<Fail>, Option<KeyChoice>), AppError> {
+/// Returns the entries added and why the model did not reply (if it did not).
+async fn turn_inner(state: &AppState, p: &Project, session: &mut Session, kind: Turn) -> Result<(Vec<Entry>, Option<Fail>), AppError> {
     let content = &p.course;
     let mut added: Vec<Entry> = Vec::new();
     let pending_item = |s: &Session| s.pending.as_deref().and_then(|q| content.question(q)).map(|(_, q)| q);
@@ -373,28 +320,14 @@ async fn turn_inner(state: &AppState, p: &Project, session: &mut Session, kind: 
     };
 
     // 2. The model's part, and what its reply asks for.
-    let mut llm = match session.provider {
-        KeyChoice::Hosted => hosted_provider(state, p.user.id, "tutor-turn", Need::Tutor).await?.ok_or_else(|| AppError::ApiBadRequest(not_offered()))?,
+    let llm = match session.provider {
+        KeyChoice::Hosted => hosted_provider(state, "tutor-turn").ok_or_else(|| AppError::ApiBadRequest(crate::t1("courses.hosted.not_offered", "hosted", tutor::hosted_label())))?,
         KeyChoice::Own(kind) => own_provider(state, p, kind).await?,
     };
-    let mut switched = None;
     let instruction = (!instruction.is_empty()).then_some(instruction);
     let reply = match talk(state, p, &llm, session, &mut added, instruction).await {
         Ok(r) => r,
-        // Skrongle AI did not cover the turn: with "use my keys when my
-        // Skrongle AI limit is hit" on, the learner's own key takes over.
-        Err(Fail::Refused(Refusal::OutOfAllowance { .. })) if session.provider == KeyChoice::Hosted && own_keys_usable(state, &p.user) => {
-            let Some(kind) = keys_on_file(state, p.user.id).await?.into_iter().next().map(ai::ProviderKind::from_secret) else {
-                return Ok((added, Some(Fail::Refused(Refusal::OutOfAllowance { available: 0, needed: 0 })), None));
-            };
-            llm = own_provider(state, p, kind).await?;
-            switched = Some(KeyChoice::Own(kind));
-            match talk(state, p, &llm, session, &mut added, instruction).await {
-                Ok(r) => r,
-                Err(e) => return Ok((added, Some(e), switched)),
-            }
-        }
-        Err(e) => return Ok((added, Some(e), None)),
+        Err(e) => return Ok((added, Some(e))),
     };
     match reply {
         Control::Answer(attempt) if session.pending.is_some() => {
@@ -403,7 +336,7 @@ async fn turn_inner(state: &AppState, p: &Project, session: &mut Session, kind: 
             match talk(state, p, &llm, session, &mut added, Some(instruction)).await {
                 Ok(Control::Ask) => show_on_deck(session, &mut added),
                 Ok(_) => {}
-                Err(e) => return Ok((added, Some(e), switched)),
+                Err(e) => return Ok((added, Some(e))),
             }
         }
         Control::Skip { ask } if session.pending.is_some() => {
@@ -415,7 +348,7 @@ async fn turn_inner(state: &AppState, p: &Project, session: &mut Session, kind: 
         Control::Ask => show_on_deck(session, &mut added),
         _ => {}
     }
-    Ok((added, None, switched))
+    Ok((added, None))
 }
 
 /// The learner's saved key for `kind`, as a provider.
@@ -577,17 +510,14 @@ async fn next_card(state: &AppState, p: &Project, session: &Session) -> Result<O
 
 #[cfg(test)]
 mod tests {
-    use crate::metering::{self, dollars_to_micros, KeySource, MeterConfig, Need, Record};
+    use crate::metering::{dollars_to_micros, KeySource, MeterConfig, Record};
     use serde_json::{json, Value};
 
-    /// A plan with no Skrongle AI (Free and Basic, #931) is never offered it
-    /// (#283): not in the tutor, not in the Generate dialog, and the API
-    /// refuses it; the profile says the paid plan includes some. Credits
-    /// change that on any plan: a Basic learner who buys some is offered it.
+    /// Without the server's key nothing is offered: the tutor, the home
+    /// card and the Generate dialog say to add a key, and the API refuses it.
     #[test]
-    fn a_plan_without_included_ai_is_not_offered_it() {
-        let cfg = MeterConfig::default();
-        let state = crate::routes::test_state_with(true, None, Some((crate::dev_ai::PLATFORM_KEYS[0].into(), cfg)));
+    fn without_the_servers_key_skrongle_ai_is_not_offered() {
+        let state = crate::routes::test_state_with(true, None);
         let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
         let app_state = state.clone();
         let addr = rt.block_on(async move {
@@ -604,57 +534,37 @@ mod tests {
             let get = |p: &str| agent.get(&url(p)).header("cookie", &cookie).call().unwrap().body_mut().read_to_string().unwrap();
             let tutor = get("/tutor");
             assert!(!tutor.contains("Skrongle AI (included)") && !tutor.contains(r#"data-provider="hosted""#), "{tutor}");
-            assert!(tutor.contains(r#"data-testid="hosted-gap-reason" data-none="true">Your plan includes no Skrongle AI."#), "{tutor}");
+            assert!(tutor.contains(r#"data-testid="tutor-no-key""#), "{tutor}");
             // The home page's tutor card: a red ! saying so, and "Start a
             // conversation" opens that page as a modal instead of going there.
             let home = get("/");
             assert!(home.contains(r#"data-tip="No AI keys set" data-testid="home-ai-blocked""#) && !home.contains(r#"data-testid="home-info-ai""#), "the ! replaces the (i): {home}");
             assert!(home.contains(r#"<button type="button" class="btn big tutor" data-testid="home-start-tutor" commandfor="home-tutor-gate""#), "{home}");
-            assert!(home.contains(r#"data-testid="home-tutor-gate""#) && home.contains(r#"data-testid="hosted-gap-upgrade">Upgrade to Plus · CA$15 a month"#), "{home}");
+            assert!(home.contains(r#"data-testid="home-tutor-gate""#), "{home}");
             let start = agent.post(&url("/api/tutor/start")).header("cookie", &cookie).send_json(json!({ "provider": "hosted" })).unwrap();
             assert_eq!(start.status().as_u16(), 400);
             let made = agent.post(&url("/courses/new")).header("cookie", &cookie).send_form([("title", "")]).unwrap();
             let editor = made.headers().get("location").unwrap().to_str().unwrap().to_string();
             let form = get(&editor);
             assert!(form.contains("generate-no-key") && !form.contains(r#"value="hosted""#), "{form}");
-            // The profile's Skrongle AI card is for Plus only; nothing on the page is in dollars.
-            let profile = get("/profile");
-            assert!(!profile.contains(r#"id="ai-usage""#) && !profile.contains("profile-own-keys-switch"), "{profile}");
-
-            // Basic (a paying Stripe subscription, as the webhook stores it): no
-            // Skrongle AI either, until it holds credits (#931).
-            let uid: i64 = state.db.with(|c| c.query_row("SELECT id FROM users WHERE email = 'dev@example.com'", [], |r| r.get(0))).unwrap();
-            state
-                .db
-                .with(|c| c.execute("INSERT INTO subscriptions (user_id, customer_id, subscription_id, status, plan, event_at, updated_at) VALUES (?1, 'cus', 'sub', 'active', 'basic', 1, 1)", [uid]))
-                .unwrap();
-            assert_eq!(state.db.with(|c| crate::billing::plan_of(c, uid)).unwrap(), crate::billing::Plan::Basic);
-            let tutor = get("/tutor");
-            assert!(!tutor.contains(r#"data-provider="hosted""#) && tutor.contains(r#"data-testid="hosted-gap-upgrade">Upgrade to Plus · CA$15 a month"#), "{tutor}");
-            let start = agent.post(&url("/api/tutor/start")).header("cookie", &cookie).send_json(json!({ "provider": "hosted" })).unwrap();
-            assert_eq!(start.status().as_u16(), 400);
-            state.db.with(|c| metering::add_credits(c, uid, 5_000_000)).unwrap();
-            let tutor = get("/tutor");
-            assert!(tutor.contains(r#"data-provider="hosted""#), "credits are Basic's Skrongle AI: {tutor}");
         };
         rt.block_on(async move { tokio::task::spawn_blocking(work).await }).unwrap();
     }
 
     /// Hosted AI end to end over HTTP, through the test simulator on its platform key: the tutor and the
     /// generator offer the server's key to a learner without one, meter it,
-    /// show what is left, refuse before calling once the allowance is gone
-    /// (with the way on), and a generation job reserves and gives back.
+    /// refuse before calling once the day's cap is reached (with the way
+    /// on), and a generation job reserves and gives back.
     #[test]
     fn hosted_ai_over_http() {
         let mut cfg = MeterConfig {
             tutor_model: "tutor-model".into(),
             courses_model: "course-model".into(),
-            allowance_plus: dollars_to_micros("0.010").unwrap(),
-            daily_cap: dollars_to_micros("10").unwrap(),
+            daily_cap: dollars_to_micros("1").unwrap(),
             ..MeterConfig::default()
         };
         cfg.prices.merge("tutor-model=1/2,course-model=1/2").unwrap();
-        let state = crate::routes::test_state_with(true, None, Some((crate::dev_ai::PLATFORM_KEYS[0].into(), cfg)));
+        let state = crate::routes::test_state_with(true, Some((crate::dev_ai::PLATFORM_KEYS[0].into(), cfg)));
         let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
         let app_state = state.clone();
         let addr = rt.block_on(async move {
@@ -676,79 +586,28 @@ mod tests {
                 agent.post(&url(p)).header("cookie", &cookie).send_json(&body).unwrap().body_mut().read_json().unwrap()
             };
             let uid: i64 = state.db.with(|c| c.query_row("SELECT id FROM users WHERE email = 'dev@example.com'", [], |r| r.get(0))).unwrap();
-            // Plus, with a small allowance (only Plus has Skrongle AI, #931).
-            agent.get(&url("/dev/login?premium=1")).header("cookie", &cookie).call().unwrap();
-
-            // No key of their own: the tutor runs on the server's key and says
-            // what is left. The home card goes straight to it, with no red !.
+            // No key of their own: the tutor runs on the server's key. The home card goes straight to it, with no red !.
             let home = get("/");
             assert!(home.contains(r#"data-testid="home-start-tutor" href="/tutor""#) && !home.contains("home-ai-blocked") && !home.contains("home-tutor-gate") && home.contains(r#"data-testid="home-info-ai""#), "{home}");
             let page = get("/tutor");
             assert!(page.contains(r#"data-provider="hosted""#) && page.contains("Skrongle AI (included)"), "{page}");
-            assert!(page.contains(r#"data-testid="tutor-ai-left">Skrongle AI left this month: 100 %"#), "{page}");
             assert!(page.contains("Your messages are sent to the AI provider this server uses, on its key."), "not \"your key\": {page}");
             let t = post("/api/tutor/start", json!({ "provider": "hosted" }));
             assert_eq!(t["error"], Value::Null, "{t}");
             assert!(t["entries"].as_array().unwrap().iter().any(|e| e["kind"] == "tutor"));
-            // The simulator's usage at $1 / $2 per MTok, taken off the $0.01.
+            // The simulator's usage at $1 / $2 per MTok.
             let (cost, source, purpose): (i64, String, String) = state
                 .db
                 .with(|c| c.query_row("SELECT cost_micros, key_source, purpose FROM ai_usage", [], |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?))))
                 .unwrap();
             assert!(cost > 0 && cost < 10_000, "{cost}");
             assert_eq!((source.as_str(), purpose.as_str()), ("hosted", "tutor-turn"));
-            // Learners see a share of the month, never dollars.
-            let left = t["ai_left"].as_str().unwrap();
-            let pct: i64 = left.strip_prefix("Skrongle AI left this month: ").and_then(|l| l.strip_suffix(" %")).unwrap().parse().unwrap();
-            assert!(pct < 100 && pct >= 100 - (cost * 100 + 9_999) / 10_000, "{left} for {cost}");
-
-            // The allowance runs out: the turn is graded as usual but the model is not asked.
-            let call = crate::ai::Call::new("tutor-turn");
-            let big = Record {
-                user_id: uid,
-                call: &call,
-                provider: "anthropic",
-                model: "tutor-model",
-                usage: crate::ai::Usage { input: 10_000, output: 0, cached: 0 },
-                source: KeySource::Hosted,
-            };
-            state.db.with(|c| state.meter.record(c, &big)).unwrap();
-            let t2 = post("/api/tutor/turn", json!({ "session": t["session"], "kind": "say", "text": "hola" }));
-            assert_eq!(t2["ai_out"], "allowance", "{t2}");
-            assert!(t2["error"].as_str().unwrap().contains("own API key"), "{t2}");
-            assert_eq!(t2["entries"][0]["kind"], "learner");
-            assert_eq!(state.db.with(|c| c.query_row("SELECT COUNT(*) FROM ai_usage", [], |r| r.get::<_, i64>(0))).unwrap(), 2);
-
-            // The profile's AI usage card shows the month as a share, never in dollars.
-            let profile = get("/profile");
-            assert!(profile.contains(r#"id="ai-usage""#) && !profile.contains("$0.01"), "{profile}");
-
-            // #283: the month's $0.01 pays for tutor replies but is too little
-            // for the smallest course, so the generator does not offer it. The
-            // "add an API key" line says why, and what to do instead.
-            assert!(state.meter.cheapest(Need::Tutor) < 10_000 && state.meter.cheapest(Need::Course) > 10_000);
+            // A hosted generation job reserves the estimate, writes the course, settles and releases.
             let made = agent.post(&url("/courses/new")).header("cookie", &cookie).send_form([("title", "")]).unwrap();
             let editor = made.headers().get("location").unwrap().to_str().unwrap().to_string();
             let id = editor.strip_prefix("/courses/").and_then(|l| l.strip_suffix("?generate=1")).unwrap().to_string();
             let form = get(&editor);
-            assert!(form.contains(r#"data-testid="generate-no-key""#) && !form.contains(r#"value="hosted""#), "{form}");
-            assert!(form.contains(r#"data-testid="hosted-gap-reason" data-none="false""#), "{form}");
-            assert!(form.contains("too little to write even the smallest course"), "{form}");
-            assert!(!form.contains(r#"data-testid="hosted-gap-upgrade""#), "already on Plus: {form}");
-            // Asking for it anyway is refused before any job starts.
-            let mut r = agent
-                .post(&url(&format!("/courses/{id}/generate")))
-                .header("cookie", &cookie)
-                .send_form([("provider", "hosted"), ("wish", "Fractions, for the simulator test"), ("lessons", "3")])
-                .unwrap();
-            assert_eq!(r.status().as_u16(), 200);
-            let refused = r.body_mut().read_to_string().unwrap();
-            assert!(refused.contains("does not cover this"), "{refused}");
-            assert_eq!(state.db.with(|c| c.query_row("SELECT COUNT(*) FROM ai_usage", [], |r| r.get::<_, i64>(0))).unwrap(), 2, "no model call");
-
-
-            // With credits it reserves the estimate, writes the course, settles and releases.
-            state.db.with(|c| metering::add_credits(c, uid, 1_000_000)).unwrap();
+            assert!(form.contains(r#"value="hosted""#) && !form.contains("generate-no-key"), "{form}");
             let mut r = agent
                 .post(&url(&format!("/courses/{id}/generate")))
                 .header("cookie", &cookie)
@@ -780,9 +639,38 @@ mod tests {
             assert_eq!(rows.len(), 4, "{rows:?}");
             assert!(rows.iter().all(|(_, m, s)| m == "course-model" && s == "hosted"));
             assert_eq!(rows[0].0, "generate-outline");
-            let s = state.db.with(|c| state.meter.status(c, uid)).unwrap();
-            assert_eq!(s.reserved, 0);
-            assert!(s.credits_spent > 0 && s.available == 1_000_000 - s.credits_spent, "{s:?}");
+            let calls = |state: &crate::AppState| state.db.with(|c| c.query_row("SELECT COUNT(*) FROM ai_usage", [], |r| r.get::<_, i64>(0))).unwrap();
+            let before = calls(&state);
+
+            // The day's cap is reached: the turn is graded as usual but the model is not asked.
+            let call = crate::ai::Call::new("tutor-turn");
+            let big = Record {
+                user_id: uid,
+                call: &call,
+                provider: "anthropic",
+                model: "tutor-model",
+                usage: crate::ai::Usage { input: 2_000_000, output: 0, cached: 0 },
+                source: KeySource::Hosted,
+            };
+            state.db.with(|c| state.meter.record(c, &big)).unwrap();
+            let t2 = post("/api/tutor/turn", json!({ "session": t["session"], "kind": "say", "text": "hola" }));
+            assert_eq!(t2["ai_out"], "daily-cap", "{t2}");
+            assert!(t2["error"].as_str().unwrap().contains("own API key"), "{t2}");
+            assert_eq!(t2["entries"][0]["kind"], "learner");
+            assert_eq!(calls(&state), before + 1, "only the recorded row: the model was not asked");
+            // Asking for a course the same day is refused before any job starts, with the way on.
+            let made = agent.post(&url("/courses/new")).header("cookie", &cookie).send_form([("title", "")]).unwrap();
+            let editor = made.headers().get("location").unwrap().to_str().unwrap().to_string();
+            let id2 = editor.strip_prefix("/courses/").and_then(|l| l.strip_suffix("?generate=1")).unwrap().to_string();
+            let mut r = agent
+                .post(&url(&format!("/courses/{id2}/generate")))
+                .header("cookie", &cookie)
+                .send_form([("provider", "hosted"), ("wish", "Fractions, for the simulator test"), ("lessons", "3")])
+                .unwrap();
+            assert_eq!(r.status().as_u16(), 200);
+            let refused = r.body_mut().read_to_string().unwrap();
+            assert!(refused.contains("daily spending limit") && refused.contains("ai-out-own-key"), "{refused}");
+            assert_eq!(calls(&state), before + 1, "no model call");
         };
         rt.block_on(async move { tokio::task::spawn_blocking(work).await }).unwrap();
     }

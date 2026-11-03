@@ -5,7 +5,7 @@ use crate::motivators::shop::catalogue;
 #[test]
 fn the_shop_sells_each_badge_once_and_only_when_affordable() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let state = super::super::test_state(false, None);
+    let state = super::super::test_state(false);
     let ann = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", "x")).unwrap();
     state.db.with(|c| crate::terms::accept(c, ann, crate::terms::version())).unwrap();
     let cookie = format!("sid={}", state.db.with(|c| crate::auth::create_session(c, ann)).unwrap());

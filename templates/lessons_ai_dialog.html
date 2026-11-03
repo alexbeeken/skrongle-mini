@@ -11,7 +11,7 @@
     {% if let Some(e) = la.error %}<p class="alert error" role="alert" data-testid="course-lessons-ai-error">{{ e }}</p>{% endif %}
     <textarea id="lt-ai-text" name="text" rows="4" maxlength="{{ crate::ai::MAX_FEEDBACK }}" data-min="{{ crate::ai::MIN_PROMPT }}" required aria-label="{{ crate::t("study.panel.ai_edit_ask") }}" aria-describedby="lt-ai-count" placeholder="{{ crate::t("study.panel.ai_edit_placeholder") }}" data-testid="course-lessons-ai-text">{{ la.text }}</textarea>
     <p class="small char-count" id="lt-ai-count" data-testid="course-lessons-ai-count">{{ crate::t1("study.panel.ai_edit_limit", "n", crate::ai::grouped(crate::ai::MAX_FEEDBACK)) }}</p>
-    {% if la.provider == crate::tutor::HOSTED %}<p class="small muted" data-testid="course-lessons-ai-provider">{{ crate::t1("courses.ai.hosted_uses", "hosted", crate::tutor::hosted_label()) }}{% if let Some(l) = la.ai_left %} {{ l }}.{% endif %}</p>
+    {% if la.provider == crate::tutor::HOSTED %}<p class="small muted" data-testid="course-lessons-ai-provider">{{ crate::t1("courses.ai.hosted_uses", "hosted", crate::tutor::hosted_label()) }}</p>
     {% else %}<p class="small muted" data-testid="course-lessons-ai-provider">{% if la.named_provider %}{# The key's span carries Use AI's testid; this one is renamed so the page has one of each. #}{{ crate::t1("courses.ai.sent_to_named_html", "provider", la.provider).replace("course-ai-provider", "course-lessons-ai-provider-name")|safe }}{% else %}{{ crate::t("courses.ai.sent_to_generic") }}{% endif %}</p>{% endif %}
     <div class="modal-actions">
       <button type="button" class="btn ghost" data-dialog-close data-testid="course-lessons-ai-cancel">{{ crate::t("study.panel.cancel") }}</button>
