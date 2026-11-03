@@ -155,14 +155,19 @@ pub fn load(conn: &Connection, user_id: i64) -> rusqlite::Result<Option<Profile>
 const EMAIL_TAKEN_SQL: &str = "SELECT EXISTS(SELECT 1 FROM users WHERE lower(email) = lower(?1) AND id != ?2)";
 
 /// Is this address already on another account? Case-insensitive.
-/// (Registration uses `reset::account_for` since #379: it needs the account.)
-#[allow(dead_code)]
 pub fn email_taken(conn: &Connection, email: &str, except_user: Option<i64>) -> rusqlite::Result<bool> {
     conn.query_row(
         EMAIL_TAKEN_SQL,
         params![email, except_user.unwrap_or(-1)],
         |r| r.get(0),
     )
+}
+
+/// The account's address counts as confirmed (the dev user; tests). Keeps
+/// the first confirmation time.
+pub fn mark_verified(conn: &Connection, user_id: i64, now: i64) -> rusqlite::Result<()> {
+    conn.execute("UPDATE users SET email_verified_at = COALESCE(email_verified_at, ?2) WHERE id = ?1", params![user_id, now])?;
+    Ok(())
 }
 
 /// Save the editable part of a profile; `None` keeps a field as it is. The

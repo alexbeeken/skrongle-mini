@@ -32,6 +32,13 @@ Yes. Give it [`/llms.txt`](/llms.txt) or paste the
 See [Write lessons with an LLM](making-courses#write-lessons-with-an-llm-you-already-use).
 
 
+**I forgot my password. How do I get back in?**
+Ask whoever runs your Skrongle. On the Superuser page they set a temporary
+password for your account and give it to you; you choose your own at the
+next sign-in. Lost the phone with your authenticator app? They can turn
+two-factor sign-in off for you there too. There is no reset link by e-mail.
+See [Accounts and AI keys](self-hosting#accounts-and-ai-keys).
+
 **Why does my Skrongle mini say it has all the accounts it can hold?**
 A Skrongle mini holds at most 8 accounts (a household plus a couple of
 guests). The number is fixed, not a setting: a small known size keeps the

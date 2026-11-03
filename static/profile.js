@@ -274,15 +274,10 @@
   var tfForm = document.querySelector("[data-testid=profile-two-factor-form]");
   var confirmDlg = document.getElementById("two-factor-confirm-dialog");
   var confirmForm = document.getElementById("two-factor-confirm-form");
-  var confirmSend = document.getElementById("two-factor-confirm-send-form");
   var current = tfCard ? tfCard.dataset.method : "";
   function askToConfirm(method, remove) {
     confirmForm.action = remove ? confirmForm.dataset.removeAction : confirmForm.dataset.methodAction;
     confirmForm.elements.method.value = method;
-    if (confirmSend) {
-      confirmSend.elements.method.value = method;
-      confirmSend.elements.remove.value = remove ? "1" : "";
-    }
     var what = confirmDlg.querySelector("[data-testid=two-factor-confirm-what]");
     var chip = document.querySelector('[data-testid=profile-two-factor-method][data-method="' + method + '"]');
     var label = chip ? chip.textContent.trim().toLowerCase() : "";

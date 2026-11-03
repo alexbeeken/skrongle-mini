@@ -223,7 +223,6 @@ export const journeys: Journey[] = [
       await page.context().clearCookies();
       const a = newAccount("journey-level");
       await signUp(page, a);
-      await login(page, a);
       return "/courses";
     },
     goal: "You already know beginner Spanish. Start the Spanish course at A2 instead of the very beginning.",

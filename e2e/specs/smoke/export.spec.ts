@@ -57,15 +57,9 @@ test("a learner asks for their data, gets the link by e-mail and downloads the J
   expect(data.tables.projects.map((p: { course_id: string }) => p.course_id)).toContain("spanish");
   expect(data.tables.sessions.length).toBeGreaterThan(0);
   expect(data.tables.data_exports).toHaveLength(1);
-  // The confirmation mail sent at registration is listed, never its text or link.
-  const verify = data.tables.mail_outbox.find((m: { purpose: string }) => m.purpose === "email-verify");
-  expect(verify).toBeTruthy();
-  expect(verify).not.toHaveProperty("subject");
-  expect(verify).not.toHaveProperty("body_text");
   const text = JSON.stringify(data);
   expect(text).not.toContain("argon2");
   expect(text).not.toContain("session_token");
-  expect(text).not.toContain("verify-email?token=");
   expect(data.api_key_providers).toEqual([]);
 
   // The link works once.

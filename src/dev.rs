@@ -385,7 +385,7 @@ pub fn ensure_user(db: &Db) -> Result<i64, String> {
         db.with(|c| {
             crate::terms::accept(c, id, crate::terms::version())?;
             c.execute("UPDATE users SET superuser = 1, developer = 1 WHERE id = ?1", [id])?;
-            crate::verify::mark_verified(c, id, crate::db::now())
+            crate::profile::mark_verified(c, id, crate::db::now())
         })
         .map_err(|e| e.to_string())
     };

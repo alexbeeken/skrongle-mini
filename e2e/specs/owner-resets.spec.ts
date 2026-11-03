@@ -10,7 +10,6 @@ test("a superuser sets a temporary password; the learner signs in with it and mu
   const them = await (await browser.newContext()).newPage();
   const a = newAccount("temp-pw");
   await signUp(them, a);
-  await login(them, a); // registering signs nobody in (#379)
 
   // The account menu links a superuser to the page; the profile lists no accounts.
   await devLogin(page);
@@ -71,7 +70,6 @@ test("a superuser turns off another account's two-factor; others get 404", async
   const them = await (await browser.newContext()).newPage();
   const a = newAccount("twofa-off");
   await signUp(them, a);
-  await login(them, a); // registering signs nobody in (#379)
   // Not a superuser: no link in the menu, and the page and its actions answer 404.
   await them.goto("/profile");
   await them.getByTestId("nav-account-toggle").click();
@@ -85,6 +83,8 @@ test("a superuser turns off another account's two-factor; others get 404", async
   await devLogin(page);
   await page.goto("/superuser");
   const row = page.getByTestId("superuser-account-row").filter({ hasText: a.email.toLowerCase() });
+  // No "Reset email verification": nothing confirms an address any more (#10).
+  await expect(row.getByTestId("superuser-account-reset-verification")).toHaveCount(0);
   await row.getByTestId("superuser-account-two-factor-off").click();
   const dialog = page.getByTestId("superuser-two-factor-dialog");
   await expect(dialog).toContainText(a.email.toLowerCase());

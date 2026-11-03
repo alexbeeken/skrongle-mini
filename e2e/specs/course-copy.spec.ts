@@ -148,7 +148,6 @@ test("copies count against the account's course bytes: past the limit the copy i
   test.setTimeout(120_000);
   const acct = newAccount("copy");
   await signUp(page, acct);
-  await login(page, acct); // registering signs nobody in (#379)
   // Copy until the account is full (32 MB; the Spanish course takes about 2.3 MB).
   let made = 0;
   let refused = "";
@@ -191,7 +190,6 @@ test("no copy or translate icon in the settings of a course shared with you; cop
 
   const guest = await (await browser.newContext()).newPage();
   await signUp(guest, friend);
-  await login(guest, friend); // registering signs nobody in (#379)
   await guest.goto(link);
   await guest.goto("/courses");
   const card = guest.locator(`[data-testid="courses-card"][data-course-id="${id}"]`);
@@ -248,7 +246,6 @@ test("at phone width the copy icon sits beside the X, inside the dialog and clea
   await page.setViewportSize({ width: 390, height: 844 });
   const acct2 = newAccount("copyphone");
   await signUp(page, acct2);
-  await login(page, acct2); // registering signs nobody in (#379)
   await page.request.post("/courses/spanish/copy", { maxRedirects: 0 });
   await page.goto("/courses");
   const over = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);

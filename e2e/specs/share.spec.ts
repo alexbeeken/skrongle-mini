@@ -56,13 +56,7 @@ test("an invited address registers from the link and has the course read only, u
   await guest.getByTestId("register-age").check();
   await guest.getByTestId("register-terms").check();
   await guest.getByTestId("register-submit").click();
-  // Registering does not sign in (#379): "check your mail", then the login form, which keeps the link.
-  await expect(guest.getByTestId("register-sent")).toBeVisible();
-  await guest.getByTestId("register-sent-login").click();
-  await expect(guest).toHaveURL(/\/login\?share=/);
-  await guest.getByTestId("login-email").fill(friend.email);
-  await guest.getByTestId("login-password").fill(friend.password);
-  await guest.getByTestId("login-submit").click();
+  // Registering signs the account in and goes on to the link.
   await expect(guest.getByTestId("nav-account-toggle")).toHaveAttribute("data-email", friend.email.toLowerCase());
   await expect(guest).toHaveURL(/\/$/);
 
@@ -98,7 +92,7 @@ test("a shared course's circle tip wraps inside a phone screen while it shows, e
   // newAccount adds about 17 characters; the part before the @ stays within the 64 that mail allows (#1003).
   const owner = newAccount("a-long-owner-address-for-the-phone-tip-check");
   const ownerPage = await (await browser.newContext()).newPage();
-  if (!(await signUp(ownerPage, owner))) await login(ownerPage, owner);
+  await signUp(ownerPage, owner);
   const id = await createCourse(ownerPage);
   await ownerPage.getByTestId("generate-close").click();
   await ownerPage.getByTestId("course-edit-share").click();

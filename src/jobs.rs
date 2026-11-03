@@ -606,7 +606,7 @@ pub fn housekeeping(runner: Runner, state: &Arc<crate::AppState>, retention: cra
                 "links",
                 Box::new(|| {
                     sql(db, |c, now| {
-                        let n = crate::verify::purge(c, now)? + crate::reset::purge(c, now)? + crate::two_factor::purge(c, now)? + crate::signup::purge(c, now)?;
+                        let n = crate::two_factor::purge(c, now)? + crate::signup::purge(c, now)?;
                         Ok(note(n, "old links deleted"))
                     })
                 }),

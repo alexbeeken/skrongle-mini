@@ -168,16 +168,12 @@ Still open from this review:
 
 ## Accepted risks
 
-- **Superusers act on any account** (#220). The only action so far,
-  *Reset email verification*, unconfirms an account and e-mails it a new
-  link. Until the owner clicks it, the account cannot add a phone number or
-  turn on e-mail as its second step (#431), and courses shared to its
-  address do not open for it; sign-in, including an e-mail second step
-  already on, keeps working. So the harm is an unwanted e-mail and a
-  temporary loss of those features. The flag is set only by hand (or on the
-  dev user in dev mode), every action is logged with both user ids, and
-  anyone else's POST is a 404. Actions added there later need the same
-  review.
+- **Superusers act on any account** (#220, #635): a temporary password
+  (the account is signed out everywhere and must choose its own at the
+  next sign-in) and turning two-factor sign-in off. The flag is set only by
+  hand (or on the dev user in dev mode), every action is logged with both
+  user ids, and anyone else's POST is a 404. Actions added there later need
+  the same review.
 
 - **DNS rebinding** on custom base URLs: the host is checked when the form is
   submitted and resolved again by the HTTP client when it connects, so a DNS
@@ -224,14 +220,10 @@ Still open from this review:
   requests; it must be fixed before the repository goes public, and is
   blocked until then.
 - **Registration is open** to anyone who can reach the server (documented in
-  self-hosting); there is no CAPTCHA. E-mail addresses are verified by a
-  one-time link (`src/verify.rs`: 256-bit token, only its SHA-256 stored,
-  24 hours, single use, voided by a newer link or an address change; resend
-  limited to 5 per account per hour, and at most 10 per address per day
-  across account deletion, #395). Only a few things need a confirmed
-  address: adding a phone number (#431), e-mail
-  as the second sign-in step, and opening a course shared to that address.
-  Otherwise an unconfirmed account can do everything a confirmed one can.
+  self-hosting); there is no CAPTCHA. E-mail addresses are not verified
+  (#10): nothing is sent to them. A course shared to an address opens for
+  that address only through its link, never because an account registered
+  the address.
   Registration still says when an address already has an account, and there
   is no password reset, so someone who registers a victim's address first
   keeps it: #379, open (PR #461, above).

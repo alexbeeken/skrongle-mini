@@ -122,7 +122,6 @@ auth:
     privacy_link: Confidentialité
     too_many_attempts: Trop de tentatives de connexion. Attendez quelques minutes et réessayez.
     incorrect: Adresse e-mail ou mot de passe incorrect.
-    forgot: "Mot de passe oublié ?"
   register:
     title: S'inscrire
     heading: Créer un compte
@@ -167,23 +166,15 @@ auth:
   code:
     title: Saisissez votre code
     from_app: Depuis votre application d'authentification.
-    emailed_to: "Envoyé par e-mail à {to}."
     code_label: Code
     submit: Se connecter
-    resend: Envoyer un nouveau code
     cancel: Annuler
     gone: Cette connexion a expiré. Reconnectez-vous.
-    unsent: Le code n'a pas pu être envoyé pour le moment. Attendez une minute, puis demandez-en un nouveau.
-    sent: Un nouveau code est en route.
     wrong:
       one: "Ce code n'est pas bon. {n} essai restant."
       other: "Ce code n'est pas bon. {n} essais restants."
     too_many_wrong: Trop de codes erronés, ou le code a expiré. Reconnectez-vous.
-    your_email: votre adresse e-mail
-    your_authenticator: votre application d'authentification
   two_factor:
-    channel_off_email: "Votre compte se connecte avec un code par e-mail, mais ce serveur ne peut pas envoyer d'e-mails ({setting} n'est pas défini). Demandez à la personne qui le gère de définir {setting}, ou de désactiver la connexion en deux étapes de votre compte."
-    needs_email: Confirmez d'abord votre adresse e-mail.
     needs_app: Configurez d'abord l'application d'authentification.
     app_already: Une application d'authentification est déjà configurée. Supprimez-la d'abord.
   ai_switch:
@@ -192,42 +183,7 @@ auth:
     tip: Le tuteur IA et la création de cours par IA sont masqués et inutilisables. Elles fonctionnent en envoyant ce que vous tapez à une entreprise d'IA, avec votre propre clé API. Vous pouvez changer ce réglage à tout moment dans votre profil.
     off: "Non"
     on: "Oui"
-  verify_email:
-    title: Confirmez votre adresse e-mail
-    confirmed_heading: Votre adresse e-mail est confirmée
-    confirmed: Merci. Il n'y a rien d'autre à faire.
-    invalid_heading: Ce lien ne fonctionne pas
-    invalid: Il a peut-être déjà été utilisé, date de plus de 24 heures, ou a été remplacé par un lien plus récent.
-    already: "Votre adresse {email} est déjà confirmée."
-    resend_to: Nous pouvons envoyer un nouveau lien à
-    resend: Envoyer un nouveau lien
-    sign_in_hint: Connectez-vous pour demander un nouveau lien depuis votre profil.
-    continue: Continuer
-    sign_in: Se connecter
 
-  register_sent:
-    title: "Consultez votre boîte mail"
-    sent_html: "Nous avons envoyé un message à {email}. Ouvrez le lien qu'il contient pour confirmer votre adresse, puis connectez-vous."
-    sign_in: "Se connecter"
-  reset:
-    title: "Réinitialiser votre mot de passe"
-    email_label: "Adresse e-mail"
-    send: "Envoyer un lien"
-    sent_title: "Consultez votre boîte mail"
-    sent_html: "Si {email} a un compte, un lien pour choisir un nouveau mot de passe lui a été envoyé. Le lien ne fonctionne qu'une fois, pendant une heure."
-    choose_title: "Choisissez un nouveau mot de passe"
-    choose_html: "Pour {email}. Enregistrer vous déconnecte partout."
-    password_label: "Nouveau mot de passe"
-    password_note: "(au moins 8 caractères)"
-    save: "Enregistrer le nouveau mot de passe"
-    invalid_title: "Ce lien ne fonctionne pas"
-    invalid: "Il a peut-être déjà été utilisé, date de plus d'une heure, ou a été remplacé par un lien plus récent."
-    again: "Envoyer un nouveau lien"
-    done_title: "Votre mot de passe est changé"
-    done: "✓ Toutes les sessions sont déconnectées. Connectez-vous avec le nouveau mot de passe."
-    sign_in: "Se connecter"
-    too_many_requests: "Trop de demandes depuis votre réseau. Réessayez dans une heure."
-    too_many_tries: "Trop de tentatives depuis votre réseau. Attendez quelques minutes et réessayez."
 
 terms:
   page:
@@ -309,60 +265,6 @@ mail:
       {summary}
       <p><a href="{link}">Lire les nouvelles conditions</a></p>
       <p>À partir du {date}, nous vous demanderons de les accepter à la connexion. Si vous n'êtes pas d'accord, vous pouvez fermer votre compte depuis votre profil.</p>
-  verify_email:
-    subject: "Confirmez votre adresse e-mail pour {app}"
-    text: |
-      Bonjour,
-
-      Veuillez confirmer que c'est bien votre adresse e-mail pour {app} en ouvrant ce lien :
-
-      {link}
-
-      Le lien ne fonctionne qu'une fois, pendant 24 heures. Si vous ne vous êtes pas inscrit à {app}, ignorez ce message : l'adresse n'est confirmée que si le lien est ouvert. {app} envoie au plus {max} de ces messages à une même adresse par jour.
-    html: |
-      <p>Bonjour,</p>
-      <p>Veuillez confirmer que c'est bien votre adresse e-mail pour {app} :</p>
-      <p><a href="{link}">Confirmer mon adresse e-mail</a></p>
-      <p>Ou collez ce lien dans votre navigateur : {link}</p>
-      <p>Le lien ne fonctionne qu'une fois, pendant 24 heures. Si vous ne vous êtes pas inscrit à {app}, ignorez ce message : l'adresse n'est confirmée que si le lien est ouvert. {app} envoie au plus {max} de ces messages à une même adresse par jour.</p>
-  password_reset:
-    subject: "Réinitialisez votre mot de passe {app}"
-    text: |
-      Bonjour,
-
-      Quelqu'un (vous, espérons-le) a demandé à réinitialiser le mot de passe de votre compte {app}. Choisissez-en un nouveau en ouvrant ce lien :
-
-      {link}
-
-      Le lien ne fonctionne qu'une fois, pendant une heure, et vous déconnecte partout. Si vous n'avez rien demandé, ignorez ce message ; votre mot de passe reste inchangé.
-    html: |
-      <p>Bonjour,</p>
-      <p>Quelqu'un (vous, espérons-le) a demandé à réinitialiser le mot de passe de votre compte {app}.</p>
-      <p><a href="{link}">Choisir un nouveau mot de passe</a></p>
-      <p>Ou collez ce lien dans votre navigateur : {link}</p>
-      <p>Le lien ne fonctionne qu'une fois, pendant une heure, et vous déconnecte partout. Si vous n'avez rien demandé, ignorez ce message ; votre mot de passe reste inchangé.</p>
-  register_taken:
-    subject: "Vous avez déjà un compte {app}"
-    text: |
-      Bonjour,
-
-      Quelqu'un a essayé de créer un nouveau compte {app} avec cette adresse e-mail. Elle a déjà un compte, donc rien n'a été créé.
-
-      Si c'était vous, connectez-vous ici :
-
-      {login}
-
-      Mot de passe oublié ? Choisissez-en un nouveau ici :
-
-      {reset}
-
-      Si ce n'était pas vous, ignorez ce message ; votre compte est inchangé.
-    html: |
-      <p>Bonjour,</p>
-      <p>Quelqu'un a essayé de créer un nouveau compte {app} avec cette adresse e-mail. Elle a déjà un compte, donc rien n'a été créé.</p>
-      <p>Si c'était vous : <a href="{login}">Se connecter</a></p>
-      <p>Mot de passe oublié ? <a href="{reset}">Choisir un nouveau mot de passe</a></p>
-      <p>Si ce n'était pas vous, ignorez ce message ; votre compte est inchangé.</p>
   account_deletion:
     subject: "Votre compte {app} sera supprimé le {date}"
     text: |
@@ -391,7 +293,6 @@ mail:
   two_factor_changed:
     subject: "La connexion en deux étapes sur {app} a changé"
     now_off: est désactivée
-    now_email: envoie maintenant un code par e-mail
     now_totp: demande maintenant un code d'une application d'authentification
     text: |
       Bonjour,
@@ -403,36 +304,6 @@ mail:
       <p>Bonjour,</p>
       <p>La connexion en deux étapes sur {app} <strong>{now}</strong>.</p>
       <p>Tous vos autres appareils ont été déconnectés. Si vous n'êtes pas à l'origine de ce changement, quelqu'un d'autre est connecté à votre compte : connectez-vous, utilisez “Se déconnecter partout ailleurs” sur votre profil, puis rétablissez la connexion en deux étapes.</p>
-  login_code:
-    subject: "Votre code de connexion {app}"
-    text: |
-      Bonjour,
-
-      Votre code pour finaliser votre connexion à {app} :
-
-      {code}
-
-      Il fonctionne pendant 10 minutes. Si vous n'avez pas essayé de vous connecter, changez votre mot de passe : quelqu'un d'autre le connaît.
-    html: |
-      <p>Bonjour,</p>
-      <p>Votre code pour finaliser votre connexion à {app} :</p>
-      <p style="font-size:1.6em;letter-spacing:.15em"><strong>{code}</strong></p>
-      <p>Il fonctionne pendant 10 minutes. Si vous n'avez pas essayé de vous connecter, changez votre mot de passe : quelqu'un d'autre le connaît.</p>
-  two_factor_confirm:
-    subject: "Votre code {app} pour modifier la connexion en deux étapes"
-    text: |
-      Bonjour,
-
-      Votre code pour désactiver ou modifier la connexion en deux étapes sur {app} :
-
-      {code}
-
-      Il fonctionne pendant 10 minutes. Si vous ne l'avez pas demandé, quelqu'un d'autre est connecté à votre compte : utilisez “Se déconnecter partout ailleurs” sur votre profil.
-    html: |
-      <p>Bonjour,</p>
-      <p>Votre code pour désactiver ou modifier la connexion en deux étapes sur {app} :</p>
-      <p style="font-size:1.6em;letter-spacing:.15em"><strong>{code}</strong></p>
-      <p>Il fonctionne pendant 10 minutes. Si vous ne l'avez pas demandé, quelqu'un d'autre est connecté à votre compte : utilisez “Se déconnecter partout ailleurs” sur votre profil.</p>
   course_share:
     subject: "{owner} vous a partagé un cours sur {app} : {title}"
     text: |
@@ -448,11 +319,6 @@ mail:
       <p>Vous pouvez suivre le cours avec votre propre progression ; seul {owner} peut le modifier. Si vous n'avez pas encore de compte {app}, le lien vous permet d'en créer un. Si vous n'attendiez pas ce message, ignorez-le.</p>
 
 profile:
-  email_no_mail:
-    title: "Non confirmée"
-    text: "Ce serveur ne peut pas envoyer d'e-mails, il ne peut donc pas envoyer de lien pour confirmer votre adresse. Tout fonctionne sans cela."
-    label: "À propos de votre adresse"
-    ok: "OK"
   title: Profil
   no_name: Apprenant
   head:
@@ -482,11 +348,6 @@ profile:
     email_private: Votre adresse e-mail n'est visible que de vous.
     policy_link: politique de confidentialité
     ok: OK
-  email_unverified:
-    title: Vérifiez votre adresse e-mail
-    text: Adresse e-mail non encore vérifiée. Consultez votre boîte de réception pour le lien.
-    close: Fermer
-    resend: Renvoyer
   nav:
     label: Sections du profil
     personal: Informations personnelles
@@ -502,7 +363,6 @@ profile:
     email: Adresse e-mail
     no_email: Aucune adresse e-mail enregistrée
     verified: Vérifiée
-    not_verified: Non vérifiée
     language: Langue
     language_unavailable: Cette langue n'est pas disponible.
   account:
@@ -566,32 +426,22 @@ profile:
     info: À propos de la double authentification
     second_step: Deuxième étape de connexion
     off: "Désactivée"
-    email: E-mail
-    email_unverified: Adresse e-mail non vérifiée
     totp: Application d'authentification
     save: Enregistrer
     confirm_title: Confirmez que c'est bien vous
     confirm_password_why: Pour que quelqu'un qui utilise ce navigateur connecté ne puisse pas modifier votre deuxième étape, saisissez le mot de passe de votre compte.
     confirm_app_code: Ce compte n'a pas de mot de passe ; saisissez donc le code que votre application d'authentification affiche maintenant.
-    confirm_sent_code: Ce compte n'a pas de mot de passe ; confirmez donc avec un code de votre deuxième étape actuelle.
-    sent_to: "Envoyé à {to}."
-    send_one_first: Envoyez-en d'abord un.
     password: Mot de passe
     code: Code
     cancel: Annuler
-    send_again: Renvoyer
-    send_code: Envoyer le code
     confirm: Confirmer
     totp_added: "Application d'authentification ajoutée le {date}"
     remove: Supprimer
     info_title: Double authentification
-    info_text: "Après votre mot de passe, la connexion demande un code : envoyé par e-mail ou affiché par une application d'authentification comme Google Authenticator. Une seule méthode à la fois ; en choisir une autre remplace la précédente."
-    info_small: L'e-mail et le SMS nécessitent une adresse ou un numéro vérifié. Les codes valent 10 minutes ; cinq erreurs mettent fin à la connexion.
+    info_text: "Après votre mot de passe, la connexion demande le code affiché par une application d'authentification comme Google Authenticator."
+    info_small: Cinq codes erronés mettent fin à la connexion.
     ok: OK
-    email_first_title: Vérifiez d'abord votre e-mail
-    email_first_text: Les codes par e-mail nécessitent une adresse vérifiée. Consultez votre boîte de réception pour le lien.
     close: Fermer
-    resend: Renvoyer
     totp_title: Ajouter une application d'authentification
     totp_how: Comment ajouter l'application
     totp_dev_link: "Dev : l'ajouter à l'authentificateur de développement"
@@ -603,7 +453,6 @@ profile:
     turn_off: Désactiver la double authentification
     switch_to: "Passer la double authentification à {method}"
     turn_on_by: "Activer la connexion en deux étapes par {method}"
-    method_email: e-mail
     method_totp: application d'authentification
     is_off: La double authentification est désactivée.
     is_method: "Double authentification : {method}."
@@ -617,8 +466,6 @@ profile:
       other: "Ce code n'est pas bon. Il reste {n} essais."
     code_wrong_newest: Ce code n'est pas bon. Saisissez le code le plus récent affiché par l'application.
     code_gone: Aucun code n'est en attente, ou il a expiré. Demandez-en un nouveau.
-    too_many_codes: Trop de codes envoyés. Attendez quelques minutes et réessayez.
-    code_not_sent: Le code n'a pas pu être envoyé. Réessayez dans un instant.
   ai:
     on: "Activées"
     off: "Désactivées"
@@ -685,7 +532,6 @@ profile:
     password_wrong: Le mot de passe n'est pas bon.
     type_email: Saisissez votre adresse e-mail pour confirmer.
     code_app: Code de votre application d'authentification
-    code_sent_to: "envoyé à {to}"
   deletion:
     title: "Suppression du compte prévue"
     on: "Ce compte sera supprimé définitivement le {date}."
@@ -695,7 +541,6 @@ profile:
   save:
     not_a_field: Ce champ ne fait pas partie du profil.
     motivator_unavailable: "Cette motivation n'est pas disponible."
-    sent_to: "Envoyé à {email}."
   name:
     too_long: "{label} est trop long (max. {max} caractères)."
     bad_chars: "{label} contient des caractères non autorisés."
@@ -727,11 +572,7 @@ profile:
 superuser:
   title: Superutilisateur
   about: "Actions sur n'importe quel compte. Seuls les superutilisateurs voient cette page."
-  open_inbox: L'ouvrir dans la boîte de réception de développement
   email: Adresse e-mail
-  reset_note: Marque l'adresse du compte comme non confirmée et envoie un nouveau lien de confirmation, comme à l'inscription.
-  reset: Réinitialiser la vérification de l'e-mail
-  reset_done: "{email} est de nouveau non confirmée, et un nouveau lien de confirmation a été envoyé."
   unknown: "Aucun compte n'a l'adresse {email}."
   accounts: "Comptes"
   accounts_info: "À propos des comptes et des inscriptions"

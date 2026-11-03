@@ -45,7 +45,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 ### Accounts
 
 - Sign-in: `auth.rs` (sessions, CurrentUser, Project), `auth/cache.rs` (the signed-in users kept in memory by session, #37), `routes/auth.rs`, `routes/auth/code.rs` (the two-factor step), `proxy_auth.rs` (proxy header), `signup.rs` (who may register), `urlenc.rs` (percent-encoding for the redirects they build).
-- Mail: `mail.rs` (`mail/resend.rs`, `mail/postmark.rs`, `mail/brevo.rs`, `mail/sink.rs`), `verify.rs` (address check), `reset.rs` + `routes/reset.rs` (password reset).
+- Mail: `mail.rs` (`mail/resend.rs`, `mail/postmark.rs`, `mail/brevo.rs`, `mail/sink.rs`).
 - Two-factor: `two_factor.rs`, `totp.rs`.
 - Profile: `profile.rs`, `routes/profile.rs`, `static/profile.js`, `static/autosave.js`; keys in `secrets.rs`.
 - Data rights: `privacy.rs` (export columns, deletion), `exports.rs` (Download my data), `consent.rs` (optional consents for the Privacy and consent card), `account_deletion.rs` and `routes/account_deletion.rs` (deleting an account after 14 days, #970).
@@ -94,10 +94,8 @@ src/
   account_deletion.rs  the learner's own account deletion after 14 days of grace (#970): users.delete_at, signing out, the dated mail, the housekeeping step that deletes due accounts
   shape.rs       the two shapes (#578): SKRONGLE_MINI=1 is Skrongle mini, unset is the hosted site; read once at startup (shape::current, crate::is_mini); in a mini crate::env reads the hosted-only settings (HOSTED_ONLY: mail, SMS, Google, S3) as unset
   share.rs       sharing a course with other learners by e-mail address (#451): invitations (table course_shares, the link's token hashed), who may open a shared course, the message
-  verify.rs      e-mail verification: link tokens (table email_verifications, SHA-256 only), confirm, the message, the link's host (SKRONGLE_PUBLIC_URL or the request)
-  reset.rs       password reset links (table password_resets, SHA-256 only, 1 h, single use), the "you already have an account" message, which unconfirmed accounts a registration replaces (SKRONGLE_UNCONFIRMED_DAYS)
   totp.rs        time-based one-time passwords: RFC 6238 TOTP over RFC 4226 HOTP (SHA-1 written out, SHA-256/512 via sha2), base32, the otpauth://totp/ Key Uri Format and its QR code as inline SVG (the qrcode crate, no image feature); the dev authenticator (/dev/authenticator) reads its keys with it
-  two_factor.rs  two-factor sign-in: the method in use, the authenticator app's enrolment, sign-in challenges, the proof for turning it off (tables totp_keys, two_factor_challenges, two_factor_confirmations)
+  two_factor.rs  two-factor sign-in: the method in use, the authenticator app's enrolment, sign-in challenges, the proof for turning it off (tables totp_keys, two_factor_challenges)
   terms.rs       Terms of Service: the source (built-in text or SKRONGLE_TERMS file), the built-in changelog (docs/terms-changes.json) and the version in effect, the notice of a newer version (minor or material), acceptances, the 30-day e-mail of a material change, sent from /superuser (table terms_announcements)
   profile.rs     user profiles: name/e-mail validation, profile persistence
   secrets.rs     learners' AI API keys: master secret, ChaCha20-Poly1305 sealing, per-user storage
@@ -152,14 +150,13 @@ src/
       tests.rs     the editor autosave, notices, write limits, prompt boxes and preview-answer tests
     share.rs     POST /courses/{id}/share (invite addresses) and /courses/{id}/share/remove (owner only); GET /courses/shared/{token} (the invitation's link: signed in, the course joins the list and opens; signed out, /login?share=<token>)
     docs.rs      /docs (sidebar sections: SECTIONS), /llms.txt (docs/llms.txt), /privacy (docs/privacy.md)
-    reset.rs     GET/POST /reset (ask for a link: the same answer for any address; ?token=: choose a new password, which ends every session; 404 without mail)
-    auth.rs      /login /register (with mail: always "check your mail", signs nobody in) /logout, GET /verify-email?token= (confirms the address; signed in or not)
+    auth.rs      /login /register (signs the new account in; a taken address is refused on the form) /logout
     auth/code.rs /login/code… (the two-factor step: code form, resend, cancel, status, dev device)
     terms.rs     /terms, /terms.md (public), /terms/accept (the gate for accounts without the current version, and the notice's accept form), /terms/dismiss (closes a minor change's notice)
     account_deletion.rs  /account/deletion (the only page of an account scheduled for deletion: its date, Cancel deletion, Log out)
     password.rs  /password/change (the gate after signing in with a temporary password: the new one twice, no old one)
-    superuser.rs /superuser (superusers only, 404 otherwise: every account on one page with Temporary password, Turn off two-factor and Reset email verification per row; invitation links under SKRONGLE_SIGNUP=invite; while a material terms change is coming, a notice and Send the announcement), POST /superuser/reset-email-verification|invites|invites/revoke|temp-password|two-factor-off|terms-announce
-    profile.rs   /profile (personal information, account, AI API keys), POST /api/profile (autosave), POST /profile/password|api-keys…|verify-email/resend, POST /profile/export (queue "Download my data"), GET /profile/export/download?token=… (the mailed link), POST /profile/delete
+    superuser.rs /superuser (superusers only, 404 otherwise: every account on one page with Temporary password and Turn off two-factor per row; invitation links under SKRONGLE_SIGNUP=invite; while a material terms change is coming, a notice and Send the announcement), POST /superuser/invites|invites/revoke|temp-password|two-factor-off|terms-announce
+    profile.rs   /profile (personal information, account, AI API keys), POST /api/profile (autosave), POST /profile/password|api-keys…, POST /profile/export (queue "Download my data"), GET /profile/export/download?token=… (the mailed link), POST /profile/delete
     pages.rs     / (landing for visitors, home: the three modes) /lessons /lessons/{slug} /history /mistakes, POST /api/lessons/{slug}/note (the lesson note, autosave)
     map.rs       /map
     quiz.rs      /practice, POST /api/answer (grade_and_record: the one grading path for every mode), POST /api/lesson-check (the reading check)
@@ -438,11 +435,9 @@ jobs           (id, kind, payload_json, state, priority, run_at, attempts, max_a
 content_scores, content_category_scores, content_checks, content_check_worker: unused tables of the content check
                 (#9); they go with the schema squash (#2)
 email_verifications (id, user_id, email, token_hash UNIQUE, created_at, expires_at, used_at)
-                -- e-mail confirmation links (src/verify.rs): only the SHA-256 of the token; 24 h, single use;
-                -- users.email_verified_at is set when one is opened. Rows deleted after 7 days
+                -- e-mail confirmation links: no longer written (#10), the table stays
 password_resets (id, user_id, email, token_hash UNIQUE, created_at, expires_at, used_at)
-                -- password reset links (src/reset.rs, v66): only the SHA-256 of the token; 1 h, single use;
-                -- using one sets the password, confirms the address, deletes the sessions. Rows deleted after 7 days
+                -- password reset links (v66): no longer written (#10), the table stays
 totp_keys      (user_id PRIMARY KEY, secret, created_at, confirmed_at, last_step)
                 -- the account's authenticator app (v39): the secret sealed like user_api_keys (ChaCha20-Poly1305,
                 -- secrets::seal_totp, bound to the user; codes are worked out from it, so it can't be hashed),
@@ -452,11 +447,11 @@ phone_verifications (id, user_id, phone, code_hash, salt, attempts, created_at, 
                 -- the texted code confirming users.phone: SHA-256(salt:code) only; 10 minutes, 5 tries
 two_factor_challenges (id, user_id, token_hash UNIQUE, method, code_hash, salt, attempts, created_at, expires_at, sent_by)
                 -- a sign-in waiting for its second step: token_hash is the SHA-256 of the `twofa` cookie's token;
-                -- code_hash SHA-256(salt:token:code) for texted/e-mailed codes ('' for an authenticator); 10 minutes, 5 tries;
+                -- code_hash and salt no longer set (they held texted/e-mailed codes); 10 minutes, 5 tries;
                 -- sent_by 'email' when a texted code went by e-mail because the number opted out (v69)
 two_factor_confirmations (user_id PRIMARY KEY, method, code_hash, salt, attempts, created_at, expires_at)
-                -- the code of an account without a password for turning its texted/e-mailed second step off or switching it:
-                -- SHA-256(salt:code), only for the method it was sent for; 10 minutes, 5 tries
+                -- the code an account without a password was sent to turn its texted/e-mailed second step off:
+                -- no longer written (#10), the table stays
 ai_usage       (id, user_id, course_id, job_id, purpose, provider, model, input_tokens, output_tokens, cached_tokens,
                 cost_micros, credit_micros, key_source, created_at)
                 -- one row per model call; key_source 'hosted' (the server's key, costed) | 'own' (cost 0);
@@ -816,9 +811,8 @@ writable path, and a release never touches the database.
   evicting a running one, so a flood cannot reset an account's
   wrong-password count.
   Changing the password or two-factor sign-in
-  and *Sign out everywhere else* sign out the account's other sessions; a
-  reset link signs out all of them. Registration never says whether an
-  address has an account (#379).
+  and *Sign out everywhere else* sign out the account's other sessions; the
+  owner's temporary password signs out all of them.
 - Two-factor sign-in (`src/two_factor.rs`, [features](features#two-factor-sign-in)):
   with a method on, the password only leaves a challenge named
   by a 256-bit token in the `twofa` cookie (HttpOnly, SameSite=Lax, 10

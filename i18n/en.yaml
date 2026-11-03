@@ -124,7 +124,6 @@ auth:
     privacy_link: Privacy
     too_many_attempts: Too many sign-in attempts. Wait a few minutes and try again.
     incorrect: Incorrect e-mail address or password.
-    forgot: "Forgot your password?"
   register:
     title: Register
     heading: Create an account
@@ -169,23 +168,15 @@ auth:
   code:
     title: Enter your code
     from_app: From your authenticator app.
-    emailed_to: "E-mailed to {to}."
     code_label: Code
     submit: Sign in
-    resend: Send a new code
     cancel: Cancel
     gone: That sign-in has expired. Sign in again.
-    unsent: The code could not be sent just now. Wait a minute, then send a new one.
-    sent: A new code is on its way.
     wrong:
       one: "That code is not right. {n} try left."
       other: "That code is not right. {n} tries left."
     too_many_wrong: Too many wrong codes, or the code expired. Sign in again.
-    your_email: your e-mail address
-    your_authenticator: your authenticator app
   two_factor:
-    channel_off_email: "Your account signs in with a code by e-mail, but this server cannot send e-mail ({setting} is not set). Ask whoever runs it to set {setting}, or to turn two-factor sign-in off for your account."
-    needs_email: Confirm your e-mail address first.
     needs_app: Set up the authenticator app first.
     app_already: An authenticator app is already set up. Remove it first.
   ai_switch:
@@ -194,42 +185,7 @@ auth:
     tip: The AI tutor and AI course creation are hidden and unusable. They work by sending what you type to an AI company with your own API key. You can change this any time in your profile.
     off: "Off"
     on: "On"
-  verify_email:
-    title: Confirm your e-mail address
-    confirmed_heading: Your e-mail address is confirmed
-    confirmed: Thank you. Nothing else to do.
-    invalid_heading: This link does not work
-    invalid: It may have been used already, be older than 24 hours, or have been replaced by a newer link.
-    already: "Your address {email} is confirmed already."
-    resend_to: We can send a new link to
-    resend: Send a new link
-    sign_in_hint: Sign in to ask for a new link from your profile.
-    continue: Continue
-    sign_in: Sign in
 
-  register_sent:
-    title: "Check your mail"
-    sent_html: "We sent a message to {email}. Open the link in it to confirm your address, then sign in."
-    sign_in: "Sign in"
-  reset:
-    title: "Reset your password"
-    email_label: "E-mail address"
-    send: "Send a link"
-    sent_title: "Check your mail"
-    sent_html: "If {email} has an account, a link to choose a new password was sent to it. The link works once, for an hour."
-    choose_title: "Choose a new password"
-    choose_html: "For {email}. Saving signs you out everywhere."
-    password_label: "New password"
-    password_note: "(at least 8 characters)"
-    save: "Save the new password"
-    invalid_title: "This link does not work"
-    invalid: "It may have been used already, be older than an hour, or have been replaced by a newer link."
-    again: "Send a new link"
-    done_title: "Your password is changed"
-    done: "✓ Every session is signed out. Sign in with the new password."
-    sign_in: "Sign in"
-    too_many_requests: "Too many requests from your network. Try again in an hour."
-    too_many_tries: "Too many tries from your network. Wait a few minutes and try again."
 
 terms:
   page:
@@ -311,60 +267,6 @@ mail:
       {summary}
       <p><a href="{link}">Read the new terms</a></p>
       <p>From {date} you will be asked to accept them when you sign in. If you do not agree, you can close your account from your profile.</p>
-  verify_email:
-    subject: "Confirm your e-mail address for {app}"
-    text: |
-      Hello,
-
-      Please confirm that this is your e-mail address for {app} by opening this link:
-
-      {link}
-
-      The link works once, for 24 hours. If you did not sign up for {app}, ignore this message: the address is not confirmed unless the link is opened. {app} sends at most {max} of these messages to one address a day.
-    html: |
-      <p>Hello,</p>
-      <p>Please confirm that this is your e-mail address for {app}:</p>
-      <p><a href="{link}">Confirm my e-mail address</a></p>
-      <p>Or paste this link into your browser: {link}</p>
-      <p>The link works once, for 24 hours. If you did not sign up for {app}, ignore this message: the address is not confirmed unless the link is opened. {app} sends at most {max} of these messages to one address a day.</p>
-  password_reset:
-    subject: "Reset your {app} password"
-    text: |
-      Hello,
-
-      Someone (we hope you) asked to reset the password of your {app} account. Choose a new one by opening this link:
-
-      {link}
-
-      The link works once, for an hour, and signs you out everywhere. If you did not ask, ignore this message; your password stays as it is.
-    html: |
-      <p>Hello,</p>
-      <p>Someone (we hope you) asked to reset the password of your {app} account.</p>
-      <p><a href="{link}">Choose a new password</a></p>
-      <p>Or paste this link into your browser: {link}</p>
-      <p>The link works once, for an hour, and signs you out everywhere. If you did not ask, ignore this message; your password stays as it is.</p>
-  register_taken:
-    subject: "You already have a {app} account"
-    text: |
-      Hello,
-
-      Someone tried to create a new {app} account with this e-mail address. It already has an account, so nothing was created.
-
-      If it was you, sign in here:
-
-      {login}
-
-      Forgot your password? Choose a new one here:
-
-      {reset}
-
-      If it was not you, ignore this message; your account is unchanged.
-    html: |
-      <p>Hello,</p>
-      <p>Someone tried to create a new {app} account with this e-mail address. It already has an account, so nothing was created.</p>
-      <p>If it was you: <a href="{login}">Sign in</a></p>
-      <p>Forgot your password? <a href="{reset}">Choose a new password</a></p>
-      <p>If it was not you, ignore this message; your account is unchanged.</p>
   account_deletion:
     subject: "Your {app} account will be deleted on {date}"
     text: |
@@ -393,7 +295,6 @@ mail:
   two_factor_changed:
     subject: "Two-factor sign-in on {app} changed"
     now_off: is now off
-    now_email: now e-mails you a code
     now_totp: now asks for a code from an authenticator app
     text: |
       Hello,
@@ -405,36 +306,6 @@ mail:
       <p>Hello,</p>
       <p>Two-factor sign-in on {app} <strong>{now}</strong>.</p>
       <p>Every other device was signed out. If you did not make this change, someone else was signed in to your account: sign in, use “Sign out everywhere else” on your profile, and set two-factor sign-in back.</p>
-  login_code:
-    subject: "Your {app} sign-in code"
-    text: |
-      Hello,
-
-      Your code to finish signing in to {app}:
-
-      {code}
-
-      It works for 10 minutes. If you did not try to sign in, change your password: someone else knows it.
-    html: |
-      <p>Hello,</p>
-      <p>Your code to finish signing in to {app}:</p>
-      <p style="font-size:1.6em;letter-spacing:.15em"><strong>{code}</strong></p>
-      <p>It works for 10 minutes. If you did not try to sign in, change your password: someone else knows it.</p>
-  two_factor_confirm:
-    subject: "Your {app} code to change two-factor sign-in"
-    text: |
-      Hello,
-
-      Your code to turn off or change two-factor sign-in on {app}:
-
-      {code}
-
-      It works for 10 minutes. If you did not ask for it, someone else is signed in to your account: use “Sign out everywhere else” on your profile.
-    html: |
-      <p>Hello,</p>
-      <p>Your code to turn off or change two-factor sign-in on {app}:</p>
-      <p style="font-size:1.6em;letter-spacing:.15em"><strong>{code}</strong></p>
-      <p>It works for 10 minutes. If you did not ask for it, someone else is signed in to your account: use “Sign out everywhere else” on your profile.</p>
   course_share:
     subject: "{owner} shared a course with you on {app}: {title}"
     text: |
@@ -453,11 +324,6 @@ mail:
       <p>You can learn from the course with your own progress; only {owner} can change it. If you do not have a {app} account yet, the link lets you create one. If you were not expecting this, ignore this message.</p>
 
 profile:
-  email_no_mail:
-    title: "Not confirmed"
-    text: "This server cannot send e-mail, so it cannot send a link to confirm your address. Everything works without it."
-    label: "About your address"
-    ok: "OK"
   title: Profile
   no_name: Learner
   head:
@@ -487,11 +353,6 @@ profile:
     email_private: Your e-mail address is private to you.
     policy_link: privacy policy
     ok: OK
-  email_unverified:
-    title: Verify your e-mail
-    text: Email not yet verified. Check your inbox for the link.
-    close: Close
-    resend: Resend
   nav:
     label: Profile sections
     personal: Personal information
@@ -507,7 +368,6 @@ profile:
     email: E-mail address
     no_email: No e-mail on file
     verified: Verified
-    not_verified: Not verified
     language: Language
     language_unavailable: That language is not available.
   account:
@@ -571,32 +431,22 @@ profile:
     info: About two-factor authentication
     second_step: Second sign-in step
     off: "Off"
-    email: E-mail
-    email_unverified: E-mail not verified
     totp: Authenticator app
     save: Save
     confirm_title: Confirm it's you
     confirm_password_why: So that someone using this signed-in browser can't change your second step, type your account's password.
     confirm_app_code: This account has no password, so type the code your authenticator app shows now.
-    confirm_sent_code: This account has no password, so confirm with a code from your current second step.
-    sent_to: "Sent to {to}."
-    send_one_first: Send one first.
     password: Password
     code: Code
     cancel: Cancel
-    send_again: Send again
-    send_code: Send code
     confirm: Confirm
     totp_added: "Authenticator app added {date}"
     remove: Remove
     info_title: Two-factor authentication
-    info_text: "After your password, signing in asks for a code: e-mailed, or shown by an authenticator app such as Google Authenticator. One method at a time; choosing another replaces it."
-    info_small: E-mail and text need a verified address or number. Codes work for 10 minutes; five wrong ones end the sign-in.
+    info_text: "After your password, signing in asks for the code an authenticator app such as Google Authenticator shows."
+    info_small: Five wrong codes end the sign-in.
     ok: OK
-    email_first_title: Verify your e-mail first
-    email_first_text: E-mail codes need a verified address. Check your inbox for the link.
     close: Close
-    resend: Resend
     totp_title: Add an authenticator app
     totp_how: How to add the app
     totp_dev_link: "Dev: add it to the dev authenticator"
@@ -608,7 +458,6 @@ profile:
     turn_off: Turn two-factor sign-in off
     switch_to: "Switch two-factor sign-in to {method}"
     turn_on_by: "Turn on two-factor sign-in by {method}"
-    method_email: e-mail
     method_totp: authenticator app
     is_off: Two-factor sign-in is off.
     is_method: "Two-factor sign-in: {method}."
@@ -622,8 +471,6 @@ profile:
       other: "That code is not right. {n} tries left."
     code_wrong_newest: That code is not right. Type the newest code the app shows.
     code_gone: No code is waiting, or it expired. Send a new one.
-    too_many_codes: Too many codes sent. Wait a few minutes and try again.
-    code_not_sent: The code could not be sent. Try again in a moment.
   ai:
     on: "On"
     off: "Off"
@@ -690,7 +537,6 @@ profile:
     password_wrong: The password is not right.
     type_email: Type your e-mail address to confirm.
     code_app: Code from your authenticator app
-    code_sent_to: "sent to {to}"
   deletion:
     title: "Account scheduled for deletion"
     on: "This account will be deleted for good on {date}."
@@ -700,7 +546,6 @@ profile:
   save:
     not_a_field: This field is not part of the profile.
     motivator_unavailable: "That motivator is not available."
-    sent_to: "Sent to {email}."
   name:
     too_long: "{label} is too long (max {max} characters)."
     bad_chars: "{label} contains characters that are not allowed."
@@ -732,11 +577,7 @@ profile:
 superuser:
   title: Superuser
   about: "Actions on any account. Only superusers see this page."
-  open_inbox: Open it in the dev inbox
   email: E-mail address
-  reset_note: Marks the account's address unconfirmed and sends a new confirmation link, as at registration.
-  reset: Reset email verification
-  reset_done: "{email} is unconfirmed again, and a new confirmation link was sent."
   unknown: "No account has the address {email}."
   accounts: "Accounts"
   accounts_info: "About accounts and sign-up"

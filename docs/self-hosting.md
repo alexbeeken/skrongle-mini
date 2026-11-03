@@ -257,15 +257,13 @@ names any that are set.
 
 | Feature | Without e-mail |
 |---|---|
-| Confirming an address | No link is sent. The e-mail field shows an (i), not the red !, and nothing asks to send it again. |
-| Two-factor sign-in | The e-mail method is not offered. |
+| Two-factor sign-in | The authenticator app only. |
 | Sharing a course | After inviting, the Share dialog shows each address's link with a Copy button, once (links are stored only hashed); pass it on yourself. |
 | Download my data | No mail: when the copy is ready, the Data section's **Download my data** button gets it (the button is there with mail too). |
 
-The authenticator app needs no e-mail, so two-factor sign-in still works. An
-account whose second step was e-mail (a database moved over from
-elsewhere) cannot sign in: the login page says so. Turn two-factor sign-in
-off for that account (see [If you lock yourself out](#if-you-lock-yourself-out)).
+The authenticator app needs no e-mail, so two-factor sign-in still works.
+Nothing confirms an address and there is no password reset by link: a
+forgotten password gets a temporary one from you (below).
 
 Dev mode's mailbox and phone are off in a mini too, so `./.dev-start --mini`
 shows what a real mini shows.

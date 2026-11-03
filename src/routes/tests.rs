@@ -256,7 +256,7 @@ fn account_forms_are_rate_limited() {
     let new_user = |email: &str| state.db.with(|c| crate::auth::find_user_credentials(c, email)).unwrap().map(|(id, _)| id);
     assert_eq!(post("/register", "", &[("email", "cy@example.org"), ("password", "long-enough-pw")]), 200);
     assert_eq!(new_user("cy@example.org"), None, "no account without the box");
-    assert_eq!(post("/register", "", &[("email", "cy@example.org"), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on")]), 200, "the check-your-mail page");
+    assert_eq!(post("/register", "", &[("email", "cy@example.org"), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on")]), 303, "registered and signed in");
     let cy = new_user("cy@example.org").expect("registered");
     let age_confirmed = state.db.with(|c| c.query_row("SELECT age_confirmed FROM users WHERE id = ?1", [cy], |r| r.get::<_, bool>(0))).unwrap();
     assert!(age_confirmed, "registration records the age confirmation");
@@ -269,16 +269,19 @@ fn account_forms_are_rate_limited() {
 }
 
 /// The second sign-in step counts every wrong code (the last one too)
-/// against the account, and refuses codes and resends while the
-/// account is blocked (#359).
+/// against the account, and refuses codes while the account is blocked
+/// (#359).
 #[test]
 fn sign_in_codes_count_against_the_account_limit() {
     use crate::two_factor;
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
     let state = super::test_state(false);
     let ann = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", "h")).unwrap();
-    state.db.with(|c| crate::verify::mark_verified(c, ann, 1)).unwrap();
-    state.db.with(|c| two_factor::set_method(c, ann, Some(two_factor::Method::Email)).map(|r| r.unwrap())).unwrap();
+    let now = crate::db::now();
+    let key = state.db.with(|c| two_factor::totp_start(c, &state.vault, ann, now).map(|r| r.unwrap())).unwrap();
+    assert!(state.db.with(|c| two_factor::totp_confirm(c, &state.vault, ann, &key.code_at(now as u64), now)).unwrap());
+    // A code the app shows at no step near now.
+    let wrong = (0..).map(|i| format!("{:06}", 100_000 + i)).find(|c| (-2..=2).all(|d| key.code_at((now + d * 30) as u64) != *c)).unwrap();
     let app = super::router(state.clone());
     let base = rt.block_on(async {
         let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
@@ -298,29 +301,25 @@ fn sign_in_codes_count_against_the_account_limit() {
     assert_eq!(2 * two_factor::MAX_ATTEMPTS, crate::security::LOGIN_FAILURES_PER_USER.max as i64);
     for _ in 0..2 {
         let ch = challenge();
-        let code = ch.send.clone().unwrap().1;
-        let wrong = if code == "999999" { "999998" } else { "999999" };
         assert!(!blocked());
         for _ in 1..two_factor::MAX_ATTEMPTS {
-            assert_eq!(post("/login/code", &ch.token, &[("code", wrong)]), 422);
+            assert_eq!(post("/login/code", &ch.token, &[("code", &wrong)]), 422);
         }
-        assert_eq!(post("/login/code", &ch.token, &[("code", wrong)]), 200, "the last wrong code ends the sign-in");
+        assert_eq!(post("/login/code", &ch.token, &[("code", &wrong)]), 200, "the last wrong code ends the sign-in");
     }
     assert!(blocked(), "ten wrong codes block the account");
 
-    // A blocked account: even the right code and a resend are refused.
+    // A blocked account: even the right code is refused.
     let ch = challenge();
-    let code = ch.send.clone().unwrap().1;
-    assert_eq!(post("/login/code/resend", &ch.token, &[]), 429);
+    let code = key.code_at(crate::db::now() as u64 + 30);
     assert_eq!(post("/login/code", &ch.token, &[("code", &code)]), 429);
     assert!(state.db.with(|c| two_factor::pending(c, &ch.token, crate::db::now())).unwrap().is_some(), "no try was used");
 }
 
 /// The Superuser page (#220): only superusers see it (or its link in
-/// the account menu) or may post to it; "Reset email verification"
-/// unconfirms any account and sends it a new link.
+/// the account menu) or may post to it; it lists every account.
 #[test]
-fn superusers_reset_email_verification() {
+fn superusers_see_every_account() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
     let state = super::test_state(false);
     let app = super::router(state.clone());
@@ -339,42 +338,30 @@ fn superusers_reset_email_verification() {
         let loc = r.headers().get("location").and_then(|v| v.to_str().ok()).unwrap_or_default().to_string();
         (r.status().as_u16(), set, loc)
     };
-    let sql = |q: &'static str, email: &'static str| state.db.with(move |c| c.query_row(q, [email], |r| r.get::<_, i64>(0))).unwrap();
     post("/register", "", &[("email", "root@example.org"), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on")]);
     let (_, root, _) = post("/login", "", &[("email", "root@example.org"), ("password", "long-enough-pw")]);
     post("/register", "", &[("email", "bob@example.org"), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on")]);
     let (_, bob, _) = post("/login", "", &[("email", "bob@example.org"), ("password", "long-enough-pw")]);
     state.db.with(|c| c.execute("UPDATE users SET superuser = 1 WHERE email = 'root@example.org'", [])).unwrap();
-    state.db.with(|c| c.execute("UPDATE users SET email_verified_at = 5 WHERE email = 'bob@example.org'", [])).unwrap();
-    let bob_links = || sql("SELECT COUNT(*) FROM mail_outbox o JOIN users u ON u.id = o.user_id WHERE u.email = ?1 AND o.purpose = 'email-verify'", "bob@example.org");
 
     // Not a superuser: no link in the menu, the page is a 404, and posting by hand is a 404.
     assert!(!get("/profile", &bob).contains("nav-superuser"));
     assert_eq!(status("/superuser", &bob), 404);
-    assert_eq!(post("/superuser/reset-email-verification", &bob, &[("email", "bob@example.org")]).0, 404);
+    assert_eq!(post("/superuser/temp-password", &bob, &[("email", "bob@example.org")]).0, 404);
     assert_eq!(post("/superuser/terms-announce", &bob, &[]).0, 404);
-    assert_eq!(sql("SELECT email_verified_at FROM users WHERE email = ?1", "bob@example.org"), 5);
 
     // A superuser: the link, and the page with every account and its actions.
     assert!(get("/profile", &root).contains(r#"href="/superuser" data-testid="nav-superuser""#));
     let page = get("/superuser", &root);
-    assert!(page.contains(r#"data-testid="superuser-accounts""#) && page.contains(r#"data-account-email="bob@example.org""#) && page.contains("superuser-verify-dialog"), "{page}");
+    assert!(page.contains(r#"data-testid="superuser-accounts""#) && page.contains(r#"data-account-email="bob@example.org""#) && page.contains("superuser-password-dialog"), "{page}");
+    assert!(!page.contains("superuser-verify-dialog") && !page.contains("reset-email-verification"), "no verification reset (#10)");
     assert!(!page.contains("superuser-pager"), "two accounts: one page");
     // No coming change of the terms in the changelog: no notice, no Send.
     assert!(!page.contains("superuser-terms-changed") && !page.contains("superuser-terms-send"), "{page}");
 
-    // Someone else's address, in any case: unconfirmed again, with a new link.
-    let (status, _, loc) = post("/superuser/reset-email-verification", &root, &[("email", " BOB@example.org ")]);
-    assert_eq!((status, loc.as_str()), (303, "/superuser?did=reset&email=bob%40example.org"));
-    assert_eq!(sql("SELECT COUNT(*) FROM users WHERE email = ?1 AND email_verified_at IS NULL", "bob@example.org"), 1);
-    assert_eq!(bob_links(), 2);
-    assert!(get(&loc, &root).contains("bob@example.org is unconfirmed again"));
-    assert!(!get(&loc, &bob).contains("unconfirmed again"), "only superusers get the notice");
-
     // An address nobody has.
-    let (_, _, loc) = post("/superuser/reset-email-verification", &root, &[("email", "nobody@example.org")]);
+    let (_, _, loc) = post("/superuser/two-factor-off", &root, &[("email", "nobody@example.org")]);
     assert!(get(&loc, &root).contains(r#"data-testid="superuser-error""#));
-    assert_eq!(bob_links(), 2);
 
     // Every account on one page, newest first, with the count from the list.
     state
@@ -422,11 +409,8 @@ fn superusers_reset_passwords_and_two_factor() {
         let (loc, cache) = (header("location"), header("cache-control"));
         (r.status().as_u16(), set, loc, r.body_mut().read_to_string().unwrap(), cache)
     };
-    // Registering signs nobody in (#379): the session comes from /login.
-    let register = |email: &str| {
-        post("/register", "", &[("email", email), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on")]);
-        post("/login", "", &[("email", email), ("password", "long-enough-pw")]).1
-    };
+    // Registering signs the account in.
+    let register = |email: &str| post("/register", "", &[("email", email), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on")]).1;
     let (root, bob) = (register("root@example.org"), register("bob@example.org"));
     state.db.with(|c| c.execute("UPDATE users SET superuser = 1 WHERE email = 'root@example.org'", [])).unwrap();
     let bob_id: i64 = state.db.with(|c| c.query_row("SELECT id FROM users WHERE email = 'bob@example.org'", [], |r| r.get(0))).unwrap();
@@ -558,10 +542,10 @@ fn signup_by_invitation() {
     let (status, _, page) = post("/register", "", &[("email", "owner@example.org"), ("password", "short"), ("age", "on"), ("accept", "on"), ("invite", &owner_link)]);
     assert_eq!(status, 200);
     assert!(page.contains("register-error") && page.contains("register-owner-note"), "{page}");
-    // Registering signs nobody in (#379): "check your mail", then /login.
-    assert_eq!(register("owner@example.org", &owner_link).0, 200);
-    let (status, owner, _) = post("/login", "", &[("email", "owner@example.org"), ("password", "long-enough-pw")]);
+    // Registering signs the account in.
+    let (status, owner, _) = register("owner@example.org", &owner_link);
     assert_eq!(status, 303);
+    assert!(owner.starts_with("sid="), "{owner}");
     assert!(superuser("owner@example.org"), "the first account is a superuser");
     assert_eq!(register("eve@example.org", &owner_link).0, 403, "the owner link works once");
 
@@ -594,8 +578,7 @@ fn signup_by_invitation() {
     assert!(!get("/superuser", &owner).1.contains(&token), "the link is shown only when made");
     let (_, page) = get(&format!("/register?invite={token}"), "");
     assert!(page.contains(&format!(r#"name="invite" value="{token}""#)) && !page.contains("register-owner-note"), "{page}");
-    assert_eq!(register("ann@example.org", &token).0, 200);
-    let (status, ann, _) = post("/login", "", &[("email", "ann@example.org"), ("password", "long-enough-pw")]);
+    let (status, ann, _) = register("ann@example.org", &token);
     assert_eq!(status, 303);
     assert!(!superuser("ann@example.org"));
     let (_, page) = get(&format!("/register?invite={token}"), "");
@@ -645,7 +628,7 @@ fn closed_signup_lets_only_the_owner_in() {
     assert!(page.contains("register-owner-note"), "{page}");
     assert_eq!(register("owner@example.org", ""), 403, "not without the owner link");
     assert_eq!(users(), 0);
-    assert_eq!(register("owner@example.org", &owner_link), 200);
+    assert_eq!(register("owner@example.org", &owner_link), 303);
     let su: bool = state.db.with(|c| c.query_row("SELECT superuser FROM users WHERE email = 'owner@example.org'", [], |r| r.get(0))).unwrap();
     assert!(su, "the first account is the owner");
 
@@ -675,8 +658,8 @@ fn open_signup_is_unchanged() {
     assert!(page.contains("register-form") && !page.contains("register-owner-note"));
     for email in ["a@example.org", "b@example.org"] {
         let form = [("email", email), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on")];
-        // 200: "check your mail" (#379; this server has mail).
-        assert_eq!(agent.post(&format!("{base}/register")).send_form(form).unwrap().status().as_u16(), 200);
+        // 303: signed in, on to home.
+        assert_eq!(agent.post(&format!("{base}/register")).send_form(form).unwrap().status().as_u16(), 303);
     }
     let su: i64 = state.db.with(|c| c.query_row("SELECT COUNT(*) FROM users WHERE superuser = 1", [], |r| r.get(0))).unwrap();
     assert_eq!(su, 0);
@@ -846,101 +829,6 @@ fn proxy_header_for_an_unknown_address_follows_the_signup_rule() {
     assert_eq!(users, 1);
 }
 
-
-#[test]
-fn email_verification_over_http() {
-    let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let state = super::test_state(false);
-    let app = super::router(state.clone());
-    let base = rt.block_on(async {
-        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
-        let addr = listener.local_addr().unwrap();
-        tokio::spawn(async move { axum::serve(listener, app.into_make_service_with_connect_info::<std::net::SocketAddr>()).await.unwrap() });
-        format!("http://{addr}")
-    });
-    let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
-    let get = |path: &str, cookie: &str| {
-        let mut r = agent.get(&format!("{base}{path}")).header("cookie", cookie).call().unwrap();
-        (r.status().as_u16(), r.body_mut().read_to_string().unwrap())
-    };
-    let post = |path: &str, cookie: &str, form: &[(&str, &str)]| {
-        let r = agent.post(&format!("{base}{path}")).header("cookie", cookie).send_form(form.iter().copied()).unwrap();
-        let set = r.headers().get("set-cookie").map(|v| v.to_str().unwrap().split(';').next().unwrap().to_string()).unwrap_or_default();
-        let loc = r.headers().get("location").and_then(|v| v.to_str().ok()).unwrap_or_default().to_string();
-        (r.status().as_u16(), set, loc)
-    };
-    let mails = |email: &str| -> Vec<String> {
-        let e = email.to_string();
-        state
-            .db
-            .with(move |c| {
-                let mut stmt = c.prepare(
-                    "SELECT o.body_text FROM mail_outbox o JOIN users u ON u.id = o.user_id WHERE u.email = ?1 AND o.purpose = 'email-verify' ORDER BY o.id",
-                )?;
-                let v = stmt.query_map([e], |r| r.get(0))?.collect::<Result<Vec<String>, _>>();
-                v
-            })
-            .unwrap()
-    };
-    let token_in = |body: &str| body.split(&format!("{base}/verify-email?token=")).nth(1).unwrap().split_whitespace().next().unwrap().to_string();
-    let verified = |email: &str| {
-        let e = email.to_string();
-        state.db.with(move |c| c.query_row("SELECT email_verified_at IS NOT NULL FROM users WHERE email = ?1", [e], |r| r.get::<_, bool>(0))).unwrap()
-    };
-
-    // Registering: one message with a link to this server.
-    assert_eq!(post("/register", "", &[("email", "ann@example.org"), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on")]).0, 200);
-    let (status, cookie, _) = post("/login", "", &[("email", "ann@example.org"), ("password", "long-enough-pw")]);
-    assert_eq!(status, 303);
-    let sent = mails("ann@example.org");
-    assert_eq!(sent.len(), 1);
-    let token = token_in(&sent[0]);
-    assert_eq!(token.len(), 64);
-    assert!(!verified("ann@example.org"));
-    assert_eq!(post("/courses/open/spanish", &cookie, &[]).0, 303);
-    let profile = get("/profile", &cookie).1;
-    assert!(profile.contains(r#"data-testid="email-verify-resend""#) && !profile.contains(r#"data-testid="email-verified""#));
-
-    // A wrong token changes nothing; the right one works once, signed out too.
-    let (status, html) = get("/verify-email?token=0123", "");
-    assert_eq!(status, 200);
-    assert!(html.contains("verify-email-invalid"));
-    assert!(!verified("ann@example.org"));
-    let (status, html) = get(&format!("/verify-email?token={token}"), "");
-    assert_eq!(status, 200);
-    assert!(html.contains("verify-email-confirmed"), "{html}");
-    assert!(verified("ann@example.org"));
-    assert!(get(&format!("/verify-email?token={token}"), "").1.contains("verify-email-invalid"), "single use");
-    assert!(get("/profile", &cookie).1.contains(r#"data-testid="email-verified""#));
-    // Confirmed: "send again" sends nothing.
-    assert_eq!(post("/profile/verify-email/resend", &cookie, &[]).2, "/profile?saved=verify-sent");
-    assert_eq!(mails("ann@example.org").len(), 1);
-
-    // Send again: a new link each time, the older one void, then silence.
-    post("/register", "", &[("email", "bob@example.org"), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on")]);
-    let (_, bob, _) = post("/login", "", &[("email", "bob@example.org"), ("password", "long-enough-pw")]);
-    let first = token_in(&mails("bob@example.org")[0]);
-    assert_eq!(post("/profile/verify-email/resend", &bob, &[]).2, "/profile?saved=verify-sent");
-    assert!(get("/profile?saved=verify-sent", &bob).1.contains("Sent to bob@example.org."));
-    for _ in 1..crate::security::VERIFY_RESEND_PER_USER.max {
-        assert_eq!(post("/profile/verify-email/resend", &bob, &[]).0, 303);
-    }
-    let sent = mails("bob@example.org");
-    assert_eq!(sent.len(), 1 + crate::security::VERIFY_RESEND_PER_USER.max as usize);
-    assert_eq!(post("/profile/verify-email/resend", &bob, &[]).2, "/profile?saved=verify-sent", "throttled silently");
-    assert_eq!(mails("bob@example.org").len(), sent.len());
-    assert!(get(&format!("/verify-email?token={first}"), "").1.contains("verify-email-invalid"), "superseded");
-    let html = get(&format!("/verify-email?token={first}"), &bob).1;
-    assert!(html.contains(r#"data-testid="verify-email-resend""#), "signed in: a new link is offered");
-    assert!(get(&format!("/verify-email?token={}", token_in(sent.last().unwrap())), &bob).1.contains("verify-email-confirmed"));
-    assert!(verified("bob@example.org"));
-
-}
-
-/// A course's first visit (#574): its home shows the settings as a
-/// wizard until the learner saves them, even saving nothing (the wizard
-/// closed); the motivator chosen there is worn in that course only, and
-/// the profile no longer offers one.
 #[test]
 fn a_new_course_asks_for_its_settings_once() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
@@ -1345,12 +1233,8 @@ fn a_shared_course_is_on_the_recipients_list_read_only() {
         let loc = r.headers().get("location").and_then(|v| v.to_str().ok()).unwrap_or_default().to_string();
         (r.status().as_u16(), set, loc)
     };
-    // Registering does not sign in (#379): the sign-in that follows carries the share link on.
-    let register = |email: &str, share: &str| {
-        let (status, _, _) = post("/register", "", &[("email", email), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on"), ("share", share)]);
-        assert_eq!(status, 200, "registering shows the check-your-mail page");
-        post("/login", "", &[("email", email), ("password", "long-enough-pw"), ("share", share)])
-    };
+    // Registering signs in and carries the share link on.
+    let register = |email: &str, share: &str| post("/register", "", &[("email", email), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on"), ("share", share)]);
     let invitations = |to: &str| {
         let to = to.to_string();
         state
@@ -1470,9 +1354,8 @@ fn caps_follow_the_providers() {
 }
 
 /// #633: on a server with no mail provider nothing offers to send a
-/// message: no confirmation link or red !, no e-mailed second step (an account already on one cannot
-/// sign in, and is told the setting), share links are shown to the
-/// owner, and the data export is a Download button on the profile.
+/// message: share links are shown to the owner, and the data export is a
+/// Download button on the profile.
 #[test]
 fn without_mail_nothing_offers_to_send() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
@@ -1498,24 +1381,8 @@ fn without_mail_nothing_offers_to_send() {
     };
     let count = |sql: &str| state.db.with(|c| c.query_row(sql, [], |r| r.get::<_, i64>(0))).unwrap();
 
-    // Registering queues no confirmation mail and issues no link.
     let (status, ann, _, _) = post("/register", "", &[("email", "ann@example.org"), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on")]);
     assert_eq!(status, 303);
-    assert_eq!(count("SELECT COUNT(*) FROM mail_outbox") + count("SELECT COUNT(*) FROM email_verifications"), 0);
-
-    // The profile: the (i) in place of the red !, no e-mailed second step.
-    let profile = get("/profile", &ann).2;
-    assert!(profile.contains(r#"data-testid="email-no-mail-info""#) && profile.contains(r#"data-testid="email-no-mail-dialog""#), "{profile}");
-    for gone in [r#"data-testid="email-unverified""#, r#"data-testid="email-verify-resend""#, r#"data-method="email""#] {
-        assert!(!profile.contains(gone), "{gone} is on the page");
-    }
-    assert!(profile.contains(r#"data-method="totp""#), "the authenticator app needs nothing");
-    // Asked for anyway, the server says no.
-    let (status, _, _, page) = post("/profile/two-factor", &ann, &[("method", "email"), ("password", "long-enough-pw")]);
-    assert_eq!(status, 422);
-    assert!(page.contains("SKRONGLE_MAIL_PROVIDERS"), "{page}");
-    let (status, _, loc, _) = post("/profile/verify-email/resend", &ann, &[]);
-    assert_eq!((status, loc.as_str()), (303, "/profile"), "nothing to send again");
     assert_eq!(count("SELECT COUNT(*) FROM mail_outbox"), 0);
 
     // Sharing: the dialog makes links, shows them, and mails nothing; a link works.
@@ -1553,20 +1420,13 @@ fn without_mail_nothing_offers_to_send() {
     assert_eq!((status, loc.as_str()), (303, "/profile?saved=export-gone#data"), "once");
     assert!(!get("/profile", &ann).2.contains(r#"data-testid="profile-export-download""#));
 
-    // An account whose second step went by a channel the server lost is refused, naming the setting.
-    let sign_in = || post("/login", "", &[("email", "ann@example.org"), ("password", "long-enough-pw")]);
-    state.db.with(|c| c.execute("UPDATE users SET two_factor = 'email' WHERE email = 'ann@example.org'", [])).unwrap();
-    let (status, cookie, _, page) = sign_in();
-    assert_eq!(status, 403);
-    assert!(page.contains("SKRONGLE_MAIL_PROVIDERS") && !cookie.starts_with("sid="), "{page}");
-    assert_eq!(count("SELECT COUNT(*) FROM two_factor_challenges"), 0, "no code was made");
-    state.db.with(|c| c.execute("UPDATE users SET two_factor = '' WHERE email = 'ann@example.org'", [])).unwrap();
-    assert_eq!(sign_in().0, 303);
 }
 
-/// #633: with providers the same pages offer what they always did.
+/// #10: registering signs the account in and sends nothing; the address
+/// is not asked to be confirmed, the login page has no reset link, and
+/// the second step is the authenticator app alone.
 #[test]
-fn with_mail_everything_is_offered() {
+fn registration_signs_in_and_nothing_is_mailed() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
     let state = super::test_state(false);
     let app = super::router(state.clone());
@@ -1577,17 +1437,31 @@ fn with_mail_everything_is_offered() {
         format!("http://{addr}")
     });
     let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
-    // Registering signs nobody in (#379): the session comes from /login.
-    agent.post(&format!("{base}/register")).send_form([("email", "ann@example.org"), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on")]).unwrap();
-    let r = agent.post(&format!("{base}/login")).send_form([("email", "ann@example.org"), ("password", "long-enough-pw")]).unwrap();
+    let register = || agent.post(&format!("{base}/register")).send_form([("email", "ann@example.org"), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on")]).unwrap();
+    let r = register();
+    assert_eq!((r.status().as_u16(), r.headers().get("location").and_then(|v| v.to_str().ok())), (303, Some("/")));
     let ann = r.headers().get("set-cookie").map(|v| v.to_str().unwrap().split(';').next().unwrap().to_string()).unwrap_or_default();
+    assert!(ann.starts_with("sid="), "{ann}");
+    // The address again: refused, saying so; nothing made.
+    let mut again = register();
+    assert_eq!(again.status().as_u16(), 200);
+    assert!(again.body_mut().read_to_string().unwrap().contains("already exists"));
     let profile = agent.get(&format!("{base}/profile")).header("cookie", &ann).call().unwrap().body_mut().read_to_string().unwrap();
-    for shown in [r#"data-testid="email-unverified""#, r#"data-testid="email-verify-resend""#, r#"data-method="email""#, r#"data-method="totp""#] {
-        assert!(profile.contains(shown), "{shown} is missing");
+    for gone in [r#"data-testid="email-unverified""#, r#"data-testid="email-verify-resend""#, r#"data-method="email""#, "email-no-mail-info", "two-factor-confirm-send"] {
+        assert!(!profile.contains(gone), "{gone} is on the page");
     }
-    assert!(!profile.contains("email-no-mail-info"));
-    let mails: i64 = state.db.with(|c| c.query_row("SELECT COUNT(*) FROM mail_outbox WHERE purpose = 'email-verify'", [], |r| r.get(0))).unwrap();
-    assert_eq!(mails, 1);
+    assert!(profile.contains(r#"data-method="totp""#));
+    let login = agent.get(&format!("{base}/login")).call().unwrap().body_mut().read_to_string().unwrap();
+    assert!(!login.contains("login-reset-link"), "{login}");
+    for gone in ["/reset", "/verify-email?token=abc"] {
+        assert_eq!(agent.get(&format!("{base}{gone}")).call().unwrap().status().as_u16(), 404, "{gone}");
+    }
+    let (users, mails): (i64, i64) = state.db.with(|c| c.query_row("SELECT (SELECT COUNT(*) FROM users), (SELECT COUNT(*) FROM mail_outbox)", [], |r| Ok((r.get(0)?, r.get(1)?)))).unwrap();
+    assert_eq!((users, mails), (1, 0));
+    // An account left on the e-mailed second step signs in with its password alone.
+    state.db.with(|c| c.execute("UPDATE users SET two_factor = 'email'", [])).unwrap();
+    let r = agent.post(&format!("{base}/login")).send_form([("email", "ann@example.org"), ("password", "long-enough-pw")]).unwrap();
+    assert_eq!(r.status().as_u16(), 303);
 }
 
 /// #558: every mode moves the same daily goal, and every mode resumes at
@@ -1724,3 +1598,23 @@ fn web_manifest_points_at_real_icons() {
     }
 }
 
+
+/// Links the app hands out (invitations, share links) use
+/// `SKRONGLE_PUBLIC_URL`, else the request's host; a forwarded host with a
+/// path in it is ignored.
+#[test]
+fn links_use_the_public_url_or_the_request_host() {
+    use axum::http::HeaderMap;
+    let mut h = HeaderMap::new();
+    h.insert("host", "127.0.0.1:8123".parse().unwrap());
+    let state = super::test_state(false);
+    assert_eq!(super::public_base(&state, &h), "http://127.0.0.1:8123");
+    h.insert("x-forwarded-host", "learn.example.org".parse().unwrap());
+    h.insert("x-forwarded-proto", "https".parse().unwrap());
+    assert_eq!(super::public_base(&state, &h), "https://learn.example.org");
+    h.insert("x-forwarded-host", "evil.example/path".parse().unwrap());
+    assert_eq!(super::public_base(&state, &h), "https://127.0.0.1:8123", "a host with a path is ignored");
+    let mut state = std::sync::Arc::try_unwrap(state).ok().unwrap();
+    state.public_url = Some("https://skrongle.example.org/".into());
+    assert_eq!(super::public_base(&state, &h), "https://skrongle.example.org");
+}

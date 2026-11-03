@@ -11,7 +11,7 @@
     <p class="small" data-testid="superuser-account-count">{{ crate::t2("superuser.accounts_of", "total", total, "max", max_accounts) }}</p>
     <div class="modal-actions"><button type="button" class="btn" data-closes>{{ crate::t("profile.data.export_ok") }}</button></div>
   </dialog>
-  {% if let Some(n) = notice %}<p class="alert ok-text" role="status" data-testid="superuser-notice">✓ {{ n }}{% if let Some(i) = inbox %} <a href="{{ i }}" data-testid="superuser-inbox">{{ crate::t("superuser.open_inbox") }}</a>{% endif %}</p>{% endif %}
+  {% if let Some(n) = notice %}<p class="alert ok-text" role="status" data-testid="superuser-notice">✓ {{ n }}</p>{% endif %}
   {% if let Some(e) = error %}<p class="alert error" role="alert" data-testid="superuser-error">{{ e }}</p>{% endif %}
   {% if terms_owed > 0 %}<p class="alert" role="status" data-testid="superuser-terms-changed">{{ crate::t("superuser.terms_changed") }}</p>{% endif %}
 
@@ -69,7 +69,6 @@
         <tr data-testid="superuser-account-row" data-superuser="{{ a.superuser }}"><td>{{ a.email }}</td><td>{{ a.created }}</td><td>{{ a.last_sign_in }}</td><td class="account-actions">{% if !a.email.is_empty() %}
           <button type="button" class="link-btn small" data-opens="superuser-password-dialog" data-account-email="{{ a.email }}" aria-haspopup="dialog" data-testid="superuser-account-temp-password">{{ crate::t("superuser.temp_password") }}</button>
           <button type="button" class="link-btn small" data-opens="superuser-two-factor-dialog" data-account-email="{{ a.email }}" aria-haspopup="dialog" data-testid="superuser-account-two-factor-off">{{ crate::t("superuser.two_factor_off") }}</button>
-          {% if mail %}<button type="button" class="link-btn small" data-opens="superuser-verify-dialog" data-account-email="{{ a.email }}" aria-haspopup="dialog" data-testid="superuser-account-reset-verification">{{ crate::t("superuser.reset") }}</button>{% endif %}
         {% endif %}</td></tr>{% endfor %}
       </tbody>
     </table></div>
@@ -99,20 +98,6 @@
       </div>
     </form>
   </dialog>
-  {% if mail %}
-  <dialog class="modal" id="superuser-verify-dialog" aria-labelledby="superuser-verify-title" data-testid="superuser-verify-dialog">
-    <form method="post" action="{{ crate::url("/superuser/reset-email-verification") }}" data-testid="superuser-verify-form">
-      <h2 id="superuser-verify-title">{{ crate::t("superuser.reset") }}</h2>
-      <input type="hidden" name="email" value="" data-account-field>
-      <p><strong data-account-name></strong></p>
-      <p class="small">{{ crate::t("superuser.reset_note") }}</p>
-      <div class="modal-actions">
-        <button type="button" class="btn ghost" data-closes>{{ crate::t("profile.password.cancel") }}</button>
-        <button type="submit" class="btn" data-testid="superuser-verify-confirm">{{ crate::t("superuser.reset") }}</button>
-      </div>
-    </form>
-  </dialog>
-  {% endif %}
   {% if let Some((email, password)) = temp_password %}
   <dialog class="modal" id="superuser-temp-password-new" open data-open-on-load aria-labelledby="superuser-temp-password-title" data-testid="superuser-temp-password-dialog">
     <h2 id="superuser-temp-password-title">{{ crate::t("superuser.temp_password") }}</h2>

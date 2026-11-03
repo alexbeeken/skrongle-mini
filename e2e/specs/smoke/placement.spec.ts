@@ -48,7 +48,6 @@ async function sit(dlg: Locator): Promise<number> {
 test("the placement test suggests the first unit with a miss, shows a report card, and the course starts there", async ({ page }) => {
   const acct = newAccount("placement");
   await signUp(page, acct);
-  await login(page, acct);
   await openCourse(page, TEST_COURSE, { wizard: true });
   const dlg = wizard(page);
   // The level step is the last one, and offers the test beside the cards.
@@ -98,7 +97,6 @@ test("the placement test suggests the first unit with a miss, shows a report car
 test("the marking is the server's: answers come back with each unit's tally and no question carries its answer", async ({ page }) => {
   const acct = newAccount("placement-api");
   await signUp(page, acct);
-  await login(page, acct);
   const sitting = await (await page.request.get(`/courses/${TEST_COURSE}/placement`)).json();
   expect(sitting.questions.length).toBeGreaterThan(written.length);
   for (const q of sitting.questions) expect(Object.keys(q).sort()).toEqual(["id", "options", "prompt", "unit"]);

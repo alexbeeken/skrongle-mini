@@ -76,8 +76,7 @@ test("the sign-up box hides every AI feature, and the profile turns them back on
   await page.getByTestId("register-terms").check();
   await page.getByTestId("register-no-ai").check();
   await page.getByTestId("register-submit").click();
-  await expect(page.getByTestId("register-sent")).toBeVisible();
-  await login(page, a);
+  await expect(page.getByTestId("nav-account-toggle")).toHaveAttribute("data-email", a.email);
   await page.goto("/courses");
   await openCourse(page, "spanish");
 

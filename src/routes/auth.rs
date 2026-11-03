@@ -35,9 +35,6 @@ pub struct LoginTemplate {
     /// `share.rs`): the page says so, and signing in or registering goes
     /// on to the link.
     pub share: Option<ShareNotice>,
-    /// "Forgot your password?" (`/reset`, #379): only where the server
-    /// can mail the link (not in Skrongle mini).
-    pub reset: bool,
 }
 
 impl LoginTemplate {
@@ -228,7 +225,7 @@ pub async fn login_form(State(state): State<Arc<AppState>>, MaybeUser(user): May
         return Ok(proxy_page(StatusCode::OK, false));
     }
     let notice = deletion_notice(q.deletion.as_deref());
-    Ok(Page(LoginTemplate { user: None, reset: state.caps().mail, error: None, email: String::new(), dev: state.dev, notice, share }).into_response())
+    Ok(Page(LoginTemplate { user: None, error: None, email: String::new(), dev: state.dev, notice, share }).into_response())
 }
 
 pub async fn register_form(State(state): State<Arc<AppState>>, MaybeUser(user): MaybeUser, Query(q): Query<RegisterQuery>) -> Result<Response, AppError> {
@@ -273,7 +270,7 @@ pub async fn login(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp, r
         return Ok(proxy_page(StatusCode::FORBIDDEN, false));
     }
     let too_many = |email: String, share: Option<_>| {
-        let page = LoginTemplate { user: None, reset: state.caps().mail, error: Some(crate::t("auth.login.too_many_attempts")), email, dev: state.dev, notice: None, share };
+        let page = LoginTemplate { user: None, error: Some(crate::t("auth.login.too_many_attempts")), email, dev: state.dev, notice: None, share };
         (StatusCode::TOO_MANY_REQUESTS, Page(page)).into_response()
     };
     if state.limits.blocked(security::LOGIN_PER_IP, &ip, now()) {
@@ -289,7 +286,6 @@ pub async fn login(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp, r
     let fail = |msg: &str| {
         Page(LoginTemplate {
             user: None,
-            reset: state.caps().mail,
             error: Some(msg.to_string()),
             email: email.clone(),
             dev: state.dev,
@@ -405,14 +401,6 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
     if let Err(e) = auth::validate_password(&form.password) {
         return Ok(fail(e));
     }
-    // With mail, from here on the answer is "check your mail" whether or
-    // not the address has an account (#379): the page, the status and the
-    // work done (the argon2 hash, one message queued) are the same either
-    // way. Only the sign-up mode (`signup.rs`) still refuses, and it never
-    // looks at the address. Without mail (Skrongle mini, #633) there is no
-    // message to hide behind: a taken address is said so, and the new
-    // account is signed in at once.
-    let can_mail = state.caps().mail;
     let password = form.password;
     let no_ai = !form.no_ai.is_empty();
     // The language picked on the register page becomes the account's; with
@@ -420,44 +408,26 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
     let lang = crate::i18n::chosen(&headers).unwrap_or_default();
     let hash = auth::hash_password_async(password).await?;
 
-    // An unconfirmed account old enough gives the address up (only where a
-    // confirmation mail could have been read). What lives in memory for it
-    // goes first, as on /profile/delete.
-    let (t, days) = (now(), if can_mail { crate::reset::unconfirmed_days() } else { 0 });
-    let e = email.clone();
-    let stale = state.db.call(move |c| crate::reset::replaceable(c, &e, t, days)).await?;
-    if let Some(old) = stale {
-        state.jobs.drop_user(old);
-        state.tutors.drop_user(old);
-        state.games.drop_user(old);
-    }
-
     // Checked next to the insert, on one connection (so nothing runs in
     // between): another sign-up may have taken the address, or the
     // invitation, while we hashed. The sign-up mode's word comes first, so
-    // a refusal never depends on the address and never deletes anything.
-    let e = email.clone();
+    // a refusal never depends on the address.
+    let (t, e) = (now(), email.clone());
     let (mode, invite, dev) = (state.signup, form.invite.clone(), state.dev);
-    let (outcome, deleted) = state
+    let outcome = state
         .db
         .call(move |c| {
             let admitted = match signup::admit(c, mode, &invite, Some(&e), t, dev)? {
                 Ok(a) => a,
-                Err(r) => return Ok((Signup::Refused(r), None)),
+                Err(r) => return Ok(Signup::Refused(r)),
             };
-            let mut deleted = None;
-            if let Some(old) = stale {
-                if crate::reset::replaceable(c, &e, t, days)? == Some(old) {
-                    deleted = crate::privacy::delete_account(c, old)?.map(|d| (old, d));
-                }
-            }
             let tx = c.transaction()?;
-            if let Some((id, stored)) = crate::reset::account_for(&tx, &e)? {
-                return Ok((Signup::Taken(id, stored), deleted));
+            if profile::email_taken(&tx, &e, None)? {
+                return Ok(Signup::Taken);
             }
             let id = auth::create_user(&tx, &e, &hash)?;
             if !signup::finish(&tx, admitted, id, t)? {
-                return Ok((Signup::Refused(Refusal::Used), deleted));
+                return Ok(Signup::Refused(Refusal::Used));
             }
             crate::terms::accept(&tx, id, crate::terms::version())?;
             crate::privacy::record_age_confirmed(&tx, id, true)?;
@@ -465,66 +435,29 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
             if !lang.is_empty() {
                 profile::set_lang(&tx, id, &lang)?;
             }
-            let session = if can_mail { None } else { Some(auth::create_session(&tx, id)?) };
+            let session = auth::create_session(&tx, id)?;
             tx.commit()?;
-            Ok((Signup::New(id, session), deleted))
+            Ok(Signup::New(session))
         })
         .await?;
-    if let Some((old, d)) = deleted {
-        for c in &d.courses {
-            state.courses.invalidate(c);
-        }
-        tracing::info!("unconfirmed user {old} was replaced by a new registration of its address");
-    }
     match outcome {
-        Signup::New(user_id, session) => {
+        Signup::New(token) => {
             tracing::info!("a new user registered");
-            crate::verify::send_or_log(&state, &headers, user_id, &email).await;
-            if let Some(token) = session {
-                return Ok(([auth::set_session_cookie(&token, state.secure_cookies)], Redirect::to(&crate::url(&after_sign_in(share.as_ref())))).into_response());
-            }
+            Ok(([auth::set_session_cookie(&token, state.secure_cookies)], Redirect::to(&crate::url(&after_sign_in(share.as_ref())))).into_response())
         }
-        Signup::Taken(_, _) if !can_mail => return Ok(fail(crate::t("auth.register.email_taken"))),
-        Signup::Taken(user_id, stored) => {
-            tracing::info!("a registration named the address of user {user_id}: nothing created, the address is told");
-            if state.limits.hit(security::REGISTER_TAKEN_PER_ADDRESS, &stored, t) {
-                if let Err(e) = crate::reset::send_taken(&state, &headers, user_id, &stored).await {
-                    tracing::warn!("could not queue the already-registered e-mail for user {user_id}: {e:?}");
-                }
-            }
-        }
-        Signup::Refused(r) => return Ok(signup_refused(r, StatusCode::FORBIDDEN)),
+        Signup::Taken => Ok(fail(crate::t("auth.register.email_taken"))),
+        Signup::Refused(r) => Ok(signup_refused(r, StatusCode::FORBIDDEN)),
     }
-    Ok(Page(RegisterSentTemplate { user: None, email, share }).into_response())
 }
 
 /// What `register` did on the database thread.
 enum Signup {
-    /// The account was made: send the confirmation mail. Without mail it
-    /// is signed in at once, with this session token.
-    New(i64, Option<String>),
-    /// The address (as stored) already has this account: nothing was made,
-    /// and the page says the same as for a new one (#379).
-    Taken(i64, String),
+    /// The account was made and signed in, with this session token.
+    New(String),
+    /// The address already has an account: nothing was made.
+    Taken,
     /// The sign-up mode said no (`signup.rs`).
     Refused(Refusal),
-}
-
-#[derive(Template)]
-#[template(path = "register_sent.html")]
-pub struct RegisterSentTemplate {
-    pub user: Option<CurrentUser>,
-    /// The address typed; the page is the same whether it had an account.
-    pub email: String,
-    /// A course's share link the sign-up came from: the Sign in link keeps it.
-    pub share: Option<ShareNotice>,
-}
-
-impl RegisterSentTemplate {
-    /// The address in bold, escaped, for the page's `_html` sentence.
-    pub fn email_html(&self) -> String {
-        format!("<strong data-testid=\"register-sent-email\">{}</strong>", crate::error::html_escape(&self.email))
-    }
 }
 
 #[derive(Deserialize)]
@@ -589,28 +522,11 @@ fn twofa_token(headers: &HeaderMap) -> Option<String> {
 }
 
 /// The password said who this is: sign them in, or, with two-factor
-/// sign-in on, send the code and ask for it at `/login/code`. `cookies` go
+/// sign-in on, ask for the authenticator's code at `/login/code`. `cookies` go
 /// out either way. `share`: the course's share link to land on instead of
 /// home; a sign-in that goes through its second step carries it in the
 /// share cookie (#1016).
 async fn sign_in(state: &AppState, user_id: i64, mut cookies: Vec<(axum::http::HeaderName, HeaderValue)>, share: Option<&ShareNotice>) -> Result<Response, AppError> {
-    // The account's second step goes by a channel this server lost (a
-    // self-hoster removed the provider): no code could reach it, so the
-    // sign-in is refused, naming the setting (#633).
-    let method = state.db.call(move |c| two_factor::settings(c, user_id)).await?.method;
-    if let Some(m) = method.filter(|m| !two_factor::channel_on(*m, state.caps())) {
-        tracing::warn!("user {user_id} cannot sign in: their two-factor method ({}) needs a provider this server lacks", m.as_str());
-        let page = Page(LoginTemplate {
-            user: None,
-            reset: state.caps().mail,
-            error: Some(two_factor::channel_off_text(m)),
-            email: String::new(),
-            dev: state.dev,
-            notice: None,
-            share: None,
-        });
-        return Ok((StatusCode::FORBIDDEN, AppendHeaders(cookies), page).into_response());
-    }
     let challenge = state.db.call(move |c| two_factor::start_login(c, user_id, now())).await?;
     let Some(ch) = challenge else {
         let token = state.db.call(move |c| auth::create_session(c, user_id)).await?;
@@ -621,38 +537,13 @@ async fn sign_in(state: &AppState, user_id: i64, mut cookies: Vec<(axum::http::H
         }
         return Ok((AppendHeaders(cookies), Redirect::to(&crate::url(&after_sign_in(share)))).into_response());
     };
-    tracing::info!("user {user_id} asked for a {} code", ch.method.as_str());
-    let sent = match ch.send {
-        Some((to, code)) => send_code(state, user_id, ch.method, &to, &code).await,
-        None => true,
-    };
+    tracing::info!("user {user_id} is asked for an authenticator code");
     cookies.push(twofa_cookie(&ch.token, two_factor::CODE_TTL_SECS, state.secure_cookies));
     if let Some(s) = share {
         cookies.push(named_cookie(SHARE_COOKIE, &s.token, two_factor::CODE_TTL_SECS, state.secure_cookies));
     }
-    let to = if sent { "/login/code" } else { "/login/code?unsent=1" };
-    Ok((AppendHeaders(cookies), Redirect::to(&crate::url(to))).into_response())
+    Ok((AppendHeaders(cookies), Redirect::to(&crate::url("/login/code"))).into_response())
 }
-
-/// E-mail a sign-in code. `false` when it could not be queued (a bad
-/// address); the page then says so.
-async fn send_code(state: &AppState, user_id: i64, method: two_factor::Method, to: &str, code: &str) -> bool {
-    let r = match method {
-        two_factor::Method::Email => match two_factor::login_mail(to, code, user_id) {
-            Ok(mail) => state.mail.queue(&state.db, mail).await.map(|_| ()).map_err(|e| format!("{e:?}")),
-            Err(e) => Err(e),
-        },
-        two_factor::Method::Totp => Ok(()),
-    };
-    match r {
-        Ok(()) => true,
-        Err(e) => {
-            tracing::warn!("could not send user {user_id} a sign-in code: {e}");
-            false
-        }
-    }
-}
-
 
 // ---------- cookies that carry an invitation or share link ----------
 
@@ -683,43 +574,4 @@ fn hex_cookie(headers: &HeaderMap, name: &str) -> String {
             })
         })
         .unwrap_or_default()
-}
-
-// ---------- e-mail verification ----------
-
-#[derive(Template)]
-#[template(path = "verify_email.html")]
-pub struct VerifyEmailTemplate {
-    pub user: Option<CurrentUser>,
-    /// The link confirmed an address just now.
-    pub confirmed: bool,
-}
-
-#[derive(Deserialize)]
-pub struct VerifyParams {
-    #[serde(default)]
-    pub token: String,
-}
-
-/// GET /verify-email?token=…: the link in the confirmation e-mail. Works
-/// signed in or not (it may be opened in another browser) and signs nobody in.
-pub async fn verify_email(
-    State(state): State<Arc<AppState>>,
-    MaybeUser(mut user): MaybeUser,
-    Query(q): Query<VerifyParams>,
-) -> Result<Response, AppError> {
-    let token = q.token.trim().to_string();
-    let outcome = state.db.call(move |c| crate::verify::confirm(c, &token, now())).await?;
-    let confirmed = match outcome {
-        crate::verify::Outcome::Confirmed { user_id } => {
-            tracing::info!("user {user_id} confirmed their e-mail address");
-            if let Some(u) = user.as_mut().filter(|u| u.id == user_id) {
-                u.email_verified = true;
-            }
-            true
-        }
-        crate::verify::Outcome::Invalid => false,
-    };
-    let page = Page(VerifyEmailTemplate { user, confirmed }).into_response();
-    Ok(([(axum::http::header::CACHE_CONTROL, "no-store")], page).into_response())
 }

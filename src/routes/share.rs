@@ -65,7 +65,7 @@ pub async fn invite(
         return Ok(back(&id, "share-full"));
     }
     let owner = owner.unwrap_or_default();
-    let base = crate::verify::public_base(&state, &headers);
+    let base = crate::routes::public_base(&state, &headers);
     let can_mail = state.caps().mail;
     let (mut sent, mut already) = (0, 0);
     let mut links = Vec::new();

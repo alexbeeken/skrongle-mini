@@ -30,7 +30,6 @@ pub mod profile;
 pub mod progress;
 pub mod quiz;
 pub mod password;
-pub mod reset;
 pub mod shop;
 pub mod superuser;
 pub mod terms;
@@ -46,6 +45,27 @@ struct Assets;
 #[derive(RustEmbed)]
 #[folder = "docs/"]
 pub struct Docs;
+
+/// Where links the app hands out point (an invitation, a share link, the
+/// owner's link): `SKRONGLE_PUBLIC_URL` when set, else the host the request
+/// was made to (the forwarded one behind a proxy). The scheme is the
+/// proxy's `X-Forwarded-Proto`, else https when the site says it is served
+/// over HTTPS (`SKRONGLE_SECURE_COOKIES=1`), else http. Includes the base path.
+pub fn public_base(state: &AppState, headers: &HeaderMap) -> String {
+    if let Some(u) = state.public_url.as_deref() {
+        return u.trim_end_matches('/').to_string();
+    }
+    let get = |name: &str| headers.get(name).and_then(|v| v.to_str().ok()).map(|v| v.split(',').next().unwrap_or("").trim().to_string());
+    let valid = |h: &String| !h.is_empty() && h.bytes().all(|b| b.is_ascii_graphic() && !b"/\\?#@".contains(&b));
+    let host = get("x-forwarded-host").filter(valid).or_else(|| get("host").filter(valid)).unwrap_or_else(|| "localhost".into());
+    let scheme = match get("x-forwarded-proto").as_deref() {
+        Some("https") => "https",
+        Some("http") => "http",
+        _ if state.secure_cookies => "https",
+        _ => "http",
+    };
+    format!("{scheme}://{host}{}", crate::base_path())
+}
 
 /// A permanent redirect to `to` with the request's query string, for a path
 /// that moved (the modes used to live at /d, /k and /games). A 308, so a
@@ -227,14 +247,11 @@ pub fn router(state: Arc<AppState>) -> Router {
         // auth
         .route("/login", get(auth::login_form).post(auth::login))
         .route("/login/code", get(auth::login_code_form).post(auth::login_code))
-        .route("/login/code/resend", post(auth::login_code_resend))
         .route("/login/code/cancel", post(auth::login_code_cancel))
         .route("/register", get(auth::register_form).post(auth::register))
         .route("/logout", post(auth::logout))
         .route("/account/deletion", get(account_deletion::page))
         .route("/account/deletion/cancel", post(account_deletion::cancel))
-        .route("/verify-email", get(auth::verify_email))
-        .route("/reset", get(reset::form).post(reset::submit))
         // profile (works without an active course)
         .route("/profile", get(profile::show))
         .route("/api/profile", post(profile::save))
@@ -245,14 +262,11 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/profile/export", post(profile::export))
         .route("/profile/export/download", get(profile::export_download).post(profile::export_download_now))
         .route("/profile/delete", post(profile::delete_account))
-        .route("/profile/verify-email/resend", post(profile::resend_verification))
         .route("/profile/two-factor", post(profile::set_two_factor))
         .route("/profile/two-factor/totp/confirm", post(profile::confirm_totp))
         .route("/profile/two-factor/totp/remove", post(profile::remove_totp))
-        .route("/profile/two-factor/code", post(profile::send_confirm_code))
         // superusers (404 for anyone else)
         .route("/superuser", get(superuser::show))
-        .route("/superuser/reset-email-verification", post(superuser::reset_email_verification))
         .route("/superuser/invites", post(superuser::make_invite))
         .route("/superuser/invites/revoke", post(superuser::revoke_invite))
         .route("/superuser/temp-password", post(superuser::set_temp_password))

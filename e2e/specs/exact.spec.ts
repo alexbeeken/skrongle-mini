@@ -334,9 +334,8 @@ test("a course someone makes stays private to them", async ({ page, browser }) =
   await them.getByTestId("register-age").check();
   await them.getByTestId("register-terms").check();
   await them.getByTestId("register-submit").click();
-  // Registering does not sign in (#379): "check your mail", then the login form.
-  await expect(them.getByTestId("register-sent")).toBeVisible();
-  await login(them, { email: `${name}@example.com`, password: "correct horse battery" });
+  // Registering signs the new account in.
+  await expect(them.getByTestId("nav-account-toggle")).toHaveAttribute("data-email", `${name}@example.com`);
 
   // Not listed for them; the platform's Spanish course is.
   await them.goto("/courses");
@@ -757,9 +756,8 @@ test("the profile has no Dev section for anyone; the seeded keys answer generate
   await them.getByTestId("register-age").check();
   await them.getByTestId("register-terms").check();
   await them.getByTestId("register-submit").click();
-  // Registering does not sign in (#379): "check your mail", then the login form.
-  await expect(them.getByTestId("register-sent")).toBeVisible();
-  await login(them, { email: `${name}@example.com`, password: "correct horse battery" });
+  // Registering signs the new account in.
+  await expect(them.getByTestId("nav-account-toggle")).toHaveAttribute("data-email", `${name}@example.com`);
   await them.goto("/profile");
   await expect(them.getByTestId("profile-api-keys")).toBeVisible();
   await expect(them.getByTestId("profile-dev")).toHaveCount(0);
@@ -845,9 +843,8 @@ test("Start asks for a course's settings before it opens, then keeps them behind
   await page.getByTestId("register-age").check();
   await page.getByTestId("register-terms").check();
   await page.getByTestId("register-submit").click();
-  // Registering does not sign in (#379): "check your mail", then the login form.
-  await expect(page.getByTestId("register-sent")).toBeVisible();
-  await login(page, { email: `${name}@example.com`, password: "correct horse battery" });
+  // Registering signs the new account in.
+  await expect(page.getByTestId("nav-account-toggle")).toHaveAttribute("data-email", `${name}@example.com`);
   await expect(page.getByTestId("nav-account-toggle")).toHaveAttribute("data-email", `${name}@example.com`);
   // The corner shows a gear (#577), and the profile has no picture to edit (#565).
   const corner = page.getByTestId("nav-account-toggle");

@@ -165,19 +165,6 @@ pub const LOGIN_FAILURES_PER_USER: Limit = Limit { name: "login-user", max: 10, 
 pub const REGISTER_PER_IP: Limit = Limit { name: "register-ip", max: 20, window: 3600 };
 /// Password changes tried by one account.
 pub const PASSWORD_PER_USER: Limit = Limit { name: "password-user", max: 10, window: 900 };
-/// "Send the e-mail again" (address confirmation) by one account.
-pub const VERIFY_RESEND_PER_USER: Limit = Limit { name: "verify-resend-user", max: 5, window: 3600 };
-/// E-mailed codes sent again by one account (a sign-in's "Send a new code").
-pub const TWO_FACTOR_SEND_PER_USER: Limit = Limit { name: "two-factor-send-user", max: 5, window: 900 };
-/// Password reset links asked for from one address (#379).
-pub const RESET_PER_IP: Limit = Limit { name: "reset-ip", max: 10, window: 3600 };
-/// Password reset links sent to one account's address (#379); past it the
-/// page says the same and nothing is sent.
-pub const RESET_PER_ADDRESS: Limit = Limit { name: "reset-address", max: 3, window: 3600 };
-/// New passwords tried with reset links from one address (#379).
-pub const RESET_SET_PER_IP: Limit = Limit { name: "reset-set-ip", max: 10, window: 600 };
-/// "Someone tried to register with your address" messages to one address (#379).
-pub const REGISTER_TAKEN_PER_ADDRESS: Limit = Limit { name: "register-taken-address", max: 3, window: 3600 };
 /// Learning writes by one account (an answer, a finished round, a Guide
 /// step, a word reviewed; `routes::limit_learning_write`, #381): a burst of
 /// 60 in 10 seconds, far above a fast learner (two writes per Guide question).

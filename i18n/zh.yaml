@@ -122,7 +122,6 @@ auth:
     privacy_link: 隐私
     too_many_attempts: 登录尝试次数过多。请等待几分钟后再试。
     incorrect: 电子邮箱地址或密码不正确。
-    forgot: "忘记密码？"
   register:
     title: 注册
     heading: 创建账户
@@ -167,23 +166,15 @@ auth:
   code:
     title: 输入你的验证码
     from_app: 来自你的验证器应用。
-    emailed_to: "已发送邮件至 {to}。"
     code_label: 验证码
     submit: 登录
-    resend: 发送新验证码
     cancel: 取消
     gone: 该登录已过期。请重新登录。
-    unsent: 刚才无法发送验证码。请等待一分钟后再发送新的验证码。
-    sent: 新的验证码正在发送途中。
     wrong:
       one: "验证码不正确。还剩 {n} 次机会。"
       other: "验证码不正确。还剩 {n} 次机会。"
     too_many_wrong: 验证码错误次数过多，或验证码已过期。请重新登录。
-    your_email: 你的电子邮箱地址
-    your_authenticator: 你的验证器应用
   two_factor:
-    channel_off_email: "你的账户登录时需要通过电子邮件接收验证码，但此服务器无法发送电子邮件（未设置 {setting}）。请联系服务器管理员设置 {setting}，或为你的账户关闭两步登录。"
-    needs_email: 请先确认你的电子邮箱地址。
     needs_app: 请先设置验证器应用。
     app_already: 已设置验证器应用。请先将其移除。
   ai_switch:
@@ -192,42 +183,7 @@ auth:
     tip: AI 导师和 AI 课程创建都会被隐藏且无法使用。它们的工作方式是：将你输入的内容连同你自己的 API 密钥发送给 AI 公司。你可以随时在个人资料中更改此设置。
     off: "关"
     on: "开"
-  verify_email:
-    title: 确认你的电子邮箱地址
-    confirmed_heading: 你的电子邮箱地址已确认
-    confirmed: 谢谢。无需其他操作。
-    invalid_heading: 此链接无法使用
-    invalid: 该链接可能已被使用、超过 24 小时，或已被更新的链接替换。
-    already: "你的地址 {email} 已经确认过。"
-    resend_to: 我们可以将新链接发送至
-    resend: 发送新链接
-    sign_in_hint: 请登录后从个人资料中申请新链接。
-    continue: 继续
-    sign_in: 登录
 
-  register_sent:
-    title: "请查收邮件"
-    sent_html: "我们已向 {email} 发送了一封邮件。打开其中的链接以确认你的地址，然后登录。"
-    sign_in: "登录"
-  reset:
-    title: "重置密码"
-    email_label: "电子邮箱地址"
-    send: "发送链接"
-    sent_title: "请查收邮件"
-    sent_html: "如果 {email} 有账户，我们已向其发送了一个用于选择新密码的链接。此链接只能使用一次，有效期为一小时。"
-    choose_title: "选择新密码"
-    choose_html: "账户：{email}。保存后，你将在所有设备上退出登录。"
-    password_label: "新密码"
-    password_note: "（至少 8 个字符）"
-    save: "保存新密码"
-    invalid_title: "此链接无法使用"
-    invalid: "该链接可能已被使用、超过一小时，或已被更新的链接替换。"
-    again: "发送新链接"
-    done_title: "密码已更改"
-    done: "✓ 所有会话已退出登录。请用新密码登录。"
-    sign_in: "登录"
-    too_many_requests: "你的网络请求次数过多。请一小时后再试。"
-    too_many_tries: "你的网络尝试次数过多。请等待几分钟后再试。"
 
 terms:
   page:
@@ -309,60 +265,6 @@ mail:
       {summary}
       <p><a href="{link}">阅读新条款</a></p>
       <p>自 {date} 起，你登录时需要接受新条款。如果你不同意，可以在个人资料中注销账户。</p>
-  verify_email:
-    subject: "确认你在 {app} 上的电子邮箱地址"
-    text: |
-      你好，
-
-      请通过打开此链接，确认这是你在 {app} 上使用的电子邮箱地址：
-
-      {link}
-
-      此链接只能使用一次，有效期为 24 小时。如果你没有注册 {app}，请忽略此邮件：只有打开链接后，该地址才会被确认。{app} 每个地址每天最多发送 {max} 封此类邮件。
-    html: |
-      <p>你好，</p>
-      <p>请确认这是你在 {app} 上使用的电子邮箱地址：</p>
-      <p><a href="{link}">确认我的电子邮箱地址</a></p>
-      <p>或将此链接粘贴到浏览器中：{link}</p>
-      <p>此链接只能使用一次，有效期为 24 小时。如果你没有注册 {app}，请忽略此邮件：只有打开链接后，该地址才会被确认。{app} 每个地址每天最多发送 {max} 封此类邮件。</p>
-  password_reset:
-    subject: "重置你的 {app} 密码"
-    text: |
-      你好，
-
-      有人（希望是你）申请重置你的 {app} 账户密码。请打开此链接选择新密码：
-
-      {link}
-
-      此链接只能使用一次，有效期为一小时，使用后你将在所有设备上退出登录。如果不是你申请的，请忽略此邮件；你的密码保持不变。
-    html: |
-      <p>你好，</p>
-      <p>有人（希望是你）申请重置你的 {app} 账户密码。</p>
-      <p><a href="{link}">选择新密码</a></p>
-      <p>或将此链接粘贴到浏览器中：{link}</p>
-      <p>此链接只能使用一次，有效期为一小时，使用后你将在所有设备上退出登录。如果不是你申请的，请忽略此邮件；你的密码保持不变。</p>
-  register_taken:
-    subject: "你已经有一个 {app} 账户"
-    text: |
-      你好，
-
-      有人试图用此电子邮箱地址创建新的 {app} 账户。该地址已有账户，因此没有创建任何内容。
-
-      如果是你，请在此登录：
-
-      {login}
-
-      忘记密码？请在此选择新密码：
-
-      {reset}
-
-      如果不是你，请忽略此邮件；你的账户没有变化。
-    html: |
-      <p>你好，</p>
-      <p>有人试图用此电子邮箱地址创建新的 {app} 账户。该地址已有账户，因此没有创建任何内容。</p>
-      <p>如果是你：<a href="{login}">登录</a></p>
-      <p>忘记密码？<a href="{reset}">选择新密码</a></p>
-      <p>如果不是你，请忽略此邮件；你的账户没有变化。</p>
   account_deletion:
     subject: "你的 {app} 账户将于 {date} 被删除"
     text: |
@@ -391,7 +293,6 @@ mail:
   two_factor_changed:
     subject: "{app} 上的两步验证已更改"
     now_off: 已关闭
-    now_email: 现在会通过电子邮件发送验证码给你
     now_totp: 现在要求输入验证器应用中的验证码
     text: |
       你好，
@@ -403,36 +304,6 @@ mail:
       <p>你好，</p>
       <p>{app} 上的两步验证<strong>{now}</strong>。</p>
       <p>其他所有设备均已退出登录。如果这不是你的操作，说明有其他人已登录你的账户：请登录，使用个人设置中的“退出其他所有设备”，并重新设置两步验证。</p>
-  login_code:
-    subject: "你的 {app} 登录验证码"
-    text: |
-      你好，
-
-      你用于完成 {app} 登录的验证码：
-
-      {code}
-
-      此验证码有效期为 10 分钟。如果你没有尝试登录，请更改密码：说明有其他人知道它。
-    html: |
-      <p>你好，</p>
-      <p>你用于完成 {app} 登录的验证码：</p>
-      <p style="font-size:1.6em;letter-spacing:.15em"><strong>{code}</strong></p>
-      <p>此验证码有效期为 10 分钟。如果你没有尝试登录，请更改密码：说明有其他人知道它。</p>
-  two_factor_confirm:
-    subject: "你用于更改 {app} 两步验证的验证码"
-    text: |
-      你好，
-
-      你用于关闭或更改 {app} 两步验证的验证码：
-
-      {code}
-
-      此验证码有效期为 10 分钟。如果这不是你的操作，说明有其他人已登录你的账户：请使用个人设置中的“退出其他所有设备”。
-    html: |
-      <p>你好，</p>
-      <p>你用于关闭或更改 {app} 两步验证的验证码：</p>
-      <p style="font-size:1.6em;letter-spacing:.15em"><strong>{code}</strong></p>
-      <p>此验证码有效期为 10 分钟。如果这不是你的操作，说明有其他人已登录你的账户：请使用个人设置中的“退出其他所有设备”。</p>
   course_share:
     subject: "{owner} 在 {app} 上与你分享了一门课程：{title}"
     text: |
@@ -448,11 +319,6 @@ mail:
       <p>你可以用自己的学习进度学习这门课程；只有 {owner} 可以修改它。如果你还没有 {app} 账户，可以通过此链接注册。如果你并未期待这封邮件，请忽略。</p>
 
 profile:
-  email_no_mail:
-    title: "未确认"
-    text: "此服务器无法发送电子邮件，因此无法发送确认地址的链接。没有确认也不影响使用。"
-    label: "关于你的地址"
-    ok: "好"
   title: 个人资料
   no_name: 学习者
   head:
@@ -482,11 +348,6 @@ profile:
     email_private: 你的电子邮箱地址只有你自己能看到。
     policy_link: 隐私政策
     ok: 好
-  email_unverified:
-    title: 验证你的电子邮箱
-    text: 电子邮箱尚未验证。请到收件箱中查找链接。
-    close: 关闭
-    resend: 重新发送
   nav:
     label: 个人资料各部分
     personal: 个人信息
@@ -502,7 +363,6 @@ profile:
     email: 电子邮箱地址
     no_email: 尚未设置电子邮箱
     verified: 已验证
-    not_verified: 未验证
     language: 语言
     language_unavailable: 该语言暂不可用。
   account:
@@ -566,32 +426,22 @@ profile:
     info: 关于两步验证
     second_step: 第二步登录验证
     off: "关闭"
-    email: 电子邮件
-    email_unverified: 电子邮箱未验证
     totp: 验证器应用
     save: 保存
     confirm_title: 请确认是你本人
     confirm_password_why: 为防止使用此已登录浏览器的其他人更改你的第二步验证，请输入此账户的密码。
     confirm_app_code: 此账户没有密码，因此请输入你的验证器应用当前显示的验证码。
-    confirm_sent_code: 此账户没有密码，因此请输入你当前第二步验证方式收到的验证码进行确认。
-    sent_to: "已发送至 {to}。"
-    send_one_first: 请先发送一个验证码。
     password: 密码
     code: 验证码
     cancel: 取消
-    send_again: 再次发送
-    send_code: 发送验证码
     confirm: 确认
     totp_added: "验证器应用已于 {date} 添加"
     remove: 移除
     info_title: 两步验证
-    info_text: "输入密码后，登录时还需输入一个验证码：可以是通过电子邮件发送的，或是由 Google Authenticator 等验证器应用显示的。同一时间只能使用一种方式；选择另一种方式会替换当前方式。"
-    info_small: 电子邮件和短信需要已验证的邮箱地址或电话号码。验证码有效期为 10 分钟；连续输错五次，本次登录将结束。
+    info_text: "输入密码后，登录时还需输入 Google Authenticator 等验证器应用显示的验证码。"
+    info_small: 连续输错五次，本次登录将结束。
     ok: 好
-    email_first_title: 请先验证你的电子邮箱
-    email_first_text: 电子邮件验证码需要已验证的邮箱地址。请到收件箱中查找链接。
     close: 关闭
-    resend: 重新发送
     totp_title: 添加验证器应用
     totp_how: 如何添加应用
     totp_dev_link: "开发：添加到开发验证器"
@@ -603,7 +453,6 @@ profile:
     turn_off: 关闭两步登录验证
     switch_to: "将两步登录验证切换为{method}"
     turn_on_by: "通过{method}开启两步验证"
-    method_email: 电子邮件
     method_totp: 验证器应用
     is_off: 两步登录验证已关闭。
     is_method: "两步登录验证：{method}。"
@@ -617,8 +466,6 @@ profile:
       other: "验证码不正确。还剩 {n} 次机会。"
     code_wrong_newest: 验证码不正确。请输入验证器应用当前显示的最新验证码。
     code_gone: 没有等待中的验证码，或验证码已过期。请重新发送一个。
-    too_many_codes: 发送的验证码过多。请稍等几分钟后再试。
-    code_not_sent: 验证码未能发送。请稍后再试。
   ai:
     on: "开"
     off: "关"
@@ -685,7 +532,6 @@ profile:
     password_wrong: 密码不正确。
     type_email: 请输入你的电子邮箱地址以确认。
     code_app: 来自验证器应用的验证码
-    code_sent_to: "已发送至 {to}"
   deletion:
     title: "账户已安排删除"
     on: "此账户将于 {date} 被永久删除。"
@@ -695,7 +541,6 @@ profile:
   save:
     not_a_field: 此字段不属于个人资料。
     motivator_unavailable: "该激励方式不可用。"
-    sent_to: "已发送至 {email}。"
   name:
     too_long: "{label} 太长（最多 {max} 个字符）。"
     bad_chars: "{label} 包含不允许使用的字符。"
@@ -727,11 +572,7 @@ profile:
 superuser:
   title: 超级用户
   about: "对任何账户的操作。只有超级用户能看到此页面。"
-  open_inbox: 在开发收件箱中打开
   email: 电子邮箱地址
-  reset_note: 将该账户的邮箱标记为未确认，并像注册时一样发送新的确认链接。
-  reset: 重置电子邮箱验证
-  reset_done: "{email} 已恢复为未确认状态，并已发送新的确认链接。"
   unknown: "没有账户使用邮箱地址 {email}。"
   accounts: "账户"
   accounts_info: "关于账户和注册"

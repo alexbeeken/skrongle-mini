@@ -74,14 +74,12 @@ pub const DEFAULT_WINDOW: i64 = 3600;
 pub const MAX_WAIT_WINDOWS: i64 = 12;
 /// Purposes whose message is no use an hour later (a code that expires in
 /// minutes): over the ceiling they are not queued and the page says so.
-pub const NO_WAIT: &[&str] = &[crate::two_factor::PURPOSE_LOGIN, crate::two_factor::PURPOSE_CONFIRM];
+pub const NO_WAIT: &[&str] = &[];
 /// Per-address caps (#395): at most `max` messages of `purpose` to one
 /// address in `window` seconds, whichever account asked. Registering a
 /// stranger's address and pressing "Send again" reaches them at most this
 /// often, and deleting and re-registering the account does not reset it.
-pub const PER_ADDRESS: &[AddressCap] = &[
-    AddressCap { purpose: crate::verify::PURPOSE, max: 10, window: 86_400 },
-];
+pub const PER_ADDRESS: &[AddressCap] = &[];
 
 pub struct AddressCap {
     pub purpose: &'static str,
@@ -418,7 +416,9 @@ pub fn deliver_one(db: &Db, chain: &Chain, from: &Mailbox, reply_to: Option<&str
 /// who you are or confirms something. Once such a row is settled (sent or
 /// failed) its subject is blanked too, not only its body (#361); their
 /// subjects never carry the code, but they go all the same.
-pub const SECRET_PURPOSES: &[&str] = &[crate::two_factor::PURPOSE_LOGIN, crate::two_factor::PURPOSE_CONFIRM, crate::verify::PURPOSE, crate::exports::PURPOSE];
+/// The first three are no longer sent (#10) but stay, word for word, in
+/// the partial index `idx_mail_outbox_unblanked` (db.rs v58) they match.
+pub const SECRET_PURPOSES: &[&str] = &["login-code", "two-factor-confirm", "email-verify", crate::exports::PURPOSE];
 
 /// `'a', 'b'` for an `IN (…)`; the purposes are constants without quotes.
 fn sql_list(items: &[&str]) -> String {

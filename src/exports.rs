@@ -133,7 +133,7 @@ fn request_check(conn: &Connection, user_id: i64, now: i64) -> rusqlite::Result<
 
 /// The stored form of a link token: SHA-256, hex.
 pub fn hash_token(token: &str) -> String {
-    crate::verify::hash_token(token)
+    crate::auth::hash_token(token)
 }
 
 /// Use a download link: when `token` is the live link of one of `user_id`'s

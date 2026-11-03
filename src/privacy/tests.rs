@@ -412,7 +412,7 @@ fn a_recipients_export_has_the_shares_their_account_opened() {
         let mut ids = Vec::new();
         for email in ["ann@example.org", "bob@example.org", "carol@example.org"] {
             let id = crate::auth::create_user(c, email, "x")?;
-            crate::verify::mark_verified(c, id, 1)?;
+            crate::profile::mark_verified(c, id, 1)?;
             ids.push(id);
         }
         let (ann, bob, carol) = (ids[0], ids[1], ids[2]);

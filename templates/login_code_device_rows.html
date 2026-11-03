@@ -1,11 +1,11 @@
 {% for r in rows %}
-<li class="dev-device-row" data-testid="login-code-device-item" data-key="{{ r.key }}" data-code="{{ r.code }}"{% if r.expires > 0 %} data-expires="{{ r.expires }}"{% endif %}>
+<li class="dev-device-row" data-testid="login-code-device-item" data-key="{{ r.key }}" data-code="{{ r.code }}" data-expires="{{ r.expires }}">
   <div class="dev-device-main">
-    <div class="dev-device-title">{{ r.title }}{% if !r.ago.is_empty() %} <span class="devbox-when">{{ r.ago }}</span>{% endif %}</div>
-    {% if method == "totp" %}<div class="devauth-code" data-testid="login-code-device-code" aria-label="Code {{ r.code }}">{{ r.grouped() }}</div>{% else %}<div class="dev-device-body small">{{ r.body }}</div>{% endif %}
+    <div class="dev-device-title">{{ r.title }}</div>
+    <div class="devauth-code" data-testid="login-code-device-code" aria-label="Code {{ r.code }}">{{ r.grouped() }}</div>
   </div>
-  {% if r.expires > 0 %}<span class="devauth-timer" data-testid="login-code-device-remaining" title="Seconds until the next code" style="--left: {{ r.remaining }}; --period: {{ r.period }}">{{ r.remaining }}</span>{% endif %}
+  <span class="devauth-timer" data-testid="login-code-device-remaining" title="Seconds until the next code" style="--left: {{ r.remaining }}; --period: {{ r.period }}">{{ r.remaining }}</span>
   {% if !r.code.is_empty() %}<button type="button" class="btn small" data-use="{{ r.code }}" data-testid="login-code-device-use">Use {{ r.code }}</button>{% endif %}
 </li>
 {% endfor %}
-{% if rows.is_empty() %}<li class="devbox-empty" data-testid="login-code-device-empty">{% if method == "totp" %}Not in the dev authenticator. Add it from the profile's set-up dialog, or paste the setup key at /dev/authenticator.{% else %}Nothing yet. The mail arrives in a moment.{% endif %}</li>{% endif %}
+{% if rows.is_empty() %}<li class="devbox-empty" data-testid="login-code-device-empty">Not in the dev authenticator. Add it from the profile's set-up dialog, or paste the setup key at /dev/authenticator.</li>{% endif %}

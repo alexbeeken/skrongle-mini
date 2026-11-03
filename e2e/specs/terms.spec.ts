@@ -37,8 +37,7 @@ test("registration needs the terms checkbox, and records the acceptance", async 
 
   await page.getByTestId("register-terms").check();
   await page.getByTestId("register-submit").click();
-  await expect(page.getByTestId("register-sent")).toBeVisible();
-  await login(page, a);
+  await expect(page.getByTestId("nav-account-toggle")).toHaveAttribute("data-email", a.email);
   await page.goto("/profile");
   const version = await page.request.get("/terms").then(async (r) => (await r.text()).match(/data-terms-version="([^"]+)"/)![1]);
   await expect(page.getByTestId("profile-terms")).toHaveAttribute("data-terms-version", version);
