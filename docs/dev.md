@@ -6,15 +6,8 @@ For working on Skrongle's code. Start with `CLAUDE.md` in the repository.
   schema, configuration, deployment.
 - [Testing locally](testing): dev login, seed data, answering the model's
   requests by hand or from fixtures, `data-testid` hooks, browser tests.
-- [QA-testing a pull request](qa): clicking through a PR, leaving e2e specs
-  behind, writing the merge verdict.
-- [E2E coverage audit](e2e-audit): every flow the browser tests walk, set
-  against every route and surface, with the gaps and what to add next
-  (a snapshot of 2026-10-17).
 - [Languages (i18n)](i18n): the app's own text in the learner's language,
   one `i18n/<code>.yaml` per language.
-- [Security review](security-review): what was checked before going
-  public, what was fixed, and the risks accepted.
 
 The contract between content and code is the [course format](course-format)
 and its [JSON Schema](course.schema.json): `src/ai.rs` embeds the format in

@@ -193,8 +193,6 @@ The usual conflict spots, and the fix for each:
 - **`i18n/*.yaml`**: keep both sides' keys. A key one PR adds to `en.yaml`
   must be in every other language file (`cargo test i18n` catches a missing
   one).
-- **Generated files** such as `docs/e2e-audit.md`: take either side, then
-  regenerate (`python3 scripts/e2e-audit.py --write`).
 - **A PR that carries older copies of other PRs in the batch** (an
   integration branch): the newer PR's version wins. Keep only that PR's own
   commits' changes.

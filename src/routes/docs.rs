@@ -48,7 +48,7 @@ pub const SECTIONS: &[(&str, &str, &[&str])] = &[
     (
         "dev",
         "docs.section_dev",
-        &["dev", "architecture", "testing", "qa", "e2e-audit", "security-review"],
+        &["dev", "architecture", "testing"],
     ),
 ];
 
