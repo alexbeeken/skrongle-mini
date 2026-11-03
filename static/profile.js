@@ -134,7 +134,7 @@
       saver.saved("lang");
     }
   } catch (e) { /* no storage */ }
-  // Two-factor sign-in: choosing a method posts the form (the page comes
+  // Two-factor sign-in: choosing Off or Authenticator app posts the form (the page comes
   // back saying what changed, or with the authenticator's setup dialog).
   // Every change (a chip, or the app's Remove; turning it on too, #374)
   // opens the "Confirm it's you" dialog first, which posts the same change
@@ -145,31 +145,29 @@
   var tfForm = document.querySelector("[data-testid=profile-two-factor-form]");
   var confirmDlg = document.getElementById("two-factor-confirm-dialog");
   var confirmForm = document.getElementById("two-factor-confirm-form");
-  var current = tfCard ? tfCard.dataset.method : "";
-  function askToConfirm(method, remove) {
-    confirmForm.action = remove ? confirmForm.dataset.removeAction : confirmForm.dataset.methodAction;
-    confirmForm.elements.method.value = method;
+  var current = tfCard && tfCard.dataset.on === "true" ? "on" : "off";
+  function askToConfirm(choice, remove) {
+    confirmForm.action = remove ? confirmForm.dataset.removeAction : confirmForm.dataset.changeAction;
+    confirmForm.elements.two_factor.value = choice;
     var what = confirmDlg.querySelector("[data-testid=two-factor-confirm-what]");
-    var chip = document.querySelector('[data-testid=profile-two-factor-method][data-method="' + method + '"]');
-    var label = chip ? chip.textContent.trim().toLowerCase() : "";
-    what.textContent = remove || !method ? t("profile.js.turn_off") : t(current ? "profile.js.switch_to" : "profile.js.turn_on_by", { method: label });
+    what.textContent = remove || choice === "off" ? t("profile.js.turn_off") : t("profile.js.turn_on");
     confirmDlg.showModal();
     var field = confirmForm.querySelector("input[name=password], input[name=code]");
     if (field) field.focus();
   }
   if (confirmDlg) confirmDlg.addEventListener("close", function () {
-    var mine = tfForm && tfForm.querySelector('input[name=method][value="' + current + '"]');
+    var mine = tfForm && tfForm.querySelector('input[name=two_factor][value="' + current + '"]');
     if (mine) mine.checked = true;
   });
   if (tfForm) tfForm.addEventListener("change", function (e) {
-    if (e.target.name !== "method") return;
+    if (e.target.name !== "two_factor") return;
     if (confirmDlg && e.target.value !== current) askToConfirm(e.target.value, false);
     else tfForm.submit();
   });
   var tfRemove = document.querySelector("[data-testid=profile-two-factor-totp-remove][data-confirm-remove]");
   if (tfRemove && confirmDlg) tfRemove.addEventListener("click", function (e) {
     e.preventDefault();
-    askToConfirm("", true);
+    askToConfirm("off", true);
   });
   // The side list marks the section in view (#420): aria-current="location"
   // on its link, and the .current style. The section counts as in view once

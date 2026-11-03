@@ -53,7 +53,7 @@ async function twoFactorAccount(page: Page) {
   const a = newAccount("share-2fa");
   await register(page, a, "spanish");
   await page.goto("/profile");
-  await page.locator('[data-testid="profile-two-factor-method"][data-method="totp"]').click();
+  await page.locator('[data-testid="profile-two-factor-choice"][data-on="true"]').click();
   const dialog = page.getByTestId("two-factor-confirm-dialog");
   await dialog.getByTestId("two-factor-confirm-password").fill(a.password);
   await dialog.getByTestId("two-factor-confirm-submit").click();
@@ -62,7 +62,7 @@ async function twoFactorAccount(page: Page) {
   const used = totp(secret);
   await page.getByTestId("two-factor-totp-code").fill(used);
   await page.getByTestId("two-factor-totp-confirm").click();
-  await expect(page.getByTestId("profile-two-factor")).toHaveAttribute("data-method", "totp");
+  await expect(page.getByTestId("profile-two-factor")).toHaveAttribute("data-on", "true");
   await logout(page);
   return { ...a, secret, used };
 }

@@ -168,7 +168,6 @@ auth:
       other: "Ese código no es correcto. Te quedan {n} intentos."
     too_many_wrong: Demasiados códigos incorrectos, o el código caducó. Inicia sesión de nuevo.
   two_factor:
-    needs_app: Configura primero la aplicación de autenticación.
     app_already: Ya hay una aplicación de autenticación configurada. Elimínala primero.
 
 
@@ -500,7 +499,7 @@ docs:
     mini_h2: "{app} mini"
     mini_p: "Lo que instala esta página: la misma app, preparada para unas pocas personas que te conocen y sin servicios externos."
     mini_out_h3: "Cómo está preparada"
-    mini_out_mail: "Sin correo ni mensajes de texto: los enlaces aparecen en la página."
+    mini_out_mail: "Sin correo: los enlaces aparecen en la página."
     mini_out_signup: "Registro por invitación: creas un enlace para cada persona."
     mini_out_jobs: "El trabajo en segundo plano se hace dentro de la app: no hay otros servicios que mantener."
     mini_out_db: "Un solo archivo de base de datos (SQLite): sin servidor de base de datos."
@@ -737,11 +736,9 @@ profile:
     totp_info_key: ¿No puedes escanear? Elige introducir una clave de configuración y escribe la clave que aparece debajo del código; es una clave basada en tiempo.
     qr_title: Código QR del enlace de configuración
     turn_off: Desactivar el inicio de sesión en dos pasos
-    switch_to: "Cambiar el inicio de sesión en dos pasos a {method}"
-    turn_on_by: "Activar la verificación en dos pasos por {method}"
-    method_totp: aplicación de autenticación
+    turn_on_what: "Activar la verificación en dos pasos con una aplicación de autenticación"
     is_off: El inicio de sesión en dos pasos está desactivado.
-    is_method: "Inicio de sesión en dos pasos: {method}."
+    is_on: "El inicio de sesión en dos pasos está activado."
     totp_removed: Aplicación de autenticación quitada.
     too_many_attempts: Demasiados intentos. Espera unos minutos e inténtalo de nuevo.
     type_password: Escribe tu contraseña para hacer este cambio.
@@ -774,8 +771,7 @@ profile:
     name_bad_chars: "{label} contiene caracteres no permitidos."
     password_mismatch: Las nuevas contraseñas no coinciden.
     turn_off: Desactivar el inicio de sesión en dos pasos
-    switch_to: "Cambiar el inicio de sesión en dos pasos a {method}"
-    turn_on_by: "Activar la verificación en dos pasos por {method}"
+    turn_on: "Activar la verificación en dos pasos con una aplicación de autenticación"
 manage:
   title: Gestionar usuarios
   about: "Acciones sobre cualquier cuenta. Solo los propietarios ven esta página."

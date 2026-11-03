@@ -43,31 +43,31 @@ fn account_changes_need_proof_and_sign_out_other_devices() {
     // Turning two-factor on needs the password (#374); done, it signs
     // out the other devices.
     let ann_other = session(ann);
-    let method = || state.db.with(|c| crate::two_factor::settings(c, ann)).unwrap().method;
+    let on = || state.db.with(|c| crate::two_factor::settings(c, ann)).unwrap().enabled;
     let key_of = |u| state.db.with(|c| crate::two_factor::pending_key(c, &state.vault, u)).unwrap().unwrap();
     let now = || crate::db::now() as u64;
-    assert_eq!(post("/profile/two-factor", &ann_c, &[("method", "totp")]).0, 403);
+    assert_eq!(post("/profile/two-factor", &ann_c, &[("two_factor", "on")]).0, 403);
     assert!(!state.db.with(|c| crate::two_factor::settings(c, ann)).unwrap().totp_pending, "no enrolment without the password");
-    assert_eq!(method(), None);
-    let (status, location, _, _) = post("/profile/two-factor", &ann_c, &[("method", "totp"), ("password", "right-password")]);
+    assert!(!on());
+    let (status, location, _, _) = post("/profile/two-factor", &ann_c, &[("two_factor", "on"), ("password", "right-password")]);
     assert_eq!((status, location.as_str()), (303, "/profile?totp=enrol#two-factor"));
     let key = key_of(ann);
     assert_eq!(post("/profile/two-factor/totp/confirm", &ann_c, &[("code", &key.code_at(now()))]).0, 303);
-    assert_eq!(method(), Some(crate::two_factor::Method::Totp));
+    assert!(on());
     assert!(alive(&ann_t) && !alive(&ann_other));
-    assert_eq!(post("/profile/two-factor", &ann_c, &[("method", "email"), ("password", "right-password")]).0, 400, "no e-mailed second step (#10)");
+    assert_eq!(post("/profile/two-factor", &ann_c, &[("two_factor", "email"), ("password", "right-password")]).0, 400, "on or off only");
 
     // An account without a password and without a second step has nothing
     // to prove (the proxy that signs it in vouches for it); with one, a
     // change takes a code from the app.
     let gil_t = session(gil);
     let gil_c = format!("sid={gil_t}");
-    assert_eq!(post("/profile/two-factor", &gil_c, &[("method", "totp")]).0, 303);
+    assert_eq!(post("/profile/two-factor", &gil_c, &[("two_factor", "on")]).0, 303);
     let key = key_of(gil);
     assert_eq!(post("/profile/two-factor/totp/confirm", &gil_c, &[("code", &key.code_at(now()))]).0, 303);
-    let gil_method = || state.db.with(|c| crate::two_factor::settings(c, gil)).unwrap().method;
-    assert_eq!(gil_method(), Some(crate::two_factor::Method::Totp));
-    assert_eq!(post("/profile/two-factor", &gil_c, &[("method", "")]).0, 403, "turning it off takes a code");
+    let gil_on = || state.db.with(|c| crate::two_factor::settings(c, gil)).unwrap().enabled;
+    assert!(gil_on());
+    assert_eq!(post("/profile/two-factor", &gil_c, &[("two_factor", "off")]).0, 403, "turning it off takes a code");
 }
 
 /// Autosave: each field saves on its own, a bad one stores nothing and

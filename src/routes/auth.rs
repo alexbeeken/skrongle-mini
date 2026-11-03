@@ -226,7 +226,7 @@ pub async fn register_form(State(state): State<Arc<AppState>>, MaybeUser(user): 
         error: None,
         email,
         dev: state.dev,
-        min_age: crate::privacy::min_age(),
+        min_age: crate::signup::min_age(),
         age: false,
         share,
         invite: if matches!(admitted, Admit::Invited(_) | Admit::Owner(_)) { invite } else { String::new() },
@@ -316,7 +316,7 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
             error: Some(crate::t("auth.register.too_many_signups")),
             email: String::new(),
             dev: state.dev,
-            min_age: crate::privacy::min_age(),
+            min_age: crate::signup::min_age(),
             age: false,
                 share: None,
             invite: String::new(),
@@ -348,7 +348,7 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
             error: Some(msg),
             email: email_input.clone(),
             dev: state.dev,
-            min_age: crate::privacy::min_age(),
+            min_age: crate::signup::min_age(),
             age: !form.age.is_empty(),
             share: share.clone(),
             invite: form.invite.trim().to_string(),
@@ -362,7 +362,7 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
         return Ok((StatusCode::TOO_MANY_REQUESTS, fail(crate::t("auth.register.too_many_signups"))).into_response());
     }
 
-    if let Err(e) = crate::privacy::AgeGate::current().check(!form.age.is_empty(), "register") {
+    if let Err(e) = crate::signup::AgeGate::current().check(!form.age.is_empty(), "register") {
         return Ok(fail(e));
     }
 
@@ -400,7 +400,7 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
             if !signup::finish(&tx, admitted, id, t)? {
                 return Ok(Signup::Refused(Refusal::Used));
             }
-            crate::privacy::record_age_confirmed(&tx, id, true)?;
+            crate::signup::record_age_confirmed(&tx, id, true)?;
             if !lang.is_empty() {
                 profile::set_lang(&tx, id, &lang)?;
             }

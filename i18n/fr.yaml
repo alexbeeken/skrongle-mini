@@ -168,7 +168,6 @@ auth:
       other: "Ce code n'est pas bon. {n} essais restants."
     too_many_wrong: Trop de codes erronés, ou le code a expiré. Reconnectez-vous.
   two_factor:
-    needs_app: Configurez d'abord l'application d'authentification.
     app_already: Une application d'authentification est déjà configurée. Supprimez-la d'abord.
 
 
@@ -273,11 +272,9 @@ profile:
     totp_info_key: Impossible de scanner ? Choisissez de saisir une clé de configuration à la place et tapez la clé sous le code ; elle dépend de l'heure.
     qr_title: QR code du lien de configuration
     turn_off: Désactiver la double authentification
-    switch_to: "Passer la double authentification à {method}"
-    turn_on_by: "Activer la connexion en deux étapes par {method}"
-    method_totp: application d'authentification
+    turn_on_what: "Activer la connexion en deux étapes avec une application d'authentification"
     is_off: La double authentification est désactivée.
-    is_method: "Double authentification : {method}."
+    is_on: "La double authentification est activée."
     totp_removed: Application d'authentification supprimée.
     too_many_attempts: Trop de tentatives. Attendez quelques minutes et réessayez.
     type_password: Saisissez votre mot de passe pour effectuer cette modification.
@@ -310,8 +307,7 @@ profile:
     name_bad_chars: "{label} contient des caractères non autorisés."
     password_mismatch: Les nouveaux mots de passe ne correspondent pas.
     turn_off: Désactiver la double authentification
-    switch_to: "Passer la double authentification à {method}"
-    turn_on_by: "Activer la connexion en deux étapes par {method}"
+    turn_on: "Activer la connexion en deux étapes avec une application d'authentification"
 manage:
   title: Gérer les utilisateurs
   about: "Actions sur n'importe quel compte. Seuls les propriétaires voient cette page."
@@ -1006,7 +1002,7 @@ docs:
     mini_h2: "{app} mini"
     mini_p: "Ce que cette page installe : la même app, réglée pour quelques personnes qui vous connaissent, sans service extérieur."
     mini_out_h3: "Comment elle est réglée"
-    mini_out_mail: "Ni e-mail ni SMS : les liens s'affichent dans la page."
+    mini_out_mail: "Pas d'e-mail : les liens s'affichent dans la page."
     mini_out_signup: "Inscription sur invitation : vous créez un lien pour chaque personne."
     mini_out_jobs: "Les tâches de fond tournent dans l'app : aucun autre service à faire tourner."
     mini_out_db: "Un seul fichier de base de données (SQLite) : pas de serveur de base de données."

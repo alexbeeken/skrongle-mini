@@ -4,14 +4,14 @@ What the app stores about a learner, where, why, whether it leaves the
 server, and for how long. It is the record of processing, taken from the
 schema in `src/db/migrations/v001_schema.sql`. Not legal advice.
 
-`src/privacy.rs` lists every user table in `USER_TABLES`: a test fails when a table is
+`src/db/tables.rs` lists every user table in `USER_TABLES`: a test fails when a table is
 added to the schema without being listed there. Add new tables here too.
 
 ## In the database (SQLite, `SKRONGLE_DB`)
 
 Every row below belongs to an account (`ON DELETE CASCADE`
 from `users(id)`, directly or through the owning course). `jobs`,
-`server_api_keys` and `settings` (`privacy::SHARED_TABLES`) belong to no
+`server_api_keys` and `settings` (`db::tables::SHARED_TABLES`) belong to no
 account: the background job queue and the server's AI keys and settings.
 
 | Table | Columns with personal data | Why | Leaves the server? | Kept |
@@ -19,7 +19,7 @@ account: the background job queue and the server's AI keys and settings.
 | `users` | `email`, `first_name`, `last_name`, `created_at`, `email_verified_at` (when the address was confirmed: only a proxy-made account and the dev user have one), `age_confirmed`, `owner` (Manage Users in the account menu: the person who runs the server), `must_change_password` (1 after the owner set a temporary password, until the account picks its own), `two_factor` (the second sign-in step in use: '' or `totp`), `active_course`, `lang` (the language the app is shown in, '' = the browser's), `review_quiet` (the review of AI changes does not open by itself), `ai_effort` (the effort *Generate the course* last ran at: `low`, `medium` or `high`), `delete_at` (unused, nothing reads it); `password_hash` (argon2id; `''` for an account a trusted proxy made) | the account and profile | no | until deleted. |
 | `sessions` | `session_token` (the SHA-256 of the cookie's random 256-bit token; the token itself is never stored), `created_at`, `expires_at` | staying signed in | no | 30 days, purged hourly; deleted on logout. No IP address or user agent is stored. |
 | `totp_keys` | `secret` (the authenticator app's TOTP secret, encrypted at rest: ChaCha20-Poly1305 under the server's master secret, bound to the user; codes are worked out from it, so it can't be hashed), `created_at`, `confirmed_at`, `last_step` (the last code's time step, so a code works once) | two-factor sign-in with an authenticator app (`src/two_factor.rs`) | no (shown once to the learner while setting the app up) | until removed, another method is chosen, or deleted; an unconfirmed set-up is deleted after a day. |
-| `two_factor_challenges` | `token_hash` (SHA-256 of the `twofa` cookie's token), `method`, `attempts`, `created_at`, `expires_at` | a sign-in waiting for its second step | no | 10 minutes, five tries; deleted when used, cancelled or replaced, expired rows hourly. |
+| `two_factor_challenges` | `token_hash` (SHA-256 of the `twofa` cookie's token), `attempts`, `created_at`, `expires_at` | a sign-in waiting for its second step | no | 10 minutes, five tries; deleted when used, cancelled or replaced, expired rows hourly. |
 | `signup_invites` | `token_hash` (SHA-256 of the invitation link's token; the token itself is never stored), `created_by` (the owner who made it; empty for the owner link, whose token is also written to the server log at startup while there is no account), `created_at`, `expires_at`, `used_at`, `used_by` (the account that registered with it) | sign-up by invitation (`SKRONGLE_SIGNUP=invite`, `src/signup.rs`) | no (the owner copies the link and sends it themselves) | a link works once, for 7 days (the owner link for a year, replaced at each start, deleted at startup once an account exists); rows are deleted 30 days after they expire, when revoked, or with the account that made them; a deleted invited account unlinks the row. |
 | `user_progress` | mastery per lesson, `read_at` | adaptive practice | no | until deleted |
 | `quiz_history` | every answer: `selected_answer` (the learner's text), `was_correct`, `answered_at` | spaced practice, history page | no | until deleted; answers older than `SKRONGLE_RETAIN_HISTORY_DAYS` (default 730 days, two years; `0` keeps them) are deleted hourly |

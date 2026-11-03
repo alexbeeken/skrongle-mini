@@ -300,6 +300,61 @@ pub fn accounts(conn: &Connection) -> rusqlite::Result<Vec<Account>> {
     rows.collect()
 }
 
+// ---------- age at sign-up ----------
+
+/// The minimum age the sign-up checkbox states (`SKRONGLE_MIN_AGE`): 14 by
+/// default.
+pub const DEFAULT_MIN_AGE: u32 = 14;
+
+static MIN_AGE: std::sync::OnceLock<u32> = std::sync::OnceLock::new();
+
+/// Set once at startup from `SKRONGLE_MIN_AGE`.
+pub fn init_min_age(min_age: Option<u32>) {
+    let _ = MIN_AGE.set(min_age.unwrap_or(DEFAULT_MIN_AGE));
+}
+
+/// The minimum age: `SKRONGLE_MIN_AGE`, else `DEFAULT_MIN_AGE`.
+pub fn min_age() -> u32 {
+    MIN_AGE.get().copied().unwrap_or(DEFAULT_MIN_AGE)
+}
+
+/// The "I am at least N" confirmation at sign-up. Registration requires the
+/// box, so the gate is always on; N is `SKRONGLE_MIN_AGE` (`min_age`).
+/// `check` refuses a sign-up without the box, and `record_age_confirmed`
+/// stores it on the new account.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct AgeGate {
+    pub min_age: u32,
+}
+
+impl AgeGate {
+    /// The gate as this server is configured.
+    pub fn current() -> AgeGate {
+        AgeGate { min_age: min_age() }
+    }
+
+    /// The sign-up form's box: "I am at least N years old" (`age`). `Err` is
+    /// the sentence for the form; `to` ends it ("register", "continue").
+    pub fn check(&self, age: bool, to: &str) -> Result<(), String> {
+        let to = match to {
+            "register" => crate::t("auth.age_gate.to_register"),
+            "continue" => crate::t("auth.age_gate.to_continue"),
+            other => other.to_string(),
+        };
+        if age {
+            Ok(())
+        } else {
+            Err(crate::t2("auth.age_gate.age", "min_age", self.min_age, "to", to))
+        }
+    }
+}
+
+/// Store the confirmation on the account (`users.age_confirmed`).
+pub fn record_age_confirmed(conn: &Connection, user_id: i64, confirmed: bool) -> rusqlite::Result<()> {
+    conn.execute("UPDATE users SET age_confirmed = ?2 WHERE id = ?1", params![user_id, confirmed])?;
+    Ok(())
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -480,5 +535,33 @@ mod tests {
             Ok(())
         })
         .unwrap();
+    }
+
+    #[test]
+    fn the_age_gate_refuses_an_unticked_box_and_records_a_ticked_one() {
+        let gate = AgeGate { min_age: 16 };
+        assert!(gate.check(true, "register").is_ok());
+        assert_eq!(gate.check(false, "register").unwrap_err(), "Confirm you are at least 16 to register.");
+        assert_eq!(gate.check(false, "continue").unwrap_err(), "Confirm you are at least 16 to continue.");
+        let db = Db::open_in_memory().unwrap();
+        db.with(|c| {
+            let id = crate::auth::create_user(c, "ann@example.org", "h")?;
+            let read = || c.query_row("SELECT age_confirmed FROM users WHERE id = ?1", [id], |r| r.get::<_, bool>(0)).unwrap();
+            assert!(!read());
+            record_age_confirmed(c, id, true)?;
+            assert!(read());
+            Ok(())
+        })
+        .unwrap();
+    }
+
+    /// The minimum age is 14 everywhere: the default gate names 14 in its box
+    /// and refuses a sign-up without it.
+    #[test]
+    fn the_default_minimum_age_is_14() {
+        assert_eq!(DEFAULT_MIN_AGE, 14);
+        let gate = AgeGate { min_age: DEFAULT_MIN_AGE };
+        assert_eq!(crate::t1("auth.register.age", "min_age", gate.min_age), "I am at least 14 years old");
+        assert_eq!(gate.check(false, "register").unwrap_err(), "Confirm you are at least 14 to register.");
     }
 }

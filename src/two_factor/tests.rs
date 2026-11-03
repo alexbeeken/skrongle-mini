@@ -17,15 +17,16 @@ fn with_app(c: &Connection, u: i64, now: i64) -> totp::Key {
 }
 
 #[test]
-fn the_app_must_be_set_up_first_and_an_old_email_method_reads_as_off() {
+fn only_totp_reads_as_on() {
     let db = Db::open_in_memory().unwrap();
     db.with(|c| {
         let u = user(c, "ann@example.org");
-        assert_eq!(set_method(c, u, Some(Method::Totp))?, Err(crate::t("auth.two_factor.needs_app")));
-        assert_eq!(Method::parse("email"), None);
+        assert!(!settings(c, u)?.enabled);
         c.execute("UPDATE users SET two_factor = 'email' WHERE id = ?1", [u])?;
-        assert_eq!(settings(c, u)?.method, None);
+        assert!(!settings(c, u)?.enabled, "anything but 'totp' is off");
         assert_eq!(start_login(c, u, 1)?, None, "no second step: sign in at once");
+        c.execute("UPDATE users SET two_factor = 'totp' WHERE id = ?1", [u])?;
+        assert!(settings(c, u)?.enabled);
         Ok(())
     })
     .unwrap();
@@ -45,13 +46,12 @@ fn an_authenticator_is_enrolled_by_a_code_used_once_and_removed() {
         assert!(!totp_confirm(c, &v, u, "000000", now)? || key.code_at(now as u64) == "000000");
         assert!(totp_confirm(c, &v, u, &key.code_at(now as u64), now)?);
         let s = settings(c, u)?;
-        assert_eq!((s.method, s.totp_since, s.totp_pending), (Some(Method::Totp), Some(now), false));
+        assert_eq!((s.enabled, s.totp_since, s.totp_pending), (true, Some(now), false));
         assert_eq!(pending_key(c, &v, u)?, None);
         assert!(totp_start(c, &v, u, now)?.is_err(), "one app at a time");
 
         // Signing in: the enrolment's code (same step) is spent already.
         let ch = start_login(c, u, now)?.unwrap();
-        assert_eq!(ch.method, Method::Totp);
         assert_eq!(c.query_row("SELECT token_hash FROM two_factor_challenges", [], |r| r.get::<_, String>(0))?, crate::auth::hash_token(&ch.token), "only the token's hash is stored");
         assert_eq!(check_login(c, &v, &ch.token, &key.code_at(now as u64), now)?, (Checked::Wrong(4), Some(u)));
         let later = now + 30;
@@ -69,12 +69,12 @@ fn an_authenticator_is_enrolled_by_a_code_used_once_and_removed() {
         assert_eq!(check_confirm_code(c, &Vault::from_master(&[1u8; 32]), u, &key.code_at(next as u64 + 30), next + 30)?, Checked::Wrong(MAX_ATTEMPTS));
 
         // Turning it off removes the app's key.
-        assert_eq!(set_method(c, u, None)?, Ok(()));
+        totp_remove(c, u)?;
         assert_eq!(c.query_row("SELECT COUNT(*) FROM totp_keys", [], |r| r.get::<_, i64>(0))?, 0);
         let key = totp_start(c, &v, u, now)?.unwrap();
         assert!(totp_confirm(c, &v, u, &key.code_at(now as u64 + 60), now + 60)?);
         totp_remove(c, u)?;
-        assert_eq!(settings(c, u)?.method, None);
+        assert!(!settings(c, u)?.enabled);
         Ok(())
     })
     .unwrap();
@@ -112,11 +112,10 @@ fn a_new_sign_in_replaces_the_challenge_and_five_wrong_codes_end_it() {
 }
 
 #[test]
-fn every_change_of_method_needs_proof() {
-    use Method::*;
-    assert!(needs_proof(None, Some(Totp)), "turning it on too (#374)");
-    assert!(!needs_proof(None, None) && !needs_proof(Some(Totp), Some(Totp)));
-    assert!(needs_proof(Some(Totp), None));
+fn every_change_needs_proof() {
+    assert!(needs_proof(false, true), "turning it on too (#374)");
+    assert!(!needs_proof(false, false) && !needs_proof(true, true));
+    assert!(needs_proof(true, false));
 }
 
 #[test]

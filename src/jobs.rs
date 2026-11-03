@@ -43,6 +43,8 @@ use serde::Serialize;
 
 use crate::db::Db;
 
+pub mod retention;
+
 /// Wait before each retry of a failed job, by default; after the last one
 /// the job is `failed`.
 pub const RETRY_DELAYS: &[i64] = &[60, 300, 1800, 7200, 43_200];
@@ -473,11 +475,11 @@ impl Runner {
 /// The hourly housekeeping, one job that runs every purge in turn: expired
 /// sessions, abandoned games, old generation jobs, idle tutor chats,
 /// rate-limit windows, the retention rules
-/// (privacy.rs), old two-factor challenges and invitation links, old job
+/// (`jobs/retention.rs`), old two-factor challenges and invitation links, old job
 /// rows, and last a WAL checkpoint so the -wal file doesn't grow on
 /// the SD card. Each step logs its count; a step that fails is logged and the
 /// next still runs, and the job fails only when every step did (#45).
-pub fn housekeeping(runner: Runner, state: &Arc<crate::AppState>, retention: crate::privacy::Retention) -> Runner {
+pub fn housekeeping(runner: Runner, state: &Arc<crate::AppState>, retention: retention::Retention) -> Runner {
     let state = Arc::clone(state);
     runner.handle(HOUSEKEEPING, move |db, _| {
         let s = &state;
@@ -492,7 +494,7 @@ pub fn housekeeping(runner: Runner, state: &Arc<crate::AppState>, retention: cra
             (
                 "retention",
                 Box::new(|| {
-                    let swept = db.with(|c| crate::privacy::apply_retention(c, &retention, now())).map_err(|e| e.to_string())?;
+                    let swept = db.with(|c| retention::apply_retention(c, &retention, now())).map_err(|e| e.to_string())?;
                     for id in &swept.failed_courses {
                         s.courses.invalidate(id);
                     }

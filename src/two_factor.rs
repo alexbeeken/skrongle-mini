@@ -1,9 +1,8 @@
 //! Two-factor sign-in (#292): after the password a second step asks for a
 //! code from an authenticator app (RFC 6238, `crate::totp`; `users.two_factor`
-//! is `totp`), enrolled by showing its `otpauth://` link and secret and
+//! is `'totp'` when on and `''` when off; anything else reads as off), enrolled by showing its `otpauth://` link and secret and
 //! confirmed with a first code ([`totp_start`], [`totp_confirm`]). One app
-//! per account. An older `email` value (a code by e-mail, gone with the
-//! mail stack, #10) reads as off.
+//! per account.
 //!
 //! A sign-in that needs a code leaves a challenge (`two_factor_challenges`)
 //! named by a random token in the browser's `twofa` cookie, stored only as
@@ -16,7 +15,7 @@
 //! Poly1305, bound to its user): a copy of the database without the master
 //! secret cannot produce codes.
 //!
-//! Turning the second step off, or switching it to another method, needs
+//! Turning the second step on or off needs
 //! proof that it is the account's owner, not just a session ([`needs_proof`]):
 //! the password, or, for an account without one, a code from the app
 //! ([`check_confirm_code`]).
@@ -32,34 +31,14 @@ pub const CODE_TTL_SECS: i64 = 10 * 60;
 pub const MAX_ATTEMPTS: i64 = 5;
 /// The sign-in challenge's cookie.
 pub const COOKIE: &str = "twofa";
-
-/// The second step's method: only the authenticator app is left (#10).
-/// Kept as a type so `users.two_factor`, the profile form and the pages
-/// keep naming it.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum Method {
-    Totp,
-}
-
-impl Method {
-    pub fn as_str(self) -> &'static str {
-        match self {
-            Method::Totp => "totp",
-        }
-    }
-
-    pub fn parse(s: &str) -> Option<Method> {
-        match s {
-            "totp" => Some(Method::Totp),
-            _ => None,
-        }
-    }
-}
+/// What `users.two_factor` holds while the second step is on; off is `''`.
+const ON: &str = "totp";
 
 /// What the profile shows about an account's second step.
 #[derive(Clone, Debug, Default, PartialEq, Eq)]
 pub struct Settings {
-    pub method: Option<Method>,
+    /// The second sign-in step is on (`users.two_factor = 'totp'`).
+    pub enabled: bool,
     pub email: String,
     /// An authenticator app is set up (confirmed), since this time.
     pub totp_since: Option<i64>,
@@ -73,7 +52,7 @@ pub fn settings(conn: &Connection, user_id: i64) -> rusqlite::Result<Settings> {
         [user_id],
         |r| {
             Ok(Settings {
-                method: Method::parse(&r.get::<_, String>(0)?),
+                enabled: r.get::<_, String>(0)? == ON,
                 email: r.get(1)?,
                 ..Settings::default()
             })
@@ -88,38 +67,24 @@ pub fn settings(conn: &Connection, user_id: i64) -> rusqlite::Result<Settings> {
     Ok(s)
 }
 
-/// Does going from the current method to `to` need the password (or a
-/// code)? Every change does (#374): turning it on as well, or a
-/// session holder could put their own app in front of the
-/// owner's next sign-in. Only choosing the method already in use does not.
-pub fn needs_proof(current: Option<Method>, to: Option<Method>) -> bool {
+/// Does turning the second step on or off need the password (or a code)?
+/// Every change does (#374): turning it on as well, or a session holder
+/// could put their own app in front of the owner's next sign-in. Choosing
+/// the state it is already in does not.
+pub fn needs_proof(current: bool, to: bool) -> bool {
     current != to
 }
 
-impl Settings {
-    /// Why `m` cannot be chosen now, if it cannot.
-    pub fn refusal(&self, m: Method) -> Option<String> {
-        match m {
-            Method::Totp if self.totp_since.is_none() => Some(crate::t("auth.two_factor.needs_app")),
-            _ => None,
-        }
+/// Turn the second step on (the app must be set up: [`totp_confirm`] does
+/// both when it enrols one) or off, which removes the app's key too (a
+/// secret no longer used is not kept).
+pub fn set_enabled(conn: &Connection, user_id: i64, on: bool) -> rusqlite::Result<()> {
+    if on {
+        conn.execute("UPDATE users SET two_factor = ?2 WHERE id = ?1 AND EXISTS (SELECT 1 FROM totp_keys WHERE user_id = ?1 AND confirmed_at IS NOT NULL)", params![user_id, ON])?;
+        Ok(())
+    } else {
+        totp_remove(conn, user_id)
     }
-}
-
-/// Switch the second step to `method` (`None`: off). Only one is in use:
-/// choosing another replaces it, and leaving the authenticator app removes
-/// its key (a secret no longer used is not kept). `Err` says why the method
-/// cannot be chosen.
-pub fn set_method(conn: &Connection, user_id: i64, method: Option<Method>) -> rusqlite::Result<Result<(), String>> {
-    let s = settings(conn, user_id)?;
-    if let Some(why) = method.and_then(|m| s.refusal(m)) {
-        return Ok(Err(why));
-    }
-    conn.execute("UPDATE users SET two_factor = ?2 WHERE id = ?1", params![user_id, method.map(Method::as_str).unwrap_or("")])?;
-    if method != Some(Method::Totp) {
-        conn.execute("DELETE FROM totp_keys WHERE user_id = ?1", [user_id])?;
-    }
-    Ok(Ok(()))
 }
 
 // ---------- codes ----------
@@ -186,13 +151,12 @@ fn spend_totp_code(conn: &Connection, vault: &Vault, user_id: i64, code: &str, n
     Ok(true)
 }
 
-/// Finish enrolling: the app's first code turns it on as the second step
-/// (replacing another method). `false`: wrong code, or nothing to confirm.
+/// Finish enrolling: the app's first code turns it on as the second step. `false`: wrong code, or nothing to confirm.
 pub fn totp_confirm(conn: &Connection, vault: &Vault, user_id: i64, code: &str, now: i64) -> rusqlite::Result<bool> {
     let Some((key, false, _)) = stored_key(conn, vault, user_id)? else { return Ok(false) };
     let Some(step) = key.verify(code, now.max(0) as u64, None) else { return Ok(false) };
     conn.execute("UPDATE totp_keys SET confirmed_at = ?2, last_step = ?3 WHERE user_id = ?1", params![user_id, now, step as i64])?;
-    conn.execute("UPDATE users SET two_factor = 'totp' WHERE id = ?1", [user_id])?;
+    conn.execute("UPDATE users SET two_factor = ?2 WHERE id = ?1", params![user_id, ON])?;
     Ok(true)
 }
 
@@ -200,7 +164,7 @@ pub fn totp_confirm(conn: &Connection, vault: &Vault, user_id: i64, code: &str, 
 /// the second step, two-factor sign-in is off afterwards.
 pub fn totp_remove(conn: &Connection, user_id: i64) -> rusqlite::Result<()> {
     conn.execute("DELETE FROM totp_keys WHERE user_id = ?1", [user_id])?;
-    conn.execute("UPDATE users SET two_factor = '' WHERE id = ?1 AND two_factor = 'totp'", [user_id])?;
+    conn.execute("UPDATE users SET two_factor = '' WHERE id = ?1 AND two_factor = ?2", params![user_id, ON])?;
     Ok(())
 }
 
@@ -211,7 +175,6 @@ pub fn totp_remove(conn: &Connection, user_id: i64) -> rusqlite::Result<()> {
 pub struct Challenge {
     /// For the `twofa` cookie; stored only as its SHA-256.
     pub token: String,
-    pub method: Method,
 }
 
 /// After the password: `None` when the account has no second step (sign
@@ -219,14 +182,16 @@ pub struct Challenge {
 /// account's.
 pub fn start_login(conn: &Connection, user_id: i64, now: i64) -> rusqlite::Result<Option<Challenge>> {
     let s = settings(conn, user_id)?;
-    let Some(method) = s.method else { return Ok(None) };
+    if !s.enabled {
+        return Ok(None);
+    }
     conn.execute("DELETE FROM two_factor_challenges WHERE user_id = ?1", [user_id])?;
     let token = crate::auth::generate_token();
     conn.execute(
-        "INSERT INTO two_factor_challenges (user_id, token_hash, method, created_at, expires_at) VALUES (?1, ?2, ?3, ?4, ?5)",
-        params![user_id, crate::auth::hash_token(&token), method.as_str(), now, now + CODE_TTL_SECS],
+        "INSERT INTO two_factor_challenges (user_id, token_hash, created_at, expires_at) VALUES (?1, ?2, ?3, ?4)",
+        params![user_id, crate::auth::hash_token(&token), now, now + CODE_TTL_SECS],
     )?;
-    Ok(Some(Challenge { token, method }))
+    Ok(Some(Challenge { token }))
 }
 
 /// A challenge still waiting, for its page.
@@ -234,7 +199,6 @@ pub fn start_login(conn: &Connection, user_id: i64, now: i64) -> rusqlite::Resul
 pub struct Pending {
     pub id: i64,
     pub user_id: i64,
-    pub method: Method,
     pub email: String,
     pub attempts: i64,
 }
@@ -244,23 +208,13 @@ pub fn pending(conn: &Connection, token: &str, now: i64) -> rusqlite::Result<Opt
         return Ok(None);
     }
     conn.query_row(
-        "SELECT c.id, c.user_id, c.method, u.email, c.attempts
+        "SELECT c.id, c.user_id, u.email, c.attempts
          FROM two_factor_challenges c JOIN users u ON u.id = c.user_id
          WHERE c.token_hash = ?1 AND c.expires_at > ?2 AND c.attempts < ?3",
         params![crate::auth::hash_token(token), now, MAX_ATTEMPTS],
-        |r| {
-            Ok((
-                (r.get::<_, i64>(0)?, r.get::<_, i64>(1)?, r.get::<_, String>(2)?),
-                (r.get::<_, String>(3)?, r.get::<_, i64>(4)?),
-            ))
-        },
+        |r| Ok(Pending { id: r.get(0)?, user_id: r.get(1)?, email: r.get(2)?, attempts: r.get(3)? }),
     )
     .optional()
-    .map(|row| {
-        row.and_then(|((id, user_id, method), (email, attempts))| {
-            Some(Pending { id, user_id, method: Method::parse(&method)?, email, attempts })
-        })
-    })
 }
 
 /// Check the code typed for a sign-in: `(Checked::Ok, user id)` signs in
@@ -268,10 +222,7 @@ pub fn pending(conn: &Connection, token: &str, now: i64) -> rusqlite::Result<Opt
 /// the app's key now, so a key removed meanwhile fails.
 pub fn check_login(conn: &Connection, vault: &Vault, token: &str, code: &str, now: i64) -> rusqlite::Result<(Checked, Option<i64>)> {
     let Some(p) = pending(conn, token, now)? else { return Ok((Checked::Gone, None)) };
-    let ok = match p.method {
-        Method::Totp => spend_totp_code(conn, vault, p.user_id, code, now)?,
-    };
-    if ok {
+    if spend_totp_code(conn, vault, p.user_id, code, now)? {
         conn.execute("DELETE FROM two_factor_challenges WHERE id = ?1", [p.id])?;
         return Ok((Checked::Ok, Some(p.user_id)));
     }
@@ -286,14 +237,14 @@ pub fn check_login(conn: &Connection, vault: &Vault, token: &str, code: &str, no
 
 // ---------- proving it is the owner, without a password ----------
 
-/// Check a code from the current second step: the authenticator's, each
+/// Check a code from the authenticator app, each
 /// step once, like signing in (`Wrong(_)` counts nothing here, the route's
 /// rate limit does).
 pub fn check_confirm_code(conn: &Connection, vault: &Vault, user_id: i64, code: &str, now: i64) -> rusqlite::Result<Checked> {
-    match settings(conn, user_id)?.method {
-        None => Ok(Checked::Gone),
-        Some(Method::Totp) => Ok(if spend_totp_code(conn, vault, user_id, code, now)? { Checked::Ok } else { Checked::Wrong(MAX_ATTEMPTS) }),
+    if !settings(conn, user_id)?.enabled {
+        return Ok(Checked::Gone);
     }
+    Ok(if spend_totp_code(conn, vault, user_id, code, now)? { Checked::Ok } else { Checked::Wrong(MAX_ATTEMPTS) })
 }
 
 /// Give up a sign-in waiting for its code ("Cancel").

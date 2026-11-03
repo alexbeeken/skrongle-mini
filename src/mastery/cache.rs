@@ -252,7 +252,7 @@ mod tests {
     fn every_user_progress_write_is_known() {
         const KNOWN: &[(&str, &str)] = &[
             ("src/mastery.rs", "reads, and the one write, `save`, which updates the cache"),
-            ("src/privacy.rs", "lists it in USER_TABLES; it writes nothing"),
+            ("src/db/tables.rs", "lists it in USER_TABLES; it writes nothing"),
             ("src/dev.rs", "the dev reset deletes the rows and calls forget_all"),
         ];
         let mut found = Vec::new();
