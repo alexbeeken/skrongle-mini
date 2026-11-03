@@ -1,9 +1,7 @@
 {% extends "base.html" %}
 {% block title %}{{ crate::t("courses.picker.title") }}{% endblock %}
 {% block scripts %}<script>Object.assign(I18N, {{ crate::i18n::js_json("courses.js")|safe }});</script><script src="{{ crate::routes::asset_url("json-problems.js") }}" defer></script><script src="{{ crate::routes::asset_url("courses.js") }}" defer></script><script src="{{ crate::routes::asset_url("gen-estimate.js") }}" defer></script><script src="{{ crate::routes::asset_url("course-settings.js") }}" defer></script><script src="{{ crate::routes::asset_url("course-stat.js") }}" defer></script><script src="{{ crate::routes::asset_url("placement.js") }}" defer></script>{% endblock %}
-{% block head %}<link rel="stylesheet" href="{{ crate::routes::card_themes_css_url() }}">{% endblock %}
 {% block content %}
-<script type="application/json" id="course-looks">{{ looks|safe }}</script>
 <section class="hero courses-hero">
   <div>
     <h1>{{ crate::t("courses.picker.title") }}</h1>
@@ -18,7 +16,7 @@
   <h2>{{ crate::t("courses.picker.projects_heading") }}</h2>
   <div class="course-grid">
   {% for c in projects %}
-    <article class="course-card{% if c.is_active %} active{% endif %}" data-testid="courses-card" data-course-id="{{ c.id }}" data-course-status="{{ c.state }}" data-active="{{ c.is_active }}"{% if let Some(t) = c.card_theme() %} data-card-theme="{{ t }}"{% endif %}>
+    <article class="course-card{% if c.is_active %} active{% endif %}" data-testid="courses-card" data-course-id="{{ c.id }}" data-course-status="{{ c.state }}" data-active="{{ c.is_active }}">
       <div class="course-icon">{{ c.icon }}</div>
       <div class="course-body">
         <h3>{{ c.title }}{% if c.is_active %} <span class="sr-only">{{ crate::t("courses.picker.tag_current") }}</span>{% endif %}{% if c.state == "revising" %} <span class="tag" data-testid="courses-card-revising" title="{{ crate::t("courses.picker.revising_tip") }}">{{ crate::t("courses.picker.tag_revising") }}</span>{% endif %}{% if c.private %} <span class="tag-inline" title="{{ crate::t("courses.picker.private_tip") }}">🔒</span>{% endif %}{% if let Some(o) = c.shared_by %}{% include "course_shared_dot.html" %}{% endif %}</h3>
@@ -39,7 +37,7 @@
       <div class="course-actions">
         <form method="post" action="{{ crate::base_path() }}/courses/open/{{ c.id }}"><button type="submit" class="btn" data-testid="courses-open">{% if c.is_active %}{{ crate::t("courses.picker.continue") }}{% else %}{{ crate::t("courses.picker.open") }}{% endif %}</button></form>
         {% if let Some(o) = c.last_opened %}<span class="course-when" title="{{ crate::t1("courses.picker.opened", "when", o) }}" data-testid="courses-card-opened">{{ o }}</span>{% endif %}
-        {% if c.theme.is_some() %}<button type="button" class="icon-btn course-gear" data-tip="{{ crate::t("courses.settings.title") }}" aria-label="{{ crate::t1("courses.settings.open_label", "title", c.title.as_str()) }}" aria-haspopup="dialog" data-open-dialog="course-settings-{{ c.id }}" data-testid="courses-settings"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>{% endif %}
+        {% if c.last_opened.is_some() %}<button type="button" class="icon-btn course-gear" data-tip="{{ crate::t("courses.settings.title") }}" aria-label="{{ crate::t1("courses.settings.open_label", "title", c.title.as_str()) }}" aria-haspopup="dialog" data-open-dialog="course-settings-{{ c.id }}" data-testid="courses-settings"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>{% endif %}
       </div>
       {% if let Some(st) = c.settings %}{% if st.wizard %}{% include "course_wizard.html" %}{% else %}{% include "course_settings.html" %}{% endif %}{% endif %}
     </article>

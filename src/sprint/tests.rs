@@ -40,42 +40,6 @@ fn lesson_session_mixes_kinds() {
 }
 
 #[test]
-fn a_theme_puts_its_material_first() {
-    let themes = crate::themes::Themes::load(Path::new("data")).unwrap();
-    let realm = ContentStore::load_dir_themed(Path::new("data/courses/spanish"), Some(&themes.get("realm").unwrap().theme)).unwrap();
-    let l = realm.lesson_by_slug("ser-vs-estar").unwrap();
-    for seed in 1..6 {
-        let mut rng = Rng::seeded(seed);
-        let s = lesson_session(&realm, l, &HashSet::new(), &mut rng);
-        // The bite, the first sort/spot/build and every quiz question of
-        // the session come from the theme (it has one of each, and more
-        // than four questions are never taken).
-        assert!(matches!(&s.exercises[0], Exercise::Bite { title, .. } if title == "Ser o estar en Eldmark"));
-        let first_sort = s.exercises.iter().find_map(|e| match e { Exercise::Sort { title, .. } => Some(title.clone()), _ => None });
-        assert_eq!(first_sort.as_deref(), Some("Ser or estar in Eldmark?"));
-        let quiz_ids: Vec<&str> = s.exercises.iter().filter_map(|e| match e { Exercise::Choice { id, .. } | Exercise::Tiles { id, .. } => Some(id.as_str()), _ => None }).collect();
-        assert!(quiz_ids.iter().take(2).all(|id| id.contains("-realm-")), "{quiz_ids:?}");
-        let first_hear = s.exercises.iter().find_map(|e| match e {
-            Exercise::HearBuild { text, .. } | Exercise::HearGap { text, .. } => Some(text.clone()),
-            _ => None,
-        });
-        assert!(l.listening.iter().take(5).any(|i| Some(&i.text) == first_hear.as_ref()), "{first_hear:?}");
-        assert_eq!(s.course.praise[0], "¡Victoria!");
-        // and grading resolves the themed items through the same store
-        for e in &s.exercises {
-            if let Exercise::Sort { id, .. } | Exercise::Spot { id, .. } | Exercise::Build { id, .. } = e {
-                assert!(describe(&realm, id).is_some(), "{id}");
-            }
-        }
-    }
-    // Without the theme nothing of it leaks into a session.
-    let plain = ContentStore::load_dir(Path::new("data/courses/spanish")).unwrap();
-    let l = plain.lesson_by_slug("ser-vs-estar").unwrap();
-    let s = lesson_session(&plain, l, &HashSet::new(), &mut Rng::seeded(1));
-    assert!(!serde_json::to_string(&s).unwrap().contains("-realm-"));
-}
-
-#[test]
 fn every_lesson_builds_a_session() {
     let courses = crate::courses::Courses::load_builtin(Path::new("data")).expect("built-in courses load");
     assert!(!courses.builtin().is_empty());
@@ -223,7 +187,7 @@ fn lesson_session_listens_in_language_courses() {
 #[test]
 fn no_listening_outside_language_courses() {
     // A course whose terms and meanings share a language, even with listening sentences in a lesson.
-    let c = &crate::content::tests::plain_store(None);
+    let c = &crate::content::tests::plain_store();
     assert!(!c.lessons()[0].listening.is_empty());
     let mut rng = Rng::seeded(5);
     for l in c.lessons() {

@@ -2,8 +2,8 @@
 // whole. Coarser than the fact check's units on purpose: copying shows in
 // wording that runs on, and in which items were picked in what order, not in
 // a single word. One passage per content section, per conversation, and per
-// kind of exercise list (vocabulary, quiz, listening, builds…), theme blocks
-// included. Passages under MIN_WORDS words are generic ("Me llamo Ana"), never
+// kind of exercise list (vocabulary, quiz, listening, builds…). Passages
+// under MIN_WORDS words are generic ("Me llamo Ana"), never
 // judged alone, and counted as such.
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
@@ -17,10 +17,10 @@ export interface Passage {
   course: string;
   /** Repo-relative path. */
   file: string;
-  /** Where in the file: `content § Heading`, `conversations[0]`, `themes.wow.quiz`. */
+  /** Where in the file: `content § Heading`, `conversations[0]`, `dmode.builds`. */
   at: string;
   text: string;
-  /** Course, lesson and theme, the context given to the judge. */
+  /** Course and lesson, the context given to the judge. */
   ctx: Json;
 }
 
@@ -83,8 +83,6 @@ export function loadCourse(repo: string, dir: string, lessonFilter = ""): Course
       passages.push({ course: id, file, at, text, ctx: c });
     };
     block(l, "", ctx, push);
-    for (const [tid, t] of Object.entries<Json>(l.themes ?? {}))
-      block({ ...t, dmode: { bites: t.bites, sorts: t.sorts, spots: t.spots, builds: t.builds } }, `themes.${tid}.`, { ...ctx, theme: tid }, push);
   }
   return { id, dir, title: m.title, passages, generic };
 }

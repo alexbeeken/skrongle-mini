@@ -59,12 +59,12 @@ to the new ones with their query strings, so old bookmarks still work.
 
 | Feature | Route | What it is | Reads |
 |---|---|---|---|
-| Courses | `/courses`, `/courses/{id}/settings` | "What would you like to learn?": your projects (each shows a thin progress bar under its title, pale gold for lessons passed and full gold for lessons mastered, and under it two small chips with the same two numbers and the unit count; when you last opened it sits beside *Continue*. A chip turns from grey towards gold as more of the course is done, shows its name on hover, and opens a modal with the stat when clicked. The modal fetches what is next as it opens (`GET /courses/{id}/stat/{metric}`): for lessons passed, the next lesson to pass, the last one passed and each unit's count; for lessons mastered, up to three lessons to practise next, fading ones first. Each lesson named opens the course at it, and an (i) says what the stat counts. Each card <!-- themes -->wears its own theme, with<!-- /themes --><!-- no-themes -->has<!-- /no-themes --> a gear for its settings: level<!-- themes -->, motivator, theme, profile picture, background<!-- /themes --><!-- no-themes --> and motivator<!-- /no-themes -->), your own courses (private; greyed out while being generated), ready-made courses, Create a course | manifests |
+| Courses | `/courses`, `/courses/{id}/settings` | "What would you like to learn?": your projects (each shows a thin progress bar under its title, pale gold for lessons passed and full gold for lessons mastered, and under it two small chips with the same two numbers and the unit count; when you last opened it sits beside *Continue*. A chip turns from grey towards gold as more of the course is done, shows its name on hover, and opens a modal with the stat when clicked. The modal fetches what is next as it opens (`GET /courses/{id}/stat/{metric}`): for lessons passed, the next lesson to pass, the last one passed and each unit's count; for lessons mastered, up to three lessons to practise next, fading ones first. Each lesson named opens the course at it, and an (i) says what the stat counts. Each card has a gear for its settings: level and motivator), your own courses (private; greyed out while being generated), ready-made courses, Create a course | manifests |
 | Generate with AI | the editor's *Generate the course* dialog (`POST /courses/{id}/generate`) and progress modal | Notes or homework in, a whole private course out, written with the learner's own API key; see [Your own courses](#your-own-courses) | everything (it writes it) |
 | Starting level | The course's settings: the level step at the end of its start wizard, then the gear on `/courses` | A course whose units are `levels` asks a learner who opens it for the first time which level to start at; the lessons below it are skipped; the level can be changed later without losing progress (see [Starting level](#starting-level)) | `levels`, units |
 | Home | `/` | Today's goal as a ring with the streak, lessons passed and terms collected, *Continue* where you left off, the current unit's progress, a "Words due" card on days collected words are due (#1360: the count, three of the words, an (i) with the ladder, and *Review N words*, which opens `/vocabulary/study?due=1`), then the four modes (Sprint, Study, Play, Guide) and AI tutoring, with one stat and one button each and an (i) explaining each | everything |
 | Landing | `/` (no session) | The sales page for visitors: what the app is, a twenty-second sample of each mode to play in place (Sprint, Study, Play and Guide tabs, each in Language, Maths and Music, each subject with its own kinds of question: listening and a typed word with accent near misses; shading a fraction, a number line, plotting a point, a formula graded by equivalence, graphs as options and pairs; a staff to read and to place a note on, a keyboard, intervals and chords played by a small synth. Several preview question types still in issues and PRs (#1218–#1234, #1330–#1359). `static/landing.js` holds the samples, `static/landing-kit.js` the drawing and sound; #1365), a lesson file next to the features it switches on, the three ways to get a course, the built-in courses with their unit and lesson counts, "What can I do with it?" (use cases), register / log in | manifests |
-| Lessons | `/lessons`, `/lessons/{slug}` | One unit at a time (#837): a tab per unit with its passed count and bar, 12 lessons a page with page links (`?unit=<id>&page=<n>`; without `?page=` the page holding the next lesson to do, without `?unit=` the unit holding it; `?unit=all` lists every unit on one page). A filter box searches every unit (every word typed must appear in a lesson's title, group or summary; a search that finds nothing says so; without script it is `?q=`); under the box, *Look up "…" in the words* opens `/lookup?q=` (#348): the words of the whole course whose term or meaning has a word starting with each word typed (accents and case ignored), and the forms of its paradigm tables (a form names its item, set and slots, and a form two verbs share is listed for both), at most 20, exact terms first; each with its meaning, the lessons that teach it (linked), *Collected* with the flashcard tally when you have it, and a 🔊 in a language course; a quiet header (#999): the breadcrumb with a small mastery ring, the status pills and an (i) on one line, then the title, the summary and one main button (I've read it, quiz me until the lesson is seen, then Practise; a lesson without `quiz` questions has no mastery ring, no Practise and no Test yourself, and its button just says I've read it, #1197) beside a "More ways" menu (Practise before the lesson is seen, Listen and type when the lesson has listening, Tutor when AI is on, the Guide, a Sprint session). The (i) opens the mastery details, the focus and question counts and the pass rule; the footer has its button and the same (i); the lesson text (read as a page), vocabulary table (hover a term for its meaning, an example for its translation), paradigm tables, conversations (#989: each one as two characters talking, the role's name over its line, A on the left and B on the right<!-- themes -->, drawn with two of the six people portraits that are not the learner's own picture, in the worn theme's version; a name keeps its portrait across lessons<!-- /themes -->; each line is a button, and tapping it reads the line aloud in the course's language (when the audio switch is on and there is a voice) and shows its meaning under it, which a second tap hides again (#1264); without JavaScript the meanings show from the start), a "My note" box (#336: the learner's own private note on the lesson, plain text up to 500 characters, saved as they type, in *Download my data*; its (i) says so), and the two-question reading check that marks the lesson as read | `content`, `vocabulary` (`example_meaning` for the hover hint), `conjugations`, `conversations`, `quiz` |
+| Lessons | `/lessons`, `/lessons/{slug}` | One unit at a time (#837): a tab per unit with its passed count and bar, 12 lessons a page with page links (`?unit=<id>&page=<n>`; without `?page=` the page holding the next lesson to do, without `?unit=` the unit holding it; `?unit=all` lists every unit on one page). A filter box searches every unit (every word typed must appear in a lesson's title, group or summary; a search that finds nothing says so; without script it is `?q=`); under the box, *Look up "…" in the words* opens `/lookup?q=` (#348): the words of the whole course whose term or meaning has a word starting with each word typed (accents and case ignored), and the forms of its paradigm tables (a form names its item, set and slots, and a form two verbs share is listed for both), at most 20, exact terms first; each with its meaning, the lessons that teach it (linked), *Collected* with the flashcard tally when you have it, and a 🔊 in a language course; a quiet header (#999): the breadcrumb with a small mastery ring, the status pills and an (i) on one line, then the title, the summary and one main button (I've read it, quiz me until the lesson is seen, then Practise; a lesson without `quiz` questions has no mastery ring, no Practise and no Test yourself, and its button just says I've read it, #1197) beside a "More ways" menu (Practise before the lesson is seen, Listen and type when the lesson has listening, Tutor when AI is on, the Guide, a Sprint session). The (i) opens the mastery details, the focus and question counts and the pass rule; the footer has its button and the same (i); the lesson text (read as a page), vocabulary table (hover a term for its meaning, an example for its translation), paradigm tables, conversations (#989: each one as two characters talking, the role's name over its line, A on the left and B on the right; each line is a button, and tapping it reads the line aloud in the course's language (when the audio switch is on and there is a voice) and shows its meaning under it, which a second tap hides again (#1264); without JavaScript the meanings show from the start), a "My note" box (#336: the learner's own private note on the lesson, plain text up to 500 characters, saved as they type, in *Download my data*; its (i) says so), and the two-question reading check that marks the lesson as read | `content`, `vocabulary` (`example_meaning` for the hover hint), `conjugations`, `conversations`, `quiz` |
 | Quizzes | `/practice`, `/practice?lesson=` | Adaptive micro-quizzes: 5–10 questions from the lessons you have read, weighted towards weak topics; or one lesson on request (a lesson with no questions, reached by its URL, says so and links back to the lesson and its Sprint session) | `quiz` |
 | Listening | `/listening`, `/listening/play?lesson=` | Hear a sentence, type it, see it checked word by word; one lesson or a mixed round | `listening` |
 | Guide | `/guide`, `/guide/{slug}` | The short-attention-span version: each lesson as a stage of small steps (cards, quick checks, flashcards, tips); stars | `content`, `quiz`, `vocabulary`, `guide` |
@@ -75,9 +75,6 @@ to the new ones with their query strings, so old bookmarks still work.
 | Vocabulary | `/vocabulary`, `/vocabulary/study` | Terms collected by answering questions, studied as flashcards with per-term review stats. Each word has a review schedule (#1360, `src/vocab.rs`): a new word is due tomorrow; *Knew it* on a due word moves it up the ladder of 1, 3, 7, 16, 35, 75, then 150 days; *Didn't know* drops it back to 1 day. A review before the word is due counts in the stats but doesn't move it (a miss still drops it). Only flashcards and Sprint's word exercises move it; Sprint's review mix deals due words first. "Due today" is by the end of the learner's day. `?due=1` deals the due words, longest overdue first, at most 20; a missed card comes back once at the end, and the summary says how many come back tomorrow and when the next words are due. Passes don't change; each card gives 0.3 effort points | `vocabulary`, `quiz[].teaches` |
 | History | `/history` | Every answer and every finished game | mastery, activity |
 | Mistakes | `/mistakes` (the *Mistakes* tab of the Study mode bar, #1263) | Quiz questions whose latest answer was wrong, newest first. Each row has the question, your last wrong answer and the right one. A question leaves the list once you answer it right. Reads the last 500 answers and shows up to 50 (#338). A lesson without a quiz never appears | `quiz` |
-<!-- themes -->
-| Themes | `/courses/{id}/settings` (a course's theme, with its picture and motivator), `/theme/delete`, `/theme.css`, `/themes/{id}/…` | A skin for the whole app (`data/themes/<id>/`: colours, font, art, praise strings, profile pictures) and, where a lesson has it, example sentences and exercises in the theme's world, shown first in every mode | theme files, lesson `themes.<id>` |
-<!-- /themes -->
 | Motivators | `POST /courses/{id}/settings` (`motivator`) | How progress is dressed up, per course: draws the top of the course home page and the reward line at the end of every lesson or session (`src/motivators.rs`); Statistics and metrics by default | none (app-level) |
 | Progress API | `/api/progress…` | Lesson passes and answers reported by AI agents that teach the learner outside the app (see [Progress across modes](progress)) | everything |
 | Docs | `/docs`, `/llms.txt` | This documentation, served from the binary: "Using Skrongle" (learners, authors, LLMs) and "Working on Skrongle" (developers) in the sidebar, each page also as raw Markdown, the list of pages beside the page and after it on a phone; `/llms.txt` points an LLM at the course format and schema | — |
@@ -95,9 +92,7 @@ A course made in the app gets every feature its files have data for, exactly
 like Spanish: the three modes, the tutor, mastery, passes, streaks, the daily goal,
 history. The language-only games (Listening, Numbers by ear,
 tap to hear, the listening exercises of Sprint mode) appear only when its
-manifest says it is a language course.<!-- themes --> Themes are not offered with them yet:
-no themed material (the theme's colours, a setting of the account, still
-apply).<!-- /themes -->
+manifest says it is a language course.
 
 One button on the course list, **Create a course** (`POST /courses/new`),
 makes a starter course called *Untitled course* (one example lesson, the
@@ -384,7 +379,7 @@ with the table, like any other change (the editor saves as you edit; see
   the table (its JSON as typed, if open) as "&lt;title&gt; (copy)", right below,
   saved with the table like a new lesson. The copy's `id` and `slug` end in
   `-copy` (`-copy-2` and so on when taken), and so do its question and
-  conversation ids<!-- themes --> (themed ones too)<!-- /themes -->; the guide's question references
+  conversation ids; the guide's question references
   follow. Its `conjugations` are left out, since an item and set belong to
   one lesson; `prerequisites` stay. **+ Add unit**, on the Course settings row right of its gear,
   adds a unit at the end, named on the
@@ -449,7 +444,7 @@ with the table, like any other change (the editor saves as you edit; see
   (#841, `static/lesson-editor.js`), three columns in the drawer:
   - an **outline** of the file on the left (Lesson, Text, Vocabulary, Quiz,
     Listening, Sprint, Conversations, Conjugations when the course has a
-    paradigm, Guide<!-- themes -->, Themes<!-- /themes -->; Listening and Conversations only with the
+    paradigm, Guide; Listening and Conversations only with the
     language features on or items in them), each with its count; a section opens
     to its items, each with a kind badge (`A·B·C`, `___`, `T/F`, `123`,
     `ƒ(x)`; `BITE`, `SORT`, `SPOT`, `BUILD`, `ICON`) and a ⚠ on an item the
@@ -482,7 +477,7 @@ with the table, like any other change (the editor saves as you edit; see
     cannot be a spot's wrong word, a new conjugation starts in the
     paradigm's first set, an optional box of only spaces is left out, and
     what names an item follows it: a word renamed or deleted in the
-    questions that teach it<!-- themes --> and in a theme's new example of it<!-- /themes -->, a deleted
+    questions that teach it, a deleted
     question's steps in the hand-ordered Guide, the deleted option that was
     the answer (none is picked then). What one lesson's form cannot see, a
     conjugation or id another lesson also uses, is left to the save's
@@ -506,8 +501,7 @@ with the table, like any other change (the editor saves as you edit; see
     section or question step is picked from this lesson's own headings and
     questions. The Lesson section has the title, summary, focus, group and
     *Read first* (other lessons of the course, by title); Text is the
-    Markdown with the cards it makes listed under it<!-- themes -->. Themes keeps the
-    schema form (below)<!-- /themes -->;
+    Markdown with the cards it makes listed under it;
   - a **live preview** on the right (`static/lesson-preview.js`): the item on
     a phone-sized screen as the learner sees it, in **Study**, **Sprint** or
     **Guide** (the toggle offers the modes that show the kind; another
@@ -523,13 +517,13 @@ with the table, like any other change (the editor saves as you edit; see
   Below about 720 px of drawer width the columns become **Outline / Edit /
   Preview** tabs (picking an item in the outline goes to its form). The
   course editor's page is wider than the rest of the app (1240 px) to make
-  room. The course settings<!-- themes --> (and a lesson's Themes section)<!-- /themes -->
+  room. The course settings
   use the **schema form** (`static/schema-form.js`), built in the browser
   from `docs/course.schema.json` (fetched from `/docs/course.schema.json`),
   so a field added to the schema appears without code: text boxes (Markdown
   fields as text areas), numbers, checkboxes for booleans, selects for
   enums; lists with **+ Add**, ↑ / ↓ and ✕; nested objects, maps by key
-  <!-- themes -->(`themes`) <!-- /themes -->as folding sections, labels from the field names and hints
+  as folding sections, labels from the field names and hints
   from the schema's descriptions; ids are not shown (a unit's id is made up,
   `unit-2`). Both modes edit one document: each change in the form is
   written back into the JSON box, so switching keeps the changes and both
@@ -595,7 +589,7 @@ with the table, like any other change (the editor saves as you edit; see
   in the text, summary, focus, prerequisites, vocabulary, example sentences,
   question hints, answer explanations, `teaches`, paradigm tables,
   conversations, listening, a hand-ordered Guide, the Sprint icon,
-  bites, sorts, spots, builds<!-- themes -->, theme material<!-- /themes -->), each with a green check when
+  bites, sorts, spots, builds), each with a green check when
   the lesson uses it and a grey dash when not. It is computed on the server
   from the loaded course (`src/report.rs`, `feature_usage`), drawn into the
   editor page with the lesson table (`templates/course_report.html`, no extra
@@ -820,7 +814,7 @@ it is; they open it and learn from it with their own progress, passes and
 history, like any course, but there is no *Edit files*: the editor, the
 files, the export and the AI forms stay the owner's (a 404 for anyone else).
 The owner's later changes reach them at once (it is the same course, not a
-copy).<!-- themes --> Themes are not offered with made courses, shared or not.<!-- /themes -->
+copy).
 
 Opening the link **signed out** leads to the login page, which says *It looks
 like you don't have an account with us! Please login or signup to continue
@@ -867,9 +861,6 @@ A copy is a course like any other: it counts against the course limits
 account's bytes), checked in the same `Db::call` that stores it. Over a
 limit nothing is made and the course list says which limit (`?notice=`
 `course-count-<n>`, `copy-too-big-<bytes>` or `copy-no-room-<bytes>`).
-<!-- themes -->A copy of a built-in course is served plain, like every made course
-(themes are offered with built-in courses only); its lessons keep their
-`themes` material all the same.<!-- /themes -->
 
 ### Copying and translating a course
 
@@ -915,52 +906,23 @@ reason and **Resume translation**, which opens the same dialog without the
 language and translates the files not done yet. Keeping the copy in step
 with its original is up to the learner.
 
-<!-- themes -->
-## Themes
-
-A theme is a skin for the whole app: a folder under `data/themes/<id>/`
-(see [the course format](course-format#themes)) with colours, a font, art,
-praise strings and profile pictures. The app ships *The Realm of Eldmark* (an original high-fantasy world),
-*Meadowbrook* (an original farm town) and *Rustwake* (an original wasteland). A
-theme is a course's setting (`projects.theme`, below): while the course is
-the active one, every page but the course list and the profile wears its
-theme. Outside a course (the course list, no active course) the app wears
-Default; the profile has no theme of its own and always wears Default (#577,
-#951). See [Themes](themes#a-courses-own-theme).
-<!-- /themes -->
-<!-- no-themes -->
 ## A course's settings
-<!-- /no-themes -->
 
 **A course's settings** (#565, #574, #587): the **level** to start at (a
-course with levels, see [Starting level](#starting-level))<!-- themes -->,<!-- /themes --><!-- no-themes --> and<!-- /no-themes --> the
+course with levels, see [Starting level](#starting-level)) and the
 **motivator** worn in the course
-(see [Motivators](#motivators))<!-- themes -->, the **theme**, the **profile picture**
-(the eight built-in portraits, `src/profile.rs`, drawn by the sprite in
-`templates/avatars.html`; no uploads) and its **background** (the palette's
-eight patterned colours, then the theme's scenes)<!-- /themes -->, stored in
-`projects.motivator`<!-- themes -->, `projects.theme`, `projects.avatar` and
-`projects.avatar_color`<!-- /themes --> (`templates/course_settings.html`,
+(see [Motivators](#motivators)), stored in
+`projects.motivator` (`templates/course_settings.html`,
 `static/course-settings.js`, `POST /courses/{id}/settings`, where a field
-left out keeps its value).<!-- themes --> The pictures and backgrounds are drawn in the
-theme picked, and a big preview above the pictures follows each pick.
-Without `SKRONGLE_THEMES_ENABLED=1` there is no character art (#1153): the
-theme, picture and background are left out of the settings and the wizard
-(the stored choices are kept), the account badge in the top bar is the gear,
-conversation lines show only the speaker's name, and the verb drill's person
-slots show the course's own slot pictures.<!-- /themes --><!-- no-themes --> There is no character art (#1153):
-no profile picture or background in the settings or the wizard, the account
-badge in the top bar is the gear, conversation lines show only the speaker's
-name, and the verb drill's person slots show the course's own slot pictures.<!-- /no-themes -->
+left out keeps its value). There is no character art: the account badge in
+the top bar is the gear, and conversation lines show only the speaker's name.
 
 - **First start: a wizard.** Clicking a course's **Start learning** (or
   *Open*) button on the course list for the first time opens the settings
   as a guided dialog over the list, one step a page, with an arrow on
   either side to slide between them and dots for where you are:
-  *Choose a motivator*<!-- themes -->, *Choose a theme* (each <!-- /themes --><!-- no-themes --> (<!-- /no-themes -->with an (i) saying what it
-  is and that it can be changed later)<!-- themes -->, *Choose your profile picture* with
-  *Choose a background* under it on one step (the big preview of the
-  picture on top)<!-- /themes -->, then *Where do you want to start?* (a course with levels
+  *Choose a motivator* (with an (i) saying what it
+  is and that it can be changed later), then *Where do you want to start?* (a course with levels
   only, last since #1106, with its placement test when it has one; one slim
   row a level, the lesson count on the right).
   **Get Started!** sits under every step and opens the course with those
@@ -976,71 +938,17 @@ name, and the verb drill's person slots show the course's own slot pictures.<!--
   opened before #574 count as set up.
 - **After that: one sheet** (#576, `templates/course_settings.html`, a
   separate dialog from the wizard). The gear on an opened course's card in
-  the course list opens every setting in view at once: a header with<!-- themes --> the
-  course's badge (the picture on its background, with the theme's banner
-  behind it) and<!-- /themes --> the title, then a row a setting with its label on the
+  the course list opens every setting in view at once: a header with the title, then a row a setting with its label on the
   left: the level as a joined ladder of its titles with a note on the one
   chosen (its description, "From the beginning" for the first, its lesson
-  count), <!-- themes -->motivator and theme as chips, the picture as a row of discs with
-  the name of the one chosen under it, the background as swatches<!-- /themes --><!-- no-themes -->the motivator as chips<!-- /no-themes -->, then
-  **Save**.<!-- themes --> Picking a theme redraws the whole dialog in it, so the header
-  is the preview.<!-- /themes --> An (i) by the title says every setting can be swapped any
+  count), the motivator as chips, then
+  **Save**. An (i) by the title says every setting can be swapped any
   time without resetting anything. Closing it without Save keeps what was
   saved.
 
-Every course starts with the account's picture and motivator
-(`users.avatar`, `users.avatar_color`, `users.motivator`, which nothing
-edits any
-more).<!-- themes --> In a course the top-right corner shows the course's picture; on the
-course list, and with no active course, it shows a gear. Themes
-a learner made themselves (private to them, after the built-in ones) are
-worn the same way; no page deletes one since #577 (`POST /theme/delete`); see
-[Themes](themes#themes-you-make). With a theme on:
-<!-- /themes -->
+Every course starts with the account's motivator (`users.motivator`, which
+nothing edits any more).
 
-<!-- themes -->
-- **Looks.** Its colour tokens and font apply to every page, Sprint mode
-  included, through a stylesheet built from the theme file (`/theme.css`);
-  its banner sits at the top of the course home page and the Sprint mode home,
-  its emblem next to the course title; its praise strings (English)
-  replace the course's, unless the course has lines of its own for the
-  theme (`course.json` `themes.<id>.strings`, in the course's language); its `icons` replace the app's own little icons (streak, XP,
-  the modes, the path's padlocks and mastery marks, the session verdicts)
-  and its `lesson_icons` the default icons of lessons that set none, while
-  a lesson's theme block may give the lesson's own stop a themed `icon`.
-- **Profile picture.** The theme's `avatars` are its own versions of the
-  eight built-in pictures, by id. The learner's choice (per course,
-  `projects.avatar`) does not change: with the theme on, the course
-  settings' picture step and the top bar show the
-  theme's version of it (Sofía becomes Nym the wood elf), and taking the
-  theme off shows the plain picture again. A picture the theme has no version of
-  keeps its plain look. The picture's background is a slot of the palette, so
-  the theme's `avatar_colors` recolour it the same way (a theme without
-  them offers the default eight), and the theme's `avatar_backgrounds` add
-  scenes of its world (forests, farmland, a wasteland horizon) that are
-  offered only while it is worn. Picture names are English whatever course is open:
-  the profile never depends on a course
-  ([Theming](themes#themes-courses-and-profiles)).
-- **Material.** Each lesson that carries a `themes.<id>` block is served
-  merged: its themed bites, listening sentences, sort/spot/build exercises,
-  quiz questions and conversations go in front of the lesson's own, themed
-  examples replace the examples of the terms they re-example, and new themed
-  terms join the vocabulary. Sprint mode's session builder, which shuffles and
-  takes the first few of each kind, puts the themed items first; the lesson
-  page marks themed examples with the theme's icon; the practice quiz,
-  Listening, the Guide and Word Match read the merged lesson like
-  any other.
-- **Priority.** The lesson's own material is never removed, a lesson without
-  a block for the theme is unchanged, and a course with no themed material
-  at all is shown in the theme's colours. Mastery, vocabulary and
-  history are the same records whichever theme is on (themed questions and
-  terms are more of them).
-
-The course registry builds one extra `ContentStore` per (course, theme) in
-use, with the theme's material merged and validated at load, so every
-feature downstream sees themed lessons through the usual `Project`
-extractor.
-<!-- /themes -->
 
 ## Progress across modes
 
@@ -1077,10 +985,10 @@ pass is a milestone that stays.
 ## Motivators
 
 A motivator decides how a learner's progress is dressed up: what keeps them
-coming back.<!-- themes --> Where a theme skins the app, a<!-- /themes --><!-- no-themes --> A<!-- /no-themes --> motivator owns two places: the
+coming back. A motivator owns two places: the
 top of the course home page (its **hero**) and one short **reward line** at
 the end of a lesson or session in every mode. The learner picks one per
-course in [the course's settings](<!-- themes -->#themes<!-- /themes --><!-- no-themes -->#a-courses-settings<!-- /no-themes -->) (the wizard of its first visit,
+course in [the course's settings](#a-courses-settings) (the wizard of its first visit,
 then the gear on its card; the (i) says what each one does), stored in
 `projects.motivator` ('' for the default; #574). A new course starts with
 `users.motivator`, the account-wide choice from before #574, which nothing
@@ -1180,11 +1088,9 @@ modal that says why (400 when the course does not wear SKC). The catalogue is
 each with plain art `data/badges/<id>.svg` and a title
 `motivator.skc.badge.<id>` in every `i18n/<code>.yaml`. A badge is bought
 once and kept in `motivator_purchases` (user, course, item, the price
-paid), which a switch of motivator never clears.<!-- themes --> It draws in the worn
-theme's look when the theme has `badges/<id>.svg`, plain otherwise
-([Theming](themes#shop-badges)); no<!-- /themes --><!-- no-themes --> No<!-- /no-themes --> refunds, no consumables.
+paid), which a switch of motivator never clears. No refunds, no consumables.
 Its glyph is an arcade ticket with a spark (an original shape, not a
-currency sign), drawn in `currentColor` so it follows every<!-- themes --> theme and<!-- /themes -->
+currency sign), drawn in `currentColor` so it follows every
 colour scheme: `motivators::skc::symbol()` draws it and
 `motivators::skc::amount(n)` an amount with it; use them wherever an SKC
 amount shows. "Skrongle Cash" and "SKC" are i18n keys
@@ -1241,7 +1147,7 @@ default.
 A course whose manifest says `"levels": true` (its units are levels such as
 CEFR A1, A2…, not chapters that build on each other) lets a learner who
 already knows some of it start further in. The last step of the
-course's start wizard (#587, #1106, [a course's settings](<!-- themes -->#themes<!-- /themes --><!-- no-themes -->#a-courses-settings<!-- /no-themes -->)) asks *Where do you want to start?*: one card per unit
+course's start wizard (#587, #1106, [a course's settings](#a-courses-settings)) asks *Where do you want to start?*: one card per unit
 that has lessons, the first one ("from the beginning") chosen. The whole
 card is the choice (a visually hidden radio inside it): the chosen card is
 outlined in the accent colour, grows slightly and shows a check mark
@@ -1730,11 +1636,7 @@ and finish; every wrong pair costs a second; top 10 per board is shared by all
 users of the course.
 
 **The drill** (Conjugation Drill for Spanish) shows a picture for the item and
-a picture for the slot; type the form. <!-- themes -->A slot with a `who` in the paradigm is
-drawn with profile pictures (#879): the learner's own picture for `me`, the
-learner and two others for `us`, three others farther away for `them`, and so
-on. The others are picked at random from the theme worn's pictures and are
-never the learner's. A slot without `who` shows its ASCII `art`.<!-- /themes --><!-- no-themes -->A slot shows its ASCII `art`.<!-- /no-themes --> Items unlock when their lesson is
+a picture for the slot; type the form. A slot shows its ASCII `art`. Items unlock when their lesson is
 passed in any mode, or mastered in Practice. The setup page (`/play/conjugation`)
 shows one set at a time (#837): a tab per set with its unlocked count, the
 first set with something unlocked open by default (`?set=<key>` picks one),
@@ -1781,7 +1683,7 @@ the setup page show the personal best. Only courses with a `calendar` have it.
 
 ## Profile
 
-The picture in the top-right corner opens the account menu: profile settings,
+The gear in the top-right corner opens the account menu: profile settings,
 switch course, documentation, log out. `/profile` is independent of the active
 course and is where per-user settings live; new customisation options for a
 learner belong on this page. A list of links on the left (above the cards on
@@ -1794,13 +1696,13 @@ after a jump and while scrolling.
 shown in (the same picker the login and register pages have); it saves at
 once and the page reloads in the new language. See [i18n](i18n).
 
-**Saving as you edit.** The names,<!-- themes --> the theme,<!-- /themes --> the AI API keys
+**Saving as you edit.** The names, the AI API keys
 and the Dev options have no Save button: each change posts to
 `POST /api/profile` (only the fields that changed; all or nothing, a refused
 field comes back as `422 {"errors": {field: message}}`). Names save one
 second after the last keystroke, or when the field loses focus; an API key
 three seconds after the last keystroke, or at once when more than five
-characters arrive together (a paste); a<!-- themes --> theme or a<!-- /themes --> checkbox
+characters arrive together (a paste); a checkbox
 saves at once. A field whose change is saved shows a small green check (on
 the chosen chip or picture for a choice) until it is edited again. The
 circle at the right of the heading sums up the page: green ✓ saved, yellow
@@ -1815,11 +1717,6 @@ wires up the fields (the course editor uses it too: see *Saving as you
 edit* under [Your own courses](#your-own-courses)). The password dialog, *Remove key* and account deletion
 keep their explicit buttons. The page needs JavaScript.
 
-<!-- themes -->
-- **No picture and no theme**: both are a course's settings (see *A
-  course's settings* under [Themes](#themes); #565, #577), so the page shows
-  neither, and `/api/profile` refuses `theme`.
-<!-- /themes -->
 - **Personal information**: first and last name (optional, up to 60
   characters). The site greets by first name and the menu shows "First Last"
   ("Learner" until a name is set); leaderboards show the first name and the

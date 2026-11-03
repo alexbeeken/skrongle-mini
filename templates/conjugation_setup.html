@@ -88,9 +88,9 @@
 <section>
   <h2>{{ crate::t("play.drill.slot_pictures") }}</h2>
   <p class="muted small">{{ crate::t1("play.drill.slot_pictures_note", "item", course.item_label.to_lowercase()) }}</p>
-  <ul class="subject-legend" id="subject-legend" data-people="{{ people_json }}">
+  <ul class="subject-legend" id="subject-legend">
   {% for s in slots %}
-    <li><pre class="ascii subject" data-slot="{{ s.key }}" data-art="{{ s.art_json }}" data-who="{{ s.who }}"></pre><span lang="{{ course.term_lang }}"><strong>{{ s.label }}</strong></span><br><span class="muted small">{{ s.hint }}</span></li>
+    <li><pre class="ascii subject" data-slot="{{ s.key }}" data-art="{{ s.art_json }}"></pre><span lang="{{ course.term_lang }}"><strong>{{ s.label }}</strong></span><br><span class="muted small">{{ s.hint }}</span></li>
   {% endfor %}
   </ul>
 </section>

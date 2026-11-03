@@ -1,12 +1,11 @@
 //! The paradigm a course may declare: the rows (slots) and columns (sets)
-//! of its `conjugations` tables, and who each slot stands for (#879).
+//! of its `conjugations` tables.
 
 use serde::{Deserialize, Serialize};
 
 /// A row of a paradigm table: a grammatical person for verb conjugations, a
 /// case for declensions, a key for scales… `art` is an optional ASCII picture
-/// for the drill game; `who` says which person the row is, and the drill then
-/// draws profile pictures for it instead (#879).
+/// for the drill game.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Slot {
     pub key: String,
@@ -15,40 +14,6 @@ pub struct Slot {
     pub hint: String,
     #[serde(default)]
     pub art: Vec<String>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub who: Option<Who>,
-}
-
-/// The kind of person a paradigm slot stands for, drawn in the drill with
-/// profile pictures: the learner's own, and others chosen at random.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub enum Who {
-    /// I: the learner's picture.
-    Me,
-    /// You (one person): another picture, facing the learner.
-    You,
-    /// He, she: another picture, off to the side.
-    Other,
-    /// We: the learner and two others.
-    Us,
-    /// You (several): three others, facing the learner.
-    YouAll,
-    /// They: three others, smaller and farther away.
-    Them,
-}
-
-impl Who {
-    pub fn as_str(self) -> &'static str {
-        match self {
-            Who::Me => "me",
-            Who::You => "you",
-            Who::Other => "other",
-            Who::Us => "us",
-            Who::YouAll => "you_all",
-            Who::Them => "them",
-        }
-    }
 }
 
 /// A column of a paradigm table: a tense, a mood, a number…

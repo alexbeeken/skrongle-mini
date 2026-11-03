@@ -156,17 +156,7 @@
     if (paradigm || (Array.isArray(doc.conjugations) && doc.conjugations.length)) out.push(list("conjugations", "conjugation", T("sec_conjugations")));
     var guide = Array.isArray(doc.guide) ? doc.guide : [];
     out.push({ key: "guide", label: T("sec_guide"), single: true, note: guide.length ? tn("editor.js.steps", guide.length) : T("guide_auto") });
-    // Theme material only while themes are on (#1138).
-    if (!themesOff()) {
-      var themes = doc.themes && typeof doc.themes === "object" ? Object.keys(doc.themes) : [];
-      out.push({ key: "themes", label: T("sec_themes"), single: true, count: themes.length });
-    }
     return out;
-  }
-  // The site has themes switched off (#1138): no theme is named anywhere.
-  function themesOff() {
-    var hero = document.querySelector("[data-testid=course-edit]");
-    return !!hero && hero.dataset.themes === "false";
   }
   function itemRow(doc, man, sel, it, kind) {
     var badge = "", label = "";
@@ -540,7 +530,7 @@
     return [
       h("h3", { class: "le-title" }, [T("bite_head"), h("span", { class: "le-sub", text: T("bite_sub") })]),
       group(T("grp_say"), [
-        row([field(ctx, p.concat("title"), T("f_title"), { caps: true }), field(ctx, p.concat("emoji"), T("f_emoji"), { kind: "opt", cls: "le-short", hint: T(themesOff() ? "h_emoji_off" : "h_emoji") })], "two wide-first"),
+        row([field(ctx, p.concat("title"), T("f_title"), { caps: true }), field(ctx, p.concat("emoji"), T("f_emoji"), { kind: "opt", cls: "le-short", hint: T("h_emoji") })], "two wide-first"),
         field(ctx, p.concat("rule"), T("f_rule"), { hint: T("h_rule"), caps: true })
       ]),
       group(T("grp_show"), [exampleRow(ctx, p, get(ctx.doc, p))]),
@@ -701,23 +691,11 @@
       h("div", { class: "le-foot" }, [h("span", { class: "le-sp" }), btn(ctx, "guide-derive", ["guide"], T("guide_back_to_derived"), null, "le-link le-danger")])
     ];
   }
-  // Themes: the schema form, for that part of the file.
-  function formSchema(ctx, key) {
-    var holder = h("div", { class: "le-schema", "data-testid": "course-form-schema", "data-path": key });
-    if (!window.SchemaForm || !ctx.schema) { holder.appendChild(h("p", { class: "le-hint", text: T("schema_unavailable") })); return [h("h3", { class: "le-title" }, [T("sec_" + key)]), holder]; }
-    ctx.schema().then(function (schema) {
-      if (!holder.isConnected) return;
-      SchemaForm.renderPart(holder, schema, "lesson", ctx.doc, key, function () { ctx.changed(); });
-    }).catch(function (e) { holder.textContent = e.message; });
-    return [h("h3", { class: "le-title" }, [T("sec_" + key), h("span", { class: "le-sub", text: T("schema_sub") })]), holder];
-  }
-
   function form(ctx, st) {
     var sel = st.sel, sec = sel.sec;
     if (sec === "lesson") return formLesson(ctx);
     if (sec === "content") return formContent(ctx);
     if (sec === "guide") return formGuide(ctx, st);
-    if (sec === "themes") return formSchema(ctx, sec);
     if (get(ctx.doc, itemPath(sel)) == null) return [h("p", { class: "le-hint", text: T("pick_item") })];
     if (sec === "vocabulary") return formVocab(ctx, sel);
     if (sec === "quiz") return formQuiz(ctx, sel);
@@ -1218,11 +1196,6 @@
     function draw() { var ctx = el._lectx; render(el, ctx.doc, ctx); }
   }
 
-  // The theme blocks of a lesson (`themes.<id>`).
-  function themeBlocks(doc) {
-    var th = doc.themes && typeof doc.themes === "object" ? doc.themes : {};
-    return Object.keys(th).map(function (k) { return th[k]; }).filter(function (t) { return t && typeof t === "object"; });
-  }
   // A word whose term was typed over: what names it follows, unless another
   // entry has the old term or the new one. While the new term is another
   // word's (a half-typed "habla" on the way back to "hablar"), the questions
@@ -1248,18 +1221,12 @@
       if (f !== v.term && !heldBy(f, i)) renameTerm(doc, f, v.term);
     });
   }
-  // A word renamed: the questions that teach it and a theme's new example of it follow.
+  // A word renamed: the questions that teach it follow.
   function renameTerm(doc, was, now) {
-    var fix = function (qs) { (Array.isArray(qs) ? qs : []).forEach(function (q) { if (q && Array.isArray(q.teaches)) q.teaches = q.teaches.map(function (x) { return x === was ? now : x; }).filter(function (x, i, all) { return all.indexOf(x) === i; }); }); };
-    fix(doc.quiz);
-    themeBlocks(doc).forEach(function (t) {
-      (Array.isArray(t.vocabulary) ? t.vocabulary : []).forEach(function (v) { if (v && v.term === was) v.term = now; });
-      fix(t.quiz);
-    });
+    (Array.isArray(doc.quiz) ? doc.quiz : []).forEach(function (q) { if (q && Array.isArray(q.teaches)) q.teaches = q.teaches.map(function (x) { return x === was ? now : x; }).filter(function (x, i, all) { return all.indexOf(x) === i; }); });
   }
   // What pointed at a deleted item goes with it: a word's place in the
-  // questions that teach it and a theme's new example of it (one with no
-  // meaning of its own), a question's steps in a hand-ordered Guide.
+  // questions that teach it, a question's steps in a hand-ordered Guide.
   function unlink(doc, sec, gone) {
     if (!gone || typeof gone !== "object") return;
     if (sec === "vocabulary" && !(doc.vocabulary || []).some(function (v) { return v && v.term === gone.term; })) {
@@ -1271,10 +1238,6 @@
         });
       };
       untaught(doc.quiz);
-      themeBlocks(doc).forEach(function (t) {
-        if (Array.isArray(t.vocabulary)) t.vocabulary = t.vocabulary.filter(function (v) { return !(v && v.term === gone.term && !String(v.meaning || "").trim()); });
-        if (!(t.vocabulary || []).some(function (v) { return v && v.term === gone.term; })) untaught(t.quiz);
-      });
     }
     if (sec === "quiz" && Array.isArray(doc.guide) && !(doc.quiz || []).some(function (q) { return q && q.question_id === gone.question_id; })) {
       doc.guide = doc.guide.filter(function (s) { return !(s && s.question === gone.question_id); });
@@ -1286,7 +1249,7 @@
   function reveal(el, field) {
     var st = el._le, ctx = el._lectx;
     if (!st || !ctx || !field) return false;
-    var sec = field === "sprint" || field === "guide" || field === "content" || field === "themes" ? field : ["vocabulary", "quiz", "listening", "conversations", "conjugations"].indexOf(field) >= 0 ? field : "lesson";
+    var sec = field === "sprint" || field === "guide" || field === "content" ? field : ["vocabulary", "quiz", "listening", "conversations", "conjugations"].indexOf(field) >= 0 ? field : "lesson";
     var secs = sections(ctx.doc, st.man);
     var s = secs.filter(function (x) { return x.key === sec; })[0];
     if (!s) return false;

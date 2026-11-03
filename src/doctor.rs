@@ -215,7 +215,7 @@ fn bind_line(addr: std::net::SocketAddr) -> String {
 fn data_dir_line(dir: &Path) -> String {
     let abs = std::path::absolute(dir).unwrap_or_else(|_| dir.to_path_buf());
     if !dir.is_dir() {
-        return format!("{} (PROBLEM: missing; set SKRONGLE_DATA_DIR to the folder holding courses/ and themes/)", abs.display());
+        return format!("{} (PROBLEM: missing; set SKRONGLE_DATA_DIR to the folder holding courses/)", abs.display());
     }
     let count = |sub: &str, file: &str| -> usize {
         std::fs::read_dir(dir.join(sub))
@@ -223,9 +223,8 @@ fn data_dir_line(dir: &Path) -> String {
             .unwrap_or(0)
     };
     let courses = count("courses", crate::content::MANIFEST_FILE);
-    let themes = count("themes", crate::themes::THEME_FILE);
     let warn = if courses == 0 { " (PROBLEM: no built-in courses found)" } else { "" };
-    format!("{} ({courses} courses, {themes} themes){warn}", abs.display())
+    format!("{} ({courses} courses){warn}", abs.display())
 }
 
 fn mb(bytes: u64) -> String {

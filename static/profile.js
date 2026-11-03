@@ -1,8 +1,7 @@
 // Profile page. The names, the AI API keys and the Dev options save as they
 // change (static/autosave.js, POST /api/profile); the circle by the heading
 // says whether everything is saved, and a green check on a field that its
-// change is. (The picture and the theme are a course's settings, #565 and
-// #577, picked in the course's settings.)
+// change is.
 //
 // Dialogs (password, terms, privacy): a [data-opens] button or link opens the
 // <dialog> it names; [data-closes] or Escape closes it. The password dialog is

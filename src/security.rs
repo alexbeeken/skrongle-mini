@@ -15,8 +15,8 @@ use std::sync::Mutex;
 /// The page policy. Scripts and styles come from this origin; the inline
 /// `<script>` blocks and `on…=` attributes in the templates need
 /// `'unsafe-inline'` (moving them into files is listed in
-/// docs/security-review.md). Images may come from https URLs because a theme
-/// may name its art by URL. Nothing may frame the app (the dev device page
+/// docs/security-review.md). Images may come from https URLs (a course's
+/// Markdown may show one). Nothing may frame the app (the dev device page
 /// `/login/code/device`, dev mode only, lets `/login/code` frame it).
 pub const CSP: &str = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; \
 img-src 'self' data: https:; font-src 'self'; connect-src 'self'; media-src 'self'; object-src 'none'; \

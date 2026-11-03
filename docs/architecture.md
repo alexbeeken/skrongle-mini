@@ -1,7 +1,7 @@
 # Architecture
 
 A single Rust binary (axum + SQLite + askama; templates, static files and docs
-compiled in, courses<!-- themes --> and themes<!-- /themes --> read from `data/` at startup) sized
+compiled in, courses read from `data/` at startup) sized
 for a Raspberry Pi Zero 2 W: ~3.5 MB, 15–25 MB RSS, two async workers, one
 SQLite connection in WAL mode.
 
@@ -25,11 +25,11 @@ under `static/`, `templates/` or `data/` is missing from this list.
 ### Courses and content
 
 - Course model and validation: `content.rs` (Manifest, Lesson, ContentStore), `content/paradigm.rs` (paradigm slots and sets, `who`), `content/quiz_type.rs` (the quiz question types); contract in `docs/course-format.md`. Placement test (`placement.json`, #1106): `placement.rs` (format, drawing, marking), routes in `routes/courses/settings.rs`, `templates/placement_test.html`, `static/placement.js`.
-- Course registry: `courses.rs` (built-in, user-made<!-- themes -->, themed copies<!-- /themes -->, projects); pages in `routes/courses/` (`routes/courses/mod.rs` routes and shared views, `routes/courses/picker.rs` the list, `routes/courses/settings.rs` the settings dialog and opening, `routes/courses/stat.rs` the body of a card's stat modal (fetched by `static/course-stat.js`), `routes/courses/create.rs` new, copy and translate, `routes/courses/editor.rs` the editor page, `routes/courses/files.rs` files, upload and export, `routes/courses/lessons.rs` the lesson table, `routes/courses/generate.rs` AI generation, `routes/courses/revise.rs` Add content, Review AI changes, Undo), `static/json-problems.js` (JSON problems worded as the server words them), `static/lesson-editor.js`, `static/advice.js` (the yellow ! on lesson rows and its *Things to check* modal), `static/lesson-preview.js`, `static/schema-form.js`, `static/lesson-duplicate.js` (a lesson row's ⧉), `static/lesson-ai-edit.js` + `static/lesson-ai-edit.css` + `templates/lessons_ai_dialog.html` (a lesson row's ✦, Edit with AI, #1242), `static/ai-examples.js` + `static/ai-examples.css` (Use AI's example requests, `templates/ai_examples.html`), `templates/course_edit.html`.
+- Course registry: `courses.rs` (built-in, user-made, projects); pages in `routes/courses/` (`routes/courses/mod.rs` routes and shared views, `routes/courses/picker.rs` the list, `routes/courses/settings.rs` the settings dialog and opening, `routes/courses/stat.rs` the body of a card's stat modal (fetched by `static/course-stat.js`), `routes/courses/create.rs` new, copy and translate, `routes/courses/editor.rs` the editor page, `routes/courses/files.rs` files, upload and export, `routes/courses/lessons.rs` the lesson table, `routes/courses/generate.rs` AI generation, `routes/courses/revise.rs` Add content, Review AI changes, Undo), `static/json-problems.js` (JSON problems worded as the server words them), `static/lesson-editor.js`, `static/advice.js` (the yellow ! on lesson rows and its *Things to check* modal), `static/lesson-preview.js`, `static/schema-form.js`, `static/lesson-duplicate.js` (a lesson row's ⧉), `static/lesson-ai-edit.js` + `static/lesson-ai-edit.css` + `templates/lessons_ai_dialog.html` (a lesson row's ✦, Edit with AI, #1242), `static/ai-examples.js` + `static/ai-examples.css` (Use AI's example requests, `templates/ai_examples.html`), `templates/course_edit.html`.
 - Editing helpers: `arrange.rs` (lesson table, Undo), `word_list.rs` + `static/word-list.js` (Paste a word list), `problems.rs` (refusal messages), `report.rs` (feature usage report), `lint.rs` (course lints, `lint/language.rs` the language guess), `review.rs` (Review AI changes; its why and check lines styled by `static/review-notes.css`).
 - AI generation: `ai.rs` (LLM client, job runner), `ai/queue.rs` (the line, slots and leases of AI jobs, #874), `ai/prompt.rs` (the instructions and each kind of course's rules), `ai/budget.rs` (effort levels and the tokens a job reserves, #918), `ai/edit.rs` (Edit lessons, #1240), `ai/check.rs` (the `check` plan action and the why lines of a fact check, #1238), `ai/edit_lesson.rs` (Edit with AI on one row, #1242), `translate.rs` (copy and translate a course), `metering.rs` (Skrongle AI usage and limits), `routes/hosted.rs` (Skrongle AI on the pages).
 - Sharing: `share.rs`, `routes/share.rs`.
-- <!-- themes -->Themes: `themes.rs`, `data/themes/`; course<!-- /themes --><!-- no-themes -->Course<!-- /no-themes --> pickers in `static/courses.js`, `static/course-settings.js`.
+- Course pickers in `static/courses.js`, `static/course-settings.js`.
 - Test course: `test_course.rs` (tests only), `data/test-courses/`.
 
 ### Learning modes
@@ -47,7 +47,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 - Sign-in: `auth.rs` (sessions, CurrentUser, Project), `routes/auth.rs`, `routes/auth/code.rs` (the two-factor step), `proxy_auth.rs` (proxy header), `signup.rs` (who may register), `urlenc.rs` (percent-encoding for the redirects they build).
 - Mail: `mail.rs` (`mail/resend.rs`, `mail/postmark.rs`, `mail/brevo.rs`, `mail/sink.rs`), `verify.rs` (address check), `reset.rs` + `routes/reset.rs` (password reset).
 - Two-factor: `two_factor.rs`, `totp.rs`.
-- Profile: `profile.rs`, `routes/profile.rs`, `static/profile.js`, `static/autosave.js`, `static/avatar-bg/` (picture backgrounds); keys in `secrets.rs`.
+- Profile: `profile.rs`, `routes/profile.rs`, `static/profile.js`, `static/autosave.js`; keys in `secrets.rs`.
 - Data rights: `privacy.rs` (export columns, deletion), `exports.rs` (Download my data), `consent.rs` (optional consents for the Privacy and consent card), `account_deletion.rs` and `routes/account_deletion.rs` (deleting an account after 14 days, #970).
 - Plans: `billing.rs`, `routes/billing.rs`. Terms: `terms.rs`, `routes/terms.rs`. Owner and superuser: `owner.rs`, `routes/superuser.rs`, `routes/password.rs` (temporary password gate).
 - Docs pages: `routes/docs.rs` (`/docs` sidebar `SECTIONS`, `/llms.txt`).
@@ -67,11 +67,8 @@ src/
   main.rs        config from env, command line (`doctor`, `--version`), tokio runtime (2 workers), startup, graceful shutdown
   startup.rs     startup errors for the usual self-hosting mistakes: port in use, database folder not writable, secret key missing
   doctor.rs      `skrongle doctor`: read-only diagnostics for bug reports (version, OS, database, schema level, yes/no for secrets and SKRONGLE_LEGAL_EMAIL, disk, memory)
-  content.rs     course model: Manifest, Lesson, QuizItem, …; <!-- themes -->the Theme model and LessonTheme / apply_theme; <!-- /themes -->validation; ContentStore (one course in memory<!-- themes -->, optionally with a theme merged in<!-- /themes -->)
-<!-- themes -->
-  themes.rs      theme registry: data/themes/<id>/theme.json + pictures, loaded at boot; learner-made themes in SQLite (owner only, limits)
-<!-- /themes -->
-  courses.rs     course registry: built-in courses from data/courses/, user-made ones in SQLite<!-- themes -->, themed copies on demand<!-- /themes -->; projects
+  content.rs     course model: Manifest, Lesson, QuizItem, …; validation; ContentStore (one course in memory)
+  courses.rs     course registry: built-in courses from data/courses/, user-made ones in SQLite; projects
   ai.rs          LLM client (Anthropic Messages API / OpenAI-compatible, incl. Gemini) + "generate with AI" job runner (generate, resume, revise with feedback, add a lesson)
   ai/
     edit.rs      Edit lessons (#1240): rewrite lessons, add, remove or move none; the per-lesson writer shared with revise
@@ -102,7 +99,7 @@ src/
   two_factor.rs  two-factor sign-in: the method in use, the authenticator app's enrolment, sign-in challenges, the proof for turning it off (tables totp_keys, two_factor_challenges, two_factor_confirmations)
   terms.rs       Terms of Service: the source (built-in text or SKRONGLE_TERMS file), the built-in changelog (docs/terms-changes.json) and the version in effect, the notice of a newer version (minor or material), acceptances, the 30-day e-mail of a material change, sent from /superuser (table terms_announcements)
   billing.rs     paid subscriptions: who is premium (Stripe subscription or grant; everyone in Skrongle mini, plans_on), RequirePremium, webhook signature + events, Stripe Checkout/Portal calls
-  profile.rs     user profiles: the eight named pictures (and the old ids as aliases), name/e-mail validation, profile persistence
+  profile.rs     user profiles: name/e-mail validation, profile persistence
   secrets.rs     learners' AI API keys: master secret, ChaCha20-Poly1305 sealing, per-user storage; the sealed server key
   metering.rs    Skrongle AI: the server's key, model per purpose, price table, ai_usage rows, monthly allowance (none in Skrongle mini), credits, job reservations, daily cap, rate limit; Meter::call, the gate every model call goes through (docs/pricing.md)
   server.rs      the listener: header and body timeouts, a connection cap (axum::serve plus limits)
@@ -139,7 +136,7 @@ src/
   dev_payments.rs the dev payment provider (#314): a Stripe stand-in's state (prices, customers, Checkout sessions, subscriptions, invoices and one-off payments, events, the log) and its rules (pay, decline, renew, fail a renewal, cancel, refund), each returning the events to deliver; dev mode's Stripe settings; in memory
   dev_crowd.rs   a crowd of made-up learners with weeks of backdated history (SKRONGLE_DEV_SEED_USERS, #583), written through the modes' own progress functions; deterministic per learner
   dev.rs         local testing (SKRONGLE_DEV): the gate, the dev user (seed with the simulator's keys, reset), SKRONGLE_LLM_MODE and the dev AI provider's default base URLs, the fixture directory and its in-memory edits, held requests on disk (Manual replies on /dev/ai)
-  test_course.rs tests only: keep the test course covering every feature (schema, aliases, quiz types, exercises<!-- themes -->, themes<!-- /themes -->)
+  test_course.rs tests only: keep the test course covering every feature (schema, aliases, quiz types, exercises)
   routes/
     mod.rs       axum Router, embedded static assets and docs, CourseView for templates
     courses/     the course routes, one file per feature (handlers keep their names: `courses::picker`, …)
@@ -163,7 +160,7 @@ src/
     account_deletion.rs  /account/deletion (the only page of an account scheduled for deletion: its date, Cancel deletion, Log out)
     password.rs  /password/change (the gate after signing in with a temporary password: the new one twice, no old one)
     superuser.rs /superuser (superusers only, 404 otherwise: every account 25 to a page with Temporary password, Turn off two-factor and Reset email verification per row; invitation links under SKRONGLE_SIGNUP=invite; Skrongle AI today, everyone, against the daily cap; while a material terms change is coming, a notice and Send the announcement), POST /superuser/reset-email-verification|invites|invites/revoke|temp-password|two-factor-off|terms-announce
-    profile.rs   /profile (picture, personal information, account, subscription with the plans and cancel modals, Skrongle AI this month as a bar (Plus), AI API keys with the own-keys pill (Plus), ), POST /api/profile (autosave), POST /profile/password|api-keys…|own-keys|verify-email/resend, POST /profile/export (queue "Download my data"), GET /profile/export/download?token=… (the mailed link), POST /profile/delete
+    profile.rs   /profile (personal information, account, subscription with the plans and cancel modals, Skrongle AI this month as a bar (Plus), AI API keys with the own-keys pill (Plus), ), POST /api/profile (autosave), POST /profile/password|api-keys…|own-keys|verify-email/resend, POST /profile/export (queue "Download my data"), GET /profile/export/download?token=… (the mailed link), POST /profile/delete
     dev_payments.rs /dev/payments/stripe/v1/* (Stripe's API), the hosted Checkout and Billing Portal pages, the dev mailbox's Payments section; delivers signed webhooks to /billing/webhook on a thread of its own
     billing.rs   POST /billing/cancel (reason + feedback; Stripe ends it with the month), /billing/checkout (a plan from the modal; a paying learner goes to the portal), /billing/credits (on the account's one Stripe customer, named by its billing_ref), /billing/portal (redirects to Stripe), /billing/webhook (Stripe's signed events); none of them exist in Skrongle mini
     hosted.rs    Skrongle AI on the pages: who is offered it (hosted_offer: the plan includes some, or credits), whether own keys may be used (own_keys_usable: Plus only with the pill on; always with plans off), the provider for one call, "Skrongle AI left this month: 83 %" (not with plans off), OutOfAi (upgrade / pack / own key buttons when it does not cover a job)
@@ -184,9 +181,6 @@ static/          CSS + dependency-free JS (compiled in); vendor/ holds the one t
 docs/            this documentation (compiled in, served at /docs)
 data/courses/    built-in courses: <id>/course.json + lessons/**.json + pictures/**.svg
 data/test-courses/  courses for automated tests, loaded only with TEST_COURSE=1 (see testing.md, "The test course")
-<!-- themes -->
-data/themes/     themes: <id>/theme.json + pictures/**.svg
-<!-- /themes -->
 data/test-fixtures/llm/  canned model replies the dev AI provider answers from, one <purpose>.json per call site
 deploy/          systemd unit + nginx snippets
 scripts/         release.sh (one-shot), build-pi.sh (cross-compile), deploy.sh, dev-progress.sh, smoke.sh (local smoke test)
@@ -291,46 +285,6 @@ a message (#633); templates that need it carry a copy (`caps`, or a `mail`
 flag). `docs/self-hosting.md`, "Without e-mail", lists
 what changes.
 
-<!-- themes -->
-**Themes.** `AppState.themes` holds every theme under `data/themes/`
-(`themes::Themes`, loaded at boot). A theme is a course's setting:
-`projects.theme` ('' or NULL for Default; #565, #577). `resolve_user`
-wears the active course's one on every page except `/courses` and the
-pages under it, and Default outside a course (`CurrentUser.theme` is the
-theme worn; `users.theme` is no longer read). The profile picture is per
-course too: `CurrentUser.avatar` and `avatar_color` are the active course's
-(`projects`), and `no_picture` is set where no course is in context (the
-same pages), whose badge shows a gear (`templates/avatar_gear.html`). `CurrentUser` carries it and `Project` asks the course
-registry for `get_themed(course, theme)`, which builds (once, then caches) a
-`ContentStore` with that theme's lesson material merged in
-(`content::apply_theme`) and its strings swapped. Everything downstream is
-unchanged: handlers see themed lessons, and Sprint mode's grading resolves
-exercise ids against the same themed store. `GET /theme.css?t=<id>` serves the
-custom properties of the theme the page wears (without `t`, the worn one) (hex colours and a font stack only,
-checked at load), linked after the app's stylesheets on every page; `GET
-/themes/{id}/{path}` serves a theme's pictures; `POST /courses/{id}/settings`
-switches a course's. `CurrentUser` resolves the worn theme's version of the
-learner's `avatar` to a URL (`theme_avatar_url`, `profile::themed_avatar`),
-so the top bar shows it on every page and the plain icon returns when the
-theme comes off; the picture choice itself never changes. An invalidated course drops its themed copies too.
-
-*Themes learners make* are the same files (`theme.json`, `pictures/*.svg`)
-stored in `user_themes` / `user_theme_files` and loaded through the same
-validator (`ThemePack::from_files`). They are worn as `user-<n>` (`n` = the
-row id; built-in theme ids may not start with `user-`). `Themes::resolve(db,
-user, id)` is the one lookup: a built-in theme, or a made one only for its
-owner (anyone else gets "no such theme", so a 404 for its pictures and Plain
-if a course of theirs names it); made themes are cached after the first
-load and forgotten on edit or delete. `CurrentUser.theme_pack` is the worn
-theme, resolved once per request. Deleting a worn theme sets the
-`projects.theme` that named it back to ''. Limits per account: `SKRONGLE_THEMES_PER_USER` (5) and
-`SKRONGLE_THEME_BYTES` (524288, all files of all their themes). Without
-`SKRONGLE_THEMES_ENABLED=1` the store is `Themes::off()`: empty, `resolve`
-finds nothing (made themes included) and `create` refuses, so every page
-falls back to Default without a check of its own. There is no
-editor yet; `Themes::create` / `replace` / `delete` are the storage API it
-will use.
-<!-- /themes -->
 
 **Templates** are server-rendered. The small scripts (`quiz.js`, `guide.js`,
 `sprint.js`, …) post JSON to `/api/*` and render feedback inline. Everything
@@ -355,7 +309,7 @@ session JSON, never hard-coded.
 
 ```sql
 users          (id AUTOINCREMENT, password_hash, created_at, google_sub UNIQUE, email,
-                active_course, first_name, last_name, avatar, avatar_color<!-- themes -->, theme<!-- /themes -->, age_confirmed, developer, ai_off,
+                active_course, first_name, last_name, avatar, avatar_color, age_confirmed, developer, ai_off,
                 email_verified_at, superuser, phone, phone_verified_at, two_factor, lang, billing_ref UNIQUE, stripe_customer,
                 must_change_password, suspended_at, beta)
                 -- id is never reused after a deletion (AUTOINCREMENT since v45, #364);
@@ -365,11 +319,7 @@ users          (id AUTOINCREMENT, password_hash, created_at, google_sub UNIQUE, 
                 -- password_hash is '' for accounts without one (proxy sign-in); email is what a password account
                 -- signs in with (no usernames since v26), set once and never changed;
                 -- email_verified_at: when the address was confirmed (link), NULL = not yet;
-                -- avatar is an id from src/profile.rs (AVATARS)<!-- themes -->, shown in the worn theme's version<!-- /themes -->;
-                -- avatar_color a background slot: 1-8 the patterned palette (profile::palette<!-- themes -->, the theme's avatar_colors<!-- /themes -->)<!-- themes -->, 9-16 a theme's scenes (avatar_backgrounds)<!-- /themes -->, 0 = none picked yet (profile::DEFAULT_COLOR, v35);
-<!-- themes -->
-                -- theme a theme id from data/themes/ or '';
-<!-- /themes -->
+                -- avatar, avatar_color: the profile picture and its background, no longer read (the pictures are gone; the columns wait for the schema squash);
                 -- lang the language the app speaks to this account in (i18n/<code>.yaml, v42), '' = the browser's;
                 -- developer 1 marks a developer account (set by hand or the dev seed); nothing reads it since #298
                 -- ai_off 1 hides every feature that calls an AI provider and makes its routes refuse (#147)
@@ -386,10 +336,6 @@ users          (id AUTOINCREMENT, password_hash, created_at, google_sub UNIQUE, 
                 -- CurrentUser sends it to /account/deletion until then, its courses are not shared out
 sessions       (id, user_id, session_token UNIQUE, created_at, expires_at)
                 -- session_token is the SHA-256 (hex) of the cookie's token (auth::hash_token), never the token
-<!-- themes -->
-user_themes    (id, owner_id, title, created_at, updated_at)       -- themes learners make; worn as 'user-<id>'
-user_theme_files (theme_id, path, content)  PRIMARY KEY (theme_id, path)   -- theme.json and pictures/*.svg
-<!-- /themes -->
 courses        (id, owner_id, title, created_at, updated_at, error, state, source, visibility, job_id, brief, outline, notes, taken_down_at)
                 -- user-made courses; state 'generating' | 'revising' | 'ready' | 'failed', source 'hand' | 'ai',
                 -- visibility 'private' (publishing to come); brief/notes/outline let a stopped AI run resume
@@ -428,9 +374,9 @@ waitlist       (id, email UNIQUE, joined_at, confirm_hash, confirmed_at, invite_
                 -- confirmation link's token until it is used; invite_id the latest e-mailed invitation (set NULL
                 -- when purged); user_id the account it signed up as (cascades); unconfirmed rows go after 30 days
 release_settings (id = 1, waitlist)  -- the removed waitlist switch (#934; nothing reads it)
-projects       (user_id, course_id, created_at, last_opened_at, start_unit<!-- themes -->, theme<!-- /themes -->, avatar, avatar_color, motivator, set_up)  PRIMARY KEY (user_id, course_id)
-               -- <!-- themes -->theme, <!-- /themes -->avatar, avatar_color, motivator: the course's settings (#565, #574); avatar/avatar_color and
-               -- motivator start as the account's; set_up: 0 until the first visit's settings wizard is left (#574)
+projects       (user_id, course_id, created_at, last_opened_at, start_unit, avatar, avatar_color, motivator, set_up)  PRIMARY KEY (user_id, course_id)
+               -- motivator: the course's setting (#574), starting as the account's; avatar, avatar_color: no longer read;
+               -- set_up: 0 until the first visit's settings wizard is left (#574)
 user_progress  (user_id, course_id, lesson_id, mastery_score, times_tested, times_correct, streak,
                 last_practiced_at, read_at)  PRIMARY KEY (user_id, course_id, lesson_id)
                 -- read_at: when the lesson was first read or taught (reading check, or seen in any mode); NULL = unread
@@ -542,8 +488,7 @@ Migrations live in `src/db/migrations.rs` (`MIGRATIONS`), tracked with `PRAGMA
 user_version`. Migration 8 added the course scoping: existing rows were
 assigned to the `spanish` course. Migration 9 added the profile columns;
 accounts from before it have no e-mail address until they set one on the
-profile page. Migration 10 added `user_api_keys`. <!-- themes -->Migration 11 added
-`users.theme`. <!-- /themes -->Migration 13 added `lesson_passes` and carried over earlier
+profile page. Migration 10 added `user_api_keys`. Migration 13 added `lesson_passes` and carried over earlier
 Guide and Sprint mode completions (seen; passed with two stars or more) and read
 lessons (seen). Migration 14 gave user-made courses their lifecycle columns
 (state, source, visibility, the generation job, brief, outline and notes).
@@ -577,7 +522,7 @@ the later verification where two accounts had verified one number (#362, #363). 
 data export pages and its housekeeping read through (#625, #626). Migration 60 (#614–#620) added the indexes the
 housekeeping sweeps and deletions read through: `quiz_history(answered_at)`, `game_activity(played_at)`,
 `courses(state, updated_at)`, `courses(state) WHERE notes <> ''`, `projects(course_id)`,
-`users(active_course)`<!-- themes --> and `users(theme)`<!-- /themes --> (partial, set values only);
+`users(active_course)` (partial, set values only);
 `db::tests::every_foreign_key_is_indexed` keeps every foreign key indexed, so deleting an account never
 reads a whole table. Migration 61 (v61 in
 `src/db.rs`) added `signup_invites` (#634); migration 62
@@ -689,16 +634,11 @@ posture are in `docs/self-hosting.md`, "Skrongle mini".
 | `SKRONGLE_BIND` | `0.0.0.0:8080` | Listen address; a bare port (`9000`) means every interface. A value that doesn't parse stops the server |
 | `SKRONGLE_SIGNUP` | `open` (*mini:* `invite`) | Who may make an account (`src/signup.rs`, #634): `open` (anyone), `invite` (only through a link a superuser makes on `/superuser`) or `closed`. Under `invite` and `closed` the first account on a server with none is made only through the owner link the server logs at startup (a new one each start), and is made a superuser. Read as is, with no older spelling; any other value stops startup. `deploy/skrongle.service` sets `invite`, `deploy/aws` nothing |
 | `SKRONGLE_PROXY_AUTH_HEADER`, `SKRONGLE_PROXY_AUTH_FROM` | unset | Sign-in by a reverse proxy (`src/proxy_auth.rs`, #642): the header holding the person's e-mail address, and the proxy's addresses (IPs or CIDRs, comma-separated) it is trusted from, judged by the TCP peer, never `X-Forwarded-For`. Both or neither (one alone stops startup). A trusted request with the header is signed in without password, two-factor or rate limit; an unknown address follows `SKRONGLE_SIGNUP` (`open` makes a password-less account with its address confirmed). `/login` and `/register` only say the proxy signs in. Read as is, no older spelling. Skrongle mini only: the hosted server refuses to start with either set |
-| `SKRONGLE_DATA_DIR` | `data` | Directory containing `courses/`<!-- themes --> and `themes/`<!-- /themes --> |
+| `SKRONGLE_DATA_DIR` | `data` | Directory containing `courses/` |
 | `SKRONGLE_DB` | `learn.db` | SQLite file (WAL + SHM files are created next to it) |
 | `SKRONGLE_COURSES_PER_USER` | `50` | Courses one account may make (no limit in dev mode unless set) |
 | `SKRONGLE_COURSE_BYTES` | `8388608` | Total size of one user-made course's files |
 | `SKRONGLE_COURSE_BYTES_PER_USER` | `33554432` | Total size of the files of one account's courses |
-<!-- themes -->
-| `SKRONGLE_THEMES_ENABLED` | unset | `1`: offer and wear themes. Unset (or anything else), theming is off (#1138): `data/themes/` is not loaded, no course wears a theme (a stored choice is kept for when they come back), the course settings and the Start wizard have no Theme row or step, the course editor leaves out theme material, and no character art is drawn (#1153): the account badge is the gear, the course settings and the Start wizard have no picture or background, conversation lines show only the speaker's name, and the verb drill's person slots keep the course's own pictures. Off until the themes have art people made |
-| `SKRONGLE_THEMES_PER_USER` | `5` | Themes one learner may keep |
-| `SKRONGLE_THEME_BYTES` | `524288` | Total size of the files of one learner's themes |
-<!-- /themes -->
 | `SKRONGLE_RETAIN_HISTORY_DAYS` | `730` | Delete answers in `quiz_history`, finished rounds in `game_activity` and the daily goal's `activity_log` older than this many days (at startup and hourly). `0`: keep them while the account exists. A placeholder until the retention periods are decided (TODO.md) |
 | `SKRONGLE_KEEP_NOTES` | `0` | `1`: keep the notes of an AI course once it is ready (revisions then see them). Default: emptied within the hour |
 | `SKRONGLE_FAILED_COURSE_RETENTION_DAYS` | `30` | Delete an AI course whose generation failed (with its notes and files) once it has gone this many days without a resume or edit (at startup and hourly, `privacy::apply_retention`). `0`: keep them |
@@ -974,7 +914,6 @@ writable path, and a release never touches the database.
   second step's code, if it has one; refused while a
   Stripe subscription would keep billing). Deletion stops the account's
   generation jobs, tutor chats and games in memory, removes the `users` row
-  (every user table cascades from it) and the caches of its courses<!-- themes --> and
-  themes<!-- /themes -->, and clears the cookie.
+  (every user table cascades from it) and the caches of its courses, and clears the cookie.
 - Logs name users by id, never by name or address; model errors are scrubbed of
   the key before they are logged or shown (`ai::redact_key`).

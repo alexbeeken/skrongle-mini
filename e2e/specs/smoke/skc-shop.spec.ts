@@ -1,13 +1,12 @@
 // The Skrongle Cash shop (#569): badges bought with a course's SKC, shown
 // on that course's SKC hero only (src/motivators/shop.rs). The balance is
-// earned less spent; a badge is bought once; it draws in the worn theme's
-// variant when the theme has one (data/themes/<id>/badges/), plain otherwise.
+// earned less spent; a badge is bought once.
 import type { Page } from "@playwright/test";
 import { readFileSync } from "node:fs";
 import { AnswerKey } from "../../lib/key.ts";
 import { playSprintRight } from "../../lib/sprint-play.ts";
 import { expect, test } from "../../lib/fixtures.ts";
-import { apiProgress, newAccount, openCourse, pickMotivator, register, wearMotivator, wearTheme } from "../../lib/learner.ts";
+import { apiProgress, newAccount, openCourse, pickMotivator, register, wearMotivator } from "../../lib/learner.ts";
 
 const COURSE = "spanish";
 const key = new AnswerKey(COURSE);
@@ -28,7 +27,7 @@ async function heroBadge(page: Page, id: string) {
   return page.getByTestId("skc-shelf").locator(`[data-testid="skc-badge"][data-badge="${id}"]`);
 }
 
-test("the shop sells a badge once, keeps it across motivators and draws it in the worn theme", async ({ page }) => {
+test("the shop sells a badge once and keeps it across motivators", async ({ page }) => {
   await register(page, newAccount("shop"), COURSE);
   await pickMotivator(page, COURSE, "skc");
 
@@ -76,7 +75,7 @@ test("the shop sells a badge once, keeps it across motivators and draws it in th
   await expect(page.getByTestId("shop-shelf").locator(`[data-badge="${cheap.id}"]`)).toBeVisible();
   await expect(page.getByTestId("shop-balance")).toHaveAttribute("data-skc", String(have - cheap.price));
   expect(await balance(page)).toBe(have - cheap.price);
-  await expect(await heroBadge(page, cheap.id)).toHaveAttribute("data-variant", "plain");
+  await expect(await heroBadge(page, cheap.id)).toBeVisible();
 
   // Twice: refused, nothing charged.
   const again = await page.request.post("/api/shop/buy", { form: { item: cheap.id }, maxRedirects: 0 });
@@ -91,30 +90,6 @@ test("the shop sells a badge once, keeps it across motivators and draws it in th
   await wearMotivator(page, COURSE, "skc");
   expect(await balance(page)).toBe(have - cheap.price);
   await expect(await heroBadge(page, cheap.id)).toBeVisible();
-
-  // A theme with a variant of the badge draws it; one without draws it plain.
-  const hasVariant = (t: string) => {
-    try {
-      readFileSync(new URL(`../../../data/themes/${t}/badges/${cheap.id}.svg`, import.meta.url));
-      return true;
-    } catch {
-      return false;
-    }
-  };
-  const themes = ["meadowbrook", "realm", "rustwake"];
-  const withIt = themes.find(hasVariant)!;
-  const without = themes.find((t) => !hasVariant(t))!;
-  await wearTheme(page, COURSE, withIt);
-  let badge = await heroBadge(page, cheap.id);
-  await expect(badge).toHaveAttribute("data-variant", withIt);
-  await expect(badge).toHaveAttribute("src", new RegExp(`/themes/${withIt}/badges/${cheap.id}\\.svg$`));
-  expect(await badge.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
-  await wearTheme(page, COURSE, without);
-  badge = await heroBadge(page, cheap.id);
-  await expect(badge).toHaveAttribute("data-variant", "plain");
-  expect(await badge.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
-  await wearTheme(page, COURSE, "");
-  await expect(await heroBadge(page, cheap.id)).toHaveAttribute("data-variant", "plain");
 
   // Another course wearing SKC: its own balance, no badge.
   await openCourse(page, "french");

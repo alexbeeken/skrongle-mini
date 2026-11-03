@@ -105,9 +105,7 @@ fn deleting_an_account_removes_every_row_of_it() {
         }
         let deleted = delete_account(c, ann)?.unwrap();
         assert_eq!(deleted.courses, vec!["ann-course".to_string()]);
-        assert_eq!(deleted.themes.len(), 1);
         assert_eq!(deleted.export_files, vec!["ann-export.json".to_string()]);
-        assert!(deleted.themes[0].starts_with("user-"));
         for (t, n) in &before {
             let want = if KEPT_ON_DELETE.contains(&t.as_str()) { *n } else { n / 2 };
             assert_eq!(count(c, t), want, "rows left in {t} after deleting ann");

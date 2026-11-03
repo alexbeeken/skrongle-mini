@@ -1,6 +1,6 @@
 // Exact spec for #989: a lesson's conversations show on its page as two
-// characters talking, each line under its speaker's name and portrait, A on
-// the left and B on the right. A lesson without conversations shows none.
+// characters talking, each line under its speaker's name, A on the left and
+// B on the right. A lesson without conversations shows none.
 // #1264: a line's meaning starts hidden; tapping the bubble shows it and
 // reads the line aloud in the course's language.
 import { readFileSync } from "node:fs";
@@ -26,15 +26,12 @@ test("a lesson with a conversation shows both speakers' lines", async ({ page })
     await expect(row).toHaveAttribute("data-speaker", l.speaker);
     await expect(row.getByTestId("lesson-conversation-text")).toHaveText(l.text);
     await expect(row.getByTestId("lesson-conversation-speaker")).toHaveText(l.speaker === "a" ? conv.role_a : conv.role_b);
-    await expect(row.locator(".avatar")).toBeVisible();
   }
-  // Both roles speak, with two different portraits, B's lines on the right.
+  // Both roles speak, B's lines on the right.
   const a = lines.and(page.locator('[data-speaker="a"]')).first();
   const b = lines.and(page.locator('[data-speaker="b"]')).first();
-  const portrait = (row: typeof a) => row.locator(".avatar use").getAttribute("href");
-  expect(await portrait(a)).not.toEqual(await portrait(b));
-  const ax = (await a.locator(".avatar").boundingBox())!.x;
-  const bx = (await b.locator(".avatar").boundingBox())!.x;
+  const ax = (await a.getByTestId("lesson-conversation-bubble").boundingBox())!.x;
+  const bx = (await b.getByTestId("lesson-conversation-bubble").boundingBox())!.x;
   expect(bx).toBeGreaterThan(ax);
 
   // A lesson without conversations has no conversation block.

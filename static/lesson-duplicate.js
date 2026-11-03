@@ -3,7 +3,7 @@
 // `title`, or null when `doc` is not a lesson object. `taken` lists the
 // table's lesson ids. The copy's id gets a "-copy" ending ("-copy-2" and so
 // on when taken), and so do its slug, question ids and conversation ids
-// (themed ones too), which must be unique in the course; the guide's
+// which must be unique in the course; the guide's
 // question steps follow them. Conjugations are left out, since one item and
 // set may be taught by one lesson only. The rest, prerequisites included,
 // stays as it was.
@@ -27,12 +27,6 @@
     };
     endIds(doc.quiz, "question_id");
     endIds(doc.conversations, "id");
-    if (doc.themes && typeof doc.themes === "object") {
-      Object.keys(doc.themes).forEach(function (k) {
-        var th = doc.themes[k];
-        if (th && typeof th === "object") { endIds(th.quiz, "question_id"); endIds(th.conversations, "id"); }
-      });
-    }
     if (Array.isArray(doc.guide)) {
       doc.guide.forEach(function (step) { if (step && renamed[step.question]) step.question = renamed[step.question]; });
     }

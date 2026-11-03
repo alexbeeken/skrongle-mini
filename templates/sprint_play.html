@@ -8,11 +8,10 @@
 <title>{{ title }} · {{ crate::t("sprint.mode_name") }} · {{ course_title }}</title>
 <script>if (/[?&]reduce-motion=1\b/.test(location.search)) document.documentElement.classList.add('reduce-motion');</script>
 <link rel="stylesheet" href="{{ crate::routes::asset_url("sprint.css") }}">
-{% if let Some(t) = course.theme %}<link rel="stylesheet" href="{{ crate::routes::theme_css_url(t.id) }}">{% endif %}
 <link rel="icon" href="{{ crate::routes::asset_url("favicon.svg") }}" type="image/svg+xml">
 <link rel="manifest" href="{{ crate::url("/manifest.webmanifest") }}">
 </head>
-<body class="sprint play" data-base="{{ crate::base_path() }}"{% if let Some(t) = course.theme %} data-theme="{{ t.id }}"{% endif %}>
+<body class="sprint play" data-base="{{ crate::base_path() }}">
 <div class="phone">
   <header class="sprint-top play-top">
     <a class="sprint-exit" data-testid="sprint-play-exit" href="{{ crate::base_path() }}/sprint" aria-label="{{ crate::t("sprint.play.quit") }}">✕</a>

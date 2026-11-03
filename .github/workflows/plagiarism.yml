@@ -1,5 +1,5 @@
-# Provenance of the built-in courses, on PRs that touch course content, themes
-# or the briefs. The free layer always runs and fails on a lint hit: the briefs
+# Provenance of the built-in courses, on PRs that touch course content or
+# the briefs. The free layer always runs and fails on a lint hit: the briefs
 # must never tell an agent to imitate a product's text. Jev judges the
 # passages when the TYPESAFE_API_KEY secret exists (cached by content, so a PR
 # pays for what it changed). Not a required check. See docs/testing.md,
@@ -10,7 +10,6 @@ on:
   pull_request:
     paths:
       - "data/courses/**"
-      - "data/themes/**"
       - "docs/**"
       - "README.md"
       - "src/ai.rs"

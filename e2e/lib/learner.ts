@@ -107,12 +107,6 @@ export async function wearMotivator(page: Page, course: string, id: string): Pro
   expect(r.status(), `wear ${id} in ${course}`).toBe(303);
 }
 
-/** Wear theme `id` ('' for Default) in `course` (#577): its settings, posted as the gear's form does. */
-export async function wearTheme(page: Page, course: string, id: string): Promise<void> {
-  const r = await page.request.post(`/courses/${course}/settings`, { form: { theme: id }, maxRedirects: 0 });
-  expect(r.status(), `wear ${id} in ${course}`).toBe(303);
-}
-
 /** Pick motivator `id` behind `course`'s gear on the course list, and Save. */
 export async function pickMotivator(page: Page, course: string, id: string): Promise<void> {
   await page.goto("/courses");

@@ -11,7 +11,6 @@
 #
 #   skrongle            the server (built as spanish-learning, renamed)
 #   data/courses/       built-in courses   } SKRONGLE_DATA_DIR
-#   data/themes/        built-in themes    }
 #   data/badges/        the SKC shop       }
 #   skrongle.service    deploy/skrongle.service
 #   terms.example.md    deploy/terms.example.md: a template for the owner's own Terms (SKRONGLE_TERMS)
@@ -41,9 +40,9 @@ mkdir -p "$STAGE/data"
 
 cp "$BIN" "$STAGE/skrongle"
 chmod 0755 "$STAGE/skrongle"
-# Courses, themes and the shop's badges only: test courses and LLM fixtures are for the test
+# Courses and the shop's badges only: test courses and LLM fixtures are for the test
 # suites, and the authoring briefs are for whoever writes the content.
-for d in courses themes badges; do
+for d in courses badges; do
   cp -R "data/$d" "$STAGE/data/$d"
 done
 find "$STAGE/data" \( -name AUTHORING.md -o -name fact-check-ok.txt -o -name .DS_Store \) -delete

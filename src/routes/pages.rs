@@ -4,8 +4,7 @@
 use askama::Template;
 use axum::extract::{Path, Query, State};
 use axum::http::HeaderMap;
-use axum::response::{IntoResponse, Redirect, Response};
-use axum::Form;
+use axum::response::{IntoResponse, Response};
 use std::collections::{HashMap, HashSet};
 use std::sync::Arc;
 
@@ -156,8 +155,6 @@ pub struct HomeTemplate {
     /// The course's first visit (#574): its settings as a wizard over the
     /// page, until the learner gets started or closes it.
     pub settings: Option<super::courses::CourseSettings>,
-    /// Each theme choice's look for the wizard (`SettingsChoices::looks`).
-    pub looks: String,
     /// The "Words due" card (#1360): how many words are due today and the
     /// first three of them. No card when nothing is due.
     pub due_count: i64,
@@ -363,16 +360,9 @@ pub struct ConjRow {
     pub forms: Vec<String>,
 }
 
-/// One role of a conversation on the lesson page (#989): its name from the
-/// course and the portrait that speaks it, in the theme worn.
+/// One role of a conversation on the lesson page (#989): its name from the course.
 pub struct ConvSpeaker {
     pub name: String,
-    /// The built-in picture's id (`#av-<id>` in `avatars.html`).
-    pub avatar: &'static str,
-    /// The theme's version of that picture, when the theme worn has one.
-    pub image: Option<String>,
-    /// The `style` of its `.avatar`: the picture's own colour.
-    pub style: String,
 }
 
 pub struct ConvLine {
@@ -390,9 +380,6 @@ pub struct ConvView {
     pub a: ConvSpeaker,
     pub b: ConvSpeaker,
     pub lines: Vec<ConvLine>,
-    /// Portraits are drawn beside the lines; off with character art
-    /// (#1153), each line shows only the speaker's name.
-    pub portraits: bool,
 }
 
 impl ConvView {
@@ -406,35 +393,23 @@ impl ConvView {
     }
 }
 
-/// The lesson's conversations, each cast with two portraits other than the
-/// learner's own (`profile::cast`), as the theme worn draws them.
-fn conversation_views(lesson: &Lesson, user: &CurrentUser) -> Vec<ConvView> {
-    let theme = user.theme_pack.as_ref().map(|p| &p.theme);
-    let speaker = |name: &str, id: &'static str| ConvSpeaker {
-        name: name.to_string(),
-        avatar: id,
-        image: theme.and_then(|t| t.avatar(id)).map(|a| super::art_url(&user.theme, &a.image)),
-        style: format!("--av:{}", crate::profile::own_color(id, theme)),
-    };
+/// The lesson's conversations, each line under its speaker's name.
+fn conversation_views(lesson: &Lesson) -> Vec<ConvView> {
     lesson
         .conversations
         .iter()
         .filter(|c| !c.lines.is_empty())
-        .map(|c| {
-            let [a, b] = crate::profile::cast(&c.role_a, &c.role_b, &user.avatar);
-            ConvView {
-                id: c.id.clone(),
-                title: c.title.clone(),
-                scenario: c.scenario.clone(),
-                a: speaker(&c.role_a, a),
-                b: speaker(&c.role_b, b),
-                lines: c
-                    .lines
-                    .iter()
-                    .map(|l| ConvLine { b: l.speaker == crate::content::Speaker::B, text: l.text.clone(), meaning: l.meaning.clone() })
-                    .collect(),
-                portraits: user.character_art,
-            }
+        .map(|c| ConvView {
+            id: c.id.clone(),
+            title: c.title.clone(),
+            scenario: c.scenario.clone(),
+            a: ConvSpeaker { name: c.role_a.clone() },
+            b: ConvSpeaker { name: c.role_b.clone() },
+            lines: c
+                .lines
+                .iter()
+                .map(|l| ConvLine { b: l.speaker == crate::content::Speaker::B, text: l.text.clone(), meaning: l.meaning.clone() })
+                .collect(),
         })
         .collect()
 }
@@ -616,16 +591,9 @@ pub async fn home(State(state): State<Arc<AppState>>, p: Project, headers: Heade
     };
     let (due_count, due) = super::vocab::due_cards(&state, &p, 3).await?;
     let course = CourseView::of(content);
-    let (settings, looks) = match project.filter(|pr| !pr.set_up) {
-        Some(pr) => {
-            let choices = super::courses::SettingsChoices::load(&state, &p.user).await?;
-            (Some(choices.view(&pr, content, true)), choices.looks)
-        }
-        None => (None, String::new()),
-    };
+    let settings = project.filter(|pr| !pr.set_up).map(|pr| super::courses::settings_view(&pr, content, true));
     Ok(Page(HomeTemplate {
         settings,
-        looks,
         hero: hero.render(&course, &measures)?,
         course,
         user: Some(p.user),
@@ -645,28 +613,6 @@ pub async fn home(State(state): State<Arc<AppState>>, p: Project, headers: Heade
         due_words: due.into_iter().map(|c| c.term).collect(),
     })
     .into_response())
-}
-
-#[derive(serde::Deserialize)]
-pub struct ThemeForm {
-    #[serde(default)]
-    pub theme: String,
-    /// Where to go back to: "profile" for the profile page, anything else the home page.
-    #[serde(default)]
-    pub next: String,
-}
-
-fn back_to(next: &str) -> Response {
-    Redirect::to(&crate::url(if next == "profile" { "/profile" } else { "/" })).into_response()
-}
-
-/// POST /theme/delete: delete a theme the user made. Courses wearing it are
-/// back to Default. Someone else's theme, or none, is a 404.
-pub async fn delete_theme(State(state): State<Arc<AppState>>, user: CurrentUser, Form(form): Form<ThemeForm>) -> Result<Response, AppError> {
-    if !state.themes.delete(&state.db, &state.courses, user.id, &form.theme).await? {
-        return Err(AppError::NotFound);
-    }
-    Ok(back_to(&form.next))
 }
 
 /// Lessons a page of /lessons lists (#837).
@@ -858,7 +804,7 @@ pub async fn lesson(
         streak: pr.map(|p| p.streak).unwrap_or(0),
         slot_labels,
         conjugations,
-        conversations: conversation_views(lesson, &p.user),
+        conversations: conversation_views(lesson),
         check,
         read_when,
         reward,

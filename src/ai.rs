@@ -527,7 +527,7 @@ fn run(job: &Job, db: &Db, registry: &crate::courses::Courses, req: &Request) ->
                  give both sides the learner's language or leave `lang` empty). Add a `paradigm` only if \
                  the subject has real paradigm tables (verb conjugations, declensions); for a language course with verbs, include the paradigm \
                  with ASCII `art` for each slot. Add `chars` for any accented letters or symbols the learner will need to type \
-                 (for maths: ² √ π ≤ ≥ and the like). Do not add `themes`. \
+                 (for maths: ² √ π ≤ ≥ and the like). \
                  Keep the manifest `id` as \"placeholder\"; it will be replaced.{}{material}",
                 req.wish.trim(),
                 req.kind.guidance(),
@@ -556,9 +556,6 @@ fn run(job: &Job, db: &Db, registry: &crate::courses::Courses, req: &Request) ->
             let title = req.named.title.clone().unwrap_or(title);
             manifest["title"] = serde_json::Value::String(title.clone());
             manifest["id"] = serde_json::Value::String(course_id.clone());
-            if let Some(m) = manifest.as_object_mut() {
-                m.remove("themes");
-            }
             let manifest_text = serde_json::to_string_pretty(&manifest).map_err(|e| e.to_string())? + "\n";
             // The manifest must load on its own before anything is saved.
             let manifest_file = CourseFile { path: MANIFEST_FILE.into(), content: manifest_text.clone() };
@@ -619,7 +616,7 @@ fn run(job: &Job, db: &Db, registry: &crate::courses::Courses, req: &Request) ->
             "{digest}Write the complete lesson JSON file for this lesson of the course \"{title}\":\n{}\n\n\
              Use exactly these values for id, slug, title, unit, group and prerequisites. \
              The course manifest is:\n{}\n\n{}\
-             Do not add `themes`. Reply with the lesson JSON object only.{}{}{material}",
+             Reply with the lesson JSON object only.{}{}{material}",
             serde_json::to_string_pretty(entry).unwrap_or_default(),
             manifest_text,
             crate::arrange::lesson_context(&manifest_text, &entries, i, &written),
@@ -722,9 +719,6 @@ fn read_plan(
         _ => manifest.clone(),
     };
     new_manifest["id"] = serde_json::Value::String(course_id.to_string());
-    if let Some(m) = new_manifest.as_object_mut() {
-        m.remove("themes");
-    }
     let entries = plan.get("lessons").and_then(|l| l.as_array()).ok_or("the plan has no \"lessons\" array")?;
     if entries.is_empty() {
         return Err("the plan removes every lesson".into());
@@ -894,7 +888,7 @@ fn revise(job: &Job, db: &Db, registry: &crate::courses::Courses, req: &Request,
          {}\
          - A lesson left out of the list is removed.\n\
          Return the manifest unchanged unless the feedback needs it changed (a new unit, a better description); keep its \"id\" as \
-         \"{course_id}\" and do not add `themes`. Prerequisites may only name lessons in your list. At most {MAX_LESSONS} lessons.{material}",
+         \"{course_id}\". Prerequisites may only name lessons in your list. At most {MAX_LESSONS} lessons.{material}",
         manifest_file.content.trim(),
         serde_json::to_string_pretty(&current).unwrap_or_default(),
         prompt::NUMBER_LINE,
@@ -1051,7 +1045,7 @@ fn add_lesson(job: &Job, db: &Db, registry: &crate::courses::Courses, req: &Requ
          {{\"after\": <the id of the lesson it comes right after, or null to make it the first lesson>, \"lesson\": <the complete lesson JSON>}}.\n\
          The lesson needs an id and a slug (lowercase a-z, 0-9 and '-') that no lesson above uses, a `unit` from the manifest's units \
          (the one where it fits) and a `group`. Its prerequisites may only name lessons above; prefix its question ids with its id. \
-         Do not repeat what the other lessons already teach, and do not add `themes`.{}{}{}{}\n\n\
+         Do not repeat what the other lessons already teach.{}{}{}{}\n\n\
          ----- Course format reference -----\n\n{FORMAT_DOC}",
         manifest.content.trim(),
         serde_json::to_string_pretty(&current).unwrap_or_default(),
@@ -1089,10 +1083,6 @@ fn add_lesson(job: &Job, db: &Db, registry: &crate::courses::Courses, req: &Requ
                 serde_json::Value::String(s) => Some(s.trim().to_string()),
                 _ => return Err("\"after\" must be a lesson id or null".into()),
             };
-            let mut lesson = lesson;
-            if let Some(m) = lesson.as_object_mut() {
-                m.remove("themes");
-            }
             let id = lesson.get("id").and_then(|i| i.as_str()).unwrap_or_default();
             if !crate::content::is_slug(id) {
                 return Err(format!("the lesson id '{id}' must be lowercase a-z, 0-9 and '-'"));

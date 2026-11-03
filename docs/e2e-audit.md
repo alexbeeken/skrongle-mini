@@ -36,10 +36,8 @@ The numbers below the line are generated: `python3 scripts/e2e-audit.py
   `plagiarism.yml` already reads that secret.
 - **Routes.** Of 137 production routes, 3 are reached by no flow:
   `POST /login/code/resend`, `POST /login/code/cancel`,
-  `POST /profile/two-factor/code`. The script lists <!-- themes -->seven<!-- /themes --><!-- no-themes -->five<!-- /no-themes --> more that are
-  reached in ways a grep cannot see: <!-- themes -->`GET /theme.css` and
-  `GET /courses/themes.css` (stylesheet links the pages load;
-  `custom-themes.spec.ts` checks the first), <!-- /themes -->`GET /profile/export/download` (the link in the
+  `POST /profile/two-factor/code`. The script lists five more that are
+  reached in ways a grep cannot see: `GET /profile/export/download` (the link in the
   export e-mail, in `smoke/export.spec.ts`), `/courses/shared/{token}` (from the invitation
   e-mail, in `share.spec.ts`, local only), `POST /api/courses/{id}/lessons`
   (the editor's autosave, the URL built by concatenation in
@@ -60,7 +58,7 @@ The per-test list is below the line. In short:
 | Sign-up, sign-in, e-mail, 2FA | `smoke/verify-email`, `mail`, `two-factor`, `authenticator`, `terms`, `i18n` |
 | Learning, every mode and game | `smoke/happy-paths`, `smoke/complete-test-course`, `smoke/test-course-games`, `smoke/wrong-answers`, `smoke/wrong-answers-games`, `smoke/start-level`, `smoke/french`, `smoke/daily-goal`, `smoke/motivator*`, `modals`, `lesson-tables` |
 | Home page | `home` (local only) |
-| Profile | `profile-autosave`, `avatar-colour`, `ai-off` (all local only); <!-- themes -->`custom-themes`, <!-- /themes -->`profile-nav`; `smoke/privacy`, `smoke/export` (export, delete) |
+| Profile | `profile-autosave`, `avatar-colour`, `ai-off` (all local only); `profile-nav`; `smoke/privacy`, `smoke/export` (export, delete) |
 | Plans and payments | `subscription`, `dev-payments`, `hosted-ai` (all local only) |
 | Generating a course | `exact`, `pathways`, `dev-ai`, `create`; `prompt-limits` (local only) |
 | Editing a course | `editor-autosave`, `forms`, `course-copy`; `lessons`, `editor-errors`, `course-report`, `revise`, `review-ai-changes`, `review-and-revise` (local only) |
@@ -130,9 +128,6 @@ teenager on a phone in Sprint, 6), `testing-bot` (sees only markup, 12).
 | `specs/course-report.spec.ts` | 3 | **no** |  |
 | `specs/course-translate.spec.ts` | 2 | yes |  |
 | `specs/create.spec.ts` | 15 | yes |  |
-<!-- themes -->
-| `specs/custom-themes.spec.ts` | 7 | yes |  |
-<!-- /themes -->
 | `specs/dev-ai.spec.ts` | 11 | yes |  |
 | `specs/dev-payments.spec.ts` | 1 | **no** |  |
 | `specs/docs.spec.ts` | 10 | yes |  |
@@ -272,15 +267,9 @@ No e2e file names them; a spec drives the form, link (its testid) or script that
 
 Not named by an e2e file, and no driven form, link or script calls them.
 
-<!-- themes -->
-- `GET /courses/themes.css`
-<!-- /themes -->
 - `POST /api/courses/{id}/preview-answer`
 - `POST /api/courses/{id}/answer-key`
 - `GET /pictures/{*path}`
-<!-- themes -->
-- `GET /theme.css`
-<!-- /themes -->
 - `GET /badges/{file}`
 - `GET /account/deletion`
 - `POST /profile/two-factor/code`: called from `templates/profile.html`
@@ -431,9 +420,6 @@ Titles as Playwright lists them (from the source: run `npm ci` in e2e/ for loops
 - **`specs/ai-off.spec.ts`** (2, local only): the sign-up box hides every AI feature, and the profile turns them back on · the profile's switch is a negative, hides the AI features at once, and asks first when a key would be deleted
 - **`specs/algebra-tiles.spec.ts`** (4, CI): practice draws the pile, tiles drag, snap, move with keys and turn · the typed sides are graded: two sides right, the expanded form gets a note · the reading check and the Guide show the board too · a lesson without tiles loads no board
 - **`specs/authenticator.spec.ts`** (4, CI): a pasted otpauth link is added, shows the RFC 6238 code with a countdown, copies it, and is removed (#291) · the next code shows by itself when the period runs out, and a link's settings are honoured · a scan link opens the form filled in, a setup key works too, and a bad key says why · when the list goes empty, an empty add box offers the example account again (#291)
-<!-- themes -->
-- **`specs/avatar-colour.spec.ts`** (3, local only): a colour is picked in the course's settings and the corner wears it in the course · a theme picked in the settings adds scenes of its world, offered only while it is picked · a theme brings its own colours for the same slot
-<!-- /themes -->
 - **`specs/chord-spell.spec.ts`** (5, CI): Practice: tap tiles into the slots, take one out, hear about a wrong spelling, and spell the others in any order · a wrong set that isn't the same sounds gets no spelling note · the reading check, Sprint mode and the Guide take the chord in any order · a lesson without a chord-spell question loads no chord-spell script · the lesson editor has the answer and tiles boxes, and its preview plays the question
 - **`specs/clock.spec.ts`** (3, CI): Practice: drag the minute hand, use the keys, read a clock · the Guide and Sprint mode show the clock too · the tutor draws a clock to read, with its times to tap
 - **`specs/consent.spec.ts`** (2, CI): the consent card shows each consent, and Do Not Show Me AI Features hides them and shows them again across a reload · with a key on file the card's AI switch asks first, and the key line goes
@@ -443,9 +429,6 @@ Titles as Playwright lists them (from the source: run `npm ci` in e2e/ for loops
 - **`specs/course-report.spec.ts`** (3, local only): the report shows which features each lesson uses · the report fits a phone · the report follows a save
 - **`specs/course-translate.spec.ts`** (2, CI): Copy and translate to Español makes a translated copy; the original stays as it was · the dialog does not offer the language a course is already explained in
 - **`specs/create.spec.ts`** (15, CI): create, close the dialog, name the course and its lessons, then generate into it · a new course's card counts in the singular: 1 lesson · 1 unit, 1 Lektion · 1 Einheit (#1254) · editing a lesson's content takes Generate away · a refused generate form comes back open with what was typed · the effort beside Generate opens its own dialog and the account keeps the last level (#918) · the old pages lead to the new flow · the dialog asks which provider only when two or more keys are saved · the progress modal can't be dismissed while it runs; stopped, the course waits on the list with Resume · a generation that fails before its outline: Retry on the card, the dialog filled in, and a retry writes the same course · a stopped course can be deleted from its card · a stopped course's red ! does not widen the course list on a phone (#675) · a stopped course's red ! tip stays on a phone screen while it shows (#864) · the old status page leads to the editor · the dialog shows the lesson count, the time and the cost before generating (#443) · in German, a new course starts with German names and description
-<!-- themes -->
-- **`specs/custom-themes.spec.ts`** (7, CI): wear a theme you made in a course, see it everywhere in it, then delete it · a theme you made is invisible to everyone else · a made theme is checked like a theme file, within the account's limits · the course settings with your themes fit a phone · on a phone the course settings header keeps the title and its (i) on one line (#1183) · a course wears a theme of its own; outside a course the app wears Default (#565, #577) · a themed example's mark reads right for a theme title that starts with The (#952)
-<!-- /themes -->
 - **`specs/dev-ai.spec.ts`** (11, CI): a course generated through the dev AI provider shows in /dev/ai; limits, a timeout and an edited fixture reach the learner · the wire API refuses unknown keys and answers the OpenAI format; the platform key has its own profile · Manual replies: a request waits, folded at the bottom of /dev/ai, for the answer typed there; an ERROR: answer is the provider's error · leaving the tutor while its first turn waits on the model does not lock the tutor (#659) · a learner who leaves the tutor mid-turn twice has one call with the model, not two (#848) · coming back while the tutor is still answering, Cancel lets go of the old reply and starts again (#890) · a slow reply gets a Cancel after ten seconds, and the learner can carry on (#890) · in another language, coming back while the tutor is still answering also offers Cancel (#890) · coming back to the tutor in the same tab after a failed first turn starts again (#932) · each profile's keys are copy buttons in their provider's colours
 - **`specs/dev-payments.spec.ts`** (1, local only): subscribe through the fake checkout, fail a renewal, cancel; a tampered webhook signature is refused
 - **`specs/docs.spec.ts`** (10, CI): the docs index is reachable logged out, with user and developer pages apart · every user page is served as HTML and as raw Markdown · /llms.txt lists the course format and its schema, and both are served · no docs page scrolls sideways at phone width · a long bare link in docs prose wraps at phone width · every in-app link on every docs page opens, and its #heading exists · a docs page's heading is on the first screen, the page list after it · the page list is not cut short, and its last page opens · on a desktop the page list stays beside the page · on a desktop every page in the list can be reached from the middle of a long page
@@ -467,9 +450,6 @@ Titles as Playwright lists them (from the source: run `npm ci` in e2e/ for loops
 - **`specs/lesson-ai-edit.spec.ts`** (5, CI): Edit with AI on a row rewrites that lesson only, and Undo takes it back · a reply that renames the lesson is refused and the course stays as it was · a refused request opens the dialog again with why · a lesson gone since the page loaded: the dialog opens again and says so · a lesson copied in the editor gets its ✦ once it is saved
 - **`specs/lesson-conversations.spec.ts`** (2, CI): a lesson with a conversation shows both speakers' lines · tapping a conversation line shows its meaning and reads it aloud
 - **`specs/lesson-duplicate.spec.ts`** (1, CI): duplicate a lesson: the copy sits below the original, with new ids, and the course still loads
-<!-- themes -->
-- **`specs/lesson-editor-rules.spec.ts`** (10, CI): a type switch to numeric or expression says when the checker cannot read the answer · deleting the option that is the answer leaves no answer to pick, and a question keeps two options · a deleted word leaves the questions and theme that named it; a deleted question leaves the Guide · a word typed through another word's term keeps its questions (#1248) · a word left on another word's term gets its questions back when the other word is renamed (#1248) · a duplicated word, sentence or conjugation says to change one; a duplicated question gets its own id · a sort keeps 2 to 4 buckets and 3 to 10 items; a deleted bucket's items move to the one before · a spot's wrong word: one the sentence has twice cannot be picked, and punctuation round a word does not stop it · a conversation keeps two lines and says when one is empty · a Guide's word count is a whole number, and an optional box of spaces is left out
-<!-- /themes -->
 - **`specs/lesson-editor.spec.ts`** (13, CI): the outline lists every section of the lesson, opens its items, and the preview knows which modes show them · a multiple-choice question: the right answer is picked, a new option grows from the dashed box, the type switch reshapes the form, and it all lands in the file · checks appear on the field as you type, in the outline, and from the server · a field's own check is a mark in its corner that opens a modal, so typing moves nothing below it (#1320) · a field's mark sits on its label's row in a two-column row too (#1320) · Try it: the preview grades a question with the course's own checker, in Study and in Sprint · Sprint exercises: buckets and items, the wrong word by a click, tiles and distractors, played in the preview · words, sentences, conversations and tables have their own forms · items are added and deleted from the outline, the Guide's steps are ordered by hand, and the lesson's prerequisites are picked · on a phone the three columns are tabs, and nothing overflows · the gear's Language features switch hides what only a language course fills, and is kept in the course settings · with the language features off, + Build is offered in a music course only (#1232) · the gear's Levels switch holds the Placement test switch, which adds or takes out placement.json under the course settings (#1106)
 - **`specs/lesson-header.spec.ts`** (1, CI): on a phone the lesson text starts under 420 px down a 390x844 screen: one main button, the rest under More ways, the details behind an (i) (#999)
 - **`specs/lesson-tables.spec.ts`** (2, CI): the test course's lessons with tables fit a phone · Spanish paradigm tables scroll in their box, not the page
@@ -483,9 +463,6 @@ Titles as Playwright lists them (from the source: run `npm ci` in e2e/ for loops
 - **`specs/owner-resets.spec.ts`** (3, CI): a superuser sets a temporary password; the learner signs in with it and must choose a new one · a superuser turns off another account's two-factor; others get 404 · reloading after a temporary password is set does not set another
 - **`specs/pathways.spec.ts`** (7, CI): switch course: Spanish, then a generated course, then back · generate from notes and uploaded files, with no wish · cancel a slow generation, then resume it to a ready course · resume a run that stopped on a lesson: the resumed job keeps what was written · saving into a stopped run keeps it resumable, and Resume keeps the edit (#81) · the editor opened between the outline and lesson 1 still follows the job to its end · remove an API key: the profile says no key, and generating no longer offers it
 - **`specs/privacy.spec.ts`** (3, CI): the privacy notice is public, dated, and no longer a draft · the notice has one heading per section, the summary list and the US-rights table · at phone width the notice does not scroll sideways and the table can be scrolled on its own
-<!-- themes -->
-- **`specs/profile-autosave.spec.ts`** (7, local only): the green checks come a moment after the save, fade after 5 s, and come back with the next edit · names save a second after typing stops, in one request, and the heading follows · a field that needs attention turns red at once, is not sent, and leaving asks first · the server refusing a field marks it red with the server's reason · without a connection the circle turns red, leaving asks, and it saves once back online · the profile has no picture and no theme: both are a course's settings · API keys: folded away, a pasted key saves at once, a typed one 3 s after typing stops
-<!-- /themes -->
 - **`specs/profile-nav.spec.ts`** (1, CI): the profile nav marks the section in view
 - **`specs/prompt-limits.spec.ts`** (5, local only): the Generate dialog counts the wish and the notes, red outside 20 to the maximum · the server refuses Generate prompts outside the limits, in the same words · Use AI counts its text, red outside 20 to the maximum, and the server agrees · a Generate form that is too short is refused in place, calmly · short notes are refused in place too, and the notes box is the one marked
 - **`specs/record.spec.ts`** (3, needs a key): record ${id}
@@ -501,9 +478,6 @@ Titles as Playwright lists them (from the source: run `npm ci` in e2e/ for loops
 - **`specs/smoke/daily-goal.spec.ts`** (1, CI): every mode fills one daily goal and resumes where the learner left off
 - **`specs/smoke/drill-first-set.spec.ts`** (2, CI): the drill opens on the first set with unlocked verbs, not Present · Start drill works without JavaScript
 - **`specs/smoke/export.spec.ts`** (2, CI): a learner asks for their data, gets the link by e-mail and downloads the JSON once
-<!-- themes -->
-- **`specs/smoke/french.spec.ts`** (6, CI): the course is on /courses, offers its four levels, and starts at greetings · Study: read greetings, pass its check, practise it; numbers' numeric questions grade · Sprint: play greetings' session right at phone width · Play: play the first stage · Realm: the theme's French material comes first and the course's French praise is used · games: the verb drill (être, avoir) and Date Dash
-<!-- /themes -->
 - **`specs/smoke/happy-paths.spec.ts`** (10, CI): 1. a new learner sees lesson 1 as next · 1b. a stage read in Study but never played says Start in the Guide, not Try again (#417) · 1c. a Guide stage played to the end under 70 % says Try again, not Continue past its last step (#417) · 2. Study: read lesson 1, pass its check, practise it: passed everywhere · 3. Sprint: play lesson 1's session right: passed everywhere · 4. Play: play stage 1: passed everywhere · 5. a lesson passed in one mode is passed in the other two · 6. progress survives logging out and back in · 7. a lesson whose every answer was right is not listed as needing practice (#681) · 8. a Guide stage's quick checks mix their options, so the right one is not always first (#962)
 - **`specs/smoke/mini.spec.ts`** (6, CI): a learner registers, signs in again and passes a lesson with nothing configured · there is no dev mailbox · the server says it is a Skrongle mini · the profile has no Subscription and no red ! on the e-mail · sharing shows the link once, and a reload goes back to the dialog without inviting again
 - **`specs/smoke/motivator-reward.spec.ts`** (1, CI): every mode's end screen shows the worn motivator's reward line
@@ -521,16 +495,10 @@ Titles as Playwright lists them (from the source: run `npm ci` in e2e/ for loops
 - **`specs/smoke/practice-summary.spec.ts`** (2, CI): the mastery change is shown as (+N), and left out when nothing changed · a round too short to count says what it needs the answers for
 - **`specs/smoke/privacy.spec.ts`** (3, CI): the privacy policy is served to visitors · deleting the account signs out and waits 14 days; signing in can cancel it (#970) · the AI forms say which provider gets the notes
 - **`specs/smoke/self-host.spec.ts`** (4, CI): the self-hosting guide is linked from the docs and readable on a phone · the guide is only linked from the docs, not the landing page or the footer · the self-hosting FAQ is linked from the technical guide and points at the diagnostics
-<!-- themes -->
-- **`specs/smoke/skc-shop.spec.ts`** (2, CI): the shop sells a badge once, keeps it across motivators and draws it in the worn theme · without JavaScript a refused buy says why
-<!-- /themes -->
 - **`specs/smoke/sprint-check-error.spec.ts`** (2, CI): a failing check shows one error line, replaced on retry, cleared on success · a typed answer stays editable after a failed check (issue #672)
 - **`specs/smoke/sprint-ladder.spec.ts`** (2, CI): fast taps all land on the rungs, a filled rung gives its form back, all right grades right · one form on a wrong rung grades wrong, shows the key, and History agrees with its ✗
 - **`specs/smoke/sprint-sort.spec.ts`** (2, CI): a wrong bucket shakes the word and keeps it; the sort checks itself, wrong, and History says why · a clean sort, by the keyboard: Enter on the right bucket drops the word, and the sort checks itself right
 - **`specs/smoke/start-level.spec.ts`** (4, CI): start Spanish at A2: the A1 lessons are skipped and never offered · change level mid-course (#333): progress stays, every mode moves to the chosen level · the test course offers each of its units as a level · a course without levels never asks for one
-<!-- themes -->
-- **`specs/smoke/test-course-games.spec.ts`** (7, CI): every game on /play is played here · K Listening: a lesson's round, then a mixed round · Vocabulary: collect words in Sprint mode, then the vocabulary page and the flashcards · Word Match: the lesson board and the all-lessons board · the paradigm drill, Numbers by ear, Date Dash (each drill) · Tutor: a tutored lesson over the fixtures, one tapped and one typed answer · Theme: the worn theme's material comes first, and nothing is missing without it
-<!-- /themes -->
 - **`specs/smoke/verify-email.spec.ts`** (3, CI): a new learner confirms their e-mail address from the link · sending the e-mail again replaces the first link
 - **`specs/smoke/wrong-answers-games.spec.ts`** (5, CI): Guide: a stage of wrong quick checks isn't passed and the next stays locked; a replay passes it · Word Match: wrong tries are counted and keep the lesson from passing · the games: a wrong answer is marked wrong and History counts it · flashcards: a card marked not known comes back in the missed deck · Tutor: a wrong answer gets a wrong verdict
 - **`specs/smoke/wrong-answers.spec.ts`** (7, CI): K: every question type, answered wrong, is marked wrong and doesn't pass · K: one lesson answered wrong reads as \"1 lesson needs practice\" on the course home and map · K: the 70 % line, 3 of 5 doesn't pass and 4 of 5 does · near misses are wrong, and the answers they nearly are stay right · a reading check with one wrong answer fails, the lesson stays unread, and a retry passes · D: every exercise kind, answered wrong, is marked wrong, and no lesson passes on wrong answers · D: the session's score is the answers given, on the screen, in History and in progress

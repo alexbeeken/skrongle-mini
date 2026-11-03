@@ -1,5 +1,5 @@
-//! `/profile`: the page behind the picture in the top-right corner. Picture,
-//! personal information, account details, password changes, this month's
+//! `/profile`: the page behind the gear in the top-right corner. Personal
+//! information, account details, password changes, this month's
 //! AI usage (allowance, credits), the AI API keys and the "Hide all AI
 //! features" switch (#147). It takes `CurrentUser`, not `Project`: a profile exists before any
 //! course is chosen.
@@ -16,7 +16,7 @@ use super::Page;
 use crate::auth::{self, CurrentUser};
 use crate::billing::{self, SubscriptionView};
 use crate::error::AppError;
-use crate::profile::{self, Avatar, Profile};
+use crate::profile::{self, Profile};
 use crate::secrets::{self, KeyStatus, Provider};
 use crate::AppState;
 
@@ -242,40 +242,6 @@ fn ai_usage_view(s: &crate::metering::AiStatus, meter: &crate::metering::Meter) 
     }
 }
 
-/// One picture in a course's settings (#565): the built-in icon, or a
-/// theme's version of it (same id, so the choice survives switching themes).
-#[derive(Clone, Debug)]
-pub(crate) struct AvatarChoice {
-    pub id: &'static str,
-    pub label: String,
-    /// Who the built-in picture shows (the tooltip while no theme replaces it).
-    pub shows: String,
-    /// The picture's own badge colour while the theme is worn
-    /// (`profile::own_color`), and the built-in picture's.
-    pub color: String,
-    /// The themed picture's URL; `None` draws the built-in icon.
-    pub url: Option<String>,
-}
-
-pub(super) fn avatar_choices(theme: Option<&crate::content::Theme>) -> Vec<AvatarChoice> {
-    profile::AVATARS
-        .iter()
-        .map(|a: &Avatar| {
-            let color = profile::own_color(a.id, theme);
-            match theme.and_then(|t| t.avatar(a.id)).cloned() {
-                Some(t) => AvatarChoice {
-                    id: a.id,
-                    label: if t.label.trim().is_empty() { a.label.to_string() } else { t.label },
-                    shows: a.description(),
-                    color,
-                    url: theme.map(|th| super::art_url(&th.id, &t.image)),
-                },
-                None => AvatarChoice { id: a.id, label: a.label.to_string(), shows: a.description(), color, url: None },
-            }
-        })
-        .collect()
-}
-
 #[derive(Deserialize)]
 pub struct ShowQuery {
     pub saved: Option<String>,
@@ -448,48 +414,6 @@ pub async fn show(
     Ok(Page(t).into_response())
 }
 
-/// A learner's badge as a page draws it in script (`courses.js`,
-/// `profile.js`): the picture (its theme version's URL, else the built-in
-/// symbol's id) over the background of `slot`, under `theme`.
-pub(super) fn badge_json(avatar: &str, slot: u8, theme: Option<&crate::content::Theme>) -> serde_json::Value {
-    let a = profile::avatar(avatar);
-    let bg = profile::badge(slot, theme);
-    let url = theme.and_then(|t| Some(super::art_url(&t.id, &t.avatar(a.id)?.image)));
-    serde_json::json!({ "id": a.id, "url": url, "color": bg.color, "image": bg.image })
-}
-
-/// The learner's picture and every other one, as a page draws people with
-/// them in script (the verb drill's person slots, #879): each is the theme
-/// worn's version (`url`) or the built-in symbol (`id`), with the `style` of
-/// its `.avatar`. The others never include the learner's own picture.
-/// Empty while character art is off (#1153): the slots keep the course's own
-/// pictures.
-pub(crate) fn people_json(user: &CurrentUser) -> String {
-    if !user.character_art {
-        return String::new();
-    }
-    let theme = user.theme_pack.as_ref().map(|p| &p.theme);
-    let me = profile::avatar(&user.avatar).id;
-    let others: Vec<serde_json::Value> = avatar_choices(theme)
-        .into_iter()
-        .filter(|a| a.id != me)
-        .map(|a| serde_json::json!({ "id": a.id, "url": a.url, "style": format!("--av:{}", a.color) }))
-        .collect();
-    let mine = serde_json::json!({ "id": me, "url": user.theme_avatar_url, "style": user.avatar_style() });
-    serde_json::json!({ "me": mine, "others": others }).to_string()
-}
-
-/// The pictures and backgrounds a theme offers, for a course's settings to
-/// redraw when another theme is picked (#565): each picture's version, label
-/// and own colour, and the palette (`profile::palette`).
-pub(super) fn look_json(theme: Option<&crate::content::Theme>) -> serde_json::Value {
-    let pictures: serde_json::Map<String, serde_json::Value> = avatar_choices(theme)
-        .into_iter()
-        .map(|a| (a.id.to_string(), serde_json::json!({ "url": a.url, "label": a.label, "color": a.color })))
-        .collect();
-    serde_json::json!({ "pictures": pictures, "palette": profile::palette(theme) })
-}
-
 /// What the page autosaves (`static/autosave.js`): any of the fields, as
 /// they change. Left out, a field keeps its stored value.
 #[derive(Deserialize)]
@@ -506,8 +430,7 @@ pub struct ProfileChanges {
 /// POST /api/profile: save the fields sent. All or nothing: a field that
 /// does not validate comes back as `422 {"errors": {field: message}}` and
 /// nothing is stored. Saved, the answer has what the page redraws: the
-/// name, and with a key its last four characters. (The theme and picture
-/// are a course's settings, #565 and #577.)
+/// name, and with a key its last four characters.
 pub async fn save(
     State(state): State<Arc<AppState>>,
     user: CurrentUser,

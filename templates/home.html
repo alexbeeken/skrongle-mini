@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 {% block title %}{{ course.title }}{% endblock %}
 {% block content %}
-{% if let Some(t) = course.theme %}{% if !t.banner.is_empty() %}<img class="theme-banner" src="{{ t.banner }}" alt="" title="{{ t.title }}">{% endif %}{% endif %}
-<h1 class="home-title">{{ course.icon }} {{ course.title }}{% if let Some(t) = course.theme %} <span class="theme-tag">{% if !t.mark.is_empty() %}<img src="{{ t.mark }}" alt="">{% endif %}{{ t.title }}</span>{% endif %}</h1>
+<h1 class="home-title">{{ course.icon }} {{ course.title }}</h1>
 
 {{ hero|safe }}
 
@@ -151,9 +150,8 @@
 </dialog>
 {% endif %}{% endif %}
 {% if let Some(st) = settings %}
-<script type="application/json" id="course-looks">{{ looks|safe }}</script>
 {% include "course_wizard.html" %}
 {% endif %}
 {% endblock %}
 {% block scripts %}<script src="{{ crate::routes::asset_url("home.js") }}" defer></script>{% if settings.is_some() %}<script src="{{ crate::routes::asset_url("course-settings.js") }}" defer></script><script src="{{ crate::routes::asset_url("placement.js") }}" defer></script>{% endif %}{% endblock %}
-{% block head %}{% if settings.is_some() %}<link rel="stylesheet" href="{{ crate::routes::card_themes_css_url() }}">{% endif %}{% if due_count > 0 %}<link rel="stylesheet" href="{{ crate::routes::asset_url("words-due.css") }}">{% endif %}{% endblock %}
+{% block head %}{% if due_count > 0 %}<link rel="stylesheet" href="{{ crate::routes::asset_url("words-due.css") }}">{% endif %}{% endblock %}

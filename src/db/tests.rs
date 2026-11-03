@@ -246,15 +246,17 @@ fn v35_gives_each_account_the_colour_its_picture_wore() {
         conn.execute_batch(sql).unwrap();
     }
     conn.execute_batch("PRAGMA user_version = 34;").unwrap();
-    for (i, a) in crate::profile::AVATARS.iter().enumerate() {
-        conn.execute("INSERT INTO users (password_hash, created_at, avatar) VALUES ('h', ?1, ?2)", rusqlite::params![i as i64, a.id]).unwrap();
+    // The eight pictures of the time, in palette order: each one's own colour was its slot.
+    let avatars = ["noor", "amani", "yuki", "kai", "arjun", "sofia", "mochi", "coco"];
+    for (i, a) in avatars.iter().enumerate() {
+        conn.execute("INSERT INTO users (password_hash, created_at, avatar) VALUES ('h', ?1, ?2)", rusqlite::params![i as i64, a]).unwrap();
     }
     conn.execute("INSERT INTO users (password_hash, created_at, avatar, avatar_color) VALUES ('h', 100, 'kai', 6)", []).unwrap();
     migrate(&conn).unwrap();
     // Each picture's own colour is its palette slot, so nobody's changed.
-    for a in crate::profile::AVATARS {
-        let slot: u8 = conn.query_row("SELECT avatar_color FROM users WHERE avatar = ?1 AND created_at < 100", [a.id], |r| r.get(0)).unwrap();
-        assert_eq!(crate::profile::badge_color(slot, None), a.color, "{}", a.id);
+    for (i, a) in avatars.iter().enumerate() {
+        let slot: u8 = conn.query_row("SELECT avatar_color FROM users WHERE avatar = ?1 AND created_at < 100", [a], |r| r.get(0)).unwrap();
+        assert_eq!(slot as usize, i + 1, "{a}");
     }
     // A colour already picked stays.
     assert_eq!(conn.query_row("SELECT avatar_color FROM users WHERE created_at = 100", [], |r| r.get::<_, u8>(0)).unwrap(), 6);
@@ -407,8 +409,9 @@ fn v31_renames_the_profile_pictures() {
     migrate(&conn).unwrap();
     let avatar = |id: i64| -> String { conn.query_row("SELECT avatar FROM users WHERE id = ?1", [id], |r| r.get(0)).unwrap() };
     assert_eq!((avatar(1), avatar(2), avatar(3), avatar(4)), ("noor".into(), "sofia".into(), "mochi".into(), "odd".into()));
-    // The rewrite agrees with the aliases the code keeps for old ids.
-    for (old, new) in crate::profile::ALIASES {
+    // The rewrite maps every old id to the picture that took it.
+    let aliases = [("owl", "noor"), ("fox", "kai"), ("cat", "mochi"), ("bear", "coco"), ("rabbit", "sofia"), ("robot", "arjun"), ("rocket", "yuki"), ("star", "amani"), ("leaf", "sofia"), ("bolt", "mochi")];
+    for (old, new) in aliases {
         conn.execute("UPDATE users SET avatar = ?1 WHERE id = 4", [old]).unwrap();
         conn.execute_batch(MIGRATIONS[30]).unwrap();
         assert_eq!(avatar(4), new, "{old}");

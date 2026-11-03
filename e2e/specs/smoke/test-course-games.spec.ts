@@ -1,5 +1,5 @@
 // Spec 7, the games half (issue #48): a new learner plays every game, the
-// tutor and a theme on the test course (data/test-courses/), every
+// tutor on the test course (data/test-courses/), every
 // answer right, from the course files (lib/key.ts) or, for Numbers by ear,
 // from what the voice said. No key, no network. Each test is its own account,
 // fails on any HTTP error, console error or overflow, and checks History.
@@ -11,10 +11,9 @@ import { playSprintRight } from "../../lib/sprint-play.ts";
 import { expect, test } from "../../lib/fixtures.ts";
 import { expectHistory, playDates, playDrill, playFlashcards, playListening, playMatching, playNumbers, recordSpeech, watchBugs } from "../../lib/games.ts";
 import { AnswerKey } from "../../lib/key.ts";
-import { newAccount, register, saveApiKey, wearTheme } from "../../lib/learner.ts";
+import { newAccount, register, saveApiKey } from "../../lib/learner.ts";
 
 const key = new AnswerKey(TEST_COURSE);
-const lessonFile = (path: string) => JSON.parse(readFileSync(join(courseDir(TEST_COURSE), "lessons", path), "utf8"));
 const course = JSON.parse(readFileSync(join(courseDir(TEST_COURSE), "course.json"), "utf8"));
 
 async function newLearner(page: Page, info: TestInfo) {
@@ -149,51 +148,5 @@ test("Tutor: a tutored lesson over the fixtures, one tapped and one typed answer
   }
   expect(done.tapped, "a tapped answer").toBeGreaterThan(0);
   expect(done.typed, "a typed answer").toBeGreaterThan(0);
-  bugs.none();
-});
-
-test("Theme: the worn theme's material comes first, and nothing is missing without it", async ({ page }, info) => {
-  test.setTimeout(90_000);
-  const bugs = await newLearner(page, info);
-  const plain = lessonFile("5-edge/themes.json");
-  const realm = plain.themes.realm;
-
-  // Plain: the lesson's own material, nothing themed.
-  await bugs.go("/lessons/themes");
-  await expect(page.getByTestId("lesson-vocab-item")).toHaveCount(plain.vocabulary.length);
-  await expect(page.locator('[data-testid="lesson-vocab-item"][data-themed="true"]')).toHaveCount(0);
-  await expect(page.getByTestId("lesson-check")).toHaveAttribute("data-praise", course.strings.praise[0]);
-
-  // Wear realm: a setting of the course (#577).
-  await wearTheme(page, TEST_COURSE, "realm");
-  await bugs.go("/");
-  await expect(page.locator("html")).toHaveAttribute("data-theme", "realm");
-  await expect(page.locator(".theme-tag")).toBeVisible();
-
-  // The lesson page: the theme's examples and new term are there, the plain ones too.
-  await bugs.go("/lessons/themes");
-  const newTerms = realm.vocabulary.filter((v: { meaning?: string }) => v.meaning).length;
-  await expect(page.getByTestId("lesson-vocab-item")).toHaveCount(plain.vocabulary.length + newTerms);
-  await expect(page.locator('[data-testid="lesson-vocab-item"][data-themed="true"]')).toHaveCount(realm.vocabulary.length);
-  await expect(page.getByTestId("lesson-content")).toContainText(realm.content.split("\n")[0].replace(/^## /, ""));
-  // Praise: the course's own lines for the theme (its language), not the theme file's English ones.
-  await expect(page.getByTestId("lesson-check")).toHaveAttribute("data-praise", course.themes.realm.strings.praise[0]);
-
-  // A Sprint session: the themed sort, spot and build (index 0, they go first) are played.
-  const ids: string[] = [];
-  page.on("request", (r) => {
-    if (/\/api\/(sprint\/check|answer)$/.test(r.url())) ids.push(JSON.parse(r.postData() ?? "{}").id ?? JSON.parse(r.postData() ?? "{}").question_id);
-  });
-  await page.setViewportSize({ width: 390, height: 844 });
-  await bugs.go("/sprint/play?lesson=themes&reduce-motion=1");
-  expect((await playSprintRight(page, new AnswerKey(TEST_COURSE, "realm"))).wrong).toEqual([]);
-  for (const id of ["sort:tc-themes:0", "spot:tc-themes:0", "build:tc-themes:0"]) expect(ids, "the themed exercise is played").toContain(id);
-  await page.setViewportSize({ width: 1280, height: 900 });
-
-  // The Guide stage: the themed question comes before the plain ones, which are all still there.
-  await bugs.go("/guide/themes");
-  const qids = await page.locator('[data-testid="stage-step"][data-qid]').evaluateAll((els) => els.map((e) => e.getAttribute("data-qid")));
-  expect(qids[0], "the themed question first").toBe(realm.quiz[0].question_id);
-  for (const q of plain.quiz) expect(qids).toContain(q.question_id);
   bugs.none();
 });

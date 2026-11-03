@@ -1,6 +1,6 @@
 // Fact check: Jev reads every unit of the built-in courses (a sentence and
 // its translation, a line of a lesson, a quiz question, a sort item, a spot,
-// a conjugation table, a vocabulary entry, the theme blocks too) and the
+// a conjugation table, a vocabulary entry) and the
 // report lists what is wrong, where, and the fix when there is one.
 // Run by scripts/fact-check.sh; see docs/testing.md, "Fact check". How the
 // questions are asked: probe.ts. How well it works: --calibrate.

@@ -455,31 +455,8 @@ profile:
   title: 个人资料
   no_name: 学习者
   head:
-    change_picture: 更换头像
     member_since: "注册于 {date}"
     all_saved: 所有更改已保存
-  avatar:
-    title: 头像
-    background: 头像背景
-    done: 完成
-    shows:
-      noor: 一位戴蓝色头巾的人
-      amani: 一位戴鲜艳头巾、戴圈形耳环的黑人女性
-      yuki: 一位身穿深蓝色羽织、头发盘成发髻并插着发簪的人
-      kai: 一位肤色较深、短卷发、围着淡蓝、粉色和白色围巾的人
-      arjun: 一位留胡须、戴藏红色头巾的锡克教男子
-      sofia: 一位梳辫子、穿绣花白色衬衫的拉丁裔女性
-      mochi: 一只白色的猫，身上有橙色和黑色斑块
-      coco: 一只棕色的狗，耳朵耷拉，戴红色项圈
-  colors:
-    sunburst: 琥珀色放射纹
-    waves: 绿色波浪纹
-    confetti: 玫瑰色彩纸纹
-    stars: 青绿色星星纹
-    stripes: 石板灰条纹
-    dots: 橄榄色圆点纹
-    rings: 紫罗兰色环纹
-    zigzag: 金色锯齿纹
   month:
     january: 一月
     february: 二月
@@ -753,10 +730,7 @@ profile:
     about: "在那天之前，此账户只能取消删除或登出。取消后一切保持原样。那天之后，你的学习进度、课程和已保存的密钥将被永久删除。"
     cancel: "取消删除"
   save:
-    pick_picture: 请选择一张图片。
-    pick_colour: 请选择一种颜色。
     not_a_field: 此字段不属于个人资料。
-    theme_unavailable: 该主题不可用。
     motivator_unavailable: "该激励方式不可用。"
     sent_to: "已发送至 {email}。"
   name:
@@ -1313,7 +1287,6 @@ study:
     say_hint: "🔊 点击本页中任意 {label} 单词即可听读。"
     conversations: 对话
     example: 示例
-    from_theme: "来自「{theme}」主题"
     set: 设置
     drill_these: "在{item}变位练习中练习这些"
     drill_after: 完成本课节后。
@@ -1979,13 +1952,6 @@ play:
       could_not_save: "无法保存你的用时：{error}"
     drill:
       which_slot: 哪个空位？
-      people:
-        me: "你的头像"
-        you: "另一个人，面向你"
-        other: "另一个人，在旁边"
-        us: "你和另外两个人"
-        you_all: "另外三个人，面向你"
-        them: "另外三个人，在远处"
       right_in: "{secs} 秒内 {pct}% 正确"
       you_wrote: "你写的是“{answer}”"
       correct_form_html: "正确形式：<strong lang=\"{lang}\">{form}</strong>（{item}，{slot}）"
@@ -2270,82 +2236,6 @@ guide:
     next: 下一步
     check_failed: "无法检查你的答案（{error}）。请重试。"
 
-themes:
-  # A built-in theme's own text (#463): the same keys as data/themes/<id>/theme.json,
-  # praise_<n> / almost_<n> its praise and almost lines in order, slot_<n> the colour
-  # or background in palette slot n. Picture names are names and are not here.
-  meadowbrook:
-    title: "Meadowbrook"
-    description: "温馨的草地配色，一整个农场的头像（农夫、养蜂人和她们的动物），在有相关内容的课程里，还有关于农场（偶尔还有 skrongle）、小溪、集市和节日的例句。课程内容不变。"
-    praise_1: "好收成！"
-    praise_2: "开花啦！"
-    praise_3: "金灿灿像麦子！"
-    praise_4: "真棒！"
-    praise_5: "长呀长！"
-    praise_6: "Skrongle！"
-    almost_1: "还差一点，邻居"
-    almost_2: "很接近了……再浇点水"
-    almost_3: "嗯，不对"
-    almost_4: "很接近了……再来点 skrong"
-    slot_1: "蜂蜜"
-    slot_2: "三叶草"
-    slot_3: "花朵"
-    slot_4: "池塘"
-    slot_5: "天空"
-    slot_6: "桃子"
-    slot_7: "薰衣草"
-    slot_8: "麦子"
-    slot_9: "庄稼地"
-    slot_10: "果园山丘"
-    slot_11: "钓鱼池"
-    slot_12: "丰收夕阳"
-  realm:
-    title: "埃尔德马克王国"
-    description: "处处是埃尔德马克的夜色金辉，每个头像都是王国的一位居民，在有相关内容的课程里，还有关于兽人、法师、地牢和战利品的例句。课程内容不变。"
-    praise_1: "胜利！"
-    praise_2: "史诗战利品！"
-    praise_3: "升级了！"
-    praise_4: "为了埃尔德马克！"
-    praise_5: "暴击！"
-    praise_6: "史诗 skrongle！"
-    almost_1: "还差一点，冒险者"
-    almost_2: "很接近了……再试一次任务"
-    almost_3: "嗯，不对。Skrong！"
-    slot_1: "奥术"
-    slot_2: "森林"
-    slot_3: "余烬"
-    slot_4: "寒霜"
-    slot_5: "岩石"
-    slot_6: "血石"
-    slot_7: "暮光"
-    slot_8: "金箔"
-    slot_9: "月下松林"
-    slot_10: "雪峰"
-    slot_11: "沙丘落日"
-    slot_12: "北极光"
-  rustwake:
-    title: "Rustwake"
-    description: "暗底上的终端绿，一片穹顶与沙丘的废土头像（幸存者、一只僵尸、一个变种人、一个机器人和活下来的动物），在有相关内容的课程里，还有关于穹顶、螺母、拾荒者和会发出 skrongle 声的无线电手表的例句。课程内容不变。"
-    praise_1: "螺母归你！"
-    praise_2: "升级了！"
-    praise_3: "无辐射！"
-    praise_4: "Skrong！任务完成"
-    praise_5: "废土天才！"
-    almost_1: "还差一点，穹顶居民"
-    almost_2: "很接近了……你的无线电手表在 skrongle"
-    almost_3: "嗯，不对"
-    slot_1: "铁锈"
-    slot_2: "剧毒"
-    slot_3: "灰烬"
-    slot_4: "辉光"
-    slot_5: "钢铁"
-    slot_6: "尘土"
-    slot_7: "淤青"
-    slot_8: "危险"
-    slot_9: "尘土地平线"
-    slot_10: "铁锈峡谷"
-    slot_11: "沙漠之夜"
-    slot_12: "电塔山脊"
 tutor:
   title: AI 辅导
   exit: 返回首页
@@ -2633,7 +2523,6 @@ courses:
       sorts: 排序练习
       spots: 找出错误
       builds: 句子搭建
-      themes: 主题内容
   review:
     edit_line_tip: 编辑此行
     title: AI 更改
@@ -2692,7 +2581,6 @@ courses:
       guide: 向导步骤
       vocab: 单词卡
       sprint: 冲刺模式
-      themes: 主题材料
       role_a: 说话人 A
       role_b: 说话人 B
       markdown: 文本
@@ -2759,7 +2647,6 @@ courses:
       one: 单元
       other: 单元
     name_sprint: 冲刺模式的内容
-    name_themes: 主题内容
     name_place: 它在课程中的位置
     count: "{n} {noun}"
     the_list: "{name}"
@@ -3105,10 +2992,6 @@ courses:
     level: "级别"
     level_info: "什么是级别"
     open_label: "{title} 的设置"
-    theme: "主题"
-    theme_default: 默认
-    picture: "头像"
-    background: "背景"
     about: "关于这些设置"
     about_p: "这里的每项设置都可以随时换成别的。更改设置绝不会重置任何内容：你的进度以及每个激励方式统计过的一切都会保持原样。"
     wizard_title: "欢迎来到 {course}"
@@ -3116,11 +2999,6 @@ courses:
     motivator_ask: "选择激励方式"
     motivator_info: "什么是激励方式"
     motivator_info_p: "激励方式是你的努力获得奖励的方式：每一种都会在课程主页顶部和每节课结束时以自己的方式展示你的进度。开始后，你可以随时在本课程的设置中更改。"
-    theme_ask: "选择主题"
-    theme_info: "什么是主题"
-    theme_info_p: "主题会增添有趣的视觉效果，课程也可能用它为内容增添额外的趣味。开始后，你可以随时在本课程的设置中更改。"
-    picture_ask: "选择你的头像"
-    background_ask: "选择背景"
     save: "保存"
     ok: "确定"
     get_started: "开始吧！"
@@ -3313,7 +3191,6 @@ editor:
     sec_conversations: 对话
     sec_conjugations: 变位
     sec_guide: 指南
-    sec_themes: 主题
     add_vocab: + 单词
     add_quiz: + 题目
     add_listening: + 句子
@@ -3504,8 +3381,7 @@ editor:
     bite_sub: 一口气讲完一个想法 · 不评分
     grp_say: 说出来
     f_emoji: 表情符号
-    h_emoji: "可选；否则使用主题的小知识图标。"
-    h_emoji_off: "可选；否则使用 💡。"
+    h_emoji: "可选；否则使用 💡。"
     f_rule: 规则
     h_rule: 一行，简明有力。
     grp_show: 展示
@@ -3577,8 +3453,6 @@ editor:
     h_vocab_n: "接下来尚未出现的单词；本课共有 {n} 个。"
     f_tip: 提示
     f_markdown: 卡片文本
-    schema_sub: 逐个字段编辑
-    schema_unavailable: 无法加载课程格式；请以 JSON 形式编辑这一部分。
     check_prompt_empty: 题干为空
     check_blank_ok: 有一个空格
     check_blank_missing: "题干中没有 ___：学习者需要输入完整答案，冲刺模式也不会显示空位"

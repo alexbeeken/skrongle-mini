@@ -115,9 +115,6 @@ and the lesson simply is not there. The complete table is
 - **Sprint sort / spot-the-mistake / bites by hand**: `sprint`.
 - **Conjugation drill, Sprint ladders**: `conjugations` (needs `paradigm`).
 - **A Guide stage in your own order**: `guide`.
-<!-- themes -->
-- **Material for a theme**: `themes.<id>`, see [Themes](using-themes).
-<!-- /themes -->
 
 ## Smallest valid course
 

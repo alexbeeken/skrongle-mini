@@ -220,18 +220,20 @@ test("a wrong melody: the answer line shows the right one as a staff, not as ABC
     }
     await q.getByTestId("quiz-next").click();
   }
-  await page.goto("/lessons/ear");
+  // The check draws two of the lesson's three questions: load until the melody is one of them.
   const check = page.locator('[data-testid="lesson-check-question"][data-qid="tc-ear-q2"]');
-  await page.locator('[data-testid="lesson-check-question"][data-qid="tc-ear-q1"] label.option').first().click();
+  for (let draws = 0; draws < 8 && !(await check.count()); draws++) await page.goto("/lessons/ear");
+  await page.locator('[data-testid="lesson-check-question"]:not([data-qid="tc-ear-q2"]) label.option').first().click();
   await check.locator('label.option:has(input[value="CEDC"])').click();
   await page.getByTestId("lesson-check-submit").click();
   await expect(check.getByTestId("lesson-check-feedback")).toHaveAttribute("data-state", "wrong");
   await staffNotABC(check.getByTestId("lesson-check-feedback"));
-  await page.goto("/sprint/play?lesson=ear");
+  await page.goto("/sprint/play?lesson=ear&reduce-motion=1");
   const stage = page.getByTestId("sprint-play-stage");
   for (let i = 0; i < 30 && !(await page.getByTestId("sprint-play-done").isVisible()); i++) {
     if (await page.getByTestId("sprint-play-result").isVisible()) { await page.getByTestId("sprint-play-next").click(); continue; }
     const kind = await stage.getAttribute("data-kind");
+    const exercise = await stage.getAttribute("data-exercise-id");
     if (kind === "sort") {
       for (let k = 0; k < 4; k++) {
         const play = (await stage.locator(".sprint-sort-item [data-play]").getAttribute("data-play"))!;
@@ -240,9 +242,13 @@ test("a wrong melody: the answer line shows the right one as a staff, not as ABC
       await expect(page.getByTestId("sprint-play-result")).toBeVisible();
       continue;
     }
-    if ((await stage.getAttribute("data-exercise-id")) !== "tc-ear-q2") {
+    if (exercise !== "tc-ear-q2") {
       if (kind === "choice") await stage.locator(".sprint-opt").first().click();
       await page.getByTestId("sprint-play-check").click();
+      // Checked, or moved on (a bite has no result), before the next round.
+      await expect
+        .poll(async () => (await page.getByTestId("sprint-play-result").isVisible()) || (await page.getByTestId("sprint-play-done").isVisible()) || (await stage.getAttribute("data-exercise-id")) !== exercise)
+        .toBe(true);
       continue;
     }
     await stage.locator('.sprint-opt[data-value="CEDC"]').click();

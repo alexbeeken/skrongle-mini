@@ -13,10 +13,6 @@ all driven by JSON course files.
 - [Building and generating courses](making-courses): the editor, adding
   files, generating a course with AI, sharing a course, fixing validation
   errors.
-<!-- themes -->
-- [Themes for learners and authors](using-themes): wearing a theme, and the
-  rules for writing themed material.
-<!-- /themes -->
 - [FAQ](faq) — API keys, missing games, sharing, AI agents.
 
 ## Reference
@@ -26,11 +22,7 @@ all driven by JSON course files.
   [raw Markdown](course-format.md) and a [JSON Schema](course.schema.json).
 - [Features](features): what each part of the app does and which lesson
   fields it reads: Lessons, Quizzes, Guide, Sprint mode, Games, Map, Vocabulary,
-  History,<!-- themes --> Themes,<!-- /themes --> Subscriptions.
-<!-- themes -->
-- [Theming](themes): theme files and everything a course can carry for a
-  theme: themed examples, exercises, questions, conversations and icons.
-<!-- /themes -->
+  History, Subscriptions.
 - [Progress across modes](progress): the pass rule, and the API (and brief)
   for AI agents that teach the learner.
 - [Languages (i18n)](i18n): the app's own text in the learner's language:

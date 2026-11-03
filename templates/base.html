@@ -1,12 +1,11 @@
 <!doctype html>
-<html lang="{{ crate::i18n::lang() }}"{% if let Some(u) = user %}{% if u.theme_pack.is_some() %} data-theme="{{ u.theme }}"{% endif %}{% endif %}>
+<html lang="{{ crate::i18n::lang() }}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{% block title %}{{ crate::APP_NAME }}{% endblock %} · {{ crate::APP_NAME }}</title>
 <link rel="stylesheet" href="{{ crate::routes::asset_url("style.css") }}">
 <script>if (/[?&]reduce-motion=1\b/.test(location.search)) document.documentElement.classList.add('reduce-motion');</script>
-{% if let Some(u) = user %}{% if u.theme_pack.is_some() %}<link rel="stylesheet" href="{{ crate::routes::theme_css_url(u.theme) }}">{% endif %}{% endif %}
 {% block head %}{% endblock %}
 <link rel="icon" href="{{ crate::routes::asset_url("favicon.svg") }}" type="image/svg+xml">
 <link rel="manifest" href="{{ crate::url("/manifest.webmanifest") }}">
@@ -16,7 +15,6 @@
 </head>
 <body data-base="{{ crate::base_path() }}">
 <a class="skip-link" href="#main" data-testid="skip-to-content">{{ crate::t("nav.skip_to_content") }}</a>
-{% if let Some(u) = user %}{% if u.character_art %}{% include "avatars.html" %}{% endif %}{% else %}{% include "avatars.html" %}{% endif %}
 <header class="topbar">
   <nav class="container">
     <a class="brand" data-testid="nav-home" href="{{ crate::url("/") }}"><img class="brand-mark" src="{{ crate::routes::asset_url("logo-mark.svg") }}" alt="" width="22" height="22">{{ crate::APP_NAME }}</a>
@@ -30,11 +28,11 @@
       <li class="account">
         <details class="account-menu" id="account-menu" data-testid="nav-account-menu">
           <summary data-testid="nav-account-toggle" data-email="{{ u.email }}" title="{{ u.display_name() }}" aria-label="{{ crate::t1("nav.account_menu_for", "name", u.display_name()) }}">
-            {% if u.no_picture || !u.character_art %}<span class="avatar blank" data-testid="avatar-blank">{% include "avatar_gear.html" %}</span>{% else %}{% if let Some(url) = u.theme_avatar_url %}<span class="avatar themed" style="{{ u.avatar_style() }}"><img src="{{ url }}" alt=""></span>{% else %}<span class="avatar" style="{{ u.avatar_style() }}"><svg><use href="#av-{{ u.picture().id }}"/></svg></span>{% endif %}{% endif %}
+            <span class="avatar blank" data-testid="avatar-blank">{% include "avatar_gear.html" %}</span>
           </summary>
           <div class="menu" role="menu">
             <div class="menu-head">
-              {% if u.no_picture || !u.character_art %}<span class="avatar lg blank" data-testid="avatar-blank">{% include "avatar_gear.html" %}</span>{% else %}{% if let Some(url) = u.theme_avatar_url %}<span class="avatar lg themed" style="{{ u.avatar_style() }}"><img src="{{ url }}" alt=""></span>{% else %}<span class="avatar lg" style="{{ u.avatar_style() }}"><svg><use href="#av-{{ u.picture().id }}"/></svg></span>{% endif %}{% endif %}
+              <span class="avatar lg blank" data-testid="avatar-blank">{% include "avatar_gear.html" %}</span>
               <div><strong>{{ u.display_name() }}</strong></div>
             </div>
             <a role="menuitem" href="{{ crate::base_path() }}/profile" data-testid="nav-profile">{{ crate::t("nav.profile") }}</a>

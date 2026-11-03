@@ -48,7 +48,7 @@ step, so a page you didn't need costs you all run.
 - `CLAUDE.md` is already in your context; don't read it again. Read the
   `.claude/rules/*.md` files for the areas the PR touches, not all of them (`e2e.md`
   when you write a persona or spec, `i18n.md` when the PR adds text, `content.md` for
-  course files, `ui.md` for icons and modals, `themes.md` for themes).
+  course files, `ui.md` for icons and modals).
 - `docs/qa.md` sections 1 (claims), 3 (Jev) and 5 (fix, file or note), and its "Summary
   template" (`sed -n '/^## Summary template/,/^## Efficiency/p' docs/qa.md`). Skip
   section 4, the spec-writing pass: write a spec only to guard a bug you fix. This brief
@@ -350,7 +350,7 @@ long one costs every later turn.
   `new URL("../../data/…", import.meta.url)`. `QA_OUT` must be an absolute path.
 
 **Jev's limits**
-- Jev can't click hidden (`sr-only`) radios such as the theme and motivator chips, can't
+- Jev can't click hidden (`sr-only`) radios such as the motivator chips, can't
   tick the age and terms boxes on `/register`, can't log out through the account menu,
   and gets stuck in the course start wizard on `/courses`. Do those steps yourself in
   `then`, with `signUp`, `logout` and `openCourse` from `e2e/lib/learner.ts`.

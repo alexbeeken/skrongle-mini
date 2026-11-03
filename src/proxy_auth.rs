@@ -246,8 +246,8 @@ fn resolve(conn: &mut Connection, value: &str, session: Option<&str>, mode: sign
             };
             // No password; the proxy vouched for the address.
             tx.execute(
-                "INSERT INTO users (password_hash, created_at, email, email_verified_at, avatar) VALUES ('', ?1, ?2, ?1, ?3)",
-                params![now, email, crate::profile::DEFAULT_AVATAR],
+                "INSERT INTO users (password_hash, created_at, email, email_verified_at) VALUES ('', ?1, ?2, ?1)",
+                params![now, email],
             )?;
             let id = tx.last_insert_rowid();
             if !signup::finish(&tx, admitted, id, now)? {

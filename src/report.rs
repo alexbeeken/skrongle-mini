@@ -42,8 +42,7 @@ pub struct UnitReport {
 
 pub struct CourseReport {
     pub units: Vec<UnitReport>,
-    /// Features the report lists: all of them, less theme material while
-    /// themes are off (#1138).
+    /// Features the report lists.
     features: usize,
     /// Question types the report lists: music types only in a music course.
     questions: usize,
@@ -84,7 +83,7 @@ type Detect = fn(&Lesson) -> bool;
 
 /// The lesson features of the report: (key, the key of its label in
 /// `i18n`, does this lesson use it).
-pub const FEATURES: [(&str, &str, Detect); 21] = [
+pub const FEATURES: [(&str, &str, Detect); 20] = [
     ("text", "courses.report.feature.text", |l| !l.content.trim().is_empty()),
     ("cards", "courses.report.feature.cards", |l| l.sections.len() > 1),
     ("tables", "courses.report.feature.tables", |l| l.html_content.contains("<table")),
@@ -105,7 +104,6 @@ pub const FEATURES: [(&str, &str, Detect); 21] = [
     ("sorts", "courses.report.feature.sorts", |l| !l.sprint.sorts.is_empty()),
     ("spots", "courses.report.feature.spots", |l| !l.sprint.spots.is_empty()),
     ("builds", "courses.report.feature.builds", |l| !l.sprint.builds.is_empty()),
-    ("themes", "courses.report.feature.themes", |l| !l.themes.is_empty()),
 ];
 
 /// The type the author wrote: a loaded `true-false` question is a multiple
@@ -117,12 +115,7 @@ fn kind_of(q: &QuizItem) -> QuizType {
     q.kind
 }
 
-/// The features the report lists: theme material only while themes are on (#1138).
-fn features(themes: bool) -> impl Iterator<Item = &'static (&'static str, &'static str, Detect)> {
-    FEATURES.iter().filter(move |(key, ..)| themes || *key != "themes")
-}
-
-pub fn lesson_report(l: &Lesson, themes: bool) -> LessonReport {
+pub fn lesson_report(l: &Lesson) -> LessonReport {
     LessonReport {
         id: l.id.clone(),
         title: l.title.clone(),
@@ -130,12 +123,12 @@ pub fn lesson_report(l: &Lesson, themes: bool) -> LessonReport {
             .iter()
             .map(|(t, label)| Mark { key: t.as_str(), label: crate::t(label), used: l.quiz.iter().any(|q| kind_of(q) == *t) })
             .collect(),
-        features: features(themes).map(|(key, label, f)| Mark { key, label: crate::t(label), used: f(l) }).collect(),
+        features: FEATURES.iter().map(|(key, label, f)| Mark { key, label: crate::t(label), used: f(l) }).collect(),
     }
 }
 
 /// The report of a whole course: its units in manifest order, each with its lessons in order.
-pub fn feature_usage(store: &ContentStore, themes: bool) -> CourseReport {
+pub fn feature_usage(store: &ContentStore) -> CourseReport {
     let music = store.manifest().music.is_some();
     let questions = QUESTION_TYPES.len() - if music { 0 } else { MUSIC_TYPES.len() };
     let units = store
@@ -143,7 +136,7 @@ pub fn feature_usage(store: &ContentStore, themes: bool) -> CourseReport {
         .iter()
         .enumerate()
         .map(|(i, u)| {
-            let lessons: Vec<LessonReport> = store.lessons().iter().filter(|l| l.unit_index == i).map(|l| lesson_report(l, themes)).map(|mut r| {
+            let lessons: Vec<LessonReport> = store.lessons().iter().filter(|l| l.unit_index == i).map(lesson_report).map(|mut r| {
                 r.questions.retain(|m| music || !MUSIC_TYPES.iter().any(|t| t.as_str() == m.key));
                 r
             }).collect();
@@ -151,13 +144,13 @@ pub fn feature_usage(store: &ContentStore, themes: bool) -> CourseReport {
             UnitReport {
                 id: u.id.clone(),
                 title: u.title.clone(),
-                features_used: any(|l| &l.features, features(themes).count()),
+                features_used: any(|l| &l.features, FEATURES.len()),
                 questions_used: any(|l| &l.questions, questions),
                 lessons,
             }
         })
         .collect();
-    CourseReport { units, features: features(themes).count(), questions }
+    CourseReport { units, features: FEATURES.len(), questions }
 }
 
 #[cfg(test)]
@@ -174,7 +167,7 @@ mod tests {
     /// is either missing from the test course or detected wrongly here.
     #[test]
     fn test_course_uses_every_reported_feature() {
-        let report = feature_usage(&test_course(), true);
+        let report = feature_usage(&test_course());
         let lessons: Vec<&LessonReport> = report.units.iter().flat_map(|u| &u.lessons).collect();
         for (k, (key, ..)) in FEATURES.iter().enumerate() {
             assert!(lessons.iter().any(|l| l.features[k].used), "no lesson of the test course is reported to use '{key}'");
@@ -190,7 +183,7 @@ mod tests {
         let store = test_course();
         for (t, _) in QUESTION_TYPES {
             let l = store.lessons().iter().find(|l| l.slug == t.as_str()).unwrap();
-            let r = lesson_report(l, true);
+            let r = lesson_report(l);
             let asked: Vec<&str> = r.questions.iter().filter(|m| m.used).map(|m| m.key).collect();
             assert_eq!(asked, vec![t.as_str()], "lesson '{}'", l.slug);
         }
@@ -199,14 +192,14 @@ mod tests {
     #[test]
     fn the_everything_lesson_uses_every_feature() {
         let store = test_course();
-        let r = lesson_report(store.lesson_by_id("tc-everything").unwrap(), true);
+        let r = lesson_report(store.lesson_by_id("tc-everything").unwrap());
         let unused: Vec<&str> = r.features.iter().filter(|m| !m.used).map(|m| m.key).collect();
         assert!(unused.is_empty(), "tc-everything does not use {unused:?}");
     }
 
     #[test]
     fn unit_counts_are_features_used_by_any_lesson() {
-        let report = feature_usage(&test_course(), true);
+        let report = feature_usage(&test_course());
         for u in &report.units {
             assert!(u.features_used <= FEATURES.len() && u.questions_used <= QUESTION_TYPES.len());
             let best = u.lessons.iter().map(|l| l.features.iter().filter(|m| m.used).count()).max().unwrap_or(0);
@@ -219,19 +212,9 @@ mod tests {
     #[test]
     fn a_course_without_music_leaves_the_keyboard_out() {
         let spanish = ContentStore::load_dir(Path::new("data/courses/spanish")).expect("Spanish loads");
-        let report = feature_usage(&spanish, true);
+        let report = feature_usage(&spanish);
         assert_eq!(report.question_count(), QUESTION_TYPES.len() - MUSIC_TYPES.len());
         assert!(report.units.iter().flat_map(|u| &u.lessons).all(|l| l.questions.iter().all(|m| m.key != "keyboard")));
-        assert_eq!(feature_usage(&test_course(), true).question_count(), QUESTION_TYPES.len());
-    }
-
-    /// With themes off (#1138) the report leaves theme material out.
-    #[test]
-    fn themes_off_leaves_theme_material_out() {
-        let report = feature_usage(&test_course(), false);
-        assert_eq!(report.feature_count(), FEATURES.len() - 1);
-        let l = &report.units[0].lessons[0];
-        assert!(l.features.iter().all(|m| m.key != "themes"));
-        assert_eq!(l.features.len(), report.feature_count());
+        assert_eq!(feature_usage(&test_course()).question_count(), QUESTION_TYPES.len());
     }
 }

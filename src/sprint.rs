@@ -125,7 +125,7 @@ pub struct CourseInfo {
     pub chars: Vec<String>,
     pub praise: Vec<String>,
     pub almost: Vec<String>,
-    /// The app's icons, in the worn theme's version.
+    /// The app's icons (streak, words, the modes…).
     pub icons: crate::content::Icons,
 }
 
@@ -143,7 +143,7 @@ impl CourseInfo {
             chars: m.chars.clone(),
             praise: content.praise(),
             almost: content.almost(),
-            icons: crate::content::Icons::of(content.theme()),
+            icons: crate::content::Icons::default(),
         }
     }
 }
@@ -688,10 +688,8 @@ pub fn listening_exercises(content: &ContentStore, lesson: &Lesson, rng: &mut Rn
     }
     let mut sentences = tileable_sentences(lesson);
     rng.shuffle(&mut sentences);
-    themed_first(&mut sentences, |n| lesson.listening[n].themed);
     let mut any: Vec<usize> = (0..lesson.listening.len()).filter(|n| !lesson.listening[*n].meaning.trim().is_empty()).collect();
     rng.shuffle(&mut any);
-    themed_first(&mut any, |n| lesson.listening[n].themed);
     let mut words: Vec<usize> = (0..lesson.vocabulary.len()).collect();
     rng.shuffle(&mut words);
     let mut out = Vec::new();
@@ -720,13 +718,6 @@ pub fn listening_exercises(content: &ContentStore, lesson: &Lesson, rng: &mut Rn
     out
 }
 
-/// Stable: keeps the shuffled order within each half, themed items first.
-/// A theme is flair on top of the lesson, so a session shows it where it
-/// exists and falls back to the lesson's own material everywhere else.
-fn themed_first(idxs: &mut [usize], is_themed: impl Fn(usize) -> bool) {
-    idxs.sort_by_key(|&i| !is_themed(i));
-}
-
 /// One listening exercise from a lesson, any family, for the review mix.
 fn one_listening(content: &ContentStore, lesson: &Lesson, rng: &mut Rng) -> Option<Exercise> {
     listening_exercises(content, lesson, rng).into_iter().next()
@@ -738,7 +729,6 @@ fn questions_in_order<'a>(lesson: &'a Lesson, avoid: &HashSet<String>, rng: &mut
     let (mut stale, mut fresh): (Vec<&QuizItem>, Vec<&QuizItem>) = asked.partition(|q| avoid.contains(&q.question_id));
     rng.shuffle(&mut fresh);
     rng.shuffle(&mut stale);
-    fresh.sort_by_key(|q| !q.themed);
     fresh.extend(stale);
     fresh
 }
@@ -779,7 +769,7 @@ fn assemble(mut bites: Vec<Exercise>, mut grammar: Vec<Exercise>, mut quiz: Vec<
 /// A ~5 minute session on one lesson: a bite, then rule games, quiz
 /// questions, vocabulary and (language courses) listening, interleaved.
 pub fn lesson_session(content: &ContentStore, lesson: &Lesson, avoid: &HashSet<String>, rng: &mut Rng) -> Session {
-    let mut bites = bites_for(lesson, &crate::content::Icons::of(content.theme()));
+    let mut bites = bites_for(lesson, &crate::content::Icons::default());
     bites.truncate(3);
 
     // Rule games: one or two sorts, two spots, a build (language and music courses only, #1312), a conversation line, a ladder.
@@ -794,11 +784,6 @@ pub fn lesson_session(content: &ContentStore, lesson: &Lesson, avoid: &HashSet<S
     rng.shuffle(&mut builds);
     rng.shuffle(&mut lines);
     rng.shuffle(&mut conj);
-    // With a theme on, its material goes first (still shuffled among itself).
-    themed_first(&mut sorts, |i| lesson.sprint.sorts[i].themed);
-    themed_first(&mut spots, |i| lesson.sprint.spots[i].themed);
-    themed_first(&mut builds, |i| lesson.sprint.builds[i].themed);
-    lines.sort_by_key(|&(ci, _)| !lesson.conversations[ci].themed);
     let mut grammar = Vec::new();
     if let Some(&i) = sorts.first() {
         grammar.extend(sort_exercise(lesson, i, rng));
@@ -1461,11 +1446,11 @@ pub fn local_day_start(tz_offset_secs: i64, now: i64) -> i64 {
 
 /// An emoji for a lesson's node on the path: the lesson's own `sprint.icon`,
 /// else one derived from its position so the path still looks varied.
-pub fn lesson_icon(content: &ContentStore, lesson: &Lesson, position: usize) -> String {
+pub fn lesson_icon(lesson: &Lesson, position: usize) -> String {
     if !lesson.sprint.icon.is_empty() {
         return lesson.sprint.icon.clone();
     }
-    crate::content::Icons::lesson(content.theme(), position)
+    crate::content::Icons::lesson(position)
 }
 
 /// Mastery as 0–3 chillies.

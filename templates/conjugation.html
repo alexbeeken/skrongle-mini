@@ -24,7 +24,6 @@
       <div class="pic plus">+</div>
       <div class="pic">
         <pre class="ascii subject" id="c-subject-art"></pre>
-        <div class="people" id="c-subject-people" data-testid="drill-people" hidden></div>
         <p class="caption muted" id="c-subject-caption">{{ crate::t("play.drill.which_slot") }}</p>
       </div>
     </div>
@@ -42,9 +41,9 @@
 
   <details class="hints legend-details">
     <summary>{{ crate::t("play.drill.remind_slots") }}</summary>
-    <ul class="subject-legend" id="subject-legend-inline" data-people="{{ people_json }}">
+    <ul class="subject-legend" id="subject-legend-inline">
     {% for s in slots %}
-      <li><pre class="ascii subject" data-slot="{{ s.key }}" data-art="{{ s.art_json }}" data-who="{{ s.who }}"></pre><span lang="{{ course.term_lang }}"><strong>{{ s.label }}</strong></span><br><span class="muted small">{{ s.hint }}</span></li>
+      <li><pre class="ascii subject" data-slot="{{ s.key }}" data-art="{{ s.art_json }}"></pre><span lang="{{ course.term_lang }}"><strong>{{ s.label }}</strong></span><br><span class="muted small">{{ s.hint }}</span></li>
     {% endfor %}
     </ul>
   </details>

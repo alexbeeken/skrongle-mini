@@ -1,7 +1,7 @@
 {# The Skrongle Cash motivator's hero on the course home page
    (motivators/skc.rs, #562): the course's SKC balance, today's SKC against
-   the daily goal in SKC, the badges bought in the shop (#569; the worn
-   theme's look when it has one) and where to continue. #}
+   the daily goal in SKC, the badges bought in the shop (#569) and where to
+   continue. #}
 <section class="today skc-hero" data-testid="home-today" data-motivator="skc" aria-label="{{ crate::t("motivator.skc.title") }}">
   <div class="today-body">
     <div class="today-head">
@@ -11,7 +11,7 @@
     </div>
     {% if !shelf.is_empty() %}
     <ul class="skc-shelf" data-testid="skc-shelf" aria-label="{{ crate::t("motivator.skc.shop.shelf") }}">
-      {% for b in shelf %}<li><img src="{{ b.src }}" alt="{{ b.title }}" title="{{ b.title }}" width="44" height="44" data-testid="skc-badge" data-badge="{{ b.id }}" data-variant="{{ b.variant }}"></li>{% endfor %}
+      {% for b in shelf %}<li><img src="{{ b.src }}" alt="{{ b.title }}" title="{{ b.title }}" width="44" height="44" data-testid="skc-badge" data-badge="{{ b.id }}"></li>{% endfor %}
     </ul>
     {% endif %}
     <p class="skc-today{% if done %} done{% endif %}" data-testid="skc-today" data-skc="{{ today }}" data-goal="{{ goal }}">{{ crate::t2("motivator.skc.today", "n", today, "goal", goal) }}</p>

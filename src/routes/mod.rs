@@ -1,7 +1,7 @@
 //! Axum router, shared response helpers, static assets.
 
 use askama::Template;
-use axum::extract::{Path, Query, RawQuery, State};
+use axum::extract::{Path, Query, RawQuery};
 use axum::http::{header, HeaderMap, HeaderValue, StatusCode};
 use axum::response::{Html, IntoResponse, Redirect, Response};
 use axum::routing::{get, post};
@@ -134,7 +134,6 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/courses/generate", get(courses::generate_form))
         .route("/courses/generate/{job}", get(courses::generate_status))
         .route("/api/generate/{job}", get(courses::generate_api))
-        .route("/courses/themes.css", get(card_themes_css))
         .route("/courses/{id}", get(courses::editor))
         .route("/courses/{id}/file", get(courses::file_form).merge(big(post(courses::file_save))))
         .route("/courses/{id}/file/delete", post(courses::file_delete))
@@ -221,10 +220,6 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/api/games/dates/finish", post(games::dates_finish))
         // the active course's picture files (SVG)
         .route("/pictures/{*path}", get(course_picture))
-        // themes: the learner's choice for the course, and its stylesheet
-        .route("/theme/delete", post(pages::delete_theme))
-        .route("/theme.css", get(theme_css))
-        .route("/themes/{id}/{*path}", get(theme_picture))
         .route("/shop", get(shop::page))
         .route("/api/shop/buy", post(shop::buy))
         .route("/badges/{file}", get(shop::art))
@@ -336,7 +331,6 @@ pub fn router(state: Arc<AppState>) -> Router {
                 .route("/login/code/device", get(auth::login_code_device))
                 .route("/dev/reset", get(dev::reset))
                 .route("/dev/premium", post(dev::premium))
-                .route("/dev/theme", post(dev::theme))
                 .route("/dev/vocab", post(dev::vocab))
                 .merge(devbox)
                 // The simulated providers' wire APIs: the app's own server-side
@@ -423,61 +417,8 @@ pub struct CourseView {
     pub paradigm_label: String,
     pub item_label: String,
     pub praise: String,
-    /// The theme the store was built with, if any (colours come via `/theme.css`; this is for art and labels).
-    pub theme: Option<ThemeView>,
-    /// The app's icons (streak, XP, the modes…), in the theme's version.
+    /// The app's icons (streak, XP, the modes…).
     pub icons: crate::content::Icons,
-}
-
-/// A theme as templates see it: labels and ready-made art URLs.
-#[derive(Clone, Debug)]
-pub struct ThemeView {
-    pub id: String,
-    pub title: String,
-    pub description: String,
-    pub icon: String,
-    /// URL of the banner picture, or empty.
-    pub banner: String,
-    /// URL of the small emblem, or empty.
-    pub mark: String,
-}
-
-impl ThemeView {
-    pub fn of(t: &crate::content::Theme) -> ThemeView {
-        ThemeView {
-            id: t.id.clone(),
-            title: t.title_said(),
-            description: t.description_said(),
-            icon: t.icon().to_string(),
-            banner: art_url(&t.id, &t.art.banner),
-            mark: art_url(&t.id, &t.art.mark),
-        }
-    }
-
-    /// Every built-in theme for a picker.
-    pub fn all(themes: &crate::themes::Themes) -> Vec<ThemeView> {
-        themes.all().iter().map(|p| ThemeView::of(&p.theme)).collect()
-    }
-
-    /// The themes the user made ("Your themes").
-    pub async fn made(state: &AppState, user_id: i64) -> Result<Vec<ThemeView>, AppError> {
-        Ok(state.themes.made_by(&state.db, user_id).await?.iter().map(|p| ThemeView::of(&p.theme)).collect())
-    }
-}
-
-/// Where a theme picture is served from: a file of the theme
-/// (`pictures/x.svg`) through `/themes/<id>/`, a URL as is.
-pub fn art_url(theme: &str, path: &str) -> String {
-    if path.is_empty() || crate::content::is_url(path) {
-        path.to_string()
-    } else {
-        format!("{}/themes/{theme}/{path}", crate::base_path())
-    }
-}
-
-/// Versioned URL of the active theme's stylesheet (`/theme.css`).
-pub fn theme_css_url(theme: &str) -> String {
-    format!("{}/theme.css?v={}-{theme}&t={}", crate::base_path(), asset_version(), crate::urlenc::urlencode(theme))
 }
 
 impl CourseView {
@@ -499,8 +440,7 @@ impl CourseView {
             paradigm_label: m.paradigm.as_ref().map(|p| p.label.clone()).unwrap_or_default(),
             item_label: m.paradigm.as_ref().map(|p| p.item_label.clone()).unwrap_or_default(),
             praise: c.praise().into_iter().next().unwrap_or_else(|| crate::t("study.correct")),
-            theme: c.theme().map(ThemeView::of),
-            icons: crate::content::Icons::of(c.theme()),
+            icons: crate::content::Icons::default(),
         }
     }
 }
@@ -577,25 +517,7 @@ async fn course_picture(p: crate::auth::Project, Path(path): Path<String>, heade
         .into_response()
 }
 
-/// GET /themes/{id}/{path} -> a picture of a theme (art, profile pictures).
-/// Public, like the static assets; same no-script policy as course pictures.
-async fn theme_picture(State(state): State<Arc<AppState>>, Path((id, path)): Path<(String, String)>, headers: HeaderMap) -> Response {
-    // A theme a learner made is private: only they see its pictures.
-    let pack = if crate::themes::parse_user_id(&id).is_some() {
-        let Some(uid) = crate::auth::user_id_of(&state, &headers).await else { return StatusCode::NOT_FOUND.into_response() };
-        match state.themes.resolve(&state.db, uid, &id).await {
-            Ok(Some(p)) => p,
-            _ => return StatusCode::NOT_FOUND.into_response(),
-        }
-    } else {
-        let Some(p) = state.themes.get(&id) else { return StatusCode::NOT_FOUND.into_response() };
-        p
-    };
-    let Some(body) = pack.asset(&path) else { return StatusCode::NOT_FOUND.into_response() };
-    svg_response(&headers, body, if pack.owner.is_some() { "private, no-cache" } else { "public, no-cache" })
-}
-
-/// An SVG file of the app's data (a theme's picture, a shop badge), with an
+/// An SVG file of the app's data (a shop badge), with an
 /// ETag and a policy that lets it run nothing.
 pub(crate) fn svg_response(headers: &HeaderMap, body: &str, cache: &'static str) -> Response {
     let etag = format!("\"{:016x}\"", fnv1a(body.bytes()));
@@ -613,65 +535,6 @@ pub(crate) fn svg_response(headers: &HeaderMap, body: &str, cache: &'static str)
         body.to_string(),
     )
         .into_response()
-}
-
-#[derive(serde::Deserialize)]
-struct ThemeCssQuery {
-    /// The theme the page wears (`theme_css_url`): the page knows, since a
-    /// course picker and a course page wear different ones (#565).
-    t: Option<String>,
-}
-
-/// GET /theme.css[?t=<id>] -> the custom properties of that theme, else of
-/// the one the user wears (empty when none, or not one they may wear).
-/// Linked after the app's stylesheets on every page.
-async fn theme_css(State(state): State<Arc<AppState>>, user: crate::auth::CurrentUser, Query(q): Query<ThemeCssQuery>, headers: HeaderMap) -> Result<Response, AppError> {
-    let pack = match q.t {
-        Some(t) => state.themes.resolve(&state.db, user.id, &t).await?,
-        None => user.theme_pack.clone(),
-    };
-    let body = pack.as_ref().map(|p| p.theme.css()).unwrap_or_default();
-    Ok(css_response(body, &headers))
-}
-
-/// A per-user stylesheet, revalidated by its ETag.
-fn css_response(body: String, headers: &HeaderMap) -> Response {
-    let etag = format!("\"{:016x}\"", fnv1a(body.bytes()));
-    if headers.get(header::IF_NONE_MATCH).and_then(|v| v.to_str().ok()) == Some(etag.as_str()) {
-        return StatusCode::NOT_MODIFIED.into_response();
-    }
-    (
-        [
-            (header::CONTENT_TYPE, HeaderValue::from_static("text/css; charset=utf-8")),
-            (header::CACHE_CONTROL, HeaderValue::from_static("private, no-cache")),
-            (header::ETAG, HeaderValue::from_str(&etag).expect("hex etag")),
-        ],
-        body,
-    )
-        .into_response()
-}
-
-/// Versioned URL of the course cards' theme stylesheet (`/courses/themes.css`).
-pub fn card_themes_css_url() -> String {
-    format!("{}/courses/themes.css?v={}", crate::base_path(), asset_version())
-}
-
-/// GET /courses/themes.css -> every theme the user may wear, scoped to a
-/// course card wearing it (`data-card-theme`, #565): the course list shows
-/// each opened course in its own theme, and its settings dialog previews one
-/// (on the course home, the first visit's wizard previews it on itself, #574).
-async fn card_themes_css(State(state): State<Arc<AppState>>, user: crate::auth::CurrentUser, headers: HeaderMap) -> Result<Response, AppError> {
-    let mut body = String::new();
-    for p in state.themes.all().iter().chain(&state.themes.made_by(&state.db, user.id).await?) {
-        let card = format!(":is(.course-card, dialog.course-settings)[data-card-theme=\"{}\"]", p.theme.id); // panic-ok: an attribute selector in a string, not indexing
-        body.push_str(&p.theme.css_for(&card));
-        // Its banner faintly behind the card (style.css, `--card-art`).
-        let banner = art_url(&p.theme.id, &p.theme.art.banner);
-        if !banner.is_empty() && !banner.contains(['"', '\\', '\n', '\r']) {
-            body.push_str(&format!("{card}{{--card-art:url(\"{banner}\");}}\n"));
-        }
-    }
-    Ok(css_response(body, &headers))
 }
 
 /// `/healthz`: "ok", then what the server is (`ok skrongle mini 0.1.0`,
@@ -826,7 +689,7 @@ pub(crate) async fn reward_line(
     Ok(crate::motivators::reward_html(line))
 }
 
-/// An app state for router tests: in-memory database, the built-in courses, no themes.
+/// An app state for router tests: in-memory database, the built-in courses.
 #[cfg(test)]
 pub(crate) fn test_state(dev: bool, stripe: Option<crate::billing::StripeConfig>) -> Arc<AppState> {
     test_state_with(dev, stripe, None)
@@ -864,7 +727,6 @@ pub(crate) fn test_state_with(
     Arc::new(AppState {
         db: crate::db::Db::open_in_memory().unwrap(),
         courses: Arc::new(crate::courses::Courses::load_builtin(std::path::Path::new("data")).unwrap()),
-        themes: Arc::new(crate::themes::Themes::empty()),
         secure_cookies: false,
         dummy_hash: "x".into(),
         games: Default::default(),

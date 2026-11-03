@@ -12,12 +12,6 @@
 //! courses people build in the app are stored in SQLite as the same set of
 //! files and loaded through the same code (`ContentStore::from_files`).
 //!
-//! Themes: a *theme* is an app-level skin (`data/themes/<id>/theme.json`,
-//! see `themes.rs`) a learner wears whatever course is open. A lesson may
-//! carry themed material (`themes.<id>`) that is merged in front of its own
-//! when that theme is on; a lesson without it is simply unchanged. Both live
-//! in JSON files; the app only renders what the files declare.
-//!
 //! Field names: the canonical names are the ones documented in
 //! `docs/course-format.md`. Older Spanish-specific spellings (`level`,
 //! `category`, `es`/`en`, `target_grammar_point`, `journey`, `verb`/`tense`)
@@ -125,74 +119,7 @@ impl Calendar {
     }
 }
 
-/// A visual skin: `data/themes/<id>/theme.json`. Colours, a font, art,
-/// praise strings and profile pictures; lessons may carry material for it
-/// under `themes.<id>`, and the manifest praise lines. A theme is flair worn
-/// by the learner across every course; nothing in it is needed for a course
-/// to work.
-///
-/// Themes, courses and profiles stay apart (docs/themes.md, "Themes,
-/// courses and profiles"): a theme belongs to the app, not to a course, so
-/// everything it says (titles, praise) is in the app's language (English in
-/// theme.json, others in i18n, themes.rs). A course's words come only from it:
-/// its lessons' `themes.<id>` blocks and its manifest's `themes.<id>`.
-#[derive(Debug, Clone, Default, Serialize, Deserialize)]
-pub struct Theme {
-    /// Lowercase a-z, 0-9 and '-'; the folder name. Lessons refer to it in `themes`.
-    pub id: String,
-    pub title: String,
-    #[serde(default)]
-    pub description: String,
-    /// Emoji for the picker.
-    #[serde(default)]
-    pub icon: String,
-    /// Colour tokens (`accent`, `bg`, `surface`, …; see `THEME_COLOR_KEYS`),
-    /// hex colours only.
-    #[serde(default)]
-    pub colors: BTreeMap<String, String>,
-    /// The same tokens again, used when the browser prefers a dark scheme.
-    #[serde(default)]
-    pub dark: BTreeMap<String, String>,
-    /// A CSS `font-family` stack for the whole site.
-    #[serde(default)]
-    pub font: String,
-    #[serde(default)]
-    pub art: ThemeArt,
-    /// Praise / "almost" strings that replace the manifest's while the theme is on.
-    #[serde(default)]
-    pub strings: ThemeStrings,
-    /// Themed versions of the built-in profile pictures, by the picture's id
-    /// (`owl`, `fox`, …): while the theme is on, a learner who picked that
-    /// picture is shown this one instead.
-    #[serde(default)]
-    pub avatars: Vec<ThemeAvatar>,
-    /// The theme's colours for the eight slots of the profile picture's
-    /// palette (`profile::AVATAR_COLORS`), by slot 1-8; a slot not given
-    /// keeps the default colour.
-    #[serde(default)]
-    pub avatar_colors: Vec<ThemeAvatarColor>,
-    /// Backgrounds the theme adds behind the profile picture, in slots 9-16
-    /// (`profile::THEME_SLOTS`): pictures of places in the theme's world,
-    /// offered next to the default eight only while the theme is worn.
-    #[serde(default)]
-    pub avatar_backgrounds: Vec<ThemeAvatarBackground>,
-    /// The app's own little icons, by slot (`streak`, `xp`, `mode_sprint`, …; see
-    /// `ICON_KEYS`): an emoji or short glyph for each one the theme changes.
-    /// The old slot names in `ICON_ALIASES` are read as the new ones.
-    #[serde(default, deserialize_with = "icons_with_aliases")]
-    pub icons: BTreeMap<String, String>,
-    /// Icons for lessons that set none of their own on the Sprint mode path,
-    /// used in turn; replaces the app's default list when given.
-    #[serde(default)]
-    pub lesson_icons: Vec<String>,
-    /// Shop badges (#569) this theme draws its own way, by badge id: the
-    /// files `badges/<id>.svg` of a built-in theme, found when it loads (not
-    /// a field of theme.json). A badge it lacks draws plain.
-    #[serde(skip)]
-    pub badges: std::collections::BTreeSet<String>,
-}
-
-/// The slots of `Theme::icons`, with what the app shows by default.
+/// The app's icon slots, with what each shows.
 pub const ICON_KEYS: &[(&str, &str)] = &[
     ("streak", "🔥"),   // the day streak, and a hot run of right answers
     ("xp", "⚡"),       // the lightning round (the slot kept its name from when it was XP)
@@ -216,25 +143,10 @@ pub const ICON_KEYS: &[(&str, &str)] = &[
     ("mode_ai", "🤖"),
 ];
 
-/// Icon slots that were renamed: a theme that sets the old one sets the new
-/// one (the new one wins if a theme somehow has both).
-pub const ICON_ALIASES: &[(&str, &str)] = &[("mode_d", "mode_sprint"), ("mode_k", "mode_study"), ("mode_g", "mode_play")];
-
-fn icons_with_aliases<'de, D: serde::Deserializer<'de>>(d: D) -> Result<BTreeMap<String, String>, D::Error> {
-    let mut icons = BTreeMap::<String, String>::deserialize(d)?;
-    for (old, new) in ICON_ALIASES {
-        if let Some(v) = icons.remove(*old) {
-            icons.entry((*new).to_string()).or_insert(v);
-        }
-    }
-    Ok(icons)
-}
-
 /// Icons for lessons that set none, used in turn along the path.
 pub const DEFAULT_LESSON_ICONS: &[&str] = &["📘", "📗", "📙", "📕", "📒", "📓", "📔", "🧭", "🔑", "💡", "🧩", "🎯"];
 
-/// The app's icons as templates and the Sprint mode player see them: the
-/// defaults, with the worn theme's replacements swapped in.
+/// The app's icons as templates and the Sprint mode player see them.
 #[derive(Debug, Clone, Serialize)]
 pub struct Icons {
     pub streak: String,
@@ -259,12 +171,9 @@ pub struct Icons {
     pub mode_ai: String,
 }
 
-impl Icons {
-    pub fn of(theme: Option<&Theme>) -> Icons {
-        let get = |key: &str| -> String {
-            let fallback = ICON_KEYS.iter().find(|(k, _)| *k == key).map(|(_, v)| *v).unwrap_or("");
-            theme.and_then(|t| t.icons.get(key)).cloned().unwrap_or_else(|| fallback.to_string())
-        };
+impl Default for Icons {
+    fn default() -> Icons {
+        let get = |key: &str| -> String { ICON_KEYS.iter().find(|(k, _)| *k == key).map(|(_, v)| *v).unwrap_or("").to_string() };
         Icons {
             streak: get("streak"),
             xp: get("xp"),
@@ -288,164 +197,13 @@ impl Icons {
             mode_ai: get("mode_ai"),
         }
     }
+}
 
+impl Icons {
     /// The icon of the `position`-th lesson without one of its own.
-    pub fn lesson(theme: Option<&Theme>, position: usize) -> String {
-        match theme.filter(|t| !t.lesson_icons.is_empty()) {
-            Some(t) => t.lesson_icons[position % t.lesson_icons.len()].clone(),
-            None => DEFAULT_LESSON_ICONS[position % DEFAULT_LESSON_ICONS.len()].to_string(),
-        }
+    pub fn lesson(position: usize) -> String {
+        DEFAULT_LESSON_ICONS[position % DEFAULT_LESSON_ICONS.len()].to_string()
     }
-}
-
-impl Default for Icons {
-    fn default() -> Self {
-        Icons::of(None)
-    }
-}
-
-/// A short glyph for an icon slot: one to four characters, no markup.
-pub fn is_icon(s: &str) -> bool {
-    let n = s.chars().count();
-    (1..=4).contains(&n) && !s.chars().any(|c| c.is_whitespace() || matches!(c, '<' | '>' | '&' | '"'))
-}
-
-/// A themed version of one built-in profile picture (`profile::AVATARS`).
-#[derive(Debug, Clone, Default, Serialize, Deserialize)]
-pub struct ThemeAvatar {
-    /// The built-in picture this one stands in for (`noor`, `kai`, …; an
-    /// id from before #180 such as `owl` still names its slot).
-    pub id: String,
-    /// The name shown under the picture while the theme is on; defaults to
-    /// the built-in picture's name.
-    #[serde(default)]
-    pub label: String,
-    /// A file of the theme (`pictures/<name>.svg`) or an `https://` URL.
-    pub image: String,
-    /// Hex colour of the picture's tile in the picture dialog
-    /// (`profile::own_color`); the badge behind the learner's picture is the
-    /// background they chose. Draw the picture on a transparent background
-    /// so that shows; empty puts the page's surface colour behind the tile.
-    #[serde(default, skip_serializing_if = "String::is_empty")]
-    pub color: String,
-}
-
-/// A theme's colour for one slot of the profile picture's palette.
-#[derive(Debug, Clone, Default, PartialEq, Eq, Serialize, Deserialize)]
-pub struct ThemeAvatarColor {
-    /// 1-8: which of the default colours (`profile::AVATAR_COLORS`) it replaces.
-    pub slot: u8,
-    /// The colour's name, in English: the swatch's accessible name.
-    pub label: String,
-    /// A hex colour.
-    pub color: String,
-}
-
-/// A background a theme adds behind the profile picture: a little scene of
-/// its world, in a slot of its own after the default eight.
-#[derive(Debug, Clone, Default, PartialEq, Eq, Serialize, Deserialize)]
-pub struct ThemeAvatarBackground {
-    /// 9-16 (`profile::THEME_SLOTS`): what `users.avatar_color` stores. Another
-    /// theme's background in the same slot stands in for it while that theme
-    /// is worn; with none, slot 1 shows (`profile::shown_slot`).
-    pub slot: u8,
-    /// The background's name, in English: the swatch's accessible name.
-    pub label: String,
-    /// A file of the theme (`pictures/<name>.svg`) or an `https://` URL, drawn
-    /// to fill a square that is cut to a circle.
-    pub image: String,
-    /// A hex colour under the picture, shown before it loads.
-    pub color: String,
-}
-
-/// Pictures a theme brings: files under the theme's `pictures/` or `https://` URLs.
-#[derive(Debug, Clone, Default, Serialize, Deserialize)]
-pub struct ThemeArt {
-    /// A wide picture shown on the home page and the Sprint mode home.
-    #[serde(default)]
-    pub banner: String,
-    /// A small emblem shown in the theme picker and next to the title.
-    #[serde(default)]
-    pub mark: String,
-}
-
-#[derive(Debug, Clone, Default, Serialize, Deserialize)]
-pub struct ThemeStrings {
-    #[serde(default)]
-    pub praise: Vec<String>,
-    #[serde(default)]
-    pub almost: Vec<String>,
-}
-
-/// The colour tokens a theme may set, as written in the JSON (`accent_dark`);
-/// each becomes the CSS custom property of the same name (`--accent-dark`)
-/// that `style.css` and `sprint.css` are built on.
-pub const THEME_COLOR_KEYS: &[&str] = &[
-    "bg", "surface", "text", "muted", "line", "accent", "accent_dark", "gold", "gold_dark", "ok", "ok_dark", "ok_bg", "bad",
-    "bad_bg", "warn_bg", "sky", "violet",
-];
-
-impl Theme {
-    pub fn icon(&self) -> &str {
-        if self.icon.is_empty() { "🎨" } else { &self.icon }
-    }
-
-    /// The theme's version of a built-in picture, by either's id, old or new.
-    pub fn avatar(&self, id: &str) -> Option<&ThemeAvatar> {
-        let want = crate::profile::canonical(id)?;
-        self.avatars.iter().find(|a| crate::profile::canonical(&a.id) == Some(want))
-    }
-
-    pub fn icons(&self) -> Icons {
-        Icons::of(Some(self))
-    }
-
-    /// The stylesheet that applies the theme: custom properties on `:root`,
-    /// served after the app's own stylesheets so they win over the defaults
-    /// (both the light ones and the dark-scheme block).
-    pub fn css(&self) -> String {
-        self.css_for(":root")
-    }
-
-    /// The same custom properties set on `selector` instead of `:root` (a
-    /// course card wearing its course's theme on the course list, #565).
-    pub fn css_for(&self, selector: &str) -> String {
-        fn block(out: &mut String, selector: &str, colors: &BTreeMap<String, String>, font: &str) {
-            out.push_str(selector);
-            out.push('{');
-            for (k, v) in colors {
-                out.push_str(&format!("--{}:{v};", k.replace('_', "-")));
-            }
-            if !font.is_empty() {
-                out.push_str(&format!("--font:{font};"));
-            }
-            out.push_str("}\n");
-        }
-        let mut out = format!("/* theme: {} */\n", self.id);
-        if !self.colors.is_empty() || !self.font.is_empty() {
-            block(&mut out, selector, &self.colors, &self.font);
-        }
-        if !self.dark.is_empty() {
-            out.push_str("@media (prefers-color-scheme: dark){");
-            block(&mut out, selector, &self.dark, "");
-            out.push_str("}\n");
-        }
-        out
-    }
-}
-
-/// `#rgb`, `#rgba`, `#rrggbb` or `#rrggbbaa`: the only colour syntax a theme
-/// may use, so a course file can never smuggle CSS into the page.
-pub fn is_hex_color(s: &str) -> bool {
-    let Some(h) = s.strip_prefix('#') else { return false };
-    matches!(h.len(), 3 | 4 | 6 | 8) && h.bytes().all(|b| b.is_ascii_hexdigit())
-}
-
-/// A `font-family` stack: names, quotes, commas and hyphens only.
-pub fn is_font_stack(s: &str) -> bool {
-    !s.trim().is_empty()
-        && s.chars().count() <= 160
-        && s.chars().all(|c| c.is_ascii_alphanumeric() || matches!(c, ' ' | ',' | '\'' | '"' | '-'))
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -489,24 +247,9 @@ pub struct Manifest {
     /// Weekday and month names for the date game; optional.
     #[serde(default)]
     pub calendar: Option<Calendar>,
-    /// Course material for a theme, by theme id: praise lines in the
-    /// course's language that fit the theme's world. A theme file is
-    /// app-level and in English; anything in a course's language belongs
-    /// here or in a lesson's `themes` block. Ids of themes that are not
-    /// installed are kept and never used.
-    #[serde(default)]
-    pub themes: BTreeMap<String, CourseTheme>,
     /// A music course: how notes are named on screen (`notation::Music`).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub music: Option<crate::notation::Music>,
-}
-
-/// `course.json` `themes.<id>`: what the course says while that theme is worn.
-#[derive(Debug, Clone, Default, Serialize, Deserialize)]
-pub struct CourseTheme {
-    /// Replace the theme's strings (and the course's own) while it is worn.
-    #[serde(default)]
-    pub strings: ThemeStrings,
 }
 
 impl Manifest {
@@ -596,9 +339,6 @@ pub struct QuizItem {
     /// are collected automatically.
     #[serde(default)]
     pub teaches: Vec<String>,
-    /// Came from a theme block (not part of the JSON).
-    #[serde(skip)]
-    pub themed: bool,
 }
 
 /// A paradigm table for one item (a verb in one tense, a noun in one case…).
@@ -633,9 +373,6 @@ pub struct VocabEntry {
     /// The example in the meaning language; shown as a hint on the example.
     #[serde(default, alias = "example_en", skip_serializing_if = "Option::is_none")]
     pub example_meaning: Option<String>,
-    /// The entry, or its example, came from a theme block (not part of the JSON).
-    #[serde(skip)]
-    pub themed: bool,
 }
 
 /// Which of the two speakers says a dialogue line.
@@ -695,9 +432,6 @@ pub struct Conversation {
     pub role_a: String,
     pub role_b: String,
     pub lines: Vec<DialogueLine>,
-    /// Came from a theme block (not part of the JSON).
-    #[serde(skip)]
-    pub themed: bool,
 }
 
 /// One bite-sized card of a lesson's Markdown (split on `## ` headings).
@@ -783,9 +517,6 @@ pub struct Bite {
     pub example_meaning: String,
     #[serde(default)]
     pub emoji: String,
-    /// Came from a theme block (not part of the JSON).
-    #[serde(skip)]
-    pub themed: bool,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -795,9 +526,6 @@ pub struct SortSpec {
     pub items: Vec<SortItem>,
     #[serde(default)]
     pub why: String,
-    /// Came from a theme block (not part of the JSON).
-    #[serde(skip)]
-    pub themed: bool,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -826,9 +554,6 @@ pub struct SpotSpec {
     pub fix: String,
     #[serde(default)]
     pub why: String,
-    /// Came from a theme block (not part of the JSON).
-    #[serde(skip)]
-    pub themed: bool,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -842,18 +567,11 @@ pub struct BuildSpec {
     /// Extra wrong tiles mixed into the word bank.
     #[serde(default)]
     pub distractors: Vec<String>,
-    /// Came from a theme block (not part of the JSON).
-    #[serde(skip)]
-    pub themed: bool,
 }
 
 /// Where picture files live inside a course, and what they are.
 pub const PICTURES_DIR: &str = "pictures/";
 pub const PICTURE_EXT: &str = ".svg";
-
-pub fn is_url(s: &str) -> bool {
-    s.starts_with("https://") || s.starts_with("http://")
-}
 
 /// A sentence for listening practice: the app reads it aloud with the
 /// browser's speech synthesis and the learner types what they heard.
@@ -868,68 +586,6 @@ pub struct ListeningItem {
     /// new word the sentence slips in ("New word: la oficina = the office.").
     #[serde(default)]
     pub note: Option<String>,
-    /// Came from a theme block (not part of the JSON).
-    #[serde(skip)]
-    pub themed: bool,
-}
-
-/// Themed material a lesson carries for one theme: the same shapes as the
-/// lesson's own fields. When the theme is on it is merged *in front of* the
-/// lesson's material (see `apply_theme`); the lesson's own content is never
-/// removed, so a theme can only add flair, not take teaching away.
-#[derive(Debug, Clone, Default, Serialize, Deserialize)]
-pub struct LessonTheme {
-    /// The lesson's icon on the Sprint mode path while the theme is on.
-    #[serde(default)]
-    pub icon: String,
-    /// Markdown appended to the lesson text (extra `## ` sections).
-    #[serde(default)]
-    pub content: String,
-    /// Re-examples existing terms (by `term`) or adds flair terms (with a `meaning`).
-    #[serde(default)]
-    pub vocabulary: Vec<ThemeVocab>,
-    #[serde(default)]
-    pub quiz: Vec<QuizItem>,
-    #[serde(default)]
-    pub listening: Vec<ListeningItem>,
-    #[serde(default)]
-    pub conversations: Vec<Conversation>,
-    #[serde(default)]
-    pub bites: Vec<Bite>,
-    #[serde(default)]
-    pub sorts: Vec<SortSpec>,
-    #[serde(default)]
-    pub spots: Vec<SpotSpec>,
-    #[serde(default)]
-    pub builds: Vec<BuildSpec>,
-}
-
-impl LessonTheme {
-    pub fn is_empty(&self) -> bool {
-        self.icon.trim().is_empty()
-            && self.content.trim().is_empty()
-            && self.vocabulary.is_empty()
-            && self.quiz.is_empty()
-            && self.listening.is_empty()
-            && self.conversations.is_empty()
-            && self.bites.is_empty()
-            && self.sorts.is_empty()
-            && self.spots.is_empty()
-            && self.builds.is_empty()
-    }
-}
-
-/// A themed vocabulary entry: for a term the lesson already teaches only
-/// the `example` is taken; a new term needs a `meaning` and is added.
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct ThemeVocab {
-    pub term: String,
-    #[serde(default)]
-    pub meaning: String,
-    #[serde(default)]
-    pub example: Option<String>,
-    #[serde(default, alias = "example_en")]
-    pub example_meaning: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -977,9 +633,6 @@ pub struct Lesson {
     /// Sentences for listening practice (hear it, type it); needs a language course.
     #[serde(default)]
     pub listening: Vec<ListeningItem>,
-    /// Themed material by theme id (each declared in the manifest); optional flair.
-    #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
-    pub themes: BTreeMap<String, LessonTheme>,
 
     /// Position of `unit` in the manifest (not part of the JSON).
     #[serde(skip)]
@@ -999,93 +652,6 @@ impl Lesson {
     pub fn guide_question_count(&self) -> usize {
         self.guide_steps.iter().filter(|s| s.is_question()).count()
     }
-
-    /// Does the lesson carry material for this theme?
-    pub fn has_theme(&self, id: &str) -> bool {
-        self.themes.get(id).is_some_and(|t| !t.is_empty())
-    }
-}
-
-/// Theme ids that were renamed: a lesson block under the old id is read as the
-/// new one (the new id wins if a lesson somehow has both).
-pub const THEME_ALIASES: &[(&str, &str)] = &[("wow", "realm"), ("stardew", "meadowbrook"), ("fallout", "rustwake")];
-
-/// Move `themes.<old id>` blocks to the theme's current id.
-fn rename_theme_aliases(lesson: &mut Lesson) {
-    for (old, new) in THEME_ALIASES {
-        if let Some(block) = lesson.themes.remove(*old) {
-            lesson.themes.entry((*new).to_string()).or_insert(block);
-        }
-    }
-}
-
-/// The lesson with the material of theme `id` merged in: themed bites,
-/// sentences, exercises, questions and conversations go in front of the
-/// lesson's own (so the features that take "the first few" show the theme),
-/// themed vocabulary re-examples existing terms or adds new ones at the end,
-/// themed Markdown is appended as extra sections. `None` when the lesson has
-/// nothing for that theme. The result is validated like any lesson.
-pub fn apply_theme(lesson: &Lesson, id: &str) -> Result<Option<Lesson>, String> {
-    let Some(t) = lesson.themes.get(id) else { return Ok(None) };
-    if t.is_empty() {
-        return Ok(None);
-    }
-    let mut out = lesson.clone();
-    if !t.icon.trim().is_empty() {
-        if !is_icon(t.icon.trim()) {
-            return Err(format!("icon '{}' must be a short glyph such as an emoji", t.icon));
-        }
-        out.sprint.icon = t.icon.trim().to_string();
-    }
-    if !t.content.trim().is_empty() {
-        out.content = format!("{}\n\n{}\n", lesson.content.trim_end(), t.content.trim());
-    }
-    for tv in &t.vocabulary {
-        if tv.term.trim().is_empty() {
-            return Err("vocabulary entries need a term".into());
-        }
-        match out.vocabulary.iter_mut().find(|v| v.term == tv.term) {
-            Some(v) => {
-                if !tv.meaning.trim().is_empty() && tv.meaning != v.meaning {
-                    return Err(format!("vocabulary '{}' is already taught by the lesson (meaning '{}'); a theme may only give it another example", tv.term, v.meaning));
-                }
-                match &tv.example {
-                    Some(e) if !e.trim().is_empty() => {
-                        v.example = Some(e.clone());
-                        v.example_meaning = tv.example_meaning.clone();
-                        v.themed = true;
-                    }
-                    _ => return Err(format!("vocabulary '{}': give an example, the term is already in the lesson", tv.term)),
-                }
-            }
-            None => {
-                if tv.meaning.trim().is_empty() {
-                    return Err(format!("vocabulary '{}' is new to the lesson, so it needs a meaning", tv.term));
-                }
-                out.vocabulary.push(VocabEntry {
-                    term: tv.term.clone(),
-                    meaning: tv.meaning.clone(),
-                    example: tv.example.clone(),
-                    example_meaning: tv.example_meaning.clone(),
-                    themed: true,
-                });
-            }
-        }
-    }
-    fn front<T: Clone>(themed: &[T], own: &[T], mark: impl Fn(&mut T)) -> Vec<T> {
-        let mut out: Vec<T> = themed.to_vec();
-        out.iter_mut().for_each(mark);
-        out.extend_from_slice(own);
-        out
-    }
-    out.quiz = front(&t.quiz, &lesson.quiz, |q| q.themed = true);
-    out.listening = front(&t.listening, &lesson.listening, |l| l.themed = true);
-    out.conversations = front(&t.conversations, &lesson.conversations, |c| c.themed = true);
-    out.sprint.bites = front(&t.bites, &lesson.sprint.bites, |b| b.themed = true);
-    out.sprint.sorts = front(&t.sorts, &lesson.sprint.sorts, |s| s.themed = true);
-    out.sprint.spots = front(&t.spots, &lesson.sprint.spots, |s| s.themed = true);
-    out.sprint.builds = front(&t.builds, &lesson.sprint.builds, |b| b.themed = true);
-    Ok(Some(out))
 }
 
 fn default_order() -> u32 {
@@ -1117,19 +683,13 @@ pub struct ContentStore {
     item_art: HashMap<String, Vec<String>>,
     /// Non-lesson course files (the SVG pictures), by path.
     assets: HashMap<String, String>,
-    /// The theme this store was built with (its material merged into the lessons), if any.
-    theme: Option<Theme>,
     /// `placement.json`, the placement test (#1106), when the course has one.
     placement: Option<crate::placement::PlacementTest>,
 }
 
 impl fmt::Debug for ContentStore {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "ContentStore({} · {} lessons", self.manifest.id, self.lessons.len())?;
-        if let Some(t) = &self.theme {
-            write!(f, " · theme {}", t.id)?;
-        }
-        write!(f, ")")
+        write!(f, "ContentStore({} · {} lessons)", self.manifest.id, self.lessons.len())
     }
 }
 
@@ -1140,7 +700,7 @@ pub enum ContentError {
     Duplicate(String),
     /// Two things of a course that must be unique share an id. `what` says
     /// which ("lesson id"), `files` the lesson files holding them (one when it
-    /// is the same file or the other is a theme's), `note` the theme or set.
+    /// is the same file), `note` the set.
     Clash { what: &'static str, id: String, files: Vec<String>, note: Option<String> },
     MissingPrerequisite { lesson: String, prerequisite: String },
     Invalid(String),
@@ -1178,86 +738,24 @@ pub struct CourseFile {
 impl ContentStore {
     /// Load a course directory: `course.json` plus every `*.json` under `lessons/`.
     pub fn load_dir(dir: &Path) -> Result<ContentStore, ContentError> {
-        ContentStore::load_dir_themed(dir, None)
-    }
-
-    /// `load_dir` with a theme switched on.
-    pub fn load_dir_themed(dir: &Path, theme: Option<&Theme>) -> Result<ContentStore, ContentError> {
-        ContentStore::from_files_themed(&read_course_dir(dir)?, theme)
+        ContentStore::from_files(&read_course_dir(dir)?)
     }
 
     /// Build a course from its files (the manifest at `course.json`, lessons
     /// in any other `.json` file). This is the single entry point for built-in
-    /// and user-made courses alike. Every theme's material is validated here
-    /// too, whichever theme (if any) the store is built with.
+    /// and user-made courses alike.
     pub fn from_files(files: &[CourseFile]) -> Result<ContentStore, ContentError> {
-        ContentStore::from_files_themed(files, None)
-    }
-
-    /// `from_files` with a theme switched on: the lessons' material for it
-    /// is merged in (`apply_theme`) and its strings replace the manifest's.
-    /// Lessons without material for it are unchanged.
-    pub fn from_files_themed(files: &[CourseFile], theme: Option<&Theme>) -> Result<ContentStore, ContentError> {
         let manifest_src = files.iter().find(|f| f.path == MANIFEST_FILE).ok_or_else(|| ContentError::Invalid(format!("the course has no {MANIFEST_FILE}")))?;
-        let mut manifest: Manifest = serde_json::from_str(&manifest_src.content).map_err(|e| ContentError::Parse(MANIFEST_FILE.into(), e))?;
+        let manifest: Manifest = serde_json::from_str(&manifest_src.content).map_err(|e| ContentError::Parse(MANIFEST_FILE.into(), e))?;
         validate_manifest(&manifest)?;
 
         let assets: HashMap<String, String> = files.iter().filter(|f| is_picture_path(&f.path)).map(|f| (f.path.clone(), f.content.clone())).collect();
-        let active_theme = theme.cloned();
-        if let Some(t) = &active_theme {
-            // The course's lines for this theme first (they are in its
-            // language), then the theme's own (English, for any course).
-            let course = manifest.themes.get(&t.id).map(|c| c.strings.clone()).unwrap_or_default();
-            for (lines, mine, theirs) in [
-                (&mut manifest.strings.praise, course.praise, &t.strings.praise),
-                (&mut manifest.strings.almost, course.almost, &t.strings.almost),
-            ] {
-                if !mine.is_empty() {
-                    *lines = mine;
-                } else if !theirs.is_empty() {
-                    *lines = theirs.clone();
-                }
-            }
-        }
-
-        // Ids a theme adds (question, conversation) must be unique within that
-        // theme and never collide with the lessons' own, since a themed store
-        // is "the course plus one theme".
-        let mut themed_questions: HashMap<String, HashSet<String>> = HashMap::new();
-        let mut themed_conversations: HashMap<String, HashSet<String>> = HashMap::new();
         let mut lessons = Vec::new();
         let placement = files.iter().find(|f| f.path == crate::placement::FILE).map(|f| crate::placement::parse(&f.content, &manifest)).transpose()?;
         for f in files.iter().filter(|f| f.path != MANIFEST_FILE && f.path != crate::placement::FILE && f.path.ends_with(".json")) {
             let mut lesson: Lesson =
                 serde_json::from_str(&f.content).map_err(|e| ContentError::Parse(f.path.clone(), e))?;
             validate_lesson(&lesson, &manifest, &f.path)?;
-            rename_theme_aliases(&mut lesson);
-            // Every theme block is validated whichever theme is on; a block for
-            // a theme this install does not have is simply never shown.
-            for (id, t) in &lesson.themes {
-                if !is_slug(id) {
-                    return Err(ContentError::Invalid(format!("{}: themes: '{id}' is not a theme id (lowercase a-z, 0-9, '-')", f.path)));
-                }
-                let merged = apply_theme(&lesson, id).map_err(|m| ContentError::Invalid(format!("{}: themes.{id}: {m}", f.path)))?;
-                if let Some(merged) = &merged {
-                    validate_lesson(merged, &manifest, &format!("{} (theme '{id}')", f.path))?;
-                }
-                for q in &t.quiz {
-                    if !themed_questions.entry(id.clone()).or_default().insert(q.question_id.clone()) {
-                        return Err(ContentError::Clash { what: "question id", id: q.question_id.clone(), files: vec![f.path.clone()], note: Some(format!("theme '{id}'")) });
-                    }
-                }
-                for c in &t.conversations {
-                    if !themed_conversations.entry(id.clone()).or_default().insert(c.id.clone()) {
-                        return Err(ContentError::Clash { what: "conversation id", id: c.id.clone(), files: vec![f.path.clone()], note: Some(format!("theme '{id}'")) });
-                    }
-                }
-            }
-            if let Some(t) = &active_theme {
-                if let Some(merged) = apply_theme(&lesson, &t.id).expect("validated above") {
-                    lesson = merged;
-                }
-            }
             normalise_quiz(&mut lesson.quiz);
             crate::notation::fill_bar::answer_missing(&mut lesson.quiz);
             crate::notation::name_notes(&mut lesson.quiz, manifest.music.as_ref().map(|m| m.note_names).unwrap_or_default()).map_err(|m| ContentError::Invalid(format!("{}: {m}", f.path)))?;
@@ -1291,22 +789,10 @@ impl ContentStore {
                 if let Some((prev, _)) = questions.insert(q.question_id.clone(), (li, qi)) {
                     return Err(ContentError::Clash { what: "question id", id: q.question_id.clone(), files: both(prev, li), note: None });
                 }
-                if !q.themed {
-                    if let Some(theme) = themed_questions.iter().find(|(_, ids)| ids.contains(&q.question_id)).map(|(t, _)| t) {
-                        let note = Some(format!("theme '{theme}' uses it too"));
-                        return Err(ContentError::Clash { what: "question id", id: q.question_id.clone(), files: vec![paths[li].clone()], note });
-                    }
-                }
             }
             for (ci, c) in lesson.conversations.iter().enumerate() {
                 if let Some((prev, _)) = conversations.insert(c.id.clone(), (li, ci)) {
                     return Err(ContentError::Clash { what: "conversation id", id: c.id.clone(), files: both(prev, li), note: None });
-                }
-                if !c.themed {
-                    if let Some(theme) = themed_conversations.iter().find(|(_, ids)| ids.contains(&c.id)).map(|(t, _)| t) {
-                        let note = Some(format!("theme '{theme}' uses it too"));
-                        return Err(ContentError::Clash { what: "conversation id", id: c.id.clone(), files: vec![paths[li].clone()], note });
-                    }
                 }
             }
             for (ki, k) in lesson.conjugations.iter().enumerate() {
@@ -1327,20 +813,25 @@ impl ContentStore {
             }
         }
 
-        Ok(ContentStore { manifest, lessons, by_id, by_slug, questions, conversations, conjugations, item_art, assets, theme: active_theme, placement })
+        Ok(ContentStore { manifest, lessons, by_id, by_slug, questions, conversations, conjugations, item_art, assets, placement })
     }
 
     pub fn manifest(&self) -> &Manifest {
         &self.manifest
     }
 
-    /// The theme this store was built with, if any.
-    pub fn theme(&self) -> Option<&Theme> {
-        self.theme.as_ref()
-    }
-
     pub fn id(&self) -> &str {
         &self.manifest.id
+    }
+
+    /// The praise lines a page shows after a right answer (`strings.praise`).
+    pub fn praise(&self) -> Vec<String> {
+        self.manifest.strings.praise.clone()
+    }
+
+    /// `praise`, for a wrong answer (`strings.almost`).
+    pub fn almost(&self) -> Vec<String> {
+        self.manifest.strings.almost.clone()
     }
 
     pub fn title(&self) -> &str {
@@ -1624,108 +1115,6 @@ fn validate_manifest(m: &Manifest) -> Result<(), ContentError> {
         }
         if !cal.format.contains("{day}") || !cal.format.contains("{month}") {
             return Err(ctx("calendar.format must contain {day} and {month}".into()));
-        }
-    }
-    for (id, t) in &m.themes {
-        if t.strings.praise.iter().chain(t.strings.almost.iter()).any(|s| s.trim().is_empty()) {
-            return Err(ctx(format!("themes.{id}.strings must not be empty")));
-        }
-    }
-    Ok(())
-}
-
-/// Checks a theme file: ids, colours (hex only), font, art paths, strings
-/// and pictures. Whether the art files exist is checked by the loader, which
-/// has the theme's files.
-pub fn validate_theme(t: &Theme) -> Result<(), String> {
-    if !is_slug(&t.id) {
-        return Err(format!("theme id '{}' must be lowercase a-z, 0-9 and '-'", t.id));
-    }
-    if t.title.trim().is_empty() {
-        return Err(format!("theme '{}' needs a title", t.id));
-    }
-    for (what, colors) in [("colors", &t.colors), ("dark", &t.dark)] {
-        for (k, v) in colors {
-            if !THEME_COLOR_KEYS.contains(&k.as_str()) {
-                return Err(format!("theme '{}': unknown {what} token '{k}' (tokens: {})", t.id, THEME_COLOR_KEYS.join(", ")));
-            }
-            if !is_hex_color(v) {
-                return Err(format!("theme '{}': {what}.{k} must be a hex colour like #c0392b, found '{v}'", t.id));
-            }
-        }
-    }
-    if !t.font.is_empty() && !is_font_stack(&t.font) {
-        return Err(format!("theme '{}': font must be a font-family list such as \"Georgia, serif\"", t.id));
-    }
-    for (what, path) in [("banner", &t.art.banner), ("mark", &t.art.mark)] {
-        if !path.is_empty() && !is_url(path) && !is_picture_path(path) {
-            return Err(format!("theme '{}': {what} '{path}' must be a file of the theme {PICTURES_DIR}<name>{PICTURE_EXT} or an https:// URL", t.id));
-        }
-    }
-    if t.strings.praise.iter().chain(t.strings.almost.iter()).any(|s| s.trim().is_empty()) {
-        return Err(format!("theme '{}': strings must not be empty", t.id));
-    }
-    for (k, v) in &t.icons {
-        if !ICON_KEYS.iter().any(|(key, _)| key == k) {
-            let known: Vec<&str> = ICON_KEYS.iter().map(|(key, _)| *key).collect();
-            return Err(format!("theme '{}': unknown icon slot '{k}' (slots: {})", t.id, known.join(", ")));
-        }
-        if !is_icon(v) {
-            return Err(format!("theme '{}': icons.{k} must be a short glyph such as an emoji, found '{v}'", t.id));
-        }
-    }
-    if let Some(bad) = t.lesson_icons.iter().find(|v| !is_icon(v)) {
-        return Err(format!("theme '{}': lesson_icons must be short glyphs such as emoji, found '{bad}'", t.id));
-    }
-    let mut seen = HashSet::new();
-    for a in &t.avatars {
-        if !crate::profile::is_avatar(&a.id) {
-            let known: Vec<&str> = crate::profile::AVATARS.iter().map(|b| b.id).collect();
-            return Err(format!("theme '{}': avatar '{}' is not one of the profile pictures ({})", t.id, a.id, known.join(", ")));
-        }
-        if !seen.insert(crate::profile::canonical(&a.id).unwrap_or_default()) {
-            return Err(format!("theme '{}': duplicate avatar '{}'", t.id, a.id));
-        }
-        if !is_url(&a.image) && !is_picture_path(&a.image) {
-            return Err(format!("theme '{}': avatar '{}': image '{}' must be a file of the theme {PICTURES_DIR}<name>{PICTURE_EXT} or an https:// URL", t.id, a.id, a.image));
-        }
-        if !a.color.is_empty() && !is_hex_color(&a.color) {
-            return Err(format!("theme '{}': avatar '{}': color must be a hex colour like #c0392b, found '{}'", t.id, a.id, a.color));
-        }
-    }
-    let mut slots = HashSet::new();
-    for c in &t.avatar_colors {
-        let n = crate::profile::AVATAR_COLORS.len();
-        if c.slot == 0 || c.slot as usize > n {
-            return Err(format!("theme '{}': avatar_colors slot {} must be 1 to {n}", t.id, c.slot));
-        }
-        if !slots.insert(c.slot) {
-            return Err(format!("theme '{}': duplicate avatar_colors slot {}", t.id, c.slot));
-        }
-        if c.label.trim().is_empty() {
-            return Err(format!("theme '{}': avatar_colors slot {} needs a label (the colour's name)", t.id, c.slot));
-        }
-        if !is_hex_color(&c.color) {
-            return Err(format!("theme '{}': avatar_colors slot {}: color must be a hex colour like #c0392b, found '{}'", t.id, c.slot, c.color));
-        }
-    }
-    let mut slots = HashSet::new();
-    for b in &t.avatar_backgrounds {
-        let (lo, hi) = (crate::profile::THEME_SLOTS.start(), crate::profile::THEME_SLOTS.end());
-        if !crate::profile::THEME_SLOTS.contains(&b.slot) {
-            return Err(format!("theme '{}': avatar_backgrounds slot {} must be {lo} to {hi}", t.id, b.slot));
-        }
-        if !slots.insert(b.slot) {
-            return Err(format!("theme '{}': duplicate avatar_backgrounds slot {}", t.id, b.slot));
-        }
-        if b.label.trim().is_empty() {
-            return Err(format!("theme '{}': avatar_backgrounds slot {} needs a label (the background's name)", t.id, b.slot));
-        }
-        if !is_url(&b.image) && !is_picture_path(&b.image) {
-            return Err(format!("theme '{}': avatar_backgrounds slot {}: image '{}' must be a file of the theme {PICTURES_DIR}<name>{PICTURE_EXT} or an https:// URL", t.id, b.slot, b.image));
-        }
-        if !is_hex_color(&b.color) {
-            return Err(format!("theme '{}': avatar_backgrounds slot {}: color must be a hex colour like #c0392b, found '{}'", t.id, b.slot, b.color));
         }
     }
     Ok(())
@@ -2028,15 +1417,6 @@ pub fn build_guide(lesson: &Lesson) -> Result<Vec<GuideStep>, String> {
                 }),
             }
         }
-        // A worn theme's questions are merged in front of the lesson's own,
-        // and no hand-written guide can name them, so they go in after the
-        // first card, in their order: the theme's quick checks come first
-        // here as everywhere else, and the hand-written order stays.
-        let named: HashSet<usize> = steps.iter().filter_map(|s| match s { GuideStep::Question { index } => Some(*index), _ => None }).collect();
-        let themed: Vec<GuideStep> =
-            lesson.quiz.iter().enumerate().filter(|(i, q)| q.themed && !named.contains(i)).map(|(i, _)| GuideStep::Question { index: i }).collect();
-        let at = steps.len().min(1);
-        steps.splice(at..at, themed);
     }
     if steps.is_empty() {
         return Err("lesson produced no guide steps (it needs some content, vocabulary or questions)".into());

@@ -53,10 +53,6 @@ still hold next time; delete what has been fixed.
   `document.documentElement.scrollWidth - innerWidth` was 0 on all 131
   Spanish pages, 19 test-course pages and 29 docs pages (the #465 overflow
   is fixed); `<pre>` blocks in docs scroll inside their own box.
-- **Themes are off on the dev server unless `./.dev-start --themes`** (#1138,
-  2026-10-29): the gear dialog has no Theme row and the Start wizard no theme
-  step. Not a bug; `courses-settings-theme-info` is simply absent. The user
-  guides still describe the step (#1184).
 - **Course-card testids**: the stat chips on `/courses` are
   `courses-card-stat`; `courses-stat` is the modal's content. The editor's
   "new file" link (`course-edit-new-file`) is not on the lesson editor page.

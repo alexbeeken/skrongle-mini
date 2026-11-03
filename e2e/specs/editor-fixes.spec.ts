@@ -55,7 +55,7 @@ test("on a phone, Course settings and + Add unit do not overlap (#274)", async (
   const add = page.getByTestId("course-lessons-add-unit");
   await expect(add).toBeVisible();
   await expectApart(page, settings, add);
-  // A wider font (a theme's, or the system's fallback) wraps the label; it
+  // A wider font (the system's fallback) wraps the label; it
   // still may not run under the button.
   await page.addStyleTag({ content: "html { font-family: monospace; font-size: 19px; }" });
   await expectApart(page, settings, add);

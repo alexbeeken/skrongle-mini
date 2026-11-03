@@ -4,12 +4,6 @@ use super::*;
 
 #[derive(Deserialize, Default)]
 pub struct SettingsForm {
-    /// '' for Default, or a theme id.
-    pub theme: Option<String>,
-    /// The profile picture in this course (`profile::AVATARS`).
-    pub avatar: Option<String>,
-    /// Its background: a palette slot (`profile::is_color_slot`).
-    pub avatar_color: Option<u8>,
     /// The motivator worn in this course (`motivators::ALL`).
     pub motivator: Option<String>,
     /// The level to start at, for a course with levels: a unit id of
@@ -29,29 +23,10 @@ pub struct SettingsForm {
     pub lesson: String,
 }
 
-/// Check a settings form against what the user may pick: a theme they may
-/// not wear, or a picture, background, motivator or level that is not one,
-/// is a 400.
-async fn settings_change(state: &AppState, user: &CurrentUser, content: &ContentStore, form: &SettingsForm) -> Result<courses::SettingsChange, AppError> {
+/// Check a settings form against what the user may pick: a motivator or
+/// level that is not one is a 400.
+fn settings_change(content: &ContentStore, form: &SettingsForm) -> Result<courses::SettingsChange, AppError> {
     let mut change = courses::SettingsChange::default();
-    if let Some(t) = &form.theme {
-        if !t.is_empty() && state.themes.resolve(&state.db, user.id, t).await?.is_none() {
-            return Err(AppError::BadRequest(crate::t("profile.save.theme_unavailable")));
-        }
-        change.theme = Some(t.clone());
-    }
-    if let Some(a) = &form.avatar {
-        let Some(avatar) = crate::profile::canonical(a) else {
-            return Err(AppError::BadRequest(crate::t("profile.save.pick_picture")));
-        };
-        change.avatar = Some(avatar.to_string());
-    }
-    if let Some(slot) = form.avatar_color {
-        if !crate::profile::is_color_slot(slot) {
-            return Err(AppError::BadRequest(crate::t("profile.save.pick_colour")));
-        }
-        change.avatar_color = Some(slot);
-    }
     if let Some(m) = &form.motivator {
         let Some(m) = crate::motivators::find(m) else {
             return Err(AppError::BadRequest(crate::t("profile.save.motivator_unavailable")));
@@ -91,13 +66,12 @@ async fn save_settings(state: &AppState, user_id: i64, content: &ContentStore, c
 
 /// POST /courses/{id}/settings: a course's settings (#565, #574, #587),
 /// from its dialog on the course list or the wizard of its first visit:
-/// the level, the motivator and theme worn in it and the profile picture
-/// shown there. A field left out keeps its value; any save, even of nothing
+/// the level and the motivator worn in it. A field left out keeps its value; any save, even of nothing
 /// (the wizard closed), counts the course as set up. A choice that is not
 /// one is a 400 (`settings_change`); a course they never opened a 404.
 pub async fn set_settings(State(state): State<Arc<AppState>>, user: CurrentUser, Path(id): Path<String>, Form(form): Form<SettingsForm>) -> Result<Response, AppError> {
     let Some(content) = state.courses.get(&state.db, &id).await? else { return Err(AppError::NotFound) };
-    let change = settings_change(&state, &user, &content, &form).await?;
+    let change = settings_change(&content, &form)?;
     if !save_settings(&state, user.id, &content, change).await? {
         return Err(AppError::NotFound);
     }
@@ -142,7 +116,7 @@ pub async fn open(
     let Some(content) = state.courses.get(&state.db, &id).await? else {
         return Ok(Redirect::to(&crate::url(&format!("/courses/{id}"))).into_response());
     };
-    let change = if form.wizard == "1" { Some(settings_change(&state, &user, &content, &form).await?) } else { None };
+    let change = if form.wizard == "1" { Some(settings_change(&content, &form)?) } else { None };
     let then = match content.lessons().iter().find(|l| !form.lesson.is_empty() && l.slug == form.lesson) {
         Some(l) => format!("/lessons/{}", l.slug),
         None => "/".to_string(),

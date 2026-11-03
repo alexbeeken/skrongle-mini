@@ -20,7 +20,7 @@ test.afterAll(async ({ browser }) => {
 
 const TOO_SHORT = "Your prompt is too short! Please tell us what you'd like to learn or paste your notes so the AI has enough information to get to work.";
 
-/** The computed colour of `var(name)` on this page (themes may change it). */
+/** The computed colour of `var(name)` on this page. */
 async function colour(page: Page, name: string): Promise<string> {
   return page.evaluate((v) => {
     const s = document.createElement("span");

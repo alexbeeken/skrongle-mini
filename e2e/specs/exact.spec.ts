@@ -543,49 +543,6 @@ test("the verb drill setup shows one set at a time, and its locked lessons a pag
   }
 });
 
-test("the verb drill draws the person slots with profile pictures, the learner's own for yo (#879)", async ({ page }) => {
-  await page.context().clearCookies();
-  await register(page, newAccount("drill-people"), "spanish");
-  for (const lesson of ["imperfect", "pluperfect"]) {
-    const r = await page.request.post("/api/progress/pass", { data: { lesson, answered: 5, correct: 5, evidence: "drill people spec: unlocks the imperfect" } });
-    expect((await r.json()).passed, `${lesson} passed`).toBe(true);
-  }
-  await page.goto("/play/conjugation");
-  const href = (await page.locator('[data-testid="nav-account-toggle"] use').getAttribute("href"))!;
-  const mine = href.replace("#av-", "");
-  // The legend: yo is the learner alone, nosotros the learner and two others, ellos three others.
-  const legend = (slot: string) => page.locator(`[data-testid="drill-legend-people"][data-slot="${slot}"] [data-testid="drill-portrait"]`);
-  await expect(legend("yo")).toHaveCount(1);
-  await expect(legend("yo")).toHaveAttribute("data-person", "me");
-  await expect(legend("yo")).toHaveAttribute("data-avatar", mine);
-  await expect(legend("nosotros")).toHaveCount(3);
-  await expect(legend("ellos").and(page.locator('[data-person="other"]'))).toHaveCount(3);
-  for (const a of await legend("ellos").evaluateAll((els) => els.map((e) => (e as HTMLElement).dataset.avatar))) expect(a).not.toBe(mine);
-
-  // The drill card: answer until the first-person slot comes up; it shows the learner's picture, no ASCII.
-  const picked = await page.locator('[data-testid="drill-setup-item-check"]:checked').evaluateAll((els) => els.map((e) => (e as HTMLInputElement).value));
-  // A long round, so yo is all but sure to come up.
-  await page.goto(`/play/conjugation/play?set=imperfect&items=${encodeURIComponent(picked.join(","))}&n=60`);
-  const card = page.getByTestId("drill-card");
-  await expect(card).toBeVisible();
-  for (let i = 0; i < 60 && (await card.getAttribute("data-slot")) !== "yo"; i++) {
-    const before = await page.locator("#c-pos").textContent();
-    await page.getByTestId("drill-answer").fill("x");
-    await page.getByTestId("drill-check").click();
-    await expect(page.getByTestId("drill-feedback")).toBeVisible();
-    await page.getByTestId("drill-check").click();
-    if (await card.isHidden()) break;
-    await expect(page.locator("#c-pos")).not.toHaveText(before!);
-  }
-  await expect(card).toHaveAttribute("data-slot", "yo");
-  const people = page.getByTestId("drill-people");
-  await expect(people).toBeVisible();
-  await expect(people).toHaveAttribute("data-who", "me");
-  await expect(people.getByTestId("drill-portrait")).toHaveCount(1);
-  await expect(people.getByTestId("drill-portrait")).toHaveAttribute("data-avatar", mine);
-  await expect(page.locator("#c-subject-art")).toBeHidden();
-});
-
 test("pass a lesson's reading check", async ({ page }) => {
   const answers = correctAnswers();
   await page.goto("/lessons");
@@ -934,7 +891,7 @@ test("Start asks for a course's settings before it opens, then keeps them behind
   await expect(page.getByTestId("register-sent")).toBeVisible();
   await login(page, { email: `${name}@example.com`, password: "correct horse battery" });
   await expect(page.getByTestId("nav-account-toggle")).toHaveAttribute("data-email", `${name}@example.com`);
-  // Outside a course the corner shows a gear (#577), and the profile has no picture to edit (#565).
+  // The corner shows a gear (#577), and the profile has no picture to edit (#565).
   const corner = page.getByTestId("nav-account-toggle");
   await page.goto("/profile");
   await expect(corner.getByTestId("avatar-blank")).toHaveCount(1);
@@ -942,9 +899,8 @@ test("Start asks for a course's settings before it opens, then keeps them behind
   await expect(page.getByTestId("profile-avatar-edit")).toHaveCount(0);
 
   // Start on a course not opened yet opens its settings as a wizard over the
-  // course list (#574, #587): a step a page, arrows on either side, four
-  // dots, and "Get Started!" under every step (#896). The course starts with
-  // the account's picture.
+  // course list (#574, #587): a step a page, arrows on either side, two
+  // dots, and "Get Started!" under every step (#896).
   await page.goto("/courses");
   const card = page.locator('[data-testid="courses-card"][data-course-id="spanish"]');
   const dialog = page.locator('[data-testid="courses-settings-dialog"][data-course-id="spanish"]');
@@ -956,8 +912,6 @@ test("Start asks for a course's settings before it opens, then keeps them behind
   await expect(page).toHaveURL(/\/courses$/);
   await expect(dialog).toHaveAttribute("data-wizard", "");
   await expect(dialog).toHaveAttribute("data-step", "0");
-  const start = (await dialog.locator('[data-testid="courses-settings-avatar"]:checked').getAttribute("value"))!;
-  const other = start === "coco" ? "kai" : "coco";
   // Closing it opens nothing: still the course list, Spanish not started.
   await dialog.getByTestId("courses-settings-close").click();
   await expect(dialog).toBeHidden();
@@ -968,8 +922,8 @@ test("Start asks for a course's settings before it opens, then keeps them behind
   await expect(dialog).toBeVisible();
   await expect(dialog).toHaveAttribute("data-step", "0");
   await expect(prev).toBeHidden();
-  await expect(dialog.locator(".cs-dots span")).toHaveCount(4);
-  await expect(dialog.getByTestId("courses-settings-step")).toHaveCount(4);
+  await expect(dialog.locator(".cs-dots span")).toHaveCount(2);
+  await expect(dialog.getByTestId("courses-settings-step")).toHaveCount(2);
   await expect(save).toBeVisible();
   // Step one: the motivator, with an (i) on what a motivator is.
   await expect(dialog.locator('[data-testid="courses-settings-motivator"][data-motivator-id="stats"] input')).toBeChecked();
@@ -979,28 +933,10 @@ test("Start asks for a course's settings before it opens, then keeps them behind
   await expect(dialog.getByTestId("courses-settings-motivator-dialog")).toBeHidden();
   await expect(dialog).toBeVisible();
   await dialog.locator('[data-testid="courses-settings-motivator"][data-motivator-id="xp"]').click();
-  // Step two: the theme, with its own (i).
+  // Step two, the last (#1106): the level (Spanish has levels), the beginning chosen, with an (i).
   await next.click();
   await expect(dialog).toHaveAttribute("data-step", "1");
   await expect(prev).toBeVisible();
-  await dialog.getByTestId("courses-settings-theme-info").click();
-  await expect(dialog.getByTestId("courses-settings-theme-dialog")).toBeVisible();
-  await dialog.getByTestId("courses-settings-theme-close").click();
-  // Step three: picture and background together, the big preview on top
-  // (on this step only); a picture picked shows in it at once.
-  const preview = dialog.locator(".cs-preview");
-  await expect(preview).toBeHidden();
-  await next.click();
-  await expect(dialog).toHaveAttribute("data-step", "2");
-  await expect(preview).toBeVisible();
-  await expect(preview.locator(`use[href="#av-${start}"]`)).toHaveCount(1);
-  await dialog.locator("label.avatar-pick", { has: page.locator(`[value="${other}"]`) }).click();
-  await expect(preview.locator(`use[href="#av-${other}"]`)).toHaveCount(1);
-  await expect(preview.locator(`use[href="#av-${start}"]`)).toHaveCount(0); // the old one faded out
-  await dialog.locator("label.color-pick", { has: page.locator('[value="4"]') }).click();
-  // Step four, the last (#1106): the level (Spanish has levels), the beginning chosen, with an (i).
-  await next.click();
-  await expect(dialog).toHaveAttribute("data-step", "3");
   await expect(dialog.locator('[data-testid="courses-settings-level"][data-unit=""] input')).toBeChecked();
   await dialog.getByTestId("courses-settings-level-info").click();
   await expect(dialog.getByTestId("courses-settings-level-dialog")).toBeVisible();
@@ -1013,23 +949,20 @@ test("Start asks for a course's settings before it opens, then keeps them behind
   await expect(page).toHaveURL(/\/$/);
   await expect(dialog).toHaveCount(0);
   await expect(page.locator('[data-testid="home-today"]')).toHaveAttribute("data-motivator", "xp");
-  await expect(corner.locator(`use[href="#av-${other}"]`)).toHaveCount(1);
-  await expect(corner.locator(".avatar")).toHaveAttribute("style", /--av:#3b8ea5/);
+  await expect(corner.getByTestId("avatar-blank")).toHaveCount(1); // the gear, inside a course too
   await page.reload();
   await expect(dialog).toHaveCount(0); // it asks once
 
   // Behind the card's gear the settings are one sheet (#576): a row a
-  // setting, no steps, the badge in the header, Save, and an (i) saying they
-  // can be swapped any time.
+  // setting, no steps, Save, and an (i) saying they can be swapped any time.
   await page.goto("/courses");
   await expect(corner.getByTestId("avatar-blank")).toHaveCount(1);
   await page.getByTestId("courses-projects").locator('[data-course-id="spanish"]').getByTestId("courses-settings").click();
   await expect(dialog).toBeVisible();
   await expect(prev).toHaveCount(0);
   await expect(dialog.getByTestId("courses-settings-step")).toHaveCount(0);
-  await expect(dialog.getByTestId("courses-settings-row")).toHaveCount(5); // the level, then the four of #565
-  await expect(dialog.locator(".cs-preview")).toBeVisible();
-  // The level is a ladder with a note on the one chosen; the pictures a row with the name of the one chosen.
+  await expect(dialog.getByTestId("courses-settings-row")).toHaveCount(2); // the level and the motivator
+  // The level is a ladder with a note on the one chosen.
   await expect(dialog.getByTestId("courses-settings-level-note")).toContainText("From the beginning");
   await dialog.locator('[data-testid="courses-settings-level"][data-unit="B1"]').click();
   await expect(dialog.getByTestId("courses-settings-level-note")).not.toContainText("From the beginning");
@@ -1038,17 +971,10 @@ test("Start asks for a course's settings before it opens, then keeps them behind
   await expect(dialog.getByTestId("courses-settings-about-dialog")).toBeVisible();
   await dialog.getByTestId("courses-settings-about-close").click();
   await expect(dialog.locator('[data-testid="courses-settings-motivator"][data-motivator-id="xp"] input')).toBeChecked();
-  await expect(dialog.locator(`[data-testid="courses-settings-avatar"][value="${other}"]`)).toBeChecked();
-  // Closing without Save keeps what was saved: the picture, and the level.
-  const pictureName = await dialog.getByTestId("courses-settings-picture-name").textContent();
-  await dialog.locator("label.cs-pic", { has: page.locator(`[value="${start}"]`) }).click();
-  await expect(dialog.getByTestId("courses-settings-picture-name")).not.toHaveText(pictureName!);
+  // Closing without Save keeps what was saved: the level.
   await dialog.getByTestId("courses-settings-close").click();
   await expect(dialog).toBeHidden();
   await expect(dialog.locator('[data-testid="courses-settings-level"][data-unit=""] input')).toBeChecked();
-  await expect(dialog.getByTestId("courses-settings-picture-name")).toHaveText(pictureName!);
-  await page.goto("/");
-  await expect(corner.locator(`use[href="#av-${other}"]`)).toHaveCount(1);
   // Save: the motivator changes in place, nothing else is reset.
   await page.goto("/courses");
   await page.getByTestId("courses-projects").locator('[data-course-id="spanish"]').getByTestId("courses-settings").click();
@@ -1057,10 +983,8 @@ test("Start asks for a course's settings before it opens, then keeps them behind
   await expect(dialog).toBeHidden();
   await page.goto("/");
   await expect(page.locator('[data-testid="home-today"]')).toHaveAttribute("data-motivator", "stats");
-  await expect(corner.locator(`use[href="#av-${other}"]`)).toHaveCount(1);
   await page.goto("/profile");
   await expect(page.getByTestId("profile-avatar-shown")).toHaveCount(0); // the profile shows no picture (#577)
-  await expect(corner.locator(`use[href="#av-${other}"]`)).toHaveCount(1);
 
   // Password: mismatched or short, the form is not sent and the dialog stays.
   const pw = page.getByTestId("profile-password-dialog");

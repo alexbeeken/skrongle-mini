@@ -99,15 +99,11 @@ pub fn forget_in_memory(state: &AppState, uid: i64) {
     state.games.drop_user(uid);
 }
 
-/// After `privacy::delete_account`: drop its courses and themes from the
-/// caches and its export files from disk.
+/// After `privacy::delete_account`: drop its courses from the cache and its
+/// export files from disk.
 pub fn forget_deleted(state: &AppState, deleted: &crate::privacy::Deleted) {
     for c in &deleted.courses {
         state.courses.invalidate(c);
-    }
-    for t in &deleted.themes {
-        state.themes.forget(t);
-        state.courses.forget_theme(t);
     }
     state.exports.remove(&deleted.export_files);
 }
@@ -138,7 +134,7 @@ pub fn sweep(state: &AppState, db: &Db) -> Result<String, String> {
             .map_err(|e| e.to_string())?;
         if let Some(d) = deleted {
             forget_deleted(state, &d);
-            tracing::info!("user {uid}: account deleted as they asked ({} courses, {} themes)", d.courses.len(), d.themes.len());
+            tracing::info!("user {uid}: account deleted as they asked ({} courses)", d.courses.len());
             n += 1;
         }
     }

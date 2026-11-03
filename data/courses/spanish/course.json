@@ -23,17 +23,17 @@
     "label": "Conjugations",
     "item_label": "Verb",
     "slots": [
-      { "key": "yo", "who": "me", "label": "yo", "hint": "I",
+      { "key": "yo", "label": "yo", "hint": "I",
         "art": ["   |   ", "   |   ", "   |   ", " \\ | / ", "  \\|/  ", "   v   "] },
-      { "key": "tu", "who": "you", "label": "tú", "hint": "you",
+      { "key": "tu", "label": "tú", "hint": "you",
         "art": ["   ^   ", "  /|\\  ", " / | \\ ", "   |   ", "   |   ", "   |   "] },
-      { "key": "el", "who": "other", "label": "él / ella / usted", "hint": "he / she / you (formal)",
+      { "key": "el", "label": "él / ella / usted", "hint": "he / she / you (formal)",
         "art": ["       ", "       ", "-------\\", "        >", "-------/", "       "] },
-      { "key": "nosotros", "who": "us", "label": "nosotros / nosotras", "hint": "we",
+      { "key": "nosotros", "label": "nosotros / nosotras", "hint": "we",
         "art": [" |  |  | ", " |  |  | ", " |  |  | ", "\\|/\\|/\\|/", " v  v  v ", "         "] },
-      { "key": "vosotros", "who": "you_all", "label": "vosotros / vosotras", "hint": "you all",
+      { "key": "vosotros", "label": "vosotros / vosotras", "hint": "you all",
         "art": [" ^  ^  ^ ", "/|\\/|\\/|\\", " |  |  | ", " |  |  | ", " |  |  | ", "         "] },
-      { "key": "ellos", "who": "them", "label": "ellos / ellas / ustedes", "hint": "they / you all (formal)",
+      { "key": "ellos", "label": "ellos / ellas / ustedes", "hint": "they / you all (formal)",
         "art": ["-----\\   ", "      >  ", "-----/   ", "-----\\   ", "      >  ", "-----/   "] }
     ],
     "sets": [
@@ -54,19 +54,5 @@
   "strings": {
     "praise": ["¡Correcto!", "¡Muy bien!", "¡Eso es!", "¡Perfecto!", "¡Genial!"],
     "almost": ["Not quite", "Casi…", "Hmm, no"]
-  },
-  "themes": {
-    "realm": { "strings": {
-      "praise": ["¡Victoria!", "¡Botín épico!", "¡Subes de nivel!", "¡Por Eldmark!", "¡Crítico!", "¡Skrongle épico!"],
-      "almost": ["Casi, aventurero", "Casi… repite la misión", "Mmm, no. ¡Skrong!"]
-    } },
-    "meadowbrook": { "strings": {
-      "praise": ["¡Buena cosecha!", "¡Florece!", "¡Como un grano de oro!", "¡Qué bien!", "¡Crece, crece!", "¡Skrongle!"],
-      "almost": ["Casi, vecino", "Casi… riega un poco más", "Mmm, no", "Casi… un poco más de skrong"]
-    } },
-    "rustwake": { "strings": {
-      "praise": ["¡Tuercas para ti!", "¡Subes de nivel!", "¡Sin radiación!", "¡Skrong! Misión cumplida", "¡Eres un genio del páramo!"],
-      "almost": ["Casi, habitante de la cúpula", "Casi… tu radiorreloj hace skrongle", "Mmm, no"]
-    } }
   }
 }

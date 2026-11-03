@@ -455,31 +455,8 @@ profile:
   title: Profil
   no_name: Lernende
   head:
-    change_picture: Profilbild ändern
     member_since: "Mitglied seit {date}"
     all_saved: Alle Änderungen gespeichert
-  avatar:
-    title: Profilbild
-    background: Hintergrund des Bildes
-    done: Fertig
-    shows:
-      noor: eine Person mit blauem Hidschab
-      amani: eine Schwarze Frau mit buntem Kopftuch und Creolen
-      yuki: eine Person in einem marineblauen Haori, Haar im Dutt mit Haarstab
-      kai: eine Person mit braunem Hautton, kurzen Locken und einem hellblau, rosa und weiß gemusterten Schal
-      arjun: ein bärtiger Sikh-Mann mit safrangelbem Dastar
-      sofia: eine Latina mit Zopf, in einer bestickten weißen Bluse
-      mochi: eine weiße Katze mit orangefarbenen und schwarzen Flecken
-      coco: ein brauner Hund mit Schlappohren und rotem Halsband
-  colors:
-    sunburst: Bernsteinfarbener Sonnenstrahl
-    waves: Grüne Wellen
-    confetti: Rosa Konfetti
-    stars: Petrolfarbene Sterne
-    stripes: Schiefergraue Streifen
-    dots: Olivgrüne Punkte
-    rings: Violette Ringe
-    zigzag: Goldenes Zickzack
   month:
     january: Januar
     february: Februar
@@ -753,10 +730,7 @@ profile:
     about: "Bis zu diesem Tag kann das Konto nur die Löschung abbrechen oder sich abmelden. Brichst du ab, bleibt alles, wie es war. Danach sind dein Fortschritt, deine Kurse und gespeicherten Schlüssel endgültig weg."
     cancel: "Löschung abbrechen"
   save:
-    pick_picture: Bitte wähle eines der Bilder aus.
-    pick_colour: Bitte wähle eine der Farben aus.
     not_a_field: Dieses Feld gehört nicht zum Profil.
-    theme_unavailable: Dieses Design ist nicht verfügbar.
     motivator_unavailable: "Dieser Motivator ist nicht verfügbar."
     sent_to: "Gesendet an {email}."
   name:
@@ -1313,7 +1287,6 @@ study:
     say_hint: "🔊 Tippe auf dieser Seite auf ein {label}-Wort, um es zu hören."
     conversations: Gespräche
     example: "Beispiel"
-    from_theme: "Aus dem Thema {theme}"
     set: "Festlegen"
     drill_these: "Übe diese in der {item}-Übung"
     drill_after: "wenn du diese Lektion abgeschlossen hast."
@@ -1979,13 +1952,6 @@ play:
       could_not_save: "Deine Zeit konnte nicht gespeichert werden: {error}"
     drill:
       which_slot: welcher Platz?
-      people:
-        me: "Dein Bild"
-        you: "Eine andere Person, dir zugewandt"
-        other: "Eine andere Person, seitlich"
-        us: "Du und zwei andere"
-        you_all: "Drei andere, dir zugewandt"
-        them: "Drei andere, weiter weg"
       right_in: "{pct} % richtig in {secs} s"
       you_wrote: "du hast „{answer}“ geschrieben"
       correct_form_html: "Richtige Form: <strong lang=\"{lang}\">{form}</strong> ({item}, {slot})"
@@ -2270,82 +2236,6 @@ guide:
     next: Weiter
     check_failed: "Konnte deine Antwort nicht prüfen ({error}). Bitte versuche es erneut."
 
-themes:
-  # A built-in theme's own text (#463): the same keys as data/themes/<id>/theme.json,
-  # praise_<n> / almost_<n> its praise and almost lines in order, slot_<n> the colour
-  # or background in palette slot n. Picture names are names and are not here.
-  meadowbrook:
-    title: "Meadowbrook"
-    description: "Gemütliche Wiesenfarben, ein Bauernhof voller Profilbilder (die Bäuerin, die Imkerin und ihre Tiere) und, in Kursen, die sie haben, Beispielsätze über den Hof (und ab und zu ein Skrongle), den Bach, den Markt und das Fest. Die Lektionen bleiben gleich."
-    praise_1: "Gute Ernte!"
-    praise_2: "Es blüht!"
-    praise_3: "Golden wie Korn!"
-    praise_4: "Schön!"
-    praise_5: "Wachse, wachse!"
-    praise_6: "Skrongle!"
-    almost_1: "Nicht ganz, Nachbar"
-    almost_2: "Fast… noch ein bisschen Wasser"
-    almost_3: "Hmm, nein"
-    almost_4: "Fast… noch ein bisschen Skrong"
-    slot_1: "Honig"
-    slot_2: "Klee"
-    slot_3: "Blüte"
-    slot_4: "Teich"
-    slot_5: "Himmel"
-    slot_6: "Pfirsich"
-    slot_7: "Lavendel"
-    slot_8: "Weizen"
-    slot_9: "Ackerfelder"
-    slot_10: "Obstgartenhügel"
-    slot_11: "Angelteich"
-    slot_12: "Ernte-Sonnenuntergang"
-  realm:
-    title: "Das Reich Eldmark"
-    description: "Eldmarks Gold auf Nacht überall, ein Wesen des Reichs für jedes Profilbild und, in Kursen, die sie haben, Beispielsätze über Orks, Magier, Verliese und Beute. Die Lektionen bleiben gleich."
-    praise_1: "Sieg!"
-    praise_2: "Epische Beute!"
-    praise_3: "Level aufgestiegen!"
-    praise_4: "Für Eldmark!"
-    praise_5: "Kritischer Treffer!"
-    praise_6: "Episches Skrongle!"
-    almost_1: "Nicht ganz, Abenteurer"
-    almost_2: "Fast… versuch die Quest noch einmal"
-    almost_3: "Hmm, nein. Skrong!"
-    slot_1: "Arkan"
-    slot_2: "Wald"
-    slot_3: "Glut"
-    slot_4: "Frost"
-    slot_5: "Stein"
-    slot_6: "Blutstein"
-    slot_7: "Zwielicht"
-    slot_8: "Blattgold"
-    slot_9: "Kiefern im Mondlicht"
-    slot_10: "Verschneite Gipfel"
-    slot_11: "Sonnenuntergang über den Dünen"
-    slot_12: "Polarlichter"
-  rustwake:
-    title: "Rustwake"
-    description: "Terminalgrün auf Dunkel, ein Ödland aus Kuppel und Dünen als Profilbilder (Überlebende, ein Zombie, ein Mutant, ein Roboter und die Tiere, die es geschafft haben) und, in Kursen, die sie haben, Beispielsätze über die Kuppel, Schraubenmuttern, Plünderer und die Funkuhr, die Skrongle macht. Die Lektionen bleiben gleich."
-    praise_1: "Muttern für dich!"
-    praise_2: "Level aufgestiegen!"
-    praise_3: "Strahlungsfrei!"
-    praise_4: "Skrong! Mission erfüllt"
-    praise_5: "Ödland-Genie!"
-    almost_1: "Nicht ganz, Kuppelbewohner"
-    almost_2: "Fast… deine Funkuhr macht Skrongle"
-    almost_3: "Hmm, nein"
-    slot_1: "Rost"
-    slot_2: "Giftig"
-    slot_3: "Asche"
-    slot_4: "Glühen"
-    slot_5: "Stahl"
-    slot_6: "Staub"
-    slot_7: "Bluterguss"
-    slot_8: "Gefahr"
-    slot_9: "Staubhorizont"
-    slot_10: "Rostschlucht"
-    slot_11: "Wüstennacht"
-    slot_12: "Mastenkamm"
 tutor:
   title: KI-Nachhilfe
   exit: Zurück zur Startseite
@@ -2633,7 +2523,6 @@ courses:
       sorts: Sortieraufgaben
       spots: Fehler finden
       builds: Satzbau
-      themes: Themenmaterial
   review:
     edit_line_tip: Diese Zeile bearbeiten
     title: KI-Änderungen
@@ -2692,7 +2581,6 @@ courses:
       guide: Guide-Schritte
       vocab: Karteikarten
       sprint: Sprint-Modus
-      themes: Themenmaterial
       role_a: Sprecher A
       role_b: Sprecher B
       markdown: Text
@@ -2759,7 +2647,6 @@ courses:
       one: Einheit
       other: Einheiten
     name_sprint: das Sprint-Modus-Material
-    name_themes: das Themenmaterial
     name_place: sein Platz im Kurs
     count: "{n} {noun}"
     the_list: "die {name}"
@@ -3105,10 +2992,6 @@ courses:
     level: "Niveau"
     level_info: "Was ein Niveau ist"
     open_label: "Einstellungen für {title}"
-    theme: "Design"
-    theme_default: Standard
-    picture: "Profilbild"
-    background: "Hintergrund"
     about: "Über diese Einstellungen"
     about_p: "Jede Einstellung hier lässt sich jederzeit gegen eine andere tauschen. Eine Änderung setzt nie etwas zurück: Dein Fortschritt und alles, was ein Motivator gezählt hat, bleiben, wie sie sind."
     wizard_title: "Willkommen bei {course}"
@@ -3116,11 +2999,6 @@ courses:
     motivator_ask: "Wähle einen Motivator"
     motivator_info: "Was ein Motivator ist"
     motivator_info_p: "Motivatoren belohnen dich für deine Arbeit: Jeder zeigt deinen Fortschritt auf seine Weise oben auf der Kursstartseite und am Ende jeder Lektion. Du kannst ihn nach dem Start jederzeit in den Einstellungen dieses Kurses ändern."
-    theme_ask: "Wähle ein Design"
-    theme_info: "Was ein Design ist"
-    theme_info_p: "Designs sorgen für lustige Optik, und der Kurs kann sie nutzen, um seinem Inhalt zusätzliche Würze zu geben. Du kannst es nach dem Start jederzeit in den Einstellungen dieses Kurses ändern."
-    picture_ask: "Wähle dein Profilbild"
-    background_ask: "Wähle einen Hintergrund"
     save: "Speichern"
     ok: "OK"
     get_started: "Los geht's!"
@@ -3313,7 +3191,6 @@ editor:
     sec_conversations: "Gespräche"
     sec_conjugations: "Konjugationen"
     sec_guide: "Guide"
-    sec_themes: "Themen"
     add_vocab: "+ Wort"
     add_quiz: "+ Frage"
     add_listening: "+ Satz"
@@ -3504,8 +3381,7 @@ editor:
     bite_sub: "die Idee in einem Atemzug · nicht bewertet"
     grp_say: "Sag es"
     f_emoji: "Emoji"
-    h_emoji: "Optional; sonst das Häppchen-Symbol des Themas."
-    h_emoji_off: "Optional; sonst 💡."
+    h_emoji: "Optional; sonst 💡."
     f_rule: "Regel"
     h_rule: "Eine Zeile, knackig."
     grp_show: "Zeig es"
@@ -3577,8 +3453,6 @@ editor:
     h_vocab_n: "Die nächsten, die noch nicht verteilt sind; die Lektion hat {n}."
     f_tip: "Tipp"
     f_markdown: "Kartentext"
-    schema_sub: "Feld für Feld bearbeitet"
-    schema_unavailable: "Das Kursformat konnte nicht geladen werden; bearbeite diesen Teil als JSON."
     check_prompt_empty: "Die Aufgabe ist leer"
     check_blank_ok: "Hat eine Lücke"
     check_blank_missing: "Kein ___ in der Aufgabe: Die Lernenden tippen die ganze Antwort, und Sprint zeigt keinen Platz"

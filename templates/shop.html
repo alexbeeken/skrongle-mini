@@ -22,7 +22,7 @@
 <p class="muted" data-testid="shop-shelf-empty">{{ crate::t("motivator.skc.shop.shelf_empty") }}</p>
 {% else %}
 <ul class="skc-shelf" data-testid="shop-shelf">
-  {% for b in shelf %}<li><img src="{{ b.src }}" alt="{{ b.title }}" title="{{ b.title }}" width="56" height="56" data-testid="shop-shelf-badge" data-badge="{{ b.id }}" data-variant="{{ b.variant }}"></li>{% endfor %}
+  {% for b in shelf %}<li><img src="{{ b.src }}" alt="{{ b.title }}" title="{{ b.title }}" width="56" height="56" data-testid="shop-shelf-badge" data-badge="{{ b.id }}"></li>{% endfor %}
 </ul>
 {% endif %}
 
@@ -30,7 +30,7 @@
 <ul class="shop-grid">
   {% for b in badges %}
   <li class="shop-badge{% if b.owned %} owned{% endif %}" data-testid="shop-badge" data-badge="{{ b.id }}" data-price="{{ b.price }}" data-owned="{{ b.owned }}">
-    <img src="{{ b.src }}" alt="" width="72" height="72" data-variant="{{ b.variant }}">
+    <img src="{{ b.src }}" alt="" width="72" height="72">
     <strong>{{ b.title }}</strong>
     <span class="shop-price">{{ crate::motivators::skc::amount(*b.price)|safe }}</span>
     {% if b.owned %}

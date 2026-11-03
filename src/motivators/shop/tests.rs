@@ -20,29 +20,6 @@ fn the_catalogue_has_six_to_eight_badges_with_art_and_titles() {
 }
 
 #[test]
-fn every_theme_variant_is_a_badge_of_the_catalogue() {
-    let themes = crate::themes::Themes::load(&Path::new(env!("CARGO_MANIFEST_DIR")).join("data")).unwrap();
-    let mut variants = 0;
-    for p in themes.all() {
-        for id in &p.theme.badges {
-            assert!(catalogue().get(id).is_some(), "theme {}: badges/{id}.svg is not in data/badges/{CATALOGUE_FILE}", p.theme.id);
-            assert!(p.asset(&format!("badges/{id}.svg")).is_some());
-            variants += 1;
-        }
-    }
-    assert!(variants >= 2, "the variant path needs a theme that carries one");
-}
-
-#[test]
-fn a_badge_draws_the_worn_themes_variant_or_plain() {
-    let mut t = Theme { id: "realm".into(), ..Theme::default() };
-    assert_eq!(art_url("sprout", Some(&t)), ("/badges/sprout.svg".to_string(), None));
-    t.badges.insert("sprout".into());
-    assert_eq!(art_url("sprout", Some(&t)), ("/themes/realm/badges/sprout.svg".to_string(), Some("realm".into())));
-    assert_eq!(art_url("sprout", None).1, None);
-}
-
-#[test]
 fn buying_spends_the_balance_once_and_only_when_affordable() {
     let course = course();
     let cheapest = catalogue().badges[0].clone();

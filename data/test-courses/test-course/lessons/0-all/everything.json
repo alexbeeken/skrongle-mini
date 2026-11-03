@@ -270,31 +270,5 @@
         ]
       }
     ]
-  },
-  "themes": {
-    "realm": {
-      "icon": "🐉",
-      "content": "## Hola en Eldmark\n\nOrcs and mages say **hola** too.",
-      "vocabulary": [
-        {
-          "term": "hola",
-          "example": "¡Hola, guerrero!",
-          "example_meaning": "Hello, warrior!"
-        }
-      ],
-      "quiz": [
-        {
-          "question_id": "tc-everything-realm-01",
-          "prompt": "An orc walks into the inn. What does he say?",
-          "type": "multiple-choice",
-          "options": [
-            "hola",
-            "adiós"
-          ],
-          "correct_answer": "hola",
-          "explanation": "He is arriving, so: hola."
-        }
-      ]
-    }
   }
 }

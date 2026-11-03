@@ -6,8 +6,7 @@ it key for key. `cargo test` fails while a file lacks a key `en.yaml` has, has
 one it does not, or uses other `{placeholders}` than the English text.
 
 Courses are not translated here: a course is written in its own language by
-its author, and a learner gets it in another as a translated copy. A built-in
-theme's own text is: the `themes.<id>` group (`docs/i18n.md`, #463).
+its author, and a learner gets it in another as a translated copy.
 
 ## Adding a language
 

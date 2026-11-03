@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://learnmap.local/docs/course.schema.json",
   "title": "Skrongle course files",
-  "description": "Schemas for course.json (the manifest), for placement.json (the placement test), for one lesson file and for a theme file (data/themes/<id>/theme.json). See /docs/course-format for the prose reference. Older aliases (level, category, es/en, journey, verb/tense, target_grammar_point, markdown_content, example_es/en) are also accepted by the app but are not listed here.",
+  "description": "Schemas for course.json (the manifest), for placement.json (the placement test), and for one lesson file. See /docs/course-format for the prose reference. Older aliases (level, category, es/en, journey, verb/tense, target_grammar_point, markdown_content, example_es/en) are also accepted by the app but are not listed here.",
   "$defs": {
     "slug": { "type": "string", "pattern": "^[a-z0-9-]+$" },
     "side": {
@@ -55,8 +55,7 @@
                   "key": { "type": "string", "minLength": 1 },
                   "label": { "type": "string", "minLength": 1, "description": "Alternatives may be separated by \" / \"." },
                   "hint": { "type": "string" },
-                  "art": { "type": "array", "maxItems": 8, "items": { "type": "string", "maxLength": 24 } },
-                  "who": { "type": "string", "enum": ["me", "you", "other", "us", "you_all", "them"], "description": "Which grammatical person the slot is; the drill draws it with profile pictures." }
+                  "art": { "type": "array", "maxItems": 8, "items": { "type": "string", "maxLength": 24 } }
                 },
                 "required": ["key", "label"]
               }
@@ -96,126 +95,12 @@
             "praise": { "type": "array", "items": { "type": "string" } },
             "almost": { "type": "array", "items": { "type": "string" } }
           }
-        },
-        "themes": {
-          "type": "object",
-          "description": "Course material for a theme, by theme id: praise lines in the course's language that fit the theme's world. Ids of themes that are not installed are kept and never used.",
-          "additionalProperties": {
-            "type": "object",
-            "properties": {
-              "strings": {
-                "type": "object",
-                "description": "Replace the theme's strings (and the course's own) while that theme is worn.",
-                "properties": {
-                  "praise": { "type": "array", "items": { "type": "string", "minLength": 1 } },
-                  "almost": { "type": "array", "items": { "type": "string", "minLength": 1 } }
-                }
-              }
-            }
-          }
         }
       },
       "required": ["id", "title", "units"]
     },
-    "theme_colors": {
-      "type": "object",
-      "description": "CSS colour tokens, hex only (#rgb, #rgba, #rrggbb, #rrggbbaa). Each becomes the custom property of the same name (--accent-dark for accent_dark).",
-      "properties": {
-        "bg": { "$ref": "#/$defs/hex_color" }, "surface": { "$ref": "#/$defs/hex_color" }, "text": { "$ref": "#/$defs/hex_color" },
-        "muted": { "$ref": "#/$defs/hex_color" }, "line": { "$ref": "#/$defs/hex_color" }, "accent": { "$ref": "#/$defs/hex_color" },
-        "accent_dark": { "$ref": "#/$defs/hex_color" }, "gold": { "$ref": "#/$defs/hex_color" }, "gold_dark": { "$ref": "#/$defs/hex_color" },
-        "ok": { "$ref": "#/$defs/hex_color" }, "ok_dark": { "$ref": "#/$defs/hex_color" }, "ok_bg": { "$ref": "#/$defs/hex_color" },
-        "bad": { "$ref": "#/$defs/hex_color" }, "bad_bg": { "$ref": "#/$defs/hex_color" }, "warn_bg": { "$ref": "#/$defs/hex_color" },
-        "sky": { "$ref": "#/$defs/hex_color" }, "violet": { "$ref": "#/$defs/hex_color" }
-      },
-      "additionalProperties": false
-    },
     "hex_color": { "type": "string", "pattern": "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$" },
-    "theme": {
-      "type": "object",
-      "title": "data/themes/<id>/theme.json",
-      "description": "A skin for the whole app, worn by a learner whatever course is open. Lessons may carry material for it under themes.<id>.",
-      "properties": {
-        "id": { "$ref": "#/$defs/slug", "description": "Must equal the folder name; lessons refer to it in their themes block." },
-        "title": { "type": "string", "minLength": 1 },
-        "description": { "type": "string", "description": "Shown in the theme picker." },
-        "icon": { "type": "string", "description": "An emoji." },
-        "colors": { "$ref": "#/$defs/theme_colors" },
-        "dark": { "$ref": "#/$defs/theme_colors", "description": "The same tokens for browsers that prefer a dark scheme." },
-        "font": { "type": "string", "maxLength": 160, "pattern": "^[A-Za-z0-9 ,'\"-]+$", "description": "A CSS font-family stack." },
-        "art": {
-          "type": "object",
-          "properties": {
-            "banner": { "type": "string", "description": "A file of the theme pictures/<name>.svg or an https:// URL; shown on the home page and the Sprint mode home." },
-            "mark": { "type": "string", "description": "A small emblem, same rules." }
-          }
-        },
-        "strings": {
-          "type": "object",
-          "description": "Replace the course's praise / almost strings while the theme is on, in English (any course may be worn with it). A course's own themes.<id>.strings win.",
-          "properties": {
-            "praise": { "type": "array", "items": { "type": "string", "minLength": 1 } },
-            "almost": { "type": "array", "items": { "type": "string", "minLength": 1 } }
-          }
-        },
-        "avatars": {
-          "type": "array",
-          "description": "The theme's versions of the built-in profile pictures, by the picture's id; a learner's choice is shown in this version while the theme is worn.",
-          "items": {
-            "type": "object",
-            "properties": {
-              "id": { "type": "string", "enum": ["noor", "amani", "yuki", "kai", "arjun", "sofia", "mochi", "coco", "owl", "fox", "cat", "bear", "rabbit", "robot", "rocket", "star", "leaf", "bolt"], "description": "The built-in picture this one replaces. The last ten are the ids from before #180 and name the slot that took them." },
-              "label": { "type": "string", "description": "The picture's name, shown under it while the theme is worn; defaults to the built-in picture's name." },
-              "image": { "type": "string", "minLength": 1, "description": "A file of the theme pictures/<name>.svg or an https:// URL." }
-            },
-            "required": ["id", "image"]
-          }
-        },
-        "icons": {
-          "type": "object",
-          "description": "The app's own icons by slot, an emoji or short glyph each; a slot left out keeps the default.",
-          "properties": {
-            "streak": { "$ref": "#/$defs/icon" }, "xp": { "$ref": "#/$defs/icon" }, "words": { "$ref": "#/$defs/icon" }, "goal": { "$ref": "#/$defs/icon" },
-            "flawless": { "$ref": "#/$defs/icon" }, "effort": { "$ref": "#/$defs/icon" }, "mastery": { "$ref": "#/$defs/icon" }, "locked": { "$ref": "#/$defs/icon" },
-            "trophy": { "$ref": "#/$defs/icon" }, "review": { "$ref": "#/$defs/icon" }, "path": { "$ref": "#/$defs/icon" }, "site": { "$ref": "#/$defs/icon" },
-            "start": { "$ref": "#/$defs/icon" }, "bite": { "$ref": "#/$defs/icon" }, "hint": { "$ref": "#/$defs/icon" },
-            "mode_sprint": { "$ref": "#/$defs/icon" }, "mode_study": { "$ref": "#/$defs/icon" }, "mode_play": { "$ref": "#/$defs/icon" }, "mode_guide": { "$ref": "#/$defs/icon" }, "mode_ai": { "$ref": "#/$defs/icon" }
-          },
-          "additionalProperties": false
-        },
-        "lesson_icons": { "type": "array", "items": { "$ref": "#/$defs/icon" }, "description": "Icons for lessons that set none, used in turn along the Sprint mode path." }
-      },
-      "required": ["id", "title"]
-    },
     "icon": { "type": "string", "minLength": 1, "maxLength": 8, "description": "An emoji or short glyph (1 to 4 characters, no markup)." },
-    "lesson_theme": {
-      "type": "object",
-      "description": "Themed material for one theme: the same shapes as the lesson fields it mirrors. Merged in front of the lesson's own material while the theme is on; the lesson's own material is never removed.",
-      "properties": {
-        "icon": { "$ref": "#/$defs/icon", "description": "The lesson's stop on the Sprint mode path while the theme is worn." },
-        "content": { "type": "string", "description": "Markdown appended to the lesson text as extra sections." },
-        "vocabulary": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "term": { "type": "string", "minLength": 1 },
-              "meaning": { "type": "string", "description": "Required for a term the lesson does not teach; must be omitted or equal for one it does." },
-              "example": { "type": ["string", "null"], "description": "Replaces the example of a term the lesson teaches." },
-              "example_meaning": { "type": ["string", "null"], "description": "The themed example in the meaning language." }
-            },
-            "required": ["term"]
-          }
-        },
-        "quiz": { "type": "array", "items": { "$ref": "#/$defs/quiz_item" }, "description": "Ids must be unique across the course: suffix them, e.g. -realm-01." },
-        "listening": { "type": "array", "items": { "$ref": "#/$defs/listening_item" } },
-        "conversations": { "type": "array", "items": { "$ref": "#/$defs/conversation" } },
-        "bites": { "$ref": "#/$defs/sprint/properties/bites" },
-        "sorts": { "$ref": "#/$defs/sprint/properties/sorts" },
-        "spots": { "$ref": "#/$defs/sprint/properties/spots" },
-        "builds": { "$ref": "#/$defs/sprint/properties/builds" }
-      }
-    },
     "vocab_entry": {
       "type": "object",
       "properties": {
@@ -432,15 +317,10 @@
         "conversations": { "type": "array", "items": { "$ref": "#/$defs/conversation" } },
         "listening": { "type": "array", "items": { "$ref": "#/$defs/listening_item" } },
         "guide": { "type": "array", "items": { "$ref": "#/$defs/guide_step" } },
-        "sprint": { "$ref": "#/$defs/sprint" },
-        "themes": {
-          "type": "object",
-          "description": "Themed material by theme id (a theme of the app, data/themes/<id>/); optional flair on top of the lesson.",
-          "additionalProperties": { "$ref": "#/$defs/lesson_theme" }
-        }
+        "sprint": { "$ref": "#/$defs/sprint" }
       },
       "required": ["id", "slug", "title", "unit", "content"]
     }
   },
-  "oneOf": [ { "$ref": "#/$defs/manifest" }, { "$ref": "#/$defs/lesson" }, { "$ref": "#/$defs/placement" }, { "$ref": "#/$defs/theme" } ]
+  "oneOf": [ { "$ref": "#/$defs/manifest" }, { "$ref": "#/$defs/lesson" }, { "$ref": "#/$defs/placement" } ]
 }

@@ -455,31 +455,8 @@ profile:
   title: Perfil
   no_name: Estudante
   head:
-    change_picture: Trocar foto de perfil
     member_since: "Membro desde {date}"
     all_saved: Todas as alterações foram salvas
-  avatar:
-    title: Foto de perfil
-    background: Fundo da foto
-    done: Pronto
-    shows:
-      noor: uma pessoa com um hijab azul
-      amani: uma mulher negra com um turbante colorido e brincos de argola
-      yuki: uma pessoa com um haori azul-marinho, cabelo em coque preso por um palito
-      kai: uma pessoa de pele morena, com cabelo curto e cacheado e um cachecol azul-claro, rosa e branco
-      arjun: um homem sikh barbudo com um dastar cor de açafrão
-      sofia: uma mulher latina com uma trança, de blusa branca bordada
-      mochi: um gato branco com manchas laranja e pretas
-      coco: um cachorro marrom de orelhas caídas e coleira vermelha
-  colors:
-    sunburst: Sol âmbar
-    waves: Ondas verdes
-    confetti: Confete rosa
-    stars: Estrelas verde-azuladas
-    stripes: Listras ardósia
-    dots: Bolinhas verde-oliva
-    rings: Anéis violeta
-    zigzag: Zigue-zague dourado
   month:
     january: Janeiro
     february: Fevereiro
@@ -753,10 +730,7 @@ profile:
     about: "Até esse dia a conta só pode cancelar a exclusão ou sair. Se cancelar, tudo fica como estava. Depois desse dia seu progresso, seus cursos e chaves salvas somem de vez."
     cancel: "Cancelar exclusão"
   save:
-    pick_picture: Escolha uma das fotos.
-    pick_colour: Escolha uma das cores.
     not_a_field: Este campo não faz parte do perfil.
-    theme_unavailable: Esse tema não está disponível.
     motivator_unavailable: "Esse motivador não está disponível."
     sent_to: "Enviado para {email}."
   name:
@@ -1313,7 +1287,6 @@ study:
     say_hint: "🔊 Toque em qualquer palavra de {label} nesta página para ouvi-la."
     conversations: Conversas
     example: Exemplo
-    from_theme: "Do tema {theme}"
     set: Conjunto
     drill_these: "Pratique estas no exercício de paradigmas de {item}"
     drill_after: depois de concluir esta lição.
@@ -1979,13 +1952,6 @@ play:
       could_not_save: "Não foi possível salvar seu tempo: {error}"
     drill:
       which_slot: qual espaço?
-      people:
-        me: "A tua foto"
-        you: "Outra pessoa, de frente para ti"
-        other: "Outra pessoa, ao lado"
-        us: "Tu e mais duas pessoas"
-        you_all: "Outras três pessoas, de frente para ti"
-        them: "Outras três pessoas, mais longe"
       right_in: "{pct}% certos em {secs} s"
       you_wrote: "você escreveu “{answer}”"
       correct_form_html: "Forma correta: <strong lang=\"{lang}\">{form}</strong> ({item}, {slot})"
@@ -2270,82 +2236,6 @@ guide:
     next: Próximo
     check_failed: "Não foi possível verificar sua resposta ({error}). Tente de novo."
 
-themes:
-  # A built-in theme's own text (#463): the same keys as data/themes/<id>/theme.json,
-  # praise_<n> / almost_<n> its praise and almost lines in order, slot_<n> the colour
-  # or background in palette slot n. Picture names are names and are not here.
-  meadowbrook:
-    title: "Meadowbrook"
-    description: "Cores aconchegantes de prado, um curral de imagens de perfil (a agricultora, a apicultora e os seus animais) e, nos cursos que as têm, frases de exemplo sobre a quinta (e um ou outro skrongle), o riacho, o mercado e a festa. As lições são as mesmas."
-    praise_1: "Boa colheita!"
-    praise_2: "Está a florescer!"
-    praise_3: "Dourado como o trigo!"
-    praise_4: "Lindo!"
-    praise_5: "Cresce, cresce!"
-    praise_6: "Skrongle!"
-    almost_1: "Ainda não, vizinho"
-    almost_2: "Quase… mais um pouco de água"
-    almost_3: "Hmm, não"
-    almost_4: "Quase… mais um pouco de skrong"
-    slot_1: "Mel"
-    slot_2: "Trevo"
-    slot_3: "Flor"
-    slot_4: "Lago"
-    slot_5: "Céu"
-    slot_6: "Pêssego"
-    slot_7: "Lavanda"
-    slot_8: "Trigo"
-    slot_9: "Campos de cultivo"
-    slot_10: "Colinas do pomar"
-    slot_11: "Lago de pesca"
-    slot_12: "Pôr do sol da colheita"
-  realm:
-    title: "O Reino de Eldmark"
-    description: "As cores de ouro sobre noite de Eldmark em todo o lado, um habitante do reino para cada imagem de perfil e, nos cursos que as têm, frases de exemplo sobre orcs, magos, masmorras e saque. As lições são as mesmas."
-    praise_1: "Vitória!"
-    praise_2: "Saque épico!"
-    praise_3: "Subiste de nível!"
-    praise_4: "Por Eldmark!"
-    praise_5: "Golpe crítico!"
-    praise_6: "Skrongle épico!"
-    almost_1: "Ainda não, aventureiro"
-    almost_2: "Quase… tenta a missão outra vez"
-    almost_3: "Hmm, não. Skrong!"
-    slot_1: "Arcano"
-    slot_2: "Floresta"
-    slot_3: "Brasa"
-    slot_4: "Geada"
-    slot_5: "Pedra"
-    slot_6: "Heliotrópio"
-    slot_7: "Crepúsculo"
-    slot_8: "Folha de ouro"
-    slot_9: "Pinheiros ao luar"
-    slot_10: "Picos nevados"
-    slot_11: "Pôr do sol nas dunas"
-    slot_12: "Auroras boreais"
-  rustwake:
-    title: "Rustwake"
-    description: "Verde de terminal sobre escuro, um deserto de cúpula e dunas nas imagens de perfil (sobreviventes, um zombie, um mutante, um robô e os animais que sobreviveram) e, nos cursos que as têm, frases de exemplo sobre a Cúpula, as porcas, os catadores e o relógio-rádio que faz skrongle. As lições são as mesmas."
-    praise_1: "Porcas para ti!"
-    praise_2: "Subiste de nível!"
-    praise_3: "Sem radiação!"
-    praise_4: "Skrong! Missão cumprida"
-    praise_5: "Génio do deserto!"
-    almost_1: "Ainda não, habitante da cúpula"
-    almost_2: "Quase… o teu relógio-rádio faz skrongle"
-    almost_3: "Hmm, não"
-    slot_1: "Ferrugem"
-    slot_2: "Tóxico"
-    slot_3: "Cinza"
-    slot_4: "Brilho"
-    slot_5: "Aço"
-    slot_6: "Pó"
-    slot_7: "Nódoa negra"
-    slot_8: "Perigo"
-    slot_9: "Horizonte de pó"
-    slot_10: "Desfiladeiro de ferrugem"
-    slot_11: "Noite no deserto"
-    slot_12: "Cumeada de postes"
 tutor:
   title: Tutoria com IA
   exit: Voltar à página inicial
@@ -2633,7 +2523,6 @@ courses:
       sorts: Exercícios de ordenar
       spots: Encontre o erro
       builds: Montagem de frases
-      themes: Material de tema
   review:
     edit_line_tip: Editar esta linha
     title: Alterações da IA
@@ -2692,7 +2581,6 @@ courses:
       guide: Passos do Guia
       vocab: Cartões
       sprint: Modo Sprint
-      themes: Material temático
       role_a: Falante A
       role_b: Falante B
       markdown: Texto
@@ -2759,7 +2647,6 @@ courses:
       one: unidade
       other: unidades
     name_sprint: o material do modo Sprint
-    name_themes: o material temático
     name_place: seu lugar no curso
     count: "{n} {noun}"
     the_list: "{name}"
@@ -3105,10 +2992,6 @@ courses:
     level: "Nível"
     level_info: "O que é um nível"
     open_label: "Configurações de {title}"
-    theme: "Tema"
-    theme_default: Padrão
-    picture: "Foto de perfil"
-    background: "Fundo"
     about: "Sobre estas configurações"
     about_p: "Cada configuração aqui pode ser trocada por outra a qualquer momento. Mudar uma nunca redefine nada: seu progresso e tudo o que cada motivador contou continuam como estão."
     wizard_title: "Boas-vindas a {course}"
@@ -3116,11 +2999,6 @@ courses:
     motivator_ask: "Escolha um motivador"
     motivator_info: "O que é um motivador"
     motivator_info_p: "Os motivadores são a forma como seu trabalho é recompensado: cada um mostra seu progresso do seu jeito no topo da página do curso e no fim de cada lição. Você pode mudá-lo a qualquer momento nas configurações deste curso depois de começar."
-    theme_ask: "Escolha um tema"
-    theme_info: "O que é um tema"
-    theme_info_p: "Os temas acrescentam visuais divertidos, e o curso pode usá-los para dar um sabor extra ao conteúdo. Você pode mudá-lo a qualquer momento nas configurações deste curso depois de começar."
-    picture_ask: "Escolha sua foto de perfil"
-    background_ask: "Escolha um fundo"
     save: "Salvar"
     ok: "OK"
     get_started: "Começar!"
@@ -3313,7 +3191,6 @@ editor:
     sec_conversations: Conversas
     sec_conjugations: Conjugações
     sec_guide: Guia
-    sec_themes: Temas
     add_vocab: + Palavra
     add_quiz: + Pergunta
     add_listening: + Frase
@@ -3504,8 +3381,7 @@ editor:
     bite_sub: a ideia em um fôlego · sem nota
     grp_say: Diga
     f_emoji: Emoji
-    h_emoji: "Opcional; senão, o ícone de bocado do tema."
-    h_emoji_off: "Opcional; senão, 💡."
+    h_emoji: "Opcional; senão, 💡."
     f_rule: Regra
     h_rule: Uma linha, direta.
     grp_show: Mostre
@@ -3577,8 +3453,6 @@ editor:
     h_vocab_n: "As próximas ainda não distribuídas; a lição tem {n}."
     f_tip: Dica
     f_markdown: Texto do cartão
-    schema_sub: editado campo a campo
-    schema_unavailable: Não foi possível carregar o formato do curso; edite esta parte como JSON.
     check_prompt_empty: O enunciado está vazio
     check_blank_ok: Tem uma lacuna
     check_blank_missing: "Sem ___ no enunciado: o aluno digita a resposta inteira e o Sprint não mostra espaço para preencher"

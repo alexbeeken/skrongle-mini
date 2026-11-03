@@ -90,7 +90,7 @@ it, `new` is the `own` commits whose committer date is after the report.
   "qa_page_url": "https://claude.ai/artifact/MCNMD32h5Md7oxGBLQyd4i#pr-1103",
   "items": [
     {"caption": "The drill setup: each slot now shows its people.", "before": "01-before.png", "after": "01-after.png"},
-    {"caption": "A worn theme swaps in its own pictures.", "before": "02-before.png", "after": "02-after.png"}
+    {"caption": "The saved setting shows on the card.", "before": "02-before.png", "after": "02-after.png"}
   ],
   "video": "demo.mp4",
   "made_at": "2026-10-28T14:05:00-07:00"

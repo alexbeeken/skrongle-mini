@@ -7,7 +7,7 @@ pub const MANIFEST: &str = r#"{
         "paradigm": {"slots": [{"key": "yo", "label": "yo"}, {"key": "tu", "label": "tú"}], "sets": [{"key": "present", "label": "Present"}]}
     }"#;
 
-/// A course that is not about a language (terms and meanings both English), with a Rustwake block:
+/// A course that is not about a language (terms and meanings both English):
 /// what the built-in Loyalty Marketing course used to cover in tests.
 pub const PLAIN_MANIFEST: &str = r#"{
         "id": "knots", "title": "Knots", "terms": {"label": "Term", "lang": "en"}, "meanings": {"label": "Definition", "lang": "en"},
@@ -20,34 +20,15 @@ pub const PLAIN_LESSON: &str = r###"{
         "quiz": [{"question_id": "k-bowline-01", "prompt": "A bowline makes a loop that…", "type": "multiple-choice",
                   "options": ["does not slip", "tightens under load"], "correct_answer": "does not slip"}],
         "listening": [{"text": "Make a small loop in the standing part.", "meaning": "Make a small loop in the standing part."}],
-        "sprint": {"spots": [{"sentence": "A bowline tightens under load.", "wrong": "tightens", "fix": "holds", "why": "It is a fixed loop."}]},
-        "themes": {"rustwake": {
-            "vocabulary": [{"term": "bight", "example": "Tie a bight around the scrap pile."},
-                           {"term": "dome rope", "meaning": "the rope every dome keeps by the door"}],
-            "quiz": [{"question_id": "k-bowline-rustwake-01", "prompt": "Which knot hauls a scavenger out of the crater?", "type": "multiple-choice",
-                      "options": ["a bowline", "a slip knot"], "correct_answer": "a bowline"}],
-            "spots": [{"sentence": "A bowline slips when the scavenger pulls.", "wrong": "slips", "fix": "holds", "why": "It never slips."}]
-        }}
+        "sprint": {"spots": [{"sentence": "A bowline tightens under load.", "wrong": "tightens", "fix": "holds", "why": "It is a fixed loop."}]}
     }"###;
 
-#[test]
-fn a_renamed_theme_id_still_reads_as_the_new_one() {
-    let old = PLAIN_LESSON.replace(r#""themes": {"rustwake""#, r#""themes": {"fallout""#);
-    assert_ne!(old, PLAIN_LESSON);
-    let files = [
-        CourseFile { path: MANIFEST_FILE.into(), content: PLAIN_MANIFEST.into() },
-        CourseFile { path: "lessons/bowline.json".into(), content: old },
-    ];
-    let store = ContentStore::from_files(&files).unwrap();
-    assert!(store.lessons()[0].has_theme("rustwake") && !store.lessons()[0].has_theme("fallout"));
-}
-
-pub fn plain_store(theme: Option<&Theme>) -> ContentStore {
+pub fn plain_store() -> ContentStore {
     let files = [
         CourseFile { path: MANIFEST_FILE.into(), content: PLAIN_MANIFEST.into() },
         CourseFile { path: "lessons/bowline.json".into(), content: PLAIN_LESSON.into() },
     ];
-    ContentStore::from_files_themed(&files, theme).expect("plain course loads")
+    ContentStore::from_files(&files).expect("plain course loads")
 }
 
 pub fn store(lessons: &[&str]) -> Result<ContentStore, ContentError> {
@@ -171,15 +152,6 @@ fn calendar_is_validated() {
 }
 
 #[test]
-fn a_renamed_theme_id_still_loads_old_blocks() {
-    let s = store(&[r###"{"id":"l","slug":"l","title":"L","level":"A1","category":"Grammar",
-            "markdown_content":"## One\n\ntext","target_grammar_point":"x",
-            "themes":{"stardew":{"icon":"🌻"}}}"###]).unwrap();
-    let l = &s.lessons()[0];
-    assert!(l.has_theme("meadowbrook") && !l.themes.contains_key("stardew"));
-}
-
-#[test]
 fn aliases_keep_old_files_loading() {
     let s = store(&[r###"{"id":"l","slug":"l","title":"L","level":"A1","category":"Grammar",
             "markdown_content":"## One\n\ntext","target_grammar_point":"x",
@@ -273,7 +245,6 @@ fn splits_sections_and_builds_guide() {
         form: String::new(),
         step_minutes: None,
         measure: Default::default(),
-        themed: false,
     };
     let mut lesson: Lesson = serde_json::from_str(
         r#"{"id":"l","slug":"l","title":"L","unit":"A1","content":"","vocabulary":[{"term":"hola","meaning":"hello"}]}"#,
@@ -304,28 +275,6 @@ fn splits_sections_and_builds_guide() {
     assert!(matches!(&steps[1], GuideStep::Question { index: 1 }));
     lesson.guide = vec![GuideSpec::Question { question: "nope".into() }];
     assert!(build_guide(&lesson).is_err());
-}
-
-/// A hand-ordered guide cannot name a theme's questions (they exist only
-/// while the theme is worn), so the themed questions in front of the
-/// merged quiz are slotted in after the first card, in order.
-#[test]
-fn hand_ordered_guide_gets_the_themed_questions_first() {
-    let s = store(&[r###"{"id":"l","slug":"l","title":"L","unit":"A1","content":"## One\n\nx\n\n## Two\n\ny",
-            "vocabulary":[{"term":"a","meaning":"a"},{"term":"b","meaning":"b"}],
-            "quiz":[{"question_id":"q1","prompt":"p","type":"true-false","correct_answer":"true"}],
-            "guide":[{"section":"One"},{"vocab":2},{"question":"q1"},{"section":"Two"}],
-            "themes":{"realm":{"quiz":[{"question_id":"q-realm-1","prompt":"p","type":"true-false","correct_answer":"true"},
-                                      {"question_id":"q-realm-2","prompt":"p","type":"true-false","correct_answer":"false"}]}}}"###])
-    .unwrap();
-    let plain = s.lesson_by_slug("l").unwrap();
-    let qs = |l: &Lesson| build_guide(l).unwrap().into_iter().filter_map(|st| match st { GuideStep::Question { index } => Some(l.quiz[index].question_id.clone()), _ => None }).collect::<Vec<_>>();
-    assert_eq!(qs(plain), vec!["q1"]);
-    let worn = apply_theme(plain, "realm").unwrap().expect("the lesson has a realm block");
-    assert_eq!(qs(&worn), vec!["q-realm-1", "q-realm-2", "q1"]);
-    let steps = build_guide(&worn).unwrap();
-    assert!(matches!(steps[0], GuideStep::Concept { .. }), "the first card stays first");
-    assert!(matches!(steps[1], GuideStep::Question { .. }));
 }
 
 #[test]
@@ -404,244 +353,28 @@ fn pictures_are_validated_and_served() {
     assert!(is_picture_path("pictures/scene-1_a.v2.svg") && crate::courses::valid_path("pictures/scene-1_a.v2.svg"));
 }
 
-const THEME: &str = r####"{"id": "realm", "title": "Realm", "icon": "⚔️", "colors": {"accent": "#b07d1f", "bg": "#0f0c16"},
-        "dark": {"surface": "#1b1626"}, "font": "Georgia, serif", "strings": {"praise": ["Victory!"]},
-        "avatars": [{"id": "noor", "label": "Wood elf", "image": "https://x.test/wood-elf.svg"}],
-        "icons": {"streak": "⚔️", "mode_sprint": "🗡️"}, "lesson_icons": ["🛡️", "🏹"]}"####;
-
-const THEMED_LESSON: &str = r####"{"id":"l","slug":"l","title":"L","unit":"A1","content":"## One\n\ntext",
-        "vocabulary":[{"term":"ser","meaning":"to be","example":"Soy de Madrid.","example_meaning":"I am from Madrid."},{"term":"el parque","meaning":"park"}],
-        "quiz":[{"question_id":"l-01","prompt":"p","type":"fill-in-blank","correct_answer":"soy"}],
-        "listening":[{"text":"Soy de Madrid.","meaning":"I am from Madrid."}],
-        "sprint":{"bites":[{"title":"Plain","rule":"r"}],"builds":[{"text":"Soy de Madrid.","meaning":"I am from Madrid."}]},
-        "themes":{"realm":{
-            "icon":"🧤",
-            "content":"## En Eldmark\n\nmore",
-            "vocabulary":[{"term":"ser","example":"Soy un orco.","example_meaning":"I am an orc."},{"term":"el orco","meaning":"orc","example":"El orco es alto."}],
-            "quiz":[{"question_id":"l-realm-01","prompt":"Soy ___ orco.","type":"multiple-choice","options":["un","una"],"correct_answer":"un","teaches":["el orco"]}],
-            "listening":[{"text":"Soy un orco.","meaning":"I am an orc."}],
-            "bites":[{"title":"Themed","rule":"r"}],
-            "builds":[{"text":"Soy un orco.","meaning":"I am an orc."}]
-        }}}"####;
-
-pub fn theme(json: &str) -> Theme {
-    let t: Theme = serde_json::from_str(json).unwrap();
-    validate_theme(&t).unwrap();
-    t
-}
-
-fn themed_store(lesson: &str, theme: Option<&Theme>) -> Result<ContentStore, ContentError> {
-    ContentStore::from_files_themed(
-        &[
-            CourseFile { path: MANIFEST_FILE.into(), content: MANIFEST.into() },
-            CourseFile { path: "lessons/l.json".into(), content: lesson.into() },
-        ],
-        theme,
-    )
-}
-
+/// Every stop on the Sprint path has its own icon, in every built-in course
+/// and the test course, and none looks like a locked stop (the `locked`
+/// icon). Lessons without an icon get one of `DEFAULT_LESSON_ICONS` in turn
+/// and are not checked.
 #[test]
-fn themes_merge_in_front_of_the_lesson() {
-    // Plain: nothing themed, the lesson is exactly what the file says.
-    let plain = themed_store(THEMED_LESSON, None).unwrap();
-    assert!(plain.theme().is_none());
-    let l = &plain.lessons()[0];
-    assert_eq!(l.vocabulary.len(), 2);
-    assert_eq!(l.vocabulary[0].example.as_deref(), Some("Soy de Madrid."));
-    assert_eq!(l.vocabulary[0].example_meaning.as_deref(), Some("I am from Madrid."));
-    assert_eq!(l.quiz.len(), 1);
-    assert_eq!(l.listening.len(), 1);
-    assert_eq!(l.sections.len(), 1);
-    assert!(l.has_theme("realm") && !l.has_theme("other"));
-    assert!(plain.question("l-realm-01").is_none());
-
-    // Themed: the theme's material first, the lesson's own kept, strings swapped.
-    let t = theme(THEME);
-    let realm = themed_store(THEMED_LESSON, Some(&t)).unwrap();
-    assert_eq!(realm.theme().map(|t| t.id.as_str()), Some("realm"));
-    let v = &realm.lessons()[0].vocabulary[0];
-    assert_eq!(v.example.as_deref(), Some("Soy un orco."));
-    assert_eq!(v.example_meaning.as_deref(), Some("I am an orc."));
-    let l = &realm.lessons()[0];
-    assert_eq!(l.vocabulary.len(), 3);
-    assert_eq!(l.vocabulary[0].example.as_deref(), Some("Soy un orco."));
-    assert!(l.vocabulary[0].themed && !l.vocabulary[1].themed && l.vocabulary[2].themed);
-    assert_eq!(l.vocabulary[2].term, "el orco");
-    assert_eq!(l.quiz.len(), 2);
-    assert!(l.quiz[0].themed && l.quiz[0].question_id == "l-realm-01" && !l.quiz[1].themed);
-    assert_eq!(l.listening[0].text, "Soy un orco.");
-    assert!(l.listening[0].themed && !l.listening[1].themed);
-    assert_eq!(l.sprint.bites[0].title, "Themed");
-    assert_eq!(l.sprint.builds.len(), 2);
-    assert_eq!(l.sections.len(), 2);
-    assert_eq!(l.sections[1].heading, "En Eldmark");
-    assert!(realm.question("l-realm-01").is_some() && realm.question("l-01").is_some());
-    assert_eq!(l.sprint.icon, "🧤");
-    assert!(plain.lessons()[0].sprint.icon.is_empty());
-    let icons = realm.theme().unwrap().icons();
-    assert_eq!((icons.streak.as_str(), icons.mode_sprint.as_str(), icons.xp.as_str()), ("⚔️", "🗡️", "⚡"));
-    assert_eq!(Icons::default().streak, "🔥");
-    assert_eq!(Icons::lesson(realm.theme(), 3), "🏹");
-    assert_eq!(Icons::lesson(None, 0), "📘");
-    assert_eq!(realm.manifest().strings.praise, vec!["Victory!"]);
-    assert_eq!(realm.manifest().strings.almost, default_almost(), "a string the theme leaves out keeps the course's");
-    let css = realm.theme().unwrap().css();
-    assert!(css.contains("--accent:#b07d1f;") && css.contains("--font:Georgia, serif;"), "{css}");
-    assert!(css.contains("@media (prefers-color-scheme: dark){:root{--surface:#1b1626;}"), "{css}");
-    assert!(format!("{realm:?}").contains("theme realm"));
-
-    // A theme no lesson has material for still skins the course.
-    let other = theme(&THEME.replace("\"realm\"", "\"other\""));
-    let o = themed_store(THEMED_LESSON, Some(&other)).unwrap();
-    assert_eq!(o.lessons()[0].quiz.len(), 1);
-    assert_eq!(o.manifest().strings.praise, vec!["Victory!"]);
-}
-
-#[test]
-fn course_strings_for_a_theme_come_first() {
-    // The theme's lines are English; the course's own lines for that
-    // theme (in its language) replace them while it is worn.
-    let manifest = MANIFEST.replacen(
-        "\"units\"",
-        r#""strings": {"praise": ["¡Bien!"]}, "themes": {"realm": {"strings": {"almost": ["Casi, aventurero"]}}, "gone": {"strings": {"praise": ["x"]}}}, "units""#,
-        1,
-    );
-    let load = |t: Option<&Theme>| {
-        let files = [
-            CourseFile { path: MANIFEST_FILE.into(), content: manifest.clone() },
-            CourseFile { path: "lessons/l.json".into(), content: THEMED_LESSON.into() },
-        ];
-        ContentStore::from_files_themed(&files, t)
-    };
-    let realm = theme(THEME);
-    let worn = load(Some(&realm)).unwrap();
-    assert_eq!(worn.manifest().strings.praise, vec!["Victory!"], "no course line for it: the theme's");
-    assert_eq!(worn.manifest().strings.almost, vec!["Casi, aventurero"], "the course's line for the theme wins");
-    let other = load(Some(&theme(&THEME.replace("\"realm\"", "\"other\"")))).unwrap();
-    assert_eq!(other.manifest().strings.almost, default_almost());
-    let plain = load(None).unwrap();
-    assert_eq!((plain.manifest().strings.praise.clone(), plain.manifest().strings.almost.clone()), (vec!["¡Bien!".to_string()], default_almost()));
-
-    let empty = manifest.replace(r#"["Casi, aventurero"]"#, r#"[" "]"#);
-    let files = [CourseFile { path: MANIFEST_FILE.into(), content: empty }];
-    let err = ContentStore::from_files(&files).unwrap_err().to_string();
-    assert!(err.contains("course.json") && err.contains("themes.realm.strings must not be empty"), "{err}");
-}
-
-#[test]
-fn themed_material_is_validated() {
-    let err = |l: &str| themed_store(l, None).unwrap_err().to_string();
-    // themed material is validated even when no theme is on, and the error names the theme
-    let bad = THEMED_LESSON.replace(r#""text":"Soy un orco.","meaning":"I am an orc."}],"#, r#""text":"Soy un orco.","meaning":"I am an orc."},{"text":"Soy un orco.","meaning":"dup"}],"#);
-    let e = err(&bad);
-    assert!(e.contains("(theme 'realm')") && e.contains("appears twice"), "{e}");
-    // a re-examples entry must not change the meaning; a new term needs one
-    let bad = THEMED_LESSON.replace(r#"{"term":"ser","example":"Soy un orco.","#, r#"{"term":"ser","meaning":"to exist","example":"Soy un orco.","#);
-    assert!(err(&bad).contains("already taught by the lesson"));
-    let bad = THEMED_LESSON.replace(r#"{"term":"el orco","meaning":"orc","example":"El orco es alto."}"#, r#"{"term":"el orco"}"#);
-    assert!(err(&bad).contains("needs a meaning"));
-    // a themed question id may not reuse a lesson's
-    let bad = THEMED_LESSON.replace(r#""question_id":"l-realm-01""#, r#""question_id":"l-01""#);
-    let e = err(&bad);
-    assert!(e.contains("l-01") && e.contains("theme 'realm'"), "{e}");
-    // the key must look like a theme id
-    let e = err(&THEMED_LESSON.replace(r#""themes":{"realm""#, r#""themes":{"Bad Id""#));
-    assert!(e.contains("not a theme id"), "{e}");
-    // a themed lesson icon is a glyph
-    let e = err(&THEMED_LESSON.replace(r#""icon":"🧤""#, r#""icon":"<script>""#));
-    assert!(e.contains("themes.realm: icon"), "{e}");
-}
-
-#[test]
-fn old_icon_slots_still_load() {
-    let t: Theme = serde_json::from_str(r##"{"id": "a", "title": "x", "icons": {"mode_d": "🗡️", "mode_k": "📜", "mode_play": "🎯", "mode_g": "🎲"}}"##).unwrap();
-    validate_theme(&t).unwrap();
-    let icons = Icons::of(Some(&t));
-    assert_eq!((icons.mode_sprint.as_str(), icons.mode_study.as_str(), icons.mode_play.as_str()), ("🗡️", "📜", "🎯"));
-}
-
-#[test]
-fn theme_files_are_validated() {
-    let with = |json: &str| validate_theme(&serde_json::from_str(json).unwrap()).unwrap_err();
-    assert!(with(r##"{"id": "Bad Id", "title": "x"}"##).contains("theme id"));
-    assert!(with(r##"{"id": "a", "title": ""}"##).contains("needs a title"));
-    assert!(with(r##"{"id": "a", "title": "x", "colors": {"accent": "red"}}"##).contains("hex colour"));
-    assert!(with(r##"{"id": "a", "title": "x", "colors": {"accent": "#fff; background: url(x)"}}"##).contains("hex colour"));
-    assert!(with(r##"{"id": "a", "title": "x", "dark": {"shadow": "#000"}}"##).contains("unknown dark token 'shadow'"));
-    assert!(with(r##"{"id": "a", "title": "x", "font": "x; color: red"}"##).contains("font must be"));
-    assert!(with(r##"{"id": "a", "title": "x", "art": {"banner": "lessons/x.svg"}}"##).contains("must be a file of the theme"));
-    assert!(with(r##"{"id": "a", "title": "x", "strings": {"praise": [""]}}"##).contains("strings must not be empty"));
-    assert!(with(r##"{"id": "a", "title": "x", "icons": {"hand": "🧤"}}"##).contains("unknown icon slot 'hand'"));
-    assert!(with(r##"{"id": "a", "title": "x", "icons": {"streak": "<b>"}}"##).contains("icons.streak must be"));
-    assert!(with(r##"{"id": "a", "title": "x", "lesson_icons": ["🛡️", "a long one"]}"##).contains("lesson_icons must be"));
-    assert!(is_icon("🧤") && is_icon("★") && !is_icon("") && !is_icon("🧤 🧤"));
-    assert!(with(r##"{"id": "a", "title": "x", "avatars": [{"id": "orc", "label": "Orc", "image": "pictures/o.svg"}]}"##).contains("avatar 'orc' is not one of the profile pictures (noor, amani"));
-    assert!(with(r##"{"id": "a", "title": "x", "avatars": [{"id": "noor", "label": "Orc", "image": "o.svg"}]}"##).contains("must be a file of the theme"));
-    assert!(with(r##"{"id": "a", "title": "x", "avatars": [{"id": "noor", "image": "https://x.test/o.svg"}, {"id": "owl", "image": "https://x.test/o.svg"}]}"##).contains("duplicate avatar 'owl'"));
-    assert!(with(r##"{"id": "a", "title": "x", "avatars": [{"id": "noor", "image": "https://x.test/o.svg", "color": "blue"}]}"##).contains("avatar 'noor': color must be a hex colour"));
-    assert!(with(r##"{"id": "a", "title": "x", "avatar_colors": [{"slot": 9, "label": "Ash", "color": "#333333"}]}"##).contains("slot 9 must be 1 to 8"));
-    assert!(with(r##"{"id": "a", "title": "x", "avatar_colors": [{"slot": 2, "label": "Ash", "color": "#333"}, {"slot": 2, "label": "Ash", "color": "#444"}]}"##).contains("duplicate avatar_colors slot 2"));
-    assert!(with(r##"{"id": "a", "title": "x", "avatar_colors": [{"slot": 2, "label": " ", "color": "#333"}]}"##).contains("needs a label"));
-    assert!(with(r##"{"id": "a", "title": "x", "avatar_colors": [{"slot": 2, "label": "Ash", "color": "grey"}]}"##).contains("slot 2: color must be a hex colour"));
-    let bg = |slot: u8, label: &str, image: &str, color: &str| format!(r##"{{"slot": {slot}, "label": "{label}", "image": "{image}", "color": "{color}"}}"##);
-    let bgs = |list: &[String]| with(&format!(r##"{{"id": "a", "title": "x", "avatar_backgrounds": [{}]}}"##, list.join(", ")));
-    assert!(bgs(&[bg(8, "Hills", "pictures/h.svg", "#334455")]).contains("avatar_backgrounds slot 8 must be 9 to 16"));
-    assert!(bgs(&[bg(17, "Hills", "pictures/h.svg", "#334455")]).contains("slot 17 must be 9 to 16"));
-    assert!(bgs(&[bg(9, "Hills", "pictures/h.svg", "#334455"), bg(9, "Dunes", "pictures/d.svg", "#334455")]).contains("duplicate avatar_backgrounds slot 9"));
-    assert!(bgs(&[bg(9, " ", "pictures/h.svg", "#334455")]).contains("needs a label"));
-    assert!(bgs(&[bg(9, "Hills", "h.png", "#334455")]).contains("slot 9: image 'h.png' must be a file of the theme"));
-    assert!(bgs(&[bg(9, "Hills", "pictures/h.svg", "green")]).contains("slot 9: color must be a hex colour"));
-    assert!(is_hex_color("#abc") && is_hex_color("#AABBCCDD") && !is_hex_color("#abcde") && !is_hex_color("abc"));
-    assert!(is_font_stack("'Palatino Linotype', Georgia, serif") && !is_font_stack("url(x)"));
-    let t = theme(THEME);
-    // By the new id, or by the old id of the same slot; never another slot.
-    assert!(t.avatar("noor").is_some() && t.avatar("owl").is_some() && t.avatar("kai").is_none() && t.avatar("fox").is_none());
-    let old = theme(&THEME.replace(r#""id": "noor""#, r#""id": "owl""#));
-    assert_eq!(old.avatar("noor").map(|a| a.label.as_str()), Some("Wood elf"));
-    assert_eq!(t.icon(), "⚔️");
-}
-
-#[test]
-fn old_theme_id_is_read_as_the_new_one() {
-    let old = THEMED_LESSON.replace(r#""themes":{"realm""#, r#""themes":{"wow""#);
-    let t = theme(THEME);
-    let store = themed_store(&old, Some(&t)).unwrap();
-    assert!(store.lessons()[0].has_theme("realm") && !store.lessons()[0].has_theme("wow"));
-}
-
-/// Every stop on the Sprint path has its own icon, plain and with each
-/// theme worn (a themed `icon` replaces the stop's `sprint.icon`), in every
-/// built-in course and the test course, and none looks like a locked stop
-/// (the theme's `locked` icon). Lessons without an icon get one from the
-/// theme's `lesson_icons` in turn and are not checked.
-#[test]
-fn stop_icons_are_unique_on_the_path_in_every_theme() {
-    let themes = crate::themes::Themes::load(Path::new("data")).unwrap();
+fn stop_icons_are_unique_on_the_path() {
     let mut dirs: Vec<std::path::PathBuf> = std::fs::read_dir("data/courses").unwrap().map(|e| e.unwrap().path()).filter(|p| p.is_dir()).collect();
     dirs.push("data/test-courses/test-course".into());
-    let mut checked = 0;
     for dir in &dirs {
-        let packs: Vec<Option<&Theme>> = std::iter::once(None).chain(themes.all().iter().map(|p| Some(&p.theme))).collect();
-        for theme in packs {
-            let store = ContentStore::load_dir_themed(dir, theme).unwrap();
-            // A locked stop shows the theme's locked icon: no lesson may look locked.
-            let locked = Icons::of(theme).locked;
-            let mut seen: HashMap<&str, &str> = HashMap::from([(locked.as_str(), "the locked icon")]);
-            for l in store.lessons().iter().filter(|l| !l.sprint.icon.is_empty()) {
-                if let Some(other) = seen.insert(&l.sprint.icon, &l.slug) {
-                    panic!("{}, theme {}: {} and {} both show {} on the path", dir.display(), theme.map_or("none", |t| t.id.as_str()), other, l.slug, l.sprint.icon);
-                }
+        let store = ContentStore::load_dir(dir).unwrap();
+        // A locked stop shows the locked icon: no lesson may look locked.
+        let locked = Icons::default().locked;
+        let mut seen: HashMap<&str, &str> = HashMap::from([(locked.as_str(), "the locked icon")]);
+        for l in store.lessons().iter().filter(|l| !l.sprint.icon.is_empty()) {
+            if let Some(other) = seen.insert(&l.sprint.icon, &l.slug) {
+                panic!("{}: {} and {} both show {} on the path", dir.display(), other, l.slug, l.sprint.icon);
             }
-            checked += 1;
         }
     }
-    assert!(checked >= 2 * 4, "{checked}");
+    assert!(dirs.len() >= 3, "{dirs:?}");
 }
 
-/// No two quiz questions in a built-in course share a prompt (compared
-/// lower-cased, punctuation aside), themed questions included: the Review
-/// mix, Practice and the Guide would ask the same thing twice, and a
-/// generic "Which sentence is correct?" says nothing in the History table.
 #[test]
 fn quiz_prompts_are_unique_in_every_builtin_course() {
     let norm = |s: &str| s.to_lowercase().split(|c: char| !c.is_alphanumeric() && c != '_').filter(|w| !w.is_empty()).collect::<Vec<_>>().join(" ");
@@ -649,7 +382,7 @@ fn quiz_prompts_are_unique_in_every_builtin_course() {
         let store = ContentStore::load_dir(&dir).unwrap();
         let mut seen: HashMap<String, &str> = HashMap::new();
         for l in store.lessons() {
-            for q in l.quiz.iter().chain(l.themes.values().flat_map(|t| t.quiz.iter())) {
+            for q in &l.quiz {
                 if let Some(other) = seen.insert(norm(&q.prompt), &q.question_id) {
                     panic!("{}: {} and {} have the same prompt: {:?}", dir.display(), other, q.question_id, q.prompt);
                 }
@@ -660,30 +393,20 @@ fn quiz_prompts_are_unique_in_every_builtin_course() {
 
 /// "Listen and type" tests the ear, not memory: no listening sentence in
 /// a built-in course is word for word a build, a vocabulary example or a
-/// quiz prompt of the same lesson or theme block (AUTHORING.md, listening).
+/// quiz prompt of the same lesson (AUTHORING.md, listening).
 #[test]
 fn listening_does_not_copy_builds_or_examples() {
     for dir in std::fs::read_dir("data/courses").unwrap().map(|e| e.unwrap().path()).filter(|p| p.is_dir()) {
         let store = ContentStore::load_dir(&dir).unwrap();
         for l in store.lessons() {
-            let lesson_used: Vec<&str> = l.sprint.builds.iter().map(|b| b.text.as_str())
+            let used: Vec<&str> = l.sprint.builds.iter().map(|b| b.text.as_str())
                 .chain(l.vocabulary.iter().filter_map(|v| v.example.as_deref()))
                 .chain(l.quiz.iter().map(|q| q.prompt.as_str()))
                 .collect();
-            let mut blocks: Vec<(String, &[ListeningItem], Vec<&str>)> = vec![("lesson".into(), &l.listening[..], lesson_used)];
-            for (id, t) in &l.themes {
-                let used = t.builds.iter().map(|b| b.text.as_str())
-                    .chain(t.vocabulary.iter().filter_map(|v| v.example.as_deref()))
-                    .chain(t.quiz.iter().map(|q| q.prompt.as_str()))
-                    .collect();
-                blocks.push((format!("themes.{id}"), &t.listening[..], used));
-            }
-            for (where_, listening, used) in blocks {
-                for item in listening {
-                    let text = item.text.trim();
-                    assert!(!used.iter().any(|u| u.trim() == text),
-                        "{}: {} {}: listening {:?} copies a build, vocabulary example or quiz prompt", dir.display(), l.id, where_, text);
-                }
+            for item in &l.listening {
+                let text = item.text.trim();
+                assert!(!used.iter().any(|u| u.trim() == text),
+                    "{}: {}: listening {:?} copies a build, vocabulary example or quiz prompt", dir.display(), l.id, text);
             }
         }
     }
@@ -736,75 +459,4 @@ fn prerequisites_point_back_down_the_path() {
             visit(&l.id, &store, &mut state, &mut Vec::new());
         }
     }
-}
-
-#[test]
-fn builtin_spanish_has_realm_material() {
-    let themes = crate::themes::Themes::load(Path::new("data")).unwrap();
-    let realm_theme = themes.get("realm").expect("the realm theme ships with the app");
-    let plain = ContentStore::load_dir(Path::new("data/courses/spanish")).unwrap();
-    assert!(plain.lessons().iter().all(|l| !l.listening.iter().any(|i| i.themed)));
-    let themed_lessons = plain.lessons().iter().filter(|l| l.has_theme("realm")).count();
-    assert!(themed_lessons >= 8, "{themed_lessons}");
-
-    let realm = ContentStore::load_dir_themed(Path::new("data/courses/spanish"), Some(&realm_theme.theme)).unwrap();
-    assert_eq!(realm.lessons().len(), plain.lessons().len());
-    for (p, w) in plain.lessons().iter().zip(realm.lessons()) {
-        assert_eq!(p.id, w.id);
-        assert!(w.listening.len() >= p.listening.len() && w.quiz.len() >= p.quiz.len());
-        if w.has_theme("realm") {
-            assert!(w.listening[0].themed && w.sprint.bites[0].themed && w.quiz[0].themed, "{}", w.slug);
-            assert!(w.vocabulary.iter().any(|v| v.themed), "{}", w.slug);
-        } else {
-            assert_eq!(w.listening.len(), p.listening.len());
-        }
-    }
-    let ser = realm.lesson_by_slug("ser-vs-estar").unwrap();
-    assert_eq!(ser.vocabulary[0].example.as_deref(), Some("Soy un guerrero de la Hueste de Ceniza."));
-    assert!(realm.question("a1-ser-vs-estar-realm-01").is_some());
-    assert_eq!(realm.manifest().strings.praise[0], "¡Victoria!");
-
-    // Meadowbrook: the same lessons, every kind of material, including conversations.
-    let sd_theme = themes.get("meadowbrook").unwrap();
-    let sd = ContentStore::load_dir_themed(Path::new("data/courses/spanish"), Some(&sd_theme.theme)).unwrap();
-    let themed: Vec<&Lesson> = sd.lessons().iter().filter(|l| l.has_theme("meadowbrook")).collect();
-    assert!(themed.len() >= 8, "{}", themed.len());
-    for l in &themed {
-        let b = &l.themes["meadowbrook"];
-        assert!(!b.icon.is_empty() && !b.content.is_empty() && b.vocabulary.len() >= 8 && b.quiz.len() == 2, "{}", l.slug);
-        assert!(b.listening.len() == 5 && b.builds.len() == 2 && b.spots.len() == 2 && b.sorts.len() == 1 && b.bites.len() == 1, "{}", l.slug);
-        assert!(l.sprint.icon == b.icon && l.quiz[0].themed && l.listening[0].themed && l.sprint.sorts[0].themed, "{}", l.slug);
-    }
-    assert!(themed.iter().filter(|l| !l.themes["meadowbrook"].conversations.is_empty()).count() >= 2);
-    let (lesson, c) = sd.conversation("a1-gus-conv-meadowbrook-gift").unwrap();
-    assert!(c.themed && lesson.slug == "gustar-saying-what-you-like" && lesson.conversations[0].id == c.id);
-    assert!(plain.conversation("a1-gus-conv-meadowbrook-gift").is_none());
-    assert_eq!(sd.manifest().strings.praise[0], "¡Buena cosecha!");
-    // Rustwake: the same lessons again, every kind of material, with conversations in three.
-    let fo_theme = themes.get("rustwake").unwrap();
-    let fo = ContentStore::load_dir_themed(Path::new("data/courses/spanish"), Some(&fo_theme.theme)).unwrap();
-    let themed: Vec<&Lesson> = fo.lessons().iter().filter(|l| l.has_theme("rustwake")).collect();
-    assert!(themed.len() >= 8, "{}", themed.len());
-    for l in &themed {
-        let b = &l.themes["rustwake"];
-        assert!(!b.icon.is_empty() && !b.content.is_empty() && b.vocabulary.len() >= 8 && b.quiz.len() == 2, "{}", l.slug);
-        assert!(b.listening.len() == 5 && b.builds.len() == 2 && b.spots.len() == 2 && b.sorts.len() == 1 && b.bites.len() == 1, "{}", l.slug);
-        assert!(l.sprint.icon == b.icon && l.quiz[0].themed && l.listening[0].themed && l.sprint.sorts[0].themed, "{}", l.slug);
-        assert!(b.vocabulary.iter().any(|v| !v.meaning.is_empty()), "{}: no new wasteland term", l.slug);
-    }
-    assert!(themed.iter().filter(|l| !l.themes["rustwake"].conversations.is_empty()).count() >= 3);
-    let (lesson, c) = fo.conversation("a1-greetings-conv-rustwake-market").unwrap();
-    assert!(c.themed && lesson.slug == "greetings-and-introductions" && lesson.conversations[0].id == c.id);
-    assert!(plain.conversation("a1-greetings-conv-rustwake-market").is_none() && sd.conversation("a1-greetings-conv-rustwake-market").is_none());
-    assert_eq!(fo.manifest().strings.praise[0], "¡Tuercas para ti!");
-    // A non-language course can carry themed material too: no listening, the rest merged the same way.
-    let lm = plain_store(Some(&fo_theme.theme));
-    let l = &lm.lessons()[0];
-    assert!(l.has_theme("rustwake") && l.themes["rustwake"].listening.is_empty());
-    assert!(l.quiz[0].themed && l.sprint.spots[0].themed && l.vocabulary.iter().any(|v| v.themed) && l.vocabulary.len() == 3);
-    assert!(lm.question("k-bowline-rustwake-01").is_some());
-    assert!(plain_store(None).question("k-bowline-rustwake-01").is_none());
-    // and the themes never leak into each other
-    assert!(sd.question("a1-ser-vs-estar-realm-01").is_none() && realm.question("a1-ser-vs-estar-meadowbrook-01").is_none());
-    assert!(realm.question("a1-ser-vs-estar-rustwake-01").is_none() && fo.question("a1-ser-vs-estar-meadowbrook-01").is_none());
 }

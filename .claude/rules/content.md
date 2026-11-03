@@ -17,10 +17,10 @@ paths:
   `TEST_COURSE=1`) uses every feature a course file can switch on, one
   lesson per feature, for browser tests. Adding a feature course files can
   use (a field, a quiz type, an exercise, a Guide step, a game reading
-  course data, a theme, an alias) MUST add it to the test course and to the
+  course data, an alias) MUST add it to the test course and to the
   e2e specs that use it, in the same change. `cargo test test_course` fails
-  until the course covers the schema, aliases, quiz types, exercise kinds and
-  themes; its `AUTHORING.md` has the feature map and what the tests can't see.
+  until the course covers the schema, aliases, quiz types and exercise kinds;
+  its `AUTHORING.md` has the feature map and what the tests can't see.
 - One course = `course.json` + `lessons/**/*.json`. Built-in courses are in
   `data/courses/<id>/` (folder name = manifest id). User-made courses are the
   same files stored in SQLite (`courses`, `course_files`). Both load through

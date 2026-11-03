@@ -27,7 +27,7 @@ Every feature reads the same course files:
 | **History** | every answer and game |
 
 It is a single Rust binary (SQLite and all templates/CSS/JS/docs compiled in;
-courses and themes are read from `data/`)
+courses are read from `data/`)
 sized for a **Raspberry Pi Zero 2 W** and built on an Apple Silicon Mac.
 
 ```
@@ -61,7 +61,7 @@ the app's *Host it yourself* page (`/self-host`, linked from `/docs`), or
 The documentation lives in `docs/` and is served by the app at `/docs`, so a
 page can be handed to a person or an LLM. `/docs` opens on the user guides
 (getting started, how a course is built, building and generating courses,
-themes, FAQ); developer pages are in their own section
+FAQ); developer pages are in their own section
 ([docs/dev.md](docs/dev.md)); `/llms.txt` lists what an LLM needs to write a
 course.
 

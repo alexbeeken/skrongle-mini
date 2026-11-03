@@ -2,7 +2,7 @@
 
 A course for automated tests only. It uses **every feature a course file can
 switch on**: every quiz type, every Sprint mode exercise, every game, the Guide
-(hand-ordered and derived), Listening, the paradigm drill, Date Dash, themes and the legacy field names. Browser tests use it to
+(hand-ordered and derived), Listening, the paradigm drill, Date Dash and the legacy field names. Browser tests use it to
 smoke-test a feature without playing through the Spanish course.
 
 It is offered only when the server runs with `TEST_COURSE=1`
@@ -16,7 +16,7 @@ a spec with `devLogin(page, "open=" + TEST_COURSE)` from `e2e/lib/app.ts`.
 **Adding a feature that course files can use means adding it here, in the
 same change, together with the browser tests that use it.** That covers a
 new lesson or manifest field, a quiz type, an exercise kind, a Guide step,
-a game that reads course data, a theme, or an alias. `cargo test test_course`
+a game that reads course data, or an alias. `cargo test test_course`
 (`src/test_course.rs`) fails until the course covers it:
 
 - every property and enum value of `docs/course.schema.json` (manifest and
@@ -27,9 +27,7 @@ a game that reads course data, a theme, or an alias. `cargo test test_course`
 - Sprint mode produces every exercise kind (`kind()` in the test names them, and a
   new `Exercise` variant doesn't compile until it is named), and each
   feature lesson's session always contains its feature (the table below);
-- every Guide step kind appears, and one lesson derives its Guide;
-- every installed theme (`data/themes/`) has a block with every themed field
-  in `lessons/5-edge/themes.json`.
+- every Guide step kind appears, and one lesson derives its Guide.
 
 Some features have no field of their own, such as a behaviour of the
 loader, a page or a game that reads existing data. The tests can't see those, so you
@@ -44,7 +42,7 @@ get. "Sprint mode always has" is asserted for every shuffle by
 
 | Unit | Slug | Feature | Sprint mode always has |
 |---|---|---|---|
-| Everything | `everything` | Every lesson field at once: intro text, table, list, blockquote, code block with a fake `## `, every quiz type but algebra tiles and measure, a conjugation inheriting its art (hablar, preterite), a conversation, listening, a hand-ordered Guide with every step kind (section, vocab, question, tip, concept), sprint icon/bites/sort/spot/build, a `realm` block. The first lesson, so the first Guide stage and the first stop on the path | |
+| Everything | `everything` | Every lesson field at once: intro text, table, list, blockquote, code block with a fake `## `, every quiz type but algebra tiles and measure, a conjugation inheriting its art (hablar, preterite), a conversation, listening, a hand-ordered Guide with every step kind (section, vocab, question, tip, concept), sprint icon/bites/sort/spot/build. The first lesson, so the first Guide stage and the first stop on the path | |
 | Question types | `multiple-choice` | 2- and 4-option questions, one and two hints, `teaches`, auto-collected term | choice |
 | | `true-false` | `true` / `false`, served as **True** / **False** | choice |
 | | `fill-in-blank` | Accent near miss (`está`; `esta` gets the note), `accepted_answers` (`yo soy`), explicit `teaches`, auto-collected term, a two-word answer | word tiles |
@@ -57,7 +55,7 @@ get. "Sprint mode always has" is asserted for every shuffle by
 | | `algebra-tiles` | A board of x², x and 1 tiles in Study and the Guide; `tiles` with and without `form`, two big squares (`(2x + 1)(x + 1)`), no units (`x(x + 3)`); the expanded form gets the two-sides note | nothing: Sprint mode skips it |
 | | `clock` | Set the clock: a quarter to four (5-minute steps, a hint), las seis y media (15-minute steps), twelve o'clock (where the clock starts); turned around: read a clock and pick 9:15 among four times | set-clock, read-clock |
 | | `measure` | A protractor over an obtuse (125°) and two acute (40°, 72°) angles, `tolerance` 2, unit `°`; 55° on the first gets the other-scale note. Study and the Guide only | bites only (Sprint mode skips the questions) |
-| Sprint mode exercises | `bites` | Hand-written bites: with emoji, without (the theme's bite icon), without an example; `sprint.icon` | bite |
+| Sprint mode exercises | `bites` | Hand-written bites: with emoji, without (the 💡 icon), without an example; `sprint.icon` | bite |
 | | `sort` | Sorts with 2, 3 and 4 buckets; bites derived from the sections; a "Quick check" section Sprint mode skips; no icon (default/`lesson_icons`) | sort |
 | | `spot` | Spot the mistake, incl. a wrong word with punctuation attached (`gato.`) | spot |
 | | `build` | Builds with and without distractors (2 words) | build |
@@ -68,21 +66,15 @@ get. "Sprint mode always has" is asserted for every shuffle by
 | Stages | `guide-derived` | No `guide`: cards from sections, vocabulary in hands of 5 + 1, questions from the third card on; `prerequisites` | |
 | Edge cases | `read-only` | No questions, no vocabulary, no group (`general`), no order (100): the *I've read it* button; a Sprint mode session of bites only | bite |
 | | `legacy` | Every old field name (`level`, `category`, `markdown_content`, `journey`, `es`/`en`, `example_es`/`example_en`, `verb`/`tense`, `dmode`, …); group `Legacy`, which the manifest doesn't list | |
-| | `themes` | Plain material plus a complete block for `realm`, `meadowbrook` and `rustwake` (icon, content, vocabulary re-example + new term, quiz, listening, conversation, bite, sort, spot, build), and a block for a theme that isn't installed (never shown) | |
-| | `notation` | A ```` ```abc ```` block in the lesson text, drawn as a staff on the lesson page and in the Guide (`e2e/specs/notation.spec.ts`), a plain code block that stays code, and a non-ABC and an empty `abc` block that stay as text (#1187); a "Name the note" question with `abc` on a staff above its prompt in Practice, Sprint mode and the Guide (`music.note_names` is `letters` in `course.json`); a Sprint build of the circle of fifths (`C G D A E B`), kept because the course has `music` (#1232); two "Pick the interval" questions (#1220), C then E and a stacked D and F, with interval names as options and explanations that count the half steps; a Sprint spot with `abc` (Fix the wrong note: tap the 4th note, pick F from three tiles), and a `realm` staff spot whose fix has a sharp (`^f`); two "Name the chord" questions (#1222), a stacked D minor and F major, with chord names as options and explanations that name the notes; two "Name the key" questions (#1221), a two-sharp signature (with a whole note B so the staff is drawn) and a short tune in A minor, with key names as options and explanations that count the sharps or name the note the tune ends on; order 200 | bite, build, choice, spot |
+| | `notation` | A ```` ```abc ```` block in the lesson text, drawn as a staff on the lesson page and in the Guide (`e2e/specs/notation.spec.ts`), a plain code block that stays code, and a non-ABC and an empty `abc` block that stay as text (#1187); a "Name the note" question with `abc` on a staff above its prompt in Practice, Sprint mode and the Guide (`music.note_names` is `letters` in `course.json`); a Sprint build of the circle of fifths (`C G D A E B`), kept because the course has `music` (#1232); two "Pick the interval" questions (#1220), C then E and a stacked D and F, with interval names as options and explanations that count the half steps; a Sprint spot with `abc` (Fix the wrong note: tap the 4th note, pick F from three tiles); two "Name the chord" questions (#1222), a stacked D minor and F major, with chord names as options and explanations that name the notes; two "Name the key" questions (#1221), a two-sharp signature (with a whole note B so the staff is drawn) and a short tune in A minor, with key names as options and explanations that count the sharps or name the note the tune ends on; order 200 | bite, build, choice, spot |
 | | `ear` | Music to listen to (`e2e/specs/music-sound.spec.ts`): "Hear the interval", a multiple-choice question with `play` and no `abc` (a speaker button, the notes on a staff after the answer); "Which melody plays?", with `option_kind: "abc"` (the options drawn as staves); "Which bar did you hear?", a rhythm with `K:C clef=perc` and `M:4/4` in `play` that plays as clicks of one pitch, with three one-bar staves as options; a Sprint sort of speaker tiles (sort items with `play` and no `text`); a Sprint scale, D major with the decoys F and C (`e2e/specs/scale-ladder.spec.ts`), also drawn and played on the lesson page; order 210, the last of its unit | choice, sort, scale |
 
 Course-level features, from `course.json`: a language course (`es` →
 `en`, with `language_features` set to `true` as well: Listening, Numbers by
 ear, tap to hear, Sprint mode listening), `chars`,
-`calendar` (Date Dash), a paradigm with a custom label and slot art (seven slots: every `who` value
-from yo to ellos, so the drill draws them with profile pictures; the gerundio
-is not a person, has no `who` and keeps its ASCII art),
+`calendar` (Date Dash), a paradigm with a custom label and slot art (seven slots),
 `strings` with one praise (`¡Correcto!`) and one almost (`Casi…`) so a spec
-can match them exactly, `themes.realm.strings` (`¡Victoria de prueba!`,
-which replaces the realm theme's English praise while it is worn; the theme
-spec checks it on the lesson page) plus a block for a theme that isn't
-installed, six units (one without a description) marked as `levels`, so a
+can match them exactly, six units (one without a description) marked as `levels`, so a
 new learner picks one to start at (`e2e/specs/smoke/start-level.spec.ts`
 starts at *Edge cases*), listed and unlisted groups. `placement.json` is
 the placement test (#1106): two written questions for *Everything* (every
@@ -94,7 +86,7 @@ with a multiple-choice question draws one (`e2e/specs/smoke/placement.spec.ts`).
 - The smoke specs finish the whole course as a new account:
   `e2e/specs/smoke/complete-test-course.spec.ts` (Study, Sprint, Play; it fails when Sprint
   never serves a kind of `ALL_KINDS`) and `test-course-games.spec.ts` (every
-  game on `/play`, the tutor, a theme). `wrong-answers.spec.ts` answers
+  game on `/play`, the tutor). `wrong-answers.spec.ts` answers
   the same features wrong and checks that each is marked and counted wrong
   (it fails when a quiz type or a graded Sprint kind is never answered wrong).
   A new feature needs a step in both: the right path and the wrong one.
@@ -104,8 +96,6 @@ with a multiple-choice question draws one (`e2e/specs/smoke/placement.spec.ts`).
   true-false answer is `"true"` in the file and **True** on screen.
 - Guide stages unlock in order; only `everything` is open for a new account.
   Sprint mode lessons, practice, listening and the lesson pages are not gated.
-- Themed questions (`tc-themes-realm-01`, …) exist only while that theme is
-  worn (`POST /theme theme=realm`).
 
 ## Writing content here
 

@@ -1,59 +1,43 @@
 lessons/b1/present-subjunctive-forms.json sprint.spots[1] e73a9a6e41
 lessons/b1/subjunctive-stem-changers.json sprint.sorts[0] item 2 7b4faa2d4f
-lessons/b1/wishes-and-requests.json themes.realm.spots[0] df090c7b61
-lessons/b1/relative-clauses.json themes.meadowbrook.sorts[0] item 4 444429f284
 lessons/b1/feelings-and-relationships.json sprint.spots[1] da074ea4a0
-lessons/b1/arguing-a-point.json themes.meadowbrook.bites[0] rule db6d761bde
 lessons/b1/arguing-a-point.json vocabulary[5] example d7b1629ae8
 
 # C1: findings checked and right after all
 # "aun" = incluso takes no accent (RAE, Ortografía 2010); "aún" is todavía.
 lessons/c1/gerund-and-participle-clauses.json quiz[5] c1-gerund-and-participle-clauses-06 explanation 6eba2eab9c
 lessons/c1/gerund-and-participle-clauses.json vocabulary[0] example 27d12f2ecf
-lessons/c1/gerund-and-participle-clauses.json themes.rustwake.conversations[0] c1-gerund-and-participle-clauses-conv-rustwake-puncture line 2 cc14fbc0f1
-lessons/c1/gerund-and-participle-clauses.json themes.rustwake.vocabulary[1] example 98c77e4654
 # adjunto is an adjective and agrees with the noun: le envío adjunta una copia.
 lessons/c1/letters-and-articles.json listening[2] 0170521016
 # Events take ser for place: el festival es en la plaza, el banquete es en el gran salón.
-lessons/c1/ser-estar-nuances.json themes.meadowbrook.spots[0] 7600044155
-lessons/c1/ser-estar-nuances.json themes.realm.spots[0] 5199d9c4cf
 # siempre que + subjunctive = provided that (a condition), so the subjunctive bucket is right.
 lessons/c1/conditional-connectors.json sprint.sorts[0] item 1 edf3d005ae
 # la fuga = the leak (of water, gas).
-lessons/c1/counterfactuals.json themes.rustwake.vocabulary[7] a7f557148d
 # tomar el pelo = to pull someone's leg; the fixed sentence is correct.
-lessons/c1/colloquial-and-idioms.json themes.meadowbrook.spots[1] e4afbdbe88
 
 # Spanish C2 (#174): findings checked and right after all. Most quote a deliberate
 # mistake for the learner to spot (pienso de que, hubieron, satisfació, realizó que,
 # an anacoluthon); the rest are misreadings (yo satisfice, concessive con + infinitivo,
 # in- + útil, so pena de multa, el que fuera = the former).
 lessons/c2/future-subjunctive.json sprint.spots[3] cfecbd2cee
-lessons/c2/future-subjunctive.json themes.realm.sorts[0] item 1 a52e7fe1aa
-lessons/c2/future-subjunctive.json themes.rustwake.spots[1] dd0acd1066
 lessons/c2/future-subjunctive.json sprint.spots[4] a3f5913afb
 lessons/c2/humour-irony-wordplay.json sprint.spots[3] a05bb4c9ac
 lessons/c2/literary-subjunctive.json vocabulary[4] 3f52077fec
-lessons/c2/long-sentences.json themes.rustwake.vocabulary[2] aeea770324
 lessons/c2/long-sentences.json content § Keeping the thread: commas, anacoluthon, full stops › line 3 153dbcfcfc
 lessons/c2/long-sentences.json conversations[0] c2-long-sentences-conv-declaracion line 4 6d0044a2f0
 lessons/c2/long-sentences.json vocabulary[5] bcd8f7f927
 lessons/c2/precision-in-lexis.json conversations[0] c2-precision-in-lexis-conv-translation line 4 93c73e7a1c
 lessons/c2/proofreading.json conjugations[0] 650f300f53
 lessons/c2/proofreading.json conversations[0] c2-proofreading-conv-report line 2 df314b634a
-lessons/c2/proofreading.json themes.rustwake.conversations[0] c2-proofreading-conv-rustwake-guion line 1 d364be0e59
 lessons/c2/proofreading.json conversations[0] c2-proofreading-conv-report line 6 bf2b83e6c3
 lessons/c2/proofreading.json content § Three verbs that trip everyone up › row 1 5cd5c490ef
 lessons/c2/word-formation.json sprint.sorts[1] item 0 4746c6f82f
-lessons/c2/word-formation.json themes.rustwake.vocabulary[5] a7b8818f34
 
 # Spanish B1–C2 (#174), second pass: findings checked and right after all.
 # media jornada = a half working day (media agrees with jornada; medía is a verb form).
-lessons/b1/work-and-job-hunting.json themes.meadowbrook.quiz[1] b1-work-and-job-hunting-meadowbrook-02 explanation 3c63f88e9a
 # a menos que, a no ser que, con tal de que, en caso de que always take the subjunctive; siempre que is treated apart below the table.
 lessons/b2/concessive-and-conditional-links.json content § Conditions that need the subjunctive › line 1 8d53ab50ca
 # volverse + adjective = a lasting change of character (se volvió desconfiado); ponerse is the sudden, temporary one.
-lessons/b2/verbs-of-change.json themes.rustwake.vocabulary[2] 1d702c42e1
 # Voseo imperative mandá + me = mandame, stressed on -da-: a paroxytone ending in a vowel, no written accent (RAE).
 lessons/c1/regional-variation.json vocabulary[10] example 8bb6ed67ef
 # The example quotes "pienso de que" as the error it names (dequeísmo).
@@ -63,7 +47,6 @@ lessons/c2/proofreading.json vocabulary[3] example 6cc0cea30d
 # ¿Cuál es tu nombre? is the standard question: cuál + ser asks which one; qué es asks for a definition.
 lessons/a1/asking-questions.json sprint.sorts[1] item 4 77ecc3359c
 # la banda is the Spanish game localisation's word for a raid group.
-lessons/a1/ir-and-the-near-future.json themes.realm.vocabulary[6] 720410a322
 # Every regular -er/-ir verb takes -o in yo: como, vivo.
 lessons/a1/regular-er-ir-present-tense.json quiz[0] a1-erir-01 explanation 157ff25454
 # No como nunca carne: nunca after the verb needs no before it (double negative).
@@ -73,13 +56,10 @@ lessons/a1/stem-changing-verbs-querer-poder.json sprint.bites[2] rule 53699feff3
 # deshacer → desharé, like hacer → haré.
 lessons/a2/future-simple.json content § Twelve irregular stems › line 8 d52ac34760
 # A Nora se le olvidó el sombrero: accidental se, le for Nora, verb agrees with el sombrero.
-lessons/b1/uses-of-se.json themes.meadowbrook.spots[1] 265780d518
 # The prompt's subject is yo, so Spain would say he comido.
 lessons/c1/regional-variation.json quiz[7] c1-regional-variation-08 explanation cdca78f8dc
 # bendecir has a regular future: bendecirán.
 lessons/c2/proofreading.json sprint.spots[4] 63439cc2c6
-# The themed paragraph is English narration with Spanish in bold: "deberíamos use solar panels" glosses the Spanish verb.
-lessons/b1/environment.json themes.rustwake.content § El medio ambiente en el páramo › line 1 8b89cd0165
 
 # B2/C2: checked and right (found while fact-checking the 2026-10-20 content sweep)
 # "De que…" answers "¿De qué te había advertido?" (advertir de que).
@@ -87,26 +67,16 @@ lessons/b2/pluperfect.json conversations[0] b2-pluperfect-conv-missed-flight lin
 # "aun así" = even so: aun (incluso) takes no accent (RAE, Ortografía 2010).
 lessons/c2/literary-reading.json listening[7] 55917c05a8
 # "está malo" = is ill / out of order (estar malo), the contrast the lesson teaches with "es malo".
-lessons/c1/ser-estar-nuances.json themes.rustwake.vocabulary[5] example 4ff6de755c
 lessons/c1/time-and-concession.json content § Stronger concessions › line 3 dc2e3ae853
 lessons/c1/argumentation.json vocabulary[11] example 0f50b20c7d
 lessons/a2/shopping-and-clothes.json guide[12] tip 293f38e43c
 lessons/b1/work-and-job-hunting.json sprint.sorts[2] item 2 497fa520a3
-lessons/c1/gerund-and-participle-clauses.json themes.realm.vocabulary[7] example 00266745e5
 lessons/c2/long-sentences.json content § Keeping the thread: commas, anacoluthon, full stops › line 3 882600eff1
-lessons/b1/opinion-and-doubt.json themes.rustwake.vocabulary[4] edb76f21a4
-lessons/c1/regional-variation.json themes.meadowbrook.sorts[0] item 4 7fbc8b5ef0
-lessons/b1/wishes-and-requests.json themes.rustwake.spots[0] ac55876fd4
-lessons/c2/varieties-and-history.json themes.meadowbrook.conversations[0] c2-varieties-and-history-conv-meadowbrook-semillas line 5 d3b65491ea
 
 # 2026-10-29 (third sweep, #1257): checked and right after all
 # "duelo" is the yo form of doler (o→ue); Jev's "dueles" is the tú form.
 lessons/a2/health-and-body.json conjugations[0] 0012bc7107
 # "a lo mejor" takes the indicative; the entry says so on purpose.
-lessons/b1/opinion-and-doubt.json themes.rustwake.vocabulary[4] edb76f21a4
 # volverse = lasting change of character; ponerse is the sudden one (same point as the base lesson's line above).
-lessons/b2/verbs-of-change.json themes.meadowbrook.vocabulary[2] cbdfb74ae0
 # voseo ("vos tenés") is the Río de la Plata variety: Tomás, from across the sea, by the sort's own rule.
-lessons/c1/regional-variation.json themes.meadowbrook.sorts[0] item 4 7fbc8b5ef0
 # "cuyo barca" → "cuya barca" (barca is feminine); the fixed sentence is correct.
-lessons/c2/long-sentences.json themes.meadowbrook.spots[0] 605b77cf6d
