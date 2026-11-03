@@ -4,7 +4,13 @@ How to drive and check the app on their own machine:
 one command to a logged-in session, a simulated AI provider whose replies
 come from canned files (or that you answer by hand), and markup with stable hooks.
 
-**Everything here is local only.** It needs `SKRONGLE_DEV=1`, which
+**Everything here is local only.** It is compiled only with the `dev` cargo
+feature, off by default: `./.dev-start`, `scripts/smoke.sh`, `scripts/e2e.sh`
+and CI build with `--features dev`, and a release build (`cargo build
+--release`, `scripts/build-pi.sh`, the release workflow) has no `/dev`
+routes, no simulated provider and no test course, and does not know the
+settings below. Unit tests that need it run under `cargo test --features
+dev`; plain `cargo test` leaves them out. In a dev build it needs `SKRONGLE_DEV=1`, which
 `./.dev-start` sets and `deploy/` never does, and the server refuses it
 (logging why) unless it binds a loopback address, `SKRONGLE_SECURE_COOKIES`
 is not `1` and `SKRONGLE_PUBLIC_URL` is unset (or local). It also refuses it
@@ -190,7 +196,7 @@ code comes from, and nothing else: the dev authenticator's entry for the
 account's address with its code counting down. Each row (`login-code-device-item`,
 `data-code`) has **Use** (`login-code-device-use`), which types the code into
 the form above, so a sign-in is two clicks. The frame re-reads itself every
-two seconds (`static/devbox.js`).
+two seconds (`static-dev/devbox.js`).
 
 The route is only mounted in dev mode (with `/dev/login`, local clients
 only) and is keyed by the sign-in's own `twofa` cookie: it shows the
@@ -356,7 +362,7 @@ generation is chosen by the learner's wish:
 | `[fixture:timeout]` | Fails with a timeout, once the client's limit passes (`SKRONGLE_AI_TIMEOUT_SECS`) |
 | `[fixture:provider-error]` | Fails with HTTP 401 |
 
-`cargo test` runs these scenarios through the simulator on loopback
+`cargo test --features dev` runs these scenarios through the simulator on loopback
 (`ai::tests::generates_from_the_llm_fixtures`, `routes::simulated_provider`)
 and `scripts/smoke.sh` runs the default one over HTTP.
 
@@ -769,7 +775,9 @@ a reason to add it to the template ([Markup hooks](#markup-hooks)).
 ## CI runners
 
 CI runs on GitHub-hosted `ubuntu-latest` runners. A PR's `checks` workflow
-(`.github/workflows/smoke.yml`) is eight jobs: `cargo test` (which also runs
+(`.github/workflows/smoke.yml`) is eight jobs: `cargo test` (which checks
+that a build without the `dev` feature compiles, `cargo check
+--no-default-features`, runs `cargo test --features dev` and then
 `scripts/smoke.sh`), three exact-spec shards and four smoke-spec shards.
 
 - **Shards**: the e2e specs run one at a time (they share the dev user), so

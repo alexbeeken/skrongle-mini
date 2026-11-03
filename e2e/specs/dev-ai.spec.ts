@@ -1,6 +1,6 @@
 // The dev AI provider (#297): dev mode's stand-in for Anthropic and OpenAI,
-// at /dev/ai/…, speaking their real wire protocols. Its page in the dev
-// mailbox (/dev/ai) logs every call it served and controls each key
+// at /dev/ai/…, speaking their real wire protocols. Its page among the dev
+// pages (/dev/ai) logs every call it served and controls each key
 // profile's usage limit and injected failures, and edits the fixtures it
 // answers from. Dev mode's default base URLs point there, and the dev user's
 // seeded keys are its keys (#298): the app's own Generate dialog reaches it

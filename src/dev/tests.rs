@@ -177,10 +177,10 @@ fn the_dev_pages_need_no_sign_in_and_the_simulator_speaks_the_wire_protocols() {
     // The action routes too, signed out.
     let post = agent.post(&format!("{base}/dev/ai/profiles/learner")).send_form([("do", "exhaust")]).unwrap();
     assert!(post.status().is_redirection() || post.status().is_success(), "{}", post.status());
-    assert!(state.dev_ai.profile(crate::dev_ai::Who::Learner).exhausted);
+    assert!(state.dev.ai.profile(crate::dev_ai::Who::Learner).exhausted);
     let lift = agent.post(&format!("{base}/dev/ai/profiles/learner")).send_form([("do", "lift")]).unwrap();
     assert!(lift.status().is_redirection() || lift.status().is_success(), "{}", lift.status());
-    assert!(!state.dev_ai.profile(crate::dev_ai::Who::Learner).exhausted);
+    assert!(!state.dev.ai.profile(crate::dev_ai::Who::Learner).exhausted);
 
     // The app's own clients against the simulator, as dev mode points them.
     let root = format!("{base}/dev/ai");
@@ -193,10 +193,10 @@ fn the_dev_pages_need_no_sign_in_and_the_simulator_speaks_the_wire_protocols() {
     }
     let err = crate::ai::chat(&provider(crate::ai::ProviderKind::Anthropic, "sk-ant-api03-not-a-dev-key"), &call, "s", &msgs, 100).unwrap_err();
     assert_eq!(err, "the API answered HTTP 401. invalid x-api-key");
-    let log = state.dev_ai.log();
+    let log = state.dev.ai.log();
     assert_eq!(log.len(), 4);
     assert_eq!((log[1].purpose.as_str(), log[1].format, log[1].status, log[1].fixture.as_str()), ("tutor-turn", crate::dev_ai::Format::Google, 200, "tutor-turn/default"));
-    assert_eq!(state.dev_ai.profile(crate::dev_ai::Who::Learner).usage.requests, 3);
+    assert_eq!(state.dev.ai.profile(crate::dev_ai::Who::Learner).usage.requests, 3);
     // The providers #24 added speak OpenAI's format under paths of their own
     // (Ollama with no key at all) and get the fixtures' replies too.
     use crate::ai::ProviderKind as K;
@@ -205,22 +205,22 @@ fn the_dev_pages_need_no_sign_in_and_the_simulator_speaks_the_wire_protocols() {
         let p = crate::ai::Provider { model: kind.tutor_model().to_string(), ..provider(kind, key) };
         let reply = crate::ai::chat(&p, &call, "You are a tutor", &compatible, 100).unwrap();
         assert_eq!(reply.text, "This came back over the OpenAI-compatible wire. [[ask]]", "{kind:?}");
-        let entry = &state.dev_ai.log()[0];
+        let entry = &state.dev.ai.log()[0];
         assert_eq!((entry.format, entry.status, entry.fixture.as_str()), (crate::dev_ai::Format::OpenAi, 200, "tutor-turn/compatible"), "{kind:?}");
         assert!(entry.request.contains(&format!("\"model\": \"{}\"", kind.tutor_model())) || entry.request.contains(&format!("\"model\":\"{}\"", kind.tutor_model())), "{kind:?}: {}", entry.request);
         assert!(entry.request.contains("max_tokens") && !entry.request.contains("max_completion_tokens"), "{kind:?}");
     }
-    assert_eq!(state.dev_ai.profile(crate::dev_ai::Who::Learner).usage.requests, 8);
-    state.dev_ai.clear_log();
+    assert_eq!(state.dev.ai.profile(crate::dev_ai::Who::Learner).usage.requests, 8);
+    state.dev.ai.clear_log();
     // Over the limit: each provider's own quota error, which the learner reads as such.
-    state.dev_ai.update(crate::dev_ai::Who::Learner, |p| p.exhausted = true);
+    state.dev.ai.update(crate::dev_ai::Who::Learner, |p| p.exhausted = true);
     let err = crate::ai::chat(&provider(crate::ai::ProviderKind::Anthropic, "sk-ant-dev-anthropic"), &call, "s", &msgs, 100).unwrap_err();
     assert!(err.starts_with("the API answered HTTP 400. You have reached your specified API usage limits"), "{err}");
     assert!(crate::ai::plain_failure(&err).unwrap().contains("run out of credit"));
     let err = crate::ai::chat(&provider(crate::ai::ProviderKind::OpenAi, "sk-dev-openai"), &call, "s", &msgs, 100).unwrap_err();
     assert!(err.starts_with("the API answered HTTP 429. You exceeded your current quota"), "{err}");
     // An injected malformed body and a reply that is not JSON for a JSON call.
-    state.dev_ai.update(crate::dev_ai::Who::Learner, |p| {
+    state.dev.ai.update(crate::dev_ai::Who::Learner, |p| {
         p.exhausted = false;
         p.inject = Some(crate::dev_ai::Injection { fault: crate::dev_ai::Fault::Malformed, sticky: false, hang_secs: 0 });
     });

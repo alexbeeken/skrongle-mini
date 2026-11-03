@@ -56,7 +56,7 @@ fn wire_json(format: Format, status: u16, body: serde_json::Value, id: i64, retr
 /// An error that comes before the request is understood (no key, a bad body): logged, answered.
 fn refuse(state: &AppState, format: Format, headers: &HeaderMap, body: &[u8], status: u16, kind: &str, message: &str) -> Response {
     let key = api_key(format, headers);
-    let id = state.dev_ai.begin(Entry {
+    let id = state.dev.ai.begin(Entry {
         id: 0,
         at: crate::db::now(),
         who: dev_ai::who(&key).map(|w| w.id()).unwrap_or("unknown").to_string(),
@@ -75,7 +75,7 @@ fn refuse(state: &AppState, format: Format, headers: &HeaderMap, body: &[u8], st
         reply: String::new(),
     });
     let reply = dev_ai::error_body(format, kind, message, id);
-    state.dev_ai.finish(id, |e| e.reply = serde_json::to_string_pretty(&reply).unwrap_or_default());
+    state.dev.ai.finish(id, |e| e.reply = serde_json::to_string_pretty(&reply).unwrap_or_default());
     wire_json(format, status, reply, id, false)
 }
 
@@ -107,8 +107,8 @@ async fn serve(state: &AppState, format: Format, headers: &HeaderMap, body: &[u8
         body: serde_json::from_slice::<serde_json::Value>(body).ok().and_then(|v| serde_json::to_string_pretty(&v).ok()).unwrap_or_default(),
     };
     let now = crate::db::now();
-    let mut plan = state.dev_ai.plan(&req, &crate::dev::fixtures_dir(), now);
-    let id = state.dev_ai.begin(Entry {
+    let mut plan = state.dev.ai.plan(&req, &crate::dev::fixtures_dir(), now);
+    let id = state.dev.ai.begin(Entry {
         id: 0,
         at: now,
         who: who.id().into(),
@@ -128,7 +128,7 @@ async fn serve(state: &AppState, format: Format, headers: &HeaderMap, body: &[u8
     });
     let mut hung = None;
     if let Plan::Hang { secs, then } = plan {
-        state.dev_ai.finish(id, |e| e.outcome = format!("hanging {secs} s"));
+        state.dev.ai.finish(id, |e| e.outcome = format!("hanging {secs} s"));
         tracing::info!("dev-ai: call #{id} hangs {secs} s");
         tokio::time::sleep(Duration::from_secs(secs)).await;
         hung = Some(secs);
@@ -145,10 +145,10 @@ async fn serve(state: &AppState, format: Format, headers: &HeaderMap, body: &[u8
         Plan::Reply { text, delay, fixture } => {
             tokio::time::sleep(delay).await;
             let (tin, tout) = (req.tokens_in(), dev_ai::tokens(&text));
-            let dollars = state.dev_ai.charge(who, &req.model, tin, tout);
+            let dollars = state.dev.ai.charge(who, &req.model, tin, tout);
             let reply = dev_ai::success_body(format, id, &req.model, &text, tin, tout, crate::db::now());
             let pretty = serde_json::to_string_pretty(&reply).unwrap_or_default();
-            state.dev_ai.finish(id, |e| {
+            state.dev.ai.finish(id, |e| {
                 e.status = 200;
                 e.outcome = after_hang("reply".into());
                 e.fixture = fixture;
@@ -163,7 +163,7 @@ async fn serve(state: &AppState, format: Format, headers: &HeaderMap, body: &[u8
             tokio::time::sleep(delay).await;
             let reply = dev_ai::error_body(format, &kind, &message, id);
             let pretty = serde_json::to_string_pretty(&reply).unwrap_or_default();
-            state.dev_ai.finish(id, |e| {
+            state.dev.ai.finish(id, |e| {
                 e.status = status;
                 e.outcome = after_hang(why);
                 e.error = message.clone();
@@ -173,7 +173,7 @@ async fn serve(state: &AppState, format: Format, headers: &HeaderMap, body: &[u8
         }
         Plan::Malformed => {
             let text = format!("{{\"id\": \"msg_dev_{id}\", \"content\": [{{\"type\": \"text\", \"text\": \"half a rep");
-            state.dev_ai.finish(id, |e| {
+            state.dev.ai.finish(id, |e| {
                 e.status = 200;
                 e.outcome = after_hang("injected: malformed JSON body".into());
                 e.reply = text.clone();
@@ -181,7 +181,7 @@ async fn serve(state: &AppState, format: Format, headers: &HeaderMap, body: &[u8
             ([(axum::http::header::CONTENT_TYPE, "application/json")], text).into_response()
         }
         Plan::Hang { .. } | Plan::Hold => {
-            state.dev_ai.finish(id, |e| e.status = 500);
+            state.dev.ai.finish(id, |e| e.status = 500);
             wire_json(format, 500, dev_ai::error_body(format, "api_error", "dev simulator: nested hang or hold", id), id, false)
         }
     }
@@ -197,7 +197,7 @@ async fn held(state: &AppState, req: &WireRequest, id: i64) -> Plan {
     if let Err(e) = std::fs::create_dir_all(&dir) {
         return fail(format!("dev simulator: cannot create {}: {e}", dir.display()), "hold");
     }
-    let n = state.dev_ai.next_hold_seq(&dir);
+    let n = state.dev.ai.next_hold_seq(&dir);
     let purpose = req.purpose();
     let stem = format!("{n:04}-{}", if purpose.is_empty() { "unknown" } else { purpose.as_str() });
     let response = dir.join(format!("{stem}.response.txt"));
@@ -218,7 +218,7 @@ async fn held(state: &AppState, req: &WireRequest, id: i64) -> Plan {
     if let Err(e) = crate::dev::write_atomic(&path, &text) {
         return fail(format!("dev simulator: cannot write {}: {e}", path.display()), "hold");
     }
-    state.dev_ai.finish(id, |e| e.outcome = format!("held: answer {stem} on /dev/ai"));
+    state.dev.ai.finish(id, |e| e.outcome = format!("held: answer {stem} on /dev/ai"));
     tracing::info!("dev-ai: call #{id} held: waiting for {} (request in {})", response.display(), path.display());
     let timeout = crate::dev::capture_timeout();
     let Some(reply) = crate::dev::wait_for(&response, timeout).await else {
@@ -433,7 +433,7 @@ fn key_views(who: Who) -> Vec<KeyView> {
 }
 
 fn profile_view(state: &AppState, who: Who) -> ProfileView {
-    let p = state.dev_ai.profile(who);
+    let p = state.dev.ai.profile(who);
     let u = &p.usage;
     ProfileView {
         id: who.id(),
@@ -564,7 +564,7 @@ fn entry_json(e: &Entry) -> serde_json::Value {
 }
 
 fn profile_json(state: &AppState, who: Who) -> serde_json::Value {
-    let p = state.dev_ai.profile(who);
+    let p = state.dev.ai.profile(who);
     serde_json::json!({
         "limit": p.limit, "measure": p.measure.id(), "used": p.used(), "over": p.over(), "exhausted": p.exhausted,
         "usage": { "requests": p.usage.requests, "tokens_in": p.usage.tokens_in, "tokens_out": p.usage.tokens_out, "dollars": p.usage.dollars },
@@ -596,11 +596,11 @@ pub async fn page(State(state): State<Arc<AppState>>, MaybeUser(user): MaybeUser
         return Json(serde_json::json!({
             "mode": mode(),
             "simulating": crate::dev::simulating(),
-            "holding": state.dev_ai.holding(),
+            "holding": state.dev.ai.holding(),
             "base_urls": bases(&headers).into_iter().collect::<std::collections::BTreeMap<_, _>>(),
             "client_timeout_secs": client_timeout(),
             "profiles": { "learner": profile_json(&state, Who::Learner) },
-            "calls": state.dev_ai.log().iter().map(entry_json).collect::<Vec<_>>(),
+            "calls": state.dev.ai.log().iter().map(entry_json).collect::<Vec<_>>(),
             "fixtures": fixtures().iter().map(|f| serde_json::json!({ "name": f.name, "keys": f.keys, "edited": f.edited, "on_disk": f.on_disk, "error": f.error })).collect::<Vec<_>>(),
             "held": held_json(),
         }))
@@ -618,9 +618,9 @@ pub async fn page(State(state): State<Arc<AppState>>, MaybeUser(user): MaybeUser
         profiles: Who::ALL.into_iter().map(|w| profile_view(&state, w)).collect(),
         measures: Measure::ALL.into_iter().map(|m| (m.id(), m.label())).collect(),
         faults: Fault::ALL.into_iter().map(|f| (f.id(), f.label())).collect(),
-        log: CallRows { rows: state.dev_ai.log().iter().map(|e| call_row(e, now)).collect() },
+        log: CallRows { rows: state.dev.ai.log().iter().map(|e| call_row(e, now)).collect() },
         fixtures: fixtures(),
-        holding: state.dev_ai.holding(),
+        holding: state.dev.ai.holding(),
         pending: held.pending(),
         capture_dir: crate::dev::capture_dir().display().to_string(),
         held,
@@ -634,7 +634,7 @@ pub async fn page(State(state): State<Arc<AppState>>, MaybeUser(user): MaybeUser
 /// Manual replies is on with its held requests as HTML, for the page's poll.
 pub async fn rows(State(state): State<Arc<AppState>>) -> Result<Response, AppError> {
     let now = crate::db::now();
-    let log = CallRows { rows: state.dev_ai.log().iter().map(|e| call_row(e, now)).collect() };
+    let log = CallRows { rows: state.dev.ai.log().iter().map(|e| call_row(e, now)).collect() };
     let held = held_rows();
     let mut profiles = serde_json::Map::new();
     for w in Who::ALL {
@@ -645,7 +645,7 @@ pub async fn rows(State(state): State<Arc<AppState>>) -> Result<Response, AppErr
         "log": log.render()?,
         "count": log.rows.len(),
         "profiles": profiles,
-        "holding": state.dev_ai.holding(),
+        "holding": state.dev.ai.holding(),
         "held": { "html": held.render()?, "pending": held.pending() },
     }))
     .into_response())
@@ -686,36 +686,36 @@ pub async fn profile_act(State(state): State<Arc<AppState>>, headers: HeaderMap,
                 l => Some(l.parse::<f64>().ok().filter(|v| v.is_finite() && *v >= 0.0).ok_or_else(|| AppError::BadRequest(format!("limit {l:?}: a number of 0 or more, or empty for none")))?),
             };
             let measure = Measure::parse(&f.measure).ok_or_else(|| AppError::BadRequest(format!("measure {:?}: requests, tokens or dollars", f.measure)))?;
-            state.dev_ai.update(who, |p| {
+            state.dev.ai.update(who, |p| {
                 p.limit = limit;
                 p.measure = measure;
             });
             format!("{}: limit {}.", who.label(), limit.map(|l| measure.show(l)).unwrap_or_else(|| "none".into()))
         }
         "reset" => {
-            state.dev_ai.update(who, |p| {
+            state.dev.ai.update(who, |p| {
                 p.usage = Default::default();
                 p.exhausted = false;
             });
             format!("{}: usage reset.", who.label())
         }
         "exhaust" => {
-            state.dev_ai.update(who, |p| p.exhausted = true);
+            state.dev.ai.update(who, |p| p.exhausted = true);
             format!("{}: over the limit from now on.", who.label())
         }
         "lift" => {
-            state.dev_ai.update(who, |p| p.exhausted = false);
+            state.dev.ai.update(who, |p| p.exhausted = false);
             format!("{}: back under the limit (if the counters are).", who.label())
         }
         "inject" => {
             let fault = Fault::parse(&f.fault).ok_or_else(|| AppError::BadRequest(format!("fault {:?}: one of {}", f.fault, Fault::ALL.map(|x| x.id()).join(", "))))?;
             let hang_secs = f.hang.trim().parse::<u64>().ok().filter(|s| *s > 0).unwrap_or(dev_ai::DEFAULT_HANG_SECS).min(dev_ai::HANG_FOREVER_SECS);
             let inj = Injection { fault, sticky: f.mode == "sticky", hang_secs };
-            state.dev_ai.update(who, |p| p.inject = Some(inj));
+            state.dev.ai.update(who, |p| p.inject = Some(inj));
             format!("{}: {}.", who.label(), inj.describe())
         }
         "clear-inject" => {
-            state.dev_ai.update(who, |p| p.inject = None);
+            state.dev.ai.update(who, |p| p.inject = None);
             format!("{}: no failure injected.", who.label())
         }
         other => return Err(AppError::BadRequest(format!("do {other:?}: settings, reset, exhaust, lift, inject or clear-inject"))),
@@ -726,7 +726,7 @@ pub async fn profile_act(State(state): State<Arc<AppState>>, headers: HeaderMap,
 
 /// POST /dev/ai/clear: empty the call log.
 pub async fn clear(State(state): State<Arc<AppState>>, headers: HeaderMap) -> Response {
-    state.dev_ai.clear_log();
+    state.dev.ai.clear_log();
     back(&headers, "/dev/ai", "")
 }
 
@@ -742,7 +742,7 @@ pub struct CallTemplate {
 
 /// GET /dev/ai/calls/{id}: one call: who, what, the outcome, the request and reply bodies.
 pub async fn call(State(state): State<Arc<AppState>>, MaybeUser(user): MaybeUser, headers: HeaderMap, Path(id): Path<i64>, Query(q): Query<AiParams>) -> Result<Response, AppError> {
-    let e = state.dev_ai.entry(id).ok_or(AppError::NotFound)?;
+    let e = state.dev.ai.entry(id).ok_or(AppError::NotFound)?;
     if !wants_html(&headers, q.format.as_deref()) {
         let mut v = entry_json(&e);
         v["request"] = serde_json::Value::String(e.request.clone());
@@ -900,7 +900,7 @@ pub async fn hold(State(state): State<Arc<AppState>>, headers: HeaderMap, Form(f
         "off" => false,
         other => return Err(AppError::BadRequest(format!("do={other}: on or off"))),
     };
-    state.dev_ai.set_hold(on);
+    state.dev.ai.set_hold(on);
     let notice = if on { "Manual replies on: each request waits for your answer at the bottom of this page." } else { "Replies come from the fixtures again." };
     Ok(back(&headers, "/dev/ai", notice))
 }

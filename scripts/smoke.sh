@@ -28,7 +28,7 @@ cleanup() {
 trap cleanup EXIT
 
 BIN="${SERVER_BIN:-}" # a server already built (CI: scripts/ci-build.sh)
-[ -n "$BIN" ] || { cargo build -q $PROFILE_FLAG; BIN="${CARGO_TARGET_DIR:-target}/$PROFILE_DIR/spanish-learning"; }
+[ -n "$BIN" ] || { cargo build -q --features dev $PROFILE_FLAG; BIN="${CARGO_TARGET_DIR:-target}/$PROFILE_DIR/spanish-learning"; }
 rm -f smoke.db smoke.db-wal smoke.db-shm smoke.db.key
 SKRONGLE_BIND="127.0.0.1:$PORT" SKRONGLE_DB=./smoke.db SKRONGLE_DATA_DIR=./data SKRONGLE_LOG=info \
   SKRONGLE_DEV=1 SKRONGLE_DEV_SEED=1 SKRONGLE_LLM_MODE= SKRONGLE_LLM_TIMEOUT_SECS=30 \

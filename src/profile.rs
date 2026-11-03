@@ -111,6 +111,7 @@ pub fn email_taken(conn: &Connection, email: &str, except_user: Option<i64>) -> 
 
 /// The account's address counts as confirmed (the dev user; tests). Keeps
 /// the first confirmation time.
+#[cfg(feature = "dev")]
 pub fn mark_verified(conn: &Connection, user_id: i64, now: i64) -> rusqlite::Result<()> {
     conn.execute("UPDATE users SET email_verified_at = COALESCE(email_verified_at, ?2) WHERE id = ?1", params![user_id, now])?;
     Ok(())

@@ -172,7 +172,7 @@
       {% if let Some(e) = totp_error %}<p class="alert error" role="alert" data-testid="two-factor-totp-error">{{ e }}</p>{% endif %}
       <div class="totp-qr" data-uri="{{ totp_uri() }}" data-testid="two-factor-totp-qr">{{ totp_qr()|safe }}</div>
       <p><code class="totp-secret" data-testid="two-factor-totp-secret">{{ totp_secret() }}</code></p>
-      {% if dev %}<p class="small"><a href="{{ totp_dev_link() }}" target="_blank" data-testid="two-factor-totp-dev">{{ crate::t("profile.two_factor.totp_dev_link") }}</a></p>{% endif %}
+      {% if cfg!(feature = "dev") && dev %}<p class="small"><a href="{{ crate::url("/dev/authenticator") }}?uri={{ crate::urlenc::urlencode(totp_uri().as_str()) }}" target="_blank" data-testid="two-factor-totp-dev">{{ crate::t("profile.two_factor.totp_dev_link") }}</a></p>{% endif %}
       <form method="post" action="{{ crate::url("/profile/two-factor/totp/confirm") }}" id="totp-confirm-form" data-testid="two-factor-totp-form">
         <label>{{ crate::t("profile.two_factor.code") }}
           <input type="text" name="code" inputmode="numeric" pattern="[0-9 ]*" maxlength="9" autocomplete="one-time-code" required data-testid="two-factor-totp-code">

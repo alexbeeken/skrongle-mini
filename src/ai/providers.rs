@@ -96,7 +96,7 @@ impl ProviderKind {
     }
 
     /// `SKRONGLE_<PROVIDER>_BASE_URL` (`SKRONGLE_OPENAI_BASE_URL`,
-    /// `SKRONGLE_DEEPSEEK_BASE_URL`, …) points a provider elsewhere for every feature. Unset, dev mode points each at
+    /// `SKRONGLE_DEEPSEEK_BASE_URL`, …) points a provider elsewhere for every feature. Unset, dev mode (dev builds) points each at
     /// its simulated provider (`dev::provider_base_url`), else the public
     /// API. Ollama's is the one saved on Manage Users (`server_provider`);
     /// this is only its usual local address.
@@ -113,7 +113,9 @@ impl ProviderKind {
             ProviderKind::Ollama => ("", "http://localhost:11434"),
         };
         let set = if var.is_empty() { None } else { crate::env(var) };
-        set.or_else(|| crate::dev::provider_base_url(self)).unwrap_or_else(|| public.to_string())
+        #[cfg(feature = "dev")]
+        let set = set.or_else(|| crate::dev::provider_base_url(self));
+        set.unwrap_or_else(|| public.to_string())
     }
 
     /// Which of the server's keys it takes (Manage Users).

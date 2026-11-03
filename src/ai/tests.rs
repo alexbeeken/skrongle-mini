@@ -474,6 +474,7 @@ fn generates_a_maths_course_and_resumes_after_a_failure() {
 
 /// The generation flow against the checked-in fixtures, through the dev
 /// simulator on loopback: each scenario is picked by a `[fixture:NAME]` token in the wish.
+#[cfg(feature = "dev")]
 #[test]
 fn generates_from_the_llm_fixtures() {
     let db = Db::open_in_memory().unwrap();
@@ -539,6 +540,7 @@ fn generates_from_the_llm_fixtures() {
 /// Copy and translate (#630), against the fixtures: the starter course
 /// copied and translated into Spanish file by file, ids and structure
 /// kept, the plan's `done` list growing; a resume skips what is done.
+#[cfg(feature = "dev")]
 #[test]
 fn translates_a_copy_from_the_llm_fixtures() {
     let db = Db::open_in_memory().unwrap();
@@ -687,6 +689,7 @@ fn a_lesson_request_names_the_terms_of_the_lessons_before_it() {
 /// Revising a finished course from feedback, against the fixtures: only
 /// the planned lessons are written, the rest stay byte for byte, nothing
 /// is saved when the run fails, and Undo puts the old files back.
+#[cfg(feature = "dev")]
 #[test]
 fn revises_a_course_from_feedback_and_undoes_it() {
     let db = Db::open_in_memory().unwrap();
@@ -796,6 +799,7 @@ fn revises_a_course_from_feedback_and_undoes_it() {
 /// Edit lessons (#1240), against the fixtures: the planned lessons are
 /// rewritten (and may be renamed), the rest stay byte for byte, a plan that
 /// adds, drops or moves a lesson is refused, and Undo puts the old files back.
+#[cfg(feature = "dev")]
 #[test]
 fn edits_lessons_from_feedback_and_undoes_it() {
     let db = Db::open_in_memory().unwrap();
@@ -897,6 +901,7 @@ fn edits_lessons_from_feedback_and_undoes_it() {
 /// Adding one lesson with AI, against the fixtures: it goes where the
 /// reply says, the other lessons keep their content, a reply that cannot
 /// be placed changes nothing, and each addition is its own Undo step.
+#[cfg(feature = "dev")]
 #[test]
 fn adds_a_lesson_where_the_ai_puts_it_and_undoes_it() {
     let db = Db::open_in_memory().unwrap();
@@ -992,6 +997,7 @@ fn adds_a_lesson_where_the_ai_puts_it_and_undoes_it() {
 /// Every job run through `start` keeps what it changed for "Review AI
 /// changes": the generation (every file new), then an added lesson (one
 /// new file, the others as they were), replacing the run before.
+#[cfg(feature = "dev")]
 #[test]
 fn each_ai_run_keeps_its_changes_for_review() {
     let db = Db::open_in_memory().unwrap();
@@ -1408,6 +1414,7 @@ fn check_plans_and_replies_are_read() {
 /// carries its why line, the unchanged ones are not written (and are not in
 /// the run), and the one with a Check line is listed as looked at and left
 /// alone. A check that finds nothing wrong changes nothing and says so.
+#[cfg(feature = "dev")]
 #[test]
 fn a_fact_check_fixes_and_says_why() {
     let db = Db::open_in_memory().unwrap();

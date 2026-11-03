@@ -1,7 +1,9 @@
 //! Adaptive micro-quiz builder and answer checking.
 
 use std::collections::{HashMap, HashSet};
+#[cfg(feature = "dev")]
 use std::sync::atomic::{AtomicU64, Ordering};
+#[cfg(feature = "dev")]
 use std::sync::OnceLock;
 
 use crate::content::{ContentStore, Lesson, QuizItem, QuizType};
@@ -15,13 +17,16 @@ pub const MAX_QUIZ_LEN: usize = 10;
 /// pulling the full `rand` crate into the binary.
 pub struct Rng(u64);
 
-/// `SKRONGLE_RNG_SEED` (dev only, `seed_draws`): every draw starts from this
+/// `SKRONGLE_RNG_SEED` (dev builds only, `seed_draws`): every draw starts from this
 /// seed and a counter instead of the OS, so a browser test replays exactly.
+#[cfg(feature = "dev")]
 static DRAW_SEED: OnceLock<u64> = OnceLock::new();
+#[cfg(feature = "dev")]
 static DRAWS: AtomicU64 = AtomicU64::new(0);
 
 /// Make every later `Rng::from_entropy` reproducible: the n-th draw of the
 /// process starts from `seed` and n. Dev servers only (`SKRONGLE_RNG_SEED`).
+#[cfg(feature = "dev")]
 pub fn seed_draws(seed: u64) {
     let _ = DRAW_SEED.set(seed);
 }
@@ -29,6 +34,7 @@ pub fn seed_draws(seed: u64) {
 impl Rng {
     /// A fresh generator for one request: from the OS, or from the dev seed.
     pub fn from_entropy() -> Rng {
+        #[cfg(feature = "dev")]
         if let Some(seed) = DRAW_SEED.get() {
             // splitmix64 of seed + n: neighbouring draws get unrelated streams.
             let mut z = seed.wrapping_add(DRAWS.fetch_add(1, Ordering::Relaxed).wrapping_add(1).wrapping_mul(0x9E37_79B9_7F4A_7C15));

@@ -180,7 +180,7 @@ Where a default says "unit", `skrongle.service` sets it.
 | `SKRONGLE_PUBLIC_URL` | — | The address people use, e.g. `https://learn.example.org`. |
 | `SKRONGLE_MIN_AGE` | `14` | The minimum age the registration checkbox states. |
 | `SKRONGLE_FAILED_COURSE_RETENTION_DAYS` | `30` | An AI course whose generation failed is deleted, with the notes it was given, after this many days without a resume or edit. `0` keeps them. |
-| `SKRONGLE_COURSES_PER_USER` | `50` (no limit in dev mode) | Courses one account may make. "Create a course" says so when an account has them all. |
+| `SKRONGLE_COURSES_PER_USER` | `50` | Courses one account may make. "Create a course" says so when an account has them all. |
 | `SKRONGLE_COURSE_BYTES` | `8388608` (8 MB) | Total size of one course's files (the Spanish course is 3.7 MB). A save, upload or lesson-table change past it is refused and stores nothing. |
 | `SKRONGLE_COURSE_BYTES_PER_USER` | `33554432` (32 MB) | Total size of the files of all the courses one account owns. Undo copies are not counted. |
 
@@ -218,9 +218,6 @@ e-mail address is only what an account signs in with.
 | A forgotten password | No reset link: you give the account a temporary password (below). |
 | Two-factor sign-in | The authenticator app. |
 | Sharing a course | After inviting, the Share dialog shows each address's link with a Copy button, once (links are stored only hashed); pass it on yourself. |
-
-Dev mode's phone is off in a mini too, so `./.dev-start --mini` shows what
-a real mini shows.
 
 ## Accounts and AI keys
 

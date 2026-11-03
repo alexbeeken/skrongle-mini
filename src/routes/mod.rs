@@ -17,7 +17,9 @@ use crate::AppState;
 pub mod auth;
 pub mod courses;
 pub mod share;
+#[cfg(feature = "dev")]
 pub mod dev;
+#[cfg(feature = "dev")]
 pub mod dev_ai;
 pub mod sprint;
 pub mod docs;
@@ -38,7 +40,33 @@ pub mod vocab;
 /// Everything under `static/` is compiled into the binary.
 #[derive(RustEmbed)]
 #[folder = "static/"]
+struct StaticFiles;
+
+/// The dev pages' script and styles (`static-dev/`): dev builds only,
+/// served under `/static/` like the rest.
+#[cfg(feature = "dev")]
+#[derive(RustEmbed)]
+#[folder = "static-dev/"]
+struct DevStaticFiles;
+
+/// The files served under `/static/`: `static/`, plus `static-dev/` in a dev build.
 struct Assets;
+
+impl Assets {
+    fn get(name: &str) -> Option<rust_embed::EmbeddedFile> {
+        let file = StaticFiles::get(name);
+        #[cfg(feature = "dev")]
+        let file = file.or_else(|| DevStaticFiles::get(name));
+        file
+    }
+
+    fn iter() -> impl Iterator<Item = std::borrow::Cow<'static, str>> {
+        let files = StaticFiles::iter();
+        #[cfg(feature = "dev")]
+        let files = files.chain(DevStaticFiles::iter());
+        files
+    }
+}
 
 /// The gzip form of the files in `static/` that shrink when compressed,
 /// written by `build.rs` at the same relative paths. Release builds only
@@ -124,6 +152,7 @@ fn big<S: Clone + Send + Sync + 'static>(r: axum::routing::MethodRouter<S>) -> a
 }
 
 pub fn router(state: Arc<AppState>) -> Router {
+    #[cfg_attr(not(feature = "dev"), allow(unused_mut))]
     let mut app = Router::new()
         // pages (all inside the active course)
         .route("/", get(pages::root))
@@ -275,59 +304,15 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/static/{*path}", get(static_asset))
         .route("/manifest.webmanifest", get(web_manifest))
         .route("/healthz", get(healthz));
-    // Local testing only (`SKRONGLE_DEV=1` on a loopback bind): without it these paths 404.
-    // And even then only for requests made on this machine, not through a proxy.
-    if state.dev {
-        // The dev pages (the jobs table, the authenticator, the AI provider's
-        // page): for whoever is testing, no sign-in (they are for all accounts).
-        let devbox = Router::new()
-            .route("/dev/jobs", get(dev::jobs))
-            .route("/dev/jobs/fail", post(dev::jobs_fail))
-            .route("/dev/jobs/{id}", post(dev::jobs_act))
-            .route("/dev/authenticator", get(dev::authenticator).post(dev::authenticator_add))
-            .route("/dev/authenticator/rows", get(dev::authenticator_rows))
-            .route("/dev/authenticator/{id}", post(dev::authenticator_act))
-            .route("/dev/ai", get(dev_ai::page))
-            .route("/dev/ai/rows", get(dev_ai::rows))
-            .route("/dev/ai/clear", post(dev_ai::clear))
-            .route("/dev/ai/hold", post(dev_ai::hold))
-            .route("/dev/ai/held/{stem}", post(dev_ai::answer))
-            .route("/dev/ai/profiles/{who}", post(dev_ai::profile_act))
-            .route("/dev/ai/calls/{id}", get(dev_ai::call))
-            .route("/dev/ai/fixtures", post(dev_ai::scenario_add))
-            .route("/dev/ai/fixtures/{name}", get(dev_ai::fixture).post(dev_ai::fixture_act));
-        app = app.merge(
-            Router::new()
-                .route("/dev/login", get(dev::login))
-                // The floating dev device on /login/code: for the holder of the
-                // pending sign-in's twofa cookie, no session (see the handler).
-                .route("/login/code/device", get(auth::login_code_device))
-                .route("/dev/reset", get(dev::reset))
-                .route("/dev/vocab", post(dev::vocab))
-                .merge(devbox)
-                // The simulated providers' wire APIs: the app's own server-side
-                // clients call them with an API key (checked there), no cookie.
-                .route("/dev/ai/anthropic/v1/messages", post(dev_ai::anthropic_messages))
-                .route("/dev/ai/anthropic/v1/models", get(dev_ai::anthropic_models))
-                .route("/dev/ai/openai/v1/chat/completions", post(dev_ai::openai_chat))
-                .route("/dev/ai/openai/v1/models", get(dev_ai::openai_models))
-                .route("/dev/ai/google/v1beta/openai/chat/completions", post(dev_ai::google_chat))
-                .route("/dev/ai/google/v1beta/openai/models", get(dev_ai::google_models))
-                .route("/dev/ai/deepseek/v1/chat/completions", post(dev_ai::compatible_chat))
-                .route("/dev/ai/mistral/v1/chat/completions", post(dev_ai::compatible_chat))
-                .route("/dev/ai/xai/v1/chat/completions", post(dev_ai::compatible_chat))
-                .route("/dev/ai/openrouter/api/v1/chat/completions", post(dev_ai::compatible_chat))
-                .route("/dev/ai/ollama/v1/chat/completions", post(dev_ai::ollama_chat))
-                // The boot id, for the dev page to notice a restart (#1036).
-                .route("/dev/boot", get(|| async { crate::dev::boot_id() }))
-                .route_layer(axum::middleware::from_fn(crate::dev::local_only))
-                // Pasted LLM replies and fixtures are whole courses.
-                .layer(axum::extract::DefaultBodyLimit::max(BIG_BODY_LIMIT)),
-        );
+    // Dev builds only, and only with `SKRONGLE_DEV=1` on a loopback bind:
+    // without it these paths 404.
+    #[cfg(feature = "dev")]
+    if state.dev.on {
+        app = app.merge(dev::routes());
     }
     let secure = state.secure_cookies;
-    let dev = state.dev;
-    let reload = dev && crate::dev::reload_wanted();
+    #[cfg(feature = "dev")]
+    let (dev, reload) = (state.dev.on, state.dev.on && crate::dev::reload_wanted());
     let app = app
         .fallback(|| async { AppError::NotFound })
         .layer(axum::middleware::from_fn_with_state(state.clone(), crate::error::in_layout));
@@ -355,8 +340,10 @@ pub fn router(state: Arc<AppState>) -> Router {
             .fallback(|| async { AppError::NotFound })
     };
     // `./.dev-start --watch`: pages reload themselves after a restart.
+    #[cfg(feature = "dev")]
     let app = if reload { app.layer(axum::middleware::from_fn(crate::dev::inject_reload)) } else { app };
     // Dev mode: every route answers only requests made to this machine (#388).
+    #[cfg(feature = "dev")]
     let app = if dev { app.layer(axum::middleware::from_fn(crate::dev::local_host_only)) } else { app };
     // Outermost: every response (404s included) gets the security headers;
     // cross-site POSTs are refused before any handler runs.
@@ -732,6 +719,7 @@ pub(crate) async fn reward_line(
 }
 
 /// An app state for router tests: in-memory database, the built-in courses.
+/// `dev`: no rate limits, and in a dev build dev mode on (the `/dev/*` routes).
 #[cfg(test)]
 pub(crate) fn test_state(dev: bool) -> Arc<AppState> {
     let (vault, _) = crate::secrets::Vault::load(Some("ab".repeat(32)), std::path::Path::new("unused.db")).unwrap();
@@ -745,11 +733,10 @@ pub(crate) fn test_state(dev: bool) -> Arc<AppState> {
         vault,
         tutors: Default::default(),
         prices: crate::prices::PriceTable::parse(crate::prices::DEFAULT_PRICES).unwrap(), // panic-ok: tests only, the built-in defaults parse
-        dev,
-        limits: crate::security::RateLimits::new(dev),
+        limits: if dev { crate::security::RateLimits::off() } else { crate::security::RateLimits::new() },
         queue: crate::jobs::Queue::idle(),
-        dev_ai: Default::default(),
-        dev_authenticator: Default::default(),
+        #[cfg(feature = "dev")]
+        dev: crate::dev::Tools { on: dev, ..Default::default() },
         public_url: None,
         signup: Default::default(),
         proxy_auth: None,
@@ -759,13 +746,13 @@ pub(crate) fn test_state(dev: bool) -> Arc<AppState> {
 /// Point every default base URL of this test process at the test
 /// simulator (`simulated_provider`), as dev mode does: no unit test can reach
 /// a real provider through a saved key.
-#[cfg(test)]
+#[cfg(all(test, feature = "dev"))]
 pub(crate) fn point_defaults_at_the_simulator() {
     let root = simulator_root();
     crate::dev::simulate_at(root);
 }
 
-#[cfg(test)]
+#[cfg(all(test, feature = "dev"))]
 fn simulator_root() -> &'static str {
     static ROOT: std::sync::OnceLock<String> = std::sync::OnceLock::new();
     ROOT.get_or_init(|| {
@@ -786,7 +773,7 @@ fn simulator_root() -> &'static str {
 /// port, in a thread of its own, started once per test process. The
 /// provider for `kind` points at it with the dev seed's key for `kind`, as
 /// dev mode's default base URLs and seeded keys do.
-#[cfg(test)]
+#[cfg(all(test, feature = "dev"))]
 pub(crate) fn simulated_provider(kind: crate::ai::ProviderKind) -> crate::ai::Provider {
     let root = simulator_root();
     let key = crate::dev_ai::LEARNER_KEYS.iter().find(|(p, _)| *p == kind.secret()).map(|(_, k)| k.to_string()).unwrap_or_default();

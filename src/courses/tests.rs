@@ -542,7 +542,7 @@ fn builtin_courses_stay_built_from_boot() {
     assert!(registry.is_builtin("spanish"));
     assert!(registry.builtin().len() > 1);
     let cached: Vec<String> = registry.lock().entries.keys().cloned().collect();
-    assert_eq!(cached, [crate::dev::SEED_COURSE], "boot keeps the seed course built, only it");
+    assert_eq!(cached, [super::SEED_COURSE], "boot keeps the seed course built, only it");
 
     let built = rt.block_on(registry.get(&db, "spanish")).unwrap().expect("spanish builds");
     assert_eq!(registry.rebuilds(), 0, "the first request is served from what boot built");

@@ -1,4 +1,6 @@
-//! Local development and testing aids, all off unless `SKRONGLEDEV=1`.
+//! Local development and testing aids, compiled only with the `dev` cargo
+//! feature (`./.dev-start`, the test scripts and CI build with it; a release
+//! build has none of this) and off unless `SKRONGLE_DEV=1`.
 //!
 //! - A fixed dev user (`/dev/login`, `/dev/reset`, the startup seed), with
 //!   API keys for every provider that the simulated provider accepts.
@@ -29,7 +31,114 @@ pub const DEV_EMAIL: &str = "dev@example.com";
 /// So the form login works too.
 pub const DEV_PASSWORD: &str = "dev-password";
 /// The course the seed (and `/dev/login?open=` without a value) opens.
-pub const SEED_COURSE: &str = "spanish";
+pub const SEED_COURSE: &str = crate::courses::SEED_COURSE;
+
+/// The dev settings, read with the rest of the configuration.
+pub struct Config {
+    /// `SKRONGLE_DEV=1`: asked for; [`resolve`] decides.
+    requested: bool,
+    /// `SKRONGLE_DEV_SEED=1`: create the dev user with a course and progress at boot.
+    seed: bool,
+    /// `TEST_COURSE=1` (or `SKRONGLE_TEST_COURSE=1`): also load the courses for
+    /// automated tests under `data/test-courses/`.
+    test_course: bool,
+}
+
+impl Config {
+    pub fn from_lookup(env: &dyn Fn(&str) -> Option<String>) -> Config {
+        let on = |v: String| v == "1" || v == "true";
+        Config {
+            requested: env("DEV").is_some_and(on),
+            seed: env("DEV_SEED").is_some_and(on),
+            test_course: std::env::var("TEST_COURSE").ok().or_else(|| env("TEST_COURSE")).is_some_and(on),
+        }
+    }
+
+    /// Whether to load the test courses too; warns when it does.
+    pub fn test_course(&self, data_dir: &Path) -> bool {
+        if self.test_course {
+            tracing::warn!(
+                "TEST_COURSE=1: the courses under {} are offered too; they exist for automated tests only",
+                data_dir.join(crate::courses::TEST_COURSES_DIR).display()
+            );
+        }
+        self.test_course
+    }
+
+    /// Added to a database that will not open: a dev database from another
+    /// branch may have the same schema number for a different change.
+    pub fn db_hint(&self) -> &'static str {
+        if self.requested { " (a dev database from another branch? ./.dev-start --reset recreates it)" } else { "" }
+    }
+
+    /// `skrongle doctor`'s line for it.
+    pub fn requested(&self) -> bool {
+        self.requested
+    }
+}
+
+/// Dev mode's part of `AppState`.
+#[derive(Default)]
+pub struct Tools {
+    /// `SKRONGLE_DEV=1` on a loopback bind: the `/dev/*` routes exist.
+    pub on: bool,
+    /// The simulated AI provider's log, usage and settings (`/dev/ai`).
+    pub ai: crate::dev_ai::Simulator,
+    /// The dev authenticator app's accounts (`/dev/authenticator`).
+    pub authenticator: Authenticator,
+}
+
+/// Dev mode at startup: decide whether it is on, point the model calls at
+/// the simulator, seed the draws and the dev user, and say so in the log.
+pub fn start(
+    cfg: &Config,
+    bind: SocketAddr,
+    secure_cookies: bool,
+    db: &Db,
+    courses: &crate::courses::Courses,
+    vault: &crate::secrets::Vault,
+) -> Result<Tools, String> {
+    let force = crate::env("DEV_FORCE").as_deref() == Some("1");
+    let on = match resolve(cfg.requested, bind, secure_cookies, crate::env("PUBLIC_URL").as_deref())
+        .and_then(|on| if on { db.with(|c| other_accounts(c)).map_err(|e| e.to_string()).and_then(|n| check_accounts(n, force)).map(|()| true) } else { Ok(false) })
+    {
+        Ok(on) => on,
+        Err(why) => {
+            tracing::warn!("{why}");
+            false
+        }
+    };
+    let llm_mode = init_llm(on, bind)?;
+    if !on {
+        return Ok(Tools::default());
+    }
+    tracing::warn!("DEV MODE: /dev/login, /dev/reset and the dev pages (/dev/authenticator, /dev/ai) are open to anyone who can reach {bind}");
+    match llm_mode {
+        Some(LlmMode::Live) => tracing::warn!("DEV MODE: SKRONGLE_LLM_MODE=live: model calls go to the real providers"),
+        Some(m) => tracing::warn!(
+            "DEV MODE: model calls go to the simulated provider at http://{bind}{}{}; no real provider is contacted",
+            crate::url("/dev/ai"),
+            if m == LlmMode::Capture { " (Manual replies: holding each request for a reply on /dev/ai)" } else { "" }
+        ),
+        None => {}
+    }
+    if let Some(seed) = crate::env("RNG_SEED") {
+        let n: u64 = seed.parse().map_err(|_| format!("SKRONGLE_RNG_SEED must be a number, got {seed:?}"))?;
+        crate::quiz::seed_draws(n);
+        tracing::warn!("DEV MODE: SKRONGLE_RNG_SEED={n}: quizzes, sessions and games draw from this seed, not the OS");
+    }
+    if cfg.seed {
+        // The simulator's keys for every provider, unless the calls go to the real ones.
+        let cid = self::seed(db, courses, simulating().then_some(vault))?;
+        tracing::info!("dev: seeded user '{DEV_EMAIL}' with course '{cid}' open");
+    } else {
+        // So the login form takes dev@example.com / dev-password on a fresh database.
+        ensure_user(db)?;
+    }
+    tracing::info!("dev: log in as '{DEV_EMAIL}' / '{DEV_PASSWORD}', or open /dev/login");
+    let ai = if llm_mode == Some(LlmMode::Capture) { crate::dev_ai::Simulator::holding_from_start() } else { Default::default() };
+    Ok(Tools { on: true, ai, authenticator: Default::default() })
+}
 
 /// Whether dev mode may be on. `Err` says why a requested dev mode was refused.
 pub fn resolve(requested: bool, bind: SocketAddr, secure_cookies: bool, public_url: Option<&str>) -> Result<bool, String> {

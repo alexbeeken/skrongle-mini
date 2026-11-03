@@ -97,6 +97,7 @@ impl ProgressCache {
         self.entries().retain(|_, e| e.course_id != course_id);
     }
 
+    #[cfg(any(feature = "dev", test))]
     pub fn clear(&self) {
         self.entries().clear();
     }
@@ -131,6 +132,7 @@ pub fn current() -> Option<Arc<ProgressCache>> {
 }
 
 /// Drop every entry: the dev reset (`/dev/reset`).
+#[cfg(feature = "dev")]
 pub fn forget_all() {
     if let Some(c) = current() {
         c.clear();
@@ -226,6 +228,7 @@ mod tests {
         .unwrap();
     }
 
+    #[cfg(feature = "dev")]
     #[test]
     fn deleting_a_course_or_resetting_drops_entries() {
         let db = Db::open_in_memory().unwrap();

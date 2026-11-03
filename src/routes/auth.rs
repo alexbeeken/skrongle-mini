@@ -135,7 +135,7 @@ fn proxy_page(status: StatusCode, signed_out: bool) -> Response {
 /// May an account be made now, with this invitation token, for `email`
 /// (`None` before the address is typed)?
 async fn admit(state: &AppState, invite: &str, email: Option<&str>) -> Result<Result<Admit, Refusal>, AppError> {
-    let (mode, invite, email, dev) = (state.signup, invite.to_string(), email.map(str::to_string), state.dev);
+    let (mode, invite, email, dev) = (state.signup, invite.to_string(), email.map(str::to_string), state.dev_mode());
     state.db.call(move |c| signup::admit(c, mode, &invite, email.as_deref(), now(), dev)).await
 }
 
@@ -204,7 +204,7 @@ pub async fn login_form(State(state): State<Arc<AppState>>, MaybeUser(user): May
     if state.proxy_auth.is_some() {
         return Ok(proxy_page(StatusCode::OK, false));
     }
-    Ok(Page(LoginTemplate { user: None, error: None, email: String::new(), dev: state.dev, share }).into_response())
+    Ok(Page(LoginTemplate { user: None, error: None, email: String::new(), dev: state.dev_mode(), share }).into_response())
 }
 
 pub async fn register_form(State(state): State<Arc<AppState>>, MaybeUser(user): MaybeUser, Query(q): Query<RegisterQuery>) -> Result<Response, AppError> {
@@ -225,7 +225,7 @@ pub async fn register_form(State(state): State<Arc<AppState>>, MaybeUser(user): 
         user: None,
         error: None,
         email,
-        dev: state.dev,
+        dev: state.dev_mode(),
         min_age: crate::signup::min_age(),
         age: false,
         share,
@@ -247,7 +247,7 @@ pub async fn login(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp, r
         return Ok(proxy_page(StatusCode::FORBIDDEN, false));
     }
     let too_many = |email: String, share: Option<_>| {
-        let page = LoginTemplate { user: None, error: Some(crate::t("auth.login.too_many_attempts")), email, dev: state.dev, share };
+        let page = LoginTemplate { user: None, error: Some(crate::t("auth.login.too_many_attempts")), email, dev: state.dev_mode(), share };
         (StatusCode::TOO_MANY_REQUESTS, Page(page)).into_response()
     };
     if state.limits.blocked(security::LOGIN_PER_IP, &ip, now()) {
@@ -265,7 +265,7 @@ pub async fn login(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp, r
             user: None,
             error: Some(msg.to_string()),
             email: email.clone(),
-            dev: state.dev,
+            dev: state.dev_mode(),
             share: share.clone(),
         })
         .into_response()
@@ -315,7 +315,7 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
             user: None,
             error: Some(crate::t("auth.register.too_many_signups")),
             email: String::new(),
-            dev: state.dev,
+            dev: state.dev_mode(),
             min_age: crate::signup::min_age(),
             age: false,
                 share: None,
@@ -347,7 +347,7 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
             user: None,
             error: Some(msg),
             email: email_input.clone(),
-            dev: state.dev,
+            dev: state.dev_mode(),
             min_age: crate::signup::min_age(),
             age: !form.age.is_empty(),
             share: share.clone(),
@@ -384,7 +384,7 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
     // invitation, while we hashed. The sign-up mode's word comes first, so
     // a refusal never depends on the address.
     let (t, e) = (now(), email.clone());
-    let (mode, invite, dev) = (state.signup, form.invite.clone(), state.dev);
+    let (mode, invite, dev) = (state.signup, form.invite.clone(), state.dev_mode());
     let outcome = state
         .db
         .call(move |c| {

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Run the app locally for testing before deploying to the Pi. Dev mode is on
-# (SKRONGLE_DEV=1: /dev/login, /dev/reset, the simulated AI provider at /dev/ai;
+# Run the app locally for testing before deploying to the Pi. It builds with
+# the `dev` cargo feature, and dev mode is on (SKRONGLE_DEV=1: /dev/login, /dev/reset, the simulated AI provider at /dev/ai;
 # see docs/testing.md).
 #
 #   ./.dev-start                # debug build on a free port in 8100-8999, DB in ./dev.db
@@ -145,10 +145,10 @@ fi
 
 # The build's output only on failure, unless DEV_VERBOSE=1.
 build() {
-  if [ "$VERBOSE" = 1 ]; then cargo build $PROFILE_FLAG; return; fi
+  if [ "$VERBOSE" = 1 ]; then cargo build --features dev $PROFILE_FLAG; return; fi
   local out
   out=$(mktemp)
-  if ! cargo build $PROFILE_FLAG >"$out" 2>&1; then cat "$out" >&2; rm -f "$out"; exit 1; fi
+  if ! cargo build --features dev $PROFILE_FLAG >"$out" 2>&1; then cat "$out" >&2; rm -f "$out"; exit 1; fi
   rm -f "$out"
 }
 
@@ -232,7 +232,7 @@ if [ "$WATCH" = 1 ]; then
   watch_loop() {
     trap '[ -n "$CHILD" ] && kill "$CHILD" 2>/dev/null; stop_child; rm -f "$STAMP" "$PIDFILE" "$URLFILE"; echo "==> watcher stopped"; exit 0' INT TERM
     echo "==> watching $WATCHED (polling every second)"
-    if in_child cargo build $PROFILE_FLAG; then start_child || true; else echo "==> build failed; fix it and save"; fi
+    if in_child cargo build --features dev $PROFILE_FLAG; then start_child || true; else echo "==> build failed; fix it and save"; fi
     while true; do
       in_child sleep 1
       CHANGED=$(find $WATCHED -newer "$STAMP" -type f ! -name '.*' ! -name '*~' ! -name '*.swp' 2>/dev/null | head -5 || true)
@@ -240,7 +240,7 @@ if [ "$WATCH" = 1 ]; then
       in_child sleep 0.3   # let an editor finish writing
       touch "$STAMP"       # anything saved during the build triggers the next round
       echo "==> changed: $(echo $CHANGED)"
-      if in_child cargo build $PROFILE_FLAG; then
+      if in_child cargo build --features dev $PROFILE_FLAG; then
         echo "==> restarting on $URL"
         stop_child
         start_child || true
@@ -300,7 +300,7 @@ if [ "$BACKGROUND" = 1 ]; then
   exit 0
 fi
 
-[ "$VERBOSE" = 1 ] && exec cargo run $PROFILE_FLAG
+[ "$VERBOSE" = 1 ] && exec cargo run --features dev $PROFILE_FLAG
 # Foreground: the log goes to the file; Ctrl-C stops the server.
 build
 "$BIN" >"$LOGFILE" 2>&1 &

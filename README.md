@@ -121,12 +121,14 @@ to write a course.
 ./.dev-start --reset     # wipe ./dev.db first
 ./.dev-start --lan       # listen on 0.0.0.0 so a phone on your network can try it
 ./.dev-start --watch     # rebuild + restart on changes
-cargo test               # unit tests
+cargo test --features dev   # unit tests (without the feature, the dev-only ones are left out)
 scripts/smoke.sh         # fresh server + fixtures: main pages and one AI generation over HTTP
 scripts/e2e.sh           # headless browser tests (Playwright, Node 22+); see docs/testing.md
 cargo build --release    # hardened release profile (fat LTO, 1 codegen unit, stripped, panic=abort)
 ```
 
+`./.dev-start`, the test scripts and CI build with `--features dev`; a release
+build leaves the feature out and has none of what follows.
 Dev mode (`SKRONGLE_DEV=1`, what `./.dev-start` sets) adds `/dev/login`, a
 simulated AI provider that answers from fixtures, and seeded accounts, so
 every AI feature can be exercised without a key. Working on the code with an

@@ -1,4 +1,5 @@
 use super::*;
+use std::collections::BTreeMap;
 
 /// Test aid (#607-#613): `sql`'s query plan (`EXPLAIN QUERY PLAN`, its
 /// parameters left unbound), asserting that `table` is only reached

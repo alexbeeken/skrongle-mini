@@ -463,10 +463,12 @@ async fn next_card(state: &AppState, p: &Project, session: &Session) -> Result<O
 
 #[cfg(test)]
 mod tests {
+    #[cfg(feature = "dev")]
     use serde_json::json;
 
     /// Without a key nothing is offered: the tutor, the home card and the
     /// Generate dialog say to add one, and the API refuses a provider.
+    #[cfg(feature = "dev")]
     #[test]
     fn without_a_key_nothing_is_offered() {
         let state = crate::routes::test_state(true);

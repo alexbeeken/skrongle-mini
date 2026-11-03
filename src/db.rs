@@ -5,12 +5,9 @@
 //! Every progress table carries a `course_id`: a learner's mastery, history,
 //! vocabulary and game records are kept per course.
 
-use rusqlite::trace::{TraceEvent, TraceEventCodes};
-use rusqlite::{Connection, StatementStatus};
-use std::collections::BTreeMap;
-use std::io::Write;
+use rusqlite::Connection;
 use std::path::Path;
-use std::sync::{Arc, Mutex, OnceLock};
+use std::sync::{Arc, Mutex};
 
 use crate::error::AppError;
 use crate::mastery::cache::ProgressCache;
@@ -120,7 +117,8 @@ impl Db {
         let conn = Connection::open(path)?;
         conn.execute_batch(PRAGMAS)?;
         migrate(&conn)?;
-        start_trace(&conn);
+        #[cfg(feature = "dev")]
+        sql_trace::start(&conn);
         Db::new(conn)
     }
 
@@ -186,65 +184,74 @@ impl Db {
     }
 }
 
-/// `SKRONGLE_SQL_TRACE=<file>`: append one JSON line per statement the
-/// connection runs, with when it finished (`t`, ms since the epoch), how
-/// long it took (`us`), SQLite's own counters for that run (`vm`
-/// virtual-machine steps, `scan` rows read by a full table scan, `sort`
-/// sorts) and the SQL with its values filled in. A dev aid for checking that
-/// a page's queries stay bounded as the tables grow (docs/testing.md, "Query
-/// trace"); nothing runs when the variable is unset.
-fn start_trace(conn: &Connection) {
-    let Some(path) = crate::env("SQL_TRACE") else { return };
-    match std::fs::OpenOptions::new().create(true).append(true).open(&path) {
-        Ok(file) => {
-            if TRACE_FILE.set(Mutex::new(file)).is_ok() {
-                conn.trace_v2(TraceEventCodes::SQLITE_TRACE_STMT | TraceEventCodes::SQLITE_TRACE_PROFILE, Some(trace_statement));
+#[cfg(feature = "dev")]
+mod sql_trace {
+    use rusqlite::trace::{TraceEvent, TraceEventCodes};
+    use rusqlite::{Connection, StatementStatus};
+    use std::collections::BTreeMap;
+    use std::io::Write;
+    use std::sync::{Mutex, OnceLock};
+
+    /// `SKRONGLE_SQL_TRACE=<file>`: append one JSON line per statement the
+    /// connection runs, with when it finished (`t`, ms since the epoch), how
+    /// long it took (`us`), SQLite's own counters for that run (`vm`
+    /// virtual-machine steps, `scan` rows read by a full table scan, `sort`
+    /// sorts) and the SQL with its values filled in. A dev aid for checking that
+    /// a page's queries stay bounded as the tables grow (docs/testing.md, "Query
+    /// trace"); dev builds only, and nothing runs when the variable is unset.
+    pub fn start(conn: &Connection) {
+        let Some(path) = crate::env("SQL_TRACE") else { return };
+        match std::fs::OpenOptions::new().create(true).append(true).open(&path) {
+            Ok(file) => {
+                if TRACE_FILE.set(Mutex::new(file)).is_ok() {
+                    conn.trace_v2(TraceEventCodes::SQLITE_TRACE_STMT | TraceEventCodes::SQLITE_TRACE_PROFILE, Some(trace_statement));
+                }
             }
+            Err(e) => eprintln!("SKRONGLE_SQL_TRACE={path}: {e}"),
         }
-        Err(e) => eprintln!("SKRONGLE_SQL_TRACE={path}: {e}"),
     }
-}
 
-static TRACE_FILE: OnceLock<Mutex<std::fs::File>> = OnceLock::new();
-/// Each statement's counters when its run began, by statement text: SQLite
-/// adds them up over a cached statement's runs, and the trace wants each
-/// run's own share. The start event and the finish event come from the
-/// same statement object, so the difference is exact.
-static TRACE_START: Mutex<BTreeMap<String, (i32, i32, i32)>> = Mutex::new(BTreeMap::new());
+    static TRACE_FILE: OnceLock<Mutex<std::fs::File>> = OnceLock::new();
+    /// Each statement's counters when its run began, by statement text: SQLite
+    /// adds them up over a cached statement's runs, and the trace wants each
+    /// run's own share. The start event and the finish event come from the
+    /// same statement object, so the difference is exact.
+    static TRACE_START: Mutex<BTreeMap<String, (i32, i32, i32)>> = Mutex::new(BTreeMap::new());
 
-fn counters(stmt: &rusqlite::trace::StmtRef<'_>) -> (i32, i32, i32) {
-    (
-        stmt.get_status(StatementStatus::VmStep),
-        stmt.get_status(StatementStatus::FullscanStep),
-        stmt.get_status(StatementStatus::Sort),
-    )
-}
+    fn counters(stmt: &rusqlite::trace::StmtRef<'_>) -> (i32, i32, i32) {
+        (
+            stmt.get_status(StatementStatus::VmStep),
+            stmt.get_status(StatementStatus::FullscanStep),
+            stmt.get_status(StatementStatus::Sort),
+        )
+    }
 
-fn trace_statement(event: TraceEvent<'_>) {
-    let (stmt, took) = match event {
-        TraceEvent::Stmt(stmt, _) => {
-            let now = counters(&stmt);
-            TRACE_START.lock().unwrap_or_else(|p| p.into_inner()).insert(stmt.sql().into_owned(), now);
-            return;
+    fn trace_statement(event: TraceEvent<'_>) {
+        let (stmt, took) = match event {
+            TraceEvent::Stmt(stmt, _) => {
+                let now = counters(&stmt);
+                TRACE_START.lock().unwrap_or_else(|p| p.into_inner()).insert(stmt.sql().into_owned(), now);
+                return;
+            }
+            TraceEvent::Profile(stmt, took) => (stmt, took),
+            _ => return,
+        };
+        let now = counters(&stmt);
+        let start = TRACE_START.lock().unwrap_or_else(|p| p.into_inner()).remove(stmt.sql().as_ref()).unwrap_or((0, 0, 0));
+        let share = |cur: i32, prev: i32| if cur >= prev { cur - prev } else { cur };
+        let t = std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).map_or(0, |d| d.as_millis() as u64);
+        let line = serde_json::json!({
+            "t": t,
+            "us": took.as_micros() as u64,
+            "vm": share(now.0, start.0),
+            "scan": share(now.1, start.1),
+            "sort": share(now.2, start.2),
+            "sql": stmt.expanded_sql().unwrap_or_default(),
+        });
+        if let Some(file) = TRACE_FILE.get() {
+            let mut file = file.lock().unwrap_or_else(|p| p.into_inner());
+            let _ = writeln!(file, "{line}");
         }
-        TraceEvent::Profile(stmt, took) => (stmt, took),
-        _ => return,
-    };
-    let now = counters(&stmt);
-    let start = TRACE_START.lock().unwrap_or_else(|p| p.into_inner()).remove(stmt.sql().as_ref()).unwrap_or((0, 0, 0));
-    let share = |cur: i32, prev: i32| if cur >= prev { cur - prev } else { cur };
-    let t = std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).map_or(0, |d| d.as_millis() as u64);
-    let line = serde_json::json!({
-        "t": t,
-        "us": took.as_micros() as u64,
-        "vm": share(now.0, start.0),
-        "scan": share(now.1, start.1),
-        "sort": share(now.2, start.2),
-        "sql": stmt.expanded_sql().unwrap_or_default(),
-    });
-    if let Some(file) = TRACE_FILE.get() {
-        let mut file = file.lock().unwrap_or_else(|p| p.into_inner());
-        let _ = writeln!(file, "{line}");
     }
 }
 

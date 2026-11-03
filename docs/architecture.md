@@ -51,9 +51,9 @@ under `static/`, `templates/` or `data/` is missing from this list.
 - Owner: `owner.rs`, `routes/manage.rs`, `static/manage.js`, `routes/password.rs` (temporary password gate); the server's AI API keys in `secrets.rs` and the hide-AI switch in `settings.rs`, both on Manage Users (#25).
 - Docs pages: `routes/docs.rs` (`/docs` sidebar `SECTIONS`, `/llms.txt`).
 
-### Dev mode only
+### Dev builds only (the `dev` cargo feature)
 
-- `dev.rs` + `routes/dev.rs` (`/dev/login`, the dev authenticator; `routes/dev/jobs_page.rs` is `/dev/jobs`), `dev_ai.rs` + `routes/dev_ai.rs` (`/dev/ai`, fixtures in `data/test-fixtures/`), `static/devbox.js`.
+- `dev.rs` + `routes/dev.rs` (`/dev/login`, the dev authenticator; `routes/dev/jobs_page.rs` is `/dev/jobs`), `dev_ai.rs` + `routes/dev_ai.rs` (`/dev/ai`, fixtures in `data/test-fixtures/`), `static-dev/` (`devbox.js`, `devbox.css`, served under `/static/`).
 
 ### Elsewhere
 
@@ -123,7 +123,7 @@ src/
   translate.rs   copy and translate a course (#630): which texts the AI translates, one file's request and reply, putting the translations back
   error.rs       AppError -> HTTP responses (incl. redirects to /login and /courses)
   dev_ai.rs      the dev AI provider's logic (#297): key profiles (platform, learner), usage limits and their quota errors, injected failures, the fixture reply for a wire request, Manual replies (held requests), the call log; in memory
-  dev.rs         local testing (SKRONGLE_DEV): the gate, the dev user (seed with the simulator's keys, reset), SKRONGLE_LLM_MODE and the dev AI provider's default base URLs, the fixture directory and its in-memory edits, held requests on disk (Manual replies on /dev/ai)
+  dev.rs         local testing (the `dev` feature; SKRONGLE_DEV): the dev settings and dev::start, the gate, the dev user (seed with the simulator's keys, reset), SKRONGLE_LLM_MODE and the dev AI provider's default base URLs, the fixture directory and its in-memory edits, held requests on disk (Manual replies on /dev/ai)
   test_course.rs tests only: keep the test course covering every feature (schema, aliases, quiz types, exercises)
   routes/
     mod.rs       axum Router, embedded static assets and docs, CourseView for templates
@@ -498,23 +498,18 @@ posture are in `docs/self-hosting.md`, "Skrongle mini".
 | `SKRONGLE_GOOGLE_BASE_URL` | `https://generativelanguage.googleapis.com/v1beta/openai` | Where the Google provider sends requests |
 | `SKRONGLE_DEEPSEEK_BASE_URL`, `SKRONGLE_MISTRAL_BASE_URL`, `SKRONGLE_XAI_BASE_URL`, `SKRONGLE_OPENROUTER_BASE_URL` | `https://api.deepseek.com`, `https://api.mistral.ai`, `https://api.x.ai`, `https://openrouter.ai/api/v1` | Where those providers send requests (#24). An Ollama-compatible server has no variable: its base URL is the one the owner saves on Manage Users |
 | `SKRONGLE_AI_TIMEOUT_SECS` | — | How long one model request may take, in place of 900 s for generation and 120 s for a chat turn (`scripts/e2e.sh` sets 8) |
-| `SKRONGLE_SQL_TRACE` | — | A file: every SQL statement the server runs is appended to it as a JSON line with its time, duration, SQLite's step and scan counters and the filled-in SQL (docs/testing.md, "Query trace") |
 | `SKRONGLE_AI_JOB_BUDGET_SECS` | `3600` | How long one AI job (a generation, Only add, Edit lessons, Allow overall changes) may run in all; past it the job stops before its next request, and no request runs past it |
 | `SKRONGLE_ALLOW_PRIVATE_AI_URLS` | `0` | `1`: a base URL typed into an AI form may point at loopback, private or link-local addresses (a self-hosted Ollama on the LAN), on any port. Off, such URLs are refused, and only ports 443 and 80 are allowed, so learners cannot make the server call its own network (dev mode always allows them). `SKRONGLE_OPENAI_BASE_URL` is never checked |
 | `SKRONGLE_SECRET_KEY` | *(generated)* | 64 hex characters; encrypts stored API keys. Unset: read from or created at `<SKRONGLE_DB>.key` (mode 0600) |
 | `SKRONGLE_NEW_SECRET_KEY` | `0` | `1`: the secret key is lost for good; create a new one, delete the saved API keys it cannot read, and turn off the authenticator apps it cannot read (two-factor off for those accounts, #1068). Without it the server refuses to start when the database has saved keys but neither `SKRONGLE_SECRET_KEY` nor `<SKRONGLE_DB>.key` is there, or the key there opens none of them |
-| `SKRONGLE_DEV` | `0` | `1`: dev mode (`/dev/login`, `/dev/reset`, `/dev/jobs`, `/dev/authenticator`, `/dev/ai` (the dev AI provider, which the default base URLs point at); the dev pages need no sign-in). Refused unless `SKRONGLE_BIND` is loopback, `SKRONGLE_SECURE_COOKIES` is not `1` and `SKRONGLE_PUBLIC_URL` is unset or local; the `/dev/*` routes also refuse proxied or non-loopback-`Host` requests. Set by `./.dev-start`, never by `deploy/` |
-| `SKRONGLE_DEV_RELOAD` | `0` | Dev mode only: `1` (set by `./.dev-start --watch`) appends a script to every HTML page that reloads it after the server restarts; see [testing](testing#live-reload---watch) |
-| `TEST_COURSE` | `0` | `1`: also offer the courses under `data/test-courses/` (the test course, for automated tests). `SKRONGLE_TEST_COURSE` works too. Never set in production |
-| `SKRONGLE_DEV_SEED` | `0` | Dev mode only: at boot, create the dev user with a course open and some progress |
-| `SKRONGLE_RNG_SEED` | — | Dev mode only: a number; quizzes, sessions and games draw from it instead of the OS, so a browser test replays exactly (`scripts/e2e.sh` sets it from `E2E_SEED`) |
-| `SKRONGLE_LLM_MODE` | (empty) | Dev mode only. Empty (or `dev`): the providers' default base URLs point at the dev AI provider (`/dev/ai`, [testing](testing#the-dev-ai-provider)), which answers from the fixtures over their wire protocols; `capture`: the same, holding each request for a reply typed at the bottom of `/dev/ai` (Manual replies); `live`: the real providers (and the seed saves no keys). `fixtures` is read as the default |
-| `SKRONGLE_LLM_DIR` | `./dev-llm` | Dev mode only: where held requests are written and their replies read |
-| `SKRONGLE_LLM_FIXTURES` | `data/test-fixtures/llm` | Dev mode only: the dev AI provider's canned replies, one `<purpose>.json` per call site |
-| `SKRONGLE_LLM_TIMEOUT_SECS` | `600` | Dev mode only: how long a held request waits for its reply |
-| `SKRONGLE_LLM_DELAY_MS` | `0` | Dev mode only: how long a canned reply takes without its own `delay_ms`; `./.dev-start` sets 500 |
 
-Dev mode and the dev AI provider are described in [testing](testing).
+A build with the `dev` cargo feature (`./.dev-start`, the test scripts, CI;
+never a release) also reads the dev settings: `SKRONGLE_DEV`,
+`SKRONGLE_DEV_SEED`, `SKRONGLE_DEV_RELOAD`, `SKRONGLE_DEV_FORCE`,
+`SKRONGLE_RNG_SEED`, `TEST_COURSE`, `SKRONGLE_SQL_TRACE` and the
+`SKRONGLE_LLM_*` settings of the simulated provider. Without the feature
+they are unknown settings. Dev mode and the dev AI provider are described in
+[testing](testing).
 
 ## Generating courses with an LLM
 

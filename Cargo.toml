@@ -11,6 +11,14 @@ publish = false
 name = "spanish-learning"
 path = "src/main.rs"
 
+[features]
+default = []
+# Everything that exists only for running the site locally and for the
+# tests: the dev login and seed, the simulated AI provider, the /dev pages,
+# the test course, the SQL trace. `./.dev-start`, the test scripts and CI
+# build with `--features dev`; a release build leaves it out.
+dev = ["rusqlite/trace"]
+
 [dependencies]
 # --- Web ---
 axum = { version = "0.8", default-features = false, features = ["http1", "tokio", "form", "json", "query", "matched-path"] }
@@ -28,7 +36,7 @@ askama = { version = "0.16", default-features = false, features = ["std", "deriv
 rust-embed = { version = "8", features = ["interpolate-folder-path"] }
 
 # --- Database (SQLite statically linked, no system libsqlite needed on the Pi) ---
-rusqlite = { version = "0.40", features = ["bundled", "trace", "functions"] }
+rusqlite = { version = "0.40", features = ["bundled", "functions"] }
 
 # --- Content ---
 serde = { version = "1", features = ["derive"] }

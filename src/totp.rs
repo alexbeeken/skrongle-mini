@@ -14,6 +14,8 @@ use sha2::{Digest, Sha256, Sha512};
 pub const DEFAULT_DIGITS: u32 = 6;
 pub const DEFAULT_PERIOD: u64 = 30;
 
+/// SHA-256 and SHA-512 come only from a parsed key: the dev authenticator's.
+#[cfg_attr(not(any(feature = "dev", test)), allow(dead_code))]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub enum Algorithm {
     #[default]
@@ -31,6 +33,7 @@ impl Algorithm {
         }
     }
 
+    #[cfg(any(feature = "dev", test))]
     fn parse(s: &str) -> Option<Algorithm> {
         match s.to_ascii_uppercase().replace('-', "").as_str() {
             "SHA1" => Some(Algorithm::Sha1),
@@ -142,6 +145,7 @@ impl Key {
     }
 
     /// The code for a moment.
+    #[cfg(any(feature = "dev", test))]
     pub fn code_at(&self, unix_time: u64) -> String {
         hotp(self.algorithm, &self.secret, step(unix_time, self.period), self.digits)
     }
@@ -152,6 +156,7 @@ impl Key {
     }
 
     /// Seconds until the code shown at `unix_time` changes.
+    #[cfg(any(feature = "dev", test))]
     pub fn remaining(&self, unix_time: u64) -> u64 {
         self.period - unix_time % self.period
     }
@@ -199,6 +204,7 @@ impl Key {
 
     /// What an app accepts as "enter a setup key" or "scan": an
     /// `otpauth://totp/…` URI, or a bare base32 secret (the defaults apply).
+    #[cfg(any(feature = "dev", test))]
     pub fn parse(input: &str) -> Result<Key, String> {
         let input = input.trim();
         if input.is_empty() {
@@ -277,6 +283,7 @@ pub fn base32_encode(data: &[u8]) -> String {
 
 /// Any case; spaces, hyphens and `=` padding are ignored (apps show keys in
 /// groups of four).
+#[cfg(any(feature = "dev", test))]
 pub fn base32_decode(s: &str) -> Option<Vec<u8>> {
     let mut out = Vec::with_capacity(s.len() * 5 / 8);
     let (mut buf, mut bits) = (0u32, 0u32);
@@ -307,6 +314,7 @@ fn uri_encode(s: &str) -> String {
     out
 }
 
+#[cfg(any(feature = "dev", test))]
 fn uri_decode(s: &str) -> String {
     let b = s.as_bytes();
     let mut out = Vec::with_capacity(b.len());

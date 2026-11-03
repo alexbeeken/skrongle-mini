@@ -8,11 +8,12 @@ use super::*;
 pub struct LoginCodeTemplate {
     pub user: Option<CurrentUser>,
     pub error: Option<String>,
-    /// Dev mode: the page floats the dev device for this sign-in
+    /// Dev mode (dev builds): the page floats the dev device for this sign-in
     /// (`/login/code/device`) at the bottom, so the code is a click away.
     pub dev: bool,
 }
 
+#[cfg(feature = "dev")]
 #[derive(Deserialize)]
 pub struct LoginCodeQuery {
     /// `/login/code/device`: `json` for the rows.
@@ -20,13 +21,13 @@ pub struct LoginCodeQuery {
 }
 
 fn code_page(state: &AppState, error: Option<String>) -> Response {
-    let page = Page(LoginCodeTemplate { user: None, error, dev: state.dev }).into_response();
+    let page = Page(LoginCodeTemplate { user: None, error, dev: state.dev_mode() }).into_response();
     ([(axum::http::header::CACHE_CONTROL, "no-store")], page).into_response()
 }
 
 /// Back to the login form, saying why the second step ended.
 fn code_gone(state: &AppState, msg: &str) -> Response {
-    let page = Page(LoginTemplate { user: None, error: Some(msg.to_string()), email: String::new(), dev: state.dev, share: None });
+    let page = Page(LoginTemplate { user: None, error: Some(msg.to_string()), email: String::new(), dev: state.dev_mode(), share: None });
     ([twofa_cookie("", 0, state.secure_cookies)], page).into_response()
 }
 
@@ -34,11 +35,13 @@ fn code_gone_msg() -> String {
     crate::t("auth.code.gone")
 }
 
+#[cfg(feature = "dev")]
 /// The app's CSP with `frame-ancestors 'self'`, for the dev device page framed by `/login/code`.
 const FRAMED_CSP: &str = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; \
 img-src 'self' data: https:; font-src 'self'; connect-src 'self'; media-src 'self'; object-src 'none'; \
 base-uri 'self'; frame-ancestors 'self'";
 
+#[cfg(feature = "dev")]
 /// What the dev device shows for a sign-in: one authenticator account, with
 /// the code picked out so the page can fill it in.
 pub struct DeviceRow {
@@ -53,6 +56,7 @@ pub struct DeviceRow {
     pub period: u64,
 }
 
+#[cfg(feature = "dev")]
 impl DeviceRow {
     /// The code in groups of three, as apps show it.
     pub fn grouped(&self) -> String {
@@ -60,6 +64,7 @@ impl DeviceRow {
     }
 }
 
+#[cfg(feature = "dev")]
 #[derive(Template)]
 #[template(path = "login_code_device.html")]
 pub struct LoginCodeDeviceTemplate {
@@ -69,19 +74,21 @@ pub struct LoginCodeDeviceTemplate {
     pub rows: Vec<DeviceRow>,
 }
 
+#[cfg(feature = "dev")]
 /// GET /login/code/device (dev mode, local clients): the dev device the
 /// pending sign-in's code comes from, as a bare page for the frame at the
 /// bottom of `/login/code`: the dev authenticator's entry for the account's
 /// address, with its code and a *Use* button. The `twofa` cookie names the
 /// sign-in, so a learner who proved the password sees their own device only.
-/// Polled by the frame (`static/devbox.js`); `?format=json` gives the rows.
+/// Polled by the frame (`static-dev/devbox.js`); `?format=json` gives the rows.
 pub async fn login_code_device(State(state): State<Arc<AppState>>, headers: HeaderMap, Query(q): Query<LoginCodeQuery>) -> Result<Response, AppError> {
     let Some(token) = twofa_token(&headers) else { return Err(AppError::NotFound) };
     let Some(p) = state.db.call(move |c| two_factor::pending(c, &token, now())).await? else { return Err(AppError::NotFound) };
     let now = crate::db::now();
     let unix = now as u64;
     let rows: Vec<DeviceRow> = state
-        .dev_authenticator
+        .dev
+        .authenticator
         .list()
         .into_iter()
         .filter(|a| a.key.account.eq_ignore_ascii_case(&p.email))

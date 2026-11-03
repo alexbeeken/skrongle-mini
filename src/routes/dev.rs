@@ -165,10 +165,10 @@ fn done(headers: &axum::http::HeaderMap, list: &str) -> Response {
 // by "scanning": a link to `/dev/authenticator?uri=otpauth://…` opens the
 // page with it filled in, one click from added. Codes are worked out here
 // from the secret, as an app does (`crate::totp`); the page counts down
-// to the next one and polls `/dev/authenticator/rows` (static/devbox.js).
+// to the next one and polls `/dev/authenticator/rows` (static-dev/devbox.js).
 
 /// What the add form opens with when nothing was scanned, and what it
-/// offers again when the list goes empty (static/devbox.js): an example
+/// offers again when the list goes empty (static-dev/devbox.js): an example
 /// account, one click from added.
 pub const EXAMPLE_TOTP_URI: &str = "otpauth://totp/Skrongle:ann@example.org?secret=JBSWY3DPEHPK3PXP&issuer=Skrongle";
 
@@ -231,7 +231,7 @@ fn unix_now() -> u64 {
 
 fn auth_rows(state: &AppState, now: u64) -> AuthRows {
     let rows = state
-        .dev_authenticator
+        .dev.authenticator
         .list()
         .into_iter()
         .map(|a| {
@@ -274,7 +274,7 @@ pub async fn authenticator(
     let now = unix_now();
     if !wants_html(&headers, q.format.as_deref()) {
         let accounts: Vec<_> = state
-            .dev_authenticator
+            .dev.authenticator
             .list()
             .iter()
             .map(|a| {
@@ -313,7 +313,7 @@ pub async fn authenticator_add(State(state): State<Arc<AppState>>, headers: axum
         Err(why) if headers.contains_key("x-dev-box") => return Ok((axum::http::StatusCode::BAD_REQUEST, why).into_response()),
         Err(why) => return Err(AppError::BadRequest(why)),
     };
-    let id = state.dev_authenticator.add(key, crate::db::now());
+    let id = state.dev.authenticator.add(key, crate::db::now());
     if headers.get(axum::http::header::ACCEPT).and_then(|v| v.to_str().ok()).is_some_and(|a| a.contains("application/json")) {
         return Ok(Json(serde_json::json!({ "id": id })).into_response());
     }
@@ -326,13 +326,64 @@ pub async fn authenticator_act(State(state): State<Arc<AppState>>, headers: axum
     if f.action != "delete" {
         return Err(AppError::BadRequest(format!("unknown action {}", f.action)));
     }
-    if !state.dev_authenticator.remove(id) {
+    if !state.dev.authenticator.remove(id) {
         return Err(AppError::NotFound);
     }
     Ok(done(&headers, "/dev/authenticator"))
 }
 
 // ---------- /dev/jobs: the background job table (dev/jobs_page.rs) ----------
+
+/// The `/dev/*` routes, mounted only in dev mode (`routes::router`); and
+/// even then only for requests made on this machine, not through a proxy.
+pub fn routes() -> axum::Router<Arc<AppState>> {
+    use axum::routing::{get, post};
+    use axum::Router;
+    // The dev pages (the jobs table, the authenticator, the AI provider's
+    // page): for whoever is testing, no sign-in (they are for all accounts).
+    let devbox = Router::new()
+        .route("/dev/jobs", get(jobs))
+        .route("/dev/jobs/fail", post(jobs_fail))
+        .route("/dev/jobs/{id}", post(jobs_act))
+        .route("/dev/authenticator", get(authenticator).post(authenticator_add))
+        .route("/dev/authenticator/rows", get(authenticator_rows))
+        .route("/dev/authenticator/{id}", post(authenticator_act))
+        .route("/dev/ai", get(super::dev_ai::page))
+        .route("/dev/ai/rows", get(super::dev_ai::rows))
+        .route("/dev/ai/clear", post(super::dev_ai::clear))
+        .route("/dev/ai/hold", post(super::dev_ai::hold))
+        .route("/dev/ai/held/{stem}", post(super::dev_ai::answer))
+        .route("/dev/ai/profiles/{who}", post(super::dev_ai::profile_act))
+        .route("/dev/ai/calls/{id}", get(super::dev_ai::call))
+        .route("/dev/ai/fixtures", post(super::dev_ai::scenario_add))
+        .route("/dev/ai/fixtures/{name}", get(super::dev_ai::fixture).post(super::dev_ai::fixture_act));
+    Router::new()
+        .route("/dev/login", get(login))
+        // The floating dev device on /login/code: for the holder of the
+        // pending sign-in's twofa cookie, no session (see the handler).
+        .route("/login/code/device", get(super::auth::login_code_device))
+        .route("/dev/reset", get(reset))
+        .route("/dev/vocab", post(vocab))
+        .merge(devbox)
+        // The simulated providers' wire APIs: the app's own server-side
+        // clients call them with an API key (checked there), no cookie.
+        .route("/dev/ai/anthropic/v1/messages", post(super::dev_ai::anthropic_messages))
+        .route("/dev/ai/anthropic/v1/models", get(super::dev_ai::anthropic_models))
+        .route("/dev/ai/openai/v1/chat/completions", post(super::dev_ai::openai_chat))
+        .route("/dev/ai/openai/v1/models", get(super::dev_ai::openai_models))
+        .route("/dev/ai/google/v1beta/openai/chat/completions", post(super::dev_ai::google_chat))
+        .route("/dev/ai/google/v1beta/openai/models", get(super::dev_ai::google_models))
+        .route("/dev/ai/deepseek/v1/chat/completions", post(super::dev_ai::compatible_chat))
+        .route("/dev/ai/mistral/v1/chat/completions", post(super::dev_ai::compatible_chat))
+        .route("/dev/ai/xai/v1/chat/completions", post(super::dev_ai::compatible_chat))
+        .route("/dev/ai/openrouter/api/v1/chat/completions", post(super::dev_ai::compatible_chat))
+        .route("/dev/ai/ollama/v1/chat/completions", post(super::dev_ai::ollama_chat))
+        // The boot id, for the dev page to notice a restart (#1036).
+        .route("/dev/boot", get(|| async { crate::dev::boot_id() }))
+        .route_layer(axum::middleware::from_fn(crate::dev::local_only))
+        // Pasted LLM replies and fixtures are whole courses.
+        .layer(axum::extract::DefaultBodyLimit::max(super::BIG_BODY_LIMIT))
+}
 
 mod jobs_page;
 pub use jobs_page::{jobs, jobs_act, jobs_fail};

@@ -44,7 +44,7 @@ trap cleanup EXIT
 
 SEED="${E2E_SEED:-1}"
 BIN="${SERVER_BIN:-}" # a server already built (CI: scripts/ci-build.sh)
-[ -n "$BIN" ] || { cargo build -q; BIN="${CARGO_TARGET_DIR:-target}/debug/spanish-learning"; }
+[ -n "$BIN" ] || { cargo build -q --features dev; BIN="${CARGO_TARGET_DIR:-target}/debug/spanish-learning"; }
 DB="${E2E_DB:-./e2e.db}" # another name lets two runs share the checkout
 rm -f "$DB" "$DB-wal" "$DB-shm" "$DB.key"
 env SKRONGLE_BIND="127.0.0.1:$PORT" SKRONGLE_DB="$DB" SKRONGLE_DATA_DIR=./data SKRONGLE_LOG=info \

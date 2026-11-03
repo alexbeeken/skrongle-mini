@@ -200,6 +200,8 @@ type Table = (i64, HashMap<String, (i64, u32)>);
 #[derive(Default)]
 pub struct RateLimits {
     windows: Mutex<HashMap<&'static str, Table>>,
+    /// Dev mode (dev builds and tests only): never limited.
+    #[cfg(any(feature = "dev", test))]
     disabled: bool,
 }
 
@@ -213,13 +215,20 @@ fn has_room(table: &mut Table, now: i64) -> bool {
 }
 
 impl RateLimits {
-    pub fn new(disabled: bool) -> RateLimits {
-        RateLimits { windows: Mutex::default(), disabled }
+    pub fn new() -> RateLimits {
+        RateLimits::default()
+    }
+
+    /// Dev mode's limits: none.
+    #[cfg(any(feature = "dev", test))]
+    pub fn off() -> RateLimits {
+        RateLimits { disabled: true, ..RateLimits::default() }
     }
 
     /// Is `key` over `limit` already? Does not count anything. A key the
     /// full table has no room for counts as over.
     pub fn blocked(&self, limit: Limit, key: &str, now: i64) -> bool {
+        #[cfg(any(feature = "dev", test))]
         if self.disabled {
             return false;
         }
@@ -234,6 +243,7 @@ impl RateLimits {
     /// Count one hit for `key`; `false` when that goes over the limit (or
     /// the table is full of running windows and `key` is new).
     pub fn hit(&self, limit: Limit, key: &str, now: i64) -> bool {
+        #[cfg(any(feature = "dev", test))]
         if self.disabled {
             return true;
         }
@@ -324,7 +334,7 @@ mod tests {
 
     #[test]
     fn rate_limits_count_per_key_and_window() {
-        let l = RateLimits::new(false);
+        let l = RateLimits::new();
         let lim = Limit { name: "login-ip", max: 3, window: 600 };
         for _ in 0..3 {
             assert!(l.hit(lim, "1.2.3.4", 1000));
@@ -342,7 +352,7 @@ mod tests {
         assert!(l.hit(lim, "1.2.3.4", 1600));
         assert_eq!(l.purge_expired(5000), 3);
         // Dev mode: never limited.
-        let off = RateLimits::new(true);
+        let off = RateLimits::off();
         for _ in 0..10 {
             assert!(off.hit(lim, "x", 1000));
         }
@@ -351,7 +361,7 @@ mod tests {
 
     #[test]
     fn rate_limit_memory_is_bounded() {
-        let l = RateLimits::new(false);
+        let l = RateLimits::new();
         let lim = Limit { name: "login-ip", max: 3, window: 600 };
         for i in 0..(MAX_KEYS + 10) {
             let _ = l.hit(lim, &format!("k{i}"), i as i64 / 100);
@@ -363,7 +373,7 @@ mod tests {
 
     #[test]
     fn a_flood_of_new_keys_cannot_reset_an_account_counter() {
-        let l = RateLimits::new(false);
+        let l = RateLimits::new();
         let ip = Limit { name: "login-ip", max: 30, window: 600 };
         let user = Limit { name: "login-user", max: 3, window: 900 };
         for _ in 0..3 {

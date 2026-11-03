@@ -378,7 +378,7 @@ pub(super) async fn ai_provider(
     }
     // The server, not the browser, calls this URL: keep it off internal addresses.
     if !base_url.is_empty() {
-        if let Err(e) = ai::check_base_url(&base_url, ai::private_urls_allowed(state.dev)).await {
+        if let Err(e) = ai::check_base_url(&base_url, ai::private_urls_allowed(state.dev_mode())).await {
             return Ok(Err(e));
         }
     }

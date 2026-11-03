@@ -96,7 +96,7 @@ async fn load(state: &AppState, user: CurrentUser) -> Result<ManageTemplate, App
             .collect(),
         total,
         max_accounts: crate::caps::MAX_ACCOUNTS,
-        full: crate::caps::accounts_full(total, state.dev),
+        full: crate::caps::accounts_full(total, state.dev_mode()),
         api_keys,
         ai_off,
         ollama_model,
@@ -163,7 +163,7 @@ pub async fn make_invite(State(state): State<Arc<AppState>>, user: CurrentUser, 
     if !user.owner || state.signup != crate::signup::Mode::Invite {
         return Err(AppError::NotFound);
     }
-    let (uid, dev) = (user.id, state.dev);
+    let (uid, dev) = (user.id, state.dev_mode());
     let token = state
         .db
         .call(move |c| Ok(if crate::signup::is_full(c, dev)? { None } else { Some(crate::signup::make(c, uid, crate::db::now())?) }))

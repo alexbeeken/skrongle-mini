@@ -933,6 +933,7 @@ fn start_opens_the_course_with_its_wizard_settings() {
 /// dev keys are in dev mode): the app does not know it is not a real
 /// provider. Without a key the dialog asks for one; there is no stand-in
 /// and no "Mock AI responses" option any more (#298).
+#[cfg(feature = "dev")]
 #[test]
 fn ai_features_with_saved_keys_answered_by_the_simulator() {
     super::point_defaults_at_the_simulator();
@@ -1666,6 +1667,7 @@ fn static_serves_gzip_only_when_accepted() {
 /// and an Ollama-compatible server's base URL and model, answer another
 /// account's tutor through the simulator's OpenAI-compatible endpoints.
 /// Every provider has a folded row on Manage Users that says whether it is set.
+#[cfg(feature = "dev")]
 #[test]
 fn newer_providers_answer_the_tutor_through_the_simulator() {
     super::point_defaults_at_the_simulator();

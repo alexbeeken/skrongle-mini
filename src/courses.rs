@@ -104,8 +104,11 @@ impl Cache {
     }
 }
 
+/// The built-in course boot keeps built (and the dev seed opens), when it ships.
+pub const SEED_COURSE: &str = "spanish";
+
 /// Courses for automated tests only, under `<data>/test-courses/<id>/`: loaded
-/// as built-in courses when `TEST_COURSE=1`, never otherwise. The test course
+/// as built-in courses when `TEST_COURSE=1` in a dev build, never otherwise. The test course
 /// there uses every feature a course file can switch on (see its AUTHORING.md).
 pub const TEST_COURSES_DIR: &str = "test-courses";
 
@@ -224,7 +227,7 @@ impl Courses {
     /// Check every `data/courses/*/course.json`. An empty or missing directory
     /// is fine (the app then only offers "build your own"). Each course is
     /// built once to validate it. One is kept in the cache, so the first
-    /// request for it builds nothing (#5): `dev::SEED_COURSE`, else the first.
+    /// request for it builds nothing (#5): `SEED_COURSE`, else the first.
     /// The others are dropped, only their `BuiltinCourse` kept: keeping both
     /// shipped courses built adds about 4 MB of RSS, too much on a Pi for
     /// a course nobody may open.
@@ -234,7 +237,7 @@ impl Courses {
     }
 
     /// `load_builtin`, plus the test courses under `TEST_COURSES_DIR` when
-    /// `with_test_courses` (`TEST_COURSE=1`). They come after the real ones.
+    /// `with_test_courses` (`TEST_COURSE=1`, dev builds). They come after the real ones.
     pub fn load(data_dir: &Path, with_test_courses: bool) -> Result<Courses, ContentError> {
         let mut roots = vec![data_dir.join("courses")];
         if with_test_courses {
@@ -244,7 +247,7 @@ impl Courses {
         let mut builtin_dirs = HashMap::new();
         // The one course boot keeps built: the seed course, else the first.
         // Decided as each is built, so no other one outlives its check.
-        let seed_shipped = roots.iter().any(|r| r.join(crate::dev::SEED_COURSE).join(MANIFEST_FILE).is_file());
+        let seed_shipped = roots.iter().any(|r| r.join(SEED_COURSE).join(MANIFEST_FILE).is_file());
         let mut kept: Option<ContentStore> = None;
         for root in roots.into_iter().filter(|r| r.is_dir()) {
             let mut dirs: Vec<_> = std::fs::read_dir(&root)
@@ -269,7 +272,7 @@ impl Courses {
                 }
                 builtin_dirs.insert(store.id().to_string(), dir);
                 builtin.push(BuiltinCourse::of(&store));
-                let keep = if seed_shipped { store.id() == crate::dev::SEED_COURSE } else { kept.is_none() };
+                let keep = if seed_shipped { store.id() == SEED_COURSE } else { kept.is_none() };
                 if keep {
                     kept = Some(store);
                 }

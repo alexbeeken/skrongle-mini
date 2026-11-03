@@ -110,11 +110,6 @@ impl ProfileTemplate {
     pub fn totp_uri(&self) -> String {
         self.pending_key().map(|k| k.uri()).unwrap_or_default()
     }
-
-    /// Dev mode: the "scan" into the dev authenticator.
-    pub fn totp_dev_link(&self) -> String {
-        crate::url(&format!("/dev/authenticator?uri={}", crate::urlenc::urlencode(&self.totp_uri())))
-    }
 }
 
 #[derive(Deserialize)]
@@ -155,7 +150,7 @@ fn page(state: &AppState, user: CurrentUser, p: Profile) -> ProfileTemplate {
         confirm_on: false,
         confirm_remove: false,
         confirm_error: None,
-        dev: state.dev,
+        dev: state.dev_mode(),
     }
 }
 

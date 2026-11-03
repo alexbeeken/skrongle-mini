@@ -39,7 +39,6 @@ use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
 use rusqlite::{params, Connection, OptionalExtension};
-use serde::Serialize;
 
 use crate::db::Db;
 
@@ -96,10 +95,15 @@ const fn hourly(name: &'static str) -> Kind {
 /// The hourly housekeeping: every purge in one job ([`housekeeping`]).
 pub const HOUSEKEEPING: Kind = hourly("housekeeping");
 /// Dev mode only (`/dev/jobs`): a job that always fails, to watch retries.
+/// In dev builds and the job runner's tests.
+#[cfg(any(feature = "dev", test))]
 pub const DEV_FAIL: Kind = Kind { name: "dev.fail", max_attempts: RETRY_DELAYS.len() as i64 + 1, delays: RETRY_DELAYS, every: None, at: None };
 
 /// Every kind there is. A row of another kind is refused by [`enqueue`].
+#[cfg(any(feature = "dev", test))]
 pub const KINDS: &[Kind] = &[HOUSEKEEPING, DEV_FAIL, crate::ai::GENERATE];
+#[cfg(not(any(feature = "dev", test)))]
+pub const KINDS: &[Kind] = &[HOUSEKEEPING, crate::ai::GENERATE];
 
 pub fn kind(name: &str) -> Option<Kind> {
     KINDS.iter().find(|k| k.name == name).copied()
@@ -240,7 +244,8 @@ pub fn purge(conn: &Connection, now: i64) -> rusqlite::Result<usize> {
 }
 
 /// A row as `/dev/jobs` shows it.
-#[derive(Debug, Clone, Serialize)]
+#[cfg(any(feature = "dev", test))]
+#[derive(Debug, Clone, serde::Serialize)]
 pub struct Row {
     pub id: i64,
     pub kind: String,
@@ -258,6 +263,7 @@ pub struct Row {
 }
 
 /// The newest `limit` rows, newest first.
+#[cfg(any(feature = "dev", test))]
 pub fn recent(conn: &Connection, limit: usize) -> rusqlite::Result<Vec<Row>> {
     let mut stmt = conn.prepare(
         "SELECT id, kind, payload_json, state, priority, run_at, attempts, max_attempts, locked_by, locked_until, last_error, created_at, finished_at
@@ -285,6 +291,7 @@ pub fn recent(conn: &Connection, limit: usize) -> rusqlite::Result<Vec<Row>> {
 
 /// Dev: make a queued row due now, or a running row's lease run out. The
 /// number of rows changed (0: no such row in either state).
+#[cfg(any(feature = "dev", test))]
 pub fn dev_run_now(conn: &Connection, id: i64, now: i64) -> rusqlite::Result<usize> {
     conn.execute(
         "UPDATE jobs SET run_at = CASE state WHEN 'queued' THEN ?2 ELSE run_at END,
@@ -541,6 +548,7 @@ pub fn housekeeping(runner: Runner, state: &Arc<crate::AppState>, retention: ret
 }
 
 /// Dev mode: the always-failing kind `/dev/jobs` queues.
+#[cfg(any(feature = "dev", test))]
 pub fn dev(runner: Runner) -> Runner {
     runner.handle(DEV_FAIL, |_, _| Err("dev.fail always fails (queued from /dev/jobs)".into()))
 }

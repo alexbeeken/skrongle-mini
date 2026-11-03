@@ -13,7 +13,9 @@ mod conjugation;
 mod content;
 mod courses;
 mod db;
+#[cfg(feature = "dev")]
 mod dev;
+#[cfg(feature = "dev")]
 mod dev_ai;
 mod doctor;
 mod earnings;
@@ -144,16 +146,13 @@ pub struct AppState {
     pub tutors: tutor::Sessions,
     /// The price table behind the Generate dialog's cost estimate.
     pub prices: prices::PriceTable,
-    /// `SKRONGLE_DEV=1` on a loopback bind: the `/dev/*` routes exist.
-    pub dev: bool,
     /// Rate limits for sign-in, registration and password changes (in memory; off in dev mode).
     pub limits: security::RateLimits,
     /// Wakes the background job runner (`jobs.rs`).
     pub queue: jobs::Queue,
-    /// Dev mode: the simulated AI provider's log, usage and settings (`/dev/ai`).
-    pub dev_ai: dev_ai::Simulator,
-    /// Dev mode: the dev authenticator app's accounts (`/dev/authenticator`).
-    pub dev_authenticator: dev::Authenticator,
+    /// Builds with the `dev` feature only: dev mode and its tools (`dev.rs`).
+    #[cfg(feature = "dev")]
+    pub dev: dev::Tools,
     /// `SKRONGLE_PUBLIC_URL` without a trailing slash: where the links the
     /// app hands out (owner link, invitations, share links) point. Unset, they are built from the request (`routes::public_base`).
     pub public_url: Option<String>,
@@ -162,6 +161,19 @@ pub struct AppState {
     /// `SKRONGLE_PROXY_AUTH_HEADER` + `SKRONGLE_PROXY_AUTH_FROM`: the proxy in
     /// front signs people in (`proxy_auth.rs`); `None` when unset.
     pub proxy_auth: Option<proxy_auth::Config>,
+}
+
+impl AppState {
+    /// Dev mode (`SKRONGLE_DEV=1` on a loopback bind, `dev::start`): rate
+    /// limits, the account cap and the private-URL check are off. Always
+    /// `false` in a build without the `dev` feature.
+    #[inline]
+    pub fn dev_mode(&self) -> bool {
+        #[cfg(feature = "dev")]
+        return self.dev.on;
+        #[cfg(not(feature = "dev"))]
+        false
+    }
 }
 
 struct Config {
@@ -175,17 +187,14 @@ struct Config {
     log_invalid: Option<String>,
     /// `SKRONGLE_SECRET_KEY`; without it the secret lives in `<db>.key`.
     secret_key: Option<String>,
-    /// `SKRONGLE_DEV=1`: asked for; `dev::resolve` decides.
-    dev: bool,
-    /// `SKRONGLE_DEV_SEED=1`: create the dev user with a course and progress at boot.
-    dev_seed: bool,
-    /// `TEST_COURSE=1` (or `SKRONGLE_TEST_COURSE=1`): also load the courses for
-    /// automated tests under `data/test-courses/`.
-    test_course: bool,
+    /// `SKRONGLE_DEV=1`, `SKRONGLE_DEV_SEED=1`, `TEST_COURSE=1`: builds with
+    /// the `dev` feature only (`dev::Config`).
+    #[cfg(feature = "dev")]
+    dev: dev::Config,
     /// `SKRONGLE_COURSES_PER_USER` / `SKRONGLE_COURSE_BYTES` / `SKRONGLE_COURSE_BYTES_PER_USER`:
     /// limits on the courses a learner makes. `None` for the course count
-    /// when unset: the default, or no limit in dev mode (browser tests make
-    /// every course as the one dev user).
+    /// when unset: the default (no limit in dev mode, where browser tests
+    /// make every course as the one dev user).
     course_limits: courses::Limits,
     courses_per_user: Option<usize>,
     /// `SKRONGLE_AI_PRICES`: the price table behind the cost estimate.
@@ -269,8 +278,8 @@ impl Config {
             log_invalid: env("LOG").filter(|v| v.parse::<tracing::level_filters::LevelFilter>().is_err()),
             secret_key: env("SECRET_KEY"),
             prices: prices::PriceTable::from_env(),
-            dev: env("DEV").is_some_and(|v| v == "1" || v == "true"),
-            dev_seed: env("DEV_SEED").is_some_and(|v| v == "1" || v == "true"),
+            #[cfg(feature = "dev")]
+            dev: dev::Config::from_lookup(env),
             course_limits: {
                 let d = courses::Limits::default();
                 courses::Limits {
@@ -280,7 +289,6 @@ impl Config {
                 }
             },
             courses_per_user: env("COURSES_PER_USER").and_then(|v| v.parse().ok()),
-            test_course: std::env::var("TEST_COURSE").ok().or_else(|| env("TEST_COURSE")).is_some_and(|v| v == "1" || v == "true"),
         })
     }
 }
@@ -392,14 +400,12 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         None => None,
     };
     signup::init_min_age(min_age);
-    let courses = Courses::load(&cfg.data_dir, cfg.test_course)
+    #[cfg(feature = "dev")]
+    let test_course = cfg.dev.test_course(&cfg.data_dir);
+    #[cfg(not(feature = "dev"))]
+    let test_course = false;
+    let courses = Courses::load(&cfg.data_dir, test_course)
         .map_err(|e| format!("failed to load courses from {}: {e}", cfg.data_dir.display()))?;
-    if cfg.test_course {
-        tracing::warn!(
-            "TEST_COURSE=1: the courses under {} are offered too; they exist for automated tests only",
-            cfg.data_dir.join(courses::TEST_COURSES_DIR).display()
-        );
-    }
     for c in courses.builtin() {
         let (lessons, questions, terms) = c.totals();
         tracing::info!("course '{}' ({}): {lessons} lessons / {questions} questions / {terms} terms", c.id(), c.title());
@@ -420,9 +426,10 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         std::process::exit(db::NEWER_DB_EXIT);
     }
     let db = Db::open(&cfg.db_path).map_err(|e| {
-        // A dev database from another branch may have the same migration
-        // number for a different change (stacked PRs renumber them).
-        let hint = if cfg.dev { " (a dev database from another branch? ./.dev-start --reset recreates it)" } else { "" };
+        #[cfg(feature = "dev")]
+        let hint = cfg.dev.db_hint();
+        #[cfg(not(feature = "dev"))]
+        let hint = "";
         format!("{}{hint}", startup::db_error(&cfg.db_path, &e))
     })?;
     // Give back the page cache and temp memory the migrations grew.
@@ -470,50 +477,16 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
     let shop = motivators::shop::init(&cfg.data_dir).map_err(|e| format!("failed to load the shop's badges from {}: {e}", cfg.data_dir.join("badges").display()))?;
     tracing::info!("shop: {} badges", shop.badges.len());
 
-    let force = env("DEV_FORCE").as_deref() == Some("1");
-    let dev = match dev::resolve(cfg.dev, cfg.bind, cfg.secure_cookies, env("PUBLIC_URL").as_deref())
-        .and_then(|on| if on { db.with(|c| dev::other_accounts(c)).map_err(|e| e.to_string()).and_then(|n| dev::check_accounts(n, force)).map(|()| true) } else { Ok(false) })
-    {
-        Ok(on) => on,
-        Err(why) => {
-            tracing::warn!("{why}");
-            false
-        }
-    };
     for w in security::https_warnings(cfg.bind, cfg.secure_cookies, env("PUBLIC_URL").as_deref()) {
         tracing::warn!("{w}");
     }
-    let llm_mode = dev::init_llm(dev, cfg.bind)?;
-    // Skrongle mini has no dev stand-in for Google or texts: it looks like a
-    // real mini in dev mode too.
     let prices = cfg.prices.clone()?;
-    if dev {
-        tracing::warn!("DEV MODE: /dev/login, /dev/reset and the dev pages (/dev/authenticator, /dev/ai) are open to anyone who can reach {}", cfg.bind);
-        match llm_mode {
-            Some(dev::LlmMode::Live) => tracing::warn!("DEV MODE: SKRONGLE_LLM_MODE=live: model calls go to the real providers"),
-            Some(m) => tracing::warn!(
-                "DEV MODE: model calls go to the simulated provider at http://{}{}{}; no real provider is contacted",
-                cfg.bind,
-                url("/dev/ai"),
-                if m == dev::LlmMode::Capture { " (Manual replies: holding each request for a reply on /dev/ai)" } else { "" }
-            ),
-            None => {}
-        }
-        if let Some(seed) = env("RNG_SEED") {
-            let n: u64 = seed.parse().map_err(|_| format!("SKRONGLE_RNG_SEED must be a number, got {seed:?}"))?;
-            quiz::seed_draws(n);
-            tracing::warn!("DEV MODE: SKRONGLE_RNG_SEED={n}: quizzes, sessions and games draw from this seed, not the OS");
-        }
-        if cfg.dev_seed {
-            // The simulator's keys for every provider, unless the calls go to the real ones.
-            let cid = dev::seed(&db, &courses, dev::simulating().then_some(&vault))?;
-            tracing::info!("dev: seeded user '{}' with course '{cid}' open", dev::DEV_EMAIL);
-        } else {
-            // So the login form takes dev@example.com / dev-password on a fresh database.
-            dev::ensure_user(&db)?;
-        }
-        tracing::info!("dev: log in as '{}' / '{}', or open /dev/login", dev::DEV_EMAIL, dev::DEV_PASSWORD);
-    }
+    #[cfg(feature = "dev")]
+    let dev = dev::start(&cfg.dev, cfg.bind, cfg.secure_cookies, &db, &courses, &vault)?;
+    #[cfg(feature = "dev")]
+    let max_courses = if dev.on { usize::MAX } else { cfg.course_limits.max_courses };
+    #[cfg(not(feature = "dev"))]
+    let max_courses = cfg.course_limits.max_courses;
 
     if env("PUBLIC_URL").is_none() {
         tracing::info!("links the app hands out point to the host each request was made to; set SKRONGLE_PUBLIC_URL to fix them");
@@ -523,7 +496,7 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
     let state = Arc::new(AppState {
         db: db.clone(),
         courses: Arc::new(courses.with_limits(courses::Limits {
-            max_courses: cfg.courses_per_user.unwrap_or(if dev { usize::MAX } else { cfg.course_limits.max_courses }),
+            max_courses: cfg.courses_per_user.unwrap_or(max_courses),
             ..cfg.course_limits
         })),
         secure_cookies: cfg.secure_cookies,
@@ -533,11 +506,13 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         vault,
         tutors: tutor::Sessions::default(),
         prices,
-        dev,
-        limits: security::RateLimits::new(dev),
+        #[cfg(feature = "dev")]
+        limits: if dev.on { security::RateLimits::off() } else { security::RateLimits::new() },
+        #[cfg(not(feature = "dev"))]
+        limits: security::RateLimits::new(),
         queue,
-        dev_ai: if llm_mode == Some(dev::LlmMode::Capture) { dev_ai::Simulator::holding_from_start() } else { Default::default() },
-        dev_authenticator: Default::default(),
+        #[cfg(feature = "dev")]
+        dev,
         public_url: env("PUBLIC_URL").map(|u| u.trim_end_matches('/').to_string()),
         signup,
         proxy_auth,
@@ -549,9 +524,11 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
     state.jobs.wake_with(state.queue.waker());
     ai::adopt(&state.jobs, &db)?;
     let gen_state = Arc::clone(&state);
+    #[allow(unused_mut)]
     let mut runner = jobs::housekeeping(jobs::Runner::new(), &state, retention)
         .handle_claimed(ai::GENERATE, move || ai::slot_free(&gen_state.jobs), ai::handler(Arc::clone(&state)));
-    if dev {
+    #[cfg(feature = "dev")]
+    if state.dev.on {
         runner = jobs::dev(runner);
     }
     runner.start(db, queue_wake).map_err(|e| format!("background job thread: {e}"))?;

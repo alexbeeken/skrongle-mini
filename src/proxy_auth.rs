@@ -189,7 +189,7 @@ fn app_path(req: &Request) -> &str {
 
 /// Paths the proxy's header never signs in on.
 fn left_alone(path: &str) -> bool {
-    path.starts_with("/dev/") || path.starts_with("/static/") || path == "/logout"
+    (cfg!(feature = "dev") && path.starts_with("/dev/")) || path.starts_with("/static/") || path == "/logout"
 }
 
 /// What the header asks for.
@@ -299,7 +299,7 @@ pub async fn middleware(State(state): State<Arc<AppState>>, mut req: Request, ne
         return next.run(req).await;
     }
     let session = crate::auth::session_cookie_from_headers(req.headers());
-    let (mode, dev) = (state.signup, state.dev);
+    let (mode, dev) = (state.signup, state.dev_mode());
     let outcome = state.db.call(move |c| resolve(c, &value, session.as_deref(), mode, crate::db::now(), dev)).await;
     let token = match outcome {
         Err(e) => return e.into_response(),

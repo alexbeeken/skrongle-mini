@@ -155,7 +155,8 @@ pub fn report(cfg: &Config, env: &dyn Fn(&str) -> Option<String>) -> Vec<Line> {
     if !cfg.base_path.is_empty() {
         out.push(Line::new("base path", cfg.base_path.clone()));
     }
-    if cfg.dev {
+    #[cfg(feature = "dev")]
+    if cfg.dev.requested() {
         out.push(Line::new("dev mode", "asked for (SKRONGLE_DEV=1): only for local testing"));
     }
 

@@ -18,10 +18,10 @@
   {% let register_url = self.other_page_url("/register") %}
   <p class="muted">{{ crate::t1("auth.login.no_account_html", "url", register_url)|safe }}</p>
   {% let lang_back = "/login" %}{% include "lang_picker.html" %}
-  {% if dev %}
+  {% if cfg!(feature = "dev") && dev %}
   <section class="dev-panel" data-testid="login-dev">
     <h2>Dev mode</h2>
-    <p><a class="btn ghost small" href="{{ crate::base_path() }}/dev/login" data-testid="login-dev-login">Log in as dev</a> <span class="muted small">(or <code>{{ crate::dev::DEV_EMAIL }}</code> / <code>dev-password</code>)</span></p>
+    <p><a class="btn ghost small" href="{{ crate::base_path() }}/dev/login" data-testid="login-dev-login">Log in as dev</a> <span class="muted small">(or <code>dev@example.com</code> / <code>dev-password</code>)</span></p>
   </section>
   {% endif %}
 </section>

@@ -305,6 +305,7 @@ pub(super) fn picker_notice(key: &str) -> Option<String> {
     Some(crate::t(match key {
         "title-too-long" => "courses.picker.title_too_long",
         "course-deleted" => "courses.picker.deleted_notice",
+        #[cfg(feature = "dev")]
         "dev-reset" => "courses.picker.dev_reset",
         "share-taken" => "courses.share.link_taken",
         "share-gone" => "courses.share.link_gone",

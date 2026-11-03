@@ -112,8 +112,9 @@ pub struct CurrentUser {
     /// The address the account signs in with; '' for an old account that
     /// never gave one.
     pub email: String,
-    /// `users.email_verified_at` is set: the address was confirmed by a link
-    /// (`verify.rs`) or by Google. Nothing is gated on it yet.
+    /// `users.email_verified_at` is set: a trusted proxy vouched for the
+    /// address (`proxy_auth.rs`), or it is the dev user. Only the profile's
+    /// check mark reads it.
     pub email_verified: bool,
     /// Profile fields shown in the navigation bar (see `profile.rs`).
     pub first_name: String,
