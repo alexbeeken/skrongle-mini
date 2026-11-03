@@ -1223,8 +1223,8 @@ fn editor_of_a_course_whose_job_just_finished() {
 /// Sharing a course (#451): the owner invites addresses, each gets a
 /// link; signed out, the link leads to a login page that says what it
 /// is for and comes back; signed in, the course is on the recipient's
-/// list read only (no editor, no files); a confirmed address needs no
-/// link; a forwarded link is refused; removing the share takes the
+/// list read only (no editor, no files); an address alone opens nothing;
+/// a forwarded link is refused; removing the share takes the
 /// course off their list and out of their session.
 #[test]
 fn a_shared_course_is_on_the_recipients_list_read_only() {
@@ -1281,6 +1281,13 @@ fn a_shared_course_is_on_the_recipients_list_read_only() {
         .expect("bob's link")
         .to_string();
     assert_eq!(token.len(), 64);
+    let carol_token = page
+        .split(r#"data-email="carol@example.org""#)
+        .nth(1)
+        .and_then(|r| r.split(&format!(r#"value="{base}/courses/shared/"#)).nth(1))
+        .and_then(|r| r.split('"').next())
+        .expect("carol's link")
+        .to_string();
     let (status, page) = share_post(&format!("/courses/{id}/share"), &ann, "bob@example.org");
     assert!(status == 200 && page.contains("already had one") && !page.contains(r#"data-testid="course-share-link""#), "{page}");
     assert_eq!(shares(), 2, "one invitation per address");
@@ -1329,13 +1336,15 @@ fn a_shared_course_is_on_the_recipients_list_read_only() {
     let (status, _, loc) = post("/login", "", &[("email", "bob@example.org"), ("password", "long-enough-pw")]);
     assert_eq!((status, loc.as_str()), (303, "/"));
 
-    // Carol's confirmed address needs no link: the course is on her list as soon as it is shared.
+    // An address is only a label (#10): even marked confirmed, Carol's
+    // account has nothing until she opens her link.
     let (_, carol, _) = register("carol@example.org", "");
-    assert!(!get("/courses", &carol).2.contains(&format!(r#"data-course-id="{id}""#)), "unconfirmed: not yet");
     state.db.with(|c| c.execute("UPDATE users SET email_verified_at = 5 WHERE email = 'carol@example.org'", [])).unwrap();
+    assert!(!get("/courses", &carol).2.contains(&format!(r#"data-course-id="{id}""#)), "no link opened: not on her list");
+    let (status, _, _) = get(&format!("/courses/shared/{carol_token}"), &carol);
+    assert_eq!(status, 303);
     let list = get("/courses", &carol).2;
-    assert!(list.contains(r#"data-testid="courses-shared""#) && list.contains(&format!(r#"data-course-id="{id}""#)), "{list}");
-    assert_eq!(post(&format!("/courses/open/{id}"), &carol, &[]).0, 303);
+    assert!(list.contains(&format!(r#"data-course-id="{id}""#)), "{list}");
 
     // Removing the share: off bob's list, out of his session; the owner keeps it.
     let (status, _, loc) = post(&format!("/courses/{id}/share/remove"), &ann, &[("email", "bob@example.org")]);

@@ -331,7 +331,7 @@ course_shares  (id, course_id, email, token_hash UNIQUE, user_id, created_at, op
                 -- a course shared with an address (src/share.rs, v43): token_hash is the SHA-256 of the
                 -- link's token; user_id the account that opened the link (NULL until then, or when
                 -- that account is deleted; the share stays and can be opened again). The course is
-                -- open to that account and to any account whose confirmed address is `email`
+                -- open to that account only; `email` is a label for the owner (#10)
 course_flags   (course_id PRIMARY KEY, state, source, matches_json, reason, content_hash, checked_at,
                 override_note, overridden_by, overridden_at)
                 -- unused: the content check and moderation are gone (#9); the table goes with the schema squash (#2)

@@ -791,15 +791,13 @@ and the owner passes the links on. The dialog lists every address with
 *invited* or *opened* and a *Remove* button. The owner's own address is
 refused, and an address already on the list gets no second link.
 
-Who may open a shared course: the account that opened its link (the first
-account to open a link keeps it, so a forwarded link lets nobody else in;
-the owner opening their own link, from an inbox say, takes nothing and lands
-on the Share dialog), and any account whose **confirmed** e-mail address is the invited one, link
-or no link, so a learner who already has an account with that address finds
-the course on their list as soon as it is shared. An unconfirmed address does
-not count: anyone can register with someone else's address. Nothing
-confirms an address by e-mail (#10); only an account a signing-in proxy
-made (the proxy vouched for it) and the dev user count as confirmed.
+Who may open a shared course: only the account that opened its link. The
+link is the only way in (#10): the first account to open it keeps it, and
+every other account that opens it later is turned away to its course list
+with a notice, the invited address included. Nothing confirms an e-mail
+address, so the address on a share is a label for the owner, never proof
+of who someone is. The owner opening their own link takes nothing and
+lands on the Share dialog.
 
 For the recipient the course is **read only**: it is on their course list
 (under *Shared with you* until opened, then under *Your projects*) with a

@@ -1,6 +1,6 @@
 // Sharing a course (#451) past the happy path (#513). share.spec.ts is the
 // happy path, share-sign-in.spec.ts the sign-in routes; this file is what
-// happens around them: a used link, an address confirmed later, unknown
+// happens around them: a used link (the invited address included), unknown
 // and odd tokens, an old link after the owner removes and invites again,
 // every mode on a shared course, the share removed mid-session, the owner
 // deleting the course or the account, and the invitation's language. The
@@ -77,7 +77,7 @@ async function backAtThePicker(page: Page): Promise<void> {
   await expect(page).toHaveURL(/\/courses$/);
 }
 
-test("a used link turns a second account away; the invited address, confirmed later, has the course with or without the link", async ({ page, browser }) => {
+test("a used link turns every other account away, the invited address included", async ({ page, browser }) => {
   await devLogin(page, "next=/courses");
   const id = await newCourse(page);
   const invited = newAccount("share-edge-invited");
@@ -96,21 +96,19 @@ test("a used link turns a second account away; the invited address, confirmed la
   );
   await expect(await card(third.page, id)).toHaveCount(0);
 
-  // The invited address registers afterwards, without the link: not on the
-  // list, since nothing confirms that the address is theirs.
+  // The invited address registers afterwards: an address is only a label
+  // (#10), so the course is not on its list, and the used link turns it away too.
   const own = await (await browser.newContext()).newPage();
   await signUp(own, invited);
   await expect(await card(own, id)).toHaveCount(0);
-  // Until the invited address opens the link, both accounts have it (#513, question 1).
+  await own.goto(link);
+  await expect(own).toHaveURL(/\/courses\?notice=share-taken$/);
+  await expect(await card(own, id)).toHaveCount(0);
+
+  // The first account keeps the course.
   await expect(await card(first.page, id)).toHaveCount(1);
 
-  // The invited address opens the link: it is theirs now, and the first account's goes.
-  await opens(own, link, id);
-  await expect(await card(first.page, id)).toHaveCount(0);
-  await backAtThePicker(first.page);
-  await expect(await card(third.page, id)).toHaveCount(0);
-
-  // The owner sees one opened row for the address.
+  // The owner sees the address's row opened (by the first account).
   await page.goto(`/courses/${id}?share=1`);
   await expect(shareRow(page, invited.email)).toHaveAttribute("data-opened", "true");
   for (const p of [first.page, third.page, own]) await p.context().close();
