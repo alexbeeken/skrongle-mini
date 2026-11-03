@@ -43,7 +43,8 @@ fn lesson_session_mixes_kinds() {
 fn every_lesson_builds_a_session() {
     let courses = crate::courses::Courses::load_builtin(Path::new("data")).expect("built-in courses load");
     assert!(!courses.builtin().is_empty());
-    for c in courses.builtin() {
+    for c in courses.builtin().iter().map(|c| courses.builtin_store(c.id()).expect("builds")) {
+        let c = &*c;
         let mut rng = Rng::seeded(3);
         for l in c.lessons() {
             let s = lesson_session(c, l, &HashSet::new(), &mut rng);

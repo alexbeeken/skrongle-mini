@@ -1607,7 +1607,7 @@ fn every_mode_shares_the_daily_goal_and_where_you_left_off() {
         })
         .unwrap();
     let cookie = format!("sid={}", state.db.with(|c| crate::auth::create_session(c, ann)).unwrap());
-    let course = state.courses.builtin_by_id("spanish").unwrap();
+    let course = state.courses.builtin_store("spanish").unwrap();
     let lessons = course.lessons();
     let app = super::router(state.clone());
     let base = rt.block_on(async {

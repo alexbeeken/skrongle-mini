@@ -100,7 +100,7 @@ pub fn landing_courses(courses: &crate::courses::Courses) -> Vec<LandingCourse> 
             icon: c.manifest().icon().to_string(),
             description: c.manifest().description.clone(),
             units: c.units().len(),
-            lessons: c.lessons().len(),
+            lessons: c.totals().0,
         })
         .collect()
 }
@@ -300,21 +300,27 @@ pub struct LevelOption {
 }
 
 pub fn level_options(content: &ContentStore, start: usize) -> Vec<LevelOption> {
-    let units = content.start_units();
+    let levels: Vec<(usize, usize)> = content.start_units().into_iter().map(|u| (u, content.lessons_in(u).count())).collect();
+    level_options_of(content.units(), &levels, start)
+}
+
+/// `level_options` from a course's units and its start levels, each with
+/// its lesson count (`courses::BuiltinCourse::levels`).
+pub fn level_options_of(units: &[crate::content::Unit], levels: &[(usize, usize)], start: usize) -> Vec<LevelOption> {
     // Starting at the first level is starting at the beginning.
-    let chosen = units.iter().rev().find(|&&u| u <= start).or(units.first()).copied();
-    units
+    let chosen = levels.iter().rev().find(|(u, _)| *u <= start).or(levels.first()).map(|(u, _)| *u);
+    levels
         .iter()
         .enumerate()
-        .map(|(i, &u)| {
-            let unit = content.unit(u);
-            LevelOption {
+        .filter_map(|(i, &(u, lessons))| {
+            let unit = units.get(u)?;
+            Some(LevelOption {
                 id: if i == 0 { String::new() } else { unit.id.clone() },
                 title: unit.title.clone(),
                 description: unit.description.clone(),
-                lessons: content.lessons_in(u).count(),
+                lessons,
                 chosen: Some(u) == chosen,
-            }
+            })
         })
         .collect()
 }

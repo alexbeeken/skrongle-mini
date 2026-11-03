@@ -343,7 +343,7 @@ mod tests {
     fn crowd(users: usize, days: i64) -> (Db, Vec<Arc<ContentStore>>) {
         let db = Db::open_in_memory().unwrap();
         let courses = crate::courses::Courses::load_builtin(Path::new("data")).unwrap();
-        let courses: Vec<Arc<ContentStore>> = courses.builtin().to_vec();
+        let courses: Vec<Arc<ContentStore>> = courses.builtin().iter().filter_map(|c| courses.builtin_store(c.id())).collect();
         assert_eq!(seed(&db, &courses, users, days).unwrap(), users);
         (db, courses)
     }
