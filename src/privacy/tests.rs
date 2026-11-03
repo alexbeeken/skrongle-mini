@@ -120,6 +120,7 @@ fn deleting_an_account_removes_every_row_of_it() {
     .unwrap();
 }
 
+#[test]
 fn retention_drops_old_answers_rounds_and_finished_notes() {
     let db = Db::open_in_memory().unwrap();
     db.with(|c| {
