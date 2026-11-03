@@ -75,7 +75,7 @@ test("the second step is the authenticator app alone, and turning it on needs th
   const email = await page.request.post("/profile/two-factor", { form: { method: "email", password: a.password }, maxRedirects: 0 });
   expect(email.status()).toBe(400);
   // A session alone can't turn it on (#374).
-  for (const form of [{ method: "totp" }, { method: "totp", password: "not-the-password" }]) {
+  for (const form of [{ method: "totp" }, { method: "totp", password: "not-the-password" }] as Record<string, string>[]) {
     const res = await page.request.post("/profile/two-factor", { form, maxRedirects: 0 });
     expect(res.status(), JSON.stringify(form)).toBe(403);
   }
