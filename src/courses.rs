@@ -827,7 +827,7 @@ pub fn finish_generation(conn: &Connection, id: &str, error: Option<&str>) -> ru
 }
 
 /// At boot, after `ai::at_boot`: a course still 'generating' whose job does
-/// not wait in line to go on (#874) was interrupted by the restart. It
+/// not go on after the restart (#874) was interrupted by the restart. It
 /// keeps what was written and can resume. A revision writes nothing until
 /// it has finished, so an interrupted one leaves the course as it was.
 pub fn fail_interrupted(conn: &Connection) -> rusqlite::Result<usize> {

@@ -891,7 +891,7 @@ validated with the rest of the course before it is saved, like any lesson
 (a reply that cannot be used or does not load is asked for again, twice).
 
 The job is a generation in every other way (`src/ai.rs`): its own OS
-thread, one job per learner, `SKRONGLE_AI_JOBS` at once and the rest waiting in line, the hourly and daily AI
+thread, one job per learner, one AI job at a time on the whole server (a second Generate is refused, no waiting line, #43), the hourly and daily AI
 job quotas, on the learner's own key. Its calls carry the purpose `translate-course` (the file's path
 as the key). The copy's `courses.source` is `translate` and its notes hold
 the job's plan (the language, and the files done so far), so a stopped

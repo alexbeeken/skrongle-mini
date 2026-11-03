@@ -2704,7 +2704,7 @@ courses:
     has_content: "Ce cours a désormais son propre contenu, l'IA ne le régénère donc pas. Demandez ce que vous voulez dans le cadre Utiliser l'IA."
     instructions_too_long: "Les instructions dépassent {max} caractères."
     cancelled: Annulé.
-    in_line: "Vous êtes le numéro {n} dans la file d'attente."
+    busy_other: "Un cours est déjà en cours de génération ; réessayez quand il sera terminé."
     cancelling_revision: "Annulation : le cours reste tel qu'il était."
     cancelling_generation: "Annulation : le cours s'arrête après la leçon en cours d'écriture."
   undo:

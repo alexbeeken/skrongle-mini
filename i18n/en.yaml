@@ -2710,7 +2710,7 @@ courses:
     has_content: "This course has content of its own now, so the AI won't generate it again. Ask for what you want in the Use AI box instead."
     instructions_too_long: "The instructions are longer than {max} characters."
     cancelled: Cancelled.
-    in_line: "You're number {n} in line."
+    busy_other: "A course is already being generated; try again when it finishes."
     cancelling_revision: "Cancelling: the course stays as it was."
     cancelling_generation: "Cancelling: the course stops after the lesson being written."
   undo:

@@ -548,7 +548,7 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         Some(d) => tracing::info!("retention: failed AI courses kept {d} days ({} older deleted)", swept.failed_courses.len()),
         None => tracing::info!("retention: failed AI courses kept until their owner deletes them"),
     }
-    // A generation whose key can be had again waits in line to go on (#874).
+    // A generation whose key can be had again goes on after the restart (#874).
     let waiting = db.with(|c| ai::at_boot(c, db::now()))?;
     if waiting > 0 {
         tracing::info!("{waiting} course generation(s) were interrupted by the restart; they go on by themselves");
@@ -710,7 +710,7 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
     // Background jobs: the mail outbox (drained first on every
     // pass), the hourly housekeeping (one job per purge, each queuing its
     // next run; due at once on a fresh database), data exports (a slice per
-    // run), AI jobs waiting in line (each started on its own thread), and in
+    // run), a generation resumed after a restart (started on its own thread), and in
     // dev mode the always-failing kind /dev/jobs queues.
     mail_outbox.blank_at_start(&db);
     state.jobs.wake_with(state.queue.waker());
