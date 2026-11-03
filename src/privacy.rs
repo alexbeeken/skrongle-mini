@@ -26,26 +26,8 @@ pub const USER_TABLES: &[(&str, &str)] = &[
     ("motivator_purchases", "user_id = ?1"),
     ("game_rounds", "user_id = ?1"),
     ("projects", "user_id = ?1"),
-    ("user_api_keys", "user_id = ?1"),
-    ("subscriptions", "user_id = ?1"),
-    ("plan_grants", "user_id = ?1"),
-    ("plan_cancellations", "user_id = ?1"),
-    ("ai_usage", "user_id = ?1"),
-    ("ai_usage_months", "user_id = ?1"),
-    ("ai_credit_purchases", "user_id = ?1"),
-    ("terms_acceptances", "user_id = ?1"),
-    ("terms_announcements", "user_id = ?1"),
-    ("breach_notices", "user_id = ?1"),
-    ("consents", "user_id = ?1"),
-    ("mail_outbox", "user_id = ?1"),
-    ("sms_outbox", "user_id = ?1"),
-    ("sms_sends", "user_id = ?1"),
-    ("email_verifications", "user_id = ?1"),
-    ("password_resets", "user_id = ?1"),
     ("totp_keys", "user_id = ?1"),
-    ("phone_verifications", "user_id = ?1"),
     ("two_factor_challenges", "user_id = ?1"),
-    ("two_factor_confirmations", "user_id = ?1"),
     ("courses", "owner_id = ?1"),
     ("course_files", "course_id IN (SELECT id FROM courses WHERE owner_id = ?1)"),
     ("course_undo", "course_id IN (SELECT id FROM courses WHERE owner_id = ?1)"),
@@ -53,36 +35,14 @@ pub const USER_TABLES: &[(&str, &str)] = &[
     ("course_ai_runs", "course_id IN (SELECT id FROM courses WHERE owner_id = ?1)"),
     ("course_ai_run_files", "course_id IN (SELECT id FROM courses WHERE owner_id = ?1)"),
     ("course_shares", "course_id IN (SELECT id FROM courses WHERE owner_id = ?1) OR user_id = ?1"),
-    ("course_flags", "course_id IN (SELECT id FROM courses WHERE owner_id = ?1)"),
-    ("content_scores", "course_id IN (SELECT id FROM courses WHERE owner_id = ?1)"),
-    ("content_category_scores", "course_id IN (SELECT id FROM courses WHERE owner_id = ?1)"),
-    ("content_checks", "course_id IN (SELECT id FROM courses WHERE owner_id = ?1)"),
-    ("user_themes", "owner_id = ?1"),
-    ("user_theme_files", "theme_id IN (SELECT id FROM user_themes WHERE owner_id = ?1)"),
-    ("data_exports", "user_id = ?1"),
     ("signup_invites", "created_by = ?1 OR used_by = ?1"),
-    ("content_reports", "user_id = ?1"),
-    ("privacy_actions", "superuser_id = ?1"),
-    ("waitlist", "user_id = ?1"),
 ];
 
-/// User tables whose rows outlive the account: deleting it sets their
-/// `user_id` to NULL instead (`ON DELETE SET NULL`). `sms_sends` is
-/// the leftover texts' rate-limit ledger; its table goes with the schema
-/// squash. `privacy_actions` is the log of privacy requests
-/// answered (#981): an owner's rows stay, without their id.
-#[cfg_attr(not(test), allow(dead_code))]
-pub const KEPT_ON_DELETE: &[&str] = &["sms_sends", "privacy_actions"];
-
-/// Tables that hold no learner's rows, only server-wide figures:
-/// `ai_spend_days` is everyone's hosted AI spend per day (the daily cap,
-/// #623). An account's deletion only lowers it.
-/// `blocked_ips` and `content_check_worker` are unused tables (#9), tied to no account; they go with the schema squash (#2).
+/// Tables that hold no learner's rows, only the server's:
 /// `jobs` is the background job queue (jobs.rs, #872): housekeeping rows, no account.
-/// `release_settings` is the waitlist switch (#934).
 /// `server_api_keys` and `settings` are the server's AI API keys and settings (#25), the owner's, no account.
 #[cfg_attr(not(test), allow(dead_code))]
-pub const SHARED_TABLES: &[&str] = &["ai_spend_days", "blocked_ips", "jobs", "content_check_worker", "release_settings", "server_api_keys", "settings"];
+pub const SHARED_TABLES: &[&str] = &["jobs", "server_api_keys", "settings"];
 
 /// What deleting an account removed that lives in caches too.
 #[derive(Debug, Default, PartialEq)]

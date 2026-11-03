@@ -1414,7 +1414,6 @@ fn nothing_offers_to_send_mail() {
     // No data export: the route is gone and the profile offers none.
     assert_eq!(post("/profile/export", &ann, &[]).0, 404);
     assert!(!get("/profile", &ann).2.contains("profile-export"));
-    assert_eq!(count("SELECT COUNT(*) FROM mail_outbox"), 0, "nothing was queued to send");
 }
 
 /// #10: registering signs the account in and sends nothing; the address

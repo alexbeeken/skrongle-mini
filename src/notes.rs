@@ -1,6 +1,6 @@
 //! A learner's own note on a lesson (#336): one private text per learner,
 //! course and lesson, shown and edited on the lesson page ("My note").
-//! Table `lesson_notes` (v93). Term mnemonics are for later.
+//! Table `lesson_notes`. Term mnemonics are for later.
 
 use rusqlite::{params, Connection, OptionalExtension};
 

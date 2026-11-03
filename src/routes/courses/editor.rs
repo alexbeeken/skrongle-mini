@@ -19,7 +19,6 @@ pub struct EditorTemplate {
     pub notice: Option<String>,
     /// 'generating' | 'revising' | 'ready' | 'failed'.
     pub state: &'static str,
-    pub private: bool,
     /// "Add content with AI", when the course loads and is free.
     pub ai: Option<AiFormView>,
     /// The last revision, which can be undone.
@@ -593,7 +592,6 @@ async fn editor_template(
     let shares = state.db.call(move |c| crate::share::shares_of(c, &sid)).await?;
     Ok(EditorTemplate {
         state: row.state.as_str(),
-        private: row.visibility != "public",
         user: Some(user),
         id,
         title: row.title,

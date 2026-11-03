@@ -25,10 +25,6 @@ fn privacy_page_export_and_account_deletion_over_http() {
             Ok((ann, gil))
         })
         .unwrap();
-    let key = "sk-ant-api03-0123456789abcdefghijklmnop";
-    // A row from before the keys were the server's (#25): the export names
-    // the provider and never carries the ciphertext.
-    state.db.with(|c| c.execute("INSERT INTO user_api_keys (user_id, provider, ciphertext, updated_at) VALUES (?1, 'anthropic', ?2, 1)", rusqlite::params![ann, key.as_bytes()])).unwrap();
     let session = |u| {
         state.db.with(|c| crate::auth::create_session(c, u)).unwrap()
     };
@@ -90,7 +86,7 @@ fn privacy_page_export_and_account_deletion_over_http() {
     assert!(crate::account_deletion::sweep(&state, &state.db).unwrap().starts_with("1 account"));
     let left: i64 = state
         .db
-        .with(|c| c.query_row("SELECT (SELECT COUNT(*) FROM users WHERE id = ?1) + (SELECT COUNT(*) FROM courses) + (SELECT COUNT(*) FROM user_api_keys)", [ann], |r| r.get(0)))
+        .with(|c| c.query_row("SELECT (SELECT COUNT(*) FROM users WHERE id = ?1) + (SELECT COUNT(*) FROM courses)", [ann], |r| r.get(0)))
         .unwrap();
     assert_eq!(left, 0);
     let (status, _, _) = post("/login", "", &[("email", "ann@example.org"), ("password", "right-password")]);

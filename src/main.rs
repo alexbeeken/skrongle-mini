@@ -422,8 +422,9 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
     }
 
     startup::check_db_writable(&cfg.db_path)?;
-    // An older release on a database a newer one upgraded stops here, before
-    // anything writes to it, and systemd does not restart it (#1329).
+    // An older release on a database a newer one upgraded, or a database from
+    // before the 1.0 schema (#49), stops here, before anything writes to it,
+    // and systemd does not restart it (#1329).
     if let Err(msg) = db::check_not_newer(&cfg.db_path) {
         tracing::error!("fatal: {msg}");
         std::process::exit(db::NEWER_DB_EXIT);

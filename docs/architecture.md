@@ -19,7 +19,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 
 - Start-up: `main.rs` (env config, commands), `caps.rs` (the fixed limits of a mini, `MAX_ACCOUNTS`, #29), `startup.rs` (start-up errors), `doctor.rs` (`skrongle doctor`), `server.rs` (listener limits).
 - HTTP: `routes/mod.rs` (Router, embedded static files and docs, CourseView), `error.rs` (AppError to responses), `security.rs` (headers, CSRF, rate limits).
-- Database: `db.rs` (connection, `Db::call`), `db/migrations.rs` (`MIGRATIONS`); schema in "SQLite schema" below; background jobs (the hourly housekeeping) in `jobs.rs`.
+- Database: `db.rs` (connection, `Db::call`), `db/migrations.rs` (`MIGRATIONS`, the schema in `db/migrations/v001_schema.sql`); described in "SQLite schema" below; background jobs (the hourly housekeeping) in `jobs.rs`.
 - App text: `i18n.rs` reads `i18n/<code>.yaml` (`docs/i18n.md`). Randomness: `random.rs` (OS bytes), `quiz.rs` has the small PRNG.
 
 ### Courses and content
@@ -277,39 +277,54 @@ session JSON, never hard-coded.
 ## SQLite schema
 
 ```sql
-users          (id AUTOINCREMENT, password_hash, created_at, google_sub UNIQUE, email,
-                active_course, first_name, last_name, avatar, avatar_color, age_confirmed, developer, ai_off,
-                email_verified_at, superuser, phone, phone_verified_at, two_factor, lang, billing_ref UNIQUE, stripe_customer,
-                must_change_password, suspended_at, beta, owner)
-                -- id is never reused after a deletion (AUTOINCREMENT since v45, #364);
-                -- billing_ref: random per account, what Stripe's subscription metadata names (never the id);
-                -- stripe_customer: the one Stripe customer every Checkout of the account shares (#394);
-                -- google_sub is no longer read (the Google sign-in is gone; the column waits for the schema squash);
-                -- password_hash is '' for accounts without one (proxy sign-in); email is what a password account
-                -- signs in with (no usernames since v26), set once and never changed;
-                -- email_verified_at: when the address was confirmed (a proxy-made account, the dev user; no link since #10), NULL = not;
-                -- avatar, avatar_color: the profile picture and its background, no longer read (the pictures are gone; the columns wait for the schema squash);
-                -- lang the language the app speaks to this account in (i18n/<code>.yaml, v42), '' = the browser's;
-                -- developer and superuser: the two old flags, merged into owner by v98 (#16); nothing reads them, they wait for the schema squash
-                -- ai_off: the old per-account "Hide all AI features" (#147); since v99 (#25) the switch is the
-                -- server's (settings 'ai_off'), nothing reads it, it waits for the schema squash
-                -- owner 1 opens /manage and links it from the account menu (by hand, make-owner, or the first account under SKRONGLE_SIGNUP=invite|closed; the dev user in dev mode)
-                -- phone: E.164 or ''; phone_verified_at: when a texted code confirmed it (v39);
-                -- phone_opted_out_at: a provider refused a text to it as opted out (STOP, v69, #969);
-                -- cleared when a text to it goes through or the number changes; codes go by e-mail meanwhile
-                -- two_factor: the second sign-in step, '' (off) | 'totp' (src/two_factor.rs); an older 'email' reads as off (#10)
-                -- must_change_password 1: signed in with a temporary password the owner set (src/owner.rs, v62);
-                -- CurrentUser sends the account to /password/change until it picks its own
-                -- suspended_at: unused (moderation is gone, #9)
-                -- beta 1: made through an e-mailed waitlist invitation (v86, #934); nothing reads it
-                -- delete_at: the learner asked to delete it; deleted then by housekeeping.deletions (src/account_deletion.rs, v88, #970);
-                -- CurrentUser sends it to /account/deletion until then, its courses are not shared out
+users          (id AUTOINCREMENT, email, password_hash, created_at, email_verified_at, first_name, last_name,
+                age_confirmed, owner, must_change_password, two_factor, active_course, lang, review_quiet,
+                ai_effort, delete_at)
+                -- id is never reused after a deletion (AUTOINCREMENT);
+                -- email is what a password account signs in with, set once and never changed;
+                -- password_hash is '' for accounts without one (proxy sign-in);
+                -- email_verified_at: when the address was confirmed (a proxy-made account, the dev user), NULL = not;
+                -- age_confirmed: the "I am at least N" box at sign-up;
+                -- owner 1 opens /manage and links it from the account menu (by hand, make-owner, or the first
+                -- account under SKRONGLE_SIGNUP=invite|closed; the dev user in dev mode);
+                -- must_change_password 1: signed in with a temporary password the owner set (src/owner.rs);
+                -- CurrentUser sends the account to /password/change until it picks its own;
+                -- two_factor: the second sign-in step, '' (off) | 'totp' (src/two_factor.rs);
+                -- active_course: the course the account is in;
+                -- lang: the language the app speaks to this account in (i18n/<code>.yaml), '' = the browser's;
+                -- review_quiet 1: "Review AI changes" does not open by itself;
+                -- ai_effort: the effort Generate the course last ran at: low | medium | high (Fast, Balanced, Thorough);
+                -- delete_at: the learner asked to delete it; deleted then by the hourly housekeeping
+                -- (src/account_deletion.rs); CurrentUser sends it to /account/deletion until then, its courses are not shared out
 sessions       (id, user_id, session_token UNIQUE, created_at, expires_at)
                 -- session_token is the SHA-256 (hex) of the cookie's token (auth::hash_token), never the token
-courses        (id, owner_id, title, created_at, updated_at, error, state, source, visibility, job_id, brief, outline, notes, taken_down_at)
-                -- user-made courses; state 'generating' | 'revising' | 'ready' | 'failed', source 'hand' | 'ai',
-                -- visibility 'private' (publishing to come); brief/notes/outline let a stopped AI run resume
-                -- taken_down_at: unused (moderation is gone, #9)
+totp_keys      (user_id PRIMARY KEY, secret, created_at, confirmed_at, last_step)
+                -- the account's authenticator app: the secret sealed with ChaCha20-Poly1305 (secrets::seal_totp,
+                -- bound to the user; codes are worked out from it, so it can't be hashed),
+                -- confirmed_at NULL while enrolling (purged after a day),
+                -- last_step the newest RFC 6238 time step accepted: a code works once
+two_factor_challenges (id, user_id, token_hash UNIQUE, method, attempts, created_at, expires_at)
+                -- a sign-in waiting for its second step: token_hash is the SHA-256 of the `twofa` cookie's token;
+                -- 10 minutes, 5 tries
+signup_invites (id, token_hash UNIQUE, created_by, created_at, expires_at, used_at, used_by)
+                -- invitation links for SKRONGLE_SIGNUP=invite (src/signup.rs): token_hash is the SHA-256
+                -- of the link's token; one use (used_at, used_by), 7 days; created_by NULL for the first
+                -- owner's link, else it cascades; used_by is set NULL when the invited account is deleted;
+                -- gone 30 days after expiry
+settings       (name PRIMARY KEY, value)  WITHOUT ROWID
+                -- server-wide settings (src/settings.rs): 'ai_off' = '1' hides every AI feature for
+                -- every account (no row: shown). The session query reads it, so auth/cache.rs watches it
+server_api_keys (provider PRIMARY KEY, ciphertext, set_at)  WITHOUT ROWID
+                -- the server's AI API keys, the owner's, set on /manage; provider is secrets::Provider::id;
+                -- ciphertext is sealed by src/secrets.rs with the provider as associated data
+jobs           (id, kind, payload_json, state, priority, run_at, attempts, max_attempts, locked_by, locked_until,
+                last_error, created_at, finished_at)
+                -- background jobs (src/jobs.rs); state 'queued' | 'running' | 'done' | 'failed';
+                -- locked_by/locked_until: the lease of a running row. Done rows deleted after a day, failed after 30
+courses        (id, owner_id, title, created_at, updated_at, error, state, source, job_id, brief, outline, notes)
+                -- user-made courses, private to their owner (and whoever they share them with);
+                -- state 'generating' | 'revising' | 'ready' | 'failed', source 'hand' | 'ai' | 'translate';
+                -- error: the last validation error, NULL when it loads; brief/notes/outline let a stopped AI run resume
 course_files   (course_id, path, content, updated_at)  PRIMARY KEY (course_id, path)
 course_undo    (course_id, seq, title, outline, label, created_at, session, started_at)  PRIMARY KEY (course_id, seq)
 course_undo_files (course_id, seq, path, content)  PRIMARY KEY (course_id, seq, path)
@@ -319,185 +334,64 @@ course_undo_files (course_id, seq, path, content)  PRIMARY KEY (course_id, seq, 
                 -- Undo files the course as it was there; any new change clears them;
                 -- `session`: the editor page whose saves join this step (for ten minutes from
                 -- `started_at`; `created_at` is then its latest save)
-course_ai_runs (course_id PRIMARY KEY, label, created_at, excluded, edits)
+course_ai_runs (course_id PRIMARY KEY, label, created_at, excluded, edits, why)
 course_ai_run_files (course_id, side, path, content)  PRIMARY KEY (course_id, side, path)
                 -- the latest AI run's changed files, side 'before' | 'after' (missing: added or
                 -- removed), for "Review AI changes" (src/review.rs); the next run replaces it.
                 -- `excluded`: what the review left out (JSON `review::Exclusions`, '' for nothing)
                 -- `edits`: the review's own text for lines the AI wrote (JSON `review::Edits`:
-                -- path → row key → text, '' for none; v41, #287)
+                -- path → row key → text, '' for none); `why`: the run's why and check lines per
+                -- lesson (JSON `ai::LessonNote`s, '' for none)
 course_shares  (id, course_id, email, token_hash UNIQUE, user_id, created_at, opened_at)  UNIQUE (course_id, email)
-                -- a course shared with an address (src/share.rs, v43): token_hash is the SHA-256 of the
+                -- a course shared by link (src/share.rs): token_hash is the SHA-256 of the
                 -- link's token; user_id the account that opened the link (NULL until then, or when
                 -- that account is deleted; the share stays and can be opened again). The course is
-                -- open to that account only; `email` is a label for the owner (#10)
-course_flags   (course_id PRIMARY KEY, state, source, matches_json, reason, content_hash, checked_at,
-                override_note, overridden_by, overridden_at)
-                -- unused: the content check and moderation are gone (#9); the table goes with the schema squash (#2)
-signup_invites (id, token_hash UNIQUE, created_by, created_at, expires_at, used_at, used_by, email)
-                -- invitation links for SKRONGLE_SIGNUP=invite (src/signup.rs, v61): token_hash is the SHA-256
-                -- of the link's token; one use (used_at, used_by), 7 days; created_by cascades,
-                -- used_by is set NULL when the invited account is deleted; gone 30 days after expiry.
-                -- email (v86, #934): from the removed waitlist; nothing reads it
-waitlist       (id, email UNIQUE, joined_at, confirm_hash, confirmed_at, invite_id, invited_at, invites_sent, signed_up_at, user_id)
-                -- the removed waitlist (v86, #934; nothing reads it): email lower case; confirm_hash the SHA-256 of the
-                -- confirmation link's token until it is used; invite_id the latest e-mailed invitation (set NULL
-                -- when purged); user_id the account it signed up as (cascades); unconfirmed rows go after 30 days
-release_settings (id = 1, waitlist)  -- the removed waitlist switch (#934; nothing reads it)
-projects       (user_id, course_id, created_at, last_opened_at, start_unit, avatar, avatar_color, motivator, set_up)  PRIMARY KEY (user_id, course_id)
-               -- motivator: the course's setting (#574), starting as the account's; avatar, avatar_color: no longer read;
-               -- set_up: 0 until the first visit's settings wizard is left (#574)
+                -- open to that account only; `email` is a label for the owner
+projects       (user_id, course_id, created_at, last_opened_at, start_unit, motivator, set_up)  PRIMARY KEY (user_id, course_id)
+               -- a course the learner opened; motivator: the course's setting, '' = the default;
+               -- set_up: 0 until the first visit's settings wizard is left
 user_progress  (user_id, course_id, lesson_id, mastery_score, times_tested, times_correct, streak,
                 last_practiced_at, read_at)  PRIMARY KEY (user_id, course_id, lesson_id)
                 -- read_at: when the lesson was first read or taught (reading check, or seen in any mode); NULL = unread
-quiz_history   (id, user_id, course_id, lesson_id, question_id, selected_answer, was_correct, answered_at)
-journey_progress (user_id, course_id, lesson_id, step, completed, best_stars, xp, run_correct, run_answered,
-                updated_at)  PRIMARY KEY (user_id, course_id, lesson_id)      -- the Guide; xp unused since #558
-user_vocab     (user_id, course_id, lesson_id, word, learned_at, times_seen, times_known, last_reviewed_at, due_at, gap_days)
-game_scores    (id, user_id, course_id, game, board, score_ms, wrong, played_at)
-game_activity  (id, user_id, course_id, game, board, label, duration_ms, total, correct, score_ms, played_at, xp)
-                -- xp unused since #558
-activity_log   (id, user_id, course_id, kind, n, at)     -- n of activity::Kind `kind` done at `at`: the daily goal
-lesson_touches (user_id, course_id, lesson_id, mode, at)  PRIMARY KEY (user_id, course_id, lesson_id)
-                -- when and in which mode a lesson was last opened or worked on: where every mode resumes
-lesson_notes   (user_id, course_id, lesson_id, body, updated_at)  PRIMARY KEY (user_id, course_id, lesson_id)
-                -- the learner's own note on a lesson ("My note", #336, v93); an emptied note has no row
-earnings       (user_id, course_id, points, goals, day, day_points, streak)  PRIMARY KEY (user_id, course_id)
-                -- running totals (#589): effort points ever logged, daily goals reached, the local day last
-                -- active, its points and the streak ending on it; XP, SKC and the streak read this, not the log
-game_rounds    (user_id, course_id, game, rounds)  PRIMARY KEY (user_id, course_id, game)
-                -- rounds finished per game (v64), moved by games::record_activity_at: "rounds played" reads this
 lesson_passes  (user_id, course_id, lesson_id, seen_at, seen_via, best_pct, best_via, passed_at, passed_via, runs,
                 evidence, updated_at)  PRIMARY KEY (user_id, course_id, lesson_id)
                 -- via is 'k' | 'd' | 'g' (Study, Sprint, Play: the modes' old letters, progress::VIA_*)
                 -- | 'tutor' | 'agent' | 'legacy'; best_pct -1 = no counted run yet
-user_api_keys  (user_id, provider, ciphertext, updated_at)  PRIMARY KEY (user_id, provider)
-                -- learners' own keys from before #25: v99 copied the first owner's into server_api_keys;
-                -- nothing reads or writes it now, kept until the schema squash drops it
-server_api_keys (provider PRIMARY KEY, ciphertext, set_at, sealed_for)  WITHOUT ROWID
-                -- the server's AI API keys (v99, #25), the owner's, set on /manage; provider is
-                -- 'anthropic' | 'openai' | 'google'; ciphertext is sealed by src/secrets.rs; sealed_for = the
-                -- user id its associated data names (a key v99 brought over from that owner's profile), NULL
-                -- for a key saved for the server
-settings       (name PRIMARY KEY, value)  WITHOUT ROWID
-                -- server-wide settings (src/settings.rs, v99, #25): 'ai_off' = '1' hides every AI feature for
-                -- every account (no row: shown). The session query reads it, so auth/cache.rs watches it
-subscriptions  (user_id PRIMARY KEY, customer_id UNIQUE, subscription_id, status, price_id, current_period_end,
-                cancel_at_period_end, event_at, updated_at, plan)
-                -- the learner's Stripe subscription as the last webhook described it; status is Stripe's;
-                -- plan is what it pays for ('basic' | 'plus', from its price, never metadata; v55, #314, #963)
-plan_grants    (user_id PRIMARY KEY, granted_at, expires_at, note)   -- Plus without paying; expires_at NULL = no end
-plan_cancellations (id, user_id, plan, reason, feedback, created_at)   -- why a learner cancelled (billing::CANCEL_REASONS)
-terms_acceptances (user_id, version, accepted_at)  UNIQUE (user_id, version)
-terms_announcements (user_id, version, mailed_at)  PRIMARY KEY (user_id, version)
-                -- both tables are no longer written or read (the Terms of Service were removed, #20); they stay until the schema squash
-consents       (id, user_id, purpose, granted_at, withdrawn_at)
-                -- an optional consent (src/consent.rs, v82, #974): the 'ai' rows went in v99 when the AI
-                -- features became the server's to show or hide (#25); nothing writes it now
-mail_outbox    (id, user_id, to_addr, subject, body_text, body_html, purpose, state, attempts, next_attempt_at,
-                scheduled_at, created_at, sent_at, provider, last_error, locked_by, locked_until)
-                -- e-mail to send: no longer written (#10), the table stays
-sms_outbox     (id, user_id, to_number, body_text, purpose, state, attempts, next_attempt_at, created_at, sent_at,
-                provider, last_error, locked_by, locked_until)
-                -- text messages to send (src/sms.rs); to_number is E.164; otherwise as mail_outbox
-sms_sends      (id, user_id, number_key, kind, created_at)
-                -- the send limits' ledger (v42, #362): one row per text queued; number_key = SHA-256 of the
-                -- number, kind 'signin' | 'other'; user_id ON DELETE SET NULL (the row outlives the account);
-                -- purged after two days
-jobs           (id, kind, payload_json, state, priority, run_at, attempts, max_attempts, locked_by, locked_until,
-                last_error, created_at, finished_at)
-                -- background jobs (src/jobs.rs, v72, #872); state 'queued' | 'running' | 'done' | 'failed';
-                -- locked_by/locked_until: the lease of a running row. Done rows deleted after a day, failed after 30
-content_scores, content_category_scores, content_checks, content_check_worker: unused tables of the content check
-                (#9); they go with the schema squash (#2)
-email_verifications (id, user_id, email, token_hash UNIQUE, created_at, expires_at, used_at)
-                -- e-mail confirmation links: no longer written (#10), the table stays
-password_resets (id, user_id, email, token_hash UNIQUE, created_at, expires_at, used_at)
-                -- password reset links (v66): no longer written (#10), the table stays
-totp_keys      (user_id PRIMARY KEY, secret, created_at, confirmed_at, last_step)
-                -- the account's authenticator app (v39): the secret sealed like user_api_keys (ChaCha20-Poly1305,
-                -- secrets::seal_totp, bound to the user; codes are worked out from it, so it can't be hashed),
-                -- confirmed_at NULL while enrolling (purged after a day),
-                -- last_step the newest RFC 6238 time step accepted: a code works once
-phone_verifications (id, user_id, phone, code_hash, salt, attempts, created_at, expires_at)
-                -- the texted code confirming users.phone: SHA-256(salt:code) only; 10 minutes, 5 tries
-two_factor_challenges (id, user_id, token_hash UNIQUE, method, code_hash, salt, attempts, created_at, expires_at, sent_by)
-                -- a sign-in waiting for its second step: token_hash is the SHA-256 of the `twofa` cookie's token;
-                -- code_hash and salt no longer set (they held texted/e-mailed codes); 10 minutes, 5 tries;
-                -- sent_by 'email' when a texted code went by e-mail because the number opted out (v69)
-two_factor_confirmations (user_id PRIMARY KEY, method, code_hash, salt, attempts, created_at, expires_at)
-                -- the code an account without a password was sent to turn its texted/e-mailed second step off:
-                -- no longer written (#10), the table stays
-ai_usage       (id, user_id, course_id, job_id, purpose, provider, model, input_tokens, output_tokens, cached_tokens,
-                cost_micros, credit_micros, key_source, created_at)
-                -- one row per model call; key_source 'hosted' (the server's key, costed) | 'own' (cost 0);
-                -- credit_micros is the part of the cost paid from credits, the rest came from the monthly allowance;
-                -- purpose 'content-review' (#1037) is the server's own call about the owner's course: no credits, and
-                -- the triggers leave it out of ai_usage_months (migration 76), so only the day's spend counts it
-ai_usage_months (user_id, month, cost_micros, credit_micros, hosted_calls, own_calls)  PRIMARY KEY (user_id, month)
-                -- running totals of ai_usage per learner and UTC calendar month (month = its first second); v65, #624
-ai_spend_days  (day PRIMARY KEY, cost_micros)
-                -- everyone's spend on the server's key per UTC day (day = its first second), for the daily cap; v65, #623.
-                -- Triggers on ai_usage (insert, delete) move both tables; the meter reads one row of each
-blocked_ips    (id, cidr UNIQUE, created_at)
-                -- unused: the content check and moderation are gone (#9); the table goes with the schema squash (#2)
-privacy_actions (id, superuser_id, action, reason, created_at)
-                -- the privacy log on /manage (v85, #981): export | forget | delete-account | sign-out | notice with the reason typed; no learner named
-breach_notices (user_id, notice, mailed_at)  PRIMARY KEY (user_id, notice)
-                -- who had which breach notice (v91, #1068); notice = SHA-256 of subject and body, so Send again mails nobody twice
-ai_credit_purchases (session_id PRIMARY KEY, user_id, payment_intent, price_id, amount_cents, credit_micros,
-                refunded_micros, created_at)     -- Stripe payments for credit packs: applied once, refunds take back their share
-users.ai_credits                                 -- the prepaid credit balance, micro-dollars
-users.signup_credit_at                           -- when a new account got its one-time Skrongle AI credit (v87, #931); 0 for accounts made before
-users.ai_effort                                  -- the effort Generate the course last ran at: low | medium | high (Fast, Balanced, Thorough; v92, #918)
-data_exports    (id, user_id, state, token_hash, file, link_base, bytes, error, created_at, ready_at, expires_at, downloaded_at)
-                -- unused: the data export was removed (#17); the table stays until the schema squash
+quiz_history   (id, user_id, course_id, lesson_id, question_id, selected_answer, was_correct, answered_at)
+journey_progress (user_id, course_id, lesson_id, step, completed, best_stars, run_correct, run_answered,
+                updated_at)  PRIMARY KEY (user_id, course_id, lesson_id)      -- the Guide
+user_vocab     (user_id, course_id, lesson_id, word, learned_at, times_seen, times_known, last_reviewed_at, due_at, gap_days)
+                -- collected words and their review schedule (src/vocab.rs): due_at the start of the day it is due
+                -- (NULL: no schedule yet), gap_days its rung on the ladder
+lesson_notes   (user_id, course_id, lesson_id, body, updated_at)  PRIMARY KEY (user_id, course_id, lesson_id)
+                -- the learner's own note on a lesson ("My note"); an emptied note has no row
+lesson_touches (user_id, course_id, lesson_id, mode, at)  PRIMARY KEY (user_id, course_id, lesson_id)
+                -- when and in which mode a lesson was last opened or worked on: where every mode resumes
+activity_log   (id, user_id, course_id, kind, n, at)     -- n of activity::Kind `kind` done at `at`: the daily goal
+earnings       (user_id, course_id, points, goals, day, day_points, streak)  PRIMARY KEY (user_id, course_id)
+                -- running totals: effort points ever logged, daily goals reached, the local day last
+                -- active, its points and the streak ending on it; XP, SKC and the streak read this, not the log
+motivator_purchases (user_id, course_id, item, price, created_at)  PRIMARY KEY (user_id, course_id, item)
+                -- what the learner bought in a course's shop (src/motivators/shop.rs)
+game_scores    (id, user_id, course_id, game, board, score_ms, wrong, played_at)
+game_activity  (id, user_id, course_id, game, board, label, duration_ms, total, correct, score_ms, played_at)
+                -- every finished game round or Sprint session
+game_rounds    (user_id, course_id, game, rounds)  PRIMARY KEY (user_id, course_id, game)
+                -- rounds finished per game, moved by games::record_activity_at: "rounds played" reads this
 ```
 
-Migrations live in `src/db/migrations.rs` (`MIGRATIONS`), tracked with `PRAGMA
-user_version`. Migration 8 added the course scoping: existing rows were
-assigned to the `spanish` course. Migration 9 added the profile columns;
-accounts from before it have no e-mail address until they set one on the
-profile page. Migration 10 added `user_api_keys`. Migration 13 added `lesson_passes` and carried over earlier
-Guide and Sprint mode completions (seen; passed with two stars or more) and read
-lessons (seen). Migration 14 gave user-made courses their lifecycle columns
-(state, source, visibility, the generation job, brief, outline and notes).
-Migration 15 added `subscriptions` and `plan_grants`. Migration 22 added
-`users.age_confirmed` (the "I am at least N" box at
-sign-up, set by registration).
-Migration 34 stores session tokens hashed: it ends every existing session
-(everyone signs in once more) and marks accounts that accepted the Terms as
-age-confirmed. Migration 23 added `terms_acceptances` (no longer used, #20). Migration 24 added `users.developer`
-and `users.mock_ai` (both 0 for every existing account; migration 40 drops
-`mock_ai` again, #298). Migration 25 added
-`mail_outbox`. Migration 27 added `users.ai_off` ("Hide all AI features",
-0 for every existing account; setting it also deletes the account's
-`user_api_keys` rows). Migration 29 added `users.email_verified_at` and
-`email_verifications`; existing accounts start unconfirmed. Migration 30 added
-`users.superuser` (0 for every existing account). Migration 32 added `course_undo.session` and
-`started_at` (the editor's autosave, #151/#190; older steps have neither
-and are never added to). Migration 35 added `sms_outbox`. Migration 39 added two-factor sign-in:
-`users.phone`, `phone_verified_at` and `two_factor` (off for every existing
-account), `totp_keys`, `phone_verifications`, `two_factor_challenges` and `two_factor_confirmations`. Migration 43 added
-`course_shares` (#451), migration 44 `data_exports` (#430). Migration 99 (#25) added `server_api_keys`, seeded with the first owner's
-`user_api_keys` rows (which stay, unread), and `settings`; the `'ai'` consent rows went.
-Migration 45 rebuilt `users` with `AUTOINCREMENT` (ids are never handed out
-again, #364) and added `billing_ref` (a random value for every account) and
-`stripe_customer` (filled from the account's `subscriptions` row). Migration 46 added the `sms_sends` ledger and a unique index on verified
-phone numbers (`users.phone WHERE phone_verified_at IS NOT NULL`), undoing
-the later verification where two accounts had verified one number (#362, #363). Migration 47 added `ai_usage`,
-`ai_credit_purchases` and `users.ai_credits` (Skrongle AI metering). Migration 48 added the plans bought on the profile:
-`plan_subscriptions`, `plan_cancellations` and `users.own_keys_fallback`. Migration 49 added `subscriptions.plan`
-(which plan a Stripe subscription pays for). Migration 83 dropped `plan_subscriptions` with the pretend card payment (#963). Migration 59 added the indexes the
-former data export pages and housekeeping read through (#625, #626). Migration 60 (#614–#620) added the indexes the
-housekeeping sweeps and deletions read through: `quiz_history(answered_at)`, `game_activity(played_at)`,
-`courses(state, updated_at)`, `courses(state) WHERE notes <> ''`, `projects(course_id)`,
-`users(active_course)` (partial, set values only);
-`db::tests::every_foreign_key_is_indexed` keeps every foreign key indexed, so deleting an account never
-reads a whole table. Migration 61 (v61 in
-`src/db.rs`) added `signup_invites` (#634); migration 62
-`users.must_change_password` (#635, 0 for every existing account); migration 63 the
-`lower(email)` index on `users` (#604, #605, #606, #622); migration 64 the game score and round indexes and `game_rounds` (#592–#601). What each table holds, and how long, is in the
+The schema is one migration, `src/db/migrations/v001_schema.sql`, which
+`src/db/migrations.rs` (`MIGRATIONS`) loads; `PRAGMA user_version` records
+how many have run, and a later change appends its own entry. A database
+from a build before this schema (its `users` table still has a column of
+the old history) is refused at start with one line naming the file: there
+is no upgrade from it (`db::check_not_newer`). The indexes are in the
+migration; `db::tests::every_foreign_key_is_indexed` keeps every foreign
+key indexed, so deleting an account never reads a whole table, and the
+housekeeping sweeps read through `quiz_history(answered_at)`,
+`game_activity(played_at)`, `activity_log(at)`, `courses(state,
+updated_at)`, `courses(state) WHERE notes <> ''`, `projects(course_id)` and
+`users(active_course)`. What each table holds, and how long, is in the
 [data inventory](data-inventory); a table with user data must be listed in
 `privacy::USER_TABLES` (a test checks every table in the schema).
 

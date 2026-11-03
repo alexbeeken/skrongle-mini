@@ -1,6 +1,5 @@
 //! The Guide: persistence for stage progress and stars. (The table keeps its
-//! original name, `journey_progress`; the feature was renamed. Its `xp`
-//! column is no longer written: XP went in #558.)
+//! original name, `journey_progress`; the feature was renamed.)
 
 use rusqlite::{params, Connection, OptionalExtension};
 use std::collections::HashMap;

@@ -496,8 +496,6 @@ pub struct CourseRow {
     pub state: CourseState,
     /// 'hand', 'ai', or 'translate' (a copy being or once translated, #630).
     pub source: String,
-    /// 'private' (only the owner sees it). Publishing is to come.
-    pub visibility: String,
     /// The generation job writing it (in memory; gone after a restart).
     pub job_id: Option<String>,
     /// What the learner asked the AI for.
@@ -533,14 +531,13 @@ fn course_row(r: &rusqlite::Row<'_>) -> rusqlite::Result<CourseRow> {
         error: r.get(5)?,
         state: CourseState::parse(&r.get::<_, String>(6)?),
         source: r.get(7)?,
-        visibility: r.get(8)?,
-        job_id: r.get(9)?,
-        brief: r.get(10)?,
-        outline: r.get(11)?,
+        job_id: r.get(8)?,
+        brief: r.get(9)?,
+        outline: r.get(10)?,
     })
 }
 
-const COURSE_COLS: &str = "id, owner_id, title, created_at, updated_at, error, state, source, visibility, job_id, brief, outline";
+const COURSE_COLS: &str = "id, owner_id, title, created_at, updated_at, error, state, source, job_id, brief, outline";
 
 /// Register a course an AI job is about to write: no files yet, greyed out
 /// in the course list until the job finishes. (The app makes a draft with
@@ -1291,10 +1288,11 @@ pub fn open_project(conn: &Connection, user_id: i64, course_id: &str) -> rusqlit
         .query_row("SELECT 1 FROM projects WHERE user_id = ?1 AND course_id = ?2", params![user_id, course_id], |_| Ok(()))
         .optional()?
         .is_none();
-    // A course opened for the first time starts with the account's motivator (#574).
+    // A course opened for the first time starts with the default motivator
+    // ('', which wears `motivators::DEFAULT`).
     conn.execute(
-        "INSERT INTO projects (user_id, course_id, created_at, last_opened_at, motivator)
-         SELECT ?1, ?2, ?3, ?3, motivator FROM users WHERE id = ?1
+        "INSERT INTO projects (user_id, course_id, created_at, last_opened_at)
+         SELECT ?1, ?2, ?3, ?3 FROM users WHERE id = ?1
          ON CONFLICT(user_id, course_id) DO UPDATE SET last_opened_at = excluded.last_opened_at",
         params![user_id, course_id, t],
     )?;
@@ -1303,14 +1301,14 @@ pub fn open_project(conn: &Connection, user_id: i64, course_id: &str) -> rusqlit
 }
 
 /// What a course the user has not opened yet would start with (#587): the
-/// account's motivator, the beginning. The settings wizard behind its Start
+/// default motivator, the beginning. The settings wizard behind its Start
 /// button shows these.
 pub fn fresh_project(conn: &Connection, user_id: i64, course_id: &str) -> rusqlite::Result<ProjectRow> {
-    conn.query_row("SELECT motivator FROM users WHERE id = ?1", [user_id], |r| {
+    conn.query_row("SELECT 1 FROM users WHERE id = ?1", [user_id], |_| {
         Ok(ProjectRow {
             course_id: course_id.to_string(),
             last_opened_at: 0,
-            motivator: r.get(0)?,
+            motivator: String::new(),
             set_up: false,
             start_unit: String::new(),
         })

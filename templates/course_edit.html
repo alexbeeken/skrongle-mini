@@ -17,7 +17,7 @@
       <form method="post" action="{{ crate::base_path() }}/courses/open/{{ id }}" target="_blank" class="inline" data-testid="course-edit-open-form"><button type="submit" class="icon-btn" data-testid="course-edit-open" title="{{ crate::t("courses.editor.open_tip") }}" aria-label="{{ crate::t("courses.editor.open_label") }}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4 11 13"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></button></form>
       {% endif %}
     </div>
-    {% if private %}<p><span class="tag" title="{{ crate::t("courses.editor.private_tip") }}">{{ crate::t("courses.editor.private_tag") }}</span></p>{% endif %}
+    <p><span class="tag" title="{{ crate::t("courses.editor.private_tip") }}">{{ crate::t("courses.editor.private_tag") }}</span></p>
   </div>
   <div class="actions">
     <button type="button" class="btn ghost" data-open-dialog="course-share" aria-haspopup="dialog" data-testid="course-edit-share">{% if shares.is_empty() %}{{ crate::t("courses.share.button") }}{% else %}{{ crate::t1("courses.share.button_count", "n", shares.len()) }}{% endif %}</button>

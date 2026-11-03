@@ -1,12 +1,7 @@
-//! What the account agreed to, for the profile's Privacy and consent card.
-//! Table `consents` (#974) once held one row per time a learner gave or
-//! took back the optional AI features consent; since the AI features are
-//! the server's to show or hide (`settings::AI_OFF`, #25) nothing writes
-//! it, and the export and account deletion still take any rows along
-//! (`privacy::USER_TABLES`).
-//!
-//! The age confirmation is not optional (`users.age_confirmed`); it stays
-//! where it is.
+//! What the account agreed to, for the profile's Privacy and consent card:
+//! the age confirmation at sign-up (`users.age_confirmed`). There is no
+//! optional consent to record: the AI features are the server's to show or
+//! hide (`settings::AI_OFF`, #25).
 
 use rusqlite::{Connection, OptionalExtension};
 
