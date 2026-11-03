@@ -43,7 +43,7 @@ pub const SECTIONS: &[(&str, &str, &[&str])] = &[
     (
         "reference",
         "docs.section_reference",
-        &["course-format", "features", "progress", "i18n", "data-inventory", "privacy", "cookies"],
+        &["course-format", "features", "progress", "i18n", "data-inventory"],
     ),
     (
         "dev",
@@ -95,16 +95,6 @@ pub struct SelfHostTemplate {
 /// GET /self-host.
 pub async fn self_host(MaybeUser(user): MaybeUser) -> Result<Page<SelfHostTemplate>, AppError> {
     Ok(Page(SelfHostTemplate { user }))
-}
-
-/// GET /privacy: the privacy policy (`docs/privacy.md`), public.
-pub async fn privacy(MaybeUser(user): MaybeUser) -> Result<Response, AppError> {
-    render("privacy", user)
-}
-
-/// GET /cookies: the cookie notice (`docs/cookies.md`), public.
-pub async fn cookies(MaybeUser(user): MaybeUser) -> Result<Response, AppError> {
-    render("cookies", user)
 }
 
 /// Every embedded `.md` file, as (slug, title).
@@ -451,47 +441,6 @@ mod tests {
                     assert!(!html.contains(&open), "docs/{}.md has a raw {open}: the browser hides everything after it", p.slug);
                 }
             }
-        }
-    }
-
-    /// The cookie notice names every cookie the app sets: each
-    /// `const …COOKIE…: &str = "name"` under `src/` and each
-    /// `document.cookie = "name=` under `static/` (#977). A new cookie fails
-    /// here until `docs/cookies.md` documents it.
-    #[test]
-    fn cookie_notice_names_every_cookie() {
-        fn walk(dir: &std::path::Path, ext: &str, out: &mut Vec<String>) {
-            for e in std::fs::read_dir(dir).unwrap().flatten() {
-                let p = e.path();
-                if p.is_dir() {
-                    walk(&p, ext, out);
-                } else if p.extension().is_some_and(|x| x == ext) {
-                    out.push(std::fs::read_to_string(&p).unwrap_or_default());
-                }
-            }
-        }
-        let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR"));
-        let (mut rs, mut js) = (Vec::new(), Vec::new());
-        walk(&root.join("src"), "rs", &mut rs);
-        walk(&root.join("static"), "js", &mut js);
-        let mut names: Vec<String> = Vec::new();
-        for line in rs.iter().flat_map(|f| f.lines()) {
-            let Some((lhs, rhs)) = line.split_once(": &str = \"") else { continue };
-            if lhs.trim_start().starts_with("pub const ") || lhs.trim_start().starts_with("const ") {
-                if lhs.rsplit(' ').next().is_some_and(|id| id.contains("COOKIE")) {
-                    names.extend(rhs.split('"').next().map(str::to_string));
-                }
-            }
-        }
-        for part in js.iter().flat_map(|f| f.split("document.cookie = \"").skip(1)) {
-            names.extend(part.split('=').next().map(str::to_string));
-        }
-        for must in ["sid", "twofa", "lang", "tz"] {
-            assert!(names.iter().any(|n| n == must), "the scan missed the {must} cookie: {names:?}");
-        }
-        let md = String::from_utf8_lossy(&Docs::get("cookies.md").unwrap().data).into_owned();
-        for n in &names {
-            assert!(md.contains(&format!("| `{n}` |")), "docs/cookies.md has no table row for the `{n}` cookie");
         }
     }
 

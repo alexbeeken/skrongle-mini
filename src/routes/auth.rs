@@ -166,7 +166,7 @@ pub struct RegisterTemplate {
     pub no_ai: bool,
     /// "I am at least N years old" was ticked when the form came back.
     pub age: bool,
-    /// "I agree to the Terms and Privacy Policy" was ticked when the form came back.
+    /// "I agree to the Terms" was ticked when the form came back.
     pub accept: bool,
     /// As on the login page: a share link brought the visitor here.
     pub share: Option<ShareNotice>,
@@ -205,7 +205,7 @@ pub struct Registration {
     /// "I am at least N years old": "on" when ticked, absent otherwise.
     #[serde(default)]
     pub age: String,
-    /// "I agree to the Terms and Privacy Policy": "on" when ticked, absent otherwise.
+    /// "I agree to the Terms": "on" when ticked, absent otherwise.
     #[serde(default)]
     pub accept: String,
     /// "Hide all AI features" (#147): "on" when ticked, absent otherwise.

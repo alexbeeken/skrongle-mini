@@ -20,8 +20,6 @@ nav:
 
 footer:
   terms: conditions
-  privacy: confidentialité
-  cookies: cookies
 
 lang:
   label: Langue
@@ -119,7 +117,6 @@ auth:
     or: ou
     no_account_html: "Pas encore de compte ? <a href=\"{url}\" data-testid=\"login-register-link\">S'inscrire</a>."
     terms_link: Conditions
-    privacy_link: Confidentialité
     too_many_attempts: Trop de tentatives de connexion. Attendez quelques minutes et réessayez.
     incorrect: Adresse e-mail ou mot de passe incorrect.
     forgot: "Mot de passe oublié ?"
@@ -234,16 +231,15 @@ terms:
     title: Conditions d'utilisation
     version: "Version {version}"
     markdown: Markdown
-    privacy: Politique de confidentialité
   check:
     age: "J'ai au moins {min_age} ans"
-    agree_html: "J'accepte les <a href=\"{terms_url}\" target=\"_blank\" data-testid=\"{tid}-terms-link\">Conditions</a> et la <a href=\"{privacy_url}\" target=\"_blank\" data-testid=\"{tid}-privacy-link\">Politique de confidentialité</a>"
+    agree_html: "J'accepte les <a href=\"{terms_url}\" target=\"_blank\" data-testid=\"{tid}-terms-link\">Conditions</a>"
   accept:
     title: Conditions d'utilisation
     changed: Les conditions ont changé
     heading: Acceptez les conditions
     read_html: "Lisez les <a href=\"{url}\" target=\"_blank\" data-testid=\"terms-gate-link\">Conditions d'utilisation</a> (version {version}) et acceptez-les pour continuer."
-    check_html: "J'ai au moins {min_age} ans et j'accepte les <a href=\"{terms_url}\" target=\"_blank\">Conditions</a> et la <a href=\"{privacy_url}\" target=\"_blank\" data-testid=\"terms-gate-privacy-link\">Politique de confidentialité</a>"
+    check_html: "J'ai au moins {min_age} ans et j'accepte les <a href=\"{terms_url}\" target=\"_blank\">Conditions</a>"
     submit: Continuer
     logout: Se déconnecter à la place
     tick: Cochez la case pour accepter les conditions.
@@ -480,7 +476,6 @@ profile:
     appear_as_before: "Vous apparaissez sous le nom : ("
     appear_as_after: ") aux autres utilisateurs."
     email_private: Votre adresse e-mail n'est visible que de vous.
-    policy_link: politique de confidentialité
     ok: OK
   email_unverified:
     title: Vérifiez votre adresse e-mail
@@ -515,7 +510,6 @@ profile:
     terms_accepted: "Version {version}, acceptée le {date}"
     terms_not_accepted: Non acceptée
     terms_read: lire
-    terms_privacy: confidentialité
     terms_title: Conditions d'utilisation
     terms_close: Fermer
     terms_open_page: Ouvrir sous forme de page
@@ -656,7 +650,6 @@ profile:
     export_ready_no_mail: "Vos données sont prêtes : téléchargez-les avec le bouton, une seule fois, jusqu'au {date}."
     export_about_no_mail: "Un fichier JSON de tout ce qui est enregistré pour votre compte, préparé en arrière-plan. Quand il est prêt, téléchargez-le ici ; il fonctionne une fois, pendant 24 heures. Une copie par jour."
     title: Vos données
-    stored_html: "Ce qui est conservé et pourquoi : <a href=\"{url}\" data-testid=\"profile-privacy-link\">politique de confidentialité</a>."
     export: Préparer mes données (JSON)
     export_heading: Télécharger mes données
     export_info_label: À propos du téléchargement de vos données
@@ -827,7 +820,6 @@ landing:
   final_h2: "Inscrivez-vous, puis répondez à une question : que voulez-vous apprendre ?"
   browse_docs: Parcourir la documentation
   terms: Conditions d'utilisation
-  privacy: Politique de confidentialité
   feat_guide_h: "Guide"
   feat_guide_p: "Chaque leçon comme une étape de petits pas : cartes, vérifications rapides, fiches et astuces, avec des étoiles à la fin."
   try_lead: "Vingt secondes de chaque mode. Choisissez-en un et essayez."

@@ -50,17 +50,6 @@ fn privacy_page_export_and_account_deletion_over_http() {
         (r.status().as_u16(), cookie, r.body_mut().read_to_string().unwrap())
     };
 
-    // Public policy page.
-    let (status, html) = get("/privacy", "");
-    assert_eq!(status, 200);
-    // The published notice (#975): dated, no draft banner, no placeholder left.
-    assert!(html.contains("Last updated:") && !html.contains("DRAFT") && !html.contains("[PRIVACY EMAIL]") && html.contains("mailto:privacy@skrongle.com"));
-    // The cookie notice (#977) is public too, and the privacy page links to it.
-    assert!(html.contains("/docs/cookies"));
-    let (status, html) = get("/cookies", "");
-    assert_eq!(status, 200);
-    assert!(html.contains("Cookie notice") && html.contains("footer-cookies"));
-
     // Export (#430): the button queues it, the export job (run here by
     // hand) builds it and mails a link, which works once, for ann only.
     let (ann_c, gil_c) = (format!("sid={ann_t}"), format!("sid={gil_t}"));

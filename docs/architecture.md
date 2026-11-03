@@ -151,7 +151,7 @@ src/
       lessons.rs   POST /courses/{id}/lessons (JSON: the whole table) and /api/courses/{id}/lessons (the same, the editor's autosave: `session` + `base` version, 409 when behind or busy, 422 refused)
       tests.rs     the editor autosave, notices, write limits, prompt boxes and preview-answer tests
     share.rs     POST /courses/{id}/share (invite addresses) and /courses/{id}/share/remove (owner only); GET /courses/shared/{token} (the invitation's link: signed in, the course joins the list and opens; signed out, /login?share=<token>)
-    docs.rs      /docs (sidebar sections: SECTIONS), /llms.txt (docs/llms.txt), /privacy (docs/privacy.md)
+    docs.rs      /docs (sidebar sections: SECTIONS), /llms.txt (docs/llms.txt)
     reset.rs     GET/POST /reset (ask for a link: the same answer for any address; ?token=: choose a new password, which ends every session; 404 without mail)
     auth.rs      /login /register (with mail: always "check your mail", signs nobody in) /logout, GET /verify-email?token= (confirms the address; signed in or not)
     auth/code.rs /login/code… (the two-factor step: code form, resend, cancel, status, dev device)
@@ -236,10 +236,8 @@ row of a table the query reads changes (the connection's temporary triggers forg
 them all), the session expires or a minute passes. The same query says
 whether the user accepted the current Terms (`terms::version()`: the newest
 entry of `docs/terms-changes.json` in effect, or the hash of the
-`SKRONGLE_TERMS` file) and which version they accepted last. A material
-change to the privacy notice is one more entry in that changelog, its
-summary starting "The privacy policy changed: …" (#978); minor privacy
-changes only move `docs/privacy.md`'s "Last updated" line. An account
+`SKRONGLE_TERMS` file) and which version they accepted last.
+An account
 behind on the built-in text gets `CurrentUser::terms_notice`, which
 `base.html` shows as a modal (`terms_notice.html`): for a minor change the
 request goes through; for a material one GET pages go through with the

@@ -20,8 +20,6 @@ nav:
 
 footer:
   terms: Nutzungsbedingungen
-  privacy: Datenschutz
-  cookies: Cookies
 
 lang:
   label: Sprache
@@ -119,7 +117,6 @@ auth:
     or: oder
     no_account_html: "Noch kein Konto? <a href=\"{url}\" data-testid=\"login-register-link\">Registrieren</a>."
     terms_link: Nutzungsbedingungen
-    privacy_link: Datenschutz
     too_many_attempts: Zu viele Anmeldeversuche. Warte ein paar Minuten und versuch es erneut.
     incorrect: E-Mail-Adresse oder Passwort sind falsch.
     forgot: "Passwort vergessen?"
@@ -234,16 +231,15 @@ terms:
     title: Nutzungsbedingungen
     version: "Version {version}"
     markdown: Markdown
-    privacy: Datenschutzerklärung
   check:
     age: "Ich bin mindestens {min_age} Jahre alt"
-    agree_html: "Ich stimme den <a href=\"{terms_url}\" target=\"_blank\" data-testid=\"{tid}-terms-link\">Nutzungsbedingungen</a> und der <a href=\"{privacy_url}\" target=\"_blank\" data-testid=\"{tid}-privacy-link\">Datenschutzerklärung</a> zu"
+    agree_html: "Ich stimme den <a href=\"{terms_url}\" target=\"_blank\" data-testid=\"{tid}-terms-link\">Nutzungsbedingungen</a> zu"
   accept:
     title: Nutzungsbedingungen
     changed: Die Nutzungsbedingungen haben sich geändert
     heading: Nutzungsbedingungen akzeptieren
     read_html: "Lies die <a href=\"{url}\" target=\"_blank\" data-testid=\"terms-gate-link\">Nutzungsbedingungen</a> (Version {version}) und akzeptiere sie, um weiterzumachen."
-    check_html: "Ich bin mindestens {min_age} und stimme den <a href=\"{terms_url}\" target=\"_blank\">Nutzungsbedingungen</a> und der <a href=\"{privacy_url}\" target=\"_blank\" data-testid=\"terms-gate-privacy-link\">Datenschutzerklärung</a> zu"
+    check_html: "Ich bin mindestens {min_age} und stimme den <a href=\"{terms_url}\" target=\"_blank\">Nutzungsbedingungen</a> zu"
     submit: Weiter
     logout: Stattdessen abmelden
     tick: Setz das Häkchen, um die Nutzungsbedingungen zu akzeptieren.
@@ -480,7 +476,6 @@ profile:
     appear_as_before: "Andere Nutzer sehen dich als: ("
     appear_as_after: ")."
     email_private: Deine E-Mail-Adresse ist nur für dich sichtbar.
-    policy_link: Datenschutzerklärung
     ok: OK
   email_unverified:
     title: E-Mail bestätigen
@@ -515,7 +510,6 @@ profile:
     terms_accepted: "Version {version}, akzeptiert am {date}"
     terms_not_accepted: Nicht akzeptiert
     terms_read: lesen
-    terms_privacy: Datenschutz
     terms_title: Nutzungsbedingungen
     terms_close: Schließen
     terms_open_page: Als Seite öffnen
@@ -656,7 +650,6 @@ profile:
     export_ready_no_mail: "Deine Daten sind fertig: Lade sie mit dem Knopf herunter, einmal, bis {date}."
     export_about_no_mail: "Eine JSON-Datei mit allem, was zu deinem Konto gespeichert ist, im Hintergrund vorbereitet. Wenn sie fertig ist, lade sie hier herunter; das geht einmal, 24 Stunden lang. Eine Kopie pro Tag."
     title: Deine Daten
-    stored_html: "Was gespeichert wird und warum: <a href=\"{url}\" data-testid=\"profile-privacy-link\">Datenschutzerklärung</a>."
     export: "Meine Daten vorbereiten (JSON)"
     export_heading: "Meine Daten herunterladen"
     export_info_label: "Über das Herunterladen deiner Daten"
@@ -827,7 +820,6 @@ landing:
   final_h2: "Registrier dich, dann beantworte eine Frage: Was möchtest du lernen?"
   browse_docs: "Dokumentation durchstöbern"
   terms: "Nutzungsbedingungen"
-  privacy: "Datenschutzerklärung"
   feat_guide_h: "Guide"
   feat_guide_p: "Jede Lektion als Etappe aus kleinen Schritten: Karten, kurze Checks, Karteikarten und Tipps, mit Sternen am Ende."
   try_lead: "Zwanzig Sekunden von jedem Modus. Wähle einen und probier ihn aus."

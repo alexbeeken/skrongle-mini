@@ -1,10 +1,8 @@
 # Data inventory
 
 What the app stores about a learner, where, why, whether it leaves the
-server, and for how long. It is the record of processing behind the
-[privacy policy](privacy), taken from the schema in `src/db.rs`
-(migration v25). Not legal advice; the promises made from it are in the
-[privacy policy](privacy) (sections 9, 15 to 19).
+server, and for how long. It is the record of processing, taken from the schema in `src/db.rs`
+(migration v25). Not legal advice.
 
 `src/privacy.rs` lists every user table in `USER_TABLES`: the data export
 reads them, account deletion removes them, and a test fails when a table is
@@ -93,8 +91,7 @@ The memo in #74 predates
 
 - Cookies: `sid`, the session (HttpOnly, SameSite=Lax, 30 days, `Secure`
   with `SKRONGLE_SECURE_COOKIES=1`); `twofa`, a sign-in waiting for its two-factor code (10
-  minutes). All strictly necessary. The [cookie notice](cookies) lists
-  them all for learners, with `signup`, `signup_invite`, `lang` and `tz`. No analytics, no third-party scripts,
+  minutes). All strictly necessary. Also set: `signup`, `signup_invite`, `lang` and `tz`. No analytics, no third-party scripts,
   fonts or stylesheets: every asset is served by the app.
 - `localStorage`: the voice and audio switch (`speech:*`), game and
   listening settings (`numbers:`, `dates:`, `listening:`),
@@ -111,7 +108,7 @@ The memo in #74 predates
 | Resend (a `resend` kind in `SKRONGLE_MAIL_PROVIDERS`) | the recipient's address, the subject and the message, over its HTTPS API | each e-mail that provider sends |
 | Postmark (a `postmark` kind in `SKRONGLE_MAIL_PROVIDERS`) | the recipient's address, the subject and the message, over its HTTPS API (plus the purpose as its tag and the outbox id as metadata) | each e-mail that provider sends |
 | Brevo (a `brevo` kind in `SKRONGLE_MAIL_PROVIDERS`) | the sender and recipient addresses, the subject, the text and HTML body, and the message's purpose as a tag, over its HTTPS API | each e-mail that provider sends |
-| Hosting | everything above, at rest | always: on the operator's own server; the privacy policy (section 8) says the United States |
+| Hosting | everything above, at rest | always: on the operator's own server |
 
 ## Logs
 

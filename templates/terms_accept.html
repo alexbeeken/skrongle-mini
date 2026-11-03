@@ -7,7 +7,7 @@
   {% if let Some(e) = error %}<p class="alert error" role="alert" data-testid="terms-accept-error">{{ e }}</p>{% endif %}
   <form method="post" action="{{ crate::url("/terms/accept") }}" data-testid="terms-accept-form">
     <input type="hidden" name="next" value="{{ next }}">
-    <label class="terms-check"><input type="checkbox" name="accept" data-testid="terms-accept-check" required> {{ crate::i18n::fill(&crate::t("terms.accept.check_html"), [("min_age", &min_age), ("terms_url", &crate::url("/terms")), ("privacy_url", &crate::url("/privacy"))])|safe }}</label>
+    <label class="terms-check"><input type="checkbox" name="accept" data-testid="terms-accept-check" required> {{ crate::i18n::fill(&crate::t("terms.accept.check_html"), [("min_age", &min_age), ("terms_url", &crate::url("/terms"))])|safe }}</label>
     <button type="submit" class="btn" data-testid="terms-accept-submit">{{ crate::t("terms.accept.submit") }}</button>
   </form>
   <form method="post" action="{{ crate::url("/logout") }}" class="inline" data-testid="terms-gate-logout">

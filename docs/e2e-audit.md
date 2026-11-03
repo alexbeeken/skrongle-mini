@@ -158,7 +158,6 @@ teenager on a phone in Sprint, 6), `testing-bot` (sees only markup, 12).
 | `specs/notation.spec.ts` | 14 | yes |  |
 | `specs/owner-resets.spec.ts` | 3 | yes |  |
 | `specs/pathways.spec.ts` | 7 | yes |  |
-| `specs/privacy.spec.ts` | 3 | yes |  |
 | `specs/profile-autosave.spec.ts` | 7 | **no** |  |
 | `specs/profile-nav.spec.ts` | 1 | yes |  |
 | `specs/prompt-limits.spec.ts` | 5 | **no** |  |
@@ -219,7 +218,6 @@ No e2e file names them; a spec drives the form, link (its testid) or script that
 - `POST /courses/{id}/undo`: `course-undo-form`
 - `POST /courses/{id}/redo`: `course-undo-form`
 - `POST /courses/{id}/share/remove`: `course-share-remove-form`
-- `GET /cookies`: `footer-cookies`
 - `GET POST /terms/accept`: `terms-accept-check`
 - `GET POST /password/change`: `password-change-form`
 - `POST /api/sprint/check`: `static/sprint.js`
@@ -288,20 +286,20 @@ Not named by an e2e file, and no driven form, link or script calls them.
 | `templates/dev_ai_call.html` | 8 | 3 | `dev-ai-back`, `dev-ai-call-detail`, `dev-ai-call-headers`, `dev-ai-call-purpose`, `dev-ai-call-result` |
 | `templates/dev_jobs.html` | 10 | 5 | `dev-jobs-attempts`, `dev-jobs-empty`, `dev-jobs-row`, `dev-jobs-state`, `dev-jobs-table` |
 | `templates/generate_form.html` | 32 | 27 | `generate-depth-choice`, `generate-depth-info`, `generate-depth-info-text`, `generate-instructions`, `generate-kind` |
-| `templates/landing.html` | 6 | 1 | `landing-course`, `landing-privacy`, `landing-register`, `landing-terms`, `landing-try` |
+| `templates/landing.html` | 6 | 1 | `landing-course`, `landing-register`, `landing-terms`, `landing-try` |
 | `templates/lookup.html` | 10 | 5 | `lookup-back`, `lookup-collected`, `lookup-hits`, `lookup-more`, `lookup-term` |
 | `templates/register.html` | 10 | 5 | `register-dev`, `register-dev-login`, `register-form`, `register-invite`, `register-owner-note` |
 | `templates/reset.html` | 13 | 8 | `reset-again`, `reset-ask-form`, `reset-choose-form`, `reset-error`, `reset-login` |
 | `templates/dev_authenticator.html` | 5 | 1 | `dev-authenticator-add-form`, `dev-authenticator-info`, `dev-authenticator-info-dialog`, `dev-authenticator-list` |
 | `templates/listening.html` | 4 | 0 | `listening-lesson`, `listening-lesson-mastery`, `listening-lesson-play`, `listening-mixed` |
-| `templates/login.html` | 12 | 8 | `login-dev`, `login-dev-login`, `login-form`, `login-privacy-link` |
+| `templates/login.html` | 12 | 8 | `login-dev`, `login-dev-login`, `login-form` |
 | `templates/dev_ai_fixture.html` | 7 | 4 | `dev-ai-fixture-form`, `dev-ai-fixture-key`, `dev-ai-fixture-save` |
 | `templates/conjugation.html` | 11 | 8 | `drill-again`, `drill-again-misses`, `drill-form` |
 | `templates/guide.html` | 9 | 6 | `guide-continue`, `guide-stages`, `guide-three-star` |
 | `templates/lessons.html` | 9 | 6 | `lessons-bar`, `lessons-list`, `lessons-shown` |
 | `templates/login_code.html` | 10 | 7 | `login-code-form`, `login-code-notice`, `login-code-resend` |
 | `templates/register_closed.html` | 3 | 0 | `register-closed`, `register-closed-login`, `register-closed-message` |
-| `templates/terms.html` | 4 | 1 | `terms-privacy-link`, `terms-raw`, `terms-version` |
+| `templates/terms.html` | 4 | 1 | `terms-raw`, `terms-version` |
 | `templates/verify_email.html` | 7 | 4 | `verify-email`, `verify-email-continue`, `verify-email-resend-form` |
 | `static/devbox.js` | 14 | 12 | `dev-jobs`, `login-code-device` |
 | `templates/dev_ai_rows.html` | 5 | 3 | `dev-ai-call-outcome`, `dev-ai-empty` |
@@ -446,7 +444,6 @@ Titles as Playwright lists them (from the source: run `npm ci` in e2e/ for loops
 - **`specs/notation.spec.ts`** (14, CI): an abc block in the lesson text is drawn as a staff · on a wide page a staff is as tall as its drawing, and the lesson's staff stays wider than a question's · a lesson without notation loads no notation script · a music course's Sprint session has the circle-of-fifths build, graded exactly (#1232) · a question's abc is drawn as a staff above its prompt in Practice, the reading check, Sprint and the Guide · the lesson editor has the question's Music box and previews the staff · an empty and a non-ABC block in the lesson text keep their text · a question's abc that isn't music shows as text in the editor's preview · shows two notes on a staff and grades the interval · the learner taps the wrong note, then picks its fix; both must be right · dragging the wrong note down a step (or the down arrow) picks the tile of the note it lands on · the editor's spot form has the Music box, the note number and the fix, and previews the staff · shows a stacked chord on a staff and grades its name · shows a key signature or a tune and grades the key
 - **`specs/owner-resets.spec.ts`** (3, CI): a superuser sets a temporary password; the learner signs in with it and must choose a new one · a superuser turns off another account's two-factor; others get 404 · reloading after a temporary password is set does not set another
 - **`specs/pathways.spec.ts`** (7, CI): switch course: Spanish, then a generated course, then back · generate from notes and uploaded files, with no wish · cancel a slow generation, then resume it to a ready course · resume a run that stopped on a lesson: the resumed job keeps what was written · saving into a stopped run keeps it resumable, and Resume keeps the edit (#81) · the editor opened between the outline and lesson 1 still follows the job to its end · remove an API key: the profile says no key, and generating no longer offers it
-- **`specs/privacy.spec.ts`** (3, CI): the privacy notice is public, dated, and no longer a draft · the notice has one heading per section, the summary list and the US-rights table · at phone width the notice does not scroll sideways and the table can be scrolled on its own
 <!-- themes -->
 - **`specs/profile-autosave.spec.ts`** (7, local only): the green checks come a moment after the save, fade after 5 s, and come back with the next edit · names save a second after typing stops, in one request, and the heading follows · a field that needs attention turns red at once, is not sent, and leaving asks first · the server refusing a field marks it red with the server's reason · without a connection the circle turns red, leaving asks, and it saves once back online · the profile has no picture and no theme · API keys: folded away, a pasted key saves at once, a typed one 3 s after typing stops
 <!-- /themes -->
@@ -480,7 +477,7 @@ Titles as Playwright lists them (from the source: run `npm ci` in e2e/ for loops
 - **`specs/smoke/practice-nothing-yet.spec.ts`** (2, CI): a fresh learner's practice shows Read next and no counter · a round with questions still shows the counter
 - **`specs/smoke/practice-result-order.spec.ts`** (1, CI): the result box sits above Next, and Hint goes once the answer is graded
 - **`specs/smoke/practice-summary.spec.ts`** (2, CI): the mastery change is shown as (+N), and left out when nothing changed · a round too short to count says what it needs the answers for
-- **`specs/smoke/privacy.spec.ts`** (3, CI): the privacy policy is served to visitors · deleting the account signs out and waits 14 days; signing in can cancel it (#970) · the AI forms say which provider gets the notes
+- **`specs/smoke/privacy.spec.ts`** (3, CI): the deleting the account signs out and waits 14 days; signing in can cancel it (#970) · the AI forms say which provider gets the notes
 - **`specs/smoke/self-host.spec.ts`** (4, CI): the self-hosting guide is linked from the docs and readable on a phone · the guide is only linked from the docs, not the landing page or the footer · the self-hosting FAQ is linked from the technical guide and points at the diagnostics
 - **`specs/smoke/skc-shop.spec.ts`** (2, CI): the shop sells a badge once and keeps it across motivators · without JavaScript a refused buy says why
 - **`specs/smoke/sprint-check-error.spec.ts`** (2, CI): a failing check shows one error line, replaced on retry, cleared on success · a typed answer stays editable after a failed check (issue #672)

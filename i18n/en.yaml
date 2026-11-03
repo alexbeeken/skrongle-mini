@@ -22,8 +22,6 @@ nav:
 
 footer:
   terms: terms
-  privacy: privacy
-  cookies: cookies
 
 lang:
   label: Language
@@ -121,7 +119,6 @@ auth:
     or: or
     no_account_html: "No account yet? <a href=\"{url}\" data-testid=\"login-register-link\">Register</a>."
     terms_link: Terms
-    privacy_link: Privacy
     too_many_attempts: Too many sign-in attempts. Wait a few minutes and try again.
     incorrect: Incorrect e-mail address or password.
     forgot: "Forgot your password?"
@@ -236,16 +233,15 @@ terms:
     title: Terms of Service
     version: "Version {version}"
     markdown: Markdown
-    privacy: Privacy Policy
   check:
     age: "I am at least {min_age} years old"
-    agree_html: "I agree to the <a href=\"{terms_url}\" target=\"_blank\" data-testid=\"{tid}-terms-link\">Terms</a> and <a href=\"{privacy_url}\" target=\"_blank\" data-testid=\"{tid}-privacy-link\">Privacy Policy</a>"
+    agree_html: "I agree to the <a href=\"{terms_url}\" target=\"_blank\" data-testid=\"{tid}-terms-link\">Terms</a>"
   accept:
     title: Terms of Service
     changed: The terms have changed
     heading: Accept the terms
     read_html: "Read the <a href=\"{url}\" target=\"_blank\" data-testid=\"terms-gate-link\">Terms of Service</a> (version {version}) and accept them to continue."
-    check_html: "I am at least {min_age} and agree to the <a href=\"{terms_url}\" target=\"_blank\">Terms</a> and <a href=\"{privacy_url}\" target=\"_blank\" data-testid=\"terms-gate-privacy-link\">Privacy Policy</a>"
+    check_html: "I am at least {min_age} and agree to the <a href=\"{terms_url}\" target=\"_blank\">Terms</a>"
     submit: Continue
     logout: Log out instead
     tick: Tick the box to accept the terms.
@@ -485,7 +481,6 @@ profile:
     appear_as_before: "You will appear as: ("
     appear_as_after: ) to other users.
     email_private: Your e-mail address is private to you.
-    policy_link: privacy policy
     ok: OK
   email_unverified:
     title: Verify your e-mail
@@ -520,7 +515,6 @@ profile:
     terms_accepted: "Version {version}, accepted {date}"
     terms_not_accepted: Not accepted
     terms_read: read
-    terms_privacy: privacy
     terms_title: Terms of Service
     terms_close: Close
     terms_open_page: Open as a page
@@ -661,7 +655,6 @@ profile:
     export_ready_no_mail: "Your data is ready: download it with the button, once, until {date}."
     export_about_no_mail: "A JSON file of everything stored for your account, prepared in the background. When it is ready, download it here; it works once, for 24 hours. One copy a day."
     title: Your data
-    stored_html: "What is stored and why: <a href=\"{url}\" data-testid=\"profile-privacy-link\">privacy policy</a>."
     export: Prepare my data (JSON)
     export_heading: Download my data
     export_info_label: About downloading your data
@@ -833,7 +826,6 @@ landing:
   final_h2: "Register, then answer one question: what would you like to learn?"
   browse_docs: Browse the documentation
   terms: Terms of Service
-  privacy: Privacy Policy
   feat_guide_h: "Guide"
   feat_guide_p: "Each lesson as a stage of small steps: cards, quick checks, flashcards and tips, with stars at the end."
   try_lead: "Twenty seconds of each mode. Pick one and try it."

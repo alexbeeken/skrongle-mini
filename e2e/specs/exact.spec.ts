@@ -810,7 +810,6 @@ test("the profile's e-mail field: a Verified check, and an (i) dialog with the n
   await page.getByTestId("profile-privacy-info").click();
   await expect(note).toBeVisible();
   await expect(note).toContainText("Your e-mail address is private to you.");
-  await expect(note.getByTestId("profile-privacy-policy")).toHaveAttribute("href", /\/privacy$/);
   await page.getByTestId("profile-privacy-close").click();
   await expect(note).toBeHidden();
   // It follows the name fields as they are typed.

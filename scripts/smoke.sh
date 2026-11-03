@@ -49,7 +49,6 @@ check /healthz
 check /login
 check /docs/testing
 check /self-host 200   # the self-hosting page: a mini always serves it (#13)
-check /privacy
 check /terms
 check /terms.md
 echo "==> every link between docs pages"

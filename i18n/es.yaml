@@ -20,8 +20,6 @@ nav:
 
 footer:
   terms: términos
-  privacy: privacidad
-  cookies: cookies
 
 lang:
   label: Idioma
@@ -119,7 +117,6 @@ auth:
     or: o
     no_account_html: "¿Aún no tienes cuenta? <a href=\"{url}\" data-testid=\"login-register-link\">Regístrate</a>."
     terms_link: Términos
-    privacy_link: Privacidad
     too_many_attempts: Demasiados intentos de inicio de sesión. Espera unos minutos e inténtalo de nuevo.
     incorrect: Correo electrónico o contraseña incorrectos.
     forgot: "¿Olvidaste tu contraseña?"
@@ -234,16 +231,15 @@ terms:
     title: Términos del servicio
     version: "Versión {version}"
     markdown: Markdown
-    privacy: Política de privacidad
   check:
     age: "Tengo al menos {min_age} años"
-    agree_html: "Acepto los <a href=\"{terms_url}\" target=\"_blank\" data-testid=\"{tid}-terms-link\">Términos</a> y la <a href=\"{privacy_url}\" target=\"_blank\" data-testid=\"{tid}-privacy-link\">Política de privacidad</a>"
+    agree_html: "Acepto los <a href=\"{terms_url}\" target=\"_blank\" data-testid=\"{tid}-terms-link\">Términos</a>"
   accept:
     title: Términos del servicio
     changed: Los términos han cambiado
     heading: Acepta los términos
     read_html: "Lee los <a href=\"{url}\" target=\"_blank\" data-testid=\"terms-gate-link\">Términos del servicio</a> (versión {version}) y acéptalos para continuar."
-    check_html: "Tengo al menos {min_age} años y acepto los <a href=\"{terms_url}\" target=\"_blank\">Términos</a> y la <a href=\"{privacy_url}\" target=\"_blank\" data-testid=\"terms-gate-privacy-link\">Política de privacidad</a>"
+    check_html: "Tengo al menos {min_age} años y acepto los <a href=\"{terms_url}\" target=\"_blank\">Términos</a>"
     submit: Continuar
     logout: Mejor cerrar sesión
     tick: Marca la casilla para aceptar los términos.
@@ -846,7 +842,6 @@ landing:
   final_h2: "Regístrate y responde una sola pregunta: ¿qué te gustaría aprender?"
   browse_docs: Explorar la documentación
   terms: Términos del servicio
-  privacy: Política de privacidad
   feat_guide_h: "Guía"
   feat_guide_p: "Cada lección como una etapa de pasos pequeños: tarjetas, comprobaciones rápidas, fichas y consejos, con estrellas al final."
   try_lead: "Veinte segundos de cada modo. Elige uno y pruébalo."
@@ -952,7 +947,6 @@ profile:
     appear_as_before: "Los demás usuarios te verán como: ("
     appear_as_after: ).
     email_private: Tu dirección de correo electrónico es privada; solo tú la ves.
-    policy_link: política de privacidad
     ok: OK
   email_unverified:
     title: Verifica tu correo electrónico
@@ -987,7 +981,6 @@ profile:
     terms_accepted: "Versión {version}, aceptada el {date}"
     terms_not_accepted: No aceptados
     terms_read: leer
-    terms_privacy: privacidad
     terms_title: Términos del servicio
     terms_close: Cerrar
     terms_open_page: Abrir como página
@@ -1128,7 +1121,6 @@ profile:
     export_ready_no_mail: "Tus datos están listos: descárgalos con el botón, una sola vez, hasta el {date}."
     export_about_no_mail: "Un archivo JSON con todo lo que se guarda de tu cuenta, preparado en segundo plano. Cuando esté listo, descárgalo aquí; funciona una vez, durante 24 horas. Una copia al día."
     title: Tus datos
-    stored_html: "Qué se guarda y por qué: <a href=\"{url}\" data-testid=\"profile-privacy-link\">política de privacidad</a>."
     export: Preparar mis datos (JSON)
     export_heading: Descargar mis datos
     export_info_label: Sobre la descarga de tus datos

@@ -190,7 +190,7 @@ fn file_version(text: &str) -> String {
 
 /// The minimum age the registration checkbox states (`SKRONGLE_MIN_AGE`):
 /// 14 everywhere, because Quebec's Law 25 needs a parent's consent under 14
-/// (#976). The Terms and the privacy policy say the same.
+/// (#976).
 pub const DEFAULT_MIN_AGE: u32 = 14;
 
 /// Shown where the copyright contact goes when `SKRONGLE_LEGAL_EMAIL` is unset.
@@ -492,23 +492,13 @@ mod tests {
         }
         let current = current_index(all, today()).expect("no version of the terms is in effect today");
         assert_eq!(version(), all[current].version);
-        // A privacy change is logged here too (#978): its newest entry dates
-        // docs/privacy.md, the newest Terms entry dates docs/terms.md.
+        // The newest entry dates docs/terms.md.
         let top_of = |md: &str| -> String { md.lines().take(5).collect::<Vec<_>>().join("\n") };
-        for (file, text, newest) in [
-            ("docs/terms.md", markdown_raw(), all.iter().rev().find(|c| !is_privacy_change(c))),
-            ("docs/privacy.md", include_str!("../docs/privacy.md").to_string(), all.iter().rev().find(|c| is_privacy_change(c))),
-        ] {
+        for (file, text, newest) in [("docs/terms.md", markdown_raw(), all.last())] {
             let Some(newest) = newest else { continue };
             let date = long_date(&newest.effective);
             assert!(top_of(&text).contains(&format!("**Last updated:** {date}")), "{file} must say \"**Last updated:** {date}\" at the top (its newest entry of docs/terms-changes.json, {})", newest.version);
         }
-    }
-
-    /// An entry about the privacy notice rather than the Terms (#978): its
-    /// summary starts "The privacy policy changed".
-    fn is_privacy_change(c: &Change) -> bool {
-        c.summary.first().is_some_and(|s| s.starts_with("The privacy policy changed"))
     }
 
     fn change(version: &str, effective: &str, material: bool) -> Change {

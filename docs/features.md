@@ -1713,7 +1713,7 @@ keep their explicit buttons. The page needs JavaScript.
   password or two-factor sign-in does the same.
 - **Privacy and consent** (#974, `profile-consent`): one row per consent
   with its date, explained behind an (i). The Terms version accepted and
-  when, with links to the Terms and the privacy policy (see
+  when, with a link to the Terms (see
   [Terms of Service](#terms-of-service)); the age confirmation (the date of
   the first Terms acceptance, read-only: taking it back means deleting the
   account); e-mail, service messages only (hosted only;
@@ -1786,8 +1786,7 @@ keep their explicit buttons. The page needs JavaScript.
   shared courses are hidden from their recipients meanwhile. The hourly
   `housekeeping` job then removes the account and everything it
   owns. What is kept and for how long:
-  [data inventory](data-inventory); the privacy notice is at `/privacy`
-  ([privacy](privacy), public, with a "Last updated" line at the top).
+  [data inventory](data-inventory).
 - **Superuser page** (`/superuser`, superuser accounts only, #220): actions
   that reach any account, for people running the app; the account menu
   links to it. An account is a superuser when `users.superuser` is 1. With `SKRONGLE_SIGNUP` `invite` or `closed` (#634)
@@ -1887,7 +1886,7 @@ address (#1328).
 
 - **Accepting.** Registration has two required boxes, "I am at least
   [age] years old" (`age`; `SKRONGLE_MIN_AGE`, default 14)
-  and "I agree to the Terms and Privacy Policy" (`accept`;
+  and "I agree to the Terms" (`accept`;
   `templates/terms_check.html`, each sentence with a rounded check box on
   its right in the AI pill's style); the server refuses the form without
   both, naming the missing one. Each acceptance is a row in `terms_acceptances`
@@ -1902,14 +1901,7 @@ address (#1328).
   `terms-lint` CI job (`scripts/terms-lint.sh`) fails a PR that edits one
   without the other, and `cargo test terms` checks the entries (dates in
   order, a summary, 30 days between `announced` and `effective` for a
-  material change, the "Last updated" line). A material change to the
-  privacy notice (`docs/privacy.md`, `/privacy`) is logged the same way
-  (#978): one entry whose summary starts "The privacy policy changed: …",
-  so learners get the same notice and, for a material one, the same
-  30-day e-mail. The lint watches `docs/privacy.md` too, and the newest
-  privacy entry dates that page's "Last updated" line. A minor privacy
-  change (a correction, a new provider of the same kind) only moves that
-  line. In Skrongle mini the sign-in notice is the whole notification (no
+  material change, the "Last updated" line). In Skrongle mini the sign-in notice is the whole notification (no
   mail).
 - **New versions.** An account that accepted an earlier version sees a
   notice over the first page it opens (`templates/terms_notice.html`,
@@ -1942,7 +1934,7 @@ address (#1328).
   version, so any edit sends every account to `/terms/accept` (no summary,
   no e-mail).
 - **Links.** The footer on every page, the landing page, login and register
-  link Terms and Privacy (`/privacy`, its own page); the profile shows the
+  link Terms; the profile shows the
   version accepted and when, and its "read" link opens the terms in a
   dialog over the profile (the link still goes to `/terms` in a new tab
   or without JavaScript).

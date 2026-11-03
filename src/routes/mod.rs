@@ -166,8 +166,6 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/llms.txt", get(docs::llms_txt))
         .route("/docs/{page}", get(docs::page))
         .route("/self-host", get(docs::self_host))
-        .route("/privacy", get(docs::privacy))
-        .route("/cookies", get(docs::cookies))
         // Terms of Service (public) and the gate for accounts that have not accepted them
         .route("/terms", get(terms::page))
         .route("/terms.md", get(terms::markdown))

@@ -20,8 +20,6 @@ nav:
 
 footer:
   terms: 条款
-  privacy: 隐私
-  cookies: Cookie
 
 lang:
   label: 语言
@@ -119,7 +117,6 @@ auth:
     or: 或
     no_account_html: "还没有账户？<a href=\"{url}\" data-testid=\"login-register-link\">注册</a>。"
     terms_link: 条款
-    privacy_link: 隐私
     too_many_attempts: 登录尝试次数过多。请等待几分钟后再试。
     incorrect: 电子邮箱地址或密码不正确。
     forgot: "忘记密码？"
@@ -234,16 +231,15 @@ terms:
     title: 服务条款
     version: "版本 {version}"
     markdown: Markdown
-    privacy: 隐私政策
   check:
     age: "我至少 {min_age} 岁"
-    agree_html: "我同意<a href=\"{terms_url}\" target=\"_blank\" data-testid=\"{tid}-terms-link\">服务条款</a>和<a href=\"{privacy_url}\" target=\"_blank\" data-testid=\"{tid}-privacy-link\">隐私政策</a>"
+    agree_html: "我同意<a href=\"{terms_url}\" target=\"_blank\" data-testid=\"{tid}-terms-link\">服务条款</a>"
   accept:
     title: 服务条款
     changed: 条款已更改
     heading: 接受条款
     read_html: "请阅读<a href=\"{url}\" target=\"_blank\" data-testid=\"terms-gate-link\">服务条款</a>（版本 {version}），并接受后继续。"
-    check_html: "我至少 {min_age} 岁，并同意<a href=\"{terms_url}\" target=\"_blank\">服务条款</a>和<a href=\"{privacy_url}\" target=\"_blank\" data-testid=\"terms-gate-privacy-link\">隐私政策</a>"
+    check_html: "我至少 {min_age} 岁，并同意<a href=\"{terms_url}\" target=\"_blank\">服务条款</a>"
     submit: 继续
     logout: 改为退出登录
     tick: 请勾选方框以接受条款。
@@ -480,7 +476,6 @@ profile:
     appear_as_before: "其他用户会看到你的名字为："
     appear_as_after: "。"
     email_private: 你的电子邮箱地址只有你自己能看到。
-    policy_link: 隐私政策
     ok: 好
   email_unverified:
     title: 验证你的电子邮箱
@@ -515,7 +510,6 @@ profile:
     terms_accepted: "版本 {version}，于 {date} 同意"
     terms_not_accepted: 未同意
     terms_read: 阅读
-    terms_privacy: 隐私政策
     terms_title: 服务条款
     terms_close: 关闭
     terms_open_page: 在新页面中打开
@@ -656,7 +650,6 @@ profile:
     export_ready_no_mail: "你的数据已准备好：在 {date} 之前用按钮下载，仅限一次。"
     export_about_no_mail: "一个 JSON 文件，包含你账户存储的所有内容，在后台准备。准备好后在这里下载；仅可下载一次，有效期 24 小时。每天一份。"
     title: 你的数据
-    stored_html: "存储的内容及原因：<a href=\"{url}\" data-testid=\"profile-privacy-link\">隐私政策</a>。"
     export: 准备我的数据（JSON）
     export_heading: 下载我的数据
     export_info_label: 关于下载你的数据
@@ -827,7 +820,6 @@ landing:
   final_h2: "注册，然后回答一个问题：你想学什么？"
   browse_docs: 浏览文档
   terms: 服务条款
-  privacy: 隐私政策
   feat_guide_h: "引导"
   feat_guide_p: "把每节课变成由小步骤组成的一关：卡片、快速检查、抽认卡和提示，最后给星星。"
   try_lead: "每种模式二十秒。选一个试试。"
