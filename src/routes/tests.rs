@@ -3,10 +3,9 @@
 #[test]
 fn healthz_names_the_edition() {
     let version = crate::VERSION;
-    assert_eq!(crate::edition(true), format!("skrongle mini {version}"));
-    assert_eq!(crate::edition(false), format!("skrongle {version}"));
+    assert_eq!(crate::edition(), format!("skrongle mini {version}"));
     let body = tokio::runtime::Builder::new_current_thread().build().map(|rt| rt.block_on(super::healthz()));
-    assert!(body.is_ok_and(|b| b.starts_with("ok skrongle ")));
+    assert!(body.is_ok_and(|b| b == format!("ok skrongle mini {version}")));
 }
 
 #[test]

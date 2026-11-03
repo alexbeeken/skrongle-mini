@@ -52,7 +52,6 @@ build, the settings, and in the foreground or with `--watch` the server log in t
 | `--port N` | Listen on a fixed port. Without it (or with `--port auto`) the server takes a random free port in 8100-8999, so two worktrees can run at once |
 | `--llm capture` / `--llm live` | Model calls go to [the dev AI provider](#the-dev-ai-provider) (below) without `--llm`; `capture` starts it with Manual replies on (each request waits for your answer at the bottom of `/dev/ai`); `live` sends them to the real providers instead |
 | `--test-course` | Also offer the [test course](#the-test-course) (`TEST_COURSE=1`) |
-| `--mini` | The [mini shape](#the-mini-lane), what a self-hoster runs (`SKRONGLE_MINI=1`, which turns the stand-ins off); learners' own AI keys still reach the dev AI provider |
 | `--background` | Build, start detached, wait for `/healthz`, print the links. Pid in `.dev-server.pid`, URL in `.dev-server.url`, log in `dev-server.log` |
 | `--watch` | Rebuild and restart on every change, keeping the port and `dev.db`; open pages reload themselves ([below](#live-reload---watch)). With `--background` the watcher runs detached and `--stop` ends it |
 | `--stop` | Stop the background server (or watcher) |
@@ -821,39 +820,16 @@ specs run one at a time, as they do.
 text from the course. A helper that misses a testid or a state attribute is
 a reason to add it to the template ([Markup hooks](#markup-hooks)). 
 
-### The mini lane
-
-Every other browser run has the dev stand-ins on: the dev phone. A self-hoster
-has none of them. The mini lane (#639, part of #632) runs a few smoke specs
-in that shape:
-
-```sh
-E2E_MINI=1 scripts/e2e.sh specs/smoke/happy-paths.spec.ts specs/smoke/mini.spec.ts
-./.dev-start --mini --reset   # the same shape, to click through
-```
-
-`E2E_MINI=1` starts the server with `SKRONGLE_MINI=1` (learners' own keys
-still reach [the dev AI provider](#the-dev-ai-provider)) and passes
-`E2E_MINI=1` to the specs. `SKRONGLE_MINI=1` makes it a Skrongle mini (#578, #641:
-`/healthz` says `ok skrongle mini <version>`). Sign-up stays open, since the specs register. A spec that needs a
-stand-in skips there: `test.skip(process.env.E2E_MINI === "1", "why")`
-(none does now). `mini.spec.ts` checks what is
-true in the mini shape (a learner registers, signs in and passes a lesson;
-there is no `/dev/inbox`; `/healthz` names the mini; the profile asks nobody to
-confirm their e-mail); each #632 issue adds its browser check there.
-CI runs it as the `e2e-mini` job in `.github/workflows/smoke.yml`, one
-shard; it is not a required check yet.
-
 ## CI runners
 
 Every workflow job runs on self-hosted runners in Docker on the laptop, not
 on GitHub-hosted ones, so CI costs no Actions minutes (the cost report and
 the options weighed are in #209). The jobs ask for
 `runs-on: ${{ vars.CI_RUNNER || 'laptop' }}`; four runners carry the label
-`laptop`. A PR's `checks` run is nine jobs (cargo test, three exact shards,
-four smoke shards, the mini lane), so one PR takes about two waves and a
-second PR's jobs wait their turn. The runners are registered to this repo
-alone and run beside the parent repo's (compose project `skrongle-mini-ci`).
+`laptop`. A PR's `checks` run is eight jobs (cargo test, three exact shards,
+four smoke shards), so one PR takes about two waves and a
+second PR's jobs wait their turn. The four runners run under the
+`skrongle-mini-ci` compose project and are registered to this repository.
 
 ```sh
 scripts/ci-runners.sh up       # build the image (ci/runner/) and start the four runners

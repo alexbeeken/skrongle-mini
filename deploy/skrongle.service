@@ -36,7 +36,6 @@ Environment=SKRONGLE_DB=/var/lib/skrongle/learn.db
 Environment=SKRONGLE_LOG=info
 # This is a Skrongle mini (docs/self-hosting.md, "Skrongle mini"): one small
 # box, no plans or payments, no e-mail, SMS or Stripe required.
-Environment=SKRONGLE_MINI=1
 # The first account is the owner's, made through the owner link in the log
 #   (sudo journalctl -u skrongle -g "Owner link" -o cat | tail -n 1);
 # everyone else needs an invitation link from its Manage Users page:
