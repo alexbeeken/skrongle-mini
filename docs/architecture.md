@@ -53,7 +53,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 
 ### Dev mode only
 
-- `dev.rs` + `routes/dev.rs` (`/dev/login`, the dev authenticator; `routes/dev/jobs_page.rs` is `/dev/jobs`), `dev_ai.rs` + `routes/dev_ai.rs` (`/dev/ai`, fixtures in `data/test-fixtures/`), `dev_crowd.rs` (made-up learners), `static/devbox.js`.
+- `dev.rs` + `routes/dev.rs` (`/dev/login`, the dev authenticator; `routes/dev/jobs_page.rs` is `/dev/jobs`), `dev_ai.rs` + `routes/dev_ai.rs` (`/dev/ai`, fixtures in `data/test-fixtures/`), `static/devbox.js`.
 
 ### Elsewhere
 
@@ -122,7 +122,6 @@ src/
   translate.rs   copy and translate a course (#630): which texts the AI translates, one file's request and reply, putting the translations back
   error.rs       AppError -> HTTP responses (incl. redirects to /login and /courses)
   dev_ai.rs      the dev AI provider's logic (#297): key profiles (platform, learner), usage limits and their quota errors, injected failures, the fixture reply for a wire request, Manual replies (held requests), the call log; in memory
-  dev_crowd.rs   a crowd of made-up learners with weeks of backdated history (SKRONGLE_DEV_SEED_USERS, #583), written through the modes' own progress functions; deterministic per learner
   dev.rs         local testing (SKRONGLE_DEV): the gate, the dev user (seed with the simulator's keys, reset), SKRONGLE_LLM_MODE and the dev AI provider's default base URLs, the fixture directory and its in-memory edits, held requests on disk (Manual replies on /dev/ai)
   test_course.rs tests only: keep the test course covering every feature (schema, aliases, quiz types, exercises)
   routes/
@@ -507,7 +506,6 @@ posture are in `docs/self-hosting.md`, "Skrongle mini".
 | `SKRONGLE_DEV_RELOAD` | `0` | Dev mode only: `1` (set by `./.dev-start --watch`) appends a script to every HTML page that reloads it after the server restarts; see [testing](testing#live-reload---watch) |
 | `TEST_COURSE` | `0` | `1`: also offer the courses under `data/test-courses/` (the test course, for automated tests). `SKRONGLE_TEST_COURSE` works too. Never set in production |
 | `SKRONGLE_DEV_SEED` | `0` | Dev mode only: at boot, create the dev user with a course open and some progress |
-| `SKRONGLE_DEV_SEED_USERS` | `0` | Dev mode only: at boot, a crowd of this many made-up learners with weeks of history (`dev_crowd.rs`, [testing](testing#a-crowd-of-learners-with-history)); `SKRONGLE_DEV_SEED_DAYS` (90) is how far back it goes |
 | `SKRONGLE_RNG_SEED` | — | Dev mode only: a number; quizzes, sessions and games draw from it instead of the OS, so a browser test replays exactly (`scripts/e2e.sh` sets it from `E2E_SEED`) |
 | `SKRONGLE_LLM_MODE` | (empty) | Dev mode only. Empty (or `dev`): the providers' default base URLs point at the dev AI provider (`/dev/ai`, [testing](testing#the-dev-ai-provider)), which answers from the fixtures over their wire protocols; `capture`: the same, holding each request for a reply typed at the bottom of `/dev/ai` (Manual replies); `live`: the real providers (and the seed saves no keys). `fixtures` is read as the default |
 | `SKRONGLE_LLM_DIR` | `./dev-llm` | Dev mode only: where held requests are written and their replies read |

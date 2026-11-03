@@ -69,7 +69,7 @@ pub fn record_learned(
     record_learned_at(conn, user_id, course_id, lesson_id, words, now(), tz)
 }
 
-/// [`record_learned`] at a given time: the dev crowd's backdated history (`dev_crowd.rs`).
+/// [`record_learned`] at a given time (the time passed in).
 pub(crate) fn record_learned_at(
     conn: &Connection,
     user_id: i64,

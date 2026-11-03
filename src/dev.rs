@@ -53,12 +53,11 @@ fn is_local_host(host: &str) -> bool {
     matches!(host, "localhost" | "127.0.0.1" | "::1")
 }
 
-/// Accounts in the database other than the dev user's and the dev crowd's
-/// (`dev_crowd.rs`: made-up learners, with the dev password).
+/// Accounts in the database other than the dev user's.
 pub fn other_accounts(conn: &Connection) -> rusqlite::Result<i64> {
     conn.query_row(
-        "SELECT COUNT(*) FROM users WHERE email IS NULL OR (lower(email) <> lower(?1) AND lower(email) NOT LIKE ?2)",
-        [DEV_EMAIL, &format!("%@{}", crate::dev_crowd::DOMAIN)],
+        "SELECT COUNT(*) FROM users WHERE email IS NULL OR lower(email) <> lower(?1)",
+        [DEV_EMAIL],
         |r| r.get(0),
     )
 }

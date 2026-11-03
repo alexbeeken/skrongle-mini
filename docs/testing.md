@@ -48,7 +48,6 @@ build, the settings, and in the foreground or with `--watch` the server log in t
 |---|---|
 | `--reset` | Delete `./dev.db`, its key file and the held LLM requests first |
 | `--seed` | Create the dev user with Spanish open, two lessons passed and one seen (`SKRONGLE_DEV_SEED=1`), as an owner (`users.owner`), with [the dev AI provider's](#the-dev-ai-provider) keys for Anthropic, OpenAI and Gemini (not with `--llm live`) |
-| `--seed-users N` | Also [a crowd](#a-crowd-of-learners-with-history) of N made-up learners with weeks of history (`SKRONGLE_DEV_SEED_USERS=N`); `--seed-days D` (`SKRONGLE_DEV_SEED_DAYS`, default 90) is how far back it goes |
 | `--port N` | Listen on a fixed port. Without it (or with `--port auto`) the server takes a random free port in 8100-8999, so two worktrees can run at once |
 | `--llm capture` / `--llm live` | Model calls go to [the dev AI provider](#the-dev-ai-provider) (below) without `--llm`; `capture` starts it with Manual replies on (each request waits for your answer at the bottom of `/dev/ai`); `live` sends them to the real providers instead |
 | `--test-course` | Also offer the [test course](#the-test-course) (`TEST_COURSE=1`) |
@@ -58,49 +57,6 @@ build, the settings, and in the foreground or with `--watch` the server log in t
 | `--lan` | Bind `0.0.0.0` for phones; this turns dev mode **off** |
 
 `GET /healthz` answers `ok` with no login; wait on it instead of sleeping.
-
-### A crowd of learners with history
-
-Some features only show with many learners behaving over time: the
-streak and daily goal over weeks, mastery decaying, a long History page,
-the retention jobs, and whether the queries behind them hold up with a
-thousand accounts in the tables (#583). `--seed-users` makes that crowd:
-
-```sh
-./.dev-start --reset --seed --seed-users 1000 --background   # 1000 learners, 90 days of history, about 10 s
-./.dev-start --reset --seed --seed-users 200 --seed-days 14   # a smaller, shorter one
-```
-
-The server binds its port first, then writes the crowd, then answers.
-`--background` asks `/healthz` with a one-second limit per try and waits
-20 s by the clock, longer while `dev-server.log` shows the crowd growing
-(`dev crowd: 450/1000 learners`; the crowd writes one at least every 5 s,
-#936). If the wait runs out, it stops the server
-it started, so no server keeps running without a pid file (#679, #869).
-`scripts/dev-start-orphan-check.sh` checks that; run it after changing
-`.dev-start`. With `SKRONGLE_SQL_TRACE` on, 1000 learners take a few minutes
-and write a trace of several hundred MB.
-
-Each learner (`learner-<n>@seed.example`, password `dev-password`, so you
-can sign in as any of them) is a small model drawn from their number: when
-they joined, how keen they are (the chance of studying on a given day: a
-casual, regular or daily learner), how good (the chance of a right answer),
-the mode they prefer (Sprint, Study or the Guide), their time zone and
-usual hour, and whether they drifted away (a third do). A day they study
-is a session: open the lesson they are on, read, play or run through it,
-answer its questions, now and then a round of Word Match or a review of an
-earlier lesson. Eight in ten learn Spanish, the rest French.
-
-The rows are written through the same functions the modes call
-(`progress`, `mastery`, `activity`, `games`), only at a time in the past,
-so they obey every rule the real ones do: a pass is seen plus a counted
-run of 70 %, mastery decays between sessions, effort points weigh as the
-daily goal says. Nothing lands in the future; nothing before the account
-was made. The crowd is deterministic: learner 7 always gets the same life,
-a second boot adds nothing, and `--seed-users 1200` later only adds the
-missing 200. It does not make the database look like a deploy's (#388):
-the dev-mode account check ignores the crowd's domain. `--reset` removes
-it with everything else. `src/dev_crowd.rs` is the model.
 
 ### Live reload (`--watch`)
 

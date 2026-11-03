@@ -99,8 +99,7 @@ these keeps the day streak going too. One running row per course (`earnings`,
 `src/earnings.rs`) holds the streak, the days whose goal was reached and the
 points ever logged. Each activity updates it, and the app never adds it up
 from the whole log (#589). The table is `activity::Kind::points`
-and `activity::DAILY_GOAL` in `src/activity.rs`; `scripts/effort-calibrate.sh`
-measures how long each kind really takes from a database. XP, which only
+and `activity::DAILY_GOAL` in `src/activity.rs`. XP, which only
 Sprint mode and the Guide used to give, is gone.
 
 ## Where you left off

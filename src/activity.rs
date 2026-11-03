@@ -8,8 +8,7 @@
 //! The daily goal counts *effort points*, not answers, so a learner who
 //! reads, plays a game or reviews flashcards moves it as much as one who
 //! answers quizzes. A kind's weight is roughly the time one of it takes,
-//! with a typed quiz answer (about 15 seconds) as one point;
-//! `scripts/effort-calibrate.sh` measures the medians from a database. The
+//! with a typed quiz answer (about 15 seconds) as one point. The
 //! weights are read when the points are added up, so changing one here
 //! changes every day already logged too.
 
@@ -145,7 +144,7 @@ pub fn record(conn: &Connection, user_id: i64, course_id: &str, kind: Kind, n: i
     record_at(conn, user_id, course_id, kind, n, now(), tz)
 }
 
-/// [`record`] at a given time: the dev crowd's backdated history (`dev_crowd.rs`).
+/// [`record`] at a given time (the time passed in).
 pub(crate) fn record_at(conn: &Connection, user_id: i64, course_id: &str, kind: Kind, n: i64, at: i64, tz: i64) -> rusqlite::Result<()> {
     if n > 0 {
         // The ledger first: a learner from before it gets it from the log as
@@ -174,7 +173,7 @@ pub fn move_to(conn: &Connection, user_id: i64, course_id: &str, lesson_id: &str
     touch_at(conn, user_id, course_id, lesson_id, mode, at)
 }
 
-/// [`touch`] at a given time (also the dev crowd's backdated history, `dev_crowd.rs`).
+/// [`touch`] at a given time.
 pub(crate) fn touch_at(conn: &Connection, user_id: i64, course_id: &str, lesson_id: &str, mode: Mode, at: i64) -> rusqlite::Result<()> {
     conn.prepare_cached(
         "INSERT INTO lesson_touches (user_id, course_id, lesson_id, mode, at) VALUES (?1, ?2, ?3, ?4, ?5)

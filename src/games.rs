@@ -387,7 +387,7 @@ pub fn record_activity(
     record_activity_at(conn, user_id, course_id, game, board, label, duration_ms, total, correct, score_ms, now())
 }
 
-/// [`record_activity`] at a given time: the dev crowd's backdated history (`dev_crowd.rs`).
+/// [`record_activity`] at a given time (the time passed in).
 #[allow(clippy::too_many_arguments)]
 pub(crate) fn record_activity_at(
     conn: &Connection,

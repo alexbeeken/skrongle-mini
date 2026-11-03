@@ -7,8 +7,6 @@
 #   ./.dev-start --release      # same, but with the release profile (what the Pi runs)
 #   ./.dev-start --reset        # delete ./dev.db (and held LLM requests) first
 #   ./.dev-start --seed         # create the dev user with Spanish open and some progress
-#   ./.dev-start --seed-users 1000   # also a crowd of 1000 made-up learners with 90 days of history (#583)
-#   ./.dev-start --seed-days 30 # how many days of history the crowd gets (default 90)
 #   ./.dev-start --test-course  # also offer the test course (TEST_COURSE=1; data/test-courses/)
 #   ./.dev-start --port 9000    # a fixed port instead (--port auto = the default)
 #   ./.dev-start --llm capture  # the simulated provider holds each request for a reply on /dev/ai (Manual replies)
@@ -68,8 +66,6 @@ while [ $# -gt 0 ]; do
     --release)    PROFILE_FLAG="--release"; PROFILE_DIR=release ;;
     --reset)      RESET=1 ;;
     --seed)       SEED=1 ;;
-    --seed-users) export SKRONGLE_DEV_SEED_USERS="$2"; shift ;;
-    --seed-days)  export SKRONGLE_DEV_SEED_DAYS="$2"; shift ;;
     --lan)        HOST=0.0.0.0 ;;
     --watch)      WATCH=1 ;;
     --background) BACKGROUND=1 ;;
@@ -156,33 +152,20 @@ build() {
   rm -f "$out"
 }
 
-# The latest "dev crowd: n/N learners" line in the log, if any.
-crowd_progress() { grep -o 'dev crowd: [0-9]*/[0-9]* learners' "$LOGFILE" 2>/dev/null | tail -1 || true; }
-
 # Does /healthz answer? At most 1 s per try: the server binds its port before
 # it migrates and seeds, so until it serves, a connection is accepted and then
 # gets no answer (#869).
 healthz() { curl -fsS -m 1 "$URL/healthz" >/dev/null 2>&1; }
 
-# Wait up to $2 seconds, by the clock, for /healthz while pid $1 lives. A
-# crowd seed (--seed-users) runs before the server answers, so the wait
-# starts over while the log shows the crowd growing. On a timeout the server
-# is stopped, so no server is left running without a pid file (#679).
+# Wait up to $2 seconds, by the clock, for /healthz while pid $1 lives. On a
+# timeout the server is stopped, so no server is left running without a pid
+# file (#679).
 wait_up() {
   local progress last="" deadline=$((SECONDS + $2))
   while true; do
     healthz && return 0
     kill -0 "$1" 2>/dev/null || { echo "==> the server exited; last lines of $LOGFILE:" >&2; tail -20 "$LOGFILE" >&2; return 1; }
-    if [ "$SECONDS" -ge "$deadline" ]; then
-      progress=$(crowd_progress)
-      if [ -n "$progress" ] && [ "$progress" != "$last" ]; then
-        say "==> still seeding ($progress)"
-        last=$progress
-        deadline=$((SECONDS + $2))
-        continue
-      fi
-      break
-    fi
+    [ "$SECONDS" -ge "$deadline" ] && break
     sleep 0.1
   done
   echo "==> no answer from $URL/healthz; stopped the server; see $LOGFILE" >&2
@@ -232,8 +215,8 @@ if [ "$WATCH" = 1 ]; then
   start_child() {
     local t0=$SECONDS
     "$BIN" & SERVER=$!
-    # 20 s by the clock, longer while the log shows a crowd seed growing.
-    local deadline=$((SECONDS + 20)) progress last=""
+    # 20 s by the clock.
+    local deadline=$((SECONDS + 20))
     while true; do
       if healthz; then
         echo "==> healthy: $URL/healthz answered after $((SECONDS - t0)) s (server pid $SERVER)"
@@ -241,12 +224,7 @@ if [ "$WATCH" = 1 ]; then
         return 0
       fi
       kill -0 "$SERVER" 2>/dev/null || { echo "==> the server exited; fix the error above and save again"; SERVER=""; return 1; }
-      if [ "$SECONDS" -ge "$deadline" ]; then
-        progress=$(crowd_progress)
-        [ -n "$progress" ] && [ "$progress" != "$last" ] || break
-        last=$progress
-        deadline=$((SECONDS + 20))
-      fi
+      [ "$SECONDS" -ge "$deadline" ] && break
       sleep 0.2
     done
     echo "==> no answer from $URL/healthz after $((SECONDS - t0)) s"

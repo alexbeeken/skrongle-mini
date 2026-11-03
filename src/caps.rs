@@ -9,7 +9,7 @@
 pub const MAX_ACCOUNTS: usize = 8;
 
 /// Is a server holding `count` accounts at its cap? The dev server is never
-/// at it: it registers an account per e2e spec and seeds a crowd, and the
+/// at it: it registers an account per e2e spec, and the
 /// cap is for the mini the family runs (#29).
 pub fn accounts_full(count: i64, dev: bool) -> bool {
     !dev && count >= MAX_ACCOUNTS as i64

@@ -276,7 +276,7 @@ pub fn mark_seen(conn: &Connection, user_id: i64, course_id: &str, lesson: &Less
     mark_seen_at(conn, user_id, course_id, lesson, via, now())
 }
 
-/// [`mark_seen`] at a given time: the dev crowd's backdated history (`dev_crowd.rs`).
+/// [`mark_seen`] at a given time (the time passed in).
 pub(crate) fn mark_seen_at(conn: &Connection, user_id: i64, course_id: &str, lesson: &Lesson, via: &str, at: i64) -> rusqlite::Result<Outcome> {
     let mut p = load_one(conn, user_id, course_id, &lesson.id)?.unwrap_or_else(|| LessonPass::new(&lesson.id));
     if p.seen_at.is_none() {
@@ -311,7 +311,7 @@ pub fn record_run(
     record_run_at(conn, user_id, course_id, lesson, via, correct, answered, now())
 }
 
-/// [`record_run`] at a given time: the dev crowd's backdated history (`dev_crowd.rs`).
+/// [`record_run`] at a given time (the time passed in).
 #[allow(clippy::too_many_arguments)]
 pub(crate) fn record_run_at(
     conn: &Connection,

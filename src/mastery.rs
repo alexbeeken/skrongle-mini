@@ -321,7 +321,7 @@ pub fn record_answer_with<T>(
 }
 
 /// [`record_answer`]'s two writes at a given time, inside the caller's
-/// transaction: the dev crowd's backdated history (`dev_crowd.rs`).
+/// transaction (the time passed in).
 #[allow(clippy::too_many_arguments)]
 pub(crate) fn record_answer_at(
     conn: &Connection,

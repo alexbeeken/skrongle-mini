@@ -15,7 +15,6 @@ mod courses;
 mod db;
 mod dev;
 mod dev_ai;
-mod dev_crowd;
 mod doctor;
 mod earnings;
 mod sprint;
@@ -181,10 +180,6 @@ struct Config {
     dev: bool,
     /// `SKRONGLE_DEV_SEED=1`: create the dev user with a course and progress at boot.
     dev_seed: bool,
-    /// `SKRONGLE_DEV_SEED_USERS=N`: a crowd of N made-up learners with history
-    /// (`dev_crowd.rs`), over the last `SKRONGLE_DEV_SEED_DAYS` days (90).
-    dev_seed_users: usize,
-    dev_seed_days: i64,
     /// `TEST_COURSE=1` (or `SKRONGLE_TEST_COURSE=1`): also load the courses for
     /// automated tests under `data/test-courses/`.
     test_course: bool,
@@ -277,8 +272,6 @@ impl Config {
             prices: prices::PriceTable::from_env(),
             dev: env("DEV").is_some_and(|v| v == "1" || v == "true"),
             dev_seed: env("DEV_SEED").is_some_and(|v| v == "1" || v == "true"),
-            dev_seed_users: env("DEV_SEED_USERS").and_then(|v| v.parse().ok()).unwrap_or(0),
-            dev_seed_days: env("DEV_SEED_DAYS").and_then(|v| v.parse().ok()).unwrap_or(90),
             course_limits: {
                 let d = courses::Limits::default();
                 courses::Limits {
@@ -519,13 +512,6 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         } else {
             // So the login form takes dev@example.com / dev-password on a fresh database.
             dev::ensure_user(&db)?;
-        }
-        if cfg.dev_seed_users > 0 {
-            // The seed course first, so most of the crowd is where the dev user is.
-            let mut crowd_courses: Vec<_> = courses.builtin().iter().filter_map(|c| courses.builtin_store(c.id())).collect();
-            crowd_courses.sort_by_key(|c| c.id() != dev::SEED_COURSE);
-            let added = dev_crowd::seed(&db, &crowd_courses, cfg.dev_seed_users, cfg.dev_seed_days)?;
-            tracing::info!("dev: a crowd of {} learner(s) ({added} new), learner-<n>@{} / '{}'", cfg.dev_seed_users, dev_crowd::DOMAIN, dev::DEV_PASSWORD);
         }
         tracing::info!("dev: log in as '{}' / '{}', or open /dev/login", dev::DEV_EMAIL, dev::DEV_PASSWORD);
     }
