@@ -185,7 +185,13 @@ scripts/         release.sh (one-shot), build-pi.sh (cross-compile), deploy.sh, 
 Every handler is `async`; all SQLite and argon2 work goes to Tokio's blocking
 pool (`Db::call`) so the one async worker never stalls. Course generation runs
 on its own OS thread (it is minutes of HTTP waiting) and writes through
-`Db::with`.
+`Db::with`. Building a course from its files (up to 2 s for a big one on the
+Pi) also runs on a short-lived OS thread (`courses::off_worker`, #5): a
+request for a course being built waits for that one build, every other
+request is served meanwhile. Boot builds each built-in course once to check
+it and keeps the seed course (`dev::SEED_COURSE`, else the first) in the
+course cache, so the first request for it builds nothing; the others are
+built on first use (keeping them all costs about 4 MB).
 
 **Background jobs** (`src/jobs.rs`, #872). One `jobs` table and one OS
 thread (`jobs`, not the Tokio blocking pool) that runs due rows. Taking a
@@ -833,8 +839,8 @@ writable path, and a release never touches the database.
   `Db::call` that writes). One account may write course files 120 times in
   5 minutes (`security::COURSE_WRITES_PER_USER`). The cache of built
   courses (built-in and user-made) keeps at most 8
-  of them (`courses::MAX_STORES`, one active course per account), least
-  recently used out first. Lesson Markdown is rendered by pulldown-cmark; raw HTML in
+  of them (`courses::MAX_STORES`, one active course per account; boot
+  puts the seed course in), least recently used out first. Lesson Markdown is rendered by pulldown-cmark; raw HTML in
   Markdown is escaped (shown as text) and links or images with a scheme
   other than http(s) or mailto point to `#` (`content::render_markdown`),
   so a hostile upload or an AI misled by pasted material cannot put script
