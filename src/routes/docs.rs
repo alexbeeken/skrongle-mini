@@ -58,8 +58,8 @@ pub struct DocsTemplate {
     pub user: Option<CurrentUser>,
     pub title: String,
     pub slug: String,
-    pub html: String,
-    pub sections: Vec<DocSection>,
+    pub html: std::sync::Arc<str>,
+    pub sections: &'static [DocSection],
 }
 
 fn title_of(md: &str, slug: &str) -> String {
@@ -201,24 +201,23 @@ fn render(slug: &str, user: Option<CurrentUser>) -> Result<Response, AppError> {
 /// base path, both fixed at startup; the signed-in user and the sidebar's
 /// current-page marker live in the template. Only pages that exist are
 /// stored, so the map is bounded by the docs.
-fn rendered(slug: &str) -> Option<(String, String)> {
-    static CACHE: Mutex<Option<HashMap<String, (String, String)>>> = Mutex::new(None);
+fn rendered(slug: &str) -> Option<(String, std::sync::Arc<str>)> {
+    static CACHE: Mutex<Option<HashMap<String, (String, std::sync::Arc<str>)>>> = Mutex::new(None);
     let mut guard = CACHE.lock().unwrap_or_else(|e| e.into_inner());
     let map = guard.get_or_insert_with(HashMap::new);
     if let Some(hit) = map.get(slug) {
         return Some(hit.clone());
     }
     let md = md_of(slug)?;
-    let entry = (title_of(&md, slug), render_doc(&md));
+    let entry = (title_of(&md, slug), std::sync::Arc::<str>::from(render_doc(&md)));
     map.insert(slug.to_string(), entry.clone());
     Some(entry)
 }
 
 /// [`sections`], built once.
-fn sections_cached() -> Vec<DocSection> {
-    static CACHE: Mutex<Option<Vec<DocSection>>> = Mutex::new(None);
-    let mut guard = CACHE.lock().unwrap_or_else(|e| e.into_inner());
-    guard.get_or_insert_with(sections).clone()
+fn sections_cached() -> &'static [DocSection] {
+    static CACHE: std::sync::OnceLock<Vec<DocSection>> = std::sync::OnceLock::new();
+    CACHE.get_or_init(sections)
 }
 
 #[cfg(test)]

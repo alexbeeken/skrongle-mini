@@ -9,6 +9,7 @@
 
 use rusqlite::{params, Connection};
 use std::collections::HashMap;
+use std::sync::Arc;
 
 use crate::db::now;
 
@@ -181,19 +182,19 @@ fn row(r: &rusqlite::Row<'_>) -> rusqlite::Result<Progress> {
 }
 
 /// The learner's progress rows for a course, by lesson id: from the
-/// [`cache`] when it holds them, else read and held.
-pub fn load_progress(conn: &Connection, user_id: i64, course_id: &str) -> rusqlite::Result<HashMap<String, Progress>> {
+/// [`cache`] when it holds them, else read and held. Shared, not copied.
+pub fn load_progress(conn: &Connection, user_id: i64, course_id: &str) -> rusqlite::Result<Arc<HashMap<String, Progress>>> {
     let cache = cache::current();
     if let Some(map) = cache.as_ref().and_then(|c| c.get(user_id, course_id)) {
         return Ok(map);
     }
-    let map = read_progress(conn, user_id, course_id)?;
+    let map = Arc::new(read_progress(conn, user_id, course_id)?);
     if let Some(c) = cache {
         #[cfg(test)]
         c.reads.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
         // Inside a transaction the rows may include writes not yet kept.
         if conn.is_autocommit() {
-            c.fill(user_id, course_id, map.clone());
+            c.fill(user_id, course_id, Arc::clone(&map));
         }
     }
     Ok(map)
@@ -295,7 +296,7 @@ pub fn record_answer(
     let progress = record_answer_at(&tx, user_id, course_id, lesson_id, question_id, selected_answer, correct, now())?;
     tx.commit()?;
     if let (Some(c), Some(mut map)) = (cache, held) {
-        map.insert(progress.lesson_id.clone(), progress.clone());
+        Arc::make_mut(&mut map).insert(progress.lesson_id.clone(), progress.clone());
         c.fill(user_id, course_id, map);
     }
     Ok(progress)

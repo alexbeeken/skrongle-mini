@@ -199,14 +199,19 @@ pub async fn in_layout(
     req: axum::extract::Request,
     next: axum::middleware::Next,
 ) -> Response {
-    let headers = req.headers().clone();
+    // The request is gone once `next` runs, and the error page needs only
+    // who is signed in (the Cookie headers), so keep those, not every header.
+    let mut cookies = axum::http::HeaderMap::new();
+    for v in req.headers().get_all(axum::http::header::COOKIE) {
+        cookies.append(axum::http::header::COOKIE, v.clone());
+    }
     let api = req.uri().path().starts_with("/api/");
     let res = next.run(req).await;
     let res = if api { res } else { form_only_page(res) };
     let Some(ErrorPage(msg)) = res.extensions().get::<ErrorPage>().cloned() else {
         return res;
     };
-    let user = crate::auth::user_from_headers(&state, &headers).await;
+    let user = crate::auth::user_from_headers(&state, &cookies).await;
     let code = res.status();
     match askama::Template::render(&ErrorTemplate { user, code: code.as_u16(), msg }) {
         Ok(html) => {

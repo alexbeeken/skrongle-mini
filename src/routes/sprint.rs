@@ -220,7 +220,7 @@ pub struct PlayParams {
 
 /// What a Sprint session is built from.
 struct SessionInputs {
-    progress: HashMap<String, mastery::Progress>,
+    progress: Arc<HashMap<String, mastery::Progress>>,
     avoid: HashSet<String>,
     learned: vocab::Learned,
 }
