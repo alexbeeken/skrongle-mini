@@ -48,8 +48,6 @@ pub const MAX_LESSONS: usize = 15;
 pub const DEFAULT_LESSONS: usize = 6;
 /// Finished jobs are dropped from memory after this long.
 pub const JOB_TTL_SECS: i64 = 6 * 3600;
-/// Finished jobs kept per user (the newest) until they expire.
-pub const MAX_FINISHED_PER_USER: usize = 5;
 /// How long one job may run in all, requests included
 /// (`SKRONGLE_AI_JOB_BUDGET_SECS` overrides it): a slow or stalling base URL
 /// cannot hold one of the slots (`queue::slots`) for hours.

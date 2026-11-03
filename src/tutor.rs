@@ -224,6 +224,9 @@ impl Drop for Claim<'_> {
     }
 }
 
+/// Tutor chats by id. One entry per account at most (so at most
+/// `caps::MAX_ACCOUNTS`): `start` drops idle-expired chats and the
+/// account's earlier one before inserting (#42).
 #[derive(Default)]
 pub struct Sessions {
     inner: Mutex<HashMap<String, Session>>,
@@ -238,7 +241,8 @@ impl Sessions {
         if map.values().any(|s| s.user_id == user_id && s.busy) {
             return Err(STILL_ANSWERING);
         }
-        map.retain(|_, s| s.user_id != user_id);
+        let cutoff = crate::db::now() - IDLE_TTL_SECS;
+        map.retain(|_, s| s.user_id != user_id && s.updated_at > cutoff);
         let id = crate::auth::generate_token()[..24].to_string();
         let session = Session {
             id: id.clone(),
@@ -970,6 +974,16 @@ mod tests {
         assert!(sessions.with(&a, 1, "spanish", |_| ()).is_none());
         assert!(sessions.with(&a2, 1, "spanish", |_| ()).is_some());
         assert_eq!(sessions.purge_expired(), 0);
+
+        // One slot per account: two users, two entries; an idle one goes on the next insert.
+        sessions.finish(&a2, 1, "spanish", |_| {});
+        let b2 = sessions.start(2, "spanish", ProviderKind::Anthropic, None).unwrap().id;
+        assert_eq!(sessions.lock().len(), 2, "two users, two entries");
+        sessions.lock().get_mut(&a2).unwrap().updated_at = crate::db::now() - IDLE_TTL_SECS - 1;
+        sessions.finish(&b2, 2, "spanish", |_| {});
+        sessions.start(3, "spanish", ProviderKind::Anthropic, None).unwrap();
+        assert!(sessions.with(&a2, 1, "spanish", |_| ()).is_none());
+        assert_eq!(sessions.lock().len(), 2, "expired entry gone after the next insert");
     }
 
     /// #382: while one of a learner's turns waits on the model, neither a

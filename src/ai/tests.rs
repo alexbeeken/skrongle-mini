@@ -294,19 +294,22 @@ fn interrupted_generations_wait_again_unless_the_key_was_pasted() {
     assert!(check_capacity(&jobs, saved.user_id).is_err(), "it is still their job");
 }
 
-/// Finished jobs kept per user are capped (#368): the oldest go first.
+/// One AI job slot per account (#42): starting drops the account's
+/// finished jobs and any expired ones; other accounts keep theirs.
 #[test]
-fn finished_ai_jobs_per_user_are_capped() {
+fn ai_jobs_hold_one_entry_per_account() {
     let jobs = Jobs::default();
-    for i in 0..MAX_FINISHED_PER_USER + 3 {
-        jobs.insert_finished_for_test(&format!("a{i:02}"), 1, "c");
-    }
-    jobs.insert_finished_for_test("b", 2, "c");
-    jobs.lock().trim_finished(1);
-    let table = jobs.lock();
-    assert_eq!(table.map.values().filter(|j| j.user_id == 1).count(), MAX_FINISHED_PER_USER);
-    assert!(table.map.contains_key("b"), "other users keep theirs");
-    assert!(!table.map.contains_key("a00") && table.map.contains_key(&format!("a{:02}", MAX_FINISHED_PER_USER + 2)));
+    jobs.insert_finished_for_test("a1", 1, "c");
+    jobs.lock().make_room(1);
+    jobs.insert_finished_for_test("a2", 1, "c");
+    assert_eq!(jobs.lock().map.len(), 1, "same user: one entry");
+    jobs.lock().make_room(2);
+    jobs.insert_finished_for_test("b1", 2, "c");
+    assert_eq!(jobs.lock().map.len(), 2, "two users, two entries");
+    // An expired job of another user is gone after the next insert.
+    jobs.get("b1").unwrap().update(|s| s.finished_at = Some(crate::db::now() - JOB_TTL_SECS - 1));
+    jobs.lock().make_room(1);
+    assert!(jobs.get("b1").is_none() && jobs.get("a2").is_none());
 }
 
 /// A fake OpenAI-compatible server: answers the outline request with a
