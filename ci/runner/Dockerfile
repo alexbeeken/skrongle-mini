@@ -1,6 +1,6 @@
 # The image the laptop CI runners run in (ci/runner/compose.yml): GitHub's
 # runner on Ubuntu 24.04, the same release as ubuntu-latest, plus what the
-# workflows expect the hosted image to have. The toolchain itself comes from
+# workflows expect a GitHub-hosted image to have. The toolchain itself comes from
 # the workflow steps (dtolnay/rust-toolchain, setup-node, Playwright).
 FROM myoung34/github-runner:ubuntu-noble
 

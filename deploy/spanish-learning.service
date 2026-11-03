@@ -29,7 +29,7 @@ Environment=SKRONGLE_LOG=info
 # Public URL. Secrets live outside the repo: /etc/spanish-learning/env (see deploy/env.example).
 # scripts/deploy.sh fills in the URL below from PI_PUBLIC_URL in deploy/deploy.env.
 Environment=SKRONGLE_PUBLIC_URL=@PI_PUBLIC_URL@
-# This Pi is a Skrongle mini: no e-mail, SMS or Stripe required.
+# One small box for a handful of accounts: no e-mail or outside service required.
 EnvironmentFile=-/etc/spanish-learning/env
 # glibc malloc: one arena per thread by default; two is plenty and keeps RSS flat.
 Environment=MALLOC_ARENA_MAX=2
@@ -40,7 +40,7 @@ MemoryMax=64M
 MemoryHigh=48M
 TasksMax=32
 # Open files: 32 connections (caps::MAX_CONNECTIONS, #46) plus SQLite's files,
-# outgoing calls (LLM, SMTP, Stripe) and logs, with headroom: 32 + ~200 is
+# outgoing calls (the AI providers) and logs, with headroom: 32 + ~200 is
 # plenty. Set explicitly, not left to the distro.
 LimitNOFILE=256
 CPUWeight=80

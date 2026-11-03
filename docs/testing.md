@@ -33,7 +33,7 @@ Once the server answers, `./.dev-start` prints only this:
 ```
 site:  http://127.0.0.1:8214
 login: dev@example.com / dev-password   (or http://127.0.0.1:8214/dev/login)
-pr:    https://github.com/alexbeeken/skrongle-mini/pull/264   ([263] Profile picture: no own-colour swatch)
+pr:    https://github.com/alexbeeken/skrongle-mini/pull/12   ([11] Remove the plagiarism check)
 ```
 
 `pr` is the branch's open pull request, so a reviewer can start on its QA steps; `gh` looks it up

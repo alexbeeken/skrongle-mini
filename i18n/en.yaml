@@ -460,7 +460,7 @@ landing:
   feat_hear_p: In a language course every word that matters can be tapped and read aloud by the browser's own voices.
   feat_mastery_h: Mastery that decays
   feat_mastery_p: Right answers build a score with diminishing returns, wrong ones take a bite out of it, and a month away drifts it back towards practice.
-  # small_h2 and spec_*: parked, not shown until Skrongle mini ships (#1435).
+  # small_h2 and spec_*: the parked "Small enough for a Raspberry Pi" section of the landing page; templates/landing.html says when it returns.
   small_h2: Small enough for a Raspberry Pi
   spec_binary_h: One binary
   spec_binary_p: Templates, CSS, scripts and docs are compiled in; the built-in courses are plain files next to it. SQLite is the whole database.

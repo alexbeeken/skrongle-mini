@@ -9,8 +9,8 @@
 # (label `laptop`, ci/runner/). Set the repo variable CI_RUNNER=ubuntu-latest
 # to fall back to GitHub-hosted runners. See docs/testing.md, "CI runners".
 #
-# The GitHub caches (rust-cache, setup-node's npm cache) are for the hosted
-# fallback only: a laptop runner keeps its build in a persistent volume
+# The GitHub caches (rust-cache, setup-node's npm cache) are for GitHub-hosted
+# runners only: a laptop runner keeps its build in a persistent volume
 # (CARGO_TARGET_DIR, ci/runner/compose.yml), and fetching a 200 MB cache
 # from GitHub through the home connection took 2-4 minutes of every job.
 name: checks

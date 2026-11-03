@@ -287,7 +287,7 @@ class NeedsWork(unittest.TestCase):
         self.assertFalse(rules.at_fix_limit(0, "x"))
 
     def test_workspaces_counted(self):
-        base = "/Users/a/orca/workspaces/pooki/"
+        base = "/Users/a/orca/workspaces/skrongle-mini/"
         rows = [
             {"path": base + "fix-pr-1103", "branch": "refs/heads/alexbeeken/fix-pr-1103",
              "displayName": "[1100] Some PR title"},

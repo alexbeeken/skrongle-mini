@@ -9,8 +9,7 @@
 #   rss      resident memory of an idle server, in KiB (VmRSS)
 #   threads  its thread count (Threads)
 #
-# The server runs with no optional settings (no mail, SMS, Stripe or
-# AI key, no SKRONGLE_DEV), only what deploy/skrongle.service sets, on a temp
+# The server runs with no optional settings (no AI keys, no SKRONGLE_DEV), only what deploy/skrongle.service sets, on a temp
 # database and a free loopback port. It answers /, /login and /healthz
 # twenty times each; then the numbers are read and the server stopped.
 # On Linux they come from /proc/<pid>/status; on macOS from ps, so the script

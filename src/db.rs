@@ -44,7 +44,7 @@ pub fn schema_version() -> i64 {
 
 /// The exit status of a server that refuses a database a newer release
 /// upgraded (#1329), or one from before the 1.0 schema (#49).
-/// `learnmap.service` does not restart on it.
+/// `skrongle.service` does not restart on it.
 pub const NEWER_DB_EXIT: i32 = 78;
 
 fn newer_db_message(found: i64) -> String {

@@ -206,7 +206,10 @@ impl fmt::Debug for Vault {
 
 impl Vault {
     /// Derive the working key from the master secret. The label separates
-    /// this use from any future one of the same secret.
+    /// this use from any future one of the same secret. The `learnmap/…`
+    /// labels here and below are the project's original name, kept as
+    /// fixed strings: changing one would make every install unable to read
+    /// what it sealed.
     pub fn from_master(master: &[u8; MASTER_LEN]) -> Vault {
         let key = Sha256::new().chain_update(b"learnmap/api-keys/v1").chain_update(master).finalize();
         Vault { cipher: ChaCha20Poly1305::new(&key) }

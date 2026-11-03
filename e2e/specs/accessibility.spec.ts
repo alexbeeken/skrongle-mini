@@ -12,9 +12,8 @@ async function sidewaysScroll(page: Page): Promise<number> {
 test("pages fit a phone at 200 % text size (#342)", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await devLogin(page);
-  // /guide and /tutor since #1058. /self-host was here too, until the page
-  // was hidden (#1435); put it back when it is shown again.
-  for (const path of ["/sprint", "/profile", "/", "/courses", "/lessons", "/listening", "/guide", "/tutor"]) {
+  // /guide and /tutor since #1058.
+  for (const path of ["/sprint", "/profile", "/", "/courses", "/lessons", "/listening", "/guide", "/tutor", "/self-host"]) {
     await page.goto(path);
     // What the browser's text size setting does: the root font size doubles.
     await page.addStyleTag({ content: "html { font-size: 200% !important; }" });
@@ -108,8 +107,7 @@ test("status pills and links in text have 4.5:1 contrast (#342)", async ({ page 
 
 test("inline code keeps its size with the % root font size (#342)", async ({ page }) => {
   // A lone `monospace` under a % root size makes Chrome shrink code to 13/16.
-  // /self-host was checked too, until it was hidden (#1435).
-  for (const path of ["/docs"]) {
+  for (const path of ["/docs", "/self-host"]) {
     await page.goto(path);
     const ratio = await page.locator("main p code").first().evaluate((c) =>
       parseFloat(getComputedStyle(c).fontSize) / parseFloat(getComputedStyle(c.parentElement!).fontSize));

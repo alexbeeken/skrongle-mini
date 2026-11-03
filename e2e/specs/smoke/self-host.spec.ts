@@ -2,12 +2,8 @@
 // all eight steps on a phone without sideways scrolling, and can reach the
 // technical version. No account, no key, no network.
 //
-// Skipped while the page and the self-hosting docs are hidden on the hosted
-// site (#1435): /self-host and /docs/self-hosting answer 404 there. Drop the
-// skip when Skrongle mini ships and the pages come back.
 import { expect, test } from "../../lib/fixtures.ts";
 
-test.skip(true, "self-hosting pages are hidden until Skrongle mini ships (#1435)");
 
 const STEPS = ["why", "need", "setup", "install", "yours", "away", "more"];
 

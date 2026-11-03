@@ -34,8 +34,8 @@ Environment=SKRONGLE_DATA_DIR=/opt/skrongle/data
 # The secret key is created next to it as learn.db.key; back up both.
 Environment=SKRONGLE_DB=/var/lib/skrongle/learn.db
 Environment=SKRONGLE_LOG=info
-# This is a Skrongle mini (docs/self-hosting.md, "Skrongle mini"): one small
-# box, no plans or payments, no e-mail, SMS or Stripe required.
+# One small box for a handful of accounts (docs/self-hosting.md): no e-mail
+# or outside service required.
 # The first account is the owner's, made through the owner link in the log
 #   (sudo journalctl -u skrongle -g "Owner link" -o cat | tail -n 1);
 # everyone else needs an invitation link from its Manage Users page:
@@ -51,7 +51,7 @@ MemoryMax=64M
 MemoryHigh=48M
 TasksMax=32
 # Open files: 32 connections (caps::MAX_CONNECTIONS, #46) plus SQLite's files,
-# outgoing calls (LLM, SMTP, Stripe) and logs, with headroom: 32 + ~200 is
+# outgoing calls (the AI providers) and logs, with headroom: 32 + ~200 is
 # plenty. Set explicitly, not left to the distro.
 LimitNOFILE=256
 CPUWeight=80

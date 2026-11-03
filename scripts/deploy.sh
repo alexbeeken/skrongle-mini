@@ -7,8 +7,8 @@
 #
 # Assumes the Pi user can sudo (default on Raspberry Pi OS).
 # Honours SSH_OPTS (e.g. "-i ~/.ssh/localpi -o IdentitiesOnly=yes"; release.sh sets it
-# from PI_SSH_KEY in deploy/deploy.env), PI_BASE_PATH, PI_PUBLIC_URL and, when
-# STRIPE_* are set, writes /etc/spanish-learning/env on the Pi.
+# from PI_SSH_KEY in deploy/deploy.env), PI_BASE_PATH and PI_PUBLIC_URL, and
+# writes /etc/spanish-learning/env on the Pi the first time.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 SSH_OPTS="${SSH_OPTS:--o BatchMode=yes -o ConnectTimeout=15}"
@@ -57,16 +57,10 @@ ENVFILE=$(mktemp)
   echo "# written by scripts/deploy.sh from deploy/deploy.env"
   echo "SKRONGLE_PUBLIC_URL=$PI_PUBLIC_URL"
   echo "SKRONGLE_BASE_PATH=$PI_BASE_PATH"
-  if [ -n "${STRIPE_SECRET_KEY:-}" ] && [ -n "${STRIPE_WEBHOOK_SECRET:-}" ] && [ -n "${STRIPE_PRICE_ID:-}" ]; then
-    echo "SKRONGLE_STRIPE_SECRET_KEY=$STRIPE_SECRET_KEY"
-    echo "SKRONGLE_STRIPE_WEBHOOK_SECRET=$STRIPE_WEBHOOK_SECRET"
-    echo "SKRONGLE_STRIPE_PRICE_ID=$STRIPE_PRICE_ID"
-    [ -z "${STRIPE_PRICE_LABEL:-}" ] || echo "SKRONGLE_STRIPE_PRICE_LABEL=$STRIPE_PRICE_LABEL"
-  fi
 } > "$ENVFILE"
 RSYNC -az "$ENVFILE" "$HOST:$STAGE/app.env"
 rm -f "$ENVFILE"
-WRITE_ENV=$([ -n "${STRIPE_SECRET_KEY:-}" ] && echo 1 || echo 0)
+WRITE_ENV="${WRITE_ENV:-0}"   # WRITE_ENV=1 rewrites /etc/spanish-learning/env from deploy.env
 
 echo "==> installing"
 SSH "$HOST" "NGINX_TLS_VHOST='$NGINX_TLS_VHOST' NGINX_HTTP_VHOST='$NGINX_HTTP_VHOST' WRITE_ENV='$WRITE_ENV' bash -s" <<'REMOTE'
@@ -84,7 +78,7 @@ sudo rsync -a --delete "$STAGE/data/" "$REMOTE_DIR/data/"
 sudo chown -R root:spanish "$REMOTE_DIR"
 sudo chown -R spanish:spanish /var/lib/spanish-learning
 sudo chmod 0750 /var/lib/spanish-learning
-# Only replace the env file when deploy.env carries Google, Stripe or mail settings; a hand-written
+# Only replace the env file when asked (WRITE_ENV=1); a hand-written
 # /etc/spanish-learning/env from before stays as it is otherwise.
 if [ "$WRITE_ENV" = 1 ] || [ ! -f /etc/spanish-learning/env ]; then
   sudo mkdir -p /etc/spanish-learning
