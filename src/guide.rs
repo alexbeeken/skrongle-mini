@@ -5,7 +5,7 @@
 use rusqlite::{params, Connection, OptionalExtension};
 use std::collections::HashMap;
 
-use crate::db::now;
+use crate::db::{now, CachedSql};
 
 #[derive(Debug, Clone, Default)]
 pub struct StageProgress {
@@ -64,7 +64,7 @@ pub fn load_all(conn: &Connection, user_id: i64, course_id: &str) -> rusqlite::R
 }
 
 pub fn load_one(conn: &Connection, user_id: i64, course_id: &str, lesson_id: &str) -> rusqlite::Result<Option<StageProgress>> {
-    conn.query_row(
+    conn.query_row_cached(
         &format!("SELECT {COLS} FROM journey_progress WHERE user_id = ?1 AND course_id = ?2 AND lesson_id = ?3"),
         params![user_id, course_id, lesson_id],
         row,
@@ -73,7 +73,7 @@ pub fn load_one(conn: &Connection, user_id: i64, course_id: &str, lesson_id: &st
 }
 
 pub fn save(conn: &Connection, user_id: i64, course_id: &str, p: &StageProgress) -> rusqlite::Result<()> {
-    conn.execute(
+    conn.execute_cached(
         "INSERT INTO journey_progress
             (user_id, course_id, lesson_id, step, completed, best_stars, run_correct, run_answered, updated_at)
          VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9)
