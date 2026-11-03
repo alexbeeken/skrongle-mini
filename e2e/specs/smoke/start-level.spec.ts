@@ -80,7 +80,6 @@ async function sessionLessons(page: Page, path: string): Promise<string[]> {
 test("start Spanish at A2: the A1 lessons are skipped and never offered", async ({ page }) => {
   const acct = newAccount("start-a2");
   await signUp(page, acct);
-  await login(page, acct);
   // Start asks where to start on its last step (#1106): A1 (the beginning),
   // A2, or any later level that has lessons.
   await openCourse(page, "spanish", { wizard: true });
@@ -241,7 +240,6 @@ test("change level mid-course (#333): progress stays, every mode moves to the ch
 test("the test course offers each of its units as a level", async ({ page }) => {
   const tc = newAccount("start-tc");
   await signUp(page, tc);
-  await login(page, tc);
   await openCourse(page, TEST_COURSE, { wizard: true });
   const dlg = wizard(page, TEST_COURSE);
   await toLevels(dlg);

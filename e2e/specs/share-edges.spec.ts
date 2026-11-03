@@ -24,7 +24,7 @@ test.afterAll(async ({ browser }) => {
 async function learner(browser: Browser, prefix: string): Promise<{ page: Page; account: Account }> {
   const page = await (await browser.newContext()).newPage();
   const account = newAccount(prefix);
-  if (!(await signUp(page, account))) await login(page, account);
+  await signUp(page, account);
   return { page, account };
 }
 
@@ -115,13 +115,11 @@ test("a used link turns a second account away; the invited address, confirmed la
   );
   await expect(await card(third.page, id)).toHaveCount(0);
 
-  // The invited address registers afterwards, without the link: not on the list while unconfirmed.
+  // The invited address registers afterwards, without the link: not on the
+  // list, since nothing confirms that the address is theirs.
   const own = await (await browser.newContext()).newPage();
-  if (!(await signUp(own, invited))) await login(own, invited);
+  await signUp(own, invited);
   await expect(await card(own, id)).toHaveCount(0);
-  // Confirming the address is enough: the course is on the list, no link needed.
-  await own.goto(mailLink(await waitForMail(invited.email, /Confirm your e-mail address/), /\/verify-email\?/));
-  await expect(await card(own, id)).toHaveCount(1);
   // Until the invited address opens the link, both accounts have it (#513, question 1).
   await expect(await card(first.page, id)).toHaveCount(1);
 

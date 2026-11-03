@@ -116,7 +116,6 @@ auth:
     no_account_html: "¿Aún no tienes cuenta? <a href=\"{url}\" data-testid=\"login-register-link\">Regístrate</a>."
     too_many_attempts: Demasiados intentos de inicio de sesión. Espera unos minutos e inténtalo de nuevo.
     incorrect: Correo electrónico o contraseña incorrectos.
-    forgot: "¿Olvidaste tu contraseña?"
   register:
     age: "Tengo al menos {min_age} años"
     title: Registrarse
@@ -161,61 +160,18 @@ auth:
   code:
     title: Ingresa tu código
     from_app: De tu aplicación de autenticación.
-    emailed_to: "Enviado por correo a {to}."
     code_label: Código
     submit: Iniciar sesión
-    resend: Enviar un código nuevo
     cancel: Cancelar
     gone: Ese inicio de sesión ha caducado. Inicia sesión de nuevo.
-    unsent: El código no se pudo enviar ahora mismo. Espera un minuto y envía uno nuevo.
-    sent: Un código nuevo está en camino.
     wrong:
       one: "Ese código no es correcto. Te queda {n} intento."
       other: "Ese código no es correcto. Te quedan {n} intentos."
     too_many_wrong: Demasiados códigos incorrectos, o el código caducó. Inicia sesión de nuevo.
-    your_email: tu correo electrónico
-    your_authenticator: tu aplicación de autenticación
   two_factor:
-    channel_off_email: "Tu cuenta inicia sesión con un código por correo, pero este servidor no puede enviar correos ({setting} no está configurado). Pide a quien lo administra que configure {setting} o que desactive el inicio de sesión en dos pasos de tu cuenta."
-    needs_email: Confirma primero tu correo electrónico.
     needs_app: Configura primero la aplicación de autenticación.
     app_already: Ya hay una aplicación de autenticación configurada. Elimínala primero.
-  verify_email:
-    title: Confirma tu correo electrónico
-    confirmed_heading: Tu correo electrónico está confirmado
-    confirmed: Gracias. No hay nada más que hacer.
-    invalid_heading: Este enlace no funciona
-    invalid: Puede que ya se haya usado, que tenga más de 24 horas o que lo haya reemplazado un enlace más reciente.
-    already: "Tu dirección {email} ya está confirmada."
-    resend_to: Podemos enviar un enlace nuevo a
-    resend: Enviar un enlace nuevo
-    sign_in_hint: Inicia sesión para pedir un enlace nuevo desde tu perfil.
-    continue: Continuar
-    sign_in: Iniciar sesión
 
-  register_sent:
-    title: "Revisa tu correo"
-    sent_html: "Enviamos un mensaje a {email}. Abre el enlace que contiene para confirmar tu dirección y luego inicia sesión."
-    sign_in: "Iniciar sesión"
-  reset:
-    title: "Restablecer tu contraseña"
-    email_label: "Correo electrónico"
-    send: "Enviar un enlace"
-    sent_title: "Revisa tu correo"
-    sent_html: "Si {email} tiene una cuenta, le enviamos un enlace para elegir una contraseña nueva. El enlace funciona una sola vez, durante una hora."
-    choose_title: "Elige una contraseña nueva"
-    choose_html: "Para {email}. Al guardar, se cierra tu sesión en todas partes."
-    password_label: "Contraseña nueva"
-    password_note: "(al menos 8 caracteres)"
-    save: "Guardar la contraseña nueva"
-    invalid_title: "Este enlace no funciona"
-    invalid: "Puede que ya se haya usado, que tenga más de una hora o que lo haya reemplazado un enlace más reciente."
-    again: "Enviar un enlace nuevo"
-    done_title: "Tu contraseña ha cambiado"
-    done: "✓ Se cerraron todas las sesiones. Inicia sesión con la contraseña nueva."
-    sign_in: "Iniciar sesión"
-    too_many_requests: "Demasiadas solicitudes desde tu red. Inténtalo de nuevo dentro de una hora."
-    too_many_tries: "Demasiados intentos desde tu red. Espera unos minutos e inténtalo de nuevo."
 
 mail:
   waitlist_confirm:
@@ -250,60 +206,6 @@ mail:
       <p><a href="{link}">Crear mi cuenta</a></p>
       <p>O pega este enlace en tu navegador: {link}</p>
       <p>La invitación vale durante {days} días.</p>
-  verify_email:
-    subject: "Confirma tu correo electrónico para {app}"
-    text: |
-      Hola,
-
-      Confirma que esta es tu dirección de correo electrónico para {app} abriendo este enlace:
-
-      {link}
-
-      El enlace funciona una sola vez, durante 24 horas. Si no te registraste en {app}, ignora este mensaje: la dirección no queda confirmada a menos que se abra el enlace. {app} envía como máximo {max} de estos mensajes a una misma dirección al día.
-    html: |
-      <p>Hola,</p>
-      <p>Confirma que esta es tu dirección de correo electrónico para {app}:</p>
-      <p><a href="{link}">Confirmar mi correo electrónico</a></p>
-      <p>O pega este enlace en tu navegador: {link}</p>
-      <p>El enlace funciona una sola vez, durante 24 horas. Si no te registraste en {app}, ignora este mensaje: la dirección no queda confirmada a menos que se abra el enlace. {app} envía como máximo {max} de estos mensajes a una misma dirección al día.</p>
-  password_reset:
-    subject: "Restablece tu contraseña de {app}"
-    text: |
-      Hola,
-
-      Alguien (esperamos que tú) pidió restablecer la contraseña de tu cuenta de {app}. Elige una nueva abriendo este enlace:
-
-      {link}
-
-      El enlace funciona una sola vez, durante una hora, y cierra tu sesión en todas partes. Si no lo pediste, ignora este mensaje; tu contraseña sigue igual.
-    html: |
-      <p>Hola,</p>
-      <p>Alguien (esperamos que tú) pidió restablecer la contraseña de tu cuenta de {app}.</p>
-      <p><a href="{link}">Elegir una contraseña nueva</a></p>
-      <p>O pega este enlace en tu navegador: {link}</p>
-      <p>El enlace funciona una sola vez, durante una hora, y cierra tu sesión en todas partes. Si no lo pediste, ignora este mensaje; tu contraseña sigue igual.</p>
-  register_taken:
-    subject: "Ya tienes una cuenta de {app}"
-    text: |
-      Hola,
-
-      Alguien intentó crear una cuenta nueva de {app} con este correo electrónico. Ya tiene una cuenta, así que no se creó nada.
-
-      Si fuiste tú, inicia sesión aquí:
-
-      {login}
-
-      ¿Olvidaste tu contraseña? Elige una nueva aquí:
-
-      {reset}
-
-      Si no fuiste tú, ignora este mensaje; tu cuenta no ha cambiado.
-    html: |
-      <p>Hola,</p>
-      <p>Alguien intentó crear una cuenta nueva de {app} con este correo electrónico. Ya tiene una cuenta, así que no se creó nada.</p>
-      <p>Si fuiste tú: <a href="{login}">Iniciar sesión</a></p>
-      <p>¿Olvidaste tu contraseña? <a href="{reset}">Elegir una contraseña nueva</a></p>
-      <p>Si no fuiste tú, ignora este mensaje; tu cuenta no ha cambiado.</p>
   account_deletion:
     subject: "Tu cuenta de {app} se eliminará el {date}"
     text: |
@@ -317,7 +219,6 @@ mail:
   two_factor_changed:
     subject: "La verificación en dos pasos de {app} ha cambiado"
     now_off: ahora está desactivada
-    now_email: ahora te envía un código por correo electrónico
     now_totp: ahora pide un código de una aplicación de autenticación
     text: |
       Hola,
@@ -329,36 +230,6 @@ mail:
       <p>Hola,</p>
       <p>La verificación en dos pasos de {app} <strong>{now}</strong>.</p>
       <p>Se cerró la sesión en todos los demás dispositivos. Si no hiciste este cambio, otra persona tenía la sesión iniciada en tu cuenta: inicia sesión, usa «Cerrar sesión en todos los demás sitios» en tu perfil y vuelve a configurar la verificación en dos pasos.</p>
-  login_code:
-    subject: "Tu código de inicio de sesión de {app}"
-    text: |
-      Hola,
-
-      Tu código para terminar de iniciar sesión en {app}:
-
-      {code}
-
-      Funciona durante 10 minutos. Si no intentaste iniciar sesión, cambia tu contraseña: alguien más la conoce.
-    html: |
-      <p>Hola,</p>
-      <p>Tu código para terminar de iniciar sesión en {app}:</p>
-      <p style="font-size:1.6em;letter-spacing:.15em"><strong>{code}</strong></p>
-      <p>Funciona durante 10 minutos. Si no intentaste iniciar sesión, cambia tu contraseña: alguien más la conoce.</p>
-  two_factor_confirm:
-    subject: "Tu código de {app} para cambiar la verificación en dos pasos"
-    text: |
-      Hola,
-
-      Tu código para desactivar o cambiar la verificación en dos pasos en {app}:
-
-      {code}
-
-      Funciona durante 10 minutos. Si no lo pediste, alguien más tiene la sesión iniciada en tu cuenta: usa «Cerrar sesión en todos los demás sitios» en tu perfil.
-    html: |
-      <p>Hola,</p>
-      <p>Tu código para desactivar o cambiar la verificación en dos pasos en {app}:</p>
-      <p style="font-size:1.6em;letter-spacing:.15em"><strong>{code}</strong></p>
-      <p>Funciona durante 10 minutos. Si no lo pediste, alguien más tiene la sesión iniciada en tu cuenta: usa «Cerrar sesión en todos los demás sitios» en tu perfil.</p>
   course_share:
     subject: "{owner} compartió un curso contigo en {app}: {title}"
     text: |
@@ -842,11 +713,6 @@ landing:
     near_miss: "¡Bien! Ojo con la tilde: {answer}"
 
 profile:
-  email_no_mail:
-    title: "Sin confirmar"
-    text: "Este servidor no puede enviar correos, así que no puede enviarte un enlace para confirmar tu dirección. Todo funciona sin ello."
-    label: "Sobre tu dirección"
-    ok: "Vale"
   title: Perfil
   no_name: Estudiante
   head:
@@ -875,11 +741,6 @@ profile:
     appear_as_after: ).
     email_private: Tu dirección de correo electrónico es privada; solo tú la ves.
     ok: OK
-  email_unverified:
-    title: Verifica tu correo electrónico
-    text: Correo electrónico aún no verificado. Busca el enlace en tu bandeja de entrada.
-    close: Cerrar
-    resend: Reenviar
   nav:
     label: Secciones del perfil
     personal: Información personal
@@ -894,7 +755,6 @@ profile:
     email: Dirección de correo electrónico
     no_email: Sin correo electrónico registrado
     verified: Verificado
-    not_verified: No verificado
     language: Idioma
     language_unavailable: Ese idioma no está disponible.
   account:
@@ -941,32 +801,22 @@ profile:
     info: Acerca de la autenticación en dos pasos
     second_step: Segundo paso de inicio de sesión
     off: Desactivado
-    email: Correo electrónico
-    email_unverified: Correo electrónico no verificado
     totp: Aplicación de autenticación
     save: Guardar
     confirm_title: Confirma que eres tú
     confirm_password_why: Para que nadie que use este navegador con la sesión iniciada pueda cambiar tu segundo paso, escribe la contraseña de tu cuenta.
     confirm_app_code: Esta cuenta no tiene contraseña, así que escribe el código que muestra ahora tu aplicación de autenticación.
-    confirm_sent_code: Esta cuenta no tiene contraseña, así que confirma con un código de tu segundo paso actual.
-    sent_to: "Enviado a {to}."
-    send_one_first: Envía uno primero.
     password: Contraseña
     code: Código
     cancel: Cancelar
-    send_again: Enviar de nuevo
-    send_code: Enviar código
     confirm: Confirmar
     totp_added: "Aplicación de autenticación añadida el {date}"
     remove: Quitar
     info_title: Autenticación en dos pasos
-    info_text: "Después de tu contraseña, el inicio de sesión pide un código: enviado por correo electrónico o mostrado por una aplicación de autenticación como Google Authenticator. Un método a la vez; elegir otro lo reemplaza."
-    info_small: El correo electrónico y el mensaje de texto necesitan una dirección o un número verificados. Los códigos valen 10 minutos; cinco códigos incorrectos terminan el inicio de sesión.
+    info_text: "Después de tu contraseña, el inicio de sesión pide el código que muestra una aplicación de autenticación como Google Authenticator."
+    info_small: Cinco códigos incorrectos terminan el inicio de sesión.
     ok: OK
-    email_first_title: Verifica primero tu correo electrónico
-    email_first_text: Los códigos por correo electrónico necesitan una dirección verificada. Busca el enlace en tu bandeja de entrada.
     close: Cerrar
-    resend: Reenviar
     totp_title: Añadir una aplicación de autenticación
     totp_how: Cómo añadir la aplicación
     totp_dev_link: "Dev: añadirla al autenticador de desarrollo"
@@ -978,7 +828,6 @@ profile:
     turn_off: Desactivar el inicio de sesión en dos pasos
     switch_to: "Cambiar el inicio de sesión en dos pasos a {method}"
     turn_on_by: "Activar la verificación en dos pasos por {method}"
-    method_email: correo electrónico
     method_totp: aplicación de autenticación
     is_off: El inicio de sesión en dos pasos está desactivado.
     is_method: "Inicio de sesión en dos pasos: {method}."
@@ -992,8 +841,6 @@ profile:
       other: "Ese código no es correcto. Te quedan {n} intentos."
     code_wrong_newest: Ese código no es correcto. Escribe el código más reciente que muestra la aplicación.
     code_gone: No hay ningún código pendiente, o ya caducó. Envía uno nuevo.
-    too_many_codes: Demasiados códigos enviados. Espera unos minutos e inténtalo de nuevo.
-    code_not_sent: No se pudo enviar el código. Inténtalo de nuevo en un momento.
   data:
     title: Tus datos
     ok: Aceptar
@@ -1008,7 +855,6 @@ profile:
     password_wrong: La contraseña no es correcta.
     type_email: Escribe tu dirección de correo electrónico para confirmar.
     code_app: Código de tu aplicación de autenticación
-    code_sent_to: "enviado a {to}"
   deletion:
     title: "Cuenta pendiente de eliminación"
     on: "Esta cuenta se eliminará para siempre el {date}."
@@ -1018,7 +864,6 @@ profile:
   save:
     not_a_field: Este campo no forma parte del perfil.
     motivator_unavailable: "Ese motivador no está disponible."
-    sent_to: "Enviado a {email}."
   name:
     too_long: "{label} es demasiado largo (máximo {max} caracteres)."
     bad_chars: "{label} contiene caracteres no permitidos."
@@ -1043,11 +888,7 @@ profile:
 manage:
   title: Gestionar usuarios
   about: "Acciones sobre cualquier cuenta. Solo los propietarios ven esta página."
-  open_inbox: Abrirlo en la bandeja de entrada de desarrollo
   email: Dirección de correo electrónico
-  reset_note: Marca la dirección de la cuenta como no confirmada y envía un nuevo enlace de confirmación, como al registrarse.
-  reset: Restablecer la verificación del correo electrónico
-  reset_done: "{email} vuelve a estar sin confirmar, y se envió un nuevo enlace de confirmación."
   unknown: "Ninguna cuenta tiene la dirección {email}."
   accounts: "Cuentas"
   accounts_info: "Sobre las cuentas y el registro"

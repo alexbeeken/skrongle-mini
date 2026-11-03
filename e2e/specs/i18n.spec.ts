@@ -57,10 +57,8 @@ test.describe("languages", () => {
     await page.getByTestId("register-age").check();
     await page.getByTestId("register-submit").click();
     await page.waitForLoadState("domcontentloaded");
-    // Registering does not sign in (#379): "check your mail" (in the chosen language), then the login form.
-    await expect(page.getByTestId("register-sent")).toBeVisible();
-    await expect(page.locator("html")).toHaveAttribute("lang", "es");
-    await login(page, account);
+    // Registering signs the account in, in the chosen language.
+    await expect(page.getByTestId("nav-account-toggle")).toHaveAttribute("data-email", account.email);
     await expect(page.locator("html")).toHaveAttribute("lang", "es");
     await expect(page.getByTestId("nav-logout")).toHaveText(ES.navLogout);
     await expect(page.getByTestId("nav-profile")).toHaveText(ES.navProfile);

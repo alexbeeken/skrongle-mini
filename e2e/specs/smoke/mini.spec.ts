@@ -43,13 +43,13 @@ test("the server says it is a Skrongle mini", async ({ request }) => {
   expect(await res.text(), "/healthz names the edition (#641)").toMatch(/^ok skrongle mini \d+\.\d+\.\d+/);
 });
 
-test("the profile has no red ! on the e-mail", async ({ page }) => {
+test("the profile asks nobody to confirm their e-mail", async ({ page }) => {
   await signUp(page, newAccount("mini-profile"));
   await page.goto("/profile");
   await expect(page.getByTestId("profile-form")).toBeVisible();
-  // #633: no mail, so an (i), not the red !.
+  // #10: nothing confirms an address, so neither a red ! nor an (i) about it.
   await expect(page.getByTestId("email-unverified")).toHaveCount(0);
-  await expect(page.getByTestId("email-no-mail-info")).toBeVisible();
+  await expect(page.getByTestId("email-no-mail-info")).toHaveCount(0);
 });
 
 test("sharing shows the link once, and a reload goes back to the dialog without inviting again", async ({ page }) => {

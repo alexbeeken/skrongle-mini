@@ -47,7 +47,6 @@ mod proxy_auth;
 mod quiz;
 mod random;
 mod report;
-mod reset;
 mod review;
 mod routes;
 mod secrets;
@@ -64,7 +63,6 @@ mod two_factor;
 #[cfg(test)]
 mod test_course;
 mod tutor;
-mod verify;
 mod vocab;
 mod word_list;
 
@@ -179,7 +177,7 @@ pub struct AppState {
     /// Dev mode: the dev authenticator app's accounts (`/dev/authenticator`).
     pub dev_authenticator: dev::Authenticator,
     /// `SKRONGLE_PUBLIC_URL` without a trailing slash: where links in e-mail
-    /// point. Unset, they are built from the request (`verify::public_base`).
+    /// point. Unset, they are built from the request (`routes::public_base`).
     pub public_url: Option<String>,
     /// `SKRONGLE_SIGNUP`: who may make an account (`signup.rs`).
     pub signup: signup::Mode,

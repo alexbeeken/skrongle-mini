@@ -256,7 +256,7 @@ mod tests {
     fn user(c: &Connection, email: &str, verified: bool) -> i64 {
         let id = crate::auth::create_user(c, email, "x").unwrap();
         if verified {
-            crate::verify::mark_verified(c, id, 1).unwrap();
+            crate::profile::mark_verified(c, id, 1).unwrap();
         }
         id
     }

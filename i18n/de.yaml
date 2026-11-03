@@ -116,7 +116,6 @@ auth:
     no_account_html: "Noch kein Konto? <a href=\"{url}\" data-testid=\"login-register-link\">Registrieren</a>."
     too_many_attempts: Zu viele Anmeldeversuche. Warte ein paar Minuten und versuch es erneut.
     incorrect: E-Mail-Adresse oder Passwort sind falsch.
-    forgot: "Passwort vergessen?"
   register:
     age: "Ich bin mindestens {min_age} Jahre alt"
     title: Registrieren
@@ -161,61 +160,18 @@ auth:
   code:
     title: Gib deinen Code ein
     from_app: Aus deiner Authenticator-App.
-    emailed_to: "Per E-Mail an {to} geschickt."
     code_label: Code
     submit: Anmelden
-    resend: Neuen Code senden
     cancel: Abbrechen
     gone: Diese Anmeldung ist abgelaufen. Melde dich erneut an.
-    unsent: Der Code konnte gerade nicht gesendet werden. Warte eine Minute und fordere dann einen neuen an.
-    sent: Ein neuer Code ist unterwegs.
     wrong:
       one: "Dieser Code stimmt nicht. Noch {n} Versuch."
       other: "Dieser Code stimmt nicht. Noch {n} Versuche."
     too_many_wrong: Zu viele falsche Codes oder der Code ist abgelaufen. Melde dich erneut an.
-    your_email: deine E-Mail-Adresse
-    your_authenticator: deine Authenticator-App
   two_factor:
-    channel_off_email: "Dein Konto meldet sich mit einem Code per E-Mail an, aber dieser Server kann keine E-Mails senden ({setting} ist nicht gesetzt). Bitte die Person, die ihn betreibt, {setting} zu setzen oder die Zwei-Faktor-Anmeldung für dein Konto auszuschalten."
-    needs_email: Bestätige zuerst deine E-Mail-Adresse.
     needs_app: Richte zuerst die Authenticator-App ein.
     app_already: Eine Authenticator-App ist schon eingerichtet. Entferne sie zuerst.
-  verify_email:
-    title: Bestätige deine E-Mail-Adresse
-    confirmed_heading: Deine E-Mail-Adresse ist bestätigt
-    confirmed: Danke. Du musst nichts weiter tun.
-    invalid_heading: Dieser Link funktioniert nicht
-    invalid: Er wurde vielleicht schon benutzt, ist älter als 24 Stunden oder wurde durch einen neueren Link ersetzt.
-    already: "Deine Adresse {email} ist bereits bestätigt."
-    resend_to: Wir können einen neuen Link senden an
-    resend: Neuen Link senden
-    sign_in_hint: Melde dich an, um in deinem Profil einen neuen Link anzufordern.
-    continue: Weiter
-    sign_in: Anmelden
 
-  register_sent:
-    title: "Sieh in deinem Postfach nach"
-    sent_html: "Wir haben eine Nachricht an {email} geschickt. Öffne den Link darin, um deine Adresse zu bestätigen, und melde dich dann an."
-    sign_in: "Anmelden"
-  reset:
-    title: "Passwort zurücksetzen"
-    email_label: "E-Mail-Adresse"
-    send: "Link senden"
-    sent_title: "Sieh in deinem Postfach nach"
-    sent_html: "Wenn {email} ein Konto hat, wurde ein Link zum Wählen eines neuen Passworts dorthin geschickt. Der Link funktioniert einmal, eine Stunde lang."
-    choose_title: "Wähle ein neues Passwort"
-    choose_html: "Für {email}. Beim Speichern wirst du überall abgemeldet."
-    password_label: "Neues Passwort"
-    password_note: "(mindestens 8 Zeichen)"
-    save: "Neues Passwort speichern"
-    invalid_title: "Dieser Link funktioniert nicht"
-    invalid: "Er wurde vielleicht schon benutzt, ist älter als eine Stunde oder wurde durch einen neueren Link ersetzt."
-    again: "Neuen Link senden"
-    done_title: "Dein Passwort ist geändert"
-    done: "✓ Jede Sitzung ist abgemeldet. Melde dich mit dem neuen Passwort an."
-    sign_in: "Anmelden"
-    too_many_requests: "Zu viele Anfragen aus deinem Netzwerk. Versuch es in einer Stunde noch einmal."
-    too_many_tries: "Zu viele Versuche aus deinem Netzwerk. Warte ein paar Minuten und versuch es erneut."
 
 mail:
   waitlist_confirm:
@@ -250,60 +206,6 @@ mail:
       <p><a href="{link}">Mein Konto anlegen</a></p>
       <p>Oder füge diesen Link in deinen Browser ein: {link}</p>
       <p>Die Einladung gilt {days} Tage.</p>
-  verify_email:
-    subject: "Bestätige deine E-Mail-Adresse für {app}"
-    text: |
-      Hallo,
-
-      bitte bestätige, dass dies deine E-Mail-Adresse für {app} ist, indem du diesen Link öffnest:
-
-      {link}
-
-      Der Link funktioniert einmal, 24 Stunden lang. Wenn du dich nicht bei {app} angemeldet hast, ignoriere diese Nachricht: Die Adresse gilt erst als bestätigt, wenn der Link geöffnet wird. {app} schickt einer Adresse höchstens {max} dieser Nachrichten am Tag.
-    html: |
-      <p>Hallo,</p>
-      <p>bitte bestätige, dass dies deine E-Mail-Adresse für {app} ist:</p>
-      <p><a href="{link}">Meine E-Mail-Adresse bestätigen</a></p>
-      <p>Oder füge diesen Link in deinen Browser ein: {link}</p>
-      <p>Der Link funktioniert einmal, 24 Stunden lang. Wenn du dich nicht bei {app} angemeldet hast, ignoriere diese Nachricht: Die Adresse gilt erst als bestätigt, wenn der Link geöffnet wird. {app} schickt einer Adresse höchstens {max} dieser Nachrichten am Tag.</p>
-  password_reset:
-    subject: "Setze dein {app}-Passwort zurück"
-    text: |
-      Hallo,
-
-      jemand (hoffentlich du) hat darum gebeten, das Passwort deines {app}-Kontos zurückzusetzen. Wähle ein neues, indem du diesen Link öffnest:
-
-      {link}
-
-      Der Link funktioniert einmal, eine Stunde lang, und meldet dich überall ab. Wenn du nicht darum gebeten hast, ignoriere diese Nachricht; dein Passwort bleibt, wie es ist.
-    html: |
-      <p>Hallo,</p>
-      <p>jemand (hoffentlich du) hat darum gebeten, das Passwort deines {app}-Kontos zurückzusetzen.</p>
-      <p><a href="{link}">Neues Passwort wählen</a></p>
-      <p>Oder füge diesen Link in deinen Browser ein: {link}</p>
-      <p>Der Link funktioniert einmal, eine Stunde lang, und meldet dich überall ab. Wenn du nicht darum gebeten hast, ignoriere diese Nachricht; dein Passwort bleibt, wie es ist.</p>
-  register_taken:
-    subject: "Du hast bereits ein {app}-Konto"
-    text: |
-      Hallo,
-
-      jemand hat versucht, mit dieser E-Mail-Adresse ein neues {app}-Konto anzulegen. Sie hat bereits ein Konto, also wurde nichts angelegt.
-
-      Wenn du das warst, melde dich hier an:
-
-      {login}
-
-      Passwort vergessen? Wähle hier ein neues:
-
-      {reset}
-
-      Wenn du das nicht warst, ignoriere diese Nachricht; dein Konto ist unverändert.
-    html: |
-      <p>Hallo,</p>
-      <p>jemand hat versucht, mit dieser E-Mail-Adresse ein neues {app}-Konto anzulegen. Sie hat bereits ein Konto, also wurde nichts angelegt.</p>
-      <p>Wenn du das warst: <a href="{login}">Anmelden</a></p>
-      <p>Passwort vergessen? <a href="{reset}">Neues Passwort wählen</a></p>
-      <p>Wenn du das nicht warst, ignoriere diese Nachricht; dein Konto ist unverändert.</p>
   account_deletion:
     subject: "Dein {app}-Konto wird am {date} gelöscht"
     text: |
@@ -317,7 +219,6 @@ mail:
   two_factor_changed:
     subject: "Zwei-Faktor-Anmeldung bei {app} geändert"
     now_off: "ist jetzt aus"
-    now_email: "schickt dir jetzt einen Code per E-Mail"
     now_totp: "fragt dich jetzt nach einem Code aus einer Authenticator-App"
     text: |
       Hallo,
@@ -329,36 +230,6 @@ mail:
       <p>Hallo,</p>
       <p>die Zwei-Faktor-Anmeldung bei {app} <strong>{now}</strong>.</p>
       <p>Alle anderen Geräte wurden abgemeldet. Wenn du diese Änderung nicht vorgenommen hast, war jemand anderes in deinem Konto angemeldet: Melde dich an, nutze auf deinem Profil „Überall sonst abmelden“ und stelle die Zwei-Faktor-Anmeldung wieder zurück.</p>
-  login_code:
-    subject: "Dein {app}-Code zum Anmelden"
-    text: |
-      Hallo,
-
-      dein Code, um die Anmeldung bei {app} abzuschließen:
-
-      {code}
-
-      Er funktioniert 10 Minuten lang. Wenn du nicht versucht hast, dich anzumelden, ändere dein Passwort: Jemand anderes kennt es.
-    html: |
-      <p>Hallo,</p>
-      <p>dein Code, um die Anmeldung bei {app} abzuschließen:</p>
-      <p style="font-size:1.6em;letter-spacing:.15em"><strong>{code}</strong></p>
-      <p>Er funktioniert 10 Minuten lang. Wenn du nicht versucht hast, dich anzumelden, ändere dein Passwort: Jemand anderes kennt es.</p>
-  two_factor_confirm:
-    subject: "Dein {app}-Code zum Ändern der Zwei-Faktor-Anmeldung"
-    text: |
-      Hallo,
-
-      dein Code, um die Zwei-Faktor-Anmeldung bei {app} auszuschalten oder zu ändern:
-
-      {code}
-
-      Er funktioniert 10 Minuten lang. Wenn du ihn nicht angefordert hast, ist jemand anderes in deinem Konto angemeldet: Nutze auf deinem Profil „Überall sonst abmelden“.
-    html: |
-      <p>Hallo,</p>
-      <p>dein Code, um die Zwei-Faktor-Anmeldung bei {app} auszuschalten oder zu ändern:</p>
-      <p style="font-size:1.6em;letter-spacing:.15em"><strong>{code}</strong></p>
-      <p>Er funktioniert 10 Minuten lang. Wenn du ihn nicht angefordert hast, ist jemand anderes in deinem Konto angemeldet: Nutze auf deinem Profil „Überall sonst abmelden“.</p>
   course_share:
     subject: "{owner} hat dir auf {app} einen Kurs geteilt: {title}"
     text: |
@@ -374,11 +245,6 @@ mail:
       <p>Du kannst aus dem Kurs mit deinem eigenen Fortschritt lernen; nur {owner} kann ihn ändern. Falls du noch kein {app}-Konto hast, kannst du über den Link eines erstellen. Wenn du damit nicht gerechnet hast, ignoriere diese Nachricht einfach.</p>
 
 profile:
-  email_no_mail:
-    title: "Nicht bestätigt"
-    text: "Dieser Server kann keine E-Mails senden und daher keinen Link zur Bestätigung deiner Adresse schicken. Alles funktioniert auch ohne."
-    label: "Zu deiner Adresse"
-    ok: "OK"
   title: Profil
   no_name: Lernende
   head:
@@ -407,11 +273,6 @@ profile:
     appear_as_after: ")."
     email_private: Deine E-Mail-Adresse ist nur für dich sichtbar.
     ok: OK
-  email_unverified:
-    title: E-Mail bestätigen
-    text: E-Mail noch nicht bestätigt. Schau in dein Postfach, dort ist der Link.
-    close: Schließen
-    resend: Erneut senden
   nav:
     label: Profilbereiche
     personal: Persönliche Angaben
@@ -426,7 +287,6 @@ profile:
     email: E-Mail-Adresse
     no_email: Keine E-Mail-Adresse hinterlegt
     verified: Bestätigt
-    not_verified: Nicht bestätigt
     language: Sprache
     language_unavailable: Diese Sprache ist nicht verfügbar.
   account:
@@ -473,32 +333,22 @@ profile:
     info: Über die Zwei-Faktor-Authentifizierung
     second_step: Zweiter Anmeldeschritt
     off: "Aus"
-    email: E-Mail
-    email_unverified: E-Mail nicht bestätigt
     totp: Authenticator-App
     save: Speichern
     confirm_title: Bestätige, dass du es bist
     confirm_password_why: "Damit jemand, der diesen angemeldeten Browser benutzt, deinen zweiten Schritt nicht ändern kann, gib das Passwort deines Kontos ein."
     confirm_app_code: Dieses Konto hat kein Passwort, deshalb gib jetzt den Code ein, den deine Authenticator-App anzeigt.
-    confirm_sent_code: Dieses Konto hat kein Passwort, deshalb bestätige mit einem Code aus deinem aktuellen zweiten Schritt.
-    sent_to: "Gesendet an {to}."
-    send_one_first: Sende zuerst einen.
     password: Passwort
     code: Code
     cancel: Abbrechen
-    send_again: Erneut senden
-    send_code: Code senden
     confirm: Bestätigen
     totp_added: "Authenticator-App hinzugefügt am {date}"
     remove: Entfernen
     info_title: Zwei-Faktor-Authentifizierung
-    info_text: "Nach deinem Passwort fragt die Anmeldung nach einem Code: per E-Mail oder angezeigt von einer Authenticator-App wie Google Authenticator. Immer nur eine Methode; wenn du eine andere wählst, ersetzt sie die alte."
-    info_small: E-Mail und SMS brauchen eine bestätigte Adresse bzw. Nummer. Codes gelten 10 Minuten; nach fünf falschen endet die Anmeldung.
+    info_text: "Nach deinem Passwort fragt die Anmeldung nach dem Code, den eine Authenticator-App wie Google Authenticator anzeigt."
+    info_small: Nach fünf falschen Codes endet die Anmeldung.
     ok: OK
-    email_first_title: Bestätige zuerst deine E-Mail
-    email_first_text: E-Mail-Codes brauchen eine bestätigte Adresse. Schau in dein Postfach, dort ist der Link.
     close: Schließen
-    resend: Erneut senden
     totp_title: Authenticator-App hinzufügen
     totp_how: So fügst du die App hinzu
     totp_dev_link: "Dev: zur Dev-Authenticator-App hinzufügen"
@@ -510,7 +360,6 @@ profile:
     turn_off: Zwei-Faktor-Anmeldung ausschalten
     switch_to: "Zwei-Faktor-Anmeldung auf {method} umstellen"
     turn_on_by: "Zwei-Faktor-Anmeldung per {method} einschalten"
-    method_email: E-Mail
     method_totp: Authenticator-App
     is_off: Zwei-Faktor-Anmeldung ist aus.
     is_method: "Zwei-Faktor-Anmeldung: {method}."
@@ -524,8 +373,6 @@ profile:
       other: "Der Code stimmt nicht. Noch {n} Versuche."
     code_wrong_newest: Der Code stimmt nicht. Gib den neuesten Code ein, den die App anzeigt.
     code_gone: Kein Code wartet, oder er ist abgelaufen. Schick einen neuen.
-    too_many_codes: Zu viele Codes gesendet. Warte ein paar Minuten und versuche es erneut.
-    code_not_sent: Der Code konnte nicht gesendet werden. Versuche es gleich noch einmal.
   data:
     title: Deine Daten
     ok: "OK"
@@ -540,7 +387,6 @@ profile:
     password_wrong: Das Passwort stimmt nicht.
     type_email: Gib deine E-Mail-Adresse ein, um zu bestätigen.
     code_app: "Code aus deiner Authenticator-App"
-    code_sent_to: "an {to} geschickt"
   deletion:
     title: "Konto wird gelöscht"
     on: "Dieses Konto wird am {date} endgültig gelöscht."
@@ -550,7 +396,6 @@ profile:
   save:
     not_a_field: Dieses Feld gehört nicht zum Profil.
     motivator_unavailable: "Dieser Motivator ist nicht verfügbar."
-    sent_to: "Gesendet an {email}."
   name:
     too_long: "{label} ist zu lang (maximal {max} Zeichen)."
     bad_chars: "{label} enthält nicht erlaubte Zeichen."
@@ -575,11 +420,7 @@ profile:
 manage:
   title: Benutzer verwalten
   about: "Aktionen für jedes Konto. Nur Eigentümer sehen diese Seite."
-  open_inbox: Im Dev-Postfach öffnen
   email: E-Mail-Adresse
-  reset_note: Markiert die Adresse des Kontos als unbestätigt und sendet einen neuen Bestätigungslink, wie bei der Registrierung.
-  reset: E-Mail-Bestätigung zurücksetzen
-  reset_done: "{email} ist wieder unbestätigt, und ein neuer Bestätigungslink wurde gesendet."
   unknown: "Kein Konto hat die Adresse {email}."
   accounts: "Konten"
   accounts_info: "Über Konten und Registrierung"

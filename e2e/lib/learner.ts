@@ -32,17 +32,16 @@ export function newAccount(prefix: string, worker: string | number = process.env
   return { email: `${prefix}-${stamp}-w${worker}-${++made}-${rand}@example.com`, password: `pw-${Math.random().toString(36).slice(2, 12)}` };
 }
 
-/** Register `account` through /register, sign in (where registering did
- * not), and open `course` on /courses. */
+/** Register `account` through /register (which signs it in) and open
+ * `course` on /courses. */
 export async function register(page: Page, account: Account, course: string): Promise<void> {
-  if (!(await signUp(page, account))) await login(page, account);
+  await signUp(page, account);
   await openCourse(page, course);
 }
 
 /** Fill in and send /register (ticking both boxes).
- * With mail the answer is "check your mail" and nobody is signed in (#379):
- * `false`. In the mini lane (no mail) registering signs in: `true`. */
-export async function signUp(page: Page, account: Account): Promise<boolean> {
+ * Registering signs the new account in. */
+export async function signUp(page: Page, account: Account): Promise<void> {
   await page.goto("/register");
   await page.getByTestId("register-email").fill(account.email);
   await page.getByTestId("register-password").fill(account.password);
@@ -50,12 +49,7 @@ export async function signUp(page: Page, account: Account): Promise<boolean> {
   await page.getByTestId("register-submit").click();
   await page.waitForLoadState("domcontentloaded");
   if (await page.getByTestId("register-error").isVisible()) throw new Error(`registration failed: ${await page.getByTestId("register-error").innerText()}`);
-  if (process.env.E2E_MINI === "1") {
-    await expect(page.getByTestId("nav-account-toggle")).toBeVisible();
-    return true;
-  }
-  await expect(page.getByTestId("register-sent")).toBeVisible();
-  return false;
+  await expect(page.getByTestId("nav-account-toggle")).toHaveAttribute("data-email", account.email);
 }
 
 /**

@@ -24,27 +24,6 @@
   </div>
 </dialog>
 
-{% if !caps.mail %}{% if profile.email.is_some() %}{% if let Some(u) = user %}{% if !u.email_verified %}
-<dialog class="modal" id="no-mail-dialog" aria-labelledby="no-mail-dialog-title" data-testid="email-no-mail-dialog">
-  <h2 id="no-mail-dialog-title">{{ crate::t("profile.email_no_mail.title") }}</h2>
-  <p>{{ crate::t("profile.email_no_mail.text") }}</p>
-  <div class="modal-actions">
-    <button type="button" class="btn" data-closes data-testid="email-no-mail-close">{{ crate::t("profile.email_no_mail.ok") }}</button>
-  </div>
-</dialog>
-{% endif %}{% endif %}{% endif %}{% endif %}
-
-{% if email_needs_confirming() %}
-<dialog class="modal" id="unverified-dialog" aria-labelledby="unverified-dialog-title" data-testid="email-unverified-dialog">
-  <h2 id="unverified-dialog-title">{{ crate::t("profile.email_unverified.title") }}</h2>
-  <p>{{ crate::t("profile.email_unverified.text") }}</p>
-  <div class="modal-actions">
-    <button type="button" class="btn ghost" data-closes data-testid="email-unverified-close">{{ crate::t("profile.email_unverified.close") }}</button>
-    <button type="submit" form="verify-resend-form" class="btn" data-testid="email-verify-resend">{{ crate::t("profile.email_unverified.resend") }}</button>
-  </div>
-</dialog>
-{% endif %}
-
 <div class="profile-layout">
 <nav class="profile-nav" aria-label="{{ crate::t("profile.nav.label") }}" data-testid="profile-nav">
   <ul>
@@ -74,7 +53,7 @@
       <label for="profile-email">{{ crate::t("profile.personal.email") }}</label>
       <span class="field-with-icon">
         <input type="email" id="profile-email" value="{% if let Some(e) = profile.email %}{{ e }}{% endif %}" placeholder="{{ crate::t("profile.personal.no_email") }}" data-testid="profile-email" readonly>
-        {% if profile.email.is_some() %}{% if let Some(u) = user %}{% if u.email_verified %}<span class="field-check" tabindex="0" role="img" aria-label="{{ crate::t("profile.personal.verified") }}" data-tip="{{ crate::t("profile.personal.verified") }}" data-testid="email-verified">✓</span>{% else if !caps.mail %}<button type="button" class="info-btn field-info" data-opens="no-mail-dialog" aria-haspopup="dialog" aria-label="{{ crate::t("profile.email_no_mail.label") }}" data-testid="email-no-mail-info">i</button>{% else %}<button type="button" class="field-check bad" data-opens="unverified-dialog" aria-haspopup="dialog" aria-label="{{ crate::t("profile.personal.not_verified") }}" data-tip="{{ crate::t("profile.personal.not_verified") }}" data-testid="email-unverified">!</button>{% endif %}{% endif %}{% endif %}
+        {% if profile.email.is_some() %}{% if let Some(u) = user %}{% if u.email_verified %}<span class="field-check" tabindex="0" role="img" aria-label="{{ crate::t("profile.personal.verified") }}" data-tip="{{ crate::t("profile.personal.verified") }}" data-testid="email-verified">✓</span>{% endif %}{% endif %}{% endif %}
       </span>
     </div>
     {% let tf = profile.two_factor %}
@@ -88,7 +67,6 @@
       <span class="field-error" id="lang-error" data-testid="profile-lang-error" hidden></span>
     </div>
   </section>
-  <form method="post" action="{{ crate::url("/profile/verify-email/resend") }}" id="verify-resend-form" hidden></form>
 
   <section class="card" id="account">
     <h2>{{ crate::t("profile.account.title") }}</h2>
@@ -148,8 +126,6 @@
     <form method="post" action="{{ crate::url("/profile/two-factor") }}" data-testid="profile-two-factor-form">
       <div class="choice-chips" role="radiogroup" aria-label="{{ crate::t("profile.two_factor.second_step") }}">
         <label class="chip" data-testid="profile-two-factor-method" data-method=""><input type="radio" name="method" value="" class="sr-only"{% if two_factor_method() == "" %} checked{% endif %}> {{ crate::t("profile.two_factor.off") }}</label>
-        {% if email_2fa_offered() %}<span class="chip-alert"><label class="chip" data-testid="profile-two-factor-method" data-method="email"><input type="radio" name="method" value="email" class="sr-only"{% if two_factor_method() == "email" %} checked{% endif %}{% if !email_2fa_ok() %} disabled{% endif %}> {{ crate::t("profile.two_factor.email") }}</label>
-        {% if !email_2fa_ok() %}<button type="button" class="field-check bad inline" data-opens="two-factor-email-dialog" aria-haspopup="dialog" aria-label="{{ crate::t("profile.two_factor.email_unverified") }}" data-testid="profile-two-factor-email-unavailable">!</button>{% endif %}</span>{% endif %}
         <label class="chip" data-testid="profile-two-factor-method" data-method="totp"><input type="radio" name="method" value="totp" class="sr-only"{% if two_factor_method() == "totp" %} checked{% endif %}> {{ crate::t("profile.two_factor.totp") }}</label>
       </div>
       <noscript><button type="submit" class="btn small">{{ crate::t("profile.two_factor.save") }}</button></noscript>
@@ -161,11 +137,8 @@
       <p><strong data-testid="two-factor-confirm-what">{{ confirm_what() }}</strong></p>
       {% if profile.has_password %}
       <p>{{ crate::t("profile.two_factor.confirm_password_why") }}</p>
-      {% else if proof_kind() == "none" %}
-      {% else if confirm_code_sent_by() == "" %}
+      {% else if proof_kind() == "code" %}
       <p>{{ crate::t("profile.two_factor.confirm_app_code") }}</p>
-      {% else %}
-      <p data-testid="two-factor-confirm-sent-why">{{ crate::t("profile.two_factor.confirm_sent_code") }} {% if let Some(to) = confirm_sent %}<span data-testid="two-factor-confirm-sent">{{ crate::t1("profile.two_factor.sent_to", "to", to.as_str()) }}</span>{% else %}{{ crate::t("profile.two_factor.send_one_first") }}{% endif %}</p>
       {% endif %}
       <form method="post" action="{{ confirm_action() }}" id="two-factor-confirm-form" data-testid="two-factor-confirm-form" data-method-action="{{ crate::url("/profile/two-factor") }}" data-remove-action="{{ crate::url("/profile/two-factor/totp/remove") }}">
         <input type="hidden" name="method" value="{{ confirm_method }}" data-testid="two-factor-confirm-method">
@@ -179,15 +152,8 @@
         </label>
         {% endif %}
       </form>
-      {% if !profile.has_password && confirm_code_sent_by() != "" %}
-      <form method="post" action="{{ crate::url("/profile/two-factor/code") }}" id="two-factor-confirm-send-form" hidden>
-        <input type="hidden" name="method" value="{{ confirm_method }}">
-        <input type="hidden" name="remove" value="{% if confirm_remove %}1{% endif %}">
-      </form>
-      {% endif %}
       <div class="modal-actions">
         <button type="button" class="btn ghost" data-closes data-testid="two-factor-confirm-cancel">{{ crate::t("profile.two_factor.cancel") }}</button>
-        {% if !profile.has_password && confirm_code_sent_by() != "" %}<button type="submit" form="two-factor-confirm-send-form" class="btn ghost" data-testid="two-factor-confirm-send">{% if confirm_sent.is_some() %}{{ crate::t("profile.two_factor.send_again") }}{% else %}{{ crate::t("profile.two_factor.send_code") }}{% endif %}</button>{% endif %}
         <button type="submit" form="two-factor-confirm-form" class="btn" data-testid="two-factor-confirm-submit">{{ crate::t("profile.two_factor.confirm") }}</button>
       </div>
     </dialog>
@@ -203,16 +169,6 @@
       <p class="small">{{ crate::t("profile.two_factor.info_small") }}</p>
       <div class="modal-actions"><button type="button" class="btn" data-closes data-testid="profile-two-factor-info-close">{{ crate::t("profile.two_factor.ok") }}</button></div>
     </dialog>
-    {% if email_2fa_offered() && !email_2fa_ok() %}
-    <dialog class="modal" id="two-factor-email-dialog" aria-labelledby="two-factor-email-title" data-testid="profile-two-factor-email-dialog">
-      <h2 id="two-factor-email-title">{{ crate::t("profile.two_factor.email_first_title") }}</h2>
-      <p>{{ crate::t("profile.two_factor.email_first_text") }}</p>
-      <div class="modal-actions">
-        <button type="button" class="btn ghost" data-closes>{{ crate::t("profile.two_factor.close") }}</button>
-        {% if profile.email.is_some() %}<button type="submit" form="verify-resend-form" class="btn" data-testid="profile-two-factor-email-resend">{{ crate::t("profile.two_factor.resend") }}</button>{% endif %}
-      </div>
-    </dialog>
-    {% endif %}
     {% if totp_key.is_some() %}
     <dialog class="modal" id="totp-dialog" aria-labelledby="totp-dialog-title" data-testid="two-factor-totp-dialog"{% if totp_open %} data-open-on-load{% endif %}>
       <h2 id="totp-dialog-title" class="heading-with-info">{{ crate::t("profile.two_factor.totp_title") }} <button type="button" class="info-btn" data-opens="totp-qr-info-dialog" aria-haspopup="dialog" aria-label="{{ crate::t("profile.two_factor.totp_how") }}" data-testid="profile-2fa-totp-qr-info">i</button></h2>
@@ -277,17 +233,13 @@
         <input type="text" name="confirm" data-testid="profile-delete-confirm" maxlength="{{ crate::profile::EMAIL_MAX }}" required autocomplete="off" spellcheck="false">
       </label>
       {% if proof_kind() != "none" %}
-      <label>{% if proof_kind() == "code" %}{{ crate::t("profile.data.code_app") }}{% else %}{{ crate::t("profile.two_factor.code") }}{% if let Some(to) = delete_sent %} <span class="muted small" data-testid="profile-delete-sent">{{ crate::t1("profile.data.code_sent_to", "to", to) }}</span>{% endif %}{% endif %}
+      <label>{{ crate::t("profile.data.code_app") }}
         <input type="text" name="code" inputmode="numeric" pattern="[0-9 ]*" maxlength="9" autocomplete="one-time-code" required data-testid="profile-delete-code">
       </label>
-      {% if proof_kind() == "send" %}<p><button type="submit" form="profile-delete-send-form" class="btn ghost" data-testid="profile-delete-send">{% if delete_sent.is_some() %}{{ crate::t("profile.two_factor.send_again") }}{% else %}{{ crate::t("profile.two_factor.send_code") }}{% endif %}</button></p>{% endif %}
       {% endif %}
       {% endif %}
       <button type="submit" class="btn danger" data-testid="profile-delete-submit">{{ crate::t("profile.data.delete") }}</button>
     </form>
-    {% if proof_kind() == "send" %}
-    <form method="post" action="{{ crate::url("/profile/two-factor/code") }}" id="profile-delete-send-form" hidden><input type="hidden" name="then" value="delete"></form>
-    {% endif %}
     </div>
     {% endif %}
   </section>

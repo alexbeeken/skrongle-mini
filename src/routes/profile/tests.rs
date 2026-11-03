@@ -165,7 +165,6 @@ fn account_changes_need_proof_and_sign_out_other_devices() {
         .with(|c| {
             let ann = crate::auth::create_user(c, "ann@example.org", &hash)?;
             let gil = crate::auth::create_user(c, "gil@example.org", "")?;
-            c.execute("UPDATE users SET email_verified_at = 1 WHERE id IN (?1, ?2)", [ann, gil])?;
             Ok((ann, gil))
         })
         .unwrap();
@@ -197,39 +196,42 @@ fn account_changes_need_proof_and_sign_out_other_devices() {
     // out the other devices and e-mails the account.
     let ann_other = session(ann);
     let method = || state.db.with(|c| crate::two_factor::settings(c, ann)).unwrap().method;
-    assert_eq!(post("/profile/two-factor", &ann_c, &[("method", "email")]).0, 403);
+    let key_of = |u| state.db.with(|c| crate::two_factor::pending_key(c, &state.vault, u)).unwrap().unwrap();
+    let now = || crate::db::now() as u64;
     assert_eq!(post("/profile/two-factor", &ann_c, &[("method", "totp")]).0, 403);
     assert!(!state.db.with(|c| crate::two_factor::settings(c, ann)).unwrap().totp_pending, "no enrolment without the password");
     assert_eq!(method(), None);
-    assert_eq!(post("/profile/two-factor", &ann_c, &[("method", "email"), ("password", "right-password")]).0, 303);
-    assert_eq!(method(), Some(crate::two_factor::Method::Email));
+    let (status, location, _, _) = post("/profile/two-factor", &ann_c, &[("method", "totp"), ("password", "right-password")]);
+    assert_eq!((status, location.as_str()), (303, "/profile?totp=enrol#two-factor"));
+    let key = key_of(ann);
+    assert_eq!(post("/profile/two-factor/totp/confirm", &ann_c, &[("code", &key.code_at(now()))]).0, 303);
+    assert_eq!(method(), Some(crate::two_factor::Method::Totp));
     assert!(alive(&ann_t) && !alive(&ann_other));
     let told: i64 = state.db.with(|c| c.query_row("SELECT COUNT(*) FROM mail_outbox WHERE user_id = ?1 AND purpose = 'two-factor-changed'", [ann], |r| r.get(0))).unwrap();
     assert_eq!(told, 1);
+    assert_eq!(post("/profile/two-factor", &ann_c, &[("method", "email"), ("password", "right-password")]).0, 400, "no e-mailed second step (#10)");
 
     // An account without a password and without a second step has nothing
     // to prove (the proxy that signs it in vouches for it); with one, a
-    // change takes a code from it.
+    // change takes a code from the app.
     let gil_t = session(gil);
     let gil_c = format!("sid={gil_t}");
-    state.db.with(|c| c.execute("UPDATE users SET email_verified_at = 1 WHERE id = ?1", [gil])).unwrap();
-    assert_eq!(post("/profile/two-factor", &gil_c, &[("method", "email")]).0, 303);
+    assert_eq!(post("/profile/two-factor", &gil_c, &[("method", "totp")]).0, 303);
+    let key = key_of(gil);
+    assert_eq!(post("/profile/two-factor/totp/confirm", &gil_c, &[("code", &key.code_at(now()))]).0, 303);
     let gil_method = || state.db.with(|c| crate::two_factor::settings(c, gil)).unwrap().method;
-    assert_eq!(gil_method(), Some(crate::two_factor::Method::Email));
+    assert_eq!(gil_method(), Some(crate::two_factor::Method::Totp));
     assert_eq!(post("/profile/two-factor", &gil_c, &[("method", "")]).0, 403, "turning it off takes a code");
 
-    // With a second step, deleting it takes a code from that step (#376).
+    // With a second step, deleting it takes a code from the app (#376).
     let (status, _, _, body) = post("/profile/delete", &gil_c, &[("confirm", "gil@example.org")]);
     assert_eq!(status, 200);
-    assert!(body.contains("profile-delete-code") && body.contains("profile-delete-send"));
-    let (status, _, _, body) = post("/profile/two-factor/code", &gil_c, &[("then", "delete")]);
-    assert_eq!(status, 200);
-    assert!(body.contains("profile-delete-sent"));
-    let (_, _, code) = state.db.with(|c| crate::two_factor::issue_confirm_code(c, gil, crate::db::now())).unwrap().unwrap();
-    let wrong = if code == "000000" { "111111" } else { "000000" };
-    assert_eq!(post("/profile/delete", &gil_c, &[("confirm", "gil@example.org"), ("code", wrong)]).0, 200);
+    assert!(body.contains("profile-delete-code") && !body.contains("profile-delete-send"));
+    let next = key.code_at(now() + 30);
+    let wrong = (0..).map(|i| format!("{:06}", 100_000 + i)).find(|c| (-2..=2i64).all(|d| key.code_at((now() as i64 + d * 30) as u64) != *c)).unwrap();
+    assert_eq!(post("/profile/delete", &gil_c, &[("confirm", "gil@example.org"), ("code", &wrong)]).0, 200);
     assert!(alive(&gil_t), "not deleted");
-    assert_eq!(post("/profile/delete", &gil_c, &[("confirm", "gil@example.org"), ("code", &code)]).0, 303);
+    assert_eq!(post("/profile/delete", &gil_c, &[("confirm", "gil@example.org"), ("code", &next)]).0, 303);
     assert!(!alive(&gil_t));
 }
 

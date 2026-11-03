@@ -45,12 +45,10 @@ impl Server {
         (r.status().as_u16(), set, loc)
     }
 
-    /// Register and sign in; the session cookie.
+    /// Register (which signs in); the session cookie.
     fn account(&self, email: &str) -> String {
-        let (status, _, _) = self.post("/register", "", &[("email", email), ("password", "long-enough-pw"), ("age", "on")]);
-        assert_eq!(status, 200, "registering shows the check-your-mail page");
-        let (status, cookie, _) = self.post("/login", "", &[("email", email), ("password", "long-enough-pw")]);
-        assert_eq!(status, 303, "signed in");
+        let (status, cookie, _) = self.post("/register", "", &[("email", email), ("password", "long-enough-pw"), ("age", "on")]);
+        assert_eq!(status, 303, "registered and signed in");
         cookie
     }
 

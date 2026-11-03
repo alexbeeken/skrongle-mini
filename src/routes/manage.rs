@@ -2,7 +2,7 @@
 //! `users.owner`). Every account, newest first, all on one page (the
 //! server holds at most `caps::MAX_ACCOUNTS`), with
 //! the actions on one: a temporary password, two-factor off and make
-//! owner (#635, #16, `owner.rs`), reset e-mail verification (#220); and with
+//! owner (#635, #16, `owner.rs`); and with
 //! `SKRONGLE_SIGNUP=invite`, the invitation links (#634, `signup.rs`); and the AI section
 //! (#25): the server's AI API keys, which every account's AI features use
 //! (`secrets.rs`), and the switch that hides those features for everyone
@@ -32,13 +32,8 @@ pub struct ManageTemplate {
     /// What the last action did, or why it could not.
     pub notice: Option<String>,
     pub error: Option<String>,
-    /// Dev mode with the dev mailbox: where a new confirmation link landed.
-    pub inbox: Option<String>,
     /// `SKRONGLE_SIGNUP`: `open`, `invite` or `closed`.
     pub mode: &'static str,
-    /// The server can send e-mail: without it there is no confirmation
-    /// link to send, so Reset email verification is not offered (#633).
-    pub mail: bool,
     /// An invitation link just made: shown this once.
     pub new_link: Option<String>,
     /// A temporary password just set: the account's address and the
@@ -86,9 +81,7 @@ async fn load(state: &AppState, user: CurrentUser) -> Result<ManageTemplate, App
         user: Some(user),
         notice: None,
         error: None,
-        inbox: None,
         mode: state.signup.as_str(),
-        mail: state.caps().mail,
         new_link: None,
         temp_password: None,
         invites: invites.into_iter().map(|i| (i.id, profile::long_date(i.created_at), profile::long_date(i.expires_at))).collect(),
@@ -119,7 +112,7 @@ impl ManageTemplate {
 
 #[derive(Deserialize)]
 pub struct ShowQuery {
-    /// Back from an action: `reset`, `unknown`, `revoked`,
+    /// Back from an action: `unknown`, `revoked`,
     /// `two-factor-off` or `owner`, about `email`;
     /// or `key-removed`, about `provider`; or `ai-off` / `ai-on`.
     pub did: Option<String>,
@@ -135,12 +128,6 @@ pub async fn show(State(state): State<Arc<AppState>>, user: CurrentUser, Query(q
     let mut t = load(&state, user).await?;
     let email = q.email.as_deref().unwrap_or_default();
     match q.did.as_deref() {
-        Some("reset") => {
-            t.notice = Some(crate::t1("manage.reset_done", "email", email));
-            if state.dev_inbox.is_some() {
-                t.inbox = Some(crate::url(&format!("/dev/inbox/latest?to={}", crate::urlenc::urlencode(email))));
-            }
-        }
         Some("unknown") => t.error = Some(crate::t1("manage.unknown", "email", format!("{email:?}"))),
         Some("revoked") => t.notice = Some(crate::t("manage.invite_revoked")),
         Some("two-factor-off") => t.notice = Some(crate::t1("manage.two_factor_off_done", "email", email)),
@@ -169,25 +156,6 @@ pub struct AccountForm {
     pub email: String,
 }
 
-/// POST /manage/reset-email-verification (email=…): the account with
-/// that address is unconfirmed again and gets a new link. Owners only:
-/// anyone else gets a 404.
-pub async fn reset_email_verification(State(state): State<Arc<AppState>>, user: CurrentUser, headers: HeaderMap, Form(form): Form<AccountForm>) -> Result<Response, AppError> {
-    // Without mail there is no link to send: the action is not offered (#633).
-    if !user.owner || !state.caps().mail {
-        return Err(AppError::NotFound);
-    }
-    let email = form.email.trim().to_lowercase();
-    let did = match crate::verify::reset(&state, &headers, &email).await? {
-        Some(target) => {
-            tracing::info!("owner {} reset the e-mail verification of user {target}", user.id);
-            "reset"
-        }
-        None => "unknown",
-    };
-    Ok(done(did, &email))
-}
-
 /// POST /manage/invites: a new invitation link (`SKRONGLE_SIGNUP=invite`),
 /// shown on the page this once; only its hash is kept. Owners only, and
 /// only in invite mode: a 404 otherwise.
@@ -206,7 +174,7 @@ pub async fn make_invite(State(state): State<Arc<AppState>>, user: CurrentUser, 
         return Ok(Page(t).into_response());
     };
     tracing::info!("owner {uid} made an invitation link");
-    let site = crate::verify::public_base(&state, &headers);
+    let site = crate::routes::public_base(&state, &headers);
     let link = format!("{site}/register?invite={token}");
     let mut t = load(&state, user).await?;
     t.new_link = Some(link);

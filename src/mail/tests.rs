@@ -137,9 +137,7 @@ fn texts(db: &Db, id: i64) -> (String, String, String, String) {
 }
 
 fn queue_code(db: &Db, now: i64) -> i64 {
-    let mut m = crate::two_factor::login_mail("ann@example.org", "482913", 1).unwrap();
-    m.user_id = None;
-    assert!(!m.subject.contains("482913"), "the code is in the subject: {}", m.subject);
+    let m = Mail::new("ann@example.org", "Your code", "Your code: 482913", "login-code").unwrap();
     db.with(|c| enqueue(c, &m, now, None)).unwrap().unwrap()
 }
 
@@ -377,53 +375,11 @@ fn smtp_5xx_is_a_rejection_and_no_server_is_unavailable() {
 }
 
 fn verify_mail(to: &str, user: Option<i64>) -> Mail {
-    let m = Mail::new(to, "Confirm", "Link: https://x/verify-email?token=abc", crate::verify::PURPOSE).unwrap();
+    let m = Mail::new(to, "Hello", "Link: https://x/somewhere", "test-other").unwrap();
     match user {
         Some(u) => m.for_user(u),
         None => m,
     }
-}
-
-/// Verification mail to one address is capped per day, whichever
-/// account asks, in any case, and deleting the account does not reset
-/// it; other mail to the address is not counted (#395).
-#[test]
-fn verification_mail_is_capped_per_address_even_across_account_deletion() {
-    let db = Db::open_in_memory().unwrap();
-    let cap = PER_ADDRESS.iter().find(|c| c.purpose == crate::verify::PURPOSE).unwrap();
-    let t0 = 1_000_000;
-    let ann = db.with(|c| crate::auth::create_user(c, "victim@example.org", "x")).unwrap();
-    for i in 0..cap.max {
-        let to = if i % 2 == 0 { "victim@example.org" } else { "Victim@Example.org" };
-        assert!(db.with(|c| enqueue(c, &verify_mail(to, Some(ann)), t0 + i, None)).unwrap().is_ok());
-    }
-    assert_eq!(db.with(|c| enqueue(c, &verify_mail("VICTIM@example.org", Some(ann)), t0 + 10, None)).unwrap(), Err(Capped::Address));
-    // Other purposes and other addresses are not this cap's business.
-    let reset = Mail::new("victim@example.org", "Reset", "t", "password-reset").unwrap();
-    assert!(db.with(|c| enqueue(c, &reset, t0 + 11, None)).unwrap().is_ok());
-    assert!(db.with(|c| enqueue(c, &verify_mail("other@example.org", None), t0 + 12, None)).unwrap().is_ok());
-
-    // Delete the account and register again: still capped. The kept
-    // rows are about no account and have no body.
-    db.with(|c| {
-        keep_for_caps(c, ann, t0 + 20)?;
-        c.execute("DELETE FROM users WHERE id = ?1", [ann])
-    })
-    .unwrap();
-    let (kept, bodies): (i64, i64) = db
-        .with(|c| c.query_row("SELECT COUNT(*), SUM(length(body_text) + length(body_html)) FROM mail_outbox WHERE user_id IS NULL AND purpose = 'email-verify' AND lower(to_addr) = 'victim@example.org'", [], |r| Ok((r.get(0)?, r.get(1)?))))
-        .unwrap();
-    assert_eq!((kept, bodies), (cap.max, 0));
-    let queued: i64 = db.with(|c| c.query_row("SELECT COUNT(*) FROM mail_outbox WHERE user_id IS NULL AND state = 'queued' AND purpose = 'email-verify' AND to_addr LIKE 'victim%'", [], |r| r.get(0))).unwrap();
-    assert_eq!(queued, 0, "a deleted account's mail is not sent");
-    let again = db.with(|c| crate::auth::create_user(c, "victim@example.org", "x")).unwrap();
-    assert_eq!(db.with(|c| enqueue(c, &verify_mail("victim@example.org", Some(again)), t0 + 30, None)).unwrap(), Err(Capped::Address));
-
-    // A day after the first ones, room again; the leftovers are purged after their window.
-    assert!(db.with(|c| enqueue(c, &verify_mail("victim@example.org", Some(again)), t0 + cap.window + 1, None)).unwrap().is_ok());
-    assert_eq!(db.with(|c| purge(c, t0 + cap.window + cap.max)).unwrap() as i64, cap.max);
-    let left: i64 = db.with(|c| c.query_row("SELECT COUNT(*) FROM mail_outbox WHERE user_id IS NULL AND purpose = 'email-verify' AND to_addr LIKE 'victim%'", [], |r| r.get(0))).unwrap();
-    assert_eq!(left, 0);
 }
 
 fn due_at(db: &Db, id: i64) -> (i64, i64) {
@@ -446,20 +402,6 @@ fn over_the_hourly_ceiling_mail_waits_for_the_next_hour() {
     let due: Vec<i64> = ids.iter().map(|&id| due_at(&db, id).0).collect();
     assert_eq!(due, [t0, t0 + 1, t0 + 2, 1001 * hour, 1001 * hour, 1001 * hour, 1002 * hour]);
     assert_eq!(due_at(&db, ids[3]), (1001 * hour, 1001 * hour), "scheduled_at is the hour it counts against");
-
-    // A sign-in code has its own budget: verification mail does not hold it back.
-    let code = |i: i64| crate::two_factor::login_mail(&format!("u{i}@example.org"), "123456", 1).unwrap();
-    let code_mail = |i: i64| {
-        let mut m = code(i);
-        m.user_id = None;
-        m
-    };
-    for i in 0..3 {
-        let id = db.with(|c| enqueue(c, &code_mail(i), t0 + 10, ceiling)).unwrap().unwrap();
-        assert_eq!(due_at(&db, id).0, t0 + 10, "due now");
-    }
-    // Over its own budget a code is not queued: it would have expired by the next hour.
-    assert_eq!(db.with(|c| enqueue(c, &code_mail(9), t0 + 11, ceiling)).unwrap(), Err(Capped::Hourly));
 
     // Only so far ahead: with every hour it may wait for full, the message is not queued.
     let full = Some(Ceiling { per_window: 1, window: hour });

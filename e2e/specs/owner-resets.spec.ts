@@ -11,7 +11,6 @@ test("an owner sets a temporary password; the learner signs in with it and must 
   const them = await (await browser.newContext()).newPage();
   const a = newAccount("temp-pw");
   await signUp(them, a);
-  await login(them, a); // registering signs nobody in (#379)
 
   // The account menu links an owner to the page; the profile lists no accounts.
   await devLogin(page);
@@ -73,7 +72,6 @@ test("an owner turns off another account's two-factor; others get 404", async ({
   const them = await (await browser.newContext()).newPage();
   const a = newAccount("twofa-off");
   await signUp(them, a);
-  await login(them, a); // registering signs nobody in (#379)
   // Not an owner: no link in the menu, and the page and its actions answer 404.
   await them.goto("/profile");
   await them.getByTestId("nav-account-toggle").click();
@@ -87,6 +85,8 @@ test("an owner turns off another account's two-factor; others get 404", async ({
   await devLogin(page);
   await page.goto("/manage");
   const row = page.getByTestId("manage-account-row").filter({ hasText: a.email.toLowerCase() });
+  // No "Reset email verification": nothing confirms an address any more (#10).
+  await expect(row.getByTestId("manage-account-reset-verification")).toHaveCount(0);
   await row.getByTestId("manage-account-two-factor-off").click();
   const dialog = page.getByTestId("manage-two-factor-dialog");
   await expect(dialog).toContainText(a.email.toLowerCase());

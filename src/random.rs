@@ -8,12 +8,6 @@ pub fn fill(buf: &mut [u8]) {
     getrandom::fill(buf).expect("the operating system's random source failed"); // panic-ok: a failing OS random source (no /dev/urandom) is not recoverable, and `OsRng` aborted on it too
 }
 
-pub fn u32() -> u32 {
-    let mut b = [0u8; 4];
-    fill(&mut b);
-    u32::from_ne_bytes(b)
-}
-
 pub fn u64() -> u64 {
     let mut b = [0u8; 8];
     fill(&mut b);

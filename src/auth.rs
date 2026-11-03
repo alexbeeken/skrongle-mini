@@ -188,11 +188,6 @@ impl CurrentUser {
         if self.ai_off { Err(AppError::ApiAiOff) } else { Ok(()) }
     }
 
-    /// Has an address that is not confirmed yet: the dashboard says so.
-    pub fn needs_email_confirmation(&self) -> bool {
-        !self.email_verified && !self.email.is_empty()
-    }
-
     /// First name if known, else "Learner": for greetings and the top bar.
     pub fn short_name(&self) -> String {
         crate::profile::short_name(&self.first_name)

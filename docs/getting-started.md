@@ -5,9 +5,8 @@ of the app practises the same lessons.
 
 ## First steps
 
-1. Register with your e-mail address. There are no usernames. Confirm the address from the
-   link in the e-mail it sends; until then a red ! by your e-mail on the
-   profile can send the link again.
+1. Register with your e-mail address. There are no usernames. Registering
+   signs you in.
 2. On *What would you like to learn?* (`/courses`) pick a ready-made course
    (Spanish and French ship with the app), or *Create a course* of your own, by hand
    or [with AI](making-courses).

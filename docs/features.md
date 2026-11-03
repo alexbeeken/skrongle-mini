@@ -800,7 +800,9 @@ the owner opening their own link, from an inbox say, takes nothing and lands
 on the Share dialog), and any account whose **confirmed** e-mail address is the invited one, link
 or no link, so a learner who already has an account with that address finds
 the course on their list as soon as it is shared. An unconfirmed address does
-not count: anyone can register with someone else's address.
+not count: anyone can register with someone else's address. Nothing
+confirms an address by e-mail (#10); only an account a signing-in proxy
+made (the proxy vouched for it) and the dev user count as confirmed.
 
 For the recipient the course is **read only**: it is on their course list
 (under *Shared with you* until opened, then under *Your projects*) with a
@@ -1847,13 +1849,6 @@ keys). The password dialog and account deletion keep their explicit buttons. The
     which carries the token. Existing accounts always sign
     in. Under `closed` an invitation never works. Rate limits are as for
     any registration.
-  - **Reset email verification** (`POST /manage/reset-email-verification`,
-    the third row action): the account is marked unconfirmed again and sent
-    a new confirmation link, exactly as at registration; links sent before
-    stop working. The notice says so (`No account has the address …` when
-    none does) and, with the dev mailbox, links to the new message.
-    The log records which owner reset which account. Signing in through
-    `/dev/login` confirms the dev user again.
 
 Each AI form says where the learner's words go (`data-testid="ai-disclosure"`):
 "Your notes are sent to your AI provider using your key." on *Generate* and
@@ -1870,115 +1865,32 @@ the form without it. The answer is stored as `users.age_confirmed` (a
 boolean, never a birth date). Every e-mail the server sends has `Reply-To:`
 the support address (`SKRONGLE_SUPPORT_EMAIL`, #1328).
 
-## Registration and password reset
+## Registration
 
 `/register` (e-mail address, password, the
-[age box](#age-confirmation)) never says whether an address has
-an account (#379, `src/reset.rs`):
+[age box](#age-confirmation)) makes the account and signs it in
+at once, then goes home (or on to the course a share link was for). An
+address that already has an account is refused on the form ("An account
+with that e-mail address already exists"); nothing is made. Form mistakes
+(a missing box, a short password, a malformed address) come back on the
+form too. Nothing is mailed and the address is not confirmed by a link:
+there is no e-mail verification (#10).
 
-- **The answer** to a valid form is always the same page, "Check your mail"
-  (`register-sent`, with the address typed and a *Sign in* button,
-  `register-sent-login`). Registering does not sign in: the learner signs
-  in on `/login` with the password they chose (confirmed or not). The
-  password is hashed (argon2) whatever happens next, so the answer takes as
-  long either way. Form mistakes (a missing box, a short password, a
-  malformed address) still come back on the form.
-- **A new address**: the account is made and the
-  [confirmation link](#e-mail-verification) is sent.
-- **An address that has an account**: nothing is made or changed. The
-  address is sent "You already have a Skrongle account" (outbox purpose
-  `register-taken`, at most 3 per address per hour) with a link to sign in
-  and one to `/reset`.
-- **An unconfirmed account old enough**: a password account whose address
-  was never confirmed, made `SKRONGLE_UNCONFIRMED_DAYS` (default 7; `0` never)
-  days or more ago, gives the
-  address up: registering it again deletes that account and everything in
-  it (`privacy::delete_account`, as *Delete account* does) and makes the new
-  one. Nobody can hold an address they cannot read.
-- **Not in Skrongle mini.** All of this hides behind a mail, so without a
-  mail provider (`caps().mail`, #633) `/register` works as before: it says
-  when an address has an account, signs the new account in at once and
-  replaces no account. `/reset` is a 404 there and the login page has no
-  *Forgot your password?* link; the owner sets a temporary password
-  instead (the Manage Users page, under [Profile](#profile)).
-
-**Password reset** (`/reset`, linked from the login page as *Forgot your
-password?*, `login-reset-link`):
-
-- **Asking** (`reset-email`, `reset-submit`): the page always says "If
-  that address has an account, a link was sent" (`reset-sent`). An account
-  gets a message (outbox purpose
-  `password-reset`) with `<SKRONGLE_PUBLIC_URL or the request's host>/reset?token=…`.
-  At most 3 links per address and 10 requests per network per hour; past
-  the address's limit nothing is sent and the page says the same.
-- **The link**: 32 random bytes, hex; only the SHA-256 is stored, in
-  `password_resets`. It works once, for an hour, and only while the account
-  still has the address it was sent to; a new link voids the unused older
-  ones. It opens a form for the new password (`reset-password`,
-  `reset-save`) naming the account (`reset-account`); a used, expired or
-  unknown link gets `reset-invalid` with *Send a new link*.
-- **Saving** sets the password, confirms the address (the link proved it is
-  read), ends every session of the account (this browser's too) and shows
-  "Your password is changed" (`reset-done`). It signs nobody in, so
-  [two-factor sign-in](#two-factor-sign-in) still applies at the next login.
-  New passwords tried with links: 10 per network per 10 minutes.
-- **Dev mode**: both messages are in the dev mailbox (`/dev/inbox`) and the
-  reset link is logged at `info`. Rows are deleted 7 days after they were
-  made (hourly housekeeping).
-
-## E-mail verification
-
-A link proves the learner owns the address the account signs in with
-(`src/verify.rs`). Only [two-factor sign-in](#two-factor-sign-in) is gated
-on it (e-mail codes need a confirmed address); login, registration,
-learning and the rest of the profile work the same confirmed or not
-(`CurrentUser::email_verified`), except that an account never confirmed
-gives its address up to a new registration after `SKRONGLE_UNCONFIRMED_DAYS`
-(see [Registration and password reset](#registration-and-password-reset)).
-
-- **When a link is sent** (outbox purpose `email-verify`, through
-  `Mailer::queue`): right after registering with e-mail and password; when a
-  owner resets the account's verification (the Manage Users page, it starts
-  unconfirmed again); and on *Send the e-mail again*
-  (`POST /profile/verify-email/resend`, 5 per account per hour, past that it
-  silently sends nothing).
-- **The link** is `<SKRONGLE_PUBLIC_URL or the request's host>/verify-email?token=…`:
-  32 random bytes, hex; only the SHA-256 is stored, in
-  `email_verifications`. It works once, for 24 hours, and only while the
-  account still has the address it was sent to; a new link voids the unused
-  older ones. Opening it (signed in or not, in any browser) sets
-  `users.email_verified_at` and shows "Your e-mail address is confirmed";
-  it signs nobody in. A used, expired or unknown link gets a neutral page,
-  with *Send a new link* when signed in.
-- **Where it shows**: inside the profile's address field, a green check
-  (`email-verified`, "Verified" on hover) or a red ! (`email-unverified`)
-  that opens a dialog, "Email not yet verified. Check your inbox for the
-  link.", with *Resend* (`email-verify-resend`). No other page mentions it.
-- **Without mail** (#633, no `SKRONGLE_MAIL_PROVIDERS` outside dev mode): no
-  link is issued or queued (`verify::send` logs and returns), the address
-  field shows an (i) (`email-no-mail-info`) whose dialog says the server
-  cannot send mail, in place of the red ! and *Resend*; *Send the e-mail
-  again* and the owner's reset are not offered.
-- **Dev mode**: the message, link included, is on `/dev/mail` (a page in a
-  browser, JSON for scripts) and the link is logged at `info`; the dev user
-  is confirmed. Rows are deleted 7 days after they were made (hourly
-  housekeeping); existing accounts start unconfirmed.
+A forgotten password has no reset link: the owner sets a temporary
+password on the Manage Users page (under [Profile](#profile)), which the
+learner changes at the next sign-in.
 
 ## Two-factor sign-in
 
 After the password an account can be asked for
-a code too (#292, `src/two_factor.rs`). One method at a time
-(`users.two_factor`), chosen on the profile's **Two-factor authentication**
-card (`profile-two-factor[data-method]`, chips `profile-two-factor-method[data-method]`
-for Off, E-mail and Authenticator app; picking one posts
-`POST /profile/two-factor` and the page comes back saying what is on).
-Choosing another method replaces the one in use.
-
-**Only what the server can send** (#633). Without a mail provider the
-E-mail chip is left out; the authenticator app needs none. Posting such a method anyway is refused (422) with a
-message naming the setting. An account already on a method whose channel
-the server has lost cannot sign in: after the password the
-login page comes back (403) saying so and naming `SKRONGLE_MAIL_PROVIDERS`; no code is made.
+a code from an authenticator app too (#292, `src/two_factor.rs`;
+`users.two_factor` is `totp` or empty). It is turned on and off on the
+profile's **Two-factor authentication** card
+(`profile-two-factor[data-method]`, chips `profile-two-factor-method[data-method]`
+for Off and Authenticator app; picking one posts `POST /profile/two-factor`
+and the page comes back saying what is on). There is no code by e-mail
+(#10): posting `method=email` is a 400, and an account whose
+`users.two_factor` still says `email` signs in with its password alone.
 
 **Every change asks who it is** (#374). Choosing Off, another method or,
 with it off, any method (or the app's *Remove*) opens *Confirm it's you*
@@ -1988,21 +1900,14 @@ with it off, any method (or the app's *Remove*) opens *Confirm it's you*
 checked on the server like `/login` (10 tries per account per 15 minutes;
 wrong ones count against the sign-in limit). A missing or wrong password is
 refused (403) with the dialog open again and `two-factor-confirm-error`.
-An account without a password (signed in through a proxy) types a code from its current
-method instead (`two-factor-confirm-code`): the authenticator's, or one
-e-mailed by *Send code* (`two-factor-confirm-send`,
-`POST /profile/two-factor/code`, purpose `two-factor-confirm`, 10 minutes,
-five tries, 5 sends per 15 minutes). One with it off has nothing to type:
+An account without a password (signed in through a proxy) types the
+authenticator's code instead (`two-factor-confirm-code`). One with it off has nothing to type:
 *Confirm* makes the change. Once made, every other session of the account ends and the
 account's address is e-mailed (purpose `two-factor-changed`), so an
 owner whose session someone else used hears of it. Recovery codes are not
 offered yet. Without JavaScript the chips post with *Save* and the page
 comes back with the dialog shown as a form.
 
-- **E-mail**: a 6-digit code e-mailed to the account's address (outbox
-  purpose `login-code`). Not offered until the address is
-  [confirmed](#e-mail-verification): the chip is disabled, with a red !
-  (`profile-two-factor-email-unavailable`) whose dialog has *Resend*.
 - **Authenticator app** (Google Authenticator and the like; RFC 6238 TOTP,
   SHA-1, 6 digits, 30 s, `src/totp.rs`): picking it starts the set-up, a
   dialog (`two-factor-totp-dialog`) with a QR code of the
@@ -2017,25 +1922,21 @@ comes back with the dialog shown as a form.
   The app's first code (`two-factor-totp-code`, *Turn on*) makes it the
   method. One app per account; *Remove* (`profile-two-factor-totp-remove`)
   forgets it and turns two-factor sign-in off (so it asks for the password
-  like Off). The app's secret is stored encrypted, like the AI API keys. Leaving it for another
-  method removes it too: its secret is not kept unused.
+  like Off). The app's secret is stored encrypted, like the AI API keys.
+  Turning two-factor sign-in off removes it too: its secret is not kept unused.
 - **Signing in**: once the password is right, an account with a
   method gets no session yet but a `twofa` cookie (10 minutes) naming a
   challenge, and `/login/code` (`login-code[data-method]`) asks for the
-  code (`login-code-input`, `login-code-submit`), saying where it went
-  (`login-code-sent-to`: `a•••@example.org`, or the app).
-  *Send a new code* (`login-code-resend`, 5 per account per 15 minutes) and
-  *Cancel* (`login-code-cancel`). The session is made only after the right
-  code. In dev mode a small window floats at the bottom (`login-code-dev`)
-  framing [the dev device the code went to](testing#two-factor-sign-in-the-dev-device):
-  this sign-in's mail or authenticator entry, each with a *Use*
-  button that types the code.
-- **The rules**: an e-mailed code works for 10 minutes and five
+  code (`login-code-input`, `login-code-submit`; `login-code-sent-to`
+  says it is the app's), with *Cancel* (`login-code-cancel`). The session
+  is made only after the right code. In dev mode a small window floats at
+  the bottom (`login-code-dev`) framing
+  [the dev device](testing#two-factor-sign-in-the-dev-device): this
+  sign-in's dev authenticator entry, with a *Use* button that types the code.
+- **The rules**: a sign-in waits 10 minutes for its code and allows five
   tries (`login-code-error` says how many are left; the fifth wrong one ends
-  the sign-in); a new code voids the old one but keeps the tries already
-  used (five per sign-in, not per code). Codes are stored only as
-  SHA-256 with a random salt and the cookie's token, itself stored only as
-  its SHA-256. An authenticator code is taken one step (30 s) either side of
+  the sign-in). The cookie's token is stored only as its SHA-256. An
+  authenticator code is taken one step (30 s) either side of
   now, and each step only once, so a code seen over a shoulder cannot be
   replayed. Wrong codes count towards the sign-in limits like wrong
   passwords. There is no "remember this device": every sign-in asks.

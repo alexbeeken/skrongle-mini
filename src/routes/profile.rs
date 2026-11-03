@@ -7,7 +7,7 @@
 
 use askama::Template;
 use axum::extract::{Query, State};
-use axum::http::{HeaderMap, StatusCode};
+use axum::http::StatusCode;
 use axum::response::{IntoResponse, Redirect, Response};
 use axum::{Form, Json};
 use serde::Deserialize;
@@ -44,18 +44,13 @@ pub struct ProfileTemplate {
     /// The enrolment under way, decrypted only when its dialog opens.
     pub totp_key: Option<crate::totp::Key>,
     /// The "confirm it's you" dialog (turning two-factor off or switching
-    /// it): open on load after a refusal or a code sent, the method asked
-    /// for (`''` off), whether it came from the app's Remove, why it was
-    /// refused, and where a code went (a Google-only account).
+    /// it): open on load after a refusal, the method asked for (`''` off),
+    /// whether it came from the app's Remove, and why it was refused.
     pub confirm_open: bool,
     pub confirm_method: String,
     pub confirm_remove: bool,
     pub confirm_error: Option<String>,
-    pub confirm_sent: Option<String>,
-    /// Deleting an account without a password: where its code went.
-    pub delete_sent: Option<String>,
-    /// What this server can send (#633): without mail no confirmation
-    /// link or e-mailed codes.
+    /// What this server can send (#633).
     pub caps: crate::Caps,
 }
 
@@ -67,35 +62,19 @@ impl ProfileTemplate {
     }
 
     /// How this account proves it is its owner (`prove_owner`): `password`;
-    /// an account without one a `code` from its app, one it is `send`
-    /// (e-mailed), or, without a second step, `none`.
+    /// an account without one a `code` from its app, or, without a second
+    /// step, `none`.
     pub fn proof_kind(&self) -> &'static str {
         match (self.profile.has_password, self.profile.two_factor.method) {
             (true, _) => "password",
             (false, Some(crate::two_factor::Method::Totp)) => "code",
-            (false, Some(_)) => "send",
             (false, None) => "none",
         }
     }
 
-    /// `''` (off), `email` or `totp`.
+    /// `''` (off) or `totp`.
     pub fn two_factor_method(&self) -> &'static str {
         self.profile.two_factor.method.map(crate::two_factor::Method::as_str).unwrap_or("")
-    }
-
-    pub fn email_2fa_ok(&self) -> bool {
-        self.profile.two_factor.refusal(crate::two_factor::Method::Email).is_none()
-    }
-
-    /// Is the method offered at all? Not when its channel is off (#633).
-    pub fn email_2fa_offered(&self) -> bool {
-        self.caps.mail
-    }
-
-    /// The e-mail field's red ! (confirm your address): only on a server
-    /// that can send the link.
-    pub fn email_needs_confirming(&self) -> bool {
-        self.caps.mail && self.user.as_ref().is_some_and(|u| u.needs_email_confirmation())
     }
 
     /// When the authenticator app was set up, if it is.
@@ -119,15 +98,6 @@ impl ProfileTemplate {
             (true, _) | (false, None) => crate::t("profile.two_factor.turn_off"),
             (false, Some(m)) if self.profile.two_factor.method.is_none() => crate::t1("profile.two_factor.turn_on_by", "method", method_label(m)),
             (false, Some(m)) => crate::t1("profile.two_factor.switch_to", "method", method_label(m)),
-        }
-    }
-
-    /// A Google-only account proves it with a code: from the app, or one
-    /// sent by the current method (`email`).
-    pub fn confirm_code_sent_by(&self) -> &'static str {
-        match self.profile.two_factor.method {
-            Some(crate::two_factor::Method::Email) => "email",
-            _ => "",
         }
     }
 
@@ -176,7 +146,6 @@ async fn load_profile(state: &AppState, user: &CurrentUser) -> Result<Profile, A
 
 fn page(state: &AppState, user: CurrentUser, p: Profile) -> ProfileTemplate {
     ProfileTemplate {
-        delete_sent: None,
         display_name: profile::display_name(&p.first_name, &p.last_name),
         public_name: profile::public_name(&p.first_name, &p.last_name),
         member_since: profile::member_since(p.created_at),
@@ -192,7 +161,6 @@ fn page(state: &AppState, user: CurrentUser, p: Profile) -> ProfileTemplate {
         confirm_method: String::new(),
         confirm_remove: false,
         confirm_error: None,
-        confirm_sent: None,
         caps: state.caps(),
         dev: state.dev,
         delete_error: None,
@@ -209,7 +177,6 @@ pub async fn show(
     let mut t = page(&state, user, p);
     t.notice = match q.saved.as_deref() {
         Some("password") => Some(crate::t("profile.password.changed")),
-        Some("verify-sent") if t.user.as_ref().is_some_and(|u| u.needs_email_confirmation()) => Some(crate::t1("profile.save.sent_to", "email", t.profile.email.as_deref().unwrap_or_default())),
         Some("two-factor") => Some(match t.profile.two_factor.method {
             None => crate::t("profile.two_factor.is_off"),
             Some(m) => crate::t1("profile.two_factor.is_method", "method", method_label(m)),
@@ -290,36 +257,10 @@ pub async fn save(
     Ok(Json(serde_json::json!({ "display_name": profile::display_name(&p.first_name, &p.last_name) })).into_response())
 }
 
-/// POST /profile/verify-email/resend: a new confirmation link for the
-/// account's address. Past [`crate::security::VERIFY_RESEND_PER_USER`] (in
-/// memory, per account) or the address's daily share of verification mail
-/// ([`crate::mail::PER_ADDRESS`], persisted, whichever account asks; #395) it
-/// sends nothing but says the same, so the form cannot be used to flood an inbox.
-pub async fn resend_verification(
-    State(state): State<Arc<AppState>>,
-    user: CurrentUser,
-    headers: HeaderMap,
-) -> Result<Response, AppError> {
-    // No mail on this server: there is no link to send again (#633).
-    if !state.caps().mail {
-        return Ok(Redirect::to(&crate::url("/profile")).into_response());
-    }
-    if user.needs_email_confirmation() {
-        if state.limits.hit(crate::security::VERIFY_RESEND_PER_USER, &user.id.to_string(), crate::db::now()) {
-            crate::verify::send(&state, &headers, user.id, &user.email).await?;
-            tracing::info!("user {} asked for a new verification e-mail", user.id);
-        } else {
-            tracing::warn!("verification e-mail rate limit hit for user {}", user.id);
-        }
-    }
-    Ok(Redirect::to(&crate::url("/profile?saved=verify-sent")).into_response())
-}
-
 // ---------- two-factor sign-in (two_factor.rs) ----------
 
 fn method_label(m: crate::two_factor::Method) -> String {
     match m {
-        crate::two_factor::Method::Email => crate::t("profile.two_factor.method_email"),
         crate::two_factor::Method::Totp => crate::t("profile.two_factor.method_totp"),
     }
 }
@@ -344,11 +285,11 @@ async fn pending_totp_key(state: &AppState, uid: i64) -> Result<Option<crate::to
 
 #[derive(Deserialize)]
 pub struct MethodForm {
-    /// `''` (off), `email` or `totp`.
+    /// `''` (off) or `totp`.
     #[serde(default)]
     pub method: String,
     /// Turning two-factor off or switching it: the account's password, or
-    /// (a Google-only account) a code from the current second step.
+    /// (an account without one) a code from the app.
     #[serde(default)]
     pub password: String,
     #[serde(default)]
@@ -416,13 +357,12 @@ async fn prove_owner(state: &AppState, user: &CurrentUser, password: &str, code:
 }
 
 /// The profile again with the confirm dialog open.
-async fn confirm_again(state: &AppState, user: CurrentUser, status: StatusCode, method: String, remove: bool, error: Option<String>, sent: Option<String>) -> Result<Response, AppError> {
+async fn confirm_again(state: &AppState, user: CurrentUser, status: StatusCode, method: String, remove: bool, error: Option<String>) -> Result<Response, AppError> {
     profile_with(state, user, status, move |t| {
         t.confirm_open = true;
         t.confirm_method = method;
         t.confirm_remove = remove;
         t.confirm_error = error;
-        t.confirm_sent = sent;
     })
     .await
 }
@@ -461,19 +401,11 @@ pub async fn set_two_factor(
     let method = parse_method(&f.method)?;
     let uid = user.id;
     let current = state.db.call(move |c| two_factor::settings(c, uid)).await?;
-    // A method whose channel this server lacks is not offered (#633).
-    if let Some(m) = method.filter(|m| !two_factor::channel_on(*m, state.caps())) {
-        return profile_with(&state, user, StatusCode::UNPROCESSABLE_ENTITY, |t| t.two_factor_error = Some(two_factor::channel_off_text(m))).await;
-    }
-    // A method that can't be chosen yet is refused before asking for anything.
-    if let Some(why) = method.filter(|m| *m != Method::Totp).and_then(|m| current.refusal(m)) {
-        return profile_with(&state, user, StatusCode::UNPROCESSABLE_ENTITY, |t| t.two_factor_error = Some(why.into())).await;
-    }
     if !two_factor::needs_proof(current.method, method) {
         return Ok(Redirect::to(&crate::url("/profile?saved=two-factor#two-factor")).into_response());
     }
     if let Some((status, why)) = prove_owner(&state, &user, &f.password, &f.code).await? {
-        return confirm_again(&state, user, status, f.method, false, Some(why), None).await;
+        return confirm_again(&state, user, status, f.method, false, Some(why)).await;
     }
     if method == Some(Method::Totp) && current.totp_since.is_none() {
         let vault = state.vault.clone();
@@ -489,63 +421,6 @@ pub async fn set_two_factor(
         }
         Err(why) => profile_with(&state, user, StatusCode::UNPROCESSABLE_ENTITY, |t| t.two_factor_error = Some(why.into())).await,
     }
-}
-
-#[derive(Deserialize)]
-pub struct ConfirmCodeForm {
-    #[serde(default)]
-    pub method: String,
-    /// `1`: the dialog was opened by the app's Remove.
-    #[serde(default)]
-    pub remove: String,
-    /// `delete`: the code is for deleting the account (#376).
-    #[serde(default)]
-    pub then: String,
-}
-
-/// The page after a confirm code was asked for: the two-factor dialog
-/// open again, or the delete form with where the code went.
-async fn code_sent_page(state: &AppState, user: CurrentUser, f: ConfirmCodeForm, status: StatusCode, error: Option<String>, sent: Option<String>) -> Result<Response, AppError> {
-    if f.then == "delete" {
-        return profile_with(state, user, status, move |t| {
-            t.delete_error = error;
-            t.delete_sent = sent;
-        })
-        .await;
-    }
-    confirm_again(state, user, status, f.method, f.remove == "1", error, sent).await
-}
-
-/// POST /profile/two-factor/code (method, remove | then=delete): a
-/// Google-only account (no password) asks for a code from its current
-/// e-mailed second step, to change two-factor sign-in or delete
-/// the account. Limited like a sign-in's "Send a new code"; the page comes
-/// back with the dialog (or the delete form) waiting for it.
-pub async fn send_confirm_code(State(state): State<Arc<AppState>>, user: CurrentUser, Form(f): Form<ConfirmCodeForm>) -> Result<Response, AppError> {
-    use crate::two_factor::{self, Method};
-    parse_method(&f.method)?;
-    let (uid, now) = (user.id, crate::db::now());
-    if !state.limits.hit(crate::security::TWO_FACTOR_SEND_PER_USER, &uid.to_string(), now) {
-        tracing::warn!("two-factor confirm code limit hit for user {uid}");
-        return code_sent_page(&state, user, f, StatusCode::TOO_MANY_REQUESTS, Some(crate::t("profile.two_factor.too_many_codes")), None).await;
-    }
-    let Some((method, to, code)) = state.db.call(move |c| two_factor::issue_confirm_code(c, uid, now)).await? else {
-        return Ok(Redirect::to(&crate::url("/profile#two-factor")).into_response());
-    };
-    let sent = match method {
-        Method::Email => match two_factor::confirm_mail(&to, &code, uid) {
-            Ok(mail) => state.mail.queue(&state.db, mail).await.map(|_| ()).map_err(|e| format!("{e:?}")),
-            Err(e) => Err(e),
-        },
-        Method::Totp => Ok(()),
-    };
-    if let Err(e) = sent {
-        tracing::warn!("could not send user {uid} a two-factor confirm code: {e}");
-        return code_sent_page(&state, user, f, StatusCode::SERVICE_UNAVAILABLE, Some(crate::t("profile.two_factor.code_not_sent")), None).await;
-    }
-    tracing::info!("user {uid} asked for a code to confirm an account change");
-    let sent = two_factor::masked(method, &to);
-    code_sent_page(&state, user, f, StatusCode::OK, None, Some(sent)).await
 }
 
 /// POST /profile/two-factor/totp/confirm (code): the app's first code
@@ -602,7 +477,7 @@ pub async fn remove_totp(
     let in_use = current.method == Some(crate::two_factor::Method::Totp);
     if in_use {
         if let Some((status, why)) = prove_owner(&state, &user, &f.password, &f.code).await? {
-            return confirm_again(&state, user, status, String::new(), true, Some(why), None).await;
+            return confirm_again(&state, user, status, String::new(), true, Some(why)).await;
         }
     }
     state.db.call(move |c| crate::two_factor::totp_remove(c, uid)).await?;

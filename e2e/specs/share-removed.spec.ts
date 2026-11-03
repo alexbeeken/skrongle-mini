@@ -21,7 +21,7 @@ test("the share removed mid-Sprint: the page goes to the course list instead of 
   await page.getByTestId("generate-close").click();
   const friend = newAccount("share-removed");
   const guest = await (await browser.newContext()).newPage();
-  if (!(await signUp(guest, friend))) await login(guest, friend);
+  await signUp(guest, friend);
   await page.goto(`/courses/${id}?share=1`);
   const dialog = page.getByTestId("course-share");
   await dialog.getByTestId("course-share-emails").fill(friend.email);
