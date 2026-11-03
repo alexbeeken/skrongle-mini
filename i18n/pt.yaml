@@ -677,6 +677,7 @@ profile:
     export_gone: "Esse link de download já foi usado, expirou ou é de outra conta."
     delete_title: Excluir conta
     delete_about: "Excluímos sua conta 14 dias depois do pedido, ou quando terminar o tempo pago de uma assinatura cancelada, se for mais tarde. Isso exclui seu progresso, seus cursos e chaves salvas. Até lá você fica desconectado, e pode entrar de novo para cancelar."
+    delete_owner: "Você administra este Skrongle, então sua conta não pode ser excluída aqui."
     your_password: Sua senha
     confirm_before: Digite seu endereço de e-mail (
     confirm_after: ) para confirmar

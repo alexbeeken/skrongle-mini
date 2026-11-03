@@ -677,6 +677,7 @@ profile:
     export_gone: 该下载链接已被使用、已过期，或属于另一个账户。
     delete_title: 删除账户
     delete_about: "我们会在你提出请求 14 天后删除你的账户；如果已取消的订阅付费期结束得更晚，则在那时删除。届时你的学习进度、课程和已保存的密钥都会被删除。在此之前你会被登出，重新登录即可取消。"
+    delete_owner: "你在运行这个 Skrongle，所以无法在此删除你的账户。"
     your_password: 你的密码
     confirm_before: 请输入你的电子邮箱地址（
     confirm_after: "）以确认"

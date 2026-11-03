@@ -1785,7 +1785,9 @@ keep their explicit buttons. The page needs JavaScript.
   `account-deletion-logout`; API routes answer 403), and the account's
   shared courses are hidden from their recipients meanwhile. The hourly
   `housekeeping` job then removes the account and everything it
-  owns. What is kept and for how long:
+  owns. An owner (`users.owner`, #15) has no *Delete account*: the profile
+  shows one line saying they run the server (`profile-delete-owner`), and
+  `POST /profile/delete` answers 403 for them. What is kept and for how long:
   [data inventory](data-inventory); the privacy notice is at `/privacy`
   ([privacy](privacy), public, with a "Last updated" line at the top).
 - **Manage Users page** (`/manage`, owner accounts only, #220): actions

@@ -361,6 +361,9 @@
       <p class="small">{% if caps.mail %}{{ crate::t("profile.data.export_about") }}{% else %}{{ crate::t("profile.data.export_about_no_mail") }}{% endif %}</p>
       <div class="modal-actions"><button type="button" class="btn" data-closes data-testid="profile-export-close">{{ crate::t("profile.data.export_ok") }}</button></div>
     </dialog>
+    {% if is_owner() %}
+    <p class="muted small" data-testid="profile-delete-owner">{{ crate::t("profile.data.delete_owner") }}</p>
+    {% else %}
     <div class="profile-delete">
     <h3>{{ crate::t("profile.data.delete_title") }}</h3>
     <p class="muted small">{{ crate::t("profile.data.delete_about") }}</p>
@@ -387,6 +390,7 @@
     <form method="post" action="{{ crate::url("/profile/two-factor/code") }}" id="profile-delete-send-form" hidden><input type="hidden" name="then" value="delete"></form>
     {% endif %}
     </div>
+    {% endif %}
   </section>
 </section>
 </div>

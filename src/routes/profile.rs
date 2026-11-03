@@ -69,6 +69,12 @@ pub struct ProfileTemplate {
 }
 
 impl ProfileTemplate {
+    /// The signed-in account is an owner (`users.owner`): no Delete account
+    /// section, only the line saying why (#15).
+    pub fn is_owner(&self) -> bool {
+        self.user.as_ref().is_some_and(|u| u.owner)
+    }
+
     /// How this account proves it is its owner (`prove_owner`): `password`;
     /// an account without one a `code` from its app, one it is `send`
     /// (e-mailed), or, without a second step, `none`.
@@ -970,6 +976,11 @@ pub async fn delete_account(
     user: CurrentUser,
     Form(form): Form<DeleteForm>,
 ) -> Result<Response, AppError> {
+    // The owner runs the server: their account is not deleted from the
+    // profile (#15). The page hides the form; a POST by hand is refused.
+    if user.owner {
+        return Ok((StatusCode::FORBIDDEN, crate::t("profile.data.delete_owner")).into_response());
+    }
     let loaded = load_profile(&state, &user).await?;
     let fail = |state: &AppState, user: CurrentUser, loaded: Loaded, msg: &str| {
         let mut t = page(state, user, loaded);

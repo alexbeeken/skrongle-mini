@@ -682,6 +682,7 @@ profile:
     export_gone: That download link has been used, has expired, or is for another account.
     delete_title: Delete account
     delete_about: "We delete your account 14 days after you ask, or when a cancelled plan's paid time ends if that is later. That deletes your progress, courses and saved keys. Until then you are signed out, and you can sign in again to cancel."
+    delete_owner: "You run this Skrongle, so your account can't be deleted here."
     your_password: Your password
     confirm_before: Type your e-mail address (
     confirm_after: ) to confirm
