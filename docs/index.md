@@ -31,6 +31,13 @@ all driven by JSON course files.
 - [Data inventory](data-inventory): what is stored about a learner, where,
   why, what leaves the server and for how long.
 
+## Self-hosting
+
+- [Host it yourself](/self-host): the friendly guide, from buying a Raspberry
+  Pi to the first account, no experience needed.
+- [Self-hosting](self-hosting): the technical guide, every setting and
+  command; [Self-hosting FAQ](self-hosting-faq) for when something is off.
+
 ## For LLMs
 
 [`/llms.txt`](/llms.txt) lists the pages an LLM needs to write a course.
