@@ -41,7 +41,7 @@ jobs:
     env:
       VERSION: ${{ github.event_name == 'push' && github.ref_name || inputs.version }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       - name: Version
         id: version
@@ -60,16 +60,16 @@ jobs:
           fi
           echo "version=$v" >> "$GITHUB_OUTPUT"
 
-      - uses: dtolnay/rust-toolchain@stable
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
         with:
           targets: ${{ matrix.arch }}-unknown-linux-gnu
-      - uses: Swatinem/rust-cache@v2
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
         with:
           key: release-${{ matrix.arch }}
-      - uses: mlugg/setup-zig@v2
+      - uses: mlugg/setup-zig@d1434d08867e3ee9daa34448df10607b98908d29 # v2
         with:
           version: 0.13.0
-      - uses: taiki-e/install-action@v2
+      - uses: taiki-e/install-action@b80e2bb2635f28eb98b9fce1e2f0887e1535c6b2 # v2
         with:
           tool: cargo-zigbuild
 
@@ -90,7 +90,7 @@ jobs:
       - name: Package
         run: scripts/package-release.sh "${{ steps.version.outputs.version }}" ${{ matrix.arch }}
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: skrongle-${{ matrix.arch }}
           path: |
@@ -108,7 +108,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
         with:
           pattern: skrongle-*
           path: dist

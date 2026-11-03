@@ -38,9 +38,9 @@ jobs:
     outputs:
       smoke: ${{ steps.smoke.outcome }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
-      - uses: Swatinem/rust-cache@v2
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
       # Release builds abort on panic: no new unwrap/expect/indexing outside tests (#389).
       - run: scripts/panic-check.sh
       # No source file grows past 1,500 non-test lines, or its baseline (#908).
@@ -76,7 +76,7 @@ jobs:
       matrix:
         shard: [1/3, 2/3, 3/3]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - uses: ./.github/actions/e2e
         with:
           specs: specs/exact.spec.ts specs/pathways.spec.ts specs/forms.spec.ts specs/editor-autosave.spec.ts specs/modals.spec.ts specs/lesson-tables.spec.ts specs/authenticator.spec.ts specs/dev-ai.spec.ts specs/two-factor.spec.ts specs/i18n.spec.ts specs/profile-nav.spec.ts specs/manage-keys.spec.ts specs/create.spec.ts specs/course-copy.spec.ts specs/docs.spec.ts specs/owner-resets.spec.ts specs/course-translate.spec.ts specs/lesson-editor.spec.ts specs/lesson-editor-rules.spec.ts specs/course-card-stats.spec.ts specs/share-sign-in.spec.ts specs/accessibility.spec.ts specs/lesson-header.spec.ts specs/share-edges.spec.ts specs/lesson-duplicate.spec.ts specs/mistakes.spec.ts specs/word-list.spec.ts specs/lesson-conversations.spec.ts specs/share-removed.spec.ts specs/notation.spec.ts specs/course-lints.spec.ts specs/landing-try.spec.ts specs/fact-check.spec.ts specs/lesson-ai-edit.spec.ts specs/music-sound.spec.ts specs/fill-bar.spec.ts specs/chord-spell.spec.ts specs/staff-note.spec.ts specs/keyboard.spec.ts specs/scale-ladder.spec.ts specs/advice-badge.spec.ts specs/ai-examples.spec.ts specs/words-due.spec.ts specs/algebra-tiles.spec.ts specs/clock.spec.ts specs/measure.spec.ts
@@ -95,7 +95,7 @@ jobs:
       matrix:
         shard: [1/4, 2/4, 3/4, 4/4]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - uses: ./.github/actions/e2e
         with:
           specs: specs/smoke
@@ -133,7 +133,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
-      - uses: Swatinem/rust-cache@v2
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
       - run: scripts/pi-budget.sh
