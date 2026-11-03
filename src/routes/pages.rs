@@ -630,8 +630,11 @@ fn fold(s: &str) -> String {
 pub async fn lessons(State(state): State<Arc<AppState>>, p: Project, Query(lq): Query<LessonsQuery>) -> Result<Response, AppError> {
     let at = now();
     let content = &p.course;
-    let progress = load_progress(&state, p.user.id, content.id()).await?;
-    let passes = load_passes(&state, p.user.id, content.id()).await?;
+    let (uid, cid) = (p.user.id, content.id().to_string());
+    let (progress, passes) = state
+        .db
+        .call(move |c| Ok((mastery::load_progress(c, uid, &cid)?, progress::load_all(c, uid, &cid)?)))
+        .await?;
     let mut groups = Vec::new();
     let mut ids = Vec::new();
     for (ui, unit) in content.units().iter().enumerate() {
@@ -724,26 +727,26 @@ pub async fn lesson(
     // Only a reading reported in the last few minutes still gets its line.
     let read_since = q.read.filter(|t| (at - 600..=at).contains(t));
     let course = Arc::clone(&p.course);
-    let (progress, recent, reward) = state
+    let (progress, recent, reward, pass, note) = state
         .db
         .call(move |c| {
-            crate::activity::touch(c, uid, &cid, &lid, crate::activity::Mode::Study)?;
+            // Read first, outside the transaction, so the progress cache fills.
             let p = mastery::load_progress(c, uid, &cid)?;
-            let r = mastery::recently_correct(c, uid, &cid, 24 * 3600)?;
+            let tx = c.transaction()?;
+            crate::activity::touch(&tx, uid, &cid, &lid, crate::activity::Mode::Study)?;
+            let r = mastery::recently_correct(&tx, uid, &cid, 24 * 3600)?;
             let reward = match read_since {
-                Some(since) => crate::motivators::reward(c, uid, &course, tz, since, Some(&lid))?,
+                Some(since) => crate::motivators::reward(&tx, uid, &course, tz, since, Some(&lid))?,
                 None => None,
             };
-            Ok((p, r, reward))
+            let pass = progress::load_one(&tx, uid, &cid, &lid)?;
+            let note = crate::notes::load(&tx, uid, &cid, &lid)?;
+            tx.commit()?;
+            Ok((p, r, reward, pass, note))
         })
         .await?;
     let reward = crate::motivators::reward_html(reward);
     let pr = progress.get(&lesson.id);
-    let (uid, cid, lid) = (p.user.id, content.id().to_string(), lesson.id.clone());
-    let (pass, note) = state
-        .db
-        .call(move |c| Ok((progress::load_one(c, uid, &cid, &lid)?, crate::notes::load(c, uid, &cid, &lid)?)))
-        .await?;
     let read_when = pr.and_then(|p| p.read_at).map(|t| time_ago(t, at)).unwrap_or_default();
     let check = if read_when.is_empty() {
         let avoid: HashSet<String> = recent.into_iter().collect();
