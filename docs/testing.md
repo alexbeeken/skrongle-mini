@@ -828,8 +828,8 @@ the options weighed are in #209). The jobs ask for
 `runs-on: ${{ vars.CI_RUNNER || 'laptop' }}`; four runners carry the label
 `laptop`. A PR's `checks` run is eight jobs (cargo test, three exact shards,
 four smoke shards), so one PR takes about two waves and a
-second PR's jobs wait their turn. The runners are registered to this repo
-alone and run beside the parent repo's (compose project `skrongle-mini-ci`).
+second PR's jobs wait their turn. The four runners run under the
+`skrongle-mini-ci` compose project and are registered to this repository.
 
 ```sh
 scripts/ci-runners.sh up       # build the image (ci/runner/) and start the four runners
