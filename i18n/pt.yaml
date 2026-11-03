@@ -304,7 +304,7 @@ profile:
     title: Seus dados
     ok: "OK"
     delete_title: Excluir conta
-    delete_about: "Excluímos sua conta 14 dias depois do pedido, ou quando terminar o tempo pago de uma assinatura cancelada, se for mais tarde. Isso exclui seu progresso, seus cursos e chaves salvas. Até lá você fica desconectado, e pode entrar de novo para cancelar."
+    delete_about: "Excluímos sua conta 14 dias depois do pedido. Isso exclui seu progresso, seus cursos e chaves salvas. Até lá você fica desconectado, e pode entrar de novo para cancelar."
     delete_owner: "Você administra este Skrongle, então sua conta não pode ser excluída aqui."
     your_password: Sua senha
     confirm_before: Digite seu endereço de e-mail (
@@ -1037,9 +1037,8 @@ docs:
     footnote_html: "Mais detalhes: o <a href=\"{url}\" data-testid=\"selfhost-technical-footer\">guia técnico</a>."
     mini_h2: "{app} mini"
     mini_p: "O que esta página instala: o mesmo app, preparado para poucas pessoas que conhecem você, sem serviços externos."
-    mini_out_h3: "O que fica de fora"
+    mini_out_h3: "Como ele está configurado"
     mini_out_mail: "Sem e-mail nem SMS: os links aparecem na própria página."
-    mini_out_plans: "Sem planos nem pagamentos: todo mundo tem tudo."
     mini_out_signup: "Cadastro por convite: você cria um link para cada pessoa."
     mini_out_jobs: "O trabalho em segundo plano roda dentro do app: nenhum serviço extra para manter."
     mini_out_db: "Um único arquivo de banco de dados (SQLite): sem servidor de banco de dados."

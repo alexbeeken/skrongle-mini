@@ -1749,8 +1749,7 @@ keys). The password dialog and account deletion keep their explicit buttons. The
   dev user (`dev@example.com`) always is one. For anyone else the menu has
   no link, and the page and its forms answer 404 (`src/routes/manage.rs`).
   - **Accounts** (#634, `src/signup.rs`): the (i) says which sign-up mode
-    the server is in (`SKRONGLE_SIGNUP`: `open`, the default and the hosted
-    site's; `invite`; `closed`), how invitations work and how many accounts
+    the server is in (`SKRONGLE_SIGNUP`: `open`, the default; `invite`; `closed`), how invitations work and how many accounts
     there are. In `invite` mode,
     **Make an invitation link** (`POST /manage/invites`, 404
     in other modes) shows `<SKRONGLE_PUBLIC_URL or the request's host>/register?invite=<token>`
@@ -1941,8 +1940,7 @@ app" in Chrome, "Add to Home Screen" in Safari). It then opens full-screen
 at the home page, with the Skrongle icon. Every page links
 `/manifest.webmanifest` (`web_manifest` in `src/routes/mod.rs`), which
 carries the base path in `start_url`, `scope` and the icon paths
-(`static/icon-192.png`, `static/icon-512.png`). The same in the hosted site
-and Skrongle mini; a browser only offers it on an HTTPS page or localhost.
+(`static/icon-192.png`, `static/icon-512.png`). A browser only offers it on an HTTPS page or localhost.
 
 There is no service worker and nothing is cached for offline use. Sprint
 grades each answer on the server, so studying offline is a separate piece

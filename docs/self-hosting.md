@@ -6,14 +6,13 @@ details behind each step, for any 64-bit Linux machine. Stuck? The
 [self-hosting FAQ](self-hosting-faq) answers the first questions people ask.
 
 Self-hosting is free. Help is best-effort, in
-[GitHub Discussions](https://github.com/alexbeeken/skrongle-mini/discussions); the
-hosted site is the supported option.
+[GitHub Discussions](https://github.com/alexbeeken/skrongle-mini/discussions).
 
 ## Skrongle mini
 
-The release you install is **Skrongle mini**: the same binary as the hosted
-site, with `skrongle.service` set for a handful of people who know you and
-no outside services. What it leaves out:
+The release you install is **Skrongle mini**: one binary, with
+`skrongle.service` set for a handful of people who know you and
+no outside services. How it is set up:
 
 - **No e-mail.** Nothing is mailed; links are shown in the page
   ([No e-mail](#no-e-mail)).
@@ -26,8 +25,7 @@ no outside services. What it leaves out:
   server.
 
 `SKRONGLE_MINI=1` is what makes a server a mini (`skrongle.service` sets
-it). The startup log line and `/healthz` then say `skrongle mini <version>`
-(`skrongle <version>` on the hosted site).
+it). The startup log line and `/healthz` then say `skrongle mini <version>`.
 
 ### Security
 
@@ -165,13 +163,13 @@ Every setting is an environment variable. Put extra ones in
 `/etc/skrongle/env`, one `NAME=value` per line, and restart. Every name
 starts `SKRONGLE_`; see [Renamed settings](#renamed-settings) if yours start `LEARN_`.
 
-"mini" marks what `skrongle.service` sets for Skrongle mini.
+Where a default says "unit", `skrongle.service` sets it.
 
 | Variable | Default | Meaning |
 |---|---|---|
-| `SKRONGLE_MINI` | unset (mini: `1`) | `1`: this server is a Skrongle mini, the self-hosted version. It is what makes the server a mini: without it the server is the hosted site, which refuses to start without Google and Stripe. In a mini there are no plans or payments (every account has every feature and the server's AI key is shared, see [Accounts and AI keys](#accounts-and-ai-keys)), and the text, Google, Stripe and S3 settings are ignored. Read once at startup. |
+| `SKRONGLE_MINI` | unit: `1` | `1`: this server is a Skrongle mini. `skrongle.service` sets it, and the server does not start outside dev mode without it. Every account has every feature and the server's AI key is shared (see [Accounts and AI keys](#accounts-and-ai-keys)); the text, Google and S3 settings are ignored. Read once at startup. |
 | `SKRONGLE_BIND` | `0.0.0.0:8080` | Address and port to listen on; a bare port (`8081`) means every interface. |
-| `SKRONGLE_SIGNUP` | `open` (mini: `invite`) | Who may make an account: `open`, `invite` or `closed`; see [Accounts and AI keys](#accounts-and-ai-keys). |
+| `SKRONGLE_SIGNUP` | `open` (unit: `invite`) | Who may make an account: `open`, `invite` or `closed`; see [Accounts and AI keys](#accounts-and-ai-keys). |
 | `SKRONGLE_PROXY_AUTH_HEADER`, `SKRONGLE_PROXY_AUTH_FROM` | — | Let the proxy in front sign people in; see [Signing in at the proxy](#signing-in-at-the-proxy). Both or neither. |
 | `SKRONGLE_DATA_DIR` | `data` | Folder with `courses/`. |
 | `SKRONGLE_DB` | `learn.db` | SQLite database path. The secret key is created next to it as `<db>.key`. |
@@ -268,7 +266,7 @@ other values of the setting:
 
 | `SKRONGLE_SIGNUP` | Who may register |
 |---|---|
-| `open` (unset) | Anyone who can reach the server. The hosted site runs this way. |
+| `open` (unset) | Anyone who can reach the server. |
 | `invite` | The first account (the owner's, through the owner link in the log), then only through an invitation link. |
 | `closed` | The first account (the owner's, through the owner link in the log), then nobody. |
 
@@ -475,8 +473,8 @@ The whole state is two files in `/var/lib/skrongle`:
 | `learn.db.key` | The secret key that encrypts the AI keys learners saved. Without it those keys can't be read. If you set `SKRONGLE_SECRET_KEY` instead, keep a copy of that value. |
 
 A deleted account stays in your backups
-and in the journal until they expire. The hosted site promises its users
-31 days at most; on your server that limit is yours to set and keep. Keep the two together, and somewhere other
+and in the journal until they expire. How long that is on your
+server is yours to set and keep. Keep the two together, and somewhere other
 than the SD card. Stop the service while copying so the database is
 consistent. The backup holds every account and the key that decrypts stored
 API keys, so it is created readable by you only (`umask 077`; an old copy is

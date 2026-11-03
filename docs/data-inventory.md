@@ -109,11 +109,8 @@ access log, which records IPs.
 
 ## Backups
 
-A deleted account stays in backups until they expire. On the hosted site
-no backup is kept longer than 31 days (#972; the nightly copies are #964).
-On Skrongle mini the operator makes the backups and decides how long a
-deleted account stays in them.
+A deleted account stays in backups until they expire. The operator makes the
+backups and decides how long a deleted account stays in them.
 
 Deleting an account deletes its rows; nothing is kept in anonymized form.
-So after a deletion nothing personal stays on the hosted site longer than
-31 days, the limit the privacy notice gives.
+So after a deletion nothing personal stays except in the operator's backups.

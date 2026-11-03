@@ -36,9 +36,9 @@ sized for a **Raspberry Pi Zero 2 W** and built on an Apple Silicon Mac.
 
 ## Skrongle mini
 
-**Skrongle mini** is the release for small boxes: the same binary, with
-defaults for a handful of people who know whoever runs it (a family, a
-class, a few friends) and no outside services. Download the
+**Skrongle mini** is the release for small boxes: one binary, set up
+for a handful of people who know whoever runs it (a family, a
+class, a few friends) with no outside services. Download the
 [release](https://github.com/alexbeeken/skrongle-mini/releases) tarball for your
 machine (`skrongle-<version>-aarch64.tar.gz` for a Pi, `-x86_64` for a PC),
 install `skrongle.service`, and the first account you make is the owner's;
@@ -46,13 +46,13 @@ everyone else joins with an invitation link from your profile. Step by step:
 the app's *Host it yourself* page (`/self-host`, linked from `/docs`), or
 [docs/self-hosting.md](docs/self-hosting.md) for the details.
 
-| | Hosted | Skrongle mini |
-|---|---|---|
-| Who signs up | Anyone (`SKRONGLE_SIGNUP=open`) | Only people the owner invites (`invite`) |
-| E-mail | Sent through providers | None: links are shown in the page |
-| Background work | In process, in SQLite | The same: no Redis or queue service |
-| Database | SQLite | SQLite |
-| Securing the login | The operator | You: a strong password, two-factor, Tailscale or a VPN, never a forwarded port |
+| | |
+|---|---|
+| Who signs up | Only people the owner invites (`SKRONGLE_SIGNUP=invite`) |
+| E-mail | None: links are shown in the page |
+| Background work | In process, in SQLite: no Redis or queue service |
+| Database | SQLite |
+| Securing the login | You: a strong password, two-factor, Tailscale or a VPN, never a forwarded port |
 
 ## Documentation
 
@@ -84,7 +84,7 @@ for 64-bit ARM (Raspberry Pi) or x86_64 Linux and follow
 best-effort, from the maintainer and other self-hosters, in
 [GitHub Discussions](https://github.com/alexbeeken/skrongle-mini/discussions); a bug
 goes in an issue with the *Self-hosting bug* form and the output of
-`skrongle doctor`. The hosted site is the supported option.
+`skrongle doctor`.
 
 ## Quick start (local)
 

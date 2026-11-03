@@ -1,7 +1,6 @@
 //! Who may make an account (#634): `SKRONGLE_SIGNUP`.
 //!
-//! - `open` (the default): anyone who reaches the server may register, as
-//!   on the hosted site.
+//! - `open` (the default): anyone who reaches the server may register.
 //! - `invite`: only through an invitation link an owner made on the
 //!   profile (Manage Users). A link works once, for 7 days.
 //! - `closed`: nobody.

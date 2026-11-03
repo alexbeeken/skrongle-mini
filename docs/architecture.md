@@ -17,7 +17,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 
 ### Server and plumbing
 
-- Start-up: `main.rs` (env config, commands, `require_providers`), `caps.rs` (the fixed limits of a mini, `MAX_ACCOUNTS`, #29), `shape.rs` (Skrongle mini or the hosted site, `SKRONGLE_MINI`), `startup.rs` (start-up errors), `doctor.rs` (`skrongle doctor`), `server.rs` (listener limits).
+- Start-up: `main.rs` (env config, commands, `require_providers`), `caps.rs` (the fixed limits of a mini, `MAX_ACCOUNTS`, #29), `shape.rs` (the `SKRONGLE_MINI` switch), `startup.rs` (start-up errors), `doctor.rs` (`skrongle doctor`), `server.rs` (listener limits).
 - HTTP: `routes/mod.rs` (Router, embedded static files and docs, CourseView), `error.rs` (AppError to responses), `security.rs` (headers, CSRF, rate limits).
 - Database: `db.rs` (connection, `Db::call`), `db/migrations.rs` (`MIGRATIONS`); schema in "SQLite schema" below; background jobs (the hourly housekeeping) in `jobs.rs`.
 - App text: `i18n.rs` reads `i18n/<code>.yaml` (`docs/i18n.md`). Randomness: `random.rs` (OS bytes), `quiz.rs` has the small PRNG.
@@ -86,7 +86,7 @@ src/
   signup.rs      who may make an account (SKRONGLE_SIGNUP: open / invite / closed, #634): the first account is the owner, through the owner link written to the log at startup, invitation links (table signup_invites, the token hashed), the Manage Users page's Accounts part and invitation links (routes/manage.rs)
 
   account_deletion.rs  the learner's own account deletion after 14 days of grace (#970): users.delete_at, signing out, the housekeeping step that deletes due accounts
-  shape.rs       the two shapes (#578): SKRONGLE_MINI=1 is Skrongle mini, unset is the hosted site; read once at startup (shape::current, crate::is_mini); in a mini crate::env reads the hosted-only settings (HOSTED_ONLY: SMS, Google, S3) as unset
+  shape.rs       the SKRONGLE_MINI switch (#578): SKRONGLE_MINI=1 is Skrongle mini; read once at startup (shape::current, crate::is_mini); in a mini crate::env reads the provider settings (HOSTED_ONLY: SMS, Google, S3) as unset
   share.rs       sharing a course with other learners by e-mail address (#451): invitation links the owner passes on (table course_shares, the link's token hashed), who may open a shared course
   totp.rs        time-based one-time passwords: RFC 6238 TOTP over RFC 4226 HOTP (SHA-1 written out, SHA-256/512 via sha2), base32, the otpauth://totp/ Key Uri Format and its QR code as inline SVG (the qrcode crate, no image feature); the dev authenticator (/dev/authenticator) reads its keys with it
   two_factor.rs  two-factor sign-in: the method in use, the authenticator app's enrolment, sign-in challenges, the proof for turning it off (tables totp_keys, two_factor_challenges)
@@ -438,7 +438,7 @@ ai_usage       (id, user_id, course_id, job_id, purpose, provider, model, input_
 ai_usage_months (user_id, month, cost_micros, credit_micros, hosted_calls, own_calls)  PRIMARY KEY (user_id, month)
                 -- running totals of ai_usage per learner and UTC calendar month (month = its first second); v65, #624
 ai_spend_days  (day PRIMARY KEY, cost_micros)
-                -- everyone's hosted spend per UTC day (day = its first second), for the daily cap; v65, #623.
+                -- everyone's spend on the server's key per UTC day (day = its first second), for the daily cap; v65, #623.
                 -- Triggers on ai_usage (insert, delete) move both tables; the meter reads one row of each
 blocked_ips    (id, cidr UNIQUE, created_at)
                 -- unused: the content check and moderation are gone (#9); the table goes with the schema squash (#2)
@@ -570,25 +570,25 @@ Built from the repo the binary is `spanish-learning`; a release names it
 
 ## Configuration
 
-Environment variables, all optional on a mini (a hosted server needs the providers, below). Every name starts `SKRONGLE_`. For one release `crate::env` also reads the
+Environment variables, all optional on a mini (without `SKRONGLE_MINI=1` the server needs the providers, below). Every name starts `SKRONGLE_`. For one release `crate::env` also reads the
 older `LEARN_<name>` and `SPANISH_<name>` (#584): the `SKRONGLE_` one wins when both are set, and
 startup logs one warning naming each old variable and its new name.
 
-**Skrongle mini** (#632, #641, #578) is the self-hosted release: the same
+**Skrongle mini** (#632, #641, #578) is the self-hosted release: one
 binary with `SKRONGLE_MINI=1`, the one setting that makes a server a mini,
 plus the defaults `deploy/skrongle.service` sets, marked *mini* in the table
 below: `SKRONGLE_SIGNUP=invite`,
 (#633). `shape.rs` reads `SKRONGLE_MINI` once
-at startup (`Shape::Mini` or `Shape::Hosted`, `shape::current()`,
+at startup (`shape::current()`,
 `crate::is_mini()`); nothing else reads the variable (a test checks).
-A mini has none of the hosted site's production features and no second
+A mini has no e-mail, text messages, Google sign-in, payments or S3, and no second
 switch for any of them: `crate::env` reads the settings in `shape::HOSTED_ONLY` as unset, so those
 features are off wherever they are read; the startup log names any that
 are set and ignored. `SKRONGLE_PLANS` is
 gone; a server that still sets it logs a warning. The startup
 line and `/healthz` (`ok skrongle mini <version>`) say which shape runs.
-Self-hosting the full build is not supported: outside mini and dev mode the
-server refuses to start without `SKRONGLE_SECURE_COOKIES=1` (the hosted site
+Outside mini and dev mode the
+server refuses to start without `SKRONGLE_SECURE_COOKIES=1` (such a server
 is served over HTTPS) and with `SKRONGLE_PROXY_AUTH_*` set (proxy sign-in is
 a mini feature; #980; `require_providers` in `main.rs`). The
 release tarballs are `skrongle-<version>-<arch>.tar.gz`
@@ -599,7 +599,7 @@ posture are in `docs/self-hosting.md`, "Skrongle mini".
 |---|---|---|
 | `SKRONGLE_BIND` | `0.0.0.0:8080` | Listen address; a bare port (`9000`) means every interface. A value that doesn't parse stops the server |
 | `SKRONGLE_SIGNUP` | `open` (*mini:* `invite`) | Who may make an account (`src/signup.rs`, #634): `open` (anyone), `invite` (only through a link an owner makes on `/manage`) or `closed`. Under `invite` and `closed` the first account on a server with none is made only through the owner link the server logs at startup (a new one each start), and is made an owner. Read as is, with no older spelling; any other value stops startup. `deploy/skrongle.service` sets `invite`, `deploy/aws` nothing |
-| `SKRONGLE_PROXY_AUTH_HEADER`, `SKRONGLE_PROXY_AUTH_FROM` | unset | Sign-in by a reverse proxy (`src/proxy_auth.rs`, #642): the header holding the person's e-mail address, and the proxy's addresses (IPs or CIDRs, comma-separated) it is trusted from, judged by the TCP peer, never `X-Forwarded-For`. Both or neither (one alone stops startup). A trusted request with the header is signed in without password, two-factor or rate limit; an unknown address follows `SKRONGLE_SIGNUP` (`open` makes a password-less account with its address confirmed). `/login` and `/register` only say the proxy signs in. Read as is, no older spelling. Skrongle mini only: the hosted server refuses to start with either set |
+| `SKRONGLE_PROXY_AUTH_HEADER`, `SKRONGLE_PROXY_AUTH_FROM` | unset | Sign-in by a reverse proxy (`src/proxy_auth.rs`, #642): the header holding the person's e-mail address, and the proxy's addresses (IPs or CIDRs, comma-separated) it is trusted from, judged by the TCP peer, never `X-Forwarded-For`. Both or neither (one alone stops startup). A trusted request with the header is signed in without password, two-factor or rate limit; an unknown address follows `SKRONGLE_SIGNUP` (`open` makes a password-less account with its address confirmed). `/login` and `/register` only say the proxy signs in. Read as is, no older spelling. Skrongle mini only: a server without `SKRONGLE_MINI=1` refuses to start with either set |
 | `SKRONGLE_DATA_DIR` | `data` | Directory containing `courses/` |
 | `SKRONGLE_DB` | `learn.db` | SQLite file (WAL + SHM files are created next to it) |
 | `SKRONGLE_COURSES_PER_USER` | `50` | Courses one account may make (no limit in dev mode unless set) |
@@ -610,10 +610,10 @@ posture are in `docs/self-hosting.md`, "Skrongle mini".
 | `SKRONGLE_FAILED_COURSE_RETENTION_DAYS` | `30` | Delete an AI course whose generation failed (with its notes and files) once it has gone this many days without a resume or edit (at startup and hourly, `privacy::apply_retention`). `0`: keep them |
 | `SKRONGLE_MIN_AGE` | `14` | The age the sign-up forms' age checkbox names (#976) |
 | `SKRONGLE_LOG` | `info` | One level: `error`, `warn`, `info`, `debug` or `trace`. Per-module filters like `skrongle=debug` are not supported; an unrecognised value logs one warning and runs at `info`. |
-| `SKRONGLE_SECURE_COOKIES` | `0` | Set `1` behind a TLS proxy to add `Secure` to cookies. Required outside mini and dev mode: the hosted server refuses to start without it |
+| `SKRONGLE_SECURE_COOKIES` | `0` | Set `1` behind a TLS proxy to add `Secure` to cookies. Required outside mini and dev mode: the server refuses to start without it |
 | `SKRONGLE_BASE_PATH` | *(empty)* | URL prefix when mounted behind a reverse proxy, e.g. `/spanish` |
 | `SKRONGLE_PUBLIC_URL` | — | Public URL, for the links the app hands out: the owner link, invitations, share links (unset: links use the request's host, `X-Forwarded-Host` behind a proxy) |
-| `SKRONGLE_MINI` | unset (*mini:* `1`) | `1`: the server is a Skrongle mini (`shape.rs`); unset: the hosted site. Anything but `1`, `true`, `0`, `false` or unset refuses to start. Read once at startup, directly (no older spelling) |
+| `SKRONGLE_MINI` | unset (*mini:* `1`) | `1`: the server is a Skrongle mini (`shape.rs`); unset: every provider is required outside dev mode. Anything but `1`, `true`, `0`, `false` or unset refuses to start. Read once at startup, directly (no older spelling) |
 | `SKRONGLE_AI_PRICES` | see `prices::DEFAULT_PRICES` | `model=in/out[/cached],…` in dollars per million tokens, added to (or replacing) the built-in table of Anthropic's list prices; `*` prices unknown models (default: the dearest rate) |
 | `SKRONGLE_OPENAI_BASE_URL` | `https://api.openai.com` | Where the OpenAI provider sends requests: any OpenAI-compatible server (Ollama, LM Studio) |
 | `SKRONGLE_ANTHROPIC_BASE_URL` | `https://api.anthropic.com` | Where the Anthropic provider sends requests (a proxy, the dev AI provider) |

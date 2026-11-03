@@ -304,7 +304,7 @@ profile:
     title: Deine Daten
     ok: "OK"
     delete_title: Konto löschen
-    delete_about: "Wir löschen dein Konto 14 Tage nach deiner Anfrage, oder wenn die bezahlte Zeit eines gekündigten Abos endet, falls das später ist. Dabei werden dein Fortschritt, deine Kurse und gespeicherten Schlüssel gelöscht. Bis dahin bist du abgemeldet und kannst dich wieder anmelden, um abzubrechen."
+    delete_about: "Wir löschen dein Konto 14 Tage nach deiner Anfrage. Dabei werden dein Fortschritt, deine Kurse und gespeicherten Schlüssel gelöscht. Bis dahin bist du abgemeldet und kannst dich wieder anmelden, um abzubrechen."
     delete_owner: "Du betreibst dieses Skrongle, daher lässt sich dein Konto hier nicht löschen."
     your_password: Dein Passwort
     confirm_before: "Gib deine E-Mail-Adresse ("
@@ -1037,9 +1037,8 @@ docs:
     footnote_html: "Mehr Details: der <a href=\"{url}\" data-testid=\"selfhost-technical-footer\">technische Leitfaden</a>."
     mini_h2: "{app} mini"
     mini_p: "Was diese Seite installiert: dieselbe App, eingerichtet für eine Handvoll Leute, die dich kennen, ohne fremde Dienste."
-    mini_out_h3: "Was sie weglässt"
+    mini_out_h3: "Wie sie eingerichtet ist"
     mini_out_mail: "Keine E-Mails oder SMS: Links erscheinen stattdessen auf der Seite."
-    mini_out_plans: "Keine Tarife oder Zahlungen: alle haben alles."
     mini_out_signup: "Registrierung nur mit Einladung: du erstellst für jede Person einen Link."
     mini_out_jobs: "Hintergrundarbeit läuft in der App: keine weiteren Dienste nötig."
     mini_out_db: "Eine Datenbankdatei (SQLite): kein Datenbankserver."
