@@ -17,7 +17,7 @@
 <a class="skip-link" href="#main" data-testid="skip-to-content">{{ crate::t("nav.skip_to_content") }}</a>
 <header class="topbar">
   <nav class="container">
-    <a class="brand" data-testid="nav-home" href="{{ crate::url("/") }}"><img class="brand-mark" src="{{ crate::routes::asset_url("logo-mark.svg") }}" alt="" width="22" height="22">{{ crate::APP_NAME }}</a>
+    <a class="brand" data-testid="nav-home" href="{{ crate::url("/") }}">{% include "logo-mark.svg" %}{{ crate::APP_NAME }}</a>
     <ul>
     {% if let Some(u) = user %}
       {% if let Some(ct) = u.course_title %}
@@ -100,9 +100,7 @@ document.querySelectorAll('.modebar ul').forEach(function (u) {
   if (ar.right > ur.right || ar.left < ur.left) u.scrollLeft += ar.left - ur.left - (ur.width - ar.width) / 2;
 });
 </script>
-<script src="{{ crate::routes::asset_url("modal.js") }}" defer></script>
-<script src="{{ crate::routes::asset_url("speech.js") }}" defer></script>
-<script src="{{ crate::routes::asset_url("say.js") }}" defer></script>
+<script src="{{ crate::routes::asset_url("core.js") }}" defer></script>
 {% block scripts %}{% endblock %}
 </body>
 </html>

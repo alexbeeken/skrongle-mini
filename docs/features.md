@@ -1464,7 +1464,7 @@ words, *italic* examples and table cells of the lesson text (a cell like
 "rojo — red" says only the part before the dash), the terms on the
 Vocabulary page, the flashcards (a 🔊 button beside the term, in the Guide
 and in Vocabulary study), the correct answer in quiz feedback, and the
-sentences on the Listening summary. `static/say.js` does it for any element
+sentences on the Listening summary. `scripts/core-src/say.js` (bundled into `static/core.js`) does it for any element
 with a `data-say` attribute or matching its list; there is no audio to host.
 It is silent while the audio switch (below) is off. Hovering a tappable word
 shows its translation where the page has one (a vocabulary term's meaning, an

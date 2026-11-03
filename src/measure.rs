@@ -10,8 +10,15 @@
 
 use serde::{Deserialize, Serialize};
 
-use crate::content::{QuizItem, QuizType};
+use crate::content::{Lesson, QuizItem, QuizType};
 use crate::mathcheck::{check_numeric, validate_numeric, MathVerdict};
+
+impl Lesson {
+    /// Does the lesson ask a measure question (load static/measure.js)?
+    pub fn has_measure(&self) -> bool {
+        self.quiz.iter().any(|q| q.kind == QuizType::Measure)
+    }
+}
 
 /// The tools a `measure` question can draw.
 pub const TOOLS: [&str; 1] = ["protractor"];
