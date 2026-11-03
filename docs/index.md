@@ -33,10 +33,13 @@ all driven by JSON course files.
 
 ## Self-hosting
 
-- [Host it yourself](/self-host): the friendly guide, from buying a Raspberry
-  Pi to the first account, no experience needed.
+- [Set up Skrongle on a new Raspberry Pi](setup-home-wifi): the step-by-step
+  guide, from a new Pi to a running Skrongle on your home Wi-Fi.
+- [Away from home with Tailscale](setup-tailscale): reach your Pi from
+  anywhere over a private link.
 - [Self-hosting](self-hosting): the technical guide, every setting and
   command; [Self-hosting FAQ](self-hosting-faq) for when something is off.
+- [Host it yourself](/self-host): the overview, with what to buy and why.
 
 ## For LLMs
 

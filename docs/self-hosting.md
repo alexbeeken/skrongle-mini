@@ -1,7 +1,8 @@
 # Self-hosting
 
-The technical version of the [Host it yourself](/self-host) guide. The
-guide walks a first-timer through a Raspberry Pi Zero 2 W; this page has the
+The technical reference for self-hosting, for experts and AI assistants. For
+the step-by-step path, follow [Set up Skrongle on a new Raspberry Pi](setup-home-wifi)
+and then [Away from home with Tailscale](setup-tailscale); this page has the
 details behind each step, for any 64-bit Linux machine. Stuck? The
 [self-hosting FAQ](self-hosting-faq) answers the first questions people ask.
 

@@ -891,6 +891,7 @@ docs:
   documentation: Documentation
   raw: "Brut :"
   section_guides: Guides
+  section_self_hosting: "Auto-hébergement"
   section_reference: Référence
   section_dev: Développeurs
   js:
@@ -902,15 +903,14 @@ docs:
     kicker: "{app} mini · aucune expérience requise"
     h1: "Faites tourner {app} chez vous sur un petit ordinateur"
     lead: "Installez-le sur un Raspberry Pi chez vous, et tous ceux qui sont sur votre Wi-Fi pourront l'utiliser. Vous n'aurez qu'à copier-coller quelques commandes."
-    start_need: Commencez par ce dont vous avez besoin
-    technical: Version technique
     hero_art_alt: "Un Raspberry Pi envoie le Wi-Fi à un téléphone et à un ordinateur portable, qui affichent tous deux une leçon"
+    start_guide: "Commencer le guide"
+    technical_expert: "Explication technique pour les experts et l'IA"
     your_pi: votre Pi
     steps: Étapes
     toc_why: Pourquoi
     toc_need: De quoi avez-vous besoin
-    toc_setup: Préparer le Pi
-    toc_install: Installer
+    toc_set: "L'installer"
     toc_yours: Personnalisez-le
     toc_away: Hors de chez vous
     toc_more: Et ensuite ?
@@ -943,52 +943,20 @@ docs:
     need_computer_p: Uniquement pour la configuration. Pas de lecteur ? Utilisez un lecteur de carte USB.
     need_computer_buy: Acheter un lecteur de carte →
     total_html: "<strong>Coût estimé : ~$40</strong>, ou ~$47 avec un lecteur de carte. Prix des revendeurs américains, avant expédition ; ils varient. Pas besoin d'écran, de clavier ni de souris."
-    setup_h2: Préparer le Pi
-    setup_imager_html: <strong>Installez Raspberry Pi Imager</strong> sur votre ordinateur depuis <a href="https://www.raspberrypi.com/software/" rel="noopener">raspberrypi.com/software</a>. C'est l'outil officiel et gratuit qui prépare la carte mémoire.
-    setup_card_html: <strong>Insérez la carte microSD dans votre ordinateur</strong> et ouvrez Imager.
-    setup_device_html: "<strong>Choisissez votre appareil :</strong> Raspberry Pi Zero 2 W."
-    setup_system_html: "<strong>Choisissez le système :</strong> <em>Raspberry Pi OS (autre)</em> → <strong>Raspberry Pi OS Lite (64 bits)</strong>."
-    setup_memory_html: "<strong>Choisissez votre carte mémoire</strong>, puis remplissez les réglages proposés par Imager :"
-    setting_hostname: Nom d'hôte
-    setting_user: Nom d'utilisateur et mot de passe
-    setting_user_v: votre choix ; notez-les
-    setting_wifi: Wi-Fi
-    setting_wifi_v: le nom et le mot de passe de votre réseau
-    setting_location: Emplacement
-    setting_location_v: votre pays
-    setting_ssh: SSH
-    setting_ssh_v: activé, avec connexion par mot de passe
-    setup_write_html: <strong>Écrivez la carte.</strong>
-    setup_plug_html: <strong>Insérez la carte dans le Pi et branchez-le.</strong> Laissez-lui quelques minutes pour démarrer.
-    setup_tip_html: "💡 <strong>Impossible de vous connecter plus tard ?</strong> Généralement une faute de frappe dans le Wi-Fi. Réécrivez la carte."
-    install_h2: "Installer {app}"
-    connect_h3: Connectez-vous à votre Pi
-    connect_p_html: "Ouvrez <strong>Terminal</strong> (Mac) ou <strong>PowerShell</strong> (Windows) et tapez, avec votre nom d'utilisateur :"
-    copy: Copier
-    connect_yes_html: Tapez <code>yes</code> si on vous le demande, puis votre mot de passe (il reste invisible pendant la saisie).
-    download_h3: Téléchargez-le
-    paste_lines: "Collez ces lignes :"
-    start_h3: Démarrez-le (et à chaque démarrage)
-    open_h3: Ouvrez-le
-    owner_link_p: "D'abord, affichez le lien qui crée votre propre compte, celui du propriétaire. Il ne fonctionne qu'une fois :"
-    open_p: "Ouvrez ce lien sur n'importe quel téléphone ou ordinateur portable connecté au même Wi-Fi et créez votre compte. Ensuite, l'adresse est :"
-    done_html: "🎉 <strong>Terminé.</strong> Ajoutez-le à vos favoris."
-    not_loading_html: "💡 <strong>Ça ne charge pas ?</strong> Exécutez <code>hostname -I</code> sur le Pi et utilisez ce numéro à la place, par ex. <code>http://192.168.1.42:8080</code>."
+    set_h2: "L'installer"
+    set_p1_html: "Le <a href=\"{url}\" data-testid=\"selfhost-guide-link\">guide pas à pas</a> mène un Raspberry Pi neuf jusqu'à un {app} qui tourne sur votre Wi-Fi à la maison. Il suffit de copier-coller."
+    set_p2_html: "Vous êtes à l'aise avec les serveurs, ou vous confiez cela à une IA ? Lisez l'<a href=\"{tech}\" rel=\"noopener\" data-testid=\"selfhost-technical-link\">explication technique</a>."
     yours_h2: Personnalisez-le
     yours_account_html: "<strong>Invitez les autres</strong> avec un lien depuis <em>Gérer les utilisateurs</em> (dans le menu du compte)."
     yours_course_html: <strong>Choisissez un cours.</strong> L'espagnol est intégré, ou créez le vôtre.
     yours_ai_html: "<strong>Facultatif : tuteur IA et générateur de cours.</strong> Collez une clé Anthropic, OpenAI ou Google dans <em>Gérer les utilisateurs → Fonctions d’IA</em>. Elle sert à tout le monde sur le serveur et vous est facturée directement."
     yours_tip: "🔒 Seules les personnes que vous invitez peuvent créer un compte."
     away_h2: Utilisez-le hors de chez vous
+    away_p_html: "Un second guide montre comment joindre votre Pi de partout avec Tailscale, un lien privé gratuit entre vos propres appareils : <a href=\"{url}\" data-testid=\"selfhost-away-link\">Hors de chez vous avec Tailscale</a>."
     optional: facultatif
-    away_p_html: "Utilisez <a href=\"https://tailscale.com\" rel=\"noopener\">Tailscale</a> (gratuit) : un lien privé entre vos propres appareils. N'ouvrez pas de ports sur votre box."
     away_art_alt: "Un tunnel privé et verrouillé entre le Pi chez vous et votre téléphone, où que vous soyez"
     home: maison
     anywhere: partout
-    away_account: Créez un compte Tailscale gratuit.
-    away_run: "Sur le Pi, exécutez ces commandes, puis ouvrez le lien affiché et approuvez le Pi."
-    away_phone: Installez Tailscale sur votre téléphone, avec le même compte.
-    away_open_html: "Ouvrez <strong>http://skrongle:8080</strong> de n'importe où."
     more_h2: Que peut faire d'autre votre Pi ?
     more_p: "Vous avez fait le plus dur. Essayez l'une de ces idées :"
     idea_passwords_h: "🔑 Stockez vos mots de passe"
@@ -1009,7 +977,7 @@ docs:
     mini_safe_h3: "La sécurité, c'est votre affaire"
     mini_safe_password: "Un mot de passe solide pour chaque compte."
     mini_safe_2fa_html: "La connexion en deux étapes avec une app d'authentification : <em>Paramètres du profil → Double authentification</em>."
-    mini_safe_vpn_html: "Accès uniquement par Tailscale ou un VPN (étape 6). <strong>N'ouvrez jamais de port</strong> sur votre box."
+    mini_safe_vpn_html: "Accès uniquement par Tailscale ou un VPN (voir Hors de chez vous). <strong>N'ouvrez jamais de port</strong> sur votre box."
     mini_safe_tip_html: "🔒 L'app ralentit les tentatives de deviner un mot de passe, mais elle n'est pas faite pour être exposée sur internet. <a href=\"{url}\" data-testid=\"selfhost-mini-security\">Ce qu'elle couvre et ce qu'elle ne couvre pas</a>."
 
 quiz:

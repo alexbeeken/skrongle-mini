@@ -894,6 +894,7 @@ docs:
   documentation: Documentation
   raw: "Raw:"
   section_guides: Guides
+  section_self_hosting: "Self-hosting"
   section_reference: Reference
   section_dev: Developers
   js:
@@ -905,15 +906,14 @@ docs:
     kicker: "{app} mini · no experience needed"
     h1: "Run {app} at home on a tiny computer"
     lead: Put it on a Raspberry Pi at home, and everyone on your Wi-Fi can use it. You'll just copy and paste a few commands.
-    start_need: Start with what you need
-    technical: Technical version
     hero_art_alt: A Raspberry Pi sending Wi-Fi to a phone and a laptop, both showing a lesson
+    start_guide: "Start the guide"
+    technical_expert: "Technical explanation for experts and AI"
     your_pi: your Pi
     steps: Steps
     toc_why: Why
     toc_need: What you need
-    toc_setup: Set up the Pi
-    toc_install: Install
+    toc_set: "Set it up"
     toc_yours: Make it yours
     toc_away: Away from home
     toc_more: What else?
@@ -946,52 +946,20 @@ docs:
     need_computer_p: Just for setup. No slot? Use a USB card reader.
     need_computer_buy: Buy a card reader →
     total_html: "<strong>Estimated cost: ~$40</strong>, or ~$47 with a card reader. US reseller prices, before shipping; they vary. No screen, keyboard or mouse needed."
-    setup_h2: Set up the Pi
-    setup_imager_html: <strong>Install Raspberry Pi Imager</strong> on your computer from <a href="https://www.raspberrypi.com/software/" rel="noopener">raspberrypi.com/software</a>. It's the official free tool that prepares the memory card.
-    setup_card_html: <strong>Put the microSD card in your computer</strong> and open Imager.
-    setup_device_html: <strong>Choose your device:</strong> Raspberry Pi Zero 2 W.
-    setup_system_html: <strong>Choose the system:</strong> <em>Raspberry Pi OS (other)</em> → <strong>Raspberry Pi OS Lite (64-bit)</strong>.
-    setup_memory_html: "<strong>Choose your memory card</strong>, then fill in the settings Imager offers:"
-    setting_hostname: Hostname
-    setting_user: Username & password
-    setting_user_v: your choice; write them down
-    setting_wifi: Wi-Fi
-    setting_wifi_v: your network name and password
-    setting_location: Location
-    setting_location_v: your country
-    setting_ssh: SSH
-    setting_ssh_v: on, with password login
-    setup_write_html: <strong>Write the card.</strong>
-    setup_plug_html: <strong>Put the card in the Pi and plug it in.</strong> Give it a few minutes to start.
-    setup_tip_html: 💡 <strong>Can't connect later?</strong> Usually a Wi-Fi typo. Write the card again.
-    install_h2: "Install {app}"
-    connect_h3: Connect to your Pi
-    connect_p_html: "Open <strong>Terminal</strong> (Mac) or <strong>PowerShell</strong> (Windows) and type, with your username:"
-    copy: Copy
-    connect_yes_html: Type <code>yes</code> if asked, then your password (it stays invisible as you type).
-    download_h3: Download it
-    paste_lines: "Paste these lines:"
-    start_h3: Start it (and on every boot)
-    open_h3: Open it
-    owner_link_p: "First, print the link that makes your own account, the owner's. It works once:"
-    open_p: "Open that link on any phone or laptop on the same Wi-Fi and make your account. After that, the address is:"
-    done_html: 🎉 <strong>Done.</strong> Bookmark it.
-    not_loading_html: 💡 <strong>Not loading?</strong> Run <code>hostname -I</code> on the Pi and use that number instead, e.g. <code>http://192.168.1.42:8080</code>.
+    set_h2: "Set it up"
+    set_p1_html: "The <a href=\"{url}\" data-testid=\"selfhost-guide-link\">step-by-step guide</a> takes a new Raspberry Pi to a running {app} on your home Wi-Fi. You only copy and paste."
+    set_p2_html: "Know your way around a server, or handing this to an AI? Read the <a href=\"{tech}\" rel=\"noopener\" data-testid=\"selfhost-technical-link\">technical explanation</a>."
     yours_h2: Make it yours
     yours_account_html: "<strong>Invite everyone else</strong> with a link from <em>Manage Users</em> (in the account menu)."
     yours_course_html: <strong>Pick a course.</strong> Spanish is built in, or make your own.
     yours_ai_html: "<strong>Optional: AI tutor and course generator.</strong> Paste an Anthropic, OpenAI or Google key under <em>Manage Users → AI features</em>. It serves everyone on the server and bills you directly."
     yours_tip: "🔒 Only people you invite can make an account."
     away_h2: Use it away from home
+    away_p_html: "A second guide shows how to reach your Pi from anywhere with Tailscale, a free private link between your own devices: <a href=\"{url}\" data-testid=\"selfhost-away-link\">Away from home with Tailscale</a>."
     optional: optional
-    away_p_html: "Use <a href=\"https://tailscale.com\" rel=\"noopener\">Tailscale</a> (free): a private link between your own devices. Don't open ports on your router."
     away_art_alt: A private, locked tunnel between the Pi at home and your phone anywhere
     home: home
     anywhere: anywhere
-    away_account: Make a free Tailscale account.
-    away_run: On the Pi, run these, then open the link it prints and approve the Pi.
-    away_phone: Install Tailscale on your phone, same account.
-    away_open_html: Open <strong>http://skrongle:8080</strong> from anywhere.
     more_h2: What else can your Pi do?
     more_p: "You've done the hard part. Try one of these next:"
     idea_passwords_h: 🔑 Store your passwords
@@ -1012,7 +980,7 @@ docs:
     mini_safe_h3: "Keeping it safe is your job"
     mini_safe_password: "A strong password for every account."
     mini_safe_2fa_html: "Two-factor sign-in with an authenticator app: <em>Profile settings → Two-factor authentication</em>."
-    mini_safe_vpn_html: "Reach it only over Tailscale or a VPN (step 6). <strong>Never forward a port</strong> on your router."
+    mini_safe_vpn_html: "Reach it only over Tailscale or a VPN (see Away from home). <strong>Never forward a port</strong> on your router."
     mini_safe_tip_html: "🔒 The app slows down password guessing, but it isn't built to face the open internet. <a href=\"{url}\" data-testid=\"selfhost-mini-security\">What it covers and what it doesn't</a>."
 
 quiz:

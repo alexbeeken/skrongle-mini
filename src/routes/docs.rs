@@ -41,6 +41,11 @@ fn md_of(slug: &str) -> Option<String> {
 pub const SECTIONS: &[(&str, &str, &[&str])] = &[
     ("guides", "docs.section_guides", &["index", "getting-started", "course-structure", "making-courses", "faq"]),
     (
+        "self-hosting",
+        "docs.section_self_hosting",
+        &["setup-home-wifi", "setup-tailscale", "self-hosting", "self-hosting-faq"],
+    ),
+    (
         "reference",
         "docs.section_reference",
         &["course-format", "features", "progress", "i18n", "data-inventory"],
@@ -75,7 +80,9 @@ fn title_of(md: &str, slug: &str) -> String {
 /// `skrongle`, `data/`, `skrongle.service` and `terms.example.md` inside,
 /// as `docs/self-hosting.md` lays out. The download only exists once the
 /// repo is public and that version is released (#95, #101).
+#[allow(dead_code)] // the page links to the guide now; the release check still pins the name
 pub const RELEASE_TARBALL_NAME: &str = concat!("skrongle-", env!("CARGO_PKG_VERSION"), "-aarch64.tar.gz");
+#[allow(dead_code)]
 pub const RELEASE_TARBALL: &str = concat!(
     "https://github.com/alexbeeken/skrongle-mini/releases/download/v",
     env!("CARGO_PKG_VERSION"),

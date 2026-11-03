@@ -1,11 +1,11 @@
 // "Host it yourself" (#59): a visitor finds the guide from the docs, reads
-// all eight steps on a phone without sideways scrolling, and can reach the
+// every step on a phone without sideways scrolling, and can reach the
 // technical version. No account, no key, no network.
 //
 import { expect, test } from "../../lib/fixtures.ts";
 
 
-const STEPS = ["why", "need", "setup", "install", "yours", "away", "more"];
+const STEPS = ["why", "need", "setup", "yours", "away", "more"];
 
 test("the self-hosting guide is linked from the docs and readable on a phone", async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 740 });
@@ -22,21 +22,26 @@ test("the self-hosting guide is linked from the docs and readable on a phone", a
   await expect(buy).toHaveCount(4);
   for (const href of await buy.evaluateAll((as) => as.map((a) => (a as HTMLAnchorElement).href))) expect(href).not.toMatch(/amazon|amzn/);
 
-  // Every command has its copy button, and the page itself never scrolls sideways
-  // (long commands scroll inside their own block).
-  const commands = page.getByTestId("selfhost-command");
-  expect(await commands.count()).toBeGreaterThan(0);
-  await expect(page.getByTestId("selfhost-copy")).toHaveCount(await commands.count());
+  // The page itself never scrolls sideways.
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow, "horizontal overflow in px").toBeLessThanOrEqual(0);
 
-  // Over plain http the clipboard is off limits, so Copy selects the command instead.
-  await page.getByTestId("selfhost-copy").first().click();
-  await expect(page.getByTestId("selfhost-copy").first()).toHaveText(/Copied|Selected/);
+  // The technical link is for experts and AI, and goes to the reference on GitHub.
+  await expect(page.getByTestId("selfhost-technical")).toHaveAttribute(
+    "href",
+    "https://github.com/alexbeeken/skrongle-mini/blob/main/docs/self-hosting.md",
+  );
 
-  await page.getByTestId("selfhost-technical").click();
-  await expect(page).toHaveURL(/\/docs\/self-hosting$/);
-  await expect(page.locator("h1")).toHaveText("Self-hosting");
+  // Start the guide leads to the step-by-step guide, and it renders.
+  await page.getByTestId("selfhost-start").click();
+  await expect(page).toHaveURL(/\/docs\/setup-home-wifi$/);
+  await expect(page.locator("h1")).toHaveText("Set up Skrongle on a new Raspberry Pi (home Wi-Fi only)");
+
+  // Away from home links to the Tailscale guide.
+  await page.goto("/self-host");
+  await page.locator("#away a").first().click();
+  await expect(page).toHaveURL(/\/docs\/setup-tailscale$/);
+  await expect(page.locator("h1")).toHaveText("Away from home with Tailscale");
 });
 
 test("the guide is only linked from the docs, not the landing page or the footer", async ({ page }) => {

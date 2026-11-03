@@ -12,9 +12,9 @@ test("the docs index is reachable logged out, with user and developer pages apar
 
   const guides = page.locator('[data-testid="docs-section"][data-section="guides"] [data-testid="docs-page"]');
   expect(await guides.evaluateAll((li) => li.map((l) => l.getAttribute("data-slug")))).toEqual(USER_PAGES);
-  // Guides open the sidebar; Reference follows; Developers holds the developer pages (and anything unlisted).
-  await expect(page.getByTestId("docs-section")).toHaveCount(3);
-  await expect(page.getByTestId("docs-section-title")).toHaveText(["Guides", "Reference", "Developers"]);
+  // Guides open the sidebar; Self-hosting and Reference follow; Developers holds the developer pages (and anything unlisted).
+  await expect(page.getByTestId("docs-section")).toHaveCount(4);
+  await expect(page.getByTestId("docs-section-title")).toHaveText(["Guides", "Self-hosting", "Reference", "Developers"]);
   const dev = page.locator('[data-testid="docs-section"][data-section="dev"]');
   for (const slug of ["architecture", "testing"]) await expect(dev.locator(`[data-slug="${slug}"]`)).toHaveCount(1);
   for (const slug of USER_PAGES) await expect(dev.locator(`[data-slug="${slug}"]`)).toHaveCount(0);

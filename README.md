@@ -20,8 +20,10 @@ Raspberry Pi Zero 2 W runs it with room to spare.
 
 ## Run it yourself
 
-The app has a step-by-step guide at `/self-host` ("Host it yourself"),
-written for someone who has never run a server, and the technical version in
+For the step-by-step path, follow the
+[home Wi-Fi guide](docs/setup-home-wifi.md), written for someone who has never
+run a server, and the [Tailscale guide](docs/setup-tailscale.md) to reach it
+away from home. The technical reference is
 [docs/self-hosting.md](docs/self-hosting.md). The short form:
 
 1. Download the [release](https://github.com/alexbeeken/skrongle-mini/releases)
