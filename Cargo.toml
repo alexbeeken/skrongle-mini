@@ -25,7 +25,7 @@ tower = { version = "0.5", default-features = false, features = ["util"] }
 
 # --- Templates / static assets (compiled into the binary) ---
 askama = { version = "0.16", default-features = false, features = ["std", "derive"] }
-rust-embed = { version = "8" }
+rust-embed = { version = "8", features = ["interpolate-folder-path"] }
 
 # --- Database (SQLite statically linked, no system libsqlite needed on the Pi) ---
 rusqlite = { version = "0.40", features = ["bundled", "trace", "functions"] }
@@ -65,6 +65,10 @@ quoted_printable = "0.5"
 # Already in the tree through tokio and getrandom; no new code is pulled in.
 [target.'cfg(unix)'.dependencies]
 libc = "0.2"
+
+# Build time only (build.rs pre-gzips static/); nothing here reaches the binary.
+[build-dependencies]
+flate2 = { version = "1", default-features = false, features = ["rust_backend"] }
 
 [profile.dev]
 opt-level = 1            # argon2 in debug mode is painfully slow; a little optimisation keeps local logins fast

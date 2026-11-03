@@ -1724,3 +1724,77 @@ fn web_manifest_points_at_real_icons() {
     }
 }
 
+
+/// Calls `static_asset` for `path` with the given request headers.
+fn fetch_static(path: &str, headers: &[(&str, &str)]) -> axum::response::Response {
+    use axum::extract::{Path, Query};
+    let mut map = axum::http::HeaderMap::new();
+    for (k, v) in headers {
+        map.insert(
+            axum::http::HeaderName::from_bytes(k.as_bytes()).unwrap(),
+            axum::http::HeaderValue::from_str(v).unwrap(),
+        );
+    }
+    let rt = tokio::runtime::Builder::new_current_thread().build().unwrap();
+    rt.block_on(super::static_asset(
+        Path(path.to_string()),
+        Query(std::collections::HashMap::new()),
+        map,
+    ))
+}
+
+#[test]
+fn static_etag_is_stable_and_keeps_its_shape() {
+    let a = fetch_static("style.css", &[]);
+    let b = fetch_static("style.css", &[]);
+    let etag = a.headers()["etag"].to_str().unwrap().to_string();
+    assert_eq!(etag, b.headers()["etag"].to_str().unwrap());
+    // "<16 hex digits>", quoted, the same fnv1a of the raw bytes as before.
+    assert_eq!(etag.len(), 18);
+    assert!(etag.starts_with('"') && etag.ends_with('"'));
+    assert!(etag[1..17].bytes().all(|c| c.is_ascii_hexdigit()));
+    let raw = super::Assets::get("style.css").unwrap();
+    assert_eq!(etag, format!("\"{:016x}\"", super::fnv1a(raw.data.iter().copied())));
+}
+
+#[test]
+fn static_answers_304_on_a_matching_etag() {
+    let etag = fetch_static("style.css", &[]).headers()["etag"].to_str().unwrap().to_string();
+    let res = fetch_static("style.css", &[("if-none-match", &etag)]);
+    assert_eq!(res.status(), axum::http::StatusCode::NOT_MODIFIED);
+    let res = fetch_static("style.css", &[("if-none-match", "\"nope\"")]);
+    assert_eq!(res.status(), axum::http::StatusCode::OK);
+    let gz = fetch_static("style.css", &[("accept-encoding", "gzip")]);
+    let gz_etag = gz.headers()["etag"].to_str().unwrap().to_string();
+    let res = fetch_static("style.css", &[("accept-encoding", "gzip"), ("if-none-match", &gz_etag)]);
+    assert_eq!(res.status(), axum::http::StatusCode::NOT_MODIFIED);
+}
+
+#[test]
+fn static_serves_gzip_only_when_accepted() {
+    let rt = tokio::runtime::Builder::new_current_thread().build().unwrap();
+    let raw = super::Assets::get("style.css").unwrap().data.into_owned();
+
+    let gz = fetch_static("style.css", &[("accept-encoding", "br, gzip;q=0.8")]);
+    assert_eq!(gz.headers()["content-encoding"], "gzip");
+    assert_eq!(gz.headers()["vary"], "Accept-Encoding");
+    let gz_body = rt.block_on(axum::body::to_bytes(gz.into_body(), usize::MAX)).unwrap();
+    assert!(gz_body.len() < raw.len());
+    assert_eq!(&gz_body[..2], &[0x1f, 0x8b]);
+
+    for headers in [&[][..], &[("accept-encoding", "identity")], &[("accept-encoding", "gzip;q=0")]] {
+        let plain = fetch_static("style.css", headers);
+        assert!(plain.headers().get("content-encoding").is_none());
+        assert_eq!(plain.headers()["vary"], "Accept-Encoding");
+        let body = rt.block_on(axum::body::to_bytes(plain.into_body(), usize::MAX)).unwrap();
+        assert_eq!(body.as_ref(), raw.as_slice());
+    }
+
+    // Only files that shrink get a gzip form.
+    for name in super::Assets::iter() {
+        if let Some(g) = super::AssetsGz::get(&name) {
+            assert!(g.data.len() < super::Assets::get(&name).unwrap().data.len(), "{name}");
+        }
+    }
+    assert_eq!(fetch_static("nope.css", &[]).status(), axum::http::StatusCode::NOT_FOUND);
+}
