@@ -15,8 +15,6 @@ For working on Skrongle's code. Start with `CLAUDE.md` in the repository.
   one `i18n/<code>.yaml` per language.
 - [Security review](security-review): what was checked before going
   public, what was fixed, and the risks accepted.
-- [Pricing Skrongle AI](pricing) — the AI Skrongle provides on its own key,
-  what each plan includes, the list prices and the margin.
 
 The contract between content and code is the [course format](course-format)
 and its [JSON Schema](course.schema.json): `src/ai.rs` embeds the format in

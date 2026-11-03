@@ -83,8 +83,6 @@ pub struct Profile {
     pub age_confirmed_at: Option<i64>,
     /// The AI features consent's latest row (`consent::AI`), for its date.
     pub ai_consent: Option<crate::consent::Record>,
-    /// On Plus: "use my keys when my Skrongle AI limit is hit" (`users.own_keys_fallback`, #315).
-    pub own_keys_fallback: bool,
     /// The phone number and the second sign-in step (`two_factor.rs`).
     pub two_factor: crate::two_factor::Settings,
 }
@@ -132,7 +130,7 @@ pub fn load(conn: &Connection, user_id: i64) -> rusqlite::Result<Option<Profile>
     };
     conn.query_row(
         "SELECT first_name, last_name, NULLIF(email, ''), created_at,
-                password_hash != '', ai_off, own_keys_fallback
+                password_hash != '', ai_off
          FROM users WHERE id = ?1",
         [user_id],
         |r| {
@@ -146,7 +144,6 @@ pub fn load(conn: &Connection, user_id: i64) -> rusqlite::Result<Option<Profile>
                 ai_off: r.get(5)?,
                 age_confirmed_at,
                 ai_consent,
-                own_keys_fallback: r.get(6)?,
                 two_factor: two_factor.clone(),
             })
         },
@@ -207,13 +204,6 @@ pub fn set_review_quiet(conn: &Connection, user_id: i64, quiet: bool) -> rusqlit
 pub fn set_ai_off(conn: &Connection, user_id: i64, off: bool) -> rusqlite::Result<()> {
     conn.execute("UPDATE users SET ai_off = ?2 WHERE id = ?1", params![user_id, off])?;
     crate::consent::record(conn, user_id, crate::consent::AI, !off)
-}
-
-/// "Use my keys when my Skrongle AI limit is hit" (`users.own_keys_fallback`):
-/// on Plus, whether the learner's own API keys are used at all.
-pub fn set_own_keys_fallback(conn: &Connection, user_id: i64, on: bool) -> rusqlite::Result<()> {
-    conn.execute("UPDATE users SET own_keys_fallback = ?2 WHERE id = ?1", params![user_id, on])?;
-    Ok(())
 }
 
 /// `users.lang`: the language the app speaks to this account in ('' follows the browser).
@@ -312,15 +302,6 @@ pub(crate) fn days_from_civil(y: i64, m: usize, d: i64) -> i64 {
     let doy = (153 * mp + 2) / 5 + d - 1;
     let doe = yoe * 365 + yoe / 4 - yoe / 100 + doy;
     era * 146_097 + doe - 719_468
-}
-
-pub(crate) fn days_in_month(y: i64, m: usize) -> i64 {
-    match m {
-        1 | 3 | 5 | 7 | 8 | 10 | 12 => 31,
-        4 | 6 | 9 | 11 => 30,
-        _ if y % 4 == 0 && (y % 100 != 0 || y % 400 == 0) => 29,
-        _ => 28,
-    }
 }
 
 #[cfg(test)]

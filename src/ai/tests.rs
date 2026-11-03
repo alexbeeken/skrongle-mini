@@ -1,4 +1,5 @@
 use super::*;
+use std::sync::Arc;
 
 #[test]
 fn internal_addresses_are_recognised() {
@@ -114,7 +115,7 @@ fn generating(db: &Db, user: &str, id: &str, base_url: String) -> Request {
         .unwrap();
     Request {
         user_id: uid,
-        provider: Provider { kind: ProviderKind::OpenAi, base_url, api_key: "k".into(), model: "fake".into(), source: KeySource::Own, effort: None },
+        provider: Provider { kind: ProviderKind::OpenAi, base_url, api_key: "k".into(), model: "fake".into(), effort: None },
         course_id: id.into(),
         wish: "anything".into(),
         lesson_count: 3,
@@ -126,7 +127,6 @@ fn generating(db: &Db, user: &str, id: &str, base_url: String) -> Request {
         revise: None,
         add_lesson: None,
         edit: None,
-        meter: None,
         translate: None,
         named: Default::default(),
     }
@@ -194,8 +194,8 @@ fn ai_generation_keeps_to_the_course_caps() {
 
 /// The generation slots (#368, #874): taken under one lock, so two requests
 /// at once cannot both get one; held until the generator thread exits, even
-/// after the job is dropped with its account; past the free slots a job
-/// waits in line with its place; and a job stops when its time budget runs out.
+/// after the job is dropped with its account; a second job while one runs is
+/// refused, never queued (#43); and a job stops when its time budget runs out.
 #[test]
 fn ai_job_slots_are_taken_atomically_and_held_until_the_thread_exits() {
     let db = Db::open_in_memory().unwrap();
@@ -217,28 +217,16 @@ fn ai_job_slots_are_taken_atomically_and_held_until_the_thread_exits() {
         .collect();
     assert_eq!(started.iter().filter(|ok| **ok).count(), 1, "{started:?}");
 
+    // One job at a time: Bob is refused at once, with the message, and
+    // nothing is left waiting.
     let bob = generating(&db, "bob", "bob-course", url.clone());
-    assert_eq!(start(&jobs, db.clone(), Arc::clone(&registry), bob, "bob".into(), 0), Ok(Started::Now));
-    // Both slots busy: Cat and Dan wait in line, in order.
-    let cat = generating(&db, "cat", "cat-course", url.clone());
-    assert_eq!(start(&jobs, db.clone(), Arc::clone(&registry), cat.clone(), "cat".into(), 7), Ok(Started::Waiting));
-    let dan = generating(&db, "dan", "dan-course", url.clone());
-    assert_eq!(start(&jobs, db.clone(), Arc::clone(&registry), dan.clone(), "dan".into(), 8), Ok(Started::Waiting));
-    assert!(check_capacity(&jobs, cat.user_id).unwrap_err().contains("already have"), "one job each, waiting or not");
-    let place = |id: &str| jobs.status(&jobs.get(id).unwrap());
-    assert_eq!((place("cat").place, place("dan").place), (Some(1), Some(2)));
-    assert_eq!(place("dan").phase, "You're number 2 in line.");
-    assert_eq!(place("bob").place, None, "a running job has no place");
+    let refused = start(&jobs, db.clone(), Arc::clone(&registry), bob.clone(), "bob".into(), 0).unwrap_err();
+    assert_eq!(refused, crate::t("courses.generate.busy_other"));
+    assert_eq!(check_capacity(&jobs, bob.user_id), Err(refused));
+    assert!(jobs.get("bob").is_none(), "a refused job is not in the table");
+    assert!(jobs.lock().waiting.is_empty());
+    assert!(check_capacity(&jobs, ann.user_id).unwrap_err().contains("already have"), "one job each");
     assert!(!slot_free(&jobs));
-
-    // The line holds `line_limit()`; one more is refused.
-    for i in 2..line_limit() {
-        let r = generating(&db, &format!("w{i}"), &format!("w{i}-course"), url.clone());
-        assert_eq!(start(&jobs, db.clone(), Arc::clone(&registry), r, format!("w{i}"), 10 + i as i64), Ok(Started::Waiting));
-    }
-    let eve = generating(&db, "eve", "eve-course", url.clone());
-    assert!(check_capacity(&jobs, eve.user_id).unwrap_err().contains("Too many"));
-    assert!(start(&jobs, db.clone(), Arc::clone(&registry), eve, "eve".into(), 0).is_err());
 
     // Ann's account goes: her job leaves the table, but its thread is
     // still waiting on the model, so the slot stays taken.
@@ -254,12 +242,13 @@ fn ai_job_slots_are_taken_atomically_and_held_until_the_thread_exits() {
         std::thread::sleep(Duration::from_millis(20));
     }
     assert!(jobs.lock().live.is_empty());
-    assert_eq!(place("cat").place, Some(1), "still waiting: the runner starts it (none runs in this test)");
+    // With the slot free, Bob may start.
+    assert!(check_capacity(&jobs, bob.user_id).is_ok());
 
     // Out of budget: no request is made, and the job says why.
     let job = test_job("c");
     let job = Job { deadline: Mutex::new(std::time::Instant::now()), ..job };
-    let err = job.llm(&db, &cat, &Call::new("generate-outline"), "s", "u").unwrap_err();
+    let err = job.llm(&ann, &Call::new("generate-outline"), "s", "u").unwrap_err();
     assert!(err.contains("took longer than") && err.contains("resume"), "{err}");
 }
 
@@ -291,23 +280,26 @@ fn interrupted_generations_wait_again_unless_the_key_was_pasted() {
     // Back in the table, waiting, so the learner's page follows it.
     let jobs = Jobs::default();
     assert_eq!(adopt(&jobs, &db).unwrap(), 1);
-    assert_eq!(jobs.status(&jobs.get("j").unwrap()).place, Some(1));
+    assert_eq!(jobs.status(&jobs.get("j").unwrap()).phase, "Waiting", "until the runner starts it");
     assert!(check_capacity(&jobs, saved.user_id).is_err(), "it is still their job");
 }
 
-/// Finished jobs kept per user are capped (#368): the oldest go first.
+/// One AI job slot per account (#42): starting drops the account's
+/// finished jobs and any expired ones; other accounts keep theirs.
 #[test]
-fn finished_ai_jobs_per_user_are_capped() {
+fn ai_jobs_hold_one_entry_per_account() {
     let jobs = Jobs::default();
-    for i in 0..MAX_FINISHED_PER_USER + 3 {
-        jobs.insert_finished_for_test(&format!("a{i:02}"), 1, "c");
-    }
-    jobs.insert_finished_for_test("b", 2, "c");
-    jobs.lock().trim_finished(1);
-    let table = jobs.lock();
-    assert_eq!(table.map.values().filter(|j| j.user_id == 1).count(), MAX_FINISHED_PER_USER);
-    assert!(table.map.contains_key("b"), "other users keep theirs");
-    assert!(!table.map.contains_key("a00") && table.map.contains_key(&format!("a{:02}", MAX_FINISHED_PER_USER + 2)));
+    jobs.insert_finished_for_test("a1", 1, "c");
+    jobs.lock().make_room(1);
+    jobs.insert_finished_for_test("a2", 1, "c");
+    assert_eq!(jobs.lock().map.len(), 1, "same user: one entry");
+    jobs.lock().make_room(2);
+    jobs.insert_finished_for_test("b1", 2, "c");
+    assert_eq!(jobs.lock().map.len(), 2, "two users, two entries");
+    // An expired job of another user is gone after the next insert.
+    jobs.get("b1").unwrap().update(|s| s.finished_at = Some(crate::db::now() - JOB_TTL_SECS - 1));
+    jobs.lock().make_room(1);
+    assert!(jobs.get("b1").is_none() && jobs.get("a2").is_none());
 }
 
 /// A fake OpenAI-compatible server: answers the outline request with a
@@ -397,7 +389,6 @@ fn test_job(course_id: &str) -> Job {
             editing: false,
             lesson_title: None,
             translating: false,
-            place: None,
             finished_at: None,
             notes: vec![],
         }),
@@ -418,7 +409,7 @@ fn generates_a_maths_course_and_resumes_after_a_failure() {
     })
     .unwrap();
     let (url, seen) = fake_llm(vec!["roots"]);
-    let provider = Provider { kind: ProviderKind::OpenAi, base_url: url, api_key: "k".into(), model: "fake".into(), source: KeySource::Own, effort: None };
+    let provider = Provider { kind: ProviderKind::OpenAi, base_url: url, api_key: "k".into(), model: "fake".into(), effort: None };
     let mut req = Request {
         user_id: 1,
         provider,
@@ -433,7 +424,6 @@ fn generates_a_maths_course_and_resumes_after_a_failure() {
         revise: None,
         add_lesson: None,
         edit: None,
-        meter: None,
         translate: None,
         named: Default::default(),
     };
@@ -509,7 +499,6 @@ fn generates_from_the_llm_fixtures() {
             revise: None,
             add_lesson: None,
             edit: None,
-            meter: None,
             translate: None,
             named,
         };
@@ -580,7 +569,6 @@ fn translates_a_copy_from_the_llm_fixtures() {
             revise: None,
             add_lesson: None,
             edit: None,
-            meter: None,
             translate: Some(Translation { plan: plan.clone(), i18n: 0 }),
             named: Default::default(),
         };
@@ -725,7 +713,6 @@ fn revises_a_course_from_feedback_and_undoes_it() {
         revise: None,
         add_lesson: None,
         edit: None,
-        meter: None,
         translate: None,
         named: Default::default(),
     };
@@ -834,7 +821,6 @@ fn edits_lessons_from_feedback_and_undoes_it() {
         revise: None,
         add_lesson: None,
         edit: None,
-        meter: None,
         translate: None,
         named: Default::default(),
     };
@@ -936,7 +922,6 @@ fn adds_a_lesson_where_the_ai_puts_it_and_undoes_it() {
         revise: None,
         add_lesson: None,
         edit: None,
-        meter: None,
         translate: None,
         named: Default::default(),
     };
@@ -1034,7 +1019,6 @@ fn each_ai_run_keeps_its_changes_for_review() {
         add_lesson: None,
         edit: None,
         named: Default::default(),
-        meter: None,
         translate: None,
     };
     let finish = |jid: &str| {
@@ -1451,7 +1435,6 @@ fn a_fact_check_fixes_and_says_why() {
         add_lesson: None,
         edit: None,
         named: Default::default(),
-        meter: None,
         translate: None,
     };
     let finish = |jid: &str| {

@@ -107,7 +107,7 @@ jobs:
           report-name: playwright-report-smoke-${{ strategy.job-index }}
 
   # The mini lane (#639): the smoke happy paths and mini.spec.ts with the
-  # dev stand-ins off (no mail, SMS, payments or Skrongle AI), the
+  # dev stand-ins off (no mail, SMS or payments), the
   # shape a self-hoster runs (docs/testing.md, "The mini lane"). One shard,
   # so its own result is the check; not a required check yet.
   e2e-mini:

@@ -63,11 +63,6 @@ pub fn https_warnings(bind: SocketAddr, secure_cookies: bool, public_url: Option
 
 // ---------- CSRF ----------
 
-/// Paths another site may post to: Stripe's webhook (signed, no cookie).
-fn exempt(path: &str) -> bool {
-    path.ends_with("/billing/webhook")
-}
-
 /// Did a browser send this request from another site? Browsers say so in
 /// `Sec-Fetch-Site`; older ones only send `Origin`, compared with the host
 /// the request was made to. A request with neither is not from a browser
@@ -92,7 +87,7 @@ pub fn is_cross_site(headers: &HeaderMap) -> bool {
 /// sibling subdomains and browsers without SameSite.
 pub async fn csrf(req: Request, next: Next) -> Response {
     let safe = matches!(*req.method(), Method::GET | Method::HEAD | Method::OPTIONS);
-    if !safe && !exempt(req.uri().path()) && is_cross_site(req.headers()) {
+    if !safe && is_cross_site(req.headers()) {
         tracing::warn!("refused a cross-site {} {}", req.method(), req.uri().path());
         return (StatusCode::FORBIDDEN, crate::t("error.cross_site")).into_response();
     }
@@ -199,10 +194,10 @@ pub const AI_JOBS_PER_USER_DAY: Limit = Limit { name: "ai-jobs-user-day", max: 4
 /// most about once a second while someone works, well under this.
 pub const COURSE_WRITES_PER_USER: Limit = Limit { name: "course-writes-user", max: 120, window: 300 };
 
-/// Most keys kept per limit, so memory stays bounded on the Pi. Each limit
-/// has its own table: a flood of one kind of key (fresh addresses) cannot
-/// crowd out another (the per-account counters).
-const MAX_KEYS: usize = 10_000;
+/// Most keys kept per limit, so memory stays bounded on the Pi (#36). Each
+/// limit has its own table: a flood of one kind of key (fresh addresses)
+/// cannot crowd out another (the per-account counters).
+const MAX_KEYS: usize = crate::caps::MAX_RATE_LIMIT_KEYS;
 
 /// One limit's counters: its window length and `key -> (window start, hits)`.
 type Table = (i64, HashMap<String, (i64, u32)>);

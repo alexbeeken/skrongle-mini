@@ -125,7 +125,7 @@ pub const EXPORTED: &[(&str, &[&str])] = &[
     ),
     ("plan_grants", &["user_id", "granted_at", "expires_at", "note"]),
     ("plan_cancellations", &["id", "user_id", "plan", "reason", "feedback", "created_at"]),
-    // Skrongle AI metering (#299): what each model call cost, and the credit packs bought.
+    // The old AI meter's rows (#299, gone with #52): what each model call cost, and the credit packs bought.
     (
         "ai_usage",
         &[
@@ -390,18 +390,9 @@ pub fn delete_account(conn: &mut Connection, user_id: i64) -> rusqlite::Result<O
     crate::mail::keep_for_caps(&tx, user_id, crate::db::now())?;
     let n = tx.execute("DELETE FROM users WHERE id = ?1", [user_id])?;
     tx.commit()?;
+    // Its `user_progress` rows went with the cascade (#38).
+    crate::mastery::cache::forget_user(user_id);
     Ok((n > 0).then_some(Deleted { courses, export_files }))
-}
-
-/// Does the account have a Stripe subscription that would keep billing
-/// after the account is gone? Deletion asks the learner to cancel it first.
-pub fn has_live_subscription(conn: &Connection, user_id: i64) -> rusqlite::Result<bool> {
-    conn.query_row(
-        "SELECT EXISTS(SELECT 1 FROM subscriptions WHERE user_id = ?1
-            AND status IN ('active', 'trialing', 'past_due', 'unpaid', 'incomplete') AND cancel_at_period_end = 0)",
-        [user_id],
-        |r| r.get(0),
-    )
 }
 
 // ---------- retention ----------

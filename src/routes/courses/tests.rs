@@ -7,7 +7,7 @@ use serde_json::json;
 #[test]
 fn the_editor_saves_as_it_is_edited() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let state = crate::routes::test_state(false, None);
+    let state = crate::routes::test_state(false);
     let ann = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", "x")).unwrap();
     state.db.with(|c| crate::terms::accept(c, ann, crate::terms::version())).unwrap();
     let cookie = format!("sid={}", state.db.with(|c| crate::auth::create_session(c, ann)).unwrap());
@@ -92,7 +92,7 @@ fn the_editor_saves_as_it_is_edited() {
 #[test]
 fn course_writes_stop_at_the_limits() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let mut state = crate::routes::test_state(false, None);
+    let mut state = crate::routes::test_state(false);
     let limits = courses::Limits { max_courses: 2, course_bytes: 20_000, account_bytes: 30_000 };
     Arc::get_mut(&mut state).unwrap().courses = Arc::new(courses::Courses::empty().with_limits(limits));
     let user = |email: &str| {
@@ -216,7 +216,7 @@ fn prompt_boxes_take_twenty_characters_up_to_their_maximum() {
 #[test]
 fn preview_answer_grades_a_draft_question() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let state = crate::routes::test_state(false, None);
+    let state = crate::routes::test_state(false);
     let ann = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", "x")).unwrap();
     state.db.with(|c| crate::terms::accept(c, ann, crate::terms::version())).unwrap();
     let bob = state.db.with(|c| crate::auth::create_user(c, "bob@example.org", "x")).unwrap();
@@ -290,7 +290,7 @@ fn notices_are_keys_not_text() {
     assert_eq!(editor_notice("redone", Some(&u), None).as_deref(), Some("Redone (Added “Two”)."));
 
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let state = crate::routes::test_state(false, None);
+    let state = crate::routes::test_state(false);
     let ann = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", "x")).unwrap();
     state.db.with(|c| crate::terms::accept(c, ann, crate::terms::version())).unwrap();
     let cookie = format!("sid={}", state.db.with(|c| crate::auth::create_session(c, ann)).unwrap());
@@ -325,26 +325,22 @@ fn notices_are_keys_not_text() {
 }
 
 /// The Generate dialog's estimate (#443): lessons and time always, dollars
-/// for a priced model, a share of the month for Skrongle AI, and the same
+/// for a priced model, and the same
 /// sum `Meter::estimate` reserves.
 #[test]
 fn the_generate_estimate_counts_lessons_time_and_cost() {
     use generate::{estimate_line, Rate};
     assert_eq!(estimate_line(6, 0, None), "6 lessons · about 5 minutes");
-    let prices = crate::metering::PriceTable::parse(crate::metering::DEFAULT_PRICES).unwrap();
+    let prices = crate::prices::PriceTable::parse(crate::prices::DEFAULT_PRICES).unwrap();
     assert!(prices.listed("claude-opus-5-5") && !prices.listed("gpt-5"));
     let opus = prices.price("claude-opus-5-5");
-    let own = Rate { id: "anthropic", price: Some(opus), month: None };
+    let own = Rate { id: "anthropic", price: Some(opus) };
     let (input, output) = crate::ai::job_tokens(6, true, 0);
-    let cost = crate::metering::PriceTable::cost_at(opus, input, output);
-    assert_eq!(cost, prices.cost("claude-opus-5-5", crate::ai::Usage { input, output, cached: 0 }));
+    let cost = crate::prices::PriceTable::cost_at(opus, input, output);
     assert_eq!(estimate_line(6, 0, Some(&own)), format!("6 lessons · about 5 minutes · roughly CA${:.2}", generate::to_cad(cost) as f64 / 1e6));
     assert_eq!(generate::to_cad(1_000_000), 1_400_000, "shown in Canadian dollars");
     let more = |notes: usize| estimate_line(6, notes, Some(&own));
     assert_ne!(more(0), more(20_000));
-    let hosted = Rate { id: crate::tutor::HOSTED, price: Some(opus), month: Some(cost * 4) };
-    assert_eq!(estimate_line(6, 0, Some(&hosted)), format!("6 lessons · about 5 minutes · about 25 % of this month's {}", crate::tutor::hosted_label()));
-    assert!(hosted.attrs().contains("data-month="));
 }
 
 /// Use AI's form alone (`ai_form.html`), for the mode choice (#1241).
@@ -359,8 +355,6 @@ fn ai_form_html(mode: &'static str, can_change: bool) -> String {
     let af = editor::AiFormView {
         course_id: "c".into(),
         provider: Some("Claude"),
-        ai_left: None,
-        ai_out: None,
         named_provider: false,
         can_change,
         generate: false,

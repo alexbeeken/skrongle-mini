@@ -1,24 +1,20 @@
-//! The line for AI jobs (#874): generations, revisions, added lessons and
-//! translations.
+//! AI jobs, one at a time (#874, #43): generations, revisions, added
+//! lessons and translations. There is no waiting line: a job asked for while
+//! another runs is refused at once.
 //!
 //! - Each job is a row of kind [`GENERATE`] on the `jobs` table (`jobs.rs`).
 //!   Its payload names the job, the course and how to rebuild the request,
 //!   never a key.
-//! - [`slots`] jobs run at once (`SKRONGLE_AI_JOBS`, default 2), each on its
-//!   own OS thread: never on Tokio's blocking pool, never on the one runner
-//!   thread. A job that finds a slot free (and nobody waiting) starts at
-//!   once. Past that it waits in line, at most [`line_limit`] deep (10 on the
-//!   hosted site, 3 on Skrongle mini); past that it is refused, as before,
-//!   with a log line.
-//! - The runner (`jobs.rs`) takes the next waiting row when a slot frees and
-//!   hands it to a new generator thread ([`handler`], `Step::Handed`). While a
-//!   job runs, one heartbeat thread renews the leases of this server's rows
-//!   every [`HEARTBEAT`], so a run of up to an hour keeps its row; the
-//!   generator thread records the end itself.
+//! - [`slots`] is 1: one job runs, on its own OS thread (never on Tokio's
+//!   blocking pool, never on the one runner thread). While it runs, one
+//!   heartbeat thread renews the lease of this server's row every
+//!   [`HEARTBEAT`], so a run of up to an hour keeps its row; the generator
+//!   thread records the end itself.
 //! - After a restart ([`at_boot`], [`adopt`]) a generation goes on by itself
-//!   from the lessons already written, when its key can be had again: the
-//!   server's own (Skrongle AI) or one saved on the profile. A key pasted into
-//!   the form lived only in memory, so that job stops and keeps its *Resume*
+//!   from the lessons already written, when its key can be had again: one
+//!   saved on the profile. The runner (`jobs.rs`) hands that row to a new
+//!   generator thread ([`handler`], `Step::Handed`). A key pasted into the
+//!   form lived only in memory, so that job stops and keeps its *Resume*
 //!   button, as before. Revisions, added lessons and translations stop too.
 
 use std::collections::HashMap;
@@ -37,22 +33,12 @@ use crate::jobs::{Claimed, Kind, Step, LEASE};
 /// The runner never retries one; past `max_attempts` takes (a server that
 /// keeps stopping mid-run) the job stops for good.
 pub const GENERATE: Kind = Kind { name: "generate_course", max_attempts: 3, delays: crate::mail::RETRY_DELAYS, every: None, at: None };
-/// Jobs running at once unless `SKRONGLE_AI_JOBS` says otherwise.
-pub const DEFAULT_SLOTS: usize = 2;
-/// Jobs that may wait in line on the hosted site and on Skrongle mini.
-pub const LINE_HOSTED: usize = 10;
-pub const LINE_MINI: usize = 3;
 /// How often the heartbeat renews the leases of running jobs.
 pub const HEARTBEAT: Duration = Duration::from_secs(120);
 
-/// Jobs running at once (`SKRONGLE_AI_JOBS`, default [`DEFAULT_SLOTS`]).
+/// Jobs running at once: one (a Pi's memory, #43).
 pub fn slots() -> usize {
-    crate::env("AI_JOBS").and_then(|v| v.parse::<usize>().ok()).filter(|n| *n > 0).unwrap_or(DEFAULT_SLOTS)
-}
-
-/// Jobs that may wait in line.
-pub fn line_limit() -> usize {
-    if crate::is_mini() { LINE_MINI } else { LINE_HOSTED }
+    1
 }
 
 /// `locked_by` on the rows this server's generator threads hold.
@@ -62,7 +48,8 @@ fn worker() -> &'static str {
 }
 
 /// The job table: every job by id (finished ones until they expire), the
-/// generator threads still alive and the jobs waiting in line. Capacity
+/// generator threads still alive and the jobs adopted after a restart that
+/// the runner has not started yet. Capacity
 /// counts threads, not table rows, so a job dropped from the table (its
 /// account deleted) still holds its slot until its thread has exited.
 #[derive(Default)]
@@ -70,16 +57,18 @@ pub(super) struct JobTable {
     pub(super) map: HashMap<String, Arc<Job>>,
     /// Job id → (user id, `jobs` row), for each generator thread that has not exited.
     pub(super) live: HashMap<String, (i64, i64)>,
-    /// Job id → (user id, `jobs` row), for each job waiting in line.
+    /// Job id → (user id, `jobs` row), for each job adopted after a restart
+    /// and not started yet (nothing else ever waits).
     pub(super) waiting: HashMap<String, (i64, i64)>,
-    /// The requests of waiting jobs. A pasted key lives only here; a job
-    /// adopted after a restart has none (its request is rebuilt).
-    pending: HashMap<String, Request>,
     /// Wakes the runner when a slot frees.
     wake: Option<Sender<()>>,
     heartbeat: bool,
 }
 
+/// Every AI job by id. One entry per account at most (so at most
+/// `caps::MAX_ACCOUNTS`): starting a job drops expired jobs and the
+/// account's earlier finished ones first (#42), and capacity allows one
+/// running or waiting job per account.
 #[derive(Default)]
 pub struct Jobs {
     inner: Arc<Mutex<JobTable>>,
@@ -103,38 +92,33 @@ impl Drop for LiveSlot {
 }
 
 impl JobTable {
-    /// Whether `user_id` may have a job now (one each): `true` to start at
-    /// once, `false` to wait in line. Refused when the line is full.
-    fn capacity(&self, user_id: i64) -> Result<bool, String> {
+    /// Whether `user_id` may start a job now: one each, one at a time.
+    /// Otherwise the message the Generate dialog shows.
+    fn capacity(&self, user_id: i64) -> Result<(), String> {
         if self.live.values().chain(self.waiting.values()).any(|(u, _)| *u == user_id) {
             return Err("You already have a course being generated; wait for it to finish (or cancel it).".into());
         }
-        if self.live.len() < slots() && self.waiting.is_empty() {
-            return Ok(true);
+        if self.live.len() + self.waiting.len() >= slots() {
+            tracing::info!("generate: refused user {user_id}: a job is already running");
+            return Err(crate::t("courses.generate.busy_other"));
         }
-        if self.waiting.len() >= line_limit() {
-            tracing::warn!("generate: refused user {user_id}: {} job(s) running and {} waiting, the line is full", self.live.len(), self.waiting.len());
-            return Err("Too many courses are being generated right now; try again in a few minutes.".into());
-        }
-        Ok(false)
+        Ok(())
     }
 
-    /// Keep at most `MAX_FINISHED_PER_USER` finished jobs of `user_id`, the newest.
-    pub(super) fn trim_finished(&mut self, user_id: i64) {
-        let mut finished: Vec<(i64, String)> = self
-            .map
-            .iter()
-            .filter(|(_, j)| j.user_id == user_id)
-            .filter_map(|(id, j)| j.snapshot().finished_at.map(|t| (t, id.clone())))
-            .collect();
-        if finished.len() <= MAX_FINISHED_PER_USER {
-            return;
-        }
-        finished.sort();
-        let extra = finished.len() - MAX_FINISHED_PER_USER;
-        for (_, id) in finished.into_iter().take(extra) {
-            self.map.remove(&id);
-        }
+    /// Make room for a new job of `user_id`: drop expired finished jobs,
+    /// then the user's own finished ones. A running or waiting job keeps
+    /// its entry (and its thread).
+    pub(super) fn make_room(&mut self, user_id: i64) {
+        self.drop_expired();
+        self.map.retain(|_, j| j.user_id != user_id || j.snapshot().finished_at.is_none());
+    }
+
+    /// Drop finished jobs older than `JOB_TTL_SECS`.
+    fn drop_expired(&mut self) -> usize {
+        let cutoff = crate::db::now() - JOB_TTL_SECS;
+        let before = self.map.len();
+        self.map.retain(|_, j| j.snapshot().finished_at.map(|t| t > cutoff).unwrap_or(true));
+        before - self.map.len()
     }
 }
 
@@ -148,16 +132,9 @@ impl Jobs {
         self.lock().wake = Some(wake);
     }
 
-    /// The job's progress, with its place when it waits in line.
+    /// The job's progress.
     pub fn status(&self, job: &Job) -> Status {
-        let mut s = job.snapshot();
-        let table = self.lock();
-        if let Some((_, row)) = table.waiting.get(&s.id) {
-            let n = table.waiting.values().filter(|(_, r)| r <= row).count();
-            s.place = Some(n);
-            s.phase = crate::t1("courses.generate.in_line", "n", n);
-        }
-        s
+        job.snapshot()
     }
 
     /// A job that has already finished (a generation, no error), for tests
@@ -183,7 +160,6 @@ impl Jobs {
                 editing: false,
                 lesson_title: None,
                 translating: false,
-                place: None,
                 finished_at: Some(crate::db::now()),
                 notes: vec![],
             }),
@@ -195,8 +171,8 @@ impl Jobs {
 
     /// Stop and forget every job of `user_id` (their account is being
     /// deleted): a running one stops before its next request, and its writes
-    /// fail once the course row is gone; a waiting one leaves the line (its
-    /// row stops when the runner reaches it). A thread keeps its slot until
+    /// fail once the course row is gone; one adopted after a restart leaves the
+    /// table (its row stops when the runner reaches it). A thread keeps its slot until
     /// it has exited.
     pub fn drop_user(&self, user_id: i64) {
         let mut table = self.lock();
@@ -205,15 +181,10 @@ impl Jobs {
         }
         table.map.retain(|_, j| j.user_id != user_id);
         table.waiting.retain(|_, (u, _)| *u != user_id);
-        table.pending.retain(|_, r| r.user_id != user_id);
     }
 
     pub fn purge_expired(&self) -> usize {
-        let cutoff = crate::db::now() - JOB_TTL_SECS;
-        let mut table = self.lock();
-        let before = table.map.len();
-        table.map.retain(|_, j| j.snapshot().finished_at.map(|t| t > cutoff).unwrap_or(true));
-        before - table.map.len()
+        self.lock().drop_expired()
     }
 
     pub(super) fn lock(&self) -> std::sync::MutexGuard<'_, JobTable> {
@@ -221,23 +192,14 @@ impl Jobs {
     }
 }
 
-/// Whether this user may start a job now, or wait in line (one each).
+/// Whether this user may start a job now (one each, one at a time).
 /// `start` checks again, under the same lock as it takes the slot.
 pub fn check_capacity(jobs: &Jobs, user_id: i64) -> Result<(), String> {
-    jobs.lock().capacity(user_id).map(drop)
+    jobs.lock().capacity(user_id)
 }
 
 pub fn new_job_id() -> String {
     crate::auth::generate_token().chars().take(16).collect()
-}
-
-/// How [`start`] took a job.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum Started {
-    /// Its thread is running.
-    Now,
-    /// It waits in line; the runner starts it when a slot frees.
-    Waiting,
 }
 
 fn new_job(req: &Request, id: &str) -> Job {
@@ -259,7 +221,6 @@ fn new_job(req: &Request, id: &str) -> Job {
             editing: req.edit.is_some(),
             lesson_title: req.edit.as_ref().and_then(|e| e.lesson.as_ref()).map(|(_, title)| title.clone()),
             translating: req.translate.is_some(),
-            place: None,
             finished_at: None,
             notes: vec![],
         }),
@@ -270,25 +231,19 @@ fn new_job(req: &Request, id: &str) -> Job {
 
 /// Take a job writing into `req.course_id` (already registered as
 /// 'generating' or 'revising' with this job id), held by `jobs` row `row`:
-/// start its thread now, or put it in line. When it ends the course is
-/// marked ready or failed, and the row done or failed.
-pub fn start(jobs: &Jobs, db: Db, registry: Arc<crate::courses::Courses>, req: Request, id: String, row: i64) -> Result<Started, String> {
+/// start its thread, or refuse when one is running. When it ends the course
+/// is marked ready or failed, and the row done or failed.
+pub fn start(jobs: &Jobs, db: Db, registry: Arc<crate::courses::Courses>, req: Request, id: String, row: i64) -> Result<(), String> {
     let job = Arc::new(new_job(&req, &id));
-    // Check and take the slot (or the place in line) under one lock, so two
-    // requests at once cannot both pass the check.
+    // Check and take the slot under one lock, so two requests at once
+    // cannot both pass the check.
     let mut table = jobs.lock();
-    let now = table.capacity(req.user_id)?;
+    table.capacity(req.user_id)?;
+    table.make_room(req.user_id);
     table.map.insert(id.clone(), Arc::clone(&job));
-    table.trim_finished(req.user_id);
-    if !now {
-        job.update(|s| s.phase = "Waiting".into());
-        table.waiting.insert(id.clone(), (req.user_id, row));
-        table.pending.insert(id, req);
-        return Ok(Started::Waiting);
-    }
     table.live.insert(id.clone(), (req.user_id, row));
     drop(table);
-    launch(jobs, job, db, registry, req, id, row).map(|()| Started::Now)
+    launch(jobs, job, db, registry, req, id, row)
 }
 
 /// Start `job`'s generator thread; its slot in `live` is already taken.
@@ -312,10 +267,6 @@ fn launch(jobs: &Jobs, job: Arc<Job>, db: Db, registry: Arc<crate::courses::Cour
             (None, None, None, Some(t)) => crate::i18n::in_scope(t.i18n, || translate(&job, &db, &registry, &req, &t.plan)),
             (None, None, None, None) => run(&job, &db, &registry, &req),
         };
-        if let Some(m) = &req.meter {
-            // Whatever the outcome, what the job did not spend goes back.
-            m.release(&job.snapshot().id);
-        }
         let err = outcome.as_ref().err().cloned();
         // Still 'generating' or 'revising', so the files are what the AI
         // wrote. A stopped generation keeps the lessons it wrote, so they
@@ -397,11 +348,9 @@ pub struct Payload {
     pub user: i64,
     /// "generate", "revise" or "translate".
     pub mode: String,
-    /// A generation whose key can be had again (Skrongle AI or a saved key):
-    /// it goes on by itself after a restart.
+    /// A generation whose key can be had again (a saved key): it goes on
+    /// by itself after a restart.
     pub resume: bool,
-    /// "hosted" or "own".
-    pub key: String,
     pub provider: String,
     pub model: String,
     /// The effort a generation runs at (`Effort::id`), '' for none.
@@ -423,14 +372,12 @@ pub fn payload(req: &Request, id: &str, saved_key: bool) -> Payload {
         (false, None) => "generate",
         (false, Some(_)) => "translate",
     };
-    let hosted = req.provider.source == KeySource::Hosted;
     Payload {
         job: id.to_string(),
         course: req.course_id.clone(),
         user: req.user_id,
         mode: mode.into(),
-        resume: mode == "generate" && (hosted || saved_key),
-        key: req.provider.source.as_str().into(),
+        resume: mode == "generate" && saved_key,
         provider: req.provider.kind.id().into(),
         model: req.provider.model.clone(),
         effort: req.provider.effort.map(|e| e.id().to_string()).unwrap_or_default(),
@@ -443,21 +390,13 @@ pub fn payload(req: &Request, id: &str, saved_key: bool) -> Payload {
     }
 }
 
-/// Add the row of a job this server starts or puts in line: held by this
-/// server (running, leased) until [`release`] puts it in line.
+/// Add the row of a job this server starts: held by this server (running,
+/// leased) until [`settle`] records its end.
 pub fn hold(conn: &Connection, p: &Payload, now: i64) -> rusqlite::Result<i64> {
     let value = serde_json::to_value(p).unwrap_or_default();
     let id = crate::jobs::enqueue(conn, GENERATE.name, &value, now, now)?.ok_or_else(|| rusqlite::Error::InvalidParameterName(GENERATE.name.into()))?;
     conn.execute("UPDATE jobs SET state = 'running', locked_by = ?2, locked_until = ?3, attempts = 1 WHERE id = ?1", params![id, worker(), now + LEASE])?;
     Ok(id)
-}
-
-/// Put a held row in line for the runner (unless it ended already: cancelled).
-pub fn release(conn: &Connection, row: i64, now: i64) -> rusqlite::Result<usize> {
-    conn.execute(
-        "UPDATE jobs SET state = 'queued', locked_by = NULL, locked_until = NULL, run_at = ?3, attempts = 0 WHERE id = ?1 AND state = 'running' AND locked_by = ?2",
-        params![row, worker(), now],
-    )
 }
 
 /// Record the end of a job's row: done, or failed with `error`.
@@ -489,7 +428,7 @@ fn unfinished(conn: &Connection, states: &str) -> rusqlite::Result<Vec<(i64, Pay
 pub const INTERRUPTED: &str = "Generation was interrupted when the server restarted. Resume it to write the remaining lessons.";
 
 /// At boot, before `courses::fail_interrupted`: a generation that can go on
-/// by itself waits in line again (one server per SQLite file, so a running
+/// by itself is queued again for the runner (one server per SQLite file, so a running
 /// row at boot is from the server that stopped); any other unfinished job
 /// stops. How many wait.
 pub fn at_boot(conn: &Connection, now: i64) -> rusqlite::Result<usize> {
@@ -505,7 +444,7 @@ pub fn at_boot(conn: &Connection, now: i64) -> rusqlite::Result<usize> {
     Ok(kept)
 }
 
-/// After [`at_boot`]: the generations waiting again, back in the job table
+/// After [`at_boot`]: the generations the runner has yet to start, back in the job table
 /// so their learners' pages follow them. How many.
 pub fn adopt(jobs: &Jobs, db: &Db) -> rusqlite::Result<usize> {
     let rows = db.with(|c| unfinished(c, "'queued'"))?;
@@ -529,7 +468,6 @@ pub fn adopt(jobs: &Jobs, db: &Db) -> rusqlite::Result<usize> {
                 editing: false,
                 lesson_title: None,
                 translating: false,
-                place: None,
                 finished_at: None,
                 notes: vec![],
             }),
@@ -563,7 +501,7 @@ pub fn handler(state: Arc<crate::AppState>) -> impl Fn(&Db, &Claimed) -> Result<
             return Ok(Step::Handed(String::new()));
         }
         if table.live.len() >= slots() {
-            // Taken since the runner looked: back in line.
+            // Taken since the runner looked: try again shortly.
             drop(table);
             db.with(|c| c.execute("UPDATE jobs SET state = 'queued', locked_by = NULL, locked_until = NULL, run_at = ?2 WHERE id = ?1", params![claimed.id, now + 5]))
                 .map_err(|e| e.to_string())?;
@@ -572,21 +510,16 @@ pub fn handler(state: Arc<crate::AppState>) -> impl Fn(&Db, &Claimed) -> Result<
         let job = table.map.get(&p.job).cloned();
         let cancelled = job.as_ref().is_some_and(|j| j.cancel.load(Ordering::SeqCst) || j.snapshot().done);
         table.waiting.remove(&p.job);
-        let pending = table.pending.remove(&p.job);
         if cancelled {
             drop(table);
             db.with(|c| settle(c, claimed.id, Some("cancelled"), now)).map_err(|e| e.to_string())?;
             return Ok(Step::Handed(String::new()));
         }
         drop(table);
-        let req = match pending {
-            Some(r) => Ok(r),
-            None if claimed.attempts > claimed.max_attempts => Err(INTERRUPTED.to_string()),
-            None => rebuild(&state, db, &p),
-        };
+        let req = if claimed.attempts > claimed.max_attempts { Err(INTERRUPTED.to_string()) } else { rebuild(&state, db, &p) };
         let req = match req {
             Ok(r) => r,
-            Err(e) => return give_up(&state, db, claimed.id, &p, job.as_ref(), &e),
+            Err(e) => return give_up(db, claimed.id, &p, job.as_ref(), &e),
         };
         let job = job.unwrap_or_else(|| Arc::new(new_job(&req, &p.job)));
         {
@@ -594,7 +527,7 @@ pub fn handler(state: Arc<crate::AppState>) -> impl Fn(&Db, &Claimed) -> Result<
             table.map.insert(p.job.clone(), Arc::clone(&job));
             table.live.insert(p.job.clone(), (p.user, claimed.id));
         }
-        tracing::info!("generate: job {} for {} left the line", p.job, p.course);
+        tracing::info!("generate: job {} for {} resumed after the restart", p.job, p.course);
         launch(&state.jobs, job, db.clone(), Arc::clone(&state.courses), req, p.job.clone(), claimed.id)?;
         Ok(Step::Handed(format!("job {} started", p.job)))
     }
@@ -602,7 +535,7 @@ pub fn handler(state: Arc<crate::AppState>) -> impl Fn(&Db, &Claimed) -> Result<
 
 /// Stop a job that cannot go on: its course stopped (a generation keeps what
 /// it wrote and offers *Resume*), its row failed.
-fn give_up(state: &crate::AppState, db: &Db, row: i64, p: &Payload, job: Option<&Arc<Job>>, why: &str) -> Result<Step, String> {
+fn give_up(db: &Db, row: i64, p: &Payload, job: Option<&Arc<Job>>, why: &str) -> Result<Step, String> {
     let current = db.with(|c| crate::courses::course(c, &p.course)).map_err(|e| e.to_string())?;
     let ours = current.as_ref().is_some_and(|c| c.job_id.as_deref() == Some(p.job.as_str()) && c.is_busy());
     db.with(|c| {
@@ -614,7 +547,6 @@ fn give_up(state: &crate::AppState, db: &Db, row: i64, p: &Payload, job: Option<
         settle(c, row, Some(why), crate::db::now()).map(drop)
     })
     .map_err(|e| e.to_string())?;
-    state.meter.release(&p.job);
     if let Some(j) = job {
         j.update(|s| {
             s.done = true;
@@ -639,12 +571,8 @@ fn rebuild(state: &crate::AppState, db: &Db, p: &Payload) -> Result<Request, Str
     }
     let notes = db.with(|c| crate::courses::notes_of(c, &p.course)).map_err(|e| e.to_string())?;
     let kind = ProviderKind::parse(&p.provider).ok_or(INTERRUPTED)?;
-    let mut provider = if p.key == KeySource::Hosted.as_str() {
-        state.meter.provider("generate-lesson").ok_or(INTERRUPTED)?
-    } else {
-        let key = db.with(|c| crate::secrets::get(c, &state.vault, p.user, kind.secret())).map_err(|e| e.to_string())?.ok_or(INTERRUPTED)?;
-        Provider { kind, base_url: kind.default_base_url(), api_key: key, model: p.model.clone(), source: KeySource::Own, effort: None }
-    };
+    let key = db.with(|c| crate::secrets::get(c, &state.vault, p.user, kind.secret())).map_err(|e| e.to_string())?.ok_or(INTERRUPTED)?;
+    let mut provider = Provider { kind, base_url: kind.default_base_url(), api_key: key, model: p.model.clone(), effort: None };
     provider.effort = super::Effort::parse(&p.effort);
     Ok(Request {
         user_id: p.user,
@@ -660,7 +588,6 @@ fn rebuild(state: &crate::AppState, db: &Db, p: &Payload) -> Result<Request, Str
         revise: None,
         add_lesson: None,
         edit: None,
-        meter: Some(Arc::clone(&state.meter)),
         named: crate::courses::Draft { title: p.title.clone(), lessons: p.named.clone() },
         translate: None,
     })
@@ -675,23 +602,15 @@ pub async fn submit(state: &crate::AppState, req: Request, id: String, saved_key
     let p = payload(&req, &id, saved_key);
     let now = crate::db::now();
     let row = state.db.call(move |c| hold(c, &p, now)).await.map_err(|e| e.to_string())?;
-    match start(&state.jobs, state.db.clone(), Arc::clone(&state.courses), req, id.clone(), row) {
-        Ok(Started::Now) => {}
-        Ok(Started::Waiting) => {
-            state.db.call(move |c| release(c, row, now)).await.map_err(|e| e.to_string())?;
-            state.queue.notify();
-            tracing::info!("generate: job {id} waits in line");
-        }
-        Err(e) => {
-            let why = e.clone();
-            state.db.call(move |c| settle(c, row, Some(&why), now)).await.map_err(|e| e.to_string())?;
-            return Err(e);
-        }
+    if let Err(e) = start(&state.jobs, state.db.clone(), Arc::clone(&state.courses), req, id.clone(), row) {
+        let why = e.clone();
+        state.db.call(move |c| settle(c, row, Some(&why), now)).await.map_err(|e| e.to_string())?;
+        return Err(e);
     }
     Ok(id)
 }
 
-/// Cancel: a waiting job leaves the line and stops at once; a running one
+/// Cancel: a job adopted after a restart, not started yet, stops at once; a running one
 /// stops after its current request.
 pub async fn cancel(state: &crate::AppState, job: &Arc<Job>) -> Result<(), crate::error::AppError> {
     let id = job.snapshot().id;
@@ -699,7 +618,6 @@ pub async fn cancel(state: &crate::AppState, job: &Arc<Job>) -> Result<(), crate
         let mut t = state.jobs.lock();
         let w = t.waiting.remove(&id);
         if w.is_some() {
-            t.pending.remove(&id);
             job.cancel.store(true, Ordering::SeqCst);
         }
         w
@@ -710,7 +628,6 @@ pub async fn cancel(state: &crate::AppState, job: &Arc<Job>) -> Result<(), crate
         return Ok(());
     };
     let msg = job.check_cancelled().err().unwrap_or_default();
-    state.meter.release(&id);
     let (cid, revision, why) = (job.course_id.clone(), job.snapshot().revision, msg.clone());
     state
         .db

@@ -14,7 +14,6 @@ use std::sync::Arc;
 
 use super::Page;
 use crate::auth::{self, CurrentUser};
-use crate::billing::{self, SubscriptionView};
 use crate::error::AppError;
 use crate::profile::{self, Profile};
 use crate::secrets::{self, KeyStatus, Provider};
@@ -36,18 +35,7 @@ pub struct ProfileTemplate {
     pub api_keys: Vec<KeyStatus>,
     /// Any key on file (readable or not): hiding the AI features asks first, since it deletes them.
     pub keys_on_file: bool,
-    /// The server has plans (the hosted site, `billing::plans_on`); off,
-    /// the Subscription section, its nav link and the plans modal are left out.
-    pub plans: bool,
-    /// Plan and subscription (`billing.rs`).
-    pub subscription: SubscriptionView,
-    /// The plans modal opens on load (`?plans=1`, or sent here to upgrade).
-    pub plans_open: bool,
-    /// The cancel dialog's reasons (`billing::CANCEL_REASONS`).
-    pub cancel_reasons: &'static [(&'static str, &'static str)],
-    /// This month's Skrongle AI as a bar (`metering.rs`).
-    pub ai: AiUsageView,
-    /// Dev mode: show the Plus grant toggle.
+    /// Dev mode: show the dev authenticator link.
     pub dev: bool,
     /// Why deleting the account was refused.
     pub delete_error: Option<String>,
@@ -197,63 +185,10 @@ impl ProfileTemplate {
     }
 }
 
-/// The profile's "Skrongle AI this month" card: a bar, never dollar amounts
-/// (#315). Shown only to Plus learners on a server with Skrongle AI.
-#[derive(Clone, Debug, Default)]
-pub struct AiUsageView {
-    /// The server offers its own key (Skrongle AI).
-    pub hosted: bool,
-    /// ... to this learner: their plan includes some, or they hold credits (#283).
-    pub offered: bool,
-    /// The card shows: Skrongle AI is on and the learner is on Plus.
-    pub shown: bool,
-    /// Of this month's Skrongle AI (allowance and credits), what is spent or
-    /// held by running jobs, 0–100.
-    pub percent_used: u8,
-    pub percent_left: u8,
-    /// When the month's allowance comes back: "1 November 2026".
-    pub resets_on: String,
-    /// The month's Skrongle AI is enough to write the smallest course; else
-    /// it is for the tutor only, and the (i) says so (#283).
-    pub courses: bool,
-}
-
-impl AiUsageView {
-    /// The bar's colour: `ok` with plenty left, `low` under a fifth, `out` when none.
-    pub fn level(&self) -> &'static str {
-        match self.percent_left {
-            0 => "out",
-            1..=20 => "low",
-            _ => "ok",
-        }
-    }
-}
-
-fn ai_usage_view(s: &crate::metering::AiStatus, meter: &crate::metering::Meter) -> AiUsageView {
-    let next_month = billing::add_month(crate::metering::month_start(crate::db::now()));
-    AiUsageView {
-        hosted: s.hosted,
-        offered: s.offered(),
-        shown: s.hosted && s.plan == billing::Plan::Plus && !s.unmetered,
-        percent_used: s.percent_used(),
-        percent_left: s.percent_left(),
-        resets_on: profile::long_date(next_month),
-        courses: s.covers(meter.cheapest(crate::metering::Need::Course)),
-    }
-}
-
 #[derive(Deserialize)]
 pub struct ShowQuery {
     pub saved: Option<String>,
     pub provider: Option<String>,
-    /// `done` / `cancelled`: back from Stripe Checkout.
-    pub billing: Option<String>,
-    /// Sent here by a paid feature (`billing::RequirePremium`).
-    pub upgrade: Option<String>,
-    /// `1`: open the plans modal (the Upgrade links).
-    pub plans: Option<String>,
-    /// `done` / `cancelled`: back from buying AI credits.
-    pub credits: Option<String>,
     /// `off`: sent here by an AI feature while AI features are off (`AppError::AiOff`).
     pub ai: Option<String>,
     /// `enrol`: an authenticator app's enrolment just started.
@@ -265,13 +200,6 @@ pub struct AiForm {
     /// `1` turns AI features off, `0` back on.
     #[serde(default)]
     pub off: String,
-}
-
-#[derive(Deserialize)]
-pub struct OwnKeysForm {
-    /// `1`: the learner's own keys take over when Skrongle AI runs out; `0`: Skrongle AI only.
-    #[serde(default)]
-    pub on: String,
 }
 
 #[derive(Deserialize)]
@@ -291,26 +219,22 @@ pub struct PasswordForm {
 }
 
 /// Everything the page shows besides the form values.
-type Loaded = (Profile, Vec<KeyStatus>, SubscriptionView, AiUsageView);
+type Loaded = (Profile, Vec<KeyStatus>);
 
 async fn load_profile(state: &AppState, user: &CurrentUser) -> Result<Loaded, AppError> {
     let vault = state.vault.clone();
-    let stripe = state.stripe.clone();
-    let meter = Arc::clone(&state.meter);
     let user_id = user.id;
     let loaded = state
         .db
         .call(move |c| {
             let Some(p) = profile::load(c, user_id)? else { return Ok(None) };
-            let ai = meter.status(c, user_id)?;
-            Ok(Some((p, secrets::statuses(c, &vault, user_id)?, billing::view(c, user_id, stripe.as_ref())?, ai)))
+            Ok(Some((p, secrets::statuses(c, &vault, user_id)?)))
         })
         .await?;
-    let (p, keys, sub, ai) = loaded.ok_or(AppError::RedirectToLogin)?;
-    Ok((p, keys, sub, ai_usage_view(&ai, &state.meter)))
+    loaded.ok_or(AppError::RedirectToLogin)
 }
 
-fn page(state: &AppState, user: CurrentUser, (p, api_keys, subscription, ai): Loaded) -> ProfileTemplate {
+fn page(state: &AppState, user: CurrentUser, (p, api_keys): Loaded) -> ProfileTemplate {
     ProfileTemplate {
         delete_sent: None,
         display_name: profile::display_name(&p.first_name, &p.last_name),
@@ -334,20 +258,15 @@ fn page(state: &AppState, user: CurrentUser, (p, api_keys, subscription, ai): Lo
         export_error: None,
         caps: state.caps(),
         api_keys,
-        subscription,
-        plans: billing::plans_on(state),
-        plans_open: false,
-        cancel_reasons: &billing::CANCEL_REASONS,
-        ai,
         dev: state.dev,
         delete_error: None,
-        terms_html: terms_html(state),
+        terms_html: terms_html(),
     }
 }
 
 /// The terms for the dialog, without their `# Terms of Service` heading (the dialog has its own).
-fn terms_html(state: &AppState) -> String {
-    let md = crate::terms::markdown(state.stripe.is_some());
+fn terms_html() -> String {
+    let md = crate::terms::markdown();
     let body = match md.strip_prefix("# ") {
         Some(rest) => rest.split_once('\n').map_or("", |(_, b)| b),
         None => &md,
@@ -379,26 +298,9 @@ pub async fn show(
         (Some("export-queued"), _) if !t.caps.mail => Some(crate::t("profile.data.export_building_no_mail")),
         (Some("export-queued"), _) => Some(crate::t("profile.data.export_queued")),
         (Some("signed-out"), _) => Some(crate::t("profile.sessions.signed_out_notice")),
-        (Some("plan"), _) if t.subscription.premium => Some(crate::t1("profile.subscription.plan_thanks", "plan", t.subscription.plan.label())),
-        (Some("cancelled"), _) => Some(crate::t1("profile.subscription.cancelled_notice", "note", t.subscription.cancel_note())),
-        (Some("own-keys-on"), _) => Some(crate::t1("profile.api_keys.own_keys_on", "hosted", crate::tutor::hosted_label())),
-        (Some("own-keys-off"), _) => Some(crate::t1("profile.api_keys.own_keys_off", "hosted", crate::tutor::hosted_label())),
         _ if q.ai.as_deref() == Some("off") => Some(crate::t("profile.ai.feature_hidden")),
-        // The webhook, not this redirect, makes the subscription count; it
-        // usually lands before the page does, but may not.
-        _ if q.billing.as_deref() == Some("done") => Some(if t.subscription.premium {
-            crate::t("profile.subscription.thanks_active")
-        } else {
-            crate::t("profile.subscription.thanks_pending")
-        }),
-        _ if q.billing.as_deref() == Some("cancelled") => Some(crate::t("profile.subscription.cancelled")),
-        // Credits arrive with Stripe's webhook, like the subscription.
-        _ if q.credits.as_deref() == Some("done") => Some(crate::t("profile.subscription.credits_thanks")),
-        _ if q.credits.as_deref() == Some("cancelled") => Some(crate::t("profile.subscription.cancelled")),
-        _ if t.plans && q.upgrade.is_some() && !t.subscription.premium => Some(crate::t("profile.subscription.required")),
         _ => None,
     };
-    t.plans_open = t.plans && (q.plans.is_some() || (q.upgrade.is_some() && !t.subscription.premium));
     if q.totp.as_deref() == Some("enrol") && t.profile.two_factor.totp_pending {
         t.totp_key = pending_totp_key(&state, user_id(&t)).await?;
         t.totp_open = t.totp_key.is_some();
@@ -595,8 +497,7 @@ async fn prove_owner(state: &AppState, user: &CurrentUser, password: &str, code:
             return Ok(Some((StatusCode::FORBIDDEN, crate::t("profile.two_factor.type_password"))));
         }
         let ok = !auth::password_too_long(password) && {
-            let password = password.to_string();
-            tokio::task::spawn_blocking(move || auth::verify_password(&password, &hash)).await.map_err(|e| AppError::Internal(e.to_string()))?
+            auth::verify_password_async(password.to_string(), hash).await?
         };
         if !ok {
             let _ = state.limits.hit(LOGIN_FAILURES_PER_USER, &user.email, now);
@@ -834,9 +735,9 @@ pub async fn change_password(
     auth::SessionToken(token): auth::SessionToken,
     Form(form): Form<PasswordForm>,
 ) -> Result<Response, AppError> {
-    let (p, keys, sub, ai) = load_profile(&state, &user).await?;
+    let (p, keys) = load_profile(&state, &user).await?;
     let fail = |state: &AppState, user: CurrentUser, p: Profile, msg: &str| {
-        let mut t = page(state, user, (p, keys.clone(), sub.clone(), ai.clone()));
+        let mut t = page(state, user, (p, keys.clone()));
         t.password_error = Some(msg.to_string());
         Page(t).into_response()
     };
@@ -861,9 +762,7 @@ pub async fn change_password(
 
     let uid = user.id;
     let new = form.new;
-    let new_hash = tokio::task::spawn_blocking(move || auth::hash_password(&new))
-        .await
-        .map_err(|e| AppError::Internal(e.to_string()))??;
+    let new_hash = auth::hash_password_async(new).await?;
     // Every other session (another device, or whoever had the old password) ends.
     let ended = state
         .db
@@ -923,30 +822,6 @@ pub async fn set_ai(
     }
     let saved = if off { "ai-off" } else { "ai-on" };
     Ok(Redirect::to(&crate::url(&format!("/profile?saved={saved}#consent"))).into_response())
-}
-
-/// POST /profile/own-keys {on=1|0}: "use my keys when my Skrongle AI limit
-/// is hit" (#315). The page's pill (profile.js) asks for JSON and shows or
-/// hides the key rows in place; without JS the form posts and reloads.
-pub async fn set_own_keys(
-    State(state): State<Arc<AppState>>,
-    user: CurrentUser,
-    headers: HeaderMap,
-    Form(form): Form<OwnKeysForm>,
-) -> Result<Response, AppError> {
-    let on = match form.on.as_str() {
-        "1" => true,
-        "0" => false,
-        _ => return Err(AppError::BadRequest("on must be 1 or 0".into())),
-    };
-    let uid = user.id;
-    state.db.call(move |c| profile::set_own_keys_fallback(c, uid, on)).await?;
-    tracing::info!("user {uid} turned own-key fallback {}", if on { "on" } else { "off" });
-    let wants_json = headers.get(header::ACCEPT).and_then(|v| v.to_str().ok()).is_some_and(|a| a.contains("application/json"));
-    if wants_json {
-        return Ok(Json(serde_json::json!({ "own_keys_fallback": on })).into_response());
-    }
-    Ok(Redirect::to(&crate::url(if on { "/profile?saved=own-keys-on#api-keys" } else { "/profile?saved=own-keys-off#api-keys" })).into_response())
 }
 
 /// POST /profile/api-keys/remove
@@ -1104,10 +979,6 @@ pub async fn delete_account(
     let uid = user.id;
     if !loaded.0.has_password && !form.confirm.trim().eq_ignore_ascii_case(&loaded.0.delete_phrase()) {
         return Ok(fail(&state, user, loaded, &crate::t("profile.data.type_email")));
-    }
-    // Before the proof, so a code or a Google confirmation is not used up for nothing.
-    if state.db.call(move |c| crate::privacy::has_live_subscription(c, uid)).await? {
-        return Ok(fail(&state, user, loaded, &crate::t("profile.data.cancel_first")));
     }
     // The same proof as every account change, on the same allowances (#376, #378).
     if let Some((status, why)) = prove_owner(&state, &user, &form.password, &form.code).await? {

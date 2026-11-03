@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 # Run the app locally for testing before deploying to the Pi. Dev mode is on
-# (SKRONGLE_DEV=1: /dev/login, /dev/reset, the simulated AI provider at /dev/ai,
-# a stand-in Stripe at /dev/payments so the plans modal
-# offers Stripe Checkout with fake keys (SKRONGLE_DEV_STRIPE=0 turns it off);
+# (SKRONGLE_DEV=1: /dev/login, /dev/reset, the simulated AI provider at /dev/ai;
 # see docs/testing.md).
 #
 #   ./.dev-start                # debug build on a free port in 8100-8999, DB in ./dev.db
@@ -13,7 +11,7 @@
 #   ./.dev-start --seed-days 30 # how many days of history the crowd gets (default 90)
 #   ./.dev-start --test-course  # also offer the test course (TEST_COURSE=1; data/test-courses/)
 #   ./.dev-start --mini         # the mini shape a self-hoster runs: no dev mailbox, stand-in
-#                               # dev Stripe or Skrongle AI (mail only logged), no plans
+#                               # dev Stripe (mail only logged), no plans
 #   ./.dev-start --port 9000    # a fixed port instead (--port auto = the default)
 #   ./.dev-start --llm capture  # the simulated provider holds each request for a reply on /dev/ai (Manual replies)
 #                               # (default: it answers from the fixtures; --llm live: the real providers)
@@ -82,7 +80,7 @@ while [ $# -gt 0 ]; do
     --llm)        LLM="$2"; shift ;;
     --llm-delay)  export SKRONGLE_LLM_DELAY_MS="$2"; shift ;;
     --test-course) export TEST_COURSE=1 ;;
-    --mini)       export SKRONGLE_AI_KEY= SKRONGLE_MINI=1 ;;
+    --mini)       export SKRONGLE_MINI=1 ;;
     -h|--help)    sed -n '2,30p' "$0"; exit 0 ;;
     *) echo "unknown flag: $1 (try --help)"; exit 1 ;;
   esac
@@ -121,11 +119,6 @@ export SKRONGLE_LLM_DIR="${SKRONGLE_LLM_DIR:-./dev-llm}"
 export SKRONGLE_LLM_DELAY_MS="${SKRONGLE_LLM_DELAY_MS:-500}"
 [ -n "$LLM" ] && export SKRONGLE_LLM_MODE="$LLM"
 [ "$SEED" = 1 ] && export SKRONGLE_DEV_SEED=1
-# Skrongle AI (the server's key) is the simulator's platform key, which the
-# default Anthropic base URL reaches in dev mode; the real providers would refuse it.
-# SKRONGLE_AI_KEY= (empty) turns it off.
-[ "${SKRONGLE_LLM_MODE:-}" != live ] && export SKRONGLE_AI_KEY="${SKRONGLE_AI_KEY-sk-ant-dev-platform}"
-HOSTED_NOTE="off"; [ -n "${SKRONGLE_AI_KEY:-}" ] && HOSTED_NOTE="on"
 
 if [ "$RESET" = 1 ]; then
   { [ "$BACKGROUND" = 1 ] || [ "$WATCH" = 1 ]; } && stop_server
@@ -135,7 +128,7 @@ if [ "$RESET" = 1 ]; then
 fi
 
 URL="http://$HOST:$PORT"
-say "==> dev server: $URL   (db: $SKRONGLE_DB, courses: $SKRONGLE_DATA_DIR/courses, log: $SKRONGLE_LOG, llm: ${SKRONGLE_LLM_MODE:-simulator}, canned replies after ${SKRONGLE_LLM_DELAY_MS} ms, Skrongle AI: $HOSTED_NOTE)"
+say "==> dev server: $URL   (db: $SKRONGLE_DB, courses: $SKRONGLE_DATA_DIR/courses, log: $SKRONGLE_LOG, llm: ${SKRONGLE_LLM_MODE:-simulator}, canned replies after ${SKRONGLE_LLM_DELAY_MS} ms)"
 LAN_IP=""
 if [ "$HOST" = 0.0.0.0 ]; then
   say "==> --lan: dev mode is refused on a non-loopback bind; register normally"

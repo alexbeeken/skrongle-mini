@@ -304,7 +304,7 @@ mod tests {
             state.db.with(|c| c.query_row("SELECT (SELECT COUNT(*) FROM email_verifications), (SELECT COUNT(*) FROM mail_outbox)", [], |r| Ok((r.get(0)?, r.get(1)?)))).unwrap();
         assert_eq!((links, mails), (0, 0));
         // With one, the link goes out as before.
-        let state = crate::routes::test_state(false, None);
+        let state = crate::routes::test_state(false);
         let uid = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", "h")).unwrap();
         send(&state, &HeaderMap::new(), uid, "ann@example.org").await.unwrap();
         let mails: i64 = state.db.with(|c| c.query_row("SELECT COUNT(*) FROM mail_outbox WHERE purpose = ?1", [PURPOSE], |r| r.get(0))).unwrap();
@@ -315,7 +315,7 @@ mod tests {
     fn links_use_the_public_url_or_the_request_host() {
         let mut h = HeaderMap::new();
         h.insert("host", "127.0.0.1:8123".parse().unwrap());
-        let state = crate::routes::test_state(false, None);
+        let state = crate::routes::test_state(false);
         assert_eq!(public_base(&state, &h), "http://127.0.0.1:8123");
         h.insert("x-forwarded-host", "learn.example.org".parse().unwrap());
         h.insert("x-forwarded-proto", "https".parse().unwrap());

@@ -16,10 +16,8 @@
 //! that does not fit the request). Everything is in memory for this server
 //! run; the dev mailbox's AI section (`/dev/ai`) shows the log and the controls.
 //!
-//! Two key profiles, told apart by the key in the request: the **platform**
-//! key (what the app would use on a learner's behalf; nothing uses it yet)
-//! and **the learner's own** keys. Any other key is refused as a provider
-//! refuses an unknown one.
+//! One key profile, **the learner's own** keys, told by the key in the
+//! request. Any other key is refused as a provider refuses an unknown one.
 
 use std::collections::VecDeque;
 use std::path::Path;
@@ -29,8 +27,6 @@ use std::time::Duration;
 use crate::ai::ProviderKind;
 use crate::secrets::Provider;
 
-/// The platform key, in the Anthropic and the OpenAI format.
-pub const PLATFORM_KEYS: [&str; 2] = ["sk-ant-dev-platform", "sk-dev-platform"];
 /// The learner's own keys the seed and `/dev/login?keys=dev` store: one
 /// for every provider the app supports.
 pub const LEARNER_KEYS: [(Provider, &str); 3] =
@@ -47,23 +43,20 @@ pub const DEFAULT_HANG_SECS: u64 = 30;
 /// Whose key a request carries.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Who {
-    Platform,
     Learner,
 }
 
 impl Who {
-    pub const ALL: [Who; 2] = [Who::Platform, Who::Learner];
+    pub const ALL: [Who; 1] = [Who::Learner];
 
     pub fn id(self) -> &'static str {
         match self {
-            Who::Platform => "platform",
             Who::Learner => "learner",
         }
     }
 
     pub fn label(self) -> &'static str {
         match self {
-            Who::Platform => "Platform key",
             Who::Learner => "Learner's own keys",
         }
     }
@@ -76,7 +69,6 @@ impl Who {
     /// `sk-ant-dev-…`, `sk-dev-…` or `AIza-dev-…` key).
     pub fn keys(self) -> Vec<&'static str> {
         match self {
-            Who::Platform => PLATFORM_KEYS.to_vec(),
             Who::Learner => LEARNER_KEYS.iter().map(|(_, k)| *k).collect(),
         }
     }
@@ -91,9 +83,6 @@ pub fn key_provider(key: &str) -> Provider {
 /// The profile a key belongs to; `None`: a key the simulator refuses (401).
 pub fn who(key: &str) -> Option<Who> {
     let key = key.trim();
-    if PLATFORM_KEYS.contains(&key) {
-        return Some(Who::Platform);
-    }
     let dev_key = ["sk-ant-dev-", "sk-dev-", "AIza-dev-"].iter().any(|p| key.len() > p.len() && key.starts_with(p));
     dev_key.then_some(Who::Learner)
 }
@@ -381,8 +370,8 @@ pub fn tokens(text: &str) -> u64 {
 }
 
 /// The simulator's price table, US dollars per million tokens (input,
-/// output), by model name prefix, first match wins. Made up for testing
-/// metering, not the providers' price lists.
+/// output), by model name prefix, first match wins. Made up for the
+/// simulator's own counters, not the providers' price lists.
 pub const PRICES: [(&str, f64, f64); 8] = [
     ("claude-opus", 15.0, 75.0),
     ("claude-sonnet", 3.0, 15.0),
@@ -575,7 +564,7 @@ pub fn fixture_plan(req: &WireRequest, dir: &Path) -> Plan {
 pub struct Entry {
     pub id: i64,
     pub at: i64,
-    /// `platform`, `learner`, or `unknown` for a refused key.
+    /// `learner`, or `unknown` for a refused key.
     pub who: String,
     /// The start of the key, for telling keys apart.
     pub key_hint: String,
@@ -615,7 +604,6 @@ fn clip(s: &str) -> String {
 
 #[derive(Default)]
 struct Inner {
-    platform: Profile,
     learner: Profile,
     log: VecDeque<Entry>,
     next_id: i64,
@@ -628,7 +616,6 @@ struct Inner {
 impl Inner {
     fn profile(&mut self, who: Who) -> &mut Profile {
         match who {
-            Who::Platform => &mut self.platform,
             Who::Learner => &mut self.learner,
         }
     }
@@ -877,8 +864,6 @@ mod tests {
 
     #[test]
     fn keys_belong_to_profiles() {
-        assert_eq!(who("sk-ant-dev-platform"), Some(Who::Platform));
-        assert_eq!(who("sk-dev-platform"), Some(Who::Platform));
         for (_, k) in LEARNER_KEYS {
             assert_eq!(who(k), Some(Who::Learner), "{k}");
         }
@@ -949,7 +934,6 @@ mod tests {
         let sim = Simulator::default();
         let now = 1_792_000_000; // 2026-10-15
         let learner = req(Format::Anthropic, Who::Learner, "purpose=tutor-turn", "hello there");
-        let platform = req(Format::OpenAi, Who::Platform, "purpose=tutor-turn", "hello there");
         sim.update(Who::Learner, |p| p.limit = Some(2.0));
         for _ in 0..2 {
             assert!(matches!(sim.plan(&learner, &dir, now), Plan::Reply { .. }));
@@ -967,10 +951,11 @@ mod tests {
                 why: "usage limit".into()
             }
         );
-        // The platform profile is untouched; "Hit the limit now" stops it too, in OpenAI's shape.
-        assert!(matches!(sim.plan(&platform, &dir, now), Plan::Reply { .. }));
-        sim.update(Who::Platform, |p| p.exhausted = true);
-        assert!(matches!(sim.plan(&platform, &dir, now), Plan::Fail { status: 429, kind, .. } if kind == "insufficient_quota"));
+        // "Hit the limit now" stops it too, in OpenAI's shape.
+        let o = req(Format::OpenAi, Who::Learner, "purpose=tutor-turn", "hello there");
+        sim.update(Who::Learner, |p| p.exhausted = true);
+        assert!(matches!(sim.plan(&o, &dir, now), Plan::Fail { status: 429, kind, .. } if kind == "insufficient_quota"));
+        sim.update(Who::Learner, |p| p.exhausted = false);
         // Measured in tokens or dollars instead.
         sim.update(Who::Learner, |p| {
             p.measure = Measure::Tokens;
@@ -1004,9 +989,6 @@ mod tests {
         for _ in 0..2 {
             assert_eq!(sim.plan(&r, &dir, 0), Plan::Hang { secs: 7, then: Box::new(Plan::Reply { text: "ok".into(), delay: Duration::ZERO, fixture: "tutor-turn/*".into() }) });
         }
-        // The other profile is not affected.
-        let p = req(Format::OpenAi, Who::Platform, "purpose=tutor-turn", "hi");
-        assert!(matches!(sim.plan(&p, &dir, 0), Plan::Reply { .. }));
         let o = req(Format::OpenAi, Who::Learner, "purpose=tutor-turn", "hi");
         sim.update(Who::Learner, |p| p.inject = Some(Injection { fault: Fault::Overloaded, sticky: true, hang_secs: 0 }));
         assert!(matches!(sim.plan(&o, &dir, 0), Plan::Fail { status: 503, .. }));

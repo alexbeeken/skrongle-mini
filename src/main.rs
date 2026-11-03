@@ -8,7 +8,7 @@ mod algebra_tiles;
 mod ai;
 mod arrange;
 mod auth;
-mod billing;
+mod caps;
 mod clock;
 mod conjugation;
 mod consent;
@@ -18,7 +18,6 @@ mod db;
 mod dev;
 mod dev_ai;
 mod dev_crowd;
-mod dev_payments;
 mod doctor;
 mod earnings;
 mod sprint;
@@ -36,7 +35,7 @@ mod measure;
 mod notation;
 mod notes;
 mod mastery;
-mod metering;
+mod prices;
 mod motivators;
 mod urlenc;
 mod owner;
@@ -157,16 +156,12 @@ pub struct AppState {
     pub games: games::Sessions,
     /// Running and recently finished course-generation jobs.
     pub jobs: ai::Jobs,
-    /// Paid subscriptions through Stripe, when configured. Without it
-    /// nobody can subscribe and only grants make a learner premium.
-    pub stripe: Option<billing::StripeConfig>,
     /// Encrypts learners' AI API keys at rest.
     pub vault: secrets::Vault,
     /// AI tutoring conversations (in memory only).
     pub tutors: tutor::Sessions,
-    /// Hosted AI (the server's key, when configured) and the meter every
-    /// model call is recorded by.
-    pub meter: Arc<metering::Meter>,
+    /// The price table behind the Generate dialog's cost estimate.
+    pub prices: prices::PriceTable,
     /// `SKRONGLE_DEV=1` on a loopback bind: the `/dev/*` routes exist.
     pub dev: bool,
     /// Rate limits for sign-in, registration and password changes (in memory; off in dev mode).
@@ -184,8 +179,6 @@ pub struct AppState {
     pub dev_marks: dev::Marks,
     /// Dev mode: the simulated AI provider's log, usage and settings (`/dev/ai`).
     pub dev_ai: dev_ai::Simulator,
-    /// Dev mode: the simulated Stripe's customers, subscriptions, payments and log (`/dev/payments`).
-    pub dev_payments: dev_payments::Simulator,
     /// Dev mode: the dev authenticator app's accounts (`/dev/authenticator`).
     pub dev_authenticator: dev::Authenticator,
     /// `SKRONGLE_PUBLIC_URL` without a trailing slash: where links in e-mail
@@ -217,7 +210,7 @@ impl Caps {
 }
 
 /// The hosted site needs every provider; only Skrongle mini (`SKRONGLE_MINI=1`;
-/// and the dev server, whose mailbox and Stripe stand in)
+/// and the dev server, whose mailbox stands in)
 /// runs without them. Self-hosting the full build is not supported (CLAUDE.md, "Two
 /// shapes"). `missing` names the settings that are not set. The hosted site
 /// is served over HTTPS, so it also needs `Secure` cookies, and proxy
@@ -261,7 +254,6 @@ struct Config {
     secure_cookies: bool,
     base_path: String,
     log_level: tracing::Level,
-    stripe: Option<billing::StripeConfig>,
     /// `SKRONGLE_SECRET_KEY`; without it the secret lives in `<db>.key`.
     secret_key: Option<String>,
     /// `SKRONGLE_DEV=1`: asked for; `dev::resolve` decides.
@@ -281,12 +273,8 @@ struct Config {
     /// every course as the one dev user).
     course_limits: courses::Limits,
     courses_per_user: Option<usize>,
-    /// `SKRONGLE_MAX_CONNECTIONS`: open connections the listener allows (#369).
-    server: server::Limits,
-    /// `SKRONGLE_AI_KEY`: the server's AI key; hosted AI is off without it.
-    ai_key: Option<String>,
-    /// The other `SKRONGLE_AI_*` settings (models, prices, allowances, caps).
-    meter: Result<metering::MeterConfig, String>,
+    /// `SKRONGLE_AI_PRICES`: the price table behind the cost estimate.
+    prices: Result<prices::PriceTable, String>,
 }
 
 /// The settings' prefix, then the old ones `env` still reads, newest first.
@@ -294,21 +282,11 @@ struct Config {
 /// drops them, and with them `old_prefix_warning`.
 const ENV_PREFIXES: [&str; 3] = ["SKRONGLE_", "LEARN_", "SPANISH_"];
 
-/// Take a secret out of the environment: read it, then remove every
-/// spelling so threads and child processes never see it.
-fn take_env(name: &str) -> Option<String> {
-    let v = env(name);
-    for prefix in ENV_PREFIXES {
-        std::env::remove_var(format!("{prefix}{name}"));
-    }
-    v
-}
-
 /// `SKRONGLE_<name>`, falling back for one release to the old
 /// `LEARN_<name>` and `SPANISH_<name>` spellings. Empty counts as unset.
 ///
 /// In Skrongle mini the hosted-only settings (`shape::HOSTED_ONLY`) read as
-/// unset, so e-mail, texts, Google, Stripe and S3 are off wherever they
+/// unset, so e-mail, texts, Google and S3 are off wherever they
 /// are read.
 pub fn env(name: &str) -> Option<String> {
     if shape::current().hides(name) {
@@ -381,8 +359,7 @@ impl Config {
             base_path: normalize_base_path(&env("BASE_PATH").unwrap_or_default()),
             log_level: env("LOG").and_then(|v| v.parse().ok()).unwrap_or(tracing::Level::INFO),
             secret_key: env("SECRET_KEY"),
-            ai_key: take_env("AI_KEY"),
-            meter: metering::MeterConfig::from_env(),
+            prices: prices::PriceTable::from_env(),
             dev: env("DEV").is_some_and(|v| v == "1" || v == "true"),
             dev_seed: env("DEV_SEED").is_some_and(|v| v == "1" || v == "true"),
             dev_seed_users: env("DEV_SEED_USERS").and_then(|v| v.parse().ok()).unwrap_or(0),
@@ -396,27 +373,7 @@ impl Config {
                 }
             },
             courses_per_user: env("COURSES_PER_USER").and_then(|v| v.parse().ok()),
-            server: server::Limits {
-                max_connections: env("MAX_CONNECTIONS").and_then(|v| v.parse().ok()).filter(|&n| n > 0).unwrap_or(server::Limits::default().max_connections),
-                ..server::Limits::default()
-            },
             test_course: std::env::var("TEST_COURSE").ok().or_else(|| env("TEST_COURSE")).is_some_and(|v| v == "1" || v == "true"),
-            stripe: match (env("STRIPE_SECRET_KEY"), env("STRIPE_WEBHOOK_SECRET"), env("STRIPE_PRICE_ID"), env("PUBLIC_URL")) {
-                (Some(secret_key), Some(webhook_secret), Some(price_id), Some(public_url)) => Some(billing::StripeConfig {
-                    secret_key,
-                    webhook_secret,
-                    price_id,
-                    price_id_basic: env("STRIPE_PRICE_ID_BASIC").or_else(|| env("STRIPE_PRICE_ID_PLUS")), // the old name, still read
-                    price_label: env("STRIPE_PRICE_LABEL").unwrap_or_else(|| "Monthly".to_string()),
-                    public_url: public_url.trim_end_matches('/').to_string(),
-                    api_base: env("STRIPE_API_URL").unwrap_or_else(|| billing::STRIPE_API.to_string()),
-                }),
-                (None, None, None, _) => None,
-                _ => {
-                    eprintln!("Subscriptions need SKRONGLE_STRIPE_SECRET_KEY, SKRONGLE_STRIPE_WEBHOOK_SECRET, SKRONGLE_STRIPE_PRICE_ID and SKRONGLE_PUBLIC_URL; disabled");
-                    None
-                }
-            },
         })
     }
 }
@@ -497,11 +454,14 @@ fn main() {
         tracing::warn!("{w}");
     }
 
-    // Two async workers for the Cortex-A53; a small blocking pool for SQLite
-    // and argon2. Everything else (thread stacks, etc.) stays at tokio defaults.
+    // One async worker and two blocking threads (#35): at most 8 accounts and
+    // 32 connections, so one worker serves every request, and two blocking
+    // threads let a `Db::call` overlap an argon2 hash. Multi-thread flavour
+    // stays so `spawn_blocking` exists. Nothing on a request path may block
+    // the worker (docs/architecture.md, "Request flow").
     let rt = tokio::runtime::Builder::new_multi_thread()
-        .worker_threads(2)
-        .max_blocking_threads(3)
+        .worker_threads(1)
+        .max_blocking_threads(2)
         .thread_name("learn-worker")
         .enable_io()
         .enable_time()
@@ -591,7 +551,7 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         Some(d) => tracing::info!("retention: failed AI courses kept {d} days ({} older deleted)", swept.failed_courses.len()),
         None => tracing::info!("retention: failed AI courses kept until their owner deletes them"),
     }
-    // A generation whose key can be had again waits in line to go on (#874).
+    // A generation whose key can be had again goes on after the restart (#874).
     let waiting = db.with(|c| ai::at_boot(c, db::now()))?;
     if waiting > 0 {
         tracing::info!("{waiting} course generation(s) were interrupted by the restart; they go on by themselves");
@@ -635,19 +595,9 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         tracing::warn!("{w}");
     }
     let llm_mode = dev::init_llm(dev, cfg.bind)?;
-    // Dev mode without real Stripe settings: this server stands in for
-    // Stripe (`/dev/payments`), with fake keys, so subscribing works locally.
-    // SKRONGLE_DEV_STRIPE=0 opts out.
-    // Skrongle mini (`billing::plans_on`) has no plans and sells nothing, and
-    // no dev stand-in for Google, e-mail or texts either: it looks like a
-    // real mini in dev mode too.
-    let meter_cfg = cfg.meter.clone()?;
-    let stripe = match cfg.stripe.clone() {
-        _ if !meter_cfg.plans => None,
-        Some(s) => Some(s),
-        None if dev_payments::wanted(dev, false) => Some(dev_payments::dev_config(cfg.bind.port(), env("PUBLIC_URL").as_deref())),
-        None => None,
-    };
+    // Skrongle mini has no dev stand-in for Google, e-mail or texts: it looks
+    // like a real mini in dev mode too.
+    let prices = cfg.prices.clone()?;
     if dev {
         tracing::warn!("DEV MODE: /dev/login, /dev/reset and the dev mailbox (/dev/inbox, /dev/ai) are open to anyone who can reach {}", cfg.bind);
         match llm_mode {
@@ -675,7 +625,7 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         }
         if cfg.dev_seed_users > 0 {
             // The seed course first, so most of the crowd is where the dev user is.
-            let mut crowd_courses = courses.builtin().to_vec();
+            let mut crowd_courses: Vec<_> = courses.builtin().iter().filter_map(|c| courses.builtin_store(c.id())).collect();
             crowd_courses.sort_by_key(|c| c.id() != dev::SEED_COURSE);
             let added = dev_crowd::seed(&db, &crowd_courses, cfg.dev_seed_users, cfg.dev_seed_days)?;
             tracing::info!("dev: a crowd of {} learner(s) ({added} new), learner-<n>@{} / '{}'", cfg.dev_seed_users, dev_crowd::DOMAIN, dev::DEV_PASSWORD);
@@ -683,40 +633,9 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         tracing::info!("dev: log in as '{}' / '{}', or open /dev/login", dev::DEV_EMAIL, dev::DEV_PASSWORD);
     }
 
-    let hosted_note = cfg.ai_key.is_some().then(|| {
-        if !meter_cfg.plans {
-            return format!(
-                "Skrongle AI enabled for every account ({:?}; tutor {}, courses {}; no plans, no monthly allowance; daily cap {}; {} calls a minute)",
-                meter_cfg.provider,
-                meter_cfg.tutor_model,
-                meter_cfg.courses_model,
-                metering::dollars(meter_cfg.daily_cap),
-                meter_cfg.rate_per_minute
-            );
-        }
-        format!(
-            "Skrongle AI enabled ({:?}; tutor {}, courses {}; allowance {} a month on Plus; sign-up credit {}; daily cap {}; {} calls a minute; {} credit packs)",
-            meter_cfg.provider,
-            meter_cfg.tutor_model,
-            meter_cfg.courses_model,
-            metering::dollars(meter_cfg.allowance_plus),
-            metering::dollars(meter_cfg.signup_credit),
-            metering::dollars(meter_cfg.daily_cap),
-            meter_cfg.rate_per_minute,
-            meter_cfg.packs.len()
-        )
-    });
-    let meter = Arc::new(metering::Meter::new(meter_cfg, cfg.ai_key.clone(), &vault, stripe.is_some()));
-    match hosted_note {
-        Some(n) => tracing::info!("{n}"),
-        None => tracing::info!("Skrongle AI disabled (no SKRONGLE_AI_KEY): AI features use learners' own keys"),
-    }
     let mut mail_cfg = mail::Config::from_env()?;
     let missing: Vec<&str> = [
         (mail_cfg.logging_only, "SKRONGLE_MAIL_PROVIDERS"),
-        (cfg.stripe.is_none(), "SKRONGLE_STRIPE_SECRET_KEY"),
-        // Both plans are sold, each at its own price: the webhook tells them apart by price (#963).
-        (cfg.stripe.as_ref().is_some_and(|s| s.price_for(billing::Plan::Basic).is_none()), "SKRONGLE_STRIPE_PRICE_ID_BASIC (its own price, not SKRONGLE_STRIPE_PRICE_ID)"),
     ]
     .into_iter()
     .filter_map(|(gone, name)| gone.then_some(name))
@@ -763,16 +682,7 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
             let _ = wake.send(());
         }) as Box<dyn Fn() + Send>
     });
-    let mut export_builder = exports::Builder::new(exports_dir.dir.clone(), export_mail);
-    // Dev: a slow export, to watch it in slices on /dev/jobs or stop the
-    // server halfway through (SKRONGLE_DEV_EXPORT_PAUSE_MS after each page,
-    // five pages a slice).
-    if let Some(ms) = env("DEV_EXPORT_PAUSE_MS").filter(|_| dev).and_then(|v| v.parse().ok()) {
-        export_builder.pause = std::time::Duration::from_millis(ms);
-        export_builder.slice_pages = 5;
-        tracing::warn!("DEV MODE: data exports pause {ms} ms after each page, five pages a slice (SKRONGLE_DEV_EXPORT_PAUSE_MS)");
-    }
-
+    let export_builder = exports::Builder::new(exports_dir.dir.clone(), export_mail);
     let state = Arc::new(AppState {
         db: db.clone(),
         courses: Arc::new(courses.with_limits(courses::Limits {
@@ -783,10 +693,9 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         dummy_hash: auth::hash_password("placeholder-for-timing-only")?,
         games: games::Sessions::default(),
         jobs: ai::Jobs::default(),
-        stripe: stripe.clone(),
         vault,
         tutors: tutor::Sessions::default(),
-        meter,
+        prices,
         dev,
         limits: security::RateLimits::new(dev),
         mail: mailer,
@@ -796,32 +705,22 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         dev_marks: Default::default(),
         dev_ai: if llm_mode == Some(dev::LlmMode::Capture) { dev_ai::Simulator::holding_from_start() } else { Default::default() },
         dev_authenticator: Default::default(),
-        dev_payments: Default::default(),
         public_url: env("PUBLIC_URL").map(|u| u.trim_end_matches('/').to_string()),
         signup,
         proxy_auth,
     });
-    match &stripe {
-        _ if !billing::plans_on(&state) => tracing::info!("plans: off (every account has every feature)"),
-        Some(s) if s.api_base.contains("/dev/payments/stripe") => tracing::warn!(
-            "DEV MODE: subscriptions go to the simulated Stripe at {} with fake keys; pay on its Checkout page, watch /dev/payments (SKRONGLE_DEV_STRIPE=0 to turn it off)",
-            s.api_base
-        ),
-        Some(s) => tracing::info!("subscriptions enabled (Stripe price {}, webhook at {}/billing/webhook)", s.price_id, s.public_url),
-        None => tracing::info!("subscriptions disabled (no SKRONGLE_STRIPE_SECRET_KEY): every learner without a grant is on the free plan"),
-    }
 
     // Background jobs: the mail outbox (drained first on every
     // pass), the hourly housekeeping (one job per purge, each queuing its
     // next run; due at once on a fresh database), data exports (a slice per
-    // run), AI jobs waiting in line (each started on its own thread), and in
+    // run), a generation resumed after a restart (started on its own thread), and in
     // dev mode the always-failing kind /dev/jobs queues.
     mail_outbox.blank_at_start(&db);
     state.jobs.wake_with(state.queue.waker());
     ai::adopt(&state.jobs, &db)?;
     let gen_state = Arc::clone(&state);
     let mut runner = jobs::housekeeping(jobs::Runner::new().drain(mail_outbox.drain()), &state, retention)
-        .handle_steps(jobs::EXPORT, move |db, payload| export_builder.run(db, payload))
+        .handle(jobs::EXPORT, move |db, payload| export_builder.run(db, payload))
         .handle_claimed(ai::GENERATE, move || ai::slot_free(&gen_state.jobs), ai::handler(Arc::clone(&state)));
     if dev {
         runner = jobs::dev(runner);
@@ -842,7 +741,7 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
     release_boot_memory();
     tracing::info!("{} listening on http://{}{}", edition(is_mini()), cfg.bind, url("/"));
     // Handlers get the client's address (ConnectInfo) for the rate limits.
-    server::serve(listener, app, cfg.server, shutdown_signal()).await?;
+    server::serve(listener, app, server::Limits::default(), shutdown_signal()).await?;
     // Fold the WAL back into learn.db, so after a clean stop that one file
     // holds everything: a copy of it alone (update.sh's learn.db.before-<v>,
     // a move to a new machine) is complete.
@@ -944,7 +843,7 @@ mod tests {
 
     #[test]
     fn only_the_hosted_server_requires_providers() {
-        let none = ["SKRONGLE_MAIL_PROVIDERS", "SKRONGLE_STRIPE_SECRET_KEY"];
+        let none = ["SKRONGLE_MAIL_PROVIDERS"];
         let why = require_providers(false, false, &none, true, false).unwrap_err();
         assert!(none.iter().all(|n| why.contains(n)), "{why}");
         assert!(why.contains("SKRONGLE_MINI=1"), "{why}");

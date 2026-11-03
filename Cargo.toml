@@ -28,7 +28,7 @@ askama = { version = "0.16", default-features = false, features = ["std", "deriv
 rust-embed = { version = "8" }
 
 # --- Database (SQLite statically linked, no system libsqlite needed on the Pi) ---
-rusqlite = { version = "0.40", features = ["bundled", "trace"] }
+rusqlite = { version = "0.40", features = ["bundled", "trace", "functions"] }
 
 # --- Content ---
 serde = { version = "1", features = ["derive"] }

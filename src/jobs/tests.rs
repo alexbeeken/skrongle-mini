@@ -24,7 +24,7 @@ fn claim_takes_due_rows_in_order_once() {
     assert_eq!(db.with(|c| claim(c, &kinds, "b", T)).unwrap(), None);
     assert_eq!(db.with(|c| claim(c, &kinds, "b", T + 10)).unwrap().unwrap().id, later);
     // A kind this server doesn't run is left alone.
-    assert_eq!(db.with(|c| claim(c, &["housekeeping.games"], "a", T + 100)).unwrap(), None);
+    assert_eq!(db.with(|c| claim(c, &["housekeeping"], "a", T + 100)).unwrap(), None);
 }
 
 #[test]
@@ -76,7 +76,7 @@ fn a_periodic_job_queues_its_next_run() {
     let db = db();
     let runs = Arc::new(AtomicUsize::new(0));
     let counter = Arc::clone(&runs);
-    let runner = Runner::new().handle(GAMES, move |_, _| {
+    let runner = Runner::new().handle(HOUSEKEEPING, move |_, _| {
         counter.fetch_add(1, Ordering::SeqCst);
         Ok(String::new())
     });
@@ -87,7 +87,7 @@ fn a_periodic_job_queues_its_next_run() {
     assert_eq!(state(&db, job.id).0, "done");
     let rows = db.with(|c| recent(c, 10)).unwrap();
     assert_eq!(rows.len(), 2);
-    assert_eq!((rows[0].kind.as_str(), rows[0].state.as_str()), (GAMES.name, "queued"));
+    assert_eq!((rows[0].kind.as_str(), rows[0].state.as_str()), (HOUSEKEEPING.name, "queued"));
     assert!(rows[0].run_at >= T + HOUR);
     assert_eq!(runner.run_one(&db, T + HOUR - 1).unwrap(), None);
     assert!(runner.run_one(&db, rows[0].run_at).unwrap().is_some());
@@ -99,14 +99,14 @@ fn a_periodic_job_queues_its_next_run() {
 #[test]
 fn a_periodic_job_that_fails_for_good_still_comes_back() {
     let db = db();
-    let runner = Runner::new().handle(LINKS, |_, _| Err("disk on fire".into()));
+    let runner = Runner::new().handle(HOUSEKEEPING, |_, _| Err("disk on fire".into()));
     runner.seed(&db, T).unwrap();
     let mut now = T;
     loop {
         match runner.run_one(&db, now).unwrap().unwrap().1 {
             Outcome::Retry(at) => now = at,
             Outcome::Failed => break,
-            Outcome::Done | Outcome::Again | Outcome::Handed => panic!("it always fails"),
+            Outcome::Done | Outcome::Handed => panic!("it always fails"),
         }
     }
     let rows = db.with(|c| recent(c, 10)).unwrap();
@@ -135,7 +135,7 @@ fn a_fresh_boot_runs_due_housekeeping_at_once() {
 #[test]
 fn old_rows_are_purged() {
     let db = db();
-    let runner = Runner::new().handle(GAMES, |_, _| Ok(String::new()));
+    let runner = Runner::new().handle(HOUSEKEEPING, |_, _| Ok(String::new()));
     runner.seed(&db, T).unwrap();
     runner.run_one(&db, T).unwrap();
     assert_eq!(db.with(|c| purge(c, T + KEEP_DONE - 10)).unwrap(), 0);
@@ -151,28 +151,6 @@ fn dev_run_now_makes_rows_due() {
     db.with(|c| claim(c, &["dev.fail"], "a", T)).unwrap().unwrap();
     assert_eq!(db.with(|c| dev_run_now(c, id, T + 1)).unwrap(), 1);
     assert!(db.with(|c| claim(c, &["dev.fail"], "b", T + 1)).unwrap().is_some(), "its lease was ended");
-}
-
-/// A sliced job comes back due now with its new place, its attempts start
-/// over, and a job already due runs before its next slice.
-#[test]
-fn a_sliced_job_is_queued_again_with_its_place() {
-    let db = db();
-    let runner = Runner::new()
-        .handle_steps(EXPORT, |_, payload| {
-            let n = serde_json::from_str::<serde_json::Value>(payload).unwrap()["n"].as_i64().unwrap();
-            Ok(if n < 2 { Step::Again { payload: format!(r#"{{"n":{}}}"#, n + 1), note: String::new() } } else { Step::Done(format!("done at {n}")) })
-        })
-        .handle(GAMES, |_, _| Ok(String::new()));
-    let id = db.with(|c| enqueue(c, EXPORT.name, &serde_json::json!({"n": 0}), T, T)).unwrap().unwrap();
-    assert_eq!(runner.run_one(&db, T).unwrap().unwrap().1, Outcome::Again);
-    assert_eq!(state(&db, id), ("queued".to_string(), T, 0, None));
-    let other = db.with(|c| enqueue(c, GAMES.name, &serde_json::json!({}), T - 1, T)).unwrap().unwrap();
-    assert_eq!(runner.run_one(&db, T).unwrap().unwrap().0.id, other);
-    let (job, outcome) = runner.run_one(&db, T).unwrap().unwrap();
-    assert_eq!((job.id, job.payload.as_str(), job.attempts, outcome), (id, r#"{"n":1}"#, 1, Outcome::Again));
-    assert_eq!(runner.run_one(&db, T).unwrap().unwrap().1, Outcome::Done);
-    assert_eq!(state(&db, id).0, "done");
 }
 
 /// #873: each pass sends a batch from every outbox before one job, so mail
@@ -194,8 +172,8 @@ fn outboxes_go_first_a_batch_per_pass() {
         },
         |_| Ok(Some(T + 5)),
     );
-    let runner = Runner::new().drain(drain).handle(GAMES, |_, _| Ok(String::new()));
-    let job = db.with(|c| enqueue(c, GAMES.name, &serde_json::json!({}), T, T)).unwrap().unwrap();
+    let runner = Runner::new().drain(drain).handle(HOUSEKEEPING, |_, _| Ok(String::new()));
+    let job = db.with(|c| enqueue(c, HOUSEKEEPING.name, &serde_json::json!({}), T, T)).unwrap().unwrap();
     assert!(runner.pass(&db, T));
     assert_eq!(left.load(Ordering::SeqCst), OUTBOX_BATCH + 3, "one batch");
     assert_eq!(state(&db, job).0, "done", "then the job");
@@ -222,4 +200,15 @@ fn a_gated_kind_waits_for_its_gate_and_a_handed_row_stays_running() {
     assert_eq!((job.id, outcome), (id, Outcome::Handed));
     let row = db.with(|c| recent(c, 1)).unwrap().remove(0);
     assert_eq!((row.state.as_str(), row.locked_until), ("running", Some(T + LEASE)));
+}
+
+#[test]
+fn housekeeping_is_the_one_hourly_kind_and_one_row_at_idle() {
+    let hourly: Vec<_> = KINDS.iter().filter(|k| k.every == Some(HOUR)).map(|k| k.name).collect();
+    assert_eq!(hourly, ["housekeeping"]);
+    let db = db();
+    let runner = Runner::new().handle(HOUSEKEEPING, |_, _| Ok(String::new()));
+    assert_eq!(runner.seed(&db, T).unwrap(), 1);
+    assert_eq!(runner.seed(&db, T).unwrap(), 0, "a second boot adds no row");
+    assert_eq!(db.with(|c| recent(c, 50)).unwrap().len(), 1);
 }

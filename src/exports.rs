@@ -3,19 +3,17 @@
 //! - The profile's button queues a row in `data_exports` ([`request`]): one
 //!   export in flight per account, and one a day ([`COOLDOWN_SECS`]).
 //! - The request also queues a `jobs` row of kind `export` (#875), and the
-//!   shared runner (`jobs.rs`, one OS thread) builds the file: the export's
-//!   header, then each table of `privacy::USER_TABLES` a page at a time
-//!   ([`privacy::page`]), each page one short call on the connection with a
-//!   pause after it, so other requests get it in between. Rows go straight
-//!   to a file in the exports folder (next to the database,
-//!   `<db>.exports/`); the account is never held in memory.
-//! - A run writes at most [`SLICE_PAGES`] pages, saves its place in the job's
-//!   payload ([`Place`]: table, last key, good bytes) and queues itself
-//!   again, so mail and housekeeping never wait behind a big export. A
-//!   server that stops mid-slice takes the row again when its lease runs
-//!   out (after a restart), cuts the half-written tail off and goes on.
-//!   No boot step: the lease is the recovery. Files no row names are
-//!   deleted by the hourly sweep ([`remove_strays`]).
+//!   shared runner (`jobs.rs`, one OS thread) builds the whole file in one
+//!   run: the export's header, then each table of `privacy::USER_TABLES` a
+//!   page at a time ([`privacy::page`]), each page one short call on the
+//!   connection. A family's data is a few MB, written in well under a
+//!   second. Rows go straight to a file in the exports folder (next to the
+//!   database, `<db>.exports/`); the account is never held in memory.
+//! - A failed run deletes its files and marks the export failed (the job has
+//!   one attempt; the learner can ask again at once). A server that stops
+//!   mid-run takes the row again when its lease runs out (after a restart)
+//!   and starts over; the earlier part file is no row's file any more and
+//!   the hourly sweep ([`remove_strays`]) deletes it.
 //! - When the file is complete the profile's Data section shows a Download
 //!   button (`POST /profile/export/download`, [`take_ready`]), and, when the
 //!   server can send mail, the learner is e-mailed a one-time link
@@ -30,9 +28,8 @@
 //!   edit made while it is built may show in one table and not another.
 
 use std::fs::File;
-use std::io::{BufWriter, Seek, SeekFrom, Write};
+use std::io::{BufWriter, Write};
 use std::path::{Path, PathBuf};
-use std::time::Duration;
 
 use rusqlite::{params, Connection, OptionalExtension};
 use serde::{Deserialize, Serialize};
@@ -53,12 +50,6 @@ pub const KEEP_DAYS: i64 = 30;
 /// past this many bytes of text.
 const PAGE_ROWS: usize = 200;
 const PAGE_BYTES: usize = 256 * 1024;
-/// The pause after each page, so a big export leaves the database to others.
-const PAUSE: Duration = Duration::from_millis(15);
-/// Pages per run of the `export` job; then it queues itself again, behind
-/// any job already due.
-const SLICE_PAGES: usize = 50;
-
 /// What [`request`] did.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Requested {
@@ -221,58 +212,24 @@ pub fn file_path(dir: &Path, file: &str) -> Option<PathBuf> {
     plain.then(|| dir.join(file))
 }
 
-// ---------- building, a slice per job run ----------
+// ---------- building, the whole file in one job run ----------
 
-/// Where a build stands, kept in its `jobs` row's payload between slices.
-/// Before the first slice only `export` is set.
+/// An `export` job's payload: the `data_exports` row.
 #[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
-pub struct Place {
-    /// The `data_exports` row.
-    pub export: i64,
-    /// The finished file's name in the exports folder (`<id>-<random>.json`);
-    /// it is written as `<file>.part` and renamed when complete.
-    #[serde(default)]
-    pub file: String,
-    /// The table of `privacy::USER_TABLES` being written; its opening
-    /// bracket is in the file.
-    #[serde(default)]
-    pub table: usize,
-    /// The ordering key of the last row written ([`privacy::After`], as JSON).
-    #[serde(default)]
-    pub after: Vec<Value>,
-    /// Rows of `table` written.
-    #[serde(default)]
-    pub written: usize,
-    /// Bytes of the part file that are good. A slice cut short by a stop
-    /// wrote past this; the next one cuts the file back to it.
-    #[serde(default)]
-    pub bytes: u64,
-}
-
-fn key_to_json(v: &rusqlite::types::Value) -> Value {
-    use rusqlite::types::Value as V;
-    match v {
-        V::Null => Value::Null,
-        V::Integer(n) => Value::from(*n),
-        V::Real(f) => Value::from(*f),
-        V::Text(t) => Value::String(t.clone()),
-        V::Blob(b) => serde_json::json!({ "blob": b }),
-    }
-}
-
-fn key_from_json(v: &Value) -> rusqlite::types::Value {
-    use rusqlite::types::Value as V;
-    match v {
-        Value::Number(n) => n.as_i64().map(V::Integer).unwrap_or_else(|| V::Real(n.as_f64().unwrap_or(0.0))),
-        Value::String(s) => V::Text(s.clone()),
-        Value::Object(o) => V::Blob(o.get("blob").and_then(Value::as_array).map(|a| a.iter().filter_map(|b| b.as_u64().map(|b| b as u8)).collect()).unwrap_or_default()),
-        _ => V::Null,
-    }
+struct Payload {
+    export: i64,
 }
 
 /// Is the export still wanted (the row, and so the account, still there)?
 fn wanted(db: &Db, id: i64) -> bool {
-    db.with(|c| c.query_row("SELECT EXISTS(SELECT 1 FROM data_exports WHERE id = ?1)", [id], |r| r.get(0))).unwrap_or(false)
+    db.with(|c| {
+        c.query_row(
+            "SELECT EXISTS(SELECT 1 FROM data_exports WHERE id = ?1)",
+            [id],
+            |r| r.get(0),
+        )
+    })
+    .unwrap_or(false)
 }
 
 /// Why a build stopped.
@@ -295,47 +252,50 @@ impl From<std::io::Error> for Stop {
     }
 }
 
-/// The `export` job's handler: builds files a slice at a time.
+/// The `export` job's handler: builds a file in one run.
 pub struct Builder {
     /// The exports folder.
     pub dir: PathBuf,
     /// Wakes the mail sender. `None` on a server that cannot send mail: no
     /// mail, the profile's Download button is the way to the file.
     pub wake_mail: Option<Box<dyn Fn() + Send>>,
-    /// Pages per slice ([`SLICE_PAGES`]).
-    pub slice_pages: usize,
-    /// The pause after each page ([`PAUSE`]).
-    pub pause: Duration,
 }
 
 impl Builder {
     pub fn new(dir: PathBuf, wake_mail: Option<Box<dyn Fn() + Send>>) -> Builder {
-        Builder { dir, wake_mail, slice_pages: SLICE_PAGES, pause: PAUSE }
+        Builder { dir, wake_mail }
     }
 
-    /// One run of the `export` job: one slice of the export its payload names.
-    pub fn run(&self, db: &Db, payload: &str) -> Result<jobs::Step, String> {
-        let mut place: Place = serde_json::from_str(payload).map_err(|e| format!("bad payload: {e}"))?;
-        let id = place.export;
+    /// One run of the `export` job: the whole export its payload names. A
+    /// failure marks the export failed and deletes its files; the learner
+    /// asks again.
+    pub fn run(&self, db: &Db, payload: &str) -> Result<String, String> {
+        let id = serde_json::from_str::<Payload>(payload)
+            .map_err(|e| format!("bad payload: {e}"))?
+            .export;
         let row: Option<(i64, String)> = db
-            .with(|c| c.query_row("SELECT user_id, state FROM data_exports WHERE id = ?1", [id], |r| Ok((r.get(0)?, r.get(1)?))).optional())
+            .with(|c| {
+                c.query_row(
+                    "SELECT user_id, state FROM data_exports WHERE id = ?1",
+                    [id],
+                    |r| Ok((r.get(0)?, r.get(1)?)),
+                )
+                .optional()
+            })
             .map_err(|e| e.to_string())?;
-        let gone = |place: &Place| {
-            self.remove(place);
-            Ok(jobs::Step::Done(format!("export #{id}: the account went while it was built; file deleted")))
+        let Some((user_id, state)) = row else {
+            return Ok(format!("export #{id}: the account went; nothing built"));
         };
-        let Some((user_id, state)) = row else { return gone(&place) };
         if !matches!(state.as_str(), "queued" | "building") {
             // The server stopped after the export was finished but before the job was.
-            return Ok(jobs::Step::Done(String::new()));
+            return Ok(String::new());
         }
-        match self.slice(db, &mut place, user_id) {
-            Ok(false) => {
-                let note = format!("export #{id}: table {} of {}, {} bytes", place.table + 1, privacy::USER_TABLES.len(), place.bytes);
-                let payload = serde_json::to_string(&place).map_err(|e| e.to_string())?;
-                Ok(jobs::Step::Again { payload, note })
-            }
-            Ok(true) => {
+        // The name goes on the row first, so the stray sweep and account
+        // deletion know the file; a stopped server's earlier part file is
+        // left to the sweep.
+        let file = format!("{id}-{}.json", &crate::auth::generate_token()[..16]); // panic-ok: the token is 64 hex digits
+        match self.build(db, id, user_id, &file) {
+            Ok(bytes) => {
                 let how = match &self.wake_mail {
                     Some(wake) => {
                         wake();
@@ -343,11 +303,18 @@ impl Builder {
                     }
                     None => "on the profile (no mail)",
                 };
-                Ok(jobs::Step::Done(format!("export #{id} for user {user_id} ready ({} bytes); {how}", place.bytes)))
+                Ok(format!(
+                    "export #{id} for user {user_id} ready ({bytes} bytes); {how}"
+                ))
             }
-            Err(Stop::Gone) => gone(&place),
+            Err(Stop::Gone) => {
+                self.remove(&file);
+                Ok(format!(
+                    "export #{id}: the account went while it was built; file deleted"
+                ))
+            }
             Err(Stop::Failed(why)) => {
-                self.remove(&place);
+                self.remove(&file);
                 let _ = db.with(|c| c.execute("UPDATE data_exports SET state = 'failed', error = ?2, file = '' WHERE id = ?1", params![id, why]));
                 Err(format!("export #{id} for user {user_id} failed: {why}"))
             }
@@ -355,109 +322,85 @@ impl Builder {
     }
 
     /// Delete an unfinished build's files.
-    fn remove(&self, place: &Place) {
-        if !place.file.is_empty() {
-            remove_files(&self.dir, &[format!("{}.part", place.file), place.file.clone()]);
-        }
+    fn remove(&self, file: &str) {
+        remove_files(&self.dir, &[format!("{file}.part"), file.to_string()]);
     }
 
-    /// Write up to `slice_pages` pages of the file, then save the place in
-    /// `place`. `true` when the file is complete and the export ready (its
-    /// mail queued).
-    fn slice(&self, db: &Db, place: &mut Place, user_id: i64) -> Result<bool, Stop> {
-        let id = place.export;
+    /// Write the file as `<file>.part`, rename it, mark the export ready
+    /// (its mail queued). The file's size.
+    fn build(&self, db: &Db, id: i64, user_id: i64, file: &str) -> Result<u64, Stop> {
         let tables = privacy::USER_TABLES;
-        let mut out = if place.file.is_empty() {
-            // The first slice: name the file on the row first, so the stray
-            // sweep and account deletion know it, then start it.
-            place.file = format!("{id}-{}.json", &crate::auth::generate_token()[..16]); // panic-ok: the token is 64 hex digits
-            let part = format!("{}.part", place.file);
-            let named = db.with(|c| c.execute("UPDATE data_exports SET state = 'building', file = ?2 WHERE id = ?1", params![id, part]))?;
-            if named == 0 {
-                return Err(Stop::Gone);
-            }
-            std::fs::create_dir_all(&self.dir)?;
-            let Some(head) = db.with(|c| privacy::export_header(c, user_id))? else { return Err(Stop::Gone) };
-            let mut out = BufWriter::with_capacity(64 * 1024, File::create(self.dir.join(&part))?);
-            out.write_all(b"{")?;
-            for (k, v) in &head {
-                json(&mut out, &Value::String(k.clone()))?;
-                out.write_all(b":")?;
-                json(&mut out, v)?;
-                out.write_all(b",\n")?;
-            }
-            out.write_all(b"\"tables\":{")?;
-            if let Some((t, _)) = tables.first() {
-                open_table(&mut out, t, true)?;
-            }
-            out
-        } else {
-            if self.dir.join(&place.file).exists() {
-                // Stopped between the rename and marking it ready.
-                return self.done(db, place).map(|()| true);
-            }
-            let f = std::fs::OpenOptions::new().write(true).open(self.dir.join(format!("{}.part", place.file)))?;
-            f.set_len(place.bytes)?;
-            let mut out = BufWriter::with_capacity(64 * 1024, f);
-            out.seek(SeekFrom::Start(place.bytes))?;
-            out
-        };
-        let mut after: privacy::After = place.after.iter().map(key_from_json).collect();
-        let mut pages = 0;
-        while let (Some((table, _)), true) = (tables.get(place.table), pages < self.slice_pages) {
-            let (rows, last) = db.with(|c| privacy::page(c, table, user_id, &after, PAGE_ROWS, PAGE_BYTES))?;
-            for (j, row) in rows.iter().enumerate() {
-                if place.written + j > 0 {
-                    out.write_all(b",")?;
-                }
-                out.write_all(b"\n")?;
-                json(&mut out, row)?;
-            }
-            place.written += rows.len();
-            pages += 1;
-            // A page can end early on its byte budget: the table is done when one comes back empty.
-            if rows.is_empty() {
-                out.write_all(b"]")?;
-                place.table += 1;
-                place.written = 0;
-                after = Vec::new();
-                if let Some((t, _)) = tables.get(place.table) {
-                    open_table(&mut out, t, false)?;
-                }
-            } else {
-                after = last;
-            }
-            drop(rows);
-            std::thread::sleep(self.pause);
-            if !wanted(db, id) {
-                return Err(Stop::Gone);
-            }
-        }
-        let complete = place.table >= tables.len();
-        if complete {
-            out.write_all(b"\n}}\n")?;
-        }
-        let file = out.into_inner().map_err(|e| Stop::Failed(e.to_string()))?;
-        file.sync_all()?;
-        place.bytes = file.metadata()?.len();
-        place.after = after.iter().map(key_to_json).collect();
-        if !complete {
-            return Ok(false);
-        }
-        drop(file);
-        std::fs::rename(self.dir.join(format!("{}.part", place.file)), self.dir.join(&place.file))?;
-        self.done(db, place).map(|()| true)
-    }
-
-    /// The file is complete and in place: mark the export ready and queue
-    /// its mail.
-    fn done(&self, db: &Db, place: &mut Place) -> Result<(), Stop> {
-        place.bytes = std::fs::metadata(self.dir.join(&place.file))?.len();
-        let token = crate::auth::generate_token();
-        if !db.with(|c| finish(c, place.export, &place.file, &token, place.bytes as i64, crate::db::now(), self.wake_mail.is_some()))? {
+        let part = format!("{file}.part");
+        let named = db.with(|c| {
+            c.execute(
+                "UPDATE data_exports SET state = 'building', file = ?2 WHERE id = ?1",
+                params![id, part],
+            )
+        })?;
+        if named == 0 {
             return Err(Stop::Gone);
         }
-        Ok(())
+        std::fs::create_dir_all(&self.dir)?;
+        let Some(head) = db.with(|c| privacy::export_header(c, user_id))? else {
+            return Err(Stop::Gone);
+        };
+        let mut out = BufWriter::with_capacity(64 * 1024, File::create(self.dir.join(&part))?);
+        out.write_all(b"{")?;
+        for (k, v) in &head {
+            json(&mut out, &Value::String(k.clone()))?;
+            out.write_all(b":")?;
+            json(&mut out, v)?;
+            out.write_all(b",\n")?;
+        }
+        out.write_all(b"\"tables\":{")?;
+        for (i, (table, _)) in tables.iter().enumerate() {
+            open_table(&mut out, table, i == 0)?;
+            let mut after = privacy::After::new();
+            let mut written = 0;
+            loop {
+                let (rows, last) = db.with(|c| {
+                    privacy::page(c, table, user_id, &after, PAGE_ROWS, PAGE_BYTES)
+                })?;
+                // A page can end early on its byte budget: the table is done when one comes back empty.
+                if rows.is_empty() {
+                    break;
+                }
+                for row in &rows {
+                    if written > 0 {
+                        out.write_all(b",")?;
+                    }
+                    out.write_all(b"\n")?;
+                    json(&mut out, row)?;
+                    written += 1;
+                }
+                after = last;
+                if !wanted(db, id) {
+                    return Err(Stop::Gone);
+                }
+            }
+            out.write_all(b"]")?;
+        }
+        out.write_all(b"\n}}\n")?;
+        let f = out.into_inner().map_err(|e| Stop::Failed(e.to_string()))?;
+        f.sync_all()?;
+        let bytes = f.metadata()?.len();
+        drop(f);
+        std::fs::rename(self.dir.join(&part), self.dir.join(file))?;
+        let token = crate::auth::generate_token();
+        if !db.with(|c| {
+            finish(
+                c,
+                id,
+                file,
+                &token,
+                bytes as i64,
+                crate::db::now(),
+                self.wake_mail.is_some(),
+            )
+        })? {
+            return Err(Stop::Gone);
+        }
+        Ok(bytes)
     }
 }
 
@@ -535,10 +478,7 @@ pub fn remove_strays(db: &Db, dir: &Path) -> usize {
     let mut n = 0;
     for e in entries.flatten() {
         let name = e.file_name().to_string_lossy().into_owned();
-        // `<file>` of a row naming `<file>.part`: a stop between the rename
-        // and "ready"; the next run marks it ready.
-        let renamed = known.contains(&format!("{name}.part"));
-        if !known.contains(&name) && !renamed && std::fs::remove_file(e.path()).is_ok() {
+        if !known.contains(&name) && std::fs::remove_file(e.path()).is_ok() {
             n += 1;
         }
     }
@@ -567,17 +507,15 @@ impl Exports {
     }
 }
 
-/// Build every due export now, slice after slice, on this thread (tests
-/// stand in for the `jobs` thread with it). How many exports finished.
+/// Build every due export now, on this thread (tests stand in for the `jobs`
+/// thread with it). How many exports finished.
 #[cfg(test)]
-pub fn run_queued(db: &Db, dir: &Path, wake_mail: Option<Box<dyn Fn() + Send>>, pause: Duration) -> usize {
-    let builder = Builder { pause, ..Builder::new(dir.to_path_buf(), wake_mail) };
-    let runner = jobs::Runner::new().handle_steps(jobs::EXPORT, move |db, p| builder.run(db, p));
+pub fn run_queued(db: &Db, dir: &Path, wake_mail: Option<Box<dyn Fn() + Send>>) -> usize {
+    let builder = Builder::new(dir.to_path_buf(), wake_mail);
+    let runner = jobs::Runner::new().handle(jobs::EXPORT, move |db, p| builder.run(db, p));
     let mut n = 0;
-    while let Ok(Some((_, outcome))) = runner.run_one(db, crate::db::now()) {
-        if outcome != jobs::Outcome::Again {
-            n += 1;
-        }
+    while let Ok(Some(_)) = runner.run_one(db, crate::db::now()) {
+        n += 1;
     }
     n
 }
@@ -654,7 +592,7 @@ mod tests {
         .unwrap();
         let Requested::Queued(id) = db.with(|c| request(c, ann, "http://site/", 10)).unwrap() else { panic!() };
         let (woken, wake) = counter();
-        assert_eq!(run_queued(&db, &dir, wake, Duration::ZERO), 1);
+        assert_eq!(run_queued(&db, &dir, wake), 1);
         assert_eq!(woken.load(Ordering::SeqCst), 1);
 
         let (file, hash, state): (String, String, String) = db.with(|c| c.query_row("SELECT file, token_hash, state FROM data_exports WHERE id = ?1", [id], |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?)))).unwrap();
@@ -706,7 +644,7 @@ mod tests {
         let ann = user(&db, "ann@example.org");
         let made = crate::db::now();
         let Requested::Queued(id) = db.with(|c| request(c, ann, "http://x", made)).unwrap() else { panic!() };
-        run_queued(&db, &dir, counter().1, Duration::ZERO);
+        run_queued(&db, &dir, counter().1);
         let file: String = db.with(|c| c.query_row("SELECT file FROM data_exports WHERE id = ?1", [id], |r| r.get(0))).unwrap();
         assert!(dir.join(&file).exists());
         let expires: i64 = db.with(|c| c.query_row("SELECT expires_at FROM data_exports WHERE id = ?1", [id], |r| r.get(0))).unwrap();
@@ -724,32 +662,6 @@ mod tests {
         assert_eq!(remove_strays(&db, &dir), 2);
         assert!(!dir.join("stray.json").exists());
         assert_eq!(file_path(&dir, "../etc/passwd"), None);
-        let _ = std::fs::remove_dir_all(&dir);
-    }
-
-    /// A server that stopped between renaming the finished file and marking
-    /// the export ready: the row still names `<file>.part`. The hourly sweep
-    /// (due at boot) keeps the finished file, and the next run marks it ready.
-    #[test]
-    fn a_stop_after_the_rename_survives_the_stray_sweep() {
-        let db = Db::open_in_memory().unwrap();
-        let dir = tmp_dir("renamed");
-        let ann = user(&db, "ann@example.org");
-        let Requested::Queued(id) = db.with(|c| request(c, ann, "http://x", crate::db::now())).unwrap() else { panic!() };
-        run_queued(&db, &dir, counter().1, Duration::ZERO);
-        let file: String = db.with(|c| c.query_row("SELECT file FROM data_exports WHERE id = ?1", [id], |r| r.get(0))).unwrap();
-        // Back to just after the rename: building, the row naming the part file, the job leased.
-        let payload = serde_json::json!({ "export": id, "file": file, "table": privacy::USER_TABLES.len(), "bytes": 1 }).to_string();
-        db.with(|c| {
-            c.execute("UPDATE data_exports SET state = 'building', file = ?2, token_hash = '' WHERE id = ?1", params![id, format!("{file}.part")])?;
-            c.execute("UPDATE jobs SET state = 'queued', payload_json = ?1 WHERE kind = 'export'", [payload])?;
-            Ok(())
-        })
-        .unwrap();
-        assert_eq!(remove_strays(&db, &dir), 0, "the finished file of a building export is not a stray");
-        assert!(dir.join(&file).exists());
-        assert_eq!(run_queued(&db, &dir, counter().1, Duration::ZERO), 1);
-        assert_eq!(db.with(|c| status(c, ann, crate::db::now())).unwrap().unwrap().state, "ready");
         let _ = std::fs::remove_dir_all(&dir);
     }
 
@@ -771,104 +683,21 @@ mod tests {
         .unwrap();
     }
 
-    /// Deleting the account while its export is built leaves no file
-    /// behind and sends no mail.
+    /// Deleting the account before its export runs leaves no file behind
+    /// and sends no mail.
     #[test]
     fn a_deleted_account_leaves_no_export() {
         let db = Db::open_in_memory().unwrap();
         let dir = tmp_dir("deleted");
         let ann = user(&db, "ann@example.org");
         db.with(|c| request(c, ann, "http://x", 10)).unwrap();
+        db.with(|c| privacy::delete_account(c, ann))
+            .unwrap()
+            .unwrap();
         let (woken, wake) = counter();
-        let builder = Builder { slice_pages: 1, pause: Duration::ZERO, ..Builder::new(dir.clone(), wake) };
-        let runner = jobs::Runner::new().handle_steps(jobs::EXPORT, move |db, p| builder.run(db, p));
-        let now = crate::db::now() + 1000; // ahead of the clock, so a requeued slice is due at once
-        assert_eq!(runner.run_one(&db, now).unwrap().unwrap().1, jobs::Outcome::Again);
-        assert_eq!(std::fs::read_dir(&dir).unwrap().count(), 1, "the part file");
-        let deleted = db.with(|c| privacy::delete_account(c, ann)).unwrap().unwrap();
-        assert_eq!(deleted.export_files.len(), 1);
-        assert!(deleted.export_files[0].ends_with(".json.part"));
-        assert_eq!(runner.run_one(&db, now).unwrap().unwrap().1, jobs::Outcome::Done);
-        assert_eq!(runner.run_one(&db, now).unwrap(), None);
-        assert_eq!(std::fs::read_dir(&dir).unwrap().count(), 0);
+        assert_eq!(run_queued(&db, &dir, wake), 1);
+        assert!(!dir.exists() || std::fs::read_dir(&dir).unwrap().count() == 0);
         assert_eq!(woken.load(Ordering::SeqCst), 0);
         let _ = std::fs::remove_dir_all(&dir);
-    }
-
-    /// One page per slice, and the server stops halfway through a slice
-    /// (bytes written past the saved place, the row still leased). After
-    /// the lease runs out the next run cuts the tail off and goes on: the
-    /// file is the same as the one-shot export, made once, mailed once.
-    /// Other jobs due meanwhile run between slices.
-    #[test]
-    fn a_sliced_export_survives_a_stop_and_lets_other_jobs_in() {
-        let db = Db::open_in_memory().unwrap();
-        let dir = tmp_dir("slices");
-        let ann = user(&db, "ann@example.org");
-        db.with(|c| {
-            for i in 0..(PAGE_ROWS + 3) {
-                c.execute(
-                    "INSERT INTO quiz_history (user_id, course_id, lesson_id, question_id, selected_answer, was_correct, answered_at) VALUES (?1, 'spanish', 'a1', ?2, 'x', 1, 1)",
-                    params![ann, format!("q{i}")],
-                )?;
-            }
-            Ok(())
-        })
-        .unwrap();
-        let Requested::Queued(id) = db.with(|c| request(c, ann, "http://site", 10)).unwrap() else { panic!() };
-        let (woken, wake) = counter();
-        let builder = Builder { slice_pages: 1, pause: Duration::ZERO, ..Builder::new(dir.clone(), wake) };
-        let runner = jobs::Runner::new().handle_steps(jobs::EXPORT, move |db, p| builder.run(db, p)).handle(jobs::GAMES, |_, _| Ok(String::new()));
-        let now = crate::db::now() + 1000; // ahead of the clock, so a requeued slice is due at once
-        let (job, outcome) = runner.run_one(&db, now).unwrap().unwrap();
-        assert_eq!(outcome, jobs::Outcome::Again);
-        assert_eq!(db.with(|c| status(c, ann, now)).unwrap().unwrap().state, "building");
-        // A job queued meanwhile (mail, say) goes before the next slice.
-        let other = db.with(|c| jobs::enqueue(c, jobs::GAMES.name, &serde_json::json!({}), now - 1, now)).unwrap().unwrap();
-        assert_eq!(runner.run_one(&db, now).unwrap().unwrap().0.id, other);
-        // A few slices on, the server stops mid-slice: the row stays leased
-        // and the part file has a half-written tail.
-        for _ in 0..3 {
-            assert_eq!(runner.run_one(&db, now).unwrap().unwrap().1, jobs::Outcome::Again);
-        }
-        let payload: String = db.with(|c| c.query_row("SELECT payload_json FROM jobs WHERE id = ?1", [job.id], |r| r.get(0))).unwrap();
-        let place: Place = serde_json::from_str(&payload).unwrap();
-        assert!(place.bytes > 0 && !place.file.is_empty());
-        db.with(|c| jobs::claim(c, &[jobs::EXPORT.name], "dead-server", now)).unwrap().unwrap();
-        let part = dir.join(format!("{}.part", place.file));
-        std::fs::OpenOptions::new().append(true).open(&part).unwrap().write_all(b",\n{\"half\":").unwrap();
-        assert_eq!(runner.run_one(&db, now).unwrap(), None, "leased to the stopped server");
-        let mut t = now + jobs::LEASE;
-        while let Some((_, outcome)) = runner.run_one(&db, t).unwrap() {
-            t += 1;
-            if outcome == jobs::Outcome::Done {
-                break;
-            }
-        }
-        assert_eq!(runner.run_one(&db, t).unwrap(), None);
-        let (file, state): (String, String) = db.with(|c| c.query_row("SELECT file, state FROM data_exports WHERE id = ?1", [id], |r| Ok((r.get(0)?, r.get(1)?)))).unwrap();
-        assert_eq!((state.as_str(), file.as_str()), ("ready", place.file.as_str()));
-        assert!(!part.exists());
-        let v: Value = serde_json::from_str(&std::fs::read_to_string(dir.join(&file)).unwrap()).unwrap();
-        let mut whole = db.with(|c| privacy::export(c, ann)).unwrap().unwrap();
-        whole["exported_at"] = v["exported_at"].clone();
-        whole["tables"]["data_exports"] = v["tables"]["data_exports"].clone();
-        whole["tables"]["mail_outbox"] = v["tables"]["mail_outbox"].clone();
-        assert_eq!(whole, v);
-        assert_eq!(v["tables"]["quiz_history"].as_array().unwrap().len(), PAGE_ROWS + 3);
-        assert_eq!(woken.load(Ordering::SeqCst), 1);
-        let mails: i64 = db.with(|c| c.query_row("SELECT COUNT(*) FROM mail_outbox WHERE purpose = ?1", [PURPOSE], |r| r.get(0))).unwrap();
-        assert_eq!(mails, 1);
-        let _ = std::fs::remove_dir_all(&dir);
-    }
-
-    /// The place survives the payload's trip through JSON, keys of every type.
-    #[test]
-    fn ordering_keys_round_trip() {
-        use rusqlite::types::Value as V;
-        let keys = vec![V::Integer(-7), V::Text("lessons/a.json".into()), V::Real(1.5), V::Null, V::Blob(vec![0, 255])];
-        let json: Vec<Value> = keys.iter().map(key_to_json).collect();
-        let back: Vec<Value> = serde_json::from_str(&serde_json::to_string(&json).unwrap()).unwrap();
-        assert_eq!(back.iter().map(key_from_json).collect::<Vec<_>>(), keys);
     }
 }

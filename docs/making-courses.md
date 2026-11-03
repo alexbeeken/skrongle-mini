@@ -21,7 +21,7 @@ to have AI write the course, or close it to write the course yourself.
      ↑ / ↓) to reorder it; ✕ deletes it.
    - ⧉ duplicates a lesson: the copy, called "&lt;title&gt; (copy)", lands right
      below it with new ids, ready to edit.
-   - ✦ (with an AI key or Skrongle AI) edits one lesson with AI: say what
+   - ✦ (with an AI key) edits one lesson with AI: say what
      should change ("more worked examples, simpler words") and only that
      lesson is rewritten. Undo puts it back. For changes across many lessons,
      use **Edit** in the Use AI box instead.

@@ -100,7 +100,7 @@ pub fn landing_courses(courses: &crate::courses::Courses) -> Vec<LandingCourse> 
             icon: c.manifest().icon().to_string(),
             description: c.manifest().description.clone(),
             units: c.units().len(),
-            lessons: c.lessons().len(),
+            lessons: c.totals().0,
         })
         .collect()
 }
@@ -139,12 +139,9 @@ pub struct HomeTemplate {
     pub games_week: i64,
     /// Label of the AI provider whose key is on file, if any (the tutor uses it).
     pub tutor_provider: Option<String>,
-    /// The tutor has nothing to run on: no usable key of their own and no
-    /// Skrongle AI for it. The card shows a red ! and "Start a conversation"
+    /// The tutor has nothing to run on: no usable key of their own. The card shows a red ! and "Start a conversation"
     /// opens the tutor's "add an API key" page in a modal instead (#283).
     pub tutor_blocked: bool,
-    /// Why Skrongle AI is not offered for the tutor, for that modal.
-    pub tutor_gap: Option<super::hosted::NotIncluded>,
     /// Guide stages complete, of the stages not skipped.
     pub guide_completed: usize,
     pub guide_total: usize,
@@ -303,21 +300,27 @@ pub struct LevelOption {
 }
 
 pub fn level_options(content: &ContentStore, start: usize) -> Vec<LevelOption> {
-    let units = content.start_units();
+    let levels: Vec<(usize, usize)> = content.start_units().into_iter().map(|u| (u, content.lessons_in(u).count())).collect();
+    level_options_of(content.units(), &levels, start)
+}
+
+/// `level_options` from a course's units and its start levels, each with
+/// its lesson count (`courses::BuiltinCourse::levels`).
+pub fn level_options_of(units: &[crate::content::Unit], levels: &[(usize, usize)], start: usize) -> Vec<LevelOption> {
     // Starting at the first level is starting at the beginning.
-    let chosen = units.iter().rev().find(|&&u| u <= start).or(units.first()).copied();
-    units
+    let chosen = levels.iter().rev().find(|(u, _)| *u <= start).or(levels.first()).map(|(u, _)| *u);
+    levels
         .iter()
         .enumerate()
-        .map(|(i, &u)| {
-            let unit = content.unit(u);
-            LevelOption {
+        .filter_map(|(i, &(u, lessons))| {
+            let unit = units.get(u)?;
+            Some(LevelOption {
                 id: if i == 0 { String::new() } else { unit.id.clone() },
                 title: unit.title.clone(),
                 description: unit.description.clone(),
-                lessons: content.lessons_in(u).count(),
+                lessons,
                 chosen: Some(u) == chosen,
-            }
+            })
         })
         .collect()
 }
@@ -563,14 +566,7 @@ pub async fn home(State(state): State<Arc<AppState>>, p: Project, headers: Heade
     let guide_total = stages.iter().filter(|(_, s)| *s != super::guide::StageState::Skipped).count();
     let guide_completed = stages.iter().filter(|(_, s)| *s == super::guide::StageState::Complete).count();
     let guide_next = stages.iter().find(|(c, _)| c.is_current).map(|(c, _)| (c.slug.clone(), c.title.clone()));
-    let (tutor_blocked, tutor_gap) = if ai_off {
-        (false, None)
-    } else {
-        let own = tutor_provider.is_some() && super::hosted::own_keys_usable(&state, &p.user);
-        let hosted = super::hosted::hosted_offer(&state, uid, crate::metering::Need::Tutor).await?.is_some();
-        let blocked = !own && !hosted;
-        (blocked, if blocked { super::hosted::NotIncluded::of(&state, &p.user, crate::metering::Need::Tutor).await? } else { None })
-    };
+    let tutor_blocked = !ai_off && tutor_provider.is_none();
     let measures = crate::motivators::Progress {
         today,
         practised_today,
@@ -587,7 +583,6 @@ pub async fn home(State(state): State<Arc<AppState>>, p: Project, headers: Heade
         unit_passed,
         unit_total,
         unit_percent: if unit_total == 0 { 0 } else { unit_passed * 100 / unit_total },
-        day_start,
     };
     let (due_count, due) = super::vocab::due_cards(&state, &p, 3).await?;
     let course = CourseView::of(content);
@@ -603,7 +598,6 @@ pub async fn home(State(state): State<Arc<AppState>>, p: Project, headers: Heade
         games_week,
         tutor_provider,
         tutor_blocked,
-        tutor_gap,
         guide_completed,
         guide_total,
         guide_begun: guide_completed > 0 || !stage_progress.is_empty(),

@@ -1,6 +1,7 @@
-//! The course registry: built-in courses loaded from `data/courses/<id>/` at
-//! boot, plus courses people build in the app, stored in SQLite as the same
-//! files (`courses` + `course_files`) and loaded on first use.
+//! The course registry: built-in courses under `data/courses/<id>/`, checked
+//! at boot and built on first use (#32), plus courses people build in the
+//! app, stored in SQLite as the same files (`courses` + `course_files`) and
+//! built on first use too.
 //!
 //! A *project* is a (user, course) pair: opening a course records it in
 //! `projects` and makes it the user's active course (`users.active_course`).
@@ -11,7 +12,7 @@ use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 use std::sync::{Arc, Mutex};
 
-use crate::content::{ContentError, ContentStore, CourseFile, MANIFEST_FILE};
+use crate::content::{ContentError, ContentStore, CourseFile, Manifest, Unit, MANIFEST_FILE};
 use crate::db::{now, Db};
 use crate::error::AppError;
 
@@ -26,10 +27,11 @@ pub const MAX_COURSE_BYTES: usize = 8 * 1024 * 1024;
 pub const MAX_ACCOUNT_BYTES: usize = 32 * 1024 * 1024;
 /// Courses one account may own.
 pub const MAX_COURSES_PER_USER: usize = 50;
-/// How much of the user-made courses the in-memory cache keeps, counted as
-/// the bytes of their files (a built course takes two to three times that):
-/// past it the least recently used ones are dropped and rebuilt on demand.
-pub const CACHE_BYTES: usize = 24 * 1024 * 1024;
+/// How many built courses (built-in and user-made together) the in-memory
+/// cache keeps: past it the least recently used one is dropped and rebuilt
+/// on its next use (#33). Equal to `caps::MAX_ACCOUNTS`: each account has one
+/// active course, so this is the most anyone can be using.
+pub const MAX_STORES: usize = crate::caps::MAX_ACCOUNTS;
 
 /// What one account may store in courses. `Default` gives the constants
 /// above; the server reads `SKRONGLE_COURSES_PER_USER`, `SKRONGLE_COURSE_BYTES` and
@@ -48,19 +50,25 @@ impl Default for Limits {
     }
 }
 
-/// A cached user-made course: the store, the bytes of its files and when it
-/// was last used (a counter), for the cache's LRU eviction.
+/// A cached course: the store and when it was last used (a counter), for
+/// the cache's LRU eviction.
 struct Cached {
     store: Arc<ContentStore>,
-    bytes: usize,
     used: u64,
 }
 
-#[derive(Default)]
+/// The built courses, keyed by course id, at most `max_entries` of them,
+/// least recently used out first.
 struct Cache {
     entries: HashMap<String, Cached>,
-    bytes: usize,
     tick: u64,
+    max_entries: usize,
+}
+
+impl Default for Cache {
+    fn default() -> Cache {
+        Cache { entries: HashMap::new(), tick: 0, max_entries: MAX_STORES }
+    }
 }
 
 impl Cache {
@@ -73,49 +81,112 @@ impl Cache {
         })
     }
 
-    /// Keep `store` (built from `bytes` of files), then drop the least
-    /// recently used courses until the cache is within `budget` again. The
-    /// course just put in always stays, however big.
-    fn insert(&mut self, id: &str, store: Arc<ContentStore>, bytes: usize, budget: usize) {
-        self.remove(id);
+    /// Keep `store`, then drop the least recently used courses until the
+    /// cache holds `max_entries` again. The store just put in always stays.
+    fn insert(&mut self, id: &str, store: Arc<ContentStore>) {
         self.tick += 1;
-        self.entries.insert(id.to_string(), Cached { store, bytes, used: self.tick });
-        self.bytes += bytes;
-        while self.bytes > budget && self.entries.len() > 1 {
-            let oldest = self.entries.iter().filter(|(k, _)| k.as_str() != id).min_by_key(|(_, e)| e.used).map(|(k, _)| k.clone());
+        let key = id.to_string();
+        self.entries.insert(key.clone(), Cached { store, used: self.tick });
+        while self.entries.len() > self.max_entries.max(1) {
+            let oldest = self.entries.iter().filter(|(k, _)| **k != key).min_by_key(|(_, e)| e.used).map(|(k, _)| k.clone());
             match oldest {
-                Some(k) => self.remove(&k),
+                Some(k) => self.entries.remove(&k),
                 None => break,
-            }
+            };
         }
     }
 
     fn remove(&mut self, id: &str) {
-        if let Some(e) = self.entries.remove(id) {
-            self.bytes -= e.bytes;
-        }
+        self.entries.remove(id);
     }
 }
+
 /// Courses for automated tests only, under `<data>/test-courses/<id>/`: loaded
 /// as built-in courses when `TEST_COURSE=1`, never otherwise. The test course
 /// there uses every feature a course file can switch on (see its AUTHORING.md).
 pub const TEST_COURSES_DIR: &str = "test-courses";
 
+/// What the registry keeps of a built-in course while it is not built
+/// (#32): its manifest and the numbers its card, the landing page and the
+/// settings wizard show. The lessons are built on first use (`Courses::get`).
+pub struct BuiltinCourse {
+    manifest: Manifest,
+    /// `ContentStore::totals`: lessons, questions, terms.
+    totals: (usize, usize, usize),
+    /// The levels a learner may start at (`ContentStore::start_units`), each
+    /// with the number of lessons in it.
+    levels: Vec<(usize, usize)>,
+    /// `placement::offered`.
+    placement: bool,
+}
+
+impl BuiltinCourse {
+    fn of(store: &ContentStore) -> BuiltinCourse {
+        BuiltinCourse {
+            manifest: store.manifest().clone(),
+            totals: store.totals(),
+            levels: store.start_units().into_iter().map(|u| (u, store.lessons_in(u).count())).collect(),
+            placement: crate::placement::offered(store),
+        }
+    }
+
+    pub fn id(&self) -> &str {
+        &self.manifest.id
+    }
+
+    pub fn title(&self) -> &str {
+        &self.manifest.title
+    }
+
+    pub fn manifest(&self) -> &Manifest {
+        &self.manifest
+    }
+
+    pub fn units(&self) -> &[Unit] {
+        &self.manifest.units
+    }
+
+    pub fn totals(&self) -> (usize, usize, usize) {
+        self.totals
+    }
+
+    /// `ContentStore::start_units` with each level's lesson count.
+    pub fn levels(&self) -> &[(usize, usize)] {
+        &self.levels
+    }
+
+    /// `ContentStore::start_index`.
+    pub fn start_index(&self, id: &str) -> usize {
+        self.manifest.unit_index(id).filter(|u| self.levels.iter().any(|(l, _)| l == u)).unwrap_or(0)
+    }
+
+    /// `placement::offered`: the course has a placement test to take.
+    pub fn placement_offered(&self) -> bool {
+        self.placement
+    }
+}
+
 pub struct Courses {
-    builtin: Vec<Arc<ContentStore>>,
-    /// Where each built-in course was loaded from (`builtin_files`).
+    builtin: Vec<BuiltinCourse>,
+    /// Where each built-in course was loaded from, to build it on demand
+    /// (and for `builtin_files`).
     builtin_dirs: HashMap<String, PathBuf>,
-    /// Cache of user-made courses already built from the database, bounded
-    /// by `cache_bytes` (least recently used out first).
-    custom: Mutex<Cache>,
-    cache_bytes: usize,
+    /// Cache of the courses already built: built-in ones from their folder
+    /// and user-made ones from the database, at most `MAX_STORES` together
+    /// (least recently used out first, #33).
+    cache: Mutex<Cache>,
+    /// Held while a built-in course is built, so two first
+    /// requests for it wait for one build instead of making two.
+    building: Mutex<()>,
     /// What one account may store in courses.
     limits: Limits,
 }
 
 impl Courses {
-    /// Load every `data/courses/*/course.json`. An empty or missing directory
-    /// is fine (the app then only offers "build your own").
+    /// Check every `data/courses/*/course.json`. An empty or missing directory
+    /// is fine (the app then only offers "build your own"). Each course is
+    /// built once to validate it, then dropped: only its `BuiltinCourse`
+    /// stays, and `get` builds it again on first use (#32).
     pub fn load_builtin(data_dir: &Path) -> Result<Courses, ContentError> {
         Courses::load(data_dir, false)
     }
@@ -151,15 +222,25 @@ impl Courses {
                     return Err(ContentError::Duplicate(format!("course id '{}' ({})", store.id(), dir.display())));
                 }
                 builtin_dirs.insert(store.id().to_string(), dir);
-                builtin.push(Arc::new(store));
+                builtin.push(BuiltinCourse::of(&store));
             }
         }
-        Ok(Courses { builtin, builtin_dirs, custom: Mutex::default(), cache_bytes: CACHE_BYTES, limits: Limits::default() })
+        Ok(Courses::with_builtin(builtin, builtin_dirs))
+    }
+
+    fn with_builtin(builtin: Vec<BuiltinCourse>, builtin_dirs: HashMap<String, PathBuf>) -> Courses {
+        Courses {
+            builtin,
+            builtin_dirs,
+            cache: Mutex::default(),
+            building: Mutex::new(()),
+            limits: Limits::default(),
+        }
     }
 
     #[cfg(test)]
     pub fn empty() -> Courses {
-        Courses { builtin: Vec::new(), builtin_dirs: HashMap::new(), custom: Mutex::default(), cache_bytes: CACHE_BYTES, limits: Limits::default() }
+        Courses::with_builtin(Vec::new(), HashMap::new())
     }
 
     /// The same registry with other storage limits (from the environment).
@@ -172,12 +253,39 @@ impl Courses {
         self.limits
     }
 
-    pub fn builtin(&self) -> &[Arc<ContentStore>] {
+    /// The built-in courses, as their summaries; `builtin_store` (or `get`)
+    /// for the lessons.
+    pub fn builtin(&self) -> &[BuiltinCourse] {
         &self.builtin
     }
 
-    pub fn builtin_by_id(&self, id: &str) -> Option<Arc<ContentStore>> {
-        self.builtin.iter().find(|c| c.id() == id).cloned()
+    pub fn builtin_by_id(&self, id: &str) -> Option<&BuiltinCourse> {
+        self.builtin.iter().find(|c| c.id() == id)
+    }
+
+    /// A built-in course built: from the cache, or from its folder the first
+    /// time (and again after the cache dropped it). `None` for any other id,
+    /// or when its files no longer load (they did at boot).
+    pub fn builtin_store(&self, id: &str) -> Option<Arc<ContentStore>> {
+        let dir = self.builtin_dirs.get(id)?;
+        if let Some(c) = self.lock().get(id) {
+            return Some(c);
+        }
+        let _one = self.building.lock().unwrap_or_else(|p| p.into_inner());
+        if let Some(c) = self.lock().get(id) {
+            return Some(c);
+        }
+        match ContentStore::load_dir(dir) {
+            Ok(store) => {
+                let store = Arc::new(store);
+                self.lock().insert(id, Arc::clone(&store));
+                Some(store)
+            }
+            Err(e) => {
+                tracing::warn!("built-in course {id} does not load: {e}");
+                None
+            }
+        }
     }
 
     /// The files of a built-in course, read from its folder (`None` for any
@@ -187,17 +295,18 @@ impl Courses {
     }
 
     pub fn is_builtin(&self, id: &str) -> bool {
-        self.builtin.iter().any(|c| c.id() == id)
+        self.builtin_dirs.contains_key(id)
     }
 
-    /// Resolve a course by id: built-in, cached, or built from the database.
+    /// Resolve a course by id: cached, or built from its folder (built-in)
+    /// or from the database.
     /// `Ok(None)` when it does not exist or does not currently load, which
     /// includes a manifest whose id is not the course's own (#380: the
     /// learning tables key on the manifest id, so such a course would write
     /// under another course's id).
     pub async fn get(&self, db: &Db, id: &str) -> Result<Option<Arc<ContentStore>>, AppError> {
-        if let Some(c) = self.builtin_by_id(id) {
-            return Ok(Some(c));
+        if self.is_builtin(id) {
+            return Ok(self.builtin_store(id));
         }
         if let Some(c) = self.lock().get(id) {
             return Ok(Some(c));
@@ -214,7 +323,7 @@ impl Courses {
             }
             Ok(store) => {
                 let store = Arc::new(store);
-                self.cache(id, Arc::clone(&store), size_of(&files));
+                self.lock().insert(id, Arc::clone(&store));
                 Ok(Some(store))
             }
             Err(e) => {
@@ -224,18 +333,13 @@ impl Courses {
         }
     }
 
-    /// Forget a cached user-made course (after an edit).
+    /// Forget a cached course (after an edit).
     pub fn invalidate(&self, id: &str) {
         self.lock().remove(id);
     }
 
-    fn cache(&self, id: &str, store: Arc<ContentStore>, bytes: usize) {
-        let budget = self.cache_bytes;
-        self.lock().insert(id, store, bytes, budget);
-    }
-
     fn lock(&self) -> std::sync::MutexGuard<'_, Cache> {
-        self.custom.lock().unwrap_or_else(|p| p.into_inner())
+        self.cache.lock().unwrap_or_else(|p| p.into_inner())
     }
 }
 
@@ -723,7 +827,7 @@ pub fn finish_generation(conn: &Connection, id: &str, error: Option<&str>) -> ru
 }
 
 /// At boot, after `ai::at_boot`: a course still 'generating' whose job does
-/// not wait in line to go on (#874) was interrupted by the restart. It
+/// not go on after the restart (#874) was interrupted by the restart. It
 /// keeps what was written and can resume. A revision writes nothing until
 /// it has finished, so an interrupted one leaves the course as it was.
 pub fn fail_interrupted(conn: &Connection) -> rusqlite::Result<usize> {
@@ -793,6 +897,9 @@ pub fn delete_course(conn: &Connection, id: &str) -> rusqlite::Result<()> {
     conn.execute("DELETE FROM courses WHERE id = ?1", [id])?;
     conn.execute("DELETE FROM projects WHERE course_id = ?1", [id])?;
     conn.execute("UPDATE users SET active_course = NULL WHERE active_course = ?1", [id])?;
+    // Progress rows stay (a course re-added under its id finds them), but
+    // nobody is on this course any more (#38).
+    crate::mastery::cache::forget_course(id);
     Ok(())
 }
 
@@ -1042,7 +1149,7 @@ pub fn revalidate(conn: &Connection, registry: &Courses, course_id: &str) -> rus
                 // A generation that stopped before its outline, fixed by hand, is a course now.
                 conn.execute("UPDATE courses SET state = 'ready' WHERE id = ?1 AND state = 'failed'", [course_id])?;
             }
-            registry.cache(course_id, Arc::new(store), size_of(&files));
+            registry.lock().insert(course_id, Arc::new(store));
             Ok(None)
         }
         Err(e) => {

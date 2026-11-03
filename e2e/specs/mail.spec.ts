@@ -166,13 +166,13 @@ test("only a superuser sees the Superuser page", async ({ page }) => {
 
 test("the dev mailbox needs no sign-in: signed out and as a learner, every section and its JSON open", async ({ page, playwright }) => {
   const anon = await playwright.request.newContext({ baseURL: test.info().project.use.baseURL });
-  for (const path of ["/dev/inbox", "/dev/mail", "/dev/authenticator", "/dev/ai", "/dev/payments"]) {
+  for (const path of ["/dev/inbox", "/dev/mail", "/dev/authenticator", "/dev/ai"]) {
     expect((await anon.get(`${path}?format=json`)).status(), `${path} signed out`).toBe(200);
   }
   await anon.dispose();
 
   // A browser that is not signed in opens every section.
-  for (const [path, testid] of [["/dev/inbox", "dev-box"], ["/dev/authenticator", "dev-authenticator"], ["/dev/ai", "dev-ai"], ["/dev/payments", "dev-payments"]]) {
+  for (const [path, testid] of [["/dev/inbox", "dev-box"], ["/dev/authenticator", "dev-authenticator"], ["/dev/ai", "dev-ai"]]) {
     await page.goto(path);
     await expect(page.getByTestId(testid)).toBeVisible();
   }

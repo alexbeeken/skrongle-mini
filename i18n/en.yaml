@@ -143,6 +143,7 @@ auth:
     invite_used: "This invitation link has already been used. Ask whoever runs this server for a new one."
     invite_expired: "This invitation link has expired. Ask whoever runs this server for a new one."
     invite_unknown: "This invitation link is not valid. Ask whoever runs this server for a new one."
+    full: "This Skrongle has all the accounts it can hold."
     sign_in: "Log in"
     first_account: "This server has no accounts yet: the one you make now is its owner's."
     no_owner: "This server has no owner yet. Whoever runs it makes the first account with the owner link from the server's log."
@@ -496,7 +497,6 @@ profile:
     personal: Personal information
     account: Account
     two_factor: Two-factor authentication
-    subscription: Subscription
     api_keys: AI API keys
     data: Your data
     consent: "Privacy and consent"
@@ -546,7 +546,6 @@ profile:
     ai_off: "Hidden"
     ai_key: "Own API key on file"
     ai_keys_manage: "manage keys"
-    ai_hosted: "{hosted}: {n}% of this month used"
   sessions:
     sign_out_others: Sign out everywhere else
     info_label: About signing out everywhere else
@@ -625,37 +624,6 @@ profile:
     code_gone: No code is waiting, or it expired. Send a new one.
     too_many_codes: Too many codes sent. Wait a few minutes and try again.
     code_not_sent: The code could not be sent. Try again in a moment.
-  subscription:
-    title: Subscription
-    plan: Plan
-    premium: ✓ Premium
-    free: Free
-    subscription: Subscription
-    granted_label: Granted
-    granted: "Premium given to this account, {note}"
-    manage: Manage subscription
-    manage_note: Change card, see invoices or cancel, on Stripe.
-    subscribe: Subscribe
-    subscribe_note: Paid monthly through Stripe; cancel any time.
-    unavailable: Subscriptions are not offered on this server.
-    dev_revoke: "Dev: revoke the Plus grant"
-    dev_grant: "Dev: grant Plus"
-    thanks_active: Thank you! Your subscription is active.
-    thanks_pending: Thank you! Stripe is confirming your payment; reload in a moment to see your subscription.
-    cancelled: Checkout cancelled; nothing was charged.
-    required: That feature comes with a subscription.
-    plan_thanks: "You're on {plan}. Thank you!"
-    cancelled_notice: "Your subscription is cancelled. {note}"
-    credits_thanks: "Thank you! Your AI credits are added as soon as Stripe confirms the payment."
-    ends_on: "Ends on"
-    renewal_date: "Renewal date"
-    cancelled_mark: "(cancelled)"
-    granted_plan: "{plan} given to this account, {note}"
-    choose: "Choose a plan"
-    upgrade_plus: "Upgrade to Plus"
-    cancel_open: "Cancel subscription"
-    portal: "Card and invoices, on Stripe"
-    past_due: "The last payment failed; Stripe will try the card again."
   ai:
     on: "On"
     off: "Off"
@@ -687,10 +655,6 @@ profile:
     too_long: "That is too long for an API key (max {max} characters)."
     bad_chars: An API key contains only letters, digits and punctuation, with no spaces.
     wrong_provider: "That does not look like a {provider} key: they start with {prefix}."
-    own_keys_on: "Your own API keys take over when your {hosted} for the month is used up."
-    own_keys_off: "Only {hosted} is used; your own API keys stay unused."
-    own_keys_switch: "Use my keys when my {hosted} limit is hit"
-    about_hosted: "The AI tutor, Generate the course and Use AI call these providers with your key, billed to your account, without touching your {hosted}."
   data:
     export_download: "Download my data"
     export_building_no_mail: "Your data is being prepared. When it is ready, a Download button appears here."
@@ -727,7 +691,6 @@ profile:
     type_email: Type your e-mail address to confirm.
     code_app: Code from your authenticator app
     code_sent_to: "sent to {to}"
-    cancel_first: Cancel your subscription first (Manage subscription, above), then delete the account.
   deletion:
     title: "Account scheduled for deletion"
     on: "This account will be deleted for good on {date}."
@@ -766,33 +729,6 @@ profile:
     turn_off: Turn two-factor sign-in off
     switch_to: "Switch two-factor sign-in to {method}"
     turn_on_by: "Turn on two-factor sign-in by {method}"
-    pay_with_stripe: "Pay with Stripe"
-  ai_usage:
-    title: "{hosted} this month"
-    about: "About {hosted} this month"
-    info_p1: "Your plan includes a monthly amount of {hosted} for the tutor and for writing courses. The bar shows how much of it this month's requests have used; it fills back up on {date}. Requests with your own API keys don't count against it."
-    info_p2_html: "When it runs out, the tutor and the course writer wait for next month, unless <em>use my keys when my {hosted} limit is hit</em> is on under AI API keys: then your own keys take over."
-    bar_label: "{hosted} used this month"
-    used: "{n} % used"
-    left: "{n} % left"
-    refills: "fills up again on {date}"
-    info_p1_tutor: "Your plan includes a monthly amount of {hosted} for the tutor. It is too little to write a course with: use your own API key for that. The bar shows how much of it this month's requests have used; it fills back up on {date}. Requests with your own API keys don't count against it."
-  plans:
-    title: "Choose your plan"
-    plans_label: "Plans"
-    flag: "{hosted} included"
-    current: "Your plan"
-    terms: "Billed monthly; cancel any time and keep the plan to the end of the month paid for."
-    not_now: "Not now"
-    purchase: "Purchase"
-  cancel:
-    title: "Cancel your subscription?"
-    why: "Why are you leaving?"
-    optional: "(optional)"
-    feedback: "Anything you'd like to tell us?"
-    keep: "Keep my plan"
-    confirm: "Confirm cancellation"
-
 superuser:
   title: Superuser
   about: "Actions on any account. Only superusers see this page."
@@ -808,7 +744,7 @@ superuser:
   mode_invite: "Only people with an invitation link may register (SKRONGLE_SIGNUP=invite)."
   mode_closed: "Nobody may register (SKRONGLE_SIGNUP=closed)."
   invite_about: "Make an invitation link and send it to one person. It works once, for 7 days. The link is shown only when it is made, so copy it then. Revoke takes back a link nobody has used yet."
-  accounts_shown: "Accounts on this server: {total}. Newest first, {per_page} per page."
+  accounts_of: "{total} of {max} accounts"
   invite_link: "Invitation link"
   copy: "Copy"
   make_invite: "Make an invitation link"
@@ -827,9 +763,6 @@ superuser:
   two_factor_off_about: "The account signs in with its password alone until it turns two-factor on again. An authenticator app set up for it is removed."
   two_factor_off_confirm: "Turn it off"
   two_factor_off_done: "Two-factor sign-in is off for {email}."
-  page_of: "Page {page} of {pages}"
-  prev: "Newer"
-  next: "Older"
   terms_changed: "The terms have changed."
   terms_title: "Coming change to the terms"
   terms_send: "Send the announcement"
@@ -841,52 +774,7 @@ superuser:
     other: "Announcement queued for {n} accounts."
   js:
     copied: "Copied"
-  ai_today: "{hosted} today, everyone"
-  ai_today_about: "About {hosted} today"
-  ai_today_info: "What everyone has spent on {hosted} today (UTC), against the server's daily cap of {cap}. At the cap, {hosted} pauses for everyone until midnight UTC; own API keys still work. Only superusers see this; learners only see their own month."
-  ai_today_spent: "{spent} of {cap} · resets at midnight UTC"
 
-billing:
-  not_offered: Subscriptions are not offered on this server.
-  stripe_unreachable: Stripe could not be reached just now. Please try again in a moment.
-  past_due: The last payment failed; Stripe will try the card again. Update it under Manage.
-  cancelled_ends: "Cancelled: ends on {date}."
-  renews: "Renews on {date}."
-  grant_until: "until {date}"
-  grant_no_end: no end date
-  choose_plan: "Choose a plan."
-  pack_not_offered: "That credit pack is not offered."
-  cancel_note: "You keep {plan} until {date}. After that you're on Free."
-  cancel_note_free: "After that you're on Free."
-  cancel_reason:
-    price: "It costs too much"
-    unused: "I don't use it enough"
-    missing: "It's missing something I need"
-    problems: "Something didn't work"
-  plan:
-    price: "{price} a month"
-    free:
-      name: "Free"
-      blurb: "Every course and mode, with your own AI keys."
-      perks: "All built-in courses and modes\nMake your own courses\nAI features with your own API keys"
-    basic:
-      name: "{app} Basic"
-      blurb: "Keep the lights on, and get the paid features as they land."
-      perks: "Everything in Free\nSupports an independent, ad-free app\nNew paid features as they land\nCancel any time"
-    plus:
-      name: "{app} Plus"
-      blurb: "{hosted} included: the tutor and the course writer, no API key needed."
-      perks: "Everything in Basic\n{hosted} included every month\nTutor and write courses with no API key\nYour own keys can take over when it runs out\nCancel any time"
-  ai:
-    not_enough: "Not enough {hosted} left this month for this. Upgrade, or use your own API key."
-    not_enough_credits: "Not enough {hosted} left this month for this. Upgrade, buy AI credit, or use your own API key."
-    used_up: "Your {hosted} for this month is used up. Upgrade, or use your own API key."
-    used_up_credits: "Your {hosted} for this month is used up. Upgrade, buy AI credit, or use your own API key."
-    daily_cap: "{hosted} is paused for today: the server reached its daily spending limit. It comes back after midnight UTC; your own API key still works."
-    rate: "That is a lot of AI requests in one minute. Wait a moment, then try again."
-    job_daily_cap: "The AI stopped: {hosted} is paused for today (the server reached its daily spending limit). Nothing written so far is lost; continue after midnight UTC, or with your own API key."
-    job_used_up: "The AI stopped: your {hosted} for this month is used up. Nothing written so far is lost; continue after upgrading, or with your own API key."
-    job_used_up_credits: "The AI stopped: your {hosted} for this month is used up. Nothing written so far is lost; continue after upgrading, after buying AI credit, or with your own API key."
 
 landing:
   title: Learn anything from a folder of JSON files
@@ -2288,14 +2176,6 @@ tutor:
     lesson_passed: "✓ Lesson passed: {title}"
     could_not_reply: "The tutor could not reply: {error}"
     last_exercise: That was the last exercise for now. Keep chatting, or go back and pick another lesson.
-    upgrade_plus: "Upgrade to Plus"
-    own_key: "Use your own API key"
-    buy_credits: "Buy credits"
-  hosted_label: "{app} AI"
-  disclosure_hosted: "Your messages are sent to the AI provider this server uses, on its key."
-  hosted_included: "{hosted} (included)"
-  own_key_took_over: "Your {hosted} for this month is used up, so your own {provider} key is answering from here on."
-
 courses:
   # What a new course from "Create a course" starts with, in the author's app language (#1255).
   starter:
@@ -2730,7 +2610,6 @@ courses:
     only_finished: "Only a finished course can have its existing content changed. Turn off Allow changes to existing content, and the AI will only add to it."
     another_started: Another change to this course has just started. Wait for it to finish.
     lesson_gone: "That lesson is no longer in the course. Reload the page and try again."
-    hosted_uses: "Uses the {hosted} included with your account."
     # The (i) by the box: example requests to click into it (#1236).
     examples_info: What can the AI do?
     examples_title: What can the AI do?
@@ -2790,7 +2669,7 @@ courses:
     depth_outline: "Outline (every lesson, in brief)"
     estimate_about: "How the estimate is worked out"
     estimate_title: "About the estimate"
-    estimate_how: "The model gets one request for the outline and one for each lesson. Each request carries the course format reference and your material, so more material costs more. With your own key the cost is the provider's list price for the model the app uses, turned from US into Canadian dollars at a fixed rate. With {hosted} it is the share of this month's allowance the job takes."
+    estimate_how: "The model gets one request for the outline and one for each lesson. Each request carries the course format reference and your material, so more material costs more. With your own key the cost is the provider's list price for the model the app uses, turned from US into Canadian dollars at a fixed rate."
     estimate_rough: "It is a rough guide, not a promise. A lesson the model has to write again costs more and takes longer. When the app does not know a model's price, it shows only the time."
     provider_legend: Your AI provider
     advanced: "Advanced: edit the instructions given to the AI"
@@ -2831,11 +2710,9 @@ courses:
     has_content: "This course has content of its own now, so the AI won't generate it again. Ask for what you want in the Use AI box instead."
     instructions_too_long: "The instructions are longer than {max} characters."
     cancelled: Cancelled.
-    in_line: "You're number {n} in line."
+    busy_other: "A course is already being generated; try again when it finishes."
     cancelling_revision: "Cancelling: the course stays as it was."
     cancelling_generation: "Cancelling: the course stops after the lesson being written."
-    sent_to_hosted_choice_html: "Your notes are sent to <span id=\"gen-disclosure-provider\">the AI provider this server uses</span><span id=\"gen-disclosure-key\" hidden> using your key</span>."
-    sent_to_hosted: "Your notes are sent to the AI provider this server uses."
   undo:
     undo: Undo
     redo: Redo
@@ -2971,7 +2848,6 @@ courses:
     form_add_key: Add a key
     form_kind: Kind
     form_option: "option {n}"
-    hosted_provider: "the AI provider this server uses"
     estimate_lessons:
       one: "{n} lesson"
       other: "{n} lessons"
@@ -2979,7 +2855,6 @@ courses:
       one: "about {n} minute"
       other: "about {n} minutes"
     estimate_cost: "roughly CA${cost}"
-    estimate_share: "about {n} % of this month's {hosted}"
     estimate_sep: " · "
   stat:
     next_lesson: "Next lesson to pass"
@@ -3065,24 +2940,6 @@ courses:
     shared_title: Shared with you
     shared_body: "This course belongs to {owner}, who shared it with you. You can learn from it with your own progress; only {owner} can change its lessons."
     ok: OK
-  ai_out:
-    upgrade: "Upgrade to Plus · {price}"
-    buy: "Buy {credit} of AI · {price}"
-    own_key: "Use your own API key"
-  hosted:
-    not_offered: "Your plan's {hosted} does not cover this. Add your own API key on your profile, or upgrade."
-    own_keys_off: "Your plan uses {hosted}. Turn on \"use my keys when my {hosted} limit is hit\" on your profile to use your own key."
-    left: "{hosted} left this month: {n} %"
-    percent: "{n} %"
-    left_per_lesson: "{left} · about {per} a lesson"
-    gap:
-      none: "Your plan includes no {hosted}."
-      too_little_tutor: "The {hosted} your plan includes each month is too little for a tutor session."
-      too_little_course: "The {hosted} your plan includes each month is too little to write even the smallest course."
-      too_little_lesson: "The {hosted} your plan includes each month is too little to write a lesson."
-      instead_key: "Add your own API key on your profile instead: it is billed to your own account with the AI provider."
-      instead_upgrade: "Add your own API key on your profile (billed to your own account with the AI provider), or upgrade to Plus, which includes {hosted} every month."
-      instead_pill: "Add your own API key on your profile and turn on \"use my keys when my {hosted} limit is hit\" there; your key is billed to your own account with the AI provider."
 motivator:
   stats:
     title: "Statistics and metrics"
@@ -3151,27 +3008,6 @@ motivator:
       compass: "Compass"
       lighthouse: "Lighthouse"
       comet: "Comet"
-  social:
-    title: "Social"
-    about: "How you compare with this course's other learners, and how many are studying: anonymous numbers only, nobody named."
-    week_effort: "You put in more effort than {pct} % of learners in this course this week."
-    week_count: "{n} people studied this course this week."
-    today_count: "{n} people are studying this course today."
-    streak_count: "{n} learners kept their streak going today."
-    streak_count_you: "{n} learners kept their streak going today. You're one of them."
-    lesson_now: "{n} learners worked on {title} in the last hour."
-    goal: "Today: {n} / {goal}"
-    ahead_today: ", more than {pct} % of today's learners so far"
-    info_label: "What is compared"
-    info_title: "Comparisons with other learners"
-    info_compared: "Your effort points this week and today (the same points as the daily goal) are compared with those of everyone else who studied this course in that time, whatever motivator they wear, and lessons passed this week are counted."
-    info_anonymous: "Only totals and percentages are shown. Nobody is named or shown, and that includes you: other learners see you only as part of the numbers."
-    info_crowd: "A comparison only appears once at least {n} learners were active in its time. With fewer, it would say too much about too few people."
-    info_lesson: "The lesson you would continue at also shows how many learners opened or worked on it in the last hour."
-    reward:
-      passed: "You're one of {n} who passed this lesson this week."
-      first: "You're the first to pass this lesson this week."
-      effort: "More effort than {pct} % of this course's learners this week."
 
 # The lesson editor (#841): static/lesson-editor.js and static/lesson-preview.js.
 editor:

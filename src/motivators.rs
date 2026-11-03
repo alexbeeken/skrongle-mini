@@ -32,7 +32,6 @@ use crate::earnings::Tally;
 use crate::routes::CourseView;
 
 pub mod shop;
-pub mod social;
 pub mod skc;
 mod xp;
 
@@ -40,7 +39,7 @@ mod xp;
 pub const DEFAULT: &str = "stats";
 
 /// Every motivator the app has, in the order a course's settings offer them.
-pub static ALL: &[&dyn Motivator] = &[&Stats, &xp::Xp, &skc::Skc, &social::Social];
+pub static ALL: &[&dyn Motivator] = &[&Stats, &xp::Xp, &skc::Skc];
 
 /// A way of presenting progress. It reads what it keeps of its own in
 /// [`load`](Motivator::load); the shared measures come in [`Progress`].
@@ -81,8 +80,6 @@ pub trait Reward: Send {
 /// to [`Motivator::reward`].
 #[derive(Debug, Clone)]
 pub struct RunOutcome {
-    /// The lesson the run was on, if it was on one.
-    pub lesson_id: Option<String>,
     /// Effort points the run logged (`activity_log`), rounded down.
     pub points: i64,
     /// The run passed a lesson.
@@ -103,13 +100,12 @@ pub struct RunOutcome {
 impl RunOutcome {
     /// What was earned in `[since, now]` (inside `Db::call`). `tz` is the
     /// learner's offset from UTC in seconds (`routes::sprint::tz_offset_secs`).
-    pub fn measure(conn: &Connection, user_id: i64, course: &ContentStore, tz: i64, since: i64, lesson_id: Option<&str>) -> rusqlite::Result<RunOutcome> {
+    pub fn measure(conn: &Connection, user_id: i64, course: &ContentStore, tz: i64, since: i64, _lesson_id: Option<&str>) -> rusqlite::Result<RunOutcome> {
         let at = crate::db::now();
         let earned = crate::earnings::between(conn, user_id, course, tz, since, at + 1)?;
         let today = Today::load(conn, user_id, course.id(), crate::sprint::local_day_start(tz, at))?;
         let (streak, _) = crate::sprint::day_streak(conn, user_id, course.id(), tz, at)?;
         Ok(RunOutcome {
-            lesson_id: lesson_id.map(str::to_string),
             points: earned.points.floor() as i64,
             passed: earned.passes > 0,
             goal_met: earned.goals > 0,
@@ -195,9 +191,6 @@ pub struct Progress {
     pub unit_passed: usize,
     pub unit_total: usize,
     pub unit_percent: usize,
-    /// When the learner's day began (their time zone), for comparisons
-    /// with what others did "today".
-    pub day_start: i64,
 }
 
 /// The motivator with this id; an unknown or empty id is the default one.
@@ -310,6 +303,8 @@ mod tests {
         assert_eq!(ids.len(), ALL.len());
         assert_eq!(get("").id(), DEFAULT);
         assert_eq!(get("no-such-motivator").id(), DEFAULT);
+        assert_eq!(get("social").id(), DEFAULT, "the removed Social motivator is the default");
+        assert!(find("social").is_none());
     }
 
     #[test]

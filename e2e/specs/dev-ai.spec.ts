@@ -145,7 +145,7 @@ test("a course generated through the dev AI provider shows in /dev/ai; limits, a
   await expect.poll(async () => (await aiState(page)).profiles.learner.inject).toBeNull();
 });
 
-test("the wire API refuses unknown keys and answers the OpenAI format; the platform key has its own profile", async ({ page }) => {
+test("the wire API refuses unknown keys and answers the OpenAI format; the learner profile has its limit", async ({ page }) => {
   await devLogin(page);
   await resetSimulator(page);
   const bases = (await aiState(page)).base_urls;
@@ -154,22 +154,22 @@ test("the wire API refuses unknown keys and answers the OpenAI format; the platf
   let r = await page.request.post(`${bases.openai}/chat/completions`, { data: body, headers: { ...headers, authorization: "Bearer sk-not-a-dev-key" } });
   expect(r.status()).toBe(401);
   expect((await r.json()).error.code).toBe("invalid_api_key");
-  r = await page.request.post(`${bases.openai}/chat/completions`, { data: body, headers: { ...headers, authorization: "Bearer sk-dev-platform" } });
+  r = await page.request.post(`${bases.openai}/chat/completions`, { data: body, headers: { ...headers, authorization: "Bearer sk-dev-openai" } });
   expect(r.status()).toBe(200);
   expect((await r.json()).choices[0].message.content).toContain("[[ask]]");
   const state = await aiState(page);
-  expect(state.calls[0]).toMatchObject({ who: "platform", format: "openai", purpose: "tutor-turn", status: 200 });
+  expect(state.calls[0]).toMatchObject({ who: "learner", format: "openai", purpose: "tutor-turn", status: 200 });
   expect(state.calls[1]).toMatchObject({ who: "unknown", status: 401 });
   // Anthropic's format needs its version header, as the real API does.
-  r = await page.request.post(`${bases.anthropic}/v1/messages`, { data: { ...body, max_tokens: 10 }, headers: { "x-api-key": "sk-ant-dev-platform" } });
+  r = await page.request.post(`${bases.anthropic}/v1/messages`, { data: { ...body, max_tokens: 10 }, headers: { "x-api-key": "sk-ant-dev-anthropic" } });
   expect(r.status()).toBe(400);
   expect((await r.json()).error.type).toBe("invalid_request_error");
-  // The platform key over its limit: OpenAI's insufficient_quota.
-  expect((await page.request.post("/dev/ai/profiles/platform", { form: { do: "exhaust" }, maxRedirects: 0 })).status()).toBe(303);
-  r = await page.request.post(`${bases.openai}/chat/completions`, { data: body, headers: { ...headers, authorization: "Bearer sk-dev-platform" } });
+  // The learner over the limit: OpenAI's insufficient_quota.
+  expect((await page.request.post("/dev/ai/profiles/learner", { form: { do: "exhaust" }, maxRedirects: 0 })).status()).toBe(303);
+  r = await page.request.post(`${bases.openai}/chat/completions`, { data: body, headers: { ...headers, authorization: "Bearer sk-dev-openai" } });
   expect(r.status()).toBe(429);
   expect((await r.json()).error.type).toBe("insufficient_quota");
-  expect((await page.request.post("/dev/ai/profiles/platform", { form: { do: "reset" }, maxRedirects: 0 })).status()).toBe(303);
+  expect((await page.request.post("/dev/ai/profiles/learner", { form: { do: "reset" }, maxRedirects: 0 })).status()).toBe(303);
 });
 
 test("Manual replies: a request waits, folded at the bottom of /dev/ai, for the answer typed there; an ERROR: answer is the provider's error", async ({ page }) => {
@@ -382,8 +382,7 @@ test("each profile's keys are copy buttons in their provider's colours", async (
   await devLogin(page, "next=/dev/ai");
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);
   const keys = (who: string) => page.locator(`[data-testid="dev-ai-profile"][data-who="${who}"] [data-testid="dev-ai-key"]`);
-  await expect(keys("platform")).toHaveCount(2);
-  expect(await keys("platform").evaluateAll((els) => els.map((e) => (e as HTMLElement).dataset.provider))).toEqual(["anthropic", "openai"]);
+  await expect(keys("learner")).toHaveCount(3);
   expect(await keys("learner").evaluateAll((els) => els.map((e) => (e as HTMLElement).dataset.provider))).toEqual(["anthropic", "openai", "google"]);
   // Branded: Anthropic's clay, not the app's accent.
   const anthropic = keys("learner").first();

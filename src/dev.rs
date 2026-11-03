@@ -447,6 +447,7 @@ pub fn reset_user(conn: &Connection, user_id: i64) -> rusqlite::Result<Vec<Strin
     for t in PROGRESS_TABLES.iter().chain(["projects", "ai_usage"].iter()) {
         conn.execute(&format!("DELETE FROM {t} WHERE user_id = ?1"), [user_id])?;
     }
+    crate::mastery::cache::forget_all();
     crate::courses::clear_active(conn, user_id)?;
     conn.execute("UPDATE users SET review_quiet = 0, lang = '' WHERE id = ?1", [user_id])?;
     Ok(owned)
@@ -458,13 +459,8 @@ pub fn reset_user(conn: &Connection, user_id: i64) -> rusqlite::Result<Vec<Strin
 /// with none in that course, so restarts don't pile it up.
 pub fn seed(db: &Db, courses: &crate::courses::Courses, keys: Option<&crate::secrets::Vault>) -> Result<String, String> {
     let uid = ensure_user(db)?;
-    let course = courses
-        .builtin()
-        .iter()
-        .find(|c| c.id() == SEED_COURSE)
-        .or_else(|| courses.builtin().first())
-        .cloned()
-        .ok_or("no built-in course to seed")?;
+    let id = courses.builtin_by_id(SEED_COURSE).or_else(|| courses.builtin().first()).map(|c| c.id().to_string()).ok_or("no built-in course to seed")?;
+    let course = courses.builtin_store(&id).ok_or("the built-in course to seed does not load")?;
     let cid = course.id().to_string();
     db.with(|c| {
         set_developer(c, uid)?;

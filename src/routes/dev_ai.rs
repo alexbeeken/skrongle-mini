@@ -582,7 +582,7 @@ pub async fn page(State(state): State<Arc<AppState>>, MaybeUser(user): MaybeUser
             "holding": state.dev_ai.holding(),
             "base_urls": bases(&headers).into_iter().collect::<std::collections::BTreeMap<_, _>>(),
             "client_timeout_secs": client_timeout(),
-            "profiles": { "platform": profile_json(&state, Who::Platform), "learner": profile_json(&state, Who::Learner) },
+            "profiles": { "learner": profile_json(&state, Who::Learner) },
             "calls": state.dev_ai.log().iter().map(entry_json).collect::<Vec<_>>(),
             "fixtures": fixtures().iter().map(|f| serde_json::json!({ "name": f.name, "keys": f.keys, "edited": f.edited, "on_disk": f.on_disk, "error": f.error })).collect::<Vec<_>>(),
             "held": held_json(),
@@ -659,7 +659,7 @@ pub struct ProfileForm {
     pub hang: String,
 }
 
-/// POST /dev/ai/profiles/{platform|learner} (`do=settings|reset|exhaust|lift|inject|clear-inject`).
+/// POST /dev/ai/profiles/learner (`do=settings|reset|exhaust|lift|inject|clear-inject`).
 pub async fn profile_act(State(state): State<Arc<AppState>>, headers: HeaderMap, Path(who): Path<String>, Form(f): Form<ProfileForm>) -> Result<Response, AppError> {
     let who = Who::parse(&who).ok_or(AppError::NotFound)?;
     let notice = match f.action.as_str() {

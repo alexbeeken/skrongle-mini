@@ -17,7 +17,6 @@ no outside services. What it leaves out:
 
 - **No e-mail.** Links that would be mailed are shown in
   the page ([Without e-mail](#without-e-mail)).
-- **No plans or payments.** Everyone has everything.
 - **Sign-up by invitation.** The first account is yours, the owner's;
   everyone else needs a link you make (`SKRONGLE_SIGNUP=invite`,
   [Accounts and AI keys](#accounts-and-ai-keys)).
@@ -125,7 +124,7 @@ paste into a bug report. It shows the version, OS and architecture, the
 device model, the listen address and whether the port is free, the data
 folder and how many courses it holds, the database path, size
 and schema (migration) level, and whether the database folder is writable.
-It also shows whether a secret key and subscriptions are
+It also shows whether a secret key is
 configured, how many AI keys learners have saved, and free disk and memory.
 Secrets show as yes/no only, never their values. It only reads. It opens
 the database read-only and creates nothing.
@@ -154,8 +153,8 @@ A line that starts with `PROBLEM:` says what to fix.
   not start without that file, see [Your own Terms](#your-own-terms));
 - lets people sign up only with an invitation from you
   (`SKRONGLE_SIGNUP=invite`, see [Accounts and AI keys](#accounts-and-ai-keys));
-- makes the server a Skrongle mini (`SKRONGLE_MINI=1`), which turns plans,
-  payments and e-mail off (see
+- makes the server a Skrongle mini (`SKRONGLE_MINI=1`), which turns e-mail
+  off (see
   [Accounts and AI keys](#accounts-and-ai-keys));
 - reads optional settings from `/etc/skrongle/env`.
 
@@ -188,7 +187,6 @@ starts `SKRONGLE_`; see [Renamed settings](#renamed-settings) if yours start `LE
 | `SKRONGLE_OPENAI_BASE_URL` | `https://api.openai.com` | Point the OpenAI provider at any OpenAI-compatible server, e.g. Ollama on another machine. |
 | `SKRONGLE_ALLOW_PRIVATE_AI_URLS` | off | `1` lets learners type a base URL on your own network (e.g. `http://192.168.1.20:11434`) into the AI forms. Off, the server refuses to call private, loopback and link-local addresses for them, and ports other than 443 and 80. |
 | `SKRONGLE_AI_JOB_BUDGET_SECS` | `3600` | How long one AI generation job may run in all. Raise it for a slow self-hosted model. |
-| `SKRONGLE_MAX_CONNECTIONS` | `256` | Open connections the server allows; more clients wait until one closes. Keep it well under the unit's `LimitNOFILE` (1024). |
 | `SKRONGLE_LOG` | `info` | `error`, `warn`, `info`, `debug` or `trace`. |
 | `SKRONGLE_SECURE_COOKIES` | off | `1` when the site is served over HTTPS (behind a TLS proxy). |
 | `SKRONGLE_PUBLIC_URL` | — | The address people use, e.g. `https://learn.example.org`. |
@@ -200,7 +198,7 @@ starts `SKRONGLE_`; see [Renamed settings](#renamed-settings) if yours start `LE
 | `SKRONGLE_COURSE_BYTES` | `8388608` (8 MB) | Total size of one course's files (the Spanish course is 3.7 MB). A save, upload or lesson-table change past it is refused and stores nothing. |
 | `SKRONGLE_COURSE_BYTES_PER_USER` | `33554432` (32 MB) | Total size of the files of all the courses one account owns. Undo copies are not counted. |
 
-[Architecture](architecture) lists the rest (subscriptions, developer
+[Architecture](architecture) lists the rest (developer
 settings).
 
 ### Renamed settings
@@ -254,7 +252,7 @@ once at start (`e-mail: not configured; features that need it are off`),
 and every feature that would send a message
 hides itself instead. The e-mail setting of the hosted site
 (`SKRONGLE_MAIL_PROVIDERS`) is ignored in a
-mini, and so is Stripe; the log
+mini; the log
 names any that are set.
 
 | Feature | Without e-mail |
@@ -301,7 +299,16 @@ to `invite`:
    closed and to ask whoever runs the server.
 
 The same page lists the open invitations and the accounts (e-mail address,
-when it was made, last sign-in; 25 to a page). The other values:
+when it was made, last sign-in; 25 to a page).
+
+A Skrongle mini holds at most **8 accounts**: a household plus a couple of
+guests. This is a fixed number, not a setting, in every sign-up mode. Past
+it the register form, invitation links and the proxy sign-in's account
+creation all say "This Skrongle has all the accounts it can hold", and the
+Superuser page shows "8 of 8 accounts" and hides the invitation form. The
+Pi Zero 2 W has little memory, and one known size is what lets the rest of
+the server (sessions, rate limits, connections) bound what it keeps. The
+other values of the setting:
 
 | `SKRONGLE_SIGNUP` | Who may register |
 |---|---|
@@ -351,24 +358,6 @@ under *Profile settings → AI API keys* (Anthropic, OpenAI or Google). The
 secret key encrypts saved keys, so a database without its `.key` file can't
 use them.
 
-Your server has no plans or payments: a Skrongle mini (`SKRONGLE_MINI=1`)
-has none, so every account has every feature and the profile
-shows no subscription. To let everyone use the tutor and the course
-generator without a key of their own, set one key for the whole server in
-`/etc/skrongle/env`:
-
-```sh
-SKRONGLE_AI_KEY=sk-ant-…          # shared by every account on this server
-SKRONGLE_AI_DAILY_CAP=2.00        # dollars a day across everyone (default 10.00)
-SKRONGLE_AI_RATE_PER_MINUTE=12    # requests one account may start a minute
-```
-
-Everyone shares a server key. There is no monthly allowance per account,
-you pay the provider's bill, and the daily cap is the only brake. Past it,
-AI on the server's key stops until midnight UTC and the log says `ALERT`;
-learners' own keys keep working. Every call is recorded in the
-`ai_usage` table of the database.
-
 ## Reaching it from outside
 
 Don't forward a port on the router. Install [Tailscale](https://tailscale.com)
@@ -383,7 +372,7 @@ For a public site, put a TLS proxy (nginx, Caddy) in front, set
 Anything that faces the internet should sit behind such a proxy, even
 without HTTPS. The app has only coarse protection. It closes a connection
 that takes more than 15 seconds to send its headers or stalls 30 seconds in
-its body, takes at most `SKRONGLE_MAX_CONNECTIONS` connections, and refuses
+its body, takes at most 32 connections (more clients wait until one closes), and refuses
 bodies over 64 KB outside the course editor. A proxy buffers slow clients
 and can limit them per address.
 
@@ -481,7 +470,8 @@ no user and get the usual "the proxy signs you in" page. Trusting
 that only runs Skrongle.
 
 A client that keeps no cookies (a script, `curl`) gets a new session on every
-request; sessions expire after 30 days and are cleaned up hourly.
+request, so an account keeps only its newest 4 sessions (the oldest ends when
+a fifth starts); sessions expire after 30 days and are cleaned up hourly.
 
 ## Updating
 

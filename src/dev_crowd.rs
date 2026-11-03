@@ -1,6 +1,5 @@
 //! A crowd of made-up learners with weeks of history (#583), for testing
-//! what depends on many people's behaviour over time: the Social
-//! motivator's comparisons, streaks, the daily goal, mastery decay, the
+//! what depends on many people's behaviour over time: streaks, the daily goal, mastery decay, the
 //! History page, the retention jobs, and how the queries behind them hold
 //! up with a thousand accounts in the tables.
 //!
@@ -48,7 +47,7 @@ const BATCH: usize = 50;
 const PROGRESS_EVERY: std::time::Duration = std::time::Duration::from_secs(5);
 
 /// Common offsets from UTC, in hours, so the crowd's days start at
-/// different times (the Social motivator buckets effort by quarter-hour).
+/// different times.
 const ZONES: [f64; 13] = [-8.0, -7.0, -6.0, -5.0, -3.0, 0.0, 1.0, 2.0, 3.0, 5.5, 8.0, 9.0, 10.0];
 
 /// First names for the profiles, so pages that show one look lived in.
@@ -343,7 +342,7 @@ mod tests {
     fn crowd(users: usize, days: i64) -> (Db, Vec<Arc<ContentStore>>) {
         let db = Db::open_in_memory().unwrap();
         let courses = crate::courses::Courses::load_builtin(Path::new("data")).unwrap();
-        let courses: Vec<Arc<ContentStore>> = courses.builtin().to_vec();
+        let courses: Vec<Arc<ContentStore>> = courses.builtin().iter().filter_map(|c| courses.builtin_store(c.id())).collect();
         assert_eq!(seed(&db, &courses, users, days).unwrap(), users);
         (db, courses)
     }
@@ -378,9 +377,6 @@ mod tests {
             // Most of the crowd learns the first course.
             let first: i64 = c.query_row("SELECT COUNT(*) FROM projects WHERE course_id = ?1", [&cid], |r| r.get(0))?;
             assert!(first >= 24, "{first} of 40 in the first course");
-            // The Social motivator sees a crowd this week.
-            let crowd = crate::motivators::social::Crowd::load(c, &cid, today)?;
-            assert!(crowd.others_active(0, today - crate::motivators::social::WEEK_SECS) >= crate::motivators::social::MIN_CROWD);
             Ok(())
         })
         .unwrap();

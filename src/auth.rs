@@ -14,9 +14,14 @@ use crate::db::now;
 use crate::error::AppError;
 use crate::AppState;
 
+mod cache;
+pub use cache::SessionCache;
+
 pub const SESSION_COOKIE: &str = "sid";
 /// Sessions live for 30 days of inactivity-free time (TTL is fixed, not sliding).
 pub const SESSION_TTL_SECS: i64 = 30 * 24 * 60 * 60;
+/// Live sessions one account keeps; signing in again ends the oldest (#30).
+pub use crate::caps::MAX_SESSIONS_PER_ACCOUNT;
 
 // Argon2id parameters tuned for a Cortex-A53 at ~1 GHz: ~8 MiB memory, 3 passes.
 // Roughly 60-120 ms per hash on the Pi Zero 2 W, and never more than 8 MiB of
@@ -43,6 +48,50 @@ pub fn verify_password(password: &str, hash: &str) -> bool {
         Ok(parsed) => hasher().verify_password(password.as_bytes(), &parsed).is_ok(),
         Err(_) => false,
     }
+}
+
+/// One argon2 hash or verify at a time (#31, part of the `mini-caps` epic
+/// #48). Each one holds `ARGON_M_COST_KIB` of transient memory, and the
+/// Tokio blocking pool has three threads: three at once would cost 24 MiB on
+/// a box with `MemoryMax=64M`. A family never needs parallel hashing; a short
+/// queue is invisible, an OOM kill is not. Request handlers go through
+/// [`hash_password_async`] and [`verify_password_async`], so nothing bypasses it.
+static HASH_SLOT: tokio::sync::Semaphore = tokio::sync::Semaphore::const_new(1);
+
+/// Hashes running right now, and the most there ever were (tests only).
+#[cfg(test)]
+static HASHES_RUNNING: std::sync::atomic::AtomicUsize = std::sync::atomic::AtomicUsize::new(0);
+#[cfg(test)]
+static HASHES_PEAK: std::sync::atomic::AtomicUsize = std::sync::atomic::AtomicUsize::new(0);
+
+/// Run `work` on the blocking pool while holding the one hash slot. Only the
+/// hashing waits; the rest of the request does not.
+async fn in_hash_slot<T: Send + 'static>(work: impl FnOnce() -> T + Send + 'static) -> Result<T, AppError> {
+    let _permit = HASH_SLOT.acquire().await.map_err(|e| AppError::Internal(e.to_string()))?;
+    tokio::task::spawn_blocking(move || {
+        #[cfg(test)]
+        {
+            use std::sync::atomic::Ordering::SeqCst;
+            let now = HASHES_RUNNING.fetch_add(1, SeqCst) + 1;
+            HASHES_PEAK.fetch_max(now, SeqCst);
+        }
+        let out = work();
+        #[cfg(test)]
+        HASHES_RUNNING.fetch_sub(1, std::sync::atomic::Ordering::SeqCst);
+        out
+    })
+    .await
+    .map_err(|e| AppError::Internal(e.to_string()))
+}
+
+/// [`hash_password`] behind the one hash slot.
+pub async fn hash_password_async(password: String) -> Result<String, AppError> {
+    in_hash_slot(move || hash_password(&password)).await?
+}
+
+/// [`verify_password`] behind the one hash slot.
+pub async fn verify_password_async(password: String, hash: String) -> Result<bool, AppError> {
+    in_hash_slot(move || verify_password(&password, &hash)).await
 }
 
 /// 256-bit random token, hex encoded.
@@ -80,15 +129,6 @@ pub struct CurrentUser {
     /// The level they start that course at (`projects.start_unit`): a unit
     /// id, '' for the beginning. `Project::start` is the unit index.
     pub start_unit: String,
-    /// The plan (`billing::Plan`): Free, Basic or Plus.
-    pub plan: crate::billing::Plan,
-    /// On a paid plan: a paying subscriber, a plan bought on the profile or
-    /// a grant (`billing.rs`).
-    pub premium: bool,
-    /// On Plus: "use my keys when my Skrongle AI limit is hit"
-    /// (`users.own_keys_fallback`, #315). Off, the learner's own API keys
-    /// are not used while Skrongle AI is offered to them.
-    pub own_keys_fallback: bool,
     /// Accepted the current Terms of Service (`terms::version()`). The
     /// `CurrentUser` extractor sends anyone else to `/terms/accept`, unless
     /// `terms_notice` is set.
@@ -136,9 +176,6 @@ impl CurrentUser {
             course_title: None,
             course_owner: None,
             start_unit: String::new(),
-            plan: crate::billing::Plan::Free,
-            premium: false,
-            own_keys_fallback: false,
             terms_ok: true,
             terms_notice: None,
             must_change_password: false,
@@ -234,9 +271,19 @@ pub fn hash_token(token: &str) -> String {
 }
 
 /// Start a session; returns the token for the cookie (only its hash is stored).
+/// The only place a `sessions` row is inserted: it first ends the account's
+/// oldest sessions so that, with the new one, it holds at most
+/// [`MAX_SESSIONS_PER_ACCOUNT`] (#30). Two plain statements, no savepoint of
+/// its own: the one connection sits behind a mutex, so nothing runs between
+/// them, and inside a caller's transaction they commit or roll back with it.
 pub fn create_session(conn: &Connection, user_id: i64) -> rusqlite::Result<String> {
     let token = generate_token();
     let t = now();
+    conn.execute(
+        "DELETE FROM sessions WHERE id IN \
+         (SELECT id FROM sessions WHERE user_id = ?1 ORDER BY created_at DESC, id DESC LIMIT -1 OFFSET ?2)",
+        params![user_id, MAX_SESSIONS_PER_ACCOUNT as i64 - 1],
+    )?;
     conn.execute(
         "INSERT INTO sessions (user_id, session_token, created_at, expires_at) VALUES (?1, ?2, ?3, ?4)",
         params![user_id, hash_token(&token), t, t + SESSION_TTL_SECS],
@@ -260,49 +307,80 @@ pub fn purge_expired_sessions(conn: &Connection) -> rusqlite::Result<usize> {
 
 /// The user behind a session token. The course title is filled in for
 /// user-made courses here; built-in ones are titled by the registry.
+/// Requests go through `cached_user`, which asks this only on a miss.
+#[cfg(test)]
 pub fn user_for_session(conn: &Connection, token: &str) -> rusqlite::Result<Option<CurrentUser>> {
-    let sql = format!(
-        "SELECT u.id, COALESCE(u.email, ''), u.active_course, c.title, u.first_name, u.last_name, NULL, NULL, {}, {}, u.ai_off, u.email_verified_at IS NOT NULL, u.superuser,
-                COALESCE(p.start_unit, ''), NULL, u.lang, c.owner_id, u.own_keys_fallback, u.must_change_password,
-                (SELECT version FROM terms_acceptances WHERE user_id = u.id ORDER BY accepted_at DESC, rowid DESC LIMIT 1), u.delete_at
+    Ok(read_session(conn, &hash_token(token), now())?.map(|(u, _)| u))
+}
+
+/// The session query: every table it reads must be in `cache::WATCHED`.
+fn session_sql() -> String {
+    format!(
+        "SELECT u.id, COALESCE(u.email, ''), u.active_course, c.title, u.first_name, u.last_name, NULL, NULL, {}, u.ai_off, u.email_verified_at IS NOT NULL, u.superuser,
+                COALESCE(p.start_unit, ''), NULL, u.lang, c.owner_id, u.must_change_password,
+                (SELECT version FROM terms_acceptances WHERE user_id = u.id ORDER BY accepted_at DESC, rowid DESC LIMIT 1), u.delete_at, s.expires_at
          FROM sessions s JOIN users u ON u.id = s.user_id LEFT JOIN courses c ON c.id = u.active_course
          LEFT JOIN projects p ON p.user_id = u.id AND p.course_id = u.active_course
          WHERE s.session_token = ?1 AND s.expires_at > ?2",
-        crate::billing::plan_sql("u.id", "?2"),
         crate::terms::accepted_sql("u.id")
-    );
+    )
+}
+
+/// The user of the session whose token hashes to `hash`, at time `now`,
+/// and when that session expires.
+fn read_session(conn: &Connection, hash: &str, now: i64) -> rusqlite::Result<Option<(CurrentUser, i64)>> {
     conn.query_row(
-        &sql,
-        params![hash_token(token), now()],
+        &session_sql(),
+        params![hash, now],
         |r| {
-            let plan = crate::billing::Plan::parse(&r.get::<_, String>(8)?).unwrap_or_default();
-            let terms_ok: bool = r.get(9)?;
-            let terms_notice = if terms_ok { None } else { crate::terms::notice(r.get::<_, Option<String>>(19)?.as_deref()) };
-            Ok(CurrentUser {
+            let terms_ok: bool = r.get(8)?;
+            let terms_notice = if terms_ok { None } else { crate::terms::notice(r.get::<_, Option<String>>(17)?.as_deref()) };
+            let user = CurrentUser {
                 id: r.get(0)?,
                 email: r.get(1)?,
                 course_id: r.get(2)?,
                 course_title: r.get(3)?,
-                course_owner: r.get(16)?,
+                course_owner: r.get(15)?,
                 first_name: r.get(4)?,
                 last_name: r.get(5)?,
-                plan,
-                premium: plan.paid(),
-                own_keys_fallback: r.get(17)?,
                 terms_ok,
                 terms_notice,
-                must_change_password: r.get(18)?,
-                delete_at: r.get(20)?,
-                ai_off: r.get(10)?,
-                email_verified: r.get(11)?,
-                superuser: r.get(12)?,
-                start_unit: r.get(13)?,
-                lang: r.get(15)?,
+                must_change_password: r.get(16)?,
+                delete_at: r.get(18)?,
+                ai_off: r.get(9)?,
+                email_verified: r.get(10)?,
+                superuser: r.get(11)?,
+                start_unit: r.get(12)?,
+                lang: r.get(14)?,
                 tz: 0,
-            })
+            };
+            Ok((user, r.get(19)?))
         },
     )
     .optional()
+}
+
+/// `user_for_session` for a request: from the in-memory cache when the
+/// session is there (#37), else from the database, caching what it finds.
+async fn cached_user(state: &AppState, token: &str) -> Result<Option<CurrentUser>, AppError> {
+    let hash = hash_token(token);
+    let cache = state.db.sessions();
+    if let Some(user) = cache.get(&hash, now()) {
+        return Ok(Some(user));
+    }
+    state
+        .db
+        .call(move |c| {
+            let t = now();
+            let found = read_session(c, &hash, t)?;
+            // Under the database's lock: no write (and so no forget_all) can
+            // come between the read and the put.
+            if let Some((user, expires_at)) = &found {
+                cache.put(hash, user.clone(), t, *expires_at);
+            }
+            Ok(found.map(|(u, _)| u))
+        })
+        .await
 }
 
 // ---------- Cookies ----------
@@ -347,13 +425,9 @@ async fn resolve_user(parts: &Parts, state: &AppState) -> Result<Option<(String,
     let Some(token) = session_cookie_from_headers(&parts.headers) else {
         return Ok(None);
     };
-    let t = token.clone();
-    let mut user = state.db.call(move |c| user_for_session(c, &t)).await?;
+    let mut user = cached_user(state, &token).await?;
     if let Some(u) = user.as_mut() {
         u.tz = crate::routes::sprint::tz_offset_secs(&parts.headers);
-        // No plans on this server (Skrongle mini): every account is Plus.
-        u.plan = crate::billing::effective_plan(crate::billing::plans_on(state), u.plan);
-        u.premium = u.plan.paid();
         // The account's language wins over the cookie and the browser's.
         crate::i18n::set_current(&u.lang);
         if u.course_title.is_none() {
@@ -513,6 +587,65 @@ impl<S: Send + Sync> FromRequestParts<S> for SessionToken {
 mod tests {
     use super::*;
 
+    /// A request after the first finds its user in memory (#37), and every
+    /// change to what the session query reads is seen on the next request:
+    /// a profile field, the course, terms, signing out elsewhere.
+    #[test]
+    fn the_signed_in_user_is_cached_until_something_it_shows_changes() {
+        let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
+        let state = crate::routes::test_state(false);
+        let ann = state.db.with(|c| create_user(c, "ann@example.org", "h")).unwrap();
+        let session = |u| state.db.with(|c| create_session(c, u)).unwrap();
+        let (here, elsewhere) = (session(ann), session(ann));
+        let cache = state.db.sessions();
+        let request = |token: &str| {
+            let mut headers = HeaderMap::new();
+            headers.insert(COOKIE, HeaderValue::from_str(&format!("sid={token}")).unwrap());
+            rt.block_on(user_from_headers(&state, &headers))
+        };
+
+        let first = request(&here).unwrap();
+        assert!(!first.terms_ok);
+        let reads = cache.reads();
+        for _ in 0..3 {
+            assert_eq!(request(&here).map(|u| u.id), Some(ann));
+        }
+        assert_eq!(cache.reads(), reads, "later requests make no session query");
+
+        state.db.with(|c| crate::terms::accept(c, ann, crate::terms::version())).unwrap();
+        assert!(request(&here).unwrap().terms_ok, "terms accepted");
+
+        state.db.with(|c| crate::profile::update(c, ann, Some("Ann"), None)).unwrap();
+        assert_eq!(request(&here).unwrap().first_name, "Ann", "profile field");
+
+        state.db.with(|c| crate::courses::open_project(c, ann, "spanish")).unwrap();
+        assert_eq!(request(&here).unwrap().course_id.as_deref(), Some("spanish"), "course switched");
+
+        // `projects` and `courses` are WITHOUT ROWID tables: no update hook
+        // sees them, the triggers do.
+        let change = crate::courses::SettingsChange { start_unit: Some("2".into()), ..Default::default() };
+        state.db.with(|c| crate::courses::set_project_settings(c, ann, "spanish", &change)).unwrap();
+        assert_eq!(request(&here).unwrap().start_unit, "2", "course setting");
+        state.db.with(|c| c.execute("INSERT INTO courses (id, owner_id, title, created_at, updated_at) VALUES ('mine', ?1, 'Mine', 1, 1)", [ann])).unwrap();
+        state.db.with(|c| crate::courses::open_project(c, ann, "mine")).unwrap();
+        assert_eq!(request(&here).unwrap().course_title.as_deref(), Some("Mine"));
+        state.db.with(|c| c.execute("UPDATE courses SET title = 'Renamed' WHERE id = 'mine'", [])).unwrap();
+        assert_eq!(request(&here).unwrap().course_title.as_deref(), Some("Renamed"), "course title");
+
+        assert!(request(&elsewhere).is_some());
+        state.db.with(|c| delete_other_sessions(c, ann, &here)).unwrap();
+        assert!(request(&elsewhere).is_none(), "signed out elsewhere");
+        assert!(request(&here).is_some());
+        state.db.with(|c| delete_session(c, &here)).unwrap();
+        assert!(request(&here).is_none(), "signed out");
+
+        let reads = cache.reads();
+        let last = session(ann);
+        request(&last);
+        request(&last);
+        assert_eq!(cache.reads(), reads + 1);
+    }
+
     #[test]
     fn sign_in_finds_the_address_in_any_case_through_the_index() {
         let db = crate::db::Db::open_in_memory().unwrap();
@@ -536,6 +669,30 @@ mod tests {
         assert!(verify_password("correct horse battery", &h));
         assert!(!verify_password("wrong", &h));
         assert!(!verify_password("x", "not-a-hash"));
+    }
+
+    /// Many sign-ins at once still hash one after another (#31).
+    #[tokio::test(flavor = "multi_thread", worker_threads = 4)]
+    async fn hashes_run_one_at_a_time() {
+        use std::sync::atomic::Ordering::SeqCst;
+        let hash = hash_password("pw-for-the-queue").unwrap();
+        HASHES_PEAK.store(0, SeqCst);
+        let mut jobs = Vec::new();
+        for i in 0..6 {
+            let hash = hash.clone();
+            jobs.push(tokio::spawn(async move {
+                if i % 2 == 0 {
+                    verify_password_async("pw-for-the-queue".into(), hash).await.unwrap()
+                } else {
+                    hash_password_async("another-pw".into()).await.unwrap().starts_with("$argon2id$")
+                }
+            }));
+        }
+        for j in jobs {
+            assert!(j.await.unwrap());
+        }
+        assert_eq!(HASHES_PEAK.load(SeqCst), 1, "more than one hash ran at once");
+        assert_eq!(HASHES_RUNNING.load(SeqCst), 0);
     }
 
     /// A hash written by an earlier argon2 crate (0.5, a dev account's
@@ -572,6 +729,28 @@ mod tests {
             assert!(user_for_session(c, &here)?.is_some());
             delete_session(c, &here)?;
             assert!(user_for_session(c, &here)?.is_none());
+            Ok(())
+        })
+        .unwrap();
+    }
+
+    /// The fifth sign-in ends the oldest session; the other four work (#30).
+    #[test]
+    fn fifth_session_ends_the_oldest() {
+        let db = crate::db::Db::open_in_memory().unwrap();
+        db.with(|c| {
+            let ann = create_user(c, "ann@example.org", "h")?;
+            let bea = create_user(c, "bea@example.org", "h")?;
+            crate::terms::accept(c, ann, crate::terms::version())?;
+            crate::terms::accept(c, bea, crate::terms::version())?;
+            let other = create_session(c, bea)?;
+            let tokens: Vec<String> = (0..5).map(|_| create_session(c, ann)).collect::<Result<_, _>>()?;
+            assert!(user_for_session(c, &tokens[0])?.is_none());
+            for t in &tokens[1..] {
+                assert_eq!(user_for_session(c, t)?.map(|u| u.id), Some(ann));
+            }
+            // Another account's session is not counted against Ann's.
+            assert_eq!(user_for_session(c, &other)?.map(|u| u.id), Some(bea));
             Ok(())
         })
         .unwrap();

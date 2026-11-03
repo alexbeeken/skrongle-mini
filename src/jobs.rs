@@ -19,16 +19,11 @@
 //!   `max_attempts` it is `failed`, with `last_error`. Every failure is
 //!   logged.
 //! - A kind with `every` queues its next run when a run ends (done, or
-//!   failed for good): the hourly housekeeping is one such kind per purge
-//!   ([`housekeeping`]). At boot each of them gets a row due now if it has
+//!   failed for good): the hourly housekeeping is one such kind, with
+//!   every purge as a step ([`housekeeping`]). At boot each of them gets a row due now if it has
 //!   none, so a server restarted more often than hourly still cleans up.
 //!   A kind with `at` queues it at the time `at` names instead, and its
 //!   first row waits for that time too (the nightly content check, #1038).
-//!
-//! - Long work runs in slices so it never holds the one runner for long: a
-//!   handler returns [`Step::Again`] with its place (a new payload), and the
-//!   row is queued again, due now, behind anything already due ([`again`]).
-//!   Data exports work this way (#875, `exports.rs`, kind [`EXPORT`]).
 //!
 //! - The mail outbox (`mail_outbox`) keeps its own
 //!   table but is drained by this runner too (#873): it is a [`Drain`].
@@ -38,7 +33,7 @@
 //!   [`OUTBOX_BATCH`] rows per outbox before the next job, and the outboxes
 //!   go first, so a sign-in code never waits behind housekeeping.
 //!
-//! - AI jobs (#874, `ai/queue.rs`, kind [`crate::ai::GENERATE`]) wait in line
+//! - AI jobs (#874, `ai/queue.rs`, kind [`crate::ai::GENERATE`]): a generation resumed after a restart is queued
 //!   here but never run on this thread: the handler starts the job's own OS
 //!   thread and returns [`Step::Handed`], and that thread renews the lease and
 //!   records the end. A gate ([`Runner::handle_claimed`]) keeps the runner
@@ -66,7 +61,7 @@ pub const OUTBOX_BATCH: usize = 10;
 const MAX_WAIT: i64 = 60;
 /// An hour, the housekeeping period.
 const HOUR: i64 = 3600;
-/// Finished rows are deleted after this long (`housekeeping.jobs`); failed
+/// Finished rows are deleted after this long (the housekeeping); failed
 /// ones after [`KEEP_FAILED`].
 const KEEP_DONE: i64 = 86_400;
 const KEEP_FAILED: i64 = 30 * 86_400;
@@ -105,29 +100,17 @@ const fn hourly(name: &'static str) -> Kind {
     Kind { name, max_attempts: HOUSEKEEPING_DELAYS.len() as i64 + 1, delays: HOUSEKEEPING_DELAYS, every: Some(HOUR), at: None }
 }
 
-/// The hourly housekeeping, one kind per purge.
-pub const SESSIONS: Kind = hourly("housekeeping.sessions");
-pub const GAMES: Kind = hourly("housekeeping.games");
-pub const AI_JOBS: Kind = hourly("housekeeping.ai_jobs");
-pub const TUTOR_CHATS: Kind = hourly("housekeeping.tutor_chats");
-pub const RATE_LIMITS: Kind = hourly("housekeeping.rate_limits");
-pub const RETENTION: Kind = hourly("housekeeping.retention");
-pub const OUTBOX: Kind = hourly("housekeeping.outbox");
-pub const LINKS: Kind = hourly("housekeeping.links");
-pub const EXPORTS: Kind = hourly("housekeeping.exports");
-pub const JOBS: Kind = hourly("housekeeping.jobs");
-pub const WAL_CHECKPOINT: Kind = hourly("housekeeping.wal_checkpoint");
-/// Accounts whose owners asked to delete them, once the grace period is over (#970).
-pub const DELETIONS: Kind = hourly("housekeeping.deletions");
-/// "Download my data" (exports.rs), one slice of the file per run. A
-/// failed slice fails the export (the learner can ask again at once); a
-/// server that stopped mid-slice takes the row again when its lease runs out.
+/// The hourly housekeeping: every purge in one job ([`housekeeping`]).
+pub const HOUSEKEEPING: Kind = hourly("housekeeping");
+/// "Download my data" (exports.rs), the whole file in one run. A failed run
+/// fails the export (the learner can ask again at once, so one attempt); a
+/// server that stopped mid-run takes the row again when its lease runs out.
 pub const EXPORT: Kind = Kind { name: "export", max_attempts: 1, delays: RETRY_DELAYS, every: None, at: None };
 /// Dev mode only (`/dev/jobs`): a job that always fails, to watch retries.
 pub const DEV_FAIL: Kind = Kind { name: "dev.fail", max_attempts: RETRY_DELAYS.len() as i64 + 1, delays: RETRY_DELAYS, every: None, at: None };
 
 /// Every kind there is. A row of another kind is refused by [`enqueue`].
-pub const KINDS: &[Kind] = &[SESSIONS, GAMES, AI_JOBS, TUTOR_CHATS, RATE_LIMITS, RETENTION, OUTBOX, LINKS, EXPORTS, JOBS, WAL_CHECKPOINT, DELETIONS, EXPORT, DEV_FAIL, crate::ai::GENERATE];
+pub const KINDS: &[Kind] = &[HOUSEKEEPING, EXPORT, DEV_FAIL, crate::ai::GENERATE];
 
 pub fn kind(name: &str) -> Option<Kind> {
     KINDS.iter().find(|k| k.name == name).copied()
@@ -204,8 +187,6 @@ pub enum Outcome {
     Retry(i64),
     /// Failed for the last time.
     Failed,
-    /// A slice is done and the job queued again, due now ([`again`]).
-    Again,
     /// The handler took the row over ([`Step::Handed`]).
     Handed,
 }
@@ -246,16 +227,6 @@ pub fn finish(conn: &mut Connection, job: &Claimed, result: Result<(), &str>, no
     }
     tx.commit()?;
     Ok(outcome)
-}
-
-/// A slice of `job` is done: queue it again, due `now`, with `payload` (its
-/// place). Its attempts start over, so a failure counts against this slice.
-pub fn again(conn: &Connection, job: &Claimed, payload: &str, now: i64) -> rusqlite::Result<Outcome> {
-    conn.execute(
-        "UPDATE jobs SET state = 'queued', locked_by = NULL, locked_until = NULL, run_at = ?2, attempts = 0, payload_json = ?3, last_error = NULL WHERE id = ?1",
-        params![job.id, now, payload],
-    )?;
-    Ok(Outcome::Again)
 }
 
 /// When the next job of `kinds` is due (a run time, or a lease running out).
@@ -422,8 +393,6 @@ impl Drain {
 pub enum Step {
     /// Finished, with a short note for the log (empty: nothing to say).
     Done(String),
-    /// One slice done: run again with `payload`, which holds the place.
-    Again { payload: String, note: String },
     /// The handler took the row over (a thread of its own renews its lease
     /// and records the end): the runner leaves it as it is.
     Handed(String),
@@ -455,7 +424,7 @@ impl Runner {
         self.handle_steps(k, move |db, payload| f(db, payload).map(Step::Done))
     }
 
-    /// Run kind `k` with `f`, which may do its work in slices ([`Step::Again`]).
+    /// Run kind `k` with `f`, which returns a [`Step`] (it may hand the row on).
     pub fn handle_steps(mut self, k: Kind, f: impl Fn(&Db, &str) -> Result<Step, String> + Send + 'static) -> Runner {
         self.handlers.insert(k.name, Box::new(move |db: &Db, job: &Claimed| f(db, &job.payload)));
         self
@@ -539,13 +508,11 @@ impl Runner {
         let done_at = crate::db::now().max(now);
         let outcome = match &result {
             Ok(Step::Handed(_)) => Outcome::Handed,
-            Ok(Step::Again { payload, .. }) => db.with(|c| again(c, &job, payload, done_at))?,
             Ok(Step::Done(_)) => db.with(|c| finish(c, &job, Ok(()), done_at))?,
             Err(e) => db.with(|c| finish(c, &job, Err(e.as_str()), done_at))?,
         };
         match (&result, outcome) {
             (Ok(Step::Handed(note)), _) => tracing::debug!("job #{} {} handed on ({note})", job.id, job.kind),
-            (Ok(Step::Again { note, .. }), _) => tracing::debug!("job #{} {}: slice done ({note})", job.id, job.kind),
             (Ok(Step::Done(note)), _) if note.is_empty() => tracing::debug!("job #{} {} done", job.id, job.kind),
             (Ok(Step::Done(note)), _) => tracing::info!("job #{} {}: {note}", job.id, job.kind),
             (Err(e), Outcome::Retry(at)) => tracing::warn!(
@@ -600,61 +567,83 @@ impl Runner {
 
 // ---------- housekeeping ----------
 
-/// The hourly housekeeping, one job per purge: expired sessions, abandoned
-/// games, old generation jobs, idle tutor chats, rate-limit windows, the
-/// retention rules (privacy.rs), old outbox rows (mail.rs), old
-/// verification, reset, two-factor and invitation links, expired data
-/// exports with their files, old job rows, accounts due for deletion
-/// (#970), and a WAL checkpoint so the -wal
-/// file doesn't grow on the SD card. Each takes the database for its own
-/// short piece.
+/// The hourly housekeeping, one job that runs every purge in turn: expired
+/// sessions, abandoned games, old generation jobs, idle tutor chats,
+/// rate-limit windows, accounts due for deletion (#970), the retention rules
+/// (privacy.rs), old outbox rows (mail.rs), old verification, reset,
+/// two-factor and invitation links, expired data exports with their files,
+/// old job rows, and last a WAL checkpoint so the -wal file doesn't grow on
+/// the SD card. Each step logs its count; a step that fails is logged and the
+/// next still runs, and the job fails only when every step did (#45).
 pub fn housekeeping(runner: Runner, state: &Arc<crate::AppState>, retention: crate::privacy::Retention) -> Runner {
-    let s = Arc::clone(state);
-    let games = move |_: &Db, _: &str| Ok(note(s.games.purge_expired(), "abandoned games dropped"));
-    let s = Arc::clone(state);
-    let ai_jobs = move |_: &Db, _: &str| Ok(note(s.jobs.purge_expired(), "old generation jobs dropped"));
-    let s = Arc::clone(state);
-    let tutors = move |_: &Db, _: &str| Ok(note(s.tutors.purge_expired(), "idle tutor chats dropped"));
-    let s = Arc::clone(state);
-    let limits = move |_: &Db, _: &str| Ok(note(s.limits.purge_expired(crate::db::now()), "rate-limit windows dropped"));
-    let s = Arc::clone(state);
-    let retain = move |db: &Db, _: &str| {
-        let swept = db.with(|c| crate::privacy::apply_retention(c, &retention, crate::db::now())).map_err(|e| e.to_string())?;
-        for id in &swept.failed_courses {
-            s.courses.invalidate(id);
+    let state = Arc::clone(state);
+    runner.handle(HOUSEKEEPING, move |db, _| {
+        let s = &state;
+        let now = crate::db::now;
+        type Step<'a> = (&'static str, Box<dyn Fn() -> Result<String, String> + 'a>);
+        let steps: Vec<Step> = vec![
+            ("sessions", Box::new(|| sql(db, |c, _| crate::auth::purge_expired_sessions(c).map(|n| note(n, "expired sessions purged"))))),
+            ("games", Box::new(|| Ok(note(s.games.purge_expired(), "abandoned games dropped")))),
+            ("ai_jobs", Box::new(|| Ok(note(s.jobs.purge_expired(), "old generation jobs dropped")))),
+            ("tutor_chats", Box::new(|| Ok(note(s.tutors.purge_expired(), "idle tutor chats dropped")))),
+            ("rate_limits", Box::new(|| Ok(note(s.limits.purge_expired(now()), "rate-limit windows dropped")))),
+            ("deletions", Box::new(|| crate::account_deletion::sweep(s, db))),
+            (
+                "retention",
+                Box::new(|| {
+                    let swept = db.with(|c| crate::privacy::apply_retention(c, &retention, now())).map_err(|e| e.to_string())?;
+                    for id in &swept.failed_courses {
+                        s.courses.invalidate(id);
+                    }
+                    Ok(match swept.failed_courses.len() {
+                        0 => String::new(),
+                        n => format!("deleted {n} failed AI course(s) past SKRONGLE_FAILED_COURSE_RETENTION_DAYS"),
+                    })
+                }),
+            ),
+            ("outbox", Box::new(|| sql(db, |c, now| Ok(note(crate::mail::purge(c, now)?, "old outbox rows deleted"))))),
+            (
+                "links",
+                Box::new(|| {
+                    sql(db, |c, now| {
+                        let n = crate::verify::purge(c, now)? + crate::reset::purge(c, now)? + crate::two_factor::purge(c, now)? + crate::signup::purge(c, now)?;
+                        Ok(note(n, "old links deleted"))
+                    })
+                }),
+            ),
+            (
+                "exports",
+                Box::new(|| {
+                    let files = db.with(|c| crate::exports::purge(c, now())).map_err(|e| e.to_string())?;
+                    s.exports.remove(&files);
+                    let strays = crate::exports::remove_strays(db, &s.exports.dir);
+                    Ok(note(files.len() + strays, "expired or stray export files removed"))
+                }),
+            ),
+            ("jobs", Box::new(|| sql(db, |c, now| purge(c, now).map(|n| note(n, "old job rows deleted"))))),
+            ("wal_checkpoint", Box::new(|| sql(db, |c, _| c.execute_batch("PRAGMA wal_checkpoint(TRUNCATE);").map(|()| String::new())))),
+        ];
+        let (mut notes, mut failed, total) = (Vec::new(), Vec::new(), steps.len());
+        for (name, run) in &steps {
+            match run() {
+                Ok(n) if n.is_empty() => {}
+                Ok(n) => {
+                    tracing::info!("housekeeping.{name}: {n}");
+                    notes.push(n);
+                }
+                Err(e) => {
+                    tracing::warn!("housekeeping.{name} failed: {e}");
+                    failed.push(format!("{name}: {e}"));
+                }
+            }
         }
-        Ok(match swept.failed_courses.len() {
-            0 => String::new(),
-            n => format!("deleted {n} failed AI course(s) past SKRONGLE_FAILED_COURSE_RETENTION_DAYS"),
-        })
-    };
-    let s = Arc::clone(state);
-    let exports = move |db: &Db, _: &str| {
-        let files = db.with(|c| crate::exports::purge(c, crate::db::now())).map_err(|e| e.to_string())?;
-        s.exports.remove(&files);
-        let strays = crate::exports::remove_strays(db, &s.exports.dir);
-        Ok(note(files.len() + strays, "expired or stray export files removed"))
-    };
-    let s = Arc::clone(state);
-    let deletions = move |db: &Db, _: &str| crate::account_deletion::sweep(&s, db);
-    runner
-        .handle(SESSIONS, |db, _| sql(db, |c, _| crate::auth::purge_expired_sessions(c).map(|n| note(n, "expired sessions purged"))))
-        .handle(GAMES, games)
-        .handle(AI_JOBS, ai_jobs)
-        .handle(TUTOR_CHATS, tutors)
-        .handle(RATE_LIMITS, limits)
-        .handle(RETENTION, retain)
-        .handle(OUTBOX, |db, _| sql(db, |c, now| Ok(note(crate::mail::purge(c, now)?, "old outbox rows deleted"))))
-        .handle(LINKS, |db, _| {
-            sql(db, |c, now| {
-                let n = crate::verify::purge(c, now)? + crate::reset::purge(c, now)? + crate::two_factor::purge(c, now)? + crate::signup::purge(c, now)?;
-                Ok(note(n, "old links deleted"))
-            })
-        })
-        .handle(EXPORTS, exports)
-        .handle(JOBS, |db, _| sql(db, |c, now| purge(c, now).map(|n| note(n, "old job rows deleted"))))
-        .handle(DELETIONS, deletions)
-        .handle(WAL_CHECKPOINT, |db, _| sql(db, |c, _| c.execute_batch("PRAGMA wal_checkpoint(TRUNCATE);").map(|()| String::new())))
+        // One broken purge must not stop the rest (the WAL checkpoint above
+        // all); the job fails only when every step did.
+        if failed.len() == total {
+            return Err(failed.join("; "));
+        }
+        Ok(notes.join("; "))
+    })
 }
 
 /// Dev mode: the always-failing kind `/dev/jobs` queues.

@@ -1,9 +1,9 @@
 //! `/superuser`: the page for whoever runs the server (superusers only,
-//! `users.superuser`). Every account, newest first, a page at a time, with
+//! `users.superuser`). Every account, newest first, all on one page (the
+//! server holds at most `caps::MAX_ACCOUNTS`), with
 //! the actions on one: a temporary password and two-factor off (#635,
 //! `owner.rs`), reset e-mail verification (#220); and with
 //! `SKRONGLE_SIGNUP=invite`, the invitation links (#634, `signup.rs`); and
-//! with Skrongle AI, everyone's spend today against the daily cap (#623);
 //! while a material change of the terms is coming, a notice and the button
 //! that e-mails it to every account (#966, `terms.rs`).
 //! Anyone else gets a 404, as if the page did not exist; the account menu
@@ -44,48 +44,17 @@ pub struct SuperuserTemplate {
     pub temp_password: Option<(String, String)>,
     /// Open invitations: id, made, expires.
     pub invites: Vec<(i64, String, String)>,
-    /// This page of accounts.
+    /// Every account, newest first.
     pub list: Vec<AccountRow>,
+    /// How many accounts there are: the length of `list`.
     pub total: i64,
-    pub page: i64,
-    pub pages: i64,
-    pub per_page: i64,
-    /// The newer and older pages, when there are any.
-    pub prev: Option<String>,
-    pub next: Option<String>,
-    /// Skrongle AI today, everyone: on a server with Skrongle AI only.
-    pub ai_today: Option<AiTodayView>,
+    /// The most accounts this server holds (`caps::MAX_ACCOUNTS`).
+    pub max_accounts: usize,
+    /// The server holds them all: no invitation form.
+    pub full: bool,
     /// Accounts still to e-mail about a coming change of the terms: above 0,
     /// the page says the terms have changed and offers Send.
     pub terms_owed: i64,
-}
-
-/// Everyone's Skrongle AI spend today against the daily cap (#623): the one
-/// place the server-wide figure (`ai_spend_days`) is shown. Learners only
-/// ever see their own month, as a bar without dollars (#315).
-#[derive(Clone, Debug)]
-pub struct AiTodayView {
-    /// "$3.20" and "$10.00".
-    pub spent: String,
-    pub cap: String,
-    /// Of the cap, what today's spend used, 0–100.
-    pub percent_used: u8,
-}
-
-impl AiTodayView {
-    fn new(spent: i64, cap: i64) -> AiTodayView {
-        let percent_used = if cap <= 0 { 100 } else { (spent.clamp(0, cap) * 100 / cap) as u8 };
-        AiTodayView { spent: crate::metering::dollars(spent), cap: crate::metering::dollars(cap), percent_used }
-    }
-
-    /// The bar's colour, as on the learner's card: `low` past four fifths, `out` at the cap.
-    pub fn level(&self) -> &'static str {
-        match self.percent_used {
-            100.. => "out",
-            80..=99 => "low",
-            _ => "ok",
-        }
-    }
 }
 
 pub struct AccountRow {
@@ -96,22 +65,12 @@ pub struct AccountRow {
     pub superuser: bool,
 }
 
-/// The page, for a superuser, at `page` (clamped to what exists).
-async fn load(state: &AppState, user: CurrentUser, page: i64) -> Result<SuperuserTemplate, AppError> {
+/// The page, for a superuser.
+async fn load(state: &AppState, user: CurrentUser) -> Result<SuperuserTemplate, AppError> {
     let now = crate::db::now();
-    let meter = Arc::clone(&state.meter);
-    let (invites, accounts, spent) = state
-        .db
-        .call(move |c| {
-            Ok((
-                crate::signup::open_invites(c, now)?,
-                crate::signup::accounts(c, page)?,
-                if meter.hosted() { Some(meter.spent_today(c)?) } else { None },
-            ))
-        })
-        .await?;
+    let (invites, accounts) = state.db.call(move |c| Ok((crate::signup::open_invites(c, now)?, crate::signup::accounts(c)?))).await?;
     let terms_owed = crate::terms::unannounced(state).await?;
-    let link = |p: i64| crate::url(&format!("/superuser?page={p}"));
+    let total = accounts.len() as i64;
     Ok(SuperuserTemplate {
         user: Some(user),
         notice: None,
@@ -123,7 +82,6 @@ async fn load(state: &AppState, user: CurrentUser, page: i64) -> Result<Superuse
         temp_password: None,
         invites: invites.into_iter().map(|i| (i.id, profile::long_date(i.created_at), profile::long_date(i.expires_at))).collect(),
         list: accounts
-            .list
             .into_iter()
             .map(|a| AccountRow {
                 email: a.email,
@@ -132,20 +90,15 @@ async fn load(state: &AppState, user: CurrentUser, page: i64) -> Result<Superuse
                 superuser: a.superuser,
             })
             .collect(),
-        total: accounts.total,
-        page: accounts.page,
-        pages: accounts.pages,
-        per_page: crate::signup::ACCOUNTS_PER_PAGE,
-        prev: (accounts.page > 1).then(|| link(accounts.page - 1)),
-        next: (accounts.page < accounts.pages).then(|| link(accounts.page + 1)),
-        ai_today: spent.map(|s| AiTodayView::new(s, state.meter.cfg.daily_cap)),
+        total,
+        max_accounts: crate::caps::MAX_ACCOUNTS,
+        full: crate::caps::accounts_full(total, state.dev),
         terms_owed,
     })
 }
 
 #[derive(Deserialize)]
 pub struct ShowQuery {
-    pub page: Option<i64>,
     /// Back from an action: `reset`, `unknown`, `revoked` or
     /// `two-factor-off`, about `email`; or `terms-sent`, `n` e-mails.
     pub did: Option<String>,
@@ -153,12 +106,12 @@ pub struct ShowQuery {
     pub n: Option<i64>,
 }
 
-/// GET /superuser?page=N
+/// GET /superuser
 pub async fn show(State(state): State<Arc<AppState>>, user: CurrentUser, Query(q): Query<ShowQuery>) -> Result<Response, AppError> {
     if !user.superuser {
         return Err(AppError::NotFound);
     }
-    let mut t = load(&state, user, q.page.unwrap_or(1)).await?;
+    let mut t = load(&state, user).await?;
     let email = q.email.as_deref().unwrap_or_default();
     match q.did.as_deref() {
         Some("reset") => {
@@ -214,12 +167,20 @@ pub async fn make_invite(State(state): State<Arc<AppState>>, user: CurrentUser, 
     if !user.superuser || state.signup != crate::signup::Mode::Invite {
         return Err(AppError::NotFound);
     }
-    let uid = user.id;
-    let token = state.db.call(move |c| crate::signup::make(c, uid, crate::db::now())).await?;
+    let (uid, dev) = (user.id, state.dev);
+    let token = state
+        .db
+        .call(move |c| Ok(if crate::signup::is_full(c, dev)? { None } else { Some(crate::signup::make(c, uid, crate::db::now())?) }))
+        .await?;
+    let Some(token) = token else {
+        let mut t = load(&state, user).await?;
+        t.error = Some(crate::t("auth.signup.full"));
+        return Ok(Page(t).into_response());
+    };
     tracing::info!("superuser {uid} made an invitation link");
     let site = crate::verify::public_base(&state, &headers);
     let link = format!("{site}/register?invite={token}");
-    let mut t = load(&state, user, 1).await?;
+    let mut t = load(&state, user).await?;
     t.new_link = Some(link);
     // The link is a key to the server: not to be cached anywhere.
     Ok(([(header::CACHE_CONTROL, "no-store")], Page(t)).into_response())
@@ -264,12 +225,11 @@ pub async fn set_temp_password(
         return Ok(done("unknown", &email));
     };
     let password = crate::owner::temp_password();
-    let p = password.clone();
-    let hash = tokio::task::spawn_blocking(move || auth::hash_password(&p)).await.map_err(|e| AppError::Internal(e.to_string()))??;
+    let hash = auth::hash_password_async(password.clone()).await?;
     let keep = if target == user.id { token } else { None };
     let ended = state.db.call(move |c| crate::owner::set_temporary_password(c, target, &hash, keep.as_deref())).await?;
     tracing::info!("superuser {} set a temporary password for user {target} ({ended} sessions signed out)", user.id);
-    let mut t = load(&state, user, 1).await?;
+    let mut t = load(&state, user).await?;
     t.temp_password = Some((email, password));
     // The password is a key to the account: not to be cached anywhere.
     Ok(([(header::CACHE_CONTROL, "no-store")], Page(t)).into_response())

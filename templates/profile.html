@@ -52,8 +52,6 @@
     <li><a href="#personal" data-testid="profile-nav-link" data-section="personal">{{ crate::t("profile.nav.personal") }}</a></li>
     <li><a href="#account" data-testid="profile-nav-link" data-section="account">{{ crate::t("profile.nav.account") }}</a></li>
     <li><a href="#two-factor" data-testid="profile-nav-link" data-section="two-factor">{{ crate::t("profile.nav.two_factor") }}</a></li>
-    {% if plans %}<li><a href="#subscription" data-testid="profile-nav-link" data-section="subscription">{{ crate::t("profile.nav.subscription") }}</a></li>{% endif %}
-    {% if ai.shown %}<li data-ai-only{% if profile.ai_off %} hidden{% endif %}><a href="#ai-usage" data-testid="profile-nav-link" data-section="ai-usage">{{ crate::t1("profile.ai_usage.title", "hosted", crate::tutor::hosted_label()) }}</a></li>{% endif %}
     <li data-ai-only{% if profile.ai_off %} hidden{% endif %}><a href="#api-keys" data-testid="profile-nav-link" data-section="api-keys">{{ crate::t("profile.nav.api_keys") }}</a></li>
     <li><a href="#consent" data-testid="profile-nav-link" data-section="consent">{{ crate::t("profile.nav.consent") }}</a></li>
     <li><a href="#data" data-testid="profile-nav-link" data-section="data">{{ crate::t("profile.nav.data") }}</a></li>
@@ -251,121 +249,15 @@
     {% endif %}
   </section>
 
-  {% if plans %}
-  <section class="card" id="subscription" data-testid="profile-subscription" data-premium="{{ subscription.premium }}" data-plan="{{ subscription.plan.as_str() }}" data-source="{{ subscription.source }}">
-    <h2>{{ crate::t("profile.subscription.title") }}</h2>
-    <dl class="facts">
-      <dt>{{ crate::t("profile.subscription.plan") }}</dt>
-      <dd data-testid="profile-plan">{{ subscription.plan.label() }}</dd>
-      {% if let Some(d) = subscription.period_end %}
-      <dt data-testid="profile-renewal-label">{% if subscription.cancelled %}{{ crate::t("profile.subscription.ends_on") }}{% else %}{{ crate::t("profile.subscription.renewal_date") }}{% endif %}</dt>
-      <dd data-testid="profile-renewal" data-cancelled="{{ subscription.cancelled }}">{{ d }}{% if subscription.cancelled %} <span class="muted small">{{ crate::t("profile.subscription.cancelled_mark") }}</span>{% endif %}{% if subscription.past_due %} · <span class="warn-text">{{ crate::t("profile.subscription.past_due") }}</span>{% endif %}</dd>
-      {% endif %}
-      {% if let Some(g) = subscription.grant_note %}<dt>{{ crate::t("profile.subscription.granted_label") }}</dt><dd data-testid="profile-grant">{{ crate::t2("profile.subscription.granted_plan", "plan", subscription.plan.short(), "note", g.as_str()) }}</dd>{% endif %}
-    </dl>
-    <div class="plan-actions">
-      {% if subscription.plan != crate::billing::Plan::Plus || subscription.cancelled %}
-      <button type="button" class="btn" data-opens="plans-dialog" data-testid="profile-plan-choose">{% if subscription.cancelled %}{{ crate::t("profile.subscription.choose") }}{% else if subscription.premium %}{{ crate::t("profile.subscription.upgrade_plus") }}{% else %}{{ crate::t("profile.subscription.choose") }}{% endif %}</button>
-      {% endif %}
-      {% if subscription.cancellable %}<button type="button" class="btn ghost" data-opens="cancel-dialog" data-testid="profile-cancel-open">{{ crate::t("profile.subscription.cancel_open") }}</button>{% endif %}
-      {% if subscription.stripe_portal %}
-      <form method="post" action="{{ crate::base_path() }}/billing/portal" data-testid="profile-billing-portal-form">
-        <button type="submit" class="link-btn small" data-testid="profile-billing-manage">{{ crate::t("profile.subscription.portal") }}</button>
-      </form>
-      {% endif %}
-    </div>
-    {% if dev %}
-    <form method="post" action="{{ crate::base_path() }}/dev/premium" class="key-remove" data-testid="profile-dev-premium-form">
-      <input type="hidden" name="premium" value="{% if subscription.grant_note.is_some() %}0{% else %}1{% endif %}">
-      <button type="submit" class="link-btn small" data-testid="profile-dev-premium">{% if subscription.grant_note.is_some() %}{{ crate::t("profile.subscription.dev_revoke") }}{% else %}{{ crate::t("profile.subscription.dev_grant") }}{% endif %}</button>
-    </form>
-    {% endif %}
-
-    <dialog class="modal wide plans" id="plans-dialog" aria-labelledby="plans-dialog-title" data-testid="plans-dialog"{% if plans_open %} open data-open-on-load{% endif %}>
-      <form method="post" action="{{ crate::base_path() }}/billing/checkout" class="plans-form" data-testid="plans-form">
-        <div class="modal-bar">
-          <h2 id="plans-dialog-title">{{ crate::t("profile.plans.title") }}</h2>
-          <button type="button" class="btn ghost small" data-closes data-testid="plans-close">{{ crate::t("profile.ai.close") }}</button>
-        </div>
-        <div class="plan-cards" role="radiogroup" aria-label="{{ crate::t("profile.plans.plans_label") }}">
-          {% for card in subscription.cards() %}
-          <label class="plan-card{% if card.plan == crate::billing::Plan::Plus %} featured{% endif %}" data-testid="plan-card" data-plan="{{ card.plan.as_str() }}" data-price="{{ card.plan.price_label() }}" data-current="{{ card.current }}">
-            <input type="radio" name="plan" value="{{ card.plan.as_str() }}" required data-testid="plan-pick"{% if card.current %} disabled{% endif %}>
-            {% if card.plan == crate::billing::Plan::Plus %}<span class="plan-flag">{{ crate::t1("profile.plans.flag", "hosted", crate::tutor::hosted_label()) }}</span>{% endif %}
-            <span class="plan-name">{{ card.plan.label() }}</span>
-            <span class="plan-price">{{ card.plan.price_label() }}</span>
-            <span class="plan-blurb">{{ card.plan.blurb() }}</span>
-            <ul class="plan-perks">{% for perk in card.plan.perks() %}<li>{{ perk }}</li>{% endfor %}</ul>
-            {% if card.current %}<span class="plan-current" data-testid="plan-current">{{ crate::t("profile.plans.current") }}</span>{% endif %}
-          </label>
-          {% endfor %}
-        </div>
-        <p class="small muted" data-testid="plans-terms">{{ crate::t("profile.plans.terms") }}</p>
-        <div class="modal-actions">
-          <button type="button" class="btn ghost" data-closes data-testid="plans-cancel">{{ crate::t("profile.plans.not_now") }}</button>
-          <button type="submit" class="btn" data-testid="plans-purchase">{{ crate::t("profile.plans.purchase") }}</button>
-        </div>
-      </form>
-    </dialog>
-
-    <dialog class="modal" id="cancel-dialog" aria-labelledby="cancel-dialog-title" data-testid="cancel-dialog">
-      <form method="post" action="{{ crate::base_path() }}/billing/cancel" data-testid="cancel-form">
-        <h2 id="cancel-dialog-title">{{ crate::t("profile.cancel.title") }}</h2>
-        <p data-testid="cancel-note">{{ subscription.cancel_note() }}</p>
-        <fieldset class="cancel-reasons" data-testid="cancel-reasons">
-          <legend>{{ crate::t("profile.cancel.why") }} <span class="muted small">{{ crate::t("profile.cancel.optional") }}</span></legend>
-          {% for r in cancel_reasons %}<label class="opt"><input type="radio" name="reason" value="{{ r.0 }}" data-testid="cancel-reason"> {{ crate::t(r.1) }}</label>{% endfor %}
-        </fieldset>
-        <label for="cancel-feedback">{{ crate::t("profile.cancel.feedback") }} <span class="muted small">{{ crate::t("profile.cancel.optional") }}</span></label>
-        <textarea id="cancel-feedback" name="feedback" rows="3" maxlength="2000" data-testid="cancel-feedback"></textarea>
-        <div class="modal-actions">
-          <button type="button" class="btn ghost" data-closes data-testid="cancel-keep">{{ crate::t("profile.cancel.keep") }}</button>
-          <button type="submit" class="btn danger" data-testid="cancel-confirm">{{ crate::t("profile.cancel.confirm") }}</button>
-        </div>
-      </form>
-    </dialog>
-  </section>
-  {% endif %}
-
-  {% if ai.shown %}
-  <section class="card" id="ai-usage" data-testid="profile-ai-usage" data-hosted="{{ ai.hosted }}" data-offered="{{ ai.offered }}" data-level="{{ ai.level() }}" data-ai-only{% if profile.ai_off %} hidden{% endif %}>
-    <div class="switch-row">
-      <h2>{{ crate::t1("profile.ai_usage.title", "hosted", crate::tutor::hosted_label()) }}</h2>
-      <button type="button" class="info-btn" data-opens="ai-usage-dialog" aria-label="{{ crate::t1("profile.ai_usage.about", "hosted", crate::tutor::hosted_label()) }}" title="{{ crate::t1("profile.ai_usage.about", "hosted", crate::tutor::hosted_label()) }}" data-testid="profile-ai-usage-info"><span aria-hidden="true">i</span></button>
-    </div>
-    <dialog class="modal" id="ai-usage-dialog" aria-labelledby="ai-usage-dialog-title" data-testid="profile-ai-usage-dialog">
-      <h2 id="ai-usage-dialog-title">{{ crate::t1("profile.ai_usage.title", "hosted", crate::tutor::hosted_label()) }}</h2>
-      <p data-testid="profile-ai-usage-what">{% if ai.courses %}{{ crate::t2("profile.ai_usage.info_p1", "hosted", crate::tutor::hosted_label(), "date", ai.resets_on) }}{% else %}{{ crate::t2("profile.ai_usage.info_p1_tutor", "hosted", crate::tutor::hosted_label(), "date", ai.resets_on) }}{% endif %}</p>
-      <p>{{ crate::t1("profile.ai_usage.info_p2_html", "hosted", crate::tutor::hosted_label())|safe }}</p>
-      <div class="modal-actions">
-        <button type="button" class="btn ghost" data-closes data-testid="profile-ai-usage-close">{{ crate::t("profile.ai.close") }}</button>
-      </div>
-    </dialog>
-    <div class="ai-bar" role="progressbar" aria-label="{{ crate::t1("profile.ai_usage.bar_label", "hosted", crate::tutor::hosted_label()) }}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ ai.percent_used }}" aria-valuetext="{{ crate::t1("profile.ai_usage.used", "n", ai.percent_used) }}" data-testid="profile-ai-bar" data-used="{{ ai.percent_used }}" data-left="{{ ai.percent_left }}"><span class="ai-bar-fill" style="width: {{ ai.percent_used }}%"></span></div>
-    <p class="small muted ai-bar-caption"><span data-testid="profile-ai-left">{{ crate::t1("profile.ai_usage.left", "n", ai.percent_left) }}</span> · {{ crate::t1("profile.ai_usage.refills", "date", ai.resets_on) }}</p>
-  </section>
-  {% endif %}
-
-  <section class="card" id="api-keys" data-plus-ai="{{ ai.shown }}" data-own-keys="{{ profile.own_keys_fallback }}" data-testid="profile-api-keys" data-ai-only{% if profile.ai_off %} hidden{% endif %}>
+  <section class="card" id="api-keys" data-testid="profile-api-keys" data-ai-only{% if profile.ai_off %} hidden{% endif %}>
     <dialog class="modal" id="api-keys-info-dialog" aria-labelledby="api-keys-info-dialog-title" data-testid="profile-api-keys-info-dialog">
       <h2 id="api-keys-info-dialog-title">{{ crate::t("profile.api_keys.info_title") }}</h2>
       <p>{{ crate::t("profile.api_keys.info_text") }}</p>
       <div class="modal-actions"><button type="button" class="btn" data-closes data-testid="profile-api-keys-info-close">{{ crate::t("profile.ai.close") }}</button></div>
     </dialog>
-    {% if ai.shown %}
-    <div class="switch-row">
-      <h2 id="api-keys-heading" class="heading-with-info">{{ crate::t("profile.api_keys.title") }} <button type="button" class="info-btn" data-opens="api-keys-info-dialog" aria-haspopup="dialog" aria-label="{{ crate::t("profile.api_keys.info") }}" title="{{ crate::t("profile.api_keys.info") }}" data-testid="profile-api-keys-info"><span aria-hidden="true">i</span></button></h2>
-      <form method="post" action="{{ crate::base_path() }}/profile/own-keys" data-testid="profile-own-keys-form">
-        <input type="hidden" name="on" value="{% if profile.own_keys_fallback %}0{% else %}1{% endif %}">
-        <button type="submit" class="switch wide" role="switch" aria-checked="{{ profile.own_keys_fallback }}" data-testid="profile-own-keys-switch"><span class="switch-knob" aria-hidden="true"></span>{{ crate::t1("profile.api_keys.own_keys_switch", "hosted", crate::tutor::hosted_label()) }}</button>
-      </form>
-    </div>
-    <div class="own-keys-body" data-testid="profile-own-keys-body"{% if !profile.own_keys_fallback %} hidden{% endif %}>
-    {% else %}
     <h2 class="heading-with-info">{{ crate::t("profile.api_keys.title") }} <button type="button" class="info-btn" data-opens="api-keys-info-dialog" aria-haspopup="dialog" aria-label="{{ crate::t("profile.api_keys.info") }}" title="{{ crate::t("profile.api_keys.info") }}" data-testid="profile-api-keys-info"><span aria-hidden="true">i</span></button></h2>
     <div class="own-keys-body" data-testid="profile-own-keys-body">
-    {% endif %}
-    <p class="muted small" data-testid="profile-api-keys-about">{% if ai.hosted %}{{ crate::t1("profile.api_keys.about_hosted", "hosted", crate::tutor::hosted_label()) }}{% else %}{{ crate::t("profile.api_keys.about") }}{% endif %}</p>
+    <p class="muted small" data-testid="profile-api-keys-about">{{ crate::t("profile.api_keys.about") }}</p>
     {% for k in api_keys %}
     <details class="key-row" data-testid="profile-api-key" data-provider="{{ k.provider.id() }}" data-key-set="{{ k.is_set() }}" data-unreadable="{{ k.unreadable }}">
       <summary class="key-head" data-testid="profile-api-key-toggle">
@@ -433,7 +325,6 @@
           {% endif %}
         </div>
         {% if keys_on_file %}<div class="small muted" data-testid="consent-ai-key">{{ crate::t("profile.consent.ai_key") }} · <a href="#api-keys">{{ crate::t("profile.consent.ai_keys_manage") }}</a></div>{% endif %}
-        {% if ai.shown %}<div class="small muted" data-testid="consent-ai-hosted" data-ai-only{% if profile.ai_off %} hidden{% endif %}>{{ crate::t2("profile.consent.ai_hosted", "hosted", crate::tutor::hosted_label(), "n", ai.percent_used) }}</div>{% endif %}
       </dd>
     </dl>
     <dialog class="modal" id="ai-off-dialog" aria-labelledby="ai-off-dialog-title" data-testid="profile-ai-off-dialog">

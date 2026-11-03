@@ -85,7 +85,7 @@ fn loads_every_builtin_course() {
     let courses = crate::courses::Courses::load_builtin(Path::new("data")).expect("built-in courses load");
     let ids: Vec<&str> = courses.builtin().iter().map(|c| c.id()).collect();
     assert!(ids.contains(&"spanish"), "{ids:?}");
-    for c in courses.builtin() {
+    for c in courses.builtin().iter().map(|c| courses.builtin_store(c.id()).expect("builds")) {
         assert!(!c.lessons().is_empty(), "{} has no lessons", c.id());
         for l in c.lessons() {
             assert!(!l.quiz.is_empty(), "{}/{} has no quiz", c.id(), l.slug);

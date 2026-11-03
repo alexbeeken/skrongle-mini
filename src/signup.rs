@@ -26,8 +26,6 @@ pub const VAR: &str = "SKRONGLE_SIGNUP";
 pub const INVITE_TTL_SECS: i64 = 7 * 86_400;
 /// How long the owner's link works; a restart replaces it sooner.
 pub const OWNER_LINK_TTL_SECS: i64 = 365 * 86_400;
-/// Accounts the Superuser section lists (newest first).
-pub const ACCOUNTS_PER_PAGE: i64 = 25;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
 pub enum Mode {
@@ -102,6 +100,8 @@ pub enum Refusal {
     Closed,
     /// No account yet, and no owner's link: the owner finds it in the log.
     NoOwner,
+    /// The server holds [`crate::caps::MAX_ACCOUNTS`] accounts already.
+    Full,
     /// `invite` with a token that cannot be used.
     Used,
     Expired,
@@ -112,6 +112,7 @@ impl Refusal {
     /// The page's text.
     pub fn message(self) -> String {
         crate::t(match self {
+            Refusal::Full => "auth.signup.full",
             Refusal::Closed => "auth.signup.closed",
             Refusal::NoOwner => "auth.signup.no_owner",
             Refusal::Used => "auth.signup.invite_used",
@@ -124,6 +125,12 @@ impl Refusal {
 /// Does the server have no account yet?
 pub fn no_accounts(conn: &Connection) -> rusqlite::Result<bool> {
     conn.query_row("SELECT NOT EXISTS (SELECT 1 FROM users)", [], |r| r.get(0))
+}
+
+/// Does the server hold [`crate::caps::MAX_ACCOUNTS`] accounts already?
+pub fn is_full(conn: &Connection, dev: bool) -> rusqlite::Result<bool> {
+    let n: i64 = conn.query_row("SELECT COUNT(*) FROM users", [], |r| r.get(0))?;
+    Ok(crate::caps::accounts_full(n, dev))
 }
 
 /// What `token` (as typed in `?invite=`) names at `now`.
@@ -150,7 +157,12 @@ pub fn check_invite(conn: &Connection, token: &str, now: i64) -> rusqlite::Resul
 
 /// May an account be made now, in `mode`, with this invitation token ('' for
 /// none), for `email` (`None` before the address is known: the form)?
-pub fn admit(conn: &Connection, mode: Mode, invite: &str, _email: Option<&str>, now: i64) -> rusqlite::Result<Result<Admit, Refusal>> {
+pub fn admit(conn: &Connection, mode: Mode, invite: &str, _email: Option<&str>, now: i64, dev: bool) -> rusqlite::Result<Result<Admit, Refusal>> {
+    // First, in every mode: callers run this in the transaction that
+    // inserts the account, so the count and the insert can't be split.
+    if is_full(conn, dev)? {
+        return Ok(Err(Refusal::Full));
+    }
     if mode == Mode::Open {
         return Ok(Ok(Admit::Open));
     }
@@ -279,28 +291,15 @@ pub struct Account {
     pub superuser: bool,
 }
 
-/// One page of the accounts, newest first.
-pub struct AccountsPage {
-    pub list: Vec<Account>,
-    /// How many accounts there are in all.
-    pub total: i64,
-    /// This page (from 1) and how many there are (at least 1).
-    pub page: i64,
-    pub pages: i64,
-}
-
-/// Page `page` (from 1; out of range means the nearest page) of
-/// [`ACCOUNTS_PER_PAGE`] accounts, newest first.
-pub fn accounts(conn: &Connection, page: i64) -> rusqlite::Result<AccountsPage> {
-    let total: i64 = conn.query_row("SELECT COUNT(*) FROM users", [], |r| r.get(0))?;
-    let pages = (total + ACCOUNTS_PER_PAGE - 1).max(ACCOUNTS_PER_PAGE) / ACCOUNTS_PER_PAGE;
-    let page = page.clamp(1, pages);
+/// Every account, newest first. The server holds at most
+/// `caps::MAX_ACCOUNTS`, so there is no paging.
+pub fn accounts(conn: &Connection) -> rusqlite::Result<Vec<Account>> {
     let mut stmt = conn.prepare_cached(
         "SELECT COALESCE(u.email, ''), u.created_at, (SELECT MAX(s.created_at) FROM sessions s WHERE s.user_id = u.id), u.superuser
-         FROM users u ORDER BY u.id DESC LIMIT ?1 OFFSET ?2",
+         FROM users u ORDER BY u.created_at DESC, u.id DESC",
     )?;
-    let rows = stmt.query_map([ACCOUNTS_PER_PAGE, (page - 1) * ACCOUNTS_PER_PAGE], |r| Ok(Account { email: r.get(0)?, created_at: r.get(1)?, last_sign_in: r.get(2)?, superuser: r.get(3)? }))?;
-    Ok(AccountsPage { list: rows.collect::<Result<_, _>>()?, total, page, pages })
+    let rows = stmt.query_map([], |r| Ok(Account { email: r.get(0)?, created_at: r.get(1)?, last_sign_in: r.get(2)?, superuser: r.get(3)? }))?;
+    rows.collect()
 }
 
 #[cfg(test)]
@@ -328,20 +327,20 @@ mod tests {
         for mode in [Mode::Invite, Mode::Closed] {
             let db = Db::open_in_memory().unwrap();
             db.with(|c| {
-                assert_eq!(admit(c, mode, "", None, 1)?, Err(Refusal::NoOwner), "{mode:?}: no link, no account");
+                assert_eq!(admit(c, mode, "", None, 1, false)?, Err(Refusal::NoOwner), "{mode:?}: no link, no account");
                 let old = owner_link(c, 1)?.expect("an empty server has an owner's link");
                 let token = owner_link(c, 2)?.expect("a restart makes a new one");
                 assert_eq!(c.query_row("SELECT COUNT(*) FROM signup_invites", [], |r| r.get::<_, i64>(0))?, 1, "the old one is gone");
-                assert_eq!(admit(c, mode, &old, None, 2)?, Err(Refusal::NoOwner));
-                assert_eq!(admit(c, mode, "nonsense", None, 2)?, Err(Refusal::NoOwner));
-                let Ok(a @ Admit::Owner(_)) = admit(c, mode, &token, None, 2)? else { panic!("{mode:?}: the owner's link lets the owner in") };
+                assert_eq!(admit(c, mode, &old, None, 2, false)?, Err(Refusal::NoOwner));
+                assert_eq!(admit(c, mode, "nonsense", None, 2, false)?, Err(Refusal::NoOwner));
+                let Ok(a @ Admit::Owner(_)) = admit(c, mode, &token, None, 2, false)? else { panic!("{mode:?}: the owner's link lets the owner in") };
                 assert!(open_invites(c, 2)?.is_empty(), "the owner's link is not listed");
                 let id = crate::auth::create_user(c, "owner@example.org", "h")?;
                 assert!(finish(c, a, id, 2)?);
                 let su: bool = c.query_row("SELECT superuser FROM users WHERE id = ?1", [id], |r| r.get(0))?;
                 assert!(su, "{mode:?}: the first account is a superuser");
-                assert_eq!(admit(c, mode, "", None, 2)?, Err(Refusal::Closed));
-                assert_ne!(admit(c, mode, &token, None, 2)?, Ok(a), "the owner's link is used up");
+                assert_eq!(admit(c, mode, "", None, 2, false)?, Err(Refusal::Closed));
+                assert_ne!(admit(c, mode, &token, None, 2, false)?, Ok(a), "the owner's link is used up");
                 assert!(!finish(c, a, id, 3)?, "and can't be used again");
                 assert_eq!(owner_link(c, 3)?, None, "a server with accounts makes none");
                 Ok(())
@@ -352,7 +351,7 @@ mod tests {
         let db = Db::open_in_memory().unwrap();
         db.with(|c| {
             let token = owner_link(c, 1)?.unwrap();
-            let a = admit(c, Mode::Invite, &token, None, 1)?.unwrap();
+            let a = admit(c, Mode::Invite, &token, None, 1, false)?.unwrap();
             crate::auth::create_user(c, "a@example.org", "h")?;
             let second = crate::auth::create_user(c, "b@example.org", "h")?;
             assert!(!finish(c, a, second, 1)?, "not the one account: refused");
@@ -366,13 +365,13 @@ mod tests {
         db.with(|c| {
             let token = owner_link(c, 1)?.unwrap();
             crate::auth::create_user(c, "a@example.org", "h")?;
-            assert_eq!(admit(c, Mode::Invite, &token, None, 1)?, Err(Refusal::Unknown));
+            assert_eq!(admit(c, Mode::Invite, &token, None, 1, false)?, Err(Refusal::Unknown));
             Ok(())
         })
         .unwrap();
         let db = Db::open_in_memory().unwrap();
         db.with(|c| {
-            assert_eq!(admit(c, Mode::Open, "", None, 1)?, Ok(Admit::Open));
+            assert_eq!(admit(c, Mode::Open, "", None, 1, false)?, Ok(Admit::Open));
             let id = crate::auth::create_user(c, "a@example.org", "h")?;
             finish(c, Admit::Open, id, 1)?;
             let su: bool = c.query_row("SELECT superuser FROM users WHERE id = ?1", [id], |r| r.get(0))?;
@@ -380,6 +379,32 @@ mod tests {
             Ok(())
         })
         .unwrap();
+    }
+
+    /// The ninth account is refused in every mode, with the one message;
+    /// the register form, an invitation link and the proxy all ask `admit`.
+    #[test]
+    fn the_ninth_account_is_refused() {
+        let max = crate::caps::MAX_ACCOUNTS;
+        for mode in [Mode::Open, Mode::Invite, Mode::Closed] {
+            let db = Db::open_in_memory().unwrap();
+            db.with(|c| {
+                for n in 0..max {
+                    assert!(!is_full(c, false)?);
+                    crate::auth::create_user(c, &format!("u{n}@example.org"), "h")?;
+                }
+                assert!(is_full(c, false)?);
+                // An unused, valid invitation does not get past the cap.
+                let token = make(c, 1, 1)?;
+                assert_eq!(admit(c, mode, &token, None, 2, false)?, Err(Refusal::Full), "{mode:?}");
+                assert_eq!(admit(c, mode, "", None, 2, false)?, Err(Refusal::Full), "{mode:?}");
+                assert!(!is_full(c, true)?, "{mode:?}: the dev server is not capped");
+                assert_eq!(admit(c, Mode::Open, "", None, 2, true)?, Ok(Admit::Open), "dev mode admits past the cap");
+                Ok(())
+            })
+            .unwrap();
+        }
+        assert_eq!(Refusal::Full.message(), crate::t("auth.signup.full"));
     }
 
     #[test]
@@ -392,25 +417,19 @@ mod tests {
         assert!(u.starts_with("http://") && u.contains(":8080/") && u.ends_with("/register?invite=ab"), "{u}");
     }
 
-    /// The account list comes in pages of 25, newest first; an empty server
-    /// has one empty page; a page past the end is the last one.
+    /// Every account shows, newest first, however many there are up to the cap.
     #[test]
-    fn accounts_come_in_pages() {
+    fn accounts_list_every_account() {
         let db = Db::open_in_memory().unwrap();
         db.with(|c| {
-            let p = accounts(c, 1)?;
-            assert!((p.total, p.page, p.pages, p.list.len()) == (0, 1, 1, 0));
-            for n in 0..26 {
+            assert!(accounts(c)?.is_empty());
+            for n in 0..crate::caps::MAX_ACCOUNTS {
                 crate::auth::create_user(c, &format!("u{n:02}@example.org"), "h")?;
             }
-            let p = accounts(c, 1)?;
-            assert_eq!((p.total, p.page, p.pages, p.list.len()), (26, 1, 2, 25));
-            assert_eq!(p.list[0].email, "u25@example.org");
-            let p = accounts(c, 2)?;
-            assert_eq!((p.page, p.list.len()), (2, 1));
-            assert_eq!(p.list[0].email, "u00@example.org");
-            assert_eq!(accounts(c, 7)?.page, 2);
-            assert_eq!(accounts(c, -1)?.page, 1);
+            let list = accounts(c)?;
+            assert_eq!(list.len(), crate::caps::MAX_ACCOUNTS);
+            assert_eq!(list[0].email, format!("u{:02}@example.org", crate::caps::MAX_ACCOUNTS - 1));
+            assert_eq!(list[list.len() - 1].email, "u00@example.org");
             Ok(())
         })
         .unwrap();
@@ -430,36 +449,36 @@ mod tests {
             assert_eq!(open_invites(c, t0)?.len(), 1);
 
             // Closed mode ignores invitations.
-            assert_eq!(admit(c, Mode::Closed, &token, None, t0)?, Err(Refusal::Closed));
-            let Ok(a @ Admit::Invited(_)) = admit(c, Mode::Invite, &token, None, t0 + 60)? else { panic!("a fresh link lets one in") };
+            assert_eq!(admit(c, Mode::Closed, &token, None, t0, false)?, Err(Refusal::Closed));
+            let Ok(a @ Admit::Invited(_)) = admit(c, Mode::Invite, &token, None, t0 + 60, false)? else { panic!("a fresh link lets one in") };
             let ann = crate::auth::create_user(c, "ann@example.org", "h")?;
             assert!(finish(c, a, ann, t0 + 60)?);
             assert!(!finish(c, a, ann, t0 + 61)?, "a second use is refused");
-            assert_eq!(admit(c, Mode::Invite, &token, None, t0 + 120)?, Err(Refusal::Used));
+            assert_eq!(admit(c, Mode::Invite, &token, None, t0 + 120, false)?, Err(Refusal::Used));
             assert!(open_invites(c, t0)?.is_empty());
             let su: bool = c.query_row("SELECT superuser FROM users WHERE id = ?1", [ann], |r| r.get(0))?;
             assert!(!su, "an invited account is not a superuser");
 
             let late = make(c, owner, t0)?;
-            assert!(matches!(admit(c, Mode::Invite, &late, None, t0 + INVITE_TTL_SECS - 1)?, Ok(Admit::Invited(_))));
-            assert_eq!(admit(c, Mode::Invite, &late, None, t0 + INVITE_TTL_SECS)?, Err(Refusal::Expired));
+            assert!(matches!(admit(c, Mode::Invite, &late, None, t0 + INVITE_TTL_SECS - 1, false)?, Ok(Admit::Invited(_))));
+            assert_eq!(admit(c, Mode::Invite, &late, None, t0 + INVITE_TTL_SECS, false)?, Err(Refusal::Expired));
 
             let gone = make(c, owner, t0)?;
             let id = open_invites(c, t0)?.into_iter().next().unwrap().id;
             assert!(revoke(c, id)?);
             assert!(!revoke(c, id)?);
-            assert_eq!(admit(c, Mode::Invite, &gone, None, t0)?, Err(Refusal::Unknown));
-            assert_eq!(admit(c, Mode::Invite, "nonsense", None, t0)?, Err(Refusal::Unknown));
-            assert_eq!(admit(c, Mode::Invite, "", None, t0)?, Err(Refusal::Closed));
+            assert_eq!(admit(c, Mode::Invite, &gone, None, t0, false)?, Err(Refusal::Unknown));
+            assert_eq!(admit(c, Mode::Invite, "nonsense", None, t0, false)?, Err(Refusal::Unknown));
+            assert_eq!(admit(c, Mode::Invite, "", None, t0, false)?, Err(Refusal::Closed));
 
             // A used link can't be revoked; old rows go 30 days after they expire.
             let used_id: i64 = c.query_row("SELECT id FROM signup_invites WHERE used_at IS NOT NULL", [], |r| r.get(0))?;
             assert!(!revoke(c, used_id)?);
             assert_eq!(purge(c, t0 + INVITE_TTL_SECS + 30 * 86_400 + 1)?, 2);
 
-            let p = accounts(c, 1)?;
-            assert_eq!(p.total, 2);
-            assert_eq!(p.list.first().map(|a| a.email.as_str()), Some("ann@example.org"));
+            let p = accounts(c)?;
+            assert_eq!(p.len(), 2);
+            assert_eq!(p.first().map(|a| a.email.as_str()), Some("ann@example.org"));
             Ok(())
         })
         .unwrap();

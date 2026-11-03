@@ -21,9 +21,7 @@
 //! idle hours or when a new one starts. One model call per turn, two when a
 //! typed message turns out to be an answer, each on its own OS thread
 //! (`ask`). The learner's key comes from the profile (`secrets::get`) and is
-//! held only for the duration of the call; or, when the server offers hosted
-//! AI (`KeyChoice::Hosted`), the server's key, metered and checked against
-//! the learner's allowance before every call (`metering.rs`).
+//! held only for the duration of the call.
 
 use serde::Serialize;
 use std::collections::{HashMap, HashSet};
@@ -39,9 +37,6 @@ use crate::ai::ProviderKind;
 
 /// Idle sessions are dropped after this long.
 pub const IDLE_TTL_SECS: i64 = 2 * 3600;
-/// Tutor model calls in flight at once, for all learners (#382): each holds
-/// an OS thread and a TLS connection for up to two minutes on a 512 MB Pi.
-pub const MAX_CALLS: usize = 4;
 /// Refusal of a turn while this learner's previous one is still with the
 /// model (in this tab or another).
 pub const STILL_ANSWERING: &str = "the tutor is still answering; wait for its reply and try again";
@@ -127,46 +122,12 @@ pub struct Outcome {
     pub reward: Option<String>,
 }
 
-/// Which key the tutor talks with.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum KeyChoice {
-    /// The learner's saved key for this provider.
-    Own(ProviderKind),
-    /// The server's key (`metering::Meter`), within the learner's allowance.
-    Hosted,
-}
-
-impl KeyChoice {
-    /// What the page posts and the snapshot reports: a provider id, or "hosted".
-    pub fn id(self) -> &'static str {
-        match self {
-            KeyChoice::Own(p) => p.id(),
-            KeyChoice::Hosted => HOSTED,
-        }
-    }
-}
-
-impl std::fmt::Display for KeyChoice {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.id())
-    }
-}
-
-/// The form value of the server's key in the tutor's and generator's provider choices.
-pub const HOSTED: &str = "hosted";
-
-/// What every page calls the server's key: the AI Skrongle provides
-/// ("Skrongle AI"), in the request's language.
-pub fn hosted_label() -> String {
-    crate::t1("tutor.hosted_label", "app", crate::APP_NAME)
-}
-
 #[derive(Clone, Debug)]
 pub struct Session {
     pub id: String,
     pub user_id: i64,
     pub course_id: String,
-    pub provider: KeyChoice,
+    pub provider: ProviderKind,
     /// Slug of the lesson the session is focused on, if any.
     pub lesson: Option<String>,
     pub entries: Vec<Entry>,
@@ -263,6 +224,9 @@ impl Drop for Claim<'_> {
     }
 }
 
+/// Tutor chats by id. One entry per account at most (so at most
+/// `caps::MAX_ACCOUNTS`): `start` drops idle-expired chats and the
+/// account's earlier one before inserting (#42).
 #[derive(Default)]
 pub struct Sessions {
     inner: Mutex<HashMap<String, Session>>,
@@ -272,12 +236,13 @@ impl Sessions {
     /// Start a session and claim it for its first turn (like `begin`); any
     /// earlier session of this user is dropped. Refused while one of theirs
     /// is waiting on the model, so one learner has one call in flight (#382).
-    pub fn start(&self, user_id: i64, course_id: &str, provider: KeyChoice, lesson: Option<String>) -> Result<Session, &'static str> {
+    pub fn start(&self, user_id: i64, course_id: &str, provider: ProviderKind, lesson: Option<String>) -> Result<Session, &'static str> {
         let mut map = self.lock();
         if map.values().any(|s| s.user_id == user_id && s.busy) {
             return Err(STILL_ANSWERING);
         }
-        map.retain(|_, s| s.user_id != user_id);
+        let cutoff = crate::db::now() - IDLE_TTL_SECS;
+        map.retain(|_, s| s.user_id != user_id && s.updated_at > cutoff);
         let id = crate::auth::generate_token()[..24].to_string();
         let session = Session {
             id: id.clone(),
@@ -783,8 +748,8 @@ impl Drop for Slot<'_> {
     }
 }
 
-/// The tutor threads of the whole server ([`MAX_CALLS`]).
-static CALLS: Slots = Slots::new(MAX_CALLS);
+/// The tutor threads of the whole server ([`crate::caps::MAX_TUTOR_CALLS`]).
+static CALLS: Slots = Slots::new(crate::caps::MAX_TUTOR_CALLS);
 
 /// Whether `user_id` has a tutor call with the model. A learner who left
 /// mid-turn keeps it until the provider answers or times out, so the next
@@ -802,42 +767,28 @@ pub fn cancel(user_id: i64) -> Result<bool, &'static str> {
     CALLS.cancel(user_id)
 }
 
-/// One tutor reply through the meter (`metering::Meter::call`: checked
-/// first on the server's key, recorded either way), on an OS thread of its
-/// own, so neither the two async workers nor the small blocking pool wait
-/// on the network. At most [`MAX_CALLS`] run at once and one live call per
-/// learner; past that the call is refused at once, in the learner's
-/// language (a thread keeps its slot until the provider answers or times
-/// out, even if the request that started it has gone or was cancelled).
-#[allow(clippy::too_many_arguments)]
-pub async fn ask(
-    db: crate::db::Db,
-    meter: Arc<crate::metering::Meter>,
-    user_id: i64,
-    provider: ai::Provider,
-    call: ai::Call,
-    system: String,
-    msgs: Vec<ChatMessage>,
-    estimate: i64,
-) -> Result<ai::Reply, crate::metering::CallError> {
-    use crate::metering::CallError;
-    let slot = CALLS.try_take(user_id).map_err(|why| {
-        CallError::Failed(crate::t(if why == STILL_ANSWERING { "tutor.api.still_answering" } else { "tutor.api.all_busy" }))
-    })?;
+/// One tutor reply, on an OS thread of its own, so neither the two async
+/// workers nor the small blocking pool wait on the network. At most
+/// [`crate::caps::MAX_TUTOR_CALLS`] run at once and one live call per learner;
+/// past that the call is refused at once, in the learner's language (a thread
+/// keeps its slot until the provider answers or times out, even if the
+/// request that started it has gone or was cancelled).
+pub async fn ask(user_id: i64, provider: ai::Provider, call: ai::Call, system: String, msgs: Vec<ChatMessage>) -> Result<ai::Reply, String> {
+    let slot = CALLS.try_take(user_id).map_err(|why| crate::t(if why == STILL_ANSWERING { "tutor.api.still_answering" } else { "tutor.api.all_busy" }))?;
     let cancel = slot.cancel.clone();
     let (tx, rx) = tokio::sync::oneshot::channel();
     std::thread::Builder::new()
         .name("tutor-llm".into())
         .spawn(move || {
-            let reply = meter.call(&db, user_id, &provider, &call, estimate, || ai::chat(&provider, &call, &system, &msgs, REPLY_MAX_TOKENS));
+            let reply = ai::chat(&provider, &call, &system, &msgs, REPLY_MAX_TOKENS);
             // Free before replying: the same turn may ask again at once.
             drop(slot);
             let _ = tx.send(reply);
         })
-        .map_err(|e| CallError::Failed(crate::t1("tutor.api.thread_failed", "error", e)))?;
+        .map_err(|e| crate::t1("tutor.api.thread_failed", "error", e))?;
     tokio::select! {
-        reply = rx => reply.map_err(|_| CallError::Failed(crate::t("tutor.api.thread_stopped")))?,
-        _ = cancel.notified() => Err(CallError::Failed(crate::t("tutor.api.cancelled"))),
+        reply = rx => reply.map_err(|_| crate::t("tutor.api.thread_stopped"))?,
+        _ = cancel.notified() => Err(crate::t("tutor.api.cancelled")),
     }
 }
 
@@ -997,14 +948,14 @@ mod tests {
     #[test]
     fn sessions_are_per_user_and_single_turn() {
         let sessions = Sessions::default();
-        let s = sessions.start(1, "spanish", KeyChoice::Own(ProviderKind::Anthropic), None).unwrap();
+        let s = sessions.start(1, "spanish", ProviderKind::Anthropic, None).unwrap();
         let a = s.id.clone();
-        let b = sessions.start(2, "spanish", KeyChoice::Own(ProviderKind::OpenAi), Some("ser-vs-estar".into())).unwrap().id;
+        let b = sessions.start(2, "spanish", ProviderKind::OpenAi, Some("ser-vs-estar".into())).unwrap().id;
         sessions.finish(&b, 2, "spanish", |_| {});
         assert!(sessions.with(&a, 2, "spanish", |_| ()).is_none(), "other user");
         assert!(sessions.with(&a, 1, "german", |_| ()).is_none(), "other course");
         // Starting claims the first turn.
-        assert_eq!(s.provider, KeyChoice::Own(ProviderKind::Anthropic));
+        assert_eq!(s.provider, ProviderKind::Anthropic);
         assert!(s.done(), "nothing pending and nothing on deck yet");
         assert_eq!(sessions.begin(&a, 1, "spanish").unwrap_err(), STILL_ANSWERING);
         sessions.finish(&a, 1, "spanish", |s| {
@@ -1019,10 +970,20 @@ mod tests {
         assert_eq!(sessions.with(&b, 2, "spanish", |s| s.lesson.clone()).unwrap().as_deref(), Some("ser-vs-estar"));
         sessions.finish(&a, 1, "spanish", |_| {});
         // Starting again for user 1 replaces their session.
-        let a2 = sessions.start(1, "spanish", KeyChoice::Own(ProviderKind::Google), None).unwrap().id;
+        let a2 = sessions.start(1, "spanish", ProviderKind::Google, None).unwrap().id;
         assert!(sessions.with(&a, 1, "spanish", |_| ()).is_none());
         assert!(sessions.with(&a2, 1, "spanish", |_| ()).is_some());
         assert_eq!(sessions.purge_expired(), 0);
+
+        // One slot per account: two users, two entries; an idle one goes on the next insert.
+        sessions.finish(&a2, 1, "spanish", |_| {});
+        let b2 = sessions.start(2, "spanish", ProviderKind::Anthropic, None).unwrap().id;
+        assert_eq!(sessions.lock().len(), 2, "two users, two entries");
+        sessions.lock().get_mut(&a2).unwrap().updated_at = crate::db::now() - IDLE_TTL_SECS - 1;
+        sessions.finish(&b2, 2, "spanish", |_| {});
+        sessions.start(3, "spanish", ProviderKind::Anthropic, None).unwrap();
+        assert!(sessions.with(&a2, 1, "spanish", |_| ()).is_none());
+        assert_eq!(sessions.lock().len(), 2, "expired entry gone after the next insert");
     }
 
     /// #382: while one of a learner's turns waits on the model, neither a
@@ -1031,12 +992,12 @@ mod tests {
     #[test]
     fn one_tutor_call_in_flight_per_user() {
         let sessions = Sessions::default();
-        let a = sessions.start(1, "spanish", KeyChoice::Own(ProviderKind::Anthropic), None).unwrap().id;
-        assert_eq!(sessions.start(1, "spanish", KeyChoice::Own(ProviderKind::Anthropic), None).unwrap_err(), STILL_ANSWERING);
+        let a = sessions.start(1, "spanish", ProviderKind::Anthropic, None).unwrap().id;
+        assert_eq!(sessions.start(1, "spanish", ProviderKind::Anthropic, None).unwrap_err(), STILL_ANSWERING);
         assert!(sessions.with(&a, 1, "spanish", |_| ()).is_some(), "the busy session was not dropped");
-        assert!(sessions.start(2, "spanish", KeyChoice::Own(ProviderKind::Anthropic), None).is_ok(), "another learner");
+        assert!(sessions.start(2, "spanish", ProviderKind::Anthropic, None).is_ok(), "another learner");
         sessions.finish(&a, 1, "spanish", |_| {});
-        let a2 = sessions.start(1, "spanish", KeyChoice::Own(ProviderKind::Anthropic), None).unwrap().id;
+        let a2 = sessions.start(1, "spanish", ProviderKind::Anthropic, None).unwrap().id;
         assert!(sessions.with(&a, 1, "spanish", |_| ()).is_none());
         assert_eq!(sessions.begin(&a2, 1, "spanish").unwrap_err(), STILL_ANSWERING);
         assert_eq!(sessions.begin(&a, 1, "spanish").unwrap_err(), "no such session");
@@ -1047,9 +1008,9 @@ mod tests {
     #[test]
     fn dropped_turn_releases_the_session() {
         let sessions = Sessions::default();
-        let a = sessions.start(1, "spanish", KeyChoice::Own(ProviderKind::Anthropic), None).unwrap().id;
+        let a = sessions.start(1, "spanish", ProviderKind::Anthropic, None).unwrap().id;
         let claim = sessions.claim(&a, 1, "spanish");
-        assert_eq!(sessions.start(1, "spanish", KeyChoice::Own(ProviderKind::Anthropic), None).unwrap_err(), STILL_ANSWERING);
+        assert_eq!(sessions.start(1, "spanish", ProviderKind::Anthropic, None).unwrap_err(), STILL_ANSWERING);
         drop(claim);
         assert!(sessions.begin(&a, 1, "spanish").is_ok(), "the dropped turn kept the session busy");
         // A finished claim does not release a later turn when it goes.
@@ -1060,7 +1021,7 @@ mod tests {
 
     #[test]
     fn tutor_threads_are_capped() {
-        let slots = Slots::new(2);
+        let slots = Slots::new(crate::caps::MAX_TUTOR_CALLS);
         let one = slots.try_take(1).unwrap();
         let two = slots.try_take(2).unwrap();
         assert_eq!(slots.try_take(3).err(), Some(ALL_BUSY));
@@ -1075,7 +1036,7 @@ mod tests {
     /// cannot start another one and fill the server's slots.
     #[test]
     fn one_tutor_thread_per_learner() {
-        let slots = Slots::new(4);
+        let slots = Slots::new(crate::caps::MAX_TUTOR_CALLS);
         let first = slots.try_take(1).unwrap();
         assert!(slots.holds(1) && !slots.holds(2));
         assert_eq!(slots.try_take(1).err(), Some(STILL_ANSWERING));
@@ -1091,7 +1052,7 @@ mod tests {
     /// the learner; a second cancel waits until the first call has ended.
     #[test]
     fn a_cancelled_call_frees_the_learner_not_the_thread() {
-        let slots = Slots::new(3);
+        let slots = Slots::new(crate::caps::MAX_TUTOR_CALLS);
         assert_eq!(slots.cancel(1), Ok(false));
         let first = slots.try_take(1).unwrap();
         assert_eq!(slots.cancel(1), Ok(true));
@@ -1100,12 +1061,11 @@ mod tests {
         assert!(slots.holds(1));
         assert_eq!(slots.cancel(1), Err(ALREADY_CANCELLED));
         assert!(slots.holds(1));
-        // Both threads still count towards the cap.
-        let other = slots.try_take(2).unwrap();
-        assert_eq!(slots.try_take(3).err(), Some(ALL_BUSY));
+        // Both threads still count towards the cap, so a second learner is refused.
+        assert_eq!(slots.try_take(2).err(), Some(ALL_BUSY));
         drop(first);
         assert_eq!(slots.cancel(1), Ok(true));
-        drop((second, other));
+        drop(second);
         assert!(slots.lock().taken.is_empty());
     }
 
@@ -1126,7 +1086,7 @@ mod tests {
         let item = &lesson.quiz[0];
         let q = card(&content, &Picked { lesson, item });
         let sessions = Sessions::default();
-        let id = sessions.start(1, "spanish", KeyChoice::Own(ProviderKind::Anthropic), None).unwrap().id;
+        let id = sessions.start(1, "spanish", ProviderKind::Anthropic, None).unwrap().id;
         sessions.finish(&id, 1, "spanish", |s| s.push(Entry::Question(q.clone())));
         assert_eq!(sessions.with(&id, 1, "spanish", |s| s.pending.clone()).unwrap().as_deref(), Some(item.question_id.as_str()));
         sessions.finish(&id, 1, "spanish", |s| s.push(Entry::Skipped { question_id: item.question_id.clone() }));

@@ -27,11 +27,9 @@
     <p class="small char-count" id="ai-text-count" data-testid="course-ai-text-count">{{ crate::t1("courses.ai.up_to_chars", "n", crate::ai::grouped(af.max())) }}</p>
     <p class="small muted" data-testid="course-ai-sensitive-note">{{ crate::t("courses.ai.sensitive_note") }}</p>
     <p class="actions"><button type="submit" class="btn" data-testid="course-ai-submit">{{ crate::t("courses.ai.submit") }}</button>{% if let Some(when) = af.reviewable %} <a class="btn ghost" href="{{ crate::base_path() }}/courses/{{ af.course_id }}?review=1" title="{{ crate::t1("courses.ai.review_tip", "when", when) }}" data-testid="course-ai-review">{{ crate::t("courses.ai.review_changes") }}</a>{% endif %}</p>
-    {% if *p == crate::tutor::HOSTED %}<p class="small muted" data-testid="course-ai-provider">{{ crate::t1("courses.ai.hosted_uses", "hosted", crate::tutor::hosted_label()) }}{% if let Some(l) = af.ai_left %} <span data-testid="course-ai-left">{{ l }}</span>.{% endif %}</p>
-    {% else %}<p class="small muted" data-testid="ai-disclosure">{% if af.named_provider %}{{ crate::t1("courses.ai.sent_to_named_html", "provider", p)|safe }}{% else %}{{ crate::t("courses.ai.sent_to_generic") }}{% endif %}</p>{% endif %}
+    <p class="small muted" data-testid="ai-disclosure">{% if af.named_provider %}{{ crate::t1("courses.ai.sent_to_named_html", "provider", p)|safe }}{% else %}{{ crate::t("courses.ai.sent_to_generic") }}{% endif %}</p>
   </form>
   {% include "ai_examples.html" %}
-  {% if let Some(out) = af.ai_out %}{% include "ai_out.html" %}{% endif %}
   {% else %}
   {% if let Some(when) = af.reviewable %}<p class="actions"><a class="btn ghost" href="{{ crate::base_path() }}/courses/{{ af.course_id }}?review=1" title="{{ crate::t1("courses.ai.review_tip", "when", when) }}" data-testid="course-ai-review">{{ crate::t("courses.ai.review_changes") }}</a></p>{% endif %}
   <p class="no-key" role="alert" data-testid="course-ai-no-key">{{ crate::t1("courses.ai.no_key_html", "url", crate::url("/profile#api-keys"))|safe }}</p>

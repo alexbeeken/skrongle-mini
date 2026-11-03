@@ -169,6 +169,9 @@ pub fn replay(session: &MatchSession, attempts: &[(usize, usize)]) -> Option<Out
     Some(Outcome { elapsed_ms, wrong, penalty_ms, score_ms: elapsed_ms + penalty_ms })
 }
 
+/// Game sessions by token. One entry per account at most (so at most
+/// `caps::MAX_ACCOUNTS`): `start` drops expired sessions and the account's
+/// earlier one before inserting (#42).
 #[derive(Default)]
 pub struct Sessions {
     inner: Mutex<HashMap<String, MatchSession>>,
@@ -178,7 +181,7 @@ impl Sessions {
     /// Start a session for `user_id`; any earlier session of theirs is dropped.
     pub fn start(&self, user_id: i64, course_id: &str, board: &str, pairs: Vec<Pair>, rounds: Vec<Round>) -> String {
         let mut map = self.lock();
-        map.retain(|_, s| s.user_id != user_id);
+        map.retain(|_, s| s.user_id != user_id && s.started.elapsed().as_secs() < SESSION_TTL_SECS);
         let token = crate::auth::generate_token();
         map.insert(
             token.clone(),
@@ -664,6 +667,16 @@ mod tests {
         assert!(sessions.take(&t2, 1).is_some());
         assert!(sessions.take(&t2, 1).is_none(), "consumed");
         assert_eq!(sessions.purge_expired(), 0);
+
+        // One slot per account: two users, two entries; an old entry goes on the next insert.
+        let t4 = sessions.start(1, "c", "b", pairs(2), vec![]);
+        sessions.start(2, "c", "b", pairs(2), vec![]);
+        assert_eq!(sessions.lock().len(), 2);
+        sessions.lock().get_mut(&t4).unwrap().started = Instant::now() - std::time::Duration::from_secs(SESSION_TTL_SECS + 1);
+        sessions.start(2, "c", "b", pairs(2), vec![]);
+        assert_eq!(sessions.lock().len(), 1, "expired entry gone after the next insert");
+        sessions.drop_user(1);
+        sessions.drop_user(2);
 
         // finish(): rejected submissions keep the session; too-fast finishes are refused.
         let t3 = sessions.start(1, "c", "b", pairs(2), vec![]);

@@ -32,6 +32,13 @@ Yes. Give it [`/llms.txt`](/llms.txt) or paste the
 See [Write lessons with an LLM](making-courses#write-lessons-with-an-llm-you-already-use).
 
 
+**Why does my Skrongle mini say it has all the accounts it can hold?**
+A Skrongle mini holds at most 8 accounts (a household plus a couple of
+guests). The number is fixed, not a setting: a small known size keeps the
+server light enough for a Pi Zero 2 W. Nobody new can register, by form,
+invitation link or proxy sign-in, until an account is deleted. See
+[Accounts and AI keys](self-hosting#accounts-and-ai-keys).
+
 **Can an AI agent outside the app record my progress?**
 Yes, through `/api/progress`. Give the agent [Progress across modes](progress).
 

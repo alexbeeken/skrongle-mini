@@ -33,11 +33,6 @@ button, textarea, select { font: inherit; color: inherit; }
 .t-model { color: var(--muted); white-space: nowrap; }
 .t-score { font-size: .85rem; color: var(--muted); white-space: nowrap; }
 .t-score b { color: var(--text); }
-.t-ai-left { font-size: .75rem; color: var(--muted); white-space: nowrap; }
-/* On a phone it wraps under itself, so the title and the model picker keep their room. */
-@media (max-width: 30rem) { .t-ai-left { white-space: normal; max-width: 6.5rem; text-align: right; line-height: 1.2; } }
-.msg.system.ai-out a { display: inline-block; margin: .35rem .8rem 0 0; font-weight: 600; }
-
 /* thread */
 .t-main { flex: 1; padding: .9rem .9rem 1rem; }
 .t-thread { display: flex; flex-direction: column; gap: .6rem; }
@@ -99,7 +94,7 @@ button, textarea, select { font: inherit; color: inherit; }
 .t-empty .t-btn { margin-top: .8rem; }
 .t-disclosure { margin: 0 0 .4rem; color: var(--muted); font-size: .8rem; }
 
-/* No Skrongle AI for the tutor (#283): Upgrade to Plus beside "Add an API key". */
+/* The tutor's empty state (#283): the ghost button beside "Add an API key". */
 .t-empty .t-btn.ghost { margin-left: .5rem; background: none; color: var(--accent); border: 1px solid var(--accent); }
 
 /* The system's "reduce motion" setting stops the typing dots (#342). */

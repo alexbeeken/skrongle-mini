@@ -9,17 +9,21 @@ use askama::Template;
 use axum::extract::Path;
 use axum::http::{header, HeaderValue};
 use axum::response::{IntoResponse, Response};
+use std::collections::HashMap;
+use std::sync::Mutex;
 
 use super::{Docs, Page};
 use crate::auth::{CurrentUser, MaybeUser};
 use crate::error::AppError;
 
+#[derive(Clone)]
 pub struct DocLink {
     pub slug: String,
     pub title: String,
 }
 
 /// One heading of the docs sidebar and its pages.
+#[derive(Clone)]
 pub struct DocSection {
     pub id: &'static str,
     /// The heading's i18n key (`docs.section_*`).
@@ -39,7 +43,7 @@ pub const SECTIONS: &[(&str, &str, &[&str])] = &[
     (
         "reference",
         "docs.section_reference",
-        &["course-format", "features", "progress", "i18n", "pricing", "data-inventory", "privacy", "cookies"],
+        &["course-format", "features", "progress", "i18n", "data-inventory", "privacy", "cookies"],
     ),
     (
         "dev",
@@ -188,10 +192,40 @@ fn render(slug: &str, user: Option<CurrentUser>) -> Result<Response, AppError> {
     if slug == "terms" {
         return Ok(axum::response::Redirect::to(&crate::url("/terms")).into_response());
     }
-    let md = md_of(slug).ok_or(AppError::NotFound)?;
-    let title = title_of(&md, slug);
-    let html = render_doc(&md);
-    Ok(Page(DocsTemplate { user, title, slug: slug.to_string(), html, sections: sections() }).into_response())
+    let (title, html) = rendered(slug).ok_or(AppError::NotFound)?;
+    Ok(Page(DocsTemplate { user, title, slug: slug.to_string(), html, sections: sections_cached() }).into_response())
+}
+
+/// (title, body HTML) of a page, rendered on its first visit and kept for
+/// the life of the process (#39). The body depends only on the page and the
+/// base path, both fixed at startup; the signed-in user and the sidebar's
+/// current-page marker live in the template. Only pages that exist are
+/// stored, so the map is bounded by the docs.
+fn rendered(slug: &str) -> Option<(String, String)> {
+    static CACHE: Mutex<Option<HashMap<String, (String, String)>>> = Mutex::new(None);
+    let mut guard = CACHE.lock().unwrap_or_else(|e| e.into_inner());
+    let map = guard.get_or_insert_with(HashMap::new);
+    if let Some(hit) = map.get(slug) {
+        return Some(hit.clone());
+    }
+    let md = md_of(slug)?;
+    let entry = (title_of(&md, slug), render_doc(&md));
+    map.insert(slug.to_string(), entry.clone());
+    Some(entry)
+}
+
+/// [`sections`], built once.
+fn sections_cached() -> Vec<DocSection> {
+    static CACHE: Mutex<Option<Vec<DocSection>>> = Mutex::new(None);
+    let mut guard = CACHE.lock().unwrap_or_else(|e| e.into_inner());
+    guard.get_or_insert_with(sections).clone()
+}
+
+#[cfg(test)]
+thread_local! {
+    /// Markdown renders on this thread, for the test that a second request
+    /// of a page does not parse again.
+    pub(crate) static RENDERS: std::cell::Cell<usize> = const { std::cell::Cell::new(0) };
 }
 
 /// Markdown to HTML for a docs page. The files link to each other relatively
@@ -200,6 +234,8 @@ fn render(slug: &str, user: Option<CurrentUser>) -> Result<Response, AppError> {
 /// `/docs/<page>`. Every link also gets a testid, and links to another page
 /// its slug, so a test can tell them apart.
 pub(crate) fn render_doc(md: &str) -> String {
+    #[cfg(test)]
+    RENDERS.with(|c| c.set(c.get() + 1));
     use pulldown_cmark::{html, CowStr, Event, Options, Parser, Tag, TagEnd};
     let mut opts = Options::empty();
     opts.insert(Options::ENABLE_TABLES);
@@ -292,6 +328,16 @@ mod tests {
     fn release_tarball_is_this_version() {
         assert!(RELEASE_TARBALL.ends_with(&format!("/{RELEASE_TARBALL_NAME}")));
         assert_eq!(RELEASE_TARBALL_NAME, format!("skrongle-{}-aarch64.tar.gz", env!("CARGO_PKG_VERSION")));
+    }
+
+    /// A page is parsed on its first request only (#39).
+    #[test]
+    fn page_is_rendered_once() {
+        let first = rendered("faq").expect("page exists");
+        assert_eq!(RENDERS.with(|c| c.get()), 1);
+        assert_eq!(rendered("faq"), Some(first));
+        assert_eq!(RENDERS.with(|c| c.get()), 1, "second request parsed again");
+        assert!(rendered("no-such-page").is_none());
     }
 
     #[test]

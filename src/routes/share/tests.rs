@@ -20,7 +20,7 @@ struct Server {
 impl Server {
     fn start() -> Server {
         let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-        let state = crate::routes::test_state(false, None);
+        let state = crate::routes::test_state(false);
         let app = crate::routes::router(state.clone());
         let base = rt.block_on(async {
             let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();

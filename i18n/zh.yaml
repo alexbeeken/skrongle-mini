@@ -141,6 +141,7 @@ auth:
     invite_used: "此邀请链接已被使用。请向此服务器的管理者索取新链接。"
     invite_expired: "此邀请链接已过期。请向此服务器的管理者索取新链接。"
     invite_unknown: "此邀请链接无效。请向此服务器的管理者索取新链接。"
+    full: "此 Skrongle 已达到可容纳的账户上限。"
     sign_in: "登录"
     first_account: "此服务器还没有账户：你现在创建的账户将属于服务器的所有者。"
     no_owner: "此服务器还没有所有者。服务器的管理者用服务器日志中的所有者链接创建第一个账户。"
@@ -491,7 +492,6 @@ profile:
     personal: 个人信息
     account: 账户
     two_factor: 两步验证
-    subscription: 订阅
     api_keys: AI API 密钥
     data: 你的数据
     consent: "隐私与同意"
@@ -541,7 +541,6 @@ profile:
     ai_off: "隐藏"
     ai_key: "已保存自己的 API 密钥"
     ai_keys_manage: "管理密钥"
-    ai_hosted: "{hosted}：本月已用 {n}%"
   sessions:
     sign_out_others: 退出其他所有设备
     info_label: 关于退出其他所有设备
@@ -620,37 +619,6 @@ profile:
     code_gone: 没有等待中的验证码，或验证码已过期。请重新发送一个。
     too_many_codes: 发送的验证码过多。请稍等几分钟后再试。
     code_not_sent: 验证码未能发送。请稍后再试。
-  subscription:
-    title: 订阅
-    plan: 方案
-    premium: ✓ 高级版
-    free: 免费
-    subscription: 订阅
-    granted_label: 已赠送
-    granted: "已为此账户赠送高级版，{note}"
-    manage: 管理订阅
-    manage_note: 在 Stripe 上更换银行卡、查看账单或取消订阅。
-    subscribe: 订阅
-    subscribe_note: 通过 Stripe 按月付费；可随时取消。
-    unavailable: 本服务器未提供订阅服务。
-    dev_revoke: "开发：撤销高级版赠送"
-    dev_grant: "开发：赠送高级版"
-    thanks_active: 感谢你！你的订阅已生效。
-    thanks_pending: 感谢你！Stripe 正在确认你的付款；请稍后刷新页面以查看你的订阅。
-    cancelled: 已取消结账；未收取任何费用。
-    required: 该功能需要订阅。
-    plan_thanks: "你现在使用的是 {plan}。谢谢！"
-    cancelled_notice: "你的订阅已取消。{note}"
-    credits_thanks: "谢谢！Stripe 确认付款后，你的 AI 额度会立即到账。"
-    ends_on: "结束于"
-    renewal_date: "续订日期"
-    cancelled_mark: "（已取消）"
-    granted_plan: "已为此账户赠送 {plan}，{note}"
-    choose: "选择方案"
-    upgrade_plus: "升级到 Plus"
-    cancel_open: "取消订阅"
-    portal: "银行卡和账单，在 Stripe 上"
-    past_due: "上次付款失败；Stripe 会再次尝试扣款。"
   ai:
     on: "开"
     off: "关"
@@ -682,10 +650,6 @@ profile:
     too_long: "该内容对 API 密钥来说太长了（最多 {max} 个字符）。"
     bad_chars: API 密钥只能包含字母、数字和标点符号，不能有空格。
     wrong_provider: "这看起来不像是 {provider} 的密钥：它们以 {prefix} 开头。"
-    own_keys_on: "本月的 {hosted} 用完后，将改用你自己的 API 密钥。"
-    own_keys_off: "只使用 {hosted}；你自己的 API 密钥不会被使用。"
-    own_keys_switch: "{hosted} 达到上限时使用我的密钥"
-    about_hosted: "AI 导师、“生成课程”和“使用 AI”会用你的密钥调用这些服务商，费用记在你的账户上，不占用你的 {hosted}。"
   data:
     export_download: "下载我的数据"
     export_building_no_mail: "正在准备你的数据。准备好后，这里会出现“下载”按钮。"
@@ -722,7 +686,6 @@ profile:
     type_email: 请输入你的电子邮箱地址以确认。
     code_app: 来自验证器应用的验证码
     code_sent_to: "已发送至 {to}"
-    cancel_first: 请先取消订阅（见上方的“管理订阅”），然后再删除账户。
   deletion:
     title: "账户已安排删除"
     on: "此账户将于 {date} 被永久删除。"
@@ -761,33 +724,6 @@ profile:
     turn_off: 关闭两步登录验证
     switch_to: "将两步登录验证切换为{method}"
     turn_on_by: "通过{method}开启两步验证"
-    pay_with_stripe: "使用 Stripe 付款"
-  ai_usage:
-    title: "本月的 {hosted}"
-    about: "关于本月的 {hosted}"
-    info_p1: "你的方案每月包含一定量的 {hosted}，用于 AI 导师和编写课程。进度条显示本月的请求已用掉多少；它会在 {date} 重新充满。使用你自己的 API 密钥发出的请求不计入。"
-    info_p2_html: "用完后，AI 导师和课程编写会等到下个月，除非在 AI API 密钥下打开了<em>{hosted} 达到上限时使用我的密钥</em>：这样会改用你自己的密钥。"
-    bar_label: "本月已用的 {hosted}"
-    used: "已用 {n} %"
-    left: "剩余 {n} %"
-    refills: "将于 {date} 重新充满"
-    info_p1_tutor: "你的方案每月包含一定量的 {hosted}，用于 AI 导师。这点用量不足以编写课程：请为此使用你自己的 API 密钥。进度条显示本月的请求已用掉多少；它会在 {date} 重新充满。使用你自己的 API 密钥发出的请求不计入。"
-  plans:
-    title: "选择你的方案"
-    plans_label: "方案"
-    flag: "包含 {hosted}"
-    current: "你的方案"
-    terms: "按月付费；可随时取消，已付费的当月仍可继续使用该方案。"
-    not_now: "暂不"
-    purchase: "购买"
-  cancel:
-    title: "取消订阅？"
-    why: "你为什么要离开？"
-    optional: "（可选）"
-    feedback: "你有什么想告诉我们的吗？"
-    keep: "保留我的方案"
-    confirm: "确认取消"
-
 superuser:
   title: 超级用户
   about: "对任何账户的操作。只有超级用户能看到此页面。"
@@ -803,7 +739,7 @@ superuser:
   mode_invite: "只有持邀请链接的人才能注册（SKRONGLE_SIGNUP=invite）。"
   mode_closed: "任何人都不能注册（SKRONGLE_SIGNUP=closed）。"
   invite_about: "创建一个邀请链接并发给一个人。它只能使用一次，有效期 7 天。链接只在创建时显示，请当时复制。撤销会让尚未使用的链接失效。"
-  accounts_shown: "此服务器上的账户：{total}。最新的在前，每页 {per_page} 个。"
+  accounts_of: "{total} / {max} 个账户"
   invite_link: "邀请链接"
   copy: "复制"
   make_invite: "创建邀请链接"
@@ -822,9 +758,6 @@ superuser:
   two_factor_off_about: "在重新开启两步验证之前，该账户只凭密码登录。为其设置的身份验证器应用会被移除。"
   two_factor_off_confirm: "关闭"
   two_factor_off_done: "{email} 的两步验证已关闭。"
-  page_of: "第 {page} 页，共 {pages} 页"
-  prev: "较新"
-  next: "较早"
   terms_changed: "条款已更改。"
   terms_title: "即将生效的条款变更"
   terms_send: "发送通知"
@@ -836,52 +769,7 @@ superuser:
     other: "已为 {n} 个账户排队发送通知。"
   js:
     copied: "已复制"
-  ai_today: "今天的 {hosted}（所有人）"
-  ai_today_about: "关于今天的 {hosted}"
-  ai_today_info: "今天（UTC）所有人在 {hosted} 上的花费，对照服务器每日上限 {cap}。达到上限后，{hosted} 对所有人暂停，直到 UTC 午夜；自己的 API 密钥仍然可用。只有超级用户能看到；学习者只能看到自己当月的用量。"
-  ai_today_spent: "{spent} / {cap} · UTC 午夜重置"
 
-billing:
-  not_offered: 本服务器未提供订阅服务。
-  stripe_unreachable: 暂时无法连接 Stripe。请稍后再试。
-  past_due: 上次付款失败；Stripe 将再次尝试扣款。请在“管理”中更新银行卡。
-  cancelled_ends: "已取消：将于 {date} 结束。"
-  renews: "将于 {date} 续订。"
-  grant_until: "截至 {date}"
-  grant_no_end: 无截止日期
-  choose_plan: "请选择一个方案。"
-  pack_not_offered: "未提供该额度包。"
-  cancel_note: "你可以使用 {plan} 到 {date}。之后你将使用免费版。"
-  cancel_note_free: "之后你将使用免费版。"
-  cancel_reason:
-    price: "太贵了"
-    unused: "我用得不够多"
-    missing: "缺少我需要的功能"
-    problems: "有些功能不能用"
-  plan:
-    price: "每月 {price}"
-    free:
-      name: "免费"
-      blurb: "所有课程和模式，使用你自己的 AI 密钥。"
-      perks: "所有内置课程和模式\n创建你自己的课程\n使用你自己的 API 密钥的 AI 功能"
-    basic:
-      name: "{app} Basic"
-      blurb: "支持我们持续运营，并在上线时获得付费功能。"
-      perks: "包含免费版的全部内容\n支持一个独立、无广告的应用\n新的付费功能上线即可使用\n可随时取消"
-    plus:
-      name: "{app} Plus"
-      blurb: "包含 {hosted}：AI 导师和课程编写，无需 API 密钥。"
-      perks: "包含 Basic 的全部内容\n每月包含 {hosted}\n无需 API 密钥即可使用 AI 导师和编写课程\n用完后可改用你自己的密钥\n可随时取消"
-  ai:
-    not_enough: "本月剩余的 {hosted} 不足以完成此操作。请升级，或使用你自己的 API 密钥。"
-    not_enough_credits: "本月剩余的 {hosted} 不足以完成此操作。请升级、购买 AI 额度，或使用你自己的 API 密钥。"
-    used_up: "你本月的 {hosted} 已用完。请升级，或使用你自己的 API 密钥。"
-    used_up_credits: "你本月的 {hosted} 已用完。请升级、购买 AI 额度，或使用你自己的 API 密钥。"
-    daily_cap: "{hosted} 今天已暂停：服务器已达到每日支出上限。UTC 午夜后恢复；你自己的 API 密钥仍可使用。"
-    rate: "一分钟内的 AI 请求太多了。请稍等片刻再试。"
-    job_daily_cap: "AI 已停止：{hosted} 今天已暂停（服务器已达到每日支出上限）。已写好的内容不会丢失；请在 UTC 午夜后继续，或使用你自己的 API 密钥。"
-    job_used_up: "AI 已停止：你本月的 {hosted} 已用完。已写好的内容不会丢失；请在升级后继续，或使用你自己的 API 密钥。"
-    job_used_up_credits: "AI 已停止：你本月的 {hosted} 已用完。已写好的内容不会丢失；请在升级后、购买 AI 额度后继续，或使用你自己的 API 密钥。"
 
 landing:
   title: 从一个 JSON 文件夹学习任何内容
@@ -2282,14 +2170,6 @@ tutor:
     lesson_passed: "✓ 课程已通过：{title}"
     could_not_reply: "导师无法回复：{error}"
     last_exercise: 这是目前最后一道练习。可以继续聊天，或返回选择其他课程。
-    upgrade_plus: "升级到 Plus"
-    own_key: "使用你自己的 API 密钥"
-    buy_credits: "购买额度"
-  hosted_label: "{app} AI"
-  disclosure_hosted: "你的消息会通过本服务器的密钥发送给它所使用的 AI 服务提供商。"
-  hosted_included: "{hosted}（已包含）"
-  own_key_took_over: "你本月的 {hosted} 已用完，因此从现在起由你自己的 {provider} 密钥来回答。"
-
 courses:
   # What a new course from "Create a course" starts with, in the author's app language (#1255).
   starter:
@@ -2724,7 +2604,6 @@ courses:
     only_finished: "只有已完成的课程才能修改现有内容。请关闭“允许修改现有内容”，AI 将只添加内容。"
     another_started: 此课程刚开始了另一项修改。请等待其完成。
     lesson_gone: "这一课已不在课程中。请刷新页面后再试。"
-    hosted_uses: "使用你的账户中包含的 {hosted}。"
     # The (i) by the box: example requests to click into it (#1236).
     examples_info: AI 能做什么？
     examples_title: AI 能做什么？
@@ -2784,7 +2663,7 @@ courses:
     depth_outline: "大纲（每节课节的简要内容）"
     estimate_about: "估算是怎么算出来的"
     estimate_title: "关于估算"
-    estimate_how: "模型会收到一次生成大纲的请求，每节课再各一次。每次请求都带上课程格式参考和你的材料，所以材料越多费用越高。用你自己的密钥时，费用按服务商对应用所用模型的标价计算，并按固定汇率从美元换算成加元。用 {hosted} 时，显示的是这项任务占本月额度的比例。"
+    estimate_how: "模型会收到一次生成大纲的请求，每节课再各一次。每次请求都带上课程格式参考和你的材料，所以材料越多费用越高。用你自己的密钥时，费用按服务商对应用所用模型的标价计算，并按固定汇率从美元换算成加元。"
     estimate_rough: "这只是粗略估计，不是承诺。模型需要重写的课程会花更多钱和时间。如果应用不知道某个模型的价格，就只显示时间。"
     provider_legend: 你的 AI 服务提供商
     advanced: "高级：编辑发给 AI 的指令"
@@ -2825,11 +2704,9 @@ courses:
     has_content: "此课程已有自己的内容，因此 AI 不会重新生成它。请在“使用 AI”框中说明你想要的内容。"
     instructions_too_long: "指令超过 {max} 个字符。"
     cancelled: 已取消。
-    in_line: "你排在第 {n} 位。"
+    busy_other: "已有一门课程正在生成；请在它完成后再试。"
     cancelling_revision: "正在取消：课程保持原样。"
     cancelling_generation: "正在取消：课程将在正在编写的课节之后停止。"
-    sent_to_hosted_choice_html: "你的笔记会发送给<span id=\"gen-disclosure-provider\">本服务器所使用的 AI 服务提供商</span><span id=\"gen-disclosure-key\" hidden>，并使用你的密钥</span>。"
-    sent_to_hosted: "你的笔记会发送给本服务器所使用的 AI 服务提供商。"
   undo:
     undo: 撤销
     redo: 重做
@@ -2965,7 +2842,6 @@ courses:
     form_add_key: 添加键
     form_kind: 类型
     form_option: "选项 {n}"
-    hosted_provider: "本服务器所使用的 AI 服务提供商"
     estimate_lessons:
       one: "{n} 节课"
       other: "{n} 节课"
@@ -2973,7 +2849,6 @@ courses:
       one: "约 {n} 分钟"
       other: "约 {n} 分钟"
     estimate_cost: "约 {cost} 加元"
-    estimate_share: "约占本月 {hosted} 的 {n} %"
     estimate_sep: " · "
   stat:
     next_lesson: "下一课待通过"
@@ -3059,24 +2934,6 @@ courses:
     shared_title: 与你分享
     shared_body: "此课程属于 {owner}，对方与你分享了它。你可以用自己的学习进度学习；只有 {owner} 可以修改其课程内容。"
     ok: 好
-  ai_out:
-    upgrade: "升级到 Plus · {price}"
-    buy: "购买 {credit} 的 AI 额度 · {price}"
-    own_key: "使用你自己的 API 密钥"
-  hosted:
-    not_offered: "你的方案所含的 {hosted} 不足以完成此操作。请在个人资料中添加你自己的 API 密钥，或升级。"
-    own_keys_off: "你的方案使用 {hosted}。请在个人资料中打开“{hosted} 达到上限时使用我的密钥”，以使用你自己的密钥。"
-    left: "本月剩余的 {hosted}：{n} %"
-    percent: "{n} %"
-    left_per_lesson: "{left} · 每节课约 {per}"
-    gap:
-      none: "你的方案不包含 {hosted}。"
-      too_little_tutor: "你的方案每月包含的 {hosted} 不足以进行一次 AI 导师辅导。"
-      too_little_course: "你的方案每月包含的 {hosted} 连最小的课程都写不完。"
-      too_little_lesson: "你的方案每月包含的 {hosted} 不足以编写一节课。"
-      instead_key: "请改为在个人资料中添加你自己的 API 密钥：费用记在你与 AI 服务提供商的账户上。"
-      instead_upgrade: "请在个人资料中添加你自己的 API 密钥（费用记在你与 AI 服务提供商的账户上），或升级到 Plus，每月包含 {hosted}。"
-      instead_pill: "请在个人资料中添加你自己的 API 密钥，并在那里打开“{hosted} 达到上限时使用我的密钥”；你的密钥费用记在你与 AI 服务提供商的账户上。"
 motivator:
   stats:
     title: "统计与指标"
@@ -3145,27 +3002,6 @@ motivator:
       compass: "指南针"
       lighthouse: "灯塔"
       comet: "彗星"
-  social:
-    title: "社交"
-    about: "你与本课程其他学习者相比如何，以及有多少人在学习：只有匿名数字，不显示任何人的名字。"
-    week_effort: "本周你的努力超过了本课程 {pct} % 的学习者。"
-    week_count: "本周有 {n} 人学习了这门课程。"
-    today_count: "今天有 {n} 人在学习这门课程。"
-    streak_count: "今天有 {n} 名学习者保持了连续学习。"
-    streak_count_you: "今天有 {n} 名学习者保持了连续学习，你是其中之一。"
-    lesson_now: "过去一小时内有 {n} 名学习者学习了 {title}。"
-    goal: "今天：{n} / {goal}"
-    ahead_today: "，目前超过今天 {pct} % 的学习者"
-    info_label: "比较的内容"
-    info_title: "与其他学习者的比较"
-    info_compared: "你本周和今天的努力点数（与每日目标相同的点数）会与这段时间里学习本课程的所有人进行比较，无论他们使用哪种激励方式；本周通过的课程也会被统计。"
-    info_anonymous: "只显示总数和百分比。不会点名或展示任何人，包括你自己：其他人只会在数字中看到你。"
-    info_crowd: "只有在该时间段内至少有 {n} 名学习者活跃时才会显示比较。人数更少时，比较会透露太多关于少数人的信息。"
-    info_lesson: "你接下来要继续的课程还会显示过去一小时内有多少学习者打开或学习了它。"
-    reward:
-      passed: "本周通过这节课的 {n} 人中有你。"
-      first: "你是本周第一个通过这节课的人。"
-      effort: "本周你的努力超过了本课程 {pct} % 的学习者。"
 
 # The lesson editor (#841): static/lesson-editor.js and static/lesson-preview.js.
 editor:
