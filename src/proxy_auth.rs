@@ -209,7 +209,7 @@ enum Outcome {
 /// The account named `value`, signing in or making one per `mode`.
 /// `session` is the request's session token, if any; a session of another
 /// account is ended.
-fn resolve(conn: &mut Connection, value: &str, session: Option<&str>, mode: signup::Mode, now: i64) -> rusqlite::Result<Outcome> {
+fn resolve(conn: &mut Connection, value: &str, session: Option<&str>, mode: signup::Mode, now: i64, dev: bool) -> rusqlite::Result<Outcome> {
     let current: Option<i64> = match session {
         Some(t) => conn
             .query_row(
@@ -237,7 +237,7 @@ fn resolve(conn: &mut Connection, value: &str, session: Option<&str>, mode: sign
                 tx.commit()?;
                 return Ok(Outcome::NotAnAddress);
             };
-            let admitted = match signup::admit(&tx, mode, "", Some(&email), now)? {
+            let admitted = match signup::admit(&tx, mode, "", Some(&email), now, dev)? {
                 Ok(a) => a,
                 Err(r) => {
                     tx.commit()?;
@@ -299,8 +299,8 @@ pub async fn middleware(State(state): State<Arc<AppState>>, mut req: Request, ne
         return next.run(req).await;
     }
     let session = crate::auth::session_cookie_from_headers(req.headers());
-    let mode = state.signup;
-    let outcome = state.db.call(move |c| resolve(c, &value, session.as_deref(), mode, crate::db::now())).await;
+    let (mode, dev) = (state.signup, state.dev);
+    let outcome = state.db.call(move |c| resolve(c, &value, session.as_deref(), mode, crate::db::now(), dev)).await;
     let token = match outcome {
         Err(e) => return e.into_response(),
         Ok(Outcome::Already) => return next.run(req).await,
@@ -350,6 +350,28 @@ mod tests {
         assert!(c.describe().contains("127.0.0.1, 10.0.0.0/8, fd7a:115c:a1e0::/48"), "{}", c.describe());
         assert!(!c.too_wide());
         assert!(Config::parse(Some("X"), Some("0.0.0.0/0")).unwrap().unwrap().too_wide());
+    }
+
+    /// The proxy makes accounts up to the cap and refuses the next one;
+    /// someone who already has an account still signs in.
+    #[test]
+    fn the_proxy_makes_no_ninth_account() {
+        let db = crate::db::Db::open_in_memory().unwrap();
+        db.with(|c| {
+            let now = 100;
+            for n in 0..crate::caps::MAX_ACCOUNTS {
+                let o = resolve(c, &format!("u{n}@example.org"), None, signup::Mode::Open, now, false)?;
+                assert!(matches!(o, Outcome::Created(..)), "account {n}");
+            }
+            let o = resolve(c, "late@example.org", None, signup::Mode::Open, now, false)?;
+            assert!(matches!(o, Outcome::Refused(Refusal::Full)));
+            let count: i64 = c.query_row("SELECT COUNT(*) FROM users", [], |r| r.get(0))?;
+            assert_eq!(count, crate::caps::MAX_ACCOUNTS as i64);
+            let o = resolve(c, "u0@example.org", None, signup::Mode::Open, now, false)?;
+            assert!(matches!(o, Outcome::SignedIn(..)), "an existing account still signs in");
+            Ok(())
+        })
+        .unwrap();
     }
 
     #[test]

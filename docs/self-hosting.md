@@ -300,7 +300,16 @@ to `invite`:
    closed and to ask whoever runs the server.
 
 The same page lists the open invitations and the accounts (e-mail address,
-when it was made, last sign-in; 25 to a page). The other values:
+when it was made, last sign-in; 25 to a page).
+
+A Skrongle mini holds at most **8 accounts**: a household plus a couple of
+guests. This is a fixed number, not a setting, in every sign-up mode. Past
+it the register form, invitation links and the proxy sign-in's account
+creation all say "This Skrongle has all the accounts it can hold", and the
+Superuser page shows "8 of 8 accounts" and hides the invitation form. The
+Pi Zero 2 W has little memory, and one known size is what lets the rest of
+the server (sessions, rate limits, connections) bound what it keeps. The
+other values of the setting:
 
 | `SKRONGLE_SIGNUP` | Who may register |
 |---|---|

@@ -141,8 +141,8 @@ fn proxy_page(status: StatusCode, signed_out: bool) -> Response {
 /// May an account be made now, with this invitation token, for `email`
 /// (`None` before the address is typed)?
 async fn admit(state: &AppState, invite: &str, email: Option<&str>) -> Result<Result<Admit, Refusal>, AppError> {
-    let (mode, invite, email) = (state.signup, invite.to_string(), email.map(str::to_string));
-    state.db.call(move |c| signup::admit(c, mode, &invite, email.as_deref(), now())).await
+    let (mode, invite, email, dev) = (state.signup, invite.to_string(), email.map(str::to_string), state.dev);
+    state.db.call(move |c| signup::admit(c, mode, &invite, email.as_deref(), now(), dev)).await
 }
 
 /// The login page's notice after *Delete my account* (#970): the date it
@@ -441,11 +441,11 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
     // invitation, while we hashed. The sign-up mode's word comes first, so
     // a refusal never depends on the address and never deletes anything.
     let e = email.clone();
-    let (mode, invite) = (state.signup, form.invite.clone());
+    let (mode, invite, dev) = (state.signup, form.invite.clone(), state.dev);
     let (outcome, deleted) = state
         .db
         .call(move |c| {
-            let admitted = match signup::admit(c, mode, &invite, Some(&e), t)? {
+            let admitted = match signup::admit(c, mode, &invite, Some(&e), t, dev)? {
                 Ok(a) => a,
                 Err(r) => return Ok((Signup::Refused(r), None)),
             };

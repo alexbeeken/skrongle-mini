@@ -46,6 +46,10 @@ pub struct SuperuserTemplate {
     /// This page of accounts.
     pub list: Vec<AccountRow>,
     pub total: i64,
+    /// The most accounts this server holds (`caps::MAX_ACCOUNTS`).
+    pub max_accounts: usize,
+    /// The server holds them all: no invitation form.
+    pub full: bool,
     pub page: i64,
     pub pages: i64,
     pub per_page: i64,
@@ -92,6 +96,8 @@ async fn load(state: &AppState, user: CurrentUser, page: i64) -> Result<Superuse
             })
             .collect(),
         total: accounts.total,
+        max_accounts: crate::caps::MAX_ACCOUNTS,
+        full: crate::caps::accounts_full(accounts.total, state.dev),
         page: accounts.page,
         pages: accounts.pages,
         per_page: crate::signup::ACCOUNTS_PER_PAGE,
@@ -172,8 +178,16 @@ pub async fn make_invite(State(state): State<Arc<AppState>>, user: CurrentUser, 
     if !user.superuser || state.signup != crate::signup::Mode::Invite {
         return Err(AppError::NotFound);
     }
-    let uid = user.id;
-    let token = state.db.call(move |c| crate::signup::make(c, uid, crate::db::now())).await?;
+    let (uid, dev) = (user.id, state.dev);
+    let token = state
+        .db
+        .call(move |c| Ok(if crate::signup::is_full(c, dev)? { None } else { Some(crate::signup::make(c, uid, crate::db::now())?) }))
+        .await?;
+    let Some(token) = token else {
+        let mut t = load(&state, user, 1).await?;
+        t.error = Some(crate::t("auth.signup.full"));
+        return Ok(Page(t).into_response());
+    };
     tracing::info!("superuser {uid} made an invitation link");
     let site = crate::verify::public_base(&state, &headers);
     let link = format!("{site}/register?invite={token}");

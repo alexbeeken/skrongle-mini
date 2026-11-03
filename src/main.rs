@@ -8,6 +8,7 @@ mod algebra_tiles;
 mod ai;
 mod arrange;
 mod auth;
+mod caps;
 mod clock;
 mod conjugation;
 mod consent;

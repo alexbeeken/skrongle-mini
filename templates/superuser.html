@@ -8,6 +8,7 @@
     <p>{{ crate::t("superuser.about") }}</p>
     <p data-testid="superuser-signup-mode" data-mode="{{ mode }}">{% if mode == "invite" %}{{ crate::t("superuser.mode_invite") }}{% else if mode == "closed" %}{{ crate::t("superuser.mode_closed") }}{% else %}{{ crate::t("superuser.mode_open") }}{% endif %}</p>
     {% if mode == "invite" %}<p>{{ crate::t("superuser.invite_about") }}</p>{% endif %}
+    <p class="small" data-testid="superuser-account-count">{{ crate::t2("superuser.accounts_of", "total", total, "max", max_accounts) }}</p>
     <p class="small">{{ crate::t2("superuser.accounts_shown", "total", total, "per_page", per_page) }}</p>
     <div class="modal-actions"><button type="button" class="btn" data-closes>{{ crate::t("profile.data.export_ok") }}</button></div>
   </dialog>
@@ -41,9 +42,13 @@
       <button type="button" class="btn ghost small" data-copy="invite-link" data-testid="superuser-invite-copy">{{ crate::t("superuser.copy") }}</button>
     </p>
     {% endif %}
+    {% if full %}
+    <p data-testid="superuser-invite-full">{{ crate::t("auth.signup.full") }}</p>
+    {% else %}
     <form method="post" action="{{ crate::url("/superuser/invites") }}" data-testid="superuser-invite-form">
       <button type="submit" class="btn ghost" data-testid="superuser-invite-make">{{ crate::t("superuser.make_invite") }}</button>
     </form>
+    {% endif %}
     {% if !invites.is_empty() %}
     <div class="table-scroll"><table class="small" data-testid="superuser-invites">
       <thead><tr><th>{{ crate::t("superuser.invite_made") }}</th><th>{{ crate::t("superuser.invite_expires") }}</th><th></th></tr></thead>
