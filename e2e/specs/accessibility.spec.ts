@@ -107,7 +107,7 @@ test("status pills and links in text have 4.5:1 contrast (#342)", async ({ page 
 
 test("inline code keeps its size with the % root font size (#342)", async ({ page }) => {
   // A lone `monospace` under a % root size makes Chrome shrink code to 13/16.
-  for (const path of ["/docs", "/self-host"]) {
+  for (const path of ["/docs", "/docs/setup-home-wifi"]) {
     await page.goto(path);
     const ratio = await page.locator("main p code").first().evaluate((c) =>
       parseFloat(getComputedStyle(c).fontSize) / parseFloat(getComputedStyle(c.parentElement!).fontSize));

@@ -16,3 +16,5 @@ To write a course: read the course format (it is complete and self-contained), w
 - [Progress across modes]({base}/docs/progress.md): the pass rule, and the API and brief for an AI agent that teaches the learner.
 - [Building and generating courses]({base}/docs/making-courses.md): the editor, the upload API, AI generation, fixing validation errors.
 - [Getting started]({base}/docs/getting-started.md): the modes and how "passed" works.
+- [Set up Skrongle on a new Raspberry Pi]({base}/docs/setup-home-wifi.md): the step-by-step guide to a running Skrongle on a home Wi-Fi.
+- [Away from home with Tailscale]({base}/docs/setup-tailscale.md): reach a self-hosted Skrongle from anywhere over a private link.

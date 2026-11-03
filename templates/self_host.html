@@ -13,8 +13,8 @@
     <p class="lead">{{ crate::t("docs.self_host.lead") }}</p>
     {#- MEASURE: "about N minutes, start to finish" once a fresh-SD-card run is timed. #}
     <p class="land-cta">
-      <a class="btn big" href="#need" data-testid="selfhost-start">{{ crate::t("docs.self_host.start_need") }}</a>
-      <a class="btn big ghost" href="{{ crate::base_path() }}/docs/self-hosting" data-testid="selfhost-technical">{{ crate::t("docs.self_host.technical") }}</a>
+      <a class="btn big" href="{{ crate::url("/docs/setup-home-wifi") }}" data-testid="selfhost-start">{{ crate::t("docs.self_host.start_guide") }}</a>
+      <a class="btn big ghost" href="https://github.com/alexbeeken/skrongle-mini/blob/main/docs/self-hosting.md" rel="noopener" data-testid="selfhost-technical">{{ crate::t("docs.self_host.technical_expert") }}</a>
     </p>
   </div>
   <svg class="sh-art sh-hero-art" viewBox="0 0 400 250" role="img" aria-label="{{ crate::t("docs.self_host.hero_art_alt") }}">
@@ -96,8 +96,7 @@
   <ol>
     <li><a href="#why">{{ crate::t("docs.self_host.toc_why") }}</a></li>
     <li><a href="#need">{{ crate::t("docs.self_host.toc_need") }}</a></li>
-    <li><a href="#setup">{{ crate::t("docs.self_host.toc_setup") }}</a></li>
-    <li><a href="#install">{{ crate::t("docs.self_host.toc_install") }}</a></li>
+    <li><a href="#setup">{{ crate::t("docs.self_host.toc_set") }}</a></li>
     <li><a href="#yours">{{ crate::t("docs.self_host.toc_yours") }}</a></li>
     <li><a href="#away">{{ crate::t("docs.self_host.toc_away") }}</a></li>
     <li><a href="#more">{{ crate::t("docs.self_host.toc_more") }}</a></li>
@@ -152,58 +151,13 @@
 </section>
 
 <section class="sh-step" id="setup" data-testid="selfhost-step" data-step="setup">
-  <h2><span class="sh-num">3</span> {{ crate::t("docs.self_host.setup_h2") }}</h2>
-  {#- MEASURE: time for this step, and for writing the card and the first boot below. #}
-  <ol class="sh-list">
-    <li>{{ crate::t("docs.self_host.setup_imager_html")|safe }}</li>
-    <li>{{ crate::t("docs.self_host.setup_card_html")|safe }}</li>
-    <li>{{ crate::t("docs.self_host.setup_device_html")|safe }}</li>
-    <li>{{ crate::t("docs.self_host.setup_system_html")|safe }}</li>
-    <li>{{ crate::t("docs.self_host.setup_memory_html")|safe }}
-      <ul class="sh-settings">
-        <li><span>{{ crate::t("docs.self_host.setting_hostname") }}</span> <code>skrongle</code></li>
-        <li><span>{{ crate::t("docs.self_host.setting_user") }}</span> {{ crate::t("docs.self_host.setting_user_v") }}</li>
-        <li><span>{{ crate::t("docs.self_host.setting_wifi") }}</span> {{ crate::t("docs.self_host.setting_wifi_v") }}</li>
-        <li><span>{{ crate::t("docs.self_host.setting_location") }}</span> {{ crate::t("docs.self_host.setting_location_v") }}</li>
-        <li><span>{{ crate::t("docs.self_host.setting_ssh") }}</span> {{ crate::t("docs.self_host.setting_ssh_v") }}</li>
-      </ul>
-    </li>
-    <li>{{ crate::t("docs.self_host.setup_write_html")|safe }}</li>
-    <li>{{ crate::t("docs.self_host.setup_plug_html")|safe }}</li>
-  </ol>
-  <p class="sh-tip">{{ crate::t("docs.self_host.setup_tip_html")|safe }}</p>
-</section>
-
-<section class="sh-step" id="install" data-testid="selfhost-step" data-step="install">
-  <h2><span class="sh-num">4</span> {{ crate::t1("docs.self_host.install_h2", "app", crate::APP_NAME) }}</h2>
-  <h3>{{ crate::t("docs.self_host.connect_h3") }}</h3>
-  <p>{{ crate::t("docs.self_host.connect_p_html")|safe }}</p>
-  <div class="sh-cmd" data-testid="selfhost-command"><pre><code>ssh yourname@skrongle.local</code></pre><button type="button" class="sh-copy" data-testid="selfhost-copy">{{ crate::t("docs.self_host.copy") }}</button></div>
-  <p>{{ crate::t("docs.self_host.connect_yes_html")|safe }}</p>
-
-  <h3>{{ crate::t("docs.self_host.download_h3") }}</h3>
-  <p>{{ crate::t("docs.self_host.paste_lines") }}</p>
-  <div class="sh-cmd" data-testid="selfhost-command"><pre><code>curl -LO {{ crate::routes::docs::RELEASE_TARBALL }}
-sudo mkdir -p /opt/skrongle
-sudo tar -xzf {{ crate::routes::docs::RELEASE_TARBALL_NAME }} -C /opt/skrongle</code></pre><button type="button" class="sh-copy" data-testid="selfhost-copy">{{ crate::t("docs.self_host.copy") }}</button></div>
-  {#- MEASURE: download size in MB and time for this step. #}
-
-  <h3>{{ crate::t("docs.self_host.start_h3") }}</h3>
-  <div class="sh-cmd" data-testid="selfhost-command"><pre><code>sudo mkdir -p /etc/skrongle
-sudo cp /opt/skrongle/skrongle.service /etc/systemd/system/
-sudo systemctl enable --now skrongle</code></pre><button type="button" class="sh-copy" data-testid="selfhost-copy">{{ crate::t("docs.self_host.copy") }}</button></div>
-
-  <h3>{{ crate::t("docs.self_host.open_h3") }}</h3>
-  <p>{{ crate::t("docs.self_host.owner_link_p") }}</p>
-  <div class="sh-cmd" data-testid="selfhost-command"><pre><code>sudo journalctl -u skrongle -g "Owner link" -o cat | tail -n 1</code></pre><button type="button" class="sh-copy" data-testid="selfhost-copy">{{ crate::t("docs.self_host.copy") }}</button></div>
-  <p>{{ crate::t("docs.self_host.open_p") }}</p>
-  <div class="sh-url" data-testid="selfhost-url"><span class="sh-url-dot" aria-hidden="true"></span>http://skrongle.local:8080</div>
-  <p>{{ crate::t("docs.self_host.done_html")|safe }}</p>
-  <p class="sh-tip">{{ crate::t("docs.self_host.not_loading_html")|safe }}</p>
+  <h2><span class="sh-num">3</span> {{ crate::t("docs.self_host.set_h2") }}</h2>
+  <p>{{ crate::t2("docs.self_host.set_p1_html", "url", crate::url("/docs/setup-home-wifi"), "app", crate::APP_NAME)|safe }}</p>
+  <p>{{ crate::t1("docs.self_host.set_p2_html", "tech", "https://github.com/alexbeeken/skrongle-mini/blob/main/docs/self-hosting.md")|safe }}</p>
 </section>
 
 <section class="sh-step" id="yours" data-testid="selfhost-step" data-step="yours">
-  <h2><span class="sh-num">5</span> {{ crate::t("docs.self_host.yours_h2") }}</h2>
+  <h2><span class="sh-num">4</span> {{ crate::t("docs.self_host.yours_h2") }}</h2>
   <ul class="sh-list">
     <li>{{ crate::t("docs.self_host.yours_account_html")|safe }}</li>
     <li>{{ crate::t("docs.self_host.yours_course_html")|safe }}</li>
@@ -213,8 +167,8 @@ sudo systemctl enable --now skrongle</code></pre><button type="button" class="sh
 </section>
 
 <section class="sh-step" id="away" data-testid="selfhost-step" data-step="away">
-  <h2><span class="sh-num">6</span> {{ crate::t("docs.self_host.away_h2") }} <span class="sh-optional">{{ crate::t("docs.self_host.optional") }}</span></h2>
-  <p>{{ crate::t("docs.self_host.away_p_html")|safe }}</p>
+  <h2><span class="sh-num">5</span> {{ crate::t("docs.self_host.away_h2") }} <span class="sh-optional">{{ crate::t("docs.self_host.optional") }}</span></h2>
+  <p>{{ crate::t1("docs.self_host.away_p_html", "url", crate::url("/docs/setup-tailscale"))|safe }}</p>
   <svg class="sh-art sh-away-art" viewBox="0 0 360 122" role="img" aria-label="{{ crate::t("docs.self_host.away_art_alt") }}">
     <path class="sh-house" d="M20 56l40-32 40 32v40H20z"/>
     <g class="sh-pi"><rect class="board" x="40" y="68" width="40" height="18" rx="3"/><rect class="chip" x="55" y="72" width="10" height="10" rx="1.5"/></g>
@@ -226,21 +180,13 @@ sudo systemctl enable --now skrongle</code></pre><button type="button" class="sh
     <text class="sh-label" x="60" y="118" text-anchor="middle">{{ crate::t("docs.self_host.home") }}</text>
     <text class="sh-label" x="312" y="118" text-anchor="middle">{{ crate::t("docs.self_host.anywhere") }}</text>
   </svg>
-  <ol class="sh-list">
-    <li>{{ crate::t("docs.self_host.away_account") }}</li>
-    <li>{{ crate::t("docs.self_host.away_run") }}
-      <div class="sh-cmd" data-testid="selfhost-command"><pre><code>curl -fsSL https://tailscale.com/install.sh | sh
-sudo tailscale up</code></pre><button type="button" class="sh-copy" data-testid="selfhost-copy">{{ crate::t("docs.self_host.copy") }}</button></div></li>
-    <li>{{ crate::t("docs.self_host.away_phone") }}</li>
-    <li>{{ crate::t("docs.self_host.away_open_html")|safe }}</li>
-  </ol>
 </section>
 
 {#- Keep it healthy (updating, backups) was cut from this page: it lives in docs/self-hosting.md.
     DEPENDS #58: a "Getting help" line (GitHub Discussions → Self-hosting help).
     MEASURE: "How much can it handle?": memory with N people studying at once. -#}
 <section class="sh-step" id="more" data-testid="selfhost-step" data-step="more">
-  <h2><span class="sh-num">7</span> {{ crate::t("docs.self_host.more_h2") }}</h2>
+  <h2><span class="sh-num">6</span> {{ crate::t("docs.self_host.more_h2") }}</h2>
   <p>{{ crate::t("docs.self_host.more_p") }}</p>
   <div class="sh-ideas">
     <a class="sh-idea" href="https://github.com/dani-garcia/vaultwarden" rel="noopener" data-testid="selfhost-idea"><strong>{{ crate::t("docs.self_host.idea_passwords_h") }}</strong><span>{{ crate::t("docs.self_host.idea_passwords_p") }}</span></a>
@@ -253,18 +199,4 @@ sudo tailscale up</code></pre><button type="button" class="sh-copy" data-testid=
 <p class="sh-footnote muted">{{ crate::t1("docs.self_host.footnote_html", "url", crate::url("/docs/self-hosting"))|safe }}</p>
 
 </div>
-<script>
-// Copy buttons: the clipboard API needs https or localhost, so on a LAN
-// address fall back to selecting the command for the reader to copy.
-document.querySelectorAll('.sh-copy').forEach(function (b) {
-  b.addEventListener('click', function () {
-    var code = b.parentNode.querySelector('code');
-    var done = function () { b.textContent = t('docs.js.copied'); setTimeout(function () { b.textContent = t('docs.js.copy'); }, 1600); };
-    var select = function () { var r = document.createRange(); r.selectNodeContents(code); var s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = t('docs.js.selected'); };
-    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(code.textContent).then(done, select);
-    else select();
-  });
-});
-</script>
 {% endblock %}
-{% block scripts %}<script>Object.assign(I18N, {{ crate::i18n::js_json("docs.js")|safe }});</script>{% endblock %}

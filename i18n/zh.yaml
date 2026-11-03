@@ -891,6 +891,7 @@ docs:
   documentation: 文档
   raw: 原始：
   section_guides: 指南
+  section_self_hosting: "自行托管"
   section_reference: 参考
   section_dev: 开发者
   js:
@@ -902,15 +903,14 @@ docs:
     kicker: "{app} mini · 无需经验"
     h1: "在家里的小电脑上运行 {app}"
     lead: 把它放在家里的树莓派上，连上同一个 Wi-Fi 的每个人都能使用。你只需复制粘贴几条命令。
-    start_need: 先准备好所需物品
-    technical: 技术版
     hero_art_alt: 树莓派向手机和笔记本电脑发送 Wi-Fi 信号，两台设备上都显示着一节课
+    start_guide: "开始阅读指南"
+    technical_expert: "面向专家和 AI 的技术说明"
     your_pi: 你的树莓派
     steps: 步骤
     toc_why: 为什么
     toc_need: 所需物品
-    toc_setup: 设置树莓派
-    toc_install: 安装
+    toc_set: "设置"
     toc_yours: 个性化设置
     toc_away: 外出使用
     toc_more: 还能做什么？
@@ -943,52 +943,20 @@ docs:
     need_computer_p: 只用于设置。没有插槽？请使用 USB 读卡器。
     need_computer_buy: 购买读卡器 →
     total_html: "<strong>预计成本：约 $40</strong>，若加上读卡器则约 $47。为美国经销商价格，不含运费，实际价格可能不同。不需要显示器、键盘或鼠标。"
-    setup_h2: 设置树莓派
-    setup_imager_html: 在你的电脑上从 <a href="https://www.raspberrypi.com/software/" rel="noopener">raspberrypi.com/software</a> 安装 <strong>Raspberry Pi Imager</strong>。这是官方的免费工具，用来准备存储卡。
-    setup_card_html: <strong>把 microSD 卡插入你的电脑</strong>，然后打开 Imager。
-    setup_device_html: <strong>选择设备：</strong>Raspberry Pi Zero 2 W。
-    setup_system_html: <strong>选择系统：</strong><em>Raspberry Pi OS (other)</em> → <strong>Raspberry Pi OS Lite (64-bit)</strong>。
-    setup_memory_html: "<strong>选择你的存储卡</strong>，然后填写 Imager 提供的设置："
-    setting_hostname: 主机名
-    setting_user: 用户名和密码
-    setting_user_v: 由你选择；记下来
-    setting_wifi: Wi-Fi
-    setting_wifi_v: 你的网络名称和密码
-    setting_location: 所在地
-    setting_location_v: 你所在的国家
-    setting_ssh: SSH
-    setting_ssh_v: 开启，使用密码登录
-    setup_write_html: <strong>写入存储卡。</strong>
-    setup_plug_html: <strong>把存储卡放入树莓派并接通电源。</strong>等待几分钟让它启动。
-    setup_tip_html: 💡 <strong>以后连不上？</strong>通常是 Wi-Fi 输错了。重新写入存储卡即可。
-    install_h2: "安装 {app}"
-    connect_h3: 连接到你的树莓派
-    connect_p_html: "打开 <strong>终端</strong>（Mac）或 <strong>PowerShell</strong>（Windows），输入你的用户名："
-    copy: 复制
-    connect_yes_html: 如果提示，输入 <code>yes</code>，然后输入密码（输入时不会显示）。
-    download_h3: 下载
-    paste_lines: "粘贴以下几行："
-    start_h3: 启动（并在每次开机时启动）
-    open_h3: 打开
-    owner_link_p: "首先，显示用来创建你自己账户（所有者账户）的链接。它只能用一次："
-    open_p: "在同一 Wi-Fi 下的任何手机或笔记本电脑上打开该链接并创建你的账户。之后，地址是："
-    done_html: 🎉 <strong>完成。</strong>把它加入书签。
-    not_loading_html: 💡 <strong>无法加载？</strong>在树莓派上运行 <code>hostname -I</code>，然后改用显示的数字，例如 <code>http://192.168.1.42:8080</code>。
+    set_h2: "设置"
+    set_p1_html: "<a href=\"{url}\" data-testid=\"selfhost-guide-link\">分步指南</a>会带你把一台全新的树莓派变成在家用 Wi-Fi 运行的 {app}。你只需要复制粘贴。"
+    set_p2_html: "熟悉服务器，或者要把这件事交给 AI？请阅读<a href=\"{tech}\" rel=\"noopener\" data-testid=\"selfhost-technical-link\">技术说明</a>。"
     yours_h2: 个性化设置
     yours_account_html: "在账户菜单的<em>管理用户</em>页面中用链接<strong>邀请其他人</strong>。"
     yours_course_html: <strong>选择一门课程。</strong>西班牙语已内置，也可以自己制作。
     yours_ai_html: "<strong>可选：AI 导师和课程生成器。</strong>在<em>管理用户 → AI 功能</em>中粘贴 Anthropic、OpenAI 或 Google 的密钥。它供服务器上的所有人使用，费用直接记在你的账户上。"
     yours_tip: "🔒 只有你邀请的人才能创建账户。"
     away_h2: 外出时使用
+    away_p_html: "另一份指南介绍如何用 Tailscale 在任何地方连到你的树莓派。Tailscale 是在你自己的设备之间建立的免费私密连接：<a href=\"{url}\" data-testid=\"selfhost-away-link\">离家时使用 Tailscale</a>。"
     optional: 可选
-    away_p_html: "使用 <a href=\"https://tailscale.com\" rel=\"noopener\">Tailscale</a>（免费）：在你自己的设备之间建立私密连接。无需在路由器上开放端口。"
     away_art_alt: 家中的树莓派与你身处任何地方的手机之间，一条私密的加密隧道
     home: 家中
     anywhere: 任何地方
-    away_account: 注册一个免费的 Tailscale 账户。
-    away_run: 在树莓派上运行以下命令，然后打开它显示的链接，并批准该树莓派。
-    away_phone: 在你的手机上安装 Tailscale，使用同一账户。
-    away_open_html: 在任何地方打开 <strong>http://skrongle:8080</strong>。
     more_h2: 树莓派还能做什么？
     more_p: "最难的部分你已经完成了。接下来可以试试下面的一个："
     idea_passwords_h: 🔑 保存你的密码
@@ -1009,7 +977,7 @@ docs:
     mini_safe_h3: "安全由你负责"
     mini_safe_password: "每个账户都用强密码。"
     mini_safe_2fa_html: "用身份验证器应用开启两步登录：<em>个人资料设置 → 两步验证</em>。"
-    mini_safe_vpn_html: "只通过 Tailscale 或 VPN 访问（第 6 步）。<strong>绝不要在路由器上开放端口</strong>。"
+    mini_safe_vpn_html: "只通过 Tailscale 或 VPN 访问（见离家时）。<strong>绝不要在路由器上开放端口</strong>。"
     mini_safe_tip_html: "🔒 应用会减缓猜密码的尝试，但它不是为直接暴露在互联网上而设计的。<a href=\"{url}\" data-testid=\"selfhost-mini-security\">它能防什么、不能防什么</a>。"
 
 quiz:
