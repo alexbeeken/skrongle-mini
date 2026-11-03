@@ -42,7 +42,7 @@ getrandom = "0.4"
 
 # --- Logging ---
 tracing = { version = "0.1", default-features = false, features = ["std"] }
-tracing-subscriber = { version = "0.3", default-features = false, features = ["fmt", "ansi", "env-filter"] }
+tracing-subscriber = { version = "0.3", default-features = false, features = ["fmt"] }
 ureq = { version = "3.2.1", default-features = false, features = ["rustls", "json"] }
 sha2 = { version = "0.11", default-features = false }
 # Streaming a finished data export from disk (exports.rs) as the response body; already in the tree through axum.

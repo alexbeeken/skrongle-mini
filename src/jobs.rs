@@ -622,6 +622,7 @@ pub fn housekeeping(runner: Runner, state: &Arc<crate::AppState>, retention: cra
             ),
             ("jobs", Box::new(|| sql(db, |c, now| purge(c, now).map(|n| note(n, "old job rows deleted"))))),
             ("wal_checkpoint", Box::new(|| sql(db, |c, _| c.execute_batch("PRAGMA wal_checkpoint(TRUNCATE);").map(|()| String::new())))),
+            ("shrink_memory", Box::new(|| sql(db, |c, _| c.execute_batch("PRAGMA shrink_memory;").map(|()| String::new())))),
         ];
         let (mut notes, mut failed, total) = (Vec::new(), Vec::new(), steps.len());
         for (name, run) in &steps {
