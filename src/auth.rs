@@ -150,9 +150,10 @@ pub struct CurrentUser {
     /// `users.owner`: sees the Manage Users page, whose actions
     /// reach any account. Set by hand (and on the dev user in dev mode).
     pub owner: bool,
-    /// `users.ai_off`: "Hide all AI features" (profile, or the box at
-    /// sign-up). Pages hide the tutor, course generation and AI revisions,
-    /// and their routes refuse through `require_ai`.
+    /// The server's "Hide AI features" switch (`settings::AI_OFF`, the
+    /// owner's, on Manage Users; the same for every account, #25). Pages
+    /// hide the tutor, course generation and AI revisions, and their routes
+    /// refuse through `require_ai`.
     pub ai_off: bool,
     /// `users.lang`: the language the app speaks to this account in
     /// (`i18n`), '' for "whatever the browser asks for".
@@ -322,13 +323,14 @@ pub fn user_for_session(conn: &Connection, token: &str) -> rusqlite::Result<Opti
 /// The session query: every table it reads must be in `cache::WATCHED`.
 fn session_sql() -> String {
     format!(
-        "SELECT u.id, COALESCE(u.email, ''), u.active_course, c.title, u.first_name, u.last_name, NULL, NULL, {}, u.ai_off, u.email_verified_at IS NOT NULL, u.owner,
+        "SELECT u.id, COALESCE(u.email, ''), u.active_course, c.title, u.first_name, u.last_name, NULL, NULL, {}, {}, u.email_verified_at IS NOT NULL, u.owner,
                 COALESCE(p.start_unit, ''), NULL, u.lang, c.owner_id, u.must_change_password,
                 (SELECT version FROM terms_acceptances WHERE user_id = u.id ORDER BY accepted_at DESC, rowid DESC LIMIT 1), u.delete_at, s.expires_at
          FROM sessions s JOIN users u ON u.id = s.user_id LEFT JOIN courses c ON c.id = u.active_course
          LEFT JOIN projects p ON p.user_id = u.id AND p.course_id = u.active_course
          WHERE s.session_token = ?1 AND s.expires_at > ?2",
-        crate::terms::accepted_sql("u.id")
+        crate::terms::accepted_sql("u.id"),
+        crate::settings::AI_OFF_SQL
     )
 }
 

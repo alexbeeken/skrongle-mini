@@ -162,8 +162,6 @@ pub struct RegisterTemplate {
     pub dev: bool,
     /// The age the Terms checkbox states (`SKRONGLE_MIN_AGE`).
     pub min_age: u32,
-    /// "Hide all AI features" (#147) was on when the form came back with an error.
-    pub no_ai: bool,
     /// "I am at least N years old" was ticked when the form came back.
     pub age: bool,
     /// "I agree to the Terms" was ticked when the form came back.
@@ -208,9 +206,6 @@ pub struct Registration {
     /// "I agree to the Terms": "on" when ticked, absent otherwise.
     #[serde(default)]
     pub accept: String,
-    /// "Hide all AI features" (#147): "on" when ticked, absent otherwise.
-    #[serde(default)]
-    pub no_ai: String,
     /// The share link's token to continue to (`?share=` on the page).
     #[serde(default)]
     pub share: String,
@@ -251,7 +246,6 @@ pub async fn register_form(State(state): State<Arc<AppState>>, MaybeUser(user): 
         email,
         dev: state.dev,
         min_age: crate::terms::min_age(),
-        no_ai: false,
         age: false,
         accept: false,
         share,
@@ -345,7 +339,6 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
             email: String::new(),
             dev: state.dev,
             min_age: crate::terms::min_age(),
-            no_ai: false,
             age: false,
             accept: false,
             share: None,
@@ -379,7 +372,6 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
             email: email_input.clone(),
             dev: state.dev,
             min_age: crate::terms::min_age(),
-            no_ai: !form.no_ai.is_empty(),
             age: !form.age.is_empty(),
             accept: !form.accept.is_empty(),
             share: share.clone(),
@@ -414,7 +406,6 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
     // account is signed in at once.
     let can_mail = state.caps().mail;
     let password = form.password;
-    let no_ai = !form.no_ai.is_empty();
     // The language picked on the register page becomes the account's; with
     // no pick the account follows the browser's language until the profile says.
     let lang = crate::i18n::chosen(&headers).unwrap_or_default();
@@ -461,7 +452,6 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
             }
             crate::terms::accept(&tx, id, crate::terms::version())?;
             crate::privacy::record_age_confirmed(&tx, id, true)?;
-            profile::set_ai_off(&tx, id, no_ai)?;
             if !lang.is_empty() {
                 profile::set_lang(&tx, id, &lang)?;
             }

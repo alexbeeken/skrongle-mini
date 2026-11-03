@@ -20,7 +20,7 @@
 //! Sessions live in memory (`Sessions`), one per user, dropped after two
 //! idle hours or when a new one starts. One model call per turn, two when a
 //! typed message turns out to be an answer, each on its own OS thread
-//! (`ask`). The learner's key comes from the profile (`secrets::get`) and is
+//! (`ask`). The key is the server's (`secrets::get`, set by the owner) and is
 //! held only for the duration of the call.
 
 use serde::Serialize;
@@ -317,6 +317,11 @@ impl Sessions {
     /// Forget every chat of `user_id` (their account is being deleted).
     pub fn drop_user(&self, user_id: i64) {
         self.lock().retain(|_, s| s.user_id != user_id);
+    }
+
+    /// Forget every chat (the owner just hid the AI features, #25).
+    pub fn drop_all(&self) {
+        self.lock().clear();
     }
 
     fn lock(&self) -> std::sync::MutexGuard<'_, HashMap<String, Session>> {

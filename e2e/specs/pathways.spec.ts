@@ -5,7 +5,7 @@
 // docs/testing.md "Fixtures"), no model in the loop, so they run with the exact specs on every scripts/e2e.sh.
 import { expect, test, type Page } from "@playwright/test";
 import { createCourse, devLogin, devReset, generationEnds, openFromEditor } from "../lib/app";
-import { newAccount, openCourse, register, saveApiKey } from "../lib/learner";
+import { openCourse, removeApiKey, resetServerKeys, saveApiKey } from "../lib/learner";
 
 test.afterAll(async ({ browser }) => {
   const page = await browser.newPage();
@@ -250,35 +250,41 @@ test("the editor opened between the outline and lesson 1 still follows the job t
   expect(errors).toEqual([]);
 });
 
-test("remove an API key: the profile says no key, and generating no longer offers it", async ({ page }) => {
-  // A fresh account, so the dev user's keys (keys=fake) stay for the other specs.
-  await register(page, newAccount("keys"), "spanish");
-  await page.goto("/profile");
-  const row = page.locator('[data-testid="profile-api-key"][data-provider="anthropic"]');
-  await expect(row).toHaveAttribute("data-key-set", "false");
-  await expect(row.getByTestId("profile-api-key-remove")).toHaveCount(0);
-  await saveApiKey(page, "sk-ant-test-remove-1234");
-  await expect(row).toContainText("1234");
-  await expect(row.getByTestId("profile-api-key-input")).toHaveValue(""); // never shown again
-  // With one key saved the dialog uses it, with no choice shown and no key asked for.
-  await createCourse(page);
-  await expect(page.getByTestId("generate-provider-only")).toHaveValue("anthropic");
-  await expect(page.getByTestId("generate-provider")).toHaveCount(0);
-  await expect(page.getByTestId("generate-api-key")).toHaveCount(0);
+test("remove an API key: Manage Users says no key, and generating no longer offers it", async ({ page }) => {
+  // The keys are the server's (#25): the dev user (an owner) changes them,
+  // and the end puts the seeded ones back for the other specs.
+  await devLogin(page, "open=spanish&keys=fake&next=/manage");
+  try {
+    for (const p of ["anthropic", "openai", "google"]) await removeApiKey(page, p);
+    const row = page.locator('[data-testid="manage-api-key"][data-provider="anthropic"]');
+    await expect(row).toHaveAttribute("data-key-set", "false");
+    await expect(row.getByTestId("manage-api-key-remove")).toHaveCount(0);
+    await saveApiKey(page, "sk-ant-dev-remove-1234");
+    await expect(row).toContainText("1234");
+    await expect(row.getByTestId("manage-api-key-input")).toHaveValue(""); // never shown again
+    // With one key the dialog uses it, with no choice shown and no key asked for.
+    await createCourse(page);
+    await expect(page.getByTestId("generate-provider-only")).toHaveValue("anthropic");
+    await expect(page.getByTestId("generate-provider")).toHaveCount(0);
+    await expect(page.getByTestId("generate-api-key")).toHaveCount(0);
 
-  await page.goto("/profile");
-  await row.getByTestId("profile-api-key-toggle").click();
-  await row.getByTestId("profile-api-key-remove").click();
-  await expect(page.getByTestId("profile-notice")).toHaveText("✓ Claude (Anthropic) key removed.");
-  await expect(row).toHaveAttribute("data-key-set", "false");
-  await expect(row.getByTestId("profile-api-key-remove")).toHaveCount(0);
-  await expect(row).not.toContainText("1234");
-  await expect(row.getByTestId("profile-api-key-status")).toHaveText("No key yet");
-  await page.reload();
-  await expect(row).toHaveAttribute("data-key-set", "false");
-  // No key left: the dialog is greyed out under a link to the profile (no stand-in, even in dev mode).
-  await createCourse(page);
-  await expect(page.getByTestId("generate-no-key")).toBeVisible();
-  await expect(page.getByTestId("generate-provider-only")).toHaveCount(0);
-  await expect(page.getByTestId("generate-api-key")).toHaveCount(0);
+    await page.goto("/manage#ai");
+    await row.getByTestId("manage-api-key-toggle").click();
+    await row.getByTestId("manage-api-key-remove").click();
+    await expect(page.getByTestId("manage-notice")).toHaveText("✓ Claude (Anthropic) key removed.");
+    await expect(row).toHaveAttribute("data-key-set", "false");
+    await expect(row.getByTestId("manage-api-key-remove")).toHaveCount(0);
+    await expect(row).not.toContainText("1234");
+    await expect(row.getByTestId("manage-api-key-status")).toHaveText("No key yet");
+    await page.reload();
+    await expect(row).toHaveAttribute("data-key-set", "false");
+    // No key left: the dialog is greyed out under a link to Manage Users (no stand-in, even in dev mode).
+    await createCourse(page);
+    await expect(page.getByTestId("generate-no-key")).toBeVisible();
+    await expect(page.getByTestId("generate-profile-link")).toHaveAttribute("href", /\/manage#ai$/);
+    await expect(page.getByTestId("generate-provider-only")).toHaveCount(0);
+    await expect(page.getByTestId("generate-api-key")).toHaveCount(0);
+  } finally {
+    await resetServerKeys(page);
+  }
 });

@@ -1109,9 +1109,6 @@ fn ai_features_with_saved_keys_answered_by_the_simulator() {
         assert!(!html.contains("profile-dev") && !html.contains("mock_ai"), "{html}");
         assert_eq!(save(c, serde_json::json!({"mock_ai": true})).0, 422);
     }
-    // The dev seed's keys, one per provider.
-    state.db.with(|c| crate::dev::save_dev_keys(c, &state.vault, dev)).unwrap();
-
     // "Create a course" lands on the editor with the Generate dialog open.
     let draft = |c: &str| {
         let (status, loc, _) = post("/courses/new", c, &[]);
@@ -1119,12 +1116,19 @@ fn ai_features_with_saved_keys_answered_by_the_simulator() {
         let id = loc.strip_prefix("/courses/").and_then(|l| l.strip_suffix("?generate=1")).expect("to the editor with the dialog").to_string();
         (id, get(&loc, c).1)
     };
-    // No key: the dialog says so first, greyed out, so
-    // nobody writes a prompt only to be stopped at Generate.
+    // No key on the server: the dialog says so first, greyed out, so
+    // nobody writes a prompt only to be stopped at Generate. The owner is
+    // sent to Manage Users; anyone else is told to ask the owner (#25).
     let (_, page) = draft(&ann_c);
-    assert!(page.contains(r#"data-testid="generate-no-key""#) && page.contains(r#"href="/profile#api-keys" data-testid="generate-profile-link""#), "{page}");
+    assert!(page.contains(r#"data-testid="generate-no-key""#) && page.contains("Ask the owner of this server") && !page.contains("generate-profile-link"), "{page}");
     assert!(page.contains(r#"<fieldset class="gen-fields" disabled data-testid="generate-disabled">"#), "{page}");
     assert!(!page.contains(r#"data-testid="generate-provider"#) && !page.contains(r#"data-testid="ai-disclosure""#), "{page}");
+    let (_, page) = draft(&dev_c);
+    assert!(page.contains(r#"href="/manage#ai" data-testid="generate-profile-link""#), "{page}");
+    // The dev seed's keys, one per provider, for the whole server.
+    state.db.with(|c| crate::dev::save_dev_keys(c, &state.vault)).unwrap();
+    let (_, page) = draft(&ann_c);
+    assert_eq!(page.matches(r#"data-testid="generate-provider""#).count(), 3, "the server's keys serve every account");
     let (id, page) = draft(&dev_c);
     assert_eq!(page.matches(r#"data-testid="generate-provider""#).count(), 3, "a choice of the three saved keys");
     assert!(page.contains(" open data-open-on-load>") && !page.contains("generate-no-key"), "{page}");
@@ -1242,14 +1246,22 @@ fn ai_features_with_saved_keys_answered_by_the_simulator() {
     assert!(body.contains(r#"data-reopen="lessons/gone.json""#) && body.contains("course-lessons-ai-error") && !body.contains(r#"data-testid="course-ai-error""#), "{body}");
 
     // The keys removed: the key is asked for again.
-    state.db.with(|c| crate::secrets::remove_all(c, dev)).unwrap();
+    state
+        .db
+        .with(|c| {
+            for p in crate::secrets::Provider::ALL {
+                crate::secrets::remove(c, p)?;
+            }
+            Ok(())
+        })
+        .unwrap();
     let page = get(&format!("/courses/{course}"), &dev_c).1;
     assert!(page.contains("course-ai-no-key") && !page.contains("course-lessons-ai-edit") && !page.contains("course-lessons-ai-dialog"), "no Edit with AI on the rows");
     let (id, page) = draft(&dev_c);
     assert!(page.contains("generate-no-key"));
     let (status, _, body) = post(&format!("/courses/{id}/generate"), &dev_c, &[("provider", "anthropic"), ("wish", "Volcanoes and how they erupt"), ("lessons", "6")]);
     assert_eq!(status, 200);
-    assert!(body.contains("Paste an API key for") && body.contains(" open data-open-on-load>"), "refused: the editor with the dialog open again: {body}");
+    assert!(body.contains("key is set up on this server") && body.contains(" open data-open-on-load>"), "refused: the editor with the dialog open again: {body}");
 
     // A first generation that stopped has no editor: its card offers
     // Retry, which opens the dialog on the list with what was asked.
@@ -1268,14 +1280,14 @@ fn ai_features_with_saved_keys_answered_by_the_simulator() {
     assert!(!list.contains(r#"id="gen-dialog""#));
     let list = get(&format!("/courses?generate={id}"), &dev_c).1;
     assert!(list.contains(r#"id="gen-dialog""#) && list.contains(" open data-open-on-load>") && list.contains("Volcanoes for Monday</textarea>") && list.contains(notes.trim()), "{list}");
-    assert!(list.contains(r#"data-testid="generate-error">Writing your course stopped. The AI provider didn&#39;t accept your API key."#), "{list}");
+    assert!(list.contains(r#"data-testid="generate-error">Writing your course stopped. The AI provider didn&#39;t accept the server&#39;s API key."#), "{list}");
     // Refused again: back on the list, not the editor.
     let (status, _, body) = post(&format!("/courses/{id}/generate"), &dev_c, &[("provider", "anthropic"), ("wish", "Volcanoes and how they erupt"), ("lessons", "6")]);
     assert_eq!(status, 200);
-    assert!(body.contains(r#"data-testid="courses-mine""#) && body.contains("Paste an API key for"), "{body}");
+    assert!(body.contains(r#"data-testid="courses-mine""#) && body.contains("key is set up on this server"), "{body}");
     let (status, body) = tutor(&dev_c);
     assert_eq!(status, 400);
-    assert!(body.contains("key on file; add one in your profile"), "{body}");
+    assert!(body.contains("key on this server; the owner adds one on Manage Users"), "{body}");
 }
 
 /// The editor of a course whose job finished a moment ago (#183). The

@@ -36,6 +36,7 @@ error:
   home: Início
   lessons: Lições
   courses: Todos os cursos
+  ai_off: "As funções de IA estão desligadas neste servidor."
 
 common:
   pager:
@@ -183,12 +184,6 @@ auth:
     needs_email: Confirme primeiro o seu endereço de e-mail.
     needs_app: Configure primeiro o aplicativo autenticador.
     app_already: Um aplicativo autenticador já está configurado. Remova-o primeiro.
-  ai_switch:
-    label: Ocultar todos os recursos de IA
-    about: Sobre os recursos de IA
-    tip: O tutor de IA e a criação de cursos com IA ficam ocultos e não podem ser usados. Eles funcionam enviando o que você digita para uma empresa de IA, com a sua própria chave de API. Você pode mudar isso a qualquer momento no seu perfil.
-    off: "Desligado"
-    on: "Ligado"
   verify_email:
     title: Confirme seu endereço de e-mail
     confirmed_heading: Seu endereço de e-mail está confirmado
@@ -472,7 +467,6 @@ profile:
     personal: Informações pessoais
     account: Conta
     two_factor: Autenticação em duas etapas
-    api_keys: Chaves de API de IA
     data: Seus dados
     consent: "Privacidade e consentimento"
   personal:
@@ -504,7 +498,6 @@ profile:
     info: "Sobre seus consentimentos"
     info_age: "Você confirmou sua idade ao se cadastrar. Para retirar isso, exclua sua conta em Seus dados."
     info_email: "E-mails de serviço sempre são enviados: confirmação do seu endereço e mudanças nos termos. E-mails opcionais vão aparecer aqui com seu próprio botão, desligados até você ligá-los."
-    info_ai: "Os recursos de IA enviam o que você digita para uma empresa de IA. Oculte-os e nada sai, os recursos somem do app e suas chaves de API salvas são excluídas."
     info_record: "Cada mudança fica registrada com a data."
     close: "Fechar"
     terms: "Termos e privacidade"
@@ -513,13 +506,6 @@ profile:
     age_not_confirmed: "Não confirmada"
     email: "E-mail"
     email_service: "Só mensagens de serviço"
-    ai: "Não me mostrar recursos de IA"
-    ai_on_since: "Visíveis desde {date}"
-    ai_on: "Visíveis"
-    ai_off_since: "Ocultos desde {date}"
-    ai_off: "Ocultos"
-    ai_key: "Chave de API própria salva"
-    ai_keys_manage: "gerenciar chaves"
   sessions:
     sign_out_others: "Sair de todos os outros lugares"
     info_label: "Sobre sair de todos os outros lugares"
@@ -598,37 +584,6 @@ profile:
     code_gone: Nenhum código está aguardando, ou ele expirou. Envie um novo.
     too_many_codes: Muitos códigos enviados. Aguarde alguns minutos e tente novamente.
     code_not_sent: Não foi possível enviar o código. Tente novamente em instantes.
-  ai:
-    on: "Ligado"
-    off: "Desligado"
-    close: Fechar
-    off_title: Ocultar todos os recursos de IA?
-    off_text: Isto vai apagar todas as chaves de API de IA salvas no seu perfil.
-    cancel: Cancelar
-    confirm: CONFIRMAR
-    hidden_notice: Os recursos de IA estão ocultos. Eles não serão mostrados a você, e nada do que você fizer aqui vai para uma empresa de IA.
-    shown_notice: Os recursos de IA voltaram a aparecer.
-    feature_hidden: "Esse recurso usa IA, que você ocultou. Desative \"Não me mostrar recursos de IA\" em Privacidade e consentimento para usá-lo."
-    keys_off: Os recursos de IA estão desligados na sua conta; ligue-os para salvar uma chave.
-  api_keys:
-    title: Chaves de API de IA
-    about: "O tutor de IA, Gerar o curso e Usar IA chamam estes provedores com a sua chave, cobrados na sua conta."
-    info: "Sobre suas chaves de API"
-    info_title: "Suas chaves de API"
-    info_text: "As chaves são criptografadas antes de serem salvas e nunca são mostradas de novo; só os últimos quatro caracteres ficam visíveis, para você saber qual chave está salva. Você pode trocar ou remover uma chave quando quiser."
-    unreadable: "Salva, mas ilegível: o segredo do servidor mudou. Cole-a de novo."
-    on_file: ✓ Chave salva
-    ends_in: termina em
-    none: Nenhuma chave ainda
-    replace: Cole uma nova chave para substituí-la
-    paste: Cole sua chave
-    get_one: obter uma
-    remove: Remover chave
-    removed: "Chave {provider} removida."
-    empty: Cole a chave de API primeiro.
-    too_long: "Essa chave é longa demais para uma chave de API (máximo de {max} caracteres)."
-    bad_chars: Uma chave de API contém apenas letras, números e pontuação, sem espaços.
-    wrong_provider: "Isso não parece uma chave de {provider}: elas começam com {prefix}."
   data:
     title: Seus dados
     ok: "OK"
@@ -666,13 +621,6 @@ profile:
     not_email: Isso não parece um endereço de e-mail.
     no_domain: O endereço de e-mail precisa de um domínio, como exemplo.org.
   js:
-    no_key: Nenhuma chave ainda
-    paste_key: Cole sua chave
-    paste_new_key: Cole uma nova chave para substituí-la
-    key_on_file: ✓ Chave salva
-    ends_in: termina em
-    on: "Ligado"
-    off: "Desligado"
     account_menu_for: "Menu da conta de {name}"
     first_name: Nome
     last_name: Sobrenome
@@ -728,9 +676,36 @@ manage:
   terms_sent:
     one: "Aviso na fila para {n} conta."
     other: "Aviso na fila para {n} contas."
+  api_keys:
+    title: Chaves de API de IA
+    info_text: "As funções de IA de todas as contas usam estas chaves, faturadas à conta a que cada chave pertence. As chaves são cifradas antes de serem guardadas e nunca mais são mostradas; só os últimos quatro caracteres ficam visíveis para saber que chave está guardada. Só os proprietários as veem."
+    unreadable: "Salva, mas ilegível: o segredo do servidor mudou. Cole-a de novo."
+    on_file: ✓ Chave salva
+    ends_in: termina em
+    none: Nenhuma chave ainda
+    replace: Cole uma nova chave para substituí-la
+    paste: "Cole a chave"
+    get_one: obter uma
+    remove: Remover chave
+    removed: "Chave {provider} removida."
+    empty: Cole a chave de API primeiro.
+    too_long: "Essa chave é longa demais para uma chave de API (máximo de {max} caracteres)."
+    bad_chars: Uma chave de API contém apenas letras, números e pontuação, sem espaços.
+    wrong_provider: "Isso não parece uma chave de {provider}: elas começam com {prefix}."
   js:
     copied: "Copiado"
-
+    key_on_file: "✓ Chave guardada"
+    ends_in: "termina em"
+    paste_new_key: "Cole uma chave nova para a substituir"
+  ai:
+    title: "Funções de IA"
+    info: "Sobre as funções de IA"
+    about: "O tutor de IA, a geração de cursos, «Editar com IA» e a tradução enviam o que os alunos escrevem a um fornecedor de IA, com as chaves abaixo. Se as ocultar, desaparecem para todas as contas deste servidor e nada sai; as chaves ficam guardadas para quando as voltar a mostrar."
+    hide: "Ocultar as funções de IA para todos"
+    on: "Sim"
+    off: "Não"
+    hidden_notice: "As funções de IA estão ocultas para todas as contas."
+    shown_notice: "As funções de IA voltaram a aparecer para todas as contas."
 
 landing:
   title: Aprenda qualquer coisa a partir de uma pasta de arquivos JSON
@@ -916,8 +891,8 @@ home:
   open_ai: Abrir a tutoria com IA
   ai_tag: Converse com um tutor
   about_ai: Sobre a tutoria com IA
-  using_key_html: "Usando sua chave <strong>{provider}</strong>"
-  needs_key_html: "Precisa de uma chave de API · <a href=\"{url}\" data-testid=\"home-ai-add-key\">adicione uma no seu perfil</a>"
+  using_key_html: "Com a chave de <strong>{provider}</strong>"
+  needs_key_html: "Precisa de uma chave de API · <a href=\"{url}\" data-testid=\"home-ai-add-key\">adicione uma em Gerir utilizadores</a>"
   start_conversation: Iniciar uma conversa
   no_ai_keys: Nenhuma chave de IA definida
   info_sprint_p: "Sessões curtas de toque e deslize: blocos de palavras, ordenação, pares e rodadas rápidas de quiz. Uma sequência e a meta diária mantêm você voltando."
@@ -929,8 +904,9 @@ home:
   info_play_dates: "uma Corrida de datas, "
   info_play_end: ou uma mão de cartões.
   info_guide_p: "As lições em ordem, um pequeno passo por vez: um ou dois cartões e depois uma verificação rápida. Conclua uma etapa para desbloquear a próxima e ganhe até três estrelas em cada uma."
-  info_ai_p: "Uma lição individual pelo chat: o tutor explica, confere se você acompanha, define um exercício quando você está pronto e conversa sobre a sua resposta. As mesmas perguntas, o mesmo domínio, só que em forma de conversa. Funciona com a sua própria chave de API."
+  info_ai_p: "Uma aula individual por chat: o tutor explica, verifica se está a acompanhar, propõe um exercício quando estiver pronto e comenta a sua resposta consigo. As mesmas perguntas, o mesmo domínio, só que em conversa. Funciona com a chave de API deste servidor."
   ok: OK
+  needs_key_ask: "Precisa de uma chave de API, que o proprietário deste servidor adiciona"
 
 goal:
   ring_label: "Meta de hoje: {n} de {goal} pontos"
@@ -1332,7 +1308,7 @@ docs:
     yours_account_html: "<strong>Convide os demais</strong> com um link em <em>Gerenciar usuários</em> (no menu da conta)."
     yours_terms_html: "<strong>Coloque seu nome nos Termos.</strong> Todos os aceitam ao se cadastrar. Edite-os com <code>sudo nano /etc/skrongle/terms.md</code> e depois <code>sudo systemctl restart skrongle</code>; todos aceitam o novo texto na próxima visita."
     yours_course_html: "<strong>Escolha um curso.</strong> O espanhol já vem incluído, ou crie o seu."
-    yours_ai_html: "<strong>Opcional: tutor de IA e gerador de cursos.</strong> Cole uma chave da Anthropic, OpenAI ou Google em <em>Configurações do perfil → Chaves de API de IA</em>. Elas cobram você diretamente."
+    yours_ai_html: "<strong>Opcional: tutor de IA e gerador de cursos.</strong> Cole uma chave da Anthropic, OpenAI ou Google em <em>Gerir utilizadores → Funções de IA</em>. Serve todos no servidor e é-lhe cobrada diretamente."
     yours_tip: "🔒 Só as pessoas que você convidar podem criar uma conta."
     away_h2: Use longe de casa
     optional: opcional
@@ -2091,11 +2067,12 @@ tutor:
   no_key:
     title: Seu tutor precisa de uma chave de API
     p1: "A tutoria com IA funciona com a sua própria conta na Claude, na OpenAI ou no Google, então {app} nunca paga nem vê suas conversas além deste servidor."
-    p2: Adicione uma chave uma vez no seu perfil; ela é criptografada e só é usada quando você pede algo ao tutor.
+    p2: "Adicione uma chave uma vez em Gerir utilizadores; é cifrada, serve todas as contas e só é usada quando alguém pergunta algo ao tutor."
     add_key: Adicionar uma chave de API
     back: Voltar aos modos
+    ask_owner: "Peça ao proprietário deste servidor que adicione uma chave de API em Gerir utilizadores."
   chars_label: Caracteres especiais
-  disclosure: "Suas mensagens são enviadas para {provider} usando sua chave."
+  disclosure: "As suas mensagens são enviadas a {provider} com a chave deste servidor."
   placeholder: Diga algo ao seu tutor…
   input_label: Mensagem para o tutor
   send: Enviar
@@ -2106,7 +2083,7 @@ tutor:
     message_too_long: mensagem longa demais
     bad_turn: resposta inválida
     nothing_pending: nenhum exercício está aguardando resposta
-    no_key: "não há chave de {provider} salva; adicione uma no seu perfil"
+    no_key: "não há chave de {provider} neste servidor; o proprietário adiciona uma em Gerir utilizadores"
     all_busy: o tutor está ocupado com outros alunos agora; tente de novo daqui a pouco
     still_answering: o tutor ainda está respondendo
     thread_failed: "não foi possível iniciar a conversa com o tutor: {error}"
@@ -2540,10 +2517,10 @@ courses:
     submit: Enviar
     review_changes: Revisar alterações
     review_tip: "O que a última execução da IA ({when}) alterou"
-    sent_to_named_html: "Suas anotações são enviadas para <span data-testid=\"course-ai-provider\">{provider}</span> usando sua chave."
-    sent_to_generic: Suas anotações são enviadas para o seu provedor de IA usando sua chave.
-    no_key_html: "Nenhuma chave de provedor de IA está configurada. <a href=\"{url}\" data-testid=\"course-ai-profile-link\">Adicione uma chave de API no seu perfil</a> para usar os recursos de IA."
-    no_key: Nenhuma chave de provedor de IA está configurada. Adicione uma chave de API no seu perfil para usar os recursos de IA.
+    sent_to_named_html: "As suas notas são enviadas a <span data-testid=\"course-ai-provider\">{provider}</span> com a chave deste servidor."
+    sent_to_generic: "As suas notas são enviadas ao fornecedor de IA com a chave deste servidor."
+    no_key_html: "Não há nenhuma chave de fornecedor de IA configurada. <a href=\"{url}\" data-testid=\"course-ai-profile-link\">Adicione uma chave de API em Gerir utilizadores</a> para usar as funções de IA."
+    no_key: "Não há nenhuma chave de fornecedor de IA configurada. Peça ao proprietário deste servidor que adicione uma em Gerir utilizadores."
     modal_generating: Gerando…
     modal_count_rewritten: "{done} de {total} lições reescritas ou acrescentadas"
     modal_count_edited: "{done} de {total} lições reescritas"
@@ -2596,7 +2573,7 @@ courses:
       other: "suas lições {list}"
     list_sep: ", "
     quoted: "“{text}”"
-    no_key_html: "Você precisa de uma chave de provedor de IA para gerar um curso. <a href=\"{url}\" data-testid=\"generate-profile-link\">Adicione uma chave de API no seu perfil</a> e depois volte aqui."
+    no_key_html: "Precisa de uma chave de fornecedor de IA para gerar um curso. <a href=\"{url}\" data-testid=\"generate-profile-link\">Adicione uma chave de API em Gerir utilizadores</a> e depois volte aqui."
     asked_for: O que você pediu
     wish_label: O que você quer aprender?
     wish_optional: "(opcional: o título basta para começar)"
@@ -2633,8 +2610,8 @@ courses:
     instructions_label: Instruções
     reset: Restaurar as instruções padrão
     edited: Editado
-    sent_to_html: "Suas anotações são enviadas para <span id=\"gen-disclosure-provider\">{provider}</span> usando sua chave."
-    sent_to_generic: Suas anotações são enviadas para o seu provedor de IA usando sua chave.
+    sent_to_html: "As suas notas são enviadas a <span id=\"gen-disclosure-provider\">{provider}</span><span id=\"gen-disclosure-key\"> com a chave deste servidor</span>."
+    sent_to_generic: "As suas notas são enviadas ao fornecedor de IA com a chave deste servidor."
     submit_resume: Retomar a escrita
     submit_retry: Tentar de novo
     effort:
@@ -2656,7 +2633,7 @@ courses:
     choose_provider: Escolha um provedor.
     base_url: A URL base deve começar com http:// ou https://.
     bad_key: Isso não parece uma chave de API.
-    paste_key: "Cole uma chave de API para {provider}, ou salve uma no seu perfil primeiro."
+    paste_key: "Não há nenhuma chave de {provider} configurada neste servidor."
     wish_too_long: "Mantenha o que você quer aprender em até {max} caracteres; coloque material mais longo na caixa de anotações."
     notes_too_long: "Mantenha seu material em até {max} caracteres; corte ou divida o curso em dois."
     new_course: Novo curso
@@ -2667,6 +2644,7 @@ courses:
     busy_other: "Já há um curso sendo gerado; tente de novo quando ele terminar."
     cancelling_revision: "Cancelando: o curso fica como estava."
     cancelling_generation: "Cancelando: o curso para depois da lição que está sendo escrita."
+    no_key_ask: "Precisa de uma chave de fornecedor de IA para gerar um curso. Peça ao proprietário deste servidor que adicione uma em Gerir utilizadores."
   undo:
     undo: Desfazer
     redo: Refazer

@@ -7,7 +7,7 @@ import { expect, test, type Locator, type Page } from "@playwright/test";
 import { answerQuestion, playStage } from "../lib/answer";
 import { devLogin, TEST_COURSE } from "../lib/app";
 import { AnswerKey } from "../lib/key";
-import { saveApiKey } from "../lib/learner";
+import { resetServerKeys } from "../lib/learner";
 import { playSprintRight } from "../lib/sprint-play";
 
 const key = new AnswerKey(TEST_COURSE);
@@ -114,9 +114,8 @@ test("the Guide and Sprint mode show the clock too", async ({ page }) => {
 
 test("the tutor draws a clock to read, with its times to tap", async ({ page }) => {
   await devLogin(page, "open=" + TEST_COURSE);
-  // A key (any: the dev server answers model calls from data/test-fixtures/llm/).
-  await page.goto("/profile");
-  await saveApiKey(page, "sk-ant-dev-test-fixtures");
+  // The server's keys (the dev user's keys=fake; the dev server answers model calls from data/test-fixtures/llm/).
+  await resetServerKeys(page);
   await page.goto("/tutor?lesson=clock");
   for (let i = 0; i < 4; i++) {
     const ex = page.locator('[data-testid="tutor-exercise"]:not([data-state=done])');

@@ -36,6 +36,7 @@ error:
   home: 首页
   lessons: 课节
   courses: 全部课程
+  ai_off: "本服务器已关闭 AI 功能。"
 
 common:
   pager:
@@ -183,12 +184,6 @@ auth:
     needs_email: 请先确认你的电子邮箱地址。
     needs_app: 请先设置验证器应用。
     app_already: 已设置验证器应用。请先将其移除。
-  ai_switch:
-    label: 隐藏所有 AI 功能
-    about: 关于 AI 功能
-    tip: AI 导师和 AI 课程创建都会被隐藏且无法使用。它们的工作方式是：将你输入的内容连同你自己的 API 密钥发送给 AI 公司。你可以随时在个人资料中更改此设置。
-    off: "关"
-    on: "开"
   verify_email:
     title: 确认你的电子邮箱地址
     confirmed_heading: 你的电子邮箱地址已确认
@@ -472,7 +467,6 @@ profile:
     personal: 个人信息
     account: 账户
     two_factor: 两步验证
-    api_keys: AI API 密钥
     data: 你的数据
     consent: "隐私与同意"
   personal:
@@ -504,7 +498,6 @@ profile:
     info: "关于你的同意"
     info_age: "你在注册时确认了年龄。要撤回，请在“你的数据”中删除账户。"
     info_email: "服务邮件总是会发送：确认你的邮箱以及条款变更。可选邮件会出现在这里，各有开关，在你打开之前保持关闭。"
-    info_ai: "AI 功能会把你输入的内容发送给 AI 公司。隐藏后不会发送任何内容，这些功能会从应用中消失，已保存的 API 密钥也会被删除。"
     info_record: "每次更改都会连同日期记录下来。"
     close: "关闭"
     terms: "条款与隐私"
@@ -513,13 +506,6 @@ profile:
     age_not_confirmed: "未确认"
     email: "邮件"
     email_service: "仅服务消息"
-    ai: "不显示 AI 功能"
-    ai_on_since: "自 {date} 起显示"
-    ai_on: "显示"
-    ai_off_since: "自 {date} 起隐藏"
-    ai_off: "隐藏"
-    ai_key: "已保存自己的 API 密钥"
-    ai_keys_manage: "管理密钥"
   sessions:
     sign_out_others: 退出其他所有设备
     info_label: 关于退出其他所有设备
@@ -598,37 +584,6 @@ profile:
     code_gone: 没有等待中的验证码，或验证码已过期。请重新发送一个。
     too_many_codes: 发送的验证码过多。请稍等几分钟后再试。
     code_not_sent: 验证码未能发送。请稍后再试。
-  ai:
-    on: "开"
-    off: "关"
-    close: 关闭
-    off_title: 要隐藏所有 AI 功能吗？
-    off_text: 这将删除你个人资料中保存的所有 AI API 密钥。
-    cancel: 取消
-    confirm: 确认
-    hidden_notice: AI 功能已隐藏。你不会看到这些功能，你在此进行的任何操作都不会发送给 AI 公司。
-    shown_notice: AI 功能已重新显示。
-    feature_hidden: "该功能使用 AI，而你已隐藏 AI。在“隐私与同意”中关闭“不显示 AI 功能”即可使用。"
-    keys_off: 你账户的 AI 功能已关闭；请先开启，才能保存密钥。
-  api_keys:
-    title: AI API 密钥
-    about: "AI 导师、“生成课程”和“使用 AI”会用你的密钥调用这些服务商，费用记在你的账户上。"
-    info: "关于你的 API 密钥"
-    info_title: "你的 API 密钥"
-    info_text: "密钥在保存前会加密，之后不再显示；只保留最后四个字符，方便你分辨已保存的是哪个密钥。你可以随时替换或删除密钥。"
-    unreadable: "已保存但无法读取：服务器的密钥已更改。请重新粘贴。"
-    on_file: ✓ 已保存密钥
-    ends_in: 结尾为
-    none: 尚无密钥
-    replace: 粘贴新密钥以替换
-    paste: 粘贴你的密钥
-    get_one: 获取一个
-    remove: 移除密钥
-    removed: "{provider} 密钥已移除。"
-    empty: 请先粘贴 API 密钥。
-    too_long: "该内容对 API 密钥来说太长了（最多 {max} 个字符）。"
-    bad_chars: API 密钥只能包含字母、数字和标点符号，不能有空格。
-    wrong_provider: "这看起来不像是 {provider} 的密钥：它们以 {prefix} 开头。"
   data:
     title: 你的数据
     ok: 好
@@ -666,13 +621,6 @@ profile:
     not_email: 这看起来不像电子邮箱地址。
     no_domain: 电子邮箱地址需要像 example.org 这样的域名。
   js:
-    no_key: 尚无密钥
-    paste_key: 粘贴你的密钥
-    paste_new_key: 粘贴新密钥以替换
-    key_on_file: ✓ 已保存密钥
-    ends_in: 结尾为
-    on: "开"
-    off: "关"
     account_menu_for: "{name} 的账户菜单"
     first_name: 名字
     last_name: 姓氏
@@ -728,9 +676,36 @@ manage:
   terms_sent:
     one: "已为 {n} 个账户排队发送通知。"
     other: "已为 {n} 个账户排队发送通知。"
+  api_keys:
+    title: AI API 密钥
+    info_text: "每个账户的 AI 功能都使用这些密钥，费用记在密钥所属的账户上。密钥在保存前会加密，之后不会再显示；只显示最后四个字符，方便你分辨保存的是哪个密钥。只有所有者能看到。"
+    unreadable: "已保存但无法读取：服务器的密钥已更改。请重新粘贴。"
+    on_file: ✓ 已保存密钥
+    ends_in: 结尾为
+    none: 尚无密钥
+    replace: 粘贴新密钥以替换
+    paste: "粘贴密钥"
+    get_one: 获取一个
+    remove: 移除密钥
+    removed: "{provider} 密钥已移除。"
+    empty: 请先粘贴 API 密钥。
+    too_long: "该内容对 API 密钥来说太长了（最多 {max} 个字符）。"
+    bad_chars: API 密钥只能包含字母、数字和标点符号，不能有空格。
+    wrong_provider: "这看起来不像是 {provider} 的密钥：它们以 {prefix} 开头。"
   js:
     copied: "已复制"
-
+    key_on_file: "✓ 已保存密钥"
+    ends_in: "结尾为"
+    paste_new_key: "粘贴新密钥以替换"
+  ai:
+    title: "AI 功能"
+    info: "关于 AI 功能"
+    about: "AI 导师、课程生成、“用 AI 编辑”和翻译会用下面的密钥把学习者输入的内容发送给 AI 服务商。隐藏后，本服务器上的每个账户都看不到这些功能，也不会发送任何内容；密钥仍保存着，等你再次显示时使用。"
+    hide: "为所有人隐藏 AI 功能"
+    on: "开"
+    off: "关"
+    hidden_notice: "已为所有账户隐藏 AI 功能。"
+    shown_notice: "已为所有账户重新显示 AI 功能。"
 
 landing:
   title: 从一个 JSON 文件夹学习任何内容
@@ -916,8 +891,8 @@ home:
   open_ai: 打开 AI 辅导
   ai_tag: 与导师聊天
   about_ai: 关于 AI 辅导
-  using_key_html: "正在使用你的 <strong>{provider}</strong> 密钥"
-  needs_key_html: "需要 API 密钥 · <a href=\"{url}\" data-testid=\"home-ai-add-key\">在个人资料中添加</a>"
+  using_key_html: "使用 <strong>{provider}</strong> 密钥"
+  needs_key_html: "需要 API 密钥 · <a href=\"{url}\" data-testid=\"home-ai-add-key\">在“管理用户”中添加</a>"
   start_conversation: 开始对话
   no_ai_keys: "未设置 AI 密钥"
   info_sprint_p: "短促的点击和滑动练习：词块、分类、配对和快速测验。连续天数和每日目标会让你持续回来。"
@@ -929,8 +904,9 @@ home:
   info_play_dates: "日期竞速，"
   info_play_end: 或一副单词卡。
   info_guide_p: "按顺序一次完成一个小步骤：看一两张卡片，然后做一个快速检查。完成一个阶段即可解锁下一个，每个阶段最多可获得三颗星。"
-  info_ai_p: "通过聊天进行一对一课节：导师讲解、确认你跟上了、在你准备好时布置练习，并带你逐一点评答案。题目相同，掌握度相同，只是变成了对话。使用你自己的 API 密钥运行。"
+  info_ai_p: "通过聊天的一对一课程：导师讲解、确认你跟得上、在你准备好时布置练习，并和你一起讨论你的答案。同样的题目，同样的掌握度，只是换成对话。使用本服务器的 API 密钥。"
   ok: 好
+  needs_key_ask: "需要 API 密钥，由本服务器的所有者添加"
 
 goal:
   ring_label: "今日目标：{goal} 分中已得 {n} 分"
@@ -1332,7 +1308,7 @@ docs:
     yours_account_html: "在账户菜单的<em>管理用户</em>页面中用链接<strong>邀请其他人</strong>。"
     yours_terms_html: "<strong>在服务条款中写上你的名字。</strong>每个人注册时都会接受它。用 <code>sudo nano /etc/skrongle/terms.md</code> 编辑，然后运行 <code>sudo systemctl restart skrongle</code>；每个人下次访问时都会接受新文本。"
     yours_course_html: <strong>选择一门课程。</strong>西班牙语已内置，也可以自己制作。
-    yours_ai_html: "<strong>可选：AI 导师和课程生成器。</strong>在<em>个人设置 → AI API 密钥</em>中粘贴 Anthropic、OpenAI 或 Google 的密钥。费用由它们直接向你收取。"
+    yours_ai_html: "<strong>可选：AI 导师和课程生成器。</strong>在<em>管理用户 → AI 功能</em>中粘贴 Anthropic、OpenAI 或 Google 的密钥。它供服务器上的所有人使用，费用直接记在你的账户上。"
     yours_tip: "🔒 只有你邀请的人才能创建账户。"
     away_h2: 外出时使用
     optional: 可选
@@ -2091,11 +2067,12 @@ tutor:
   no_key:
     title: 你的导师需要 API 密钥
     p1: "AI 辅导使用你自己在 Claude、OpenAI 或 Google 上的账户运行，因此 {app} 不会为你的对话付费，也不会在本服务器之外看到它们。"
-    p2: 在个人资料中添加一次密钥；密钥会被加密，且仅在你向导师提问时使用。
+    p2: "在“管理用户”中添加一次密钥即可；它会加密保存，供所有账户使用，只在有人向导师提问时使用。"
     add_key: 添加 API 密钥
     back: 返回模式
+    ask_owner: "请本服务器的所有者在“管理用户”中添加 API 密钥。"
   chars_label: 特殊字符
-  disclosure: "你的消息会使用你的密钥发送至 {provider}。"
+  disclosure: "你的消息会用本服务器的密钥发送给 {provider}。"
   placeholder: 对你的导师说点什么……
   input_label: 发给导师的消息
   send: 发送
@@ -2106,7 +2083,7 @@ tutor:
     message_too_long: 消息太长
     bad_turn: 无效的对话轮次
     nothing_pending: 当前没有等待作答的练习
-    no_key: "未找到 {provider} 密钥；请在个人资料中添加"
+    no_key: "本服务器没有 {provider} 密钥；所有者可在“管理用户”中添加"
     all_busy: 导师正在为其他学习者服务，请稍后再试
     still_answering: 导师仍在回复中
     thread_failed: "无法启动导师对话：{error}"
@@ -2540,10 +2517,10 @@ courses:
     submit: 提交
     review_changes: 查看更改
     review_tip: "上次 AI 运行（{when}）所做的更改"
-    sent_to_named_html: "你的笔记将使用你的密钥发送至 <span data-testid=\"course-ai-provider\">{provider}</span>。"
-    sent_to_generic: 你的笔记将使用你的密钥发送至你的 AI 服务提供商。
-    no_key_html: "尚未设置 AI 服务提供商密钥。<a href=\"{url}\" data-testid=\"course-ai-profile-link\">在你的个人资料中添加 API 密钥</a>后即可使用 AI 功能。"
-    no_key: 尚未设置 AI 服务提供商密钥。请在个人资料中添加 API 密钥后即可使用 AI 功能。
+    sent_to_named_html: "你的笔记会用本服务器的密钥发送给 <span data-testid=\"course-ai-provider\">{provider}</span>。"
+    sent_to_generic: "你的笔记会用本服务器的密钥发送给 AI 服务商。"
+    no_key_html: "尚未设置 AI 服务商密钥。<a href=\"{url}\" data-testid=\"course-ai-profile-link\">在“管理用户”中添加 API 密钥</a>即可使用 AI 功能。"
+    no_key: "尚未设置 AI 服务商密钥。请本服务器的所有者在“管理用户”中添加。"
     modal_generating: 生成中…
     modal_count_rewritten: "已重写或添加 {done} / {total} 节课"
     modal_count_edited: "已重写 {done} / {total} 节课"
@@ -2596,7 +2573,7 @@ courses:
       other: "你的课节 {list}"
     list_sep: "、"
     quoted: "“{text}”"
-    no_key_html: "生成课程需要 AI 服务提供商密钥。<a href=\"{url}\" data-testid=\"generate-profile-link\">在你的个人资料中添加 API 密钥</a>，然后回到这里。"
+    no_key_html: "生成课程需要 AI 服务商密钥。<a href=\"{url}\" data-testid=\"generate-profile-link\">在“管理用户”中添加 API 密钥</a>，然后回到这里。"
     asked_for: 你的请求
     wish_label: 你想学什么？
     wish_optional: "（可选：只填标题即可开始）"
@@ -2633,8 +2610,8 @@ courses:
     instructions_label: 指令
     reset: 恢复默认指令
     edited: 已编辑
-    sent_to_html: "你的笔记将使用你的密钥发送至 <span id=\"gen-disclosure-provider\">{provider}</span>。"
-    sent_to_generic: 你的笔记将使用你的密钥发送至你的 AI 服务提供商。
+    sent_to_html: "你的笔记会发送给 <span id=\"gen-disclosure-provider\">{provider}</span><span id=\"gen-disclosure-key\">（使用本服务器的密钥）</span>。"
+    sent_to_generic: "你的笔记会用本服务器的密钥发送给 AI 服务商。"
     submit_resume: 继续编写
     submit_retry: 重试
     effort:
@@ -2656,7 +2633,7 @@ courses:
     choose_provider: 请选择服务提供商。
     base_url: 基础 URL 必须以 http:// 或 https:// 开头。
     bad_key: 这看起来不像 API 密钥。
-    paste_key: "请粘贴 {provider} 的 API 密钥，或先在个人资料中保存一个。"
+    paste_key: "本服务器没有设置 {provider} 密钥。"
     wish_too_long: "“你想学什么”请控制在 {max} 个字符以内；更长的材料请放入笔记框。"
     notes_too_long: "你的材料请控制在 {max} 个字符以内；请删减，或将课程拆分为两门。"
     new_course: 新课程
@@ -2667,6 +2644,7 @@ courses:
     busy_other: "已有一门课程正在生成；请在它完成后再试。"
     cancelling_revision: "正在取消：课程保持原样。"
     cancelling_generation: "正在取消：课程将在正在编写的课节之后停止。"
+    no_key_ask: "生成课程需要 AI 服务商密钥。请本服务器的所有者在“管理用户”中添加。"
   undo:
     undo: 撤销
     redo: 重做

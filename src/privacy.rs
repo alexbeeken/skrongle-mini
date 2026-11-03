@@ -80,8 +80,9 @@ pub const KEPT_ON_DELETE: &[&str] = &["sms_sends", "privacy_actions"];
 /// `blocked_ips` and `content_check_worker` are unused tables (#9), tied to no account; they go with the schema squash (#2).
 /// `jobs` is the background job queue (jobs.rs, #872): housekeeping rows, no account.
 /// `release_settings` is the waitlist switch (#934).
+/// `server_api_keys` and `settings` are the server's AI API keys and settings (#25), the owner's, no account.
 #[cfg_attr(not(test), allow(dead_code))]
-pub const SHARED_TABLES: &[&str] = &["ai_spend_days", "blocked_ips", "jobs", "content_check_worker", "release_settings"];
+pub const SHARED_TABLES: &[&str] = &["ai_spend_days", "blocked_ips", "jobs", "content_check_worker", "release_settings", "server_api_keys", "settings"];
 
 /// What deleting an account removed that lives in caches too.
 #[derive(Debug, Default, PartialEq)]

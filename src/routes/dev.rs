@@ -17,7 +17,7 @@ use crate::AppState;
 pub struct LoginParams {
     /// A course to open (`?open` alone: the seed course).
     pub open: Option<String>,
-    /// `dev` (or the older `fake`): the simulated provider's learner keys
+    /// `dev` (or the older `fake`): the simulated provider's keys, saved as the server's,
     /// for all three providers (`dev_ai::LEARNER_KEYS`), so the AI forms are
     /// unlocked.
     pub keys: Option<String>,
@@ -80,7 +80,7 @@ pub async fn login(State(state): State<Arc<AppState>>, Query(q): Query<LoginPara
         None | Some("") => {}
         Some("fake" | "dev") => {
             let vault = state.vault.clone();
-            state.db.call(move |c| dev::save_dev_keys(c, &vault, uid)).await?;
+            state.db.call(move |c| dev::save_dev_keys(c, &vault)).await?;
         }
         Some(other) => return Err(AppError::BadRequest(format!("keys={other}: keys=fake or keys=dev"))),
     }

@@ -77,23 +77,13 @@ pub struct Profile {
     pub has_password: bool,
     /// The Terms of Service version last accepted, and when.
     pub terms: Option<crate::terms::Acceptance>,
-    /// "Hide all AI features" (`users.ai_off`).
-    pub ai_off: bool,
     /// When the age box was ticked (`consent::age_confirmed_at`).
     pub age_confirmed_at: Option<i64>,
-    /// The AI features consent's latest row (`consent::AI`), for its date.
-    pub ai_consent: Option<crate::consent::Record>,
     /// The phone number and the second sign-in step (`two_factor.rs`).
     pub two_factor: crate::two_factor::Settings,
 }
 
 impl Profile {
-    /// The "Do Not Show Me AI Features" row of the Privacy and consent card:
-    /// shown or hidden, and since when if the record says.
-    pub fn ai_consent_text(&self) -> String {
-        ai_consent_text(self.ai_off, self.ai_consent)
-    }
-
     /// The age row of the Privacy and consent card.
     pub fn age_text(&self) -> String {
         match self.age_confirmed_at {
@@ -109,28 +99,16 @@ impl Profile {
     }
 }
 
-/// "Shown since 3 March 2026", "Hidden since …", or plain "Shown"/"Hidden" for an
-/// account with no record (made before v82 with AI hidden, or by a script).
-pub fn ai_consent_text(ai_off: bool, latest: Option<crate::consent::Record>) -> String {
-    match (ai_off, latest) {
-        (false, Some(r)) if r.withdrawn_at.is_none() => crate::t1("profile.consent.ai_on_since", "date", long_date(r.granted_at)),
-        (true, Some(crate::consent::Record { withdrawn_at: Some(t), .. })) => crate::t1("profile.consent.ai_off_since", "date", long_date(t)),
-        (false, _) => crate::t("profile.consent.ai_on"),
-        (true, _) => crate::t("profile.consent.ai_off"),
-    }
-}
-
 pub fn load(conn: &Connection, user_id: i64) -> rusqlite::Result<Option<Profile>> {
     let terms = crate::terms::latest(conn, user_id)?;
     let age_confirmed_at = crate::consent::age_confirmed_at(conn, user_id)?;
-    let ai_consent = crate::consent::latest(conn, user_id, crate::consent::AI)?;
     let two_factor = match crate::two_factor::settings(conn, user_id) {
         Err(rusqlite::Error::QueryReturnedNoRows) => return Ok(None),
         r => r?,
     };
     conn.query_row(
         "SELECT first_name, last_name, NULLIF(email, ''), created_at,
-                password_hash != '', ai_off
+                password_hash != ''
          FROM users WHERE id = ?1",
         [user_id],
         |r| {
@@ -141,9 +119,7 @@ pub fn load(conn: &Connection, user_id: i64) -> rusqlite::Result<Option<Profile>
                 created_at: r.get(3)?,
                 has_password: r.get(4)?,
                 terms: terms.clone(),
-                ai_off: r.get(5)?,
                 age_confirmed_at,
-                ai_consent,
                 two_factor: two_factor.clone(),
             })
         },
@@ -196,14 +172,6 @@ pub fn review_quiet(conn: &Connection, user_id: i64) -> rusqlite::Result<bool> {
 pub fn set_review_quiet(conn: &Connection, user_id: i64, quiet: bool) -> rusqlite::Result<()> {
     conn.execute("UPDATE users SET review_quiet = ?2 WHERE id = ?1", params![user_id, quiet])?;
     Ok(())
-}
-
-/// "Hide all AI features" (`users.ai_off`): set at sign-up or from the
-/// profile's AI features section, and undone there. Each change is a
-/// consent given or withdrawn (`consent::AI`, #974).
-pub fn set_ai_off(conn: &Connection, user_id: i64, off: bool) -> rusqlite::Result<()> {
-    conn.execute("UPDATE users SET ai_off = ?2 WHERE id = ?1", params![user_id, off])?;
-    crate::consent::record(conn, user_id, crate::consent::AI, !off)
 }
 
 /// `users.lang`: the language the app speaks to this account in ('' follows the browser).
@@ -398,11 +366,6 @@ mod tests {
             update(c, id, None, Some(""))?;
             let p = load(c, id)?.unwrap();
             assert_eq!((p.first_name.as_str(), p.last_name.as_str()), ("Ana", ""));
-            assert!(!p.ai_off);
-            set_ai_off(c, id, true)?;
-            assert!(load(c, id)?.unwrap().ai_off);
-            set_ai_off(c, id, false)?;
-            assert!(!load(c, id)?.unwrap().ai_off);
 
             assert!(email_taken(c, "ANA@example.org", None)?);
             assert!(!email_taken(c, "ana@example.org", Some(id))?);

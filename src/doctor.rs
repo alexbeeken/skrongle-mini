@@ -4,7 +4,7 @@
 //!
 //! It only reads: the database is opened read-only, nothing is migrated and
 //! no key file is created. Secrets are reported as yes/no (a secret key,
-//! learners' saved AI keys): their values, and
+//! the server's saved AI keys): their values, and
 //! values that may embed credentials (URLs), never reach the output.
 
 use std::fmt::Write as _;
@@ -131,7 +131,7 @@ pub fn report(cfg: &Config, env: &dyn Fn(&str) -> Option<String>) -> Vec<Line> {
     out.push(Line::new("schema", schema_line(&facts)));
     if let DbFacts::Open { users, saved_keys, .. } = &facts {
         out.push(Line::new("accounts", users.to_string()));
-        out.push(Line::new("saved AI keys", format!("{saved_keys} (learners' keys, encrypted with the secret key)")));
+        out.push(Line::new("saved AI keys", format!("{saved_keys} (the server's keys, set by the owner, encrypted with the secret key)")));
     }
 
     let saved_keys = match &facts {
@@ -144,7 +144,7 @@ pub fn report(cfg: &Config, env: &dyn Fn(&str) -> Option<String>) -> Vec<Line> {
     }
     out.push(Line::new("secret key", secret));
 
-    // AI: the keys themselves belong to learners (counted above). The server
+    // AI: the keys themselves are the owner's, in the database (counted above). The server
     // only has a base URL for the OpenAI-compatible provider.
     out.push(Line::new("OpenAI base URL", match env("OPENAI_BASE_URL") {
         Some(_) => "custom (SKRONGLE_OPENAI_BASE_URL is set)",
@@ -267,7 +267,7 @@ fn read_db(db: &Path) -> DbFacts {
         Err(e) => return DbFacts::Unreadable(e.to_string()),
     };
     let count = |table: &str| conn.query_row(&format!("SELECT COUNT(*) FROM {table}"), [], |r| r.get::<_, i64>(0)).unwrap_or(0);
-    DbFacts::Open { version, users: count("users"), saved_keys: count("user_api_keys") }
+    DbFacts::Open { version, users: count("users"), saved_keys: count("server_api_keys") }
 }
 
 fn schema_line(facts: &DbFacts) -> String {
@@ -392,8 +392,8 @@ mod tests {
             let (vault, _) = crate::secrets::Vault::load(Some(SECRET_KEY.into()), &db).unwrap();
             d.with(|c| {
                 c.execute("INSERT INTO users (email, password_hash, created_at) VALUES ('ana@example.org', 'x', 0)", [])?;
-                let uid = c.last_insert_rowid();
-                crate::secrets::save(c, &vault, uid, crate::secrets::Provider::Anthropic, "sk-ant-learner-key-zz9")
+
+                crate::secrets::save(c, &vault, crate::secrets::Provider::Anthropic, "sk-ant-learner-key-zz9")
             })
             .unwrap();
         }
@@ -422,8 +422,8 @@ mod tests {
             let d = crate::db::Db::open(&db).unwrap();
             let other = crate::secrets::Vault::from_master(&[0xcd; 32]);
             d.with(|c| {
-                let uid = crate::auth::create_user(c, "ana@example.org", "h")?;
-                crate::secrets::save(c, &other, uid, crate::secrets::Provider::Anthropic, "sk-ant-learner-key-zz9")
+                crate::auth::create_user(c, "ana@example.org", "h")?;
+                crate::secrets::save(c, &other, crate::secrets::Provider::Anthropic, "sk-ant-learner-key-zz9")
             })
             .unwrap();
         }

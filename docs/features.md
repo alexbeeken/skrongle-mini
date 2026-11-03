@@ -47,7 +47,7 @@ In a language course, every word that matters can be tapped to hear it (see
   one "N locked stages" row under a single lock that opens to a plain list
   (#1213).
 - **AI tutoring** (`/tutor`): a one-to-one lesson over chat with a tutor that
-  runs on the learner's own API key. Same exercises and progress as Practice,
+  runs on the server's API key (the owner's, on Manage Users). Same exercises and progress as Practice,
   but the tutor teaches first and sets them when you are ready. Its prompt
   carries the lesson, the exercise and the pass rule, and no topic rules.
 
@@ -57,7 +57,7 @@ to the new ones with their query strings, so old bookmarks still work.
 | Feature | Route | What it is | Reads |
 |---|---|---|---|
 | Courses | `/courses`, `/courses/{id}/settings` | "What would you like to learn?": your projects (each shows a thin progress bar under its title, pale gold for lessons passed and full gold for lessons mastered, and under it two small chips with the same two numbers and the unit count; when you last opened it sits beside *Continue*. A chip turns from grey towards gold as more of the course is done, shows its name on hover, and opens a modal with the stat when clicked. The modal fetches what is next as it opens (`GET /courses/{id}/stat/{metric}`): for lessons passed, the next lesson to pass, the last one passed and each unit's count; for lessons mastered, up to three lessons to practise next, fading ones first. Each lesson named opens the course at it, and an (i) says what the stat counts. Each card has a gear for its settings: level and motivator), your own courses (private; greyed out while being generated), ready-made courses, Create a course | manifests |
-| Generate with AI | the editor's *Generate the course* dialog (`POST /courses/{id}/generate`) and progress modal | Notes or homework in, a whole private course out, written with the learner's own API key; see [Your own courses](#your-own-courses) | everything (it writes it) |
+| Generate with AI | the editor's *Generate the course* dialog (`POST /courses/{id}/generate`) and progress modal | Notes or homework in, a whole private course out, written with the server's API key; see [Your own courses](#your-own-courses) | everything (it writes it) |
 | Starting level | The course's settings: the level step at the end of its start wizard, then the gear on `/courses` | A course whose units are `levels` asks a learner who opens it for the first time which level to start at; the lessons below it are skipped; the level can be changed later without losing progress (see [Starting level](#starting-level)) | `levels`, units |
 | Home | `/` | Today's goal as a ring with the streak, lessons passed and terms collected, *Continue* where you left off, the current unit's progress, a "Words due" card on days collected words are due (#1360: the count, three of the words, an (i) with the ladder, and *Review N words*, which opens `/vocabulary/study?due=1`), then the four modes (Sprint, Study, Play, Guide) and AI tutoring, with one stat and one button each and an (i) explaining each | everything |
 | Landing | `/` (no session) | The sales page for visitors: what the app is, a twenty-second sample of each mode to play in place (Sprint, Study, Play and Guide tabs, each in Language, Maths and Music, each subject with its own kinds of question: listening and a typed word with accent near misses; shading a fraction, a number line, plotting a point, a formula graded by equivalence, graphs as options and pairs; a staff to read and to place a note on, a keyboard, intervals and chords played by a small synth. Several preview question types still in issues and PRs (#1218–#1234, #1330–#1359). `static/landing.js` holds the samples, `static/landing-kit.js` the drawing and sound; #1365), a lesson file next to the features it switches on, the three ways to get a course, the built-in courses with their unit and lesson counts, "What can I do with it?" (use cases), register / log in | manifests |
@@ -66,7 +66,7 @@ to the new ones with their query strings, so old bookmarks still work.
 | Listening | `/listening`, `/listening/play?lesson=` | Hear a sentence, type it, see it checked word by word; one lesson or a mixed round | `listening` |
 | Guide | `/guide`, `/guide/{slug}` | The short-attention-span version: each lesson as a stage of small steps (cards, quick checks, flashcards, tips); stars | `content`, `quiz`, `vocabulary`, `guide` |
 | Sprint mode | `/sprint`, `/sprint/play` | Phone-first five-minute sessions of short exercises: bites, sort / spot / build / ladder / scale / pick / match exercises (a sort judges each tap at once, a ladder or a scale is graded only at Check), five listening exercises (tap what you hear, fill in what you hear, what do you hear, select the matching audio, listen and match), an audio switch, streaks, daily goal, lightning round | `sprint`, `quiz`, `vocabulary`, `conjugations`, `conversations`, `listening` |
-| AI tutoring | `/tutor`, `/tutor?lesson=` | A one-to-one tutor over chat: teaches the lesson, checks you follow, sets the adaptive quiz's questions when it judges you ready, and reacts to the app's grading; you answer in the chat (typed or a tapped choice) and can ask anything in between; needs an API key from the profile; at most two tutor replies run at once on the server, and a third learner gets the busy message and tries again | `content`, `vocabulary`, `quiz` |
+| AI tutoring | `/tutor`, `/tutor?lesson=` | A one-to-one tutor over chat: teaches the lesson, checks you follow, sets the adaptive quiz's questions when it judges you ready, and reacts to the app's grading; you answer in the chat (typed or a tapped choice) and can ask anything in between; needs an API key on the server (the owner adds it on Manage Users); at most two tutor replies run at once on the server, and a third learner gets the busy message and tries again | `content`, `vocabulary`, `quiz` |
 | Play | `/play` (also `/g`) | The Play mode hub: Word Match (timed pairs, shared leaderboard), the paradigm drill (type the form for a picture), Numbers by ear (hear a number, type the digits), Date Dash, plus links to flashcards and the Guide | `vocabulary`, `conjugations`, `terms.lang`, `calendar` |
 | Map | `/map` | Every lesson of every unit in order with your mastery; how far you are from mastering the unit; one "you are here" on the whole map, at the lesson every mode resumes at ([where you left off](progress)) | units, mastery |
 | Vocabulary | `/vocabulary`, `/vocabulary/study` | Terms collected by answering questions, studied as flashcards with per-term review stats. Each word has a review schedule (#1360, `src/vocab.rs`): a new word is due tomorrow; *Knew it* on a due word moves it up the ladder of 1, 3, 7, 16, 35, 75, then 150 days; *Didn't know* drops it back to 1 day. A review before the word is due counts in the stats but doesn't move it (a miss still drops it). Only flashcards and Sprint's word exercises move it; Sprint's review mix deals due words first. "Due today" is by the end of the learner's day. `?due=1` deals the due words, longest overdue first, at most 20; a missed card comes back once at the end, and the summary says how many come back tomorrow and when the next words are due. Passes don't change; each card gives 0.3 effort points | `vocabulary`, `quiz[].teaches` |
@@ -141,13 +141,14 @@ with the table, like any other change (the editor saves as you edit; see
      Resume writes the same kind of lessons. With the server's key a Full or
      Outline course reserves for 6 lessons up front and a Preview for one;
      the meter still checks every request.
-  5. *Your AI provider* only when two or
-     more keys are saved on the profile: a choice between those. With one
+  5. *Your AI provider* only when the server has two or
+     more keys (the owner's, on Manage Users): a choice between those. With one
      saved key the dialog says nothing about providers and uses it, with the
      provider's default model. With no key at all the dialog opens greyed
-     out (every field and *Generate* disabled) under a line linking to the
-     profile's API keys, so nobody writes a prompt only to be stopped at
-     the end. Keys are added on the profile only; the server still takes a
+     out (every field and *Generate* disabled) under a line that links an
+     owner to the keys on Manage Users and tells anyone else to ask the
+     owner, so nobody writes a prompt only to be stopped at
+     the end. Keys are added on Manage Users only; the server still takes a
      pasted `api_key` (with `model` and `base_url`) from API clients. A
      `base_url` needs a pasted key: a saved key only goes to its provider's
      own address. That URL must use port 443 or 80 and resolve to public
@@ -270,8 +271,8 @@ with the table, like any other change (the editor saves as you edit; see
   course is being revised, so coming back to it finds the job still running.
   The old status page's address (`/courses/generate/{job}`) leads to
   the course page too, for any job. It uses the learner's first
-  saved provider key (profile, *AI API keys*); it never asks for a key or a
-  model, and names it only when two or more keys are saved. Without a saved key it shows only a red line linking to the profile,
+  provider key the server has (Manage Users, *AI features*); it never asks for a key or a
+  model, and names it only when the server has two or more. Without a key it shows only a red line (linking an owner to Manage Users),
   and the server refuses the same way. A three-way choice, *Add* / *Edit* /
   *Add and edit* (#1241, radios `mode` = `add`, `edit`, `change`), top right
   of the Use AI box, picks the mode; one "i" beside it explains all three in
@@ -860,7 +861,7 @@ limit nothing is made and the course list says which limit (`?notice=`
 
 **Copy and translate to…**, an icon left of the copy icon in the same
 settings dialogs (not with AI off), opens a dialog of its own: the language to translate into, the AI
-to use (when there is more than one: the saved keys, as
+to use (when there is more than one: the server's keys, as
 Generate offers them) and **Start**; what gets translated is behind its
 (i). The languages are the app's own (`i18n/*.yaml`, each in its own
 name), less the one the course is already explained in (`meanings.lang`).
@@ -889,7 +890,7 @@ validated with the rest of the course before it is saved, like any lesson
 
 The job is a generation in every other way (`src/ai.rs`): its own OS
 thread, one job per learner, one AI job at a time on the whole server (a second Generate is refused, no waiting line, #43), the hourly and daily AI
-job quotas, on the learner's own key. Its calls carry the purpose `translate-course` (the file's path
+job quotas, on the server's key. Its calls carry the purpose `translate-course` (the file's path
 as the key). The copy's `courses.source` is `translate` and its notes hold
 the job's plan (the language, and the files done so far), so a stopped
 translation keeps what it translated: its card has the red ! with the
@@ -1666,13 +1667,11 @@ after a jump and while scrolling.
 shown in (the same picker the login and register pages have); it saves at
 once and the page reloads in the new language. See [i18n](i18n).
 
-**Saving as you edit.** The names, the AI API keys
-and the Dev options have no Save button: each change posts to
+**Saving as you edit.** The names and the language
+have no Save button: each change posts to
 `POST /api/profile` (only the fields that changed; all or nothing, a refused
 field comes back as `422 {"errors": {field: message}}`). Names save one
-second after the last keystroke, or when the field loses focus; an API key
-three seconds after the last keystroke, or at once when more than five
-characters arrive together (a paste); a checkbox
+second after the last keystroke, or when the field loses focus; a choice
 saves at once. A field whose change is saved shows a small green check (on
 the chosen chip or picture for a choice) until it is edited again. The
 circle at the right of the heading sums up the page: green ✓ saved, yellow
@@ -1684,8 +1683,8 @@ anything is unsaved, a link or form on the page asks first in a dialog that
 says why, and reloading or closing the tab gets the browser's own prompt.
 `static/autosave.js` does all of this for any page; `static/profile.js`
 wires up the fields (the course editor uses it too: see *Saving as you
-edit* under [Your own courses](#your-own-courses)). The password dialog, *Remove key* and account deletion
-keep their explicit buttons. The page needs JavaScript.
+edit* under [Your own courses](#your-own-courses), and Manage Users' API
+keys). The password dialog and account deletion keep their explicit buttons. The page needs JavaScript.
 
 - **Personal information**: first and last name (optional, up to 60
   characters). The site greets by first name and the menu shows "First Last"
@@ -1714,12 +1713,11 @@ keep their explicit buttons. The page needs JavaScript.
   [Terms of Service](#terms-of-service)); the age confirmation (the date of
   the first Terms acceptance, read-only: taking it back means deleting the
   account); e-mail, service messages only (hosted only;
-  an optional e-mail such as reminders gets a switch here, off by default);
-  and *Do Not Show Me AI Features*, "Shown since …" or "Hidden since …"
-  with the profile's only AI switch (below; on hides them, `POST /profile/ai`
-  returns here) and a line when an own API key is on file. Optional consents are
-  rows in `consents` (`src/consent.rs`): given at `granted_at`, taken back
-  at `withdrawn_at`, a new row each time one is given again; they go with the account.
+  an optional e-mail such as reminders gets a switch here, off by default).
+  The AI features have no row: whether they are shown is the server's
+  choice, the owner's on Manage Users (#25), and the per-account consent
+  rows in `consents` (`src/consent.rs`) went with migration 99. Any rows
+  left go with the account.
 - **Proof that it is the owner** (`prove_owner` in `src/routes/profile.rs`):
   every change a stolen session must not make asks for it: the password
   (checked like `/login`: 10 per account per 15 minutes, a wrong one
@@ -1727,32 +1725,6 @@ keep their explicit buttons. The page needs JavaScript.
   account without one (signed in through a proxy) gives a code from its
   second step, or with no second step nothing (#376). It guards the
   password change, deleting the account and every two-factor change.
-- **Do Not Show Me AI Features**: an On/Off toggle pill in the Privacy and
-  consent card (#147, #974, `users.ai_off`, off for every account unless the
-  "Hide all AI features" pill on the registration form was turned on: `templates/ai_switch.html`, a
-  checkbox `no_ai` dressed as the pill, its info dot a hover tooltip).
-  The card's (i) says what it covers. Switching it on posts
-  `POST /profile/ai` (`off=1`) at once, or first opens a confirm dialog
-  when an AI API key is on file, because hiding the features deletes every
-  saved key. On, the account is shown none of those
-  features: no AI tutoring card on the home page or tutor links on a
-  lesson, no *Generate with AI* card, *Resume* or *Watch* on the course
-  picker, no *Use AI* form or resume button on the course editor, and no
-  *AI API keys* section here (the keys were deleted). Their
-  routes refuse too: `CurrentUser::require_ai` sends a page request to this
-  section with a notice, and `require_ai_api` answers a JSON route with 403.
-  A tutor conversation under way is dropped. Switching back off needs no
-  confirmation (`off=0`). What is left never contacts an AI company.
-- **AI API keys**: one key each for Claude (Anthropic), OpenAI and Google
-  (Gemini), used by AI tutoring, *Generate the course* and *Use AI* (the
-  card says so in one line; how keys are stored is behind its (i)). A key is checked for the
-  provider's prefix (so a key pasted into the wrong box is caught), encrypted
-  at rest (`src/secrets.rs`, see [architecture](architecture#security-notes))
-  and never shown again; the page shows its last four characters, and a key
-  can be replaced or removed at any time. Each provider is a row folded
-  shut (name and status); its triangle opens the box to paste a key into
-  and *Remove key*. Features call
-  `secrets::get(conn, &state.vault, user_id, provider)` to use one.
 - **Your data**: *Delete account* (`POST /profile/delete`): the password, or for an
   account without one its e-mail address typed out and, with a second
   step, a code from it (`profile-delete-code`, *Send code*
@@ -1823,6 +1795,39 @@ keep their explicit buttons. The page needs JavaScript.
     The same three actions exist as commands on the binary for an owner
     who can't sign in: `reset-password`, `disable-2fa`, `make-owner`
     (`docs/self-hosting.md`, "If you lock yourself out").
+  - **AI features** (#25, `manage-ai-card`, `#ai`): the server's AI API
+    keys and the switch that hides the AI features, for every account; only
+    owners see them, nobody else has any keys form. The (i) says what the
+    features send where and how keys are stored.
+    - **Hide AI features for everyone** (`POST /manage/ai`, `off=1|0`, a
+      row in `settings`, `src/settings.rs`): on, no account is shown any
+      feature that calls an AI provider: no AI tutoring card on the home
+      page or tutor links on a lesson, no *Generate with AI* card, *Resume*
+      or *Watch* on the course picker, no *Use AI* form or resume button on
+      the course editor, no *Translate*. Their routes refuse too:
+      `CurrentUser::require_ai` answers a page request with a 403 page that
+      says the AI features are off on this server, `require_ai_api` a JSON
+      route with 403. Tutor conversations under way end. The keys stay, for
+      when they are shown again; off (the default) shows them again. The
+      session query reads the setting into `CurrentUser::ai_off`, and the
+      session cache watches the table, so the next request of every account
+      sees the change.
+    - **AI API keys**: one key each for Claude (Anthropic), OpenAI and
+      Google (Gemini), used by every account's AI tutoring, *Generate the
+      course*, *Use AI* and translation. Each provider is a row folded shut
+      (name and status: set, with its last four characters, or not set);
+      its triangle opens the box to paste a key into and *Remove key*
+      (`POST /manage/api-keys/remove`). A key saves as it is pasted or typed
+      (`static/manage.js` with `static/autosave.js`, `POST /api/manage/keys`,
+      `key_<provider>`, 404 for anyone but an owner), is checked for the
+      provider's prefix (so a key pasted into the wrong box is caught),
+      encrypted at rest (`src/secrets.rs`, table `server_api_keys`, see
+      [architecture](architecture#security-notes)) and never shown again.
+      Features call `secrets::get(conn, &state.vault, provider)` to use one.
+      Migration 99 started the server's keys with those the first owner had
+      saved on the profile, where each learner kept their own before.
+      Where a feature has no key, an owner gets a link to `/manage#ai`;
+      anyone else is told to ask the owner.
   - **Sign-up** under `invite` and `closed`: while the server has no
     account, every start makes a new **owner link** (`signup::owner_link`:
     a `signup_invites` row with no `created_by`, one year, replacing the
@@ -1931,7 +1936,7 @@ address (#1328).
 ## Registration and password reset
 
 `/register` (e-mail address, password, the [Terms](#terms-of-service)
-boxes, the "Hide all AI features" pill) never says whether an address has
+boxes) never says whether an address has
 an account (#379, `src/reset.rs`):
 
 - **The answer** to a valid form is always the same page, "Check your mail"

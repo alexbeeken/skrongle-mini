@@ -12,7 +12,7 @@ import type { Journey } from "../journeys";
 import type { Persona } from "./persona";
 
 /** Never offered as actions: they end the session or destroy data. */
-const NEVER = ["nav-logout", "nav-logout-form", "course-edit-delete", "course-edit-file-delete", "profile-api-key-remove", "dev-ai-answer-submit"];
+const NEVER = ["nav-logout", "nav-logout-form", "course-edit-delete", "course-edit-file-delete", "manage-api-key-remove", "dev-ai-answer-submit"];
 const MAX_ACTIONS = 120; // Choice takes up to 255 options; fewer keeps state small
 const MAX_TEXT = 4_000;
 const SETTLE_MS = 150; // let page scripts render after an action

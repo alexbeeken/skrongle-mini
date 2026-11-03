@@ -23,7 +23,7 @@ use crate::caps::{MAX_ACCOUNTS, MAX_SESSIONS_PER_ACCOUNT};
 
 /// The tables `user_for_session` reads. A write to any of them forgets the
 /// whole cache (it is tiny and refills on the next request).
-pub const WATCHED: &[&str] = &["sessions", "users", "courses", "projects", "terms_acceptances"];
+pub const WATCHED: &[&str] = &["sessions", "users", "courses", "projects", "terms_acceptances", "settings"];
 
 /// Entries the cache holds: one per session that can exist.
 pub const CAPACITY: usize = MAX_ACCOUNTS * MAX_SESSIONS_PER_ACCOUNT;

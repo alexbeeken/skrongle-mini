@@ -35,9 +35,9 @@ pub enum AppError {
     PasswordChangeRequired(String),
     /// The same on an API route: a 403 JSON body.
     ApiPasswordChangeRequired,
-    /// An AI feature asked for by an account with "Hide all AI
-    /// features" on (`CurrentUser::require_ai`): redirect to the profile
-    /// section that turns them back on.
+    /// An AI feature asked for while the owner has hidden the AI features
+    /// for the whole server (`CurrentUser::require_ai`, `settings::AI_OFF`):
+    /// a 403 page that says so.
     AiOff,
     /// The same on an API route: a 403 JSON body.
     ApiAiOff,
@@ -133,11 +133,11 @@ impl IntoResponse for AppError {
                 r#"{"error":"choose a new password first"}"#,
             )
                 .into_response(),
-            AppError::AiOff => Redirect::to(&crate::url("/profile?ai=off#consent")).into_response(),
+            AppError::AiOff => error_page(StatusCode::FORBIDDEN, &crate::t("error.ai_off")),
             AppError::ApiAiOff => (
                 StatusCode::FORBIDDEN,
                 [(axum::http::header::CONTENT_TYPE, "application/json")],
-                r#"{"error":"AI features are off in your profile"}"#,
+                r#"{"error":"AI features are off on this server"}"#,
             )
                 .into_response(),
             AppError::ApiTooManyRequests(m) => (

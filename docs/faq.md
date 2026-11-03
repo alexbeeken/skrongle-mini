@@ -3,9 +3,10 @@
 **Do I need an API key?**
 No. Courses, the four modes and every game work without one. A key (Claude,
 OpenAI or Gemini) is only for AI tutoring, generating a course and adding
-content with AI. Save it on your profile; it is stored encrypted and never
-shown again. Don't want AI at all? Turn on *Do Not Show Me AI Features*
-under Privacy and consent on your profile.
+content with AI. The server's owner saves it once under *Manage Users → AI
+features*, and every account uses it; it is stored encrypted and never
+shown again. Don't want AI at all? The owner turns on *Hide AI features for
+everyone* in the same place.
 
 **I passed a lesson in Sprint. Why does Study mode still say "in progress" or "needs practice"?**
 Passing and mastery are different. A pass is a milestone that stays. Mastery

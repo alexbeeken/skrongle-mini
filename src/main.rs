@@ -51,6 +51,7 @@ mod reset;
 mod review;
 mod routes;
 mod secrets;
+mod settings;
 mod share;
 mod shape;
 mod signup;

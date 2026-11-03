@@ -93,7 +93,7 @@
       <button type="button" class="info-btn" commandfor="home-info-ai" command="show-modal" data-opens="home-info-ai" aria-haspopup="dialog" aria-label="{{ crate::t("home.about_ai") }}" data-testid="home-info-ai">i</button>
       {% endif %}
     </div>
-    {% if let Some(p) = tutor_provider %}<p class="mode-stat">{{ crate::t1("home.using_key_html", "provider", p)|safe }}</p>{% else if tutor_blocked %}<p class="mode-stat">{{ crate::t1("home.needs_key_html", "url", crate::url("/profile#api-keys"))|safe }}</p>{% endif %}
+    {% if let Some(p) = tutor_provider %}<p class="mode-stat">{{ crate::t1("home.using_key_html", "provider", p)|safe }}</p>{% else if tutor_blocked %}<p class="mode-stat">{% if crate::routes::is_owner(user) %}{{ crate::t1("home.needs_key_html", "url", crate::url("/manage#ai"))|safe }}{% else %}{{ crate::t("home.needs_key_ask") }}{% endif %}</p>{% endif %}
     {% if tutor_blocked %}
     <button type="button" class="btn big tutor" data-testid="home-start-tutor" commandfor="home-tutor-gate" command="show-modal" data-opens="home-tutor-gate" aria-haspopup="dialog">{{ crate::t("home.start_conversation") }}</button>
     {% else %}
@@ -108,10 +108,10 @@
 <dialog class="modal" id="home-tutor-gate" aria-labelledby="home-tutor-gate-title" data-testid="home-tutor-gate">
   <h2 id="home-tutor-gate-title">{{ course.icons.mode_ai }} {{ crate::t("tutor.no_key.title") }}</h2>
   <p>{{ crate::t1("tutor.no_key.p1", "app", crate::APP_NAME) }}</p>
-  <p>{{ crate::t("tutor.no_key.p2") }}</p>
+  <p>{% if crate::routes::is_owner(user) %}{{ crate::t("tutor.no_key.p2") }}{% else %}{{ crate::t("tutor.no_key.ask_owner") }}{% endif %}</p>
   <div class="modal-actions">
-    <button type="button" class="btn ghost" commandfor="home-tutor-gate" command="close" data-closes data-testid="home-tutor-gate-close">{{ crate::t("profile.ai.close") }}</button>
-    <a class="btn" href="{{ crate::base_path() }}/profile#api-keys" data-testid="home-tutor-gate-add-key">{{ crate::t("tutor.no_key.add_key") }}</a>
+    <button type="button" class="btn ghost" commandfor="home-tutor-gate" command="close" data-closes data-testid="home-tutor-gate-close">{{ crate::t("profile.consent.close") }}</button>
+    {% if crate::routes::is_owner(user) %}<a class="btn" href="{{ crate::url("/manage#ai") }}" data-testid="home-tutor-gate-add-key">{{ crate::t("tutor.no_key.add_key") }}</a>{% endif %}
   </div>
 </dialog>
 {% endif %}

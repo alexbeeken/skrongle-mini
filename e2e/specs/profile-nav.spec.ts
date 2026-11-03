@@ -1,6 +1,7 @@
 // The profile's side list marks the section you are in (#420): the link of
 // the section in view carries aria-current="location", after a jump and
-// while scrolling; the AI link is named like its section.
+// while scrolling. There is no AI section: the keys and the switch are the
+// owner's, on Manage Users (#25).
 import { expect, test } from "@playwright/test";
 import { newAccount, register } from "../lib/learner";
 
@@ -13,8 +14,8 @@ test("the profile nav marks the section in view", async ({ page }) => {
   await expect(link(page, "personal")).toHaveAttribute("aria-current", "location");
   await expect(page.locator('[data-testid="profile-nav-link"][aria-current]')).toHaveCount(1);
 
-  await link(page, "api-keys").click();
-  await expect(link(page, "api-keys")).toHaveAttribute("aria-current", "location");
+  await link(page, "two-factor").click();
+  await expect(link(page, "two-factor")).toHaveAttribute("aria-current", "location");
   await expect(link(page, "personal")).not.toHaveAttribute("aria-current", /.*/);
 
   // Scrolling back to the top marks the first section again.
@@ -26,6 +27,6 @@ test("the profile nav marks the section in view", async ({ page }) => {
   await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
   await expect(link(page, "data")).toHaveAttribute("aria-current", "location");
 
-  // The AI switch lives on the Privacy and consent card, which has its own link (#974).
   await expect(link(page, "ai")).toHaveCount(0);
+  await expect(link(page, "api-keys")).toHaveCount(0);
 });

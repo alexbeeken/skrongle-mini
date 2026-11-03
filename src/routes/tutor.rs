@@ -44,6 +44,8 @@ pub struct TutorTemplate {
     pub course: CourseView,
     /// Providers with a key on file; empty means the page shows how to add one.
     pub providers: Vec<ProviderChoice>,
+    /// The account is an owner: the no-key page links to Manage Users.
+    pub owner: bool,
     pub provider: String,
     pub lesson_slug: String,
     pub lesson_title: String,
@@ -65,8 +67,8 @@ pub async fn page(State(state): State<Arc<AppState>>, p: Project, Query(q): Quer
         Some(slug) => Some(content.lesson_by_slug(slug).ok_or(AppError::NotFound)?),
         None => None,
     };
-    // The learner's own keys, in the profile's order.
-    let choices: Vec<ai::ProviderKind> = keys_on_file(&state, p.user.id).await?.into_iter().map(ai::ProviderKind::from_secret).collect();
+    // The server's keys, in Manage Users' order.
+    let choices: Vec<ai::ProviderKind> = keys_on_file(&state).await?.into_iter().map(ai::ProviderKind::from_secret).collect();
     let wanted = q.provider.as_deref().and_then(|w| choices.iter().copied().find(|c| c.id() == w));
     let chosen = wanted.or_else(|| choices.first().copied());
     let providers = choices.iter().map(|c| ProviderChoice { id: c.id(), label: c.secret().label().to_string(), selected: Some(*c) == chosen }).collect();
@@ -75,6 +77,7 @@ pub async fn page(State(state): State<Arc<AppState>>, p: Project, Query(q): Quer
         chars_json,
         course: CourseView::of(content),
         providers,
+        owner: p.user.owner,
         provider: chosen.map(|p| p.id().to_string()).unwrap_or_default(),
         lesson_slug: lesson.map(|l| l.slug.clone()).unwrap_or_default(),
         lesson_title: lesson.map(|l| l.title.clone()).unwrap_or_default(),
@@ -82,10 +85,10 @@ pub async fn page(State(state): State<Arc<AppState>>, p: Project, Query(q): Quer
     .into_response())
 }
 
-async fn keys_on_file(state: &AppState, user_id: i64) -> Result<Vec<Provider>, AppError> {
+/// The providers the server has a key for (the owner's, on Manage Users).
+async fn keys_on_file(state: &AppState) -> Result<Vec<Provider>, AppError> {
     let vault = state.vault.clone();
-    let statuses = state.db.call(move |c| secrets::statuses(c, &vault, user_id)).await?;
-    Ok(statuses.into_iter().filter(|s| s.hint.is_some()).map(|s| s.provider).collect())
+    Ok(state.db.call(move |c| secrets::usable(c, &vault)).await?)
 }
 
 #[derive(Deserialize)]
@@ -287,7 +290,7 @@ async fn turn_inner(state: &AppState, p: &Project, session: &mut Session, kind: 
     };
 
     // 2. The model's part, and what its reply asks for.
-    let llm = own_provider(state, p, session.provider).await?;
+    let llm = own_provider(state, session.provider).await?;
     let instruction = (!instruction.is_empty()).then_some(instruction);
     let reply = match talk(p, &llm, session, &mut added, instruction).await {
         Ok(r) => r,
@@ -315,11 +318,11 @@ async fn turn_inner(state: &AppState, p: &Project, session: &mut Session, kind: 
     Ok((added, None))
 }
 
-/// The learner's saved key for `kind`, as a provider.
-async fn own_provider(state: &AppState, p: &Project, kind: ai::ProviderKind) -> Result<ai::Provider, AppError> {
+/// The server's key for `kind`, as a provider.
+async fn own_provider(state: &AppState, kind: ai::ProviderKind) -> Result<ai::Provider, AppError> {
     let provider = kind.secret();
-    let (uid, vault) = (p.user.id, state.vault.clone());
-    let Some(key) = state.db.call(move |c| secrets::get(c, &vault, uid, provider)).await? else {
+    let vault = state.vault.clone();
+    let Some(key) = state.db.call(move |c| secrets::get(c, &vault, provider)).await? else {
         return Err(AppError::ApiBadRequest(crate::t1("tutor.api.no_key", "provider", provider.label())));
     };
     Ok(kind.provider(key))

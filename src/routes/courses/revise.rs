@@ -105,8 +105,8 @@ pub async fn ai_start(
         None => None,
     };
     // The first saved key.
-    let provider = match saved_provider(&state, user.id).await? {
-        Some(saved) => match ai_provider(&state, &user, saved.id(), "", false, "", "").await? {
+    let provider = match saved_provider(&state).await? {
+        Some(saved) => match ai_provider(&state, &user, saved.id(), "", "", "").await? {
             Ok(p) => p,
             Err(e) => return refuse(e).await,
         },

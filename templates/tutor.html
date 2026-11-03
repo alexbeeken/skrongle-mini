@@ -36,8 +36,8 @@
     <p class="t-empty-icon">🤖</p>
     <h1>{{ crate::t("tutor.no_key.title") }}</h1>
     <p>{{ crate::t1("tutor.no_key.p1", "app", crate::APP_NAME) }}</p>
-    <p>{{ crate::t("tutor.no_key.p2") }}</p>
-    <a class="t-btn" href="{{ crate::base_path() }}/profile#api-keys" data-testid="tutor-add-key">{{ crate::t("tutor.no_key.add_key") }}</a>
+    {% if owner %}<p>{{ crate::t("tutor.no_key.p2") }}</p>
+    <a class="t-btn" href="{{ crate::url("/manage#ai") }}" data-testid="tutor-add-key">{{ crate::t("tutor.no_key.add_key") }}</a>{% else %}<p>{{ crate::t("tutor.no_key.ask_owner") }}</p>{% endif %}
     <a class="t-link" href="{{ crate::url("/") }}">{{ crate::t("tutor.no_key.back") }}</a>
   </main>
   {% else %}
