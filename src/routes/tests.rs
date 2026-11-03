@@ -376,25 +376,21 @@ fn superusers_reset_email_verification() {
     assert!(get(&loc, &root).contains(r#"data-testid="superuser-error""#));
     assert_eq!(bob_links(), 2);
 
-    // Pages of 25, newest first; a page past the end is the last one.
+    // Every account on one page, newest first, with the count from the list.
     state
         .db
         .with(|c| {
-            for n in 0..30 {
+            let have: i64 = c.query_row("SELECT COUNT(*) FROM users", [], |r| r.get(0))?;
+            for n in have..crate::caps::MAX_ACCOUNTS as i64 {
                 crate::auth::create_user(c, &format!("u{n:02}@example.org"), "h")?;
             }
             Ok(())
         })
         .unwrap();
     let page = get("/superuser", &root);
-    assert_eq!(page.matches("superuser-account-row").count(), 25, "{page}");
-    assert!(page.contains("<td>u29@example.org</td>") && !page.contains("<td>root@example.org</td>"), "{page}");
-    assert!(page.contains("Page 1 of 2") && page.contains(r#"href="/superuser?page=2" data-testid="superuser-next""#) && !page.contains("superuser-prev"), "{page}");
-    let page = get("/superuser?page=2", &root);
-    assert_eq!(page.matches("superuser-account-row").count(), 7, "{page}");
-    assert!(page.contains("<td>root@example.org</td>") && page.contains(r#"href="/superuser?page=1" data-testid="superuser-prev""#) && !page.contains("superuser-next"), "{page}");
-    assert!(get("/superuser?page=9", &root).contains("Page 2 of 2"));
-    assert!(get("/superuser?page=0", &root).contains("Page 1 of 2"));
+    assert_eq!(page.matches("superuser-account-row").count(), crate::caps::MAX_ACCOUNTS, "{page}");
+    assert!(page.contains("<td>root@example.org</td>") && !page.contains("superuser-pager") && !page.contains("page="), "{page}");
+    assert!(page.contains(&format!("{max} of {max} accounts", max = crate::caps::MAX_ACCOUNTS)), "{page}");
 }
 
 /// The Superuser page's account actions (#635): only superusers may
