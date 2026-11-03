@@ -19,7 +19,6 @@
   {% if reset %}<p class="muted small"><a href="{{ crate::url("/reset") }}" data-testid="login-reset-link">{{ crate::t("auth.login.forgot") }}</a></p>{% endif %}
   {% let register_url = self.other_page_url("/register") %}
   <p class="muted">{{ crate::t1("auth.login.no_account_html", "url", register_url)|safe }}</p>
-  <p class="muted small"><a href="{{ crate::url("/terms") }}" data-testid="login-terms-link">{{ crate::t("auth.login.terms_link") }}</a></p>
   {% let lang_back = "/login" %}{% include "lang_picker.html" %}
   {% if dev %}
   <section class="dev-panel" data-testid="login-dev">

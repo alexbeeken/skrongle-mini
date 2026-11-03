@@ -81,7 +81,6 @@
     <li>{{ crate::t("docs.self_host.mini_out_mail") }}</li>
     <li>{{ crate::t("docs.self_host.mini_out_plans") }}</li>
     <li>{{ crate::t("docs.self_host.mini_out_signup") }}</li>
-    <li>{{ crate::t("docs.self_host.mini_out_terms") }}</li>
     <li>{{ crate::t("docs.self_host.mini_out_jobs") }}</li>
     <li>{{ crate::t("docs.self_host.mini_out_db") }}</li>
   </ul>
@@ -192,7 +191,6 @@ sudo tar -xzf {{ crate::routes::docs::RELEASE_TARBALL_NAME }} -C /opt/skrongle</
 
   <h3>{{ crate::t("docs.self_host.start_h3") }}</h3>
   <div class="sh-cmd" data-testid="selfhost-command"><pre><code>sudo mkdir -p /etc/skrongle
-sudo cp -n /opt/skrongle/terms.example.md /etc/skrongle/terms.md
 sudo cp /opt/skrongle/skrongle.service /etc/systemd/system/
 sudo systemctl enable --now skrongle</code></pre><button type="button" class="sh-copy" data-testid="selfhost-copy">{{ crate::t("docs.self_host.copy") }}</button></div>
 
@@ -209,7 +207,6 @@ sudo systemctl enable --now skrongle</code></pre><button type="button" class="sh
   <h2><span class="sh-num">5</span> {{ crate::t("docs.self_host.yours_h2") }}</h2>
   <ul class="sh-list">
     <li>{{ crate::t("docs.self_host.yours_account_html")|safe }}</li>
-    <li data-testid="selfhost-terms">{{ crate::t("docs.self_host.yours_terms_html")|safe }}</li>
     <li>{{ crate::t("docs.self_host.yours_course_html")|safe }}</li>
     <li>{{ crate::t("docs.self_host.yours_ai_html")|safe }}</li>
   </ul>

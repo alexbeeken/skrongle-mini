@@ -129,15 +129,6 @@ pub struct CurrentUser {
     /// The level they start that course at (`projects.start_unit`): a unit
     /// id, '' for the beginning. `Project::start` is the unit index.
     pub start_unit: String,
-    /// Accepted the current Terms of Service (`terms::version()`). The
-    /// `CurrentUser` extractor sends anyone else to `/terms/accept`, unless
-    /// `terms_notice` is set.
-    pub terms_ok: bool,
-    /// Not `terms_ok`, but an earlier built-in version was accepted: the
-    /// pages show this notice of what changed (`terms_notice.html`, #966).
-    /// A minor one blocks nothing; a material one lets only GET pages
-    /// through (with the notice over them, until accepted).
-    pub terms_notice: Option<crate::terms::Notice>,
     /// `users.must_change_password`: signed in with a temporary password the
     /// owner set (#635, `owner.rs`). The `CurrentUser` extractor sends the
     /// account to `/password/change` before anything else.
@@ -177,8 +168,6 @@ impl CurrentUser {
             course_title: None,
             course_owner: None,
             start_unit: String::new(),
-            terms_ok: true,
-            terms_notice: None,
             must_change_password: false,
             delete_at: None,
             owner: false,
@@ -323,13 +312,12 @@ pub fn user_for_session(conn: &Connection, token: &str) -> rusqlite::Result<Opti
 /// The session query: every table it reads must be in `cache::WATCHED`.
 fn session_sql() -> String {
     format!(
-        "SELECT u.id, COALESCE(u.email, ''), u.active_course, c.title, u.first_name, u.last_name, NULL, NULL, {}, {}, u.email_verified_at IS NOT NULL, u.owner,
+        "SELECT u.id, COALESCE(u.email, ''), u.active_course, c.title, u.first_name, u.last_name, NULL, NULL, {}, u.email_verified_at IS NOT NULL, u.owner,
                 COALESCE(p.start_unit, ''), NULL, u.lang, c.owner_id, u.must_change_password,
-                (SELECT version FROM terms_acceptances WHERE user_id = u.id ORDER BY accepted_at DESC, rowid DESC LIMIT 1), u.delete_at, s.expires_at
+                u.delete_at, s.expires_at
          FROM sessions s JOIN users u ON u.id = s.user_id LEFT JOIN courses c ON c.id = u.active_course
          LEFT JOIN projects p ON p.user_id = u.id AND p.course_id = u.active_course
          WHERE s.session_token = ?1 AND s.expires_at > ?2",
-        crate::terms::accepted_sql("u.id"),
         crate::settings::AI_OFF_SQL
     )
 }
@@ -341,28 +329,24 @@ fn read_session(conn: &Connection, hash: &str, now: i64) -> rusqlite::Result<Opt
         &session_sql(),
         params![hash, now],
         |r| {
-            let terms_ok: bool = r.get(8)?;
-            let terms_notice = if terms_ok { None } else { crate::terms::notice(r.get::<_, Option<String>>(17)?.as_deref()) };
             let user = CurrentUser {
                 id: r.get(0)?,
                 email: r.get(1)?,
                 course_id: r.get(2)?,
                 course_title: r.get(3)?,
-                course_owner: r.get(15)?,
+                course_owner: r.get(14)?,
                 first_name: r.get(4)?,
                 last_name: r.get(5)?,
-                terms_ok,
-                terms_notice,
-                must_change_password: r.get(16)?,
-                delete_at: r.get(18)?,
-                ai_off: r.get(9)?,
-                email_verified: r.get(10)?,
-                owner: r.get(11)?,
-                start_unit: r.get(12)?,
-                lang: r.get(14)?,
+                must_change_password: r.get(15)?,
+                delete_at: r.get(16)?,
+                ai_off: r.get(8)?,
+                email_verified: r.get(9)?,
+                owner: r.get(10)?,
+                start_unit: r.get(11)?,
+                lang: r.get(13)?,
                 tz: 0,
             };
-            Ok((user, r.get(19)?))
+            Ok((user, r.get(17)?))
         },
     )
     .optional()
@@ -466,34 +450,12 @@ impl FromRequestParts<Arc<AppState>> for CurrentUser {
             Some((_, user)) if user.delete_at.is_some() => Err(AppError::DeletionScheduled),
             // A temporary password (#635): a new one first, then the rest.
             Some((_, user)) if user.must_change_password && api => Err(AppError::ApiPasswordChangeRequired),
-            Some((_, user)) if user.must_change_password => Err(AppError::PasswordChangeRequired(terms_next(parts))),
-            Some((_, user)) if user.terms_ok => Ok(user),
-            // A newer version of the built-in terms (#966): a minor change
-            // is a notice and nothing more; a material one shows over GET
-            // pages and refuses everything else until accepted, except
-            // closing the account, which the notice offers instead.
-            Some((_, mut user)) if user.terms_notice.as_ref().is_some_and(|n| !n.material || (!api && ((parts.method == axum::http::Method::GET && !own_layout(parts)) || app_path(parts) == "/profile/delete"))) => {
-                if let Some(n) = user.terms_notice.as_mut() {
-                    n.next = terms_next(parts);
-                }
-                Ok(user)
-            }
-            // Terms not accepted (a new version, or an account from before
-            // them): the gate first, then back where they were going.
-            Some(_) if api => Err(AppError::ApiTermsRequired),
-            Some(_) => Err(AppError::TermsRequired(terms_next(parts))),
+            Some((_, user)) if user.must_change_password => Err(AppError::PasswordChangeRequired(next_path(parts))),
+            Some((_, user)) => Ok(user),
             None if api => Err(AppError::Unauthorized),
             None => Err(AppError::RedirectToLogin),
         }
     }
-}
-
-/// A page with its own layout instead of `base.html` (Sprint, the tutor),
-/// which cannot show the terms notice: a material change sends it to the
-/// gate instead, as before the notice existed.
-fn own_layout(parts: &Parts) -> bool {
-    let path = app_path(parts);
-    ["/sprint", "/tutor"].iter().any(|p| path == *p || path.starts_with(&format!("{p}/")))
 }
 
 /// The request's path inside the app (without the base path).
@@ -502,8 +464,8 @@ fn app_path(parts: &Parts) -> &str {
     path.strip_prefix(crate::base_path()).filter(|p| p.starts_with('/')).unwrap_or(path)
 }
 
-/// Where to return after the terms gate (or the password one): the app path of a GET request, else home.
-fn terms_next(parts: &Parts) -> String {
+/// Where to return after the password gate: the app path of a GET request, else home.
+fn next_path(parts: &Parts) -> String {
     if parts.method != axum::http::Method::GET {
         return "/".into();
     }
@@ -621,16 +583,12 @@ mod tests {
             rt.block_on(user_from_headers(&state, &headers))
         };
 
-        let first = request(&here).unwrap();
-        assert!(!first.terms_ok);
+        request(&here).unwrap();
         let reads = cache.reads();
         for _ in 0..3 {
             assert_eq!(request(&here).map(|u| u.id), Some(ann));
         }
         assert_eq!(cache.reads(), reads, "later requests make no session query");
-
-        state.db.with(|c| crate::terms::accept(c, ann, crate::terms::version())).unwrap();
-        assert!(request(&here).unwrap().terms_ok, "terms accepted");
 
         state.db.with(|c| crate::profile::update(c, ann, Some("Ann"), None)).unwrap();
         assert_eq!(request(&here).unwrap().first_name, "Ann", "profile field");
@@ -728,7 +686,6 @@ mod tests {
         let db = crate::db::Db::open_in_memory().unwrap();
         db.with(|c| {
             let ann = create_user(c, "ann@example.org", "h")?;
-            crate::terms::accept(c, ann, crate::terms::version())?;
             let (here, elsewhere) = (create_session(c, ann)?, create_session(c, ann)?);
             let stored: Vec<String> = {
                 let mut stmt = c.prepare("SELECT session_token FROM sessions ORDER BY rowid")?;
@@ -758,8 +715,6 @@ mod tests {
         db.with(|c| {
             let ann = create_user(c, "ann@example.org", "h")?;
             let bea = create_user(c, "bea@example.org", "h")?;
-            crate::terms::accept(c, ann, crate::terms::version())?;
-            crate::terms::accept(c, bea, crate::terms::version())?;
             let other = create_session(c, bea)?;
             let tokens: Vec<String> = (0..5).map(|_| create_session(c, ann)).collect::<Result<_, _>>()?;
             assert!(user_for_session(c, &tokens[0])?.is_none());

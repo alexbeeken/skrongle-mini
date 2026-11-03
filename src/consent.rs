@@ -5,17 +5,16 @@
 //! it, and the export and account deletion still take any rows along
 //! (`privacy::USER_TABLES`).
 //!
-//! The Terms and the age confirmation are not optional (`terms.rs`,
-//! `users.age_confirmed`); they stay where they are.
+//! The age confirmation is not optional (`users.age_confirmed`); it stays
+//! where it is.
 
 use rusqlite::{Connection, OptionalExtension};
 
-/// When the account confirmed its age: at sign-up, or on the Terms page for
-/// an account from before the box, both alongside a Terms acceptance. `None`
-/// when it never did.
+/// When the account confirmed its age: at sign-up, so the day it was made.
+/// `None` when it never did.
 pub fn age_confirmed_at(conn: &Connection, user_id: i64) -> rusqlite::Result<Option<i64>> {
     conn.query_row(
-        "SELECT (SELECT MIN(accepted_at) FROM terms_acceptances WHERE user_id = u.id) FROM users u WHERE u.id = ?1 AND u.age_confirmed",
+        "SELECT created_at FROM users WHERE id = ?1 AND age_confirmed",
         [user_id],
         |r| r.get(0),
     )
@@ -28,13 +27,13 @@ mod tests {
     use super::*;
 
     #[test]
-    fn age_date_is_the_first_terms_acceptance() {
+    fn age_date_is_when_the_account_was_made() {
         let db = crate::db::Db::open_in_memory().unwrap();
         db.with(|c| {
             let ann = crate::auth::create_user(c, "ann@example.org", "h")?;
             assert_eq!(age_confirmed_at(c, ann)?, None);
-            c.execute("INSERT INTO terms_acceptances (user_id, version, accepted_at) VALUES (?1, 'a', 50), (?1, 'b', 90)", [ann])?;
-            assert_eq!(age_confirmed_at(c, ann)?, None, "terms accepted but no age box ticked");
+            c.execute("UPDATE users SET created_at = 50 WHERE id = ?1", [ann])?;
+            assert_eq!(age_confirmed_at(c, ann)?, None, "no age box ticked");
             crate::privacy::record_age_confirmed(c, ann, true)?;
             assert_eq!(age_confirmed_at(c, ann)?, Some(50));
             Ok(())

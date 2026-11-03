@@ -13,25 +13,6 @@
   </dialog>
   {% if let Some(n) = notice %}<p class="alert ok-text" role="status" data-testid="manage-notice">✓ {{ n }}{% if let Some(i) = inbox %} <a href="{{ i }}" data-testid="manage-inbox">{{ crate::t("manage.open_inbox") }}</a>{% endif %}</p>{% endif %}
   {% if let Some(e) = error %}<p class="alert error" role="alert" data-testid="manage-error">{{ e }}</p>{% endif %}
-  {% if terms_owed > 0 %}<p class="alert" role="status" data-testid="manage-terms-changed">{{ crate::t("manage.terms_changed") }}</p>{% endif %}
-
-  {% if terms_owed > 0 %}
-  <section class="card" data-testid="manage-terms-card">
-    <h2>{{ crate::t("manage.terms_title") }}</h2>
-    <button type="button" class="btn" data-opens="manage-terms-dialog" aria-haspopup="dialog" data-testid="manage-terms-send">{{ crate::t("manage.terms_send") }}</button>
-  </section>
-  <dialog class="modal" id="manage-terms-dialog" aria-labelledby="manage-terms-title" data-testid="manage-terms-dialog">
-    <form method="post" action="{{ crate::url("/manage/terms-announce") }}" data-testid="manage-terms-form">
-      <h2 id="manage-terms-title">{{ crate::t("manage.terms_send") }}</h2>
-      <p class="small">{{ crate::tn("manage.terms_send_about", terms_owed) }}</p>
-      <div class="modal-actions">
-        <button type="button" class="btn ghost" data-closes>{{ crate::t("profile.password.cancel") }}</button>
-        <button type="submit" class="btn" data-testid="manage-terms-confirm">{{ crate::t("manage.terms_send") }}</button>
-      </div>
-    </form>
-  </dialog>
-  {% endif %}
-
   {% if mode == "invite" %}
   <section class="card" data-testid="manage-invites-card">
     <h2>{{ crate::t("manage.invite_link") }}</h2>

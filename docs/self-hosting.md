@@ -20,8 +20,6 @@ no outside services. What it leaves out:
 - **Sign-up by invitation.** The first account is yours, the owner's;
   everyone else needs a link you make (`SKRONGLE_SIGNUP=invite`,
   [Accounts and AI keys](#accounts-and-ai-keys)).
-- **Your own Terms.** `SKRONGLE_TERMS=/etc/skrongle/terms.md`
-  ([Your own Terms](#your-own-terms)).
 - **Background work in process.** The mail and text outboxes and the
   background jobs are rows in SQLite, run by threads in the server: no
   Redis or queue service.
@@ -74,7 +72,6 @@ Each comes with a `.sha256` file. A tarball unpacks (flat, no top folder) to:
 | `skrongle` | The server: one binary. Templates, CSS, scripts and these docs are compiled in. |
 | `data/courses/` | The built-in courses, read from disk when the server starts (`SKRONGLE_DATA_DIR`). |
 | `skrongle.service` | The systemd unit below (`deploy/skrongle.service` in the repo). |
-| `terms.example.md` | A template for your own Terms of Service (`deploy/terms.example.md`); see [Your own Terms](#your-own-terms). |
 | `update.sh` | Updates the install in place: see [Updating](#updating). |
 | `VERSION` | The version, one line. |
 
@@ -106,7 +103,6 @@ sha256sum -c skrongle-$V-$(uname -m).tar.gz.sha256
 sudo mkdir -p /opt/skrongle
 sudo tar -xzf skrongle-$V-$(uname -m).tar.gz -C /opt/skrongle
 sudo mkdir -p /etc/skrongle
-sudo cp -n /opt/skrongle/terms.example.md /etc/skrongle/terms.md
 sudo cp /opt/skrongle/skrongle.service /etc/systemd/system/
 sudo systemctl enable --now skrongle
 ```
@@ -149,8 +145,6 @@ A line that starts with `PROBLEM:` says what to fix.
 - restarts it if it stops (`Restart=on-failure`);
 - caps memory at 64 MB (`MemoryMax`) and sandboxes the process
   (`ProtectSystem=strict`, `ProtectHome`, `PrivateTmp`, …);
-- shows your Terms from `/etc/skrongle/terms.md` (`SKRONGLE_TERMS`; it will
-  not start without that file, see [Your own Terms](#your-own-terms));
 - lets people sign up only with an invitation from you
   (`SKRONGLE_SIGNUP=invite`, see [Accounts and AI keys](#accounts-and-ai-keys));
 - makes the server a Skrongle mini (`SKRONGLE_MINI=1`), which turns e-mail
@@ -190,8 +184,6 @@ starts `SKRONGLE_`; see [Renamed settings](#renamed-settings) if yours start `LE
 | `SKRONGLE_LOG` | `info` | One level: `error`, `warn`, `info`, `debug` or `trace`. Per-module filters like `skrongle=debug` are not supported; an unrecognised value logs one warning and runs at `info`. |
 | `SKRONGLE_SECURE_COOKIES` | off | `1` when the site is served over HTTPS (behind a TLS proxy). |
 | `SKRONGLE_PUBLIC_URL` | — | The address people use, e.g. `https://learn.example.org`. |
-| `SKRONGLE_TERMS` | `builtin` (mini: `/etc/skrongle/terms.md`) | Your Terms of Service: the path of a Markdown file (the unit sets `/etc/skrongle/terms.md`), or `builtin` for the hosted service's terms. See [Your own Terms](#your-own-terms). |
-| `SKRONGLE_LEGAL_EMAIL` | — | With `SKRONGLE_TERMS=builtin` only: your copyright / legal contact, shown on `/terms` in place of `[CONTACT EMAIL]` and `[SUPPORT EMAIL]`. |
 | `SKRONGLE_MIN_AGE` | `14` | The minimum age the registration checkbox states. |
 | `SKRONGLE_FAILED_COURSE_RETENTION_DAYS` | `30` | An AI course whose generation failed is deleted, with the notes it was given, after this many days without a resume or edit. `0` keeps them. |
 | `SKRONGLE_COURSES_PER_USER` | `50` (no limit in dev mode) | Courses one account may make. "Create a course" says so when an account has them all. |
@@ -220,30 +212,6 @@ sudo systemctl daemon-reload && sudo systemctl restart skrongle
 
 Or copy the new `skrongle.service` from the release over yours, if you
 have not edited it.
-
-## Your own Terms
-
-Everyone who makes an account on your server accepts its Terms of Service,
-at sign-up and again whenever they change. The text is yours: you run the
-server, so the hosted service's terms do not fit. The release ships a short
-plain-language template, `terms.example.md`. Copy it and put your name in:
-
-```sh
-sudo mkdir -p /etc/skrongle
-sudo cp -n /opt/skrongle/terms.example.md /etc/skrongle/terms.md
-sudo nano /etc/skrongle/terms.md     # fill in every [BRACKET]
-sudo systemctl restart skrongle
-```
-
-`/terms` then shows that file as it is. Its SHA-256 is the version, so after
-any edit (and a restart) every account is asked to accept again at its next
-visit, on a plain page with the accept box. There is no summary of what
-changed and no e-mail: the hosted site's notices and 30-day e-mail of a
-change come from its changelog, which your file does not have. If the file
-is missing, unreadable or empty the server refuses to start, and the log
-names the path. `SKRONGLE_TERMS=builtin` shows the hosted service's terms
-instead. The age box ("I am at least 14") stays either way
-(`SKRONGLE_MIN_AGE`).
 
 ## Without e-mail
 
@@ -402,8 +370,7 @@ What happens then:
   is no two-factor step: the proxy did that. If the browser was signed in
   as someone else, that session ends.
 - No account with that address: `SKRONGLE_SIGNUP` decides. `open` makes one
-  with no password, its address already confirmed; it accepts the Terms on
-  its first page. `invite` and `closed` show the "sign-ups are closed" page
+  with no password, its address already confirmed. `invite` and `closed` show the "sign-ups are closed" page
   (on an empty server the first one is still let in, as the owner).
   Invitation links don't help here, since `/register` has no form. When the
   proxy only lets your own people through, set `SKRONGLE_SIGNUP=open`: the

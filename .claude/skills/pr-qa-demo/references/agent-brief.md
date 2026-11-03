@@ -348,7 +348,7 @@ long one costs every later turn.
 
 **Jev's limits**
 - Jev can't click hidden (`sr-only`) radios such as the motivator chips, can't
-  tick the age and terms boxes on `/register`, can't log out through the account menu,
+  tick the age box on `/register`, can't log out through the account menu,
   and gets stuck in the course start wizard on `/courses`. Do those steps yourself in
   `then`, with `signUp`, `logout` and `openCourse` from `e2e/lib/learner.ts`.
 - Jev often can't find a lesson by topic on `/lessons`. Give every goal a `start` URL and
@@ -539,7 +539,7 @@ long one costs every later turn.
   `notation.spec.ts` that any PR adding staff questions to the notation lesson has to
   make `.first()`. A Review Desk PR needs no Rust build: `scripts/review-desk/review
   --no-open --port <p>` with a fresh `REVIEW_DESK_HOME`; without `--no-open` it opens
-  a browser tab. `?terms=minor` shows only the newest Terms entry in effect.
+  a browser tab.
   Any code that draws with abcjs `responsive: "resize"` into a box with a max-width
   gets the same blank gap under the staff (185 px on a wide page) unless it draws into
   an inner box, as `notation.js` does since `cd058af9`; `fill-bar.js` (#1275) needed

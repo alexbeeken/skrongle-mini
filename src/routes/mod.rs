@@ -34,7 +34,6 @@ pub mod password;
 pub mod reset;
 pub mod shop;
 pub mod manage;
-pub mod terms;
 pub mod tutor;
 pub mod vocab;
 
@@ -174,11 +173,6 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/llms.txt", get(docs::llms_txt))
         .route("/docs/{page}", get(docs::page))
         .route("/self-host", get(docs::self_host))
-        // Terms of Service (public) and the gate for accounts that have not accepted them
-        .route("/terms", get(terms::page))
-        .route("/terms.md", get(terms::markdown))
-        .route("/terms/accept", get(terms::accept_form).post(terms::accept))
-        .route("/terms/dismiss", post(terms::dismiss))
         .route("/password/change", get(password::change_form).post(password::change))
         // the modes' old paths (/d, /k, /g, /games), for bookmarks and open tabs
         .route("/d", get(|q: RawQuery| moved("/sprint", q)))
@@ -261,7 +255,6 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/manage/invites/revoke", post(manage::revoke_invite))
         .route("/manage/temp-password", post(manage::set_temp_password))
         .route("/manage/two-factor-off", post(manage::turn_off_two_factor))
-        .route("/manage/terms-announce", post(manage::announce_terms))
         .route("/manage/api-keys/remove", post(manage::remove_key))
         .route("/manage/ai", post(manage::set_ai))
         .route("/api/manage/keys", post(manage::save_keys))

@@ -47,7 +47,7 @@ impl Server {
 
     /// Register and sign in; the session cookie.
     fn account(&self, email: &str) -> String {
-        let (status, _, _) = self.post("/register", "", &[("email", email), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on")]);
+        let (status, _, _) = self.post("/register", "", &[("email", email), ("password", "long-enough-pw"), ("age", "on")]);
         assert_eq!(status, 200, "registering shows the check-your-mail page");
         let (status, cookie, _) = self.post("/login", "", &[("email", email), ("password", "long-enough-pw")]);
         assert_eq!(status, 303, "signed in");

@@ -49,7 +49,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 - Two-factor: `two_factor.rs`, `totp.rs`.
 - Profile: `profile.rs`, `routes/profile.rs`, `static/profile.js`, `static/autosave.js`.
 - Data rights: `privacy.rs` (export columns, deletion), `consent.rs` (optional consents for the Privacy and consent card), `account_deletion.rs` and `routes/account_deletion.rs` (deleting an account after 14 days, #970).
-- Terms: `terms.rs`, `routes/terms.rs`. Owner: `owner.rs`, `routes/manage.rs`, `static/manage.js`, `routes/password.rs` (temporary password gate); the server's AI API keys in `secrets.rs` and the hide-AI switch in `settings.rs`, both on Manage Users (#25).
+- Owner: `owner.rs`, `routes/manage.rs`, `static/manage.js`, `routes/password.rs` (temporary password gate); the server's AI API keys in `secrets.rs` and the hide-AI switch in `settings.rs`, both on Manage Users (#25).
 - Docs pages: `routes/docs.rs` (`/docs` sidebar `SECTIONS`, `/llms.txt`).
 
 ### Dev mode only
@@ -66,7 +66,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 src/
   main.rs        config from env, command line (`doctor`, `--version`), tokio runtime (1 worker, 2 blocking threads), startup, graceful shutdown
   startup.rs     startup errors for the usual self-hosting mistakes: port in use, database folder not writable, secret key missing
-  doctor.rs      `skrongle doctor`: read-only diagnostics for bug reports (version, OS, database, schema level, yes/no for secrets and SKRONGLE_LEGAL_EMAIL, disk, memory)
+  doctor.rs      `skrongle doctor`: read-only diagnostics for bug reports (version, OS, database, schema level, yes/no for secrets, disk, memory)
   content.rs     course model: Manifest, Lesson, QuizItem, …; validation; ContentStore (one course in memory)
   courses.rs     course registry: built-in courses from data/courses/, user-made ones in SQLite; projects
   ai.rs          LLM client (Anthropic Messages API / OpenAI-compatible, incl. Gemini) + "generate with AI" job runner (generate, resume, revise with feedback, add a lesson)
@@ -98,7 +98,6 @@ src/
   reset.rs       password reset links (table password_resets, SHA-256 only, 1 h, single use), the "you already have an account" message, which unconfirmed accounts a registration replaces (SKRONGLE_UNCONFIRMED_DAYS)
   totp.rs        time-based one-time passwords: RFC 6238 TOTP over RFC 4226 HOTP (SHA-1 written out, SHA-256/512 via sha2), base32, the otpauth://totp/ Key Uri Format and its QR code as inline SVG (the qrcode crate, no image feature); the dev authenticator (/dev/authenticator) reads its keys with it
   two_factor.rs  two-factor sign-in: the method in use, the authenticator app's enrolment, sign-in challenges, the proof for turning it off (tables totp_keys, two_factor_challenges, two_factor_confirmations)
-  terms.rs       Terms of Service: the source (built-in text or SKRONGLE_TERMS file), the built-in changelog (docs/terms-changes.json) and the version in effect, the notice of a newer version (minor or material), acceptances, the 30-day e-mail of a material change, sent from /manage (table terms_announcements)
   profile.rs     user profiles: name/e-mail validation, profile persistence
   secrets.rs     the server's AI API keys (#25, table server_api_keys; the owner's, set on /manage, used by every account): master secret, ChaCha20-Poly1305 sealing
   settings.rs    server-wide settings the owner changes on /manage (table settings, #25): ai_off, the switch that hides every AI feature for every account (read into CurrentUser::ai_off by the session query)
@@ -116,7 +115,7 @@ src/
   quiz.rs        adaptive question selection, answer normalisation/checking, tiny PRNG
   problems.rs    what the editor and the file page say when a course file is refused: kind, lesson, field, line, message, fix hint (every ContentError and arrange.rs refusal)
   owner.rs       what the owner does to an account with no message sent (#635): a temporary password (users.must_change_password), two-factor off, make an owner; the binary's commands (reset-password, disable-2fa, make-owner, help)
-  privacy.rs     a learner's data as a whole: USER_TABLES, account deletion, retention rules, the age confirmation (docs/data-inventory.md)
+  privacy.rs     a learner's data as a whole: USER_TABLES, account deletion, retention rules, the age confirmation and SKRONGLE_MIN_AGE (docs/data-inventory.md)
   jobs.rs        background jobs (table jobs, #872): enqueue, the one-statement claim with a lease, retries with per-kind delays, periodic kinds that queue their next run; the `jobs` runner thread, which also drains the mail and text outboxes with a lease (#873); the hourly housekeeping as one job with a step per purge
   mathcheck.rs   numeric and expression answers: a small parser/evaluator, numbers in every spelling, equivalence by sampling
   algebra_tiles.rs  algebra-tiles questions: the pile from `tiles`, an answer must be two sides whose product is the tiles
@@ -155,10 +154,9 @@ src/
     reset.rs     GET/POST /reset (ask for a link: the same answer for any address; ?token=: choose a new password, which ends every session; 404 without mail)
     auth.rs      /login /register (with mail: always "check your mail", signs nobody in) /logout, GET /verify-email?token= (confirms the address; signed in or not)
     auth/code.rs /login/code… (the two-factor step: code form, resend, cancel, status, dev device)
-    terms.rs     /terms, /terms.md (public), /terms/accept (the gate for accounts without the current version, and the notice's accept form), /terms/dismiss (closes a minor change's notice)
     account_deletion.rs  /account/deletion (the only page of an account scheduled for deletion: its date, Cancel deletion, Log out)
     password.rs  /password/change (the gate after signing in with a temporary password: the new one twice, no old one)
-    manage.rs    /manage, the Manage Users page (owners only, 404 otherwise; /superuser redirects here): every account on one page with Temporary password, Turn off two-factor, Make owner and Reset email verification per row; invitation links under SKRONGLE_SIGNUP=invite; while a material terms change is coming, a notice and Send the announcement. and the AI section (#25): the server's AI API keys (autosaved, POST /api/manage/keys) and Hide AI features for everyone. POST /manage/make-owner|reset-email-verification|invites|invites/revoke|temp-password|two-factor-off|terms-announce|api-keys/remove|ai
+    manage.rs    /manage, the Manage Users page (owners only, 404 otherwise; /superuser redirects here): every account on one page with Temporary password, Turn off two-factor, Make owner and Reset email verification per row; invitation links under SKRONGLE_SIGNUP=invite. and the AI section (#25): the server's AI API keys (autosaved, POST /api/manage/keys) and Hide AI features for everyone. POST /manage/make-owner|reset-email-verification|invites|invites/revoke|temp-password|two-factor-off|terms-announce|api-keys/remove|ai
     profile.rs   /profile (personal information, account), POST /api/profile (autosave), POST /profile/password|verify-email/resend, POST /profile/delete
     pages.rs     / (landing for visitors, home: the three modes) /lessons /lessons/{slug} /history /mistakes, POST /api/lessons/{slug}/note (the lesson note, autosave)
     map.rs       /map
@@ -229,21 +227,9 @@ extractors below see it as any other session. See
 redirected to `/login`, `/api/*` routes get a 401). It asks the database once
 per session: the user is then kept in memory (`auth/cache.rs`, #37) until a
 row of a table the query reads changes (the connection's temporary triggers forget
-them all), the session expires or a minute passes. The same query says
-whether the user accepted the current Terms (`terms::version()`: the newest
-entry of `docs/terms-changes.json` in effect, or the hash of the
-`SKRONGLE_TERMS` file) and which version they accepted last.
-An account
-behind on the built-in text gets `CurrentUser::terms_notice`, which
-`base.html` shows as a modal (`terms_notice.html`): for a minor change the
-request goes through; for a material one GET pages go through with the
-notice over them, `/api/*` gets a 403 and anything else (but
-`POST /profile/delete`) goes to `/terms/accept`. An account that never
-accepted, or any account behind on a `SKRONGLE_TERMS` file, is sent to
-`/terms/accept?next=<path>` (`/api/*`: 403).
-Before that, an account signed in with a temporary password the owner set
+them all), the session expires or a minute passes. Before that, an account signed in with a temporary password the owner set
 (`users.must_change_password`, #635) is sent to `/password/change?next=<path>`
-the same way (`/api/*`: 403); that page and `/terms/accept` take `MaybeUser`.
+the same way (`/api/*`: 403); that page takes `MaybeUser`.
 `MaybeUser` (pages that work logged out) does not check. Both set the
 request's language to the account's `users.lang` (see [i18n](i18n)); before
 them, the `i18n::middleware` layer picked one from the `lang` cookie or
@@ -417,8 +403,7 @@ plan_grants    (user_id PRIMARY KEY, granted_at, expires_at, note)   -- Plus wit
 plan_cancellations (id, user_id, plan, reason, feedback, created_at)   -- why a learner cancelled (billing::CANCEL_REASONS)
 terms_acceptances (user_id, version, accepted_at)  UNIQUE (user_id, version)
 terms_announcements (user_id, version, mailed_at)  PRIMARY KEY (user_id, version)
-                -- who was e-mailed about a material change of the built-in terms (v67, #966)
-                -- one row per Terms of Service version a learner accepted; no IP address
+                -- both tables are no longer written or read (the Terms of Service were removed, #20); they stay until the schema squash
 consents       (id, user_id, purpose, granted_at, withdrawn_at)
                 -- an optional consent (src/consent.rs, v82, #974): the 'ai' rows went in v99 when the AI
                 -- features became the server's to show or hide (#25); nothing writes it now
@@ -496,12 +481,11 @@ Guide and Sprint mode completions (seen; passed with two stars or more) and read
 lessons (seen). Migration 14 gave user-made courses their lifecycle columns
 (state, source, visibility, the generation job, brief, outline and notes).
 Migration 15 added `subscriptions` and `plan_grants`. Migration 22 added
-`users.age_confirmed` (the "I am at least N" part of the Terms box at
-sign-up, set by registration and `/terms/accept`).
+`users.age_confirmed` (the "I am at least N" box at
+sign-up, set by registration).
 Migration 34 stores session tokens hashed: it ends every existing session
 (everyone signs in once more) and marks accounts that accepted the Terms as
-age-confirmed. Migration 23 added `terms_acceptances`; accounts from before it
-meet the terms gate at their next visit. Migration 24 added `users.developer`
+age-confirmed. Migration 23 added `terms_acceptances` (no longer used, #20). Migration 24 added `users.developer`
 and `users.mock_ai` (both 0 for every existing account; migration 40 drops
 `mock_ai` again, #298). Migration 25 added
 `mail_outbox`. Migration 27 added `users.ai_off` ("Hide all AI features",
@@ -610,7 +594,7 @@ startup logs one warning naming each old variable and its new name.
 **Skrongle mini** (#632, #641, #578) is the self-hosted release: the same
 binary with `SKRONGLE_MINI=1`, the one setting that makes a server a mini,
 plus the defaults `deploy/skrongle.service` sets, marked *mini* in the table
-below: `SKRONGLE_SIGNUP=invite`, `SKRONGLE_TERMS=/etc/skrongle/terms.md`,
+below: `SKRONGLE_SIGNUP=invite`,
 and no mail provider (#633). `shape.rs` reads `SKRONGLE_MINI` once
 at startup (`Shape::Mini` or `Shape::Hosted`, `shape::current()`,
 `crate::is_mini()`); nothing else reads the variable (a test checks).
@@ -629,8 +613,7 @@ It also refuses to start without `SKRONGLE_SECURE_COOKIES=1` (the hosted site
 is served over HTTPS) and with `SKRONGLE_PROXY_AUTH_*` set (proxy sign-in is
 a mini feature; #980). The dev server's mailbox stands in for it. The
 release tarballs are `skrongle-<version>-<arch>.tar.gz`
-(`routes::docs::RELEASE_TARBALL`, `scripts/package-release.sh`); each
-carries `terms.example.md` for `SKRONGLE_TERMS`. The pitch and the security
+(`routes::docs::RELEASE_TARBALL`, `scripts/package-release.sh`); The pitch and the security
 posture are in `docs/self-hosting.md`, "Skrongle mini".
 
 | Variable | Default | Meaning |
@@ -653,9 +636,7 @@ posture are in `docs/self-hosting.md`, "Skrongle mini".
 | `SKRONGLE_PUBLIC_URL` | — | Public URL, for the links in e-mail (unset: links use the request's host, `X-Forwarded-Host` behind a proxy) |
 | `SKRONGLE_MINI` | unset (*mini:* `1`) | `1`: the server is a Skrongle mini (`shape.rs`); unset: the hosted site. Anything but `1`, `true`, `0`, `false` or unset refuses to start. Read once at startup, directly (no older spelling) |
 | `SKRONGLE_AI_PRICES` | see `prices::DEFAULT_PRICES` | `model=in/out[/cached],…` in dollars per million tokens, added to (or replacing) the built-in table of Anthropic's list prices; `*` prices unknown models (default: the dearest rate) |
-| `SKRONGLE_LEGAL_EMAIL` | — | Copyright / legal contact shown on `/terms` in place of `[CONTACT EMAIL]` (built-in text only); self-hosters set their own. Unset: the placeholder shows. |
-| `SKRONGLE_SUPPORT_EMAIL` | — | The help address, shown on `/terms` in place of `[SUPPORT EMAIL]` and the `Reply-To` of every e-mail, so a reply to the no-reply sender reaches support. Unset: `/terms` shows `SKRONGLE_LEGAL_EMAIL` there and mail has no `Reply-To` |
-| `SKRONGLE_TERMS` | `builtin` (*mini:* `/etc/skrongle/terms.md`) | The Terms of Service text: `builtin` (`docs/terms.md`, versioned by `docs/terms-changes.json`; see [features](features#terms-of-service)) or the path of the self-hoster's own Markdown file, served as it is at `/terms` with the first 16 hex characters of its SHA-256 as the version, so editing it asks every account to accept again. A missing, unreadable or empty file refuses to start, naming the variable and the path. No older spelling (read directly). `deploy/skrongle.service` sets `/etc/skrongle/terms.md` |
+| `SKRONGLE_SUPPORT_EMAIL` | — | The help address, the `Reply-To` of every e-mail, so a reply to the no-reply sender reaches support. Unset: mail has no `Reply-To` |
 | `SKRONGLE_MAIL_FROM` | — | Sender of e-mail, e.g. `Skrongle <noreply@example.org>`; needed with `SKRONGLE_MAIL_PROVIDERS` |
 | `SKRONGLE_MAIL_PER_HOUR` | `3000` (none in dev mode) | E-mails of one purpose (`email-verify`, `login-code`, `course-share`, …) due per window; each purpose has its own budget. Past it a message is queued for the next window with room (`mail_outbox.scheduled_at`), at most `mail::MAX_WAIT_WINDOWS` (12) ahead; `mail::NO_WAIT` purposes (sign-in codes) are not queued. `0`: no ceiling. |
 | `SKRONGLE_MAIL_WINDOW` | `3600` | The ceiling's window in seconds; windows start at multiples of it (clock hours). A short one (`60`) lets a test watch a capped message wait and leave |

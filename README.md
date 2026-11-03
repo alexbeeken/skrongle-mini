@@ -50,7 +50,6 @@ the app's *Host it yourself* page (`/self-host`, linked from `/docs`), or
 |---|---|---|
 | Who signs up | Anyone (`SKRONGLE_SIGNUP=open`) | Only people the owner invites (`invite`) |
 | E-mail | Sent through providers | None: links are shown in the page |
-| Terms of Service | The service's own | Yours (`SKRONGLE_TERMS=/etc/skrongle/terms.md`) |
 | Background work | In process, in SQLite | The same: no Redis or queue service |
 | Database | SQLite | SQLite |
 | Securing the login | The operator | You: a strong password, two-factor, Tailscale or a VPN, never a forwarded port |

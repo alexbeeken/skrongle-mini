@@ -30,7 +30,6 @@ fn privacy_page_export_and_account_deletion_over_http() {
     // the provider and never carries the ciphertext.
     state.db.with(|c| c.execute("INSERT INTO user_api_keys (user_id, provider, ciphertext, updated_at) VALUES (?1, 'anthropic', ?2, 1)", rusqlite::params![ann, key.as_bytes()])).unwrap();
     let session = |u| {
-        state.db.with(|c| crate::terms::accept(c, u, crate::terms::version())).unwrap();
         state.db.with(|c| crate::auth::create_session(c, u)).unwrap()
     };
     let (ann_t, gil_t) = (session(ann), session(gil));
@@ -122,9 +121,6 @@ fn an_owner_cannot_delete_their_own_account() {
             let root = crate::auth::create_user(c, "root@example.org", &hash)?;
             let bob = crate::auth::create_user(c, "bob@example.org", &hash)?;
             crate::owner::make_owner(c, root)?;
-            for u in [root, bob] {
-                crate::terms::accept(c, u, crate::terms::version())?;
-            }
             Ok((crate::auth::create_session(c, root)?, crate::auth::create_session(c, bob)?, root))
         })
         .unwrap();
@@ -169,9 +165,6 @@ fn account_changes_need_proof_and_sign_out_other_devices() {
         .with(|c| {
             let ann = crate::auth::create_user(c, "ann@example.org", &hash)?;
             let gil = crate::auth::create_user(c, "gil@example.org", "")?;
-            for u in [ann, gil] {
-                crate::terms::accept(c, u, crate::terms::version())?;
-            }
             c.execute("UPDATE users SET email_verified_at = 1 WHERE id IN (?1, ?2)", [ann, gil])?;
             Ok((ann, gil))
         })
@@ -247,7 +240,6 @@ fn profile_fields_save_as_they_change() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
     let state = crate::routes::test_state(false);
     let ann = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", "x")).unwrap();
-    state.db.with(|c| crate::terms::accept(c, ann, crate::terms::version())).unwrap();
     let cookie = format!("sid={}", state.db.with(|c| crate::auth::create_session(c, ann)).unwrap());
     let app = crate::routes::router(state.clone());
     let base = rt.block_on(async {
@@ -333,7 +325,6 @@ fn the_ai_keys_and_the_hide_ai_switch_are_the_owners_over_http() {
     let account = |email: &str, owner: bool| {
         let id = state.db.with(|c| crate::auth::create_user(c, email, "x")).unwrap();
         state.db.with(|c| {
-            crate::terms::accept(c, id, crate::terms::version())?;
             c.execute("UPDATE users SET active_course = 'spanish', owner = ?2 WHERE id = ?1", rusqlite::params![id, owner])?;
             Ok(())
         })

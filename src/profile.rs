@@ -75,8 +75,6 @@ pub struct Profile {
     pub created_at: i64,
     /// Accounts without one (signed in through a proxy) have no password to change.
     pub has_password: bool,
-    /// The Terms of Service version last accepted, and when.
-    pub terms: Option<crate::terms::Acceptance>,
     /// When the age box was ticked (`consent::age_confirmed_at`).
     pub age_confirmed_at: Option<i64>,
     /// The phone number and the second sign-in step (`two_factor.rs`).
@@ -100,7 +98,6 @@ impl Profile {
 }
 
 pub fn load(conn: &Connection, user_id: i64) -> rusqlite::Result<Option<Profile>> {
-    let terms = crate::terms::latest(conn, user_id)?;
     let age_confirmed_at = crate::consent::age_confirmed_at(conn, user_id)?;
     let two_factor = match crate::two_factor::settings(conn, user_id) {
         Err(rusqlite::Error::QueryReturnedNoRows) => return Ok(None),
@@ -118,7 +115,6 @@ pub fn load(conn: &Connection, user_id: i64) -> rusqlite::Result<Option<Profile>
                 email: r.get(2)?,
                 created_at: r.get(3)?,
                 has_password: r.get(4)?,
-                terms: terms.clone(),
                 age_confirmed_at,
                 two_factor: two_factor.clone(),
             })
@@ -258,18 +254,6 @@ pub(crate) fn civil(t: i64) -> (i64, usize, i64) {
     let m = if mp < 10 { mp + 3 } else { mp - 9 };
     let y = if m <= 2 { y + 1 } else { y };
     (y, m as usize, d)
-}
-
-/// Days since the Unix epoch of a civil date (Howard Hinnant's days-from-civil).
-pub(crate) fn days_from_civil(y: i64, m: usize, d: i64) -> i64 {
-    let m = m as i64;
-    let y = if m <= 2 { y - 1 } else { y };
-    let era = y.div_euclid(400);
-    let yoe = y - era * 400;
-    let mp = (m + 9) % 12;
-    let doy = (153 * mp + 2) / 5 + d - 1;
-    let doe = yoe * 365 + yoe / 4 - yoe / 100 + doy;
-    era * 146_097 + doe - 719_468
 }
 
 #[cfg(test)]

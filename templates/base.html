@@ -57,9 +57,8 @@
 <main class="container" id="main" tabindex="-1">
 {% block content %}{% endblock %}
 </main>
-{% if let Some(u) = user %}{% if let Some(n) = u.terms_notice %}{% if n.shows_here() %}{% include "terms_notice.html" %}{% endif %}{% endif %}{% endif %}
 <footer class="site-footer">
-  <div class="container muted small">{{ crate::APP_NAME }} · <a href="{{ crate::url("/terms") }}" data-testid="footer-terms">{{ crate::t("footer.terms") }}</a>
+  <div class="container muted small">{{ crate::APP_NAME }}
   </div>
 </footer>
 <script>

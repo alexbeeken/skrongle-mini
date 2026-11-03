@@ -180,8 +180,6 @@ fn live(conn: &Connection, l: &Learner, course: &ContentStore, hash: &str, today
         "UPDATE users SET created_at = ?2, email_verified_at = ?2, age_confirmed = 1, first_name = ?3, avatar_color = ?4 WHERE id = ?1",
         params![uid, joined, l.name, (l.index % 8) as i64],
     )?;
-    // The terms, accepted when they signed up, so their pages open without the prompt.
-    crate::terms::accept(conn, uid, crate::terms::version())?;
     conn.execute("UPDATE terms_acceptances SET accepted_at = ?2 WHERE user_id = ?1", params![uid, joined])?;
     crate::courses::open_project(conn, uid, cid)?;
     let mut last_opened = joined;
@@ -406,7 +404,6 @@ mod tests {
             assert!(crate::auth::verify_password(crate::dev::DEV_PASSWORD, &hash));
             assert!(id > 0);
             assert_eq!(crate::dev::other_accounts(c)?, 0, "the crowd does not make the database look like a deploy's");
-            assert!(crate::terms::latest(c, id)?.is_some(), "the terms are accepted, so no prompt on sign-in");
             Ok(())
         })
         .unwrap();

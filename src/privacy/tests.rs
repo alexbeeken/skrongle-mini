@@ -216,10 +216,9 @@ fn retention_and_account_deletion_use_indexes() {
 #[test]
 fn the_age_gate_refuses_an_unticked_box_and_records_a_ticked_one() {
     let gate = AgeGate { min_age: 16 };
-    assert!(gate.check(true, true, "register").is_ok());
-    assert_eq!(gate.check(false, false, "register").unwrap_err(), "Confirm you are at least 16 and accept the Terms to register.");
-    assert_eq!(gate.check(false, true, "continue").unwrap_err(), "Confirm you are at least 16 to continue.");
-    assert_eq!(gate.check(true, false, "register").unwrap_err(), "Accept the Terms to register.");
+    assert!(gate.check(true, "register").is_ok());
+    assert_eq!(gate.check(false, "register").unwrap_err(), "Confirm you are at least 16 to register.");
+    assert_eq!(gate.check(false, "continue").unwrap_err(), "Confirm you are at least 16 to continue.");
     let db = Db::open_in_memory().unwrap();
     db.with(|c| {
         let id = crate::auth::create_user(c, "ann@example.org", "h")?;
@@ -232,13 +231,12 @@ fn the_age_gate_refuses_an_unticked_box_and_records_a_ticked_one() {
     .unwrap();
 }
 
-/// The minimum age is 14 everywhere (#976): the default gate names 14 in
-/// its box and refuses a sign-up without it.
+/// The minimum age is 14 everywhere: the default gate names 14 in its box
+/// and refuses a sign-up without it.
 #[test]
 fn the_default_minimum_age_is_14() {
-    assert_eq!(crate::terms::DEFAULT_MIN_AGE, 14);
-    let gate = AgeGate { min_age: crate::terms::DEFAULT_MIN_AGE };
-    assert_eq!(crate::t1("terms.check.age", "min_age", gate.min_age), "I am at least 14 years old");
-    assert_eq!(gate.check(false, true, "register").unwrap_err(), "Confirm you are at least 14 to register.");
-    assert_eq!(gate.check(false, false, "register").unwrap_err(), "Confirm you are at least 14 and accept the Terms to register.");
+    assert_eq!(DEFAULT_MIN_AGE, 14);
+    let gate = AgeGate { min_age: DEFAULT_MIN_AGE };
+    assert_eq!(crate::t1("auth.register.age", "min_age", gate.min_age), "I am at least 14 years old");
+    assert_eq!(gate.check(false, "register").unwrap_err(), "Confirm you are at least 14 to register.");
 }

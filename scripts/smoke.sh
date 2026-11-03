@@ -49,8 +49,6 @@ check /healthz
 check /login
 check /docs/testing
 check /self-host 200   # the self-hosting page: a mini always serves it (#13)
-check /terms
-check /terms.md
 echo "==> every link between docs pages"
 DOCS=$( { for p in /docs $(curl -s "$URL/docs" | grep -o 'href="/docs/[^"#]*"' | sed 's/href="//; s/"//' | sort -u); do
   curl -s "$URL$p" | grep -o 'href="/docs/[^"#]*"' | sed 's/href="//; s/"//'; done; } | sort -u)

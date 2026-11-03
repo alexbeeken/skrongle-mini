@@ -18,9 +18,6 @@ nav:
   register: S'inscrire
   logout: Se déconnecter
 
-footer:
-  terms: conditions
-
 lang:
   label: Langue
   change: Changer
@@ -117,11 +114,11 @@ auth:
     submit: Se connecter
     or: ou
     no_account_html: "Pas encore de compte ? <a href=\"{url}\" data-testid=\"login-register-link\">S'inscrire</a>."
-    terms_link: Conditions
     too_many_attempts: Trop de tentatives de connexion. Attendez quelques minutes et réessayez.
     incorrect: Adresse e-mail ou mot de passe incorrect.
     forgot: "Mot de passe oublié ?"
   register:
+    age: "J'ai au moins {min_age} ans"
     title: S'inscrire
     heading: Créer un compte
     email_label: Adresse e-mail
@@ -152,6 +149,7 @@ auth:
     too_short: Le mot de passe doit comporter au moins 8 caractères.
     too_long: "Le mot de passe est trop long (max {max} caractères)."
   password_change:
+    logout: Se déconnecter à la place
     title: "Choisissez un nouveau mot de passe"
     info_label: "Pourquoi un nouveau mot de passe"
     about: "Vous vous êtes connecté avec un mot de passe provisoire que la personne qui gère ce serveur a défini pour vous. Choisissez le vôtre avant de continuer ; personne d'autre ne le connaîtra."
@@ -159,9 +157,7 @@ auth:
   age_gate:
     to_register: vous inscrire
     to_continue: continuer
-    both: "Confirmez que vous avez au moins {min_age} ans et acceptez les Conditions pour {to}."
     age: "Confirmez que vous avez au moins {min_age} ans pour {to}."
-    terms: "Acceptez les Conditions pour {to}."
   code:
     title: Saisissez votre code
     from_app: Depuis votre application d'authentification.
@@ -221,32 +217,6 @@ auth:
     too_many_requests: "Trop de demandes depuis votre réseau. Réessayez dans une heure."
     too_many_tries: "Trop de tentatives depuis votre réseau. Attendez quelques minutes et réessayez."
 
-terms:
-  page:
-    title: Conditions d'utilisation
-    version: "Version {version}"
-    markdown: Markdown
-  check:
-    age: "J'ai au moins {min_age} ans"
-    agree_html: "J'accepte les <a href=\"{terms_url}\" target=\"_blank\" data-testid=\"{tid}-terms-link\">Conditions</a>"
-  accept:
-    title: Conditions d'utilisation
-    changed: Les conditions ont changé
-    heading: Acceptez les conditions
-    read_html: "Lisez les <a href=\"{url}\" target=\"_blank\" data-testid=\"terms-gate-link\">Conditions d'utilisation</a> (version {version}) et acceptez-les pour continuer."
-    check_html: "J'ai au moins {min_age} ans et j'accepte les <a href=\"{terms_url}\" target=\"_blank\">Conditions</a>"
-    submit: Continuer
-    logout: Se déconnecter à la place
-    tick: Cochez la case pour accepter les conditions.
-  notice:
-    heading: Nos conditions ont changé
-    minor: Voici ce qui a changé. En continuant à utiliser le site, vous acceptez les nouvelles conditions.
-    material: Ces changements touchent vos droits ou un forfait payant. Acceptez les nouvelles conditions pour continuer à utiliser votre compte.
-    effective: "En vigueur depuis le {date}"
-    read: Lire les conditions complètes
-    dismiss: Continuer
-    disagree_html: "Si vous n'êtes pas d'accord, déconnectez-vous ou fermez votre compte depuis votre <a href=\"{url}\" data-testid=\"terms-notice-profile\">profil</a>."
-
 mail:
   waitlist_confirm:
     subject: "Confirme ta place sur la liste d'attente de {app}"
@@ -280,26 +250,6 @@ mail:
       <p><a href="{link}">Créer mon compte</a></p>
       <p>Ou colle ce lien dans ton navigateur : {link}</p>
       <p>L'invitation est valable {days} jours.</p>
-  terms_change:
-    subject: "Les conditions de {app} changent le {date}"
-    text: |
-      Bonjour,
-
-      Nous modifions les conditions de {app}. Les nouvelles conditions s'appliquent à partir du {date}.
-
-      Ce qui change :
-      {summary}
-
-      Lire les nouvelles conditions : {link}
-
-      À partir du {date}, nous vous demanderons de les accepter à la connexion. Si vous n'êtes pas d'accord, vous pouvez fermer votre compte depuis votre profil.
-    html: |
-      <p>Bonjour,</p>
-      <p>Nous modifions les conditions de {app}. Les nouvelles conditions s'appliquent à partir du {date}.</p>
-      <p>Ce qui change :</p>
-      {summary}
-      <p><a href="{link}">Lire les nouvelles conditions</a></p>
-      <p>À partir du {date}, nous vous demanderons de les accepter à la connexion. Si vous n'êtes pas d'accord, vous pouvez fermer votre compte depuis votre profil.</p>
   verify_email:
     subject: "Confirmez votre adresse e-mail pour {app}"
     text: |
@@ -485,22 +435,14 @@ profile:
     sign_in: Connexion
     password: Mot de passe
     and: et
-    terms: Conditions
-    terms_accepted: "Version {version}, acceptée le {date}"
-    terms_not_accepted: Non acceptée
-    terms_read: lire
-    terms_title: Conditions d'utilisation
-    terms_close: Fermer
-    terms_open_page: Ouvrir sous forme de page
     no_password: "Ce compte n'a pas de mot de passe à modifier."
   consent:
     title: "Confidentialité et consentement"
     info: "À propos de vos consentements"
     info_age: "Vous avez confirmé votre âge à l'inscription. Pour le retirer, supprimez votre compte dans Vos données."
-    info_email: "Les e-mails de service partent toujours : confirmation de votre adresse et changements des conditions. Les e-mails facultatifs apparaîtront ici avec leur propre interrupteur, désactivés jusqu'à ce que vous les activiez."
+    info_email: "Les e-mails de service partent toujours : confirmation de votre adresse. Les e-mails facultatifs apparaîtront ici avec leur propre interrupteur, désactivés jusqu'à ce que vous les activiez."
     info_record: "Chaque changement est gardé avec sa date."
     close: "Fermer"
-    terms: "Conditions et confidentialité"
     age: "Âge"
     age_confirmed: "Confirmé le {date}"
     age_not_confirmed: "Non confirmé"
@@ -667,15 +609,6 @@ manage:
   make_owner: "Rendre propriétaire"
   make_owner_about: "Le compte devient propriétaire lui aussi : il voit Gérer les utilisateurs dans le menu du compte et peut faire toutes les actions de cette page. Cela ne peut pas être annulé ici."
   make_owner_done: "{email} est maintenant propriétaire."
-  terms_changed: "Les conditions ont changé."
-  terms_title: "Prochain changement des conditions"
-  terms_send: "Envoyer l'annonce"
-  terms_send_about:
-    one: "Le résumé du prochain changement part vers {n} compte qui ne l'a pas encore reçu."
-    other: "Le résumé du prochain changement part vers {n} comptes qui ne l'ont pas encore reçu."
-  terms_sent:
-    one: "Annonce en file pour {n} compte."
-    other: "Annonce en file pour {n} comptes."
   api_keys:
     title: Clés d'API IA
     info_text: "Les fonctions d’IA de tous les comptes utilisent ces clés, facturées au compte auquel chaque clé appartient. Les clés sont chiffrées avant d’être enregistrées et ne sont plus jamais affichées ; seuls les quatre derniers caractères restent visibles pour savoir quelle clé est enregistrée. Seuls les propriétaires les voient."
@@ -768,7 +701,6 @@ landing:
   spec_docs_p: "Le format, les fonctionnalités et l'architecture sont servis par l'application elle-même, sous forme de pages ou de Markdown brut pour un LLM."
   final_h2: "Inscrivez-vous, puis répondez à une question : que voulez-vous apprendre ?"
   browse_docs: Parcourir la documentation
-  terms: Conditions d'utilisation
   feat_guide_h: "Guide"
   feat_guide_p: "Chaque leçon comme une étape de petits pas : cartes, vérifications rapides, fiches et astuces, avec des étoiles à la fin."
   try_lead: "Vingt secondes de chaque mode. Choisissez-en un et essayez."
@@ -1312,7 +1244,6 @@ docs:
     not_loading_html: "💡 <strong>Ça ne charge pas ?</strong> Exécutez <code>hostname -I</code> sur le Pi et utilisez ce numéro à la place, par ex. <code>http://192.168.1.42:8080</code>."
     yours_h2: Personnalisez-le
     yours_account_html: "<strong>Invitez les autres</strong> avec un lien depuis <em>Gérer les utilisateurs</em> (dans le menu du compte)."
-    yours_terms_html: "<strong>Mettez votre nom dans les conditions d'utilisation.</strong> Chacun les accepte à l'inscription. Modifiez-les avec <code>sudo nano /etc/skrongle/terms.md</code>, puis <code>sudo systemctl restart skrongle</code> ; chacun accepte le nouveau texte à sa prochaine visite."
     yours_course_html: <strong>Choisissez un cours.</strong> L'espagnol est intégré, ou créez le vôtre.
     yours_ai_html: "<strong>Facultatif : tuteur IA et générateur de cours.</strong> Collez une clé Anthropic, OpenAI ou Google dans <em>Gérer les utilisateurs → Fonctions d’IA</em>. Elle sert à tout le monde sur le serveur et vous est facturée directement."
     yours_tip: "🔒 Seules les personnes que vous invitez peuvent créer un compte."
@@ -1342,7 +1273,6 @@ docs:
     mini_out_mail: "Ni e-mail ni SMS : les liens s'affichent dans la page."
     mini_out_plans: "Ni formules ni paiements : tout le monde a tout."
     mini_out_signup: "Inscription sur invitation : vous créez un lien pour chaque personne."
-    mini_out_terms: "Vos propres conditions d'utilisation, pas les nôtres."
     mini_out_jobs: "Les tâches de fond tournent dans l'app : aucun autre service à faire tourner."
     mini_out_db: "Un seul fichier de base de données (SQLite) : pas de serveur de base de données."
     mini_safe_h3: "La sécurité, c'est votre affaire"

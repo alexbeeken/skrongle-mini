@@ -55,7 +55,6 @@ test.describe("languages", () => {
     await page.getByTestId("register-email").fill(account.email);
     await page.getByTestId("register-password").fill(account.password);
     await page.getByTestId("register-age").check();
-    await page.getByTestId("register-terms").check();
     await page.getByTestId("register-submit").click();
     await page.waitForLoadState("domcontentloaded");
     // Registering does not sign in (#379): "check your mail" (in the chosen language), then the login form.

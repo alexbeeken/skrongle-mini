@@ -35,8 +35,6 @@ pub struct ProfileTemplate {
     pub dev: bool,
     /// Why deleting the account was refused.
     pub delete_error: Option<String>,
-    /// The Terms of Service as HTML, for the dialog the "read" link opens.
-    pub terms_html: String,
     /// Two-factor sign-in: why the chosen method was refused.
     pub two_factor_error: Option<String>,
     /// The authenticator app's enrolment dialog opens on load (just started,
@@ -198,18 +196,7 @@ fn page(state: &AppState, user: CurrentUser, p: Profile) -> ProfileTemplate {
         caps: state.caps(),
         dev: state.dev,
         delete_error: None,
-        terms_html: terms_html(),
     }
-}
-
-/// The terms for the dialog, without their `# Terms of Service` heading (the dialog has its own).
-fn terms_html() -> String {
-    let md = crate::terms::markdown();
-    let body = match md.strip_prefix("# ") {
-        Some(rest) => rest.split_once('\n').map_or("", |(_, b)| b),
-        None => &md,
-    };
-    super::docs::render_doc(body)
 }
 
 /// GET /profile

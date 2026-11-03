@@ -3,9 +3,7 @@
 //! server holds at most `caps::MAX_ACCOUNTS`), with
 //! the actions on one: a temporary password, two-factor off and make
 //! owner (#635, #16, `owner.rs`), reset e-mail verification (#220); and with
-//! `SKRONGLE_SIGNUP=invite`, the invitation links (#634, `signup.rs`); and
-//! while a material change of the terms is coming, a notice and the button
-//! that e-mails it to every account (#966, `terms.rs`); and the AI section
+//! `SKRONGLE_SIGNUP=invite`, the invitation links (#634, `signup.rs`); and the AI section
 //! (#25): the server's AI API keys, which every account's AI features use
 //! (`secrets.rs`), and the switch that hides those features for everyone
 //! (`settings::AI_OFF`).
@@ -56,9 +54,6 @@ pub struct ManageTemplate {
     pub max_accounts: usize,
     /// The server holds them all: no invitation form.
     pub full: bool,
-    /// Accounts still to e-mail about a coming change of the terms: above 0,
-    /// the page says the terms have changed and offers Send.
-    pub terms_owed: i64,
     /// The server's AI API keys, one entry per provider; never the key itself.
     pub api_keys: Vec<KeyStatus>,
     /// The AI features are hidden for every account (`settings::AI_OFF`).
@@ -86,7 +81,6 @@ async fn load(state: &AppState, user: CurrentUser) -> Result<ManageTemplate, App
             Ok((crate::signup::open_invites(c, now)?, crate::signup::accounts(c)?, ai))
         })
         .await?;
-    let terms_owed = crate::terms::unannounced(state).await?;
     let total = accounts.len() as i64;
     Ok(ManageTemplate {
         user: Some(user),
@@ -110,7 +104,6 @@ async fn load(state: &AppState, user: CurrentUser) -> Result<ManageTemplate, App
         total,
         max_accounts: crate::caps::MAX_ACCOUNTS,
         full: crate::caps::accounts_full(total, state.dev),
-        terms_owed,
         api_keys,
         ai_off,
         ollama_model,
@@ -127,12 +120,11 @@ impl ManageTemplate {
 #[derive(Deserialize)]
 pub struct ShowQuery {
     /// Back from an action: `reset`, `unknown`, `revoked`,
-    /// `two-factor-off` or `owner`, about `email`; or `terms-sent`, `n` e-mails;
+    /// `two-factor-off` or `owner`, about `email`;
     /// or `key-removed`, about `provider`; or `ai-off` / `ai-on`.
     pub did: Option<String>,
     pub email: Option<String>,
     pub provider: Option<String>,
-    pub n: Option<i64>,
 }
 
 /// GET /manage
@@ -153,7 +145,6 @@ pub async fn show(State(state): State<Arc<AppState>>, user: CurrentUser, Query(q
         Some("revoked") => t.notice = Some(crate::t("manage.invite_revoked")),
         Some("two-factor-off") => t.notice = Some(crate::t1("manage.two_factor_off_done", "email", email)),
         Some("owner") => t.notice = Some(crate::t1("manage.make_owner_done", "email", email)),
-        Some("terms-sent") => t.notice = Some(crate::tn("manage.terms_sent", q.n.unwrap_or(0))),
         Some("key-removed") => {
             if let Some(p) = q.provider.as_deref().and_then(Provider::parse) {
                 t.notice = Some(crate::t1("manage.api_keys.removed", "provider", p.label()));
@@ -304,18 +295,6 @@ pub async fn turn_off_two_factor(State(state): State<Arc<AppState>>, user: Curre
     state.db.call(move |c| crate::owner::disable_two_factor(c, target)).await?;
     tracing::info!("owner {} turned off two-factor sign-in for user {target}", user.id);
     Ok(done("two-factor-off", &email))
-}
-
-/// POST /manage/terms-announce: e-mail the coming material change of the
-/// terms to every account that has not had it (`terms::announce_upcoming`).
-/// Owners only, on a server that can send mail: a 404 otherwise.
-pub async fn announce_terms(State(state): State<Arc<AppState>>, user: CurrentUser) -> Result<Response, AppError> {
-    if !user.owner || !state.caps().mail {
-        return Err(AppError::NotFound);
-    }
-    let n = crate::terms::announce_upcoming(&state).await?;
-    tracing::info!("owner {} sent the terms change e-mail to {n} account(s)", user.id);
-    Ok(Redirect::to(&crate::url(&format!("/manage?did=terms-sent&n={n}"))).into_response())
 }
 
 /// What the keys form autosaves (`static/manage.js`): `key_<provider>`
