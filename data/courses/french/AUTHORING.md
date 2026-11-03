@@ -77,13 +77,12 @@ the same quality bar and the same features.
 ### Validate after every file
 
 ```sh
-python3 <scratchpad>/check.py data/courses/french/lessons/a1/greetings.json   # the structural checker, instant
-cargo test --quiet -- content::tests::loads_every_builtin_course sprint::tests::every_lesson_builds_a_session content::tests::stop_icons_are_unique_on_the_path 2>&1 | tail -5
+cargo test --quiet -- content::tests sprint::tests 2>&1 | tail -5
 ```
 
 A validation error names the file and field; fix it before moving on. The
 Rust tests load every course, so a broken file of another author shows up
-too: fix only your own files and tell the coordinator about the rest.
+too: fix only your own files and report the rest.
 
 ## Icons
 
