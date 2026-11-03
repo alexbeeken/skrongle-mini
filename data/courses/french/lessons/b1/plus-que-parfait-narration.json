@@ -1,0 +1,641 @@
+{
+  "id": "b1-plus-que-parfait-narration",
+  "slug": "plus-que-parfait-narration",
+  "title": "The plus-que-parfait and telling a story",
+  "unit": "B1",
+  "group": "Grammar",
+  "order": 26,
+  "summary": "Say what had already happened with j'avais fini and elle était partie, and tell a story in order with d'abord, ensuite and enfin.",
+  "focus": "The plus-que-parfait and narrating with the three past tenses",
+  "prerequisites": [
+    "b1-passe-compose-vs-imparfait"
+  ],
+  "content": "## The past before the past\n\nThe **plus-que-parfait** goes one step further back than the passé composé or the imparfait. It tells what *had already happened* before another moment in the past.\n\n- **Quand je suis arrivé, le train était déjà parti.** (When I arrived, the train had already left.)\n- **Elle m'a dit qu'elle avait fini.** (She told me that she had finished.)\n- **Je n'avais jamais vu la mer avant ce voyage.** (I had never seen the sea before that trip.)\n\n## How to form it\n\nTake the **imparfait of avoir or être** and add the past participle. The verbs that take **être** in the passé composé take it here too, with the same agreement.\n\n| | finir (avoir) | partir (être) |\n|---|---|---|\n| je / j' | avais fini | étais parti(e) |\n| tu | avais fini | étais parti(e) |\n| il / elle / on | avait fini | était parti(e) |\n| nous | avions fini | étions parti(e)s |\n| vous | aviez fini | étiez parti(e)(s) |\n| ils / elles | avaient fini | étaient parti(e)s |\n\n**Déjà**, **pas encore** and **jamais** sit between the auxiliary and the participle: **j'avais déjà lu**, **elle n'avait pas encore écrit**. The drill practises the passé composé of **dire, écrire, lire** (**ai dit, ai écrit, ai lu**); swap **ai** for **avais** to get **j'avais dit**.\n\n## Telling a story\n\nOrder the events with **d'abord** (first), **ensuite** / **puis** (then), **enfin** / **à la fin** (finally). Link causes with **parce que** (because), **comme** (as, at the start of the sentence), and results with **donc** / **alors** (so).\n\nEach past tense has its job:\n\n- **imparfait**: the scene. **Il faisait nuit.**\n- **passé composé**: what happened next. **D'abord, Marc a cherché ses clés, puis il a appelé sa sœur.**\n- **plus-que-parfait**: what had happened before. **Comme il les avait oubliées au bureau, il a dormi chez elle.**",
+  "vocabulary": [
+    {
+      "term": "déjà",
+      "meaning": "already",
+      "example": "Quand je suis arrivé, le film avait déjà commencé.",
+      "example_meaning": "When I arrived, the film had already started."
+    },
+    {
+      "term": "pas encore",
+      "meaning": "not yet",
+      "example": "Elle n'avait pas encore fini ses devoirs.",
+      "example_meaning": "She hadn't finished her homework yet."
+    },
+    {
+      "term": "jamais",
+      "meaning": "never (ne … jamais)",
+      "example": "Je n'avais jamais vu la mer avant ce voyage.",
+      "example_meaning": "I had never seen the sea before that trip."
+    },
+    {
+      "term": "rater",
+      "meaning": "to miss (a train, a bus)",
+      "example": "Nous avions raté le dernier métro.",
+      "example_meaning": "We had missed the last metro."
+    },
+    {
+      "term": "dire",
+      "meaning": "to say, to tell",
+      "example": "Il m'a dit qu'il avait trouvé un travail.",
+      "example_meaning": "He told me he had found a job."
+    },
+    {
+      "term": "écrire",
+      "meaning": "to write",
+      "example": "J'ai écrit à Paul, mais il avait déjà déménagé.",
+      "example_meaning": "I wrote to Paul, but he had already moved."
+    },
+    {
+      "term": "lire",
+      "meaning": "to read",
+      "example": "Elle avait lu le livre avant de voir le film.",
+      "example_meaning": "She had read the book before seeing the film."
+    },
+    {
+      "term": "d'abord",
+      "meaning": "first, first of all",
+      "example": "D'abord, nous avons pris un café.",
+      "example_meaning": "First, we had a coffee."
+    },
+    {
+      "term": "ensuite",
+      "meaning": "then, next",
+      "example": "Ensuite, elle a lu le journal.",
+      "example_meaning": "Then she read the newspaper."
+    },
+    {
+      "term": "puis",
+      "meaning": "then",
+      "example": "Il a fermé la porte, puis il est parti.",
+      "example_meaning": "He closed the door, then he left."
+    },
+    {
+      "term": "enfin",
+      "meaning": "finally, at last",
+      "example": "Enfin, le train est arrivé.",
+      "example_meaning": "At last, the train arrived."
+    },
+    {
+      "term": "comme",
+      "meaning": "as, since (at the start of a sentence)",
+      "example": "Comme il pleuvait, nous sommes restés à la maison.",
+      "example_meaning": "As it was raining, we stayed at home."
+    },
+    {
+      "term": "donc",
+      "meaning": "so, therefore",
+      "example": "J'avais oublié mon parapluie, donc j'étais trempé.",
+      "example_meaning": "I had forgotten my umbrella, so I was soaked."
+    },
+    {
+      "term": "alors",
+      "meaning": "so, then",
+      "example": "Le magasin avait fermé, alors nous sommes rentrés.",
+      "example_meaning": "The shop had closed, so we went home."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-plus-que-parfait-narration-01",
+      "prompt": "Quand nous sommes arrivés, le concert ___ déjà commencé.",
+      "type": "multiple-choice",
+      "options": [
+        "avait",
+        "était",
+        "a"
+      ],
+      "correct_answer": "avait",
+      "explanation": "Commencer takes avoir, and the concert started before we arrived: plus-que-parfait, 'avait commencé'.",
+      "hints": [
+        "Which happened first: the concert or our arrival?",
+        "Commencer takes avoir in compound tenses."
+      ],
+      "teaches": [
+        "déjà"
+      ]
+    },
+    {
+      "question_id": "b1-plus-que-parfait-narration-02",
+      "prompt": "Paul ___ parti quand je suis arrivée.",
+      "type": "multiple-choice",
+      "options": [
+        "était",
+        "avait",
+        "est"
+      ],
+      "correct_answer": "était",
+      "explanation": "Partir takes être, and he left before I arrived: 'Paul était parti'.",
+      "hints": [
+        "Partir is one of the être verbs.",
+        "His leaving comes before my arrival."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b1-plus-que-parfait-narration-03",
+      "prompt": "Elle était fatiguée parce qu'elle ___ (travailler) toute la nuit.",
+      "type": "fill-in-blank",
+      "correct_answer": "avait travaillé",
+      "accepted_answers": [],
+      "explanation": "The work came before the tiredness: imparfait of avoir + participle, 'avait travaillé'.",
+      "hints": [
+        "avoir in the imparfait, then the participle.",
+        "il/elle form: avait"
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b1-plus-que-parfait-narration-04",
+      "prompt": "In the plus-que-parfait, the auxiliary (avoir or être) is in the imparfait.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Yes: j'avais fini, elle était partie. The imparfait of the auxiliary + the past participle.",
+      "hints": [
+        "Think of 'j'avais', 'j'étais'."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b1-plus-que-parfait-narration-05",
+      "prompt": "Comme il ___ (rater) le bus, il est arrivé en retard.",
+      "type": "fill-in-blank",
+      "correct_answer": "avait raté",
+      "accepted_answers": [],
+      "explanation": "Missing the bus came before arriving late: 'Comme il avait raté le bus'.",
+      "hints": [
+        "Rater takes avoir.",
+        "imparfait of avoir + raté"
+      ],
+      "teaches": [
+        "rater",
+        "comme"
+      ]
+    },
+    {
+      "question_id": "b1-plus-que-parfait-narration-06",
+      "prompt": "___, j'ai pris une douche ; ensuite, j'ai pris mon petit-déjeuner.",
+      "type": "multiple-choice",
+      "options": [
+        "D'abord",
+        "Enfin",
+        "Donc"
+      ],
+      "correct_answer": "D'abord",
+      "explanation": "The first step of a sequence takes 'd'abord'; 'ensuite' follows it.",
+      "hints": [
+        "This is the first thing that happened."
+      ],
+      "teaches": [
+        "d'abord",
+        "ensuite"
+      ]
+    },
+    {
+      "question_id": "b1-plus-que-parfait-narration-07",
+      "prompt": "Il m'a ___ (dire) qu'il n'avait jamais vu la mer.",
+      "type": "fill-in-blank",
+      "correct_answer": "dit",
+      "accepted_answers": [],
+      "explanation": "The past participle of dire is 'dit': 'il m'a dit'.",
+      "hints": [
+        "The participle of dire is irregular and short.",
+        "It ends in -t."
+      ],
+      "teaches": [
+        "dire",
+        "jamais"
+      ]
+    },
+    {
+      "question_id": "b1-plus-que-parfait-narration-08",
+      "prompt": "Le film était nul, ___ nous sommes partis avant la fin.",
+      "type": "multiple-choice",
+      "options": [
+        "donc",
+        "comme",
+        "d'abord"
+      ],
+      "correct_answer": "donc",
+      "explanation": "'Donc' (so) introduces the result: the film was bad, so we left.",
+      "hints": [
+        "You need a word for 'so'."
+      ],
+      "teaches": [
+        "donc"
+      ]
+    },
+    {
+      "question_id": "b1-plus-que-parfait-narration-09",
+      "prompt": "'Elle était déjà parti' is correct French.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "With être the participle agrees with the subject: 'Elle était déjà partie'.",
+      "hints": [
+        "Check the ending of the participle with a feminine subject."
+      ],
+      "teaches": []
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "dire",
+      "meaning": "to say, to tell",
+      "set": "passe-compose",
+      "art": [
+        " .------------. ",
+        "( il a dit... ) ",
+        " `--. .-------' ",
+        "    |/          ",
+        "   (o)          "
+      ],
+      "forms": {
+        "je": "ai dit",
+        "tu": "as dit",
+        "il": "a dit",
+        "nous": "avons dit",
+        "vous": "avez dit",
+        "ils": "ont dit"
+      }
+    },
+    {
+      "item": "écrire",
+      "meaning": "to write",
+      "set": "passe-compose",
+      "art": [
+        "  ___________  ",
+        " | Cher Paul |  ",
+        " | ~~~~~~~~  |  ",
+        " | ~~~~~  /  |  ",
+        " |_______/___|  ",
+        "        //     "
+      ],
+      "forms": {
+        "je": "ai écrit",
+        "tu": "as écrit",
+        "il": "a écrit",
+        "nous": "avons écrit",
+        "vous": "avez écrit",
+        "ils": "ont écrit"
+      }
+    },
+    {
+      "item": "lire",
+      "meaning": "to read",
+      "set": "passe-compose",
+      "art": [
+        "  _______ _______ ",
+        " /       V       \\",
+        "| ~~~~~  | ~~~~~  |",
+        "| ~~~~~  | ~~~~~  |",
+        "|________|________|"
+      ],
+      "forms": {
+        "je": "ai lu",
+        "tu": "as lu",
+        "il": "a lu",
+        "nous": "avons lu",
+        "vous": "avez lu",
+        "ils": "ont lu"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-plus-que-parfait-narration-conv-late-for-the-party",
+      "title": "Late for the party",
+      "scenario": "Inès arrives two hours late at Hugo's birthday party and tells him why.",
+      "role_a": "Hugo",
+      "role_b": "Inès",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Inès, enfin ! Qu'est-ce qui s'est passé ?",
+          "meaning": "Inès, at last! What happened?"
+        },
+        {
+          "speaker": "b",
+          "text": "Quelle soirée ! D'abord, j'avais oublié mon portable au bureau.",
+          "meaning": "What an evening! First, I had forgotten my phone at the office.",
+          "note": "plus-que-parfait: before the rest of the story"
+        },
+        {
+          "speaker": "a",
+          "text": "Tu es retournée le chercher ?",
+          "meaning": "Did you go back to get it?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, mais quand je suis arrivée, le gardien avait déjà fermé la porte.",
+          "meaning": "Yes, but when I got there, the caretaker had already locked the door.",
+          "note": "avait déjà fermé: déjà between auxiliary and participle"
+        },
+        {
+          "speaker": "a",
+          "text": "Oh non ! Et ensuite ?",
+          "meaning": "Oh no! And then?"
+        },
+        {
+          "speaker": "b",
+          "text": "Ensuite, j'ai couru à la gare, mais mon train était parti.",
+          "meaning": "Then I ran to the station, but my train had left.",
+          "note": "partir takes être: était parti"
+        },
+        {
+          "speaker": "a",
+          "text": "Donc tu as pris le bus ?",
+          "meaning": "So you took the bus?"
+        },
+        {
+          "speaker": "b",
+          "text": "Non, comme il n'y avait plus de bus, j'ai marché.",
+          "meaning": "No, as there were no more buses, I walked.",
+          "note": "comme at the start: as, since"
+        },
+        {
+          "speaker": "a",
+          "text": "Pourquoi tu ne m'as pas appelé ?",
+          "meaning": "Why didn't you call me?"
+        },
+        {
+          "speaker": "b",
+          "text": "Parce que je n'avais pas mon portable, voyons !",
+          "meaning": "Because I didn't have my phone, come on!"
+        },
+        {
+          "speaker": "a",
+          "text": "Ah oui, c'est vrai. Bon, tu as faim ? On t'a gardé une part de gâteau.",
+          "meaning": "Oh yes, true. Well, are you hungry? We saved you a slice of cake."
+        },
+        {
+          "speaker": "b",
+          "text": "Enfin une bonne nouvelle !",
+          "meaning": "Some good news at last!"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Le train était déjà parti.",
+      "meaning": "The train had already left.",
+      "note": "Partir takes être."
+    },
+    {
+      "text": "Nous avions raté le dernier bus.",
+      "meaning": "We had missed the last bus."
+    },
+    {
+      "text": "Elle n'avait jamais lu ce roman.",
+      "meaning": "She had never read this novel.",
+      "note": "New word: le roman = the novel."
+    },
+    {
+      "text": "Comme j'avais oublié mes clés, j'ai appelé ma sœur.",
+      "meaning": "As I had forgotten my keys, I called my sister.",
+      "note": "The forgetting comes first: plus-que-parfait."
+    },
+    {
+      "text": "Quand je suis arrivée, mes amis avaient déjà mangé.",
+      "meaning": "When I arrived, my friends had already eaten."
+    },
+    {
+      "text": "D'abord il a lu la lettre, puis il a pleuré.",
+      "meaning": "First he read the letter, then he cried.",
+      "note": "New word: pleurer = to cry."
+    },
+    {
+      "text": "Il faisait nuit et la neige avait recouvert toute la ville.",
+      "meaning": "It was dark and the snow had covered the whole town.",
+      "note": "New word: la neige = the snow."
+    },
+    {
+      "text": "Enfin, elle nous a dit qu'elle avait déjà écrit à son frère.",
+      "meaning": "Finally, she told us that she had already written to her brother."
+    }
+  ],
+  "guide": [
+    {
+      "section": "The past before"
+    },
+    {
+      "question": "b1-plus-que-parfait-narration-01"
+    },
+    {
+      "question": "b1-plus-que-parfait-narration-02"
+    },
+    {
+      "section": "How to form"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-plus-que-parfait-narration-03"
+    },
+    {
+      "question": "b1-plus-que-parfait-narration-09"
+    },
+    {
+      "question": "b1-plus-que-parfait-narration-07"
+    },
+    {
+      "tip": "Draw a timeline and mark the moment of the story. Anything that happened before that moment takes the plus-que-parfait."
+    },
+    {
+      "concept": {
+        "title": "Regrets with si seulement",
+        "markdown": "The plus-que-parfait also voices regrets after **si seulement** (if only): **Si seulement j'avais su !** (If only I had known!), **Si seulement tu étais venu !** (If only you had come!). It looks back at something that did not happen."
+      }
+    },
+    {
+      "section": "Telling a story"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-plus-que-parfait-narration-06"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b1-plus-que-parfait-narration-05"
+    },
+    {
+      "question": "b1-plus-que-parfait-narration-08"
+    },
+    {
+      "question": "b1-plus-que-parfait-narration-04"
+    }
+  ],
+  "sprint": {
+    "icon": "⏪",
+    "bites": [
+      {
+        "title": "One step further back",
+        "emoji": "⏪",
+        "rule": "The plus-que-parfait tells what had already happened before another moment in the past.",
+        "example": "Quand je suis arrivé, le train était déjà parti.",
+        "example_meaning": "When I arrived, the train had already left."
+      },
+      {
+        "title": "avais + participle",
+        "emoji": "🧱",
+        "rule": "Imparfait of avoir or être + past participle. Être verbs agree with the subject: elle était partie, ils étaient sortis.",
+        "example": "Nous avions fini avant midi.",
+        "example_meaning": "We had finished before noon."
+      },
+      {
+        "title": "Order and cause",
+        "emoji": "🔗",
+        "rule": "D'abord, ensuite, puis, enfin put the story in order; parce que and comme give the cause, donc and alors the result.",
+        "example": "Comme il avait plu, la route était glissante.",
+        "example_meaning": "As it had rained, the road was slippery."
+      },
+      {
+        "title": "Three tenses, three jobs",
+        "emoji": "🎬",
+        "rule": "Imparfait for the scene, passé composé for the events, plus-que-parfait for what had happened before.",
+        "example": "Il faisait nuit. J'ai vu que quelqu'un avait ouvert la porte.",
+        "example_meaning": "It was dark. I saw that someone had opened the door."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Plus-que-parfait with avoir or être?",
+        "buckets": [
+          "avoir (j'avais…)",
+          "être (j'étais…)"
+        ],
+        "items": [
+          {
+            "text": "finir",
+            "bucket": 0
+          },
+          {
+            "text": "partir",
+            "bucket": 1
+          },
+          {
+            "text": "lire",
+            "bucket": 0
+          },
+          {
+            "text": "arriver",
+            "bucket": 1
+          },
+          {
+            "text": "écrire",
+            "bucket": 0
+          },
+          {
+            "text": "rester",
+            "bucket": 1
+          }
+        ],
+        "why": "Verbs of movement and change of state such as partir, arriver and rester take être, as in the passé composé; most verbs take avoir."
+      },
+      {
+        "title": "Which past tense?",
+        "buckets": [
+          "passé composé (event)",
+          "imparfait (scene)",
+          "plus-que-parfait (earlier)"
+        ],
+        "items": [
+          {
+            "text": "Soudain, le téléphone a sonné.",
+            "bucket": 0
+          },
+          {
+            "text": "Il faisait très froid.",
+            "bucket": 1
+          },
+          {
+            "text": "Elle avait déjà mangé.",
+            "bucket": 2
+          },
+          {
+            "text": "Nous sommes partis à huit heures.",
+            "bucket": 0
+          },
+          {
+            "text": "Les enfants dormaient.",
+            "bucket": 1
+          },
+          {
+            "text": "Il n'avait jamais vu la neige.",
+            "bucket": 2
+          }
+        ],
+        "why": "Events that move the story take the passé composé, the scene the imparfait, and what had happened before the plus-que-parfait."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Quand je suis arrivé, le train avait déjà parti.",
+        "wrong": "avait",
+        "fix": "était",
+        "why": "Partir takes être: le train était parti."
+      },
+      {
+        "sentence": "Mes sœurs étaient déjà parti quand j'ai appelé.",
+        "wrong": "parti",
+        "fix": "parties",
+        "why": "With être the participle agrees: feminine plural, parties."
+      },
+      {
+        "sentence": "D'abord j'ai lu ton message, enfin j'ai appelé Paul, puis je suis sorti.",
+        "wrong": "enfin",
+        "fix": "ensuite",
+        "why": "Enfin closes a story; in the middle, use ensuite."
+      },
+      {
+        "sentence": "Il avait déjà écrivé la lettre.",
+        "wrong": "écrivé",
+        "fix": "écrit",
+        "why": "The participle of écrire is écrit."
+      },
+      {
+        "sentence": "Elle était fatiguée parce qu'elle avait lisé toute la nuit.",
+        "wrong": "lisé",
+        "fix": "lu",
+        "why": "The participle of lire is lu."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Le film avait déjà commencé.",
+        "meaning": "The film had already started.",
+        "distractors": [
+          "a"
+        ]
+      },
+      {
+        "text": "Elle n'avait jamais vu la mer.",
+        "meaning": "She had never seen the sea.",
+        "distractors": [
+          "était"
+        ]
+      },
+      {
+        "text": "Il était fatigué parce qu'il avait couru.",
+        "meaning": "He was tired because he had run.",
+        "distractors": [
+          "donc"
+        ]
+      },
+      {
+        "text": "Elle m'a dit qu'elle avait lu ta lettre.",
+        "meaning": "She told me she had read your letter.",
+        "distractors": [
+          "lisait"
+        ]
+      }
+    ]
+  }
+}

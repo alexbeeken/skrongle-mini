@@ -1,0 +1,40 @@
+{# The notice of a newer version of the built-in terms (#966), over the page:
+   `n` is `CurrentUser::terms_notice`. A minor change closes with Continue
+   (acceptance); a material one cannot be closed until accepted. #}
+<dialog class="modal terms-notice" id="terms-notice" data-testid="terms-gate" data-tier="{% if n.material %}material{% else %}minor{% endif %}" data-updated="true" data-terms-version="{{ crate::terms::version() }}" aria-labelledby="terms-notice-title">
+  <h2 id="terms-notice-title">{{ crate::t("terms.notice.heading") }}</h2>
+  <p>{% if n.material %}{{ crate::t("terms.notice.material") }}{% else %}{{ crate::t("terms.notice.minor") }}{% endif %}</p>
+  {% for c in n.changes %}
+  <section class="terms-notice-change" data-testid="terms-notice-change" data-version="{{ c.version }}">
+    <h3 class="small muted">{{ crate::t1("terms.notice.effective", "date", c.effective) }}</h3>
+    <ul data-testid="terms-notice-summary">{% for s in c.summary %}<li>{{ s }}</li>{% endfor %}</ul>
+  </section>
+  {% endfor %}
+  <p><a href="{{ crate::url("/terms") }}" target="_blank" data-testid="terms-gate-link">{{ crate::t("terms.notice.read") }}</a></p>
+  {% if n.material %}
+  <form method="post" action="{{ crate::url("/terms/accept") }}" data-testid="terms-accept-form">
+    <input type="hidden" name="next" value="{{ n.next }}">
+    <label class="terms-check"><input type="checkbox" name="accept" data-testid="terms-accept-check" required> {{ crate::i18n::fill(&crate::t("terms.accept.check_html"), [("min_age", &crate::terms::min_age().to_string()), ("terms_url", &crate::url("/terms")), ("privacy_url", &crate::url("/privacy"))])|safe }}</label>
+    <div class="modal-actions">
+      <button type="submit" class="btn" data-testid="terms-accept-submit">{{ crate::t("terms.accept.submit") }}</button>
+    </div>
+  </form>
+  <p class="small muted">{{ crate::t1("terms.notice.disagree_html", "url", crate::url("/profile#data"))|safe }}</p>
+  <form method="post" action="{{ crate::url("/logout") }}" class="inline" data-testid="terms-gate-logout">
+    <button type="submit" class="btn ghost small">{{ crate::t("terms.accept.logout") }}</button>
+  </form>
+  {% else %}
+  <form method="post" action="{{ crate::url("/terms/dismiss") }}" class="modal-actions" data-testid="terms-notice-form">
+    <input type="hidden" name="next" value="{{ n.next }}">
+    <button type="submit" class="btn" data-testid="terms-notice-dismiss">{{ crate::t("terms.notice.dismiss") }}</button>
+  </form>
+  {% endif %}
+</dialog>
+<script>
+(function () {
+  var d = document.getElementById('terms-notice');
+  if (!d || !d.showModal) return;
+  d.showModal();
+  {% if n.material %}d.addEventListener('cancel', function (e) { e.preventDefault(); });{% endif %}
+})();
+</script>

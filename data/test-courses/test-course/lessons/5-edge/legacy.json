@@ -1,0 +1,100 @@
+{
+  "id": "tc-legacy",
+  "slug": "legacy",
+  "title": "Old field names",
+  "level": "edge",
+  "category": "Legacy",
+  "order": 20,
+  "summary": "Written with every older spelling; a group not listed in the manifest.",
+  "target_grammar_point": "field aliases",
+  "markdown_content": "## Old spellings\n\nThis lesson is written with the older field names. They still load.\n\n## Vivir\n\n**vivo**, **vives**, **vive**.",
+  "vocabulary": [
+    {
+      "es": "vivir",
+      "en": "to live",
+      "example": "Vivo en Madrid.",
+      "example_en": "I live in Madrid."
+    },
+    {
+      "es": "la ciudad",
+      "en": "city"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "tc-legacy-01",
+      "prompt": "Yo ___ en Madrid. (vivir)",
+      "type": "fill-in-blank",
+      "correct_answer": "vivo",
+      "explanation": "Present of vivir, yo: vivo."
+    }
+  ],
+  "conjugations": [
+    {
+      "verb": "vivir",
+      "meaning": "to live",
+      "tense": "present",
+      "art": [
+        "  /\\  ",
+        " /  \\ ",
+        " |[]| "
+      ],
+      "forms": {
+        "yo": "vivo",
+        "tu": "vives",
+        "el": "vive",
+        "nosotros": "vivimos",
+        "vosotros": "vivís",
+        "ellos": "viven",
+        "gerundio": "viviendo"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "tc-legacy-conv",
+      "title": "Where do you live?",
+      "role_a": "Ana",
+      "role_b": "Luis",
+      "lines": [
+        {
+          "speaker": "a",
+          "es": "¿Dónde vives, Luis?",
+          "en": "Where do you live, Luis?"
+        },
+        {
+          "speaker": "b",
+          "es": "Vivo en la ciudad.",
+          "en": "I live in the city."
+        }
+      ]
+    }
+  ],
+  "journey": [
+    {
+      "section": "Old"
+    },
+    {
+      "question": "tc-legacy-01"
+    },
+    {
+      "section": "Vivir"
+    }
+  ],
+  "dmode": {
+    "bites": [
+      {
+        "title": "Vivir",
+        "rule": "Vivir is to live: vivo, vives, vive.",
+        "example_es": "Vivo aquí.",
+        "example_en": "I live here."
+      }
+    ],
+    "builds": [
+      {
+        "es": "Vivo en la ciudad.",
+        "en": "I live in the city."
+      }
+    ]
+  }
+}

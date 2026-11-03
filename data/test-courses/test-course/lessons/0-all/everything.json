@@ -1,0 +1,274 @@
+{
+  "id": "tc-everything",
+  "slug": "everything",
+  "title": "Everything at once",
+  "unit": "all",
+  "group": "overview",
+  "order": 10,
+  "summary": "Every lesson field in one lesson: the one-lesson smoke test.",
+  "focus": "Every feature a lesson can switch on",
+  "prerequisites": [
+    "tc-multiple-choice"
+  ],
+  "content": "This lesson uses every field a lesson file can have. Text before the first heading becomes the Introduction card.\n\n## Greetings\n\nSay **hola** when you arrive and **adiós** when you leave.\n\n| Español | English |\n|---|---|\n| hola | hello |\n| adiós | goodbye |\n\n## Asking how someone is\n\n- **¿Qué tal?** How's it going?\n- *Muy bien, gracias.* Very well, thanks.\n\n> **¿Qué tal?** works with friends and strangers alike.\n\n## The verb hablar\n\nIn the past: **hablé**, **hablaste**, **habló**.\n\n```text\n## not a heading: it is inside a code block\n```\n\n## Numbers\n\n**Dos** más **dos** son **cuatro**: 2 + 2 = 4.",
+  "vocabulary": [
+    {
+      "term": "hola",
+      "meaning": "hello",
+      "example": "¡Hola, Ana!",
+      "example_meaning": "Hello, Ana!"
+    },
+    {
+      "term": "adiós",
+      "meaning": "goodbye",
+      "example": "Adiós, hasta mañana.",
+      "example_meaning": "Goodbye, see you tomorrow."
+    },
+    {
+      "term": "gracias",
+      "meaning": "thank you",
+      "example": "Muchas gracias.",
+      "example_meaning": "Thank you very much."
+    },
+    {
+      "term": "bien",
+      "meaning": "well",
+      "example": "Estoy bien.",
+      "example_meaning": "I'm well."
+    },
+    {
+      "term": "hablar",
+      "meaning": "to speak",
+      "example": "Hablo español.",
+      "example_meaning": "I speak Spanish."
+    },
+    {
+      "term": "dos",
+      "meaning": "two"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "tc-everything-01",
+      "prompt": "How do you say 'hello'?",
+      "type": "multiple-choice",
+      "options": [
+        "hola",
+        "adiós",
+        "gracias"
+      ],
+      "correct_answer": "hola",
+      "explanation": "Hola is hello; adiós is goodbye.",
+      "hints": [
+        "It is the first word of the lesson."
+      ],
+      "teaches": [
+        "hola"
+      ]
+    },
+    {
+      "question_id": "tc-everything-02",
+      "prompt": "'Adiós' means 'goodbye'.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Adiós is what you say when you leave."
+    },
+    {
+      "question_id": "tc-everything-03",
+      "prompt": "Muchas ___.",
+      "type": "fill-in-blank",
+      "correct_answer": "gracias",
+      "explanation": "Muchas gracias: thank you very much.",
+      "hints": [
+        "Thank you."
+      ]
+    },
+    {
+      "question_id": "tc-everything-04",
+      "prompt": "Dos más dos: how many?",
+      "type": "numeric",
+      "correct_answer": "4",
+      "explanation": "2 + 2 = 4."
+    },
+    {
+      "question_id": "tc-everything-05",
+      "prompt": "Expand 2(x + 1).",
+      "type": "expression",
+      "correct_answer": "2x + 2",
+      "explanation": "2 × x + 2 × 1 = 2x + 2."
+    },
+    {
+      "question_id": "tc-everything-06",
+      "prompt": "Ayer yo ___ con Ana. (hablar)",
+      "type": "fill-in-blank",
+      "correct_answer": "hablé",
+      "explanation": "Preterite of hablar, yo: hablé.",
+      "hints": [
+        "It ends in an accented é."
+      ],
+      "teaches": [
+        "hablar"
+      ]
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "hablar",
+      "meaning": "to speak",
+      "set": "preterite",
+      "forms": {
+        "yo": "hablé",
+        "tu": "hablaste",
+        "el": "habló",
+        "nosotros": "hablamos",
+        "vosotros": "hablasteis",
+        "ellos": "hablaron",
+        "gerundio": "hablando"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "tc-everything-conv-hello",
+      "title": "Saying hello",
+      "scenario": "Ana meets Luis in the street.",
+      "role_a": "Ana",
+      "role_b": "Luis",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¡Hola, Luis! ¿Qué tal?",
+          "meaning": "Hi, Luis! How's it going?"
+        },
+        {
+          "speaker": "b",
+          "text": "Muy bien, gracias. ¿Y tú?",
+          "meaning": "Very well, thanks. And you?",
+          "note": "¿Y tú? turns the question back."
+        },
+        {
+          "speaker": "a",
+          "text": "Bien. ¡Adiós!",
+          "meaning": "Fine. Bye!"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Hola, ¿qué tal?",
+      "meaning": "Hi, how's it going?"
+    },
+    {
+      "text": "Muy bien, gracias.",
+      "meaning": "Very well, thanks.",
+      "note": "Bien never changes its ending."
+    },
+    {
+      "text": "Hablo con Ana.",
+      "meaning": "I'm talking to Ana.",
+      "note": "New word: con = with."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Introduction"
+    },
+    {
+      "vocab": 3
+    },
+    {
+      "section": "Greetings"
+    },
+    {
+      "question": "tc-everything-01"
+    },
+    {
+      "tip": "Hola works at any time of day."
+    },
+    {
+      "concept": {
+        "title": "An extra card",
+        "markdown": "This card exists only in the Guide: **hola** once more."
+      }
+    },
+    {
+      "section": "asking"
+    },
+    {
+      "question": "tc-everything-02"
+    },
+    {
+      "vocab": 3
+    },
+    {
+      "section": "The verb"
+    },
+    {
+      "question": "tc-everything-06"
+    },
+    {
+      "section": "Numbers"
+    },
+    {
+      "question": "tc-everything-04"
+    }
+  ],
+  "sprint": {
+    "icon": "🧪",
+    "bites": [
+      {
+        "title": "Hola and adiós",
+        "emoji": "👋",
+        "rule": "Hola when you arrive, adiós when you leave.",
+        "example": "¡Hola, Ana!",
+        "example_meaning": "Hello, Ana!"
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Arriving or leaving?",
+        "buckets": [
+          "arriving",
+          "leaving"
+        ],
+        "items": [
+          {
+            "text": "hola",
+            "bucket": 0
+          },
+          {
+            "text": "adiós",
+            "bucket": 1
+          },
+          {
+            "text": "buenos días",
+            "bucket": 0
+          },
+          {
+            "text": "hasta luego",
+            "bucket": 1
+          }
+        ],
+        "why": "Hola and buenos días greet; adiós and hasta luego take leave."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Adiós, Ana. Muchas grasias.",
+        "wrong": "grasias",
+        "fix": "gracias",
+        "why": "Gracias is spelt with a c."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Muy bien, gracias.",
+        "meaning": "Very well, thanks.",
+        "distractors": [
+          "adiós"
+        ]
+      }
+    ]
+  }
+}

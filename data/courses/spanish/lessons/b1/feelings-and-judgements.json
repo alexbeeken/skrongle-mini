@@ -1,0 +1,585 @@
+{
+  "id": "b1-feelings-and-judgements",
+  "slug": "feelings-and-judgements",
+  "title": "Feelings and judgements: me alegra que, es importante que",
+  "unit": "B1",
+  "group": "Grammar",
+  "order": 16,
+  "summary": "React to what other people do with me alegra que, me preocupa que, es importante que + the present subjunctive, and use the infinitive when nobody new is involved.",
+  "focus": "The present subjunctive after feelings and value judgements",
+  "prerequisites": [
+    "b1-wishes-and-requests"
+  ],
+  "content": "## Feelings about someone else: me alegra que…\n\nWhen you react to what **someone else** does, the action after **que** goes in the present subjunctive.\n\n- **Me alegra que vengas.** I'm glad you're coming.\n- **Me molesta que fumes.** It bothers me that you smoke.\n- **Me preocupa que no comas.** It worries me that you don't eat.\n- **Me da pena que te vayas.** It makes me sad that you're leaving.\n- **Me encanta que me escribas.** I love it that you write to me.\n- **Odio que llegues tarde.** I hate it when you're late.\n\n**Alegrar, preocupar, dar pena**… work like **gustar**: the pronoun shows who feels (**le preocupa que**, **nos alegra que**). **Odiar** is ordinary: **odio, odias, odia…**\n\n## Judgements: es importante que…\n\n**Es** + an adjective or noun works the same way. When a specific person is meant, add **que** + subjunctive:\n\n- **Es importante que descanses.** It's important that you rest.\n- **Es necesario que firméis aquí.** You need to sign here.\n- **Es mejor que vayamos en tren.** It's better if we go by train.\n- **Es normal que estés nervioso.** It's normal for you to be nervous.\n- **Es una pena que no puedas venir.** It's a shame you can't come.\n- **Es increíble que hable cuatro idiomas.** It's amazing that she speaks four languages.\n\n**Estar contento de que** + subjunctive too: **Estoy contenta de que trabajemos juntos.** I'm happy that we work together.\n\n## Same person or everyone: the infinitive\n\nNo new subject, no **que**. If the person who feels is the one who acts, or you mean people in general, use the infinitive:\n\n| same person or general | someone else |\n|---|---|\n| **Me alegra verte.** I'm glad to see you. | **Me alegra que me visites.** I'm glad you visit me. |\n| **Odio esperar.** I hate waiting. | **Odio que me hagas esperar.** I hate it when you make me wait. |\n| **Es importante dormir.** Sleep is important. | **Es importante que duermas.** It's important that you sleep. |\n| **Estoy contento de estar aquí.** | **Estoy contento de que estés aquí.** |\n\nSo **me alegra verte**, never *me alegra que te veo*.\n\n## Even when it is true\n\nThis subjunctive is not about doubt. In **me da pena que estés enfermo** I know you are ill; the subjunctive marks my *reaction* to the fact.\n\n- **Sé que estás enfermo.** I know you're ill. (stating a fact takes the indicative)\n- **Me da pena que estés enfermo.** I'm sorry you're ill. (reacting takes the subjunctive)\n- **Veo que llueve.** I see it's raining. Compare **Es una pena que llueva.** It's a shame it's raining.\n\nAt B1 the present subjunctive covers what happens now or later. Reacting to something already done (**me alegra que hayas venido**) comes at B2.",
+  "vocabulary": [
+    {
+      "term": "me alegra que",
+      "meaning": "I'm glad that, it makes me happy that",
+      "example": "Me alegra que estés mejor.",
+      "example_meaning": "I'm glad you're better."
+    },
+    {
+      "term": "me molesta que",
+      "meaning": "it bothers me that, it annoys me that",
+      "example": "Me molesta que mi vecino ponga la música tan alta.",
+      "example_meaning": "It annoys me that my neighbour plays music so loud."
+    },
+    {
+      "term": "me preocupa que",
+      "meaning": "it worries me that",
+      "example": "Me preocupa que mi abuelo viva solo.",
+      "example_meaning": "It worries me that my grandfather lives alone."
+    },
+    {
+      "term": "me da pena que",
+      "meaning": "it makes me sad that, I'm sorry that",
+      "example": "Me da pena que te vayas tan pronto.",
+      "example_meaning": "It makes me sad that you're leaving so soon."
+    },
+    {
+      "term": "me encanta que",
+      "meaning": "I love it that",
+      "example": "Me encanta que mis amigos me visiten.",
+      "example_meaning": "I love it when my friends visit me."
+    },
+    {
+      "term": "odiar",
+      "meaning": "to hate",
+      "example": "Odio que me interrumpan cuando hablo.",
+      "example_meaning": "I hate it when people interrupt me while I'm talking."
+    },
+    {
+      "term": "es importante que",
+      "meaning": "it's important that",
+      "example": "Es importante que leas el contrato.",
+      "example_meaning": "It's important that you read the contract."
+    },
+    {
+      "term": "es necesario que",
+      "meaning": "it's necessary that, (someone) needs to",
+      "example": "Es necesario que traigáis el pasaporte.",
+      "example_meaning": "You need to bring your passports."
+    },
+    {
+      "term": "es mejor que",
+      "meaning": "it's better that, it's better if",
+      "example": "Es mejor que salgamos temprano.",
+      "example_meaning": "It's better if we leave early."
+    },
+    {
+      "term": "es normal que",
+      "meaning": "it's normal that, no wonder",
+      "example": "Es normal que los bebés lloren.",
+      "example_meaning": "It's normal for babies to cry."
+    },
+    {
+      "term": "es una pena que",
+      "meaning": "it's a shame that",
+      "example": "Es una pena que no sepas nadar.",
+      "example_meaning": "It's a shame you can't swim."
+    },
+    {
+      "term": "es increíble que",
+      "meaning": "it's amazing that, it's unbelievable that",
+      "example": "Es increíble que el tren llegue a tiempo.",
+      "example_meaning": "It's amazing that the train is on time."
+    },
+    {
+      "term": "estar contento de que",
+      "meaning": "to be happy that",
+      "example": "Estoy contenta de que mi hija estudie medicina.",
+      "example_meaning": "I'm happy that my daughter is studying medicine."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-feelings-and-judgements-01",
+      "prompt": "Me molesta que tú siempre ___ tarde.",
+      "type": "multiple-choice",
+      "options": [
+        "llegas",
+        "llegues",
+        "llegar"
+      ],
+      "correct_answer": "llegues",
+      "explanation": "A feeling about what someone else does: me molesta que + subjunctive. Llegar becomes llegue, with -gu- to keep the hard g: que llegues.",
+      "hints": [
+        "Two different people: me (I'm annoyed) and tú (you arrive).",
+        "-gar verbs write -gue in the subjunctive."
+      ],
+      "teaches": [
+        "me molesta que"
+      ]
+    },
+    {
+      "question_id": "b1-feelings-and-judgements-02",
+      "prompt": "Me preocupa que mi hermano no ___ (dormir) bien.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "duerma",
+      "accepted_answers": [],
+      "explanation": "Me preocupa que + subjunctive, because the brother is a different subject. Dormir keeps its o to ue change in the él form: duerma.",
+      "hints": [
+        "Present subjunctive, él form.",
+        "Build it on the yo present (o to ue) with the opposite vowel."
+      ],
+      "teaches": [
+        "me preocupa que"
+      ]
+    },
+    {
+      "question_id": "b1-feelings-and-judgements-03",
+      "prompt": "Es una pena que el restaurante no ___ (abrir) los lunes.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "abra",
+      "accepted_answers": [],
+      "explanation": "Es una pena que + subjunctive. Abrir is a regular -ir verb, so it takes the 'opposite' -a ending: abra.",
+      "hints": [
+        "A judgement about a specific thing takes que + subjunctive.",
+        "-ir verbs end in -a in the subjunctive."
+      ],
+      "teaches": [
+        "es una pena que"
+      ]
+    },
+    {
+      "question_id": "b1-feelings-and-judgements-04",
+      "prompt": "Choose the natural way to say 'I'm glad to see you.'",
+      "type": "multiple-choice",
+      "options": [
+        "Me alegra verte.",
+        "Me alegra que te veo.",
+        "Me alegra que te ves."
+      ],
+      "correct_answer": "Me alegra verte.",
+      "explanation": "The one who is glad is also the one who sees, so there is no new subject and no que: me alegra + infinitive (verte).",
+      "hints": [
+        "Who is glad? Who sees? The same person?"
+      ],
+      "teaches": [
+        "me alegra que"
+      ]
+    },
+    {
+      "question_id": "b1-feelings-and-judgements-05",
+      "prompt": "Odio que mis vecinos ___ (hacer) ruido por la noche.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "hagan",
+      "accepted_answers": [],
+      "explanation": "Odio que + subjunctive when someone else does the thing. Hacer builds its subjunctive on hago: hagan.",
+      "hints": [
+        "Ellos form of the present subjunctive.",
+        "Start from hago and swap -o for -a: haga."
+      ],
+      "teaches": [
+        "odiar"
+      ]
+    },
+    {
+      "question_id": "b1-feelings-and-judgements-06",
+      "prompt": "Sé que estás enfermo, y me da pena que ___ enfermo.",
+      "type": "multiple-choice",
+      "options": [
+        "estás",
+        "estés"
+      ],
+      "correct_answer": "estés",
+      "explanation": "Even though the illness is a known fact (sé que estás), a feeling about it takes the subjunctive: me da pena que estés.",
+      "hints": [
+        "The subjunctive marks a reaction, not doubt."
+      ],
+      "teaches": [
+        "me da pena que"
+      ]
+    },
+    {
+      "question_id": "b1-feelings-and-judgements-07",
+      "prompt": "Es normal que (vosotros) ___ (estar) nerviosos antes del examen.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "estéis",
+      "accepted_answers": [
+        "vosotros estéis"
+      ],
+      "explanation": "Es normal que + subjunctive for specific people. Estar in the vosotros subjunctive is estéis, with an accent.",
+      "hints": [
+        "Vosotros form of the present subjunctive.",
+        "Estar stresses the ending, so this form carries a written accent."
+      ],
+      "teaches": [
+        "es normal que"
+      ]
+    },
+    {
+      "question_id": "b1-feelings-and-judgements-08",
+      "prompt": "Estoy contento de que mis padres ___ a verme.",
+      "type": "multiple-choice",
+      "options": [
+        "vienen",
+        "vengan",
+        "venir"
+      ],
+      "correct_answer": "vengan",
+      "explanation": "Estar contento de que + subjunctive: my parents are a different subject, so que vengan (the subjunctive is built on yo vengo).",
+      "hints": [
+        "Who is happy, and who is coming?"
+      ],
+      "teaches": [
+        "estar contento de que"
+      ]
+    },
+    {
+      "question_id": "b1-feelings-and-judgements-09",
+      "prompt": "Es mejor que (tú) ___ (llamar) a tu abuela hoy.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "llames",
+      "accepted_answers": [
+        "tú llames",
+        "tu llames"
+      ],
+      "explanation": "Es mejor que + subjunctive for advice to a specific person. Llamar is -ar, so the subjunctive takes -e: llames.",
+      "hints": [
+        "Tú form of the present subjunctive.",
+        "-ar verbs switch to -e."
+      ],
+      "teaches": [
+        "es mejor que"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-feelings-and-judgements-conv-good-news",
+      "title": "Good news, mixed feelings",
+      "scenario": "Javier phones his friend Lucía to tell her he is starting a new job in another city.",
+      "role_a": "Lucía",
+      "role_b": "Javier",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¡Javier! Me alegra mucho que me llames. ¿Qué tal todo?",
+          "meaning": "Javier! I'm so glad you're calling. How's everything?",
+          "note": "me alegra que + subjunctive"
+        },
+        {
+          "speaker": "b",
+          "text": "Muy bien. Tengo una noticia: empiezo un trabajo nuevo en Bilbao.",
+          "meaning": "Very well. I've got news: I'm starting a new job in Bilbao."
+        },
+        {
+          "speaker": "a",
+          "text": "¡Enhorabuena! Me encanta que tengas una aventura nueva.",
+          "meaning": "Congratulations! I love it that you've got a new adventure.",
+          "note": "tengo becomes tenga"
+        },
+        {
+          "speaker": "b",
+          "text": "Gracias. Pero me da pena que no vivamos en la misma ciudad.",
+          "meaning": "Thanks. But it makes me sad that we won't live in the same city."
+        },
+        {
+          "speaker": "a",
+          "text": "A mí también. Es normal que estés un poco nervioso, ¿no?",
+          "meaning": "Me too. It's normal for you to be a bit nervous, isn't it?"
+        },
+        {
+          "speaker": "b",
+          "text": "Sí. Me preocupa que los pisos allí sean tan caros.",
+          "meaning": "Yes. It worries me that flats there are so expensive."
+        },
+        {
+          "speaker": "a",
+          "text": "Es mejor que busques con calma. Y es importante descansar antes de empezar.",
+          "meaning": "It's better if you look calmly. And it's important to rest before you start.",
+          "note": "a specific person takes que + subjunctive; in general, the infinitive"
+        },
+        {
+          "speaker": "b",
+          "text": "Tienes razón. Odio que las mudanzas sean tan largas.",
+          "meaning": "You're right. I hate how long moving house takes."
+        },
+        {
+          "speaker": "a",
+          "text": "Pues es increíble que siempre lo organices todo tan bien.",
+          "meaning": "Well, it's amazing how you always organise everything so well.",
+          "note": "organizar becomes organice: -zar verbs write -ce"
+        },
+        {
+          "speaker": "b",
+          "text": "¡Qué amable! Estoy contento de que seamos amigos.",
+          "meaning": "How kind! I'm happy that we're friends."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Me encanta que cantes tan bien.",
+      "meaning": "I love it that you sing so well.",
+      "note": "A feeling about someone else: que + subjunctive."
+    },
+    {
+      "text": "Es importante beber mucha agua.",
+      "meaning": "It's important to drink lots of water.",
+      "note": "A general statement: the infinitive."
+    },
+    {
+      "text": "Nos alegra que vengáis a la boda.",
+      "meaning": "We're glad you're coming to the wedding.",
+      "note": "New word: la boda = the wedding."
+    },
+    {
+      "text": "Me preocupa que el niño tenga fiebre otra vez.",
+      "meaning": "It worries me that the boy has a temperature again.",
+      "note": "We know he has it; the worry still takes the subjunctive."
+    },
+    {
+      "text": "Es increíble que no llueva nunca en agosto.",
+      "meaning": "It's amazing that it never rains in August."
+    },
+    {
+      "text": "Es una pena que mis primos vivan tan lejos del pueblo.",
+      "meaning": "It's a shame my cousins live so far from the village.",
+      "note": "New word: el pueblo = the village."
+    },
+    {
+      "text": "Mi madre está contenta de que yo busque trabajo en Valencia.",
+      "meaning": "My mother is happy that I'm looking for work in Valencia.",
+      "note": "buscar becomes busque: -car verbs write -que."
+    },
+    {
+      "text": "A mi hermana le molesta que sus compañeros no limpien nunca la cocina.",
+      "meaning": "It annoys my sister that her flatmates never clean the kitchen.",
+      "note": "New word: limpiar = to clean."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Feelings about someone else"
+    },
+    {
+      "question": "b1-feelings-and-judgements-01"
+    },
+    {
+      "question": "b1-feelings-and-judgements-02"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "section": "Judgements"
+    },
+    {
+      "question": "b1-feelings-and-judgements-03"
+    },
+    {
+      "question": "b1-feelings-and-judgements-07"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b1-feelings-and-judgements-09"
+    },
+    {
+      "question": "b1-feelings-and-judgements-08"
+    },
+    {
+      "section": "Same person or everyone"
+    },
+    {
+      "question": "b1-feelings-and-judgements-04"
+    },
+    {
+      "question": "b1-feelings-and-judgements-05"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "tip": "Ask two questions: is there a new subject after que? Then subjunctive. Is it the same person, or everyone? Then the infinitive."
+    },
+    {
+      "section": "Even when it is true"
+    },
+    {
+      "question": "b1-feelings-and-judgements-06"
+    }
+  ],
+  "sprint": {
+    "icon": "😊",
+    "bites": [
+      {
+        "title": "Feeling + que",
+        "emoji": "💛",
+        "rule": "When you react to what someone else does, put their action in the subjunctive after que: me alegra que, me molesta que, me preocupa que, odio que…",
+        "example": "Me molesta que hables tan alto.",
+        "example_meaning": "It bothers me that you talk so loudly."
+      },
+      {
+        "title": "Judgements",
+        "emoji": "⚖️",
+        "rule": "Es importante / necesario / mejor / normal / una pena / increíble + que + subjunctive when a specific person is meant.",
+        "example": "Es necesario que estudiéis más.",
+        "example_meaning": "You need to study more."
+      },
+      {
+        "title": "Same person? Infinitive",
+        "emoji": "➡️",
+        "rule": "No new subject, no que: if you are the one who acts, or you mean everyone, use the infinitive.",
+        "example": "Me alegra verte. Es importante dormir.",
+        "example_meaning": "I'm glad to see you. Sleep is important."
+      },
+      {
+        "title": "Even if it's true",
+        "emoji": "🧠",
+        "rule": "The subjunctive marks a reaction, not doubt. You know the fact and still say que + subjunctive.",
+        "example": "Me da pena que estés enfermo.",
+        "example_meaning": "I'm sorry you're ill."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Que + subjunctive or infinitive?",
+        "buckets": [
+          "que + subjunctive",
+          "infinitive"
+        ],
+        "items": [
+          {
+            "text": "Me alegra… (you come)",
+            "bucket": 0
+          },
+          {
+            "text": "Me alegra… (I see you)",
+            "bucket": 1
+          },
+          {
+            "text": "Es importante… (Ana rests)",
+            "bucket": 0
+          },
+          {
+            "text": "Es importante… (for everyone)",
+            "bucket": 1
+          },
+          {
+            "text": "Odio… (they shout)",
+            "bucket": 0
+          },
+          {
+            "text": "Odio… (I wait)",
+            "bucket": 1
+          },
+          {
+            "text": "Me preocupa… (my son drives)",
+            "bucket": 0
+          },
+          {
+            "text": "Es mejor… (in general)",
+            "bucket": 1
+          }
+        ],
+        "why": "A new subject after que takes the subjunctive; the same person or people in general take the infinitive."
+      },
+      {
+        "title": "Fact or reaction?",
+        "buckets": [
+          "indicative",
+          "subjunctive"
+        ],
+        "items": [
+          {
+            "text": "Sé que estás cansado.",
+            "bucket": 0
+          },
+          {
+            "text": "Me da pena que estés cansado.",
+            "bucket": 1
+          },
+          {
+            "text": "Veo que llueve.",
+            "bucket": 0
+          },
+          {
+            "text": "Es una pena que llueva.",
+            "bucket": 1
+          },
+          {
+            "text": "Dice que trabaja mucho.",
+            "bucket": 0
+          },
+          {
+            "text": "Me molesta que trabajes tanto.",
+            "bucket": 1
+          }
+        ],
+        "why": "Knowing or stating a fact takes the indicative; a feeling or judgement about it takes the subjunctive, even when it is true."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Me alegra que estás aquí.",
+        "wrong": "estás",
+        "fix": "estés",
+        "why": "A feeling about someone else: me alegra que + subjunctive."
+      },
+      {
+        "sentence": "Es importante que dormimos bien.",
+        "wrong": "dormimos",
+        "fix": "durmamos",
+        "why": "Es importante que + subjunctive; -ir dormir changes o to u in nosotros."
+      },
+      {
+        "sentence": "Me encanta que tú vienes a cenar.",
+        "wrong": "vienes",
+        "fix": "vengas",
+        "why": "Me encanta que + subjunctive, built on vengo."
+      },
+      {
+        "sentence": "Es normal que los niños están cansados.",
+        "wrong": "están",
+        "fix": "estén",
+        "why": "Es normal que + subjunctive."
+      },
+      {
+        "sentence": "Odio que mi jefe me habla así.",
+        "wrong": "habla",
+        "fix": "hable",
+        "why": "Odio que + subjunctive when someone else acts."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Me alegra que estés aquí.",
+        "meaning": "I'm glad you're here.",
+        "distractors": [
+          "estás"
+        ]
+      },
+      {
+        "text": "Es importante dormir bien.",
+        "meaning": "Sleeping well is important.",
+        "distractors": [
+          "que"
+        ]
+      },
+      {
+        "text": "Me da pena que no vengas.",
+        "meaning": "It makes me sad that you're not coming.",
+        "distractors": [
+          "vienes"
+        ]
+      },
+      {
+        "text": "Es mejor que llames a tu madre.",
+        "meaning": "It's better if you call your mother.",
+        "distractors": [
+          "llamas"
+        ]
+      }
+    ]
+  }
+}

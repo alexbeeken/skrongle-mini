@@ -1,0 +1,578 @@
+{
+  "id": "b2-work-careers",
+  "slug": "work-careers",
+  "title": "Careers: négocier, se reconvertir, le télétravail",
+  "unit": "B2",
+  "group": "Vocabulary",
+  "order": 40,
+  "summary": "Talk about contracts, pay and promotion, leaving or losing a job, retraining and remote work, and describe your role in professional French.",
+  "focus": "The vocabulary of a career, from the CDI and the gross salary to resigning, retraining and describing your role",
+  "prerequisites": [
+    "b1-work-studies"
+  ],
+  "content": "## Contracts, pay and promotion\n\n- **le CDI** (contrat à durée indéterminée): a permanent contract. **le CDD** (contrat à durée déterminée): a fixed-term one.\n- **la période d'essai**: the trial period at the start, when either side can end the contract easily.\n- **le salaire brut**: before social contributions; **le salaire net**: what reaches your account, roughly a fifth to a quarter less.\n\nFigures: **un salaire de deux mille euros net par mois**, **trente-cinq mille euros brut par an**.\n\nMoving up: **la carrière**, **la promotion** (a better post), **l'augmentation** (a pay rise). You **négocier son salaire** and **demander une augmentation**. Rest and the end of the road: **les congés payés** (five weeks a year in France) and **la retraite** (**partir à la retraite**).\n\n## Leaving, losing a job, retraining\n\nWho decides makes all the difference:\n\n- **démissionner**: the employee leaves. **Elle a démissionné en mars.** (She resigned in March.)\n- **licencier**: the employer dismisses. **Il a été licencié.** (He was laid off.) The noun is **le licenciement**.\n- **se reconvertir**: to change career; the noun is **la reconversion**. **À quarante ans, elle s'est reconvertie dans l'informatique.** (At forty, she retrained in IT.)\n- **le télétravail**: remote work. **Je suis en télétravail le vendredi.** (I work from home on Fridays.) The verb is **télétravailler**.\n\n## Describing your role, in the right register\n\nThree phrases make you sound professional:\n\n- **Je suis chargé(e) de** + noun or infinitive: **Je suis chargée du recrutement.** (I'm in charge of recruitment.)\n- **Je m'occupe de**: **Je m'occupe des clients étrangers.** (I look after the foreign clients.)\n- **J'ai été amené(e) à** + infinitive (my work led me to): **J'ai été amené à gérer une équipe.** (I came to manage a team.)\n\nAt work, use **vous** with **le/la supérieur(e)** until invited to switch; **les collègues** often say **tu**. In **une réunion** (a meeting), stay courant: **le travail**, **travailler**, **être licencié**. Among friends you hear **le boulot**, **bosser** and **se faire virer**.",
+  "vocabulary": [
+    {
+      "term": "la carrière",
+      "meaning": "career",
+      "example": "Elle a fait toute sa carrière dans la même entreprise.",
+      "example_meaning": "She spent her whole career in the same company."
+    },
+    {
+      "term": "la promotion",
+      "meaning": "promotion",
+      "example": "Il a obtenu une promotion au bout de deux ans.",
+      "example_meaning": "He got a promotion after two years."
+    },
+    {
+      "term": "l'augmentation",
+      "meaning": "pay rise (f)",
+      "example": "J'ai demandé une augmentation à ma directrice.",
+      "example_meaning": "I asked my manager for a pay rise."
+    },
+    {
+      "term": "négocier",
+      "meaning": "to negotiate",
+      "example": "Il faut toujours négocier son salaire à l'embauche.",
+      "example_meaning": "You should always negotiate your salary when you are hired."
+    },
+    {
+      "term": "brut / net",
+      "meaning": "gross / net (pay)",
+      "example": "Trois mille euros brut, ça fait environ deux mille trois cents euros net.",
+      "example_meaning": "Three thousand euros gross is about two thousand three hundred euros net."
+    },
+    {
+      "term": "le CDI",
+      "meaning": "permanent contract",
+      "example": "Après deux CDD, on m'a enfin proposé un CDI.",
+      "example_meaning": "After two fixed-term contracts, I was finally offered a permanent one."
+    },
+    {
+      "term": "le CDD",
+      "meaning": "fixed-term contract",
+      "example": "C'est un CDD de six mois pour remplacer une collègue.",
+      "example_meaning": "It's a six-month fixed-term contract to replace a colleague."
+    },
+    {
+      "term": "la période d'essai",
+      "meaning": "trial period",
+      "example": "Ma période d'essai se termine à la fin du mois.",
+      "example_meaning": "My trial period ends at the end of the month."
+    },
+    {
+      "term": "démissionner",
+      "meaning": "to resign, to quit",
+      "example": "Elle a démissionné pour créer sa propre entreprise.",
+      "example_meaning": "She resigned to start her own company."
+    },
+    {
+      "term": "licencier",
+      "meaning": "to dismiss, to lay off",
+      "example": "L'usine va licencier deux cents personnes.",
+      "example_meaning": "The factory is going to lay off two hundred people."
+    },
+    {
+      "term": "se reconvertir",
+      "meaning": "to change career, to retrain",
+      "example": "Après dix ans dans la finance, il s'est reconverti en ébéniste.",
+      "example_meaning": "After ten years in finance, he retrained as a cabinetmaker."
+    },
+    {
+      "term": "le télétravail",
+      "meaning": "remote work, working from home",
+      "example": "Avec le télétravail, je gagne une heure de trajet par jour.",
+      "example_meaning": "With remote work, I save an hour of commuting a day."
+    },
+    {
+      "term": "les congés payés",
+      "meaning": "paid holiday, paid leave",
+      "example": "J'ai encore dix jours de congés payés à prendre.",
+      "example_meaning": "I still have ten days of paid leave to take."
+    },
+    {
+      "term": "être chargé de",
+      "meaning": "to be in charge of",
+      "example": "Je suis chargé de la formation des nouveaux employés.",
+      "example_meaning": "I'm in charge of training new employees."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-work-careers-01",
+      "prompt": "Paul leaves his office job of his own accord to open a bakery. In French, Paul…",
+      "type": "multiple-choice",
+      "options": [
+        "a démissionné",
+        "a été licencié",
+        "est parti à la retraite"
+      ],
+      "correct_answer": "a démissionné",
+      "explanation": "Démissionner = the employee chooses to leave. Être licencié = the employer ends the contract; partir à la retraite = to retire.",
+      "hints": [
+        "Who decides here: Paul or his employer?"
+      ],
+      "teaches": [
+        "démissionner"
+      ]
+    },
+    {
+      "question_id": "b2-work-careers-02",
+      "prompt": "Which French contract is permanent, with no end date?",
+      "type": "multiple-choice",
+      "options": [
+        "le CDI",
+        "le CDD",
+        "la période d'essai"
+      ],
+      "correct_answer": "le CDI",
+      "explanation": "CDI = contrat à durée indéterminée (no set end). A CDD has a set end date; the période d'essai is the trial period at the start of a contract.",
+      "hints": [
+        "Indéterminée = with no fixed length."
+      ],
+      "teaches": [
+        "le CDI"
+      ]
+    },
+    {
+      "question_id": "b2-work-careers-03",
+      "prompt": "Interview answer: 'In my last job I came to manage a team.' Which French sentence says it?",
+      "type": "multiple-choice",
+      "options": [
+        "Dans mon dernier poste, j'ai été amenée à gérer une équipe.",
+        "Dans mon dernier poste, j'ai été amenée de gérer une équipe.",
+        "Dans mon dernier poste, j'ai amené gérer une équipe."
+      ],
+      "correct_answer": "Dans mon dernier poste, j'ai été amenée à gérer une équipe.",
+      "explanation": "Être amené(e) à + infinitive = to come to do, to have occasion to do something through one's work. It takes à and the passive form j'ai été amené(e).",
+      "hints": [
+        "The phrase is passive and takes à."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b2-work-careers-04",
+      "prompt": "Après trois ans sans augmentation, elle veut ___ son salaire avec sa directrice.",
+      "type": "fill-in-blank",
+      "correct_answer": "négocier",
+      "accepted_answers": [
+        "negocier",
+        "renégocier"
+      ],
+      "explanation": "Négocier son salaire = to negotiate one's salary. After vouloir, the verb stays in the infinitive.",
+      "hints": [
+        "To discuss the terms, to bargain.",
+        "It starts with né-."
+      ],
+      "teaches": [
+        "négocier",
+        "l'augmentation"
+      ]
+    },
+    {
+      "question_id": "b2-work-careers-05",
+      "prompt": "À quarante ans, Karim a quitté la banque pour devenir menuisier : il s'est ___.",
+      "type": "fill-in-blank",
+      "correct_answer": "reconverti",
+      "accepted_answers": [],
+      "explanation": "Se reconvertir = to change career. In the passé composé with être: il s'est reconverti (elle s'est reconvertie).",
+      "hints": [
+        "The participle of se reconvertir.",
+        "re- + converti"
+      ],
+      "teaches": [
+        "se reconvertir"
+      ]
+    },
+    {
+      "question_id": "b2-work-careers-06",
+      "prompt": "Dans notre service, je suis ___ du recrutement des stagiaires.",
+      "type": "fill-in-blank",
+      "correct_answer": "chargé",
+      "accepted_answers": [
+        "chargée",
+        "charge"
+      ],
+      "explanation": "Être chargé(e) de = to be in charge of. De + le recrutement contracts to du recrutement.",
+      "hints": [
+        "'In charge of': a participle followed by de."
+      ],
+      "teaches": [
+        "être chargé de"
+      ]
+    },
+    {
+      "question_id": "b2-work-careers-07",
+      "prompt": "True or false: le salaire net is the amount before social contributions are taken off.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "It's the other way round: le brut is before contributions, le net is what you actually receive.",
+      "hints": [
+        "Which one reaches your bank account?"
+      ],
+      "teaches": [
+        "brut / net"
+      ]
+    },
+    {
+      "question_id": "b2-work-careers-08",
+      "prompt": "True or false: when a company licencie someone, the company ends the contract; when someone démissionne, the employee does.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Licencier is the employer's decision (le licenciement); démissionner is the employee's (la démission).",
+      "hints": [
+        "Think of who signs the letter."
+      ],
+      "teaches": [
+        "licencier",
+        "démissionner"
+      ]
+    },
+    {
+      "question_id": "b2-work-careers-09",
+      "prompt": "« On m'a proposé un CDI à deux mille quatre cents euros net par mois. » What is the monthly net salary, in euros?",
+      "type": "numeric",
+      "correct_answer": "2400",
+      "explanation": "Deux mille quatre cents = 2 400 (2,000 + 400). In French figures it is written 2 400 €, with a space.",
+      "hints": [
+        "deux mille = 2,000; quatre cents = 400"
+      ],
+      "teaches": [
+        "brut / net"
+      ],
+      "unit": "€"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-work-careers-conv-annual-review",
+      "title": "The annual review",
+      "scenario": "Hugo, a project officer, has his annual review with his manager, Claire Morel. He wants a pay rise and some remote work.",
+      "role_a": "Hugo",
+      "role_b": "Claire Morel",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Merci de me recevoir pour mon entretien annuel.",
+          "meaning": "Thank you for seeing me for my annual review."
+        },
+        {
+          "speaker": "b",
+          "text": "Avec plaisir. Comment s'est passée votre année ?",
+          "meaning": "My pleasure. How did your year go?"
+        },
+        {
+          "speaker": "a",
+          "text": "Très bien. J'ai été amené à gérer deux gros clients.",
+          "meaning": "Very well. I came to manage two big clients."
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, et vous vous êtes très bien occupé de l'équipe en mon absence.",
+          "meaning": "Yes, and you looked after the team very well while I was away."
+        },
+        {
+          "speaker": "a",
+          "text": "Justement, j'aimerais parler d'une augmentation.",
+          "meaning": "That's just it: I'd like to talk about a pay rise."
+        },
+        {
+          "speaker": "b",
+          "text": "Quel salaire envisagez-vous ?",
+          "meaning": "What salary do you have in mind?"
+        },
+        {
+          "speaker": "a",
+          "text": "Trois mille euros brut par mois, au lieu de deux mille sept cents.",
+          "meaning": "Three thousand euros gross a month, instead of two thousand seven hundred."
+        },
+        {
+          "speaker": "b",
+          "text": "C'est beaucoup. Je peux vous proposer deux mille huit cent cinquante.",
+          "meaning": "That's a lot. I can offer you two thousand eight hundred and fifty."
+        },
+        {
+          "speaker": "a",
+          "text": "Et si on ajoute un jour de télétravail par semaine ?",
+          "meaning": "And what if we add one day of remote work a week?"
+        },
+        {
+          "speaker": "b",
+          "text": "D'accord pour le télétravail le vendredi.",
+          "meaning": "Agreed for remote work on Fridays."
+        },
+        {
+          "speaker": "a",
+          "text": "Parfait. Et la promotion au poste de chef de projet ?",
+          "meaning": "Perfect. And the promotion to project manager?"
+        },
+        {
+          "speaker": "b",
+          "text": "On en reparle en juin, c'est promis.",
+          "meaning": "We'll talk about it again in June, I promise."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Elle a enfin signé un CDI.",
+      "meaning": "She has finally signed a permanent contract."
+    },
+    {
+      "text": "Je suis en télétravail le lundi et le jeudi.",
+      "meaning": "I work from home on Mondays and Thursdays."
+    },
+    {
+      "text": "Mon frère a démissionné pour se reconvertir.",
+      "meaning": "My brother resigned to change career."
+    },
+    {
+      "text": "En France, on a cinq semaines de congés payés.",
+      "meaning": "In France, people get five weeks of paid leave."
+    },
+    {
+      "text": "Il gagne deux mille euros net par mois.",
+      "meaning": "He earns two thousand euros net a month."
+    },
+    {
+      "text": "Je m'occupe des clients étrangers depuis deux ans.",
+      "meaning": "I've been looking after the foreign clients for two years.",
+      "note": "New word: étranger = foreign."
+    },
+    {
+      "text": "L'usine a licencié cinquante salariés l'année dernière.",
+      "meaning": "The factory laid off fifty employees last year.",
+      "note": "New word: le salarié = the employee."
+    },
+    {
+      "text": "Elle a obtenu une promotion, mais toujours pas d'augmentation.",
+      "meaning": "She got a promotion, but still no pay rise."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Contracts"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-work-careers-02"
+    },
+    {
+      "question": "b2-work-careers-07"
+    },
+    {
+      "question": "b2-work-careers-09"
+    },
+    {
+      "question": "b2-work-careers-04"
+    },
+    {
+      "tip": "Brut or net? French job ads and contracts usually state the gross salary, often per year (35 000 € brut annuel). If in doubt, ask: c'est en brut ou en net ?"
+    },
+    {
+      "section": "Leaving"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-work-careers-01"
+    },
+    {
+      "question": "b2-work-careers-08"
+    },
+    {
+      "question": "b2-work-careers-05"
+    },
+    {
+      "section": "Describing your role"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b2-work-careers-06"
+    },
+    {
+      "question": "b2-work-careers-03"
+    },
+    {
+      "concept": {
+        "title": "La rupture conventionnelle",
+        "markdown": "Between resigning and being dismissed there is a third way out of a CDI: **la rupture conventionnelle**, an agreed ending. Employer and employee sign it together, and, unlike after a resignation, the employee can usually claim unemployment benefit."
+      }
+    }
+  ],
+  "sprint": {
+    "icon": "📈",
+    "bites": [
+      {
+        "title": "CDI, CDD, période d'essai",
+        "emoji": "📝",
+        "rule": "Le CDI is permanent, le CDD has an end date, and most contracts start with une période d'essai.",
+        "example": "J'ai signé un CDI.",
+        "example_meaning": "I signed a permanent contract."
+      },
+      {
+        "title": "Brut and net",
+        "emoji": "💶",
+        "rule": "Brut = before contributions, net = what you receive. Say it with the figure: deux mille euros net par mois.",
+        "example": "Je gagne deux mille euros net par mois.",
+        "example_meaning": "I earn two thousand euros net a month."
+      },
+      {
+        "title": "Who decides?",
+        "emoji": "🚪",
+        "rule": "Démissionner: you leave. Licencier: they dismiss you (le licenciement). Se reconvertir: you start a new career.",
+        "example": "Elle a démissionné pour se reconvertir.",
+        "example_meaning": "She resigned to change career."
+      },
+      {
+        "title": "Your role, professionally",
+        "emoji": "🧑‍💼",
+        "rule": "Je suis chargé(e) de…, je m'occupe de…, j'ai été amené(e) à + infinitive.",
+        "example": "Je suis chargée des achats.",
+        "example_meaning": "I'm in charge of purchasing."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Who decides: the employee or the employer?",
+        "buckets": [
+          "le salarié",
+          "l'employeur"
+        ],
+        "items": [
+          {
+            "text": "démissionner",
+            "bucket": 0
+          },
+          {
+            "text": "se reconvertir",
+            "bucket": 0
+          },
+          {
+            "text": "demander une augmentation",
+            "bucket": 0
+          },
+          {
+            "text": "licencier",
+            "bucket": 1
+          },
+          {
+            "text": "accorder une promotion",
+            "bucket": 1
+          },
+          {
+            "text": "proposer un CDI",
+            "bucket": 1
+          },
+          {
+            "text": "poser ses congés payés",
+            "bucket": 0
+          }
+        ],
+        "why": "The employee resigns, retrains, asks for a rise and books leave; the employer dismisses, promotes and offers contracts."
+      },
+      {
+        "title": "Courant or familier?",
+        "buckets": [
+          "courant",
+          "familier"
+        ],
+        "items": [
+          {
+            "text": "Je travaille beaucoup.",
+            "bucket": 0
+          },
+          {
+            "text": "Je bosse comme un fou.",
+            "bucket": 1
+          },
+          {
+            "text": "J'ai quitté ce travail.",
+            "bucket": 0
+          },
+          {
+            "text": "J'ai lâché ce boulot.",
+            "bucket": 1
+          },
+          {
+            "text": "Il a été licencié.",
+            "bucket": 0
+          },
+          {
+            "text": "Il s'est fait virer.",
+            "bucket": 1
+          }
+        ],
+        "why": "Travailler, le travail and être licencié are safe in a meeting; bosser, le boulot and se faire virer belong among friends."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Il a démissioné hier soir.",
+        "wrong": "démissioné",
+        "fix": "démissionné",
+        "why": "Démissionner has a double n: il a démissionné."
+      },
+      {
+        "sentence": "Le patron a démissionné trois employés.",
+        "wrong": "démissionné",
+        "fix": "licencié",
+        "why": "An employer dismisses someone: licencier. Démissionner is what the employee does."
+      },
+      {
+        "sentence": "J'ai été amené de gérer une équipe.",
+        "wrong": "de",
+        "fix": "à",
+        "why": "Être amené à + infinitive."
+      },
+      {
+        "sentence": "Je m'occupe à la comptabilité.",
+        "wrong": "à",
+        "fix": "de",
+        "why": "S'occuper de: je m'occupe de la comptabilité."
+      },
+      {
+        "sentence": "Le salaire net est plus élevé que le brut.",
+        "wrong": "élevé",
+        "fix": "bas",
+        "why": "Net comes after contributions, so it is lower than brut."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Elle a négocié son salaire.",
+        "meaning": "She negotiated her salary.",
+        "distractors": [
+          "négociée"
+        ]
+      },
+      {
+        "text": "Je suis en télétravail le vendredi.",
+        "meaning": "I work from home on Fridays.",
+        "distractors": [
+          "au"
+        ]
+      },
+      {
+        "text": "Il a démissionné pour se reconvertir.",
+        "meaning": "He resigned to change career.",
+        "distractors": [
+          "licencié"
+        ]
+      },
+      {
+        "text": "La période d'essai dure trois mois.",
+        "meaning": "The trial period lasts three months.",
+        "distractors": [
+          "essaie"
+        ]
+      }
+    ]
+  }
+}

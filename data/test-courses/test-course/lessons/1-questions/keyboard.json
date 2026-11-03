@@ -1,0 +1,44 @@
+{
+  "id": "tc-keyboard",
+  "slug": "keyboard",
+  "title": "Find it on the keys",
+  "unit": "questions",
+  "group": "quiz",
+  "order": 60,
+  "summary": "Tap the key: by ear, any spelling, or the exact key.",
+  "focus": "keyboard questions",
+  "content": "## The keyboard\n\nThe white keys are C D E F G A B, again and again. The black keys sit between them: the one between C and D is C sharp, also called D flat.\n\n## Finding a note\n\nTap a key to hear it. The last key you tap before Check is your answer.",
+  "quiz": [
+    {
+      "question_id": "tc-keyboard-01",
+      "prompt": "Find the note you hear.",
+      "type": "keyboard",
+      "play": "X:1\nL:1/2\nK:C\nE",
+      "correct_answer": "E",
+      "octaves": 1,
+      "explanation": "It was E, the white key just right of the second black key in a group of two."
+    },
+    {
+      "question_id": "tc-keyboard-02",
+      "prompt": "Find the note you hear. It is a black key.",
+      "type": "keyboard",
+      "play": "X:1\nL:1/2\nK:C\n_B",
+      "correct_answer": "_B",
+      "octaves": 2,
+      "explanation": "B flat is the black key between A and B; it is also called A sharp."
+    },
+    {
+      "question_id": "tc-keyboard-03",
+      "prompt": "Find this C on the keys.",
+      "type": "keyboard",
+      "abc": "X:1\nL:1/2\nK:C\nc",
+      "correct_answer": "c",
+      "octave": true,
+      "octaves": 2,
+      "explanation": "The C in the third space of the treble staff is the C above middle C.",
+      "hints": [
+        "Middle C sits on a line of its own below the staff."
+      ]
+    }
+  ]
+}

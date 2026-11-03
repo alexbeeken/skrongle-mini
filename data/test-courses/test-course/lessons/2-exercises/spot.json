@@ -1,0 +1,33 @@
+{
+  "id": "tc-spot",
+  "slug": "spot",
+  "title": "Spot the mistake",
+  "unit": "exercises",
+  "group": "sprint",
+  "order": 30,
+  "summary": "Tap the one wrong word.",
+  "focus": "Sprint mode spots",
+  "content": "## Spot the mistake\n\nTap the one wrong word. Punctuation around it does not matter.",
+  "sprint": {
+    "spots": [
+      {
+        "sentence": "Mi madre está médica.",
+        "wrong": "está",
+        "fix": "es",
+        "why": "A profession takes ser."
+      },
+      {
+        "sentence": "Los niños es en el parque.",
+        "wrong": "es",
+        "fix": "están",
+        "why": "A location takes estar."
+      },
+      {
+        "sentence": "Tengo dos gato.",
+        "wrong": "gato",
+        "fix": "gatos",
+        "why": "Two takes the plural."
+      }
+    ]
+  }
+}

@@ -1,0 +1,600 @@
+{
+  "id": "a1-present-progressive",
+  "slug": "estar-gerund-present-progressive",
+  "title": "Estar + gerund: what is happening right now",
+  "unit": "A1",
+  "group": "Grammar",
+  "order": 48,
+  "summary": "Estoy comiendo, están leyendo: the -ando / -iendo form for actions in progress.",
+  "focus": "Forming the gerund; estar + gerund vs the simple present",
+  "prerequisites": [
+    "a1-ser-vs-estar",
+    "a1-regular-er-ir-present"
+  ],
+  "content": "## Forming the gerund\n\n| infinitive | gerund | |\n|---|---|---|\n| -ar: hablar | habl**ando** | speaking |\n| -er: comer | com**iendo** | eating |\n| -ir: vivir | viv**iendo** | living |\n\nSpelling: when the stem ends in a vowel, **-iendo** becomes **-yendo**: *leer → leyendo*, *oír → oyendo*, *ir → yendo*. A few -ir verbs change the stem: *dormir → durmiendo*, *decir → diciendo*, *pedir → pidiendo*.\n\nThe gerund never changes for person or number.\n\n## Estar + gerund\n\nFor an action **in progress right now**, use the present of *estar* + gerund:\n\n- *Estoy comiendo.*: I'm eating (right now).\n- *¿Qué estás haciendo?*: What are you doing?\n- *Los niños están durmiendo.*: The children are sleeping.\n- *Estamos aprendiendo español.*: We're learning Spanish.\n\nReflexive pronouns go before *estar* or on the gerund: *Me estoy duchando* = *Estoy duchándome* (note the accent).\n\n## Simple present or progressive?\n\nSpanish uses the **simple present** far more than English uses it. *Como a las dos* can mean *I eat at two* or *I'm eating at two*. Use the progressive to stress that something is happening **at this moment**:\n\n- *Trabajo en un banco.*: I work in a bank. (in general)\n- *Estoy trabajando.*: I'm working. (right now, don't interrupt)\n\nNever use the progressive for the future: *Mañana trabajo* or *Mañana voy a trabajar*, not *estoy trabajando mañana*.",
+  "vocabulary": [
+    {
+      "term": "ahora",
+      "meaning": "now",
+      "example": "Ahora estoy comiendo.",
+      "example_meaning": "I'm eating now."
+    },
+    {
+      "term": "ahora mismo",
+      "meaning": "right now",
+      "example": "Ahora mismo no puedo.",
+      "example_meaning": "I can't right now."
+    },
+    {
+      "term": "en este momento",
+      "meaning": "at the moment",
+      "example": "En este momento está durmiendo.",
+      "example_meaning": "At the moment he's sleeping."
+    },
+    {
+      "term": "estar + -ando / -iendo",
+      "meaning": "to be doing something",
+      "example": "Estoy estudiando.",
+      "example_meaning": "I'm studying."
+    },
+    {
+      "term": "hablando",
+      "meaning": "speaking (gerund)",
+      "example": "Está hablando por teléfono.",
+      "example_meaning": "She's talking on the phone."
+    },
+    {
+      "term": "comiendo",
+      "meaning": "eating (gerund)",
+      "example": "Estamos comiendo.",
+      "example_meaning": "We're eating."
+    },
+    {
+      "term": "leyendo",
+      "meaning": "reading (gerund)",
+      "example": "Está leyendo un libro.",
+      "example_meaning": "He's reading a book."
+    },
+    {
+      "term": "durmiendo",
+      "meaning": "sleeping (gerund)",
+      "example": "Los niños están durmiendo.",
+      "example_meaning": "The children are sleeping."
+    },
+    {
+      "term": "el teléfono",
+      "meaning": "telephone",
+      "example": "Hablo por teléfono.",
+      "example_meaning": "I talk on the phone."
+    },
+    {
+      "term": "todavía",
+      "meaning": "still, yet",
+      "example": "Todavía estoy trabajando.",
+      "example_meaning": "I'm still working."
+    },
+    {
+      "term": "ya",
+      "meaning": "already",
+      "example": "Ya estoy en casa.",
+      "example_meaning": "I'm already home."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-prog-01",
+      "prompt": "Gerund of hablar: ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "hablando",
+      "accepted_answers": [],
+      "explanation": "-ar → -ando.",
+      "hints": [
+        "-ando"
+      ],
+      "teaches": [
+        "hablando"
+      ]
+    },
+    {
+      "question_id": "a1-prog-02",
+      "prompt": "Gerund of comer: ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "comiendo",
+      "accepted_answers": [],
+      "explanation": "-er → -iendo.",
+      "hints": [
+        "-iendo"
+      ],
+      "teaches": [
+        "comiendo"
+      ]
+    },
+    {
+      "question_id": "a1-prog-03",
+      "prompt": "Gerund of leer: ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "leyendo",
+      "accepted_answers": [],
+      "explanation": "Stem ends in a vowel: -iendo becomes -yendo.",
+      "hints": [
+        "y, not i"
+      ],
+      "teaches": [
+        "leyendo"
+      ]
+    },
+    {
+      "question_id": "a1-prog-04",
+      "prompt": "¿Qué ___ haciendo? (you, right now)",
+      "type": "multiple-choice",
+      "options": [
+        "estás",
+        "eres",
+        "haces"
+      ],
+      "correct_answer": "estás",
+      "explanation": "The progressive uses estar: estás haciendo.",
+      "hints": [
+        "estar + gerund"
+      ],
+      "teaches": [
+        "estar + -ando / -iendo"
+      ]
+    },
+    {
+      "question_id": "a1-prog-05",
+      "prompt": "Los niños ___ durmiendo.",
+      "type": "multiple-choice",
+      "options": [
+        "están",
+        "son",
+        "estan"
+      ],
+      "correct_answer": "están",
+      "explanation": "Ellos: están, with an accent.",
+      "hints": [
+        "accent on están"
+      ],
+      "teaches": [
+        "durmiendo"
+      ]
+    },
+    {
+      "question_id": "a1-prog-06",
+      "prompt": "Translate: We are learning Spanish (right now).",
+      "type": "multiple-choice",
+      "options": [
+        "Estamos aprendiendo español.",
+        "Somos aprendiendo español.",
+        "Estamos aprender español."
+      ],
+      "correct_answer": "Estamos aprendiendo español.",
+      "explanation": "estar + gerund: estamos aprendiendo.",
+      "hints": [
+        "gerund, not infinitive"
+      ],
+      "teaches": [
+        "estar + -ando / -iendo"
+      ]
+    },
+    {
+      "question_id": "a1-prog-07",
+      "prompt": "Which is the normal way to say 'I work in a bank' (in general)?",
+      "type": "multiple-choice",
+      "options": [
+        "Trabajo en un banco.",
+        "Estoy trabajando en un banco.",
+        "Soy trabajando en un banco."
+      ],
+      "correct_answer": "Trabajo en un banco.",
+      "explanation": "Habits and general facts use the simple present.",
+      "hints": [
+        "general = simple present"
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a1-prog-08",
+      "prompt": "Tomorrow I'm working:",
+      "type": "multiple-choice",
+      "options": [
+        "Mañana trabajo.",
+        "Mañana estoy trabajando.",
+        "Mañana trabajando."
+      ],
+      "correct_answer": "Mañana trabajo.",
+      "explanation": "The progressive is not used for the future; use the simple present or ir a.",
+      "hints": [
+        "no progressive for future"
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a1-prog-09",
+      "prompt": "Me estoy duchando = ",
+      "type": "multiple-choice",
+      "options": [
+        "Estoy duchándome.",
+        "Estoy duchando me.",
+        "Estoy me duchando."
+      ],
+      "correct_answer": "Estoy duchándome.",
+      "explanation": "The pronoun attaches to the gerund, with an accent added.",
+      "hints": [
+        "attached + accent"
+      ],
+      "teaches": []
+    }
+  ],
+  "listening": [
+    {
+      "text": "Ahora mismo estoy comiendo.",
+      "meaning": "I'm eating right now."
+    },
+    {
+      "text": "¿Qué estás leyendo ahora?",
+      "meaning": "What are you reading now?",
+      "note": "Leer becomes leyendo: -iendo after a vowel is -yendo."
+    },
+    {
+      "text": "Mi padre está durmiendo todavía.",
+      "meaning": "My father is still sleeping."
+    },
+    {
+      "text": "Ahora mismo estoy esperando el autobús.",
+      "meaning": "Right now I'm waiting for the bus.",
+      "note": "New word: esperar = to wait."
+    },
+    {
+      "text": "Estoy leyendo el periódico en la cama.",
+      "meaning": "I'm reading the newspaper in bed.",
+      "note": "New word: el periódico = the newspaper."
+    },
+    {
+      "text": "En este momento no puedo hablar, estoy trabajando.",
+      "meaning": "I can't talk at the moment, I'm working."
+    },
+    {
+      "text": "Mi hermana está hablando por teléfono con una amiga.",
+      "meaning": "My sister is talking on the phone with a friend."
+    },
+    {
+      "text": "Los niños ya están durmiendo y mi padre todavía está trabajando.",
+      "meaning": "The children are already asleep and my father is still working."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Forming the gerund"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-prog-01"
+    },
+    {
+      "question": "a1-prog-02"
+    },
+    {
+      "question": "a1-prog-03"
+    },
+    {
+      "section": "Estar + gerund"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a1-prog-04"
+    },
+    {
+      "question": "a1-prog-05"
+    },
+    {
+      "question": "a1-prog-06"
+    },
+    {
+      "question": "a1-prog-09"
+    },
+    {
+      "section": "Simple present or progressive"
+    },
+    {
+      "vocab": 2
+    },
+    {
+      "question": "a1-prog-07"
+    },
+    {
+      "question": "a1-prog-08"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-prog-conv-phone",
+      "title": "On the phone",
+      "scenario": "Laura calls her brother Pedro, who is busy.",
+      "role_a": "Laura",
+      "role_b": "Pedro",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Hola, Pedro. ¿Qué estás haciendo?",
+          "meaning": "Hi, Pedro. What are you doing?",
+          "note": "estar + gerund"
+        },
+        {
+          "speaker": "b",
+          "text": "Estoy cocinando. ¿Y tú?",
+          "meaning": "I'm cooking. And you?"
+        },
+        {
+          "speaker": "a",
+          "text": "Estoy leyendo en el parque. ¿Están los niños en casa?",
+          "meaning": "I'm reading in the park. Are the kids at home?",
+          "note": "leyendo"
+        },
+        {
+          "speaker": "b",
+          "text": "Sí, están durmiendo todavía.",
+          "meaning": "Yes, they're still sleeping.",
+          "note": "durmiendo"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Mamá está trabajando hoy?",
+          "meaning": "Is Mum working today?"
+        },
+        {
+          "speaker": "b",
+          "text": "No, hoy no trabaja. Está hablando por teléfono con la abuela.",
+          "meaning": "No, she's not working today. She's talking to Grandma on the phone.",
+          "note": "simple present for the general fact"
+        },
+        {
+          "speaker": "a",
+          "text": "Vale. Voy a casa ahora mismo.",
+          "meaning": "Ok. I'm going home right now.",
+          "note": "ahora mismo"
+        },
+        {
+          "speaker": "b",
+          "text": "Perfecto, la comida ya está casi lista.",
+          "meaning": "Perfect, lunch is almost ready."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "⏳",
+    "bites": [
+      {
+        "title": "Live action = estar + -ndo",
+        "emoji": "🎬",
+        "rule": "For something happening this very second, use estar + gerund: estoy comiendo. Only estar changes for the person; the gerund never changes.",
+        "example": "¿Qué estás haciendo?",
+        "example_meaning": "What are you doing?"
+      },
+      {
+        "title": "-ando or -iendo",
+        "emoji": "🔤",
+        "rule": "-ar verbs take -ando (hablando); -er and -ir verbs share -iendo (comiendo, viviendo).",
+        "example": "Estamos comiendo.",
+        "example_meaning": "We're eating."
+      },
+      {
+        "title": "Vowel before -iendo: y",
+        "emoji": "💥",
+        "rule": "When the stem ends in a vowel, -iendo becomes -yendo: leyendo, oyendo, yendo. A few -ir verbs also change their stem: durmiendo, pidiendo, diciendo.",
+        "example": "Estoy leyendo en el parque.",
+        "example_meaning": "I'm reading in the park."
+      },
+      {
+        "title": "Don't overuse it",
+        "emoji": "🛑",
+        "rule": "Spanish keeps the simple present for habits and the future: trabajo en un banco, mañana trabajo. Save estar + -ndo for right now.",
+        "example": "Hoy no trabaja. Está hablando por teléfono.",
+        "example_meaning": "She's not working today. She's on the phone."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "-ando, -iendo or -yendo?",
+        "buckets": [
+          "-ando",
+          "-iendo",
+          "-yendo"
+        ],
+        "items": [
+          {
+            "text": "hablar",
+            "bucket": 0
+          },
+          {
+            "text": "cocinar",
+            "bucket": 0
+          },
+          {
+            "text": "trabajar",
+            "bucket": 0
+          },
+          {
+            "text": "comer",
+            "bucket": 1
+          },
+          {
+            "text": "vivir",
+            "bucket": 1
+          },
+          {
+            "text": "aprender",
+            "bucket": 1
+          },
+          {
+            "text": "leer",
+            "bucket": 2
+          },
+          {
+            "text": "oír",
+            "bucket": 2
+          },
+          {
+            "text": "ir",
+            "bucket": 2
+          }
+        ],
+        "why": "-ar verbs take -ando, -er/-ir take -iendo, and a stem ending in a vowel turns -iendo into -yendo."
+      },
+      {
+        "title": "Simple present or progressive?",
+        "buckets": [
+          "simple present",
+          "estar + gerund"
+        ],
+        "items": [
+          {
+            "text": "I work in a bank (in general)",
+            "bucket": 0
+          },
+          {
+            "text": "I'm eating right now, call later",
+            "bucket": 1
+          },
+          {
+            "text": "Tomorrow I'm working",
+            "bucket": 0
+          },
+          {
+            "text": "The kids are sleeping at the moment",
+            "bucket": 1
+          },
+          {
+            "text": "I eat at two every day",
+            "bucket": 0
+          },
+          {
+            "text": "She's talking on the phone right now",
+            "bucket": 1
+          }
+        ],
+        "why": "Use estar + gerund only for what is in progress right now; habits and future plans take the simple present."
+      },
+      {
+        "title": "Stem change in the gerund?",
+        "buckets": [
+          "regular",
+          "stem change"
+        ],
+        "items": [
+          {
+            "text": "comer → comiendo",
+            "bucket": 0
+          },
+          {
+            "text": "dormir → durmiendo",
+            "bucket": 1
+          },
+          {
+            "text": "pedir → pidiendo",
+            "bucket": 1
+          },
+          {
+            "text": "vivir → viviendo",
+            "bucket": 0
+          },
+          {
+            "text": "decir → diciendo",
+            "bucket": 1
+          },
+          {
+            "text": "hablar → hablando",
+            "bucket": 0
+          }
+        ],
+        "why": "A few -ir verbs shift o → u or e → i in the gerund; most verbs keep their stem."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Los niños son durmiendo todavía.",
+        "wrong": "son",
+        "fix": "están",
+        "why": "The progressive always uses estar: están durmiendo."
+      },
+      {
+        "sentence": "Estoy comendo en casa.",
+        "wrong": "comendo",
+        "fix": "comiendo",
+        "why": "-er verbs take -iendo: comiendo."
+      },
+      {
+        "sentence": "Está leiendo un libro.",
+        "wrong": "leiendo",
+        "fix": "leyendo",
+        "why": "Leer's stem ends in a vowel, so -iendo becomes -yendo."
+      },
+      {
+        "sentence": "Los niños están dormiendo.",
+        "wrong": "dormiendo",
+        "fix": "durmiendo",
+        "why": "Dormir changes o → u in the gerund: durmiendo."
+      },
+      {
+        "sentence": "Estamos aprender español ahora.",
+        "wrong": "aprender",
+        "fix": "aprendiendo",
+        "why": "Estar needs a gerund, not an infinitive: aprendiendo."
+      },
+      {
+        "sentence": "Mamá esta hablando por teléfono.",
+        "wrong": "esta",
+        "fix": "está",
+        "why": "The verb estar carries an accent: está."
+      }
+    ],
+    "builds": [
+      {
+        "text": "¿Qué estás haciendo?",
+        "meaning": "What are you doing?",
+        "distractors": [
+          "eres",
+          "haces"
+        ]
+      },
+      {
+        "text": "Estoy leyendo en el parque.",
+        "meaning": "I'm reading in the park.",
+        "distractors": [
+          "leiendo"
+        ]
+      },
+      {
+        "text": "Los niños están durmiendo todavía.",
+        "meaning": "The children are still sleeping.",
+        "distractors": [
+          "dormiendo",
+          "son"
+        ]
+      },
+      {
+        "text": "Está hablando por teléfono con la abuela.",
+        "meaning": "She's talking to Grandma on the phone.",
+        "distractors": [
+          "hablar"
+        ]
+      },
+      {
+        "text": "Estamos aprendiendo español.",
+        "meaning": "We're learning Spanish.",
+        "distractors": [
+          "aprender",
+          "Somos"
+        ]
+      }
+    ]
+  }
+}

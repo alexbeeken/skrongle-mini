@@ -1,0 +1,60 @@
+# Self-hosted GitHub Actions runners for alexbeeken/skrongle-mini, on the
+# laptop. The workflows pick them with `runs-on: ${{ vars.CI_RUNNER || 'laptop' }}`.
+# Four runners: a PR's `checks` run is nine jobs (cargo test, 3 exact shards,
+# 4 smoke shards, the mini lane), so one PR takes about two waves and a
+# second PR waits. Each keeps its own work volume, so builds stay
+# incremental between jobs: the Rust build goes to CARGO_TARGET_DIR in the
+# volume, outside the checkout, where actions/checkout's `git clean -ffdx`
+# cannot delete it before every job.
+# Start and stop with scripts/ci-runners.sh; see docs/testing.md, "CI runners".
+x-runner: &runner
+  build:
+    context: .
+    args:
+      # Set by scripts/ci-runners.sh from e2e/package.json.
+      PLAYWRIGHT_VERSION: ${PLAYWRIGHT_VERSION:-1.64.1}
+  image: skrongle-mini-ci-runner
+  restart: unless-stopped
+  environment: &env
+    REPO_URL: https://github.com/alexbeeken/skrongle-mini
+    RUNNER_SCOPE: repo
+    LABELS: laptop
+    RANDOM_RUNNER_SUFFIX: "true"
+    # One of the two, filled in by scripts/ci-runners.sh (docs/testing.md,
+    # "CI runners"): a fine-grained token for this repo with
+    # "Administration: Read and write" (survives restarts), or a one-hour
+    # registration token (good until the containers are next recreated).
+    ACCESS_TOKEN: ${SKRONGLE_MINI_CI_RUNNER_TOKEN:-}
+    RUNNER_TOKEN: ${SKRONGLE_MINI_CI_REGISTRATION_TOKEN:-}
+    UNSET_CONFIG_VARS: "true"   # keep the tokens out of the jobs' env
+    CARGO_TARGET_DIR: /_work/cargo-target   # the persistent, incremental build
+    # The same checkout path on every runner (each still has its own volume),
+    # so a debug server built on one serves static/ on another (rust-embed
+    # reads it from the build's path); see scripts/ci-build.sh.
+    RUNNER_WORKDIR: /_work/runner
+  shm_size: 2gb                 # Chromium needs more than Docker's 64 MB
+
+services:
+  runner-1:
+    <<: *runner
+    environment: { <<: *env, RUNNER_NAME_PREFIX: mini-1 }
+    volumes: [work-1:/_work, shared:/_shared]
+  runner-2:
+    <<: *runner
+    environment: { <<: *env, RUNNER_NAME_PREFIX: mini-2 }
+    volumes: [work-2:/_work, shared:/_shared]
+  runner-3:
+    <<: *runner
+    environment: { <<: *env, RUNNER_NAME_PREFIX: mini-3 }
+    volumes: [work-3:/_work, shared:/_shared]
+  runner-4:
+    <<: *runner
+    environment: { <<: *env, RUNNER_NAME_PREFIX: mini-4 }
+    volumes: [work-4:/_work, shared:/_shared]
+
+volumes:
+  shared:   # one server binary per commit, for every job (scripts/ci-build.sh)
+  work-1:
+  work-2:
+  work-3:
+  work-4:

@@ -1,0 +1,568 @@
+{
+  "id": "b1-news-media",
+  "slug": "news-media",
+  "title": "News and media: les infos, un article, les réseaux sociaux",
+  "unit": "B1",
+  "group": "Vocabulary",
+  "order": 40,
+  "summary": "Talk about the news in the press, on TV, in podcasts and on social media, name your sources with selon and d'après, pass on what you heard, and read figures aloud.",
+  "focus": "The words of the news and media, quoting a source, and talking about a piece of news",
+  "prerequisites": [
+    "b1-opinions-agreement"
+  ],
+  "content": "## Press, TV and radio\n\n**Les informations** (always plural; everyday French says **les infos**) is the news. Where you find it:\n\n- **le journal**: the newspaper; **le journal télévisé** (**le JT**): the TV news\n- **la presse**: the press; **un article**; **un titre**: a headline; **à la une**: on the front page\n- **un / une journaliste**: a journalist\n- **une émission**: a programme, a show, on **une chaîne**: a channel\n- **un reportage**: a report from the field, a documentary\n- **un podcast**: a podcast\n\n**Le journal de vingt heures** is the classic evening TV news. One piece of news is **une nouvelle**: **J'ai une bonne nouvelle !**\n\n## Online: les réseaux sociaux\n\nOn **les réseaux sociaux** (social media) you:\n\n- **publier**: post, publish. **Le journal a publié une enquête.**\n- **partager**: share. **Elle partage tout sur les réseaux.**\n- **s'abonner à**: subscribe to, follow. **Je me suis abonné à ce podcast.** (**se désabonner**: to unsubscribe)\n\nWatch out for **une fausse information**, officially called **une infox** (fake news). Before you share a story, check where it comes from: **Qui a publié ça ?**\n\n## Sources, rumours and figures\n\nName the source with **selon** or **d'après** + a noun: **Selon le journal…**, **D'après les experts…**\n\nPass on what people say with **il paraît que** (apparently) or **on dit que** (people say): **Il paraît que le musée va fermer.**\n\nBring up a story: **Tu as entendu parler de… ?** **J'ai lu que…** **J'ai vu aux infos que…**\n\nFigures are read like this:\n\n| written | said |\n|---|---|\n| 25 % | vingt-cinq pour cent |\n| 3,5 % | trois virgule cinq pour cent |\n| 2 millions | deux millions de téléspectateurs |\n\nFrench writes a comma for decimals and a space before **%**; **pour cent** never takes an s.",
+  "vocabulary": [
+    {
+      "term": "les infos",
+      "meaning": "the news (f pl)",
+      "example": "Tu as écouté les infos ce matin ?",
+      "example_meaning": "Did you listen to the news this morning?"
+    },
+    {
+      "term": "le journal télévisé",
+      "meaning": "the TV news",
+      "example": "Le journal télévisé commence à vingt heures.",
+      "example_meaning": "The TV news starts at eight p.m."
+    },
+    {
+      "term": "un article",
+      "meaning": "an article",
+      "example": "J'ai lu un article passionnant sur les abeilles.",
+      "example_meaning": "I read a fascinating article about bees."
+    },
+    {
+      "term": "un titre",
+      "meaning": "a headline, a title",
+      "example": "Le titre de l'article est un peu exagéré.",
+      "example_meaning": "The article's headline is a bit exaggerated."
+    },
+    {
+      "term": "la une",
+      "meaning": "the front page (f)",
+      "example": "Le match de foot fait la une de tous les journaux.",
+      "example_meaning": "The football match is on the front page of every paper."
+    },
+    {
+      "term": "un journaliste",
+      "meaning": "a journalist (f: une journaliste)",
+      "example": "Une journaliste a interviewé le maire hier.",
+      "example_meaning": "A journalist interviewed the mayor yesterday."
+    },
+    {
+      "term": "une émission",
+      "meaning": "a programme, a show (f)",
+      "example": "Cette émission de radio passe le dimanche matin.",
+      "example_meaning": "This radio programme is on on Sunday mornings."
+    },
+    {
+      "term": "une chaîne",
+      "meaning": "a channel (f)",
+      "example": "Sur quelle chaîne passe le match ?",
+      "example_meaning": "Which channel is the match on?"
+    },
+    {
+      "term": "un reportage",
+      "meaning": "a report, a documentary",
+      "example": "J'ai vu un reportage sur la vie en Antarctique.",
+      "example_meaning": "I saw a documentary about life in Antarctica."
+    },
+    {
+      "term": "les réseaux sociaux",
+      "meaning": "social media (m pl)",
+      "example": "Ma sœur passe trop de temps sur les réseaux sociaux.",
+      "example_meaning": "My sister spends too much time on social media."
+    },
+    {
+      "term": "partager",
+      "meaning": "to share",
+      "example": "Ne partage pas cet article avant de vérifier la source.",
+      "example_meaning": "Don't share this article before checking the source."
+    },
+    {
+      "term": "s'abonner à",
+      "meaning": "to subscribe to, to follow",
+      "example": "Je me suis abonné à une chaîne de cuisine.",
+      "example_meaning": "I've subscribed to a cooking channel."
+    },
+    {
+      "term": "une infox",
+      "meaning": "a piece of fake news (f)",
+      "example": "Cette photo est une infox : elle a dix ans.",
+      "example_meaning": "This photo is fake news: it's ten years old."
+    },
+    {
+      "term": "il paraît que",
+      "meaning": "apparently, I hear that",
+      "example": "Il paraît que le nouveau film est excellent.",
+      "example_meaning": "Apparently the new film is excellent."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-news-media-01",
+      "prompt": "Le soir, mes grands-parents regardent toujours ___ de vingt heures.",
+      "type": "multiple-choice",
+      "options": [
+        "le journal télévisé",
+        "la une",
+        "les réseaux sociaux"
+      ],
+      "correct_answer": "le journal télévisé",
+      "explanation": "The evening TV news at eight o'clock is 'le journal télévisé de vingt heures' (le JT). 'La une' is the front page of a paper.",
+      "hints": [
+        "What do you watch on TV at eight p.m.?"
+      ],
+      "teaches": [
+        "le journal télévisé"
+      ]
+    },
+    {
+      "question_id": "b1-news-media-02",
+      "prompt": "Cette histoire est partout : elle fait la ___ de tous les journaux ce matin.",
+      "type": "fill-in-blank",
+      "correct_answer": "une",
+      "accepted_answers": [],
+      "explanation": "'Faire la une' = to be on the front page, to make the headlines.",
+      "hints": [
+        "The front page of a newspaper.",
+        "It looks like the number one."
+      ],
+      "teaches": [
+        "la une"
+      ]
+    },
+    {
+      "question_id": "b1-news-media-03",
+      "prompt": "Ne crois pas tout ce que tu vois en ligne : cette vidéo est une ___.",
+      "type": "multiple-choice",
+      "options": [
+        "infox",
+        "émission",
+        "chaîne"
+      ],
+      "correct_answer": "infox",
+      "explanation": "A false story passed off as news is 'une infox' (une fausse information).",
+      "hints": [
+        "'Don't believe everything you see online…'"
+      ],
+      "teaches": [
+        "une infox"
+      ]
+    },
+    {
+      "question_id": "b1-news-media-04",
+      "prompt": "J'adore ce podcast : je m'y suis ___ hier pour ne rater aucun épisode. (subscribed)",
+      "type": "fill-in-blank",
+      "correct_answer": "abonné",
+      "accepted_answers": [
+        "abonnée"
+      ],
+      "explanation": "S'abonner à takes être in the passé composé: 'je me suis abonné(e)'; y replaces 'à ce podcast'.",
+      "hints": [
+        "Past participle of s'abonner.",
+        "Add an -e if the speaker is a woman."
+      ],
+      "teaches": [
+        "s'abonner à"
+      ]
+    },
+    {
+      "question_id": "b1-news-media-05",
+      "prompt": "'Les informations', meaning the news on TV or the radio, is used in the plural in French.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Yes: 'les informations', 'les infos' (the news). One single piece of news is 'une nouvelle'.",
+      "hints": [
+        "Think of 'tu as écouté les infos ?'"
+      ],
+      "teaches": [
+        "les infos"
+      ]
+    },
+    {
+      "question_id": "b1-news-media-06",
+      "prompt": "Selon un sondage publié ce matin, trente-huit pour cent des jeunes s'informent surtout sur les réseaux sociaux. What percentage is that?",
+      "type": "numeric",
+      "correct_answer": "38",
+      "unit": "%",
+      "explanation": "Trente-huit pour cent = 38 %. In French the % sign has a space before it.",
+      "hints": [
+        "trente = 30, huit = 8"
+      ],
+      "teaches": [
+        "les réseaux sociaux"
+      ]
+    },
+    {
+      "question_id": "b1-news-media-07",
+      "prompt": "___ le journal régional, la grève des trains va durer trois jours.",
+      "type": "multiple-choice",
+      "options": [
+        "Selon",
+        "Il paraît",
+        "On dit"
+      ],
+      "correct_answer": "Selon",
+      "explanation": "A source given as a noun takes 'selon' (or 'd'après'). 'Il paraît' and 'on dit' need que + a clause.",
+      "hints": [
+        "A noun (le journal) follows the blank."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b1-news-media-08",
+      "prompt": "Tu as entendu ___ de ce nouveau festival de musique ? (heard about)",
+      "type": "fill-in-blank",
+      "correct_answer": "parler",
+      "accepted_answers": [],
+      "explanation": "'Entendre parler de' = to hear about: 'Tu as entendu parler de… ?'",
+      "hints": [
+        "An infinitive: to speak."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b1-news-media-09",
+      "prompt": "'Il paraît que…' passes on something you have heard but not checked yourself.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Yes: 'il paraît que' means apparently, I hear that. It reports a rumour or what people say.",
+      "hints": [
+        "Compare 'apparently' in English."
+      ],
+      "teaches": [
+        "il paraît que"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-news-media-conv-free-tram",
+      "title": "A free tram?",
+      "scenario": "Over breakfast, Julie tells her flatmate Karim about a story she saw online, and they check whether it is true.",
+      "role_a": "Julie",
+      "role_b": "Karim",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Tu as entendu parler de la nouvelle ligne de tram ?",
+          "meaning": "Have you heard about the new tram line?"
+        },
+        {
+          "speaker": "b",
+          "text": "Non. C'était aux infos ?",
+          "meaning": "No. Was it on the news?"
+        },
+        {
+          "speaker": "a",
+          "text": "Je l'ai vu sur les réseaux sociaux. Il paraît qu'elle sera gratuite.",
+          "meaning": "I saw it on social media. Apparently it'll be free."
+        },
+        {
+          "speaker": "b",
+          "text": "Gratuite ? Ça ressemble à une infox.",
+          "meaning": "Free? That sounds like fake news."
+        },
+        {
+          "speaker": "a",
+          "text": "Attends, je vérifie… D'après le journal local, c'est vrai !",
+          "meaning": "Wait, I'll check… According to the local paper, it's true!",
+          "note": "d'après + source"
+        },
+        {
+          "speaker": "b",
+          "text": "Ah bon ? Qui a écrit l'article ?",
+          "meaning": "Really? Who wrote the article?"
+        },
+        {
+          "speaker": "a",
+          "text": "Une journaliste de la rubrique ville. Le titre dit que le tram sera gratuit le week-end.",
+          "meaning": "A journalist from the city section. The headline says the tram will be free at weekends."
+        },
+        {
+          "speaker": "b",
+          "text": "Ah, seulement le week-end ! Ce n'est pas pareil.",
+          "meaning": "Ah, only at weekends! That's not the same."
+        },
+        {
+          "speaker": "a",
+          "text": "Selon un sondage, soixante pour cent des habitants sont pour.",
+          "meaning": "According to a poll, sixty per cent of residents are in favour."
+        },
+        {
+          "speaker": "b",
+          "text": "Bon, je vais partager l'article avec ma sœur.",
+          "meaning": "OK, I'll share the article with my sister."
+        },
+        {
+          "speaker": "a",
+          "text": "Et abonne-toi à leur podcast, il est très bien fait.",
+          "meaning": "And subscribe to their podcast, it's really well made."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "J'écoute un podcast dans le train.",
+      "meaning": "I listen to a podcast on the train."
+    },
+    {
+      "text": "Ce reportage passe ce soir sur une autre chaîne.",
+      "meaning": "This documentary is on another channel tonight."
+    },
+    {
+      "text": "Il paraît que la boulangerie va fermer.",
+      "meaning": "Apparently the bakery is going to close."
+    },
+    {
+      "text": "D'après la presse, le maire va démissionner.",
+      "meaning": "According to the press, the mayor is going to resign.",
+      "note": "New word: démissionner = to resign."
+    },
+    {
+      "text": "J'ai lu un article intéressant sur le climat.",
+      "meaning": "I read an interesting article about the climate."
+    },
+    {
+      "text": "Tu as entendu parler de cette nouvelle émission ?",
+      "meaning": "Have you heard about this new programme?"
+    },
+    {
+      "text": "Plus de deux millions de téléspectateurs ont regardé le match hier.",
+      "meaning": "More than two million viewers watched the match yesterday.",
+      "note": "New word: le téléspectateur = the viewer."
+    },
+    {
+      "text": "Selon un sondage, quarante pour cent des Français lisent le journal en ligne.",
+      "meaning": "According to a poll, forty per cent of French people read the newspaper online.",
+      "note": "New word: le sondage = the poll."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Press"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-news-media-01"
+    },
+    {
+      "question": "b1-news-media-02"
+    },
+    {
+      "question": "b1-news-media-05"
+    },
+    {
+      "tip": "Les infos is always plural: les infos sont à vingt heures. One single piece of news is une nouvelle."
+    },
+    {
+      "section": "Online"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-news-media-03"
+    },
+    {
+      "question": "b1-news-media-04"
+    },
+    {
+      "section": "Sources"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b1-news-media-07"
+    },
+    {
+      "question": "b1-news-media-09"
+    },
+    {
+      "question": "b1-news-media-08"
+    },
+    {
+      "question": "b1-news-media-06"
+    },
+    {
+      "concept": {
+        "title": "Daily, weekly, monthly",
+        "markdown": "A newspaper is named by how often it comes out: **un quotidien** (a daily), **un hebdomadaire** or **un hebdo** (a weekly), **un mensuel** (a monthly). **Je lis un quotidien régional et un hebdo le dimanche.**"
+      }
+    }
+  ],
+  "sprint": {
+    "icon": "🗞️",
+    "bites": [
+      {
+        "title": "Les infos",
+        "emoji": "🗞️",
+        "rule": "The news is plural: les informations, les infos. Le journal is the paper; le journal télévisé is the TV news; la une is the front page.",
+        "example": "Les infos sont à vingt heures.",
+        "example_meaning": "The news is at eight p.m."
+      },
+      {
+        "title": "Online",
+        "emoji": "📱",
+        "rule": "Publier, partager, s'abonner à; and check the source before you share une infox.",
+        "example": "Je me suis abonnée à sa chaîne.",
+        "example_meaning": "I've subscribed to her channel."
+      },
+      {
+        "title": "Who says so?",
+        "emoji": "🔎",
+        "rule": "Selon or d'après + a source; il paraît que and on dit que for what people say.",
+        "example": "D'après la radio, il va neiger.",
+        "example_meaning": "According to the radio, it's going to snow."
+      },
+      {
+        "title": "Reading figures",
+        "emoji": "📊",
+        "rule": "25 % = vingt-cinq pour cent (no s). A comma for decimals: 3,5 % = trois virgule cinq pour cent.",
+        "example": "Dix pour cent des gens n'ont pas de télé.",
+        "example_meaning": "Ten per cent of people don't have a TV."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Read, watch or listen?",
+        "buckets": [
+          "on lit",
+          "on regarde",
+          "on écoute"
+        ],
+        "items": [
+          {
+            "text": "un article",
+            "bucket": 0
+          },
+          {
+            "text": "la une du journal",
+            "bucket": 0
+          },
+          {
+            "text": "le journal télévisé",
+            "bucket": 1
+          },
+          {
+            "text": "un reportage à la télé",
+            "bucket": 1
+          },
+          {
+            "text": "un podcast",
+            "bucket": 2
+          },
+          {
+            "text": "une émission de radio",
+            "bucket": 2
+          },
+          {
+            "text": "un titre",
+            "bucket": 0
+          }
+        ],
+        "why": "Articles, headlines and the front page are read; the TV news and TV reports are watched; podcasts and radio shows are listened to."
+      },
+      {
+        "title": "A source or hearsay?",
+        "buckets": [
+          "a named source",
+          "hearsay"
+        ],
+        "items": [
+          {
+            "text": "Selon le ministre, …",
+            "bucket": 0
+          },
+          {
+            "text": "D'après la presse, …",
+            "bucket": 0
+          },
+          {
+            "text": "Il paraît que …",
+            "bucket": 1
+          },
+          {
+            "text": "On dit que …",
+            "bucket": 1
+          },
+          {
+            "text": "Selon une étude récente, …",
+            "bucket": 0
+          },
+          {
+            "text": "J'ai entendu dire que …",
+            "bucket": 1
+          }
+        ],
+        "why": "Selon and d'après name who said it; il paraît que, on dit que and j'ai entendu dire que pass on what people say."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Les infos est très mauvaises ce soir.",
+        "wrong": "est",
+        "fix": "sont",
+        "why": "Les infos is plural: les infos sont."
+      },
+      {
+        "sentence": "Je me suis abonné de cette chaîne.",
+        "wrong": "de",
+        "fix": "à",
+        "why": "S'abonner à: je me suis abonné à cette chaîne."
+      },
+      {
+        "sentence": "Tu as entendu parler à ce festival ?",
+        "wrong": "à",
+        "fix": "de",
+        "why": "Entendre parler de: tu as entendu parler de ce festival ?"
+      },
+      {
+        "sentence": "Cette histoire fait le une de tous les journaux.",
+        "wrong": "le",
+        "fix": "la",
+        "why": "La une is feminine: faire la une."
+      },
+      {
+        "sentence": "Trente pour cents des jeunes écoutent des podcasts.",
+        "wrong": "cents",
+        "fix": "cent",
+        "why": "Pour cent never takes an s."
+      }
+    ],
+    "builds": [
+      {
+        "text": "J'ai lu un article sur la grève.",
+        "meaning": "I read an article about the strike.",
+        "distractors": [
+          "une"
+        ]
+      },
+      {
+        "text": "Il paraît que le concert est annulé.",
+        "meaning": "Apparently the concert is cancelled.",
+        "distractors": [
+          "dit"
+        ]
+      },
+      {
+        "text": "Elle s'est abonnée à mon podcast.",
+        "meaning": "She subscribed to my podcast.",
+        "distractors": [
+          "de"
+        ]
+      },
+      {
+        "text": "Ne partage pas cette fausse information.",
+        "meaning": "Don't share this fake news.",
+        "distractors": [
+          "faux"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,724 @@
+{
+  "id": "a2-obligation-and-advice",
+  "slug": "obligation-and-advice",
+  "title": "Obligation, advice and polite requests",
+  "unit": "A2",
+  "group": "Grammar",
+  "order": 34,
+  "summary": "Tengo que, hay que, deberías, ¿puedo?, me gustaría, quisiera. Saying what must be done, giving advice and asking nicely.",
+  "focus": "Expressing obligation, advice, permission and polite requests, with the conditional of deber, querer, poder and gustar",
+  "prerequisites": [
+    "a1-tener"
+  ],
+  "content": "## Must: tener que, hay que, deber\n\nThere are three ways to say *must*, from personal to general:\n\n| form | flavour | example |\n|---|---|---|\n| **tener que** + infinitive | a specific person has to | **Tengo que trabajar mañana.** I have to work tomorrow. |\n| **hay que** + infinitive | impersonal: one has to, you need to | **Hay que comprar una entrada.** You have to buy a ticket. |\n| **deber** + infinitive | duty, what is right | **Debes llamar a tu abuela.** You should/must call your grandmother. |\n\n**Hay que** never changes and never takes a subject: *yo hay que* is impossible. Two other impersonal forms are **es necesario** + infinitive (it's necessary to) and **es importante** + infinitive (it's important to), as in **Es importante beber agua.**\n\n## Advice: deberías\n\nTo advise rather than order, put **deber** in the **conditional**: **debería, deberías, debería, deberíamos, deberíais, deberían** = *should*.\n\n- **Deberías descansar un poco.** You should rest a little.\n- **No deberíais fumar.** You (all) shouldn't smoke.\n\nIn order of strength: **Tienes que ir al médico** (you have to) > **Debes ir** (you must) > **Deberías ir** (you should).\n\nOther gentle ways to advise:\n\n- **Es mejor** + infinitive, as in **Es mejor llegar pronto.** (It's better to arrive early.)\n- **¿Por qué no…?**, as in **¿Por qué no descansas?** (Why don't you rest?)\n\n## Permission: ¿puedo…?\n\n**Poder** asks for and gives permission:\n\n- **¿Puedo abrir la ventana?** Can I open the window?\n- **¿Podemos entrar?** May we come in?\n- **Sí, claro.** / **No, lo siento.** Yes, of course. / No, sorry.\n\nFor rules and signs, **se puede** (one can) and **no se puede** (one can't):\n\n- **Aquí no se puede fumar.** You can't smoke here.\n- **¿Se puede pagar con tarjeta?** Can one pay by card?\n\n**¿Puedes…?** also makes a direct request: **¿Puedes ayudarme?** (Can you help me?)\n\n## Softer requests: the conditional\n\nThe conditional (**-ía** endings on the infinitive) turns a demand into a polite request. Three verbs do most of the work.\n\n| direct | polite | meaning |\n|---|---|---|\n| **Quiero** un café. | **Quisiera** / **Querría** un café. | I'd like a coffee. |\n| **¿Puede** ayudarme? | **¿Podría** ayudarme? | Could you help me? |\n| **Me gusta** viajar. | **Me gustaría** viajar. | I'd like to travel. |\n\n- **¿Podría decirme dónde está la estación?** Could you tell me where the station is?\n- **Me gustaría reservar una mesa para dos.** I'd like to book a table for two.\n\n**Quisiera** and **querría** both work. You hear **quisiera** in shops and cafés. Strictly it is a subjunctive form, not the conditional, but learn it as a set phrase. **Gustar** keeps its pronoun: **me / te / le gustaría**.",
+  "vocabulary": [
+    {
+      "term": "hay que",
+      "meaning": "one has to, you need to (impersonal)",
+      "example": "Hay que comprar una entrada.",
+      "example_meaning": "You have to buy a ticket."
+    },
+    {
+      "term": "es necesario",
+      "meaning": "it is necessary (to)",
+      "example": "No es necesario llevar traje.",
+      "example_meaning": "It's not necessary to wear a suit."
+    },
+    {
+      "term": "es importante",
+      "meaning": "it is important (to)",
+      "example": "Es importante beber agua.",
+      "example_meaning": "It's important to drink water."
+    },
+    {
+      "term": "es mejor",
+      "meaning": "it is better (to)",
+      "example": "Es mejor llegar pronto.",
+      "example_meaning": "It's better to arrive early."
+    },
+    {
+      "term": "¿por qué no…?",
+      "meaning": "why don't…? (suggestion)",
+      "example": "¿Por qué no descansas un poco?",
+      "example_meaning": "Why don't you rest a little?"
+    },
+    {
+      "term": "me gustaría",
+      "meaning": "I would like",
+      "example": "Me gustaría viajar a Argentina.",
+      "example_meaning": "I'd like to travel to Argentina."
+    },
+    {
+      "term": "quisiera",
+      "meaning": "I would like (polite)",
+      "example": "Quisiera un café con leche, por favor.",
+      "example_meaning": "I'd like a white coffee, please."
+    },
+    {
+      "term": "¿podría…?",
+      "meaning": "could you…? (polite)",
+      "example": "¿Podría ayudarme, por favor?",
+      "example_meaning": "Could you help me, please?"
+    },
+    {
+      "term": "descansar",
+      "meaning": "to rest",
+      "example": "Deberías descansar un poco.",
+      "example_meaning": "You should rest a little."
+    },
+    {
+      "term": "fumar",
+      "meaning": "to smoke",
+      "example": "Aquí no se puede fumar.",
+      "example_meaning": "You can't smoke here."
+    },
+    {
+      "term": "la ventana",
+      "meaning": "window",
+      "example": "¿Puedo abrir la ventana?",
+      "example_meaning": "Can I open the window?"
+    },
+    {
+      "term": "la cita",
+      "meaning": "appointment",
+      "example": "Tengo una cita con el médico.",
+      "example_meaning": "I have an appointment with the doctor."
+    },
+    {
+      "term": "el permiso",
+      "meaning": "permission",
+      "example": "Necesito el permiso de mi jefe.",
+      "example_meaning": "I need my boss's permission."
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "deber",
+      "meaning": "should, must, to owe",
+      "set": "conditional",
+      "art": [
+        " __________ ",
+        "| [x] ____ |",
+        "| [ ] ____ |",
+        "| [ ] ____ |",
+        "|__________|"
+      ],
+      "forms": {
+        "yo": "debería",
+        "tu": "deberías",
+        "el": "debería",
+        "nosotros": "deberíamos",
+        "vosotros": "deberíais",
+        "ellos": "deberían"
+      }
+    },
+    {
+      "item": "querer",
+      "meaning": "to want, to love",
+      "set": "conditional",
+      "art": [
+        "  _   _  ",
+        " ( \\_/ ) ",
+        "  \\   /  ",
+        "   \\ /   ",
+        "    V    "
+      ],
+      "forms": {
+        "yo": "querría",
+        "tu": "querrías",
+        "el": "querría",
+        "nosotros": "querríamos",
+        "vosotros": "querríais",
+        "ellos": "querrían"
+      }
+    },
+    {
+      "item": "poder",
+      "meaning": "to be able to, can",
+      "set": "conditional",
+      "art": [
+        "    ____    ",
+        "   / OK \\   ",
+        "  |  !   |  ",
+        "   \\____/   ",
+        "   _/  \\_   "
+      ],
+      "forms": {
+        "yo": "podría",
+        "tu": "podrías",
+        "el": "podría",
+        "nosotros": "podríamos",
+        "vosotros": "podríais",
+        "ellos": "podrían"
+      }
+    },
+    {
+      "item": "gustar",
+      "meaning": "to be pleasing (to like)",
+      "set": "conditional",
+      "art": [
+        "    _    ",
+        "   | |   ",
+        " __| |__ ",
+        "|       |",
+        "|_______|"
+      ],
+      "forms": {
+        "yo": "gustaría",
+        "tu": "gustarías",
+        "el": "gustaría",
+        "nosotros": "gustaríamos",
+        "vosotros": "gustaríais",
+        "ellos": "gustarían"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-obligation-and-advice-01",
+      "prompt": "Para entrar en el museo ___ comprar una entrada. (in general)",
+      "type": "multiple-choice",
+      "options": [
+        "hay que",
+        "tiene que",
+        "tengo que",
+        "debe"
+      ],
+      "correct_answer": "hay que",
+      "explanation": "A general rule with no particular subject is hay que + infinitive.",
+      "hints": [
+        "Nobody in particular has to. It is impersonal.",
+        "Hay que never changes."
+      ],
+      "teaches": [
+        "hay que"
+      ]
+    },
+    {
+      "question_id": "a2-obligation-and-advice-02",
+      "prompt": "Estás muy cansado. ___ (deber, advice) descansar un poco.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "deberías",
+      "accepted_answers": [
+        "tú deberías"
+      ],
+      "explanation": "Advice uses the conditional of deber: 'deberías' (you should). 'Debes' is a stronger must.",
+      "hints": [
+        "Conditional: infinitive + -ías for tú.",
+        "Softer than debes."
+      ],
+      "teaches": [
+        "descansar"
+      ]
+    },
+    {
+      "question_id": "a2-obligation-and-advice-03",
+      "prompt": "¿___ abrir la ventana? Hace calor. (asking permission)",
+      "type": "multiple-choice",
+      "options": [
+        "Puedo",
+        "Debo",
+        "Tengo",
+        "Hay"
+      ],
+      "correct_answer": "Puedo",
+      "explanation": "Permission is asked with poder: '¿Puedo abrir la ventana?'",
+      "hints": [
+        "May I…? That is poder."
+      ],
+      "teaches": [
+        "la ventana"
+      ]
+    },
+    {
+      "question_id": "a2-obligation-and-advice-04",
+      "prompt": "In a café, politely: ___ (querer, polite) un café con leche, por favor.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "quisiera",
+      "accepted_answers": [
+        "querría",
+        "yo quisiera",
+        "yo querría"
+      ],
+      "explanation": "The polite 'I'd like' is quisiera (or the conditional querría): 'Quisiera un café con leche'.",
+      "hints": [
+        "Not quiero. Soften it.",
+        "The form you hear in every café."
+      ],
+      "teaches": [
+        "quisiera"
+      ]
+    },
+    {
+      "question_id": "a2-obligation-and-advice-05",
+      "prompt": "Aquí no se ___ fumar.",
+      "type": "multiple-choice",
+      "options": [
+        "puede",
+        "puedo",
+        "hay",
+        "tiene"
+      ],
+      "correct_answer": "puede",
+      "explanation": "Rules on signs use (no) se puede + infinitive: 'no se puede fumar'.",
+      "hints": [
+        "One can't… takes se puede."
+      ],
+      "teaches": [
+        "fumar"
+      ]
+    },
+    {
+      "question_id": "a2-obligation-and-advice-06",
+      "prompt": "I would like to travel: ___ (gustar, conditional) viajar a Argentina el año que viene.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "me gustaría",
+      "accepted_answers": [
+        "gustaría",
+        "a mí me gustaría"
+      ],
+      "explanation": "Gustar keeps its pronoun and goes into the conditional: 'me gustaría viajar'.",
+      "hints": [
+        "Keep the pronoun and add the conditional ending -ía to the infinitive.",
+        "Don't drop the me."
+      ],
+      "teaches": [
+        "me gustaría"
+      ]
+    },
+    {
+      "question_id": "a2-obligation-and-advice-07",
+      "prompt": "Formal request to a stranger: ¿___ decirme dónde está la estación?",
+      "type": "multiple-choice",
+      "options": [
+        "Podría",
+        "Puedo",
+        "Debería",
+        "Quisiera"
+      ],
+      "correct_answer": "Podría",
+      "explanation": "The conditional of poder makes a polite request to usted: '¿Podría decirme…?'",
+      "hints": [
+        "Could you…? Use the conditional of poder.",
+        "Usted form."
+      ],
+      "teaches": [
+        "¿podría…?"
+      ]
+    },
+    {
+      "question_id": "a2-obligation-and-advice-08",
+      "prompt": "Mañana tengo una cita con el médico. (Nosotros) ___ llegar pronto. (have to)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "tenemos que",
+      "accepted_answers": [
+        "nosotros tenemos que"
+      ],
+      "explanation": "A specific person's obligation is tener que + infinitive: 'tenemos que llegar'.",
+      "hints": [
+        "We have to takes tener que, in the nosotros form.",
+        "Don't forget que."
+      ],
+      "teaches": [
+        "la cita"
+      ]
+    },
+    {
+      "question_id": "a2-obligation-and-advice-09",
+      "prompt": "___ importante beber mucha agua en verano.",
+      "type": "multiple-choice",
+      "options": [
+        "Es",
+        "Hay",
+        "Está",
+        "Tiene"
+      ],
+      "correct_answer": "Es",
+      "explanation": "Es importante + infinitive is the impersonal 'it's important to': 'Es importante beber agua'.",
+      "hints": [
+        "It is important… takes ser."
+      ],
+      "teaches": [
+        "es importante"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Hay que estudiar más.",
+      "meaning": "You have to study more.",
+      "note": "Hay que is impersonal and never changes."
+    },
+    {
+      "text": "No es necesario llevar paraguas hoy.",
+      "meaning": "It isn't necessary to take an umbrella today.",
+      "note": "New word: el paraguas = the umbrella."
+    },
+    {
+      "text": "¿Podría abrir la ventana, por favor?",
+      "meaning": "Could you open the window, please?"
+    },
+    {
+      "text": "Quisiera una mesa para dos, por favor.",
+      "meaning": "I'd like a table for two, please."
+    },
+    {
+      "text": "¿Por qué no pides permiso para salir antes?",
+      "meaning": "Why don't you ask for permission to leave earlier?"
+    },
+    {
+      "text": "Me gustaría trabajar en una oficina más tranquila.",
+      "meaning": "I'd like to work in a quieter office.",
+      "note": "New word: tranquilo = quiet, calm."
+    },
+    {
+      "text": "No deberíais fumar en el coche con los niños.",
+      "meaning": "You all shouldn't smoke in the car with the children.",
+      "note": "Deberíais: conditional of deber, vosotros."
+    },
+    {
+      "text": "Es mejor llamar al médico y pedir una cita para el lunes.",
+      "meaning": "It's better to call the doctor and ask for an appointment for Monday."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Must"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a2-obligation-and-advice-01"
+    },
+    {
+      "question": "a2-obligation-and-advice-08"
+    },
+    {
+      "question": "a2-obligation-and-advice-09"
+    },
+    {
+      "section": "Advice"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a2-obligation-and-advice-02"
+    },
+    {
+      "section": "Permission"
+    },
+    {
+      "question": "a2-obligation-and-advice-03"
+    },
+    {
+      "question": "a2-obligation-and-advice-05"
+    },
+    {
+      "tip": "Strength ladder: tienes que (you have to), then debes (you must), then deberías (you should), then ¿por qué no…? (why don't you…?)."
+    },
+    {
+      "section": "Softer requests"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-obligation-and-advice-04"
+    },
+    {
+      "question": "a2-obligation-and-advice-06"
+    },
+    {
+      "question": "a2-obligation-and-advice-07"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-obligation-and-advice-conv-primer-dia",
+      "title": "First day at work",
+      "scenario": "Rosa, the office manager, explains the rules to Jorge on his first day. He asks what he has to do and what he may do.",
+      "role_a": "Rosa",
+      "role_b": "Jorge",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Bienvenido, Jorge. Primero: hay que fichar cada mañana a las nueve.",
+          "meaning": "Welcome, Jorge. First: everyone has to clock in every morning at nine.",
+          "note": "hay que is an impersonal rule"
+        },
+        {
+          "speaker": "b",
+          "text": "De acuerdo. ¿Tengo que llevar traje?",
+          "meaning": "OK. Do I have to wear a suit?",
+          "note": "tener que is a personal obligation"
+        },
+        {
+          "speaker": "a",
+          "text": "No es necesario, pero deberías venir con ropa formal los lunes. Hay reunión con los clientes.",
+          "meaning": "It's not necessary, but you should come in formal clothes on Mondays. There's a meeting with the clients.",
+          "note": "es necesario; deberías gives advice"
+        },
+        {
+          "speaker": "b",
+          "text": "Vale. ¿Puedo usar el teléfono personal en la oficina?",
+          "meaning": "OK. Can I use my personal phone in the office?",
+          "note": "¿puedo…? asks permission"
+        },
+        {
+          "speaker": "a",
+          "text": "Se puede, pero no durante las reuniones. Y no se puede fumar en todo el edificio.",
+          "meaning": "You can, but not during meetings. And you can't smoke anywhere in the building.",
+          "note": "se puede / no se puede"
+        },
+        {
+          "speaker": "b",
+          "text": "Perfecto, no fumo. ¿Podría tener el viernes libre? Tengo una cita con el médico.",
+          "meaning": "Perfect, I don't smoke. Could I have Friday off? I have a doctor's appointment.",
+          "note": "¿podría…? is a polite request"
+        },
+        {
+          "speaker": "a",
+          "text": "Claro, pero debes avisar a recursos humanos con dos días de antelación.",
+          "meaning": "Of course, but you must let human resources know two days in advance.",
+          "note": "deber is for duty"
+        },
+        {
+          "speaker": "b",
+          "text": "Lo hago hoy mismo. También me gustaría conocer al equipo.",
+          "meaning": "I'll do it today. I'd also like to meet the team.",
+          "note": "me gustaría"
+        },
+        {
+          "speaker": "a",
+          "text": "Es importante conocer a todos. ¿Por qué no comes con nosotros a las dos?",
+          "meaning": "It's important to know everyone. Why don't you have lunch with us at two?",
+          "note": "es importante; ¿por qué no…?"
+        },
+        {
+          "speaker": "b",
+          "text": "Con mucho gusto. Gracias, Rosa.",
+          "meaning": "With pleasure. Thank you, Rosa."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "📋",
+    "bites": [
+      {
+        "title": "Three musts",
+        "emoji": "📌",
+        "rule": "tener que + infinitive means a person has to. hay que + infinitive means one has to in general (it never changes and has no subject). deber + infinitive expresses duty.",
+        "example": "Hay que comprar una entrada.",
+        "example_meaning": "You have to buy a ticket."
+      },
+      {
+        "title": "Should = deberías",
+        "emoji": "💡",
+        "rule": "Advice is deber in the conditional: debería, deberías, debería, deberíamos, deberíais, deberían. You can also use es mejor + infinitive, or ¿por qué no…?",
+        "example": "Deberías descansar un poco.",
+        "example_meaning": "You should rest a little."
+      },
+      {
+        "title": "May I? Can one?",
+        "emoji": "🙋",
+        "rule": "Ask permission with poder: ¿Puedo abrir la ventana? Rules use se puede / no se puede + infinitive.",
+        "example": "Aquí no se puede fumar.",
+        "example_meaning": "You can't smoke here."
+      },
+      {
+        "title": "Soften it with -ía",
+        "emoji": "🕊️",
+        "rule": "The conditional makes requests polite: quiero becomes quisiera or querría, ¿puede? becomes ¿podría?, and me gusta becomes me gustaría.",
+        "example": "Quisiera un café, por favor.",
+        "example_meaning": "I'd like a coffee, please."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Personal or impersonal?",
+        "buckets": [
+          "tener que (someone specific)",
+          "hay que (in general)"
+        ],
+        "why": "Tener que is conjugated for a subject. Hay que is a general rule with no subject.",
+        "items": [
+          {
+            "text": "Tengo que ir al médico.",
+            "bucket": 0
+          },
+          {
+            "text": "Hay que comer bien.",
+            "bucket": 1
+          },
+          {
+            "text": "Hay que reservar antes.",
+            "bucket": 1
+          },
+          {
+            "text": "Tienes que llamar a tu madre.",
+            "bucket": 0
+          },
+          {
+            "text": "Hay que respetar las normas.",
+            "bucket": 1
+          },
+          {
+            "text": "Tenemos que salir ya.",
+            "bucket": 0
+          }
+        ]
+      },
+      {
+        "title": "Obligation, advice or request?",
+        "buckets": [
+          "obligation",
+          "advice",
+          "polite request"
+        ],
+        "why": "Tener que and hay que oblige. Deberías and ¿por qué no…? advise. The conditional (podría, quisiera) asks politely.",
+        "items": [
+          {
+            "text": "Tienes que pagar hoy.",
+            "bucket": 0
+          },
+          {
+            "text": "Deberías dormir más.",
+            "bucket": 1
+          },
+          {
+            "text": "¿Podría ayudarme?",
+            "bucket": 2
+          },
+          {
+            "text": "Hay que llevar casco.",
+            "bucket": 0
+          },
+          {
+            "text": "¿Por qué no descansas?",
+            "bucket": 1
+          },
+          {
+            "text": "Quisiera un té.",
+            "bucket": 2
+          }
+        ]
+      },
+      {
+        "title": "Direct or softened?",
+        "buckets": [
+          "direct (present)",
+          "softer (conditional)"
+        ],
+        "why": "The -ía forms (quisiera, podrías, deberías) sound polite. The present sounds like a demand.",
+        "items": [
+          {
+            "text": "Quiero un café.",
+            "bucket": 0
+          },
+          {
+            "text": "Quisiera un café.",
+            "bucket": 1
+          },
+          {
+            "text": "¿Puedes abrir?",
+            "bucket": 0
+          },
+          {
+            "text": "¿Podrías abrir?",
+            "bucket": 1
+          },
+          {
+            "text": "Debes descansar.",
+            "bucket": 0
+          },
+          {
+            "text": "Deberías descansar.",
+            "bucket": 1
+          }
+        ]
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Yo hay que estudiar más.",
+        "wrong": "hay",
+        "fix": "tengo",
+        "why": "Hay que takes no subject; with yo, say tengo que."
+      },
+      {
+        "sentence": "Tienes de descansar un poco.",
+        "wrong": "de",
+        "fix": "que",
+        "why": "Obligation is tener que + infinitive."
+      },
+      {
+        "sentence": "Me gustaría viajo a Perú.",
+        "wrong": "viajo",
+        "fix": "viajar",
+        "why": "After me gustaría comes an infinitive."
+      },
+      {
+        "sentence": "Es necesario llevamos casco.",
+        "wrong": "llevamos",
+        "fix": "llevar",
+        "why": "Es necesario is followed by an infinitive."
+      },
+      {
+        "sentence": "No se puede fumo aquí.",
+        "wrong": "fumo",
+        "fix": "fumar",
+        "why": "Se puede + infinitive: no se puede fumar."
+      },
+      {
+        "sentence": "Señora, ¿podrías ayudarme, por favor?",
+        "wrong": "podrías",
+        "fix": "podría",
+        "why": "Señora is addressed as usted, which takes the él/ella form: ¿podría ayudarme?"
+      }
+    ],
+    "builds": [
+      {
+        "text": "Deberías descansar un poco.",
+        "meaning": "You should rest a little.",
+        "distractors": [
+          "Debes"
+        ]
+      },
+      {
+        "text": "¿Puedo abrir la ventana?",
+        "meaning": "Can I open the window?",
+        "distractors": [
+          "Debo"
+        ]
+      },
+      {
+        "text": "Hay que comprar una entrada.",
+        "meaning": "You have to buy a ticket.",
+        "distractors": [
+          "Tiene"
+        ]
+      },
+      {
+        "text": "Me gustaría viajar a Argentina.",
+        "meaning": "I'd like to travel to Argentina.",
+        "distractors": [
+          "gusta"
+        ]
+      },
+      {
+        "text": "Quisiera un café con leche, por favor.",
+        "meaning": "I'd like a white coffee, please.",
+        "distractors": [
+          "Quiero"
+        ]
+      }
+    ]
+  }
+}

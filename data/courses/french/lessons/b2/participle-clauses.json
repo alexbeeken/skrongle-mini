@@ -1,0 +1,544 @@
+{
+  "id": "b2-participle-clauses",
+  "slug": "participle-clauses",
+  "title": "Participle clauses: ayant fini, une fois arrivés",
+  "unit": "B2",
+  "group": "Grammar",
+  "order": 20,
+  "summary": "The participe présent without en, the adjectif verbal (fatigant, convaincant), ayant fini and étant arrivée, une fois + participle and the absolute clause of written French.",
+  "focus": "Shortening clauses with participles, the way formal and written French does",
+  "prerequisites": [
+    "b1-gerondif-adverbs"
+  ],
+  "content": "## The participe présent on its own\n\nThe **-ant** form you know from the gérondif (**en travaillant**) can also stand **without en**. It is then a written, formal way to say **qui + verb**, or to give a cause. It never agrees.\n\n- **Les élèves désirant participer doivent s'inscrire.** = les élèves **qui désirent** participer — Pupils wishing to take part must sign up.\n- **Étant malade, il est resté chez lui.** = **comme il était** malade — Being ill, he stayed at home.\n\nThe gérondif always refers to the **subject**; the participe présent can describe the noun just before it:\n\n- **J'ai vu Paul sortant du cinéma.** — I saw Paul (as he was) coming out of the cinema.\n- **J'ai vu Paul en sortant du cinéma.** — I saw Paul as *I* was coming out of the cinema.\n\n## Participe présent or adjectif verbal?\n\nMany **-ant** forms are also adjectives. The **adjectif verbal** describes a quality and **agrees**; the participe présent is an action, often with an object, and **never agrees**.\n\n| participe présent (action) | adjectif verbal (quality) |\n|---|---|\n| **fatiguant** ses parents | une journée **fatigante** |\n| **convainquant** son père | des arguments **convaincants** |\n| la semaine **précédant** les examens | la semaine **précédente** |\n| **différant** d'avis | des avis **différents** |\n\nWatch the spelling: some adjectives drop the **u** (**fatigant**, **convaincant**) or end in **-ent** (**précédent**, **différent**).\n\n## Ayant fini, étant arrivée\n\n**Ayant** or **étant** + participe passé shows an action **finished before** the main one, often with a sense of cause. Choose as in the passé composé:\n\n- **Ayant terminé son travail, elle est sortie.** — Having finished her work, she went out.\n- **Étant arrivée en retard, Claire a manqué le début.** — Having arrived late, Claire missed the start.\n\nWith **étant**, the participle agrees with the subject (**étant arrivées**). In the negative: **N'ayant pas reçu de réponse, je vous écris de nouveau.**\n\n**Après avoir** + participle (**après avoir mangé**) says the same thing with more emphasis on time. It is the everyday choice; **ayant** sounds written.\n\n## Une fois rentrés, le repas terminé\n\n**Une fois + participe passé** means *once that is done*. The participle agrees like an adjective:\n\n- **Une fois rentrés, nous avons dîné.** — Once (we were) home, we had dinner.\n- **Une fois la porte fermée, il a allumé la lumière.**\n\nThe **absolute clause** goes one step further: a noun + participe passé with no verb, setting the scene for the main sentence:\n\n- **Le repas terminé, ils sont sortis.** — The meal over, they went out.\n- **La nuit tombée, le village s'endort.** — Once night has fallen, the village goes to sleep.\n\nThese clauses belong to written and formal French: reports, stories, notices. In speech, say **quand** or **après**.",
+  "vocabulary": [
+    {
+      "term": "désirer",
+      "meaning": "to wish, to want (formal)",
+      "example": "Les personnes désirant s'inscrire doivent remplir ce formulaire.",
+      "example_meaning": "People wishing to register must fill in this form."
+    },
+    {
+      "term": "fatigant",
+      "meaning": "tiring (adj)",
+      "example": "Cette semaine a été très fatigante.",
+      "example_meaning": "This week has been very tiring."
+    },
+    {
+      "term": "convaincant",
+      "meaning": "convincing (adj)",
+      "example": "Ses explications ne sont pas très convaincantes.",
+      "example_meaning": "His explanations aren't very convincing."
+    },
+    {
+      "term": "précédent",
+      "meaning": "previous, preceding (adj)",
+      "example": "Le chapitre précédent était plus court.",
+      "example_meaning": "The previous chapter was shorter."
+    },
+    {
+      "term": "ayant terminé",
+      "meaning": "having finished",
+      "example": "Ayant terminé ses devoirs, Lucas est sorti jouer.",
+      "example_meaning": "Having finished his homework, Lucas went out to play."
+    },
+    {
+      "term": "étant arrivé(e)",
+      "meaning": "having arrived",
+      "example": "Étant arrivée en avance, elle a pris un café.",
+      "example_meaning": "Having arrived early, she had a coffee."
+    },
+    {
+      "term": "une fois",
+      "meaning": "once (+ participle)",
+      "example": "Une fois le film terminé, nous sommes allés dîner.",
+      "example_meaning": "Once the film was over, we went for dinner."
+    },
+    {
+      "term": "terminer",
+      "meaning": "to finish",
+      "example": "Le repas terminé, les invités sont passés au salon.",
+      "example_meaning": "The meal over, the guests moved to the living room."
+    },
+    {
+      "term": "s'inscrire",
+      "meaning": "to sign up, to register",
+      "example": "Une fois inscrits, les étudiants reçoivent leur carte.",
+      "example_meaning": "Once registered, students receive their card."
+    },
+    {
+      "term": "le candidat / la candidate",
+      "meaning": "candidate, applicant",
+      "example": "Les candidats ayant réussi l'examen seront contactés.",
+      "example_meaning": "Candidates who have passed the exam will be contacted."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-participle-clauses-01",
+      "prompt": "Les personnes ___ participer doivent s'inscrire avant vendredi. (désirer, participe présent)",
+      "type": "fill-in-blank",
+      "correct_answer": "désirant",
+      "accepted_answers": [],
+      "explanation": "The participe présent replaces qui désirent. Take the nous stem (désir-) and add -ant; it never agrees.",
+      "hints": [
+        "Nous désirons → désir- + -ant.",
+        "No -s: the participe présent never agrees."
+      ],
+      "teaches": [
+        "désirer"
+      ]
+    },
+    {
+      "question_id": "b2-participle-clauses-02",
+      "prompt": "Ce voyage de douze heures en car était vraiment ___.",
+      "type": "multiple-choice",
+      "options": [
+        "fatigant",
+        "fatiguant",
+        "fatigante"
+      ],
+      "correct_answer": "fatigant",
+      "explanation": "Here the word describes a quality of le voyage, so it is the adjectif verbal, spelt without u: fatigant. Fatiguant is the participe présent; fatigante would be feminine.",
+      "hints": [
+        "A quality, not an action: the adjective.",
+        "Le voyage is masculine."
+      ],
+      "teaches": [
+        "fatigant"
+      ]
+    },
+    {
+      "question_id": "b2-participle-clauses-03",
+      "prompt": "Which sentence says that Paul, not the speaker, was coming out of the cinema?",
+      "type": "multiple-choice",
+      "options": [
+        "J'ai vu Paul sortant du cinéma.",
+        "J'ai vu Paul en sortant du cinéma.",
+        "En sortant du cinéma, j'ai vu Paul."
+      ],
+      "correct_answer": "J'ai vu Paul sortant du cinéma.",
+      "explanation": "The participe présent without en can describe the noun just before it (Paul). The gérondif (en sortant) always refers to the subject, je.",
+      "hints": [
+        "The gérondif always goes with the subject."
+      ]
+    },
+    {
+      "question_id": "b2-participle-clauses-04",
+      "prompt": "___ fini son rapport, la directrice est rentrée chez elle.",
+      "type": "fill-in-blank",
+      "correct_answer": "Ayant",
+      "accepted_answers": [
+        "Après avoir"
+      ],
+      "explanation": "Finir takes avoir in the passé composé, so the compound participle is ayant fini: the report was finished before she went home. Après avoir fini is the everyday equivalent.",
+      "hints": [
+        "Finir: j'ai fini, so…",
+        "The participe présent of avoir."
+      ]
+    },
+    {
+      "question_id": "b2-participle-clauses-05",
+      "prompt": "Étant ___ en retard, Claire a manqué le début du film. (arriver)",
+      "type": "fill-in-blank",
+      "correct_answer": "arrivée",
+      "accepted_answers": [],
+      "explanation": "Arriver takes être, so étant + participle, and the participle agrees with the subject Claire: arrivée.",
+      "hints": [
+        "Claire is feminine.",
+        "With étant, the participle agrees."
+      ],
+      "teaches": [
+        "étant arrivé(e)"
+      ]
+    },
+    {
+      "question_id": "b2-participle-clauses-06",
+      "prompt": "In 'Une fois rentrés, nous avons dîné', rentrés should be rentré, because a participle after une fois never agrees.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "After une fois, the participle agrees like an adjective, here with nous: une fois rentrés (rentrées for a group of women).",
+      "hints": [
+        "Who came home? Nous, a plural."
+      ],
+      "teaches": [
+        "une fois"
+      ]
+    },
+    {
+      "question_id": "b2-participle-clauses-07",
+      "prompt": "Pick the absolute clause for 'Once the meal was over, they went out.'",
+      "type": "multiple-choice",
+      "options": [
+        "Le repas terminé, ils sont sortis.",
+        "Le repas terminant, ils sont sortis.",
+        "En terminant le repas, ils sont sortis."
+      ],
+      "correct_answer": "Le repas terminé, ils sont sortis.",
+      "explanation": "An absolute clause is a noun + participe passé: le repas terminé = once the meal was over. Terminant is an action in progress, and en terminant means while finishing.",
+      "hints": [
+        "The meal is already over: past participle."
+      ],
+      "teaches": [
+        "terminer"
+      ]
+    },
+    {
+      "question_id": "b2-participle-clauses-08",
+      "prompt": "Ses arguments étaient très ___, alors tout le monde a voté pour lui. (convaincre, adjectif)",
+      "type": "fill-in-blank",
+      "correct_answer": "convaincants",
+      "accepted_answers": [],
+      "explanation": "The adjectif verbal is spelt convaincant (with c, not qu) and agrees with ses arguments: convaincants.",
+      "hints": [
+        "Adjective: no qu.",
+        "Ses arguments is masculine plural."
+      ],
+      "teaches": [
+        "convaincant"
+      ]
+    },
+    {
+      "question_id": "b2-participle-clauses-09",
+      "prompt": "In 'la semaine précédant les examens', précédant is a verb form, so it does not agree with la semaine.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Précédant has an object (les examens): it is the participe présent and never agrees. The adjective is précédent / précédente: la semaine précédente.",
+      "hints": [
+        "Spelling: -ant or -ent?"
+      ],
+      "teaches": [
+        "précédent"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-participle-clauses-conv-notice",
+      "title": "Writing the notice",
+      "scenario": "Inès and Marc run a local theatre club and are finishing the notice for next term's workshop.",
+      "role_a": "Inès",
+      "role_b": "Marc",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Tu as relu l'annonce pour l'atelier de théâtre ?",
+          "meaning": "Have you reread the notice for the theatre workshop?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui. J'ai écrit : les personnes désirant participer doivent s'inscrire en ligne.",
+          "meaning": "Yes. I wrote: people wishing to take part must sign up online.",
+          "note": "participe présent = qui désirent"
+        },
+        {
+          "speaker": "a",
+          "text": "Très bien, c'est clair. Et la date limite ?",
+          "meaning": "Very good, that's clear. And the deadline?"
+        },
+        {
+          "speaker": "b",
+          "text": "Le vendredi précédant la première séance.",
+          "meaning": "The Friday before the first session.",
+          "note": "précédant: participle, invariable"
+        },
+        {
+          "speaker": "a",
+          "text": "Parfait. Une fois inscrits, ils recevront un e-mail ?",
+          "meaning": "Perfect. Once they've signed up, will they get an e-mail?",
+          "note": "une fois + participle"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, et les candidats ayant déjà fait du théâtre passeront une audition.",
+          "meaning": "Yes, and applicants who have already done some acting will have an audition."
+        },
+        {
+          "speaker": "a",
+          "text": "Bonne idée. L'an dernier, c'était trop fatigant de tout faire le même jour.",
+          "meaning": "Good idea. Last year it was too tiring to do everything on the same day."
+        },
+        {
+          "speaker": "b",
+          "text": "Je sais. Ayant tout organisé toute seule, tu étais épuisée !",
+          "meaning": "I know. Having organised everything on your own, you were exhausted!"
+        },
+        {
+          "speaker": "a",
+          "text": "Exactement. Bon, l'annonce terminée, on peut l'envoyer.",
+          "meaning": "Exactly. Right, now the notice is done, we can send it.",
+          "note": "absolute clause"
+        },
+        {
+          "speaker": "b",
+          "text": "Je l'envoie ce soir, une fois rentré chez moi.",
+          "meaning": "I'll send it tonight, once I'm home."
+        },
+        {
+          "speaker": "a",
+          "text": "Merci, Marc ! Ton texte est vraiment convaincant.",
+          "meaning": "Thanks, Marc! Your text is really convincing."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Ayant perdu ses clés, il a dormi chez un ami.",
+      "meaning": "Having lost his keys, he slept at a friend's."
+    },
+    {
+      "text": "Une fois arrivés à Paris, nous vous appellerons.",
+      "meaning": "Once we've arrived in Paris, we'll call you."
+    },
+    {
+      "text": "Les enfants ayant moins de six ans entrent gratuitement.",
+      "meaning": "Children under six get in free."
+    },
+    {
+      "text": "Ce trajet en voiture est très fatigant.",
+      "meaning": "This car journey is very tiring.",
+      "note": "Adjectif verbal: fatigant, no u."
+    },
+    {
+      "text": "La nuit tombée, les rues se sont vidées.",
+      "meaning": "Once night had fallen, the streets emptied.",
+      "note": "New word: se vider = to empty."
+    },
+    {
+      "text": "N'ayant pas reçu de réponse, je vous écris de nouveau.",
+      "meaning": "Not having received a reply, I am writing to you again.",
+      "note": "Formal register."
+    },
+    {
+      "text": "Étant malade, Sophie n'est pas venue au bureau.",
+      "meaning": "Being ill, Sophie didn't come to the office."
+    },
+    {
+      "text": "Les étudiants souhaitant partir à l'étranger doivent contacter le secrétariat avant mars.",
+      "meaning": "Students wishing to go abroad must contact the office before March.",
+      "note": "New word: le secrétariat = the administrative office."
+    }
+  ],
+  "guide": [
+    {
+      "section": "The participe présent"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-participle-clauses-01"
+    },
+    {
+      "question": "b2-participle-clauses-03"
+    },
+    {
+      "section": "Participe présent or adjectif"
+    },
+    {
+      "question": "b2-participle-clauses-02"
+    },
+    {
+      "question": "b2-participle-clauses-08"
+    },
+    {
+      "question": "b2-participle-clauses-09"
+    },
+    {
+      "tip": "Adjective or participle? Try putting the word in the feminine before a noun: if une journée fatigante sounds right, it's the adjective, and it agrees. If it has an object (fatiguant ses parents), it's the participle, and it never changes."
+    },
+    {
+      "section": "Ayant fini"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-participle-clauses-04"
+    },
+    {
+      "question": "b2-participle-clauses-05"
+    },
+    {
+      "section": "Une fois rentrés"
+    },
+    {
+      "question": "b2-participle-clauses-06"
+    },
+    {
+      "question": "b2-participle-clauses-07"
+    },
+    {
+      "concept": {
+        "title": "Don't leave the participle dangling",
+        "markdown": "A participle clause at the start of a sentence refers to the **subject** of the main verb. **Ayant raté le train, mon patron m'a appelé** says that the boss missed the train. If you missed it, keep yourself as the subject: **Ayant raté le train, j'ai appelé mon patron.**"
+      }
+    }
+  ],
+  "sprint": {
+    "icon": "✅",
+    "bites": [
+      {
+        "title": "Participe présent alone",
+        "emoji": "🖋️",
+        "rule": "Without en, the -ant form is a written way to say qui + verb or since: les élèves désirant participer = qui désirent participer. It never agrees.",
+        "example": "Les passagers voyageant sans billet paieront une amende.",
+        "example_meaning": "Passengers travelling without a ticket will pay a fine."
+      },
+      {
+        "title": "Adjective or participle?",
+        "emoji": "🔤",
+        "rule": "The adjectif verbal describes and agrees: une journée fatigante. The participle acts and never changes: fatiguant ses parents. Some spellings differ: convaincant, précédent.",
+        "example": "C'est une explication convaincante.",
+        "example_meaning": "It's a convincing explanation."
+      },
+      {
+        "title": "Ayant fini, étant arrivé",
+        "emoji": "⏮️",
+        "rule": "Ayant / étant + participe passé: the action was over before the main one. With étant, the participle agrees with the subject: étant arrivées.",
+        "example": "Ayant raté le train, il a pris un taxi.",
+        "example_meaning": "Having missed the train, he took a taxi."
+      },
+      {
+        "title": "Une fois rentrés",
+        "emoji": "🔚",
+        "rule": "Une fois + participe passé, or a noun + participe passé (le repas terminé), sets the scene: once that is done… The participle agrees.",
+        "example": "Une fois la porte fermée, nous avons commencé.",
+        "example_meaning": "Once the door was shut, we began."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Adjectif verbal or participe présent?",
+        "buckets": [
+          "adjectif verbal (agrees)",
+          "participe présent (never changes)"
+        ],
+        "items": [
+          {
+            "text": "une journée fatigante",
+            "bucket": 0
+          },
+          {
+            "text": "un exercice fatiguant les bras",
+            "bucket": 1
+          },
+          {
+            "text": "des arguments convaincants",
+            "bucket": 0
+          },
+          {
+            "text": "convainquant enfin son père",
+            "bucket": 1
+          },
+          {
+            "text": "la semaine précédente",
+            "bucket": 0
+          },
+          {
+            "text": "la semaine précédant les examens",
+            "bucket": 1
+          }
+        ],
+        "why": "The adjective describes a noun and agrees with it; the participle has an object of its own and keeps the -ant spelling of the verb."
+      },
+      {
+        "title": "Ayant or étant?",
+        "buckets": [
+          "ayant",
+          "étant"
+        ],
+        "items": [
+          {
+            "text": "___ fini le repas",
+            "bucket": 0
+          },
+          {
+            "text": "___ arrivée en retard",
+            "bucket": 1
+          },
+          {
+            "text": "___ perdu son billet",
+            "bucket": 0
+          },
+          {
+            "text": "___ partis tôt",
+            "bucket": 1
+          },
+          {
+            "text": "___ lu la lettre",
+            "bucket": 0
+          },
+          {
+            "text": "___ née à Lyon",
+            "bucket": 1
+          }
+        ],
+        "why": "Use the same auxiliary as in the passé composé: j'ai fini, perdu, lu → ayant; je suis arrivée, partis, née → étant."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Les personnes désirants participer doivent s'inscrire.",
+        "wrong": "désirants",
+        "fix": "désirant",
+        "why": "The participe présent never agrees: désirant."
+      },
+      {
+        "sentence": "C'est un travail très fatiguant.",
+        "wrong": "fatiguant",
+        "fix": "fatigant",
+        "why": "A quality of le travail: the adjective, spelt fatigant."
+      },
+      {
+        "sentence": "Étant arrivé en retard, Marie a raté le train.",
+        "wrong": "arrivé",
+        "fix": "arrivée",
+        "why": "With étant, the participle agrees with Marie: arrivée."
+      },
+      {
+        "sentence": "Ayant partis tôt, nous sommes arrivés à l'heure.",
+        "wrong": "Ayant",
+        "fix": "Étant",
+        "why": "Partir takes être in the passé composé, so étant partis."
+      },
+      {
+        "sentence": "Une fois rentré, nous avons dîné.",
+        "wrong": "rentré",
+        "fix": "rentrés",
+        "why": "After une fois, the participle agrees with nous: rentrés."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Ayant fini, elle est partie.",
+        "meaning": "Having finished, she left.",
+        "distractors": [
+          "Étant"
+        ]
+      },
+      {
+        "text": "Une fois rentrés, nous avons dîné.",
+        "meaning": "Once home, we had dinner.",
+        "distractors": [
+          "rentré"
+        ]
+      },
+      {
+        "text": "Le repas terminé, ils sont sortis.",
+        "meaning": "The meal over, they went out.",
+        "distractors": [
+          "terminant"
+        ]
+      },
+      {
+        "text": "C'est un argument très convaincant.",
+        "meaning": "It's a very convincing argument.",
+        "distractors": [
+          "convainquant"
+        ]
+      }
+    ]
+  }
+}

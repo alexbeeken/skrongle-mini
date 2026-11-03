@@ -1,0 +1,15 @@
+<nav data-testid="nav-study" class="modebar study" aria-label="{{ crate::t("study.nav.study_mode") }}" data-say-lang="{{ course.say_lang }}">
+  <div class="container">
+    <a class="mode-name" href="{{ crate::base_path() }}/lessons" data-testid="nav-study-mode" aria-label="{{ crate::t("study.nav.study_mode_desc") }}" title="{{ crate::t("study.nav.study_mode_desc") }}">{{ course.icons.mode_study }} {{ crate::t("study.nav.study") }}</a>
+    <ul>
+      <li><a href="{{ crate::base_path() }}/lessons" data-testid="nav-study-lessons"{% if active == "lessons" %} aria-current="page"{% endif %}>{{ crate::t("study.nav.lessons") }}</a></li>
+      <li><a href="{{ crate::base_path() }}/practice" data-testid="nav-study-practice"{% if active == "practice" %} aria-current="page"{% endif %}>{{ crate::t("study.nav.practice") }}</a></li>
+      {% if course.has_listening %}<li><a href="{{ crate::base_path() }}/listening" data-testid="nav-study-listening"{% if active == "listening" %} aria-current="page"{% endif %}>{{ crate::t("study.nav.listening") }}</a></li>{% endif %}
+      <li><a href="{{ crate::base_path() }}/map" data-testid="nav-study-map"{% if active == "map" %} aria-current="page"{% endif %}>{{ crate::t("study.nav.map") }}</a></li>
+      <li><a href="{{ crate::base_path() }}/vocabulary" data-testid="nav-study-vocabulary"{% if active == "vocabulary" %} aria-current="page"{% endif %}>{{ crate::t("study.nav.vocabulary") }}</a></li>
+      <li><a href="{{ crate::base_path() }}/history" data-testid="nav-study-history"{% if active == "history" %} aria-current="page"{% endif %}>{{ crate::t("study.nav.history") }}</a></li>
+      <li><a href="{{ crate::base_path() }}/mistakes" data-testid="nav-study-mistakes"{% if active == "mistakes" %} aria-current="page"{% endif %}>{{ crate::t("study.nav.mistakes") }}</a></li>
+    </ul>
+    <span class="mode-others small muted">{{ crate::t("study.nav.switch") }} <a href="{{ crate::base_path() }}/sprint" data-testid="nav-study-to-sprint" aria-label="{{ crate::t("study.nav.to_sprint") }}" title="{{ crate::t("study.nav.sprint_desc") }}">{{ course.icons.mode_sprint }} {{ crate::t("study.nav.sprint") }}</a> · <a href="{{ crate::base_path() }}/play" data-testid="nav-study-to-play" aria-label="{{ crate::t("study.nav.to_play") }}" title="{{ crate::t("study.nav.play_desc") }}">{{ course.icons.mode_play }} {{ crate::t("study.nav.play") }}</a> · <a href="{{ crate::url("/") }}" data-testid="nav-study-menu" aria-label="{{ crate::t("study.nav.all_modes") }}">{{ crate::t("study.nav.menu") }}</a></span>
+  </div>
+</nav>

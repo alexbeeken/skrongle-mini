@@ -1,0 +1,17 @@
+{# The "try it" widget (#1365), on the landing page; static/landing.js plays it, landing.css draws it. #}
+<div class="try" id="land-try">
+  <div class="try-tabs" role="tablist">
+    <button type="button" class="try-tab sprint" role="tab" aria-selected="true" data-mode="sprint" data-testid="try-tab-sprint"><strong>{{ crate::t("landing.feat_sprint_h") }}</strong><span>{{ crate::t("landing.feat_sprint_p") }}</span></button>
+    <button type="button" class="try-tab study" role="tab" aria-selected="false" data-mode="study" data-testid="try-tab-study"><strong>{{ crate::t("landing.feat_study_h") }}</strong><span>{{ crate::t("landing.feat_study_p") }}</span></button>
+    <button type="button" class="try-tab play" role="tab" aria-selected="false" data-mode="play" data-testid="try-tab-play"><strong>{{ crate::t("landing.feat_play_h") }}</strong><span>{{ crate::t("landing.feat_play_p") }}</span></button>
+    <button type="button" class="try-tab guide" role="tab" aria-selected="false" data-mode="guide" data-testid="try-tab-guide"><strong>{{ crate::t("landing.feat_guide_h") }}</strong><span>{{ crate::t("landing.feat_guide_p") }}</span></button>
+  </div>
+  <div class="try-side">
+    <div class="try-subjects" role="group" aria-label="{{ crate::t("landing.subjects_label") }}">
+      <button type="button" class="try-subject" aria-pressed="true" data-subject="language" data-testid="try-subject-language">{{ crate::t("landing.subject_language") }}</button>
+      <button type="button" class="try-subject" aria-pressed="false" data-subject="maths" data-testid="try-subject-maths">{{ crate::t("landing.subject_maths") }}</button>
+      <button type="button" class="try-subject" aria-pressed="false" data-subject="music" data-testid="try-subject-music">{{ crate::t("landing.subject_music") }}</button>
+    </div>
+    <div class="try-stage" role="tabpanel" aria-live="polite" data-testid="try-stage"><noscript><p class="muted">{{ crate::t("landing.try_noscript") }}</p></noscript></div>
+  </div>
+</div>

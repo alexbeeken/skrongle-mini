@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% block title %}{{ course.title }}{% endblock %}
+{% block content %}
+<h1 class="home-title">{{ course.icon }} {{ course.title }}</h1>
+
+{{ hero|safe }}
+
+{% if due_count > 0 %}
+<section class="due-card" data-testid="home-due" data-due="{{ due_count }}">
+  <div class="due-what">
+    <p data-testid="home-due-count">{{ crate::tn("home.due.count_html", due_count)|safe }}</p>
+    <p class="due-words" lang="{{ course.term_lang }}">{% for w in due_words %}<span data-testid="home-due-word">{{ w }}</span>{% endfor %}</p>
+  </div>
+  <button type="button" class="info-btn" commandfor="home-info-due" command="show-modal" data-opens="home-info-due" aria-haspopup="dialog" aria-label="{{ crate::t("home.due.about") }}" data-testid="home-info-due">i</button>
+  <a class="btn" href="{{ crate::base_path() }}/vocabulary/study?due=1" data-testid="home-due-review">{{ crate::tn("home.due.review_n", due_round) }}</a>
+</section>
+<dialog class="modal" id="home-info-due" aria-labelledby="home-info-due-title" data-testid="home-info-due-dialog">
+  <h2 id="home-info-due-title">{{ crate::t("home.due.title") }}</h2>
+  <p>{{ crate::t("home.due.info_ladder") }}</p>
+  <p>{{ crate::t("home.due.info_miss") }}</p>
+  <div class="modal-actions"><button type="button" class="btn" commandfor="home-info-due" command="close" data-closes data-testid="home-info-close">{{ crate::t("home.ok") }}</button></div>
+</dialog>
+{% endif %}
+
+<div class="modes">
+  <article class="mode-card sprint" data-testid="home-mode" data-mode="sprint">
+    <div class="mode-top">
+      <a class="mode-head" href="{{ crate::base_path() }}/sprint" data-testid="home-sprint-open" aria-label="{{ crate::t("home.open_sprint") }}">
+        <span class="mode-icon">{{ course.icons.mode_sprint }}</span>
+        <h2>{{ crate::t("home.sprint") }}</h2>
+        <p class="mode-tag">{{ crate::t("home.sprint_tag") }}</p>
+      </a>
+      <button type="button" class="info-btn" commandfor="home-info-sprint" command="show-modal" data-opens="home-info-sprint" aria-haspopup="dialog" aria-label="{{ crate::t("home.about_sprint") }}" data-testid="home-info-sprint">i</button>
+    </div>
+    <p class="mode-stat">{% if let Some((_, title, _)) = progress.resume %}{{ crate::t1("home.next_stage", "title", title) }}{% else %}{{ crate::t("sprint.home.all_done") }}{% endif %}</p>
+    <a class="btn big sprint" data-testid="home-start-sprint" href="{{ crate::base_path() }}/sprint">{{ crate::t("home.start_session") }}</a>
+  </article>
+
+  <article class="mode-card study" data-testid="home-mode" data-mode="study">
+    <div class="mode-top">
+      <a class="mode-head" href="{{ crate::base_path() }}/lessons" data-testid="home-study-open" aria-label="{{ crate::t("home.open_study") }}">
+        <span class="mode-icon">{{ course.icons.mode_study }}</span>
+        <h2>{{ crate::t("home.study") }}</h2>
+        <p class="mode-tag">{{ crate::t("home.study_tag") }}</p>
+      </a>
+      <button type="button" class="info-btn" commandfor="home-info-study" command="show-modal" data-opens="home-info-study" aria-haspopup="dialog" aria-label="{{ crate::t("home.about_study") }}" data-testid="home-info-study">i</button>
+    </div>
+    <p class="mode-stat" data-testid="home-study-stat" data-weak="{{ weak_count }}">{{ crate::tn("home.need_practice_html", weak_count)|safe }} · {{ crate::t1("home.answers_week_html", "n", week_answered)|safe }}</p>
+    <a class="btn big" href="{{ crate::base_path() }}/practice" data-testid="home-start-study">{{ crate::t("home.start_practice") }}</a>
+  </article>
+
+  <article class="mode-card play" data-testid="home-mode" data-mode="play">
+    <div class="mode-top">
+      <a class="mode-head" href="{{ crate::base_path() }}/play" data-testid="home-play-open" aria-label="{{ crate::t("home.open_play") }}">
+        <span class="mode-icon">{{ course.icons.mode_play }}</span>
+        <h2>{{ crate::t("home.play") }}</h2>
+        <p class="mode-tag">{{ crate::t("home.play_tag") }}</p>
+      </a>
+      <button type="button" class="info-btn" commandfor="home-info-play" command="show-modal" data-opens="home-info-play" aria-haspopup="dialog" aria-label="{{ crate::t("home.about_play") }}" data-testid="home-info-play">i</button>
+    </div>
+    <p class="mode-stat">{{ crate::tn("home.games_week_html", games_week)|safe }} · {{ crate::t1("home.terms_collected_html", "n", progress.words_learned)|safe }}</p>
+    <a class="btn big ghost" href="{{ crate::base_path() }}/play" data-testid="home-start-play">{{ crate::t("home.browse_games") }}</a>
+  </article>
+
+  <article class="mode-card guide" data-testid="home-mode" data-mode="guide">
+    <div class="mode-top">
+      <a class="mode-head" href="{{ crate::base_path() }}/guide" data-testid="home-guide-open" aria-label="{{ crate::t("home.open_guide") }}">
+        <span class="mode-icon">{{ course.icons.mode_guide }}</span>
+        <h2>{{ crate::t("home.guide") }}</h2>
+        <p class="mode-tag">{{ crate::t("home.guide_tag") }}</p>
+      </a>
+      <button type="button" class="info-btn" commandfor="home-info-guide" command="show-modal" data-opens="home-info-guide" aria-haspopup="dialog" aria-label="{{ crate::t("home.about_guide") }}" data-testid="home-info-guide">i</button>
+    </div>
+    <p class="mode-stat" data-testid="home-guide-stat" data-completed="{{ guide_completed }}" data-total="{{ guide_total }}">{{ crate::t2("home.guide_stat_html", "done", guide_completed, "total", guide_total)|safe }}</p>
+    {% if let Some((slug, _)) = guide_next %}
+    <a class="btn big guide" href="{{ crate::base_path() }}/guide/{{ slug }}" data-testid="home-start-guide">{% if guide_begun %}{{ crate::t("home.continue_guide") }}{% else %}{{ crate::t("home.start_guide") }}{% endif %}</a>
+    {% else %}
+    <a class="btn big guide" href="{{ crate::base_path() }}/guide" data-testid="home-start-guide">{{ crate::t("home.see_stages") }}</a>
+    {% endif %}
+  </article>
+
+  {% if let Some(u) = user %}{% if !u.ai_off %}
+  <article class="mode-card ai" data-testid="home-mode" data-mode="ai">
+    <div class="mode-top">
+      <a class="mode-head" href="{{ crate::base_path() }}/tutor" data-testid="home-ai-open" aria-label="{{ crate::t("home.open_ai") }}">
+        <span class="mode-icon">{{ course.icons.mode_ai }}</span>
+        <h2>{{ crate::t("home.ai") }}</h2>
+        <p class="mode-tag">{{ crate::t("home.ai_tag") }}</p>
+      </a>
+      {% if tutor_blocked %}
+      <button type="button" class="field-check bad" commandfor="home-tutor-gate" command="show-modal" data-opens="home-tutor-gate" aria-haspopup="dialog" aria-label="{{ crate::t("home.no_ai_keys") }}" data-tip="{{ crate::t("home.no_ai_keys") }}" data-testid="home-ai-blocked">!</button>
+      {% else %}
+      <button type="button" class="info-btn" commandfor="home-info-ai" command="show-modal" data-opens="home-info-ai" aria-haspopup="dialog" aria-label="{{ crate::t("home.about_ai") }}" data-testid="home-info-ai">i</button>
+      {% endif %}
+    </div>
+    {% if let Some(p) = tutor_provider %}<p class="mode-stat">{{ crate::t1("home.using_key_html", "provider", p)|safe }}</p>{% else if tutor_blocked %}<p class="mode-stat">{{ crate::t1("home.needs_key_html", "url", crate::url("/profile#api-keys"))|safe }}</p>{% endif %}
+    {% if tutor_blocked %}
+    <button type="button" class="btn big tutor" data-testid="home-start-tutor" commandfor="home-tutor-gate" command="show-modal" data-opens="home-tutor-gate" aria-haspopup="dialog">{{ crate::t("home.start_conversation") }}</button>
+    {% else %}
+    <a class="btn big tutor" data-testid="home-start-tutor" href="{{ crate::base_path() }}/tutor">{{ crate::t("home.start_conversation") }}</a>
+    {% endif %}
+  </article>
+  {% endif %}{% endif %}
+</div>
+
+{% if tutor_blocked %}
+{# The tutor's "add an API key" page (tutor.html), as a modal: nothing to run the tutor on (#283). #}
+<dialog class="modal" id="home-tutor-gate" aria-labelledby="home-tutor-gate-title" data-testid="home-tutor-gate">
+  <h2 id="home-tutor-gate-title">{{ course.icons.mode_ai }} {{ crate::t("tutor.no_key.title") }}</h2>
+  <p>{{ crate::t1("tutor.no_key.p1", "app", crate::APP_NAME) }}</p>
+  <p>{{ crate::t("tutor.no_key.p2") }}</p>
+  <div class="modal-actions">
+    <button type="button" class="btn ghost" commandfor="home-tutor-gate" command="close" data-closes data-testid="home-tutor-gate-close">{{ crate::t("profile.ai.close") }}</button>
+    <a class="btn" href="{{ crate::base_path() }}/profile#api-keys" data-testid="home-tutor-gate-add-key">{{ crate::t("tutor.no_key.add_key") }}</a>
+  </div>
+</dialog>
+{% endif %}
+
+<dialog class="modal" id="home-info-sprint" aria-labelledby="home-info-sprint-title" data-testid="home-info-sprint-dialog">
+  <h2 id="home-info-sprint-title">{{ course.icons.mode_sprint }} {{ crate::t("home.sprint") }}</h2>
+  <p>{{ crate::t("home.info_sprint_p") }}</p>
+  <div class="modal-actions"><button type="button" class="btn" commandfor="home-info-sprint" command="close" data-closes data-testid="home-info-close">{{ crate::t("home.ok") }}</button></div>
+</dialog>
+<dialog class="modal" id="home-info-study" aria-labelledby="home-info-study-title" data-testid="home-info-study-dialog">
+  <h2 id="home-info-study-title">{{ course.icons.mode_study }} {{ crate::t("home.study") }}</h2>
+  <p>{% if course.has_listening %}{{ crate::t("home.info_study_listening_p") }}{% else %}{{ crate::t("home.info_study_p") }}{% endif %}</p>
+  <div class="modal-actions"><button type="button" class="btn" commandfor="home-info-study" command="close" data-closes data-testid="home-info-close">{{ crate::t("home.ok") }}</button></div>
+</dialog>
+<dialog class="modal" id="home-info-play" aria-labelledby="home-info-play-title" data-testid="home-info-play-dialog">
+  <h2 id="home-info-play-title">{{ course.icons.mode_play }} {{ crate::t("home.play") }}</h2>
+  <p>{{ crate::t("home.info_play_intro") }}{% if course.has_paradigm %}{{ crate::t1("home.info_play_drill", "item", course.item_label.to_lowercase()) }}{% endif %}{% if course.has_numbers %}{{ crate::t("home.info_play_numbers") }}{% endif %}{% if course.has_dates %}{{ crate::t("home.info_play_dates") }}{% endif %}{{ crate::t("home.info_play_end") }}</p>
+  <div class="modal-actions"><button type="button" class="btn" commandfor="home-info-play" command="close" data-closes data-testid="home-info-close">{{ crate::t("home.ok") }}</button></div>
+</dialog>
+<dialog class="modal" id="home-info-guide" aria-labelledby="home-info-guide-title" data-testid="home-info-guide-dialog">
+  <h2 id="home-info-guide-title">{{ course.icons.mode_guide }} {{ crate::t("home.guide") }}</h2>
+  <p>{{ crate::t("home.info_guide_p") }}</p>
+  <div class="modal-actions"><button type="button" class="btn" commandfor="home-info-guide" command="close" data-closes data-testid="home-info-close">{{ crate::t("home.ok") }}</button></div>
+</dialog>
+{% if let Some(u) = user %}{% if !u.ai_off %}
+<dialog class="modal" id="home-info-ai" aria-labelledby="home-info-ai-title" data-testid="home-info-ai-dialog">
+  <h2 id="home-info-ai-title">{{ course.icons.mode_ai }} {{ crate::t("home.ai") }}</h2>
+  <p>{{ crate::t("home.info_ai_p") }}</p>
+  <div class="modal-actions"><button type="button" class="btn" commandfor="home-info-ai" command="close" data-closes data-testid="home-info-close">{{ crate::t("home.ok") }}</button></div>
+</dialog>
+{% endif %}{% endif %}
+{% if let Some(st) = settings %}
+{% include "course_wizard.html" %}
+{% endif %}
+{% endblock %}
+{% block scripts %}<script src="{{ crate::routes::asset_url("home.js") }}" defer></script>{% if settings.is_some() %}<script src="{{ crate::routes::asset_url("course-settings.js") }}" defer></script><script src="{{ crate::routes::asset_url("placement.js") }}" defer></script>{% endif %}{% endblock %}
+{% block head %}{% if due_count > 0 %}<link rel="stylesheet" href="{{ crate::routes::asset_url("words-due.css") }}">{% endif %}{% endblock %}

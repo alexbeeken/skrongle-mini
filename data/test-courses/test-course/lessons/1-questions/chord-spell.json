@@ -1,0 +1,45 @@
+{
+  "id": "tc-chord-spell",
+  "slug": "chord-spell",
+  "title": "Spell the chord",
+  "unit": "questions",
+  "group": "quiz",
+  "order": 70,
+  "summary": "Note tiles tapped into slots to spell a chord, checked as a set.",
+  "focus": "chord-spell questions",
+  "content": "## Stacking thirds\n\nA major triad is a root, a major third and a perfect fifth: D major is D, F sharp and A.\n\n## Spelling counts\n\nG flat sounds like F sharp, but a third above D is written with an F. Each letter is used once, every other letter.",
+  "quiz": [
+    {
+      "question_id": "tc-chord-spell-01",
+      "type": "chord-spell",
+      "prompt": "Spell D major.",
+      "correct_answer": "D ^F A",
+      "tiles": "D E F ^F _G A B",
+      "explanation": "D major is D, F sharp and A. G flat sounds the same as F sharp, but the third of D is an F."
+    },
+    {
+      "question_id": "tc-chord-spell-02",
+      "type": "chord-spell",
+      "prompt": "Spell A minor.",
+      "correct_answer": "A C E",
+      "tiles": [
+        "A",
+        "B",
+        "C",
+        "^C",
+        "D",
+        "E",
+        "_B"
+      ],
+      "explanation": "A minor is A, C and E: a minor third, then a major third."
+    },
+    {
+      "question_id": "tc-chord-spell-03",
+      "type": "chord-spell",
+      "prompt": "Spell G7, the dominant seventh on G.",
+      "correct_answer": "G B D F",
+      "tiles": "G A B _B D F ^F",
+      "explanation": "G7 is a G major triad, G B D, with a minor seventh, F, on top."
+    }
+  ]
+}

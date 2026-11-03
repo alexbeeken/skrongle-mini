@@ -1,0 +1,625 @@
+{
+  "id": "a2-health-body",
+  "slug": "health-body",
+  "title": "Health and the body: j'ai mal à la tête",
+  "unit": "A2",
+  "group": "Vocabulary",
+  "order": 46,
+  "summary": "Name the parts of the body, say what hurts with avoir mal à, describe how you feel and get through a visit to the doctor and the pharmacy.",
+  "focus": "Saying what hurts and how you feel",
+  "prerequisites": [
+    "a2-object-pronouns"
+  ],
+  "content": "## The body and avoir mal à\n\n**Avoir mal à** + body part = *my … hurts*. **À** contracts with the article: **à + le = au**, **à + les = aux**; **à la** and **à l'** stay.\n\n| body part | it hurts |\n|---|---|\n| la tête, la gorge, la jambe, la main, la bouche | **J'ai mal à la tête.** |\n| le ventre, le dos, le bras, le pied, le genou, le nez | **J'ai mal au dos.** |\n| l'œil, l'oreille | **J'ai mal à l'oreille.** |\n| les yeux, les dents, les pieds | **J'ai mal aux dents.** |\n\nFrench uses the article, not *my*: **J'ai mal à la tête** (my head hurts). **L'œil** becomes **les yeux** in the plural.\n\n## How are you feeling?\n\n- **être malade / fatigué(e) / enrhumé(e)** (to be ill / tired / to have a cold)\n- **avoir de la fièvre** (to have a temperature), **avoir la grippe** (to have flu)\n- **avoir mal au cœur** (to feel sick or nauseous, not a heart problem)\n- **se sentir bien / mal** (to feel well / unwell): **je me sens, tu te sens, il se sent, nous nous sentons, vous vous sentez, ils se sentent**\n- **dormir** (to sleep): **je dors, tu dors, il dort, nous dormons, vous dormez, ils dorment**\n\nTemperature is in degrees Celsius: **J'ai trente-neuf de fièvre.** (I've got a temperature of 39.) Normal is about 37 °C.\n\n## At the doctor and the pharmacy\n\nThe doctor (**le médecin**) asks: **Qu'est-ce qui ne va pas ?** (What's wrong?) or **Où avez-vous mal ?** (Where does it hurt?)\n\nThe advice comes in the imperative:\n\n- **Reposez-vous.** (Rest.)\n- **Prenez ce médicament trois fois par jour.** (Take this medicine three times a day.)\n- **Buvez beaucoup d'eau.** (Drink lots of water.)\n\nThen you take **l'ordonnance** (the prescription) to **la pharmacie**: **Voici mon ordonnance.** In France the pharmacist is also a good first stop for small problems: **Vous avez quelque chose pour la gorge ?**",
+  "vocabulary": [
+    {
+      "term": "la tête",
+      "meaning": "head (f)",
+      "example": "J'ai mal à la tête depuis ce matin.",
+      "example_meaning": "I've had a headache since this morning."
+    },
+    {
+      "term": "la gorge",
+      "meaning": "throat (f)",
+      "example": "Tu as mal à la gorge ? Bois du thé chaud.",
+      "example_meaning": "Have you got a sore throat? Drink some hot tea."
+    },
+    {
+      "term": "le ventre",
+      "meaning": "stomach, belly (m)",
+      "example": "Il a mal au ventre après le repas.",
+      "example_meaning": "He has a stomach ache after the meal."
+    },
+    {
+      "term": "le dos",
+      "meaning": "back (m)",
+      "example": "Mon père a mal au dos.",
+      "example_meaning": "My father has backache."
+    },
+    {
+      "term": "les dents",
+      "meaning": "teeth (f pl)",
+      "example": "J'ai mal aux dents, je dois aller chez le dentiste.",
+      "example_meaning": "I've got toothache, I have to go to the dentist."
+    },
+    {
+      "term": "avoir mal à",
+      "meaning": "to have a pain in, to hurt",
+      "example": "J'ai mal au pied gauche.",
+      "example_meaning": "My left foot hurts."
+    },
+    {
+      "term": "malade",
+      "meaning": "ill, sick",
+      "example": "Elle est malade, elle reste au lit.",
+      "example_meaning": "She's ill, she's staying in bed."
+    },
+    {
+      "term": "fatigué / fatiguée",
+      "meaning": "tired",
+      "example": "Je suis très fatigué ce soir.",
+      "example_meaning": "I'm very tired this evening."
+    },
+    {
+      "term": "enrhumé / enrhumée",
+      "meaning": "having a cold",
+      "example": "Tu es enrhumée ? Prends un mouchoir.",
+      "example_meaning": "Have you got a cold? Take a tissue."
+    },
+    {
+      "term": "la fièvre",
+      "meaning": "fever, temperature (f)",
+      "example": "Il a de la fièvre : trente-neuf degrés.",
+      "example_meaning": "He has a temperature: thirty-nine degrees."
+    },
+    {
+      "term": "la grippe",
+      "meaning": "flu (f)",
+      "example": "Ma sœur a la grippe.",
+      "example_meaning": "My sister has flu."
+    },
+    {
+      "term": "le médecin",
+      "meaning": "doctor (m)",
+      "example": "Je vais chez le médecin cet après-midi.",
+      "example_meaning": "I'm going to the doctor's this afternoon."
+    },
+    {
+      "term": "la pharmacie",
+      "meaning": "chemist's, pharmacy (f)",
+      "example": "La pharmacie est ouverte jusqu'à vingt heures.",
+      "example_meaning": "The chemist's is open until eight p.m."
+    },
+    {
+      "term": "l'ordonnance",
+      "meaning": "prescription (f)",
+      "example": "Le médecin me donne une ordonnance.",
+      "example_meaning": "The doctor gives me a prescription."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-health-body-01",
+      "prompt": "J'ai mal ___ dos.",
+      "type": "multiple-choice",
+      "options": [
+        "au",
+        "à la",
+        "aux"
+      ],
+      "correct_answer": "au",
+      "explanation": "Le dos is masculine singular: à + le = au. J'ai mal au dos.",
+      "hints": [
+        "Le dos: à + le = ?"
+      ],
+      "teaches": [
+        "le dos",
+        "avoir mal à"
+      ]
+    },
+    {
+      "question_id": "a2-health-body-02",
+      "prompt": "Elle a mal ___ dents.",
+      "type": "fill-in-blank",
+      "correct_answer": "aux",
+      "accepted_answers": [],
+      "explanation": "Les dents is plural: à + les = aux. Elle a mal aux dents.",
+      "hints": [
+        "à + les = ?"
+      ],
+      "teaches": [
+        "les dents",
+        "avoir mal à"
+      ]
+    },
+    {
+      "question_id": "a2-health-body-03",
+      "prompt": "J'ai mal ___ tête.",
+      "type": "multiple-choice",
+      "options": [
+        "à la",
+        "au",
+        "à le"
+      ],
+      "correct_answer": "à la",
+      "explanation": "La tête is feminine: à la does not contract. J'ai mal à la tête.",
+      "hints": [
+        "La tête is feminine."
+      ],
+      "teaches": [
+        "la tête"
+      ]
+    },
+    {
+      "question_id": "a2-health-body-04",
+      "prompt": "Tu as le nez qui coule : tu es ___. (having a cold)",
+      "type": "fill-in-blank",
+      "correct_answer": "enrhumé",
+      "accepted_answers": [
+        "enrhumée"
+      ],
+      "explanation": "Having a cold is être enrhumé(e).",
+      "hints": [
+        "It starts with en-.",
+        "It's used with être."
+      ],
+      "teaches": [
+        "enrhumé / enrhumée"
+      ]
+    },
+    {
+      "question_id": "a2-health-body-05",
+      "prompt": "True or false: \"J'ai mal au cœur\" means \"my heart hurts\".",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Avoir mal au cœur means to feel sick (nauseous). A heart problem is said differently.",
+      "hints": [
+        "It's a fixed expression about the stomach."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a2-health-body-06",
+      "prompt": "Qu'est-ce qui ne va pas ? Je ne ___ pas bien.",
+      "type": "multiple-choice",
+      "options": [
+        "me sens",
+        "sens",
+        "me sent"
+      ],
+      "correct_answer": "me sens",
+      "explanation": "Se sentir is reflexive: je me sens. The je form ends in -s.",
+      "hints": [
+        "Reflexive verb, je form."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a2-health-body-07",
+      "prompt": "Je suis fatigué, je ___ mal la nuit. (dormir)",
+      "type": "fill-in-blank",
+      "correct_answer": "dors",
+      "accepted_answers": [
+        "je dors"
+      ],
+      "explanation": "Dormir: je dors, tu dors, il dort (the m disappears in the singular).",
+      "hints": [
+        "The singular drops the m.",
+        "The je form ends in -s."
+      ],
+      "teaches": [
+        "fatigué / fatiguée"
+      ]
+    },
+    {
+      "question_id": "a2-health-body-08",
+      "prompt": "True or false: French says \"J'ai mal à la tête\", with the article, not \"à ma tête\".",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "With body parts, French uses le / la / les, not a possessive: j'ai mal à la tête.",
+      "hints": [
+        "Who else's head could it be?"
+      ],
+      "teaches": [
+        "la tête"
+      ]
+    },
+    {
+      "question_id": "a2-health-body-09",
+      "prompt": "Le médecin dit : vous avez trente-neuf de fièvre. What is the temperature?",
+      "type": "numeric",
+      "correct_answer": "39",
+      "unit": "°C",
+      "explanation": "Trente-neuf is 39, so the temperature is 39 °C.",
+      "hints": [
+        "Trente = 30, neuf = 9."
+      ],
+      "teaches": [
+        "la fièvre",
+        "le médecin"
+      ]
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "dormir",
+      "meaning": "to sleep",
+      "set": "present",
+      "art": [
+        "        z Z z  ",
+        "   _________   ",
+        "  | (-.-)    |  ",
+        "  |_________|  ",
+        "    je dors    "
+      ],
+      "forms": {
+        "je": "dors",
+        "tu": "dors",
+        "il": "dort",
+        "nous": "dormons",
+        "vous": "dormez",
+        "ils": "dorment"
+      }
+    },
+    {
+      "item": "se sentir",
+      "meaning": "to feel",
+      "set": "present",
+      "art": [
+        "    _____    ",
+        "   ( ^ ^ )   ",
+        "   (  o  )   ",
+        "    \\___/    ",
+        "  je me sens "
+      ],
+      "forms": {
+        "je": "me sens",
+        "tu": "te sens",
+        "il": "se sent",
+        "nous": "nous sentons",
+        "vous": "vous sentez",
+        "ils": "se sentent"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-health-body-conv-at-the-doctor",
+      "title": "At the doctor's",
+      "scenario": "Thomas has been feeling ill since yesterday and sees Dr Martin.",
+      "role_a": "Thomas",
+      "role_b": "Dr Martin",
+      "lines": [
+        {
+          "speaker": "b",
+          "text": "Bonjour, monsieur. Qu'est-ce qui ne va pas ?",
+          "meaning": "Hello. What's wrong?"
+        },
+        {
+          "speaker": "a",
+          "text": "Je me sens mal depuis hier. J'ai mal à la tête et à la gorge.",
+          "meaning": "I've been feeling unwell since yesterday. My head and throat hurt."
+        },
+        {
+          "speaker": "b",
+          "text": "Vous avez de la fièvre ?",
+          "meaning": "Have you got a temperature?"
+        },
+        {
+          "speaker": "a",
+          "text": "Oui, trente-huit et demi ce matin.",
+          "meaning": "Yes, thirty-eight and a half this morning."
+        },
+        {
+          "speaker": "b",
+          "text": "Vous dormez bien ?",
+          "meaning": "Are you sleeping well?"
+        },
+        {
+          "speaker": "a",
+          "text": "Non, je dors très mal, et je suis très fatigué.",
+          "meaning": "No, I'm sleeping very badly, and I'm very tired."
+        },
+        {
+          "speaker": "b",
+          "text": "Ouvrez la bouche, s'il vous plaît. Ah, vous avez la grippe.",
+          "meaning": "Open your mouth, please. Ah, you've got flu."
+        },
+        {
+          "speaker": "a",
+          "text": "C'est grave ?",
+          "meaning": "Is it serious?"
+        },
+        {
+          "speaker": "b",
+          "text": "Non. Reposez-vous et buvez beaucoup d'eau.",
+          "meaning": "No. Rest and drink lots of water."
+        },
+        {
+          "speaker": "a",
+          "text": "Je dois prendre des médicaments ?",
+          "meaning": "Do I have to take any medicine?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, voici l'ordonnance. Allez à la pharmacie aujourd'hui.",
+          "meaning": "Yes, here's the prescription. Go to the chemist's today."
+        },
+        {
+          "speaker": "a",
+          "text": "Merci, docteur. Au revoir !",
+          "meaning": "Thank you, doctor. Goodbye!"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "J'ai mal aux pieds.",
+      "meaning": "My feet hurt.",
+      "note": "à + les = aux."
+    },
+    {
+      "text": "Tu te sens mieux aujourd'hui ?",
+      "meaning": "Are you feeling better today?"
+    },
+    {
+      "text": "Mon fils a de la fièvre.",
+      "meaning": "My son has a temperature."
+    },
+    {
+      "text": "Je tousse beaucoup, je suis enrhumé.",
+      "meaning": "I'm coughing a lot, I've got a cold.",
+      "note": "New word: tousser = to cough."
+    },
+    {
+      "text": "Elle a mal à l'oreille depuis lundi.",
+      "meaning": "She's had earache since Monday."
+    },
+    {
+      "text": "Prenez un comprimé trois fois par jour.",
+      "meaning": "Take one tablet three times a day.",
+      "note": "New word: le comprimé = tablet."
+    },
+    {
+      "text": "Nous dormons mal parce que le bébé pleure la nuit.",
+      "meaning": "We sleep badly because the baby cries at night.",
+      "note": "New word: pleurer = to cry."
+    },
+    {
+      "text": "Le médecin m'a donné une ordonnance, je vais à la pharmacie.",
+      "meaning": "The doctor gave me a prescription, I'm going to the chemist's."
+    }
+  ],
+  "guide": [
+    {
+      "section": "The body"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-health-body-01"
+    },
+    {
+      "question": "a2-health-body-02"
+    },
+    {
+      "question": "a2-health-body-03"
+    },
+    {
+      "question": "a2-health-body-08"
+    },
+    {
+      "tip": "Not sure if it's au or à la? Check the article you learnt with the noun: le dos gives au dos, and la gorge gives à la gorge."
+    },
+    {
+      "section": "How are you feeling"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-health-body-04"
+    },
+    {
+      "question": "a2-health-body-05"
+    },
+    {
+      "question": "a2-health-body-06"
+    },
+    {
+      "question": "a2-health-body-07"
+    },
+    {
+      "concept": {
+        "title": "Whose hands?",
+        "markdown": "With reflexive verbs, French also uses the article for body parts: **Je me lave les mains** (I wash my hands), **Il se brosse les dents** (he brushes his teeth). The reflexive pronoun already says whose they are."
+      }
+    },
+    {
+      "section": "At the doctor"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a2-health-body-09"
+    }
+  ],
+  "sprint": {
+    "icon": "🤒",
+    "bites": [
+      {
+        "title": "Avoir mal à",
+        "emoji": "🤕",
+        "rule": "My … hurts is avoir mal à + the body part, with au (le), à la, à l' or aux (les).",
+        "example": "J'ai mal au ventre.",
+        "example_meaning": "I've got a stomach ache."
+      },
+      {
+        "title": "The, not my",
+        "emoji": "👃",
+        "rule": "French uses le / la / les with body parts, not mon / ma / mes: j'ai mal à la tête.",
+        "example": "Elle a mal aux yeux.",
+        "example_meaning": "Her eyes hurt."
+      },
+      {
+        "title": "Feeling ill",
+        "emoji": "🤧",
+        "rule": "Use être with malade / fatigué / enrhumé, avoir with de la fièvre, la grippe and mal au cœur (= feel sick), and se sentir with bien or mal.",
+        "example": "Je me sens mal, j'ai de la fièvre.",
+        "example_meaning": "I feel unwell, I've got a temperature."
+      },
+      {
+        "title": "At the doctor",
+        "emoji": "🩺",
+        "rule": "Qu'est-ce qui ne va pas ? The doctor answers with imperatives: prenez, reposez-vous, buvez. Then l'ordonnance goes to la pharmacie.",
+        "example": "Reposez-vous et buvez beaucoup d'eau.",
+        "example_meaning": "Rest and drink lots of water."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Au, à la, à l' or aux?",
+        "buckets": [
+          "au",
+          "à la",
+          "à l'",
+          "aux"
+        ],
+        "items": [
+          {
+            "text": "dos",
+            "bucket": 0
+          },
+          {
+            "text": "tête",
+            "bucket": 1
+          },
+          {
+            "text": "oreille",
+            "bucket": 2
+          },
+          {
+            "text": "dents",
+            "bucket": 3
+          },
+          {
+            "text": "ventre",
+            "bucket": 0
+          },
+          {
+            "text": "gorge",
+            "bucket": 1
+          },
+          {
+            "text": "œil",
+            "bucket": 2
+          },
+          {
+            "text": "pieds",
+            "bucket": 3
+          }
+        ],
+        "why": "Masculine takes au, feminine takes à la, a vowel takes à l', and plural takes aux."
+      },
+      {
+        "title": "Être or avoir?",
+        "buckets": [
+          "être",
+          "avoir"
+        ],
+        "items": [
+          {
+            "text": "malade",
+            "bucket": 0
+          },
+          {
+            "text": "de la fièvre",
+            "bucket": 1
+          },
+          {
+            "text": "fatigué",
+            "bucket": 0
+          },
+          {
+            "text": "la grippe",
+            "bucket": 1
+          },
+          {
+            "text": "enrhumé",
+            "bucket": 0
+          },
+          {
+            "text": "mal au dos",
+            "bucket": 1
+          }
+        ],
+        "why": "Adjectives (malade, fatigué, enrhumé) take être; nouns (fièvre, grippe, mal) take avoir."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "J'ai mal au jambe.",
+        "wrong": "au",
+        "fix": "à la",
+        "why": "La jambe is feminine: à la does not contract."
+      },
+      {
+        "sentence": "J'ai mal à ma tête.",
+        "wrong": "ma",
+        "fix": "la",
+        "why": "Body parts take the article, not a possessive."
+      },
+      {
+        "sentence": "Il est de la fièvre.",
+        "wrong": "est",
+        "fix": "a",
+        "why": "Avoir de la fièvre."
+      },
+      {
+        "sentence": "Je me sent très fatigué.",
+        "wrong": "sent",
+        "fix": "sens",
+        "why": "Se sentir: je me sens (with -s)."
+      },
+      {
+        "sentence": "Nous dorment mal ici.",
+        "wrong": "dorment",
+        "fix": "dormons",
+        "why": "Dormir: nous dormons."
+      }
+    ],
+    "builds": [
+      {
+        "text": "J'ai mal à la gorge.",
+        "meaning": "I've got a sore throat.",
+        "distractors": [
+          "au"
+        ]
+      },
+      {
+        "text": "Elle se sent mal aujourd'hui.",
+        "meaning": "She feels unwell today.",
+        "distractors": [
+          "sens"
+        ]
+      },
+      {
+        "text": "Il a de la fièvre et mal au dos.",
+        "meaning": "He has a temperature and backache.",
+        "distractors": [
+          "est"
+        ]
+      },
+      {
+        "text": "Je vais à la pharmacie avec l'ordonnance.",
+        "meaning": "I'm going to the chemist's with the prescription.",
+        "distractors": [
+          "au"
+        ]
+      }
+    ]
+  }
+}

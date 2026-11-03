@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="{{ crate::i18n::lang() }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{{ crate::APP_NAME }}{% endblock %} · {{ crate::APP_NAME }}</title>
+<link rel="stylesheet" href="{{ crate::routes::asset_url("style.css") }}">
+<script>if (/[?&]reduce-motion=1\b/.test(location.search)) document.documentElement.classList.add('reduce-motion');</script>
+{% block head %}{% endblock %}
+<link rel="icon" href="{{ crate::routes::asset_url("favicon.svg") }}" type="image/svg+xml">
+<link rel="manifest" href="{{ crate::url("/manifest.webmanifest") }}">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="{{ crate::APP_NAME }}">
+<link rel="apple-touch-icon" href="{{ crate::routes::asset_url("apple-touch-icon.png") }}">
+</head>
+<body data-base="{{ crate::base_path() }}">
+<a class="skip-link" href="#main" data-testid="skip-to-content">{{ crate::t("nav.skip_to_content") }}</a>
+<header class="topbar">
+  <nav class="container">
+    <a class="brand" data-testid="nav-home" href="{{ crate::url("/") }}"><img class="brand-mark" src="{{ crate::routes::asset_url("logo-mark.svg") }}" alt="" width="22" height="22">{{ crate::APP_NAME }}</a>
+    <ul>
+    {% if let Some(u) = user %}
+      {% if let Some(ct) = u.course_title %}
+      <li><a class="course-switch" data-testid="nav-course-switch" data-course-id="{% if let Some(cid) = u.course_id %}{{ cid }}{% endif %}" href="{{ crate::base_path() }}/courses" aria-label="{{ crate::t1("nav.switch_course_now", "course", ct) }}" title="{{ crate::t1("nav.switch_course_now", "course", ct) }}"><strong>{{ ct }}</strong></a></li>
+      {% else %}
+      <li><a href="{{ crate::base_path() }}/courses" data-testid="nav-courses">{{ crate::t("nav.courses") }}</a></li>
+      {% endif %}
+      <li class="account">
+        <details class="account-menu" id="account-menu" data-testid="nav-account-menu">
+          <summary data-testid="nav-account-toggle" data-email="{{ u.email }}" title="{{ u.display_name() }}" aria-label="{{ crate::t1("nav.account_menu_for", "name", u.display_name()) }}">
+            <span class="avatar blank" data-testid="avatar-blank">{% include "avatar_gear.html" %}</span>
+          </summary>
+          <div class="menu" role="menu">
+            <div class="menu-head">
+              <span class="avatar lg blank" data-testid="avatar-blank">{% include "avatar_gear.html" %}</span>
+              <div><strong>{{ u.display_name() }}</strong></div>
+            </div>
+            <a role="menuitem" href="{{ crate::base_path() }}/profile" data-testid="nav-profile">{{ crate::t("nav.profile") }}</a>
+            {% if u.superuser %}<a role="menuitem" href="{{ crate::base_path() }}/superuser" data-testid="nav-superuser">{{ crate::t("nav.superuser") }}</a>{% endif %}
+            <a role="menuitem" href="{{ crate::base_path() }}/courses" data-testid="nav-switch-course">{{ crate::t("nav.switch_course") }}</a>
+            <a role="menuitem" href="{{ crate::base_path() }}/docs" data-testid="nav-docs">{{ crate::t("nav.documentation") }}</a>
+            <form method="post" action="{{ crate::base_path() }}/logout" data-testid="nav-logout-form">
+              <button type="submit" class="link" role="menuitem" data-testid="nav-logout">{{ crate::t("nav.logout") }}</button>
+            </form>
+          </div>
+        </details>
+      </li>
+    {% else %}
+      <li><a href="{{ crate::base_path() }}/docs" data-testid="nav-docs">{{ crate::t("nav.docs") }}</a></li>
+      <li><a href="{{ crate::base_path() }}/login" data-testid="nav-login">{{ crate::t("nav.login") }}</a></li>
+      <li><a class="btn small" href="{{ crate::base_path() }}/register" data-testid="nav-register">{{ crate::t("nav.register") }}</a></li>
+    {% endif %}
+    </ul>
+  </nav>
+</header>
+{% block modenav %}{% endblock %}
+<main class="container" id="main" tabindex="-1">
+{% block content %}{% endblock %}
+</main>
+{% if let Some(u) = user %}{% if let Some(n) = u.terms_notice %}{% if n.shows_here() %}{% include "terms_notice.html" %}{% endif %}{% endif %}{% endif %}
+<footer class="site-footer">
+  <div class="container muted small">{{ crate::APP_NAME }} · <a href="{{ crate::url("/terms") }}" data-testid="footer-terms">{{ crate::t("footer.terms") }}</a> · <a href="{{ crate::url("/privacy") }}" data-testid="footer-privacy">{{ crate::t("footer.privacy") }}</a>
+    · <a href="{{ crate::url("/cookies") }}" data-testid="footer-cookies">{{ crate::t("footer.cookies") }}</a>
+  </div>
+</footer>
+<script>
+// A link to the page you are on says so (aria-current), for screen readers
+// and tests alike; the Study and Play mode bars set it on the server already.
+(function () {
+  var here = location.pathname.replace(/\/$/, '') + location.search;
+  document.querySelectorAll('a[href]:not([aria-current])').forEach(function (a) {
+    if (a.origin === location.origin && !a.hash && a.pathname.replace(/\/$/, '') + a.search === here) a.setAttribute('aria-current', 'page');
+  });
+})();
+(function () {
+  var m = document.getElementById('account-menu');
+  if (!m) return;
+  document.addEventListener('click', function (e) { if (m.open && !m.contains(e.target)) m.open = false; });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && m.open) { m.open = false; m.querySelector('summary').focus(); } });
+})();
+</script>
+<script>
+// The app's text for the scripts: I18N holds the keys under common.js (every
+// page) and what a page adds with Object.assign(I18N, …); t(key, {name: value})
+// and tn(key, n) read it (i18n/README.md).
+window.I18N = {{ crate::i18n::js_json("common.js")|safe }};
+window.t = function (key, args) {
+  var s = I18N[key];
+  if (s == null) { console.warn('i18n: no text for ' + key); s = key; }
+  return args ? s.replace(/\{(\w+)\}/g, function (m, n) { return n in args ? args[n] : m; }) : s;
+};
+window.tn = function (key, n) { return t(key + (n === 1 ? '.one' : '.other'), { n: n }); };
+</script>
+<script>
+// A phone's mode bar scrolls sideways (#423): bring the current tab into view.
+document.querySelectorAll('.modebar ul').forEach(function (u) {
+  var a = u.querySelector('[aria-current]');
+  if (!a || u.scrollWidth <= u.clientWidth) return;
+  var ur = u.getBoundingClientRect(), ar = a.getBoundingClientRect();
+  if (ar.right > ur.right || ar.left < ur.left) u.scrollLeft += ar.left - ur.left - (ur.width - ar.width) / 2;
+});
+</script>
+<script src="{{ crate::routes::asset_url("modal.js") }}" defer></script>
+<script src="{{ crate::routes::asset_url("speech.js") }}" defer></script>
+<script src="{{ crate::routes::asset_url("say.js") }}" defer></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

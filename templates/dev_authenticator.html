@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Dev: authenticator{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ crate::routes::asset_url("devbox.css") }}">
+<section class="devbox" data-testid="dev-authenticator" data-rows-url="{{ crate::url("/dev/authenticator/rows") }}" data-now="{{ now }}">
+  <div class="devbox-head">
+    <h1>Dev mailbox</h1>
+    <button type="button" class="info-btn" data-opens="devauth-info" aria-haspopup="dialog" aria-label="About the authenticator" title="About the authenticator" data-testid="dev-authenticator-info"><span aria-hidden="true">i</span></button>
+  </div>
+
+  {% include "dev_box_kinds.html" %}
+
+  <div class="devbox-frame phone">
+    <div class="devbox-tools">
+      <form class="devauth-add" method="post" action="{{ crate::url("/dev/authenticator") }}" data-live data-testid="dev-authenticator-add-form">
+        <label class="sr-only" for="dev-authenticator-uri">Setup link or key</label>
+        <input id="dev-authenticator-uri" name="uri" type="text" autocomplete="off" spellcheck="false" value="{{ prefill }}" data-example="{{ crate::routes::dev::EXAMPLE_TOTP_URI }}" placeholder="otpauth://totp/… or setup key" required data-testid="dev-authenticator-uri"{% if !scanned.is_empty() %} data-scanned{% endif %}>
+        <button type="submit" class="btn small" data-testid="dev-authenticator-add"{% if !scanned.is_empty() %} autofocus{% endif %}>Add</button>
+      </form>
+      <p class="devbox-compose-error" role="alert" hidden data-testid="dev-authenticator-error"></p>
+    </div>
+    <ul class="devauth-list" data-rows="auth" data-testid="dev-authenticator-list">{{ list|safe }}</ul>
+  </div>
+</section>
+
+<dialog class="modal" id="devauth-info" aria-labelledby="devauth-info-title" data-testid="dev-authenticator-info-dialog">
+  <h2 id="devauth-info-title">The dev authenticator</h2>
+  <p>An authenticator app (like Google Authenticator) for two-factor sign-in. Paste an <code>otpauth://totp/…</code> link or a setup key, or open a link to <code>/dev/authenticator?uri=otpauth://…</code> (the "scan"). Each account shows its current code (RFC 6238 TOTP, worked out from its secret) and when it changes.</p>
+  <p class="small">Kept in memory until the server stops. As JSON: <a href="{{ crate::url("/dev/authenticator?format=json") }}">accounts and codes</a>.</p>
+  <div class="modal-actions"><button type="button" class="btn" data-closes>OK</button></div>
+</dialog>
+{% endblock %}
+{% block scripts %}<script src="{{ crate::routes::asset_url("devbox.js") }}" defer></script>{% endblock %}

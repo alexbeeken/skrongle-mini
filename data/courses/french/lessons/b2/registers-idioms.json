@@ -1,0 +1,579 @@
+{
+  "id": "b2-registers-idioms",
+  "slug": "registers-idioms",
+  "title": "Registers and idioms: soutenu, courant, familier",
+  "unit": "B2",
+  "group": "Vocabulary",
+  "order": 30,
+  "summary": "The same idea in three registers, the features of spoken French, and twelve everyday idioms with what they really mean.",
+  "focus": "Choosing the right register and understanding common idioms",
+  "prerequisites": [
+    "b2-discourse-argumentation"
+  ],
+  "content": "## Three registers: soutenu, courant, familier\n\nFrench often has three words for one thing:\n\n| soutenu | courant | familier | meaning |\n|---|---|---|---|\n| demeurer | habiter | crécher | to live |\n| un véhicule | une voiture | une bagnole | a car |\n| se restaurer | manger | bouffer | to eat |\n| un ouvrage | un livre | un bouquin | a book |\n\n- **Soutenu** (formal): official letters, speeches, literature.\n- **Courant** (standard): safe with anyone, anywhere.\n- **Familier** (informal): friends, family, texting.\n\nA familier word in a job interview sounds rude; a soutenu one among friends sounds pompous. When in doubt, stay **courant**.\n\n## Spoken French and the soutenu inversion\n\nEveryday speech takes shortcuts:\n\n- **ne** disappears: **Je sais pas.** (= je ne sais pas)\n- **on** replaces **nous**: **On y va ?** (Shall we go?)\n- **t'as** = tu as, **t'es** = tu es, **y a** = il y a\n- **vachement** = really, very: **C'est vachement bien.**\n- **un truc**, **un machin** = a thing, a whatsit\n\nThe soutenu register does the opposite: full negation and **inversion** in questions.\n\n| soutenu | courant | familier |\n|---|---|---|\n| Où allez-vous ? | Où est-ce que vous allez ? | Vous allez où ? |\n| Puis-je entrer ? | Est-ce que je peux entrer ? | Je peux entrer ? |\n\n## Twelve idioms\n\nAn idiom means more than its words: **avoir le cafard** is literally *to have the cockroach*. The vocabulary list gives every literal picture.\n\n- **avoir le cafard**: feel down\n- **poser un lapin**: stand someone up\n- **tomber dans les pommes**: faint\n- **coûter les yeux de la tête**: cost a fortune\n- **être dans la lune**: be miles away\n- **avoir la flemme** (familier): can't be bothered\n- **casser les pieds** (familier): annoy\n- **il pleut des cordes**: it's pouring\n- **avoir un poil dans la main** (*a hair in the hand*): be bone idle\n- **mettre les pieds dans le plat** (*feet in the dish*): put your foot in it\n- **avoir le coup de foudre** (*the lightning strike*): fall in love at first sight\n- **donner sa langue au chat** (*give your tongue to the cat*): give up guessing",
+  "vocabulary": [
+    {
+      "term": "demeurer",
+      "meaning": "to reside, to live (soutenu)",
+      "example": "Madame Dupont demeure au 12, rue Victor-Hugo.",
+      "example_meaning": "Mrs Dupont resides at 12 rue Victor-Hugo."
+    },
+    {
+      "term": "crécher",
+      "meaning": "to live, to stay (familier)",
+      "example": "Tu crèches où en ce moment ?",
+      "example_meaning": "Where are you staying at the moment?"
+    },
+    {
+      "term": "une bagnole",
+      "meaning": "car (familier) (f)",
+      "example": "Sa bagnole est encore en panne.",
+      "example_meaning": "His car has broken down again."
+    },
+    {
+      "term": "bouffer",
+      "meaning": "to eat (familier)",
+      "example": "On va bouffer une pizza ?",
+      "example_meaning": "Shall we grab a pizza?"
+    },
+    {
+      "term": "vachement",
+      "meaning": "really, very (familier)",
+      "example": "Ce film est vachement bien.",
+      "example_meaning": "This film is really good."
+    },
+    {
+      "term": "un truc",
+      "meaning": "thing, whatsit (familier) (m)",
+      "example": "Passe-moi le truc sur la table.",
+      "example_meaning": "Pass me the thing on the table."
+    },
+    {
+      "term": "avoir le cafard",
+      "meaning": "to feel down (lit. to have the cockroach)",
+      "example": "Le dimanche soir, j'ai souvent le cafard.",
+      "example_meaning": "On Sunday evenings I often feel down."
+    },
+    {
+      "term": "poser un lapin",
+      "meaning": "to stand someone up (lit. to put down a rabbit)",
+      "example": "Julie m'a posé un lapin hier soir.",
+      "example_meaning": "Julie stood me up last night."
+    },
+    {
+      "term": "tomber dans les pommes",
+      "meaning": "to faint (lit. to fall into the apples)",
+      "example": "Il a vu la piqûre et il est tombé dans les pommes.",
+      "example_meaning": "He saw the injection and fainted."
+    },
+    {
+      "term": "coûter les yeux de la tête",
+      "meaning": "to cost a fortune (lit. to cost the eyes of the head)",
+      "example": "Les loyers à Paris coûtent les yeux de la tête.",
+      "example_meaning": "Rents in Paris cost a fortune."
+    },
+    {
+      "term": "être dans la lune",
+      "meaning": "to be miles away, to daydream (lit. to be in the moon)",
+      "example": "Pardon, je n'ai pas entendu, j'étais dans la lune.",
+      "example_meaning": "Sorry, I didn't hear, I was miles away."
+    },
+    {
+      "term": "avoir la flemme",
+      "meaning": "to not be bothered, to feel too lazy (familier)",
+      "example": "J'ai la flemme de faire la vaisselle.",
+      "example_meaning": "I can't be bothered to do the washing-up."
+    },
+    {
+      "term": "casser les pieds",
+      "meaning": "to annoy, to bore stiff (lit. to break someone's feet)",
+      "example": "Arrête, tu me casses les pieds !",
+      "example_meaning": "Stop it, you're getting on my nerves!"
+    },
+    {
+      "term": "il pleut des cordes",
+      "meaning": "it's pouring (lit. it's raining ropes)",
+      "example": "Prends un parapluie, il pleut des cordes.",
+      "example_meaning": "Take an umbrella, it's pouring."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-registers-idioms-01",
+      "prompt": "Which word for 'car' is familier?",
+      "type": "multiple-choice",
+      "options": [
+        "une bagnole",
+        "un véhicule",
+        "une voiture"
+      ],
+      "correct_answer": "une bagnole",
+      "explanation": "Un véhicule is soutenu, une voiture courant, une bagnole familier.",
+      "hints": [
+        "The one you'd use with friends, not in a letter."
+      ],
+      "teaches": [
+        "une bagnole"
+      ]
+    },
+    {
+      "question_id": "b2-registers-idioms-02",
+      "prompt": "Marc fainted in the heat. In French: il est ___.",
+      "type": "multiple-choice",
+      "options": [
+        "tombé dans les pommes",
+        "tombé dans la lune",
+        "tombé des cordes"
+      ],
+      "correct_answer": "tombé dans les pommes",
+      "explanation": "Tomber dans les pommes means to faint. One is dans la lune (miles away); it rains des cordes.",
+      "hints": [
+        "Think of fruit."
+      ],
+      "teaches": [
+        "tomber dans les pommes"
+      ]
+    },
+    {
+      "question_id": "b2-registers-idioms-03",
+      "prompt": "Spoken French: « Tu as faim ? » becomes « ___ faim ? »",
+      "type": "fill-in-blank",
+      "correct_answer": "T'as",
+      "accepted_answers": [
+        "t'as"
+      ],
+      "explanation": "In speech tu as shrinks to t'as, as tu es shrinks to t'es.",
+      "hints": [
+        "Drop the u of tu and elide.",
+        "Two letters, an apostrophe, two letters."
+      ]
+    },
+    {
+      "question_id": "b2-registers-idioms-04",
+      "prompt": "True or false: in everyday speech, the French often drop the ne of the negation (je sais pas).",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Dropping ne is normal in speech at every level of society. In writing, and in the soutenu register, keep it: je ne sais pas.",
+      "hints": [
+        "Listen to any French conversation."
+      ]
+    },
+    {
+      "question_id": "b2-registers-idioms-05",
+      "prompt": "Elle m'a ___ : je l'ai attendue une heure au café !",
+      "type": "multiple-choice",
+      "options": [
+        "posé un lapin",
+        "cassé les pieds",
+        "donné sa langue au chat"
+      ],
+      "correct_answer": "posé un lapin",
+      "explanation": "Waiting an hour for someone who never comes means she stood me up, elle m'a posé un lapin.",
+      "hints": [
+        "She never turned up."
+      ],
+      "teaches": [
+        "poser un lapin"
+      ]
+    },
+    {
+      "question_id": "b2-registers-idioms-06",
+      "prompt": "Ce sac de luxe coûte les yeux de la ___.",
+      "type": "fill-in-blank",
+      "correct_answer": "tête",
+      "explanation": "Coûter les yeux de la tête = to cost a fortune (English says an arm and a leg).",
+      "hints": [
+        "Where your eyes are.",
+        "Feminine noun, starts with t."
+      ],
+      "teaches": [
+        "coûter les yeux de la tête"
+      ]
+    },
+    {
+      "question_id": "b2-registers-idioms-07",
+      "prompt": "Which question is soutenu?",
+      "type": "multiple-choice",
+      "options": [
+        "Où demeurez-vous ?",
+        "Tu crèches où ?",
+        "Vous habitez où ?"
+      ],
+      "correct_answer": "Où demeurez-vous ?",
+      "explanation": "Demeurer is the soutenu verb, and the inversion (demeurez-vous) is the soutenu way to ask. Crécher is familier; vous habitez où is courant.",
+      "hints": [
+        "Look for the inversion and the formal verb."
+      ],
+      "teaches": [
+        "demeurer",
+        "crécher"
+      ]
+    },
+    {
+      "question_id": "b2-registers-idioms-08",
+      "prompt": "True or false: avoir le cafard means to have cockroaches in your flat.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Avoir le cafard is an idiom: to feel down, to have the blues.",
+      "hints": [
+        "It's an idiom, not an insect problem."
+      ],
+      "teaches": [
+        "avoir le cafard"
+      ]
+    },
+    {
+      "question_id": "b2-registers-idioms-09",
+      "prompt": "From familier to courant: « On va bouffer ? » becomes « On va ___ ? »",
+      "type": "fill-in-blank",
+      "correct_answer": "manger",
+      "explanation": "Bouffer is the familier verb for manger; se restaurer is the soutenu one.",
+      "hints": [
+        "The everyday verb 'to eat'."
+      ],
+      "teaches": [
+        "bouffer"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-registers-idioms-conv-letter-landlord",
+      "title": "A letter to the landlord",
+      "scenario": "Yanis wants to complain to his landlord about the heating, and his friend Camille helps him change register.",
+      "role_a": "Yanis",
+      "role_b": "Camille",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "T'as deux minutes ? J'ai un truc à écrire à mon proprio.",
+          "meaning": "Have you got two minutes? I've got something to write to my landlord.",
+          "note": "Familier: t'as, un truc, le proprio (le propriétaire)."
+        },
+        {
+          "speaker": "b",
+          "text": "Vas-y. Tu lui dis quoi ?",
+          "meaning": "Go on. What are you telling him?"
+        },
+        {
+          "speaker": "a",
+          "text": "Que le chauffage marche pas depuis une semaine. Ça me casse les pieds !",
+          "meaning": "That the heating hasn't worked for a week. It's driving me mad!"
+        },
+        {
+          "speaker": "b",
+          "text": "D'accord, mais t'écris pas comme ça à ton propriétaire !",
+          "meaning": "OK, but you don't write like that to your landlord!"
+        },
+        {
+          "speaker": "a",
+          "text": "Pourquoi ? C'est pas poli ?",
+          "meaning": "Why? Isn't it polite?"
+        },
+        {
+          "speaker": "b",
+          "text": "C'est familier. Écris plutôt : « Le chauffage ne fonctionne plus depuis une semaine. »",
+          "meaning": "It's informal. Write instead: 'The heating has not been working for a week.'"
+        },
+        {
+          "speaker": "a",
+          "text": "Et « je crèche au troisième » ?",
+          "meaning": "And 'I crash on the third floor'?"
+        },
+        {
+          "speaker": "b",
+          "text": "« Je demeure au troisième étage », ou simplement « j'habite au troisième ».",
+          "meaning": "'I reside on the third floor', or simply 'I live on the third'."
+        },
+        {
+          "speaker": "a",
+          "text": "Et pour finir ? « Merci, à plus » ?",
+          "meaning": "And to finish? 'Thanks, see ya'?"
+        },
+        {
+          "speaker": "b",
+          "text": "Non : « Je vous prie d'agréer, Monsieur, mes salutations distinguées. »",
+          "meaning": "No: 'Yours faithfully.'"
+        },
+        {
+          "speaker": "a",
+          "text": "T'es sérieuse ? Je vais tomber dans les pommes avant la fin de la phrase !",
+          "meaning": "Are you serious? I'll faint before the end of the sentence!"
+        },
+        {
+          "speaker": "b",
+          "text": "Mais non. Allez, au travail !",
+          "meaning": "Of course not. Come on, get to work!"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "On y va ce soir ?",
+      "meaning": "Shall we go tonight?",
+      "note": "In speech, on replaces nous."
+    },
+    {
+      "text": "J'ai la flemme de sortir.",
+      "meaning": "I can't be bothered to go out."
+    },
+    {
+      "text": "Il pleut des cordes depuis ce matin.",
+      "meaning": "It's been pouring since this morning."
+    },
+    {
+      "text": "T'as vu le truc sur la table ?",
+      "meaning": "Did you see the thing on the table?",
+      "note": "T'as = tu as."
+    },
+    {
+      "text": "Ce week-end, ma sœur avait le cafard.",
+      "meaning": "This weekend, my sister was feeling down."
+    },
+    {
+      "text": "Pendant la réunion, Paul était complètement dans la lune.",
+      "meaning": "During the meeting, Paul was completely miles away."
+    },
+    {
+      "text": "Mon voisin a une vieille bagnole qui fait un bruit d'enfer.",
+      "meaning": "My neighbour has an old banger that makes a hell of a noise.",
+      "note": "New word: d'enfer = hellish, a hell of a (familier)."
+    },
+    {
+      "text": "Le directeur prie les visiteurs de bien vouloir patienter à l'accueil.",
+      "meaning": "The director kindly asks visitors to wait at reception.",
+      "note": "New word: patienter = to wait (formal)."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Three registers"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b2-registers-idioms-01"
+    },
+    {
+      "question": "b2-registers-idioms-07"
+    },
+    {
+      "question": "b2-registers-idioms-09"
+    },
+    {
+      "section": "Spoken French"
+    },
+    {
+      "question": "b2-registers-idioms-03"
+    },
+    {
+      "question": "b2-registers-idioms-04"
+    },
+    {
+      "tip": "Stay courant when in doubt. It is never rude and never pompous."
+    },
+    {
+      "section": "Twelve idioms"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-registers-idioms-05"
+    },
+    {
+      "question": "b2-registers-idioms-02"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-registers-idioms-06"
+    },
+    {
+      "question": "b2-registers-idioms-08"
+    },
+    {
+      "concept": {
+        "title": "Words you'll hear in the street",
+        "markdown": "**Le boulot** (job), **le fric** (money), **le mec** (guy), **un pote** (mate), **le flic** (cop). Films and streets are full of them. Understand them all, but use them only with friends. Some come from **verlan**, slang that flips syllables: **ouf** is **fou** backwards."
+      }
+    }
+  ],
+  "sprint": {
+    "icon": "🎩",
+    "bites": [
+      {
+        "title": "Three levels",
+        "emoji": "🎚️",
+        "rule": "Soutenu for formal writing and speeches, courant with anyone, familier among friends. Same meaning, different word: demeurer, habiter, crécher.",
+        "example": "Je crèche chez mon frère.",
+        "example_meaning": "I'm staying at my brother's."
+      },
+      {
+        "title": "Spoken shortcuts",
+        "emoji": "🗣️",
+        "rule": "In speech, ne disappears (je sais pas), on replaces nous, and tu as shrinks to t'as.",
+        "example": "T'as raison, on sait pas.",
+        "example_meaning": "You're right, we don't know."
+      },
+      {
+        "title": "Soutenu inverts",
+        "emoji": "🎩",
+        "rule": "Formal questions invert subject and verb: Où allez-vous ? Puis-je entrer ? Speech keeps the word order: Vous allez où ?",
+        "example": "Puis-je vous aider ?",
+        "example_meaning": "May I help you?"
+      },
+      {
+        "title": "Idioms mean more",
+        "emoji": "🐇",
+        "rule": "An idiom's meaning is not its words: poser un lapin = to stand someone up, avoir le cafard = to feel down.",
+        "example": "Il m'a posé un lapin samedi.",
+        "example_meaning": "He stood me up on Saturday."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Soutenu, courant or familier?",
+        "buckets": [
+          "soutenu",
+          "courant",
+          "familier"
+        ],
+        "items": [
+          {
+            "text": "demeurer",
+            "bucket": 0
+          },
+          {
+            "text": "habiter",
+            "bucket": 1
+          },
+          {
+            "text": "crécher",
+            "bucket": 2
+          },
+          {
+            "text": "un véhicule",
+            "bucket": 0
+          },
+          {
+            "text": "une voiture",
+            "bucket": 1
+          },
+          {
+            "text": "une bagnole",
+            "bucket": 2
+          },
+          {
+            "text": "se restaurer",
+            "bucket": 0
+          },
+          {
+            "text": "bouffer",
+            "bucket": 2
+          }
+        ],
+        "why": "Each triple says the same thing at three levels: demeurer / habiter / crécher, véhicule / voiture / bagnole, se restaurer / manger / bouffer."
+      },
+      {
+        "title": "Formal or familiar question?",
+        "buckets": [
+          "soutenu",
+          "familier"
+        ],
+        "items": [
+          {
+            "text": "Puis-je entrer ?",
+            "bucket": 0
+          },
+          {
+            "text": "Je peux entrer ?",
+            "bucket": 1
+          },
+          {
+            "text": "Où allez-vous ?",
+            "bucket": 0
+          },
+          {
+            "text": "Vous allez où ?",
+            "bucket": 1
+          },
+          {
+            "text": "Que voulez-vous ?",
+            "bucket": 0
+          },
+          {
+            "text": "Tu veux quoi ?",
+            "bucket": 1
+          }
+        ],
+        "why": "Inversion (puis-je, allez-vous, voulez-vous) is soutenu; speech keeps the statement order and puts the question word at the end."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Madame, je vous prie d'excuser mon retard : ma bagnole est en panne.",
+        "wrong": "bagnole",
+        "fix": "voiture",
+        "why": "A formal apology needs a courant or soutenu word: voiture, not the familier bagnole."
+      },
+      {
+        "sentence": "Il m'a posé un chat hier soir.",
+        "wrong": "chat",
+        "fix": "lapin",
+        "why": "To stand someone up is poser un lapin."
+      },
+      {
+        "sentence": "Ce manteau coûte les yeux de la main.",
+        "wrong": "main",
+        "fix": "tête",
+        "why": "The idiom is coûter les yeux de la tête."
+      },
+      {
+        "sentence": "Elle est tombée dans les poires.",
+        "wrong": "poires",
+        "fix": "pommes",
+        "why": "To faint is tomber dans les pommes."
+      },
+      {
+        "sentence": "J'ai le lapin depuis ce matin, tout me paraît triste.",
+        "wrong": "lapin",
+        "fix": "cafard",
+        "why": "Feeling down is avoir le cafard."
+      }
+    ],
+    "builds": [
+      {
+        "text": "On va au cinéma ce soir ?",
+        "meaning": "Shall we go to the cinema tonight?",
+        "distractors": [
+          "allons"
+        ]
+      },
+      {
+        "text": "Il m'a posé un lapin.",
+        "meaning": "He stood me up.",
+        "distractors": [
+          "chat"
+        ]
+      },
+      {
+        "text": "Puis-je vous poser une question ?",
+        "meaning": "May I ask you a question?",
+        "distractors": [
+          "tu"
+        ]
+      },
+      {
+        "text": "Ce sac coûte les yeux de la tête.",
+        "meaning": "This bag costs a fortune.",
+        "distractors": [
+          "main"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t("terms.page.title") }}{% endblock %}
+{% block content %}
+<article class="prose narrow" data-testid="terms-page" data-terms-version="{{ version }}">
+  {{ html|safe }}
+  <p class="muted small" data-testid="terms-version">{{ crate::t1("terms.page.version", "version", version) }} · <a href="{{ crate::url("/terms.md") }}" data-testid="terms-raw">{{ crate::t("terms.page.markdown") }}</a> · <a href="{{ crate::url("/privacy") }}" data-testid="terms-privacy-link">{{ crate::t("terms.page.privacy") }}</a></p>
+</article>
+{% endblock %}

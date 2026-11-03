@@ -1,0 +1,569 @@
+{
+  "id": "c1-letters-and-articles",
+  "slug": "letters-and-articles",
+  "title": "Estimada señora: formal letters, complaints and articles",
+  "unit": "C1",
+  "group": "Vocabulary",
+  "order": 32,
+  "summary": "Write a formal letter, a complaint and a cover letter with the right frame and formulas, and name the parts of a newspaper article.",
+  "focus": "Text genres: formal letters and press articles",
+  "prerequisites": [
+    "c1-formal-writing",
+    "b2-register"
+  ],
+  "content": "## The frame of a formal letter\n\n- **Greeting**, followed by a **colon**, not a comma: ***Estimado señor Ruiz:*** / ***Estimada señora López:*** / ***Estimados señores:***. More traditional: **Muy señor mío:**, **Muy señores míos:**.\n- **Opening**: ***Me dirijo a usted** para…*, ***Me pongo en contacto con ustedes** en relación con…*\n- **Closing**: ***Quedo a la espera de** su respuesta.* Then ***Atentamente,*** or ***Un cordial saludo,*** and your name. The classic ***Sin otro particular, le saluda atentamente*** still appears in official letters.\n\n## Polite requests\n\nUse **usted** from start to finish (su, le, ustedes), and soften requests:\n\n- **Le agradecería que + imperfect subjunctive**: *Le agradecería que me **enviara** una copia.*\n- **Les ruego que + present subjunctive**: *Les ruego que **revisen** mi caso.*\n- **¿Sería tan amable de + infinitive?**\n\n## Complaints and applications\n\n- complaint: **presentar una reclamación**; in Spanish shops you can ask for **la hoja de reclamaciones**; ask for **el reembolso** (refund) of **el importe** (amount).\n- cover letter: ***Adjunto** mi currículum*; ***Quedo a su disposición** para una entrevista*.\n- Keep one register: no *¿qué tal?*, no *besos*, no *tú*.\n\n## The parts of a news article\n\n| part | what it is |\n|---|---|\n| **el titular** | headline, in the present tense and often without an article: *El Gobierno aprueba la reforma* |\n| **la entradilla** | the opening paragraph: who, what, when, where |\n| **el cuerpo** | details, most important first |\n| **la columna de opinión** | a signed opinion piece; **el editorial** is the paper's own view |",
+  "vocabulary": [
+    {
+      "term": "estimado / estimada",
+      "meaning": "dear (formal letter greeting)",
+      "example": "Estimada señora Pardo: le escribo en relación con su anuncio.",
+      "example_meaning": "Dear Ms Pardo, I am writing regarding your advertisement."
+    },
+    {
+      "term": "me dirijo a usted",
+      "meaning": "I am writing to you (formal)",
+      "example": "Me dirijo a usted para solicitar una cita con el director.",
+      "example_meaning": "I am writing to request an appointment with the director."
+    },
+    {
+      "term": "le agradecería que",
+      "meaning": "I would be grateful if you (+ imperfect subjunctive)",
+      "example": "Le agradecería que me confirmara la reserva por escrito.",
+      "example_meaning": "I would be grateful if you could confirm the booking in writing."
+    },
+    {
+      "term": "quedo a la espera de",
+      "meaning": "I look forward to (formal closing)",
+      "example": "Quedo a la espera de sus noticias.",
+      "example_meaning": "I look forward to hearing from you."
+    },
+    {
+      "term": "atentamente",
+      "meaning": "yours faithfully, yours sincerely",
+      "example": "Atentamente, Lucía Morales.",
+      "example_meaning": "Yours sincerely, Lucía Morales."
+    },
+    {
+      "term": "un cordial saludo",
+      "meaning": "kind regards",
+      "example": "Gracias por su atención. Un cordial saludo.",
+      "example_meaning": "Thank you for your attention. Kind regards."
+    },
+    {
+      "term": "la reclamación",
+      "meaning": "the complaint, the claim",
+      "example": "Presenté una reclamación porque nunca llegó el paquete.",
+      "example_meaning": "I made a complaint because the parcel never arrived."
+    },
+    {
+      "term": "la hoja de reclamaciones",
+      "meaning": "the official complaints form (Spain)",
+      "example": "Si no me devuelven el dinero, pediré la hoja de reclamaciones.",
+      "example_meaning": "If they don't give me my money back, I'll ask for the complaints form."
+    },
+    {
+      "term": "el reembolso",
+      "meaning": "the refund",
+      "example": "Solicito el reembolso del billete cancelado.",
+      "example_meaning": "I request a refund for the cancelled ticket."
+    },
+    {
+      "term": "adjuntar",
+      "meaning": "to attach, to enclose",
+      "example": "Adjunto la factura y una fotografía del producto dañado.",
+      "example_meaning": "I attach the invoice and a photo of the damaged product."
+    },
+    {
+      "term": "quedo a su disposición",
+      "meaning": "I remain at your disposal",
+      "example": "Quedo a su disposición para cualquier aclaración.",
+      "example_meaning": "I remain at your disposal for any clarification."
+    },
+    {
+      "term": "el titular",
+      "meaning": "the headline",
+      "example": "El titular de hoy ocupa media portada.",
+      "example_meaning": "Today's headline takes up half the front page."
+    },
+    {
+      "term": "la entradilla",
+      "meaning": "the lead paragraph (of a news story)",
+      "example": "La entradilla resume la noticia en dos frases.",
+      "example_meaning": "The lead paragraph sums up the story in two sentences."
+    },
+    {
+      "term": "la columna de opinión",
+      "meaning": "the opinion column",
+      "example": "Escribe una columna de opinión todos los domingos.",
+      "example_meaning": "She writes an opinion column every Sunday."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "c1-letters-and-articles-01",
+      "prompt": "Which greeting is correct for a formal letter?",
+      "type": "multiple-choice",
+      "options": [
+        "Estimada señora López:",
+        "Estimada señora López,",
+        "Querida señora López:"
+      ],
+      "correct_answer": "Estimada señora López:",
+      "explanation": "A Spanish formal greeting ends with a colon. Querida is for people you know well.",
+      "hints": [
+        "Check the punctuation and the adjective."
+      ],
+      "teaches": [
+        "estimado / estimada"
+      ]
+    },
+    {
+      "question_id": "c1-letters-and-articles-02",
+      "prompt": "Me ___ a ustedes para solicitar información sobre el curso.",
+      "type": "fill-in-blank",
+      "correct_answer": "dirijo",
+      "explanation": "Me dirijo a ustedes means \"I am writing to you\" (formal opening).",
+      "hints": [
+        "Dirigirse, yo: g changes to j."
+      ],
+      "teaches": [
+        "me dirijo a usted"
+      ]
+    },
+    {
+      "question_id": "c1-letters-and-articles-03",
+      "prompt": "Le agradecería que me ___ una copia del contrato.",
+      "type": "multiple-choice",
+      "options": [
+        "enviara",
+        "envía",
+        "enviará"
+      ],
+      "correct_answer": "enviara",
+      "explanation": "Le agradecería que (conditional) takes the imperfect subjunctive: enviara (or enviase).",
+      "hints": [
+        "A conditional in the main clause calls for the past subjunctive."
+      ],
+      "teaches": [
+        "le agradecería que"
+      ]
+    },
+    {
+      "question_id": "c1-letters-and-articles-04",
+      "prompt": "Quedo a la ___ de su respuesta.",
+      "type": "fill-in-blank",
+      "correct_answer": "espera",
+      "explanation": "Quedo a la espera de… means \"I look forward to…\".",
+      "hints": [
+        "The noun for esperar: la …"
+      ],
+      "teaches": [
+        "quedo a la espera de"
+      ]
+    },
+    {
+      "question_id": "c1-letters-and-articles-05",
+      "prompt": "Which sign-off suits a formal letter?",
+      "type": "multiple-choice",
+      "options": [
+        "Atentamente,",
+        "Besos,",
+        "Un abrazo,"
+      ],
+      "correct_answer": "Atentamente,",
+      "explanation": "Atentamente (or Un cordial saludo) closes a formal letter; besos and un abrazo are for friends.",
+      "hints": [
+        "Not for friends."
+      ],
+      "teaches": [
+        "atentamente"
+      ]
+    },
+    {
+      "question_id": "c1-letters-and-articles-06",
+      "prompt": "___ mi currículum para su consideración. (I attach)",
+      "type": "fill-in-blank",
+      "correct_answer": "Adjunto",
+      "explanation": "Adjuntar means \"to attach\": adjunto mi currículum.",
+      "hints": [
+        "Yo form of adjuntar."
+      ],
+      "teaches": [
+        "adjuntar"
+      ]
+    },
+    {
+      "question_id": "c1-letters-and-articles-07",
+      "prompt": "In a shop in Spain, to make an official complaint you ask for…",
+      "type": "multiple-choice",
+      "options": [
+        "la hoja de reclamaciones",
+        "el titular",
+        "la entradilla"
+      ],
+      "correct_answer": "la hoja de reclamaciones",
+      "explanation": "Businesses in Spain must provide an official complaints form, la hoja de reclamaciones.",
+      "hints": [
+        "Reclamar = to complain."
+      ],
+      "teaches": [
+        "la hoja de reclamaciones"
+      ]
+    },
+    {
+      "question_id": "c1-letters-and-articles-08",
+      "prompt": "The first paragraph of a news story, which sums it up, is…",
+      "type": "multiple-choice",
+      "options": [
+        "la entradilla",
+        "el titular",
+        "la columna de opinión"
+      ],
+      "correct_answer": "la entradilla",
+      "explanation": "La entradilla is the lead paragraph; el titular is the headline.",
+      "hints": [
+        "Not the headline itself."
+      ],
+      "teaches": [
+        "la entradilla",
+        "el titular"
+      ]
+    },
+    {
+      "question_id": "c1-letters-and-articles-09",
+      "prompt": "Which sentence does NOT fit a formal letter?",
+      "type": "multiple-choice",
+      "options": [
+        "¿Qué tal todo? Te escribo porque tengo un problema.",
+        "Me pongo en contacto con ustedes en relación con mi pedido.",
+        "Les ruego que revisen mi caso."
+      ],
+      "correct_answer": "¿Qué tal todo? Te escribo porque tengo un problema.",
+      "explanation": "¿Qué tal? and tú break the formal register.",
+      "hints": [
+        "Look for tú."
+      ],
+      "teaches": []
+    }
+  ],
+  "listening": [
+    {
+      "text": "Me dirijo a ustedes para presentar una reclamación.",
+      "meaning": "I am writing to you to make a complaint."
+    },
+    {
+      "text": "Le agradecería que me respondiera lo antes posible.",
+      "meaning": "I would be grateful if you could reply as soon as possible."
+    },
+    {
+      "text": "Le envío adjunta una copia de la factura.",
+      "meaning": "I enclose a copy of the invoice."
+    },
+    {
+      "text": "Quedo a la espera de que me confirmen la fecha.",
+      "meaning": "I look forward to your confirming the date."
+    },
+    {
+      "text": "Sin otro particular, le saluda atentamente.",
+      "meaning": "With nothing further to add, yours faithfully.",
+      "note": "A traditional formal closing."
+    },
+    {
+      "text": "Solicito el reembolso íntegro del importe.",
+      "meaning": "I request a full refund of the amount.",
+      "note": "New word: el importe = the amount."
+    },
+    {
+      "text": "El titular de hoy habla de la subida de los alquileres.",
+      "meaning": "Today's headline is about the rise in rents.",
+      "note": "New word: la subida = the rise."
+    },
+    {
+      "text": "La columna de opinión de los domingos es la más leída del periódico.",
+      "meaning": "The Sunday opinion column is the most read in the paper."
+    }
+  ],
+  "guide": [
+    {
+      "section": "The frame of a formal letter"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "c1-letters-and-articles-01"
+    },
+    {
+      "question": "c1-letters-and-articles-02"
+    },
+    {
+      "question": "c1-letters-and-articles-04"
+    },
+    {
+      "question": "c1-letters-and-articles-05"
+    },
+    {
+      "section": "Polite requests"
+    },
+    {
+      "question": "c1-letters-and-articles-03"
+    },
+    {
+      "tip": "Pick usted in the first line and keep it: su, le, ustedes. One tú breaks the whole letter."
+    },
+    {
+      "section": "Complaints and applications"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "c1-letters-and-articles-06"
+    },
+    {
+      "question": "c1-letters-and-articles-07"
+    },
+    {
+      "question": "c1-letters-and-articles-09"
+    },
+    {
+      "section": "The parts of a news article"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "c1-letters-and-articles-08"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "c1-letters-and-articles-conv-complaint",
+      "title": "The complaint letter",
+      "scenario": "Ana helps her father Manuel write to an airline that lost his suitcase.",
+      "role_a": "Manuel",
+      "role_b": "Ana",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Empiezo así: «Hola, buenas. Os escribo porque habéis perdido mi maleta».",
+          "meaning": "I'll start like this: 'Hi there. I'm writing because you've lost my suitcase.'"
+        },
+        {
+          "speaker": "b",
+          "text": "Papá, es una carta formal. Mejor: «Estimados señores:».",
+          "meaning": "Dad, it's a formal letter. Better: 'Dear Sirs,'"
+        },
+        {
+          "speaker": "a",
+          "text": "Vale. «Me dirijo a ustedes para presentar una reclamación».",
+          "meaning": "OK. 'I am writing to you to make a complaint.'"
+        },
+        {
+          "speaker": "b",
+          "text": "Muy bien. Ahora explica qué vuelo era y cuándo pasó.",
+          "meaning": "Very good. Now explain which flight it was and when it happened."
+        },
+        {
+          "speaker": "a",
+          "text": "Y luego: «Quiero mi dinero ya».",
+          "meaning": "And then: 'I want my money now.'"
+        },
+        {
+          "speaker": "b",
+          "text": "Más suave: «Les agradecería que me tramitaran el reembolso».",
+          "meaning": "Softer: 'I would be grateful if you could process the refund.'",
+          "note": "les agradecería que + imperfect subjunctive (les: the letter is to ustedes)."
+        },
+        {
+          "speaker": "a",
+          "text": "¿Y adjunto la tarjeta de embarque?",
+          "meaning": "And do I attach the boarding pass?"
+        },
+        {
+          "speaker": "b",
+          "text": "Sí: «Adjunto la tarjeta de embarque y el resguardo de la maleta».",
+          "meaning": "Yes: 'I attach the boarding pass and the baggage receipt.'"
+        },
+        {
+          "speaker": "a",
+          "text": "Para terminar pongo «Besos, Manolo», ¿no?",
+          "meaning": "To finish I'll put 'Love, Manolo', right?"
+        },
+        {
+          "speaker": "b",
+          "text": "Ni se te ocurra. «Quedo a la espera de su respuesta. Atentamente».",
+          "meaning": "Don't you dare. 'I look forward to your reply. Yours faithfully.'"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "✉️",
+    "bites": [
+      {
+        "title": "Greeting and colon",
+        "emoji": "✉️",
+        "rule": "The greeting always ends with a colon, never a comma: Estimado señor Ruiz: / Estimada señora López: / Estimados señores:",
+        "example": "Estimada señora López:",
+        "example_meaning": "Dear Ms López,"
+      },
+      {
+        "title": "Ask politely",
+        "emoji": "🙏",
+        "rule": "Le agradecería que + imperfect subjunctive (me enviara). Les ruego que + present subjunctive (revisen).",
+        "example": "Le agradecería que me respondiera.",
+        "example_meaning": "I would be grateful if you could reply."
+      },
+      {
+        "title": "Close the letter",
+        "emoji": "🖋️",
+        "rule": "Quedo a la espera de su respuesta. Atentamente, or Un cordial saludo, and your name. Usted all the way through.",
+        "example": "Quedo a la espera de su respuesta.",
+        "example_meaning": "I look forward to your reply."
+      },
+      {
+        "title": "Read the paper",
+        "emoji": "📰",
+        "rule": "El titular (headline), la entradilla (lead paragraph), el cuerpo, la columna de opinión, el editorial.",
+        "example": "El titular resume la noticia.",
+        "example_meaning": "The headline sums up the story."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "To a friend or formal?",
+        "buckets": [
+          "to a friend",
+          "formal letter"
+        ],
+        "items": [
+          {
+            "text": "Querida Ana:",
+            "bucket": 0
+          },
+          {
+            "text": "Estimada señora Ruiz:",
+            "bucket": 1
+          },
+          {
+            "text": "Un abrazo",
+            "bucket": 0
+          },
+          {
+            "text": "Atentamente",
+            "bucket": 1
+          },
+          {
+            "text": "Te escribo para contarte…",
+            "bucket": 0
+          },
+          {
+            "text": "Me dirijo a usted para…",
+            "bucket": 1
+          },
+          {
+            "text": "¿Me mandas las fotos?",
+            "bucket": 0
+          },
+          {
+            "text": "Le agradecería que me enviara…",
+            "bucket": 1
+          }
+        ],
+        "why": "A formal letter uses usted and fixed formulas; a friendly one uses tú and warmth."
+      },
+      {
+        "title": "Where does it go in the letter?",
+        "buckets": [
+          "opening",
+          "body",
+          "closing"
+        ],
+        "items": [
+          {
+            "text": "Estimado señor:",
+            "bucket": 0
+          },
+          {
+            "text": "Me dirijo a usted para…",
+            "bucket": 0
+          },
+          {
+            "text": "Le agradecería que…",
+            "bucket": 1
+          },
+          {
+            "text": "Adjunto la factura.",
+            "bucket": 1
+          },
+          {
+            "text": "Quedo a la espera de su respuesta.",
+            "bucket": 2
+          },
+          {
+            "text": "Atentamente,",
+            "bucket": 2
+          }
+        ],
+        "why": "Greeting and purpose first, requests and documents in the body, formulas at the end."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Estimado señora García:",
+        "wrong": "Estimado",
+        "fix": "Estimada",
+        "why": "It agrees with señora."
+      },
+      {
+        "sentence": "Le agradecería que me envía la factura.",
+        "wrong": "envía",
+        "fix": "enviara",
+        "why": "Le agradecería que takes the imperfect subjunctive."
+      },
+      {
+        "sentence": "Quedo a la espera de tu respuesta.",
+        "wrong": "tu",
+        "fix": "su",
+        "why": "A formal letter uses usted: su respuesta."
+      },
+      {
+        "sentence": "Me dirijo a usted por solicitar información.",
+        "wrong": "por",
+        "fix": "para",
+        "why": "Purpose takes para."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Le agradecería que me respondiera pronto.",
+        "meaning": "I would be grateful if you replied soon.",
+        "distractors": [
+          "responde"
+        ]
+      },
+      {
+        "text": "Quedo a la espera de su respuesta.",
+        "meaning": "I look forward to your reply.",
+        "distractors": [
+          "tu"
+        ]
+      },
+      {
+        "text": "Me dirijo a usted para reclamar.",
+        "meaning": "I am writing to you to complain.",
+        "distractors": [
+          "por"
+        ]
+      },
+      {
+        "text": "Adjunto mi currículum y una carta.",
+        "meaning": "I attach my CV and a letter.",
+        "distractors": [
+          "adjuntas"
+        ]
+      }
+    ]
+  }
+}

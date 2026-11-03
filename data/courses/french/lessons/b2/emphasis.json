@@ -1,0 +1,543 @@
+{
+  "id": "b2-emphasis",
+  "slug": "emphasis",
+  "title": "Emphasis: c'est… qui, ce qui me plaît, c'est…",
+  "unit": "B2",
+  "group": "Grammar",
+  "order": 16,
+  "summary": "Highlighting one part of the sentence with c'est… qui / que, ce qui… c'est, ce que… c'est, ce dont… c'est, and the dislocation of spoken French.",
+  "focus": "Putting the stress on the new or important information, where English would use the voice",
+  "prerequisites": [
+    "b1-relative-pronouns"
+  ],
+  "content": "## C'est… qui, c'est… que\n\nEnglish can stress a word with the voice: *PAUL won*. French moves the word into a frame instead, and the frame points at the **new information**.\n\n- the **subject** → **c'est … qui**: **C'est Paul qui a gagné.** (It's Paul who won.)\n- **anything else** (time, place, object, a phrase with a preposition) → **c'est … que**:\n  - **C'est demain que je pars.** — It's tomorrow that I'm leaving.\n  - **C'est à toi que je parle.** — It's you I'm talking to.\n  - **C'est ce livre que je cherchais.** — That's the book I was looking for.\n\nThe preposition stays in front of the stressed word: **c'est avec elle que**, **c'est pour ça que**. In the negative: **Ce n'est pas moi qui ai fini le gâteau.**\n\n## Agreement after c'est… qui\n\nAfter **c'est** come the stress pronouns (**moi, toi, lui, elle, nous, vous, eux, elles**). The verb after **qui** agrees with that pronoun, not with **c'est**:\n\n| | |\n|---|---|\n| **c'est moi qui ai raison** | **c'est nous qui sommes en retard** |\n| **c'est toi qui as gagné** | **c'est vous qui avez choisi** |\n| **c'est lui qui paie** | **ce sont eux qui ont appelé** |\n\nWith a plural, careful French says **ce sont**: **Ce sont mes parents qui ont tout organisé.** In speech, **c'est** is also heard.\n\n## Ce qui…, c'est / ce que…, c'est\n\nThe other frame starts with the topic and keeps the new information for the end, after **c'est**:\n\n- **ce qui** (subject): **Ce qui m'inquiète, c'est le prix.** — What worries me is the price.\n- **ce que** (object): **Ce que j'aime, c'est le silence.** — What I love is the quiet.\n- **ce dont** (verbs with **de**): **Ce dont j'ai besoin, c'est de dormir.** — What I need is to sleep.\n\nTo point back at a reason, use **voilà pourquoi** or the spoken **c'est pour ça que**: **J'ai raté le train, voilà pourquoi je suis en retard.**\n\n## Spoken French: the topic out in front\n\nIn conversation, French often puts the topic at the start or the end of the sentence and repeats it with a pronoun. This is called **dislocation**:\n\n- **Le café, je l'adore.** — Coffee, I love it.\n- **Ton frère, il est où ?** — Where's your brother?\n- **Les vacances, on en parle demain ?** — Shall we talk about the holidays tomorrow?\n- **Moi, je pense que c'est trop tard.** — Personally, I think it's too late.\n- **J'y vais, moi.** — I'm off, then. / I'll go.\n\nThe pronoun matches the topic: **le**, **la**, **les**, **en**, **y**, or a stress pronoun such as **moi** or **lui**.",
+  "vocabulary": [
+    {
+      "term": "c'est… qui",
+      "meaning": "it's … who / that (stresses the subject)",
+      "example": "C'est ma sœur qui a préparé le dîner.",
+      "example_meaning": "It was my sister who made dinner."
+    },
+    {
+      "term": "c'est… que",
+      "meaning": "it's … that (stresses anything but the subject)",
+      "example": "C'est à Lyon que nous nous sommes rencontrés.",
+      "example_meaning": "It was in Lyon that we met."
+    },
+    {
+      "term": "ce qui m'inquiète, c'est…",
+      "meaning": "what worries me is…",
+      "example": "Ce qui m'inquiète, c'est la météo de demain.",
+      "example_meaning": "What worries me is tomorrow's weather."
+    },
+    {
+      "term": "ce que j'aime, c'est…",
+      "meaning": "what I like is…",
+      "example": "Ce que j'aime, c'est me promener le dimanche matin.",
+      "example_meaning": "What I like is going for a walk on Sunday mornings."
+    },
+    {
+      "term": "ce dont j'ai besoin, c'est…",
+      "meaning": "what I need is…",
+      "example": "Ce dont j'ai besoin, c'est d'une semaine de vacances.",
+      "example_meaning": "What I need is a week's holiday."
+    },
+    {
+      "term": "voilà pourquoi",
+      "meaning": "that's why",
+      "example": "Il y avait des bouchons : voilà pourquoi je suis en retard.",
+      "example_meaning": "There were traffic jams: that's why I'm late."
+    },
+    {
+      "term": "c'est pour ça que",
+      "meaning": "that's why (spoken)",
+      "example": "J'avais oublié mon téléphone, c'est pour ça que je ne t'ai pas appelé.",
+      "example_meaning": "I'd forgotten my phone, that's why I didn't call you."
+    },
+    {
+      "term": "avoir raison",
+      "meaning": "to be right",
+      "example": "C'est toi qui as raison, pas moi.",
+      "example_meaning": "You're the one who's right, not me."
+    },
+    {
+      "term": "souligner",
+      "meaning": "to stress, to underline",
+      "example": "C'est ce point que je voudrais souligner.",
+      "example_meaning": "That's the point I'd like to stress."
+    },
+    {
+      "term": "moi, je…",
+      "meaning": "as for me, I… / personally, I…",
+      "example": "Moi, je trouve que ce film est trop long.",
+      "example_meaning": "Personally, I find this film too long."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-emphasis-01",
+      "prompt": "C'est moi qui ___ raison, pas toi ! (avoir)",
+      "type": "fill-in-blank",
+      "correct_answer": "ai",
+      "accepted_answers": [],
+      "explanation": "After c'est moi qui, the verb agrees with moi, so it takes the je form: c'est moi qui ai raison.",
+      "hints": [
+        "The verb agrees with moi, not with c'est.",
+        "Avoir, je form."
+      ],
+      "teaches": [
+        "avoir raison"
+      ]
+    },
+    {
+      "question_id": "b2-emphasis-02",
+      "prompt": "Rewrite 'Paul a gagné le match' to stress who won.",
+      "type": "multiple-choice",
+      "options": [
+        "C'est Paul qui a gagné le match.",
+        "C'est Paul que a gagné le match.",
+        "C'est Paul qu'il a gagné le match."
+      ],
+      "correct_answer": "C'est Paul qui a gagné le match.",
+      "explanation": "Paul is the subject of a gagné, so the frame is c'est … qui. Que is for everything except the subject.",
+      "hints": [
+        "Paul does the winning: he is the subject."
+      ],
+      "teaches": [
+        "c'est… qui"
+      ]
+    },
+    {
+      "question_id": "b2-emphasis-03",
+      "prompt": "C'est demain ___ je pars en vacances, pas aujourd'hui.",
+      "type": "fill-in-blank",
+      "correct_answer": "que",
+      "accepted_answers": [],
+      "explanation": "Demain is a time, not the subject, so the frame is c'est … que.",
+      "hints": [
+        "Is demain the subject of je pars?"
+      ],
+      "teaches": [
+        "c'est… que"
+      ]
+    },
+    {
+      "question_id": "b2-emphasis-04",
+      "prompt": "___ m'inquiète, c'est le prix du billet.",
+      "type": "multiple-choice",
+      "options": [
+        "Ce qui",
+        "Ce que",
+        "Ce dont",
+        "Qui"
+      ],
+      "correct_answer": "Ce qui",
+      "explanation": "The pronoun is the subject of m'inquiète, so it is ce qui. Ce que would need a subject of its own (ce que je crains).",
+      "hints": [
+        "Who or what does the worrying? It is the subject."
+      ],
+      "teaches": [
+        "ce qui m'inquiète, c'est…"
+      ]
+    },
+    {
+      "question_id": "b2-emphasis-05",
+      "prompt": "C'est nous qui ___ en retard, désolés ! (être)",
+      "type": "fill-in-blank",
+      "correct_answer": "sommes",
+      "accepted_answers": [],
+      "explanation": "The verb agrees with nous: c'est nous qui sommes en retard.",
+      "hints": [
+        "Être, nous form."
+      ]
+    },
+    {
+      "question_id": "b2-emphasis-06",
+      "prompt": "In 'C'est à toi que je parle', the preposition à has to stay in front of toi.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "With c'est … que, the stressed phrase keeps its preposition: parler à toi → c'est à toi que je parle. *C'est toi que je parle* is wrong.",
+      "hints": [
+        "Parler à quelqu'un."
+      ],
+      "teaches": [
+        "c'est… que"
+      ]
+    },
+    {
+      "question_id": "b2-emphasis-07",
+      "prompt": "Ce ___ j'ai besoin, c'est de dormir un peu.",
+      "type": "multiple-choice",
+      "options": [
+        "dont",
+        "que",
+        "qui",
+        "à quoi"
+      ],
+      "correct_answer": "dont",
+      "explanation": "Avoir besoin de is built with de, so the frame is ce dont … c'est.",
+      "hints": [
+        "Avoir besoin DE quelque chose."
+      ],
+      "teaches": [
+        "ce dont j'ai besoin, c'est…"
+      ]
+    },
+    {
+      "question_id": "b2-emphasis-08",
+      "prompt": "Les épinards, je ne ___ aime pas du tout.",
+      "type": "fill-in-blank",
+      "correct_answer": "les",
+      "accepted_answers": [],
+      "explanation": "In dislocation, the topic put in front (les épinards) is repeated by a pronoun that matches it: masculine plural → les.",
+      "hints": [
+        "Les épinards is plural.",
+        "Which object pronoun stands for a plural noun?"
+      ]
+    },
+    {
+      "question_id": "b2-emphasis-09",
+      "prompt": "In 'J'y vais, moi', the word moi is a mistake, because the sentence already has je.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Repeating the subject with a stress pronoun is normal spoken French. It adds weight: moi, je pense…, j'y vais, moi.",
+      "hints": [
+        "Think of moi, je… at the start of a sentence."
+      ],
+      "teaches": [
+        "moi, je…"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-emphasis-conv-forgotten-cake",
+      "title": "Who forgot the cake?",
+      "scenario": "Léa and Antoine are getting ready for a birthday party when they notice the cake is missing.",
+      "role_a": "Léa",
+      "role_b": "Antoine",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Antoine, c'est toi qui as oublié le gâteau ?",
+          "meaning": "Antoine, was it you who forgot the cake?",
+          "note": "the verb agrees with toi"
+        },
+        {
+          "speaker": "b",
+          "text": "Moi ? Non ! C'est Julien qui devait l'acheter.",
+          "meaning": "Me? No! It was Julien who was supposed to buy it."
+        },
+        {
+          "speaker": "a",
+          "text": "Julien, il ne répond jamais au téléphone, lui.",
+          "meaning": "Julien never answers his phone, that one.",
+          "note": "dislocation"
+        },
+        {
+          "speaker": "b",
+          "text": "Ce qui m'énerve, c'est qu'il ne prévient jamais.",
+          "meaning": "What annoys me is that he never lets anyone know."
+        },
+        {
+          "speaker": "a",
+          "text": "Bon, ce dont on a besoin maintenant, c'est d'un dessert.",
+          "meaning": "Right, what we need now is a dessert.",
+          "note": "avoir besoin de → ce dont"
+        },
+        {
+          "speaker": "b",
+          "text": "La pâtisserie du coin, elle ferme à quelle heure ?",
+          "meaning": "What time does the cake shop on the corner close?"
+        },
+        {
+          "speaker": "a",
+          "text": "À sept heures. C'est maintenant qu'il faut y aller !",
+          "meaning": "At seven. It's now that we have to go!",
+          "note": "c'est … que for a time"
+        },
+        {
+          "speaker": "b",
+          "text": "D'accord, j'y vais, moi. Toi, tu prépares la table ?",
+          "meaning": "OK, I'll go. Will you set the table?"
+        },
+        {
+          "speaker": "a",
+          "text": "Oui. Et c'est moi qui choisis la musique, cette fois !",
+          "meaning": "Yes. And I'm the one choosing the music this time!"
+        },
+        {
+          "speaker": "b",
+          "text": "Ce que tu choisis, c'est toujours du jazz…",
+          "meaning": "What you choose is always jazz…"
+        },
+        {
+          "speaker": "a",
+          "text": "Exactement, et c'est pour ça que mes fêtes sont réussies !",
+          "meaning": "Exactly, and that's why my parties are a success!"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "C'est mon frère qui a fait la cuisine.",
+      "meaning": "It was my brother who did the cooking."
+    },
+    {
+      "text": "C'est en septembre que nous déménageons.",
+      "meaning": "It's in September that we're moving."
+    },
+    {
+      "text": "Ce que je préfère, c'est le silence du matin.",
+      "meaning": "What I like best is the quiet of the morning."
+    },
+    {
+      "text": "C'est vous qui avez choisi ce restaurant ?",
+      "meaning": "Was it you who chose this restaurant?",
+      "note": "The verb agrees with vous."
+    },
+    {
+      "text": "Les clés, je les ai laissées sur la table.",
+      "meaning": "The keys, I left them on the table.",
+      "note": "Dislocation: les repeats les clés."
+    },
+    {
+      "text": "Ce n'est pas moi qui ai cassé la tasse.",
+      "meaning": "It wasn't me who broke the cup.",
+      "note": "New word: casser = to break."
+    },
+    {
+      "text": "Ce qui compte, c'est la santé.",
+      "meaning": "What matters is health.",
+      "note": "New word: compter = to matter."
+    },
+    {
+      "text": "Mon voisin, il passe ses journées à jouer de la trompette.",
+      "meaning": "My neighbour spends his days playing the trumpet.",
+      "note": "New word: la trompette = the trumpet."
+    }
+  ],
+  "guide": [
+    {
+      "section": "C'est… qui, c'est… que"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-emphasis-02"
+    },
+    {
+      "question": "b2-emphasis-03"
+    },
+    {
+      "question": "b2-emphasis-06"
+    },
+    {
+      "section": "Agreement after"
+    },
+    {
+      "question": "b2-emphasis-01"
+    },
+    {
+      "question": "b2-emphasis-05"
+    },
+    {
+      "tip": "Qui or que after c'est? Look at what comes next: a verb straight away means qui (c'est Paul qui a gagné); a subject and a verb means que (c'est Paul que j'ai vu)."
+    },
+    {
+      "section": "Ce qui…, c'est"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-emphasis-04"
+    },
+    {
+      "question": "b2-emphasis-07"
+    },
+    {
+      "section": "Spoken French"
+    },
+    {
+      "question": "b2-emphasis-08"
+    },
+    {
+      "question": "b2-emphasis-09"
+    },
+    {
+      "concept": {
+        "title": "French can't just say it louder",
+        "markdown": "English stresses a single word with the voice: *I* did it, not him. French rarely does that, since its stress falls at the end of a phrase. Instead it moves the word into a frame: **C'est moi qui l'ai fait, pas lui.** Whenever English would raise its voice, reach for **c'est… qui** or **c'est… que**."
+      }
+    }
+  ],
+  "sprint": {
+    "icon": "📢",
+    "bites": [
+      {
+        "title": "C'est… qui for the subject",
+        "emoji": "🎯",
+        "rule": "To stress the subject, frame it: c'est + noun or stress pronoun + qui + verb. C'est Paul qui a gagné.",
+        "example": "C'est Inès qui conduit ce soir.",
+        "example_meaning": "It's Inès who's driving tonight."
+      },
+      {
+        "title": "C'est… que for the rest",
+        "emoji": "🧲",
+        "rule": "To stress a time, a place, an object or a phrase with a preposition, use c'est … que. The preposition stays: c'est à toi que je parle.",
+        "example": "C'est pour toi que j'ai fait ce gâteau.",
+        "example_meaning": "It's for you that I made this cake."
+      },
+      {
+        "title": "Agreement after qui",
+        "emoji": "✍️",
+        "rule": "After c'est moi qui, c'est nous qui…, the verb agrees with the pronoun: c'est moi qui ai raison, c'est nous qui sommes en retard.",
+        "example": "C'est toi qui as les billets ?",
+        "example_meaning": "Is it you who has the tickets?"
+      },
+      {
+        "title": "Ce qui…, c'est…",
+        "emoji": "💬",
+        "rule": "Ce qui (subject), ce que (object) and ce dont (with de) set up the topic; c'est brings the new information at the end.",
+        "example": "Ce que je veux, c'est partir tôt.",
+        "example_meaning": "What I want is to leave early."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Qui or que after c'est…?",
+        "buckets": [
+          "qui",
+          "que"
+        ],
+        "items": [
+          {
+            "text": "C'est Marie ___ a appelé.",
+            "bucket": 0
+          },
+          {
+            "text": "C'est Marie ___ j'ai appelée.",
+            "bucket": 1
+          },
+          {
+            "text": "C'est demain ___ il arrive.",
+            "bucket": 1
+          },
+          {
+            "text": "C'est le chien ___ aboie.",
+            "bucket": 0
+          },
+          {
+            "text": "C'est à Nice ___ ils habitent.",
+            "bucket": 1
+          },
+          {
+            "text": "C'est toi ___ as raison.",
+            "bucket": 0
+          }
+        ],
+        "why": "Qui when the stressed word is the subject (a verb follows straight away); que for everything else (a subject of its own follows)."
+      },
+      {
+        "title": "Ce qui, ce que or ce dont?",
+        "buckets": [
+          "ce qui",
+          "ce que",
+          "ce dont"
+        ],
+        "items": [
+          {
+            "text": "___ me fait peur, c'est l'avion.",
+            "bucket": 0
+          },
+          {
+            "text": "___ je veux, c'est du calme.",
+            "bucket": 1
+          },
+          {
+            "text": "___ j'ai envie, c'est d'une glace.",
+            "bucket": 2
+          },
+          {
+            "text": "___ m'énerve, c'est le bruit.",
+            "bucket": 0
+          },
+          {
+            "text": "___ tu dis, c'est vrai.",
+            "bucket": 1
+          },
+          {
+            "text": "___ on parle, c'est de toi.",
+            "bucket": 2
+          }
+        ],
+        "why": "Ce qui is a subject (a verb follows), ce que an object (a subject follows), ce dont goes with verbs built with de (avoir envie de, parler de)."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "C'est moi qui a raison.",
+        "wrong": "a",
+        "fix": "ai",
+        "why": "The verb agrees with moi: c'est moi qui ai raison."
+      },
+      {
+        "sentence": "C'est nous qui sont en retard.",
+        "wrong": "sont",
+        "fix": "sommes",
+        "why": "The verb agrees with nous: c'est nous qui sommes."
+      },
+      {
+        "sentence": "C'est à Paris qui je suis né.",
+        "wrong": "qui",
+        "fix": "que",
+        "why": "À Paris is a place, not the subject: c'est à Paris que."
+      },
+      {
+        "sentence": "Ce que m'inquiète, c'est le prix.",
+        "wrong": "que",
+        "fix": "qui",
+        "why": "The pronoun is the subject of m'inquiète: ce qui."
+      },
+      {
+        "sentence": "Les frites, je la mange avec les doigts.",
+        "wrong": "la",
+        "fix": "les",
+        "why": "The pronoun repeats les frites, a plural: je les mange."
+      }
+    ],
+    "builds": [
+      {
+        "text": "C'est ma mère qui a gagné.",
+        "meaning": "It was my mother who won.",
+        "distractors": [
+          "que"
+        ]
+      },
+      {
+        "text": "C'est demain que je pars.",
+        "meaning": "It's tomorrow that I'm leaving.",
+        "distractors": [
+          "qui"
+        ]
+      },
+      {
+        "text": "Ce qui m'inquiète, c'est le prix.",
+        "meaning": "What worries me is the price.",
+        "distractors": [
+          "que"
+        ]
+      },
+      {
+        "text": "Moi, je pense qu'il a raison.",
+        "meaning": "Personally, I think he's right.",
+        "distractors": [
+          "me"
+        ]
+      }
+    ]
+  }
+}

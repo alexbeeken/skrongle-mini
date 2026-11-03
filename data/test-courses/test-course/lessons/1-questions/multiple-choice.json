@@ -1,0 +1,82 @@
+{
+  "id": "tc-multiple-choice",
+  "slug": "multiple-choice",
+  "title": "Multiple choice",
+  "unit": "questions",
+  "group": "quiz",
+  "order": 10,
+  "summary": "Tap one of two to four options.",
+  "focus": "multiple-choice questions",
+  "content": "## Multiple choice\n\nTap one option. The options are shuffled every time.\n\n## Two to four options\n\nA question offers two options or more; exactly one is right.",
+  "vocabulary": [
+    {
+      "term": "el gato",
+      "meaning": "cat",
+      "example": "El gato duerme.",
+      "example_meaning": "The cat is sleeping."
+    },
+    {
+      "term": "el perro",
+      "meaning": "dog",
+      "example": "El perro come.",
+      "example_meaning": "The dog is eating."
+    },
+    {
+      "term": "el pájaro",
+      "meaning": "bird",
+      "example": "El pájaro canta.",
+      "example_meaning": "The bird is singing."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "tc-multiple-choice-01",
+      "prompt": "What does 'el gato' mean?",
+      "type": "multiple-choice",
+      "options": [
+        "cat",
+        "dog"
+      ],
+      "correct_answer": "cat",
+      "explanation": "El gato is the cat.",
+      "hints": [
+        "It says miau."
+      ],
+      "teaches": [
+        "el gato"
+      ]
+    },
+    {
+      "question_id": "tc-multiple-choice-02",
+      "prompt": "Which word means 'dog'?",
+      "type": "multiple-choice",
+      "options": [
+        "el gato",
+        "el perro",
+        "el pájaro",
+        "el pez"
+      ],
+      "correct_answer": "el perro",
+      "explanation": "El perro is the dog.",
+      "hints": [
+        "It barks.",
+        "Guau, guau."
+      ],
+      "teaches": [
+        "el perro"
+      ]
+    },
+    {
+      "question_id": "tc-multiple-choice-03",
+      "prompt": "Which one can fly?",
+      "type": "multiple-choice",
+      "options": [
+        "el pájaro",
+        "el perro",
+        "el gato"
+      ],
+      "correct_answer": "el pájaro",
+      "explanation": "El pájaro, the bird."
+    }
+  ]
+}

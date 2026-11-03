@@ -1,0 +1,12 @@
+/* The course home's "Words due" card (templates/home.html, #1360). Split out of style.css. */
+.due-card { display: flex; align-items: center; gap: .6rem 1rem; margin: 1.2rem 0 0; padding: .7rem 1rem; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: var(--radius); }
+.due-what { flex: 1; min-width: 0; display: flex; align-items: baseline; flex-wrap: wrap; gap: .2rem .8rem; }
+.due-what p { margin: 0; }
+.due-words { color: var(--muted); overflow-wrap: anywhere; }
+.due-words span + span::before { content: " · "; }
+.due-card .info-btn { flex-shrink: 0; }
+.due-card .btn { flex-shrink: 0; }
+@media (max-width: 600px) {
+  .due-card { flex-wrap: wrap; }
+  .due-card .btn { flex-basis: 100%; text-align: center; }
+}

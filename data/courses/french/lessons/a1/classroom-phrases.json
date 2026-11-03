@@ -1,0 +1,606 @@
+{
+  "id": "a1-classroom-phrases",
+  "slug": "classroom-phrases",
+  "title": "In class: je ne comprends pas, répétez s'il vous plaît",
+  "unit": "A1",
+  "group": "Vocabulary",
+  "order": 20,
+  "summary": "Survive a French lesson: say you don't understand, ask for a repeat or a word, name the things on your desk and follow the teacher's instructions.",
+  "focus": "Classroom survival phrases, classroom objects and comprendre in the present",
+  "prerequisites": [
+    "a1-alphabet-accents"
+  ],
+  "content": "## Survival phrases\n\nWhen you are lost in a French lesson, these phrases keep you going:\n\n| French | English |\n|---|---|\n| **Je ne comprends pas.** | I don't understand. |\n| **Pouvez-vous répéter, s'il vous plaît ?** | Can you repeat that, please? |\n| **Plus lentement, s'il vous plaît.** | More slowly, please. |\n| **Comment dit-on *pen* en français ?** | How do you say *pen* in French? |\n| **Qu'est-ce que ça veut dire ?** | What does that mean? |\n| **Je ne sais pas.** | I don't know. |\n| **J'ai une question.** | I have a question. |\n\nWith the teacher, use **vous**: **Pouvez-vous répéter ?** or, more relaxed, **Vous pouvez répéter ?** With a classmate, use **tu**: **Tu peux répéter ?**\n\n## Comprendre: to understand\n\n| | comprendre |\n|---|---|\n| je | **comprends** |\n| tu | **comprends** |\n| il / elle / on | **comprend** |\n| nous | **comprenons** |\n| vous | **comprenez** |\n| ils / elles | **comprennent** |\n\nWatch the stem: one **n** in **comprenons** and **comprenez**, two in **comprennent**. The final **-s** and **-d** of **comprends** and **comprend** are silent, so je, tu and il sound the same.\n\n- **Vous comprenez ? — Oui, je comprends.** (Do you understand? — Yes, I do.)\n- **Je ne comprends pas le mot.** (I don't understand the word.)\n\n## In the classroom: objects and instructions\n\n| object | object |\n|---|---|\n| **le stylo**: pen | **le crayon**: pencil |\n| **le cahier**: exercise book | **le livre**: book |\n| **la gomme**: eraser | **la règle**: ruler |\n| **le tableau**: board | **la trousse**: pencil case |\n| **la feuille**: sheet of paper | **l'ordinateur**: computer |\n\nThe teacher speaks to the whole class with **vous** forms:\n\n- **Écoutez.** (Listen.) **Répétez.** (Repeat.)\n- **Lisez.** (Read.) **Écrivez.** (Write.)\n- **Ouvrez votre livre à la page dix.** (Open your book at page ten.)\n- **Fermez votre cahier.** (Close your exercise book.)",
+  "vocabulary": [
+    {
+      "term": "comprendre",
+      "meaning": "to understand",
+      "example": "Tu comprends la question ?",
+      "example_meaning": "Do you understand the question?"
+    },
+    {
+      "term": "répéter",
+      "meaning": "to repeat",
+      "example": "Pouvez-vous répéter, s'il vous plaît ?",
+      "example_meaning": "Could you repeat that, please?"
+    },
+    {
+      "term": "lentement",
+      "meaning": "slowly",
+      "example": "Parlez plus lentement, s'il vous plaît.",
+      "example_meaning": "Please speak more slowly."
+    },
+    {
+      "term": "qu'est-ce que ça veut dire ?",
+      "meaning": "what does that mean?",
+      "example": "Trousse, qu'est-ce que ça veut dire ?",
+      "example_meaning": "Trousse: what does that mean?"
+    },
+    {
+      "term": "comment dit-on… ?",
+      "meaning": "how do you say…?",
+      "example": "Comment dit-on pen en français ?",
+      "example_meaning": "How do you say pen in French?"
+    },
+    {
+      "term": "le stylo",
+      "meaning": "pen",
+      "example": "J'écris avec un stylo bleu.",
+      "example_meaning": "I write with a blue pen."
+    },
+    {
+      "term": "le crayon",
+      "meaning": "pencil",
+      "example": "Tu as un crayon, s'il te plaît ?",
+      "example_meaning": "Do you have a pencil, please?"
+    },
+    {
+      "term": "le cahier",
+      "meaning": "exercise book, notebook",
+      "example": "Écrivez la date dans votre cahier.",
+      "example_meaning": "Write the date in your exercise book."
+    },
+    {
+      "term": "le livre",
+      "meaning": "book",
+      "example": "Ouvrez votre livre à la page dix.",
+      "example_meaning": "Open your book at page ten."
+    },
+    {
+      "term": "la gomme",
+      "meaning": "eraser, rubber (f)",
+      "example": "La gomme est dans la trousse.",
+      "example_meaning": "The eraser is in the pencil case."
+    },
+    {
+      "term": "la règle",
+      "meaning": "ruler (f)",
+      "example": "Ma règle est sur la table.",
+      "example_meaning": "My ruler is on the table."
+    },
+    {
+      "term": "le tableau",
+      "meaning": "board (in a classroom)",
+      "example": "Le professeur écrit au tableau.",
+      "example_meaning": "The teacher writes on the board."
+    },
+    {
+      "term": "la feuille",
+      "meaning": "sheet of paper (f)",
+      "example": "Prenez une feuille et un crayon.",
+      "example_meaning": "Take a sheet of paper and a pencil."
+    },
+    {
+      "term": "l'ordinateur",
+      "meaning": "computer (m)",
+      "example": "L'ordinateur de la classe est neuf.",
+      "example_meaning": "The class computer is new."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-classroom-phrases-01",
+      "prompt": "Je ne ___ pas. Vous pouvez répéter ? (I don't understand. Can you repeat?)",
+      "type": "fill-in-blank",
+      "correct_answer": "comprends",
+      "accepted_answers": [],
+      "explanation": "With je, comprendre is comprends (the s is silent): Je ne comprends pas.",
+      "hints": [
+        "The je form ends in -s.",
+        "Comprendre without the -re, plus s."
+      ],
+      "teaches": [
+        "comprendre"
+      ]
+    },
+    {
+      "question_id": "a1-classroom-phrases-02",
+      "prompt": "Your teacher speaks far too fast for you. What do you say?",
+      "type": "multiple-choice",
+      "options": [
+        "Plus lentement, s'il vous plaît.",
+        "Plus vite, s'il vous plaît.",
+        "Je ne sais pas."
+      ],
+      "correct_answer": "Plus lentement, s'il vous plaît.",
+      "explanation": "Lentement means slowly: Plus lentement, s'il vous plaît = More slowly, please. Plus vite would ask for faster.",
+      "hints": [
+        "You want slower, not faster."
+      ],
+      "teaches": [
+        "lentement"
+      ]
+    },
+    {
+      "question_id": "a1-classroom-phrases-03",
+      "prompt": "Nous ___ le français. (We understand French.)",
+      "type": "fill-in-blank",
+      "correct_answer": "comprenons",
+      "accepted_answers": [
+        "nous comprenons"
+      ],
+      "explanation": "The nous form has one n: nous comprenons. Only ils / elles comprennent doubles it.",
+      "hints": [
+        "-ons for nous.",
+        "One n, not two."
+      ],
+      "teaches": [
+        "comprendre"
+      ]
+    },
+    {
+      "question_id": "a1-classroom-phrases-04",
+      "prompt": "You hear the word 'gomme' and don't know it. Which question asks what it means?",
+      "type": "multiple-choice",
+      "options": [
+        "Gomme, qu'est-ce que ça veut dire ?",
+        "Gomme, comment ça s'écrit ?",
+        "Où est la gomme ?"
+      ],
+      "correct_answer": "Gomme, qu'est-ce que ça veut dire ?",
+      "explanation": "Qu'est-ce que ça veut dire ? asks for the meaning of a word you heard. Comment ça s'écrit ? asks for its spelling.",
+      "hints": [
+        "You want the meaning, not the spelling or the place."
+      ],
+      "teaches": [
+        "qu'est-ce que ça veut dire ?"
+      ]
+    },
+    {
+      "question_id": "a1-classroom-phrases-05",
+      "prompt": "Comment ___-on 'pencil case' en français ? — La trousse.",
+      "type": "fill-in-blank",
+      "correct_answer": "dit",
+      "accepted_answers": [],
+      "explanation": "Comment dit-on… en français ? (How do you say… in French?) is the question for a word you need. Dit comes from dire, to say.",
+      "hints": [
+        "From dire, to say.",
+        "Three letters."
+      ],
+      "teaches": [
+        "comment dit-on… ?"
+      ]
+    },
+    {
+      "question_id": "a1-classroom-phrases-06",
+      "prompt": "Ils ___ l'exercice. (They understand the exercise.)",
+      "type": "multiple-choice",
+      "options": [
+        "comprennent",
+        "comprenent",
+        "comprend"
+      ],
+      "correct_answer": "comprennent",
+      "explanation": "Ils / elles comprennent has two n's. Comprenent is a spelling mistake and comprend is the il form.",
+      "hints": [
+        "The ils form doubles a letter."
+      ],
+      "teaches": [
+        "comprendre"
+      ]
+    },
+    {
+      "question_id": "a1-classroom-phrases-07",
+      "prompt": "When the teacher says 'Ouvrez votre livre à la page dix', she is asking you to close your book.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Ouvrez means 'open': open your book at page ten. Close is fermez: Fermez votre livre.",
+      "hints": [
+        "Think of the English word 'overture', an opening."
+      ],
+      "teaches": [
+        "le livre"
+      ]
+    },
+    {
+      "question_id": "a1-classroom-phrases-08",
+      "prompt": "Le ___ est dans la trousse. (The pencil is in the pencil case.)",
+      "type": "fill-in-blank",
+      "correct_answer": "crayon",
+      "accepted_answers": [],
+      "explanation": "A pencil is le crayon; a pen is le stylo.",
+      "hints": [
+        "Not le stylo: that's a pen."
+      ],
+      "teaches": [
+        "le crayon"
+      ]
+    },
+    {
+      "question_id": "a1-classroom-phrases-09",
+      "prompt": "In a French classroom, le tableau is the board at the front of the room.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Le tableau is the board the teacher writes on: Le professeur écrit au tableau. (It can also mean a painting.)",
+      "hints": [
+        "The teacher writes au tableau."
+      ],
+      "teaches": [
+        "le tableau"
+      ]
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "comprendre",
+      "meaning": "to understand",
+      "set": "present",
+      "art": [
+        "  ?  ---->  !  ",
+        "     .---.     ",
+        "    ( o o )    ",
+        "     \\ ~ /     ",
+        "      '-'      "
+      ],
+      "forms": {
+        "je": "comprends",
+        "tu": "comprends",
+        "il": "comprend",
+        "nous": "comprenons",
+        "vous": "comprenez",
+        "ils": "comprennent"
+      }
+    }
+  ],
+  "listening": [
+    {
+      "text": "Pardon, je ne comprends pas.",
+      "meaning": "Sorry, I don't understand."
+    },
+    {
+      "text": "Vous pouvez répéter, s'il vous plaît ?",
+      "meaning": "Can you repeat that, please?"
+    },
+    {
+      "text": "Écoutez et répétez après moi.",
+      "meaning": "Listen and repeat after me.",
+      "note": "Répétez après moi = repeat after me."
+    },
+    {
+      "text": "Lisez le texte à la page vingt.",
+      "meaning": "Read the text on page twenty.",
+      "note": "New word: le texte = the text."
+    },
+    {
+      "text": "Madame, j'ai une question sur l'exercice.",
+      "meaning": "Madam, I have a question about the exercise.",
+      "note": "New word: l'exercice = the exercise."
+    },
+    {
+      "text": "Mon stylo et ma gomme sont dans ma trousse.",
+      "meaning": "My pen and my eraser are in my pencil case.",
+      "note": "New word: la trousse = the pencil case."
+    },
+    {
+      "text": "Est-ce que vous comprenez la question ?",
+      "meaning": "Do you understand the question?",
+      "note": "Vous comprenez: one n."
+    },
+    {
+      "text": "Comment dit-on cahier en anglais ?",
+      "meaning": "How do you say cahier in English?"
+    }
+  ],
+  "guide": [
+    {
+      "section": "Survival phrases"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-classroom-phrases-02"
+    },
+    {
+      "question": "a1-classroom-phrases-04"
+    },
+    {
+      "question": "a1-classroom-phrases-05"
+    },
+    {
+      "section": "Comprendre"
+    },
+    {
+      "question": "a1-classroom-phrases-01"
+    },
+    {
+      "question": "a1-classroom-phrases-03"
+    },
+    {
+      "question": "a1-classroom-phrases-06"
+    },
+    {
+      "concept": {
+        "title": "Calling the teacher",
+        "markdown": "French pupils don't call out *professeur*: they say **Madame !** or **Monsieur !**\n\n- **Madame, j'ai une question.**\n- **Monsieur, je ne comprends pas.**\n\nIn a language school for adults, the teacher often uses first names, but still **vous** with the class."
+      }
+    },
+    {
+      "section": "In the classroom"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a1-classroom-phrases-08"
+    },
+    {
+      "question": "a1-classroom-phrases-09"
+    },
+    {
+      "question": "a1-classroom-phrases-07"
+    },
+    {
+      "tip": "Stuck for a word? Point at the thing and ask: Comment dit-on ça en français ? Ça works for anything you can point at."
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-classroom-phrases-conv-first-lesson",
+      "title": "The first French lesson",
+      "scenario": "Sam is in his first French class at a language school. Madame Duval, the teacher, starts the lesson.",
+      "role_a": "Mme Duval",
+      "role_b": "Sam",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Bonjour à tous ! Ouvrez votre livre à la page dix.",
+          "meaning": "Hello everyone! Open your book at page ten."
+        },
+        {
+          "speaker": "b",
+          "text": "Pardon, madame, vous pouvez répéter ?",
+          "meaning": "Sorry, madam, can you repeat that?"
+        },
+        {
+          "speaker": "a",
+          "text": "À la page dix. Lisez le texte, s'il vous plaît.",
+          "meaning": "At page ten. Read the text, please."
+        },
+        {
+          "speaker": "b",
+          "text": "Madame, j'ai une question. Trousse, qu'est-ce que ça veut dire ?",
+          "meaning": "Madam, I have a question. Trousse: what does that mean?"
+        },
+        {
+          "speaker": "a",
+          "text": "Une trousse ? Regardez, c'est ça : pour les stylos et les crayons.",
+          "meaning": "A trousse? Look, it's this: for pens and pencils."
+        },
+        {
+          "speaker": "b",
+          "text": "Ah, je comprends ! Et ça, comment dit-on en français ?",
+          "meaning": "Ah, I understand! And this, how do you say it in French?",
+          "note": "pointing at an object"
+        },
+        {
+          "speaker": "a",
+          "text": "C'est une gomme. Vous comprenez ?",
+          "meaning": "It's an eraser. Do you understand?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, je comprends. Mais vous parlez vite, madame !",
+          "meaning": "Yes, I understand. But you speak fast, madam!"
+        },
+        {
+          "speaker": "a",
+          "text": "D'accord, je parle plus lentement. Écoutez et répétez : la gomme.",
+          "meaning": "All right, I'll speak more slowly. Listen and repeat: la gomme."
+        },
+        {
+          "speaker": "b",
+          "text": "La gomme.",
+          "meaning": "La gomme."
+        },
+        {
+          "speaker": "a",
+          "text": "Très bien ! Maintenant, écrivez le mot dans votre cahier.",
+          "meaning": "Very good! Now write the word in your exercise book."
+        },
+        {
+          "speaker": "b",
+          "text": "Euh… je ne sais pas comment ça s'écrit.",
+          "meaning": "Um… I don't know how it's spelled.",
+          "note": "je ne sais pas = I don't know"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🏫",
+    "bites": [
+      {
+        "title": "Je ne comprends pas",
+        "emoji": "🆘",
+        "rule": "Lost? Say Je ne comprends pas. Then ask: Pouvez-vous répéter ? Plus lentement, s'il vous plaît.",
+        "example": "Pardon, je ne comprends pas. Vous pouvez répéter ?",
+        "example_meaning": "Sorry, I don't understand. Can you repeat that?"
+      },
+      {
+        "title": "Comprendre",
+        "emoji": "💡",
+        "rule": "comprends, comprends, comprend, comprenons, comprenez, comprennent: two n's only for ils / elles.",
+        "example": "Ils comprennent bien le français.",
+        "example_meaning": "They understand French well."
+      },
+      {
+        "title": "Ask about words",
+        "emoji": "❔",
+        "rule": "Comment dit-on… en français ? for a word you need. Qu'est-ce que ça veut dire ? for a word you heard.",
+        "example": "Règle, qu'est-ce que ça veut dire ?",
+        "example_meaning": "Règle: what does it mean?"
+      },
+      {
+        "title": "In your trousse",
+        "emoji": "✏️",
+        "rule": "Dans la trousse : le stylo, le crayon, la gomme, la règle. Sur la table : le cahier, le livre, la feuille. Au mur : le tableau.",
+        "example": "Le stylo est dans la trousse.",
+        "example_meaning": "The pen is in the pencil case."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Ears or eyes and hands?",
+        "buckets": [
+          "listen or speak",
+          "read or write"
+        ],
+        "items": [
+          {
+            "text": "Écoutez.",
+            "bucket": 0
+          },
+          {
+            "text": "Lisez le texte.",
+            "bucket": 1
+          },
+          {
+            "text": "Répétez après moi.",
+            "bucket": 0
+          },
+          {
+            "text": "Écrivez la date.",
+            "bucket": 1
+          },
+          {
+            "text": "Ouvrez votre livre.",
+            "bucket": 1
+          },
+          {
+            "text": "Écoutez la question.",
+            "bucket": 0
+          }
+        ],
+        "why": "Écoutez and répétez are for your ears and mouth; lisez, écrivez and ouvrez votre livre are for your eyes and hands."
+      },
+      {
+        "title": "Le or la?",
+        "buckets": [
+          "le / l' (masculine)",
+          "la (feminine)"
+        ],
+        "items": [
+          {
+            "text": "stylo",
+            "bucket": 0
+          },
+          {
+            "text": "gomme",
+            "bucket": 1
+          },
+          {
+            "text": "cahier",
+            "bucket": 0
+          },
+          {
+            "text": "règle",
+            "bucket": 1
+          },
+          {
+            "text": "tableau",
+            "bucket": 0
+          },
+          {
+            "text": "trousse",
+            "bucket": 1
+          },
+          {
+            "text": "ordinateur",
+            "bucket": 0
+          },
+          {
+            "text": "feuille",
+            "bucket": 1
+          }
+        ],
+        "why": "Le stylo, le cahier, le tableau, l'ordinateur are masculine; la gomme, la règle, la trousse, la feuille are feminine."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Ils comprenent la question.",
+        "wrong": "comprenent",
+        "fix": "comprennent",
+        "why": "Ils / elles comprennent has two n's."
+      },
+      {
+        "sentence": "Je ne comprend pas.",
+        "wrong": "comprend",
+        "fix": "comprends",
+        "why": "The je form ends in -s: je comprends."
+      },
+      {
+        "sentence": "Plus vite, s'il vous plaît : je ne comprends pas.",
+        "wrong": "vite",
+        "fix": "lentement",
+        "why": "If you don't understand, ask for more slowly: plus lentement."
+      },
+      {
+        "sentence": "Qu'est-ce que ça veut dit ?",
+        "wrong": "dit",
+        "fix": "dire",
+        "why": "After veut comes the infinitive: ça veut dire."
+      },
+      {
+        "sentence": "Nous comprennons le texte.",
+        "wrong": "comprennons",
+        "fix": "comprenons",
+        "why": "Nous comprenons has one n."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Je ne comprends pas.",
+        "meaning": "I don't understand.",
+        "distractors": [
+          "comprend"
+        ]
+      },
+      {
+        "text": "Vous pouvez répéter ?",
+        "meaning": "Can you repeat that?",
+        "distractors": [
+          "répétez"
+        ]
+      },
+      {
+        "text": "Ouvrez votre livre à la page dix.",
+        "meaning": "Open your book at page ten.",
+        "distractors": [
+          "ouvre"
+        ]
+      },
+      {
+        "text": "Qu'est-ce que ça veut dire ?",
+        "meaning": "What does that mean?",
+        "distractors": [
+          "dit"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,603 @@
+{
+  "id": "b1-reported-speech",
+  "slug": "reported-speech",
+  "title": "Reported speech: dice que, dijo que",
+  "unit": "B1",
+  "group": "Grammar",
+  "order": 28,
+  "summary": "Pass on what people say and ask: dice que, dijo que, preguntó si, me pide que.",
+  "focus": "Reporting statements, questions and requests, with the tense, person, time and place shifts",
+  "prerequisites": [
+    "b1-conditional",
+    "a2-preterite-vs-imperfect"
+  ],
+  "content": "## Dice que: same tense, new speaker\n\nTo pass on what someone says, use **decir que** + their sentence. With a reporting verb in the present (**dice**, **cuenta**, **explica**) the tense stays. Only the person shifts, so **yo** becomes **él / ella** and **mi** becomes **su**.\n\n- Ana: «Estoy cansada.» → **Ana dice que está cansada.** (Ana says she's tired.)\n- Leo: «Mi coche no funciona.» → **Leo dice que su coche no funciona.** (Leo says his car doesn't work.)\n\nOther reporting verbs: **contar** (to tell), **explicar** (to explain), **comentar** (to mention), **asegurar** (to assure), **contestar** (to answer). A message passed on is **un recado**. English can drop *that*; Spanish never drops **que**.\n\n## Dijo que: the tense steps back\n\nWhen the reporting verb is in the past (**dijo**, **contó**, **explicó**), the verb inside usually steps back:\n\n| they said | you report |\n|---|---|\n| present: «Estoy en casa.» | imperfect: **dijo que estaba en casa** |\n| future: «Vendré.» | conditional: **dijo que vendría** |\n| ir a: «Voy a salir.» | **dijo que iba a salir** |\n| preterite: «Fui al cine.» | stays: **dijo que fue al cine** |\n| imperfect, conditional | stay as they are |\n\nIf it is still true now, the present may stay: **me dijo que tiene dos hijos**. A further step back for the preterite is coming at B2.\n\n## Time and place move too\n\nReported later or somewhere else, words of time and place move with the story:\n\n| they said | you report |\n|---|---|\n| **hoy** | **ese día** |\n| **mañana** | **al día siguiente** |\n| **ayer** | **el día anterior** |\n| **aquí** | **allí** |\n| **este / esta** | **ese / esa** |\n\n- Carlos: «Mañana trabajo aquí.» → **Carlos dijo que al día siguiente trabajaba allí.** (Carlos said he was working there the next day.)\n\nOnly shift what has really changed: reported the same evening, **mañana** is still **mañana**.\n\n## Questions and requests\n\nA yes/no question is reported with **preguntar si** (*whether*, no accent). A question word stays, **accent included**:\n\n- «¿Tienes hambre?» → **Me pregunta si tengo hambre.**\n- «¿Dónde vives?» → **Me preguntó dónde vivía.**\n- «¿Cuándo llegas?» → **Me preguntó cuándo llegaba.**\n\nAn order or request is reported with **decir que** or **pedir que** + present subjunctive after a present verb:\n\n- «Ven a casa.» → **Mamá me dice que venga a casa.** (Mum tells me to come home.)\n- «Esperadme.» → **Os pide que la esperéis.** (She's asking you to wait for her.)\n\nReporting a request after **dijo** needs a new tense, which comes at B2.",
+  "vocabulary": [
+    {
+      "term": "decir que",
+      "meaning": "to say that",
+      "example": "Mi hermana dice que la película es muy buena.",
+      "example_meaning": "My sister says the film is very good."
+    },
+    {
+      "term": "contar",
+      "meaning": "to tell (news, a story)",
+      "example": "Pedro nos contó que su abuelo era pescador.",
+      "example_meaning": "Pedro told us his grandfather was a fisherman."
+    },
+    {
+      "term": "explicar",
+      "meaning": "to explain",
+      "example": "La profesora explicó que el examen sería en junio.",
+      "example_meaning": "The teacher explained that the exam would be in June."
+    },
+    {
+      "term": "comentar",
+      "meaning": "to mention, to remark",
+      "example": "Elena comentó que el restaurante estaba cerrado.",
+      "example_meaning": "Elena mentioned that the restaurant was closed."
+    },
+    {
+      "term": "asegurar",
+      "meaning": "to assure, to insist",
+      "example": "El mecánico me aseguró que el coche estaría listo el viernes.",
+      "example_meaning": "The mechanic assured me the car would be ready on Friday."
+    },
+    {
+      "term": "contestar",
+      "meaning": "to answer, to reply",
+      "example": "Le pregunté por la fiesta y contestó que no podía ir.",
+      "example_meaning": "I asked her about the party and she answered that she couldn't go."
+    },
+    {
+      "term": "el recado",
+      "meaning": "message (passed on)",
+      "example": "Te dejo un recado: Juan dice que llega tarde.",
+      "example_meaning": "Here's a message for you: Juan says he's running late."
+    },
+    {
+      "term": "preguntar si",
+      "meaning": "to ask whether",
+      "example": "Mi vecino me preguntó si necesitaba ayuda.",
+      "example_meaning": "My neighbour asked me whether I needed help."
+    },
+    {
+      "term": "pedir que",
+      "meaning": "to ask (someone) to",
+      "example": "El camarero nos pide que esperemos un momento.",
+      "example_meaning": "The waiter is asking us to wait a moment."
+    },
+    {
+      "term": "ese día",
+      "meaning": "that day",
+      "example": "Nos explicó que ese día no trabajaba.",
+      "example_meaning": "He explained to us that he wasn't working that day."
+    },
+    {
+      "term": "al día siguiente",
+      "meaning": "the next day",
+      "example": "Prometió que volvería al día siguiente.",
+      "example_meaning": "She promised she would come back the next day."
+    },
+    {
+      "term": "el día anterior",
+      "meaning": "the day before",
+      "example": "Me contó que el día anterior llovió mucho.",
+      "example_meaning": "He told me it had rained a lot the day before."
+    },
+    {
+      "term": "allí",
+      "meaning": "there",
+      "example": "Dijo que vivía allí desde pequeño.",
+      "example_meaning": "He said he had lived there since he was little."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-reported-speech-01",
+      "prompt": "Marta: «Estoy cansada.» → Marta dice que ___ cansada.",
+      "type": "multiple-choice",
+      "options": [
+        "está",
+        "estaba",
+        "estoy"
+      ],
+      "correct_answer": "está",
+      "explanation": "With dice que (present) the tense stays the same; only the person shifts from yo to ella, giving está.",
+      "hints": [
+        "A present reporting verb keeps the same tense.",
+        "Who is tired now: yo or ella?"
+      ],
+      "teaches": [
+        "decir que"
+      ]
+    },
+    {
+      "question_id": "b1-reported-speech-02",
+      "prompt": "Ayer Marta dijo: «Estoy cansada.» → Marta dijo que ___ cansada.",
+      "type": "multiple-choice",
+      "options": [
+        "estaba",
+        "estoy",
+        "estaría"
+      ],
+      "correct_answer": "estaba",
+      "explanation": "After a past reporting verb (dijo) the present steps back to the imperfect, so estoy becomes estaba.",
+      "hints": [
+        "Dijo is in the past, so the present steps back one tense."
+      ],
+      "teaches": [
+        "decir que"
+      ]
+    },
+    {
+      "question_id": "b1-reported-speech-03",
+      "prompt": "Luis: «Iré a la fiesta.» → Luis dijo que ___ (ir) a la fiesta, pero al final no fue.",
+      "type": "fill-in-blank",
+      "correct_answer": "iría",
+      "accepted_answers": [
+        "él iría"
+      ],
+      "explanation": "After dijo que the future becomes the conditional, so iré becomes iría.",
+      "hints": [
+        "After dijo que, the future becomes the conditional.",
+        "Ir is regular in the conditional, so add -ía to the infinitive."
+      ],
+      "teaches": [
+        "decir que"
+      ]
+    },
+    {
+      "question_id": "b1-reported-speech-04",
+      "prompt": "Pablo: «Ayer perdí las llaves.» → Pablo me contó que ___ las llaves el día anterior.",
+      "type": "multiple-choice",
+      "options": [
+        "perdió",
+        "perdía",
+        "perdería"
+      ],
+      "correct_answer": "perdió",
+      "explanation": "In everyday speech a preterite stays a preterite and only the person changes, so perdí becomes perdió. The careful written form, the pluperfect (había perdido), comes at B2. Ayer becomes el día anterior.",
+      "hints": [
+        "What happens to the preterite after contó que?"
+      ],
+      "teaches": [
+        "contar",
+        "el día anterior"
+      ]
+    },
+    {
+      "question_id": "b1-reported-speech-05",
+      "prompt": "Hace un mes, Lucía me dijo: «Te llamaré mañana.» → Lucía me dijo que me llamaría ___.",
+      "type": "multiple-choice",
+      "options": [
+        "al día siguiente",
+        "mañana",
+        "el día anterior"
+      ],
+      "correct_answer": "al día siguiente",
+      "explanation": "A month later, her 'tomorrow' is long gone: mañana becomes al día siguiente.",
+      "hints": [
+        "Is her 'mañana' still tomorrow today?"
+      ],
+      "teaches": [
+        "al día siguiente"
+      ]
+    },
+    {
+      "question_id": "b1-reported-speech-06",
+      "prompt": "Ana: «¿Tienes hambre?» → Ana me pregunta ___ tengo hambre.",
+      "type": "fill-in-blank",
+      "correct_answer": "si",
+      "explanation": "A yes/no question is reported with preguntar si (whether), and this si has no accent.",
+      "hints": [
+        "A yes/no question has no question word to keep.",
+        "The word for 'whether', with no accent."
+      ],
+      "teaches": [
+        "preguntar si"
+      ]
+    },
+    {
+      "question_id": "b1-reported-speech-07",
+      "prompt": "El profesor: «¿Dónde vivís?» → El profesor nos preguntó ___ vivíamos.",
+      "type": "multiple-choice",
+      "options": [
+        "dónde",
+        "donde",
+        "que"
+      ],
+      "correct_answer": "dónde",
+      "explanation": "A reported question keeps its question word and its accent: preguntó dónde vivíamos.",
+      "hints": [
+        "The question word stays, and so does its accent."
+      ],
+      "teaches": [
+        "preguntar si"
+      ]
+    },
+    {
+      "question_id": "b1-reported-speech-08",
+      "prompt": "Mi madre: «Llama a tu abuela.» → Mi madre me dice que ___ (llamar) a mi abuela.",
+      "type": "fill-in-blank",
+      "correct_answer": "llame",
+      "accepted_answers": [
+        "yo llame"
+      ],
+      "explanation": "An order reported with dice que takes the present subjunctive: me dice que llame. Tu abuela becomes mi abuela.",
+      "hints": [
+        "An order, not a fact, so use the subjunctive.",
+        "-ar verbs take -e in the subjunctive."
+      ],
+      "teaches": [
+        "decir que"
+      ]
+    },
+    {
+      "question_id": "b1-reported-speech-09",
+      "prompt": "Mi jefe: «Te lo prometo: el informe está bien.» → Mi jefe me ___ que el informe estaba bien.",
+      "type": "multiple-choice",
+      "options": [
+        "aseguró",
+        "preguntó",
+        "pidió"
+      ],
+      "correct_answer": "aseguró",
+      "explanation": "Asegurar means to assure, and the boss insists it's fine. Preguntar would need si, pedir would need the subjunctive.",
+      "hints": [
+        "He promises, so which verb means to assure?"
+      ],
+      "teaches": [
+        "asegurar"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-reported-speech-conv-the-landlady-called",
+      "title": "The landlady called",
+      "scenario": "Irene took a call from their landlady yesterday and passes the message on to her flatmate Dani.",
+      "role_a": "Irene",
+      "role_b": "Dani",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Dani, ayer llamó la casera mientras estabas en el trabajo.",
+          "meaning": "Dani, the landlady called yesterday while you were at work."
+        },
+        {
+          "speaker": "b",
+          "text": "¿Ah, sí? ¿Y qué te dijo?",
+          "meaning": "Oh really? And what did she tell you?"
+        },
+        {
+          "speaker": "a",
+          "text": "Me dijo que el lunes venía el fontanero a arreglar la ducha.",
+          "meaning": "She told me the plumber was coming on Monday to fix the shower."
+        },
+        {
+          "speaker": "b",
+          "text": "¡Por fin! ¿Te preguntó si estaríamos en casa?",
+          "meaning": "At last! Did she ask you whether we'd be at home?"
+        },
+        {
+          "speaker": "a",
+          "text": "Sí. Le contesté que yo estaría allí toda la mañana.",
+          "meaning": "Yes. I answered that I'd be there all morning."
+        },
+        {
+          "speaker": "b",
+          "text": "Genial. ¿Y comentó algo del alquiler?",
+          "meaning": "Great. And did she mention anything about the rent?"
+        },
+        {
+          "speaker": "a",
+          "text": "Sí, explicó que el año que viene el alquiler subiría un poco.",
+          "meaning": "Yes, she explained that the rent would go up a bit next year."
+        },
+        {
+          "speaker": "b",
+          "text": "¿Cuánto? ¡Siempre nos asegura que es un piso barato!",
+          "meaning": "How much? She always assures us it's a cheap flat!"
+        },
+        {
+          "speaker": "a",
+          "text": "No lo sé. Dice que la llames tú esta tarde.",
+          "meaning": "I don't know. She says you should call her this afternoon.",
+          "note": "An order reported with dice que: present subjunctive."
+        },
+        {
+          "speaker": "b",
+          "text": "Vale, la llamo después de comer. ¿Algo más?",
+          "meaning": "OK, I'll call her after lunch. Anything else?"
+        },
+        {
+          "speaker": "a",
+          "text": "Sí: dice que el fontanero es muy puntual, así que no te quedes dormido.",
+          "meaning": "Yes: she says the plumber is very punctual, so don't oversleep."
+        },
+        {
+          "speaker": "b",
+          "text": "¡Oye, eso lo dice por mí!",
+          "meaning": "Hey, she's saying that because of me!"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Dice que tiene mucho sueño.",
+      "meaning": "He says he's very sleepy.",
+      "note": "Dice que: the tense stays."
+    },
+    {
+      "text": "Mi primo dijo que tenía hambre.",
+      "meaning": "My cousin said he was hungry.",
+      "note": "Tengo becomes tenía after dijo que."
+    },
+    {
+      "text": "Nos contó que el ascensor no funcionaba.",
+      "meaning": "She told us the lift wasn't working.",
+      "note": "New word: el ascensor = the lift."
+    },
+    {
+      "text": "Mi jefa siempre me pide que llegue temprano.",
+      "meaning": "My boss always asks me to arrive early.",
+      "note": "A request: pide que + subjunctive."
+    },
+    {
+      "text": "Carmen comentó que ese día perdió el autobús.",
+      "meaning": "Carmen mentioned that she missed the bus that day.",
+      "note": "The preterite stays."
+    },
+    {
+      "text": "El médico me explicó que la herida era pequeña.",
+      "meaning": "The doctor explained to me that the wound was small.",
+      "note": "New word: la herida = the wound."
+    },
+    {
+      "text": "Ayer Pablo me aseguró que vendría a la cena.",
+      "meaning": "Yesterday Pablo assured me he would come to dinner.",
+      "note": "Vendré becomes vendría after a past verb."
+    },
+    {
+      "text": "Los vecinos nos contaron que iban a pintar la escalera al día siguiente.",
+      "meaning": "The neighbours told us they were going to paint the staircase the next day.",
+      "note": "New word: la escalera = the staircase."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Dice que"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-reported-speech-01"
+    },
+    {
+      "question": "b1-reported-speech-09"
+    },
+    {
+      "section": "Dijo que"
+    },
+    {
+      "question": "b1-reported-speech-02"
+    },
+    {
+      "question": "b1-reported-speech-03"
+    },
+    {
+      "question": "b1-reported-speech-04"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "tip": "Ask two things: is the reporting verb past (dijo) or present (dice)? And is it still today, here, for the same person?"
+    },
+    {
+      "section": "Time and place"
+    },
+    {
+      "question": "b1-reported-speech-05"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "section": "Questions and requests"
+    },
+    {
+      "question": "b1-reported-speech-06"
+    },
+    {
+      "question": "b1-reported-speech-07"
+    },
+    {
+      "question": "b1-reported-speech-08"
+    }
+  ],
+  "sprint": {
+    "icon": "💬",
+    "bites": [
+      {
+        "title": "Dice que: same tense",
+        "emoji": "🗣️",
+        "rule": "With a present reporting verb (dice, cuenta, explica) the tense stays. Only the person shifts, for example yo to él and mi to su.",
+        "example": "Leo dice que su coche no funciona.",
+        "example_meaning": "Leo says his car doesn't work."
+      },
+      {
+        "title": "Dijo que: step back",
+        "emoji": "⏪",
+        "rule": "After a past verb, the present becomes the imperfect (estoy, estaba) and the future becomes the conditional (vendré, vendría). The preterite stays a preterite (fui, fue).",
+        "example": "Dijo que vendría y que estaba cansado.",
+        "example_meaning": "He said he would come and that he was tired."
+      },
+      {
+        "title": "Time and place move",
+        "emoji": "🗓️",
+        "rule": "Reported later or elsewhere, hoy becomes ese día, mañana becomes al día siguiente, ayer becomes el día anterior and aquí becomes allí.",
+        "example": "Dijo que al día siguiente trabajaba allí.",
+        "example_meaning": "He said he was working there the next day."
+      },
+      {
+        "title": "Questions and requests",
+        "emoji": "❓",
+        "rule": "Yes/no questions: preguntar si. Question words keep their accent (dónde, cuándo). Orders: dice que + present subjunctive.",
+        "example": "Me pregunta dónde vivo y me dice que vaya.",
+        "example_meaning": "She asks me where I live and tells me to go."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "After dijo que, the verb becomes…",
+        "buckets": [
+          "imperfect",
+          "conditional",
+          "preterite (stays)"
+        ],
+        "items": [
+          {
+            "text": "«Tengo frío.»",
+            "bucket": 0
+          },
+          {
+            "text": "«Vendré pronto.»",
+            "bucket": 1
+          },
+          {
+            "text": "«Fui al cine.»",
+            "bucket": 2
+          },
+          {
+            "text": "«Vivo aquí.»",
+            "bucket": 0
+          },
+          {
+            "text": "«Lo haré.»",
+            "bucket": 1
+          },
+          {
+            "text": "«Compré pan.»",
+            "bucket": 2
+          },
+          {
+            "text": "«Puedo ayudar.»",
+            "bucket": 0
+          },
+          {
+            "text": "«Saldremos a las ocho.»",
+            "bucket": 1
+          }
+        ],
+        "why": "The present becomes the imperfect, the future becomes the conditional and the preterite stays."
+      },
+      {
+        "title": "A report or an order?",
+        "buckets": [
+          "indicative (a report)",
+          "subjunctive (an order)"
+        ],
+        "items": [
+          {
+            "text": "Dice que viene.",
+            "bucket": 0
+          },
+          {
+            "text": "Me dice que venga.",
+            "bucket": 1
+          },
+          {
+            "text": "Dice que está lista.",
+            "bucket": 0
+          },
+          {
+            "text": "Nos dice que comamos.",
+            "bucket": 1
+          },
+          {
+            "text": "Dice que tiene prisa.",
+            "bucket": 0
+          },
+          {
+            "text": "Te pide que esperes.",
+            "bucket": 1
+          }
+        ],
+        "why": "Passing on a fact takes the indicative; telling someone to do something takes the present subjunctive."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Ayer Luis dijo que vendrá a la fiesta, pero no vino.",
+        "wrong": "vendrá",
+        "fix": "vendría",
+        "why": "After dijo que the future becomes the conditional."
+      },
+      {
+        "sentence": "Me preguntó donde vivía.",
+        "wrong": "donde",
+        "fix": "dónde",
+        "why": "A reported question keeps the accent of its question word."
+      },
+      {
+        "sentence": "Ana me pregunta sí tengo hambre.",
+        "wrong": "sí",
+        "fix": "si",
+        "why": "Whether = si, without an accent."
+      },
+      {
+        "sentence": "Mi madre me pide que llamo a la abuela.",
+        "wrong": "llamo",
+        "fix": "llame",
+        "why": "Pedir que takes the subjunctive."
+      },
+      {
+        "sentence": "Hace un mes Lucía dijo que me llamaría mañana.",
+        "wrong": "mañana",
+        "fix": "al día siguiente",
+        "why": "A month later, her 'tomorrow' is al día siguiente."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Dice que está muy contento.",
+        "meaning": "He says he's very happy.",
+        "distractors": [
+          "estaba"
+        ]
+      },
+      {
+        "text": "Me dijo que tenía mucho trabajo.",
+        "meaning": "She told me she had a lot of work.",
+        "distractors": [
+          "tengo"
+        ]
+      },
+      {
+        "text": "Nos aseguró que lo haría al día siguiente.",
+        "meaning": "He assured us he would do it the next day.",
+        "distractors": [
+          "hará"
+        ]
+      },
+      {
+        "text": "Ana dice que su hermano vive allí.",
+        "meaning": "Ana says her brother lives there.",
+        "distractors": [
+          "mi"
+        ]
+      },
+      {
+        "text": "Le pregunté dónde vivía su hermana.",
+        "meaning": "I asked him where his sister lived.",
+        "distractors": [
+          "que"
+        ]
+      }
+    ]
+  }
+}

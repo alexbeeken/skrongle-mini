@@ -1,0 +1,584 @@
+{
+  "id": "c1-time-and-concession",
+  "slug": "time-and-concession",
+  "title": "Aunque, por mucho que, en cuanto: mood after time and concession",
+  "unit": "C1",
+  "group": "Grammar",
+  "order": 10,
+  "summary": "Choose indicative or subjunctive after cuando, en cuanto, antes de que, aunque, por mucho que and si bien.",
+  "focus": "Mood in temporal and concessive clauses",
+  "prerequisites": [
+    "b2-concessive-and-conditional-links",
+    "b1-time-and-purpose-clauses"
+  ],
+  "content": "## Time clauses: has it happened yet?\n\nAfter **cuando**, **en cuanto**, **tan pronto como**, **una vez que**, **hasta que** and **mientras**, the mood depends on whether the event is real yet:\n\n| real (habit or past): indicative | still ahead: subjunctive |\n|---|---|\n| **Cuando llego** a casa, me ducho. | **Cuando llegues**, llámame. |\n| **En cuanto terminó**, se fue. | **En cuanto termine**, te escribo. |\n| Esperé **hasta que salió**. | Espera **hasta que salga**. |\n\nNever use the future tense after these words. *Cuando llegarás* is wrong.\n\n## Antes de que and después de que\n\n**Antes de que** always takes the subjunctive, even in the past, because the event had not happened yet at that point:\n\n- *Salimos **antes de que llueva**.* (We'll leave before it rains.)\n- *Me fui **antes de que empezara**.* (I left before it started.)\n\n**Después de que** follows the cuando rule: subjunctive for the future (*después de que cenemos*), indicative for the past in careful style (*después de que se fueron*). With one subject, use the infinitive: **antes de salir**, **después de comer**.\n\n## Aunque: a fact or a hypothesis?\n\n| aunque + indicative | aunque + subjunctive |\n|---|---|\n| **Aunque llueve**, salgo. (It is raining, I know, but I'm going out.) | **Aunque llueva**, salgo. (Even if it rains, I'm going out.) |\n| A fact the speaker grants and reports. | A possibility, or a known fact dismissed as irrelevant. |\n\nThe second use is subtle. In *Aunque sea tu hermano, no tiene razón*, he **is** your brother, but that changes nothing.\n\n## Stronger concessions\n\n- **por mucho que / por más que** + verb: *Por mucho que insistas, no iré.* With a real, repeated effort the indicative is fine: *Por más que lo intento, no me sale.*\n- **por muy** + adjective/adverb + **que** + subjunctive: *Por muy caro que sea…*\n- **a pesar de que**, **aun cuando** (formal): these work like aunque.\n- **si bien** + indicative (formal writing): *Si bien el plan es caro, merece la pena.*\n- **y eso que** + indicative (colloquial afterthought): *Llegó tarde, y eso que salió a las siete.*\n- **a pesar de** / **pese a** + noun or infinitive: *pese a la lluvia*, *a pesar de estar cansada*.",
+  "vocabulary": [
+    {
+      "term": "cuando",
+      "meaning": "when (indicative for habits and the past, subjunctive for the future)",
+      "example": "Cuando tengas un rato, revisa este correo.",
+      "example_meaning": "When you have a moment, look over this email."
+    },
+    {
+      "term": "en cuanto",
+      "meaning": "as soon as",
+      "example": "En cuanto sepa algo, te aviso.",
+      "example_meaning": "As soon as I know anything, I'll let you know."
+    },
+    {
+      "term": "tan pronto como",
+      "meaning": "as soon as (a little more formal)",
+      "example": "Tan pronto como recibamos el pago, enviaremos el pedido.",
+      "example_meaning": "As soon as we receive the payment, we will send the order."
+    },
+    {
+      "term": "una vez que",
+      "meaning": "once (after something is done)",
+      "example": "Una vez que te acostumbras, el horario es cómodo.",
+      "example_meaning": "Once you get used to it, the timetable is comfortable."
+    },
+    {
+      "term": "hasta que",
+      "meaning": "until",
+      "example": "No me muevo de aquí hasta que me den una respuesta.",
+      "example_meaning": "I'm not moving from here until they give me an answer."
+    },
+    {
+      "term": "antes de que",
+      "meaning": "before (always followed by the subjunctive)",
+      "example": "Guarda la ropa antes de que se ponga a llover.",
+      "example_meaning": "Bring the washing in before it starts to rain."
+    },
+    {
+      "term": "después de que",
+      "meaning": "after (subjunctive for the future)",
+      "example": "Hablaremos después de que se vayan los invitados.",
+      "example_meaning": "We'll talk after the guests leave."
+    },
+    {
+      "term": "aunque",
+      "meaning": "although (+ indicative) / even if (+ subjunctive)",
+      "example": "Aunque no lo parezca, es muy tímida.",
+      "example_meaning": "Although it may not look like it, she's very shy."
+    },
+    {
+      "term": "por mucho que",
+      "meaning": "however much, no matter how much",
+      "example": "Por mucho que corras, ya no llegas al tren.",
+      "example_meaning": "However fast you run, you won't make the train now."
+    },
+    {
+      "term": "por muy… que",
+      "meaning": "however (+ adjective or adverb), no matter how",
+      "example": "Por muy lista que sea, necesita estudiar.",
+      "example_meaning": "However clever she is, she needs to study."
+    },
+    {
+      "term": "a pesar de que",
+      "meaning": "despite the fact that",
+      "example": "A pesar de que había atasco, llegamos a tiempo.",
+      "example_meaning": "Despite the traffic jam, we arrived on time."
+    },
+    {
+      "term": "si bien",
+      "meaning": "although, while (formal, + indicative)",
+      "example": "Si bien los datos son buenos, conviene ser prudentes.",
+      "example_meaning": "While the figures are good, it is wise to be cautious."
+    },
+    {
+      "term": "y eso que",
+      "meaning": "and that's despite the fact that (colloquial)",
+      "example": "Ha suspendido, y eso que estudió todo el fin de semana.",
+      "example_meaning": "He failed, even though he studied all weekend."
+    },
+    {
+      "term": "pese a",
+      "meaning": "despite, in spite of (+ noun or infinitive)",
+      "example": "Pese a sus quejas, el jefe no cambió el horario.",
+      "example_meaning": "Despite their complaints, the boss didn't change the timetable."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "c1-time-and-concession-01",
+      "prompt": "Tan pronto como ___ los resultados, os los enviaremos.",
+      "type": "multiple-choice",
+      "options": [
+        "tengamos",
+        "tenemos",
+        "tendremos"
+      ],
+      "correct_answer": "tengamos",
+      "explanation": "Tan pronto como works like cuando: the results are still ahead, so the present subjunctive follows (tengamos). The future never goes after it, even when the main verb is future.",
+      "hints": [
+        "Do we have the results yet?",
+        "The future never follows a time word."
+      ],
+      "teaches": [
+        "tan pronto como"
+      ]
+    },
+    {
+      "question_id": "c1-time-and-concession-02",
+      "prompt": "En cuanto ___ (terminar, yo) el informe, te lo mando.",
+      "type": "fill-in-blank",
+      "correct_answer": "termine",
+      "accepted_answers": [
+        "yo termine"
+      ],
+      "explanation": "A future event after en cuanto takes the subjunctive: en cuanto termine.",
+      "hints": [
+        "The report is not finished yet.",
+        "Present subjunctive of an -ar verb ends in -e."
+      ],
+      "teaches": [
+        "en cuanto"
+      ]
+    },
+    {
+      "question_id": "c1-time-and-concession-03",
+      "prompt": "Nos fuimos antes de que ___ (empezar) a llover.",
+      "type": "fill-in-blank",
+      "correct_answer": "empezara",
+      "accepted_answers": [
+        "empezase"
+      ],
+      "explanation": "Antes de que always takes the subjunctive. In a past sentence it is the imperfect subjunctive: empezara or empezase.",
+      "hints": [
+        "Antes de que never takes the indicative.",
+        "The sentence is in the past."
+      ],
+      "teaches": [
+        "antes de que"
+      ]
+    },
+    {
+      "question_id": "c1-time-and-concession-04",
+      "prompt": "What does 'Aunque llueve, salgo a correr' tell you?",
+      "type": "multiple-choice",
+      "options": [
+        "It is raining, and I'm going for a run anyway.",
+        "It might rain, but I'll go for a run anyway.",
+        "I'll go for a run as soon as it rains."
+      ],
+      "correct_answer": "It is raining, and I'm going for a run anyway.",
+      "explanation": "Aunque + indicative presents the rain as a fact the speaker knows. 'Even if it rains' would be aunque llueva.",
+      "hints": [
+        "The indicative reports a fact."
+      ],
+      "teaches": [
+        "aunque"
+      ]
+    },
+    {
+      "question_id": "c1-time-and-concession-05",
+      "prompt": "Your friend has heard that her new flatmate might be a chef; nobody knows yet. You reply: 'Aunque ___ chef, no pienso dejarle mi cocina.'",
+      "type": "multiple-choice",
+      "options": [
+        "sea",
+        "es",
+        "será"
+      ],
+      "correct_answer": "sea",
+      "explanation": "Nobody knows whether he is a chef, so aunque means 'even if' and takes the subjunctive: aunque sea chef. Es would state it as a known fact.",
+      "hints": [
+        "Is it a known fact, or only a possibility?"
+      ],
+      "teaches": [
+        "aunque"
+      ]
+    },
+    {
+      "question_id": "c1-time-and-concession-06",
+      "prompt": "Por mucho que ___ (insistir, tú), no voy a cambiar de idea.",
+      "type": "fill-in-blank",
+      "correct_answer": "insistas",
+      "accepted_answers": [
+        "tú insistas"
+      ],
+      "explanation": "Por mucho que about a possible future insistence takes the subjunctive: insistas.",
+      "hints": [
+        "Will you insist? We don't know yet.",
+        "Use the present subjunctive of an -ir verb, tú form."
+      ],
+      "teaches": [
+        "por mucho que"
+      ]
+    },
+    {
+      "question_id": "c1-time-and-concession-07",
+      "prompt": "Por ___ cansada que esté, siempre lee un rato antes de dormir.",
+      "type": "multiple-choice",
+      "options": [
+        "muy",
+        "mucho",
+        "tan"
+      ],
+      "correct_answer": "muy",
+      "explanation": "Before an adjective the pattern is por muy + adjective + que, as in por muy cansada que esté (por más cansada que esté is also standard). Mucho does not go before an adjective, and por tan… que is not used.",
+      "hints": [
+        "Cansada is an adjective."
+      ],
+      "teaches": [
+        "por muy… que"
+      ]
+    },
+    {
+      "question_id": "c1-time-and-concession-08",
+      "prompt": "Llegamos tarde, y eso que ___ (salir, nosotros) a las siete.",
+      "type": "fill-in-blank",
+      "correct_answer": "salimos",
+      "accepted_answers": [
+        "nosotros salimos"
+      ],
+      "explanation": "Y eso que adds a real fact as an afterthought, so it takes the indicative: salimos.",
+      "hints": [
+        "It is a fact, told afterwards.",
+        "Use the preterite, nosotros form."
+      ],
+      "teaches": [
+        "y eso que"
+      ]
+    },
+    {
+      "question_id": "c1-time-and-concession-09",
+      "prompt": "___ el proyecto es caro, sus ventajas son evidentes. (formal report)",
+      "type": "multiple-choice",
+      "options": [
+        "Si bien",
+        "Por mucho que",
+        "Hasta que"
+      ],
+      "correct_answer": "Si bien",
+      "explanation": "Si bien + indicative is the formal written way to grant a point before a 'but'. Por mucho que would need a verb of degree and the subjunctive, and hasta que is about time.",
+      "hints": [
+        "You want a formal 'although'."
+      ],
+      "teaches": [
+        "si bien"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Avísame en cuanto llegues a casa.",
+      "meaning": "Let me know as soon as you get home.",
+      "note": "A future arrival takes the subjunctive."
+    },
+    {
+      "text": "Siempre me llama cuando sale del trabajo.",
+      "meaning": "She always calls me when she leaves work.",
+      "note": "A habit takes the indicative."
+    },
+    {
+      "text": "Esperaré aquí hasta que termine la reunión.",
+      "meaning": "I'll wait here until the meeting ends."
+    },
+    {
+      "text": "Aunque está agotada, sigue preparando el examen.",
+      "meaning": "Although she's exhausted, she keeps preparing for the exam.",
+      "note": "New word: agotado = exhausted."
+    },
+    {
+      "text": "Por más que lo intento, no me sale la tortilla.",
+      "meaning": "However hard I try, my omelette doesn't turn out right.",
+      "note": "A real, repeated effort takes the indicative."
+    },
+    {
+      "text": "Recoge tus cosas antes de que vuelva tu padre.",
+      "meaning": "Pick up your things before your father comes back."
+    },
+    {
+      "text": "Pese a la niebla, el vuelo despegó a su hora.",
+      "meaning": "Despite the fog, the flight took off on time.",
+      "note": "New word: la niebla = the fog."
+    },
+    {
+      "text": "Una vez que hayas firmado el contrato, ya no podrás echarte atrás.",
+      "meaning": "Once you have signed the contract, you won't be able to back out.",
+      "note": "New word: echarse atrás = to back out."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Time clauses"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "c1-time-and-concession-01"
+    },
+    {
+      "question": "c1-time-and-concession-02"
+    },
+    {
+      "section": "Antes de que"
+    },
+    {
+      "question": "c1-time-and-concession-03"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "tip": "Ask one question. Has it happened yet, or does it happen regularly? Then use the indicative. Is it still ahead? Then use the subjunctive."
+    },
+    {
+      "section": "Aunque"
+    },
+    {
+      "question": "c1-time-and-concession-04"
+    },
+    {
+      "question": "c1-time-and-concession-05"
+    },
+    {
+      "section": "Stronger concessions"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "c1-time-and-concession-06"
+    },
+    {
+      "question": "c1-time-and-concession-07"
+    },
+    {
+      "question": "c1-time-and-concession-08"
+    },
+    {
+      "question": "c1-time-and-concession-09"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "c1-time-and-concession-conv-moving",
+      "title": "Moving to Lisbon",
+      "scenario": "Lucía tells her friend Andrés she has accepted a job abroad; he tries to talk her out of it.",
+      "role_a": "Lucía",
+      "role_b": "Andrés",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Me han ofrecido el puesto en Lisboa y he dicho que sí.",
+          "meaning": "They offered me the job in Lisbon and I said yes."
+        },
+        {
+          "speaker": "b",
+          "text": "¿En serio? ¿Y cuándo te vas?",
+          "meaning": "Seriously? And when are you leaving?"
+        },
+        {
+          "speaker": "a",
+          "text": "En cuanto termine el curso, a finales de junio.",
+          "meaning": "As soon as the course finishes, at the end of June.",
+          "note": "A future event: en cuanto takes the subjunctive."
+        },
+        {
+          "speaker": "b",
+          "text": "Aunque te paguen el doble, vas a echar de menos a todo el mundo.",
+          "meaning": "Even if they pay you double, you're going to miss everyone."
+        },
+        {
+          "speaker": "a",
+          "text": "Ya lo sé, y eso que todavía no me he ido.",
+          "meaning": "I know, and I haven't even left yet.",
+          "note": "Y eso que + indicative gives a real fact as an afterthought."
+        },
+        {
+          "speaker": "b",
+          "text": "Por mucho que me lo expliques, no lo entiendo.",
+          "meaning": "However much you explain it to me, I don't get it."
+        },
+        {
+          "speaker": "a",
+          "text": "Si bien el sueldo es mejor, lo que me atrae es el proyecto.",
+          "meaning": "While the salary is better, what attracts me is the project."
+        },
+        {
+          "speaker": "b",
+          "text": "Bueno, prométeme que vendrás antes de que llegue el invierno.",
+          "meaning": "Well, promise me you'll come back before winter arrives."
+        },
+        {
+          "speaker": "a",
+          "text": "Te lo prometo. Y cuando venga, cenamos en nuestro bar de siempre.",
+          "meaning": "I promise. And when I come, we'll have dinner at our usual bar."
+        },
+        {
+          "speaker": "b",
+          "text": "Hecho. Pero no te pongas sentimental hasta que no hagas la maleta.",
+          "meaning": "Deal. But don't get sentimental until you've packed your suitcase.",
+          "note": "Colloquial hasta que no: the no adds nothing."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🤝",
+    "bites": [
+      {
+        "title": "Still ahead? Subjunctive",
+        "emoji": "⏭️",
+        "rule": "After cuando, en cuanto, hasta que or una vez que, use the indicative for habits and the past and the subjunctive for the future. Never use the future tense.",
+        "example": "Cuando llegues, llámame.",
+        "example_meaning": "When you arrive, call me."
+      },
+      {
+        "title": "Antes de que: always subjunctive",
+        "emoji": "⏮️",
+        "rule": "Antes de que takes the subjunctive even in the past, because the event had not happened yet. Same subject? Use antes de + infinitive.",
+        "example": "Me fui antes de que empezara la película.",
+        "example_meaning": "I left before the film started."
+      },
+      {
+        "title": "Aunque: fact or 'even if'",
+        "emoji": "⚖️",
+        "rule": "Aunque + indicative reports a fact. Aunque + subjunctive is 'even if', or a known fact brushed aside as irrelevant.",
+        "example": "Aunque sea tu jefe, no tiene razón.",
+        "example_meaning": "He may be your boss, but he's not right."
+      },
+      {
+        "title": "Por mucho que, por muy… que",
+        "emoji": "💪",
+        "rule": "Por mucho/más que + verb, por muy + adjective + que: 'no matter how'. Use the subjunctive for the hypothetical. Si bien and y eso que take the indicative.",
+        "example": "Por muy tarde que sea, llámame.",
+        "example_meaning": "However late it is, call me."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which mood after the time word?",
+        "buckets": [
+          "indicative (habit or past)",
+          "subjunctive (still ahead)"
+        ],
+        "items": [
+          {
+            "text": "Cuando salgo del trabajo, voy al gimnasio.",
+            "bucket": 0
+          },
+          {
+            "text": "Cuando salgas del trabajo, ven a verme.",
+            "bucket": 1
+          },
+          {
+            "text": "En cuanto llegó, se puso a cocinar.",
+            "bucket": 0
+          },
+          {
+            "text": "En cuanto llegue, se pondrá a cocinar.",
+            "bucket": 1
+          },
+          {
+            "text": "Esperamos hasta que abrieron la puerta.",
+            "bucket": 0
+          },
+          {
+            "text": "Esperaremos hasta que abran la puerta.",
+            "bucket": 1
+          }
+        ],
+        "why": "The same connector takes the indicative for something real (a habit or a past event) and the subjunctive for something still to come."
+      },
+      {
+        "title": "Aunque: what does the speaker mean?",
+        "buckets": [
+          "a fact I report",
+          "even if / it doesn't matter"
+        ],
+        "items": [
+          {
+            "text": "Aunque hace frío, no llevo abrigo.",
+            "bucket": 0
+          },
+          {
+            "text": "Aunque haga frío, no llevaré abrigo.",
+            "bucket": 1
+          },
+          {
+            "text": "Aunque es caro, lo voy a comprar.",
+            "bucket": 0
+          },
+          {
+            "text": "Aunque sea caro, lo voy a comprar.",
+            "bucket": 1
+          },
+          {
+            "text": "Si bien el plan tiene riesgos, es el mejor.",
+            "bucket": 0
+          },
+          {
+            "text": "Por mucho que protestes, no cambiará nada.",
+            "bucket": 1
+          }
+        ],
+        "why": "The indicative presents the concession as information. The subjunctive leaves it open or dismisses it."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Cuando llegarás a casa, llámame.",
+        "wrong": "llegarás",
+        "fix": "llegues",
+        "why": "A future event after cuando takes the present subjunctive, never the future."
+      },
+      {
+        "sentence": "Salimos antes de que empieza el partido.",
+        "wrong": "empieza",
+        "fix": "empiece",
+        "why": "Antes de que always takes the subjunctive."
+      },
+      {
+        "sentence": "Te espero hasta que terminas los deberes.",
+        "wrong": "terminas",
+        "fix": "termines",
+        "why": "The homework is not finished yet, so hasta que takes the subjunctive."
+      },
+      {
+        "sentence": "Por mucho rápido que corras, no llegarás.",
+        "wrong": "mucho",
+        "fix": "muy",
+        "why": "Before an adjective or adverb the pattern is por muy … que."
+      },
+      {
+        "sentence": "Si bien sea caro, merece la pena.",
+        "wrong": "sea",
+        "fix": "es",
+        "why": "Si bien grants a fact and takes the indicative."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Llámame en cuanto llegues a casa.",
+        "meaning": "Call me as soon as you get home.",
+        "distractors": [
+          "llegarás"
+        ]
+      },
+      {
+        "text": "Salimos antes de que oscurezca.",
+        "meaning": "We'll leave before it gets dark.",
+        "distractors": [
+          "oscurece"
+        ]
+      },
+      {
+        "text": "Por muy tarde que sea, llámame.",
+        "meaning": "However late it is, call me.",
+        "distractors": [
+          "mucho"
+        ]
+      },
+      {
+        "text": "Aunque llueva, iremos a la playa.",
+        "meaning": "Even if it rains, we'll go to the beach.",
+        "distractors": [
+          "lloverá"
+        ]
+      }
+    ]
+  }
+}

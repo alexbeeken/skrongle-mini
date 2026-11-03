@@ -1,0 +1,582 @@
+{
+  "id": "c1-formal-writing",
+  "slug": "formal-writing",
+  "title": "Formal writing: nominalisation and the impersonal voice",
+  "unit": "C1",
+  "group": "Grammar",
+  "order": 28,
+  "summary": "Write like a report: verbs turned into nouns, el hecho de que, lo + adjective, se and ser passives, and formal connectors and verbs.",
+  "focus": "The grammar and vocabulary of formal written Spanish",
+  "prerequisites": [
+    "c1-word-order-and-emphasis",
+    "b2-register",
+    "b2-passive-voice"
+  ],
+  "content": "## Turning verbs into nouns\n\nFormal Spanish packs actions into nouns, which makes sentences denser and more impersonal:\n\n| verb | noun |\n|---|---|\n| llegar | **la llegada** |\n| aumentar | **el aumento** |\n| reducir | **la reducción** |\n| crecer | **el crecimiento** |\n| mejorar | **la mejora** |\n| decidir | **la decisión**, **la toma de decisiones** |\n\n*Los precios subieron mucho y la gente compró menos* becomes ***El fuerte aumento** de los precios provocó **un descenso** del consumo.* Light verbs carry the nouns: **llevar a cabo** (un estudio), **dar lugar a**, **realizar**.\n\n## El hecho de que; lo + adjective\n\n- **el hecho de que** + subjunctive (the usual choice, even for facts): *El hecho de que no **haya** respondido es preocupante.*\n- **lo + adjective** means \"the … thing\": ***lo importante***, ***lo más grave***, ***lo cierto es que*** (the fact is that).\n\n## Impersonal and passive voices\n\n- **se** impersonal: *Se considera que…*, *Se vive mejor en el campo.*\n- **pasiva refleja**, the most natural passive. The verb agrees with the thing: ***Se construyeron** tres hospitales.*\n- **ser + participle**, mostly in news and legal texts: *El acuerdo **fue firmado** por ambas partes.* The participle agrees with the subject.\n\n## Formal connectors and verbs\n\n| everyday | formal |\n|---|---|\n| pero | **no obstante**, sin embargo |\n| también | **asimismo** |\n| así que | **por consiguiente**, por lo tanto |\n| sobre | **en lo que respecta a**, en cuanto a |\n| hay que decir que | **cabe señalar que** |\n| pedir / dar / empezar | **solicitar** / **proporcionar** / **iniciar** |\n| poner / terminar / decir | **colocar** / **finalizar** / **manifestar** |",
+  "vocabulary": [
+    {
+      "term": "la llegada",
+      "meaning": "the arrival",
+      "example": "Tras la llegada de la delegación, se inició la sesión.",
+      "example_meaning": "After the delegation's arrival, the session began."
+    },
+    {
+      "term": "el aumento",
+      "meaning": "the increase, the rise",
+      "example": "El aumento del paro preocupa al Gobierno.",
+      "example_meaning": "The rise in unemployment worries the government."
+    },
+    {
+      "term": "la toma de decisiones",
+      "meaning": "decision-making",
+      "example": "La toma de decisiones debe ser transparente.",
+      "example_meaning": "Decision-making must be transparent."
+    },
+    {
+      "term": "llevar a cabo",
+      "meaning": "to carry out",
+      "example": "La universidad llevó a cabo un estudio sobre el sueño.",
+      "example_meaning": "The university carried out a study on sleep."
+    },
+    {
+      "term": "el hecho de que",
+      "meaning": "the fact that (usually + subjunctive)",
+      "example": "El hecho de que el servicio sea gratuito no justifica los retrasos.",
+      "example_meaning": "The fact that the service is free doesn't justify the delays."
+    },
+    {
+      "term": "lo cierto es que",
+      "meaning": "the fact is that, the truth is that",
+      "example": "Lo cierto es que las cifras no han mejorado.",
+      "example_meaning": "The fact is that the figures haven't improved."
+    },
+    {
+      "term": "asimismo",
+      "meaning": "likewise, also (formal)",
+      "example": "Asimismo, se recuerda que está prohibido fumar en el recinto.",
+      "example_meaning": "Likewise, please note that smoking is forbidden on the premises."
+    },
+    {
+      "term": "no obstante",
+      "meaning": "however, nevertheless",
+      "example": "El plan es ambicioso; no obstante, es realista.",
+      "example_meaning": "The plan is ambitious; it is, however, realistic."
+    },
+    {
+      "term": "por consiguiente",
+      "meaning": "consequently, therefore",
+      "example": "No se alcanzó el quórum; por consiguiente, se aplazó la votación.",
+      "example_meaning": "The quorum was not reached; consequently, the vote was postponed."
+    },
+    {
+      "term": "en lo que respecta a",
+      "meaning": "as regards, with regard to",
+      "example": "En lo que respecta a los plazos, no habrá cambios.",
+      "example_meaning": "As regards the deadlines, there will be no changes."
+    },
+    {
+      "term": "cabe señalar que",
+      "meaning": "it should be pointed out that",
+      "example": "Cabe señalar que la encuesta es anónima.",
+      "example_meaning": "It should be pointed out that the survey is anonymous."
+    },
+    {
+      "term": "solicitar",
+      "meaning": "to request, to apply for (formal pedir)",
+      "example": "Para solicitar la beca, rellene el formulario adjunto.",
+      "example_meaning": "To apply for the grant, fill in the attached form."
+    },
+    {
+      "term": "proporcionar",
+      "meaning": "to provide (formal dar)",
+      "example": "La empresa proporcionará el material necesario.",
+      "example_meaning": "The company will provide the necessary materials."
+    },
+    {
+      "term": "iniciar",
+      "meaning": "to begin, to initiate (formal empezar)",
+      "example": "Las obras se iniciarán el próximo lunes.",
+      "example_meaning": "The works will begin next Monday."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "c1-formal-writing-01",
+      "prompt": "Which is the formal written version of 'Cuando llegó el ministro, empezaron la reunión'?",
+      "type": "multiple-choice",
+      "options": [
+        "Tras la llegada del ministro, se inició la reunión.",
+        "Llegando el ministro, empezaron la reunión.",
+        "Cuando el ministro llegó, se empezó a hacer la reunión."
+      ],
+      "correct_answer": "Tras la llegada del ministro, se inició la reunión.",
+      "explanation": "Nominalisation (la llegada), the pasiva refleja (se inició) and a formal verb (iniciar).",
+      "hints": [
+        "Look for a noun instead of a verb."
+      ],
+      "teaches": [
+        "la llegada",
+        "iniciar"
+      ]
+    },
+    {
+      "question_id": "c1-formal-writing-02",
+      "prompt": "aumentar → el ___",
+      "type": "fill-in-blank",
+      "correct_answer": "aumento",
+      "explanation": "The noun of aumentar is el aumento.",
+      "hints": [
+        "Drop -ar, add -o."
+      ],
+      "teaches": [
+        "el aumento"
+      ]
+    },
+    {
+      "question_id": "c1-formal-writing-03",
+      "prompt": "El hecho de que no ___ respondido a tiempo es preocupante.",
+      "type": "multiple-choice",
+      "options": [
+        "haya",
+        "habría",
+        "hubo"
+      ],
+      "correct_answer": "haya",
+      "explanation": "El hecho de que usually takes the subjunctive: haya respondido.",
+      "hints": [
+        "Present perfect subjunctive."
+      ],
+      "teaches": [
+        "el hecho de que"
+      ]
+    },
+    {
+      "question_id": "c1-formal-writing-04",
+      "prompt": "___ importante es que nadie resultó herido.",
+      "type": "fill-in-blank",
+      "correct_answer": "Lo",
+      "explanation": "Lo + adjective gives \"the … thing\": lo importante.",
+      "hints": [
+        "The neuter article."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "c1-formal-writing-05",
+      "prompt": "El año pasado se ___ tres hospitales nuevos.",
+      "type": "multiple-choice",
+      "options": [
+        "construyeron",
+        "construyó"
+      ],
+      "correct_answer": "construyeron",
+      "explanation": "In the pasiva refleja the verb agrees with the plural subject: se construyeron tres hospitales.",
+      "hints": [
+        "Tres hospitales is the subject."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "c1-formal-writing-06",
+      "prompt": "El informe es completo; ___, presenta algunos errores de cálculo.",
+      "type": "multiple-choice",
+      "options": [
+        "no obstante",
+        "o sea",
+        "pues nada"
+      ],
+      "correct_answer": "no obstante",
+      "explanation": "No obstante is a formal 'however'. O sea and pues nada are colloquial.",
+      "hints": [
+        "A formal 'however'."
+      ],
+      "teaches": [
+        "no obstante"
+      ]
+    },
+    {
+      "question_id": "c1-formal-writing-07",
+      "prompt": "Me dirijo a ustedes para ___ información sobre el máster. (formal verb for 'pedir')",
+      "type": "fill-in-blank",
+      "correct_answer": "solicitar",
+      "explanation": "Solicitar is the formal equivalent of pedir.",
+      "hints": [
+        "Also used for applying for grants."
+      ],
+      "teaches": [
+        "solicitar"
+      ]
+    },
+    {
+      "question_id": "c1-formal-writing-08",
+      "prompt": "What does 'Cabe señalar que la encuesta es anónima' mean?",
+      "type": "multiple-choice",
+      "options": [
+        "It should be pointed out that the survey is anonymous.",
+        "The survey fits in an anonymous box.",
+        "We must hide that the survey is anonymous."
+      ],
+      "correct_answer": "It should be pointed out that the survey is anonymous.",
+      "explanation": "Cabe señalar que introduces a point the writer wants to highlight.",
+      "hints": [
+        "Señalar = to point out."
+      ],
+      "teaches": [
+        "cabe señalar que"
+      ]
+    },
+    {
+      "question_id": "c1-formal-writing-09",
+      "prompt": "Which sentence belongs in a report?",
+      "type": "multiple-choice",
+      "options": [
+        "Se llevó a cabo una encuesta entre mil usuarios.",
+        "Hicimos una encuesta a un montón de gente."
+      ],
+      "correct_answer": "Se llevó a cabo una encuesta entre mil usuarios.",
+      "explanation": "Impersonal se, a formal verb phrase (llevar a cabo) and precise numbers suit a report.",
+      "hints": [
+        "Which one avoids 'we' and 'un montón'?"
+      ],
+      "teaches": [
+        "llevar a cabo"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Se ha iniciado la construcción del nuevo hospital.",
+      "meaning": "Construction of the new hospital has begun."
+    },
+    {
+      "text": "Asimismo, se solicita puntualidad a todos los asistentes.",
+      "meaning": "Likewise, all attendees are asked to be punctual.",
+      "note": "New word: el asistente = the attendee."
+    },
+    {
+      "text": "Lo cierto es que nadie esperaba ese resultado.",
+      "meaning": "The truth is that nobody expected that result."
+    },
+    {
+      "text": "El aumento del precio de la vivienda preocupa a los jóvenes.",
+      "meaning": "The rise in housing prices worries young people.",
+      "note": "New word: la vivienda = housing."
+    },
+    {
+      "text": "No obstante, la propuesta fue aprobada por mayoría.",
+      "meaning": "However, the proposal was approved by a majority.",
+      "note": "ser + participle: aprobada agrees with la propuesta."
+    },
+    {
+      "text": "Cabe señalar que el horario podrá sufrir modificaciones.",
+      "meaning": "It should be noted that the timetable may be subject to change."
+    },
+    {
+      "text": "En lo que respecta a la financiación, el ayuntamiento aportará la mitad.",
+      "meaning": "As regards funding, the town council will contribute half.",
+      "note": "New word: la financiación = funding."
+    },
+    {
+      "text": "Se llevará a cabo una revisión completa de las instalaciones.",
+      "meaning": "A full inspection of the facilities will be carried out."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Turning verbs into nouns"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "c1-formal-writing-01"
+    },
+    {
+      "question": "c1-formal-writing-02"
+    },
+    {
+      "section": "El hecho de que"
+    },
+    {
+      "question": "c1-formal-writing-03"
+    },
+    {
+      "question": "c1-formal-writing-04"
+    },
+    {
+      "section": "Impersonal and passive"
+    },
+    {
+      "question": "c1-formal-writing-05"
+    },
+    {
+      "question": "c1-formal-writing-09"
+    },
+    {
+      "tip": "A formal sentence often has fewer verbs and more nouns. Who did it matters less than what was done."
+    },
+    {
+      "section": "Formal connectors"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "c1-formal-writing-06"
+    },
+    {
+      "question": "c1-formal-writing-07"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "c1-formal-writing-08"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "c1-formal-writing-conv-report",
+      "title": "Polishing the report",
+      "scenario": "Beatriz helps her colleague Luis turn his notes into the quarterly report for management.",
+      "role_a": "Luis",
+      "role_b": "Beatriz",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "He escrito: «Este trimestre vendimos mucho más, pero la gente se quejó».",
+          "meaning": "I've written: 'This quarter we sold loads more, but people complained.'"
+        },
+        {
+          "speaker": "b",
+          "text": "Para la dirección, mejor: «Se registró un notable aumento de las ventas».",
+          "meaning": "For management, better: 'A notable increase in sales was recorded.'"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Y lo de las quejas?",
+          "meaning": "And the complaints bit?"
+        },
+        {
+          "speaker": "b",
+          "text": "«No obstante, se recibieron numerosas reclamaciones de los clientes».",
+          "meaning": "'However, numerous complaints were received from customers.'",
+          "note": "Pasiva refleja: se recibieron agrees with reclamaciones."
+        },
+        {
+          "speaker": "a",
+          "text": "Suena mucho más serio. ¿Y cómo digo que hay que contratar a alguien?",
+          "meaning": "It sounds much more serious. And how do I say we need to hire someone?"
+        },
+        {
+          "speaker": "b",
+          "text": "«Por consiguiente, se propone la contratación de un nuevo técnico».",
+          "meaning": "'Consequently, the hiring of a new technician is proposed.'"
+        },
+        {
+          "speaker": "a",
+          "text": "La contratación, la reducción, el aumento… ¡Todo son sustantivos!",
+          "meaning": "Hiring, reduction, increase… It's all nouns!"
+        },
+        {
+          "speaker": "b",
+          "text": "Así es. Lo importante es que el texto sea claro e impersonal.",
+          "meaning": "That's right. The important thing is that the text is clear and impersonal."
+        },
+        {
+          "speaker": "a",
+          "text": "Vale. Y al final pongo: «Cabe señalar que el equipo hizo un esfuerzo enorme».",
+          "meaning": "OK. And at the end I'll put: 'It should be noted that the team made an enormous effort.'"
+        },
+        {
+          "speaker": "b",
+          "text": "Perfecto, aunque yo diría «llevó a cabo un esfuerzo notable». Bueno, quizá no.",
+          "meaning": "Perfect, though I'd say 'carried out a notable effort'. Well, maybe not."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🏛️",
+    "bites": [
+      {
+        "title": "Verbs become nouns",
+        "emoji": "🏛️",
+        "rule": "Formal texts say el aumento de los precios rather than los precios aumentaron: la llegada, la reducción, el crecimiento, la toma de decisiones.",
+        "example": "Tras la llegada del tren, se abrió la estación.",
+        "example_meaning": "After the train's arrival, the station opened."
+      },
+      {
+        "title": "El hecho de que, lo + adjective",
+        "emoji": "📌",
+        "rule": "El hecho de que usually takes the subjunctive. Lo importante, lo cierto es que: lo + adjective names the idea.",
+        "example": "Lo cierto es que nadie llamó.",
+        "example_meaning": "The fact is that nobody called."
+      },
+      {
+        "title": "Se and ser passives",
+        "emoji": "🔄",
+        "rule": "Se construyeron tres hospitales (the verb agrees with the thing). El acuerdo fue firmado (news, legal texts; the participle agrees).",
+        "example": "Se construyeron dos puentes.",
+        "example_meaning": "Two bridges were built."
+      },
+      {
+        "title": "Formal swaps",
+        "emoji": "🎩",
+        "rule": "Replace pero with no obstante, también with asimismo, así que with por consiguiente, pedir with solicitar, dar with proporcionar and empezar with iniciar.",
+        "example": "Asimismo, se solicita silencio.",
+        "example_meaning": "Likewise, silence is requested."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Everyday or formal?",
+        "buckets": [
+          "everyday",
+          "formal"
+        ],
+        "items": [
+          {
+            "text": "pedir",
+            "bucket": 0
+          },
+          {
+            "text": "solicitar",
+            "bucket": 1
+          },
+          {
+            "text": "empezar",
+            "bucket": 0
+          },
+          {
+            "text": "iniciar",
+            "bucket": 1
+          },
+          {
+            "text": "pero",
+            "bucket": 0
+          },
+          {
+            "text": "no obstante",
+            "bucket": 1
+          },
+          {
+            "text": "así que",
+            "bucket": 0
+          },
+          {
+            "text": "por consiguiente",
+            "bucket": 1
+          }
+        ],
+        "why": "Each everyday word has a formal partner for reports, letters and official notices."
+      },
+      {
+        "title": "Which noun ending?",
+        "buckets": [
+          "-ción / -sión",
+          "-miento",
+          "-ada / -ida",
+          "other"
+        ],
+        "items": [
+          {
+            "text": "reducir",
+            "bucket": 0
+          },
+          {
+            "text": "decidir",
+            "bucket": 0
+          },
+          {
+            "text": "crecer",
+            "bucket": 1
+          },
+          {
+            "text": "conocer",
+            "bucket": 1
+          },
+          {
+            "text": "llegar",
+            "bucket": 2
+          },
+          {
+            "text": "salir",
+            "bucket": 2
+          },
+          {
+            "text": "aumentar",
+            "bucket": 3
+          },
+          {
+            "text": "mejorar",
+            "bucket": 3
+          }
+        ],
+        "why": "reducción, decisión; crecimiento, conocimiento; llegada, salida; aumento, mejora."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Se vende varios pisos en el centro.",
+        "wrong": "vende",
+        "fix": "venden",
+        "why": "In the pasiva refleja the verb agrees with varios pisos."
+      },
+      {
+        "sentence": "La importante es que todos estén bien.",
+        "wrong": "La",
+        "fix": "Lo",
+        "why": "Lo + adjective names an abstract idea."
+      },
+      {
+        "sentence": "El acuerdo fue firmada por ambas partes.",
+        "wrong": "firmada",
+        "fix": "firmado",
+        "why": "The participle agrees with el acuerdo."
+      },
+      {
+        "sentence": "Se construyó dos puentes nuevos.",
+        "wrong": "construyó",
+        "fix": "construyeron",
+        "why": "Dos puentes is plural."
+      },
+      {
+        "sentence": "Lo cierto son que nadie llamó.",
+        "wrong": "son",
+        "fix": "es",
+        "why": "The fixed phrase is lo cierto es que."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Se inició la reunión a las diez.",
+        "meaning": "The meeting began at ten.",
+        "distractors": [
+          "iniciaron"
+        ]
+      },
+      {
+        "text": "Lo cierto es que nadie respondió.",
+        "meaning": "The fact is that nobody replied.",
+        "distractors": [
+          "La"
+        ]
+      },
+      {
+        "text": "Se construyeron tres hospitales nuevos.",
+        "meaning": "Three new hospitals were built.",
+        "distractors": [
+          "construyó"
+        ]
+      },
+      {
+        "text": "Cabe señalar que el plazo terminó.",
+        "meaning": "It should be noted that the deadline has passed.",
+        "distractors": [
+          "cabo"
+        ]
+      }
+    ]
+  }
+}

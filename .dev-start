@@ -1,0 +1,341 @@
+#!/usr/bin/env bash
+# Run the app locally for testing before deploying to the Pi. Dev mode is on
+# (SKRONGLE_DEV=1: /dev/login, /dev/reset, the simulated AI provider at /dev/ai;
+# see docs/testing.md).
+#
+#   ./.dev-start                # debug build on a free port in 8100-8999, DB in ./dev.db
+#   ./.dev-start --release      # same, but with the release profile (what the Pi runs)
+#   ./.dev-start --reset        # delete ./dev.db (and held LLM requests) first
+#   ./.dev-start --seed         # create the dev user with Spanish open and some progress
+#   ./.dev-start --seed-users 1000   # also a crowd of 1000 made-up learners with 90 days of history (#583)
+#   ./.dev-start --seed-days 30 # how many days of history the crowd gets (default 90)
+#   ./.dev-start --test-course  # also offer the test course (TEST_COURSE=1; data/test-courses/)
+#   ./.dev-start --mini         # the mini shape a self-hoster runs: no dev mailbox, stand-in
+#                               # dev Stripe (mail only logged), no plans
+#   ./.dev-start --port 9000    # a fixed port instead (--port auto = the default)
+#   ./.dev-start --llm capture  # the simulated provider holds each request for a reply on /dev/ai (Manual replies)
+#                               # (default: it answers from the fixtures; --llm live: the real providers)
+#   ./.dev-start --llm-delay 0  # the simulator's canned replies wait this many ms; default 500
+#   ./.dev-start --background   # build, start detached, wait until it answers, print the URL
+#   ./.dev-start --stop         # stop the background server
+#   ./.dev-start --lan          # listen on 0.0.0.0 so phones can try it (turns dev mode off)
+#   ./.dev-start --watch        # rebuild + restart on changes (same port and DB), pages reload themselves
+#
+# Flags can be combined: ./.dev-start --reset --seed --background
+# Each worktree has its own DB and pid file, so two checkouts can run at once.
+# Once the server answers it prints the site, the dev inbox, the dev login and
+# the branch's open pull request (if gh finds one), and nothing else; the
+# build and the server log go to dev-server.log.
+# DEV_VERBOSE=1 shows everything: the build, the settings, and (in the
+# foreground or with --watch) the server log in the terminal.
+set -euo pipefail
+cd "$(dirname "$0")"
+
+VERBOSE="${DEV_VERBOSE:-0}"
+# Progress messages: only with DEV_VERBOSE=1. Errors always print.
+say() { if [ "$VERBOSE" = 1 ]; then echo "$@"; fi; }
+
+PIDFILE=.dev-server.pid
+URLFILE=.dev-server.url
+LOGFILE=dev-server.log
+
+stop_server() {
+  local pid
+  pid=$(cat "$PIDFILE" 2>/dev/null || true)
+  if [ -n "$pid" ] && kill -0 "$pid" 2>/dev/null; then
+    kill "$pid"
+    for _ in $(seq 1 100); do kill -0 "$pid" 2>/dev/null || break; sleep 0.1; done
+    kill -9 "$pid" 2>/dev/null || true
+    say "==> stopped dev server (pid $pid)"
+  fi
+  rm -f "$PIDFILE" "$URLFILE"
+}
+
+# rustup installs to ~/.cargo/bin without touching the shell profile
+if ! command -v cargo >/dev/null 2>&1; then
+  [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+fi
+
+PROFILE_FLAG=""
+PROFILE_DIR=debug
+PORT=auto
+HOST=127.0.0.1
+RESET=0
+WATCH=0
+SEED=0
+BACKGROUND=0
+LLM=""
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --release)    PROFILE_FLAG="--release"; PROFILE_DIR=release ;;
+    --reset)      RESET=1 ;;
+    --seed)       SEED=1 ;;
+    --seed-users) export SKRONGLE_DEV_SEED_USERS="$2"; shift ;;
+    --seed-days)  export SKRONGLE_DEV_SEED_DAYS="$2"; shift ;;
+    --lan)        HOST=0.0.0.0 ;;
+    --watch)      WATCH=1 ;;
+    --background) BACKGROUND=1 ;;
+    --stop)       stop_server; exit 0 ;;
+    --port)       PORT="$2"; shift ;;
+    --llm)        LLM="$2"; shift ;;
+    --llm-delay)  export SKRONGLE_LLM_DELAY_MS="$2"; shift ;;
+    --test-course) export TEST_COURSE=1 ;;
+    --mini)       export SKRONGLE_MINI=1 ;;
+    -h|--help)    sed -n '2,30p' "$0"; exit 0 ;;
+    *) echo "unknown flag: $1 (try --help)"; exit 1 ;;
+  esac
+  shift
+done
+command -v cargo >/dev/null 2>&1 || { echo "cargo not found. Install Rust: https://rustup.rs"; exit 1; }
+
+# A random free port in 8100-8999: clear of 8080 (the Pi's port, and other
+# worktrees' old default) and of the OS's ephemeral range.
+if [ "$PORT" = auto ]; then
+  PORT=$(python3 -c '
+import random, socket
+for port in random.sample(range(8100, 9000), 900):
+    try:
+        socket.create_server(("127.0.0.1", port)).close()
+    except OSError:
+        continue
+    print(port)
+    break
+')
+  [ -n "$PORT" ] || { echo "no free port in 8100-8999; pass --port N"; exit 1; }
+fi
+
+export SKRONGLE_BIND="$HOST:$PORT"
+export SKRONGLE_DB="${SKRONGLE_DB:-${SPANISH_DB:-./dev.db}}"
+export SKRONGLE_DATA_DIR="${SKRONGLE_DATA_DIR:-${SPANISH_DATA_DIR:-./data}}"
+export SKRONGLE_LOG="${SKRONGLE_LOG:-${SPANISH_LOG:-debug}}"
+export SKRONGLE_DEV=1
+# The dev database keeps the accounts you register while clicking through;
+# without this the server would take it for a deploy's and refuse dev mode (#388).
+export SKRONGLE_DEV_FORCE=1
+export SKRONGLE_LLM_DIR="${SKRONGLE_LLM_DIR:-./dev-llm}"
+# Clicking through should show the waiting states (a short spinner), without
+# the wait of a real model; scripts/e2e.sh and smoke.sh start the server
+# themselves, without the delay.
+export SKRONGLE_LLM_DELAY_MS="${SKRONGLE_LLM_DELAY_MS:-500}"
+[ -n "$LLM" ] && export SKRONGLE_LLM_MODE="$LLM"
+[ "$SEED" = 1 ] && export SKRONGLE_DEV_SEED=1
+
+if [ "$RESET" = 1 ]; then
+  { [ "$BACKGROUND" = 1 ] || [ "$WATCH" = 1 ]; } && stop_server
+  rm -f "$SKRONGLE_DB" "$SKRONGLE_DB-wal" "$SKRONGLE_DB-shm" "$SKRONGLE_DB.key"
+  rm -rf "$SKRONGLE_LLM_DIR"
+  say "==> removed $SKRONGLE_DB (and its .key file) and $SKRONGLE_LLM_DIR"
+fi
+
+URL="http://$HOST:$PORT"
+say "==> dev server: $URL   (db: $SKRONGLE_DB, courses: $SKRONGLE_DATA_DIR/courses, log: $SKRONGLE_LOG, llm: ${SKRONGLE_LLM_MODE:-simulator}, canned replies after ${SKRONGLE_LLM_DELAY_MS} ms)"
+LAN_IP=""
+if [ "$HOST" = 0.0.0.0 ]; then
+  say "==> --lan: dev mode is refused on a non-loopback bind; register normally"
+  LAN_IP=$(ipconfig getifaddr en0 2>/dev/null || hostname -I 2>/dev/null | awk '{print $1}' || true)
+fi
+
+BIN="${CARGO_TARGET_DIR:-target}/$PROFILE_DIR/spanish-learning"
+
+# The open pull request for this branch, so a reviewer can go straight to its
+# QA steps. Looked up during the build; quietly skipped without gh, a login or
+# the network.
+PRFILE=$(mktemp "${TMPDIR:-/tmp}/dev-pr.XXXXXX")
+PR_LOOKUP=""
+BRANCH=$(git branch --show-current 2>/dev/null || true)
+if [ -n "$BRANCH" ] && command -v gh >/dev/null 2>&1; then
+  ( gh pr list --head "$BRANCH" --state open --limit 1 \
+      --json url,title --template '{{range .}}{{.url}}   ({{.title}}){{end}}' \
+      >"$PRFILE" 2>/dev/null || true ) </dev/null &
+  PR_LOOKUP=$!
+fi
+
+# The build's output only on failure, unless DEV_VERBOSE=1.
+build() {
+  if [ "$VERBOSE" = 1 ]; then cargo build $PROFILE_FLAG; return; fi
+  local out
+  out=$(mktemp)
+  if ! cargo build $PROFILE_FLAG >"$out" 2>&1; then cat "$out" >&2; rm -f "$out"; exit 1; fi
+  rm -f "$out"
+}
+
+# The latest "dev crowd: n/N learners" line in the log, if any.
+crowd_progress() { grep -o 'dev crowd: [0-9]*/[0-9]* learners' "$LOGFILE" 2>/dev/null | tail -1 || true; }
+
+# Does /healthz answer? At most 1 s per try: the server binds its port before
+# it migrates and seeds, so until it serves, a connection is accepted and then
+# gets no answer (#869).
+healthz() { curl -fsS -m 1 "$URL/healthz" >/dev/null 2>&1; }
+
+# Wait up to $2 seconds, by the clock, for /healthz while pid $1 lives. A
+# crowd seed (--seed-users) runs before the server answers, so the wait
+# starts over while the log shows the crowd growing. On a timeout the server
+# is stopped, so no server is left running without a pid file (#679).
+wait_up() {
+  local progress last="" deadline=$((SECONDS + $2))
+  while true; do
+    healthz && return 0
+    kill -0 "$1" 2>/dev/null || { echo "==> the server exited; last lines of $LOGFILE:" >&2; tail -20 "$LOGFILE" >&2; return 1; }
+    if [ "$SECONDS" -ge "$deadline" ]; then
+      progress=$(crowd_progress)
+      if [ -n "$progress" ] && [ "$progress" != "$last" ]; then
+        say "==> still seeding ($progress)"
+        last=$progress
+        deadline=$((SECONDS + $2))
+        continue
+      fi
+      break
+    fi
+    sleep 0.1
+  done
+  echo "==> no answer from $URL/healthz; stopped the server; see $LOGFILE" >&2
+  kill "$1" 2>/dev/null || true
+  for _ in $(seq 1 50); do kill -0 "$1" 2>/dev/null || break; sleep 0.1; done
+  kill -9 "$1" 2>/dev/null || true
+  return 1
+}
+
+# The three things to open, once the server answers.
+summary() {
+  echo "site:  $URL"
+  if [ -n "$LAN_IP" ]; then echo "phone: http://$LAN_IP:$PORT"; fi
+  # The dev mailbox page holds the e-mail. Only when it is on (not with
+  # SKRONGLE_MAIL_PROVIDERS or SKRONGLE_DEV_SMTP=0).
+  if curl -fsS "$URL/dev/inbox?format=json" 2>/dev/null | grep -q '"smtp":"'; then
+    echo "inbox: $URL/dev/inbox"
+  fi
+  # dev::DEV_EMAIL / DEV_PASSWORD (src/dev.rs); dev mode only.
+  if curl -fsS "$URL/login" 2>/dev/null | grep -q 'data-testid="login-dev-login"'; then
+    echo "login: dev@example.com / dev-password   (or $URL/dev/login)"
+  fi
+  if [ -n "$PR_LOOKUP" ]; then
+    # Give a slow lookup a few seconds more, then go on without it.
+    for _ in $(seq 1 50); do kill -0 "$PR_LOOKUP" 2>/dev/null || break; sleep 0.1; done
+    kill "$PR_LOOKUP" 2>/dev/null || true
+    if [ -s "$PRFILE" ]; then echo "pr:    $(cat "$PRFILE")"; fi
+  fi
+  rm -f "$PRFILE"
+}
+
+if [ "$WATCH" = 1 ]; then
+  # A polling loop, no extra tool to install (docs/testing.md "Live reload"
+  # compares it with cargo-watch, bacon, watchexec and systemfd). Templates
+  # and docs/course-format.md are compiled in and data/ is read at boot, so
+  # every change means build + restart; the port and dev.db stay the same.
+  # Pages reload themselves once the new server answers (SKRONGLE_DEV_RELOAD).
+  export SKRONGLE_DEV_RELOAD=1
+  WATCHED="src templates static data docs Cargo.toml Cargo.lock"
+  STAMP=$(mktemp "${TMPDIR:-/tmp}/dev-watch.XXXXXX")
+  SERVER=""; CHILD=""
+  # Builds and waits run in the background + `wait`, so a TERM from
+  # --stop is handled at once instead of after the build.
+  in_child() { "$@" & CHILD=$!; wait "$CHILD"; local rc=$?; CHILD=""; return $rc; }
+  stop_child() {
+    [ -n "$SERVER" ] || return 0
+    kill "$SERVER" 2>/dev/null || true
+    for _ in $(seq 1 50); do kill -0 "$SERVER" 2>/dev/null || break; sleep 0.1; done
+    kill -9 "$SERVER" 2>/dev/null || true
+    SERVER=""
+  }
+  start_child() {
+    local t0=$SECONDS
+    "$BIN" & SERVER=$!
+    # 20 s by the clock, longer while the log shows a crowd seed growing.
+    local deadline=$((SECONDS + 20)) progress last=""
+    while true; do
+      if healthz; then
+        echo "==> healthy: $URL/healthz answered after $((SECONDS - t0)) s (server pid $SERVER)"
+        unset SKRONGLE_DEV_SEED   # seed once, not on every restart
+        return 0
+      fi
+      kill -0 "$SERVER" 2>/dev/null || { echo "==> the server exited; fix the error above and save again"; SERVER=""; return 1; }
+      if [ "$SECONDS" -ge "$deadline" ]; then
+        progress=$(crowd_progress)
+        [ -n "$progress" ] && [ "$progress" != "$last" ] || break
+        last=$progress
+        deadline=$((SECONDS + 20))
+      fi
+      sleep 0.2
+    done
+    echo "==> no answer from $URL/healthz after $((SECONDS - t0)) s"
+  }
+  watch_loop() {
+    trap '[ -n "$CHILD" ] && kill "$CHILD" 2>/dev/null; stop_child; rm -f "$STAMP" "$PIDFILE" "$URLFILE"; echo "==> watcher stopped"; exit 0' INT TERM
+    echo "==> watching $WATCHED (polling every second)"
+    if in_child cargo build $PROFILE_FLAG; then start_child || true; else echo "==> build failed; fix it and save"; fi
+    while true; do
+      in_child sleep 1
+      CHANGED=$(find $WATCHED -newer "$STAMP" -type f ! -name '.*' ! -name '*~' ! -name '*.swp' 2>/dev/null | head -5 || true)
+      [ -n "$CHANGED" ] || continue
+      in_child sleep 0.3   # let an editor finish writing
+      touch "$STAMP"       # anything saved during the build triggers the next round
+      echo "==> changed: $(echo $CHANGED)"
+      if in_child cargo build $PROFILE_FLAG; then
+        echo "==> restarting on $URL"
+        stop_child
+        start_child || true
+      else
+        echo "==> build failed; still serving the previous build"
+      fi
+    done
+  }
+  stop_server
+  echo "$URL" >"$URLFILE"
+  # Wait for the loop's first healthy server (or its failure) in the log.
+  wait_healthy() {
+    for _ in $(seq 1 1500); do
+      grep -q '^==> healthy' "$LOGFILE" 2>/dev/null && return 0
+      grep -q '^==> build failed\|^==> the server exited' "$LOGFILE" 2>/dev/null && { echo "==> see $LOGFILE:" >&2; tail -20 "$LOGFILE" >&2; return 1; }
+      sleep 0.2
+    done
+    echo "==> not healthy after 5 minutes; see $LOGFILE" >&2; return 1
+  }
+  if [ "$BACKGROUND" = 1 ]; then
+    rm -f "$LOGFILE"
+    ( trap '' HUP; watch_loop ) >"$LOGFILE" 2>&1 </dev/null &
+    echo $! >"$PIDFILE"
+    wait_healthy || exit 1
+    say "==> watching in the background (pid $(cat "$PIDFILE"), log $LOGFILE); stop with ./.dev-start --stop"
+    summary
+    exit 0
+  fi
+  if [ "$VERBOSE" = 1 ]; then
+    echo $$ >"$PIDFILE"
+    watch_loop
+  fi
+  # Foreground, quiet: the loop logs to the file; only a failed rebuild is
+  # reported here. Ctrl-C (or --stop) ends the loop and its server.
+  rm -f "$LOGFILE"
+  touch "$LOGFILE"
+  watch_loop >"$LOGFILE" 2>&1 </dev/null &
+  LOOP=$!
+  echo "$LOOP" >"$PIDFILE"
+  trap 'kill "$LOOP" 2>/dev/null; wait "$LOOP" 2>/dev/null; exit 0' INT TERM
+  wait_healthy || { kill "$LOOP" 2>/dev/null; exit 1; }
+  summary
+  tail -n0 -F "$LOGFILE" 2>/dev/null | grep --line-buffered -E '^==> (build failed|the server exited)' | sed -u "s|\$| (see $LOGFILE)|" &
+  wait "$LOOP"
+  exit 0
+fi
+
+if [ "$BACKGROUND" = 1 ]; then
+  stop_server
+  build
+  nohup "$BIN" >"$LOGFILE" 2>&1 &
+  echo $! >"$PIDFILE"
+  echo "$URL" >"$URLFILE"
+  say "==> running in the background (pid $(cat "$PIDFILE"), log $LOGFILE); stop with ./.dev-start --stop"
+  wait_up "$(cat "$PIDFILE")" 20 || { rm -f "$PIDFILE" "$URLFILE"; exit 1; }
+  summary
+  exit 0
+fi
+
+[ "$VERBOSE" = 1 ] && exec cargo run $PROFILE_FLAG
+# Foreground: the log goes to the file; Ctrl-C stops the server.
+build
+"$BIN" >"$LOGFILE" 2>&1 &
+PID=$!
+trap 'kill "$PID" 2>/dev/null' EXIT
+wait_up "$PID" 20 || exit 1
+summary
+wait "$PID"

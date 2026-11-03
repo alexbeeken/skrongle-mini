@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t("play.hub.title") }}{% endblock %}
+{% block modenav %}{% let active = "all" %}{% include "nav_play.html" %}{% endblock %}
+{% block content %}
+<section class="hero">
+  <div>
+    <h1>{{ course.icons.mode_play }} {{ crate::t("play.hub.heading") }} <span class="muted">{{ crate::t("play.hub.heading_sub") }}</span></h1>
+    <p class="lead">{{ crate::t("play.hub.lead") }}</p>
+  </div>
+</section>
+
+<ul class="topics game-list" data-testid="games-list">
+  <li data-testid="games-item" data-game="matching">
+    <a href="{{ crate::base_path() }}/play/matching">{{ crate::t("play.matching.name") }}</a>
+    <span class="meta">{{ crate::t("play.hub.matching_desc") }}<br>
+      {{ crate::t2("play.hub.matching_stats", "lessons", playable_lessons, "terms", total_words) }}</span>
+    <a class="btn small" data-testid="games-play" href="{{ crate::base_path() }}/play/matching">{{ crate::t("play.common.play") }}</a>
+  </li>
+  {% if course.has_paradigm %}
+  <li data-testid="games-item" data-game="conjugation">
+    <a href="{{ crate::base_path() }}/play/conjugation">{{ crate::t1("play.drill.name", "item", course.item_label) }}</a>
+    <span class="meta">{{ crate::t1("play.hub.drill_desc", "item", course.item_label.to_lowercase()) }}</span>
+    <a class="btn small" data-testid="games-play" href="{{ crate::base_path() }}/play/conjugation">{{ crate::t("play.common.play") }}</a>
+  </li>
+  {% endif %}
+  {% if course.has_numbers %}
+  <li data-testid="games-item" data-game="numbers">
+    <a href="{{ crate::base_path() }}/play/numbers">{{ crate::t("play.numbers.name") }}</a>
+    <span class="meta">{{ crate::t1("play.hub.numbers_desc", "lang", course.term_label) }}{% if best_streak > 0 %}<br>{{ crate::t1("play.hub.best_streak", "n", best_streak) }}{% endif %}</span>
+    <a class="btn small" data-testid="games-play" href="{{ crate::base_path() }}/play/numbers">{{ crate::t("play.common.play") }}</a>
+  </li>
+  {% endif %}
+  {% if course.has_dates %}
+  <li data-testid="games-item" data-game="dates">
+    <a href="{{ crate::base_path() }}/play/dates">{{ crate::t("play.dates.name") }}</a>
+    <span class="meta">{{ crate::t1("play.hub.dates_desc", "lang", course.term_label) }}{% if best_dates > 0 %}<br>{{ crate::t1("play.hub.best_score", "n", best_dates) }}{% endif %}</span>
+    <a class="btn small" data-testid="games-play" href="{{ crate::base_path() }}/play/dates">{{ crate::t("play.common.play") }}</a>
+  </li>
+  {% endif %}
+  <li data-testid="games-item" data-game="study">
+    <a href="{{ crate::base_path() }}/vocabulary/study">{{ crate::t("play.hub.flashcards") }}</a>
+    <span class="meta">{{ crate::t2("play.hub.flashcards_desc", "term", course.term_label, "meaning", course.meaning_label) }}<br>
+      {{ crate::t1("play.hub.terms_collected", "n", words_learned) }}</span>
+    <a class="btn small" data-testid="games-play" href="{{ crate::base_path() }}/vocabulary/study">{{ crate::t("play.hub.study") }}</a>
+  </li>
+  <li data-testid="games-item" data-game="guide">
+    <a href="{{ crate::base_path() }}/guide">{{ crate::t("play.hub.stages") }}</a>
+    <span class="meta">{% if course.has_paradigm %}{{ crate::t1("play.hub.stages_desc", "unlocks", crate::t1("play.hub.stages_unlocks_drill", "item", course.item_label.to_lowercase())) }}{% else %}{{ crate::t1("play.hub.stages_desc", "unlocks", crate::t("play.hub.stages_unlocks_next")) }}{% endif %}<br>
+      {{ crate::t2("play.hub.lessons_passed", "done", stages_done, "total", stages_total) }}</span>
+    <a class="btn small" data-testid="games-play" href="{{ crate::base_path() }}/guide">{{ crate::t("play.hub.open") }}</a>
+  </li>
+</ul>
+{% endblock %}

@@ -1,0 +1,602 @@
+{
+  "id": "c2-varieties-and-history",
+  "slug": "varieties-and-history",
+  "title": "Where Spanish comes from and how it varies",
+  "unit": "C2",
+  "group": "Vocabulary",
+  "order": 24,
+  "summary": "From Latin to Castilian, Arabic and American loanwords, seseo and distinción, River Plate voseo, Caribbean and Andean Spanish, and Judeo-Spanish. Recognise the varieties; none of them is wrong.",
+  "focus": "Recognising the history and regional varieties of Spanish",
+  "prerequisites": [
+    "c1-regional-variation"
+  ],
+  "content": "## From Latin to Castilian\n\nSpanish is Latin that kept changing. The spoken Latin of Roman Hispania split into several Romance varieties; **el castellano**, born in the north of the peninsula around Castile, spread south with the medieval kingdoms and became the language of Spain and, after 1492, of much of the Americas. Nearly eight centuries of al-Andalus left thousands of **arabismos**, many still carrying the Arabic article *al-*:\n\n- **la almohada** (pillow), **el aceite** (oil), **el azúcar** (sugar)\n- **ojalá** (if only), from an Arabic phrase meaning roughly \"if God wills\"\n\nThe Americas then gave words to Spanish and, through it, to Europe: **el tomate** and **el chocolate** (from Nahuatl), **la canoa** (from Taíno), **la papa** (from Quechua).\n\n## Seseo, ceceo and distinción\n\nHow do you say **casa** (house) and **caza** (hunt)?\n\n| pattern | casa | caza | where |\n|---|---|---|---|\n| **distinción** | s | th (as in *think*) | most of Spain |\n| **seseo** | s | s | the Americas, the Canary Islands, parts of Andalusia |\n| **ceceo** | th | th | parts of Andalusia |\n\n**El seseo** is the pronunciation of most Spanish speakers in the world, so it is a norm, not a defect. Spelling stays the same everywhere: **caza** is written with *z* even where it sounds like **casa**.\n\n## The River Plate: vos, sh and che\n\nIn Buenos Aires and Montevideo, **vos** replaces **tú**, with its own stressed endings in the present:\n\n| tú | vos |\n|---|---|\n| tú tienes | **vos tenés** |\n| tú eres | **vos sos** |\n| tú hablas | **vos hablás** |\n| ven, ten | **vení, tené** |\n\n**El voseo** also lives, in other forms, in much of Central America and elsewhere. Rioplatense speech often pronounces **ll** and **y** as *sh* or *zh*: **yo** and **calle** sound like *sho* and *cashe* (**sheísmo**). And **che** is the friendly vocative: **¡Che, vení un momento!** (Hey, come here a moment!)\n\n## The Caribbean and the Andes\n\n- **Caribbean** (Cuba, Puerto Rico, the Dominican Republic and coastal areas): a final *s* is often aspirated or lost, so **los amigos** may sound like *loh amigo*. **La guagua** is the bus (also in the Canary Islands). Questions often keep the subject before the verb: **¿Qué tú quieres?** for **¿Qué quieres tú?**\n- **Andes** (Peru, Bolivia, Ecuador and beyond): Quechua lent **la cancha** (pitch, court), **el choclo** (corn on the cob) and **la palta** (avocado; **el aguacate** in Spain). **Nomás** softens or limits: **pase nomás** (do come in), **un ratito nomás** (just a little while).\n\n## Judeo-Spanish, and no variety is wrong\n\n**El judeoespañol** (also called Ladino) is the language of Sephardic Jews expelled from Spain in 1492 and of their descendants in the Balkans, Turkey, Israel and elsewhere. Cut off from Castile, it kept features of fifteenth-century Spanish that the peninsula later lost. It is still spoken, but it is endangered.\n\nThe C2 goal is **recognition, not imitation**. Understand a speaker from Buenos Aires, Havana or Cusco without effort, and keep your own Spanish consistent. Every **variedad** has its own norms; none is a corrupted copy of Madrid.",
+  "vocabulary": [
+    {
+      "term": "el castellano",
+      "meaning": "Castilian; Spanish (the usual name in much of Spain and the Americas)",
+      "example": "En muchos países se dice castellano y no español.",
+      "example_meaning": "In many countries people say castellano rather than español."
+    },
+    {
+      "term": "el arabismo",
+      "meaning": "word borrowed from Arabic",
+      "example": "Aceite y almohada son arabismos muy antiguos.",
+      "example_meaning": "Aceite and almohada are very old Arabic loanwords."
+    },
+    {
+      "term": "la almohada",
+      "meaning": "pillow",
+      "example": "Siempre duermo con dos almohadas.",
+      "example_meaning": "I always sleep with two pillows."
+    },
+    {
+      "term": "ojalá",
+      "meaning": "if only, I hope (from Arabic)",
+      "example": "Ojalá podamos visitar Granada este otoño.",
+      "example_meaning": "I hope we can visit Granada this autumn."
+    },
+    {
+      "term": "el tomate",
+      "meaning": "tomato (from Nahuatl)",
+      "example": "El tomate tardó años en entrar en la cocina europea.",
+      "example_meaning": "The tomato took years to enter European cooking."
+    },
+    {
+      "term": "la papa",
+      "meaning": "potato (from Quechua; la patata in most of Spain)",
+      "example": "En Canarias se dice papa, como en América.",
+      "example_meaning": "In the Canary Islands people say papa, as in the Americas."
+    },
+    {
+      "term": "el seseo",
+      "meaning": "pronouncing z and soft c as s",
+      "example": "Con seseo, cocer y coser se pronuncian igual.",
+      "example_meaning": "With seseo, cocer (to cook) and coser (to sew) sound the same."
+    },
+    {
+      "term": "el voseo",
+      "meaning": "using vos instead of tú, with its own verb forms",
+      "example": "En Montevideo el voseo es lo normal: vos sabés.",
+      "example_meaning": "In Montevideo voseo is the norm: vos sabés."
+    },
+    {
+      "term": "che",
+      "meaning": "hey, mate (Rioplatense vocative)",
+      "example": "Che, ¿vamos a tomar algo?",
+      "example_meaning": "Hey, shall we go for a drink?"
+    },
+    {
+      "term": "la guagua",
+      "meaning": "bus (Caribbean and Canary Islands)",
+      "example": "La guagua pasa cada veinte minutos.",
+      "example_meaning": "The bus comes every twenty minutes."
+    },
+    {
+      "term": "la palta",
+      "meaning": "avocado (Andes and the Southern Cone; el aguacate elsewhere)",
+      "example": "En Lima pedí una ensalada con palta.",
+      "example_meaning": "In Lima I ordered a salad with avocado."
+    },
+    {
+      "term": "nomás",
+      "meaning": "just, only; softens a request (much of Latin America)",
+      "example": "Siga nomás, la oficina está al fondo.",
+      "example_meaning": "Go right ahead, the office is at the back."
+    },
+    {
+      "term": "el judeoespañol",
+      "meaning": "Judeo-Spanish, Ladino",
+      "example": "El judeoespañol todavía se oye en algunas familias de Estambul.",
+      "example_meaning": "Judeo-Spanish can still be heard in some families in Istanbul."
+    },
+    {
+      "term": "la variedad",
+      "meaning": "variety (of a language)",
+      "example": "Cada variedad del español tiene su propia norma culta.",
+      "example_meaning": "Each variety of Spanish has its own educated standard."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "c2-varieties-and-history-01",
+      "prompt": "Which of these words came into Spanish from Arabic?",
+      "type": "multiple-choice",
+      "options": [
+        "almohada",
+        "tomate",
+        "canoa"
+      ],
+      "correct_answer": "almohada",
+      "explanation": "Almohada is an Arabic loan, like aceite and azúcar. Tomate comes from Nahuatl and canoa from Taíno.",
+      "hints": [
+        "Look for the old Arabic article al-."
+      ],
+      "teaches": [
+        "el arabismo",
+        "la almohada"
+      ]
+    },
+    {
+      "question_id": "c2-varieties-and-history-02",
+      "prompt": "En Buenos Aires: «Vos ___ razón, che.» (tener)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "tenés",
+      "accepted_answers": [
+        "vos tenés"
+      ],
+      "explanation": "In Rioplatense voseo the form is vos tenés, with the stress on the ending and no stem change.",
+      "hints": [
+        "Not tienes. The vos form keeps the stem ten-.",
+        "It ends in a stressed -és."
+      ],
+      "teaches": [
+        "el voseo",
+        "che"
+      ]
+    },
+    {
+      "question_id": "c2-varieties-and-history-03",
+      "prompt": "A speaker pronounces casa and caza both with an s sound. This is…",
+      "type": "multiple-choice",
+      "options": [
+        "seseo",
+        "ceceo",
+        "distinción"
+      ],
+      "correct_answer": "seseo",
+      "explanation": "Seseo merges both sounds into s. It is the pronunciation of the Americas, the Canary Islands and parts of Andalusia.",
+      "hints": [
+        "Ceceo merges them into th; distinción keeps them apart."
+      ],
+      "teaches": [
+        "el seseo"
+      ]
+    },
+    {
+      "question_id": "c2-varieties-and-history-04",
+      "prompt": "Del náhuatl tomatl viene la palabra española ___.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "tomate",
+      "accepted_answers": [
+        "el tomate"
+      ],
+      "explanation": "Tomate comes from Nahuatl tomatl, like chocolate; both reached Europe through Spanish.",
+      "hints": [
+        "A red fruit from the Americas."
+      ],
+      "teaches": [
+        "el tomate"
+      ]
+    },
+    {
+      "question_id": "c2-varieties-and-history-05",
+      "prompt": "In Lima or Santiago, una palta is…",
+      "type": "multiple-choice",
+      "options": [
+        "an avocado",
+        "a potato",
+        "a bus"
+      ],
+      "correct_answer": "an avocado",
+      "explanation": "Palta, from Quechua, is the avocado in the Andes and the Southern Cone; Spain and Mexico say aguacate.",
+      "hints": [
+        "Think of a green salad."
+      ],
+      "teaches": [
+        "la palta"
+      ]
+    },
+    {
+      "question_id": "c2-varieties-and-history-06",
+      "prompt": "En La Habana estuve media hora esperando la ___ en la parada.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "guagua",
+      "accepted_answers": [],
+      "explanation": "La guagua is the bus in Cuba, Puerto Rico, the Dominican Republic and the Canary Islands.",
+      "hints": [
+        "You wait for it at a parada.",
+        "A Caribbean word that also crossed to the Canaries."
+      ],
+      "teaches": [
+        "la guagua"
+      ]
+    },
+    {
+      "question_id": "c2-varieties-and-history-07",
+      "prompt": "True or false: Judeo-Spanish is a recent mix of modern Spanish and Hebrew invented in Israel.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "False. Judeo-Spanish descends from the Spanish of the Jews expelled in 1492 and keeps features of fifteenth-century Spanish. Its speakers settled in the Balkans, Turkey and elsewhere centuries before modern Israel.",
+      "hints": [
+        "Think of 1492."
+      ],
+      "teaches": [
+        "el judeoespañol"
+      ]
+    },
+    {
+      "question_id": "c2-varieties-and-history-08",
+      "prompt": "A Cuban friend asks ¿Qué tú quieres? What is this word order?",
+      "type": "multiple-choice",
+      "options": [
+        "a normal Caribbean pattern",
+        "a learner's mistake",
+        "an old form found only in writing"
+      ],
+      "correct_answer": "a normal Caribbean pattern",
+      "explanation": "Caribbean Spanish often keeps the subject before the verb in questions. It is a feature of a variety, not an error.",
+      "hints": [
+        "Recognise it; do not correct it."
+      ],
+      "teaches": [
+        "la variedad"
+      ]
+    },
+    {
+      "question_id": "c2-varieties-and-history-09",
+      "prompt": "—¿Puedo pasar? —Pase ___, la puerta está abierta.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "nomás",
+      "accepted_answers": [
+        "no más"
+      ],
+      "explanation": "Nomás softens the invitation: pase nomás, 'do come in'. It is common in Mexico and the Andes.",
+      "hints": [
+        "A friendly 'just' after the verb."
+      ],
+      "teaches": [
+        "nomás"
+      ]
+    },
+    {
+      "question_id": "c2-varieties-and-history-10",
+      "prompt": "Ojalá comes from Arabic. Its source phrase meant roughly…",
+      "type": "multiple-choice",
+      "options": [
+        "if God wills",
+        "good morning",
+        "the oil"
+      ],
+      "correct_answer": "if God wills",
+      "explanation": "Ojalá comes from an Arabic expression meaning roughly 'if God wills'; today it simply means 'I hope' or 'if only'.",
+      "hints": [
+        "A wish, then and now."
+      ],
+      "teaches": [
+        "ojalá"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Ojalá es una palabra árabe.",
+      "meaning": "Ojalá is an Arabic word."
+    },
+    {
+      "text": "El castellano nació en el norte.",
+      "meaning": "Castilian was born in the north.",
+      "note": "New word: nacer = to be born."
+    },
+    {
+      "text": "En Canarias, la guagua es el autobús.",
+      "meaning": "In the Canary Islands, la guagua is the bus."
+    },
+    {
+      "text": "En casi toda América, casa y caza suenan igual.",
+      "meaning": "In almost all of the Americas, casa and caza sound the same.",
+      "note": "Seseo."
+    },
+    {
+      "text": "Me encanta el acento de mi vecina uruguaya.",
+      "meaning": "I love my Uruguayan neighbour's accent.",
+      "note": "New word: el acento = the accent."
+    },
+    {
+      "text": "La papa y el tomate llegaron a Europa desde América.",
+      "meaning": "The potato and the tomato reached Europe from the Americas."
+    },
+    {
+      "text": "El judeoespañol conserva rasgos del castellano de finales de la Edad Media.",
+      "meaning": "Judeo-Spanish keeps features of late medieval Castilian.",
+      "note": "New word: el rasgo = the feature."
+    },
+    {
+      "text": "Ninguna variedad del español es incorrecta, porque cada una tiene su propia historia.",
+      "meaning": "No variety of Spanish is incorrect, because each one has its own history."
+    }
+  ],
+  "guide": [
+    {
+      "section": "From Latin to Castilian"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "c2-varieties-and-history-01"
+    },
+    {
+      "question": "c2-varieties-and-history-10"
+    },
+    {
+      "question": "c2-varieties-and-history-04"
+    },
+    {
+      "section": "Seseo, ceceo and distinción"
+    },
+    {
+      "question": "c2-varieties-and-history-03"
+    },
+    {
+      "section": "The River Plate"
+    },
+    {
+      "question": "c2-varieties-and-history-02"
+    },
+    {
+      "tip": "You don't need to adopt vos to understand it. Swap tenés for tienes in your head, and the sentence is yours."
+    },
+    {
+      "section": "The Caribbean and the Andes"
+    },
+    {
+      "question": "c2-varieties-and-history-06"
+    },
+    {
+      "question": "c2-varieties-and-history-05"
+    },
+    {
+      "question": "c2-varieties-and-history-09"
+    },
+    {
+      "section": "Judeo-Spanish"
+    },
+    {
+      "question": "c2-varieties-and-history-07"
+    },
+    {
+      "question": "c2-varieties-and-history-08"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "c2-varieties-and-history-conv-radio",
+      "title": "Accents on the air",
+      "scenario": "Lucía, a radio presenter in Madrid, interviews Ramiro, a dialectologist, about a listener's complaint that people in other countries 'speak badly'.",
+      "role_a": "Lucía",
+      "role_b": "Ramiro",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Un oyente nos escribe indignado: dice que en América se habla mal el español.",
+          "meaning": "A listener writes to us, outraged: he says Spanish is spoken badly in the Americas."
+        },
+        {
+          "speaker": "b",
+          "text": "Pues le diría, con todo el cariño, que se le ha olvidado hacer las cuentas.",
+          "meaning": "Well, I'd tell him, with all due affection, that he's forgotten to do the maths."
+        },
+        {
+          "speaker": "a",
+          "text": "¿Qué cuentas?",
+          "meaning": "What maths?"
+        },
+        {
+          "speaker": "b",
+          "text": "La inmensa mayoría de los hispanohablantes practica el seseo. La distinción es lo minoritario.",
+          "meaning": "The vast majority of Spanish speakers use seseo. Distinción is the minority option.",
+          "note": "This is seseo: casa and caza sound alike."
+        },
+        {
+          "speaker": "a",
+          "text": "Ya, pero cuando un argentino me dice vos tenés, a mí me suena raro.",
+          "meaning": "Sure, but when an Argentine says vos tenés to me, it sounds odd."
+        },
+        {
+          "speaker": "b",
+          "text": "Raro no: distinto. El voseo tiene siglos de historia y una gramática muy coherente.",
+          "meaning": "Not odd: different. Voseo has centuries of history and a very consistent grammar."
+        },
+        {
+          "speaker": "a",
+          "text": "¿Y qué debería hacer nuestro oyente? ¿Imitar el acento cuando viaje?",
+          "meaning": "And what should our listener do? Imitate the accent when he travels?"
+        },
+        {
+          "speaker": "b",
+          "text": "En absoluto. Basta con entenderlo y respetarlo. Que siga hablando como habla.",
+          "meaning": "Not at all. Understanding and respecting it is enough. Let him go on speaking the way he speaks."
+        },
+        {
+          "speaker": "a",
+          "text": "Por cierto, él mismo usa la palabra ojalá en su carta, dos veces.",
+          "meaning": "By the way, he himself uses the word ojalá in his letter, twice."
+        },
+        {
+          "speaker": "b",
+          "text": "Entonces dígale que también habla un poquito de árabe sin saberlo.",
+          "meaning": "Then tell him he also speaks a little Arabic without knowing it.",
+          "note": "Ojalá is an Arabic loanword."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🗺️",
+    "bites": [
+      {
+        "title": "Arabic in your kitchen",
+        "emoji": "🫒",
+        "rule": "Al-Andalus left thousands of Arabic loans, many starting with the article al- or a-: almohada, aceite, azúcar. Even ojalá comes from Arabic.",
+        "example": "Ojalá no se acabe el aceite.",
+        "example_meaning": "I hope the oil doesn't run out."
+      },
+      {
+        "title": "Words from the Americas",
+        "emoji": "🍅",
+        "rule": "Nahuatl gave tomate and chocolate, Taíno gave canoa, Quechua gave papa, cancha, choclo and palta.",
+        "example": "Pásame la palta, por favor.",
+        "example_meaning": "Pass me the avocado, please."
+      },
+      {
+        "title": "Casa or caza",
+        "emoji": "👂",
+        "rule": "Distinción (most of Spain) keeps s and th apart; seseo (the Americas, the Canaries) says both with s; ceceo (parts of Andalusia) says both with th.",
+        "example": "Con seseo, casa y caza suenan igual.",
+        "example_meaning": "With seseo, casa and caza sound the same."
+      },
+      {
+        "title": "Vos tenés",
+        "emoji": "🧉",
+        "rule": "River Plate voseo: vos replaces tú, with stressed endings: vos tenés, vos sos, vos hablás, vení. Che is the friendly 'hey'.",
+        "example": "Che, ¿vos sabés dónde está la estación?",
+        "example_meaning": "Hey, do you know where the station is?"
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Where does the word come from?",
+        "buckets": [
+          "Arabic",
+          "the Americas"
+        ],
+        "why": "Arabic words came with al-Andalus; Nahuatl, Taíno and Quechua words came after 1492.",
+        "items": [
+          {
+            "text": "la almohada",
+            "bucket": 0
+          },
+          {
+            "text": "el aceite",
+            "bucket": 0
+          },
+          {
+            "text": "el azúcar",
+            "bucket": 0
+          },
+          {
+            "text": "ojalá",
+            "bucket": 0
+          },
+          {
+            "text": "el tomate",
+            "bucket": 1
+          },
+          {
+            "text": "el chocolate",
+            "bucket": 1
+          },
+          {
+            "text": "la canoa",
+            "bucket": 1
+          },
+          {
+            "text": "la papa",
+            "bucket": 1
+          }
+        ]
+      },
+      {
+        "title": "Vos or tú?",
+        "buckets": [
+          "voseo",
+          "tú"
+        ],
+        "why": "Voseo has its own stressed forms (tenés, sos, hablás); tú keeps tienes, eres, hablas, in any word order.",
+        "items": [
+          {
+            "text": "vos tenés",
+            "bucket": 0
+          },
+          {
+            "text": "vos sos",
+            "bucket": 0
+          },
+          {
+            "text": "vos hablás",
+            "bucket": 0
+          },
+          {
+            "text": "tú tienes",
+            "bucket": 1
+          },
+          {
+            "text": "tú eres",
+            "bucket": 1
+          },
+          {
+            "text": "¿Qué tú quieres?",
+            "bucket": 1
+          }
+        ]
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Vos eres muy amable, che.",
+        "wrong": "eres",
+        "fix": "sos",
+        "why": "The vos form of ser is sos: vos sos."
+      },
+      {
+        "sentence": "La almohada es una palabra de origen náhuatl.",
+        "wrong": "náhuatl",
+        "fix": "árabe",
+        "why": "Almohada comes from Arabic, like aceite and azúcar."
+      },
+      {
+        "sentence": "El tomate llegó a Europa desde Asia.",
+        "wrong": "Asia",
+        "fix": "América",
+        "why": "The tomato, and its Nahuatl name, came from the Americas."
+      },
+      {
+        "sentence": "Con distinción, casa y caza suenan igual.",
+        "wrong": "distinción",
+        "fix": "seseo",
+        "why": "Distinción keeps them apart; with seseo they sound the same."
+      },
+      {
+        "sentence": "El judeoespañol conserva rasgos del castellano del siglo veinte.",
+        "wrong": "veinte",
+        "fix": "quince",
+        "why": "It descends from the Spanish of 1492, so it keeps fifteenth-century features."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Vos tenés toda la razón.",
+        "meaning": "You're absolutely right.",
+        "distractors": [
+          "tienes"
+        ]
+      },
+      {
+        "text": "La palabra almohada viene del árabe.",
+        "meaning": "The word almohada comes from Arabic.",
+        "distractors": [
+          "náhuatl"
+        ]
+      },
+      {
+        "text": "Ninguna variedad del español es incorrecta.",
+        "meaning": "No variety of Spanish is incorrect.",
+        "distractors": [
+          "ningún"
+        ]
+      },
+      {
+        "text": "Pase nomás, la puerta está abierta.",
+        "meaning": "Do come in, the door is open.",
+        "distractors": [
+          "cerrada"
+        ]
+      }
+    ]
+  }
+}

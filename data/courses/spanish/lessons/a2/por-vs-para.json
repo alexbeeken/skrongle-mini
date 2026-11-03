@@ -1,0 +1,637 @@
+{
+  "id": "a2-por-vs-para",
+  "slug": "por-vs-para",
+  "title": "Por vs. para",
+  "unit": "A2",
+  "group": "Grammar",
+  "order": 32,
+  "summary": "Two words for 'for'. Para aims at a goal. Por gives the cause, route, price or means.",
+  "focus": "Choosing between por and para",
+  "prerequisites": [
+    "a1-prepositions"
+  ],
+  "content": "## Para: aiming at something\n\n**Para** points forward, at a goal. Think of an arrow pointing *towards* something.\n\n| use | example |\n|---|---|\n| purpose (in order to) | **Estudio español para trabajar en España.** I study Spanish to work in Spain. |\n| destination | **Este tren va para Sevilla.** This train is heading for Seville. |\n| deadline | **El informe es para el lunes.** The report is for Monday. |\n| recipient | **Este regalo es para ti.** This present is for you. |\n| opinion | **Para mí, es la mejor playa.** For me, it's the best beach. |\n| employer | **Trabajo para una empresa alemana.** I work for a German company. |\n\n**¿Para qué?** asks *what for?* For example, **¿Para qué sirve esto?** (What is this for?)\n\n## Por: the reason and the route\n\n**Por** looks backward at the cause, or sideways at the way something happens.\n\n| use | example |\n|---|---|\n| cause, motive | **Cerraron por la lluvia.** They closed because of the rain. |\n| thanks and apologies | **Gracias por tu ayuda.** Thanks for your help. |\n| through, along, around | **Paseamos por el parque.** We stroll through the park. |\n| exchange, price | **Lo compré por diez euros.** I bought it for ten euros. |\n| means | **Hablamos por teléfono.** We talk on the phone. |\n| duration | **Viví allí por dos años.** I lived there for two years. (*durante* is more common) |\n| part of the day | **Por la mañana trabajo.** In the morning I work. |\n\n**¿Por qué?** asks *why?* It asks for the reason behind.\n\n## Same sentence, two meanings\n\nThe choice changes the meaning:\n\n- **Lo hago por ti.** I do it because of you (you are the reason).\n- **Lo hago para ti.** I do it for you (you receive it).\n- **Voy por Madrid.** I go via Madrid.\n- **Voy para Madrid.** I'm heading to Madrid.\n- **Trabajo por mi hermano.** I'm working instead of my brother.\n- **Trabajo para mi hermano.** I work for my brother (he's my boss).\n\nRule of thumb: if you can say *in order to*, *destined for* or *by (a deadline)*, it's **para**. If you can say *because of*, *through*, *in exchange for* or *by means of*, it's **por**.\n\n## Fixed phrases\n\nSome expressions are learnt as whole units. Most take **por**:\n\n- **por favor**: please\n- **por ejemplo**: for example\n- **por fin**: at last\n- **por supuesto**: of course\n- **por lo menos**: at least\n- **por eso**: that's why\n- **por cierto**: by the way\n\nA few take **para**:\n\n- **para siempre**: forever\n- **para nada**: not at all\n- **para variar**: for a change",
+  "vocabulary": [
+    {
+      "term": "por ejemplo",
+      "meaning": "for example",
+      "example": "Me gustan las frutas, por ejemplo las fresas.",
+      "example_meaning": "I like fruit, for example strawberries."
+    },
+    {
+      "term": "por fin",
+      "meaning": "at last, finally",
+      "example": "¡Por fin llegó el verano!",
+      "example_meaning": "Summer finally arrived!"
+    },
+    {
+      "term": "por supuesto",
+      "meaning": "of course",
+      "example": "—¿Me ayudas? —Por supuesto.",
+      "example_meaning": "Can you help me? Of course."
+    },
+    {
+      "term": "por lo menos",
+      "meaning": "at least",
+      "example": "Duerme por lo menos siete horas.",
+      "example_meaning": "Sleep at least seven hours."
+    },
+    {
+      "term": "por eso",
+      "meaning": "that's why, so",
+      "example": "Llueve; por eso no salimos.",
+      "example_meaning": "It's raining; that's why we're not going out."
+    },
+    {
+      "term": "para siempre",
+      "meaning": "forever",
+      "example": "Quiero vivir aquí para siempre.",
+      "example_meaning": "I want to live here forever."
+    },
+    {
+      "term": "¿para qué?",
+      "meaning": "what for?",
+      "example": "¿Para qué sirve este botón?",
+      "example_meaning": "What is this button for?"
+    },
+    {
+      "term": "gracias por",
+      "meaning": "thanks for",
+      "example": "Gracias por tu ayuda.",
+      "example_meaning": "Thanks for your help."
+    },
+    {
+      "term": "por teléfono",
+      "meaning": "by phone, on the phone",
+      "example": "Hablamos por teléfono todos los días.",
+      "example_meaning": "We talk on the phone every day."
+    },
+    {
+      "term": "el regalo",
+      "meaning": "gift, present",
+      "example": "Este regalo es para ti.",
+      "example_meaning": "This present is for you."
+    },
+    {
+      "term": "la empresa",
+      "meaning": "company, firm",
+      "example": "Trabajo para una empresa alemana.",
+      "example_meaning": "I work for a German company."
+    },
+    {
+      "term": "pasear",
+      "meaning": "to go for a walk, to stroll",
+      "example": "Paseamos por el parque.",
+      "example_meaning": "We stroll through the park."
+    },
+    {
+      "term": "el informe",
+      "meaning": "report",
+      "example": "El informe es para el lunes.",
+      "example_meaning": "The report is due on Monday."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-por-vs-para-01",
+      "prompt": "Este regalo es ___ ti.",
+      "type": "multiple-choice",
+      "options": [
+        "para",
+        "por",
+        "a",
+        "de"
+      ],
+      "correct_answer": "para",
+      "explanation": "The person who receives something is introduced by para: 'es para ti'.",
+      "hints": [
+        "Who gets the present? Recipient Recipient takes para."
+      ],
+      "teaches": [
+        "el regalo"
+      ]
+    },
+    {
+      "question_id": "a2-por-vs-para-02",
+      "prompt": "Estudio español ___ trabajar en España. (purpose)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "para",
+      "accepted_answers": [],
+      "explanation": "Purpose ('in order to') takes para + infinitive: 'para trabajar'.",
+      "hints": [
+        "Can you say 'in order to'?"
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a2-por-vs-para-03",
+      "prompt": "Paseamos ___ el parque todas las tardes.",
+      "type": "multiple-choice",
+      "options": [
+        "por",
+        "para",
+        "de",
+        "a"
+      ],
+      "correct_answer": "por",
+      "explanation": "Movement through or around a place is por: 'por el parque'. Para would mean the park is the destination.",
+      "hints": [
+        "Through or along takes por."
+      ],
+      "teaches": [
+        "pasear"
+      ]
+    },
+    {
+      "question_id": "a2-por-vs-para-04",
+      "prompt": "Gracias ___ tu ayuda.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "por",
+      "accepted_answers": [],
+      "explanation": "Thanks and apologies take por, because the help is the reason for the thanks.",
+      "hints": [
+        "Thanks are given for a reason. Which of the two marks a cause?"
+      ],
+      "teaches": [
+        "gracias por"
+      ]
+    },
+    {
+      "question_id": "a2-por-vs-para-05",
+      "prompt": "El informe es ___ el lunes.",
+      "type": "multiple-choice",
+      "options": [
+        "para",
+        "por",
+        "hasta",
+        "en"
+      ],
+      "correct_answer": "para",
+      "explanation": "A deadline is a point you aim at, so it takes para: 'para el lunes'.",
+      "hints": [
+        "By when? Deadline Recipient takes para."
+      ],
+      "teaches": [
+        "el informe"
+      ]
+    },
+    {
+      "question_id": "a2-por-vs-para-06",
+      "prompt": "Trabajo ___ una empresa alemana. (my employer)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "para",
+      "accepted_answers": [],
+      "explanation": "Your employer takes para: 'trabajo para una empresa'. Por would mean you are standing in for someone.",
+      "hints": [
+        "The company is the one you work for."
+      ],
+      "teaches": [
+        "la empresa"
+      ]
+    },
+    {
+      "question_id": "a2-por-vs-para-07",
+      "prompt": "Lo compré ___ diez euros.",
+      "type": "multiple-choice",
+      "options": [
+        "por",
+        "para",
+        "de",
+        "hasta"
+      ],
+      "correct_answer": "por",
+      "explanation": "A price or exchange takes por: 'por diez euros'.",
+      "hints": [
+        "Money changes hands. An exchange takes por."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a2-por-vs-para-08",
+      "prompt": "Hablamos ___ teléfono todos los días.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "por",
+      "accepted_answers": [],
+      "explanation": "The means of communication takes por: 'por teléfono', 'por correo', 'por internet'.",
+      "hints": [
+        "By what means? Means take the same preposition as causes."
+      ],
+      "teaches": [
+        "por teléfono"
+      ]
+    },
+    {
+      "question_id": "a2-por-vs-para-09",
+      "prompt": "___ mí, esta ciudad es la mejor de España.",
+      "type": "multiple-choice",
+      "options": [
+        "Para",
+        "Por",
+        "De",
+        "A"
+      ],
+      "correct_answer": "Para",
+      "explanation": "An opinion is introduced with para: 'para mí' (in my view). 'Por mí' means 'as far as I'm concerned / I don't mind'.",
+      "hints": [
+        "In my opinion takes para mí."
+      ],
+      "teaches": []
+    }
+  ],
+  "listening": [
+    {
+      "text": "Gracias por la cena.",
+      "meaning": "Thanks for the dinner."
+    },
+    {
+      "text": "Por fin tengo vacaciones.",
+      "meaning": "At last I have holidays."
+    },
+    {
+      "text": "Este regalo es para mi madre.",
+      "meaning": "This present is for my mother.",
+      "note": "Recipient takes para."
+    },
+    {
+      "text": "¿Para qué necesitas el informe hoy?",
+      "meaning": "What do you need the report for today?"
+    },
+    {
+      "text": "Por la tarde paseamos por el río.",
+      "meaning": "In the afternoon we stroll along the river.",
+      "note": "New word: el río = the river."
+    },
+    {
+      "text": "Mi hermana trabaja para una empresa de Madrid.",
+      "meaning": "My sister works for a company in Madrid.",
+      "note": "Employer takes para."
+    },
+    {
+      "text": "No tengo trabajo, por eso estudio inglés para encontrar uno.",
+      "meaning": "I don't have a job, that's why I'm studying English to find one.",
+      "note": "New word: encontrar = to find."
+    },
+    {
+      "text": "Hablé con mi abuela por teléfono por lo menos una hora.",
+      "meaning": "I talked to my grandmother on the phone for at least an hour."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Para: aiming"
+    },
+    {
+      "question": "a2-por-vs-para-01"
+    },
+    {
+      "question": "a2-por-vs-para-02"
+    },
+    {
+      "question": "a2-por-vs-para-05"
+    },
+    {
+      "section": "Por: the reason"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-por-vs-para-03"
+    },
+    {
+      "question": "a2-por-vs-para-04"
+    },
+    {
+      "question": "a2-por-vs-para-07"
+    },
+    {
+      "section": "Same sentence"
+    },
+    {
+      "question": "a2-por-vs-para-06"
+    },
+    {
+      "question": "a2-por-vs-para-09"
+    },
+    {
+      "tip": "Para looks ahead (goal, destination, deadline, recipient). Por looks back at the cause or sideways at the route, price or means."
+    },
+    {
+      "section": "Fixed phrases"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a2-por-vs-para-08"
+    },
+    {
+      "vocab": 4
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-por-vs-para-conv-valencia",
+      "title": "A weekend in Valencia",
+      "scenario": "Marta asks Luis about his plans; he is driving to Valencia for his sister's birthday.",
+      "role_a": "Marta",
+      "role_b": "Luis",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Luis, ¿qué haces este fin de semana?",
+          "meaning": "Luis, what are you doing this weekend?"
+        },
+        {
+          "speaker": "b",
+          "text": "Voy a Valencia para ver a mi hermana. Es su cumpleaños.",
+          "meaning": "I'm going to Valencia to see my sister. It's her birthday.",
+          "note": "para + infinitive for purpose"
+        },
+        {
+          "speaker": "a",
+          "text": "¡Qué bien! ¿Vas en tren o en coche?",
+          "meaning": "Nice! Are you going by train or by car?"
+        },
+        {
+          "speaker": "b",
+          "text": "En coche, por la autopista. Son tres horas, por lo menos si no hay tráfico.",
+          "meaning": "By car, along the motorway. It's three hours, at least if there's no traffic.",
+          "note": "por for \"along\"; por lo menos"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Y ya tienes un regalo para ella?",
+          "meaning": "And do you already have a present for her?",
+          "note": "para for the recipient"
+        },
+        {
+          "speaker": "b",
+          "text": "Sí, le compré un libro por internet. Lo conseguí por diez euros.",
+          "meaning": "Yes, I bought her a book online. I got it for ten euros.",
+          "note": "por for means and price"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Por qué tan barato?",
+          "meaning": "Why so cheap?",
+          "note": "¿por qué? means why"
+        },
+        {
+          "speaker": "b",
+          "text": "Es de segunda mano. Para mí, los libros usados son los mejores.",
+          "meaning": "It's second-hand. For me, used books are the best.",
+          "note": "para mí for an opinion"
+        },
+        {
+          "speaker": "a",
+          "text": "Por cierto, ¿me compras horchata? Gracias por adelantado.",
+          "meaning": "By the way, will you buy me some horchata? Thanks in advance.",
+          "note": "por cierto; gracias por"
+        },
+        {
+          "speaker": "b",
+          "text": "Por supuesto. Te la traigo el domingo por la noche.",
+          "meaning": "Of course. I'll bring it to you on Sunday night.",
+          "note": "por supuesto; por la noche"
+        },
+        {
+          "speaker": "a",
+          "text": "¡Por fin voy a probar la horchata de verdad!",
+          "meaning": "At last I'm going to try real horchata!",
+          "note": "por fin"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🔀",
+    "bites": [
+      {
+        "title": "Para looks ahead",
+        "emoji": "🎯",
+        "rule": "Para marks the goal: purpose (para + infinitive), destination, deadline, recipient, opinion (para mí), employer.",
+        "example": "Este regalo es para ti.",
+        "example_meaning": "This present is for you."
+      },
+      {
+        "title": "Por looks back and around",
+        "emoji": "🔁",
+        "rule": "Por marks the cause (gracias por), the route (por el parque), the exchange (por diez euros), the means (por teléfono), the part of the day (por la mañana).",
+        "example": "Paseamos por el parque por la tarde.",
+        "example_meaning": "We stroll through the park in the afternoon."
+      },
+      {
+        "title": "Why vs. what for",
+        "emoji": "❓",
+        "rule": "¿Por qué? asks for the reason behind, and ¿Para qué? asks for the goal ahead. Lo hago por ti = because of you; lo hago para ti = for you to have.",
+        "example": "¿Para qué sirve esto?",
+        "example_meaning": "What is this for?"
+      },
+      {
+        "title": "Learn the set phrases",
+        "emoji": "📌",
+        "rule": "Most fixed phrases take por: por favor, por ejemplo, por fin, por supuesto, por lo menos, por eso. A few take para: para siempre, para nada.",
+        "example": "¡Por fin llegó el verano!",
+        "example_meaning": "Summer finally arrived!"
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Por or para?",
+        "buckets": [
+          "por",
+          "para"
+        ],
+        "why": "Recipient, purpose, deadline and employer take para; route, thanks, price and means take por.",
+        "items": [
+          {
+            "text": "un regalo ___ mi madre",
+            "bucket": 1
+          },
+          {
+            "text": "pasear ___ el parque",
+            "bucket": 0
+          },
+          {
+            "text": "gracias ___ todo",
+            "bucket": 0
+          },
+          {
+            "text": "el informe es ___ el viernes",
+            "bucket": 1
+          },
+          {
+            "text": "lo compré ___ veinte euros",
+            "bucket": 0
+          },
+          {
+            "text": "estudio ___ aprender",
+            "bucket": 1
+          },
+          {
+            "text": "hablamos ___ teléfono",
+            "bucket": 0
+          },
+          {
+            "text": "trabajo ___ una empresa",
+            "bucket": 1
+          }
+        ]
+      },
+      {
+        "title": "Why does it take por?",
+        "buckets": [
+          "cause",
+          "route",
+          "exchange",
+          "means"
+        ],
+        "why": "Por covers four jobs: the reason behind, the way through, what is swapped, and the channel used.",
+        "items": [
+          {
+            "text": "Lo hice por ti.",
+            "bucket": 0
+          },
+          {
+            "text": "Pasamos por Toledo.",
+            "bucket": 1
+          },
+          {
+            "text": "Cambié el libro por otro.",
+            "bucket": 2
+          },
+          {
+            "text": "Te lo mando por correo.",
+            "bucket": 3
+          },
+          {
+            "text": "Cerraron por la lluvia.",
+            "bucket": 0
+          },
+          {
+            "text": "Hablamos por videollamada.",
+            "bucket": 3
+          }
+        ]
+      },
+      {
+        "title": "Fixed phrases",
+        "buckets": [
+          "por",
+          "para"
+        ],
+        "why": "Por favor, por fin, por ejemplo, por supuesto and por lo menos are fixed with por; para siempre and para nada with para.",
+        "items": [
+          {
+            "text": "___ favor",
+            "bucket": 0
+          },
+          {
+            "text": "___ siempre",
+            "bucket": 1
+          },
+          {
+            "text": "___ fin",
+            "bucket": 0
+          },
+          {
+            "text": "___ ejemplo",
+            "bucket": 0
+          },
+          {
+            "text": "___ nada (not at all)",
+            "bucket": 1
+          },
+          {
+            "text": "___ supuesto",
+            "bucket": 0
+          },
+          {
+            "text": "___ lo menos",
+            "bucket": 0
+          }
+        ]
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Este regalo es por ti.",
+        "wrong": "por",
+        "fix": "para",
+        "why": "The recipient of something takes para."
+      },
+      {
+        "sentence": "Gracias para tu ayuda.",
+        "wrong": "para",
+        "fix": "por",
+        "why": "Thanks are given for a reason: gracias por."
+      },
+      {
+        "sentence": "Estudio español por trabajar en España.",
+        "wrong": "por",
+        "fix": "para",
+        "why": "Purpose ('in order to') is para + infinitive."
+      },
+      {
+        "sentence": "Paseamos para el parque cada tarde.",
+        "wrong": "para",
+        "fix": "por",
+        "why": "Movement through or around a place takes por."
+      },
+      {
+        "sentence": "Lo compré para diez euros.",
+        "wrong": "para",
+        "fix": "por",
+        "why": "A price or exchange takes por."
+      },
+      {
+        "sentence": "Hablamos para teléfono cada día.",
+        "wrong": "para",
+        "fix": "por",
+        "why": "The means of communication takes por: por teléfono."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Este regalo es para ti.",
+        "meaning": "This present is for you.",
+        "distractors": [
+          "por"
+        ]
+      },
+      {
+        "text": "Paseamos por el parque.",
+        "meaning": "We stroll through the park.",
+        "distractors": [
+          "para"
+        ]
+      },
+      {
+        "text": "Gracias por tu ayuda.",
+        "meaning": "Thanks for your help.",
+        "distractors": [
+          "para"
+        ]
+      },
+      {
+        "text": "Estudio español para trabajar en España.",
+        "meaning": "I study Spanish to work in Spain.",
+        "distractors": [
+          "por"
+        ]
+      },
+      {
+        "text": "Por fin llegó el verano.",
+        "meaning": "Summer finally arrived.",
+        "distractors": [
+          "Para"
+        ]
+      }
+    ]
+  }
+}

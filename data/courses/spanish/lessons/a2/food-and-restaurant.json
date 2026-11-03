@@ -1,0 +1,655 @@
+{
+  "id": "a2-food-and-restaurant",
+  "slug": "food-and-restaurant",
+  "title": "At the restaurant: quisiera…",
+  "unit": "A2",
+  "group": "Vocabulary",
+  "order": 40,
+  "summary": "Get a table, order the menú del día course by course, say what you love and what you are allergic to, and ask for the bill.",
+  "focus": "Ordering food and drink politely and handling a meal out",
+  "prerequisites": [
+    "a2-obligation-and-advice"
+  ],
+  "content": "## A table and the menu\n\nWalking in:\n\n- *Una mesa para dos, por favor.* (A table for two, please.)\n- *¿Tienen mesa para cuatro?* (Do you have a table for four?)\n- *¿Me trae la carta, por favor?* (Could you bring me the menu?)\n\nCareful, **la carta** is the menu you read; **el menú del día** is the fixed-price lunch most restaurants in Spain serve on weekdays: a starter, a main, dessert or coffee, bread and a drink, usually for 12 to 16 euros.\n\nThe waiter (**el camarero**, **la camarera**) will ask *¿Qué van a tomar?* (What will you have?) or *¿Qué les pongo?* **Tomar**, not *comer* or *beber*, is the verb for having food or drink.\n\n## Ordering: de primero, de segundo\n\nA Spanish meal is ordered course by course:\n\n| phrase | meaning |\n|---|---|\n| **de primero** | for the first course, as a starter |\n| **de segundo** | for the main course |\n| **de postre** | for dessert |\n| **para beber** | to drink |\n\n*De primero, gazpacho; de segundo, pollo asado, y para beber, agua.*\n\nThree ways to ask, from most to least formal:\n\n- **Quisiera** la merluza. (I would like the hake; very polite.)\n- **Quería** una ensalada. (I'd like a salad; the everyday choice.)\n- **¿Me pone** una caña? (Can I have a small beer? Used at a bar; from **poner**.)\n\nFor meat the waiter may ask *¿Cómo lo quiere?*: **poco hecho** (rare), **al punto** (medium) or **muy hecho** (well done).\n\n## Quantities, likes and allergies\n\nQuantities link to the food with **de**, which never changes:\n\n- **un vaso de** agua (a glass of water)\n- **una copa de** vino (a glass of wine)\n- **una botella de** agua (a bottle of water)\n- **una ración de** patatas bravas (a portion of patatas bravas; **media ración** is a half portion)\n- **un poco de** pan (a little bread, some bread)\n\nTo say you love a dish, use **encantar**, which works like **gustar**: *Me encanta el gazpacho. Me encantan las tapas.*\n\nAllergies use **ser alérgico / alérgica a**: *Soy alérgica al marisco* (shellfish), *a los frutos secos* (nuts), *al gluten*. To check a dish: *¿Lleva cebolla?* (Does it have onion in it?) *Sin cebolla, por favor.*\n\n## Paying and manners\n\nWhen you finish, catch the waiter's eye and ask:\n\n- *La cuenta, por favor.* (The bill, please.)\n- *¿Me cobra?* (Can I pay? Literally, will you charge me?)\n- *¿Pagamos juntos o por separado?* (Are we paying together or separately?)\n- *¿Se puede pagar con tarjeta?* (Can we pay by card?)\n\n**La propina** (the tip) is not obligatory in Spain and nobody expects 15 %: people round up or leave a euro or two in the little dish. **Invito yo** means *it's on me*.\n\nTwo phrases you will hear all the time: **¡Que aproveche!** (enjoy your meal) when the food arrives, and **está buenísimo** (it's delicious) from happy diners.",
+  "vocabulary": [
+    {
+      "term": "el menú del día",
+      "meaning": "set lunch menu of the day",
+      "example": "El menú del día cuesta doce euros.",
+      "example_meaning": "The set menu of the day costs twelve euros."
+    },
+    {
+      "term": "de primero",
+      "meaning": "as a starter, for the first course",
+      "example": "De primero, una ensalada mixta.",
+      "example_meaning": "To start, a mixed salad."
+    },
+    {
+      "term": "de segundo",
+      "meaning": "for the main course",
+      "example": "De segundo quiero el pescado a la plancha.",
+      "example_meaning": "For the main course I want the grilled fish."
+    },
+    {
+      "term": "el postre",
+      "meaning": "dessert",
+      "example": "¿Qué hay de postre? — Flan o fruta.",
+      "example_meaning": "What is there for dessert? - Flan or fruit."
+    },
+    {
+      "term": "para beber",
+      "meaning": "to drink",
+      "example": "¿Y para beber? — Una caña, por favor.",
+      "example_meaning": "And to drink? - A small beer, please."
+    },
+    {
+      "term": "quisiera",
+      "meaning": "I would like (very polite)",
+      "example": "Quisiera una mesa para dos.",
+      "example_meaning": "I would like a table for two."
+    },
+    {
+      "term": "un vaso de",
+      "meaning": "a glass of",
+      "example": "Un vaso de agua, por favor.",
+      "example_meaning": "A glass of water, please."
+    },
+    {
+      "term": "una ración de",
+      "meaning": "a portion of (tapas-sized)",
+      "example": "Una ración de patatas bravas para compartir.",
+      "example_meaning": "A portion of patatas bravas to share."
+    },
+    {
+      "term": "la ensalada",
+      "meaning": "salad",
+      "example": "La ensalada lleva tomate, lechuga y cebolla.",
+      "example_meaning": "The salad has tomato, lettuce and onion."
+    },
+    {
+      "term": "el pescado",
+      "meaning": "fish (as food)",
+      "example": "El pescado está muy fresco.",
+      "example_meaning": "The fish is very fresh."
+    },
+    {
+      "term": "el pollo",
+      "meaning": "chicken",
+      "example": "De segundo, pollo asado con patatas.",
+      "example_meaning": "For the main course, roast chicken with potatoes."
+    },
+    {
+      "term": "ser alérgico / alérgica a",
+      "meaning": "to be allergic to",
+      "example": "Soy alérgica a los frutos secos.",
+      "example_meaning": "I'm allergic to nuts."
+    },
+    {
+      "term": "la cuenta",
+      "meaning": "the bill",
+      "example": "La cuenta, por favor.",
+      "example_meaning": "The bill, please."
+    },
+    {
+      "term": "la propina",
+      "meaning": "tip",
+      "example": "En España la propina no es obligatoria.",
+      "example_meaning": "In Spain the tip is not compulsory."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-food-and-restaurant-01",
+      "prompt": "___, un gazpacho; de segundo, el pollo asado.",
+      "type": "multiple-choice",
+      "options": [
+        "De primero",
+        "De postre",
+        "Para beber"
+      ],
+      "correct_answer": "De primero",
+      "explanation": "Gazpacho is a starter, so it comes 'de primero'; the main course follows 'de segundo'.",
+      "hints": [
+        "What comes before the second course?",
+        "Primero = first."
+      ],
+      "teaches": [
+        "de primero",
+        "el pollo"
+      ]
+    },
+    {
+      "question_id": "a2-food-and-restaurant-02",
+      "prompt": "¿Y ___ beber? — Un vaso de vino tinto.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "para",
+      "accepted_answers": [],
+      "explanation": "Drinks are asked for with 'para beber' (to drink), not 'de': '¿Y para beber?'",
+      "hints": [
+        "Not 'de' this time.",
+        "Purpose: 'to drink'."
+      ],
+      "teaches": [
+        "para beber",
+        "un vaso de"
+      ]
+    },
+    {
+      "question_id": "a2-food-and-restaurant-03",
+      "prompt": "Choose the most polite way to order: '___ el pescado a la plancha, por favor.'",
+      "type": "multiple-choice",
+      "options": [
+        "Quisiera",
+        "Quiero",
+        "Querer"
+      ],
+      "correct_answer": "Quisiera",
+      "explanation": "'Quisiera' (I would like) is the most polite form; 'quiero' is correct but blunter, and 'querer' is just the infinitive.",
+      "hints": [
+        "I would like, not I want.",
+        "The special polite form of querer."
+      ],
+      "teaches": [
+        "quisiera",
+        "el pescado"
+      ]
+    },
+    {
+      "question_id": "a2-food-and-restaurant-04",
+      "prompt": "Complete with the course: De ___, una tarta de queso. (dessert)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "postre",
+      "accepted_answers": [
+        "de postre"
+      ],
+      "explanation": "Dessert is 'el postre', so you order it 'de postre': 'De postre, una tarta de queso.'",
+      "hints": [
+        "The sweet course at the end.",
+        "De primero, de segundo, de…"
+      ],
+      "teaches": [
+        "el postre"
+      ]
+    },
+    {
+      "question_id": "a2-food-and-restaurant-05",
+      "prompt": "Which sentence means 'a portion of patatas bravas to share'?",
+      "type": "multiple-choice",
+      "options": [
+        "Una ración de patatas bravas para compartir.",
+        "Un vaso de patatas bravas para compartir.",
+        "Una botella de patatas bravas para compartir."
+      ],
+      "correct_answer": "Una ración de patatas bravas para compartir.",
+      "explanation": "A plate of tapas is 'una ración'; 'un vaso' is a glass and 'una botella' a bottle.",
+      "hints": [
+        "Patatas don't come in a glass.",
+        "Ración is related to 'ration'."
+      ],
+      "teaches": [
+        "una ración de"
+      ]
+    },
+    {
+      "question_id": "a2-food-and-restaurant-06",
+      "prompt": "Complete with the right form of encantar: Me ___ la ensalada de esta casa.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "encanta",
+      "accepted_answers": [],
+      "explanation": "Encantar works like gustar: 'la ensalada' is singular, so 'me encanta'.",
+      "hints": [
+        "Like gustar: me gusta / me gustan.",
+        "One salad."
+      ],
+      "teaches": [
+        "la ensalada"
+      ]
+    },
+    {
+      "question_id": "a2-food-and-restaurant-07",
+      "prompt": "No puedo comer eso: ___ alérgica al marisco.",
+      "type": "multiple-choice",
+      "options": [
+        "soy",
+        "estoy",
+        "tengo"
+      ],
+      "correct_answer": "soy",
+      "explanation": "An allergy is a permanent characteristic, so it takes ser: 'soy alérgica al marisco'.",
+      "hints": [
+        "An allergy does not come and go.",
+        "Ser for characteristics."
+      ],
+      "teaches": [
+        "ser alérgico / alérgica a"
+      ]
+    },
+    {
+      "question_id": "a2-food-and-restaurant-08",
+      "prompt": "El ___ del día cuesta doce euros e incluye pan y bebida.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "menú",
+      "accepted_answers": [
+        "menu"
+      ],
+      "explanation": "The fixed-price lunch is 'el menú del día'. Remember that 'la carta' is the menu you read.",
+      "hints": [
+        "Not 'la carta'.",
+        "Accent on the last syllable."
+      ],
+      "teaches": [
+        "el menú del día"
+      ]
+    },
+    {
+      "question_id": "a2-food-and-restaurant-09",
+      "prompt": "Hemos terminado de comer. ¿Qué le dices al camarero?",
+      "type": "multiple-choice",
+      "options": [
+        "La cuenta, por favor.",
+        "La carta, por favor.",
+        "La propina, por favor."
+      ],
+      "correct_answer": "La cuenta, por favor.",
+      "explanation": "You ask for the bill: 'la cuenta'. 'La carta' is the menu, and 'la propina' is the tip you may leave afterwards, never something you ask for.",
+      "hints": [
+        "You want to pay.",
+        "Cuenta is related to 'count'."
+      ],
+      "teaches": [
+        "la cuenta",
+        "la propina"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "¿Qué tienen de postre?",
+      "meaning": "What do you have for dessert?"
+    },
+    {
+      "text": "De primero, una sopa de pescado.",
+      "meaning": "For the first course, a fish soup."
+    },
+    {
+      "text": "De postre, un helado de chocolate.",
+      "meaning": "For dessert, a chocolate ice cream.",
+      "note": "New word: el helado = the ice cream."
+    },
+    {
+      "text": "¿Nos trae la cuenta, por favor?",
+      "meaning": "Could you bring us the bill, please?"
+    },
+    {
+      "text": "Un vaso de vino tinto, por favor.",
+      "meaning": "A glass of red wine, please.",
+      "note": "Quantities take de: un vaso de vino."
+    },
+    {
+      "text": "Mi hijo es alérgico a la leche.",
+      "meaning": "My son is allergic to milk.",
+      "note": "An allergy takes ser: es alérgico a."
+    },
+    {
+      "text": "Mi mujer siempre deja dos euros de propina al camarero.",
+      "meaning": "My wife always leaves the waiter a two-euro tip.",
+      "note": "New word: el camarero = the waiter."
+    },
+    {
+      "text": "Quisiera el menú del día, con pollo de segundo y agua para beber.",
+      "meaning": "I would like the set menu, with chicken for the main course and water to drink."
+    }
+  ],
+  "guide": [
+    {
+      "section": "A table and the menu"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-food-and-restaurant-08"
+    },
+    {
+      "section": "Ordering"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-food-and-restaurant-01"
+    },
+    {
+      "question": "a2-food-and-restaurant-02"
+    },
+    {
+      "question": "a2-food-and-restaurant-03"
+    },
+    {
+      "question": "a2-food-and-restaurant-04"
+    },
+    {
+      "tip": "Spanish waiters are brisk, not rude. A short 'de primero, ensalada; de segundo, pollo' is exactly what they want to hear."
+    },
+    {
+      "section": "Quantities, likes and allergies"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a2-food-and-restaurant-05"
+    },
+    {
+      "question": "a2-food-and-restaurant-06"
+    },
+    {
+      "question": "a2-food-and-restaurant-07"
+    },
+    {
+      "section": "Paying and manners"
+    },
+    {
+      "question": "a2-food-and-restaurant-09"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-food-and-restaurant-conv-menu-del-dia",
+      "title": "The menú del día",
+      "scenario": "Lucía and a friend sit down for lunch at a small restaurant in Madrid. Andrés, the waiter, comes to take their order.",
+      "role_a": "Andrés (camarero)",
+      "role_b": "Lucía",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Buenas tardes. ¿Qué van a tomar?",
+          "meaning": "Good afternoon. What will you have?",
+          "note": "tomar: to have food or drink"
+        },
+        {
+          "speaker": "b",
+          "text": "Hola. ¿Tienen menú del día?",
+          "meaning": "Hi. Do you have a set lunch menu?"
+        },
+        {
+          "speaker": "a",
+          "text": "Sí: de primero, gazpacho o ensalada mixta; de segundo, pollo asado o merluza a la plancha.",
+          "meaning": "Yes: for starters, gazpacho or mixed salad; for the main, roast chicken or grilled hake.",
+          "note": "de primero / de segundo"
+        },
+        {
+          "speaker": "b",
+          "text": "Pues de primero, gazpacho, y de segundo, la merluza. ¿Lleva marisco la salsa? Soy alérgica al marisco.",
+          "meaning": "Then gazpacho to start, and the hake for the main. Does the sauce have shellfish in it? I'm allergic to shellfish.",
+          "note": "¿lleva…? · ser alérgica a + al"
+        },
+        {
+          "speaker": "a",
+          "text": "No, no lleva. Es solo ajo, aceite y perejil.",
+          "meaning": "No, it doesn't. It's just garlic, oil and parsley."
+        },
+        {
+          "speaker": "b",
+          "text": "Perfecto. Y para mi amigo, ensalada y el pollo.",
+          "meaning": "Perfect. And for my friend, salad and the chicken."
+        },
+        {
+          "speaker": "a",
+          "text": "Muy bien. ¿Y para beber?",
+          "meaning": "Very good. And to drink?",
+          "note": "para beber"
+        },
+        {
+          "speaker": "b",
+          "text": "Un vaso de vino tinto y una botella de agua, por favor. Ah, ¿y me pone un poco más de pan?",
+          "meaning": "A glass of red wine and a bottle of water, please. Oh, and could you bring me a bit more bread?",
+          "note": "un vaso de · una botella de · ¿me pone…?"
+        },
+        {
+          "speaker": "a",
+          "text": "Claro. ¿Y de postre? Hay flan, fruta o tarta de queso.",
+          "meaning": "Of course. And for dessert? There's flan, fruit or cheesecake."
+        },
+        {
+          "speaker": "b",
+          "text": "¡Me encanta la tarta de queso! Una, por favor. Y la cuenta cuando pueda.",
+          "meaning": "I love cheesecake! One, please. And the bill when you have a moment.",
+          "note": "me encanta + singular · 'cuando pueda' = when you can"
+        },
+        {
+          "speaker": "a",
+          "text": "Enseguida. ¡Que aproveche!",
+          "meaning": "Right away. Enjoy your meal!"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🥘",
+    "bites": [
+      {
+        "title": "Three courses and a drink",
+        "emoji": "🥗",
+        "rule": "Order in the Spanish order: de primero (starter), de segundo (main), de postre (dessert) and para beber (drink). The menú del día bundles them for one price.",
+        "example": "De primero, ensalada; de segundo, pollo; y para beber, agua.",
+        "example_meaning": "Salad to start; chicken for the main; and water to drink."
+      },
+      {
+        "title": "Three polite ways to order",
+        "emoji": "🙋",
+        "rule": "Quisiera… is the most polite, quería… is the everyday one, and at a bar ¿me pone…? means 'could I have…?'.",
+        "example": "¿Me pone una caña, por favor?",
+        "example_meaning": "Could I have a small beer, please?"
+      },
+      {
+        "title": "Quantities with de",
+        "emoji": "🥤",
+        "rule": "Un vaso de agua, una copa de vino, una botella de agua, una ración de bravas, un poco de pan. The de never changes.",
+        "example": "Una ración de patatas bravas para compartir.",
+        "example_meaning": "A portion of patatas bravas to share."
+      },
+      {
+        "title": "Allergies and the bill",
+        "emoji": "💶",
+        "rule": "Soy alérgico/a a + the food (al gluten, a los frutos secos). At the end: la cuenta, por favor. The tip is optional: round up or leave a euro.",
+        "example": "Soy alérgica al marisco. La cuenta, por favor.",
+        "example_meaning": "I'm allergic to shellfish. The bill, please."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which course?",
+        "buckets": [
+          "de primero",
+          "de segundo",
+          "de postre",
+          "para beber"
+        ],
+        "items": [
+          {
+            "text": "gazpacho",
+            "bucket": 0
+          },
+          {
+            "text": "pollo asado",
+            "bucket": 1
+          },
+          {
+            "text": "flan",
+            "bucket": 2
+          },
+          {
+            "text": "una caña",
+            "bucket": 3
+          },
+          {
+            "text": "ensalada mixta",
+            "bucket": 0
+          },
+          {
+            "text": "merluza a la plancha",
+            "bucket": 1
+          },
+          {
+            "text": "tarta de queso",
+            "bucket": 2
+          },
+          {
+            "text": "un vaso de vino",
+            "bucket": 3
+          }
+        ],
+        "why": "Soups and salads start the meal, meat and fish are the main course, sweets are dessert, and drinks are asked for with para beber."
+      },
+      {
+        "title": "Encanta or encantan?",
+        "buckets": [
+          "me encanta",
+          "me encantan"
+        ],
+        "items": [
+          {
+            "text": "las tapas",
+            "bucket": 1
+          },
+          {
+            "text": "el gazpacho",
+            "bucket": 0
+          },
+          {
+            "text": "los postres",
+            "bucket": 1
+          },
+          {
+            "text": "la tarta de queso",
+            "bucket": 0
+          },
+          {
+            "text": "las patatas bravas",
+            "bucket": 1
+          },
+          {
+            "text": "el vino tinto",
+            "bucket": 0
+          }
+        ],
+        "why": "Encantar works like gustar: the food is the subject, so a plural dish takes encantan."
+      },
+      {
+        "title": "How much of it?",
+        "buckets": [
+          "un vaso de",
+          "una ración de",
+          "un poco de"
+        ],
+        "items": [
+          {
+            "text": "agua",
+            "bucket": 0
+          },
+          {
+            "text": "patatas bravas",
+            "bucket": 1
+          },
+          {
+            "text": "pan",
+            "bucket": 2
+          },
+          {
+            "text": "vino tinto",
+            "bucket": 0
+          },
+          {
+            "text": "calamares",
+            "bucket": 1
+          },
+          {
+            "text": "sal",
+            "bucket": 2
+          }
+        ],
+        "why": "Drinks come in a vaso, tapas in a ración, and un poco de is 'a little' of something you don't count."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "De primera, una ensalada mixta.",
+        "wrong": "primera",
+        "fix": "primero",
+        "why": "The course phrases are fixed: de primero, de segundo, de postre."
+      },
+      {
+        "sentence": "Me encanta las tapas.",
+        "wrong": "encanta",
+        "fix": "encantan",
+        "why": "Las tapas is plural and is the subject: me encantan."
+      },
+      {
+        "sentence": "Estoy alérgico al gluten.",
+        "wrong": "Estoy",
+        "fix": "Soy",
+        "why": "An allergy is a permanent characteristic: soy alérgico."
+      },
+      {
+        "sentence": "¿Me trae un poco con pan, por favor?",
+        "wrong": "con",
+        "fix": "de",
+        "why": "Quantities take de: un poco de pan."
+      },
+      {
+        "sentence": "La cuento, por favor.",
+        "wrong": "cuento",
+        "fix": "cuenta",
+        "why": "The bill is la cuenta; cuento means 'I count' or 'a story'."
+      },
+      {
+        "sentence": "Quisiera el menú de día.",
+        "wrong": "de",
+        "fix": "del",
+        "why": "It is el menú del día: de + el = del."
+      }
+    ],
+    "builds": [
+      {
+        "text": "De primero, una ensalada mixta.",
+        "meaning": "To start, a mixed salad.",
+        "distractors": [
+          "primera"
+        ]
+      },
+      {
+        "text": "¿Me pone una caña, por favor?",
+        "meaning": "Could I have a small beer, please?",
+        "distractors": [
+          "pongo"
+        ]
+      },
+      {
+        "text": "Soy alérgica a los frutos secos.",
+        "meaning": "I'm allergic to nuts.",
+        "distractors": [
+          "Estoy"
+        ]
+      },
+      {
+        "text": "La cuenta, por favor.",
+        "meaning": "The bill, please.",
+        "distractors": [
+          "carta"
+        ]
+      },
+      {
+        "text": "Me encantan las patatas bravas.",
+        "meaning": "I love patatas bravas.",
+        "distractors": [
+          "encanta"
+        ]
+      }
+    ]
+  }
+}

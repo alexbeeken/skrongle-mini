@@ -1,0 +1,45 @@
+{
+  "id": "tc-algebra-tiles",
+  "slug": "algebra-tiles",
+  "title": "Algebra tiles",
+  "unit": "questions",
+  "group": "quiz",
+  "order": 60,
+  "summary": "Lay tiles out as a rectangle, then type its two sides.",
+  "focus": "algebra-tiles questions",
+  "content": "## Tiles make a rectangle\n\nA big square is x², a strip is x and a small square is 1. Laid out as a rectangle, the tiles of x² + 5x + 6 have sides x + 2 and x + 3.\n\n## Writing the sides\n\nType the two sides multiplied, in any order: (x + 3)(x + 2). The expanded x² + 5x + 6 is equal, but it is not the two sides.",
+  "quiz": [
+    {
+      "question_id": "tc-algebra-tiles-01",
+      "prompt": "Make a rectangle from x² + 5x + 6. What are its sides?",
+      "type": "algebra-tiles",
+      "tiles": "x^2 + 5x + 6",
+      "form": "product",
+      "correct_answer": "(x + 2)(x + 3)",
+      "explanation": "The sides are x + 2 and x + 3, and (x + 2)(x + 3) = x² + 5x + 6."
+    },
+    {
+      "question_id": "tc-algebra-tiles-02",
+      "prompt": "Make a rectangle from 2x² + 3x + 1. What are its sides?",
+      "type": "algebra-tiles",
+      "tiles": "2x^2 + 3x + 1",
+      "correct_answer": "(2x + 1)(x + 1)",
+      "explanation": "The two big squares side by side give 2x + 1 one way and x + 1 the other.",
+      "hints": [
+        "Put the two big squares next to each other first."
+      ]
+    },
+    {
+      "question_id": "tc-algebra-tiles-03",
+      "prompt": "Make a rectangle from x² + 3x. What are its sides?",
+      "type": "algebra-tiles",
+      "tiles": "x^2 + 3x",
+      "form": "product",
+      "correct_answer": "x(x + 3)",
+      "accepted_answers": [
+        "(x)(x + 3)"
+      ],
+      "explanation": "No small squares: one side is just x."
+    }
+  ]
+}

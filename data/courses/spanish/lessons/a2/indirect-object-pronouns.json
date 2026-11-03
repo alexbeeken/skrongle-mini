@@ -1,0 +1,646 @@
+{
+  "id": "a2-indirect-object-pronouns",
+  "slug": "indirect-object-pronouns",
+  "title": "Indirect object pronouns: le, les, se",
+  "unit": "A2",
+  "group": "Grammar",
+  "order": 26,
+  "summary": "To whom and for whom: le regalo flores a mi madre, se lo doy, nos faltan dos euros.",
+  "focus": "Indirect object pronouns me, te, le, nos, os, les; se lo; the redundant a él / a ella; gustar-type verbs",
+  "prerequisites": [
+    "a2-direct-object-pronouns"
+  ],
+  "content": "## The indirect object: to whom, for whom\n\nThe **indirect object** is the person who receives the thing or benefits from the action. Ask *¿a quién?* after the verb and its object:\n\n- *Doy el libro a Marta.* (¿A quién doy el libro? A Marta.)\n\nThe pronouns:\n\n| | singular | plural |\n|---|---|---|\n| 1st person | **me** (to me) | **nos** (to us) |\n| 2nd person | **te** (to you) | **os** (to you all) |\n| 3rd person | **le** (to him, to her, to you *usted*) | **les** (to them, to you all) |\n\nOnly **le / les** differ from the direct object pronouns, and they have **no gender**. Examples:\n\n- *Le regalo flores.* (I give him/her flowers.)\n- *Te escribo un correo.* (I'll write you an email.)\n- *Nos explica la gramática.* (She explains the grammar to us.)\n\n## Say it twice: a él, a ella, a mi madre\n\nBecause *le* can mean him, her or you, Spanish usually keeps the pronoun **and** names the person. This \"double\" is normal and correct:\n\n- *Le regalo flores a mi madre.* (I give my mother flowers.)\n- *Les envío una foto a mis padres.* (I send my parents a photo.)\n- *¿A usted le interesa el arte?* (Are you interested in art?)\n\nThe same **a + pronoun** adds emphasis or contrast: *A mí me gusta el café, pero a él le gusta el té.* The forms are **a mí**, **a ti**, **a él / a ella / a usted**, **a nosotros**, **a vosotros**, **a ellos / a ellas / a ustedes**.\n\n## Two pronouns: indirect first, then le becomes se\n\nWhen a sentence has both pronouns, the **indirect comes first**, then the direct:\n\n- *¿El libro? Me lo das mañana.* (You'll give it to me tomorrow.)\n- *¿Tu móvil? Te lo presto.* (I'll lend it to you.)\n\n**Le / les** cannot stand next to *lo, la, los, las*: they change to **se**.\n\n- *Le doy el libro a Juan.* → *Se lo doy.* (I give it to him.)\n- *Les envío las fotos.* → *Se las envío.* (I send them to them.)\n\nPosition is the same as for direct objects. The pronouns go before the conjugated verb, or attach to an infinitive or gerund (with an accent): *Quiero dártelo* = *Te lo quiero dar*.\n\n## Gustar's family\n\nSeveral common verbs work like **gustar**. The person is an indirect object, and the verb agrees with the **thing**:\n\n| verb | example |\n|---|---|\n| encantar | *Me encanta el chocolate.* (I love chocolate.) |\n| interesar | *¿Te interesa la historia?* (Are you interested in history?) |\n| parecer | *¿Qué os parece el plan?* (What do you think of the plan?) |\n| doler | *Le duele la cabeza. Le duelen los pies.* (Her head hurts. Her feet hurt.) |\n| faltar | *Nos faltan dos euros.* (We are two euros short.) |\n| quedar | *Me quedan tres días de vacaciones.* (I have three days of holiday left.) |\n\nA singular thing takes a singular verb (*falta*, *queda*). A plural thing takes a plural verb (*faltan*, *quedan*).",
+  "vocabulary": [
+    {
+      "term": "regalar",
+      "meaning": "to give (as a present)",
+      "example": "Le regalo flores a mi madre.",
+      "example_meaning": "I give my mother flowers."
+    },
+    {
+      "term": "prestar",
+      "meaning": "to lend",
+      "example": "¿Me prestas tu móvil?",
+      "example_meaning": "Will you lend me your phone?"
+    },
+    {
+      "term": "enviar",
+      "meaning": "to send",
+      "example": "Les envío una foto a mis padres.",
+      "example_meaning": "I send my parents a photo."
+    },
+    {
+      "term": "explicar",
+      "meaning": "to explain",
+      "example": "El profesor nos explica la gramática.",
+      "example_meaning": "The teacher explains the grammar to us."
+    },
+    {
+      "term": "preguntar",
+      "meaning": "to ask (a question)",
+      "example": "Le pregunto la hora a un señor.",
+      "example_meaning": "I ask a gentleman the time."
+    },
+    {
+      "term": "devolver",
+      "meaning": "to give back, to return",
+      "example": "Te devuelvo el libro mañana.",
+      "example_meaning": "I'll give you the book back tomorrow."
+    },
+    {
+      "term": "pedir",
+      "meaning": "to ask for, to order",
+      "example": "Le pido un favor a mi hermano.",
+      "example_meaning": "I ask my brother for a favour."
+    },
+    {
+      "term": "el favor",
+      "meaning": "favour",
+      "example": "¿Me haces un favor?",
+      "example_meaning": "Will you do me a favour?"
+    },
+    {
+      "term": "el consejo",
+      "meaning": "piece of advice",
+      "example": "Mi abuela siempre me da buenos consejos.",
+      "example_meaning": "My grandmother always gives me good advice."
+    },
+    {
+      "term": "interesar",
+      "meaning": "to interest, to be interested in",
+      "example": "Me interesa mucho la historia.",
+      "example_meaning": "I'm very interested in history."
+    },
+    {
+      "term": "parecer",
+      "meaning": "to seem (¿qué te parece? = what do you think of…?)",
+      "example": "¿Qué te parece la película?",
+      "example_meaning": "What do you think of the film?"
+    },
+    {
+      "term": "faltar",
+      "meaning": "to be missing, to be short of",
+      "example": "Nos faltan dos euros.",
+      "example_meaning": "We are two euros short."
+    },
+    {
+      "term": "quedar",
+      "meaning": "to have left, to remain",
+      "example": "Me quedan tres días de vacaciones.",
+      "example_meaning": "I have three days of holiday left."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-indirect-object-pronouns-01",
+      "prompt": "___ regalo flores a mi madre.",
+      "type": "multiple-choice",
+      "options": [
+        "Le",
+        "La",
+        "Lo",
+        "Les"
+      ],
+      "correct_answer": "Le",
+      "explanation": "Mi madre receives the flowers, so she is the indirect object and the pronoun is 'le'. The direct object is 'flores'. Indirect pronouns have no gender.",
+      "hints": [
+        "Who receives the flowers?",
+        "Le / les have no gender."
+      ],
+      "teaches": [
+        "regalar"
+      ]
+    },
+    {
+      "question_id": "a2-indirect-object-pronouns-02",
+      "prompt": "Complete with the pronoun meaning 'to me': ¿___ prestas tu móvil?",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "me",
+      "accepted_answers": [
+        "me prestas"
+      ],
+      "explanation": "'To me' is 'me', placed in front of the conjugated verb: '¿Me prestas tu móvil?'",
+      "hints": [
+        "First person singular.",
+        "Pronoun before the verb."
+      ],
+      "teaches": [
+        "prestar"
+      ]
+    },
+    {
+      "question_id": "a2-indirect-object-pronouns-03",
+      "prompt": "___ envío una foto a mis padres.",
+      "type": "multiple-choice",
+      "options": [
+        "Les",
+        "Le",
+        "Los"
+      ],
+      "correct_answer": "Les",
+      "explanation": "Mis padres are plural recipients, so the pronoun is 'les'. 'Los' would make them the direct object, but the photo is what gets sent.",
+      "hints": [
+        "Plural recipients.",
+        "They receive the photo; they are not sent."
+      ],
+      "teaches": [
+        "enviar"
+      ]
+    },
+    {
+      "question_id": "a2-indirect-object-pronouns-04",
+      "prompt": "Replace both objects: Le pido un favor a mi hermano. → ___ lo pido.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "se",
+      "accepted_answers": [
+        "se lo pido"
+      ],
+      "explanation": "Before lo, la, los or las, le turns into se: 'Se lo pido.'",
+      "hints": [
+        "Le + lo is not allowed.",
+        "Le changes into a two-letter word."
+      ],
+      "teaches": [
+        "pedir",
+        "el favor"
+      ]
+    },
+    {
+      "question_id": "a2-indirect-object-pronouns-05",
+      "prompt": "¿El libro? Te ___ devuelvo mañana.",
+      "type": "multiple-choice",
+      "options": [
+        "lo",
+        "le",
+        "la",
+        "se"
+      ],
+      "correct_answer": "lo",
+      "explanation": "'Te' is the indirect object (to you). The book is the direct object, masculine singular, so it is 'lo': 'Te lo devuelvo.'",
+      "hints": [
+        "Indirect first, then direct.",
+        "El libro is masculine."
+      ],
+      "teaches": [
+        "devolver"
+      ]
+    },
+    {
+      "question_id": "a2-indirect-object-pronouns-06",
+      "prompt": "El profesor ___ explica. (it, to us)",
+      "type": "multiple-choice",
+      "options": [
+        "nos lo",
+        "lo nos",
+        "nos le"
+      ],
+      "correct_answer": "nos lo",
+      "explanation": "The indirect pronoun (nos) comes before the direct pronoun (lo): 'Nos lo explica.'",
+      "hints": [
+        "Order: indirect, then direct.",
+        "'It' is a direct object: lo."
+      ],
+      "teaches": [
+        "explicar"
+      ]
+    },
+    {
+      "question_id": "a2-indirect-object-pronouns-07",
+      "prompt": "Complete with the correct form of parecer: ¿Qué te ___ la película?",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "parece",
+      "accepted_answers": [
+        "te parece"
+      ],
+      "explanation": "Parecer works like gustar: the verb agrees with the thing (la película, singular): '¿Qué te parece la película?'",
+      "hints": [
+        "Gustar-type verb.",
+        "La película is singular."
+      ],
+      "teaches": [
+        "parecer"
+      ]
+    },
+    {
+      "question_id": "a2-indirect-object-pronouns-08",
+      "prompt": "A mis padres ___ interesa mucho la historia.",
+      "type": "multiple-choice",
+      "options": [
+        "les",
+        "le",
+        "los"
+      ],
+      "correct_answer": "les",
+      "explanation": "Even when the people are named ('a mis padres'), the pronoun stays, and it is plural: 'les'.",
+      "hints": [
+        "Naming the person does not remove the pronoun.",
+        "Mis padres is plural."
+      ],
+      "teaches": [
+        "interesar"
+      ]
+    },
+    {
+      "question_id": "a2-indirect-object-pronouns-09",
+      "prompt": "Complete with the correct form of faltar: Nos ___ dos euros.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "faltan",
+      "accepted_answers": [
+        "nos faltan"
+      ],
+      "explanation": "The verb agrees with what is missing (dos euros, plural): 'Nos faltan dos euros.' We are the indirect object.",
+      "hints": [
+        "Gustar-type verb.",
+        "Dos euros is plural."
+      ],
+      "teaches": [
+        "faltar"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "¿Me prestas tu bici?",
+      "meaning": "Will you lend me your bike?",
+      "note": "New word: la bici = the bike."
+    },
+    {
+      "text": "Te devuelvo el dinero mañana.",
+      "meaning": "I'll give you the money back tomorrow."
+    },
+    {
+      "text": "¿Qué te parece este restaurante?",
+      "meaning": "What do you think of this restaurant?"
+    },
+    {
+      "text": "Le regalo un libro a mi padre.",
+      "meaning": "I'm giving my father a book.",
+      "note": "Spanish keeps le even when the person is named."
+    },
+    {
+      "text": "Nos falta un euro para el café.",
+      "meaning": "We are one euro short for the coffee.",
+      "note": "Faltar agrees with the thing: un euro, falta."
+    },
+    {
+      "text": "Les envío un mensaje a mis amigos.",
+      "meaning": "I'm sending my friends a message.",
+      "note": "New word: el mensaje = the message."
+    },
+    {
+      "text": "A mis hermanos no les interesa nada el fútbol.",
+      "meaning": "My brothers aren't at all interested in football."
+    },
+    {
+      "text": "Mi hermano siempre me pide favores y yo se los hago sin problema.",
+      "meaning": "My brother is always asking me for favours and I do them for him, no problem.",
+      "note": "Le becomes se before los: se los hago."
+    }
+  ],
+  "guide": [
+    {
+      "section": "The indirect object"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-indirect-object-pronouns-01"
+    },
+    {
+      "question": "a2-indirect-object-pronouns-02"
+    },
+    {
+      "question": "a2-indirect-object-pronouns-03"
+    },
+    {
+      "section": "Say it twice"
+    },
+    {
+      "question": "a2-indirect-object-pronouns-08"
+    },
+    {
+      "tip": "Not sure if it's lo or le? Ask what gets handed over. The thing handed over is lo/la, and the person who gets it is le."
+    },
+    {
+      "section": "Two pronouns"
+    },
+    {
+      "question": "a2-indirect-object-pronouns-05"
+    },
+    {
+      "question": "a2-indirect-object-pronouns-06"
+    },
+    {
+      "question": "a2-indirect-object-pronouns-04"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "section": "Gustar's family"
+    },
+    {
+      "question": "a2-indirect-object-pronouns-07"
+    },
+    {
+      "question": "a2-indirect-object-pronouns-09"
+    },
+    {
+      "vocab": 4
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-indirect-object-pronouns-conv-present",
+      "title": "A present for mum",
+      "scenario": "Elena and her brother Raúl are planning their mother's birthday present.",
+      "role_a": "Elena",
+      "role_b": "Raúl",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Raúl, ¿qué le regalamos a mamá por su cumpleaños?",
+          "meaning": "Raúl, what shall we give Mum for her birthday?",
+          "note": "le … a mamá: the double is normal"
+        },
+        {
+          "speaker": "b",
+          "text": "No sé. ¿Le compramos un libro? Le encanta leer.",
+          "meaning": "I don't know. Shall we buy her a book? She loves reading.",
+          "note": "encantar works like gustar"
+        },
+        {
+          "speaker": "a",
+          "text": "Ya le regalé uno el año pasado. ¿Qué te parece una bufanda?",
+          "meaning": "I already gave her one last year. What do you think of a scarf?",
+          "note": "¿qué te parece…?"
+        },
+        {
+          "speaker": "b",
+          "text": "Me parece bien. ¿Se la compramos en la tienda de la plaza?",
+          "meaning": "Sounds good to me. Shall we buy it for her at the shop on the square?",
+          "note": "le + la → se la"
+        },
+        {
+          "speaker": "a",
+          "text": "Sí. Pero me faltan veinte euros. ¿Me los prestas?",
+          "meaning": "Yes. But I'm twenty euros short. Will you lend them to me?",
+          "note": "faltar · me los: indirect, then direct"
+        },
+        {
+          "speaker": "b",
+          "text": "Vale, te los presto, pero me los devuelves el viernes.",
+          "meaning": "OK, I'll lend them to you, but you give them back to me on Friday.",
+          "note": "te los · me los"
+        },
+        {
+          "speaker": "a",
+          "text": "Te lo prometo. ¿Y a papá? ¿Le decimos algo?",
+          "meaning": "I promise. And Dad? Shall we tell him anything?",
+          "note": "te lo = it to you"
+        },
+        {
+          "speaker": "b",
+          "text": "Mejor no le decimos nada. A él le gustan las sorpresas.",
+          "meaning": "Better not to tell him anything. He likes surprises.",
+          "note": "a él le: emphasis"
+        },
+        {
+          "speaker": "a",
+          "text": "De acuerdo. Y le pido la tarta a la tía Rosa. Nos la hace siempre.",
+          "meaning": "Agreed. And I'll ask Aunt Rosa for the cake. She always makes it for us.",
+          "note": "nos la: indirect, then direct"
+        },
+        {
+          "speaker": "b",
+          "text": "Perfecto. Le escribo un mensaje ahora mismo.",
+          "meaning": "Perfect. I'll write her a message right now."
+        },
+        {
+          "speaker": "a",
+          "text": "¡Qué bien! Solo nos quedan dos días.",
+          "meaning": "Great! We only have two days left.",
+          "note": "quedar: verb agrees with dos días"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🎁",
+    "bites": [
+      {
+        "title": "To whom? For whom?",
+        "emoji": "🎁",
+        "rule": "The indirect object receives the thing or the action. The pronouns are me, te, le, nos, os, les. Le and les have no gender, so a Juan, a Marta and a usted all take le.",
+        "example": "Le regalo flores. Te escribo un correo.",
+        "example_meaning": "I give her flowers. I'll write you an email."
+      },
+      {
+        "title": "Say it twice",
+        "emoji": "🔁",
+        "rule": "Spanish keeps the pronoun even when the person is named: Le regalo flores a mi madre. Add a él / a ella / a usted to make le clear or to stress it.",
+        "example": "A mí me gusta el café, pero a él le gusta el té.",
+        "example_meaning": "I like coffee, but he likes tea."
+      },
+      {
+        "title": "Le + lo = se lo",
+        "emoji": "🔀",
+        "rule": "Two pronouns: indirect first, then direct. Le or les before lo / la / los / las turns into se: Le doy el libro becomes Se lo doy.",
+        "example": "¿El libro? Se lo doy a Juan.",
+        "example_meaning": "The book? I'll give it to Juan."
+      },
+      {
+        "title": "Gustar's family",
+        "emoji": "💛",
+        "rule": "Encantar, interesar, parecer, doler, faltar and quedar work like gustar. You use a pronoun plus the verb, and the verb agrees with the thing: me duele la cabeza, me duelen los pies.",
+        "example": "Nos faltan dos euros.",
+        "example_meaning": "We are two euros short."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Direct or indirect?",
+        "buckets": [
+          "direct (lo / la)",
+          "indirect (le)"
+        ],
+        "items": [
+          {
+            "text": "Le escribo (a Ana).",
+            "bucket": 1
+          },
+          {
+            "text": "La veo (a Ana).",
+            "bucket": 0
+          },
+          {
+            "text": "Les envío una foto.",
+            "bucket": 1
+          },
+          {
+            "text": "Los invito.",
+            "bucket": 0
+          },
+          {
+            "text": "Le doy un consejo.",
+            "bucket": 1
+          },
+          {
+            "text": "La llamo.",
+            "bucket": 0
+          }
+        ],
+        "why": "If the person is the one seen, invited or called, the pronoun is direct (lo/la). If something is given, sent or written to them, it is indirect (le/les)."
+      },
+      {
+        "title": "Le or les?",
+        "buckets": [
+          "le",
+          "les"
+        ],
+        "items": [
+          {
+            "text": "a Marta",
+            "bucket": 0
+          },
+          {
+            "text": "a mis padres",
+            "bucket": 1
+          },
+          {
+            "text": "a usted",
+            "bucket": 0
+          },
+          {
+            "text": "a los niños",
+            "bucket": 1
+          },
+          {
+            "text": "a mi hermano",
+            "bucket": 0
+          },
+          {
+            "text": "a ustedes",
+            "bucket": 1
+          }
+        ],
+        "why": "One person (him, her, usted) takes le. Several people (them, ustedes) take les. Gender does not matter."
+      },
+      {
+        "title": "The verb agrees with the thing",
+        "buckets": [
+          "me duele / me falta",
+          "me duelen / me faltan"
+        ],
+        "items": [
+          {
+            "text": "la cabeza",
+            "bucket": 0
+          },
+          {
+            "text": "los pies",
+            "bucket": 1
+          },
+          {
+            "text": "dos euros",
+            "bucket": 1
+          },
+          {
+            "text": "un día",
+            "bucket": 0
+          },
+          {
+            "text": "las muelas",
+            "bucket": 1
+          },
+          {
+            "text": "la espalda",
+            "bucket": 0
+          }
+        ],
+        "why": "With gustar-type verbs the person is me/te/le and the verb matches the thing. A singular thing takes duele / falta, and a plural thing takes duelen / faltan."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Lo regalo flores a mi madre.",
+        "wrong": "Lo",
+        "fix": "Le",
+        "why": "Mi madre receives the flowers, so she is the indirect object and the pronoun is le."
+      },
+      {
+        "sentence": "Le envío una foto a mis padres.",
+        "wrong": "Le",
+        "fix": "Les",
+        "why": "Mis padres are plural, so the pronoun is les."
+      },
+      {
+        "sentence": "Le lo doy a Juan.",
+        "wrong": "Le",
+        "fix": "Se",
+        "why": "Le turns into se before lo: se lo doy."
+      },
+      {
+        "sentence": "Nos faltan un euro.",
+        "wrong": "faltan",
+        "fix": "falta",
+        "why": "Faltar agrees with the thing: un euro is singular, so falta."
+      },
+      {
+        "sentence": "¿Qué te parecen la película?",
+        "wrong": "parecen",
+        "fix": "parece",
+        "why": "Parecer agrees with la película, singular: parece."
+      },
+      {
+        "sentence": "A mis padres le interesa la historia.",
+        "wrong": "le",
+        "fix": "les",
+        "why": "The pronoun must match a mis padres, so it is the plural les."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Le regalo flores a mi madre.",
+        "meaning": "I give my mother flowers.",
+        "distractors": [
+          "La"
+        ]
+      },
+      {
+        "text": "¿Me prestas tu móvil?",
+        "meaning": "Will you lend me your phone?",
+        "distractors": [
+          "Te"
+        ]
+      },
+      {
+        "text": "Se lo doy a Juan.",
+        "meaning": "I give it to Juan.",
+        "distractors": [
+          "Le"
+        ]
+      },
+      {
+        "text": "Me duele mucho la cabeza.",
+        "meaning": "My head hurts a lot.",
+        "distractors": [
+          "duelen"
+        ]
+      },
+      {
+        "text": "Nos faltan dos euros.",
+        "meaning": "We are two euros short.",
+        "distractors": [
+          "falta"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t("auth.register_sent.title") }}{% endblock %}
+{% block content %}
+<section class="narrow" data-testid="register-sent">
+  <h1>{{ crate::t("auth.register_sent.title") }}</h1>
+  <p role="status">{{ crate::t1("auth.register_sent.sent_html", "email", self.email_html())|safe }}</p>
+  <p><a class="btn" href="{% if let Some(s) = share %}{{ s.page_url("/login") }}{% else %}{{ crate::url("/login") }}{% endif %}" data-testid="register-sent-login">{{ crate::t("auth.register_sent.sign_in") }}</a></p>
+</section>
+{% endblock %}

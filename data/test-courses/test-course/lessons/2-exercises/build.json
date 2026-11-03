@@ -1,0 +1,26 @@
+{
+  "id": "tc-build",
+  "slug": "build",
+  "title": "Build a sentence",
+  "unit": "exercises",
+  "group": "sprint",
+  "order": 40,
+  "summary": "Rebuild a sentence from shuffled word tiles.",
+  "focus": "Sprint mode builds",
+  "content": "## Building a sentence\n\nRebuild the sentence from shuffled word tiles. Some builds add a tile that does not belong.",
+  "sprint": {
+    "builds": [
+      {
+        "text": "Mi madre es médica.",
+        "meaning": "My mother is a doctor.",
+        "distractors": [
+          "está"
+        ]
+      },
+      {
+        "text": "Hablo español.",
+        "meaning": "I speak Spanish."
+      }
+    ]
+  }
+}

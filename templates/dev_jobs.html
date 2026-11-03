@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Dev: background jobs{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ crate::routes::asset_url("devbox.css") }}">
+<section class="devbox devjobs" data-testid="dev-jobs">
+  <div class="devbox-head">
+    <h1>Background jobs</h1>
+    <button type="button" class="info-btn" data-opens="devjobs-info" aria-haspopup="dialog" aria-label="About background jobs" title="About background jobs" data-testid="dev-jobs-info"><span aria-hidden="true">i</span></button>
+  </div>
+
+  <div class="devbox-frame">
+    <div class="devbox-tools">
+      <form method="post" action="{{ crate::url("/dev/jobs/fail") }}"><button type="submit" class="btn ghost small" data-testid="dev-jobs-queue-fail">Queue a failing job</button></form>
+    </div>
+    <table class="devbox-table devjobs-table" data-testid="dev-jobs-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Kind</th>
+          <th>State</th>
+          <th>Runs</th>
+          <th>Attempts</th>
+          <th>Last error</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for j in jobs %}
+        <tr class="devbox-row" data-testid="dev-jobs-row" data-id="{{ j.row.id }}" data-kind="{{ j.row.kind }}" data-state="{{ j.row.state }}" data-run-at="{{ j.row.run_at }}" data-attempts="{{ j.row.attempts }}">
+          <td>{{ j.row.id }}</td>
+          <td class="devjobs-kind"><code>{{ j.row.kind }}</code></td>
+          <td><span class="devbox-state" data-state="{{ j.row.state }}" data-testid="dev-jobs-state">{{ j.row.state }}</span>{% if !j.lease.is_empty() %} <span class="small muted" title="{{ j.row.locked_by.as_deref().unwrap_or_default() }}">lease ends {{ j.lease }}</span>{% endif %}</td>
+          <td title="{{ j.row.run_at }}">{{ j.run_at }}</td>
+          <td data-testid="dev-jobs-attempts">{{ j.row.attempts }} / {{ j.row.max_attempts }}</td>
+          <td class="devjobs-error small" data-testid="dev-jobs-error" title="{{ j.row.last_error.as_deref().unwrap_or_default() }}">{{ j.row.last_error.as_deref().unwrap_or_default() }}</td>
+          <td class="devbox-actions">{% if j.pending %}<form method="post" action="{{ crate::url("/dev/jobs/") }}{{ j.row.id }}"><input type="hidden" name="do" value="run_now"><button type="submit" class="link-btn small" data-testid="dev-jobs-run-now">Run now</button></form>{% endif %}</td>
+        </tr>
+        {% endfor %}
+        {% if jobs.is_empty() %}<tr class="devbox-empty"><td colspan="7" data-testid="dev-jobs-empty">No jobs yet.</td></tr>{% endif %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<dialog class="modal" id="devjobs-info" aria-labelledby="devjobs-info-title" data-testid="dev-jobs-info-dialog">
+  <h2 id="devjobs-info-title">Background jobs</h2>
+  <p>The newest rows of the jobs table. The runner thread takes a row when it is due, leases it for 10 minutes and runs it. A failed run goes back in the queue for a later try, until its attempts run out. Each housekeeping job queues its next run an hour after it ends.</p>
+  <p class="small">Run now makes a queued row due now, or ends a running row's lease as if its server had stopped. Queue a failing job adds one that always fails, to watch the retries.</p>
+  <p class="small">As JSON: <a href="{{ crate::url("/dev/jobs?format=json") }}">the jobs</a>.</p>
+  <div class="modal-actions"><button type="button" class="btn" data-closes>OK</button></div>
+</dialog>
+{% endblock %}
+{% block scripts %}<script src="{{ crate::routes::asset_url("devbox.js") }}" defer></script>{% endblock %}

@@ -1,0 +1,569 @@
+{
+  "id": "b1-opinion-and-doubt",
+  "slug": "opinion-and-doubt",
+  "title": "Opinion and doubt: creo que / no creo que",
+  "unit": "B1",
+  "group": "Grammar",
+  "order": 18,
+  "summary": "Creo que + indicative, no creo que + subjunctive: giving opinions, doubting, and the three ways to say maybe.",
+  "focus": "Choosing indicative or subjunctive after opinion, certainty, doubt and possibility expressions",
+  "prerequisites": [
+    "b1-feelings-and-judgements"
+  ],
+  "content": "## Giving and asking opinions: creo que\n\nWhen you say what you think, you are asserting something, so the verb after **que** is in the **indicative**:\n\n- **Creo que** este plan **es** bueno. (I think this plan is good.)\n- **Pienso que** el examen **va a ser** fácil. (I think the exam is going to be easy.)\n- **Me parece que** ya **es** tarde. (I think it's already late.)\n- **Estoy seguro de que** lo **sabes**. (I'm sure you know it.)\n\nTo ask for someone's opinion:\n\n- **¿Qué te parece?** (What do you think of it?)\n- **¿Tú qué opinas?** (What's your view?)\n- **¿Qué piensas de** la película? (What do you think of the film?)\n\n## Negated opinions: no creo que + subjunctive\n\nPut **no** in front and the opinion becomes doubt, so the verb after **que** goes into the **present subjunctive**:\n\n| sure: indicative | negated: subjunctive | |\n|---|---|---|\n| **Creo que viene.** | **No creo que venga.** | I (don't) think he's coming. |\n| **Pienso que es caro.** | **No pienso que sea caro.** | I (don't) think it's expensive. |\n| **Me parece que está bien.** | **No me parece que esté bien.** | I (don't) think it's right. |\n| **Estoy seguro de que lo sabe.** | **No estoy seguro de que lo sepa.** | I'm (not) sure she knows. |\n\nA question normally keeps the indicative: **¿Crees que viene?** (Do you think he's coming?)\n\n## Facts: es verdad que, está claro que\n\nExpressions that present something as true take the **indicative**: **es verdad que**, **es cierto que**, **es evidente que**, **está claro que**.\n\n- **Es cierto que** el piso **es** pequeño. (It's true that the flat is small.)\n- **Está claro que tienes** hambre. (It's clear that you're hungry.)\n\nNegate them and they deny the fact, so they take the **subjunctive**:\n\n- **No es verdad que** el piso **sea** pequeño. (It isn't true that the flat is small.)\n- **No está claro que tengas** razón. (It isn't clear that you're right.)\n\nRule of thumb: asserting takes the indicative, and denying or doubting takes the subjunctive.\n\n## Doubt and maybe: dudo que, puede que, a lo mejor\n\nDoubt and possibility take the **subjunctive**: **dudo que**, **es posible que**, **es probable que**, **puede que**.\n\n- **Dudo que** el bar **esté** abierto. (I doubt the bar is open.)\n- **Es probable que nieve** esta noche. (It will probably snow tonight.)\n\nThree ways to say *maybe*:\n\n| word | mood after it |\n|---|---|\n| **quizás**, **tal vez** | either: the subjunctive sounds less sure (**Tal vez viene.** / **Tal vez venga.**) |\n| **a lo mejor** | always indicative: **A lo mejor viene.** Never *a lo mejor venga*. |\n",
+  "vocabulary": [
+    {
+      "term": "creer que",
+      "meaning": "to believe / think that",
+      "example": "Creo que este restaurante es muy bueno.",
+      "example_meaning": "I think this restaurant is very good."
+    },
+    {
+      "term": "pensar que",
+      "meaning": "to think that",
+      "example": "Pienso que deberías hablar con ella.",
+      "example_meaning": "I think you should talk to her."
+    },
+    {
+      "term": "me parece que",
+      "meaning": "I think / it seems to me that",
+      "example": "Me parece que el tren sale a las nueve.",
+      "example_meaning": "I think the train leaves at nine."
+    },
+    {
+      "term": "estar seguro de que",
+      "meaning": "to be sure that",
+      "example": "Estoy segura de que te va a gustar.",
+      "example_meaning": "I'm sure you're going to like it."
+    },
+    {
+      "term": "¿Qué te parece?",
+      "meaning": "What do you think (of it)?",
+      "example": "¿Qué te parece mi nuevo corte de pelo?",
+      "example_meaning": "What do you think of my new haircut?"
+    },
+    {
+      "term": "es verdad que",
+      "meaning": "it's true that",
+      "example": "Es verdad que Toledo está cerca de Madrid.",
+      "example_meaning": "It's true that Toledo is near Madrid."
+    },
+    {
+      "term": "está claro que",
+      "meaning": "it's clear that",
+      "example": "Está claro que necesitamos más tiempo.",
+      "example_meaning": "It's clear that we need more time."
+    },
+    {
+      "term": "dudar que",
+      "meaning": "to doubt that",
+      "example": "Dudo que queden entradas para el concierto.",
+      "example_meaning": "I doubt there are any tickets left for the concert."
+    },
+    {
+      "term": "es posible que",
+      "meaning": "it's possible that",
+      "example": "Es posible que lleguemos un poco tarde.",
+      "example_meaning": "We might arrive a bit late."
+    },
+    {
+      "term": "es probable que",
+      "meaning": "it's likely that",
+      "example": "Es probable que Elena no conteste hasta la noche.",
+      "example_meaning": "Elena probably won't answer until tonight."
+    },
+    {
+      "term": "puede que",
+      "meaning": "maybe / it may be that",
+      "example": "Puede que tengas razón.",
+      "example_meaning": "You may be right."
+    },
+    {
+      "term": "quizás / tal vez",
+      "meaning": "maybe, perhaps (either mood)",
+      "example": "Quizás vaya a verte el domingo.",
+      "example_meaning": "Maybe I'll come and see you on Sunday."
+    },
+    {
+      "term": "a lo mejor",
+      "meaning": "maybe (always with the indicative)",
+      "example": "A lo mejor nos vemos en la fiesta.",
+      "example_meaning": "Maybe we'll see each other at the party."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-opinion-and-doubt-01",
+      "prompt": "Creo que Ana ___ razón.",
+      "type": "multiple-choice",
+      "options": [
+        "tiene",
+        "tenga"
+      ],
+      "correct_answer": "tiene",
+      "explanation": "Creo que states your opinion as an assertion, so it takes the indicative: 'Creo que Ana tiene razón.'",
+      "hints": [
+        "An affirmative opinion: are you asserting or doubting?"
+      ],
+      "teaches": [
+        "creer que"
+      ]
+    },
+    {
+      "question_id": "b1-opinion-and-doubt-02",
+      "prompt": "No creo que ___ (llover) mañana.",
+      "type": "multiple-choice",
+      "options": [
+        "llueva",
+        "llueve",
+        "lloverá"
+      ],
+      "correct_answer": "llueva",
+      "explanation": "No creo que turns the opinion into doubt, so the present subjunctive follows: 'No creo que llueva mañana.' The future (lloverá) is not used after no creo que.",
+      "hints": [
+        "A negated opinion takes the subjunctive.",
+        "Llover is a stem-changer: o becomes ue."
+      ],
+      "teaches": [
+        "creer que"
+      ]
+    },
+    {
+      "question_id": "b1-opinion-and-doubt-03",
+      "prompt": "Dudo que el tren ___ (llegar) a tiempo.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "llegue",
+      "explanation": "Dudar que always takes the subjunctive. Llegar keeps its hard g sound with -gue: 'Dudo que el tren llegue a tiempo.'",
+      "hints": [
+        "Doubt takes the subjunctive.",
+        "-gar verbs write -gue in the subjunctive."
+      ],
+      "teaches": [
+        "dudar que"
+      ]
+    },
+    {
+      "question_id": "b1-opinion-and-doubt-04",
+      "prompt": "Es posible que (nosotros) ___ al cine esta noche.",
+      "type": "multiple-choice",
+      "options": [
+        "vamos",
+        "vayamos",
+        "iremos"
+      ],
+      "correct_answer": "vayamos",
+      "explanation": "Es posible que expresses possibility, which takes the subjunctive. The subjunctive of ir is vaya, vayas, vaya, vayamos, vayáis, vayan.",
+      "hints": [
+        "Possibility takes the subjunctive.",
+        "The subjunctive of ir starts with vaya."
+      ],
+      "teaches": [
+        "es posible que"
+      ]
+    },
+    {
+      "question_id": "b1-opinion-and-doubt-05",
+      "prompt": "A lo mejor (yo) ___ a la fiesta el sábado.",
+      "type": "multiple-choice",
+      "options": [
+        "voy",
+        "vaya"
+      ],
+      "correct_answer": "voy",
+      "explanation": "A lo mejor always takes the indicative, even though it means 'maybe': 'A lo mejor voy a la fiesta.'",
+      "hints": [
+        "A lo mejor is the one 'maybe' that never takes the subjunctive."
+      ],
+      "teaches": [
+        "a lo mejor"
+      ]
+    },
+    {
+      "question_id": "b1-opinion-and-doubt-06",
+      "prompt": "No me parece que ___ (ser) una buena idea.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "sea",
+      "explanation": "No me parece que is a negated opinion, so it takes the subjunctive: 'No me parece que sea una buena idea.'",
+      "hints": [
+        "A negated opinion takes the subjunctive.",
+        "Ser has an irregular subjunctive stem; él form."
+      ],
+      "teaches": [
+        "me parece que"
+      ]
+    },
+    {
+      "question_id": "b1-opinion-and-doubt-07",
+      "prompt": "No es verdad que Marta ___ (vivir) en Sevilla.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "viva",
+      "explanation": "Es verdad que takes the indicative, but no es verdad que denies the fact, so it takes the subjunctive: 'No es verdad que Marta viva en Sevilla.'",
+      "hints": [
+        "Denying a fact takes the subjunctive.",
+        "-ir verbs take -a in the subjunctive."
+      ],
+      "teaches": [
+        "es verdad que"
+      ]
+    },
+    {
+      "question_id": "b1-opinion-and-doubt-08",
+      "prompt": "Puede que mis padres ___ (venir) el domingo.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "vengan",
+      "explanation": "Puede que (maybe, it may be that) always takes the subjunctive. Venir builds it on the yo form vengo: venga, vengas, venga, vengamos, vengáis, vengan.",
+      "hints": [
+        "Puede que takes the subjunctive.",
+        "Start from vengo."
+      ],
+      "teaches": [
+        "puede que"
+      ]
+    },
+    {
+      "question_id": "b1-opinion-and-doubt-09",
+      "prompt": "True or false: after tal vez, both 'Tal vez viene' and 'Tal vez venga' are correct Spanish.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Quizás and tal vez take either mood: the subjunctive (venga) sounds less sure. Only a lo mejor is fixed to the indicative.",
+      "hints": [
+        "Which 'maybe' is the strict one: tal vez or a lo mejor?"
+      ],
+      "teaches": [
+        "quizás / tal vez"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-opinion-and-doubt-conv-weekend-plans",
+      "title": "A day in the mountains?",
+      "scenario": "Lucía wants to go walking in the mountains on Saturday, but Javier is not convinced about the weather.",
+      "role_a": "Lucía",
+      "role_b": "Javier",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¿Qué te parece si vamos a la sierra este sábado?",
+          "meaning": "What do you think about going to the mountains this Saturday?"
+        },
+        {
+          "speaker": "b",
+          "text": "Me parece buena idea, pero no creo que haga buen tiempo.",
+          "meaning": "Sounds like a good idea, but I don't think the weather will be good."
+        },
+        {
+          "speaker": "a",
+          "text": "¿Tú crees? En la radio dicen que va a hacer sol.",
+          "meaning": "You think so? On the radio they say it's going to be sunny."
+        },
+        {
+          "speaker": "b",
+          "text": "Pues yo dudo que acierten. Siempre se equivocan.",
+          "meaning": "Well, I doubt they'll get it right. They're always wrong."
+        },
+        {
+          "speaker": "a",
+          "text": "Bueno, es posible que llueva un poco por la tarde.",
+          "meaning": "Well, it might rain a little in the afternoon."
+        },
+        {
+          "speaker": "b",
+          "text": "A lo mejor salimos temprano y volvemos antes de comer.",
+          "meaning": "Maybe we set off early and come back before lunch."
+        },
+        {
+          "speaker": "a",
+          "text": "Está claro que tú no quieres mojarte.",
+          "meaning": "It's clear that you don't want to get wet."
+        },
+        {
+          "speaker": "b",
+          "text": "¡Es verdad! Y tampoco creo que tu coche tenga calefacción.",
+          "meaning": "That's true! And I don't think your car has heating either."
+        },
+        {
+          "speaker": "a",
+          "text": "Tal vez tengas razón. Llevamos chaquetas y ya está.",
+          "meaning": "Maybe you're right. We'll take jackets and that's that."
+        },
+        {
+          "speaker": "b",
+          "text": "Vale. Pienso que va a ser un día estupendo.",
+          "meaning": "OK. I think it's going to be a great day."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Me parece que va a llover.",
+      "meaning": "I think it's going to rain.",
+      "note": "An affirmative opinion: indicative."
+    },
+    {
+      "text": "No pienso que sea tan difícil.",
+      "meaning": "I don't think it's that difficult.",
+      "note": "A negated opinion: subjunctive."
+    },
+    {
+      "text": "Dudo que mi hermano venga hoy.",
+      "meaning": "I doubt my brother is coming today."
+    },
+    {
+      "text": "A lo mejor cenamos en la terraza esta noche.",
+      "meaning": "Maybe we'll have dinner on the terrace tonight.",
+      "note": "New word: la terraza = the terrace."
+    },
+    {
+      "text": "Es probable que haga calor este fin de semana.",
+      "meaning": "It will probably be hot this weekend.",
+      "note": "Probability takes the subjunctive."
+    },
+    {
+      "text": "¿Tú qué opinas del nuevo restaurante de la plaza?",
+      "meaning": "What do you think of the new restaurant on the square?"
+    },
+    {
+      "text": "Está claro que el nuevo vecino es muy simpático.",
+      "meaning": "It's clear that the new neighbour is very nice.",
+      "note": "New word: el vecino = the neighbour."
+    },
+    {
+      "text": "No estoy segura de que el ayuntamiento abra los sábados por la tarde.",
+      "meaning": "I'm not sure the town hall opens on Saturday afternoons.",
+      "note": "New word: el ayuntamiento = the town hall."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Giving and asking opinions"
+    },
+    {
+      "question": "b1-opinion-and-doubt-01"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "section": "Negated opinions"
+    },
+    {
+      "question": "b1-opinion-and-doubt-02"
+    },
+    {
+      "question": "b1-opinion-and-doubt-06"
+    },
+    {
+      "section": "Facts"
+    },
+    {
+      "question": "b1-opinion-and-doubt-07"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "tip": "Ask yourself: am I asserting it (indicative) or doubting or denying it (subjunctive)?"
+    },
+    {
+      "section": "Doubt and maybe"
+    },
+    {
+      "question": "b1-opinion-and-doubt-03"
+    },
+    {
+      "question": "b1-opinion-and-doubt-04"
+    },
+    {
+      "question": "b1-opinion-and-doubt-08"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b1-opinion-and-doubt-05"
+    },
+    {
+      "question": "b1-opinion-and-doubt-09"
+    }
+  ],
+  "sprint": {
+    "icon": "🤔",
+    "bites": [
+      {
+        "title": "Sure? Indicative",
+        "emoji": "🗣️",
+        "rule": "Creo que, pienso que, me parece que and estoy seguro de que assert an opinion, so the verb after que stays in the indicative.",
+        "example": "Creo que este plan es bueno.",
+        "example_meaning": "I think this plan is good."
+      },
+      {
+        "title": "Say no, go subjunctive",
+        "emoji": "🚫",
+        "rule": "Negating an opinion or a fact (no creo que, no pienso que, no me parece que, no es verdad que) turns it into doubt, so the subjunctive follows.",
+        "example": "No creo que venga.",
+        "example_meaning": "I don't think he's coming."
+      },
+      {
+        "title": "Doubt and possibility",
+        "emoji": "🤷",
+        "rule": "Dudo que, es posible que, es probable que and puede que always take the subjunctive.",
+        "example": "Puede que tengas razón.",
+        "example_meaning": "You may be right."
+      },
+      {
+        "title": "Three maybes",
+        "emoji": "🎲",
+        "rule": "Quizás and tal vez take either mood (the subjunctive sounds less sure). A lo mejor always takes the indicative.",
+        "example": "A lo mejor viene mañana.",
+        "example_meaning": "Maybe he's coming tomorrow."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which mood follows?",
+        "buckets": [
+          "indicative (asserting)",
+          "subjunctive (doubt, denial)"
+        ],
+        "items": [
+          {
+            "text": "Creo que…",
+            "bucket": 0
+          },
+          {
+            "text": "No creo que…",
+            "bucket": 1
+          },
+          {
+            "text": "Es verdad que…",
+            "bucket": 0
+          },
+          {
+            "text": "Dudo que…",
+            "bucket": 1
+          },
+          {
+            "text": "Está claro que…",
+            "bucket": 0
+          },
+          {
+            "text": "Es posible que…",
+            "bucket": 1
+          },
+          {
+            "text": "Estoy seguro de que…",
+            "bucket": 0
+          },
+          {
+            "text": "Puede que…",
+            "bucket": 1
+          }
+        ],
+        "why": "Asserting an opinion or a fact takes the indicative; doubt, possibility and denial take the subjunctive."
+      },
+      {
+        "title": "Which mood after this word?",
+        "buckets": [
+          "only indicative",
+          "only subjunctive",
+          "either"
+        ],
+        "items": [
+          {
+            "text": "a lo mejor",
+            "bucket": 0
+          },
+          {
+            "text": "quizás",
+            "bucket": 2
+          },
+          {
+            "text": "tal vez",
+            "bucket": 2
+          },
+          {
+            "text": "puede que",
+            "bucket": 1
+          },
+          {
+            "text": "me parece que",
+            "bucket": 0
+          },
+          {
+            "text": "no me parece que",
+            "bucket": 1
+          }
+        ],
+        "why": "A lo mejor and me parece que assert; puede que and no me parece que doubt; quizás and tal vez allow both."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "No creo que el museo está abierto hoy.",
+        "wrong": "está",
+        "fix": "esté",
+        "why": "No creo que + subjunctive."
+      },
+      {
+        "sentence": "Creo que Pedro tenga razón.",
+        "wrong": "tenga",
+        "fix": "tiene",
+        "why": "An affirmative opinion with creo que takes the indicative."
+      },
+      {
+        "sentence": "Dudo que mañana hace frío.",
+        "wrong": "hace",
+        "fix": "haga",
+        "why": "Dudar que always takes the subjunctive."
+      },
+      {
+        "sentence": "A lo mejor llueva esta tarde.",
+        "wrong": "llueva",
+        "fix": "llueve",
+        "why": "A lo mejor always takes the indicative."
+      },
+      {
+        "sentence": "Es evidente que el niño esté cansado.",
+        "wrong": "esté",
+        "fix": "está",
+        "why": "Es evidente que presents a fact: indicative."
+      }
+    ],
+    "builds": [
+      {
+        "text": "No creo que sea verdad.",
+        "meaning": "I don't think it's true.",
+        "distractors": [
+          "es"
+        ]
+      },
+      {
+        "text": "Es posible que nos quedemos en casa.",
+        "meaning": "We might stay at home.",
+        "distractors": [
+          "quedamos"
+        ]
+      },
+      {
+        "text": "Creo que tienes razón.",
+        "meaning": "I think you're right.",
+        "distractors": [
+          "tengas"
+        ]
+      },
+      {
+        "text": "A lo mejor vamos al cine.",
+        "meaning": "Maybe we'll go to the cinema.",
+        "distractors": [
+          "vayamos"
+        ]
+      }
+    ]
+  }
+}

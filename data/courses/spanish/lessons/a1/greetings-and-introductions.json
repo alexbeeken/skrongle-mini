@@ -1,0 +1,619 @@
+{
+  "id": "a1-greetings",
+  "slug": "greetings-and-introductions",
+  "title": "Greetings and introductions",
+  "unit": "A1",
+  "group": "Vocabulary",
+  "order": 1,
+  "summary": "Say hello, goodbye, and introduce yourself.",
+  "focus": "Fixed greeting expressions and 'me llamo'",
+  "content": "## Saying hello\n\n- **Hola**: hi / hello (any time of day)\n- **Buenos días**: good morning (until lunch)\n- **Buenas tardes**: good afternoon / early evening\n- **Buenas noches**: good evening / good night\n\n## Asking how someone is\n\n- **¿Qué tal?**: how's it going? (informal, very common)\n- **¿Cómo estás?**: how are you? (informal, *tú*)\n- **¿Cómo está usted?**: how are you? (formal)\n- **Bien, gracias. ¿Y tú?**: fine, thanks. And you?\n\n## Introducing yourself\n\n- **Me llamo Ana.**: My name is Ana. (literally *I call myself Ana*)\n- **Soy Ana.**: I'm Ana.\n- **¿Cómo te llamas?**: What's your name? (informal)\n- **¿Cómo se llama usted?**: What's your name? (formal)\n- **Mucho gusto.** / **Encantado.** (said by a man) / **Encantada.** (said by a woman): nice to meet you.\n\n## Saying goodbye\n\n- **Adiós**: goodbye\n- **Hasta luego**: see you later\n- **Hasta mañana**: see you tomorrow\n- **Nos vemos**: see you\n\n> Remember the upside-down marks: questions start with **¿** and exclamations with **¡**.",
+  "vocabulary": [
+    {
+      "term": "hola",
+      "meaning": "hello",
+      "example": "¡Hola! ¿Qué tal?",
+      "example_meaning": "Hi! How's it going?"
+    },
+    {
+      "term": "buenos días",
+      "meaning": "good morning",
+      "example": "Buenos días, señora García.",
+      "example_meaning": "Good morning, Mrs García."
+    },
+    {
+      "term": "buenas tardes",
+      "meaning": "good afternoon",
+      "example": "Buenas tardes a todos.",
+      "example_meaning": "Good afternoon, everyone."
+    },
+    {
+      "term": "buenas noches",
+      "meaning": "good evening / good night",
+      "example": "Buenas noches, hasta mañana.",
+      "example_meaning": "Good night, see you tomorrow."
+    },
+    {
+      "term": "me llamo…",
+      "meaning": "my name is…",
+      "example": "Me llamo Carlos.",
+      "example_meaning": "My name is Carlos."
+    },
+    {
+      "term": "¿cómo te llamas?",
+      "meaning": "what's your name? (informal)",
+      "example": "Hola, ¿cómo te llamas?",
+      "example_meaning": "Hi, what's your name?"
+    },
+    {
+      "term": "mucho gusto",
+      "meaning": "nice to meet you",
+      "example": "Mucho gusto, Carlos.",
+      "example_meaning": "Nice to meet you, Carlos."
+    },
+    {
+      "term": "encantado / encantada",
+      "meaning": "pleased to meet you",
+      "example": "Encantada de conocerte.",
+      "example_meaning": "Pleased to meet you."
+    },
+    {
+      "term": "gracias",
+      "meaning": "thank you",
+      "example": "Bien, gracias.",
+      "example_meaning": "Fine, thanks."
+    },
+    {
+      "term": "hasta luego",
+      "meaning": "see you later",
+      "example": "¡Hasta luego!",
+      "example_meaning": "See you later!"
+    },
+    {
+      "term": "adiós",
+      "meaning": "goodbye",
+      "example": "Adiós, hasta mañana.",
+      "example_meaning": "Goodbye, see you tomorrow."
+    },
+    {
+      "term": "hasta mañana",
+      "meaning": "see you tomorrow",
+      "example": "¡Adiós! Hasta mañana.",
+      "example_meaning": "Goodbye! See you tomorrow."
+    },
+    {
+      "term": "¿cómo se llama usted?",
+      "meaning": "what's your name? (formal)",
+      "example": "Buenos días, ¿cómo se llama usted?",
+      "example_meaning": "Good morning, what's your name?"
+    },
+    {
+      "term": "bien",
+      "meaning": "well, fine",
+      "example": "Bien, gracias. ¿Y tú?",
+      "example_meaning": "Fine, thanks. And you?"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-greetings-01",
+      "prompt": "It is 9 in the morning. You greet your neighbour with:",
+      "type": "multiple-choice",
+      "options": [
+        "Buenos días",
+        "Buenas noches",
+        "Buenas tardes"
+      ],
+      "correct_answer": "Buenos días",
+      "explanation": "'Buenos días' is used in the morning, roughly until lunchtime.",
+      "hints": [
+        "Día = day."
+      ],
+      "teaches": [
+        "buenos días"
+      ]
+    },
+    {
+      "question_id": "a1-greetings-02",
+      "prompt": "Translate: My name is Lucía.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "Me llamo Lucía",
+      "accepted_answers": [
+        "me llamo lucia",
+        "Soy Lucía",
+        "Yo me llamo Lucía"
+      ],
+      "explanation": "'Me llamo Lucía' literally means 'I call myself Lucía'. 'Soy Lucía' also works.",
+      "hints": [
+        "Starts with 'Me llamo…'"
+      ],
+      "teaches": [
+        "me llamo…"
+      ]
+    },
+    {
+      "question_id": "a1-greetings-03",
+      "prompt": "A woman is introduced to someone and says 'pleased to meet you'. She says:",
+      "type": "multiple-choice",
+      "options": [
+        "Encantada",
+        "Encantado",
+        "Hasta luego"
+      ],
+      "correct_answer": "Encantada",
+      "explanation": "'Encantado/a' agrees with the speaker: a woman says 'encantada', a man says 'encantado'.",
+      "hints": [
+        "The ending agrees with the speaker's gender."
+      ],
+      "teaches": [
+        "encantado / encantada"
+      ]
+    },
+    {
+      "question_id": "a1-greetings-04",
+      "prompt": "Translate: See you tomorrow.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "Hasta mañana",
+      "accepted_answers": [],
+      "explanation": "'Hasta mañana' means until tomorrow, or see you tomorrow.",
+      "hints": [
+        "Hasta = until.",
+        "Mañana = tomorrow."
+      ],
+      "teaches": [
+        "hasta mañana"
+      ]
+    },
+    {
+      "question_id": "a1-greetings-05",
+      "prompt": "Which question asks a stranger's name politely (formal)?",
+      "type": "multiple-choice",
+      "options": [
+        "¿Cómo se llama usted?",
+        "¿Cómo te llamas?",
+        "¿Qué tal?"
+      ],
+      "correct_answer": "¿Cómo se llama usted?",
+      "explanation": "'¿Cómo se llama usted?' uses the formal 'usted'. '¿Cómo te llamas?' is the informal 'tú' form.",
+      "hints": [
+        "Look for 'usted'."
+      ],
+      "teaches": [
+        "¿cómo se llama usted?"
+      ]
+    },
+    {
+      "question_id": "a1-greetings-06",
+      "prompt": "Reply to '¿Cómo estás?' with 'Fine, thanks':",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "Bien, gracias",
+      "accepted_answers": [
+        "bien gracias",
+        "muy bien, gracias",
+        "muy bien gracias"
+      ],
+      "explanation": "'Bien, gracias' (fine, thanks) is the standard reply. Add '¿y tú?' to ask the question back.",
+      "hints": [
+        "Bien = well/fine."
+      ],
+      "teaches": [
+        "bien",
+        "gracias"
+      ]
+    },
+    {
+      "question_id": "a1-greetings-07",
+      "prompt": "You meet your friend's grandmother for the first time. You ask her how she is:",
+      "type": "multiple-choice",
+      "options": [
+        "¿Cómo está usted?",
+        "¿Cómo estás?",
+        "¿Cómo te llamas?"
+      ],
+      "correct_answer": "¿Cómo está usted?",
+      "explanation": "With an older person you have just met, use the formal 'usted': '¿Cómo está usted?'. '¿Cómo estás?' is for friends, and '¿Cómo te llamas?' asks her name.",
+      "hints": [
+        "Older person, first meeting: formal.",
+        "Tú is for friends and family."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a1-greetings-08",
+      "prompt": "Translate: Good night.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "Buenas noches",
+      "accepted_answers": [
+        "buenas noches"
+      ],
+      "explanation": "'Buenas noches' says both 'good evening' and 'good night'. Noche is feminine, so it is 'buenas', not 'buenos'.",
+      "hints": [
+        "Noche = night.",
+        "Noche is feminine."
+      ],
+      "teaches": [
+        "buenas noches"
+      ]
+    },
+    {
+      "question_id": "a1-greetings-09",
+      "prompt": "Which 'nice to meet you' can anyone say, man or woman?",
+      "type": "multiple-choice",
+      "options": [
+        "Mucho gusto",
+        "Encantado",
+        "Encantada"
+      ],
+      "correct_answer": "Mucho gusto",
+      "explanation": "'Mucho gusto' never changes. 'Encantado' is said by a man and 'encantada' by a woman.",
+      "hints": [
+        "One of them has no -o / -a ending to agree.",
+        "Gusto = pleasure."
+      ],
+      "teaches": [
+        "mucho gusto",
+        "encantado / encantada"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Buenos días, ¿qué tal?",
+      "meaning": "Good morning, how's it going?"
+    },
+    {
+      "text": "Bien, gracias, ¿y usted?",
+      "meaning": "Fine, thanks, and you?",
+      "note": "Usted is the formal you."
+    },
+    {
+      "text": "Hola, me llamo Marta, mucho gusto.",
+      "meaning": "Hello, my name is Marta, nice to meet you."
+    },
+    {
+      "text": "Hola, soy Luis, ¿cómo te llamas?",
+      "meaning": "Hi, I'm Luis, what's your name?"
+    },
+    {
+      "text": "Encantado, soy Pedro, el vecino nuevo.",
+      "meaning": "Pleased to meet you, I'm Pedro, the new neighbour.",
+      "note": "New word: el vecino = the neighbour."
+    },
+    {
+      "text": "Buenas tardes, señora, ¿cómo se llama usted?",
+      "meaning": "Good afternoon, madam, what's your name?"
+    },
+    {
+      "text": "Muchas gracias por la ayuda, hasta luego.",
+      "meaning": "Thanks a lot for the help, see you later.",
+      "note": "New word: la ayuda = the help."
+    },
+    {
+      "text": "Buenas noches a todos, nos vemos mañana en la clase de español.",
+      "meaning": "Good night everyone, see you tomorrow in Spanish class."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Saying hello"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a1-greetings-01"
+    },
+    {
+      "question": "a1-greetings-08"
+    },
+    {
+      "section": "Asking how someone is"
+    },
+    {
+      "question": "a1-greetings-06"
+    },
+    {
+      "question": "a1-greetings-07"
+    },
+    {
+      "section": "Introducing yourself"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a1-greetings-02"
+    },
+    {
+      "question": "a1-greetings-03"
+    },
+    {
+      "question": "a1-greetings-09"
+    },
+    {
+      "question": "a1-greetings-05"
+    },
+    {
+      "section": "Saying goodbye"
+    },
+    {
+      "vocab": 6
+    },
+    {
+      "question": "a1-greetings-04"
+    },
+    {
+      "tip": "Spanish questions start with ¿ and exclamations with ¡. Use the accent buttons when you type them."
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-greetings-conv-first-meeting",
+      "title": "First meeting",
+      "scenario": "Ana and Carlos bump into each other in the corridor on the first day of a course.",
+      "role_a": "Ana",
+      "role_b": "Carlos",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¡Buenos días!",
+          "meaning": "Good morning!"
+        },
+        {
+          "speaker": "b",
+          "text": "Buenos días. ¿Qué tal?",
+          "meaning": "Good morning. How's it going?"
+        },
+        {
+          "speaker": "a",
+          "text": "Bien, gracias. ¿Y tú?",
+          "meaning": "Fine, thanks. And you?"
+        },
+        {
+          "speaker": "b",
+          "text": "Muy bien. ¿Cómo te llamas?",
+          "meaning": "Very well. What's your name?"
+        },
+        {
+          "speaker": "a",
+          "text": "Me llamo Ana. ¿Y tú?",
+          "meaning": "My name is Ana. And you?"
+        },
+        {
+          "speaker": "b",
+          "text": "Soy Carlos. Mucho gusto, Ana.",
+          "meaning": "I'm Carlos. Nice to meet you, Ana."
+        },
+        {
+          "speaker": "a",
+          "text": "Encantada, Carlos.",
+          "meaning": "Pleased to meet you, Carlos.",
+          "note": "a man would say 'encantado'"
+        },
+        {
+          "speaker": "b",
+          "text": "Bueno, hasta luego, Ana.",
+          "meaning": "Well, see you later, Ana."
+        },
+        {
+          "speaker": "a",
+          "text": "¡Adiós! Hasta mañana.",
+          "meaning": "Bye! See you tomorrow."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "👋",
+    "bites": [
+      {
+        "title": "Buenos días, buenas tardes",
+        "emoji": "☀️",
+        "rule": "Día is masculine, so it's buenos días; tardes and noches are feminine, so buenas tardes, buenas noches. They are always plural.",
+        "example": "Buenos días, señora García.",
+        "example_meaning": "Good morning, Mrs García."
+      },
+      {
+        "title": "Te for friends, se for strangers",
+        "emoji": "🤝",
+        "rule": "¿Cómo te llamas? goes with tú (friends, kids, classmates); ¿Cómo se llama usted? is the polite version for strangers and elders.",
+        "example": "Hola, ¿cómo te llamas?",
+        "example_meaning": "Hi, what's your name?"
+      },
+      {
+        "title": "Encantado or encantada?",
+        "emoji": "💐",
+        "rule": "The ending matches the person speaking: a man says encantado, a woman says encantada. Not sure? Mucho gusto works for everyone.",
+        "example": "Me llamo Ana. Encantada.",
+        "example_meaning": "My name is Ana. Pleased to meet you."
+      },
+      {
+        "title": "Questions open twice",
+        "emoji": "❓",
+        "rule": "Spanish flags a question or exclamation from the start with ¿ and ¡, so you know how to read it before you get there.",
+        "example": "¡Hola! ¿Qué tal?",
+        "example_meaning": "Hi! How's it going?"
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Friend or stranger?",
+        "buckets": [
+          "informal (tú)",
+          "formal (usted)"
+        ],
+        "items": [
+          {
+            "text": "¿Cómo estás?",
+            "bucket": 0
+          },
+          {
+            "text": "¿Cómo está usted?",
+            "bucket": 1
+          },
+          {
+            "text": "¿Cómo te llamas?",
+            "bucket": 0
+          },
+          {
+            "text": "¿Cómo se llama usted?",
+            "bucket": 1
+          },
+          {
+            "text": "Bien, gracias. ¿Y tú?",
+            "bucket": 0
+          },
+          {
+            "text": "Bien, gracias. ¿Y usted?",
+            "bucket": 1
+          }
+        ],
+        "why": "Tú forms (estás, te llamas) are for friends; usted forms (está, se llama) are for strangers and elders."
+      },
+      {
+        "title": "Buenos or buenas?",
+        "buckets": [
+          "buenos",
+          "buenas"
+        ],
+        "items": [
+          {
+            "text": "___ días",
+            "bucket": 0
+          },
+          {
+            "text": "___ tardes",
+            "bucket": 1
+          },
+          {
+            "text": "___ noches",
+            "bucket": 1
+          },
+          {
+            "text": "¡___ días a todos!",
+            "bucket": 0
+          }
+        ],
+        "why": "Día is masculine (buenos días); tarde and noche are feminine (buenas tardes, buenas noches)."
+      },
+      {
+        "title": "Hello or goodbye?",
+        "buckets": [
+          "hello",
+          "goodbye"
+        ],
+        "items": [
+          {
+            "text": "Hola",
+            "bucket": 0
+          },
+          {
+            "text": "Buenos días",
+            "bucket": 0
+          },
+          {
+            "text": "Hasta luego",
+            "bucket": 1
+          },
+          {
+            "text": "Adiós",
+            "bucket": 1
+          },
+          {
+            "text": "Buenas tardes",
+            "bucket": 0
+          },
+          {
+            "text": "Hasta mañana",
+            "bucket": 1
+          },
+          {
+            "text": "Nos vemos",
+            "bucket": 1
+          }
+        ],
+        "why": "Greetings open a chat; hasta…, adiós and nos vemos close it."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Buenos tardes, señora García.",
+        "wrong": "Buenos",
+        "fix": "Buenas",
+        "why": "Tarde is feminine, so it's buenas tardes."
+      },
+      {
+        "sentence": "Buenas días, Carlos.",
+        "wrong": "Buenas",
+        "fix": "Buenos",
+        "why": "Día is masculine even though it ends in -a: buenos días."
+      },
+      {
+        "sentence": "Hola, ¿cómo se llamas?",
+        "wrong": "se",
+        "fix": "te",
+        "why": "With tú (llamas) the pronoun is te: ¿cómo te llamas?"
+      },
+      {
+        "sentence": "Buenos días, ¿cómo te llama usted?",
+        "wrong": "te",
+        "fix": "se",
+        "why": "With usted the pronoun is se: ¿cómo se llama usted?"
+      },
+      {
+        "sentence": "Soy Ana. Encantado, Carlos.",
+        "wrong": "Encantado",
+        "fix": "Encantada",
+        "why": "Ana is a woman, so she says encantada."
+      },
+      {
+        "sentence": "Buenas tardes, ¿cómo estás usted?",
+        "wrong": "estás",
+        "fix": "está",
+        "why": "Usted takes the él/ella form: ¿cómo está usted?"
+      }
+    ],
+    "builds": [
+      {
+        "text": "Hola, ¿cómo te llamas?",
+        "meaning": "Hi, what's your name?",
+        "distractors": [
+          "se"
+        ]
+      },
+      {
+        "text": "Buenas tardes, ¿cómo está usted?",
+        "meaning": "Good afternoon, how are you? (formal)",
+        "distractors": [
+          "estás",
+          "Buenos"
+        ]
+      },
+      {
+        "text": "Me llamo Ana. Mucho gusto.",
+        "meaning": "My name is Ana. Nice to meet you.",
+        "distractors": [
+          "llamas"
+        ]
+      },
+      {
+        "text": "Bien, gracias. ¿Y tú?",
+        "meaning": "Fine, thanks. And you?",
+        "distractors": [
+          "tu"
+        ]
+      },
+      {
+        "text": "¡Adiós! Hasta mañana.",
+        "meaning": "Goodbye! See you tomorrow.",
+        "distractors": [
+          "luego"
+        ]
+      }
+    ]
+  }
+}

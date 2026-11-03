@@ -1,0 +1,569 @@
+{
+  "id": "a1-nouns-articles",
+  "slug": "nouns-articles",
+  "title": "Nouns and articles: le, la, les, un, une, des",
+  "unit": "A1",
+  "group": "Grammar",
+  "order": 14,
+  "summary": "Every French noun is masculine or feminine: learn le, la, l', les, un, une, des, the silent plural, and how to name things with c'est and voici.",
+  "focus": "Gender, definite and indefinite articles, and the plural of nouns",
+  "prerequisites": [
+    "a1-greetings"
+  ],
+  "content": "## Every noun is masculine or feminine\n\nEvery French noun has a gender, even things: **le livre** (the book) is masculine, **la table** (the table) is feminine. There is no neuter, and the gender is rarely logical, so learn each noun with its article.\n\n| the | masculine | feminine |\n|---|---|---|\n| one | **le** livre | **la** table |\n| one, before a vowel or silent h | **l'**ami | **l'**amie, **l'**heure |\n| several | **les** livres | **les** tables |\n\n**Le** and **la** drop their vowel before a vowel sound: **l'ordinateur**, **l'école**, **l'hôtel**. **Les** is the same for both genders. Before a vowel its s is heard as a z: **les amis** (lay-za-mee).\n\n## A, an, some: un, une, des\n\n- **un** with a masculine noun: **un canapé** (a sofa)\n- **une** with a feminine noun: **une chaise** (a chair)\n- **des** with any plural: **des livres** (books, some books)\n\nEnglish often leaves *some* out, but French never leaves out **des**. **Voici des chaises.** (Here are some chairs.) **Un** and **une** never drop a letter: **un ami**, **une amie**, with the n linked to the vowel in speech.\n\n## One, two, many: the plural\n\nAdd **-s**: **la chaise → les chaises**. The -s is silent, so you hear the plural in the article: **le livre** / **les livres**.\n\n- Nouns in **-eau** and most in **-eu** take **-x**: **le bateau → les bateaux**, **le jeu → les jeux**.\n- Most nouns in **-al** become **-aux**: **le journal → les journaux**.\n- Nouns already ending in **-s**, **-x** or **-z** stay the same: **le bras → les bras**, **le prix → les prix**.\n\n## Gender clues, c'est and voici\n\nSome endings give the gender away, with a few exceptions:\n\n| feminine | masculine |\n|---|---|\n| **-tion, -sion**: la station, la télévision | **-age**: le fromage, le garage (but la plage, la page) |\n| **-euse** for a woman: la vendeuse | **-eur** for a man: le vendeur |\n\nTo name a thing: **C'est un livre.** (It's a book.) **C'est une fenêtre.** **Ce sont des chaises.** (They're chairs.) To point, use **voici** (here is, here are) and **voilà** (there is, there you go). **Voici le salon, et voilà le chat !**",
+  "vocabulary": [
+    {
+      "term": "la table",
+      "meaning": "table (f)",
+      "example": "C'est une grande table.",
+      "example_meaning": "It's a big table."
+    },
+    {
+      "term": "la chaise",
+      "meaning": "chair (f)",
+      "example": "Voici quatre chaises.",
+      "example_meaning": "Here are four chairs."
+    },
+    {
+      "term": "le livre",
+      "meaning": "book (m)",
+      "example": "C'est le livre de Marie.",
+      "example_meaning": "It's Marie's book."
+    },
+    {
+      "term": "le canapé",
+      "meaning": "sofa (m)",
+      "example": "Le chat dort sur le canapé.",
+      "example_meaning": "The cat is sleeping on the sofa."
+    },
+    {
+      "term": "la fenêtre",
+      "meaning": "window (f)",
+      "example": "Voilà la fenêtre du salon.",
+      "example_meaning": "There's the living-room window."
+    },
+    {
+      "term": "la télévision",
+      "meaning": "television (f)",
+      "example": "La télévision est dans le salon.",
+      "example_meaning": "The television is in the living room."
+    },
+    {
+      "term": "le chat",
+      "meaning": "cat (m)",
+      "example": "C'est un chat noir.",
+      "example_meaning": "It's a black cat."
+    },
+    {
+      "term": "l'ami / l'amie",
+      "meaning": "friend (m / f)",
+      "example": "Voici l'amie de Paul, Sophie.",
+      "example_meaning": "Here is Paul's friend, Sophie."
+    },
+    {
+      "term": "le bateau",
+      "meaning": "boat (m); plural les bateaux",
+      "example": "Voilà des bateaux sur la Seine.",
+      "example_meaning": "There are some boats on the Seine."
+    },
+    {
+      "term": "voici / voilà",
+      "meaning": "here is, here are / there is, there are",
+      "example": "Voici le salon, et voilà la cuisine !",
+      "example_meaning": "Here's the living room, and there's the kitchen!"
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-nouns-articles-01",
+      "prompt": "___ fenêtre",
+      "type": "multiple-choice",
+      "options": [
+        "la",
+        "le",
+        "l'"
+      ],
+      "correct_answer": "la",
+      "explanation": "Fenêtre is feminine and starts with a consonant: la fenêtre.",
+      "hints": [
+        "Feminine, no vowel at the start."
+      ],
+      "teaches": [
+        "la fenêtre"
+      ]
+    },
+    {
+      "question_id": "a1-nouns-articles-02",
+      "prompt": "Voici ___ ami de Paul.",
+      "type": "multiple-choice",
+      "options": [
+        "l'",
+        "le",
+        "la"
+      ],
+      "correct_answer": "l'",
+      "explanation": "Ami starts with a vowel, so le becomes l': l'ami.",
+      "hints": [
+        "What happens to le before a vowel?"
+      ],
+      "teaches": [
+        "l'ami / l'amie"
+      ]
+    },
+    {
+      "question_id": "a1-nouns-articles-03",
+      "prompt": "The plural of le bateau is…",
+      "type": "multiple-choice",
+      "options": [
+        "les bateaux",
+        "les bateaus",
+        "le bateaux"
+      ],
+      "correct_answer": "les bateaux",
+      "explanation": "Nouns in -eau take -x in the plural, and the article becomes les: les bateaux.",
+      "hints": [
+        "-eau nouns take a different letter.",
+        "Change the article too."
+      ],
+      "teaches": [
+        "le bateau"
+      ]
+    },
+    {
+      "question_id": "a1-nouns-articles-04",
+      "prompt": "Look at the endings. Which noun is feminine?",
+      "type": "multiple-choice",
+      "options": [
+        "télévision",
+        "fromage",
+        "garage"
+      ],
+      "correct_answer": "télévision",
+      "explanation": "Nouns in -sion and -tion are feminine: la télévision. Nouns in -age are usually masculine: le fromage, le garage.",
+      "hints": [
+        "-sion, -tion: which gender?"
+      ],
+      "teaches": [
+        "la télévision"
+      ]
+    },
+    {
+      "question_id": "a1-nouns-articles-05",
+      "prompt": "C'est ___ chaise. (a)",
+      "type": "fill-in-blank",
+      "correct_answer": "une",
+      "accepted_answers": [],
+      "explanation": "Chaise is feminine, so a chair is une chaise.",
+      "hints": [
+        "A, with a feminine noun."
+      ],
+      "teaches": [
+        "la chaise"
+      ]
+    },
+    {
+      "question_id": "a1-nouns-articles-06",
+      "prompt": "Voici ___ livres. (some)",
+      "type": "fill-in-blank",
+      "correct_answer": "des",
+      "accepted_answers": [],
+      "explanation": "Any plural noun takes des for some: des livres. French never leaves it out.",
+      "hints": [
+        "The plural of un and une."
+      ],
+      "teaches": [
+        "le livre"
+      ]
+    },
+    {
+      "question_id": "a1-nouns-articles-07",
+      "prompt": "le chat → les ___",
+      "type": "fill-in-blank",
+      "correct_answer": "chats",
+      "accepted_answers": [
+        "les chats"
+      ],
+      "explanation": "Most nouns just add a silent -s: les chats.",
+      "hints": [
+        "The usual plural letter."
+      ],
+      "teaches": [
+        "le chat"
+      ]
+    },
+    {
+      "question_id": "a1-nouns-articles-08",
+      "prompt": "In les tables, the final -s of tables is pronounced.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "False. The plural -s is silent: table and tables sound the same. You hear the plural in les.",
+      "hints": [
+        "Where do you hear the plural?"
+      ],
+      "teaches": [
+        "la table"
+      ]
+    },
+    {
+      "question_id": "a1-nouns-articles-09",
+      "prompt": "Voilà le canapé ! means There's the sofa!",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "True. Voilà points at something: there is, there you go.",
+      "hints": [
+        "Voilà points at a thing."
+      ],
+      "teaches": [
+        "voici / voilà",
+        "le canapé"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-nouns-articles-conv-new-flat",
+      "title": "The new flat",
+      "scenario": "Sophie shows her friend Karim around her new flat.",
+      "role_a": "Sophie",
+      "role_b": "Karim",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Salut, Karim ! Voici l'appartement.",
+          "meaning": "Hi, Karim! Here's the flat.",
+          "note": "L'appartement is masculine: le becomes l' before the vowel."
+        },
+        {
+          "speaker": "b",
+          "text": "Salut, Sophie ! Oh, c'est un grand salon.",
+          "meaning": "Hi, Sophie! Oh, it's a big living room."
+        },
+        {
+          "speaker": "a",
+          "text": "Oui. Voilà le canapé et la télévision.",
+          "meaning": "Yes. There's the sofa and the television."
+        },
+        {
+          "speaker": "b",
+          "text": "Et ça, c'est une lampe ?",
+          "meaning": "And that, is it a lamp?"
+        },
+        {
+          "speaker": "a",
+          "text": "Oui, c'est une vieille lampe.",
+          "meaning": "Yes, it's an old lamp."
+        },
+        {
+          "speaker": "b",
+          "text": "Et voilà le chat !",
+          "meaning": "And there's the cat!"
+        },
+        {
+          "speaker": "a",
+          "text": "Oui, il s'appelle Pacha.",
+          "meaning": "Yes, his name is Pacha."
+        },
+        {
+          "speaker": "b",
+          "text": "Bonjour, Pacha ! Et les livres ?",
+          "meaning": "Hello, Pacha! And the books?"
+        },
+        {
+          "speaker": "a",
+          "text": "Les livres sont sur la table, près de la fenêtre.",
+          "meaning": "The books are on the table, near the window.",
+          "note": "Les livres: the -s is silent."
+        },
+        {
+          "speaker": "b",
+          "text": "C'est super, Sophie !",
+          "meaning": "It's great, Sophie!"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Voici le chat de Marie.",
+      "meaning": "Here is Marie's cat."
+    },
+    {
+      "text": "C'est une chaise, pas une table.",
+      "meaning": "It's a chair, not a table.",
+      "note": "New word: pas = not."
+    },
+    {
+      "text": "Les livres sont sur la table.",
+      "meaning": "The books are on the table.",
+      "note": "Les livres: the -s is silent."
+    },
+    {
+      "text": "Voilà des bateaux sur la rivière.",
+      "meaning": "There are some boats on the river.",
+      "note": "New word: la rivière = the river."
+    },
+    {
+      "text": "L'ami de Paul regarde la télévision.",
+      "meaning": "Paul's friend is watching television.",
+      "note": "New word: regarder = to watch."
+    },
+    {
+      "text": "Voici un canapé, une lampe et deux chaises.",
+      "meaning": "Here are a sofa, a lamp and two chairs."
+    },
+    {
+      "text": "C'est la fenêtre de la chambre, et voilà la porte.",
+      "meaning": "It's the bedroom window, and there's the door."
+    },
+    {
+      "text": "Les enfants aiment les gâteaux, les bateaux et les animaux.",
+      "meaning": "Children love cakes, boats and animals.",
+      "note": "Plurals in -x: gâteaux, bateaux, animaux."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Every noun"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-nouns-articles-01"
+    },
+    {
+      "question": "a1-nouns-articles-02"
+    },
+    {
+      "section": "A, an, some"
+    },
+    {
+      "question": "a1-nouns-articles-05"
+    },
+    {
+      "question": "a1-nouns-articles-06"
+    },
+    {
+      "section": "One, two, many"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-nouns-articles-03"
+    },
+    {
+      "question": "a1-nouns-articles-07"
+    },
+    {
+      "question": "a1-nouns-articles-08"
+    },
+    {
+      "tip": "Never learn a noun alone: not livre but le livre, not chaise but une chaise. The article carries the gender."
+    },
+    {
+      "section": "Gender clues"
+    },
+    {
+      "question": "a1-nouns-articles-04"
+    },
+    {
+      "question": "a1-nouns-articles-09"
+    },
+    {
+      "concept": {
+        "title": "Same word, two genders",
+        "markdown": "A few nouns change meaning with their gender: **le livre** (book) / **la livre** (pound), **le tour** (turn, tour) / **la tour** (tower), **le poste** (job, set) / **la poste** (post office). This is another reason to learn the article with the noun."
+      }
+    }
+  ],
+  "sprint": {
+    "icon": "🏷️",
+    "bites": [
+      {
+        "title": "Le or la",
+        "emoji": "🏷️",
+        "rule": "Every noun is masculine (le) or feminine (la), even things. Before a vowel both become l'. Plural: les.",
+        "example": "le livre, la table, l'ami, les chaises",
+        "example_meaning": "the book, the table, the friend, the chairs"
+      },
+      {
+        "title": "Un, une, des",
+        "emoji": "🎁",
+        "rule": "Un with a masculine noun, une with a feminine one, des with any plural. French never drops des.",
+        "example": "Voici un canapé et des chaises.",
+        "example_meaning": "Here are a sofa and some chairs."
+      },
+      {
+        "title": "The silent plural",
+        "emoji": "🔇",
+        "rule": "Add -s, which you don't hear: les chaises. -eau takes -x (les bateaux), -al becomes -aux. You hear the plural in les and des.",
+        "example": "le bateau, les bateaux",
+        "example_meaning": "the boat, the boats"
+      },
+      {
+        "title": "Gender clues",
+        "emoji": "🔎",
+        "rule": "-tion and -sion are feminine (la télévision), and -age is usually masculine (le fromage). Name a thing with c'est un / c'est une.",
+        "example": "C'est une télévision.",
+        "example_meaning": "It's a television."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Le or la?",
+        "buckets": [
+          "le",
+          "la"
+        ],
+        "items": [
+          {
+            "text": "livre",
+            "bucket": 0
+          },
+          {
+            "text": "table",
+            "bucket": 1
+          },
+          {
+            "text": "canapé",
+            "bucket": 0
+          },
+          {
+            "text": "fenêtre",
+            "bucket": 1
+          },
+          {
+            "text": "chat",
+            "bucket": 0
+          },
+          {
+            "text": "télévision",
+            "bucket": 1
+          },
+          {
+            "text": "fromage",
+            "bucket": 0
+          },
+          {
+            "text": "station",
+            "bucket": 1
+          }
+        ],
+        "why": "Learn the gender with each noun. -tion and -sion are feminine, and -age is usually masculine."
+      },
+      {
+        "title": "How does the plural end?",
+        "buckets": [
+          "-s",
+          "-x",
+          "no change"
+        ],
+        "items": [
+          {
+            "text": "chaise",
+            "bucket": 0
+          },
+          {
+            "text": "livre",
+            "bucket": 0
+          },
+          {
+            "text": "porte",
+            "bucket": 0
+          },
+          {
+            "text": "bateau",
+            "bucket": 1
+          },
+          {
+            "text": "jeu",
+            "bucket": 1
+          },
+          {
+            "text": "gâteau",
+            "bucket": 1
+          },
+          {
+            "text": "prix",
+            "bucket": 2
+          },
+          {
+            "text": "bras",
+            "bucket": 2
+          }
+        ],
+        "why": "Most nouns add -s, -eau and -eu add -x, and nouns already ending in -s, -x or -z stay the same."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Voilà le table.",
+        "wrong": "le",
+        "fix": "la",
+        "why": "Table is feminine: la table."
+      },
+      {
+        "sentence": "Voici un chaise.",
+        "wrong": "un",
+        "fix": "une",
+        "why": "Chaise is feminine: une chaise."
+      },
+      {
+        "sentence": "Les bateaus sont sur l'eau.",
+        "wrong": "bateaus",
+        "fix": "bateaux",
+        "why": "Nouns in -eau take -x in the plural."
+      },
+      {
+        "sentence": "C'est la ami de Paul.",
+        "wrong": "la",
+        "fix": "l'",
+        "why": "Before a vowel, la becomes l': l'amie."
+      },
+      {
+        "sentence": "Voici deux livre.",
+        "wrong": "livre",
+        "fix": "livres",
+        "why": "After deux the noun is plural: deux livres."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Voici le livre de Marie.",
+        "meaning": "Here is Marie's book.",
+        "distractors": [
+          "la"
+        ]
+      },
+      {
+        "text": "C'est une chaise.",
+        "meaning": "It's a chair.",
+        "distractors": [
+          "un"
+        ]
+      },
+      {
+        "text": "Voilà des bateaux.",
+        "meaning": "There are some boats.",
+        "distractors": [
+          "bateaus"
+        ]
+      },
+      {
+        "text": "C'est l'amie de Paul.",
+        "meaning": "It's Paul's friend.",
+        "distractors": [
+          "la"
+        ]
+      },
+      {
+        "text": "Ce sont des chaises et une table.",
+        "meaning": "They're chairs and a table.",
+        "distractors": [
+          "un"
+        ]
+      }
+    ]
+  }
+}

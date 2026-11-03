@@ -1,0 +1,587 @@
+{
+  "id": "a1-greetings",
+  "slug": "greetings",
+  "title": "Greetings and introductions: bonjour, je m'appelle",
+  "unit": "A1",
+  "group": "Vocabulary",
+  "order": 10,
+  "summary": "Say hello and goodbye, choose tu or vous, give your name with je m'appelle, and say please and thank you.",
+  "focus": "Greeting people politely and introducing yourself",
+  "prerequisites": [],
+  "content": "## Hello and goodbye\n\nFrench greetings change with the time of day and with the person in front of you.\n\n| French | Use it… |\n|---|---|\n| **bonjour** | hello, good morning (all day, to anyone) |\n| **bonsoir** | good evening (from about 6 p.m.) |\n| **salut** | hi, bye (friends and family only) |\n| **au revoir** | goodbye (to anyone) |\n\nWhen you leave, add **bonne journée** (have a good day), **à bientôt** (see you soon) or **à demain** (see you tomorrow). To ask how someone is, say **Ça va ?** The usual answer is **Ça va bien, merci.** (I'm fine, thanks.)\n\n> **Bonjour first.** Say **bonjour** before anything else, whether you are entering a shop, getting on a bus or asking the way. Starting straight with your question sounds rude. Add **monsieur** or **madame**: **Bonjour, madame.**\n\n## Tu or vous?\n\nFrench has two words for *you*.\n\n- **tu**: one person you know well, such as a friend, a relative, a child or a classmate.\n- **vous**: one person you don't know, or someone older or senior (a shop assistant, a doctor, your boss); and **always** more than one person, friends included.\n\nWhen in doubt, use **vous** and let the other person suggest **tu**. With **tu** you say **salut** and **s'il te plaît**; with **vous**, **bonjour** and **s'il vous plaît**.\n\n## Je m'appelle: saying your name\n\n**S'appeler** (to be called) gives your name. It is *reflexive*: a small pronoun sits before the verb, and **me, te, se** become **m', t', s'** before the vowel.\n\n| | s'appeler |\n|---|---|\n| je | **m'appelle** |\n| tu | **t'appelles** |\n| il / elle / on | **s'appelle** |\n| nous | **nous appelons** |\n| vous | **vous appelez** |\n| ils / elles | **s'appellent** |\n\nSpelling: **ll** where the ending is silent (*appelle, appelles, appellent*), one **l** in *appelons, appelez*.\n\n- **Comment tu t'appelles ?** What's your name? (tu)\n- **Comment vous appelez-vous ?** What's your name? (vous)\n- **Enchanté.** Pleased to meet you. A woman writes **enchantée**; it sounds the same.\n\n## Polite words\n\n- **merci** (thank you), **merci beaucoup** (thank you very much)\n- **de rien** (you're welcome); more formal: **je vous en prie**\n- **s'il vous plaît** (please, to **vous**), **s'il te plaît** (to **tu**)\n- **oui** (yes), **non** (no), **pardon** (sorry, excuse me)\n- **monsieur** (sir, Mr), **madame** (madam, Mrs, Ms)\n\n**Merci, monsieur. Au revoir, madame. Bonne journée !**",
+  "vocabulary": [
+    {
+      "term": "bonjour",
+      "meaning": "hello, good morning",
+      "example": "Bonjour, madame !",
+      "example_meaning": "Hello, madam!"
+    },
+    {
+      "term": "bonsoir",
+      "meaning": "good evening",
+      "example": "Bonsoir, monsieur, ça va ?",
+      "example_meaning": "Good evening, sir, how are you?"
+    },
+    {
+      "term": "salut",
+      "meaning": "hi, bye (informal)",
+      "example": "Salut, Léa ! À demain !",
+      "example_meaning": "Bye, Léa! See you tomorrow!"
+    },
+    {
+      "term": "au revoir",
+      "meaning": "goodbye",
+      "example": "Au revoir, et bonne journée !",
+      "example_meaning": "Goodbye, and have a good day!"
+    },
+    {
+      "term": "ça va ?",
+      "meaning": "how are you?, how's it going?",
+      "example": "Ça va ? — Oui, ça va bien, merci.",
+      "example_meaning": "How are you? — Yes, I'm fine, thanks."
+    },
+    {
+      "term": "s'appeler",
+      "meaning": "to be called (to give one's name)",
+      "example": "Je m'appelle Hugo.",
+      "example_meaning": "My name is Hugo."
+    },
+    {
+      "term": "enchanté / enchantée",
+      "meaning": "pleased to meet you",
+      "example": "Enchantée, je m'appelle Claire.",
+      "example_meaning": "Pleased to meet you, my name is Claire."
+    },
+    {
+      "term": "merci",
+      "meaning": "thank you",
+      "example": "Merci beaucoup, madame.",
+      "example_meaning": "Thank you very much, madam."
+    },
+    {
+      "term": "de rien",
+      "meaning": "you're welcome",
+      "example": "Merci ! — De rien.",
+      "example_meaning": "Thank you! — You're welcome."
+    },
+    {
+      "term": "s'il vous plaît",
+      "meaning": "please (polite, or to several people)",
+      "example": "Un café, s'il vous plaît.",
+      "example_meaning": "A coffee, please."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-greetings-01",
+      "prompt": "It's 8 p.m. and you walk into a restaurant. You say…",
+      "type": "multiple-choice",
+      "options": [
+        "Bonsoir, madame.",
+        "Bonne nuit, madame.",
+        "Salut, madame."
+      ],
+      "correct_answer": "Bonsoir, madame.",
+      "explanation": "From about 6 p.m. the greeting is bonsoir. Bonne nuit is only said when someone goes to bed, and salut is too casual for a stranger.",
+      "hints": [
+        "Which word means good evening?"
+      ],
+      "teaches": [
+        "bonsoir"
+      ]
+    },
+    {
+      "question_id": "a1-greetings-02",
+      "prompt": "You meet your friend's grandmother for the first time. How do you ask her name?",
+      "type": "multiple-choice",
+      "options": [
+        "Comment vous appelez-vous ?",
+        "Comment tu t'appelles ?",
+        "Comment elle s'appelle ?"
+      ],
+      "correct_answer": "Comment vous appelez-vous ?",
+      "explanation": "An older person you have just met gets vous: Comment vous appelez-vous ? Comment elle s'appelle ? asks about someone else.",
+      "hints": [
+        "Stranger and older: tu or vous?"
+      ],
+      "teaches": [
+        "s'appeler"
+      ]
+    },
+    {
+      "question_id": "a1-greetings-03",
+      "prompt": "You say Merci to a shop assistant. She answers…",
+      "type": "multiple-choice",
+      "options": [
+        "De rien.",
+        "S'il vous plaît.",
+        "Enchantée."
+      ],
+      "correct_answer": "De rien.",
+      "explanation": "De rien (you're welcome) is the reply to merci. Enchantée is for meeting someone, s'il vous plaît for asking.",
+      "hints": [
+        "The reply to thank you."
+      ],
+      "teaches": [
+        "de rien",
+        "merci"
+      ]
+    },
+    {
+      "question_id": "a1-greetings-04",
+      "prompt": "Elle ___ Camille.",
+      "type": "multiple-choice",
+      "options": [
+        "s'appelle",
+        "m'appelle",
+        "t'appelles"
+      ],
+      "correct_answer": "s'appelle",
+      "explanation": "Il and elle take s'appelle: Elle s'appelle Camille. M'appelle goes with je, t'appelles with tu.",
+      "hints": [
+        "Elle, like il, takes se: s'."
+      ],
+      "teaches": [
+        "s'appeler"
+      ]
+    },
+    {
+      "question_id": "a1-greetings-05",
+      "prompt": "Bonjour, je ___ Lucas.",
+      "type": "fill-in-blank",
+      "correct_answer": "m'appelle",
+      "accepted_answers": [
+        "je m'appelle"
+      ],
+      "explanation": "With je, s'appeler is m'appelle: Je m'appelle Lucas. Me becomes m' before the vowel.",
+      "hints": [
+        "Reflexive pronoun for je, then the verb.",
+        "Two l's: the ending is silent."
+      ],
+      "teaches": [
+        "s'appeler"
+      ]
+    },
+    {
+      "question_id": "a1-greetings-06",
+      "prompt": "Vous vous ___ comment, monsieur ?",
+      "type": "fill-in-blank",
+      "correct_answer": "appelez",
+      "accepted_answers": [
+        "vous appelez"
+      ],
+      "explanation": "Vous takes -ez, and the stem keeps one l because the ending is heard: vous vous appelez.",
+      "hints": [
+        "The vous ending is -ez.",
+        "One l only here."
+      ],
+      "teaches": [
+        "s'appeler"
+      ]
+    },
+    {
+      "question_id": "a1-greetings-07",
+      "prompt": "At the bakery: Une baguette, ___, madame. (please)",
+      "type": "fill-in-blank",
+      "correct_answer": "s'il vous plaît",
+      "accepted_answers": [
+        "s'il vous plait"
+      ],
+      "explanation": "To a shop assistant you use vous, so please is s'il vous plaît.",
+      "hints": [
+        "A stranger in a shop: tu or vous?",
+        "Three words with apostrophe: s'il …"
+      ],
+      "teaches": [
+        "s'il vous plaît"
+      ]
+    },
+    {
+      "question_id": "a1-greetings-08",
+      "prompt": "In France, you say bonjour before asking a shop assistant for anything.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "True. Bonjour comes first every time, whether in a shop, on a bus or before asking the way. Skipping it sounds rude.",
+      "hints": [
+        "Think of the politeness rule in the first section."
+      ],
+      "teaches": [
+        "bonjour"
+      ]
+    },
+    {
+      "question_id": "a1-greetings-09",
+      "prompt": "Salut is a good greeting for a job interview.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "False. Salut is for friends and family. An interviewer gets Bonjour, madame or Bonjour, monsieur, and vous.",
+      "hints": [
+        "Is salut casual or formal?"
+      ],
+      "teaches": [
+        "salut",
+        "bonjour"
+      ]
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "s'appeler",
+      "meaning": "to be called",
+      "set": "present",
+      "art": [
+        " .----------------. ",
+        "|  HELLO, je      |",
+        "|  m'appelle ...  |",
+        "|________________|",
+        "   ( ^_^ )  "
+      ],
+      "forms": {
+        "je": "m'appelle",
+        "tu": "t'appelles",
+        "il": "s'appelle",
+        "nous": "nous appelons",
+        "vous": "vous appelez",
+        "ils": "s'appellent"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-greetings-conv-new-neighbour",
+      "title": "On the stairs",
+      "scenario": "Hugo, a student, meets his new neighbour Hélène Martin on the stairs of their building.",
+      "role_a": "Hélène",
+      "role_b": "Hugo",
+      "lines": [
+        {
+          "speaker": "b",
+          "text": "Bonjour, madame !",
+          "meaning": "Hello, madam!"
+        },
+        {
+          "speaker": "a",
+          "text": "Bonjour ! Comment vous appelez-vous ?",
+          "meaning": "Hello! What's your name?",
+          "note": "She says vous because they have just met."
+        },
+        {
+          "speaker": "b",
+          "text": "Je m'appelle Hugo. Et vous ?",
+          "meaning": "My name is Hugo. And you?"
+        },
+        {
+          "speaker": "a",
+          "text": "Je m'appelle Hélène Martin. Enchantée !",
+          "meaning": "My name is Hélène Martin. Pleased to meet you!",
+          "note": "A woman writes enchantée."
+        },
+        {
+          "speaker": "b",
+          "text": "Enchanté, madame.",
+          "meaning": "Pleased to meet you, madam."
+        },
+        {
+          "speaker": "a",
+          "text": "Ça va, Hugo ?",
+          "meaning": "How are you, Hugo?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, ça va bien, merci. Et vous ?",
+          "meaning": "Yes, I'm fine, thanks. And you?"
+        },
+        {
+          "speaker": "a",
+          "text": "Très bien, merci. Bonne journée, Hugo !",
+          "meaning": "Very well, thanks. Have a good day, Hugo!"
+        },
+        {
+          "speaker": "b",
+          "text": "Merci, vous aussi ! Au revoir, madame.",
+          "meaning": "Thanks, you too! Goodbye, madam."
+        },
+        {
+          "speaker": "a",
+          "text": "Au revoir, Hugo. À bientôt !",
+          "meaning": "Goodbye, Hugo. See you soon!"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Bonjour, madame, ça va ?",
+      "meaning": "Hello, madam, how are you?",
+      "note": "Bonjour first, then the question."
+    },
+    {
+      "text": "Salut, je m'appelle Léa.",
+      "meaning": "Hi, my name is Léa."
+    },
+    {
+      "text": "Merci beaucoup, monsieur. De rien !",
+      "meaning": "Thank you very much, sir. You're welcome!",
+      "note": "New word: beaucoup = a lot."
+    },
+    {
+      "text": "Bonsoir, madame. Comment vous appelez-vous ?",
+      "meaning": "Good evening, madam. What's your name?",
+      "note": "Vous is the polite form."
+    },
+    {
+      "text": "Il s'appelle Karim, et elle s'appelle Inès.",
+      "meaning": "His name is Karim, and her name is Inès."
+    },
+    {
+      "text": "Enchanté, madame, je m'appelle Thomas. Et vous ?",
+      "meaning": "Pleased to meet you, madam, my name is Thomas. And you?"
+    },
+    {
+      "text": "Un thé, s'il vous plaît, monsieur. Merci, bonne journée !",
+      "meaning": "A tea, please, sir. Thanks, have a good day!",
+      "note": "New word: un thé = a tea."
+    },
+    {
+      "text": "Nous nous appelons Dubois, et nos enfants s'appellent Jules et Rose.",
+      "meaning": "Our name is Dubois, and our children are called Jules and Rose.",
+      "note": "New word: nos enfants = our children."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Hello and goodbye"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-greetings-01"
+    },
+    {
+      "question": "a1-greetings-08"
+    },
+    {
+      "section": "Tu or vous"
+    },
+    {
+      "question": "a1-greetings-02"
+    },
+    {
+      "question": "a1-greetings-09"
+    },
+    {
+      "section": "Je m'appelle"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-greetings-04"
+    },
+    {
+      "question": "a1-greetings-05"
+    },
+    {
+      "question": "a1-greetings-06"
+    },
+    {
+      "tip": "Say bonjour first, every time. People respond much more helpfully when you do."
+    },
+    {
+      "section": "Polite words"
+    },
+    {
+      "question": "a1-greetings-03"
+    },
+    {
+      "question": "a1-greetings-07"
+    },
+    {
+      "concept": {
+        "title": "La bise or a handshake?",
+        "markdown": "Friends and family often greet with **la bise**, a light kiss on each cheek; how many depends on the region. At work, people shake hands. The words come either way: **Salut, ça va ?** with a bise, **Bonjour, enchanté** with a handshake."
+      }
+    }
+  ],
+  "sprint": {
+    "icon": "👋",
+    "bites": [
+      {
+        "title": "Bonjour first",
+        "emoji": "👋",
+        "rule": "Say bonjour (bonsoir after about 6 p.m.) before anything else, in a shop, on a bus or when asking the way. Salut is for friends only.",
+        "example": "Bonjour, madame. Un café, s'il vous plaît.",
+        "example_meaning": "Hello, madam. A coffee, please."
+      },
+      {
+        "title": "Tu or vous",
+        "emoji": "🤝",
+        "rule": "Use tu for one friend, relative or child. Use vous for a stranger, someone senior, or any group. When in doubt, use vous.",
+        "example": "Tu t'appelles comment ? Vous vous appelez comment ?",
+        "example_meaning": "What's your name? (to a friend) What's your name? (polite)"
+      },
+      {
+        "title": "Je m'appelle",
+        "emoji": "📛",
+        "rule": "S'appeler gives your name: je m'appelle, tu t'appelles, il s'appelle, nous nous appelons, vous vous appelez, ils s'appellent.",
+        "example": "Je m'appelle Inès. Et toi ?",
+        "example_meaning": "My name is Inès. And you?"
+      },
+      {
+        "title": "Thanks and please",
+        "emoji": "🙏",
+        "rule": "Say merci, and de rien in reply. Use s'il vous plaît to vous and s'il te plaît to tu. Say enchanté(e) when you meet someone.",
+        "example": "Merci ! — De rien.",
+        "example_meaning": "Thank you! — You're welcome."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Tu or vous?",
+        "buckets": [
+          "tu",
+          "vous"
+        ],
+        "items": [
+          {
+            "text": "your best friend",
+            "bucket": 0
+          },
+          {
+            "text": "your little brother",
+            "bucket": 0
+          },
+          {
+            "text": "a shop assistant",
+            "bucket": 1
+          },
+          {
+            "text": "a doctor",
+            "bucket": 1
+          },
+          {
+            "text": "two friends together",
+            "bucket": 1
+          },
+          {
+            "text": "a classmate",
+            "bucket": 0
+          },
+          {
+            "text": "a stranger in the street",
+            "bucket": 1
+          }
+        ],
+        "why": "Tu is for one person you know well; vous is for strangers, people senior to you, and any group, even of friends."
+      },
+      {
+        "title": "Arriving or leaving?",
+        "buckets": [
+          "arriving",
+          "leaving"
+        ],
+        "items": [
+          {
+            "text": "Bonjour !",
+            "bucket": 0
+          },
+          {
+            "text": "Enchanté.",
+            "bucket": 0
+          },
+          {
+            "text": "Ça va ?",
+            "bucket": 0
+          },
+          {
+            "text": "Au revoir !",
+            "bucket": 1
+          },
+          {
+            "text": "Bonne journée !",
+            "bucket": 1
+          },
+          {
+            "text": "À bientôt !",
+            "bucket": 1
+          },
+          {
+            "text": "À demain !",
+            "bucket": 1
+          }
+        ],
+        "why": "Bonjour, enchanté and ça va open a meeting; au revoir, bonne journée, à bientôt and à demain close it."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Tu t'appelle comment ?",
+        "wrong": "t'appelle",
+        "fix": "t'appelles",
+        "why": "With tu the verb ends in -es: tu t'appelles."
+      },
+      {
+        "sentence": "Salut, monsieur le directeur.",
+        "wrong": "Salut",
+        "fix": "Bonjour",
+        "why": "Salut is for friends; a director gets bonjour."
+      },
+      {
+        "sentence": "Vous vous appelles comment ?",
+        "wrong": "appelles",
+        "fix": "appelez",
+        "why": "Vous takes -ez: vous vous appelez."
+      },
+      {
+        "sentence": "Nous nous appelez Martin.",
+        "wrong": "appelez",
+        "fix": "appelons",
+        "why": "Nous takes -ons: nous nous appelons."
+      },
+      {
+        "sentence": "Enchanté, madame. Je s'appelle Paul.",
+        "wrong": "s'appelle",
+        "fix": "m'appelle",
+        "why": "With je the pronoun is me: je m'appelle."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Bonjour, je m'appelle Camille.",
+        "meaning": "Hello, my name is Camille.",
+        "distractors": [
+          "s'appelle"
+        ]
+      },
+      {
+        "text": "Enchantée, je m'appelle Claire Martin.",
+        "meaning": "Pleased to meet you, my name is Claire Martin.",
+        "distractors": [
+          "t'appelles"
+        ]
+      },
+      {
+        "text": "Un café, s'il vous plaît, monsieur.",
+        "meaning": "A coffee, please, sir.",
+        "distractors": [
+          "te"
+        ]
+      },
+      {
+        "text": "Ils s'appellent Jules et Rose.",
+        "meaning": "They are called Jules and Rose.",
+        "distractors": [
+          "s'appelle"
+        ]
+      },
+      {
+        "text": "Au revoir, madame, et bonne journée.",
+        "meaning": "Goodbye, madam, and have a good day.",
+        "distractors": [
+          "salut"
+        ]
+      }
+    ]
+  }
+}

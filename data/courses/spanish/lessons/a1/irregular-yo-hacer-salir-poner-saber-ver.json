@@ -1,0 +1,749 @@
+{
+  "id": "a1-irregular-yo",
+  "slug": "irregular-yo-hacer-salir-poner-saber-ver",
+  "title": "Irregular yo forms: hacer, salir, poner, saber, ver",
+  "unit": "A1",
+  "group": "Grammar",
+  "order": 38,
+  "summary": "Verbs that are regular except for an odd first person: hago, salgo, pongo, sé, veo.",
+  "focus": "Present tense of hacer, salir, poner, traer, saber, conocer, ver, dar",
+  "prerequisites": [
+    "a1-regular-er-ir-present"
+  ],
+  "content": "## Only the yo form is odd\n\nSeveral very common verbs are regular in every person except **yo**.\n\n| verb | yo | the rest (regular) |\n|---|---|---|\n| **hacer** (to do, make) | **hago** | haces, hace, hacemos, hacéis, hacen |\n| **salir** (to go out, leave) | **salgo** | sales, sale, salimos, salís, salen |\n| **poner** (to put) | **pongo** | pones, pone, ponemos, ponéis, ponen |\n| **traer** (to bring) | **traigo** | traes, trae, traemos, traéis, traen |\n| **saber** (to know facts) | **sé** | sabes, sabe, sabemos, sabéis, saben |\n| **conocer** (to know people/places) | **conozco** | conoces, conoce, conocemos, conocéis, conocen |\n| **ver** (to see) | **veo** | ves, ve, vemos, veis, ven |\n| **dar** (to give) | **doy** | das, da, damos, dais, dan |\n\n## Hacer: do, make, and more\n\n- *¿Qué haces?* (What are you doing?)\n- *Hago la cama.* (I make the bed.)\n- *Hace calor.* (It's hot. This is weather.)\n- *Hacer deporte, hacer los deberes, hacer una pregunta.*\n\n## Saber or conocer?\n\n- **saber**: facts, information, how to do something: *Sé la respuesta. Sé nadar.* (I can swim)\n- **conocer**: being familiar with people and places: *Conozco a tu hermano. Conozco Madrid.*\n\nNote the **personal a** before a person: *Veo **a** María. Conozco **a** tu hermano.*\n\n## Salir and poner in daily life\n\n- *Salgo de casa a las ocho.* (I leave home at eight.)\n- *Salimos con amigos los viernes.* (We go out with friends on Fridays.)\n- *Pongo la mesa.* (I set the table.) *Pongo la tele.* (I turn the TV on.)",
+  "vocabulary": [
+    {
+      "term": "hacer",
+      "meaning": "to do, to make",
+      "example": "¿Qué haces?",
+      "example_meaning": "What are you doing?"
+    },
+    {
+      "term": "salir",
+      "meaning": "to go out, to leave",
+      "example": "Salgo a las ocho.",
+      "example_meaning": "I leave at eight."
+    },
+    {
+      "term": "poner",
+      "meaning": "to put; to turn on",
+      "example": "Pongo la mesa.",
+      "example_meaning": "I set the table."
+    },
+    {
+      "term": "traer",
+      "meaning": "to bring",
+      "example": "Traigo el pan.",
+      "example_meaning": "I bring the bread."
+    },
+    {
+      "term": "saber",
+      "meaning": "to know (facts, how to)",
+      "example": "Sé nadar.",
+      "example_meaning": "I know how to swim."
+    },
+    {
+      "term": "conocer",
+      "meaning": "to know (people, places)",
+      "example": "Conozco Madrid.",
+      "example_meaning": "I know Madrid."
+    },
+    {
+      "term": "ver",
+      "meaning": "to see; to watch",
+      "example": "Veo la tele.",
+      "example_meaning": "I watch TV."
+    },
+    {
+      "term": "dar",
+      "meaning": "to give",
+      "example": "Doy un regalo.",
+      "example_meaning": "I give a gift."
+    },
+    {
+      "term": "los deberes",
+      "meaning": "homework",
+      "example": "Hago los deberes.",
+      "example_meaning": "I do my homework."
+    },
+    {
+      "term": "la cama",
+      "meaning": "bed",
+      "example": "Hago la cama.",
+      "example_meaning": "I make the bed."
+    },
+    {
+      "term": "la tele",
+      "meaning": "TV",
+      "example": "Pongo la tele.",
+      "example_meaning": "I turn on the TV."
+    },
+    {
+      "term": "nadar",
+      "meaning": "to swim",
+      "example": "Sé nadar.",
+      "example_meaning": "I know how to swim."
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "hacer",
+      "meaning": "to do, to make",
+      "set": "present",
+      "art": [
+        "    ___      ",
+        "   |   |     ",
+        "  _|___|_    ",
+        " |  _____|   ",
+        " | |         ",
+        " |_|  tools  "
+      ],
+      "forms": {
+        "yo": "hago",
+        "tu": "haces",
+        "el": "hace",
+        "nosotros": "hacemos",
+        "vosotros": "hacéis",
+        "ellos": "hacen"
+      }
+    },
+    {
+      "item": "salir",
+      "meaning": "to go out, to leave",
+      "set": "present",
+      "art": [
+        "  _______    ",
+        " |       |   ",
+        " |  []   |-> ",
+        " |       |   ",
+        " |   o   |   ",
+        " |_______|   "
+      ],
+      "forms": {
+        "yo": "salgo",
+        "tu": "sales",
+        "el": "sale",
+        "nosotros": "salimos",
+        "vosotros": "salís",
+        "ellos": "salen"
+      }
+    },
+    {
+      "item": "poner",
+      "meaning": "to put",
+      "set": "present",
+      "art": [
+        "   ______    ",
+        "  |      |   ",
+        "  |  v   |   ",
+        "  |  |   |   ",
+        "  '--|---'   ",
+        " ____V____   "
+      ],
+      "forms": {
+        "yo": "pongo",
+        "tu": "pones",
+        "el": "pone",
+        "nosotros": "ponemos",
+        "vosotros": "ponéis",
+        "ellos": "ponen"
+      }
+    },
+    {
+      "item": "saber",
+      "meaning": "to know (facts)",
+      "set": "present",
+      "art": [
+        "   .----.    ",
+        "  /  ??  \\   ",
+        " |  !!!!  |  ",
+        "  \\      /   ",
+        "   '----'    ",
+        "    (oo)     "
+      ],
+      "forms": {
+        "yo": "sé",
+        "tu": "sabes",
+        "el": "sabe",
+        "nosotros": "sabemos",
+        "vosotros": "sabéis",
+        "ellos": "saben"
+      }
+    },
+    {
+      "item": "ver",
+      "meaning": "to see",
+      "set": "present",
+      "art": [
+        "   _______   ",
+        " .'  ___  '. ",
+        "(   ( o )   )",
+        " '.  '-'  .' ",
+        "   '-----'   ",
+        "    _____    "
+      ],
+      "forms": {
+        "yo": "veo",
+        "tu": "ves",
+        "el": "ve",
+        "nosotros": "vemos",
+        "vosotros": "veis",
+        "ellos": "ven"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-yo-01",
+      "prompt": "Conjugate: (yo) hacer → ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "hago",
+      "accepted_answers": [
+        "yo hago"
+      ],
+      "explanation": "The yo form has a g: hago.",
+      "hints": [
+        "There's a g."
+      ],
+      "teaches": [
+        "hacer"
+      ]
+    },
+    {
+      "question_id": "a1-yo-02",
+      "prompt": "Conjugate: (yo) salir → ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "salgo",
+      "accepted_answers": [
+        "yo salgo"
+      ],
+      "explanation": "Yo: salgo.",
+      "hints": [
+        "sal + go"
+      ],
+      "teaches": [
+        "salir"
+      ]
+    },
+    {
+      "question_id": "a1-yo-03",
+      "prompt": "¿Qué ___ tú los fines de semana?",
+      "type": "multiple-choice",
+      "options": [
+        "haces",
+        "hagos",
+        "haceis"
+      ],
+      "correct_answer": "haces",
+      "explanation": "Only yo is irregular; tú is regular: haces.",
+      "hints": [
+        "tú is regular"
+      ],
+      "teaches": [
+        "hacer"
+      ]
+    },
+    {
+      "question_id": "a1-yo-04",
+      "prompt": "Conjugate: (yo) saber → ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "sé",
+      "accepted_answers": [
+        "yo sé"
+      ],
+      "explanation": "Saber's yo form is sé, with an accent.",
+      "hints": [
+        "Two letters, one accent."
+      ],
+      "teaches": [
+        "saber"
+      ]
+    },
+    {
+      "question_id": "a1-yo-05",
+      "prompt": "___ a tu hermano. (I know your brother.)",
+      "type": "multiple-choice",
+      "options": [
+        "Conozco",
+        "Sé",
+        "Conoco"
+      ],
+      "correct_answer": "Conozco",
+      "explanation": "Knowing a person is conocer: conozco, with the personal a.",
+      "hints": [
+        "people → conocer"
+      ],
+      "teaches": [
+        "conocer"
+      ]
+    },
+    {
+      "question_id": "a1-yo-06",
+      "prompt": "___ nadar. (I can swim / I know how to swim.)",
+      "type": "multiple-choice",
+      "options": [
+        "Sé",
+        "Conozco",
+        "Puedo saber"
+      ],
+      "correct_answer": "Sé",
+      "explanation": "Knowing how to do something is saber: sé nadar.",
+      "hints": [
+        "skill → saber"
+      ],
+      "teaches": [
+        "saber",
+        "nadar"
+      ]
+    },
+    {
+      "question_id": "a1-yo-07",
+      "prompt": "Conjugate: (yo) poner → ___",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "pongo",
+      "accepted_answers": [
+        "yo pongo"
+      ],
+      "explanation": "Yo: pongo.",
+      "hints": [
+        "pon + go"
+      ],
+      "teaches": [
+        "poner"
+      ]
+    },
+    {
+      "question_id": "a1-yo-08",
+      "prompt": "___ la tele por la noche. (I watch…)",
+      "type": "multiple-choice",
+      "options": [
+        "Veo",
+        "Vo",
+        "Ves"
+      ],
+      "correct_answer": "Veo",
+      "explanation": "Ver's yo form is veo.",
+      "hints": [
+        "ve + o"
+      ],
+      "teaches": [
+        "ver",
+        "la tele"
+      ]
+    },
+    {
+      "question_id": "a1-yo-09",
+      "prompt": "Nosotros ___ de casa a las ocho.",
+      "type": "multiple-choice",
+      "options": [
+        "salimos",
+        "salgamos",
+        "salemos"
+      ],
+      "correct_answer": "salimos",
+      "explanation": "Salir is a regular -ir verb outside yo: salimos.",
+      "hints": [
+        "regular -ir"
+      ],
+      "teaches": [
+        "salir"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "No sé nadar muy bien.",
+      "meaning": "I can't swim very well.",
+      "note": "Saber + infinitive = to know how to."
+    },
+    {
+      "text": "Veo la tele por la noche.",
+      "meaning": "I watch TV at night."
+    },
+    {
+      "text": "Hago los deberes por la tarde.",
+      "meaning": "I do my homework in the afternoon."
+    },
+    {
+      "text": "Conozco bien la ciudad de Sevilla.",
+      "meaning": "I know the city of Seville well.",
+      "note": "Conocer for places and people, saber for facts."
+    },
+    {
+      "text": "Traigo el pan y pongo la mesa.",
+      "meaning": "I bring the bread and set the table."
+    },
+    {
+      "text": "Doy un paseo por el parque los domingos.",
+      "meaning": "I go for a walk in the park on Sundays.",
+      "note": "New word: el paseo = the walk, as in dar un paseo."
+    },
+    {
+      "text": "Hago la cama todas las mañanas antes de salir.",
+      "meaning": "I make the bed every morning before going out.",
+      "note": "New word: antes = before."
+    },
+    {
+      "text": "Los viernes salgo con mis amigos y no hago los deberes hasta el domingo.",
+      "meaning": "On Fridays I go out with my friends and don't do my homework until Sunday."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Only the yo form is odd"
+    },
+    {
+      "vocab": 8
+    },
+    {
+      "question": "a1-yo-01"
+    },
+    {
+      "question": "a1-yo-02"
+    },
+    {
+      "question": "a1-yo-07"
+    },
+    {
+      "question": "a1-yo-08"
+    },
+    {
+      "question": "a1-yo-04"
+    },
+    {
+      "section": "Hacer"
+    },
+    {
+      "vocab": 2
+    },
+    {
+      "question": "a1-yo-03"
+    },
+    {
+      "section": "Saber or conocer"
+    },
+    {
+      "vocab": 1
+    },
+    {
+      "question": "a1-yo-05"
+    },
+    {
+      "question": "a1-yo-06"
+    },
+    {
+      "section": "Salir and poner"
+    },
+    {
+      "vocab": 1
+    },
+    {
+      "question": "a1-yo-09"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-yo-conv-evening",
+      "title": "A normal evening",
+      "scenario": "Teresa and Iván talk about what they do after work.",
+      "role_a": "Teresa",
+      "role_b": "Iván",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¿Qué haces después del trabajo?",
+          "meaning": "What do you do after work?",
+          "note": "hacer, tú"
+        },
+        {
+          "speaker": "b",
+          "text": "Salgo del trabajo a las seis y hago deporte.",
+          "meaning": "I leave work at six and do sport.",
+          "note": "salgo, hago"
+        },
+        {
+          "speaker": "a",
+          "text": "Yo pongo la tele y veo las noticias.",
+          "meaning": "I turn on the TV and watch the news.",
+          "note": "pongo, veo"
+        },
+        {
+          "speaker": "b",
+          "text": "¿Sabes cocinar?",
+          "meaning": "Do you know how to cook?",
+          "note": "saber + infinitive"
+        },
+        {
+          "speaker": "a",
+          "text": "Sé hacer tortilla, nada más. ¿Conoces el restaurante nuevo?",
+          "meaning": "I can make tortilla, that's all. Do you know the new restaurant?",
+          "note": "sé; conocer a place"
+        },
+        {
+          "speaker": "b",
+          "text": "No lo conozco. ¿Salimos a cenar el viernes?",
+          "meaning": "I don't know it. Shall we go out for dinner on Friday?",
+          "note": "conozco; salimos"
+        },
+        {
+          "speaker": "a",
+          "text": "Sí. Traigo a mi hermana, ¿vale?",
+          "meaning": "Yes. I'll bring my sister, ok?",
+          "note": "traigo; personal a"
+        },
+        {
+          "speaker": "b",
+          "text": "Claro. Le doy la dirección mañana.",
+          "meaning": "Sure. I'll give her the address tomorrow.",
+          "note": "doy"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🙋",
+    "bites": [
+      {
+        "title": "The yo-go verbs",
+        "emoji": "🎸",
+        "rule": "Hacer, salir, poner and traer are irregular only in yo, and they all add a g: hago, salgo, pongo, traigo. Every other person is regular.",
+        "example": "Salgo de casa y hago deporte.",
+        "example_meaning": "I leave home and do sport."
+      },
+      {
+        "title": "Other odd yo forms",
+        "emoji": "🕵️",
+        "rule": "These yo forms follow no single pattern: saber becomes sé (with an accent), ver becomes veo, dar becomes doy and conocer becomes conozco.",
+        "example": "Sé nadar y veo la tele.",
+        "example_meaning": "I can swim and I watch TV."
+      },
+      {
+        "title": "Saber vs conocer",
+        "emoji": "🧠",
+        "rule": "Use saber for facts and skills (sé la respuesta, sé nadar). Use conocer for being familiar with people and places (conozco Madrid). A person takes the personal a.",
+        "example": "Conozco a tu hermano.",
+        "example_meaning": "I know your brother."
+      },
+      {
+        "title": "Hacer has many uses",
+        "emoji": "🛠️",
+        "rule": "Hacer means do and make, and it also describes the weather: hago la cama, hago los deberes, hace calor.",
+        "example": "Hoy hago los deberes.",
+        "example_meaning": "Today I'm doing my homework."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Saber or conocer?",
+        "buckets": [
+          "saber",
+          "conocer"
+        ],
+        "items": [
+          {
+            "text": "nadar",
+            "bucket": 0
+          },
+          {
+            "text": "Madrid",
+            "bucket": 1
+          },
+          {
+            "text": "a tu hermano",
+            "bucket": 1
+          },
+          {
+            "text": "la respuesta",
+            "bucket": 0
+          },
+          {
+            "text": "el restaurante nuevo",
+            "bucket": 1
+          },
+          {
+            "text": "cocinar",
+            "bucket": 0
+          },
+          {
+            "text": "la dirección",
+            "bucket": 0
+          },
+          {
+            "text": "a María",
+            "bucket": 1
+          }
+        ],
+        "why": "Facts and skills take saber. People and places you are familiar with take conocer."
+      },
+      {
+        "title": "Real yo form or wrong form?",
+        "buckets": [
+          "✓ correct",
+          "✗ wrong"
+        ],
+        "items": [
+          {
+            "text": "hago",
+            "bucket": 0
+          },
+          {
+            "text": "haco",
+            "bucket": 1
+          },
+          {
+            "text": "salgo",
+            "bucket": 0
+          },
+          {
+            "text": "salo",
+            "bucket": 1
+          },
+          {
+            "text": "pongo",
+            "bucket": 0
+          },
+          {
+            "text": "sabo",
+            "bucket": 1
+          },
+          {
+            "text": "veo",
+            "bucket": 0
+          },
+          {
+            "text": "vo",
+            "bucket": 1
+          },
+          {
+            "text": "conozco",
+            "bucket": 0
+          },
+          {
+            "text": "conoco",
+            "bucket": 1
+          }
+        ],
+        "why": "The yo forms are hago, salgo, pongo, sé, veo and conozco. The regular-looking versions do not exist."
+      },
+      {
+        "title": "Hago, pongo or salgo?",
+        "buckets": [
+          "hago",
+          "pongo",
+          "salgo"
+        ],
+        "items": [
+          {
+            "text": "___ la cama",
+            "bucket": 0
+          },
+          {
+            "text": "___ la mesa",
+            "bucket": 1
+          },
+          {
+            "text": "___ de casa a las ocho",
+            "bucket": 2
+          },
+          {
+            "text": "___ los deberes",
+            "bucket": 0
+          },
+          {
+            "text": "___ la tele",
+            "bucket": 1
+          },
+          {
+            "text": "___ con amigos",
+            "bucket": 2
+          },
+          {
+            "text": "___ deporte",
+            "bucket": 0
+          }
+        ],
+        "why": "You make (hacer) the bed and do homework, set (poner) the table and turn the TV on, and go out (salir) of places or with people."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Yo haco los deberes por la tarde.",
+        "wrong": "haco",
+        "fix": "hago",
+        "why": "Hacer's yo form has a g: hago."
+      },
+      {
+        "sentence": "Siempre salo de casa a las ocho.",
+        "wrong": "salo",
+        "fix": "salgo",
+        "why": "Salir's yo form is salgo."
+      },
+      {
+        "sentence": "Yo no sabo la respuesta.",
+        "wrong": "sabo",
+        "fix": "sé",
+        "why": "Saber's yo form is sé, with an accent."
+      },
+      {
+        "sentence": "Yo sé a tu hermano.",
+        "wrong": "sé",
+        "fix": "conozco",
+        "why": "Use conocer, not saber, to say you know a person."
+      },
+      {
+        "sentence": "Por la noche vo la tele.",
+        "wrong": "vo",
+        "fix": "veo",
+        "why": "Ver's yo form is veo."
+      },
+      {
+        "sentence": "Yo pono la mesa a las nueve.",
+        "wrong": "pono",
+        "fix": "pongo",
+        "why": "Poner's yo form is pongo."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Pongo la tele y veo las noticias.",
+        "meaning": "I turn on the TV and watch the news.",
+        "distractors": [
+          "pono",
+          "vo"
+        ]
+      },
+      {
+        "text": "Salgo del trabajo a las seis.",
+        "meaning": "I leave work at six.",
+        "distractors": [
+          "Salo"
+        ]
+      },
+      {
+        "text": "Sé hacer tortilla.",
+        "meaning": "I know how to make tortilla.",
+        "distractors": [
+          "Conozco"
+        ]
+      },
+      {
+        "text": "Conozco a tu hermano.",
+        "meaning": "I know your brother.",
+        "distractors": [
+          "Sé"
+        ]
+      },
+      {
+        "text": "¿Qué haces los fines de semana?",
+        "meaning": "What do you do at the weekend?",
+        "distractors": [
+          "hago"
+        ]
+      }
+    ]
+  }
+}

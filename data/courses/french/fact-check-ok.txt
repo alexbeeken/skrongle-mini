@@ -1,0 +1,58 @@
+# Fact-check findings checked and found right (scripts/fact-check.sh french --why prints the line).
+
+# Elision: a spot's fix is shown as a tile (le → l', ne → n', des → d'); the apostrophe binds to the next word on the page.
+lessons/a1/nouns-articles.json sprint.spots[3] 5ea9cea4ae
+lessons/a1/questions-negation.json sprint.spots[0] edf0023088
+
+# quatre-vingts takes its s before a noun; the fix is right.
+
+# tu t'es levé is the passé composé of se lever.
+lessons/a2/passe-compose-etre.json conjugations[3] 1ef3143309
+
+# 'Ou il se sera perdu' = 'Or he got lost' (ou, not où).
+lessons/b2/futur-anterieur-time.json conversations[0] b2-futur-anterieur-time-conv-moving-day line 6 7eb5ca19b1
+
+# The conditionnel of unconfirmed information (il aurait démissionné = he has reportedly resigned) is the lesson's point; au cas où takes the conditionnel.
+lessons/b2/hypothesis-conditionnel-passe.json conversations[0] b2-hypothesis-conditionnel-passe-conv-concert line 7 56a24dc99c
+lessons/b2/hypothesis-conditionnel-passe.json sprint.bites[3] example febbea9b74
+
+# crécher is the familier word for habiter, which the lesson teaches as such.
+lessons/b2/registers-idioms.json sprint.bites[0] rule 958f2f83cb
+
+# 'à moins que tu ne doives' is the tu form of the subjonctif.
+lessons/b2/subjonctif-conjunctions.json quiz[8] b2-subjonctif-conjunctions-09 explanation 91175e175a
+
+# #582 lessons. Elision: the spot's fix is a tile (je → j', se → s', me → m', du → de l', que → qu', de → d'); the apostrophe binds to the next word on the page.
+lessons/a1/reflexive-routine.json sprint.spots[0] 34fff7f5a8
+lessons/a1/subject-pronouns.json sprint.spots[0] f25a07757d
+lessons/a2/celebrations-holidays.json sprint.spots[0] ee4553303f
+
+# Marta vend du soda is right once vendent is fixed.
+
+# deux cents fraises, cinq cents kilos, sept cents graines: cent takes -s when multiplied and no number follows; a noun may follow.
+
+# les charges (f pl) comprises; un texto is the everyday word for a text message; une chambre de libre is idiomatic; nous conduisons is the nous form.
+lessons/a2/housing-ordinals.json content § Reading an ad and asking questions › line 4 85e7ff3efa
+lessons/a2/housing-ordinals.json quiz[3] a2-housing-ordinals-04 explanation 5ead701320
+lessons/a2/invitations-phone.json content § On the phone and by text › line 6 d6d4ad5ed3
+lessons/a2/travel-hotel.json content § At the hotel › line 3 17e0bf1df4
+
+# le personnage stays masculine for a woman; aider quelqu'un à + infinitive; être inquiet que + subjonctif (arrive); Léo and Marta say tu (mets); un e-mail has no accent.
+lessons/b1/culture-leisure.json sprint.bites[1] rule d3d915926b
+lessons/b1/verb-prepositions.json sprint.bites[0] rule be5a3c331c
+lessons/b2/participle-clauses.json conversations[0] b2-participle-clauses-conv-notice line 4 a2a78b5884
+
+# The e-mail address is spelled without accents on purpose: the dialogue's point is that addresses take none.
+lessons/a1/alphabet-accents.json conversations[0] a1-alphabet-accents-conv-library-card line 7 3a90aff58a
+lessons/a1/alphabet-accents.json conversations[0] a1-alphabet-accents-conv-library-card line 8 8a08d92236
+
+lessons/b2/environment-society.json sprint.bites[3] rule 0a6dfeb4db
+lessons/a1/reflexive-routine.json guide[13] tip e33095e449
+lessons/b1/culture-leisure.json sprint.spots[1] 959447bde3
+
+# 2026-10-29 (third sweep, #1257): checked and right after all
+# "bonne année" is right; Jev doubted the gender at 0.26.
+# "vaut la coup" → "vaut le coup" is the fix; the fixed sentence is correct.
+lessons/b1/culture-leisure.json sprint.spots[1] 959447bde3
+# "de intéressant" → "d'intéressant"; the checker prints the fix with a space, the sentence is correct.
+lessons/b1/indefinites.json sprint.spots[2] 4aa57e030e

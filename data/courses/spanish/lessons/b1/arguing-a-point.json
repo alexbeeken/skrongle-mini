@@ -1,0 +1,618 @@
+{
+  "id": "b1-arguing-a-point",
+  "slug": "arguing-a-point",
+  "title": "Arguing a point: en primer lugar, sin embargo, por lo tanto",
+  "unit": "B1",
+  "group": "Vocabulary",
+  "order": 44,
+  "summary": "Build and defend an opinion: number your points, weigh both sides, give causes and results, and conclude.",
+  "focus": "Connectors for structuring an argument and stating a position",
+  "prerequisites": [
+    "b1-opinion-and-doubt",
+    "a2-connectors-and-storytelling"
+  ],
+  "content": "## Ordering and adding points\n\nAn argument needs signposts so the listener can count your points:\n\n| connector | meaning |\n|---|---|\n| **en primer lugar** | first(ly), in the first place |\n| **en segundo lugar** | secondly |\n| **por último** | lastly, finally |\n| **además** | what's more (opens a new point) |\n| **incluso** | even (adds a surprising extreme) |\n\n- **En primer lugar, el tren es más rápido; en segundo lugar, contamina menos.** (Firstly, the train is faster; secondly, it pollutes less.)\n- **Por último, es barato: incluso los estudiantes pueden pagarlo.** (Lastly, it's cheap: even students can afford it.)\n\n**Por último** closes a list of points; **al final** tells the end of a story.\n\n## Weighing two sides\n\n- **sin embargo** (however) and **aun así** (even so) admit a point and carry on regardless: **Es caro. Aun así, lo compro.** (It's expensive. Even so, I'm buying it.) **Aun** here has no accent: it means \"even\".\n- **en cambio** (on the other hand, whereas) sets two different things side by side: **Mi barrio es ruidoso; el tuyo, en cambio, es tranquilo.** (My neighbourhood is noisy; yours, on the other hand, is quiet.)\n- **por un lado… por otro (lado)** weighs both sides of one question: **Por un lado, el trabajo es interesante; por otro, el sueldo es bajo.** (On the one hand the job is interesting; on the other, the pay is low.)\n\n## Causes, consequences and examples\n\n| cause | followed by |\n|---|---|\n| **ya que** (since), **porque**, **como** | a clause (a verb) |\n| **debido a** / **a causa de** (due to) | a noun (**debido al** before **el**) |\n\n- **Ya que hay obras, vamos por otra calle.** (Since there are roadworks, we're taking another street.)\n- **Debido a las obras, vamos por otra calle.** (Due to the roadworks, we're taking another street.)\n\nFor the result, **por lo tanto** (therefore) is the formal choice; **así que** (so) the everyday one: **No tenemos datos; por lo tanto, no podemos decidir.**\n\nTo illustrate or rephrase: **por ejemplo**, **es decir** (that is) and, in speech, **o sea** (I mean): **Vuelvo en dos semanas, es decir, el día quince.**\n\n## Taking a position\n\n- **En mi opinión** / **desde mi punto de vista** + **indicative**: you state your view. **Desde mi punto de vista, la propuesta es injusta.** (From my point of view, the proposal is unfair.)\n- **Estar de acuerdo con** + a person or a noun: **Estoy de acuerdo contigo. No estoy de acuerdo con esa idea.**\n- **(No) estar de acuerdo con que** + **subjunctive**: you judge an action or a proposal. **Estoy de acuerdo con que bajen los precios.** (I agree that prices should come down.) **No estoy de acuerdo con que cierren la biblioteca.** (I don't agree with them closing the library.)\n\nWrap up with **en resumen** (in short) or, more formally, **en conclusión**.\n\n## A short structured paragraph\n\n> **¿Cerramos el centro a los coches?** **En mi opinión**, es una buena idea. **En primer lugar**, **ya que** pasan menos coches, el aire está más limpio. **En segundo lugar**, las calles son más seguras; **incluso** los niños pueden ir solos al colegio. **Por un lado**, algunas tiendas tienen miedo de perder clientes; **por otro**, la gente pasea más y, **por lo tanto**, compra más. Es verdad que algunos vecinos tienen que caminar más. **Aun así**, **no estoy de acuerdo con que** volvamos atrás. **En resumen**, el centro sin coches es mejor para todos.\n\nOpinion, numbered points, both sides, a consequence, a concession and a conclusion make a complete argument.",
+  "vocabulary": [
+    {
+      "term": "en primer lugar",
+      "meaning": "first(ly), in the first place",
+      "example": "En primer lugar, quiero dar las gracias a todos.",
+      "example_meaning": "First of all, I want to thank everyone."
+    },
+    {
+      "term": "por último",
+      "meaning": "lastly, finally (the last point of a list)",
+      "example": "Por último, el precio: es muy razonable.",
+      "example_meaning": "Lastly, the price: it's very reasonable."
+    },
+    {
+      "term": "incluso",
+      "meaning": "even",
+      "example": "Trabaja todos los días, incluso los domingos.",
+      "example_meaning": "She works every day, even on Sundays."
+    },
+    {
+      "term": "en cambio",
+      "meaning": "on the other hand, whereas (contrasting two things)",
+      "example": "Madrid es caro; Teruel, en cambio, es bastante barato.",
+      "example_meaning": "Madrid is expensive; Teruel, on the other hand, is quite cheap."
+    },
+    {
+      "term": "por un lado… por otro",
+      "meaning": "on the one hand… on the other",
+      "example": "Por un lado, quiero el trabajo; por otro, no quiero mudarme.",
+      "example_meaning": "On the one hand, I want the job; on the other, I don't want to move."
+    },
+    {
+      "term": "aun así",
+      "meaning": "even so",
+      "example": "Estaba muy cansada; aun así, terminó el informe.",
+      "example_meaning": "She was very tired; even so, she finished the report."
+    },
+    {
+      "term": "ya que",
+      "meaning": "since, given that (+ clause)",
+      "example": "Ya que estás aquí, ¿me ayudas con la mesa?",
+      "example_meaning": "Since you're here, will you help me with the table?"
+    },
+    {
+      "term": "debido a",
+      "meaning": "due to, because of (+ noun)",
+      "example": "El vuelo salió tarde debido a la niebla.",
+      "example_meaning": "The flight left late due to the fog."
+    },
+    {
+      "term": "por lo tanto",
+      "meaning": "therefore",
+      "example": "Los datos son claros; por lo tanto, debemos actuar.",
+      "example_meaning": "The data are clear; therefore, we must act."
+    },
+    {
+      "term": "es decir",
+      "meaning": "that is (to say)",
+      "example": "Ana es la hija de mi tía, es decir, mi prima.",
+      "example_meaning": "Ana is my aunt's daughter, that is, my cousin."
+    },
+    {
+      "term": "en resumen",
+      "meaning": "in short, to sum up",
+      "example": "En resumen, el proyecto ha sido un éxito.",
+      "example_meaning": "In short, the project has been a success."
+    },
+    {
+      "term": "en mi opinión",
+      "meaning": "in my opinion",
+      "example": "En mi opinión, la película es demasiado larga.",
+      "example_meaning": "In my opinion, the film is too long."
+    },
+    {
+      "term": "desde mi punto de vista",
+      "meaning": "from my point of view",
+      "example": "Desde mi punto de vista, el problema es la falta de tiempo.",
+      "example_meaning": "From my point of view, the problem is the lack of time."
+    },
+    {
+      "term": "estar de acuerdo con",
+      "meaning": "to agree with (+ que + subjunctive for a proposal)",
+      "example": "Estoy de acuerdo contigo: el plan es arriesgado.",
+      "example_meaning": "I agree with you: the plan is risky."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-arguing-a-point-01",
+      "prompt": "En primer lugar, es barato; en segundo lugar, es rápido; ___, es bueno para el planeta.",
+      "type": "multiple-choice",
+      "options": [
+        "por último",
+        "en cambio",
+        "aun así",
+        "ya que"
+      ],
+      "correct_answer": "por último",
+      "explanation": "The third and last point of a numbered list is introduced by por último.",
+      "hints": [
+        "After en primer lugar and en segundo lugar comes the closing point."
+      ],
+      "teaches": [
+        "por último",
+        "en primer lugar"
+      ]
+    },
+    {
+      "question_id": "b1-arguing-a-point-02",
+      "prompt": "Han cancelado el concierto ___ la lluvia.",
+      "type": "multiple-choice",
+      "options": [
+        "debido a",
+        "ya que",
+        "por lo tanto"
+      ],
+      "correct_answer": "debido a",
+      "explanation": "La lluvia is a noun, so the cause takes debido a. Ya que needs a clause with a verb (ya que llueve); por lo tanto introduces a result, not a cause.",
+      "hints": [
+        "Is there a verb after the gap, or only a noun?"
+      ],
+      "teaches": [
+        "debido a",
+        "ya que"
+      ]
+    },
+    {
+      "question_id": "b1-arguing-a-point-03",
+      "prompt": "Mi hermano odia el fútbol; yo, ___, lo adoro.",
+      "type": "multiple-choice",
+      "options": [
+        "en cambio",
+        "por lo tanto",
+        "es decir",
+        "ya que"
+      ],
+      "correct_answer": "en cambio",
+      "explanation": "Two different people with opposite tastes side by side: en cambio (whereas, on the other hand).",
+      "hints": [
+        "The two halves contrast two people."
+      ],
+      "teaches": [
+        "en cambio"
+      ]
+    },
+    {
+      "question_id": "b1-arguing-a-point-04",
+      "prompt": "Llegamos pasado mañana, ___, el jueves. (that is)",
+      "type": "fill-in-blank",
+      "correct_answer": "es decir",
+      "accepted_answers": [
+        "o sea"
+      ],
+      "explanation": "Es decir rephrases or clarifies what you just said; o sea is its informal twin.",
+      "hints": [
+        "Two words: 'it is' + 'to say'."
+      ],
+      "teaches": [
+        "es decir"
+      ]
+    },
+    {
+      "question_id": "b1-arguing-a-point-05",
+      "prompt": "Por un lado, el piso es pequeño; por ___, tiene una terraza enorme.",
+      "type": "fill-in-blank",
+      "correct_answer": "otro",
+      "accepted_answers": [
+        "otro lado"
+      ],
+      "explanation": "Por un lado… por otro (lado) weighs the two sides of one question.",
+      "hints": [
+        "The pair is 'por un lado… por ___ (lado)'."
+      ],
+      "teaches": [
+        "por un lado… por otro"
+      ]
+    },
+    {
+      "question_id": "b1-arguing-a-point-06",
+      "prompt": "Hace mucho calor; ___, cerramos la tienda a las dos. (therefore)",
+      "type": "fill-in-blank",
+      "correct_answer": "por lo tanto",
+      "accepted_answers": [
+        "por tanto",
+        "por consiguiente",
+        "así que",
+        "asi que",
+        "por eso"
+      ],
+      "explanation": "The heat is the cause; closing early is the result. Por lo tanto (therefore) introduces a result; así que and por eso are the everyday equivalents.",
+      "hints": [
+        "Three words: 'by' + 'it' + 'so much'."
+      ],
+      "teaches": [
+        "por lo tanto"
+      ]
+    },
+    {
+      "question_id": "b1-arguing-a-point-07",
+      "prompt": "En mi opinión, es una pena: no estoy de acuerdo con que el ayuntamiento ___ el parque.",
+      "type": "multiple-choice",
+      "options": [
+        "cierre",
+        "cierra",
+        "cerrar"
+      ],
+      "correct_answer": "cierre",
+      "explanation": "Estar de acuerdo con que judges someone else's action, so the verb after que is subjunctive: que el ayuntamiento cierre.",
+      "hints": [
+        "(No) estar de acuerdo con que takes the subjunctive."
+      ],
+      "teaches": [
+        "en mi opinión",
+        "estar de acuerdo con"
+      ]
+    },
+    {
+      "question_id": "b1-arguing-a-point-08",
+      "prompt": "En resumen, desde mi punto de vista, la nueva ley ___ justa.",
+      "type": "multiple-choice",
+      "options": [
+        "es",
+        "sea"
+      ],
+      "correct_answer": "es",
+      "explanation": "Desde mi punto de vista and en mi opinión state your view, so the verb stays in the indicative: es justa.",
+      "hints": [
+        "An opinion opener is not a trigger for the subjunctive."
+      ],
+      "teaches": [
+        "en resumen",
+        "desde mi punto de vista"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-arguing-a-point-conv-residents-meeting",
+      "title": "Preparing for the residents' meeting",
+      "scenario": "Lucía and Andrés, neighbours, prepare their arguments for tomorrow's residents' meeting about closing their street to cars.",
+      "role_a": "Lucía",
+      "role_b": "Andrés",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Mañana hay reunión de vecinos. ¿Preparamos los argumentos?",
+          "meaning": "There's a residents' meeting tomorrow. Shall we prepare our arguments?"
+        },
+        {
+          "speaker": "b",
+          "text": "Vale. En mi opinión, cerrar la calle a los coches es una buena idea.",
+          "meaning": "OK. In my opinion, closing the street to cars is a good idea."
+        },
+        {
+          "speaker": "a",
+          "text": "Estoy de acuerdo, pero hay que explicarlo bien. ¿Por qué es buena?",
+          "meaning": "I agree, but we have to explain it well. Why is it good?"
+        },
+        {
+          "speaker": "b",
+          "text": "En primer lugar, ya que no pasan coches, los niños pueden jugar fuera.",
+          "meaning": "Firstly, since no cars go by, the children can play outside."
+        },
+        {
+          "speaker": "a",
+          "text": "Y en segundo lugar, hay menos ruido. Incluso podríamos poner mesas en la calle.",
+          "meaning": "And secondly, there's less noise. We could even put tables out in the street."
+        },
+        {
+          "speaker": "b",
+          "text": "Sin embargo, algunos vecinos dicen que no van a poder aparcar.",
+          "meaning": "However, some neighbours say they won't be able to park."
+        },
+        {
+          "speaker": "a",
+          "text": "Es verdad. Aun así, hay un aparcamiento a cinco minutos andando.",
+          "meaning": "That's true. Even so, there's a car park five minutes' walk away."
+        },
+        {
+          "speaker": "b",
+          "text": "Por un lado, es menos cómodo; por otro, el barrio gana mucho.",
+          "meaning": "On the one hand, it's less convenient; on the other, the neighbourhood gains a lot."
+        },
+        {
+          "speaker": "a",
+          "text": "Por lo tanto, la propuesta es buena para casi todos, ¿no?",
+          "meaning": "Therefore the proposal is good for almost everyone, isn't it?"
+        },
+        {
+          "speaker": "b",
+          "text": "Exacto. En resumen: más calle para la gente y menos para los coches.",
+          "meaning": "Exactly. In short: more street for people and less for cars."
+        },
+        {
+          "speaker": "a",
+          "text": "Perfecto. ¿Lo explicas tú en la reunión?",
+          "meaning": "Perfect. Will you explain it at the meeting?"
+        },
+        {
+          "speaker": "b",
+          "text": "Vale, pero no estoy de acuerdo con que hable yo solo. ¡Hablamos los dos!",
+          "meaning": "OK, but I don't agree with me speaking alone. We'll both speak!"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "En resumen, todos ganamos.",
+      "meaning": "In short, we all win."
+    },
+    {
+      "text": "En primer lugar, el barrio necesita árboles.",
+      "meaning": "Firstly, the neighbourhood needs trees.",
+      "note": "En primer lugar opens the first point."
+    },
+    {
+      "text": "Ya que llueve tanto, hoy comemos dentro.",
+      "meaning": "Since it's raining so much, today we're eating inside.",
+      "note": "New word: dentro = inside."
+    },
+    {
+      "text": "Debido a la huelga, los trenes llegan tarde.",
+      "meaning": "Due to the strike, the trains are arriving late.",
+      "note": "New word: la huelga = the strike."
+    },
+    {
+      "text": "Prefiero el plan barato, es decir, el autobús.",
+      "meaning": "I prefer the cheap plan, that is, the bus.",
+      "note": "Es decir rephrases what came before."
+    },
+    {
+      "text": "Mi hermana odia el campo; yo, en cambio, lo adoro.",
+      "meaning": "My sister hates the countryside; I, on the other hand, love it."
+    },
+    {
+      "text": "Estoy de acuerdo con que los niños jueguen en la plaza.",
+      "meaning": "I agree that the children should play in the square.",
+      "note": "Estar de acuerdo con que takes the subjunctive: jueguen."
+    },
+    {
+      "text": "Por un lado, el piso es caro; por otro, está muy cerca del trabajo.",
+      "meaning": "On the one hand, the flat is expensive; on the other, it's very close to work."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Ordering and adding points"
+    },
+    {
+      "question": "b1-arguing-a-point-01"
+    },
+    {
+      "section": "Weighing two sides"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-arguing-a-point-03"
+    },
+    {
+      "question": "b1-arguing-a-point-05"
+    },
+    {
+      "section": "Causes, consequences and examples"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-arguing-a-point-02"
+    },
+    {
+      "question": "b1-arguing-a-point-04"
+    },
+    {
+      "question": "b1-arguing-a-point-06"
+    },
+    {
+      "tip": "Ya que and debido a both give a cause: ya que before a verb (ya que llueve), debido a before a noun (debido a la lluvia)."
+    },
+    {
+      "section": "Taking a position"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b1-arguing-a-point-07"
+    },
+    {
+      "question": "b1-arguing-a-point-08"
+    },
+    {
+      "section": "A short structured paragraph"
+    }
+  ],
+  "sprint": {
+    "icon": "🎤",
+    "bites": [
+      {
+        "title": "Number your points",
+        "emoji": "🔢",
+        "rule": "Use en primer lugar, en segundo lugar, then por último. Además adds another point; incluso adds a surprising extreme (even).",
+        "example": "En primer lugar, es barato; además, es rápido.",
+        "example_meaning": "Firstly, it's cheap; what's more, it's fast."
+      },
+      {
+        "title": "Two sides",
+        "emoji": "⚖️",
+        "rule": "sin embargo / aun así: despite that, carry on. en cambio: a different thing, by contrast. por un lado… por otro: weigh both sides of one question.",
+        "example": "Es caro. Aun así, lo compro.",
+        "example_meaning": "It's expensive. Even so, I'm buying it."
+      },
+      {
+        "title": "Cause and result",
+        "emoji": "➡️",
+        "rule": "ya que + a clause, debido a + a noun (debido al ruido). por lo tanto (formal) or así que (everyday) introduces the result.",
+        "example": "Debido al ruido, no dormimos; por lo tanto, estamos cansados.",
+        "example_meaning": "Due to the noise, we don't sleep; therefore, we're tired."
+      },
+      {
+        "title": "Take a position",
+        "emoji": "🗣️",
+        "rule": "en mi opinión / desde mi punto de vista + indicative; (no) estoy de acuerdo con que + subjunctive. Close with en resumen or en conclusión.",
+        "example": "No estoy de acuerdo con que suban los precios.",
+        "example_meaning": "I don't agree that prices should go up."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "What does it do?",
+        "buckets": [
+          "ordering",
+          "adding",
+          "contrasting",
+          "cause / result"
+        ],
+        "items": [
+          {
+            "text": "en primer lugar",
+            "bucket": 0
+          },
+          {
+            "text": "por último",
+            "bucket": 0
+          },
+          {
+            "text": "incluso",
+            "bucket": 1
+          },
+          {
+            "text": "además",
+            "bucket": 1
+          },
+          {
+            "text": "en cambio",
+            "bucket": 2
+          },
+          {
+            "text": "aun así",
+            "bucket": 2
+          },
+          {
+            "text": "ya que",
+            "bucket": 3
+          },
+          {
+            "text": "por lo tanto",
+            "bucket": 3
+          }
+        ],
+        "why": "Ordering connectors number your points; incluso and además add one; en cambio and aun así contrast; ya que gives a cause and por lo tanto a result."
+      },
+      {
+        "title": "A clause or a noun after it?",
+        "buckets": [
+          "+ clause (a verb follows)",
+          "+ noun"
+        ],
+        "items": [
+          {
+            "text": "ya que",
+            "bucket": 0
+          },
+          {
+            "text": "porque",
+            "bucket": 0
+          },
+          {
+            "text": "como",
+            "bucket": 0
+          },
+          {
+            "text": "debido a",
+            "bucket": 1
+          },
+          {
+            "text": "a causa de",
+            "bucket": 1
+          }
+        ],
+        "why": "Ya que, porque and como are followed by a verb (ya que llueve); debido a and a causa de by a noun (debido a la lluvia)."
+      },
+      {
+        "title": "Indicative or subjunctive?",
+        "buckets": [
+          "indicative",
+          "subjunctive"
+        ],
+        "items": [
+          {
+            "text": "En mi opinión, es caro.",
+            "bucket": 0
+          },
+          {
+            "text": "Desde mi punto de vista, tienen razón.",
+            "bucket": 0
+          },
+          {
+            "text": "Ya que vienes, trae pan.",
+            "bucket": 0
+          },
+          {
+            "text": "Estoy de acuerdo con que sea gratis.",
+            "bucket": 1
+          },
+          {
+            "text": "No estoy de acuerdo con que cierren la plaza.",
+            "bucket": 1
+          },
+          {
+            "text": "Estoy de acuerdo con que lo hagamos.",
+            "bucket": 1
+          }
+        ],
+        "why": "Opinion openers and ya que state facts or views, so they take the indicative. Estar de acuerdo con que judges a proposal, so it takes the subjunctive."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Aún así, el billete vale la pena.",
+        "wrong": "Aún",
+        "fix": "Aun",
+        "why": "Aun así (even so) has no accent: aun here means 'even', not 'still'."
+      },
+      {
+        "sentence": "No estoy de acuerdo con que el bar abre a las seis.",
+        "wrong": "abre",
+        "fix": "abra",
+        "why": "Estar de acuerdo con que takes the subjunctive: que el bar abra."
+      },
+      {
+        "sentence": "El billete es barato, es decir, cuesta mucho.",
+        "wrong": "mucho",
+        "fix": "poco",
+        "why": "Es decir rephrases the same idea; it can't contradict it."
+      },
+      {
+        "sentence": "En mi opinión, el museo sea muy interesante.",
+        "wrong": "sea",
+        "fix": "es",
+        "why": "En mi opinión states your view, so the verb is indicative: es."
+      },
+      {
+        "sentence": "El piso es luminoso; además, es muy oscuro.",
+        "wrong": "oscuro",
+        "fix": "tranquilo",
+        "why": "Además adds a point in the same direction; it can't introduce the opposite."
+      }
+    ],
+    "builds": [
+      {
+        "text": "En mi opinión, es una buena idea.",
+        "meaning": "In my opinion, it's a good idea.",
+        "distractors": [
+          "sea"
+        ]
+      },
+      {
+        "text": "Ya que llueve, nos quedamos en casa.",
+        "meaning": "Since it's raining, we're staying at home.",
+        "distractors": [
+          "debido"
+        ]
+      },
+      {
+        "text": "No estoy de acuerdo con que cierren el parque.",
+        "meaning": "I don't agree with them closing the park.",
+        "distractors": [
+          "cierran"
+        ]
+      },
+      {
+        "text": "Por lo tanto, tenemos que votar.",
+        "meaning": "Therefore, we have to vote.",
+        "distractors": [
+          "aun"
+        ]
+      }
+    ]
+  }
+}

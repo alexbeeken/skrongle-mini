@@ -1,0 +1,566 @@
+{
+  "id": "a1-week-frequency",
+  "slug": "week-frequency",
+  "title": "My week: le lundi, le matin, souvent",
+  "unit": "A1",
+  "group": "Vocabulary",
+  "order": 50,
+  "summary": "Lundi or le lundi, the parts of the day, how often (tous les jours, deux fois par semaine, souvent, jamais) and your timetable.",
+  "focus": "Talking about your week and how often you do things",
+  "prerequisites": [
+    "a1-reflexive-routine"
+  ],
+  "content": "## Lundi or le lundi?\n\nThe days are **lundi, mardi, mercredi, jeudi, vendredi, samedi, dimanche**, with no capital letter. The article changes the meaning:\n\n- **Lundi, j'ai un examen.** No article: one Monday, this coming (or last) Monday.\n- **Le lundi, j'ai un cours de danse.** With **le**: every Monday, on Mondays.\n\nThe parts of the day work the same way: **le matin** (in the morning, every morning), **l'après-midi** (in the afternoon), **le soir** (in the evening), **la nuit** (at night), and **le week-end** (at weekends). Put them together: **le lundi matin** = on Monday mornings; **samedi soir** = this Saturday evening.\n\n## How often: tous les jours, deux fois par semaine\n\n**Tous** / **toutes** + **les** + a time word = every. **Tous** agrees with the noun:\n\n| masculine | feminine |\n|---|---|\n| **tous les jours** (every day) | **toutes les semaines** (every week) |\n| **tous les matins** (every morning) | **toutes les nuits** (every night) |\n| **tous les ans** (every year) | **toutes les heures** (every hour) |\n\nTo count, use **fois** (time, occasion) + **par**:\n\n- **une fois par semaine** (once a week)\n- **deux fois par mois** (twice a month)\n- **trois fois par jour** (three times a day)\n\n## Toujours, souvent, jamais: after the verb\n\nThe frequency adverbs go right **after the conjugated verb**, not before it as in English:\n\n| always | often | sometimes | rarely | never |\n|---|---|---|---|---|\n| **toujours** | **souvent** | **parfois** | **rarement** | **ne … jamais** |\n\n- **Je vais souvent au cinéma.** (I often go to the cinema.)\n- **Il est toujours en retard.** (He's always late.)\n- **Je me lève parfois à six heures.** (after the pronoun + verb block)\n- **Je ne travaille jamais le dimanche.** (ne … jamais wraps the verb)\n\n**D'habitude** (usually) is different: it opens or closes the sentence. **D'habitude, je prends le bus.**\n\n## From… to…: your timetable\n\nYour week is your **emploi du temps** (timetable). Say when something starts and ends with **de … à …**:\n\n- **de neuf heures à midi** (from nine to twelve)\n- **du lundi au vendredi** (from Monday to Friday: **de + le = du**, **à + le = au**)\n\nAsk if someone is free with **être libre**; say you are busy with **être occupé** / **occupée**:\n\n- **Tu es libre jeudi soir ? — Non, désolée, je suis occupée.**\n- **Je suis libre le mercredi après-midi.** (every Wednesday afternoon)",
+  "vocabulary": [
+    {
+      "term": "le lundi",
+      "meaning": "on Mondays, every Monday",
+      "example": "Le lundi, le musée est fermé.",
+      "example_meaning": "On Mondays, the museum is closed."
+    },
+    {
+      "term": "le matin",
+      "meaning": "in the morning, every morning",
+      "example": "Le matin, je bois un café au lait.",
+      "example_meaning": "In the morning I drink a white coffee."
+    },
+    {
+      "term": "le week-end",
+      "meaning": "the weekend; at weekends",
+      "example": "Le week-end, nous allons chez mes grands-parents.",
+      "example_meaning": "At weekends we go to my grandparents' house."
+    },
+    {
+      "term": "tous les jours",
+      "meaning": "every day",
+      "example": "Il prend le bus tous les jours.",
+      "example_meaning": "He takes the bus every day."
+    },
+    {
+      "term": "une fois par semaine",
+      "meaning": "once a week",
+      "example": "Je téléphone à ma mère une fois par semaine.",
+      "example_meaning": "I phone my mother once a week."
+    },
+    {
+      "term": "toujours",
+      "meaning": "always",
+      "example": "Elle arrive toujours à l'heure.",
+      "example_meaning": "She always arrives on time."
+    },
+    {
+      "term": "souvent",
+      "meaning": "often",
+      "example": "Nous mangeons souvent des pâtes.",
+      "example_meaning": "We often eat pasta."
+    },
+    {
+      "term": "parfois",
+      "meaning": "sometimes",
+      "example": "Je travaille parfois le samedi.",
+      "example_meaning": "I sometimes work on Saturdays."
+    },
+    {
+      "term": "l'emploi du temps",
+      "meaning": "timetable, schedule (m)",
+      "example": "Voici mon emploi du temps de la semaine.",
+      "example_meaning": "Here is my timetable for the week."
+    },
+    {
+      "term": "libre",
+      "meaning": "free (not busy)",
+      "example": "Je suis libre jeudi après-midi.",
+      "example_meaning": "I'm free on Thursday afternoon."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-week-frequency-01",
+      "prompt": "Sophie has a dance class every Monday. Which sentence says so?",
+      "type": "multiple-choice",
+      "options": [
+        "Sophie a un cours de danse le lundi.",
+        "Sophie a un cours de danse lundi.",
+        "Sophie a un cours de danse à lundi."
+      ],
+      "correct_answer": "Sophie a un cours de danse le lundi.",
+      "explanation": "Le lundi (with the article) means every Monday. Lundi alone is one particular Monday.",
+      "hints": [
+        "Every week, or just once?"
+      ],
+      "teaches": [
+        "le lundi"
+      ]
+    },
+    {
+      "question_id": "a1-week-frequency-02",
+      "prompt": "Je vais ___ au cinéma. (I often go to the cinema.)",
+      "type": "fill-in-blank",
+      "correct_answer": "souvent",
+      "accepted_answers": [],
+      "explanation": "Souvent means often and goes right after the conjugated verb: je vais souvent au cinéma.",
+      "hints": [
+        "Often = s…"
+      ],
+      "teaches": [
+        "souvent"
+      ]
+    },
+    {
+      "question_id": "a1-week-frequency-03",
+      "prompt": "Where does toujours go in 'I always get up at seven'?",
+      "type": "multiple-choice",
+      "options": [
+        "Je me lève toujours à sept heures.",
+        "Je toujours me lève à sept heures.",
+        "Je me toujours lève à sept heures."
+      ],
+      "correct_answer": "Je me lève toujours à sept heures.",
+      "explanation": "The adverb comes after the whole pronoun + verb block: je me lève toujours.",
+      "hints": [
+        "Not before the verb, as in English.",
+        "Me and lève stay together."
+      ],
+      "teaches": [
+        "toujours"
+      ]
+    },
+    {
+      "question_id": "a1-week-frequency-04",
+      "prompt": "Je fais du sport deux ___ par semaine. (twice a week)",
+      "type": "fill-in-blank",
+      "correct_answer": "fois",
+      "accepted_answers": [],
+      "explanation": "To count how often, use fois + par: deux fois par semaine.",
+      "hints": [
+        "Une ___ par semaine = once a week."
+      ],
+      "teaches": [
+        "une fois par semaine"
+      ]
+    },
+    {
+      "question_id": "a1-week-frequency-05",
+      "prompt": "Le magasin est ouvert du lundi au vendredi, de neuf heures à dix-sept heures. How many hours is it open each day?",
+      "type": "numeric",
+      "correct_answer": "8",
+      "accepted_answers": [],
+      "unit": "hours",
+      "explanation": "De neuf heures à dix-sept heures = from 9 a.m. to 5 p.m., which is eight hours.",
+      "hints": [
+        "Dix-sept heures is 5 p.m.",
+        "17 − 9"
+      ]
+    },
+    {
+      "question_id": "a1-week-frequency-06",
+      "prompt": "'Toutes les semaines' takes toutes because semaine is feminine.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Tous agrees with the noun: tous les jours (le jour), but toutes les semaines (la semaine).",
+      "hints": [
+        "Is it le semaine or la semaine?"
+      ]
+    },
+    {
+      "question_id": "a1-week-frequency-07",
+      "prompt": "Le bureau est ouvert ___ lundi au vendredi. (from Monday to Friday)",
+      "type": "fill-in-blank",
+      "correct_answer": "du",
+      "accepted_answers": [],
+      "explanation": "From … to … is de … à …, and de + le lundi contracts to du: du lundi au vendredi.",
+      "hints": [
+        "De + le = ?"
+      ]
+    },
+    {
+      "question_id": "a1-week-frequency-08",
+      "prompt": "'Je ne travaille jamais le dimanche' means 'I'm not working this Sunday'.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Ne … jamais means never, and le dimanche means every Sunday: I never work on Sundays.",
+      "hints": [
+        "What does jamais mean?",
+        "Le dimanche: one Sunday or every Sunday?"
+      ]
+    },
+    {
+      "question_id": "a1-week-frequency-09",
+      "prompt": "Tu es ___ jeudi soir ? — Oui, je n'ai pas de cours. (Are you free?)",
+      "type": "multiple-choice",
+      "options": [
+        "libre",
+        "occupé",
+        "souvent"
+      ],
+      "correct_answer": "libre",
+      "explanation": "Être libre means to be free, not busy. Occupé is the opposite.",
+      "hints": [
+        "The answer says there's no class."
+      ],
+      "teaches": [
+        "libre"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Le samedi, je fais la grasse matinée.",
+      "meaning": "On Saturdays I have a lie-in.",
+      "note": "New word: la grasse matinée = a lie-in."
+    },
+    {
+      "text": "Mardi, j'ai un rendez-vous chez le médecin.",
+      "meaning": "On Tuesday I have a doctor's appointment.",
+      "note": "New word: le rendez-vous = the appointment."
+    },
+    {
+      "text": "Nous mangeons au restaurant une fois par mois.",
+      "meaning": "We eat at a restaurant once a month."
+    },
+    {
+      "text": "Elle prend rarement le métro le soir.",
+      "meaning": "She rarely takes the metro in the evening.",
+      "note": "Rarement goes after the verb."
+    },
+    {
+      "text": "D'habitude, je travaille de neuf heures à dix-sept heures.",
+      "meaning": "Usually I work from nine to five."
+    },
+    {
+      "text": "Mon frère ne regarde jamais la télé le matin.",
+      "meaning": "My brother never watches TV in the morning."
+    },
+    {
+      "text": "Tu es libre samedi après-midi pour aller à la piscine ?",
+      "meaning": "Are you free on Saturday afternoon to go to the swimming pool?",
+      "note": "New word: la piscine = the swimming pool."
+    },
+    {
+      "text": "Toutes les semaines, nous faisons les courses le vendredi soir.",
+      "meaning": "Every week we do the shopping on Friday evening.",
+      "note": "Toutes agrees with la semaine."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Lundi or le lundi"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-week-frequency-01"
+    },
+    {
+      "concept": {
+        "title": "Le matin or ce matin?",
+        "markdown": "**Le matin** is every morning; **ce matin** is this morning, today. The same goes for **le soir / ce soir** (this evening, tonight) and **le week-end / ce week-end**. **Cette nuit** is last night or tonight, the hours when you sleep."
+      }
+    },
+    {
+      "section": "How often"
+    },
+    {
+      "question": "a1-week-frequency-04"
+    },
+    {
+      "question": "a1-week-frequency-06"
+    },
+    {
+      "section": "Toujours, souvent"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-week-frequency-02"
+    },
+    {
+      "question": "a1-week-frequency-03"
+    },
+    {
+      "question": "a1-week-frequency-08"
+    },
+    {
+      "tip": "Days and months take no capital letter in French: lundi, samedi, le week-end, mai. Only the start of a sentence does."
+    },
+    {
+      "section": "From… to…"
+    },
+    {
+      "question": "a1-week-frequency-07"
+    },
+    {
+      "question": "a1-week-frequency-05"
+    },
+    {
+      "question": "a1-week-frequency-09"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-week-frequency-conv-coffee-slot",
+      "title": "Finding a free slot",
+      "scenario": "Camille wants to meet her classmate Thomas for a coffee, but his week is full.",
+      "role_a": "Camille",
+      "role_b": "Thomas",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Thomas, tu es libre cette semaine pour un café ?",
+          "meaning": "Thomas, are you free this week for a coffee?"
+        },
+        {
+          "speaker": "b",
+          "text": "Pas beaucoup. Le lundi et le mercredi, j'ai cours de neuf heures à midi.",
+          "meaning": "Not much. On Mondays and Wednesdays I have classes from nine to twelve.",
+          "note": "le lundi = every Monday"
+        },
+        {
+          "speaker": "a",
+          "text": "Et l'après-midi ?",
+          "meaning": "And in the afternoon?"
+        },
+        {
+          "speaker": "b",
+          "text": "L'après-midi, je travaille au supermarché du lundi au jeudi.",
+          "meaning": "In the afternoon I work at the supermarket from Monday to Thursday.",
+          "note": "du … au …"
+        },
+        {
+          "speaker": "a",
+          "text": "Tu travailles beaucoup ! Et le vendredi ?",
+          "meaning": "You work a lot! And on Fridays?"
+        },
+        {
+          "speaker": "b",
+          "text": "Le vendredi, je suis souvent libre. Mais ce vendredi, je suis occupé.",
+          "meaning": "On Fridays I'm often free. But this Friday I'm busy.",
+          "note": "souvent after the verb"
+        },
+        {
+          "speaker": "a",
+          "text": "Dommage. Moi, je vais à la piscine deux fois par semaine, le mardi et le jeudi soir.",
+          "meaning": "Too bad. I go to the pool twice a week, on Tuesday and Thursday evenings."
+        },
+        {
+          "speaker": "b",
+          "text": "Et le week-end ? D'habitude, je ne fais rien le samedi après-midi.",
+          "meaning": "What about the weekend? Usually I do nothing on Saturday afternoons.",
+          "note": "d'habitude opens the sentence"
+        },
+        {
+          "speaker": "a",
+          "text": "Parfait ! Samedi après-midi, à trois heures ?",
+          "meaning": "Perfect! Saturday afternoon, at three?"
+        },
+        {
+          "speaker": "b",
+          "text": "D'accord, samedi à quinze heures. Je note ça dans mon emploi du temps !",
+          "meaning": "OK, Saturday at 3 p.m. I'll put it in my timetable!"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "📆",
+    "bites": [
+      {
+        "title": "Lundi or le lundi",
+        "emoji": "📆",
+        "rule": "No article = one day (lundi = this Monday). Le = every week (le lundi = on Mondays). The same for le matin, le soir, le week-end.",
+        "example": "Le lundi, je travaille, mais lundi, je suis libre.",
+        "example_meaning": "I work on Mondays, but this Monday I'm free."
+      },
+      {
+        "title": "How often",
+        "emoji": "🔁",
+        "rule": "Tous les jours, toutes les semaines (tous agrees with the noun). Count with fois + par: une fois par semaine, deux fois par mois.",
+        "example": "Je fais du vélo deux fois par semaine.",
+        "example_meaning": "I go cycling twice a week."
+      },
+      {
+        "title": "After the verb",
+        "emoji": "📍",
+        "rule": "Toujours, souvent, parfois, rarement go right after the conjugated verb; ne … jamais wraps it; d'habitude opens or closes the sentence.",
+        "example": "Il arrive souvent en retard.",
+        "example_meaning": "He often arrives late."
+      },
+      {
+        "title": "From… to…",
+        "emoji": "↔️",
+        "rule": "De neuf heures à midi; du lundi au vendredi (de + le = du, à + le = au).",
+        "example": "La bibliothèque est ouverte du mardi au samedi.",
+        "example_meaning": "The library is open from Tuesday to Saturday."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "One day or every week?",
+        "buckets": [
+          "one day (lundi)",
+          "every week (le lundi)"
+        ],
+        "items": [
+          {
+            "text": "Lundi, j'ai un examen.",
+            "bucket": 0
+          },
+          {
+            "text": "Le lundi, j'ai piscine.",
+            "bucket": 1
+          },
+          {
+            "text": "Samedi, on fait une fête.",
+            "bucket": 0
+          },
+          {
+            "text": "Le samedi, je dors tard.",
+            "bucket": 1
+          },
+          {
+            "text": "Ce vendredi, je suis occupé.",
+            "bucket": 0
+          },
+          {
+            "text": "Le dimanche, nous mangeons en famille.",
+            "bucket": 1
+          }
+        ],
+        "why": "A day with no article (or with ce) is one particular day; le + day is every week."
+      },
+      {
+        "title": "A lot, sometimes or never?",
+        "buckets": [
+          "a lot (toujours, souvent)",
+          "now and then (parfois, rarement)",
+          "never (ne … jamais)"
+        ],
+        "items": [
+          {
+            "text": "Il est toujours en retard.",
+            "bucket": 0
+          },
+          {
+            "text": "Je vais souvent au marché.",
+            "bucket": 0
+          },
+          {
+            "text": "Elle mange parfois au restaurant.",
+            "bucket": 1
+          },
+          {
+            "text": "Nous allons rarement à la plage.",
+            "bucket": 1
+          },
+          {
+            "text": "Je ne bois jamais de café.",
+            "bucket": 2
+          },
+          {
+            "text": "Tu ne regardes jamais la télé.",
+            "bucket": 2
+          }
+        ],
+        "why": "Toujours and souvent say a lot, parfois and rarement now and then, ne … jamais never."
+      },
+      {
+        "title": "Tous or toutes?",
+        "buckets": [
+          "tous les",
+          "toutes les"
+        ],
+        "items": [
+          {
+            "text": "___ jours",
+            "bucket": 0
+          },
+          {
+            "text": "___ semaines",
+            "bucket": 1
+          },
+          {
+            "text": "___ mois",
+            "bucket": 0
+          },
+          {
+            "text": "___ ans",
+            "bucket": 0
+          },
+          {
+            "text": "___ nuits",
+            "bucket": 1
+          },
+          {
+            "text": "___ heures",
+            "bucket": 1
+          }
+        ],
+        "why": "Jour, mois and an are masculine: tous les. Semaine, nuit and heure are feminine: toutes les."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Je travaille de lundi au vendredi.",
+        "wrong": "de",
+        "fix": "du",
+        "why": "De + le lundi contracts to du: du lundi au vendredi."
+      },
+      {
+        "sentence": "Tous les semaines, je fais du sport.",
+        "wrong": "Tous",
+        "fix": "Toutes",
+        "why": "Semaine is feminine: toutes les semaines."
+      },
+      {
+        "sentence": "Je fais du yoga deux fois à semaine.",
+        "wrong": "à",
+        "fix": "par",
+        "why": "How many times a week is fois par semaine."
+      },
+      {
+        "sentence": "Le bureau est ouvert de neuf heures au midi.",
+        "wrong": "au",
+        "fix": "à",
+        "why": "Midi takes no article: de neuf heures à midi."
+      },
+      {
+        "sentence": "Je ne travaille rarement le dimanche.",
+        "wrong": "rarement",
+        "fix": "jamais",
+        "why": "Ne needs a partner like jamais or pas; rarement takes no ne: je travaille rarement."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Le lundi, je travaille.",
+        "meaning": "On Mondays I work.",
+        "distractors": [
+          "les"
+        ]
+      },
+      {
+        "text": "Je vais souvent à la piscine.",
+        "meaning": "I often go to the swimming pool.",
+        "distractors": [
+          "jamais"
+        ]
+      },
+      {
+        "text": "Nous travaillons du lundi au vendredi.",
+        "meaning": "We work from Monday to Friday.",
+        "distractors": [
+          "de"
+        ]
+      },
+      {
+        "text": "Je fais du sport deux fois par semaine.",
+        "meaning": "I do sport twice a week.",
+        "distractors": [
+          "à"
+        ]
+      }
+    ]
+  }
+}

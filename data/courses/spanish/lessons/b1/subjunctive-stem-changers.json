@@ -1,0 +1,741 @@
+{
+  "id": "b1-subjunctive-stem-changers",
+  "slug": "subjunctive-stem-changers",
+  "title": "Stem-changers and yo-irregulars in the subjunctive",
+  "unit": "B1",
+  "group": "Grammar",
+  "order": 12,
+  "summary": "Stem-changing verbs keep their boot in the subjunctive, -ir verbs change nosotros and vosotros too, and odd yo forms carry over: conozca, traiga, oiga.",
+  "focus": "Forming the present subjunctive of stem-changing and yo-irregular verbs",
+  "prerequisites": [
+    "b1-present-subjunctive-forms",
+    "a1-stem-changing"
+  ],
+  "content": "## The boot stays: -ar and -er verbs\n\nStem-changing verbs keep their change in the subjunctive. For **-ar** and **-er** verbs it sits in the same \"boot\" as in the present. **Yo, tú, él** and **ellos** change, while **nosotros** and **vosotros** keep the plain stem.\n\n| | pensar (e → ie) | volver (o → ue) |\n|---|---|---|\n| yo | **piense** | **vuelva** |\n| tú | **pienses** | **vuelvas** |\n| él / ella / usted | **piense** | **vuelva** |\n| nosotros/as | pensemos | volvamos |\n| vosotros/as | penséis | volváis |\n| ellos / ustedes | **piensen** | **vuelvan** |\n\n**Querer** (quiera, queramos) and **poder** (pueda, podamos) work the same way.\n\n## -ir verbs change outside the boot too\n\nStem-changing **-ir** verbs add a small change in **nosotros** and **vosotros**: **e → i** and **o → u**.\n\n| | sentir (e → ie / i) | dormir (o → ue / u) | pedir (e → i) |\n|---|---|---|---|\n| yo | sienta | duerma | pida |\n| tú | sientas | duermas | pidas |\n| él / ella / usted | sienta | duerma | pida |\n| nosotros/as | **sintamos** | **durmamos** | **pidamos** |\n| vosotros/as | **sintáis** | **durmáis** | **pidáis** |\n| ellos / ustedes | sientan | duerman | pidan |\n\n**Pedir** keeps its **i** in every form. Never *dormamos* or *pedamos*.\n\n## The yo stem carries over\n\nTake the **yo** form of the present, drop the **-o**, add the subjunctive ending. Whatever is odd about the yo form travels with it:\n\n- conozco → **conozca, conozcas, conozcamos…**\n- traigo → **traiga, traigas, traigamos…**\n- oigo → **oiga, oigas, oigamos…**\n\nYou already know this pattern from the imperative: **tengo → tenga**, **hago → haga**, **salgo → salga**, **pongo → ponga**, **digo → diga**, **vengo → venga**. Only the endings change from person to person, and the stem stays the same.\n\n## Practise with ojalá and quiero que\n\nTwo triggers are enough to practise every form.\n\n- **Ojalá** + subjunctive expresses a wish. *Ojalá vuelvas pronto.* (I hope you come back soon.)\n- **Quiero que** + subjunctive is used when someone else does the action. *Quiero que conozcas a mi hermana.* (I want you to meet my sister.)\n- *Ojalá durmamos bien en el tren.* (I hope we sleep well on the train.)\n- *Mis padres quieren que traigamos el postre.* (My parents want us to bring dessert.)\n- *Quiero que pidáis lo que queráis.* (I want you all to order whatever you like.)\n\nSame subject? Use the infinitive: **quiero dormir**, not *quiero que duerma*.",
+  "vocabulary": [
+    {
+      "term": "pensar",
+      "meaning": "to think",
+      "example": "Ojalá pienses en mí durante el viaje.",
+      "example_meaning": "I hope you think of me during the trip."
+    },
+    {
+      "term": "volver",
+      "meaning": "to come back, to return",
+      "example": "Ojalá volvamos a este restaurante.",
+      "example_meaning": "I hope we come back to this restaurant."
+    },
+    {
+      "term": "dormir",
+      "meaning": "to sleep",
+      "example": "Quiero que los niños duerman la siesta.",
+      "example_meaning": "I want the children to have a nap."
+    },
+    {
+      "term": "pedir",
+      "meaning": "to ask for, to order",
+      "example": "Ojalá no pidan más dinero.",
+      "example_meaning": "I hope they don't ask for more money."
+    },
+    {
+      "term": "sentir",
+      "meaning": "to feel (sentirse + adjective)",
+      "example": "Quiero que os sintáis como en casa.",
+      "example_meaning": "I want you all to feel at home."
+    },
+    {
+      "term": "conocer",
+      "meaning": "to know, to meet (a person, a place)",
+      "example": "Quiero que conozcas a mi mejor amiga.",
+      "example_meaning": "I want you to meet my best friend."
+    },
+    {
+      "term": "traer",
+      "meaning": "to bring",
+      "example": "Ojalá el camarero traiga pan pronto.",
+      "example_meaning": "I hope the waiter brings bread soon."
+    },
+    {
+      "term": "oír",
+      "meaning": "to hear",
+      "example": "Habla más alto: quiero que todos te oigan.",
+      "example_meaning": "Speak up: I want everyone to hear you."
+    },
+    {
+      "term": "ojalá",
+      "meaning": "I hope, if only (+ subjunctive)",
+      "example": "Ojalá haga buen tiempo el domingo.",
+      "example_meaning": "I hope the weather is good on Sunday."
+    },
+    {
+      "term": "quiero que",
+      "meaning": "I want (someone) to… (+ subjunctive)",
+      "example": "Quiero que vengas conmigo al cine.",
+      "example_meaning": "I want you to come to the cinema with me."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-subjunctive-stem-changers-01",
+      "prompt": "Ojalá mi hermano ___ pronto de Londres. (volver)",
+      "type": "multiple-choice",
+      "options": [
+        "vuelva",
+        "volva",
+        "vuelve",
+        "volvamos"
+      ],
+      "correct_answer": "vuelva",
+      "explanation": "Él is inside the boot, so o → ue: vuelva. 'Vuelve' is the indicative; 'volva' does not exist.",
+      "hints": [
+        "Él is in the boot.",
+        "o changes to ue, then the -er verb takes -a."
+      ],
+      "teaches": [
+        "volver",
+        "ojalá"
+      ]
+    },
+    {
+      "question_id": "b1-subjunctive-stem-changers-02",
+      "prompt": "Mis padres quieren que (nosotros) ___ (volver) antes de las diez.",
+      "type": "fill-in-blank",
+      "correct_answer": "volvamos",
+      "accepted_answers": [
+        "nosotros volvamos"
+      ],
+      "explanation": "Volver is an -er verb: nosotros stays outside the boot and keeps the plain stem: volvamos.",
+      "hints": [
+        "Nosotros is outside the boot.",
+        "No ue here."
+      ],
+      "teaches": [
+        "volver",
+        "quiero que"
+      ]
+    },
+    {
+      "question_id": "b1-subjunctive-stem-changers-03",
+      "prompt": "Ojalá ___ bien esta noche, que mañana madrugamos. (dormir, nosotros)",
+      "type": "multiple-choice",
+      "options": [
+        "durmamos",
+        "dormamos",
+        "duermamos"
+      ],
+      "correct_answer": "durmamos",
+      "explanation": "Dormir is an -ir verb, so nosotros changes o → u: durmamos.",
+      "hints": [
+        "-ir verbs change in nosotros too.",
+        "o → u"
+      ],
+      "teaches": [
+        "dormir",
+        "ojalá"
+      ]
+    },
+    {
+      "question_id": "b1-subjunctive-stem-changers-04",
+      "prompt": "Quiero que (tú) ___ (pedir) la cuenta, por favor.",
+      "type": "fill-in-blank",
+      "correct_answer": "pidas",
+      "accepted_answers": [
+        "tú pidas",
+        "tu pidas"
+      ],
+      "explanation": "Pedir changes e → i in every subjunctive form: pidas.",
+      "hints": [
+        "Pedir has pid- everywhere.",
+        "Tú ends in -as."
+      ],
+      "teaches": [
+        "pedir",
+        "quiero que"
+      ]
+    },
+    {
+      "question_id": "b1-subjunctive-stem-changers-05",
+      "prompt": "Quiero que ___ a mi novia este fin de semana. (conocer, vosotros)",
+      "type": "multiple-choice",
+      "options": [
+        "conozcáis",
+        "conocéis",
+        "conozáis",
+        "conozcéis"
+      ],
+      "correct_answer": "conozcáis",
+      "explanation": "The yo form is conozco, so the stem is conozc- in every person: conozcáis.",
+      "hints": [
+        "Start from the yo form: conozco.",
+        "Vosotros ends in -áis."
+      ],
+      "teaches": [
+        "conocer",
+        "quiero que"
+      ]
+    },
+    {
+      "question_id": "b1-subjunctive-stem-changers-06",
+      "prompt": "Ojalá (tú) ___ (poder) venir a la fiesta.",
+      "type": "fill-in-blank",
+      "correct_answer": "puedas",
+      "accepted_answers": [
+        "tú puedas",
+        "tu puedas"
+      ],
+      "explanation": "Poder is an o → ue verb and tú is in the boot: puedas.",
+      "hints": [
+        "Tú is in the boot.",
+        "o → ue"
+      ],
+      "teaches": [
+        "ojalá"
+      ]
+    },
+    {
+      "question_id": "b1-subjunctive-stem-changers-07",
+      "prompt": "¿Quieres que te ___ un café de la máquina? (traer, yo)",
+      "type": "multiple-choice",
+      "options": [
+        "traiga",
+        "traiya",
+        "trae",
+        "traga"
+      ],
+      "correct_answer": "traiga",
+      "explanation": "Traigo becomes traiga because the -ig- of the yo form carries over.",
+      "hints": [
+        "What is 'I bring' in the present?"
+      ],
+      "teaches": [
+        "traer",
+        "quiero que"
+      ]
+    },
+    {
+      "question_id": "b1-subjunctive-stem-changers-08",
+      "prompt": "No quiero que (vosotros) ___ (sentir) miedo en el avión.",
+      "type": "fill-in-blank",
+      "correct_answer": "sintáis",
+      "accepted_answers": [
+        "vosotros sintáis"
+      ],
+      "explanation": "Sentir is an -ir verb: vosotros changes e → i and carries the accent: sintáis.",
+      "hints": [
+        "-ir verb: e → i in vosotros.",
+        "Don't forget the accent on -áis."
+      ],
+      "teaches": [
+        "sentir",
+        "quiero que"
+      ]
+    },
+    {
+      "question_id": "b1-subjunctive-stem-changers-09",
+      "prompt": "No quiero que (tú) ___ (pensar) que estoy enfadado.",
+      "type": "fill-in-blank",
+      "correct_answer": "pienses",
+      "accepted_answers": [
+        "tú pienses",
+        "tu pienses"
+      ],
+      "explanation": "Tú is inside the boot, so e → ie: pienses.",
+      "hints": [
+        "Tú is in the boot.",
+        "e changes to ie, then add -es."
+      ],
+      "teaches": [
+        "pensar",
+        "quiero que"
+      ]
+    },
+    {
+      "question_id": "b1-subjunctive-stem-changers-10",
+      "prompt": "Ojalá los vecinos no ___ la música desde su casa. (oír)",
+      "type": "multiple-choice",
+      "options": [
+        "oigan",
+        "oyan",
+        "oyen",
+        "oían"
+      ],
+      "correct_answer": "oigan",
+      "explanation": "Oigo becomes oiga because the yo stem oig- carries over, so ellos is oigan.",
+      "hints": [
+        "Start from 'oigo'."
+      ],
+      "teaches": [
+        "oír",
+        "ojalá"
+      ]
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "pensar",
+      "meaning": "to think",
+      "set": "present-subjunctive",
+      "forms": {
+        "yo": "piense",
+        "tu": "pienses",
+        "el": "piense",
+        "nosotros": "pensemos",
+        "vosotros": "penséis",
+        "ellos": "piensen"
+      }
+    },
+    {
+      "item": "querer",
+      "meaning": "to want, to love",
+      "set": "present-subjunctive",
+      "forms": {
+        "yo": "quiera",
+        "tu": "quieras",
+        "el": "quiera",
+        "nosotros": "queramos",
+        "vosotros": "queráis",
+        "ellos": "quieran"
+      }
+    },
+    {
+      "item": "poder",
+      "meaning": "to be able to, can",
+      "set": "present-subjunctive",
+      "forms": {
+        "yo": "pueda",
+        "tu": "puedas",
+        "el": "pueda",
+        "nosotros": "podamos",
+        "vosotros": "podáis",
+        "ellos": "puedan"
+      }
+    },
+    {
+      "item": "volver",
+      "meaning": "to come back, to return",
+      "set": "present-subjunctive",
+      "art": [
+        "  .------.   ",
+        "  | casa |<-.",
+        "  '------'  |",
+        "    o   ----'",
+        "   /|\\      ",
+        "   / \\      "
+      ],
+      "forms": {
+        "yo": "vuelva",
+        "tu": "vuelvas",
+        "el": "vuelva",
+        "nosotros": "volvamos",
+        "vosotros": "volváis",
+        "ellos": "vuelvan"
+      }
+    },
+    {
+      "item": "dormir",
+      "meaning": "to sleep",
+      "set": "present-subjunctive",
+      "art": [
+        "     z Z z  ",
+        "  .-------. ",
+        "  | (-_-) | ",
+        "  |=======| ",
+        "  '-------' "
+      ],
+      "forms": {
+        "yo": "duerma",
+        "tu": "duermas",
+        "el": "duerma",
+        "nosotros": "durmamos",
+        "vosotros": "durmáis",
+        "ellos": "duerman"
+      }
+    },
+    {
+      "item": "pedir",
+      "meaning": "to ask for, to order",
+      "set": "present-subjunctive",
+      "art": [
+        "   .--------. ",
+        "  ( un cafe! )",
+        "   '---. .--' ",
+        "    o   V     ",
+        "   /|\\_       ",
+        "   / \\        "
+      ],
+      "forms": {
+        "yo": "pida",
+        "tu": "pidas",
+        "el": "pida",
+        "nosotros": "pidamos",
+        "vosotros": "pidáis",
+        "ellos": "pidan"
+      }
+    },
+    {
+      "item": "sentir",
+      "meaning": "to feel",
+      "set": "present-subjunctive",
+      "art": [
+        "   _   _    ",
+        "  ( `v' )   ",
+        "   \\   /    ",
+        "    \\ /     ",
+        "     V      "
+      ],
+      "forms": {
+        "yo": "sienta",
+        "tu": "sientas",
+        "el": "sienta",
+        "nosotros": "sintamos",
+        "vosotros": "sintáis",
+        "ellos": "sientan"
+      }
+    },
+    {
+      "item": "conocer",
+      "meaning": "to know, to meet",
+      "set": "present-subjunctive",
+      "art": [
+        "  o      o  ",
+        " /|\\----/|\\ ",
+        " / \\    / \\ ",
+        " mucho gusto"
+      ],
+      "forms": {
+        "yo": "conozca",
+        "tu": "conozcas",
+        "el": "conozca",
+        "nosotros": "conozcamos",
+        "vosotros": "conozcáis",
+        "ellos": "conozcan"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-subjunctive-stem-changers-conv-saturday-dinner",
+      "title": "Dinner with the family",
+      "scenario": "Lucía has invited her boyfriend Javier to a family dinner on Saturday, and he is a little nervous.",
+      "role_a": "Lucía",
+      "role_b": "Javier",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Javier, ¿vienes a la cena del sábado?",
+          "meaning": "Javier, are you coming to Saturday's dinner?"
+        },
+        {
+          "speaker": "b",
+          "text": "Ojalá pueda, pero trabajo hasta las ocho.",
+          "meaning": "I hope I can, but I work until eight."
+        },
+        {
+          "speaker": "a",
+          "text": "Mis padres quieren que conozcas a toda la familia.",
+          "meaning": "My parents want you to meet the whole family."
+        },
+        {
+          "speaker": "b",
+          "text": "¡Qué nervios! ¿Quieres que traiga algo?",
+          "meaning": "How nerve-racking! Do you want me to bring anything?"
+        },
+        {
+          "speaker": "a",
+          "text": "Sí, quiero que traigas el postre.",
+          "meaning": "Yes, I want you to bring dessert."
+        },
+        {
+          "speaker": "b",
+          "text": "Vale. ¿Y quieres que pida un taxi para volver?",
+          "meaning": "OK. And do you want me to order a taxi to get back?"
+        },
+        {
+          "speaker": "a",
+          "text": "No, mi madre quiere que durmáis en casa, tú y tu hermano.",
+          "meaning": "No, my mother wants you to sleep at our place, you and your brother."
+        },
+        {
+          "speaker": "b",
+          "text": "Perfecto. Ojalá no pensemos en el trabajo en todo el fin de semana.",
+          "meaning": "Perfect. I hope we don't think about work all weekend."
+        },
+        {
+          "speaker": "a",
+          "text": "Ojalá. Y ojalá mi abuela no te haga demasiadas preguntas.",
+          "meaning": "Let's hope so. And I hope my grandmother doesn't ask you too many questions."
+        },
+        {
+          "speaker": "b",
+          "text": "Tranquila: quiero que tu familia me quiera.",
+          "meaning": "Don't worry: I want your family to love me."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Ojalá vuelvas pronto a casa.",
+      "meaning": "I hope you come home soon.",
+      "note": "Tú is in the boot: o → ue."
+    },
+    {
+      "text": "Quiero que duermas un poco más.",
+      "meaning": "I want you to sleep a little more."
+    },
+    {
+      "text": "Ojalá podamos ver el partido juntos.",
+      "meaning": "I hope we can watch the match together.",
+      "note": "Nosotros of poder has no stem change."
+    },
+    {
+      "text": "Mi madre quiere que conozcáis a su vecina.",
+      "meaning": "My mother wants you all to meet her neighbour.",
+      "note": "Conozco becomes conozcáis."
+    },
+    {
+      "text": "Quiero que traigas el paraguas porque va a llover.",
+      "meaning": "I want you to bring the umbrella because it's going to rain.",
+      "note": "New word: el paraguas = the umbrella."
+    },
+    {
+      "text": "No quiero que sintáis vergüenza por vuestro acento.",
+      "meaning": "I don't want you all to feel embarrassed about your accent.",
+      "note": "New word: la vergüenza = embarrassment."
+    },
+    {
+      "text": "Quiero que oigas esta canción antes de la fiesta.",
+      "meaning": "I want you to hear this song before the party.",
+      "note": "Oigo becomes oigas."
+    },
+    {
+      "text": "Ojalá que los niños duerman bien y no pidan agua a medianoche.",
+      "meaning": "I hope the children sleep well and don't ask for water at midnight.",
+      "note": "New word: la medianoche = midnight."
+    }
+  ],
+  "guide": [
+    {
+      "section": "The boot stays"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-subjunctive-stem-changers-01"
+    },
+    {
+      "question": "b1-subjunctive-stem-changers-02"
+    },
+    {
+      "question": "b1-subjunctive-stem-changers-09"
+    },
+    {
+      "question": "b1-subjunctive-stem-changers-06"
+    },
+    {
+      "section": "-ir verbs change"
+    },
+    {
+      "question": "b1-subjunctive-stem-changers-03"
+    },
+    {
+      "question": "b1-subjunctive-stem-changers-04"
+    },
+    {
+      "question": "b1-subjunctive-stem-changers-08"
+    },
+    {
+      "tip": "Say the yo, tú, él and ellos forms in a column and you draw the boot. Everything inside it changes. For -ir verbs, nosotros and vosotros also get the small change from e to i or from o to u."
+    },
+    {
+      "section": "The yo stem"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-subjunctive-stem-changers-05"
+    },
+    {
+      "question": "b1-subjunctive-stem-changers-07"
+    },
+    {
+      "section": "Practise with ojalá"
+    },
+    {
+      "question": "b1-subjunctive-stem-changers-10"
+    }
+  ],
+  "sprint": {
+    "icon": "🥾",
+    "bites": [
+      {
+        "title": "Inside the boot",
+        "emoji": "🥾",
+        "rule": "-ar and -er stem-changers change in yo, tú, él and ellos, just like the present. Nosotros and vosotros keep the plain stem.",
+        "example": "Ojalá vuelvas. Ojalá volvamos.",
+        "example_meaning": "I hope you come back. I hope we come back."
+      },
+      {
+        "title": "-ir verbs: one step more",
+        "emoji": "😴",
+        "rule": "-ir stem-changers also change nosotros and vosotros, from e to i and from o to u: durmamos, sintáis, pidamos.",
+        "example": "Ojalá durmamos bien.",
+        "example_meaning": "I hope we sleep well."
+      },
+      {
+        "title": "The yo stem travels",
+        "emoji": "🧳",
+        "rule": "Start from the yo form of the present and keep its oddity: conozco gives conozca, traigo gives traiga, oigo gives oiga, tengo gives tenga.",
+        "example": "Quiero que conozcas a Ana.",
+        "example_meaning": "I want you to meet Ana."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Does nosotros change?",
+        "buckets": [
+          "keeps the stem",
+          "changes (-ir verb)"
+        ],
+        "items": [
+          {
+            "text": "pensemos",
+            "bucket": 0
+          },
+          {
+            "text": "durmamos",
+            "bucket": 1
+          },
+          {
+            "text": "volvamos",
+            "bucket": 0
+          },
+          {
+            "text": "pidamos",
+            "bucket": 1
+          },
+          {
+            "text": "podamos",
+            "bucket": 0
+          },
+          {
+            "text": "sintamos",
+            "bucket": 1
+          },
+          {
+            "text": "queramos",
+            "bucket": 0
+          }
+        ],
+        "why": "-ar and -er verbs keep the plain stem in nosotros; -ir stem-changers switch to i or u."
+      },
+      {
+        "title": "Where does the change come from?",
+        "buckets": [
+          "stem change (boot)",
+          "yo form (-g-, -zc-)"
+        ],
+        "items": [
+          {
+            "text": "piense",
+            "bucket": 0
+          },
+          {
+            "text": "conozca",
+            "bucket": 1
+          },
+          {
+            "text": "vuelva",
+            "bucket": 0
+          },
+          {
+            "text": "traiga",
+            "bucket": 1
+          },
+          {
+            "text": "pida",
+            "bucket": 0
+          },
+          {
+            "text": "oiga",
+            "bucket": 1
+          },
+          {
+            "text": "duerma",
+            "bucket": 0
+          },
+          {
+            "text": "tenga",
+            "bucket": 1
+          }
+        ],
+        "why": "Boot verbs change the vowel, while verbs like conocer, traer, oír and tener copy the yo form of the present."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Ojalá piensemos en otra solución.",
+        "wrong": "piensemos",
+        "fix": "pensemos",
+        "why": "Pensar is an -ar verb: nosotros is outside the boot."
+      },
+      {
+        "sentence": "Quiero que dormamos en la playa.",
+        "wrong": "dormamos",
+        "fix": "durmamos",
+        "why": "Dormir is an -ir verb: nosotros changes o → u."
+      },
+      {
+        "sentence": "Quiero que conoces a mi hermana.",
+        "wrong": "conoces",
+        "fix": "conozcas",
+        "why": "Quiero que with another subject takes the subjunctive, built on conozco."
+      },
+      {
+        "sentence": "Mi padre quiere que pedáis la paella.",
+        "wrong": "pedáis",
+        "fix": "pidáis",
+        "why": "Pedir has i in every subjunctive form."
+      },
+      {
+        "sentence": "Ojalá me traes buenas noticias.",
+        "wrong": "traes",
+        "fix": "traigas",
+        "why": "Ojalá takes the subjunctive: traigo gives traigas."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Ojalá vuelvas pronto.",
+        "meaning": "I hope you come back soon.",
+        "distractors": [
+          "vuelves"
+        ]
+      },
+      {
+        "text": "Quiero que durmamos aquí.",
+        "meaning": "I want us to sleep here.",
+        "distractors": [
+          "dormamos"
+        ]
+      },
+      {
+        "text": "Quiero que conozcas a mi abuela.",
+        "meaning": "I want you to meet my grandmother.",
+        "distractors": [
+          "conoces"
+        ]
+      },
+      {
+        "text": "Ojalá puedan venir mañana.",
+        "meaning": "I hope they can come tomorrow.",
+        "distractors": [
+          "podan",
+          "pueden"
+        ]
+      }
+    ]
+  }
+}

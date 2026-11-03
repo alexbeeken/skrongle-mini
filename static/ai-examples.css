@@ -1,0 +1,8 @@
+/* Use AI's "What can the AI do?" (#1236, templates/ai_examples.html). Its own
+   file: style.css is at its size limit. */
+.ai-ask { display: flex; align-items: center; justify-content: space-between; gap: .6rem; margin: .2rem 0 .3rem; }
+.ai-ask label { font-weight: 600; }
+.ai-examples h3 { margin: .9rem 0 .35rem; font-size: .95rem; color: var(--muted); }
+.ai-example { display: block; width: 100%; margin: 0 0 .4rem; padding: .55rem .75rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg, var(--surface)); color: var(--text); font: inherit; text-align: left; overflow-wrap: anywhere; cursor: pointer; }
+.ai-example:hover { border-color: var(--accent); }
+.ai-example:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }

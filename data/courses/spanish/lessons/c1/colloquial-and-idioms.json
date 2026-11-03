@@ -1,0 +1,570 @@
+{
+  "id": "c1-colloquial-and-idioms",
+  "slug": "colloquial-and-idioms",
+  "title": "Meter la pata: colloquial Spanish and idioms",
+  "unit": "C1",
+  "group": "Vocabulary",
+  "order": 34,
+  "summary": "Everyday idioms (meter la pata, tomar el pelo, echar una mano…), the colloquial markers of Spain, intensifiers, and when to leave them out.",
+  "focus": "Idioms, colloquial markers and register",
+  "prerequisites": [
+    "c1-ser-estar-nuances",
+    "b2-register"
+  ],
+  "content": "## Idioms everyone uses\n\n| idiom | meaning |\n|---|---|\n| **meter la pata** | put your foot in it |\n| **tomar el pelo** a alguien | pull someone's leg |\n| **no tener pelos en la lengua** | not mince your words |\n| **costar un ojo de la cara** | cost an arm and a leg |\n| **echar una mano** | lend a hand |\n| **ponerse las pilas** | get your act together |\n| **dar la lata** | pester, go on and on |\n| **estar como una cabra** | be bonkers |\n| **hacer la pelota** | suck up (to someone) |\n| **ser uña y carne** | be inseparable |\n| **quedarse de piedra** | be stunned |\n| **ir al grano** | get to the point |\n\n## Talking like Spain\n\nSmall words give speech its rhythm:\n\n- **vale** = OK; **venga** = come on / right then / bye\n- **o sea** = I mean, so; **pues nada** = oh well, right then\n- **¿sabes?** = you know?; **en plan** = like (young, very informal)\n- **tío / tía** = mate, among friends only\n\n## Intensifiers\n\n- **súper** + adjective: *súper fácil*\n- **un montón de** = loads of: *un montón de gente*\n- **la mar de** = really, ever so: *la mar de contenta*\n- **un pelín** = a tiny bit: *un pelín caro*\n\n## Know when to leave them out\n\nIdioms and markers belong to conversation with people you know. In an email to a client, an interview or an essay they sound careless, and some (**estar como una cabra**, **hacer la pelota**) can offend.\n\n| colloquial | neutral | formal |\n|---|---|---|\n| *Venga, ponte las pilas.* | *Date prisa, por favor.* | *Le ruego que agilice el trámite.* |",
+  "vocabulary": [
+    {
+      "term": "meter la pata",
+      "meaning": "to put your foot in it, to blunder",
+      "example": "Metí la pata: le pregunté por su novio y lo habían dejado.",
+      "example_meaning": "I put my foot in it: I asked about her boyfriend and they'd split up."
+    },
+    {
+      "term": "tomar el pelo",
+      "meaning": "to pull someone's leg, to tease",
+      "example": "¿Te ha tocado la lotería? Me estás tomando el pelo.",
+      "example_meaning": "You've won the lottery? You're pulling my leg."
+    },
+    {
+      "term": "no tener pelos en la lengua",
+      "meaning": "to not mince one's words",
+      "example": "Mi abuela no tiene pelos en la lengua: te dice lo que piensa.",
+      "example_meaning": "My grandmother doesn't mince her words: she tells you what she thinks."
+    },
+    {
+      "term": "costar un ojo de la cara",
+      "meaning": "to cost an arm and a leg",
+      "example": "Las entradas del concierto costaron un ojo de la cara.",
+      "example_meaning": "The concert tickets cost an arm and a leg."
+    },
+    {
+      "term": "echar una mano",
+      "meaning": "to lend a hand",
+      "example": "¿Me echas una mano con estas cajas?",
+      "example_meaning": "Can you give me a hand with these boxes?"
+    },
+    {
+      "term": "ponerse las pilas",
+      "meaning": "to get your act together, to get cracking",
+      "example": "Si quieres aprobar, ponte las pilas ya.",
+      "example_meaning": "If you want to pass, get cracking now."
+    },
+    {
+      "term": "dar la lata",
+      "meaning": "to pester, to go on and on",
+      "example": "Los niños llevan toda la tarde dando la lata con el perro.",
+      "example_meaning": "The kids have been going on about the dog all afternoon."
+    },
+    {
+      "term": "estar como una cabra",
+      "meaning": "to be bonkers, crazy (affectionate)",
+      "example": "Mi tío está como una cabra: se ha ido a vivir a un barco.",
+      "example_meaning": "My uncle is bonkers: he's gone to live on a boat."
+    },
+    {
+      "term": "hacer la pelota",
+      "meaning": "to suck up, to butter someone up",
+      "example": "Deja de hacerle la pelota a la profesora.",
+      "example_meaning": "Stop sucking up to the teacher."
+    },
+    {
+      "term": "ser uña y carne",
+      "meaning": "to be inseparable, thick as thieves",
+      "example": "De pequeños, mi hermano y yo éramos uña y carne.",
+      "example_meaning": "As kids, my brother and I were inseparable."
+    },
+    {
+      "term": "quedarse de piedra",
+      "meaning": "to be stunned, dumbfounded",
+      "example": "Cuando vi la factura me quedé de piedra.",
+      "example_meaning": "When I saw the bill I was stunned."
+    },
+    {
+      "term": "ir al grano",
+      "meaning": "to get to the point",
+      "example": "No tengo mucho tiempo, así que voy al grano.",
+      "example_meaning": "I haven't got much time, so I'll get to the point."
+    },
+    {
+      "term": "un montón de",
+      "meaning": "loads of, a lot of (colloquial)",
+      "example": "Tengo un montón de correos sin leer.",
+      "example_meaning": "I've got loads of unread emails."
+    },
+    {
+      "term": "la mar de",
+      "meaning": "really, ever so (colloquial)",
+      "example": "La cena salió la mar de bien.",
+      "example_meaning": "Dinner turned out really well."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "c1-colloquial-and-idioms-01",
+      "prompt": "Le dije a Ana que su novio era aburrido… y él estaba detrás de mí. ¡Metí la ___!",
+      "type": "multiple-choice",
+      "options": [
+        "pata",
+        "pierna",
+        "mano"
+      ],
+      "correct_answer": "pata",
+      "explanation": "Meter la pata = to put your foot in it.",
+      "hints": [
+        "An animal's leg."
+      ],
+      "teaches": [
+        "meter la pata"
+      ]
+    },
+    {
+      "question_id": "c1-colloquial-and-idioms-02",
+      "prompt": "Este piso cuesta un ojo de la ___.",
+      "type": "fill-in-blank",
+      "correct_answer": "cara",
+      "explanation": "Costar un ojo de la cara = to cost an arm and a leg.",
+      "hints": [
+        "Where your eyes are."
+      ],
+      "teaches": [
+        "costar un ojo de la cara"
+      ]
+    },
+    {
+      "question_id": "c1-colloquial-and-idioms-03",
+      "prompt": "What does 'Me estás tomando el pelo' mean?",
+      "type": "multiple-choice",
+      "options": [
+        "You're pulling my leg.",
+        "You're cutting my hair.",
+        "You're getting on my nerves."
+      ],
+      "correct_answer": "You're pulling my leg.",
+      "explanation": "Tomar el pelo = to tease, to pull someone's leg.",
+      "hints": [
+        "Nothing to do with a hairdresser."
+      ],
+      "teaches": [
+        "tomar el pelo"
+      ]
+    },
+    {
+      "question_id": "c1-colloquial-and-idioms-04",
+      "prompt": "¿Me echas una ___ con la mudanza?",
+      "type": "fill-in-blank",
+      "correct_answer": "mano",
+      "explanation": "Echar una mano = to lend a hand.",
+      "hints": [
+        "You'd lend it in English too."
+      ],
+      "teaches": [
+        "echar una mano"
+      ]
+    },
+    {
+      "question_id": "c1-colloquial-and-idioms-05",
+      "prompt": "Quedan dos semanas para el examen: tienes que ___ las pilas.",
+      "type": "multiple-choice",
+      "options": [
+        "ponerte",
+        "meterte",
+        "darte"
+      ],
+      "correct_answer": "ponerte",
+      "explanation": "Ponerse las pilas = to get your act together.",
+      "hints": [
+        "You put batteries in."
+      ],
+      "teaches": [
+        "ponerse las pilas"
+      ]
+    },
+    {
+      "question_id": "c1-colloquial-and-idioms-06",
+      "prompt": "Which sentence is for friends only?",
+      "type": "multiple-choice",
+      "options": [
+        "Venga, tío, vámonos ya.",
+        "Bueno, creo que deberíamos irnos."
+      ],
+      "correct_answer": "Venga, tío, vámonos ya.",
+      "explanation": "Venga and tío are colloquial markers used among friends.",
+      "hints": [
+        "Look for tío."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "c1-colloquial-and-idioms-07",
+      "prompt": "Mi hermana y su mejor amiga son uña y ___.",
+      "type": "fill-in-blank",
+      "correct_answer": "carne",
+      "explanation": "Ser uña y carne = to be inseparable (like nail and flesh).",
+      "hints": [
+        "What a nail is attached to."
+      ],
+      "teaches": [
+        "ser uña y carne"
+      ]
+    },
+    {
+      "question_id": "c1-colloquial-and-idioms-08",
+      "prompt": "In a job interview, which answer is appropriate?",
+      "type": "multiple-choice",
+      "options": [
+        "Estoy muy motivado para este puesto.",
+        "Estoy súper motivado, en plan, un montón."
+      ],
+      "correct_answer": "Estoy muy motivado para este puesto.",
+      "explanation": "Súper, en plan and un montón are colloquial: fine with friends, careless in an interview.",
+      "hints": [
+        "Leave the colloquial markers out."
+      ],
+      "teaches": [
+        "un montón de"
+      ]
+    },
+    {
+      "question_id": "c1-colloquial-and-idioms-09",
+      "prompt": "Someone who 'no tiene pelos en la lengua'…",
+      "type": "multiple-choice",
+      "options": [
+        "speaks bluntly",
+        "has lost their voice",
+        "never talks"
+      ],
+      "correct_answer": "speaks bluntly",
+      "explanation": "No tener pelos en la lengua = to say exactly what you think.",
+      "hints": [
+        "Nothing holds their tongue back."
+      ],
+      "teaches": [
+        "no tener pelos en la lengua"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "No me des la lata, que estoy trabajando.",
+      "meaning": "Stop pestering me, I'm working."
+    },
+    {
+      "text": "Me quedé de piedra cuando me lo contó.",
+      "meaning": "I was stunned when she told me."
+    },
+    {
+      "text": "Tu vecino está como una cabra.",
+      "meaning": "Your neighbour is bonkers."
+    },
+    {
+      "text": "Venga, ve al grano, que tengo prisa.",
+      "meaning": "Come on, get to the point, I'm in a hurry."
+    },
+    {
+      "text": "Había un montón de gente en el concierto.",
+      "meaning": "There were loads of people at the concert."
+    },
+    {
+      "text": "Estoy hecho un lío con tanto papeleo.",
+      "meaning": "I'm in a muddle with so much paperwork.",
+      "note": "New word: el papeleo = the paperwork."
+    },
+    {
+      "text": "El examen estaba chupado, en plan, facilísimo.",
+      "meaning": "The exam was a doddle, like, super easy.",
+      "note": "New word: estar chupado = to be dead easy (colloquial)."
+    },
+    {
+      "text": "O sea, que al final no vienes a la boda, ¿no?",
+      "meaning": "So, in the end you're not coming to the wedding, right?",
+      "note": "O sea: so, I mean."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Idioms everyone uses"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "c1-colloquial-and-idioms-01"
+    },
+    {
+      "question": "c1-colloquial-and-idioms-03"
+    },
+    {
+      "question": "c1-colloquial-and-idioms-09"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "c1-colloquial-and-idioms-02"
+    },
+    {
+      "question": "c1-colloquial-and-idioms-04"
+    },
+    {
+      "question": "c1-colloquial-and-idioms-05"
+    },
+    {
+      "question": "c1-colloquial-and-idioms-07"
+    },
+    {
+      "section": "Talking like Spain"
+    },
+    {
+      "question": "c1-colloquial-and-idioms-06"
+    },
+    {
+      "section": "Intensifiers"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "tip": "An idiom used with the wrong person can sound rude. When in doubt, say it plainly."
+    },
+    {
+      "section": "Know when"
+    },
+    {
+      "question": "c1-colloquial-and-idioms-08"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "c1-colloquial-and-idioms-conv-gossip",
+      "title": "Office gossip",
+      "scenario": "Carla and Lucas, close friends and colleagues, catch up over coffee.",
+      "role_a": "Carla",
+      "role_b": "Lucas",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Tío, ¿te has enterado de lo de Raúl?",
+          "meaning": "Mate, have you heard about Raúl?"
+        },
+        {
+          "speaker": "b",
+          "text": "No. Venga, ve al grano.",
+          "meaning": "No. Come on, get to the point."
+        },
+        {
+          "speaker": "a",
+          "text": "Ayer metió la pata en la reunión con los clientes.",
+          "meaning": "Yesterday he put his foot in it in the meeting with the clients."
+        },
+        {
+          "speaker": "b",
+          "text": "¿Raúl? Pero si siempre le hace la pelota a todo el mundo.",
+          "meaning": "Raúl? But he always sucks up to everybody."
+        },
+        {
+          "speaker": "a",
+          "text": "Pues dijo que el producto costaba un ojo de la cara.",
+          "meaning": "Well, he said the product cost an arm and a leg."
+        },
+        {
+          "speaker": "b",
+          "text": "¡Me estás tomando el pelo! ¿Delante de los clientes?",
+          "meaning": "You're pulling my leg! In front of the clients?"
+        },
+        {
+          "speaker": "a",
+          "text": "Te lo juro. La jefa se quedó de piedra.",
+          "meaning": "I swear. The boss was stunned."
+        },
+        {
+          "speaker": "b",
+          "text": "Bueno, Raúl nunca ha tenido pelos en la lengua.",
+          "meaning": "Well, Raúl has never minced his words."
+        },
+        {
+          "speaker": "a",
+          "text": "O sea, que ahora tiene que ponerse las pilas.",
+          "meaning": "So now he has to get his act together."
+        },
+        {
+          "speaker": "b",
+          "text": "Pues nada, habrá que echarle una mano.",
+          "meaning": "Oh well, we'll have to give him a hand."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "😜",
+    "bites": [
+      {
+        "title": "Body-part idioms",
+        "emoji": "😜",
+        "rule": "Meter la pata (blunder), tomar el pelo (tease), echar una mano (help), costar un ojo de la cara (be very expensive), no tener pelos en la lengua (be blunt).",
+        "example": "¿Me echas una mano?",
+        "example_meaning": "Can you give me a hand?"
+      },
+      {
+        "title": "Animals and things",
+        "emoji": "🐐",
+        "rule": "Estar como una cabra (be bonkers), ponerse las pilas (get going), dar la lata (pester), quedarse de piedra (be stunned).",
+        "example": "Ponte las pilas.",
+        "example_meaning": "Get your act together."
+      },
+      {
+        "title": "Vale, venga, o sea",
+        "emoji": "💬",
+        "rule": "Vale = OK. Venga = come on, right then. O sea = I mean, so. Pues nada = oh well. Tío / tía: friends only.",
+        "example": "Vale, pues nada, nos vemos.",
+        "example_meaning": "OK, right then, see you."
+      },
+      {
+        "title": "Read the room",
+        "emoji": "🎭",
+        "rule": "Idioms, súper, un montón and en plan are for friends. In emails, interviews and essays, say it plainly.",
+        "example": "Estoy muy contento con el resultado.",
+        "example_meaning": "I'm very happy with the result."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Something good or something bad?",
+        "buckets": [
+          "positive",
+          "negative"
+        ],
+        "items": [
+          {
+            "text": "echar una mano",
+            "bucket": 0
+          },
+          {
+            "text": "ser uña y carne",
+            "bucket": 0
+          },
+          {
+            "text": "ir al grano",
+            "bucket": 0
+          },
+          {
+            "text": "ponerse las pilas",
+            "bucket": 0
+          },
+          {
+            "text": "meter la pata",
+            "bucket": 1
+          },
+          {
+            "text": "dar la lata",
+            "bucket": 1
+          },
+          {
+            "text": "hacer la pelota",
+            "bucket": 1
+          },
+          {
+            "text": "costar un ojo de la cara",
+            "bucket": 1
+          }
+        ],
+        "why": "Knowing an idiom's flavour tells you when it is safe to use."
+      },
+      {
+        "title": "Where would you say it?",
+        "buckets": [
+          "with friends",
+          "in a formal email"
+        ],
+        "items": [
+          {
+            "text": "Venga, tío, ponte las pilas.",
+            "bucket": 0
+          },
+          {
+            "text": "Le ruego que agilice el trámite.",
+            "bucket": 1
+          },
+          {
+            "text": "Me quedé de piedra.",
+            "bucket": 0
+          },
+          {
+            "text": "La noticia me sorprendió mucho.",
+            "bucket": 1
+          },
+          {
+            "text": "Cuesta un ojo de la cara.",
+            "bucket": 0
+          },
+          {
+            "text": "El precio me parece excesivo.",
+            "bucket": 1
+          }
+        ],
+        "why": "The same idea has a colloquial and a formal version."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Este coche cuesta un ojo de la mano.",
+        "wrong": "mano",
+        "fix": "cara",
+        "why": "The idiom is costar un ojo de la cara."
+      },
+      {
+        "sentence": "Siempre mete la pierna en las reuniones.",
+        "wrong": "pierna",
+        "fix": "pata",
+        "why": "The idiom is meter la pata."
+      },
+      {
+        "sentence": "Mi jefa no tiene pelos en la boca.",
+        "wrong": "boca",
+        "fix": "lengua",
+        "why": "The idiom is no tener pelos en la lengua."
+      },
+      {
+        "sentence": "Mi primo está como una vaca.",
+        "wrong": "vaca",
+        "fix": "cabra",
+        "why": "The idiom is estar como una cabra."
+      },
+      {
+        "sentence": "Deja de tomarme el pie.",
+        "wrong": "pie",
+        "fix": "pelo",
+        "why": "The idiom is tomar el pelo."
+      }
+    ],
+    "builds": [
+      {
+        "text": "¿Me echas una mano, vale?",
+        "meaning": "Will you give me a hand, OK?",
+        "distractors": [
+          "pata"
+        ]
+      },
+      {
+        "text": "Tienes que ponerte las pilas.",
+        "meaning": "You need to get your act together.",
+        "distractors": [
+          "baterías"
+        ]
+      },
+      {
+        "text": "No me tomes el pelo.",
+        "meaning": "Don't pull my leg.",
+        "distractors": [
+          "pie"
+        ]
+      },
+      {
+        "text": "Se quedó de piedra.",
+        "meaning": "She was stunned.",
+        "distractors": [
+          "roca"
+        ]
+      }
+    ]
+  }
+}

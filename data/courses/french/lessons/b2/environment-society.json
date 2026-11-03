@@ -1,0 +1,615 @@
+{
+  "id": "b2-environment-society",
+  "slug": "environment-society",
+  "title": "Environment and society: le débat citoyen",
+  "unit": "B2",
+  "group": "Vocabulary",
+  "order": 38,
+  "summary": "The words of a public debate on climate and society, turning verbs into nouns, and saying figures, shares and stakes in French.",
+  "focus": "Discussing environmental and social issues with nominalisation and statistics",
+  "prerequisites": [
+    "b2-discourse-argumentation"
+  ],
+  "content": "## The words of the debate\n\n**Environment**\n\n- **le réchauffement climatique**: global warming\n- **les énergies renouvelables**: renewable energy\n- **le tri des déchets**: waste sorting, recycling\n- **l'empreinte carbone**: carbon footprint\n- **la biodiversité**: biodiversity\n- **gaspiller**: to waste\n\n**Society**\n\n- **l'égalité**: equality\n- **la laïcité**: secularism, meaning the state stays neutral towards every religion, a core French principle\n- **la retraite**: retirement, pension\n- **la grève**: strike (**être en grève**)\n- **le logement**: housing\n- **la mixité**: mix (social, or boys and girls together)\n- **un élu / une élue**: an elected representative\n\n## Nominalisation: from réduire to la réduction\n\nFormal French (news, essays, speeches) often turns a verb into a noun:\n\n| verb | noun |\n|---|---|\n| réduire | la réduction |\n| interdire | l'interdiction |\n| protéger | la protection |\n| développer | le développement |\n| réchauffer | le réchauffement |\n| gaspiller | le gaspillage |\n| trier | le tri |\n\n**-tion** nouns are feminine; **-ment** and **-age** nouns are masculine.\n\n- On doit réduire les déchets becomes **La réduction des déchets** est nécessaire. (Reducing waste is necessary.)\n\n## Figures and stakes\n\n- **la moitié**: half, **un tiers**: a third, **un quart**: a quarter, **les trois quarts**: three quarters\n- **trois Français sur quatre**: three French people out of four\n- **15 % des jeunes** (quinze pour cent des jeunes) = 15% of young people\n- **en hausse / en baisse**: rising or falling\n\nTo say what is at stake:\n\n- **Il est urgent de** plus an infinitive: **Il est urgent d'agir.**\n- **Il s'agit de**: it's about, it's a matter of (always **il**): **Il s'agit de protéger la planète.**\n- **l'enjeu** (m) = what's at stake; **une mesure**: a measure, a policy step.",
+  "vocabulary": [
+    {
+      "term": "le réchauffement climatique",
+      "meaning": "global warming",
+      "example": "Le réchauffement climatique rend les étés plus chauds.",
+      "example_meaning": "Global warming is making summers hotter."
+    },
+    {
+      "term": "les énergies renouvelables",
+      "meaning": "renewable energy (f pl)",
+      "example": "Le pays investit beaucoup dans les énergies renouvelables.",
+      "example_meaning": "The country is investing heavily in renewable energy."
+    },
+    {
+      "term": "le tri des déchets",
+      "meaning": "waste sorting, recycling",
+      "example": "Le tri des déchets est obligatoire dans notre immeuble.",
+      "example_meaning": "Sorting waste is compulsory in our building."
+    },
+    {
+      "term": "l'empreinte carbone",
+      "meaning": "carbon footprint (f)",
+      "example": "Prendre l'avion augmente beaucoup notre empreinte carbone.",
+      "example_meaning": "Flying greatly increases our carbon footprint."
+    },
+    {
+      "term": "la biodiversité",
+      "meaning": "biodiversity",
+      "example": "Les pesticides menacent la biodiversité.",
+      "example_meaning": "Pesticides threaten biodiversity."
+    },
+    {
+      "term": "gaspiller",
+      "meaning": "to waste",
+      "example": "Il ne faut pas gaspiller la nourriture.",
+      "example_meaning": "You shouldn't waste food."
+    },
+    {
+      "term": "l'égalité",
+      "meaning": "equality (f)",
+      "example": "L'égalité entre les femmes et les hommes progresse lentement.",
+      "example_meaning": "Equality between women and men is progressing slowly."
+    },
+    {
+      "term": "la laïcité",
+      "meaning": "secularism (the state's neutrality towards religion)",
+      "example": "La laïcité garantit la liberté de croire ou de ne pas croire.",
+      "example_meaning": "Secularism guarantees the freedom to believe or not to believe."
+    },
+    {
+      "term": "la retraite",
+      "meaning": "retirement, pension",
+      "example": "Ma mère partira à la retraite l'année prochaine.",
+      "example_meaning": "My mother will retire next year."
+    },
+    {
+      "term": "la grève",
+      "meaning": "strike",
+      "example": "Les cheminots sont en grève depuis lundi.",
+      "example_meaning": "The railway workers have been on strike since Monday."
+    },
+    {
+      "term": "le logement",
+      "meaning": "housing, accommodation",
+      "example": "Le logement coûte de plus en plus cher dans les grandes villes.",
+      "example_meaning": "Housing is getting more and more expensive in big cities."
+    },
+    {
+      "term": "un élu / une élue",
+      "meaning": "elected representative",
+      "example": "Les élus locaux ont voté le nouveau budget.",
+      "example_meaning": "The local councillors voted on the new budget."
+    },
+    {
+      "term": "l'enjeu",
+      "meaning": "what's at stake, the issue (m)",
+      "example": "Le climat est l'enjeu principal de ce débat.",
+      "example_meaning": "The climate is the main issue in this debate."
+    },
+    {
+      "term": "la mesure",
+      "meaning": "measure, policy step",
+      "example": "Le gouvernement a annoncé de nouvelles mesures contre la pollution.",
+      "example_meaning": "The government has announced new measures against pollution."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-environment-society-01",
+      "prompt": "Turn the verb into a noun: réduire becomes what?",
+      "type": "multiple-choice",
+      "options": [
+        "la réduction",
+        "le réduisement",
+        "la réduite"
+      ],
+      "correct_answer": "la réduction",
+      "explanation": "Réduire gives la réduction, a feminine -tion noun: la réduction des déchets.",
+      "hints": [
+        "A feminine noun in -tion."
+      ]
+    },
+    {
+      "question_id": "b2-environment-society-02",
+      "prompt": "Il ne faut pas ___ l'eau : chaque goutte compte.",
+      "type": "fill-in-blank",
+      "correct_answer": "gaspiller",
+      "explanation": "Gaspiller = to waste. After il faut, the verb stays in the infinitive.",
+      "hints": [
+        "'To waste', an -er verb.",
+        "It gives the noun le gaspillage."
+      ],
+      "teaches": [
+        "gaspiller"
+      ]
+    },
+    {
+      "question_id": "b2-environment-society-03",
+      "prompt": "« Selon une enquête, trois Français sur quatre trient leurs déchets. » What percentage of French people sort their waste?",
+      "type": "numeric",
+      "correct_answer": "75",
+      "unit": "%",
+      "explanation": "Trois sur quatre is three out of four, which is 75 %, les trois quarts.",
+      "hints": [
+        "Sur = out of."
+      ],
+      "teaches": [
+        "le tri des déchets"
+      ]
+    },
+    {
+      "question_id": "b2-environment-society-04",
+      "prompt": "Les trains ne circulent pas aujourd'hui : les cheminots sont en ___.",
+      "type": "multiple-choice",
+      "options": [
+        "grève",
+        "retraite",
+        "laïcité"
+      ],
+      "correct_answer": "grève",
+      "explanation": "Être en grève = to be on strike, which stops the trains.",
+      "hints": [
+        "Workers stop working on purpose."
+      ],
+      "teaches": [
+        "la grève"
+      ]
+    },
+    {
+      "question_id": "b2-environment-society-05",
+      "prompt": "True or false: la laïcité means that the French state stays neutral towards all religions.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "La laïcité separates the state from religions. It favours none and guarantees freedom of belief.",
+      "hints": [
+        "Think of the separation of church and state."
+      ],
+      "teaches": [
+        "la laïcité"
+      ]
+    },
+    {
+      "question_id": "b2-environment-society-06",
+      "prompt": "Turn the verb into a noun: interdire → l'___",
+      "type": "fill-in-blank",
+      "correct_answer": "interdiction",
+      "accepted_answers": [
+        "l'interdiction"
+      ],
+      "explanation": "Interdire gives l'interdiction (f): l'interdiction du plastique.",
+      "hints": [
+        "Like réduire, which gives la réduction.",
+        "Ends in -tion."
+      ]
+    },
+    {
+      "question_id": "b2-environment-society-07",
+      "prompt": "Which expression means 'carbon footprint'?",
+      "type": "multiple-choice",
+      "options": [
+        "l'empreinte carbone",
+        "le tri des déchets",
+        "la biodiversité"
+      ],
+      "correct_answer": "l'empreinte carbone",
+      "explanation": "Une empreinte is a footprint: l'empreinte carbone. Le tri des déchets is waste sorting, la biodiversité biodiversity.",
+      "hints": [
+        "Une empreinte = a footprint."
+      ],
+      "teaches": [
+        "l'empreinte carbone"
+      ]
+    },
+    {
+      "question_id": "b2-environment-society-08",
+      "prompt": "Il est ___ d'agir contre le réchauffement climatique.",
+      "type": "fill-in-blank",
+      "correct_answer": "urgent",
+      "accepted_answers": [
+        "nécessaire"
+      ],
+      "explanation": "Il est urgent de plus an infinitive means it is urgent to: il est urgent d'agir.",
+      "hints": [
+        "It can't wait.",
+        "Same word in English."
+      ],
+      "teaches": [
+        "le réchauffement climatique"
+      ]
+    },
+    {
+      "question_id": "b2-environment-society-09",
+      "prompt": "True or false: la moitié means a third.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "La moitié is half; a third is un tiers and a quarter un quart.",
+      "hints": [
+        "Think of 50 %."
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-environment-society-conv-radio-interview",
+      "title": "A local radio interview",
+      "scenario": "Before the town's citizens' debate, the journalist Claire interviews a local councillor, Madame Bernard.",
+      "role_a": "Claire",
+      "role_b": "Mme Bernard",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Madame Bernard, vous êtes élue depuis deux ans. Quel est le grand enjeu pour notre ville ?",
+          "meaning": "Madame Bernard, you've been a councillor for two years. What is the big issue for our town?"
+        },
+        {
+          "speaker": "b",
+          "text": "D'abord, le logement. Les loyers ont augmenté de vingt pour cent en cinq ans.",
+          "meaning": "First, housing. Rents have gone up twenty per cent in five years."
+        },
+        {
+          "speaker": "a",
+          "text": "Et l'environnement ? Beaucoup d'habitants parlent du tri des déchets.",
+          "meaning": "And the environment? Lots of residents talk about waste sorting."
+        },
+        {
+          "speaker": "b",
+          "text": "C'est vrai. Aujourd'hui, seulement la moitié des foyers trient leurs déchets.",
+          "meaning": "That's true. Today only half of households sort their waste.",
+          "note": "New word: le foyer = household."
+        },
+        {
+          "speaker": "a",
+          "text": "Quelles mesures proposez-vous ?",
+          "meaning": "What measures do you propose?"
+        },
+        {
+          "speaker": "b",
+          "text": "Il s'agit d'abord d'informer. Ensuite, nous installerons des composteurs dans chaque quartier.",
+          "meaning": "First, it's about informing people. Then we'll install compost bins in every neighbourhood."
+        },
+        {
+          "speaker": "a",
+          "text": "Certains disent que ça coûte cher.",
+          "meaning": "Some people say it's expensive."
+        },
+        {
+          "speaker": "b",
+          "text": "Certes, mais le gaspillage coûte encore plus cher. Il est urgent d'agir.",
+          "meaning": "Granted, but waste costs even more. It is urgent to act."
+        },
+        {
+          "speaker": "a",
+          "text": "Et les énergies renouvelables ?",
+          "meaning": "And renewable energy?"
+        },
+        {
+          "speaker": "b",
+          "text": "Nous voulons des panneaux solaires sur toutes les écoles d'ici cinq ans.",
+          "meaning": "We want solar panels on every school within five years."
+        },
+        {
+          "speaker": "a",
+          "text": "Merci. Le débat citoyen aura lieu jeudi à la mairie.",
+          "meaning": "Thank you. The citizens' debate will take place on Thursday at the town hall."
+        },
+        {
+          "speaker": "b",
+          "text": "Venez nombreux : chaque voix compte !",
+          "meaning": "Come in large numbers: every voice counts!"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "La grève continue demain.",
+      "meaning": "The strike continues tomorrow."
+    },
+    {
+      "text": "Ne gaspillez pas la nourriture.",
+      "meaning": "Don't waste food."
+    },
+    {
+      "text": "La moitié de l'eau potable est gaspillée.",
+      "meaning": "Half of the drinking water is wasted.",
+      "note": "La moitié = half."
+    },
+    {
+      "text": "Les élus ont voté une mesure contre la pollution.",
+      "meaning": "The councillors voted for a measure against pollution."
+    },
+    {
+      "text": "Il s'agit de rendre le logement plus accessible aux jeunes.",
+      "meaning": "It's about making housing more affordable for young people.",
+      "note": "New word: accessible = affordable, within reach."
+    },
+    {
+      "text": "Trois Français sur quatre se disent inquiets pour le climat.",
+      "meaning": "Three French people out of four say they are worried about the climate.",
+      "note": "New word: inquiet = worried."
+    },
+    {
+      "text": "Le développement des énergies renouvelables est un enjeu majeur pour l'Europe.",
+      "meaning": "The development of renewable energy is a major issue for Europe.",
+      "note": "A noun from a verb: développer gives le développement."
+    },
+    {
+      "text": "Selon les scientifiques, il est urgent de réduire notre empreinte carbone de moitié.",
+      "meaning": "According to scientists, it is urgent to cut our carbon footprint by half.",
+      "note": "New word: le scientifique = the scientist."
+    }
+  ],
+  "guide": [
+    {
+      "section": "The words of the debate"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-environment-society-07"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-environment-society-04"
+    },
+    {
+      "question": "b2-environment-society-05"
+    },
+    {
+      "question": "b2-environment-society-02"
+    },
+    {
+      "section": "Nominalisation"
+    },
+    {
+      "question": "b2-environment-society-01"
+    },
+    {
+      "question": "b2-environment-society-06"
+    },
+    {
+      "section": "Figures and stakes"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b2-environment-society-08"
+    },
+    {
+      "question": "b2-environment-society-03"
+    },
+    {
+      "question": "b2-environment-society-09"
+    },
+    {
+      "tip": "To sound like an essay, turn the verb into a noun: on doit protéger la nature becomes la protection de la nature est un enjeu majeur."
+    },
+    {
+      "concept": {
+        "title": "Institutions in the news",
+        "markdown": "**Le Parlement** is made up of **l'Assemblée nationale** and **le Sénat**. **Une manifestation** (spoken **une manif**) is a street protest, often on the day of **une grève**. **Un référendum** asks the people directly. **Le maire** and **les conseillers municipaux** are the town's **élus**."
+      }
+    }
+  ],
+  "sprint": {
+    "icon": "🌍",
+    "bites": [
+      {
+        "title": "Climate words",
+        "emoji": "🌡️",
+        "rule": "These five terms come up in any climate debate: le réchauffement climatique, les énergies renouvelables, le tri des déchets, l'empreinte carbone, la biodiversité.",
+        "example": "Le tri des déchets réduit notre empreinte carbone.",
+        "example_meaning": "Sorting waste reduces our carbon footprint."
+      },
+      {
+        "title": "From verb to noun",
+        "emoji": "🔁",
+        "rule": "Formal French prefers nouns: réduire gives la réduction, interdire gives l'interdiction and gaspiller gives le gaspillage. Nouns in -tion are feminine, and nouns in -ment and -age are masculine.",
+        "example": "L'interdiction du plastique est une bonne mesure.",
+        "example_meaning": "The ban on plastic is a good measure."
+      },
+      {
+        "title": "Figures in words",
+        "emoji": "📊",
+        "rule": "La moitié is half, un tiers a third and un quart a quarter. Trois Français sur quatre means three out of four, and 15 % des jeunes is said quinze pour cent.",
+        "example": "Un tiers des déchets est recyclé.",
+        "example_meaning": "A third of the waste is recycled."
+      },
+      {
+        "title": "What's at stake",
+        "emoji": "⚠️",
+        "rule": "Il est urgent de takes an infinitive, and il s'agit de always uses il. L'enjeu (m) is what's at stake, and une mesure is a policy step.",
+        "example": "Il s'agit de protéger la biodiversité.",
+        "example_meaning": "It's about protecting biodiversity."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Environment or society?",
+        "buckets": [
+          "environment",
+          "society"
+        ],
+        "items": [
+          {
+            "text": "le réchauffement climatique",
+            "bucket": 0
+          },
+          {
+            "text": "la grève",
+            "bucket": 1
+          },
+          {
+            "text": "la biodiversité",
+            "bucket": 0
+          },
+          {
+            "text": "la laïcité",
+            "bucket": 1
+          },
+          {
+            "text": "le tri des déchets",
+            "bucket": 0
+          },
+          {
+            "text": "la retraite",
+            "bucket": 1
+          },
+          {
+            "text": "l'empreinte carbone",
+            "bucket": 0
+          },
+          {
+            "text": "le logement",
+            "bucket": 1
+          }
+        ],
+        "why": "Climate, waste and nature on one side; work, housing, religion and pensions on the other."
+      },
+      {
+        "title": "Which noun ending?",
+        "buckets": [
+          "-tion (f)",
+          "-ment (m)",
+          "-age (m)"
+        ],
+        "items": [
+          {
+            "text": "réduire",
+            "bucket": 0
+          },
+          {
+            "text": "développer",
+            "bucket": 1
+          },
+          {
+            "text": "gaspiller",
+            "bucket": 2
+          },
+          {
+            "text": "interdire",
+            "bucket": 0
+          },
+          {
+            "text": "réchauffer",
+            "bucket": 1
+          },
+          {
+            "text": "recycler",
+            "bucket": 2
+          },
+          {
+            "text": "protéger",
+            "bucket": 0
+          }
+        ],
+        "why": "La réduction, l'interdiction, la protection; le développement, le réchauffement; le gaspillage, le recyclage."
+      },
+      {
+        "title": "Half, a third or a quarter?",
+        "buckets": [
+          "la moitié",
+          "un tiers",
+          "un quart"
+        ],
+        "items": [
+          {
+            "text": "cinquante pour cent",
+            "bucket": 0
+          },
+          {
+            "text": "un sur trois",
+            "bucket": 1
+          },
+          {
+            "text": "vingt-cinq pour cent",
+            "bucket": 2
+          },
+          {
+            "text": "deux sur quatre",
+            "bucket": 0
+          },
+          {
+            "text": "deux sur six",
+            "bucket": 1
+          },
+          {
+            "text": "un sur quatre",
+            "bucket": 2
+          }
+        ],
+        "why": "La moitié is 1/2, un tiers is 1/3 and un quart is 1/4."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "La moitié, c'est trente-trois pour cent.",
+        "wrong": "trente-trois",
+        "fix": "cinquante",
+        "why": "La moitié is half: cinquante pour cent. Trente-trois is about un tiers."
+      },
+      {
+        "sentence": "L'interdisement du plastique est une bonne mesure.",
+        "wrong": "L'interdisement",
+        "fix": "L'interdiction",
+        "why": "Interdire gives l'interdiction."
+      },
+      {
+        "sentence": "Il ne faut pas gaspiller l'eau, car le gaspillation coûte cher.",
+        "wrong": "gaspillation",
+        "fix": "gaspillage",
+        "why": "Gaspiller gives le gaspillage, a masculine -age noun."
+      },
+      {
+        "sentence": "Il est urgent agir contre la pollution.",
+        "wrong": "agir",
+        "fix": "d'agir",
+        "why": "Il est urgent de takes an infinitive: il est urgent d'agir."
+      },
+      {
+        "sentence": "Elle s'agit de protéger la nature.",
+        "wrong": "Elle",
+        "fix": "Il",
+        "why": "Il s'agit de is impersonal: always il."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Il est urgent d'agir.",
+        "meaning": "It is urgent to act.",
+        "distractors": [
+          "agit"
+        ]
+      },
+      {
+        "text": "Trois Français sur quatre trient leurs déchets.",
+        "meaning": "Three French people out of four sort their waste.",
+        "distractors": [
+          "de"
+        ]
+      },
+      {
+        "text": "La réduction des déchets est un enjeu.",
+        "meaning": "Reducing waste is a key issue.",
+        "distractors": [
+          "réduisement"
+        ]
+      },
+      {
+        "text": "Il s'agit de protéger la biodiversité.",
+        "meaning": "It's about protecting biodiversity.",
+        "distractors": [
+          "Elle"
+        ]
+      }
+    ]
+  }
+}

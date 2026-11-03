@@ -1,0 +1,57 @@
+{
+  "id": "tc-true-false",
+  "slug": "true-false",
+  "title": "True or false",
+  "unit": "questions",
+  "group": "quiz",
+  "order": 20,
+  "summary": "Served as a choice between True and False.",
+  "focus": "true-false questions",
+  "content": "## True or false\n\nA true-false question is served as a choice between True and False, in every mode.",
+  "vocabulary": [
+    {
+      "term": "sí",
+      "meaning": "yes",
+      "example": "Sí, gracias.",
+      "example_meaning": "Yes, thank you."
+    },
+    {
+      "term": "no",
+      "meaning": "no",
+      "example": "No, gracias.",
+      "example_meaning": "No, thank you."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "tc-true-false-01",
+      "prompt": "'Sí' means 'yes'.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Sí is yes.",
+      "teaches": [
+        "sí"
+      ]
+    },
+    {
+      "question_id": "tc-true-false-02",
+      "prompt": "'No' means 'yes'.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "No means no.",
+      "teaches": [
+        "no"
+      ]
+    },
+    {
+      "question_id": "tc-true-false-03",
+      "prompt": "A Spanish question starts with ¿.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Spanish opens a question with ¿ and closes it with ?.",
+      "hints": [
+        "Look at ¿Qué tal?"
+      ]
+    }
+  ]
+}

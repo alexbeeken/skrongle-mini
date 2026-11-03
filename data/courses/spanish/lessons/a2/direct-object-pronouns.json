@@ -1,0 +1,652 @@
+{
+  "id": "a2-direct-object-pronouns",
+  "slug": "direct-object-pronouns",
+  "title": "Direct object pronouns: lo, la, los, las",
+  "unit": "A2",
+  "group": "Grammar",
+  "order": 24,
+  "summary": "Stop repeating nouns: ¿El pan? Lo compro yo. ¿La tarta? La hace mi madre.",
+  "focus": "Direct object pronouns me, te, lo, la, nos, os, los, las, their position, and the personal a",
+  "prerequisites": [
+    "a1-regular-er-ir-present"
+  ],
+  "content": "## The direct object and the personal a\n\nThe **direct object** is the person or thing that receives the action. Find it by asking *¿qué?* or *¿a quién?* after the verb.\n\n- *Compro el pan.* (¿Qué compro? El pan.)\n- *Veo a María.* (¿A quién veo? A María.)\n\nWhen the direct object is a **specific person** (or a pet), Spanish puts the **personal a** in front of it. It has no English translation.\n\n- *Espero a Juan.* (I'm waiting for Juan, but *Espero el autobús.*)\n- *Llamo a mis padres.* (I call my parents.)\n- *Conozco a tu hermana.* (I know your sister.)\n\n## The pronouns\n\nOnce the listener knows what you are talking about, you can replace the noun with a pronoun.\n\n| | singular | plural |\n|---|---|---|\n| 1st person | **me** (me) | **nos** (us) |\n| 2nd person | **te** (you) | **os** (you all) |\n| 3rd person masc. | **lo** (him, it, you *usted*) | **los** (them) |\n| 3rd person fem. | **la** (her, it, you *usted*) | **las** (them) |\n\n**Lo / la / los / las** copy the gender and number of the noun they replace.\n\n- *¿El pan? Lo compro yo.* (The bread? I'll buy it.)\n- *¿La tarta? La hace mi madre.* (The cake? My mother makes it.)\n- *¿Las gafas? Las tengo en la mochila.* (The glasses? I have them in my backpack.)\n\n## Where the pronoun goes\n\nWith one **conjugated verb**, the pronoun goes **in front of it**, and *no* goes in front of the pronoun.\n\n- *Te llamo mañana.* (I'll call you tomorrow.)\n- *No lo encuentro.* (I can't find it.)\n\nWith an **infinitive** or a **gerund** you have two correct options. Put the pronoun before the conjugated verb, or **attach** it to the infinitive or gerund (the gerund then needs an accent).\n\n- *Quiero verlo.* = *Lo quiero ver.* (I want to see it.)\n- *Estoy leyéndola.* = *La estoy leyendo.* (I'm reading it.)\n- *Voy a comprarlas.* = *Las voy a comprar.* (I'm going to buy them.)\n\nAffirmative commands also attach the pronoun: *¡Cómpralo!* (see the imperative lesson).\n\n## Lo or le? A note on leísmo\n\n**Lo** and **la** are the direct object pronouns, including for *usted*: *Señor García, lo llamo mañana.*\n\nIn much of Spain people say **le** instead of **lo** when the direct object is a **man or boy**: *A Juan le veo todos los días.* This is **leísmo**, and the Academy accepts it only for a singular male person. You will hear it and may use it, but **lo** is correct everywhere. *Le* for a thing (*le compro* for *el pan*) or for a woman is always wrong.",
+  "vocabulary": [
+    {
+      "term": "comprar",
+      "meaning": "to buy",
+      "example": "¿El pan? Lo compro yo.",
+      "example_meaning": "The bread? I'll buy it."
+    },
+    {
+      "term": "llamar",
+      "meaning": "to call, to phone",
+      "example": "Te llamo mañana.",
+      "example_meaning": "I'll call you tomorrow."
+    },
+    {
+      "term": "invitar",
+      "meaning": "to invite",
+      "example": "Nos invitan a la boda.",
+      "example_meaning": "They're inviting us to the wedding."
+    },
+    {
+      "term": "esperar",
+      "meaning": "to wait for",
+      "example": "¿Me esperas en la puerta?",
+      "example_meaning": "Will you wait for me at the door?"
+    },
+    {
+      "term": "ayudar",
+      "meaning": "to help",
+      "example": "¿Te ayudo con las bolsas?",
+      "example_meaning": "Shall I help you with the bags?"
+    },
+    {
+      "term": "llevar",
+      "meaning": "to take, to carry",
+      "example": "¿Las maletas? Las llevo yo.",
+      "example_meaning": "The suitcases? I'll carry them."
+    },
+    {
+      "term": "visitar",
+      "meaning": "to visit",
+      "example": "A mis abuelos los visito los domingos.",
+      "example_meaning": "I visit my grandparents on Sundays."
+    },
+    {
+      "term": "encontrar",
+      "meaning": "to find",
+      "example": "No encuentro las llaves. ¿Las has visto?",
+      "example_meaning": "I can't find the keys. Have you seen them?"
+    },
+    {
+      "term": "el regalo",
+      "meaning": "present, gift",
+      "example": "¿El regalo? Lo compramos juntos.",
+      "example_meaning": "The present? We'll buy it together."
+    },
+    {
+      "term": "el móvil",
+      "meaning": "mobile phone",
+      "example": "¿Dónde está mi móvil? No lo encuentro.",
+      "example_meaning": "Where's my mobile? I can't find it."
+    },
+    {
+      "term": "las gafas",
+      "meaning": "glasses",
+      "example": "Las gafas las tengo en la mochila.",
+      "example_meaning": "The glasses, I've got them in my backpack."
+    },
+    {
+      "term": "la tarta",
+      "meaning": "cake",
+      "example": "¿La tarta? La hace mi madre.",
+      "example_meaning": "The cake? My mother makes it."
+    },
+    {
+      "term": "la novela",
+      "meaning": "novel",
+      "example": "Estoy leyéndola; es una novela muy buena.",
+      "example_meaning": "I'm reading it; it's a very good novel."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-direct-object-pronouns-01",
+      "prompt": "¿Compras el pan? — Sí, ___ compro.",
+      "type": "multiple-choice",
+      "options": [
+        "lo",
+        "la",
+        "le",
+        "los"
+      ],
+      "correct_answer": "lo",
+      "explanation": "'El pan' is masculine singular, so 'lo'. 'Le' is never used for a thing.",
+      "hints": [
+        "What gender and number is 'el pan'?"
+      ],
+      "teaches": [
+        "comprar"
+      ]
+    },
+    {
+      "question_id": "a2-direct-object-pronouns-02",
+      "prompt": "Replace the object with a pronoun: Mi madre hace la tarta. → Mi madre ___ hace.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "la",
+      "accepted_answers": [
+        "la hace"
+      ],
+      "explanation": "'La tarta' is feminine singular, so the pronoun is 'la': 'Mi madre la hace.'",
+      "hints": [
+        "Feminine singular.",
+        "The pronoun goes in front of the verb."
+      ],
+      "teaches": [
+        "la tarta"
+      ]
+    },
+    {
+      "question_id": "a2-direct-object-pronouns-03",
+      "prompt": "¿Visitas a tus abuelos? — Sí, ___ visito los domingos.",
+      "type": "multiple-choice",
+      "options": [
+        "los",
+        "las",
+        "les",
+        "lo"
+      ],
+      "correct_answer": "los",
+      "explanation": "'Tus abuelos' is masculine plural, so the pronoun is 'los'. The personal 'a' disappears when the pronoun replaces the noun. 'Les' for a plural direct object is not accepted.",
+      "hints": [
+        "Masculine plural.",
+        "Leísmo is only tolerated in the masculine singular."
+      ],
+      "teaches": [
+        "visitar"
+      ]
+    },
+    {
+      "question_id": "a2-direct-object-pronouns-04",
+      "prompt": "Complete with the pronoun: ¿Dónde está mi móvil? No ___ encuentro.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "lo",
+      "accepted_answers": [
+        "no lo encuentro"
+      ],
+      "explanation": "'Mi móvil' is masculine singular, so the pronoun is 'lo', placed between 'no' and the verb: 'No lo encuentro.'",
+      "hints": [
+        "Masculine singular.",
+        "Put the pronoun between no and the verb."
+      ],
+      "teaches": [
+        "el móvil",
+        "encontrar"
+      ]
+    },
+    {
+      "question_id": "a2-direct-object-pronouns-05",
+      "prompt": "Where does me go? Pick the correct question.",
+      "type": "multiple-choice",
+      "options": [
+        "¿Me ayudas con las bolsas?",
+        "¿Ayudas me con las bolsas?",
+        "¿Ayudasme con las bolsas?"
+      ],
+      "correct_answer": "¿Me ayudas con las bolsas?",
+      "explanation": "With a single conjugated verb the pronoun goes in front: 'Me ayudas'. Pronouns only attach to infinitives, gerunds and affirmative commands.",
+      "hints": [
+        "'Ayudas' is a conjugated verb, not an infinitive."
+      ],
+      "teaches": [
+        "ayudar"
+      ]
+    },
+    {
+      "question_id": "a2-direct-object-pronouns-06",
+      "prompt": "Rewrite attaching the pronoun to the infinitive: Quiero leer la novela. → Quiero ___.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "leerla",
+      "accepted_answers": [],
+      "explanation": "'La novela' becomes 'la', attached to the end of the infinitive: 'Quiero leerla.' 'La quiero leer' is equally correct, but here the pronoun had to be attached.",
+      "hints": [
+        "Feminine singular.",
+        "Write the infinitive and pronoun as one word."
+      ],
+      "teaches": [
+        "la novela"
+      ]
+    },
+    {
+      "question_id": "a2-direct-object-pronouns-07",
+      "prompt": "¿Las gafas? ___ llevo en la mochila.",
+      "type": "multiple-choice",
+      "options": [
+        "Las",
+        "La",
+        "Los",
+        "Les"
+      ],
+      "correct_answer": "Las",
+      "explanation": "'Las gafas' is feminine plural → 'las': 'Las llevo en la mochila.'",
+      "hints": [
+        "Feminine plural."
+      ],
+      "teaches": [
+        "las gafas",
+        "llevar"
+      ]
+    },
+    {
+      "question_id": "a2-direct-object-pronouns-08",
+      "prompt": "Write the missing word: Esperamos ___ Juan en la estación.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "a",
+      "accepted_answers": [
+        "esperamos a juan"
+      ],
+      "explanation": "Juan is a specific person and the direct object of esperar, so he takes the personal 'a': 'Esperamos a Juan.' (But 'Esperamos el tren.')",
+      "hints": [
+        "A specific person as a direct object takes the personal a."
+      ],
+      "teaches": [
+        "esperar"
+      ]
+    },
+    {
+      "question_id": "a2-direct-object-pronouns-09",
+      "prompt": "Which pair is correct and means the same thing?",
+      "type": "multiple-choice",
+      "options": [
+        "Lo estoy leyendo. = Estoy leyéndolo.",
+        "Lo estoy leyendo. = Estoy lo leyendo.",
+        "Estoy leyendo lo. = Leyéndolo estoy."
+      ],
+      "correct_answer": "Lo estoy leyendo. = Estoy leyéndolo.",
+      "explanation": "With a gerund the pronoun either goes before the conjugated verb (estoy) or attaches to the gerund, which then needs an accent: 'leyéndolo'. It can never sit between the two verbs.",
+      "hints": [
+        "Before the first verb, or glued to the gerund.",
+        "A pronoun attached to a gerund needs a written accent."
+      ],
+      "teaches": [
+        "la novela"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Te llamo esta tarde.",
+      "meaning": "I'll call you this afternoon."
+    },
+    {
+      "text": "¿Nos invitas a tu cumpleaños?",
+      "meaning": "Are you inviting us to your birthday?",
+      "note": "New word: el cumpleaños = the birthday."
+    },
+    {
+      "text": "El regalo lo compro yo mañana.",
+      "meaning": "The present, I'll buy it tomorrow.",
+      "note": "The object named at the front is repeated as a pronoun."
+    },
+    {
+      "text": "Las gafas las llevo siempre en el bolso.",
+      "meaning": "I always carry my glasses in my handbag.",
+      "note": "New word: el bolso = the handbag."
+    },
+    {
+      "text": "Espero a Luis en la puerta del cine.",
+      "meaning": "I'm waiting for Luis at the cinema door.",
+      "note": "A specific person as direct object takes the personal a."
+    },
+    {
+      "text": "La tarta de chocolate la hace mi abuela los domingos.",
+      "meaning": "My grandmother makes the chocolate cake on Sundays."
+    },
+    {
+      "text": "¿Dónde está mi móvil? Lo he dejado en la cocina.",
+      "meaning": "Where is my phone? I've left it in the kitchen."
+    },
+    {
+      "text": "Quiero leer esta novela este verano, pero no la encuentro en casa.",
+      "meaning": "I want to read this novel this summer, but I can't find it at home."
+    }
+  ],
+  "guide": [
+    {
+      "section": "The direct object and the personal a"
+    },
+    {
+      "question": "a2-direct-object-pronouns-08"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "section": "The pronouns"
+    },
+    {
+      "question": "a2-direct-object-pronouns-01"
+    },
+    {
+      "question": "a2-direct-object-pronouns-02"
+    },
+    {
+      "question": "a2-direct-object-pronouns-07"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "section": "Where the pronoun goes"
+    },
+    {
+      "question": "a2-direct-object-pronouns-04"
+    },
+    {
+      "question": "a2-direct-object-pronouns-05"
+    },
+    {
+      "question": "a2-direct-object-pronouns-06"
+    },
+    {
+      "question": "a2-direct-object-pronouns-09"
+    },
+    {
+      "tip": "If you are unsure, say the full noun first, then swap it. ¿La tarta? Use la. ¿Los regalos? Use los. The pronoun always copies the noun."
+    },
+    {
+      "section": "Lo or le"
+    },
+    {
+      "question": "a2-direct-object-pronouns-03"
+    },
+    {
+      "vocab": 4
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-direct-object-pronouns-conv-surprise",
+      "title": "The surprise party",
+      "scenario": "Sara and Tomás are getting everything ready for their friend Laura's surprise birthday party.",
+      "role_a": "Sara",
+      "role_b": "Tomás",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Tomás, ¿tienes el regalo de Laura?",
+          "meaning": "Tomás, do you have Laura's present?"
+        },
+        {
+          "speaker": "b",
+          "text": "Sí, lo tengo en la mochila. ¿Y la tarta?",
+          "meaning": "Yes, I have it in my backpack. And the cake?",
+          "note": "el regalo becomes lo"
+        },
+        {
+          "speaker": "a",
+          "text": "La hace mi madre. La traemos esta tarde.",
+          "meaning": "My mother is making it. We're bringing it this afternoon.",
+          "note": "la tarta becomes la"
+        },
+        {
+          "speaker": "b",
+          "text": "Perfecto. ¿Has invitado a sus compañeros de trabajo?",
+          "meaning": "Perfect. Have you invited her workmates?",
+          "note": "This is the personal a."
+        },
+        {
+          "speaker": "a",
+          "text": "Sí, los he invitado a todos. ¿Me ayudas con las bebidas?",
+          "meaning": "Yes, I've invited them all. Will you help me with the drinks?",
+          "note": "los stands for sus compañeros, and me stands for the speaker"
+        },
+        {
+          "speaker": "b",
+          "text": "Claro, te ayudo. Las compramos en el súper de la esquina.",
+          "meaning": "Of course, I'll help you. We'll buy them at the shop on the corner.",
+          "note": "te stands for you, and las stands for las bebidas"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Y las gafas de sol para la foto? No las encuentro.",
+          "meaning": "And the sunglasses for the photo? I can't find them.",
+          "note": "The order is no, then las, then the verb."
+        },
+        {
+          "speaker": "b",
+          "text": "Están en el coche. Voy a buscarlas ahora.",
+          "meaning": "They're in the car. I'll go and get them now.",
+          "note": "The pronoun is attached to the infinitive."
+        },
+        {
+          "speaker": "a",
+          "text": "¿A qué hora llega Laura? ¿La llamo?",
+          "meaning": "What time does Laura arrive? Shall I call her?",
+          "note": "Laura becomes la"
+        },
+        {
+          "speaker": "b",
+          "text": "No, no la llames. ¡Es una sorpresa! Yo la espero en la puerta.",
+          "meaning": "No, don't call her. It's a surprise! I'll wait for her at the door.",
+          "note": "esperar a Laura becomes la espero"
+        },
+        {
+          "speaker": "a",
+          "text": "Vale. ¡Qué nervios! Los invitados ya nos esperan.",
+          "meaning": "OK. I'm so nervous! The guests are already waiting for us.",
+          "note": "nos means us"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🎯",
+    "bites": [
+      {
+        "title": "Who or what gets the action",
+        "emoji": "🎯",
+        "rule": "The direct object answers ¿qué? or ¿a quién? after the verb. A specific person as direct object takes the personal a, as in Veo a María. A thing does not, as in Veo la tele.",
+        "example": "Espero a Juan. Espero el autobús.",
+        "example_meaning": "I'm waiting for Juan. I'm waiting for the bus."
+      },
+      {
+        "title": "Eight small words",
+        "emoji": "🔤",
+        "rule": "The pronouns are me, te, lo / la, nos, os and los / las. Lo, la, los and las copy the gender and number of the noun they replace.",
+        "example": "¿La tarta? La hace mi madre.",
+        "example_meaning": "The cake? My mother makes it."
+      },
+      {
+        "title": "In front of the verb",
+        "emoji": "⬅️",
+        "rule": "The pronoun goes before a conjugated verb, and no goes before the pronoun, as in No lo veo. Never put the pronoun after a conjugated verb.",
+        "example": "Te llamo mañana. No lo encuentro.",
+        "example_meaning": "I'll call you tomorrow. I can't find it."
+      },
+      {
+        "title": "Attached to the infinitive",
+        "emoji": "🔗",
+        "rule": "With an infinitive or gerund you can choose: Quiero verlo or Lo quiero ver, Estoy leyéndola or La estoy leyendo. A pronoun attached to a gerund adds an accent.",
+        "example": "Voy a comprarlas. = Las voy a comprar.",
+        "example_meaning": "I'm going to buy them."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which pronoun replaces it?",
+        "buckets": [
+          "lo",
+          "la",
+          "los",
+          "las"
+        ],
+        "items": [
+          {
+            "text": "el pan",
+            "bucket": 0
+          },
+          {
+            "text": "la tarta",
+            "bucket": 1
+          },
+          {
+            "text": "los regalos",
+            "bucket": 2
+          },
+          {
+            "text": "las gafas",
+            "bucket": 3
+          },
+          {
+            "text": "el móvil",
+            "bucket": 0
+          },
+          {
+            "text": "la novela",
+            "bucket": 1
+          },
+          {
+            "text": "los libros",
+            "bucket": 2
+          },
+          {
+            "text": "las llaves",
+            "bucket": 3
+          }
+        ],
+        "why": "The pronoun copies the gender and number of the noun: el takes lo, la takes la, los takes los and las takes las."
+      },
+      {
+        "title": "Personal a or not?",
+        "buckets": [
+          "a",
+          "no a"
+        ],
+        "items": [
+          {
+            "text": "Veo ___ mi hermana.",
+            "bucket": 0
+          },
+          {
+            "text": "Veo ___ la tele.",
+            "bucket": 1
+          },
+          {
+            "text": "Esperamos ___ Juan.",
+            "bucket": 0
+          },
+          {
+            "text": "Busco ___ las llaves.",
+            "bucket": 1
+          },
+          {
+            "text": "Llamo ___ mis padres.",
+            "bucket": 0
+          },
+          {
+            "text": "Compro ___ el pan.",
+            "bucket": 1
+          }
+        ],
+        "why": "A specific person as direct object takes the personal a; things do not."
+      },
+      {
+        "title": "Right place or wrong place?",
+        "buckets": [
+          "correct",
+          "wrong"
+        ],
+        "items": [
+          {
+            "text": "Lo quiero ver.",
+            "bucket": 0
+          },
+          {
+            "text": "Quiero verlo.",
+            "bucket": 0
+          },
+          {
+            "text": "Quiero lo ver.",
+            "bucket": 1
+          },
+          {
+            "text": "Veo lo.",
+            "bucket": 1
+          },
+          {
+            "text": "No la conozco.",
+            "bucket": 0
+          },
+          {
+            "text": "No conozco la.",
+            "bucket": 1
+          }
+        ],
+        "why": "The pronoun goes before the conjugated verb or attaches to the infinitive. It never goes after a conjugated verb or between the two verbs."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "¿El pan? La compro yo.",
+        "wrong": "La",
+        "fix": "Lo",
+        "why": "El pan is masculine: lo."
+      },
+      {
+        "sentence": "¿Las llaves? No los encuentro.",
+        "wrong": "los",
+        "fix": "las",
+        "why": "Las llaves is feminine plural: las."
+      },
+      {
+        "sentence": "¿Nos esperas en la puerta? — Sí, les espero.",
+        "wrong": "les",
+        "fix": "os",
+        "why": "Waiting for you all (vosotros) takes os, and les is not a direct object pronoun."
+      },
+      {
+        "sentence": "Estoy leyendola ahora mismo.",
+        "wrong": "leyendola",
+        "fix": "leyéndola",
+        "why": "A pronoun attached to a gerund needs a written accent to keep the stress: leyéndola."
+      },
+      {
+        "sentence": "¿A tus abuelos? Les visito los domingos.",
+        "wrong": "Les",
+        "fix": "Los",
+        "why": "Leísmo is only tolerated for one male person. A plural direct object takes los."
+      },
+      {
+        "sentence": "¿El regalo? Voy a comprarlos mañana.",
+        "wrong": "comprarlos",
+        "fix": "comprarlo",
+        "why": "El regalo is singular, so lo: comprarlo."
+      }
+    ],
+    "builds": [
+      {
+        "text": "¿El pan? Lo compro yo.",
+        "meaning": "The bread? I'll buy it.",
+        "distractors": [
+          "La"
+        ]
+      },
+      {
+        "text": "No la conozco muy bien.",
+        "meaning": "I don't know her very well.",
+        "distractors": [
+          "le"
+        ]
+      },
+      {
+        "text": "Quiero verla esta noche.",
+        "meaning": "I want to see her tonight.",
+        "distractors": [
+          "verlo",
+          "le"
+        ]
+      },
+      {
+        "text": "Esperamos a Juan en la estación.",
+        "meaning": "We're waiting for Juan at the station.",
+        "distractors": [
+          "lo"
+        ]
+      },
+      {
+        "text": "Te llamo mañana por la tarde.",
+        "meaning": "I'll call you tomorrow afternoon.",
+        "distractors": [
+          "Ti"
+        ]
+      }
+    ]
+  }
+}

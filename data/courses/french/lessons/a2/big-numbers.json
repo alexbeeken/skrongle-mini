@@ -1,0 +1,582 @@
+{
+  "id": "a2-big-numbers",
+  "slug": "big-numbers",
+  "title": "Numbers from 100 to a million: prices, years and dates",
+  "unit": "A2",
+  "group": "Vocabulary",
+  "order": 12,
+  "summary": "Count past a hundred: cent and cents, mille, millions, years, full dates, prices and the decimal comma.",
+  "focus": "Saying and writing numbers from 100 to a million in prices, years and dates",
+  "prerequisites": [
+    "a1-numbers-time-dates"
+  ],
+  "content": "## Hundreds, thousands, millions\n\n**Cent** (100) never takes **un**: **cent euros**. The next number follows with no **et**: **cent un** (101), **cent vingt** (120).\n\n| number | in French |\n|---|---|\n| 200 | **deux cents** |\n| 250 | **deux cent cinquante** |\n| 1 000 | **mille** |\n| 3 500 | **trois mille cinq cents** |\n| 1 000 000 | **un million** |\n\n- **Cents** takes its **-s** only when it is multiplied and no other number follows: **trois cents euros**, but **trois cent dix euros**.\n- **Mille** never changes and never takes **un**: **mille euros**, **deux mille euros**.\n- **Million** (and **milliard**, a billion) is a noun: **un million**, **deux millions**, with **de** before a noun: **un million d'habitants**.\n\n## Years and dates\n\nA year is read as one big number:\n\n- **1998** → **mille neuf cent quatre-vingt-dix-huit** (you will also hear **dix-neuf cent quatre-vingt-dix-huit**)\n- **2026** → **deux mille vingt-six**\n\n*In* a year is **en**: **en 2026**, **Je suis né en 1990** (a woman writes **née**).\n\nA full date runs day, month, year, with a plain number for the day (only the 1st is **le premier**):\n\n- **le 14 juillet 1789** → **le quatorze juillet mille sept cent quatre-vingt-neuf**\n\nCenturies are written in Roman numerals with a small **e** and read with **-ième**: **le XXIe siècle** → **le vingt et unième siècle**, **le XVIIIe siècle** → **le dix-huitième siècle**.\n\n## Prices, decimals and writing numbers\n\nFrench writes a **comma** where English writes a decimal point, and a **space** where English writes a comma:\n\n| English | French | said |\n|---|---|---|\n| 2.5 | 2,5 | **deux virgule cinq** |\n| 1,500 | 1 500 | **mille cinq cents** |\n| €3.50 | 3,50 € | **trois euros cinquante** |\n\nFor a price, say the euros, then the cents, with no **virgule**: **12,99 €** → **douze euros quatre-vingt-dix-neuf**. Under one euro, say **centimes**: **0,50 €** → **cinquante centimes**. The euro sign goes after the number.\n\nTo ask: **Ça coûte combien ?** or **Quel est le prix ?** — **Ça coûte deux cent cinquante euros.**",
+  "vocabulary": [
+    {
+      "term": "deux cents",
+      "meaning": "two hundred",
+      "example": "Il y a deux cents élèves dans mon école.",
+      "example_meaning": "There are two hundred pupils in my school."
+    },
+    {
+      "term": "mille",
+      "meaning": "a thousand, one thousand",
+      "example": "Mon ordinateur coûte mille euros.",
+      "example_meaning": "My computer costs a thousand euros."
+    },
+    {
+      "term": "un million",
+      "meaning": "a million (m)",
+      "example": "Mon grand-père rêve de gagner un million d'euros.",
+      "example_meaning": "My grandfather dreams of winning a million euros."
+    },
+    {
+      "term": "l'habitant",
+      "meaning": "inhabitant (m)",
+      "example": "Marseille a environ huit cent soixante-dix mille habitants.",
+      "example_meaning": "Marseille has about eight hundred and seventy thousand inhabitants."
+    },
+    {
+      "term": "le prix",
+      "meaning": "price (m)",
+      "example": "Le prix de la maison est de deux cent mille euros.",
+      "example_meaning": "The price of the house is two hundred thousand euros."
+    },
+    {
+      "term": "ça coûte combien ?",
+      "meaning": "how much does it cost?",
+      "example": "Ce manteau, ça coûte combien ?",
+      "example_meaning": "This coat, how much does it cost?"
+    },
+    {
+      "term": "le centime",
+      "meaning": "cent, one hundredth of a euro (m)",
+      "example": "La baguette coûte un euro vingt centimes.",
+      "example_meaning": "The baguette costs one euro twenty cents."
+    },
+    {
+      "term": "la virgule",
+      "meaning": "comma; decimal point (f)",
+      "example": "On écrit deux virgule cinq avec une virgule : 2,5.",
+      "example_meaning": "You write two point five with a comma: 2,5."
+    },
+    {
+      "term": "être né / née en",
+      "meaning": "to be born in (a year)",
+      "example": "Ma mère est née en mille neuf cent soixante-quatorze.",
+      "example_meaning": "My mother was born in 1974."
+    },
+    {
+      "term": "le siècle",
+      "meaning": "century (m)",
+      "example": "Cette église date du XIIe siècle.",
+      "example_meaning": "This church dates from the 12th century."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-big-numbers-01",
+      "prompt": "Elle est née en mille neuf cent quatre-vingt-sept. In which year was she born?",
+      "type": "numeric",
+      "correct_answer": "1987",
+      "explanation": "Mille (1000) + neuf cent (900) + quatre-vingt-sept (87) = 1987. A year is read as one number.",
+      "hints": [
+        "mille = 1000, neuf cent = 900.",
+        "quatre-vingt-sept = 4 × 20 + 7."
+      ],
+      "teaches": [
+        "être né / née en"
+      ]
+    },
+    {
+      "question_id": "a2-big-numbers-02",
+      "prompt": "Which spelling is right for 'two hundred euros' written in words?",
+      "type": "multiple-choice",
+      "options": [
+        "deux cents euros",
+        "deux cent euros",
+        "deux cents d'euros"
+      ],
+      "correct_answer": "deux cents euros",
+      "explanation": "Cent is multiplied (deux) and no other number follows, so it takes -s: deux cents euros. Deux cent needs a number after it (deux cent dix).",
+      "hints": [
+        "Does another number come after cent?"
+      ],
+      "teaches": [
+        "deux cents"
+      ]
+    },
+    {
+      "question_id": "a2-big-numbers-03",
+      "prompt": "The ticket says 1 000 €: ça coûte ___ euros.",
+      "type": "fill-in-blank",
+      "correct_answer": "mille",
+      "accepted_answers": [
+        "mille euros"
+      ],
+      "explanation": "A thousand is just mille, with no un in front and never an -s.",
+      "hints": [
+        "Not un…",
+        "Five letters, two of them l."
+      ],
+      "teaches": [
+        "mille"
+      ]
+    },
+    {
+      "question_id": "a2-big-numbers-04",
+      "prompt": "To say 1,000 in French you need 'un' in front: 'un mille'.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "False: mille stands alone (mille euros). Only million and milliard, which are nouns, take un: un million.",
+      "hints": [
+        "Think of mille euros."
+      ],
+      "teaches": [
+        "mille",
+        "un million"
+      ]
+    },
+    {
+      "question_id": "a2-big-numbers-05",
+      "prompt": "Paris et sa région : environ douze ___ d'habitants. (12 000 000)",
+      "type": "fill-in-blank",
+      "correct_answer": "millions",
+      "accepted_answers": [
+        "millions d'habitants"
+      ],
+      "explanation": "Million is a noun, so it takes a plural -s after douze, and de before the noun: douze millions d'habitants.",
+      "hints": [
+        "Million is a noun: does it agree with douze?"
+      ],
+      "teaches": [
+        "un million",
+        "l'habitant"
+      ]
+    },
+    {
+      "question_id": "a2-big-numbers-06",
+      "prompt": "La Révolution commence le quatorze juillet mille sept cent quatre-vingt-neuf. Which year is it?",
+      "type": "numeric",
+      "correct_answer": "1789",
+      "explanation": "Mille (1000) + sept cent (700) + quatre-vingt-neuf (89) = 1789.",
+      "hints": [
+        "sept cent = 700.",
+        "quatre-vingt-neuf = 4 × 20 + 9."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a2-big-numbers-07",
+      "prompt": "How do you say the price 3,50 € aloud?",
+      "type": "multiple-choice",
+      "options": [
+        "trois euros cinquante",
+        "trois virgule cinquante euros",
+        "trente-cinq euros"
+      ],
+      "correct_answer": "trois euros cinquante",
+      "explanation": "For a price you say the euros, then the cents, without virgule: trois euros cinquante.",
+      "hints": [
+        "Euros first, then the cents."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "a2-big-numbers-08",
+      "prompt": "Au marché : « Le fromage, ça coûte ___ ? — Huit euros le kilo. »",
+      "type": "fill-in-blank",
+      "correct_answer": "combien",
+      "accepted_answers": [
+        "combien ?"
+      ],
+      "explanation": "Ça coûte combien ? asks for a price. Combien = how much.",
+      "hints": [
+        "The question word for 'how much'."
+      ],
+      "teaches": [
+        "ça coûte combien ?",
+        "le prix"
+      ]
+    },
+    {
+      "question_id": "a2-big-numbers-09",
+      "prompt": "Le vélo coûte trois cent quarante euros. How much is the bike?",
+      "type": "numeric",
+      "correct_answer": "340",
+      "unit": "€",
+      "explanation": "Trois cent (300) + quarante (40) = 340. Cent has no -s here because quarante follows.",
+      "hints": [
+        "trois cent = 300."
+      ],
+      "teaches": [
+        "le prix"
+      ]
+    },
+    {
+      "question_id": "a2-big-numbers-10",
+      "prompt": "How do you read 'le XXIe siècle'?",
+      "type": "multiple-choice",
+      "options": [
+        "le vingt et unième siècle",
+        "le vingt et un siècle",
+        "le deux mille siècle"
+      ],
+      "correct_answer": "le vingt et unième siècle",
+      "explanation": "Centuries are read as ordinals: XXIe = vingt et unième (21st). The small e marks the -ième.",
+      "hints": [
+        "The small e stands for -ième.",
+        "XX = 20, I = 1."
+      ],
+      "teaches": [
+        "le siècle"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Le livre coûte vingt euros cinquante.",
+      "meaning": "The book costs twenty euros fifty.",
+      "note": "A price: euros first, then the cents."
+    },
+    {
+      "text": "Mon père est né en mille neuf cent soixante.",
+      "meaning": "My father was born in 1960."
+    },
+    {
+      "text": "Il y a deux cents personnes dans la salle.",
+      "meaning": "There are two hundred people in the hall.",
+      "note": "New word: la salle = the hall."
+    },
+    {
+      "text": "Cette voiture coûte quinze mille euros.",
+      "meaning": "This car costs fifteen thousand euros.",
+      "note": "Mille never takes an s."
+    },
+    {
+      "text": "Nous sommes en deux mille vingt-six.",
+      "meaning": "It is 2026."
+    },
+    {
+      "text": "Cette ville a presque un million d'habitants.",
+      "meaning": "This town has almost a million inhabitants.",
+      "note": "New word: presque = almost."
+    },
+    {
+      "text": "Le bébé pèse trois virgule deux kilos à la naissance.",
+      "meaning": "The baby weighs three point two kilos at birth.",
+      "note": "New word: peser = to weigh."
+    },
+    {
+      "text": "Le quatorze juillet mille sept cent quatre-vingt-neuf, le peuple de Paris prend la Bastille.",
+      "meaning": "On 14 July 1789, the people of Paris take the Bastille.",
+      "note": "A full date: day, month, then the year as one number."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Hundreds"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-big-numbers-02"
+    },
+    {
+      "question": "a2-big-numbers-03"
+    },
+    {
+      "question": "a2-big-numbers-04"
+    },
+    {
+      "question": "a2-big-numbers-05"
+    },
+    {
+      "tip": "Read a big number in chunks: millions, then thousands, then the rest. 2 350 000 = deux millions trois cent cinquante mille."
+    },
+    {
+      "section": "Years"
+    },
+    {
+      "question": "a2-big-numbers-01"
+    },
+    {
+      "question": "a2-big-numbers-06"
+    },
+    {
+      "question": "a2-big-numbers-10"
+    },
+    {
+      "concept": {
+        "title": "Two spellings",
+        "markdown": "Since the 1990 spelling reform you may also join every part of a number with hyphens: **deux-cent-cinquante**, **trois-mille-cinq-cents**. Both spellings are correct. This course keeps the traditional one: hyphens only inside the numbers below a hundred (**quatre-vingt-dix-huit**)."
+      }
+    },
+    {
+      "section": "Prices"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-big-numbers-07"
+    },
+    {
+      "question": "a2-big-numbers-08"
+    },
+    {
+      "question": "a2-big-numbers-09"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-big-numbers-conv-flea-market",
+      "title": "An old clock at the flea market",
+      "scenario": "Karim finds an old clock at a flea market and asks Madame Leroy how much it costs.",
+      "role_a": "Karim",
+      "role_b": "Madame Leroy",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Bonjour madame, cette horloge, elle coûte combien ?",
+          "meaning": "Hello, madam, how much is this clock?",
+          "note": "New word: l'horloge (f) = clock."
+        },
+        {
+          "speaker": "b",
+          "text": "Deux cent cinquante euros. Elle est très vieille, vous savez.",
+          "meaning": "Two hundred and fifty euros. It's very old, you know.",
+          "note": "cent + a number: no -s"
+        },
+        {
+          "speaker": "a",
+          "text": "Ah bon ? Elle date de quand ?",
+          "meaning": "Really? When is it from?"
+        },
+        {
+          "speaker": "b",
+          "text": "De mille neuf cent douze. Elle a plus de cent ans !",
+          "meaning": "From 1912. It's more than a hundred years old!",
+          "note": "a year as one number"
+        },
+        {
+          "speaker": "a",
+          "text": "C'est un peu cher pour moi. Deux cents euros, ça va ?",
+          "meaning": "That's a bit expensive for me. Is two hundred euros OK?",
+          "note": "deux cents: nothing follows, so -s"
+        },
+        {
+          "speaker": "b",
+          "text": "Deux cent trente, c'est mon dernier prix.",
+          "meaning": "Two hundred and thirty, that's my final price."
+        },
+        {
+          "speaker": "a",
+          "text": "D'accord. Vous prenez la carte ?",
+          "meaning": "All right. Do you take cards?"
+        },
+        {
+          "speaker": "b",
+          "text": "Non, désolée, seulement les espèces.",
+          "meaning": "No, sorry, cash only."
+        },
+        {
+          "speaker": "a",
+          "text": "Pas de problème. Voilà deux billets de cent et trois billets de dix.",
+          "meaning": "No problem. Here are two hundred-euro notes and three tens."
+        },
+        {
+          "speaker": "b",
+          "text": "Merci ! Et voici un cadeau : un vieux calendrier de mille neuf cent quatre-vingt-dix-neuf.",
+          "meaning": "Thank you! And here's a present: an old calendar from 1999."
+        },
+        {
+          "speaker": "a",
+          "text": "Merci beaucoup, madame. Bonne journée !",
+          "meaning": "Thank you very much, madam. Have a nice day!"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "💯",
+    "bites": [
+      {
+        "title": "Cents or cent?",
+        "emoji": "💯",
+        "rule": "Cent takes -s when it is multiplied and no number follows: deux cents. With a number after it, no -s: deux cent cinquante.",
+        "example": "Ça coûte trois cents euros.",
+        "example_meaning": "It costs three hundred euros."
+      },
+      {
+        "title": "Mille never changes",
+        "emoji": "🧱",
+        "rule": "Mille has no -s and no un: mille euros, cinq mille euros. Million is a noun: deux millions de…",
+        "example": "La télé coûte mille euros.",
+        "example_meaning": "The TV costs a thousand euros."
+      },
+      {
+        "title": "A year in one go",
+        "emoji": "📅",
+        "rule": "Read a year as one number: mille neuf cent… or deux mille… In a year is en; born in is né / née en.",
+        "example": "Il est né en deux mille dix.",
+        "example_meaning": "He was born in 2010."
+      },
+      {
+        "title": "Comma, not point",
+        "emoji": "🪙",
+        "rule": "French writes 2,5 and says deux virgule cinq. Prices skip the virgule: euros, then cents. 1 500 has a space.",
+        "example": "Le café coûte deux euros vingt.",
+        "example_meaning": "The coffee costs two euros twenty."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Cent or cents?",
+        "buckets": [
+          "cent",
+          "cents"
+        ],
+        "items": [
+          {
+            "text": "100 euros",
+            "bucket": 0
+          },
+          {
+            "text": "200 euros",
+            "bucket": 1
+          },
+          {
+            "text": "250 euros",
+            "bucket": 0
+          },
+          {
+            "text": "600 pages",
+            "bucket": 1
+          },
+          {
+            "text": "601 pages",
+            "bucket": 0
+          },
+          {
+            "text": "900 ans",
+            "bucket": 1
+          },
+          {
+            "text": "120 kilos",
+            "bucket": 0
+          }
+        ],
+        "why": "Cents only when cent is multiplied and nothing follows. Cent alone (100) and cent + another number stay cent."
+      },
+      {
+        "title": "How big is it?",
+        "buckets": [
+          "less than 1 000",
+          "1 000 to 999 999",
+          "a million or more"
+        ],
+        "items": [
+          {
+            "text": "neuf cent quatre-vingt-dix",
+            "bucket": 0
+          },
+          {
+            "text": "mille deux cents",
+            "bucket": 1
+          },
+          {
+            "text": "deux millions",
+            "bucket": 2
+          },
+          {
+            "text": "cinq cent mille",
+            "bucket": 1
+          },
+          {
+            "text": "trois cent un",
+            "bucket": 0
+          },
+          {
+            "text": "un milliard",
+            "bucket": 2
+          },
+          {
+            "text": "quatre mille",
+            "bucket": 1
+          }
+        ],
+        "why": "Cent counts hundreds, mille thousands, million and milliard the very big numbers."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Le billet d'avion coûte deux cent euros.",
+        "wrong": "cent",
+        "fix": "cents",
+        "why": "Two hundred with nothing after it: deux cents."
+      },
+      {
+        "sentence": "Il y a trois milles personnes au concert.",
+        "wrong": "milles",
+        "fix": "mille",
+        "why": "Mille never takes an -s."
+      },
+      {
+        "sentence": "Ma fille est née à deux mille quinze.",
+        "wrong": "à",
+        "fix": "en",
+        "why": "In a year is en: née en deux mille quinze."
+      },
+      {
+        "sentence": "La ville a deux million d'habitants.",
+        "wrong": "million",
+        "fix": "millions",
+        "why": "Million is a noun: deux millions, with -s."
+      },
+      {
+        "sentence": "Deux point cinq kilos de pommes, s'il vous plaît.",
+        "wrong": "point",
+        "fix": "virgule",
+        "why": "French decimals use the comma: deux virgule cinq."
+      },
+      {
+        "sentence": "Nous vivons au vingt et un siècle.",
+        "wrong": "un",
+        "fix": "unième",
+        "why": "A century is read as an ordinal: le vingt et unième siècle."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Ça coûte deux cent cinquante euros.",
+        "meaning": "It costs two hundred and fifty euros.",
+        "distractors": [
+          "cents"
+        ]
+      },
+      {
+        "text": "Je suis née en mille neuf cent quatre-vingt-dix.",
+        "meaning": "I was born in 1990.",
+        "distractors": [
+          "à"
+        ]
+      },
+      {
+        "text": "La ville a un million d'habitants.",
+        "meaning": "The town has a million inhabitants.",
+        "distractors": [
+          "millions"
+        ]
+      },
+      {
+        "text": "Quel est le prix du billet ?",
+        "meaning": "What is the price of the ticket?",
+        "distractors": [
+          "combien"
+        ]
+      }
+    ]
+  }
+}

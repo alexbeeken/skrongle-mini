@@ -1,0 +1,564 @@
+{
+  "id": "c1-counterfactuals",
+  "slug": "counterfactuals",
+  "title": "If only: hubiera sabido, habría venido",
+  "unit": "C1",
+  "group": "Grammar",
+  "order": 14,
+  "summary": "Talk about what could have been: si hubiera…, habría…, mixed conditionals, ojalá, como si and reproaches.",
+  "focus": "Pluperfect subjunctive and perfect conditional in counterfactuals",
+  "prerequisites": [
+    "c1-conditional-connectors",
+    "b2-si-clauses",
+    "b2-future-and-conditional-perfect"
+  ],
+  "content": "## The two compound forms\n\nBoth are **haber + participle**. The pluperfect subjunctive has two equivalent sets of endings, and **-ra** is more common in speech.\n\n| person | pluperfect subjunctive | perfect conditional |\n|---|---|---|\n| yo | **hubiera / hubiese** hablado | **habría** hablado |\n| tú | **hubieras / hubieses** hablado | **habrías** hablado |\n| él / ella / usted | **hubiera / hubiese** hablado | **habría** hablado |\n| nosotros | **hubiéramos / hubiésemos** hablado | **habríamos** hablado |\n| vosotros | **hubierais / hubieseis** hablado | **habríais** hablado |\n| ellos / ustedes | **hubieran / hubiesen** hablado | **habrían** hablado |\n\n## Past counterfactuals\n\nTo imagine a different past: **si + pluperfect subjunctive**, then **perfect conditional**.\n\n- *Si **hubiera sabido** que venías, **habría hecho** una tarta.* (If I had known you were coming, I'd have made a cake.)\n\nIn speech the main clause often uses **hubiera** too: *…te **hubiera** llamado*. Both are standard. The si-clause **never** takes habría: *si habría sabido* is wrong.\n\n## Mixed conditionals\n\nThe two halves can point at different times:\n\n- A past condition with a present result: *Si **hubiera estudiado** medicina, ahora **sería** médica.*\n- A permanent condition with a past result: *Si **fuera** más alto, me **habrían elegido** para el equipo.*\n\nAsk of each half whether it is about then, or about always or now.\n\n## Regret, reproach and 'as if'\n\n- **ojalá + pluperfect subjunctive** means if only (about the past): *Ojalá **hubiera ido**.*\n- **como si + pluperfect subjunctive**: *Me miró **como si hubiera visto** un fantasma.*\n- **de + haber + participle** (written style, replaces si): ***De haberlo sabido**, no habría venido.*\n- For a reproach, use **deberías haber** or **tendrías que haber** + participle: *Deberías haberme avisado.* Pronouns attach to haber.",
+  "vocabulary": [
+    {
+      "term": "hubiera / hubiese",
+      "meaning": "had (pluperfect subjunctive of haber, + participle)",
+      "example": "Si hubiese llegado a tiempo, habría firmado el contrato.",
+      "example_meaning": "If he had arrived in time, he would have signed the contract."
+    },
+    {
+      "term": "habría",
+      "meaning": "would have (perfect conditional of haber, + participle)",
+      "example": "Con un poco más de suerte, habríamos ganado la final.",
+      "example_meaning": "With a bit more luck, we would have won the final."
+    },
+    {
+      "term": "ojalá",
+      "meaning": "if only (+ pluperfect subjunctive for the past)",
+      "example": "Ojalá hubiéramos sacado las entradas antes.",
+      "example_meaning": "If only we had bought the tickets earlier."
+    },
+    {
+      "term": "como si",
+      "meaning": "as if (+ past subjunctive)",
+      "example": "Se comportó como si no hubiera pasado nada.",
+      "example_meaning": "She behaved as if nothing had happened."
+    },
+    {
+      "term": "de haberlo sabido",
+      "meaning": "had I known, if I had known",
+      "example": "De haberlo sabido, habría traído el paraguas.",
+      "example_meaning": "Had I known, I'd have brought the umbrella."
+    },
+    {
+      "term": "debería haber",
+      "meaning": "should have (+ participle)",
+      "example": "Debería haber revisado el informe antes de enviarlo.",
+      "example_meaning": "I should have checked the report before sending it."
+    },
+    {
+      "term": "tendrías que haber",
+      "meaning": "you should have, you ought to have (+ participle)",
+      "example": "Tendrías que haber pedido ayuda.",
+      "example_meaning": "You ought to have asked for help."
+    },
+    {
+      "term": "arrepentirse",
+      "meaning": "to regret, to be sorry",
+      "example": "Me arrepiento de no haber estudiado alemán.",
+      "example_meaning": "I regret not having studied German."
+    },
+    {
+      "term": "echar en cara",
+      "meaning": "to throw something back at someone, to reproach",
+      "example": "Siempre me echa en cara que no fui a su boda.",
+      "example_meaning": "He always throws it in my face that I didn't go to his wedding."
+    },
+    {
+      "term": "a estas alturas",
+      "meaning": "by now, at this stage",
+      "example": "Si hubiera empezado en enero, a estas alturas ya habría terminado.",
+      "example_meaning": "If I'd started in January, I'd have finished by now."
+    },
+    {
+      "term": "a tiempo",
+      "meaning": "in time",
+      "example": "Si el médico hubiera llegado a tiempo, todo habría sido distinto.",
+      "example_meaning": "If the doctor had arrived in time, everything would have been different."
+    },
+    {
+      "term": "perder la oportunidad",
+      "meaning": "to miss the chance",
+      "example": "Perdió la oportunidad de su vida por no contestar el correo.",
+      "example_meaning": "He missed the chance of a lifetime by not answering the email."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "c1-counterfactuals-01",
+      "prompt": "Si ___ (saber, yo) que venías, habría hecho una tarta.",
+      "type": "fill-in-blank",
+      "correct_answer": "hubiera sabido",
+      "accepted_answers": [
+        "hubiese sabido",
+        "yo hubiera sabido",
+        "yo hubiese sabido"
+      ],
+      "explanation": "A condition about a past that did not happen takes si + pluperfect subjunctive: hubiera (or hubiese) sabido.",
+      "hints": [
+        "Use haber in the past subjunctive + participle."
+      ],
+      "teaches": [
+        "hubiera / hubiese"
+      ]
+    },
+    {
+      "question_id": "c1-counterfactuals-02",
+      "prompt": "Si me hubieras avisado, te ___ a buscar al aeropuerto.",
+      "type": "multiple-choice",
+      "options": [
+        "habría ido",
+        "habré ido",
+        "había ido"
+      ],
+      "correct_answer": "habría ido",
+      "explanation": "The result of an unreal past condition takes the perfect conditional: habría ido (hubiera ido is also heard).",
+      "hints": [
+        "'I would have gone'."
+      ],
+      "teaches": [
+        "habría"
+      ]
+    },
+    {
+      "question_id": "c1-counterfactuals-03",
+      "prompt": "Which counterfactual about the past is correct?",
+      "type": "multiple-choice",
+      "options": [
+        "Si lo hubiera sabido, no habría venido.",
+        "Si lo habría sabido, no hubiera venido.",
+        "Si lo había sabido, no habría venido."
+      ],
+      "correct_answer": "Si lo hubiera sabido, no habría venido.",
+      "explanation": "The si-clause takes the pluperfect subjunctive; habría never goes after si.",
+      "hints": [
+        "Which form can never follow si?"
+      ],
+      "teaches": [
+        "hubiera / hubiese",
+        "habría"
+      ]
+    },
+    {
+      "question_id": "c1-counterfactuals-04",
+      "prompt": "Si hubiera estudiado medicina, ahora ___ (ser, yo) médica.",
+      "type": "fill-in-blank",
+      "correct_answer": "sería",
+      "accepted_answers": [
+        "yo sería"
+      ],
+      "explanation": "This is a mixed conditional. A past condition with a present result (ahora) takes the simple conditional, sería.",
+      "hints": [
+        "Look at ahora.",
+        "Use the simple conditional."
+      ],
+      "teaches": [
+        "hubiera / hubiese"
+      ]
+    },
+    {
+      "question_id": "c1-counterfactuals-05",
+      "prompt": "Si ___ más alto, me habrían elegido para el equipo. (I am short; I always have been.)",
+      "type": "multiple-choice",
+      "options": [
+        "fuera",
+        "sería",
+        "habría sido"
+      ],
+      "correct_answer": "fuera",
+      "explanation": "A permanent condition uses the imperfect subjunctive (fuera) even when the result is in the past. Sería and habría sido never follow si.",
+      "hints": [
+        "It is a lasting trait, and it follows si."
+      ],
+      "teaches": [
+        "habría"
+      ]
+    },
+    {
+      "question_id": "c1-counterfactuals-06",
+      "prompt": "Ojalá ___ (ir, nosotros) al concierto anoche.",
+      "type": "fill-in-blank",
+      "correct_answer": "hubiéramos ido",
+      "accepted_answers": [
+        "hubiésemos ido",
+        "nosotros hubiéramos ido"
+      ],
+      "explanation": "A wish about the past takes ojalá + pluperfect subjunctive: hubiéramos ido.",
+      "hints": [
+        "Anoche means last night, so the chance is gone.",
+        "The nosotros form carries an accent: -éramos."
+      ],
+      "teaches": [
+        "ojalá"
+      ]
+    },
+    {
+      "question_id": "c1-counterfactuals-07",
+      "prompt": "Me miró como si ___ un fantasma.",
+      "type": "multiple-choice",
+      "options": [
+        "hubiera visto",
+        "había visto",
+        "habría visto"
+      ],
+      "correct_answer": "hubiera visto",
+      "explanation": "Como si always takes the past subjunctive. For an earlier event it takes the pluperfect: hubiera visto.",
+      "hints": [
+        "Como si never takes the indicative."
+      ],
+      "teaches": [
+        "como si"
+      ]
+    },
+    {
+      "question_id": "c1-counterfactuals-08",
+      "prompt": "___ sabido, no habría venido. (written style, without si: 'had I known it')",
+      "type": "fill-in-blank",
+      "correct_answer": "De haberlo",
+      "explanation": "De + haber + participle replaces a si-clause, and the pronoun attaches to haber: de haberlo sabido.",
+      "hints": [
+        "Use de + an infinitive with lo attached."
+      ],
+      "teaches": [
+        "de haberlo sabido"
+      ]
+    },
+    {
+      "question_id": "c1-counterfactuals-09",
+      "prompt": "What does 'Deberías haberme avisado' mean?",
+      "type": "multiple-choice",
+      "options": [
+        "You should have told me.",
+        "You must have told me.",
+        "You would have told me."
+      ],
+      "correct_answer": "You should have told me.",
+      "explanation": "Debería(s) haber + participle is a reproach about the past: 'should have'.",
+      "hints": [
+        "It is a complaint, not a guess."
+      ],
+      "teaches": [
+        "debería haber"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Si hubiera llovido, no habríamos salido.",
+      "meaning": "If it had rained, we wouldn't have gone out."
+    },
+    {
+      "text": "Ojalá me lo hubieras contado antes.",
+      "meaning": "I wish you had told me earlier.",
+      "note": "Ojalá + pluperfect subjunctive expresses regret."
+    },
+    {
+      "text": "Habla como si lo hubiera visto todo.",
+      "meaning": "He talks as if he had seen it all."
+    },
+    {
+      "text": "Si hubieras salido antes, no habrías perdido el tren.",
+      "meaning": "If you had left earlier, you wouldn't have missed the train."
+    },
+    {
+      "text": "De haberlo imaginado, habría reservado mesa.",
+      "meaning": "Had I imagined it, I'd have booked a table."
+    },
+    {
+      "text": "Si no fuera tan cabezota, ya lo habría arreglado.",
+      "meaning": "If he weren't so stubborn, he would have fixed it by now.",
+      "note": "New word: cabezota = stubborn."
+    },
+    {
+      "text": "Tendrías que haber llamado al fontanero hace una semana.",
+      "meaning": "You should have called the plumber a week ago.",
+      "note": "New word: el fontanero = the plumber."
+    },
+    {
+      "text": "Si hubiera aceptado aquel trabajo, ahora viviría en Buenos Aires.",
+      "meaning": "If I had accepted that job, I'd be living in Buenos Aires now.",
+      "note": "A mixed conditional: past condition, present result."
+    }
+  ],
+  "guide": [
+    {
+      "section": "The two compound forms"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "section": "Past counterfactuals"
+    },
+    {
+      "question": "c1-counterfactuals-01"
+    },
+    {
+      "question": "c1-counterfactuals-02"
+    },
+    {
+      "question": "c1-counterfactuals-03"
+    },
+    {
+      "tip": "After si, use hubiera, never habría."
+    },
+    {
+      "section": "Mixed conditionals"
+    },
+    {
+      "question": "c1-counterfactuals-04"
+    },
+    {
+      "question": "c1-counterfactuals-05"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "section": "Regret"
+    },
+    {
+      "question": "c1-counterfactuals-06"
+    },
+    {
+      "question": "c1-counterfactuals-07"
+    },
+    {
+      "question": "c1-counterfactuals-08"
+    },
+    {
+      "question": "c1-counterfactuals-09"
+    },
+    {
+      "vocab": 4
+    }
+  ],
+  "conversations": [
+    {
+      "id": "c1-counterfactuals-conv-missed-flight",
+      "title": "The missed flight",
+      "scenario": "Elena and Javier have just missed their flight to Tenerife and are sitting in the airport café.",
+      "role_a": "Elena",
+      "role_b": "Javier",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Si hubiéramos salido de casa a las seis, ahora estaríamos en el avión.",
+          "meaning": "If we had left home at six, we'd be on the plane now.",
+          "note": "A mixed conditional: past condition, present result."
+        },
+        {
+          "speaker": "b",
+          "text": "Ya, pero si no hubieras vuelto a por el cargador, habríamos llegado.",
+          "meaning": "Yes, but if you hadn't gone back for the charger, we'd have made it."
+        },
+        {
+          "speaker": "a",
+          "text": "¿Me lo vas a echar en cara toda la tarde?",
+          "meaning": "Are you going to throw it in my face all afternoon?"
+        },
+        {
+          "speaker": "b",
+          "text": "No, perdona. Es que tendríamos que haber facturado por internet.",
+          "meaning": "No, sorry. It's just that we should have checked in online."
+        },
+        {
+          "speaker": "a",
+          "text": "De haberlo sabido, habría pedido un taxi en vez de ir en metro.",
+          "meaning": "Had I known, I'd have ordered a taxi instead of taking the underground."
+        },
+        {
+          "speaker": "b",
+          "text": "Ojalá hubiera comprado el billete flexible. Costaba solo veinte euros más.",
+          "meaning": "If only I had bought the flexible ticket. It was only twenty euros more."
+        },
+        {
+          "speaker": "a",
+          "text": "Bueno, el de la ventanilla nos habló como si hubiéramos perdido el último vuelo del año.",
+          "meaning": "Well, the man at the desk talked to us as if we'd missed the last flight of the year."
+        },
+        {
+          "speaker": "b",
+          "text": "Y hay otro a las nueve. Si fuera más dramático, habría llorado.",
+          "meaning": "And there's another one at nine. If I were more dramatic, I'd have cried.",
+          "note": "A mixed conditional: permanent condition, past result."
+        },
+        {
+          "speaker": "a",
+          "text": "Pues a estas alturas, mejor pedimos algo de cenar.",
+          "meaning": "Well, at this stage, we'd better order something for dinner."
+        },
+        {
+          "speaker": "b",
+          "text": "Buena idea. Y la próxima vez, salimos a las cinco.",
+          "meaning": "Good idea. And next time, we leave at five."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🌀",
+    "bites": [
+      {
+        "title": "Hubiera + participle",
+        "emoji": "🌀",
+        "rule": "An unreal past condition takes si + hubiera (or hubiese) + participle, then habría + participle.",
+        "example": "Si hubiera sabido, habría venido.",
+        "example_meaning": "If I had known, I would have come."
+      },
+      {
+        "title": "Never si + habría",
+        "emoji": "🚫",
+        "rule": "Habría can go in the main clause (and so can hubiera), but never right after si.",
+        "example": "Si hubieras llamado, te habría abierto.",
+        "example_meaning": "If you had called, I'd have opened the door."
+      },
+      {
+        "title": "Mixed times",
+        "emoji": "🔀",
+        "rule": "A past condition can have a present result (si hubiera estudiado, ahora sería…), and a lasting condition a past result (si fuera alto, habría jugado…).",
+        "example": "Si hubiera ahorrado, ahora tendría un coche.",
+        "example_meaning": "If I had saved, I'd have a car now."
+      },
+      {
+        "title": "Ojalá, como si, debería haber",
+        "emoji": "😔",
+        "rule": "Ojalá and como si take the pluperfect subjunctive for the past. Debería haber or tendrías que haber + participle means should have.",
+        "example": "Ojalá hubiera ido contigo.",
+        "example_meaning": "I wish I had gone with you."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which half of the sentence?",
+        "buckets": [
+          "the si-clause",
+          "the result"
+        ],
+        "items": [
+          {
+            "text": "si hubiera sabido",
+            "bucket": 0
+          },
+          {
+            "text": "habría venido",
+            "bucket": 1
+          },
+          {
+            "text": "si hubiéramos salido antes",
+            "bucket": 0
+          },
+          {
+            "text": "no habríamos perdido el tren",
+            "bucket": 1
+          },
+          {
+            "text": "si me hubieses llamado",
+            "bucket": 0
+          },
+          {
+            "text": "ahora tendría más tiempo",
+            "bucket": 1
+          }
+        ],
+        "why": "Hubiera or hubiese goes after si. Habría and the simple conditional go in the result."
+      },
+      {
+        "title": "When is the result?",
+        "buckets": [
+          "a past result",
+          "a present result"
+        ],
+        "items": [
+          {
+            "text": "Si hubiera ahorrado, me habría comprado el piso.",
+            "bucket": 0
+          },
+          {
+            "text": "Si hubiera ahorrado, ahora tendría dinero.",
+            "bucket": 1
+          },
+          {
+            "text": "Si no hubiera llovido, habríamos ido a la playa.",
+            "bucket": 0
+          },
+          {
+            "text": "Si no hubiera dejado el inglés, ahora lo hablaría bien.",
+            "bucket": 1
+          },
+          {
+            "text": "Si hubieras venido, te habrías divertido.",
+            "bucket": 0
+          }
+        ],
+        "why": "Habría + participle is a past result, and the simple conditional (tendría, hablaría) is a present one."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Si lo habría sabido, no hubiera venido.",
+        "wrong": "habría",
+        "fix": "hubiera",
+        "why": "Habría never follows si. The si-clause takes the pluperfect subjunctive."
+      },
+      {
+        "sentence": "Ojalá habías venido a la fiesta.",
+        "wrong": "habías",
+        "fix": "hubieras",
+        "why": "Ojalá takes the subjunctive: hubieras venido."
+      },
+      {
+        "sentence": "Me miró como si había visto un fantasma.",
+        "wrong": "había",
+        "fix": "hubiera",
+        "why": "Como si takes the past subjunctive."
+      },
+      {
+        "sentence": "Si hubiera estudiado más, ahora tendré un buen trabajo.",
+        "wrong": "tendré",
+        "fix": "tendría",
+        "why": "A present result of an unreal condition takes the conditional."
+      },
+      {
+        "sentence": "Si hubieras salido antes, no habrás perdido el tren.",
+        "wrong": "habrás",
+        "fix": "habrías",
+        "why": "The result takes the perfect conditional, not the future perfect."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Si hubiera sabido, habría venido.",
+        "meaning": "If I had known, I would have come.",
+        "distractors": [
+          "había"
+        ]
+      },
+      {
+        "text": "Ojalá me hubieras llamado antes.",
+        "meaning": "I wish you had called me earlier.",
+        "distractors": [
+          "habías"
+        ]
+      },
+      {
+        "text": "Me miró como si hubiera visto un fantasma.",
+        "meaning": "He looked at me as if he had seen a ghost.",
+        "distractors": [
+          "había"
+        ]
+      },
+      {
+        "text": "Deberías haberme avisado antes.",
+        "meaning": "You should have warned me earlier.",
+        "distractors": [
+          "habías"
+        ]
+      }
+    ]
+  }
+}

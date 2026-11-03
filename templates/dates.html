@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t("play.dates.name") }}{% endblock %}
+{% block modenav %}{% let active = "dates" %}{% include "nav_play.html" %}{% endblock %}
+{% block content %}
+<section class="dates" id="dates" data-testid="dates" data-calendar="{{ calendar_json }}" data-lang="{{ course.term_lang }}" data-meaning-lang="{{ course.meaning_lang }}" data-label="{{ course.term_label }}" data-praise="{{ course.praise }}" data-best="{{ best_score }}">
+  <p class="crumbs"><a href="{{ crate::base_path() }}/play">{{ crate::t("play.common.games") }}</a> › {{ crate::t("play.dates.name") }}</p>
+  <h1>{{ crate::t("play.dates.name") }} <span class="muted">{{ crate::t("play.dates.tagline") }}</span></h1>
+  <p class="lead">{{ crate::t("play.dates.lead") }}</p>
+
+  <p class="today-line" id="dt-today" hidden>
+    <span class="muted small">{{ crate::t("play.dates.today_is") }}</span>
+    <strong lang="{{ course.term_lang }}" id="dt-today-text"></strong>
+    <button type="button" class="link" id="dt-today-say" title="{{ crate::t("play.dates.hear_it") }}" hidden>🔊</button>
+  </p>
+
+  <form class="dates-setup" id="dt-setup" data-testid="dates-setup">
+    <fieldset class="pills" id="dt-mode" data-testid="dates-mode">
+      <legend>{{ crate::t("play.dates.what_to_drill") }}</legend>
+      <label><input type="radio" name="mode" value="days"><span>{{ crate::t("play.dates.days") }}</span></label>
+      <label><input type="radio" name="mode" value="months"><span>{{ crate::t("play.dates.months") }}</span></label>
+      <label><input type="radio" name="mode" value="both" checked><span>{{ crate::t("play.dates.both") }}</span></label>
+      <label><input type="radio" name="mode" value="dates"><span>{{ crate::t("play.dates.full_dates") }}</span></label>
+      <label><input type="radio" name="mode" value="all"><span>{{ crate::t("play.dates.everything") }}</span></label>
+    </fieldset>
+    <fieldset class="pills" id="dt-len" data-testid="dates-length">
+      <legend>{{ crate::t("play.dates.how_long") }}</legend>
+      <label><input type="radio" name="len" value="30"><span>{{ crate::t("play.dates.len_30") }}</span></label>
+      <label><input type="radio" name="len" value="60" checked><span>{{ crate::t("play.dates.len_60") }}</span></label>
+      <label><input type="radio" name="len" value="120"><span>{{ crate::t("play.dates.len_120") }}</span></label>
+      <label><input type="radio" name="len" value="0"><span>{{ crate::t("play.dates.len_fixed") }}</span></label>
+    </fieldset>
+    <label class="check" id="dt-ear-label"><input type="checkbox" id="dt-ear" data-testid="dates-ear"> {{ crate::t1("play.dates.by_ear", "lang", course.term_label) }} <span class="muted small" id="dt-ear-note"></span></label>
+    <div class="actions">
+      <button type="submit" class="btn big" id="dt-start" data-testid="dates-start">{{ crate::t("play.common.start") }}</button>
+      <span class="muted small">{% if rounds_played > 0 %}{{ crate::tn("play.common.rounds_played", rounds_played) }} · {{ crate::t1("play.common.best_score", "n", best_score) }}{% else %}{{ crate::t("play.dates.first_round") }}{% endif %}</span>
+    </div>
+  </form>
+
+  <div class="dash-hud" id="dt-hud" data-testid="dates-hud" hidden>
+    <div class="dash-timer"><div class="dash-timer-fill" id="dt-timer-fill"></div></div>
+    <div class="dash-stats">
+      <div class="stat"><span class="num" id="dt-time">60</span><span class="lbl" id="dt-time-lbl">{{ crate::t("play.dates.seconds") }}</span></div>
+      <div class="stat"><span class="num" id="dt-score" data-testid="dates-score">0</span><span class="lbl">{{ crate::t("play.common.points") }}</span></div>
+      <div class="stat"><span class="num" id="dt-combo">×1</span><span class="lbl">{{ crate::t("play.common.combo") }}</span></div>
+      <div class="stat"><span class="num" id="dt-streak">0</span><span class="lbl">{{ crate::t("play.common.streak") }}</span></div>
+    </div>
+  </div>
+
+  <div class="dash-card" id="dt-card" data-testid="dates-card" hidden>
+    <p class="dash-task muted small" id="dt-task"></p>
+    <div class="dash-prompt" id="dt-prompt" data-testid="dates-prompt"></div>
+    <div class="dash-tiles" id="dt-tiles" data-testid="dates-tiles"></div>
+    <div class="dash-foot">
+      <button type="button" class="btn ghost small" id="dt-replay" data-testid="dates-replay" hidden>{{ crate::t("play.dates.replay") }}</button>
+      <button type="button" class="btn ghost small" id="dt-stop" data-testid="dates-stop">{{ crate::t("play.common.stop") }}</button>
+    </div>
+  </div>
+
+  <section class="summary" id="dt-done" data-testid="dates-done" hidden>
+    <h2 id="dt-done-title">{{ crate::t("play.common.round_complete") }}</h2>
+    <p class="stars-big" id="dt-done-score">0</p>
+    <p class="lead" id="dt-done-detail"></p>
+    <ul class="topics" id="dt-review"></ul>
+    <div class="actions">
+      <button type="button" class="btn big" id="dt-again" data-testid="dates-again">{{ crate::t("play.common.again") }}</button>
+      <button type="button" class="btn ghost" id="dt-settings" data-testid="dates-settings">{{ crate::t("play.common.change_settings") }}</button>
+    </div>
+  </section>
+</section>
+{% endblock %}
+{% block scripts %}<script>Object.assign(I18N, {{ crate::i18n::js_json("play.js")|safe }});</script><script src="{{ crate::routes::asset_url("dates.js") }}" defer></script>{% endblock %}

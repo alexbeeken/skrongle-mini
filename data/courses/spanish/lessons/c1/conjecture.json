@@ -1,0 +1,566 @@
+{
+  "id": "c1-conjecture",
+  "slug": "conjecture",
+  "title": "Habrá salido: conjecture and probability",
+  "unit": "C1",
+  "group": "Grammar",
+  "order": 16,
+  "summary": "Guess with tenses (será, habrá salido, sería), deber de, a lo mejor, quizás and puede que; plan with the future perfect.",
+  "focus": "The future perfect and the grammar of guessing",
+  "prerequisites": [
+    "b2-future-and-conditional-perfect",
+    "b1-opinion-and-doubt"
+  ],
+  "content": "## The future perfect\n\n**haber** in the future + participle: **habré, habrás, habrá, habremos, habréis, habrán** + *terminado*. Two uses:\n\n- done by a point in the future: *Para el lunes **habré terminado** el informe.* (By Monday I'll have finished the report.)\n- a guess about the recent past: *Juan no contesta; **habrá salido**.* (He's probably gone out.) *¿Dónde **habré puesto** las gafas?* (Where can I have put my glasses?)\n\n## Guessing: one tense further on\n\nSpanish guesses by moving the verb one tense 'away' from the fact:\n\n| fact | guess | meaning of the guess |\n|---|---|---|\n| **Son** las tres. | **Serán** las tres. | It must be about three. |\n| **Ha salido.** | **Habrá salido.** | He must have gone out. |\n| **Eran** las tres. / **Salió.** | **Serían** las tres. / **Saldría.** | It must have been three. / He must have gone out. |\n| **Había salido.** | **Habría salido.** | He must have gone out (before then). |\n\nAsking yourself works the same way: *¿Qué hora **será**?* *¿Quién **habrá llamado**?*\n\n## Deber de or deber?\n\n- **deber de + infinitive** = probability: *Debe de tener cuarenta años.* (He must be about forty.)\n- **deber + infinitive** = obligation: *Debes tener paciencia.* (You must be patient.)\n\nIn everyday speech **deber** alone is also used for guesses, and that is accepted, but **deber de** never means obligation, so *debes de llamar a tu madre* is a slip.\n\n## A lo mejor, quizás, puede que\n\n| word | mood |\n|---|---|\n| **a lo mejor**, **igual** (colloquial) | indicative: *A lo mejor **llueve**.* |\n| **puede (ser) que**, **es posible que** | subjunctive: *Puede que **llueva**.* |\n| **quizá(s)**, **tal vez**, **posiblemente** | either, before the verb: the subjunctive sounds less sure: *Quizás **viene** / **venga**.* |",
+  "vocabulary": [
+    {
+      "term": "habré terminado",
+      "meaning": "I will have finished",
+      "example": "Para Navidad habré terminado la tesis, si todo va bien.",
+      "example_meaning": "By Christmas I'll have finished my thesis, if all goes well."
+    },
+    {
+      "term": "habrá salido",
+      "meaning": "he/she has probably gone out",
+      "example": "Las luces están apagadas; habrán salido a cenar.",
+      "example_meaning": "The lights are off; they must have gone out for dinner."
+    },
+    {
+      "term": "serán",
+      "meaning": "it must be (guess about the time, now)",
+      "example": "No llevo reloj, pero serán las cinco y pico.",
+      "example_meaning": "I'm not wearing a watch, but it must be just after five."
+    },
+    {
+      "term": "sería",
+      "meaning": "it was probably, it must have been (guess about the past)",
+      "example": "Cuando se mudaron, la niña tendría seis años y sería muy tímida.",
+      "example_meaning": "When they moved, the girl must have been six and probably very shy."
+    },
+    {
+      "term": "deber de",
+      "meaning": "must (probability, + infinitive)",
+      "example": "Esta casa debe de tener más de un siglo.",
+      "example_meaning": "This house must be more than a century old."
+    },
+    {
+      "term": "a lo mejor",
+      "meaning": "maybe (+ indicative)",
+      "example": "A lo mejor me cambio de piso en primavera.",
+      "example_meaning": "Maybe I'll move flats in spring."
+    },
+    {
+      "term": "igual",
+      "meaning": "maybe (colloquial Spain, + indicative)",
+      "example": "Igual me paso por tu casa esta tarde.",
+      "example_meaning": "I might drop by your place this afternoon."
+    },
+    {
+      "term": "quizá / quizás",
+      "meaning": "perhaps (+ indicative or subjunctive)",
+      "example": "Quizás tengas razón, pero prefiero esperar.",
+      "example_meaning": "Perhaps you're right, but I'd rather wait."
+    },
+    {
+      "term": "tal vez",
+      "meaning": "perhaps, maybe",
+      "example": "Tal vez nos veamos en el congreso de Valencia.",
+      "example_meaning": "Maybe we'll see each other at the conference in Valencia."
+    },
+    {
+      "term": "puede que",
+      "meaning": "it may be that, maybe (+ subjunctive)",
+      "example": "Puede que el museo esté cerrado los lunes.",
+      "example_meaning": "The museum may be closed on Mondays."
+    },
+    {
+      "term": "suponer",
+      "meaning": "to suppose, to assume",
+      "example": "Supongo que ya habrá recibido mi mensaje.",
+      "example_meaning": "I assume she'll have got my message by now."
+    },
+    {
+      "term": "a estas horas",
+      "meaning": "at this time (of day), by now",
+      "example": "A estas horas ya habrá aterrizado en Lima.",
+      "example_meaning": "By now she'll have landed in Lima."
+    },
+    {
+      "term": "más o menos",
+      "meaning": "more or less, roughly",
+      "example": "Tendrá treinta años, más o menos.",
+      "example_meaning": "He must be about thirty, more or less."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "c1-conjecture-01",
+      "prompt": "Para el viernes ya ___ (terminar, yo) el proyecto.",
+      "type": "fill-in-blank",
+      "correct_answer": "habré terminado",
+      "accepted_answers": [
+        "yo habré terminado"
+      ],
+      "explanation": "An action complete by a future point: future perfect, habré terminado.",
+      "hints": [
+        "Haber in the future + participle."
+      ],
+      "teaches": [
+        "habré terminado"
+      ]
+    },
+    {
+      "question_id": "c1-conjecture-02",
+      "prompt": "Juan no contesta al teléfono. ___ salido.",
+      "type": "multiple-choice",
+      "options": [
+        "Habrá",
+        "Había",
+        "Hubiera"
+      ],
+      "correct_answer": "Habrá",
+      "explanation": "A guess about something that has just happened: future perfect, habrá salido = he has probably gone out.",
+      "hints": [
+        "The fact would be 'ha salido'. Move it one step."
+      ],
+      "teaches": [
+        "habrá salido"
+      ]
+    },
+    {
+      "question_id": "c1-conjecture-03",
+      "prompt": "No sé qué hora era cuando llegó; ___ las tres.",
+      "type": "multiple-choice",
+      "options": [
+        "serían",
+        "serán",
+        "fueron"
+      ],
+      "correct_answer": "serían",
+      "explanation": "A guess about the past (era) moves to the conditional: serían las tres.",
+      "hints": [
+        "The fact is in the imperfect: eran."
+      ],
+      "teaches": [
+        "sería"
+      ]
+    },
+    {
+      "question_id": "c1-conjecture-04",
+      "prompt": "Tiene el pelo blanco; debe ___ tener más de setenta años.",
+      "type": "fill-in-blank",
+      "correct_answer": "de",
+      "explanation": "Deber de + infinitive expresses probability: debe de tener.",
+      "hints": [
+        "A two-letter word turns deber into a guess."
+      ],
+      "teaches": [
+        "deber de"
+      ]
+    },
+    {
+      "question_id": "c1-conjecture-05",
+      "prompt": "Which sentence expresses an obligation, not a guess?",
+      "type": "multiple-choice",
+      "options": [
+        "Debes llamar a tu madre.",
+        "Debe de ser su hermano.",
+        "Será su hermano."
+      ],
+      "correct_answer": "Debes llamar a tu madre.",
+      "explanation": "Deber + infinitive is obligation. Deber de and the future (será) are guesses.",
+      "hints": [
+        "Which one has no 'de' and no future?"
+      ],
+      "teaches": [
+        "deber de"
+      ]
+    },
+    {
+      "question_id": "c1-conjecture-06",
+      "prompt": "A lo mejor ___ mañana.",
+      "type": "multiple-choice",
+      "options": [
+        "llueve",
+        "llueva"
+      ],
+      "correct_answer": "llueve",
+      "explanation": "A lo mejor always takes the indicative.",
+      "hints": [
+        "A lo mejor never takes the subjunctive."
+      ],
+      "teaches": [
+        "a lo mejor"
+      ]
+    },
+    {
+      "question_id": "c1-conjecture-07",
+      "prompt": "Puede que ___ (llegar, ellos) tarde por el tráfico.",
+      "type": "fill-in-blank",
+      "correct_answer": "lleguen",
+      "accepted_answers": [
+        "ellos lleguen"
+      ],
+      "explanation": "Puede que always takes the subjunctive: lleguen (-gar changes to -gue-).",
+      "hints": [
+        "Puede que + subjunctive.",
+        "Keep the hard g."
+      ],
+      "teaches": [
+        "puede que"
+      ]
+    },
+    {
+      "question_id": "c1-conjecture-08",
+      "prompt": "No sé cuántos años tiene; ___ (tener) unos cuarenta.",
+      "type": "fill-in-blank",
+      "correct_answer": "tendrá",
+      "explanation": "A guess about the present uses the simple future: tendrá unos cuarenta.",
+      "hints": [
+        "The fact would be 'tiene'. Move it one step."
+      ],
+      "teaches": [
+        "más o menos"
+      ]
+    },
+    {
+      "question_id": "c1-conjecture-09",
+      "prompt": "¿Dónde ___ (poner, yo) las llaves? No las encuentro.",
+      "type": "fill-in-blank",
+      "correct_answer": "habré puesto",
+      "accepted_answers": [
+        "yo habré puesto"
+      ],
+      "explanation": "Wondering about a recent past action: future perfect, habré puesto (puesto is irregular).",
+      "hints": [
+        "The fact would be 'he puesto'."
+      ],
+      "teaches": [
+        "habré terminado",
+        "suponer"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Habrá olvidado la cita.",
+      "meaning": "She must have forgotten the appointment."
+    },
+    {
+      "text": "Para junio ya habremos terminado la obra.",
+      "meaning": "By June we'll have finished the building work.",
+      "note": "New word: la obra = the building work."
+    },
+    {
+      "text": "Serán las ocho, más o menos.",
+      "meaning": "It must be about eight o'clock."
+    },
+    {
+      "text": "A lo mejor nos vemos en la boda.",
+      "meaning": "Maybe we'll see each other at the wedding.",
+      "note": "A lo mejor + indicative."
+    },
+    {
+      "text": "Puede que no queden entradas para el sábado.",
+      "meaning": "There may be no tickets left for Saturday."
+    },
+    {
+      "text": "Debe de haber un error en la factura.",
+      "meaning": "There must be a mistake in the bill.",
+      "note": "New word: la factura = the bill, the invoice."
+    },
+    {
+      "text": "¿Quién habrá dejado esta caja en la puerta?",
+      "meaning": "Who can have left this box at the door?"
+    },
+    {
+      "text": "Cuando lo conocí, tendría unos veinte años y llevaba el pelo largo.",
+      "meaning": "When I met him, he must have been about twenty and had long hair.",
+      "note": "Conditional = a guess about the past."
+    }
+  ],
+  "guide": [
+    {
+      "section": "The future perfect"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "c1-conjecture-01"
+    },
+    {
+      "question": "c1-conjecture-02"
+    },
+    {
+      "question": "c1-conjecture-09"
+    },
+    {
+      "section": "Guessing"
+    },
+    {
+      "question": "c1-conjecture-08"
+    },
+    {
+      "question": "c1-conjecture-03"
+    },
+    {
+      "tip": "To guess, take the fact and push the verb one tense further: es becomes será, ha salido becomes habrá salido, and era becomes sería."
+    },
+    {
+      "section": "Deber de"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "c1-conjecture-04"
+    },
+    {
+      "question": "c1-conjecture-05"
+    },
+    {
+      "section": "A lo mejor"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "c1-conjecture-06"
+    },
+    {
+      "question": "c1-conjecture-07"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "c1-conjecture-conv-empty-office",
+      "title": "Where's the boss?",
+      "scenario": "Carmen and Raúl arrive at the office and the boss, who is never late, is not there.",
+      "role_a": "Carmen",
+      "role_b": "Raúl",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Qué raro, Alicia no ha llegado. ¿Qué hora es?",
+          "meaning": "How strange, Alicia hasn't arrived. What time is it?"
+        },
+        {
+          "speaker": "b",
+          "text": "Serán las nueve y media. Habrá pillado un atasco.",
+          "meaning": "It must be half past nine. She must have got stuck in traffic."
+        },
+        {
+          "speaker": "a",
+          "text": "¿Alicia? Imposible. A lo mejor está enferma.",
+          "meaning": "Alicia? Impossible. Maybe she's ill."
+        },
+        {
+          "speaker": "b",
+          "text": "Puede que tenga una reunión fuera y no nos lo haya dicho.",
+          "meaning": "She may have a meeting outside and not have told us."
+        },
+        {
+          "speaker": "a",
+          "text": "Ayer se fue a las cuatro. Debía de estar cansada.",
+          "meaning": "Yesterday she left at four. She must have been tired.",
+          "note": "deber de: probability."
+        },
+        {
+          "speaker": "b",
+          "text": "O tendría una cita con el médico.",
+          "meaning": "Or she probably had a doctor's appointment.",
+          "note": "Conditional: a guess about the past."
+        },
+        {
+          "speaker": "a",
+          "text": "Mira, hay un correo suyo. ¿Qué dirá?",
+          "meaning": "Look, there's an email from her. What can it say?"
+        },
+        {
+          "speaker": "b",
+          "text": "Dice que para las doce habrá vuelto de la notaría.",
+          "meaning": "It says she'll be back from the notary's by twelve."
+        },
+        {
+          "speaker": "a",
+          "text": "¡La notaría! Habrá comprado por fin el piso de la playa.",
+          "meaning": "The notary! She must have finally bought the flat by the beach."
+        },
+        {
+          "speaker": "b",
+          "text": "Igual nos invita a todos este verano.",
+          "meaning": "Maybe she'll invite us all this summer."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🔍",
+    "bites": [
+      {
+        "title": "The future perfect",
+        "emoji": "⏱️",
+        "rule": "Habré, habrás, habrá… + participle: done by a future point (para el lunes habré terminado) or a guess about the recent past (habrá salido).",
+        "example": "Para el lunes habré terminado.",
+        "example_meaning": "By Monday I'll have finished."
+      },
+      {
+        "title": "Guess one tense further",
+        "emoji": "🔍",
+        "rule": "Son las tres → serán las tres. Ha salido → habrá salido. Eran las tres → serían las tres.",
+        "example": "Serán las tres.",
+        "example_meaning": "It must be about three."
+      },
+      {
+        "title": "Deber de = probably",
+        "emoji": "🤔",
+        "rule": "Deber de + infinitive is a guess: debe de tener cuarenta años. Deber + infinitive is an obligation; deber de never is.",
+        "example": "Debe de estar en casa.",
+        "example_meaning": "She must be at home."
+      },
+      {
+        "title": "Maybe: mood",
+        "emoji": "🎲",
+        "rule": "A lo mejor and igual: indicative. Puede que and es posible que: subjunctive. Quizás and tal vez: either; the subjunctive sounds less sure.",
+        "example": "A lo mejor viene; puede que venga.",
+        "example_meaning": "Maybe he'll come; he might come."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Fact or guess?",
+        "buckets": [
+          "a fact",
+          "a guess"
+        ],
+        "items": [
+          {
+            "text": "Son las tres.",
+            "bucket": 0
+          },
+          {
+            "text": "Serán las tres.",
+            "bucket": 1
+          },
+          {
+            "text": "Ha salido.",
+            "bucket": 0
+          },
+          {
+            "text": "Habrá salido.",
+            "bucket": 1
+          },
+          {
+            "text": "Tenía veinte años.",
+            "bucket": 0
+          },
+          {
+            "text": "Tendría veinte años.",
+            "bucket": 1
+          },
+          {
+            "text": "Debe de estar en casa.",
+            "bucket": 1
+          }
+        ],
+        "why": "The future, the future perfect, the conditional and deber de turn a fact into a guess."
+      },
+      {
+        "title": "Which mood comes after it?",
+        "buckets": [
+          "indicative",
+          "subjunctive",
+          "either"
+        ],
+        "items": [
+          {
+            "text": "a lo mejor",
+            "bucket": 0
+          },
+          {
+            "text": "igual",
+            "bucket": 0
+          },
+          {
+            "text": "puede que",
+            "bucket": 1
+          },
+          {
+            "text": "es posible que",
+            "bucket": 1
+          },
+          {
+            "text": "quizás",
+            "bucket": 2
+          },
+          {
+            "text": "tal vez",
+            "bucket": 2
+          },
+          {
+            "text": "posiblemente",
+            "bucket": 2
+          }
+        ],
+        "why": "A lo mejor and igual never take the subjunctive; puede que always does; quizás, tal vez and posiblemente allow both."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "A lo mejor venga mañana.",
+        "wrong": "venga",
+        "fix": "viene",
+        "why": "A lo mejor takes the indicative."
+      },
+      {
+        "sentence": "Puede que tiene razón.",
+        "wrong": "tiene",
+        "fix": "tenga",
+        "why": "Puede que takes the subjunctive."
+      },
+      {
+        "sentence": "Te lo prometo: para el lunes habría terminado el informe.",
+        "wrong": "habría",
+        "fix": "habré",
+        "why": "Done by a future point: future perfect."
+      },
+      {
+        "sentence": "Llaman a la puerta; sería el cartero.",
+        "wrong": "sería",
+        "fix": "será",
+        "why": "A guess about now uses the future, not the conditional."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Para entonces ya habré terminado.",
+        "meaning": "By then I'll have finished.",
+        "distractors": [
+          "había"
+        ]
+      },
+      {
+        "text": "Serán las tres más o menos.",
+        "meaning": "It must be about three.",
+        "distractors": [
+          "estarán"
+        ]
+      },
+      {
+        "text": "Debe de estar en casa.",
+        "meaning": "She must be at home.",
+        "distractors": [
+          "que"
+        ]
+      },
+      {
+        "text": "A lo mejor llueve mañana.",
+        "meaning": "Maybe it'll rain tomorrow.",
+        "distractors": [
+          "llueva"
+        ]
+      }
+    ]
+  }
+}

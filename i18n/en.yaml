@@ -1,0 +1,3459 @@
+# The app's own text, in English: the original every other i18n/<code>.yaml
+# translates key for key (i18n/README.md has the format and the conventions).
+# Keys are stable labels; the values are what learners read. The text a page's
+# script draws is in that area's js group.
+
+meta:
+  name: English
+
+nav:
+  skip_to_content: "Skip to content"
+  courses: Courses
+  switch_course: Switch course
+  switch_course_now: "Switch course (now {course})"
+  account_menu_for: "Account menu for {name}"
+  profile: Profile settings
+  superuser: Superuser
+  documentation: Documentation
+  docs: Docs
+  login: Log in
+  register: Register
+  logout: Log out
+
+footer:
+  terms: terms
+  privacy: privacy
+  cookies: cookies
+
+lang:
+  label: Language
+  change: Change
+  unknown: No such language.
+
+error:
+  not_found: Page not found
+  form_only: "This page only works from its button. Go back and use the button on the page."
+  database: Database error
+  internal: Something went wrong
+  back_to_start: Back to the start
+  cross_site: Cross-site request refused. Go back, reload the page and try again.
+  home: Home
+  lessons: Lessons
+  courses: All courses
+
+common:
+  pager:
+    label: "Pages"
+    prev: "Previous"
+    next: "Next"
+    page_of: "Page {n} of {total}"
+  time_ago:
+    just_now: just now
+    minutes:
+      one: "{n} minute ago"
+      other: "{n} minutes ago"
+    hours:
+      one: "{n} hour ago"
+      other: "{n} hours ago"
+    days:
+      one: "{n} day ago"
+      other: "{n} days ago"
+    months:
+      one: "{n} month ago"
+      other: "{n} months ago"
+    years:
+      one: "{n} year ago"
+      other: "{n} years ago"
+  js:
+    close: Close
+    notation_label: Music notation
+    music_play: "Play"
+    music_no_sound: "No sound? A phone on silent mutes it."
+    music_cant_listen: "Can't listen now"
+    keyboard_label: "Piano keyboard"
+    keyboard_white: "White key {n}"
+    keyboard_black: "Black key {n}"
+    music_sound_off: "Sound is off: tap to turn it on"
+    fill_bar_undo: "Undo"
+    fill_bar_full: "The bar is full."
+    fill_bar_left:
+      one: "{n} beat to fill"
+      other: "{n} beats to fill"
+    fill_bar_beats:
+      one: "{n} beat"
+      other: "{n} beats"
+    chord_spell_slot: "Note {n} of the chord"
+    staff_note_label: "Staff to place a note on. Up and down arrows move the note, Enter places it."
+    staff_note_line: "Line {n}"
+    staff_note_space: "Space {n}"
+    staff_note_just_below: "Just below the staff"
+    staff_note_just_above: "Just above the staff"
+    staff_note_ledger_below: "Ledger line {n} below"
+    staff_note_ledger_above: "Ledger line {n} above"
+    staff_note_under_ledger: "Under ledger line {n}"
+    staff_note_over_ledger: "Over ledger line {n}"
+    staff_note_sharp: "Sharp"
+    staff_note_flat: "Flat"
+    all_saved: All changes saved
+    saving: Saving…
+    not_saved: Changes not saved
+    could_not_save_reload: Your changes could not be saved. Reload the page.
+    signed_out: You have been signed out. Sign in again in another tab, then keep editing.
+    server_error: "Could not save your changes (the server said {status}). Trying again…"
+    unreachable: Could not reach the server. Your changes are not saved yet; trying again…
+    leave_lose_these: "{why} Leave and lose those changes?"
+    leave_fields: Some fields need attention and are not saved. Leave and lose those changes?
+    leave_latest: Your latest changes are not saved yet. Leave and lose them?
+    leave_title: Leave this page?
+    leave_anyway: Leave anyway
+    stay: Stay
+    tap_to_hear: Tap to hear it
+    meaning: Meaning
+    no_voice: "(no {language} voice)"
+
+auth:
+  login:
+    deletion_scheduled: "Your account will be deleted on {date}. To keep it, sign in before then and cancel the deletion."
+    title: Log in
+    email_label: E-mail address
+    password_label: Password
+    submit: Log in
+    or: or
+    no_account_html: "No account yet? <a href=\"{url}\" data-testid=\"login-register-link\">Register</a>."
+    terms_link: Terms
+    privacy_link: Privacy
+    too_many_attempts: Too many sign-in attempts. Wait a few minutes and try again.
+    incorrect: Incorrect e-mail address or password.
+    forgot: "Forgot your password?"
+  register:
+    title: Register
+    heading: Create an account
+    email_label: E-mail address
+    email_note: (cannot be changed later)
+    password_label: Password
+    password_note: (at least 8 characters)
+    submit: Register
+    or: or
+    have_account_html: "Already registered? <a href=\"{url}\" data-testid=\"register-login-link\">Log in</a>."
+    too_many_signups: Too many sign-ups from your network. Try again in an hour.
+    email_taken: An account with that e-mail address already exists.
+  signup:
+    closed_title: "Sign-ups are closed"
+    closed: "This server is not taking new accounts. Ask whoever runs it."
+    invite_used: "This invitation link has already been used. Ask whoever runs this server for a new one."
+    invite_expired: "This invitation link has expired. Ask whoever runs this server for a new one."
+    invite_unknown: "This invitation link is not valid. Ask whoever runs this server for a new one."
+    full: "This Skrongle has all the accounts it can hold."
+    sign_in: "Log in"
+    first_account: "This server has no accounts yet: the one you make now is its owner's."
+    no_owner: "This server has no owner yet. Whoever runs it makes the first account with the owner link from the server's log."
+  proxy:
+    title: "Signed in by your proxy"
+    note: "This server signs you in through the proxy in front of it: open it through that address and you are signed in."
+    signed_out: "You are signed out. The next page you open through the proxy signs you in again."
+    open: "Continue"
+  password:
+    too_short: Password must be at least 8 characters.
+    too_long: "Password is too long (max {max} characters)."
+  password_change:
+    title: "Choose a new password"
+    info_label: "Why a new password"
+    about: "You signed in with a temporary password that the person who runs this server set for you. Choose your own before going on; nobody else will know it."
+    submit: "Save and continue"
+  age_gate:
+    to_register: register
+    to_continue: continue
+    both: "Confirm you are at least {min_age} and accept the Terms to {to}."
+    age: "Confirm you are at least {min_age} to {to}."
+    terms: "Accept the Terms to {to}."
+  code:
+    title: Enter your code
+    from_app: From your authenticator app.
+    emailed_to: "E-mailed to {to}."
+    code_label: Code
+    submit: Sign in
+    resend: Send a new code
+    cancel: Cancel
+    gone: That sign-in has expired. Sign in again.
+    unsent: The code could not be sent just now. Wait a minute, then send a new one.
+    sent: A new code is on its way.
+    wrong:
+      one: "That code is not right. {n} try left."
+      other: "That code is not right. {n} tries left."
+    too_many_wrong: Too many wrong codes, or the code expired. Sign in again.
+    your_email: your e-mail address
+    your_authenticator: your authenticator app
+  two_factor:
+    channel_off_email: "Your account signs in with a code by e-mail, but this server cannot send e-mail ({setting} is not set). Ask whoever runs it to set {setting}, or to turn two-factor sign-in off for your account."
+    needs_email: Confirm your e-mail address first.
+    needs_app: Set up the authenticator app first.
+    app_already: An authenticator app is already set up. Remove it first.
+  ai_switch:
+    label: Hide all AI features
+    about: About AI features
+    tip: The AI tutor and AI course creation are hidden and unusable. They work by sending what you type to an AI company with your own API key. You can change this any time in your profile.
+    off: "Off"
+    on: "On"
+  verify_email:
+    title: Confirm your e-mail address
+    confirmed_heading: Your e-mail address is confirmed
+    confirmed: Thank you. Nothing else to do.
+    invalid_heading: This link does not work
+    invalid: It may have been used already, be older than 24 hours, or have been replaced by a newer link.
+    already: "Your address {email} is confirmed already."
+    resend_to: We can send a new link to
+    resend: Send a new link
+    sign_in_hint: Sign in to ask for a new link from your profile.
+    continue: Continue
+    sign_in: Sign in
+
+  register_sent:
+    title: "Check your mail"
+    sent_html: "We sent a message to {email}. Open the link in it to confirm your address, then sign in."
+    sign_in: "Sign in"
+  reset:
+    title: "Reset your password"
+    email_label: "E-mail address"
+    send: "Send a link"
+    sent_title: "Check your mail"
+    sent_html: "If {email} has an account, a link to choose a new password was sent to it. The link works once, for an hour."
+    choose_title: "Choose a new password"
+    choose_html: "For {email}. Saving signs you out everywhere."
+    password_label: "New password"
+    password_note: "(at least 8 characters)"
+    save: "Save the new password"
+    invalid_title: "This link does not work"
+    invalid: "It may have been used already, be older than an hour, or have been replaced by a newer link."
+    again: "Send a new link"
+    done_title: "Your password is changed"
+    done: "✓ Every session is signed out. Sign in with the new password."
+    sign_in: "Sign in"
+    too_many_requests: "Too many requests from your network. Try again in an hour."
+    too_many_tries: "Too many tries from your network. Wait a few minutes and try again."
+
+terms:
+  page:
+    title: Terms of Service
+    version: "Version {version}"
+    markdown: Markdown
+    privacy: Privacy Policy
+  check:
+    age: "I am at least {min_age} years old"
+    agree_html: "I agree to the <a href=\"{terms_url}\" target=\"_blank\" data-testid=\"{tid}-terms-link\">Terms</a> and <a href=\"{privacy_url}\" target=\"_blank\" data-testid=\"{tid}-privacy-link\">Privacy Policy</a>"
+  accept:
+    title: Terms of Service
+    changed: The terms have changed
+    heading: Accept the terms
+    read_html: "Read the <a href=\"{url}\" target=\"_blank\" data-testid=\"terms-gate-link\">Terms of Service</a> (version {version}) and accept them to continue."
+    check_html: "I am at least {min_age} and agree to the <a href=\"{terms_url}\" target=\"_blank\">Terms</a> and <a href=\"{privacy_url}\" target=\"_blank\" data-testid=\"terms-gate-privacy-link\">Privacy Policy</a>"
+    submit: Continue
+    logout: Log out instead
+    tick: Tick the box to accept the terms.
+  notice:
+    heading: Our terms have changed
+    minor: Here is what changed. Continuing to use the site means you accept the new terms.
+    material: These changes affect your rights or a paid plan. Accept the new terms to keep using your account.
+    effective: "In effect from {date}"
+    read: Read the full terms
+    dismiss: Continue
+    disagree_html: "If you do not agree, log out, or close your account from your <a href=\"{url}\" data-testid=\"terms-notice-profile\">profile</a>."
+
+mail:
+  waitlist_confirm:
+    subject: "Confirm your place on the {app} waitlist"
+    text: |
+      Hello,
+
+      Please confirm that you want to join the {app} waitlist by opening this link:
+
+      {link}
+
+      We'll e-mail you an invitation when it's your turn. If you didn't ask to join, ignore this message: the address isn't added unless the link is opened.
+    html: |
+      <p>Hello,</p>
+      <p>Please confirm that you want to join the {app} waitlist:</p>
+      <p><a href="{link}">Confirm my place</a></p>
+      <p>Or paste this link into your browser: {link}</p>
+      <p>We'll e-mail you an invitation when it's your turn. If you didn't ask to join, ignore this message: the address isn't added unless the link is opened.</p>
+  waitlist_invite:
+    subject: "Your invitation to {app}"
+    text: |
+      Hello,
+
+      It's your turn: you're invited to make your {app} account. Open this link and sign up with this e-mail address ({email}):
+
+      {link}
+
+      The invitation works for {days} days.
+    html: |
+      <p>Hello,</p>
+      <p>It's your turn: you're invited to make your {app} account. Sign up with this e-mail address ({email}).</p>
+      <p><a href="{link}">Make my account</a></p>
+      <p>Or paste this link into your browser: {link}</p>
+      <p>The invitation works for {days} days.</p>
+  terms_change:
+    subject: "The {app} terms change on {date}"
+    text: |
+      Hello,
+
+      We are changing the {app} terms. The new terms take effect on {date}.
+
+      What changes:
+      {summary}
+
+      Read the new terms: {link}
+
+      From {date} you will be asked to accept them when you sign in. If you do not agree, you can close your account from your profile.
+    html: |
+      <p>Hello,</p>
+      <p>We are changing the {app} terms. The new terms take effect on {date}.</p>
+      <p>What changes:</p>
+      {summary}
+      <p><a href="{link}">Read the new terms</a></p>
+      <p>From {date} you will be asked to accept them when you sign in. If you do not agree, you can close your account from your profile.</p>
+  verify_email:
+    subject: "Confirm your e-mail address for {app}"
+    text: |
+      Hello,
+
+      Please confirm that this is your e-mail address for {app} by opening this link:
+
+      {link}
+
+      The link works once, for 24 hours. If you did not sign up for {app}, ignore this message: the address is not confirmed unless the link is opened. {app} sends at most {max} of these messages to one address a day.
+    html: |
+      <p>Hello,</p>
+      <p>Please confirm that this is your e-mail address for {app}:</p>
+      <p><a href="{link}">Confirm my e-mail address</a></p>
+      <p>Or paste this link into your browser: {link}</p>
+      <p>The link works once, for 24 hours. If you did not sign up for {app}, ignore this message: the address is not confirmed unless the link is opened. {app} sends at most {max} of these messages to one address a day.</p>
+  password_reset:
+    subject: "Reset your {app} password"
+    text: |
+      Hello,
+
+      Someone (we hope you) asked to reset the password of your {app} account. Choose a new one by opening this link:
+
+      {link}
+
+      The link works once, for an hour, and signs you out everywhere. If you did not ask, ignore this message; your password stays as it is.
+    html: |
+      <p>Hello,</p>
+      <p>Someone (we hope you) asked to reset the password of your {app} account.</p>
+      <p><a href="{link}">Choose a new password</a></p>
+      <p>Or paste this link into your browser: {link}</p>
+      <p>The link works once, for an hour, and signs you out everywhere. If you did not ask, ignore this message; your password stays as it is.</p>
+  register_taken:
+    subject: "You already have a {app} account"
+    text: |
+      Hello,
+
+      Someone tried to create a new {app} account with this e-mail address. It already has an account, so nothing was created.
+
+      If it was you, sign in here:
+
+      {login}
+
+      Forgot your password? Choose a new one here:
+
+      {reset}
+
+      If it was not you, ignore this message; your account is unchanged.
+    html: |
+      <p>Hello,</p>
+      <p>Someone tried to create a new {app} account with this e-mail address. It already has an account, so nothing was created.</p>
+      <p>If it was you: <a href="{login}">Sign in</a></p>
+      <p>Forgot your password? <a href="{reset}">Choose a new password</a></p>
+      <p>If it was not you, ignore this message; your account is unchanged.</p>
+  account_deletion:
+    subject: "Your {app} account will be deleted on {date}"
+    text: |
+      Hello,
+
+      You asked to delete your {app} account. It will be deleted for good on {date}, with your progress, courses and saved keys.
+
+      To keep it, sign in to {app} before then and choose Cancel deletion.
+
+      If you did not ask for this, sign in, cancel the deletion and change your password.
+  data_export:
+    subject: "Your {app} data is ready to download"
+    text: |
+      Hello,
+
+      The copy of your {app} data you asked for is ready. Sign in to {app}, then open this link to download it:
+
+      {link}
+
+      The link works once, for 24 hours, and only while you are signed in to this account. If you did not ask for it, change your password: someone else is signed in to your account.
+    html: |
+      <p>Hello,</p>
+      <p>The copy of your {app} data you asked for is ready. Sign in to {app}, then open this link to download it:</p>
+      <p><a href="{link}">Download my data</a></p>
+      <p>The link works once, for 24 hours, and only while you are signed in to this account. If you did not ask for it, change your password: someone else is signed in to your account.</p>
+  two_factor_changed:
+    subject: "Two-factor sign-in on {app} changed"
+    now_off: is now off
+    now_email: now e-mails you a code
+    now_totp: now asks for a code from an authenticator app
+    text: |
+      Hello,
+
+      Two-factor sign-in on {app} {now}.
+
+      Every other device was signed out. If you did not make this change, someone else was signed in to your account: sign in, use “Sign out everywhere else” on your profile, and set two-factor sign-in back.
+    html: |
+      <p>Hello,</p>
+      <p>Two-factor sign-in on {app} <strong>{now}</strong>.</p>
+      <p>Every other device was signed out. If you did not make this change, someone else was signed in to your account: sign in, use “Sign out everywhere else” on your profile, and set two-factor sign-in back.</p>
+  login_code:
+    subject: "Your {app} sign-in code"
+    text: |
+      Hello,
+
+      Your code to finish signing in to {app}:
+
+      {code}
+
+      It works for 10 minutes. If you did not try to sign in, change your password: someone else knows it.
+    html: |
+      <p>Hello,</p>
+      <p>Your code to finish signing in to {app}:</p>
+      <p style="font-size:1.6em;letter-spacing:.15em"><strong>{code}</strong></p>
+      <p>It works for 10 minutes. If you did not try to sign in, change your password: someone else knows it.</p>
+  two_factor_confirm:
+    subject: "Your {app} code to change two-factor sign-in"
+    text: |
+      Hello,
+
+      Your code to turn off or change two-factor sign-in on {app}:
+
+      {code}
+
+      It works for 10 minutes. If you did not ask for it, someone else is signed in to your account: use “Sign out everywhere else” on your profile.
+    html: |
+      <p>Hello,</p>
+      <p>Your code to turn off or change two-factor sign-in on {app}:</p>
+      <p style="font-size:1.6em;letter-spacing:.15em"><strong>{code}</strong></p>
+      <p>It works for 10 minutes. If you did not ask for it, someone else is signed in to your account: use “Sign out everywhere else” on your profile.</p>
+  course_share:
+    subject: "{owner} shared a course with you on {app}: {title}"
+    text: |
+      Hello,
+
+      {owner} shared the course “{title}” with you on {app}. Open this link to add it to your courses:
+
+      {link}
+
+      You can learn from the course with your own progress; only {owner} can change it. If you do not have a {app} account yet, the link lets you create one. If you were not expecting this, ignore this message.
+    html: |
+      <p>Hello,</p>
+      <p>{owner} shared the course <strong>{title}</strong> with you on {app}.</p>
+      <p><a href="{link}">Open the course</a></p>
+      <p>Or paste this link into your browser: {link}</p>
+      <p>You can learn from the course with your own progress; only {owner} can change it. If you do not have a {app} account yet, the link lets you create one. If you were not expecting this, ignore this message.</p>
+
+profile:
+  email_no_mail:
+    title: "Not confirmed"
+    text: "This server cannot send e-mail, so it cannot send a link to confirm your address. Everything works without it."
+    label: "About your address"
+    ok: "OK"
+  title: Profile
+  no_name: Learner
+  head:
+    member_since: "Member since {date}"
+    all_saved: All changes saved
+  month:
+    january: January
+    february: February
+    march: March
+    april: April
+    may: May
+    june: June
+    july: July
+    august: August
+    september: September
+    october: October
+    november: November
+    december: December
+  date:
+    month_year: "{month} {year}"
+    long: "{day} {month} {year}"
+  privacy:
+    title: Who sees what
+    info: Who sees your name and address
+    appear_as_before: "You will appear as: ("
+    appear_as_after: ) to other users.
+    email_private: Your e-mail address is private to you.
+    policy_link: privacy policy
+    ok: OK
+  email_unverified:
+    title: Verify your e-mail
+    text: Email not yet verified. Check your inbox for the link.
+    close: Close
+    resend: Resend
+  nav:
+    label: Profile sections
+    personal: Personal information
+    account: Account
+    two_factor: Two-factor authentication
+    api_keys: AI API keys
+    data: Your data
+    consent: "Privacy and consent"
+  personal:
+    title: Personal information
+    first_name: First name
+    last_name: Last name
+    email: E-mail address
+    no_email: No e-mail on file
+    verified: Verified
+    not_verified: Not verified
+    language: Language
+    language_unavailable: That language is not available.
+  account:
+    title: Account
+    member_since: Member since
+    sign_in: Sign-in
+    password: Password
+    and: and
+    terms: Terms
+    terms_accepted: "Version {version}, accepted {date}"
+    terms_not_accepted: Not accepted
+    terms_read: read
+    terms_privacy: privacy
+    terms_title: Terms of Service
+    terms_close: Close
+    terms_open_page: Open as a page
+    no_password: This account has no password to change.
+  consent:
+    title: "Privacy and consent"
+    info: "About your consents"
+    info_age: "You confirmed your age when you signed up. To take that back, delete your account under Your data."
+    info_email: "Service e-mails always go out: confirming your address, your data download, and changes to the terms. Optional e-mails will show up here with their own switch, off until you turn them on."
+    info_ai: "AI features send what you type to an AI company. Hide them and nothing goes out, the features are gone from the app, and your saved API keys are deleted."
+    info_record: "Each change is kept with its date and comes with Download my data."
+    close: "Close"
+    terms: "Terms and privacy"
+    age: "Age"
+    age_confirmed: "Confirmed {date}"
+    age_not_confirmed: "Not confirmed"
+    email: "E-mail"
+    email_service: "Service messages only"
+    ai: "Do Not Show Me AI Features"
+    ai_on_since: "Shown since {date}"
+    ai_on: "Shown"
+    ai_off_since: "Hidden since {date}"
+    ai_off: "Hidden"
+    ai_key: "Own API key on file"
+    ai_keys_manage: "manage keys"
+  sessions:
+    sign_out_others: Sign out everywhere else
+    info_label: About signing out everywhere else
+    text: "Ends every other session of this account: other browsers, phones and computers, and anyone who should not be signed in. This browser stays signed in."
+    text_same: Changing your password or two-factor sign-in does the same.
+    ok: OK
+    signed_out_notice: Signed out everywhere else.
+  password:
+    change: Change password
+    current: Current password
+    new: New password
+    repeat: Repeat new password
+    rule: 8 to 128 characters.
+    cancel: Cancel
+    save: Save
+    changed: Password changed.
+    mismatch: The new passwords do not match.
+    none: This account has no password.
+    too_many: Too many attempts. Wait a few minutes and try again.
+    current_wrong: The current password is not right.
+  two_factor:
+    title: Two-factor authentication
+    info: About two-factor authentication
+    second_step: Second sign-in step
+    off: "Off"
+    email: E-mail
+    email_unverified: E-mail not verified
+    totp: Authenticator app
+    save: Save
+    confirm_title: Confirm it's you
+    confirm_password_why: So that someone using this signed-in browser can't change your second step, type your account's password.
+    confirm_app_code: This account has no password, so type the code your authenticator app shows now.
+    confirm_sent_code: This account has no password, so confirm with a code from your current second step.
+    sent_to: "Sent to {to}."
+    send_one_first: Send one first.
+    password: Password
+    code: Code
+    cancel: Cancel
+    send_again: Send again
+    send_code: Send code
+    confirm: Confirm
+    totp_added: "Authenticator app added {date}"
+    remove: Remove
+    info_title: Two-factor authentication
+    info_text: "After your password, signing in asks for a code: e-mailed, or shown by an authenticator app such as Google Authenticator. One method at a time; choosing another replaces it."
+    info_small: E-mail and text need a verified address or number. Codes work for 10 minutes; five wrong ones end the sign-in.
+    ok: OK
+    email_first_title: Verify your e-mail first
+    email_first_text: E-mail codes need a verified address. Check your inbox for the link.
+    close: Close
+    resend: Resend
+    totp_title: Add an authenticator app
+    totp_how: How to add the app
+    totp_dev_link: "Dev: add it to the dev authenticator"
+    turn_on: Turn on
+    totp_info_title: Adding an authenticator app
+    totp_info_scan: Open an authenticator app on your phone (Google Authenticator, Authy, 1Password and the like), choose to add an account and scan the QR code with its camera.
+    totp_info_key: Can't scan? Choose to enter a setup key instead and type the key under the code; it is time-based.
+    qr_title: QR code of the setup link
+    turn_off: Turn two-factor sign-in off
+    switch_to: "Switch two-factor sign-in to {method}"
+    turn_on_by: "Turn on two-factor sign-in by {method}"
+    method_email: e-mail
+    method_totp: authenticator app
+    is_off: Two-factor sign-in is off.
+    is_method: "Two-factor sign-in: {method}."
+    totp_removed: Authenticator app removed.
+    too_many_attempts: Too many attempts. Wait a few minutes and try again.
+    type_password: Type your password to make this change.
+    password_wrong: That password is not right.
+    type_code: Type the code to make this change.
+    code_wrong_tries:
+      one: "That code is not right. {n} try left."
+      other: "That code is not right. {n} tries left."
+    code_wrong_newest: That code is not right. Type the newest code the app shows.
+    code_gone: No code is waiting, or it expired. Send a new one.
+    too_many_codes: Too many codes sent. Wait a few minutes and try again.
+    code_not_sent: The code could not be sent. Try again in a moment.
+  ai:
+    on: "On"
+    off: "Off"
+    close: Close
+    off_title: Hide all AI features?
+    off_text: This will delete all AI API keys saved in your profile.
+    cancel: Cancel
+    confirm: CONFIRM
+    hidden_notice: AI features are hidden. You will not be shown them, and nothing you do here goes to an AI company.
+    shown_notice: AI features are shown again.
+    feature_hidden: "That feature uses AI, which you have hidden. Turn off \"Do Not Show Me AI Features\" under Privacy and consent to use it."
+    keys_off: AI features are off for your account; turn them on to save a key.
+  api_keys:
+    title: AI API keys
+    about: "The AI tutor, Generate the course and Use AI call these providers with your key, billed to your account."
+    info: "About your API keys"
+    info_title: "Your API keys"
+    info_text: "Keys are encrypted before they are stored and are never shown again; only the last four characters stay visible so you can tell which key is on file. You can replace or remove a key at any time."
+    unreadable: "On file but unreadable: the server's secret changed. Paste it again."
+    on_file: ✓ Key on file
+    ends_in: ends in
+    none: No key yet
+    replace: Paste a new key to replace it
+    paste: Paste your key
+    get_one: get one
+    remove: Remove key
+    removed: "{provider} key removed."
+    empty: Paste the API key first.
+    too_long: "That is too long for an API key (max {max} characters)."
+    bad_chars: An API key contains only letters, digits and punctuation, with no spaces.
+    wrong_provider: "That does not look like a {provider} key: they start with {prefix}."
+  data:
+    export_download: "Download my data"
+    export_building_no_mail: "Your data is being prepared. When it is ready, a Download button appears here."
+    export_ready_no_mail: "Your data is ready: download it with the button, once, until {date}."
+    export_about_no_mail: "A JSON file of everything stored for your account, prepared in the background. When it is ready, download it here; it works once, for 24 hours. One copy a day."
+    title: Your data
+    stored_html: "What is stored and why: <a href=\"{url}\" data-testid=\"profile-privacy-link\">privacy policy</a>."
+    export: Prepare my data (JSON)
+    export_heading: Download my data
+    export_info_label: About downloading your data
+    export_preparing: Preparing…
+    export_about: A JSON file of everything stored for your account, prepared in the background. We e-mail you a link; it works once, for 24 hours, while you are signed in. One copy a day.
+    export_ok: OK
+    export_your_address: your address
+    export_none: You have not asked for a copy yet.
+    export_building: "Being prepared. A link will be e-mailed to {email} when it is ready."
+    export_ready: "Ready. The link was e-mailed to {email}; it works once, until {date}."
+    export_downloaded: "Downloaded on {date}."
+    export_expired: The last link expired unused.
+    export_failed: The last copy could not be prepared. Try again.
+    export_next: "One copy a day: you can ask for the next from {date}."
+    export_queued: Preparing your data. You will get an e-mail with the link.
+    export_busy: Your data is already being prepared.
+    export_soon: One copy a day. See (i) for when you can ask again.
+    export_gone: That download link has been used, has expired, or is for another account.
+    delete_title: Delete account
+    delete_about: "We delete your account 14 days after you ask, or when a cancelled plan's paid time ends if that is later. That deletes your progress, courses and saved keys. Until then you are signed out, and you can sign in again to cancel."
+    your_password: Your password
+    confirm_before: Type your e-mail address (
+    confirm_after: ) to confirm
+    delete: Delete my account
+    too_many: Too many attempts. Wait a few minutes and try again.
+    password_wrong: The password is not right.
+    type_email: Type your e-mail address to confirm.
+    code_app: Code from your authenticator app
+    code_sent_to: "sent to {to}"
+  deletion:
+    title: "Account scheduled for deletion"
+    on: "This account will be deleted for good on {date}."
+    info_label: "About the deletion"
+    about: "Until that day the account can only cancel the deletion or log out. Cancel it and everything stays as it was. After that day your progress, courses and saved keys are gone for good."
+    cancel: "Cancel deletion"
+  save:
+    not_a_field: This field is not part of the profile.
+    motivator_unavailable: "That motivator is not available."
+    sent_to: "Sent to {email}."
+  name:
+    too_long: "{label} is too long (max {max} characters)."
+    bad_chars: "{label} contains characters that are not allowed."
+  email:
+    empty: Please enter an e-mail address.
+    too_long: "E-mail address is too long (max {max} characters)."
+    local_too_long: "The part before the @ is too long (max {max} characters)."
+    spaces: E-mail address may not contain spaces.
+    no_at: E-mail address must contain an @.
+    not_email: That does not look like an e-mail address.
+    no_domain: E-mail address needs a domain like example.org.
+  js:
+    no_key: No key yet
+    paste_key: Paste your key
+    paste_new_key: Paste a new key to replace it
+    key_on_file: ✓ Key on file
+    ends_in: ends in
+    on: "On"
+    off: "Off"
+    account_menu_for: "Account menu for {name}"
+    first_name: First name
+    last_name: Last name
+    name_too_long: "{label} is too long (max {max} characters)."
+    name_bad_chars: "{label} contains characters that are not allowed."
+    password_mismatch: The new passwords do not match.
+    turn_off: Turn two-factor sign-in off
+    switch_to: "Switch two-factor sign-in to {method}"
+    turn_on_by: "Turn on two-factor sign-in by {method}"
+superuser:
+  title: Superuser
+  about: "Actions on any account. Only superusers see this page."
+  open_inbox: Open it in the dev inbox
+  email: E-mail address
+  reset_note: Marks the account's address unconfirmed and sends a new confirmation link, as at registration.
+  reset: Reset email verification
+  reset_done: "{email} is unconfirmed again, and a new confirmation link was sent."
+  unknown: "No account has the address {email}."
+  accounts: "Accounts"
+  accounts_info: "About accounts and sign-up"
+  mode_open: "Anyone who can reach this server may register (SKRONGLE_SIGNUP=open)."
+  mode_invite: "Only people with an invitation link may register (SKRONGLE_SIGNUP=invite)."
+  mode_closed: "Nobody may register (SKRONGLE_SIGNUP=closed)."
+  invite_about: "Make an invitation link and send it to one person. It works once, for 7 days. The link is shown only when it is made, so copy it then. Revoke takes back a link nobody has used yet."
+  accounts_of: "{total} of {max} accounts"
+  invite_link: "Invitation link"
+  copy: "Copy"
+  make_invite: "Make an invitation link"
+  invite_made: "Made"
+  invite_expires: "Expires"
+  revoke: "Revoke"
+  invite_revoked: "That invitation link no longer works."
+  created: "Created"
+  last_sign_in: "Last sign-in"
+  temp_password: "Temporary password"
+  temp_password_about: "A new password is made up and shown to you once. The account is signed out everywhere and must choose its own password at the next sign-in. No message is sent: give it to the person yourself."
+  temp_password_confirm: "Set a temporary password"
+  temp_password_for: "Temporary password for {email}:"
+  temp_password_once: "It is shown only now. Copy it and give it to the person; they choose their own at the next sign-in."
+  two_factor_off: "Turn off two-factor"
+  two_factor_off_about: "The account signs in with its password alone until it turns two-factor on again. An authenticator app set up for it is removed."
+  two_factor_off_confirm: "Turn it off"
+  two_factor_off_done: "Two-factor sign-in is off for {email}."
+  terms_changed: "The terms have changed."
+  terms_title: "Coming change to the terms"
+  terms_send: "Send the announcement"
+  terms_send_about:
+    one: "The summary of the coming change goes to {n} account that has not had it."
+    other: "The summary of the coming change goes to {n} accounts that have not had it."
+  terms_sent:
+    one: "Announcement queued for {n} account."
+    other: "Announcement queued for {n} accounts."
+  js:
+    copied: "Copied"
+
+
+landing:
+  title: Learn anything from a folder of JSON files
+  hero_h1: Learn anything from a folder of JSON files.
+  hero_lead: "{app} is a learning app in the spirit of the popular learning platforms. Write a course as plain JSON, add it, and every lesson becomes lesson pages, adaptive quizzes, flashcards, five-minute phone sessions, listening practice and games. No code, no content pipeline, no second format."
+  create_account: Create an account
+  read_format: Read the course format
+  have_account_html: "Already have an account? <a href=\"{url}\" data-testid=\"landing-login\">Log in</a>."
+  two_files_h2: A course is two files. Everything else is optional.
+  two_files_lead_html: A <code>course.json</code> names the units and the two sides of every flashcard. Each lesson is one file. Add a field and a feature switches on; leave it out and that feature simply does not show for that lesson. Nothing breaks, nothing nags.
+  field_content_html: Markdown. Each <code>##</code> section becomes a lesson card, a Guide step and a Sprint mode bite.
+  field_vocabulary: Flashcards, tap-to-hear, Word Match and the matching exercises on a phone.
+  field_quiz: Adaptive practice with a per-lesson mastery score that grows, decays and steers what comes next.
+  field_listening: Hear a sentence, type it, see it checked word by word. Spoken by the browser, so no audio to host.
+  field_conjugations: "Paradigm tables of any shape: verb forms, declensions, scales. A drill and a ladder exercise come with them."
+  field_conversations: A scripted dialogue with its translation on the lesson page, and a sentence-building exercise in Sprint mode.
+  field_sprint_guide: Hand-written exercises and step orders when the derived ones are not enough.
+  reference_html: "The full reference, with every field and every rule the validator checks, is at <a href=\"{url}\">/docs/course-format</a>. There is a JSON Schema too."
+  three_ways_h2: Three ways to get a course
+  write_h3: Write it yourself
+  write_p_html: Click <em>Create a course</em>, close the AI dialog and edit the files in the browser. Every save validates the entire course and names the exact file and field that is wrong, so a typo never ships.
+  llm_h3: Let an LLM write it
+  llm_p: The format page is written to be handed to a model. Paste it into any chat and ask for lessons, then paste the replies into the course page. Or describe the course in the app, bring your own API key (Anthropic, OpenAI or a local Ollama server) and watch it write and validate one lesson at a time. The key is used for that job only and never stored.
+  ready_h3: Start from a ready-made one
+  ready_p: Courses that ship with the app, written in the same format, so you can read them as worked examples and copy what you like.
+  course_units:
+    one: "{n} unit"
+    other: "{n} units"
+  course_lessons:
+    one: "{n} lesson"
+    other: "{n} lessons"
+  every_way_h2: One course, every way to study it
+  every_way_lead: Each feature reads the same files. You do not write anything twice.
+  feat_sprint_h: Sprint
+  feat_sprint_p: "Phone-first five-minute sessions: word tiles, sort, spot, build, ladder, match, listening exercises, a daily goal and a streak."
+  feat_study_h: Study
+  feat_study_p: Read the lessons properly, then take quizzes weighted towards what you get wrong. A map of every unit shows your mastery.
+  feat_play_h: Play
+  feat_play_p: Word Match with a shared leaderboard, a paradigm drill, Numbers by ear, Date Dash, flashcards and the Guide.
+  feat_ai_h: AI tutoring
+  feat_ai_p: A one-to-one tutor over chat that teaches the lesson, checks you follow and sets the quiz when you are ready. Runs on your own key.
+  feat_hear_h: Tap to hear
+  feat_hear_p: In a language course every word that matters can be tapped and read aloud by the browser's own voices.
+  feat_mastery_h: Mastery that decays
+  feat_mastery_p: Right answers build a score with diminishing returns, wrong ones take a bite out of it, and a month away drifts it back towards practice.
+  # small_h2 and spec_*: parked, not shown until Skrongle mini ships (#1435).
+  small_h2: Small enough for a Raspberry Pi
+  spec_binary_h: One binary
+  spec_binary_p: Templates, CSS, scripts and docs are compiled in; the built-in courses are plain files next to it. SQLite is the whole database.
+  spec_footprint_h: Tiny footprint
+  spec_footprint_p: "Sized for a Pi Zero 2 W: a few megabytes on disk, tens of megabytes in memory, two async workers."
+  spec_data_h: Your data stays yours
+  spec_data_p: Runs on your own machine or LAN. Optional TLS proxy, no third-party scripts, no tracking.
+  spec_docs_h: Documentation inside
+  spec_docs_p: The format, the features and the architecture are served from the app itself, as pages or as raw Markdown for an LLM.
+  final_h2: "Register, then answer one question: what would you like to learn?"
+  browse_docs: Browse the documentation
+  terms: Terms of Service
+  privacy: Privacy Policy
+  feat_guide_h: "Guide"
+  feat_guide_p: "Each lesson as a stage of small steps: cards, quick checks, flashcards and tips, with stars at the end."
+  try_lead: "Twenty seconds of each mode. Pick one and try it."
+  try_noscript: "Turn on JavaScript to try each mode here."
+  uses_h2: "What can I do with it?"
+  use_niche_h: "Learn a niche topic"
+  use_niche_p: "Nobody sells a course on it? Write one, or have an AI write it from your notes."
+  use_work_h: "Supplement training for work"
+  use_work_p: "Turn the handbook or the certification syllabus into lessons and quizzes."
+  use_goals_h: "Work toward long-term goals"
+  use_goals_p: "Five minutes a day on your phone, with a daily goal and a streak to keep it going."
+  use_fresh_h: "Keep important concepts fresh"
+  use_fresh_p: "Mastery fades while you are away, and practice brings back what is fading first."
+  use_mood_h: "Study to suit your mood"
+  use_mood_p: "Sprint on the bus, read at your desk, play a game when you are tired. Progress is shared."
+  use_exam_h: "Prepare for an exam"
+  use_exam_p: "Quizzes lean towards what you get wrong, so revision time goes where it is needed."
+  use_trip_h: "Get ready for a trip"
+  use_trip_p: "The phrases you will need, with every word read aloud."
+  use_notes_h: "Turn class notes into a course"
+  use_notes_p: "Paste notes or homework and get lessons, quizzes and flashcards back."
+  use_agent_h: "Learn with your own AI agent"
+  use_agent_p: "An agent that teaches you outside the app reports your progress to it."
+  subjects_label: "Subject"
+  subject_language: "Language"
+  subject_maths: "Maths"
+  subject_music: "Music"
+  js:
+    type_answer: "Type the answer"
+    sprint_order: "Put them in order"
+    sprint_note: "Name the note"
+    count: "{n} of {total}"
+    check: "Check"
+    next: "Next"
+    again: "Try again"
+    wrong: "The answer: {answer}"
+    sprint_pick: "What does it mean?"
+    sprint_build: "Put the words in order"
+    sprint_done: "{right} of {total} right"
+    sprint_done_line: "A real session runs five minutes and fills today's goal."
+    read_quiz: "I've read it, quiz me"
+    study_passed: "Lesson passed: {right} of {total}"
+    study_passed_line: "It counts as passed in every mode."
+    study_not: "{right} of {total}: not passed yet"
+    study_not_line: "Practice brings it back until you pass it."
+    play_hint: "Tap one, then its match"
+    play_done: "All pairs in {secs} s"
+    play_done_line: "Word Match keeps a shared leaderboard."
+    guide_card: "Tip"
+    guide_check: "True or false?"
+    answer_true: "True"
+    answer_false: "False"
+    guide_flip: "Tap the card to flip it"
+    got_it: "Got it"
+    guide_done: "Stage complete"
+    sprint_listen: "What do you hear?"
+    listen: "Listen"
+    tap_to_hear: "Tap to hear it"
+    type_it: "Type the missing word"
+    shade: "Shade the fraction"
+    number_line: "Put it on the number line"
+    plot: "Plot the point: tap the grid"
+    type_formula: "Type the formula"
+    type_formula_hint: "e.g. x^2 + 3x"
+    match_graph: "Match the graph"
+    hear_interval: "Hear the interval"
+    find_key: "Find it on the keys"
+    place_note: "Place the note: tap the staff"
+    which_heard: "Which one did you hear?"
+    major_minor: "Major or minor?"
+    near_miss: "Right! Watch the accent: {answer}"
+
+home:
+  due:
+    title: "Words due"
+    about: "About words due"
+    count_html:
+      one: "<strong>{n}</strong> word due"
+      other: "<strong>{n}</strong> words due"
+    review_n:
+      one: "Review 1 word"
+      other: "Review {n} words"
+    info_ladder: "A word you collect comes back the next day. Each time you know it, the wait grows: 1, 3, 7, 16, 35, 75, then 150 days."
+    info_miss: "Miss it and it comes back tomorrow. One round reviews at most 20 words, longest waiting first."
+  your_progress: Your progress
+  lessons_passed: lessons passed
+  terms: "terms"
+  day_streak: day streak
+  skipped: skipped
+  unit_of: "Unit {n} of {total}"
+  unit_bar_label: "Lessons of {unit} passed"
+  unit_passed_html: "<strong>{passed}</strong> of {total} lessons passed in this unit"
+  sprint: Sprint
+  open_sprint: Open Sprint mode
+  sprint_tag: Interactive, mobile friendly.
+  about_sprint: About Sprint mode
+  start_session: Start a session
+  study: Study
+  open_study: Open Study mode
+  study_tag: Short study lessons with quizzes.
+  about_study: About Study mode
+  need_practice_html:
+    one: "<strong>{n}</strong> lesson needs practice"
+    other: "<strong>{n}</strong> lessons need practice"
+  answers_week_html: "<strong>{n}</strong> answers this week"
+  start_practice: Start recommended practice
+  play: Play
+  open_play: Open Play mode
+  play_tag: Games and one-off exercises
+  about_play: About Play mode
+  games_week_html:
+    one: "<strong>{n}</strong> game this week"
+    other: "<strong>{n}</strong> games this week"
+  terms_collected_html: "<strong>{n}</strong> terms collected"
+  browse_games: Browse games
+  guide: Guide
+  open_guide: Open the Guide
+  guide_tag: Guided lessons, one stage at a time.
+  about_guide: About the Guide
+  guide_stat_html: "<strong>{done}</strong> / {total} stages complete"
+  next_stage: "Next: {title}"
+  continue_guide: Continue the Guide
+  start_guide: Start the Guide
+  see_stages: See your stages
+  ai: AI tutoring
+  open_ai: Open AI tutoring
+  ai_tag: Chat with a tutor
+  about_ai: About AI tutoring
+  using_key_html: "Using your <strong>{provider}</strong> key"
+  needs_key_html: "Needs an API key · <a href=\"{url}\" data-testid=\"home-ai-add-key\">add one in your profile</a>"
+  start_conversation: Start a conversation
+  no_ai_keys: No AI keys set
+  info_sprint_p: "Short tap-and-swipe sessions: word tiles, sorting, matching and quick quiz rounds. A streak and the daily goal keep you coming back."
+  info_study_p: Read the lessons properly, then take adaptive quizzes that target what you get wrong. Watch mastery grow unit by unit on the learning map.
+  info_study_listening_p: Read the lessons properly, then take adaptive quizzes that target what you get wrong, and train your ear by typing what you hear. Watch mastery grow unit by unit on the learning map.
+  info_play_intro: "Pick one thing and play it: a timed word match, "
+  info_play_drill: "the {item} drill, "
+  info_play_numbers: "numbers by ear, "
+  info_play_dates: "a date dash, "
+  info_play_end: or a hand of flashcards.
+  info_guide_p: "The lessons in order, one small step at a time: a card or two, then a quick check. Finish a stage to unlock the next, and earn up to three stars on each."
+  info_ai_p: "A one-to-one lesson over chat: the tutor explains, checks you follow, sets an exercise when you are ready and talks you through your answer. Same questions, same mastery, just a conversation. Runs on your own API key."
+  ok: OK
+
+goal:
+  ring_label: "Today's goal: {n} of {goal} points"
+  smashed: "Goal smashed {icon}"
+  smashed_sub: "{n} points today. Keep the streak glowing."
+  showed_up: "Nice, you showed up"
+  points_today: "{n} points today. {more} more fills the ring."
+  keep_alive: "Keep the {icon} alive"
+  day_away: "Day {n} is one session away."
+  five_minutes: "Got five minutes?"
+  any_mode: "Whatever you study, in any mode, fills the ring."
+  continue: "Continue: {title}"
+  all_done: "Every lesson passed: keep them sharp"
+  info_label: "What counts towards the daily goal"
+  info_title: "Today's goal"
+  info_p: "Everything you do in this course, in any mode, earns points towards the day's {goal}. What takes longer earns more:"
+  col_activity: "What you do"
+  col_points: "Points"
+  kind:
+    answer: "A quiz question, in any mode"
+    tutor: "A question from the AI tutor"
+    exercise: "A Sprint exercise (tiles, sort, build…)"
+    game: "One item of a game (a pair, a number, a date)"
+    listening: "One sentence of a listening round"
+    flashcard: "One flashcard"
+    card: "One card of a Guide stage"
+    reading: "Reading a lesson to the end"
+
+study:
+  correct: Correct!
+  never: never
+  pill_passed: ✓ Passed
+  pill_read: ✓ Read
+  pill_mastery_title: Mastery
+  practise: Practise
+  status:
+    not_started: Not started
+    mastered: Mastered
+    in_progress: In progress
+    needs_practice: Needs practice
+    skipped: Skipped
+  via:
+    study: Study mode
+    sprint: Sprint mode
+    play: Play mode
+    tutor: AI tutoring
+    agent: an AI agent
+    legacy: an earlier session
+    other: another mode
+  pass:
+    passed_in: "Passed in {via}"
+    passed_with: "Passed with {via}"
+    seen_best: "Seen · best run {best}%, {pass}% passes"
+    seen_now: "Seen · now score {pass}% on its exercises"
+    done_read: Exercises done · read it to pass
+    best_run: "Best run {n}%"
+    not_started: Not started
+  counts:
+    n_mastered: "{n} mastered"
+    n_in_progress:
+      one: "{n} in progress"
+      other: "{n} in progress"
+    n_weak: "{n} weak"
+    n_need_practice:
+      one: "{n} needs practice"
+      other: "{n} need practice"
+    n_not_started:
+      one: "{n} not started"
+      other: "{n} not started"
+    n_of_m_passed: "{n} of {total} passed"
+    n_skipped:
+      one: "{n} skipped"
+      other: "{n} skipped"
+    n_questions: "{n} questions"
+    n_lessons:
+      one: "{n} lesson"
+      other: "{n} lessons"
+  games:
+    word_match: Word Match
+    numbers: Numbers by ear
+    date_dash: Date Dash
+    listening: Listening
+    sprint: Sprint mode
+    drill: "{item} Drill"
+    drill_plain: Drill
+    result: "{correct} / {total} right · {time}"
+  nav:
+    study_mode: Study mode
+    study_mode_desc: "Study mode: short study lessons with quizzes"
+    study: Study
+    practice: Practice
+    listening: Listening
+    lessons: Lessons
+    map: Map
+    vocabulary: Vocabulary
+    history: History
+    mistakes: Mistakes
+    switch: "Switch:"
+    to_sprint: Switch to Sprint mode
+    sprint_desc: "Sprint mode: interactive, mobile friendly"
+    sprint: Sprint
+    to_play: Switch to Play mode
+    play_desc: "Play mode: games and one-off exercises"
+    play: Play
+    all_modes: All modes (home)
+    menu: menu
+  lessons:
+    title: Lessons
+    find: Find a lesson
+    find_placeholder: a topic or a word
+    read_title: Reading check passed
+    unread: Unread
+    unread_title: Pass the check at the bottom of the lesson to add it to recommended practice
+    jump: Jump to a unit
+    jump_passed: "{n} of {total} passed"
+    to_top: "↑ Back to top"
+  panel:
+    lessons: Lessons
+    noscript: Moving, renaming and adding lessons need JavaScript; Edit opens a lesson's file.
+    editor_settings: Editor settings
+    feature_usage: Feature usage
+    feature_usage_report: Feature usage report
+    edit_settings: Edit the course settings
+    course_settings: Course settings
+    edit: Edit
+    add_unit: + Add unit
+    words_open: "Paste a word list"
+    words_title: "Paste a word list"
+    words_info: "About pasting a word list"
+    words_name: "Lesson name"
+    words_text: "Words, one per line"
+    words_add: "Add the lesson"
+    words_how: "Put each word on its own line with its meaning after it, split by a dash, an equals sign, a comma or a tab (a spreadsheet copies with tabs). A first line that only names the two columns is skipped."
+    words_after: "The new lesson goes at the end of the last unit. The words become its vocabulary, and a table of them becomes its text. Open it in the table to add questions or move it."
+    json_of_settings: JSON of the course settings
+    format: Format
+    fold: "Fold {unit}"
+    add_to: "Add a lesson to {unit}"
+    delete_unit: "Delete the unit {unit}"
+    delete_this_unit: Delete this unit
+    json: JSON
+    json_desc: Edit every file as JSON instead of a form.
+    line_numbers: Line numbers
+    line_numbers_desc: Number the lines of the JSON box.
+    language_features: "Language features"
+    language_features_desc: "Listening, sentence builds and translation fields."
+    language_features_info: "About language features"
+    language_features_what: "Some parts of a lesson only make sense when the course teaches a language: Listening sentences, conversations, sentence builds, and the translation beside an example or a line of dialogue."
+    language_features_off: "Off, the editor hides those parts while they are empty, so a course that explains terms in your own language is not asked for translations. A part that already has content stays. Learners lose the matching exercises: Listening, Numbers by ear, tap to hear, and the Sprint listening and build exercises. JSON shows every field either way."
+    language_features_saved: "Saved in the course settings as language_features, for everyone who edits the course. Until you set it, the features are on when the terms are in a different language from the meanings."
+    levels: "Levels"
+    levels_info: "What levels are"
+    levels_desc: "Learners may start at a later unit"
+    levels_what: "Turn this on when the units are levels of the subject (A1, A2…, Beginner, Intermediate…) rather than chapters that each need the one before. A learner who opens the course for the first time picks the level to start at, and the lessons below it are skipped."
+    levels_saved: "Saved in the course settings as levels, for everyone who edits the course."
+    placement: "Placement test"
+    placement_info: "What the placement test is"
+    placement_desc: "A short test that suggests where to start"
+    placement_what: "Learners can take it at the end of the start wizard instead of picking a level. A level they answer all right can be skipped; the first level with a wrong answer is where it suggests starting."
+    placement_how: "Write multiple-choice questions for a unit in \"questions\", or set \"random_per_unit\" to draw that many of each unit's own multiple-choice questions at random."
+    placement_saved: "Saved as placement.json, one per course."
+    edit_placement: "Edit the placement test"
+    json_of_placement: "JSON of the placement test"
+    close: Close
+    delete_unit_q: Delete this unit?
+    delete_unit_warn: "Warning: this will delete all lessons in the unit. Are you sure?"
+    progress_goes: Your progress in them goes too (Undo brings it back).
+    cancel: Cancel
+    confirm: Confirm
+    new_lesson: New lesson
+    move: "Move {title}: drag, or use the arrow keys"
+    drag: Drag to reorder
+    edit_title: "Edit {title}"
+    rename: Click to rename
+    delete_title: "Delete {title}"
+    duplicate_title: "Duplicate {title}"
+    ai_edit: "Edit with AI"
+    ai_edit_title: "Edit {title} with AI"
+    ai_edit_ask: "What should change in this lesson?"
+    ai_edit_placeholder: "For example: more worked examples and simpler words."
+    ai_edit_limit: "Up to {n} characters. Only this lesson changes."
+    duplicate: "Duplicate"
+    delete: Delete
+    json_of: "JSON of {title}"
+  lesson:
+    lessons: Lessons
+    mastery_aria: "{n}% mastery"
+    read_title: "Reading check passed {when}"
+    mastery: Mastery
+    accuracy_over: " · {pct}% accuracy over {n} answers"
+    streak: " · streak {n}"
+    last_practised: " · last practised {when}"
+    read_quiz_me: I've read it, quiz me
+    practise_this: Practise this lesson
+    previous: Previous
+    next: Next
+    pager_aria: Previous and next lesson
+    listen_type: Listen and type
+    tutor_me: Tutor me on it
+    before_this: "Before this:"
+    vocabulary: Vocabulary
+    say_hint: "🔊 Tap any {label} word on this page to hear it."
+    conversations: Conversations
+    example: Example
+    set: Set
+    drill_these: "Drill these in the {item} Drill"
+    drill_after: once you have completed this lesson.
+    scales: "Scales"
+    check_h2: Check your understanding
+    check_intro_one: "Finished reading? Answer this question to mark the lesson as read. Reading, then checking, then practising is the cycle: read carefully (writing down the key words and phrases helps them stick), pass this check, and the lesson joins your recommended practice until you have shown mastery."
+    check_intro_two: "Finished reading? Answer these two questions to mark the lesson as read. Reading, then checking, then practising is the cycle: read carefully (writing down the key words and phrases helps them stick), pass this check, and the lesson joins your recommended practice until you have shown mastery."
+    question_n_of: "Question {n} of {total}"
+    answer_to: "Answer to question {n}"
+    insert_special: Insert special character
+    type_ch: "Type {ch}"
+    hint: Hint
+    check_answers: Check my answers
+    lesson_read: ✓ Lesson read
+    read_passed: "You passed the reading check {when}. The lesson is part of your recommended practice now; keep practising it until you have shown mastery."
+    focus: "Focus: {focus}"
+    quiz_questions: "{n} quiz questions"
+    listening_sentences: "{n} listening sentences"
+    play_guide: Play it in the Guide
+    sprint_session: Sprint mode session
+    counts_complete: It counts as complete in every mode.
+    pass_rule: "Get {pct}% or more in one round to pass the lesson, here or in any mode."
+    pass_rule_min: "Get {pct}% or more on at least {n} questions in one round to pass the lesson, here or in any mode."
+    read_to_end: Read it to the end to count it as read.
+    sprint_same_guide: A Sprint mode session or a Guide stage counts the same.
+    sprint_same_ai: A Sprint mode session, a Guide stage or the AI tutor count the same.
+    read_it: I've read it
+    to_pass_check: "To pass the lesson: pass the reading check above, then get {pct}% or more in one round."
+    to_pass_check_min: "To pass the lesson: pass the reading check above, then get {pct}% or more on at least {n} questions in one round."
+    test_yourself: Test yourself
+    more_ways: More ways
+    info_label: About your progress in this lesson
+    close: Close
+    note_h2: "My note"
+    note_placeholder: "Anything that helps you remember this lesson"
+    note_info: "About my note"
+    note_info_body: "Only you see this note. It saves as you type, up to {max} characters, and comes with Download my data on your profile."
+    note_ok: "OK"
+    note_saved: "Note saved"
+    note_too_long: "A note can be at most {max} characters."
+    note_bad_chars: "A note can't hold control characters."
+  start:
+    where_start: Where do you want to start?
+    lead: "Pick the level that fits you. The lessons below it are skipped: you can still read them, but nothing asks you to practise them and they don't count as passed."
+    from_beginning: "From the beginning · "
+    change_lead: "Pick the level to work on. Your progress stays: passes, mastery and history are kept, and every mode continues from the first lesson of this level. Lessons below it that you never studied are skipped."
+    no_such_level: "this course has no level '{unit}' to start at"
+  history:
+    title: History
+    games: Games
+    no_games_html: "No games played yet. <a href=\"{url}\">Play one</a>."
+    when: When
+    game: Game
+    board: Board
+    result: Result
+    recent_answers: Recent answers
+    no_answers_html: "No answers yet. <a href=\"{url}\">Start practising</a>."
+    topic: Topic
+    question: Question
+    your_answer: Your answer
+    agent_prompt: "{asked} (set by an AI agent)"
+    removed_lesson: (removed lesson)
+  mistakes:
+    title: Mistakes
+    about: About the mistakes list
+    none_html: "No mistakes to clear. <a href=\"{url}\">Start practising</a>."
+    when: When
+    lesson: Lesson
+    question: Question
+    your_answer: Your answer
+    right_answer: Right answer
+    info_p: "Quiz questions whose last answer was wrong, newest first. A question leaves the list once you answer it right. Shows up to {n}."
+    ok: OK
+  map:
+    title: Learning map
+    lead: Every lesson of each unit in order. A unit is mastered when every one of its lessons is mastered (80 % or more). You are working on
+    unit_mastered: unit mastered
+    mastered_of: "{n} of {total} lessons mastered"
+    to_go: "{n} to go before {unit} mastery"
+    mastered: mastered
+    lesson_aria_passed: "{title} lesson · passed"
+    lesson_aria: "{title} lesson · {status}"
+    passed_check: passed ✓
+    you_are_here: "you are here · lesson {n} of {total}"
+    practise_towards: "Practise towards {unit} mastery"
+    next_up_lesson: "next up is lesson {n}"
+  js:
+    correct: Correct!
+    not_quite: Not quite.
+    correct_answer_html: "Correct answer: <strong lang=\"{lang}\">{answer}</strong>"
+    new_terms_collected:
+      one: "✦ New term collected: "
+      other: "✦ New terms collected: "
+    lesson_read: ✓ Lesson read
+    read_passed_html: "Mastery is now <strong>{mastery}%</strong>. The lesson is part of your recommended practice from here on; practise it a few more times to show mastery."
+    recommended_practice: Recommended practice
+    back_to_lessons: Back to the lessons
+    not_read: Not read yet
+    not_read_hint: Both answers need to be right. Have another look at the part the explanation points to, then try again with two more questions.
+    try_two_more: Try two more questions
+    submit_failed: "Could not submit your answers ({error}). Please try again."
+    filter_matches: "{shown} of {total} lessons match"
+    filter_none: "No lesson matches “{query}”"
+    lookup_link: 'Look up "{query}" in the words'
+
+docs:
+  title_suffix: Docs
+  documentation: Documentation
+  raw: "Raw:"
+  section_guides: Guides
+  section_reference: Reference
+  section_dev: Developers
+  js:
+    copied: Copied ✓
+    copy: Copy
+    selected: Selected
+  self_host:
+    title: Host it yourself
+    kicker: "{app} mini · no experience needed"
+    h1: "Run {app} at home on a tiny computer"
+    lead: Put it on a Raspberry Pi at home, and everyone on your Wi-Fi can use it. You'll just copy and paste a few commands.
+    start_need: Start with what you need
+    technical: Technical version
+    hero_art_alt: A Raspberry Pi sending Wi-Fi to a phone and a laptop, both showing a lesson
+    your_pi: your Pi
+    steps: Steps
+    toc_why: Why
+    toc_need: What you need
+    toc_setup: Set up the Pi
+    toc_install: Install
+    toc_yours: Make it yours
+    toc_away: Away from home
+    toc_more: What else?
+    why_h2: Why host it yourself?
+    reason_data_h: 🔒 Your data, on your device
+    reason_data_p: Lessons, progress and accounts live on a memory card in your home, not on someone else's server.
+    reason_cheap_h: 🔌 Cheap to keep running
+    reason_cheap_p: After the Pi itself, the only running cost is a little electricity.
+    reason_everyone_h: 👪 One box for everyone
+    reason_everyone_p: A family or a classroom shares one Pi. Everyone gets their own account and their own progress.
+    reason_skill_h: 🛠️ A real skill
+    reason_skill_html: Once you've done this, you can self-host almost anything. See the <a href="#more">ideas at the end</a>.
+    need_h2: What you need
+    need_pi: A Raspberry Pi Zero 2 W
+    need_pi_price: ~$18
+    need_pi_p: The computer itself, the size of a stick of gum.
+    need_pi_buy: Buy from an official reseller →
+    need_sd: A microSD card, 16 GB or bigger
+    need_sd_price: ~$13
+    need_sd_p: Holds the Pi's whole system.
+    need_sd_buy: Buy the official Raspberry Pi card →
+    need_power: A power supply
+    need_power_price: ~$9
+    need_power_html: Micro-USB, 5&nbsp;V 2.5&nbsp;A.
+    need_power_buy: Buy the official supply →
+    need_wifi: Your home Wi-Fi name and password
+    need_wifi_p: The Pi joins it like any other device.
+    need_computer: A computer with an SD card slot
+    need_computer_price: reader ~$7
+    need_computer_p: Just for setup. No slot? Use a USB card reader.
+    need_computer_buy: Buy a card reader →
+    total_html: "<strong>Estimated cost: ~$40</strong>, or ~$47 with a card reader. US reseller prices, before shipping; they vary. No screen, keyboard or mouse needed."
+    setup_h2: Set up the Pi
+    setup_imager_html: <strong>Install Raspberry Pi Imager</strong> on your computer from <a href="https://www.raspberrypi.com/software/" rel="noopener">raspberrypi.com/software</a>. It's the official free tool that prepares the memory card.
+    setup_card_html: <strong>Put the microSD card in your computer</strong> and open Imager.
+    setup_device_html: <strong>Choose your device:</strong> Raspberry Pi Zero 2 W.
+    setup_system_html: <strong>Choose the system:</strong> <em>Raspberry Pi OS (other)</em> → <strong>Raspberry Pi OS Lite (64-bit)</strong>.
+    setup_memory_html: "<strong>Choose your memory card</strong>, then fill in the settings Imager offers:"
+    setting_hostname: Hostname
+    setting_user: Username & password
+    setting_user_v: your choice; write them down
+    setting_wifi: Wi-Fi
+    setting_wifi_v: your network name and password
+    setting_location: Location
+    setting_location_v: your country
+    setting_ssh: SSH
+    setting_ssh_v: on, with password login
+    setup_write_html: <strong>Write the card.</strong>
+    setup_plug_html: <strong>Put the card in the Pi and plug it in.</strong> Give it a few minutes to start.
+    setup_tip_html: 💡 <strong>Can't connect later?</strong> Usually a Wi-Fi typo. Write the card again.
+    install_h2: "Install {app}"
+    connect_h3: Connect to your Pi
+    connect_p_html: "Open <strong>Terminal</strong> (Mac) or <strong>PowerShell</strong> (Windows) and type, with your username:"
+    copy: Copy
+    connect_yes_html: Type <code>yes</code> if asked, then your password (it stays invisible as you type).
+    download_h3: Download it
+    paste_lines: "Paste these lines:"
+    start_h3: Start it (and on every boot)
+    open_h3: Open it
+    owner_link_p: "First, print the link that makes your own account, the owner's. It works once:"
+    open_p: "Open that link on any phone or laptop on the same Wi-Fi and make your account. After that, the address is:"
+    done_html: 🎉 <strong>Done.</strong> Bookmark it.
+    not_loading_html: 💡 <strong>Not loading?</strong> Run <code>hostname -I</code> on the Pi and use that number instead, e.g. <code>http://192.168.1.42:8080</code>.
+    yours_h2: Make it yours
+    yours_account_html: "<strong>Invite everyone else</strong> with a link from <em>Superuser</em> (in the account menu)."
+    yours_terms_html: "<strong>Put your name in the Terms.</strong> Everyone accepts them when they sign up. Edit them with <code>sudo nano /etc/skrongle/terms.md</code>, then <code>sudo systemctl restart skrongle</code>; everyone accepts the new text at their next visit."
+    yours_course_html: <strong>Pick a course.</strong> Spanish is built in, or make your own.
+    yours_ai_html: "<strong>Optional: AI tutor and course generator.</strong> Paste an Anthropic, OpenAI or Google key in <em>Profile settings → AI API keys</em>. They bill you directly."
+    yours_tip: "🔒 Only people you invite can make an account."
+    away_h2: Use it away from home
+    optional: optional
+    away_p_html: "Use <a href=\"https://tailscale.com\" rel=\"noopener\">Tailscale</a> (free): a private link between your own devices. Don't open ports on your router."
+    away_art_alt: A private, locked tunnel between the Pi at home and your phone anywhere
+    home: home
+    anywhere: anywhere
+    away_account: Make a free Tailscale account.
+    away_run: On the Pi, run these, then open the link it prints and approve the Pi.
+    away_phone: Install Tailscale on your phone, same account.
+    away_open_html: Open <strong>http://skrongle:8080</strong> from anywhere.
+    more_h2: What else can your Pi do?
+    more_p: "You've done the hard part. Try one of these next:"
+    idea_passwords_h: 🔑 Store your passwords
+    idea_passwords_p: Vaultwarden, a password manager you host.
+    idea_music_h: 🎵 Stream your own music
+    idea_music_p: Navidrome plays your collection anywhere.
+    idea_files_h: 📁 Store files and notes
+    idea_files_p: Syncthing keeps them in sync across devices.
+    more_at_html: More at <a href="https://projects.raspberrypi.org/" rel="noopener">projects.raspberrypi.org</a>.
+    footnote_html: "More detail: the <a href=\"{url}\" data-testid=\"selfhost-technical-footer\">technical guide</a>."
+    mini_h2: "{app} mini"
+    mini_p: "What this page installs: the same app, set up for a handful of people who know you, with no outside services."
+    mini_out_h3: "What it leaves out"
+    mini_out_mail: "No e-mail or text messages: links show up in the page instead."
+    mini_out_plans: "No plans or payments: everyone has everything."
+    mini_out_signup: "Sign-up by invitation: you make a link for each person."
+    mini_out_terms: "Your own Terms of Service, not ours."
+    mini_out_jobs: "Background work runs inside the app: no extra services to run."
+    mini_out_db: "One database file (SQLite): no database server."
+    mini_safe_h3: "Keeping it safe is your job"
+    mini_safe_password: "A strong password for every account."
+    mini_safe_2fa_html: "Two-factor sign-in with an authenticator app: <em>Profile settings → Two-factor authentication</em>."
+    mini_safe_vpn_html: "Reach it only over Tailscale or a VPN (step 6). <strong>Never forward a port</strong> on your router."
+    mini_safe_tip_html: "🔒 The app slows down password guessing, but it isn't built to face the open internet. <a href=\"{url}\" data-testid=\"selfhost-mini-security\">What it covers and what it doesn't</a>."
+
+quiz:
+  page:
+    recommended_title: Recommended practice
+    recommended_subtitle: A mix of the lessons you have read, weighted towards the ones you find hardest.
+  empty:
+    nothing_yet: "Nothing to practise yet. Recommended practice draws from the lessons you have read: open a lesson, read it carefully, and pass the two-question check at the bottom to add it."
+    read_next: "Read next: {title}"
+    all_lessons: All lessons
+    no_questions_html: "There are no questions available yet. <a href=\"{url}\">Browse the lessons</a>."
+    lesson_has_none: "This lesson has no quiz questions."
+    back_to_lesson: "Back to the lesson"
+  question:
+    answer_label: Your answer
+    placeholder_number: Type a number (3/4, 1.5, 2; -3 …)
+    placeholder_expression: Type an expression, e.g. 2(x+1) or x^2 - 1
+    placeholder_sides: "Type the two sides, e.g. (x + 1)(x + 4)"
+    placeholder_text: Type your answer
+    insert_char: Insert special character
+    type_char: "Type {ch}"
+    hint: Hint
+    check: Check
+    protractor: "Protractor: drag it onto the angle and turn it by its handle. Arrow keys move it, Shift with the left or right arrow turns it, Enter goes to the answer box."
+  summary:
+    title: Quiz complete
+    score_html: <span id="s-correct">0</span> / <span id="s-total">0</span> correct
+    again_lesson: Practise this lesson again
+    recommended: Recommended practice
+    another_round: Another round
+  tiles:
+    board: "Tiles to lay out"
+    keys: "Drag a tile, or press Tab to pick one and the arrow keys to move it. R turns a strip, Enter checks your answer."
+    turn: "Turn"
+    reset: "Start again"
+  check:
+    no_answer: You did not enter an answer.
+    accents: "Almost! Check the accents: the correct form is “{answer}”."
+    fill_bar_beats: "Beats you put in: {given}. Beats the gap holds: {gap}."
+    fill_bar_exact: "Those notes fill the gap, but this question wants particular ones."
+    chord_spelling: "Almost! Right sound, wrong spelling. Check the note names."
+    staff_octave: "Almost! Right note, wrong octave."
+    keyboard_octave: "Right note, wrong octave."
+    two_sides: "Write it as its two sides multiplied, such as (x + 1)(x + 4)."
+    other_scale: "You read the other scale. Count from the 0 that sits on one arm of the angle."
+  api:
+    unknown_lesson: unknown lesson
+    no_questions: this lesson has no questions
+    check_needs: "the check needs {n} answers"
+    distinct_questions: the answers must be to distinct questions of this lesson
+    unknown_question: unknown question
+    answer_too_long: answer too long
+  js:
+    correct: Correct!
+    lesson_result: "{right}/{asked} correct · mastery now {mastery}%"
+    practise: Practise
+    lesson_passed_now: ✓ Lesson passed
+    passed: ✓ passed
+    read_to_pass: · read the lesson to pass it
+    seventy_passes: · 70% passes
+    answers_needed: "· a round needs {n} answers on this lesson to count towards passing it"
+    not_quite: Not quite.
+    correct_answer: "Correct answer:"
+    new_terms:
+      one: "✦ New term collected:"
+      other: "✦ New terms collected:"
+    mastery_html: "{lesson} mastery: <strong>{mastery}%</strong>"
+    streak: " · streak {n}"
+    see_results: See results
+    next: Next
+    pick_first: Pick an answer first.
+    type_first: Type an answer first.
+    submit_failed: "Could not submit your answer ({error}). Please try again."
+
+vocab:
+  index:
+    title: Vocabulary
+    heading: Your vocabulary
+    lead: Every term you have collected by answering quiz questions correctly.
+    lead_count_html: "<strong>{learned}</strong> of {total} terms so far."
+    study_all: Study all (random)
+    empty_html: "No terms collected yet. Terms you meet in lessons appear here as you answer questions in <a href=\"{practice_url}\">Practice</a> or the <a href=\"{guide_url}\">Guide</a>."
+    show_all_lessons: "Show all lessons ({n})"
+    nothing_yet:
+      one: "{n} lesson with nothing collected yet"
+      other: "{n} lessons with nothing collected yet"
+    study_n: "Study ({n})"
+    collected: "{learned} of {total} terms collected"
+    practise_more_html: "· <a href=\"{url}?lesson={slug}\">practise this lesson</a> to collect more"
+    show_terms: Show terms
+    say_hint: 🔊 Tap a term to hear it.
+    th_example: Example
+    th_collected: Collected
+    th_known: Known
+    not_reviewed: not reviewed yet
+  study:
+    title: "Study: {heading}"
+    all_terms: All terms
+    subtitle_lesson: "{n} terms you have collected from this lesson"
+    subtitle_all: "{n} terms, in random order"
+    crumb_vocabulary: Vocabulary
+    crumb_flashcards: Flashcards
+    show_first: Show first
+    how_to: Tap the card (or press Space) to flip. Then say whether you knew it.
+    hear_it: Hear it
+    tap_to_reveal: tap to reveal
+    didnt_know: Didn't know
+    knew_it: Knew it
+    round_complete: Round complete
+    known_html: You knew <span id="st-known">0</span> of <span id="st-count">0</span>.
+    review_missed: Review the ones you missed
+    go_again: Go again
+    practise_lesson: Practise the lesson
+    new_random: New random order
+    back: Back to vocabulary
+    due_heading: "Words due"
+    subtitle_due:
+      one: "{n} word due today"
+      other: "{n} words due today, longest waiting first"
+    due_tomorrow_html: "Back tomorrow: <span id=\"st-tomorrow\">0</span>"
+    next_tomorrow:
+      one: "Next: {n} word tomorrow"
+      other: "Next: {n} words tomorrow"
+    next_on:
+      one: "Next: {n} word on {day}"
+      other: "Next: {n} words on {day}"
+    due_home: "Back to the course"
+  api:
+    word_too_long: word too long
+  lookup:
+    title: 'Look up "{query}"'
+    heading: 'Words for "{query}"'
+    back: Back to the lessons
+    none: 'No word in this course matches "{query}".'
+    more: "The first {shown} of {total}. Type more to narrow it down."
+    form_of: "A form of {what}"
+    taught_in: "Taught in:"
+
+listening:
+  index:
+    title: Listening
+    heading: Listening
+    tagline: · hear it, type it
+    lead: "Your browser reads a sentence in {language}; you type what you heard and see it checked word by word. Replay as often as you like, slow it down if you must."
+    sentences_total: "{n} sentences across the lessons"
+    rounds_played:
+      one: "{n} round played"
+      other: "{n} rounds played"
+    mixed_round: "Mixed round ({n} sentences)"
+    intro: "A mixed round draws from every lesson, weighted towards the ones you find hardest. Or pick one lesson and hear all of its sentences:"
+    sentence_count:
+      one: "{n} sentence"
+      other: "{n} sentences"
+    read_lesson: read the lesson
+    listen: Listen
+  play:
+    title: "Listening: {heading}"
+    mixed_title: Mixed listening round
+    mixed_subtitle: Sentences from every lesson, weighted towards the ones you find hardest.
+    crumb_listening: Listening
+    unsupported: This browser cannot speak (no speech synthesis). Try Chrome, Edge, Safari or Firefox on a desktop or phone.
+    no_voice: "No {language} voice is installed in this browser, so the sentences would be read in another language. Install one in your system's speech settings, or try another browser."
+    empty_html: "There are no sentences to play. <a href=\"{url}\">Pick a lesson</a>."
+    voice: Voice
+    loading_voices: Loading voices…
+    speed: Speed
+    speed_words: word by word
+    speed_phrases: slow, in short phrases
+    speed_unhurried: unhurried
+    speed_normal: normal
+    speed_fast: fast
+    start: Start listening
+    sentence_count:
+      one: "{n} sentence · replay as often as you like"
+      other: "{n} sentences · replay as often as you like"
+    listen_status: Listen…
+    placeholder: Type what you heard
+    answer_label: The sentence you heard
+    check: Check
+    replay: Replay
+    slower: Slower
+    reveal: Reveal
+    stop: Stop
+    keys_html: <kbd>Enter</kbd> check · <kbd>Alt</kbd>+<kbd>R</kbd> replay · <kbd>Alt</kbd>+<kbd>S</kbd> slower · <kbd>Alt</kbd>+<kbd>Q</kbd> reveal
+    round_complete: Round complete
+    another_round: Another round
+    pick_lesson: Pick a lesson
+    quiz_lesson: Quiz on this lesson
+  api:
+    unknown_lesson: unknown lesson
+    unknown_sentence: unknown sentence
+    answer_too_long: answer too long
+    no_listening: this course has no listening practice
+    implausible: implausible result
+  js:
+    correct: Correct!
+    audio_failed: "Could not play the audio ({code}). Press Replay."
+    listen_status: Listen… (Replay as often as you like; Slower if it went by too fast.)
+    check: Check
+    sentence_was: "The sentence was:"
+    almost_accents: Almost! Check the accents.
+    not_quite: Not quite.
+    you_wrote: "You wrote:"
+    words_right: "{right} of {total} words right"
+    finish: Finish
+    next: Next
+    press_r_s: Press R to hear it again, S to hear it slowly.
+    type_or_reveal: Type what you heard, or press Q to reveal it.
+    check_failed: "Could not check your answer ({error}). Please try again."
+    done_detail: "{pct}% of the sentences right in {secs} s"
+    revealed: " · revealed"
+    you_wrote_quote: " · you wrote “{typed}”"
+
+play:
+  common:
+    games: Play
+    play: Play
+    start: Start
+    stop: Stop
+    check: Check
+    again: Again
+    change_settings: Change the settings
+    round_complete: Round complete
+    first_round: Your first round.
+    points: points
+    combo: combo
+    streak: streak
+    insert_char: Insert special character
+    type_char: "Type {ch}"
+    best_score: "best score {n}"
+    rounds_played:
+      one: "{n} round played"
+      other: "{n} rounds played"
+  nav:
+    aria: Play mode
+    mode_title: "Play mode: games and one-off exercises"
+    play: Play
+    all: All
+    numbers: Numbers
+    dates: Dates
+    flashcards: Flashcards
+    stages: Guide
+    switch: "Switch: "
+    to_sprint: Switch to Sprint mode
+    sprint_title: "Sprint mode: interactive, mobile friendly"
+    sprint: Sprint
+    to_study: Switch to Study mode
+    study_title: "Study mode: short study lessons with quizzes"
+    study: Study
+    menu_aria: All modes (home)
+    menu: menu
+  hub:
+    title: Play
+    heading: Play
+    heading_sub: · games and one-off exercises
+    lead: "Pick one thing and play it. Nothing here has a path to follow: every game and exercise stands on its own, and all of them use the course's own lessons."
+    matching_desc: Five terms on the left, five meanings on the right. Match them as fast as you can; wrong matches cost a second. Play one lesson, or all terms over five rounds. Times go on a shared leaderboard.
+    matching_stats: "{lessons} lessons playable · {terms} terms in play"
+    drill_desc: "A picture for the {item} plus a picture for the slot: type the right form. Pick the set and the {item}s you want; only ones from lessons you have completed are available."
+    numbers_desc: "Hear a number in {lang} and type its digits. Pick the range (0 to 10 up to a million, or years), the voice and the speed; replay as often as you like. Keep the streak going."
+    best_streak: "Your best streak: {n}"
+    dates_desc: "Days of the week and months against the clock: see a day, tap it in {lang}; see a calendar page, build the date. Fast answers score more, right answers in a row multiply the points, and misses come straight back."
+    best_score: "Your best score: {n}"
+    flashcards: Flashcards
+    flashcards_desc: "A hand of the terms you have collected, {term} on one side and {meaning} on the other. Mark each one known or not; the stats follow you."
+    terms_collected: "{n} terms collected so far"
+    study: Study
+    stages: Guide
+    stages_desc: "One lesson as a stage of small steps: a card or two, a quick check, a flashcard hand, a tip. Finish for stars; finishing a stage also unlocks its {unlocks}."
+    stages_unlocks_drill: "{item}s for the drill"
+    stages_unlocks_next: next stage
+    lessons_passed: "{done} of {total} lessons passed"
+    open: Open
+  matching:
+    name: Word Match
+    page_title: "Word Match: {board}"
+    all_terms: All terms
+    all_subtitle: "{n} random terms from every lesson"
+    pick_lead: Pick what to play. Your time is the score; the fastest times of everyone are shown on each board.
+    terms_count: "{n} terms"
+    rounds:
+      one: "{n} round"
+      other: "{n} rounds"
+    in_rounds:
+      one: "in {n} round"
+      other: "in {n} rounds"
+    record: record
+    by: "by {name}"
+    your_best: "your best {time}"
+    lesson: lesson
+    round_of: "round – / {total}"
+    intro_html: "Drag each term onto its match in the other column (or tap one, then the other). Which side is which changes every round. Every wrong pair adds <strong>{penalty} s</strong>. The clock starts when you press Start and stops when the last pair of the last round is matched."
+    best_on_board_html: "Your best on this board: <strong>{time}</strong>"
+    finished: Finished!
+    play_again: Play again
+    other_boards: Other boards
+    leaderboard: Leaderboard
+    th_rank: "#"
+    th_player: Player
+    th_time: Time
+    th_wrong: Wrong
+    th_when: When
+    you: " (you)"
+    no_times: No times yet. Be the first!
+  drill:
+    name: "{item} Drill"
+    page_title: "{item} Drill: {set}"
+    lead: "You see a picture for the {item} and a picture for the slot; type the right form. Choose a set and the {item}s to drill."
+    no_lessons: "No lesson teaches {paradigm} yet."
+    locked_html: "Items unlock when you complete their lesson: finish its <a href=\"{guide_url}\">Guide</a> stage or reach \"mastered\" in <a href=\"{practice_url}\">Practice</a>. Nothing is unlocked yet."
+    unlocked_count: "{n} of {total} unlocked"
+    choose_set: "Choose a set"
+    locked_head: "Locked until you pass the lesson"
+    open_lesson: "Open lesson"
+    select_all: select all
+    select_none: none
+    prompts: Prompts
+    every_form_once: every form once
+    hard_mode: "Hard mode: hide the {item}, picture only"
+    start: Start drill
+    slot_pictures: The slot pictures
+    slot_pictures_note: "Each prompt shows one of these next to the {item}."
+    item_plural: "{item}s"
+    items_list: "{n} {items}: "
+    dealing: Dealing…
+    needs_js: "The drill needs JavaScript. Turn it on in your browser to play."
+    pick_one: "Tick at least one {item} to start the drill."
+    which_slot: which slot?
+    answer_aria: The form
+    answer_placeholder: Type the form
+    remind_slots: Remind me of the slot pictures
+    complete: Drill complete
+    again_misses: Drill the ones you missed
+    new_round: New round
+    change_selection: Change the selection
+    empty_answer: You did not type anything.
+    almost_accent: Almost! Check the accent.
+  numbers:
+    name: Numbers by ear
+    lead: "Your browser says a number in {lang}; you type it in digits. Replay as often as you need, keep the streak going."
+    unsupported: This browser cannot speak (no speech synthesis). Try Chrome, Edge, Safari or Firefox on a desktop or phone.
+    novoice_html: "No <span id=\"n-novoice-lang\">{lang}</span> voice is installed in this browser, so the numbers would be read in another language. Install one in your system's speech settings, or try another browser."
+    range: Range
+    range_preset: "{min} to {max}"
+    range_years: "Years: 1900 to 2030"
+    custom: Custom…
+    smallest: Smallest number
+    to: to
+    largest: Largest number
+    voice: Voice
+    loading_voices: Loading voices…
+    speed: Speed
+    slow: slow
+    unhurried: unhurried
+    normal: normal
+    fast: fast
+    count: Numbers
+    endless: endless
+    best_streak: "best streak {n}"
+    streak: streak
+    best_streak_label: best streak
+    right: "right · "
+    heard: heard
+    listen: Listen…
+    answer_placeholder: Type the number
+    answer_aria: The number you heard
+    answer: Answer
+    replay: Replay
+    reveal: Reveal
+    keys_html: <kbd>Enter</kbd> answer · <kbd>R</kbd> replay · <kbd>Q</kbd> reveal · type <kbd>k</kbd> for thousand (12k = 12,000) and <kbd>m</kbd> for million
+    another_round: Another round
+  dates:
+    name: Date Dash
+    tagline: · ¿qué fecha es hoy?
+    lead: Days of the week and months, one tap at a time, against the clock. Fast answers score more, a run of right answers multiplies the points, and whatever you miss comes straight back.
+    today_is: Today is
+    hear_it: Hear it
+    what_to_drill: What to drill
+    days: Days
+    months: Months
+    both: Days & months
+    full_dates: Full dates
+    everything: Everything
+    how_long: How long
+    len_30: 30 s
+    len_60: 60 s
+    len_120: 2 min
+    len_fixed: 20 prompts
+    by_ear: "Also by ear: some prompts are spoken in {lang}"
+    first_round: Your first round. Tiles answer to the number keys too.
+    seconds: seconds
+    replay: 🔊 Replay (R)
+  api:
+    unknown_board: unknown board
+    not_enough_terms: not enough terms
+    too_many_attempts: too many attempts
+    no_session: no such game in progress; press Start to play again
+    incomplete: the submitted matches do not complete the game
+    too_fast: that was too fast to be a real game, so it was not saved
+    other_course: that game belongs to another course
+    choose_set: choose a set
+    no_paradigm: this course has no paradigm
+    unknown_set: unknown set
+    none_unlocked: none of those are unlocked for you yet
+    implausible: implausible result
+    unknown_slot: unknown slot
+    unknown_item: unknown item
+    answer_too_long: answer too long
+    no_listening: this course has no listening games
+    no_calendar: this course has no calendar
+  js:
+    course_language: the course language
+    could_not_start: "Could not start: {error}"
+    not_quite: Not quite.
+    next: Next
+    finish: Finish
+    check: Check
+    new_best: New personal best!
+    round_complete: Round complete
+    done_detail: "{correct} / {total} right · best combo {combo}"
+    per_answer: " · {secs} s per answer"
+    matching:
+      round: "round {n} / {total}"
+      wrong_so_far: "{n} wrong so far (+{secs} s)"
+      hint: Drag a term onto its match, or tap one then the other.
+      on_clock: "{secs} s on the clock"
+      wrong_penalty: " + {n} wrong × {secs} s"
+      rank: " · rank #{rank} on this board"
+      personal_best: " · new personal best!"
+      you: " (you)"
+      could_not_save: "Could not save your time: {error}"
+    drill:
+      which_slot: which slot?
+      right_in: "{pct}% right in {secs} s"
+      you_wrote: "you wrote “{answer}”"
+      correct_form_html: "Correct form: <strong lang=\"{lang}\">{form}</strong> ({item}, {slot})"
+      could_not_check: "Could not check: {error}"
+      dealing: Dealing…
+      nothing: Nothing to drill.
+    numbers:
+      audio_error: "Could not play the audio ({code}). Press Replay."
+      of_count: " of {n}"
+      listen: Listen… (R to replay)
+      answer: Answer
+      number_was: The number was
+      you_wrote_full: "You wrote “{typed}”."
+      press_r: Press R to hear it again.
+      digits_hint: Type the number in digits (12k for 12,000).
+      done_detail: "{pct}% right in {secs} s · best streak {best}"
+      revealed: revealed
+      you_wrote: "you wrote “{typed}”"
+      of: "of {n}"
+      heard: heard
+    dates:
+      no_voice: "(no {lang} voice installed in this browser)"
+      cannot_speak: (this browser cannot speak)
+      day: day
+      month: month
+      tap_the: "Tap the {what} in {lang}"
+      listen_tap: "Listen, then tap the {what}"
+      spoken: spoken
+      what_is: "What {what} is this?"
+      in_order_day: Days in order
+      in_order_month: Months in order
+      after: "the {what} after"
+      before: "the {what} before"
+      build_date: "Build the date: the day first, then the month"
+      now_month: …and now the month
+      listen_tap_page: Listen, then tap the calendar page
+      it_was_html: "It was <b lang=\"{lang}\">{date}</b>"
+      missed: missed
+      slow: "slow ({secs} s)"
+      nothing_missed: "Nothing missed, nothing slow. {praise}"
+      seconds: seconds
+      prompts: prompts
+sprint:
+  mode_name: Sprint mode
+  sound_toggle: Toggle sound effects
+  home:
+    exit: Back to the full site
+    streak: Day streak
+    words_collected: "{n} terms collected"
+    continue: Continue
+    all_done: Every lesson done
+    all_done_sub: Keep them sharp with a review
+    review: Review mix
+    review_sub: your weak spots
+    review_sub_new: a taste of what's next
+    lightning: Lightning
+    lightning_sub: 60 seconds
+    legend_complete: "{done} of {total} lessons complete"
+    legend_rest: "{icon} = mastery · tap a stop for options"
+    unit_skipped: skipped
+    start_here: START HERE
+    stop_meta: "Stop {n} · {group}"
+    mastery_pct: "{pct}% mastery"
+    skipped_level: "Skipped: below your starting level"
+    locked_hint: Pass the stop before this one (in any mode) to unlock it.
+    peek: Peek at the lesson
+    play_again: Play again
+    start: Start · 5 min
+    read: Read the lesson
+    foot_note: Same lessons, same progress as the full site.
+    guide: Guide
+    map: Map
+    switch_course: Switch course
+  tabs:
+    path: Path
+    review: Review
+    lightning: Lightning
+    terms: Terms
+    site: Full site
+  play:
+    quit: Quit session
+    audio_toggle: Toggle audio (words and listening exercises)
+    continue: Continue
+    session_complete: Session complete
+    accuracy: accuracy
+    time: time
+    day_streak: day streak
+    play_again: Play again
+    check: Check
+  state:
+    locked: locked
+    complete: complete
+    in_progress: in progress
+    skipped: skipped
+    not_started: not started
+  node_label: "{title} — {state}"
+  node_label_current: "{title} — {state}, start here"
+  session:
+    your_words: Your words
+    review_title: Review mix
+    review_subtitle: Weighted towards what you find hardest
+    review_subtitle_taste: Weighted towards what you find hardest, then a taste of what's next
+    review_subtitle_new: "Nothing read yet: a taste of what's next"
+    taste_tag: "A taste of what's next · {lesson}"
+    lightning_title: Lightning round
+    lightning_subtitle: "{secs} seconds. How many can you get?"
+  check:
+    sorted_slips:
+      one: "All sorted, but with {n} wrong tap."
+      other: "All sorted, but with {n} wrong taps."
+    accents: Almost! Check the accents.
+    wrong_note: "Note {n} should be {fix}"
+    note_found: "You found the note, but not its fix."
+    means: "= {meaning}"
+    ladder_explanation: "{item} = {meaning}, {set}."
+    words_right: "{n} of {total} words right."
+    term_means: "{term} = {meaning}"
+    pairs_first_time: Every pair matched first time.
+    pairs_retried:
+      one: "{n} pair took more than one try."
+      other: "{n} pairs took more than one try."
+  history:
+    sorted: "Sorted {right} of {n} correctly"
+    sorted_wrongly: Some in the wrong group
+    forms_right: "{right} of {n} forms right"
+    notes_right: "{right} of {n} notes right"
+    wrong_taps:
+      one: "{n} wrong tap"
+      other: "{n} wrong taps"
+    taps_then_forms: "{taps}, then all {n} forms right"
+    taps_then_sorted: "{taps}, then all {n} sorted correctly"
+  describe:
+    scale: "Build the scale: {title}"
+    sort: "Sort it: {title}"
+    spot: "Spot the mistake: {sentence}"
+    build: "Build: {meaning}"
+    ladder: "Ladder: {item} ({set})"
+    hear_build: Tap what you hear
+    hear_type: Type what you hear
+    hear_meaning: "What does it mean: {text}"
+    hear_gap: "Fill the gap from what you hear: {text}"
+  js:
+    tap_tiles_in_order: Tap the tiles in order
+    sound_on: Sound effects on
+    sound_off: Sound effects off
+    no_speech: This browser cannot speak
+    audio_on: "Audio on: tap to turn it off"
+    audio_off: "Audio off: tap to turn it on"
+    praise_1: Correct!
+    praise_2: Nice!
+    praise_3: Exactly!
+    almost_1: Not quite
+    almost_2: Hmm, no
+    hear_it: Hear it
+    answer_html: "Answer: <strong lang=\"{lang}\">{answer}</strong>"
+    collected_html: "✦ Collected: {words}"
+    mastery_of: "{title}: {pct}% mastery"
+    mastery_now: "Mastery now {pct}%"
+    finish: Finish
+    continue: Continue
+    check_failed: "Uh oh! An error occurred! Please try again."
+    hint: Hint
+    type_char: "Type {ch}"
+    quick_bite: Quick bite
+    got_it: Got it
+    check: Check
+    pick_right: Pick the right one
+    set_clock: "Set the clock"
+    in_lang_this_is: "In {lang}, this is…"
+    course_language: the course language
+    this_means: This means…
+    work_it_out: Work it out
+    write_answer: Write the answer
+    fill_gap: Fill the gap
+    spell_chord: "Spell the chord"
+    place_note: "Place the note"
+    find_key: "Find it on the keys"
+    type_it: Type it
+    type_instead: ⌨️ Type it instead
+    type_instead_honest: ⌨️ Type it instead (harder, more honest)
+    back_to_tiles: 🀄 Back to tiles
+    sort_it: Sort it
+    all_sorted: All sorted
+    to_go: "{n} to go · tap a bucket"
+    spot_mistake: Spot the mistake
+    one_word_wrong: One word is wrong. Tap it.
+    one_note_wrong: "One note is wrong. Tap it, then pick its fix."
+    build_sentence: Build the sentence
+    ladder: Ladder
+    tap_rung: Tap the form that belongs on the glowing rung.
+    scale: "Build the scale"
+    tap_note_rung: "Tap the note that belongs on the glowing rung."
+    ladder_move: "Take {form} off the rung"
+    match_pairs: Match the pairs
+    mixed_up: "Mixed up: {list}."
+    tap_term_meaning: Tap a term, then its meaning.
+    play: Play
+    play_slowly: Play slowly
+    slowly: Slowly
+    cant_listen: Can't listen now
+    tap_what_you_hear: Tap what you hear
+    fill_what_you_hear: Fill in what you hear
+    what_does_it_mean: What does it mean?
+    what_do_you_hear: What do you hear?
+    select_audio: Select the matching audio
+    tap_each_speaker: Tap each speaker; keep the one that says it.
+    play_n: "Play {n}"
+    listen_match: Listen and match
+    tap_speaker_word: Tap a speaker, then the word it says.
+    n_in_seconds: "{n} in {secs} seconds"
+    flawless_title: Flawless!
+    session_complete: Session complete
+    done_tomorrow: Done. Tomorrow it sticks.
+    best_streak: "Best streak in this session: {n} in a row."
+    goal_done: "Daily goal done: {n} / {goal} ✓"
+    daily_ring: "Daily goal: {n} / {goal} points"
+    lesson_passed: "Lesson passed: this stop is complete on the path in every mode."
+    score_to_pass: "Score {pct}% or more in a session to pass this lesson and unlock the next stop."
+    save_failed: "Could not save this session ({error})."
+    nothing_yet: Nothing to practise here yet.
+
+guide:
+  title: Guide
+  heading: Guide
+  lead: "The lessons, one small step at a time: a card or two, then a quick check. Finish a stage to unlock the next. For short attention spans."
+  continue: "Continue: {title}"
+  stats:
+    complete: stages complete
+    three_star: 3-star stages
+  stars_label: "{n} of 3 stars"
+  locked_count:
+    one: "{n} locked stage"
+    other: "{n} locked stages"
+  stage:
+    steps_checks: "{steps} steps, {checks} quick checks"
+    locked: Each stage unlocks when you pass the lesson before it, in any mode.
+    continue_step: "Continue (step {step} of {steps})"
+    try_again: Try again
+    skipped: "Skipped: below your starting level."
+    play_anyway: Play anyway
+    play_again: Play again
+    start: Start
+  play:
+    title: "Stage {n}: {title}"
+    crumb_guide: Guide
+    stage_n: "Stage {n}"
+    full_lesson: full lesson
+    best_result: best result
+    concept: Concept
+    got_it: Got it, next
+    tip: Tip
+    next: Next
+    terms: Terms
+    terms_to_know: Terms to know
+    tap_reveal: Tap a card to reveal the meaning.
+    tap_hear: Tap 🔊 to hear it, then say it out loud.
+    say_aloud: Say each one out loud.
+    hear_it: Hear it
+    quick_check: Quick check
+    your_answer: Your answer
+    insert_char: Insert special character
+    type_char: "Type {ch}"
+    hint: Hint
+    check: Check
+    stage_complete: "Stage {n} complete"
+    done_line_html: "<span id=\"done-correct\">0</span> / <span id=\"done-answered\">0</span> quick checks right"
+    next_stage: "Next stage: {title}"
+    finished_all: You finished the whole guide!
+    play_again: Play again
+    back_to_map: Back to the map
+  js:
+    correct: Correct!
+    passed_now: Lesson passed! It now counts as complete in every mode.
+    already_passed: You had already passed this lesson.
+    not_passed: "Not passed yet: get 70% or more of the quick checks right to pass the lesson and unlock the next stage."
+    not_quite: Not quite.
+    correct_answer_html: "Correct answer: <strong lang=\"{lang}\">{answer}</strong>"
+    new_terms:
+      one: "✦ New term collected:"
+      other: "✦ New terms collected:"
+    finish_stage: Finish stage
+    next: Next
+    check_failed: "Could not check your answer ({error}). Please try again."
+
+tutor:
+  title: AI tutoring
+  exit: Back to the home page
+  model_label: Model
+  no_key:
+    title: Your tutor needs an API key
+    p1: "AI tutoring runs on your own account with Claude, OpenAI or Google, so {app} never pays for or sees your conversations beyond this server."
+    p2: Add a key once in your profile; it is encrypted and only used when you ask the tutor something.
+    add_key: Add an API key
+    back: Back to the modes
+  chars_label: Special characters
+  disclosure: "Your messages are sent to {provider} using your key."
+  placeholder: Say something to your tutor…
+  input_label: Message to the tutor
+  send: Send
+  api:
+    unknown_provider: unknown provider
+    unknown_lesson: unknown lesson
+    no_questions: this course has no quiz questions to tutor with
+    message_too_long: message too long
+    bad_turn: bad turn
+    nothing_pending: no exercise is waiting for an answer
+    no_key: "no {provider} key on file; add one in your profile"
+    all_busy: the tutor is busy with other learners right now; try again in a moment
+    still_answering: the tutor is still answering
+    thread_failed: "could not start the tutor thread: {error}"
+    thread_stopped: the tutor thread stopped unexpectedly
+    cancelled: "you cancelled the reply"
+    already_cancelled: "a reply you cancelled is still running; try again in a moment"
+  js:
+    cancel: "Cancel"
+    cancelled: "Reply cancelled."
+    correct: Correct!
+    ph_number: Type the number, or ask for help…
+    ph_expression: Type the expression, or ask for help…
+    ph_answer: Type your answer, or ask for help…
+    ph_choice: Tap a choice, or ask for help…
+    type_char: "Type {ch}"
+    exercise: "Exercise · {title}"
+    hint: Hint
+    skip: Skip
+    answer_is: "✗ The answer is {answer}"
+    mastery: "{title} {before}% → {after}%"
+    lesson_passed: "✓ Lesson passed: {title}"
+    could_not_reply: "The tutor could not reply: {error}"
+    last_exercise: That was the last exercise for now. Keep chatting, or go back and pick another lesson.
+courses:
+  # What a new course from "Create a course" starts with, in the author's app language (#1255).
+  starter:
+    title: "Untitled course"
+    description: "Describe the course in a sentence or two."
+    unit: "Unit 1"
+    lesson: "Your first lesson"
+  translate:
+    button: "Copy and translate to…"
+    title: "Copy and translate “{title}”"
+    resume_title: "Resume the translation of “{title}”"
+    info_label: "What gets translated"
+    info_text: "The app copies the course and has the AI translate the copy into the language you pick: explanations, meanings, instructions, quiz questions and answers. The language the course teaches stays as it is; a course that teaches no language is translated entirely. The original is not changed. It takes one AI request per lesson, on your own key or your plan's AI allowance."
+    language: "Translate into"
+    provider: "AI"
+    start: "Start"
+    resume: "Resume translation"
+    close: "Cancel"
+    course_title: "{title} ({language})"
+    pick_language: "Pick a language to translate the course into."
+    same_language: "The course is already written in that language."
+    no_plan: "This translation cannot be resumed. Delete the course and translate the original again."
+    heading_running: "Translating {title}…"
+    heading_done: "Your translated course is ready"
+    heading_stopped: "Translation stopped"
+    phase_start: "Translating"
+    phase_file: "Translating {file} ({n} of {total})"
+  picker:
+    title: What would you like to learn?
+    lead_anon: Pick a ready-made course. Each course keeps its own progress, vocabulary, games and history.
+    lead_ai_off: Pick a ready-made course or write your own. Each course keeps its own progress, vocabulary, games and history.
+    lead_ai: Pick a ready-made course, write your own, or describe what you want and let an AI write the course for you. Each course keeps its own progress, vocabulary, games and history.
+    projects_heading: Your projects
+    tag_current: current
+    tag_revising: revising
+    revising_tip: The AI is changing this course; it still opens, and its files are locked until it is done
+    private_tip: Only you can see this course
+    tag_generating: generating
+    lessons_count:
+      one: "{n} lesson"
+      other: "{n} lessons"
+    units_count:
+      one: "{n} unit"
+      other: "{n} units"
+    questions_count:
+      one: "{n} question"
+      other: "{n} questions"
+    terms_count:
+      one: "{n} term"
+      other: "{n} terms"
+    stat_passed: "Lessons passed"
+    stat_mastered: "Lessons mastered"
+    stat_of: "{n} of {total}"
+    stat_label: "{name}: {value}"
+    opened: "opened {when}"
+    continue: Continue
+    open: Open
+    edit_files_tip: "Edit this course's files."
+    start_learning: Start learning
+    generating: Generating…
+    watch: Watch
+    cancel: Cancel
+    resume: Resume
+    retry: Retry
+    delete: Delete
+    delete_confirm: Delete this course?
+    ok: OK
+    error_generation: An error occurred during generation.
+    error_not_load: This course does not load.
+    mine_heading: Your courses
+    mine_private: 🔒 private to you
+    builtin_heading: Ready-made courses
+    make_heading: Make your own
+    create_title: Create a course
+    create_button: Create a course
+    create_ai_off_html: "Write the lessons yourself in the browser following <a href=\"{url}\">the course format</a>."
+    create_ai_html: "Have AI write it from your class notes or a description, with your own API key (Claude, OpenAI or Gemini), or write the lessons yourself in the browser following <a href=\"{url}\">the course format</a>."
+    create_private: Only you can see it.
+    phase_progress: "{phase} · {done} of {total} lessons"
+    starting: Starting…
+    title_too_long: Give the course a title of up to 80 characters.
+    course_count: "An account may have at most {max} courses. Delete a course you no longer need to make another."
+    deleted_notice: Course deleted.
+    copy_tip: "Create a copy of this course."
+    copy_title: "Copy of {title}"
+    copy_not_ready: "A course can be copied once it has been written."
+    copy_too_big: "This course is too big to copy: a course may take at most {max}."
+    copy_no_room: "There is no room for a copy: all of an account's courses together may take at most {max}. Delete a course you no longer need."
+    dev_reset: Dev user reset.
+  editor:
+    title: "Edit: {title}"
+    crumb_courses: Courses
+    crumb_edit: Edit
+    rename_tip: Click to rename
+    rename_label: Rename the course
+    saved_label: All changes saved
+    open_tip: Open this course (new tab)
+    open_label: Open this course, in a new tab
+    private_tip: Only you can see and open this course
+    private_tag: 🔒 Private
+    cancel_revision: Cancel revision
+    cancel_generation: Cancel generation
+    generating_html: ⏳ <strong>This course is being generated.</strong> Lesson files appear below as they are written; you can edit them once it has finished.
+    revising_html: ⏳ <strong>This course is being revised from your feedback.</strong> It still opens as it is; the new version replaces it when the AI has finished, and its files can be edited after that.
+    not_loading_html: <strong>The course does not load yet.</strong>
+    files_heading: Files
+    col_path: Path
+    col_size: Size
+    col_updated: Updated
+    size_b: "{n} B"
+    size_kb: "{n} KB"
+    delete_file_confirm: "Delete {path}?"
+    delete_file: delete
+    new_file: + New lesson file
+    manifest_link: Course settings (course.json)
+    delete_course_confirm: Delete this course? Its lessons and everyone's progress in it are removed for good; this cannot be undone.
+    delete_course: Delete this course
+    download_all: Download all files
+    locked_generating: The course is still being generated; its files can be changed once it has finished (or been cancelled).
+    locked_revising: The course is being revised; its files can be changed once that has finished (or been cancelled).
+    too_many_writes: "You have changed courses {max} times in {minutes} minutes, the most an account may. Wait a few minutes, then save again."
+    ai_finished_notice: The AI has finished. Review changes (under Use AI) shows what it did.
+    too_many_files: "a course may have at most {max} files"
+    manifest_undeletable: course.json cannot be deleted; edit it instead
+    loads_notice: The course loads. Open it from the course list.
+    not_loading_notice: "The course does not load yet: {error}"
+    gone: This course is gone (deleted, perhaps in another tab), so these changes cannot be saved.
+    busy_generating: The course is still being generated
+    busy_revising: The course is being revised
+    busy_lessons: "{busy}; its lessons can be changed once that has finished (or been cancelled)."
+    busy_reload: "{error} Reload the page then; the changes made here since the last save are not kept."
+    lesson_name_too_long: "Keep lesson names to {max} characters (“{title}…”)."
+    words_too_long: "Paste at most {kb} KB of words at a time."
+    words_no_settings: "The course settings don't load, so the words can't be read. Fix the course settings first."
+    json_too_big: "A lesson's JSON may be at most {kb} KB."
+    renamed_course_to: Renamed the course to
+    label_renamed_course: "{label}; renamed the course"
+    stale: This course was changed somewhere else (in another tab, or by an AI job) since this page was opened, so changes made here are not saved. Reload the page to edit the latest version.
+    saved_undo: "{label}. Undo puts it back."
+    saved_broken: "{label}, but the course does not load: {error}"
+  file:
+    crumb_new: new file
+    new_heading: New lesson file
+    path_label: Path
+    content_label: Content (JSON)
+    status_html: "Checked when you save. Reference: <a href=\"{url}\" target=\"_blank\" rel=\"noopener\">course format</a>."
+    save: Save and validate
+    cancel: Cancel
+    bad_path: "'{path}' is not an allowed path"
+    bad_path_hint: use course.json, lessons/<name>.json or pictures/<name>.svg
+    too_large: "The file is larger than {kb} KB"
+    too_large_hint: split the lesson in two
+    not_svg: It is not an SVG picture
+    not_svg_hint: an SVG file starts with <svg or <?xml
+    saved_notice: File saved. The course loads.
+    saved_broken_notice: "File saved, but the course does not load yet: {error}"
+    deleted_notice: File deleted.
+    deleted_broken_notice: "File deleted, but the course does not load yet: {error}"
+  lint:
+    title: Things to check
+    info_label: About these checks
+    info_body: Quick checks of the course files, made again after every save. They look for lessons that load but may teach badly. None of them stops a save.
+    close: Close
+    none: Nothing to check.
+    count:
+      one: "{n} thing to check"
+      other: "{n} things to check"
+    prerequisite_later: "Its prerequisite “{lesson}” comes after it. Move that lesson earlier or drop the prerequisite."
+    prerequisite_self: It lists itself as a prerequisite.
+    few_questions:
+      one: "It has 1 question, so one wrong answer fails the run. Four or more leave room for a mistake."
+      other: "It has {n} questions, so one wrong answer fails the run. Four or more leave room for a mistake."
+    answer_in_prompt: "This question gives its answer away in the prompt: {prompt}"
+    one_spelling: "The blank “{answer}” has several words and accepts one way of writing them. Add other ways in accepted_answers."
+    sprint_reading_only: Its Sprint session is reading only. It has no questions, words or exercises.
+    repeated_term: "It teaches “{term}” again, after {lessons}."
+    quoted: "“{title}”"
+    other_language: "Its text reads like {found}, but the course explains in {expected}."
+    lang:
+      en: English
+      es: Spanish
+      fr: French
+      de: German
+      pt: Portuguese
+      it: Italian
+      zh: Chinese
+  report:
+    title: Feature usage
+    close: Close
+    lessons:
+      one: "{n} lesson"
+      other: "{n} lessons"
+    features_of: "{used} of {total} features"
+    question_types_of: "{used} of {total} question types"
+    no_lessons: No lessons yet.
+    question_types: Question types
+    lesson_features: Lesson features
+    used_sr: ": used"
+    not_used_sr: ": not used"
+    question:
+      multiple_choice: Multiple choice
+      fill_in_blank: Fill in the blank
+      true_false: True or false
+      numeric: Numeric answer
+      expression: Algebraic expression
+      fill_bar: "Fill the bar"
+      chord_spell: "Spell the chord"
+      staff_note: "Place the note"
+      keyboard: "Keyboard"
+      algebra_tiles: "Algebra tiles"
+      clock: "Set the clock"
+      measure: "Measure the angle"
+    feature:
+      text: Lesson text
+      cards: Text in cards (## headings)
+      tables: Tables in the text
+      summary: Summary
+      focus: Focus
+      prerequisites: Prerequisites
+      vocabulary: Vocabulary
+      examples: Example sentences
+      hints: Question hints
+      explanations: Answer explanations
+      teaches: Words taught by questions
+      conjugations: Paradigm tables
+      conversations: Conversations
+      listening: Listening sentences
+      guide: Hand-ordered Guide steps
+      sprint_icon: Sprint icon
+      bites: Sprint bites
+      sorts: Sort exercises
+      spots: Spot the mistake
+      builds: Sentence builds
+  review:
+    edit_line_tip: Edit this line
+    title: AI changes
+    close: Close
+    how_to: "Open a lesson to see its changes. To leave something out, click the − beside it (drag for several lines); click it again to take it back. To change a line, click it: it opens as text, like in an editor."
+    open_all: Open all
+    close_all: Close all
+    show_json: Show the files as JSON
+    tag_new: New
+    tag_removed: Removed
+    tag_changed: Changed
+    edited_file_tip: "Has lines you edited, which always stay in: undo them to leave this lesson out"
+    keep_lesson: Keep this lesson
+    leave_lesson_out: Leave this lesson out
+    keep_named: "Keep {title}"
+    leave_named_out: "Leave {title} out"
+    col_before: Before
+    col_after: After the AI
+    col_leave_out: Leave out
+    gap_lines:
+      one: "⋯ {n} unchanged line"
+      other: "⋯ {n} unchanged lines"
+    leave_change_out: Leave this change out
+    leave_line_out: Leave this line out
+    quiet: Don't show this automatically next time
+    undo: Undo
+    redo: Redo
+    undo_edit: Undo your last edit
+    redo_edit: Redo your edit
+    accept: Accept
+    undone_tag: Undone
+    check_label: "Check:"
+    left_alone: Looked at, left alone
+    undone_about: About an undone AI run
+    undone_text: This AI run was undone, so none of its changes are in the course. Redo on the course page puts them back; then you can review them here.
+    undone_refused: This AI run was undone, so the review cannot change the course. Redo on the course page puts it back.
+    labels:
+      prompt: Question
+      question: Question
+      content: Reading
+      correct_answer: Answer
+      accepted_answers: Also right
+      options: Choices
+      hints: Hints
+      teaches: Words it teaches
+      type: Kind
+      tolerance: Allowed error
+      question_id: Id
+      id: Id
+      slug: Web address
+      order: Place in its unit
+      prerequisites: Comes after
+      vocabulary: Words
+      term: Word
+      conjugations: Conjugation tables
+      guide: Guide steps
+      vocab: Flashcards
+      sprint: Sprint mode
+      role_a: Speaker A
+      role_b: Speaker B
+      markdown: Text
+      wrong: Wrong word
+      fix: Right word
+      chars: Letters to tap
+    none_left: There is no AI change to review any more.
+    with_parts_left_out: With those parts left out
+    with_changes: With those changes
+    not_loading: "{what} the course does not load: {why}"
+    label_took_back: Took all of the AI's changes back in
+    label_left_out: Left out part of the AI's changes
+    label_edited: Edited the AI's changes
+    label_left_out_edited: Left out and edited part of the AI's changes
+    done_in_again: All of the AI's changes are in again
+    done_in: The AI's changes are in
+    done_in_without: The AI's changes are in, without the parts you left out
+    done_in_edited: The AI's changes are in, with your edits
+    done_in_edited_without: The AI's changes are in, with your edits and without the parts you left out
+    notice_done: "{done}."
+    notice_undo: "{done}. Undo puts it back."
+    notice_broken: "{done}, but the course does not load: {error}"
+    lessons:
+      one: "{n} lesson"
+      other: "{n} lessons"
+    verb_added: "added {what}"
+    verb_changed: "changed {what}"
+    verb_removed: "removed {what}"
+    changed_settings: changed the course settings
+    nothing: The AI changed nothing you can review.
+    overview: "The AI {parts}."
+    and: "{a} and {b}"
+    sep: ", "
+    changes:
+      one: "{n} change"
+      other: "{n} changes"
+    left_out: "{parts} left out"
+    lines_edited:
+      one: "{n} line edited"
+      other: "{n} lines edited"
+    course_settings: Course settings
+    name_reading: the reading
+    name_title: the title
+    name_focus: the focus
+    name_quiz:
+      one: quiz question
+      other: quiz questions
+    name_word:
+      one: word
+      other: words
+    name_conjugation:
+      one: conjugation table
+      other: conjugation tables
+    name_conversation:
+      one: conversation
+      other: conversations
+    name_listening:
+      one: listening sentence
+      other: listening sentences
+    name_guide:
+      one: Guide step
+      other: Guide steps
+    name_unit:
+      one: unit
+      other: units
+    name_sprint: the Sprint mode material
+    name_place: its place in the course
+    count: "{n} {noun}"
+    the_list: "the {name}"
+    the_field: "the {field}"
+    a_reading: a reading
+    written_by_ai: Written by the AI.
+    new_with: "New, with {parts}."
+    taken_out: Taken out of the course.
+    added: "added {what}"
+    removed_all: "removed all {what}"
+    removed: "removed {what}"
+    layout_only: Only its layout changed.
+    redrew: Redrew the picture.
+    edited: Edited.
+    sentence: "{text}."
+    sentence_sep: "; "
+    renamed_it: "renamed it “{title}”"
+    rewrote: "rewrote {what}"
+    changed: "changed {what}"
+    item_of:
+      one: "item of the {field}"
+      other: "items of the {field}"
+    reordered: "reordered the {name}"
+    none: (none)
+    edits_unreadable: "Your edits to “{title}” leave it unreadable ({error}). Check the lines you edited."
+    left_out_unreadable: "Leaving out those lines of “{title}” leaves it unreadable ({error}). Leave out a little more or a little less of it."
+  ai:
+    title: Use AI
+    mode_legend: "What may the AI do?"
+    mode_add: "Add"
+    mode_edit: "Edit"
+    mode_change: "Add and edit"
+    mode_info: "What do Add, Edit and Add and edit do?"
+    mode_add_info: "Writes one new lesson. Nothing already in the course changes."
+    mode_edit_info: "Rewrites the lessons already there. No lesson is added, removed or moved."
+    mode_change_info: "May also add, reorder or remove lessons. Review changes shows every change, and Undo puts the old version back."
+    mode_change_finished_only: "Add and edit works on finished courses only. Add and Edit work on any course."
+    outline: "Outline only"
+    outline_info: "What does Outline only do?"
+    outline_info_text: "On, the lessons the AI writes are outlines: a bulleted list of what each lesson will teach and one example question, not the full lesson. Off, it writes full lessons."
+    generate: Generate the course
+    generate_note: Have AI write the whole course from a description or your notes. Gone once you edit a lesson's content.
+    ask_add: What should the AI add?
+    ask_add_or_change: What should the AI add or change?
+    ask_edit: "What should the AI change?"
+    placeholder: "For example: a lesson on comparing fractions with different denominators."
+    placeholder_edit: "For example: fix the typo in lesson 2 and add a worked example to every lesson."
+    placeholder_change: "For example: split the long lesson into two and add a review lesson at the end."
+    up_to_chars: "Up to {n} characters."
+    sensitive_note: Don't paste sensitive personal data (health, beliefs, ID numbers) or other people's details.
+    submit: Submit
+    review_changes: Review changes
+    review_tip: "What the last AI run ({when}) changed"
+    sent_to_named_html: "Your notes are sent to <span data-testid=\"course-ai-provider\">{provider}</span> using your key."
+    sent_to_generic: Your notes are sent to your AI provider using your key.
+    no_key_html: "No AI provider key is set up. <a href=\"{url}\" data-testid=\"course-ai-profile-link\">Add an API key in your profile</a> to use AI features."
+    no_key: No AI provider key is set up. Add an API key in your profile to use AI features.
+    modal_generating: Generating…
+    modal_count_rewritten: "{done} of {total} lessons rewritten or added"
+    modal_count_edited: "{done} of {total} lessons rewritten"
+    modal_count_written: "{done} of {total} lessons written"
+    modal_cancel: Cancel
+    modal_refresh: Refresh
+    modal_leave_revision: "You can leave this page: the job keeps running, the course keeps working as it was until it is done, and this box is back when you return."
+    modal_leave: "You can leave this page: the job keeps running, and this box is back when you return."
+    modal_provider_said: What the AI provider said
+    modal_close: Close
+    modal_done: Its lessons are in the lesson table.
+    modal_continue: Continue
+    say_change: Say what should change
+    say_add: Say what the new lesson should teach
+    too_short: "{what}, in at least {min} characters."
+    too_long: "Keep it to {max} characters at most."
+    not_loading: The course does not load; fix it first, then add to it with AI.
+    only_finished: "Only a finished course can have its existing content changed. Turn off Allow changes to existing content, and the AI will only add to it."
+    another_started: Another change to this course has just started. Wait for it to finish.
+    lesson_gone: "That lesson is no longer in the course. Reload the page and try again."
+    # The (i) by the box: example requests to click into it (#1236).
+    examples_info: What can the AI do?
+    examples_title: What can the AI do?
+    examples_intro_html: "Click one to put it in the box, then change it to fit your course. Most of these need <em>{switch}</em> on."
+    examples_check: Check
+    examples_add: Add
+    examples_change: Change
+    examples_remove: Remove
+    example_check_facts: Check the facts in every lesson and fix what is wrong.
+    example_add_lesson: "Add a lesson on ..."
+    example_add_questions: Add three multiple-choice questions to lesson 4.
+    example_add_sort: Add a Sprint sort exercise to every lesson that has none.
+    example_add_listening: Add listening sentences to every lesson that has vocabulary but no listening.
+    example_add_conversation: Add a conversation to lesson 2.
+    example_simpler: Use simpler words in the explanations.
+    example_drop: Drop the history lesson.
+    examples_translate_html: "To have the course in another language, use <em>{button}</em> in the course settings. It makes a translated copy."
+  generate:
+    close: Close
+    resume_title: "Resume generating “{title}”"
+    resume_note: The outline and the lessons already written are kept; only the missing lessons are written.
+    retry_title: Try generating the course again
+    title: Generate the course with AI
+    intro: "Describe what you want to learn, or drop in your class notes, homework or a syllabus. A model plans the course, then writes each lesson: text, key terms, quiz questions (maths answers are checked by value) and the phone-session exercises. The course stays private to you."
+    named_keeps: "The AI keeps {what}."
+    named_title: "the title {title}"
+    named_and: "{a} and {b}"
+    named_lessons:
+      one: "your lesson {list}"
+      other: "your lessons {list}"
+    list_sep: ", "
+    quoted: "“{text}”"
+    no_key_html: "You need an AI provider key to generate a course. <a href=\"{url}\" data-testid=\"generate-profile-link\">Add an API key in your profile</a>, then come back here."
+    asked_for: What you asked for
+    wish_label: What do you want to learn?
+    wish_optional: "(optional: the title is enough to start)"
+    wish_placeholder: "e.g. Chapter 4 of my algebra class: factoring quadratics and the quadratic formula. Test is on Friday."
+    wish_note: Say the level, what the test covers and anything you find hard. One or two sentences is enough.
+    notes_label: Your material
+    optional: (optional)
+    notes_placeholder: Paste class notes, homework problems, a syllabus or a reading list. The course will teach exactly this, in its notation.
+    files_label: Text files with your material
+    drop_html: Drop text files here or <button type="button" class="link" id="gen-pick">choose files</button> (.txt, .md, .csv, .tex …). For a PDF or a photo, copy its text in.
+    kind_legend: What kind of course is it?
+    kind_auto: Let the AI decide
+    kind_math: Maths or science
+    kind_math_note: (number and formula answers)
+    kind_language: A language
+    kind_language_note: (listening, conversations, tap to hear)
+    kind_general: Facts and concepts
+    kind_general_note: (history, biology, law …)
+    depth_legend: "How much to write"
+    depth_info: "What do these choices do?"
+    depth_info_text: "Full course: the AI plans the course and writes every lesson in full. It decides how many lessons the subject needs, up to 15. Preview: one unit with one full lesson, so you can see what a lesson looks like before you write more. Outline: every unit and lesson, but each lesson is a bulleted list of what it will teach plus one example question. It is quick and cheap to check the plan this way."
+    depth_full: "Full course"
+    depth_preview: "Preview (1 lesson)"
+    depth_outline: "Outline (every lesson, in brief)"
+    estimate_about: "How the estimate is worked out"
+    estimate_title: "About the estimate"
+    estimate_how: "The model gets one request for the outline and one for each lesson. Each request carries the course format reference and your material, so more material costs more. With your own key the cost is the provider's list price for the model the app uses, turned from US into Canadian dollars at a fixed rate."
+    estimate_rough: "It is a rough guide, not a promise. A lesson the model has to write again costs more and takes longer. When the app does not know a model's price, it shows only the time."
+    provider_legend: Your AI provider
+    advanced: "Advanced: edit the instructions given to the AI"
+    warn_html: |-
+      <strong>⚠️ Careful: this can break your course and cost you money.</strong>
+              These are the instructions sent with every request. The app still validates every file, and a lesson that does not validate is sent back to the model up to twice, then the job stops. Instructions that fight the course format waste API credits on retries and produce courses that fail to load. Do not paste instructions you do not understand: text from other people can make the model write things you did not ask for. The rules for the kind of course, the course format reference and the outline are always added after these instructions.
+    instructions_label: Instructions
+    reset: Reset to the default instructions
+    edited: Edited
+    sent_to_html: "Your notes are sent to <span id=\"gen-disclosure-provider\">{provider}</span><span id=\"gen-disclosure-key\"> using your key</span>."
+    sent_to_generic: Your notes are sent to your AI provider using your key.
+    submit_resume: Resume writing
+    submit_retry: Retry
+    effort:
+      button: "Effort: {level}"
+      title: "How hard should the AI work?"
+      fast: "Fast"
+      fast_note: "Quickest, and uses the least AI. Good for short or simple material."
+      balanced: "Balanced"
+      balanced_note: "Right for most courses."
+      thorough: "Thorough"
+      thorough_note: "Thinks longer about each lesson. Slower, and uses about twice as much AI."
+      same_model: "Every level uses the same AI model. Skrongle keeps your choice for next time."
+      done: "Done"
+    submit: Generate the course
+    own_stopped_resume: "Or close this: the course waits in your list until you resume or delete it."
+    own_stopped_retry: "Or close this: the course waits in your list until you retry or delete it."
+    own_write: Or close this and write the lessons yourself; the starter lesson shows the format. You can come back here from Use AI until you edit a lesson's content.
+    your_provider: your provider
+    choose_provider: Choose a provider.
+    base_url: The base URL must start with http:// or https://.
+    bad_key: That does not look like an API key.
+    paste_key: "Paste an API key for {provider}, or save one on your profile first."
+    wish_too_long: "Keep what you want to learn to {max} characters at most; put longer material in the notes box."
+    notes_too_long: "Keep your material to {max} characters at most; trim it or split the course in two."
+    new_course: New course
+    busy: The course is busy with an AI job already.
+    has_content: "This course has content of its own now, so the AI won't generate it again. Ask for what you want in the Use AI box instead."
+    instructions_too_long: "The instructions are longer than {max} characters."
+    cancelled: Cancelled.
+    busy_other: "A course is already being generated; try again when it finishes."
+    cancelling_revision: "Cancelling: the course stays as it was."
+    cancelling_generation: "Cancelling: the course stops after the lesson being written."
+  undo:
+    undo: Undo
+    redo: Redo
+    undo_label: "Undo: {label}"
+    undo_nothing: Undo (nothing to undo)
+    redo_label: "Redo: {label}"
+    redo_nothing: Redo (nothing to redo)
+    nothing_to_undo: There is no change to undo.
+    nothing_to_redo: There is no change to redo.
+    undone: "Undone ({label}): the course is back to how it was before."
+    redone: "Redone ({label})."
+    undone_broken: "Undone ({label}), but the course does not load: {error}"
+    redone_broken: "Redone ({label}), but the course does not load: {error}"
+  js:
+    stat_failed: "Could not load this. Try again."
+    link_copy: "Copy"
+    link_copied: "Copied ✓"
+    ai_edit_heading: "Edit “{title}” with AI"
+    link_selected: "Selected"
+    kind_json: Not valid JSON
+    kind_rules: Against the course rules
+    kind_refused: Not saved
+    json_hint: "look just before that point for a missing comma, quote or bracket, or a comma right before } or ]. Nothing in it is saved until it is valid JSON."
+    problem_field: "field “{field}”"
+    problem_line_col: "line {line}, column {column}"
+    problem_line: "line {line}"
+    problem_in: " in {where}"
+    problem_sep: ", "
+    problem_fix: " To fix it: {hint}"
+    problem_text: "{kind}{where}: {message}{fix}"
+    json_empty: "The box is empty; write the whole file as one JSON object, { … }."
+    json_end: "The text ends before every { and [ is closed"
+    json_escape: A backslash in a text starts an escape JSON does not know; write \\ for a backslash
+    json_control: A line break or tab inside a text in quotes; write \n or \t instead
+    json_number: A number is not written as JSON writes numbers
+    json_single_quotes: Text must be in double quotes ("…"), not single ones
+    json_value: "Expected a value: text in double quotes, a number, true, false, null, { or ["
+    json_key: Expected a key in double quotes
+    json_colon: "Expected a : after the key"
+    json_comma_brace: "Expected a comma or }"
+    json_trailing_comma: "There is a comma right before } or ], which JSON does not allow"
+    json_comma_bracket: Expected a comma or ]
+    json_more: There is more text after the end of the JSON
+    settings_place: the course settings
+    placement_place: "the placement test"
+    quoted: "“{text}”"
+    valid_json_table: Valid JSON. Saved as you type; the course rules are checked then.
+    not_saved_refused: "Not saved: the change was refused because of {place}; see why there."
+    goto_line: "Go to line {n}"
+    saved_broken: "Saved, but the course does not load: {warning}"
+    rename_lesson: Name of the lesson
+    rename_course: Title of the course
+    new_lesson: New lesson
+    edit_new_lesson: Edit the new lesson
+    move_new_lesson: "Move the new lesson: drag, or use the arrow keys"
+    delete_new_lesson: Delete the new lesson
+    duplicate_new_lesson: "Duplicate the new lesson"
+    copy_of: "{title} (copy)"
+    duplicate_bad_json: "Fix the JSON of {name} first, then duplicate it."
+    settings_need_units: "Fix the course settings' JSON first: it needs a \"units\" list."
+    load_settings_failed: could not load the course settings
+    new_unit: New unit
+    words_failed: "Could not read the words. Try again."
+    words_skip_no_split: "Line {line} skipped, nothing splits the word from its meaning: {text}"
+    words_skip_duplicate: "Line {line} skipped, the word is already in the list: {text}"
+    words_skip_too_many: "Line {line} skipped, too many words for one lesson: {text}"
+    words_read:
+      one: "{n} word read"
+      other: "{n} words read"
+    words_added:
+      one: "Added a lesson with {n} word."
+      other: "Added a lesson with {n} words."
+    rename_unit: Name of the unit
+    need_one_lesson: A course needs at least one lesson; delete the whole course instead.
+    need_one_unit: A course needs at least one unit.
+    whole_lesson_placeholder: A whole lesson as JSON.
+    loading: Loading…
+    load_file_failed: could not load the file
+    forms_need_object: Forms mode needs a JSON object.
+    loading_form: Loading the form…
+    fold_unit: "Fold {title}"
+    add_lesson_to: "Add a lesson to {title}"
+    delete_unit: "Delete the unit {title}"
+    delete_lesson_confirm: "Delete “{name}”? Your progress in it goes too (Undo brings it back)."
+    undo_unsaved: Undo your unsaved changes
+    unsaved_undone: Your unsaved changes were undone.
+    valid_json_file: Valid JSON. The course rules are checked when you save.
+    at_most: "at most {max}"
+    at_least: "at least {min}"
+    char_count: "{n} / {max} characters"
+    char_count_problem: "{count} · {problem}"
+    starting: Starting…
+    saving: Saving…
+    modal_count_rewritten: "{done} of {total} lessons rewritten or added"
+    modal_count_edited: "{done} of {total} lessons rewritten"
+    modal_count_written: "{done} of {total} lessons written"
+    review_leave_confirm: Leave without accepting? What you left out or edited is not kept.
+    review_edited_file_tip: "Has lines you edited, which always stay in: undo them to leave this lesson out"
+    review_edited_line_tip: Holds a line you edited, which stays in
+    review_changes:
+      one: "{n} change"
+      other: "{n} changes"
+    review_lessons:
+      one: "{n} lesson"
+      other: "{n} lessons"
+    review_and: "{a} and {b}"
+    review_left_out: "{parts} left out"
+    review_sep: ", "
+    review_lines_edited:
+      one: "{n} line edited"
+      other: "{n} lines edited"
+    accept_rest: Accept the rest
+    accept: Accept
+    none: (none)
+    edit_line_label: This line, as JSON text
+    card_progress: "{phase} · {done} of {total} lessons"
+    your_provider: your provider
+    files_too_large: Those files are too large or not text; copy their text in instead.
+    not_text_file: That does not look like a text file. For a PDF or a document, copy its text in.
+    form_load_failed: could not load the course format
+    form_kept: "Kept as they are (edit them as JSON): {keys}"
+    form_move_up: Move up
+    form_move_down: Move down
+    form_remove: Remove
+    form_right_answer: The right answer
+    form_add: + Add
+    form_add_to: "Add to {list}"
+    form_remove_key: "Remove {key}"
+    form_key: Key
+    delete_item_confirm: Delete this item? Undo brings it back.
+    guide_derive_confirm: Drop the hand-ordered steps and let the Guide derive them again? Tips and concept cards written here are lost (Undo brings them back).
+    form_key_to_add: Key to add
+    form_add_key: Add a key
+    form_kind: Kind
+    form_option: "option {n}"
+    estimate_lessons:
+      one: "{n} lesson"
+      other: "{n} lessons"
+    estimate_minutes:
+      one: "about {n} minute"
+      other: "about {n} minutes"
+    estimate_cost: "roughly CA${cost}"
+    estimate_sep: " · "
+  stat:
+    next_lesson: "Next lesson to pass"
+    all_passed: "Every lesson is passed."
+    last_passed: "Last passed: {title}, {when}"
+    practise_next: "Practise next"
+    nothing_to_practise: "Nothing to practise yet. A lesson shows here once you have answered its questions and it is not mastered."
+    score: "{pct}%"
+    fading: "{pct}%, was mastered"
+    info_label_passed: "What counts as passed"
+    info_label_mastered: "How mastery works"
+    info_passed: "A lesson is passed once you have read it and finished one run of its questions with {pct}% or more right, in any mode."
+    info_mastered: "Each right answer raises a lesson's score and a wrong one lowers it. At {pct}% or more the lesson is mastered. After 3 days without practice the score slowly fades, so a mastered lesson can slip back."
+  settings:
+    title: "Course settings"
+    level: "Level"
+    level_info: "What a level is"
+    open_label: "Settings for {title}"
+    about: "About these settings"
+    about_p: "Every setting here can be swapped for another at any time. Changing one never resets anything: your progress, and whatever each motivator has counted, stay as they are."
+    wizard_title: "Welcome to {course}"
+    motivator: "Motivator"
+    motivator_ask: "Choose a motivator"
+    motivator_info: "What a motivator is"
+    motivator_info_p: "Motivators are how you are rewarded for your work: each one shows your progress its own way at the top of the course home and at the end of every lesson. You can change it at any time in this course's settings after you start."
+    save: "Save"
+    ok: "OK"
+    get_started: "Get Started!"
+    prev: "Previous step"
+    next: "Next step"
+    close: "Close"
+  placement:
+    take: "Take the placement test"
+    question_of: "Question {n} of {total}"
+    suggest: "Your result: start at {unit}"
+    show_card: "Show report card"
+    hide_card: "Hide report card"
+    retake: "Take it again"
+    col_level: "Level"
+    col_correct: "Correct"
+    all_right: "all right"
+    some_right: "some right"
+    none_right: "none right"
+    failed: "The placement test did not load. Pick a level instead."
+  share:
+    dialog_lead_no_mail: "Each address gets its own link for you to pass on: this server does not send e-mail. They learn from the course with their own progress; only you can change it."
+    make_links: "Make invitation links"
+    made:
+      one: "{n} invitation link made. Copy it and pass it on; it is shown only now."
+      other: "{n} invitation links made. Copy each and pass it on; they are shown only now."
+    link_label: "Invitation link for {email}"
+    copy: "Copy"
+    button: Share
+    button_count: "Share ({n})"
+    dialog_title: Share this course
+    dialog_lead: Everyone you share it with gets an e-mail with a link. They learn from the course with their own progress; only you can change it.
+    status_opened: opened
+    status_invited: invited
+    remove: Remove
+    remove_label: "Stop sharing with {email}"
+    emails_label: E-mail addresses
+    emails_note: (one per line, or separated by commas)
+    send: Send invitations
+    close: Close
+    own_address: "That is your own address: the course is yours already."
+    too_many_course: "A course can be shared with up to {max} addresses."
+    too_many_request: "Share with up to {max} addresses at a time."
+    at_least_one: Type at least one e-mail address.
+    bad_address: "“{address}”: {error}"
+    bad_address_notice: One of those is not an e-mail address. Check the list and send it again.
+    sent:
+      one: "Invitation sent to {n} address."
+      other: "Invitations sent to {n} addresses."
+    already_had: "{n} already had one."
+    removed_notice: No longer shared with that address.
+    not_on_list: That address was not on the list.
+    link_taken: Another account has already used this link. Ask the course's owner to share it with your address.
+    link_gone: This link no longer works. Ask the course's owner to share the course with you again.
+    not_ready: That course is not ready to open yet. Ask its owner, and try the link again later.
+    login_notice: "It looks like you don't have an account with us! Please login or signup to continue viewing your course: {title}"
+    shared_heading: Shared with you
+    dot_label: "Shared with you by {owner}"
+    shared_title: Shared with you
+    shared_body: "This course belongs to {owner}, who shared it with you. You can learn from it with your own progress; only {owner} can change its lessons."
+    ok: OK
+motivator:
+  stats:
+    title: "Statistics and metrics"
+    about: "Your daily goal as a ring, your streak, lessons passed, terms collected and how far through the unit you are."
+    reward:
+      passed: "✓ Passed"
+      unit: "🏁 Unit finished"
+      goal_met: "Daily goal met"
+      today: "{n} / {goal} today"
+  xp:
+    title: "XP"
+    about: "Everything you do in the course earns XP, and XP raises your level, like a character in a game."
+    lv: "Lv"
+    level_label: "Level {n}"
+    to_next: "{n} / {need} XP"
+    bar_label: "XP to level {n}"
+    today: "today: {n} / {goal} XP"
+    info_label: "How XP is earned"
+    info_title: "How XP is earned"
+    info_p: "Everything you do in this course earns XP, whichever motivator you wear. Your daily goal is the same as ever, counted in XP."
+    info_levels: "Level 2 takes {step} XP, and each level after takes {step} XP more than the one before."
+    col_xp: "XP"
+    bonus:
+      pass: "Passing a lesson"
+      goal: "Meeting the daily goal"
+      unit: "Finishing a unit"
+    reward:
+      earned: "+{n} XP"
+      level_up: "Level up! Lv {n}"
+  skc:
+    title: "Skrongle Cash"
+    short: "SKC"
+    about: "Play money for your progress, like tickets at an arcade: each course has its own balance of Skrongle Cash (SKC)."
+    today: "today: {n} / {goal} SKC"
+    reward:
+      amount: "+{n} SKC"
+      pass: "+{n} SKC lesson passed"
+      goal: "+{n} SKC daily goal"
+      unit: "+{n} SKC unit finished"
+    info:
+      label: "How Skrongle Cash is earned"
+      p: "Skrongle Cash (SKC) is play money for this course. You earn it for everything you do here, whichever motivator you wear:"
+      per_point: "Each effort point"
+      per_pass: "Lesson passed"
+      per_goal: "Daily goal met"
+      per_unit: "Unit finished"
+      points: "Effort points, as the daily goal counts them:"
+      shop: "Spend SKC on badges in this course's shop. They show on this card and stay yours whichever motivator you wear."
+    shop:
+      open: "Shop"
+      title: "Shop"
+      shelf: "Your badges"
+      shelf_empty: "No badges yet."
+      badges: "Badges"
+      buy: "Buy"
+      owned: "Owned"
+      back: "Back to the course"
+      refused_title: "Not bought"
+      refused_owned: "You already have {title}."
+      refused_short: "You need {n} more SKC for {title}."
+      refused_unknown: "That badge is not in the shop."
+    badge:
+      sprout: "Sprout"
+      lantern: "Lantern"
+      kite: "Kite"
+      compass: "Compass"
+      lighthouse: "Lighthouse"
+      comet: "Comet"
+
+# The lesson editor (#841): static/lesson-editor.js and static/lesson-preview.js.
+editor:
+  js:
+    outline: Lesson outline
+    tab_outline: Outline
+    tab_edit: Edit
+    tab_preview: Preview
+    edit_as_json: "{ } Edit as JSON"
+    has_problem: The course rules would refuse this
+    lint_title: "Things to check"
+    lint_close: "Close"
+    field_checks_title: "Checks on this field"
+    field_checks_close: "Close"
+    untitled: (untitled)
+    pick_item: Pick something in the outline, or add one.
+    sec_lesson: Lesson
+    sec_content: Text
+    sec_vocabulary: Vocabulary
+    sec_quiz: Quiz
+    sec_listening: Listening
+    sec_sprint: Sprint
+    sec_conversations: Conversations
+    sec_conjugations: Conjugations
+    sec_guide: Guide
+    add_vocab: + Word
+    add_quiz: + Question
+    add_listening: + Sentence
+    add_conversation: + Conversation
+    add_conjugation: + Table
+    add_icon: + Path icon
+    add_bites: + Bite
+    add_sorts: + Sort
+    add_spots: + Spot
+    add_builds: + Build
+    add_scales: "+ Scale"
+    add_to: "Add to {list}"
+    another: + another
+    another_option: Another option…
+    add_word: + word
+    no_words: No vocabulary in this lesson yet
+    add_prereq: + a lesson to read first
+    add_line: + line
+    add_item: + item
+    add_bucket: + bucket
+    add_distractor: + distractor
+    remove: Remove
+    remove_bucket: Remove this bucket
+    delete: ✕ Delete
+    duplicate: ⧉ Duplicate
+    previous: ↑ Previous
+    next: ↓ Next
+    move_up: Move up
+    move_down: Move down
+    move_prev_bucket: Move to the bucket before
+    move_next_bucket: Move to the next bucket
+    right_answer: The right answer
+    option_n: "Option {n}"
+    answer_true: "True"
+    answer_false: "False"
+    optional: optional
+    ids_note: "Ids, the slug, the unit and the order are set by the lesson table; edit them as JSON."
+    lesson_head: The lesson
+    grp_about: About
+    f_title: Title
+    f_summary: Summary
+    h_summary: One line for lists.
+    f_focus: Focus
+    h_focus: The one thing the lesson teaches, in a phrase.
+    f_group: Group
+    h_group: "A group id of the course settings; “general” when empty."
+    grp_prereq: Read first
+    h_prereq: Lessons a learner should ideally study before this one.
+    content_head: The text
+    content_sub: "Markdown; each ## heading starts a card"
+    f_content: Text
+    h_content: "Tables, lists, bold, code blocks and quotes work. Text before the first ## heading becomes the Introduction card."
+    cards_label: "Cards:"
+    cards_none: No cards yet. Write some text, with a ## heading per card.
+    intro_card: Introduction
+    cards:
+      one: "{n} card"
+      other: "{n} cards"
+    word_n_of: "Word {n} of {total}"
+    grp_word: Word
+    f_term: Term
+    f_meaning: Meaning
+    grp_example: Example
+    grp_example_aside: optional, give it a meaning
+    f_example: Example
+    f_example_meaning: Example meaning
+    grp_used: Used by
+    used_by_questions: "Questions {list} teach it (by name or by answer); flashcards, Word Match and Sprint use every word."
+    used_by_none: No question teaches it yet; flashcards, Word Match and Sprint use every word.
+    question_n_of: "Question {n} of {total}"
+    type_multiple-choice: Multiple choice
+    type_fill-in-blank: Fill in the blank
+    type_true-false: True or false
+    type_numeric: A number
+    type_expression: A formula
+    type_fill-bar: "Fill the bar"
+    type_chord-spell: "Spell the chord"
+    type_staff-note: "Place the note"
+    type_keyboard: "Find it on the keys"
+    type_algebra-tiles: "Algebra tiles"
+    type_clock: "Set the clock"
+    set_clock: "Set the clock"
+    h_clock: "A time H:MM with an hour from 1 to 12, such as 3:45. The learner drags the minute hand to it."
+    f_step: "Minute step"
+    h_step: "How far one step of the minute hand goes: 5 by default, 15 for quarter hours. It divides 60."
+    f_clock_options: "Times to pick from"
+    h_clock_options: "Fill these to turn the question around: the clock shows the answer and the learner picks it among these times (H:MM)."
+    check_clock: "Write the time as H:MM with an hour from 1 to 12, such as 3:45"
+    type_unknown: Unknown type
+    grp_ask: Ask
+    grp_answer: Answer
+    grp_after: After answering
+    f_prompt: Prompt
+    f_statement: Statement
+    h_statement: The learner says whether it is true or false.
+    h_prompt_blank: Write ___ where the answer goes. Sprint fills it from word tiles; Study asks the learner to type.
+    h_prompt_math: "Write maths as plain text or Unicode (x², √2, π), not LaTeX."
+    f_options: Options
+    f_options_aside: pick the right one
+    f_which_right: Which is right?
+    f_correct: Correct answer
+    f_accepted: Also accept
+    h_accepted: Other answers that count as right.
+    h_fill: "Checked ignoring case, punctuation and extra spaces; a missing accent is a near miss."
+    h_numeric: "Graded by value: 3/4, 0.75, 40 %, 2^10 and sqrt(2) all read as numbers. Separate several with ; for an any-order list."
+    f_tolerance: Tolerance
+    h_tolerance: "How far off an answer may be. 0.01 means “to two decimals”."
+    f_unit: Unit
+    f_abc: "Music"
+    h_abc: "ABC notation, drawn as a staff above the prompt. One note: X:1, L:1/4, K:C and A, each on its own line."
+    f_play: "Sound"
+    h_play: "ABC notation a speaker button plays. Two single notes play one after the other, then together; without Music, the notes are drawn on a staff after the answer."
+    f_option_kind: "Options are"
+    option_kind_text: "Text"
+    option_kind_abc: "Staves"
+    h_abc_bar: "The bar in ABC notation. One invisible rest marks the gap the tiles fill: B B x2|"
+    f_tiles: "Tiles"
+    h_tiles: "Note values in ABC, one group per tile without spaces: B2, BB, B/B/B. A tile may be used more than once."
+    f_exact: "What counts"
+    exact_any: "Any tiles that fill the gap"
+    exact_only: "Only the correct answer"
+    h_bar_answer: "Tiles that fill the gap, separated by spaces: B2 or B B. Needed when only the correct answer counts; otherwise shown after a wrong answer."
+    f_chord_tiles: "Tiles"
+    h_chord_tiles: "Notes in ABC, separated by spaces: D E F ^F _G A B. Every note of the answer, and a few that aren't."
+    h_chord_answer: "The chord's 3 or 4 notes in ABC, in any order: D ^F A. Spelling counts: _G is not ^F."
+    f_clef: "Clef"
+    clef_treble: "Treble"
+    clef_bass: "Bass"
+    f_any_octave: "Any octave counts"
+    h_staff_answer: "One note in ABC with its octave: C is middle C, c the C above it, C, the C below. ^F is F sharp, _B is B flat."
+    h_unit: Shown after the answer box; the learner may type it or not.
+    f_expression_aside: an algebraic expression
+    f_pile: "Tiles"
+    h_pile: "The pile, written as a x^2 + b x + c: a from 1 to 3, b up to 12, c up to 20, no minus signs. x^2 + 5x + 6 gives one big square, five strips and six small squares."
+    f_sides_aside: "the two sides multiplied"
+    h_sides: "Such as (x + 2)(x + 3). It must multiply out to the tiles. The learner's answer counts in any order, but only as two sides."
+    h_expression: "Written with + - * / ^, brackets, 2x, sqrt, pi; variables are single letters. Any equivalent form is accepted, e.g. (x+1)(x+1)."
+    h_key: "The key, as one ABC note: C is middle C, ^F is F sharp, _B is B flat, c is the C above middle C. Any spelling of the same key counts."
+    f_octaves: "Keys"
+    octaves_one: "One octave"
+    octaves_two: "Two octaves"
+    f_key_counts: "What counts"
+    key_any: "That note on any key"
+    key_exact: "Only that key"
+    h_key_accepted: "Other notes that also count, in ABC: E, G."
+    h_expression_form: "If the question wants one particular form (“factor completely”), ask it as multiple choice instead: equivalent forms are all accepted."
+    f_explanation: Explanation
+    f_hints: Hints
+    f_teaches: Teaches
+    f_teaches_aside: vocabulary of this lesson
+    h_teaches: Collected on a right answer. A word equal to the answer is collected anyway.
+    listening_n_of: "Sentence {n} of {total}"
+    grp_hear: Hear it
+    f_text_exact: Text
+    h_listening_text: "Exactly as it should be typed, 1 to 30 words; write numbers as words. Distinct within the lesson."
+    hear_it: Hear it
+    f_note: Note
+    h_note: "A one-line pointer, or the new word: “New word: la oficina = the office.”"
+    conversation_head: Conversation
+    grp_scene: Scene
+    f_scenario: Scenario
+    h_scenario: One or two sentences setting the scene.
+    f_role_a: Role A
+    f_role_b: Role B
+    grp_lines: Lines
+    grp_lines_aside: speaker, text, meaning
+    f_speaker: Speaker
+    f_line_text: What they say
+    f_line_meaning: Meaning
+    f_line_note: Note (optional)
+    conjugation_head: "{item} table"
+    item: Item
+    grp_item: Item
+    f_item: Item
+    f_set: Set
+    grp_forms: Forms
+    grp_forms_aside: one per slot of the course's paradigm
+    grp_forms_free: the course settings define no paradigm
+    grp_art: Art
+    grp_art_aside: "optional ASCII picture, at most 8 lines of 24 characters"
+    f_art: Art
+    icon_head: Path icon
+    icon_sub: the lesson's stop on the Sprint path
+    grp_icon: Icon
+    f_icon: Emoji
+    h_icon: "One emoji, different from every other lesson's."
+    bite_head: Bite
+    bite_sub: the idea in one breath · not graded
+    grp_say: Say it
+    f_emoji: Emoji
+    h_emoji: "Optional; 💡 otherwise."
+    f_rule: Rule
+    h_rule: One line, punchy.
+    grp_show: Show it
+    sort_head: Sort
+    sort_sub: tap each item into the right bucket
+    grp_buckets: Buckets and items
+    grp_buckets_aside: "2–4 buckets, 3–10 items; drag an item to another bucket, or use ◂ ▸"
+    f_bucket: Bucket
+    f_sort_item: Item
+    f_sort_play: "Sound (ABC)"
+    f_why: Why
+    spot_head: Spot
+    spot_sub: tap the one wrong word
+    f_sentence: Sentence
+    f_sentence_aside: with one wrong word in it
+    f_wrong: Wrong word
+    f_wrong_aside: click it
+    spot_type_first: Type the sentence first.
+    spot_word_twice: "This word is in the sentence more than once, so it can't be the wrong word"
+    f_fix: Fix
+    h_fix: Shown in place of the wrong word after tapping.
+    h_spot_abc: "ABC notation with one wrong note, drawn as a staff in place of a sentence. A T: line is shown as its caption."
+    f_wrong_note: "Wrong note"
+    f_wrong_note_aside: "its number, counting the notes from 1"
+    h_fix_note: "The right note in ABC: F, ^C for C sharp, _B for B flat."
+    build_head: Build
+    scale_head: "Scale"
+    scale_sub: "tap the scale's notes onto the ladder"
+    f_notes: "Notes"
+    f_notes_aside: "8, bottom to top"
+    h_notes: "In ABC, separated by spaces: D E ^F G A B ^c d. The first is filled in for the learner."
+    f_decoys: "Decoys"
+    h_decoys: "Notes not in the scale, mixed into the tiles: F c"
+    build_sub: rebuild the text from shuffled tiles
+    f_text: Text
+    grp_tiles: Tiles
+    f_from_text: From the text
+    f_distractors: Distractors
+    h_distractors: Wrong tiles mixed into the bank.
+    guide_head: Guide
+    guide_sub: the order the lesson plays in
+    guide_auto: derived
+    guide_derived: "No hand-ordered steps: the Guide makes them from the text's cards, hands of five words and the questions from the third card on."
+    guide_order_by_hand: Order the steps by hand
+    guide_back_to_derived: Back to derived steps
+    steps:
+      one: "{n} step"
+      other: "{n} steps"
+    grp_steps: Steps
+    grp_steps_aside: "drag with ↑ ↓; a section or question is picked from this lesson"
+    guide_kind_section: SECTION
+    guide_kind_question: QUESTION
+    guide_kind_vocab: FLASHCARDS
+    guide_kind_tip: TIP
+    guide_kind_concept: CONCEPT
+    guide_kind_unknown: "?"
+    guide_add_section: + Section
+    guide_add_question: + Question
+    guide_add_vocab: + Flashcards
+    guide_add_tip: + Tip
+    guide_add_concept: + Concept card
+    guide_vocab_n: "Next {n} words as flashcards"
+    step_n_kind: "Step {n} · {kind}"
+    guide_step_unknown: This step is not one the Guide knows; edit it as JSON.
+    f_section: Section
+    h_section: A heading of the text, matched by its start.
+    f_question: Question
+    f_vocab_n: How many words
+    h_vocab_n: "The next ones not dealt yet; the lesson has {n}."
+    f_tip: Tip
+    f_markdown: Card text
+    check_prompt_empty: The prompt is empty
+    check_blank_ok: Has a blank
+    check_blank_missing: "No ___ in the prompt: the learner types the whole answer, and Sprint shows no slot"
+    check_type: Pick a type
+    check_options_two: Needs at least 2 options
+    check_options_right: Pick which option is right
+    check_options_same: Two options read the same
+    check_options_ok: "{n} options, shuffled for each quiz"
+    check_answer_empty: The answer is empty
+    check_tiles_two: "Give at least 2 tiles"
+    check_chord_notes: "Give 3 or 4 notes"
+    check_chord_tiles: "Every note of the answer must be a tile"
+    check_staff_note: "Write one note in ABC, such as G, ^F or c"
+    check_key_note: "Write one note in ABC, such as C, ^F or _B"
+    check_true_false: Pick true or false
+    check_tolerance: Tolerance must be a number of 0 or more
+    check_tolerance_ok: "Anything within ±{n} counts"
+    check_numeric_read: "The checker can't read “{answer}” as a number. Write it like 12 or 3/4, and put a unit in Unit"
+    check_expression_read: "The checker can't read “{answer}” as an expression. Write it like 2x + 1"
+    check_unit_numeric: Tolerance and unit are for numeric questions
+    check_teaches: "“{term}” is not in this lesson's vocabulary"
+    check_explanation: No explanation yet; the learner sees none after answering
+    check_vocab_both: A word needs a term and a meaning
+    check_vocab_dup: "Another word has this term. Change one of them"
+    check_vocab_unique: Unique in this lesson
+    check_example_meaning: Give the example a meaning too
+    check_listening_words: "{n} words; 1 to 30"
+    check_listening_twice: "Another sentence has this text. Change one of them"
+    check_listening_ok: "{n} words"
+    check_note_empty: An empty note; leave it out instead
+    check_note_new_word: The new word is highlighted for the learner
+    check_conv_two: Needs at least 2 lines
+    check_conv_both: Both roles must say something
+    check_conv_empty: A line has no text
+    check_conv_ok: "both roles speak · {n} lines of 3–9 words with a meaning become Sprint builds"
+    check_conj_both: Needs an item and a meaning
+    check_conj_no_paradigm: "The course settings define no paradigm, so this table cannot be shown"
+    check_conj_set: "Pick a set of the paradigm: {sets}"
+    check_conj_missing: "Missing: {slots}"
+    check_conj_ok: Every slot filled
+    check_conj_unknown: "“{slot}” is not a slot of the paradigm. Remove it with ✕"
+    check_conj_dup: "“{item}” is already conjugated in this set. Pick another set or change the item"
+    check_art: At most 8 lines of 24 characters
+    check_icon: One short glyph such as an emoji
+    check_bite: A bite needs a title and a rule
+    check_sort_buckets: 2 to 4 buckets
+    check_sort_items: "{n} items; 3 to 10"
+    check_sort_empty: An item has no text
+    check_sort_bucket: An item points at a bucket that is gone
+    check_sort_ok: "{n} items, every one in a bucket"
+    check_spot_once: The wrong word must appear exactly once in the sentence
+    check_spot_ok: "“{word}” appears once"
+    check_spot_fix: Give the fix
+    check_spot_note: "Give the number of the wrong note, from 1"
+    check_spot_fix_note: "The fix must be one note, like F, ^C or _B"
+    check_build: "{n} words; the text needs 2 to 12 and a meaning"
+    check_build_ok: "{n} words"
+    check_scale_notes: "A scale needs 8 notes, found {n}"
+    check_scale_note: "Each one must be one note in ABC, like F, ^C or _B: {note}"
+    check_scale_decoy: "The decoy {note} is a note of the scale"
+    check_scale_ok: "8 notes"
+    check_guide_step: A step the Guide does not know
+    check_guide_section: "No heading starts with “{name}”. Pick a heading or remove the step"
+    check_guide_question: "No question “{id}” in this lesson. Pick a question or remove the step"
+    check_guide_vocab: "A whole number of words, 1 or more"
+    check_guide_tip: The tip is empty
+    check_guide_concept: A concept card needs a title and text
+    check_title: The lesson needs a title
+    check_content: The lesson needs some text
+    live_preview: Live preview
+    mode_study: Study
+    mode_sprint: Sprint
+    mode_guide: Guide
+    no_preview: Nothing to preview here.
+    preview_failed: "The preview could not be drawn: {error}"
+    check: Check
+    try_again: Try again
+    hint: Hint
+    quick_check: Quick check
+    answer_html: "Answer: <strong>{answer}</strong>"
+    praise: Correct!
+    almost: Not quite
+    ph_number: a number
+    ph_expression: a formula
+    ph_text: your answer
+    ph_heard: what you heard
+    pick_right: Pick the right one
+    write_answer: Write the answer
+    fill_gap: Fill the gap
+    spell_chord: "Spell the chord"
+    place_note: "Place the note"
+    find_key: "Find it on the keys"
+    type_it: Type it…
+    type_instead: Type it instead
+    crumb_lessons: Lessons
+    pill_new: New
+    before_this: "Before this:"
+    focus_line: "Focus: {focus}"
+    quiz_questions:
+      one: "{n} quiz question"
+      other: "{n} quiz questions"
+    terms: Terms
+    flashcards_title: New words
+    tap_reveal: Tap a card to turn it over.
+    in_lang_this_is: "In {lang} this is…"
+    course_language: the course's language
+    listen_status: Listen, then type what you heard.
+    replay: Play again
+    conv_no_build: "No line of 3 to 9 words with a meaning yet: Sprint builds nothing from this conversation."
+    ladder: Ladder
+    wrong_rungs:
+      one: "{n} rung wrong"
+      other: "{n} rungs wrong"
+    path_stop: The path
+    path_stop_note: "This is the lesson's stop on the Sprint path."
+    quick_bite: Quick bite
+    got_it: Got it
+    sort_it: Sort it
+    all_sorted: All sorted
+    to_go: "{n} to go"
+    sort_slips:
+      one: "All sorted, but with {n} wrong tap"
+      other: "All sorted, but with {n} wrong taps"
+    spot_mistake: Spot the mistake
+    one_word_wrong: One word is wrong. Tap it.
+    one_note_wrong: "One note is wrong. Tap it, then pick its fix."
+    spot_note_preview: "In Sprint mode the learner taps note {n} and picks {fix} from three tiles."
+    build_sentence: Build the sentence
+    tap_tiles_in_order: Tap the tiles in order
+    concept: Concept
+    tip: Tip
+    guide_derived_preview: "The Guide derives this lesson's steps; order them by hand to preview each one."
+    hand_empty: No words left for this hand.
+    question_missing: "No question “{id}” in this lesson."
+    note_quiz: As in Study and Practice. Check grades it with the course's own checker; nothing is recorded.
+    note_quiz_sprint: As in a Sprint session. The tiles are the answer among words of the lesson.
+    note_vocab: The Guide's flashcard; tap to turn it.
+    note_vocab_sprint: A Sprint pick exercise, with other words of the lesson as the wrong options.
+    note_listening: The browser reads the text aloud in the course's language.
+    note_conversation: "Sprint builds sentences from lines of 3 to 9 words that have a meaning; this is the first."
+    note_conjugation: The table as the lesson page shows it.
+    note_ladder: The Sprint ladder drill for this table.
+    note_sort: The sort game, as Sprint plays it.
+    note_spot: The spot game, as Sprint plays it.
+    note_build: The build game, as Sprint plays it.
+    note_scale: "The scale ladder, as Sprint plays it."
+    scale_kicker: "Build the scale"
+    scale_preview: "In Sprint mode the first rung is filled, and the learner taps the other 7 notes from {n} tiles."
+    note_bite: A bite opens the session; nothing to answer.
+    note_guide: The Guide at this step.
+    note_content: The lesson page's text.
+    advice_title: "Things to check"
+    advice_count:
+      one: "{n} thing to check"
+      other: "{n} things to check"
+    advice_none: "Nothing to check."
+    advice_close: "Close"
+
+clock:
+  js:
+    set_label: "Clock. Drag the minute hand, or use the arrow keys; Page Up and Page Down move an hour."
+    read_label: "The clock to read"

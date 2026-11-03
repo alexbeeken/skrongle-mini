@@ -1,0 +1,604 @@
+{
+  "id": "a1-likes-free-time",
+  "slug": "likes-free-time",
+  "title": "Likes and free time: j'aime le sport, je joue du piano",
+  "unit": "A1",
+  "group": "Vocabulary",
+  "order": 32,
+  "summary": "Say what you love and hate (j'adore le cinéma, je déteste courir) and what you play: jouer au foot, jouer du piano.",
+  "focus": "Likes and dislikes with le / la / les or an infinitive, and jouer à vs jouer de",
+  "prerequisites": [
+    "a1-er-verbs"
+  ],
+  "content": "## From j'adore to je déteste\n\nFrom the strongest to the weakest:\n\n| French | English |\n|---|---|\n| **j'adore** | I love |\n| **j'aime** | I like, I love |\n| **j'aime bien** | I quite like |\n| **je n'aime pas** | I don't like |\n| **je n'aime pas du tout** | I don't like at all |\n| **je déteste** | I hate |\n\n**Aimer bien** is softer than **aimer**: **J'aime bien le jazz** (I quite like jazz). For a person, **j'aime bien Paul** means you like him as a friend, **j'aime Paul** that you love him.\n\n**Préférer** (to prefer) works the same way: **je préfère**, **tu préfères**, **nous préférons**.\n\n## Le, la, les: things in general\n\nAfter **aimer**, **adorer**, **préférer** and **détester**, a noun takes **le**, **la**, **l'** or **les**, because you mean the thing **in general**:\n\n- **J'aime le chocolat.** (I like chocolate.)\n- **Je déteste les maths.** (I hate maths.)\n- **J'adore le cinéma, la lecture et la natation.** (I love cinema, reading and swimming.)\n- **Tu préfères le vélo ou la danse ?**\n\nNever *j'aime chocolat* or *j'aime du chocolat*. The article stays in the negative: **Je n'aime pas le fromage.**\n\n## + an infinitive: j'aime nager\n\nTo like **doing** something, put the second verb straight after, in the **infinitive**:\n\n- **J'aime nager.** (I like swimming.)\n- **Nous adorons danser.** (We love dancing.)\n- **Il déteste cuisiner.** (He hates cooking.)\n- **Je préfère lire.** (I prefer reading.)\n\nTo ask: **Qu'est-ce que tu aimes faire ?** (What do you like doing?) Time words go first or last: **Le week-end, j'aime dormir.**\n\n## Jouer à, jouer de\n\n| | jouer | détester |\n|---|---|---|\n| je | **joue** | **déteste** |\n| tu | **joues** | **détestes** |\n| il / elle / on | **joue** | **déteste** |\n| nous | **jouons** | **détestons** |\n| vous | **jouez** | **détestez** |\n| ils / elles | **jouent** | **détestent** |\n\n**Jouer à** + a sport or a game, with **à + le = au** and **à + les = aux**: **jouer au foot**, **au tennis**, **aux cartes**, **aux jeux vidéo**, **à la pétanque**.\n\n**Jouer de** + an instrument, with **de + le = du**: **jouer du piano**, **du violon**, **de la guitare**, **de la batterie**.",
+  "vocabulary": [
+    {
+      "term": "adorer",
+      "meaning": "to love, to adore",
+      "example": "J'adore le cinéma italien.",
+      "example_meaning": "I love Italian cinema."
+    },
+    {
+      "term": "détester",
+      "meaning": "to hate",
+      "example": "Mon frère déteste le sport.",
+      "example_meaning": "My brother hates sport."
+    },
+    {
+      "term": "préférer",
+      "meaning": "to prefer",
+      "example": "Tu préfères le vélo ou la natation ?",
+      "example_meaning": "Do you prefer cycling or swimming?"
+    },
+    {
+      "term": "aimer bien",
+      "meaning": "to quite like, to like (a friend)",
+      "example": "J'aime bien la danse, mais je préfère le foot.",
+      "example_meaning": "I quite like dancing, but I prefer football."
+    },
+    {
+      "term": "jouer à",
+      "meaning": "to play (a sport or a game)",
+      "example": "Le samedi, ils jouent au basket.",
+      "example_meaning": "On Saturdays they play basketball."
+    },
+    {
+      "term": "jouer de",
+      "meaning": "to play (an instrument)",
+      "example": "Elle joue de la batterie dans un groupe.",
+      "example_meaning": "She plays the drums in a band."
+    },
+    {
+      "term": "la lecture",
+      "meaning": "reading (f)",
+      "example": "La lecture, c'est ma passion.",
+      "example_meaning": "Reading is my passion."
+    },
+    {
+      "term": "la natation",
+      "meaning": "swimming (f)",
+      "example": "La natation, c'est bon pour le dos.",
+      "example_meaning": "Swimming is good for your back."
+    },
+    {
+      "term": "les jeux vidéo",
+      "meaning": "video games (m pl)",
+      "example": "Tu aimes les jeux vidéo ?",
+      "example_meaning": "Do you like video games?"
+    },
+    {
+      "term": "le week-end",
+      "meaning": "the weekend, at the weekend (m)",
+      "example": "Le week-end, je joue aux cartes avec mes grands-parents.",
+      "example_meaning": "At the weekend I play cards with my grandparents."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-likes-free-time-01",
+      "prompt": "Léa joue ___ piano le mercredi.",
+      "type": "multiple-choice",
+      "options": [
+        "du",
+        "au",
+        "le"
+      ],
+      "correct_answer": "du",
+      "explanation": "An instrument takes jouer de, and de + le = du: Léa joue du piano.",
+      "hints": [
+        "The piano is an instrument.",
+        "de + le = ?"
+      ],
+      "teaches": [
+        "jouer de"
+      ]
+    },
+    {
+      "question_id": "a1-likes-free-time-02",
+      "prompt": "Le samedi, nous jouons ___ foot dans le parc.",
+      "type": "multiple-choice",
+      "options": [
+        "au",
+        "du",
+        "le"
+      ],
+      "correct_answer": "au",
+      "explanation": "A sport takes jouer à, and à + le = au: nous jouons au foot.",
+      "hints": [
+        "Football is a sport.",
+        "à + le = ?"
+      ],
+      "teaches": [
+        "jouer à"
+      ]
+    },
+    {
+      "question_id": "a1-likes-free-time-03",
+      "prompt": "Mon père joue ___ guitare. (My father plays the guitar.)",
+      "type": "fill-in-blank",
+      "correct_answer": "de la",
+      "accepted_answers": [],
+      "explanation": "An instrument takes jouer de; la guitare is feminine, so de + la stays de la: il joue de la guitare.",
+      "hints": [
+        "La guitare is feminine.",
+        "Two words: de + the article."
+      ],
+      "teaches": [
+        "jouer de"
+      ]
+    },
+    {
+      "question_id": "a1-likes-free-time-04",
+      "prompt": "Tu ___ aux jeux vidéo le soir ? (jouer)",
+      "type": "fill-in-blank",
+      "correct_answer": "joues",
+      "accepted_answers": [
+        "tu joues"
+      ],
+      "explanation": "Jouer is a regular -er verb: tu joues, with the silent -es ending.",
+      "hints": [
+        "The tu ending of -er verbs."
+      ],
+      "teaches": [
+        "les jeux vidéo"
+      ]
+    },
+    {
+      "question_id": "a1-likes-free-time-05",
+      "prompt": "Talking about chocolate in general, which sentence says 'I love chocolate'?",
+      "type": "multiple-choice",
+      "options": [
+        "J'adore le chocolat.",
+        "J'adore du chocolat.",
+        "J'adore chocolat."
+      ],
+      "correct_answer": "J'adore le chocolat.",
+      "explanation": "After adorer, aimer, préférer and détester, a thing in general takes le, la, l' or les: J'adore le chocolat.",
+      "hints": [
+        "In general = the definite article."
+      ],
+      "teaches": [
+        "adorer"
+      ]
+    },
+    {
+      "question_id": "a1-likes-free-time-06",
+      "prompt": "Mes sœurs ___ les maths ! (détester: They hate maths.)",
+      "type": "fill-in-blank",
+      "correct_answer": "détestent",
+      "accepted_answers": [
+        "elles détestent"
+      ],
+      "explanation": "Détester is a regular -er verb: ils / elles détestent, with the silent -ent ending.",
+      "hints": [
+        "The ils / elles ending of -er verbs."
+      ],
+      "teaches": [
+        "détester"
+      ]
+    },
+    {
+      "question_id": "a1-likes-free-time-07",
+      "prompt": "Qu'est-ce que tu aimes faire le dimanche ? — J'aime ___.",
+      "type": "multiple-choice",
+      "options": [
+        "nager",
+        "je nage",
+        "nage"
+      ],
+      "correct_answer": "nager",
+      "explanation": "After aimer, the second verb is in the infinitive: J'aime nager.",
+      "hints": [
+        "The second verb is not conjugated."
+      ]
+    },
+    {
+      "question_id": "a1-likes-free-time-08",
+      "prompt": "'Je n'aime pas du tout le rap' means 'I don't like rap at all'.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Pas du tout = not at all. The article le stays after the negation: je n'aime pas du tout le rap.",
+      "hints": [
+        "Du tout makes the no stronger."
+      ]
+    },
+    {
+      "question_id": "a1-likes-free-time-09",
+      "prompt": "'J'aime bien le jazz' says something stronger than 'J'adore le jazz'.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Aimer bien is softer: I quite like. Adorer is the strongest: I love.",
+      "hints": [
+        "Check the scale from j'adore to je déteste."
+      ],
+      "teaches": [
+        "aimer bien"
+      ]
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "jouer",
+      "meaning": "to play",
+      "set": "present",
+      "art": [
+        "  _______  ",
+        " | o   o | ",
+        " |   o   | ",
+        " | o   o | ",
+        "  -------  "
+      ],
+      "forms": {
+        "je": "joue",
+        "tu": "joues",
+        "il": "joue",
+        "nous": "jouons",
+        "vous": "jouez",
+        "ils": "jouent"
+      }
+    },
+    {
+      "item": "détester",
+      "meaning": "to hate",
+      "set": "present",
+      "art": [
+        "   _____   ",
+        "  /     \\  ",
+        " | >   < | ",
+        " |  /-\\  | ",
+        "  \\_____/  "
+      ],
+      "forms": {
+        "je": "déteste",
+        "tu": "détestes",
+        "il": "déteste",
+        "nous": "détestons",
+        "vous": "détestez",
+        "ils": "détestent"
+      }
+    }
+  ],
+  "listening": [
+    {
+      "text": "J'adore la musique classique.",
+      "meaning": "I love classical music."
+    },
+    {
+      "text": "Il déteste le sport à la télé.",
+      "meaning": "He hates sport on TV.",
+      "note": "Le, la, les for things in general."
+    },
+    {
+      "text": "Nous jouons au tennis le dimanche.",
+      "meaning": "We play tennis on Sundays.",
+      "note": "Jouer à + a sport: au tennis."
+    },
+    {
+      "text": "Tu joues de la trompette ?",
+      "meaning": "Do you play the trumpet?",
+      "note": "New word: la trompette = the trumpet."
+    },
+    {
+      "text": "Je n'aime pas du tout courir le matin.",
+      "meaning": "I don't like running in the morning at all.",
+      "note": "New word: courir = to run."
+    },
+    {
+      "text": "Le week-end, elle préfère le jardinage.",
+      "meaning": "At the weekend, she prefers gardening.",
+      "note": "New word: le jardinage = gardening."
+    },
+    {
+      "text": "Mes amis adorent les jeux vidéo, mais moi, je préfère lire.",
+      "meaning": "My friends love video games, but I prefer reading."
+    },
+    {
+      "text": "Qu'est-ce que vous aimez faire le week-end ?",
+      "meaning": "What do you like doing at the weekend?"
+    }
+  ],
+  "guide": [
+    {
+      "section": "From j'adore"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-likes-free-time-09"
+    },
+    {
+      "question": "a1-likes-free-time-08"
+    },
+    {
+      "section": "Le, la, les"
+    },
+    {
+      "question": "a1-likes-free-time-05"
+    },
+    {
+      "concept": {
+        "title": "Aimer and the article",
+        "markdown": "With **manger** or **boire** you take *some*: **je mange du chocolat**. With **aimer** you talk about chocolate as a whole: **j'aime le chocolat**. And in the negative, **aimer** keeps its article: **je n'aime pas le café**, never *pas de café*."
+      }
+    },
+    {
+      "question": "a1-likes-free-time-06"
+    },
+    {
+      "section": "+ an infinitive"
+    },
+    {
+      "question": "a1-likes-free-time-07"
+    },
+    {
+      "section": "Jouer à, jouer de"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "tip": "A ball or a board? Jouer à. Something with strings, keys or a drum? Jouer de."
+    },
+    {
+      "question": "a1-likes-free-time-02"
+    },
+    {
+      "question": "a1-likes-free-time-01"
+    },
+    {
+      "question": "a1-likes-free-time-03"
+    },
+    {
+      "question": "a1-likes-free-time-04"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-likes-free-time-conv-new-flatmates",
+      "title": "New flatmates",
+      "scenario": "Chloé and Hugo have just moved into a shared flat in Toulouse and plan their first weekend.",
+      "role_a": "Chloé",
+      "role_b": "Hugo",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Qu'est-ce que tu aimes faire le week-end ?",
+          "meaning": "What do you like doing at the weekend?"
+        },
+        {
+          "speaker": "b",
+          "text": "J'adore le sport. Je joue au foot le samedi.",
+          "meaning": "I love sport. I play football on Saturdays.",
+          "note": "jouer à + a sport: au foot"
+        },
+        {
+          "speaker": "a",
+          "text": "Ah, moi, je déteste le foot !",
+          "meaning": "Oh, I hate football!"
+        },
+        {
+          "speaker": "b",
+          "text": "Et toi, qu'est-ce que tu aimes ?",
+          "meaning": "And you, what do you like?"
+        },
+        {
+          "speaker": "a",
+          "text": "J'aime la lecture et le cinéma. Et je joue du violon.",
+          "meaning": "I like reading and cinema. And I play the violin.",
+          "note": "jouer de + an instrument: du violon"
+        },
+        {
+          "speaker": "b",
+          "text": "Du violon ? Génial ! Moi, je joue un peu de la guitare.",
+          "meaning": "The violin? Great! I play the guitar a bit."
+        },
+        {
+          "speaker": "a",
+          "text": "Tu aimes les jeux vidéo aussi ?",
+          "meaning": "Do you like video games too?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, j'aime bien, mais je préfère jouer aux cartes.",
+          "meaning": "Yes, I quite like them, but I prefer playing cards.",
+          "note": "à + les = aux"
+        },
+        {
+          "speaker": "a",
+          "text": "Moi aussi ! On joue aux cartes ce soir ?",
+          "meaning": "Me too! Shall we play cards tonight?"
+        },
+        {
+          "speaker": "b",
+          "text": "D'accord ! Et dimanche, tu aimes nager ?",
+          "meaning": "OK! And on Sunday, do you like swimming?",
+          "note": "aimer + infinitive"
+        },
+        {
+          "speaker": "a",
+          "text": "Non, pas du tout. La natation, ce n'est pas pour moi !",
+          "meaning": "No, not at all. Swimming isn't for me!"
+        },
+        {
+          "speaker": "b",
+          "text": "Pas de problème. Alors, cinéma dimanche ?",
+          "meaning": "No problem. Cinema on Sunday, then?"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "❤️",
+    "bites": [
+      {
+        "title": "From j'adore to je déteste",
+        "emoji": "❤️",
+        "rule": "J'adore > j'aime > j'aime bien > je n'aime pas > je n'aime pas du tout > je déteste.",
+        "example": "J'aime bien le jazz, mais j'adore le rock.",
+        "example_meaning": "I quite like jazz, but I love rock."
+      },
+      {
+        "title": "Le, la, les in general",
+        "emoji": "🍫",
+        "rule": "After aimer, adorer, préférer, détester, a noun takes le, la, l', les: j'aime le chocolat. Never du, never no article.",
+        "example": "Je déteste les maths.",
+        "example_meaning": "I hate maths."
+      },
+      {
+        "title": "+ an infinitive",
+        "emoji": "🏊",
+        "rule": "To like doing something, add the infinitive straight after: j'aime nager, il déteste cuisiner.",
+        "example": "Nous adorons danser.",
+        "example_meaning": "We love dancing."
+      },
+      {
+        "title": "Jouer à, jouer de",
+        "emoji": "🎹",
+        "rule": "Jouer à + sport or game (au foot, aux cartes); jouer de + instrument (du piano, de la guitare).",
+        "example": "Il joue au tennis et du piano.",
+        "example_meaning": "He plays tennis and the piano."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Jouer à or jouer de?",
+        "buckets": [
+          "jouer à (au, à la, aux)",
+          "jouer de (du, de la)"
+        ],
+        "items": [
+          {
+            "text": "le foot",
+            "bucket": 0
+          },
+          {
+            "text": "le piano",
+            "bucket": 1
+          },
+          {
+            "text": "les cartes",
+            "bucket": 0
+          },
+          {
+            "text": "la guitare",
+            "bucket": 1
+          },
+          {
+            "text": "le tennis",
+            "bucket": 0
+          },
+          {
+            "text": "le violon",
+            "bucket": 1
+          },
+          {
+            "text": "les jeux vidéo",
+            "bucket": 0
+          },
+          {
+            "text": "la batterie",
+            "bucket": 1
+          }
+        ],
+        "why": "Sports and games take jouer à; instruments take jouer de."
+      },
+      {
+        "title": "Love it or hate it?",
+        "buckets": [
+          "likes it",
+          "doesn't like it"
+        ],
+        "items": [
+          {
+            "text": "J'adore le cinéma.",
+            "bucket": 0
+          },
+          {
+            "text": "Je déteste courir.",
+            "bucket": 1
+          },
+          {
+            "text": "J'aime bien la danse.",
+            "bucket": 0
+          },
+          {
+            "text": "Je n'aime pas du tout le golf.",
+            "bucket": 1
+          },
+          {
+            "text": "Elle préfère la lecture.",
+            "bucket": 0
+          },
+          {
+            "text": "Il n'aime pas les maths.",
+            "bucket": 1
+          }
+        ],
+        "why": "Adorer, aimer, aimer bien and préférer are positive; ne … pas, pas du tout and détester are negative."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Je joue de foot avec Marc.",
+        "wrong": "de",
+        "fix": "au",
+        "why": "A sport takes jouer à: jouer au foot."
+      },
+      {
+        "sentence": "Elle joue au piano le soir.",
+        "wrong": "au",
+        "fix": "du",
+        "why": "An instrument takes jouer de: jouer du piano."
+      },
+      {
+        "sentence": "J'adore du chocolat noir.",
+        "wrong": "du",
+        "fix": "le",
+        "why": "After adorer, a thing in general takes le: j'adore le chocolat."
+      },
+      {
+        "sentence": "Nous aimons nageons.",
+        "wrong": "nageons",
+        "fix": "nager",
+        "why": "After aimer, the second verb is in the infinitive."
+      },
+      {
+        "sentence": "Tu joues au cartes ?",
+        "wrong": "au",
+        "fix": "aux",
+        "why": "Les cartes is plural: à + les = aux."
+      }
+    ],
+    "builds": [
+      {
+        "text": "J'aime le cinéma.",
+        "meaning": "I like cinema.",
+        "distractors": [
+          "du"
+        ]
+      },
+      {
+        "text": "Il joue du piano.",
+        "meaning": "He plays the piano.",
+        "distractors": [
+          "au"
+        ]
+      },
+      {
+        "text": "Nous jouons aux cartes le soir.",
+        "meaning": "We play cards in the evening.",
+        "distractors": [
+          "des"
+        ]
+      },
+      {
+        "text": "Qu'est-ce que tu aimes faire ?",
+        "meaning": "What do you like doing?",
+        "distractors": [
+          "fais"
+        ]
+      }
+    ]
+  }
+}

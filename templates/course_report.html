@@ -1,0 +1,52 @@
+{#- The feature usage report (#328, src/report.rs): which question types and
+    lesson features each lesson uses, units and lessons as folding <details>.
+    The bar-chart button beside the gear opens it (courses.js, [data-open-dialog]);
+    without JavaScript the button's #course-report link shows it (:target).
+    Above the units: the course lints (#445, src/lint.rs), things to check. -#}
+<dialog class="modal wide report-dialog" id="course-report" aria-labelledby="course-report-title" data-testid="course-report">
+  <div class="modal-bar">
+    <h2 id="course-report-title">{{ crate::t("courses.report.title") }}</h2>
+    <a class="btn small ghost" href="#lessons" data-dialog-close data-testid="course-report-close">{{ crate::t("courses.report.close") }}</a>
+  </div>
+  <section class="report-lints" data-testid="course-lints">
+    <h3 class="heading-with-info">{{ crate::t("courses.lint.title") }} <button type="button" class="info-btn" data-open-dialog="course-lints-info" aria-haspopup="dialog" aria-label="{{ crate::t("courses.lint.info_label") }}" data-testid="course-lints-info">i</button></h3>
+    {% if lp.lints.is_empty() %}<p class="small muted" data-testid="course-lints-none">{{ crate::t("courses.lint.none") }}</p>{% else %}
+    <ul class="report-lint-list">
+    {% for f in lp.lints %}<li class="report-lint" data-testid="course-lint" data-lesson="{{ f.lesson_id }}" data-kind="{{ f.kind }}" data-path="{{ f.path }}"><span class="report-lint-mark" aria-hidden="true">!</span><span><strong>{{ f.lesson_title }}</strong> <span class="report-lint-text">{{ f.message }}</span></span></li>{% endfor %}
+    </ul>{% endif %}
+  </section>
+  <div class="report-list">
+  {% for u in lp.report.units %}
+    <details class="report-unit" data-testid="course-report-unit" data-unit="{{ u.id }}"{% if loop.first %} open{% endif %}>
+      <summary><span class="report-name">{{ u.title }}</span> <span class="small muted" data-testid="course-report-unit-counts">{{ crate::tn("courses.report.lessons", u.lessons.len()) }} · {{ crate::t2("courses.report.features_of", "used", u.features_used, "total", lp.report.feature_count()) }} · {{ crate::t2("courses.report.question_types_of", "used", u.questions_used, "total", lp.report.question_count()) }}</span></summary>
+      {% if u.lessons.is_empty() %}<p class="small muted report-empty">{{ crate::t("courses.report.no_lessons") }}</p>{% endif %}
+      {% for l in u.lessons %}
+      <details class="report-lesson" data-testid="course-report-lesson" data-lesson="{{ l.id }}">
+        <summary><span class="report-name">{{ l.title }}</span> <span class="small muted">{{ l.used() }} / {{ l.total() }}</span></summary>
+        <div class="report-cols">
+          <div>
+            <h3>{{ crate::t("courses.report.question_types") }}</h3>
+            <ul class="report-marks">
+            {% for m in l.questions %}<li class="report-mark" data-testid="course-report-question" data-key="{{ m.key }}" data-used="{{ m.used }}"><span class="report-tick" aria-hidden="true"></span>{{ m.label }}<span class="sr-only">{% if m.used %}{{ crate::t("courses.report.used_sr") }}{% else %}{{ crate::t("courses.report.not_used_sr") }}{% endif %}</span></li>{% endfor %}
+            </ul>
+          </div>
+          <div>
+            <h3>{{ crate::t("courses.report.lesson_features") }}</h3>
+            <ul class="report-marks">
+            {% for m in l.features %}<li class="report-mark" data-testid="course-report-feature" data-key="{{ m.key }}" data-used="{{ m.used }}"><span class="report-tick" aria-hidden="true"></span>{{ m.label }}<span class="sr-only">{% if m.used %}{{ crate::t("courses.report.used_sr") }}{% else %}{{ crate::t("courses.report.not_used_sr") }}{% endif %}</span></li>{% endfor %}
+            </ul>
+          </div>
+        </div>
+      </details>
+      {% endfor %}
+    </details>
+  {% endfor %}
+  </div>
+</dialog>
+<dialog class="modal" id="course-lints-info" aria-labelledby="course-lints-info-title" data-testid="course-lints-info-dialog">
+  <h2 id="course-lints-info-title">{{ crate::t("courses.lint.title") }}</h2>
+  <p>{{ crate::t("courses.lint.info_body") }}</p>
+  <div class="modal-actions">
+    <button type="button" class="btn ghost" data-dialog-close data-testid="course-lints-info-close">{{ crate::t("courses.lint.close") }}</button>
+  </div>
+</dialog>

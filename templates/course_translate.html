@@ -1,0 +1,30 @@
+{# "Copy and translate to…" (#630), bound by the including template (`tr_id`, `tr_title`, `tr_lang`, `tr_resume`, `tr_providers`): an icon left of the copy icon in a course's settings dialog (`course_copy.html`), or Resume on the card of a stopped translation; its own dialog, to pick the language and the AI and start. #}
+{% if tr_resume %}<button type="button" class="btn ghost" data-open-dialog="course-translate-{{ tr_id }}" aria-haspopup="dialog" data-testid="courses-translate-resume">{{ crate::t("courses.translate.resume") }}</button>
+{% else %}<button type="button" class="icon-btn modal-translate" data-open-dialog="course-translate-{{ tr_id }}" aria-haspopup="dialog" data-tip="{{ crate::t("courses.translate.button") }}" aria-label="{{ crate::t("courses.translate.button") }}" data-testid="courses-translate"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a13.5 13.5 0 0 1 0 18M12 3a13.5 13.5 0 0 0 0 18"/></svg></button>{% endif %}
+<dialog class="modal" id="course-translate-{{ tr_id }}" aria-labelledby="course-translate-{{ tr_id }}-title" data-testid="courses-translate-dialog" data-course-id="{{ tr_id }}">
+  <h2 id="course-translate-{{ tr_id }}-title" class="heading-with-info">{% if tr_resume %}{{ crate::t1("courses.translate.resume_title", "title", tr_title) }}{% else %}{{ crate::t1("courses.translate.title", "title", tr_title) }}{% endif %}
+    <details class="info-tip" data-testid="courses-translate-info"><summary aria-label="{{ crate::t("courses.translate.info_label") }}" title="{{ crate::t("courses.translate.info_label") }}">i</summary><p class="small" data-testid="courses-translate-info-text">{{ crate::t("courses.translate.info_text") }}</p></details></h2>
+  {% if tr_providers.is_empty() %}
+  <p class="no-key" role="alert" data-testid="courses-translate-no-key">{{ crate::t1("courses.ai.no_key_html", "url", crate::url("/profile#api-keys"))|safe }}</p>
+  <form method="dialog" class="modal-actions"><button type="submit" class="btn ghost" data-testid="courses-translate-close">{{ crate::t("courses.translate.close") }}</button></form>
+  {% else %}
+  <form method="post" action="{{ crate::base_path() }}/courses/{{ tr_id }}/translate" data-testid="courses-translate-form">
+    {% if !tr_resume %}
+    <p><label for="course-translate-{{ tr_id }}-lang">{{ crate::t("courses.translate.language") }}</label>
+      <select id="course-translate-{{ tr_id }}-lang" name="lang" required data-testid="courses-translate-lang">
+      {% for l in crate::i18n::languages() %}{% if l.code != tr_lang %}<option value="{{ l.code }}"{% if l.code == crate::i18n::lang() %} selected{% endif %}>{{ l.name }}</option>{% endif %}{% endfor %}
+      </select></p>
+    {% endif %}
+    {% if tr_providers.len() > 1 %}
+    <p><label for="course-translate-{{ tr_id }}-provider">{{ crate::t("courses.translate.provider") }}</label>
+      <select id="course-translate-{{ tr_id }}-provider" name="provider" data-testid="courses-translate-provider">
+      {% for p in tr_providers %}<option value="{{ p.id }}">{{ p.label }}</option>{% endfor %}
+      </select></p>
+    {% else %}{% for p in tr_providers %}<input type="hidden" name="provider" value="{{ p.id }}">{% endfor %}{% endif %}
+    <p class="modal-actions">
+      <button type="submit" class="btn" data-testid="courses-translate-start">{% if tr_resume %}{{ crate::t("courses.translate.resume") }}{% else %}{{ crate::t("courses.translate.start") }}{% endif %}</button>
+      <button type="submit" class="btn ghost" formmethod="dialog" formnovalidate data-testid="courses-translate-close">{{ crate::t("courses.translate.close") }}</button>
+    </p>
+  </form>
+  {% endif %}
+</dialog>

@@ -1,0 +1,642 @@
+{
+  "id": "b2-futur-anterieur-time",
+  "slug": "futur-anterieur-time",
+  "title": "The futur antérieur and time clauses",
+  "unit": "B2",
+  "group": "Grammar",
+  "order": 34,
+  "summary": "J'aurai fini, elle sera partie: what will be done by then, the future after quand and dès que, guesses about the past, and how to say before, after, in, for and ago.",
+  "focus": "Forming and using the futur antérieur, especially in time clauses",
+  "prerequisites": [
+    "b1-gerondif-adverbs"
+  ],
+  "content": "## Forming the futur antérieur\n\nThe **futur antérieur** is the futur simple of **avoir** or **être** plus the past participle. It means *will have done*.\n\n| | finir (avoir) | partir (être) |\n|---|---|---|\n| je | aurai fini | serai parti(e) |\n| tu | auras fini | seras parti(e) |\n| il / elle / on | aura fini | sera parti(e) |\n| nous | aurons fini | serons parti(e)s |\n| vous | aurez fini | serez parti(e)(s) |\n| ils / elles | auront fini | seront parti(e)s |\n\nIt takes the same auxiliary and the same agreement as the passé composé: **je suis allée** becomes **je serai allée**. Four futur simple stems to know by heart are **saur-** (savoir), **devr-** (devoir), **verr-** (voir), **voudr-** (vouloir). The drill practises their futur simple: **je saurai, tu devras, il verra, nous voudrons**.\n\n## Time clauses: quand, dès que and the futur antérieur\n\nAfter **quand**, **lorsque**, **dès que**, **aussitôt que** and **une fois que**, French uses a future when the main clause is in the future or the imperative. English uses the present.\n\n- When the action finishes first, use the **futur antérieur**: **Dès que tu auras fini, appelle-moi.** (As soon as you've finished, call me.)\n- **Une fois que les invités seront partis, on rangera.** (Once the guests have left, we'll tidy up.)\n- When two actions happen at the same time, use the **futur simple**: **Quand tu verras Marie, tu lui diras bonjour.** (When you see Marie, you'll say hello.)\n\nNever use the present here. Say **quand je serai grand**, not quand je suis grand.\n\n## Guessing about the past: il aura oublié\n\nThe futur antérieur also makes a **guess** about something already done, like English *must have*:\n\n- Paul est en retard. **Il aura raté son train.** (He must have missed his train.)\n- Elle n'a pas répondu ? **Elle n'aura pas vu ton message.** (She can't have seen your message.)\n\n**Il aura oublié** means the same as **il a dû oublier**. The speaker isn't sure, but it is the likely explanation.\n\n## Before, after, in, for, ago\n\n- **avant de** plus an infinitive: **Réfléchis avant de répondre.**\n- **après** plus a past infinitive (avoir or être plus the participle): **Après avoir mangé, nous sortirons. Après être rentrée, elle dormira.**\n\nDurations:\n\n- **dans** means in, counting from now: **Je pars dans deux jours.**\n- **en** means in, for the time taken: **Il a lu le livre en une soirée.**\n- **pendant** means for, over a closed period: **J'ai attendu pendant une heure.**\n- **depuis** plus the present means for or since, and the action is still going: **J'habite ici depuis cinq ans.**\n- **il y a** means ago: **Je suis arrivé il y a deux ans.**",
+  "vocabulary": [
+    {
+      "term": "dès que",
+      "meaning": "as soon as",
+      "example": "Dès que j'aurai mon diplôme, je chercherai du travail.",
+      "example_meaning": "As soon as I have my degree, I'll look for work."
+    },
+    {
+      "term": "lorsque",
+      "meaning": "when (more formal than quand)",
+      "example": "Lorsque vous aurez rempli le formulaire, rendez-le à l'accueil.",
+      "example_meaning": "When you have filled in the form, hand it in at reception."
+    },
+    {
+      "term": "aussitôt que",
+      "meaning": "as soon as (formal)",
+      "example": "Aussitôt qu'il sera arrivé, nous commencerons la réunion.",
+      "example_meaning": "As soon as he has arrived, we'll start the meeting."
+    },
+    {
+      "term": "une fois que",
+      "meaning": "once",
+      "example": "Une fois que les invités seront partis, on fera la vaisselle.",
+      "example_meaning": "Once the guests have left, we'll do the washing-up."
+    },
+    {
+      "term": "avant de",
+      "meaning": "before (+ infinitive)",
+      "example": "Il faut toujours relire avant d'envoyer un mail.",
+      "example_meaning": "You should always reread before sending an email."
+    },
+    {
+      "term": "après avoir",
+      "meaning": "after having (+ past participle; après être with être verbs)",
+      "example": "Après avoir dîné, ils sont allés au cinéma.",
+      "example_meaning": "After having dinner, they went to the cinema."
+    },
+    {
+      "term": "dans",
+      "meaning": "in (a time from now)",
+      "example": "Le train part dans dix minutes.",
+      "example_meaning": "The train leaves in ten minutes."
+    },
+    {
+      "term": "pendant",
+      "meaning": "for, during (a closed period)",
+      "example": "Il a plu pendant trois jours.",
+      "example_meaning": "It rained for three days."
+    },
+    {
+      "term": "depuis",
+      "meaning": "for, since (still going on)",
+      "example": "J'apprends le français depuis deux ans.",
+      "example_meaning": "I've been learning French for two years."
+    },
+    {
+      "term": "il y a",
+      "meaning": "ago",
+      "example": "Elle a déménagé il y a six mois.",
+      "example_meaning": "She moved six months ago."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-futur-anterieur-time-01",
+      "prompt": "Dès que tu ___ tes devoirs, tu pourras sortir.",
+      "type": "multiple-choice",
+      "options": [
+        "auras fini",
+        "as fini",
+        "finis"
+      ],
+      "correct_answer": "auras fini",
+      "explanation": "The main clause is in the future (tu pourras), and the homework will be finished first, so dès que takes the futur antérieur.",
+      "hints": [
+        "Which action is finished before the other?"
+      ],
+      "teaches": [
+        "dès que"
+      ]
+    },
+    {
+      "question_id": "b2-futur-anterieur-time-02",
+      "prompt": "Quand nous ___ (arriver) à la gare, nous t'appellerons.",
+      "type": "fill-in-blank",
+      "correct_answer": "serons arrivés",
+      "accepted_answers": [
+        "serons arrivées",
+        "nous serons arrivés",
+        "nous serons arrivées"
+      ],
+      "explanation": "Arriver takes être, so its futur antérieur is serons arrivés (arrivées for a group of women). Arriving comes before calling.",
+      "hints": [
+        "Arriver takes être, as in the passé composé.",
+        "Futur of être plus a participle with agreement."
+      ]
+    },
+    {
+      "question_id": "b2-futur-anterieur-time-03",
+      "prompt": "True or false: after quand, French uses the present when the main clause is in the future, as in « Quand je suis riche, j'achèterai une maison ».",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "French needs a future after quand here: quand je serai riche, j'achèterai une maison. English uses the present, French doesn't.",
+      "hints": [
+        "Think of quand je serai grand."
+      ]
+    },
+    {
+      "question_id": "b2-futur-anterieur-time-04",
+      "prompt": "Paul n'est pas encore là. Il ___ son train. (a guess)",
+      "type": "multiple-choice",
+      "options": [
+        "aura raté",
+        "rate",
+        "ratera"
+      ],
+      "correct_answer": "aura raté",
+      "explanation": "The futur antérieur makes a guess about the past: il aura raté son train = he must have missed his train.",
+      "hints": [
+        "Something that probably already happened."
+      ]
+    },
+    {
+      "question_id": "b2-futur-anterieur-time-05",
+      "prompt": "Lave-toi les mains ___ manger.",
+      "type": "fill-in-blank",
+      "correct_answer": "avant de",
+      "explanation": "Before + infinitive is avant de: avant de manger.",
+      "hints": [
+        "Two words: 'before' + a small preposition."
+      ],
+      "teaches": [
+        "avant de"
+      ]
+    },
+    {
+      "question_id": "b2-futur-anterieur-time-06",
+      "prompt": "J'habite à Lyon ___ trois ans, et j'y suis toujours.",
+      "type": "multiple-choice",
+      "options": [
+        "depuis",
+        "pendant",
+        "il y a"
+      ],
+      "correct_answer": "depuis",
+      "explanation": "Something still going on takes the present + depuis: j'habite à Lyon depuis trois ans.",
+      "hints": [
+        "Still living there today."
+      ],
+      "teaches": [
+        "depuis"
+      ]
+    },
+    {
+      "question_id": "b2-futur-anterieur-time-07",
+      "prompt": "___ avoir mangé, nous ferons une promenade.",
+      "type": "fill-in-blank",
+      "correct_answer": "Après",
+      "accepted_answers": [
+        "après"
+      ],
+      "explanation": "After + past infinitive: après avoir mangé = after eating.",
+      "hints": [
+        "The opposite of avant."
+      ],
+      "teaches": [
+        "après avoir"
+      ]
+    },
+    {
+      "question_id": "b2-futur-anterieur-time-08",
+      "prompt": "« Je serai rentré dans une demi-heure. » In how many minutes will he be back?",
+      "type": "numeric",
+      "correct_answer": "30",
+      "unit": "minutes",
+      "explanation": "Une demi-heure is half an hour, thirty minutes, and dans counts from now.",
+      "hints": [
+        "Demi = half."
+      ],
+      "teaches": [
+        "dans"
+      ]
+    },
+    {
+      "question_id": "b2-futur-anterieur-time-09",
+      "prompt": "True or false: in « Elle n'a pas répondu ? Elle n'aura pas vu ton message », the futur antérieur expresses a guess about the past.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Elle n'aura pas vu means she probably didn't see it. It is a guess about something already done.",
+      "hints": [
+        "Is it about tomorrow, or about what probably happened?"
+      ]
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "savoir",
+      "meaning": "to know",
+      "set": "futur",
+      "art": [
+        "   .--.   ",
+        "  ( !! )  ",
+        "   \\  /   ",
+        "    ||    ",
+        "   [==]   "
+      ],
+      "forms": {
+        "je": "saurai",
+        "tu": "sauras",
+        "il": "saura",
+        "nous": "saurons",
+        "vous": "saurez",
+        "ils": "sauront"
+      }
+    },
+    {
+      "item": "devoir",
+      "meaning": "to have to, must",
+      "set": "futur",
+      "art": [
+        " +----------+ ",
+        " | [x] .... | ",
+        " | [ ] .... | ",
+        " | [ ] .... | ",
+        " +----------+ "
+      ],
+      "forms": {
+        "je": "devrai",
+        "tu": "devras",
+        "il": "devra",
+        "nous": "devrons",
+        "vous": "devrez",
+        "ils": "devront"
+      }
+    },
+    {
+      "item": "voir",
+      "meaning": "to see",
+      "set": "futur",
+      "art": [
+        "    _______    ",
+        "  /   ___   \\  ",
+        " |   ( o )   | ",
+        "  \\   ---   /  ",
+        "    -------    "
+      ],
+      "forms": {
+        "je": "verrai",
+        "tu": "verras",
+        "il": "verra",
+        "nous": "verrons",
+        "vous": "verrez",
+        "ils": "verront"
+      }
+    },
+    {
+      "item": "vouloir",
+      "meaning": "to want",
+      "set": "futur",
+      "art": [
+        "  .-. .-.  ",
+        " (   V   ) ",
+        "  \\     /  ",
+        "   \\   /   ",
+        "    \\ /    ",
+        "     V     "
+      ],
+      "forms": {
+        "je": "voudrai",
+        "tu": "voudras",
+        "il": "voudra",
+        "nous": "voudrons",
+        "vous": "voudrez",
+        "ils": "voudront"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-futur-anterieur-time-conv-moving-day",
+      "title": "Moving day",
+      "scenario": "Sarah and Malik are moving out of their flat. The van is coming and their friend Thomas is late.",
+      "role_a": "Sarah",
+      "role_b": "Malik",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Malik, tu sais quand le camion arrivera ?",
+          "meaning": "Malik, do you know when the van will arrive?"
+        },
+        {
+          "speaker": "b",
+          "text": "Dans deux heures. D'ici là, on aura fini les cartons, j'espère.",
+          "meaning": "In two hours. By then we'll have finished the boxes, I hope."
+        },
+        {
+          "speaker": "a",
+          "text": "Moi, j'aurai fini la cuisine avant midi. Et toi ?",
+          "meaning": "I'll have finished the kitchen before noon. And you?"
+        },
+        {
+          "speaker": "b",
+          "text": "Dès que j'aurai rangé ma chambre, je t'aiderai.",
+          "meaning": "As soon as I've tidied my room, I'll help you."
+        },
+        {
+          "speaker": "a",
+          "text": "Et Thomas ? Il devait venir à dix heures.",
+          "meaning": "And Thomas? He was supposed to come at ten."
+        },
+        {
+          "speaker": "b",
+          "text": "Il n'est pas là ? Il aura oublié, comme d'habitude !",
+          "meaning": "He isn't here? He must have forgotten, as usual!",
+          "note": "A guess about the past: il aura oublié."
+        },
+        {
+          "speaker": "a",
+          "text": "Ou il se sera perdu. Je l'appellerai après avoir fermé ce carton.",
+          "meaning": "Or he got lost. I'll call him after I've closed this box."
+        },
+        {
+          "speaker": "b",
+          "text": "Une fois que tout sera chargé, on déjeunera ensemble ?",
+          "meaning": "Once everything is loaded, shall we have lunch together?"
+        },
+        {
+          "speaker": "a",
+          "text": "D'accord, mais avant de partir, il faudra rendre les clés.",
+          "meaning": "OK, but before leaving, we'll have to hand back the keys."
+        },
+        {
+          "speaker": "b",
+          "text": "Quand le propriétaire aura vérifié l'appartement, il nous rendra la caution.",
+          "meaning": "When the landlord has checked the flat, he'll give us back the deposit."
+        },
+        {
+          "speaker": "a",
+          "text": "Parfait. Dans trois heures, nous serons dans notre nouvel appartement !",
+          "meaning": "Perfect. In three hours we'll be in our new flat!"
+        },
+        {
+          "speaker": "b",
+          "text": "On verra bien. Allez, au travail !",
+          "meaning": "We'll see. Come on, let's get to work!"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Elle sera partie demain.",
+      "meaning": "She will have left by tomorrow."
+    },
+    {
+      "text": "Je partirai dans une heure.",
+      "meaning": "I'll leave in an hour.",
+      "note": "Dans counts from now."
+    },
+    {
+      "text": "Quand tu verras Paul, dis-lui bonjour.",
+      "meaning": "When you see Paul, say hello to him.",
+      "note": "Quand with the futur simple: both actions happen at the same time."
+    },
+    {
+      "text": "Il n'est pas venu ; il aura oublié.",
+      "meaning": "He didn't come; he must have forgotten.",
+      "note": "A guess about the past."
+    },
+    {
+      "text": "Aussitôt qu'elle aura reçu la réponse, elle nous préviendra.",
+      "meaning": "As soon as she has received the answer, she'll let us know.",
+      "note": "New word: prévenir = to let someone know."
+    },
+    {
+      "text": "Nous aurons terminé les travaux avant la fin du mois.",
+      "meaning": "We will have finished the building work before the end of the month."
+    },
+    {
+      "text": "Une fois que tu auras lu ce roman, prête-le-moi.",
+      "meaning": "Once you've read this novel, lend it to me.",
+      "note": "New word: prêter = to lend."
+    },
+    {
+      "text": "Je travaille dans cette entreprise depuis huit ans, et je partirai dans deux ans.",
+      "meaning": "I've been working at this company for eight years, and I'll leave in two years.",
+      "note": "New word: l'entreprise = the company."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Forming the futur antérieur"
+    },
+    {
+      "tip": "It takes the same auxiliary and agreement as the passé composé: if it's je suis allée, it's je serai allée."
+    },
+    {
+      "section": "Time clauses"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-futur-anterieur-time-01"
+    },
+    {
+      "question": "b2-futur-anterieur-time-02"
+    },
+    {
+      "question": "b2-futur-anterieur-time-03"
+    },
+    {
+      "section": "Guessing about the past"
+    },
+    {
+      "question": "b2-futur-anterieur-time-04"
+    },
+    {
+      "question": "b2-futur-anterieur-time-09"
+    },
+    {
+      "section": "Before, after"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-futur-anterieur-time-05"
+    },
+    {
+      "question": "b2-futur-anterieur-time-07"
+    },
+    {
+      "question": "b2-futur-anterieur-time-06"
+    },
+    {
+      "question": "b2-futur-anterieur-time-08"
+    },
+    {
+      "concept": {
+        "title": "By then: d'ici là",
+        "markdown": "Like English *will have done*, the futur antérieur goes with a deadline. **d'ici vendredi, j'aurai fini** (by Friday I'll have finished), **à la fin de l'année, nous aurons déménagé**. **D'ici là** means by then. Picture a point in the future and look back from it."
+      }
+    }
+  ],
+  "sprint": {
+    "icon": "🔭",
+    "bites": [
+      {
+        "title": "Will have done",
+        "emoji": "⏳",
+        "rule": "The futur antérieur is the futur of avoir or être plus the past participle: j'aurai fini, elle sera partie. It has the same auxiliary and agreement as the passé composé.",
+        "example": "Demain, j'aurai fini ce projet.",
+        "example_meaning": "Tomorrow I'll have finished this project."
+      },
+      {
+        "title": "A future after quand",
+        "emoji": "🔜",
+        "rule": "After quand, lorsque, dès que, aussitôt que and une fois que, French uses a future where English uses the present.",
+        "example": "Dès que tu auras fini, appelle-moi.",
+        "example_meaning": "As soon as you've finished, call me."
+      },
+      {
+        "title": "A guess about the past",
+        "emoji": "🤔",
+        "rule": "Il aura oublié means he must have forgotten. The futur antérieur can guess at something already done.",
+        "example": "Elle est en retard : elle aura raté le bus.",
+        "example_meaning": "She's late: she must have missed the bus."
+      },
+      {
+        "title": "Before, after, in, ago",
+        "emoji": "↔️",
+        "rule": "Avant de takes an infinitive, and après takes a past infinitive (après avoir mangé). Dans means in (from now), depuis means since, and il y a means ago.",
+        "example": "Après avoir mangé, nous sortirons.",
+        "example_meaning": "After eating, we'll go out."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Futur simple or futur antérieur?",
+        "buckets": [
+          "futur simple",
+          "futur antérieur"
+        ],
+        "items": [
+          {
+            "text": "je saurai",
+            "bucket": 0
+          },
+          {
+            "text": "j'aurai su",
+            "bucket": 1
+          },
+          {
+            "text": "tu verras",
+            "bucket": 0
+          },
+          {
+            "text": "tu auras vu",
+            "bucket": 1
+          },
+          {
+            "text": "elle voudra",
+            "bucket": 0
+          },
+          {
+            "text": "elle sera partie",
+            "bucket": 1
+          },
+          {
+            "text": "nous devrons",
+            "bucket": 0
+          },
+          {
+            "text": "nous aurons dû",
+            "bucket": 1
+          }
+        ],
+        "why": "The futur simple is one word. The futur antérieur adds a participle after aurai or serai."
+      },
+      {
+        "title": "Dans, pendant, depuis or il y a?",
+        "buckets": [
+          "dans",
+          "pendant",
+          "depuis",
+          "il y a"
+        ],
+        "items": [
+          {
+            "text": "Je pars ___ une heure.",
+            "bucket": 0
+          },
+          {
+            "text": "J'ai dormi ___ huit heures.",
+            "bucket": 1
+          },
+          {
+            "text": "J'habite ici ___ 2020.",
+            "bucket": 2
+          },
+          {
+            "text": "Il est parti ___ trois jours.",
+            "bucket": 3
+          },
+          {
+            "text": "On mange ___ dix minutes.",
+            "bucket": 0
+          },
+          {
+            "text": "Elle est malade ___ lundi.",
+            "bucket": 2
+          },
+          {
+            "text": "Ils ont voyagé ___ un mois.",
+            "bucket": 1
+          },
+          {
+            "text": "Je l'ai vu ___ une semaine.",
+            "bucket": 3
+          }
+        ],
+        "why": "Dans looks forward from now, pendant measures a closed period, depuis runs up to now, and il y a points back to a moment."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Quand je suis grand, je serai pilote.",
+        "wrong": "suis",
+        "fix": "serai",
+        "why": "The main clause is in the future, so quand needs a future too: quand je serai grand."
+      },
+      {
+        "sentence": "Après avoir sorti, il a pris un taxi.",
+        "wrong": "avoir",
+        "fix": "être",
+        "why": "Sortir (go out) takes être: après être sortie."
+      },
+      {
+        "sentence": "Le film commence pendant cinq minutes.",
+        "wrong": "pendant",
+        "fix": "dans",
+        "why": "In five minutes from now is dans cinq minutes."
+      },
+      {
+        "sentence": "Une fois que nous serons fini, nous partirons.",
+        "wrong": "serons",
+        "fix": "aurons",
+        "why": "Finir takes avoir: nous aurons fini."
+      },
+      {
+        "sentence": "Réfléchis bien avant répondre.",
+        "wrong": "avant",
+        "fix": "avant de",
+        "why": "Before + infinitive is avant de."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Dès que tu auras fini, appelle-moi.",
+        "meaning": "As soon as you've finished, call me.",
+        "distractors": [
+          "as"
+        ]
+      },
+      {
+        "text": "Il aura oublié son rendez-vous.",
+        "meaning": "He must have forgotten his appointment.",
+        "distractors": [
+          "oublie"
+        ]
+      },
+      {
+        "text": "Après avoir mangé, nous sortirons.",
+        "meaning": "After eating, we'll go out.",
+        "distractors": [
+          "être"
+        ]
+      },
+      {
+        "text": "Je pars dans dix minutes.",
+        "meaning": "I'm leaving in ten minutes.",
+        "distractors": [
+          "pendant"
+        ]
+      }
+    ]
+  }
+}

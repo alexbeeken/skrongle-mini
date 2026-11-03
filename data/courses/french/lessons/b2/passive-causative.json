@@ -1,0 +1,548 @@
+{
+  "id": "b2-passive-causative",
+  "slug": "passive-causative",
+  "title": "The passive, on, and faire faire",
+  "unit": "B2",
+  "group": "Grammar",
+  "order": 18,
+  "summary": "Être + participle with agreement, par or de, avoiding the passive with on and se, and having things done with faire, se faire and laisser.",
+  "focus": "Putting the action first: the passive, its everyday alternatives and the causative faire",
+  "prerequisites": [
+    "b1-relative-pronouns"
+  ],
+  "content": "## The passive: être + participle\n\nThe passive is **être** in any tense + a participle that **agrees with the subject**. The doer, if you name it, comes after **par**.\n\n| tense | passive |\n|---|---|\n| présent | **La maison est construite.** |\n| passé composé | **La maison a été construite.** |\n| imparfait | **La maison était construite.** |\n| futur | **La maison sera construite.** |\n\n- **Les lettres ont été envoyées hier.** (The letters were sent yesterday.)\n- **Le cycliste a été renversé par une voiture.** (The cyclist was knocked down by a car.)\n\nNote that **été** never changes; only the last participle agrees.\n\n## Par or de?\n\n**Par** introduces the doer of an action. **De** goes with verbs of feeling and with states or descriptions:\n\n- **aimé de tous** (loved by everyone), **respecté de ses élèves** (respected by his pupils), **connu de tout le monde** (known to everyone)\n- **couvert de neige** (covered in snow), **entouré d'arbres** (surrounded by trees)\n- but **écrit par une autrice**, **construit par des ouvriers**: real actions take **par**.\n\n## Avoiding the passive: on and se\n\nSpoken French uses the passive much less than English. Two common ways round it:\n\n- **on** + active verb: **On a volé mon vélo.** (My bike was stolen.) **On m'a dit de partir.** (I was told to leave.)\n- the **pronominal passive**, se + verb, for general truths and habits: **Ça se vend bien.** (It sells well.) **Ça ne se dit pas.** (You don't say that.) **Le vin blanc se boit frais.** (White wine is drunk chilled.)\n\nVerbs with **à** (dire à, demander à) cannot be passive at all: *I was told* is always **on m'a dit**.\n\n## Faire faire, se faire, laisser\n\n- **faire + infinitive**: you have someone else do it. **Je fais réparer ma voiture.** (I'm having my car repaired.) **Je la fais réparer.**\n- **se faire + infinitive**: it happens to you, good or bad. **Il s'est fait voler son sac.** (He had his bag stolen.) **Je me suis fait couper les cheveux.** (I had my hair cut.)\n- **laisser + infinitive**: you let it happen. **Laisse-moi parler.** (Let me speak.) **Elle laisse les enfants jouer.**\n\n**Fait** stays invariable before an infinitive: **elle s'est fait voler**, never *faite*.",
+  "vocabulary": [
+    {
+      "term": "construire",
+      "meaning": "to build",
+      "example": "Ce pont a été construit au dix-neuvième siècle.",
+      "example_meaning": "This bridge was built in the nineteenth century."
+    },
+    {
+      "term": "voler",
+      "meaning": "to steal",
+      "example": "On m'a volé mon portefeuille dans le métro.",
+      "example_meaning": "My wallet was stolen on the metro."
+    },
+    {
+      "term": "réparer",
+      "meaning": "to repair",
+      "example": "Je fais réparer mon vélo chez le voisin.",
+      "example_meaning": "I'm having my bike repaired at the neighbour's."
+    },
+    {
+      "term": "laisser",
+      "meaning": "to let, to leave",
+      "example": "Laisse-moi finir ma phrase !",
+      "example_meaning": "Let me finish my sentence!"
+    },
+    {
+      "term": "respecter",
+      "meaning": "to respect",
+      "example": "Ce professeur est respecté de tous ses élèves.",
+      "example_meaning": "This teacher is respected by all his pupils."
+    },
+    {
+      "term": "l'immeuble",
+      "meaning": "block of flats, building (m)",
+      "example": "L'immeuble a été rénové l'an dernier.",
+      "example_meaning": "The building was renovated last year."
+    },
+    {
+      "term": "renverser",
+      "meaning": "to knock over, to knock down",
+      "example": "Le cycliste a été renversé par une voiture.",
+      "example_meaning": "The cyclist was knocked down by a car."
+    },
+    {
+      "term": "se vendre",
+      "meaning": "to sell, to be sold",
+      "example": "Ce livre se vend très bien.",
+      "example_meaning": "This book is selling very well."
+    },
+    {
+      "term": "livrer",
+      "meaning": "to deliver",
+      "example": "Le colis sera livré demain.",
+      "example_meaning": "The parcel will be delivered tomorrow."
+    },
+    {
+      "term": "se faire couper les cheveux",
+      "meaning": "to have one's hair cut",
+      "example": "Je me suis fait couper les cheveux samedi.",
+      "example_meaning": "I had my hair cut on Saturday."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-passive-causative-01",
+      "prompt": "La maison a été ___ en 1950. (construire)",
+      "type": "fill-in-blank",
+      "correct_answer": "construite",
+      "accepted_answers": [],
+      "explanation": "In the passive the participle agrees with the subject: la maison is feminine, so the participle is construite.",
+      "hints": [
+        "La maison is feminine.",
+        "Add -e."
+      ],
+      "teaches": [
+        "construire"
+      ]
+    },
+    {
+      "question_id": "b2-passive-causative-02",
+      "prompt": "Ce chanteur est aimé ___ tous.",
+      "type": "multiple-choice",
+      "options": [
+        "de",
+        "par",
+        "à"
+      ],
+      "correct_answer": "de",
+      "explanation": "Verbs of feeling take de in the passive: aimé de tous, respecté de ses élèves.",
+      "hints": [
+        "A feeling, not an action."
+      ]
+    },
+    {
+      "question_id": "b2-passive-causative-03",
+      "prompt": "Which is the most natural way to say 'My bike was stolen last night'?",
+      "type": "multiple-choice",
+      "options": [
+        "On m'a volé mon vélo hier soir.",
+        "Mon vélo a été volé par quelqu'un hier soir.",
+        "Mon vélo s'est volé hier soir."
+      ],
+      "correct_answer": "On m'a volé mon vélo hier soir.",
+      "explanation": "Spoken French avoids the passive with on, especially when the doer is unknown. 'Par quelqu'un' is clumsy, and 'mon vélo s'est volé' would mean the bike stole itself.",
+      "hints": [
+        "Who stole it? Nobody knows, so use on."
+      ],
+      "teaches": [
+        "voler"
+      ]
+    },
+    {
+      "question_id": "b2-passive-causative-04",
+      "prompt": "Je ___ réparer ma voiture au garage. (faire, présent)",
+      "type": "fill-in-blank",
+      "correct_answer": "fais",
+      "accepted_answers": [
+        "je fais"
+      ],
+      "explanation": "Faire + infinitive: I have someone else repair it. Je fais réparer ma voiture.",
+      "hints": [
+        "Faire, je form, présent."
+      ],
+      "teaches": [
+        "réparer"
+      ]
+    },
+    {
+      "question_id": "b2-passive-causative-05",
+      "prompt": "Elle ___ voler son sac dans le métro.",
+      "type": "multiple-choice",
+      "options": [
+        "s'est fait",
+        "a été",
+        "s'est faite"
+      ],
+      "correct_answer": "s'est fait",
+      "explanation": "Se faire + infinitive for something that happens to you. Fait stays invariable before an infinitive: elle s'est fait voler.",
+      "hints": [
+        "Fait before an infinitive never agrees."
+      ],
+      "teaches": [
+        "voler"
+      ]
+    },
+    {
+      "question_id": "b2-passive-causative-06",
+      "prompt": "In 'Le vin blanc se boit frais', se boit is a pronominal passive: white wine is drunk chilled.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Se + verb can express a passive for habits and general truths: ça se vend, ça ne se dit pas, ça se boit frais.",
+      "hints": [
+        "Who drinks it? People in general."
+      ],
+      "teaches": [
+        "se vendre"
+      ]
+    },
+    {
+      "question_id": "b2-passive-causative-07",
+      "prompt": "Les colis seront ___ demain matin. (livrer)",
+      "type": "fill-in-blank",
+      "correct_answer": "livrés",
+      "accepted_answers": [],
+      "explanation": "Futur passive: seront + participle agreeing with les colis (masculine plural), giving livrés.",
+      "hints": [
+        "Les colis: masculine plural."
+      ],
+      "teaches": [
+        "livrer"
+      ]
+    },
+    {
+      "question_id": "b2-passive-causative-08",
+      "prompt": "'J'ai été dit de partir' is a correct passive of 'On m'a dit de partir'.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Dire à has an indirect object, and indirect objects cannot become the subject of a passive. French says on m'a dit.",
+      "hints": [
+        "dire à quelqu'un: direct or indirect?"
+      ]
+    },
+    {
+      "question_id": "b2-passive-causative-09",
+      "prompt": "Le piéton a été renversé ___ un camion.",
+      "type": "multiple-choice",
+      "options": [
+        "par",
+        "de",
+        "avec"
+      ],
+      "correct_answer": "par",
+      "explanation": "A real action with a doer takes par: renversé par un camion.",
+      "hints": [
+        "An action, not a feeling or state."
+      ],
+      "teaches": [
+        "renverser"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-passive-causative-conv-stolen-bike",
+      "title": "A stolen bike and a new haircut",
+      "scenario": "Julie meets her colleague Karim, who has walked to work.",
+      "role_a": "Julie",
+      "role_b": "Karim",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Karim, tu es venu à pied ? Où est ton vélo ?",
+          "meaning": "Karim, did you walk? Where's your bike?"
+        },
+        {
+          "speaker": "b",
+          "text": "On me l'a volé devant la gare samedi !",
+          "meaning": "It was stolen in front of the station on Saturday!",
+          "note": "on instead of a passive"
+        },
+        {
+          "speaker": "a",
+          "text": "Oh non ! Tu as porté plainte ?",
+          "meaning": "Oh no! Did you report it to the police?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, mais les vélos volés sont rarement retrouvés.",
+          "meaning": "Yes, but stolen bikes are rarely found.",
+          "note": "présent passive"
+        },
+        {
+          "speaker": "a",
+          "text": "Et ta voiture ? Elle a été réparée ?",
+          "meaning": "And your car? Has it been repaired?"
+        },
+        {
+          "speaker": "b",
+          "text": "Pas encore. Je la fais réparer chez un garagiste près de chez moi.",
+          "meaning": "Not yet. I'm having it repaired at a garage near my place.",
+          "note": "faire + infinitive"
+        },
+        {
+          "speaker": "a",
+          "text": "Nous aussi, on a des travaux : on fait refaire la cuisine.",
+          "meaning": "We've got work going on too: we're having the kitchen redone."
+        },
+        {
+          "speaker": "b",
+          "text": "Ah bon ? Vous la faites refaire par qui ?",
+          "meaning": "Really? Who's doing it for you?"
+        },
+        {
+          "speaker": "a",
+          "text": "Par une entreprise du quartier. Elle est très respectée de ses clients.",
+          "meaning": "A local firm. It's highly respected by its customers.",
+          "note": "de after a verb of feeling"
+        },
+        {
+          "speaker": "b",
+          "text": "Super. Et toi, tu t'es fait couper les cheveux, non ?",
+          "meaning": "Great. And you've had your hair cut, haven't you?",
+          "note": "se faire + infinitive"
+        },
+        {
+          "speaker": "a",
+          "text": "Oui ! Cette coupe se fait beaucoup cette année.",
+          "meaning": "Yes! This cut is very popular this year.",
+          "note": "pronominal passive"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "La cuisine est nettoyée chaque soir.",
+      "meaning": "The kitchen is cleaned every evening.",
+      "note": "Passive: the participle agrees with la cuisine."
+    },
+    {
+      "text": "Ce roman a été écrit par une jeune autrice.",
+      "meaning": "This novel was written by a young author."
+    },
+    {
+      "text": "On a retrouvé mes clés dans le jardin.",
+      "meaning": "My keys were found in the garden.",
+      "note": "On avoids the passive."
+    },
+    {
+      "text": "Le français se parle dans beaucoup de pays.",
+      "meaning": "French is spoken in many countries.",
+      "note": "Pronominal passive."
+    },
+    {
+      "text": "Je fais nettoyer ma veste chez le teinturier.",
+      "meaning": "I'm having my jacket cleaned at the dry cleaner's.",
+      "note": "New word: le teinturier = the dry cleaner."
+    },
+    {
+      "text": "Laisse les enfants jouer dans le parc.",
+      "meaning": "Let the children play in the park."
+    },
+    {
+      "text": "Il s'est fait arrêter par la police à la frontière.",
+      "meaning": "He got arrested by the police at the border.",
+      "note": "New word: la frontière = the border."
+    },
+    {
+      "text": "Le nouveau pont sera inauguré par la maire au printemps prochain.",
+      "meaning": "The new bridge will be opened by the mayor next spring.",
+      "note": "New word: inaugurer = to open officially."
+    }
+  ],
+  "guide": [
+    {
+      "section": "The passive"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-passive-causative-01"
+    },
+    {
+      "question": "b2-passive-causative-07"
+    },
+    {
+      "section": "Par or de"
+    },
+    {
+      "question": "b2-passive-causative-02"
+    },
+    {
+      "question": "b2-passive-causative-09"
+    },
+    {
+      "tip": "Before writing a passive, try on: French speakers say 'on m'a dit' or 'on a volé mon vélo' far more often than any passive."
+    },
+    {
+      "section": "Avoiding the passive"
+    },
+    {
+      "question": "b2-passive-causative-03"
+    },
+    {
+      "question": "b2-passive-causative-06"
+    },
+    {
+      "question": "b2-passive-causative-08"
+    },
+    {
+      "section": "Faire faire"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-passive-causative-04"
+    },
+    {
+      "question": "b2-passive-causative-05"
+    },
+    {
+      "concept": {
+        "title": "Se laisser + infinitive",
+        "markdown": "**Se laisser** + infinitive means *to let yourself be…*: **Il s'est laissé convaincre.** (He let himself be persuaded.) **Je me suis laissé tenter par un dessert.** (I let myself be tempted by a dessert.) It is a very French way to soften a passive."
+      }
+    }
+  ],
+  "sprint": {
+    "icon": "🏗️",
+    "bites": [
+      {
+        "title": "Être + participle",
+        "emoji": "🏛️",
+        "rule": "The passive is être in any tense + a participle that agrees with the subject: la maison a été construite. The doer comes after par.",
+        "example": "Les lettres seront envoyées demain.",
+        "example_meaning": "The letters will be sent tomorrow."
+      },
+      {
+        "title": "Par or de?",
+        "emoji": "↔️",
+        "rule": "Par for an action (renversé par un camion); de for feelings and states (aimé de tous, couvert de neige).",
+        "example": "Elle est respectée de tous.",
+        "example_meaning": "She is respected by everyone."
+      },
+      {
+        "title": "French prefers on",
+        "emoji": "👥",
+        "rule": "Speech avoids the passive: on a volé mon vélo. Se can also act as a passive: ça se vend bien, ça ne se dit pas.",
+        "example": "On parle français ici.",
+        "example_meaning": "French is spoken here."
+      },
+      {
+        "title": "Faire faire",
+        "emoji": "🔧",
+        "rule": "Faire + infinitive: have something done (je fais réparer ma voiture). Se faire + infinitive: it happens to you (il s'est fait voler son sac).",
+        "example": "Je me suis fait couper les cheveux.",
+        "example_meaning": "I had my hair cut."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Par or de?",
+        "buckets": [
+          "par",
+          "de"
+        ],
+        "items": [
+          {
+            "text": "renversé ___ un camion",
+            "bucket": 0
+          },
+          {
+            "text": "aimé ___ tous",
+            "bucket": 1
+          },
+          {
+            "text": "écrit ___ une autrice",
+            "bucket": 0
+          },
+          {
+            "text": "couvert ___ neige",
+            "bucket": 1
+          },
+          {
+            "text": "construit ___ des ouvriers",
+            "bucket": 0
+          },
+          {
+            "text": "respecté ___ ses élèves",
+            "bucket": 1
+          }
+        ],
+        "why": "Actions with a doer take par; feelings and states take de."
+      },
+      {
+        "title": "Who does it?",
+        "buckets": [
+          "I do it myself",
+          "someone does it for me"
+        ],
+        "items": [
+          {
+            "text": "Je répare ma voiture.",
+            "bucket": 0
+          },
+          {
+            "text": "Je fais réparer ma voiture.",
+            "bucket": 1
+          },
+          {
+            "text": "Je me coupe les cheveux.",
+            "bucket": 0
+          },
+          {
+            "text": "Je me fais couper les cheveux.",
+            "bucket": 1
+          },
+          {
+            "text": "Je construis une cabane.",
+            "bucket": 0
+          },
+          {
+            "text": "Je fais construire une maison.",
+            "bucket": 1
+          }
+        ],
+        "why": "Faire + infinitive means someone else does the job for you."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "La maison a été construit en 2010.",
+        "wrong": "construit",
+        "fix": "construite",
+        "why": "The participle agrees with la maison: construite."
+      },
+      {
+        "sentence": "Elle s'est faite voler son sac.",
+        "wrong": "faite",
+        "fix": "fait",
+        "why": "Fait stays invariable before an infinitive."
+      },
+      {
+        "sentence": "Les lettres ont été envoyé hier.",
+        "wrong": "envoyé",
+        "fix": "envoyées",
+        "why": "The participle agrees with les lettres: envoyées."
+      },
+      {
+        "sentence": "Je fais réparé ma voiture.",
+        "wrong": "réparé",
+        "fix": "réparer",
+        "why": "After faire comes an infinitive: faire réparer."
+      },
+      {
+        "sentence": "Ce mot ne se dis pas en public.",
+        "wrong": "dis",
+        "fix": "dit",
+        "why": "Pronominal passive, third person: ça ne se dit pas."
+      }
+    ],
+    "builds": [
+      {
+        "text": "La maison a été construite en mai.",
+        "meaning": "The house was built in May.",
+        "distractors": [
+          "construit"
+        ]
+      },
+      {
+        "text": "On m'a volé mon vélo.",
+        "meaning": "My bike was stolen.",
+        "distractors": [
+          "s'est"
+        ]
+      },
+      {
+        "text": "Je fais réparer ma voiture.",
+        "meaning": "I'm having my car repaired.",
+        "distractors": [
+          "réparé"
+        ]
+      },
+      {
+        "text": "Il s'est fait voler son sac.",
+        "meaning": "He had his bag stolen.",
+        "distractors": [
+          "faite"
+        ]
+      }
+    ]
+  }
+}

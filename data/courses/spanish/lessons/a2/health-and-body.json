@@ -1,0 +1,690 @@
+{
+  "id": "a2-health-and-body",
+  "slug": "health-and-body",
+  "title": "Health and the body: me duele la cabeza",
+  "unit": "A2",
+  "group": "Vocabulary",
+  "order": 36,
+  "summary": "Name the parts of the body, say what hurts with doler, describe symptoms with estar and tener, and understand the doctor.",
+  "focus": "Talking about pain, symptoms and a visit to the doctor",
+  "prerequisites": [
+    "a2-indirect-object-pronouns"
+  ],
+  "content": "## Twelve parts of the body\n\nThese are the parts of the body you will need most. Learn each noun with its article: the gender matters when you describe pain.\n\n| Spanish | English | Spanish | English |\n|---|---|---|---|\n| la cabeza | head | la espalda | back |\n| la garganta | throat | el brazo | arm |\n| el estómago | stomach | la mano | hand |\n| la muela | back tooth, molar | la pierna | leg |\n| el ojo | eye | la rodilla | knee |\n| el oído | ear (inner ear) | el pie | foot |\n\nTwo traps: **la mano** is feminine although it ends in **-o**, and **el pie** keeps a plain **-s** in the plural: **los pies**.\n\n## Me duele, me duelen\n\n**Doler** (to hurt) works exactly like **gustar**. The part that hurts is the subject, so the verb agrees with it. The person in pain is an indirect object pronoun (**me, te, le, nos, os, les**):\n\n| | one part | several parts |\n|---|---|---|\n| I | **me duele** la cabeza | **me duelen** los pies |\n| you | **te duele** la espalda | **te duelen** las muelas |\n| he / she / usted | **le duele** el estómago | **le duelen** las piernas |\n\nUse the article, never the possessive: *me duele **la** cabeza*, not *mi cabeza*. To make the person clear, add **a** + name: *A Marta le duele la espalda.*\n\nThe six forms are **duelo, dueles, duele, dolemos, doléis, duelen**. They show the stem change from **o** to **ue**, but in real life you will only hear **duele** and **duelen**.\n\n## Estar and tener for how you feel\n\nSpanish uses two verbs for symptoms.\n\n**Estar** + adjective for a state (it agrees in gender and number):\n\n- *Estoy enfermo / enferma.* I am ill.\n- *Estoy resfriada.* I have a cold.\n- *Estamos cansados.* We are tired.\n- *Está mareado.* He is dizzy.\n\n**Tener** + noun for a symptom you \"have\":\n\n- *Tengo fiebre.* I have a fever.\n- *Tengo tos.* I have a cough.\n- *Tengo dolor de cabeza / de muelas / de estómago.* I have a headache / toothache / stomach ache.\n\n**Tengo dolor de cabeza** and **me duele la cabeza** mean the same. The second is more common in conversation. To say you feel bad in general: **Me encuentro mal** or **Estoy fatal**.\n\n## At the doctor's\n\nThe doctor speaks to you as **usted**, so the pronoun is **le**:\n\n- *¿Qué le pasa?* What is the matter with you? (a friend asks *¿Qué te pasa?*)\n- *¿Desde cuándo?* Since when?\n- *¿Le duele aquí?* Does it hurt here?\n\nInstructions come as **usted** commands (the forms you met in the imperative lesson):\n\n- *Tome una pastilla cada ocho horas.* Take one tablet every eight hours.\n- *Descanse dos días.* Rest for two days.\n- *Beba mucha agua.* Drink plenty of water.\n- *Abra la boca.* Open your mouth.\n\nGetting better is **ponerse bien**: *Si descansas, te pones bien pronto.* To wish it on someone: **¡Que te mejores!** (get well soon).",
+  "vocabulary": [
+    {
+      "term": "doler",
+      "meaning": "to hurt, to ache",
+      "example": "Me duele la cabeza.",
+      "example_meaning": "My head hurts."
+    },
+    {
+      "term": "la cabeza",
+      "meaning": "head",
+      "example": "¿Te duele la cabeza?",
+      "example_meaning": "Does your head hurt?"
+    },
+    {
+      "term": "la garganta",
+      "meaning": "throat",
+      "example": "Me duele mucho la garganta.",
+      "example_meaning": "My throat hurts a lot."
+    },
+    {
+      "term": "el estómago",
+      "meaning": "stomach",
+      "example": "Le duele el estómago después de comer.",
+      "example_meaning": "His stomach hurts after eating."
+    },
+    {
+      "term": "la espalda",
+      "meaning": "back",
+      "example": "A mi padre le duele la espalda.",
+      "example_meaning": "My father's back hurts."
+    },
+    {
+      "term": "la pierna",
+      "meaning": "leg",
+      "example": "Me duelen las piernas de tanto andar.",
+      "example_meaning": "My legs ache from so much walking."
+    },
+    {
+      "term": "el pie",
+      "meaning": "foot",
+      "example": "Después de correr me duelen los pies.",
+      "example_meaning": "After running my feet hurt."
+    },
+    {
+      "term": "la muela",
+      "meaning": "back tooth, molar",
+      "example": "Tengo dolor de muelas y voy al dentista.",
+      "example_meaning": "I have a toothache and I'm going to the dentist."
+    },
+    {
+      "term": "la fiebre",
+      "meaning": "fever, temperature",
+      "example": "Tengo fiebre: treinta y ocho y medio.",
+      "example_meaning": "I have a fever: thirty-eight and a half."
+    },
+    {
+      "term": "la tos",
+      "meaning": "cough",
+      "example": "Tengo tos desde el lunes.",
+      "example_meaning": "I've had a cough since Monday."
+    },
+    {
+      "term": "estar resfriado / resfriada",
+      "meaning": "to have a cold",
+      "example": "Estoy resfriada y no puedo ir a trabajar.",
+      "example_meaning": "I have a cold and I can't go to work."
+    },
+    {
+      "term": "estar enfermo / enferma",
+      "meaning": "to be ill",
+      "example": "Mi hijo está enfermo y tiene fiebre.",
+      "example_meaning": "My son is ill and has a fever."
+    },
+    {
+      "term": "la pastilla",
+      "meaning": "pill, tablet",
+      "example": "Tome una pastilla cada ocho horas.",
+      "example_meaning": "Take one pill every eight hours."
+    },
+    {
+      "term": "ponerse bien",
+      "meaning": "to get better, to recover",
+      "example": "Si descansas, te pones bien pronto.",
+      "example_meaning": "If you rest, you'll get better soon."
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "doler",
+      "meaning": "to hurt, to ache",
+      "set": "present",
+      "art": [
+        "    .-----.    ",
+        "   / x   x \\   ",
+        "  |    ~    |  ",
+        "   \\_______/   ",
+        "   !ay! !ay!   "
+      ],
+      "forms": {
+        "yo": "duelo",
+        "tu": "dueles",
+        "el": "duele",
+        "nosotros": "dolemos",
+        "vosotros": "doléis",
+        "ellos": "duelen"
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-health-and-body-01",
+      "prompt": "Me ___ la cabeza.",
+      "type": "multiple-choice",
+      "options": [
+        "duele",
+        "duelen",
+        "duelo"
+      ],
+      "correct_answer": "duele",
+      "explanation": "The subject is 'la cabeza', one thing, so the verb is singular: 'Me duele la cabeza.' 'Duelo' would mean 'I hurt (someone)', which is not what you mean.",
+      "hints": [
+        "Doler works like gustar.",
+        "How many things hurt: one or several?"
+      ],
+      "teaches": [
+        "doler",
+        "la cabeza"
+      ]
+    },
+    {
+      "question_id": "a2-health-and-body-02",
+      "prompt": "Complete with the right pronoun: A mi padre ___ duele la espalda.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "le",
+      "accepted_answers": [],
+      "explanation": "'A mi padre' is a third person, so the indirect object pronoun is 'le': 'A mi padre le duele la espalda.'",
+      "hints": [
+        "The same pronoun you use with gustar for él/ella.",
+        "me, te, ___, nos, os, les"
+      ],
+      "teaches": [
+        "la espalda"
+      ]
+    },
+    {
+      "question_id": "a2-health-and-body-03",
+      "prompt": "Complete with the right form of doler: Después de correr me ___ las piernas y los pies.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "duelen",
+      "accepted_answers": [],
+      "explanation": "'Las piernas y los pies' is plural, so the verb is plural: 'me duelen'.",
+      "hints": [
+        "Several things hurt.",
+        "Plural form of duele."
+      ],
+      "teaches": [
+        "la pierna",
+        "el pie"
+      ]
+    },
+    {
+      "question_id": "a2-health-and-body-04",
+      "prompt": "Which sentence means 'I have a cold and a cough'?",
+      "type": "multiple-choice",
+      "options": [
+        "Estoy resfriada y tengo tos.",
+        "Soy resfriada y tengo tos.",
+        "Tengo resfriada y estoy tos."
+      ],
+      "correct_answer": "Estoy resfriada y tengo tos.",
+      "explanation": "'Resfriado/a' is a temporary state, so it takes estar; 'tos' is a symptom you have, so it takes tener.",
+      "hints": [
+        "A cold is a temporary state.",
+        "Symptoms that are nouns go with tener."
+      ],
+      "teaches": [
+        "estar resfriado / resfriada",
+        "la tos"
+      ]
+    },
+    {
+      "question_id": "a2-health-and-body-05",
+      "prompt": "Complete with the right form of tener: (yo) ___ fiebre y me duele el estómago.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "tengo",
+      "accepted_answers": [
+        "yo tengo"
+      ],
+      "explanation": "Fever is a symptom you 'have': 'Tengo fiebre.' The stomach ache uses doler with 'me'.",
+      "hints": [
+        "Tener, yo form.",
+        "The same verb as for being cold or hungry."
+      ],
+      "teaches": [
+        "la fiebre",
+        "el estómago"
+      ]
+    },
+    {
+      "question_id": "a2-health-and-body-06",
+      "prompt": "Hoy no voy a trabajar: ___ enfermo y me duele la garganta.",
+      "type": "multiple-choice",
+      "options": [
+        "estoy",
+        "soy",
+        "tengo"
+      ],
+      "correct_answer": "estoy",
+      "explanation": "Being ill is a temporary state, so 'estoy enfermo'. 'Soy enfermo' would describe a permanent condition and 'tengo enfermo' does not exist in Spanish.",
+      "hints": [
+        "A state that will pass takes estar.",
+        "Enfermo is an adjective, not a noun."
+      ],
+      "teaches": [
+        "estar enfermo / enferma",
+        "la garganta"
+      ]
+    },
+    {
+      "question_id": "a2-health-and-body-07",
+      "prompt": "The doctor says to you (usted): '___ una pastilla cada ocho horas.'",
+      "type": "multiple-choice",
+      "options": [
+        "Tome",
+        "Toma",
+        "Tomas"
+      ],
+      "correct_answer": "Tome",
+      "explanation": "Doctors address patients as usted, and the usted command of tomar is 'tome'. 'Toma' is the tú command and 'tomas' means 'you take'.",
+      "hints": [
+        "Formal 'you' commands use the subjunctive form.",
+        "For -ar verbs, the usted command ends in -e."
+      ],
+      "teaches": [
+        "la pastilla"
+      ]
+    },
+    {
+      "question_id": "a2-health-and-body-08",
+      "prompt": "Complete with a part of the body: Tengo dolor de ___ y voy al dentista.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "muelas",
+      "accepted_answers": [
+        "muela",
+        "las muelas",
+        "la muela",
+        "dientes"
+      ],
+      "explanation": "Toothache is 'dolor de muelas', with the plural and no article; 'la muela' is a back tooth.",
+      "hints": [
+        "Who do you see about this pain?",
+        "Spanish usually says it in the plural."
+      ],
+      "teaches": [
+        "la muela"
+      ]
+    },
+    {
+      "question_id": "a2-health-and-body-09",
+      "prompt": "Complete with the right form of ponerse: Descansa y bebe agua: así te ___ bien pronto.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "pones",
+      "accepted_answers": [
+        "te pones",
+        "pondrás",
+        "te pondrás"
+      ],
+      "explanation": "'Ponerse bien' means to get better; with 'te' the tú form is 'te pones bien'. The future 'te pondrás bien' is also correct.",
+      "hints": [
+        "Ponerse is reflexive: te…",
+        "Tú form of poner."
+      ],
+      "teaches": [
+        "ponerse bien"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Me duele la garganta.",
+      "meaning": "My throat hurts.",
+      "note": "The article, not the possessive: la garganta."
+    },
+    {
+      "text": "¿Te duelen las piernas?",
+      "meaning": "Do your legs hurt?"
+    },
+    {
+      "text": "Tengo fiebre desde ayer por la noche.",
+      "meaning": "I've had a fever since last night.",
+      "note": "A symptom you have takes tener."
+    },
+    {
+      "text": "A Carlos le duele mucho el estómago.",
+      "meaning": "Carlos's stomach hurts a lot."
+    },
+    {
+      "text": "Estoy resfriado y me duele la cabeza.",
+      "meaning": "I have a cold and my head hurts."
+    },
+    {
+      "text": "Después del partido me duele mucho la espalda.",
+      "meaning": "After the match my back hurts a lot.",
+      "note": "New word: el partido = the match."
+    },
+    {
+      "text": "Mi hija tiene tos y hoy no va al colegio.",
+      "meaning": "My daughter has a cough and isn't going to school today.",
+      "note": "New word: el colegio = the school."
+    },
+    {
+      "text": "Tome estas pastillas tres veces al día y se pondrá bien pronto.",
+      "meaning": "Take these pills three times a day and you'll get better soon."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Twelve parts of the body"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "section": "Me duele, me duelen"
+    },
+    {
+      "question": "a2-health-and-body-01"
+    },
+    {
+      "question": "a2-health-and-body-03"
+    },
+    {
+      "question": "a2-health-and-body-02"
+    },
+    {
+      "tip": "Think of doler as 'to be painful to'. The body part is the subject and the sufferer is me/te/le. That is why it is 'me duele LA cabeza', never 'mi cabeza'."
+    },
+    {
+      "section": "Estar and tener"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-health-and-body-04"
+    },
+    {
+      "question": "a2-health-and-body-05"
+    },
+    {
+      "question": "a2-health-and-body-06"
+    },
+    {
+      "question": "a2-health-and-body-08"
+    },
+    {
+      "section": "At the doctor's"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a2-health-and-body-07"
+    },
+    {
+      "question": "a2-health-and-body-09"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-health-and-body-conv-doctor",
+      "title": "At the doctor's",
+      "scenario": "Elena has felt terrible since the weekend and goes to see Doctor Ruiz at the health centre.",
+      "role_a": "Doctor Ruiz",
+      "role_b": "Elena",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Buenos días. Siéntese, por favor. ¿Qué le pasa?",
+          "meaning": "Good morning. Sit down, please. What is the matter?",
+          "note": "usted takes le"
+        },
+        {
+          "speaker": "b",
+          "text": "Buenos días, doctor. Me encuentro fatal. Me duele la cabeza y tengo mucha tos.",
+          "meaning": "Good morning, doctor. I feel awful. My head hurts and I have a bad cough.",
+          "note": "me duele + singular; tener tos"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Desde cuándo?",
+          "meaning": "Since when?"
+        },
+        {
+          "speaker": "b",
+          "text": "Desde el sábado. Y creo que tengo fiebre.",
+          "meaning": "Since Saturday. And I think I have a fever."
+        },
+        {
+          "speaker": "a",
+          "text": "A ver… Treinta y ocho y medio. ¿Le duele la garganta?",
+          "meaning": "Let's see… Thirty-eight and a half. Does your throat hurt?",
+          "note": "le duele with usted"
+        },
+        {
+          "speaker": "b",
+          "text": "Sí, mucho. Y me duele todo el cuerpo.",
+          "meaning": "Yes, a lot. And my whole body aches."
+        },
+        {
+          "speaker": "a",
+          "text": "Abra la boca, por favor… Bueno, no es nada grave. Está resfriada y tiene un poco de fiebre.",
+          "meaning": "Open your mouth, please… Well, it is nothing serious. You have a cold and a slight fever.",
+          "note": "usted command abra; estar resfriada; tener fiebre"
+        },
+        {
+          "speaker": "b",
+          "text": "¿Puedo ir a trabajar mañana?",
+          "meaning": "Can I go to work tomorrow?"
+        },
+        {
+          "speaker": "a",
+          "text": "No. Descanse dos o tres días, tome una pastilla cada ocho horas y beba mucha agua.",
+          "meaning": "No. Rest for two or three days, take one tablet every eight hours and drink plenty of water.",
+          "note": "usted commands descanse, tome, beba"
+        },
+        {
+          "speaker": "b",
+          "text": "¿Y para la tos?",
+          "meaning": "And for the cough?"
+        },
+        {
+          "speaker": "a",
+          "text": "Este jarabe, dos cucharadas por la noche. Si no se pone bien en una semana, vuelva.",
+          "meaning": "This syrup, two spoonfuls at night. If you are not better in a week, come back.",
+          "note": "ponerse bien; vuelva is the usted command of volver"
+        },
+        {
+          "speaker": "b",
+          "text": "Muchas gracias, doctor. Hasta luego.",
+          "meaning": "Thank you very much, doctor. Goodbye."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🤒",
+    "bites": [
+      {
+        "title": "Doler works like gustar",
+        "emoji": "🩹",
+        "rule": "The thing that hurts is the subject, so the verb is duele (one thing) or duelen (several). The person in pain is me, te, le, nos, os or les.",
+        "example": "Me duele la cabeza. Me duelen los pies.",
+        "example_meaning": "My head hurts. My feet hurt."
+      },
+      {
+        "title": "The article, not 'my'",
+        "emoji": "👤",
+        "rule": "Spanish says 'the head hurts me', not 'my head hurts': me duele la cabeza, never mi cabeza. Add 'a' + name to say who: a Juan le duele.",
+        "example": "A Marta le duele la espalda.",
+        "example_meaning": "Marta's back hurts."
+      },
+      {
+        "title": "Estar for states, tener for symptoms",
+        "emoji": "🌡️",
+        "rule": "Use estar with adjectives for a state: estoy enfermo, resfriado, cansado, mareado. Use tener with nouns for a symptom: tengo fiebre, tos, dolor de muelas.",
+        "example": "Estoy resfriada y tengo fiebre.",
+        "example_meaning": "I have a cold and a fever."
+      },
+      {
+        "title": "At the doctor's",
+        "emoji": "🩺",
+        "rule": "The doctor uses usted: ¿Qué le pasa? Then the orders come as usted commands: tome, descanse, beba, abra. Getting better is ponerse bien.",
+        "example": "Tome una pastilla y descanse.",
+        "example_meaning": "Take a tablet and rest."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Duele or duelen?",
+        "buckets": [
+          "me duele",
+          "me duelen"
+        ],
+        "items": [
+          {
+            "text": "la cabeza",
+            "bucket": 0
+          },
+          {
+            "text": "los pies",
+            "bucket": 1
+          },
+          {
+            "text": "la garganta",
+            "bucket": 0
+          },
+          {
+            "text": "las piernas",
+            "bucket": 1
+          },
+          {
+            "text": "el estómago",
+            "bucket": 0
+          },
+          {
+            "text": "las muelas",
+            "bucket": 1
+          },
+          {
+            "text": "la espalda",
+            "bucket": 0
+          },
+          {
+            "text": "los ojos",
+            "bucket": 1
+          }
+        ],
+        "why": "The body part is the subject: one part takes duele, several parts take duelen."
+      },
+      {
+        "title": "Estar or tener?",
+        "buckets": [
+          "estoy…",
+          "tengo…"
+        ],
+        "items": [
+          {
+            "text": "enfermo",
+            "bucket": 0
+          },
+          {
+            "text": "fiebre",
+            "bucket": 1
+          },
+          {
+            "text": "resfriada",
+            "bucket": 0
+          },
+          {
+            "text": "tos",
+            "bucket": 1
+          },
+          {
+            "text": "cansado",
+            "bucket": 0
+          },
+          {
+            "text": "dolor de cabeza",
+            "bucket": 1
+          },
+          {
+            "text": "mareada",
+            "bucket": 0
+          }
+        ],
+        "why": "Adjectives describing a state go with estar. Nouns naming a symptom go with tener."
+      },
+      {
+        "title": "Who is in pain?",
+        "buckets": [
+          "me",
+          "te",
+          "le"
+        ],
+        "items": [
+          {
+            "text": "A mí ___ duele la cabeza.",
+            "bucket": 0
+          },
+          {
+            "text": "A ti ___ duelen los pies.",
+            "bucket": 1
+          },
+          {
+            "text": "A Juan ___ duele la espalda.",
+            "bucket": 2
+          },
+          {
+            "text": "¿Qué ___ pasa, señora?",
+            "bucket": 2
+          },
+          {
+            "text": "¿___ duele la garganta, mamá?",
+            "bucket": 1
+          },
+          {
+            "text": "Doctor, ___ duelen las muelas.",
+            "bucket": 0
+          }
+        ],
+        "why": "Yo takes me, tú takes te, and él / ella / usted takes le, as with gustar."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Me duelen la cabeza.",
+        "wrong": "duelen",
+        "fix": "duele",
+        "why": "'La cabeza' is singular, so the verb is duele."
+      },
+      {
+        "sentence": "Me duele mi garganta.",
+        "wrong": "mi",
+        "fix": "la",
+        "why": "With doler, Spanish uses the article, not the possessive: me duele la garganta."
+      },
+      {
+        "sentence": "Tengo muy resfriado y no puedo salir.",
+        "wrong": "Tengo",
+        "fix": "Estoy",
+        "why": "Resfriado is an adjective describing a state: estoy resfriado."
+      },
+      {
+        "sentence": "Estoy mucha fiebre desde ayer.",
+        "wrong": "Estoy",
+        "fix": "Tengo",
+        "why": "Fiebre is a noun, a symptom you have: tengo fiebre."
+      },
+      {
+        "sentence": "Doctor, me duelo mucho la espalda.",
+        "wrong": "duelo",
+        "fix": "duele",
+        "why": "The back is the subject, so the verb is third person: me duele la espalda."
+      },
+      {
+        "sentence": "Señora, toma una pastilla cada ocho horas.",
+        "wrong": "toma",
+        "fix": "tome",
+        "why": "'Señora' is addressed as usted, so the command is tome."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Me duele mucho la cabeza.",
+        "meaning": "My head hurts a lot.",
+        "distractors": [
+          "duelen",
+          "mi"
+        ]
+      },
+      {
+        "text": "¿Te duelen los pies?",
+        "meaning": "Do your feet hurt?",
+        "distractors": [
+          "duele"
+        ]
+      },
+      {
+        "text": "Estoy resfriada y tengo tos.",
+        "meaning": "I have a cold and a cough.",
+        "distractors": [
+          "Soy"
+        ]
+      },
+      {
+        "text": "Tome una pastilla y descanse.",
+        "meaning": "Take a tablet and rest.",
+        "distractors": [
+          "Toma"
+        ]
+      },
+      {
+        "text": "¿Qué le pasa, señora?",
+        "meaning": "What is the matter, madam?",
+        "distractors": [
+          "te"
+        ]
+      }
+    ]
+  }
+}

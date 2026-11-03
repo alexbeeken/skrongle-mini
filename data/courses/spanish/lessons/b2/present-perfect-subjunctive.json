@@ -1,0 +1,594 @@
+{
+  "id": "b2-present-perfect-subjunctive",
+  "slug": "present-perfect-subjunctive",
+  "title": "Espero que hayas llegado bien: the perfect subjunctive",
+  "unit": "B2",
+  "group": "Grammar",
+  "order": 18,
+  "summary": "Haya + participle: the subjunctive version of he hecho, for hopes, feelings and doubts about things already done, and for actions finished before a future moment.",
+  "focus": "Using haya + participle after subjunctive triggers and after cuando about the future",
+  "prerequisites": [
+    "b2-pluperfect",
+    "b1-feelings-and-judgements"
+  ],
+  "content": "## Haya + participle\n\nThe perfect subjunctive is **haber** in the present subjunctive plus a participle. Only the **haya** part changes; the participle stays the same for every person.\n\n| | perfect subjunctive | |\n|---|---|---|\n| yo | **haya** llegado | (that) I have arrived |\n| tú | **hayas** comido | (that) you have eaten |\n| él / ella / usted | **haya** vivido | (that) she has lived |\n| nosotros/as | **hayamos** hecho | (that) we have done |\n| vosotros/as | **hayáis** visto | (that) you all have seen |\n| ellos / ellas / ustedes | **hayan** dicho | (that) they have said |\n\nThe irregular participles are the ones you know: **hecho, dicho, visto, puesto, escrito, abierto, vuelto, roto**. Pronouns go before **haya**: **que te lo hayan dicho**.\n\n## Same triggers, earlier action\n\nEvery trigger of the present subjunctive works here too: wishes (**espero que**, **ojalá**), feelings (**me alegro de que**, **siento que**, **es una pena que**), doubt (**no creo que**, **dudo que**) and possibility (**es posible que**, **puede que**). Choose the perfect when the action is already done by now:\n\n- **Espero que llegues bien.** (I hope you get there safely, since the journey is still ahead.)\n- **Espero que hayas llegado bien.** (I hope you've arrived safely, since the journey should be over.)\n- **Ojalá haya aprobado.** (I hope she's passed.)\n- **Es posible que se hayan perdido.** (They may have got lost.)\n\n## Cuando hayas terminado: done by a future moment\n\nAfter **cuando**, **en cuanto**, **hasta que** and **después de que** talking about the future, Spanish needs the subjunctive. The perfect subjunctive stresses that one action will be finished before the next one starts:\n\n- **Cuando hayas terminado, llámame.** (When you've finished, call me.)\n- **En cuanto hayamos cenado, salimos.** (As soon as we've had dinner, we'll go out.)\n- **No me voy hasta que lo hayáis recogido todo.** (I'm not leaving until you've tidied everything up.)\n\nEnglish says *have done* here; Spanish says **haya hecho**, never the indicative **he hecho**.\n\n## He hecho or haya hecho?\n\n**He hecho** states a fact or something you believe. **Haya hecho** appears only after a trigger.\n\n| indicative: a fact | subjunctive: after a trigger |\n|---|---|\n| **Creo que ha llegado.** | **No creo que haya llegado.** |\n| **Sé que han aprobado.** | **Me alegro de que hayan aprobado.** |\n| **Está claro que lo has hecho.** | **Es posible que lo hayas hecho.** |\n\nCareful: **creo que**, **estoy seguro de que** and **es verdad que** take the indicative; **no creo que** and **dudo que** take the subjunctive.",
+  "vocabulary": [
+    {
+      "term": "alegrarse de",
+      "meaning": "to be glad (about)",
+      "example": "Me alegro de que hayas venido a la cena.",
+      "example_meaning": "I'm glad you've come to dinner."
+    },
+    {
+      "term": "dudar",
+      "meaning": "to doubt",
+      "example": "Dudo que hayan recibido el paquete.",
+      "example_meaning": "I doubt they've received the parcel."
+    },
+    {
+      "term": "ojalá",
+      "meaning": "I hope, if only",
+      "example": "Ojalá no haya perdido el tren.",
+      "example_meaning": "I hope he hasn't missed the train."
+    },
+    {
+      "term": "es posible que",
+      "meaning": "it's possible that, may",
+      "example": "Es posible que hayamos dejado la luz encendida.",
+      "example_meaning": "We may have left the light on."
+    },
+    {
+      "term": "aprobar",
+      "meaning": "to pass (an exam)",
+      "example": "Espero que hayas aprobado el examen de conducir.",
+      "example_meaning": "I hope you've passed your driving test."
+    },
+    {
+      "term": "equivocarse",
+      "meaning": "to make a mistake, to get wrong",
+      "example": "No creo que se hayan equivocado de calle.",
+      "example_meaning": "I don't think they've got the wrong street."
+    },
+    {
+      "term": "en cuanto",
+      "meaning": "as soon as",
+      "example": "En cuanto hayáis cenado, os llevo a casa.",
+      "example_meaning": "As soon as you've had dinner, I'll take you home."
+    },
+    {
+      "term": "extrañar",
+      "meaning": "to surprise (me extraña que = I'm surprised that)",
+      "example": "Me extraña que Lucía no haya llamado.",
+      "example_meaning": "I'm surprised Lucía hasn't called."
+    },
+    {
+      "term": "es una pena que",
+      "meaning": "it's a shame that",
+      "example": "Es una pena que se haya cancelado el concierto.",
+      "example_meaning": "It's a shame the concert has been cancelled."
+    },
+    {
+      "term": "el malentendido",
+      "meaning": "misunderstanding",
+      "example": "Puede que todo haya sido un malentendido.",
+      "example_meaning": "Maybe it has all been a misunderstanding."
+    },
+    {
+      "term": "sentir",
+      "meaning": "to be sorry, to regret",
+      "example": "Siento que no hayas podido venir.",
+      "example_meaning": "I'm sorry you haven't been able to come."
+    },
+    {
+      "term": "enterarse",
+      "meaning": "to find out",
+      "example": "No creo que mi jefe se haya enterado todavía.",
+      "example_meaning": "I don't think my boss has found out yet."
+    },
+    {
+      "term": "recuperarse",
+      "meaning": "to recover",
+      "example": "Espero que tu abuela se haya recuperado del todo.",
+      "example_meaning": "I hope your grandmother has fully recovered."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-present-perfect-subjunctive-01",
+      "prompt": "Choose: Me alegro de que ___ a la fiesta.",
+      "type": "multiple-choice",
+      "options": [
+        "hayas venido",
+        "has venido",
+        "hayas venir"
+      ],
+      "correct_answer": "hayas venido",
+      "explanation": "Me alegro de que triggers the subjunctive, and the coming is already done: haya + participle, hayas venido.",
+      "hints": [
+        "A feeling about something already done."
+      ],
+      "teaches": [
+        "alegrarse de"
+      ]
+    },
+    {
+      "question_id": "b2-present-perfect-subjunctive-02",
+      "prompt": "Complete with haber: Ojalá Marta no ___ perdido el tren.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "haya",
+      "accepted_answers": [],
+      "explanation": "Ojalá takes the subjunctive; for Marta (ella) the form of haber is haya.",
+      "hints": [
+        "The ella form of haber in the subjunctive."
+      ],
+      "teaches": [
+        "ojalá"
+      ]
+    },
+    {
+      "question_id": "b2-present-perfect-subjunctive-03",
+      "prompt": "Complete (aprobar, tú): Espero que ___ el examen.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "hayas aprobado",
+      "accepted_answers": [
+        "tú hayas aprobado"
+      ],
+      "explanation": "The exam is over and you hope for the result: espero que + hayas + aprobado.",
+      "hints": [
+        "hayas + participle"
+      ],
+      "teaches": [
+        "aprobar"
+      ]
+    },
+    {
+      "question_id": "b2-present-perfect-subjunctive-04",
+      "prompt": "Choose: Dudo que Juan ___ ya.",
+      "type": "multiple-choice",
+      "options": [
+        "haya salido",
+        "ha salido",
+        "había salido"
+      ],
+      "correct_answer": "haya salido",
+      "explanation": "Dudo que expresses doubt, so it needs the subjunctive: haya salido. Ha salido and había salido are indicative.",
+      "hints": [
+        "Doubt takes the subjunctive."
+      ],
+      "teaches": [
+        "dudar"
+      ]
+    },
+    {
+      "question_id": "b2-present-perfect-subjunctive-05",
+      "prompt": "Complete (terminar, vosotros): En cuanto ___ los deberes, podéis salir.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "hayáis terminado",
+      "accepted_answers": [
+        "vosotros hayáis terminado"
+      ],
+      "explanation": "En cuanto about the future takes the subjunctive; the homework will be done first: hayáis terminado.",
+      "hints": [
+        "The vosotros form of haya, with its accent."
+      ],
+      "teaches": [
+        "en cuanto"
+      ]
+    },
+    {
+      "question_id": "b2-present-perfect-subjunctive-06",
+      "prompt": "Choose: Estoy seguro de que Lucía ___ de la noticia.",
+      "type": "multiple-choice",
+      "options": [
+        "se ha enterado",
+        "se haya enterado"
+      ],
+      "correct_answer": "se ha enterado",
+      "explanation": "Estoy seguro de que states something you believe is a fact, so it takes the indicative: se ha enterado.",
+      "hints": [
+        "Certainty is not a trigger."
+      ],
+      "teaches": [
+        "enterarse"
+      ]
+    },
+    {
+      "question_id": "b2-present-perfect-subjunctive-07",
+      "prompt": "Complete (equivocarse, ellos): No creo que ___ de dirección.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "se hayan equivocado",
+      "accepted_answers": [
+        "ellos se hayan equivocado"
+      ],
+      "explanation": "No creo que triggers the subjunctive; the reflexive pronoun goes before haber: se hayan equivocado.",
+      "hints": [
+        "Pronoun first, then hayan + participle."
+      ],
+      "teaches": [
+        "equivocarse"
+      ]
+    },
+    {
+      "question_id": "b2-present-perfect-subjunctive-08",
+      "prompt": "Your friend's train arrived an hour ago. Which message do you send?",
+      "type": "multiple-choice",
+      "options": [
+        "Espero que hayas llegado bien.",
+        "Espero que llegues bien.",
+        "Espero que has llegado bien."
+      ],
+      "correct_answer": "Espero que hayas llegado bien.",
+      "explanation": "The journey is over, so the hope is about a finished action: hayas llegado. Llegues looks ahead, and has llegado is indicative after espero que.",
+      "hints": [
+        "Already done takes haya + participle."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b2-present-perfect-subjunctive-09",
+      "prompt": "Complete (romper): Es una pena que los niños ___ la ventana.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "hayan roto",
+      "accepted_answers": [],
+      "explanation": "Es una pena que triggers the subjunctive; romper has the irregular participle roto: hayan roto.",
+      "hints": [
+        "The participle of romper is irregular."
+      ],
+      "teaches": [
+        "es una pena que"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-present-perfect-subjunctive-conv-new-flat",
+      "title": "Did you get there all right?",
+      "scenario": "Elena phones her friend Pablo the day after he moved to Valencia for a new job.",
+      "role_a": "Elena",
+      "role_b": "Pablo",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¡Pablo! Espero que hayas llegado bien a Valencia.",
+          "meaning": "Pablo! I hope you've arrived safely in Valencia.",
+          "note": "espero que + hayas llegado"
+        },
+        {
+          "speaker": "b",
+          "text": "Sí, llegué anoche. Me alegro de que me hayas llamado tan pronto.",
+          "meaning": "Yes, I got here last night. I'm glad you've called me so soon."
+        },
+        {
+          "speaker": "a",
+          "text": "¿Ya te han dado las llaves del piso?",
+          "meaning": "Have they given you the keys to the flat yet?"
+        },
+        {
+          "speaker": "b",
+          "text": "Sí, pero no creo que el casero haya arreglado la ducha todavía.",
+          "meaning": "Yes, but I don't think the landlord has fixed the shower yet.",
+          "note": "no creo que takes the subjunctive"
+        },
+        {
+          "speaker": "a",
+          "text": "Es posible que se le haya olvidado. Llámalo.",
+          "meaning": "He may have forgotten. Call him."
+        },
+        {
+          "speaker": "b",
+          "text": "Ya lo he llamado dos veces. Me extraña que no me haya contestado.",
+          "meaning": "I've already called him twice. I'm surprised he hasn't answered me.",
+          "note": "a fact takes he llamado, a feeling takes haya contestado"
+        },
+        {
+          "speaker": "a",
+          "text": "Ojalá no se haya ido de vacaciones.",
+          "meaning": "I hope he hasn't gone on holiday."
+        },
+        {
+          "speaker": "b",
+          "text": "¡No digas eso! Bueno, ¿y tú? ¿Has terminado el informe?",
+          "meaning": "Don't say that! Anyway, what about you? Have you finished the report?"
+        },
+        {
+          "speaker": "a",
+          "text": "Casi. Cuando lo haya terminado, voy a visitarte.",
+          "meaning": "Almost. When I've finished it, I'm going to visit you.",
+          "note": "cuando + haya terminado means done first"
+        },
+        {
+          "speaker": "b",
+          "text": "¡Genial! En cuanto hayas comprado el billete, avísame y te recojo en la estación.",
+          "meaning": "Great! As soon as you've bought the ticket, let me know and I'll pick you up at the station."
+        },
+        {
+          "speaker": "a",
+          "text": "Trato hecho. Y siento que no hayamos podido despedirnos bien.",
+          "meaning": "Deal. And I'm sorry we didn't get to say goodbye properly."
+        },
+        {
+          "speaker": "b",
+          "text": "No pasa nada. Lo celebramos aquí, con paella.",
+          "meaning": "Don't worry. We'll celebrate here, with paella."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Ojalá hayan ganado el partido.",
+      "meaning": "I hope they've won the match.",
+      "note": "Ojalá takes the perfect subjunctive for a hope about something already decided."
+    },
+    {
+      "text": "Me alegro de que hayáis vuelto pronto.",
+      "meaning": "I'm glad you've come back early."
+    },
+    {
+      "text": "Dudo que hayamos cerrado la puerta del garaje.",
+      "meaning": "I doubt we've closed the garage door.",
+      "note": "New word: el garaje = the garage."
+    },
+    {
+      "text": "Llámame en cuanto hayas hablado con el médico.",
+      "meaning": "Call me as soon as you've spoken to the doctor."
+    },
+    {
+      "text": "Es posible que hayan cambiado el horario del autobús.",
+      "meaning": "They may have changed the bus timetable.",
+      "note": "New word: el horario = the timetable."
+    },
+    {
+      "text": "No pienso irme hasta que hayamos resuelto el problema.",
+      "meaning": "I'm not going to leave until we've solved the problem.",
+      "note": "Resolver becomes resuelto."
+    },
+    {
+      "text": "Me extraña que haya salido sin decir nada a nadie.",
+      "meaning": "I'm surprised he's gone out without saying anything to anyone."
+    },
+    {
+      "text": "Es una pena que hayáis salido antes de probar la tarta de mi abuela.",
+      "meaning": "It's a shame you left before trying my grandmother's cake.",
+      "note": "New word: la tarta = the cake."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Haya + participle"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b2-present-perfect-subjunctive-01"
+    },
+    {
+      "question": "b2-present-perfect-subjunctive-02"
+    },
+    {
+      "question": "b2-present-perfect-subjunctive-03"
+    },
+    {
+      "section": "Same triggers, earlier action"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-present-perfect-subjunctive-04"
+    },
+    {
+      "question": "b2-present-perfect-subjunctive-09"
+    },
+    {
+      "question": "b2-present-perfect-subjunctive-08"
+    },
+    {
+      "tip": "Ask yourself: is the action already done by now? Then haya + participle. Still ahead? Then the plain present subjunctive."
+    },
+    {
+      "section": "Cuando hayas terminado"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b2-present-perfect-subjunctive-05"
+    },
+    {
+      "section": "He hecho or haya hecho?"
+    },
+    {
+      "question": "b2-present-perfect-subjunctive-06"
+    },
+    {
+      "question": "b2-present-perfect-subjunctive-07"
+    }
+  ],
+  "sprint": {
+    "icon": "🤞",
+    "bites": [
+      {
+        "title": "Haya + participle",
+        "emoji": "🧩",
+        "rule": "Haber in the present subjunctive (haya, hayas, haya, hayamos, hayáis, hayan) plus a participle that never changes.",
+        "example": "Espero que hayáis dormido bien.",
+        "example_meaning": "I hope you all slept well."
+      },
+      {
+        "title": "Already done by now",
+        "emoji": "⏱️",
+        "rule": "After espero que, me alegro de que, no creo que, es posible que or ojalá, use haya + participle if the action is already done and the plain present subjunctive if it is still ahead.",
+        "example": "Ojalá hayan encontrado sitio.",
+        "example_meaning": "I hope they've found a seat."
+      },
+      {
+        "title": "Cuando hayas terminado",
+        "emoji": "🏁",
+        "rule": "With cuando, en cuanto or hasta que about the future, haya + participle means 'will have done'. The first action is finished before the second.",
+        "example": "Cuando hayas comido, nos vamos.",
+        "example_meaning": "When you've eaten, we'll leave."
+      },
+      {
+        "title": "Fact or trigger?",
+        "emoji": "⚖️",
+        "rule": "Creo que, sé que and es verdad que state facts and take he hecho. No creo que, dudo que and me alegro de que trigger the subjunctive and take haya hecho.",
+        "example": "Creo que ha llovido, pero dudo que haya llovido mucho.",
+        "example_meaning": "I think it has rained, but I doubt it has rained much."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Ha llegado or haya llegado?",
+        "buckets": [
+          "ha llegado (indicative)",
+          "haya llegado (subjunctive)"
+        ],
+        "items": [
+          {
+            "text": "Creo que…",
+            "bucket": 0
+          },
+          {
+            "text": "No creo que…",
+            "bucket": 1
+          },
+          {
+            "text": "Es verdad que…",
+            "bucket": 0
+          },
+          {
+            "text": "Dudo que…",
+            "bucket": 1
+          },
+          {
+            "text": "Estoy seguro de que…",
+            "bucket": 0
+          },
+          {
+            "text": "Me alegro de que…",
+            "bucket": 1
+          },
+          {
+            "text": "Sé que…",
+            "bucket": 0
+          },
+          {
+            "text": "Ojalá…",
+            "bucket": 1
+          }
+        ],
+        "why": "Belief and certainty state facts and take the indicative; doubt, denial, feelings and wishes take the subjunctive."
+      },
+      {
+        "title": "Still ahead or already done?",
+        "buckets": [
+          "now or still ahead",
+          "already done"
+        ],
+        "items": [
+          {
+            "text": "Espero que llegues mañana.",
+            "bucket": 0
+          },
+          {
+            "text": "Espero que hayas llegado ya.",
+            "bucket": 1
+          },
+          {
+            "text": "Ojalá llueva esta noche.",
+            "bucket": 0
+          },
+          {
+            "text": "Ojalá haya llovido en el campo.",
+            "bucket": 1
+          },
+          {
+            "text": "Me alegro de que estés aquí.",
+            "bucket": 0
+          },
+          {
+            "text": "Me alegro de que hayas venido.",
+            "bucket": 1
+          }
+        ],
+        "why": "The plain present subjunctive points at now or later; haya + participle points at something already finished."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "No creo que ha terminado todavía.",
+        "wrong": "ha",
+        "fix": "haya",
+        "why": "No creo que triggers the subjunctive: no creo que haya terminado."
+      },
+      {
+        "sentence": "Espero que hayas llegar bien.",
+        "wrong": "llegar",
+        "fix": "llegado",
+        "why": "Haya is followed by the participle, not the infinitive: hayas llegado."
+      },
+      {
+        "sentence": "Me alegro de que hemos ganado.",
+        "wrong": "hemos",
+        "fix": "hayamos",
+        "why": "A feeling after me alegro de que takes the subjunctive: hayamos ganado."
+      },
+      {
+        "sentence": "Cuando has terminado, llámame.",
+        "wrong": "has",
+        "fix": "hayas",
+        "why": "Cuando about the future takes the subjunctive: cuando hayas terminado."
+      },
+      {
+        "sentence": "Creo que Ana haya salido ya.",
+        "wrong": "haya",
+        "fix": "ha",
+        "why": "Creo que states a belief, so it takes the indicative: ha salido."
+      },
+      {
+        "sentence": "Ojalá hayáis vistos la película.",
+        "wrong": "vistos",
+        "fix": "visto",
+        "why": "After haber the participle never changes: hayáis visto."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Espero que hayas dormido bien.",
+        "meaning": "I hope you've slept well.",
+        "distractors": [
+          "has"
+        ]
+      },
+      {
+        "text": "No creo que lo hayan visto.",
+        "meaning": "I don't think they've seen it.",
+        "distractors": [
+          "han"
+        ]
+      },
+      {
+        "text": "Cuando hayamos cenado, damos un paseo.",
+        "meaning": "When we've had dinner, we'll go for a walk.",
+        "distractors": [
+          "hemos"
+        ]
+      },
+      {
+        "text": "Me alegro de que hayáis aprobado.",
+        "meaning": "I'm glad you've all passed.",
+        "distractors": [
+          "habéis",
+          "aprobar"
+        ]
+      }
+    ]
+  }
+}

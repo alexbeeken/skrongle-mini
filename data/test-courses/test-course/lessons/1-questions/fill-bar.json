@@ -1,0 +1,53 @@
+{
+  "id": "tc-fill-bar",
+  "slug": "fill-bar",
+  "title": "Fill the bar",
+  "unit": "questions",
+  "group": "quiz",
+  "order": 60,
+  "summary": "Note values tapped into the gap of a bar, checked by length.",
+  "focus": "fill-bar questions",
+  "content": "## Beats in a bar\n\nA bar of 4/4 holds four quarter-note beats. A half note lasts two beats; two eighth notes last one.\n\n## Filling a gap\n\nAny notes that add up to the missing beats fill the gap, unless the question asks for particular ones.",
+  "quiz": [
+    {
+      "question_id": "tc-fill-bar-01",
+      "type": "fill-bar",
+      "prompt": "This bar is two beats short. Fill it.",
+      "abc": "X:1\nM:4/4\nL:1/4\nK:C\nB B x2|",
+      "tiles": [
+        "B2",
+        "BB",
+        "B/B/B",
+        "B4",
+        "B"
+      ],
+      "explanation": "A half note, two quarter notes, or two eighths and a quarter: each lasts two beats."
+    },
+    {
+      "question_id": "tc-fill-bar-02",
+      "type": "fill-bar",
+      "prompt": "Fill the bar with one half note.",
+      "abc": "X:1\nM:4/4\nL:1/4\nK:C\nc c x2|",
+      "tiles": [
+        "cc",
+        "c2",
+        "c4"
+      ],
+      "exact": true,
+      "correct_answer": "c2",
+      "explanation": "A half note lasts two beats and is written c2. Two quarter notes fill the gap too, but they are two notes."
+    },
+    {
+      "question_id": "tc-fill-bar-03",
+      "type": "fill-bar",
+      "prompt": "This 3/4 bar is one beat short. Fill it.",
+      "abc": "X:1\nM:3/4\nL:1/4\nK:G\nd2 x|",
+      "tiles": [
+        "d/d/",
+        "d",
+        "d2"
+      ],
+      "explanation": "One beat is a quarter note or two eighth notes."
+    }
+  ]
+}

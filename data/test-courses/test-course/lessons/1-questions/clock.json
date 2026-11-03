@@ -1,0 +1,51 @@
+{
+  "id": "tc-clock",
+  "slug": "clock",
+  "title": "Set the clock",
+  "unit": "questions",
+  "group": "quiz",
+  "order": 60,
+  "summary": "Clock faces: drag the minute hand to a time, or read one.",
+  "focus": "clock questions",
+  "content": "## Setting a clock\n\nThe minute hand points at the minutes; the hour hand moves on as the hour goes by. At a quarter to four it is nearly on the 4.\n\n## Reading a clock\n\nRead the hour hand first, then the minute hand: each number on the face is 5 minutes for it.",
+  "quiz": [
+    {
+      "question_id": "tc-clock-01",
+      "prompt": "Show a quarter to four.",
+      "type": "clock",
+      "correct_answer": "3:45",
+      "explanation": "A quarter to four is 3:45: the minute hand on the 9, the hour hand nearly on the 4.",
+      "hints": [
+        "A quarter of an hour is 15 minutes."
+      ]
+    },
+    {
+      "question_id": "tc-clock-02",
+      "prompt": "Son las seis y media.",
+      "type": "clock",
+      "step_minutes": 15,
+      "correct_answer": "6:30",
+      "explanation": "Las seis y media is 6:30: the minute hand on the 6, the hour hand halfway between 6 and 7."
+    },
+    {
+      "question_id": "tc-clock-03",
+      "prompt": "Show twelve o'clock.",
+      "type": "clock",
+      "correct_answer": "12:00",
+      "explanation": "At twelve o'clock both hands point straight up."
+    },
+    {
+      "question_id": "tc-clock-04",
+      "prompt": "What time does the clock show?",
+      "type": "clock",
+      "options": [
+        "9:15",
+        "3:45",
+        "2:45",
+        "4:45"
+      ],
+      "correct_answer": "9:15",
+      "explanation": "The hour hand is just past the 9 and the minute hand is on the 3: 9:15."
+    }
+  ]
+}

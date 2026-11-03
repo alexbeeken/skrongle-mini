@@ -1,0 +1,663 @@
+{
+  "id": "a2-travel-and-directions",
+  "slug": "travel-and-directions",
+  "title": "Travel and directions: ¿cómo llego a…?",
+  "unit": "A2",
+  "group": "Vocabulary",
+  "order": 38,
+  "summary": "Buy a ticket, check into a hotel, ask the way and give directions with the imperative.",
+  "focus": "Travel vocabulary and asking for and giving directions",
+  "prerequisites": [
+    "a2-imperative"
+  ],
+  "content": "## At the station and the airport\n\nAt the ticket office (**la taquilla**) or the machine:\n\n- *Un billete para Valencia, por favor.* (A ticket to Valencia, please.)\n- *¿De ida o de ida y vuelta?* (Single or return?)\n- *¿Para qué hora?* (For what time?)\n- *¿De qué andén sale?* (Which platform does it leave from?)\n\n**El billete de ida** is a single, **de ida y vuelta** a return. The train leaves from **el andén** (platform); the board shows **el destino** (destination) and **el retraso** (delay), if there is one.\n\nAt **el aeropuerto** you **facturas la maleta** (check in your suitcase), get **la tarjeta de embarque** (boarding pass) and wait at **la puerta de embarque** (gate) for **el vuelo** (flight).\n\n## At the hotel\n\nAt reception (**la recepción**) you will say or hear:\n\n- *Tengo una reserva a nombre de García.* (I have a booking in the name of García.)\n- *Quería una habitación doble con baño para dos noches.* (I'd like a double room with a bathroom for two nights.)\n- *¿Una habitación individual o doble?* (A single or a double room?)\n- *¿El desayuno está incluido?* (Is breakfast included?)\n- *¿A qué hora hay que dejar la habitación?* (What time is check-out?)\n\nNote **a nombre de** (in the name of) and **para dos noches** (for two nights): **para** marks the stay you are paying for.\n\n## Asking the way\n\nStop someone politely with **perdone** (usted) or **perdona** (tú), then ask:\n\n- *¿Cómo llego a la estación?* (How do I get to the station?)\n- *¿Dónde está el museo?* (Where is the museum?)\n- *¿Hay una farmacia por aquí?* (Is there a chemist's around here?)\n- *¿Está lejos?* (Is it far?)\n\nDistance is **está a** + time or metres: *Está a cinco minutos a pie.* *Está a doscientos metros.* *Está a dos calles de aquí.*\n\nTo place things, use these phrases, all followed by **de**:\n\n| phrase | meaning |\n|---|---|\n| **al lado de** | next to |\n| **enfrente de** | opposite |\n| **al final de** | at the end of |\n| **en la esquina de** | on the corner of |\n| **a la derecha / a la izquierda de** | to the right / left of |\n\n## Giving directions with the imperative\n\nDirections are commands, so they use the imperative. Use the **tú** form with a friend and the **usted** form with a stranger:\n\n| tú | usted | meaning |\n|---|---|---|\n| **sigue** todo recto | **siga** todo recto | go straight on |\n| **gira** a la derecha | **gire** a la derecha | turn right |\n| **cruza** la plaza | **cruce** la plaza | cross the square |\n| **toma** la primera calle | **tome** la primera calle | take the first street |\n| **sube** / **baja** la calle | **suba** / **baje** la calle | go up / down the street |\n\nNote the spelling of **cruce**: **z** becomes **c** before **e**. String the steps together with **primero**, **luego** and **al final**: *Primero sigue todo recto, luego gira a la izquierda y al final cruza la plaza: el hotel está enfrente.*",
+  "vocabulary": [
+    {
+      "term": "el billete",
+      "meaning": "ticket",
+      "example": "Un billete para Sevilla, por favor.",
+      "example_meaning": "A ticket to Seville, please."
+    },
+    {
+      "term": "de ida y vuelta",
+      "meaning": "return (ticket); 'de ida' = single",
+      "example": "¿De ida o de ida y vuelta?",
+      "example_meaning": "Single or return?"
+    },
+    {
+      "term": "el andén",
+      "meaning": "platform",
+      "example": "El tren sale del andén cuatro.",
+      "example_meaning": "The train leaves from platform four."
+    },
+    {
+      "term": "la estación",
+      "meaning": "station",
+      "example": "¿Dónde está la estación de tren?",
+      "example_meaning": "Where is the train station?"
+    },
+    {
+      "term": "el aeropuerto",
+      "meaning": "airport",
+      "example": "El autobús al aeropuerto sale cada media hora.",
+      "example_meaning": "The bus to the airport leaves every half hour."
+    },
+    {
+      "term": "la reserva",
+      "meaning": "booking, reservation",
+      "example": "Tengo una reserva a nombre de García.",
+      "example_meaning": "I have a booking under the name García."
+    },
+    {
+      "term": "la habitación doble",
+      "meaning": "double room",
+      "example": "Quería una habitación doble con baño.",
+      "example_meaning": "I'd like a double room with a bathroom."
+    },
+    {
+      "term": "seguir todo recto",
+      "meaning": "to go straight on",
+      "example": "Sigue todo recto hasta el semáforo.",
+      "example_meaning": "Go straight on until the traffic lights."
+    },
+    {
+      "term": "girar",
+      "meaning": "to turn",
+      "example": "Gira a la derecha en la segunda calle.",
+      "example_meaning": "Turn right at the second street."
+    },
+    {
+      "term": "cruzar",
+      "meaning": "to cross",
+      "example": "Cruza la plaza y verás el museo.",
+      "example_meaning": "Cross the square and you'll see the museum."
+    },
+    {
+      "term": "a la izquierda",
+      "meaning": "on / to the left ('a la derecha' = on / to the right)",
+      "example": "La farmacia está a la izquierda del banco.",
+      "example_meaning": "The pharmacy is to the left of the bank."
+    },
+    {
+      "term": "enfrente de",
+      "meaning": "opposite",
+      "example": "El hotel está enfrente de la catedral.",
+      "example_meaning": "The hotel is opposite the cathedral."
+    },
+    {
+      "term": "al final de",
+      "meaning": "at the end of",
+      "example": "La estación está al final de la calle.",
+      "example_meaning": "The station is at the end of the street."
+    },
+    {
+      "term": "la esquina",
+      "meaning": "corner",
+      "example": "El café está en la esquina.",
+      "example_meaning": "The cafe is on the corner."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-travel-and-directions-01",
+      "prompt": "Un billete ___ a Valencia, por favor. Vuelvo mañana.",
+      "type": "multiple-choice",
+      "options": [
+        "de ida y vuelta",
+        "de ida",
+        "de vuelta"
+      ],
+      "correct_answer": "de ida y vuelta",
+      "explanation": "You are coming back tomorrow, so you need a return: 'un billete de ida y vuelta'. 'De ida' is a single; 'de vuelta' on its own is not how you ask.",
+      "hints": [
+        "'Vuelvo mañana' = I'm coming back tomorrow.",
+        "Ida = going, vuelta = coming back."
+      ],
+      "teaches": [
+        "el billete",
+        "de ida y vuelta"
+      ]
+    },
+    {
+      "question_id": "a2-travel-and-directions-02",
+      "prompt": "En la estación: El tren a Sevilla sale del ___ cuatro.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "andén",
+      "accepted_answers": [
+        "anden"
+      ],
+      "explanation": "Trains leave from a platform, 'el andén': 'sale del andén cuatro'. Note the accent on the é.",
+      "hints": [
+        "Where you stand to wait for the train.",
+        "It is a masculine noun with an accent on the last syllable."
+      ],
+      "teaches": [
+        "el andén",
+        "la estación"
+      ]
+    },
+    {
+      "question_id": "a2-travel-and-directions-03",
+      "prompt": "At the hotel reception: 'Buenas tardes. Tengo una ___ a nombre de García.'",
+      "type": "multiple-choice",
+      "options": [
+        "reserva",
+        "habitación",
+        "estación"
+      ],
+      "correct_answer": "reserva",
+      "explanation": "You have a booking in your name: 'Tengo una reserva a nombre de García.' You will get the 'habitación' once they find the 'reserva'.",
+      "hints": [
+        "What do you have 'in the name of' someone?",
+        "The word is close to the English 'reservation'."
+      ],
+      "teaches": [
+        "la reserva"
+      ]
+    },
+    {
+      "question_id": "a2-travel-and-directions-04",
+      "prompt": "Quería una ___ doble con baño para dos noches.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "habitación",
+      "accepted_answers": [
+        "habitacion"
+      ],
+      "explanation": "A hotel room is 'una habitación'; 'una habitación doble' is a double room.",
+      "hints": [
+        "A double what?",
+        "Feminine noun ending in -ción."
+      ],
+      "teaches": [
+        "la habitación doble"
+      ]
+    },
+    {
+      "question_id": "a2-travel-and-directions-05",
+      "prompt": "¿Está lejos el aeropuerto? — No, está ___ veinte minutos en autobús.",
+      "type": "multiple-choice",
+      "options": [
+        "a",
+        "en",
+        "de"
+      ],
+      "correct_answer": "a",
+      "explanation": "You express distance in time or metres with 'está a': 'está a veinte minutos'.",
+      "hints": [
+        "Está ___ cinco minutos, está ___ doscientos metros.",
+        "The same little word you use for 'a la derecha'."
+      ],
+      "teaches": [
+        "el aeropuerto"
+      ]
+    },
+    {
+      "question_id": "a2-travel-and-directions-06",
+      "prompt": "Give the tú command of seguir: ___ todo recto hasta el semáforo.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "sigue",
+      "accepted_answers": [],
+      "explanation": "The tú imperative is the él/ella form of the present: seguir gives sigue. 'Sigue todo recto' = go straight on.",
+      "hints": [
+        "Seguir changes e to i in the stem.",
+        "The tú command looks like the él/ella present form."
+      ],
+      "teaches": [
+        "seguir todo recto"
+      ]
+    },
+    {
+      "question_id": "a2-travel-and-directions-07",
+      "prompt": "Directions to a stranger (usted): '___ a la izquierda y ___ la plaza.'",
+      "type": "multiple-choice",
+      "options": [
+        "Gire … cruce",
+        "Gira … cruza",
+        "Gire … cruza"
+      ],
+      "correct_answer": "Gire … cruce",
+      "explanation": "Usted commands use the subjunctive forms: girar gives gire, cruzar gives cruce (z becomes c before e). 'Gira' and 'cruza' are the tú forms.",
+      "hints": [
+        "Usted commands of -ar verbs end in -e.",
+        "Both verbs must be in the same form."
+      ],
+      "teaches": [
+        "girar",
+        "cruzar",
+        "a la izquierda"
+      ]
+    },
+    {
+      "question_id": "a2-travel-and-directions-08",
+      "prompt": "El hotel está ___ de la catedral, justo al otro lado de la calle.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "enfrente",
+      "accepted_answers": [
+        "en frente"
+      ],
+      "explanation": "'Al otro lado de la calle' (on the other side of the street) means it is opposite: 'enfrente de la catedral'.",
+      "hints": [
+        "Opposite = facing it, across the street.",
+        "One word, starting with en-."
+      ],
+      "teaches": [
+        "enfrente de"
+      ]
+    },
+    {
+      "question_id": "a2-travel-and-directions-09",
+      "prompt": "La farmacia está ___ la calle, en la esquina.",
+      "type": "multiple-choice",
+      "options": [
+        "al final de",
+        "al final a",
+        "en el final"
+      ],
+      "correct_answer": "al final de",
+      "explanation": "Location phrases end in 'de': 'al final de la calle' = at the end of the street.",
+      "hints": [
+        "Al lado DE, enfrente DE, al final…",
+        "The place always follows 'de'."
+      ],
+      "teaches": [
+        "al final de",
+        "la esquina"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "¿Está lejos la estación?",
+      "meaning": "Is the station far?"
+    },
+    {
+      "text": "El banco está en la esquina.",
+      "meaning": "The bank is on the corner."
+    },
+    {
+      "text": "¿Cómo llego al aeropuerto desde el hotel?",
+      "meaning": "How do I get to the airport from the hotel?"
+    },
+    {
+      "text": "Dos billetes de ida y vuelta, por favor.",
+      "meaning": "Two return tickets, please."
+    },
+    {
+      "text": "Gire a la izquierda en la primera calle.",
+      "meaning": "Turn left at the first street.",
+      "note": "Gire: usted command, for a stranger."
+    },
+    {
+      "text": "Quería una habitación doble con desayuno para tres noches.",
+      "meaning": "I'd like a double room with breakfast for three nights."
+    },
+    {
+      "text": "Cruza el puente y sigue todo recto hasta la estación.",
+      "meaning": "Cross the bridge and go straight on to the station.",
+      "note": "New word: el puente = the bridge."
+    },
+    {
+      "text": "La panadería está al final de la calle, a la derecha.",
+      "meaning": "The bakery is at the end of the street, on the right.",
+      "note": "New word: la panadería = the bakery."
+    }
+  ],
+  "guide": [
+    {
+      "section": "At the station and the airport"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-travel-and-directions-01"
+    },
+    {
+      "question": "a2-travel-and-directions-02"
+    },
+    {
+      "question": "a2-travel-and-directions-05"
+    },
+    {
+      "section": "At the hotel"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a2-travel-and-directions-03"
+    },
+    {
+      "question": "a2-travel-and-directions-04"
+    },
+    {
+      "section": "Asking the way"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a2-travel-and-directions-08"
+    },
+    {
+      "question": "a2-travel-and-directions-09"
+    },
+    {
+      "section": "Giving directions"
+    },
+    {
+      "tip": "Not sure whether to say sigue or siga? With anyone you would call señor or señora, use the usted form: siga, gire, cruce."
+    },
+    {
+      "question": "a2-travel-and-directions-06"
+    },
+    {
+      "question": "a2-travel-and-directions-07"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-travel-and-directions-conv-lost",
+      "title": "Lost with a suitcase",
+      "scenario": "Tom has just left his hotel with his suitcase and cannot find the train station. He stops Carmen in the street.",
+      "role_a": "Tom",
+      "role_b": "Carmen",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Perdone, ¿cómo llego a la estación de tren? Creo que me he perdido.",
+          "meaning": "Excuse me, how do I get to the train station? I think I'm lost.",
+          "note": "perdone: usted to a stranger"
+        },
+        {
+          "speaker": "b",
+          "text": "No se preocupe, no está lejos. ¿Va a pie?",
+          "meaning": "Don't worry, it isn't far. Are you walking?"
+        },
+        {
+          "speaker": "a",
+          "text": "Sí, con la maleta, pero bueno.",
+          "meaning": "Yes, with the suitcase, but oh well."
+        },
+        {
+          "speaker": "b",
+          "text": "Vale. Siga todo recto por esta calle hasta el semáforo y gire a la derecha.",
+          "meaning": "OK. Go straight on along this street to the traffic lights and turn right.",
+          "note": "usted commands: siga, gire"
+        },
+        {
+          "speaker": "a",
+          "text": "Todo recto y a la derecha en el semáforo.",
+          "meaning": "Straight on and right at the traffic lights."
+        },
+        {
+          "speaker": "b",
+          "text": "Eso es. Luego cruce la plaza y la estación está al final de la calle, enfrente de un hotel grande.",
+          "meaning": "That's it. Then cross the square and the station is at the end of the street, opposite a big hotel.",
+          "note": "cruce: z becomes c · al final de · enfrente de"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Está muy lejos?",
+          "meaning": "Is it very far?"
+        },
+        {
+          "speaker": "b",
+          "text": "No, está a unos diez minutos. ¿A qué hora sale su tren?",
+          "meaning": "No, it's about ten minutes away. What time does your train leave?",
+          "note": "está a + time"
+        },
+        {
+          "speaker": "a",
+          "text": "A las once y media, y todavía tengo que comprar el billete.",
+          "meaning": "At half past eleven, and I still have to buy the ticket."
+        },
+        {
+          "speaker": "b",
+          "text": "Entonces tiene tiempo. ¡Buen viaje!",
+          "meaning": "Then you have time. Have a good trip!"
+        },
+        {
+          "speaker": "a",
+          "text": "Muchísimas gracias, muy amable.",
+          "meaning": "Thank you so much, very kind of you."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🧳",
+    "bites": [
+      {
+        "title": "Ticket talk",
+        "emoji": "🎫",
+        "rule": "Un billete de ida = a single; de ida y vuelta = a return. The train leaves from the andén, the plane from the puerta de embarque.",
+        "example": "Un billete de ida y vuelta a Sevilla, por favor.",
+        "example_meaning": "A return ticket to Seville, please."
+      },
+      {
+        "title": "Asking the way",
+        "emoji": "🗺️",
+        "rule": "Perdone, ¿cómo llego a…? or ¿dónde está…? Distance is está a + time or metres: está a cinco minutos, está a doscientos metros.",
+        "example": "¿Cómo llego a la estación? — Está a diez minutos a pie.",
+        "example_meaning": "How do I get to the station? — It's ten minutes on foot."
+      },
+      {
+        "title": "Directions are commands",
+        "emoji": "👉",
+        "rule": "Use the imperative: sigue / siga todo recto, gira / gire a la derecha, cruza / cruce la plaza. Tú forms for a friend, usted forms for a stranger.",
+        "example": "Siga todo recto y gire a la izquierda.",
+        "example_meaning": "Go straight on and turn left."
+      },
+      {
+        "title": "Where exactly?",
+        "emoji": "📍",
+        "rule": "al lado de = next to, enfrente de = opposite, al final de = at the end of, en la esquina = on the corner. The place always follows de.",
+        "example": "El hotel está enfrente de la catedral.",
+        "example_meaning": "The hotel is opposite the cathedral."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Tú or usted?",
+        "buckets": [
+          "tú (a friend)",
+          "usted (a stranger)"
+        ],
+        "items": [
+          {
+            "text": "sigue",
+            "bucket": 0
+          },
+          {
+            "text": "siga",
+            "bucket": 1
+          },
+          {
+            "text": "gira",
+            "bucket": 0
+          },
+          {
+            "text": "gire",
+            "bucket": 1
+          },
+          {
+            "text": "cruce",
+            "bucket": 1
+          },
+          {
+            "text": "cruza",
+            "bucket": 0
+          },
+          {
+            "text": "tome",
+            "bucket": 1
+          },
+          {
+            "text": "toma",
+            "bucket": 0
+          }
+        ],
+        "why": "Tú commands of -ar verbs end in -a (gira, cruza, toma); usted commands end in -e (gire, cruce, tome). Sigue is tú, siga is usted."
+      },
+      {
+        "title": "Station, airport or hotel?",
+        "buckets": [
+          "la estación",
+          "el aeropuerto",
+          "el hotel"
+        ],
+        "items": [
+          {
+            "text": "el andén",
+            "bucket": 0
+          },
+          {
+            "text": "la puerta de embarque",
+            "bucket": 1
+          },
+          {
+            "text": "la habitación doble",
+            "bucket": 2
+          },
+          {
+            "text": "facturar la maleta",
+            "bucket": 1
+          },
+          {
+            "text": "el billete de tren",
+            "bucket": 0
+          },
+          {
+            "text": "el desayuno incluido",
+            "bucket": 2
+          },
+          {
+            "text": "el vuelo",
+            "bucket": 1
+          },
+          {
+            "text": "una reserva a nombre de…",
+            "bucket": 2
+          }
+        ],
+        "why": "Platforms and train tickets belong to the station; gates, flights and check-in to the airport; rooms, breakfast and bookings to the hotel."
+      },
+      {
+        "title": "Which little word?",
+        "buckets": [
+          "a",
+          "de",
+          "en"
+        ],
+        "items": [
+          {
+            "text": "Está ___ cinco minutos.",
+            "bucket": 0
+          },
+          {
+            "text": "enfrente ___ la catedral",
+            "bucket": 1
+          },
+          {
+            "text": "___ la esquina",
+            "bucket": 2
+          },
+          {
+            "text": "Gire ___ la derecha.",
+            "bucket": 0
+          },
+          {
+            "text": "al final ___ la calle",
+            "bucket": 1
+          },
+          {
+            "text": "una reserva ___ nombre de Ruiz",
+            "bucket": 0
+          }
+        ],
+        "why": "Distance and direction take a (está a, a la derecha, a nombre de); location phrases take de (enfrente de, al final de); 'on the corner' is en la esquina."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Un billete de ida y vuelva, por favor.",
+        "wrong": "vuelva",
+        "fix": "vuelta",
+        "why": "A return ticket is 'de ida y vuelta'; vuelva is a command form of volver."
+      },
+      {
+        "sentence": "Señor, siga todo recto y gira a la derecha.",
+        "wrong": "gira",
+        "fix": "gire",
+        "why": "Señor is addressed as usted, so both commands take the usted form: siga, gire."
+      },
+      {
+        "sentence": "La estación está en cinco minutos a pie.",
+        "wrong": "en",
+        "fix": "a",
+        "why": "Distance is 'está a' + time: está a cinco minutos."
+      },
+      {
+        "sentence": "El hotel está enfrente a la catedral.",
+        "wrong": "a",
+        "fix": "de",
+        "why": "Location phrases end in de: enfrente de la catedral."
+      },
+      {
+        "sentence": "Perdona, señor, ¿cómo llego al museo?",
+        "wrong": "Perdona",
+        "fix": "Perdone",
+        "why": "You call him señor, so you are using usted: perdone."
+      },
+      {
+        "sentence": "Tengo una reserva en nombre de García.",
+        "wrong": "en",
+        "fix": "a",
+        "why": "'In the name of' is 'a nombre de'."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Un billete de ida y vuelta, por favor.",
+        "meaning": "A return ticket, please.",
+        "distractors": [
+          "vuelva"
+        ]
+      },
+      {
+        "text": "Siga todo recto y gire a la derecha.",
+        "meaning": "Go straight on and turn right.",
+        "distractors": [
+          "gira",
+          "cruce"
+        ]
+      },
+      {
+        "text": "¿Cómo llego a la estación?",
+        "meaning": "How do I get to the station?",
+        "distractors": [
+          "en"
+        ]
+      },
+      {
+        "text": "El hotel está enfrente de la catedral.",
+        "meaning": "The hotel is opposite the cathedral.",
+        "distractors": [
+          "a"
+        ]
+      },
+      {
+        "text": "Está a cinco minutos a pie.",
+        "meaning": "It's five minutes on foot.",
+        "distractors": [
+          "en"
+        ]
+      }
+    ]
+  }
+}

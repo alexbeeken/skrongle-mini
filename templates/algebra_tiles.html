@@ -1,0 +1,7 @@
+<div class="atiles" data-testid="tiles" data-var="{{ tiles.var }}" data-squares="{{ tiles.squares }}" data-strips="{{ tiles.strips }}" data-units="{{ tiles.units }}">
+  <div class="atiles-board" data-testid="tiles-board" role="group" aria-label="{{ crate::t("quiz.tiles.board") }}"><span class="sr-only atiles-keys">{{ crate::t("quiz.tiles.keys") }}</span></div>
+  <p class="atiles-tools">
+    <button type="button" class="btn small ghost" data-turn data-testid="tiles-turn" disabled>{{ crate::t("quiz.tiles.turn") }}</button>
+    <button type="button" class="btn small ghost" data-reset data-testid="tiles-reset">{{ crate::t("quiz.tiles.reset") }}</button>
+  </p>
+</div>

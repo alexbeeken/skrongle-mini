@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t("guide.title") }}{% endblock %}
+{% block modenav %}{% let active = "stages" %}{% include "nav_play.html" %}{% endblock %}
+{% block head %}<link rel="stylesheet" href="{{ crate::routes::asset_url("guide.css") }}">{% endblock %}
+{% block content %}
+<section class="hero">
+  <div>
+    <h1>{{ crate::t("guide.heading") }} <span class="muted">· {{ course.title }}</span></h1>
+    <p class="lead">{{ crate::t("guide.lead") }}</p>
+  </div>
+  {% if let Some(slug) = current_slug %}
+    <a class="btn big" href="{{ crate::base_path() }}/guide/{{ slug }}" data-testid="guide-continue">{% if let Some(t) = current_title %}{{ crate::t1("guide.continue", "title", t) }}{% else %}{{ crate::t1("guide.continue", "title", "") }}{% endif %}</a>
+  {% endif %}
+</section>
+
+<section class="stats">
+  <div class="stat"><span class="num">{{ completed }} / {{ total }}</span><span class="lbl">{{ crate::t("guide.stats.complete") }}</span></div>
+  <div class="stat"><span class="num" data-testid="guide-three-star">{{ three_star }} / {{ total }} <span class="muted">★</span></span><span class="lbl">{{ crate::t("guide.stats.three_star") }}</span></div>
+</section>
+
+<div data-testid="guide-stages">
+{% for sec in sections %}
+<section class="guide-unit" data-testid="guide-unit">
+  <h2 class="guide-unit-title">{{ sec.title }}</h2>
+  {% if !sec.cards.is_empty() %}
+  <ol class="path">
+  {% for s in sec.cards %}
+    <li{% if s.is_current %} id="current-stage"{% endif %} class="stage {{ s.state }}{% if s.is_current %} current{% endif %}" data-testid="guide-stage" data-lesson-id="{{ s.slug }}" data-state="{{ s.state }}" data-passed="{% if s.state == "complete" %}true{% else %}false{% endif %}" data-stars="{{ s.stars }}" data-current="{{ s.is_current }}">
+      <div class="node"><span>{{ s.number }}</span></div>
+      <div class="stage-body">
+        <div class="stage-head">
+          <strong><a href="{{ crate::base_path() }}/guide/{{ s.slug }}">{{ s.title }}</a></strong>
+          <span class="stars" aria-label="{{ crate::t1("guide.stars_label", "n", s.stars) }}">{% if s.stars >= 1 %}★{% else %}☆{% endif %}{% if s.stars >= 2 %}★{% else %}☆{% endif %}{% if s.stars >= 3 %}★{% else %}☆{% endif %}</span>
+        </div>
+        <p class="small muted">
+          <span class="pill untested">{{ s.unit }}</span> {{ s.group }} · {{ crate::t2("guide.stage.steps_checks", "steps", s.steps, "checks", s.questions) }}
+          {% if !s.summary.is_empty() %}<br>{{ s.summary }}{% endif %}
+          {% if !s.pass.is_empty() %}<br><span class="pass-line">{{ s.pass }}</span>{% endif %}
+        </p>
+        {% if s.state == "progress" %}
+          <div class="bar slim"><div class="fill" style="width:{{ s.percent }}%"></div></div>
+          <a class="btn small" href="{{ crate::base_path() }}/guide/{{ s.slug }}" data-testid="guide-stage-play">{% if s.step > 0 && s.step < s.steps as i64 %}{{ crate::t2("guide.stage.continue_step", "step", s.step + 1, "steps", s.steps) }}{% else if s.tried %}{{ crate::t("guide.stage.try_again") }}{% else %}{{ crate::t("guide.stage.start") }}{% endif %}</a>
+        {% else if s.state == "skipped" %}
+          <span class="muted small" data-testid="guide-stage-skipped">{{ crate::t("guide.stage.skipped") }}</span>
+          <a class="btn small ghost" href="{{ crate::base_path() }}/guide/{{ s.slug }}" data-testid="guide-stage-play">{{ crate::t("guide.stage.play_anyway") }}</a>
+        {% else if s.state == "complete" %}
+          <a class="btn small ghost" href="{{ crate::base_path() }}/guide/{{ s.slug }}" data-testid="guide-stage-play">{{ crate::t("guide.stage.play_again") }}</a>
+        {% else %}
+          <a class="btn small" href="{{ crate::base_path() }}/guide/{{ s.slug }}" data-testid="guide-stage-play">{{ crate::t("guide.stage.start") }}</a>
+        {% endif %}
+      </div>
+    </li>
+  {% endfor %}
+  </ol>
+  {% endif %}
+  {% if !sec.locked.is_empty() %}
+  <details class="locked-stages" data-testid="guide-locked">
+    <summary class="locked-head small muted"><span class="lock-glyph" aria-hidden="true" data-testid="guide-lock"></span>{{ crate::tn("guide.locked_count", sec.locked.len() as i64) }}</summary>
+    <p class="small muted">{{ crate::t("guide.stage.locked") }}</p>
+    <ol class="locked-rows">
+    {% for s in sec.locked %}
+      <li class="locked-row" data-testid="guide-stage" data-lesson-id="{{ s.slug }}" data-state="locked" data-passed="false" data-stars="{{ s.stars }}" data-current="false">
+        <span class="locked-num">{{ s.number }}</span>
+        <span class="locked-title">{{ s.title }}</span>
+        <span class="locked-preview small">{{ s.group }}</span>
+      </li>
+    {% endfor %}
+    </ol>
+  </details>
+  {% endif %}
+</section>
+{% endfor %}
+</div>
+{% endblock %}

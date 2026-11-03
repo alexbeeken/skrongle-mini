@@ -1,0 +1,586 @@
+{
+  "id": "b1-verb-prepositions",
+  "slug": "verb-prepositions",
+  "title": "Verbs with à and de: commencer à, arrêter de",
+  "unit": "B1",
+  "group": "Grammar",
+  "order": 24,
+  "summary": "Link a verb to an infinitive the French way: commencer à, arrêter de, or no little word at all after vouloir, pouvoir and aimer.",
+  "focus": "Choosing à, de or nothing between a verb and the infinitive that follows it",
+  "prerequisites": [
+    "a2-obligation-advice"
+  ],
+  "content": "## Verbs + à + infinitive\n\nWhen one verb is followed by another, the second one stays in the **infinitive**. Many verbs join it with **à**:\n\n- **commencer à**: **Il commence à pleuvoir.** — It's starting to rain.\n- **apprendre à**: **J'apprends à conduire.** — I'm learning to drive.\n- **réussir à**: **Elle a réussi à ouvrir la boîte.** — She managed to open the box.\n- **continuer à**: **Nous continuons à chercher.** — We keep looking. (**continuer de** is also correct)\n- **hésiter à**: **N'hésitez pas à m'appeler.** — Don't hesitate to call me.\n- **s'habituer à**: **Je m'habitue à me lever tôt.** — I'm getting used to getting up early.\n\nWith **aider**, the person helped comes first, then **à**: **J'aide mon voisin à porter ses cartons.** — I'm helping my neighbour carry his boxes.\n\n## Verbs + de + infinitive\n\nAn even bigger family takes **de** (**d'** before a vowel):\n\n- **arrêter de**: **Il a arrêté de fumer.** — He stopped smoking.\n- **essayer de**: **J'essaie de comprendre.** — I'm trying to understand.\n- **décider de**, **oublier de**, **finir de**, **refuser de**: **Elle a refusé de répondre.** — She refused to answer.\n- **avoir envie de**, **rêver de**: **Je rêve d'aller au Japon.** — I dream of going to Japan.\n\n| essayer | |\n|---|---|\n| j'essaie | nous essayons |\n| tu essaies | vous essayez |\n| il / elle essaie | ils / elles essaient |\n\n**J'essaye, tu essayes…** are just as correct; nous and vous always keep the **y**. The drill uses the **-aie** forms.\n\n## No preposition, and verbs that change\n\n**Vouloir, pouvoir, devoir, aimer, préférer, aller** and **espérer** take the infinitive directly: **Je veux partir. J'espère venir.**\n\nSome verbs change meaning with the little word:\n\n- **penser à** = to think about: **Je pense à toi.** — **penser de** asks for an opinion: **Qu'est-ce que tu penses de ce film ?**\n- **parler à** = to talk to someone; **parler de** = to talk about something: **Je parle à Léa de mon voyage.**\n- **jouer à** a game or sport, **jouer de** an instrument (recap): **jouer au tennis, jouer du violon**.\n\nLearn every verb with its little word, as one block.",
+  "vocabulary": [
+    {
+      "term": "commencer à",
+      "meaning": "to start to, to begin to",
+      "example": "Les enfants commencent à avoir faim.",
+      "example_meaning": "The children are starting to get hungry."
+    },
+    {
+      "term": "apprendre à",
+      "meaning": "to learn to",
+      "example": "Mon grand-père apprend à utiliser son téléphone.",
+      "example_meaning": "My grandfather is learning to use his phone."
+    },
+    {
+      "term": "réussir à",
+      "meaning": "to manage to, to succeed in",
+      "example": "Tu as réussi à dormir dans le train ?",
+      "example_meaning": "Did you manage to sleep on the train?"
+    },
+    {
+      "term": "aider quelqu'un à",
+      "meaning": "to help someone to",
+      "example": "Je vais aider ma sœur à réviser ses examens.",
+      "example_meaning": "I'm going to help my sister revise for her exams."
+    },
+    {
+      "term": "s'habituer à",
+      "meaning": "to get used to",
+      "example": "Elle s'habitue à travailler de chez elle.",
+      "example_meaning": "She's getting used to working from home."
+    },
+    {
+      "term": "hésiter à",
+      "meaning": "to hesitate to",
+      "example": "J'hésite à lui dire la vérité.",
+      "example_meaning": "I'm hesitant to tell him the truth."
+    },
+    {
+      "term": "arrêter de",
+      "meaning": "to stop (doing)",
+      "example": "Arrête de regarder ton téléphone pendant le repas !",
+      "example_meaning": "Stop looking at your phone during the meal!"
+    },
+    {
+      "term": "essayer de",
+      "meaning": "to try to",
+      "example": "Nous essayons de manger moins de sucre.",
+      "example_meaning": "We're trying to eat less sugar."
+    },
+    {
+      "term": "décider de",
+      "meaning": "to decide to",
+      "example": "Ils ont décidé de déménager à Lyon.",
+      "example_meaning": "They decided to move to Lyon."
+    },
+    {
+      "term": "oublier de",
+      "meaning": "to forget to",
+      "example": "J'ai oublié d'acheter du pain.",
+      "example_meaning": "I forgot to buy bread."
+    },
+    {
+      "term": "refuser de",
+      "meaning": "to refuse to",
+      "example": "Le chat refuse de sortir quand il pleut.",
+      "example_meaning": "The cat refuses to go out when it rains."
+    },
+    {
+      "term": "avoir envie de",
+      "meaning": "to feel like, to want to",
+      "example": "Tu as envie de voir un film ce soir ?",
+      "example_meaning": "Do you feel like seeing a film tonight?"
+    },
+    {
+      "term": "rêver de",
+      "meaning": "to dream of",
+      "example": "Elle rêve d'ouvrir un petit restaurant.",
+      "example_meaning": "She dreams of opening a little restaurant."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-verb-prepositions-01",
+      "prompt": "Mon oncle a arrêté ___ fumer il y a deux ans.",
+      "type": "multiple-choice",
+      "options": [
+        "de",
+        "à",
+        "pour"
+      ],
+      "correct_answer": "de",
+      "explanation": "Arrêter takes de before an infinitive: 'il a arrêté de fumer'.",
+      "hints": [
+        "Stop doing something: arrêter …"
+      ],
+      "teaches": [
+        "arrêter de"
+      ]
+    },
+    {
+      "question_id": "b1-verb-prepositions-02",
+      "prompt": "À trente ans, Sarah apprend ___ nager.",
+      "type": "multiple-choice",
+      "options": [
+        "à",
+        "de",
+        "pour"
+      ],
+      "correct_answer": "à",
+      "explanation": "Apprendre takes à before an infinitive: 'elle apprend à nager'.",
+      "hints": [
+        "Learning to do something goes with the same little word as commencer."
+      ],
+      "teaches": [
+        "apprendre à"
+      ]
+    },
+    {
+      "question_id": "b1-verb-prepositions-03",
+      "prompt": "Nous avons décidé ___ vendre notre vieille voiture.",
+      "type": "fill-in-blank",
+      "correct_answer": "de",
+      "accepted_answers": [],
+      "explanation": "Décider takes de: 'nous avons décidé de vendre'.",
+      "hints": [
+        "Décider belongs to the bigger family.",
+        "Two letters."
+      ],
+      "teaches": [
+        "décider de"
+      ]
+    },
+    {
+      "question_id": "b1-verb-prepositions-04",
+      "prompt": "Tu as enfin réussi ___ ouvrir ce pot de confiture ?",
+      "type": "fill-in-blank",
+      "correct_answer": "à",
+      "accepted_answers": [],
+      "explanation": "Réussir takes à before an infinitive: 'réussir à ouvrir'.",
+      "hints": [
+        "Managing to do something: réussir …",
+        "One letter, with an accent."
+      ],
+      "teaches": [
+        "réussir à"
+      ]
+    },
+    {
+      "question_id": "b1-verb-prepositions-05",
+      "prompt": "Which verb fits with no preposition? « J'___ venir à ta fête samedi. »",
+      "type": "multiple-choice",
+      "options": [
+        "espère",
+        "hésite",
+        "essaie"
+      ],
+      "correct_answer": "espère",
+      "explanation": "Espérer takes the infinitive directly: 'j'espère venir'. Hésiter needs à (j'hésite à venir) and essayer needs de (j'essaie de venir).",
+      "hints": [
+        "Which of the three never takes à or de?"
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b1-verb-prepositions-06",
+      "prompt": "In « Qu'est-ce que tu penses de mon idée ? », penser de asks for an opinion.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Yes: penser de = to think of, an opinion. Penser à = to think about, to have in mind: 'je pense à toi'.",
+      "hints": [
+        "Is the speaker asking what you have in mind, or what you think of it?"
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b1-verb-prepositions-07",
+      "prompt": "N'oublie pas ___ fermer la porte à clé en partant !",
+      "type": "fill-in-blank",
+      "correct_answer": "de",
+      "accepted_answers": [],
+      "explanation": "Oublier takes de before an infinitive: 'n'oublie pas de fermer'.",
+      "hints": [
+        "Oublier goes with the same little word as arrêter."
+      ],
+      "teaches": [
+        "oublier de"
+      ]
+    },
+    {
+      "question_id": "b1-verb-prepositions-08",
+      "prompt": "Le soir, je pense souvent ___ mes grands-parents.",
+      "type": "multiple-choice",
+      "options": [
+        "à",
+        "de",
+        "sur"
+      ],
+      "correct_answer": "à",
+      "explanation": "To think about someone is penser à: 'je pense à mes grands-parents'.",
+      "hints": [
+        "Having someone in mind, not giving an opinion of them."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b1-verb-prepositions-09",
+      "prompt": "Nous ___ (essayer) de comprendre les règles du jeu.",
+      "type": "fill-in-blank",
+      "correct_answer": "essayons",
+      "accepted_answers": [
+        "nous essayons"
+      ],
+      "explanation": "Essayer in the nous form keeps the y: 'nous essayons'.",
+      "hints": [
+        "nous form, -ons ending",
+        "Only je, tu, il and ils can swap the y for an i."
+      ],
+      "teaches": [
+        "essayer de"
+      ]
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "essayer",
+      "meaning": "to try",
+      "set": "present",
+      "art": [
+        "   _______     ",
+        "  | try 1 | X  ",
+        "  | try 2 | X  ",
+        "  | try 3 | OK ",
+        "  '-------'    "
+      ],
+      "forms": {
+        "je": "essaie",
+        "tu": "essaies",
+        "il": "essaie",
+        "nous": "essayons",
+        "vous": "essayez",
+        "ils": "essaient"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-verb-prepositions-conv-new-year",
+      "title": "New year, new habits",
+      "scenario": "Inès and Hugo, two old friends, compare their resolutions over a coffee in January.",
+      "role_a": "Inès",
+      "role_b": "Hugo",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Alors, tu as pris de bonnes résolutions cette année ?",
+          "meaning": "So, have you made any good resolutions this year?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui ! J'ai décidé d'apprendre à cuisiner.",
+          "meaning": "Yes! I've decided to learn to cook.",
+          "note": "décider de + apprendre à"
+        },
+        {
+          "speaker": "a",
+          "text": "Bonne idée. Tu as déjà commencé à prendre des cours ?",
+          "meaning": "Good idea. Have you already started taking classes?"
+        },
+        {
+          "speaker": "b",
+          "text": "Pas encore. J'hésite à m'inscrire, c'est un peu cher.",
+          "meaning": "Not yet. I'm hesitating to sign up, it's a bit expensive."
+        },
+        {
+          "speaker": "a",
+          "text": "Moi, j'essaie d'arrêter de regarder mon téléphone au lit.",
+          "meaning": "Me, I'm trying to stop looking at my phone in bed.",
+          "note": "essayer de + arrêter de"
+        },
+        {
+          "speaker": "b",
+          "text": "Et tu réussis à t'endormir sans lui ?",
+          "meaning": "And do you manage to fall asleep without it?"
+        },
+        {
+          "speaker": "a",
+          "text": "Pas toujours. Je dois m'habituer à lire un livre à la place.",
+          "meaning": "Not always. I have to get used to reading a book instead.",
+          "note": "devoir: no preposition"
+        },
+        {
+          "speaker": "b",
+          "text": "Tu veux venir dîner chez moi samedi ? Je vais essayer une recette.",
+          "meaning": "Do you want to come to dinner at my place on Saturday? I'm going to try a recipe."
+        },
+        {
+          "speaker": "a",
+          "text": "Avec plaisir ! Mais n'oublie pas d'acheter un dessert, au cas où.",
+          "meaning": "With pleasure! But don't forget to buy a dessert, just in case."
+        },
+        {
+          "speaker": "b",
+          "text": "Très drôle. Je rêve de te faire changer d'avis !",
+          "meaning": "Very funny. I dream of making you change your mind!"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Il commence à faire froid.",
+      "meaning": "It's starting to get cold."
+    },
+    {
+      "text": "J'essaie de dormir huit heures par nuit.",
+      "meaning": "I try to sleep eight hours a night.",
+      "note": "essayer de + infinitive"
+    },
+    {
+      "text": "Nous voulons partir avant le week-end.",
+      "meaning": "We want to leave before the weekend.",
+      "note": "vouloir: no preposition"
+    },
+    {
+      "text": "Elle a oublié de répondre à mon message.",
+      "meaning": "She forgot to answer my message."
+    },
+    {
+      "text": "Mon fils apprend à jouer de la guitare.",
+      "meaning": "My son is learning to play the guitar."
+    },
+    {
+      "text": "Ils ont refusé de payer le supplément à l'hôtel.",
+      "meaning": "They refused to pay the extra charge at the hotel.",
+      "note": "New word: le supplément = the extra charge."
+    },
+    {
+      "text": "Je n'arrive pas à m'habituer au bruit de la rue.",
+      "meaning": "I can't get used to the street noise.",
+      "note": "New word: arriver à = to manage to."
+    },
+    {
+      "text": "Tu as envie de venir avec nous au marché demain matin ?",
+      "meaning": "Do you feel like coming with us to the market tomorrow morning?"
+    }
+  ],
+  "guide": [
+    {
+      "section": "Verbs + à"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-verb-prepositions-02"
+    },
+    {
+      "question": "b1-verb-prepositions-04"
+    },
+    {
+      "tip": "Learn each verb with its little word, as one block: say commencer à and arrêter de out loud, never commencer or arrêter alone."
+    },
+    {
+      "section": "Verbs + de"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b1-verb-prepositions-01"
+    },
+    {
+      "question": "b1-verb-prepositions-03"
+    },
+    {
+      "question": "b1-verb-prepositions-09"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b1-verb-prepositions-07"
+    },
+    {
+      "section": "No preposition"
+    },
+    {
+      "question": "b1-verb-prepositions-05"
+    },
+    {
+      "question": "b1-verb-prepositions-08"
+    },
+    {
+      "question": "b1-verb-prepositions-06"
+    },
+    {
+      "concept": {
+        "title": "Asking someone to do something",
+        "markdown": "Verbs of asking and telling take **à** before the person and **de** before the action: **demander à Paul de venir** (to ask Paul to come), **dire aux enfants de se taire** (to tell the children to be quiet), **permettre à quelqu'un de partir** (to allow someone to leave)."
+      }
+    }
+  ],
+  "sprint": {
+    "icon": "🪜",
+    "bites": [
+      {
+        "title": "à + infinitive",
+        "emoji": "🅰️",
+        "rule": "Commencer, apprendre, réussir, continuer, hésiter, s'habituer and aider quelqu'un take à before the infinitive.",
+        "example": "J'apprends à conduire.",
+        "example_meaning": "I'm learning to drive."
+      },
+      {
+        "title": "de + infinitive",
+        "emoji": "🔗",
+        "rule": "Arrêter, essayer, décider, oublier, finir, refuser, avoir envie and rêver take de (d' before a vowel).",
+        "example": "Il a arrêté de fumer.",
+        "example_meaning": "He stopped smoking."
+      },
+      {
+        "title": "Nothing at all",
+        "emoji": "➡️",
+        "rule": "Vouloir, pouvoir, devoir, aimer, préférer, aller and espérer take the infinitive directly.",
+        "example": "J'espère venir.",
+        "example_meaning": "I hope to come."
+      },
+      {
+        "title": "Penser à, penser de",
+        "emoji": "💭",
+        "rule": "Penser à = to think about; penser de = to have an opinion of. Parler à someone, parler de something.",
+        "example": "Qu'est-ce que tu penses de ce film ?",
+        "example_meaning": "What do you think of this film?"
+      }
+    ],
+    "sorts": [
+      {
+        "title": "à, de or nothing?",
+        "buckets": [
+          "à",
+          "de",
+          "nothing"
+        ],
+        "items": [
+          {
+            "text": "commencer … pleuvoir",
+            "bucket": 0
+          },
+          {
+            "text": "réussir … dormir",
+            "bucket": 0
+          },
+          {
+            "text": "hésiter … partir",
+            "bucket": 0
+          },
+          {
+            "text": "essayer … comprendre",
+            "bucket": 1
+          },
+          {
+            "text": "refuser … répondre",
+            "bucket": 1
+          },
+          {
+            "text": "oublier … appeler",
+            "bucket": 1
+          },
+          {
+            "text": "vouloir … sortir",
+            "bucket": 2
+          },
+          {
+            "text": "espérer … gagner",
+            "bucket": 2
+          }
+        ],
+        "why": "Commencer, réussir and hésiter take à; essayer, refuser and oublier take de; vouloir and espérer take nothing."
+      },
+      {
+        "title": "Think about or opinion?",
+        "buckets": [
+          "penser à (think about)",
+          "penser de (opinion)"
+        ],
+        "items": [
+          {
+            "text": "Je pense à mes vacances.",
+            "bucket": 0
+          },
+          {
+            "text": "Que penses-tu de mon pull ?",
+            "bucket": 1
+          },
+          {
+            "text": "Il pense souvent à son frère.",
+            "bucket": 0
+          },
+          {
+            "text": "Qu'est-ce que vous pensez de ce livre ?",
+            "bucket": 1
+          },
+          {
+            "text": "Pense à prendre ton parapluie !",
+            "bucket": 0
+          }
+        ],
+        "why": "Penser à means having someone or something in mind (or remembering to do it); penser de asks or gives an opinion."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Elle a décidé à partir en Italie.",
+        "wrong": "à",
+        "fix": "de",
+        "why": "Décider takes de: elle a décidé de partir."
+      },
+      {
+        "sentence": "Il hésite de répondre à ce message.",
+        "wrong": "de",
+        "fix": "à",
+        "why": "Hésiter takes à: il hésite à répondre."
+      },
+      {
+        "sentence": "J'ai réussi de trouver un appartement.",
+        "wrong": "de",
+        "fix": "à",
+        "why": "Réussir takes à: j'ai réussi à trouver."
+      },
+      {
+        "sentence": "Tu essaies à dormir un peu ?",
+        "wrong": "à",
+        "fix": "de",
+        "why": "Essayer takes de: tu essaies de dormir."
+      },
+      {
+        "sentence": "Vous essaiez de joindre le directeur ?",
+        "wrong": "essaiez",
+        "fix": "essayez",
+        "why": "Nous and vous keep the y: vous essayez."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Il commence à pleuvoir.",
+        "meaning": "It's starting to rain.",
+        "distractors": [
+          "de"
+        ]
+      },
+      {
+        "text": "J'ai oublié de fermer la fenêtre.",
+        "meaning": "I forgot to close the window.",
+        "distractors": [
+          "à"
+        ]
+      },
+      {
+        "text": "Nous voulons partir tôt demain.",
+        "meaning": "We want to leave early tomorrow.",
+        "distractors": [
+          "de"
+        ]
+      },
+      {
+        "text": "Elle rêve d'aller au Canada.",
+        "meaning": "She dreams of going to Canada.",
+        "distractors": [
+          "à"
+        ]
+      }
+    ]
+  }
+}

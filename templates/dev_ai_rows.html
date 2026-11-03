@@ -1,0 +1,10 @@
+{% for r in rows %}
+<tr class="devbox-row devai-call" data-testid="dev-ai-call" data-id="{{ r.id }}" data-href="{{ r.href }}" data-who="{{ r.who }}" data-format="{{ r.format }}" data-purpose="{{ r.purpose }}" data-status="{{ r.status }}" data-fixture="{{ r.fixture }}">
+  <td class="devbox-when">{{ r.ago }}</td>
+  <td class="devbox-who" title="{{ r.key_hint }}">{{ r.who_label }}</td>
+  <td class="devbox-what"><a href="{{ r.href }}" class="devbox-subject" data-testid="dev-ai-call-open">{{ r.purpose }}</a> <span class="small muted">{{ r.format }} · {{ r.model }}</span>{% if !r.fixture.is_empty() %} <span class="small muted">· {{ r.fixture }}</span>{% endif %}</td>
+  <td class="small" title="Tokens in / out">{{ r.tokens }}</td>
+  <td class="devai-outcome"><span class="devbox-state" data-state="{% if r.state == "ok" %}sent{% else if r.state == "pending" %}queued{% else %}failed{% endif %}" data-testid="dev-ai-call-status">{% if r.status == 0 %}…{% else %}{{ r.status }}{% endif %}</span> <span class="small" data-testid="dev-ai-call-outcome">{{ r.outcome }}</span></td>
+</tr>
+{% endfor %}
+{% if rows.is_empty() %}<tr class="devbox-empty"><td colspan="5" data-testid="dev-ai-empty">No calls yet. The app's model calls show up here as they are made.</td></tr>{% endif %}

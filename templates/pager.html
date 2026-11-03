@@ -1,0 +1,10 @@
+{#- Page links under a long list (#837): the caller sets `pager` (routes::pages::Pager). -#}
+{% if pager.count > 1 %}
+<nav class="pager" aria-label="{{ crate::t("common.pager.label") }}" data-testid="pager" data-page="{{ pager.page }}" data-pages="{{ pager.count }}">
+  {% if pager.prev().is_empty() %}<span class="pager-step" aria-disabled="true">{{ crate::t("common.pager.prev") }}</span>{% else %}<a class="pager-step" href="{{ pager.prev() }}" rel="prev" data-testid="pager-prev">{{ crate::t("common.pager.prev") }}</a>{% endif %}
+  <span class="pager-pages">
+  {% for (n, href) in pager.links %}<a class="pager-page" href="{{ href }}"{% if *n == pager.page %} aria-current="page"{% endif %} aria-label="{{ crate::t2("common.pager.page_of", "n", n, "total", pager.count) }}" data-testid="pager-page">{{ n }}</a>{% endfor %}
+  </span>
+  {% if pager.next().is_empty() %}<span class="pager-step" aria-disabled="true">{{ crate::t("common.pager.next") }}</span>{% else %}<a class="pager-step" href="{{ pager.next() }}" rel="next" data-testid="pager-next">{{ crate::t("common.pager.next") }}</a>{% endif %}
+</nav>
+{% endif %}

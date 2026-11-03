@@ -1,0 +1,549 @@
+{
+  "id": "a1-questions-negation",
+  "slug": "questions-negation",
+  "title": "Asking questions and saying no",
+  "unit": "A1",
+  "group": "Grammar",
+  "order": 30,
+  "summary": "Ask with your voice, with est-ce que or by inverting; answer no by wrapping the verb in ne … pas.",
+  "focus": "Forming questions and negative sentences in the present",
+  "prerequisites": [
+    "a1-er-verbs"
+  ],
+  "content": "## Three ways to ask a yes/no question\n\nFrench has three ways to ask the same question, from relaxed to formal:\n\n| style | example |\n|---|---|\n| intonation (speech) | **Vous parlez anglais ?** |\n| est-ce que (everyday) | **Est-ce que vous parlez anglais ?** |\n| inversion (formal, written) | **Parlez-vous anglais ?** |\n\n- **Intonation**: keep the sentence as it is and let your voice rise at the end.\n- **Est-ce que** goes in front of the sentence; before a vowel it becomes **est-ce qu'**: **Est-ce qu'il travaille ?**\n- **Inversion** swaps the subject pronoun and the verb and joins them with a hyphen: **Aimes-tu le café ?** Between two vowels, add **-t-**: **Parle-t-il français ?**\n\n## Question words\n\n| word | meaning | example |\n|---|---|---|\n| **qui** | who | **Qui habite ici ?** |\n| **qu'est-ce que** / **que** | what | **Qu'est-ce que tu regardes ?** / **Que regardes-tu ?** |\n| **où** | where | **Où est-ce que tu habites ?** |\n| **quand** | when | **Quand est-ce qu'il arrive ?** |\n| **pourquoi** | why | **Pourquoi tu ne manges pas ?** |\n| **comment** | how | **Comment tu t'appelles ?** |\n| **combien** | how much / how many | **Combien coûte le billet ?** |\n\nThe question word comes first, then **est-ce que** or an inversion. In relaxed speech it can also go last: **Tu habites où ?**\n\n## Saying no: ne … pas, jamais, rien\n\nWrap the conjugated verb by putting **ne** before it and **pas** after it. Before a vowel or silent **h**, **ne** becomes **n'**:\n\n- **Je ne parle pas allemand.** (I don't speak German.)\n- **Il n'habite pas ici.** (He doesn't live here.)\n- **Elle ne mange jamais le matin.** (She never eats in the morning.)\n- **Je ne regarde rien.** (I'm not watching anything.)\n\nAfter a negation, **un**, **une** and **des** become **de** (**d'** before a vowel): **J'ai une voiture** becomes **Je n'ai pas de voiture**, and **Il y a des pommes** becomes **Il n'y a pas de pommes**.\n\n## Moi aussi, moi non plus\n\nTo agree with someone, check whether their sentence is positive or negative:\n\n- **J'aime le chocolat. — Moi aussi !** (Me too!)\n- **Je n'aime pas le thé. — Moi non plus !** (Me neither!)\n\nTo disagree, flip it: **J'aime le thé. — Pas moi.** / **Je n'aime pas le thé. — Moi, si !**",
+  "vocabulary": [
+    {
+      "term": "qui",
+      "meaning": "who",
+      "example": "Qui habite dans cette maison ?",
+      "example_meaning": "Who lives in this house?"
+    },
+    {
+      "term": "qu'est-ce que",
+      "meaning": "what (at the start of a question)",
+      "example": "Qu'est-ce que tu regardes ?",
+      "example_meaning": "What are you watching?"
+    },
+    {
+      "term": "où",
+      "meaning": "where",
+      "example": "Où est-ce que vous travaillez ?",
+      "example_meaning": "Where do you work?"
+    },
+    {
+      "term": "quand",
+      "meaning": "when",
+      "example": "Quand est-ce qu'elle arrive ?",
+      "example_meaning": "When is she arriving?"
+    },
+    {
+      "term": "pourquoi",
+      "meaning": "why",
+      "example": "Pourquoi tu ne danses pas ?",
+      "example_meaning": "Why aren't you dancing?"
+    },
+    {
+      "term": "comment",
+      "meaning": "how",
+      "example": "Comment est-ce que tu t'appelles ?",
+      "example_meaning": "What's your name? (literally: how are you called?)"
+    },
+    {
+      "term": "combien",
+      "meaning": "how much, how many",
+      "example": "Combien coûte le billet ?",
+      "example_meaning": "How much is the ticket?"
+    },
+    {
+      "term": "ne … pas",
+      "meaning": "not",
+      "example": "Je ne parle pas allemand.",
+      "example_meaning": "I don't speak German."
+    },
+    {
+      "term": "ne … jamais",
+      "meaning": "never",
+      "example": "Il ne mange jamais de viande.",
+      "example_meaning": "He never eats meat."
+    },
+    {
+      "term": "ne … rien",
+      "meaning": "nothing, not anything",
+      "example": "Elle ne mange rien le matin.",
+      "example_meaning": "She eats nothing in the morning."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-questions-negation-01",
+      "prompt": "Turn 'Tu aimes le café' into an inversion question.",
+      "type": "multiple-choice",
+      "options": [
+        "Aimes-tu le café ?",
+        "Aime-tu le café ?",
+        "Tu-aimes le café ?"
+      ],
+      "correct_answer": "Aimes-tu le café ?",
+      "explanation": "Inversion puts the verb first, keeps its ending (-es for tu) and adds a hyphen: Aimes-tu le café ?",
+      "hints": [
+        "The verb keeps its tu ending.",
+        "Verb, hyphen, pronoun."
+      ]
+    },
+    {
+      "question_id": "a1-questions-negation-02",
+      "prompt": "Make it a question with est-ce que: ___ vous habitez à Paris ?",
+      "type": "fill-in-blank",
+      "correct_answer": "Est-ce que",
+      "accepted_answers": [
+        "est-ce que",
+        "est ce que"
+      ],
+      "explanation": "Est-ce que goes in front of an ordinary sentence and turns it into a yes/no question: Est-ce que vous habitez à Paris ?",
+      "hints": [
+        "Three words joined by hyphens.",
+        "The sentence after it stays the same."
+      ]
+    },
+    {
+      "question_id": "a1-questions-negation-03",
+      "prompt": "___ tu regardes ? — Un film.",
+      "type": "multiple-choice",
+      "options": [
+        "Qu'est-ce que",
+        "Qui",
+        "Où"
+      ],
+      "correct_answer": "Qu'est-ce que",
+      "explanation": "The answer is a thing (un film), so the question asks 'what': Qu'est-ce que tu regardes ?",
+      "hints": [
+        "The answer is a thing, not a person or a place."
+      ],
+      "teaches": [
+        "qu'est-ce que"
+      ]
+    },
+    {
+      "question_id": "a1-questions-negation-04",
+      "prompt": "___ habitez-vous ? — À Bordeaux.",
+      "type": "multiple-choice",
+      "options": [
+        "Où",
+        "Quand",
+        "Combien"
+      ],
+      "correct_answer": "Où",
+      "explanation": "The answer is a place, so the question word is où (where).",
+      "hints": [
+        "À Bordeaux is a place."
+      ],
+      "teaches": [
+        "où"
+      ]
+    },
+    {
+      "question_id": "a1-questions-negation-05",
+      "prompt": "Je ne parle ___ allemand. (I don't speak German.)",
+      "type": "fill-in-blank",
+      "correct_answer": "pas",
+      "accepted_answers": [],
+      "explanation": "The negation wraps the verb: ne before it, pas after it. Je ne parle pas allemand.",
+      "hints": [
+        "Ne needs a partner after the verb."
+      ],
+      "teaches": [
+        "ne … pas"
+      ]
+    },
+    {
+      "question_id": "a1-questions-negation-06",
+      "prompt": "Elle ne mange ___ le matin. (She eats nothing in the morning.)",
+      "type": "fill-in-blank",
+      "correct_answer": "rien",
+      "accepted_answers": [],
+      "explanation": "Ne … rien means 'nothing': Elle ne mange rien le matin.",
+      "hints": [
+        "Not pas: the meaning is 'nothing'."
+      ],
+      "teaches": [
+        "ne … rien"
+      ]
+    },
+    {
+      "question_id": "a1-questions-negation-07",
+      "prompt": "Choose the correct translation: 'I don't have a car.'",
+      "type": "multiple-choice",
+      "options": [
+        "Je n'ai pas de voiture.",
+        "Je n'ai pas une voiture.",
+        "Je ne ai pas de voiture."
+      ],
+      "correct_answer": "Je n'ai pas de voiture.",
+      "explanation": "Ne becomes n' before the vowel of ai, and une becomes de after a negation: Je n'ai pas de voiture.",
+      "hints": [
+        "Ne before a vowel?",
+        "What happens to une after pas?"
+      ],
+      "teaches": [
+        "ne … pas"
+      ]
+    },
+    {
+      "question_id": "a1-questions-negation-08",
+      "prompt": "'Il ne mange jamais de viande' means 'He never eats meat'.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Ne … jamais means 'never', and de follows the negation: Il ne mange jamais de viande.",
+      "hints": [
+        "Jamais = never."
+      ],
+      "teaches": [
+        "ne … jamais"
+      ]
+    },
+    {
+      "question_id": "a1-questions-negation-09",
+      "prompt": "To agree with 'Je n'aime pas le thé', you say 'Moi aussi'.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "The sentence is negative, so you agree with 'Moi non plus' (me neither). Moi aussi agrees with a positive sentence.",
+      "hints": [
+        "Is the sentence positive or negative?"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Est-ce que tu parles espagnol ?",
+      "meaning": "Do you speak Spanish?",
+      "note": "Est-ce que turns a sentence into a question."
+    },
+    {
+      "text": "Je n'habite pas à Paris.",
+      "meaning": "I don't live in Paris.",
+      "note": "Ne becomes n' before a vowel or a silent h."
+    },
+    {
+      "text": "Nous n'avons pas de voiture.",
+      "meaning": "We don't have a car.",
+      "note": "After a negation, une becomes de."
+    },
+    {
+      "text": "Elle ne regarde jamais la télé.",
+      "meaning": "She never watches TV."
+    },
+    {
+      "text": "Combien coûte le billet de train ?",
+      "meaning": "How much is the train ticket?",
+      "note": "New word: le billet = the ticket."
+    },
+    {
+      "text": "Où est la gare, s'il vous plaît ?",
+      "meaning": "Where is the station, please?",
+      "note": "New word: la gare = the station."
+    },
+    {
+      "text": "Je ne travaille jamais le dimanche, et vous ?",
+      "meaning": "I never work on Sundays, and you?"
+    },
+    {
+      "text": "Pourquoi est-ce que tu ne manges rien ce soir ?",
+      "meaning": "Why aren't you eating anything this evening?",
+      "note": "Ne … rien wraps the verb like ne … pas."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Three ways"
+    },
+    {
+      "question": "a1-questions-negation-01"
+    },
+    {
+      "question": "a1-questions-negation-02"
+    },
+    {
+      "section": "Question words"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-questions-negation-03"
+    },
+    {
+      "question": "a1-questions-negation-04"
+    },
+    {
+      "concept": {
+        "title": "Oui or si?",
+        "markdown": "To answer *yes* to a **negative** question, French uses **si**, not **oui**:\n\n- **Tu ne parles pas anglais ? — Si !** (Yes, I do!)\n- **Tu parles anglais ? — Oui !**"
+      }
+    },
+    {
+      "section": "Saying no"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-questions-negation-05"
+    },
+    {
+      "question": "a1-questions-negation-07"
+    },
+    {
+      "question": "a1-questions-negation-06"
+    },
+    {
+      "tip": "In everyday speech the French often drop the ne: 'Je sais pas.' Hear it, but keep writing ne … pas."
+    },
+    {
+      "question": "a1-questions-negation-08"
+    },
+    {
+      "section": "Moi aussi"
+    },
+    {
+      "question": "a1-questions-negation-09"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-questions-negation-conv-cafe",
+      "title": "At the café",
+      "scenario": "Karim, a student from Montréal, asks to share a table with Sophie in a busy Paris café.",
+      "role_a": "Karim",
+      "role_b": "Sophie",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Pardon, est-ce que cette place est libre ?",
+          "meaning": "Excuse me, is this seat free?",
+          "note": "est-ce que before a sentence makes it a yes/no question"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, bien sûr. Vous n'êtes pas d'ici ?",
+          "meaning": "Yes, of course. You're not from here?",
+          "note": "n' before the vowel of êtes"
+        },
+        {
+          "speaker": "a",
+          "text": "Non, je suis de Montréal. Et vous, où habitez-vous ?",
+          "meaning": "No, I'm from Montréal. And you, where do you live?",
+          "note": "a question word followed by inversion"
+        },
+        {
+          "speaker": "b",
+          "text": "J'habite à côté. Pourquoi êtes-vous à Paris ?",
+          "meaning": "I live nearby. Why are you in Paris?"
+        },
+        {
+          "speaker": "a",
+          "text": "J'étudie le français, mais je ne parle pas encore très bien.",
+          "meaning": "I'm studying French, but I don't speak it very well yet."
+        },
+        {
+          "speaker": "b",
+          "text": "Mais si, vous parlez très bien ! Vous aimez la ville ?",
+          "meaning": "Yes you do, you speak very well! Do you like the city?",
+          "note": "si contradicts a negative"
+        },
+        {
+          "speaker": "a",
+          "text": "Oui, beaucoup. Mais je n'aime pas le métro.",
+          "meaning": "Yes, a lot. But I don't like the metro."
+        },
+        {
+          "speaker": "b",
+          "text": "Moi non plus ! Je ne prends jamais le métro, je marche.",
+          "meaning": "Me neither! I never take the metro, I walk.",
+          "note": "moi non plus agrees with a negative"
+        },
+        {
+          "speaker": "a",
+          "text": "Moi aussi, j'aime marcher. Comment vous appelez-vous ?",
+          "meaning": "Me too, I like walking. What's your name?",
+          "note": "moi aussi agrees with a positive"
+        },
+        {
+          "speaker": "b",
+          "text": "Sophie. Et vous ?",
+          "meaning": "Sophie. And you?"
+        },
+        {
+          "speaker": "a",
+          "text": "Karim. Enchanté, Sophie !",
+          "meaning": "Karim. Nice to meet you, Sophie!"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "❓",
+    "bites": [
+      {
+        "title": "Three ways to ask",
+        "emoji": "❓",
+        "rule": "Raise your voice (Tu parles anglais ?), add est-ce que (Est-ce que tu parles anglais ?), or invert (Parles-tu anglais ?).",
+        "example": "Est-ce que vous habitez ici ?",
+        "example_meaning": "Do you live here?"
+      },
+      {
+        "title": "Question words first",
+        "emoji": "🔎",
+        "rule": "Qui, qu'est-ce que, où, quand, pourquoi, comment, combien go first, then est-ce que or an inversion.",
+        "example": "Où est-ce que tu travailles ?",
+        "example_meaning": "Where do you work?"
+      },
+      {
+        "title": "Wrap the verb",
+        "emoji": "🌯",
+        "rule": "Ne before the verb, pas / jamais / rien after it. Ne becomes n' before a vowel. Un, une, des become de.",
+        "example": "Je n'ai pas de voiture.",
+        "example_meaning": "I don't have a car."
+      },
+      {
+        "title": "Me too, me neither",
+        "emoji": "🤝",
+        "rule": "Agree with a positive sentence: moi aussi. Agree with a negative one: moi non plus.",
+        "example": "Je n'aime pas le thé. — Moi non plus.",
+        "example_meaning": "I don't like tea. — Me neither."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which question word?",
+        "buckets": [
+          "où (where)",
+          "quand (when)",
+          "combien (how much)"
+        ],
+        "items": [
+          {
+            "text": "— À Lyon.",
+            "bucket": 0
+          },
+          {
+            "text": "— Lundi.",
+            "bucket": 1
+          },
+          {
+            "text": "— Dix euros.",
+            "bucket": 2
+          },
+          {
+            "text": "— Dans le jardin.",
+            "bucket": 0
+          },
+          {
+            "text": "— Ce soir.",
+            "bucket": 1
+          },
+          {
+            "text": "— Trois billets.",
+            "bucket": 2
+          }
+        ],
+        "why": "A place answers où, a time answers quand, a price or a number answers combien."
+      },
+      {
+        "title": "Moi aussi or moi non plus?",
+        "buckets": [
+          "moi aussi",
+          "moi non plus"
+        ],
+        "items": [
+          {
+            "text": "J'aime danser.",
+            "bucket": 0
+          },
+          {
+            "text": "Je ne mange pas de viande.",
+            "bucket": 1
+          },
+          {
+            "text": "J'habite à Paris.",
+            "bucket": 0
+          },
+          {
+            "text": "Je ne regarde jamais la télé.",
+            "bucket": 1
+          },
+          {
+            "text": "Je parle anglais.",
+            "bucket": 0
+          },
+          {
+            "text": "Je n'ai pas de voiture.",
+            "bucket": 1
+          }
+        ],
+        "why": "A positive sentence takes moi aussi and a negative sentence takes moi non plus."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Je ne habite pas ici.",
+        "wrong": "ne",
+        "fix": "n'",
+        "why": "Ne becomes n' before a vowel or a silent h: je n'habite pas."
+      },
+      {
+        "sentence": "Je n'ai pas une voiture.",
+        "wrong": "une",
+        "fix": "de",
+        "why": "After a negation, un / une / des become de."
+      },
+      {
+        "sentence": "Il n'y a pas un bus le dimanche.",
+        "wrong": "un",
+        "fix": "de",
+        "why": "After a negation, un becomes de: il n'y a pas de bus."
+      },
+      {
+        "sentence": "Aime-tu le chocolat ?",
+        "wrong": "Aime-tu",
+        "fix": "Aimes-tu",
+        "why": "The verb keeps its tu ending in an inversion."
+      },
+      {
+        "sentence": "Je n'aime pas le thé. — Moi aussi.",
+        "wrong": "aussi",
+        "fix": "non plus",
+        "why": "Agree with a negative sentence using moi non plus."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Est-ce que vous parlez anglais ?",
+        "meaning": "Do you speak English?",
+        "distractors": [
+          "parlons"
+        ]
+      },
+      {
+        "text": "Je ne parle pas allemand.",
+        "meaning": "I don't speak German.",
+        "distractors": [
+          "rien"
+        ]
+      },
+      {
+        "text": "Où est-ce que tu habites ?",
+        "meaning": "Where do you live?",
+        "distractors": [
+          "quand"
+        ]
+      },
+      {
+        "text": "Il n'y a pas de pain.",
+        "meaning": "There's no bread.",
+        "distractors": [
+          "du"
+        ]
+      }
+    ]
+  }
+}

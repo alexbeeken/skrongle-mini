@@ -1,0 +1,14 @@
+{# The language picker on the login and register pages: a form that posts
+   to /lang and comes back to `lang_back` (the page's app path). Submits on
+   change; the button is for browsers without scripts. #}
+<form method="post" action="{{ crate::base_path() }}/lang" class="lang-picker" data-testid="lang-picker-form">
+  <input type="hidden" name="back" value="{{ lang_back }}">
+  <label class="muted small">{{ crate::t("lang.label") }}
+    <select name="lang" data-testid="lang-picker" aria-label="{{ crate::t("lang.label") }}" onchange="this.form.requestSubmit ? this.form.requestSubmit() : this.form.submit()">
+      {% for l in crate::i18n::languages() %}
+      <option value="{{ l.code }}" lang="{{ l.code }}"{% if l.code == crate::i18n::lang() %} selected{% endif %}>{{ l.name }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <noscript><button type="submit" class="btn ghost small" data-testid="lang-picker-submit">{{ crate::t("lang.change") }}</button></noscript>
+</form>

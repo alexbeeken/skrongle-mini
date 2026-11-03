@@ -1,0 +1,655 @@
+{
+  "id": "a2-preterite-vs-imperfect",
+  "slug": "preterite-vs-imperfect",
+  "title": "Preterite or imperfect?",
+  "unit": "A2",
+  "group": "Grammar",
+  "order": 18,
+  "summary": "Completed event or background? Cuando llegué, llovía. Mientras cenábamos, sonó el teléfono.",
+  "focus": "Choosing between the preterite and the imperfect",
+  "prerequisites": [
+    "a2-imperfect"
+  ],
+  "content": "## Photo or video?\n\nBoth tenses talk about the past. They differ in how you look at it.\n\n- The **preterite** is a **photo**: a completed action, seen as one whole, often counted or dated. *Ayer comí paella. Vivió tres años en Madrid. Llamé dos veces.*\n- The **imperfect** is a **video**: something going on, repeated or simply true at the time, with no start or end in view. *Comía paella todos los domingos. Vivía en Madrid. Llovía.*\n\nThe same verb can take either; it depends on what you mean:\n\n- *Trabajé en un bar.*: I worked in a bar (done, over).\n- *Trabajaba en un bar.*: I was working / used to work in a bar (the situation then).\n\n## Cuando + preterite, mientras + imperfect\n\nTwo connectors usually go with a particular tense:\n\n- **cuando** introduces the **event** that happens: *Cuando llegué a casa, llovía.* (When I got home, it was raining.)\n- **mientras** introduces the **ongoing** background: *Mientras cenábamos, sonó el teléfono.* (While we were having dinner, the phone rang.)\n\n**De repente** (suddenly) always announces a preterite: *De repente oímos un ruido.* (Suddenly we heard a noise.)\n\nWhen two actions simply follow each other, both are preterite: *Entré, cerré la puerta y me senté.*\n\n## Estaba… cuando…\n\nThe classic story pattern is a scene in the imperfect, then an event in the preterite that interrupts it.\n\n- *Estaba durmiendo cuando sonó el teléfono.*: I was sleeping when the phone rang.\n- *Eran las ocho y los niños jugaban en la calle cuando empezó a llover.*: It was eight and the children were playing in the street when it started to rain.\n- *Hacía mucho frío, no había nadie y, de repente, vi a Marta.*: It was very cold, there was nobody around and, suddenly, I saw Marta.\n\nThe setting (time, weather, feelings, what people were doing) takes the imperfect. What happened next takes the preterite.\n\n## Verbs that change meaning\n\nA few verbs shift in English translation depending on the tense, because the preterite turns a state into an event:\n\n| verb | imperfect (state) | preterite (event) |\n|---|---|---|\n| conocer | *conocía* = I knew (someone) | *conocí* = I met |\n| saber | *sabía* = I knew (a fact) | *supe* = I found out |\n| querer | *quería* = I wanted | *quise* = I tried; *no quise* = I refused |\n| poder | *podía* = I was able (in general) | *pude* = I managed; *no pude* = I failed to |\n| tener que | *tenía que* = I was supposed to | *tuve que* = I had to (and did) |\n\n- *Conocí a mi mujer en Granada.*: I met my wife in Granada.\n- *Ayer supe la noticia.*: Yesterday I found out the news.\n- *Tuve que trabajar hasta las diez.*: I had to work until ten.",
+  "vocabulary": [
+    {
+      "term": "mientras",
+      "meaning": "while",
+      "example": "Mientras cenábamos, sonó el teléfono.",
+      "example_meaning": "While we were having dinner, the phone rang."
+    },
+    {
+      "term": "cuando",
+      "meaning": "when",
+      "example": "Cuando llegué a casa, llovía mucho.",
+      "example_meaning": "When I got home, it was raining hard."
+    },
+    {
+      "term": "de repente",
+      "meaning": "suddenly",
+      "example": "De repente oí un ruido.",
+      "example_meaning": "Suddenly I heard a noise."
+    },
+    {
+      "term": "sonar",
+      "meaning": "to ring, to sound",
+      "example": "Sonó el teléfono a las ocho.",
+      "example_meaning": "The phone rang at eight."
+    },
+    {
+      "term": "llover",
+      "meaning": "to rain",
+      "example": "Llovía mucho cuando salí.",
+      "example_meaning": "It was raining hard when I left."
+    },
+    {
+      "term": "oír",
+      "meaning": "to hear",
+      "example": "Estaba durmiendo cuando oí un ruido.",
+      "example_meaning": "I was sleeping when I heard a noise."
+    },
+    {
+      "term": "el ruido",
+      "meaning": "noise",
+      "example": "De repente oímos un ruido en la cocina.",
+      "example_meaning": "Suddenly we heard a noise in the kitchen."
+    },
+    {
+      "term": "conocer",
+      "meaning": "to know (a person, a place); preterite: to meet",
+      "example": "Conocí a mi mujer en Granada.",
+      "example_meaning": "I met my wife in Granada."
+    },
+    {
+      "term": "saber",
+      "meaning": "to know (a fact); preterite: to find out",
+      "example": "Ayer supe la noticia.",
+      "example_meaning": "Yesterday I found out the news."
+    },
+    {
+      "term": "querer",
+      "meaning": "to want; preterite: to try, no quise = refused",
+      "example": "No quiso hablar conmigo.",
+      "example_meaning": "He refused to talk to me."
+    },
+    {
+      "term": "tener que",
+      "meaning": "to have to; tuve que = had to (and did)",
+      "example": "Anoche tuve que trabajar hasta las diez.",
+      "example_meaning": "Last night I had to work until ten."
+    },
+    {
+      "term": "la noticia",
+      "meaning": "piece of news",
+      "example": "Supe la noticia por mi hermana.",
+      "example_meaning": "I found out the news from my sister."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a2-preterite-vs-imperfect-01",
+      "prompt": "Ayer, cuando ___ (yo, llegar) a casa, llovía mucho.",
+      "type": "multiple-choice",
+      "options": [
+        "llegué",
+        "llegaba",
+        "llego"
+      ],
+      "correct_answer": "llegué",
+      "explanation": "'Cuando' introduces the event (arriving), a completed action on a specific day: preterite 'llegué'. The rain is the background, so 'llovía'.",
+      "hints": [
+        "Cuando + the event → preterite.",
+        "The rain is the video; arriving is the photo."
+      ],
+      "teaches": [
+        "cuando",
+        "llover"
+      ]
+    },
+    {
+      "question_id": "a2-preterite-vs-imperfect-02",
+      "prompt": "Mientras nosotros ___ (cenar), sonó el teléfono.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "cenábamos",
+      "accepted_answers": [
+        "nosotros cenábamos"
+      ],
+      "explanation": "'Mientras' introduces the ongoing background, so the imperfect: 'cenábamos'. The phone ringing interrupts it in the preterite.",
+      "hints": [
+        "Mientras + ongoing action → imperfect.",
+        "Nosotros -ar → -ábamos."
+      ],
+      "teaches": [
+        "mientras",
+        "sonar"
+      ]
+    },
+    {
+      "question_id": "a2-preterite-vs-imperfect-03",
+      "prompt": "Estaba durmiendo cuando de repente ___ un ruido.",
+      "type": "multiple-choice",
+      "options": [
+        "oí",
+        "oía",
+        "oigo"
+      ],
+      "correct_answer": "oí",
+      "explanation": "'De repente' announces a sudden, completed event: preterite 'oí'. 'Estaba durmiendo' is the scene it interrupts.",
+      "hints": [
+        "De repente → preterite.",
+        "Oír, yo: o-í."
+      ],
+      "teaches": [
+        "de repente",
+        "el ruido",
+        "oír"
+      ]
+    },
+    {
+      "question_id": "a2-preterite-vs-imperfect-04",
+      "prompt": "___ (yo, conocer) a mi mujer en Granada en 2010.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "Conocí",
+      "accepted_answers": [
+        "conocí",
+        "yo conocí"
+      ],
+      "explanation": "Meeting someone for the first time is an event, so the preterite: 'conocí' = I met. 'Conocía' would mean I already knew her.",
+      "hints": [
+        "Preterite of conocer = to meet.",
+        "A dated event (en 2010)."
+      ],
+      "teaches": [
+        "conocer"
+      ]
+    },
+    {
+      "question_id": "a2-preterite-vs-imperfect-05",
+      "prompt": "De pequeño no ___ nadar.",
+      "type": "multiple-choice",
+      "options": [
+        "sabía",
+        "supe",
+        "sé"
+      ],
+      "correct_answer": "sabía",
+      "explanation": "Not knowing how to swim is a state that lasted through childhood: imperfect 'sabía'. 'Supe' would mean I found out.",
+      "hints": [
+        "A state in the past → imperfect.",
+        "'De pequeño' = as a child."
+      ],
+      "teaches": [
+        "saber"
+      ]
+    },
+    {
+      "question_id": "a2-preterite-vs-imperfect-06",
+      "prompt": "Ayer ___ (yo, saber) la noticia por mi hermana.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "supe",
+      "accepted_answers": [
+        "yo supe"
+      ],
+      "explanation": "Finding out is the moment knowledge begins, an event: preterite 'supe' = I found out.",
+      "hints": [
+        "Preterite of saber = to find out.",
+        "Saber → sup- + -e."
+      ],
+      "teaches": [
+        "saber",
+        "la noticia"
+      ]
+    },
+    {
+      "question_id": "a2-preterite-vs-imperfect-07",
+      "prompt": "Which sentence means 'He refused to talk to me'?",
+      "type": "multiple-choice",
+      "options": [
+        "No quiso hablar conmigo.",
+        "No quería hablar conmigo.",
+        "No quiere hablar conmigo."
+      ],
+      "correct_answer": "No quiso hablar conmigo.",
+      "explanation": "'No quiso' in the preterite is a decision taken: he refused. 'No quería' only says he didn't feel like it; 'no quiere' is present.",
+      "hints": [
+        "Refusing is an event, not a mood.",
+        "Querer → quis- in the preterite."
+      ],
+      "teaches": [
+        "querer"
+      ]
+    },
+    {
+      "question_id": "a2-preterite-vs-imperfect-08",
+      "prompt": "Anoche ___ (yo, tener) que trabajar hasta las diez.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "tuve",
+      "accepted_answers": [
+        "yo tuve"
+      ],
+      "explanation": "'Tuve que' = I had to and I did it, a completed obligation on a specific night. 'Tenía que' would mean I was supposed to (and maybe didn't).",
+      "hints": [
+        "Tener → tuv- in the preterite.",
+        "'Anoche' pins it to one occasion."
+      ],
+      "teaches": [
+        "tener que"
+      ]
+    },
+    {
+      "question_id": "a2-preterite-vs-imperfect-09",
+      "prompt": "Which sentence is correct for 'It was eight o'clock and the children were playing when the phone rang'?",
+      "type": "multiple-choice",
+      "options": [
+        "Eran las ocho y los niños jugaban cuando sonó el teléfono.",
+        "Fueron las ocho y los niños jugaron cuando sonaba el teléfono.",
+        "Eran las ocho y los niños jugaban cuando sonaba el teléfono."
+      ],
+      "correct_answer": "Eran las ocho y los niños jugaban cuando sonó el teléfono.",
+      "explanation": "Time and what was going on are the scene (imperfect: eran, jugaban); the phone ringing is the event that interrupts it (preterite: sonó).",
+      "hints": [
+        "Scene → imperfect; interruption → preterite.",
+        "Cuando + the event."
+      ],
+      "teaches": [
+        "sonar",
+        "cuando"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Llovía cuando salimos del cine.",
+      "meaning": "It was raining when we left the cinema.",
+      "note": "Background llovía, event salimos."
+    },
+    {
+      "text": "Mientras dormía, sonó el teléfono.",
+      "meaning": "While I was sleeping, the phone rang."
+    },
+    {
+      "text": "Conocí a Marta en la universidad.",
+      "meaning": "I met Marta at university.",
+      "note": "New word: la universidad = the university."
+    },
+    {
+      "text": "Anoche no quise salir porque llovía mucho.",
+      "meaning": "Last night I refused to go out because it was raining a lot.",
+      "note": "No quise = I refused."
+    },
+    {
+      "text": "Ayer supe la noticia mientras cenaba con mis padres.",
+      "meaning": "Yesterday I found out the news while I was having dinner with my parents."
+    },
+    {
+      "text": "Estábamos en el parque y de repente empezó a llover.",
+      "meaning": "We were in the park and suddenly it started to rain."
+    },
+    {
+      "text": "Cuando sonó el teléfono, tuve que salir de la clase.",
+      "meaning": "When the phone rang, I had to leave the class."
+    },
+    {
+      "text": "Los niños jugaban en el jardín cuando de repente oyeron un ruido.",
+      "meaning": "The children were playing in the garden when suddenly they heard a noise.",
+      "note": "New word: el jardín = the garden."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Photo or video"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "section": "Cuando + preterite"
+    },
+    {
+      "question": "a2-preterite-vs-imperfect-01"
+    },
+    {
+      "question": "a2-preterite-vs-imperfect-02"
+    },
+    {
+      "question": "a2-preterite-vs-imperfect-03"
+    },
+    {
+      "section": "Estaba"
+    },
+    {
+      "tip": "Ask two questions: Is this what happened (preterite), or what was going on while it happened (imperfect)?"
+    },
+    {
+      "question": "a2-preterite-vs-imperfect-09"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "section": "Verbs that change meaning"
+    },
+    {
+      "question": "a2-preterite-vs-imperfect-04"
+    },
+    {
+      "question": "a2-preterite-vs-imperfect-05"
+    },
+    {
+      "question": "a2-preterite-vs-imperfect-06"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "a2-preterite-vs-imperfect-07"
+    },
+    {
+      "question": "a2-preterite-vs-imperfect-08"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a2-preterite-vs-imperfect-conv-what-happened",
+      "title": "What happened last night?",
+      "scenario": "Laura looks tired. Javi asks her what happened last night and she tells the story.",
+      "role_a": "Javi",
+      "role_b": "Laura",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Laura, tienes mala cara. ¿Qué te pasó anoche?",
+          "meaning": "Laura, you look rough. What happened to you last night?",
+          "note": "pasar, preterite: the event"
+        },
+        {
+          "speaker": "b",
+          "text": "Uf. Eran las once y yo estaba durmiendo tranquilamente cuando, de repente, sonó el teléfono.",
+          "meaning": "Ugh. It was eleven and I was sleeping peacefully when, suddenly, the phone rang.",
+          "note": "scene: eran, estaba · event: sonó"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Quién era?",
+          "meaning": "Who was it?",
+          "note": "ser, imperfect: identity, background"
+        },
+        {
+          "speaker": "b",
+          "text": "Era mi hermana. Me dijo que su coche no arrancaba y que estaba sola en la carretera.",
+          "meaning": "It was my sister. She told me her car wouldn't start and that she was alone on the road.",
+          "note": "dijo: event · arrancaba, estaba: situation"
+        },
+        {
+          "speaker": "a",
+          "text": "¡Vaya! ¿Y qué hiciste?",
+          "meaning": "Oh no! And what did you do?",
+          "note": "hacer, preterite"
+        },
+        {
+          "speaker": "b",
+          "text": "Tuve que vestirme y salir a buscarla. Llovía mucho y no había casi nadie en la calle.",
+          "meaning": "I had to get dressed and go out to find her. It was raining hard and there was almost nobody in the street.",
+          "note": "tuve que: did it · llovía, había: background"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Sabías dónde estaba exactamente?",
+          "meaning": "Did you know where she was exactly?",
+          "note": "sabía = knew (state)"
+        },
+        {
+          "speaker": "b",
+          "text": "No, no lo sabía. Lo supe cuando me mandó la ubicación. Llegué a la una y media.",
+          "meaning": "No, I didn't. I found out when she sent me her location. I got there at half past one.",
+          "note": "sabía (knew) vs supe (found out) · llegué: event"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Y pudiste arreglar el coche?",
+          "meaning": "And did you manage to fix the car?",
+          "note": "pude = managed"
+        },
+        {
+          "speaker": "b",
+          "text": "No, no pude. Mientras esperábamos a la grúa, conocimos a un vecino muy amable que nos trajo café.",
+          "meaning": "No, I couldn't. While we were waiting for the tow truck, we met a very kind neighbour who brought us coffee.",
+          "note": "mientras + esperábamos · conocimos = met"
+        },
+        {
+          "speaker": "a",
+          "text": "Bueno, al menos la historia tiene un final feliz. ¡Vete a dormir!",
+          "meaning": "Well, at least the story has a happy ending. Go and get some sleep!"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "⚖️",
+    "bites": [
+      {
+        "title": "Photo vs. video",
+        "emoji": "📸",
+        "rule": "Preterite = a photo: one completed action (ayer comí). Imperfect = a video: what was going on or used to happen (comía todos los días).",
+        "example": "Trabajé en un bar. Trabajaba en un bar.",
+        "example_meaning": "I worked in a bar (done). I used to work in a bar (back then)."
+      },
+      {
+        "title": "cuando / mientras",
+        "emoji": "🔗",
+        "rule": "Cuando introduces the event (preterite); mientras introduces the background (imperfect). De repente always brings a preterite.",
+        "example": "Mientras cenábamos, sonó el teléfono.",
+        "example_meaning": "While we were having dinner, the phone rang."
+      },
+      {
+        "title": "Estaba… cuando…",
+        "emoji": "🎬",
+        "rule": "Set the scene in the imperfect (time, weather, what people were doing), then interrupt it with a preterite.",
+        "example": "Estaba durmiendo cuando oí un ruido.",
+        "example_meaning": "I was sleeping when I heard a noise."
+      },
+      {
+        "title": "Meaning changers",
+        "emoji": "🔄",
+        "rule": "conocía = knew / conocí = met; sabía = knew / supe = found out; quería = wanted / no quise = refused; tenía que = was supposed to / tuve que = had to and did.",
+        "example": "Conocí a mi mujer en Granada.",
+        "example_meaning": "I met my wife in Granada."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Preterite or imperfect?",
+        "buckets": [
+          "preterite (event)",
+          "imperfect (background)"
+        ],
+        "items": [
+          {
+            "text": "Ayer comí paella.",
+            "bucket": 0
+          },
+          {
+            "text": "Siempre comía en casa.",
+            "bucket": 1
+          },
+          {
+            "text": "De repente sonó el teléfono.",
+            "bucket": 0
+          },
+          {
+            "text": "Mientras dormía…",
+            "bucket": 1
+          },
+          {
+            "text": "Hacía frío.",
+            "bucket": 1
+          },
+          {
+            "text": "Llegué a las ocho.",
+            "bucket": 0
+          },
+          {
+            "text": "Eran las ocho.",
+            "bucket": 1
+          },
+          {
+            "text": "Tuve que salir.",
+            "bucket": 0
+          }
+        ],
+        "why": "Dated or sudden completed actions are preterite. Habits, time, weather and ongoing actions are imperfect."
+      },
+      {
+        "title": "Which Spanish verb?",
+        "buckets": [
+          "conocí (met)",
+          "conocía (knew)",
+          "supe (found out)",
+          "sabía (knew)"
+        ],
+        "items": [
+          {
+            "text": "I met her in 2010.",
+            "bucket": 0
+          },
+          {
+            "text": "I already knew him.",
+            "bucket": 1
+          },
+          {
+            "text": "I found out yesterday.",
+            "bucket": 2
+          },
+          {
+            "text": "I knew the answer.",
+            "bucket": 3
+          },
+          {
+            "text": "We met at a party.",
+            "bucket": 0
+          },
+          {
+            "text": "She knew the city well.",
+            "bucket": 1
+          }
+        ],
+        "why": "The preterite turns a state (knowing) into an event (meeting, finding out)."
+      },
+      {
+        "title": "Cuando or mientras?",
+        "buckets": [
+          "cuando + preterite",
+          "mientras + imperfect"
+        ],
+        "items": [
+          {
+            "text": "… llegué a casa",
+            "bucket": 0
+          },
+          {
+            "text": "… cenábamos",
+            "bucket": 1
+          },
+          {
+            "text": "… sonó el teléfono",
+            "bucket": 0
+          },
+          {
+            "text": "… dormía",
+            "bucket": 1
+          },
+          {
+            "text": "… oí un ruido",
+            "bucket": 0
+          },
+          {
+            "text": "… llovía",
+            "bucket": 1
+          }
+        ],
+        "why": "Cuando points at the moment something happened; mientras at what was going on around it."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Estábamos cenando y de repente sonaba el teléfono.",
+        "wrong": "sonaba",
+        "fix": "sonó",
+        "why": "'De repente' marks a sudden event: preterite sonó."
+      },
+      {
+        "sentence": "Conocía a mi mujer en Granada en 2010.",
+        "wrong": "Conocía",
+        "fix": "Conocí",
+        "why": "Meeting someone on a date is an event: conocí = I met."
+      },
+      {
+        "sentence": "Cuando era pequeño, siempre comí en casa de mi abuela.",
+        "wrong": "comí",
+        "fix": "comía",
+        "why": "'Siempre' with a childhood habit takes the imperfect: comía."
+      },
+      {
+        "sentence": "Estaba durmiendo cuando oía un ruido.",
+        "wrong": "oía",
+        "fix": "oí",
+        "why": "The noise interrupts the scene, so it is a preterite event: oí."
+      },
+      {
+        "sentence": "De pequeño no supe nadar.",
+        "wrong": "supe",
+        "fix": "sabía",
+        "why": "Not knowing how to swim was a state through childhood: sabía. Supe = found out."
+      },
+      {
+        "sentence": "Eran las ocho cuando llegaba mi hermana.",
+        "wrong": "llegaba",
+        "fix": "llegó",
+        "why": "The time is the scene (eran); the arrival is the event: llegó."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Mientras cenábamos, sonó el teléfono.",
+        "meaning": "While we were having dinner, the phone rang.",
+        "distractors": [
+          "sonaba"
+        ]
+      },
+      {
+        "text": "Cuando llegué a casa, llovía mucho.",
+        "meaning": "When I got home, it was raining hard.",
+        "distractors": [
+          "llegaba",
+          "llovió"
+        ]
+      },
+      {
+        "text": "Conocí a mi mujer en Granada.",
+        "meaning": "I met my wife in Granada.",
+        "distractors": [
+          "Conocía"
+        ]
+      },
+      {
+        "text": "Estaba durmiendo cuando oí un ruido.",
+        "meaning": "I was sleeping when I heard a noise.",
+        "distractors": [
+          "oía",
+          "Estuve"
+        ]
+      },
+      {
+        "text": "Ayer supe la noticia.",
+        "meaning": "Yesterday I found out the news.",
+        "distractors": [
+          "sabía"
+        ]
+      }
+    ]
+  }
+}

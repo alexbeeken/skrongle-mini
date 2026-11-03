@@ -1,0 +1,65 @@
+{
+  "id": "tc-conversation",
+  "slug": "conversation",
+  "title": "Conversations",
+  "unit": "exercises",
+  "group": "sprint",
+  "order": 60,
+  "summary": "Conversations; their lines become Sprint mode builds.",
+  "focus": "conversations",
+  "content": "## Talking together\n\nA conversation is a scripted exchange between two people. In Sprint mode its lines of three to nine words become sentence builds.",
+  "conversations": [
+    {
+      "id": "tc-conversation-cafe",
+      "title": "At the café",
+      "scenario": "Marta orders a coffee from Pablo.",
+      "role_a": "Marta",
+      "role_b": "Pablo",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Buenos días. Un café, por favor.",
+          "meaning": "Good morning. A coffee, please."
+        },
+        {
+          "speaker": "b",
+          "text": "¿Con leche o solo?",
+          "meaning": "With milk or black?",
+          "note": "Solo here means black coffee."
+        },
+        {
+          "speaker": "a",
+          "text": "Con leche, por favor.",
+          "meaning": "With milk, please."
+        },
+        {
+          "speaker": "b",
+          "text": "Aquí tiene. Son dos euros.",
+          "meaning": "Here you are. That's two euros."
+        },
+        {
+          "speaker": "a",
+          "text": "Gracias."
+        }
+      ]
+    },
+    {
+      "id": "tc-conversation-bye",
+      "title": "Saying goodbye",
+      "role_a": "Marta",
+      "role_b": "Pablo",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Adiós, Pablo.",
+          "meaning": "Goodbye, Pablo."
+        },
+        {
+          "speaker": "b",
+          "text": "Hasta mañana, Marta.",
+          "meaning": "See you tomorrow, Marta."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}{{ path }} · {{ course_title }}{% endblock %}
+{% block content %}
+<p class="crumbs"><a href="{{ crate::base_path() }}/courses">{{ crate::t("courses.editor.crumb_courses") }}</a> › <a href="{{ crate::base_path() }}/courses/{{ id }}">{{ course_title }}</a> › {% if is_new %}{{ crate::t("courses.file.crumb_new") }}{% else %}{{ path }}{% endif %}</p>
+<h1>{% if is_new %}{{ crate::t("courses.file.new_heading") }}{% else %}{{ path }}{% endif %}</h1>
+{% if let Some(e) = error %}<p class="alert error" role="alert" data-testid="course-file-error">{{ e }}</p>{% endif %}
+<form method="post" action="{{ crate::base_path() }}/courses/{{ id }}/file" class="file-editor" data-testid="course-file-form" data-new="{{ is_new }}">
+  <label>{{ crate::t("courses.file.path_label") }}
+    <input type="text" name="path" data-testid="course-file-path" maxlength="200" value="{{ path }}" required pattern="(course\.json|lessons/[A-Za-z0-9._\/\-]+\.json|pictures/[A-Za-z0-9._\/\-]+\.svg)" {% if path == "course.json" %}readonly{% endif %}>
+  </label>
+  <label>{{ crate::t("courses.file.content_label") }}
+    <textarea name="content" id="file-content" data-testid="course-file-content" maxlength="{{ crate::courses::MAX_FILE_BYTES }}" rows="30" spellcheck="false" autocapitalize="off">{{ content }}</textarea>
+  </label>
+  <p class="small muted" id="json-status" role="status" data-testid="course-file-status">{{ crate::t1("courses.file.status_html", "url", crate::url("/docs/course-format"))|safe }}</p>
+  <div class="actions">
+    <button type="submit" class="btn" data-testid="course-file-save">{{ crate::t("courses.file.save") }}</button>
+    <a class="btn ghost" href="{{ crate::base_path() }}/courses/{{ id }}" data-testid="course-file-cancel">{{ crate::t("courses.file.cancel") }}</a>
+  </div>
+</form>
+{% endblock %}
+{% block scripts %}<script>Object.assign(I18N, {{ crate::i18n::js_json("courses.js")|safe }});</script><script src="{{ crate::routes::asset_url("json-problems.js") }}" defer></script><script src="{{ crate::routes::asset_url("courses.js") }}" defer></script>{% endblock %}

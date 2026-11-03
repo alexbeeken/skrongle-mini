@@ -1,0 +1,619 @@
+{
+  "id": "b1-time-and-purpose-clauses",
+  "slug": "time-and-purpose-clauses",
+  "title": "When, until, so that: cuando llegues, para que sepas",
+  "unit": "B1",
+  "group": "Grammar",
+  "order": 20,
+  "summary": "Talk about the future with cuando, en cuanto, hasta que and antes de que + subjunctive, and say why with para or para que.",
+  "focus": "The subjunctive in future time clauses and purpose clauses, and the infinitive when the subject is the same",
+  "prerequisites": [
+    "b1-opinion-and-doubt",
+    "a2-future-simple"
+  ],
+  "content": "## Cuando + subjunctive: the future that hasn't happened yet\n\nWhen the moment after **cuando** is still to come, Spanish puts it in the **present subjunctive**. Habits and past events are facts, so they keep the **indicative**.\n\n| situation | example |\n|---|---|\n| future (not yet) | **Cuando llegues, te llamo.** When you arrive, I'll call you. |\n| habit | **Cuando llego a casa, me ducho.** When I get home, I have a shower. |\n| past | **Cuando llegué, cenamos.** When I arrived, we had dinner. |\n\nNever put the future after **cuando**. Say **cuando llegues**, not ~~cuando llegarás~~. The question word **¿cuándo?** is different: **¿Cuándo llegas?** takes the indicative.\n\n## En cuanto, hasta que, después de que… and antes de que\n\n**En cuanto** (as soon as), **hasta que** (until) and **después de que** (after) follow the same rule as **cuando**:\n\n- **En cuanto sepa algo, te aviso.** As soon as I know something, I'll let you know.\n- **Te espero hasta que salgas.** I'll wait for you until you come out.\n- **Después de que se vayan, limpiamos.** After they leave, we'll clean up.\n- **Siempre leo hasta que me duermo.** I always read until I fall asleep. (habit: indicative)\n\n**Antes de que** (before) is the exception: it **always** takes the subjunctive, even for habits: **Siempre salgo antes de que se despierten los niños.** (Its past form is coming at B2.)\n\n## Same subject? Use the infinitive\n\nWhen both halves have the same subject, drop **que** and use **antes de**, **después de** or **hasta** + infinitive:\n\n- **Ceno antes de salir.** I have dinner before I go out. (I eat, I go out)\n- **Ceno antes de que salgas.** I have dinner before you go out. (two people)\n- **Después de comer, damos un paseo.** After eating, we go for a walk.\n- **No paro hasta terminar.** I won't stop until I finish.\n\nThe infinitive is shorter and more natural, so use it whenever the subject is the same.\n\n## Para + infinitive or para que + subjunctive\n\nPurpose works the same way. The same person takes **para** + infinitive, and a different person takes **para que** + subjunctive:\n\n- **Ahorro para comprar un coche.** I'm saving (in order) to buy a car.\n- **Ahorro para que mis hijos puedan estudiar.** I'm saving so that my children can study.\n- **Te lo explico para que lo entiendas.** I'm explaining it to you so that you understand it.\n\n**Para que** always takes the subjunctive, because a purpose is never a fact yet. Say **para que entiendas**, not ~~para que entiendes~~.",
+  "vocabulary": [
+    {
+      "term": "cuando",
+      "meaning": "when (+ subjunctive for the future)",
+      "example": "Cuando llegues a casa, mándame un mensaje.",
+      "example_meaning": "When you get home, send me a message."
+    },
+    {
+      "term": "en cuanto",
+      "meaning": "as soon as",
+      "example": "En cuanto sepa algo, te lo digo.",
+      "example_meaning": "As soon as I know something, I'll tell you."
+    },
+    {
+      "term": "hasta que",
+      "meaning": "until",
+      "example": "Espera aquí hasta que vuelva tu hermano.",
+      "example_meaning": "Wait here until your brother comes back."
+    },
+    {
+      "term": "después de que",
+      "meaning": "after (+ a clause with its own subject)",
+      "example": "Después de que se vayan los invitados, limpiamos la cocina.",
+      "example_meaning": "After the guests leave, we'll clean the kitchen."
+    },
+    {
+      "term": "antes de que",
+      "meaning": "before (always + subjunctive)",
+      "example": "Quiero hablar con ella antes de que se vaya.",
+      "example_meaning": "I want to talk to her before she leaves."
+    },
+    {
+      "term": "antes de",
+      "meaning": "before (+ infinitive, same subject)",
+      "example": "Lávate las manos antes de comer.",
+      "example_meaning": "Wash your hands before eating."
+    },
+    {
+      "term": "después de",
+      "meaning": "after (+ infinitive or noun)",
+      "example": "Después de cenar, vemos una película.",
+      "example_meaning": "After dinner, we watch a film."
+    },
+    {
+      "term": "para que",
+      "meaning": "so that (+ subjunctive)",
+      "example": "Te dejo las llaves para que puedas entrar.",
+      "example_meaning": "I'm leaving you the keys so that you can get in."
+    },
+    {
+      "term": "avisar",
+      "meaning": "to let (someone) know, to warn",
+      "example": "Avísame cuando termines.",
+      "example_meaning": "Let me know when you finish."
+    },
+    {
+      "term": "mudarse",
+      "meaning": "to move (house)",
+      "example": "Cuando nos mudemos, tendremos un jardín.",
+      "example_meaning": "When we move, we'll have a garden."
+    },
+    {
+      "term": "ahorrar",
+      "meaning": "to save (money, time)",
+      "example": "Ahorro un poco cada mes para comprar una bici.",
+      "example_meaning": "I save a little every month to buy a bike."
+    },
+    {
+      "term": "jubilarse",
+      "meaning": "to retire",
+      "example": "Cuando mi padre se jubile, quiere vivir en el pueblo.",
+      "example_meaning": "When my father retires, he wants to live in the village."
+    },
+    {
+      "term": "aprobar",
+      "meaning": "to pass (an exam)",
+      "example": "Estudio todos los días para aprobar el examen.",
+      "example_meaning": "I study every day to pass the exam."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-time-and-purpose-clauses-01",
+      "prompt": "Cuando ___ a Madrid, te llamaré.",
+      "type": "multiple-choice",
+      "options": [
+        "llegues",
+        "llegas",
+        "llegarás"
+      ],
+      "correct_answer": "llegues",
+      "explanation": "The arrival is still to come, so cuando takes the present subjunctive: 'Cuando llegues a Madrid, te llamaré.' Cuando is never followed by the future.",
+      "hints": [
+        "Has the arrival happened yet?",
+        "Cuando + future is never correct."
+      ],
+      "teaches": [
+        "cuando"
+      ]
+    },
+    {
+      "question_id": "b1-time-and-purpose-clauses-02",
+      "prompt": "Normalmente, cuando ___ a casa, me ducho.",
+      "type": "multiple-choice",
+      "options": [
+        "llego",
+        "llegue",
+        "llegaré"
+      ],
+      "correct_answer": "llego",
+      "explanation": "Normalmente marks a habit, and habits are facts: cuando + indicative. 'Cuando llego a casa, me ducho.'",
+      "hints": [
+        "'Normalmente' = something that happens regularly."
+      ],
+      "teaches": [
+        "cuando"
+      ]
+    },
+    {
+      "question_id": "b1-time-and-purpose-clauses-03",
+      "prompt": "Ayer, cuando ___ a casa, vi a Pedro en la calle.",
+      "type": "multiple-choice",
+      "options": [
+        "llegué",
+        "llegue",
+        "llegaré"
+      ],
+      "correct_answer": "llegué",
+      "explanation": "Ayer puts it in the past: a past event is a fact, so cuando takes the indicative (preterite): 'cuando llegué'.",
+      "hints": [
+        "Ayer = yesterday.",
+        "Watch the accent: llegué (preterite) vs llegue (subjunctive)."
+      ],
+      "teaches": [
+        "cuando"
+      ]
+    },
+    {
+      "question_id": "b1-time-and-purpose-clauses-04",
+      "prompt": "En cuanto ___ (aprobar, yo) el examen, te aviso.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "apruebe",
+      "accepted_answers": [
+        "yo apruebe"
+      ],
+      "explanation": "En cuanto works like cuando: a future moment takes the present subjunctive. Aprobar keeps its stem change: apruebo becomes apruebe.",
+      "hints": [
+        "The exam hasn't happened yet.",
+        "From apruebo, change the final -o to -e."
+      ],
+      "teaches": [
+        "en cuanto",
+        "aprobar",
+        "avisar"
+      ]
+    },
+    {
+      "question_id": "b1-time-and-purpose-clauses-05",
+      "prompt": "Llámame antes de que ___ el tren.",
+      "type": "multiple-choice",
+      "options": [
+        "salga",
+        "sale",
+        "saldrá"
+      ],
+      "correct_answer": "salga",
+      "explanation": "Antes de que always takes the subjunctive: 'antes de que salga el tren'.",
+      "hints": [
+        "Antes de que has no exceptions."
+      ],
+      "teaches": [
+        "antes de que"
+      ]
+    },
+    {
+      "question_id": "b1-time-and-purpose-clauses-06",
+      "prompt": "No nos vamos hasta que ___ (terminar, nosotros) el trabajo.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "terminemos",
+      "accepted_answers": [
+        "nosotros terminemos"
+      ],
+      "explanation": "Finishing the work is still to come, so hasta que takes the subjunctive: terminar becomes terminemos.",
+      "hints": [
+        "-ar verb, subjunctive: the 'opposite vowel' e.",
+        "nosotros ending: -emos."
+      ],
+      "teaches": [
+        "hasta que"
+      ]
+    },
+    {
+      "question_id": "b1-time-and-purpose-clauses-07",
+      "prompt": "Me lavo los dientes antes de ___.",
+      "type": "multiple-choice",
+      "options": [
+        "acostarme",
+        "me acuesto",
+        "acostándome"
+      ],
+      "correct_answer": "acostarme",
+      "explanation": "Same subject (I brush my teeth, I go to bed): antes de + infinitive, with the pronoun attached: 'antes de acostarme'.",
+      "hints": [
+        "Who goes to bed? The same person who brushes their teeth.",
+        "After a preposition Spanish uses the infinitive."
+      ],
+      "teaches": [
+        "antes de"
+      ]
+    },
+    {
+      "question_id": "b1-time-and-purpose-clauses-08",
+      "prompt": "Ahorramos para que nuestros hijos ___ (poder) estudiar.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "puedan",
+      "accepted_answers": [
+        "ellos puedan"
+      ],
+      "explanation": "Different subjects (we save, our children study), so para que + subjunctive: poder becomes puedan (o changes to ue).",
+      "hints": [
+        "Para que is always followed by the subjunctive.",
+        "poder is a boot verb: pueda, puedas, pueda…"
+      ],
+      "teaches": [
+        "para que",
+        "ahorrar"
+      ]
+    },
+    {
+      "question_id": "b1-time-and-purpose-clauses-09",
+      "prompt": "Después de que mi madre se ___ (jubilar), nos mudaremos a la costa.",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "jubile",
+      "accepted_answers": [],
+      "explanation": "The retirement is still to come, so después de que takes the subjunctive: jubilar becomes (se) jubile.",
+      "hints": [
+        "Has she retired yet?",
+        "An -ar verb takes -e in the subjunctive."
+      ],
+      "teaches": [
+        "después de que",
+        "jubilarse",
+        "mudarse"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-time-and-purpose-clauses-conv-mudanza",
+      "title": "Moving to Valencia",
+      "scenario": "Javier is about to move to Valencia; his friend Clara, who moved to Bilbao a few years ago, helps him plan.",
+      "role_a": "Clara",
+      "role_b": "Javier",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Entonces, ¿cuándo te mudas a Valencia?",
+          "meaning": "So, when are you moving to Valencia?",
+          "note": "¿cuándo? in a question: indicative"
+        },
+        {
+          "speaker": "b",
+          "text": "Cuando termine el contrato del piso, en junio más o menos.",
+          "meaning": "When the lease on the flat ends, in June more or less.",
+          "note": "cuando + subjunctive: still to come"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Y vas a buscar trabajo allí antes de irte?",
+          "meaning": "And are you going to look for work there before you leave?",
+          "note": "same subject: antes de + infinitive"
+        },
+        {
+          "speaker": "b",
+          "text": "Sí, quiero tener algo antes de que se acabe mi dinero.",
+          "meaning": "Yes, I want to have something before my money runs out.",
+          "note": "antes de que: always subjunctive"
+        },
+        {
+          "speaker": "a",
+          "text": "Normal. Cuando yo me mudé a Bilbao, tardé tres meses en encontrar algo.",
+          "meaning": "Makes sense. When I moved to Bilbao, it took me three months to find something.",
+          "note": "past: indicative"
+        },
+        {
+          "speaker": "b",
+          "text": "Por eso ahorro un poco cada mes, para no tener problemas.",
+          "meaning": "That's why I save a bit every month, so as not to have problems.",
+          "note": "same subject: para + infinitive"
+        },
+        {
+          "speaker": "a",
+          "text": "Muy bien. Oye, te dejo mi coche para que lleves tus cosas.",
+          "meaning": "Great. Listen, I'll lend you my car so that you can take your things.",
+          "note": "different subject: para que + subjunctive"
+        },
+        {
+          "speaker": "b",
+          "text": "¿En serio? ¡Gracias! Te lo devuelvo en cuanto llegue.",
+          "meaning": "Really? Thanks! I'll give it back as soon as I get there."
+        },
+        {
+          "speaker": "a",
+          "text": "Tranquilo. Pero avísame cuando estés allí, ¿vale?",
+          "meaning": "No rush. But let me know when you're there, OK?"
+        },
+        {
+          "speaker": "b",
+          "text": "Claro. Y cuando tengas vacaciones, vienes a verme.",
+          "meaning": "Of course. And when you have a holiday, come and see me."
+        },
+        {
+          "speaker": "a",
+          "text": "¡Hecho! Y no me voy de la playa hasta que me echen.",
+          "meaning": "Deal! And I'm not leaving the beach until they throw me out."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Cuando llegues, llámame, por favor.",
+      "meaning": "When you arrive, call me, please.",
+      "note": "Arrival still to come: cuando + subjunctive."
+    },
+    {
+      "text": "Siempre desayuno cuando me levanto.",
+      "meaning": "I always have breakfast when I get up.",
+      "note": "A habit keeps the indicative."
+    },
+    {
+      "text": "Antes de salir, cierra la ventana.",
+      "meaning": "Before going out, close the window.",
+      "note": "Same subject: antes de + infinitive."
+    },
+    {
+      "text": "Antes de que empiece la película, compramos palomitas.",
+      "meaning": "Before the film starts, we'll buy popcorn.",
+      "note": "New word: las palomitas = the popcorn."
+    },
+    {
+      "text": "Cuando llegué a la estación, mi amiga ya estaba allí.",
+      "meaning": "When I got to the station, my friend was already there.",
+      "note": "A past event keeps the indicative."
+    },
+    {
+      "text": "Guarda el dinero en este sobre hasta que venga tu tía.",
+      "meaning": "Keep the money in this envelope until your aunt comes.",
+      "note": "New word: el sobre = the envelope."
+    },
+    {
+      "text": "Mis padres trabajan mucho para que mi hermano y yo podamos estudiar.",
+      "meaning": "My parents work a lot so that my brother and I can study.",
+      "note": "Different subjects: para que + subjunctive."
+    },
+    {
+      "text": "En cuanto termine la reunión, te mando la factura por correo electrónico.",
+      "meaning": "As soon as the meeting ends, I'll send you the invoice by e-mail.",
+      "note": "New word: la factura = the invoice, the bill."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Cuando + subjunctive"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b1-time-and-purpose-clauses-01"
+    },
+    {
+      "question": "b1-time-and-purpose-clauses-02"
+    },
+    {
+      "question": "b1-time-and-purpose-clauses-03"
+    },
+    {
+      "tip": "Ask one question: has it happened yet? If not, use the subjunctive. For a habit or the past, use the indicative. Never use the future after cuando."
+    },
+    {
+      "section": "En cuanto"
+    },
+    {
+      "question": "b1-time-and-purpose-clauses-04"
+    },
+    {
+      "question": "b1-time-and-purpose-clauses-05"
+    },
+    {
+      "question": "b1-time-and-purpose-clauses-06"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "section": "Same subject"
+    },
+    {
+      "question": "b1-time-and-purpose-clauses-07"
+    },
+    {
+      "section": "Para + infinitive"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-time-and-purpose-clauses-08"
+    },
+    {
+      "question": "b1-time-and-purpose-clauses-09"
+    }
+  ],
+  "sprint": {
+    "icon": "⏰",
+    "bites": [
+      {
+        "title": "Not yet? Subjunctive",
+        "emoji": "⏳",
+        "rule": "After cuando, a moment still to come takes the subjunctive. Habits and past events are facts, so they take the indicative. Never use cuando + future.",
+        "example": "Cuando llegues, te llamo. Cuando llego, me ducho.",
+        "example_meaning": "When you arrive, I'll call you. When I arrive, I have a shower."
+      },
+      {
+        "title": "The same family",
+        "emoji": "🧩",
+        "rule": "En cuanto (as soon as), hasta que (until) and después de que (after) follow the cuando rule: a future moment takes the subjunctive, a habit or the past takes the indicative.",
+        "example": "Te espero hasta que salgas.",
+        "example_meaning": "I'll wait for you until you come out."
+      },
+      {
+        "title": "Antes de que: always",
+        "emoji": "🚦",
+        "rule": "Antes de que takes the subjunctive every time, even for habits: at that moment the action hasn't happened.",
+        "example": "Siempre salgo antes de que llueva.",
+        "example_meaning": "I always go out before it rains."
+      },
+      {
+        "title": "One subject takes the infinitive",
+        "emoji": "🎯",
+        "rule": "Same subject in both halves? Drop que and use antes de, después de, hasta or para + infinitive. Para que + subjunctive is for someone else.",
+        "example": "Ahorro para viajar. Ahorro para que viajes.",
+        "example_meaning": "I save in order to travel. I save so that you can travel."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Subjunctive or indicative?",
+        "buckets": [
+          "subjunctive (not yet)",
+          "indicative (habit or past)"
+        ],
+        "why": "A moment still to come takes the subjunctive; what usually happens or already happened is a fact, so it takes the indicative.",
+        "items": [
+          {
+            "text": "Cuando llegues, llámame.",
+            "bucket": 0
+          },
+          {
+            "text": "Cuando llego, me ducho.",
+            "bucket": 1
+          },
+          {
+            "text": "Cuando llegué, cenamos.",
+            "bucket": 1
+          },
+          {
+            "text": "En cuanto sepa algo, te aviso.",
+            "bucket": 0
+          },
+          {
+            "text": "Hasta que vuelvas, te espero.",
+            "bucket": 0
+          },
+          {
+            "text": "Siempre leo hasta que me duermo.",
+            "bucket": 1
+          },
+          {
+            "text": "Después de que comas, salimos.",
+            "bucket": 0
+          },
+          {
+            "text": "Ayer esperé hasta que cerraron.",
+            "bucket": 1
+          }
+        ]
+      },
+      {
+        "title": "Infinitive or que + subjunctive?",
+        "buckets": [
+          "same subject: infinitive",
+          "different subject: que + subjunctive"
+        ],
+        "why": "One subject doing both things takes the infinitive. Two different people take que + subjunctive.",
+        "items": [
+          {
+            "text": "Estudio para aprobar.",
+            "bucket": 0
+          },
+          {
+            "text": "Te ayudo para que apruebes.",
+            "bucket": 1
+          },
+          {
+            "text": "Ceno antes de salir.",
+            "bucket": 0
+          },
+          {
+            "text": "Cenamos antes de que salgas.",
+            "bucket": 1
+          },
+          {
+            "text": "Me voy después de comer.",
+            "bucket": 0
+          },
+          {
+            "text": "Habla despacio para que lo entiendan.",
+            "bucket": 1
+          }
+        ]
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Cuando llegarás a casa, llámame.",
+        "wrong": "llegarás",
+        "fix": "llegues",
+        "why": "A future moment after cuando takes the present subjunctive, never the future tense."
+      },
+      {
+        "sentence": "Te aviso en cuanto sé algo.",
+        "wrong": "sé",
+        "fix": "sepa",
+        "why": "En cuanto + a moment still to come takes the subjunctive: sepa."
+      },
+      {
+        "sentence": "Siempre me ducho cuando vuelva del gimnasio.",
+        "wrong": "vuelva",
+        "fix": "vuelvo",
+        "why": "Siempre marks a habit, so cuando takes the indicative."
+      },
+      {
+        "sentence": "Salimos antes de que empieza a llover.",
+        "wrong": "empieza",
+        "fix": "empiece",
+        "why": "Antes de que always takes the subjunctive."
+      },
+      {
+        "sentence": "Te dejo mi coche para que llevas tus cosas.",
+        "wrong": "llevas",
+        "fix": "lleves",
+        "why": "Para que always takes the subjunctive."
+      },
+      {
+        "sentence": "Ayer, cuando llegue a casa, cené.",
+        "wrong": "llegue",
+        "fix": "llegué",
+        "why": "Ayer = past, so the indicative preterite llegué (with accent), not the subjunctive llegue."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Cuando tengas tiempo, llámame.",
+        "meaning": "When you have time, call me.",
+        "distractors": [
+          "tienes"
+        ]
+      },
+      {
+        "text": "Te espero hasta que vuelvas.",
+        "meaning": "I'll wait for you until you come back.",
+        "distractors": [
+          "vuelves"
+        ]
+      },
+      {
+        "text": "Lávate las manos antes de cenar.",
+        "meaning": "Wash your hands before dinner.",
+        "distractors": [
+          "que"
+        ]
+      },
+      {
+        "text": "Te lo explico para que lo entiendas.",
+        "meaning": "I'm explaining it so that you understand it.",
+        "distractors": [
+          "entiendes"
+        ]
+      },
+      {
+        "text": "En cuanto llegue, te aviso.",
+        "meaning": "As soon as I arrive, I'll let you know.",
+        "distractors": [
+          "llegaré"
+        ]
+      }
+    ]
+  }
+}

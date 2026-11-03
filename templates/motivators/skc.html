@@ -1,0 +1,41 @@
+{# The Skrongle Cash motivator's hero on the course home page
+   (motivators/skc.rs, #562): the course's SKC balance, today's SKC against
+   the daily goal in SKC, the badges bought in the shop (#569) and where to
+   continue. #}
+<section class="today skc-hero" data-testid="home-today" data-motivator="skc" aria-label="{{ crate::t("motivator.skc.title") }}">
+  <div class="today-body">
+    <div class="today-head">
+      <p class="skc-balance" data-testid="skc-balance" data-skc="{{ balance }}">{{ crate::motivators::skc::amount(*balance)|safe }} <span class="skc-unit" data-testid="skc-unit">{{ crate::t("motivator.skc.short") }}</span></p>
+      <button type="button" class="info-btn" commandfor="home-info-skc" command="show-modal" data-opens="home-info-skc" aria-haspopup="dialog" aria-label="{{ crate::t("motivator.skc.info.label") }}" data-testid="skc-info">i</button>
+      <a class="btn small skc-shop-link" href="{{ crate::url("/shop") }}" data-testid="skc-shop">{{ crate::t("motivator.skc.shop.open") }}</a>
+    </div>
+    {% if !shelf.is_empty() %}
+    <ul class="skc-shelf" data-testid="skc-shelf" aria-label="{{ crate::t("motivator.skc.shop.shelf") }}">
+      {% for b in shelf %}<li><img src="{{ b.src }}" alt="{{ b.title }}" title="{{ b.title }}" width="44" height="44" data-testid="skc-badge" data-badge="{{ b.id }}"></li>{% endfor %}
+    </ul>
+    {% endif %}
+    <p class="skc-today{% if done %} done{% endif %}" data-testid="skc-today" data-skc="{{ today }}" data-goal="{{ goal }}">{{ crate::t2("motivator.skc.today", "n", today, "goal", goal) }}</p>
+    <div class="bar skc-bar" role="progressbar" aria-label="{{ crate::t2("motivator.skc.today", "n", today, "goal", goal) }}" aria-valuemin="0" aria-valuemax="{{ goal }}" aria-valuenow="{{ today }}"><div class="fill" style="width:{{ pct }}%"></div></div>
+    {% if let Some((slug, title, url)) = p.resume %}
+    <a class="btn big today-continue" href="{{ url }}" data-testid="home-continue" data-lesson-id="{{ slug }}">{{ crate::t1("goal.continue", "title", title) }} ›</a>
+    {% else %}
+    <a class="btn big today-continue" href="{{ crate::base_path() }}/practice" data-testid="home-continue">{{ crate::t("goal.all_done") }} ›</a>
+    {% endif %}
+  </div>
+</section>
+
+<dialog class="modal" id="home-info-skc" aria-labelledby="home-info-skc-title" data-testid="skc-info-dialog">
+  <h2 id="home-info-skc-title">{{ crate::motivators::skc::symbol()|safe }} {{ crate::t("motivator.skc.title") }}</h2>
+  <p>{{ crate::t("motivator.skc.info.p") }}</p>
+  <table class="goal-points" data-testid="skc-rates">
+    <thead><tr><th scope="col">{{ crate::t("goal.col_activity") }}</th><th scope="col">{{ crate::t("motivator.skc.short") }}</th></tr></thead>
+    <tbody>{% for (what, n) in rates %}<tr><td>{{ what }}</td><td>+{{ n }}</td></tr>{% endfor %}</tbody>
+  </table>
+  <p>{{ crate::t("motivator.skc.info.points") }}</p>
+  <table class="goal-points">
+    <thead><tr><th scope="col">{{ crate::t("goal.col_activity") }}</th><th scope="col">{{ crate::t("goal.col_points") }}</th></tr></thead>
+    <tbody>{% for (what, pts) in p.effort_table %}<tr><td>{{ what }}</td><td>{{ pts }}</td></tr>{% endfor %}</tbody>
+  </table>
+  <p data-testid="skc-info-shop">{{ crate::t("motivator.skc.info.shop") }}</p>
+  <div class="modal-actions"><button type="button" class="btn" commandfor="home-info-skc" command="close" data-closes data-testid="skc-info-close">{{ crate::t("home.ok") }}</button></div>
+</dialog>

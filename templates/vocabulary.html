@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}{{ crate::t("vocab.index.title") }}{% endblock %}
+{% block modenav %}{% let active = "vocabulary" %}{% include "nav_study.html" %}{% endblock %}
+{% block content %}
+<section class="hero">
+  <div>
+    <h1>{{ crate::t("vocab.index.heading") }}</h1>
+    <p class="lead">{{ crate::t("vocab.index.lead") }}
+      {{ crate::t2("vocab.index.lead_count_html", "learned", total_learned, "total", total_words)|safe }}</p>
+  </div>
+  {% if total_learned > 0 %}
+    <a class="btn big" href="{{ crate::base_path() }}/vocabulary/study" data-testid="vocabulary-study-all">{{ crate::t("vocab.index.study_all") }}</a>
+  {% endif %}
+</section>
+
+{% if total_learned == 0 %}
+  <p class="alert" role="status" data-testid="vocabulary-empty">{{ crate::t2("vocab.index.empty_html", "practice_url", crate::url("/practice"), "guide_url", crate::url("/guide"))|safe }}</p>
+{% endif %}
+
+{% for l in lessons %}{% if l.learned > 0 %}
+{% include "vocabulary_lesson.html" %}
+{% endif %}{% endfor %}
+{% if empty_lessons > 0 %}
+{#- Lessons with nothing collected fold away, so the page is not a wall of empty bars (#404). -#}
+<details class="vocab-empty-lessons" data-testid="vocabulary-empty-lessons">
+  <summary data-testid="vocabulary-empty-lessons-toggle">{% if total_learned == 0 %}{{ crate::t1("vocab.index.show_all_lessons", "n", empty_lessons) }}{% else %}{{ crate::tn("vocab.index.nothing_yet", empty_lessons) }}{% endif %}</summary>
+  {% for l in lessons %}{% if l.learned == 0 %}
+  {% include "vocabulary_lesson.html" %}
+  {% endif %}{% endfor %}
+</details>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,557 @@
+{
+  "id": "c1-word-order-and-emphasis",
+  "slug": "word-order-and-emphasis",
+  "title": "Fue Ana quien lo dijo: word order, focus and clefts",
+  "unit": "C1",
+  "group": "Grammar",
+  "order": 26,
+  "summary": "Move words to change the focus: subject after the verb, topics with a pronoun, cleft sentences, sí que, lo… que and ¡vaya si…!",
+  "focus": "Information structure: topic, focus, clefts and emphasis",
+  "prerequisites": [
+    "b2-relative-clauses",
+    "b2-discourse-markers"
+  ],
+  "content": "## New information goes last\n\nSpanish word order is free, but not random: what is **new** goes at the end. So with verbs of arriving, appearing or happening, the subject often follows the verb:\n\n- ***Ha llamado tu madre.*** (Your mother called, and that is the news.)\n- ***Llegó el tren** y todos subimos.*\n- *Me encanta **el cine**.*\n\n*Tu madre ha llamado* is also correct, but it answers 'what about my mother?'\n\n## Fronting a topic\n\nTo start from something already known, put it first and **repeat it with a pronoun** if it is a direct object:\n\n- ***El pan lo** compro yo.* (As for the bread, I buy it.)\n- ***A Luis** no **lo** he visto.*\n- ***Estas cartas las** escribió mi abuela.*\n\nAdverbials need no pronoun: ***Al cine** vamos el sábado.*\n\n## Cleft sentences\n\nSplit the sentence with **ser** to spotlight one part:\n\n| focus on | pattern |\n|---|---|\n| a person | ***Fue Ana quien** / **la que** lo dijo.* |\n| a thing | ***Lo que** necesito **es** dormir.* |\n| a place | ***Donde** lo conocí **fue en** Roma.* |\n| a time | ***Cuando** me enteré **fue** ayer.* |\n| a reason | ***Por eso es por lo que** dimití.* (formal) |\n\n**Ser** agrees with the focused noun: ***Fueron** mis padres quienes pagaron*; *lo que necesito **son** vacaciones*, but *lo que necesito **es** dormir*.\n\n## Emphatic tools\n\n- **sí que** + verb: *Ahora **sí que** me voy.*\n- **lo + adjective/adverb + que**: *No sabes **lo difícil que** es.* The adjective agrees: *lo cansadas que estamos*.\n- **es que** to justify: ***Es que** no me encuentro bien.*\n- **¡vaya si…!** = and how!: *—¿Te gustó? —¡**Vaya si** me gustó!*\n- **precisamente**, **ni siquiera** point at the focus: ***Ni siquiera** me saludó.*",
+  "vocabulary": [
+    {
+      "term": "fue … quien",
+      "meaning": "it was … who (cleft on a person)",
+      "example": "Fue mi tía quien me animó a estudiar música.",
+      "example_meaning": "It was my aunt who encouraged me to study music."
+    },
+    {
+      "term": "el que / la que",
+      "meaning": "the one who (in clefts: it was … that)",
+      "example": "Es Carlos el que organiza la cena este año.",
+      "example_meaning": "It's Carlos who's organising the dinner this year."
+    },
+    {
+      "term": "lo que",
+      "meaning": "what (the thing that)",
+      "example": "Lo que me preocupa es el precio del alquiler.",
+      "example_meaning": "What worries me is the price of the rent."
+    },
+    {
+      "term": "donde … fue en",
+      "meaning": "where … was in (cleft on a place)",
+      "example": "Donde mejor comí fue en un bar de Bilbao.",
+      "example_meaning": "Where I ate best was in a bar in Bilbao."
+    },
+    {
+      "term": "cuando … fue",
+      "meaning": "when … was (cleft on a time)",
+      "example": "Cuando me di cuenta fue al llegar a casa.",
+      "example_meaning": "It was when I got home that I realised."
+    },
+    {
+      "term": "por eso es por lo que",
+      "meaning": "that is why (formal cleft)",
+      "example": "No hay presupuesto; por eso es por lo que se ha cancelado el proyecto.",
+      "example_meaning": "There's no budget; that's why the project has been cancelled."
+    },
+    {
+      "term": "sí que",
+      "meaning": "really, definitely (emphatic)",
+      "example": "Este año sí que vamos a ir a la playa.",
+      "example_meaning": "This year we really are going to the beach."
+    },
+    {
+      "term": "lo … que",
+      "meaning": "how (+ adjective/adverb, exclamatory)",
+      "example": "No te imaginas lo rápido que habla mi jefe.",
+      "example_meaning": "You can't imagine how fast my boss talks."
+    },
+    {
+      "term": "es que",
+      "meaning": "it's just that, the thing is (justifying)",
+      "example": "Es que hoy no puedo, tengo médico.",
+      "example_meaning": "It's just that I can't today, I've got a doctor's appointment."
+    },
+    {
+      "term": "¡vaya si…!",
+      "meaning": "and how!, I'll say!",
+      "example": "¿Que si se enfadó? ¡Vaya si se enfadó!",
+      "example_meaning": "Did she get angry? I'll say she did!"
+    },
+    {
+      "term": "precisamente",
+      "meaning": "precisely, of all things",
+      "example": "Precisamente de eso quería hablarte.",
+      "example_meaning": "That's exactly what I wanted to talk to you about."
+    },
+    {
+      "term": "ni siquiera",
+      "meaning": "not even",
+      "example": "Ni siquiera me dio las gracias.",
+      "example_meaning": "He didn't even say thank you."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "c1-word-order-and-emphasis-01",
+      "prompt": "El pan ___ compro yo.",
+      "type": "fill-in-blank",
+      "correct_answer": "lo",
+      "explanation": "A fronted direct object is repeated with a pronoun: el pan lo compro yo.",
+      "hints": [
+        "Masculine singular direct object pronoun."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "c1-word-order-and-emphasis-02",
+      "prompt": "A tus padres no ___ he visto desde la boda.",
+      "type": "multiple-choice",
+      "options": [
+        "los",
+        "les",
+        "las"
+      ],
+      "correct_answer": "los",
+      "explanation": "A fronted direct object (a tus padres) takes the resumptive los. Plural le for a direct object is not standard.",
+      "hints": [
+        "Direct object, masculine plural."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "c1-word-order-and-emphasis-03",
+      "prompt": "___ Ana quien rompió el jarrón.",
+      "type": "multiple-choice",
+      "options": [
+        "Fue",
+        "Estuvo",
+        "Hizo"
+      ],
+      "correct_answer": "Fue",
+      "explanation": "Cleft sentences use ser: fue Ana quien…",
+      "hints": [
+        "Clefts are built with ser."
+      ],
+      "teaches": [
+        "fue … quien"
+      ]
+    },
+    {
+      "question_id": "c1-word-order-and-emphasis-04",
+      "prompt": "___ necesito es dormir doce horas.",
+      "type": "fill-in-blank",
+      "correct_answer": "Lo que",
+      "explanation": "A cleft on a thing: lo que necesito es…",
+      "hints": [
+        "Two words: 'what'."
+      ],
+      "teaches": [
+        "lo que"
+      ]
+    },
+    {
+      "question_id": "c1-word-order-and-emphasis-05",
+      "prompt": "___ mis padres quienes pagaron la cena.",
+      "type": "multiple-choice",
+      "options": [
+        "Fueron",
+        "Fue"
+      ],
+      "correct_answer": "Fueron",
+      "explanation": "Ser agrees with the plural focus: fueron mis padres.",
+      "hints": [
+        "Mis padres is plural."
+      ],
+      "teaches": [
+        "fue … quien"
+      ]
+    },
+    {
+      "question_id": "c1-word-order-and-emphasis-06",
+      "prompt": "Donde la conocí ___ en Roma.",
+      "type": "multiple-choice",
+      "options": [
+        "fue",
+        "estuvo",
+        "era"
+      ],
+      "correct_answer": "fue",
+      "explanation": "A cleft on a place: donde… fue en…",
+      "hints": [
+        "A single past event, with ser."
+      ],
+      "teaches": [
+        "donde … fue en"
+      ]
+    },
+    {
+      "question_id": "c1-word-order-and-emphasis-07",
+      "prompt": "No sabes lo ___ que estoy. (tired; a man speaking)",
+      "type": "fill-in-blank",
+      "correct_answer": "cansado",
+      "explanation": "Lo + adjective + que; the adjective agrees with the person: lo cansado que estoy.",
+      "hints": [
+        "The adjective still agrees with the speaker."
+      ],
+      "teaches": [
+        "lo … que"
+      ]
+    },
+    {
+      "question_id": "c1-word-order-and-emphasis-08",
+      "prompt": "—¿Te gustó la película? —¡___ si me gustó!",
+      "type": "multiple-choice",
+      "options": [
+        "Vaya",
+        "Venga",
+        "Vale"
+      ],
+      "correct_answer": "Vaya",
+      "explanation": "¡Vaya si…! repeats the question's verb to say 'and how!'.",
+      "hints": [
+        "An emphatic yes."
+      ],
+      "teaches": [
+        "¡vaya si…!"
+      ]
+    },
+    {
+      "question_id": "c1-word-order-and-emphasis-09",
+      "prompt": "You hear a whistle at the station and announce the news. Which is more natural?",
+      "type": "multiple-choice",
+      "options": [
+        "¡Ya llega el tren!",
+        "¡El tren ya llega!"
+      ],
+      "correct_answer": "¡Ya llega el tren!",
+      "explanation": "New information goes last, so a subject that is news often follows the verb.",
+      "hints": [
+        "Where does new information go?"
+      ],
+      "teaches": []
+    }
+  ],
+  "listening": [
+    {
+      "text": "Ha llamado tu hermana.",
+      "meaning": "Your sister called.",
+      "note": "The new information, the subject, goes last."
+    },
+    {
+      "text": "Las llaves las tiene Marta.",
+      "meaning": "Marta has the keys."
+    },
+    {
+      "text": "Fue mi abuela quien me enseñó a cocinar.",
+      "meaning": "It was my grandmother who taught me to cook."
+    },
+    {
+      "text": "Lo que más me gusta de Madrid es la gente.",
+      "meaning": "What I like most about Madrid is the people."
+    },
+    {
+      "text": "Ahora sí que me voy, que es tardísimo.",
+      "meaning": "Now I really am going, it's very late."
+    },
+    {
+      "text": "No te imaginas lo bien que lo pasamos en la boda.",
+      "meaning": "You can't imagine what a good time we had at the wedding."
+    },
+    {
+      "text": "Fue en Lisboa donde firmaron el tratado.",
+      "meaning": "It was in Lisbon that they signed the treaty.",
+      "note": "New word: el tratado = the treaty."
+    },
+    {
+      "text": "Por eso es por lo que el ayuntamiento ha cerrado el puente.",
+      "meaning": "That's why the town council has closed the bridge.",
+      "note": "New word: el ayuntamiento = the town council."
+    }
+  ],
+  "guide": [
+    {
+      "section": "New information goes last"
+    },
+    {
+      "question": "c1-word-order-and-emphasis-09"
+    },
+    {
+      "section": "Fronting a topic"
+    },
+    {
+      "question": "c1-word-order-and-emphasis-01"
+    },
+    {
+      "question": "c1-word-order-and-emphasis-02"
+    },
+    {
+      "section": "Cleft sentences"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "c1-word-order-and-emphasis-03"
+    },
+    {
+      "question": "c1-word-order-and-emphasis-04"
+    },
+    {
+      "question": "c1-word-order-and-emphasis-05"
+    },
+    {
+      "question": "c1-word-order-and-emphasis-06"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "tip": "To spotlight one part of a sentence, split it with ser and the matching word: quien for people, lo que for things, donde for places, cuando for times."
+    },
+    {
+      "section": "Emphatic tools"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "c1-word-order-and-emphasis-07"
+    },
+    {
+      "question": "c1-word-order-and-emphasis-08"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "c1-word-order-and-emphasis-conv-cake",
+      "title": "Who ate the cake?",
+      "scenario": "Laura comes home and finds the birthday cake half eaten; her flatmate Sergio is on the sofa.",
+      "role_a": "Laura",
+      "role_b": "Sergio",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Sergio, la tarta la compré para el cumpleaños de mi madre.",
+          "meaning": "Sergio, I bought the cake for my mother's birthday.",
+          "note": "Fronted topic with lo/la."
+        },
+        {
+          "speaker": "b",
+          "text": "Lo sé. Y no fui yo quien se la comió.",
+          "meaning": "I know. And it wasn't me who ate it."
+        },
+        {
+          "speaker": "a",
+          "text": "¿Ah, no? ¿Y quién fue, entonces?",
+          "meaning": "Oh, really? Who was it, then?"
+        },
+        {
+          "speaker": "b",
+          "text": "Fue tu primo el que vino esta tarde.",
+          "meaning": "It was your cousin who came round this afternoon."
+        },
+        {
+          "speaker": "a",
+          "text": "¿Mi primo? Ni siquiera tiene llaves.",
+          "meaning": "My cousin? He doesn't even have keys."
+        },
+        {
+          "speaker": "b",
+          "text": "Es que le abrí yo la puerta.",
+          "meaning": "Well, I let him in."
+        },
+        {
+          "speaker": "a",
+          "text": "Lo que no entiendo es por qué tienes chocolate en la camiseta.",
+          "meaning": "What I don't understand is why you have chocolate on your T-shirt."
+        },
+        {
+          "speaker": "b",
+          "text": "Vale, vale. Un trocito sí que me comí.",
+          "meaning": "OK, OK. I did eat one little piece."
+        },
+        {
+          "speaker": "a",
+          "text": "¿Un trocito? ¡No sabes lo enfadada que estoy!",
+          "meaning": "One little piece? You have no idea how cross I am!"
+        },
+        {
+          "speaker": "b",
+          "text": "Mañana compro otra. ¿Estaba buena? ¡Vaya si estaba buena!",
+          "meaning": "I'll buy another tomorrow. Was it good? It certainly was!"
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "📣",
+    "bites": [
+      {
+        "title": "Topic first, pronoun after",
+        "emoji": "🔙",
+        "rule": "Put a known object first and repeat it with lo, la, los or las: el pan lo compro yo; a Luis no lo he visto.",
+        "example": "Las llaves las tiene Marta.",
+        "example_meaning": "Marta has the keys."
+      },
+      {
+        "title": "Cleft sentences",
+        "emoji": "🔦",
+        "rule": "Spotlight one part with ser: fue Ana quien…, lo que quiero es…, donde lo vi fue en…, cuando me enteré fue…",
+        "example": "Lo que quiero es dormir.",
+        "example_meaning": "What I want is to sleep."
+      },
+      {
+        "title": "Ser agrees with the focus",
+        "emoji": "⚖️",
+        "rule": "Fueron mis padres quienes pagaron. Lo que necesito son vacaciones (plural noun), but lo que necesito es dormir.",
+        "example": "Fueron ellos quienes llamaron.",
+        "example_meaning": "It was them who called."
+      },
+      {
+        "title": "Sí que, lo… que, ¡vaya si!",
+        "emoji": "❗",
+        "rule": "Ahora sí que me voy. No sabes lo difícil que es. ¡Vaya si me gustó! Es que… justifies.",
+        "example": "No sabes lo difícil que es.",
+        "example_meaning": "You don't know how hard it is."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which word after the cleft?",
+        "buckets": [
+          "quien / el que",
+          "lo que",
+          "donde",
+          "cuando"
+        ],
+        "items": [
+          {
+            "text": "Fue Ana ___ llamó.",
+            "bucket": 0
+          },
+          {
+            "text": "Son ellos ___ deciden.",
+            "bucket": 0
+          },
+          {
+            "text": "___ quiero es descansar.",
+            "bucket": 1
+          },
+          {
+            "text": "___ me molesta es el ruido.",
+            "bucket": 1
+          },
+          {
+            "text": "___ nos conocimos fue en Roma.",
+            "bucket": 2
+          },
+          {
+            "text": "___ lo vi fue en el mercado.",
+            "bucket": 2
+          },
+          {
+            "text": "___ me enteré fue ayer.",
+            "bucket": 3
+          },
+          {
+            "text": "___ se casaron fue en mayo.",
+            "bucket": 3
+          }
+        ],
+        "why": "The relative matches what you spotlight: a person, a thing, a place or a time."
+      },
+      {
+        "title": "Does the fronted part need a pronoun?",
+        "buckets": [
+          "yes: lo, la, los, las",
+          "no pronoun"
+        ],
+        "items": [
+          {
+            "text": "El pan ___ compro yo.",
+            "bucket": 0
+          },
+          {
+            "text": "A tu hermana ___ vi ayer.",
+            "bucket": 0
+          },
+          {
+            "text": "Estas fotos ___ hizo mi padre.",
+            "bucket": 0
+          },
+          {
+            "text": "Al cine vamos el sábado.",
+            "bucket": 1
+          },
+          {
+            "text": "Mañana empiezo el curso.",
+            "bucket": 1
+          },
+          {
+            "text": "Con Ana hablo luego.",
+            "bucket": 1
+          }
+        ],
+        "why": "A fronted direct object is repeated with a pronoun; places, times and other adverbials are not."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Las llaves los tiene Marta.",
+        "wrong": "los",
+        "fix": "las",
+        "why": "The pronoun agrees with las llaves."
+      },
+      {
+        "sentence": "Fue mis padres quienes pagaron.",
+        "wrong": "Fue",
+        "fix": "Fueron",
+        "why": "Ser agrees with the plural focus."
+      },
+      {
+        "sentence": "Lo que necesito son dormir.",
+        "wrong": "son",
+        "fix": "es",
+        "why": "An infinitive is singular: lo que necesito es dormir."
+      },
+      {
+        "sentence": "No sabes lo cansados que está mi padre.",
+        "wrong": "cansados",
+        "fix": "cansado",
+        "why": "The adjective agrees with mi padre: lo cansado que está."
+      },
+      {
+        "sentence": "A María no lo he visto desde enero.",
+        "wrong": "lo",
+        "fix": "la",
+        "why": "María is feminine: la."
+      }
+    ],
+    "builds": [
+      {
+        "text": "Fue Ana quien lo dijo.",
+        "meaning": "It was Ana who said it.",
+        "distractors": [
+          "cual"
+        ]
+      },
+      {
+        "text": "El pan lo compro yo.",
+        "meaning": "I'm the one who buys the bread.",
+        "distractors": [
+          "le"
+        ]
+      },
+      {
+        "text": "Lo que quiero es dormir.",
+        "meaning": "What I want is to sleep.",
+        "distractors": [
+          "son"
+        ]
+      },
+      {
+        "text": "Ahora sí que me voy.",
+        "meaning": "Now I really am going.",
+        "distractors": [
+          "si"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,96 @@
+[package]
+name = "spanish-learning"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.95"
+description = "Skrongle: lightweight self-hosted learning app driven by JSON courses (lessons, adaptive quizzes, guide, phone sessions, games)"
+license = "AGPL-3.0-only"
+publish = false
+
+[[bin]]
+name = "spanish-learning"
+path = "src/main.rs"
+
+[dependencies]
+# --- Web ---
+axum = { version = "0.8", default-features = false, features = ["http1", "tokio", "form", "json", "query", "matched-path"] }
+tokio = { version = "1", default-features = false, features = ["rt-multi-thread", "macros", "net", "signal", "time", "sync"] }
+http = "1"
+# The listener (src/server.rs): axum::serve with a header timeout and a
+# connection cap. All four already come with axum; no new crates.
+hyper = { version = "1", default-features = false, features = ["server", "http1"] }
+hyper-util = { version = "0.1", default-features = false, features = ["tokio", "server", "http1"] }
+http-body = "1"
+tower = { version = "0.5", default-features = false, features = ["util"] }
+
+# --- Templates / static assets (compiled into the binary) ---
+askama = { version = "0.16", default-features = false, features = ["std", "derive"] }
+rust-embed = { version = "8" }
+
+# --- Database (SQLite statically linked, no system libsqlite needed on the Pi) ---
+rusqlite = { version = "0.40", features = ["bundled", "trace", "functions"] }
+
+# --- Content ---
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+pulldown-cmark = { version = "0.13", default-features = false, features = ["html"] }
+
+# --- Auth ---
+argon2 = { version = "0.6", default-features = false, features = ["alloc", "password-hash", "getrandom"] }
+# Random bytes (src/random.rs). rand_core 0.10 has no OsRng any more; getrandom is what argon2 already draws its salts from.
+getrandom = "0.4"
+
+# --- Logging ---
+tracing = { version = "0.1", default-features = false, features = ["std"] }
+tracing-subscriber = { version = "0.3", default-features = false, features = ["fmt", "ansi", "env-filter"] }
+ureq = { version = "3.2.1", default-features = false, features = ["rustls", "json"] }
+sha2 = { version = "0.11", default-features = false }
+# Streaming a finished data export from disk (exports.rs) as the response body; already in the tree through axum.
+futures-core = { version = "0.3", default-features = false }
+
+# --- Secrets at rest (learners' AI API keys) ---
+# ChaCha20-Poly1305 rather than AES-GCM: the Pi Zero 2 W's Cortex-A53 has no
+# AES instructions, and this is a small pure-Rust crate from the same family as argon2.
+chacha20poly1305 = { version = "0.11", default-features = false, features = ["alloc"] }
+
+# --- Two-factor sign-in (src/totp.rs): the QR code an authenticator app scans, drawn as SVG by hand; no image crate ---
+qrcode = { version = "0.14", default-features = false }
+
+# --- E-mail (src/mail.rs): SMTP only, blocking, on the rustls/ring/webpki-roots ureq already brings ---
+lettre = { version = "0.11.23", default-features = false, features = ["smtp-transport", "builder", "rustls", "ring", "webpki-roots"] }
+# Decoding what the dev mailbox (src/mail/sink.rs) receives; both already come with lettre.
+base64 = "0.23"
+quoted_printable = "0.5"
+# --- Diagnostics (`skrongle doctor`, startup checks): statvfs, access, geteuid.
+# Already in the tree through tokio and getrandom; no new code is pulled in.
+[target.'cfg(unix)'.dependencies]
+libc = "0.2"
+
+[profile.dev]
+opt-level = 1            # argon2 in debug mode is painfully slow; a little optimisation keeps local logins fast
+
+[profile.dev.package."*"]
+opt-level = 3
+
+# Hardened release profile. We build on a fast Apple Silicon machine, so build time
+# and build RAM are irrelevant; everything is tuned for a small, fast artifact.
+[profile.release]
+opt-level = 3            # fastest code (argon2 hashing + SQLite on Cortex-A53). Use "s" if you want a smaller binary.
+lto = "fat"              # whole-program link-time optimisation (incl. bundled SQLite C code)
+codegen-units = 1        # single codegen unit = maximum cross-crate inlining and dead-code removal
+# Abort, not unwind (#389): smaller binary, no unwinding tables. A panic
+# kills the server, so code outside tests may not add unwrap/expect/indexing:
+# scripts/panic-check.sh (CI) holds the line. Unwinding plus a catch-panic
+# layer was the alternative; it costs binary size and still could not catch
+# a stack overflow (see mathcheck's depth limit).
+panic = "abort"          # no unwinding tables -> smaller binary, less runtime overhead
+strip = true             # strip symbols and debuginfo from the final binary
+debug = false
+debug-assertions = false
+overflow-checks = false
+incremental = false
+
+# Smallest possible binary: `cargo build --profile release-small`
+[profile.release-small]
+inherits = "release"
+opt-level = "z"

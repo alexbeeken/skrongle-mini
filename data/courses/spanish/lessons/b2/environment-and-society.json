@@ -1,0 +1,627 @@
+{
+  "id": "b2-environment-and-society",
+  "slug": "environment-and-society",
+  "title": "The environment: arguing a point",
+  "unit": "B2",
+  "group": "Vocabulary",
+  "order": 42,
+  "summary": "Talk about the environment and argue a point: creo que vs no creo que, es fundamental que + subjunctive, warnings and visions with si, and discourse markers.",
+  "focus": "Arguing an opinion about the environment",
+  "prerequisites": [
+    "b2-si-clauses",
+    "b2-discourse-markers",
+    "b1-environment"
+  ],
+  "content": "## Words for the debate\n\nTalking about the planet needs a core set of nouns. Learn each one with its article.\n\n| Spanish | English |\n|---|---|\n| **el medio ambiente** | the environment |\n| **el cambio climático** | climate change |\n| **la contaminación** | pollution |\n| **los residuos** | waste |\n| **las emisiones** | emissions |\n| **las energías renovables** | renewable energy |\n| **la sequía** | drought |\n| **el transporte público** | public transport |\n| **el consumo** | consumption |\n\nTwo key verbs: **reciclar** (to recycle) and **reducir** (to reduce: **reduzco**, **que reduzcamos**). The adjective **sostenible** (sustainable) has one form for both genders: **un barrio sostenible**, **una ciudad sostenible**.\n\n## Opinions and the subjunctive\n\nA **stated** opinion takes the indicative; a **denied or doubted** one, and **es + adjective + que**, take the subjunctive.\n\n- **Creo que** el tren **contamina** menos que el coche. (I think the train pollutes less than the car.)\n- **Me parece que** la ciudad **está** más limpia. (It seems to me the city is cleaner.)\n- **No creo que** reciclar **sea** difícil. (I don't think recycling is difficult.)\n- **Dudo que** el problema **desaparezca** solo. (I doubt the problem will go away on its own.)\n- **Es fundamental que reduzcamos** el consumo de agua. (It's essential that we reduce water consumption.)\n\nSo do **es urgente / necesario / importante que**. With nobody named, use the infinitive: **es fundamental reciclar**.\n\n## Si no reducimos…, si todos usáramos…\n\nTwo kinds of **si** clause carry most arguments.\n\n- A **real risk**: **si** + present, with a future in the result. **Si no reducimos los residuos, los vertederos se llenarán.** (If we don't reduce waste, the landfills will fill up.)\n- A **hypothetical proposal**: **si** + imperfect subjunctive, with a conditional in the result. **Si todos usáramos el transporte público, habría menos tráfico.** (If we all used public transport, there would be less traffic.)\n\nThe first sounds like a warning, the second like a vision. Never put the present subjunctive or the conditional straight after **si**: *si usemos* and *si usaríamos* are wrong.\n\n## Building an argument\n\nMarkers turn opinions into an argument: order and add (**en primer lugar**, **además**), contrast (**sin embargo**, **en cambio**), conclude (**por lo tanto**, **en resumen**). Commas go around them.\n\n> **En primer lugar**, el transporte público contamina menos por persona que el coche. **Además**, es más barato. **Sin embargo**, no creo que baste con cambiar de transporte. **Por lo tanto**, es fundamental que reduzcamos también el consumo de energía en casa. **En resumen**, si todos hiciéramos un pequeño esfuerzo, las ciudades serían más sostenibles.\n\n(First, public transport pollutes less per person than the car. Also, it's cheaper. However, I don't think changing transport is enough. Therefore, it's essential we also cut energy use at home. In short, if we all made a small effort, cities would be more sustainable.)",
+  "vocabulary": [
+    {
+      "term": "el medio ambiente",
+      "meaning": "the environment",
+      "example": "Proteger el medio ambiente es responsabilidad de todos.",
+      "example_meaning": "Protecting the environment is everyone's responsibility."
+    },
+    {
+      "term": "el cambio climático",
+      "meaning": "climate change",
+      "example": "Los científicos estudian el cambio climático desde hace décadas.",
+      "example_meaning": "Scientists have been studying climate change for decades."
+    },
+    {
+      "term": "la contaminación",
+      "meaning": "pollution",
+      "example": "En las grandes ciudades, la contaminación del aire es un problema serio.",
+      "example_meaning": "In big cities, air pollution is a serious problem."
+    },
+    {
+      "term": "los residuos",
+      "meaning": "waste",
+      "example": "En casa separamos los residuos: papel, plástico y vidrio.",
+      "example_meaning": "At home we sort our waste: paper, plastic and glass."
+    },
+    {
+      "term": "reciclar",
+      "meaning": "to recycle",
+      "example": "No creo que sea difícil reciclar el vidrio.",
+      "example_meaning": "I don't think it's hard to recycle glass."
+    },
+    {
+      "term": "las energías renovables",
+      "meaning": "renewable energy",
+      "example": "La energía solar y la eólica son energías renovables.",
+      "example_meaning": "Solar and wind power are renewable energy."
+    },
+    {
+      "term": "la sequía",
+      "meaning": "drought",
+      "example": "Durante la sequía, el pueblo tuvo que ahorrar agua.",
+      "example_meaning": "During the drought, the town had to save water."
+    },
+    {
+      "term": "el transporte público",
+      "meaning": "public transport",
+      "example": "Si el transporte público fuera más barato, lo usaría más gente.",
+      "example_meaning": "If public transport were cheaper, more people would use it."
+    },
+    {
+      "term": "el consumo",
+      "meaning": "consumption",
+      "example": "Es urgente que bajemos el consumo de plástico.",
+      "example_meaning": "It's urgent that we cut our plastic consumption."
+    },
+    {
+      "term": "sostenible",
+      "meaning": "sustainable",
+      "example": "Mi barrio quiere un turismo más sostenible.",
+      "example_meaning": "My neighbourhood wants more sustainable tourism."
+    },
+    {
+      "term": "reducir",
+      "meaning": "to reduce (reduzco, que reduzca)",
+      "example": "Dudo que podamos reducir los residuos sin cambiar de hábitos.",
+      "example_meaning": "I doubt we can reduce waste without changing our habits."
+    },
+    {
+      "term": "las emisiones",
+      "meaning": "emissions",
+      "example": "Las bicicletas no producen emisiones.",
+      "example_meaning": "Bicycles produce no emissions."
+    },
+    {
+      "term": "es fundamental que",
+      "meaning": "it's essential that (+ subjunctive)",
+      "example": "Es fundamental que todos colaboremos.",
+      "example_meaning": "It's essential that we all work together."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-environment-and-society-01",
+      "prompt": "Creo que el transporte público ___ la mejor solución para el centro.",
+      "type": "multiple-choice",
+      "options": [
+        "es",
+        "sea"
+      ],
+      "correct_answer": "es",
+      "explanation": "A stated opinion takes the indicative: creo que + es.",
+      "hints": [
+        "Are you stating or doubting the opinion?"
+      ],
+      "teaches": [
+        "el transporte público"
+      ]
+    },
+    {
+      "question_id": "b2-environment-and-society-02",
+      "prompt": "No creo que reciclar ___ suficiente.",
+      "type": "multiple-choice",
+      "options": [
+        "es",
+        "sea",
+        "será"
+      ],
+      "correct_answer": "sea",
+      "explanation": "A denied opinion takes the subjunctive: no creo que + sea.",
+      "hints": [
+        "No creo que takes the subjunctive."
+      ],
+      "teaches": [
+        "reciclar"
+      ]
+    },
+    {
+      "question_id": "b2-environment-and-society-03",
+      "prompt": "Me parece que la contaminación del aire ___ (ser) un problema serio en esta ciudad. (It seems to me that air pollution is a serious problem in this city.)",
+      "type": "fill-in-blank",
+      "correct_answer": "es",
+      "explanation": "Me parece que states an opinion, so the indicative follows: es. Only no me parece que would take the subjunctive.",
+      "hints": [
+        "An affirmative opinion takes the indicative."
+      ],
+      "teaches": [
+        "la contaminación"
+      ]
+    },
+    {
+      "question_id": "b2-environment-and-society-04",
+      "prompt": "Es fundamental que todos ___ (reducir, nosotros) el consumo de plástico. (It's essential that we all reduce plastic consumption.)",
+      "type": "fill-in-blank",
+      "correct_answer": "reduzcamos",
+      "explanation": "Es fundamental que + subjunctive. Reducir gives reduzco, then reduzcamos.",
+      "hints": [
+        "Start from the yo form: reduzco.",
+        "Present subjunctive, nosotros."
+      ],
+      "teaches": [
+        "reducir",
+        "el consumo",
+        "es fundamental que"
+      ]
+    },
+    {
+      "question_id": "b2-environment-and-society-05",
+      "prompt": "Si no ___ (cuidar, nosotros) el medio ambiente, nuestros hijos pagarán las consecuencias. (If we don't look after the environment, our children will pay the consequences.)",
+      "type": "fill-in-blank",
+      "correct_answer": "cuidamos",
+      "accepted_answers": [],
+      "explanation": "A real risk: si + present indicative takes the future. Never the subjunctive after si in the present.",
+      "hints": [
+        "The result is in the future: what goes after si?"
+      ],
+      "teaches": [
+        "el medio ambiente"
+      ]
+    },
+    {
+      "question_id": "b2-environment-and-society-06",
+      "prompt": "Si todos ___ el transporte público, habría menos contaminación.",
+      "type": "multiple-choice",
+      "options": [
+        "usáramos",
+        "usamos",
+        "usaríamos",
+        "usemos"
+      ],
+      "correct_answer": "usáramos",
+      "explanation": "A hypothetical proposal: si + imperfect subjunctive takes the conditional (habría).",
+      "hints": [
+        "The result is habría: which si form pairs with it?"
+      ],
+      "teaches": [
+        "el transporte público",
+        "la contaminación"
+      ]
+    },
+    {
+      "question_id": "b2-environment-and-society-07",
+      "prompt": "Si todos ___ (reciclar, nosotros) más, habría menos residuos. (If we all recycled more, there would be less waste.)",
+      "type": "fill-in-blank",
+      "correct_answer": "recicláramos",
+      "accepted_answers": [
+        "reciclásemos"
+      ],
+      "explanation": "Hypothetical: si + imperfect subjunctive. Reciclaron becomes recicláramos, with the accent on the nosotros form.",
+      "hints": [
+        "Start from ellos reciclaron.",
+        "Nosotros form: accent on the a before -ramos."
+      ],
+      "teaches": [
+        "reciclar",
+        "los residuos"
+      ]
+    },
+    {
+      "question_id": "b2-environment-and-society-08",
+      "prompt": "Si la sequía continúa, el pueblo ___ restricciones de agua.",
+      "type": "multiple-choice",
+      "options": [
+        "tendrá",
+        "tendría",
+        "tenga"
+      ],
+      "correct_answer": "tendrá",
+      "explanation": "Si + present (continúa) is a real condition, so the result goes in the future: tendrá.",
+      "hints": [
+        "A real condition takes the future."
+      ],
+      "teaches": [
+        "la sequía"
+      ]
+    },
+    {
+      "question_id": "b2-environment-and-society-09",
+      "prompt": "El coche produce muchas emisiones; ___, la bicicleta no produce ninguna.",
+      "type": "multiple-choice",
+      "options": [
+        "en cambio",
+        "por lo tanto",
+        "además"
+      ],
+      "correct_answer": "en cambio",
+      "explanation": "En cambio contrasts two things side by side. Por lo tanto draws a conclusion and además adds a point.",
+      "hints": [
+        "The two halves contrast."
+      ],
+      "teaches": [
+        "las emisiones"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-environment-and-society-conv-class-debate",
+      "title": "Preparing the debate",
+      "scenario": "Irene and Javier prepare a class debate on how to make their neighbourhood more sustainable.",
+      "role_a": "Irene",
+      "role_b": "Javier",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Javier, mañana tenemos el debate. ¿Por dónde empezamos?",
+          "meaning": "Javier, the debate is tomorrow. Where do we start?"
+        },
+        {
+          "speaker": "b",
+          "text": "En primer lugar, yo hablaría de los residuos del barrio.",
+          "meaning": "First of all, I'd talk about the neighbourhood's waste.",
+          "note": "en primer lugar: ordering"
+        },
+        {
+          "speaker": "a",
+          "text": "Vale. Creo que la gente ya recicla bastante papel.",
+          "meaning": "OK. I think people already recycle quite a lot of paper.",
+          "note": "creo que + indicative"
+        },
+        {
+          "speaker": "b",
+          "text": "Puede ser, pero no creo que separen bien el plástico.",
+          "meaning": "Maybe, but I don't think they sort plastic properly.",
+          "note": "no creo que + subjunctive"
+        },
+        {
+          "speaker": "a",
+          "text": "Entonces es fundamental que pongamos más contenedores en las calles.",
+          "meaning": "Then it's essential that we put more bins in the streets.",
+          "note": "es fundamental que + subjunctive"
+        },
+        {
+          "speaker": "b",
+          "text": "De acuerdo. Además, me parece que el autobús pasa muy poco.",
+          "meaning": "Agreed. Also, it seems to me the bus comes very rarely.",
+          "note": "me parece que + indicative"
+        },
+        {
+          "speaker": "a",
+          "text": "Es verdad. Si pasara cada diez minutos, mucha gente dejaría el coche.",
+          "meaning": "True. If it came every ten minutes, lots of people would leave the car at home.",
+          "note": "si + -ra takes the conditional"
+        },
+        {
+          "speaker": "b",
+          "text": "Y si no hacemos nada, la contaminación seguirá igual.",
+          "meaning": "And if we do nothing, the pollution will stay the same.",
+          "note": "si + present takes the future"
+        },
+        {
+          "speaker": "a",
+          "text": "Sin embargo, tenemos que dar datos, no solo opiniones.",
+          "meaning": "However, we have to give facts, not just opinions."
+        },
+        {
+          "speaker": "b",
+          "text": "Tienes razón. Es urgente que busquemos cifras esta tarde.",
+          "meaning": "You're right. It's urgent that we look up figures this afternoon.",
+          "note": "es urgente que + subjunctive"
+        },
+        {
+          "speaker": "a",
+          "text": "Perfecto. En resumen: menos residuos, mejor autobús y datos claros.",
+          "meaning": "Perfect. In short: less waste, a better bus and clear facts.",
+          "note": "en resumen: concluding"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Creo que reciclar ayuda mucho.",
+      "meaning": "I think recycling helps a lot.",
+      "note": "Creo que + indicative."
+    },
+    {
+      "text": "No creo que llueva esta semana.",
+      "meaning": "I don't think it will rain this week.",
+      "note": "No creo que + subjunctive."
+    },
+    {
+      "text": "Es fundamental que cierres el grifo.",
+      "meaning": "It's essential that you turn off the tap.",
+      "note": "New word: el grifo = the tap."
+    },
+    {
+      "text": "Si no llueve pronto, la sequía será grave.",
+      "meaning": "If it doesn't rain soon, the drought will be serious.",
+      "note": "Real risk: si + present takes the future."
+    },
+    {
+      "text": "Dudo que el consumo de agua baje este verano.",
+      "meaning": "I doubt water consumption will go down this summer.",
+      "note": "Dudo que + subjunctive."
+    },
+    {
+      "text": "Si cambiáramos las bombillas, gastaríamos menos energía en casa.",
+      "meaning": "If we changed the light bulbs, we'd use less energy at home.",
+      "note": "New word: la bombilla = the light bulb."
+    },
+    {
+      "text": "Me parece que el transporte público de mi ciudad funciona bastante bien.",
+      "meaning": "It seems to me that public transport in my city works quite well."
+    },
+    {
+      "text": "Por lo tanto, es necesario que todos separemos el plástico en el contenedor amarillo.",
+      "meaning": "Therefore, it's necessary that we all put plastic in the yellow bin.",
+      "note": "New word: el contenedor = the bin."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Words for the debate"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "section": "Opinions and the subjunctive"
+    },
+    {
+      "question": "b2-environment-and-society-01"
+    },
+    {
+      "question": "b2-environment-and-society-02"
+    },
+    {
+      "question": "b2-environment-and-society-03"
+    },
+    {
+      "question": "b2-environment-and-society-04"
+    },
+    {
+      "tip": "Ask yourself: am I stating it (indicative) or denying, doubting or demanding it (subjunctive)?"
+    },
+    {
+      "section": "Si no reducimos"
+    },
+    {
+      "question": "b2-environment-and-society-05"
+    },
+    {
+      "question": "b2-environment-and-society-06"
+    },
+    {
+      "question": "b2-environment-and-society-07"
+    },
+    {
+      "question": "b2-environment-and-society-08"
+    },
+    {
+      "section": "Building an argument"
+    },
+    {
+      "question": "b2-environment-and-society-09"
+    }
+  ],
+  "sprint": {
+    "icon": "🌍",
+    "bites": [
+      {
+        "title": "State it or doubt it",
+        "emoji": "💭",
+        "rule": "An opinion you state takes the indicative (creo que es). One you deny or doubt takes the subjunctive (no creo que sea, dudo que sea).",
+        "example": "Creo que el tren contamina menos, pero no creo que sea barato.",
+        "example_meaning": "I think the train pollutes less, but I don't think it's cheap."
+      },
+      {
+        "title": "Es fundamental que…",
+        "emoji": "❗",
+        "rule": "Es fundamental / urgente / necesario que + subjunctive when someone does it; the infinitive when nobody is named: es fundamental reciclar.",
+        "example": "Es fundamental que reciclemos el vidrio.",
+        "example_meaning": "It's essential that we recycle glass."
+      },
+      {
+        "title": "Warning or vision",
+        "emoji": "🔭",
+        "rule": "Real risk: si + present takes the future (si no reducimos…, habrá…). Hypothesis: si + -ra takes the conditional (si todos usáramos…, habría…).",
+        "example": "Si todos fuéramos en bici, habría menos ruido.",
+        "example_meaning": "If we all went by bike, there would be less noise."
+      },
+      {
+        "title": "Markers make the case",
+        "emoji": "🧱",
+        "rule": "Order (en primer lugar), add (además), contrast (sin embargo, en cambio), conclude (por lo tanto, en resumen), with commas around them.",
+        "example": "Sin embargo, no creo que baste.",
+        "example_meaning": "However, I don't think it's enough."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Indicative or subjunctive?",
+        "buckets": [
+          "indicative",
+          "subjunctive"
+        ],
+        "items": [
+          {
+            "text": "Creo que…",
+            "bucket": 0
+          },
+          {
+            "text": "No creo que…",
+            "bucket": 1
+          },
+          {
+            "text": "Me parece que…",
+            "bucket": 0
+          },
+          {
+            "text": "Es fundamental que…",
+            "bucket": 1
+          },
+          {
+            "text": "Dudo que…",
+            "bucket": 1
+          },
+          {
+            "text": "Pienso que…",
+            "bucket": 0
+          },
+          {
+            "text": "Es urgente que…",
+            "bucket": 1
+          },
+          {
+            "text": "Está claro que…",
+            "bucket": 0
+          }
+        ],
+        "why": "Stated opinions and certainties take the indicative; denial, doubt and value judgements take the subjunctive."
+      },
+      {
+        "title": "Real risk or hypothesis?",
+        "buckets": [
+          "si + present → future",
+          "si + -ra → conditional"
+        ],
+        "items": [
+          {
+            "text": "Si no reciclamos, habrá más residuos.",
+            "bucket": 0
+          },
+          {
+            "text": "Si todos fuéramos en bici, habría menos ruido.",
+            "bucket": 1
+          },
+          {
+            "text": "Si la sequía sigue, cerrarán las fuentes.",
+            "bucket": 0
+          },
+          {
+            "text": "Si tuviéramos placas solares, pagaríamos menos.",
+            "bucket": 1
+          },
+          {
+            "text": "Si reducimos el consumo, ahorraremos dinero.",
+            "bucket": 0
+          },
+          {
+            "text": "Si el autobús fuera gratis, lo usaría más gente.",
+            "bucket": 1
+          }
+        ],
+        "why": "A real, likely condition takes si + present and a future; an imagined one takes si + imperfect subjunctive and a conditional."
+      },
+      {
+        "title": "Which marker?",
+        "buckets": [
+          "adding",
+          "contrast",
+          "conclusion"
+        ],
+        "items": [
+          {
+            "text": "además",
+            "bucket": 0
+          },
+          {
+            "text": "asimismo",
+            "bucket": 0
+          },
+          {
+            "text": "sin embargo",
+            "bucket": 1
+          },
+          {
+            "text": "en cambio",
+            "bucket": 1
+          },
+          {
+            "text": "por lo tanto",
+            "bucket": 2
+          },
+          {
+            "text": "en resumen",
+            "bucket": 2
+          }
+        ],
+        "why": "Además and asimismo add a point; sin embargo and en cambio contrast; por lo tanto and en resumen conclude."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "No creo que reciclar es difícil.",
+        "wrong": "es",
+        "fix": "sea",
+        "why": "No creo que denies an opinion: subjunctive."
+      },
+      {
+        "sentence": "Es fundamental que todos reducimos el consumo.",
+        "wrong": "reducimos",
+        "fix": "reduzcamos",
+        "why": "Es fundamental que + present subjunctive."
+      },
+      {
+        "sentence": "Si todos usaríamos el tren, habría menos emisiones.",
+        "wrong": "usaríamos",
+        "fix": "usáramos",
+        "why": "Never the conditional after si: si + imperfect subjunctive."
+      },
+      {
+        "sentence": "Creo que el transporte público sea la solución.",
+        "wrong": "sea",
+        "fix": "es",
+        "why": "Creo que states an opinion: indicative."
+      },
+      {
+        "sentence": "Si no reduzcamos los residuos, el vertedero se llenará.",
+        "wrong": "reduzcamos",
+        "fix": "reducimos",
+        "why": "Never the present subjunctive after si: si + present indicative."
+      }
+    ],
+    "builds": [
+      {
+        "text": "No creo que sea tan difícil.",
+        "meaning": "I don't think it's that difficult.",
+        "distractors": [
+          "es"
+        ]
+      },
+      {
+        "text": "Es urgente que ahorremos agua este verano.",
+        "meaning": "It's urgent that we save water this summer.",
+        "distractors": [
+          "ahorramos"
+        ]
+      },
+      {
+        "text": "Si todos recicláramos, habría menos residuos.",
+        "meaning": "If we all recycled, there would be less waste.",
+        "distractors": [
+          "reciclaríamos"
+        ]
+      },
+      {
+        "text": "Sin embargo, creo que tienes razón.",
+        "meaning": "However, I think you're right.",
+        "distractors": [
+          "tengas"
+        ]
+      }
+    ]
+  }
+}

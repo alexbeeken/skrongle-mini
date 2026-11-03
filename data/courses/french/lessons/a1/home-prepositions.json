@@ -1,0 +1,595 @@
+{
+  "id": "a1-home-prepositions",
+  "slug": "home-prepositions",
+  "title": "At home and where things are: sur, sous, à côté de",
+  "unit": "A1",
+  "group": "Vocabulary",
+  "order": 44,
+  "summary": "Name the rooms and furniture of a home, say what there is with il y a, and where things are with sur, sous, à côté de.",
+  "focus": "Rooms, furniture and prepositions of place",
+  "prerequisites": [
+    "a1-nouns-articles"
+  ],
+  "content": "## Rooms, furniture and chez\n\nA home is **la maison** (a house) or **l'appartement** (a flat). Its rooms and furniture:\n\n| room | | furniture | |\n|---|---|---|---|\n| **la cuisine** | kitchen | **le frigo** | fridge |\n| **la chambre** | bedroom | **le lit** | bed |\n| **la salle de bains** | bathroom | **l'armoire** (f) | wardrobe |\n| **le salon** | living room | **le canapé** | sofa |\n| **les toilettes** | toilet | **l'étagère** (f) | shelf |\n| **le jardin** | garden | **la lampe** | lamp |\n\n**Les toilettes** is always plural, even for one toilet.\n\n**Chez** + a person means *at* or *to* someone's home, with no other little word around it:\n\n- **Je suis chez moi.** (I'm at home.)\n- **On dîne chez Marie.** (We're having dinner at Marie's.)\n- **Tu viens chez nous ?** (Are you coming to our place?)\n\n## Il y a, il n'y a pas de, où est… ?\n\n**Il y a** means *there is* and *there are*, for one thing or many:\n\n- **Il y a un lit et deux lampes.** (There's a bed and two lamps.)\n\nAfter the negation, **un**, **une** and **des** become **de** (**d'** before a vowel):\n\n- **Il n'y a pas de frigo.** (There's no fridge.)\n- **Il n'y a pas d'armoire.** (There's no wardrobe.)\n\nTo ask where something is, use **où est… ?** for one thing and **où sont… ?** for several:\n\n- **Où est la lampe ? — Elle est sur la table.**\n- **Où sont les toilettes ? — Elles sont à côté de la cuisine.**\n\n## Where things are: sur, sous, à côté de\n\n| on its own | | with de | |\n|---|---|---|---|\n| **sur** | on | **à côté de** | next to |\n| **sous** | under | **près de** | near |\n| **dans** | in | **loin de** | far from |\n| **devant** | in front of | **en face de** | opposite |\n| **derrière** | behind | | |\n| **entre … et …** | between | | |\n\nWith **de**: **de + le = du**, **de + les = des**; **de la** and **de l'** stay:\n\n- **La lampe est à côté du lit.**\n- **La table est près de la fenêtre.**\n- **Le canapé est en face de l'armoire.**\n- **Le salon est loin des toilettes.**\n\nThe short ones never take **de**: **sous le lit**.",
+  "vocabulary": [
+    {
+      "term": "la cuisine",
+      "meaning": "kitchen (f)",
+      "example": "On mange dans la cuisine le matin.",
+      "example_meaning": "We eat in the kitchen in the morning."
+    },
+    {
+      "term": "la chambre",
+      "meaning": "bedroom (f)",
+      "example": "Ma chambre est petite mais jolie.",
+      "example_meaning": "My bedroom is small but pretty."
+    },
+    {
+      "term": "la salle de bains",
+      "meaning": "bathroom (f)",
+      "example": "Il y a une douche dans la salle de bains.",
+      "example_meaning": "There's a shower in the bathroom."
+    },
+    {
+      "term": "le salon",
+      "meaning": "living room (m)",
+      "example": "Le canapé du salon est très confortable.",
+      "example_meaning": "The living-room sofa is very comfortable."
+    },
+    {
+      "term": "chez",
+      "meaning": "at or to someone's home (chez moi = at my place)",
+      "example": "Le samedi, je dîne chez ma grand-mère.",
+      "example_meaning": "On Saturdays I have dinner at my grandmother's."
+    },
+    {
+      "term": "le lit",
+      "meaning": "bed (m)",
+      "example": "Le chat dort sur le lit.",
+      "example_meaning": "The cat is sleeping on the bed."
+    },
+    {
+      "term": "l'armoire",
+      "meaning": "wardrobe (f)",
+      "example": "Mes vêtements sont dans l'armoire.",
+      "example_meaning": "My clothes are in the wardrobe."
+    },
+    {
+      "term": "l'étagère",
+      "meaning": "shelf (f)",
+      "example": "Les livres sont sur l'étagère.",
+      "example_meaning": "The books are on the shelf."
+    },
+    {
+      "term": "le frigo",
+      "meaning": "fridge (m; short for le réfrigérateur)",
+      "example": "Le frigo est vide !",
+      "example_meaning": "The fridge is empty!"
+    },
+    {
+      "term": "sur / sous",
+      "meaning": "on / under",
+      "example": "Le livre est sur la table et le sac est sous la table.",
+      "example_meaning": "The book is on the table and the bag is under the table."
+    },
+    {
+      "term": "devant / derrière",
+      "meaning": "in front of / behind",
+      "example": "Le jardin est derrière la maison.",
+      "example_meaning": "The garden is behind the house."
+    },
+    {
+      "term": "à côté de",
+      "meaning": "next to",
+      "example": "La salle de bains est à côté de la chambre.",
+      "example_meaning": "The bathroom is next to the bedroom."
+    },
+    {
+      "term": "en face de",
+      "meaning": "opposite, across from",
+      "example": "La cuisine est en face du salon.",
+      "example_meaning": "The kitchen is opposite the living room."
+    },
+    {
+      "term": "près de / loin de",
+      "meaning": "near / far from",
+      "example": "Ma maison est près de l'école, loin du centre-ville.",
+      "example_meaning": "My house is near the school, far from the town centre."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "a1-home-prepositions-01",
+      "prompt": "In which room do you usually find le frigo?",
+      "type": "multiple-choice",
+      "options": [
+        "la cuisine",
+        "la chambre",
+        "la salle de bains"
+      ],
+      "correct_answer": "la cuisine",
+      "explanation": "Le frigo (the fridge) lives in la cuisine, the kitchen. La chambre is the bedroom and la salle de bains the bathroom.",
+      "hints": [
+        "Where do you keep food cold?"
+      ],
+      "teaches": [
+        "la cuisine",
+        "le frigo"
+      ]
+    },
+    {
+      "question_id": "a1-home-prepositions-02",
+      "prompt": "Ce soir, on dîne ___ Marie. (Tonight we're having dinner at Marie's.)",
+      "type": "fill-in-blank",
+      "accepted_answers": [],
+      "correct_answer": "chez",
+      "explanation": "Chez + a person means at that person's home: chez Marie = at Marie's. No à or de goes with it.",
+      "hints": [
+        "One short word means 'at the home of'."
+      ],
+      "teaches": [
+        "chez"
+      ]
+    },
+    {
+      "question_id": "a1-home-prepositions-03",
+      "prompt": "Il n'y a pas ___ lampe dans ma chambre. (There's no lamp in my bedroom.)",
+      "type": "fill-in-blank",
+      "accepted_answers": [],
+      "correct_answer": "de",
+      "explanation": "After il n'y a pas, une becomes de: il n'y a pas de lampe.",
+      "hints": [
+        "What happens to une after a negation?"
+      ],
+      "teaches": [
+        "la chambre"
+      ]
+    },
+    {
+      "question_id": "a1-home-prepositions-04",
+      "prompt": "___ les clés ? — Sur l'étagère, à côté de la lampe.",
+      "type": "multiple-choice",
+      "options": [
+        "Où sont",
+        "Où est",
+        "Qui est"
+      ],
+      "correct_answer": "Où sont",
+      "explanation": "Les clés is plural, so the question is où sont… ? (where are…?). Où est… ? asks about one thing.",
+      "hints": [
+        "Les clés: one thing or several?"
+      ],
+      "teaches": [
+        "l'étagère"
+      ]
+    },
+    {
+      "question_id": "a1-home-prepositions-05",
+      "prompt": "Le chat dort ___ le lit. (The cat is sleeping under the bed.)",
+      "type": "multiple-choice",
+      "options": [
+        "sous",
+        "sur",
+        "devant"
+      ],
+      "correct_answer": "sous",
+      "explanation": "Sous means under; sur means on and devant in front of. Sous takes no de: sous le lit.",
+      "hints": [
+        "Sur is on top; you want the opposite."
+      ],
+      "teaches": [
+        "sur / sous",
+        "le lit"
+      ]
+    },
+    {
+      "question_id": "a1-home-prepositions-06",
+      "prompt": "La lampe est à côté ___ lit. (The lamp is next to the bed.)",
+      "type": "fill-in-blank",
+      "accepted_answers": [],
+      "correct_answer": "du",
+      "explanation": "À côté de + le lit: de + le contracts to du, so à côté du lit.",
+      "hints": [
+        "De + le never stays as two words.",
+        "Two letters."
+      ],
+      "teaches": [
+        "à côté de",
+        "le lit"
+      ]
+    },
+    {
+      "question_id": "a1-home-prepositions-07",
+      "prompt": "Choose the French for 'The bathroom is opposite the bedroom.'",
+      "type": "multiple-choice",
+      "options": [
+        "La salle de bains est en face de la chambre.",
+        "La salle de bains est en face la chambre.",
+        "La salle de bains est en face du la chambre."
+      ],
+      "correct_answer": "La salle de bains est en face de la chambre.",
+      "explanation": "En face needs de, and de la does not contract: en face de la chambre.",
+      "hints": [
+        "En face needs a little word after it.",
+        "Only de + le and de + les contract."
+      ],
+      "teaches": [
+        "en face de",
+        "la salle de bains"
+      ]
+    },
+    {
+      "question_id": "a1-home-prepositions-08",
+      "prompt": "'Le canapé est à côté de les toilettes' is correct French.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "De + les always contracts to des: le canapé est à côté des toilettes.",
+      "hints": [
+        "What does de + les become?"
+      ]
+    },
+    {
+      "question_id": "a1-home-prepositions-09",
+      "prompt": "In 'près de la fenêtre', de stays as it is because only de + le and de + les contract.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "De la and de l' never change: près de la fenêtre, près de l'armoire. Only du (de + le) and des (de + les) are contractions.",
+      "hints": [
+        "Is la one of the articles that contracts with de?"
+      ],
+      "teaches": [
+        "près de / loin de"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Le chat est sous le lit.",
+      "meaning": "The cat is under the bed.",
+      "note": "Sous takes no de."
+    },
+    {
+      "text": "Il y a deux chambres chez moi.",
+      "meaning": "There are two bedrooms at my place.",
+      "note": "Chez moi = at my place."
+    },
+    {
+      "text": "La cuisine est à côté du salon.",
+      "meaning": "The kitchen is next to the living room.",
+      "note": "À côté de + le = à côté du."
+    },
+    {
+      "text": "Où sont les toilettes, s'il vous plaît ?",
+      "meaning": "Where is the toilet, please?",
+      "note": "New word: les toilettes = the toilet."
+    },
+    {
+      "text": "Mes livres sont sur l'étagère, près de la lampe.",
+      "meaning": "My books are on the shelf, near the lamp.",
+      "note": "New word: la lampe = the lamp."
+    },
+    {
+      "text": "Il n'y a pas de télévision dans ma chambre.",
+      "meaning": "There's no television in my bedroom.",
+      "note": "After a negation, une becomes de."
+    },
+    {
+      "text": "Le jardin est derrière la maison, loin de la rue.",
+      "meaning": "The garden is behind the house, far from the street.",
+      "note": "New word: le jardin = the garden."
+    },
+    {
+      "text": "Chez mes grands-parents, le canapé est entre la fenêtre et la porte.",
+      "meaning": "At my grandparents' place, the sofa is between the window and the door.",
+      "note": "Entre … et … = between … and …"
+    }
+  ],
+  "guide": [
+    {
+      "section": "Rooms"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-home-prepositions-01"
+    },
+    {
+      "question": "a1-home-prepositions-02"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "tip": "Les toilettes is always plural: Où sont les toilettes ? Never où est la toilette."
+    },
+    {
+      "section": "Il y a"
+    },
+    {
+      "question": "a1-home-prepositions-03"
+    },
+    {
+      "question": "a1-home-prepositions-04"
+    },
+    {
+      "section": "Where things are"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "a1-home-prepositions-05"
+    },
+    {
+      "question": "a1-home-prepositions-06"
+    },
+    {
+      "concept": {
+        "title": "Chez for shops and services",
+        "markdown": "**Chez** also works with people whose place is a shop or an office:\n\n- **chez le médecin** (at the doctor's)\n- **chez le coiffeur** (at the hairdresser's)\n- **chez le boulanger** (at the baker's)\n\nFrench names the person, not the place, just like English *at the doctor's*."
+      }
+    },
+    {
+      "question": "a1-home-prepositions-07"
+    },
+    {
+      "question": "a1-home-prepositions-08"
+    },
+    {
+      "question": "a1-home-prepositions-09"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "a1-home-prepositions-conv-new-flat",
+      "title": "The new flat",
+      "scenario": "Inès visits her friend Hugo, who has just moved into a flat in Lille, and he shows her round.",
+      "role_a": "Inès",
+      "role_b": "Hugo",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Salut Hugo ! Alors, c'est ici, chez toi ?",
+          "meaning": "Hi Hugo! So this is your place?",
+          "note": "chez toi = at your place"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, entre ! Ici, c'est le salon.",
+          "meaning": "Yes, come in! This is the living room."
+        },
+        {
+          "speaker": "a",
+          "text": "Il est super ! Et où est la cuisine ?",
+          "meaning": "It's great! And where's the kitchen?",
+          "note": "où est + one thing"
+        },
+        {
+          "speaker": "b",
+          "text": "La cuisine est en face du salon, à côté de la salle de bains.",
+          "meaning": "The kitchen is opposite the living room, next to the bathroom.",
+          "note": "en face de + le = en face du"
+        },
+        {
+          "speaker": "a",
+          "text": "Il y a combien de chambres ?",
+          "meaning": "How many bedrooms are there?"
+        },
+        {
+          "speaker": "b",
+          "text": "Deux. Ma chambre est près de la salle de bains.",
+          "meaning": "Two. My bedroom is near the bathroom."
+        },
+        {
+          "speaker": "a",
+          "text": "Et il n'y a pas de jardin ?",
+          "meaning": "And there's no garden?",
+          "note": "pas de after a negation"
+        },
+        {
+          "speaker": "b",
+          "text": "Non, il n'y a pas de jardin, mais il y a un balcon.",
+          "meaning": "No, there's no garden, but there's a balcony."
+        },
+        {
+          "speaker": "a",
+          "text": "Où sont tes livres ? Il n'y a pas d'étagère !",
+          "meaning": "Where are your books? There's no shelf!",
+          "note": "où sont + several things; d' before a vowel"
+        },
+        {
+          "speaker": "b",
+          "text": "Ils sont encore dans les cartons, sous le lit.",
+          "meaning": "They're still in the boxes, under the bed."
+        },
+        {
+          "speaker": "a",
+          "text": "Bon, samedi, on achète une étagère ensemble ?",
+          "meaning": "Right, shall we buy a shelf together on Saturday?"
+        },
+        {
+          "speaker": "b",
+          "text": "Bonne idée ! Et après, on mange chez moi.",
+          "meaning": "Good idea! And afterwards we'll eat at my place."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🏠",
+    "bites": [
+      {
+        "title": "Rooms of the home",
+        "emoji": "🏠",
+        "rule": "La cuisine, la chambre, la salle de bains, le salon, le jardin, and les toilettes, which is always plural.",
+        "example": "Le salon est grand, mais la cuisine est petite.",
+        "example_meaning": "The living room is big, but the kitchen is small."
+      },
+      {
+        "title": "Chez = at someone's place",
+        "emoji": "🚪",
+        "rule": "Chez + a person or a stress pronoun: chez moi, chez toi, chez Marie. No à and no de with it.",
+        "example": "Ce soir, je suis chez Paul.",
+        "example_meaning": "Tonight I'm at Paul's."
+      },
+      {
+        "title": "Il y a, il n'y a pas de",
+        "emoji": "🛋️",
+        "rule": "Il y a un lit = there's a bed. After the negation, un, une and des become de (d' before a vowel).",
+        "example": "Il n'y a pas de canapé dans ma chambre.",
+        "example_meaning": "There's no sofa in my bedroom."
+      },
+      {
+        "title": "Next to the bed: du",
+        "emoji": "📍",
+        "rule": "À côté de, près de, loin de, en face de: de + le = du, de + les = des. Sur, sous, dans, devant, derrière take no de.",
+        "example": "La lampe est à côté du lit.",
+        "example_meaning": "The lamp is next to the bed."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which room?",
+        "buckets": [
+          "la cuisine",
+          "la chambre",
+          "la salle de bains"
+        ],
+        "items": [
+          {
+            "text": "le frigo",
+            "bucket": 0
+          },
+          {
+            "text": "le lit",
+            "bucket": 1
+          },
+          {
+            "text": "la douche",
+            "bucket": 2
+          },
+          {
+            "text": "l'armoire",
+            "bucket": 1
+          },
+          {
+            "text": "le lavabo",
+            "bucket": 2
+          },
+          {
+            "text": "le four",
+            "bucket": 0
+          }
+        ],
+        "why": "You cook and keep food in the kitchen (le frigo, le four), sleep and keep clothes in the bedroom (le lit, l'armoire), wash in the bathroom (la douche, le lavabo)."
+      },
+      {
+        "title": "Du, de la, de l' or des?",
+        "buckets": [
+          "du",
+          "de la",
+          "de l'",
+          "des"
+        ],
+        "items": [
+          {
+            "text": "à côté ___ lit",
+            "bucket": 0
+          },
+          {
+            "text": "près ___ fenêtre",
+            "bucket": 1
+          },
+          {
+            "text": "en face ___ armoire",
+            "bucket": 2
+          },
+          {
+            "text": "loin ___ toilettes",
+            "bucket": 3
+          },
+          {
+            "text": "à côté ___ salon",
+            "bucket": 0
+          },
+          {
+            "text": "près ___ étagère",
+            "bucket": 2
+          },
+          {
+            "text": "en face ___ cuisine",
+            "bucket": 1
+          },
+          {
+            "text": "loin ___ chambres",
+            "bucket": 3
+          }
+        ],
+        "why": "Masculine le → du, feminine la → de la, a vowel → de l', any plural → des."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Le chat est près du la fenêtre.",
+        "wrong": "du",
+        "fix": "de",
+        "why": "La fenêtre is feminine: de la does not contract, so près de la fenêtre."
+      },
+      {
+        "sentence": "Il n'y a pas un frigo dans la cuisine.",
+        "wrong": "un",
+        "fix": "de",
+        "why": "After a negation, un becomes de: il n'y a pas de frigo."
+      },
+      {
+        "sentence": "Où est les toilettes ?",
+        "wrong": "est",
+        "fix": "sont",
+        "why": "Les toilettes is plural, so où sont… ?"
+      },
+      {
+        "sentence": "Ce soir, je mange à Marie.",
+        "wrong": "à",
+        "fix": "chez",
+        "why": "At someone's home is chez + the person: chez Marie."
+      },
+      {
+        "sentence": "Mes chaussures sont sous du lit.",
+        "wrong": "du",
+        "fix": "le",
+        "why": "Sous never takes de: sous le lit."
+      }
+    ],
+    "builds": [
+      {
+        "text": "La lampe est à côté du lit.",
+        "meaning": "The lamp is next to the bed.",
+        "distractors": [
+          "le"
+        ]
+      },
+      {
+        "text": "Il n'y a pas de frigo.",
+        "meaning": "There's no fridge.",
+        "distractors": [
+          "un"
+        ]
+      },
+      {
+        "text": "Où sont les toilettes ?",
+        "meaning": "Where is the toilet?",
+        "distractors": [
+          "est"
+        ]
+      },
+      {
+        "text": "Je travaille chez moi le lundi.",
+        "meaning": "I work from home on Mondays.",
+        "distractors": [
+          "à"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "random_per_unit": 1,
+  "questions": [
+    {
+      "unit": "all",
+      "prompt": "Which word means \"hello\" in Spanish?",
+      "options": ["hola", "adiós", "gracias"],
+      "answer": "hola"
+    },
+    {
+      "unit": "all",
+      "prompt": "Pick the even number.",
+      "options": ["3", "4", "7"],
+      "answer": "4"
+    }
+  ]
+}

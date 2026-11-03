@@ -1,0 +1,591 @@
+{
+  "id": "b2-passive-voice",
+  "slug": "passive-voice",
+  "title": "The passive: fue construido, se venden pisos",
+  "unit": "B2",
+  "group": "Grammar",
+  "order": 24,
+  "summary": "Three ways to put the thing done first: ser + participle for formal actions, estar + participle for the result, and se + verb as the everyday passive.",
+  "focus": "Ser + participle, estar + participle and the pasiva refleja (se vende / se venden)",
+  "prerequisites": [
+    "b1-uses-of-se",
+    "a2-present-perfect"
+  ],
+  "content": "## Ser + participle: the formal passive\n\nThe **ser** passive turns the object of an action into the subject. **Ser** carries the tense, the participle agrees with the subject like an adjective, and **por** names who did it.\n\n| active | passive |\n|---|---|\n| Una arquitecta diseñó el museo. | El museo **fue diseñado por** una arquitecta. |\n| La policía detuvo a dos hombres. | Dos hombres **fueron detenidos**. |\n| El Gobierno ha aprobado la ley. | La ley **ha sido aprobada**. |\n| Inaugurarán el puente. | El puente **será inaugurado**. |\n\nIrregular participles still agree: **la carta fue escrita**, **los murales fueron hechos**, **la tumba fue descubierta**.\n\n## Estar + participle: the resulting state\n\n**Ser** + participle tells an *action*: something was done, at some moment, by someone. **Estar** + participle describes the *state* left afterwards, usually with no **por**.\n\n- **La puerta fue cerrada a las diez.** (The door was closed at ten. This is the action.)\n- **La puerta está cerrada.** (The door is closed. This is how it is now.)\n- **Cuando llegamos, el museo ya estaba cerrado.** (When we arrived, the museum was already closed.)\n- **Las entradas están agotadas.** (The tickets are sold out.)\n\nAs a quick test, if you could ask *when?* or *by whom?*, it is **ser**. If you are describing how things are, it is **estar**.\n\n## Se venden pisos: the everyday passive\n\nIn everyday Spanish the usual passive is **se** + a verb in the third person, the *pasiva refleja*. The verb agrees with the thing: one thing, singular verb; several, plural verb.\n\n| singular | plural |\n|---|---|\n| **Se alquila** habitación. | **Se alquilan** habitaciones. |\n| **Se vende** piso. | **Se venden** pisos. |\n| **Se necesita** camarero. | **Se necesitan** camareros. |\n\nThe thing usually follows the verb, and every tense works: **se construyó un puente**, **se han reformado dos escuelas**. Before an infinitive the verb stays singular: **se prohíbe fumar**. Never say *se vende pisos*. The verb must agree.\n\n## Which passive when?\n\n- If you want to say **who** did it, use **ser + participle + por**: **El puente fue inaugurado por la alcaldesa.**\n- If you are speaking and the doer is unknown or unimportant, use **se**: **Aquí se venden entradas.** **En los años setenta se construyeron muchas casas.**\n- If you describe how something **is** now, use **estar**: **Las obras están terminadas.**\n\nThe **ser** passive sounds formal and suits news, history books and reports. Do not add **por** + a doer to the **se** form. Say **el puente fue construido por una empresa**, not *se construyó por una empresa*.",
+  "vocabulary": [
+    {
+      "term": "construir",
+      "meaning": "to build",
+      "example": "Este barrio fue construido en los años cincuenta.",
+      "example_meaning": "This neighbourhood was built in the fifties."
+    },
+    {
+      "term": "derribar",
+      "meaning": "to demolish, to knock down",
+      "example": "La vieja fábrica fue derribada el mes pasado.",
+      "example_meaning": "The old factory was knocked down last month."
+    },
+    {
+      "term": "inaugurar",
+      "meaning": "to open officially, to inaugurate",
+      "example": "El nuevo hospital será inaugurado en junio.",
+      "example_meaning": "The new hospital will be officially opened in June."
+    },
+    {
+      "term": "fundar",
+      "meaning": "to found",
+      "example": "La universidad fue fundada en el siglo dieciséis.",
+      "example_meaning": "The university was founded in the sixteenth century."
+    },
+    {
+      "term": "reformar",
+      "meaning": "to renovate, to refurbish",
+      "example": "La plaza fue reformada por el ayuntamiento.",
+      "example_meaning": "The square was renovated by the town council."
+    },
+    {
+      "term": "diseñar",
+      "meaning": "to design",
+      "example": "El parque fue diseñado por una paisajista japonesa.",
+      "example_meaning": "The park was designed by a Japanese landscape architect."
+    },
+    {
+      "term": "alquilar",
+      "meaning": "to rent, to let",
+      "example": "Se alquila apartamento con vistas al mar.",
+      "example_meaning": "Flat with sea views to let."
+    },
+    {
+      "term": "detener",
+      "meaning": "to arrest, to stop",
+      "example": "Tres sospechosos fueron detenidos en el aeropuerto.",
+      "example_meaning": "Three suspects were arrested at the airport."
+    },
+    {
+      "term": "aprobar",
+      "meaning": "to approve, to pass (a law, an exam)",
+      "example": "El presupuesto fue aprobado por unanimidad.",
+      "example_meaning": "The budget was approved unanimously."
+    },
+    {
+      "term": "el ayuntamiento",
+      "meaning": "the town hall, the town council",
+      "example": "Desde el año pasado, el ayuntamiento está cerrado los sábados.",
+      "example_meaning": "Since last year the town hall has been closed on Saturdays."
+    },
+    {
+      "term": "la obra",
+      "meaning": "the building work (often plural: las obras); a work of art",
+      "example": "Las obras del metro ya están terminadas.",
+      "example_meaning": "The work on the underground is finished now."
+    },
+    {
+      "term": "el puente",
+      "meaning": "the bridge",
+      "example": "Se construyeron tres puentes nuevos sobre el río.",
+      "example_meaning": "Three new bridges were built over the river."
+    },
+    {
+      "term": "el anuncio",
+      "meaning": "the advert, the notice",
+      "example": "En el anuncio pone: se necesitan camareros.",
+      "example_meaning": "The advert says: waiters wanted."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b2-passive-voice-01",
+      "prompt": "El puente ___ en mil ochocientos noventa. (construir)",
+      "type": "multiple-choice",
+      "options": [
+        "fue construido",
+        "fue construida",
+        "fueron construidos"
+      ],
+      "correct_answer": "fue construido",
+      "explanation": "El puente is masculine singular, so ser is singular (fue) and the participle is masculine singular: construido.",
+      "hints": [
+        "The participle agrees with the subject, like an adjective."
+      ],
+      "teaches": [
+        "construir",
+        "el puente"
+      ]
+    },
+    {
+      "question_id": "b2-passive-voice-02",
+      "prompt": "La nueva ley fue ___ por el Parlamento ayer. (aprobar)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "aprobada",
+      "accepted_answers": [],
+      "explanation": "La ley is feminine singular, so the participle is aprobada; por introduces who did it.",
+      "hints": [
+        "Ley is feminine."
+      ],
+      "teaches": [
+        "aprobar"
+      ]
+    },
+    {
+      "question_id": "b2-passive-voice-03",
+      "prompt": "En este edificio ___ dos pisos. (alquilar)",
+      "type": "multiple-choice",
+      "options": [
+        "se alquilan",
+        "se alquila",
+        "es alquilado"
+      ],
+      "correct_answer": "se alquilan",
+      "explanation": "In the pasiva refleja the verb agrees with the thing: dos pisos is plural, so se alquilan.",
+      "hints": [
+        "How many pisos are there?"
+      ],
+      "teaches": [
+        "alquilar"
+      ]
+    },
+    {
+      "question_id": "b2-passive-voice-04",
+      "prompt": "Ya podemos usar la nueva estación: las obras ___ terminadas. (estar, present)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "están",
+      "accepted_answers": [],
+      "explanation": "You describe the state the work is in now, so estar: las obras están terminadas (plural, to agree with obras).",
+      "hints": [
+        "A resulting state takes estar.",
+        "Obras is plural."
+      ],
+      "teaches": [
+        "la obra"
+      ]
+    },
+    {
+      "question_id": "b2-passive-voice-05",
+      "prompt": "You reach the museum at nine at night and find the door shut. Which sentence describes what you see?",
+      "type": "multiple-choice",
+      "options": [
+        "El museo está cerrado.",
+        "El museo fue cerrado por la mañana.",
+        "El museo está cerrada."
+      ],
+      "correct_answer": "El museo está cerrado.",
+      "explanation": "You describe the state you find, so estar + participle: está cerrado. Fue cerrado tells an action at a moment; cerrada does not agree with el museo.",
+      "hints": [
+        "State now or action then?"
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b2-passive-voice-06",
+      "prompt": "El hospital fue ___ por la reina en mil novecientos treinta. (inaugurar)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "inaugurado",
+      "accepted_answers": [],
+      "explanation": "El hospital is masculine singular: fue inaugurado, with por naming who did it.",
+      "hints": [
+        "Give the participle, agreeing with el hospital."
+      ],
+      "teaches": [
+        "inaugurar"
+      ]
+    },
+    {
+      "question_id": "b2-passive-voice-07",
+      "prompt": "Which sentence would a bar owner put on an anuncio in the window?",
+      "type": "multiple-choice",
+      "options": [
+        "Se necesitan camareros.",
+        "Se necesita camareros.",
+        "Camareros son necesitados."
+      ],
+      "correct_answer": "Se necesitan camareros.",
+      "explanation": "Signs use the pasiva refleja, and the verb agrees with camareros (plural): se necesitan. The ser passive sounds stiff and unnatural here.",
+      "hints": [
+        "Everyday passive: se + verb.",
+        "The verb agrees with the plural noun."
+      ],
+      "teaches": [
+        "el anuncio"
+      ]
+    },
+    {
+      "question_id": "b2-passive-voice-08",
+      "prompt": "Hace dos años ___ un puente nuevo sobre el río. (construir, se passive, preterite)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "se construyó",
+      "accepted_answers": [],
+      "explanation": "The pasiva refleja in the preterite: se construyó, singular because un puente is singular.",
+      "hints": [
+        "Se + third person, agreeing with un puente."
+      ],
+      "teaches": [
+        "construir",
+        "el puente"
+      ]
+    },
+    {
+      "question_id": "b2-passive-voice-09",
+      "prompt": "La empresa fue ___ por dos hermanas en mil novecientos ochenta. (fundar)",
+      "type": "multiple-choice",
+      "options": [
+        "fundada",
+        "fundado",
+        "fundadas"
+      ],
+      "correct_answer": "fundada",
+      "explanation": "La empresa is feminine singular, so the participle is fundada. It agrees with the subject, not with the doer (dos hermanas).",
+      "hints": [
+        "Which word is the subject?"
+      ],
+      "teaches": [
+        "fundar"
+      ]
+    },
+    {
+      "question_id": "b2-passive-voice-10",
+      "prompt": "Los dos ladrones ___ detenidos por la policía anoche. (ser, preterite)",
+      "type": "fill-in-blank",
+      "options": [],
+      "correct_answer": "fueron",
+      "accepted_answers": [],
+      "explanation": "Ser carries the tense and agrees with the plural subject: fueron detenidos.",
+      "hints": [
+        "Plural subject, preterite of ser."
+      ],
+      "teaches": [
+        "detener"
+      ]
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b2-passive-voice-conv-old-cinema",
+      "title": "The old cinema",
+      "scenario": "Two neighbours, Pablo and Elena, stop outside the old cinema on their street, which is being turned into flats.",
+      "role_a": "Pablo",
+      "role_b": "Elena",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "¿Has visto el anuncio del antiguo cine? Se venden pisos.",
+          "meaning": "Have you seen the notice on the old cinema? Flats for sale.",
+          "note": "se venden: plural verb, plural pisos"
+        },
+        {
+          "speaker": "b",
+          "text": "Sí. El cine fue comprado por una constructora el año pasado.",
+          "meaning": "Yes. The cinema was bought by a building company last year.",
+          "note": "ser + participle + por"
+        },
+        {
+          "speaker": "a",
+          "text": "¿Y lo van a derribar?",
+          "meaning": "And are they going to knock it down?"
+        },
+        {
+          "speaker": "b",
+          "text": "No, el edificio está protegido. Solo se va a reformar por dentro.",
+          "meaning": "No, the building is listed. It's only going to be renovated inside.",
+          "note": "está protegido: a state"
+        },
+        {
+          "speaker": "a",
+          "text": "Menos mal. Fue diseñado por un arquitecto muy conocido, ¿no?",
+          "meaning": "Thank goodness. It was designed by a well-known architect, wasn't it?"
+        },
+        {
+          "speaker": "b",
+          "text": "Eso dicen. Y mira, la fachada ya está restaurada.",
+          "meaning": "So they say. And look, the front is already restored."
+        },
+        {
+          "speaker": "a",
+          "text": "¿Cuándo se terminarán las obras?",
+          "meaning": "When will the work be finished?",
+          "note": "se terminarán: agrees with las obras"
+        },
+        {
+          "speaker": "b",
+          "text": "El ayuntamiento dice que el edificio será inaugurado en primavera.",
+          "meaning": "The council says the building will be officially opened in spring."
+        },
+        {
+          "speaker": "a",
+          "text": "¿Y los pisos? ¿Se venden muy caros?",
+          "meaning": "And the flats? Are they selling for a lot?"
+        },
+        {
+          "speaker": "b",
+          "text": "Carísimos. Y ya están casi todos vendidos.",
+          "meaning": "Very expensive. And they're almost all sold already."
+        },
+        {
+          "speaker": "a",
+          "text": "Vaya. Entonces me quedo con mis recuerdos de las películas.",
+          "meaning": "Oh well. Then I'll keep my memories of the films."
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Se alquilan dos habitaciones.",
+      "meaning": "Two rooms to let.",
+      "note": "Plural thing, plural verb."
+    },
+    {
+      "text": "El cuadro fue robado anoche.",
+      "meaning": "The painting was stolen last night.",
+      "note": "New word: robar = to steal."
+    },
+    {
+      "text": "Las paredes ya están pintadas.",
+      "meaning": "The walls are already painted.",
+      "note": "Estar + participle describes the result."
+    },
+    {
+      "text": "Aquí se venden libros de segunda mano.",
+      "meaning": "Second-hand books are sold here.",
+      "note": "New word: de segunda mano = second-hand."
+    },
+    {
+      "text": "La biblioteca fue reformada por el ayuntamiento.",
+      "meaning": "The library was renovated by the town council."
+    },
+    {
+      "text": "Cuando llegamos, el restaurante ya estaba cerrado.",
+      "meaning": "When we arrived, the restaurant was already closed."
+    },
+    {
+      "text": "En este barrio se construyeron muchas casas en los años sesenta.",
+      "meaning": "Lots of houses were built in this neighbourhood in the sixties."
+    },
+    {
+      "text": "El contrato será firmado por las dos empresas la semana que viene.",
+      "meaning": "The contract will be signed by the two companies next week.",
+      "note": "New word: firmar = to sign."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Ser + participle"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b2-passive-voice-01"
+    },
+    {
+      "question": "b2-passive-voice-09"
+    },
+    {
+      "question": "b2-passive-voice-02"
+    },
+    {
+      "question": "b2-passive-voice-06"
+    },
+    {
+      "question": "b2-passive-voice-10"
+    },
+    {
+      "section": "Estar + participle"
+    },
+    {
+      "question": "b2-passive-voice-04"
+    },
+    {
+      "question": "b2-passive-voice-05"
+    },
+    {
+      "tip": "Ask yourself whether you could say when, or by whom. If so, it is ser. If you are only describing how it is now, it is estar."
+    },
+    {
+      "section": "Se venden pisos"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b2-passive-voice-03"
+    },
+    {
+      "question": "b2-passive-voice-08"
+    },
+    {
+      "section": "Which passive when"
+    },
+    {
+      "question": "b2-passive-voice-07"
+    }
+  ],
+  "sprint": {
+    "icon": "🏗️",
+    "bites": [
+      {
+        "title": "Ser + participle + por",
+        "emoji": "📰",
+        "rule": "Ser carries the tense, the participle agrees with the subject, and por names the doer. It sounds formal and suits news, history and reports.",
+        "example": "La catedral fue construida en el siglo trece.",
+        "example_meaning": "The cathedral was built in the thirteenth century."
+      },
+      {
+        "title": "Estar shows the result",
+        "emoji": "🚪",
+        "rule": "Estar + participle describes the state after the action: la puerta está cerrada. It names no moment and usually has no por.",
+        "example": "Las entradas ya están agotadas.",
+        "example_meaning": "The tickets are already sold out."
+      },
+      {
+        "title": "Se + verb agrees",
+        "emoji": "🪧",
+        "rule": "The everyday passive: se + third person, agreeing with the thing. Se vende un piso, se venden pisos. It takes no por + doer.",
+        "example": "Se buscan voluntarios para el festival.",
+        "example_meaning": "Volunteers wanted for the festival."
+      },
+      {
+        "title": "Who did it?",
+        "emoji": "🔎",
+        "rule": "To name the doer, use ser + participle + por. If the doer is unknown or unimportant and you are speaking, use se.",
+        "example": "El puente fue inaugurado por la alcaldesa.",
+        "example_meaning": "The bridge was officially opened by the mayor."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Action or state?",
+        "buckets": [
+          "ser + participle (action)",
+          "estar + participle (state)"
+        ],
+        "why": "Ser + participle tells what was done, and when or by whom; estar + participle describes the state left afterwards.",
+        "items": [
+          {
+            "text": "La casa fue vendida en marzo.",
+            "bucket": 0
+          },
+          {
+            "text": "La casa ya está vendida.",
+            "bucket": 1
+          },
+          {
+            "text": "El ladrón fue detenido anoche.",
+            "bucket": 0
+          },
+          {
+            "text": "El banco está cerrado.",
+            "bucket": 1
+          },
+          {
+            "text": "El libro fue escrito en dos meses.",
+            "bucket": 0
+          },
+          {
+            "text": "El libro ya está escrito.",
+            "bucket": 1
+          }
+        ]
+      },
+      {
+        "title": "Se vende or se venden?",
+        "buckets": [
+          "se vende…",
+          "se venden…"
+        ],
+        "why": "The verb agrees with the thing being sold: singular noun, singular verb; plural noun, plural verb.",
+        "items": [
+          {
+            "text": "coches usados",
+            "bucket": 1
+          },
+          {
+            "text": "piso con terraza",
+            "bucket": 0
+          },
+          {
+            "text": "fruta fresca",
+            "bucket": 0
+          },
+          {
+            "text": "entradas para el concierto",
+            "bucket": 1
+          },
+          {
+            "text": "bicicleta antigua",
+            "bucket": 0
+          },
+          {
+            "text": "muebles de cocina",
+            "bucket": 1
+          }
+        ]
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Se vende dos pisos en el centro.",
+        "wrong": "vende",
+        "fix": "venden",
+        "why": "Dos pisos is plural, so the verb is plural: se venden."
+      },
+      {
+        "sentence": "La carta fue escrito por mi abuela.",
+        "wrong": "escrito",
+        "fix": "escrita",
+        "why": "The participle agrees with la carta: escrita."
+      },
+      {
+        "sentence": "Los puentes fueron construidas por los romanos.",
+        "wrong": "construidas",
+        "fix": "construidos",
+        "why": "The participle agrees with los puentes: construidos."
+      },
+      {
+        "sentence": "Cuando llegué, la puerta ya era cerrada.",
+        "wrong": "era",
+        "fix": "estaba",
+        "why": "A resulting state takes estar: la puerta ya estaba cerrada."
+      },
+      {
+        "sentence": "Las casas fue reformadas el año pasado.",
+        "wrong": "fue",
+        "fix": "fueron",
+        "why": "Ser agrees with the plural subject las casas: fueron."
+      }
+    ],
+    "builds": [
+      {
+        "text": "El museo fue diseñado por una arquitecta.",
+        "meaning": "The museum was designed by an architect.",
+        "distractors": [
+          "diseñada"
+        ]
+      },
+      {
+        "text": "Se alquilan habitaciones cerca de la playa.",
+        "meaning": "Rooms to let near the beach.",
+        "distractors": [
+          "alquila"
+        ]
+      },
+      {
+        "text": "La tienda ya está cerrada.",
+        "meaning": "The shop is already closed.",
+        "distractors": [
+          "es"
+        ]
+      },
+      {
+        "text": "Los dos ladrones fueron detenidos ayer.",
+        "meaning": "The two thieves were arrested yesterday.",
+        "distractors": [
+          "fue"
+        ]
+      }
+    ]
+  }
+}

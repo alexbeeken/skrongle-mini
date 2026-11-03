@@ -1,0 +1,147 @@
+/* The landing page's "try it" stage and use cases (#1365); the rest of the
+   landing page is in style.css under .landing. */
+.try { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 2.5rem; align-items: start; margin-bottom: 3rem; }
+.try-tabs { display: grid; gap: .5rem; }
+.try-tab { display: block; text-align: left; font: inherit; color: inherit; background: none; cursor: pointer;
+  border: 1px solid transparent; border-left: 3px solid var(--line); border-radius: 0 10px 10px 0; padding: .7rem 1rem; }
+.try-tab strong { display: block; font-size: 1.02rem; margin-bottom: .2rem; }
+.try-tab span { display: block; font-size: .9rem; color: var(--muted); }
+.try-tab:hover { background: var(--surface); }
+.try-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.try-tab.sprint { border-left-color: var(--ok); }
+.try-tab.study { border-left-color: var(--accent); }
+.try-tab.play { border-left-color: var(--gold); }
+.try-tab.guide { border-left-color: var(--tutor, var(--accent)); }
+.try-tab[aria-selected="true"] { background: var(--surface); border-top-color: var(--line); border-right-color: var(--line); border-bottom-color: var(--line); border-left-width: 5px; }
+
+.try-stage { min-height: 21rem; background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--accent);
+  border-radius: 14px; padding: 1.1rem 1.3rem 1.3rem; box-shadow: 0 22px 44px -22px rgba(60, 40, 20, .35); }
+.try-stage[data-mode="sprint"] { border-top-color: var(--ok); }
+.try-stage[data-mode="play"] { border-top-color: var(--gold); }
+.try-stage[data-mode="guide"] { border-top-color: var(--tutor, var(--accent)); }
+.try-stage p { margin: 0; }
+.try-head { display: flex; align-items: center; gap: .6rem; min-height: 2rem; margin-bottom: .9rem; }
+.try-body > * + * { margin-top: .7rem; }
+.try-label { font-size: .78rem; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+.try-prompt { font-size: 1.35rem; font-weight: 700; line-height: 1.25; }
+.try-title { font-size: 1.15rem; font-weight: 700; }
+.try-text { line-height: 1.6; }
+.try-why { font-size: .88rem; color: var(--muted); }
+
+.try-options { display: grid; gap: .45rem; }
+.btn.try-opt, .btn.try-tile { background: var(--bg, transparent); color: var(--text); border: 1px solid var(--line); font-weight: 500; text-align: left; }
+.btn.try-opt.picked { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.btn.try-opt.right, .try-line.right { border-color: var(--ok); background: var(--ok-bg); color: var(--ok-text, var(--ok)); font-weight: 600; opacity: 1; }
+.btn.try-opt.wrong, .try-line.wrong { border-color: var(--bad); background: var(--bad-bg); color: var(--bad); opacity: 1; }
+
+.try-ring { --p: 0; width: 1.9rem; height: 1.9rem; border-radius: 50%; transition: background .3s;
+  background: radial-gradient(closest-side, var(--surface) 68%, transparent 70%), conic-gradient(var(--ok) calc(var(--p) * 1%), var(--line) 0); }
+.try-line { display: flex; flex-wrap: wrap; gap: .4rem; min-height: 2.9rem; padding: .4rem; border: 1px dashed var(--line); border-radius: 10px; }
+.try-bank { display: flex; flex-wrap: wrap; gap: .4rem; }
+.btn.try-tile { text-align: center; }
+
+.try-clock { font-variant-numeric: tabular-nums; font-weight: 700; }
+.try-match { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
+.try-col { display: grid; gap: .45rem; }
+.try-match .btn.try-opt { text-align: center; }
+
+.try-dots { display: flex; gap: .3rem; }
+.try-dots i { width: 1.6rem; height: .35rem; border-radius: 3px; background: var(--line); }
+.try-dots i.on { background: var(--tutor, var(--accent)); }
+.btn.try-flash { display: block; width: 100%; min-height: 7rem; font-size: 1.5rem; font-weight: 700; background: var(--bg, transparent);
+  color: var(--text); border: 1px solid var(--line); border-radius: 12px; }
+.btn.try-flash.flipped { background: var(--ok-bg); color: var(--ok-text, var(--ok)); opacity: 1; }
+
+.try-done { text-align: center; padding: 2.5rem 0 1rem; }
+.try-done-big { font-size: 1.6rem; font-weight: 800; letter-spacing: -.02em; }
+.try-done .btn { margin-top: 1.2rem; }
+
+.land-uses { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem 2.5rem; border-top: 2px solid var(--text); padding-top: 1.3rem; }
+.land-use p { margin: 0; font-size: .93rem; color: var(--muted); }
+
+/* The subject switch above the stage, the music staff, a typed answer. */
+.try-side { display: grid; gap: .7rem; min-width: 0; }
+.try-subjects { display: flex; flex-wrap: wrap; gap: .4rem; }
+.try-subject { font: inherit; font-size: .88rem; font-weight: 600; padding: .3rem .85rem; border-radius: 99px; cursor: pointer;
+  border: 1px solid var(--line); background: none; color: var(--text); }
+.try-subject:hover { background: var(--surface); }
+.try-subject[aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
+.try-subject:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.try-typed { display: flex; gap: .5rem; flex-wrap: wrap; }
+.try-typed input { flex: 1 1 8rem; min-width: 0; font: inherit; font-size: 1.05rem; padding: .5rem .7rem; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--text); }
+.try-typed input.right { border-color: var(--ok); background: var(--ok-bg); color: var(--ok-text, var(--ok)); font-weight: 600; }
+.try-typed input.wrong { border-color: var(--bad); background: var(--bad-bg); color: var(--bad); }
+
+/* The pictures and sounds of the samples (landing-kit.js). Colours come from
+   the page's tokens.
+   What you draw or place is blue (--try-ink), never the accent: on the landing
+   page that is red, which reads as wrong (#1318). */
+.try-stage { --try-ink: #2c5bd6; }
+@media (prefers-color-scheme: dark) { .try-stage { --try-ink: #8aa8ff; } }
+.try-media-row, .try-widget { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; }
+.try-speaker { display: inline-grid; place-items: center; width: 3rem; height: 3rem; border-radius: 50%; cursor: pointer;
+  border: 2px solid var(--try-ink); background: var(--surface); color: var(--try-ink); flex: none; }
+.try-speaker:hover { background: var(--hl, var(--bg)); }
+.try-speaker.playing { animation: try-pulse .6s ease-out; }
+@keyframes try-pulse { from { box-shadow: 0 0 0 0 color-mix(in srgb, var(--try-ink) 45%, transparent); } to { box-shadow: 0 0 0 14px transparent; } }
+.try-graph { display: block; width: 100%; max-width: 15rem; height: auto; touch-action: none; }
+.try-graph.mini { width: 5.25rem; }
+.try-graph .grid { stroke: var(--line); stroke-width: 1; }
+.try-graph .axis { stroke: var(--muted); stroke-width: 1.4; }
+.try-graph .num { font-size: 9px; fill: var(--muted); font-family: inherit; }
+.try-graph .curve { fill: none; stroke: var(--try-ink); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.try-graph.mini .curve { stroke-width: 4; }
+.try-graph .curve.faint { stroke-opacity: .45; }
+.try-graph .tri { fill: none; stroke: var(--gold, #e3a21a); stroke-width: 2.5; stroke-dasharray: 5 4; }
+.try-graph .tri-label { font-size: 13px; font-weight: 700; fill: var(--text); font-family: inherit; }
+.try-graph .pt { fill: var(--try-ink); }
+.try-graph.pickable { cursor: crosshair; }
+.try-graph .pick { fill: var(--text); stroke: var(--surface); stroke-width: 2; }
+.try-graph .pick.right { fill: var(--ok); }
+.try-graph .pick.wrong { fill: var(--bad); }
+.try-pie { width: 9rem; height: 9rem; cursor: pointer; }
+.try-pie .slice { fill: var(--bg); stroke: var(--text); stroke-width: 1.5; transition: fill .12s; }
+.try-pie .slice:hover { fill: var(--hl, var(--line)); }
+.try-pie .slice.on { fill: var(--try-ink); }
+.try-nline { width: 100%; max-width: 20rem; height: auto; touch-action: none; cursor: pointer; }
+.try-nline .axis { stroke: var(--text); stroke-width: 2.5; stroke-linecap: round; }
+.try-nline .tick { stroke: var(--text); stroke-width: 1.5; }
+.try-nline .num { font-size: 13px; fill: var(--muted); font-family: inherit; }
+.try-nline .marker { fill: var(--try-ink); }
+.try-nline .marker.right { fill: var(--ok); }
+.try-nline .marker.wrong { fill: var(--bad); }
+.try-staff { display: block; width: auto; height: 6.5rem; max-width: 100%; color: var(--text); touch-action: none; }
+.try-staff.mini { height: 4.2rem; }
+.try-staff .line { stroke: currentColor; stroke-width: 1.2; }
+.try-staff .clef { font-size: 58px; fill: currentColor; }
+.try-staff .head { fill: none; stroke: currentColor; stroke-width: 2.4; }
+.try-staff.pickable { cursor: pointer; height: 8.5rem; }
+.try-staff .placed .head { stroke: var(--try-ink); }
+.try-staff .right .head { stroke: var(--ok); }
+.try-staff .wrong .head { stroke: var(--bad); }
+.try-keys { width: 100%; max-width: 19rem; height: auto; touch-action: manipulation; }
+.try-keys rect { cursor: pointer; stroke: var(--text); stroke-width: 1.2; }
+.try-keys .white { fill: #fff; }
+.try-keys .black { fill: #1c1622; }
+.try-keys .lit { fill: var(--try-ink); }
+.try-keys .down { fill: var(--gold, #e3a21a); }
+.try-keys .key-label { font-size: 12px; font-weight: 800; fill: #fff; pointer-events: none; font-family: inherit; }
+.try-options.pictures { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.btn.try-opt:has(svg) { display: grid; place-items: center; padding: .4rem; }
+.btn.try-opt .try-staff.mini { height: 3.6rem; }
+.try-match .btn.try-opt.picture { padding: .2rem; }
+.try-match .try-graph.mini { width: 4.4rem; }
+.try-match .try-staff.mini { height: 4.3rem; }
+.btn.try-flash { display: grid; place-items: center; }
+
+@media (max-width: 900px) {
+  .try { grid-template-columns: minmax(0, 1fr); gap: 1.2rem; }
+  .try-tabs { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .35rem; }
+  .try-tab { padding: .55rem .5rem; text-align: center; }
+  .try-tab strong { margin: 0; font-size: .92rem; overflow-wrap: anywhere; }
+  .try-tab span { display: none; }
+  .land-uses { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 520px) {
+  .land-uses { grid-template-columns: 1fr; }
+}

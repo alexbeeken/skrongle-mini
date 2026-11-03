@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="{{ crate::i18n::lang() }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#c0392b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>{{ crate::t("sprint.mode_name") }} · {{ course.title }}</title>
+<script>if (/[?&]reduce-motion=1\b/.test(location.search)) document.documentElement.classList.add('reduce-motion');</script>
+<link rel="stylesheet" href="{{ crate::routes::asset_url("sprint.css") }}">
+<link rel="icon" href="{{ crate::routes::asset_url("favicon.svg") }}" type="image/svg+xml">
+<link rel="manifest" href="{{ crate::url("/manifest.webmanifest") }}">
+<link rel="apple-touch-icon" href="{{ crate::routes::asset_url("apple-touch-icon.png") }}">
+</head>
+<body class="sprint" data-base="{{ crate::base_path() }}">
+<div class="phone">
+  <header class="sprint-top">
+    <a class="sprint-exit" data-testid="sprint-exit" href="{{ crate::url("/") }}" title="{{ crate::t("sprint.home.exit") }}" aria-label="{{ crate::t("sprint.home.exit") }}">✕</a>
+    <span class="sprint-course" title="{{ course.title }}">{{ course.icon }}</span>
+    <div class="sprint-stats">
+      <span class="sprint-stat streak{% if practised_today %} lit{% endif %}" title="{{ crate::t("sprint.home.streak") }}">{{ course.icons.streak }} <b>{{ streak }}</b></span>
+      <a class="sprint-stat" href="{{ crate::base_path() }}/vocabulary" data-testid="sprint-words" aria-label="{{ crate::t1("sprint.home.words_collected", "n", words) }}">{{ course.icons.words }} <b>{{ words }}</b></a>
+    </div>
+    <button type="button" class="sprint-sound fx" id="sound" data-testid="sprint-sound" aria-label="{{ crate::t("sprint.sound_toggle") }}">🎵</button>
+  </header>
+
+  <main class="sprint-main">
+    <h1 class="sr-only" data-testid="sprint-title">{{ crate::t("sprint.mode_name") }} · {{ course.title }}</h1>
+    <section class="sprint-hero">
+      <div class="ring" style="--pct:{{ today.pct() }}" role="progressbar" aria-label="{{ crate::t2("goal.ring_label", "n", today.points, "goal", today.goal) }}" aria-valuenow="{{ today.points }}" aria-valuemin="0" aria-valuemax="{{ today.goal }}" data-testid="sprint-goal-ring" data-points="{{ today.points }}" data-goal="{{ today.goal }}">
+        <span class="ring-num">{{ today.points }}</span><span class="ring-goal">/ {{ today.goal }}</span>
+      </div>
+      <div class="sprint-hero-text">{% include "goal_message.html" %}</div>
+    </section>
+
+    <section class="sprint-actions">
+      {% if let Some(slug) = current_slug %}
+        <a class="sprint-cta primary" href="{{ crate::base_path() }}/sprint/play?lesson={{ slug }}" data-testid="sprint-continue" data-lesson-id="{{ slug }}">
+          <span class="ico">{{ current_icon }}</span>
+          <span class="txt"><strong>{{ crate::t("sprint.home.continue") }}</strong><small>{% if let Some(t) = current_title %}{{ t }}{% endif %}</small></span>
+          <span class="chev">›</span>
+        </a>
+      {% else %}
+        <a class="sprint-cta primary" href="{{ crate::base_path() }}/sprint/play?mode=review" data-testid="sprint-continue">
+          <span class="ico">{{ course.icons.trophy }}</span>
+          <span class="txt"><strong>{{ crate::t("sprint.home.all_done") }}</strong><small>{{ crate::t("sprint.home.all_done_sub") }}</small></span>
+          <span class="chev">›</span>
+        </a>
+      {% endif %}
+      <div class="sprint-cta-row">
+        <a class="sprint-cta" href="{{ crate::base_path() }}/sprint/play?mode=review" data-testid="sprint-review"><span class="ico">{{ course.icons.review }}</span><span class="txt"><strong>{{ crate::t("sprint.home.review") }}</strong><small>{% if review_read %}{{ crate::t("sprint.home.review_sub") }}{% else %}{{ crate::t("sprint.home.review_sub_new") }}{% endif %}</small></span></a>
+        <a class="sprint-cta" href="{{ crate::base_path() }}/sprint/play?mode=lightning" data-testid="sprint-lightning"><span class="ico">{{ course.icons.xp }}</span><span class="txt"><strong>{{ crate::t("sprint.home.lightning") }}</strong><small>{{ crate::t("sprint.home.lightning_sub") }}</small></span></a>
+      </div>
+    </section>
+
+    <p class="sprint-legend">{{ crate::t2("sprint.home.legend_complete", "done", completed, "total", total) }} · {{ crate::t1("sprint.home.legend_rest", "icon", course.icons.mastery.as_str()) }}</p>
+
+    {% for g in units %}
+    <section class="sprint-level" data-testid="sprint-unit">
+      <header class="sprint-level-head">
+        <span class="lvl">{{ g.unit }}</span>
+        <span class="desc">{{ g.description }}</span>
+        <span class="cnt">{% if g.total == 0 %}{{ crate::t("sprint.home.unit_skipped") }}{% else %}{{ g.done }} / {{ g.total }}{% endif %}</span>
+      </header>
+      <ol class="sprint-path">
+      {% for n in g.nodes %}
+        <li class="sprint-node {{ n.state }}{% if n.is_current %} current{% endif %}" data-testid="sprint-lesson" data-lesson-id="{{ n.slug }}" data-state="{{ n.state }}" data-passed="{% if n.state == "complete" %}true{% else %}false{% endif %}" data-current="{{ n.is_current }}">
+          <button type="button" class="sprint-node-btn" data-testid="sprint-lesson-toggle" aria-expanded="false" aria-label="{{ n.label() }}">
+            <span class="sprint-node-icon">{% if n.state == "locked" %}{{ course.icons.locked }}{% else %}{{ n.icon }}{% endif %}</span>
+            {% if n.state == "complete" %}<span class="sprint-node-check">✓</span>{% endif %}
+            {% if n.chilis > 0 %}<span class="chilis">{% for _ in 0..n.chilis %}{{ course.icons.mastery }}{% endfor %}</span>{% endif %}
+          </button>
+          <span class="sprint-node-title">{{ n.title }}</span>
+          {% if n.is_current %}<span class="sprint-node-you">{{ crate::t("sprint.home.start_here") }}</span>{% endif %}
+          <div class="sprint-sheet" data-testid="sprint-sheet" hidden>
+            <p class="sprint-sheet-title">{{ n.icon }} {{ n.title }}</p>
+            <p class="sprint-sheet-meta">{{ crate::t2("sprint.home.stop_meta", "n", n.number, "group", n.group.as_str()) }}{% if n.mastery > 0 %} · {{ crate::t1("sprint.home.mastery_pct", "pct", n.mastery) }}{% endif %}{% if n.stars > 0 %} · {% for _ in 0..n.stars %}★{% endfor %}{% endif %}</p>
+            {% if !n.summary.is_empty() %}<p class="sprint-sheet-sum">{{ n.summary }}</p>{% endif %}
+            {% if n.state == "skipped" %}<p class="sprint-sheet-meta" data-testid="sprint-lesson-skipped">{{ crate::t("sprint.home.skipped_level") }}</p>{% else if !n.pass.is_empty() %}<p class="sprint-sheet-meta">{{ n.pass }}</p>{% endif %}
+            <div class="sprint-sheet-actions">
+              {% if n.state == "locked" %}
+                <span class="sprint-locked">{{ crate::t("sprint.home.locked_hint") }}</span>
+                <a class="sprint-btn ghost" href="{{ crate::base_path() }}/lessons/{{ n.slug }}" data-testid="sprint-lesson-read">{{ crate::t("sprint.home.peek") }}</a>
+              {% else %}
+                <a class="sprint-btn" href="{{ crate::base_path() }}/sprint/play?lesson={{ n.slug }}" data-testid="sprint-lesson-play">{% if n.state == "complete" %}{{ crate::t("sprint.home.play_again") }}{% else %}{{ crate::t("sprint.home.start") }}{% endif %}</a>
+                <a class="sprint-btn ghost" href="{{ crate::base_path() }}/lessons/{{ n.slug }}" data-testid="sprint-lesson-read">{{ crate::t("sprint.home.read") }}</a>
+              {% endif %}
+            </div>
+          </div>
+        </li>
+      {% endfor %}
+      </ol>
+    </section>
+    {% endfor %}
+    <p class="sprint-foot-note">{{ crate::t("sprint.home.foot_note") }} <a href="{{ crate::base_path() }}/guide" data-testid="sprint-guide">{{ crate::t("sprint.home.guide") }}</a> · <a href="{{ crate::base_path() }}/map" data-testid="sprint-map">{{ crate::t("sprint.home.map") }}</a> · <a href="{{ crate::base_path() }}/courses" data-testid="sprint-courses">{{ crate::t("sprint.home.switch_course") }}</a></p>
+  </main>
+
+  <nav class="sprint-tabs" data-testid="sprint-tabs" aria-label="{{ crate::t("sprint.mode_name") }}">
+    <a class="on" href="{{ crate::base_path() }}/sprint" data-testid="sprint-tab-path" aria-current="page"><span>{{ course.icons.path }}</span>{{ crate::t("sprint.tabs.path") }}</a>
+    <a href="{{ crate::base_path() }}/sprint/play?mode=review" data-testid="sprint-tab-review"><span>{{ course.icons.review }}</span>{{ crate::t("sprint.tabs.review") }}</a>
+    <a href="{{ crate::base_path() }}/sprint/play?mode=lightning" data-testid="sprint-tab-lightning"><span>{{ course.icons.xp }}</span>{{ crate::t("sprint.tabs.lightning") }}</a>
+    <a href="{{ crate::base_path() }}/vocabulary/study" data-testid="sprint-tab-terms"><span>{{ course.icons.words }}</span>{{ crate::t("sprint.tabs.terms") }}</a>
+    <a href="{{ crate::url("/") }}" data-testid="sprint-tab-site"><span>{{ course.icons.site }}</span>{{ crate::t("sprint.tabs.site") }}</a>
+  </nav>
+</div>
+<script>
+// The app's text for sprint.js (this page does not extend base.html, so the
+// table and t()/tn() are defined here the same way; i18n/README.md).
+window.I18N = {{ crate::i18n::js_json("common.js")|safe }};
+Object.assign(I18N, {{ crate::i18n::js_json("sprint.js")|safe }});
+window.t = function (key, args) {
+  var s = I18N[key];
+  if (s == null) { console.warn('i18n: no text for ' + key); s = key; }
+  return args ? s.replace(/\{(\w+)\}/g, function (m, n) { return n in args ? args[n] : m; }) : s;
+};
+window.tn = function (key, n) { return t(key + (n === 1 ? '.one' : '.other'), { n: n }); };
+</script>
+<script>Object.assign(I18N, {{ crate::i18n::js_json("clock.js")|safe }});</script><script src="{{ crate::routes::asset_url("clock.js") }}" defer></script>
+<script src="{{ crate::routes::asset_url("sprint.js") }}" defer></script>
+</body>
+</html>

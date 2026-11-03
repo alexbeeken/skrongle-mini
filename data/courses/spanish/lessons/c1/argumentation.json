@@ -1,0 +1,573 @@
+{
+  "id": "c1-argumentation",
+  "slug": "argumentation",
+  "title": "A mi juicio: arguing, conceding and refuting",
+  "unit": "C1",
+  "group": "Vocabulary",
+  "order": 30,
+  "summary": "Give and weigh opinions, structure an argument, concede a point and refute one, with the right mood after each expression.",
+  "focus": "The language of opinion and argument",
+  "prerequisites": [
+    "c1-time-and-concession",
+    "b2-discourse-markers"
+  ],
+  "content": "## Giving your opinion\n\n- **a mi juicio**, **desde mi punto de vista**, **en mi opinión** + a statement.\n- **creo / considero / opino que + indicative**: *Considero que el plan **es** viable.*\n- **no creo / no considero que + subjunctive**: *No creo que **sea** viable.*\n\nThe negation turns a statement into doubt, so the mood changes.\n\n## Evaluating\n\n| asserting a truth (indicative) | judging or reacting (subjunctive) |\n|---|---|\n| **es evidente que** | **es lógico que** |\n| **está claro que** | **es preocupante que** |\n| **es cierto que** | **es fundamental que** |\n| **no cabe duda de que** | **me parece bien / mal que** |\n\n*Es evidente que el clima **está** cambiando. Es preocupante que no **hagamos** nada.* Negating a truth also brings the subjunctive: *no es cierto que **sea** así*.\n\n## Structuring an argument\n\n- opening: **en primer lugar**, **para empezar**\n- two sides: **por una parte… por otra (parte)…**\n- adding: **además**, **asimismo**\n- closing: **por último**; **en definitiva**, **en resumen**, **en conclusión**\n\n## Conceding, refuting and hedging\n\n- concede, then counter: **si bien es cierto que** + indicative…; **admito que…, pero…**; **no niego que** + subjunctive…\n- keep your point anyway: **eso no quita que** + subjunctive: *eso no quita que **debamos** actuar*.\n- refute firmly: **en absoluto** (not at all), **nada más lejos de la realidad** (nothing could be further from the truth).\n- soften: **en cierto modo**, **hasta cierto punto**.",
+  "vocabulary": [
+    {
+      "term": "a mi juicio",
+      "meaning": "in my view, in my judgement",
+      "example": "A mi juicio, la reforma llega demasiado tarde.",
+      "example_meaning": "In my view, the reform comes too late."
+    },
+    {
+      "term": "desde mi punto de vista",
+      "meaning": "from my point of view",
+      "example": "Desde mi punto de vista, el problema es la vivienda, no el empleo.",
+      "example_meaning": "From my point of view, the problem is housing, not jobs."
+    },
+    {
+      "term": "considero que",
+      "meaning": "I consider that, I believe that (+ indicative)",
+      "example": "Considero que la educación pública merece más inversión.",
+      "example_meaning": "I believe public education deserves more investment."
+    },
+    {
+      "term": "es evidente que",
+      "meaning": "it is obvious that (+ indicative)",
+      "example": "Es evidente que el transporte público ha mejorado.",
+      "example_meaning": "It is obvious that public transport has improved."
+    },
+    {
+      "term": "es lógico que",
+      "meaning": "it is understandable that, it makes sense that (+ subjunctive)",
+      "example": "Es lógico que los vecinos se quejen del ruido.",
+      "example_meaning": "It's understandable that the residents complain about the noise."
+    },
+    {
+      "term": "en primer lugar",
+      "meaning": "firstly, in the first place",
+      "example": "En primer lugar, conviene definir qué entendemos por éxito.",
+      "example_meaning": "Firstly, we should define what we mean by success."
+    },
+    {
+      "term": "por otra parte",
+      "meaning": "on the other hand; moreover",
+      "example": "Por otra parte, el proyecto crearía empleo en la zona.",
+      "example_meaning": "On the other hand, the project would create jobs in the area."
+    },
+    {
+      "term": "en definitiva",
+      "meaning": "in short, all in all",
+      "example": "En definitiva, las ventajas superan a los inconvenientes.",
+      "example_meaning": "All in all, the advantages outweigh the drawbacks."
+    },
+    {
+      "term": "si bien es cierto que",
+      "meaning": "while it is true that (+ indicative)",
+      "example": "Si bien es cierto que el turismo genera riqueza, también encarece la vida.",
+      "example_meaning": "While it is true that tourism generates wealth, it also makes living more expensive."
+    },
+    {
+      "term": "no niego que",
+      "meaning": "I don't deny that (+ subjunctive)",
+      "example": "No niego que la idea sea original, pero no es práctica.",
+      "example_meaning": "I don't deny that the idea is original, but it isn't practical."
+    },
+    {
+      "term": "eso no quita que",
+      "meaning": "that doesn't mean that … not, that doesn't change the fact that (+ subjunctive)",
+      "example": "Es caro, pero eso no quita que sea necesario.",
+      "example_meaning": "It's expensive, but that doesn't mean it isn't necessary."
+    },
+    {
+      "term": "en absoluto",
+      "meaning": "not at all, absolutely not",
+      "example": "¿Que si estoy de acuerdo? En absoluto.",
+      "example_meaning": "Do I agree? Not at all."
+    },
+    {
+      "term": "nada más lejos de la realidad",
+      "meaning": "nothing could be further from the truth",
+      "example": "Dicen que es una medida popular; nada más lejos de la realidad.",
+      "example_meaning": "They say it's a popular measure; nothing could be further from the truth."
+    },
+    {
+      "term": "hasta cierto punto",
+      "meaning": "up to a point, to some extent",
+      "example": "Tienes razón hasta cierto punto.",
+      "example_meaning": "You're right up to a point."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "c1-argumentation-01",
+      "prompt": "No creo que ___ la mejor solución.",
+      "type": "multiple-choice",
+      "options": [
+        "sea",
+        "es",
+        "será"
+      ],
+      "correct_answer": "sea",
+      "explanation": "No creo que expresses doubt and takes the subjunctive.",
+      "hints": [
+        "A negated opinion takes the subjunctive."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "c1-argumentation-02",
+      "prompt": "Considero que el teletrabajo ___ (ser) una ventaja para muchas familias.",
+      "type": "fill-in-blank",
+      "correct_answer": "es",
+      "explanation": "An affirmative opinion verb takes the indicative: considero que es.",
+      "hints": [
+        "You are stating your view."
+      ],
+      "teaches": [
+        "considero que"
+      ]
+    },
+    {
+      "question_id": "c1-argumentation-03",
+      "prompt": "Es evidente que el clima ___ cambiando.",
+      "type": "multiple-choice",
+      "options": [
+        "está",
+        "esté"
+      ],
+      "correct_answer": "está",
+      "explanation": "Es evidente que asserts a truth, so it takes the indicative.",
+      "hints": [
+        "Asserting, not judging."
+      ],
+      "teaches": [
+        "es evidente que"
+      ]
+    },
+    {
+      "question_id": "c1-argumentation-04",
+      "prompt": "Es lógico que la gente ___ (protestar) por la subida de los precios.",
+      "type": "fill-in-blank",
+      "correct_answer": "proteste",
+      "explanation": "Es lógico que is a value judgement, so the verb is subjunctive: proteste.",
+      "hints": [
+        "A judgement takes the subjunctive."
+      ],
+      "teaches": [
+        "es lógico que"
+      ]
+    },
+    {
+      "question_id": "c1-argumentation-05",
+      "prompt": "___, el verdadero problema es la falta de inversión.",
+      "type": "multiple-choice",
+      "options": [
+        "A mi juicio",
+        "En absoluto",
+        "Hasta que"
+      ],
+      "correct_answer": "A mi juicio",
+      "explanation": "A mi juicio introduces your opinion. En absoluto is a refusal; hasta que is about time.",
+      "hints": [
+        "You are giving your view."
+      ],
+      "teaches": [
+        "a mi juicio"
+      ]
+    },
+    {
+      "question_id": "c1-argumentation-06",
+      "prompt": "—¿Estás de acuerdo con la propuesta? —___. Me parece injusta.",
+      "type": "multiple-choice",
+      "options": [
+        "En absoluto",
+        "Por supuesto",
+        "En definitiva"
+      ],
+      "correct_answer": "En absoluto",
+      "explanation": "En absoluto as a reply means 'not at all'.",
+      "hints": [
+        "The speaker disagrees."
+      ],
+      "teaches": [
+        "en absoluto"
+      ]
+    },
+    {
+      "question_id": "c1-argumentation-07",
+      "prompt": "No niego que el plan ___ (tener) ventajas, pero es demasiado caro.",
+      "type": "fill-in-blank",
+      "correct_answer": "tenga",
+      "accepted_answers": [
+        "tiene"
+      ],
+      "explanation": "No niego que concedes a point and usually takes the subjunctive: tenga. The indicative (tiene) is also used when you assert the fact outright.",
+      "hints": [
+        "Present subjunctive of tener."
+      ],
+      "teaches": [
+        "no niego que"
+      ]
+    },
+    {
+      "question_id": "c1-argumentation-08",
+      "prompt": "Which expression opens the conclusion of an essay?",
+      "type": "multiple-choice",
+      "options": [
+        "En definitiva",
+        "En primer lugar",
+        "Por una parte"
+      ],
+      "correct_answer": "En definitiva",
+      "explanation": "En definitiva sums up; the others open an argument.",
+      "hints": [
+        "Summing up."
+      ],
+      "teaches": [
+        "en definitiva"
+      ]
+    },
+    {
+      "question_id": "c1-argumentation-09",
+      "prompt": "What does 'nada más lejos de la realidad' mean?",
+      "type": "multiple-choice",
+      "options": [
+        "Nothing could be further from the truth.",
+        "Reality is very far away.",
+        "Nothing is real any more."
+      ],
+      "correct_answer": "Nothing could be further from the truth.",
+      "explanation": "It flatly refutes what was just said.",
+      "hints": [
+        "A strong refutation."
+      ],
+      "teaches": [
+        "nada más lejos de la realidad"
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "A mi juicio, la propuesta es razonable.",
+      "meaning": "In my view, the proposal is reasonable."
+    },
+    {
+      "text": "No creo que sea el momento adecuado.",
+      "meaning": "I don't think it's the right moment.",
+      "note": "No creo que + subjunctive."
+    },
+    {
+      "text": "En primer lugar, hay que analizar los datos.",
+      "meaning": "Firstly, we need to analyse the data."
+    },
+    {
+      "text": "Es preocupante que tantos jóvenes no encuentren trabajo.",
+      "meaning": "It's worrying that so many young people can't find work."
+    },
+    {
+      "text": "Hasta cierto punto, entiendo su postura.",
+      "meaning": "Up to a point, I understand your position.",
+      "note": "New word: la postura = the position, the stance."
+    },
+    {
+      "text": "Si bien es cierto que el coste es alto, los beneficios son mayores.",
+      "meaning": "While it's true that the cost is high, the benefits are greater."
+    },
+    {
+      "text": "Eso no quita que debamos buscar alternativas más baratas.",
+      "meaning": "That doesn't mean we shouldn't look for cheaper alternatives."
+    },
+    {
+      "text": "En definitiva, el debate sobre la jornada laboral acaba de empezar.",
+      "meaning": "In short, the debate on the working day has only just begun.",
+      "note": "New word: la jornada laboral = the working day."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Giving your opinion"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "c1-argumentation-01"
+    },
+    {
+      "question": "c1-argumentation-02"
+    },
+    {
+      "question": "c1-argumentation-05"
+    },
+    {
+      "section": "Evaluating"
+    },
+    {
+      "question": "c1-argumentation-03"
+    },
+    {
+      "question": "c1-argumentation-04"
+    },
+    {
+      "tip": "Stating what is true takes the indicative. Doubting it, denying it or reacting to it takes the subjunctive."
+    },
+    {
+      "section": "Structuring"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "c1-argumentation-08"
+    },
+    {
+      "section": "Conceding"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "c1-argumentation-07"
+    },
+    {
+      "question": "c1-argumentation-06"
+    },
+    {
+      "question": "c1-argumentation-09"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "c1-argumentation-conv-four-day-week",
+      "title": "The four-day week",
+      "scenario": "Paula and Gonzalo debate a four-day working week on a local radio programme.",
+      "role_a": "Paula",
+      "role_b": "Gonzalo",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "A mi juicio, la semana de cuatro días es el futuro.",
+          "meaning": "In my view, the four-day week is the future."
+        },
+        {
+          "speaker": "b",
+          "text": "No creo que sea tan sencillo. ¿Quién paga los costes?",
+          "meaning": "I don't think it's that simple. Who pays the costs?"
+        },
+        {
+          "speaker": "a",
+          "text": "En primer lugar, es evidente que la productividad no depende de las horas.",
+          "meaning": "Firstly, it's obvious that productivity doesn't depend on hours."
+        },
+        {
+          "speaker": "b",
+          "text": "Hasta cierto punto. Pero en un hospital no se puede trabajar menos.",
+          "meaning": "Up to a point. But in a hospital you can't work less."
+        },
+        {
+          "speaker": "a",
+          "text": "No niego que haya sectores difíciles.",
+          "meaning": "I don't deny that there are difficult sectors."
+        },
+        {
+          "speaker": "b",
+          "text": "Además, es lógico que las pequeñas empresas tengan miedo.",
+          "meaning": "Besides, it's understandable that small businesses are afraid."
+        },
+        {
+          "speaker": "a",
+          "text": "Eso no quita que debamos intentarlo con proyectos piloto.",
+          "meaning": "That doesn't mean we shouldn't try it with pilot projects."
+        },
+        {
+          "speaker": "b",
+          "text": "Dicen que los experimentos han salido perfectos. Nada más lejos de la realidad.",
+          "meaning": "They say the experiments went perfectly. Nothing could be further from the truth."
+        },
+        {
+          "speaker": "a",
+          "text": "Si bien es cierto que hubo problemas, la mayoría de los trabajadores quiere seguir.",
+          "meaning": "While it's true there were problems, most workers want to continue."
+        },
+        {
+          "speaker": "b",
+          "text": "En definitiva, estamos de acuerdo en algo: hace falta más debate.",
+          "meaning": "All in all, we agree on one thing: we need more debate."
+        }
+      ]
+    }
+  ],
+  "sprint": {
+    "icon": "🗯️",
+    "bites": [
+      {
+        "title": "Creo que / no creo que",
+        "emoji": "🗯️",
+        "rule": "Creo, considero, opino que + indicative. No creo, no considero que + subjunctive. The negation turns it into doubt.",
+        "example": "No creo que sea fácil.",
+        "example_meaning": "I don't think it's easy."
+      },
+      {
+        "title": "Truth or judgement?",
+        "emoji": "⚖️",
+        "rule": "Es evidente, está claro, no cabe duda de que + indicative. Es lógico, es preocupante, es fundamental que + subjunctive.",
+        "example": "Es lógico que estés cansado.",
+        "example_meaning": "It's understandable that you're tired."
+      },
+      {
+        "title": "Build the argument",
+        "emoji": "🧱",
+        "rule": "En primer lugar… por una parte… por otra… además… por último… en definitiva.",
+        "example": "En definitiva, merece la pena.",
+        "example_meaning": "All in all, it's worth it."
+      },
+      {
+        "title": "Concede, then strike",
+        "emoji": "🤺",
+        "rule": "Si bien es cierto que + indicative; no niego que + subjunctive; eso no quita que + subjunctive. To refute: en absoluto, nada más lejos de la realidad.",
+        "example": "Eso no quita que tengas razón.",
+        "example_meaning": "That doesn't mean you're not right."
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Which mood comes after it?",
+        "buckets": [
+          "indicative",
+          "subjunctive"
+        ],
+        "items": [
+          {
+            "text": "es evidente que",
+            "bucket": 0
+          },
+          {
+            "text": "está claro que",
+            "bucket": 0
+          },
+          {
+            "text": "considero que",
+            "bucket": 0
+          },
+          {
+            "text": "si bien es cierto que",
+            "bucket": 0
+          },
+          {
+            "text": "no creo que",
+            "bucket": 1
+          },
+          {
+            "text": "es lógico que",
+            "bucket": 1
+          },
+          {
+            "text": "es preocupante que",
+            "bucket": 1
+          },
+          {
+            "text": "eso no quita que",
+            "bucket": 1
+          }
+        ],
+        "why": "Asserting a truth takes the indicative; doubting, judging or reacting takes the subjunctive."
+      },
+      {
+        "title": "What does it do in the argument?",
+        "buckets": [
+          "structure",
+          "concede",
+          "refute"
+        ],
+        "items": [
+          {
+            "text": "en primer lugar",
+            "bucket": 0
+          },
+          {
+            "text": "por otra parte",
+            "bucket": 0
+          },
+          {
+            "text": "en definitiva",
+            "bucket": 0
+          },
+          {
+            "text": "si bien es cierto que",
+            "bucket": 1
+          },
+          {
+            "text": "no niego que",
+            "bucket": 1
+          },
+          {
+            "text": "en absoluto",
+            "bucket": 2
+          },
+          {
+            "text": "nada más lejos de la realidad",
+            "bucket": 2
+          }
+        ],
+        "why": "Some expressions order the argument, some grant a point, some reject one."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "No creo que es buena idea.",
+        "wrong": "es",
+        "fix": "sea",
+        "why": "No creo que takes the subjunctive."
+      },
+      {
+        "sentence": "Es evidente que tenga razón.",
+        "wrong": "tenga",
+        "fix": "tiene",
+        "why": "Es evidente que asserts a truth, so it takes the indicative."
+      },
+      {
+        "sentence": "Es lógico que la gente está enfadada.",
+        "wrong": "está",
+        "fix": "esté",
+        "why": "Es lógico que is a judgement, so it takes the subjunctive."
+      },
+      {
+        "sentence": "Considero que sea un error.",
+        "wrong": "sea",
+        "fix": "es",
+        "why": "An affirmative opinion verb takes the indicative."
+      }
+    ],
+    "builds": [
+      {
+        "text": "A mi juicio, tienes razón.",
+        "meaning": "In my view, you're right.",
+        "distractors": [
+          "tengas"
+        ]
+      },
+      {
+        "text": "No creo que sea verdad.",
+        "meaning": "I don't think it's true.",
+        "distractors": [
+          "es"
+        ]
+      },
+      {
+        "text": "Es evidente que tiene razón.",
+        "meaning": "It's obvious that she's right.",
+        "distractors": [
+          "tenga"
+        ]
+      },
+      {
+        "text": "En definitiva, el plan funciona.",
+        "meaning": "All in all, the plan works.",
+        "distractors": [
+          "absoluto"
+        ]
+      }
+    ]
+  }
+}

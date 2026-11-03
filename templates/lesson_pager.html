@@ -1,0 +1,6 @@
+{% if prev_lesson.is_some() || next_lesson.is_some() %}
+<nav class="lesson-pager {{ pos }}" data-testid="lesson-pager-{{ pos }}" aria-label="{{ crate::t("study.lesson.pager_aria") }}">
+  {% if let Some(l) = prev_lesson %}<a class="prev" href="{{ crate::base_path() }}/lessons/{{ l.slug }}" rel="prev" data-testid="lesson-prev" data-lesson-id="{{ l.slug }}"><span class="label">‹ {{ crate::t("study.lesson.previous") }}</span><span class="title">{{ l.title }}</span></a>{% endif %}
+  {% if let Some(l) = next_lesson %}<a class="next" href="{{ crate::base_path() }}/lessons/{{ l.slug }}" rel="next" data-testid="lesson-next" data-lesson-id="{{ l.slug }}"><span class="label">{{ crate::t("study.lesson.next") }} ›</span><span class="title">{{ l.title }}</span></a>{% endif %}
+</nav>
+{% endif %}

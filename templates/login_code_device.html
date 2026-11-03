@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dev device</title>
+<link rel="stylesheet" href="{{ crate::routes::asset_url("style.css") }}">
+<link rel="stylesheet" href="{{ crate::routes::asset_url("devbox.css") }}">
+</head>
+<body class="dev-device-body" data-base="{{ crate::base_path() }}">
+<section class="dev-device-page" data-testid="login-code-device" data-method="{{ method }}" data-now="{{ now }}">
+  <p class="small muted dev-device-to" data-testid="login-code-device-to">{% if method == "totp" %}Codes for{% else %}Mail to{% endif %} <strong>{{ to }}</strong></p>
+  {% if off %}
+  <p class="small" data-testid="login-code-device-off">The dev mailbox is off (`SKRONGLE_DEV_SMTP=0`): the code went out for real.</p>
+  {% else %}
+  <ul class="dev-device-rows" data-rows>
+    {% include "login_code_device_rows.html" %}
+  </ul>
+  {% endif %}
+</section>
+<script src="{{ crate::routes::asset_url("devbox.js") }}" defer></script>
+</body>
+</html>

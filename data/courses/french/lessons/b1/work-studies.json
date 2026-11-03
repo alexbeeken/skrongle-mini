@@ -1,0 +1,601 @@
+{
+  "id": "b1-work-studies",
+  "slug": "work-studies",
+  "title": "Work and studies: le CV et l'entretien",
+  "unit": "B1",
+  "group": "Vocabulary",
+  "order": 38,
+  "summary": "Talk about your studies and job, get through an interview in the right register, and write a professional e-mail.",
+  "focus": "Vocabulary of studies and work, interview register and formal e-mails",
+  "prerequisites": [
+    "b1-opinions-agreement"
+  ],
+  "content": "## Studies and the job market\n\n- **la licence**: the bachelor's degree, three years at university. **le master**: two more years.\n- **le diplôme**: the degree or diploma you obtain (**obtenir son diplôme**).\n- **la formation**: education or a training course. **le stage**: an internship, often part of a degree.\n- Looking for work: **le CV**, **la lettre de motivation** (cover letter), **l'entretien** (the interview).\n- The job itself: **le salaire**, **les horaires** (working hours), and if you have none, **le chômage** (**être au chômage**, to be unemployed).\n\nFrance's legal working week is **35 heures** (**les 35 heures**); hours above it are paid as overtime or given back as days off.\n\n## The interview: register, strengths and plans\n\nAt an interview, always use **vous**. Colleagues often switch to **tu**, but wait for the offer: **On peut se tutoyer ?**\n\nStrengths: **Je suis organisé(e).** **Je suis à l'aise avec les chiffres.** (comfortable with numbers)\n\nPlans: **je compte** + infinitive (I intend to), **j'envisage de** + infinitive (I'm considering): **Je compte faire un master. J'envisage de partir à l'étranger.**\n\n## Writing a professional e-mail\n\n- Opening: **Madame, Monsieur,** when you don't know who will read it; **Madame Durand,** or **Bonjour Madame Durand,** when you do.\n- Closing: **Cordialement,** or **Bien cordialement,**. A formal letter ends with **Je vous prie d'agréer, Madame, Monsieur, l'expression de mes salutations distinguées.**\n- Useful verb: **recevoir** (je reçois, nous recevons, ils reçoivent): **J'ai bien reçu votre message.** The cedilla keeps the c soft before o and u.",
+  "vocabulary": [
+    {
+      "term": "le CV",
+      "meaning": "CV, résumé",
+      "example": "Envoyez votre CV et une lettre de motivation.",
+      "example_meaning": "Send your CV and a cover letter."
+    },
+    {
+      "term": "le stage",
+      "meaning": "internship, work placement",
+      "example": "J'ai fait un stage de six mois dans une banque.",
+      "example_meaning": "I did a six-month internship at a bank."
+    },
+    {
+      "term": "le diplôme",
+      "meaning": "degree, diploma",
+      "example": "Elle a obtenu son diplôme en juin.",
+      "example_meaning": "She got her degree in June."
+    },
+    {
+      "term": "la licence",
+      "meaning": "bachelor's degree (three years)",
+      "example": "Il prépare une licence d'histoire à Lyon.",
+      "example_meaning": "He's studying for a history degree in Lyon."
+    },
+    {
+      "term": "le master",
+      "meaning": "master's degree",
+      "example": "Après ma licence, je compte faire un master.",
+      "example_meaning": "After my bachelor's, I intend to do a master's."
+    },
+    {
+      "term": "l'entretien",
+      "meaning": "interview (m)",
+      "example": "J'ai un entretien d'embauche lundi à dix heures.",
+      "example_meaning": "I have a job interview on Monday at ten."
+    },
+    {
+      "term": "le salaire",
+      "meaning": "salary, pay",
+      "example": "Le salaire est intéressant, mais le bureau est loin.",
+      "example_meaning": "The salary is attractive, but the office is far away."
+    },
+    {
+      "term": "les horaires",
+      "meaning": "working hours, timetable",
+      "example": "Quels sont les horaires du bureau ?",
+      "example_meaning": "What are the office hours?"
+    },
+    {
+      "term": "le chômage",
+      "meaning": "unemployment",
+      "example": "Il est au chômage depuis trois mois.",
+      "example_meaning": "He has been unemployed for three months."
+    },
+    {
+      "term": "la formation",
+      "meaning": "training, education",
+      "example": "L'entreprise propose une formation en informatique.",
+      "example_meaning": "The company offers IT training."
+    },
+    {
+      "term": "recevoir",
+      "meaning": "to receive",
+      "example": "Nous recevons beaucoup de candidatures.",
+      "example_meaning": "We receive a lot of applications."
+    },
+    {
+      "term": "compter",
+      "meaning": "to intend to (+ infinitive)",
+      "example": "Je compte chercher un travail à l'étranger.",
+      "example_meaning": "I intend to look for a job abroad."
+    },
+    {
+      "term": "envisager de",
+      "meaning": "to consider, to plan to",
+      "example": "J'envisage de reprendre mes études.",
+      "example_meaning": "I'm considering going back to my studies."
+    },
+    {
+      "term": "à l'aise avec",
+      "meaning": "comfortable with",
+      "example": "Je suis à l'aise avec les chiffres.",
+      "example_meaning": "I'm comfortable with numbers."
+    }
+  ],
+  "quiz": [
+    {
+      "question_id": "b1-work-studies-01",
+      "prompt": "Pour une candidature, on envoie un ___ et une lettre de motivation.",
+      "type": "multiple-choice",
+      "options": [
+        "CV",
+        "salaire",
+        "chômage"
+      ],
+      "correct_answer": "CV",
+      "explanation": "An application is a CV plus a cover letter (une lettre de motivation).",
+      "hints": [
+        "What document lists your experience?"
+      ],
+      "teaches": [
+        "le CV"
+      ]
+    },
+    {
+      "question_id": "b1-work-studies-02",
+      "prompt": "You are writing to a company and don't know who will read your e-mail. You begin with…",
+      "type": "multiple-choice",
+      "options": [
+        "Madame, Monsieur,",
+        "Salut,",
+        "Coucou,"
+      ],
+      "correct_answer": "Madame, Monsieur,",
+      "explanation": "'Madame, Monsieur,' is the standard formal opening for an unknown reader; salut and coucou are for friends.",
+      "hints": [
+        "You need the formal register."
+      ],
+      "teaches": []
+    },
+    {
+      "question_id": "b1-work-studies-03",
+      "prompt": "Je ___ (recevoir) toujours beaucoup d'e-mails le lundi.",
+      "type": "fill-in-blank",
+      "correct_answer": "reçois",
+      "accepted_answers": [
+        "je reçois"
+      ],
+      "explanation": "Recevoir: je reçois, with a cedilla to keep the c soft before o.",
+      "hints": [
+        "je form of recevoir",
+        "Don't forget the cedilla."
+      ],
+      "teaches": [
+        "recevoir"
+      ]
+    },
+    {
+      "question_id": "b1-work-studies-04",
+      "prompt": "Ils ___ (recevoir) leur salaire à la fin du mois.",
+      "type": "fill-in-blank",
+      "correct_answer": "reçoivent",
+      "accepted_answers": [
+        "ils reçoivent"
+      ],
+      "explanation": "Recevoir: ils reçoivent (stem reçoiv- in the ils form).",
+      "hints": [
+        "ils form: like boivent from boire.",
+        "reç- + -oivent"
+      ],
+      "teaches": [
+        "recevoir",
+        "le salaire"
+      ]
+    },
+    {
+      "question_id": "b1-work-studies-05",
+      "prompt": "La durée légale du travail en France est de trente-cinq heures par semaine. How many hours a week is the legal working week?",
+      "type": "numeric",
+      "correct_answer": "35",
+      "explanation": "Trente-cinq is 35. Since 2000 the legal working week in France has been 35 hours.",
+      "hints": [
+        "trente = 30, cinq = 5"
+      ],
+      "teaches": [],
+      "unit": "hours"
+    },
+    {
+      "question_id": "b1-work-studies-06",
+      "prompt": "'Je compte de faire un master' is correct French.",
+      "type": "true-false",
+      "correct_answer": "false",
+      "explanation": "Compter takes the infinitive directly: 'Je compte faire un master'. Envisager is the verb that takes de.",
+      "hints": [
+        "Which of compter and envisager needs de?"
+      ],
+      "teaches": [
+        "compter"
+      ]
+    },
+    {
+      "question_id": "b1-work-studies-07",
+      "prompt": "Après ma licence, j'envisage ___ faire un master.",
+      "type": "fill-in-blank",
+      "correct_answer": "de",
+      "accepted_answers": [],
+      "explanation": "Envisager de + infinitive: 'j'envisage de faire un master'.",
+      "hints": [
+        "A small preposition links envisager to the infinitive."
+      ],
+      "teaches": [
+        "envisager de",
+        "le master"
+      ]
+    },
+    {
+      "question_id": "b1-work-studies-08",
+      "prompt": "Il n'a pas de travail en ce moment : il est au ___.",
+      "type": "multiple-choice",
+      "options": [
+        "chômage",
+        "stage",
+        "salaire"
+      ],
+      "correct_answer": "chômage",
+      "explanation": "Être au chômage = to be unemployed.",
+      "hints": [
+        "No job at the moment."
+      ],
+      "teaches": [
+        "le chômage"
+      ]
+    },
+    {
+      "question_id": "b1-work-studies-09",
+      "prompt": "'Cordialement' is a common way to end a professional e-mail.",
+      "type": "true-false",
+      "correct_answer": "true",
+      "explanation": "Yes. Cordialement or Bien cordialement is the usual closing of a work e-mail.",
+      "hints": [
+        "Think of the end of a formal e-mail."
+      ],
+      "teaches": []
+    }
+  ],
+  "conjugations": [
+    {
+      "item": "recevoir",
+      "meaning": "to receive",
+      "set": "present",
+      "art": [
+        " ________________ ",
+        "|\\              /|",
+        "| \\    MAIL    / |",
+        "|  \\__________/  |",
+        "|                |",
+        "|________________|"
+      ],
+      "forms": {
+        "je": "reçois",
+        "tu": "reçois",
+        "il": "reçoit",
+        "nous": "recevons",
+        "vous": "recevez",
+        "ils": "reçoivent"
+      }
+    }
+  ],
+  "conversations": [
+    {
+      "id": "b1-work-studies-conv-job-interview",
+      "title": "The job interview",
+      "scenario": "Samir Haddad has an interview for a full-time job in a software company with Madame Lefèvre, the HR manager.",
+      "role_a": "Mme Lefèvre",
+      "role_b": "Samir",
+      "lines": [
+        {
+          "speaker": "a",
+          "text": "Bonjour, monsieur Haddad. Asseyez-vous, je vous en prie.",
+          "meaning": "Hello, Mr Haddad. Please sit down."
+        },
+        {
+          "speaker": "b",
+          "text": "Bonjour, madame. Merci de me recevoir.",
+          "meaning": "Hello. Thank you for seeing me.",
+          "note": "recevoir: to see, to receive someone"
+        },
+        {
+          "speaker": "a",
+          "text": "Alors, parlez-moi de votre parcours.",
+          "meaning": "So, tell me about your background."
+        },
+        {
+          "speaker": "b",
+          "text": "J'ai une licence d'informatique et j'ai fait un stage de six mois chez un éditeur de logiciels.",
+          "meaning": "I have a bachelor's in computer science and I did a six-month internship at a software publisher."
+        },
+        {
+          "speaker": "a",
+          "text": "Très bien. Quels sont vos points forts ?",
+          "meaning": "Very good. What are your strengths?"
+        },
+        {
+          "speaker": "b",
+          "text": "Je suis organisé, et je suis très à l'aise avec les outils numériques.",
+          "meaning": "I'm organised, and I'm very comfortable with digital tools."
+        },
+        {
+          "speaker": "a",
+          "text": "Le poste est à temps plein, trente-cinq heures par semaine. Les horaires vous conviennent ?",
+          "meaning": "The job is full time, thirty-five hours a week. Do the hours suit you?"
+        },
+        {
+          "speaker": "b",
+          "text": "Oui, tout à fait. Et quel est le salaire proposé ?",
+          "meaning": "Yes, absolutely. And what salary are you offering?"
+        },
+        {
+          "speaker": "a",
+          "text": "Deux mille trois cents euros brut par mois, avec une formation au début.",
+          "meaning": "Two thousand three hundred euros gross a month, with training at the start."
+        },
+        {
+          "speaker": "b",
+          "text": "Parfait. Plus tard, je compte aussi faire un master en alternance.",
+          "meaning": "Perfect. Later on, I also intend to do a work-study master's.",
+          "note": "en alternance: alternating study and work"
+        },
+        {
+          "speaker": "a",
+          "text": "C'est possible chez nous. Vous recevrez notre réponse vendredi.",
+          "meaning": "That's possible with us. You'll get our answer on Friday."
+        },
+        {
+          "speaker": "b",
+          "text": "Merci beaucoup, madame. Bonne journée !",
+          "meaning": "Thank you very much. Have a good day!"
+        }
+      ]
+    }
+  ],
+  "listening": [
+    {
+      "text": "Je cherche un stage.",
+      "meaning": "I'm looking for an internship."
+    },
+    {
+      "text": "Elle a un entretien demain matin.",
+      "meaning": "She has an interview tomorrow morning."
+    },
+    {
+      "text": "Nous recevons les candidats le lundi.",
+      "meaning": "We see the candidates on Mondays.",
+      "note": "New word: le candidat = the candidate."
+    },
+    {
+      "text": "Mon frère est au chômage depuis janvier.",
+      "meaning": "My brother has been unemployed since January."
+    },
+    {
+      "text": "J'envisage de faire un master à Bordeaux.",
+      "meaning": "I'm considering doing a master's in Bordeaux."
+    },
+    {
+      "text": "Je suis à l'aise avec l'anglais et l'espagnol.",
+      "meaning": "I'm comfortable with English and Spanish."
+    },
+    {
+      "text": "Le salaire est correct, mais les horaires sont très difficiles.",
+      "meaning": "The salary is fair, but the hours are very hard."
+    },
+    {
+      "text": "Après sa licence, elle compte suivre une formation en comptabilité.",
+      "meaning": "After her bachelor's, she intends to do a training course in accounting.",
+      "note": "New word: la comptabilité = accounting."
+    }
+  ],
+  "guide": [
+    {
+      "section": "Studies"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-work-studies-01"
+    },
+    {
+      "vocab": 5
+    },
+    {
+      "question": "b1-work-studies-08"
+    },
+    {
+      "question": "b1-work-studies-05"
+    },
+    {
+      "section": "The interview"
+    },
+    {
+      "vocab": 4
+    },
+    {
+      "question": "b1-work-studies-06"
+    },
+    {
+      "question": "b1-work-studies-07"
+    },
+    {
+      "tip": "Tu or vous at work? Start with vous, and switch only when the other person offers: On peut se tutoyer ?"
+    },
+    {
+      "section": "Writing"
+    },
+    {
+      "question": "b1-work-studies-02"
+    },
+    {
+      "question": "b1-work-studies-03"
+    },
+    {
+      "question": "b1-work-studies-04"
+    },
+    {
+      "question": "b1-work-studies-09"
+    },
+    {
+      "concept": {
+        "title": "Universités et grandes écoles",
+        "markdown": "Besides the universities (licence, master), France has **les grandes écoles**: selective engineering and business schools. Many students enter them after two years of **classes préparatoires** and a competitive exam, **le concours**."
+      }
+    }
+  ],
+  "sprint": {
+    "icon": "💼",
+    "bites": [
+      {
+        "title": "Studies",
+        "emoji": "🎓",
+        "rule": "La licence (three years), le master (two more), le diplôme; le stage is an internship, la formation a training course.",
+        "example": "J'ai une licence et un master.",
+        "example_meaning": "I have a bachelor's and a master's."
+      },
+      {
+        "title": "The job hunt",
+        "emoji": "💼",
+        "rule": "Le CV, la lettre de motivation, l'entretien; then ask about le salaire and les horaires.",
+        "example": "J'ai un entretien jeudi.",
+        "example_meaning": "I have an interview on Thursday."
+      },
+      {
+        "title": "Plans and strengths",
+        "emoji": "🎯",
+        "rule": "Je compte + infinitive, j'envisage de + infinitive; je suis organisé(e), je suis à l'aise avec…",
+        "example": "Je compte faire un stage cet été.",
+        "example_meaning": "I intend to do an internship this summer."
+      },
+      {
+        "title": "The formal e-mail",
+        "emoji": "✉️",
+        "rule": "Open with Madame, Monsieur, (or Madame Durand,), close with Cordialement or Bien cordialement, and use vous.",
+        "example": "J'ai bien reçu votre message. Cordialement, Léa Martin",
+        "example_meaning": "I have received your message. Kind regards, Léa Martin"
+      }
+    ],
+    "sorts": [
+      {
+        "title": "Studies or work?",
+        "buckets": [
+          "les études",
+          "le travail"
+        ],
+        "items": [
+          {
+            "text": "la licence",
+            "bucket": 0
+          },
+          {
+            "text": "le salaire",
+            "bucket": 1
+          },
+          {
+            "text": "le master",
+            "bucket": 0
+          },
+          {
+            "text": "les horaires",
+            "bucket": 1
+          },
+          {
+            "text": "le diplôme",
+            "bucket": 0
+          },
+          {
+            "text": "le chômage",
+            "bucket": 1
+          },
+          {
+            "text": "l'examen",
+            "bucket": 0
+          },
+          {
+            "text": "le contrat",
+            "bucket": 1
+          }
+        ],
+        "why": "Licence, master, diplôme and examen belong to studies; salaire, horaires, chômage and contrat to working life."
+      },
+      {
+        "title": "Opening or closing?",
+        "buckets": [
+          "opening",
+          "closing"
+        ],
+        "items": [
+          {
+            "text": "Madame, Monsieur,",
+            "bucket": 0
+          },
+          {
+            "text": "Cordialement,",
+            "bucket": 1
+          },
+          {
+            "text": "Bonjour Madame Martin,",
+            "bucket": 0
+          },
+          {
+            "text": "Bien cordialement,",
+            "bucket": 1
+          },
+          {
+            "text": "Monsieur le Directeur,",
+            "bucket": 0
+          },
+          {
+            "text": "Je vous prie d'agréer, Madame, Monsieur, l'expression de mes salutations distinguées.",
+            "bucket": 1
+          }
+        ],
+        "why": "Madame, Monsieur and titles open a formal message; Cordialement and the long salutations formula close it."
+      }
+    ],
+    "spots": [
+      {
+        "sentence": "Ils recevent leur salaire le premier du mois.",
+        "wrong": "recevent",
+        "fix": "reçoivent",
+        "why": "Recevoir: ils reçoivent."
+      },
+      {
+        "sentence": "Nous reçevons beaucoup de CV.",
+        "wrong": "reçevons",
+        "fix": "recevons",
+        "why": "No cedilla before e: nous recevons."
+      },
+      {
+        "sentence": "J'envisage à faire une formation.",
+        "wrong": "à",
+        "fix": "de",
+        "why": "Envisager de + infinitive."
+      },
+      {
+        "sentence": "Salut Madame, je vous écris pour le poste.",
+        "wrong": "Salut",
+        "fix": "Bonjour",
+        "why": "Salut is for friends; a formal message opens with Bonjour or Madame."
+      },
+      {
+        "sentence": "Je suis très à l'aise de les chiffres.",
+        "wrong": "de",
+        "fix": "avec",
+        "why": "Être à l'aise avec quelque chose."
+      }
+    ],
+    "builds": [
+      {
+        "text": "J'ai un entretien demain.",
+        "meaning": "I have an interview tomorrow.",
+        "distractors": [
+          "stage"
+        ]
+      },
+      {
+        "text": "Je compte faire un master.",
+        "meaning": "I intend to do a master's.",
+        "distractors": [
+          "de"
+        ]
+      },
+      {
+        "text": "J'envisage de chercher un stage.",
+        "meaning": "I'm considering looking for an internship.",
+        "distractors": [
+          "à"
+        ]
+      },
+      {
+        "text": "Nous recevons beaucoup de candidatures.",
+        "meaning": "We receive a lot of applications.",
+        "distractors": [
+          "reçevons"
+        ]
+      }
+    ]
+  }
+}
