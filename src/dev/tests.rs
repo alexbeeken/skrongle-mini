@@ -17,22 +17,6 @@ fn the_dev_authenticator_adds_replaces_and_removes() {
     assert_eq!(a.list().len(), 1);
 }
 
-#[test]
-fn marks_are_per_box_and_row() {
-    let m = Marks::default();
-    assert_eq!(m.get("mail-in", 1), Mark::default());
-    m.set_read("mail-in", 1, true);
-    m.set_archived("mail-in", 2, true);
-    m.set_read("mail-out", 1, true);
-    assert_eq!(m.get("mail-in", 1), Mark { read: true, archived: false });
-    assert_eq!(m.get("mail-in", 2), Mark { read: false, archived: true });
-    m.forget("mail-in", 1);
-    assert_eq!(m.get("mail-in", 1), Mark::default());
-    m.clear("mail-in");
-    assert_eq!(m.get("mail-in", 2), Mark::default());
-    assert!(m.get("mail-out", 1).read);
-}
-
 /// `--watch`: HTML pages get the reload poller; other responses do not.
 #[test]
 fn reload_poller_goes_into_html_only() {
@@ -151,12 +135,12 @@ fn dev_mode_answers_only_local_hosts_on_every_route() {
     assert_eq!(status(&prod, "/healthz", Some("learn.example.org")), 200);
 }
 
-/// The dev mailbox pages need no sign-in (they are for whoever is
+/// The dev pages need no sign-in (they are for whoever is
 /// testing); the simulated provider's wire API needs one of its keys,
 /// and answers the app's own client in both formats, quota error
 /// included (#297).
 #[test]
-fn the_dev_mailbox_needs_no_sign_in_and_the_simulator_speaks_the_wire_protocols() {
+fn the_dev_pages_need_no_sign_in_and_the_simulator_speaks_the_wire_protocols() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
     let state = crate::routes::test_state(true);
     let (learner, dev) = state
@@ -164,10 +148,7 @@ fn the_dev_mailbox_needs_no_sign_in_and_the_simulator_speaks_the_wire_protocols(
         .with(|c| {
             let a = crate::auth::create_user(c, "ann@example.org", "x")?;
             let d = crate::auth::create_user(c, "dora@example.org", "x")?;
-            for u in [a, d] {
-                crate::terms::accept(c, u, crate::terms::version())?;
-            }
-            set_developer(c, d)?;
+            crate::owner::make_owner(c, d)?;
             Ok((crate::auth::create_session(c, a)?, crate::auth::create_session(c, d)?))
         })
         .unwrap();
@@ -186,7 +167,7 @@ fn the_dev_mailbox_needs_no_sign_in_and_the_simulator_speaks_the_wire_protocols(
         }
         req.call().unwrap().status().as_u16()
     };
-    for path in ["/dev/inbox", "/dev/mail", "/dev/inbox/rows", "/dev/authenticator", "/dev/ai", "/dev/ai/rows"] {
+    for path in ["/dev/authenticator", "/dev/ai", "/dev/ai/rows"] {
         assert!(matches!(get(path, None, "text/html"), 200 | 404), "{path}: signed out, a browser");
         assert!(matches!(get(path, None, "application/json"), 200 | 404), "{path}: signed out");
         assert!(matches!(get(path, Some(&learner), "application/json"), 200 | 404), "{path}: a learner");
@@ -216,6 +197,21 @@ fn the_dev_mailbox_needs_no_sign_in_and_the_simulator_speaks_the_wire_protocols(
     assert_eq!(log.len(), 4);
     assert_eq!((log[1].purpose.as_str(), log[1].format, log[1].status, log[1].fixture.as_str()), ("tutor-turn", crate::dev_ai::Format::Google, 200, "tutor-turn/default"));
     assert_eq!(state.dev_ai.profile(crate::dev_ai::Who::Learner).usage.requests, 3);
+    // The providers #24 added speak OpenAI's format under paths of their own
+    // (Ollama with no key at all) and get the fixtures' replies too.
+    use crate::ai::ProviderKind as K;
+    let compatible = [crate::ai::ChatMessage { role: "user", content: "Hola [fixture:compatible]".into() }];
+    for (kind, key) in [(K::DeepSeek, "sk-dev-deepseek"), (K::Mistral, "sk-dev-mistral"), (K::Xai, "xai-dev-grok"), (K::OpenRouter, "sk-or-dev-router"), (K::Ollama, "")] {
+        let p = crate::ai::Provider { model: kind.tutor_model().to_string(), ..provider(kind, key) };
+        let reply = crate::ai::chat(&p, &call, "You are a tutor", &compatible, 100).unwrap();
+        assert_eq!(reply.text, "This came back over the OpenAI-compatible wire. [[ask]]", "{kind:?}");
+        let entry = &state.dev_ai.log()[0];
+        assert_eq!((entry.format, entry.status, entry.fixture.as_str()), (crate::dev_ai::Format::OpenAi, 200, "tutor-turn/compatible"), "{kind:?}");
+        assert!(entry.request.contains(&format!("\"model\": \"{}\"", kind.tutor_model())) || entry.request.contains(&format!("\"model\":\"{}\"", kind.tutor_model())), "{kind:?}: {}", entry.request);
+        assert!(entry.request.contains("max_tokens") && !entry.request.contains("max_completion_tokens"), "{kind:?}");
+    }
+    assert_eq!(state.dev_ai.profile(crate::dev_ai::Who::Learner).usage.requests, 8);
+    state.dev_ai.clear_log();
     // Over the limit: each provider's own quota error, which the learner reads as such.
     state.dev_ai.update(crate::dev_ai::Who::Learner, |p| p.exhausted = true);
     let err = crate::ai::chat(&provider(crate::ai::ProviderKind::Anthropic, "sk-ant-dev-anthropic"), &call, "s", &msgs, 100).unwrap_err();
@@ -255,12 +251,10 @@ fn seed_and_reset_the_dev_user() {
     let uid = ensure_user(&db).unwrap();
     let passed = db.with(|c| crate::progress::passed_ids(c, uid, &cid)).unwrap();
     assert_eq!(passed.len(), 2);
-    let developer = |c: &mut Connection| c.query_row("SELECT developer FROM users WHERE id = ?1", [uid], |r| r.get::<_, bool>(0));
-    assert!(db.with(developer).unwrap());
     let verified = db.with(|c| c.query_row("SELECT email_verified_at IS NOT NULL FROM users WHERE id = ?1", [uid], |r| r.get::<_, bool>(0))).unwrap();
     assert!(verified, "the dev user's address is confirmed: no red ! on its profile");
-    let superuser = db.with(|c| c.query_row("SELECT superuser FROM users WHERE id = ?1", [uid], |r| r.get::<_, bool>(0))).unwrap();
-    assert!(superuser, "the dev user sees the profile's Superuser section");
+    let owner = |c: &mut Connection| c.query_row("SELECT owner FROM users WHERE id = ?1", [uid], |r| r.get::<_, bool>(0));
+    assert!(db.with(owner).unwrap(), "the dev user sees the Manage Users page");
     // Seeding again adds nothing.
     seed(&db, &courses, None).unwrap();
     assert_eq!(db.with(|c| crate::progress::load_all(c, uid, &cid)).unwrap().len(), 3);
@@ -277,5 +271,5 @@ fn seed_and_reset_the_dev_user() {
         Ok(())
     })
     .unwrap();
-    assert!(db.with(developer).unwrap(), "a reset keeps the account a developer");
+    assert!(db.with(owner).unwrap(), "a reset keeps the account an owner");
 }

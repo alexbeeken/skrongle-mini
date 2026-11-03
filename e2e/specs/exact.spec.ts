@@ -2,7 +2,7 @@
 // run on every `scripts/e2e.sh`, with no network and no key.
 import { expect, test } from "@playwright/test";
 import { aiMode, correctAnswers, createCourse, devLogin, devReset, editorSaved, fastAutosave, playSprintSession, generateCourse, generationEnds, openFromEditor } from "../lib/app";
-import { login, logout, newAccount, register, saveApiKey } from "../lib/learner";
+import { login, logout, newAccount, register, removeApiKey, resetServerKeys, saveApiKey } from "../lib/learner";
 import { readdirSync, readFileSync } from "node:fs";
 
 test.beforeEach(async ({ page }) => {
@@ -332,11 +332,9 @@ test("a course someone makes stays private to them", async ({ page, browser }) =
   await them.getByTestId("register-email").fill(`${name}@example.com`);
   await them.getByTestId("register-password").fill("correct horse battery");
   await them.getByTestId("register-age").check();
-  await them.getByTestId("register-terms").check();
   await them.getByTestId("register-submit").click();
-  // Registering does not sign in (#379): "check your mail", then the login form.
-  await expect(them.getByTestId("register-sent")).toBeVisible();
-  await login(them, { email: `${name}@example.com`, password: "correct horse battery" });
+  // Registering signs the new account in.
+  await expect(them.getByTestId("nav-account-toggle")).toHaveAttribute("data-email", `${name}@example.com`);
 
   // Not listed for them; the platform's Spanish course is.
   await them.goto("/courses");
@@ -375,7 +373,7 @@ test("a course someone makes stays private to them", async ({ page, browser }) =
 // dialog; its card shows only a red !, with the provider's own text behind it.
 test("a failed generation explains itself in the dialog; its card keeps the raw detail behind a red !", async ({ page }) => {
   const cases = [
-    { fixture: "provider-error", plain: /didn't accept your API key.*profile/, detail: /HTTP 401/ },
+    { fixture: "provider-error", plain: /didn't accept the server's API key.*Manage Users/, detail: /HTTP 401/ },
     { fixture: "timeout", plain: /didn't answer in time/, detail: /timed out/ },
     { fixture: "invalid-json", plain: /reply couldn't be used/, detail: /no JSON object/ },
   ];
@@ -404,19 +402,23 @@ test("a failed generation explains itself in the dialog; its card keeps the raw 
 });
 
 test("a key the provider does not know is refused by the provider, not by the app", async ({ page }) => {
-  // A fresh account with a key the simulated provider has never issued: the
-  // app sends it like any key, and the provider's own 401 comes back (#298).
-  await page.context().clearCookies();
-  await register(page, newAccount("badkey"), "spanish");
-  await page.goto("/profile");
-  await saveApiKey(page, "sk-ant-api03-not-a-dev-key-9999");
-  await createCourse(page);
-  await expect(page.getByTestId("generate-provider-only")).toHaveValue("anthropic");
-  await expect(page.getByTestId("generate").getByTestId("ai-disclosure")).toBeVisible();
-  await page.getByTestId("generate-wish").fill("Volcanoes and how they erupt");
-  await page.getByTestId("generate-submit").click();
-  expect(await generationEnds(page)).toBe("failed");
-  await expect(page.getByTestId("generate-error")).toHaveText(/didn't accept your API key/);
+  // The server's only key one the simulated provider has never issued (the
+  // owner's, on Manage Users, #25): the app sends it like any key, and the
+  // provider's own 401 comes back (#298). The end puts the seeded keys back.
+  await devLogin(page, "keys=fake&next=/manage");
+  try {
+    for (const p of ["openai", "google"]) await removeApiKey(page, p);
+    await saveApiKey(page, "sk-ant-api03-not-a-dev-key-9999");
+    await createCourse(page);
+    await expect(page.getByTestId("generate-provider-only")).toHaveValue("anthropic");
+    await expect(page.getByTestId("generate").getByTestId("ai-disclosure")).toBeVisible();
+    await page.getByTestId("generate-wish").fill("Volcanoes and how they erupt");
+    await page.getByTestId("generate-submit").click();
+    expect(await generationEnds(page)).toBe("failed");
+    await expect(page.getByTestId("generate-error")).toHaveText(/didn't accept the server's API key/);
+  } finally {
+    await resetServerKeys(page);
+  }
 });
 
 test("the course list fills a desktop row and stacks on a phone (#428)", async ({ page }) => {
@@ -755,13 +757,12 @@ test("the profile has no Dev section for anyone; the seeded keys answer generate
   await them.getByTestId("register-email").fill(`${name}@example.com`);
   await them.getByTestId("register-password").fill("correct horse battery");
   await them.getByTestId("register-age").check();
-  await them.getByTestId("register-terms").check();
   await them.getByTestId("register-submit").click();
-  // Registering does not sign in (#379): "check your mail", then the login form.
-  await expect(them.getByTestId("register-sent")).toBeVisible();
-  await login(them, { email: `${name}@example.com`, password: "correct horse battery" });
+  // Registering signs the new account in.
+  await expect(them.getByTestId("nav-account-toggle")).toHaveAttribute("data-email", `${name}@example.com`);
   await them.goto("/profile");
-  await expect(them.getByTestId("profile-api-keys")).toBeVisible();
+  await expect(them.getByTestId("profile-consent")).toBeVisible();
+  await expect(them.locator('[data-testid^="profile-api-key"]')).toHaveCount(0);
   await expect(them.getByTestId("profile-dev")).toHaveCount(0);
   await expect(them.locator('[data-testid="profile-nav-link"][data-section="dev"]')).toHaveCount(0);
   expect((await them.request.post("/profile/dev", { form: { mock_ai: "1" }, maxRedirects: 0 })).status()).toBe(404);
@@ -775,9 +776,10 @@ test("the profile has no Dev section for anyone; the seeded keys answer generate
   for (const link of await page.getByTestId("profile-nav-link").all()) {
     await expect(page.locator(`#${await link.getAttribute("data-section")}`)).toHaveCount(1);
   }
-  // Its keys, one per provider, are the simulated provider's.
+  // The server's keys (keys=dev saves them), one per provider, are the simulated provider's.
+  await page.goto("/manage#ai");
   for (const provider of ["anthropic", "openai", "google"]) {
-    await expect(page.locator(`[data-testid="profile-api-key"][data-provider="${provider}"]`), provider).toHaveAttribute("data-key-set", "true");
+    await expect(page.locator(`[data-testid="manage-api-key"][data-provider="${provider}"]`), provider).toHaveAttribute("data-key-set", "true");
   }
 
   // Generate with Google's key: the simulator answers in OpenAI's format, from the fixtures.
@@ -810,7 +812,6 @@ test("the profile's e-mail field: a Verified check, and an (i) dialog with the n
   await page.getByTestId("profile-privacy-info").click();
   await expect(note).toBeVisible();
   await expect(note).toContainText("Your e-mail address is private to you.");
-  await expect(note.getByTestId("profile-privacy-policy")).toHaveAttribute("href", /\/privacy$/);
   await page.getByTestId("profile-privacy-close").click();
   await expect(note).toBeHidden();
   // It follows the name fields as they are typed.
@@ -843,11 +844,9 @@ test("Start asks for a course's settings before it opens, then keeps them behind
   await page.getByTestId("register-email").fill(`${name}@example.com`);
   await page.getByTestId("register-password").fill("correct horse battery");
   await page.getByTestId("register-age").check();
-  await page.getByTestId("register-terms").check();
   await page.getByTestId("register-submit").click();
-  // Registering does not sign in (#379): "check your mail", then the login form.
-  await expect(page.getByTestId("register-sent")).toBeVisible();
-  await login(page, { email: `${name}@example.com`, password: "correct horse battery" });
+  // Registering signs the new account in.
+  await expect(page.getByTestId("nav-account-toggle")).toHaveAttribute("data-email", `${name}@example.com`);
   await expect(page.getByTestId("nav-account-toggle")).toHaveAttribute("data-email", `${name}@example.com`);
   // The corner shows a gear (#577), and the profile has no picture to edit (#565).
   const corner = page.getByTestId("nav-account-toggle");
@@ -1081,7 +1080,7 @@ test("#1154 a lesson without questions offers no practice", async ({ page }) => 
 // in the normal layout with ways back, like a 404 does (#397), not a blank body.
 test.fixme("#1253 a form-only URL opened directly shows the error page, not a blank one", async ({ page }) => {
   await devLogin(page, "open=spanish");
-  for (const path of ["/logout", "/terms/dismiss"]) {
+  for (const path of ["/logout"]) {
     const r = await page.goto(path);
     expect(r?.status()).toBe(405);
     await expect(page.getByTestId("error-page")).toBeVisible();

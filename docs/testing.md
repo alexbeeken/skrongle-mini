@@ -1,6 +1,6 @@
 # Testing locally
 
-How a person or an AI agent drives and checks the app on their own machine:
+How to drive and check the app on their own machine:
 one command to a logged-in session, a simulated AI provider whose replies
 come from canned files (or that you answer by hand), and markup with stable hooks.
 
@@ -32,14 +32,13 @@ Once the server answers, `./.dev-start` prints only this:
 
 ```
 site:  http://127.0.0.1:8214
-inbox: http://127.0.0.1:8214/dev/inbox
 login: dev@example.com / dev-password   (or http://127.0.0.1:8214/dev/login)
 pr:    https://github.com/alexbeeken/skrongle-mini/pull/264   ([263] Profile picture: no own-colour swatch)
 ```
 
 `pr` is the branch's open pull request, so a reviewer can start on its QA steps; `gh` looks it up
 during the build, and the line is left out without `gh`, a login, the network or an open PR.
-`inbox` is the dev mailbox page, e-mail and the [dev authenticator](#two-factor-codes-the-dev-authenticator); it is left out when [the dev mailbox](#e-mail-the-dev-mailbox) is off, `login` when dev mode is
+`login` is left out when dev mode is
 (`--lan`, which prints `phone:` with the LAN address instead). The build's output shows only if it
 fails, and the server log goes to `dev-server.log`, in the foreground too (Ctrl-C stops it); a server
 that exits at boot prints the log's last lines. `DEV_VERBOSE=1 ./.dev-start …` shows everything: the
@@ -48,12 +47,12 @@ build, the settings, and in the foreground or with `--watch` the server log in t
 | Flag | Does |
 |---|---|
 | `--reset` | Delete `./dev.db`, its key file and the held LLM requests first |
-| `--seed` | Create the dev user with Spanish open, two lessons passed and one seen (`SKRONGLE_DEV_SEED=1`), as a developer (`users.developer`), with [the dev AI provider's](#the-dev-ai-provider) keys for Anthropic, OpenAI and Gemini (not with `--llm live`) |
+| `--seed` | Create the dev user with Spanish open, two lessons passed and one seen (`SKRONGLE_DEV_SEED=1`), as an owner (`users.owner`), with [the dev AI provider's](#the-dev-ai-provider) keys for Anthropic, OpenAI and Gemini (not with `--llm live`) |
 | `--seed-users N` | Also [a crowd](#a-crowd-of-learners-with-history) of N made-up learners with weeks of history (`SKRONGLE_DEV_SEED_USERS=N`); `--seed-days D` (`SKRONGLE_DEV_SEED_DAYS`, default 90) is how far back it goes |
 | `--port N` | Listen on a fixed port. Without it (or with `--port auto`) the server takes a random free port in 8100-8999, so two worktrees can run at once |
 | `--llm capture` / `--llm live` | Model calls go to [the dev AI provider](#the-dev-ai-provider) (below) without `--llm`; `capture` starts it with Manual replies on (each request waits for your answer at the bottom of `/dev/ai`); `live` sends them to the real providers instead |
 | `--test-course` | Also offer the [test course](#the-test-course) (`TEST_COURSE=1`) |
-| `--mini` | The [mini shape](#the-mini-lane), what a self-hoster runs: no dev mailbox (`SKRONGLE_MINI=1`, which turns the stand-ins off). Mail is only logged, in `dev-server.log`; learners' own AI keys still reach the dev AI provider |
+| `--mini` | The [mini shape](#the-mini-lane), what a self-hoster runs (`SKRONGLE_MINI=1`, which turns the stand-ins off); learners' own AI keys still reach the dev AI provider |
 | `--background` | Build, start detached, wait for `/healthz`, print the links. Pid in `.dev-server.pid`, URL in `.dev-server.url`, log in `dev-server.log` |
 | `--watch` | Rebuild and restart on every change, keeping the port and `dev.db`; open pages reload themselves ([below](#live-reload---watch)). With `--background` the watcher runs detached and `--stop` ends it |
 | `--stop` | Stop the background server (or watcher) |
@@ -160,34 +159,23 @@ install step.
 
 ## Dev routes
 
-The dev mailbox (`/dev/inbox`, `/dev/mail`,
-`/dev/authenticator`, `/dev/ai` and every route under them, JSON and
-actions too) needs no sign-in: it is for whoever is testing and holds
-every account's mail and authenticator entries. Like every dev
-route it exists in dev mode only, for requests made on this machine
-(`dev::local_only`). `e2e/lib/mail.ts` reads it with a request context of
-its own, so the learner a spec drives is not touched.
+The dev pages (`/dev/jobs`, `/dev/authenticator`, `/dev/ai` and every
+route under them, JSON and actions too) need no sign-in: they are for
+whoever is testing and hold every account's authenticator entries. Like
+every dev route they exist in dev mode only, for requests made on this
+machine (`dev::local_only`). `e2e/lib/totp.ts` reads the authenticator with
+a request context of its own, so the learner a spec drives is not touched.
+There is no dev mailbox: the app sends no e-mail (#10).
 
 | Route | Does |
 |---|---|
-| `GET /dev/login` | Log in as `dev` (`dev@example.com`, password `dev-password`), a superuser (the Superuser page, `/superuser`) and a developer (`users.developer`). Every dev-mode boot creates the account if it is missing, so the login form takes those credentials too, and `/login` and `/register` show a **Log in as dev** button. `?open=spanish` opens a course (`?open` alone: Spanish) and counts it as set up, so its first-visit settings wizard does not open (add `&wizard=1` to see the wizard on the course home again), `?keys=dev` (or the older `?keys=fake`) stores [the dev AI provider's](#the-dev-ai-provider) learner keys for Anthropic, OpenAI and Google, so the AI forms are unlocked and offer each provider, `?next=/courses` says where to land, `?terms=old` leaves the dev user with only an older Terms version accepted so the "terms updated" gate shows (the next login without it accepts the current version again; the dev user always has). It skips [two-factor sign-in](features#two-factor-sign-in); `/login` does not |
+| `GET /dev/login` | Log in as `dev` (`dev@example.com`, password `dev-password`), an owner (`users.owner`: the Manage Users page, `/manage`). Every dev-mode boot creates the account if it is missing, so the login form takes those credentials too, and `/login` and `/register` show a **Log in as dev** button. `?open=spanish` opens a course (`?open` alone: Spanish) and counts it as set up, so its first-visit settings wizard does not open (add `&wizard=1` to see the wizard on the course home again), `?keys=dev` (or the older `?keys=fake`) stores [the dev AI provider's](#the-dev-ai-provider) keys for Anthropic, OpenAI and Google as the server's (#25: one set for every account), so the AI forms are unlocked and offer each provider, `?next=/courses` says where to land. It skips [two-factor sign-in](features#two-factor-sign-in); `/login` does not |
 | `GET /login/code/device` | Dev mode only: the dev device the pending sign-in's code went to, for the frame at the bottom of `/login/code` (see [the dev device](#two-factor-sign-in-the-dev-device)); needs the `twofa` cookie, not a session. `?format=json` for the rows |
 | `GET /dev/reset` | Wipe the dev user's progress, projects, own courses (drafts and generated) and saved app language, keeping the account and keys. `?next=` as above |
-| `GET /dev/mail` | The configured mail providers and the newest 50 outbox rows (`to`, `subject`, `text`, `html`, `purpose`, `state`, `provider`, …). Without `SKRONGLE_MAIL_PROVIDERS` they go to [the dev mailbox](#e-mail-the-dev-mailbox) (provider `dev-smtp`); in dev mode bodies are kept, so a test can read a link out of a message. JSON, except for a browser (`Accept: text/html`, or `?format=html`): the dev mailbox page with its **Outbox** tab showing (see `GET /dev/inbox`): a row per message (`dev-mail-message[data-purpose][data-to][data-state]`) with its state, **Open the copy in the inbox** (`dev-mail-open`) once the mailbox has it, and a "Send a test message" form (`dev-mail-to`, `dev-mail-send`). `?format=json` forces JSON |
-| `POST /dev/mail/send` | Form `to` (default: the signed-in user's address): queue a test message (purpose `dev-test`) through the configured providers, then back to `/dev/mail` (204 for the page's own `X-Dev-Box: 1` posts). For trying a provider: the form on the Outbox tab, or `curl -X POST <url>/dev/mail/send -d to=you@example.org` |
-| `GET /dev/mail/{id}` | One outbox row: state, provider, attempts, last error (`dev-mail-error`), its links (`dev-mail-link`), the HTML part framed (`dev-mail-html`), the text (`dev-mail-text`), **Open in the dev inbox** (`dev-mail-open`). Opening it marks it read. `?format=json`: the row. 404 once deleted |
-| `POST /dev/mail/{id}` | Form `do=archive`, `unarchive` or `delete`, as on the inbox; Delete removes the outbox row (a queued message is then never sent) |
-| `GET /dev/jobs` | The newest 100 rows of the background `jobs` table (`src/jobs.rs`), newest first: `{"jobs": [{id, kind, payload, state, priority, run_at, attempts, max_attempts, locked_by, locked_until, last_error, created_at, finished_at}]}`. For a browser (`Accept: text/html`, or `?format=html`) a page (`dev-jobs`) with a row per job (`dev-jobs-row[data-id][data-kind][data-state][data-run-at][data-attempts]`, `dev-jobs-state`, `dev-jobs-attempts`, `dev-jobs-error`), **Run now** (`dev-jobs-run-now`) on queued and running rows, **Queue a failing job** (`dev-jobs-queue-fail`) and an (i) (`dev-jobs-info`). No sign-in, like the dev mailbox. `?format=json` forces JSON |
-| `POST /dev/jobs/fail` | Queue a `dev.fail` job due now (it always fails, so its attempts climb through `mail::RETRY_DELAYS` to `failed`), then back to `/dev/jobs` |
+| `GET /dev/jobs` | The newest 100 rows of the background `jobs` table (`src/jobs.rs`), newest first: `{"jobs": [{id, kind, payload, state, priority, run_at, attempts, max_attempts, locked_by, locked_until, last_error, created_at, finished_at}]}`. For a browser (`Accept: text/html`, or `?format=html`) a page (`dev-jobs`) with a row per job (`dev-jobs-row[data-id][data-kind][data-state][data-run-at][data-attempts]`, `dev-jobs-state`, `dev-jobs-attempts`, `dev-jobs-error`), **Run now** (`dev-jobs-run-now`) on queued and running rows, **Queue a failing job** (`dev-jobs-queue-fail`) and an (i) (`dev-jobs-info`). No sign-in, like the other dev pages. `?format=json` forces JSON |
+| `POST /dev/jobs/fail` | Queue a `dev.fail` job due now (it always fails, so its attempts climb through `jobs::RETRY_DELAYS` to `failed`), then back to `/dev/jobs` |
 | `POST /dev/jobs/{id}` | Form `do=run_now`: a queued row is due now; a running row's lease ends now, as if its server had stopped. The runner takes it within a moment. 404 for a row that is done, failed or gone |
-| `GET /dev/inbox` | What [the dev mailbox](#e-mail-the-dev-mailbox) received, newest first; `?to=` for one address (any case, or part of one). JSON `{"smtp": "127.0.0.1:<port>", "messages": [{id, outbox_id, envelope_from, envelope_to, from, to, subject, date, message_id, text, html, links}]}` (`smtp` is `null` when the mailbox is off), or for a browser the dev mailbox page: **Inbox** and **Outbox** tabs (`dev-box-tab-in`, `dev-box-tab-out`, each with its unread count) over one table each, like a simple mail client's. A row (`dev-inbox-item[data-id][data-to][data-read][data-archived]`, subject link `dev-inbox-open`) is bold until opened, and has **Archive** (`dev-inbox-archive`: struck out and moved to the bottom; `dev-inbox-unarchive` moves it back) and **Delete** (`dev-inbox-delete`, for good). Also an address filter (`dev-inbox-to`), **Empty the inbox** (`dev-inbox-clear`), and an (i) (`dev-box-info`) with the SMTP address (`dev-inbox-smtp[data-addr]`), or a red ! (`dev-box-off`) when the mailbox is off. The page polls `GET /dev/inbox/rows` every 3 s and its buttons post in place, so nothing needs a reload. Opened and archived are kept in memory |
-| `GET /dev/inbox/rows` | `?to=` as above: the two lists as HTML plus the unread counts, `{"in": {"html", "unread"}, "out": {…}}`, for the page's poll (`static/devbox.js`) |
-| `GET /dev/inbox/latest` | The newest message to `?to=` (default: the signed-in user's address); the list for that address when there is none. |
-| `GET /dev/inbox/{id}` | One message: headers (`dev-inbox-subject`, `dev-inbox-to-header`), its links (`dev-inbox-link`), the HTML part in a sandboxed frame (`dev-inbox-html`) whose links open in the tab, the text (`dev-inbox-text`), the source, and Archive / Delete. Opening it in a browser marks it read. `?format=json` for the message alone (does not mark it). 404 for a message it no longer has |
-| `POST /dev/inbox/{id}` | Form `do=archive`, `unarchive` or `delete`: 204 for the page's own posts (`X-Dev-Box: 1`), else back to `/dev/inbox`. 404 for a message it no longer has |
-| `GET /dev/inbox/{id}/raw` | The message as received (`text/plain`), to save as `.eml` |
-| `POST /dev/inbox/clear` | Empty the mailbox, then back to `/dev/inbox` |
-| `GET /dev/ai` | [The dev AI provider](#the-dev-ai-provider)'s page, the dev mailbox's **AI** section (`dev-box-kind-ai`): each key profile's card (`dev-ai-profile[data-who=platform\|learner][data-over]`: its keys as copy buttons in the provider's colours `dev-ai-key[data-provider][data-copy-key]`, usage `dev-ai-usage`, limit `dev-ai-limit` + `dev-ai-measure` + `dev-ai-limit-save`, `dev-ai-reset`, **Hit the limit now** `dev-ai-exhaust` / `dev-ai-lift`, failure `dev-ai-fault` + `dev-ai-hang` + `dev-ai-once`/`dev-ai-sticky` + `dev-ai-inject`, `dev-ai-injected`, `dev-ai-clear-inject`), the call log (`dev-ai-call[data-id][data-who][data-format][data-purpose][data-status][data-fixture]`, `dev-ai-call-open`, `dev-ai-call-status`, `dev-ai-call-outcome`; polls `GET /dev/ai/rows` every 2 s), the fixture files (`dev-ai-fixture[data-name][data-edited]`) and **Add a scenario** (`dev-ai-scenario-*`). `?format=json`: `{mode, simulating, holding, base_urls, client_timeout_secs, profiles, calls, fixtures, held}` (`held`: the held requests, newest first, each `{stem, pending, request, response}`) |
+| `GET /dev/ai` | [The dev AI provider](#the-dev-ai-provider)'s page, the dev pages' **AI** section (`dev-box-kind-ai`): each key profile's card (`dev-ai-profile[data-who=platform\|learner][data-over]`: its keys as copy buttons in the provider's colours `dev-ai-key[data-provider][data-copy-key]`, usage `dev-ai-usage`, limit `dev-ai-limit` + `dev-ai-measure` + `dev-ai-limit-save`, `dev-ai-reset`, **Hit the limit now** `dev-ai-exhaust` / `dev-ai-lift`, failure `dev-ai-fault` + `dev-ai-hang` + `dev-ai-once`/`dev-ai-sticky` + `dev-ai-inject`, `dev-ai-injected`, `dev-ai-clear-inject`), the call log (`dev-ai-call[data-id][data-who][data-format][data-purpose][data-status][data-fixture]`, `dev-ai-call-open`, `dev-ai-call-status`, `dev-ai-call-outcome`; polls `GET /dev/ai/rows` every 2 s), the fixture files (`dev-ai-fixture[data-name][data-edited]`) and **Add a scenario** (`dev-ai-scenario-*`). `?format=json`: `{mode, simulating, holding, base_urls, client_timeout_secs, profiles, calls, fixtures, held}` (`held`: the held requests, newest first, each `{stem, pending, request, response}`) |
 | `GET /dev/ai/rows` | The log as HTML, each profile's usage, and whether Manual replies is on with the held requests as HTML, for the page's poll |
 | `POST /dev/ai/hold` | Form `do=on\|off`: Manual replies (the pill, `dev-ai-hold-toggle`, `role=switch`; `dev-ai-hold-form[data-holding]`, `dev-ai-hold-state`). On, the **Manual replies** section at the bottom of the page (`dev-ai-held`; `dev-ai-held-link` says how many wait) lists each held request, newest first, as a folded row in a scrolling box (`dev-ai-request[data-stem][data-purpose][data-pending]`, `dev-ai-request-state`; empty: `dev-ai-held-empty`): the system prompt and messages, and either the reply (`dev-ai-reply`) or a folded Reply box (`dev-ai-answer`: `dev-ai-answer-form`, `dev-ai-answer-input`, `dev-ai-answer-submit`, `dev-ai-answer-error`) |
 | `POST /dev/ai/held/{stem}` | Answer a held request (`reply=` form field); the page's Reply boxes post it in place |
@@ -200,48 +188,15 @@ its own, so the learner a spec drives is not touched.
 | `POST /dev/ai/anthropic/v1/messages`, `GET …/v1/models` | The Anthropic Messages API, played by the dev AI provider (no cookie; the `x-api-key` decides) |
 | `POST /dev/ai/openai/v1/chat/completions`, `GET …/v1/models` | OpenAI chat completions (`Authorization: Bearer …`) |
 | `POST /dev/ai/google/v1beta/openai/chat/completions`, `GET …/models` | Gemini's OpenAI-compatible endpoint, OpenAI's format |
-| `GET /dev/authenticator` | [The dev authenticator](#two-factor-codes-the-dev-authenticator)'s accounts with their current codes. JSON `{"now", "accounts": [{id, issuer, account, code, remaining, period, digits, algorithm, secret}]}`, or for a browser the dev mailbox page's **Authenticator** section (`dev-box-kind-auth`): an add form (`dev-authenticator-uri`, `dev-authenticator-add`, `dev-authenticator-error`) and a row per account (`dev-authenticator-item[data-id][data-issuer][data-account][data-code][data-expires]`) with the code (`dev-authenticator-code`, `123 456`), the seconds left (`dev-authenticator-remaining`), **Copy** (`dev-authenticator-copy`) and **Remove** (`dev-authenticator-remove`). `?uri=otpauth://totp/…` is the "scan": the form opens filled in with it; without it the form holds an example account. The page counts down and polls `GET /dev/authenticator/rows` (`{"html", "now"}`) |
+| `GET /dev/authenticator` | [The dev authenticator](#two-factor-codes-the-dev-authenticator)'s accounts with their current codes. JSON `{"now", "accounts": [{id, issuer, account, code, remaining, period, digits, algorithm, secret}]}`, or for a browser the dev pages' **Authenticator** section (`dev-box-kind-auth`): an add form (`dev-authenticator-uri`, `dev-authenticator-add`, `dev-authenticator-error`) and a row per account (`dev-authenticator-item[data-id][data-issuer][data-account][data-code][data-expires]`) with the code (`dev-authenticator-code`, `123 456`), the seconds left (`dev-authenticator-remaining`), **Copy** (`dev-authenticator-copy`) and **Remove** (`dev-authenticator-remove`). `?uri=otpauth://totp/…` is the "scan": the form opens filled in with it; without it the form holds an example account. The page counts down and polls `GET /dev/authenticator/rows` (`{"html", "now"}`) |
 | `POST /dev/authenticator` | Form `uri`: an `otpauth://totp/…` link or a base32 setup key; adds the account (the same secret and name again replaces it), back to `/dev/authenticator` (204 for the page's own posts, `{"id"}` with `Accept: application/json`), 400 with why |
 | `POST /dev/authenticator/{id}` | Form `do=delete`: remove that account; 404 if it has none |
 | `POST /dev/vocab` | JSON `{"lesson": "<slug>", "days_ago": n}`: collect that lesson's words for the signed-in learner as if `n` days ago, so they are due today (#1360). Answers `{"collected": n}`, the words that were new |
 | `GET /dev/boot` | This process's boot id, which changes on every restart; the `--watch` reload script polls it ([Live reload](#live-reload---watch)) |
 
-## E-mail: the dev mailbox
-
-In dev mode the app sends its e-mail to a small SMTP server of its own
-(`src/mail/sink.rs`), so a sign-up or a password flow can be clicked
-through to the end without a real provider. The outbox, the job runner
-that sends it and lettre run as in production; only the server at the other end
-is the app's. It is on by default; `./.dev-start` prints its link (`inbox:`).
-
-- **Open the mail:** `<url>/dev/inbox` (the Outbox tab is `/dev/mail`),
-  or `<url>/dev/inbox/latest?to=<address>` for the newest message to one
-  address; no sign-in needed. Rows are bold until opened; Archive strikes one out and
-  moves it down, Delete removes it; the page updates by itself. A message shows its
-  HTML as a mail client would; click a link in it and it opens in the tab.
-- **Where it listens:** `127.0.0.1` on a free port (in the log line
-  `dev: e-mail goes to the dev mailbox (SMTP on …)` and in `/dev/inbox`'s
-  JSON as `smtp`). Other tools on the machine may send to it too, e.g.
-  `swaks --server 127.0.0.1:<port> --to ann@example.org`.
-- **`SKRONGLE_DEV_SMTP`:** unset or `1`, a free port; a number, that port;
-  `0`, off (mail is only logged, as outside dev mode). With
-  `SKRONGLE_MAIL_PROVIDERS` set, dev mode sends through those providers
-  instead, and `/dev/inbox` says it is off.
-- **What it keeps:** the newest 200 messages, in memory; a restart empties
-  it. It takes EHLO/HELO, MAIL, RCPT, DATA, RSET, NOOP and QUIT: no TLS,
-  no AUTH, at most 2 MB a message.
-- **In browser tests:** `e2e/lib/mail.ts` has `waitForMail(to, subject?)`
-  (it waits for the job runner to send it), `inbox(to?)` and `mailLink(mail,
-  /pattern/)`, which read the mailbox as the dev user (`devRequest()`), and
-  `devPage(browser, path)`, a browser of its own signed in as the dev user,
-  for clicking through a message while the learner stays signed in as
-  themselves. Give each test its own address (`newAccount`), since the
-  mailbox is shared. `e2e/specs/mail.spec.ts` registers, opens the
-  confirmation in the inbox and clicks its link.
-
 ## Two-factor codes: the dev authenticator
 
-The dev mailbox page's third section, **Authenticator** (`<url>/dev/authenticator`),
+The dev pages' **Authenticator** section (`<url>/dev/authenticator`),
 is an authenticator app like Google Authenticator, so a flow that asks
 for a TOTP code can be clicked through with the real protocol and no
 special case in the app. It speaks RFC 6238 (`src/totp.rs`): HMAC-SHA1 by
@@ -261,24 +216,23 @@ default, SHA-256 and SHA-512 when the link asks, 6 to 8 digits, any period.
   phone without a backup would), so enrol again after one.
 - **In browser tests:** `e2e/lib/totp.ts` works codes out with Node's
   crypto (`totp(secret)`, `totpForStep`) and reads the dev authenticator
-  (`authenticator()`, `authenticatorCode(account)`, read as the dev user like the mail helpers).
+  (`authenticator()`, `authenticatorCode(account)`, with a request context of its own).
   `e2e/specs/authenticator.spec.ts` covers add, scan, codes, rollover and remove.
 - **Two-factor sign-in** ([features](features#two-factor-sign-in)): the
   profile's set-up dialog has *Dev: add it to the dev authenticator*, the
   scan link, which opens the dev authenticator in a tab of its own.
   `/dev/login` skips the second step, so sign in through `/login` to try it.
-  `e2e/specs/two-factor.spec.ts` covers e-mail and authenticator sign-in, reading the dev mailbox
-  (`devPage`, `waitForMail`) and the sign-in codes from the dev device
-  below; it runs in CI with the exact specs.
+  `e2e/specs/two-factor.spec.ts` covers turning it on and authenticator
+  sign-in, with the codes from the dev device below; it runs in CI with
+  the exact specs.
 
 ### Two-factor sign-in: the dev device
 
 In dev mode, a small window floats at the bottom of `/login/code`
 (`login-code-dev`, a `<details>` you can fold) framing
 `/login/code/device` (`login-code-dev-frame`): the dev device this sign-in's
-code went to, and nothing else. For e-mail it lists the dev inbox's mail to that address (the subject
-carries the code); for the app the dev authenticator's entry for that
-address with its code counting down. Each row (`login-code-device-item`,
+code comes from, and nothing else: the dev authenticator's entry for the
+account's address with its code counting down. Each row (`login-code-device-item`,
 `data-code`) has **Use** (`login-code-device-use`), which types the code into
 the form above, so a sign-in is two clicks. The frame re-reads itself every
 two seconds (`static/devbox.js`).
@@ -312,14 +266,18 @@ broken replies, and can hold a request for you to answer by hand.
 | Anthropic | `<url>/dev/ai/anthropic` | `POST /v1/messages` (`x-api-key`, `anthropic-version` required, no streaming), `GET /v1/models` |
 | OpenAI | `<url>/dev/ai/openai/v1` | `POST /chat/completions` (`Authorization: Bearer`), `GET /models` |
 | Gemini (OpenAI-compatible) | `<url>/dev/ai/google/v1beta/openai` | `POST /chat/completions`, `GET /models` |
+| DeepSeek, Mistral, xAI (OpenAI's format, #24) | `<url>/dev/ai/deepseek`, `/mistral`, `/xai` | `POST /v1/chat/completions`, answered as OpenAI's (`sk-dev-…` keys; xAI's `xai-dev-…`) |
+| OpenRouter | `<url>/dev/ai/openrouter/api/v1` | `POST /chat/completions` (`sk-or-dev-…` keys) |
+| Ollama-compatible | `<url>/dev/ai/ollama` (type it as the Ollama row's base URL) | `POST /v1/chat/completions`, no key |
 
 **How calls get there: the keys do the routing.** In dev mode these are
 the providers' default base URLs (unless `SKRONGLE_ANTHROPIC_BASE_URL`,
 `SKRONGLE_OPENAI_BASE_URL` or `SKRONGLE_GOOGLE_BASE_URL` say otherwise), and the
-dev user is seeded with one simulator key per provider (`--seed`, and
-`/dev/login?keys=dev` or `?keys=fake` saves them too). A key the simulator
+server is seeded with one simulator key per provider as its keys (`--seed`,
+and `/dev/login?keys=dev` or `?keys=fake` saves them too; every account uses
+them, #25). A key the simulator
 did not issue gets the provider's own 401, as a real provider answers a bad
-key. There is no keyless stand-in and no client-side switch: an account
+key. There is no keyless stand-in and no client-side switch: a server
 with no key sees the greyed-out dialog and the "No AI provider key is set
 up" alert, in dev mode as on a deploy. Outside dev mode, or with
 `SKRONGLE_LLM_MODE=live`, the defaults are the public APIs.
@@ -341,7 +299,7 @@ own counters, limit and injected failure:
 
 | Profile | Keys | Who uses it |
 |---|---|---|
-| Learner's own keys | `sk-ant-dev-anthropic`, `sk-dev-openai`, `AIza-dev-google` (seeded), and any `sk-ant-dev-…`, `sk-dev-…` or `AIza-dev-…` key you type (the old `?keys=fake` key `sk-ant-dev-fake-key` among them) | The keys on a learner's profile |
+| Learner's own keys | `sk-ant-dev-anthropic`, `sk-dev-openai`, `AIza-dev-google` (seeded), and any `sk-ant-dev-…`, `sk-dev-…` or `AIza-dev-…` key you type (the old `?keys=fake` key `sk-ant-dev-fake-key` among them) | The server's keys, on Manage Users |
 
 Any other key is refused as the provider refuses a bad one (401,
 `authentication_error` / `invalid_api_key`). The wire endpoints are not
@@ -595,7 +553,7 @@ line of a file that shrank. `scripts/pi-budget.sh` (the
 `pi budget` job, #638; off in CI for now, #1387) builds `--release` (or measures `--bin <path>`) and
 checks three numbers against `scripts/pi-budget.txt`: the stripped binary's
 size (at most its platform's baseline + 5 %), and, for a server started with
-no optional settings (no mail or AI key, no
+no optional settings (no AI key, no
 `SKRONGLE_DEV`) on a temp database after twenty requests each to `/`, `/login`
 and `/healthz`, its resident memory (≤ 32 MiB) and thread count (≤ 12). On
 Linux the numbers come from `/proc/<pid>/status`; on a Mac from `ps`, so it
@@ -629,12 +587,11 @@ The pages the AI creation flow and lesson tests use, in full:
 
 | Page | Testids | State attributes |
 |---|---|---|
-| every page (`base.html`) | `nav-home`, `nav-course-switch`, `nav-courses`, `nav-account-menu`, `nav-account-toggle`, `nav-profile`, `nav-switch-course`, `nav-docs`, `nav-logout-form`, `nav-logout`, `nav-login`, `nav-register`, `footer-terms`, `footer-privacy`; mode bars `nav-study`/`nav-play` with tabs `nav-study-<tab>`, `nav-play-<tab>`, and `nav-study-mode`, `nav-study-to-sprint`, `nav-study-to-play`, `nav-study-menu` (and `nav-play-…` likewise) | `nav-account-toggle[data-email]`, `nav-course-switch[data-course-id]` (the course open now), `a[aria-current=page]` on links to the current page |
+| every page (`base.html`) | `nav-home`, `nav-course-switch`, `nav-courses`, `nav-account-menu`, `nav-account-toggle`, `nav-profile`, `nav-switch-course`, `nav-docs`, `nav-logout-form`, `nav-logout`, `nav-login`, `nav-register`; mode bars `nav-study`/`nav-play` with tabs `nav-study-<tab>`, `nav-play-<tab>`, and `nav-study-mode`, `nav-study-to-sprint`, `nav-study-to-play`, `nav-study-menu` (and `nav-play-…` likewise) | `nav-account-toggle[data-email]`, `nav-course-switch[data-course-id]` (the course open now), `a[aria-current=page]` on links to the current page |
 | `/` (home) | `home-stats` with `home-stat-passed`, `home-stat-mastered`, `home-stat-streak`, `home-skipped`; the map row `home-map` with `home-map-title`, `home-map-unit`, `home-map-progress`; `home-mode` (each card), `home-<mode>-open` (its heading link), `home-info-<mode>` (its (i)) opening `home-info-<mode>-dialog` (closed by `home-info-close`), `home-<mode>-<target>` (each link in it: `home-study-lessons`, `home-guide-stages`, `home-guide-next`, `home-ai-api-keys`, …), `home-guide-stat`, `home-start-sprint`/`-study`/`-play`/`-guide`/`-tutor`; with nothing to run the tutor on, `home-ai-blocked` (the red !, in place of `home-info-ai`) and `home-start-tutor` open `home-tutor-gate` (`home-tutor-gate-close`, `home-tutor-gate-add-key`) | `home-mode[data-mode=sprint\|study\|play\|guide\|ai]`, `home-map-progress[data-passed][data-total]` (the current unit), `home-guide-stat[data-completed][data-total]` |
 | `/sprint/play` | `sprint-play-main` (the `<main>`: stage, answer sheet and results), `sprint-play-stage`, `sprint-play-result`, `sprint-play-verdict`, `sprint-play-next`, `sprint-play-done`, `sprint-play-done-home`, `sprint-play-again`, `sprint-play-check`, `sprint-play-exit`, `sprint-play-audio`, `sprint-play-sound`, `sprint-play-progress` | `sprint-play-stage[data-kind][data-exercise-id][data-pos]` (the exercise up: its kind, its id as in `src/sprint.rs`, its place; `data-kind=done` at the end), `sprint-play-result[data-state=right\|wrong]`, `sprint-play-done[data-saved=true]` once the session is recorded; tiles and options: `[aria-pressed]` when picked, `[data-state=right\|wrong\|used\|done]`; options and speakers carry `[data-value]` |
-| `/login`, `/register` | `login-form`, `login-email`, `login-password`, `login-submit`, `login-error`, `login-register-link`, `login-reset-link`, `login-notice`; dev mode, in the `login-dev` card: `login-dev-login`,  `register-form`, `register-email`, `register-password`, `register-submit`, `register-error`, `register-login-link`, `register-owner-note` (the first account on an invite/closed server), `register-invite` (the hidden invitation token); `register-closed` (the sign-ups-closed page), `register-closed-message`, `register-closed-login`; a valid form, "check your mail" (#379): `register-sent`, `register-sent-email`, `register-sent-login`; behind a signing-in proxy (`SKRONGLE_PROXY_AUTH_*`) `/login`, `/register` and `/logout` are `proxy-signin` with `proxy-signin-note` (or `proxy-signin-signed-out` after logout) and `proxy-signin-home`; dev mode, in the `register-dev` card: `register-dev-login` | |
-| `/reset` | `reset[data-step]` (`ask`, `sent`, `choose`, `invalid`, `done`), `reset-ask-form`, `reset-email`, `reset-submit`, `reset-error`, `reset-sent`, `reset-choose-form`, `reset-account`, `reset-password`, `reset-save`, `reset-invalid`, `reset-again`, `reset-done`, `reset-login` | |
-| `/login/code` | `login-code[data-method]` (`email`, `totp`), `login-code-sent-to`, `login-code-form`, `login-code-input`, `login-code-submit`, `login-code-error`, `login-code-notice`, `login-code-resend`, `login-code-cancel`; dev mode: `login-code-dev` (the floating window), `login-code-dev-frame` (its frame of `/login/code/device`: `login-code-device[data-method]`, `login-code-device-to`, `login-code-device-off`, `login-code-device-item[data-code]`, `login-code-device-code`, `login-code-device-remaining`, `login-code-device-use`, `login-code-device-empty`) | `login-code[data-method]`, `login-code-device-item[data-code]` | `login-code[data-method]` |
+| `/login`, `/register` | `login-form`, `login-email`, `login-password`, `login-submit`, `login-error`, `login-register-link`, `login-notice`; dev mode, in the `login-dev` card: `login-dev-login`,  `register-form`, `register-email`, `register-password`, `register-submit`, `register-error`, `register-login-link`, `register-owner-note` (the first account on an invite/closed server), `register-invite` (the hidden invitation token); `register-closed` (the sign-ups-closed page), `register-closed-message`, `register-closed-login`; behind a signing-in proxy (`SKRONGLE_PROXY_AUTH_*`) `/login`, `/register` and `/logout` are `proxy-signin` with `proxy-signin-note` (or `proxy-signin-signed-out` after logout) and `proxy-signin-home`; dev mode, in the `register-dev` card: `register-dev-login` | |
+| `/login/code` | `login-code[data-method]` (`totp`), `login-code-sent-to`, `login-code-form`, `login-code-input`, `login-code-submit`, `login-code-error`, `login-code-cancel`; dev mode: `login-code-dev` (the floating window), `login-code-dev-frame` (its frame of `/login/code/device`: `login-code-device[data-method]`, `login-code-device-to`, `login-code-device-item[data-code]`, `login-code-device-code`, `login-code-device-remaining`, `login-code-device-use`, `login-code-device-empty`) | `login-code[data-method]`, `login-code-device-item[data-code]` | `login-code[data-method]` |
 | `/password/change` | `password-change-gate`, `password-change-info` (the (i)) and `password-change-dialog`, `password-change-form`, `password-change-new`, `password-change-confirm`, `password-change-submit`, `password-change-error`, `password-change-logout` | |
 | `/account/deletion` | `account-deletion`, `account-deletion-info` (the (i)) and `account-deletion-dialog`, `account-deletion-date`, `account-deletion-cancel`, `account-deletion-logout` | #970 |
 | `/courses` | sections `courses-projects`, `courses-mine`, `courses-builtin`, `courses-make`; each card `courses-card` with `courses-open`, `courses-resume` (stopped with its outline saved), `courses-retry` (stopped before it), `courses-delete-form`, `courses-delete` (stopped cards), `courses-card-stopped`, `courses-watch`, `courses-cancel`, `courses-generating`, `courses-card-phase`, `courses-card-revising`, `courses-card-error`, `courses-card-error-detail`, `courses-settings` (the gear of an opened course) opening `courses-settings-dialog[data-course-id][data-step]` (on a course not opened yet, `[data-wizard][data-start]`: `courses-open` opens it, #587) with `courses-settings-step`, `courses-settings-level[data-unit]` (a level card; `courses-settings-level-radio` its radio, `courses-settings-level-info` its (i)), `courses-settings-prev`, `courses-settings-next`, `courses-settings-save` (Get Started!), `courses-settings-close`, and at the gear dialog's top right (not in the wizard) `courses-edit` (the pencil to the editor, own courses) and `courses-copy` in `courses-copy-form` (#629); `courses-notice`, `courses-create-form`, `courses-create` (Create a course); `?generate=<id>`: the Generate dialog of a stopped course (testids as on `/courses/{id}`) | `courses-card[data-course-id][data-course-status=generating\|revising\|ready\|failed]`, project cards `[data-active]` |
@@ -649,8 +606,8 @@ The pages the AI creation flow and lesson tests use, in full:
 | `/courses/{id}/file` | `course-file-form`, `course-file-path`, `course-file-content`, `course-file-status`, `course-file-save`, `course-file-cancel`, `course-file-error` | `course-file-form[data-new]` |
 | `/lessons` | `lessons-filter`, `lessons-filter-status`, `lessons-unit`, `lessons-list`, `lessons-item`, `lessons-item-link`, `lessons-item-practise` | `lessons-item[data-lesson-id][data-passed][data-read][data-status][data-search]`, `lessons-filter-status[data-matches]` (set once something is typed) |
 | `/lessons/{slug}` | `lesson`, `lesson-head`, `lesson-mastery`, `lesson-read-form`, `lesson-read`, `lesson-practise`, `lesson-listen`, `lesson-tutor`, `lesson-actions`, `lesson-more` with `lesson-more-toggle`, `lesson-guide`, `lesson-sprint`, `lesson-info` (the (i) by the status) and `lesson-pass-info` (the one in the footer) opening `lesson-info-dialog` with `lesson-pass-rule` and `lesson-info-close`, `lesson-test`, `lesson-prerequisite`, `lesson-content`, `lesson-vocabulary`, `lesson-vocab-item`, `lesson-conjugations`, `lesson-conversation`, `lesson-conversation-form`, `lesson-conversation-start`, `lesson-check`, `lesson-check-form`, `lesson-check-question`, `lesson-check-option`, `lesson-check-answer`, `lesson-check-feedback`, `lesson-check-submit`, `lesson-check-result`, `lesson-check-retry`, `lesson-pass` | `lesson[data-lesson-id][data-passed][data-read][data-seen][data-status]`, `lesson-check[data-done]`, `lesson-check-feedback[data-state=right\|wrong]`, `lesson-check-result[data-state=passed\|failed]`, `lesson-pass[data-passed]`, `lesson-prerequisite[data-lesson-id]` |
-| `/profile` | `profile-nav`, `profile-nav-link`, `profile-form`, `profile-notice`, `profile-display-name`, `avatar-blank` (the gear in the top-right corner), `profile-save-status`, `profile-save-error`, `profile-first-name-error`, `profile-last-name-error`, `autosave-leave-dialog`, `autosave-leave`, `autosave-stay`, `profile-password-open`, `profile-password-dialog`, `profile-password-rule` (the length rule), `profile-password-cancel`, `profile-first-name`, `profile-last-name`, `profile-email` (read-only), `email-verified` (the check inside a confirmed address), `profile-privacy-info` (the (i) button), `profile-privacy-note` (the dialog it opens), `profile-privacy-close`, `profile-privacy-policy` (its link to `/privacy`), `profile-public-name` (the name others see, live), `profile-password-form`, `profile-password-current`, `profile-password-new`, `profile-password-confirm`, `profile-password-submit`, `profile-password-error`, `profile-sign-in` (how the account signs in), `profile-sign-out-others-form`, `profile-sign-out-others`, `profile-sign-out-others-info` and `profile-sign-out-others-info-dialog` (`profile-sign-out-others-info-close`), `profile-delete-code`, `profile-delete-send`, `profile-delete-sent`, `profile-api-keys`, `profile-api-key` (a `<details>` row), `profile-api-key-toggle`, `profile-api-key-status`, `profile-api-key-error`, `profile-api-key-input`, `profile-api-key-remove-form`, `profile-api-key-remove`, `email-verified` (the ✓), `email-unverified` (the red ! button), `email-unverified-dialog`, `email-unverified-close`, `email-verify-resend` (Resend, in that dialog) (the address's state), `profile-two-factor` (the card), `profile-two-factor-info`, `profile-two-factor-info-dialog`, `profile-two-factor-form`, `profile-two-factor-method` (a chip), `profile-two-factor-error`, `profile-two-factor-email-unavailable` (red ! by a chip not offered yet) and its dialog `profile-two-factor-email-dialog` (`profile-two-factor-email-resend`), `two-factor-totp-dialog`, `two-factor-totp-qr` (the inline SVG; `data-modules` its width), `two-factor-totp-secret`, `two-factor-totp-qr` (the QR's wrapper; `data-uri` is the `otpauth://` link it encodes), `profile-2fa-totp-qr-info` (the (i) by the dialog's title) and `profile-2fa-totp-qr-info-dialog`, `two-factor-totp-dev` (dev mode), `two-factor-totp-form`, `two-factor-totp-code`, `two-factor-totp-confirm`, `two-factor-totp-cancel`, `two-factor-totp-error`, `profile-two-factor-totp` (the added app's line), `profile-two-factor-totp-remove`, `two-factor-confirm-dialog` (Confirm it's you: any two-factor change), `two-factor-confirm-what`, `two-factor-confirm-form`, `two-factor-confirm-method`, `two-factor-confirm-password` (or `two-factor-confirm-code` and `two-factor-confirm-send`, `two-factor-confirm-sent` for an account without a password), `two-factor-confirm-submit`, `two-factor-confirm-cancel`, `two-factor-confirm-error` | `profile-save-status[data-state]` (`saved`, `saving`, `error`), `[data-saved]` on a saved field's `.field-wrap`, label or chip, `profile-api-key[data-provider][data-key-set][data-unreadable]`, `profile-nav-link[data-section]` (the id it jumps to), `profile-two-factor[data-method]` (`''`, `email`, `totp`), `profile-two-factor-method[data-method]` |
-| `/superuser` (superusers only; `nav-superuser` in the account menu) | `superuser-page`, `superuser-info` + `superuser-info-dialog` (`superuser-signup-mode[data-mode]`), `superuser-notice`, `superuser-inbox` (dev mailbox), `superuser-error`; in invite mode `superuser-invites-card`, `superuser-invite-form`, `superuser-invite-make`, `superuser-invite-new`, `superuser-invite-link`, `superuser-invite-copy`, `superuser-invites`, `superuser-invite-row`, `superuser-invite-revoke`; `superuser-accounts-card`, `superuser-accounts`, `superuser-account-row[data-superuser]`, `superuser-account-temp-password`, `superuser-account-two-factor-off`, `superuser-account-reset-verification` (each `[data-account-email]`), `superuser-password-dialog` / `-form` / `-confirm`, `superuser-two-factor-dialog` / `-form` / `-confirm`, `superuser-verify-dialog` / `-form` / `-confirm`, `superuser-temp-password-dialog`, `superuser-temp-password-new`, `superuser-temp-password`, `superuser-temp-password-copy`, `superuser-temp-password-close` | `superuser-account-row[data-superuser]`, `superuser-signup-mode[data-mode]` |
+| `/profile` | `profile-nav`, `profile-nav-link`, `profile-form`, `profile-notice`, `profile-display-name`, `avatar-blank` (the gear in the top-right corner), `profile-save-status`, `profile-save-error`, `profile-first-name-error`, `profile-last-name-error`, `autosave-leave-dialog`, `autosave-leave`, `autosave-stay`, `profile-password-open`, `profile-password-dialog`, `profile-password-rule` (the length rule), `profile-password-cancel`, `profile-first-name`, `profile-last-name`, `profile-email` (read-only), `email-verified` (the check inside a confirmed address), `profile-privacy-info` (the (i) button), `profile-privacy-note` (the dialog it opens), `profile-privacy-close`, `profile-public-name` (the name others see, live), `profile-password-form`, `profile-password-current`, `profile-password-new`, `profile-password-confirm`, `profile-password-submit`, `profile-password-error`, `profile-sign-in` (how the account signs in), `profile-sign-out-others-form`, `profile-sign-out-others`, `profile-sign-out-others-info` and `profile-sign-out-others-info-dialog` (`profile-sign-out-others-info-close`), `profile-delete-code`, `profile-delete-owner` (an owner's line instead of the form, #15), `profile-api-keys`, `profile-api-key` (a `<details>` row), `profile-api-key-toggle`, `profile-api-key-status`, `profile-api-key-error`, `profile-api-key-input`, `profile-api-key-remove-form`, `profile-api-key-remove`, `email-verified` (the ✓) (the address's state), `profile-two-factor` (the card), `profile-two-factor-info`, `profile-two-factor-info-dialog`, `profile-two-factor-form`, `profile-two-factor-method` (a chip), `profile-two-factor-error`, `two-factor-totp-dialog`, `two-factor-totp-qr` (the inline SVG; `data-modules` its width), `two-factor-totp-secret`, `two-factor-totp-qr` (the QR's wrapper; `data-uri` is the `otpauth://` link it encodes), `profile-2fa-totp-qr-info` (the (i) by the dialog's title) and `profile-2fa-totp-qr-info-dialog`, `two-factor-totp-dev` (dev mode), `two-factor-totp-form`, `two-factor-totp-code`, `two-factor-totp-confirm`, `two-factor-totp-cancel`, `two-factor-totp-error`, `profile-two-factor-totp` (the added app's line), `profile-two-factor-totp-remove`, `two-factor-confirm-dialog` (Confirm it's you: any two-factor change), `two-factor-confirm-what`, `two-factor-confirm-form`, `two-factor-confirm-method`, `two-factor-confirm-password` (or `two-factor-confirm-code` for an account without a password), `two-factor-confirm-submit`, `two-factor-confirm-cancel`, `two-factor-confirm-error` | `profile-save-status[data-state]` (`saved`, `saving`, `error`), `[data-saved]` on a saved field's `.field-wrap`, label or chip, `profile-api-key[data-provider][data-key-set][data-unreadable]`, `profile-nav-link[data-section]` (the id it jumps to), `profile-two-factor[data-method]` (`''`, `totp`), `profile-two-factor-method[data-method]` |
+| `/manage` (owners only; `nav-manage` in the account menu) | `manage-page`, `manage-info` + `manage-info-dialog` (`manage-signup-mode[data-mode]`), `manage-notice`, `manage-error`; in invite mode `manage-invites-card`, `manage-invite-form`, `manage-invite-make`, `manage-invite-new`, `manage-invite-link`, `manage-invite-copy`, `manage-invites`, `manage-invite-row`, `manage-invite-revoke`; `manage-accounts-card`, `manage-accounts`, `manage-account-row[data-manage]`, `manage-account-temp-password`, `manage-account-two-factor-off`, `manage-account-make-owner` (rows that are not owners; each `[data-account-email]`), `manage-password-dialog` / `-form` / `-confirm`, `manage-two-factor-dialog` / `-form` / `-confirm`, `manage-owner-dialog` / `-form` / `-confirm`, `manage-temp-password-dialog`, `manage-temp-password-new`, `manage-temp-password`, `manage-temp-password-copy`, `manage-temp-password-close` | `manage-account-row[data-manage]`, `manage-signup-mode[data-mode]` |
 
 Practice and Guide stages name the button that appears after Check
 (`quiz-next`, `stage-next-step`) and grade it on the feedback
@@ -672,8 +629,8 @@ session), `quiz-`, `listening-`/`listen-`, `vocabulary-`, `flashcards-`,
 `grep -o 'data-testid="[^"]*"' templates/quiz.html`.
 
 When you add markup, give it testids in this pattern and add any page the
-creation flow or lesson tests use to the table. What Jev and the
-exploratory checks rely on (see [Exploratory testing](#exploratory-testing)):
+creation flow or lesson tests use to the table. What the browser specs
+rely on:
 
 - **A testid on each link or button, not only on its container.** The
   navigator labels an action with the nearest testid, so a card whose ten
@@ -733,17 +690,10 @@ own are listed in its `AUTHORING.md`.
 ## Browser tests
 
 ```sh
-scripts/e2e.sh                          # exact specs; Jev specs too when a key is set
-scripts/e2e-jev.sh                      # only the Jev tests; fails if there is no key
-scripts/e2e-jev.sh find-generate-form   # one journey, by id
-scripts/e2e-explore.sh impatient       # a profile explores and reports (never fails)
+scripts/e2e.sh                          # exact specs; the optional model-judged specs too when a key is set
 scripts/e2e.sh --grep "reading check"   # any Playwright option works with e2e.sh
 npx --prefix e2e playwright show-report e2e/results/report   # after a failure: steps, trace, screenshot
 ```
-
-What the specs cover and miss, and which files CI runs: the
-[E2E coverage audit](e2e-audit) (`python3 scripts/e2e-audit.py --write`
-refreshes its numbers).
 
 [Playwright](https://playwright.dev) drives headless Chromium against a fresh
 server, started the way `scripts/smoke.sh` starts one: its own `./e2e.db`, a
@@ -757,7 +707,8 @@ offline. `npm --prefix e2e run typecheck` checks the TypeScript.
 | File | What it is |
 |---|---|
 | `e2e/specs/exact.spec.ts` | Exact specs, no model in the loop: generate a course from the fixtures and open it; pass a lesson's reading check (answers read from the lesson files); finish a Sprint mode session; the profile has no Dev section for anyone (the seeded keys answer generate and the tutor through the simulator); a key the simulator never issued gets the provider's 401; the picture and password dialogs (a pick saves at once and shows in the heading, a mismatched or wrong password keeps the dialog open) |
-| `e2e/specs/profile-autosave.spec.ts` | The profile saves as you edit: one request a second after typing stops, the circle's states, a field that needs attention (red at once, not sent, the leave dialog and the browser's prompt), a refusal from the server, a lost connection that saves once back online, API keys folded away and saved on paste or 3 s after typing, and the green check on a saved field |
+| `e2e/specs/profile-autosave.spec.ts` | The profile saves as you edit: one request a second after typing stops, the circle's states, a field that needs attention (red at once, not sent, the leave dialog and the browser's prompt), a refusal from the server, a lost connection that saves once back online, no API keys (they are the server's, `manage-keys.spec.ts`), and the green check on a saved field |
+| `e2e/specs/manage-keys.spec.ts` | The server's AI API keys on Manage Users (#25, #24): one row per provider, folded, each Set or Not set, saved on paste or 3 s after typing, a key for the wrong box refused; a key the owner saves serves another account, and with none that account is told to ask the owner; a DeepSeek key answers the tutor through the dev provider; an Ollama row takes a base URL and a model. Puts the seeded keys back at the end |
 | `e2e/specs/pathways.spec.ts` | Exact specs for the essential flows of #36: switch course (Spanish, a generated course, back) by `nav-course-switch[data-course-id]` and `courses-card[data-active]`; generate from notes and uploaded files (`generate-notes`, `generate-files`); cancel a slow generation and resume it to a ready course; resume a run stopped on a lesson (the resumed job keeps what was written), then write that lesson by hand; open the editor between the outline and lesson 1 and see its modal follow the job to the end; remove an API key (`profile-api-key[data-key-set]` flips back). Runs in CI with the exact specs |
 | `e2e/specs/editor-autosave.spec.ts` | The course editor saves as you edit (#151, #190): no Save button; a lesson's JSON sent 3 s after the last keystroke (on Playwright's clock) or when its drawer loses focus, or at once when the tab is hidden; red with the reason for JSON that doesn't parse and for a table the server refuses (`422`), nothing stored, the text kept, the leave dialog; a failed save retried; a tab that is behind another refused (`409`) and asked to reload; Use AI saves what waits first and the locked editor sends nothing. Other specs make the waits short with `fastAutosave(page)` (`e2e/lib/app.ts`: it sets `window.AUTOSAVE_TEST_MS` before the page's scripts run) and wait with `editorSaved(page)`. Runs in CI with the exact specs |
 | `e2e/specs/forms.spec.ts` | Forms mode in the lesson table's drawer: a lesson in the lesson editor (add a word from the outline, a multiple-choice question with the right-answer radio, the dashed new-option box, reorder, remove, the type switch), see them as JSON, a JSON edit shown back in the form, saved as typed, reload, the table and the file; a field the editor doesn't know kept; the JSON switch; the course settings as a schema form (a new unit becomes a folder) at phone width. Runs in CI with the exact specs |
@@ -765,8 +716,6 @@ offline. `npm --prefix e2e run typecheck` checks the TypeScript.
 | `e2e/specs/lesson-editor-rules.spec.ts` | The lesson editor's forms against the course rules (#1200), each path ending on a save the server accepts: a type switch to numeric or expression with an answer the checker cannot read (`/api/courses/{id}/answer-key`), the option that was the answer deleted, a word a question names deleted, a question the Guide names deleted, a duplicated word, question and conjugation, a sort's bucket and item limits and a deleted bucket's items, a spot's word that appears twice and a word in brackets, a conversation's empty line and its two-line least, a Guide word count that is no whole number, an optional box of spaces. Runs in CI with the exact specs |
 | `e2e/specs/words-due.spec.ts` | Words due (#1360), seeded through `POST /dev/vocab`: no card until words are due; the card's count, three words, (i) and button; the due round (a miss comes back once at the end, the summary's "Back tomorrow" and "Next" lines); the card gone after; the card stacked on a phone. Runs in CI with the exact specs |
 | `e2e/specs/dev-ai.spec.ts` | [The dev AI provider](#the-dev-ai-provider): a course generated from the dialog with the seeded key shows in `/dev/ai`'s log; an edited fixture, a used-up limit, a request limit and an injected timeout reach the learner; the wire API refuses unknown keys; Manual replies holds a request, folded at the bottom of `/dev/ai`, for an answer typed there |
-| `e2e/specs/mail.spec.ts` | The dev mailbox: a new account's confirmation e-mail arrives over SMTP, opens in the dev inbox, and the link in its HTML confirms the address (the profile's red ! turns into a check); the outbox's test message opens from `/dev/mail`; the table (#223): new mail appears without a reload, bold until opened, Archive strikes out and sinks, Delete removes, the tabs switch in place; Runs in CI with the exact specs |
-| `e2e/specs/terms.spec.ts` | Terms of Service: `/terms` is public, registration is refused without the checkbox (`register-terms`, which `register()` in `e2e/lib/learner.ts` ticks) and records the version, the gate holds an account with an older version (`/dev/login?terms=old`) until it accepts. Runs in CI with the exact specs |
 | `e2e/specs/docs.spec.ts` | The docs (#97): `/docs` logged out, its two sidebar sections (`docs-section[data-section=using|working]`), every user guide as HTML and raw Markdown, `/llms.txt` naming the course format and schema (every link it lists answers 200), no page wider than a phone, every in-app link and `#heading` on every page resolves. Runs in CI with the exact specs |
 | `e2e/specs/i18n.spec.ts` | [Languages](i18n): the picker on `/register` sets the `lang` cookie and the page comes back in Spanish, the account keeps the choice (it wins over a cleared cookie at the next sign-in), the profile's picker (`profile-lang`) saves at once and reloads in English; a browser asking for `es-MX` gets Spanish before any pick, `fr` gets English, `POST /lang` refuses an unknown code. Runs in CI with the exact specs |
 | `e2e/specs/lesson-tables.spec.ts` | Lesson pages fit a phone (390 px, #465): the test course's lessons with tables and five Spanish lessons with wide paradigm tables are no wider than the screen; Markdown tables (`table-scroll`), the vocabulary (`lesson-vocabulary-scroll`) and the paradigm table (`lesson-conjugations-scroll`) scroll inside their own box. Runs in CI with the exact specs |
@@ -774,367 +723,22 @@ offline. `npm --prefix e2e run typecheck` checks the TypeScript.
 | `e2e/specs/course-translate.spec.ts` | Copy and translate (#630), from `translate-course.json`: a fresh draft translated to Español through the dialog behind the icon in the course's settings (what is translated behind its (i)) is followed to its end in the editor and comes out as *Untitled course (Español)*, ids kept and the answer still one of the options, the original untouched; the Spanish card's dialog offers no English |
 | `e2e/specs/modals.spec.ts` | Closing by clicking outside: a Sprint mode stop's sheet (`sprint-sheet`) closes on a tap outside the stop and on Escape, a tap inside keeps it (#233); modals close on a click on their backdrop (#226, `static/modal.js`): the profile's dialogs (not on a drag out of them, not with a password typed), the Generate dialog (not with a wish typed), not a running job's box (`data-modal-static`), Review AI changes by its Close link. Runs in CI with the exact specs |
 | `e2e/specs/smoke/` | [Smoke specs](#smoke-specs): a new account passes lessons in every mode, answering from the course files; the whole test course, right and wrong |
-| `e2e/specs/record.spec.ts` | The recorder behind `scripts/e2e-record.sh` ([Recording a smoke spec](#recording-a-smoke-spec)); skipped otherwise |
-| `e2e/journeys.ts` | **The list of journeys**: goals Jev walks toward. Append an entry to add one |
-| `e2e/personas/<id>.ts` | **User profiles**, one per file, for exploratory runs and for journeys walked "as" someone (see [Exploratory testing](#exploratory-testing)) |
-| `e2e/specs/journeys.spec.ts` | One test per journey, `journey <id>`, tagged `@jev` |
-| `e2e/specs/judged.spec.ts` | Jev-judged statements about a page, each reporting its probability |
-| `e2e/specs/explore.spec.ts` | One exploratory run (or replay) started by `scripts/e2e-explore.sh`; skipped otherwise |
 | `e2e/lib/app.ts` | Exact helpers: `devLogin`, `devReset`, `correctAnswers`, `playSprintSession`; `TEST_COURSE` and `courseDir` for [the test course](#the-test-course) |
 | `e2e/lib/key.ts` | `AnswerKey`: the right answer to a question id or a Sprint mode exercise id, read from the course files |
 | `e2e/lib/answer.ts` | `answerQuestion` (Study and Play, by `data-qid`), `passReadingCheck`, `playPractice`, `playStage` |
 | `e2e/lib/sprint-play.ts` | `playSprintRight`: a Sprint mode session played with the right answers; reports the exercise kinds it met |
-| `e2e/lib/mail.ts` | The dev mailbox: `waitForMail`, `inbox`, `mailLink` ([E-mail: the dev mailbox](#e-mail-the-dev-mailbox)) |
-| `e2e/lib/learner.ts` | A fresh account (`newAccount`; `signUp` fills `/register` and waits for "check your mail" (in the mini lane, with no mail, for the signed-in page; it returns whether it signed in); `register` signs up, signs in where needed and opens a course; `login`, `logout`), `/api/progress`, and the check that every page agrees with it |
+| `e2e/lib/learner.ts` | A fresh account (`newAccount`; `signUp` fills `/register` and waits for the signed-in page; `register` signs up and opens a course; `login`, `logout`), `/api/progress`, and the check that every page agrees with it |
 | `e2e/lib/fixtures.ts` | The smoke specs' `test`: seeded `Math.random` and a fake voice in every page; prints the seed on failure |
-| `e2e/lib/jev.ts` | `judge(state, statement)`, `choose(state, instructions, options)`, `judgeAndChoose`, usage and cost totals |
-| `e2e/lib/navigate.ts` | The navigator that runs a journey |
-| `e2e/lib/persona.ts` | The `Persona` type and `loadPersona(id or path)` |
-| `e2e/lib/explore.ts` | The explorer: exact bug signals, judgements and page checks on each page a profile reaches, findings with evidence, replay |
-| `e2e/lib/explore-report.ts` | The report: ranking, diff with the previous run, proposed tests, `report.md` |
-| `e2e/results/` | Last run: `last-run.json`, the HTML report, traces, `journeys/<id>.json`, `explore/<profile>-<timestamp>/` (ignored by git) |
+| `e2e/results/` | Last run: `last-run.json`, the HTML report, traces, and the optional specs' reports (untracked) |
 
-### Run the Jev tests
+### Optional model-judged specs
 
-1. **Key, once.** Create one at [console.typesafe.ai/keys](https://console.typesafe.ai/keys)
-   and add it to `./.env` or `e2e/.env` (both git-ignored):
-   `TYPESAFE_API_KEY=…`
-2. **Run.** `scripts/e2e-jev.sh`. It builds the app, starts a fresh server
-   with the seeded dev user and LLM fixtures, runs every journey and judged
-   spec headless, and stops the server. The first run also installs
-   Playwright and Chromium.
-
-   | Command | Runs |
-   |---|---|
-   | `scripts/e2e-jev.sh` | every journey and judged spec |
-   | `scripts/e2e-jev.sh open-lesson start-sprint` | those journeys, by `id` from `e2e/journeys.ts` |
-   | `scripts/e2e-jev.sh --judged` | only the judged specs |
-   | `scripts/e2e-explore.sh <profile>` | an exploratory run (see [Exploratory testing](#exploratory-testing)); `e2e-jev.sh --explore` forwards there |
-   | `JEV_DEBUG=1 scripts/e2e-jev.sh open-lesson` | also prints the actions offered at each step and every judged state |
-   | `scripts/e2e.sh` | the exact specs too; the Jev tests are skipped, not failed, without a key |
-
-3. **Read the result.** Each journey prints its steps as it goes:
-
-   ```
-   journey start-sprint: the journey's exact check passed
-      0. /  done=0.24  → Click the link "Start a session" [home-start-sprint] (conf 0.98)
-      1. /sprint  done=0.36  → Click the link "🏷️ Continue Nouns: gender, articles and plurals ›" [sprint-continue] (conf 0.77)
-   Jev: 8 calls, 13256 input tokens, ≈ $0.00056
-   ```
-
-   A failed journey or judgement puts the same log (or the probability) in
-   the error. Afterwards, `e2e/results/journeys/<id>.json` has each journey's
-   steps, calls, tokens and time, and
-   `npx --prefix e2e playwright show-report e2e/results/report` has
-   screenshots and a trace of every failure.
-4. **Add a journey.** Append an entry to `e2e/journeys.ts` (see
-   [Journeys](#jev) below) and run it alone with `scripts/e2e-jev.sh <id>`.
-
-### Jev
-
-[Jev](https://docs.typesafe.ai/introduction) (TypeSafe's "System One" model)
-takes a **state** (text or JSON) and typed questions: **Noul** (how true is
-this statement, 0–1), **Choice** (pick one of up to 255 options) and
-**Score** (rate on a rubric). It answers with calibrated probabilities in
-70–500 ms. It doesn't write text and doesn't drive a browser, so here
-Playwright acts and Jev decides or judges.
-
-**The key.** Create one at [console.typesafe.ai/keys](https://console.typesafe.ai/keys)
-and put it in `e2e/.env` or the repo's `./.env` (both git-ignored; see
-`e2e/.env.example`), or export it. `scripts/e2e.sh` reads both files, for the
-test runner only; the app server never sees them.
-
-| Variable | Default | Meaning |
-|---|---|---|
-| `TYPESAFE_API_KEY` (or `JEV_API_KEY`) | unset | Switches the `@jev` specs on; without it they are **skipped**, not failed |
-| `JEV_MODEL` | `jev-1.13.0` | Pinned, so thresholds don't drift when `jev-latest` moves |
-| `JEV_PASS` | `0.8` | A judged statement or a journey's `done` counts as true at or above this |
-| `JEV_LOW_CONFIDENCE` | `0.2` | A navigation step below this Choice confidence is marked `guess` in the step log |
-| `TYPESAFE_BASE_URL` | `https://api.typesafe.ai` | Point the SDK at another server (a stub, say) |
-| `JEV_DEBUG` | unset | Print every judged state and the actions offered at each journey step |
-| `JEV_FLAG` | `0.5` | Exploration: a concern under this, or a frustration at or above it, is a finding |
-| `JEV_EXPLORE_PAGES` | `15` | Exploration: the most pages judged in one run |
-
-App-side model calls in these tests still go to the dev AI provider
-(the fixtures), never Jev.
-
-**Journeys.** A journey is a goal in plain words plus how to tell it's
-reached. From `start`, each step reads the page (the visible text of
-`<main>`, which holds the page's own content, Sprint mode's answer sheet and
-results included, but not the header, nav or footer; the `data-*` state of every testid, the enabled links, buttons and
-inputs, each labelled by its `aria-label`, else its text plus a `title` that adds to it) and asks Jev in one call whether the goal is reached (Noul on
-`done`) and which action comes next (Choice; the options are "Click the
-button "Check" [sprint-play-check]" and so on, plus "Go back"). Playwright performs
-it. Logout and delete buttons are never offered, nor is anything hidden;
-a closed menu is offered as "Open the menu …" (its `<summary>`), and links
-marked `aria-current="page"` (a link to the page you are on) are left out.
-State comes from attributes, never classes: `aria-pressed="true"` or
-`aria-selected="true"` is labelled `[selected]`, `data-state="right|wrong"`
-`[marked right]`/`[marked wrong]`, and used-up tiles (`data-state="used|done"`,
-`aria-disabled="true"`) are left out. An action that left the page unchanged is marked `no effect` and not
-offered again on that page, and an action that already led away from a page
-twice is replaced by Jev's next most likely one (`loop guard` in the log). Jev can't write, so text it
-may type comes from the journey's `inputs`. The journey passes when its
-exact `check` holds (or, without one, when Jev judges `done` ≥ `JEV_PASS`);
-it fails after `maxSteps`, or when the page hasn't changed for 4 steps, with
-the step log as the error (illustrative):
-
-```
-journey find-generate-form: goal not reached in 10 steps
-   0. /  done=0.03  → Click the link "🤖 AI tutoring Chat with a tutor" [home-mode] (conf 0.35)
-   1. /tutor  done=0.07  → Go back (conf 0.47)
-   …
-```
-
-Each run also writes `e2e/results/journeys/<id>.json` with the steps, the
-calls, the tokens and the time. To add a journey, append to `e2e/journeys.ts`:
-
-```ts
-{
-  id: "find-generate-form",           // test name "journey find-generate-form"
-  login: "keys=fake",                 // /dev/login query (default "open=spanish")
-  start: "/",
-  goal: "Get to the form where you describe a course you want and the AI writes it for you.",
-  done: "The page is a form for asking the AI to generate a new course.",
-  check: (page) => page.getByTestId("generate-form").isVisible(),  // exact pass/fail
-  inputs: { "generate-wish": "Fractions for Friday" },             // testid (or "*") -> text
-  maxSteps: 10,
-}
-```
-
-`setup` (optional) runs after logging in and before Jev, and may return the
-path to start from. The course-editor journeys use it to make the dev user a
-course of their own from the fixtures (`ownCourse`, units Basics and
-Operations) and start on its page: `add-lesson-with-ai` (Use AI, Only add,
-until the modal says it is done), `edit-lesson-as-form` (find the **JSON**
-switch, change a lesson's summary in the form, save), `add-lesson-to-unit`
-(a folder's **+**, name it, save; checks the unit). `name-new-course`
-creates a course, closes the Generate dialog and renames it. They avoid the
-editor's destructive buttons (`EDITOR_AVOID`).
-
-### Exploratory testing
-
-Jev explores the app as a **profile** (a user persona), collects bugs and
-the moments that user would find unclear or frustrating, and writes a report
-that outlines new e2e tests. It finds what nobody wrote a journey for.
-
-```sh
-scripts/e2e-explore.sh --list                            # the profiles in e2e/personas/
-scripts/e2e-explore.sh impatient                         # explore as that profile, all its goals
-scripts/e2e-explore.sh classroom --goal "find help with ser vs estar"   # a goal of your own
-scripts/e2e-explore.sh classroom --goal 1                # the profile's goal 1 (0-based)
-scripts/e2e-explore.sh testing-bot --budget 80           # cap the steps (and so the cost)
-scripts/e2e-explore.sh impatient --wander 2              # then 2 sections Jev picks itself
-scripts/e2e-explore.sh --persona-file draft.ts           # a profile that isn't in the folder yet
-scripts/e2e-explore.sh --replay e2e/results/explore/<run>/report.json   # rerun a route, no Jev
-JEV_DEBUG=1 scripts/e2e-explore.sh accurate              # also print each step's options
-```
-
-| Option | Meaning |
-|---|---|
-| `--goal <words or n>` | One goal instead of the profile's list: a goal of your own, or the profile's goal number `n` |
-| `--budget <steps>` | Total steps for the run; each goal gets the profile's `patience` or what's left |
-| `--max-calls <n>` | Stop calling Jev after `n` calls (default 300) |
-| `--wander [n]` | After the goals, Jev picks `n` (default 2) sections it hasn't visited, a Choice weighted by `prefers`, and tries each one |
-| `--persona-file <path>` | Run a profile from any `.ts` file (import the types from `e2e/lib/persona.ts` by path) |
-| `--replay <report.json>` | Redo a recorded run step by step with **no Jev calls** (see below) |
-| `--fail-on <kinds>` | Exit 1 when there is a finding of these kinds (`bug`, `content`, `unclear`, `frustrating`, `testability`); without it the run always exits 0 |
-
-The server is set up as for `scripts/e2e.sh`: a fresh `e2e.db`, the seeded dev
-user, LLM fixtures (the app never makes a live model call), a free port. The
-key comes from `./.env` or `e2e/.env`; a missing key is an error, except for
-`--replay`. Logout and delete buttons are never clicked, nor anything in
-the profile's `avoid`. Puzzles stay with the exact drivers: a goal's `then`
-hands Sprint mode to `playSprintSession`.
-
-#### Profiles
-
-One file per profile in `e2e/personas/<id>.ts`, whose default export is a
-`Persona` (`e2e/lib/persona.ts`). The runner finds it by id, so **adding a
-profile means adding a file**, nothing else. `e2e/journeys.ts` can also walk
-a journey "as" a profile (`persona: "<id>"`). Each field is written for the
-question types Jev answers well:
-
-| Field | Becomes |
-|---|---|
-| `id` | The file name, the runner's argument, the report folder's name |
-| `who` | A `who` field in every step's state, so each Choice is made as this person |
-| `prefers` | Added to the Choice instructions: tie-breakers between actions, and between sections with `--wander` |
-| `patience` | Steps per goal; after `patience / 2` steps with no effect the profile is **lost** and gives up |
-| `viewports` | `phone` (390×844) or `desktop`; with both, goals alternate, phone first |
-| `goals` | Goals like journeys (`goal`, `done`, optional `start`, `check`, `inputs`, `topic`) plus `then`: exact work after the goal is reached |
-| `concerns` | Noul statements that should hold on the pages visited; **a low p is an `unclear` finding** |
-| `frustrations` | Noul statements about what would make this person leave; **a high p is a `frustrating` finding** |
-| `checks` | Exact page checks, no model: `labels`, `class-state`, `hidden-menus`, `error-role` (testability) and `overflow` (a bug; always on at phone width) |
-| `items` | Content audit: rows of a table (say `lesson-vocab-item`) judged one by one; **a low p is a `content` finding** |
-| `avoid`, `inputs` | Testids never to touch; what to type (testid or `"*"` → text). A goal's `inputs` win |
-
-Statements follow the judged-spec rules: one idea each, plain words, judged
-on the page text with each run of one- and two-character lines joined into
-one line (a row of accent buttons becomes one line of noise; a stat tile stays
-"0 XP"). A statement that only makes sense on some pages gets `on` (a path
-pattern) or `when` (a testid that must be visible):
-`{ text: "The page shows the correct answer.", when: "sprint-play-result" }`. A
-statement naming `` `topic` `` is judged only on goals with a `topic`, and
-one naming `` `actions` `` gets the page's action labels in its state.
-
-| id | Who | Walks | Looks for |
-|---|---|---|---|
-| `impatient` | A teenager on a phone, mostly Sprint mode, skims everything | patience 6, phone | start and finish a Sprint mode session, come back to it, see XP/streak; walls of text, typing first, dead taps, a page wider than the screen |
-| `accurate` | A serious adult who reads every explanation and loses trust at the first wrong fact | patience 20, desktop | reads a lesson and its vocabulary, practises and reads the feedback, browses the vocabulary list; each vocabulary row's meaning, accents and ¿¡, feedback that explains |
-| `classroom` | A student bringing a topic from class (`CLASS_TOPICS`) | patience 10, phone then desktop | finds the lesson for each topic, judges that it's about the topic and can be practised alone. A topic no route reaches is a coverage finding (as "numbers over 100" was until #491 added the A2 lesson) |
-| `testing-bot` | An automated tester that sees only markup | patience 12, desktop | walks as many pages as it can; unlabelled buttons, state only in classes, links behind a closed menu, errors that aren't `role=alert` |
-
-To draft a profile, copy one to anywhere, change the import to
-`import type { Persona } from "<repo>/e2e/lib/persona"`, run it with
-`--persona-file`, and move it into `e2e/personas/` when it's useful. The same
-`--goal` under two profiles compares routes: the report's journey proposal
-says "reached in 3 steps; other profiles: classroom in 9".
-
-#### What a run does
-
-For each goal (then each `--wander` pick), the profile walks with the
-navigator, and every page it reaches is observed in two layers:
-
-- **Exact signals, no model: `bug` findings.** HTTP ≥ 400 on a navigation; a
-  fetch, XHR or asset that returns ≥ 400 or fails; console errors and
-  uncaught page errors; a page wider than a phone screen; an action with no
-  effect (not counting a link to the page you're on, or re-picking the option
-  already picked); a walk that is stuck or a profile that gets lost.
-- **Jev judgements.** On each page it hasn't seen (its path plus the set of
-  visible testids), one batched call for the concerns and frustrations that
-  apply, and one per table for `items`, up to `JEV_EXPLORE_PAGES` pages. A
-  concern under `JEV_FLAG` is `unclear`, a frustration at or above it is
-  `frustrating`, an item under it is `content`. The profile's markup checks
-  are `testability`.
-
-Each finding keeps **evidence** from where it was first seen: the step log
-up to then, a screenshot, the URL, the visible testids and their `data-*`
-state, and Jev's answer. Findings are **deduplicated**: an exact bug by its
-signal, page and message; a judgement or check by its statement or message,
-listing every page it showed on. Digits are folded, so "51px wider" and
-"53px wider" are the same finding.
-
-#### Reading the report
-
-The terminal gets a summary; the folder
-`e2e/results/explore/<profile>-<timestamp>/` gets `report.md`, `report.json`
-and `shots/` (illustrative):
-
-```
-explore classroom: 4/5 goals reached, 23 steps, 32 Jev calls, 87290 tokens, ≈ $0.00367, 8s, jev-1.13.0, commit 3f21509
-findings: 1 bug, 1 unclear (vs previous run: 0 new, 0 gone, 0 not revisited)
-  high   bug         On /lessons/ser-vs-estar: the page is 230px wider than a 390px screen: <th> in [lesson-conjugations], <td class="can-say"> in [lesson-conjugations] run off the edge.
-  low    unclear     On /lessons/numbers-0-100, Jev doubts that "The page is about the `topic`." (p=0.21).
-proposed tests: 4 journeys, 1 regression specs, 1 judged specs, 0 markup fixes
-report: e2e/results/explore/classroom-20261015-191613/report.md
-```
-
-(The unclear finding was a coverage gap, since closed by #491: asked for
-"numbers over 100", the profile kept landing on "Numbers 0–100" because no
-lesson went further. The `find-topic-lesson` journey was promoted from this
-run's first proposal.)
-
-`report.md`, for people:
-
-1. **Summary**: goals reached and missed, steps, Jev calls, tokens, ≈ cost,
-   time, the model and the app commit (`+dirty` with local changes), then a
-   table of the goals.
-2. **Findings**, worst first: exact bugs (`high`), then judged findings by
-   how many other profiles' latest runs hit them and how far p is on the
-   wrong side (`medium` from 0.8, or when another profile hit it too), then
-   testability (`low`). Each has "what the user hit" in one line, and its
-   evidence. Compared with the profile's previous run, a finding is
-   **new**; one whose page was visited again but didn't show is **gone**; one
-   whose pages weren't visited this time is **not revisited**.
-3. **Route map**: the pages in the order visited, the pages linked from the
-   header or the home page that were never reached, and each goal's step log.
-4. **Proposed e2e tests**, ready to review and paste:
-   - each **goal reached**: a `journeys.ts` entry with a suggested exact
-     `check`: the profile's own when it has one, else a `data-*` state or a
-     testid that first appeared on the final page (else the path, with a
-     note to add a testid);
-   - each **bug**: a regression spec outline for `exact.spec.ts`, starting on
-     the page before the bug with the action that triggered it (Jev's whole
-     route is in a comment) and the assertion that would have caught it;
-   - each **unclear, frustrating or content** finding: a judged spec for
-     `judged.spec.ts` with its statement and threshold, or **"needs a
-     person"**: a content fact check, or a p within 0.15 of the flag;
-   - each **testability** finding: the markup change (`aria-label`,
-     `data-state`, `role="alert"`, …) with the template line that holds the
-     testid.
-
-`report.json` has the same, plus every visit and judgement, for tools, for
-diffing two runs, and for turning a proposal into a file.
-
-**Replay.** `--replay <report.json>` starts the same server, logs in, and
-redoes each goal's recorded steps by their action labels, observing with the
-exact signals only: no Jev calls, no cost. Its report (in
-`<profile>-replay-<timestamp>/`) says which of the recorded bug and
-testability findings **reproduced**, which are **gone**, what is new, and
-which steps could not be redone (the page changed). A reproduced bug's
-regression outline is the first draft of its exact test.
-
-#### Promoting a proposal
-
-A Jev flag can be wrong. Look at the screenshot and the evidence first.
-
-- **A journey**: paste the entry into `e2e/journeys.ts`, check the suggested
-  `check` names the end state you mean (prefer a `data-*` state), and run it
-  alone with `scripts/e2e-jev.sh <id>`.
-- **A bug**: `--replay` the report to see it reproduce, paste the outline
-  into `exact.spec.ts`, cut the route to the shortest one that still fails,
-  then fix the app until it passes.
-- **A judged finding**: try the outline in `judged.spec.ts` against the
-  pinned model a few times before trusting its threshold; if it needs a
-  person, decide first. A confirmed content flag is a lesson JSON fix.
-- **A testability finding**: make the markup change under the
-  [markup hooks](#markup-hooks) conventions, then assert it exactly.
-- **Anything else confirmed** becomes an issue, or an entry in the pathway
-  list (#36).
-
-**Cost.** One call per step plus one per new page, at about 2k tokens a
-call: a profile's goals cost well under a cent. `--budget` and
-`--max-calls` cap it, and the report prints it.
-
-### Determinism rules
-
-- **Exact specs gate a change.** They need no key and no network and must
-  pass. Anything that can be asserted with testids and state attributes is
-  asserted that way.
-- **Markup decides the result.** Jev only picks the path. Give a journey a `check` whenever its end
-  state shows in markup. Then the result is exact and only the path is
-  Jev's. Use `done` alone only for ends that markup can't express.
-- **Judged statements** are for qualities that exact text can't capture or
-  that break when copy changes ("the error explains itself in plain words").
-  Each reports its probability and fails under `JEV_PASS`. The threshold is
-  tuned against the pinned model; change `JEV_MODEL` and the threshold
-  together.
-- **Persona runs are exploratory.** They report and never fail. Only
-  promoted journeys (with an exact `check`) and tuned judged specs can fail
-  the suite.
-- A low-confidence step is **reported, not failed**: it shows as `guess` in
-  the step log. A journey fails only when the goal isn't reached.
-- A failing `@jev` spec is a report to read, not proof of a bug: check the
-  step log or the probability, then fix the app, the journey, or the
-  threshold.
-
-**What Jev is good at here** (measured on `jev-1.13.0`, 2026-10-15): picking
-the next link or button toward a goal stated in words (the three journeys
-take 2–6 steps), and judging clean, short text, where it is consistent from run
-to run (0.95–0.99 on true statements). It is weak at multi-tap puzzles: a
-journey that played Sprint mode exercises (match the pairs, sort into buckets)
-spent 150 calls without finishing, so playing exercises stays in the exact
-specs (`playSprintSession`) and journeys only get you to them. Judgements
-come out lower when the text carries noise, like rows of accent buttons
-(the judged spec strips one- and two-character lines), or when one
-statement asks two things: ask one thing per statement.
-
-**Cost and speed.** You pay per input token ($0.042 per million; output is
-free). A navigation step sends about 2k tokens (the page text is capped at
-4,000 characters). The whole `@jev` suite (three journeys, three judgements)
-is about 22k tokens, ≈ $0.001, and runs in about 5 s, most of it the
-browser. The run prints the calls, tokens and estimated cost.
+Two kinds of spec use a hosted model to judge a page or to find a path toward a
+goal in words: `scripts/e2e-jev.sh` (journeys and judged statements) and
+`scripts/e2e-explore.sh` (exploratory runs that report and never fail). They are
+test tools, not part of the app, and run only when `TYPESAFE_API_KEY` is set in an
+untracked `./.env` or `e2e/.env` (see `e2e/.env.example`); without it
+`scripts/e2e.sh` skips them. Everything CI gates on is exact: no key, no model.
 
 ## Smoke specs
 
@@ -1144,7 +748,7 @@ E2E_SEED=7 scripts/e2e.sh specs/smoke       # another seed; a failure prints the
 ```
 
 Cheap, deterministic browser tests of the essential paths, right and wrong, run on
-every change (and by `.github/workflows/smoke.yml` on every PR, on the [laptop runners](#ci-runners), as separate checks: `cargo test`, `scripts/smoke.sh`, the exact specs and the smoke specs, each e2e suite in [shards](#ci-runners)): no Jev, no
+every change (and by `.github/workflows/smoke.yml` on every PR, on the [laptop runners](#ci-runners), as separate checks: `cargo test`, `scripts/smoke.sh`, the exact specs and the smoke specs, each e2e suite in [shards](#ci-runners)): no model, no
 key, no network, about three minutes. Each test registers its own
 account through `/register`, so they never share the dev user, and ends
 with a check that every page agrees with `/api/progress`
@@ -1165,11 +769,6 @@ with a check that every page agrees with `/api/progress`
 - `phone-width.spec.ts` (#201): as the seeded dev user at 390×844 (`isMobile`),
   the main pages, a lesson in each mode and the course editor are exactly
   390 px wide (`documentElement.scrollWidth`): nothing scrolls sideways.
-- `password-reset.spec.ts` (#379): registering a taken address shows the
-  same "check your mail" and mails the owner (read from `/dev/inbox`); a
-  forgotten password is reset from the login page's link through the mailed
-  link, which works once and signs out the other browser; the old password
-  fails and the new one signs in.
 - `start-level.spec.ts`: the [starting level](features#starting-level). A
   new learner opens Spanish, picks A2: the A1 lessons are skipped (not passed,
   not offered by recommended practice, the review mix or the lightning round),
@@ -1220,50 +819,11 @@ specs run one at a time, as they do.
 **Writing one.** Use `test` from `e2e/lib/fixtures.ts`, a fresh account from
 `e2e/lib/learner.ts`, and the answer helpers; assert state attributes, not
 text from the course. A helper that misses a testid or a state attribute is
-a reason to add it to the template ([Markup hooks](#markup-hooks)). For a
-new flow, record a draft with Jev first if the path isn't obvious:
-
-### Recording a smoke spec
-
-`scripts/e2e-record.sh --start <path> --goal "<goal in words>" --id <kebab-id> [--course <id>] [--budget N]`
-has Jev walk toward the goal once, on the same seeded server as
-`scripts/e2e.sh`. It needs the Jev key and costs about $0.001 for a 13-step
-walk. Jev only finds the path. The recorder fills in answers from the answer
-key before Jev chooses (a reading check, a Practice or Guide question, a
-whole Sprint session), and Jev may not touch the answer inputs. A script in the
-page records each click, fill and pick with the testids around it. Before
-each step the recorder saves a snapshot of the testid elements' `data-*`
-attributes and `aria-pressed`, `aria-current` and `aria-expanded`.
-
-The converter (`e2e/record/convert.ts`) writes a draft to
-`e2e/results/record/<id>/<id>.spec.ts`, with `trace.json` beside it. In the draft:
-
-- the spec starts with a fresh account (`register`), so it never shares a user;
-- steps are testid locators, never coordinates or text from the course;
-- answers are `passReadingCheck`, `answerQuestion` or `playSprintRight`, never what was typed;
-- each step ends with expects on the state attributes that changed, and on the page moving on;
-- a header records the goal, the date, the model and the seed.
-
-`scripts/e2e-record.sh --convert <trace.json>` rebuilds the draft without
-Jev, for example after changing the converter. The converter's unit tests
-run with `npm --prefix e2e run unit`.
-
-Review before you copy a draft into `e2e/specs/smoke/`:
-
-- keep only the expects that are about the flow (passed, read, done, locked), not about content;
-- drop steps Jev took by accident (a menu opened and closed, a page visited
-  and left, a second button pressing the same thing);
-- rewrite lines marked `REVIEW`: they name content (a question id) or point
-  at an element with no testid, so add a testid to the template;
-- name the test after the learner's goal and delete the DRAFT header.
-
-Recording is optional. For a flow you already know, writing the spec by hand
-from the testids is cheaper.
+a reason to add it to the template ([Markup hooks](#markup-hooks)). 
 
 ### The mini lane
 
-Every other browser run has the dev stand-ins on: the dev mailbox and the dev
-phone. A self-hoster
+Every other browser run has the dev stand-ins on: the dev phone. A self-hoster
 has none of them. The mini lane (#639, part of #632) runs a few smoke specs
 in that shape:
 
@@ -1274,13 +834,13 @@ E2E_MINI=1 scripts/e2e.sh specs/smoke/happy-paths.spec.ts specs/smoke/mini.spec.
 
 `E2E_MINI=1` starts the server with `SKRONGLE_MINI=1` (learners' own keys
 still reach [the dev AI provider](#the-dev-ai-provider)) and passes
-`E2E_MINI=1` to the specs. `SKRONGLE_MINI=1` makes it a Skrongle mini (#578, #641: no
-dev mailbox, and `/healthz` says `ok skrongle mini <version>`). Sign-up stays open, since the specs register. A spec that needs a
+`E2E_MINI=1` to the specs. `SKRONGLE_MINI=1` makes it a Skrongle mini (#578, #641:
+`/healthz` says `ok skrongle mini <version>`). Sign-up stays open, since the specs register. A spec that needs a
 stand-in skips there: `test.skip(process.env.E2E_MINI === "1", "why")`
-(`verify-email.spec.ts`, `export.spec.ts`). `mini.spec.ts` checks what is
+(none does now). `mini.spec.ts` checks what is
 true in the mini shape (a learner registers, signs in and passes a lesson;
-no dev mailbox; `/healthz` names the mini; the profile has an (i)
-instead of the red ! on the e-mail); each #632 issue adds its browser check there.
+there is no `/dev/inbox`; `/healthz` names the mini; the profile asks nobody to
+confirm their e-mail); each #632 issue adds its browser check there.
 CI runs it as the `e2e-mini` job in `.github/workflows/smoke.yml`, one
 shard; it is not a required check yet.
 
@@ -1360,7 +920,7 @@ scripts/ci-runners.sh reset    # also delete the work volumes (a clean build nex
   wants a PR, up to date with main, with `cargo test`, `server smoke test
   (scripts/smoke.sh)`, `e2e exact specs` and `e2e smoke specs` green; a
   repository admin can bypass it. The other workflows (`pr-title`,
-  `terms-lint`, `release`) are not required.
+  `release`) are not required.
 - **Builds stay on the runner**: each runner's work volume holds its Rust
   build at `CARGO_TARGET_DIR=/_work/cargo-target` (set in `compose.yml`),
   outside the checkout, so `actions/checkout`'s `git clean -ffdx` leaves it
@@ -1402,246 +962,3 @@ scripts/ci-runners.sh reset    # also delete the work volumes (a clean build nex
 - **Private repo only**: a job runs whatever the PR's code says, inside a
   container on the laptop. Fine while only we push; before taking PRs from
   outside contributors, switch to the fallback or require approval for them.
-
-## Playthrough
-
-An end-to-end test of a whole course in one mode, which takes a person hours:
-a new account (registered through `/register`, on a plain server with no
-dev mode and no seed) opens the course and plays every lesson in the mode's
-order, with Jev as the learner. It answers two questions: **is the platform
-broken anywhere along the way**, and **which lessons can a learner who only
-knows what the course shows not pass** (too hard, unclear, or a broken
-feature).
-
-```sh
-scripts/jev-playthrough-sprint.sh               # Sprint mode (also -study, -play); same as scripts/jev-playthrough.sh sprint
-scripts/jev-playthrough-all.sh             # Sprint, Study and Play one after the other; one summary table
-scripts/jev-playthrough-study.sh --lessons 5   # the first 5 lessons only
-scripts/jev-playthrough-play.sh --attempts 1  # tries per lesson before the fudge (default 2)
-scripts/jev-playthrough-sprint.sh --fail-on bug,invariant,stuck   # what exits 1 (default bug,invariant)
-scripts/jev-playthrough-sprint.sh --headed --keep                 # watch it; leave the server up
-scripts/jev-playthrough.sh serve e2e/results/playthrough/<run>/checkpoints/07-ser-vs-estar.db
-MODES="sprint play" scripts/jev-playthrough-all.sh # some modes only
-scripts/jev-playthrough-test-course.sh     # the test course in Sprint, Study and Play (same options, MODES too)
-scripts/jev-playthrough.sh calibrate --lessons 12   # how often Jev answers the quiz right, asked as the player asks
-```
-
-**Each lesson.** Jev plays the mode's phases for the lesson (Sprint: the session;
-Study: the lesson page and its reading check, then a practice round; Play: the
-Guide stage) up to `--attempts` times. Whether it passed is read from
-`/api/progress`. A lesson it can't pass is marked **failed** and then passed
-artificially through `POST /api/progress/pass` (the agents' API), so the
-run always reaches the end of the course; the report lists it with every
-wrong answer and the app's feedback. After each lesson:
-
-- **Consistency**: every page that lists lessons (`/sprint`, `/guide`, `/lessons`,
-  `/map`, the last lesson's page) shows `data-passed` as `/api/progress`
-  says, and the mode's next lesson is not locked.
-- **Checkpoint**: a copy of the database (`checkpoints/NN-<slug>.db` and its
-  key). `scripts/jev-playthrough.sh serve <checkpoint>` starts a server on it
-  and prints the account, so a finding at lesson 25 is reproduced in seconds.
-
-**Findings**, in `report.md` with a screenshot each:
-
-| Kind | Raised by | Fails the run by default |
-|---|---|---|
-| `bug` | HTTP ≥ 400 on a page or request, a failed request, a console or uncaught page error, a page still wider than the screen once settled, a crash of the run | yes |
-| `invariant` | a page that disagrees with `/api/progress`, a next lesson still locked, a fudge the app refused | yes |
-| `stuck` | a phase Jev could not finish (the page stopped changing): a dead button, or Jev | no (`--fail-on`) |
-
-Jev failing a lesson never fails the run: it is data. The exit code is 1
-when there is a finding of a `--fail-on` kind, so `jev-playthrough-all.sh`
-can gate a GitHub Action (it adds its table to `$GITHUB_STEP_SUMMARY`).
-
-**Why a lesson failed.** The report's "Lessons Jev failed" section gives,
-for each try, the app's own verdict from `/api/progress` and the reason in
-terms of the rule (not seen: in Study mode the reading check wasn't passed; or
-the best run under 70 %), then every wrong answer with its question, what
-Jev did with its confidence (a low one means it was guessing), and the app's
-feedback. `traces/NN-<slug>.jsonl` has every question put to Jev on that
-lesson: the state it was shown, the options, its pick, its confidence and
-the runners-up (`--trace` writes them for every lesson). Read a wrong answer
-with high confidence as Jev being sure and wrong, or the content being
-unclear; a low one as Jev unsure. To tell Jev's limits from the way it is
-asked, change `player.ts` and compare `calibrate` before and after.
-
-**How Jev plays** (`e2e/playthrough/player.ts`, the same for every mode).
-Each step reads the page as the navigator does (the visible text of
-`<main>`; the enabled buttons, options and boxes, without the site's
-`nav-*` and `footer-*` chrome or links; `[selected]` and `[marked wrong]`
-from `aria-pressed` and `data-state`) and Jev picks the next action
-(Choice). Every choice also carries the lesson's text (its content,
-vocabulary and tables, read from `/lessons/<slug>` first), as a learner who
-just read it would have. Jev can't write, so a text box is filled one word
-at a time from a pool: the words of the lesson page in the course's
-language (the elements with its `lang`), then the question's; Jev is told the
-box's language, so a "Translate" question isn't answered by copying it. Speakers, accent helpers and sound
-toggles are never offered, so listening exercises get skipped. An action
-that changed nothing is not offered again on that page; 8 unchanged steps
-end the phase as `stuck`. A graded answer is a visible `role="status"` with
-class `ok` or `bad`.
-
-**The test course.** `scripts/jev-playthrough-test-course.sh` is
-`jev-playthrough-all.sh` for the [test course](#the-test-course): its servers
-run with `TEST_COURSE=1` and each mode plays `--course test-course`, so Jev
-meets every feature a course file can switch on (each quiz type, each Sprint
-exercise, the hand-ordered and derived Guide, the read-only and legacy
-lessons) as a learner, about 19 lessons per mode. Its results go to
-`<timestamp>-test-course/{d,k,g}/`. Typed numbers and formulas (boxes with
-`data-math`, in Study, Play and Sprint) are composed from digits, operators and the
-numbers of the question and lesson rather than from the lesson's words.
-With `--lessons 2` it costs under a cent for all three modes.
-
-**Adding a mode** is an entry in `e2e/playthrough/modes.ts`: the page that
-lists its lessons and the testid of each (with `data-lesson-id`,
-`data-passed`, `data-state="locked"`), its phases (a URL, a goal in words,
-an exact `done` check), the testids and selectors to leave alone, and a
-line of advice for Jev. Nothing else knows a mode or a course; `--course`
-picks another one.
-
-**Calibrate.** `scripts/jev-playthrough.sh calibrate` asks Jev the first
-`--lessons` lessons' quiz questions the way the player does (typed ones
-through its `compose`, multiple-choice ones as a step's Choice) on the real
-lesson pages, and scores them against the lesson files: the only place the
-answer key is used. Rerun it after changing how `player.ts` asks, or
-`JEV_MODEL`. With `jev-1.13.0` on the first 12 Spanish lessons: typed 38/38,
-multiple choice 63/64 (before the lesson text and the answer language were
-added: typed 33/38, copying the English of "Translate" questions).
-
-Results: `e2e/results/playthrough/<timestamp>-<mode>/` (or
-`<timestamp>-all/<mode>/`): `report.md`, `report.json`, `account.json`,
-`shots/`, `checkpoints/`, `traces/`; `calibrate.json`. A lesson costs roughly 50–150 Jev calls (a few
-tenths of a cent); `--max-calls` (default 8000 per mode) caps it.
-
-## Fact check
-
-`scripts/fact-check.sh` has Jev read every unit of the built-in courses
-(`data/courses/*`) and prints what is wrong, where, and how to fix it: a
-report to act on, never a failing test (unless `--fail`). Use it after
-writing or generating content, instead of asking an LLM to audit a course.
-
-```sh
-scripts/fact-check.sh                        # every course
-scripts/fact-check.sh spanish --lesson a2/   # one course, lessons whose path contains "a2/"
-scripts/fact-check.sh --errors               # only ERRORs
-scripts/fact-check.sh --why                  # also each finding's ok-list line
-scripts/fact-check.sh --json findings.json   # also as JSON
-scripts/fact-check.sh spanish --calibrate    # how well it works on this course, today
-```
-
-### Reading the report
-
-```
-data/courses/spanish/lessons/a1/ser-vs-estar.json
-  ERROR  listening[3]   Spanish · ser/estar  1.00
-         Las llaves «son» en la mochila.
-         English: The keys are in the backpack.
-         fix: "son" → "están"   (Jev 1.00 for the fix, 0.00 for the text as it is)
-         fixed: Las llaves están en la mochila.
-  ERROR  quiz[0] a1-ser-vs-estar-01   answer key  0.97
-         Mi madre ___ médica.
-         options: es | está
-         key: está
-         following the lesson's rule, Jev answers "es" (1.00); the key gets 0.00
-         Jev 0.03 that the key is right
-         lesson's rule: Occupation is part of who someone is, so it takes ser: 'Mi madre es médica.' …
-```
-
-(Two mistakes planted in a copy of the lesson; both caught exactly.)
-
-Each finding names the file, the place in it (`listening[3]`,
-`content § Heading › row 2`, `sprint.sorts[1] item 4`),
-what kind of mistake it is, the item with the suspect word in «», and the
-evidence with Jev's probabilities.
-
-- **ERROR**: Jev has specific evidence. It picked a repair over the text as
-  written, or it disagrees with an answer key in two ways that both use the
-  lesson's own rule, or the corrected sentence of a spot still has a
-  mistake. On the real Spanish course this verdict has no false alarms.
-- **CHECK**: Jev is sure something is wrong and says where, but has no fix
-  (a false claim, a translation that doesn't match, a form it doubts).
-  Verify these; Jev knows less than an author about hard grammar and about
-  the subject of a non-language course.
-
-A finding that is right after all goes in `data/courses/<id>/fact-check-ok.txt`
-(`--why` prints the line). The line holds a hash of the item, so the item is
-checked again if it changes. The loader ignores the file.
-
-### How the questions work
-
-The checker splits a course into **units**: a sentence with its translation,
-one line of a lesson section (a table row, a list item, a paragraph), a quiz
-question, one item of a sort, a spot, a conjugation table, a vocabulary entry.
-Each unit gets one
-Jev call (`e2e/fact-check/probe.ts`), shaped by four rules found by
-experiment:
-
-1. **Ask where, not whether.** A Choice over the words of the line, plus
-   "none", finds a planted wrong word 65–95 % of the time. A plain "is this
-   correct?" fires on many correct sentences and points at nothing.
-2. **Let Jev pick the repair.** Jev can't write, so the script proposes
-   candidates for the suspect word and Jev picks the correct full sentence
-   from them, the original included. The candidates are confusable words
-   (ser/estar, articles, prepositions, question-word accents…), other forms of
-   the same verb from the course's tables, and accent and ending variants.
-   Each must be a word the course itself uses, which stops invented
-   spellings. A repair that wins is the strongest evidence there is, and it
-   is the fix.
-3. **Check against the author's reasoning.** Asked cold, Jev answered 1–2 %
-   of correct quiz keys and sort items differently, and on the real course
-   every one of those was Jev being wrong. With the item's explanation, hints
-   or the sort's `why` in front of it, that fell to 0 of 233 keys and 2 of
-   931 sort items, and 94 % of flipped keys were still caught. Jev does the
-   exercise following the rule *and* judges the key; an error needs both.
-4. **Two signals or no finding.** A mistake judged without a repair needs
-   "is there a mistake" and "where" (not "none") both at 0.9 or more.
-
-### How well it works
-
-`--calibrate [n]` measures it on a course: it plants one known mistake in
-copies of `n` units per kind (default 30), probes them alongside untouched
-ones, and prints per kind of mistake how many were flagged, flagged as ERROR,
-pointed at (the planted word in «»), and fixed (the fix restores the original
-word). It also probes the whole real course, whose flags are the false-alarm
-rate that matters: real content is nearly all correct, so a check flagging 1 %
-of units buries the few real mistakes under dozens of bogus ones. Rerun it
-when `JEV_MODEL` changes; the thresholds are `T` in `probe.ts`.
-
-Measured on `jev-1.13.0`, 2026-10-15, Spanish course. On a fresh sample
-(not the one the thresholds were tuned on):
-
-| Planted mistake | Caught | As ERROR with the right fix |
-|---|---|---|
-| wrong verb form, pronoun, agreement, ser/estar, hay/estar in a sentence | 78–88 % | 68–85 % |
-| dropped accent, question-word accent in a sentence | 80 % | 75 % |
-| article, preposition, demonstrative in a sentence | 58–68 % | 38–58 % |
-| the same in a lesson line (table rows, lists, prose) | 60–85 % | 30–70 % |
-| translation swapped | 95 % | (ERROR, no fix) |
-| quiz answer key flipped | 100 % | (ERROR) |
-| sort item in the wrong bucket | 90 % | (75 % ERROR) |
-| spot whose fix doesn't fix it | 90 % | (80 % ERROR) |
-| vocabulary meaning swapped | 100 % | (ERROR) |
-| conjugated form of another person | 88 % | 83 % |
-| accent dropped from a conjugated form | 33 % | 33 % |
-| a rule turned false (before/after, always/never…) | 30 % | none |
-
-On the whole real course (6,040 units) it flags 0 ERRORs and 4 CHECKs, all
-four false alarms (Jev doubting correct grammar rules). On a course that is
-not about a language (a marketing course, since removed), 7 of its 8 ERRORs
-were real broken spot-the-mistake items, and its CHECKs were mostly domain
-claims Jev can't verify. It does **not** catch: a
-false rule stated in prose (most of the time), a dropped accent on a lone
-conjugated form, mistakes in English explanations, or anything the author
-got consistently wrong in both the key and its explanation.
-
-**Cost and speed.** Answers are cached in `e2e/results/fact-check/cache.json`
-by model, state and questions, so a rerun only asks about what changed
-(`--no-cache` asks again). From cold, the Spanish course (about 6,000 units,
-16 calls at a time) takes about 35 s and ≈ $0.18; a rerun after editing a lesson
-takes a second or two. Jev's answers vary slightly between calls, so an item
-right at a threshold can come and go between cold runs; the cache keeps a
-run's answers stable.
-
-To try it on content you have altered, copy a course to a folder and point
-`FACT_CHECK_COURSES` at the folder that holds it; `FACT_CHECK_SEED` changes
-the calibration sample.

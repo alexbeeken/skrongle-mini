@@ -32,6 +32,6 @@
   {% include "ai_examples.html" %}
   {% else %}
   {% if let Some(when) = af.reviewable %}<p class="actions"><a class="btn ghost" href="{{ crate::base_path() }}/courses/{{ af.course_id }}?review=1" title="{{ crate::t1("courses.ai.review_tip", "when", when) }}" data-testid="course-ai-review">{{ crate::t("courses.ai.review_changes") }}</a></p>{% endif %}
-  <p class="no-key" role="alert" data-testid="course-ai-no-key">{{ crate::t1("courses.ai.no_key_html", "url", crate::url("/profile#api-keys"))|safe }}</p>
+  <p class="no-key" role="alert" data-testid="course-ai-no-key">{% if crate::routes::is_owner(user) %}{{ crate::t1("courses.ai.no_key_html", "url", crate::url("/manage#ai"))|safe }}{% else %}{{ crate::t("courses.ai.no_key") }}{% endif %}</p>
   {% endif %}
 </section>

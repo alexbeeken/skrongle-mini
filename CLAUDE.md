@@ -1,8 +1,7 @@
 # Working on Skrongle
 
 A self-hosted learning app (Rust, axum, SQLite, askama) driven by JSON
-courses, built for one small box such as a Raspberry Pi Zero 2 W. Session habits that keep
-the context small are in `docs/dev.md` "Working with Claude".
+courses, built for one small box such as a Raspberry Pi Zero 2 W.
 When compacting, keep the issue number, the list of files changed and the
 test or spec commands used.
 
@@ -10,8 +9,6 @@ Read `docs/` before changing anything substantial:
 
 - `docs/course-format.md` — the course/lesson JSON format.
 - `docs/features.md` — what each feature does and which fields it reads.
-- `docs/qa.md` — how to QA a pull request (click through it, leave e2e
-  specs behind, write the merge verdict); read it before reviewing a PR.
 - `docs/architecture.md` — module layout, request flow, schema, config.
   Start at its "Where things live" map; it names the file to open first.
 - User guides (`docs/index.md`, `getting-started`, `course-structure`,

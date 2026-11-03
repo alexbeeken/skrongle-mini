@@ -29,8 +29,7 @@ all driven by JSON course files.
   one `i18n/<code>.yaml` per language, the pickers, how code reads it, and
   how a course gets translated (a translated copy).
 - [Data inventory](data-inventory): what is stored about a learner, where,
-  why, what leaves the server and for how long. The
-  [privacy policy](privacy) (served at `/privacy`) is written from it.
+  why, what leaves the server and for how long.
 
 ## For LLMs
 
@@ -39,5 +38,5 @@ Every page here is also raw Markdown. Add `.md` to its address.
 
 ## For developers
 
-Working on the code? See [Developer documentation](dev): architecture,
-testing, QA and the security review.
+Working on the code? See [Architecture](architecture) and
+[Testing locally](testing).

@@ -15,7 +15,7 @@ use rusqlite::{params, Connection, OptionalExtension};
 
 pub const NAME_MAX: usize = 60;
 pub const EMAIL_MAX: usize = 254;
-/// The most the part before the `@` may have (RFC 5321); `lettre` refuses more.
+/// The most the part before the `@` may have (RFC 5321).
 pub const EMAIL_LOCAL_MAX: usize = 64;
 
 /// A first or last name: optional, up to `NAME_MAX` characters, no control
@@ -56,10 +56,6 @@ pub fn validate_email(raw: &str) -> Result<String, String> {
     if !domain.contains('.') || domain.starts_with('.') || domain.ends_with('.') || domain.contains("..") {
         return Err(crate::t("profile.email.no_domain"));
     }
-    // What we accept must be an address mail can be sent to (#1003).
-    if v.parse::<lettre::Address>().is_err() {
-        return Err(crate::t("profile.email.not_email"));
-    }
     Ok(v)
 }
 
@@ -75,25 +71,13 @@ pub struct Profile {
     pub created_at: i64,
     /// Accounts without one (signed in through a proxy) have no password to change.
     pub has_password: bool,
-    /// The Terms of Service version last accepted, and when.
-    pub terms: Option<crate::terms::Acceptance>,
-    /// "Hide all AI features" (`users.ai_off`).
-    pub ai_off: bool,
     /// When the age box was ticked (`consent::age_confirmed_at`).
     pub age_confirmed_at: Option<i64>,
-    /// The AI features consent's latest row (`consent::AI`), for its date.
-    pub ai_consent: Option<crate::consent::Record>,
     /// The phone number and the second sign-in step (`two_factor.rs`).
     pub two_factor: crate::two_factor::Settings,
 }
 
 impl Profile {
-    /// The "Do Not Show Me AI Features" row of the Privacy and consent card:
-    /// shown or hidden, and since when if the record says.
-    pub fn ai_consent_text(&self) -> String {
-        ai_consent_text(self.ai_off, self.ai_consent)
-    }
-
     /// The age row of the Privacy and consent card.
     pub fn age_text(&self) -> String {
         match self.age_confirmed_at {
@@ -109,28 +93,15 @@ impl Profile {
     }
 }
 
-/// "Shown since 3 March 2026", "Hidden since …", or plain "Shown"/"Hidden" for an
-/// account with no record (made before v82 with AI hidden, or by a script).
-pub fn ai_consent_text(ai_off: bool, latest: Option<crate::consent::Record>) -> String {
-    match (ai_off, latest) {
-        (false, Some(r)) if r.withdrawn_at.is_none() => crate::t1("profile.consent.ai_on_since", "date", long_date(r.granted_at)),
-        (true, Some(crate::consent::Record { withdrawn_at: Some(t), .. })) => crate::t1("profile.consent.ai_off_since", "date", long_date(t)),
-        (false, _) => crate::t("profile.consent.ai_on"),
-        (true, _) => crate::t("profile.consent.ai_off"),
-    }
-}
-
 pub fn load(conn: &Connection, user_id: i64) -> rusqlite::Result<Option<Profile>> {
-    let terms = crate::terms::latest(conn, user_id)?;
     let age_confirmed_at = crate::consent::age_confirmed_at(conn, user_id)?;
-    let ai_consent = crate::consent::latest(conn, user_id, crate::consent::AI)?;
     let two_factor = match crate::two_factor::settings(conn, user_id) {
         Err(rusqlite::Error::QueryReturnedNoRows) => return Ok(None),
         r => r?,
     };
     conn.query_row(
         "SELECT first_name, last_name, NULLIF(email, ''), created_at,
-                password_hash != '', ai_off
+                password_hash != ''
          FROM users WHERE id = ?1",
         [user_id],
         |r| {
@@ -140,10 +111,7 @@ pub fn load(conn: &Connection, user_id: i64) -> rusqlite::Result<Option<Profile>
                 email: r.get(2)?,
                 created_at: r.get(3)?,
                 has_password: r.get(4)?,
-                terms: terms.clone(),
-                ai_off: r.get(5)?,
                 age_confirmed_at,
-                ai_consent,
                 two_factor: two_factor.clone(),
             })
         },
@@ -155,14 +123,19 @@ pub fn load(conn: &Connection, user_id: i64) -> rusqlite::Result<Option<Profile>
 const EMAIL_TAKEN_SQL: &str = "SELECT EXISTS(SELECT 1 FROM users WHERE lower(email) = lower(?1) AND id != ?2)";
 
 /// Is this address already on another account? Case-insensitive.
-/// (Registration uses `reset::account_for` since #379: it needs the account.)
-#[allow(dead_code)]
 pub fn email_taken(conn: &Connection, email: &str, except_user: Option<i64>) -> rusqlite::Result<bool> {
     conn.query_row(
         EMAIL_TAKEN_SQL,
         params![email, except_user.unwrap_or(-1)],
         |r| r.get(0),
     )
+}
+
+/// The account's address counts as confirmed (the dev user; tests). Keeps
+/// the first confirmation time.
+pub fn mark_verified(conn: &Connection, user_id: i64, now: i64) -> rusqlite::Result<()> {
+    conn.execute("UPDATE users SET email_verified_at = COALESCE(email_verified_at, ?2) WHERE id = ?1", params![user_id, now])?;
+    Ok(())
 }
 
 /// Save the editable part of a profile; `None` keeps a field as it is. The
@@ -196,14 +169,6 @@ pub fn review_quiet(conn: &Connection, user_id: i64) -> rusqlite::Result<bool> {
 pub fn set_review_quiet(conn: &Connection, user_id: i64, quiet: bool) -> rusqlite::Result<()> {
     conn.execute("UPDATE users SET review_quiet = ?2 WHERE id = ?1", params![user_id, quiet])?;
     Ok(())
-}
-
-/// "Hide all AI features" (`users.ai_off`): set at sign-up or from the
-/// profile's AI features section, and undone there. Each change is a
-/// consent given or withdrawn (`consent::AI`, #974).
-pub fn set_ai_off(conn: &Connection, user_id: i64, off: bool) -> rusqlite::Result<()> {
-    conn.execute("UPDATE users SET ai_off = ?2 WHERE id = ?1", params![user_id, off])?;
-    crate::consent::record(conn, user_id, crate::consent::AI, !off)
 }
 
 /// `users.lang`: the language the app speaks to this account in ('' follows the browser).
@@ -292,18 +257,6 @@ pub(crate) fn civil(t: i64) -> (i64, usize, i64) {
     (y, m as usize, d)
 }
 
-/// Days since the Unix epoch of a civil date (Howard Hinnant's days-from-civil).
-pub(crate) fn days_from_civil(y: i64, m: usize, d: i64) -> i64 {
-    let m = m as i64;
-    let y = if m <= 2 { y - 1 } else { y };
-    let era = y.div_euclid(400);
-    let yoe = y - era * 400;
-    let mp = (m + 9) % 12;
-    let doy = (153 * mp + 2) / 5 + d - 1;
-    let doe = yoe * 365 + yoe / 4 - yoe / 100 + doy;
-    era * 146_097 + doe - 719_468
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -348,23 +301,6 @@ mod tests {
         assert!(validate_email("a-rather-long-owner-address-for-the-phone-tip-check-1027015107-11@example.com").is_err());
     }
 
-    /// Whatever `validate_email` accepts, the mailer can address (#1003).
-    #[test]
-    fn accepted_emails_can_be_mailed() {
-        let long = format!("{}@example.org", "x".repeat(64));
-        let tries = [
-            "ana@example.org", "Ana.Lopez+tag@Example.ORG", "o'brien@example.co.uk", "a_b-c@sub.example.org", long.as_str(),
-            "a(b)@example.org", "a<b@example.org", "a\\b@example.org", "a\"b@example.org", "a,b@example.org", "é@example.org",
-        ];
-        for raw in tries {
-            if let Ok(v) = validate_email(raw) {
-                assert!(crate::mail::Mail::new(&v, "Hi", "text", "test").is_ok(), "{v:?} passed validation but cannot be mailed");
-            }
-        }
-        assert!(validate_email("ana@example.org").is_ok());
-        assert!(validate_email(&long).is_ok());
-    }
-
     #[test]
     fn names_and_dates() {
         assert_eq!(short_name(""), "Learner");
@@ -398,11 +334,6 @@ mod tests {
             update(c, id, None, Some(""))?;
             let p = load(c, id)?.unwrap();
             assert_eq!((p.first_name.as_str(), p.last_name.as_str()), ("Ana", ""));
-            assert!(!p.ai_off);
-            set_ai_off(c, id, true)?;
-            assert!(load(c, id)?.unwrap().ai_off);
-            set_ai_off(c, id, false)?;
-            assert!(!load(c, id)?.unwrap().ai_off);
 
             assert!(email_taken(c, "ANA@example.org", None)?);
             assert!(!email_taken(c, "ana@example.org", Some(id))?);

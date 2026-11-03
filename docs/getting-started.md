@@ -5,9 +5,8 @@ of the app practises the same lessons.
 
 ## First steps
 
-1. Register with your e-mail address. There are no usernames. Confirm the address from the
-   link in the e-mail it sends; until then a red ! by your e-mail on the
-   profile can send the link again.
+1. Register with your e-mail address. There are no usernames. Registering
+   signs you in.
 2. On *What would you like to learn?* (`/courses`) pick a ready-made course
    (Spanish and French ship with the app), or *Create a course* of your own, by hand
    or [with AI](making-courses).
@@ -31,7 +30,7 @@ vocabulary and history with it.
 | **Study** | `/lessons` | Read each lesson, pass its two-question reading check, then practise. Lessons, Practice, Listening, Map, Vocabulary, History, Mistakes. |
 | **Play** | `/play` | Games: Word Match, the conjugation drill, Numbers by ear, Date Dash, Flashcards. |
 | **Guide** | `/guide` | Each lesson as a stage of small steps: cards, quick checks, flashcards, tips. Stars. |
-| **AI tutoring** | `/tutor` | A one-to-one lesson over chat. Needs your own API key (Claude, OpenAI or Gemini), saved on your profile. |
+| **AI tutoring** | `/tutor` | A one-to-one lesson over chat. Needs an API key (Claude, OpenAI or Gemini) on the server, which the owner saves on *Manage Users*. |
 
 A game or exercise only appears when the course has the material for it. A
 course without a calendar has no Date Dash, a maths course has no listening.
@@ -66,9 +65,9 @@ Full rule: [Progress across modes](progress). Every feature in detail:
 
 The badge in the top-right corner opens the menu: profile, switch course,
 documentation, log out. It shows a gear. On the profile you
-set your name, the app's language and your AI API keys. A course's
+set your name and the app's language. A course's
 motivator belongs to the course: the gear on its card on
 `/courses`.
-Changes save as you make them; there is no Save button. *Do Not Show Me AI
-Features* (under Privacy and consent) takes the tutor and AI course creation
-out of the app and deletes the API keys you saved.
+Changes save as you make them; there is no Save button. The AI API keys and
+*Hide AI features for everyone* are the server's, on the owner's *Manage
+Users* page: one set of keys serves every account.

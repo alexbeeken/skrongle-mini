@@ -43,12 +43,12 @@ pub const SECTIONS: &[(&str, &str, &[&str])] = &[
     (
         "reference",
         "docs.section_reference",
-        &["course-format", "features", "progress", "i18n", "data-inventory", "privacy", "cookies"],
+        &["course-format", "features", "progress", "i18n", "data-inventory"],
     ),
     (
         "dev",
         "docs.section_dev",
-        &["dev", "architecture", "testing", "qa", "e2e-audit", "security-review"],
+        &["architecture", "testing"],
     ),
 ];
 
@@ -58,8 +58,8 @@ pub struct DocsTemplate {
     pub user: Option<CurrentUser>,
     pub title: String,
     pub slug: String,
-    pub html: String,
-    pub sections: Vec<DocSection>,
+    pub html: std::sync::Arc<str>,
+    pub sections: &'static [DocSection],
 }
 
 fn title_of(md: &str, slug: &str) -> String {
@@ -97,19 +97,9 @@ pub async fn self_host(MaybeUser(user): MaybeUser) -> Result<Page<SelfHostTempla
     Ok(Page(SelfHostTemplate { user }))
 }
 
-/// GET /privacy: the privacy policy (`docs/privacy.md`), public.
-pub async fn privacy(MaybeUser(user): MaybeUser) -> Result<Response, AppError> {
-    render("privacy", user)
-}
-
-/// GET /cookies: the cookie notice (`docs/cookies.md`), public.
-pub async fn cookies(MaybeUser(user): MaybeUser) -> Result<Response, AppError> {
-    render("cookies", user)
-}
-
 /// Every embedded `.md` file, as (slug, title).
 pub fn pages() -> Vec<DocLink> {
-    let mut names: Vec<String> = Docs::iter().map(|n| n.to_string()).filter(|n| n.ends_with(".md") && n != "terms.md").collect();
+    let mut names: Vec<String> = Docs::iter().map(|n| n.to_string()).filter(|n| n.ends_with(".md")).collect();
     names.sort();
     // README-style ordering: overview first, then the rest alphabetically.
     names.sort_by_key(|n| if n == "index.md" { 0 } else { 1 });
@@ -188,10 +178,6 @@ fn render(slug: &str, user: Option<CurrentUser>) -> Result<Response, AppError> {
     if !slug.chars().all(|c| c.is_ascii_alphanumeric() || c == '-' || c == '_') {
         return Err(AppError::NotFound);
     }
-    // The terms have their own page (contact filled in, sections per config).
-    if slug == "terms" {
-        return Ok(axum::response::Redirect::to(&crate::url("/terms")).into_response());
-    }
     let (title, html) = rendered(slug).ok_or(AppError::NotFound)?;
     Ok(Page(DocsTemplate { user, title, slug: slug.to_string(), html, sections: sections_cached() }).into_response())
 }
@@ -201,24 +187,23 @@ fn render(slug: &str, user: Option<CurrentUser>) -> Result<Response, AppError> {
 /// base path, both fixed at startup; the signed-in user and the sidebar's
 /// current-page marker live in the template. Only pages that exist are
 /// stored, so the map is bounded by the docs.
-fn rendered(slug: &str) -> Option<(String, String)> {
-    static CACHE: Mutex<Option<HashMap<String, (String, String)>>> = Mutex::new(None);
+fn rendered(slug: &str) -> Option<(String, std::sync::Arc<str>)> {
+    static CACHE: Mutex<Option<HashMap<String, (String, std::sync::Arc<str>)>>> = Mutex::new(None);
     let mut guard = CACHE.lock().unwrap_or_else(|e| e.into_inner());
     let map = guard.get_or_insert_with(HashMap::new);
     if let Some(hit) = map.get(slug) {
         return Some(hit.clone());
     }
     let md = md_of(slug)?;
-    let entry = (title_of(&md, slug), render_doc(&md));
+    let entry = (title_of(&md, slug), std::sync::Arc::<str>::from(render_doc(&md)));
     map.insert(slug.to_string(), entry.clone());
     Some(entry)
 }
 
 /// [`sections`], built once.
-fn sections_cached() -> Vec<DocSection> {
-    static CACHE: Mutex<Option<Vec<DocSection>>> = Mutex::new(None);
-    let mut guard = CACHE.lock().unwrap_or_else(|e| e.into_inner());
-    guard.get_or_insert_with(sections).clone()
+fn sections_cached() -> &'static [DocSection] {
+    static CACHE: std::sync::OnceLock<Vec<DocSection>> = std::sync::OnceLock::new();
+    CACHE.get_or_init(sections)
 }
 
 #[cfg(test)]
@@ -451,47 +436,6 @@ mod tests {
                     assert!(!html.contains(&open), "docs/{}.md has a raw {open}: the browser hides everything after it", p.slug);
                 }
             }
-        }
-    }
-
-    /// The cookie notice names every cookie the app sets: each
-    /// `const …COOKIE…: &str = "name"` under `src/` and each
-    /// `document.cookie = "name=` under `static/` (#977). A new cookie fails
-    /// here until `docs/cookies.md` documents it.
-    #[test]
-    fn cookie_notice_names_every_cookie() {
-        fn walk(dir: &std::path::Path, ext: &str, out: &mut Vec<String>) {
-            for e in std::fs::read_dir(dir).unwrap().flatten() {
-                let p = e.path();
-                if p.is_dir() {
-                    walk(&p, ext, out);
-                } else if p.extension().is_some_and(|x| x == ext) {
-                    out.push(std::fs::read_to_string(&p).unwrap_or_default());
-                }
-            }
-        }
-        let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR"));
-        let (mut rs, mut js) = (Vec::new(), Vec::new());
-        walk(&root.join("src"), "rs", &mut rs);
-        walk(&root.join("static"), "js", &mut js);
-        let mut names: Vec<String> = Vec::new();
-        for line in rs.iter().flat_map(|f| f.lines()) {
-            let Some((lhs, rhs)) = line.split_once(": &str = \"") else { continue };
-            if lhs.trim_start().starts_with("pub const ") || lhs.trim_start().starts_with("const ") {
-                if lhs.rsplit(' ').next().is_some_and(|id| id.contains("COOKIE")) {
-                    names.extend(rhs.split('"').next().map(str::to_string));
-                }
-            }
-        }
-        for part in js.iter().flat_map(|f| f.split("document.cookie = \"").skip(1)) {
-            names.extend(part.split('=').next().map(str::to_string));
-        }
-        for must in ["sid", "twofa", "lang", "tz"] {
-            assert!(names.iter().any(|n| n == must), "the scan missed the {must} cookie: {names:?}");
-        }
-        let md = String::from_utf8_lossy(&Docs::get("cookies.md").unwrap().data).into_owned();
-        for n in &names {
-            assert!(md.contains(&format!("| `{n}` |")), "docs/cookies.md has no table row for the `{n}` cookie");
         }
     }
 

@@ -1,14 +1,11 @@
-// Two-factor sign-in (#292): a second step after the password, by e-mail
-// (the dev inbox) or an authenticator app (the dev authenticator, #291). The second step is always taken through the real
-// /login; the learner never signs in through /dev/login. The dev mailbox
-// needs no sign-in, so codes are read in a window of its own (devPage,
-// waitForMail), as a person would with a second browser; on /login/code
-// itself, the floating dev device (the frame of /login/code/device, this
-// sign-in's mail or authenticator entry) shows the code with a Use
-// button.
+// Two-factor sign-in (#292): a second step after the password, from an
+// authenticator app (the dev authenticator, #291; the e-mailed code is gone,
+// #10). The second step is always taken through the real /login; the
+// learner never signs in through /dev/login. On /login/code the floating
+// dev device (the frame of /login/code/device, this sign-in's authenticator
+// entry) shows the code with a Use button.
 import { expect, test, type Page } from "@playwright/test";
 import { login, logout, newAccount, register, type Account } from "../lib/learner";
-import { devPage, mailLink, waitForMail } from "../lib/mail";
 import { authenticator } from "../lib/totp";
 
 /** Sign in with the password; the second step's page shows. */
@@ -41,12 +38,6 @@ async function useDeviceCode(page: Page, code?: string): Promise<string> {
   return got;
 }
 
-async function confirmEmail(page: Page, a: Account): Promise<void> {
-  const mail = await waitForMail(a.email, /Confirm your e-mail address/);
-  await page.goto(mailLink(mail, /\/verify-email\?/));
-  await expect(page.getByTestId("verify-email-confirmed")).toBeVisible();
-}
-
 /** The set-up dialog's QR code (#304): an SVG of the link, sized by CSS, with the modules drawn. */
 async function expectQr(page: Page): Promise<void> {
   const svg = page.getByTestId("two-factor-totp-qr").locator("svg");
@@ -73,97 +64,48 @@ async function confirmWith(page: Page, password: string): Promise<void> {
   await dialog.getByTestId("two-factor-confirm-submit").click();
 }
 
-test("e-mail sign-in codes are not offered until the address is verified; then the code comes by e-mail and a wrong one is refused (#292)", async ({ page }) => {
-  const a = newAccount("2fa-mail");
+test("the second step is the authenticator app alone, and turning it on needs the password (#292, #374, #10)", async ({ page }) => {
+  const a = newAccount("2fa-proof");
   await register(page, a, "spanish");
   await page.goto("/profile");
-  const email = page.locator('[data-testid="profile-two-factor-method"][data-method="email"] input');
-  await expect(email).toBeDisabled();
-  await page.getByTestId("profile-two-factor-email-unavailable").click();
-  await expect(page.getByTestId("profile-two-factor-email-dialog")).toBeVisible();
-  // A forged post is refused too.
-  const forged = await page.request.post("/profile/two-factor", { form: { method: "email" }, maxRedirects: 0 });
-  expect(forged.status()).toBe(422);
-
-  await confirmEmail(page, a);
-  await page.goto("/profile");
-  await expect(email).toBeEnabled();
-  // A session alone can't turn it on (#374).
-  const onForged = await page.request.post("/profile/two-factor", { form: { method: "email" }, maxRedirects: 0 });
-  expect(onForged.status()).toBe(403);
-  await chooseMethod(page, "email");
-  await confirmWith(page, a.password);
-  await expect(page.getByTestId("profile-two-factor")).toHaveAttribute("data-method", "email");
-  // The account is told (#374).
-  await waitForMail(a.email, /Two-factor sign-in on .* changed/);
-
-  await logout(page);
-  await passwordStep(page, a);
-  await expect(page.getByTestId("login-code-sent-to")).toContainText("@example.com");
-  // No session yet: the profile still wants a sign-in.
-  const blocked = await page.request.get("/profile", { maxRedirects: 0 });
-  expect(blocked.status()).toBe(303);
-
-  const mail = await waitForMail(a.email, /sign-in code/);
-  // The code is in the body only, never the subject (#361).
-  expect(mail.subject).not.toMatch(/\d{6}/);
-  const code = mail.text.match(/\d{6}/)![0];
-  await page.getByTestId("login-code-input").fill(code === "123456" ? "654321" : "123456");
-  await page.getByTestId("login-code-submit").click();
-  await expect(page.getByTestId("login-code-error")).toContainText("not right");
-  await expect(page.getByTestId("login-code-error")).toContainText("4 tries left");
-  // The floating dev inbox has the mail, its body carrying the code; Use types it.
-  await expect(page.getByTestId("login-code-dev")).toContainText("Your inbox");
-  const row = device(page).getByTestId("login-code-device-item").first();
-  await expect(row).toContainText(mail.subject);
-  expect(await useDeviceCode(page, code)).toBe(code);
-  // Without the sign-in's cookie the device page is nothing: a stranger can't read the mailbox through it.
-  const stranger = await page.context().browser()!.newContext();
-  expect((await stranger.request.get("/login/code/device")).status()).toBe(404);
-  await stranger.close();
-  await page.getByTestId("login-code-submit").click();
-  await expect(page.getByTestId("nav-account-toggle")).toHaveAttribute("data-email", a.email);
-
-  // Turning it off, or switching, needs the password: a session alone can't.
-  await page.goto("/profile");
   const card = page.getByTestId("profile-two-factor");
-  const noProof: Record<string, string>[] = [{ method: "" }, { method: "totp" }, { method: "", password: "not-the-password" }, { method: "totp", password: "not-the-password" }];
-  for (const form of noProof) {
+  // Off and the app: no e-mailed code, and a forged post for one is refused.
+  await expect(page.getByTestId("profile-two-factor-method")).toHaveCount(2);
+  await expect(page.locator('[data-testid="profile-two-factor-method"][data-method="email"]')).toHaveCount(0);
+  const email = await page.request.post("/profile/two-factor", { form: { method: "email", password: a.password }, maxRedirects: 0 });
+  expect(email.status()).toBe(400);
+  // A session alone can't turn it on (#374).
+  for (const form of [{ method: "totp" }, { method: "totp", password: "not-the-password" }] as Record<string, string>[]) {
     const res = await page.request.post("/profile/two-factor", { form, maxRedirects: 0 });
     expect(res.status(), JSON.stringify(form)).toBe(403);
   }
   const removeForged = await page.request.post("/profile/two-factor/totp/remove", { form: { password: "" }, maxRedirects: 0 });
   expect(removeForged.status()).toBe(303); // no app to remove: nothing to protect
   await page.reload();
-  await expect(card).toHaveAttribute("data-method", "email");
+  await expect(card).toHaveAttribute("data-method", "");
 
   // Cancel puts the chips back.
-  await chooseMethod(page, "");
+  await chooseMethod(page, "totp");
   const confirm = page.getByTestId("two-factor-confirm-dialog");
   await expect(confirm).toBeVisible();
-  await expect(confirm.getByTestId("two-factor-confirm-what")).toHaveText("Turn two-factor sign-in off");
+  await expect(confirm.getByTestId("two-factor-confirm-what")).toHaveText("Turn on two-factor sign-in by authenticator app");
   await confirm.getByTestId("two-factor-confirm-cancel").click();
   await expect(confirm).toBeHidden();
-  await expect(page.locator('[data-testid="profile-two-factor-method"][data-method="email"] input')).toBeChecked();
+  await expect(page.locator('[data-testid="profile-two-factor-method"][data-method=""] input')).toBeChecked();
 
-  // Switching to the authenticator: a wrong password is refused, the right one starts the set-up.
+  // A wrong password is refused, the right one starts the set-up; cancelling it leaves the step off.
   await chooseMethod(page, "totp");
-  await expect(confirm.getByTestId("two-factor-confirm-what")).toHaveText("Switch two-factor sign-in to authenticator app");
   await confirmWith(page, "not-the-password");
   await expect(confirm.getByTestId("two-factor-confirm-error")).toContainText("password is not right");
-  await expect(card).toHaveAttribute("data-method", "email");
+  await expect(card).toHaveAttribute("data-method", "");
   await confirmWith(page, a.password);
   await expect(page.getByTestId("two-factor-totp-dialog")).toBeVisible();
   await page.getByTestId("two-factor-totp-cancel").click();
-  await expect(card).toHaveAttribute("data-method", "email");
-
-  // Off, with the right password: the next sign-in needs only the password.
-  await chooseMethod(page, "");
-  await confirmWith(page, "not-the-password");
-  await expect(confirm.getByTestId("two-factor-confirm-error")).toContainText("password is not right");
-  await confirmWith(page, a.password);
-  await expect(page.getByTestId("profile-notice")).toContainText("Two-factor sign-in is off");
   await expect(card).toHaveAttribute("data-method", "");
+  // Without a sign-in waiting for its code the device page is nothing.
+  const stranger = await page.context().browser()!.newContext();
+  expect((await stranger.request.get("/login/code/device")).status()).toBe(404);
+  await stranger.close();
   await logout(page);
   await login(page, a);
 });

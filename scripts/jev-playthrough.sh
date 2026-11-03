@@ -34,7 +34,7 @@ start_server() { # $1 database, $2 log; SKRONGLE_DEV in the environment for cali
   PORT=$(free_port)
   URL="http://127.0.0.1:$PORT"
   # A plain server, as a learner meets it: no dev mode, no seed. A mini (SKRONGLE_MINI=1),
-  # because a hosted server without dev mode needs every provider set (#641).
+  # because a server without SKRONGLE_MINI or dev mode needs every provider set (#641).
   # TEST_COURSE=1 also offers the test course (scripts/jev-playthrough-test-course.sh).
   SKRONGLE_BIND="127.0.0.1:$PORT" SKRONGLE_DB="$1" SKRONGLE_DATA_DIR=./data SKRONGLE_LOG=info SKRONGLE_DEV="${SKRONGLE_DEV:-}" TEST_COURSE="${TEST_COURSE:-}" SKRONGLE_MINI=1 \
     "${CARGO_TARGET_DIR:-target}/debug/spanish-learning" >"$2" 2>&1 &

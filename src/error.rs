@@ -20,11 +20,6 @@ pub enum AppError {
     /// removed mid-session (#1083): a 410 the page scripts answer by going
     /// to the course list, the way they answer a 401 with the login page.
     ApiNoCourse,
-    /// Signed in, but the current Terms of Service are not accepted yet:
-    /// redirect to the gate, which returns to this app path afterwards.
-    TermsRequired(String),
-    /// The same on an API route: a 403 JSON body.
-    ApiTermsRequired,
     /// Signed in to an account scheduled for deletion (#970): redirect to
     /// `/account/deletion`, where the learner may cancel it or sign out.
     DeletionScheduled,
@@ -35,9 +30,9 @@ pub enum AppError {
     PasswordChangeRequired(String),
     /// The same on an API route: a 403 JSON body.
     ApiPasswordChangeRequired,
-    /// An AI feature asked for by an account with "Hide all AI
-    /// features" on (`CurrentUser::require_ai`): redirect to the profile
-    /// section that turns them back on.
+    /// An AI feature asked for while the owner has hidden the AI features
+    /// for the whole server (`CurrentUser::require_ai`, `settings::AI_OFF`):
+    /// a 403 page that says so.
     AiOff,
     /// The same on an API route: a 403 JSON body.
     ApiAiOff,
@@ -58,7 +53,6 @@ impl fmt::Display for AppError {
             AppError::RedirectToCourses => f.write_str("no course chosen"),
             AppError::Unauthorized => f.write_str("unauthorized"),
             AppError::ApiNoCourse => f.write_str("no course chosen"),
-            AppError::TermsRequired(_) | AppError::ApiTermsRequired => f.write_str("terms not accepted"),
             AppError::PasswordChangeRequired(_) | AppError::ApiPasswordChangeRequired => f.write_str("a new password is needed"),
             AppError::DeletionScheduled | AppError::ApiDeletionScheduled => f.write_str("the account is scheduled for deletion"),
             AppError::AiOff | AppError::ApiAiOff => f.write_str("AI features are off"),
@@ -108,15 +102,6 @@ impl IntoResponse for AppError {
                 r#"{"error":"choose a course first"}"#,
             )
                 .into_response(),
-            AppError::TermsRequired(next) => {
-                Redirect::to(&format!("{}?next={}", crate::url("/terms/accept"), crate::urlenc::urlencode(&next))).into_response()
-            }
-            AppError::ApiTermsRequired => (
-                StatusCode::FORBIDDEN,
-                [(axum::http::header::CONTENT_TYPE, "application/json")],
-                r#"{"error":"accept the terms of service first"}"#,
-            )
-                .into_response(),
             AppError::DeletionScheduled => Redirect::to(&crate::url("/account/deletion")).into_response(),
             AppError::ApiDeletionScheduled => (
                 StatusCode::FORBIDDEN,
@@ -133,11 +118,11 @@ impl IntoResponse for AppError {
                 r#"{"error":"choose a new password first"}"#,
             )
                 .into_response(),
-            AppError::AiOff => Redirect::to(&crate::url("/profile?ai=off#consent")).into_response(),
+            AppError::AiOff => error_page(StatusCode::FORBIDDEN, &crate::t("error.ai_off")),
             AppError::ApiAiOff => (
                 StatusCode::FORBIDDEN,
                 [(axum::http::header::CONTENT_TYPE, "application/json")],
-                r#"{"error":"AI features are off in your profile"}"#,
+                r#"{"error":"AI features are off on this server"}"#,
             )
                 .into_response(),
             AppError::ApiTooManyRequests(m) => (
@@ -199,14 +184,19 @@ pub async fn in_layout(
     req: axum::extract::Request,
     next: axum::middleware::Next,
 ) -> Response {
-    let headers = req.headers().clone();
+    // The request is gone once `next` runs, and the error page needs only
+    // who is signed in (the Cookie headers), so keep those, not every header.
+    let mut cookies = axum::http::HeaderMap::new();
+    for v in req.headers().get_all(axum::http::header::COOKIE) {
+        cookies.append(axum::http::header::COOKIE, v.clone());
+    }
     let api = req.uri().path().starts_with("/api/");
     let res = next.run(req).await;
     let res = if api { res } else { form_only_page(res) };
     let Some(ErrorPage(msg)) = res.extensions().get::<ErrorPage>().cloned() else {
         return res;
     };
-    let user = crate::auth::user_from_headers(&state, &headers).await;
+    let user = crate::auth::user_from_headers(&state, &cookies).await;
     let code = res.status();
     match askama::Template::render(&ErrorTemplate { user, code: code.as_u16(), msg }) {
         Ok(html) => {

@@ -4,7 +4,7 @@
 //!
 //! It only reads: the database is opened read-only, nothing is migrated and
 //! no key file is created. Secrets are reported as yes/no (a secret key,
-//! learners' saved AI keys): their values, and
+//! the server's saved AI keys): their values, and
 //! values that may embed credentials (URLs), never reach the output.
 
 use std::fmt::Write as _;
@@ -131,7 +131,7 @@ pub fn report(cfg: &Config, env: &dyn Fn(&str) -> Option<String>) -> Vec<Line> {
     out.push(Line::new("schema", schema_line(&facts)));
     if let DbFacts::Open { users, saved_keys, .. } = &facts {
         out.push(Line::new("accounts", users.to_string()));
-        out.push(Line::new("saved AI keys", format!("{saved_keys} (learners' keys, encrypted with the secret key)")));
+        out.push(Line::new("saved AI keys", format!("{saved_keys} (the server's keys, set by the owner, encrypted with the secret key)")));
     }
 
     let saved_keys = match &facts {
@@ -144,15 +144,13 @@ pub fn report(cfg: &Config, env: &dyn Fn(&str) -> Option<String>) -> Vec<Line> {
     }
     out.push(Line::new("secret key", secret));
 
-    // AI: the keys themselves belong to learners (counted above). The server
+    // AI: the keys themselves are the owner's, in the database (counted above). The server
     // only has a base URL for the OpenAI-compatible provider.
     out.push(Line::new("OpenAI base URL", match env("OPENAI_BASE_URL") {
         Some(_) => "custom (SKRONGLE_OPENAI_BASE_URL is set)",
         None => "default",
     }));
     out.push(Line::new("public URL set", yes_no(env("PUBLIC_URL").is_some())));
-    // The breach notice and the terms name it as the contact (#1068): hosted needs it.
-    out.push(Line::new("legal e-mail set", yes_no(env("LEGAL_EMAIL").is_some_and(|v| !v.trim().is_empty()))));
     out.push(Line::new("secure cookies", yes_no(cfg.secure_cookies)));
     if !cfg.base_path.is_empty() {
         out.push(Line::new("base path", cfg.base_path.clone()));
@@ -267,7 +265,7 @@ fn read_db(db: &Path) -> DbFacts {
         Err(e) => return DbFacts::Unreadable(e.to_string()),
     };
     let count = |table: &str| conn.query_row(&format!("SELECT COUNT(*) FROM {table}"), [], |r| r.get::<_, i64>(0)).unwrap_or(0);
-    DbFacts::Open { version, users: count("users"), saved_keys: count("user_api_keys") }
+    DbFacts::Open { version, users: count("users"), saved_keys: count("server_api_keys") }
 }
 
 fn schema_line(facts: &DbFacts) -> String {
@@ -369,7 +367,6 @@ mod tests {
             ("SECRET_KEY", SECRET_KEY.to_string()),
             ("PUBLIC_URL", "https://admin:hunter2@learn.example.org".to_string()),
             ("OPENAI_BASE_URL", "https://user:pa55word@llm.internal:11434".to_string()),
-            ("LEGAL_EMAIL", "legal-desk-3k@example.org".to_string()),
         ])
     }
 
@@ -392,13 +389,13 @@ mod tests {
             let (vault, _) = crate::secrets::Vault::load(Some(SECRET_KEY.into()), &db).unwrap();
             d.with(|c| {
                 c.execute("INSERT INTO users (email, password_hash, created_at) VALUES ('ana@example.org', 'x', 0)", [])?;
-                let uid = c.last_insert_rowid();
-                crate::secrets::save(c, &vault, uid, crate::secrets::Provider::Anthropic, "sk-ant-learner-key-zz9")
+
+                crate::secrets::save(c, &vault, crate::secrets::Provider::Anthropic, "sk-ant-learner-key-zz9")
             })
             .unwrap();
         }
         let out = render(&report(&cfg, &env));
-        let mut needles: Vec<String> = ["SECRET_KEY", "PUBLIC_URL", "OPENAI_BASE_URL", "LEGAL_EMAIL"]
+        let mut needles: Vec<String> = ["SECRET_KEY", "PUBLIC_URL", "OPENAI_BASE_URL"]
             .iter()
             .map(|k| map[k].clone())
             .collect();
@@ -408,7 +405,6 @@ mod tests {
         }
         // It still says what is configured.
         assert!(out.contains("yes (from SKRONGLE_SECRET_KEY)"), "{out}");
-        assert!(out.lines().any(|l| l.starts_with("legal e-mail set") && l.ends_with("yes")), "{out}");
         assert!(out.lines().any(|l| l.starts_with("saved AI keys") && l.contains(" 1 ")), "{out}");
         assert!(out.contains(&format!("v{} (up to date)", crate::db::schema_version())), "{out}");
         let _ = std::fs::remove_dir_all(db.parent().unwrap());
@@ -422,8 +418,8 @@ mod tests {
             let d = crate::db::Db::open(&db).unwrap();
             let other = crate::secrets::Vault::from_master(&[0xcd; 32]);
             d.with(|c| {
-                let uid = crate::auth::create_user(c, "ana@example.org", "h")?;
-                crate::secrets::save(c, &other, uid, crate::secrets::Provider::Anthropic, "sk-ant-learner-key-zz9")
+                crate::auth::create_user(c, "ana@example.org", "h")?;
+                crate::secrets::save(c, &other, crate::secrets::Provider::Anthropic, "sk-ant-learner-key-zz9")
             })
             .unwrap();
         }
@@ -432,7 +428,6 @@ mod tests {
         let out = render(&report(&cfg, &env));
         let line = out.lines().find(|l| l.starts_with("secret key")).unwrap_or_default().to_string();
         assert!(line.contains("PROBLEM: the secret key cannot read the saved AI keys"), "{out}");
-        assert!(out.lines().any(|l| l.starts_with("legal e-mail set") && l.ends_with("no")), "{out}");
         assert!(!out.contains(&SECRET_KEY[..8]), "{out}");
         // The secret the key was saved with reads it: no problem.
         let right = lookup(HashMap::from([("DB", db.display().to_string()), ("BIND", "127.0.0.1:0".to_string()), ("SECRET_KEY", "cd".repeat(32))]));

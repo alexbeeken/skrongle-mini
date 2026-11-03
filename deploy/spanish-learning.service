@@ -29,8 +29,8 @@ Environment=SKRONGLE_LOG=info
 # Public URL. Secrets live outside the repo: /etc/spanish-learning/env (see deploy/env.example).
 # scripts/deploy.sh fills in the URL below from PI_PUBLIC_URL in deploy/deploy.env.
 Environment=SKRONGLE_PUBLIC_URL=@PI_PUBLIC_URL@
-# This Pi is a Skrongle mini: no plans, and no e-mail, SMS or Stripe
-# required (a hosted server refuses to start without them).
+# This Pi is a Skrongle mini: no e-mail, SMS or Stripe required (without
+# SKRONGLE_MINI=1 the server refuses to start until they are set).
 Environment=SKRONGLE_MINI=1
 EnvironmentFile=-/etc/spanish-learning/env
 # glibc malloc: one arena per thread by default; two is plenty and keeps RSS flat.

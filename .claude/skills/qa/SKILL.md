@@ -8,8 +8,7 @@ description: General QA of the Skrongle site with the repo's own Jev scripts. Ru
 You run the scripts, read what they found, check it, and file what is real.
 Nothing here tests a particular PR (that is `pr-qa-demo`) or works an issue
 (`backlog-sweep`). The scripts and their reports are documented in
-`docs/testing.md` ("Exploratory testing", "Playthrough", "Fact check") and
-`docs/qa.md`; this skill is the order to run them in and what to do with
+`docs/testing.md` ("Exploratory testing", "Playthrough", "Fact check"); this skill is the order to run them in and what to do with
 the output.
 
 `$BASE` is this checkout. `$SK` is `$BASE/.claude/skills/qa`. `$S` is

@@ -143,7 +143,7 @@ still hold next time; delete what has been fixed.
 - **The dev LLM fixtures speak English**: the tutor's "Hello! Let's practise
   this lesson together." in a German session comes from
   `data/test-fixtures/llm/tutor-turn.json`, not from a template. Not an i18n
-  bug. Docs pages (`/docs/*`), the Terms and the AI prompt under
+  bug. Docs pages (`/docs/*`) and the AI prompt under
   "Advanced" are English by design too.
 - **Lesson titles, summaries and category labels ("Vocabulary",
   "Grammar") are course content** and stay English in every app language;

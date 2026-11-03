@@ -19,7 +19,7 @@ Include what you can of:
 - what an attacker gains (another learner's data, their session, a call from
   the server to an address of your choice, …).
 
-Please do not test against the hosted site with other people's accounts, do
+Please do not test against a running server with other people's accounts, do
 not run load or denial-of-service tests against it, and do not access or keep
 data that is not yours. A local copy is all you need: the whole app is in this
 repository.
@@ -38,8 +38,7 @@ it; the app has no other release channel yet.
 
 ## Scope notes
 
-`docs/security-review.md` lists what has been reviewed, what was fixed and the
-risks we knowingly accept (for example: dev mode `SKRONGLE_DEV=1` is for a
-laptop only, and anyone with root on a server can read its saved API keys).
-Reports about an accepted risk are still welcome when you see a way to make it
-worse than described there.
+Some risks are accepted knowingly (for example: dev mode `SKRONGLE_DEV=1` is
+for a laptop only, and anyone with root on a server can read its saved API
+keys). Reports about an accepted risk are still welcome when you see a way to
+make it worse than described.

@@ -1,4 +1,4 @@
-//! Local development and testing aids, all off unless `SKRONGLE_DEV=1`.
+//! Local development and testing aids, all off unless `SKRONGLEDEV=1`.
 //!
 //! - A fixed dev user (`/dev/login`, `/dev/reset`, the startup seed), with
 //!   API keys for every provider that the simulated provider accepts.
@@ -30,11 +30,6 @@ pub const DEV_EMAIL: &str = "dev@example.com";
 pub const DEV_PASSWORD: &str = "dev-password";
 /// The course the seed (and `/dev/login?open=` without a value) opens.
 pub const SEED_COURSE: &str = "spanish";
-/// The Terms version `/dev/login?terms=old` leaves the dev user with.
-pub const OLD_TERMS_VERSION: &str = "0-dev-old";
-/// The one `/dev/login?terms=minor` leaves it with: `terms::notice` reads it
-/// as a minor change to the current version, so its notice can be dismissed.
-pub const MINOR_TERMS_VERSION: &str = "0-dev-minor";
 
 /// Whether dev mode may be on. `Err` says why a requested dev mode was refused.
 pub fn resolve(requested: bool, bind: SocketAddr, secure_cookies: bool, public_url: Option<&str>) -> Result<bool, String> {
@@ -204,6 +199,14 @@ pub fn simulator_base_url(root: &str, kind: crate::ai::ProviderKind) -> String {
         ProviderKind::OpenAi => format!("{root}/openai/v1"),
         // Google's base URL ends in /openai and takes no /v1 (`ai::openai_url`).
         ProviderKind::Google => format!("{root}/google/v1beta/openai"),
+        // The others speak OpenAI's format under a path of their own (#24),
+        // so the call log tells them apart: `{base}/v1/chat/completions`,
+        // OpenRouter's base ending in /v1 as its real one does.
+        ProviderKind::DeepSeek => format!("{root}/deepseek"),
+        ProviderKind::Mistral => format!("{root}/mistral"),
+        ProviderKind::Xai => format!("{root}/xai"),
+        ProviderKind::OpenRouter => format!("{root}/openrouter/api/v1"),
+        ProviderKind::Ollama => format!("{root}/ollama"),
     }
 }
 
@@ -376,16 +379,13 @@ pub fn valid_stem(stem: &str) -> bool {
 // ---------- the dev user ----------
 
 /// The dev user's id, creating the account on first use. Blocking (argon2).
-/// The dev user has always accepted the current Terms and confirmed its
-/// address, so neither the gate nor the e-mail notice stands between a test
-/// and the app, and is a superuser (the profile's Superuser section) and a
-/// developer (`users.developer`).
+/// The dev user's address counts as confirmed, and it is an owner
+/// (`users.owner`: the Manage Users page).
 pub fn ensure_user(db: &Db) -> Result<i64, String> {
     let accept = |id: i64| {
         db.with(|c| {
-            crate::terms::accept(c, id, crate::terms::version())?;
-            c.execute("UPDATE users SET superuser = 1, developer = 1 WHERE id = ?1", [id])?;
-            crate::verify::mark_verified(c, id, crate::db::now())
+            c.execute("UPDATE users SET owner = 1 WHERE id = ?1", [id])?;
+            crate::profile::mark_verified(c, id, crate::db::now())
         })
         .map_err(|e| e.to_string())
     };
@@ -400,21 +400,16 @@ pub fn ensure_user(db: &Db) -> Result<i64, String> {
     Ok(id)
 }
 
-/// Save the simulated provider's learner keys (`dev_ai::LEARNER_KEYS`), one
-/// for every provider, on the user's profile: what the seed and
+/// Save the simulated provider's keys (`dev_ai::LEARNER_KEYS`), one for
+/// every provider, as the server's keys: what the seed and
 /// `/dev/login?keys=dev` (or `keys=fake`) store. With them every AI form is
-/// unlocked and offers each provider; the simulator answers all three.
-pub fn save_dev_keys(conn: &Connection, vault: &crate::secrets::Vault, user_id: i64) -> rusqlite::Result<()> {
+/// unlocked for every account and offers each provider; the simulator
+/// answers them all.
+pub fn save_dev_keys(conn: &Connection, vault: &crate::secrets::Vault) -> rusqlite::Result<()> {
     for (p, k) in crate::dev_ai::LEARNER_KEYS {
-        crate::secrets::save(conn, vault, user_id, p, k)?;
+        crate::secrets::save(conn, vault, p, k)?;
     }
     Ok(())
-}
-
-/// Make the account a developer (`users.developer`). The seed does
-/// this for the dev user; elsewhere it is an `UPDATE` by hand.
-pub fn set_developer(conn: &Connection, user_id: i64) -> rusqlite::Result<()> {
-    conn.execute("UPDATE users SET developer = 1 WHERE id = ?1", [user_id]).map(|_| ())
 }
 
 /// Every progress table, keyed by user.
@@ -436,7 +431,7 @@ const PROGRESS_TABLES: [&str; 13] = [
 
 /// Wipe a user's progress and own courses (drafts and generated ones) and
 /// switch the review of AI changes back to opening by itself and forget its
-/// saved app language, so a `lang` cookie decides again (#1363); the account (developer or not), its keys,
+/// saved app language, so a `lang` cookie decides again (#1363); the account (owner or not), its keys,
 /// its credits and its sessions stay; its AI usage log goes too, so a test
 /// starts with the whole allowance. Returns the deleted course ids.
 pub fn reset_user(conn: &Connection, user_id: i64) -> rusqlite::Result<Vec<String>> {
@@ -463,10 +458,10 @@ pub fn seed(db: &Db, courses: &crate::courses::Courses, keys: Option<&crate::sec
     let course = courses.builtin_store(&id).ok_or("the built-in course to seed does not load")?;
     let cid = course.id().to_string();
     db.with(|c| {
-        set_developer(c, uid)?;
+        crate::owner::make_owner(c, uid)?;
         crate::courses::open_project(c, uid, &cid)?;
         if let Some(vault) = keys {
-            save_dev_keys(c, vault, uid)?;
+            save_dev_keys(c, vault)?;
         }
         if !crate::progress::load_all(c, uid, &cid)?.is_empty() {
             return Ok(());
@@ -485,46 +480,6 @@ pub fn seed(db: &Db, courses: &crate::courses::Courses, keys: Option<&crate::sec
     Ok(cid)
 }
 
-// ---------- the dev inbox pages' marks ----------
-
-/// What a dev inbox page remembers about one of its rows: opened (plain
-/// type, not bold) and archived (struck out, at the bottom).
-#[derive(Clone, Copy, Default, PartialEq, Eq, Debug)]
-pub struct Mark {
-    pub read: bool,
-    pub archived: bool,
-}
-
-/// The marks of every dev inbox page (`/dev/inbox`, `/dev/mail`), by box
-/// (`"mail-in"`, `"mail-out"`) and row id. In memory: a restart forgets
-/// them, as it empties the dev mailbox. Deleting is not a mark: the row goes.
-#[derive(Default)]
-pub struct Marks(std::sync::Mutex<std::collections::HashMap<(&'static str, i64), Mark>>);
-
-impl Marks {
-    pub fn get(&self, b: &'static str, id: i64) -> Mark {
-        self.0.lock().unwrap().get(&(b, id)).copied().unwrap_or_default()
-    }
-
-    pub fn set_read(&self, b: &'static str, id: i64, read: bool) {
-        self.0.lock().unwrap().entry((b, id)).or_default().read = read;
-    }
-
-    pub fn set_archived(&self, b: &'static str, id: i64, archived: bool) {
-        self.0.lock().unwrap().entry((b, id)).or_default().archived = archived;
-    }
-
-    /// The row was deleted.
-    pub fn forget(&self, b: &'static str, id: i64) {
-        self.0.lock().unwrap().remove(&(b, id));
-    }
-
-    /// The whole box was emptied.
-    pub fn clear(&self, b: &'static str) {
-        self.0.lock().unwrap().retain(|(k, _), _| *k != b);
-    }
-}
-
 // ---------- the dev authenticator ----------
 
 /// One account the dev authenticator holds, as an app would after a scan.
@@ -538,7 +493,7 @@ pub struct AuthAccount {
 /// The dev authenticator app (`/dev/authenticator`): the TOTP keys it was
 /// given, oldest first, each showing its current code, worked out here
 /// from the secret as an app does (`crate::totp`). In memory: a restart
-/// forgets them, as it empties the dev mailbox.
+/// forgets them.
 #[derive(Default)]
 pub struct Authenticator(std::sync::Mutex<(i64, Vec<AuthAccount>)>);
 

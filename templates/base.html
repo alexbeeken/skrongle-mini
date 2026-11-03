@@ -17,7 +17,7 @@
 <a class="skip-link" href="#main" data-testid="skip-to-content">{{ crate::t("nav.skip_to_content") }}</a>
 <header class="topbar">
   <nav class="container">
-    <a class="brand" data-testid="nav-home" href="{{ crate::url("/") }}"><img class="brand-mark" src="{{ crate::routes::asset_url("logo-mark.svg") }}" alt="" width="22" height="22">{{ crate::APP_NAME }}</a>
+    <a class="brand" data-testid="nav-home" href="{{ crate::url("/") }}">{% include "logo-mark.svg" %}{{ crate::APP_NAME }}</a>
     <ul>
     {% if let Some(u) = user %}
       {% if let Some(ct) = u.course_title %}
@@ -36,7 +36,7 @@
               <div><strong>{{ u.display_name() }}</strong></div>
             </div>
             <a role="menuitem" href="{{ crate::base_path() }}/profile" data-testid="nav-profile">{{ crate::t("nav.profile") }}</a>
-            {% if u.superuser %}<a role="menuitem" href="{{ crate::base_path() }}/superuser" data-testid="nav-superuser">{{ crate::t("nav.superuser") }}</a>{% endif %}
+            {% if u.owner %}<a role="menuitem" href="{{ crate::base_path() }}/manage" data-testid="nav-manage">{{ crate::t("nav.manage") }}</a>{% endif %}
             <a role="menuitem" href="{{ crate::base_path() }}/courses" data-testid="nav-switch-course">{{ crate::t("nav.switch_course") }}</a>
             <a role="menuitem" href="{{ crate::base_path() }}/docs" data-testid="nav-docs">{{ crate::t("nav.documentation") }}</a>
             <form method="post" action="{{ crate::base_path() }}/logout" data-testid="nav-logout-form">
@@ -57,10 +57,8 @@
 <main class="container" id="main" tabindex="-1">
 {% block content %}{% endblock %}
 </main>
-{% if let Some(u) = user %}{% if let Some(n) = u.terms_notice %}{% if n.shows_here() %}{% include "terms_notice.html" %}{% endif %}{% endif %}{% endif %}
 <footer class="site-footer">
-  <div class="container muted small">{{ crate::APP_NAME }} · <a href="{{ crate::url("/terms") }}" data-testid="footer-terms">{{ crate::t("footer.terms") }}</a> · <a href="{{ crate::url("/privacy") }}" data-testid="footer-privacy">{{ crate::t("footer.privacy") }}</a>
-    · <a href="{{ crate::url("/cookies") }}" data-testid="footer-cookies">{{ crate::t("footer.cookies") }}</a>
+  <div class="container muted small">{{ crate::APP_NAME }}
   </div>
 </footer>
 <script>
@@ -100,9 +98,7 @@ document.querySelectorAll('.modebar ul').forEach(function (u) {
   if (ar.right > ur.right || ar.left < ur.left) u.scrollLeft += ar.left - ur.left - (ur.width - ar.width) / 2;
 });
 </script>
-<script src="{{ crate::routes::asset_url("modal.js") }}" defer></script>
-<script src="{{ crate::routes::asset_url("speech.js") }}" defer></script>
-<script src="{{ crate::routes::asset_url("say.js") }}" defer></script>
+<script src="{{ crate::routes::asset_url("core.js") }}" defer></script>
 {% block scripts %}{% endblock %}
 </body>
 </html>

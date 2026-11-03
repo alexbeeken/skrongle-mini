@@ -110,7 +110,7 @@
   </section>
 </section>
 {% endblock %}
-{% block scripts %}<script>Object.assign(I18N, {{ crate::i18n::js_json("guide.js")|safe }});</script><script>Object.assign(I18N, {{ crate::i18n::js_json("clock.js")|safe }});</script><script src="{{ crate::routes::asset_url("clock.js") }}" defer></script><script src="{{ crate::routes::asset_url("guide.js") }}" defer></script><script src="{{ crate::routes::asset_url("measure.js") }}" defer></script>
+{% block scripts %}<script>Object.assign(I18N, {{ crate::i18n::js_json("guide.js")|safe }});</script>{% if lesson.has_clock() %}<script>Object.assign(I18N, {{ crate::i18n::js_json("clock.js")|safe }});</script><script src="{{ crate::routes::asset_url("clock.js") }}" defer></script>{% endif %}<script src="{{ crate::routes::asset_url("guide.js") }}" defer></script>{% if lesson.has_measure() %}<script src="{{ crate::routes::asset_url("measure.js") }}" defer></script>{% endif %}
 {% if lesson.has_notation() %}<script src="{{ crate::routes::asset_url("vendor/abcjs-basic-min.js") }}" defer></script><script src="{{ crate::routes::asset_url("notation.js") }}" defer></script>{% endif %}
 {% if lesson.has_sound() %}<script src="{{ crate::routes::asset_url("music-sound.js") }}" defer></script>{% endif %}
 {% if lesson.has_fill_bar() %}<script src="{{ crate::routes::asset_url("fill-bar.js") }}" defer></script>{% endif %}

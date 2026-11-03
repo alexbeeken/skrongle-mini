@@ -9,8 +9,9 @@
 
 use rusqlite::{params, Connection};
 use std::collections::HashMap;
+use std::sync::Arc;
 
-use crate::db::now;
+use crate::db::{now, CachedSql};
 
 pub mod cache;
 
@@ -181,19 +182,19 @@ fn row(r: &rusqlite::Row<'_>) -> rusqlite::Result<Progress> {
 }
 
 /// The learner's progress rows for a course, by lesson id: from the
-/// [`cache`] when it holds them, else read and held.
-pub fn load_progress(conn: &Connection, user_id: i64, course_id: &str) -> rusqlite::Result<HashMap<String, Progress>> {
+/// [`cache`] when it holds them, else read and held. Shared, not copied.
+pub fn load_progress(conn: &Connection, user_id: i64, course_id: &str) -> rusqlite::Result<Arc<HashMap<String, Progress>>> {
     let cache = cache::current();
     if let Some(map) = cache.as_ref().and_then(|c| c.get(user_id, course_id)) {
         return Ok(map);
     }
-    let map = read_progress(conn, user_id, course_id)?;
+    let map = Arc::new(read_progress(conn, user_id, course_id)?);
     if let Some(c) = cache {
         #[cfg(test)]
         c.reads.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
         // Inside a transaction the rows may include writes not yet kept.
         if conn.is_autocommit() {
-            c.fill(user_id, course_id, map.clone());
+            c.fill(user_id, course_id, Arc::clone(&map));
         }
     }
     Ok(map)
@@ -216,7 +217,7 @@ pub fn load_one(conn: &Connection, user_id: i64, course_id: &str, lesson_id: &st
     if let Some(held) = cache::current().and_then(|c| c.get_one(user_id, course_id, lesson_id)) {
         return Ok(held);
     }
-    conn.query_row(
+    conn.query_row_cached(
         &format!("SELECT {COLS} FROM user_progress WHERE user_id = ?1 AND course_id = ?2 AND lesson_id = ?3"),
         params![user_id, course_id, lesson_id],
         row,
@@ -227,7 +228,7 @@ pub fn load_one(conn: &Connection, user_id: i64, course_id: &str, lesson_id: &st
 /// Write a lesson's progress row and update the [`cache`]: the one place
 /// a `user_progress` row is written (see `cache` for the others).
 pub fn save(conn: &Connection, user_id: i64, course_id: &str, p: &Progress) -> rusqlite::Result<()> {
-    conn.execute(
+    conn.execute_cached(
         "INSERT INTO user_progress
             (user_id, course_id, lesson_id, mastery_score, times_tested, times_correct, streak, last_practiced_at, read_at)
          VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9)
@@ -286,6 +287,23 @@ pub fn record_answer(
     selected_answer: &str,
     correct: bool,
 ) -> rusqlite::Result<Progress> {
+    record_answer_with(conn, user_id, course_id, lesson_id, question_id, selected_answer, correct, |_| Ok(())).map(|(p, ())| p)
+}
+
+/// [`record_answer`] with more writes in the same transaction: `more` runs
+/// on the transaction after the answer is written, and an error from it
+/// rolls the answer back too.
+#[allow(clippy::too_many_arguments)]
+pub fn record_answer_with<T>(
+    conn: &mut Connection,
+    user_id: i64,
+    course_id: &str,
+    lesson_id: &str,
+    question_id: &str,
+    selected_answer: &str,
+    correct: bool,
+    more: impl FnOnce(&Connection) -> rusqlite::Result<T>,
+) -> rusqlite::Result<(Progress, T)> {
     // The learner's held map, taken out while the transaction runs (its
     // `save` would forget it) and put back, with the new row, once the
     // answer is committed. An error leaves it out: the next load reads.
@@ -293,12 +311,13 @@ pub fn record_answer(
     let held = cache.as_ref().and_then(|c| c.take(user_id, course_id));
     let tx = conn.transaction()?;
     let progress = record_answer_at(&tx, user_id, course_id, lesson_id, question_id, selected_answer, correct, now())?;
+    let extra = more(&tx)?;
     tx.commit()?;
     if let (Some(c), Some(mut map)) = (cache, held) {
-        map.insert(progress.lesson_id.clone(), progress.clone());
+        Arc::make_mut(&mut map).insert(progress.lesson_id.clone(), progress.clone());
         c.fill(user_id, course_id, map);
     }
-    Ok(progress)
+    Ok((progress, extra))
 }
 
 /// [`record_answer`]'s two writes at a given time, inside the caller's
@@ -394,7 +413,7 @@ pub fn recent_mistakes(conn: &Connection, user_id: i64, course_id: &str, limit: 
 
 /// (answered, correct) counts since `since`.
 pub fn stats_since(conn: &Connection, user_id: i64, course_id: &str, since: i64) -> rusqlite::Result<(i64, i64)> {
-    conn.query_row(
+    conn.query_row_cached(
         "SELECT COUNT(*), COALESCE(SUM(was_correct), 0) FROM quiz_history
          WHERE user_id = ?1 AND course_id = ?2 AND answered_at >= ?3",
         params![user_id, course_id, since],
@@ -558,6 +577,68 @@ mod tests {
             let p = mark_read(c, uid, "spanish", "l2", T0)?;
             assert!(p.is_read() && p.times_tested == 0);
             assert_eq!(load_progress(c, uid, "spanish")?.len(), 2);
+            Ok(())
+        })
+        .unwrap();
+    }
+
+    fn counts(c: &Connection) -> Vec<i64> {
+        ["quiz_history", "activity_log", "user_vocab", "user_progress"]
+            .iter()
+            .map(|t| c.query_row(&format!("SELECT COUNT(*) FROM {t}"), [], |r| r.get(0)).unwrap())
+            .collect()
+    }
+
+    #[test]
+    fn one_transaction_answer_leaves_the_same_rows_as_separate_writes() {
+        use crate::activity::{self, Kind};
+        let db_a = crate::db::Db::open_in_memory().unwrap();
+        let db_b = crate::db::Db::open_in_memory().unwrap();
+        let run_a = db_a
+            .with(|c| {
+                let uid = crate::auth::create_user(c, "a@example.org", "h")?;
+                for (q, ok) in [("q1", true), ("q2", false), ("q3", true)] {
+                    record_answer(c, uid, "spanish", "l1", q, "x", ok)?;
+                    activity::record(c, uid, "spanish", Kind::Answer, 1, 0)?;
+                    crate::vocab::record_learned(c, uid, "spanish", "l1", &["hola", "adios"], 0)?;
+                }
+                Ok((counts(c), load_one(c, uid, "spanish", "l1")?.unwrap()))
+            })
+            .unwrap();
+        let run_b = db_b
+            .with(|c| {
+                let uid = crate::auth::create_user(c, "a@example.org", "h")?;
+                for (q, ok) in [("q1", true), ("q2", false), ("q3", true)] {
+                    let (_, new) = record_answer_with(c, uid, "spanish", "l1", q, "x", ok, |tx| {
+                        activity::record(tx, uid, "spanish", Kind::Answer, 1, 0)?;
+                        crate::vocab::record_learned(tx, uid, "spanish", "l1", &["hola", "adios"], 0)
+                    })?;
+                    assert_eq!(new.len(), if q == "q1" { 2 } else { 0 });
+                }
+                Ok((counts(c), load_one(c, uid, "spanish", "l1")?.unwrap()))
+            })
+            .unwrap();
+        assert_eq!(run_a.0, vec![3, 3, 2, 1]);
+        assert_eq!(run_a.0, run_b.0);
+        let (a, b) = (&run_a.1, &run_b.1);
+        assert_eq!((a.times_tested, a.times_correct, a.streak), (b.times_tested, b.times_correct, b.streak));
+        assert_eq!(a.mastery_score, b.mastery_score);
+    }
+
+    #[test]
+    fn a_failure_in_the_second_write_rolls_back_the_first() {
+        let db = crate::db::Db::open_in_memory().unwrap();
+        db.with(|c| {
+            let uid = crate::auth::create_user(c, "r@example.org", "h")?;
+            let before = counts(c);
+            let r = record_answer_with(c, uid, "spanish", "l1", "q1", "x", true, |tx| {
+                crate::activity::record(tx, uid, "spanish", crate::activity::Kind::Answer, 1, 0)?;
+                tx.execute("INSERT INTO no_such_table VALUES (1)", [])?;
+                Ok(())
+            });
+            assert!(r.is_err());
+            assert_eq!(counts(c), before, "answer, history and activity all rolled back");
+            assert!(load_one(c, uid, "spanish", "l1")?.is_none());
             Ok(())
         })
         .unwrap();

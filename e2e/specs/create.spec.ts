@@ -6,7 +6,7 @@
 // written. The simulated provider answers, from the fixtures.
 import { expect, test, type Page } from "@playwright/test";
 import { createCourse, devLogin, devReset, editorSaved, fastAutosave, generationEnds } from "../lib/app";
-import { newAccount, register, saveApiKey } from "../lib/learner";
+import { newAccount, register, removeApiKey, resetServerKeys, saveApiKey } from "../lib/learner";
 
 test.beforeEach(async ({ page }) => {
   await fastAutosave(page);
@@ -172,7 +172,7 @@ test("the old pages lead to the new flow", async ({ page }) => {
   await expect(page).toHaveURL(/\/courses$/);
 });
 
-test("the dialog asks which provider only when two or more keys are saved", async ({ page }) => {
+test("the dialog asks which provider only when the server has two or more keys", async ({ page }) => {
   // keys=fake saves the simulated provider's key for each of the three
   // providers: the dialog asks, Anthropic first, and says where the notes go.
   await createCourse(page);
@@ -184,36 +184,41 @@ test("the dialog asks which provider only when two or more keys are saved", asyn
     await expect(page.getByTestId(field), field).toHaveCount(0);
   }
 
-  // A fresh account with no key: no stand-in, even in dev mode. The dialog
-  // is greyed out under a link to the profile.
+  // The keys are the server's (#25): with none, another account's dialog
+  // is greyed out under a line that says to ask the owner; no stand-in, even
+  // in dev mode.
   const ctx = await page.context().browser()!.newContext();
   const fresh = await ctx.newPage();
   await register(fresh, newAccount("nokey"), "spanish");
-  await createCourse(fresh);
-  await expect(fresh.getByTestId("generate-no-key")).toBeVisible();
-  await expect(fresh.getByTestId("generate-disabled")).toHaveCount(1);
-  await expect(fresh.getByTestId("generate-provider")).toHaveCount(0);
-  await expect(fresh.getByTestId("generate-provider-only")).toHaveCount(0);
+  try {
+    for (const p of ["anthropic", "openai", "google"]) await removeApiKey(page, p);
+    await createCourse(fresh);
+    await expect(fresh.getByTestId("generate-no-key")).toBeVisible();
+    await expect(fresh.getByTestId("generate-no-key")).toContainText("Ask the owner of this server");
+    await expect(fresh.getByTestId("generate-disabled")).toHaveCount(1);
+    await expect(fresh.getByTestId("generate-provider")).toHaveCount(0);
+    await expect(fresh.getByTestId("generate-provider-only")).toHaveCount(0);
 
-  // One key: it is used, with no choice and no key fields.
-  await fresh.goto("/profile");
-  await saveApiKey(fresh, "sk-ant-dev-one-key-1111");
-  await createCourse(fresh);
-  await expect(fresh.getByTestId("generate-provider")).toHaveCount(0);
-  await expect(fresh.getByTestId("generate-provider-only")).toHaveValue("anthropic");
-  await expect(fresh.getByTestId("generate-disabled")).toHaveCount(0);
-  await expect(fresh.getByTestId("generate").getByTestId("ai-disclosure")).toHaveText("Your notes are sent to your AI provider using your key.");
+    // One key, the owner's: it is used, with no choice and no key fields.
+    await saveApiKey(page, "sk-ant-dev-one-key-1111");
+    await createCourse(fresh);
+    await expect(fresh.getByTestId("generate-provider")).toHaveCount(0);
+    await expect(fresh.getByTestId("generate-provider-only")).toHaveValue("anthropic");
+    await expect(fresh.getByTestId("generate-disabled")).toHaveCount(0);
+    await expect(fresh.getByTestId("generate").getByTestId("ai-disclosure")).toHaveText("Your notes are sent to the AI provider using this server's key.");
 
-  // Two keys: now it asks, and says where the notes go.
-  await fresh.goto("/profile");
-  await saveApiKey(fresh, "sk-dev-two-keys-2222", "openai");
-  await createCourse(fresh);
-  await expect(fresh.getByTestId("generate-provider")).toHaveCount(2);
-  await expect(fresh.locator('[data-testid="generate-provider"][value="anthropic"]')).toBeChecked();
-  await expect(fresh.getByTestId("generate").getByTestId("ai-disclosure")).toContainText("Claude");
-  await fresh.locator('[data-testid="generate-provider"][value="openai"]').check();
-  await expect(fresh.getByTestId("generate").getByTestId("ai-disclosure")).toContainText("OpenAI");
-  await ctx.close();
+    // Two keys: now it asks, and says where the notes go.
+    await saveApiKey(page, "sk-dev-two-keys-2222", "openai");
+    await createCourse(fresh);
+    await expect(fresh.getByTestId("generate-provider")).toHaveCount(2);
+    await expect(fresh.locator('[data-testid="generate-provider"][value="anthropic"]')).toBeChecked();
+    await expect(fresh.getByTestId("generate").getByTestId("ai-disclosure")).toContainText("Claude");
+    await fresh.locator('[data-testid="generate-provider"][value="openai"]').check();
+    await expect(fresh.getByTestId("generate").getByTestId("ai-disclosure")).toContainText("OpenAI");
+  } finally {
+    await resetServerKeys(page);
+    await ctx.close();
+  }
 });
 
 test("the progress modal can't be dismissed while it runs; stopped, the course waits on the list with Resume", async ({ page }) => {
@@ -256,7 +261,7 @@ test("a generation that fails before its outline: Retry on the card, the dialog 
   await page.getByTestId("generate-submit").click();
   expect(await generationEnds(page)).toBe("failed");
   // Straight into the dialog on the list: the error, and what was asked.
-  await expect(page.getByTestId("generate-error")).toContainText("didn't accept your API key");
+  await expect(page.getByTestId("generate-error")).toContainText("didn't accept the server's API key");
   await expect(page.getByTestId("generate-error")).not.toContainText("Resume");
   await expect(page.getByTestId("generate-wish")).toHaveValue("Fractions [fixture:provider-error]");
   await expect(page.getByTestId("generate-notes")).toHaveValue("Halves, quarters and eighths, with pictures of pizza.");

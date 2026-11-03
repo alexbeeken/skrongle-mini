@@ -1,6 +1,6 @@
 //! Sharing a course with other learners (#451, `src/share.rs`): the Share
-//! dialog on the owner's course page (invite by e-mail address, stop
-//! sharing), and the link the invitation carries.
+//! dialog on the owner's course page (a link per e-mail address, for the
+//! owner to pass on; stop sharing), and that link.
 
 use axum::extract::{Path, State};
 use axum::http::HeaderMap;
@@ -34,7 +34,7 @@ fn back(id: &str, key: &str) -> Response {
     Redirect::to(&crate::url(&format!("/courses/{id}?share=1&notice={key}"))).into_response()
 }
 
-/// GET /courses/{id}/share: the address the no-mail links page was drawn
+/// GET /courses/{id}/share: the address the links page was drawn
 /// at, opened again (from the address bar, say). Back to the Share dialog (#667).
 pub async fn to_course(Path(id): Path<String>) -> Response {
     Redirect::to(&crate::url(&format!("/courses/{id}?share=1"))).into_response()
@@ -48,7 +48,7 @@ pub async fn invite(
     Path(id): Path<String>,
     Form(form): Form<InviteForm>,
 ) -> Result<Response, AppError> {
-    let row = super::courses::owned(&state, &user, &id).await?;
+    super::courses::owned(&state, &user, &id).await?;
     let emails = match share::parse_addresses(&form.emails) {
         Ok(e) => e,
         // The notice names the problem; the typed address stays out of the URL.
@@ -60,14 +60,12 @@ pub async fn invite(
         return Ok(back(&id, "share-own"));
     }
     let cid = id.clone();
-    let (existing, owner) = state.db.call(move |c| Ok((share::shares_of(c, &cid)?.len(), share::owner_of(c, &cid)?))).await?;
+    let existing = state.db.call(move |c| share::shares_of(c, &cid)).await?.len();
     if existing + emails.len() > share::MAX_PER_COURSE {
         return Ok(back(&id, "share-full"));
     }
-    let owner = owner.unwrap_or_default();
-    let base = crate::verify::public_base(&state, &headers);
-    let can_mail = state.caps().mail;
-    let (mut sent, mut already) = (0, 0);
+    let base = crate::routes::public_base(&state, &headers);
+    let (mut made, mut already) = (0, 0);
     let mut links = Vec::new();
     for email in emails {
         let (cid, e) = (id.clone(), email.clone());
@@ -75,26 +73,13 @@ pub async fn invite(
             already += 1;
             continue;
         };
-        let link = format!("{base}/courses/shared/{token}");
-        // No mail on this server: the owner passes the link on (#633).
-        if !can_mail {
-            links.push(super::courses::ShareLink { email, link });
-            sent += 1;
-            continue;
-        }
-        let mail = share::message(&email, &owner, &row.title, &link, user.id).map_err(AppError::Internal)?;
-        let mid = state.mail.queue(&state.db, mail).await?;
-        if state.dev {
-            tracing::info!("dev: share link for course {id} (mail #{mid}): {link}");
-        }
-        sent += 1;
+        // The owner passes the link on: nothing is mailed.
+        links.push(super::courses::ShareLink { email, link: format!("{base}/courses/shared/{token}") });
+        made += 1;
     }
-    tracing::info!("user {} shared course {id} with {sent} address(es)", user.id);
-    if !can_mail {
-        // The links are stored only hashed: the page shows them this once.
-        return super::courses::share_links_page(&state, user, &id, &format!("share-made-{sent}-{already}"), links).await;
-    }
-    Ok(back(&id, &format!("share-sent-{sent}-{already}")))
+    tracing::info!("user {} shared course {id} with {made} address(es)", user.id);
+    // The links are stored only hashed: the page shows them this once.
+    super::courses::share_links_page(&state, user, &id, &format!("share-made-{made}-{already}"), links).await
 }
 
 /// POST /courses/{id}/share/remove (email): the course leaves their list.

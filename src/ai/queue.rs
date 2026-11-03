@@ -32,7 +32,7 @@ use crate::jobs::{Claimed, Kind, Step, LEASE};
 /// A generation, revision, added lesson or translation: one row per job.
 /// The runner never retries one; past `max_attempts` takes (a server that
 /// keeps stopping mid-run) the job stops for good.
-pub const GENERATE: Kind = Kind { name: "generate_course", max_attempts: 3, delays: crate::mail::RETRY_DELAYS, every: None, at: None };
+pub const GENERATE: Kind = Kind { name: "generate_course", max_attempts: 3, delays: crate::jobs::RETRY_DELAYS, every: None, at: None };
 /// How often the heartbeat renews the leases of running jobs.
 pub const HEARTBEAT: Duration = Duration::from_secs(120);
 
@@ -560,7 +560,7 @@ fn give_up(db: &Db, row: i64, p: &Payload, job: Option<&Arc<Job>>, why: &str) ->
 
 /// A generation's request after a restart: the course row's wish, notes and
 /// outline (so it resumes from the lessons already written), and the key
-/// again, the server's or the one saved on the profile.
+/// again, the server's (the owner's, on Manage Users).
 fn rebuild(state: &crate::AppState, db: &Db, p: &Payload) -> Result<Request, String> {
     if !p.resume {
         return Err(INTERRUPTED.into());
@@ -571,8 +571,8 @@ fn rebuild(state: &crate::AppState, db: &Db, p: &Payload) -> Result<Request, Str
     }
     let notes = db.with(|c| crate::courses::notes_of(c, &p.course)).map_err(|e| e.to_string())?;
     let kind = ProviderKind::parse(&p.provider).ok_or(INTERRUPTED)?;
-    let key = db.with(|c| crate::secrets::get(c, &state.vault, p.user, kind.secret())).map_err(|e| e.to_string())?.ok_or(INTERRUPTED)?;
-    let mut provider = Provider { kind, base_url: kind.default_base_url(), api_key: key, model: p.model.clone(), effort: None };
+    let mut provider = db.with(|c| super::server_provider(c, &state.vault, kind, false)).map_err(|e| e.to_string())?.ok_or(INTERRUPTED)?;
+    provider.model = p.model.clone();
     provider.effort = super::Effort::parse(&p.effort);
     Ok(Request {
         user_id: p.user,

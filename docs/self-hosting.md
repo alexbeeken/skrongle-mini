@@ -6,31 +6,26 @@ details behind each step, for any 64-bit Linux machine. Stuck? The
 [self-hosting FAQ](self-hosting-faq) answers the first questions people ask.
 
 Self-hosting is free. Help is best-effort, in
-[GitHub Discussions](https://github.com/alexbeeken/skrongle-mini/discussions); the
-hosted site is the supported option.
+[GitHub Discussions](https://github.com/alexbeeken/skrongle-mini/discussions).
 
 ## Skrongle mini
 
-The release you install is **Skrongle mini**: the same binary as the hosted
-site, with `skrongle.service` set for a handful of people who know you and
-no outside services. What it leaves out:
+The release you install is **Skrongle mini**: one binary, with
+`skrongle.service` set for a handful of people who know you and
+no outside services. How it is set up:
 
-- **No e-mail.** Links that would be mailed are shown in
-  the page ([Without e-mail](#without-e-mail)).
+- **No e-mail.** Nothing is mailed; links are shown in the page
+  ([No e-mail](#no-e-mail)).
 - **Sign-up by invitation.** The first account is yours, the owner's;
   everyone else needs a link you make (`SKRONGLE_SIGNUP=invite`,
   [Accounts and AI keys](#accounts-and-ai-keys)).
-- **Your own Terms.** `SKRONGLE_TERMS=/etc/skrongle/terms.md`
-  ([Your own Terms](#your-own-terms)).
-- **Background work in process.** The mail and text outboxes and the
-  background jobs are rows in SQLite, run by threads in the server: no
+- **Background work in process.** The background jobs are rows in SQLite, run by threads in the server: no
   Redis or queue service.
 - **SQLite only.** One database file in `/var/lib/skrongle`, no database
   server.
 
 `SKRONGLE_MINI=1` is what makes a server a mini (`skrongle.service` sets
-it). The startup log line and `/healthz` then say `skrongle mini <version>`
-(`skrongle <version>` on the hosted site).
+it). The startup log line and `/healthz` then say `skrongle mini <version>`.
 
 ### Security
 
@@ -74,7 +69,6 @@ Each comes with a `.sha256` file. A tarball unpacks (flat, no top folder) to:
 | `skrongle` | The server: one binary. Templates, CSS, scripts and these docs are compiled in. |
 | `data/courses/` | The built-in courses, read from disk when the server starts (`SKRONGLE_DATA_DIR`). |
 | `skrongle.service` | The systemd unit below (`deploy/skrongle.service` in the repo). |
-| `terms.example.md` | A template for your own Terms of Service (`deploy/terms.example.md`); see [Your own Terms](#your-own-terms). |
 | `update.sh` | Updates the install in place: see [Updating](#updating). |
 | `VERSION` | The version, one line. |
 
@@ -106,7 +100,6 @@ sha256sum -c skrongle-$V-$(uname -m).tar.gz.sha256
 sudo mkdir -p /opt/skrongle
 sudo tar -xzf skrongle-$V-$(uname -m).tar.gz -C /opt/skrongle
 sudo mkdir -p /etc/skrongle
-sudo cp -n /opt/skrongle/terms.example.md /etc/skrongle/terms.md
 sudo cp /opt/skrongle/skrongle.service /etc/systemd/system/
 sudo systemctl enable --now skrongle
 ```
@@ -149,12 +142,10 @@ A line that starts with `PROBLEM:` says what to fix.
 - restarts it if it stops (`Restart=on-failure`);
 - caps memory at 64 MB (`MemoryMax`) and sandboxes the process
   (`ProtectSystem=strict`, `ProtectHome`, `PrivateTmp`, …);
-- shows your Terms from `/etc/skrongle/terms.md` (`SKRONGLE_TERMS`; it will
-  not start without that file, see [Your own Terms](#your-own-terms));
 - lets people sign up only with an invitation from you
   (`SKRONGLE_SIGNUP=invite`, see [Accounts and AI keys](#accounts-and-ai-keys));
-- makes the server a Skrongle mini (`SKRONGLE_MINI=1`), which turns e-mail
-  off (see
+- makes the server a Skrongle mini (`SKRONGLE_MINI=1`), with no plans or
+  payments (see
   [Accounts and AI keys](#accounts-and-ai-keys));
 - reads optional settings from `/etc/skrongle/env`.
 
@@ -172,13 +163,13 @@ Every setting is an environment variable. Put extra ones in
 `/etc/skrongle/env`, one `NAME=value` per line, and restart. Every name
 starts `SKRONGLE_`; see [Renamed settings](#renamed-settings) if yours start `LEARN_`.
 
-"mini" marks what `skrongle.service` sets for Skrongle mini.
+Where a default says "unit", `skrongle.service` sets it.
 
 | Variable | Default | Meaning |
 |---|---|---|
-| `SKRONGLE_MINI` | unset (mini: `1`) | `1`: this server is a Skrongle mini, the self-hosted version. It is what makes the server a mini: without it the server is the hosted site, which refuses to start without e-mail, Google and Stripe. In a mini there are no plans or payments (every account has every feature and the server's AI key is shared, see [Accounts and AI keys](#accounts-and-ai-keys)), and the e-mail, text, Google, Stripe and S3 settings are ignored. Read once at startup. |
+| `SKRONGLE_MINI` | unit: `1` | `1`: this server is a Skrongle mini. `skrongle.service` sets it, and the server does not start outside dev mode without it. Every account has every feature and the server's AI key is shared (see [Accounts and AI keys](#accounts-and-ai-keys)); the text, Google and S3 settings are ignored. Read once at startup. |
 | `SKRONGLE_BIND` | `0.0.0.0:8080` | Address and port to listen on; a bare port (`8081`) means every interface. |
-| `SKRONGLE_SIGNUP` | `open` (mini: `invite`) | Who may make an account: `open`, `invite` or `closed`; see [Accounts and AI keys](#accounts-and-ai-keys). |
+| `SKRONGLE_SIGNUP` | `open` (unit: `invite`) | Who may make an account: `open`, `invite` or `closed`; see [Accounts and AI keys](#accounts-and-ai-keys). |
 | `SKRONGLE_PROXY_AUTH_HEADER`, `SKRONGLE_PROXY_AUTH_FROM` | — | Let the proxy in front sign people in; see [Signing in at the proxy](#signing-in-at-the-proxy). Both or neither. |
 | `SKRONGLE_DATA_DIR` | `data` | Folder with `courses/`. |
 | `SKRONGLE_DB` | `learn.db` | SQLite database path. The secret key is created next to it as `<db>.key`. |
@@ -187,11 +178,9 @@ starts `SKRONGLE_`; see [Renamed settings](#renamed-settings) if yours start `LE
 | `SKRONGLE_OPENAI_BASE_URL` | `https://api.openai.com` | Point the OpenAI provider at any OpenAI-compatible server, e.g. Ollama on another machine. |
 | `SKRONGLE_ALLOW_PRIVATE_AI_URLS` | off | `1` lets learners type a base URL on your own network (e.g. `http://192.168.1.20:11434`) into the AI forms. Off, the server refuses to call private, loopback and link-local addresses for them, and ports other than 443 and 80. |
 | `SKRONGLE_AI_JOB_BUDGET_SECS` | `3600` | How long one AI generation job may run in all. Raise it for a slow self-hosted model. |
-| `SKRONGLE_LOG` | `info` | `error`, `warn`, `info`, `debug` or `trace`. |
+| `SKRONGLE_LOG` | `info` | One level: `error`, `warn`, `info`, `debug` or `trace`. Per-module filters like `skrongle=debug` are not supported; an unrecognised value logs one warning and runs at `info`. |
 | `SKRONGLE_SECURE_COOKIES` | off | `1` when the site is served over HTTPS (behind a TLS proxy). |
 | `SKRONGLE_PUBLIC_URL` | — | The address people use, e.g. `https://learn.example.org`. |
-| `SKRONGLE_TERMS` | `builtin` (mini: `/etc/skrongle/terms.md`) | Your Terms of Service: the path of a Markdown file (the unit sets `/etc/skrongle/terms.md`), or `builtin` for the hosted service's terms. See [Your own Terms](#your-own-terms). |
-| `SKRONGLE_LEGAL_EMAIL` | — | With `SKRONGLE_TERMS=builtin` only: your copyright / legal contact, shown on `/terms` in place of `[CONTACT EMAIL]` and `[SUPPORT EMAIL]`. |
 | `SKRONGLE_MIN_AGE` | `14` | The minimum age the registration checkbox states. |
 | `SKRONGLE_FAILED_COURSE_RETENTION_DAYS` | `30` | An AI course whose generation failed is deleted, with the notes it was given, after this many days without a resume or edit. `0` keeps them. |
 | `SKRONGLE_COURSES_PER_USER` | `50` (no limit in dev mode) | Courses one account may make. "Create a course" says so when an account has them all. |
@@ -204,8 +193,8 @@ settings).
 ### Renamed settings
 
 Settings used to start `LEARN_` (and before that `SPANISH_`). They now
-start `SKRONGLE_`: `LEARN_DB` is `SKRONGLE_DB`, `LEARN_MAIL_FROM` is
-`SKRONGLE_MAIL_FROM`, and so on. The rest of the name is the same.
+start `SKRONGLE_`: `LEARN_DB` is `SKRONGLE_DB`, `LEARN_SIGNUP` is
+`SKRONGLE_SIGNUP`, and so on. The rest of the name is the same.
 
 This release still reads the old names, so an upgrade keeps working. At
 startup the log has one warning listing each old name it found and its new
@@ -221,54 +210,20 @@ sudo systemctl daemon-reload && sudo systemctl restart skrongle
 Or copy the new `skrongle.service` from the release over yours, if you
 have not edited it.
 
-## Your own Terms
+## No e-mail
 
-Everyone who makes an account on your server accepts its Terms of Service,
-at sign-up and again whenever they change. The text is yours: you run the
-server, so the hosted service's terms do not fit. The release ships a short
-plain-language template, `terms.example.md`. Copy it and put your name in:
+Skrongle mini sends no e-mail and has no setting for it (#633, #10). An
+e-mail address is only what an account signs in with.
 
-```sh
-sudo mkdir -p /etc/skrongle
-sudo cp -n /opt/skrongle/terms.example.md /etc/skrongle/terms.md
-sudo nano /etc/skrongle/terms.md     # fill in every [BRACKET]
-sudo systemctl restart skrongle
-```
-
-`/terms` then shows that file as it is. Its SHA-256 is the version, so after
-any edit (and a restart) every account is asked to accept again at its next
-visit, on a plain page with the accept box. There is no summary of what
-changed and no e-mail: the hosted site's notices and 30-day e-mail of a
-change come from its changelog, which your file does not have. If the file
-is missing, unreadable or empty the server refuses to start, and the log
-names the path. `SKRONGLE_TERMS=builtin` shows the hosted service's terms
-instead. The age box ("I am at least 14") stays either way
-(`SKRONGLE_MIN_AGE`).
-
-## Without e-mail
-
-A Skrongle mini sends no e-mail (#633): the log says so
-once at start (`e-mail: not configured; features that need it are off`),
-and every feature that would send a message
-hides itself instead. The e-mail setting of the hosted site
-(`SKRONGLE_MAIL_PROVIDERS`) is ignored in a
-mini; the log
-names any that are set.
-
-| Feature | Without e-mail |
+| Feature | How it works |
 |---|---|
-| Confirming an address | No link is sent. The e-mail field shows an (i), not the red !, and nothing asks to send it again. |
-| Two-factor sign-in | The e-mail method is not offered. |
+| Registration | Registering signs the account in at once; nothing confirms the address. |
+| A forgotten password | No reset link: you give the account a temporary password (below). |
+| Two-factor sign-in | The authenticator app. |
 | Sharing a course | After inviting, the Share dialog shows each address's link with a Copy button, once (links are stored only hashed); pass it on yourself. |
-| Download my data | No mail: when the copy is ready, the Data section's **Download my data** button gets it (the button is there with mail too). |
 
-The authenticator app needs no e-mail, so two-factor sign-in still works. An
-account whose second step was e-mail (a database moved over from
-elsewhere) cannot sign in: the login page says so. Turn two-factor sign-in
-off for that account (see [If you lock yourself out](#if-you-lock-yourself-out)).
-
-Dev mode's mailbox and phone are off in a mini too, so `./.dev-start --mini`
-shows what a real mini shows.
+Dev mode's phone is off in a mini too, so `./.dev-start --mini` shows what
+a real mini shows.
 
 ## Accounts and AI keys
 
@@ -282,16 +237,15 @@ to `invite`:
    sudo journalctl -u skrongle -g "Owner link" -o cat | tail -n 1
    ```
 
-   Open that link and register: the account is yours, the owner's. It is
-   a superuser, so its account menu (the picture, top right) has a
-   **Superuser** page. Without the
+   Open that link and register: the account is yours, the owner's. Its account menu (the picture, top right) has a
+   **Manage Users** page. Without the
    link, `/register` only says the server has no owner yet, so someone
    else on your network can't make the first account before you. Every
    restart makes a new link (the old one stops working) until the owner's
    account exists. The link starts with `SKRONGLE_PUBLIC_URL` when set, else
    `http://<hostname>.local:<port>`; if that address doesn't open, keep the
    part from `/register` and put the address you use in front.
-2. For everyone else, open **Superuser** and click
+2. For everyone else, open **Manage Users** and click
    **Make an invitation link**. Copy the link (it is shown only then) and
    send it to one person. It works once, for 7 days; **Revoke** takes back
    one nobody has used yet.
@@ -305,27 +259,28 @@ A Skrongle mini holds at most **8 accounts**: a household plus a couple of
 guests. This is a fixed number, not a setting, in every sign-up mode. Past
 it the register form, invitation links and the proxy sign-in's account
 creation all say "This Skrongle has all the accounts it can hold", and the
-Superuser page shows "8 of 8 accounts" and hides the invitation form. The
+Manage Users page shows "8 of 8 accounts" and hides the invitation form. The
 Pi Zero 2 W has little memory, and one known size is what lets the rest of
 the server (sessions, rate limits, connections) bound what it keeps. The
 other values of the setting:
 
 | `SKRONGLE_SIGNUP` | Who may register |
 |---|---|
-| `open` (unset) | Anyone who can reach the server. The hosted site runs this way. |
-| `invite` | The first account (the owner, a superuser, through the owner link in the log), then only through an invitation link. |
-| `closed` | The first account (the owner, a superuser, through the owner link in the log), then nobody. |
+| `open` (unset) | Anyone who can reach the server. |
+| `invite` | The first account (the owner's, through the owner link in the log), then only through an invitation link. |
+| `closed` | The first account (the owner's, through the owner link in the log), then nobody. |
 
 Any other value stops the server at
 startup with a message naming it; the log says which mode is on. Existing
 accounts always sign in. A server that already has
-accounts when you turn `invite` on gets no new owner: make one a superuser
-with `make-owner` (below).
+accounts when you turn `invite` on gets no new owner: make one an owner
+with `make-owner` (below), or with **Make owner** on the Manage Users page.
 
 Someone forgot their password, or lost the phone their two-factor codes go
-to? On the **Superuser** page, each account has **Temporary
+to? On the **Manage Users** page, each account has **Temporary
 password** (a new password, shown to you once, that they must change at
-their next sign-in) and **Turn off two-factor**. No message is sent: give
+their next sign-in), **Turn off two-factor** and **Make owner** (another
+person who may do all this). No message is sent: give
 them the password yourself.
 
 ### If you lock yourself out
@@ -344,7 +299,7 @@ sudo SKRONGLE_DB=/var/lib/skrongle/learn.db /opt/skrongle/skrongle make-owner yo
 |---|---|
 | `reset-password <email>` | Prints a temporary password and signs the account out everywhere. Sign in with it; the app then asks for a new one before anything else. |
 | `disable-2fa <email>` | Turns two-factor sign-in off: the password alone signs in. Turn it on again in the profile. |
-| `make-owner <email>` | Makes the account a superuser: its account menu gets the **Superuser** page. |
+| `make-owner <email>` | Makes the account an owner: its account menu gets the **Manage Users** page. |
 | `help` | Lists the commands. |
 
 An address no account has changes nothing and says so. Any other first
@@ -353,10 +308,15 @@ binary is `target/release/spanish-learning` (`./spanish-learning
 reset-password …`); a release names it `skrongle`.
 
 Keep the server on your own network or behind Tailscale (below) anyway.
-The AI features (tutor, course generator) use a key each learner saves
-under *Profile settings → AI API keys* (Anthropic, OpenAI or Google). The
-secret key encrypts saved keys, so a database without its `.key` file can't
-use them.
+The AI features (tutor, course generator) use the server's keys, which
+you, the owner, save under *Manage Users → AI features* (Anthropic, OpenAI,
+Google, DeepSeek, Mistral, xAI or OpenRouter); every account uses them,
+billed to you, and nobody else sees them. To use a model you run yourself,
+give the *Ollama* row your server's base URL (`http://192.168.1.20:11434`,
+any OpenAI-compatible server) and the model it runs (`llama3.1`); it needs
+no key, and a Pi Zero 2 W is far too small to run one itself. The same section has *Hide AI features for everyone*, which takes
+the AI features away from every account. The secret key encrypts saved
+keys, so a database without its `.key` file can't use them.
 
 ## Reaching it from outside
 
@@ -398,8 +358,7 @@ What happens then:
   is no two-factor step: the proxy did that. If the browser was signed in
   as someone else, that session ends.
 - No account with that address: `SKRONGLE_SIGNUP` decides. `open` makes one
-  with no password, its address already confirmed; it accepts the Terms on
-  its first page. `invite` and `closed` show the "sign-ups are closed" page
+  with no password, its address already confirmed. `invite` and `closed` show the "sign-ups are closed" page
   (on an empty server the first one is still let in, as the owner).
   Invitation links don't help here, since `/register` has no form. When the
   proxy only lets your own people through, set `SKRONGLE_SIGNUP=open`: the
@@ -513,10 +472,9 @@ The whole state is two files in `/var/lib/skrongle`:
 | `learn.db` | The SQLite database: accounts, progress, courses made in the app. (`learn.db-wal` and `learn.db-shm` next to it belong to it while the server runs.) |
 | `learn.db.key` | The secret key that encrypts the AI keys learners saved. Without it those keys can't be read. If you set `SKRONGLE_SECRET_KEY` instead, keep a copy of that value. |
 
-(`learn.db.exports/` beside them holds "Download my data" files for a day at
-most; it need not be backed up.) A deleted account stays in your backups
-and in the journal until they expire. The hosted site promises its users
-31 days at most; on your server that limit is yours to set and keep. Keep the two together, and somewhere other
+A deleted account stays in your backups
+and in the journal until they expire. How long that is on your
+server is yours to set and keep. Keep the two together, and somewhere other
 than the SD card. Stop the service while copying so the database is
 consistent. The backup holds every account and the key that decrypts stored
 API keys, so it is created readable by you only (`umask 077`; an old copy is

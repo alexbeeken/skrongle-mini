@@ -13,17 +13,12 @@ nav:
   switch_course_now: "Switch course (now {course})"
   account_menu_for: "Account menu for {name}"
   profile: Profile settings
-  superuser: Superuser
+  manage: Manage Users
   documentation: Documentation
   docs: Docs
   login: Log in
   register: Register
   logout: Log out
-
-footer:
-  terms: terms
-  privacy: privacy
-  cookies: cookies
 
 lang:
   label: Language
@@ -40,6 +35,7 @@ error:
   home: Home
   lessons: Lessons
   courses: All courses
+  ai_off: "The AI features are turned off on this server."
 
 common:
   pager:
@@ -120,12 +116,10 @@ auth:
     submit: Log in
     or: or
     no_account_html: "No account yet? <a href=\"{url}\" data-testid=\"login-register-link\">Register</a>."
-    terms_link: Terms
-    privacy_link: Privacy
     too_many_attempts: Too many sign-in attempts. Wait a few minutes and try again.
     incorrect: Incorrect e-mail address or password.
-    forgot: "Forgot your password?"
   register:
+    age: "I am at least {min_age} years old"
     title: Register
     heading: Create an account
     email_label: E-mail address
@@ -156,6 +150,7 @@ auth:
     too_short: Password must be at least 8 characters.
     too_long: "Password is too long (max {max} characters)."
   password_change:
+    logout: Log out instead
     title: "Choose a new password"
     info_label: "Why a new password"
     about: "You signed in with a temporary password that the person who runs this server set for you. Choose your own before going on; nobody else will know it."
@@ -163,301 +158,25 @@ auth:
   age_gate:
     to_register: register
     to_continue: continue
-    both: "Confirm you are at least {min_age} and accept the Terms to {to}."
     age: "Confirm you are at least {min_age} to {to}."
-    terms: "Accept the Terms to {to}."
   code:
     title: Enter your code
     from_app: From your authenticator app.
-    emailed_to: "E-mailed to {to}."
     code_label: Code
     submit: Sign in
-    resend: Send a new code
     cancel: Cancel
     gone: That sign-in has expired. Sign in again.
-    unsent: The code could not be sent just now. Wait a minute, then send a new one.
-    sent: A new code is on its way.
     wrong:
       one: "That code is not right. {n} try left."
       other: "That code is not right. {n} tries left."
     too_many_wrong: Too many wrong codes, or the code expired. Sign in again.
-    your_email: your e-mail address
-    your_authenticator: your authenticator app
   two_factor:
-    channel_off_email: "Your account signs in with a code by e-mail, but this server cannot send e-mail ({setting} is not set). Ask whoever runs it to set {setting}, or to turn two-factor sign-in off for your account."
-    needs_email: Confirm your e-mail address first.
     needs_app: Set up the authenticator app first.
     app_already: An authenticator app is already set up. Remove it first.
-  ai_switch:
-    label: Hide all AI features
-    about: About AI features
-    tip: The AI tutor and AI course creation are hidden and unusable. They work by sending what you type to an AI company with your own API key. You can change this any time in your profile.
-    off: "Off"
-    on: "On"
-  verify_email:
-    title: Confirm your e-mail address
-    confirmed_heading: Your e-mail address is confirmed
-    confirmed: Thank you. Nothing else to do.
-    invalid_heading: This link does not work
-    invalid: It may have been used already, be older than 24 hours, or have been replaced by a newer link.
-    already: "Your address {email} is confirmed already."
-    resend_to: We can send a new link to
-    resend: Send a new link
-    sign_in_hint: Sign in to ask for a new link from your profile.
-    continue: Continue
-    sign_in: Sign in
 
-  register_sent:
-    title: "Check your mail"
-    sent_html: "We sent a message to {email}. Open the link in it to confirm your address, then sign in."
-    sign_in: "Sign in"
-  reset:
-    title: "Reset your password"
-    email_label: "E-mail address"
-    send: "Send a link"
-    sent_title: "Check your mail"
-    sent_html: "If {email} has an account, a link to choose a new password was sent to it. The link works once, for an hour."
-    choose_title: "Choose a new password"
-    choose_html: "For {email}. Saving signs you out everywhere."
-    password_label: "New password"
-    password_note: "(at least 8 characters)"
-    save: "Save the new password"
-    invalid_title: "This link does not work"
-    invalid: "It may have been used already, be older than an hour, or have been replaced by a newer link."
-    again: "Send a new link"
-    done_title: "Your password is changed"
-    done: "✓ Every session is signed out. Sign in with the new password."
-    sign_in: "Sign in"
-    too_many_requests: "Too many requests from your network. Try again in an hour."
-    too_many_tries: "Too many tries from your network. Wait a few minutes and try again."
 
-terms:
-  page:
-    title: Terms of Service
-    version: "Version {version}"
-    markdown: Markdown
-    privacy: Privacy Policy
-  check:
-    age: "I am at least {min_age} years old"
-    agree_html: "I agree to the <a href=\"{terms_url}\" target=\"_blank\" data-testid=\"{tid}-terms-link\">Terms</a> and <a href=\"{privacy_url}\" target=\"_blank\" data-testid=\"{tid}-privacy-link\">Privacy Policy</a>"
-  accept:
-    title: Terms of Service
-    changed: The terms have changed
-    heading: Accept the terms
-    read_html: "Read the <a href=\"{url}\" target=\"_blank\" data-testid=\"terms-gate-link\">Terms of Service</a> (version {version}) and accept them to continue."
-    check_html: "I am at least {min_age} and agree to the <a href=\"{terms_url}\" target=\"_blank\">Terms</a> and <a href=\"{privacy_url}\" target=\"_blank\" data-testid=\"terms-gate-privacy-link\">Privacy Policy</a>"
-    submit: Continue
-    logout: Log out instead
-    tick: Tick the box to accept the terms.
-  notice:
-    heading: Our terms have changed
-    minor: Here is what changed. Continuing to use the site means you accept the new terms.
-    material: These changes affect your rights or a paid plan. Accept the new terms to keep using your account.
-    effective: "In effect from {date}"
-    read: Read the full terms
-    dismiss: Continue
-    disagree_html: "If you do not agree, log out, or close your account from your <a href=\"{url}\" data-testid=\"terms-notice-profile\">profile</a>."
-
-mail:
-  waitlist_confirm:
-    subject: "Confirm your place on the {app} waitlist"
-    text: |
-      Hello,
-
-      Please confirm that you want to join the {app} waitlist by opening this link:
-
-      {link}
-
-      We'll e-mail you an invitation when it's your turn. If you didn't ask to join, ignore this message: the address isn't added unless the link is opened.
-    html: |
-      <p>Hello,</p>
-      <p>Please confirm that you want to join the {app} waitlist:</p>
-      <p><a href="{link}">Confirm my place</a></p>
-      <p>Or paste this link into your browser: {link}</p>
-      <p>We'll e-mail you an invitation when it's your turn. If you didn't ask to join, ignore this message: the address isn't added unless the link is opened.</p>
-  waitlist_invite:
-    subject: "Your invitation to {app}"
-    text: |
-      Hello,
-
-      It's your turn: you're invited to make your {app} account. Open this link and sign up with this e-mail address ({email}):
-
-      {link}
-
-      The invitation works for {days} days.
-    html: |
-      <p>Hello,</p>
-      <p>It's your turn: you're invited to make your {app} account. Sign up with this e-mail address ({email}).</p>
-      <p><a href="{link}">Make my account</a></p>
-      <p>Or paste this link into your browser: {link}</p>
-      <p>The invitation works for {days} days.</p>
-  terms_change:
-    subject: "The {app} terms change on {date}"
-    text: |
-      Hello,
-
-      We are changing the {app} terms. The new terms take effect on {date}.
-
-      What changes:
-      {summary}
-
-      Read the new terms: {link}
-
-      From {date} you will be asked to accept them when you sign in. If you do not agree, you can close your account from your profile.
-    html: |
-      <p>Hello,</p>
-      <p>We are changing the {app} terms. The new terms take effect on {date}.</p>
-      <p>What changes:</p>
-      {summary}
-      <p><a href="{link}">Read the new terms</a></p>
-      <p>From {date} you will be asked to accept them when you sign in. If you do not agree, you can close your account from your profile.</p>
-  verify_email:
-    subject: "Confirm your e-mail address for {app}"
-    text: |
-      Hello,
-
-      Please confirm that this is your e-mail address for {app} by opening this link:
-
-      {link}
-
-      The link works once, for 24 hours. If you did not sign up for {app}, ignore this message: the address is not confirmed unless the link is opened. {app} sends at most {max} of these messages to one address a day.
-    html: |
-      <p>Hello,</p>
-      <p>Please confirm that this is your e-mail address for {app}:</p>
-      <p><a href="{link}">Confirm my e-mail address</a></p>
-      <p>Or paste this link into your browser: {link}</p>
-      <p>The link works once, for 24 hours. If you did not sign up for {app}, ignore this message: the address is not confirmed unless the link is opened. {app} sends at most {max} of these messages to one address a day.</p>
-  password_reset:
-    subject: "Reset your {app} password"
-    text: |
-      Hello,
-
-      Someone (we hope you) asked to reset the password of your {app} account. Choose a new one by opening this link:
-
-      {link}
-
-      The link works once, for an hour, and signs you out everywhere. If you did not ask, ignore this message; your password stays as it is.
-    html: |
-      <p>Hello,</p>
-      <p>Someone (we hope you) asked to reset the password of your {app} account.</p>
-      <p><a href="{link}">Choose a new password</a></p>
-      <p>Or paste this link into your browser: {link}</p>
-      <p>The link works once, for an hour, and signs you out everywhere. If you did not ask, ignore this message; your password stays as it is.</p>
-  register_taken:
-    subject: "You already have a {app} account"
-    text: |
-      Hello,
-
-      Someone tried to create a new {app} account with this e-mail address. It already has an account, so nothing was created.
-
-      If it was you, sign in here:
-
-      {login}
-
-      Forgot your password? Choose a new one here:
-
-      {reset}
-
-      If it was not you, ignore this message; your account is unchanged.
-    html: |
-      <p>Hello,</p>
-      <p>Someone tried to create a new {app} account with this e-mail address. It already has an account, so nothing was created.</p>
-      <p>If it was you: <a href="{login}">Sign in</a></p>
-      <p>Forgot your password? <a href="{reset}">Choose a new password</a></p>
-      <p>If it was not you, ignore this message; your account is unchanged.</p>
-  account_deletion:
-    subject: "Your {app} account will be deleted on {date}"
-    text: |
-      Hello,
-
-      You asked to delete your {app} account. It will be deleted for good on {date}, with your progress, courses and saved keys.
-
-      To keep it, sign in to {app} before then and choose Cancel deletion.
-
-      If you did not ask for this, sign in, cancel the deletion and change your password.
-  data_export:
-    subject: "Your {app} data is ready to download"
-    text: |
-      Hello,
-
-      The copy of your {app} data you asked for is ready. Sign in to {app}, then open this link to download it:
-
-      {link}
-
-      The link works once, for 24 hours, and only while you are signed in to this account. If you did not ask for it, change your password: someone else is signed in to your account.
-    html: |
-      <p>Hello,</p>
-      <p>The copy of your {app} data you asked for is ready. Sign in to {app}, then open this link to download it:</p>
-      <p><a href="{link}">Download my data</a></p>
-      <p>The link works once, for 24 hours, and only while you are signed in to this account. If you did not ask for it, change your password: someone else is signed in to your account.</p>
-  two_factor_changed:
-    subject: "Two-factor sign-in on {app} changed"
-    now_off: is now off
-    now_email: now e-mails you a code
-    now_totp: now asks for a code from an authenticator app
-    text: |
-      Hello,
-
-      Two-factor sign-in on {app} {now}.
-
-      Every other device was signed out. If you did not make this change, someone else was signed in to your account: sign in, use “Sign out everywhere else” on your profile, and set two-factor sign-in back.
-    html: |
-      <p>Hello,</p>
-      <p>Two-factor sign-in on {app} <strong>{now}</strong>.</p>
-      <p>Every other device was signed out. If you did not make this change, someone else was signed in to your account: sign in, use “Sign out everywhere else” on your profile, and set two-factor sign-in back.</p>
-  login_code:
-    subject: "Your {app} sign-in code"
-    text: |
-      Hello,
-
-      Your code to finish signing in to {app}:
-
-      {code}
-
-      It works for 10 minutes. If you did not try to sign in, change your password: someone else knows it.
-    html: |
-      <p>Hello,</p>
-      <p>Your code to finish signing in to {app}:</p>
-      <p style="font-size:1.6em;letter-spacing:.15em"><strong>{code}</strong></p>
-      <p>It works for 10 minutes. If you did not try to sign in, change your password: someone else knows it.</p>
-  two_factor_confirm:
-    subject: "Your {app} code to change two-factor sign-in"
-    text: |
-      Hello,
-
-      Your code to turn off or change two-factor sign-in on {app}:
-
-      {code}
-
-      It works for 10 minutes. If you did not ask for it, someone else is signed in to your account: use “Sign out everywhere else” on your profile.
-    html: |
-      <p>Hello,</p>
-      <p>Your code to turn off or change two-factor sign-in on {app}:</p>
-      <p style="font-size:1.6em;letter-spacing:.15em"><strong>{code}</strong></p>
-      <p>It works for 10 minutes. If you did not ask for it, someone else is signed in to your account: use “Sign out everywhere else” on your profile.</p>
-  course_share:
-    subject: "{owner} shared a course with you on {app}: {title}"
-    text: |
-      Hello,
-
-      {owner} shared the course “{title}” with you on {app}. Open this link to add it to your courses:
-
-      {link}
-
-      You can learn from the course with your own progress; only {owner} can change it. If you do not have a {app} account yet, the link lets you create one. If you were not expecting this, ignore this message.
-    html: |
-      <p>Hello,</p>
-      <p>{owner} shared the course <strong>{title}</strong> with you on {app}.</p>
-      <p><a href="{link}">Open the course</a></p>
-      <p>Or paste this link into your browser: {link}</p>
-      <p>You can learn from the course with your own progress; only {owner} can change it. If you do not have a {app} account yet, the link lets you create one. If you were not expecting this, ignore this message.</p>
 
 profile:
-  email_no_mail:
-    title: "Not confirmed"
-    text: "This server cannot send e-mail, so it cannot send a link to confirm your address. Everything works without it."
-    label: "About your address"
-    ok: "OK"
   title: Profile
   no_name: Learner
   head:
@@ -485,19 +204,12 @@ profile:
     appear_as_before: "You will appear as: ("
     appear_as_after: ) to other users.
     email_private: Your e-mail address is private to you.
-    policy_link: privacy policy
     ok: OK
-  email_unverified:
-    title: Verify your e-mail
-    text: Email not yet verified. Check your inbox for the link.
-    close: Close
-    resend: Resend
   nav:
     label: Profile sections
     personal: Personal information
     account: Account
     two_factor: Two-factor authentication
-    api_keys: AI API keys
     data: Your data
     consent: "Privacy and consent"
   personal:
@@ -507,7 +219,6 @@ profile:
     email: E-mail address
     no_email: No e-mail on file
     verified: Verified
-    not_verified: Not verified
     language: Language
     language_unavailable: That language is not available.
   account:
@@ -516,36 +227,16 @@ profile:
     sign_in: Sign-in
     password: Password
     and: and
-    terms: Terms
-    terms_accepted: "Version {version}, accepted {date}"
-    terms_not_accepted: Not accepted
-    terms_read: read
-    terms_privacy: privacy
-    terms_title: Terms of Service
-    terms_close: Close
-    terms_open_page: Open as a page
     no_password: This account has no password to change.
   consent:
     title: "Privacy and consent"
     info: "About your consents"
     info_age: "You confirmed your age when you signed up. To take that back, delete your account under Your data."
-    info_email: "Service e-mails always go out: confirming your address, your data download, and changes to the terms. Optional e-mails will show up here with their own switch, off until you turn them on."
-    info_ai: "AI features send what you type to an AI company. Hide them and nothing goes out, the features are gone from the app, and your saved API keys are deleted."
-    info_record: "Each change is kept with its date and comes with Download my data."
+    info_record: "Each change is kept with its date."
     close: "Close"
-    terms: "Terms and privacy"
     age: "Age"
     age_confirmed: "Confirmed {date}"
     age_not_confirmed: "Not confirmed"
-    email: "E-mail"
-    email_service: "Service messages only"
-    ai: "Do Not Show Me AI Features"
-    ai_on_since: "Shown since {date}"
-    ai_on: "Shown"
-    ai_off_since: "Hidden since {date}"
-    ai_off: "Hidden"
-    ai_key: "Own API key on file"
-    ai_keys_manage: "manage keys"
   sessions:
     sign_out_others: Sign out everywhere else
     info_label: About signing out everywhere else
@@ -571,32 +262,22 @@ profile:
     info: About two-factor authentication
     second_step: Second sign-in step
     off: "Off"
-    email: E-mail
-    email_unverified: E-mail not verified
     totp: Authenticator app
     save: Save
     confirm_title: Confirm it's you
     confirm_password_why: So that someone using this signed-in browser can't change your second step, type your account's password.
     confirm_app_code: This account has no password, so type the code your authenticator app shows now.
-    confirm_sent_code: This account has no password, so confirm with a code from your current second step.
-    sent_to: "Sent to {to}."
-    send_one_first: Send one first.
     password: Password
     code: Code
     cancel: Cancel
-    send_again: Send again
-    send_code: Send code
     confirm: Confirm
     totp_added: "Authenticator app added {date}"
     remove: Remove
     info_title: Two-factor authentication
-    info_text: "After your password, signing in asks for a code: e-mailed, or shown by an authenticator app such as Google Authenticator. One method at a time; choosing another replaces it."
-    info_small: E-mail and text need a verified address or number. Codes work for 10 minutes; five wrong ones end the sign-in.
+    info_text: "After your password, signing in asks for the code an authenticator app such as Google Authenticator shows."
+    info_small: Five wrong codes end the sign-in.
     ok: OK
-    email_first_title: Verify your e-mail first
-    email_first_text: E-mail codes need a verified address. Check your inbox for the link.
     close: Close
-    resend: Resend
     totp_title: Add an authenticator app
     totp_how: How to add the app
     totp_dev_link: "Dev: add it to the dev authenticator"
@@ -608,7 +289,6 @@ profile:
     turn_off: Turn two-factor sign-in off
     switch_to: "Switch two-factor sign-in to {method}"
     turn_on_by: "Turn on two-factor sign-in by {method}"
-    method_email: e-mail
     method_totp: authenticator app
     is_off: Two-factor sign-in is off.
     is_method: "Two-factor sign-in: {method}."
@@ -622,66 +302,12 @@ profile:
       other: "That code is not right. {n} tries left."
     code_wrong_newest: That code is not right. Type the newest code the app shows.
     code_gone: No code is waiting, or it expired. Send a new one.
-    too_many_codes: Too many codes sent. Wait a few minutes and try again.
-    code_not_sent: The code could not be sent. Try again in a moment.
-  ai:
-    on: "On"
-    off: "Off"
-    close: Close
-    off_title: Hide all AI features?
-    off_text: This will delete all AI API keys saved in your profile.
-    cancel: Cancel
-    confirm: CONFIRM
-    hidden_notice: AI features are hidden. You will not be shown them, and nothing you do here goes to an AI company.
-    shown_notice: AI features are shown again.
-    feature_hidden: "That feature uses AI, which you have hidden. Turn off \"Do Not Show Me AI Features\" under Privacy and consent to use it."
-    keys_off: AI features are off for your account; turn them on to save a key.
-  api_keys:
-    title: AI API keys
-    about: "The AI tutor, Generate the course and Use AI call these providers with your key, billed to your account."
-    info: "About your API keys"
-    info_title: "Your API keys"
-    info_text: "Keys are encrypted before they are stored and are never shown again; only the last four characters stay visible so you can tell which key is on file. You can replace or remove a key at any time."
-    unreadable: "On file but unreadable: the server's secret changed. Paste it again."
-    on_file: ✓ Key on file
-    ends_in: ends in
-    none: No key yet
-    replace: Paste a new key to replace it
-    paste: Paste your key
-    get_one: get one
-    remove: Remove key
-    removed: "{provider} key removed."
-    empty: Paste the API key first.
-    too_long: "That is too long for an API key (max {max} characters)."
-    bad_chars: An API key contains only letters, digits and punctuation, with no spaces.
-    wrong_provider: "That does not look like a {provider} key: they start with {prefix}."
   data:
-    export_download: "Download my data"
-    export_building_no_mail: "Your data is being prepared. When it is ready, a Download button appears here."
-    export_ready_no_mail: "Your data is ready: download it with the button, once, until {date}."
-    export_about_no_mail: "A JSON file of everything stored for your account, prepared in the background. When it is ready, download it here; it works once, for 24 hours. One copy a day."
     title: Your data
-    stored_html: "What is stored and why: <a href=\"{url}\" data-testid=\"profile-privacy-link\">privacy policy</a>."
-    export: Prepare my data (JSON)
-    export_heading: Download my data
-    export_info_label: About downloading your data
-    export_preparing: Preparing…
-    export_about: A JSON file of everything stored for your account, prepared in the background. We e-mail you a link; it works once, for 24 hours, while you are signed in. One copy a day.
-    export_ok: OK
-    export_your_address: your address
-    export_none: You have not asked for a copy yet.
-    export_building: "Being prepared. A link will be e-mailed to {email} when it is ready."
-    export_ready: "Ready. The link was e-mailed to {email}; it works once, until {date}."
-    export_downloaded: "Downloaded on {date}."
-    export_expired: The last link expired unused.
-    export_failed: The last copy could not be prepared. Try again.
-    export_next: "One copy a day: you can ask for the next from {date}."
-    export_queued: Preparing your data. You will get an e-mail with the link.
-    export_busy: Your data is already being prepared.
-    export_soon: One copy a day. See (i) for when you can ask again.
-    export_gone: That download link has been used, has expired, or is for another account.
+    ok: OK
     delete_title: Delete account
-    delete_about: "We delete your account 14 days after you ask, or when a cancelled plan's paid time ends if that is later. That deletes your progress, courses and saved keys. Until then you are signed out, and you can sign in again to cancel."
+    delete_about: "We delete your account 14 days after you ask. That deletes your progress, courses and saved keys. Until then you are signed out, and you can sign in again to cancel."
+    delete_owner: "You run this Skrongle, so your account can't be deleted here."
     your_password: Your password
     confirm_before: Type your e-mail address (
     confirm_after: ) to confirm
@@ -690,7 +316,6 @@ profile:
     password_wrong: The password is not right.
     type_email: Type your e-mail address to confirm.
     code_app: Code from your authenticator app
-    code_sent_to: "sent to {to}"
   deletion:
     title: "Account scheduled for deletion"
     on: "This account will be deleted for good on {date}."
@@ -700,7 +325,6 @@ profile:
   save:
     not_a_field: This field is not part of the profile.
     motivator_unavailable: "That motivator is not available."
-    sent_to: "Sent to {email}."
   name:
     too_long: "{label} is too long (max {max} characters)."
     bad_chars: "{label} contains characters that are not allowed."
@@ -713,13 +337,6 @@ profile:
     not_email: That does not look like an e-mail address.
     no_domain: E-mail address needs a domain like example.org.
   js:
-    no_key: No key yet
-    paste_key: Paste your key
-    paste_new_key: Paste a new key to replace it
-    key_on_file: ✓ Key on file
-    ends_in: ends in
-    on: "On"
-    off: "Off"
     account_menu_for: "Account menu for {name}"
     first_name: First name
     last_name: Last name
@@ -729,14 +346,10 @@ profile:
     turn_off: Turn two-factor sign-in off
     switch_to: "Switch two-factor sign-in to {method}"
     turn_on_by: "Turn on two-factor sign-in by {method}"
-superuser:
-  title: Superuser
-  about: "Actions on any account. Only superusers see this page."
-  open_inbox: Open it in the dev inbox
+manage:
+  title: Manage Users
+  about: "Actions on any account. Only owners see this page."
   email: E-mail address
-  reset_note: Marks the account's address unconfirmed and sends a new confirmation link, as at registration.
-  reset: Reset email verification
-  reset_done: "{email} is unconfirmed again, and a new confirmation link was sent."
   unknown: "No account has the address {email}."
   accounts: "Accounts"
   accounts_info: "About accounts and sign-up"
@@ -763,18 +376,45 @@ superuser:
   two_factor_off_about: "The account signs in with its password alone until it turns two-factor on again. An authenticator app set up for it is removed."
   two_factor_off_confirm: "Turn it off"
   two_factor_off_done: "Two-factor sign-in is off for {email}."
-  terms_changed: "The terms have changed."
-  terms_title: "Coming change to the terms"
-  terms_send: "Send the announcement"
-  terms_send_about:
-    one: "The summary of the coming change goes to {n} account that has not had it."
-    other: "The summary of the coming change goes to {n} accounts that have not had it."
-  terms_sent:
-    one: "Announcement queued for {n} account."
-    other: "Announcement queued for {n} accounts."
+  make_owner: "Make owner"
+  make_owner_about: "The account becomes an owner too: it sees Manage Users in its account menu and can take every action on this page. It cannot be undone here."
+  make_owner_done: "{email} is an owner now."
+  api_keys:
+    title: AI API keys
+    info_text: "Every account's AI features use these keys, billed to the account each key belongs to. Keys are encrypted before they are stored and are never shown again; only the last four characters stay visible so you can tell which key is on file. Only owners see them."
+    unreadable: "On file but unreadable: the server's secret changed. Paste it again."
+    on_file: "✓ Set"
+    ends_in: ends in
+    none: "Not set"
+    replace: Paste a new key to replace it
+    paste: "Paste the key"
+    get_one: get one
+    remove: Remove key
+    removed: "{provider} key removed."
+    empty: Paste the API key first.
+    too_long: "That is too long for an API key (max {max} characters)."
+    bad_chars: An API key contains only letters, digits and punctuation, with no spaces.
+    wrong_provider: "That does not look like a {provider} key: they start with {prefix}."
+    empty_url: "Type the server's base URL first."
+    bad_url: "A base URL starts with http:// or https:// and a host, for example http://localhost:11434."
+    bad_model: "A model name is up to 100 letters, digits and punctuation, with no spaces (for example llama3.1)."
+    base_url: "The server's base URL"
+    get_server: "get Ollama"
+    model: "Model"
   js:
     copied: "Copied"
-
+    key_on_file: "✓ Set"
+    ends_in: "ends in"
+    paste_new_key: "Paste a new key to replace it"
+  ai:
+    title: "AI features"
+    info: "About the AI features"
+    about: "The AI tutor, course generation, Edit with AI and translation send what learners type to an AI provider, with the keys below. Hide them and they are gone for every account on this server and nothing goes out; the keys stay saved for when you show them again."
+    hide: "Hide AI features for everyone"
+    on: "On"
+    off: "Off"
+    hidden_notice: "AI features are hidden for every account."
+    shown_notice: "AI features are shown again for every account."
 
 landing:
   title: Learn anything from a folder of JSON files
@@ -832,8 +472,6 @@ landing:
   spec_docs_p: The format, the features and the architecture are served from the app itself, as pages or as raw Markdown for an LLM.
   final_h2: "Register, then answer one question: what would you like to learn?"
   browse_docs: Browse the documentation
-  terms: Terms of Service
-  privacy: Privacy Policy
   feat_guide_h: "Guide"
   feat_guide_p: "Each lesson as a stage of small steps: cards, quick checks, flashcards and tips, with stars at the end."
   try_lead: "Twenty seconds of each mode. Pick one and try it."
@@ -962,8 +600,8 @@ home:
   open_ai: Open AI tutoring
   ai_tag: Chat with a tutor
   about_ai: About AI tutoring
-  using_key_html: "Using your <strong>{provider}</strong> key"
-  needs_key_html: "Needs an API key · <a href=\"{url}\" data-testid=\"home-ai-add-key\">add one in your profile</a>"
+  using_key_html: "Using the <strong>{provider}</strong> key"
+  needs_key_html: "Needs an API key · <a href=\"{url}\" data-testid=\"home-ai-add-key\">add one on Manage Users</a>"
   start_conversation: Start a conversation
   no_ai_keys: No AI keys set
   info_sprint_p: "Short tap-and-swipe sessions: word tiles, sorting, matching and quick quiz rounds. A streak and the daily goal keep you coming back."
@@ -975,8 +613,9 @@ home:
   info_play_dates: "a date dash, "
   info_play_end: or a hand of flashcards.
   info_guide_p: "The lessons in order, one small step at a time: a card or two, then a quick check. Finish a stage to unlock the next, and earn up to three stars on each."
-  info_ai_p: "A one-to-one lesson over chat: the tutor explains, checks you follow, sets an exercise when you are ready and talks you through your answer. Same questions, same mastery, just a conversation. Runs on your own API key."
+  info_ai_p: "A one-to-one lesson over chat: the tutor explains, checks you follow, sets an exercise when you are ready and talks you through your answer. Same questions, same mastery, just a conversation. Runs on this server's API key."
   ok: OK
+  needs_key_ask: "Needs an API key, which the owner of this server adds"
 
 goal:
   ring_label: "Today's goal: {n} of {goal} points"
@@ -1217,7 +856,7 @@ study:
     note_h2: "My note"
     note_placeholder: "Anything that helps you remember this lesson"
     note_info: "About my note"
-    note_info_body: "Only you see this note. It saves as you type, up to {max} characters, and comes with Download my data on your profile."
+    note_info_body: "Only you see this note. It saves as you type, up to {max} characters."
     note_ok: "OK"
     note_saved: "Note saved"
     note_too_long: "A note can be at most {max} characters."
@@ -1375,10 +1014,9 @@ docs:
     done_html: 🎉 <strong>Done.</strong> Bookmark it.
     not_loading_html: 💡 <strong>Not loading?</strong> Run <code>hostname -I</code> on the Pi and use that number instead, e.g. <code>http://192.168.1.42:8080</code>.
     yours_h2: Make it yours
-    yours_account_html: "<strong>Invite everyone else</strong> with a link from <em>Superuser</em> (in the account menu)."
-    yours_terms_html: "<strong>Put your name in the Terms.</strong> Everyone accepts them when they sign up. Edit them with <code>sudo nano /etc/skrongle/terms.md</code>, then <code>sudo systemctl restart skrongle</code>; everyone accepts the new text at their next visit."
+    yours_account_html: "<strong>Invite everyone else</strong> with a link from <em>Manage Users</em> (in the account menu)."
     yours_course_html: <strong>Pick a course.</strong> Spanish is built in, or make your own.
-    yours_ai_html: "<strong>Optional: AI tutor and course generator.</strong> Paste an Anthropic, OpenAI or Google key in <em>Profile settings → AI API keys</em>. They bill you directly."
+    yours_ai_html: "<strong>Optional: AI tutor and course generator.</strong> Paste an Anthropic, OpenAI or Google key under <em>Manage Users → AI features</em>. It serves everyone on the server and bills you directly."
     yours_tip: "🔒 Only people you invite can make an account."
     away_h2: Use it away from home
     optional: optional
@@ -1402,11 +1040,9 @@ docs:
     footnote_html: "More detail: the <a href=\"{url}\" data-testid=\"selfhost-technical-footer\">technical guide</a>."
     mini_h2: "{app} mini"
     mini_p: "What this page installs: the same app, set up for a handful of people who know you, with no outside services."
-    mini_out_h3: "What it leaves out"
+    mini_out_h3: "How it is set up"
     mini_out_mail: "No e-mail or text messages: links show up in the page instead."
-    mini_out_plans: "No plans or payments: everyone has everything."
     mini_out_signup: "Sign-up by invitation: you make a link for each person."
-    mini_out_terms: "Your own Terms of Service, not ours."
     mini_out_jobs: "Background work runs inside the app: no extra services to run."
     mini_out_db: "One database file (SQLite): no database server."
     mini_safe_h3: "Keeping it safe is your job"
@@ -2137,11 +1773,12 @@ tutor:
   no_key:
     title: Your tutor needs an API key
     p1: "AI tutoring runs on your own account with Claude, OpenAI or Google, so {app} never pays for or sees your conversations beyond this server."
-    p2: Add a key once in your profile; it is encrypted and only used when you ask the tutor something.
+    p2: "Add a key once on Manage Users; it is encrypted, serves every account and is only used when someone asks the tutor something."
     add_key: Add an API key
     back: Back to the modes
+    ask_owner: "Ask the owner of this server to add an API key on Manage Users."
   chars_label: Special characters
-  disclosure: "Your messages are sent to {provider} using your key."
+  disclosure: "Your messages are sent to {provider} using this server's key."
   placeholder: Say something to your tutor…
   input_label: Message to the tutor
   send: Send
@@ -2152,7 +1789,7 @@ tutor:
     message_too_long: message too long
     bad_turn: bad turn
     nothing_pending: no exercise is waiting for an answer
-    no_key: "no {provider} key on file; add one in your profile"
+    no_key: "no {provider} key on this server; the owner adds one on Manage Users"
     all_busy: the tutor is busy with other learners right now; try again in a moment
     still_answering: the tutor is still answering
     thread_failed: "could not start the tutor thread: {error}"
@@ -2586,10 +2223,10 @@ courses:
     submit: Submit
     review_changes: Review changes
     review_tip: "What the last AI run ({when}) changed"
-    sent_to_named_html: "Your notes are sent to <span data-testid=\"course-ai-provider\">{provider}</span> using your key."
-    sent_to_generic: Your notes are sent to your AI provider using your key.
-    no_key_html: "No AI provider key is set up. <a href=\"{url}\" data-testid=\"course-ai-profile-link\">Add an API key in your profile</a> to use AI features."
-    no_key: No AI provider key is set up. Add an API key in your profile to use AI features.
+    sent_to_named_html: "Your notes are sent to <span data-testid=\"course-ai-provider\">{provider}</span> using this server's key."
+    sent_to_generic: "Your notes are sent to the AI provider using this server's key."
+    no_key_html: "No AI provider key is set up. <a href=\"{url}\" data-testid=\"course-ai-profile-link\">Add an API key on Manage Users</a> to use AI features."
+    no_key: "No AI provider key is set up. Ask the owner of this server to add one on Manage Users."
     modal_generating: Generating…
     modal_count_rewritten: "{done} of {total} lessons rewritten or added"
     modal_count_edited: "{done} of {total} lessons rewritten"
@@ -2642,7 +2279,7 @@ courses:
       other: "your lessons {list}"
     list_sep: ", "
     quoted: "“{text}”"
-    no_key_html: "You need an AI provider key to generate a course. <a href=\"{url}\" data-testid=\"generate-profile-link\">Add an API key in your profile</a>, then come back here."
+    no_key_html: "You need an AI provider key to generate a course. <a href=\"{url}\" data-testid=\"generate-profile-link\">Add an API key on Manage Users</a>, then come back here."
     asked_for: What you asked for
     wish_label: What do you want to learn?
     wish_optional: "(optional: the title is enough to start)"
@@ -2679,8 +2316,8 @@ courses:
     instructions_label: Instructions
     reset: Reset to the default instructions
     edited: Edited
-    sent_to_html: "Your notes are sent to <span id=\"gen-disclosure-provider\">{provider}</span><span id=\"gen-disclosure-key\"> using your key</span>."
-    sent_to_generic: Your notes are sent to your AI provider using your key.
+    sent_to_html: "Your notes are sent to <span id=\"gen-disclosure-provider\">{provider}</span><span id=\"gen-disclosure-key\"> using this server's key</span>."
+    sent_to_generic: "Your notes are sent to the AI provider using this server's key."
     submit_resume: Resume writing
     submit_retry: Retry
     effort:
@@ -2702,7 +2339,7 @@ courses:
     choose_provider: Choose a provider.
     base_url: The base URL must start with http:// or https://.
     bad_key: That does not look like an API key.
-    paste_key: "Paste an API key for {provider}, or save one on your profile first."
+    paste_key: "No {provider} key is set up on this server."
     wish_too_long: "Keep what you want to learn to {max} characters at most; put longer material in the notes box."
     notes_too_long: "Keep your material to {max} characters at most; trim it or split the course in two."
     new_course: New course
@@ -2713,6 +2350,7 @@ courses:
     busy_other: "A course is already being generated; try again when it finishes."
     cancelling_revision: "Cancelling: the course stays as it was."
     cancelling_generation: "Cancelling: the course stops after the lesson being written."
+    no_key_ask: "You need an AI provider key to generate a course. Ask the owner of this server to add one on Manage Users."
   undo:
     undo: Undo
     redo: Redo
@@ -2900,7 +2538,7 @@ courses:
     none_right: "none right"
     failed: "The placement test did not load. Pick a level instead."
   share:
-    dialog_lead_no_mail: "Each address gets its own link for you to pass on: this server does not send e-mail. They learn from the course with their own progress; only you can change it."
+    dialog_lead: "Each address gets its own link for you to pass on: this server does not send e-mail. They learn from the course with their own progress; only you can change it."
     make_links: "Make invitation links"
     made:
       one: "{n} invitation link made. Copy it and pass it on; it is shown only now."
@@ -2910,14 +2548,12 @@ courses:
     button: Share
     button_count: "Share ({n})"
     dialog_title: Share this course
-    dialog_lead: Everyone you share it with gets an e-mail with a link. They learn from the course with their own progress; only you can change it.
     status_opened: opened
     status_invited: invited
     remove: Remove
     remove_label: "Stop sharing with {email}"
     emails_label: E-mail addresses
     emails_note: (one per line, or separated by commas)
-    send: Send invitations
     close: Close
     own_address: "That is your own address: the course is yours already."
     too_many_course: "A course can be shared with up to {max} addresses."
@@ -2925,9 +2561,6 @@ courses:
     at_least_one: Type at least one e-mail address.
     bad_address: "“{address}”: {error}"
     bad_address_notice: One of those is not an e-mail address. Check the list and send it again.
-    sent:
-      one: "Invitation sent to {n} address."
-      other: "Invitations sent to {n} addresses."
     already_had: "{n} already had one."
     removed_notice: No longer shared with that address.
     not_on_list: That address was not on the list.

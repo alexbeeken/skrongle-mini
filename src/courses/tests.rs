@@ -529,26 +529,29 @@ fn a_course_claiming_another_id_does_not_open() {
     assert!(registry.lock().get(id).is_some());
 }
 
-/// #32: loading the registry checks every built-in course but keeps none
-/// built, only its summary; the first `get` builds it from its folder and
-/// caches it like a user-made course, and the cache may drop it again.
+/// #32, #5: loading the registry builds every built-in course once and
+/// keeps the seed course in the cache, so its first `get` builds nothing;
+/// another built-in is built on its first `get`, and a course the cache
+/// dropped is built again from its folder.
 #[test]
-fn builtin_courses_are_built_on_first_use() {
+fn builtin_courses_stay_built_from_boot() {
     let rt = tokio::runtime::Builder::new_current_thread().enable_all().build().unwrap();
     let db = crate::db::Db::open_in_memory().unwrap();
     let registry = Courses::load_builtin(Path::new("data")).unwrap();
     let summary = registry.builtin_by_id("spanish").expect("spanish is listed");
     assert!(registry.is_builtin("spanish"));
-    assert!(registry.lock().entries.is_empty(), "boot keeps no course built");
+    assert!(registry.builtin().len() > 1);
+    let cached: Vec<String> = registry.lock().entries.keys().cloned().collect();
+    assert_eq!(cached, [crate::dev::SEED_COURSE], "boot keeps the seed course built, only it");
 
     let built = rt.block_on(registry.get(&db, "spanish")).unwrap().expect("spanish builds");
+    assert_eq!(registry.rebuilds(), 0, "the first request is served from what boot built");
     assert_eq!(summary.totals(), built.totals());
     let levels: Vec<(usize, usize)> = built.start_units().into_iter().map(|u| (u, built.lessons_in(u).count())).collect();
     assert_eq!(summary.levels(), levels.as_slice());
     let second = &built.units()[levels[1].0].id;
     assert_eq!(summary.start_index(second), built.start_index(second));
     assert_eq!(summary.placement_offered(), crate::placement::offered(&built));
-    assert_eq!(registry.lock().entries.keys().collect::<Vec<_>>(), [&"spanish".to_string()], "only the course asked for");
     let again = rt.block_on(registry.get(&db, "spanish")).unwrap().unwrap();
     assert!(Arc::ptr_eq(&built, &again), "the second request is served from the cache");
 
@@ -556,5 +559,90 @@ fn builtin_courses_are_built_on_first_use() {
     assert!(registry.lock().get("spanish").is_none());
     let rebuilt = rt.block_on(registry.get(&db, "spanish")).unwrap().unwrap();
     assert!(!Arc::ptr_eq(&built, &rebuilt), "dropped from the cache, it is built again");
+    assert_eq!(registry.rebuilds(), 1);
+    assert!(rt.block_on(registry.get(&db, "french")).unwrap().is_some());
+    assert_eq!(registry.rebuilds(), 2, "a built-in boot did not keep is built on first use");
     assert!(rt.block_on(registry.get(&db, "no-such-course")).unwrap().is_none());
+}
+
+/// The course under `data/test-courses/`.
+const TEST_COURSE: &str = "test-course";
+
+/// A runtime like the server's: one async worker (`main.rs`).
+fn one_worker() -> tokio::runtime::Runtime {
+    tokio::runtime::Builder::new_multi_thread().worker_threads(1).max_blocking_threads(2).enable_all().build().unwrap()
+}
+
+/// The test course (small and quick to build), dropped from the cache so
+/// the next `get` builds it, with `hook` run before each build.
+fn test_course_registry(hook: impl Fn(&str) + Send + Sync + 'static) -> Arc<Courses> {
+    let registry = Courses::load(Path::new("data"), true).unwrap().with_build_hook(hook);
+    registry.invalidate(TEST_COURSE);
+    Arc::new(registry)
+}
+
+/// #5: a slow build of one course does not hold up a request for another
+/// course (here a user-made one, which reads the database and builds too).
+#[test]
+fn a_slow_build_does_not_block_other_requests() {
+    let rt = one_worker();
+    let db = crate::db::Db::open_in_memory().unwrap();
+    db.with(|c| {
+        let uid = crate::auth::create_user(c, "ann@example.org", "h")?;
+        create_course(c, uid, "mine-abc123", "Mine", &starter_files("mine-abc123", "Mine"))
+    })
+    .unwrap();
+    let registry = test_course_registry(|_| std::thread::sleep(std::time::Duration::from_secs(2)));
+    rt.block_on(async {
+        let slow = tokio::spawn({
+            let (registry, db) = (Arc::clone(&registry), db.clone());
+            async move { registry.get(&db, TEST_COURSE).await.unwrap() }
+        });
+        tokio::time::sleep(std::time::Duration::from_millis(100)).await;
+        let started = std::time::Instant::now();
+        let other = registry.get(&db, "mine-abc123").await.unwrap();
+        assert!(other.is_some());
+        assert!(started.elapsed() < std::time::Duration::from_secs(1), "waited {:?}", started.elapsed());
+        assert!(!slow.is_finished(), "the slow build is still running");
+        assert!(slow.await.unwrap().is_some());
+    });
+}
+
+/// #5: two requests for a course not built yet build it once; both get it.
+#[test]
+fn two_first_requests_build_once() {
+    let rt = one_worker();
+    let db = crate::db::Db::open_in_memory().unwrap();
+    let registry = test_course_registry(|_| std::thread::sleep(std::time::Duration::from_millis(300)));
+    let (a, b) = rt.block_on(async {
+        let get = || {
+            let (registry, db) = (Arc::clone(&registry), db.clone());
+            tokio::spawn(async move { registry.get(&db, TEST_COURSE).await.unwrap().unwrap() })
+        };
+        let (a, b) = (get(), get());
+        (a.await.unwrap(), b.await.unwrap())
+    });
+    assert!(Arc::ptr_eq(&a, &b));
+    assert_eq!(registry.rebuilds(), 1);
+}
+
+/// #5: a build that panics answers like one that fails (no course), and
+/// lets the lock go: the next request builds it.
+#[test]
+fn a_panicking_build_lets_the_lock_go() {
+    let rt = one_worker();
+    let db = crate::db::Db::open_in_memory().unwrap();
+    let first = std::sync::atomic::AtomicBool::new(true);
+    let registry = test_course_registry(move |_| {
+        if first.swap(false, Ordering::Relaxed) {
+            panic!("a build that panics (on purpose, in a test)");
+        }
+    });
+    let course = rt.block_on(async {
+        let failed = tokio::time::timeout(std::time::Duration::from_secs(10), registry.get(&db, TEST_COURSE)).await;
+        assert!(failed.expect("answers").unwrap().is_none());
+        tokio::time::timeout(std::time::Duration::from_secs(10), registry.get(&db, TEST_COURSE)).await
+    });
+    assert!(course.expect("not stuck on the lock").unwrap().is_some());
+    assert_eq!(registry.rebuilds(), 1, "counted after the hook: only the second build");
 }

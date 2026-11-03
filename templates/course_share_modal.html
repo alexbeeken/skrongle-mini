@@ -1,10 +1,10 @@
 {# The Share dialog of the course page (src/share.rs): who the course is shared with, and addresses to invite. #}
 <dialog class="modal" id="course-share" aria-labelledby="course-share-title" data-testid="course-share"{% if share_open %} data-open-on-load{% endif %}>
   <h2 id="course-share-title">{{ crate::t("courses.share.dialog_title") }}</h2>
-  <p class="small muted">{% if mail %}{{ crate::t("courses.share.dialog_lead") }}{% else %}{{ crate::t("courses.share.dialog_lead_no_mail") }}{% endif %}</p>
+  <p class="small muted">{{ crate::t("courses.share.dialog_lead") }}</p>
   {% if share_open %}{% if let Some(n) = notice %}<p class="alert" role="status" data-testid="course-share-notice">{{ n }}</p>{% endif %}{% endif %}
   {% if !share_links.is_empty() %}
-  {# No mail on this server (#633): the links just made, for the owner to pass on. Stored only hashed, so shown this once. #}
+  {# The links just made, for the owner to pass on. Stored only hashed, so shown this once. #}
   <ul class="share-links" data-testid="course-share-links">
     {% for l in share_links %}
     <li data-testid="course-share-link-row" data-email="{{ l.email }}">
@@ -32,7 +32,7 @@
       <textarea name="emails" rows="3" required maxlength="2000" autocomplete="off" data-testid="course-share-emails"></textarea>
     </label>
     <div class="modal-actions">
-      <button type="submit" class="btn" data-testid="course-share-send">{% if mail %}{{ crate::t("courses.share.send") }}{% else %}{{ crate::t("courses.share.make_links") }}{% endif %}</button>
+      <button type="submit" class="btn" data-testid="course-share-send">{{ crate::t("courses.share.make_links") }}</button>
       <button type="button" class="btn ghost" data-dialog-close data-testid="course-share-close">{{ crate::t("courses.share.close") }}</button>
     </div>
   </form>

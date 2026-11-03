@@ -25,7 +25,7 @@ tower = { version = "0.5", default-features = false, features = ["util"] }
 
 # --- Templates / static assets (compiled into the binary) ---
 askama = { version = "0.16", default-features = false, features = ["std", "derive"] }
-rust-embed = { version = "8" }
+rust-embed = { version = "8", features = ["interpolate-folder-path"] }
 
 # --- Database (SQLite statically linked, no system libsqlite needed on the Pi) ---
 rusqlite = { version = "0.40", features = ["bundled", "trace", "functions"] }
@@ -42,7 +42,7 @@ getrandom = "0.4"
 
 # --- Logging ---
 tracing = { version = "0.1", default-features = false, features = ["std"] }
-tracing-subscriber = { version = "0.3", default-features = false, features = ["fmt", "ansi", "env-filter"] }
+tracing-subscriber = { version = "0.3", default-features = false, features = ["fmt"] }
 ureq = { version = "3.2.1", default-features = false, features = ["rustls", "json"] }
 sha2 = { version = "0.11", default-features = false }
 # Streaming a finished data export from disk (exports.rs) as the response body; already in the tree through axum.
@@ -56,15 +56,14 @@ chacha20poly1305 = { version = "0.11", default-features = false, features = ["al
 # --- Two-factor sign-in (src/totp.rs): the QR code an authenticator app scans, drawn as SVG by hand; no image crate ---
 qrcode = { version = "0.14", default-features = false }
 
-# --- E-mail (src/mail.rs): SMTP only, blocking, on the rustls/ring/webpki-roots ureq already brings ---
-lettre = { version = "0.11.23", default-features = false, features = ["smtp-transport", "builder", "rustls", "ring", "webpki-roots"] }
-# Decoding what the dev mailbox (src/mail/sink.rs) receives; both already come with lettre.
-base64 = "0.23"
-quoted_printable = "0.5"
 # --- Diagnostics (`skrongle doctor`, startup checks): statvfs, access, geteuid.
 # Already in the tree through tokio and getrandom; no new code is pulled in.
 [target.'cfg(unix)'.dependencies]
 libc = "0.2"
+
+# Build time only (build.rs pre-gzips static/); nothing here reaches the binary.
+[build-dependencies]
+flate2 = { version = "1", default-features = false, features = ["rust_backend"] }
 
 [profile.dev]
 opt-level = 1            # argon2 in debug mode is painfully slow; a little optimisation keeps local logins fast

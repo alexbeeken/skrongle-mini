@@ -110,7 +110,7 @@
   </section>
 </section>
 {% endblock %}
-{% block scripts %}<script>Object.assign(I18N, {{ crate::i18n::js_json("quiz.js")|safe }});</script><script>Object.assign(I18N, {{ crate::i18n::js_json("clock.js")|safe }});</script><script src="{{ crate::routes::asset_url("clock.js") }}" defer></script><script src="{{ crate::routes::asset_url("quiz.js") }}" defer></script><script src="{{ crate::routes::asset_url("measure.js") }}" defer></script>
+{% block scripts %}<script>Object.assign(I18N, {{ crate::i18n::js_json("quiz.js")|safe }});</script>{% if has_clock() %}<script>Object.assign(I18N, {{ crate::i18n::js_json("clock.js")|safe }});</script><script src="{{ crate::routes::asset_url("clock.js") }}" defer></script>{% endif %}<script src="{{ crate::routes::asset_url("quiz.js") }}" defer></script>{% if has_measure() %}<script src="{{ crate::routes::asset_url("measure.js") }}" defer></script>{% endif %}
 {% if notation() %}<script src="{{ crate::routes::asset_url("vendor/abcjs-basic-min.js") }}" defer></script><script src="{{ crate::routes::asset_url("notation.js") }}" defer></script>{% endif %}
 {% if sound() %}<script src="{{ crate::routes::asset_url("music-sound.js") }}" defer></script>{% endif %}
 {% if fill_bar() %}<script src="{{ crate::routes::asset_url("fill-bar.js") }}" defer></script>{% endif %}

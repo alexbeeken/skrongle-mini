@@ -13,7 +13,6 @@
 #   data/courses/       built-in courses   } SKRONGLE_DATA_DIR
 #   data/badges/        the SKC shop       }
 #   skrongle.service    deploy/skrongle.service
-#   terms.example.md    deploy/terms.example.md: a template for the owner's own Terms (SKRONGLE_TERMS)
 #   update.sh           deploy/update.sh: `sudo /opt/skrongle/update.sh`
 #   VERSION             the version, one line
 #
@@ -47,7 +46,6 @@ for d in courses badges; do
 done
 find "$STAGE/data" \( -name AUTHORING.md -o -name fact-check-ok.txt -o -name .DS_Store \) -delete
 cp deploy/skrongle.service "$STAGE/skrongle.service"
-cp deploy/terms.example.md "$STAGE/terms.example.md"
 cp deploy/update.sh "$STAGE/update.sh"
 chmod 0755 "$STAGE/update.sh"
 echo "$VERSION" > "$STAGE/VERSION"

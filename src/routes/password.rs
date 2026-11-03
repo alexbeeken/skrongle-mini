@@ -31,7 +31,7 @@ pub struct NextQuery {
 /// Only app-relative paths, and never this page itself.
 fn safe_next(next: Option<&str>) -> String {
     match next {
-        Some(n) if super::terms::is_app_path(n) && !n.starts_with("/password/change") => n.to_string(),
+        Some(n) if is_app_path(n) && !n.starts_with("/password/change") => n.to_string(),
         _ => "/".to_string(),
     }
 }
@@ -104,4 +104,12 @@ mod tests {
         assert_eq!(safe_next(Some("/password/change?next=/x")), "/");
         assert_eq!(safe_next(None), "/");
     }
+}
+
+/// An app-relative path: one `/` first, no second one, and no backslash,
+/// whitespace or control character: browsers drop tabs and newlines and read
+/// `\` as `/`, so `/<tab>/evil.example` would become `//evil.example`,
+/// another host (#358).
+pub(crate) fn is_app_path(n: &str) -> bool {
+    n.starts_with('/') && !n.starts_with("//") && !n.chars().any(|c| c == '\\' || c.is_whitespace() || c.is_control())
 }

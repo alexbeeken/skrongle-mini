@@ -336,7 +336,7 @@ fn too_many_writes_text() -> String {
 /// What a text names comes from the server, never the URL: `undone` and
 /// `redone` name the change from the Undo/Redo buttons' labels and a
 /// `-broken` notice the course's own load error, both from the database; the
-/// Share dialog's counts are digits in the key (`share-sent-2-1`).
+/// Share dialog's counts are digits in the key (`share-made-2-1`).
 pub(super) fn editor_notice(key: &str, undo: Option<&UndoView>, error: Option<&str>) -> Option<String> {
     let redo_label = undo.and_then(|u| u.redo.as_deref()).unwrap_or_default();
     let undo_label = undo.and_then(|u| u.undo.as_deref()).unwrap_or_default();
@@ -358,10 +358,10 @@ pub(super) fn editor_notice(key: &str, undo: Option<&UndoView>, error: Option<&s
             _ => return None,
         });
     }
-    if let Some((made, counts)) = key.strip_prefix("share-sent-").map(|c| (false, c)).or_else(|| key.strip_prefix("share-made-").map(|c| (true, c))) {
-        let (sent, already) = counts.split_once('-')?;
-        let (sent, already) = (sent.parse::<u32>().ok()?, already.parse::<u32>().ok()?);
-        let mut text = if sent == 0 { String::new() } else { crate::tn(if made { "courses.share.made" } else { "courses.share.sent" }, sent) };
+    if let Some(counts) = key.strip_prefix("share-made-") {
+        let (made, already) = counts.split_once('-')?;
+        let (made, already) = (made.parse::<u32>().ok()?, already.parse::<u32>().ok()?);
+        let mut text = if made == 0 { String::new() } else { crate::tn("courses.share.made", made) };
         if already > 0 {
             text = format!("{text} {}", crate::t1("courses.share.already_had", "n", already)).trim().to_string();
         }

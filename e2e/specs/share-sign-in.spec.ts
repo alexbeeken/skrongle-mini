@@ -4,9 +4,9 @@
 // their list. A link that no longer works says so before and after signing
 // in (#1082).
 import { expect, test, type Page } from "@playwright/test";
-import { createCourse, devLogin, devReset } from "../lib/app";
+import { createCourse, devLogin, devReset, shareLink } from "../lib/app";
 import { logout, newAccount, register, signUp } from "../lib/learner";
-import { inbox, mailLink, waitForMail } from "../lib/mail";
+import { totp } from "../lib/totp";
 
 test.afterAll(async ({ browser }) => {
   const page = await browser.newPage();
@@ -23,27 +23,21 @@ async function sharedCourse(page: Page): Promise<{ id: string; link: string }> {
   await page.getByTestId("course-edit-share").click();
   await page.getByTestId("course-share-emails").fill(invited.email);
   await page.getByTestId("course-share-send").click();
-  await expect(page.getByTestId("course-share-notice")).toHaveText("Invitation sent to 1 address.");
-  const mail = await waitForMail(invited.email, /shared a course with you/);
+  await expect(page.getByTestId("course-share-notice")).toContainText("1 invitation link made");
+  const link = await shareLink(page, invited.email);
   await logout(page);
-  return { id, link: mailLink(mail, /\/courses\/shared\//) };
+  return { id, link };
 }
 
-/** The id of the newest mail to `email` (0 for none). */
-async function lastMail(email: string): Promise<number> {
-  return (await inbox(email))[0]?.id ?? 0;
-}
-
-/** The sign-in code mailed to `email` after mail `seen`, waiting for it so an older code is never used. */
-async function signInCode(email: string, seen: number): Promise<string> {
+/** The authenticator's code for `secret` once it is not `used`: each code works once. */
+async function nextCode(secret: string, used: string): Promise<string> {
   let code = "";
   await expect
-    .poll(async () => {
-      const m = (await inbox(email)).find((x) => /sign-in code/.test(x.subject) && x.id > seen);
-      code = m?.text.match(/\d{6}/)?.[0] ?? "";
-      return code;
-    }, { message: `no new sign-in code for ${email}` })
-    .not.toBe("");
+    .poll(() => {
+      code = totp(secret);
+      return code !== used;
+    }, { message: "a fresh authenticator code", timeout: 40_000, intervals: [1000] })
+    .toBe(true);
   return code;
 }
 
@@ -53,23 +47,28 @@ async function hasCourse(page: Page, id: string): Promise<void> {
   await expect(page.locator(`[data-testid="courses-card"][data-course-id="${id}"]`)).toHaveAttribute("data-active", "true");
 }
 
-/** A confirmed account with e-mailed sign-in codes, signed out. */
+/** An account with an authenticator app as its second step, signed out:
+ * the account, the app's setup key and the code that set it up. */
 async function twoFactorAccount(page: Page) {
   const a = newAccount("share-2fa");
   await register(page, a, "spanish");
-  const confirm = await waitForMail(a.email, /Confirm your e-mail address/);
-  await page.goto(mailLink(confirm, /\/verify-email\?/));
   await page.goto("/profile");
-  await page.locator('[data-testid="profile-two-factor-method"][data-method="email"]').click();
+  await page.locator('[data-testid="profile-two-factor-method"][data-method="totp"]').click();
   const dialog = page.getByTestId("two-factor-confirm-dialog");
   await dialog.getByTestId("two-factor-confirm-password").fill(a.password);
   await dialog.getByTestId("two-factor-confirm-submit").click();
-  await expect(page.getByTestId("profile-two-factor")).toHaveAttribute("data-method", "email");
+  await expect(page.getByTestId("two-factor-totp-dialog")).toBeVisible();
+  const secret = (await page.getByTestId("two-factor-totp-secret").innerText()).replace(/\s/g, "");
+  const used = totp(secret);
+  await page.getByTestId("two-factor-totp-code").fill(used);
+  await page.getByTestId("two-factor-totp-confirm").click();
+  await expect(page.getByTestId("profile-two-factor")).toHaveAttribute("data-method", "totp");
   await logout(page);
-  return a;
+  return { ...a, secret, used };
 }
 
 test("a share link survives the two-factor code step, and cancelling it keeps the link", async ({ page }) => {
+  test.setTimeout(120_000); // a fresh authenticator code can be 30 s away
   const a = await twoFactorAccount(page);
   const { id, link } = await sharedCourse(page);
 
@@ -84,12 +83,11 @@ test("a share link survives the two-factor code step, and cancelling it keeps th
   await expect(page).toHaveURL(/\/login\?share=/);
   await expect(page.getByTestId("login-share-notice")).toBeVisible();
 
-  const seen = await lastMail(a.email);
   await page.getByTestId("login-email").fill(a.email);
   await page.getByTestId("login-password").fill(a.password);
   await page.getByTestId("login-submit").click();
   await expect(page).toHaveURL(/\/login\/code$/);
-  await page.getByTestId("login-code-input").fill(await signInCode(a.email, seen));
+  await page.getByTestId("login-code-input").fill(await nextCode(a.secret, a.used));
   await page.getByTestId("login-code-submit").click();
   await expect(page.getByTestId("nav-account-toggle")).toHaveAttribute("data-email", a.email);
   await hasCourse(page, id);
@@ -107,7 +105,8 @@ test("an old link after the share was removed says it no longer works, signed ou
   // Signed out: the login page says so, and signing in leads to the course list with the same notice.
   const a = newAccount("share-gone");
   const guest = await (await browser.newContext()).newPage();
-  if (await signUp(guest, a)) await logout(guest);
+  await signUp(guest, a);
+  await logout(guest);
   await guest.goto(link);
   await expect(guest).toHaveURL(/\/login\?share=/);
   await expect(guest.getByTestId("login-share-notice")).toHaveText("This link no longer works. Ask the course's owner to share the course with you again.");

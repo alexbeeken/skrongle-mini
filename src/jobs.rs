@@ -14,8 +14,8 @@
 //!   ([`LEASE`]). A `running` row whose lease ran out (its server stopped
 //!   mid-job) is taken again, by the same server after a restart or by
 //!   another one.
-//! - A job that fails is tried again after its kind's delays (the mail
-//!   outbox's [`crate::mail::RETRY_DELAYS`] by default); after
+//! - A job that fails is tried again after its kind's delays
+//!   ([`RETRY_DELAYS`] by default); after
 //!   `max_attempts` it is `failed`, with `last_error`. Every failure is
 //!   logged.
 //! - A kind with `every` queues its next run when a run ends (done, or
@@ -24,14 +24,6 @@
 //!   none, so a server restarted more often than hourly still cleans up.
 //!   A kind with `at` queues it at the time `at` names instead, and its
 //!   first row waits for that time too (the nightly content check, #1038).
-//!
-//! - The mail outbox (`mail_outbox`) keeps its own
-//!   table but is drained by this runner too (#873): it is a [`Drain`].
-//!   A row is leased the same way, with [`lease_outbox`] (`locked_by`,
-//!   `locked_until`; it stays `queued` until it is sent or fails), so a row
-//!   being sent is never handed out twice. Each pass sends at most
-//!   [`OUTBOX_BATCH`] rows per outbox before the next job, and the outboxes
-//!   go first, so a sign-in code never waits behind housekeeping.
 //!
 //! - AI jobs (#874, `ai/queue.rs`, kind [`crate::ai::GENERATE`]): a generation resumed after a restart is queued
 //!   here but never run on this thread: the handler starts the job's own OS
@@ -50,13 +42,12 @@ use rusqlite::{params, Connection, OptionalExtension};
 use serde::Serialize;
 
 use crate::db::Db;
-use crate::mail::RETRY_DELAYS;
 
-/// How long a taken job (or outbox row) is this server's. Past it, the row
-/// is taken again.
+/// Wait before each retry of a failed job, by default; after the last one
+/// the job is `failed`.
+pub const RETRY_DELAYS: &[i64] = &[60, 300, 1800, 7200, 43_200];
+/// How long a taken job is this server's. Past it, the row is taken again.
 pub const LEASE: i64 = 600;
-/// Rows each outbox sends per pass before the runner looks at other work.
-pub const OUTBOX_BATCH: usize = 10;
 /// The runner looks at the table at least this often (seconds).
 const MAX_WAIT: i64 = 60;
 /// An hour, the housekeeping period.
@@ -102,15 +93,11 @@ const fn hourly(name: &'static str) -> Kind {
 
 /// The hourly housekeeping: every purge in one job ([`housekeeping`]).
 pub const HOUSEKEEPING: Kind = hourly("housekeeping");
-/// "Download my data" (exports.rs), the whole file in one run. A failed run
-/// fails the export (the learner can ask again at once, so one attempt); a
-/// server that stopped mid-run takes the row again when its lease runs out.
-pub const EXPORT: Kind = Kind { name: "export", max_attempts: 1, delays: RETRY_DELAYS, every: None, at: None };
 /// Dev mode only (`/dev/jobs`): a job that always fails, to watch retries.
 pub const DEV_FAIL: Kind = Kind { name: "dev.fail", max_attempts: RETRY_DELAYS.len() as i64 + 1, delays: RETRY_DELAYS, every: None, at: None };
 
 /// Every kind there is. A row of another kind is refused by [`enqueue`].
-pub const KINDS: &[Kind] = &[HOUSEKEEPING, EXPORT, DEV_FAIL, crate::ai::GENERATE];
+pub const KINDS: &[Kind] = &[HOUSEKEEPING, DEV_FAIL, crate::ai::GENERATE];
 
 pub fn kind(name: &str) -> Option<Kind> {
     KINDS.iter().find(|k| k.name == name).copied()
@@ -242,38 +229,6 @@ pub fn next_due(conn: &Connection, kinds: &[&str]) -> rusqlite::Result<Option<i6
     conn.query_row(&sql, rusqlite::params_from_iter(kinds.iter()), |r| r.get(0))
 }
 
-// ---------- the outbox tables ----------
-
-/// Lease the next due row of an outbox table (`mail_outbox`)
-/// to `worker`: a `queued` row whose `next_attempt_at` has come and that no
-/// live lease holds (none, or one that ran out because its server stopped
-/// mid-send). One statement, like [`claim`]; the row stays `queued` until the
-/// sender records how it went and clears the lease. `columns` are read from
-/// the leased row with `map`. `table` and `columns` are constants from code.
-pub fn lease_outbox<T>(
-    conn: &Connection,
-    table: &str,
-    columns: &str,
-    worker: &str,
-    now: i64,
-    map: impl FnOnce(&rusqlite::Row) -> rusqlite::Result<T>,
-) -> rusqlite::Result<Option<T>> {
-    let sql = format!(
-        "UPDATE {table} SET locked_by = ?1, locked_until = ?2
-         WHERE id = (SELECT id FROM {table}
-                     WHERE state = 'queued' AND next_attempt_at <= ?3 AND (locked_until IS NULL OR locked_until <= ?3)
-                     ORDER BY next_attempt_at, id LIMIT 1)
-         RETURNING {columns}"
-    );
-    conn.query_row(&sql, params![worker, now + LEASE, now], map).optional()
-}
-
-/// When an outbox table next has a row to send: its `next_attempt_at`, or
-/// the end of the lease holding it, whichever is later.
-pub fn outbox_next_due(conn: &Connection, table: &str) -> rusqlite::Result<Option<i64>> {
-    conn.query_row(&format!("SELECT MIN(MAX(next_attempt_at, COALESCE(locked_until, 0))) FROM {table} WHERE state = 'queued'"), [], |r| r.get(0))
-}
-
 /// Delete finished rows older than a day and failed ones older than 30 days.
 pub fn purge(conn: &Connection, now: i64) -> rusqlite::Result<usize> {
     conn.execute(
@@ -362,29 +317,9 @@ impl Queue {
         let _ = self.wake.lock().unwrap_or_else(|p| p.into_inner()).send(());
     }
 
-    /// A handle that wakes the runner, for the mail and text senders.
+    /// A handle that wakes the runner, for work queued from another thread.
     pub fn waker(&self) -> Sender<()> {
         self.wake.lock().unwrap_or_else(|p| p.into_inner()).clone()
-    }
-}
-
-/// An outbox the runner drains besides the `jobs` table: the mail and text
-/// outboxes (#873).
-pub struct Drain {
-    name: &'static str,
-    /// Lease one due row, send it and record the outcome: whether there was one.
-    send_one: Box<dyn Fn(&Db, &str, i64) -> rusqlite::Result<bool> + Send>,
-    /// When a row is next due ([`outbox_next_due`]).
-    next_due: Box<dyn Fn(&Db) -> rusqlite::Result<Option<i64>> + Send>,
-}
-
-impl Drain {
-    pub fn new(
-        name: &'static str,
-        send_one: impl Fn(&Db, &str, i64) -> rusqlite::Result<bool> + Send + 'static,
-        next_due: impl Fn(&Db) -> rusqlite::Result<Option<i64>> + Send + 'static,
-    ) -> Drain {
-        Drain { name, send_one: Box::new(send_one), next_due: Box::new(next_due) }
     }
 }
 
@@ -406,8 +341,6 @@ pub struct Runner {
     handlers: HashMap<&'static str, Handler>,
     /// Kinds the runner takes only while their gate says so.
     gates: HashMap<&'static str, Box<dyn Fn() -> bool + Send>>,
-    /// The outboxes, drained before the jobs on every pass.
-    drains: Vec<Drain>,
     /// `locked_by` on the rows this server takes.
     worker: String,
     /// Look at the table at least this often (seconds), even unwoken.
@@ -416,7 +349,7 @@ pub struct Runner {
 
 impl Runner {
     pub fn new() -> Runner {
-        Runner { handlers: HashMap::new(), gates: HashMap::new(), drains: Vec::new(), worker: format!("pid{}@{}", std::process::id(), crate::db::now()), poll: MAX_WAIT }
+        Runner { handlers: HashMap::new(), gates: HashMap::new(), worker: format!("pid{}@{}", std::process::id(), crate::db::now()), poll: MAX_WAIT }
     }
 
     /// Run kind `k` with `f`: `Ok` with a note for the log, or the error.
@@ -448,35 +381,9 @@ impl Runner {
         self.kinds().into_iter().filter(|k| self.gates.get(k).is_none_or(|g| g())).collect()
     }
 
-    /// Drain `d` on every pass, before the jobs.
-    pub fn drain(mut self, d: Drain) -> Runner {
-        self.drains.push(d);
-        self
-    }
-
-    /// Send up to [`OUTBOX_BATCH`] due rows from each outbox: how many were
-    /// handled. An error is logged and ends that outbox's turn.
-    pub fn run_drains(&self, db: &Db, now: i64) -> usize {
-        let mut handled = 0;
-        for d in &self.drains {
-            for _ in 0..OUTBOX_BATCH {
-                match (d.send_one)(db, &self.worker, now) {
-                    Ok(true) => handled += 1,
-                    Ok(false) => break,
-                    Err(e) => {
-                        tracing::warn!("jobs: {} outbox: {e}", d.name);
-                        break;
-                    }
-                }
-            }
-        }
-        handled
-    }
-
-    /// When the next job or outbox row is due.
+    /// When the next job is due.
     fn next_due(&self, db: &Db, kinds: &[&str]) -> Option<i64> {
-        let jobs = db.with(|c| next_due(c, kinds)).ok().flatten();
-        self.drains.iter().filter_map(|d| (d.next_due)(db).ok().flatten()).chain(jobs).min()
+        db.with(|c| next_due(c, kinds)).ok().flatten()
     }
 
     fn kinds(&self) -> Vec<&'static str> {
@@ -528,23 +435,19 @@ impl Runner {
         Ok(Some((job, outcome)))
     }
 
-    /// One pass: a batch from each outbox, then one due job. Whether
-    /// anything was done.
+    /// One pass: one due job. Whether anything was done.
     pub fn pass(&self, db: &Db, now: i64) -> bool {
-        let sent = self.run_drains(db, now);
-        let ran = match self.run_one(db, now) {
+        match self.run_one(db, now) {
             Ok(r) => r.is_some(),
             Err(e) => {
                 tracing::warn!("jobs: {e}");
                 false
             }
-        };
-        sent > 0 || ran
+        }
     }
 
-    /// Start the `jobs` thread: seed the periodic kinds, then send due
-    /// outbox rows and run due jobs, waking on `wake` or when the next one
-    /// is due (at least once a minute).
+    /// Start the `jobs` thread: seed the periodic kinds, then run due jobs,
+    /// waking on `wake` or when the next one is due (at least once a minute).
     pub fn start(self, db: Db, wake: Receiver<()>) -> std::io::Result<()> {
         std::thread::Builder::new().name("jobs".into()).spawn(move || {
             if let Err(e) = self.seed(&db, crate::db::now()) {
@@ -570,9 +473,8 @@ impl Runner {
 /// The hourly housekeeping, one job that runs every purge in turn: expired
 /// sessions, abandoned games, old generation jobs, idle tutor chats,
 /// rate-limit windows, accounts due for deletion (#970), the retention rules
-/// (privacy.rs), old outbox rows (mail.rs), old verification, reset,
-/// two-factor and invitation links, expired data exports with their files,
-/// old job rows, and last a WAL checkpoint so the -wal file doesn't grow on
+/// (privacy.rs), old two-factor challenges and invitation links, old job
+/// rows, and last a WAL checkpoint so the -wal file doesn't grow on
 /// the SD card. Each step logs its count; a step that fails is logged and the
 /// next still runs, and the job fails only when every step did (#45).
 pub fn housekeeping(runner: Runner, state: &Arc<crate::AppState>, retention: crate::privacy::Retention) -> Runner {
@@ -601,27 +503,18 @@ pub fn housekeeping(runner: Runner, state: &Arc<crate::AppState>, retention: cra
                     })
                 }),
             ),
-            ("outbox", Box::new(|| sql(db, |c, now| Ok(note(crate::mail::purge(c, now)?, "old outbox rows deleted"))))),
             (
                 "links",
                 Box::new(|| {
                     sql(db, |c, now| {
-                        let n = crate::verify::purge(c, now)? + crate::reset::purge(c, now)? + crate::two_factor::purge(c, now)? + crate::signup::purge(c, now)?;
+                        let n = crate::two_factor::purge(c, now)? + crate::signup::purge(c, now)?;
                         Ok(note(n, "old links deleted"))
                     })
                 }),
             ),
-            (
-                "exports",
-                Box::new(|| {
-                    let files = db.with(|c| crate::exports::purge(c, now())).map_err(|e| e.to_string())?;
-                    s.exports.remove(&files);
-                    let strays = crate::exports::remove_strays(db, &s.exports.dir);
-                    Ok(note(files.len() + strays, "expired or stray export files removed"))
-                }),
-            ),
             ("jobs", Box::new(|| sql(db, |c, now| purge(c, now).map(|n| note(n, "old job rows deleted"))))),
             ("wal_checkpoint", Box::new(|| sql(db, |c, _| c.execute_batch("PRAGMA wal_checkpoint(TRUNCATE);").map(|()| String::new())))),
+            ("shrink_memory", Box::new(|| sql(db, |c, _| c.execute_batch("PRAGMA shrink_memory;").map(|()| String::new())))),
         ];
         let (mut notes, mut failed, total) = (Vec::new(), Vec::new(), steps.len());
         for (name, run) in &steps {

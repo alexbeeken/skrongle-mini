@@ -39,15 +39,12 @@ pub struct EditorTemplate {
     pub shares: Vec<crate::share::Share>,
     /// `?share=1`: open the Share dialog straight away (after sending or removing).
     pub share_open: bool,
-    /// The server can send mail; without it the Share dialog makes links
-    /// for the owner to pass on (#633).
-    pub mail: bool,
-    /// Without mail, the links just made, one per new address, each with a
-    /// Copy button (they are stored only hashed: shown this once).
+    /// The links just made, one per new address, each with a Copy button
+    /// (they are stored only hashed: shown this once).
     pub share_links: Vec<ShareLink>,
 }
 
-/// An invitation link made on a server without mail (#633).
+/// An invitation link, for the owner to pass on.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct ShareLink {
     pub email: String,
@@ -293,16 +290,15 @@ pub struct Refill {
     pub lesson: Option<String>,
 }
 
-/// The first provider (in `Provider::ALL` order) the learner saved a key for.
-pub(super) async fn saved_provider(state: &AppState, user_id: i64) -> Result<Option<crate::secrets::Provider>, AppError> {
-    Ok(saved_providers(state, user_id).await?.into_iter().next())
+/// The first provider (in `Provider::ALL` order) the server has a key for.
+pub(super) async fn saved_provider(state: &AppState) -> Result<Option<crate::secrets::Provider>, AppError> {
+    Ok(saved_providers(state).await?.into_iter().next())
 }
 
-/// Every provider with a saved key, in `Provider::ALL` order.
-async fn saved_providers(state: &AppState, user_id: i64) -> Result<Vec<crate::secrets::Provider>, AppError> {
+/// Every provider the server has a key for, in `Provider::ALL` order.
+async fn saved_providers(state: &AppState) -> Result<Vec<crate::secrets::Provider>, AppError> {
     let vault = state.vault.clone();
-    let statuses = state.db.call(move |c| crate::secrets::statuses(c, &vault, user_id)).await?;
-    Ok(crate::secrets::Provider::ALL.into_iter().filter(|p| statuses.iter().any(|k| k.provider == *p && k.hint.is_some())).collect())
+    Ok(state.db.call(move |c| crate::secrets::usable(c, &vault)).await?)
 }
 
 /// "Add content with AI" for `row`, when it loads and no job holds it.
@@ -310,8 +306,8 @@ async fn ai_view(state: &AppState, user: &CurrentUser, row: &CourseRow, refill: 
     if (row.is_busy() && !locked) || row.error.is_some() || user.ai_off {
         return Ok(None);
     }
-    // The learner's first saved key.
-    let saved = saved_providers(state, user.id).await?;
+    // The server's first key.
+    let saved = saved_providers(state).await?;
     let provider = saved.first().map(|p| p.label());
     // Which provider is only worth saying when there was a choice.
     let named_provider = saved.len() > 1;
@@ -445,7 +441,7 @@ async fn lessons_view(state: &AppState, user: &CurrentUser, row: &CourseRow, loc
 }
 
 /// Load the course row, refusing anyone but the owner, and the owner too
-/// while a superuser has it taken down (#967).
+/// while an owner has it taken down (#967).
 pub(in crate::routes) async fn owned(state: &AppState, user: &CurrentUser, id: &str) -> Result<CourseRow, AppError> {
     let cid = id.to_string();
     let row = state.db.call(move |c| courses::course(c, &cid)).await?.ok_or(AppError::NotFound)?;
@@ -548,7 +544,7 @@ pub(super) async fn editor_page_with(
     Ok(Page(editor_template(state, user, row, notice, refill, modal, generate, review, share_open).await?).into_response())
 }
 
-/// The Share dialog open after inviting on a server without mail (#633):
+/// The Share dialog open after inviting:
 /// the course page with `notice` (a `share-made-…` key) and the links made.
 pub(in crate::routes) async fn share_links_page(state: &AppState, user: CurrentUser, id: &str, notice: &str, links: Vec<ShareLink>) -> Result<Response, AppError> {
     let row = owned(state, &user, id).await?;
@@ -613,7 +609,6 @@ async fn editor_template(
         review,
         shares,
         share_open,
-        mail: state.caps().mail,
         share_links: Vec::new(),
     })
 }

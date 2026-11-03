@@ -47,12 +47,9 @@ In a language course, every word that matters can be tapped to hear it (see
   one "N locked stages" row under a single lock that opens to a plain list
   (#1213).
 - **AI tutoring** (`/tutor`): a one-to-one lesson over chat with a tutor that
-  runs on the learner's own API key. Same exercises and progress as Practice,
+  runs on the server's API key (the owner's, on Manage Users). Same exercises and progress as Practice,
   but the tutor teaches first and sets them when you are ready. Its prompt
-  says the learner may be as young as the Terms' minimum age
-  (`SKRONGLE_MIN_AGE`): it stays on the course, declines sexual, self-harm,
-  violent, hateful or illegal turns and goes back to the lesson, and never
-  asks for personal details (`tutor::safety_rules`, #919).
+  carries the lesson, the exercise and the pass rule, and no topic rules.
 
 The modes' old paths (`/d`, `/d/…`, `/k`, `/g`, `/games`, `/games/…`) redirect
 to the new ones with their query strings, so old bookmarks still work.
@@ -60,16 +57,16 @@ to the new ones with their query strings, so old bookmarks still work.
 | Feature | Route | What it is | Reads |
 |---|---|---|---|
 | Courses | `/courses`, `/courses/{id}/settings` | "What would you like to learn?": your projects (each shows a thin progress bar under its title, pale gold for lessons passed and full gold for lessons mastered, and under it two small chips with the same two numbers and the unit count; when you last opened it sits beside *Continue*. A chip turns from grey towards gold as more of the course is done, shows its name on hover, and opens a modal with the stat when clicked. The modal fetches what is next as it opens (`GET /courses/{id}/stat/{metric}`): for lessons passed, the next lesson to pass, the last one passed and each unit's count; for lessons mastered, up to three lessons to practise next, fading ones first. Each lesson named opens the course at it, and an (i) says what the stat counts. Each card has a gear for its settings: level and motivator), your own courses (private; greyed out while being generated), ready-made courses, Create a course | manifests |
-| Generate with AI | the editor's *Generate the course* dialog (`POST /courses/{id}/generate`) and progress modal | Notes or homework in, a whole private course out, written with the learner's own API key; see [Your own courses](#your-own-courses) | everything (it writes it) |
+| Generate with AI | the editor's *Generate the course* dialog (`POST /courses/{id}/generate`) and progress modal | Notes or homework in, a whole private course out, written with the server's API key; see [Your own courses](#your-own-courses) | everything (it writes it) |
 | Starting level | The course's settings: the level step at the end of its start wizard, then the gear on `/courses` | A course whose units are `levels` asks a learner who opens it for the first time which level to start at; the lessons below it are skipped; the level can be changed later without losing progress (see [Starting level](#starting-level)) | `levels`, units |
 | Home | `/` | Today's goal as a ring with the streak, lessons passed and terms collected, *Continue* where you left off, the current unit's progress, a "Words due" card on days collected words are due (#1360: the count, three of the words, an (i) with the ladder, and *Review N words*, which opens `/vocabulary/study?due=1`), then the four modes (Sprint, Study, Play, Guide) and AI tutoring, with one stat and one button each and an (i) explaining each | everything |
 | Landing | `/` (no session) | The sales page for visitors: what the app is, a twenty-second sample of each mode to play in place (Sprint, Study, Play and Guide tabs, each in Language, Maths and Music, each subject with its own kinds of question: listening and a typed word with accent near misses; shading a fraction, a number line, plotting a point, a formula graded by equivalence, graphs as options and pairs; a staff to read and to place a note on, a keyboard, intervals and chords played by a small synth. Several preview question types still in issues and PRs (#1218–#1234, #1330–#1359). `static/landing.js` holds the samples, `static/landing-kit.js` the drawing and sound; #1365), a lesson file next to the features it switches on, the three ways to get a course, the built-in courses with their unit and lesson counts, "What can I do with it?" (use cases), register / log in | manifests |
-| Lessons | `/lessons`, `/lessons/{slug}` | One unit at a time (#837): a tab per unit with its passed count and bar, 12 lessons a page with page links (`?unit=<id>&page=<n>`; without `?page=` the page holding the next lesson to do, without `?unit=` the unit holding it; `?unit=all` lists every unit on one page). A filter box searches every unit (every word typed must appear in a lesson's title, group or summary; a search that finds nothing says so; without script it is `?q=`); under the box, *Look up "…" in the words* opens `/lookup?q=` (#348): the words of the whole course whose term or meaning has a word starting with each word typed (accents and case ignored), and the forms of its paradigm tables (a form names its item, set and slots, and a form two verbs share is listed for both), at most 20, exact terms first; each with its meaning, the lessons that teach it (linked), *Collected* with the flashcard tally when you have it, and a 🔊 in a language course; a quiet header (#999): the breadcrumb with a small mastery ring, the status pills and an (i) on one line, then the title, the summary and one main button (I've read it, quiz me until the lesson is seen, then Practise; a lesson without `quiz` questions has no mastery ring, no Practise and no Test yourself, and its button just says I've read it, #1197) beside a "More ways" menu (Practise before the lesson is seen, Listen and type when the lesson has listening, Tutor when AI is on, the Guide, a Sprint session). The (i) opens the mastery details, the focus and question counts and the pass rule; the footer has its button and the same (i); the lesson text (read as a page), vocabulary table (hover a term for its meaning, an example for its translation), paradigm tables, conversations (#989: each one as two characters talking, the role's name over its line, A on the left and B on the right; each line is a button, and tapping it reads the line aloud in the course's language (when the audio switch is on and there is a voice) and shows its meaning under it, which a second tap hides again (#1264); without JavaScript the meanings show from the start), a "My note" box (#336: the learner's own private note on the lesson, plain text up to 500 characters, saved as they type, in *Download my data*; its (i) says so), and the two-question reading check that marks the lesson as read | `content`, `vocabulary` (`example_meaning` for the hover hint), `conjugations`, `conversations`, `quiz` |
+| Lessons | `/lessons`, `/lessons/{slug}` | One unit at a time (#837): a tab per unit with its passed count and bar, 12 lessons a page with page links (`?unit=<id>&page=<n>`; without `?page=` the page holding the next lesson to do, without `?unit=` the unit holding it; `?unit=all` lists every unit on one page). A filter box searches every unit (every word typed must appear in a lesson's title, group or summary; a search that finds nothing says so; without script it is `?q=`); under the box, *Look up "…" in the words* opens `/lookup?q=` (#348): the words of the whole course whose term or meaning has a word starting with each word typed (accents and case ignored), and the forms of its paradigm tables (a form names its item, set and slots, and a form two verbs share is listed for both), at most 20, exact terms first; each with its meaning, the lessons that teach it (linked), *Collected* with the flashcard tally when you have it, and a 🔊 in a language course; a quiet header (#999): the breadcrumb with a small mastery ring, the status pills and an (i) on one line, then the title, the summary and one main button (I've read it, quiz me until the lesson is seen, then Practise; a lesson without `quiz` questions has no mastery ring, no Practise and no Test yourself, and its button just says I've read it, #1197) beside a "More ways" menu (Practise before the lesson is seen, Listen and type when the lesson has listening, Tutor when AI is on, the Guide, a Sprint session). The (i) opens the mastery details, the focus and question counts and the pass rule; the footer has its button and the same (i); the lesson text (read as a page), vocabulary table (hover a term for its meaning, an example for its translation), paradigm tables, conversations (#989: each one as two characters talking, the role's name over its line, A on the left and B on the right; each line is a button, and tapping it reads the line aloud in the course's language (when the audio switch is on and there is a voice) and shows its meaning under it, which a second tap hides again (#1264); without JavaScript the meanings show from the start), a "My note" box (#336: the learner's own private note on the lesson, plain text up to 500 characters, saved as they type; its (i) says who can see it), and the two-question reading check that marks the lesson as read | `content`, `vocabulary` (`example_meaning` for the hover hint), `conjugations`, `conversations`, `quiz` |
 | Quizzes | `/practice`, `/practice?lesson=` | Adaptive micro-quizzes: 5–10 questions from the lessons you have read, weighted towards weak topics; or one lesson on request (a lesson with no questions, reached by its URL, says so and links back to the lesson and its Sprint session) | `quiz` |
 | Listening | `/listening`, `/listening/play?lesson=` | Hear a sentence, type it, see it checked word by word; one lesson or a mixed round | `listening` |
 | Guide | `/guide`, `/guide/{slug}` | The short-attention-span version: each lesson as a stage of small steps (cards, quick checks, flashcards, tips); stars | `content`, `quiz`, `vocabulary`, `guide` |
 | Sprint mode | `/sprint`, `/sprint/play` | Phone-first five-minute sessions of short exercises: bites, sort / spot / build / ladder / scale / pick / match exercises (a sort judges each tap at once, a ladder or a scale is graded only at Check), five listening exercises (tap what you hear, fill in what you hear, what do you hear, select the matching audio, listen and match), an audio switch, streaks, daily goal, lightning round | `sprint`, `quiz`, `vocabulary`, `conjugations`, `conversations`, `listening` |
-| AI tutoring | `/tutor`, `/tutor?lesson=` | A one-to-one tutor over chat: teaches the lesson, checks you follow, sets the adaptive quiz's questions when it judges you ready, and reacts to the app's grading; you answer in the chat (typed or a tapped choice) and can ask anything in between; needs an API key from the profile; at most two tutor replies run at once on the server, and a third learner gets the busy message and tries again | `content`, `vocabulary`, `quiz` |
+| AI tutoring | `/tutor`, `/tutor?lesson=` | A one-to-one tutor over chat: teaches the lesson, checks you follow, sets the adaptive quiz's questions when it judges you ready, and reacts to the app's grading; you answer in the chat (typed or a tapped choice) and can ask anything in between; needs an API key on the server (the owner adds it on Manage Users); at most two tutor replies run at once on the server, and a third learner gets the busy message and tries again | `content`, `vocabulary`, `quiz` |
 | Play | `/play` (also `/g`) | The Play mode hub: Word Match (timed pairs, shared leaderboard), the paradigm drill (type the form for a picture), Numbers by ear (hear a number, type the digits), Date Dash, plus links to flashcards and the Guide | `vocabulary`, `conjugations`, `terms.lang`, `calendar` |
 | Map | `/map` | Every lesson of every unit in order with your mastery; how far you are from mastering the unit; one "you are here" on the whole map, at the lesson every mode resumes at ([where you left off](progress)) | units, mastery |
 | Vocabulary | `/vocabulary`, `/vocabulary/study` | Terms collected by answering questions, studied as flashcards with per-term review stats. Each word has a review schedule (#1360, `src/vocab.rs`): a new word is due tomorrow; *Knew it* on a due word moves it up the ladder of 1, 3, 7, 16, 35, 75, then 150 days; *Didn't know* drops it back to 1 day. A review before the word is due counts in the stats but doesn't move it (a miss still drops it). Only flashcards and Sprint's word exercises move it; Sprint's review mix deals due words first. "Due today" is by the end of the learner's day. `?due=1` deals the due words, longest overdue first, at most 20; a missed card comes back once at the end, and the summary says how many come back tomorrow and when the next words are due. Passes don't change; each card gives 0.3 effort points | `vocabulary`, `quiz[].teaches` |
@@ -144,13 +141,14 @@ with the table, like any other change (the editor saves as you edit; see
      Resume writes the same kind of lessons. With the server's key a Full or
      Outline course reserves for 6 lessons up front and a Preview for one;
      the meter still checks every request.
-  5. *Your AI provider* only when two or
-     more keys are saved on the profile: a choice between those. With one
+  5. *Your AI provider* only when the server has two or
+     more keys (the owner's, on Manage Users): a choice between those. With one
      saved key the dialog says nothing about providers and uses it, with the
      provider's default model. With no key at all the dialog opens greyed
-     out (every field and *Generate* disabled) under a line linking to the
-     profile's API keys, so nobody writes a prompt only to be stopped at
-     the end. Keys are added on the profile only; the server still takes a
+     out (every field and *Generate* disabled) under a line that links an
+     owner to the keys on Manage Users and tells anyone else to ask the
+     owner, so nobody writes a prompt only to be stopped at
+     the end. Keys are added on Manage Users only; the server still takes a
      pasted `api_key` (with `model` and `base_url`) from API clients. A
      `base_url` needs a pasted key: a saved key only goes to its provider's
      own address. That URL must use port 443 or 80 and resolve to public
@@ -273,8 +271,8 @@ with the table, like any other change (the editor saves as you edit; see
   course is being revised, so coming back to it finds the job still running.
   The old status page's address (`/courses/generate/{job}`) leads to
   the course page too, for any job. It uses the learner's first
-  saved provider key (profile, *AI API keys*); it never asks for a key or a
-  model, and names it only when two or more keys are saved. Without a saved key it shows only a red line linking to the profile,
+  provider key the server has (Manage Users, *AI features*); it never asks for a key or a
+  model, and names it only when the server has two or more. Without a key it shows only a red line (linking an owner to Manage Users),
   and the server refuses the same way. A three-way choice, *Add* / *Edit* /
   *Add and edit* (#1241, radios `mode` = `add`, `edit`, `change`), top right
   of the Use AI box, picks the mode; one "i" beside it explains all three in
@@ -785,31 +783,28 @@ the AI tutor ask in text, so they leave these questions out
 
 **Share** on the course page (`src/share.rs`, `src/routes/share.rs`) opens a
 dialog: type e-mail addresses (one per line or separated by commas, up to
-20 at a time and 50 per course) and *Send invitations*. Every new address
-gets a message, "*Owner* shared a course with you on Skrongle: *title*",
-with a link (`/courses/shared/<token>`); the dialog lists every address with
+20 at a time and 50 per course) and *Make invitation links*. Nothing is
+mailed (#10): the page that comes back shows each new address's link
+(`/courses/shared/<token>`, `course-share-link`) with *Copy*
+(`course-share-link-copy`), once, since only the token's hash is stored,
+and the owner passes the links on. The dialog lists every address with
 *invited* or *opened* and a *Remove* button. The owner's own address is
-refused, and an address already on the list gets no second message.
-On a server without mail (#633, no `SKRONGLE_MAIL_PROVIDERS`) the dialog says
-so, its button reads *Make invitation links*, and nothing is mailed: the
-page that comes back shows each new address's link (`course-share-link`)
-with *Copy* (`course-share-link-copy`), once, since only the token's hash is
-stored. The share rows are made the same way; the owner passes the links on.
+refused, and an address already on the list gets no second link.
 
-Who may open a shared course: the account that opened its link (the first
-account to open a link keeps it, so a forwarded link lets nobody else in;
-the owner opening their own link, from an inbox say, takes nothing and lands
-on the Share dialog), and any account whose **confirmed** e-mail address is the invited one, link
-or no link, so a learner who already has an account with that address finds
-the course on their list as soon as it is shared. An unconfirmed address does
-not count: anyone can register with someone else's address.
+Who may open a shared course: only the account that opened its link. The
+link is the only way in (#10): the first account to open it keeps it, and
+every other account that opens it later is turned away to its course list
+with a notice, the invited address included. Nothing confirms an e-mail
+address, so the address on a share is a label for the owner, never proof
+of who someone is. The owner opening their own link takes nothing and
+lands on the Share dialog.
 
 For the recipient the course is **read only**: it is on their course list
 (under *Shared with you* until opened, then under *Your projects*) with a
 small filled circle after the title, which opens a note saying whose course
 it is; they open it and learn from it with their own progress, passes and
 history, like any course, but there is no *Edit files*: the editor, the
-files, the export and the AI forms stay the owner's (a 404 for anyone else).
+files and the AI forms stay the owner's (a 404 for anyone else).
 The owner's later changes reach them at once (it is the same course, not a
 copy).
 
@@ -863,7 +858,7 @@ limit nothing is made and the course list says which limit (`?notice=`
 
 **Copy and translate to…**, an icon left of the copy icon in the same
 settings dialogs (not with AI off), opens a dialog of its own: the language to translate into, the AI
-to use (when there is more than one: the saved keys, as
+to use (when there is more than one: the server's keys, as
 Generate offers them) and **Start**; what gets translated is behind its
 (i). The languages are the app's own (`i18n/*.yaml`, each in its own
 name), less the one the course is already explained in (`meanings.lang`).
@@ -892,7 +887,7 @@ validated with the rest of the course before it is saved, like any lesson
 
 The job is a generation in every other way (`src/ai.rs`): its own OS
 thread, one job per learner, one AI job at a time on the whole server (a second Generate is refused, no waiting line, #43), the hourly and daily AI
-job quotas, on the learner's own key. Its calls carry the purpose `translate-course` (the file's path
+job quotas, on the server's key. Its calls carry the purpose `translate-course` (the file's path
 as the key). The copy's `courses.source` is `translate` and its notes hold
 the job's plan (the language, and the files done so far), so a stopped
 translation keeps what it translated: its card has the red ! with the
@@ -1464,7 +1459,7 @@ words, *italic* examples and table cells of the lesson text (a cell like
 "rojo — red" says only the part before the dash), the terms on the
 Vocabulary page, the flashcards (a 🔊 button beside the term, in the Guide
 and in Vocabulary study), the correct answer in quiz feedback, and the
-sentences on the Listening summary. `static/say.js` does it for any element
+sentences on the Listening summary. `scripts/core-src/say.js` (bundled into `static/core.js`) does it for any element
 with a `data-say` attribute or matching its list; there is no audio to host.
 It is silent while the audio switch (below) is off. Hovering a tappable word
 shows its translation where the page has one (a vocabulary term's meaning, an
@@ -1669,13 +1664,11 @@ after a jump and while scrolling.
 shown in (the same picker the login and register pages have); it saves at
 once and the page reloads in the new language. See [i18n](i18n).
 
-**Saving as you edit.** The names, the AI API keys
-and the Dev options have no Save button: each change posts to
+**Saving as you edit.** The names and the language
+have no Save button: each change posts to
 `POST /api/profile` (only the fields that changed; all or nothing, a refused
 field comes back as `422 {"errors": {field: message}}`). Names save one
-second after the last keystroke, or when the field loses focus; an API key
-three seconds after the last keystroke, or at once when more than five
-characters arrive together (a paste); a checkbox
+second after the last keystroke, or when the field loses focus; a choice
 saves at once. A field whose change is saved shows a small green check (on
 the chosen chip or picture for a choice) until it is edited again. The
 circle at the right of the heading sums up the page: green ✓ saved, yellow
@@ -1687,8 +1680,8 @@ anything is unsaved, a link or form on the page asks first in a dialog that
 says why, and reloading or closing the tab gets the browser's own prompt.
 `static/autosave.js` does all of this for any page; `static/profile.js`
 wires up the fields (the course editor uses it too: see *Saving as you
-edit* under [Your own courses](#your-own-courses)). The password dialog, *Remove key* and account deletion
-keep their explicit buttons. The page needs JavaScript.
+edit* under [Your own courses](#your-own-courses), and Manage Users' API
+keys). The password dialog and account deletion keep their explicit buttons. The page needs JavaScript.
 
 - **Personal information**: first and last name (optional, up to 60
   characters). The site greets by first name and the menu shows "First Last"
@@ -1712,18 +1705,12 @@ keep their explicit buttons. The page needs JavaScript.
   explained behind its (i)) ends every other session; changing the
   password or two-factor sign-in does the same.
 - **Privacy and consent** (#974, `profile-consent`): one row per consent
-  with its date, explained behind an (i). The Terms version accepted and
-  when, with links to the Terms and the privacy policy (see
-  [Terms of Service](#terms-of-service)); the age confirmation (the date of
-  the first Terms acceptance, read-only: taking it back means deleting the
-  account); e-mail, service messages only (hosted only;
-  an optional e-mail such as reminders gets a switch here, off by default);
-  and *Do Not Show Me AI Features*, "Shown since …" or "Hidden since …"
-  with the profile's only AI switch (below; on hides them, `POST /profile/ai`
-  returns here) and a line when an own API key is on file. Optional consents are
-  rows in `consents` (`src/consent.rs`): given at `granted_at`, taken back
-  at `withdrawn_at`, a new row each time one is given again; they are in
-  *Download my data* and go with the account.
+  with its date, explained behind an (i). The age confirmation (the day the
+  account was made, read-only: taking it back means deleting the
+  account). The AI features have no row: whether they are shown is the server's
+  choice, the owner's on Manage Users (#25), and the per-account consent
+  rows in `consents` (`src/consent.rs`) went with migration 99. Any rows
+  left go with the account.
 - **Proof that it is the owner** (`prove_owner` in `src/routes/profile.rs`):
   every change a stolen session must not make asks for it: the password
   (checked like `/login`: 10 per account per 15 minutes, a wrong one
@@ -1731,110 +1718,110 @@ keep their explicit buttons. The page needs JavaScript.
   account without one (signed in through a proxy) gives a code from its
   second step, or with no second step nothing (#376). It guards the
   password change, deleting the account and every two-factor change.
-- **Do Not Show Me AI Features**: an On/Off toggle pill in the Privacy and
-  consent card (#147, #974, `users.ai_off`, off for every account unless the
-  "Hide all AI features" pill on the registration form was turned on: `templates/ai_switch.html`, a
-  checkbox `no_ai` dressed as the pill, its info dot a hover tooltip).
-  The card's (i) says what it covers. Switching it on posts
-  `POST /profile/ai` (`off=1`) at once, or first opens a confirm dialog
-  when an AI API key is on file, because hiding the features deletes every
-  saved key. On, the account is shown none of those
-  features: no AI tutoring card on the home page or tutor links on a
-  lesson, no *Generate with AI* card, *Resume* or *Watch* on the course
-  picker, no *Use AI* form or resume button on the course editor, and no
-  *AI API keys* section here (the keys were deleted). Their
-  routes refuse too: `CurrentUser::require_ai` sends a page request to this
-  section with a notice, and `require_ai_api` answers a JSON route with 403.
-  A tutor conversation under way is dropped. Switching back off needs no
-  confirmation (`off=0`). What is left never contacts an AI company.
-- **AI API keys**: one key each for Claude (Anthropic), OpenAI and Google
-  (Gemini), used by AI tutoring, *Generate the course* and *Use AI* (the
-  card says so in one line; how keys are stored is behind its (i)). A key is checked for the
-  provider's prefix (so a key pasted into the wrong box is caught), encrypted
-  at rest (`src/secrets.rs`, see [architecture](architecture#security-notes))
-  and never shown again; the page shows its last four characters, and a key
-  can be replaced or removed at any time. Each provider is a row folded
-  shut (name and status); its triangle opens the box to paste a key into
-  and *Remove key*. Features call
-  `secrets::get(conn, &state.vault, user_id, provider)` to use one.
-- **Your data**: *Download my data* (#430): *Prepare my data*
-  (`POST /profile/export`) queues an export; the `export` job on the
-  background runner (`src/exports.rs`, `src/jobs.rs`) writes every row stored for the account, by table, with
-  the course files, to a file a page at a time, and e-mails a one-time link
-  (`GET /profile/export/download?token=…`, 24 hours, signed in as that
-  account only; the file is deleted once sent). Once it is ready the Data
-  section also shows *Download my data* (`profile-export-download`,
-  `POST /profile/export/download`: the same file, once, for the account
-  signed in). The finished file stays on the server's disk, next to the
-  database, and the download streams it. On a server without mail (#633) that button is the only way:
-  no link is mailed and the (i) says so. One export in flight and one
-  a day per account; the (i) next to the heading says where it stands. The
-  file has the columns `privacy::EXPORTED` lists: never the password hash,
-  session tokens, keys (only which providers have one), codes, links or the
-  text of mails. And
-  *Delete account* (`POST /profile/delete`): the password, or for an
+- **Your data**: *Delete account* (`POST /profile/delete`): the password, or for an
   account without one its e-mail address typed out and, with a second
-  step, a code from it (`profile-delete-code`, *Send code*
-  `profile-delete-send` for an e-mailed one; #376). It does not delete at once (#970,
-  `src/account_deletion.rs`): it sets `users.delete_at` 14 days out, ends every session
-  of the account and, where the server sends mail, mails the date
-  (`account-deletion`). The login page says the date (`login-notice`).
+  step, the authenticator's code (`profile-delete-code`; #376). It does not delete at once (#970,
+  `src/account_deletion.rs`): it sets `users.delete_at` 14 days out and ends every session
+  of the account. The login page says the date (`login-notice`).
   Signing in again works as usual, but every page then leads to
   `/account/deletion` (`account-deletion`, date `account-deletion-date`,
   *Cancel deletion* `account-deletion-cancel`, *Log out*
   `account-deletion-logout`; API routes answer 403), and the account's
   shared courses are hidden from their recipients meanwhile. The hourly
   `housekeeping` job then removes the account and everything it
-  owns. What is kept and for how long:
-  [data inventory](data-inventory); the privacy notice is at `/privacy`
-  ([privacy](privacy), public, with a "Last updated" line at the top).
-- **Superuser page** (`/superuser`, superuser accounts only, #220): actions
+  owns. An owner (`users.owner`, #15) has no *Delete account*: the profile
+  shows one line saying they run the server (`profile-delete-owner`), and
+  `POST /profile/delete` answers 403 for them. What is kept and for how long:
+  [data inventory](data-inventory).
+- **Manage Users page** (`/manage`, owner accounts only, #220): actions
   that reach any account, for people running the app; the account menu
-  links to it. An account is a superuser when `users.superuser` is 1. With `SKRONGLE_SIGNUP` `invite` or `closed` (#634)
+  links to it. An account is an owner when `users.owner` is 1. With `SKRONGLE_SIGNUP` `invite` or `closed` (#634)
   the first account made on a server with no accounts becomes one (the
   owner, made only through the owner link from the log; one query in the
   registration transaction);
-  otherwise no page sets it: run `./spanish-learning make-owner <email>`
-  (#635; see `docs/self-hosting.md`, "If you lock yourself out").
+  otherwise an owner sets it with **Make owner** on the page, or
+  `./spanish-learning make-owner <email>` does (#635; see
+  `docs/self-hosting.md`, "If you lock yourself out"). Migration 98 (#16)
+  set it for every account that was a superuser or a developer before.
   In dev mode the
   dev user (`dev@example.com`) always is one. For anyone else the menu has
-  no link, and the page and its forms answer 404 (`src/routes/superuser.rs`).
+  no link, and the page and its forms answer 404 (`src/routes/manage.rs`).
   - **Accounts** (#634, `src/signup.rs`): the (i) says which sign-up mode
-    the server is in (`SKRONGLE_SIGNUP`: `open`, the default and the hosted
-    site's; `invite`; `closed`), how invitations work and how many accounts
+    the server is in (`SKRONGLE_SIGNUP`: `open`, the default; `invite`; `closed`), how invitations work and how many accounts
     there are. In `invite` mode,
-    **Make an invitation link** (`POST /superuser/invites`, 404
+    **Make an invitation link** (`POST /manage/invites`, 404
     in other modes) shows `<SKRONGLE_PUBLIC_URL or the request's host>/register?invite=<token>`
     once, with **Copy**; the token is 32 random bytes, hex, stored only as
     its SHA-256 in `signup_invites`, and works once, for 7 days. The open
     invitations are listed (made, expires) with **Revoke**
-    (`POST /superuser/invites/revoke`). Below, every account, newest
+    (`POST /manage/invites/revoke`). Below, every account, newest
     first, all on one page (the server holds at most 8): e-mail address, created, last sign-in
-    (the newest session on record; sessions last 30 days), and three
+    (the newest session on record; sessions last 30 days), and the
     actions per row, each opening a dialog with the address, what it does
     and a confirm button. Nothing is sent to the account; each writes one
-    `info` log line (which superuser, which account id, what; never the
-    password). Two are the owner's (#635, `src/owner.rs`):
-    - **Temporary password** (`POST /superuser/temp-password`,
+    `info` log line (which owner, which account id, what; never the
+    password). Three are the owner's (#635, #16, `src/owner.rs`):
+    - **Temporary password** (`POST /manage/temp-password`,
       `email=`): a generated 14-character password (letters and digits
       without look-alikes) is set, and shown once in a dialog with
       **Copy** (`Cache-Control: no-store`). Every session of the account
-      ends (a superuser resetting their own keeps the current one), and
+      ends (an owner resetting their own keeps the current one), and
       `users.must_change_password` is set: after signing in with it, the
       `CurrentUser` extractor sends the account to
       `/password/change?next=…` before any other page (`/api/*` answers
-      403), like the Terms gate. That page asks for the new password twice
+      403). That page asks for the new password twice
       (not the old one), ends other sessions, clears the flag and goes on
       to `next`. Choosing a password anywhere clears the flag
       (`profile::set_password_hash`).
-    - **Turn off two-factor** (`POST /superuser/two-factor-off`):
+    - **Turn off two-factor** (`POST /manage/two-factor-off`):
       `users.two_factor` is cleared, and the account's `totp_keys`,
       waiting sign-ins (`two_factor_challenges`) and change confirmations
       (`two_factor_confirmations`) are deleted.
+    - **Make owner** (`POST /manage/make-owner`, #16; only on rows that
+      are not owners yet): `users.owner` is set, so the account sees
+      Manage Users in its menu and may take every action here. The page
+      does not take it back.
     An address no account has comes back as `No account has the address …`.
     The same three actions exist as commands on the binary for an owner
     who can't sign in: `reset-password`, `disable-2fa`, `make-owner`
     (`docs/self-hosting.md`, "If you lock yourself out").
+  - **AI features** (#25, `manage-ai-card`, `#ai`): the server's AI API
+    keys and the switch that hides the AI features, for every account; only
+    owners see them, nobody else has any keys form. The (i) says what the
+    features send where and how keys are stored.
+    - **Hide AI features for everyone** (`POST /manage/ai`, `off=1|0`, a
+      row in `settings`, `src/settings.rs`): on, no account is shown any
+      feature that calls an AI provider: no AI tutoring card on the home
+      page or tutor links on a lesson, no *Generate with AI* card, *Resume*
+      or *Watch* on the course picker, no *Use AI* form or resume button on
+      the course editor, no *Translate*. Their routes refuse too:
+      `CurrentUser::require_ai` answers a page request with a 403 page that
+      says the AI features are off on this server, `require_ai_api` a JSON
+      route with 403. Tutor conversations under way end. The keys stay, for
+      when they are shown again; off (the default) shows them again. The
+      session query reads the setting into `CurrentUser::ai_off`, and the
+      session cache watches the table, so the next request of every account
+      sees the change.
+    - **AI API keys**: one key each for Claude (Anthropic), OpenAI, Google
+      (Gemini), DeepSeek, Mistral, xAI (Grok) and OpenRouter, and for an
+      Ollama-compatible server its base URL and model instead (#24), used
+      by every account's AI tutoring, *Generate the course*, *Use AI* and
+      translation; the AI forms offer each provider that is set. Each
+      provider is a row folded shut by default (`details`; its name and
+      *Set*, with the key's last four characters or the server's host and
+      model, or *Not set*); its triangle opens the box to paste a key (or
+      type the base URL and model) into and *Remove key*
+      (`POST /manage/api-keys/remove`). A key saves as it is pasted or typed
+      (`static/manage.js` with `static/autosave.js`, `POST /api/manage/keys`,
+      `key_<provider>`, 404 for anyone but an owner), is checked for the
+      provider's prefix (so a key pasted into the wrong box is caught),
+      encrypted at rest (`src/secrets.rs`, table `server_api_keys`, see
+      [architecture](architecture#security-notes)) and never shown again.
+      Features call `secrets::get(conn, &state.vault, provider)` to use one.
+      Migration 99 started the server's keys with those the first owner had
+      saved on the profile, where each learner kept their own before.
+      Where a feature has no key, an owner gets a link to `/manage#ai`;
+      anyone else is told to ask the owner.
   - **Sign-up** under `invite` and `closed`: while the server has no
     account, every start makes a new **owner link** (`signup::owner_link`:
     a `signup_invites` row with no `created_by`, one year, replacing the
@@ -1852,21 +1839,6 @@ keep their explicit buttons. The page needs JavaScript.
     which carries the token. Existing accounts always sign
     in. Under `closed` an invitation never works. Rate limits are as for
     any registration.
-  - **Reset email verification** (`POST /superuser/reset-email-verification`,
-    the third row action): the account is marked unconfirmed again and sent
-    a new confirmation link, exactly as at registration; links sent before
-    stop working. The notice says so (`No account has the address …` when
-    none does) and, with the dev mailbox, links to the new message.
-    The log records which superuser reset which account. Signing in through
-    `/dev/login` confirms the dev user again.
-  - **Coming change to the terms** (#966, hosted only): while a material
-    entry of `docs/terms-changes.json` has a later `effective` date and
-    some account with an address has not had its e-mail, the page shows
-    "The terms have changed." and a card with **Send the announcement**.
-    Its confirm dialog says how many accounts it goes to;
-    `POST /superuser/terms-announce` queues them (`terms::announce_upcoming`)
-    and the notice says how many were queued. Once everyone has it, the
-    notice and the card go away.
 
 Each AI form says where the learner's words go (`data-testid="ai-disclosure"`):
 "Your notes are sent to your AI provider using your key." on *Generate* and
@@ -1874,188 +1846,40 @@ Each AI form says where the learner's words go (`data-testid="ai-disclosure"`):
 two or more keys are saved, and "Your messages are sent to Claude
 (Anthropic) …" in the tutor.
 
-## Terms of Service
+## Age confirmation
 
-`/terms` (public; `/terms.md` for the Markdown) shows `docs/terms.md`, the
-Terms and Conditions of the hosted site (first published 2026-10-25, from a
-Termly export). `/docs/terms` redirects there; the docs nav leaves it out.
-The text names no address itself. `[SUPPORT EMAIL]` (help, plans, SMS)
-becomes `SKRONGLE_SUPPORT_EMAIL` and `[CONTACT EMAIL]` (permissions,
-copyright, harmful content) becomes `SKRONGLE_LEGAL_EMAIL`, each as a
-`mailto:` link. Every e-mail the server sends has `Reply-To:` the support
-address (#1328).
+Registration has one required box, "I am at least [age] years old" (`age`;
+`SKRONGLE_MIN_AGE`, default 14; `templates/age_check.html`, the sentence with
+a rounded check box on its right in the AI pill's style). The server refuses
+the form without it. The answer is stored as `users.age_confirmed` (a
+boolean, never a birth date).
 
-- **Accepting.** Registration has two required boxes, "I am at least
-  [age] years old" (`age`; `SKRONGLE_MIN_AGE`, default 14)
-  and "I agree to the Terms and Privacy Policy" (`accept`;
-  `templates/terms_check.html`, each sentence with a rounded check box on
-  its right in the AI pill's style); the server refuses the form without
-  both, naming the missing one. Each acceptance is a row in `terms_acceptances`
-  (user, version, time; no IP address), so the history is kept.
-- **The changelog.** Every version of the built-in text is an entry in
-  `docs/terms-changes.json` (#966): `version`, `announced` and `effective`
-  dates (`YYYY-MM-DD`, UTC), `material` (it affects learners' rights or a
-  paid plan) and a `summary` of a few plain sentences, in English like the
-  terms. `terms::version()` is the newest entry in effect today, and the
-  "Last updated" line at the top of `docs/terms.md` is the newest entry's
-  date. Changing the text means adding an entry in the same PR: the
-  `terms-lint` CI job (`scripts/terms-lint.sh`) fails a PR that edits one
-  without the other, and `cargo test terms` checks the entries (dates in
-  order, a summary, 30 days between `announced` and `effective` for a
-  material change, the "Last updated" line). A material change to the
-  privacy notice (`docs/privacy.md`, `/privacy`) is logged the same way
-  (#978): one entry whose summary starts "The privacy policy changed: …",
-  so learners get the same notice and, for a material one, the same
-  30-day e-mail. The lint watches `docs/privacy.md` too, and the newest
-  privacy entry dates that page's "Last updated" line. A minor privacy
-  change (a correction, a new provider of the same kind) only moves that
-  line. In Skrongle mini the sign-in notice is the whole notification (no
-  mail).
-- **New versions.** An account that accepted an earlier version sees a
-  notice over the first page it opens (`templates/terms_notice.html`,
-  `data-testid="terms-gate"`, `data-tier`): the summaries of every change
-  since, and a link to `/terms`.
-  - *Minor change*: **Continue** (`POST /terms/dismiss`) closes it and
-    records acceptance of the current version; it can stay open while the
-    learner reads, and nothing is blocked. Escape hides it for that page only.
-  - *Material change* (or a version from before the changelog): the accept
-    box and button of the gate, no way to close it, and a line pointing to
-    log out or close the account from the profile. It is on every page but
-    the profile; `/api/*` gets `403` and any other form (except deleting the
-    account) is sent to `/terms/accept` until it is accepted.
-  - *30 days ahead*: a material entry with a later `effective` date is
-    e-mailed once to every account with an address (purpose `terms-change`:
-    the date, the summary, a link to `/terms`) when a superuser presses
-    **Send the announcement** on `/superuser`; nothing sends it on its own.
-    `terms_announcements` records who got it, so pressing again only mails
-    accounts made since (or held back by the hourly mail ceiling). It only takes effect, and the notice only appears,
-    on its date. Not in Skrongle mini (no e-mail).
+## Registration
 
-  An account that never accepted any version (one from before the terms)
-  is sent to `/terms/accept`, and back to the page it asked for afterwards;
-  `/api/*` gets `403`. Pages that work logged out (`MaybeUser`: the landing
-  page, docs, `/terms`, login) show no notice and are not gated.
-  `/dev/login?terms=old` (material) and `?terms=minor` leave the dev user
-  one version behind, for the browser tests.
-- **Your own text.** A server with its own text (`SKRONGLE_TERMS=<file>`,
-  Skrongle mini) has no changelog: it uses the file's SHA-256 as the
-  version, so any edit sends every account to `/terms/accept` (no summary,
-  no e-mail).
-- **Links.** The footer on every page, the landing page, login and register
-  link Terms and Privacy (`/privacy`, its own page); the profile shows the
-  version accepted and when, and its "read" link opens the terms in a
-  dialog over the profile (the link still goes to `/terms` in a new tab
-  or without JavaScript).
+`/register` (e-mail address, password, the
+[age box](#age-confirmation)) makes the account and signs it in
+at once, then goes home (or on to the course a share link was for). An
+address that already has an account is refused on the form ("An account
+with that e-mail address already exists"); nothing is made. Form mistakes
+(a missing box, a short password, a malformed address) come back on the
+form too. Nothing is mailed and the address is not confirmed by a link:
+there is no e-mail verification (#10).
 
-## Registration and password reset
-
-`/register` (e-mail address, password, the [Terms](#terms-of-service)
-boxes, the "Hide all AI features" pill) never says whether an address has
-an account (#379, `src/reset.rs`):
-
-- **The answer** to a valid form is always the same page, "Check your mail"
-  (`register-sent`, with the address typed and a *Sign in* button,
-  `register-sent-login`). Registering does not sign in: the learner signs
-  in on `/login` with the password they chose (confirmed or not). The
-  password is hashed (argon2) whatever happens next, so the answer takes as
-  long either way. Form mistakes (a missing box, a short password, a
-  malformed address) still come back on the form.
-- **A new address**: the account is made and the
-  [confirmation link](#e-mail-verification) is sent.
-- **An address that has an account**: nothing is made or changed. The
-  address is sent "You already have a Skrongle account" (outbox purpose
-  `register-taken`, at most 3 per address per hour) with a link to sign in
-  and one to `/reset`.
-- **An unconfirmed account old enough**: a password account whose address
-  was never confirmed, made `SKRONGLE_UNCONFIRMED_DAYS` (default 7; `0` never)
-  days or more ago, gives the
-  address up: registering it again deletes that account and everything in
-  it (`privacy::delete_account`, as *Delete account* does) and makes the new
-  one. Nobody can hold an address they cannot read.
-- **Not in Skrongle mini.** All of this hides behind a mail, so without a
-  mail provider (`caps().mail`, #633) `/register` works as before: it says
-  when an address has an account, signs the new account in at once and
-  replaces no account. `/reset` is a 404 there and the login page has no
-  *Forgot your password?* link; the owner sets a temporary password
-  instead (the Superuser page, under [Profile](#profile)).
-
-**Password reset** (`/reset`, linked from the login page as *Forgot your
-password?*, `login-reset-link`):
-
-- **Asking** (`reset-email`, `reset-submit`): the page always says "If
-  that address has an account, a link was sent" (`reset-sent`). An account
-  gets a message (outbox purpose
-  `password-reset`) with `<SKRONGLE_PUBLIC_URL or the request's host>/reset?token=…`.
-  At most 3 links per address and 10 requests per network per hour; past
-  the address's limit nothing is sent and the page says the same.
-- **The link**: 32 random bytes, hex; only the SHA-256 is stored, in
-  `password_resets`. It works once, for an hour, and only while the account
-  still has the address it was sent to; a new link voids the unused older
-  ones. It opens a form for the new password (`reset-password`,
-  `reset-save`) naming the account (`reset-account`); a used, expired or
-  unknown link gets `reset-invalid` with *Send a new link*.
-- **Saving** sets the password, confirms the address (the link proved it is
-  read), ends every session of the account (this browser's too) and shows
-  "Your password is changed" (`reset-done`). It signs nobody in, so
-  [two-factor sign-in](#two-factor-sign-in) still applies at the next login.
-  New passwords tried with links: 10 per network per 10 minutes.
-- **Dev mode**: both messages are in the dev mailbox (`/dev/inbox`) and the
-  reset link is logged at `info`. Rows are deleted 7 days after they were
-  made (hourly housekeeping).
-
-## E-mail verification
-
-A link proves the learner owns the address the account signs in with
-(`src/verify.rs`). Only [two-factor sign-in](#two-factor-sign-in) is gated
-on it (e-mail codes need a confirmed address); login, registration,
-learning and the rest of the profile work the same confirmed or not
-(`CurrentUser::email_verified`), except that an account never confirmed
-gives its address up to a new registration after `SKRONGLE_UNCONFIRMED_DAYS`
-(see [Registration and password reset](#registration-and-password-reset)).
-
-- **When a link is sent** (outbox purpose `email-verify`, through
-  `Mailer::queue`): right after registering with e-mail and password; when a
-  superuser resets the account's verification (the Superuser page, it starts
-  unconfirmed again); and on *Send the e-mail again*
-  (`POST /profile/verify-email/resend`, 5 per account per hour, past that it
-  silently sends nothing).
-- **The link** is `<SKRONGLE_PUBLIC_URL or the request's host>/verify-email?token=…`:
-  32 random bytes, hex; only the SHA-256 is stored, in
-  `email_verifications`. It works once, for 24 hours, and only while the
-  account still has the address it was sent to; a new link voids the unused
-  older ones. Opening it (signed in or not, in any browser) sets
-  `users.email_verified_at` and shows "Your e-mail address is confirmed";
-  it signs nobody in. A used, expired or unknown link gets a neutral page,
-  with *Send a new link* when signed in.
-- **Where it shows**: inside the profile's address field, a green check
-  (`email-verified`, "Verified" on hover) or a red ! (`email-unverified`)
-  that opens a dialog, "Email not yet verified. Check your inbox for the
-  link.", with *Resend* (`email-verify-resend`). No other page mentions it.
-- **Without mail** (#633, no `SKRONGLE_MAIL_PROVIDERS` outside dev mode): no
-  link is issued or queued (`verify::send` logs and returns), the address
-  field shows an (i) (`email-no-mail-info`) whose dialog says the server
-  cannot send mail, in place of the red ! and *Resend*; *Send the e-mail
-  again* and the superuser's reset are not offered.
-- **Dev mode**: the message, link included, is on `/dev/mail` (a page in a
-  browser, JSON for scripts) and the link is logged at `info`; the dev user
-  is confirmed. Rows are deleted 7 days after they were made (hourly
-  housekeeping); existing accounts start unconfirmed.
+A forgotten password has no reset link: the owner sets a temporary
+password on the Manage Users page (under [Profile](#profile)), which the
+learner changes at the next sign-in.
 
 ## Two-factor sign-in
 
 After the password an account can be asked for
-a code too (#292, `src/two_factor.rs`). One method at a time
-(`users.two_factor`), chosen on the profile's **Two-factor authentication**
-card (`profile-two-factor[data-method]`, chips `profile-two-factor-method[data-method]`
-for Off, E-mail and Authenticator app; picking one posts
-`POST /profile/two-factor` and the page comes back saying what is on).
-Choosing another method replaces the one in use.
-
-**Only what the server can send** (#633). Without a mail provider the
-E-mail chip is left out; the authenticator app needs none. Posting such a method anyway is refused (422) with a
-message naming the setting. An account already on a method whose channel
-the server has lost cannot sign in: after the password the
-login page comes back (403) saying so and naming `SKRONGLE_MAIL_PROVIDERS`; no code is made.
+a code from an authenticator app too (#292, `src/two_factor.rs`;
+`users.two_factor` is `totp` or empty). It is turned on and off on the
+profile's **Two-factor authentication** card
+(`profile-two-factor[data-method]`, chips `profile-two-factor-method[data-method]`
+for Off and Authenticator app; picking one posts `POST /profile/two-factor`
+and the page comes back saying what is on). There is no code by e-mail
+(#10): posting `method=email` is a 400, and an account whose
+`users.two_factor` still says `email` signs in with its password alone.
 
 **Every change asks who it is** (#374). Choosing Off, another method or,
 with it off, any method (or the app's *Remove*) opens *Confirm it's you*
@@ -2065,21 +1889,13 @@ with it off, any method (or the app's *Remove*) opens *Confirm it's you*
 checked on the server like `/login` (10 tries per account per 15 minutes;
 wrong ones count against the sign-in limit). A missing or wrong password is
 refused (403) with the dialog open again and `two-factor-confirm-error`.
-An account without a password (signed in through a proxy) types a code from its current
-method instead (`two-factor-confirm-code`): the authenticator's, or one
-e-mailed by *Send code* (`two-factor-confirm-send`,
-`POST /profile/two-factor/code`, purpose `two-factor-confirm`, 10 minutes,
-five tries, 5 sends per 15 minutes). One with it off has nothing to type:
-*Confirm* makes the change. Once made, every other session of the account ends and the
-account's address is e-mailed (purpose `two-factor-changed`), so an
-owner whose session someone else used hears of it. Recovery codes are not
+An account without a password (signed in through a proxy) types the
+authenticator's code instead (`two-factor-confirm-code`). One with it off has nothing to type:
+*Confirm* makes the change. Once made, every other session of the account ends.
+Recovery codes are not
 offered yet. Without JavaScript the chips post with *Save* and the page
 comes back with the dialog shown as a form.
 
-- **E-mail**: a 6-digit code e-mailed to the account's address (outbox
-  purpose `login-code`). Not offered until the address is
-  [confirmed](#e-mail-verification): the chip is disabled, with a red !
-  (`profile-two-factor-email-unavailable`) whose dialog has *Resend*.
 - **Authenticator app** (Google Authenticator and the like; RFC 6238 TOTP,
   SHA-1, 6 digits, 30 s, `src/totp.rs`): picking it starts the set-up, a
   dialog (`two-factor-totp-dialog`) with a QR code of the
@@ -2094,25 +1910,21 @@ comes back with the dialog shown as a form.
   The app's first code (`two-factor-totp-code`, *Turn on*) makes it the
   method. One app per account; *Remove* (`profile-two-factor-totp-remove`)
   forgets it and turns two-factor sign-in off (so it asks for the password
-  like Off). The app's secret is stored encrypted, like the AI API keys. Leaving it for another
-  method removes it too: its secret is not kept unused.
+  like Off). The app's secret is stored encrypted, like the AI API keys.
+  Turning two-factor sign-in off removes it too: its secret is not kept unused.
 - **Signing in**: once the password is right, an account with a
   method gets no session yet but a `twofa` cookie (10 minutes) naming a
   challenge, and `/login/code` (`login-code[data-method]`) asks for the
-  code (`login-code-input`, `login-code-submit`), saying where it went
-  (`login-code-sent-to`: `a•••@example.org`, or the app).
-  *Send a new code* (`login-code-resend`, 5 per account per 15 minutes) and
-  *Cancel* (`login-code-cancel`). The session is made only after the right
-  code. In dev mode a small window floats at the bottom (`login-code-dev`)
-  framing [the dev device the code went to](testing#two-factor-sign-in-the-dev-device):
-  this sign-in's mail or authenticator entry, each with a *Use*
-  button that types the code.
-- **The rules**: an e-mailed code works for 10 minutes and five
+  code (`login-code-input`, `login-code-submit`; `login-code-sent-to`
+  says it is the app's), with *Cancel* (`login-code-cancel`). The session
+  is made only after the right code. In dev mode a small window floats at
+  the bottom (`login-code-dev`) framing
+  [the dev device](testing#two-factor-sign-in-the-dev-device): this
+  sign-in's dev authenticator entry, with a *Use* button that types the code.
+- **The rules**: a sign-in waits 10 minutes for its code and allows five
   tries (`login-code-error` says how many are left; the fifth wrong one ends
-  the sign-in); a new code voids the old one but keeps the tries already
-  used (five per sign-in, not per code). Codes are stored only as
-  SHA-256 with a random salt and the cookie's token, itself stored only as
-  its SHA-256. An authenticator code is taken one step (30 s) either side of
+  the sign-in). The cookie's token is stored only as its SHA-256. An
+  authenticator code is taken one step (30 s) either side of
   now, and each step only once, so a code seen over a shoulder cannot be
   replayed. Wrong codes count towards the sign-in limits like wrong
   passwords. There is no "remember this device": every sign-in asks.
@@ -2126,8 +1938,7 @@ app" in Chrome, "Add to Home Screen" in Safari). It then opens full-screen
 at the home page, with the Skrongle icon. Every page links
 `/manifest.webmanifest` (`web_manifest` in `src/routes/mod.rs`), which
 carries the base path in `start_url`, `scope` and the icon paths
-(`static/icon-192.png`, `static/icon-512.png`). The same in the hosted site
-and Skrongle mini; a browser only offers it on an HTTPS page or localhost.
+(`static/icon-192.png`, `static/icon-512.png`). A browser only offers it on an HTTPS page or localhost.
 
 There is no service worker and nothing is cached for offline use. Sprint
 grades each answer on the server, so studying offline is a separate piece

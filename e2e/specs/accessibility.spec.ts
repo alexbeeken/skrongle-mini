@@ -13,7 +13,7 @@ test("pages fit a phone at 200 % text size (#342)", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await devLogin(page);
   // /guide and /tutor since #1058. /self-host was here too, until the page
-  // was hidden on the hosted site (#1435); put it back when mini ships.
+  // was hidden (#1435); put it back when it is shown again.
   for (const path of ["/sprint", "/profile", "/", "/courses", "/lessons", "/listening", "/guide", "/tutor"]) {
     await page.goto(path);
     // What the browser's text size setting does: the root font size doubles.

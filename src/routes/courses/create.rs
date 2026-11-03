@@ -220,7 +220,7 @@ pub async fn translate(State(state): State<Arc<AppState>>, user: CurrentUser, Pa
         }
     };
     // The same checks as Generate, before anything is made.
-    let provider = match ai_provider(&state, &user, &form.provider, "", false, "", "").await? {
+    let provider = match ai_provider(&state, &user, &form.provider, "", "", "").await? {
         Ok(p) => p,
         Err(e) => return picker_page(&state, user, Some(e), None).await,
     };

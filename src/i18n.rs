@@ -60,6 +60,12 @@ thread_local! {
     static PARSES: Cell<usize> = const { Cell::new(0) };
 }
 
+#[cfg(test)]
+thread_local! {
+    /// `js_json` texts built (not served from the cache) on this thread.
+    static JS_JSON_BUILDS: Cell<usize> = const { Cell::new(0) };
+}
+
 impl Language {
     fn new(code: String, name: String) -> Self {
         Language { code, name, strings: OnceLock::new() }
@@ -379,9 +385,28 @@ pub fn fill(text: &str, values: &[(&str, &dyn Display)]) -> String {
 /// `<prefix>.` (the key in full → the text), for `Object.assign(I18N, …)`
 /// in a template's script block: `js_json("sprint.js")`.
 pub fn js_json(prefix: &str) -> String {
-    let json = current().json_under(prefix);
+    js_json_cached(current(), prefix).to_string()
+}
+
+/// The finished `js_json` text for one language and prefix, built the first
+/// time and kept: the language files are embedded and never change.
+fn js_json_cached(lang: &'static Language, prefix: &str) -> std::sync::Arc<str> {
+    type Cache = std::sync::Mutex<BTreeMap<(String, String), std::sync::Arc<str>>>;
+    static CACHE: OnceLock<Cache> = OnceLock::new();
+    let mut cache = CACHE
+        .get_or_init(Default::default)
+        .lock()
+        .unwrap_or_else(|e| e.into_inner());
+    let key = (lang.code.clone(), prefix.to_string());
+    if let Some(done) = cache.get(&key) {
+        return done.clone();
+    }
+    #[cfg(test)]
+    JS_JSON_BUILDS.with(|b| b.set(b.get() + 1));
     // Inside a <script>, "</" must not appear in the JSON text.
-    json.replace("</", "<\\/")
+    let done: std::sync::Arc<str> = lang.json_under(prefix).replace("</", "<\\/").into();
+    cache.insert(key, done.clone());
+    done
 }
 
 // ---------- the file format ----------
@@ -553,6 +578,20 @@ mod tests {
         }
         assert_eq!(scan_name("meta:\n  name: \"A: b\"\nx: 1\n"), Some("A: b".into()));
         assert_eq!(scan_name("x: 1\nmeta:\n  name: A\n"), None);
+    }
+
+    #[test]
+    fn js_json_is_built_once_per_language_and_prefix() {
+        let en = &languages()[0];
+        let before = JS_JSON_BUILDS.with(Cell::get);
+        let first = js_json_cached(en, "sprint.js");
+        let second = js_json_cached(en, "sprint.js");
+        assert_eq!(JS_JSON_BUILDS.with(Cell::get), before + 1, "second call must not rebuild");
+        assert!(std::sync::Arc::ptr_eq(&first, &second));
+        assert_eq!(&*first, en.json_under("sprint.js").replace("</", "<\\/"));
+        assert!(!first.contains("</"));
+        js_json_cached(en, "clock.js");
+        assert_eq!(JS_JSON_BUILDS.with(Cell::get), before + 2, "another prefix builds again");
     }
 
     #[test]

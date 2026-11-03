@@ -2,7 +2,7 @@
 // playthrough (e2e/playthrough/core.ts) and the smoke specs: a fresh account
 // through /register, /api/progress, and the check that every page listing
 // lessons agrees with it (the "one passed" rule, docs/progress.md).
-import { expect, type Page } from "@playwright/test";
+import { expect, request, type Page } from "@playwright/test";
 
 export interface Account {
   email: string;
@@ -32,32 +32,24 @@ export function newAccount(prefix: string, worker: string | number = process.env
   return { email: `${prefix}-${stamp}-w${worker}-${++made}-${rand}@example.com`, password: `pw-${Math.random().toString(36).slice(2, 12)}` };
 }
 
-/** Register `account` through /register, sign in (where registering did
- * not), and open `course` on /courses. */
+/** Register `account` through /register (which signs it in) and open
+ * `course` on /courses. */
 export async function register(page: Page, account: Account, course: string): Promise<void> {
-  if (!(await signUp(page, account))) await login(page, account);
+  await signUp(page, account);
   await openCourse(page, course);
 }
 
-/** Fill in and send /register (ticking both boxes; `noAi` the AI pill too).
- * With mail the answer is "check your mail" and nobody is signed in (#379):
- * `false`. In the mini lane (no mail) registering signs in: `true`. */
-export async function signUp(page: Page, account: Account, opts: { noAi?: boolean } = {}): Promise<boolean> {
+/** Fill in and send /register (ticking both boxes).
+ * Registering signs the new account in. */
+export async function signUp(page: Page, account: Account): Promise<void> {
   await page.goto("/register");
   await page.getByTestId("register-email").fill(account.email);
   await page.getByTestId("register-password").fill(account.password);
   await page.getByTestId("register-age").check();
-  await page.getByTestId("register-terms").check();
-  if (opts.noAi) await page.getByTestId("register-no-ai").check();
   await page.getByTestId("register-submit").click();
   await page.waitForLoadState("domcontentloaded");
   if (await page.getByTestId("register-error").isVisible()) throw new Error(`registration failed: ${await page.getByTestId("register-error").innerText()}`);
-  if (process.env.E2E_MINI === "1") {
-    await expect(page.getByTestId("nav-account-toggle")).toBeVisible();
-    return true;
-  }
-  await expect(page.getByTestId("register-sent")).toBeVisible();
-  return false;
+  await expect(page.getByTestId("nav-account-toggle")).toHaveAttribute("data-email", account.email);
 }
 
 /**
@@ -200,11 +192,49 @@ export async function expectProgressAgrees(page: Page): Promise<ApiLesson[]> {
   return truth;
 }
 
-/** Save an AI API key on /profile (the page must be open): open the
- *  provider's row and paste the key, which saves it straight away. */
+/** Save one of the server's AI API keys (#25) on Manage Users: `page` must
+ *  be signed in as an owner (the dev user is one). Opens the provider's
+ *  folded row and pastes the key, which saves it straight away; every
+ *  account then uses it. */
 export async function saveApiKey(page: Page, key: string, provider = "anthropic"): Promise<void> {
-  const row = page.locator(`[data-testid="profile-api-key"][data-provider="${provider}"]`);
-  await row.getByTestId("profile-api-key-toggle").click();
-  await row.getByTestId("profile-api-key-input").fill(key);
+  await page.goto("/manage#ai");
+  const row = page.locator(`[data-testid="manage-api-key"][data-provider="${provider}"]`);
+  await row.getByTestId("manage-api-key-toggle").click();
+  await row.getByTestId("manage-api-key-input").fill(key);
   await expect(row).toHaveAttribute("data-key-set", "true");
+  await expect(row.getByTestId("manage-api-key-status")).toContainText(key.slice(-4));
+  // The row says Set as soon as the key is typed; the save itself lands a moment later and marks the field. Wait for that before moving on.
+  await expect(row.locator(".field-wrap")).toHaveAttribute("data-saved", "");
+}
+
+/** Remove one of the server's AI API keys on Manage Users (an owner's `page`). */
+export async function removeApiKey(page: Page, provider = "anthropic"): Promise<void> {
+  await page.goto("/manage#ai");
+  const row = page.locator(`[data-testid="manage-api-key"][data-provider="${provider}"]`);
+  if ((await row.getAttribute("data-key-set")) !== "true") return;
+  await row.getByTestId("manage-api-key-toggle").click();
+  await row.getByTestId("manage-api-key-remove").click();
+  await expect(page.locator(`[data-testid="manage-api-key"][data-provider="${provider}"]`)).toHaveAttribute("data-key-set", "false");
+}
+
+/** The simulated provider's key for every provider, as the server's
+ *  (`/dev/login?keys=fake`), from a request context of its own, so
+ *  `page`'s sign-in stays as it is (`page` must have a page open): what a
+ *  spec that changed the server's keys puts back at its end. */
+export async function resetServerKeys(page: Page): Promise<void> {
+  const ctx = await request.newContext({ baseURL: new URL(page.url()).origin });
+  try {
+    expect((await ctx.get("/dev/login?keys=fake&next=/manage")).ok()).toBe(true);
+  } finally {
+    await ctx.dispose();
+  }
+}
+
+/** Hide (`true`) or show the AI features for every account (#25) with the
+ *  owner's switch on Manage Users (an owner's `page`). */
+export async function setAiHidden(page: Page, hidden: boolean): Promise<void> {
+  await page.goto("/manage#ai");
+  const row = page.getByTestId("manage-ai");
+  if ((await row.getAttribute("data-ai-off")) !== String(hidden)) await page.getByTestId("manage-ai-switch").click();
+  await expect(page.getByTestId("manage-ai")).toHaveAttribute("data-ai-off", String(hidden));
 }

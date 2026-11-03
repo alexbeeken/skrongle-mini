@@ -638,3 +638,61 @@ fn the_social_removal_migration_puts_its_wearers_back_on_the_default() {
     assert_eq!(col("SELECT motivator FROM users ORDER BY id"), ["", "xp"]);
     assert_eq!(col("SELECT motivator FROM projects ORDER BY user_id, course_id"), ["", "skc", "xp"]);
 }
+
+/// #16: one `owner` flag, set for every account that had either of the two
+/// old flags; the old columns stay until the schema squash.
+#[test]
+fn the_owner_migration_merges_the_old_flags() {
+    let v = MIGRATIONS.iter().position(|m| m.contains("ADD COLUMN owner INTEGER")).unwrap();
+    let conn = Connection::open_in_memory().unwrap();
+    for sql in &MIGRATIONS[..v] {
+        conn.execute_batch(sql).unwrap();
+    }
+    conn.execute_batch(&format!("PRAGMA user_version = {v};")).unwrap();
+    conn.execute(
+        "INSERT INTO users (id, password_hash, created_at, email, superuser, developer) VALUES
+            (1, 'h', 1, 'a@example.org', 1, 0), (2, 'h', 1, 'b@example.org', 0, 1), (3, 'h', 1, 'c@example.org', 1, 1), (4, 'h', 1, 'd@example.org', 0, 0)",
+        [],
+    )
+    .unwrap();
+    migrate(&conn).unwrap();
+    let owners: Vec<bool> = conn.prepare("SELECT owner FROM users ORDER BY id").unwrap().query_map([], |r| r.get(0)).unwrap().map(Result::unwrap).collect();
+    assert_eq!(owners, [true, true, true, false]);
+}
+
+/// #25: the server's keys start as the first owner who saved any (still
+/// sealed for that owner, `sealed_for`); a learner's keys stay behind in
+/// `user_api_keys`, unread; the AI consent rows go, and the switch that
+/// hides AI is not set (AI shown).
+#[test]
+fn the_server_keys_migration_takes_the_first_owners_keys() {
+    let v = MIGRATIONS.iter().position(|m| m.contains("CREATE TABLE server_api_keys")).unwrap();
+    let conn = Connection::open_in_memory().unwrap();
+    for sql in &MIGRATIONS[..v] {
+        conn.execute_batch(sql).unwrap();
+    }
+    conn.execute_batch(&format!("PRAGMA user_version = {v};")).unwrap();
+    conn.execute_batch(
+        "INSERT INTO users (id, password_hash, created_at, email, owner) VALUES
+            (1, 'h', 1, 'learner@example.org', 0), (2, 'h', 1, 'keyless-owner@example.org', 1),
+            (3, 'h', 1, 'owner@example.org', 1), (4, 'h', 1, 'later-owner@example.org', 1);
+         INSERT INTO user_api_keys (user_id, provider, ciphertext, updated_at) VALUES
+            (1, 'anthropic', x'01', 5), (3, 'anthropic', x'03', 6), (3, 'google', x'0303', 7), (4, 'openai', x'04', 8);
+         INSERT INTO consents (user_id, purpose, granted_at) VALUES (1, 'ai', 1), (3, 'ai', 1);",
+    )
+    .unwrap();
+    migrate(&conn).unwrap();
+    let rows: Vec<(String, Vec<u8>, i64, Option<i64>)> = conn
+        .prepare("SELECT provider, ciphertext, set_at, sealed_for FROM server_api_keys ORDER BY provider")
+        .unwrap()
+        .query_map([], |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?, r.get(3)?)))
+        .unwrap()
+        .map(Result::unwrap)
+        .collect();
+    assert_eq!(rows, [("anthropic".to_string(), vec![3], 6, Some(3)), ("google".to_string(), vec![3, 3], 7, Some(3))]);
+    let left: i64 = conn.query_row("SELECT COUNT(*) FROM user_api_keys", [], |r| r.get(0)).unwrap();
+    assert_eq!(left, 4, "kept for the schema squash");
+    let consents: i64 = conn.query_row("SELECT COUNT(*) FROM consents WHERE purpose = 'ai'", [], |r| r.get(0)).unwrap();
+    assert_eq!(consents, 0);
+    assert!(!crate::settings::ai_off(&conn).unwrap());
+}

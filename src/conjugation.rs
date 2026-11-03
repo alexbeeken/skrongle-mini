@@ -16,9 +16,9 @@ use crate::quiz::{normalize, strip_accents, Rng};
 pub fn completed_lessons(conn: &Connection, user_id: i64, course_id: &str) -> rusqlite::Result<HashSet<String>> {
     let at = now();
     let mut done: HashSet<String> = crate::progress::passed_ids(conn, user_id, course_id)?;
-    for (id, p) in mastery::load_progress(conn, user_id, course_id)? {
+    for (id, p) in mastery::load_progress(conn, user_id, course_id)?.iter() {
         if p.times_tested > 0 && p.effective(at) >= MASTERED_AT {
-            done.insert(id);
+            done.insert(id.clone());
         }
     }
     Ok(done)

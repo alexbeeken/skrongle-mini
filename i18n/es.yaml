@@ -11,17 +11,12 @@ nav:
   switch_course_now: "Cambiar de curso (ahora {course})"
   account_menu_for: "Menú de la cuenta de {name}"
   profile: Ajustes del perfil
-  superuser: Superusuario
+  manage: Gestionar usuarios
   documentation: Documentación
   docs: Docs
   login: Iniciar sesión
   register: Registrarse
   logout: Cerrar sesión
-
-footer:
-  terms: términos
-  privacy: privacidad
-  cookies: cookies
 
 lang:
   label: Idioma
@@ -38,6 +33,7 @@ error:
   home: Inicio
   lessons: Lecciones
   courses: Todos los cursos
+  ai_off: "Las funciones de IA están desactivadas en este servidor."
 
 common:
   pager:
@@ -118,12 +114,10 @@ auth:
     submit: Iniciar sesión
     or: o
     no_account_html: "¿Aún no tienes cuenta? <a href=\"{url}\" data-testid=\"login-register-link\">Regístrate</a>."
-    terms_link: Términos
-    privacy_link: Privacidad
     too_many_attempts: Demasiados intentos de inicio de sesión. Espera unos minutos e inténtalo de nuevo.
     incorrect: Correo electrónico o contraseña incorrectos.
-    forgot: "¿Olvidaste tu contraseña?"
   register:
+    age: "Tengo al menos {min_age} años"
     title: Registrarse
     heading: Crear una cuenta
     email_label: Correo electrónico
@@ -154,6 +148,7 @@ auth:
     too_short: La contraseña debe tener al menos 8 caracteres.
     too_long: "La contraseña es demasiado larga (máximo {max} caracteres)."
   password_change:
+    logout: Mejor cerrar sesión
     title: "Elige una contraseña nueva"
     info_label: "Por qué una contraseña nueva"
     about: "Has iniciado sesión con una contraseña temporal que te puso quien administra este servidor. Elige la tuya antes de seguir; nadie más la sabrá."
@@ -161,294 +156,23 @@ auth:
   age_gate:
     to_register: registrarte
     to_continue: continuar
-    both: "Confirma que tienes al menos {min_age} años y acepta los Términos para {to}."
     age: "Confirma que tienes al menos {min_age} años para {to}."
-    terms: "Acepta los Términos para {to}."
   code:
     title: Ingresa tu código
     from_app: De tu aplicación de autenticación.
-    emailed_to: "Enviado por correo a {to}."
     code_label: Código
     submit: Iniciar sesión
-    resend: Enviar un código nuevo
     cancel: Cancelar
     gone: Ese inicio de sesión ha caducado. Inicia sesión de nuevo.
-    unsent: El código no se pudo enviar ahora mismo. Espera un minuto y envía uno nuevo.
-    sent: Un código nuevo está en camino.
     wrong:
       one: "Ese código no es correcto. Te queda {n} intento."
       other: "Ese código no es correcto. Te quedan {n} intentos."
     too_many_wrong: Demasiados códigos incorrectos, o el código caducó. Inicia sesión de nuevo.
-    your_email: tu correo electrónico
-    your_authenticator: tu aplicación de autenticación
   two_factor:
-    channel_off_email: "Tu cuenta inicia sesión con un código por correo, pero este servidor no puede enviar correos ({setting} no está configurado). Pide a quien lo administra que configure {setting} o que desactive el inicio de sesión en dos pasos de tu cuenta."
-    needs_email: Confirma primero tu correo electrónico.
     needs_app: Configura primero la aplicación de autenticación.
     app_already: Ya hay una aplicación de autenticación configurada. Elimínala primero.
-  ai_switch:
-    label: Ocultar todas las funciones de IA
-    about: Acerca de las funciones de IA
-    tip: El tutor de IA y la creación de cursos con IA quedan ocultos e inutilizables. Funcionan enviando lo que escribes a una empresa de IA con tu propia clave de API. Puedes cambiarlo en cualquier momento desde tu perfil.
-    off: Desactivado
-    on: Activado
-  verify_email:
-    title: Confirma tu correo electrónico
-    confirmed_heading: Tu correo electrónico está confirmado
-    confirmed: Gracias. No hay nada más que hacer.
-    invalid_heading: Este enlace no funciona
-    invalid: Puede que ya se haya usado, que tenga más de 24 horas o que lo haya reemplazado un enlace más reciente.
-    already: "Tu dirección {email} ya está confirmada."
-    resend_to: Podemos enviar un enlace nuevo a
-    resend: Enviar un enlace nuevo
-    sign_in_hint: Inicia sesión para pedir un enlace nuevo desde tu perfil.
-    continue: Continuar
-    sign_in: Iniciar sesión
 
-  register_sent:
-    title: "Revisa tu correo"
-    sent_html: "Enviamos un mensaje a {email}. Abre el enlace que contiene para confirmar tu dirección y luego inicia sesión."
-    sign_in: "Iniciar sesión"
-  reset:
-    title: "Restablecer tu contraseña"
-    email_label: "Correo electrónico"
-    send: "Enviar un enlace"
-    sent_title: "Revisa tu correo"
-    sent_html: "Si {email} tiene una cuenta, le enviamos un enlace para elegir una contraseña nueva. El enlace funciona una sola vez, durante una hora."
-    choose_title: "Elige una contraseña nueva"
-    choose_html: "Para {email}. Al guardar, se cierra tu sesión en todas partes."
-    password_label: "Contraseña nueva"
-    password_note: "(al menos 8 caracteres)"
-    save: "Guardar la contraseña nueva"
-    invalid_title: "Este enlace no funciona"
-    invalid: "Puede que ya se haya usado, que tenga más de una hora o que lo haya reemplazado un enlace más reciente."
-    again: "Enviar un enlace nuevo"
-    done_title: "Tu contraseña ha cambiado"
-    done: "✓ Se cerraron todas las sesiones. Inicia sesión con la contraseña nueva."
-    sign_in: "Iniciar sesión"
-    too_many_requests: "Demasiadas solicitudes desde tu red. Inténtalo de nuevo dentro de una hora."
-    too_many_tries: "Demasiados intentos desde tu red. Espera unos minutos e inténtalo de nuevo."
 
-terms:
-  page:
-    title: Términos del servicio
-    version: "Versión {version}"
-    markdown: Markdown
-    privacy: Política de privacidad
-  check:
-    age: "Tengo al menos {min_age} años"
-    agree_html: "Acepto los <a href=\"{terms_url}\" target=\"_blank\" data-testid=\"{tid}-terms-link\">Términos</a> y la <a href=\"{privacy_url}\" target=\"_blank\" data-testid=\"{tid}-privacy-link\">Política de privacidad</a>"
-  accept:
-    title: Términos del servicio
-    changed: Los términos han cambiado
-    heading: Acepta los términos
-    read_html: "Lee los <a href=\"{url}\" target=\"_blank\" data-testid=\"terms-gate-link\">Términos del servicio</a> (versión {version}) y acéptalos para continuar."
-    check_html: "Tengo al menos {min_age} años y acepto los <a href=\"{terms_url}\" target=\"_blank\">Términos</a> y la <a href=\"{privacy_url}\" target=\"_blank\" data-testid=\"terms-gate-privacy-link\">Política de privacidad</a>"
-    submit: Continuar
-    logout: Mejor cerrar sesión
-    tick: Marca la casilla para aceptar los términos.
-  notice:
-    heading: Nuestros términos han cambiado
-    minor: Esto es lo que ha cambiado. Si sigues usando el sitio, aceptas los nuevos términos.
-    material: Estos cambios afectan a tus derechos o a un plan de pago. Acepta los nuevos términos para seguir usando tu cuenta.
-    effective: "En vigor desde el {date}"
-    read: Leer los términos completos
-    dismiss: Continuar
-    disagree_html: "Si no estás de acuerdo, cierra sesión o cierra tu cuenta desde tu <a href=\"{url}\" data-testid=\"terms-notice-profile\">perfil</a>."
-
-mail:
-  waitlist_confirm:
-    subject: "Confirma tu lugar en la lista de espera de {app}"
-    text: |
-      Hola:
-
-      Confirma que quieres unirte a la lista de espera de {app} abriendo este enlace:
-
-      {link}
-
-      Te enviaremos una invitación por correo cuando sea tu turno. Si no pediste unirte, ignora este mensaje: la dirección no se añade si no se abre el enlace.
-    html: |
-      <p>Hola:</p>
-      <p>Confirma que quieres unirte a la lista de espera de {app}:</p>
-      <p><a href="{link}">Confirmar mi lugar</a></p>
-      <p>O pega este enlace en tu navegador: {link}</p>
-      <p>Te enviaremos una invitación por correo cuando sea tu turno. Si no pediste unirte, ignora este mensaje: la dirección no se añade si no se abre el enlace.</p>
-  waitlist_invite:
-    subject: "Tu invitación a {app}"
-    text: |
-      Hola:
-
-      Ya es tu turno: te invitamos a crear tu cuenta de {app}. Abre este enlace y regístrate con esta dirección de correo ({email}):
-
-      {link}
-
-      La invitación vale durante {days} días.
-    html: |
-      <p>Hola:</p>
-      <p>Ya es tu turno: te invitamos a crear tu cuenta de {app}. Regístrate con esta dirección de correo ({email}).</p>
-      <p><a href="{link}">Crear mi cuenta</a></p>
-      <p>O pega este enlace en tu navegador: {link}</p>
-      <p>La invitación vale durante {days} días.</p>
-  terms_change:
-    subject: "Los términos de {app} cambian el {date}"
-    text: |
-      Hola:
-
-      Vamos a cambiar los términos de {app}. Los nuevos términos entran en vigor el {date}.
-
-      Qué cambia:
-      {summary}
-
-      Lee los nuevos términos: {link}
-
-      A partir del {date} te pediremos que los aceptes al iniciar sesión. Si no estás de acuerdo, puedes cerrar tu cuenta desde tu perfil.
-    html: |
-      <p>Hola:</p>
-      <p>Vamos a cambiar los términos de {app}. Los nuevos términos entran en vigor el {date}.</p>
-      <p>Qué cambia:</p>
-      {summary}
-      <p><a href="{link}">Leer los nuevos términos</a></p>
-      <p>A partir del {date} te pediremos que los aceptes al iniciar sesión. Si no estás de acuerdo, puedes cerrar tu cuenta desde tu perfil.</p>
-  verify_email:
-    subject: "Confirma tu correo electrónico para {app}"
-    text: |
-      Hola,
-
-      Confirma que esta es tu dirección de correo electrónico para {app} abriendo este enlace:
-
-      {link}
-
-      El enlace funciona una sola vez, durante 24 horas. Si no te registraste en {app}, ignora este mensaje: la dirección no queda confirmada a menos que se abra el enlace. {app} envía como máximo {max} de estos mensajes a una misma dirección al día.
-    html: |
-      <p>Hola,</p>
-      <p>Confirma que esta es tu dirección de correo electrónico para {app}:</p>
-      <p><a href="{link}">Confirmar mi correo electrónico</a></p>
-      <p>O pega este enlace en tu navegador: {link}</p>
-      <p>El enlace funciona una sola vez, durante 24 horas. Si no te registraste en {app}, ignora este mensaje: la dirección no queda confirmada a menos que se abra el enlace. {app} envía como máximo {max} de estos mensajes a una misma dirección al día.</p>
-  password_reset:
-    subject: "Restablece tu contraseña de {app}"
-    text: |
-      Hola,
-
-      Alguien (esperamos que tú) pidió restablecer la contraseña de tu cuenta de {app}. Elige una nueva abriendo este enlace:
-
-      {link}
-
-      El enlace funciona una sola vez, durante una hora, y cierra tu sesión en todas partes. Si no lo pediste, ignora este mensaje; tu contraseña sigue igual.
-    html: |
-      <p>Hola,</p>
-      <p>Alguien (esperamos que tú) pidió restablecer la contraseña de tu cuenta de {app}.</p>
-      <p><a href="{link}">Elegir una contraseña nueva</a></p>
-      <p>O pega este enlace en tu navegador: {link}</p>
-      <p>El enlace funciona una sola vez, durante una hora, y cierra tu sesión en todas partes. Si no lo pediste, ignora este mensaje; tu contraseña sigue igual.</p>
-  register_taken:
-    subject: "Ya tienes una cuenta de {app}"
-    text: |
-      Hola,
-
-      Alguien intentó crear una cuenta nueva de {app} con este correo electrónico. Ya tiene una cuenta, así que no se creó nada.
-
-      Si fuiste tú, inicia sesión aquí:
-
-      {login}
-
-      ¿Olvidaste tu contraseña? Elige una nueva aquí:
-
-      {reset}
-
-      Si no fuiste tú, ignora este mensaje; tu cuenta no ha cambiado.
-    html: |
-      <p>Hola,</p>
-      <p>Alguien intentó crear una cuenta nueva de {app} con este correo electrónico. Ya tiene una cuenta, así que no se creó nada.</p>
-      <p>Si fuiste tú: <a href="{login}">Iniciar sesión</a></p>
-      <p>¿Olvidaste tu contraseña? <a href="{reset}">Elegir una contraseña nueva</a></p>
-      <p>Si no fuiste tú, ignora este mensaje; tu cuenta no ha cambiado.</p>
-  account_deletion:
-    subject: "Tu cuenta de {app} se eliminará el {date}"
-    text: |
-      Hola:
-
-      Pediste eliminar tu cuenta de {app}. Se eliminará para siempre el {date}, con tu progreso, tus cursos y tus claves guardadas.
-
-      Para conservarla, inicia sesión en {app} antes de esa fecha y elige Cancelar la eliminación.
-
-      Si no lo pediste tú, inicia sesión, cancela la eliminación y cambia tu contraseña.
-  data_export:
-    subject: "Tus datos de {app} están listos para descargar"
-    text: |
-      Hola,
-
-      La copia de tus datos de {app} que pediste está lista. Inicia sesión en {app} y abre este enlace para descargarla:
-
-      {link}
-
-      El enlace funciona una sola vez, durante 24 horas, y solo con la sesión iniciada en esta cuenta. Si no la pediste, cambia tu contraseña: otra persona ha iniciado sesión en tu cuenta.
-    html: |
-      <p>Hola,</p>
-      <p>La copia de tus datos de {app} que pediste está lista. Inicia sesión en {app} y abre este enlace para descargarla:</p>
-      <p><a href="{link}">Descargar mis datos</a></p>
-      <p>El enlace funciona una sola vez, durante 24 horas, y solo con la sesión iniciada en esta cuenta. Si no la pediste, cambia tu contraseña: otra persona ha iniciado sesión en tu cuenta.</p>
-  two_factor_changed:
-    subject: "La verificación en dos pasos de {app} ha cambiado"
-    now_off: ahora está desactivada
-    now_email: ahora te envía un código por correo electrónico
-    now_totp: ahora pide un código de una aplicación de autenticación
-    text: |
-      Hola,
-
-      La verificación en dos pasos de {app} {now}.
-
-      Se cerró la sesión en todos los demás dispositivos. Si no hiciste este cambio, otra persona tenía la sesión iniciada en tu cuenta: inicia sesión, usa «Cerrar sesión en todos los demás sitios» en tu perfil y vuelve a configurar la verificación en dos pasos.
-    html: |
-      <p>Hola,</p>
-      <p>La verificación en dos pasos de {app} <strong>{now}</strong>.</p>
-      <p>Se cerró la sesión en todos los demás dispositivos. Si no hiciste este cambio, otra persona tenía la sesión iniciada en tu cuenta: inicia sesión, usa «Cerrar sesión en todos los demás sitios» en tu perfil y vuelve a configurar la verificación en dos pasos.</p>
-  login_code:
-    subject: "Tu código de inicio de sesión de {app}"
-    text: |
-      Hola,
-
-      Tu código para terminar de iniciar sesión en {app}:
-
-      {code}
-
-      Funciona durante 10 minutos. Si no intentaste iniciar sesión, cambia tu contraseña: alguien más la conoce.
-    html: |
-      <p>Hola,</p>
-      <p>Tu código para terminar de iniciar sesión en {app}:</p>
-      <p style="font-size:1.6em;letter-spacing:.15em"><strong>{code}</strong></p>
-      <p>Funciona durante 10 minutos. Si no intentaste iniciar sesión, cambia tu contraseña: alguien más la conoce.</p>
-  two_factor_confirm:
-    subject: "Tu código de {app} para cambiar la verificación en dos pasos"
-    text: |
-      Hola,
-
-      Tu código para desactivar o cambiar la verificación en dos pasos en {app}:
-
-      {code}
-
-      Funciona durante 10 minutos. Si no lo pediste, alguien más tiene la sesión iniciada en tu cuenta: usa «Cerrar sesión en todos los demás sitios» en tu perfil.
-    html: |
-      <p>Hola,</p>
-      <p>Tu código para desactivar o cambiar la verificación en dos pasos en {app}:</p>
-      <p style="font-size:1.6em;letter-spacing:.15em"><strong>{code}</strong></p>
-      <p>Funciona durante 10 minutos. Si no lo pediste, alguien más tiene la sesión iniciada en tu cuenta: usa «Cerrar sesión en todos los demás sitios» en tu perfil.</p>
-  course_share:
-    subject: "{owner} compartió un curso contigo en {app}: {title}"
-    text: |
-      Hola,
-
-      {owner} compartió contigo el curso “{title}” en {app}. Abre este enlace para añadirlo a tus cursos:
-
-      {link}
-
-      Puedes aprender del curso con tu propio progreso; solo {owner} puede cambiarlo. Si aún no tienes una cuenta en {app}, el enlace te permite crear una. Si no esperabas este mensaje, ignóralo.
-    html: |
-      <p>Hola,</p>
-      <p>{owner} compartió contigo el curso <strong>{title}</strong> en {app}.</p>
-      <p><a href="{link}">Abrir el curso</a></p>
-      <p>O pega este enlace en tu navegador: {link}</p>
-      <p>Puedes aprender del curso con tu propio progreso; solo {owner} puede cambiarlo. Si aún no tienes una cuenta en {app}, el enlace te permite crear una. Si no esperabas este mensaje, ignóralo.</p>
 
 quiz:
   page:
@@ -750,10 +474,9 @@ docs:
     done_html: 🎉 <strong>Listo.</strong> Guárdalo en marcadores.
     not_loading_html: 💡 <strong>¿No carga?</strong> Ejecuta <code>hostname -I</code> en la Pi y usa ese número en su lugar, p. ej. <code>http://192.168.1.42:8080</code>.
     yours_h2: Hazlo tuyo
-    yours_account_html: "<strong>Invita a los demás</strong> con un enlace desde <em>Superusuario</em> (en el menú de la cuenta)."
-    yours_terms_html: "<strong>Pon tu nombre en los Términos.</strong> Todos los aceptan al registrarse. Edítalos con <code>sudo nano /etc/skrongle/terms.md</code> y luego <code>sudo systemctl restart skrongle</code>; todos aceptan el texto nuevo en su próxima visita."
+    yours_account_html: "<strong>Invita a los demás</strong> con un enlace desde <em>Gestionar usuarios</em> (en el menú de la cuenta)."
     yours_course_html: <strong>Elige un curso.</strong> El de español viene incluido, o crea el tuyo.
-    yours_ai_html: "<strong>Opcional: tutor de IA y generador de cursos.</strong> Pega una clave de Anthropic, OpenAI o Google en <em>Ajustes del perfil → Claves de API de IA</em>. Te facturan directamente."
+    yours_ai_html: "<strong>Opcional: tutor de IA y generador de cursos.</strong> Pega una clave de Anthropic, OpenAI o Google en <em>Gestionar usuarios → Funciones de IA</em>. Sirve a todos en el servidor y te la cobran directamente a ti."
     yours_tip: "🔒 Solo las personas que invites pueden crear una cuenta."
     away_h2: Úsalo fuera de casa
     optional: opcional
@@ -777,11 +500,9 @@ docs:
     footnote_html: "Más detalle: la <a href=\"{url}\" data-testid=\"selfhost-technical-footer\">guía técnica</a>."
     mini_h2: "{app} mini"
     mini_p: "Lo que instala esta página: la misma app, preparada para unas pocas personas que te conocen y sin servicios externos."
-    mini_out_h3: "Lo que deja fuera"
+    mini_out_h3: "Cómo está preparada"
     mini_out_mail: "Sin correo ni mensajes de texto: los enlaces aparecen en la página."
-    mini_out_plans: "Sin planes ni pagos: todo el mundo lo tiene todo."
     mini_out_signup: "Registro por invitación: creas un enlace para cada persona."
-    mini_out_terms: "Tus propias Condiciones de servicio, no las nuestras."
     mini_out_jobs: "El trabajo en segundo plano se hace dentro de la app: no hay otros servicios que mantener."
     mini_out_db: "Un solo archivo de base de datos (SQLite): sin servidor de base de datos."
     mini_safe_h3: "Mantenerlo seguro es cosa tuya"
@@ -845,8 +566,6 @@ landing:
   spec_docs_p: El formato, las funciones y la arquitectura se sirven desde la propia aplicación, como páginas o como Markdown sin formato para un LLM.
   final_h2: "Regístrate y responde una sola pregunta: ¿qué te gustaría aprender?"
   browse_docs: Explorar la documentación
-  terms: Términos del servicio
-  privacy: Política de privacidad
   feat_guide_h: "Guía"
   feat_guide_p: "Cada lección como una etapa de pasos pequeños: tarjetas, comprobaciones rápidas, fichas y consejos, con estrellas al final."
   try_lead: "Veinte segundos de cada modo. Elige uno y pruébalo."
@@ -920,11 +639,6 @@ landing:
     near_miss: "¡Bien! Ojo con la tilde: {answer}"
 
 profile:
-  email_no_mail:
-    title: "Sin confirmar"
-    text: "Este servidor no puede enviar correos, así que no puede enviarte un enlace para confirmar tu dirección. Todo funciona sin ello."
-    label: "Sobre tu dirección"
-    ok: "Vale"
   title: Perfil
   no_name: Estudiante
   head:
@@ -952,19 +666,12 @@ profile:
     appear_as_before: "Los demás usuarios te verán como: ("
     appear_as_after: ).
     email_private: Tu dirección de correo electrónico es privada; solo tú la ves.
-    policy_link: política de privacidad
     ok: OK
-  email_unverified:
-    title: Verifica tu correo electrónico
-    text: Correo electrónico aún no verificado. Busca el enlace en tu bandeja de entrada.
-    close: Cerrar
-    resend: Reenviar
   nav:
     label: Secciones del perfil
     personal: Información personal
     account: Cuenta
     two_factor: Autenticación en dos pasos
-    api_keys: Claves API de IA
     data: Tus datos
     consent: "Privacidad y consentimiento"
   personal:
@@ -974,7 +681,6 @@ profile:
     email: Dirección de correo electrónico
     no_email: Sin correo electrónico registrado
     verified: Verificado
-    not_verified: No verificado
     language: Idioma
     language_unavailable: Ese idioma no está disponible.
   account:
@@ -983,36 +689,16 @@ profile:
     sign_in: Inicio de sesión
     password: Contraseña
     and: y
-    terms: Términos
-    terms_accepted: "Versión {version}, aceptada el {date}"
-    terms_not_accepted: No aceptados
-    terms_read: leer
-    terms_privacy: privacidad
-    terms_title: Términos del servicio
-    terms_close: Cerrar
-    terms_open_page: Abrir como página
     no_password: Esta cuenta no tiene contraseña que cambiar.
   consent:
     title: "Privacidad y consentimiento"
     info: "Sobre tus consentimientos"
     info_age: "Confirmaste tu edad al registrarte. Para retirarlo, elimina tu cuenta en Tus datos."
-    info_email: "Los correos de servicio se envían siempre: confirmar tu dirección, la descarga de tus datos y los cambios en las condiciones. Los correos opcionales aparecerán aquí con su propio interruptor, apagados hasta que los actives."
-    info_ai: "Las funciones de IA envían lo que escribes a una empresa de IA. Si las ocultas, no sale nada, las funciones desaparecen de la aplicación y se eliminan tus claves API guardadas."
-    info_record: "Cada cambio se guarda con su fecha y viene incluido en Descargar mis datos."
+    info_record: "Cada cambio se guarda con su fecha."
     close: "Cerrar"
-    terms: "Condiciones y privacidad"
     age: "Edad"
     age_confirmed: "Confirmada el {date}"
     age_not_confirmed: "Sin confirmar"
-    email: "Correo"
-    email_service: "Solo mensajes de servicio"
-    ai: "No mostrarme funciones de IA"
-    ai_on_since: "Visibles desde el {date}"
-    ai_on: "Visibles"
-    ai_off_since: "Ocultas desde el {date}"
-    ai_off: "Ocultas"
-    ai_key: "Clave API propia guardada"
-    ai_keys_manage: "gestionar claves"
   sessions:
     sign_out_others: Cerrar sesión en todos los demás sitios
     info_label: Sobre cerrar sesión en todos los demás sitios
@@ -1038,32 +724,22 @@ profile:
     info: Acerca de la autenticación en dos pasos
     second_step: Segundo paso de inicio de sesión
     off: Desactivado
-    email: Correo electrónico
-    email_unverified: Correo electrónico no verificado
     totp: Aplicación de autenticación
     save: Guardar
     confirm_title: Confirma que eres tú
     confirm_password_why: Para que nadie que use este navegador con la sesión iniciada pueda cambiar tu segundo paso, escribe la contraseña de tu cuenta.
     confirm_app_code: Esta cuenta no tiene contraseña, así que escribe el código que muestra ahora tu aplicación de autenticación.
-    confirm_sent_code: Esta cuenta no tiene contraseña, así que confirma con un código de tu segundo paso actual.
-    sent_to: "Enviado a {to}."
-    send_one_first: Envía uno primero.
     password: Contraseña
     code: Código
     cancel: Cancelar
-    send_again: Enviar de nuevo
-    send_code: Enviar código
     confirm: Confirmar
     totp_added: "Aplicación de autenticación añadida el {date}"
     remove: Quitar
     info_title: Autenticación en dos pasos
-    info_text: "Después de tu contraseña, el inicio de sesión pide un código: enviado por correo electrónico o mostrado por una aplicación de autenticación como Google Authenticator. Un método a la vez; elegir otro lo reemplaza."
-    info_small: El correo electrónico y el mensaje de texto necesitan una dirección o un número verificados. Los códigos valen 10 minutos; cinco códigos incorrectos terminan el inicio de sesión.
+    info_text: "Después de tu contraseña, el inicio de sesión pide el código que muestra una aplicación de autenticación como Google Authenticator."
+    info_small: Cinco códigos incorrectos terminan el inicio de sesión.
     ok: OK
-    email_first_title: Verifica primero tu correo electrónico
-    email_first_text: Los códigos por correo electrónico necesitan una dirección verificada. Busca el enlace en tu bandeja de entrada.
     close: Cerrar
-    resend: Reenviar
     totp_title: Añadir una aplicación de autenticación
     totp_how: Cómo añadir la aplicación
     totp_dev_link: "Dev: añadirla al autenticador de desarrollo"
@@ -1075,7 +751,6 @@ profile:
     turn_off: Desactivar el inicio de sesión en dos pasos
     switch_to: "Cambiar el inicio de sesión en dos pasos a {method}"
     turn_on_by: "Activar la verificación en dos pasos por {method}"
-    method_email: correo electrónico
     method_totp: aplicación de autenticación
     is_off: El inicio de sesión en dos pasos está desactivado.
     is_method: "Inicio de sesión en dos pasos: {method}."
@@ -1089,66 +764,12 @@ profile:
       other: "Ese código no es correcto. Te quedan {n} intentos."
     code_wrong_newest: Ese código no es correcto. Escribe el código más reciente que muestra la aplicación.
     code_gone: No hay ningún código pendiente, o ya caducó. Envía uno nuevo.
-    too_many_codes: Demasiados códigos enviados. Espera unos minutos e inténtalo de nuevo.
-    code_not_sent: No se pudo enviar el código. Inténtalo de nuevo en un momento.
-  ai:
-    on: Activado
-    off: Desactivado
-    close: Cerrar
-    off_title: ¿Ocultar todas las funciones de IA?
-    off_text: Esto eliminará todas las claves API de IA guardadas en tu perfil.
-    cancel: Cancelar
-    confirm: CONFIRMAR
-    hidden_notice: Las funciones de IA están ocultas. No se te mostrarán, y nada de lo que hagas aquí se envía a una empresa de IA.
-    shown_notice: Las funciones de IA se muestran de nuevo.
-    feature_hidden: "Esa función usa IA, que tienes oculta. Desactiva \"No mostrarme funciones de IA\" en Privacidad y consentimiento para usarla."
-    keys_off: Las funciones de IA están desactivadas en tu cuenta; actívalas para guardar una clave.
-  api_keys:
-    title: Claves API de IA
-    about: "El tutor de IA, Generar el curso y Usar IA llaman a estos proveedores con tu clave, con cargo a tu cuenta."
-    info: "Acerca de tus claves API"
-    info_title: "Tus claves API"
-    info_text: "Las claves se cifran antes de guardarse y no se vuelven a mostrar; solo los últimos cuatro caracteres quedan visibles para que sepas qué clave está registrada. Puedes cambiar o quitar una clave cuando quieras."
-    unreadable: "Registrada pero ilegible: el secreto del servidor cambió. Pégala de nuevo."
-    on_file: ✓ Clave registrada
-    ends_in: termina en
-    none: Aún sin clave
-    replace: Pega una clave nueva para reemplazarla
-    paste: Pega tu clave
-    get_one: consigue una
-    remove: Quitar clave
-    removed: "Clave de {provider} eliminada."
-    empty: Pega primero la clave API.
-    too_long: "Es demasiado larga para una clave API (máximo {max} caracteres)."
-    bad_chars: Una clave API solo contiene letras, dígitos y signos de puntuación, sin espacios.
-    wrong_provider: "Eso no parece una clave de {provider}: empiezan por {prefix}."
   data:
-    export_download: "Descargar mis datos"
-    export_building_no_mail: "Estamos preparando tus datos. Cuando estén listos, aparecerá aquí un botón Descargar."
-    export_ready_no_mail: "Tus datos están listos: descárgalos con el botón, una sola vez, hasta el {date}."
-    export_about_no_mail: "Un archivo JSON con todo lo que se guarda de tu cuenta, preparado en segundo plano. Cuando esté listo, descárgalo aquí; funciona una vez, durante 24 horas. Una copia al día."
     title: Tus datos
-    stored_html: "Qué se guarda y por qué: <a href=\"{url}\" data-testid=\"profile-privacy-link\">política de privacidad</a>."
-    export: Preparar mis datos (JSON)
-    export_heading: Descargar mis datos
-    export_info_label: Sobre la descarga de tus datos
-    export_preparing: Preparando…
-    export_about: Un archivo JSON con todo lo que se guarda de tu cuenta, preparado en segundo plano. Te enviamos un enlace por correo; funciona una sola vez, durante 24 horas, mientras tengas la sesión iniciada. Una copia al día.
-    export_ok: Aceptar
-    export_your_address: tu dirección
-    export_none: Todavía no has pedido una copia.
-    export_building: "Se está preparando. Enviaremos un enlace a {email} cuando esté lista."
-    export_ready: "Lista. El enlace se envió a {email}; funciona una sola vez, hasta el {date}."
-    export_downloaded: "Descargada el {date}."
-    export_expired: El último enlace caducó sin usarse.
-    export_failed: No se pudo preparar la última copia. Inténtalo de nuevo.
-    export_next: "Una copia al día: puedes pedir la siguiente a partir del {date}."
-    export_queued: Preparando tus datos. Recibirás un correo con el enlace.
-    export_busy: Tus datos ya se están preparando.
-    export_soon: Una copia al día. Mira la (i) para saber cuándo puedes volver a pedirla.
-    export_gone: Ese enlace de descarga ya se usó, caducó o es de otra cuenta.
+    ok: Aceptar
     delete_title: Eliminar cuenta
-    delete_about: "Eliminamos tu cuenta 14 días después de que lo pidas, o cuando termine el tiempo pagado de un plan cancelado, si es más tarde. Se eliminan tu progreso, tus cursos y tus claves guardadas. Hasta entonces tu sesión queda cerrada, y puedes volver a iniciar sesión para cancelarlo."
+    delete_about: "Eliminamos tu cuenta 14 días después de que lo pidas. Se eliminan tu progreso, tus cursos y tus claves guardadas. Hasta entonces tu sesión queda cerrada, y puedes volver a iniciar sesión para cancelarlo."
+    delete_owner: "Tú gestionas este Skrongle, así que tu cuenta no se puede borrar aquí."
     your_password: Tu contraseña
     confirm_before: Escribe tu dirección de correo electrónico (
     confirm_after: ) para confirmar
@@ -1157,7 +778,6 @@ profile:
     password_wrong: La contraseña no es correcta.
     type_email: Escribe tu dirección de correo electrónico para confirmar.
     code_app: Código de tu aplicación de autenticación
-    code_sent_to: "enviado a {to}"
   deletion:
     title: "Cuenta pendiente de eliminación"
     on: "Esta cuenta se eliminará para siempre el {date}."
@@ -1167,7 +787,6 @@ profile:
   save:
     not_a_field: Este campo no forma parte del perfil.
     motivator_unavailable: "Ese motivador no está disponible."
-    sent_to: "Enviado a {email}."
   name:
     too_long: "{label} es demasiado largo (máximo {max} caracteres)."
     bad_chars: "{label} contiene caracteres no permitidos."
@@ -1180,13 +799,6 @@ profile:
     not_email: Eso no parece una dirección de correo electrónico.
     no_domain: La dirección de correo electrónico necesita un dominio como example.org.
   js:
-    no_key: Aún sin clave
-    paste_key: Pega tu clave
-    paste_new_key: Pega una clave nueva para reemplazarla
-    key_on_file: ✓ Clave registrada
-    ends_in: termina en
-    on: Activado
-    off: Desactivado
     account_menu_for: "Menú de la cuenta de {name}"
     first_name: Nombre
     last_name: Apellidos
@@ -1196,14 +808,10 @@ profile:
     turn_off: Desactivar el inicio de sesión en dos pasos
     switch_to: "Cambiar el inicio de sesión en dos pasos a {method}"
     turn_on_by: "Activar la verificación en dos pasos por {method}"
-superuser:
-  title: Superusuario
-  about: "Acciones sobre cualquier cuenta. Solo los superusuarios ven esta página."
-  open_inbox: Abrirlo en la bandeja de entrada de desarrollo
+manage:
+  title: Gestionar usuarios
+  about: "Acciones sobre cualquier cuenta. Solo los propietarios ven esta página."
   email: Dirección de correo electrónico
-  reset_note: Marca la dirección de la cuenta como no confirmada y envía un nuevo enlace de confirmación, como al registrarse.
-  reset: Restablecer la verificación del correo electrónico
-  reset_done: "{email} vuelve a estar sin confirmar, y se envió un nuevo enlace de confirmación."
   unknown: "Ninguna cuenta tiene la dirección {email}."
   accounts: "Cuentas"
   accounts_info: "Sobre las cuentas y el registro"
@@ -1230,17 +838,45 @@ superuser:
   two_factor_off_about: "La cuenta inicia sesión solo con su contraseña hasta que vuelva a activar la verificación en dos pasos. Se quita la app de autenticación configurada."
   two_factor_off_confirm: "Desactivarla"
   two_factor_off_done: "La verificación en dos pasos está desactivada para {email}."
-  terms_changed: "Los términos han cambiado."
-  terms_title: "Próximo cambio de los términos"
-  terms_send: "Enviar el aviso"
-  terms_send_about:
-    one: "El resumen del próximo cambio se envía a {n} cuenta que aún no lo ha recibido."
-    other: "El resumen del próximo cambio se envía a {n} cuentas que aún no lo han recibido."
-  terms_sent:
-    one: "Aviso en cola para {n} cuenta."
-    other: "Aviso en cola para {n} cuentas."
+  make_owner: "Hacer propietario"
+  make_owner_about: "La cuenta pasa a ser propietaria también: ve Gestionar usuarios en el menú de la cuenta y puede hacer todo lo de esta página. Aquí no se puede deshacer."
+  make_owner_done: "{email} ya es propietario."
+  api_keys:
+    title: Claves API de IA
+    info_text: "Las funciones de IA de todas las cuentas usan estas claves, facturadas a la cuenta a la que pertenece cada clave. Las claves se cifran antes de guardarse y no se vuelven a mostrar; solo quedan visibles los últimos cuatro caracteres para que sepas qué clave hay guardada. Solo los propietarios las ven."
+    unreadable: "Registrada pero ilegible: el secreto del servidor cambió. Pégala de nuevo."
+    on_file: "✓ Configurada"
+    ends_in: termina en
+    none: "Sin configurar"
+    replace: Pega una clave nueva para reemplazarla
+    paste: "Pega la clave"
+    get_one: consigue una
+    remove: Quitar clave
+    removed: "Clave de {provider} eliminada."
+    empty: Pega primero la clave API.
+    too_long: "Es demasiado larga para una clave API (máximo {max} caracteres)."
+    bad_chars: Una clave API solo contiene letras, dígitos y signos de puntuación, sin espacios.
+    wrong_provider: "Eso no parece una clave de {provider}: empiezan por {prefix}."
+    empty_url: "Escribe primero la URL base del servidor."
+    bad_url: "Una URL base empieza por http:// o https:// y un host, por ejemplo http://localhost:11434."
+    bad_model: "Un nombre de modelo tiene hasta 100 letras, dígitos y signos, sin espacios (por ejemplo llama3.1)."
+    base_url: "URL base del servidor"
+    get_server: "conseguir Ollama"
+    model: "Modelo"
   js:
     copied: "Copiado"
+    key_on_file: "✓ Configurada"
+    ends_in: "termina en"
+    paste_new_key: "Pega una clave nueva para reemplazarla"
+  ai:
+    title: "Funciones de IA"
+    info: "Sobre las funciones de IA"
+    about: "El tutor de IA, la generación de cursos, «Editar con IA» y la traducción envían lo que escriben los alumnos a un proveedor de IA, con las claves de abajo. Si las ocultas, desaparecen para todas las cuentas de este servidor y no sale nada; las claves siguen guardadas para cuando las vuelvas a mostrar."
+    hide: "Ocultar las funciones de IA para todos"
+    on: "Sí"
+    off: "No"
+    hidden_notice: "Las funciones de IA están ocultas para todas las cuentas."
+    shown_notice: "Las funciones de IA se muestran de nuevo para todas las cuentas."
 
 
 home:
@@ -1299,8 +935,8 @@ home:
   open_ai: Abrir la tutoría con IA
   ai_tag: Chatea con un tutor
   about_ai: Sobre la tutoría con IA
-  using_key_html: "Usando tu clave de <strong>{provider}</strong>"
-  needs_key_html: "Necesita una clave de API · <a href=\"{url}\" data-testid=\"home-ai-add-key\">añade una en tu perfil</a>"
+  using_key_html: "Con la clave de <strong>{provider}</strong>"
+  needs_key_html: "Necesita una clave de API · <a href=\"{url}\" data-testid=\"home-ai-add-key\">añade una en Gestionar usuarios</a>"
   start_conversation: Empezar una conversación
   no_ai_keys: No hay claves de IA
   info_sprint_p: "Sesiones cortas de tocar y deslizar: fichas de palabras, ordenar, emparejar y rondas rápidas de preguntas. Una racha y la meta diaria te hacen volver."
@@ -1312,8 +948,9 @@ home:
   info_play_dates: "una carrera de fechas, "
   info_play_end: o una mano de tarjetas.
   info_guide_p: "Las lecciones en orden, un pequeño paso a la vez: una o dos tarjetas y luego una comprobación rápida. Termina una etapa para desbloquear la siguiente y gana hasta tres estrellas en cada una."
-  info_ai_p: "Una clase individual por chat: el tutor explica, comprueba que lo sigues, te pone un ejercicio cuando estás listo y comenta tu respuesta contigo. Las mismas preguntas, el mismo dominio, solo que en una conversación. Funciona con tu propia clave de API."
+  info_ai_p: "Una clase individual por chat: el tutor explica, comprueba que lo sigues, te pone un ejercicio cuando estás listo y comenta tu respuesta contigo. Las mismas preguntas, el mismo dominio, solo que en conversación. Funciona con la clave de API de este servidor."
   ok: Aceptar
+  needs_key_ask: "Necesita una clave de API, que añade el propietario de este servidor"
 
 goal:
   ring_label: "Meta de hoy: {n} de {goal} puntos"
@@ -1554,7 +1191,7 @@ study:
     note_h2: "Mi nota"
     note_placeholder: "Lo que te ayude a recordar esta lección"
     note_info: "Sobre mi nota"
-    note_info_body: "Solo tú ves esta nota. Se guarda mientras escribes, hasta {max} caracteres, y va incluida en Descargar mis datos de tu perfil."
+    note_info_body: "Solo tú ves esta nota. Se guarda mientras escribes, hasta {max} caracteres."
     note_ok: "Vale"
     note_saved: "Nota guardada"
     note_too_long: "Una nota puede tener como máximo {max} caracteres."
@@ -2134,11 +1771,12 @@ tutor:
   no_key:
     title: Tu tutor necesita una clave de API
     p1: "La tutoría con IA funciona con tu propia cuenta de Claude, OpenAI o Google, así que {app} nunca paga tus conversaciones ni las ve más allá de este servidor."
-    p2: Agrega una clave una sola vez en tu perfil; se guarda cifrada y solo se usa cuando le preguntas algo al tutor.
+    p2: "Añade una clave una vez en Gestionar usuarios; se cifra, sirve a todas las cuentas y solo se usa cuando alguien pregunta algo al tutor."
     add_key: Agregar una clave de API
     back: Volver a los modos
+    ask_owner: "Pide al propietario de este servidor que añada una clave de API en Gestionar usuarios."
   chars_label: Caracteres especiales
-  disclosure: "Tus mensajes se envían a {provider} con tu clave."
+  disclosure: "Tus mensajes se envían a {provider} con la clave de este servidor."
   placeholder: Dile algo a tu tutor…
   input_label: Mensaje para el tutor
   send: Enviar
@@ -2149,7 +1787,7 @@ tutor:
     message_too_long: mensaje demasiado largo
     bad_turn: turno no válido
     nothing_pending: ningún ejercicio está esperando una respuesta
-    no_key: "no hay ninguna clave de {provider} guardada; agrega una en tu perfil"
+    no_key: "no hay clave de {provider} en este servidor; el propietario la añade en Gestionar usuarios"
     all_busy: el tutor está ocupado con otros estudiantes ahora mismo; inténtalo de nuevo en un momento
     still_answering: el tutor todavía está respondiendo
     thread_failed: "no se pudo iniciar el hilo del tutor: {error}"
@@ -2583,10 +2221,10 @@ courses:
     submit: Enviar
     review_changes: Revisar cambios
     review_tip: "Lo que cambió la última ejecución de la IA ({when})"
-    sent_to_named_html: "Tus apuntes se envían a <span data-testid=\"course-ai-provider\">{provider}</span> con tu clave."
-    sent_to_generic: Tus apuntes se envían a tu proveedor de IA con tu clave.
-    no_key_html: "No hay ninguna clave de proveedor de IA configurada. <a href=\"{url}\" data-testid=\"course-ai-profile-link\">Añade una clave de API en tu perfil</a> para usar las funciones de IA."
-    no_key: No hay ninguna clave de proveedor de IA configurada. Añade una clave de API en tu perfil para usar las funciones de IA.
+    sent_to_named_html: "Tus notas se envían a <span data-testid=\"course-ai-provider\">{provider}</span> con la clave de este servidor."
+    sent_to_generic: "Tus notas se envían al proveedor de IA con la clave de este servidor."
+    no_key_html: "No hay ninguna clave de proveedor de IA configurada. <a href=\"{url}\" data-testid=\"course-ai-profile-link\">Añade una clave de API en Gestionar usuarios</a> para usar las funciones de IA."
+    no_key: "No hay ninguna clave de proveedor de IA configurada. Pide al propietario de este servidor que añada una en Gestionar usuarios."
     modal_generating: Generando…
     modal_count_rewritten: "{done} de {total} lecciones reescritas o añadidas"
     modal_count_edited: "{done} de {total} lecciones reescritas"
@@ -2639,7 +2277,7 @@ courses:
       other: "tus lecciones {list}"
     list_sep: ", "
     quoted: "“{text}”"
-    no_key_html: "Necesitas una clave de proveedor de IA para generar un curso. <a href=\"{url}\" data-testid=\"generate-profile-link\">Añade una clave de API en tu perfil</a> y luego vuelve aquí."
+    no_key_html: "Necesitas una clave de proveedor de IA para generar un curso. <a href=\"{url}\" data-testid=\"generate-profile-link\">Añade una clave de API en Gestionar usuarios</a> y luego vuelve aquí."
     asked_for: Lo que pediste
     wish_label: ¿Qué quieres aprender?
     wish_optional: "(opcional: con el título basta para empezar)"
@@ -2676,8 +2314,8 @@ courses:
     instructions_label: Instrucciones
     reset: Restablecer las instrucciones predeterminadas
     edited: Editadas
-    sent_to_html: "Tus apuntes se envían a <span id=\"gen-disclosure-provider\">{provider}</span><span id=\"gen-disclosure-key\"> con tu clave</span>."
-    sent_to_generic: Tus apuntes se envían a tu proveedor de IA con tu clave.
+    sent_to_html: "Tus notas se envían a <span id=\"gen-disclosure-provider\">{provider}</span><span id=\"gen-disclosure-key\"> con la clave de este servidor</span>."
+    sent_to_generic: "Tus notas se envían al proveedor de IA con la clave de este servidor."
     submit_resume: Reanudar la escritura
     submit_retry: Reintentar
     effort:
@@ -2699,7 +2337,7 @@ courses:
     choose_provider: Elige un proveedor.
     base_url: La URL base debe empezar con http:// o https://.
     bad_key: Eso no parece una clave de API.
-    paste_key: "Pega una clave de API para {provider}, o guarda una en tu perfil primero."
+    paste_key: "No hay ninguna clave de {provider} configurada en este servidor."
     wish_too_long: "Limita lo que quieres aprender a {max} caracteres como máximo; pon el material más largo en el cuadro de apuntes."
     notes_too_long: "Limita tu material a {max} caracteres como máximo; recórtalo o divide el curso en dos."
     new_course: Curso nuevo
@@ -2710,6 +2348,7 @@ courses:
     busy_other: "Ya se está generando un curso; inténtalo de nuevo cuando termine."
     cancelling_revision: "Cancelando: el curso se queda como estaba."
     cancelling_generation: "Cancelando: el curso se detiene después de la lección que se está escribiendo."
+    no_key_ask: "Necesitas una clave de proveedor de IA para generar un curso. Pide al propietario de este servidor que añada una en Gestionar usuarios."
   undo:
     undo: Deshacer
     redo: Rehacer
@@ -2897,7 +2536,7 @@ courses:
     none_right: "ninguna bien"
     failed: "La prueba de nivel no se cargó. Elige un nivel."
   share:
-    dialog_lead_no_mail: "Cada dirección recibe su propio enlace para que tú se lo pases: este servidor no envía correos. Aprenden con el curso con su propio progreso; solo tú puedes cambiarlo."
+    dialog_lead: "Cada dirección recibe su propio enlace para que tú se lo pases: este servidor no envía correos. Aprenden con el curso con su propio progreso; solo tú puedes cambiarlo."
     make_links: "Crear enlaces de invitación"
     made:
       one: "{n} enlace de invitación creado. Cópialo y pásalo; solo se muestra ahora."
@@ -2907,14 +2546,12 @@ courses:
     button: Compartir
     button_count: "Compartir ({n})"
     dialog_title: Compartir este curso
-    dialog_lead: Cada persona con la que lo compartas recibe un correo con un enlace. Aprenden del curso con su propio progreso; solo tú puedes cambiarlo.
     status_opened: abierto
     status_invited: invitado
     remove: Quitar
     remove_label: "Dejar de compartir con {email}"
     emails_label: Direcciones de correo electrónico
     emails_note: (una por línea, o separadas por comas)
-    send: Enviar invitaciones
     close: Cerrar
     own_address: "Esa es tu propia dirección: el curso ya es tuyo."
     too_many_course: "Un curso se puede compartir con hasta {max} direcciones."
@@ -2922,9 +2559,6 @@ courses:
     at_least_one: Escribe al menos una dirección de correo electrónico.
     bad_address: "“{address}”: {error}"
     bad_address_notice: Una de esas no es una dirección de correo electrónico. Revisa la lista y vuelve a enviarla.
-    sent:
-      one: "Invitación enviada a {n} dirección."
-      other: "Invitaciones enviadas a {n} direcciones."
     already_had: "{n} ya tenía una."
     removed_notice: Ya no se comparte con esa dirección.
     not_on_list: Esa dirección no estaba en la lista.

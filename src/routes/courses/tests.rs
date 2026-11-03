@@ -9,7 +9,6 @@ fn the_editor_saves_as_it_is_edited() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
     let state = crate::routes::test_state(false);
     let ann = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", "x")).unwrap();
-    state.db.with(|c| crate::terms::accept(c, ann, crate::terms::version())).unwrap();
     let cookie = format!("sid={}", state.db.with(|c| crate::auth::create_session(c, ann)).unwrap());
     let id = "auto-abc123";
     state.db.with(|c| crate::courses::create_course(c, ann, id, "Auto", &crate::courses::starter_files(id, "Auto"))).unwrap();
@@ -97,7 +96,6 @@ fn course_writes_stop_at_the_limits() {
     Arc::get_mut(&mut state).unwrap().courses = Arc::new(courses::Courses::empty().with_limits(limits));
     let user = |email: &str| {
         let uid = state.db.with(|c| crate::auth::create_user(c, email, "x")).unwrap();
-        state.db.with(|c| crate::terms::accept(c, uid, crate::terms::version())).unwrap();
         (uid, format!("sid={}", state.db.with(|c| crate::auth::create_session(c, uid)).unwrap()))
     };
     let (ann, cookie) = user("ann@example.org");
@@ -218,9 +216,7 @@ fn preview_answer_grades_a_draft_question() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
     let state = crate::routes::test_state(false);
     let ann = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", "x")).unwrap();
-    state.db.with(|c| crate::terms::accept(c, ann, crate::terms::version())).unwrap();
     let bob = state.db.with(|c| crate::auth::create_user(c, "bob@example.org", "x")).unwrap();
-    state.db.with(|c| crate::terms::accept(c, bob, crate::terms::version())).unwrap();
     let cookie = format!("sid={}", state.db.with(|c| crate::auth::create_session(c, ann)).unwrap());
     let bobs = format!("sid={}", state.db.with(|c| crate::auth::create_session(c, bob)).unwrap());
     let id = "preview-abc123";
@@ -292,7 +288,6 @@ fn notices_are_keys_not_text() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
     let state = crate::routes::test_state(false);
     let ann = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", "x")).unwrap();
-    state.db.with(|c| crate::terms::accept(c, ann, crate::terms::version())).unwrap();
     let cookie = format!("sid={}", state.db.with(|c| crate::auth::create_session(c, ann)).unwrap());
     let id = "notice-abc123";
     state.db.with(|c| crate::courses::create_course(c, ann, id, "Notice", &crate::courses::starter_files(id, "Notice"))).unwrap();
@@ -347,6 +342,7 @@ fn the_generate_estimate_counts_lessons_time_and_cost() {
 #[derive(askama::Template)]
 #[template(path = "ai_form.html")]
 struct AiFormAlone {
+    user: Option<crate::auth::CurrentUser>,
     af: editor::AiFormView,
 }
 
@@ -365,7 +361,7 @@ fn ai_form_html(mode: &'static str, can_change: bool) -> String {
         error: None,
         reviewable: None,
     };
-    AiFormAlone { af }.render().unwrap()
+    AiFormAlone { user: None, af }.render().unwrap()
 }
 
 /// The `<input>` of one mode radio.

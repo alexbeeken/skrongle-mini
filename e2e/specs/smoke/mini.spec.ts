@@ -6,7 +6,7 @@
 // Each #632 issue adds its browser check here as it lands. Here: #633 no
 // red ! on the e-mail field, #636 no Subscription
 // section, #641 /healthz names the mini, #667 the share flow shows the
-// link once and a reload goes back to the dialog. Still to come: the export's Download button, #637 the Terms file, #634
+// link once and a reload goes back to the dialog. Still to come: #634
 // the closed register page (the lane keeps sign-up open: the specs register).
 import { AnswerKey } from "../../lib/key.ts";
 import { playStage } from "../../lib/answer.ts";
@@ -31,9 +31,8 @@ test("a learner registers, signs in again and passes a lesson with nothing confi
   await expectProgressAgrees(page);
 });
 
-test("there is no dev mailbox", async ({ request }) => {
-  const mail = await (await request.get("/dev/inbox?format=json")).json();
-  expect(mail.smtp, "/dev/inbox: no SMTP mailbox").toBeNull();
+test("there is no /dev/inbox", async ({ request }) => {
+  expect((await request.get("/dev/inbox?format=json")).status(), "/dev/inbox is gone (#10)").toBe(404);
   expect((await request.get("/dev/phone?format=json")).status(), "/dev/phone is gone").toBe(404);
 });
 
@@ -43,13 +42,13 @@ test("the server says it is a Skrongle mini", async ({ request }) => {
   expect(await res.text(), "/healthz names the edition (#641)").toMatch(/^ok skrongle mini \d+\.\d+\.\d+/);
 });
 
-test("the profile has no red ! on the e-mail", async ({ page }) => {
+test("the profile asks nobody to confirm their e-mail", async ({ page }) => {
   await signUp(page, newAccount("mini-profile"));
   await page.goto("/profile");
   await expect(page.getByTestId("profile-form")).toBeVisible();
-  // #633: no mail, so an (i), not the red !.
+  // #10: nothing confirms an address, so neither a red ! nor an (i) about it.
   await expect(page.getByTestId("email-unverified")).toHaveCount(0);
-  await expect(page.getByTestId("email-no-mail-info")).toBeVisible();
+  await expect(page.getByTestId("email-no-mail-info")).toHaveCount(0);
 });
 
 test("sharing shows the link once, and a reload goes back to the dialog without inviting again", async ({ page }) => {

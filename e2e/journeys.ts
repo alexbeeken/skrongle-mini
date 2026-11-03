@@ -10,7 +10,7 @@
 // box the journey has to type into. Journeys start logged in as the seeded
 // dev user with Spanish open, on a server with LLM fixtures.
 import type { Page } from "@playwright/test";
-import { login, newAccount, register, signUp } from "./lib/learner";
+import { login, newAccount, register, setAiHidden, signUp } from "./lib/learner";
 
 export interface Journey {
   /** Stable kebab-case id: the test name and the report file name. */
@@ -21,6 +21,8 @@ export interface Journey {
   start: string;
   /** Runs after logging in, before Jev; may return the path to start from instead (e.g. a course it made). */
   setup?: (page: Page) => Promise<string | void>;
+  /** Runs after Jev, reached or not: puts back what the journey changed for everyone (a server-wide setting). */
+  teardown?: (page: Page) => Promise<void>;
   /** The goal in plain words. Jev reads it each step to choose an action. */
   goal: string;
   /** A statement Jev judges true once the goal is reached; used when there is no `check`. */
@@ -201,16 +203,12 @@ export const journeys: Journey[] = [
   {
     id: "turn-off-ai-features",
     start: "/",
-    // A fresh account, so the dev user the other journeys share keeps its AI features.
-    setup: async (page) => {
-      // Signed out first: /register shows no form to a signed-in user.
-      await page.context().clearCookies();
-      await register(page, newAccount("journey-ai"), "spanish");
-      return "/";
-    },
-    goal: "You would rather not see any AI features on this site. Find the setting that hides them and turn it on.",
-    done: "The profile says AI features are hidden.",
-    check: async (page) => (await page.getByTestId("consent-ai").getAttribute("data-ai-off").catch(() => null)) === "true",
+    // The dev user is the owner (#25): the switch is on Manage Users and hides AI for everyone.
+    goal: "You run this server and would rather nobody on it saw any AI features. Find the setting that hides them for everyone and turn it on.",
+    done: "Manage Users says AI features are hidden for every account.",
+    check: async (page) => (await page.getByTestId("manage-ai").getAttribute("data-ai-off").catch(() => null)) === "true",
+    // Show them again for the journeys after this one.
+    teardown: (page) => setAiHidden(page, false),
     maxSteps: 8,
   },
   {
@@ -223,7 +221,6 @@ export const journeys: Journey[] = [
       await page.context().clearCookies();
       const a = newAccount("journey-level");
       await signUp(page, a);
-      await login(page, a);
       return "/courses";
     },
     goal: "You already know beginner Spanish. Start the Spanish course at A2 instead of the very beginning.",

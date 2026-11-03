@@ -1,6 +1,7 @@
 //! Axum router, shared response helpers, static assets.
 
 use askama::Template;
+use axum::body::Body;
 use axum::extract::{Path, Query, RawQuery};
 use axum::http::{header, HeaderMap, HeaderValue, StatusCode};
 use axum::response::{Html, IntoResponse, Redirect, Response};
@@ -30,10 +31,8 @@ pub mod profile;
 pub mod progress;
 pub mod quiz;
 pub mod password;
-pub mod reset;
 pub mod shop;
-pub mod superuser;
-pub mod terms;
+pub mod manage;
 pub mod tutor;
 pub mod vocab;
 
@@ -42,10 +41,38 @@ pub mod vocab;
 #[folder = "static/"]
 struct Assets;
 
+/// The gzip form of the files in `static/` that shrink when compressed,
+/// written by `build.rs` at the same relative paths. Release builds only
+/// serve it; debug builds read `static/` live from disk, so it would go stale.
+#[derive(RustEmbed)]
+#[folder = "$OUT_DIR/static_gz/"]
+struct AssetsGz;
+
 /// The Markdown documentation under `docs/`, served at `/docs`.
 #[derive(RustEmbed)]
 #[folder = "docs/"]
 pub struct Docs;
+
+/// Where links the app hands out point (an invitation, a share link, the
+/// owner's link): `SKRONGLE_PUBLIC_URL` when set, else the host the request
+/// was made to (the forwarded one behind a proxy). The scheme is the
+/// proxy's `X-Forwarded-Proto`, else https when the site says it is served
+/// over HTTPS (`SKRONGLE_SECURE_COOKIES=1`), else http. Includes the base path.
+pub fn public_base(state: &AppState, headers: &HeaderMap) -> String {
+    if let Some(u) = state.public_url.as_deref() {
+        return u.trim_end_matches('/').to_string();
+    }
+    let get = |name: &str| headers.get(name).and_then(|v| v.to_str().ok()).map(|v| v.split(',').next().unwrap_or("").trim().to_string());
+    let valid = |h: &String| !h.is_empty() && h.bytes().all(|b| b.is_ascii_graphic() && !b"/\\?#@".contains(&b));
+    let host = get("x-forwarded-host").filter(valid).or_else(|| get("host").filter(valid)).unwrap_or_else(|| "localhost".into());
+    let scheme = match get("x-forwarded-proto").as_deref() {
+        Some("https") => "https",
+        Some("http") => "http",
+        _ if state.secure_cookies => "https",
+        _ => "http",
+    };
+    format!("{scheme}://{host}{}", crate::base_path())
+}
 
 /// A permanent redirect to `to` with the request's query string, for a path
 /// that moved (the modes used to live at /d, /k and /games). A 308, so a
@@ -166,13 +193,6 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/llms.txt", get(docs::llms_txt))
         .route("/docs/{page}", get(docs::page))
         .route("/self-host", get(docs::self_host))
-        .route("/privacy", get(docs::privacy))
-        .route("/cookies", get(docs::cookies))
-        // Terms of Service (public) and the gate for accounts that have not accepted them
-        .route("/terms", get(terms::page))
-        .route("/terms.md", get(terms::markdown))
-        .route("/terms/accept", get(terms::accept_form).post(terms::accept))
-        .route("/terms/dismiss", post(terms::dismiss))
         .route("/password/change", get(password::change_form).post(password::change))
         // the modes' old paths (/d, /k, /g, /games), for bookmarks and open tabs
         .route("/d", get(|q: RawQuery| moved("/sprint", q)))
@@ -227,37 +247,31 @@ pub fn router(state: Arc<AppState>) -> Router {
         // auth
         .route("/login", get(auth::login_form).post(auth::login))
         .route("/login/code", get(auth::login_code_form).post(auth::login_code))
-        .route("/login/code/resend", post(auth::login_code_resend))
         .route("/login/code/cancel", post(auth::login_code_cancel))
         .route("/register", get(auth::register_form).post(auth::register))
         .route("/logout", post(auth::logout))
         .route("/account/deletion", get(account_deletion::page))
         .route("/account/deletion/cancel", post(account_deletion::cancel))
-        .route("/verify-email", get(auth::verify_email))
-        .route("/reset", get(reset::form).post(reset::submit))
         // profile (works without an active course)
         .route("/profile", get(profile::show))
         .route("/api/profile", post(profile::save))
         .route("/profile/password", post(profile::change_password))
         .route("/profile/sessions/end-others", post(profile::end_other_sessions))
-        .route("/profile/api-keys/remove", post(profile::remove_api_key))
-        .route("/profile/ai", post(profile::set_ai))
-        .route("/profile/export", post(profile::export))
-        .route("/profile/export/download", get(profile::export_download).post(profile::export_download_now))
         .route("/profile/delete", post(profile::delete_account))
-        .route("/profile/verify-email/resend", post(profile::resend_verification))
         .route("/profile/two-factor", post(profile::set_two_factor))
         .route("/profile/two-factor/totp/confirm", post(profile::confirm_totp))
         .route("/profile/two-factor/totp/remove", post(profile::remove_totp))
-        .route("/profile/two-factor/code", post(profile::send_confirm_code))
-        // superusers (404 for anyone else)
-        .route("/superuser", get(superuser::show))
-        .route("/superuser/reset-email-verification", post(superuser::reset_email_verification))
-        .route("/superuser/invites", post(superuser::make_invite))
-        .route("/superuser/invites/revoke", post(superuser::revoke_invite))
-        .route("/superuser/temp-password", post(superuser::set_temp_password))
-        .route("/superuser/two-factor-off", post(superuser::turn_off_two_factor))
-        .route("/superuser/terms-announce", post(superuser::announce_terms))
+        // owners (404 for anyone else); /superuser was its old address
+        .route("/superuser", get(|q: RawQuery| moved("/manage", q)))
+        .route("/manage", get(manage::show))
+        .route("/manage/make-owner", post(manage::make_owner))
+        .route("/manage/invites", post(manage::make_invite))
+        .route("/manage/invites/revoke", post(manage::revoke_invite))
+        .route("/manage/temp-password", post(manage::set_temp_password))
+        .route("/manage/two-factor-off", post(manage::turn_off_two_factor))
+        .route("/manage/api-keys/remove", post(manage::remove_key))
+        .route("/manage/ai", post(manage::set_ai))
+        .route("/api/manage/keys", post(manage::save_keys))
         // api
         .route("/api/answer", post(quiz::answer))
         .route("/api/lesson-check", post(quiz::lesson_check))
@@ -268,21 +282,12 @@ pub fn router(state: Arc<AppState>) -> Router {
     // Local testing only (`SKRONGLE_DEV=1` on a loopback bind): without it these paths 404.
     // And even then only for requests made on this machine, not through a proxy.
     if state.dev {
-        // The dev mailbox (e-mail, the authenticator, the AI provider's
-        // page): for whoever is testing, no sign-in (it is for all accounts).
+        // The dev pages (the jobs table, the authenticator, the AI provider's
+        // page): for whoever is testing, no sign-in (they are for all accounts).
         let devbox = Router::new()
-            .route("/dev/mail", get(dev::mail))
             .route("/dev/jobs", get(dev::jobs))
             .route("/dev/jobs/fail", post(dev::jobs_fail))
             .route("/dev/jobs/{id}", post(dev::jobs_act))
-            .route("/dev/mail/send", post(dev::mail_send))
-            .route("/dev/mail/{id}", get(dev::mail_message).post(dev::mail_act))
-            .route("/dev/inbox", get(dev::inbox))
-            .route("/dev/inbox/rows", get(dev::box_rows))
-            .route("/dev/inbox/latest", get(dev::inbox_latest))
-            .route("/dev/inbox/clear", post(dev::inbox_clear))
-            .route("/dev/inbox/{id}", get(dev::inbox_message).post(dev::inbox_act))
-            .route("/dev/inbox/{id}/raw", get(dev::inbox_raw))
             .route("/dev/authenticator", get(dev::authenticator).post(dev::authenticator_add))
             .route("/dev/authenticator/rows", get(dev::authenticator_rows))
             .route("/dev/authenticator/{id}", post(dev::authenticator_act))
@@ -312,6 +317,11 @@ pub fn router(state: Arc<AppState>) -> Router {
                 .route("/dev/ai/openai/v1/models", get(dev_ai::openai_models))
                 .route("/dev/ai/google/v1beta/openai/chat/completions", post(dev_ai::google_chat))
                 .route("/dev/ai/google/v1beta/openai/models", get(dev_ai::google_models))
+                .route("/dev/ai/deepseek/v1/chat/completions", post(dev_ai::compatible_chat))
+                .route("/dev/ai/mistral/v1/chat/completions", post(dev_ai::compatible_chat))
+                .route("/dev/ai/xai/v1/chat/completions", post(dev_ai::compatible_chat))
+                .route("/dev/ai/openrouter/api/v1/chat/completions", post(dev_ai::compatible_chat))
+                .route("/dev/ai/ollama/v1/chat/completions", post(dev_ai::ollama_chat))
                 // The content check's Jev stand-in (#1036).
                 .route("/dev/boot", get(|| async { crate::dev::boot_id() }))
                 .route_layer(axum::middleware::from_fn(crate::dev::local_only))
@@ -456,6 +466,12 @@ pub fn asset_version() -> &'static str {
     })
 }
 
+/// Is the signed-in account an owner? The AI forms' "no key" notes link an
+/// owner to the keys on Manage Users and tell everyone else to ask one (#25).
+pub fn is_owner(user: &Option<crate::auth::CurrentUser>) -> bool {
+    user.as_ref().is_some_and(|u| u.owner)
+}
+
 /// Versioned URL for an embedded asset, e.g. `/spanish/static/style.css?v=3f9a…`.
 pub fn asset_url(name: &str) -> String {
     format!("{}/static/{}?v={}", crate::base_path(), name, asset_version())
@@ -543,12 +559,48 @@ async fn web_manifest() -> Response {
         .into_response()
 }
 
+/// Per-file ETags, computed once: the identity form `"{fnv1a:016x}"` and the
+/// gzip form with a `-gz` suffix (a different body, so a different validator).
+type AssetEtags = HashMap<String, (String, Option<String>)>;
+static ASSET_ETAGS: OnceLock<AssetEtags> = OnceLock::new();
+
+fn asset_etags() -> &'static AssetEtags {
+    ASSET_ETAGS.get_or_init(|| {
+        Assets::iter()
+            .filter_map(|name| {
+                let file = Assets::get(&name)?;
+                let etag = format!("\"{:016x}\"", fnv1a(file.data.iter().copied()));
+                let gz = (cfg!(any(not(debug_assertions), test)) && AssetsGz::get(&name).is_some())
+                    .then(|| format!("{}-gz\"", etag.trim_end_matches('"')));
+                Some((name.to_string(), (etag, gz)))
+            })
+            .collect()
+    })
+}
+
+/// Whether an `Accept-Encoding` value allows gzip (and does not say `gzip;q=0`).
+fn accepts_gzip(headers: &HeaderMap) -> bool {
+    headers
+        .get(header::ACCEPT_ENCODING)
+        .and_then(|v| v.to_str().ok())
+        .is_some_and(|v| {
+            v.split(',').any(|part| {
+                let mut it = part.split(';');
+                it.next().is_some_and(|c| c.trim().eq_ignore_ascii_case("gzip"))
+                    && !it.any(|p| {
+                        let p = p.replace(' ', "");
+                        p.strip_prefix("q=").is_some_and(|q| q.parse::<f32>() == Ok(0.0))
+                    })
+            })
+        })
+}
+
 async fn static_asset(
     Path(path): Path<String>,
     Query(query): Query<HashMap<String, String>>,
     headers: HeaderMap,
 ) -> Response {
-    let Some(file) = Assets::get(&path) else {
+    let Some((identity_etag, gz_etag)) = asset_etags().get(&path) else {
         return StatusCode::NOT_FOUND.into_response();
     };
     let mime = match path.rsplit('.').next() {
@@ -560,12 +612,29 @@ async fn static_asset(
         Some("woff2") => "font/woff2",
         _ => "application/octet-stream",
     };
-    // ETag from the content itself, so a changed file always revalidates.
-    let etag = format!("\"{:016x}\"", fnv1a(file.data.iter().copied()));
-    let etag_value = HeaderValue::from_str(&etag).expect("etag header");
+    // Pre-gzipped at build time; used only when the client accepts it.
+    let gz_file = match gz_etag {
+        Some(_) if accepts_gzip(&headers) => AssetsGz::get(&path),
+        _ => None,
+    };
+    let etag = match (&gz_file, gz_etag) {
+        (Some(_), Some(gz)) => gz,
+        _ => identity_etag,
+    };
+    let etag_value = HeaderValue::from_str(etag).expect("etag header");
+    let vary = gz_etag.is_some();
+    // The ETag is checked before any body is read.
     if headers.get(header::IF_NONE_MATCH).and_then(|v| v.to_str().ok()) == Some(etag.as_str()) {
-        return (StatusCode::NOT_MODIFIED, [(header::ETAG, etag_value)]).into_response();
+        let mut res = (StatusCode::NOT_MODIFIED, [(header::ETAG, etag_value)]).into_response();
+        if vary {
+            res.headers_mut().insert(header::VARY, HeaderValue::from_static("Accept-Encoding"));
+        }
+        return res;
     }
+    let gzipped = gz_file.is_some();
+    let Some(file) = gz_file.or_else(|| Assets::get(&path)) else {
+        return StatusCode::NOT_FOUND.into_response();
+    };
     // Long-lived caching only for URLs carrying the current version (they change
     // with every build); everything else revalidates. Debug builds serve files
     // straight from disk, so they always revalidate too.
@@ -575,15 +644,23 @@ async fn static_asset(
     } else {
         "no-cache"
     };
-    (
-        [
-            (header::CONTENT_TYPE, HeaderValue::from_static(mime)),
-            (header::CACHE_CONTROL, HeaderValue::from_static(cache)),
-            (header::ETAG, etag_value),
-        ],
-        file.data.into_owned(),
-    )
-        .into_response()
+    // Release builds hand out `&'static [u8]`: no copy. Debug reads from disk.
+    let body = match file.data {
+        std::borrow::Cow::Borrowed(b) => Body::from(b),
+        std::borrow::Cow::Owned(v) => Body::from(v),
+    };
+    let mut res = Response::new(body);
+    let h = res.headers_mut();
+    h.insert(header::CONTENT_TYPE, HeaderValue::from_static(mime));
+    h.insert(header::CACHE_CONTROL, HeaderValue::from_static(cache));
+    h.insert(header::ETAG, etag_value);
+    if vary {
+        h.insert(header::VARY, HeaderValue::from_static("Accept-Encoding"));
+    }
+    if gzipped {
+        h.insert(header::CONTENT_ENCODING, HeaderValue::from_static("gzip"));
+    }
+    res
 }
 
 /// Human-friendly relative time ("3 hours ago").
@@ -658,17 +735,6 @@ pub(crate) async fn reward_line(
     Ok(crate::motivators::reward_html(line))
 }
 
-/// `test_state` on a server without a mail provider (#633).
-#[cfg(test)]
-pub(crate) fn test_state_without(mail: bool) -> Arc<AppState> {
-    let state = test_state(false);
-    let Ok(mut s) = Arc::try_unwrap(state) else { unreachable!("a new state has one owner") }; // panic-ok: tests only, a new state has one owner
-    if !mail {
-        s.mail = crate::mail::Mailer::idle_unconfigured();
-    }
-    Arc::new(s)
-}
-
 /// An app state for router tests: in-memory database, the built-in courses.
 #[cfg(test)]
 pub(crate) fn test_state(dev: bool) -> Arc<AppState> {
@@ -685,11 +751,7 @@ pub(crate) fn test_state(dev: bool) -> Arc<AppState> {
         prices: crate::prices::PriceTable::parse(crate::prices::DEFAULT_PRICES).unwrap(), // panic-ok: tests only, the built-in defaults parse
         dev,
         limits: crate::security::RateLimits::new(dev),
-        mail: crate::mail::Mailer::idle(),
-        exports: crate::exports::Exports { dir: std::env::temp_dir().join(format!("skrongle-test-exports-{}", std::process::id())) },
         queue: crate::jobs::Queue::idle(),
-        dev_inbox: None,
-        dev_marks: Default::default(),
         dev_ai: Default::default(),
         dev_authenticator: Default::default(),
         public_url: None,

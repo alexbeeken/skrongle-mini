@@ -51,7 +51,6 @@ test("the course is on /courses, offers its four levels, and starts at greetings
   const bugs = watchBugs(page, info);
   const a = newAccount("fr");
   await signUp(page, a);
-  await login(page, a);
   // A levels course asks a new learner where to start, first in its Start wizard (#587); A1 is the beginning.
   await openCourse(page, COURSE, { wizard: true });
   const wizard = page.locator(`[data-testid="courses-settings-dialog"][data-course-id="${COURSE}"]`);

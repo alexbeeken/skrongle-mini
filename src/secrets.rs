@@ -1,15 +1,18 @@
-//! Learners' AI API keys (Anthropic, OpenAI, Google), encrypted at rest,
+//! The server's AI API keys (Anthropic, OpenAI, Google, DeepSeek, Mistral,
+//! xAI, OpenRouter; and an Ollama-compatible server's base URL, #24), encrypted at rest,
 //! and the vault that seals them, which also seals authenticator apps'
 //! TOTP secrets (#292, [`seal_totp`]).
 //!
-//! Each key is sealed with ChaCha20-Poly1305 under a key derived from a
-//! server-side master secret, with the owner's user id and the provider as
-//! associated data, so a ciphertext cannot be read by another process that
-//! only has the database, nor moved to another row. The master secret comes
+//! One set of keys serves every account (table `server_api_keys`, #25);
+//! only owners see, add or remove them, on the Manage Users page. Each key
+//! is sealed with ChaCha20-Poly1305 under a key derived from a server-side
+//! master secret, with the provider as associated data, so a ciphertext
+//! cannot be read by another process that only has the database, nor moved
+//! to another row. The master secret comes
 //! from `SKRONGLE_SECRET_KEY` (64 hex characters) or, when that is unset, from a
 //! file next to the database (`<db>.key`, created on first start with mode
 //! 0600). A key is written once and never sent back to the browser: the
-//! profile page only shows its last four characters.
+//! Manage Users page only shows its last four characters.
 //!
 //! Threat model, honestly: this separates the database file (backups, a
 //! copied SD card, a stray `.db` in a download folder) from the secret. Root
@@ -25,23 +28,46 @@ use std::path::{Path, PathBuf};
 
 // ---------- providers ----------
 
+/// The AI providers the server can hold a key for (#24). Every one but
+/// Anthropic speaks the OpenAI chat-completions format (`ai::Wire`);
+/// `Ollama` stands for any OpenAI-compatible server the owner runs, and
+/// takes its base URL where the others take a key.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Provider {
     Anthropic,
     OpenAi,
     Google,
+    DeepSeek,
+    Mistral,
+    Xai,
+    OpenRouter,
+    Ollama,
 }
 
 impl Provider {
-    /// In the order the profile page lists them.
-    pub const ALL: [Provider; 3] = [Provider::Anthropic, Provider::OpenAi, Provider::Google];
+    /// In the order the Manage Users page lists them (and the AI forms offer them).
+    pub const ALL: [Provider; 8] = [
+        Provider::Anthropic,
+        Provider::OpenAi,
+        Provider::Google,
+        Provider::DeepSeek,
+        Provider::Mistral,
+        Provider::Xai,
+        Provider::OpenRouter,
+        Provider::Ollama,
+    ];
 
-    /// What `user_api_keys.provider` stores and the forms post.
+    /// What `server_api_keys.provider` stores and the forms post.
     pub fn id(self) -> &'static str {
         match self {
             Provider::Anthropic => "anthropic",
             Provider::OpenAi => "openai",
             Provider::Google => "google",
+            Provider::DeepSeek => "deepseek",
+            Provider::Mistral => "mistral",
+            Provider::Xai => "xai",
+            Provider::OpenRouter => "openrouter",
+            Provider::Ollama => "ollama",
         }
     }
 
@@ -54,34 +80,58 @@ impl Provider {
             Provider::Anthropic => "Claude (Anthropic)",
             Provider::OpenAi => "OpenAI",
             Provider::Google => "Google (Gemini)",
+            Provider::DeepSeek => "DeepSeek",
+            Provider::Mistral => "Mistral",
+            Provider::Xai => "xAI (Grok)",
+            Provider::OpenRouter => "OpenRouter",
+            Provider::Ollama => "Ollama (OpenAI-compatible server)",
         }
     }
 
-    /// Where to create a key.
+    /// Where to create a key (for Ollama: where to get the server).
     pub fn console_url(self) -> &'static str {
         match self {
             Provider::Anthropic => "https://console.anthropic.com/settings/keys",
             Provider::OpenAi => "https://platform.openai.com/api-keys",
             Provider::Google => "https://aistudio.google.com/apikey",
+            Provider::DeepSeek => "https://platform.deepseek.com/api_keys",
+            Provider::Mistral => "https://console.mistral.ai/api-keys",
+            Provider::Xai => "https://console.x.ai",
+            Provider::OpenRouter => "https://openrouter.ai/keys",
+            Provider::Ollama => "https://ollama.com/download",
         }
     }
 
     /// How every key from this provider starts; used to catch a key pasted
-    /// into the wrong box.
+    /// into the wrong box. `""`: its keys have no fixed start (Mistral's),
+    /// or it takes no key (Ollama).
     pub fn prefix(self) -> &'static str {
         match self {
             Provider::Anthropic => "sk-ant-",
-            Provider::OpenAi => "sk-",
+            Provider::OpenAi | Provider::DeepSeek => "sk-",
             Provider::Google => "AIza",
+            Provider::Xai => "xai-",
+            Provider::OpenRouter => "sk-or-",
+            Provider::Mistral | Provider::Ollama => "",
         }
     }
 
+    /// The key format hint in the empty box.
     pub fn placeholder(self) -> &'static str {
         match self {
             Provider::Anthropic => "sk-ant-…",
-            Provider::OpenAi => "sk-…",
+            Provider::OpenAi | Provider::DeepSeek => "sk-…",
             Provider::Google => "AIza…",
+            Provider::Mistral => "…",
+            Provider::Xai => "xai-…",
+            Provider::OpenRouter => "sk-or-…",
+            Provider::Ollama => "http://localhost:11434",
         }
+    }
+
+    /// Ollama takes a base URL (and a model name) instead of a key.
+    pub fn takes_url(self) -> bool {
+        self == Provider::Ollama
     }
 }
 
@@ -94,24 +144,44 @@ impl fmt::Display for Provider {
 pub const KEY_MAX: usize = 400;
 
 /// A pasted key: trimmed, printable ASCII without spaces, at most `KEY_MAX`
-/// characters, and starting the way this provider's keys do.
+/// characters, and starting the way this provider's keys do. For Ollama,
+/// an `http://` or `https://` base URL: the owner's own server, so a
+/// private address and any port are fine (only an owner sets it).
 pub fn validate_key(provider: Provider, raw: &str) -> Result<String, String> {
     let v = raw.trim();
     if v.is_empty() {
-        return Err(crate::t("profile.api_keys.empty"));
+        return Err(crate::t(if provider.takes_url() { "manage.api_keys.empty_url" } else { "manage.api_keys.empty" }));
     }
     if v.len() > KEY_MAX {
-        return Err(crate::t1("profile.api_keys.too_long", "max", KEY_MAX));
+        return Err(crate::t1("manage.api_keys.too_long", "max", KEY_MAX));
     }
     if !v.bytes().all(|b| b.is_ascii_graphic()) {
-        return Err(crate::t("profile.api_keys.bad_chars"));
+        return Err(crate::t("manage.api_keys.bad_chars"));
+    }
+    if provider.takes_url() {
+        let rest = v.strip_prefix("http://").or_else(|| v.strip_prefix("https://"));
+        return match rest {
+            Some(r) if !r.is_empty() && !r.starts_with('/') => Ok(v.trim_end_matches('/').to_string()),
+            _ => Err(crate::t("manage.api_keys.bad_url")),
+        };
     }
     let wrong_box = match provider {
-        Provider::OpenAi => v.starts_with(Provider::Anthropic.prefix()),
+        Provider::OpenAi | Provider::DeepSeek => v.starts_with(Provider::Anthropic.prefix()) || v.starts_with(Provider::OpenRouter.prefix()),
         _ => false,
     };
     if wrong_box || !v.starts_with(provider.prefix()) {
-        return Err(crate::t2("profile.api_keys.wrong_provider", "provider", provider.label(), "prefix", provider.prefix()));
+        return Err(crate::t2("manage.api_keys.wrong_provider", "provider", provider.label(), "prefix", provider.prefix()));
+    }
+    Ok(v.to_string())
+}
+
+/// The model Ollama runs (`settings` row `ollama_model`): a name as
+/// `ollama pull` takes it (`llama3.1`, `qwen2.5:7b`), at most 100
+/// printable characters without spaces.
+pub fn validate_model(raw: &str) -> Result<String, String> {
+    let v = raw.trim();
+    if v.is_empty() || v.len() > 100 || !v.bytes().all(|b| b.is_ascii_graphic()) {
+        return Err(crate::t("manage.api_keys.bad_model"));
     }
     Ok(v.to_string())
 }
@@ -121,7 +191,6 @@ pub fn validate_key(provider: Provider, raw: &str) -> Result<String, String> {
 const MASTER_LEN: usize = 32;
 const NONCE_LEN: usize = 12;
 const BLOB_VERSION: u8 = 1;
-/// Associated data of the sealed server key: no learner's row can be opened as it.
 
 /// Holds the derived encryption key. Cheap to clone into `Db::call` closures.
 #[derive(Clone)]
@@ -257,7 +326,9 @@ fn hex(bytes: &[u8]) -> String {
     s
 }
 
-/// Associated data: binds a ciphertext to its row.
+/// Associated data of a key a learner saved on their profile before the
+/// keys were the server's (`user_api_keys`, read only for the rows migration
+/// v99 brought over): binds a ciphertext to its row.
 fn aad(user_id: i64, provider: Provider) -> Vec<u8> {
     format!("learnmap/api-key/v1/{user_id}/{}", provider.id()).into_bytes()
 }
@@ -283,7 +354,21 @@ pub fn open_totp(vault: &Vault, user_id: i64, blob: &[u8]) -> Option<Vec<u8>> {
 
 // ---------- persistence (run inside Db::call) ----------
 
-/// What the profile page shows about one provider. Never the key itself.
+/// Associated data of a key saved for the server (`server_api_keys`, #25).
+fn server_aad(provider: Provider) -> Vec<u8> {
+    format!("learnmap/server-api-key/v1/{}", provider.id()).into_bytes()
+}
+
+/// The associated data a stored row was sealed with: the server's, or for a
+/// key brought over from its owner's profile (migration v99) that user's.
+fn row_aad(sealed_for: Option<i64>, provider: Provider) -> Vec<u8> {
+    match sealed_for {
+        Some(user_id) => aad(user_id, provider),
+        None => server_aad(provider),
+    }
+}
+
+/// What the Manage Users page shows about one provider. Never the key itself.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct KeyStatus {
     pub provider: Provider,
@@ -300,73 +385,74 @@ impl KeyStatus {
     }
 }
 
-/// One entry per provider, in `Provider::ALL` order.
-pub fn statuses(conn: &Connection, vault: &Vault, user_id: i64) -> rusqlite::Result<Vec<KeyStatus>> {
-    let mut stmt = conn.prepare_cached("SELECT provider, ciphertext, updated_at FROM user_api_keys WHERE user_id = ?1")?;
-    let rows: Vec<(String, Vec<u8>, i64)> = stmt
-        .query_map([user_id], |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?)))?
-        .collect::<Result<_, _>>()?;
+type Row = (String, Vec<u8>, i64, Option<i64>);
+
+fn rows(conn: &Connection) -> rusqlite::Result<Vec<Row>> {
+    let mut stmt = conn.prepare_cached("SELECT provider, ciphertext, set_at, sealed_for FROM server_api_keys")?;
+    let rows = stmt.query_map([], |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?, r.get(3)?)))?;
+    rows.collect()
+}
+
+/// The server's keys: one entry per provider, in `Provider::ALL` order.
+pub fn statuses(conn: &Connection, vault: &Vault) -> rusqlite::Result<Vec<KeyStatus>> {
+    let rows = rows(conn)?;
     Ok(Provider::ALL
         .into_iter()
-        .map(|p| match rows.iter().find(|(id, _, _)| id == p.id()) {
+        .map(|p| match rows.iter().find(|(id, ..)| id == p.id()) {
             None => KeyStatus { provider: p, hint: None, unreadable: false, updated_at: 0 },
-            Some((_, blob, at)) => match vault.open(&aad(user_id, p), blob).and_then(|b| String::from_utf8(b).ok()) {
-                Some(key) => KeyStatus { provider: p, hint: Some(hint(&key)), unreadable: false, updated_at: *at },
+            Some((_, blob, at, sealed_for)) => match vault.open(&row_aad(*sealed_for, p), blob).and_then(|b| String::from_utf8(b).ok()) {
+                Some(key) => KeyStatus { provider: p, hint: Some(hint(p, &key)), unreadable: false, updated_at: *at },
                 None => KeyStatus { provider: p, hint: None, unreadable: true, updated_at: *at },
             },
         })
         .collect())
 }
 
-/// The stored key, for a feature that is about to call the provider.
-/// `None` when there is none or it no longer decrypts. Nothing calls this
-/// yet: the AI features that will are still to come.
-#[allow(dead_code)]
-pub fn get(conn: &Connection, vault: &Vault, user_id: i64, provider: Provider) -> rusqlite::Result<Option<String>> {
-    let blob: Option<Vec<u8>> = conn
-        .query_row(
-            "SELECT ciphertext FROM user_api_keys WHERE user_id = ?1 AND provider = ?2",
-            params![user_id, provider.id()],
-            |r| r.get(0),
-        )
-        .optional()?;
-    Ok(blob.and_then(|b| vault.open(&aad(user_id, provider), &b)).and_then(|b| String::from_utf8(b).ok()))
+/// The providers with a readable server key, in `Provider::ALL` order: what
+/// the AI forms offer.
+pub fn usable(conn: &Connection, vault: &Vault) -> rusqlite::Result<Vec<Provider>> {
+    Ok(statuses(conn, vault)?.into_iter().filter(|k| k.hint.is_some()).map(|k| k.provider).collect())
 }
 
-/// Store (or replace) a key that `validate_key` accepted.
-pub fn save(conn: &Connection, vault: &Vault, user_id: i64, provider: Provider, key: &str) -> rusqlite::Result<()> {
-    let blob = vault.seal(&aad(user_id, provider), key.as_bytes());
+/// The server's key for a provider, for a feature that is about to call it.
+/// `None` when there is none or it no longer decrypts.
+pub fn get(conn: &Connection, vault: &Vault, provider: Provider) -> rusqlite::Result<Option<String>> {
+    let row: Option<(Vec<u8>, Option<i64>)> = conn
+        .query_row("SELECT ciphertext, sealed_for FROM server_api_keys WHERE provider = ?1", [provider.id()], |r| Ok((r.get(0)?, r.get(1)?)))
+        .optional()?;
+    Ok(row.and_then(|(b, u)| vault.open(&row_aad(u, provider), &b)).and_then(|b| String::from_utf8(b).ok()))
+}
+
+/// Store (or replace) the server's key for a provider, one that
+/// `validate_key` accepted. Owners only: the caller checks.
+pub fn save(conn: &Connection, vault: &Vault, provider: Provider, key: &str) -> rusqlite::Result<()> {
+    let blob = vault.seal(&server_aad(provider), key.as_bytes());
     conn.execute(
-        "INSERT INTO user_api_keys (user_id, provider, ciphertext, updated_at) VALUES (?1, ?2, ?3, ?4)
-         ON CONFLICT(user_id, provider) DO UPDATE SET ciphertext = excluded.ciphertext, updated_at = excluded.updated_at",
-        params![user_id, provider.id(), blob, crate::db::now()],
+        "INSERT INTO server_api_keys (provider, ciphertext, set_at, sealed_for) VALUES (?1, ?2, ?3, NULL)
+         ON CONFLICT(provider) DO UPDATE SET ciphertext = excluded.ciphertext, set_at = excluded.set_at, sealed_for = NULL",
+        params![provider.id(), blob, crate::db::now()],
     )?;
     Ok(())
 }
 
-/// Delete every stored key of a user (hiding the AI features, #147). The number deleted.
-pub fn remove_all(conn: &Connection, user_id: i64) -> rusqlite::Result<usize> {
-    conn.execute("DELETE FROM user_api_keys WHERE user_id = ?1", [user_id])
-}
-
-/// Delete a stored key. `false` when there was none.
-pub fn remove(conn: &Connection, user_id: i64, provider: Provider) -> rusqlite::Result<bool> {
-    let n = conn.execute("DELETE FROM user_api_keys WHERE user_id = ?1 AND provider = ?2", params![user_id, provider.id()])?;
+/// Delete the server's key for a provider. `false` when there was none.
+pub fn remove(conn: &Connection, provider: Provider) -> rusqlite::Result<bool> {
+    let n = conn.execute("DELETE FROM server_api_keys WHERE provider = ?1", [provider.id()])?;
     Ok(n == 1)
 }
 
-/// How many AI keys learners have saved (all users, all providers).
+/// How many AI keys the server holds.
 pub fn saved_key_count(conn: &Connection) -> rusqlite::Result<i64> {
-    conn.query_row("SELECT COUNT(*) FROM user_api_keys", [], |r| r.get(0))
+    conn.query_row("SELECT COUNT(*) FROM server_api_keys", [], |r| r.get(0))
 }
 
 /// Delete every saved key `vault` cannot open: after the secret key was
 /// lost and a new one created (`SKRONGLE_NEW_SECRET_KEY=1`). Returns how many.
 pub fn forget_unreadable(conn: &Connection, vault: &Vault) -> rusqlite::Result<usize> {
     let mut n = 0;
-    for (user_id, provider, blob) in saved_rows(conn)? {
-        if !row_readable(vault, user_id, &provider, &blob) {
-            n += conn.execute("DELETE FROM user_api_keys WHERE user_id = ?1 AND provider = ?2", params![user_id, provider])?;
+    for (provider, blob, _, sealed_for) in rows(conn)? {
+        if !row_readable(vault, &provider, &blob, sealed_for) {
+            n += conn.execute("DELETE FROM server_api_keys WHERE provider = ?1", [&provider])?;
         }
     }
     Ok(n)
@@ -394,19 +480,13 @@ pub fn forget_unreadable_totp(conn: &Connection, vault: &Vault) -> rusqlite::Res
 /// with (`SKRONGLE_SECRET_KEY` from another install, a `.key` file from
 /// another backup).
 pub fn readable_count(conn: &Connection, vault: &Vault) -> rusqlite::Result<(usize, usize)> {
-    let rows = saved_rows(conn)?;
-    let readable = rows.iter().filter(|(u, p, b)| row_readable(vault, *u, p, b)).count();
+    let rows = rows(conn)?;
+    let readable = rows.iter().filter(|(p, b, _, u)| row_readable(vault, p, b, *u)).count();
     Ok((readable, rows.len()))
 }
 
-fn saved_rows(conn: &Connection) -> rusqlite::Result<Vec<(i64, String, Vec<u8>)>> {
-    let mut stmt = conn.prepare("SELECT user_id, provider, ciphertext FROM user_api_keys")?;
-    let rows = stmt.query_map([], |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?)))?;
-    rows.collect()
-}
-
-fn row_readable(vault: &Vault, user_id: i64, provider: &str, blob: &[u8]) -> bool {
-    Provider::parse(provider).is_some_and(|p| vault.open(&aad(user_id, p), blob).is_some())
+fn row_readable(vault: &Vault, provider: &str, blob: &[u8], sealed_for: Option<i64>) -> bool {
+    Provider::parse(provider).is_some_and(|p| vault.open(&row_aad(sealed_for, p), blob).is_some())
 }
 
 /// The vault the server would use, from `SKRONGLE_SECRET_KEY` or an existing
@@ -452,7 +532,15 @@ pub fn master_status(env_value: Option<&str>, db_path: &Path) -> MasterStatus {
     }
 }
 
-fn hint(key: &str) -> String {
+/// What the page shows of a stored value: a key's last four characters,
+/// or for a base URL (Ollama) its host and port, without any user name or
+/// password it carries.
+fn hint(provider: Provider, key: &str) -> String {
+    if provider.takes_url() {
+        let rest = key.split_once("://").map_or(key, |(_, r)| r);
+        let host = rest.split('/').next().unwrap_or(rest);
+        return host.rsplit_once('@').map_or(host, |(_, h)| h).to_string();
+    }
     let n = key.chars().count();
     key.chars().skip(n.saturating_sub(4)).collect()
 }
@@ -488,6 +576,31 @@ mod tests {
         assert!(validate_key(Provider::Anthropic, "sk-proj-abc").is_err());
         assert!(validate_key(Provider::OpenAi, "sk-ant-api03-abc").is_err());
         assert!(validate_key(Provider::Google, "sk-abc").is_err());
+    }
+
+    /// The providers #24 added: each key format, a key for another box
+    /// refused, and Ollama's base URL instead of a key, shown by its host.
+    #[test]
+    fn validates_the_newer_providers() {
+        assert_eq!(validate_key(Provider::DeepSeek, "sk-abc123").unwrap(), "sk-abc123");
+        assert!(validate_key(Provider::DeepSeek, "sk-ant-api03-abc").is_err(), "an Anthropic key");
+        assert!(validate_key(Provider::DeepSeek, "sk-or-v1-abc").is_err(), "an OpenRouter key");
+        assert!(validate_key(Provider::OpenAi, "sk-or-v1-abc").is_err(), "an OpenRouter key");
+        assert_eq!(validate_key(Provider::Mistral, &"x".repeat(32)).unwrap().len(), 32);
+        assert_eq!(validate_key(Provider::Xai, "xai-abc").unwrap(), "xai-abc");
+        assert!(validate_key(Provider::Xai, "sk-abc").is_err());
+        assert_eq!(validate_key(Provider::OpenRouter, "sk-or-v1-abc").unwrap(), "sk-or-v1-abc");
+        assert!(validate_key(Provider::OpenRouter, "sk-abc").is_err());
+        assert_eq!(validate_key(Provider::Ollama, " http://192.168.1.20:11434/ ").unwrap(), "http://192.168.1.20:11434");
+        assert_eq!(validate_key(Provider::Ollama, "https://ollama.example.org").unwrap(), "https://ollama.example.org");
+        for bad in ["localhost:11434", "ftp://x", "http://", "http:///x", "http://a b"] {
+            assert!(validate_key(Provider::Ollama, bad).is_err(), "{bad}");
+        }
+        assert_eq!(hint(Provider::Ollama, "http://me:pw@192.168.1.20:11434/v1"), "192.168.1.20:11434");
+        assert_eq!(hint(Provider::Xai, "xai-abcdWXYZ"), "WXYZ");
+        assert_eq!(validate_model(" qwen2.5:7b ").unwrap(), "qwen2.5:7b");
+        assert!(validate_model("").is_err() && validate_model("two words").is_err() && validate_model(&"m".repeat(101)).is_err());
+        assert!(Provider::ALL.iter().all(|p| p.takes_url() == (*p == Provider::Ollama)));
     }
 
     #[test]
@@ -568,49 +681,63 @@ mod tests {
     }
 
     #[test]
-    fn stored_keys_roundtrip_and_stay_per_user() {
+    fn server_keys_roundtrip() {
         let db = crate::db::Db::open_in_memory().unwrap();
         let v = vault(7);
         db.with(|c| {
-            let ana = crate::auth::create_user(c, "ana@example.org", "h")?;
-            let bob = crate::auth::create_user(c, "bob@example.org", "h")?;
-            let s = statuses(c, &v, ana)?;
-            assert_eq!(s.len(), 3);
+            let s = statuses(c, &v)?;
+            assert_eq!(s.len(), Provider::ALL.len());
             assert!(s.iter().all(|k| !k.is_set()));
 
-            save(c, &v, ana, Provider::Anthropic, "sk-ant-api03-abcdWXYZ")?;
-            assert_eq!(get(c, &v, ana, Provider::Anthropic)?.as_deref(), Some("sk-ant-api03-abcdWXYZ"));
-            assert_eq!(get(c, &v, ana, Provider::OpenAi)?, None);
-            assert_eq!(get(c, &v, bob, Provider::Anthropic)?, None);
-            let s = statuses(c, &v, ana)?;
+            save(c, &v, Provider::Anthropic, "sk-ant-api03-abcdWXYZ")?;
+            assert_eq!(get(c, &v, Provider::Anthropic)?.as_deref(), Some("sk-ant-api03-abcdWXYZ"));
+            assert_eq!(get(c, &v, Provider::OpenAi)?, None);
+            let s = statuses(c, &v)?;
             assert_eq!(s[0].hint.as_deref(), Some("WXYZ"));
             assert!(s[0].is_set() && !s[0].unreadable && s[0].updated_at > 0);
             assert!(!s[1].is_set() && !s[2].is_set());
+            assert_eq!(usable(c, &v)?, vec![Provider::Anthropic]);
+            assert_eq!(saved_key_count(c)?, 1);
 
             // Replacing, then removing.
-            save(c, &v, ana, Provider::Anthropic, "sk-ant-api03-1234")?;
-            assert_eq!(statuses(c, &v, ana)?[0].hint.as_deref(), Some("1234"));
-            assert!(remove(c, ana, Provider::Anthropic)?);
-            assert!(!remove(c, ana, Provider::Anthropic)?);
-            assert_eq!(get(c, &v, ana, Provider::Anthropic)?, None);
+            save(c, &v, Provider::Anthropic, "sk-ant-api03-1234")?;
+            assert_eq!(statuses(c, &v)?[0].hint.as_deref(), Some("1234"));
+            assert!(remove(c, Provider::Anthropic)?);
+            assert!(!remove(c, Provider::Anthropic)?);
+            assert_eq!(get(c, &v, Provider::Anthropic)?, None);
 
-            // A ciphertext copied onto another user's row does not open there.
-            save(c, &v, ana, Provider::Google, "AIzaSyAbc")?;
-            c.execute(
-                "INSERT INTO user_api_keys (user_id, provider, ciphertext, updated_at)
-                 SELECT ?1, provider, ciphertext, updated_at FROM user_api_keys WHERE user_id = ?2",
-                params![bob, ana],
-            )?;
-            assert_eq!(get(c, &v, bob, Provider::Google)?, None);
-            let s = statuses(c, &v, bob)?;
-            assert!(s[2].unreadable && s[2].is_set() && s[2].hint.is_none());
-            // Another master secret cannot read Ana's key either.
-            assert_eq!(get(c, &vault(8), ana, Provider::Google)?, None);
+            // A ciphertext moved to another provider's row does not open there.
+            save(c, &v, Provider::Google, "AIzaSyAbc")?;
+            c.execute("INSERT INTO server_api_keys (provider, ciphertext, set_at) SELECT 'openai', ciphertext, set_at FROM server_api_keys WHERE provider = 'google'", [])?;
+            assert_eq!(get(c, &v, Provider::OpenAi)?, None);
+            let s = statuses(c, &v)?;
+            assert!(s[1].unreadable && s[1].is_set() && s[1].hint.is_none());
+            assert_eq!(readable_count(c, &v)?, (1, 2));
+            // Another master secret cannot read it either.
+            assert_eq!(get(c, &vault(8), Provider::Google)?, None);
+            assert_eq!(forget_unreadable(c, &v)?, 1);
+            assert_eq!(readable_count(c, &v)?, (1, 1));
+            Ok(())
+        })
+        .unwrap();
+    }
 
-            // Deleting the account takes the keys with it.
-            c.execute("DELETE FROM users WHERE id = ?1", [ana])?;
-            let n: i64 = c.query_row("SELECT COUNT(*) FROM user_api_keys WHERE user_id = ?1", [ana], |r| r.get(0))?;
-            assert_eq!(n, 0);
+    /// Migration v99 brings the owner's profile keys over as they were
+    /// sealed (bound to the owner's id): they still open, and saving one
+    /// again seals it for the server.
+    #[test]
+    fn a_key_brought_over_from_the_owners_profile_opens() {
+        let db = crate::db::Db::open_in_memory().unwrap();
+        let v = vault(9);
+        db.with(|c| {
+            let blob = v.seal(&aad(42, Provider::OpenAi), b"sk-proj-oldWXYZ");
+            c.execute("INSERT INTO server_api_keys (provider, ciphertext, set_at, sealed_for) VALUES ('openai', ?1, 5, 42)", params![blob])?;
+            assert_eq!(get(c, &v, Provider::OpenAi)?.as_deref(), Some("sk-proj-oldWXYZ"));
+            assert_eq!(statuses(c, &v)?[1].hint.as_deref(), Some("WXYZ"));
+            save(c, &v, Provider::OpenAi, "sk-proj-new1234")?;
+            let sealed_for: Option<i64> = c.query_row("SELECT sealed_for FROM server_api_keys WHERE provider = 'openai'", [], |r| r.get(0))?;
+            assert_eq!(sealed_for, None);
+            assert_eq!(get(c, &v, Provider::OpenAi)?.as_deref(), Some("sk-proj-new1234"));
             Ok(())
         })
         .unwrap();

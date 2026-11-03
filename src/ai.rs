@@ -1,5 +1,5 @@
 //! "Describe what you want to learn" → a whole course, written by an LLM with
-//! the learner's own API key.
+//! the server's API key (the owner's, on Manage Users).
 //!
 //! Every call goes through `complete`, which returns the reply with its
 //! token usage.
@@ -14,7 +14,8 @@
 //!
 //! Two wire formats are supported with the `ureq` client already in the
 //! binary: the Anthropic Messages API and OpenAI-compatible chat completions
-//! (OpenAI, and any server that speaks that format, e.g. Ollama).
+//! (OpenAI, Google, DeepSeek, Mistral, xAI, OpenRouter and an Ollama-compatible
+//! server, one client for all: `providers.rs`, #24).
 
 use serde::Serialize;
 use std::collections::HashMap;
@@ -29,6 +30,8 @@ use crate::db::Db;
 
 mod queue;
 pub use queue::*;
+mod providers;
+pub use providers::*;
 mod prompt;
 pub use prompt::{Depth, SubjectKind, DEFAULT_INSTRUCTIONS};
 use prompt::{material_block, named_block, preview_only};
@@ -55,79 +58,6 @@ pub const JOB_BUDGET: Duration = Duration::from_secs(3600);
 /// Most bytes read from one model reply (ureq's default is 10 MB). A lesson
 /// of `GENERATE_MAX_TOKENS` tokens is well under this.
 pub const MAX_REPLY_BYTES: u64 = 1024 * 1024;
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum ProviderKind {
-    Anthropic,
-    OpenAi,
-    /// Gemini, through Google's OpenAI-compatible endpoint.
-    Google,
-}
-
-impl ProviderKind {
-    pub fn parse(s: &str) -> Option<ProviderKind> {
-        match s {
-            "anthropic" => Some(ProviderKind::Anthropic),
-            "openai" => Some(ProviderKind::OpenAi),
-            "google" => Some(ProviderKind::Google),
-            _ => None,
-        }
-    }
-
-    pub fn default_model(self) -> &'static str {
-        match self {
-            ProviderKind::Anthropic => "claude-opus-5-5",
-            ProviderKind::OpenAi => "gpt-5",
-            ProviderKind::Google => "gemini-2.5-flash",
-        }
-    }
-
-    /// `SKRONGLE_OPENAI_BASE_URL` can point the OpenAI kind at a local
-    /// OpenAI-compatible server (Ollama, LM Studio) for every feature;
-    /// `SKRONGLE_ANTHROPIC_BASE_URL` and `SKRONGLE_GOOGLE_BASE_URL` do the same for
-    /// the other two. Unset, dev mode points all three at its simulated
-    /// provider (`dev::provider_base_url`), else the public APIs.
-    pub fn default_base_url(self) -> String {
-        let (var, public) = match self {
-            ProviderKind::Anthropic => ("ANTHROPIC_BASE_URL", "https://api.anthropic.com"),
-            ProviderKind::OpenAi => ("OPENAI_BASE_URL", "https://api.openai.com"),
-            ProviderKind::Google => ("GOOGLE_BASE_URL", "https://generativelanguage.googleapis.com/v1beta/openai"),
-        };
-        crate::env(var).or_else(|| crate::dev::provider_base_url(self)).unwrap_or_else(|| public.to_string())
-    }
-
-    /// The short id (`anthropic`, `openai`, `google`), as forms name it.
-    pub fn id(self) -> &'static str {
-        match self {
-            ProviderKind::Anthropic => "anthropic",
-            ProviderKind::OpenAi => "openai",
-            ProviderKind::Google => "google",
-        }
-    }
-
-    /// Whose key it takes from the profile.
-    pub fn secret(self) -> crate::secrets::Provider {
-        match self {
-            ProviderKind::Anthropic => crate::secrets::Provider::Anthropic,
-            ProviderKind::OpenAi => crate::secrets::Provider::OpenAi,
-            ProviderKind::Google => crate::secrets::Provider::Google,
-        }
-    }
-
-    /// The provider as the profile page stores it (`secrets::Provider`).
-    pub fn from_secret(p: crate::secrets::Provider) -> ProviderKind {
-        match p {
-            crate::secrets::Provider::Anthropic => ProviderKind::Anthropic,
-            crate::secrets::Provider::OpenAi => ProviderKind::OpenAi,
-            crate::secrets::Provider::Google => ProviderKind::Google,
-        }
-    }
-
-    /// A provider configured with its defaults and this key.
-    pub fn provider(self, api_key: String) -> Provider {
-        Provider { kind: self, base_url: self.default_base_url(), api_key, model: self.default_model().to_string(), effort: None }
-    }
-}
 
 /// One turn of a conversation, provider-neutral.
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -1245,14 +1175,6 @@ fn lesson_file(v: &serde_json::Value, entry: &serde_json::Value) -> Result<Cours
     Ok(CourseFile { path: format!("lessons/{slug}.json"), content })
 }
 
-fn provider_name(kind: ProviderKind) -> &'static str {
-    match kind {
-        ProviderKind::Anthropic => "Anthropic",
-        ProviderKind::OpenAi => "an OpenAI-compatible API",
-        ProviderKind::Google => "Google",
-    }
-}
-
 /// Pull the JSON object out of a reply (tolerates code fences and chatter).
 pub fn parse_json(text: &str) -> Result<serde_json::Value, String> {
     let trimmed = text.trim();
@@ -1366,7 +1288,7 @@ pub fn is_internal_ip(ip: std::net::IpAddr) -> bool {
 ///
 /// Known gap: the host is resolved again when the request is made, so a DNS
 /// server that answers differently the second time (rebinding) can still
-/// reach an internal address; see docs/security-review.md.
+/// reach an internal address.
 pub async fn check_base_url(url: &str, allow_private: bool) -> Result<(), String> {
     let Some((host, port)) = url_host_port(url) else {
         return Err("The base URL must be an http:// or https:// address, without a user name or password.".into());
@@ -1421,7 +1343,7 @@ fn complete(p: &Provider, call: &Call, system: &str, messages: &[ChatMessage], m
     let timeout = request_timeout(timeout);
     let result = match p.kind {
         ProviderKind::Anthropic => call_anthropic(p, call, system, &messages, max_tokens, timeout),
-        ProviderKind::OpenAi | ProviderKind::Google => call_openai(p, call, system, &messages, max_tokens, timeout),
+        _ => call_openai(p, call, system, &messages, max_tokens, timeout),
     };
     // Errors are logged and shown: never with the key in them, even when a
     // server echoes it back (a proxy's error page, a reply that is not JSON).
@@ -1546,51 +1468,6 @@ fn anthropic_usage(json: &serde_json::Value) -> Usage {
     Usage { input: n("input_tokens") + writes, output: n("output_tokens"), cached: n("cache_read_input_tokens") }
 }
 
-/// `usage` of a chat completion; `prompt_tokens` includes the cached ones.
-fn openai_usage(json: &serde_json::Value) -> Usage {
-    let n = |k: &str| json.pointer(k).and_then(|v| v.as_u64()).unwrap_or(0);
-    let cached = n("/usage/prompt_tokens_details/cached_tokens");
-    Usage { input: n("/usage/prompt_tokens").saturating_sub(cached), output: n("/usage/completion_tokens"), cached }
-}
-
-fn openai_body(p: &Provider, system: &str, messages: &[ChatMessage], max_tokens: u32) -> serde_json::Value {
-    let mut all = vec![serde_json::json!({ "role": "system", "content": system })];
-    all.extend(messages.iter().map(|m| serde_json::json!({ "role": m.role, "content": m.content })));
-    let mut body = serde_json::json!({ "model": p.model, "messages": all, "max_completion_tokens": max_tokens });
-    budget::openai(&mut body, p);
-    body
-}
-
-/// Google's OpenAI-compatible base URL already ends in `/openai`; OpenAI's
-/// own (and Ollama's) take the `/v1` segment.
-fn openai_url(p: &Provider) -> String {
-    let base = p.base_url.trim_end_matches('/');
-    if base.ends_with("/v1") || base.ends_with("/openai") {
-        format!("{base}/chat/completions")
-    } else {
-        format!("{base}/v1/chat/completions")
-    }
-}
-
-fn call_openai(p: &Provider, call: &Call, system: &str, messages: &[ChatMessage], max_tokens: u32, timeout: Duration) -> Result<(String, Option<Usage>), String> {
-    let body = openai_body(p, system, messages, max_tokens);
-    let req = agent(timeout)
-        .post(&openai_url(p))
-        .header("authorization", &format!("Bearer {}", p.api_key))
-        .header("content-type", "application/json")
-        .header(CALL_HEADER, &call_header(call));
-    let json = send(req, &body, timeout)?;
-    let text = json
-        .pointer("/choices/0/message/content")
-        .and_then(|t| t.as_str())
-        .map(str::to_string)
-        .ok_or("the reply has no choices[0].message.content")?;
-    if text.trim().is_empty() {
-        return Err("the model returned no text".into());
-    }
-    Ok((text, Some(openai_usage(&json))))
-}
-
 fn send(req: ureq::RequestBuilder<ureq::typestate::WithBody>, body: &serde_json::Value, timeout: Duration) -> Result<serde_json::Value, String> {
     let timed_out = || format!("request failed: timed out after {} s", timeout.as_secs());
     let mut resp = match req.send_json(body) {
@@ -1629,7 +1506,6 @@ enum Failure {
     TurnedDown,
     ProviderError,
     Unreachable,
-    Declined,
 }
 
 /// What the providers say when an account's money or quota is used up:
@@ -1653,7 +1529,6 @@ fn failure_kind(raw: &str) -> Option<Failure> {
         Some(400 | 404) => Failure::TurnedDown,
         Some(_) => Failure::ProviderError,
         None if raw.starts_with("request failed") => Failure::Unreachable,
-        None if raw.contains("declined") => Failure::Declined,
         None if ["JSON", "no text", "did not validate", "does not load", "no lessons", "slug '", "reply"].iter().any(|w| raw.contains(w)) => Failure::Unusable,
         None => return None,
     })
@@ -1665,14 +1540,13 @@ fn failure_kind(raw: &str) -> Option<Failure> {
 /// restart); pages show the raw text underneath as the detail.
 pub fn plain_failure(raw: &str) -> Option<&'static str> {
     Some(match failure_kind(raw)? {
-        Failure::Key => "Writing your course stopped. The AI provider didn't accept your API key. Check the key on your profile page, then try again.",
+        Failure::Key => "Writing your course stopped. The AI provider didn't accept the server's API key. The owner can check it on Manage Users; then try again.",
         Failure::Quota => "Writing your course stopped. Your AI provider account has run out of credit or reached its usage limit. Check your plan and billing with the provider, then try again.",
         Failure::Busy => "Writing your course stopped. The AI provider is busy right now. Wait a minute, then try again.",
         Failure::Unusable => "Writing your course stopped. The AI's reply couldn't be used to build the course. Try again.",
-        Failure::TurnedDown => "Writing your course stopped. The AI provider turned the request down. Try again; if it stops again, check the key on your profile page.",
+        Failure::TurnedDown => "Writing your course stopped. The AI provider turned the request down. Try again; if it stops again, the owner can check the key on Manage Users.",
         Failure::ProviderError => "Writing your course stopped. The AI provider answered with an error. Try again.",
         Failure::Unreachable => "Writing your course stopped. The AI provider didn't answer in time or couldn't be reached. Try again in a minute.",
-        Failure::Declined => "Writing your course stopped. The AI declined to write this course. Try rewording your wish.",
     })
 }
 
@@ -1680,14 +1554,13 @@ pub fn plain_failure(raw: &str) -> Option<&'static str> {
 /// course revised), which has no Resume: it changed nothing, so try again.
 pub fn plain_revision_failure(raw: &str) -> Option<&'static str> {
     Some(match failure_kind(raw)? {
-        Failure::Key => "The AI provider didn't accept your API key. Check the key on your profile page, then try again. The course is unchanged.",
+        Failure::Key => "The AI provider didn't accept the server's API key. The owner can check it on Manage Users; then try again. The course is unchanged.",
         Failure::Quota => "Your AI provider account has run out of credit or reached its usage limit. Check your plan and billing with the provider, then try again. The course is unchanged.",
         Failure::Busy => "The AI provider is busy right now. Wait a minute, then try again. The course is unchanged.",
         Failure::Unusable => "The AI's reply couldn't be used. Try again, or say it differently. The course is unchanged.",
-        Failure::TurnedDown => "The AI provider turned the request down. Check the model on your profile page. The course is unchanged.",
+        Failure::TurnedDown => "The AI provider turned the request down. Try again; if it stops again, the owner can check the key on Manage Users. The course is unchanged.",
         Failure::ProviderError => "The AI provider answered with an error. Try again. The course is unchanged.",
         Failure::Unreachable => "The AI provider didn't answer in time or couldn't be reached. Try again in a minute. The course is unchanged.",
-        Failure::Declined => "The AI declined. Try saying it differently. The course is unchanged.",
     })
 }
 

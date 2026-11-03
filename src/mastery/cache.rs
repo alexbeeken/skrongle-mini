@@ -34,7 +34,7 @@ pub type ProgressMap = HashMap<String, Progress>;
 
 struct Entry {
     course_id: String,
-    map: ProgressMap,
+    map: Arc<ProgressMap>,
 }
 
 #[derive(Default)]
@@ -51,8 +51,8 @@ impl ProgressCache {
     }
 
     /// The learner's map for `course_id`, if it is the one held.
-    pub fn get(&self, user_id: i64, course_id: &str) -> Option<ProgressMap> {
-        self.entries().get(&user_id).filter(|e| e.course_id == course_id).map(|e| e.map.clone())
+    pub fn get(&self, user_id: i64, course_id: &str) -> Option<Arc<ProgressMap>> {
+        self.entries().get(&user_id).filter(|e| e.course_id == course_id).map(|e| Arc::clone(&e.map))
     }
 
     /// One lesson's row from a held map: `Some(None)` when the map is held
@@ -63,7 +63,7 @@ impl ProgressCache {
 
     /// Hold a map just read from the table, in place of the learner's
     /// other course; when full, a new learner drops any other one.
-    pub fn fill(&self, user_id: i64, course_id: &str, map: ProgressMap) {
+    pub fn fill(&self, user_id: i64, course_id: &str, map: Arc<ProgressMap>) {
         let mut entries = self.entries();
         if !entries.contains_key(&user_id) && entries.len() >= crate::caps::MAX_ACCOUNTS {
             if let Some(&any) = entries.keys().next() {
@@ -74,7 +74,7 @@ impl ProgressCache {
     }
 
     /// Take the learner's map for `course_id` out, if it is the one held.
-    pub fn take(&self, user_id: i64, course_id: &str) -> Option<ProgressMap> {
+    pub fn take(&self, user_id: i64, course_id: &str) -> Option<Arc<ProgressMap>> {
         let mut entries = self.entries();
         if entries.get(&user_id).is_some_and(|e| e.course_id == course_id) {
             entries.remove(&user_id).map(|e| e.map)
@@ -86,7 +86,7 @@ impl ProgressCache {
     /// A row was written: update the held map, if it is that course's.
     pub fn put(&self, user_id: i64, course_id: &str, p: &Progress) {
         if let Some(e) = self.entries().get_mut(&user_id).filter(|e| e.course_id == course_id) {
-            e.map.insert(p.lesson_id.clone(), p.clone());
+            Arc::make_mut(&mut e.map).insert(p.lesson_id.clone(), p.clone());
         }
     }
 

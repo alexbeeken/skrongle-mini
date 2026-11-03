@@ -49,10 +49,7 @@ step, so a page you didn't need costs you all run.
   `.claude/rules/*.md` files for the areas the PR touches, not all of them (`e2e.md`
   when you write a persona or spec, `i18n.md` when the PR adds text, `content.md` for
   course files, `ui.md` for icons and modals).
-- `docs/qa.md` sections 1 (claims), 3 (Jev) and 5 (fix, file or note), and its "Summary
-  template" (`sed -n '/^## Summary template/,/^## Efficiency/p' docs/qa.md`). Skip
-  section 4, the spec-writing pass: write a spec only to guard a bug you fix. This brief
-  replaces the rest.
+- Write a spec only to guard a bug you fix. This brief covers the rest.
 - The PR: `gh api repos/{owner}/{repo}/pulls/<N> --jq '{title, body, base: .base.ref, head: .head.ref}'`
   and its files, `gh api --paginate repos/{owner}/{repo}/pulls/<N>/files --jq '.[].filename'`.
 - The diff: `git diff origin/main...origin/<head>`. Read it, because the body never says
@@ -124,7 +121,7 @@ cd $WT/e2e && E2E_BASE_URL=<url> JEV_EXPLORE_FILE=$WT/e2e/personas/_qa-pr<N>.ts 
   zsh -ic 'npx playwright test --grep @explore --reporter list'
 ```
 
-Beyond the checklist, spend a little time on what docs/qa.md lists: the states the body
+Beyond the checklist, spend a little time on the states the body
 doesn't mention (owner-only, no JavaScript, phone width, doing it twice) and every consumer
 of a new state. Run the PR's own specs or tests (`scripts/e2e.sh specs/<file>`,
 `cargo test <name>`), so the verdict rests on more than the happy path. Also check the
@@ -265,7 +262,7 @@ commits, give the commit you did check, and say so.
 
 Post the report with
 `gh api repos/{owner}/{repo}/issues/<N>/comments -F body=@$S/report-pr<N>.md --jq .html_url`
-and keep the URL it prints. Use docs/qa.md's summary template, starting with the title
+and keep the URL it prints. Start with the title
 line `## QA: PR #<N> <title>` (the coordinator finds reports by it). Right under the
 verdict, add the line
 
@@ -351,7 +348,7 @@ long one costs every later turn.
 
 **Jev's limits**
 - Jev can't click hidden (`sr-only`) radios such as the motivator chips, can't
-  tick the age and terms boxes on `/register`, can't log out through the account menu,
+  tick the age box on `/register`, can't log out through the account menu,
   and gets stuck in the course start wizard on `/courses`. Do those steps yourself in
   `then`, with `signUp`, `logout` and `openCourse` from `e2e/lib/learner.ts`.
 - Jev often can't find a lesson by topic on `/lessons`. Give every goal a `start` URL and
@@ -379,7 +376,6 @@ long one costs every later turn.
 **Pages**
 - "Create a course" opens the Generate dialog over the editor, and it blocks every click.
   Go to the course URL without `?generate=1` first.
-- The dev user can prepare one data export a day; use a fresh account for export steps.
 - Picking a language on the profile saves and reloads; wait for the load before you
   navigate.
 - `page.reload()` after a form POST resends the form. Use `page.goto(url)` instead.
@@ -543,7 +539,7 @@ long one costs every later turn.
   `notation.spec.ts` that any PR adding staff questions to the notation lesson has to
   make `.first()`. A Review Desk PR needs no Rust build: `scripts/review-desk/review
   --no-open --port <p>` with a fresh `REVIEW_DESK_HOME`; without `--no-open` it opens
-  a browser tab. `?terms=minor` shows only the newest Terms entry in effect.
+  a browser tab.
   Any code that draws with abcjs `responsive: "resize"` into a box with a max-width
   gets the same blank gap under the staff (185 px on a wide page) unless it draws into
   an inner box, as `notation.js` does since `cd058af9`; `fill-bar.js` (#1275) needed

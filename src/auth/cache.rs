@@ -23,7 +23,7 @@ use crate::caps::{MAX_ACCOUNTS, MAX_SESSIONS_PER_ACCOUNT};
 
 /// The tables `user_for_session` reads. A write to any of them forgets the
 /// whole cache (it is tiny and refills on the next request).
-pub const WATCHED: &[&str] = &["sessions", "users", "courses", "projects", "terms_acceptances"];
+pub const WATCHED: &[&str] = &["sessions", "users", "courses", "projects", "settings"];
 
 /// Entries the cache holds: one per session that can exist.
 pub const CAPACITY: usize = MAX_ACCOUNTS * MAX_SESSIONS_PER_ACCOUNT;
@@ -175,7 +175,7 @@ mod tests {
             .filter(|w| w[0].eq_ignore_ascii_case("FROM") || w[0].eq_ignore_ascii_case("JOIN"))
             .map(|w| w[1])
             .collect();
-        assert!(tables.len() >= 6, "found {tables:?}");
+        assert!(tables.len() >= 4, "found {tables:?}");
         for t in &tables {
             assert!(WATCHED.contains(t), "user_for_session reads {t}, which WATCHED does not list");
         }

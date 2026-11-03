@@ -8,8 +8,6 @@
 # own Pi behind nginx.
 #
 #   sudo mkdir -p /etc/skrongle
-#   sudo cp -n /opt/skrongle/terms.example.md /etc/skrongle/terms.md
-#   sudo nano /etc/skrongle/terms.md    # your Terms of Service: fill in the [BRACKETS]
 #   sudo cp /opt/skrongle/skrongle.service /etc/systemd/system/
 #   sudo systemctl enable --now skrongle
 #
@@ -39,11 +37,9 @@ Environment=SKRONGLE_LOG=info
 # This is a Skrongle mini (docs/self-hosting.md, "Skrongle mini"): one small
 # box, no plans or payments, no e-mail, SMS or Stripe required.
 Environment=SKRONGLE_MINI=1
-# Your own Terms at /terms (copy terms.example.md there first; no file, no start):
-Environment=SKRONGLE_TERMS=/etc/skrongle/terms.md
 # The first account is the owner's, made through the owner link in the log
 #   (sudo journalctl -u skrongle -g "Owner link" -o cat | tail -n 1);
-# everyone else needs an invitation link from its Superuser page:
+# everyone else needs an invitation link from its Manage Users page:
 Environment=SKRONGLE_SIGNUP=invite
 # Optional settings (a public URL, …): see docs/self-hosting.md.
 EnvironmentFile=-/etc/skrongle/env

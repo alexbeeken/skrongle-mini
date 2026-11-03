@@ -17,8 +17,7 @@ What each line means: [Diagnostics](self-hosting#diagnostics-skrongle-doctor).
 
 ## Getting help
 
-**Is self-hosting free?** Yes. The hosted site is the supported
-option; help for self-hosters is best-effort.
+**Is self-hosting free?** Yes. Help is best-effort.
 
 **Where do I ask?** In [GitHub Discussions](https://github.com/alexbeeken/skrongle-mini/discussions),
 under self-hosting help. Other self-hosters read it too, and an answer there

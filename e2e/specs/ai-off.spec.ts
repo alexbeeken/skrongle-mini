@@ -1,11 +1,10 @@
-// "Hide all AI features" (#147): a switch at sign-up (a pill with an info
-// dot, over a checkbox) and "Do Not Show Me AI Features" on the profile's
-// Privacy and consent card (#974). On, nothing on the site offers the AI tutor or AI course
-// creation, their routes refuse, and any saved AI API keys are
-// deleted (the switch asks first when there is one). The profile turns it
-// back off.
-import { expect, test, type Page } from "@playwright/test";
-import { login, newAccount, openCourse, register } from "../lib/learner";
+// "Hide AI features for everyone" (#25): one switch, the owner's, on Manage
+// Users. On, nothing on the site offers the AI tutor or AI course creation
+// to any account, and their routes refuse; the keys stay. Off shows them
+// again. Nobody but an owner sees the switch or the keys.
+import { expect, test, type Browser, type Page } from "@playwright/test";
+import { devLogin } from "../lib/app";
+import { newAccount, register, setAiHidden } from "../lib/learner";
 
 const LESSON = "/lessons/adjectives-agreement-position";
 
@@ -28,20 +27,14 @@ async function expectAiHidden(page: Page) {
   await expect(page.getByTestId("generate")).toHaveCount(0);
   await expect(page.getByTestId("course-ai")).toHaveCount(0);
   const courseId = await page.getByTestId("course-edit").getAttribute("data-course-id");
-  // The routes refuse: a page goes to the profile with a notice, JSON is a 403.
+  // The routes refuse: a page says the AI features are off on this server, JSON is a 403.
   const gen = await page.request.post(`/courses/${courseId}/generate`, { form: { provider: "anthropic", wish: "x" }, maxRedirects: 0 });
-  expect(gen.status()).toBe(303);
-  expect(gen.headers()["location"]).toMatch(/\/profile\?ai=off#consent$/);
-  await page.goto("/tutor");
-  await expect(page).toHaveURL(/\/profile\?ai=off#consent$/);
-  await expect(page.getByTestId("profile-notice")).toContainText("uses AI, which you have hidden");
+  expect(gen.status()).toBe(403);
+  const tutor = await page.goto("/tutor");
+  expect(tutor?.status()).toBe(403);
+  await expect(page.locator("main")).toContainText("turned off on this server");
   expect((await page.request.get("/api/tutor/session?id=x")).status()).toBe(403);
   expect((await page.request.get("/api/generate/nope")).status()).toBe(403);
-  await page.goto("/profile");
-  await expect(page.getByTestId("consent-ai")).toHaveAttribute("data-ai-off", "true");
-  await expect(page.getByTestId("consent-ai-switch")).toHaveAttribute("aria-checked", "true");
-  await expect(page.getByTestId("profile-api-keys")).toBeHidden();
-  await expect(page.locator('[data-testid="profile-nav-link"][data-section="api-keys"]')).toBeHidden();
 }
 
 async function expectAiShown(page: Page) {
@@ -55,93 +48,67 @@ async function expectAiShown(page: Page) {
   await page.getByTestId("courses-create").click();
   await expect(page.getByTestId("generate")).toBeVisible();
   await expect(page.getByTestId("generate-form")).toBeVisible();
-  await page.goto("/profile");
-  await expect(page.getByTestId("consent-ai")).toHaveAttribute("data-ai-off", "false");
-  await expect(page.getByTestId("consent-ai-switch")).toHaveAttribute("aria-checked", "false");
-  await expect(page.getByTestId("profile-api-keys")).toBeVisible();
 }
 
-test("the sign-up box hides every AI feature, and the profile turns them back on", async ({ page }) => {
-  const a = newAccount("no-ai");
-  await page.goto("/register");
-  await expect(page.getByTestId("register-no-ai")).not.toBeChecked();
-  await expect(page.getByTestId("register-no-ai-tip")).toBeHidden();
-  await page.getByTestId("register-no-ai-info").hover();
-  await expect(page.getByTestId("register-no-ai-tip")).toContainText("AI tutor");
-  await page.mouse.move(0, 0);
-  await expect(page.getByTestId("register-no-ai-tip")).toBeHidden();
-  await page.getByTestId("register-email").fill(a.email);
-  await page.getByTestId("register-password").fill(a.password);
-  await page.getByTestId("register-age").check();
-  await page.getByTestId("register-terms").check();
-  await page.getByTestId("register-no-ai").check();
-  await page.getByTestId("register-submit").click();
-  await expect(page.getByTestId("register-sent")).toBeVisible();
-  await login(page, a);
-  await page.goto("/courses");
-  await openCourse(page, "spanish");
+/** A second account, not an owner, in a browser of its own. */
+async function learner(browser: Browser): Promise<Page> {
+  const ctx = await browser.newContext();
+  const page = await ctx.newPage();
+  await register(page, newAccount("ai-off"), "spanish");
+  return page;
+}
 
-  await expectAiHidden(page);
-
-  // The switch works in place: no reload, the API keys card slides in.
-  await page.goto("/profile");
-  await page.getByTestId("consent-ai-switch").click();
-  await expect(page.getByTestId("consent-ai")).toHaveAttribute("data-ai-off", "false");
-  await expect(page.getByTestId("profile-api-keys")).toBeVisible();
-  await expect(page).toHaveURL(/\/profile$/);
-  await expectAiShown(page);
+test.afterEach(async ({ page }) => {
+  // Whatever happened, the next spec finds the AI features shown.
+  await devLogin(page, "keys=fake&next=/manage");
+  await setAiHidden(page, false);
 });
 
-test("the profile's switch is a negative, hides the AI features at once, and asks first when a key would be deleted", async ({ page }) => {
-  await register(page, newAccount("ai-off"), "spanish");
-  await expectAiShown(page);
+test("the owner's switch hides every AI feature from every account, and shows them again", async ({ page, browser }) => {
+  await devLogin(page, "keys=fake&next=/manage");
+  const other = await learner(browser);
+  await expectAiShown(other);
 
-  await page.goto("/profile");
-  // One switch, on the Privacy and consent card, said as a negative; the old card is gone.
-  await expect(page.locator("#consent-ai-label")).toHaveText("Do Not Show Me AI Features");
-  await expect(page.locator("#ai")).toHaveCount(0);
-  await expect(page.locator('[data-testid="profile-nav-link"][data-section="ai"]')).toHaveCount(0);
-  await expect(page.getByTestId("consent-ai")).toHaveAttribute("data-ai-off", "false");
+  // The switch is a positive on Manage Users' AI section, off by default.
+  await page.goto("/manage#ai");
+  await expect(page.locator("#manage-ai-label")).toHaveText("Hide AI features for everyone");
+  await expect(page.getByTestId("manage-ai-switch")).toHaveAttribute("aria-checked", "false");
+  await setAiHidden(page, true);
+  await expect(page.getByTestId("manage-notice")).toContainText("hidden for every account");
+  await expect(page.getByTestId("manage-ai-switch")).toHaveAttribute("aria-checked", "true");
+  // The keys stay.
+  await expect(page.locator('[data-testid="manage-api-key"][data-key-set="true"]')).toHaveCount(3);
 
-  // No key on file: the switch hides everything straight away, no dialog; the keys card slides out.
-  const dialog = page.getByTestId("profile-ai-off-dialog");
-  await page.getByTestId("consent-ai-switch").click();
-  await expect(dialog).not.toBeVisible();
-  await expect(page.getByTestId("consent-ai")).toHaveAttribute("data-ai-off", "true");
-  await expect(page.getByTestId("profile-api-keys")).toBeHidden();
-  await expect(page).toHaveURL(/\/profile$/);
+  await expectAiHidden(other);
   await expectAiHidden(page);
 
-  // Back off, save a key: now the switch warns that the key would be deleted.
-  await page.goto("/profile");
-  await page.getByTestId("consent-ai-switch").click();
-  await expect(page.getByTestId("profile-api-keys")).toBeVisible();
-  const row = page.locator('[data-testid="profile-api-key"][data-provider="anthropic"]');
-  await row.getByTestId("profile-api-key-toggle").click();
-  await row.getByTestId("profile-api-key-input").fill("sk-ant-test-paste-ABCD");
-  await expect(row).toHaveAttribute("data-key-set", "true");
-  await page.goto("/profile");
-  await expect(dialog).not.toBeVisible();
-  await page.getByTestId("consent-ai-switch").click();
-  await expect(dialog).toBeVisible();
-  await expect(dialog).toContainText("delete all AI API keys saved in your profile");
-  // Cancel changes nothing.
-  await page.getByTestId("profile-ai-off-cancel").click();
-  await expect(dialog).not.toBeVisible();
-  await expect(page.getByTestId("consent-ai")).toHaveAttribute("data-ai-off", "false");
-  await expect(row).toHaveAttribute("data-key-set", "true");
+  await setAiHidden(page, false);
+  await expect(page.getByTestId("manage-notice")).toContainText("shown again");
+  await expectAiShown(other);
+  await other.context().close();
+});
 
-  await page.getByTestId("consent-ai-switch").click();
-  await page.getByTestId("profile-ai-off-confirm").click();
-  await expect(dialog).not.toBeVisible();
-  await expect(page.getByTestId("consent-ai")).toHaveAttribute("data-ai-off", "true");
-  await expect(row).toHaveAttribute("data-key-set", "false");
-  await expectAiHidden(page);
-  // The key is gone on the server too: shown again, the row is empty.
-  await page.goto("/profile");
-  await page.getByTestId("consent-ai-switch").click();
-  await expect(page.getByTestId("profile-api-keys")).toBeVisible();
-  await expect(row).toHaveAttribute("data-key-set", "false");
-  await page.goto("/profile");
-  await expect(row).toHaveAttribute("data-key-set", "false");
+test("only the owner sees the keys and the switch; nobody has them on the profile", async ({ page, browser }) => {
+  const other = await learner(browser);
+  expect((await other.goto("/manage"))?.status()).toBe(404);
+  expect((await other.request.post("/manage/ai", { form: { off: "1" }, maxRedirects: 0 })).status()).toBe(404);
+  expect((await other.request.post("/api/manage/keys", { data: { key_anthropic: "sk-ant-dev-not-yours" } })).status()).toBe(404);
+  await other.goto("/profile");
+  await expect(other.getByTestId("profile-consent")).toBeVisible();
+  await expect(other.locator('[data-testid^="manage-api-key"], [data-testid^="profile-api-key"], [data-testid^="consent-ai"]')).toHaveCount(0);
+  await expect(other.locator('[data-testid="profile-nav-link"][data-section="api-keys"]')).toHaveCount(0);
+  await other.context().close();
+
+  await devLogin(page, "keys=fake&next=/profile");
+  await expect(page.locator('[data-testid^="profile-api-key"], [data-testid^="consent-ai"]')).toHaveCount(0);
+  await page.goto("/manage#ai");
+  await expect(page.getByTestId("manage-ai-card")).toBeVisible();
+  // One folded row per provider (#24); keys=fake sets the first three.
+  const rows = page.getByTestId("manage-api-key");
+  await expect(rows).toHaveCount(8);
+  await expect(page.locator('[data-testid="manage-api-key"][data-key-set="true"]')).toHaveCount(3);
+  for (const row of await rows.all()) {
+    await expect(row).not.toHaveAttribute("open", "");
+    await expect(row.getByTestId("manage-api-key-input")).toBeHidden();
+  }
 });

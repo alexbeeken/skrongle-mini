@@ -36,9 +36,9 @@ sized for a **Raspberry Pi Zero 2 W** and built on an Apple Silicon Mac.
 
 ## Skrongle mini
 
-**Skrongle mini** is the release for small boxes: the same binary, with
-defaults for a handful of people who know whoever runs it (a family, a
-class, a few friends) and no outside services. Download the
+**Skrongle mini** is the release for small boxes: one binary, set up
+for a handful of people who know whoever runs it (a family, a
+class, a few friends) with no outside services. Download the
 [release](https://github.com/alexbeeken/skrongle-mini/releases) tarball for your
 machine (`skrongle-<version>-aarch64.tar.gz` for a Pi, `-x86_64` for a PC),
 install `skrongle.service`, and the first account you make is the owner's;
@@ -46,14 +46,13 @@ everyone else joins with an invitation link from your profile. Step by step:
 the app's *Host it yourself* page (`/self-host`, linked from `/docs`), or
 [docs/self-hosting.md](docs/self-hosting.md) for the details.
 
-| | Hosted | Skrongle mini |
-|---|---|---|
-| Who signs up | Anyone (`SKRONGLE_SIGNUP=open`) | Only people the owner invites (`invite`) |
-| E-mail | Sent through providers | None: links are shown in the page |
-| Terms of Service | The service's own | Yours (`SKRONGLE_TERMS=/etc/skrongle/terms.md`) |
-| Background work | In process, in SQLite | The same: no Redis or queue service |
-| Database | SQLite | SQLite |
-| Securing the login | The operator | You: a strong password, two-factor, Tailscale or a VPN, never a forwarded port |
+| | |
+|---|---|
+| Who signs up | Only people the owner invites (`SKRONGLE_SIGNUP=invite`) |
+| E-mail | None: links are shown in the page |
+| Background work | In process, in SQLite: no Redis or queue service |
+| Database | SQLite |
+| Securing the login | You: a strong password, two-factor, Tailscale or a VPN, never a forwarded port |
 
 ## Documentation
 
@@ -61,7 +60,7 @@ The documentation lives in `docs/` and is served by the app at `/docs`, so a
 page can be handed to a person or an LLM. `/docs` opens on the user guides
 (getting started, how a course is built, building and generating courses,
 FAQ); developer pages are in their own section
-([docs/dev.md](docs/dev.md)); `/llms.txt` lists what an LLM needs to write a
+([docs/architecture.md](docs/architecture.md)); `/llms.txt` lists what an LLM needs to write a
 course.
 
 - **[docs/course-format.md](docs/course-format.md)** — the complete course
@@ -85,7 +84,7 @@ for 64-bit ARM (Raspberry Pi) or x86_64 Linux and follow
 best-effort, from the maintainer and other self-hosters, in
 [GitHub Discussions](https://github.com/alexbeeken/skrongle-mini/discussions); a bug
 goes in an issue with the *Self-hosting bug* form and the output of
-`skrongle doctor`. The hosted site is the supported option.
+`skrongle doctor`.
 
 ## Quick start (local)
 
@@ -99,8 +98,7 @@ scripts/dev-progress.sh complete all   # fake "completed" lessons in ./dev.db (u
 cargo test               # unit tests (content loading, mastery maths, grading, migrations, courses)
 scripts/smoke.sh         # fresh server + fixtures: main pages and one AI generation over HTTP
 scripts/e2e.sh           # headless browser tests (Playwright, Node 22+); see docs/testing.md
-scripts/e2e-jev.sh       # just the Jev-driven browser tests (needs a Jev key, below)
-scripts/fact-check.sh    # Jev reads every built-in lesson and reports what is likely wrong (needs the key)
+scripts/e2e-jev.sh       # just the optional model-judged browser tests (needs a Jev key, below)
 cargo build --release    # hardened release profile (fat LTO, 1 codegen unit, stripped, panic=abort)
 ```
 
@@ -122,8 +120,8 @@ in a deploy. Keep it in a git-ignored `.env` at the repo root (or
 TYPESAFE_API_KEY=...        # from https://console.typesafe.ai/keys
 ```
 
-Only `scripts/e2e.sh`, `scripts/e2e-jev.sh`, `scripts/e2e-explore.sh` and
-`scripts/fact-check.sh` read it, and they pass it to
+Only `scripts/e2e.sh`, `scripts/e2e-jev.sh` and
+`scripts/e2e-explore.sh` read it, and they pass it to
 the test runner, not to the server. `./.dev-start` and the app ignore `.env`.
 Without the key, `scripts/e2e.sh` skips the Jev tests and `scripts/e2e-jev.sh`
 stops and says where to put it. `e2e/.env.example` lists the optional Jev
@@ -186,7 +184,7 @@ startup ([Renamed settings](docs/self-hosting.md#renamed-settings)).
 | `SKRONGLE_BIND` | `0.0.0.0:8080` | Listen address |
 | `SKRONGLE_DATA_DIR` | `data` | Directory containing `courses/` |
 | `SKRONGLE_DB` | `learn.db` | SQLite file (WAL + SHM files are created next to it) |
-| `SKRONGLE_LOG` | `info` | `error`/`warn`/`info`/`debug`/`trace` |
+| `SKRONGLE_LOG` | `info` | One level: `error`, `warn`, `info`, `debug` or `trace`. Per-module filters like `skrongle=debug` are not supported; an unrecognised value logs one warning and runs at `info`. |
 | `SKRONGLE_SECURE_COOKIES` | `0` | Set `1` behind a TLS proxy to add `Secure` to cookies |
 | `SKRONGLE_BASE_PATH` | *(empty)* | URL prefix when mounted behind a reverse proxy, e.g. `/spanish` |
 | `SKRONGLE_PUBLIC_URL` | — | Public URL, for the links in e-mail |

@@ -1,4 +1,4 @@
-// Profile page. The names, the AI API keys and the Dev options save as they
+// Profile page. The names and the language save as they
 // change (static/autosave.js, POST /api/profile); the circle by the heading
 // says whether everything is saved, and a green check on a field that its
 // change is.
@@ -10,110 +10,6 @@
 (function () {
   "use strict";
   var base = document.body.dataset.base || "";
-
-  // "Do Not Show Me AI Features", the AI row of the Privacy and consent
-  // card (#974): the switch posts in place (POST /profile/ai, JSON) and
-  // slides the AI-only sections ([data-ai-only]: the API keys card and its
-  // nav link) closed or open, instead of reloading the page. On hides them;
-  // hiding deletes the saved keys, so with a key on file it asks first in
-  // the confirm dialog; the rows then show as empty. Without JS the switch
-  // is a form that posts and reloads.
-  var ai = document.querySelector("[data-testid=consent-ai]");
-  var aiSwitch = ai && ai.querySelector("[data-testid=consent-ai-switch]");
-  if (aiSwitch) (function () {
-    var confirmDialog = document.getElementById("ai-off-dialog");
-    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var busy = false;
-    aiSwitch.removeAttribute("data-opens"); // handled here, not by the generic opener below
-
-    function keysOnFile() { return !!document.querySelector("[data-testid=profile-api-key][data-key-set=true]"); }
-    function hidden() { return ai.dataset.aiOff === "true"; }
-
-    function edges(el, cs, open) {
-      var h = open ? el.offsetHeight + "px" : "0px";
-      return {
-        height: h, opacity: open ? 1 : 0,
-        marginTop: open ? cs.marginTop : "0px", marginBottom: open ? cs.marginBottom : "0px",
-        paddingTop: open ? cs.paddingTop : "0px", paddingBottom: open ? cs.paddingBottom : "0px",
-        borderTopWidth: open ? cs.borderTopWidth : "0px", borderBottomWidth: open ? cs.borderBottomWidth : "0px"
-      };
-    }
-    function slide(el, show) {
-      if (show === !el.hidden) return;
-      if (reduce || !el.animate) { el.hidden = !show; return; }
-      if (show) el.hidden = false;
-      var cs = getComputedStyle(el);
-      var open = edges(el, cs, true), shut = edges(el, cs, false);
-      el.style.overflow = "hidden";
-      var a = el.animate(show ? [shut, open] : [open, shut], { duration: 280, easing: "ease" });
-      a.onfinish = function () { if (!show) el.hidden = true; el.style.overflow = ""; };
-    }
-
-    function emptyKeyRows() {
-      document.querySelectorAll("[data-testid=profile-api-key]").forEach(function (row) {
-        row.dataset.keySet = "false";
-        row.dataset.unreadable = "false";
-        row.open = false;
-        var status = row.querySelector("[data-testid=profile-api-key-status]");
-        if (status) { status.textContent = ""; var none = document.createElement("span"); none.className = "muted"; none.textContent = t("profile.js.no_key"); status.appendChild(none); }
-        var prompt = row.querySelector("[data-key-prompt]");
-        if (prompt) prompt.textContent = t("profile.js.paste_key");
-        var remove = row.querySelector(".key-remove");
-        if (remove) remove.remove();
-        var input = row.querySelector("input");
-        if (input) input.value = "";
-      });
-    }
-
-    function render(off, consentText) {
-      ai.dataset.aiOff = off ? "true" : "false";
-      aiSwitch.setAttribute("aria-checked", off ? "true" : "false");
-      aiSwitch.lastChild.nodeValue = off ? t("profile.js.on") : t("profile.js.off");
-      var state = ai.querySelector("[data-testid=consent-ai-state]");
-      if (state && consentText) state.textContent = consentText;
-      var form = ai.querySelector("[data-testid=consent-ai-form] input[name=off]");
-      if (form) form.value = off ? "0" : "1";
-      if (off) { var key = ai.querySelector("[data-testid=consent-ai-key]"); if (key) key.remove(); }
-      document.querySelectorAll("[data-ai-only]").forEach(function (el) { slide(el, !off); });
-      if (off) emptyKeyRows();
-    }
-
-    function apply(off) {
-      if (busy) return;
-      busy = true;
-      aiSwitch.setAttribute("aria-busy", "true");
-      fetch(base + "/profile/ai", {
-        method: "POST",
-        credentials: "same-origin",
-        headers: { accept: "application/json", "content-type": "application/x-www-form-urlencoded" },
-        body: "off=" + (off ? "1" : "0")
-      }).then(function (r) {
-        if (!r.ok) throw new Error("HTTP " + r.status);
-        return r.json();
-      }).then(function (d) {
-        render(!!d.ai_off, d.consent);
-      }).catch(function () {
-        location.href = base + "/profile#consent"; // the server-rendered state
-      }).then(function () {
-        busy = false;
-        aiSwitch.removeAttribute("aria-busy");
-      });
-    }
-
-    function toggle(e) {
-      e.preventDefault();
-      if (busy) return;
-      if (hidden()) apply(false);
-      else if (confirmDialog && keysOnFile()) confirmDialog.showModal();
-      else apply(true);
-    }
-    aiSwitch.addEventListener("click", toggle);
-    if (confirmDialog) confirmDialog.querySelector("form").addEventListener("submit", function (e) {
-      e.preventDefault();
-      confirmDialog.close();
-      apply(true);
-    });
-  })();
 
   function openDialog(dialog) { dialog.showModal(); }
   function closeDialog(dialog) { dialog.close(); }
@@ -183,7 +79,6 @@
       // shown as saved (the yellow circle, then the green check) like any
       // other change, so the reload does not swallow them.
       if (sent && "lang" in sent) { reloadInLanguage(); return; }
-      if (data.keys) Object.keys(data.keys).forEach(keySaved.bind(null, data.keys));
       if (!data.display_name) return;
       if (heading) heading.textContent = data.display_name;
       if (menuName) menuName.textContent = data.display_name;
@@ -205,30 +100,6 @@
   var last = document.querySelector("[data-testid=profile-last-name]");
   if (first) saver.watch(first, { field: "first_name", validate: name(t("profile.js.first_name")) });
   if (last) saver.watch(last, { field: "last_name", validate: name(t("profile.js.last_name")) });
-
-  // AI API keys: a pasted key saves at once, a typed one 3 s after the last
-  // keystroke. Saved, the box empties (a key is never shown again) and the
-  // row says which key is on file.
-  document.querySelectorAll("[data-testid=profile-api-key-input]").forEach(function (input) {
-    saver.watch(input, { field: input.name, delay: 3000, burst: 6, ignoreEmpty: true });
-  });
-  function keySaved(keys, provider) {
-    var row = document.querySelector('[data-testid=profile-api-key][data-provider="' + provider + '"]');
-    if (!row) return;
-    row.dataset.keySet = "true";
-    row.dataset.unreadable = "false";
-    var input = row.querySelector("[data-testid=profile-api-key-input]");
-    input.value = "";
-    var status = row.querySelector("[data-testid=profile-api-key-status]");
-    status.textContent = "";
-    var ok = document.createElement("span");
-    ok.className = "ok-text";
-    ok.textContent = t("profile.js.key_on_file");
-    var code = document.createElement("code");
-    code.textContent = "…" + keys[provider];
-    status.append(ok, " · " + t("profile.js.ends_in") + " ", code);
-    row.querySelector("[data-key-prompt]").textContent = t("profile.js.paste_new_key");
-  }
 
   // The language (#462) saves as soon as one is picked; the page then
   // reloads in it (onSaved above). Its check sits on the label.
@@ -274,15 +145,10 @@
   var tfForm = document.querySelector("[data-testid=profile-two-factor-form]");
   var confirmDlg = document.getElementById("two-factor-confirm-dialog");
   var confirmForm = document.getElementById("two-factor-confirm-form");
-  var confirmSend = document.getElementById("two-factor-confirm-send-form");
   var current = tfCard ? tfCard.dataset.method : "";
   function askToConfirm(method, remove) {
     confirmForm.action = remove ? confirmForm.dataset.removeAction : confirmForm.dataset.methodAction;
     confirmForm.elements.method.value = method;
-    if (confirmSend) {
-      confirmSend.elements.method.value = method;
-      confirmSend.elements.remove.value = remove ? "1" : "";
-    }
     var what = confirmDlg.querySelector("[data-testid=two-factor-confirm-what]");
     var chip = document.querySelector('[data-testid=profile-two-factor-method][data-method="' + method + '"]');
     var label = chip ? chip.textContent.trim().toLowerCase() : "";

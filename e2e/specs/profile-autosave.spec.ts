@@ -185,36 +185,7 @@ test("the profile has no picture and no theme", async ({ page }) => {
   expect((await page.request.post("/api/profile", { data: { avatar: "kai" } })).status()).toBe(422);
 });
 
-test("API keys: folded away, a pasted key saves at once, a typed one 3 s after typing stops", async ({ page }) => {
-  const row = (p: string) => page.locator(`[data-testid="profile-api-key"][data-provider="${p}"]`);
-  const input = (p: string) => row(p).getByTestId("profile-api-key-input");
-  await expect(input("anthropic")).toBeHidden(); // all three start closed
-  await expect(input("openai")).toBeHidden();
-  await expect(page.getByTestId("profile-api-key-save")).toHaveCount(0);
-
-  // Pasted (many characters at once): saved straight away.
-  await row("anthropic").getByTestId("profile-api-key-toggle").click();
-  const start = Date.now();
-  await input("anthropic").fill("sk-ant-test-paste-ABCD");
-  await expect(row("anthropic")).toHaveAttribute("data-key-set", "true");
-  expect(Date.now() - start).toBeLessThan(2500);
-  await expect(row("anthropic").getByTestId("profile-api-key-status")).toContainText("…ABCD");
-  await expect(input("anthropic")).toHaveValue("");
-  await expect(row("anthropic").locator(".field-wrap")).toHaveAttribute("data-saved", "");
-
-  // Typed: nothing for a while after the last keystroke, then saved.
-  await row("openai").getByTestId("profile-api-key-toggle").click();
-  await input("openai").pressSequentially("sk-typed-WXYZ", { delay: 30 });
-  await page.waitForTimeout(2000);
-  await expect(row("openai")).toHaveAttribute("data-key-set", "false");
-  await expect(status(page)).toHaveAttribute("data-state", "saving");
-  await expect(row("openai")).toHaveAttribute("data-key-set", "true");
-  await expect(status(page)).toHaveAttribute("data-state", "saved");
-
-  // A key for the wrong box: red under the field, nothing stored.
-  await row("google").getByTestId("profile-api-key-toggle").click();
-  await input("google").fill("sk-ant-wrong-box-1234");
-  await expect(row("google").getByTestId("profile-api-key-error")).toBeVisible();
-  await expect(status(page)).toHaveAttribute("data-state", "error");
-  await expect(row("google")).toHaveAttribute("data-key-set", "false");
+test("the profile has no API keys: they are the server's, on Manage Users", async ({ page }) => {
+  await expect(page.locator('[data-testid^="profile-api-key"]')).toHaveCount(0);
+  expect((await page.request.post("/api/profile", { data: { key_anthropic: "sk-ant-api03-abcdWXYZ" } })).status()).toBe(422);
 });

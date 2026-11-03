@@ -1,16 +1,14 @@
-//! The two shapes a server runs as (#578, #632, CLAUDE.md "Two shapes, no
-//! third"): **Skrongle mini**, the self-hosted version (`SKRONGLE_MINI=1`:
-//! a handful of users on a small box, SQLite, no e-mail, SMS, Google or
-//! payments), or **the hosted site** (`SKRONGLE_MINI` unset: every provider
-//! set, or in dev mode stood in for). The shape is read once at startup and
-//! fixed for the process's life; the rest of the code asks [`current`] (or
-//! `crate::is_mini()`), never the variable. A test below keeps it that way.
+//! The `SKRONGLE_MINI` switch (#578, #632): `SKRONGLE_MINI=1` is Skrongle
+//! mini (a handful of users on a small box, SQLite, no e-mail, SMS, Google
+//! or payments). The switch is kept until its own issue retires it. The
+//! shape is read once at startup and fixed for the process's life; the rest
+//! of the code asks [`current`] (or `crate::is_mini()`), never the variable.
+//! A test below keeps it that way.
 //!
-//! A mini has none of the hosted site's production features: no plans or
-//! payments, no e-mail, no text messages, no Google sign-in, no S3. There
-//! is no second switch for any of them: in a mini the settings that would
-//! turn them on ([`HOSTED_ONLY`]) read as unset (`crate::env`), and the
-//! startup log names any that are set and ignored.
+//! A mini has no e-mail, text messages, Google sign-in, payments or S3.
+//! There is no second switch for any of them: the settings that would turn
+//! them on ([`HOSTED_ONLY`]) read as unset (`crate::env`), and the startup
+//! log names any that are set and ignored.
 
 use std::sync::OnceLock;
 
@@ -32,7 +30,7 @@ impl Shape {
         match value.map(str::trim).unwrap_or("") {
             "" | "0" | "false" => Ok(Shape::Hosted),
             "1" | "true" => Ok(Shape::Mini),
-            other => Err(format!("{VAR}={other}: expected 1 (Skrongle mini) or unset (the hosted site)")),
+            other => Err(format!("{VAR}={other}: expected 1 (Skrongle mini) or unset")),
         }
     }
 
@@ -49,8 +47,8 @@ impl Shape {
     /// The startup log line.
     pub fn describe(self) -> String {
         match self {
-            Shape::Mini => format!("shape: Skrongle mini ({VAR}=1): one small box, no plans, no providers needed"),
-            Shape::Hosted => format!("shape: the hosted site ({VAR} unset): every provider required outside dev mode"),
+            Shape::Mini => format!("shape: Skrongle mini ({VAR}=1): one small box, no providers needed"),
+            Shape::Hosted => format!("shape: {VAR} unset: every provider required outside dev mode"),
         }
     }
 
@@ -72,15 +70,15 @@ impl Shape {
             return None;
         }
         Some(match self {
-            Shape::Mini => format!("Skrongle mini ignores {}: e-mail, text messages, Google sign-in, payments and S3 are the hosted site's; unset them", set.join(", ")),
-            Shape::Hosted => format!("{} is gone: plans are on for the hosted site and off with {VAR}=1; unset it", set.join(", ")),
+            Shape::Mini => format!("Skrongle mini ignores {}: text messages, Google sign-in, payments and S3 are not available; unset them", set.join(", ")),
+            Shape::Hosted => format!("{} is gone; unset it", set.join(", ")),
         })
     }
 }
 
-/// The settings (`SKRONGLE_<name>`) that turn on a hosted-only feature.
+/// The settings (`SKRONGLE_<name>`) that turn on a feature a mini does not have.
 /// In a mini they read as unset, so the feature is off wherever it is read.
-pub const HOSTED_ONLY: &[&str] = &["MAIL_PROVIDERS", "SMS_PROVIDERS", "GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET", "STRIPE_SECRET_KEY", "STRIPE_WEBHOOK_SECRET", "S3_BUCKET"];
+pub const HOSTED_ONLY: &[&str] = &["SMS_PROVIDERS", "GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET", "STRIPE_SECRET_KEY", "STRIPE_WEBHOOK_SECRET", "S3_BUCKET"];
 
 static SHAPE: OnceLock<Shape> = OnceLock::new();
 
@@ -90,7 +88,7 @@ pub fn init(shape: Shape) {
 }
 
 /// The shape this server runs as. Before `init` (unit tests) it is the
-/// hosted site, the same as an unset `SKRONGLE_MINI`.
+/// same as an unset `SKRONGLE_MINI`.
 pub fn current() -> Shape {
     SHAPE.get().copied().unwrap_or(Shape::Hosted)
 }
@@ -112,7 +110,7 @@ mod tests {
         assert!(Shape::Mini.describe().contains("Skrongle mini"));
     }
 
-    /// A mini has none of the hosted-only settings; the hosted site reads
+    /// A mini has none of the provider settings; without the switch the server reads
     /// every setting.
     #[test]
     fn a_mini_has_no_production_features() {
@@ -123,11 +121,11 @@ mod tests {
         let none = |_: &str| None;
         assert_eq!(Shape::Mini.ignored(&none), None);
         assert_eq!(Shape::Hosted.ignored(&none), None);
-        let mail = |n: &str| (n == "MAIL_PROVIDERS" || n == "PLANS").then(|| "x".to_string());
-        let w = Shape::Mini.ignored(&mail).unwrap();
-        assert!(w.contains("SKRONGLE_MAIL_PROVIDERS") && w.contains("SKRONGLE_PLANS"), "{w}");
-        let w = Shape::Hosted.ignored(&mail).unwrap();
-        assert!(w.contains("SKRONGLE_PLANS is gone") && !w.contains("MAIL"), "{w}");
+        let set = |n: &str| (n == "SMS_PROVIDERS" || n == "PLANS").then(|| "x".to_string());
+        let w = Shape::Mini.ignored(&set).unwrap();
+        assert!(w.contains("SKRONGLE_SMS_PROVIDERS") && w.contains("SKRONGLE_PLANS"), "{w}");
+        let w = Shape::Hosted.ignored(&set).unwrap();
+        assert!(w.contains("SKRONGLE_PLANS is gone") && !w.contains("SMS"), "{w}");
     }
 
     /// Only this module reads `SKRONGLE_MINI`; everything else asks

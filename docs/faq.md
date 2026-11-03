@@ -2,10 +2,12 @@
 
 **Do I need an API key?**
 No. Courses, the four modes and every game work without one. A key (Claude,
-OpenAI or Gemini) is only for AI tutoring, generating a course and adding
-content with AI. Save it on your profile; it is stored encrypted and never
-shown again. Don't want AI at all? Turn on *Do Not Show Me AI Features*
-under Privacy and consent on your profile.
+OpenAI, Gemini, DeepSeek, Mistral, Grok or OpenRouter; or your own
+Ollama-compatible server, which needs none) is only for AI tutoring, generating a course and adding
+content with AI. The server's owner saves it once under *Manage Users → AI
+features*, and every account uses it; it is stored encrypted and never
+shown again. Don't want AI at all? The owner turns on *Hide AI features for
+everyone* in the same place.
 
 **I passed a lesson in Sprint. Why does Study mode still say "in progress" or "needs practice"?**
 Passing and mastery are different. A pass is a milestone that stays. Mastery
@@ -18,8 +20,8 @@ A feature only appears when the course has the data for it. Date Dash needs a
 [Which field switches on what](course-structure#which-field-switches-on-what).
 
 **Can other people see my course?**
-Only the people you share it with: **Share** on the course page invites them
-by e-mail. They learn from it read-only, with their own progress. See
+Only the people you share it with: **Share** on the course page makes a
+link for each address, which you pass on. They learn from it read-only, with their own progress. See
 [Share a course](making-courses#share-a-course).
 
 **My course does not load. What now?**
@@ -32,6 +34,13 @@ Yes. Give it [`/llms.txt`](/llms.txt) or paste the
 See [Write lessons with an LLM](making-courses#write-lessons-with-an-llm-you-already-use).
 
 
+**I forgot my password. How do I get back in?**
+Ask whoever runs your Skrongle. On the Superuser page they set a temporary
+password for your account and give it to you; you choose your own at the
+next sign-in. Lost the phone with your authenticator app? They can turn
+two-factor sign-in off for you there too. Skrongle sends no e-mail, so there is no reset link.
+See [Accounts and AI keys](self-hosting#accounts-and-ai-keys).
+
 **Why does my Skrongle mini say it has all the accounts it can hold?**
 A Skrongle mini holds at most 8 accounts (a household plus a couple of
 guests). The number is fixed, not a setting: a small known size keeps the
@@ -43,4 +52,4 @@ invitation link or proxy sign-in, until an account is deleted. See
 Yes, through `/api/progress`. Give the agent [Progress across modes](progress).
 
 **I'm a developer. Where are the code docs?**
-[Developer documentation](dev).
+[Architecture](architecture).

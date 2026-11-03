@@ -25,8 +25,7 @@
 # injected timeout (specs/dev-ai.spec.ts) is over in seconds.
 #
 # E2E_MINI=1 is the mini lane (docs/testing.md, "The mini lane"): the
-# server runs without the dev stand-ins a self-hoster lacks (no dev mailbox,
-# no dev Stripe), and
+# server runs without the dev stand-ins a self-hoster lacks (no dev Stripe), and
 # the specs see E2E_MINI=1 so the ones that need a stand-in skip.
 #
 # Uses its own database (./e2e.db, or E2E_DB) and a free port, so a running
