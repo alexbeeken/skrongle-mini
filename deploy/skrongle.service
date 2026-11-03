@@ -43,7 +43,7 @@ Environment=SKRONGLE_MINI=1
 Environment=SKRONGLE_TERMS=/etc/skrongle/terms.md
 # The first account is the owner's, made through the owner link in the log
 #   (sudo journalctl -u skrongle -g "Owner link" -o cat | tail -n 1);
-# everyone else needs an invitation link from its Superuser page:
+# everyone else needs an invitation link from its Manage Users page:
 Environment=SKRONGLE_SIGNUP=invite
 # Optional settings (a public URL, …): see docs/self-hosting.md.
 EnvironmentFile=-/etc/skrongle/env

@@ -72,7 +72,7 @@ pub const USER_TABLES: &[(&str, &str)] = &[
 /// `user_id` to NULL instead (`ON DELETE SET NULL`). `sms_sends` is
 /// the leftover texts' rate-limit ledger; its table goes with the schema
 /// squash. `privacy_actions` is the log of privacy requests
-/// answered (#981): a superuser's rows stay, without their id.
+/// answered (#981): an owner's rows stay, without their id.
 #[cfg_attr(not(test), allow(dead_code))]
 pub const KEPT_ON_DELETE: &[&str] = &["sms_sends", "privacy_actions"];
 
@@ -97,7 +97,7 @@ pub const EXPORTED: &[(&str, &[&str])] = &[
             "id", "created_at", "google_sub", "email", "active_course", "first_name", "last_name", "avatar", "theme", "age_confirmed", "developer", "ai_off",
             "email_verified_at", "superuser", "avatar_color", "review_quiet", "phone", "phone_verified_at", "two_factor", "lang", "billing_ref", "stripe_customer", "motivator",
             "ai_credits", "signup_credit_at", "own_keys_fallback", "must_change_password", "phone_opted_out_at", "suspended_at", "beta", "delete_at",
-            "ai_effort",
+            "ai_effort", "owner",
         ],
     ),
     ("sessions", &["id", "user_id", "created_at", "expires_at"]),
@@ -172,7 +172,7 @@ pub const EXPORTED: &[(&str, &[&str])] = &[
     ("data_exports", &["id", "user_id", "state", "bytes", "created_at", "ready_at", "expires_at", "downloaded_at"]),
     // The texts' rate-limit ledger (#362): when and which allowance, never the number.
     ("sms_sends", &["id", "user_id", "kind", "created_at"]),
-    // Invitation links a superuser made, or the one this account came in by.
+    // Invitation links an owner made, or the one this account came in by.
     ("signup_invites", &["id", "created_by", "created_at", "expires_at", "used_at", "used_by", "email"]),
     // The waitlist row this account signed up from (#934).
     ("waitlist", &["id", "email", "joined_at", "confirmed_at", "invite_id", "invited_at", "invites_sent", "signed_up_at", "user_id"]),
@@ -183,7 +183,7 @@ pub const EXPORTED: &[(&str, &[&str])] = &[
             "id", "user_id", "course_id", "course_title", "location", "reason", "email", "name", "work", "details", "good_faith", "created_at", "state", "forwarded_at",
             "resolved_at",
         ],
-    ),    // What this account did as a superuser about privacy requests (#981).
+    ),    // What this account did as an owner about privacy requests (#981).
     ("privacy_actions", &["id", "superuser_id", "action", "reason", "created_at"]),
 ];
 
@@ -201,7 +201,7 @@ pub const WITHHELD: &[(&str, &[&str])] = &[
     ("email_verifications", &["token_hash"]),
     ("password_resets", &["token_hash"]),
     ("course_shares", &["token_hash"]),
-    // The hash of the checked files, and which superuser let a flagged course through.
+    // The hash of the checked files, and which owner let a flagged course through.
     ("course_flags", &["content_hash", "overridden_by"]),
     // The hash of the text sent to Jev.
     ("content_scores", &["hash"]),

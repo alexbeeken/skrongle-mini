@@ -168,7 +168,7 @@ Still open from this review:
 
 ## Accepted risks
 
-- **Superusers act on any account** (#220). The only action so far,
+- **Owners act on any account** (#220). The only action so far,
   *Reset email verification*, unconfirms an account and e-mails it a new
   link. Until the owner clicks it, the account cannot add a phone number or
   turn on e-mail as its second step (#431), and courses shared to its

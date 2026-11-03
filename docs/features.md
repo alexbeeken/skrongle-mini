@@ -1788,38 +1788,40 @@ keep their explicit buttons. The page needs JavaScript.
   owns. What is kept and for how long:
   [data inventory](data-inventory); the privacy notice is at `/privacy`
   ([privacy](privacy), public, with a "Last updated" line at the top).
-- **Superuser page** (`/superuser`, superuser accounts only, #220): actions
+- **Manage Users page** (`/manage`, owner accounts only, #220): actions
   that reach any account, for people running the app; the account menu
-  links to it. An account is a superuser when `users.superuser` is 1. With `SKRONGLE_SIGNUP` `invite` or `closed` (#634)
+  links to it. An account is an owner when `users.owner` is 1. With `SKRONGLE_SIGNUP` `invite` or `closed` (#634)
   the first account made on a server with no accounts becomes one (the
   owner, made only through the owner link from the log; one query in the
   registration transaction);
-  otherwise no page sets it: run `./spanish-learning make-owner <email>`
-  (#635; see `docs/self-hosting.md`, "If you lock yourself out").
+  otherwise an owner sets it with **Make owner** on the page, or
+  `./spanish-learning make-owner <email>` does (#635; see
+  `docs/self-hosting.md`, "If you lock yourself out"). Migration 98 (#16)
+  set it for every account that was a superuser or a developer before.
   In dev mode the
   dev user (`dev@example.com`) always is one. For anyone else the menu has
-  no link, and the page and its forms answer 404 (`src/routes/superuser.rs`).
+  no link, and the page and its forms answer 404 (`src/routes/manage.rs`).
   - **Accounts** (#634, `src/signup.rs`): the (i) says which sign-up mode
     the server is in (`SKRONGLE_SIGNUP`: `open`, the default and the hosted
     site's; `invite`; `closed`), how invitations work and how many accounts
     there are. In `invite` mode,
-    **Make an invitation link** (`POST /superuser/invites`, 404
+    **Make an invitation link** (`POST /manage/invites`, 404
     in other modes) shows `<SKRONGLE_PUBLIC_URL or the request's host>/register?invite=<token>`
     once, with **Copy**; the token is 32 random bytes, hex, stored only as
     its SHA-256 in `signup_invites`, and works once, for 7 days. The open
     invitations are listed (made, expires) with **Revoke**
-    (`POST /superuser/invites/revoke`). Below, every account, newest
+    (`POST /manage/invites/revoke`). Below, every account, newest
     first, all on one page (the server holds at most 8): e-mail address, created, last sign-in
-    (the newest session on record; sessions last 30 days), and three
+    (the newest session on record; sessions last 30 days), and the
     actions per row, each opening a dialog with the address, what it does
     and a confirm button. Nothing is sent to the account; each writes one
-    `info` log line (which superuser, which account id, what; never the
-    password). Two are the owner's (#635, `src/owner.rs`):
-    - **Temporary password** (`POST /superuser/temp-password`,
+    `info` log line (which owner, which account id, what; never the
+    password). Three are the owner's (#635, #16, `src/owner.rs`):
+    - **Temporary password** (`POST /manage/temp-password`,
       `email=`): a generated 14-character password (letters and digits
       without look-alikes) is set, and shown once in a dialog with
       **Copy** (`Cache-Control: no-store`). Every session of the account
-      ends (a superuser resetting their own keeps the current one), and
+      ends (an owner resetting their own keeps the current one), and
       `users.must_change_password` is set: after signing in with it, the
       `CurrentUser` extractor sends the account to
       `/password/change?next=…` before any other page (`/api/*` answers
@@ -1827,10 +1829,14 @@ keep their explicit buttons. The page needs JavaScript.
       (not the old one), ends other sessions, clears the flag and goes on
       to `next`. Choosing a password anywhere clears the flag
       (`profile::set_password_hash`).
-    - **Turn off two-factor** (`POST /superuser/two-factor-off`):
+    - **Turn off two-factor** (`POST /manage/two-factor-off`):
       `users.two_factor` is cleared, and the account's `totp_keys`,
       waiting sign-ins (`two_factor_challenges`) and change confirmations
       (`two_factor_confirmations`) are deleted.
+    - **Make owner** (`POST /manage/make-owner`, #16; only on rows that
+      are not owners yet): `users.owner` is set, so the account sees
+      Manage Users in its menu and may take every action here. The page
+      does not take it back.
     An address no account has comes back as `No account has the address …`.
     The same three actions exist as commands on the binary for an owner
     who can't sign in: `reset-password`, `disable-2fa`, `make-owner`
@@ -1852,19 +1858,19 @@ keep their explicit buttons. The page needs JavaScript.
     which carries the token. Existing accounts always sign
     in. Under `closed` an invitation never works. Rate limits are as for
     any registration.
-  - **Reset email verification** (`POST /superuser/reset-email-verification`,
+  - **Reset email verification** (`POST /manage/reset-email-verification`,
     the third row action): the account is marked unconfirmed again and sent
     a new confirmation link, exactly as at registration; links sent before
     stop working. The notice says so (`No account has the address …` when
     none does) and, with the dev mailbox, links to the new message.
-    The log records which superuser reset which account. Signing in through
+    The log records which owner reset which account. Signing in through
     `/dev/login` confirms the dev user again.
   - **Coming change to the terms** (#966, hosted only): while a material
     entry of `docs/terms-changes.json` has a later `effective` date and
     some account with an address has not had its e-mail, the page shows
     "The terms have changed." and a card with **Send the announcement**.
     Its confirm dialog says how many accounts it goes to;
-    `POST /superuser/terms-announce` queues them (`terms::announce_upcoming`)
+    `POST /manage/terms-announce` queues them (`terms::announce_upcoming`)
     and the notice says how many were queued. Once everyone has it, the
     notice and the card go away.
 
@@ -1925,8 +1931,8 @@ address (#1328).
     account) is sent to `/terms/accept` until it is accepted.
   - *30 days ahead*: a material entry with a later `effective` date is
     e-mailed once to every account with an address (purpose `terms-change`:
-    the date, the summary, a link to `/terms`) when a superuser presses
-    **Send the announcement** on `/superuser`; nothing sends it on its own.
+    the date, the summary, a link to `/terms`) when an owner presses
+    **Send the announcement** on `/manage`; nothing sends it on its own.
     `terms_announcements` records who got it, so pressing again only mails
     accounts made since (or held back by the hourly mail ceiling). It only takes effect, and the notice only appears,
     on its date. Not in Skrongle mini (no e-mail).
@@ -1977,7 +1983,7 @@ an account (#379, `src/reset.rs`):
   when an address has an account, signs the new account in at once and
   replaces no account. `/reset` is a 404 there and the login page has no
   *Forgot your password?* link; the owner sets a temporary password
-  instead (the Superuser page, under [Profile](#profile)).
+  instead (the Manage Users page, under [Profile](#profile)).
 
 **Password reset** (`/reset`, linked from the login page as *Forgot your
 password?*, `login-reset-link`):
@@ -2015,7 +2021,7 @@ gives its address up to a new registration after `SKRONGLE_UNCONFIRMED_DAYS`
 
 - **When a link is sent** (outbox purpose `email-verify`, through
   `Mailer::queue`): right after registering with e-mail and password; when a
-  superuser resets the account's verification (the Superuser page, it starts
+  owner resets the account's verification (the Manage Users page, it starts
   unconfirmed again); and on *Send the e-mail again*
   (`POST /profile/verify-email/resend`, 5 per account per hour, past that it
   silently sends nothing).
@@ -2035,7 +2041,7 @@ gives its address up to a new registration after `SKRONGLE_UNCONFIRMED_DAYS`
   link is issued or queued (`verify::send` logs and returns), the address
   field shows an (i) (`email-no-mail-info`) whose dialog says the server
   cannot send mail, in place of the red ! and *Resend*; *Send the e-mail
-  again* and the superuser's reset are not offered.
+  again* and the owner's reset are not offered.
 - **Dev mode**: the message, link included, is on `/dev/mail` (a page in a
   browser, JSON for scripts) and the link is logged at `info`; the dev user
   is confirmed. Rows are deleted 7 days after they were made (hourly

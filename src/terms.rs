@@ -10,7 +10,7 @@
 //! `templates/terms_notice.html`): a minor change can be dismissed (that is
 //! acceptance), a material one blocks until accepted. A material change
 //! with a later effective date is e-mailed to every account once, when a
-//! superuser presses Send on `/superuser` ([`announce_upcoming`], table
+//! owner presses Send on `/manage` ([`announce_upcoming`], table
 //! `terms_announcements`), and only takes effect on its date. An account that never accepted any version gets the
 //! full-page gate, `/terms/accept`.
 //!
@@ -384,7 +384,7 @@ fn upcoming(state: &AppState) -> Vec<&'static Change> {
 }
 
 /// How many e-mails about upcoming changes are still to send: the
-/// Superuser page shows its notice and Send button while this is above 0.
+/// Manage Users page shows its notice and Send button while this is above 0.
 pub async fn unannounced(state: &AppState) -> Result<i64, crate::error::AppError> {
     let versions: Vec<String> = upcoming(state).into_iter().map(|c| c.version.clone()).collect();
     if versions.is_empty() {
@@ -394,7 +394,7 @@ pub async fn unannounced(state: &AppState) -> Result<i64, crate::error::AppError
 }
 
 /// E-mail every upcoming material change to the accounts that have not had
-/// it: the Superuser page's Send button, nothing else. Returns how many
+/// it: the Manage Users page's Send button, nothing else. Returns how many
 /// were queued; past the hourly ceiling the rest wait for the next press.
 pub async fn announce_upcoming(state: &AppState) -> Result<usize, crate::error::AppError> {
     // Hosted servers set SKRONGLE_PUBLIC_URL (payments need it); without it the link is a bare path.

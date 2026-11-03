@@ -2,7 +2,7 @@
 //! the account signs in with.
 //!
 //! - A link is sent on registration with a password, on "Send the e-mail
-//!   again" (rate limited), and when a superuser resets the account's
+//!   again" (rate limited), and when an owner resets the account's
 //!   verification ([`reset`]).
 //! - The token is 32 random bytes from the OS, hex in the link and stored
 //!   only as its SHA-256 (`email_verifications.token_hash`). It works once,
@@ -172,7 +172,7 @@ pub async fn send(state: &AppState, headers: &HeaderMap, user_id: i64, email: &s
 /// Through `idx_users_email_lower` (#606), like every lookup by address.
 const RESET_SQL: &str = "SELECT id, email FROM users WHERE lower(email) = lower(?1)";
 
-/// The superuser action (#220): the account with `email` (any case) is
+/// The owner action (#220): the account with `email` (any case) is
 /// unconfirmed again and gets a new link, as if it had just registered.
 /// `None` when no account has that address.
 pub async fn reset(state: &AppState, headers: &HeaderMap, email: &str) -> Result<Option<i64>, AppError> {

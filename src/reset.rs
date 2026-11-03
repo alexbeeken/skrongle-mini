@@ -66,7 +66,7 @@ pub fn replaceable(conn: &Connection, email: &str, now: i64, days: i64) -> rusql
     }
     conn.query_row(
             "SELECT id FROM users WHERE lower(email) = lower(?1) AND email_verified_at IS NULL
-               AND password_hash <> '' AND superuser = 0 AND created_at <= ?2 ORDER BY id LIMIT 1",
+               AND password_hash <> '' AND owner = 0 AND created_at <= ?2 ORDER BY id LIMIT 1",
             params![email, now - days * 86_400],
             |r| r.get(0),
         )

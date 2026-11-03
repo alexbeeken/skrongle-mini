@@ -1,4 +1,4 @@
-//! Local development and testing aids, all off unless `SKRONGLE_DEV=1`.
+//! Local development and testing aids, all off unless `SKRONGLEDEV=1`.
 //!
 //! - A fixed dev user (`/dev/login`, `/dev/reset`, the startup seed), with
 //!   API keys for every provider that the simulated provider accepts.
@@ -378,13 +378,12 @@ pub fn valid_stem(stem: &str) -> bool {
 /// The dev user's id, creating the account on first use. Blocking (argon2).
 /// The dev user has always accepted the current Terms and confirmed its
 /// address, so neither the gate nor the e-mail notice stands between a test
-/// and the app, and is a superuser (the profile's Superuser section) and a
-/// developer (`users.developer`).
+/// and the app, and is an owner (`users.owner`: the Manage Users page).
 pub fn ensure_user(db: &Db) -> Result<i64, String> {
     let accept = |id: i64| {
         db.with(|c| {
             crate::terms::accept(c, id, crate::terms::version())?;
-            c.execute("UPDATE users SET superuser = 1, developer = 1 WHERE id = ?1", [id])?;
+            c.execute("UPDATE users SET owner = 1 WHERE id = ?1", [id])?;
             crate::verify::mark_verified(c, id, crate::db::now())
         })
         .map_err(|e| e.to_string())
@@ -411,12 +410,6 @@ pub fn save_dev_keys(conn: &Connection, vault: &crate::secrets::Vault, user_id: 
     Ok(())
 }
 
-/// Make the account a developer (`users.developer`). The seed does
-/// this for the dev user; elsewhere it is an `UPDATE` by hand.
-pub fn set_developer(conn: &Connection, user_id: i64) -> rusqlite::Result<()> {
-    conn.execute("UPDATE users SET developer = 1 WHERE id = ?1", [user_id]).map(|_| ())
-}
-
 /// Every progress table, keyed by user.
 const PROGRESS_TABLES: [&str; 13] = [
     "lesson_passes",
@@ -436,7 +429,7 @@ const PROGRESS_TABLES: [&str; 13] = [
 
 /// Wipe a user's progress and own courses (drafts and generated ones) and
 /// switch the review of AI changes back to opening by itself and forget its
-/// saved app language, so a `lang` cookie decides again (#1363); the account (developer or not), its keys,
+/// saved app language, so a `lang` cookie decides again (#1363); the account (owner or not), its keys,
 /// its credits and its sessions stay; its AI usage log goes too, so a test
 /// starts with the whole allowance. Returns the deleted course ids.
 pub fn reset_user(conn: &Connection, user_id: i64) -> rusqlite::Result<Vec<String>> {
@@ -463,7 +456,7 @@ pub fn seed(db: &Db, courses: &crate::courses::Courses, keys: Option<&crate::sec
     let course = courses.builtin_store(&id).ok_or("the built-in course to seed does not load")?;
     let cid = course.id().to_string();
     db.with(|c| {
-        set_developer(c, uid)?;
+        crate::owner::make_owner(c, uid)?;
         crate::courses::open_project(c, uid, &cid)?;
         if let Some(vault) = keys {
             save_dev_keys(c, vault, uid)?;

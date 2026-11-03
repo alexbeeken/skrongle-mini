@@ -11,7 +11,7 @@ nav:
   switch_course_now: "Trocar de curso (agora {course})"
   account_menu_for: "Menu da conta de {name}"
   profile: Configurações do perfil
-  superuser: Superusuário
+  manage: Gerenciar usuários
   documentation: Documentação
   docs: Docs
   login: Entrar
@@ -724,9 +724,9 @@ profile:
     turn_off: Desligar a autenticação em duas etapas
     switch_to: "Trocar a autenticação em duas etapas para {method}"
     turn_on_by: "Ligar a verificação em duas etapas por {method}"
-superuser:
-  title: Superusuário
-  about: "Ações em qualquer conta. Só superusuários veem esta página."
+manage:
+  title: Gerenciar usuários
+  about: "Ações em qualquer conta. Só proprietários veem esta página."
   open_inbox: Abrir na caixa de entrada de desenvolvimento
   email: Endereço de e-mail
   reset_note: Marca o endereço da conta como não confirmado e envia um novo link de confirmação, como no cadastro.
@@ -758,6 +758,9 @@ superuser:
   two_factor_off_about: "A conta entra só com a senha até ativar de novo a verificação em duas etapas. O app autenticador configurado é removido."
   two_factor_off_confirm: "Desativar"
   two_factor_off_done: "A verificação em duas etapas está desativada para {email}."
+  make_owner: "Tornar proprietário"
+  make_owner_about: "A conta também passa a ser proprietária: vê Gerenciar usuários no menu da conta e pode fazer todas as ações desta página. Não dá para desfazer aqui."
+  make_owner_done: "{email} agora é proprietário."
   terms_changed: "Os termos mudaram."
   terms_title: "Próxima alteração dos termos"
   terms_send: "Enviar o aviso"
@@ -1369,7 +1372,7 @@ docs:
     done_html: "🎉 <strong>Pronto.</strong> Salve nos favoritos."
     not_loading_html: "💡 <strong>Não carrega?</strong> Rode <code>hostname -I</code> no Pi e use esse número, por exemplo <code>http://192.168.1.42:8080</code>."
     yours_h2: Deixe do seu jeito
-    yours_account_html: "<strong>Convide os demais</strong> com um link em <em>Superusuário</em> (no menu da conta)."
+    yours_account_html: "<strong>Convide os demais</strong> com um link em <em>Gerenciar usuários</em> (no menu da conta)."
     yours_terms_html: "<strong>Coloque seu nome nos Termos.</strong> Todos os aceitam ao se cadastrar. Edite-os com <code>sudo nano /etc/skrongle/terms.md</code> e depois <code>sudo systemctl restart skrongle</code>; todos aceitam o novo texto na próxima visita."
     yours_course_html: "<strong>Escolha um curso.</strong> O espanhol já vem incluído, ou crie o seu."
     yours_ai_html: "<strong>Opcional: tutor de IA e gerador de cursos.</strong> Cole uma chave da Anthropic, OpenAI ou Google em <em>Configurações do perfil → Chaves de API de IA</em>. Elas cobram você diretamente."

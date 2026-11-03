@@ -316,11 +316,11 @@ fn sign_in_codes_count_against_the_account_limit() {
     assert!(state.db.with(|c| two_factor::pending(c, &ch.token, crate::db::now())).unwrap().is_some(), "no try was used");
 }
 
-/// The Superuser page (#220): only superusers see it (or its link in
+/// The Manage Users page (#220): only owners see it (or its link in
 /// the account menu) or may post to it; "Reset email verification"
 /// unconfirms any account and sends it a new link.
 #[test]
-fn superusers_reset_email_verification() {
+fn owners_reset_email_verification() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
     let state = super::test_state(false);
     let app = super::router(state.clone());
@@ -344,36 +344,36 @@ fn superusers_reset_email_verification() {
     let (_, root, _) = post("/login", "", &[("email", "root@example.org"), ("password", "long-enough-pw")]);
     post("/register", "", &[("email", "bob@example.org"), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on")]);
     let (_, bob, _) = post("/login", "", &[("email", "bob@example.org"), ("password", "long-enough-pw")]);
-    state.db.with(|c| c.execute("UPDATE users SET superuser = 1 WHERE email = 'root@example.org'", [])).unwrap();
+    state.db.with(|c| c.execute("UPDATE users SET owner = 1 WHERE email = 'root@example.org'", [])).unwrap();
     state.db.with(|c| c.execute("UPDATE users SET email_verified_at = 5 WHERE email = 'bob@example.org'", [])).unwrap();
     let bob_links = || sql("SELECT COUNT(*) FROM mail_outbox o JOIN users u ON u.id = o.user_id WHERE u.email = ?1 AND o.purpose = 'email-verify'", "bob@example.org");
 
-    // Not a superuser: no link in the menu, the page is a 404, and posting by hand is a 404.
-    assert!(!get("/profile", &bob).contains("nav-superuser"));
-    assert_eq!(status("/superuser", &bob), 404);
-    assert_eq!(post("/superuser/reset-email-verification", &bob, &[("email", "bob@example.org")]).0, 404);
-    assert_eq!(post("/superuser/terms-announce", &bob, &[]).0, 404);
+    // Not an owner: no link in the menu, the page is a 404, and posting by hand is a 404.
+    assert!(!get("/profile", &bob).contains("nav-manage"));
+    assert_eq!(status("/manage", &bob), 404);
+    assert_eq!(post("/manage/reset-email-verification", &bob, &[("email", "bob@example.org")]).0, 404);
+    assert_eq!(post("/manage/terms-announce", &bob, &[]).0, 404);
     assert_eq!(sql("SELECT email_verified_at FROM users WHERE email = ?1", "bob@example.org"), 5);
 
-    // A superuser: the link, and the page with every account and its actions.
-    assert!(get("/profile", &root).contains(r#"href="/superuser" data-testid="nav-superuser""#));
-    let page = get("/superuser", &root);
-    assert!(page.contains(r#"data-testid="superuser-accounts""#) && page.contains(r#"data-account-email="bob@example.org""#) && page.contains("superuser-verify-dialog"), "{page}");
-    assert!(!page.contains("superuser-pager"), "two accounts: one page");
+    // An owner: the link, and the page with every account and its actions.
+    assert!(get("/profile", &root).contains(r#"href="/manage" data-testid="nav-manage""#));
+    let page = get("/manage", &root);
+    assert!(page.contains(r#"data-testid="manage-accounts""#) && page.contains(r#"data-account-email="bob@example.org""#) && page.contains("manage-verify-dialog"), "{page}");
+    assert!(!page.contains("manage-pager"), "two accounts: one page");
     // No coming change of the terms in the changelog: no notice, no Send.
-    assert!(!page.contains("superuser-terms-changed") && !page.contains("superuser-terms-send"), "{page}");
+    assert!(!page.contains("manage-terms-changed") && !page.contains("manage-terms-send"), "{page}");
 
     // Someone else's address, in any case: unconfirmed again, with a new link.
-    let (status, _, loc) = post("/superuser/reset-email-verification", &root, &[("email", " BOB@example.org ")]);
-    assert_eq!((status, loc.as_str()), (303, "/superuser?did=reset&email=bob%40example.org"));
+    let (status, _, loc) = post("/manage/reset-email-verification", &root, &[("email", " BOB@example.org ")]);
+    assert_eq!((status, loc.as_str()), (303, "/manage?did=reset&email=bob%40example.org"));
     assert_eq!(sql("SELECT COUNT(*) FROM users WHERE email = ?1 AND email_verified_at IS NULL", "bob@example.org"), 1);
     assert_eq!(bob_links(), 2);
     assert!(get(&loc, &root).contains("bob@example.org is unconfirmed again"));
-    assert!(!get(&loc, &bob).contains("unconfirmed again"), "only superusers get the notice");
+    assert!(!get(&loc, &bob).contains("unconfirmed again"), "only owners get the notice");
 
     // An address nobody has.
-    let (_, _, loc) = post("/superuser/reset-email-verification", &root, &[("email", "nobody@example.org")]);
-    assert!(get(&loc, &root).contains(r#"data-testid="superuser-error""#));
+    let (_, _, loc) = post("/manage/reset-email-verification", &root, &[("email", "nobody@example.org")]);
+    assert!(get(&loc, &root).contains(r#"data-testid="manage-error""#));
     assert_eq!(bob_links(), 2);
 
     // Every account on one page, newest first, with the count from the list.
@@ -387,18 +387,18 @@ fn superusers_reset_email_verification() {
             Ok(())
         })
         .unwrap();
-    let page = get("/superuser", &root);
-    assert_eq!(page.matches("superuser-account-row").count(), crate::caps::MAX_ACCOUNTS, "{page}");
-    assert!(page.contains("<td>root@example.org</td>") && !page.contains("superuser-pager") && !page.contains("page="), "{page}");
+    let page = get("/manage", &root);
+    assert_eq!(page.matches("manage-account-row").count(), crate::caps::MAX_ACCOUNTS, "{page}");
+    assert!(page.contains("<td>root@example.org</td>") && !page.contains("manage-pager") && !page.contains("page="), "{page}");
     assert!(page.contains(&format!("{max} of {max} accounts", max = crate::caps::MAX_ACCOUNTS)), "{page}");
 }
 
-/// The Superuser page's account actions (#635): only superusers may
+/// The Manage Users page's account actions (#635): only owners may
 /// post them. A temporary password is shown once and signs the account
 /// out; signing in with it leads to `/password/change` (API: 403) until
 /// a new one is chosen. "Turn off two-factor" clears the method and key.
 #[test]
-fn superusers_reset_passwords_and_two_factor() {
+fn owners_reset_passwords_two_factor_and_make_owners() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
     let state = super::test_state(false);
     let app = super::router(state.clone());
@@ -428,25 +428,26 @@ fn superusers_reset_passwords_and_two_factor() {
         post("/login", "", &[("email", email), ("password", "long-enough-pw")]).1
     };
     let (root, bob) = (register("root@example.org"), register("bob@example.org"));
-    state.db.with(|c| c.execute("UPDATE users SET superuser = 1 WHERE email = 'root@example.org'", [])).unwrap();
+    state.db.with(|c| c.execute("UPDATE users SET owner = 1 WHERE email = 'root@example.org'", [])).unwrap();
     let bob_id: i64 = state.db.with(|c| c.query_row("SELECT id FROM users WHERE email = 'bob@example.org'", [], |r| r.get(0))).unwrap();
     let hash = || state.db.with(|c| crate::profile::password_hash(c, bob_id)).unwrap().unwrap();
     let flagged = || state.db.with(|c| c.query_row("SELECT must_change_password FROM users WHERE id = ?1", [bob_id], |r| r.get::<_, bool>(0))).unwrap();
     let old_hash = hash();
 
-    // Not a superuser: 404 on both, and nothing changes.
-    assert_eq!(post("/superuser/temp-password", &bob, &[("email", "root@example.org")]).0, 404);
-    assert_eq!(post("/superuser/two-factor-off", &bob, &[("email", "root@example.org")]).0, 404);
-    assert_eq!(get("/superuser", &bob).0, 404);
+    // Not an owner: 404 on both, and nothing changes.
+    assert_eq!(post("/manage/temp-password", &bob, &[("email", "root@example.org")]).0, 404);
+    assert_eq!(post("/manage/two-factor-off", &bob, &[("email", "root@example.org")]).0, 404);
+    assert_eq!(post("/manage/make-owner", &bob, &[("email", "bob@example.org")]).0, 404);
+    assert_eq!(get("/manage", &bob).0, 404);
 
-    // A superuser: each row offers both actions.
-    let (_, _, page) = get("/superuser", &root);
-    assert!(page.contains(r#"data-account-email="bob@example.org""#) && page.contains("superuser-two-factor-dialog"), "{page}");
+    // An owner: each row offers both actions.
+    let (_, _, page) = get("/manage", &root);
+    assert!(page.contains(r#"data-account-email="bob@example.org""#) && page.contains("manage-two-factor-dialog"), "{page}");
 
     // A temporary password, shown once, uncached; bob is signed out.
-    let (status, _, _, page, cache) = post("/superuser/temp-password", &root, &[("email", " Bob@example.org ")]);
+    let (status, _, _, page, cache) = post("/manage/temp-password", &root, &[("email", " Bob@example.org ")]);
     assert_eq!((status, cache.as_str()), (200, "no-store"));
-    let at = page.find(r#"data-testid="superuser-temp-password""#).expect("the password is on the page");
+    let at = page.find(r#"data-testid="manage-temp-password""#).expect("the password is on the page");
     let value = page[..at].rsplit("value=\"").next().unwrap();
     let temp = value.split('"').next().unwrap().to_string();
     assert!(temp.len() >= 12, "{temp}");
@@ -454,7 +455,7 @@ fn superusers_reset_passwords_and_two_factor() {
     assert!(crate::auth::verify_password(&temp, &hash()));
     assert!(flagged());
     assert_eq!(get("/profile", &bob).0, 303, "bob's old session ended");
-    assert!(!get("/superuser", &root).2.contains(&temp), "shown only once");
+    assert!(!get("/manage", &root).2.contains(&temp), "shown only once");
     assert_eq!(get("/profile", &root).0, 200, "root keeps going");
 
     // Bob signs in with it: the gate, before anything else.
@@ -487,8 +488,8 @@ fn superusers_reset_passwords_and_two_factor() {
             crate::two_factor::start_login(c, bob_id, crate::db::now()).map(|_| ())
         })
         .unwrap();
-    let (status, _, loc, _, _) = post("/superuser/two-factor-off", &root, &[("email", "bob@example.org")]);
-    assert_eq!((status, loc.as_str()), (303, "/superuser?did=two-factor-off&email=bob%40example.org"));
+    let (status, _, loc, _, _) = post("/manage/two-factor-off", &root, &[("email", "bob@example.org")]);
+    assert_eq!((status, loc.as_str()), (303, "/manage?did=two-factor-off&email=bob%40example.org"));
     let left: (String, i64, i64) = state
         .db
         .with(|c| {
@@ -502,9 +503,24 @@ fn superusers_reset_passwords_and_two_factor() {
     assert_eq!(left, (String::new(), 0, 0));
     assert!(get(&loc, &root).2.contains("Two-factor sign-in is off for bob@example.org"));
 
+    // Make owner (#16): offered on bob's row, not on root's; then bob is one.
+    let is_owner = || state.db.with(|c| c.query_row("SELECT owner FROM users WHERE id = ?1", [bob_id], |r| r.get::<_, bool>(0))).unwrap();
+    assert!(!is_owner());
+    let page = get("/manage", &root).2;
+    assert_eq!(page.matches(r#"data-testid="manage-account-make-owner""#).count(), 1, "{page}");
+    assert!(page.contains(r#"data-opens="manage-owner-dialog" data-account-email="bob@example.org""#), "{page}");
+    let (status, _, loc, _, _) = post("/manage/make-owner", &root, &[("email", " Bob@example.org ")]);
+    assert_eq!((status, loc.as_str()), (303, "/manage?did=owner&email=bob%40example.org"));
+    assert!(is_owner());
+    let page = get(&loc, &root).2;
+    assert!(page.contains("bob@example.org is an owner now") && !page.contains(r#"data-testid="manage-account-make-owner""#), "{page}");
+
+    // The old address of the page redirects, query and all.
+    assert_eq!(get("/superuser?did=x", &root), (308, "/manage?did=x".to_string(), String::new()));
+
     // An address nobody has.
-    let (_, _, loc, _, _) = post("/superuser/temp-password", &root, &[("email", "nobody@example.org")]);
-    assert!(get(&loc, &root).2.contains(r#"data-testid="superuser-error""#), "{loc}");
+    let (_, _, loc, _, _) = post("/manage/temp-password", &root, &[("email", "nobody@example.org")]);
+    assert!(get(&loc, &root).2.contains(r#"data-testid="manage-error""#), "{loc}");
 }
 
 /// A server on `SKRONGLE_SIGNUP` (#634), its router served on a free
@@ -523,7 +539,7 @@ fn signup_server(mode: crate::signup::Mode) -> (tokio::runtime::Runtime, std::sy
 
 /// `SKRONGLE_SIGNUP=invite`: the first account is the owner's, made
 /// only through the owner link from the log; after it `/register` is
-/// closed except through a link the owner makes on the Superuser page, which
+/// closed except through a link the owner makes on the Manage Users page, which
 /// works once, for 7 days, until revoked.
 #[test]
 fn signup_by_invitation() {
@@ -540,7 +556,7 @@ fn signup_by_invitation() {
     };
     let register = |email: &str, invite: &str| post("/register", "", &[("email", email), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on"), ("invite", invite)]);
     let users = || state.db.with(|c| c.query_row("SELECT COUNT(*) FROM users", [], |r| r.get::<_, i64>(0))).unwrap();
-    let superuser = |email: &'static str| state.db.with(|c| c.query_row("SELECT superuser FROM users WHERE email = ?1", [email], |r| r.get::<_, bool>(0))).unwrap();
+    let has_flag = |email: &'static str| state.db.with(|c| c.query_row("SELECT owner FROM users WHERE email = ?1", [email], |r| r.get::<_, bool>(0))).unwrap();
 
     // An empty server: without the owner link, nobody gets in first.
     let (status, page) = get("/register", "");
@@ -562,7 +578,7 @@ fn signup_by_invitation() {
     assert_eq!(register("owner@example.org", &owner_link).0, 200);
     let (status, owner, _) = post("/login", "", &[("email", "owner@example.org"), ("password", "long-enough-pw")]);
     assert_eq!(status, 303);
-    assert!(superuser("owner@example.org"), "the first account is a superuser");
+    assert!(has_flag("owner@example.org"), "the first account is an owner");
     assert_eq!(register("eve@example.org", &owner_link).0, 403, "the owner link works once");
 
     // Now closed without a link: a short page, and posting makes nothing.
@@ -575,29 +591,29 @@ fn signup_by_invitation() {
     assert_eq!(register("eve@example.org", "not-a-token").0, 403);
     assert_eq!(users(), 1);
 
-    // The owner's Superuser page: the list and the button.
-    let (_, page) = get("/superuser", &owner);
-    assert!(page.contains("superuser-accounts") && page.contains("superuser-invite-form") && page.contains(r#"data-mode="invite""#), "{page}");
+    // The owner's Manage Users page: the list and the button.
+    let (_, page) = get("/manage", &owner);
+    assert!(page.contains("manage-accounts") && page.contains("manage-invite-form") && page.contains(r#"data-mode="invite""#), "{page}");
     assert!(page.contains("<td>owner@example.org</td>"));
 
     // A link, shown once, used once.
     let make = || {
-        let (status, _, page) = post("/superuser/invites", &owner, &[]);
+        let (status, _, page) = post("/manage/invites", &owner, &[]);
         assert_eq!(status, 200);
-        // superuser.js sets the address bar back to this, so a reload does not post again (#665).
-        assert!(page.contains(r#"data-page-url="/superuser""#), "{page}");
+        // manage.js sets the address bar back to this, so a reload does not post again (#665).
+        assert!(page.contains(r#"data-page-url="/manage""#), "{page}");
         let at = page.find("/register?invite=").expect("the new link is on the page") + "/register?invite=".len();
         page[at..at + 64].to_string()
     };
     let token = make();
     assert!(token.bytes().all(|b| b.is_ascii_hexdigit()));
-    assert!(!get("/superuser", &owner).1.contains(&token), "the link is shown only when made");
+    assert!(!get("/manage", &owner).1.contains(&token), "the link is shown only when made");
     let (_, page) = get(&format!("/register?invite={token}"), "");
     assert!(page.contains(&format!(r#"name="invite" value="{token}""#)) && !page.contains("register-owner-note"), "{page}");
     assert_eq!(register("ann@example.org", &token).0, 200);
     let (status, ann, _) = post("/login", "", &[("email", "ann@example.org"), ("password", "long-enough-pw")]);
     assert_eq!(status, 303);
-    assert!(!superuser("ann@example.org"));
+    assert!(!has_flag("ann@example.org"));
     let (_, page) = get(&format!("/register?invite={token}"), "");
     assert!(page.contains("already been used"), "{page}");
     assert_eq!(register("eve@example.org", &token).0, 403);
@@ -611,14 +627,14 @@ fn signup_by_invitation() {
 
     // Revoked: listed, then gone.
     let gone = make();
-    let (_, page) = get("/superuser", &owner);
-    assert_eq!(page.matches("superuser-invite-row").count(), 1, "only the open link is listed");
+    let (_, page) = get("/manage", &owner);
+    assert_eq!(page.matches("manage-invite-row").count(), 1, "only the open link is listed");
     let id: i64 = state.db.with(|c| c.query_row("SELECT id FROM signup_invites WHERE used_at IS NULL AND expires_at > 1", [], |r| r.get(0))).unwrap();
-    // Not a superuser: 404 on both forms and on the page.
-    assert_eq!(post("/superuser/invites", &ann, &[]).0, 404);
-    assert_eq!(post("/superuser/invites/revoke", &ann, &[("id", &id.to_string())]).0, 404);
-    assert_eq!(get("/superuser", &ann).0, 404);
-    let (status, _, _) = post("/superuser/invites/revoke", &owner, &[("id", &id.to_string())]);
+    // Not an owner: 404 on both forms and on the page.
+    assert_eq!(post("/manage/invites", &ann, &[]).0, 404);
+    assert_eq!(post("/manage/invites/revoke", &ann, &[("id", &id.to_string())]).0, 404);
+    assert_eq!(get("/manage", &ann).0, 404);
+    let (status, _, _) = post("/manage/invites/revoke", &owner, &[("id", &id.to_string())]);
     assert_eq!(status, 303);
     assert!(get(&format!("/register?invite={gone}"), "").1.contains("is not valid"));
     assert_eq!(users(), 2);
@@ -646,7 +662,7 @@ fn closed_signup_lets_only_the_owner_in() {
     assert_eq!(register("owner@example.org", ""), 403, "not without the owner link");
     assert_eq!(users(), 0);
     assert_eq!(register("owner@example.org", &owner_link), 200);
-    let su: bool = state.db.with(|c| c.query_row("SELECT superuser FROM users WHERE email = 'owner@example.org'", [], |r| r.get(0))).unwrap();
+    let su: bool = state.db.with(|c| c.query_row("SELECT owner FROM users WHERE email = 'owner@example.org'", [], |r| r.get(0))).unwrap();
     assert!(su, "the first account is the owner");
 
     // Then: closed, with or without a link.
@@ -661,7 +677,7 @@ fn closed_signup_lets_only_the_owner_in() {
         crate::auth::create_session(c, id)
     });
     let owner_cookie = format!("sid={}", owner_cookie.unwrap());
-    let r = agent.post(&format!("{base}/superuser/invites")).header("cookie", &owner_cookie).send_empty().unwrap();
+    let r = agent.post(&format!("{base}/manage/invites")).header("cookie", &owner_cookie).send_empty().unwrap();
     assert_eq!(r.status().as_u16(), 404);
 }
 
@@ -678,7 +694,7 @@ fn open_signup_is_unchanged() {
         // 200: "check your mail" (#379; this server has mail).
         assert_eq!(agent.post(&format!("{base}/register")).send_form(form).unwrap().status().as_u16(), 200);
     }
-    let su: i64 = state.db.with(|c| c.query_row("SELECT COUNT(*) FROM users WHERE superuser = 1", [], |r| r.get(0))).unwrap();
+    let su: i64 = state.db.with(|c| c.query_row("SELECT COUNT(*) FROM users WHERE owner = 1", [], |r| r.get(0))).unwrap();
     assert_eq!(su, 0);
 }
 
@@ -1055,7 +1071,7 @@ fn ai_features_with_saved_keys_answered_by_the_simulator() {
             for u in [ann, dev] {
                 crate::terms::accept(c, u, crate::terms::version())?;
             }
-            crate::dev::set_developer(c, dev)?;
+            crate::owner::make_owner(c, dev)?;
             crate::courses::open_project(c, dev, "spanish")?;
             Ok((ann, dev))
         })

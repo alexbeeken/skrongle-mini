@@ -11,7 +11,7 @@ nav:
   switch_course_now: "Changer de cours (actuellement {course})"
   account_menu_for: "Menu du compte de {name}"
   profile: Paramètres du profil
-  superuser: Superutilisateur
+  manage: Gérer les utilisateurs
   documentation: Documentation
   docs: Docs
   login: Se connecter
@@ -724,9 +724,9 @@ profile:
     turn_off: Désactiver la double authentification
     switch_to: "Passer la double authentification à {method}"
     turn_on_by: "Activer la connexion en deux étapes par {method}"
-superuser:
-  title: Superutilisateur
-  about: "Actions sur n'importe quel compte. Seuls les superutilisateurs voient cette page."
+manage:
+  title: Gérer les utilisateurs
+  about: "Actions sur n'importe quel compte. Seuls les propriétaires voient cette page."
   open_inbox: L'ouvrir dans la boîte de réception de développement
   email: Adresse e-mail
   reset_note: Marque l'adresse du compte comme non confirmée et envoie un nouveau lien de confirmation, comme à l'inscription.
@@ -758,6 +758,9 @@ superuser:
   two_factor_off_about: "Le compte se connecte avec son seul mot de passe jusqu'à ce qu'il réactive la double authentification. L'application d'authentification configurée est retirée ."
   two_factor_off_confirm: "La désactiver"
   two_factor_off_done: "La double authentification est désactivée pour {email}."
+  make_owner: "Rendre propriétaire"
+  make_owner_about: "Le compte devient propriétaire lui aussi : il voit Gérer les utilisateurs dans le menu du compte et peut faire toutes les actions de cette page. Cela ne peut pas être annulé ici."
+  make_owner_done: "{email} est maintenant propriétaire."
   terms_changed: "Les conditions ont changé."
   terms_title: "Prochain changement des conditions"
   terms_send: "Envoyer l'annonce"
@@ -1369,7 +1372,7 @@ docs:
     done_html: "🎉 <strong>Terminé.</strong> Ajoutez-le à vos favoris."
     not_loading_html: "💡 <strong>Ça ne charge pas ?</strong> Exécutez <code>hostname -I</code> sur le Pi et utilisez ce numéro à la place, par ex. <code>http://192.168.1.42:8080</code>."
     yours_h2: Personnalisez-le
-    yours_account_html: "<strong>Invitez les autres</strong> avec un lien depuis <em>Superutilisateur</em> (dans le menu du compte)."
+    yours_account_html: "<strong>Invitez les autres</strong> avec un lien depuis <em>Gérer les utilisateurs</em> (dans le menu du compte)."
     yours_terms_html: "<strong>Mettez votre nom dans les conditions d'utilisation.</strong> Chacun les accepte à l'inscription. Modifiez-les avec <code>sudo nano /etc/skrongle/terms.md</code>, puis <code>sudo systemctl restart skrongle</code> ; chacun accepte le nouveau texte à sa prochaine visite."
     yours_course_html: <strong>Choisissez un cours.</strong> L'espagnol est intégré, ou créez le vôtre.
     yours_ai_html: "<strong>Facultatif : tuteur IA et générateur de cours.</strong> Collez une clé Anthropic, OpenAI ou Google dans <em>Paramètres du profil → Clés d'API IA</em>. Ils vous facturent directement."

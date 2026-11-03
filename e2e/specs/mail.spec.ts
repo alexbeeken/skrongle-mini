@@ -117,7 +117,7 @@ test("the dev mailbox is a mail client's table: bold until opened, archive strik
   await expect(page.getByTestId("dev-mail-state")).toContainText("sent");
 });
 
-test("a superuser resets another account's e-mail verification, and the new link confirms it again", async ({ page, browser }) => {
+test("an owner resets another account's e-mail verification, and the new link confirms it again", async ({ page, browser }) => {
   // A learner who confirmed their address, in a browser of their own.
   const them = await (await browser.newContext()).newPage();
   const a = newAccount("reset");
@@ -126,21 +126,21 @@ test("a superuser resets another account's e-mail verification, and the new link
   await them.goto(mailLink(first, /\/verify-email\?/));
   await expect(them.getByTestId("verify-email-confirmed")).toBeVisible();
 
-  // The dev user is a superuser: the learner's row on the Superuser page has the action.
+  // The dev user is an owner: the learner's row on the Manage Users page has the action.
   await devLogin(page);
-  await page.goto("/superuser");
-  const row = page.getByTestId("superuser-account-row").filter({ hasText: a.email.toLowerCase() });
-  await row.getByTestId("superuser-account-reset-verification").click();
-  const dialog = page.getByTestId("superuser-verify-dialog");
+  await page.goto("/manage");
+  const row = page.getByTestId("manage-account-row").filter({ hasText: a.email.toLowerCase() });
+  await row.getByTestId("manage-account-reset-verification").click();
+  const dialog = page.getByTestId("manage-verify-dialog");
   await expect(dialog).toContainText(a.email.toLowerCase());
-  await dialog.getByTestId("superuser-verify-confirm").click();
-  await expect(page.getByTestId("superuser-notice")).toContainText(`${a.email.toLowerCase()} is unconfirmed again`);
+  await dialog.getByTestId("manage-verify-confirm").click();
+  await expect(page.getByTestId("manage-notice")).toContainText(`${a.email.toLowerCase()} is unconfirmed again`);
 
   // The learner is unconfirmed again; the new link (opened from the notice) confirms them.
   await them.goto("/profile");
   await expect(them.getByTestId("email-unverified")).toBeVisible();
   await expect.poll(async () => (await inbox(a.email)).length).toBe(2);
-  await page.getByTestId("superuser-inbox").click();
+  await page.getByTestId("manage-inbox").click();
   await page.frameLocator('[data-testid="dev-inbox-html"]').getByRole("link", { name: "Confirm my e-mail address" }).click();
   await expect(page.getByTestId("verify-email-confirmed")).toBeVisible();
   await them.goto("/profile");
@@ -150,18 +150,18 @@ test("a superuser resets another account's e-mail verification, and the new link
   await expect(them.getByTestId("verify-email-invalid")).toBeVisible();
 
   // An address nobody has (the form posts whatever address it is given).
-  expect((await page.request.post("/superuser/reset-email-verification", { form: { email: "nobody-here@example.org" }, maxRedirects: 0 })).status()).toBe(303);
-  await page.goto("/superuser?did=unknown&email=nobody-here%40example.org");
-  await expect(page.getByTestId("superuser-error")).toContainText("nobody-here@example.org");
+  expect((await page.request.post("/manage/reset-email-verification", { form: { email: "nobody-here@example.org" }, maxRedirects: 0 })).status()).toBe(303);
+  await page.goto("/manage?did=unknown&email=nobody-here%40example.org");
+  await expect(page.getByTestId("manage-error")).toContainText("nobody-here@example.org");
 });
 
-test("only a superuser sees the Superuser page", async ({ page }) => {
+test("only an owner sees the Manage Users page", async ({ page }) => {
   await register(page, newAccount("plain"), "spanish");
   await page.goto("/profile");
   await page.getByTestId("nav-account-toggle").click();
-  await expect(page.getByTestId("nav-superuser")).toHaveCount(0);
-  expect((await page.request.get("/superuser", { maxRedirects: 0 })).status()).toBe(404);
-  expect((await page.request.post("/superuser/reset-email-verification", { form: { email: "dev@example.com" }, maxRedirects: 0 })).status()).toBe(404);
+  await expect(page.getByTestId("nav-manage")).toHaveCount(0);
+  expect((await page.request.get("/manage", { maxRedirects: 0 })).status()).toBe(404);
+  expect((await page.request.post("/manage/reset-email-verification", { form: { email: "dev@example.com" }, maxRedirects: 0 })).status()).toBe(404);
 });
 
 test("the dev mailbox needs no sign-in: signed out and as a learner, every section and its JSON open", async ({ page, playwright }) => {

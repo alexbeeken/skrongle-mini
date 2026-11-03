@@ -445,7 +445,7 @@ async fn lessons_view(state: &AppState, user: &CurrentUser, row: &CourseRow, loc
 }
 
 /// Load the course row, refusing anyone but the owner, and the owner too
-/// while a superuser has it taken down (#967).
+/// while an owner has it taken down (#967).
 pub(in crate::routes) async fn owned(state: &AppState, user: &CurrentUser, id: &str) -> Result<CourseRow, AppError> {
     let cid = id.to_string();
     let row = state.db.call(move |c| courses::course(c, &cid)).await?.ok_or(AppError::NotFound)?;
