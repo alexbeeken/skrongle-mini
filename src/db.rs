@@ -13,6 +13,7 @@ use std::path::Path;
 use std::sync::{Arc, Mutex, OnceLock};
 
 use crate::error::AppError;
+use crate::mastery::cache::ProgressCache;
 
 #[derive(Clone)]
 pub struct Db {
@@ -20,6 +21,8 @@ pub struct Db {
     /// The signed-in users by session (#37), forgotten by this connection's
     /// temporary triggers whenever a table they are read from changes.
     sessions: Arc<crate::auth::SessionCache>,
+    /// Learners' progress for their course, in memory (#38).
+    progress: Arc<ProgressCache>,
 }
 
 /// Pragmas applied to every connection. See the README for the reasoning.
@@ -76,6 +79,8 @@ impl Db {
         Db::new(conn)
     }
 
+    /// Hold a migrated connection, with an empty session cache (and the
+    /// triggers that keep it true) and an empty progress cache.
     fn new(conn: Connection) -> rusqlite::Result<Db> {
         let sessions = Arc::new(crate::auth::SessionCache::default());
         let watched = Arc::clone(&sessions);
@@ -84,7 +89,7 @@ impl Db {
             Ok(0)
         })?;
         conn.execute_batch(&crate::auth::SessionCache::triggers_sql())?;
-        Ok(Db { conn: Arc::new(Mutex::new(conn)), sessions })
+        Ok(Db { conn: Arc::new(Mutex::new(conn)), sessions, progress: Arc::default() })
     }
 
     /// The signed-in users kept in memory (`auth::cached_user`).
@@ -101,6 +106,12 @@ impl Db {
         Db::new(conn)
     }
 
+    /// The progress cache (#38), for the tests.
+    #[cfg(test)]
+    pub fn progress_cache(&self) -> &ProgressCache {
+        &self.progress
+    }
+
     /// Run a closure against the connection on the blocking thread pool.
     pub async fn call<F, T>(&self, f: F) -> Result<T, AppError>
     where
@@ -108,10 +119,11 @@ impl Db {
         T: Send + 'static,
     {
         let conn = Arc::clone(&self.conn);
+        let progress = Arc::clone(&self.progress);
         let lang = crate::i18n::snapshot();
         tokio::task::spawn_blocking(move || {
             let mut guard = conn.lock().unwrap_or_else(|poisoned| poisoned.into_inner());
-            crate::i18n::in_scope(lang, || f(&mut guard))
+            crate::mastery::cache::in_scope(&progress, || crate::i18n::in_scope(lang, || f(&mut guard)))
         })
         .await
         .map_err(|e| AppError::Internal(format!("db task failed: {e}")))?
@@ -124,7 +136,7 @@ impl Db {
         F: FnOnce(&mut Connection) -> rusqlite::Result<T>,
     {
         let mut guard = self.conn.lock().unwrap_or_else(|poisoned| poisoned.into_inner());
-        f(&mut guard)
+        crate::mastery::cache::in_scope(&self.progress, || f(&mut guard))
     }
 }
 

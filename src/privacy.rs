@@ -390,6 +390,8 @@ pub fn delete_account(conn: &mut Connection, user_id: i64) -> rusqlite::Result<O
     crate::mail::keep_for_caps(&tx, user_id, crate::db::now())?;
     let n = tx.execute("DELETE FROM users WHERE id = ?1", [user_id])?;
     tx.commit()?;
+    // Its `user_progress` rows went with the cascade (#38).
+    crate::mastery::cache::forget_user(user_id);
     Ok((n > 0).then_some(Deleted { courses, export_files }))
 }
 
