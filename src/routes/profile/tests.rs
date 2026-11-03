@@ -50,39 +50,6 @@ fn privacy_page_export_and_account_deletion_over_http() {
         (r.status().as_u16(), cookie, r.body_mut().read_to_string().unwrap())
     };
 
-    // Export (#430): the button queues it, the export job (run here by
-    // hand) builds it and mails a link, which works once, for ann only.
-    let (ann_c, gil_c) = (format!("sid={ann_t}"), format!("sid={gil_t}"));
-    assert_eq!(get("/profile/export.json", &ann_c).0, 404, "the synchronous export is gone");
-    assert_eq!(post("/profile/export", "", &[]).0, 303);
-    assert_eq!(state.db.with(|c| c.query_row("SELECT COUNT(*) FROM data_exports", [], |r| r.get::<_, i64>(0))).unwrap(), 0, "signed out: nothing queued");
-    assert_eq!(post("/profile/export", &ann_c, &[]).0, 303);
-    assert_eq!(post("/profile/export", &ann_c, &[]).0, 303);
-    assert_eq!(state.db.with(|c| c.query_row("SELECT COUNT(*) FROM data_exports", [], |r| r.get::<_, i64>(0))).unwrap(), 1, "one in flight");
-    assert!(get("/profile?saved=export-busy", &ann_c).1.contains("already being prepared"));
-    assert!(get("/profile", &ann_c).1.contains(r#"data-testid="profile-export-state" data-state="queued""#));
-    assert_eq!(crate::exports::run_queued(&state.db, &state.exports.dir, Some(Box::new(|| {}))), 1);
-    let mail: String = state
-        .db
-        .with(|c| c.query_row("SELECT body_text FROM mail_outbox WHERE user_id = ?1 AND purpose = 'data-export'", [ann], |r| r.get(0)))
-        .unwrap();
-    let link = mail.split_whitespace().find(|w| w.contains("/profile/export/download?token=")).unwrap().to_string();
-    let path = link.strip_prefix(&base).unwrap_or_else(|| panic!("{link} is not on {base}")).to_string();
-    assert_eq!(get(&path, "").0, 303, "signed out");
-    assert_eq!(get(&path, &gil_c).0, 303, "another account");
-    assert!(get("/profile", &ann_c).1.contains(r#"data-state="ready""#));
-    let (status, body) = get(&path, &ann_c);
-    assert_eq!(status, 200);
-    assert_eq!(get(&path, &ann_c).0, 303, "the link works once");
-    assert_eq!(std::fs::read_dir(&state.exports.dir).unwrap().filter_map(Result::ok).filter(|e| e.file_name().to_string_lossy().starts_with(&format!("{}-", ann))).count(), 0, "the file is deleted");
-    assert!(get("/profile?saved=export-soon", &ann_c).1.contains("One copy a day"));
-    let v: serde_json::Value = serde_json::from_str(&body).unwrap();
-    assert_eq!(v["user_id"], ann);
-    assert_eq!(v["api_key_providers"], serde_json::json!(["anthropic"]));
-    assert!(body.contains("ann-answer") && body.contains("ann-file") && body.contains("ann@example.org"));
-    assert!(!body.contains(&hash) && !body.contains(&ann_t) && !body.contains("gil"));
-    assert!(!body.contains("0123456789abcdef"));
-
     // Deletion: the wrong password, refuse it.
     let (status, _, html) = post("/profile/delete", &format!("sid={ann_t}"), &[("password", "wrong")]);
     assert_eq!(status, 200);

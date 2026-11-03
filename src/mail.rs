@@ -418,7 +418,7 @@ pub fn deliver_one(db: &Db, chain: &Chain, from: &Mailbox, reply_to: Option<&str
 /// who you are or confirms something. Once such a row is settled (sent or
 /// failed) its subject is blanked too, not only its body (#361); their
 /// subjects never carry the code, but they go all the same.
-pub const SECRET_PURPOSES: &[&str] = &[crate::two_factor::PURPOSE_LOGIN, crate::two_factor::PURPOSE_CONFIRM, crate::verify::PURPOSE, crate::exports::PURPOSE];
+pub const SECRET_PURPOSES: &[&str] = &[crate::two_factor::PURPOSE_LOGIN, crate::two_factor::PURPOSE_CONFIRM, crate::verify::PURPOSE];
 
 /// `'a', 'b'` for an `IN (…)`; the purposes are constants without quotes.
 fn sql_list(items: &[&str]) -> String {
@@ -561,7 +561,7 @@ impl Mailer {
     }
 
     /// A handle that wakes the sender (the job runner), for a thread that
-    /// queues mail with [`enqueue`] itself (the data export, exports.rs).
+    /// queues mail with [`enqueue`] itself.
     pub fn waker(&self) -> Sender<()> {
         self.wake.lock().unwrap_or_else(|p| p.into_inner()).clone()
     }

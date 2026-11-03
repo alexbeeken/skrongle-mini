@@ -9,7 +9,7 @@
     <p data-testid="superuser-signup-mode" data-mode="{{ mode }}">{% if mode == "invite" %}{{ crate::t("superuser.mode_invite") }}{% else if mode == "closed" %}{{ crate::t("superuser.mode_closed") }}{% else %}{{ crate::t("superuser.mode_open") }}{% endif %}</p>
     {% if mode == "invite" %}<p>{{ crate::t("superuser.invite_about") }}</p>{% endif %}
     <p class="small" data-testid="superuser-account-count">{{ crate::t2("superuser.accounts_of", "total", total, "max", max_accounts) }}</p>
-    <div class="modal-actions"><button type="button" class="btn" data-closes>{{ crate::t("profile.data.export_ok") }}</button></div>
+    <div class="modal-actions"><button type="button" class="btn" data-closes>{{ crate::t("profile.data.ok") }}</button></div>
   </dialog>
   {% if let Some(n) = notice %}<p class="alert ok-text" role="status" data-testid="superuser-notice">✓ {{ n }}{% if let Some(i) = inbox %} <a href="{{ i }}" data-testid="superuser-inbox">{{ crate::t("superuser.open_inbox") }}</a>{% endif %}</p>{% endif %}
   {% if let Some(e) = error %}<p class="alert error" role="alert" data-testid="superuser-error">{{ e }}</p>{% endif %}
@@ -122,7 +122,7 @@
       <button type="button" class="btn ghost small" data-copy="temp-password" data-testid="superuser-temp-password-copy">{{ crate::t("superuser.copy") }}</button>
     </p>
     <p class="small">{{ crate::t("superuser.temp_password_once") }}</p>
-    <div class="modal-actions"><button type="button" class="btn" data-closes data-testid="superuser-temp-password-close">{{ crate::t("profile.data.export_ok") }}</button></div>
+    <div class="modal-actions"><button type="button" class="btn" data-closes data-testid="superuser-temp-password-close">{{ crate::t("profile.data.ok") }}</button></div>
   </dialog>
   {% endif %}
 </section>

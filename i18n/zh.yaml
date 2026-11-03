@@ -369,21 +369,6 @@ mail:
       如要保留，请在此之前登录 {app} 并选择“取消删除”。
 
       如果这不是你本人的请求，请登录、取消删除并修改密码。
-  data_export:
-    subject: "你的 {app} 数据已可下载"
-    text: |
-      你好，
-
-      你所请求的 {app} 数据副本已准备好。请登录 {app}，然后打开此链接下载：
-
-      {link}
-
-      此链接只能使用一次，有效期为 24 小时，且仅在你登录此账户期间有效。如果这不是你请求的，请修改密码：说明有其他人已登录你的账户。
-    html: |
-      <p>你好，</p>
-      <p>你所请求的 {app} 数据副本已准备好。请登录 {app}，然后打开此链接下载：</p>
-      <p><a href="{link}">下载我的数据</a></p>
-      <p>此链接只能使用一次，有效期为 24 小时，且仅在你登录此账户期间有效。如果这不是你请求的，请修改密码：说明有其他人已登录你的账户。</p>
   two_factor_changed:
     subject: "{app} 上的两步验证已更改"
     now_off: 已关闭
@@ -518,9 +503,9 @@ profile:
     title: "隐私与同意"
     info: "关于你的同意"
     info_age: "你在注册时确认了年龄。要撤回，请在“你的数据”中删除账户。"
-    info_email: "服务邮件总是会发送：确认你的邮箱、你的数据下载以及条款变更。可选邮件会出现在这里，各有开关，在你打开之前保持关闭。"
+    info_email: "服务邮件总是会发送：确认你的邮箱以及条款变更。可选邮件会出现在这里，各有开关，在你打开之前保持关闭。"
     info_ai: "AI 功能会把你输入的内容发送给 AI 公司。隐藏后不会发送任何内容，这些功能会从应用中消失，已保存的 API 密钥也会被删除。"
-    info_record: "每次更改都会连同日期记录下来，并包含在“下载我的数据”中。"
+    info_record: "每次更改都会连同日期记录下来。"
     close: "关闭"
     terms: "条款与隐私"
     age: "年龄"
@@ -645,29 +630,8 @@ profile:
     bad_chars: API 密钥只能包含字母、数字和标点符号，不能有空格。
     wrong_provider: "这看起来不像是 {provider} 的密钥：它们以 {prefix} 开头。"
   data:
-    export_download: "下载我的数据"
-    export_building_no_mail: "正在准备你的数据。准备好后，这里会出现“下载”按钮。"
-    export_ready_no_mail: "你的数据已准备好：在 {date} 之前用按钮下载，仅限一次。"
-    export_about_no_mail: "一个 JSON 文件，包含你账户存储的所有内容，在后台准备。准备好后在这里下载；仅可下载一次，有效期 24 小时。每天一份。"
     title: 你的数据
-    export: 准备我的数据（JSON）
-    export_heading: 下载我的数据
-    export_info_label: 关于下载你的数据
-    export_preparing: 准备中…
-    export_about: 你账户中存储的所有内容的 JSON 文件，将在后台准备。我们会通过电子邮件发送下载链接；该链接只能使用一次，有效期为 24 小时，且仅在你登录期间有效。每天只能获取一份副本。
-    export_ok: 好
-    export_your_address: 你的电子邮箱地址
-    export_none: 你还没有请求过副本。
-    export_building: "正在准备中。准备好后，链接将发送至 {email}。"
-    export_ready: "已准备好。链接已发送至 {email}；只能使用一次，有效期至 {date}。"
-    export_downloaded: "已于 {date} 下载。"
-    export_expired: 上一个链接未使用即已过期。
-    export_failed: 上一份副本无法准备。请重试。
-    export_next: "每天一份副本：可从 {date} 起再次请求下一份。"
-    export_queued: 正在准备你的数据。你将收到一封包含下载链接的电子邮件。
-    export_busy: 你的数据正在准备中。
-    export_soon: 每天一份副本。查看 (i) 了解何时可以再次请求。
-    export_gone: 该下载链接已被使用、已过期，或属于另一个账户。
+    ok: 好
     delete_title: 删除账户
     delete_about: "我们会在你提出请求 14 天后删除你的账户；如果已取消的订阅付费期结束得更晚，则在那时删除。届时你的学习进度、课程和已保存的密钥都会被删除。在此之前你会被登出，重新登录即可取消。"
     your_password: 你的密码
@@ -1203,7 +1167,7 @@ study:
     note_h2: "我的笔记"
     note_placeholder: "任何能帮你记住这一课的内容"
     note_info: "关于我的笔记"
-    note_info_body: "只有你能看到这条笔记。它会在你输入时自动保存，最多 {max} 个字符，并包含在个人资料的“下载我的数据”中。"
+    note_info_body: "只有你能看到这条笔记。它会在你输入时自动保存，最多 {max} 个字符。"
     note_ok: "好"
     note_saved: "笔记已保存"
     note_too_long: "笔记最多 {max} 个字符。"

@@ -1,5 +1,4 @@
-// Privacy (#74): a learner asks to delete their account (#970)
-// (downloading their data is export.spec.ts), and the AI forms say where notes go. Exact: no
+// Privacy (#74): a learner asks to delete their account (#970), and the AI forms say where notes go. Exact: no
 // model, no key, no network.
 import { expect, test } from "../../lib/fixtures.ts";
 import { createCourse, devLogin } from "../../lib/app.ts";
@@ -10,8 +9,8 @@ test("deleting the account signs out and waits 14 days; signing in can cancel it
   await register(page, account, "spanish");
   await page.goto("/profile");
 
-  // The export is its own spec (export.spec.ts): it comes by e-mail.
-  await expect(page.getByTestId("profile-export")).toBeVisible();
+  // There is no data export section.
+  await expect(page.getByTestId("profile-export")).toHaveCount(0);
 
   // A wrong password keeps the account.
   await page.getByTestId("profile-delete-password").fill("not-the-password");

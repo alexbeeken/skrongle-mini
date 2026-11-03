@@ -4,8 +4,6 @@
 *.db-shm
 # secret that encrypts stored API keys (created next to the database)
 *.db.key
-# "Download my data" files waiting to be downloaded (src/exports.rs)
-*.db.exports/
 .env
 # deployment secrets (template: deploy/deploy.env.example)
 deploy/deploy.env

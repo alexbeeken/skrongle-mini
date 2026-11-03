@@ -102,15 +102,11 @@ const fn hourly(name: &'static str) -> Kind {
 
 /// The hourly housekeeping: every purge in one job ([`housekeeping`]).
 pub const HOUSEKEEPING: Kind = hourly("housekeeping");
-/// "Download my data" (exports.rs), the whole file in one run. A failed run
-/// fails the export (the learner can ask again at once, so one attempt); a
-/// server that stopped mid-run takes the row again when its lease runs out.
-pub const EXPORT: Kind = Kind { name: "export", max_attempts: 1, delays: RETRY_DELAYS, every: None, at: None };
 /// Dev mode only (`/dev/jobs`): a job that always fails, to watch retries.
 pub const DEV_FAIL: Kind = Kind { name: "dev.fail", max_attempts: RETRY_DELAYS.len() as i64 + 1, delays: RETRY_DELAYS, every: None, at: None };
 
 /// Every kind there is. A row of another kind is refused by [`enqueue`].
-pub const KINDS: &[Kind] = &[HOUSEKEEPING, EXPORT, DEV_FAIL, crate::ai::GENERATE];
+pub const KINDS: &[Kind] = &[HOUSEKEEPING, DEV_FAIL, crate::ai::GENERATE];
 
 pub fn kind(name: &str) -> Option<Kind> {
     KINDS.iter().find(|k| k.name == name).copied()
@@ -571,8 +567,7 @@ impl Runner {
 /// sessions, abandoned games, old generation jobs, idle tutor chats,
 /// rate-limit windows, accounts due for deletion (#970), the retention rules
 /// (privacy.rs), old outbox rows (mail.rs), old verification, reset,
-/// two-factor and invitation links, expired data exports with their files,
-/// old job rows, and last a WAL checkpoint so the -wal file doesn't grow on
+/// two-factor and invitation links, old job rows, and last a WAL checkpoint so the -wal file doesn't grow on
 /// the SD card. Each step logs its count; a step that fails is logged and the
 /// next still runs, and the job fails only when every step did (#45).
 pub fn housekeeping(runner: Runner, state: &Arc<crate::AppState>, retention: crate::privacy::Retention) -> Runner {
@@ -609,15 +604,6 @@ pub fn housekeeping(runner: Runner, state: &Arc<crate::AppState>, retention: cra
                         let n = crate::verify::purge(c, now)? + crate::reset::purge(c, now)? + crate::two_factor::purge(c, now)? + crate::signup::purge(c, now)?;
                         Ok(note(n, "old links deleted"))
                     })
-                }),
-            ),
-            (
-                "exports",
-                Box::new(|| {
-                    let files = db.with(|c| crate::exports::purge(c, now())).map_err(|e| e.to_string())?;
-                    s.exports.remove(&files);
-                    let strays = crate::exports::remove_strays(db, &s.exports.dir);
-                    Ok(note(files.len() + strays, "expired or stray export files removed"))
                 }),
             ),
             ("jobs", Box::new(|| sql(db, |c, now| purge(c, now).map(|n| note(n, "old job rows deleted"))))),

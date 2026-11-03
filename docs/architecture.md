@@ -48,7 +48,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 - Mail: `mail.rs` (`mail/resend.rs`, `mail/postmark.rs`, `mail/brevo.rs`, `mail/sink.rs`), `verify.rs` (address check), `reset.rs` + `routes/reset.rs` (password reset).
 - Two-factor: `two_factor.rs`, `totp.rs`.
 - Profile: `profile.rs`, `routes/profile.rs`, `static/profile.js`, `static/autosave.js`; keys in `secrets.rs`.
-- Data rights: `privacy.rs` (export columns, deletion), `exports.rs` (Download my data), `consent.rs` (optional consents for the Privacy and consent card), `account_deletion.rs` and `routes/account_deletion.rs` (deleting an account after 14 days, #970).
+- Data rights: `privacy.rs` (export columns, deletion), `consent.rs` (optional consents for the Privacy and consent card), `account_deletion.rs` and `routes/account_deletion.rs` (deleting an account after 14 days, #970).
 - Terms: `terms.rs`, `routes/terms.rs`. Owner and superuser: `owner.rs`, `routes/superuser.rs`, `routes/password.rs` (temporary password gate).
 - Docs pages: `routes/docs.rs` (`/docs` sidebar `SECTIONS`, `/llms.txt`).
 
@@ -115,9 +115,8 @@ src/
   quiz.rs        adaptive question selection, answer normalisation/checking, tiny PRNG
   problems.rs    what the editor and the file page say when a course file is refused: kind, lesson, field, line, message, fix hint (every ContentError and arrange.rs refusal)
   owner.rs       what the owner does to an account with no message sent (#635): a temporary password (users.must_change_password), two-factor off, make a superuser; the binary's commands (reset-password, disable-2fa, make-owner, help)
-  privacy.rs     a learner's data as a whole: USER_TABLES, the exported columns (EXPORTED/WITHHELD), account deletion, retention rules, the age confirmation (docs/data-inventory.md)
+  privacy.rs     a learner's data as a whole: USER_TABLES, account deletion, retention rules, the age confirmation (docs/data-inventory.md)
   jobs.rs        background jobs (table jobs, #872): enqueue, the one-statement claim with a lease, retries with per-kind delays, periodic kinds that queue their next run; the `jobs` runner thread, which also drains the mail and text outboxes with a lease (#873); the hourly housekeeping as one job with a step per purge
-  exports.rs     "Download my data" in the background (table data_exports): the `export` job (jobs.rs runner, #875) writes the file page by page to <db>.exports/, in one run, mails a one-time link, retention
   mathcheck.rs   numeric and expression answers: a small parser/evaluator, numbers in every spelling, equivalence by sampling
   algebra_tiles.rs  algebra-tiles questions: the pile from `tiles`, an answer must be two sides whose product is the tiles
   clock.rs       clock answers: H:MM on the 12-hour face, the hands' angles, what a clock question may say
@@ -159,7 +158,7 @@ src/
     account_deletion.rs  /account/deletion (the only page of an account scheduled for deletion: its date, Cancel deletion, Log out)
     password.rs  /password/change (the gate after signing in with a temporary password: the new one twice, no old one)
     superuser.rs /superuser (superusers only, 404 otherwise: every account on one page with Temporary password, Turn off two-factor and Reset email verification per row; invitation links under SKRONGLE_SIGNUP=invite; while a material terms change is coming, a notice and Send the announcement), POST /superuser/reset-email-verification|invites|invites/revoke|temp-password|two-factor-off|terms-announce
-    profile.rs   /profile (personal information, account, AI API keys), POST /api/profile (autosave), POST /profile/password|api-keys…|verify-email/resend, POST /profile/export (queue "Download my data"), GET /profile/export/download?token=… (the mailed link), POST /profile/delete
+    profile.rs   /profile (personal information, account, AI API keys), POST /api/profile (autosave), POST /profile/password|api-keys…|verify-email/resend, POST /profile/delete
     pages.rs     / (landing for visitors, home: the three modes) /lessons /lessons/{slug} /history /mistakes, POST /api/lessons/{slug}/note (the lesson note, autosave)
     map.rs       /map
     quiz.rs      /practice, POST /api/answer (grade_and_record: the one grading path for every mode), POST /api/lesson-check (the reading check)
@@ -203,14 +202,10 @@ or when the next row is due, at least once a minute, and reaches SQLite
 through `Db::with`. The first user is the hourly housekeeping, one kind
 (`housekeeping`, #45) that runs every purge as a step in turn (sessions, the
 game, AI job and tutor maps, rate limits, account deletions, retention, outbox,
-links, exports, old job rows, then the WAL checkpoint); each step logs its
+links, old job rows, then the WAL checkpoint); each step logs its
 count, a failing step is logged and the next still runs. At
 boot it gets a row due now if it has none, so a server restarted more
-often than hourly still cleans up. Data exports
-(kind `export`, #875, `max_attempts` 1) write the whole file in one run (a
-family's data is a few MB): a failure deletes the part file and the
-learner asks again, and a server that stopped mid-run starts over after
-its lease runs out. The same thread sends the mail
+often than hourly still cleans up. The same thread sends the mail
 outbox (#873): it keeps its own table (`mail_outbox`)
 but takes a row with the same kind of lease (`jobs::lease_outbox` sets
 `locked_by` and `locked_until`; the row stays `queued`), so a row being sent
@@ -478,8 +473,7 @@ users.ai_credits                                 -- the prepaid credit balance, 
 users.signup_credit_at                           -- when a new account got its one-time Skrongle AI credit (v87, #931); 0 for accounts made before
 users.ai_effort                                  -- the effort Generate the course last ran at: low | medium | high (Fast, Balanced, Thorough; v92, #918)
 data_exports    (id, user_id, state, token_hash, file, link_base, bytes, error, created_at, ready_at, expires_at, downloaded_at)
-                -- "Download my data" (v44, #430): queued → building → ready (link mailed) → downloaded / expired, or failed;
-                -- token_hash is the SHA-256 of the mailed link's token; file is its name in <db>.exports/
+                -- unused: the data export was removed (#17); the table stays until the schema squash
 ```
 
 Migrations live in `src/db/migrations.rs` (`MIGRATIONS`), tracked with `PRAGMA
@@ -517,7 +511,7 @@ the later verification where two accounts had verified one number (#362, #363). 
 `ai_credit_purchases` and `users.ai_credits` (Skrongle AI metering). Migration 48 added the plans bought on the profile:
 `plan_subscriptions`, `plan_cancellations` and `users.own_keys_fallback`. Migration 49 added `subscriptions.plan`
 (which plan a Stripe subscription pays for). Migration 83 dropped `plan_subscriptions` with the pretend card payment (#963). Migration 59 added the indexes the
-data export pages and its housekeeping read through (#625, #626). Migration 60 (#614–#620) added the indexes the
+former data export pages and housekeeping read through (#625, #626). Migration 60 (#614–#620) added the indexes the
 housekeeping sweeps and deletions read through: `quiz_history(answered_at)`, `game_activity(played_at)`,
 `courses(state, updated_at)`, `courses(state) WHERE notes <> ''`, `projects(course_id)`,
 `users(active_course)` (partial, set values only);
@@ -527,7 +521,7 @@ reads a whole table. Migration 61 (v61 in
 `users.must_change_password` (#635, 0 for every existing account); migration 63 the
 `lower(email)` index on `users` (#604, #605, #606, #622); migration 64 the game score and round indexes and `game_rounds` (#592–#601). What each table holds, and how long, is in the
 [data inventory](data-inventory); a table with user data must be listed in
-`privacy::USER_TABLES` (a test checks every table in the schema), and each of its columns in `privacy::EXPORTED` or `privacy::WITHHELD` (a test checks those too).
+`privacy::USER_TABLES` (a test checks every table in the schema).
 
 **Model calls.** Every call site (`POST /courses/{id}/generate`,
 `POST /courses/{id}/ai`, the tutor) uses a saved key (or a pasted one on the
@@ -866,12 +860,7 @@ writable path, and a release never touches the database.
   and anyone with both files, i.e. root on the box, can read them. The page
   never echoes a key back: only its last four characters. Back up the
   `.key` file with the database if you want saved keys to survive a restore.
-- Account data: *Profile → Your data* prepares everything stored for the
-  account in the background and e-mails a one-time link
-  (`POST /profile/export`, then `GET /profile/export/download?token=…`;
-  the `export` job in `exports.rs`, on the `jobs` runner, reads every table in
-  `privacy::USER_TABLES` a page at a time, the columns in
-  `privacy::EXPORTED`, into `<db>.exports/`) and deletes the account (`POST /profile/delete`: the password,
+- Account data: *Profile → Your data* deletes the account (`POST /profile/delete`: the password,
   or for an account without one the e-mail address typed out plus its
   second step's code, if it has one). Deletion stops the account's
   generation jobs, tutor chats and games in memory, removes the `users` row
