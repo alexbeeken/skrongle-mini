@@ -87,7 +87,6 @@ fn request_bodies_are_capped() {
     let state = super::test_state(false);
     let hash = crate::auth::hash_password("right-password").unwrap();
     let ann = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", &hash)).unwrap();
-    state.db.with(|c| crate::terms::accept(c, ann, crate::terms::version())).unwrap();
     let sid = state.db.with(|c| crate::auth::create_session(c, ann)).unwrap();
     let app = super::router(state.clone());
     let base = rt.block_on(async {
@@ -139,7 +138,6 @@ fn learning_writes_are_rate_limited() {
             .db
             .with(|c| {
                 let u = crate::auth::create_user(c, email, "x")?;
-                crate::terms::accept(c, u, crate::terms::version())?;
                 c.execute("UPDATE users SET active_course = 'spanish' WHERE id = ?1", [u])?;
                 Ok((u, crate::auth::create_session(c, u)?))
             })
@@ -199,7 +197,6 @@ fn account_forms_are_rate_limited() {
     let state = super::test_state(false);
     let hash = crate::auth::hash_password("right-password").unwrap();
     let ann = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", &hash)).unwrap();
-    state.db.with(|c| crate::terms::accept(c, ann, crate::terms::version())).unwrap();
     let session = |u| state.db.with(|c| crate::auth::create_session(c, u)).unwrap();
     let (here, elsewhere) = (session(ann), session(ann));
     let app = super::router(state.clone());
@@ -243,7 +240,6 @@ fn account_forms_are_rate_limited() {
 
     // And the other way: while sign-in is blocked, the profile's password forms wait too (#378).
     let bea = state.db.with(|c| crate::auth::create_user(c, "bea@example.org", &hash)).unwrap();
-    state.db.with(|c| crate::terms::accept(c, bea, crate::terms::version())).unwrap();
     let bea_sid = format!("sid={}", session(bea));
     for _ in 0..crate::security::LOGIN_FAILURES_PER_USER.max {
         assert_eq!(login("bea@example.org", "guess"), 200);
@@ -252,11 +248,11 @@ fn account_forms_are_rate_limited() {
     assert_eq!(bea_change, 429);
     assert_eq!(post("/profile/delete", &bea_sid, &[("password", "right-password")]), 429);
 
-    // Registration needs the age and Terms boxes, and records both.
+    // Registration needs the age box, and records it.
     let new_user = |email: &str| state.db.with(|c| crate::auth::find_user_credentials(c, email)).unwrap().map(|(id, _)| id);
     assert_eq!(post("/register", "", &[("email", "cy@example.org"), ("password", "long-enough-pw")]), 200);
     assert_eq!(new_user("cy@example.org"), None, "no account without the box");
-    assert_eq!(post("/register", "", &[("email", "cy@example.org"), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on")]), 200, "the check-your-mail page");
+    assert_eq!(post("/register", "", &[("email", "cy@example.org"), ("password", "long-enough-pw"), ("age", "on")]), 200, "the check-your-mail page");
     let cy = new_user("cy@example.org").expect("registered");
     let age_confirmed = state.db.with(|c| c.query_row("SELECT age_confirmed FROM users WHERE id = ?1", [cy], |r| r.get::<_, bool>(0))).unwrap();
     assert!(age_confirmed, "registration records the age confirmation");
@@ -340,9 +336,9 @@ fn superusers_reset_email_verification() {
         (r.status().as_u16(), set, loc)
     };
     let sql = |q: &'static str, email: &'static str| state.db.with(move |c| c.query_row(q, [email], |r| r.get::<_, i64>(0))).unwrap();
-    post("/register", "", &[("email", "root@example.org"), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on")]);
+    post("/register", "", &[("email", "root@example.org"), ("password", "long-enough-pw"), ("age", "on")]);
     let (_, root, _) = post("/login", "", &[("email", "root@example.org"), ("password", "long-enough-pw")]);
-    post("/register", "", &[("email", "bob@example.org"), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on")]);
+    post("/register", "", &[("email", "bob@example.org"), ("password", "long-enough-pw"), ("age", "on")]);
     let (_, bob, _) = post("/login", "", &[("email", "bob@example.org"), ("password", "long-enough-pw")]);
     state.db.with(|c| c.execute("UPDATE users SET superuser = 1 WHERE email = 'root@example.org'", [])).unwrap();
     state.db.with(|c| c.execute("UPDATE users SET email_verified_at = 5 WHERE email = 'bob@example.org'", [])).unwrap();
@@ -352,7 +348,6 @@ fn superusers_reset_email_verification() {
     assert!(!get("/profile", &bob).contains("nav-superuser"));
     assert_eq!(status("/superuser", &bob), 404);
     assert_eq!(post("/superuser/reset-email-verification", &bob, &[("email", "bob@example.org")]).0, 404);
-    assert_eq!(post("/superuser/terms-announce", &bob, &[]).0, 404);
     assert_eq!(sql("SELECT email_verified_at FROM users WHERE email = ?1", "bob@example.org"), 5);
 
     // A superuser: the link, and the page with every account and its actions.
@@ -360,8 +355,6 @@ fn superusers_reset_email_verification() {
     let page = get("/superuser", &root);
     assert!(page.contains(r#"data-testid="superuser-accounts""#) && page.contains(r#"data-account-email="bob@example.org""#) && page.contains("superuser-verify-dialog"), "{page}");
     assert!(!page.contains("superuser-pager"), "two accounts: one page");
-    // No coming change of the terms in the changelog: no notice, no Send.
-    assert!(!page.contains("superuser-terms-changed") && !page.contains("superuser-terms-send"), "{page}");
 
     // Someone else's address, in any case: unconfirmed again, with a new link.
     let (status, _, loc) = post("/superuser/reset-email-verification", &root, &[("email", " BOB@example.org ")]);
@@ -424,7 +417,7 @@ fn superusers_reset_passwords_and_two_factor() {
     };
     // Registering signs nobody in (#379): the session comes from /login.
     let register = |email: &str| {
-        post("/register", "", &[("email", email), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on")]);
+        post("/register", "", &[("email", email), ("password", "long-enough-pw"), ("age", "on")]);
         post("/login", "", &[("email", email), ("password", "long-enough-pw")]).1
     };
     let (root, bob) = (register("root@example.org"), register("bob@example.org"));
@@ -538,7 +531,7 @@ fn signup_by_invitation() {
         let set = r.headers().get("set-cookie").map(|v| v.to_str().unwrap().split(';').next().unwrap().to_string()).unwrap_or_default();
         (r.status().as_u16(), set, r.body_mut().read_to_string().unwrap())
     };
-    let register = |email: &str, invite: &str| post("/register", "", &[("email", email), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on"), ("invite", invite)]);
+    let register = |email: &str, invite: &str| post("/register", "", &[("email", email), ("password", "long-enough-pw"), ("age", "on"), ("invite", invite)]);
     let users = || state.db.with(|c| c.query_row("SELECT COUNT(*) FROM users", [], |r| r.get::<_, i64>(0))).unwrap();
     let superuser = |email: &'static str| state.db.with(|c| c.query_row("SELECT superuser FROM users WHERE email = ?1", [email], |r| r.get::<_, bool>(0))).unwrap();
 
@@ -555,7 +548,7 @@ fn signup_by_invitation() {
     assert_eq!(status, 200);
     assert!(page.contains("register-owner-note") && page.contains(&format!(r#"name="invite" value="{owner_link}""#)), "{page}");
     // A form error keeps the line (#665).
-    let (status, _, page) = post("/register", "", &[("email", "owner@example.org"), ("password", "short"), ("age", "on"), ("accept", "on"), ("invite", &owner_link)]);
+    let (status, _, page) = post("/register", "", &[("email", "owner@example.org"), ("password", "short"), ("age", "on"), ("invite", &owner_link)]);
     assert_eq!(status, 200);
     assert!(page.contains("register-error") && page.contains("register-owner-note"), "{page}");
     // Registering signs nobody in (#379): "check your mail", then /login.
@@ -633,7 +626,7 @@ fn closed_signup_lets_only_the_owner_in() {
     let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
     let get = |path: &str| agent.get(&format!("{base}{path}")).call().unwrap().body_mut().read_to_string().unwrap();
     let register = |email: &str, invite: &str| {
-        let form = [("email", email), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on"), ("invite", invite)];
+        let form = [("email", email), ("password", "long-enough-pw"), ("age", "on"), ("invite", invite)];
         agent.post(&format!("{base}/register")).send_form(form).unwrap().status().as_u16()
     };
     let users = || state.db.with(|c| c.query_row("SELECT COUNT(*) FROM users", [], |r| r.get::<_, i64>(0))).unwrap();
@@ -674,7 +667,7 @@ fn open_signup_is_unchanged() {
     let page = agent.get(&format!("{base}/register")).call().unwrap().body_mut().read_to_string().unwrap();
     assert!(page.contains("register-form") && !page.contains("register-owner-note"));
     for email in ["a@example.org", "b@example.org"] {
-        let form = [("email", email), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on")];
+        let form = [("email", email), ("password", "long-enough-pw"), ("age", "on")];
         // 200: "check your mail" (#379; this server has mail).
         assert_eq!(agent.post(&format!("{base}/register")).send_form(form).unwrap().status().as_u16(), 200);
     }
@@ -737,7 +730,6 @@ fn member(state: &crate::AppState, email: &str) -> i64 {
         .db
         .with(|c| {
             let id = crate::auth::create_user(c, email, "h")?;
-            crate::terms::accept(c, id, crate::terms::version())?;
             Ok(id)
         })
         .unwrap()
@@ -816,8 +808,7 @@ fn proxy_header_from_elsewhere_is_ignored() {
 }
 
 /// #642: an address with no account follows `SKRONGLE_SIGNUP`: refused
-/// by invitation, made (no password, address confirmed, Terms still to
-/// accept) when open.
+/// by invitation, made (no password, address confirmed) when open.
 #[test]
 fn proxy_header_for_an_unknown_address_follows_the_signup_rule() {
     let (_rt, state, base) = proxy_server(crate::signup::Mode::Invite, Some("127.0.0.1"));
@@ -831,8 +822,7 @@ fn proxy_header_for_an_unknown_address_follows_the_signup_rule() {
 
     let (_rt, state, base) = proxy_server(crate::signup::Mode::Open, Some("127.0.0.1"));
     let (status, location, sid, _) = proxied(&base, "GET", "/profile", "", Some("New@Example.org"));
-    assert_eq!(status, 303);
-    assert!(location.contains("/terms/accept"), "the Terms gate first: {location}");
+    assert_eq!(status, 200, "signed in at once: {location}");
     assert!(!sid.is_empty());
     let (hash, verified): (String, bool) = state
         .db
@@ -889,7 +879,7 @@ fn email_verification_over_http() {
     };
 
     // Registering: one message with a link to this server.
-    assert_eq!(post("/register", "", &[("email", "ann@example.org"), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on")]).0, 200);
+    assert_eq!(post("/register", "", &[("email", "ann@example.org"), ("password", "long-enough-pw"), ("age", "on")]).0, 200);
     let (status, cookie, _) = post("/login", "", &[("email", "ann@example.org"), ("password", "long-enough-pw")]);
     assert_eq!(status, 303);
     let sent = mails("ann@example.org");
@@ -917,7 +907,7 @@ fn email_verification_over_http() {
     assert_eq!(mails("ann@example.org").len(), 1);
 
     // Send again: a new link each time, the older one void, then silence.
-    post("/register", "", &[("email", "bob@example.org"), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on")]);
+    post("/register", "", &[("email", "bob@example.org"), ("password", "long-enough-pw"), ("age", "on")]);
     let (_, bob, _) = post("/login", "", &[("email", "bob@example.org"), ("password", "long-enough-pw")]);
     let first = token_in(&mails("bob@example.org")[0]);
     assert_eq!(post("/profile/verify-email/resend", &bob, &[]).2, "/profile?saved=verify-sent");
@@ -946,7 +936,6 @@ fn a_new_course_asks_for_its_settings_once() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
     let state = super::test_state(false);
     let ann = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", "x")).unwrap();
-    state.db.with(|c| crate::terms::accept(c, ann, crate::terms::version())).unwrap();
     let cookie = format!("sid={}", state.db.with(|c| crate::auth::create_session(c, ann)).unwrap());
     let app = super::router(state.clone());
     let base = rt.block_on(async {
@@ -995,7 +984,6 @@ fn start_opens_the_course_with_its_wizard_settings() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
     let state = super::test_state(false);
     let ann = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", "x")).unwrap();
-    state.db.with(|c| crate::terms::accept(c, ann, crate::terms::version())).unwrap();
     let cookie = format!("sid={}", state.db.with(|c| crate::auth::create_session(c, ann)).unwrap());
     let app = super::router(state.clone());
     let base = rt.block_on(async {
@@ -1052,9 +1040,6 @@ fn ai_features_with_saved_keys_answered_by_the_simulator() {
         .with(|c| {
             let ann = crate::auth::create_user(c, "ann@example.org", "x")?;
             let dev = crate::auth::create_user(c, "dora@example.org", "x")?;
-            for u in [ann, dev] {
-                crate::terms::accept(c, u, crate::terms::version())?;
-            }
             crate::dev::set_developer(c, dev)?;
             crate::courses::open_project(c, dev, "spanish")?;
             Ok((ann, dev))
@@ -1276,7 +1261,6 @@ fn editor_of_a_course_whose_job_just_finished() {
         .db
         .with(|c| {
             let ann = crate::auth::create_user(c, "ann@example.org", "x")?;
-            crate::terms::accept(c, ann, crate::terms::version())?;
             Ok(ann)
         })
         .unwrap();
@@ -1347,7 +1331,7 @@ fn a_shared_course_is_on_the_recipients_list_read_only() {
     };
     // Registering does not sign in (#379): the sign-in that follows carries the share link on.
     let register = |email: &str, share: &str| {
-        let (status, _, _) = post("/register", "", &[("email", email), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on"), ("share", share)]);
+        let (status, _, _) = post("/register", "", &[("email", email), ("password", "long-enough-pw"), ("age", "on"), ("share", share)]);
         assert_eq!(status, 200, "registering shows the check-your-mail page");
         post("/login", "", &[("email", email), ("password", "long-enough-pw"), ("share", share)])
     };
@@ -1499,7 +1483,7 @@ fn without_mail_nothing_offers_to_send() {
     let count = |sql: &str| state.db.with(|c| c.query_row(sql, [], |r| r.get::<_, i64>(0))).unwrap();
 
     // Registering queues no confirmation mail and issues no link.
-    let (status, ann, _, _) = post("/register", "", &[("email", "ann@example.org"), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on")]);
+    let (status, ann, _, _) = post("/register", "", &[("email", "ann@example.org"), ("password", "long-enough-pw"), ("age", "on")]);
     assert_eq!(status, 303);
     assert_eq!(count("SELECT COUNT(*) FROM mail_outbox") + count("SELECT COUNT(*) FROM email_verifications"), 0);
 
@@ -1529,7 +1513,7 @@ fn without_mail_nothing_offers_to_send() {
     assert_eq!(link.len(), 64);
     assert_eq!(count("SELECT COUNT(*) FROM course_shares"), 1);
     assert_eq!(count("SELECT COUNT(*) FROM mail_outbox"), 0);
-    let (status, bob, _, _) = post("/register", "", &[("email", "bob@example.org"), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on")]);
+    let (status, bob, _, _) = post("/register", "", &[("email", "bob@example.org"), ("password", "long-enough-pw"), ("age", "on")]);
     assert_eq!(status, 303);
     assert_eq!(get(&format!("/courses/shared/{link}"), &bob).1, "/", "the link opens the course");
     let (status, _, _, page) = post(&format!("/courses/{id}/share"), &ann, &[("emails", "bob@example.org")]);
@@ -1578,7 +1562,7 @@ fn with_mail_everything_is_offered() {
     });
     let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
     // Registering signs nobody in (#379): the session comes from /login.
-    agent.post(&format!("{base}/register")).send_form([("email", "ann@example.org"), ("password", "long-enough-pw"), ("age", "on"), ("accept", "on")]).unwrap();
+    agent.post(&format!("{base}/register")).send_form([("email", "ann@example.org"), ("password", "long-enough-pw"), ("age", "on")]).unwrap();
     let r = agent.post(&format!("{base}/login")).send_form([("email", "ann@example.org"), ("password", "long-enough-pw")]).unwrap();
     let ann = r.headers().get("set-cookie").map(|v| v.to_str().unwrap().split(';').next().unwrap().to_string()).unwrap_or_default();
     let profile = agent.get(&format!("{base}/profile")).header("cookie", &ann).call().unwrap().body_mut().read_to_string().unwrap();
@@ -1600,7 +1584,6 @@ fn every_mode_shares_the_daily_goal_and_where_you_left_off() {
         .db
         .with(|c| {
             let ann = crate::auth::create_user(c, "ann@example.org", "h")?;
-            crate::terms::accept(c, ann, crate::terms::version())?;
             crate::courses::open_project(c, ann, "spanish")?;
             crate::courses::set_project_settings(c, ann, "spanish", &crate::courses::SettingsChange::default())?;
             Ok(ann)

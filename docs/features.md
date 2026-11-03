@@ -49,7 +49,7 @@ In a language course, every word that matters can be tapped to hear it (see
 - **AI tutoring** (`/tutor`): a one-to-one lesson over chat with a tutor that
   runs on the learner's own API key. Same exercises and progress as Practice,
   but the tutor teaches first and sets them when you are ready. Its prompt
-  says the learner may be as young as the Terms' minimum age
+  says the learner may be as young as the minimum age
   (`SKRONGLE_MIN_AGE`): it stays on the course, declines sexual, self-harm,
   violent, hateful or illegal turns and goes back to the lesson, and never
   asks for personal details (`tutor::safety_rules`, #919).
@@ -1712,10 +1712,8 @@ keep their explicit buttons. The page needs JavaScript.
   explained behind its (i)) ends every other session; changing the
   password or two-factor sign-in does the same.
 - **Privacy and consent** (#974, `profile-consent`): one row per consent
-  with its date, explained behind an (i). The Terms version accepted and
-  when, with links to the Terms and the privacy policy (see
-  [Terms of Service](#terms-of-service)); the age confirmation (the date of
-  the first Terms acceptance, read-only: taking it back means deleting the
+  with its date, explained behind an (i). The age confirmation (the day the
+  account was made, read-only: taking it back means deleting the
   account); e-mail, service messages only (hosted only;
   an optional e-mail such as reminders gets a switch here, off by default);
   and *Do Not Show Me AI Features*, "Shown since …" or "Hidden since …"
@@ -1823,7 +1821,7 @@ keep their explicit buttons. The page needs JavaScript.
       `users.must_change_password` is set: after signing in with it, the
       `CurrentUser` extractor sends the account to
       `/password/change?next=…` before any other page (`/api/*` answers
-      403), like the Terms gate. That page asks for the new password twice
+      403). That page asks for the new password twice
       (not the old one), ends other sessions, clears the flag and goes on
       to `next`. Choosing a password anywhere clears the flag
       (`profile::set_password_hash`).
@@ -1859,14 +1857,6 @@ keep their explicit buttons. The page needs JavaScript.
     none does) and, with the dev mailbox, links to the new message.
     The log records which superuser reset which account. Signing in through
     `/dev/login` confirms the dev user again.
-  - **Coming change to the terms** (#966, hosted only): while a material
-    entry of `docs/terms-changes.json` has a later `effective` date and
-    some account with an address has not had its e-mail, the page shows
-    "The terms have changed." and a card with **Send the announcement**.
-    Its confirm dialog says how many accounts it goes to;
-    `POST /superuser/terms-announce` queues them (`terms::announce_upcoming`)
-    and the notice says how many were queued. Once everyone has it, the
-    notice and the card go away.
 
 Each AI form says where the learner's words go (`data-testid="ai-disclosure"`):
 "Your notes are sent to your AI provider using your key." on *Generate* and
@@ -1874,83 +1864,20 @@ Each AI form says where the learner's words go (`data-testid="ai-disclosure"`):
 two or more keys are saved, and "Your messages are sent to Claude
 (Anthropic) …" in the tutor.
 
-## Terms of Service
+## Age confirmation
 
-`/terms` (public; `/terms.md` for the Markdown) shows `docs/terms.md`, the
-Terms and Conditions of the hosted site (first published 2026-10-25, from a
-Termly export). `/docs/terms` redirects there; the docs nav leaves it out.
-The text names no address itself. `[SUPPORT EMAIL]` (help, plans, SMS)
-becomes `SKRONGLE_SUPPORT_EMAIL` and `[CONTACT EMAIL]` (permissions,
-copyright, harmful content) becomes `SKRONGLE_LEGAL_EMAIL`, each as a
-`mailto:` link. Every e-mail the server sends has `Reply-To:` the support
-address (#1328).
-
-- **Accepting.** Registration has two required boxes, "I am at least
-  [age] years old" (`age`; `SKRONGLE_MIN_AGE`, default 14)
-  and "I agree to the Terms and Privacy Policy" (`accept`;
-  `templates/terms_check.html`, each sentence with a rounded check box on
-  its right in the AI pill's style); the server refuses the form without
-  both, naming the missing one. Each acceptance is a row in `terms_acceptances`
-  (user, version, time; no IP address), so the history is kept.
-- **The changelog.** Every version of the built-in text is an entry in
-  `docs/terms-changes.json` (#966): `version`, `announced` and `effective`
-  dates (`YYYY-MM-DD`, UTC), `material` (it affects learners' rights or a
-  paid plan) and a `summary` of a few plain sentences, in English like the
-  terms. `terms::version()` is the newest entry in effect today, and the
-  "Last updated" line at the top of `docs/terms.md` is the newest entry's
-  date. Changing the text means adding an entry in the same PR: the
-  `terms-lint` CI job (`scripts/terms-lint.sh`) fails a PR that edits one
-  without the other, and `cargo test terms` checks the entries (dates in
-  order, a summary, 30 days between `announced` and `effective` for a
-  material change, the "Last updated" line). A material change to the
-  privacy notice (`docs/privacy.md`, `/privacy`) is logged the same way
-  (#978): one entry whose summary starts "The privacy policy changed: …",
-  so learners get the same notice and, for a material one, the same
-  30-day e-mail. The lint watches `docs/privacy.md` too, and the newest
-  privacy entry dates that page's "Last updated" line. A minor privacy
-  change (a correction, a new provider of the same kind) only moves that
-  line. In Skrongle mini the sign-in notice is the whole notification (no
-  mail).
-- **New versions.** An account that accepted an earlier version sees a
-  notice over the first page it opens (`templates/terms_notice.html`,
-  `data-testid="terms-gate"`, `data-tier`): the summaries of every change
-  since, and a link to `/terms`.
-  - *Minor change*: **Continue** (`POST /terms/dismiss`) closes it and
-    records acceptance of the current version; it can stay open while the
-    learner reads, and nothing is blocked. Escape hides it for that page only.
-  - *Material change* (or a version from before the changelog): the accept
-    box and button of the gate, no way to close it, and a line pointing to
-    log out or close the account from the profile. It is on every page but
-    the profile; `/api/*` gets `403` and any other form (except deleting the
-    account) is sent to `/terms/accept` until it is accepted.
-  - *30 days ahead*: a material entry with a later `effective` date is
-    e-mailed once to every account with an address (purpose `terms-change`:
-    the date, the summary, a link to `/terms`) when a superuser presses
-    **Send the announcement** on `/superuser`; nothing sends it on its own.
-    `terms_announcements` records who got it, so pressing again only mails
-    accounts made since (or held back by the hourly mail ceiling). It only takes effect, and the notice only appears,
-    on its date. Not in Skrongle mini (no e-mail).
-
-  An account that never accepted any version (one from before the terms)
-  is sent to `/terms/accept`, and back to the page it asked for afterwards;
-  `/api/*` gets `403`. Pages that work logged out (`MaybeUser`: the landing
-  page, docs, `/terms`, login) show no notice and are not gated.
-  `/dev/login?terms=old` (material) and `?terms=minor` leave the dev user
-  one version behind, for the browser tests.
-- **Your own text.** A server with its own text (`SKRONGLE_TERMS=<file>`,
-  Skrongle mini) has no changelog: it uses the file's SHA-256 as the
-  version, so any edit sends every account to `/terms/accept` (no summary,
-  no e-mail).
-- **Links.** The footer on every page, the landing page, login and register
-  link Terms and Privacy (`/privacy`, its own page); the profile shows the
-  version accepted and when, and its "read" link opens the terms in a
-  dialog over the profile (the link still goes to `/terms` in a new tab
-  or without JavaScript).
+Registration has one required box, "I am at least [age] years old" (`age`;
+`SKRONGLE_MIN_AGE`, default 14; `templates/age_check.html`, the sentence with
+a rounded check box on its right in the AI pill's style). The server refuses
+the form without it. The answer is stored as `users.age_confirmed` (a
+boolean, never a birth date). Every e-mail the server sends has `Reply-To:`
+the support address (`SKRONGLE_SUPPORT_EMAIL`, #1328). The footer, the
+landing page and login link the privacy notice (`/privacy`).
 
 ## Registration and password reset
 
-`/register` (e-mail address, password, the [Terms](#terms-of-service)
-boxes, the "Hide all AI features" pill) never says whether an address has
+`/register` (e-mail address, password, the
+[age box](#age-confirmation), the "Hide all AI features" pill) never says whether an address has
 an account (#379, `src/reset.rs`):
 
 - **The answer** to a valid form is always the same page, "Check your mail"

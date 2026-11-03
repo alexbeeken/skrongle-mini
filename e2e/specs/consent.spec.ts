@@ -13,8 +13,7 @@ test("the consent card shows each consent, and Do Not Show Me AI Features hides 
   await expect(card).toBeVisible();
   await expect(page.locator('[data-testid="profile-nav-link"][data-section="consent"]')).toBeVisible();
 
-  // The Terms version and the age confirmation, both dated by sign-up.
-  await expect(card.getByTestId("profile-terms")).not.toHaveAttribute("data-terms-version", "");
+  // The age confirmation, dated by sign-up.
   await expect(card.getByTestId("consent-age")).toContainText(/^Confirmed \d/);
 
   // The (i) explains, without anything on the card itself.

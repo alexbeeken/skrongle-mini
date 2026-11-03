@@ -54,7 +54,6 @@ test("an invited address registers from the link and has the course read only, u
   await guest.getByTestId("register-email").fill(friend.email);
   await guest.getByTestId("register-password").fill(friend.password);
   await guest.getByTestId("register-age").check();
-  await guest.getByTestId("register-terms").check();
   await guest.getByTestId("register-submit").click();
   // Registering does not sign in (#379): "check your mail", then the login form, which keeps the link.
   await expect(guest.getByTestId("register-sent")).toBeVisible();

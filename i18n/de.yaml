@@ -19,7 +19,6 @@ nav:
   logout: Abmelden
 
 footer:
-  terms: Nutzungsbedingungen
   privacy: Datenschutz
   cookies: Cookies
 
@@ -118,12 +117,12 @@ auth:
     submit: Anmelden
     or: oder
     no_account_html: "Noch kein Konto? <a href=\"{url}\" data-testid=\"login-register-link\">Registrieren</a>."
-    terms_link: Nutzungsbedingungen
     privacy_link: Datenschutz
     too_many_attempts: Zu viele Anmeldeversuche. Warte ein paar Minuten und versuch es erneut.
     incorrect: E-Mail-Adresse oder Passwort sind falsch.
     forgot: "Passwort vergessen?"
   register:
+    age: "Ich bin mindestens {min_age} Jahre alt"
     title: Registrieren
     heading: Konto anlegen
     email_label: E-Mail-Adresse
@@ -154,6 +153,7 @@ auth:
     too_short: Das Passwort muss mindestens 8 Zeichen lang sein.
     too_long: "Das Passwort ist zu lang (maximal {max} Zeichen)."
   password_change:
+    logout: Stattdessen abmelden
     title: "Wähle ein neues Passwort"
     info_label: "Warum ein neues Passwort"
     about: "Du hast dich mit einem vorläufigen Passwort angemeldet, das die Person, die diesen Server betreibt, für dich gesetzt hat. Wähle zuerst dein eigenes; niemand sonst wird es kennen."
@@ -161,9 +161,7 @@ auth:
   age_gate:
     to_register: registrieren
     to_continue: weitermachen
-    both: "Bestätige, dass du mindestens {min_age} bist, und akzeptiere die Nutzungsbedingungen, um zu {to}."
     age: "Bestätige, dass du mindestens {min_age} bist, um zu {to}."
-    terms: "Akzeptiere die Nutzungsbedingungen, um zu {to}."
   code:
     title: Gib deinen Code ein
     from_app: Aus deiner Authenticator-App.
@@ -229,33 +227,6 @@ auth:
     too_many_requests: "Zu viele Anfragen aus deinem Netzwerk. Versuch es in einer Stunde noch einmal."
     too_many_tries: "Zu viele Versuche aus deinem Netzwerk. Warte ein paar Minuten und versuch es erneut."
 
-terms:
-  page:
-    title: Nutzungsbedingungen
-    version: "Version {version}"
-    markdown: Markdown
-    privacy: Datenschutzerklärung
-  check:
-    age: "Ich bin mindestens {min_age} Jahre alt"
-    agree_html: "Ich stimme den <a href=\"{terms_url}\" target=\"_blank\" data-testid=\"{tid}-terms-link\">Nutzungsbedingungen</a> und der <a href=\"{privacy_url}\" target=\"_blank\" data-testid=\"{tid}-privacy-link\">Datenschutzerklärung</a> zu"
-  accept:
-    title: Nutzungsbedingungen
-    changed: Die Nutzungsbedingungen haben sich geändert
-    heading: Nutzungsbedingungen akzeptieren
-    read_html: "Lies die <a href=\"{url}\" target=\"_blank\" data-testid=\"terms-gate-link\">Nutzungsbedingungen</a> (Version {version}) und akzeptiere sie, um weiterzumachen."
-    check_html: "Ich bin mindestens {min_age} und stimme den <a href=\"{terms_url}\" target=\"_blank\">Nutzungsbedingungen</a> und der <a href=\"{privacy_url}\" target=\"_blank\" data-testid=\"terms-gate-privacy-link\">Datenschutzerklärung</a> zu"
-    submit: Weiter
-    logout: Stattdessen abmelden
-    tick: Setz das Häkchen, um die Nutzungsbedingungen zu akzeptieren.
-  notice:
-    heading: Unsere Nutzungsbedingungen haben sich geändert
-    minor: Das hat sich geändert. Wenn du die Seite weiter nutzt, akzeptierst du die neuen Bedingungen.
-    material: Diese Änderungen betreffen deine Rechte oder einen bezahlten Tarif. Akzeptiere die neuen Bedingungen, um dein Konto weiter zu nutzen.
-    effective: "Gültig ab {date}"
-    read: Die vollständigen Bedingungen lesen
-    dismiss: Weiter
-    disagree_html: "Wenn du nicht einverstanden bist, melde dich ab oder schließe dein Konto in deinem <a href=\"{url}\" data-testid=\"terms-notice-profile\">Profil</a>."
-
 mail:
   waitlist_confirm:
     subject: "Bestätige deinen Platz auf der Warteliste von {app}"
@@ -289,26 +260,6 @@ mail:
       <p><a href="{link}">Mein Konto anlegen</a></p>
       <p>Oder füge diesen Link in deinen Browser ein: {link}</p>
       <p>Die Einladung gilt {days} Tage.</p>
-  terms_change:
-    subject: "Die Nutzungsbedingungen von {app} ändern sich am {date}"
-    text: |
-      Hallo,
-
-      Wir ändern die Nutzungsbedingungen von {app}. Die neuen Bedingungen gelten ab {date}.
-
-      Was sich ändert:
-      {summary}
-
-      Die neuen Bedingungen lesen: {link}
-
-      Ab {date} wirst du bei der Anmeldung gebeten, sie zu akzeptieren. Wenn du nicht einverstanden bist, kannst du dein Konto in deinem Profil schließen.
-    html: |
-      <p>Hallo,</p>
-      <p>Wir ändern die Nutzungsbedingungen von {app}. Die neuen Bedingungen gelten ab {date}.</p>
-      <p>Was sich ändert:</p>
-      {summary}
-      <p><a href="{link}">Die neuen Bedingungen lesen</a></p>
-      <p>Ab {date} wirst du bei der Anmeldung gebeten, sie zu akzeptieren. Wenn du nicht einverstanden bist, kannst du dein Konto in deinem Profil schließen.</p>
   verify_email:
     subject: "Bestätige deine E-Mail-Adresse für {app}"
     text: |
@@ -511,24 +462,15 @@ profile:
     sign_in: Anmeldung
     password: Passwort
     and: und
-    terms: Bedingungen
-    terms_accepted: "Version {version}, akzeptiert am {date}"
-    terms_not_accepted: Nicht akzeptiert
-    terms_read: lesen
-    terms_privacy: Datenschutz
-    terms_title: Nutzungsbedingungen
-    terms_close: Schließen
-    terms_open_page: Als Seite öffnen
     no_password: Dieses Konto hat kein Passwort, das man ändern könnte.
   consent:
     title: "Datenschutz und Einwilligung"
     info: "Über deine Einwilligungen"
     info_age: "Du hast dein Alter bei der Registrierung bestätigt. Um das zurückzunehmen, lösche dein Konto unter Deine Daten."
-    info_email: "Service-E-Mails werden immer verschickt: Bestätigung deiner Adresse, dein Datendownload und Änderungen der Bedingungen. Optionale E-Mails erscheinen hier mit eigenem Schalter, aus, bis du sie einschaltest."
+    info_email: "Service-E-Mails werden immer verschickt: Bestätigung deiner Adresse und dein Datendownload. Optionale E-Mails erscheinen hier mit eigenem Schalter, aus, bis du sie einschaltest."
     info_ai: "KI-Funktionen schicken, was du schreibst, an ein KI-Unternehmen. Blendest du sie aus, geht nichts mehr hinaus, die Funktionen verschwinden aus der App und deine gespeicherten API-Schlüssel werden gelöscht."
     info_record: "Jede Änderung wird mit Datum gespeichert und ist in Meine Daten herunterladen enthalten."
     close: "Schließen"
-    terms: "Bedingungen und Datenschutz"
     age: "Alter"
     age_confirmed: "Bestätigt am {date}"
     age_not_confirmed: "Nicht bestätigt"
@@ -758,15 +700,6 @@ superuser:
   two_factor_off_about: "Das Konto meldet sich nur mit dem Passwort an, bis es die Zwei-Faktor-Anmeldung wieder einschaltet. Eine dafür eingerichtete Authenticator-App wird entfernt."
   two_factor_off_confirm: "Ausschalten"
   two_factor_off_done: "Die Zwei-Faktor-Anmeldung ist für {email} ausgeschaltet."
-  terms_changed: "Die Bedingungen haben sich geändert."
-  terms_title: "Kommende Änderung der Bedingungen"
-  terms_send: "Ankündigung senden"
-  terms_send_about:
-    one: "Die Zusammenfassung der kommenden Änderung geht an {n} Konto, das sie noch nicht bekommen hat."
-    other: "Die Zusammenfassung der kommenden Änderung geht an {n} Konten, die sie noch nicht bekommen haben."
-  terms_sent:
-    one: "Ankündigung für {n} Konto in der Warteschlange."
-    other: "Ankündigung für {n} Konten in der Warteschlange."
   js:
     copied: "Kopiert"
 
@@ -826,7 +759,6 @@ landing:
   spec_docs_p: "Das Format, die Funktionen und die Architektur werden von der App selbst ausgeliefert, als Seiten oder als reines Markdown für ein LLM."
   final_h2: "Registrier dich, dann beantworte eine Frage: Was möchtest du lernen?"
   browse_docs: "Dokumentation durchstöbern"
-  terms: "Nutzungsbedingungen"
   privacy: "Datenschutzerklärung"
   feat_guide_h: "Guide"
   feat_guide_p: "Jede Lektion als Etappe aus kleinen Schritten: Karten, kurze Checks, Karteikarten und Tipps, mit Sternen am Ende."
@@ -1370,7 +1302,6 @@ docs:
     not_loading_html: 💡 <strong>Lädt nicht?</strong> Führe <code>hostname -I</code> auf dem Pi aus und nimm stattdessen diese Nummer, z. B. <code>http://192.168.1.42:8080</code>.
     yours_h2: Mach es zu deinem
     yours_account_html: "<strong>Lade alle anderen ein</strong>, mit einem Link unter <em>Superuser</em> (im Kontomenü)."
-    yours_terms_html: "<strong>Trag deinen Namen in die Nutzungsbedingungen ein.</strong> Alle akzeptieren sie bei der Anmeldung. Bearbeite sie mit <code>sudo nano /etc/skrongle/terms.md</code>, dann <code>sudo systemctl restart skrongle</code>; alle akzeptieren den neuen Text bei ihrem nächsten Besuch."
     yours_course_html: <strong>Wähle einen Kurs.</strong> Spanisch ist eingebaut, oder erstell deinen eigenen.
     yours_ai_html: "<strong>Optional: KI-Tutor und Kursgenerator.</strong> Füge einen Anthropic-, OpenAI- oder Google-Schlüssel unter <em>Profileinstellungen → KI-API-Schlüssel</em> ein. Sie rechnen direkt mit dir ab."
     yours_tip: "🔒 Nur Personen, die du einlädst, können ein Konto anlegen."
@@ -1400,7 +1331,6 @@ docs:
     mini_out_mail: "Keine E-Mails oder SMS: Links erscheinen stattdessen auf der Seite."
     mini_out_plans: "Keine Tarife oder Zahlungen: alle haben alles."
     mini_out_signup: "Registrierung nur mit Einladung: du erstellst für jede Person einen Link."
-    mini_out_terms: "Deine eigenen Nutzungsbedingungen, nicht unsere."
     mini_out_jobs: "Hintergrundarbeit läuft in der App: keine weiteren Dienste nötig."
     mini_out_db: "Eine Datenbankdatei (SQLite): kein Datenbankserver."
     mini_safe_h3: "Für die Sicherheit sorgst du"

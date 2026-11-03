@@ -19,7 +19,6 @@ nav:
   logout: Sair
 
 footer:
-  terms: termos
   privacy: privacidade
   cookies: cookies
 
@@ -118,12 +117,12 @@ auth:
     submit: Entrar
     or: ou
     no_account_html: "Ainda não tem conta? <a href=\"{url}\" data-testid=\"login-register-link\">Cadastre-se</a>."
-    terms_link: Termos
     privacy_link: Privacidade
     too_many_attempts: Muitas tentativas de entrar. Espere alguns minutos e tente de novo.
     incorrect: Endereço de e-mail ou senha incorretos.
     forgot: "Esqueceu sua senha?"
   register:
+    age: "Tenho pelo menos {min_age} anos de idade"
     title: Cadastrar-se
     heading: Criar uma conta
     email_label: Endereço de e-mail
@@ -154,6 +153,7 @@ auth:
     too_short: A senha precisa ter pelo menos 8 caracteres.
     too_long: "A senha é longa demais (máximo de {max} caracteres)."
   password_change:
+    logout: Sair em vez disso
     title: "Escolha uma nova senha"
     info_label: "Por que uma nova senha"
     about: "Você entrou com uma senha temporária que a pessoa que administra este servidor definiu para você. Escolha a sua antes de continuar; ninguém mais vai saber."
@@ -161,9 +161,7 @@ auth:
   age_gate:
     to_register: se cadastrar
     to_continue: continuar
-    both: "Confirme que você tem pelo menos {min_age} anos e aceite os Termos para {to}."
     age: "Confirme que você tem pelo menos {min_age} anos para {to}."
-    terms: "Aceite os Termos para {to}."
   code:
     title: Digite seu código
     from_app: Do seu aplicativo autenticador.
@@ -229,33 +227,6 @@ auth:
     too_many_requests: "Muitas solicitações da sua rede. Tente de novo em uma hora."
     too_many_tries: "Muitas tentativas da sua rede. Espere alguns minutos e tente de novo."
 
-terms:
-  page:
-    title: Termos de Serviço
-    version: "Versão {version}"
-    markdown: Markdown
-    privacy: Política de Privacidade
-  check:
-    age: "Tenho pelo menos {min_age} anos de idade"
-    agree_html: "Concordo com os <a href=\"{terms_url}\" target=\"_blank\" data-testid=\"{tid}-terms-link\">Termos</a> e com a <a href=\"{privacy_url}\" target=\"_blank\" data-testid=\"{tid}-privacy-link\">Política de Privacidade</a>"
-  accept:
-    title: Termos de Serviço
-    changed: Os termos mudaram
-    heading: Aceite os termos
-    read_html: "Leia os <a href=\"{url}\" target=\"_blank\" data-testid=\"terms-gate-link\">Termos de Serviço</a> (versão {version}) e aceite-os para continuar."
-    check_html: "Tenho pelo menos {min_age} anos e concordo com os <a href=\"{terms_url}\" target=\"_blank\">Termos</a> e com a <a href=\"{privacy_url}\" target=\"_blank\" data-testid=\"terms-gate-privacy-link\">Política de Privacidade</a>"
-    submit: Continuar
-    logout: Sair em vez disso
-    tick: Marque a caixa para aceitar os termos.
-  notice:
-    heading: Os nossos termos mudaram
-    minor: Veja o que mudou. Se continuar a usar o site, aceita os novos termos.
-    material: Estas mudanças afetam os seus direitos ou um plano pago. Aceite os novos termos para continuar a usar a sua conta.
-    effective: "Em vigor desde {date}"
-    read: Ler os termos completos
-    dismiss: Continuar
-    disagree_html: "Se não concordar, saia ou encerre a sua conta no seu <a href=\"{url}\" data-testid=\"terms-notice-profile\">perfil</a>."
-
 mail:
   waitlist_confirm:
     subject: "Confirme seu lugar na lista de espera do {app}"
@@ -289,26 +260,6 @@ mail:
       <p><a href="{link}">Criar minha conta</a></p>
       <p>Ou cole este link no seu navegador: {link}</p>
       <p>O convite vale por {days} dias.</p>
-  terms_change:
-    subject: "Os termos do {app} mudam em {date}"
-    text: |
-      Olá,
-
-      Vamos mudar os termos do {app}. Os novos termos entram em vigor em {date}.
-
-      O que muda:
-      {summary}
-
-      Leia os novos termos: {link}
-
-      A partir de {date}, vamos pedir-lhe que os aceite ao entrar. Se não concordar, pode encerrar a sua conta no seu perfil.
-    html: |
-      <p>Olá,</p>
-      <p>Vamos mudar os termos do {app}. Os novos termos entram em vigor em {date}.</p>
-      <p>O que muda:</p>
-      {summary}
-      <p><a href="{link}">Ler os novos termos</a></p>
-      <p>A partir de {date}, vamos pedir-lhe que os aceite ao entrar. Se não concordar, pode encerrar a sua conta no seu perfil.</p>
   verify_email:
     subject: "Confirme seu endereço de e-mail para {app}"
     text: |
@@ -511,24 +462,15 @@ profile:
     sign_in: Login
     password: Senha
     and: e
-    terms: Termos
-    terms_accepted: "Versão {version}, aceita em {date}"
-    terms_not_accepted: Não aceita
-    terms_read: ler
-    terms_privacy: privacidade
-    terms_title: Termos de Serviço
-    terms_close: Fechar
-    terms_open_page: Abrir como página
     no_password: Esta conta não tem senha para trocar.
   consent:
     title: "Privacidade e consentimento"
     info: "Sobre seus consentimentos"
     info_age: "Você confirmou sua idade ao se cadastrar. Para retirar isso, exclua sua conta em Seus dados."
-    info_email: "E-mails de serviço sempre são enviados: confirmação do seu endereço, download dos seus dados e mudanças nos termos. E-mails opcionais vão aparecer aqui com seu próprio botão, desligados até você ligá-los."
+    info_email: "E-mails de serviço sempre são enviados: confirmação do seu endereço e download dos seus dados. E-mails opcionais vão aparecer aqui com seu próprio botão, desligados até você ligá-los."
     info_ai: "Os recursos de IA enviam o que você digita para uma empresa de IA. Oculte-os e nada sai, os recursos somem do app e suas chaves de API salvas são excluídas."
     info_record: "Cada mudança fica registrada com a data e vem em Baixar meus dados."
     close: "Fechar"
-    terms: "Termos e privacidade"
     age: "Idade"
     age_confirmed: "Confirmada em {date}"
     age_not_confirmed: "Não confirmada"
@@ -758,15 +700,6 @@ superuser:
   two_factor_off_about: "A conta entra só com a senha até ativar de novo a verificação em duas etapas. O app autenticador configurado é removido."
   two_factor_off_confirm: "Desativar"
   two_factor_off_done: "A verificação em duas etapas está desativada para {email}."
-  terms_changed: "Os termos mudaram."
-  terms_title: "Próxima alteração dos termos"
-  terms_send: "Enviar o aviso"
-  terms_send_about:
-    one: "O resumo da próxima alteração vai para {n} conta que ainda não o recebeu."
-    other: "O resumo da próxima alteração vai para {n} contas que ainda não o receberam."
-  terms_sent:
-    one: "Aviso na fila para {n} conta."
-    other: "Aviso na fila para {n} contas."
   js:
     copied: "Copiado"
 
@@ -826,7 +759,6 @@ landing:
   spec_docs_p: O formato, os recursos e a arquitetura são servidos pelo próprio aplicativo, como páginas ou como Markdown puro para um LLM.
   final_h2: "Cadastre-se e responda uma pergunta: o que você gostaria de aprender?"
   browse_docs: Explore a documentação
-  terms: Termos de Serviço
   privacy: Política de Privacidade
   feat_guide_h: "Guia"
   feat_guide_p: "Cada lição como uma etapa de passos pequenos: cartões, verificações rápidas, flashcards e dicas, com estrelas no fim."
@@ -1370,7 +1302,6 @@ docs:
     not_loading_html: "💡 <strong>Não carrega?</strong> Rode <code>hostname -I</code> no Pi e use esse número, por exemplo <code>http://192.168.1.42:8080</code>."
     yours_h2: Deixe do seu jeito
     yours_account_html: "<strong>Convide os demais</strong> com um link em <em>Superusuário</em> (no menu da conta)."
-    yours_terms_html: "<strong>Coloque seu nome nos Termos.</strong> Todos os aceitam ao se cadastrar. Edite-os com <code>sudo nano /etc/skrongle/terms.md</code> e depois <code>sudo systemctl restart skrongle</code>; todos aceitam o novo texto na próxima visita."
     yours_course_html: "<strong>Escolha um curso.</strong> O espanhol já vem incluído, ou crie o seu."
     yours_ai_html: "<strong>Opcional: tutor de IA e gerador de cursos.</strong> Cole uma chave da Anthropic, OpenAI ou Google em <em>Configurações do perfil → Chaves de API de IA</em>. Elas cobram você diretamente."
     yours_tip: "🔒 Só as pessoas que você convidar podem criar uma conta."
@@ -1400,7 +1331,6 @@ docs:
     mini_out_mail: "Sem e-mail nem SMS: os links aparecem na própria página."
     mini_out_plans: "Sem planos nem pagamentos: todo mundo tem tudo."
     mini_out_signup: "Cadastro por convite: você cria um link para cada pessoa."
-    mini_out_terms: "Seus próprios Termos de Serviço, não os nossos."
     mini_out_jobs: "O trabalho em segundo plano roda dentro do app: nenhum serviço extra para manter."
     mini_out_db: "Um único arquivo de banco de dados (SQLite): sem servidor de banco de dados."
     mini_safe_h3: "Manter tudo seguro é com você"

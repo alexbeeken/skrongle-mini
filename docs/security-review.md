@@ -35,7 +35,7 @@ PR and its merge commit.
 
 | Issue | Area | Problem | Fix | PR | Test |
 |---|---|---|---|---|---|
-| #358 | Terms gate redirect | `next=/%09/evil.example` passed `safe_next`; browsers strip the tab and follow `//evil.example`. | `terms::is_app_path` rejects whitespace and control characters too; shared with `/dev/login`. | #432 (`ea764f5`) | `next_stays_in_the_app` |
+| #358 | Sign-in gate redirect | `next=/%09/evil.example` passed `safe_next`; browsers strip the tab and follow `//evil.example`. | `password::is_app_path` rejects whitespace and control characters too; shared with `/dev/login`. | #432 (`ea764f5`) | `next_stays_in_the_app` |
 | #359 | Second sign-in step | "Send a new code" reset the 5 tries; `/login/code` ignored the per-account block; the last wrong code was not counted. | Tries kept across resends; `/login/code` and the resend refuse while `LOGIN_FAILURES_PER_USER` is reached; every wrong code counts. | #432 (`ea764f5`) | `a_resend_keeps_the_wrong_codes_already_typed`, `sign_in_codes_count_against_the_account_limit` |
 | #371 | Rate-limit table | At 20,000 keys the oldest half was evicted, including running per-account counters; IPv6 keyed per address; `/login` made a key before the cheap length check. | One table per limit (64 keys each since #36; 10,000 before); a full table refuses new keys rather than evicting; IPv6 keyed by /64; length check first. | #432 (`ea764f5`) | `a_flood_of_new_keys_cannot_reset_an_account_counter`, `ipv6_clients_are_keyed_by_their_64`, `rate_limit_memory_is_bounded` |
 | #364 | Billing | `users.id` had no `AUTOINCREMENT`, so a deleted account's id went to the next registrant, and Stripe events naming it (metadata `user_id`) attached the old subscription and customer to them. | `users` rebuilt with `AUTOINCREMENT` (migration v45); Checkout metadata carries a random per-account `billing_ref`; `apply_event` ignores events whose ref names no account, whose customer differs from the account's, or whose subscription predates the account; legacy `user_id` metadata counts only with the account's own customer. | #433 (`154190c`) | `a_deleted_accounts_subscription_never_reaches_the_next_account`, `users_rebuild_keeps_everything_and_never_reuses_ids` |
@@ -144,8 +144,8 @@ Still open from this review:
   course or user value is escaped; there is no `eval` or `new Function`.
   Tutor replies are escaped before the small bold/italic formatting.
 - **Open redirects**: the redirects that take a target from the request
-  (`/terms/accept?next=`, `/dev/login?next=`) accept only an app path
-  through `terms::is_app_path`: it starts with one `/` and has no `\`,
+  (`/password/change?next=`, `/dev/login?next=`) accept only an app path
+  through `password::is_app_path`: it starts with one `/` and has no `\`,
   whitespace or control character, so a tab cannot turn it into
   `//evil.example` (#358). Sign-in after a share link lands on a path the
   server builds from the token. One weaker check remains: the language
@@ -282,4 +282,4 @@ Rewriting history is the owner's decision (TODO.md); this review did not.
   (#379, PR #461 open).
 - CI runner isolation (#356).
 - The language picker's `back` check (`POST /lang`, above) should use
-  `terms::is_app_path`.
+  `password::is_app_path`.

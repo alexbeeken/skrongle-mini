@@ -478,12 +478,26 @@ pub fn apply_retention(conn: &Connection, r: &Retention, now: i64) -> rusqlite::
 
 // ---------- age at sign-up ----------
 
-/// The "I am at least N" confirmation at sign-up. It is part of the Terms
-/// checkbox ("I am at least N and agree to the Terms and Privacy Policy",
-/// #72), which registration requires, so
-/// the gate is always on; N is `SKRONGLE_MIN_AGE` (`terms::min_age`, 14 by
-/// default, #976). `check` refuses a sign-up without the
-/// box, and `record_age_confirmed` stores it on the new account.
+/// The minimum age the sign-up checkbox states (`SKRONGLE_MIN_AGE`): 14 by
+/// default.
+pub const DEFAULT_MIN_AGE: u32 = 14;
+
+static MIN_AGE: std::sync::OnceLock<u32> = std::sync::OnceLock::new();
+
+/// Set once at startup from `SKRONGLE_MIN_AGE`.
+pub fn init_min_age(min_age: Option<u32>) {
+    let _ = MIN_AGE.set(min_age.unwrap_or(DEFAULT_MIN_AGE));
+}
+
+/// The minimum age: `SKRONGLE_MIN_AGE`, else `DEFAULT_MIN_AGE`.
+pub fn min_age() -> u32 {
+    MIN_AGE.get().copied().unwrap_or(DEFAULT_MIN_AGE)
+}
+
+/// The "I am at least N" confirmation at sign-up. Registration requires the
+/// box, so the gate is always on; N is `SKRONGLE_MIN_AGE` (`min_age`).
+/// `check` refuses a sign-up without the box, and `record_age_confirmed`
+/// stores it on the new account.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct AgeGate {
     pub min_age: u32,
@@ -492,24 +506,21 @@ pub struct AgeGate {
 impl AgeGate {
     /// The gate as this server is configured.
     pub fn current() -> AgeGate {
-        AgeGate { min_age: crate::terms::min_age() }
+        AgeGate { min_age: min_age() }
     }
 
-    /// The sign-up forms' two boxes: "I am at least N years old" (`age`)
-    /// and "I agree to the Terms" (`accept`). `Err` is the sentence for the
-    /// form, naming the missing box; `to` ends it ("register", "continue").
-    pub fn check(&self, age: bool, accept: bool, to: &str) -> Result<(), String> {
-        let min_age = self.min_age;
+    /// The sign-up form's box: "I am at least N years old" (`age`). `Err` is
+    /// the sentence for the form; `to` ends it ("register", "continue").
+    pub fn check(&self, age: bool, to: &str) -> Result<(), String> {
         let to = match to {
             "register" => crate::t("auth.age_gate.to_register"),
             "continue" => crate::t("auth.age_gate.to_continue"),
             other => other.to_string(),
         };
-        match (age, accept) {
-            (true, true) => Ok(()),
-            (false, false) => Err(crate::t2("auth.age_gate.both", "min_age", min_age, "to", to)),
-            (false, true) => Err(crate::t2("auth.age_gate.age", "min_age", min_age, "to", to)),
-            (true, false) => Err(crate::t1("auth.age_gate.terms", "to", to)),
+        if age {
+            Ok(())
+        } else {
+            Err(crate::t2("auth.age_gate.age", "min_age", self.min_age, "to", to))
         }
     }
 }

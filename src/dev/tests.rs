@@ -164,9 +164,6 @@ fn the_dev_mailbox_needs_no_sign_in_and_the_simulator_speaks_the_wire_protocols(
         .with(|c| {
             let a = crate::auth::create_user(c, "ann@example.org", "x")?;
             let d = crate::auth::create_user(c, "dora@example.org", "x")?;
-            for u in [a, d] {
-                crate::terms::accept(c, u, crate::terms::version())?;
-            }
             set_developer(c, d)?;
             Ok((crate::auth::create_session(c, a)?, crate::auth::create_session(c, d)?))
         })

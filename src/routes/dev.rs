@@ -23,11 +23,6 @@ pub struct LoginParams {
     pub keys: Option<String>,
     /// Where to land, an app path such as `/courses/generate`.
     pub next: Option<String>,
-    /// `old`: leave the dev user with only an older Terms version accepted,
-    /// so the material "terms updated" notice shows; `minor`: one a minor
-    /// change behind, so the dismissable notice shows (#966). The next login
-    /// without it accepts again.
-    pub terms: Option<String>,
     /// With `open`: `1` shows the course's first-visit settings wizard on
     /// its home page again (#574). Without it the course counts as set up,
     /// so a login lands on the home page itself.
@@ -37,7 +32,7 @@ pub struct LoginParams {
 /// Only app-relative paths, so `next` can't send the browser elsewhere.
 fn landing(next: Option<&str>) -> String {
     match next {
-        Some(n) if super::terms::is_app_path(n) => crate::url(n),
+        Some(n) if super::password::is_app_path(n) => crate::url(n),
         _ => crate::url("/"),
     }
 }
@@ -83,20 +78,6 @@ pub async fn login(State(state): State<Arc<AppState>>, Query(q): Query<LoginPara
             state.db.call(move |c| dev::save_dev_keys(c, &vault, uid)).await?;
         }
         Some(other) => return Err(AppError::BadRequest(format!("keys={other}: keys=fake or keys=dev"))),
-    }
-    match q.terms.as_deref() {
-        None | Some("") => {}
-        Some(which @ ("old" | "minor")) => {
-            let version = if which == "old" { dev::OLD_TERMS_VERSION } else { dev::MINOR_TERMS_VERSION };
-            state
-                .db
-                .call(move |c| {
-                    c.execute("DELETE FROM terms_acceptances WHERE user_id = ?1", [uid])?;
-                    crate::terms::accept(c, uid, version)
-                })
-                .await?;
-        }
-        Some(other) => return Err(AppError::BadRequest(format!("terms={other}: use terms=old (a material change) or terms=minor"))),
     }
     let token = state.db.call(move |c| auth::create_session(c, uid)).await?;
     tracing::info!("dev: logged in as '{}'", dev::DEV_EMAIL);

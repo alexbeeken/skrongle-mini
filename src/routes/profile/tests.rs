@@ -28,7 +28,6 @@ fn privacy_page_export_and_account_deletion_over_http() {
     let key = "sk-ant-api03-0123456789abcdefghijklmnop";
     state.db.with(|c| crate::secrets::save(c, &state.vault, ann, crate::secrets::Provider::Anthropic, key)).unwrap();
     let session = |u| {
-        state.db.with(|c| crate::terms::accept(c, u, crate::terms::version())).unwrap();
         state.db.with(|c| crate::auth::create_session(c, u)).unwrap()
     };
     let (ann_t, gil_t) = (session(ann), session(gil));
@@ -166,9 +165,6 @@ fn account_changes_need_proof_and_sign_out_other_devices() {
         .with(|c| {
             let ann = crate::auth::create_user(c, "ann@example.org", &hash)?;
             let gil = crate::auth::create_user(c, "gil@example.org", "")?;
-            for u in [ann, gil] {
-                crate::terms::accept(c, u, crate::terms::version())?;
-            }
             c.execute("UPDATE users SET email_verified_at = 1 WHERE id IN (?1, ?2)", [ann, gil])?;
             Ok((ann, gil))
         })
@@ -244,7 +240,6 @@ fn profile_fields_save_as_they_change() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
     let state = crate::routes::test_state(false);
     let ann = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", "x")).unwrap();
-    state.db.with(|c| crate::terms::accept(c, ann, crate::terms::version())).unwrap();
     let cookie = format!("sid={}", state.db.with(|c| crate::auth::create_session(c, ann)).unwrap());
     let app = crate::routes::router(state.clone());
     let base = rt.block_on(async {
@@ -330,7 +325,7 @@ fn ai_features_can_be_turned_off_over_http() {
     let sid = |set_cookie: &str| set_cookie.split(';').next().unwrap().to_string();
 
     // Registering with the box ticked.
-    assert_eq!(post("/register", "", &[("email", "ann@example.org"), ("password", "right-password"), ("age", "on"), ("accept", "on"), ("no_ai", "on")]).0, 200);
+    assert_eq!(post("/register", "", &[("email", "ann@example.org"), ("password", "right-password"), ("age", "on"), ("no_ai", "on")]).0, 200);
     // Registering does not sign in (#379).
     let (status, _, cookie, _) = post("/login", "", &[("email", "ann@example.org"), ("password", "right-password")]);
     assert_eq!(status, 303);
@@ -339,7 +334,7 @@ fn ai_features_can_be_turned_off_over_http() {
     state.db.with(|c| c.execute("UPDATE users SET active_course = 'spanish' WHERE id = ?1", [ann_id])).unwrap();
     assert!(state.db.with(|c| crate::profile::load(c, ann_id)).unwrap().unwrap().ai_off);
     // And without it.
-    assert_eq!(post("/register", "", &[("email", "bob@example.org"), ("password", "right-password"), ("age", "on"), ("accept", "on")]).0, 200);
+    assert_eq!(post("/register", "", &[("email", "bob@example.org"), ("password", "right-password"), ("age", "on")]).0, 200);
     // Registering does not sign in (#379).
     let (status, _, cookie, _) = post("/login", "", &[("email", "bob@example.org"), ("password", "right-password")]);
     assert_eq!(status, 303);

@@ -101,14 +101,6 @@
         {% if profile.has_password %}{{ crate::t("profile.account.password") }}{% endif %}
       </dd>
     </dl>
-    <dialog class="modal wide" id="terms-dialog" aria-labelledby="terms-dialog-title" data-testid="profile-terms-dialog">
-      <div class="modal-bar">
-        <h2 id="terms-dialog-title">{{ crate::t("profile.account.terms_title") }}</h2>
-        <button type="button" class="btn ghost" data-closes data-testid="profile-terms-close">{{ crate::t("profile.account.terms_close") }}</button>
-      </div>
-      <article class="prose" data-testid="profile-terms-text">{{ terms_html|safe }}</article>
-      <p class="muted small"><a href="{{ crate::url("/terms") }}" data-testid="profile-terms-page-link">{{ crate::t("profile.account.terms_open_page") }}</a></p>
-    </dialog>
 
     <div class="profile-actions">
     {% if profile.has_password %}
@@ -299,12 +291,6 @@
       <div class="modal-actions"><button type="button" class="btn" data-closes data-testid="profile-consent-info-close">{{ crate::t("profile.consent.close") }}</button></div>
     </dialog>
     <dl class="facts">
-      <dt>{{ crate::t("profile.consent.terms") }}</dt>
-      {% if let Some(t) = profile.terms %}
-      <dd data-testid="profile-terms" data-terms-version="{{ t.version }}">{{ crate::t2("profile.account.terms_accepted", "version", t.version.as_str(), "date", crate::profile::long_date(*t.accepted_at)) }} · <a href="{{ crate::url("/terms") }}" data-opens="terms-dialog" data-testid="profile-terms-link">{{ crate::t("profile.account.terms_read") }}</a> · <a href="{{ crate::url("/privacy") }}" data-testid="profile-privacy-link">{{ crate::t("profile.account.terms_privacy") }}</a></dd>
-      {% else %}
-      <dd data-testid="profile-terms" data-terms-version="">{{ crate::t("profile.account.terms_not_accepted") }} · <a href="{{ crate::url("/terms") }}" data-opens="terms-dialog" data-testid="profile-terms-link">{{ crate::t("profile.account.terms_read") }}</a></dd>
-      {% endif %}
       <dt>{{ crate::t("profile.consent.age") }}</dt>
       <dd data-testid="consent-age">{{ profile.age_text() }}</dd>
       {% if caps.mail && profile.email.is_some() %}

@@ -109,7 +109,7 @@ pub async fn cookies(MaybeUser(user): MaybeUser) -> Result<Response, AppError> {
 
 /// Every embedded `.md` file, as (slug, title).
 pub fn pages() -> Vec<DocLink> {
-    let mut names: Vec<String> = Docs::iter().map(|n| n.to_string()).filter(|n| n.ends_with(".md") && n != "terms.md").collect();
+    let mut names: Vec<String> = Docs::iter().map(|n| n.to_string()).filter(|n| n.ends_with(".md")).collect();
     names.sort();
     // README-style ordering: overview first, then the rest alphabetically.
     names.sort_by_key(|n| if n == "index.md" { 0 } else { 1 });
@@ -187,10 +187,6 @@ pub async fn page(MaybeUser(user): MaybeUser, Path(page): Path<String>) -> Resul
 fn render(slug: &str, user: Option<CurrentUser>) -> Result<Response, AppError> {
     if !slug.chars().all(|c| c.is_ascii_alphanumeric() || c == '-' || c == '_') {
         return Err(AppError::NotFound);
-    }
-    // The terms have their own page (contact filled in, sections per config).
-    if slug == "terms" {
-        return Ok(axum::response::Redirect::to(&crate::url("/terms")).into_response());
     }
     let (title, html) = rendered(slug).ok_or(AppError::NotFound)?;
     Ok(Page(DocsTemplate { user, title, slug: slug.to_string(), html, sections: sections_cached() }).into_response())

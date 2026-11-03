@@ -21,7 +21,6 @@ nav:
   logout: Log out
 
 footer:
-  terms: terms
   privacy: privacy
   cookies: cookies
 
@@ -120,12 +119,12 @@ auth:
     submit: Log in
     or: or
     no_account_html: "No account yet? <a href=\"{url}\" data-testid=\"login-register-link\">Register</a>."
-    terms_link: Terms
     privacy_link: Privacy
     too_many_attempts: Too many sign-in attempts. Wait a few minutes and try again.
     incorrect: Incorrect e-mail address or password.
     forgot: "Forgot your password?"
   register:
+    age: "I am at least {min_age} years old"
     title: Register
     heading: Create an account
     email_label: E-mail address
@@ -156,6 +155,7 @@ auth:
     too_short: Password must be at least 8 characters.
     too_long: "Password is too long (max {max} characters)."
   password_change:
+    logout: Log out instead
     title: "Choose a new password"
     info_label: "Why a new password"
     about: "You signed in with a temporary password that the person who runs this server set for you. Choose your own before going on; nobody else will know it."
@@ -163,9 +163,7 @@ auth:
   age_gate:
     to_register: register
     to_continue: continue
-    both: "Confirm you are at least {min_age} and accept the Terms to {to}."
     age: "Confirm you are at least {min_age} to {to}."
-    terms: "Accept the Terms to {to}."
   code:
     title: Enter your code
     from_app: From your authenticator app.
@@ -231,33 +229,6 @@ auth:
     too_many_requests: "Too many requests from your network. Try again in an hour."
     too_many_tries: "Too many tries from your network. Wait a few minutes and try again."
 
-terms:
-  page:
-    title: Terms of Service
-    version: "Version {version}"
-    markdown: Markdown
-    privacy: Privacy Policy
-  check:
-    age: "I am at least {min_age} years old"
-    agree_html: "I agree to the <a href=\"{terms_url}\" target=\"_blank\" data-testid=\"{tid}-terms-link\">Terms</a> and <a href=\"{privacy_url}\" target=\"_blank\" data-testid=\"{tid}-privacy-link\">Privacy Policy</a>"
-  accept:
-    title: Terms of Service
-    changed: The terms have changed
-    heading: Accept the terms
-    read_html: "Read the <a href=\"{url}\" target=\"_blank\" data-testid=\"terms-gate-link\">Terms of Service</a> (version {version}) and accept them to continue."
-    check_html: "I am at least {min_age} and agree to the <a href=\"{terms_url}\" target=\"_blank\">Terms</a> and <a href=\"{privacy_url}\" target=\"_blank\" data-testid=\"terms-gate-privacy-link\">Privacy Policy</a>"
-    submit: Continue
-    logout: Log out instead
-    tick: Tick the box to accept the terms.
-  notice:
-    heading: Our terms have changed
-    minor: Here is what changed. Continuing to use the site means you accept the new terms.
-    material: These changes affect your rights or a paid plan. Accept the new terms to keep using your account.
-    effective: "In effect from {date}"
-    read: Read the full terms
-    dismiss: Continue
-    disagree_html: "If you do not agree, log out, or close your account from your <a href=\"{url}\" data-testid=\"terms-notice-profile\">profile</a>."
-
 mail:
   waitlist_confirm:
     subject: "Confirm your place on the {app} waitlist"
@@ -291,26 +262,6 @@ mail:
       <p><a href="{link}">Make my account</a></p>
       <p>Or paste this link into your browser: {link}</p>
       <p>The invitation works for {days} days.</p>
-  terms_change:
-    subject: "The {app} terms change on {date}"
-    text: |
-      Hello,
-
-      We are changing the {app} terms. The new terms take effect on {date}.
-
-      What changes:
-      {summary}
-
-      Read the new terms: {link}
-
-      From {date} you will be asked to accept them when you sign in. If you do not agree, you can close your account from your profile.
-    html: |
-      <p>Hello,</p>
-      <p>We are changing the {app} terms. The new terms take effect on {date}.</p>
-      <p>What changes:</p>
-      {summary}
-      <p><a href="{link}">Read the new terms</a></p>
-      <p>From {date} you will be asked to accept them when you sign in. If you do not agree, you can close your account from your profile.</p>
   verify_email:
     subject: "Confirm your e-mail address for {app}"
     text: |
@@ -516,24 +467,15 @@ profile:
     sign_in: Sign-in
     password: Password
     and: and
-    terms: Terms
-    terms_accepted: "Version {version}, accepted {date}"
-    terms_not_accepted: Not accepted
-    terms_read: read
-    terms_privacy: privacy
-    terms_title: Terms of Service
-    terms_close: Close
-    terms_open_page: Open as a page
     no_password: This account has no password to change.
   consent:
     title: "Privacy and consent"
     info: "About your consents"
     info_age: "You confirmed your age when you signed up. To take that back, delete your account under Your data."
-    info_email: "Service e-mails always go out: confirming your address, your data download, and changes to the terms. Optional e-mails will show up here with their own switch, off until you turn them on."
+    info_email: "Service e-mails always go out: confirming your address and your data download. Optional e-mails will show up here with their own switch, off until you turn them on."
     info_ai: "AI features send what you type to an AI company. Hide them and nothing goes out, the features are gone from the app, and your saved API keys are deleted."
     info_record: "Each change is kept with its date and comes with Download my data."
     close: "Close"
-    terms: "Terms and privacy"
     age: "Age"
     age_confirmed: "Confirmed {date}"
     age_not_confirmed: "Not confirmed"
@@ -763,15 +705,6 @@ superuser:
   two_factor_off_about: "The account signs in with its password alone until it turns two-factor on again. An authenticator app set up for it is removed."
   two_factor_off_confirm: "Turn it off"
   two_factor_off_done: "Two-factor sign-in is off for {email}."
-  terms_changed: "The terms have changed."
-  terms_title: "Coming change to the terms"
-  terms_send: "Send the announcement"
-  terms_send_about:
-    one: "The summary of the coming change goes to {n} account that has not had it."
-    other: "The summary of the coming change goes to {n} accounts that have not had it."
-  terms_sent:
-    one: "Announcement queued for {n} account."
-    other: "Announcement queued for {n} accounts."
   js:
     copied: "Copied"
 
@@ -832,7 +765,6 @@ landing:
   spec_docs_p: The format, the features and the architecture are served from the app itself, as pages or as raw Markdown for an LLM.
   final_h2: "Register, then answer one question: what would you like to learn?"
   browse_docs: Browse the documentation
-  terms: Terms of Service
   privacy: Privacy Policy
   feat_guide_h: "Guide"
   feat_guide_p: "Each lesson as a stage of small steps: cards, quick checks, flashcards and tips, with stars at the end."
@@ -1376,7 +1308,6 @@ docs:
     not_loading_html: 💡 <strong>Not loading?</strong> Run <code>hostname -I</code> on the Pi and use that number instead, e.g. <code>http://192.168.1.42:8080</code>.
     yours_h2: Make it yours
     yours_account_html: "<strong>Invite everyone else</strong> with a link from <em>Superuser</em> (in the account menu)."
-    yours_terms_html: "<strong>Put your name in the Terms.</strong> Everyone accepts them when they sign up. Edit them with <code>sudo nano /etc/skrongle/terms.md</code>, then <code>sudo systemctl restart skrongle</code>; everyone accepts the new text at their next visit."
     yours_course_html: <strong>Pick a course.</strong> Spanish is built in, or make your own.
     yours_ai_html: "<strong>Optional: AI tutor and course generator.</strong> Paste an Anthropic, OpenAI or Google key in <em>Profile settings → AI API keys</em>. They bill you directly."
     yours_tip: "🔒 Only people you invite can make an account."
@@ -1406,7 +1337,6 @@ docs:
     mini_out_mail: "No e-mail or text messages: links show up in the page instead."
     mini_out_plans: "No plans or payments: everyone has everything."
     mini_out_signup: "Sign-up by invitation: you make a link for each person."
-    mini_out_terms: "Your own Terms of Service, not ours."
     mini_out_jobs: "Background work runs inside the app: no extra services to run."
     mini_out_db: "One database file (SQLite): no database server."
     mini_safe_h3: "Keeping it safe is your job"

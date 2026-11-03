@@ -30,11 +30,6 @@ pub const DEV_EMAIL: &str = "dev@example.com";
 pub const DEV_PASSWORD: &str = "dev-password";
 /// The course the seed (and `/dev/login?open=` without a value) opens.
 pub const SEED_COURSE: &str = "spanish";
-/// The Terms version `/dev/login?terms=old` leaves the dev user with.
-pub const OLD_TERMS_VERSION: &str = "0-dev-old";
-/// The one `/dev/login?terms=minor` leaves it with: `terms::notice` reads it
-/// as a minor change to the current version, so its notice can be dismissed.
-pub const MINOR_TERMS_VERSION: &str = "0-dev-minor";
 
 /// Whether dev mode may be on. `Err` says why a requested dev mode was refused.
 pub fn resolve(requested: bool, bind: SocketAddr, secure_cookies: bool, public_url: Option<&str>) -> Result<bool, String> {
@@ -376,14 +371,12 @@ pub fn valid_stem(stem: &str) -> bool {
 // ---------- the dev user ----------
 
 /// The dev user's id, creating the account on first use. Blocking (argon2).
-/// The dev user has always accepted the current Terms and confirmed its
-/// address, so neither the gate nor the e-mail notice stands between a test
-/// and the app, and is a superuser (the profile's Superuser section) and a
+/// The dev user has confirmed its address, so the e-mail notice does not
+/// stand between a test and the app, and is a superuser (the profile's Superuser section) and a
 /// developer (`users.developer`).
 pub fn ensure_user(db: &Db) -> Result<i64, String> {
     let accept = |id: i64| {
         db.with(|c| {
-            crate::terms::accept(c, id, crate::terms::version())?;
             c.execute("UPDATE users SET superuser = 1, developer = 1 WHERE id = ?1", [id])?;
             crate::verify::mark_verified(c, id, crate::db::now())
         })

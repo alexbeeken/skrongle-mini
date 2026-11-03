@@ -167,7 +167,6 @@ mod tests {
         let state = crate::routes::test_state(false);
         let hash = crate::auth::hash_password("old-password").unwrap();
         let ann = state.db.with(|c| crate::auth::create_user(c, "ann@example.org", &hash)).unwrap();
-        state.db.with(|c| crate::terms::accept(c, ann, crate::terms::version())).unwrap();
         let session = state.db.with(|c| crate::auth::create_session(c, ann)).unwrap();
         let app = crate::routes::router(state.clone());
         let base = rt.block_on(async {
@@ -261,7 +260,7 @@ mod tests {
         let register = |email: &str, pw: &str| {
             let mut r = agent
                 .post(&format!("{base}/register"))
-                .send_form([("email", email), ("password", pw), ("age", "on"), ("accept", "on")])
+                .send_form([("email", email), ("password", pw), ("age", "on")])
                 .unwrap();
             let cookie = r.headers().get("set-cookie").is_some();
             (r.status().as_u16(), cookie, r.body_mut().read_to_string().unwrap())

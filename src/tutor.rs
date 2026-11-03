@@ -496,7 +496,7 @@ pub fn system_prompt(content: &ContentStore, learner: &str, lesson: Option<&Less
         crate::progress::RULES,
         crate::progress::MIN_ANSWERS
     ));
-    s.push_str(&safety_rules(crate::terms::min_age()));
+    s.push_str(&safety_rules(crate::privacy::min_age()));
     if let Some(l) = lesson {
         s.push_str(&format!("## Current lesson: {} ({})\n", l.title, content.unit(l.unit_index).title));
         if !l.focus.is_empty() {
@@ -535,7 +535,7 @@ pub fn system_prompt(content: &ContentStore, learner: &str, lesson: Option<&Less
 }
 
 /// The audience and safety part of the tutor's prompt (#919): learners can
-/// be as young as the Terms' minimum age, the chat is free-form and the
+/// be as young as the minimum age, the chat is free-form and the
 /// learner can steer it, so the tutor stays on the course, refuses harmful
 /// turns and never asks for personal details. Words and topics the lesson
 /// itself teaches stay fine to explain.
@@ -850,7 +850,7 @@ mod tests {
         let sys = system_prompt(&content, "Ana", None, None, None);
         assert!(sys.contains("## No exercise"));
         // The audience and safety rules go in every prompt (#919).
-        assert!(sys.contains(&safety_rules(crate::terms::min_age())));
+        assert!(sys.contains(&safety_rules(crate::privacy::min_age())));
         let c = card(&content, &pk);
         let json = serde_json::to_string(&Entry::Question(c.clone())).unwrap();
         let v: serde_json::Value = serde_json::from_str(&json).unwrap();

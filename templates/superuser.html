@@ -13,25 +13,6 @@
   </dialog>
   {% if let Some(n) = notice %}<p class="alert ok-text" role="status" data-testid="superuser-notice">✓ {{ n }}{% if let Some(i) = inbox %} <a href="{{ i }}" data-testid="superuser-inbox">{{ crate::t("superuser.open_inbox") }}</a>{% endif %}</p>{% endif %}
   {% if let Some(e) = error %}<p class="alert error" role="alert" data-testid="superuser-error">{{ e }}</p>{% endif %}
-  {% if terms_owed > 0 %}<p class="alert" role="status" data-testid="superuser-terms-changed">{{ crate::t("superuser.terms_changed") }}</p>{% endif %}
-
-  {% if terms_owed > 0 %}
-  <section class="card" data-testid="superuser-terms-card">
-    <h2>{{ crate::t("superuser.terms_title") }}</h2>
-    <button type="button" class="btn" data-opens="superuser-terms-dialog" aria-haspopup="dialog" data-testid="superuser-terms-send">{{ crate::t("superuser.terms_send") }}</button>
-  </section>
-  <dialog class="modal" id="superuser-terms-dialog" aria-labelledby="superuser-terms-title" data-testid="superuser-terms-dialog">
-    <form method="post" action="{{ crate::url("/superuser/terms-announce") }}" data-testid="superuser-terms-form">
-      <h2 id="superuser-terms-title">{{ crate::t("superuser.terms_send") }}</h2>
-      <p class="small">{{ crate::tn("superuser.terms_send_about", terms_owed) }}</p>
-      <div class="modal-actions">
-        <button type="button" class="btn ghost" data-closes>{{ crate::t("profile.password.cancel") }}</button>
-        <button type="submit" class="btn" data-testid="superuser-terms-confirm">{{ crate::t("superuser.terms_send") }}</button>
-      </div>
-    </form>
-  </dialog>
-  {% endif %}
-
   {% if mode == "invite" %}
   <section class="card" data-testid="superuser-invites-card">
     <h2>{{ crate::t("superuser.invite_link") }}</h2>

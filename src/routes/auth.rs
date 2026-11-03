@@ -160,14 +160,12 @@ pub struct RegisterTemplate {
     pub email: String,
     /// Dev mode: offer a one-click login as the dev user.
     pub dev: bool,
-    /// The age the Terms checkbox states (`SKRONGLE_MIN_AGE`).
+    /// The age the sign-up checkbox states (`SKRONGLE_MIN_AGE`).
     pub min_age: u32,
     /// "Hide all AI features" (#147) was on when the form came back with an error.
     pub no_ai: bool,
     /// "I am at least N years old" was ticked when the form came back.
     pub age: bool,
-    /// "I agree to the Terms and Privacy Policy" was ticked when the form came back.
-    pub accept: bool,
     /// As on the login page: a share link brought the visitor here.
     pub share: Option<ShareNotice>,
     /// The invitation token the form carries ('' for none, `signup.rs`).
@@ -205,9 +203,6 @@ pub struct Registration {
     /// "I am at least N years old": "on" when ticked, absent otherwise.
     #[serde(default)]
     pub age: String,
-    /// "I agree to the Terms and Privacy Policy": "on" when ticked, absent otherwise.
-    #[serde(default)]
-    pub accept: String,
     /// "Hide all AI features" (#147): "on" when ticked, absent otherwise.
     #[serde(default)]
     pub no_ai: String,
@@ -250,10 +245,9 @@ pub async fn register_form(State(state): State<Arc<AppState>>, MaybeUser(user): 
         error: None,
         email,
         dev: state.dev,
-        min_age: crate::terms::min_age(),
+        min_age: crate::privacy::min_age(),
         no_ai: false,
         age: false,
-        accept: false,
         share,
         invite: if matches!(admitted, Admit::Invited(_) | Admit::Owner(_)) { invite } else { String::new() },
         owner_note: matches!(admitted, Admit::Owner(_)),
@@ -344,11 +338,10 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
             error: Some(crate::t("auth.register.too_many_signups")),
             email: String::new(),
             dev: state.dev,
-            min_age: crate::terms::min_age(),
+            min_age: crate::privacy::min_age(),
             no_ai: false,
             age: false,
-            accept: false,
-            share: None,
+                share: None,
             invite: String::new(),
             owner_note: false,
         };
@@ -378,10 +371,9 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
             error: Some(msg),
             email: email_input.clone(),
             dev: state.dev,
-            min_age: crate::terms::min_age(),
+            min_age: crate::privacy::min_age(),
             no_ai: !form.no_ai.is_empty(),
             age: !form.age.is_empty(),
-            accept: !form.accept.is_empty(),
             share: share.clone(),
             invite: form.invite.trim().to_string(),
             owner_note,
@@ -394,7 +386,7 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
         return Ok((StatusCode::TOO_MANY_REQUESTS, fail(crate::t("auth.register.too_many_signups"))).into_response());
     }
 
-    if let Err(e) = crate::privacy::AgeGate::current().check(!form.age.is_empty(), !form.accept.is_empty(), "register") {
+    if let Err(e) = crate::privacy::AgeGate::current().check(!form.age.is_empty(), "register") {
         return Ok(fail(e));
     }
 
@@ -459,7 +451,6 @@ pub async fn register(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp
             if !signup::finish(&tx, admitted, id, t)? {
                 return Ok((Signup::Refused(Refusal::Used), deleted));
             }
-            crate::terms::accept(&tx, id, crate::terms::version())?;
             crate::privacy::record_age_confirmed(&tx, id, true)?;
             profile::set_ai_off(&tx, id, no_ai)?;
             if !lang.is_empty() {

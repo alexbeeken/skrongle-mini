@@ -33,7 +33,6 @@ pub mod password;
 pub mod reset;
 pub mod shop;
 pub mod superuser;
-pub mod terms;
 pub mod tutor;
 pub mod vocab;
 
@@ -168,11 +167,6 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/self-host", get(docs::self_host))
         .route("/privacy", get(docs::privacy))
         .route("/cookies", get(docs::cookies))
-        // Terms of Service (public) and the gate for accounts that have not accepted them
-        .route("/terms", get(terms::page))
-        .route("/terms.md", get(terms::markdown))
-        .route("/terms/accept", get(terms::accept_form).post(terms::accept))
-        .route("/terms/dismiss", post(terms::dismiss))
         .route("/password/change", get(password::change_form).post(password::change))
         // the modes' old paths (/d, /k, /g, /games), for bookmarks and open tabs
         .route("/d", get(|q: RawQuery| moved("/sprint", q)))
@@ -257,7 +251,6 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/superuser/invites/revoke", post(superuser::revoke_invite))
         .route("/superuser/temp-password", post(superuser::set_temp_password))
         .route("/superuser/two-factor-off", post(superuser::turn_off_two_factor))
-        .route("/superuser/terms-announce", post(superuser::announce_terms))
         // api
         .route("/api/answer", post(quiz::answer))
         .route("/api/lesson-check", post(quiz::lesson_check))

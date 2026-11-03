@@ -19,7 +19,6 @@ nav:
   logout: 退出登录
 
 footer:
-  terms: 条款
   privacy: 隐私
   cookies: Cookie
 
@@ -118,12 +117,12 @@ auth:
     submit: 登录
     or: 或
     no_account_html: "还没有账户？<a href=\"{url}\" data-testid=\"login-register-link\">注册</a>。"
-    terms_link: 条款
     privacy_link: 隐私
     too_many_attempts: 登录尝试次数过多。请等待几分钟后再试。
     incorrect: 电子邮箱地址或密码不正确。
     forgot: "忘记密码？"
   register:
+    age: "我至少 {min_age} 岁"
     title: 注册
     heading: 创建账户
     email_label: 电子邮箱地址
@@ -154,6 +153,7 @@ auth:
     too_short: 密码至少需要 8 个字符。
     too_long: "密码太长（最多 {max} 个字符）。"
   password_change:
+    logout: 改为退出登录
     title: "设置新密码"
     info_label: "为什么要设置新密码"
     about: "你使用的是本服务器管理员为你设置的临时密码。请先设置你自己的密码再继续；其他人不会知道它。"
@@ -161,9 +161,7 @@ auth:
   age_gate:
     to_register: 注册
     to_continue: 继续
-    both: "请确认你至少 {min_age} 岁，并接受条款后{to}。"
     age: "请确认你至少 {min_age} 岁后{to}。"
-    terms: "请接受条款后{to}。"
   code:
     title: 输入你的验证码
     from_app: 来自你的验证器应用。
@@ -229,33 +227,6 @@ auth:
     too_many_requests: "你的网络请求次数过多。请一小时后再试。"
     too_many_tries: "你的网络尝试次数过多。请等待几分钟后再试。"
 
-terms:
-  page:
-    title: 服务条款
-    version: "版本 {version}"
-    markdown: Markdown
-    privacy: 隐私政策
-  check:
-    age: "我至少 {min_age} 岁"
-    agree_html: "我同意<a href=\"{terms_url}\" target=\"_blank\" data-testid=\"{tid}-terms-link\">服务条款</a>和<a href=\"{privacy_url}\" target=\"_blank\" data-testid=\"{tid}-privacy-link\">隐私政策</a>"
-  accept:
-    title: 服务条款
-    changed: 条款已更改
-    heading: 接受条款
-    read_html: "请阅读<a href=\"{url}\" target=\"_blank\" data-testid=\"terms-gate-link\">服务条款</a>（版本 {version}），并接受后继续。"
-    check_html: "我至少 {min_age} 岁，并同意<a href=\"{terms_url}\" target=\"_blank\">服务条款</a>和<a href=\"{privacy_url}\" target=\"_blank\" data-testid=\"terms-gate-privacy-link\">隐私政策</a>"
-    submit: 继续
-    logout: 改为退出登录
-    tick: 请勾选方框以接受条款。
-  notice:
-    heading: 我们的条款已更改
-    minor: 以下是更改内容。继续使用本网站即表示你接受新条款。
-    material: 这些更改会影响你的权利或付费套餐。请接受新条款以继续使用你的账户。
-    effective: "自 {date} 起生效"
-    read: 阅读完整条款
-    dismiss: 继续
-    disagree_html: "如果你不同意，可以退出登录，或在你的<a href=\"{url}\" data-testid=\"terms-notice-profile\">个人资料</a>中注销账户。"
-
 mail:
   waitlist_confirm:
     subject: "确认你在 {app} 候补名单上的位置"
@@ -289,26 +260,6 @@ mail:
       <p><a href="{link}">创建我的账户</a></p>
       <p>或者把这个链接粘贴到浏览器：{link}</p>
       <p>邀请有效期为 {days} 天。</p>
-  terms_change:
-    subject: "{app} 的条款将于 {date} 更改"
-    text: |
-      你好：
-
-      我们正在更改 {app} 的条款。新条款自 {date} 起生效。
-
-      更改内容：
-      {summary}
-
-      阅读新条款：{link}
-
-      自 {date} 起，你登录时需要接受新条款。如果你不同意，可以在个人资料中注销账户。
-    html: |
-      <p>你好：</p>
-      <p>我们正在更改 {app} 的条款。新条款自 {date} 起生效。</p>
-      <p>更改内容：</p>
-      {summary}
-      <p><a href="{link}">阅读新条款</a></p>
-      <p>自 {date} 起，你登录时需要接受新条款。如果你不同意，可以在个人资料中注销账户。</p>
   verify_email:
     subject: "确认你在 {app} 上的电子邮箱地址"
     text: |
@@ -511,24 +462,15 @@ profile:
     sign_in: 登录方式
     password: 密码
     and: 和
-    terms: 条款
-    terms_accepted: "版本 {version}，于 {date} 同意"
-    terms_not_accepted: 未同意
-    terms_read: 阅读
-    terms_privacy: 隐私政策
-    terms_title: 服务条款
-    terms_close: 关闭
-    terms_open_page: 在新页面中打开
     no_password: 此账户没有可更改的密码。
   consent:
     title: "隐私与同意"
     info: "关于你的同意"
     info_age: "你在注册时确认了年龄。要撤回，请在“你的数据”中删除账户。"
-    info_email: "服务邮件总是会发送：确认你的邮箱、你的数据下载以及条款变更。可选邮件会出现在这里，各有开关，在你打开之前保持关闭。"
+    info_email: "服务邮件总是会发送：确认你的邮箱以及你的数据下载。可选邮件会出现在这里，各有开关，在你打开之前保持关闭。"
     info_ai: "AI 功能会把你输入的内容发送给 AI 公司。隐藏后不会发送任何内容，这些功能会从应用中消失，已保存的 API 密钥也会被删除。"
     info_record: "每次更改都会连同日期记录下来，并包含在“下载我的数据”中。"
     close: "关闭"
-    terms: "条款与隐私"
     age: "年龄"
     age_confirmed: "已于 {date} 确认"
     age_not_confirmed: "未确认"
@@ -758,15 +700,6 @@ superuser:
   two_factor_off_about: "在重新开启两步验证之前，该账户只凭密码登录。为其设置的身份验证器应用会被移除。"
   two_factor_off_confirm: "关闭"
   two_factor_off_done: "{email} 的两步验证已关闭。"
-  terms_changed: "条款已更改。"
-  terms_title: "即将生效的条款变更"
-  terms_send: "发送通知"
-  terms_send_about:
-    one: "即将生效的变更摘要将发送给 {n} 个尚未收到的账户。"
-    other: "即将生效的变更摘要将发送给 {n} 个尚未收到的账户。"
-  terms_sent:
-    one: "已为 {n} 个账户排队发送通知。"
-    other: "已为 {n} 个账户排队发送通知。"
   js:
     copied: "已复制"
 
@@ -826,7 +759,6 @@ landing:
   spec_docs_p: 格式、功能和架构都直接由应用提供，既可以是网页，也可以是供 LLM 使用的原始 Markdown。
   final_h2: "注册，然后回答一个问题：你想学什么？"
   browse_docs: 浏览文档
-  terms: 服务条款
   privacy: 隐私政策
   feat_guide_h: "引导"
   feat_guide_p: "把每节课变成由小步骤组成的一关：卡片、快速检查、抽认卡和提示，最后给星星。"
@@ -1370,7 +1302,6 @@ docs:
     not_loading_html: 💡 <strong>无法加载？</strong>在树莓派上运行 <code>hostname -I</code>，然后改用显示的数字，例如 <code>http://192.168.1.42:8080</code>。
     yours_h2: 个性化设置
     yours_account_html: "在账户菜单的<em>超级用户</em>页面中用链接<strong>邀请其他人</strong>。"
-    yours_terms_html: "<strong>在服务条款中写上你的名字。</strong>每个人注册时都会接受它。用 <code>sudo nano /etc/skrongle/terms.md</code> 编辑，然后运行 <code>sudo systemctl restart skrongle</code>；每个人下次访问时都会接受新文本。"
     yours_course_html: <strong>选择一门课程。</strong>西班牙语已内置，也可以自己制作。
     yours_ai_html: "<strong>可选：AI 导师和课程生成器。</strong>在<em>个人设置 → AI API 密钥</em>中粘贴 Anthropic、OpenAI 或 Google 的密钥。费用由它们直接向你收取。"
     yours_tip: "🔒 只有你邀请的人才能创建账户。"
@@ -1400,7 +1331,6 @@ docs:
     mini_out_mail: "没有电子邮件或短信：链接直接显示在页面上。"
     mini_out_plans: "没有套餐或付款：每个人都能用全部功能。"
     mini_out_signup: "凭邀请注册：你为每个人生成一个链接。"
-    mini_out_terms: "使用你自己的服务条款，而不是我们的。"
     mini_out_jobs: "后台任务在应用内部运行：不需要额外的服务。"
     mini_out_db: "一个数据库文件（SQLite）：不需要数据库服务器。"
     mini_safe_h3: "安全由你负责"

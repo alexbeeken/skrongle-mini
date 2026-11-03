@@ -47,7 +47,6 @@ export async function signUp(page: Page, account: Account, opts: { noAi?: boolea
   await page.getByTestId("register-email").fill(account.email);
   await page.getByTestId("register-password").fill(account.password);
   await page.getByTestId("register-age").check();
-  await page.getByTestId("register-terms").check();
   if (opts.noAi) await page.getByTestId("register-no-ai").check();
   await page.getByTestId("register-submit").click();
   await page.waitForLoadState("domcontentloaded");

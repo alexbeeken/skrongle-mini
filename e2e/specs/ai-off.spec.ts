@@ -73,7 +73,6 @@ test("the sign-up box hides every AI feature, and the profile turns them back on
   await page.getByTestId("register-email").fill(a.email);
   await page.getByTestId("register-password").fill(a.password);
   await page.getByTestId("register-age").check();
-  await page.getByTestId("register-terms").check();
   await page.getByTestId("register-no-ai").check();
   await page.getByTestId("register-submit").click();
   await expect(page.getByTestId("register-sent")).toBeVisible();

@@ -8,7 +8,6 @@ fn state(dev: bool) -> Arc<AppState> {
     let s = crate::routes::test_state(dev);
     s.db.with(|c| {
         let id = crate::auth::create_user(c, dev::DEV_EMAIL, "x")?;
-        crate::terms::accept(c, id, crate::terms::version())?;
         dev::set_developer(c, id)?;
         c.execute(
             "INSERT INTO sessions (user_id, session_token, created_at, expires_at) VALUES (?1, ?2, ?3, ?4)",

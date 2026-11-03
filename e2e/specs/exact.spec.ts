@@ -332,7 +332,6 @@ test("a course someone makes stays private to them", async ({ page, browser }) =
   await them.getByTestId("register-email").fill(`${name}@example.com`);
   await them.getByTestId("register-password").fill("correct horse battery");
   await them.getByTestId("register-age").check();
-  await them.getByTestId("register-terms").check();
   await them.getByTestId("register-submit").click();
   // Registering does not sign in (#379): "check your mail", then the login form.
   await expect(them.getByTestId("register-sent")).toBeVisible();
@@ -755,7 +754,6 @@ test("the profile has no Dev section for anyone; the seeded keys answer generate
   await them.getByTestId("register-email").fill(`${name}@example.com`);
   await them.getByTestId("register-password").fill("correct horse battery");
   await them.getByTestId("register-age").check();
-  await them.getByTestId("register-terms").check();
   await them.getByTestId("register-submit").click();
   // Registering does not sign in (#379): "check your mail", then the login form.
   await expect(them.getByTestId("register-sent")).toBeVisible();
@@ -843,7 +841,6 @@ test("Start asks for a course's settings before it opens, then keeps them behind
   await page.getByTestId("register-email").fill(`${name}@example.com`);
   await page.getByTestId("register-password").fill("correct horse battery");
   await page.getByTestId("register-age").check();
-  await page.getByTestId("register-terms").check();
   await page.getByTestId("register-submit").click();
   // Registering does not sign in (#379): "check your mail", then the login form.
   await expect(page.getByTestId("register-sent")).toBeVisible();
@@ -1081,7 +1078,7 @@ test("#1154 a lesson without questions offers no practice", async ({ page }) => 
 // in the normal layout with ways back, like a 404 does (#397), not a blank body.
 test.fixme("#1253 a form-only URL opened directly shows the error page, not a blank one", async ({ page }) => {
   await devLogin(page, "open=spanish");
-  for (const path of ["/logout", "/terms/dismiss"]) {
+  for (const path of ["/logout"]) {
     const r = await page.goto(path);
     expect(r?.status()).toBe(405);
     await expect(page.getByTestId("error-page")).toBeVisible();

@@ -58,7 +58,6 @@ mod signup;
 mod startup;
 mod security;
 mod server;
-mod terms;
 mod totp;
 mod translate;
 mod two_factor;
@@ -496,16 +495,7 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         Some(v) => Some(v.trim().parse::<u32>().map_err(|_| format!("SKRONGLE_MIN_AGE must be a whole number, got {v:?}"))?),
         None => None,
     };
-    // SKRONGLE_TERMS is read directly: it has no older spelling (#637).
-    let terms_source = terms::Source::load(std::env::var(terms::SOURCE_VAR).ok().as_deref())?;
-    if let terms::Source::File { path, version, .. } = &terms_source {
-        tracing::info!("terms of service: {} (version {version})", path.display());
-    }
-    let own_terms = terms_source != terms::Source::Builtin;
-    terms::init(min_age, env("LEGAL_EMAIL"), env("SUPPORT_EMAIL"), terms_source);
-    if env("LEGAL_EMAIL").is_none() && !own_terms {
-        tracing::info!("SKRONGLE_LEGAL_EMAIL is unset: the terms page shows a placeholder for the copyright contact");
-    }
+    privacy::init_min_age(min_age);
     let courses = Courses::load(&cfg.data_dir, cfg.test_course)
         .map_err(|e| format!("failed to load courses from {}: {e}", cfg.data_dir.display()))?;
     if cfg.test_course {

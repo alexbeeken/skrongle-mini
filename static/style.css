@@ -1375,10 +1375,7 @@ td.rv-editing .rv-nice, td.rv-editing .rv-raw { display: none !important; }
   table.diff td { padding: .05rem .3rem; }
 }
 
-/* Terms of Service checkbox (register, the terms gate) */
-.terms-check { font-weight: 500; display: block; margin: .6rem 0; }
-.terms-check input { width: auto; margin-right: .35rem; }
-/* The Terms checkbox on the sign-up forms (terms_check.html): the sentence,
+/* The age checkbox on the sign-up form (age_check.html): the sentence,
    then a rounded check box on the right in the AI pill's style; the native
    checkbox lies invisibly over it so a click or tap lands on it. */
 .check-row { display: flex; align-items: center; gap: .8rem; margin: .7rem 0; font-weight: 500; }
