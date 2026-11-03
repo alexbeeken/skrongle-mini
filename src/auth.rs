@@ -255,8 +255,8 @@ pub fn hash_token(token: &str) -> String {
     const HEX: &[u8; 16] = b"0123456789abcdef";
     let mut out = String::with_capacity(64);
     for b in Sha256::digest(token.as_bytes()) {
-        out.push(HEX[usize::from(b >> 4)] as char);
-        out.push(HEX[usize::from(b & 15)] as char);
+        out.push(HEX[usize::from(b >> 4)] as char); // panic-ok: a nibble is < 16
+        out.push(HEX[usize::from(b & 15)] as char); // panic-ok: a nibble is < 16
     }
     out
 }

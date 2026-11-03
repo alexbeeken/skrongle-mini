@@ -192,7 +192,7 @@ pub(super) fn openai_body(p: &Provider, system: &str, messages: &[ChatMessage], 
         Wire::Anthropic => ("max_tokens", false),
     };
     let mut body = serde_json::json!({ "model": p.model, "messages": all });
-    body[tokens] = max_tokens.into();
+    body[tokens] = max_tokens.into(); // panic-ok: body is an object (json! above)
     if effort {
         budget::openai(&mut body, p);
     }
@@ -217,7 +217,7 @@ pub(super) fn openai_text(json: &serde_json::Value) -> Result<String, String> {
         .pointer("/choices/0/message/content")
         .and_then(|t| t.as_str())
         .map(str::to_string)
-        .ok_or("the reply has no choices[0].message.content")?;
+        .ok_or("the reply has no choices[0].message.content")?; // panic-ok: no indexing, the text only names the field
     if text.trim().is_empty() {
         return Err("the model returned no text".into());
     }

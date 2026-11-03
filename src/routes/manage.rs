@@ -327,7 +327,7 @@ pub async fn save_keys(State(state): State<Arc<AppState>>, user: CurrentUser, Js
     let mut body = serde_json::json!({ "keys": hints });
     if let Some(m) = saved_model {
         tracing::info!("owner {} set the Ollama model to {m}", user.id);
-        body["ollama_model"] = m.into();
+        body["ollama_model"] = m.into(); // panic-ok: body is an object (json! above)
     }
     Ok(Json(body).into_response())
 }
