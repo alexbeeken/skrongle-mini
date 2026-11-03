@@ -106,24 +106,6 @@ jobs:
           shard: ${{ matrix.shard }}
           report-name: playwright-report-smoke-${{ strategy.job-index }}
 
-  # The mini lane (#639): the smoke happy paths and mini.spec.ts with the
-  # dev stand-ins off (no mail, SMS or payments), the
-  # shape a self-hoster runs (docs/testing.md, "The mini lane"). One shard,
-  # so its own result is the check; not a required check yet.
-  e2e-mini:
-    name: e2e mini lane
-    runs-on: ${{ vars.CI_RUNNER || 'laptop' }}
-    timeout-minutes: 30
-    env:
-      E2E_MINI: "1"
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/e2e
-        with:
-          specs: specs/smoke/happy-paths.spec.ts specs/smoke/mini.spec.ts
-          shard: 1/1
-          report-name: playwright-report-mini
-
   # A skipped required check counts as passed, so the gates run unless the
   # run was cancelled, and fail unless every shard succeeded.
   e2e-exact-gate:

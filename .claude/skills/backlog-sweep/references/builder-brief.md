@@ -326,7 +326,7 @@ proposal for …"). Sweeps on 2026-10-29 made these PRs #1189, #1193, #1203,
   (`do=on`), then `POST /dev/ai/held/{stem}` answers it (PR #847 did this).
 - A dev server never has zero accounts (it always creates the dev user). A
   step that needs an empty server starts the plain binary:
-  `SKRONGLE_SIGNUP=invite SKRONGLE_MINI=1 SKRONGLE_DB=/tmp/x.db target/debug/spanish-learning`,
+  `SKRONGLE_SIGNUP=invite SKRONGLE_DB=/tmp/x.db target/debug/spanish-learning`,
   which comes up as Skrongle mini.
 - Several builders in one run touch `static/style.css` and `e2e/specs/exact.spec.ts`
   (new imports at the top). Keep to your own block; the conflicts are small.

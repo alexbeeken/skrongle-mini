@@ -525,7 +525,7 @@ pub(crate) fn svg_response(headers: &HeaderMap, body: &str, cache: &'static str)
 /// `/healthz`: "ok", then what the server is (`ok skrongle mini 0.1.0`,
 /// #641). Health checks look at the status or the leading "ok" only.
 async fn healthz() -> String {
-    format!("ok {}", crate::edition(crate::is_mini()))
+    format!("ok {}", crate::edition())
 }
 
 /// The web app manifest (#345): lets a phone install the site as an app

@@ -104,7 +104,7 @@ in `e2e/lib/persona.ts`.
 
 ```sh
 cd $WT && QA_OUT=$S/qa-pr<N>.jsonl zsh -ic 'scripts/e2e-explore.sh --persona-file e2e/personas/_qa-pr<N>.ts --max-calls 150'
-# a server setting the PR needs:  SKRONGLE_MINI=1 QA_OUT=… zsh -ic 'scripts/e2e-explore.sh …'
+# a server setting the PR needs:  SKRONGLE_<SETTING>=… QA_OUT=… zsh -ic 'scripts/e2e-explore.sh …'
 # one goal again (0-based):       … --goal 3
 ```
 
