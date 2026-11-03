@@ -13,3 +13,8 @@ pub const MAX_ACCOUNTS: usize = 8;
 pub fn accounts_full(count: i64, dev: bool) -> bool {
     !dev && count >= MAX_ACCOUNTS as i64
 }
+
+/// Live sessions one account keeps (phone, tablet, laptop, one spare, #30).
+/// Signing in a fifth time ends the oldest, so the `sessions` table never
+/// holds more than `MAX_ACCOUNTS * MAX_SESSIONS_PER_ACCOUNT` (32) rows.
+pub const MAX_SESSIONS_PER_ACCOUNT: usize = 4;

@@ -471,7 +471,8 @@ no user and get the usual "the proxy signs you in" page. Trusting
 that only runs Skrongle.
 
 A client that keeps no cookies (a script, `curl`) gets a new session on every
-request; sessions expire after 30 days and are cleaned up hourly.
+request, so an account keeps only its newest 4 sessions (the oldest ends when
+a fifth starts); sessions expire after 30 days and are cleaned up hourly.
 
 ## Updating
 
