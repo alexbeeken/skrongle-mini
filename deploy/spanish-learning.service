@@ -41,9 +41,10 @@ Environment=MALLOC_TRIM_THRESHOLD_=65536
 MemoryMax=64M
 MemoryHigh=48M
 TasksMax=32
-# Open files: the listener allows SKRONGLE_MAX_CONNECTIONS (256) connections;
-# the rest is SQLite and outgoing calls. Set explicitly, not left to the distro.
-LimitNOFILE=1024
+# Open files: 32 connections (caps::MAX_CONNECTIONS, #46) plus SQLite's files,
+# outgoing calls (LLM, SMTP, Stripe) and logs, with headroom: 32 + ~200 is
+# plenty. Set explicitly, not left to the distro.
+LimitNOFILE=256
 CPUWeight=80
 Nice=2
 

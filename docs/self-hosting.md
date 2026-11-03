@@ -187,7 +187,6 @@ starts `SKRONGLE_`; see [Renamed settings](#renamed-settings) if yours start `LE
 | `SKRONGLE_OPENAI_BASE_URL` | `https://api.openai.com` | Point the OpenAI provider at any OpenAI-compatible server, e.g. Ollama on another machine. |
 | `SKRONGLE_ALLOW_PRIVATE_AI_URLS` | off | `1` lets learners type a base URL on your own network (e.g. `http://192.168.1.20:11434`) into the AI forms. Off, the server refuses to call private, loopback and link-local addresses for them, and ports other than 443 and 80. |
 | `SKRONGLE_AI_JOB_BUDGET_SECS` | `3600` | How long one AI generation job may run in all. Raise it for a slow self-hosted model. |
-| `SKRONGLE_MAX_CONNECTIONS` | `256` | Open connections the server allows; more clients wait until one closes. Keep it well under the unit's `LimitNOFILE` (1024). |
 | `SKRONGLE_LOG` | `info` | `error`, `warn`, `info`, `debug` or `trace`. |
 | `SKRONGLE_SECURE_COOKIES` | off | `1` when the site is served over HTTPS (behind a TLS proxy). |
 | `SKRONGLE_PUBLIC_URL` | — | The address people use, e.g. `https://learn.example.org`. |
@@ -373,7 +372,7 @@ For a public site, put a TLS proxy (nginx, Caddy) in front, set
 Anything that faces the internet should sit behind such a proxy, even
 without HTTPS. The app has only coarse protection. It closes a connection
 that takes more than 15 seconds to send its headers or stalls 30 seconds in
-its body, takes at most `SKRONGLE_MAX_CONNECTIONS` connections, and refuses
+its body, takes at most 32 connections (more clients wait until one closes), and refuses
 bodies over 64 KB outside the course editor. A proxy buffers slow clients
 and can limit them per address.
 

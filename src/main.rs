@@ -273,8 +273,6 @@ struct Config {
     /// every course as the one dev user).
     course_limits: courses::Limits,
     courses_per_user: Option<usize>,
-    /// `SKRONGLE_MAX_CONNECTIONS`: open connections the listener allows (#369).
-    server: server::Limits,
     /// `SKRONGLE_AI_PRICES`: the price table behind the cost estimate.
     prices: Result<prices::PriceTable, String>,
 }
@@ -375,10 +373,6 @@ impl Config {
                 }
             },
             courses_per_user: env("COURSES_PER_USER").and_then(|v| v.parse().ok()),
-            server: server::Limits {
-                max_connections: env("MAX_CONNECTIONS").and_then(|v| v.parse().ok()).filter(|&n| n > 0).unwrap_or(server::Limits::default().max_connections),
-                ..server::Limits::default()
-            },
             test_course: std::env::var("TEST_COURSE").ok().or_else(|| env("TEST_COURSE")).is_some_and(|v| v == "1" || v == "true"),
         })
     }
@@ -753,7 +747,7 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
     release_boot_memory();
     tracing::info!("{} listening on http://{}{}", edition(is_mini()), cfg.bind, url("/"));
     // Handlers get the client's address (ConnectInfo) for the rate limits.
-    server::serve(listener, app, cfg.server, shutdown_signal()).await?;
+    server::serve(listener, app, server::Limits::default(), shutdown_signal()).await?;
     // Fold the WAL back into learn.db, so after a clean stop that one file
     // holds everything: a copy of it alone (update.sh's learn.db.before-<v>,
     // a move to a new machine) is complete.

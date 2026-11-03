@@ -38,9 +38,9 @@ pub struct Limits {
 
 impl Default for Limits {
     fn default() -> Limits {
-        // 256 connections stay well inside the units' LimitNOFILE=1024 with
+        // 32 connections (#46) stay well inside the units' LimitNOFILE=256 with
         // SQLite's files and the outgoing connections (LLM, SMTP, Stripe).
-        Limits { max_connections: 256, header_read: Duration::from_secs(15), body_idle: Duration::from_secs(30) }
+        Limits { max_connections: crate::caps::MAX_CONNECTIONS, header_read: Duration::from_secs(15), body_idle: Duration::from_secs(30) }
     }
 }
 
@@ -58,7 +58,7 @@ pub async fn serve(listener: TcpListener, app: Router, limits: Limits, shutdown:
             _ = &mut shutdown => break,
         };
         if slots.available_permits() == 0 && !warned {
-            tracing::warn!("{} connections open (SKRONGLE_MAX_CONNECTIONS); new ones wait", limits.max_connections);
+            tracing::warn!("{} connections open; new ones wait", limits.max_connections);
             warned = true;
         }
         let (stream, peer) = tokio::select! {
@@ -197,7 +197,7 @@ mod tests {
     /// see the peer address.
     #[test]
     fn slow_clients_are_cut_off_and_connections_are_capped() {
-        let limits = Limits { max_connections: 2, header_read: Duration::from_millis(300), body_idle: Duration::from_millis(300) };
+        let limits = Limits { max_connections: crate::caps::MAX_CONNECTIONS, header_read: Duration::from_millis(300), body_idle: Duration::from_millis(300) };
         let addr = start(limits);
 
         let mut ok = std::net::TcpStream::connect(addr).unwrap();
@@ -217,20 +217,22 @@ mod tests {
         let (closed, reply) = closed_within(&mut stall, Duration::from_secs(5));
         assert!(closed && !reply.contains(" 200 "), "a stalled body is cut off: {reply}");
 
-        // Two idle-but-open connections fill the slots; a third waits until one goes.
+        // MAX_CONNECTIONS idle-but-open connections fill the slots; one more waits until one goes.
         let hold = |s: &mut std::net::TcpStream| s.write_all(b"GET / HTTP/1.1\r\nhost: x\r\n\r\n").unwrap();
-        let (mut a, mut b) = (std::net::TcpStream::connect(addr).unwrap(), std::net::TcpStream::connect(addr).unwrap());
-        hold(&mut a);
-        hold(&mut b);
+        let mut held: Vec<std::net::TcpStream> = (0..crate::caps::MAX_CONNECTIONS).map(|_| std::net::TcpStream::connect(addr).unwrap()).collect();
+        for s in &mut held {
+            hold(s);
+        }
         std::thread::sleep(Duration::from_millis(50));
         let mut c = std::net::TcpStream::connect(addr).unwrap();
         c.write_all(b"GET / HTTP/1.1\r\nhost: x\r\nconnection: close\r\n\r\n").unwrap();
         c.set_read_timeout(Some(Duration::from_millis(100))).unwrap();
         let mut buf = [0u8; 16];
-        assert!(c.read(&mut buf).is_err(), "the third connection is not served while two are open");
+        assert!(c.read(&mut buf).is_err(), "the extra connection is not served while the cap is full");
         // The keep-alive connections go idle and are closed by the header
         // timeout; then the third one is served.
         let (closed, reply) = closed_within(&mut c, Duration::from_secs(5));
         assert!(closed && reply.starts_with("HTTP/1.1 200"), "{reply}");
+        drop(held);
     }
 }
