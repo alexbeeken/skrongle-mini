@@ -1829,11 +1829,15 @@ keys). The password dialog and account deletion keep their explicit buttons. The
       session query reads the setting into `CurrentUser::ai_off`, and the
       session cache watches the table, so the next request of every account
       sees the change.
-    - **AI API keys**: one key each for Claude (Anthropic), OpenAI and
-      Google (Gemini), used by every account's AI tutoring, *Generate the
-      course*, *Use AI* and translation. Each provider is a row folded shut
-      (name and status: set, with its last four characters, or not set);
-      its triangle opens the box to paste a key into and *Remove key*
+    - **AI API keys**: one key each for Claude (Anthropic), OpenAI, Google
+      (Gemini), DeepSeek, Mistral, xAI (Grok) and OpenRouter, and for an
+      Ollama-compatible server its base URL and model instead (#24), used
+      by every account's AI tutoring, *Generate the course*, *Use AI* and
+      translation; the AI forms offer each provider that is set. Each
+      provider is a row folded shut by default (`details`; its name and
+      *Set*, with the key's last four characters or the server's host and
+      model, or *Not set*); its triangle opens the box to paste a key (or
+      type the base URL and model) into and *Remove key*
       (`POST /manage/api-keys/remove`). A key saves as it is pasted or typed
       (`static/manage.js` with `static/autosave.js`, `POST /api/manage/keys`,
       `key_<provider>`, 404 for anyone but an owner), is checked for the

@@ -242,6 +242,23 @@ pub async fn openai_chat(State(state): State<Arc<AppState>>, headers: HeaderMap,
     serve(&state, Format::OpenAi, &headers, &body).await
 }
 
+/// POST /dev/ai/{deepseek,mistral,xai}/v1/chat/completions and
+/// /dev/ai/openrouter/api/v1/chat/completions (#24): the providers that
+/// speak OpenAI's chat completions, answered as OpenAI's are, from the
+/// same fixtures.
+pub async fn compatible_chat(State(state): State<Arc<AppState>>, headers: HeaderMap, body: Bytes) -> Response {
+    serve(&state, Format::OpenAi, &headers, &body).await
+}
+
+/// POST /dev/ai/ollama/v1/chat/completions: an Ollama-compatible server,
+/// which takes no key; the request is answered as the learner profile's.
+pub async fn ollama_chat(State(state): State<Arc<AppState>>, mut headers: HeaderMap, body: Bytes) -> Response {
+    if header(&headers, "authorization").is_empty() {
+        headers.insert(axum::http::header::AUTHORIZATION, axum::http::HeaderValue::from_static("Bearer sk-dev-ollama"));
+    }
+    serve(&state, Format::OpenAi, &headers, &body).await
+}
+
 /// POST /dev/ai/google/v1beta/openai/chat/completions: Gemini's OpenAI-compatible endpoint.
 pub async fn google_chat(State(state): State<Arc<AppState>>, headers: HeaderMap, body: Bytes) -> Response {
     serve(&state, Format::Google, &headers, &body).await
@@ -531,7 +548,7 @@ fn root(headers: &HeaderMap) -> String {
 fn bases(headers: &HeaderMap) -> Vec<(&'static str, String)> {
     use crate::ai::ProviderKind;
     let root = root(headers);
-    [ProviderKind::Anthropic, ProviderKind::OpenAi, ProviderKind::Google].into_iter().map(|k| (k.id(), crate::dev::simulator_base_url(&root, k))).collect()
+    ProviderKind::ALL.into_iter().map(|k| (k.id(), crate::dev::simulator_base_url(&root, k))).collect()
 }
 
 fn client_timeout() -> Option<u64> {

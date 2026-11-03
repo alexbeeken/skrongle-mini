@@ -1752,3 +1752,73 @@ fn web_manifest_points_at_real_icons() {
     }
 }
 
+
+/// More providers (#24): a DeepSeek key the owner saves on Manage Users,
+/// and an Ollama-compatible server's base URL and model, answer another
+/// account's tutor through the simulator's OpenAI-compatible endpoints.
+/// Every provider has a folded row on Manage Users that says whether it is set.
+#[test]
+fn newer_providers_answer_the_tutor_through_the_simulator() {
+    super::point_defaults_at_the_simulator();
+    let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
+    let state = super::test_state(false);
+    let (owner, ann) = state
+        .db
+        .with(|c| {
+            let owner = crate::auth::create_user(c, "owner@example.org", "x")?;
+            let ann = crate::auth::create_user(c, "ann@example.org", "x")?;
+            for u in [owner, ann] {
+                crate::terms::accept(c, u, crate::terms::version())?;
+                crate::courses::open_project(c, u, "spanish")?;
+            }
+            crate::owner::make_owner(c, owner)?;
+            Ok((owner, ann))
+        })
+        .unwrap();
+    let cookie = |u| format!("sid={}", state.db.with(|c| crate::auth::create_session(c, u)).unwrap());
+    let (owner_c, ann_c) = (cookie(owner), cookie(ann));
+    let app = super::router(state.clone());
+    let base = rt.block_on(async {
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let addr = listener.local_addr().unwrap();
+        tokio::spawn(async move { axum::serve(listener, app).await.unwrap() });
+        format!("http://{addr}")
+    });
+    let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
+    let json = |path: &str, c: &str, body: serde_json::Value| {
+        let mut r = agent.post(&format!("{base}{path}")).header("cookie", c).send_json(body).unwrap();
+        (r.status().as_u16(), r.body_mut().read_to_string().unwrap())
+    };
+    let page = |path: &str, c: &str| agent.get(&format!("{base}{path}")).header("cookie", c).call().unwrap().body_mut().read_to_string().unwrap();
+
+    // Every provider folded, none set.
+    let manage = page("/manage", &owner_c);
+    assert_eq!(manage.matches(r#"<details class="key-row" data-testid="manage-api-key""#).count(), crate::secrets::Provider::ALL.len());
+    assert!(!manage.contains(r#"<details class="key-row" data-testid="manage-api-key" data-provider="anthropic" data-key-set="false" data-unreadable="false" open"#));
+    assert_eq!(manage.matches("Not set").count(), crate::secrets::Provider::ALL.len(), "{manage}");
+
+    // DeepSeek: the owner's key, Ann's tutor.
+    let (status, body) = json("/api/manage/keys", &owner_c, serde_json::json!({"key_deepseek": "sk-dev-deepseek-1234"}));
+    assert_eq!(status, 200, "{body}");
+    assert!(body.contains(r#""deepseek":"1234""#), "{body}");
+    let manage = page("/manage", &owner_c);
+    assert!(manage.contains(r#"data-provider="deepseek" data-key-set="true""#) && manage.matches("Not set").count() == crate::secrets::Provider::ALL.len() - 1);
+    assert!(page("/tutor", &ann_c).contains("DeepSeek"));
+    let (status, body) = json("/api/tutor/start", &ann_c, serde_json::json!({"provider": "deepseek"}));
+    assert_eq!(status, 200, "{body}");
+    assert!(body.contains("practise this lesson together"), "{body}");
+
+    // Ollama: a base URL and a model, no key; a bad URL is refused under its field.
+    let (status, body) = json("/api/manage/keys", &owner_c, serde_json::json!({"key_ollama": "localhost:11434"}));
+    assert!(status == 422 && body.contains("key_ollama"), "{body}");
+    let url = format!("{}/ollama", super::simulator_root());
+    let (status, body) = json("/api/manage/keys", &owner_c, serde_json::json!({"key_ollama": url, "ollama_model": "qwen2.5:7b"}));
+    assert_eq!(status, 200, "{body}");
+    assert!(body.contains(r#""ollama_model":"qwen2.5:7b""#), "{body}");
+    assert!(page("/manage", &owner_c).contains("qwen2.5:7b"));
+    let (status, body) = json("/api/tutor/start", &ann_c, serde_json::json!({"provider": "ollama"}));
+    assert_eq!(status, 200, "{body}");
+    assert!(body.contains("practise this lesson together"), "{body}");
+    // Nobody else may set them.
+    assert_eq!(json("/api/manage/keys", &ann_c, serde_json::json!({"ollama_model": "x"})).0, 404);
+}

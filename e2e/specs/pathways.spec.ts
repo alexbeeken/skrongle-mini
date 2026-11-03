@@ -275,7 +275,7 @@ test("remove an API key: Manage Users says no key, and generating no longer offe
     await expect(row).toHaveAttribute("data-key-set", "false");
     await expect(row.getByTestId("manage-api-key-remove")).toHaveCount(0);
     await expect(row).not.toContainText("1234");
-    await expect(row.getByTestId("manage-api-key-status")).toHaveText("No key yet");
+    await expect(row.getByTestId("manage-api-key-status")).toHaveText("Not set");
     await page.reload();
     await expect(row).toHaveAttribute("data-key-set", "false");
     // No key left: the dialog is greyed out under a link to Manage Users (no stand-in, even in dev mode).

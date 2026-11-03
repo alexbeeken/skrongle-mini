@@ -722,9 +722,9 @@ manage:
     title: KI-API-Schlüssel
     info_text: "Die KI-Funktionen jedes Kontos verwenden diese Schlüssel, abgerechnet über das Konto, zu dem der Schlüssel gehört. Schlüssel werden vor dem Speichern verschlüsselt und nie wieder angezeigt; nur die letzten vier Zeichen bleiben sichtbar, damit du erkennst, welcher Schlüssel hinterlegt ist. Nur Eigentümer sehen sie."
     unreadable: "Hinterlegt, aber nicht lesbar: das Geheimnis des Servers hat sich geändert. Füge ihn erneut ein."
-    on_file: ✓ Schlüssel hinterlegt
+    on_file: "✓ Gesetzt"
     ends_in: endet auf
-    none: Noch kein Schlüssel
+    none: "Nicht gesetzt"
     replace: Füge einen neuen Schlüssel ein, um ihn zu ersetzen
     paste: "Füge den Schlüssel ein"
     get_one: einen holen
@@ -734,9 +734,15 @@ manage:
     too_long: "Das ist zu lang für einen API-Schlüssel (maximal {max} Zeichen)."
     bad_chars: Ein API-Schlüssel enthält nur Buchstaben, Ziffern und Satzzeichen, ohne Leerzeichen.
     wrong_provider: "Das sieht nicht nach einem {provider}-Schlüssel aus: sie beginnen mit {prefix}."
+    empty_url: "Gib zuerst die Basis-URL des Servers ein."
+    bad_url: "Eine Basis-URL beginnt mit http:// oder https:// und einem Host, zum Beispiel http://localhost:11434."
+    bad_model: "Ein Modellname hat bis zu 100 Buchstaben, Ziffern und Satzzeichen, ohne Leerzeichen (zum Beispiel llama3.1)."
+    base_url: "Basis-URL des Servers"
+    get_server: "Ollama holen"
+    model: "Modell"
   js:
     copied: "Kopiert"
-    key_on_file: "✓ Schlüssel hinterlegt"
+    key_on_file: "✓ Gesetzt"
     ends_in: "endet auf"
     paste_new_key: "Füge einen neuen Schlüssel ein, um ihn zu ersetzen"
   ai:

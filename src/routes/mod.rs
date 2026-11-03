@@ -315,6 +315,11 @@ pub fn router(state: Arc<AppState>) -> Router {
                 .route("/dev/ai/openai/v1/models", get(dev_ai::openai_models))
                 .route("/dev/ai/google/v1beta/openai/chat/completions", post(dev_ai::google_chat))
                 .route("/dev/ai/google/v1beta/openai/models", get(dev_ai::google_models))
+                .route("/dev/ai/deepseek/v1/chat/completions", post(dev_ai::compatible_chat))
+                .route("/dev/ai/mistral/v1/chat/completions", post(dev_ai::compatible_chat))
+                .route("/dev/ai/xai/v1/chat/completions", post(dev_ai::compatible_chat))
+                .route("/dev/ai/openrouter/api/v1/chat/completions", post(dev_ai::compatible_chat))
+                .route("/dev/ai/ollama/v1/chat/completions", post(dev_ai::ollama_chat))
                 // The content check's Jev stand-in (#1036).
                 .route("/dev/boot", get(|| async { crate::dev::boot_id() }))
                 .route_layer(axum::middleware::from_fn(crate::dev::local_only))

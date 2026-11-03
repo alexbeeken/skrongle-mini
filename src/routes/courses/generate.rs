@@ -388,7 +388,19 @@ pub(super) async fn ai_provider(
     if pasted.is_empty() && !base_url.is_empty() {
         return Ok(Err("A custom base URL needs its own API key: paste the key for that server. Saved keys are only sent to the provider's own address.".into()));
     }
-    let api_key = if !pasted.is_empty() {
+    let model = model.trim().to_string();
+    if pasted.is_empty() {
+        // The server's: its key, or Ollama's base URL and model (#24).
+        let vault = state.vault.clone();
+        let Some(mut p) = state.db.call(move |c| ai::server_provider(c, &vault, kind, false)).await? else {
+            return Ok(Err(crate::t1("courses.generate.paste_key", "provider", secret_provider.label())));
+        };
+        if !model.is_empty() {
+            p.model = model;
+        }
+        return Ok(Ok(p));
+    }
+    let api_key = {
         if base_url.is_empty() {
             match crate::secrets::validate_key(secret_provider, &pasted) {
                 Ok(k) => k,
@@ -399,14 +411,7 @@ pub(super) async fn ai_provider(
         } else {
             pasted
         }
-    } else {
-        let vault = state.vault.clone();
-        match state.db.call(move |c| crate::secrets::get(c, &vault, secret_provider)).await? {
-            Some(k) => k,
-            None => return Ok(Err(crate::t1("courses.generate.paste_key", "provider", secret_provider.label()))),
-        }
     };
-    let model = model.trim().to_string();
     Ok(Ok(ai::Provider {
         kind,
         base_url: if base_url.is_empty() { kind.default_base_url() } else { base_url },

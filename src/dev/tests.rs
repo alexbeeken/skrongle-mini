@@ -216,6 +216,21 @@ fn the_dev_mailbox_needs_no_sign_in_and_the_simulator_speaks_the_wire_protocols(
     assert_eq!(log.len(), 4);
     assert_eq!((log[1].purpose.as_str(), log[1].format, log[1].status, log[1].fixture.as_str()), ("tutor-turn", crate::dev_ai::Format::Google, 200, "tutor-turn/default"));
     assert_eq!(state.dev_ai.profile(crate::dev_ai::Who::Learner).usage.requests, 3);
+    // The providers #24 added speak OpenAI's format under paths of their own
+    // (Ollama with no key at all) and get the fixtures' replies too.
+    use crate::ai::ProviderKind as K;
+    let compatible = [crate::ai::ChatMessage { role: "user", content: "Hola [fixture:compatible]".into() }];
+    for (kind, key) in [(K::DeepSeek, "sk-dev-deepseek"), (K::Mistral, "sk-dev-mistral"), (K::Xai, "xai-dev-grok"), (K::OpenRouter, "sk-or-dev-router"), (K::Ollama, "")] {
+        let p = crate::ai::Provider { model: kind.tutor_model().to_string(), ..provider(kind, key) };
+        let reply = crate::ai::chat(&p, &call, "You are a tutor", &compatible, 100).unwrap();
+        assert_eq!(reply.text, "This came back over the OpenAI-compatible wire. [[ask]]", "{kind:?}");
+        let entry = &state.dev_ai.log()[0];
+        assert_eq!((entry.format, entry.status, entry.fixture.as_str()), (crate::dev_ai::Format::OpenAi, 200, "tutor-turn/compatible"), "{kind:?}");
+        assert!(entry.request.contains(&format!("\"model\": \"{}\"", kind.tutor_model())) || entry.request.contains(&format!("\"model\":\"{}\"", kind.tutor_model())), "{kind:?}: {}", entry.request);
+        assert!(entry.request.contains("max_tokens") && !entry.request.contains("max_completion_tokens"), "{kind:?}");
+    }
+    assert_eq!(state.dev_ai.profile(crate::dev_ai::Who::Learner).usage.requests, 8);
+    state.dev_ai.clear_log();
     // Over the limit: each provider's own quota error, which the learner reads as such.
     state.dev_ai.update(crate::dev_ai::Who::Learner, |p| p.exhausted = true);
     let err = crate::ai::chat(&provider(crate::ai::ProviderKind::Anthropic, "sk-ant-dev-anthropic"), &call, "s", &msgs, 100).unwrap_err();

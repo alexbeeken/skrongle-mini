@@ -2,7 +2,8 @@
 
 **Do I need an API key?**
 No. Courses, the four modes and every game work without one. A key (Claude,
-OpenAI or Gemini) is only for AI tutoring, generating a course and adding
+OpenAI, Gemini, DeepSeek, Mistral, Grok or OpenRouter; or your own
+Ollama-compatible server, which needs none) is only for AI tutoring, generating a course and adding
 content with AI. The server's owner saves it once under *Manage Users → AI
 features*, and every account uses it; it is stored encrypted and never
 shown again. Don't want AI at all? The owner turns on *Hide AI features for

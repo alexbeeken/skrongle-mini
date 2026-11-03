@@ -727,9 +727,9 @@ manage:
     title: AI API keys
     info_text: "Every account's AI features use these keys, billed to the account each key belongs to. Keys are encrypted before they are stored and are never shown again; only the last four characters stay visible so you can tell which key is on file. Only owners see them."
     unreadable: "On file but unreadable: the server's secret changed. Paste it again."
-    on_file: ✓ Key on file
+    on_file: "✓ Set"
     ends_in: ends in
-    none: No key yet
+    none: "Not set"
     replace: Paste a new key to replace it
     paste: "Paste the key"
     get_one: get one
@@ -739,9 +739,15 @@ manage:
     too_long: "That is too long for an API key (max {max} characters)."
     bad_chars: An API key contains only letters, digits and punctuation, with no spaces.
     wrong_provider: "That does not look like a {provider} key: they start with {prefix}."
+    empty_url: "Type the server's base URL first."
+    bad_url: "A base URL starts with http:// or https:// and a host, for example http://localhost:11434."
+    bad_model: "A model name is up to 100 letters, digits and punctuation, with no spaces (for example llama3.1)."
+    base_url: "The server's base URL"
+    get_server: "get Ollama"
+    model: "Model"
   js:
     copied: "Copied"
-    key_on_file: "✓ Key on file"
+    key_on_file: "✓ Set"
     ends_in: "ends in"
     paste_new_key: "Paste a new key to replace it"
   ai:

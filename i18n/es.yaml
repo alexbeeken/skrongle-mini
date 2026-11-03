@@ -1194,9 +1194,9 @@ manage:
     title: Claves API de IA
     info_text: "Las funciones de IA de todas las cuentas usan estas claves, facturadas a la cuenta a la que pertenece cada clave. Las claves se cifran antes de guardarse y no se vuelven a mostrar; solo quedan visibles los últimos cuatro caracteres para que sepas qué clave hay guardada. Solo los propietarios las ven."
     unreadable: "Registrada pero ilegible: el secreto del servidor cambió. Pégala de nuevo."
-    on_file: ✓ Clave registrada
+    on_file: "✓ Configurada"
     ends_in: termina en
-    none: Aún sin clave
+    none: "Sin configurar"
     replace: Pega una clave nueva para reemplazarla
     paste: "Pega la clave"
     get_one: consigue una
@@ -1206,9 +1206,15 @@ manage:
     too_long: "Es demasiado larga para una clave API (máximo {max} caracteres)."
     bad_chars: Una clave API solo contiene letras, dígitos y signos de puntuación, sin espacios.
     wrong_provider: "Eso no parece una clave de {provider}: empiezan por {prefix}."
+    empty_url: "Escribe primero la URL base del servidor."
+    bad_url: "Una URL base empieza por http:// o https:// y un host, por ejemplo http://localhost:11434."
+    bad_model: "Un nombre de modelo tiene hasta 100 letras, dígitos y signos, sin espacios (por ejemplo llama3.1)."
+    base_url: "URL base del servidor"
+    get_server: "conseguir Ollama"
+    model: "Modelo"
   js:
     copied: "Copiado"
-    key_on_file: "✓ Clave guardada"
+    key_on_file: "✓ Configurada"
     ends_in: "termina en"
     paste_new_key: "Pega una clave nueva para reemplazarla"
   ai:

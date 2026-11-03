@@ -63,6 +63,8 @@ pub struct ManageTemplate {
     pub api_keys: Vec<KeyStatus>,
     /// The AI features are hidden for every account (`settings::AI_OFF`).
     pub ai_off: bool,
+    /// The model the Ollama-compatible server runs (`settings::OLLAMA_MODEL`), '' for the default.
+    pub ollama_model: String,
 }
 
 pub struct AccountRow {
@@ -77,9 +79,12 @@ pub struct AccountRow {
 async fn load(state: &AppState, user: CurrentUser) -> Result<ManageTemplate, AppError> {
     let now = crate::db::now();
     let vault = state.vault.clone();
-    let (invites, accounts, api_keys, ai_off) = state
+    let (invites, accounts, (api_keys, ai_off, ollama_model)) = state
         .db
-        .call(move |c| Ok((crate::signup::open_invites(c, now)?, crate::signup::accounts(c)?, secrets::statuses(c, &vault)?, crate::settings::ai_off(c)?)))
+        .call(move |c| {
+            let ai = (secrets::statuses(c, &vault)?, crate::settings::ai_off(c)?, crate::settings::get(c, crate::settings::OLLAMA_MODEL)?.unwrap_or_default());
+            Ok((crate::signup::open_invites(c, now)?, crate::signup::accounts(c)?, ai))
+        })
         .await?;
     let terms_owed = crate::terms::unannounced(state).await?;
     let total = accounts.len() as i64;
@@ -108,7 +113,15 @@ async fn load(state: &AppState, user: CurrentUser) -> Result<ManageTemplate, App
         terms_owed,
         api_keys,
         ai_off,
+        ollama_model,
     })
+}
+
+impl ManageTemplate {
+    /// The model the Ollama-compatible server runs, as the page shows it.
+    pub fn ollama_model_shown(&self) -> &str {
+        if self.ollama_model.is_empty() { crate::ai::OLLAMA_DEFAULT_MODEL } else { &self.ollama_model }
+    }
 }
 
 #[derive(Deserialize)]
@@ -306,7 +319,8 @@ pub async fn announce_terms(State(state): State<Arc<AppState>>, user: CurrentUse
 }
 
 /// What the keys form autosaves (`static/manage.js`): `key_<provider>`
-/// (`key_anthropic`, …), any of them.
+/// (`key_anthropic`, …; `key_ollama` is a base URL), any of them, and
+/// `ollama_model`.
 #[derive(Deserialize)]
 pub struct KeysForm {
     #[serde(flatten)]
@@ -325,10 +339,12 @@ pub async fn save_keys(State(state): State<Arc<AppState>>, user: CurrentUser, Js
     }
     let mut errors = serde_json::Map::new();
     let mut keys = Vec::new();
+    let mut model = None;
     for (field, value) in &form.keys {
         let provider = field.strip_prefix("key_").and_then(Provider::parse);
         let r = match (provider, value.as_str()) {
             (Some(p), Some(v)) => secrets::validate_key(p, v).map(|k| keys.push((p, k))),
+            (None, Some(v)) if field == "ollama_model" => secrets::validate_model(v).map(|m| model = Some(m)),
             _ => Err(crate::t("profile.save.not_a_field")),
         };
         if let Err(e) = r {
@@ -340,12 +356,16 @@ pub async fn save_keys(State(state): State<Arc<AppState>>, user: CurrentUser, Js
     }
     let vault = state.vault.clone();
     let saved: Vec<Provider> = keys.iter().map(|(p, _)| *p).collect();
+    let saved_model = model.clone();
     let statuses = state
         .db
         .call(move |c| {
             let tx = c.transaction()?;
             for (provider, key) in &keys {
                 secrets::save(&tx, &vault, *provider, key)?;
+            }
+            if let Some(m) = &model {
+                crate::settings::set(&tx, crate::settings::OLLAMA_MODEL, m)?;
             }
             let statuses = secrets::statuses(&tx, &vault)?;
             tx.commit()?;
@@ -357,7 +377,12 @@ pub async fn save_keys(State(state): State<Arc<AppState>>, user: CurrentUser, Js
     }
     let hints: serde_json::Map<String, serde_json::Value> =
         statuses.iter().filter(|k| saved.contains(&k.provider)).map(|k| (k.provider.id().to_string(), k.hint.clone().unwrap_or_default().into())).collect();
-    Ok(Json(serde_json::json!({ "keys": hints })).into_response())
+    let mut body = serde_json::json!({ "keys": hints });
+    if let Some(m) = saved_model {
+        tracing::info!("owner {} set the Ollama model to {m}", user.id);
+        body["ollama_model"] = m.into();
+    }
+    Ok(Json(body).into_response())
 }
 
 #[derive(Deserialize)]
