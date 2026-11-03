@@ -1,7 +1,9 @@
 //! The course registry: built-in courses under `data/courses/<id>/`, checked
-//! at boot and built on first use (#32), plus courses people build in the
-//! app, stored in SQLite as the same files (`courses` + `course_files`) and
-//! built on first use too.
+//! at boot (the seed course kept built, #5) and built on first use (#32),
+//! plus courses people build in the app, stored in SQLite as the same files
+//! (`courses` + `course_files`) and built on first use too.
+//! A build on a request runs on an OS thread of its own (`off_worker`), never
+//! on the one async worker.
 //!
 //! A *project* is a (user, course) pair: opening a course records it in
 //! `projects` and makes it the user's active course (`users.active_course`).
@@ -10,6 +12,7 @@
 use rusqlite::{params, Connection, OptionalExtension};
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
+use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::{Arc, Mutex};
 
 use crate::content::{ContentError, ContentStore, CourseFile, Manifest, Unit, MANIFEST_FILE};
@@ -166,6 +169,10 @@ impl BuiltinCourse {
     }
 }
 
+/// Called on the build thread before a built-in course is built again
+/// (tests: a slow or a failing build).
+type BuildHook = Arc<dyn Fn(&str) + Send + Sync>;
+
 pub struct Courses {
     builtin: Vec<BuiltinCourse>,
     /// Where each built-in course was loaded from, to build it on demand
@@ -173,20 +180,55 @@ pub struct Courses {
     builtin_dirs: HashMap<String, PathBuf>,
     /// Cache of the courses already built: built-in ones from their folder
     /// and user-made ones from the database, at most `MAX_STORES` together
-    /// (least recently used out first, #33).
-    cache: Mutex<Cache>,
-    /// Held while a built-in course is built, so two first
-    /// requests for it wait for one build instead of making two.
-    building: Mutex<()>,
+    /// (least recently used out first, #33). Shared with the build thread,
+    /// which puts what it built in itself.
+    cache: Arc<Mutex<Cache>>,
+    /// Held while a built-in course is built on a request, so two first
+    /// requests for it wait for one build instead of making two. An async
+    /// lock: a request waiting on it leaves the worker to the others. The
+    /// build thread holds it and lets it go when it ends, panic or not.
+    building: Arc<tokio::sync::Mutex<()>>,
+    /// Built-in courses built after boot (`builtin_store`, `get`).
+    rebuilds: Arc<AtomicUsize>,
+    hook: Option<BuildHook>,
     /// What one account may store in courses.
     limits: Limits,
+}
+
+/// Build a built-in course from its folder, counted in `rebuilds`.
+fn rebuild(dir: &Path, id: &str, rebuilds: &AtomicUsize, hook: Option<&BuildHook>) -> Result<ContentStore, ContentError> {
+    if let Some(hook) = hook {
+        hook(id);
+    }
+    rebuilds.fetch_add(1, Ordering::Relaxed);
+    ContentStore::load_dir(dir)
+}
+
+/// Run `f` on an OS thread of its own and wait for it without holding the
+/// async worker (a course build is up to 2 s on the Pi; the Tokio blocking
+/// pool has two threads and is `Db::call`'s). `None` when the thread could
+/// not start or `f` panicked.
+async fn off_worker<T: Send + 'static>(f: impl FnOnce() -> T + Send + 'static) -> Option<T> {
+    let (tx, rx) = tokio::sync::oneshot::channel();
+    let spawned = std::thread::Builder::new().name("course-build".into()).spawn(move || {
+        let _ = tx.send(f());
+    });
+    if let Err(e) = spawned {
+        tracing::warn!("no thread to build a course on: {e}");
+        return None;
+    }
+    rx.await.ok()
 }
 
 impl Courses {
     /// Check every `data/courses/*/course.json`. An empty or missing directory
     /// is fine (the app then only offers "build your own"). Each course is
-    /// built once to validate it, then dropped: only its `BuiltinCourse`
-    /// stays, and `get` builds it again on first use (#32).
+    /// built once to validate it. One is kept in the cache, so the first
+    /// request for it builds nothing (#5): `dev::SEED_COURSE`, else the first.
+    /// The others are dropped, only their `BuiltinCourse` kept: keeping both
+    /// shipped courses built adds about 4 MB of RSS, too much on a Pi for
+    /// a course nobody may open.
+    /// `get` builds one on first use, off the worker (#32).
     pub fn load_builtin(data_dir: &Path) -> Result<Courses, ContentError> {
         Courses::load(data_dir, false)
     }
@@ -200,6 +242,10 @@ impl Courses {
         }
         let mut builtin = Vec::new();
         let mut builtin_dirs = HashMap::new();
+        // The one course boot keeps built: the seed course, else the first.
+        // Decided as each is built, so no other one outlives its check.
+        let seed_shipped = roots.iter().any(|r| r.join(crate::dev::SEED_COURSE).join(MANIFEST_FILE).is_file());
+        let mut kept: Option<ContentStore> = None;
         for root in roots.into_iter().filter(|r| r.is_dir()) {
             let mut dirs: Vec<_> = std::fs::read_dir(&root)
                 .map_err(|e| ContentError::Io(root.clone(), e))?
@@ -223,17 +269,27 @@ impl Courses {
                 }
                 builtin_dirs.insert(store.id().to_string(), dir);
                 builtin.push(BuiltinCourse::of(&store));
+                let keep = if seed_shipped { store.id() == crate::dev::SEED_COURSE } else { kept.is_none() };
+                if keep {
+                    kept = Some(store);
+                }
             }
         }
-        Ok(Courses::with_builtin(builtin, builtin_dirs))
+        let courses = Courses::with_builtin(builtin, builtin_dirs);
+        if let Some(store) = kept {
+            courses.lock().insert(&store.id().to_string(), Arc::new(store));
+        }
+        Ok(courses)
     }
 
     fn with_builtin(builtin: Vec<BuiltinCourse>, builtin_dirs: HashMap<String, PathBuf>) -> Courses {
         Courses {
             builtin,
             builtin_dirs,
-            cache: Mutex::default(),
-            building: Mutex::new(()),
+            cache: Arc::default(),
+            building: Arc::default(),
+            rebuilds: Arc::default(),
+            hook: None,
             limits: Limits::default(),
         }
     }
@@ -241,6 +297,18 @@ impl Courses {
     #[cfg(test)]
     pub fn empty() -> Courses {
         Courses::with_builtin(Vec::new(), HashMap::new())
+    }
+
+    /// The same registry with `hook` run before each rebuild of a built-in.
+    #[cfg(test)]
+    pub fn with_build_hook(mut self, hook: impl Fn(&str) + Send + Sync + 'static) -> Courses {
+        self.hook = Some(Arc::new(hook));
+        self
+    }
+
+    /// How many times a built-in course was built since boot.
+    pub fn rebuilds(&self) -> usize {
+        self.rebuilds.load(Ordering::Relaxed)
     }
 
     /// The same registry with other storage limits (from the environment).
@@ -263,19 +331,16 @@ impl Courses {
         self.builtin.iter().find(|c| c.id() == id)
     }
 
-    /// A built-in course built: from the cache, or from its folder the first
-    /// time (and again after the cache dropped it). `None` for any other id,
-    /// or when its files no longer load (they did at boot).
+    /// A built-in course built, from the cache or else from its folder, on
+    /// the calling thread: for start-up, commands and tests, never on a
+    /// request (`get` builds off the worker). `None` for any other id, or
+    /// when its files no longer load (they did at boot).
     pub fn builtin_store(&self, id: &str) -> Option<Arc<ContentStore>> {
         let dir = self.builtin_dirs.get(id)?;
         if let Some(c) = self.lock().get(id) {
             return Some(c);
         }
-        let _one = self.building.lock().unwrap_or_else(|p| p.into_inner());
-        if let Some(c) = self.lock().get(id) {
-            return Some(c);
-        }
-        match ContentStore::load_dir(dir) {
+        match rebuild(dir, id, &self.rebuilds, self.hook.as_ref()) {
             Ok(store) => {
                 let store = Arc::new(store);
                 self.lock().insert(id, Arc::clone(&store));
@@ -283,6 +348,42 @@ impl Courses {
             }
             Err(e) => {
                 tracing::warn!("built-in course {id} does not load: {e}");
+                None
+            }
+        }
+    }
+
+    /// `builtin_store` for a request: a build runs on its own thread under
+    /// `building`, so a second request for the same course waits for it
+    /// and every other request is served meanwhile. The thread puts the
+    /// course in the cache itself, so a request that gave up waiting does
+    /// not waste the build.
+    async fn builtin_store_off_worker(&self, id: &str) -> Option<Arc<ContentStore>> {
+        let dir = self.builtin_dirs.get(id)?.clone();
+        if let Some(c) = self.lock().get(id) {
+            return Some(c);
+        }
+        let one = Arc::clone(&self.building).lock_owned().await;
+        if let Some(c) = self.lock().get(id) {
+            return Some(c);
+        }
+        let (cache, rebuilds, hook, key) = (Arc::clone(&self.cache), Arc::clone(&self.rebuilds), self.hook.clone(), id.to_string());
+        let built = off_worker(move || {
+            // `one` moves here: dropped when this ends or unwinds.
+            let _one = one;
+            let store = Arc::new(rebuild(&dir, &key, &rebuilds, hook.as_ref())?);
+            cache.lock().unwrap_or_else(|p| p.into_inner()).insert(&key, Arc::clone(&store));
+            Ok::<_, ContentError>(store)
+        })
+        .await;
+        match built {
+            Some(Ok(store)) => Some(store),
+            Some(Err(e)) => {
+                tracing::warn!("built-in course {id} does not load: {e}");
+                None
+            }
+            None => {
+                tracing::warn!("built-in course {id} does not load: its build stopped");
                 None
             }
         }
@@ -306,7 +407,7 @@ impl Courses {
     /// under another course's id).
     pub async fn get(&self, db: &Db, id: &str) -> Result<Option<Arc<ContentStore>>, AppError> {
         if self.is_builtin(id) {
-            return Ok(self.builtin_store(id));
+            return Ok(self.builtin_store_off_worker(id).await);
         }
         if let Some(c) = self.lock().get(id) {
             return Ok(Some(c));
@@ -316,7 +417,11 @@ impl Courses {
         if files.is_empty() {
             return Ok(None);
         }
-        match ContentStore::from_files(&files) {
+        let Some(built) = off_worker(move || ContentStore::from_files(&files)).await else {
+            tracing::warn!("course {id} does not load: its build stopped");
+            return Ok(None);
+        };
+        match built {
             Ok(store) if store.id() != id => {
                 tracing::warn!("course {id} does not load: its manifest says id {:?}", store.id());
                 Ok(None)
