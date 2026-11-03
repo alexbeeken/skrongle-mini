@@ -1848,16 +1848,16 @@ learner changes at the next sign-in.
 
 After the password an account can be asked for
 a code from an authenticator app too (#292, `src/two_factor.rs`;
-`users.two_factor` is `totp` or empty). It is turned on and off on the
+`users.two_factor` is `totp` when on, empty when off; any other value reads
+as off). It is turned on and off on the
 profile's **Two-factor authentication** card
-(`profile-two-factor[data-method]`, chips `profile-two-factor-method[data-method]`
+(`profile-two-factor[data-on]`, chips `profile-two-factor-choice[data-on]`
 for Off and Authenticator app; picking one posts `POST /profile/two-factor`
-and the page comes back saying what is on). There is no code by e-mail
-(#10): posting `method=email` is a 400, and an account whose
-`users.two_factor` still says `email` signs in with its password alone.
+with `two_factor=on` or `off` (anything else is a 400) and the page comes
+back saying whether it is on).
 
-**Every change asks who it is** (#374). Choosing Off, another method or,
-with it off, any method (or the app's *Remove*) opens *Confirm it's you*
+**Every change asks who it is** (#374). Choosing Off or, with it off,
+Authenticator app (or the app's *Remove*) opens *Confirm it's you*
 (`two-factor-confirm-dialog`, saying the change in
 `two-factor-confirm-what`): the account's password
 (`two-factor-confirm-password`, *Confirm* `two-factor-confirm-submit`),
@@ -1882,14 +1882,14 @@ comes back with the dialog shown as a form.
   the setup key in groups of four on one row, for typing it by hand
   (`two-factor-totp-secret`), and, in dev mode, *Dev: add it to the dev
   authenticator* (`two-factor-totp-dev`, the "scan" into [the dev authenticator](testing#two-factor-codes-the-dev-authenticator)).
-  The app's first code (`two-factor-totp-code`, *Turn on*) makes it the
-  method. One app per account; *Remove* (`profile-two-factor-totp-remove`)
+  The app's first code (`two-factor-totp-code`, *Turn on*) turns
+  two-factor sign-in on. One app per account; *Remove* (`profile-two-factor-totp-remove`)
   forgets it and turns two-factor sign-in off (so it asks for the password
   like Off). The app's secret is stored encrypted, like the AI API keys.
   Turning two-factor sign-in off removes it too: its secret is not kept unused.
-- **Signing in**: once the password is right, an account with a
-  method gets no session yet but a `twofa` cookie (10 minutes) naming a
-  challenge, and `/login/code` (`login-code[data-method]`) asks for the
+- **Signing in**: once the password is right, an account with the
+  second step on gets no session yet but a `twofa` cookie (10 minutes) naming a
+  challenge, and `/login/code` (`login-code`) asks for the
   code (`login-code-input`, `login-code-submit`; `login-code-sent-to`
   says it is the app's), with *Cancel* (`login-code-cancel`). The session
   is made only after the right code. In dev mode a small window floats at

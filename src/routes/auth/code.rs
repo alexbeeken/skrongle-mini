@@ -7,8 +7,6 @@ use super::*;
 #[template(path = "login_code.html")]
 pub struct LoginCodeTemplate {
     pub user: Option<CurrentUser>,
-    /// `totp`.
-    pub method: &'static str,
     pub error: Option<String>,
     /// Dev mode: the page floats the dev device for this sign-in
     /// (`/login/code/device`) at the bottom, so the code is a click away.
@@ -21,8 +19,8 @@ pub struct LoginCodeQuery {
     pub format: Option<String>,
 }
 
-fn code_page(state: &AppState, p: &two_factor::Pending, error: Option<String>) -> Response {
-    let page = Page(LoginCodeTemplate { user: None, method: p.method.as_str(), error, dev: state.dev }).into_response();
+fn code_page(state: &AppState, error: Option<String>) -> Response {
+    let page = Page(LoginCodeTemplate { user: None, error, dev: state.dev }).into_response();
     ([(axum::http::header::CACHE_CONTROL, "no-store")], page).into_response()
 }
 
@@ -65,8 +63,6 @@ impl DeviceRow {
 #[derive(Template)]
 #[template(path = "login_code_device.html")]
 pub struct LoginCodeDeviceTemplate {
-    /// `totp`.
-    pub method: &'static str,
     /// Whose code it is, in full (the dev device is the learner's own).
     pub to: String,
     pub now: u64,
@@ -84,22 +80,19 @@ pub async fn login_code_device(State(state): State<Arc<AppState>>, headers: Head
     let Some(p) = state.db.call(move |c| two_factor::pending(c, &token, now())).await? else { return Err(AppError::NotFound) };
     let now = crate::db::now();
     let unix = now as u64;
-    let channel = p.method;
-    let rows: Vec<DeviceRow> = match channel {
-        two_factor::Method::Totp => state
-            .dev_authenticator
-            .list()
-            .into_iter()
-            .filter(|a| a.key.account.eq_ignore_ascii_case(&p.email))
-            .map(|a| DeviceRow { key: format!("totp{}", a.id), title: if a.key.issuer.is_empty() { a.key.account.clone() } else { a.key.issuer.clone() }, body: a.key.account.clone(), code: a.key.code_at(unix), expires: unix + a.key.remaining(unix), remaining: a.key.remaining(unix), period: a.key.period })
-            .collect(),
-    };
+    let rows: Vec<DeviceRow> = state
+        .dev_authenticator
+        .list()
+        .into_iter()
+        .filter(|a| a.key.account.eq_ignore_ascii_case(&p.email))
+        .map(|a| DeviceRow { key: format!("totp{}", a.id), title: if a.key.issuer.is_empty() { a.key.account.clone() } else { a.key.issuer.clone() }, body: a.key.account.clone(), code: a.key.code_at(unix), expires: unix + a.key.remaining(unix), remaining: a.key.remaining(unix), period: a.key.period })
+        .collect();
     let to = p.email.clone();
     if q.format.as_deref() == Some("json") {
         let rows: Vec<_> = rows.iter().map(|r| serde_json::json!({ "key": r.key, "title": r.title, "body": r.body, "code": r.code, "expires": r.expires })).collect();
-        return Ok(axum::Json(serde_json::json!({ "method": channel.as_str(), "to": to, "now": unix, "rows": rows })).into_response());
+        return Ok(axum::Json(serde_json::json!({ "to": to, "now": unix, "rows": rows })).into_response());
     }
-    let page = Page(LoginCodeDeviceTemplate { method: channel.as_str(), to, now: unix, rows }).into_response();
+    let page = Page(LoginCodeDeviceTemplate { to, now: unix, rows }).into_response();
     // The one page the app lets itself frame: the headers middleware keeps
     // a CSP a handler set (security.rs), and this route exists in dev mode only.
     Ok((
@@ -119,8 +112,8 @@ pub async fn login_code_form(State(state): State<Arc<AppState>>, MaybeUser(user)
         return Ok(Redirect::to(&crate::url("/")).into_response());
     }
     let Some(token) = twofa_token(&headers) else { return Ok(code_gone(&state, &code_gone_msg())) };
-    let Some(p) = state.db.call(move |c| two_factor::pending(c, &token, now())).await? else { return Ok(code_gone(&state, &code_gone_msg())) };
-    Ok(code_page(&state, &p, None))
+    let Some(_) = state.db.call(move |c| two_factor::pending(c, &token, now())).await? else { return Ok(code_gone(&state, &code_gone_msg())) };
+    Ok(code_page(&state, None))
 }
 
 #[derive(Deserialize)]
@@ -161,9 +154,9 @@ pub async fn login_code(State(state): State<Arc<AppState>>, ClientIp(ip): Client
         two_factor::Checked::Wrong(left) => {
             tracing::info!("user {} typed a wrong sign-in code", user_id.unwrap_or_default());
             let _ = state.limits.hit(security::LOGIN_FAILURES_PER_USER, &email, t);
-            let Some(p) = state.db.call(move |c| two_factor::pending(c, &token, t)).await? else { return Ok(code_gone(&state, &code_gone_msg())) };
+            let Some(_) = state.db.call(move |c| two_factor::pending(c, &token, t)).await? else { return Ok(code_gone(&state, &code_gone_msg())) };
             let msg = crate::tn("auth.code.wrong", left);
-            Ok((StatusCode::UNPROCESSABLE_ENTITY, code_page(&state, &p, Some(msg))).into_response())
+            Ok((StatusCode::UNPROCESSABLE_ENTITY, code_page(&state, Some(msg))).into_response())
         }
         two_factor::Checked::Gone => {
             // With a user id this was the last wrong code; it counts too.

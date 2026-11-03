@@ -168,7 +168,6 @@ auth:
       other: "Dieser Code stimmt nicht. Noch {n} Versuche."
     too_many_wrong: Zu viele falsche Codes oder der Code ist abgelaufen. Melde dich erneut an.
   two_factor:
-    needs_app: Richte zuerst die Authenticator-App ein.
     app_already: Eine Authenticator-App ist schon eingerichtet. Entferne sie zuerst.
 
 
@@ -273,11 +272,9 @@ profile:
     totp_info_key: Scannen geht nicht? Wähle stattdessen, einen Einrichtungsschlüssel einzugeben, und tippe den Schlüssel unter dem Code ein; er ist zeitbasiert.
     qr_title: QR-Code des Einrichtungslinks
     turn_off: Zwei-Faktor-Anmeldung ausschalten
-    switch_to: "Zwei-Faktor-Anmeldung auf {method} umstellen"
-    turn_on_by: "Zwei-Faktor-Anmeldung per {method} einschalten"
-    method_totp: Authenticator-App
+    turn_on_what: "Zwei-Faktor-Anmeldung mit einer Authenticator-App einschalten"
     is_off: Zwei-Faktor-Anmeldung ist aus.
-    is_method: "Zwei-Faktor-Anmeldung: {method}."
+    is_on: "Zwei-Faktor-Anmeldung ist an."
     totp_removed: Authenticator-App entfernt.
     too_many_attempts: Zu viele Versuche. Warte ein paar Minuten und versuche es erneut.
     type_password: Gib dein Passwort ein, um diese Änderung vorzunehmen.
@@ -310,8 +307,7 @@ profile:
     name_bad_chars: "{label} enthält nicht erlaubte Zeichen."
     password_mismatch: Die neuen Passwörter stimmen nicht überein.
     turn_off: Zwei-Faktor-Anmeldung ausschalten
-    switch_to: "Zwei-Faktor-Anmeldung auf {method} umstellen"
-    turn_on_by: "Zwei-Faktor-Anmeldung per {method} einschalten"
+    turn_on: "Zwei-Faktor-Anmeldung mit einer Authenticator-App einschalten"
 manage:
   title: Benutzer verwalten
   about: "Aktionen für jedes Konto. Nur Eigentümer sehen diese Seite."
@@ -1006,7 +1002,7 @@ docs:
     mini_h2: "{app} mini"
     mini_p: "Was diese Seite installiert: dieselbe App, eingerichtet für eine Handvoll Leute, die dich kennen, ohne fremde Dienste."
     mini_out_h3: "Wie sie eingerichtet ist"
-    mini_out_mail: "Keine E-Mails oder SMS: Links erscheinen stattdessen auf der Seite."
+    mini_out_mail: "Keine E-Mails: Links erscheinen stattdessen auf der Seite."
     mini_out_signup: "Registrierung nur mit Einladung: du erstellst für jede Person einen Link."
     mini_out_jobs: "Hintergrundarbeit läuft in der App: keine weiteren Dienste nötig."
     mini_out_db: "Eine Datenbankdatei (SQLite): kein Datenbankserver."

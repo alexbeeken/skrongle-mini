@@ -44,7 +44,7 @@ pub fn set_temporary_password(conn: &Connection, user_id: i64, hash: &str, keep:
     crate::auth::delete_other_sessions(conn, user_id, keep.unwrap_or(""))
 }
 
-/// Turn the account's second sign-in step off: the method, an authenticator
+/// Turn the account's second sign-in step off: the flag, an authenticator
 /// app's key and sign-ins waiting for a code.
 pub fn disable_two_factor(conn: &Connection, user_id: i64) -> rusqlite::Result<()> {
     conn.execute("UPDATE users SET two_factor = '' WHERE id = ?1", [user_id])?;
@@ -180,7 +180,7 @@ mod tests {
             crate::profile::set_password_hash(c, ann, "h")?;
             assert!(!flag(c)?);
 
-            // disable-2fa: method and key gone.
+            // disable-2fa: flag and key gone.
             run(c, "disable-2fa", "ann@example.org")?.unwrap();
             let method: String = c.query_row("SELECT two_factor FROM users WHERE id = ?1", [ann], |r| r.get(0))?;
             assert_eq!(method, "");

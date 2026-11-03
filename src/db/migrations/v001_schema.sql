@@ -15,7 +15,7 @@ CREATE TABLE users (
     age_confirmed        INTEGER NOT NULL DEFAULT 0,
     owner                INTEGER NOT NULL DEFAULT 0,          -- runs the server: Manage Users
     must_change_password INTEGER NOT NULL DEFAULT 0,
-    two_factor           TEXT    NOT NULL DEFAULT '',         -- '' | 'totp'
+    two_factor           TEXT    NOT NULL DEFAULT '',         -- 'totp' (on) | '' (off); anything else reads as off
     active_course        TEXT,
     lang                 TEXT    NOT NULL DEFAULT '',         -- '' follows the browser
     review_quiet         INTEGER NOT NULL DEFAULT 0,
@@ -49,7 +49,6 @@ CREATE TABLE two_factor_challenges (
     id         INTEGER PRIMARY KEY,
     user_id    INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     token_hash TEXT    NOT NULL UNIQUE,
-    method     TEXT    NOT NULL,
     attempts   INTEGER NOT NULL DEFAULT 0,
     created_at INTEGER NOT NULL,
     expires_at INTEGER NOT NULL

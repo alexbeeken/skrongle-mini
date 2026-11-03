@@ -117,13 +117,13 @@
     </div>
   </section>
 
-  <section class="card" id="two-factor" data-testid="profile-two-factor" data-method="{{ two_factor_method() }}">
+  <section class="card" id="two-factor" data-testid="profile-two-factor" data-on="{{ two_factor_on() }}">
     <h2 class="heading-with-info">{{ crate::t("profile.two_factor.title") }} <button type="button" class="info-btn" data-opens="two-factor-info" aria-haspopup="dialog" aria-label="{{ crate::t("profile.two_factor.info") }}" data-testid="profile-two-factor-info">i</button></h2>
     {% if let Some(e) = two_factor_error %}<p class="alert error" role="alert" data-testid="profile-two-factor-error">{{ e }}</p>{% endif %}
     <form method="post" action="{{ crate::url("/profile/two-factor") }}" data-testid="profile-two-factor-form">
       <div class="choice-chips" role="radiogroup" aria-label="{{ crate::t("profile.two_factor.second_step") }}">
-        <label class="chip" data-testid="profile-two-factor-method" data-method=""><input type="radio" name="method" value="" class="sr-only"{% if two_factor_method() == "" %} checked{% endif %}> {{ crate::t("profile.two_factor.off") }}</label>
-        <label class="chip" data-testid="profile-two-factor-method" data-method="totp"><input type="radio" name="method" value="totp" class="sr-only"{% if two_factor_method() == "totp" %} checked{% endif %}> {{ crate::t("profile.two_factor.totp") }}</label>
+        <label class="chip" data-testid="profile-two-factor-choice" data-on="false"><input type="radio" name="two_factor" value="off" class="sr-only"{% if !two_factor_on() %} checked{% endif %}> {{ crate::t("profile.two_factor.off") }}</label>
+        <label class="chip" data-testid="profile-two-factor-choice" data-on="true"><input type="radio" name="two_factor" value="on" class="sr-only"{% if two_factor_on() %} checked{% endif %}> {{ crate::t("profile.two_factor.totp") }}</label>
       </div>
       <noscript><button type="submit" class="btn small">{{ crate::t("profile.two_factor.save") }}</button></noscript>
     </form>
@@ -137,8 +137,8 @@
       {% else if proof_kind() == "code" %}
       <p>{{ crate::t("profile.two_factor.confirm_app_code") }}</p>
       {% endif %}
-      <form method="post" action="{{ confirm_action() }}" id="two-factor-confirm-form" data-testid="two-factor-confirm-form" data-method-action="{{ crate::url("/profile/two-factor") }}" data-remove-action="{{ crate::url("/profile/two-factor/totp/remove") }}">
-        <input type="hidden" name="method" value="{{ confirm_method }}" data-testid="two-factor-confirm-method">
+      <form method="post" action="{{ confirm_action() }}" id="two-factor-confirm-form" data-testid="two-factor-confirm-form" data-change-action="{{ crate::url("/profile/two-factor") }}" data-remove-action="{{ crate::url("/profile/two-factor/totp/remove") }}">
+        <input type="hidden" name="two_factor" value="{% if confirm_on %}on{% else %}off{% endif %}" data-testid="two-factor-confirm-choice">
         {% if profile.has_password %}
         <label>{{ crate::t("profile.two_factor.password") }}
           <input type="password" name="password" required maxlength="{{ crate::auth::PASSWORD_MAX }}" autocomplete="current-password" data-testid="two-factor-confirm-password">
@@ -157,7 +157,7 @@
     {% if let Some(since) = totp_since() %}
     <form method="post" action="{{ crate::url("/profile/two-factor/totp/remove") }}" class="key-remove" data-testid="profile-two-factor-totp">
       <span class="small">{{ crate::t1("profile.two_factor.totp_added", "date", since.as_str()) }} ·</span>
-      <button type="submit" class="link-btn small" data-testid="profile-two-factor-totp-remove"{% if two_factor_method() == "totp" %} data-confirm-remove{% endif %}>{{ crate::t("profile.two_factor.remove") }}</button>
+      <button type="submit" class="link-btn small" data-testid="profile-two-factor-totp-remove"{% if two_factor_on() %} data-confirm-remove{% endif %}>{{ crate::t("profile.two_factor.remove") }}</button>
     </form>
     {% endif %}
     <dialog class="modal" id="two-factor-info" aria-labelledby="two-factor-info-title" data-testid="profile-two-factor-info-dialog">

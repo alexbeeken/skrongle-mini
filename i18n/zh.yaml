@@ -168,7 +168,6 @@ auth:
       other: "验证码不正确。还剩 {n} 次机会。"
     too_many_wrong: 验证码错误次数过多，或验证码已过期。请重新登录。
   two_factor:
-    needs_app: 请先设置验证器应用。
     app_already: 已设置验证器应用。请先将其移除。
 
 
@@ -273,11 +272,9 @@ profile:
     totp_info_key: 无法扫描？请选择输入设置密钥，并在验证码下方输入该密钥；它是基于时间的。
     qr_title: 设置链接的二维码
     turn_off: 关闭两步登录验证
-    switch_to: "将两步登录验证切换为{method}"
-    turn_on_by: "通过{method}开启两步验证"
-    method_totp: 验证器应用
+    turn_on_what: "通过验证器应用开启两步验证"
     is_off: 两步登录验证已关闭。
-    is_method: "两步登录验证：{method}。"
+    is_on: "两步登录验证已开启。"
     totp_removed: 验证器应用已移除。
     too_many_attempts: 尝试次数过多。请稍等几分钟后再试。
     type_password: 请输入你的密码以进行此更改。
@@ -310,8 +307,7 @@ profile:
     name_bad_chars: "{label} 包含不允许使用的字符。"
     password_mismatch: 两次输入的新密码不一致。
     turn_off: 关闭两步登录验证
-    switch_to: "将两步登录验证切换为{method}"
-    turn_on_by: "通过{method}开启两步验证"
+    turn_on: "通过验证器应用开启两步验证"
 manage:
   title: 管理用户
   about: "对任何账户的操作。只有所有者能看到此页面。"
@@ -1006,7 +1002,7 @@ docs:
     mini_h2: "{app} mini"
     mini_p: "本页安装的是：同一个应用，为几个认识你的人设置好，不依赖任何外部服务。"
     mini_out_h3: "它是这样设置的"
-    mini_out_mail: "没有电子邮件或短信：链接直接显示在页面上。"
+    mini_out_mail: "没有电子邮件：链接直接显示在页面上。"
     mini_out_signup: "凭邀请注册：你为每个人生成一个链接。"
     mini_out_jobs: "后台任务在应用内部运行：不需要额外的服务。"
     mini_out_db: "一个数据库文件（SQLite）：不需要数据库服务器。"

@@ -44,7 +44,8 @@ pub struct ProfileTemplate {
     /// it): open on load after a refusal, the method asked for (`''` off),
     /// whether it came from the app's Remove, and why it was refused.
     pub confirm_open: bool,
-    pub confirm_method: String,
+    /// The change the confirm dialog asks about: turning it on (`true`) or off.
+    pub confirm_on: bool,
     pub confirm_remove: bool,
     pub confirm_error: Option<String>,
 }
@@ -59,16 +60,16 @@ impl ProfileTemplate {
     /// an account without one a `code` from its app, or, without a second
     /// step, `none`.
     pub fn proof_kind(&self) -> &'static str {
-        match (self.profile.has_password, self.profile.two_factor.method) {
+        match (self.profile.has_password, self.profile.two_factor.enabled) {
             (true, _) => "password",
-            (false, Some(crate::two_factor::Method::Totp)) => "code",
-            (false, None) => "none",
+            (false, true) => "code",
+            (false, false) => "none",
         }
     }
 
-    /// `''` (off) or `totp`.
-    pub fn two_factor_method(&self) -> &'static str {
-        self.profile.two_factor.method.map(crate::two_factor::Method::as_str).unwrap_or("")
+    /// The second step is on.
+    pub fn two_factor_on(&self) -> bool {
+        self.profile.two_factor.enabled
     }
 
     /// When the authenticator app was set up, if it is.
@@ -88,10 +89,10 @@ impl ProfileTemplate {
 
     /// What the confirm dialog says the change is.
     pub fn confirm_what(&self) -> String {
-        match (self.confirm_remove, crate::two_factor::Method::parse(&self.confirm_method)) {
-            (true, _) | (false, None) => crate::t("profile.two_factor.turn_off"),
-            (false, Some(m)) if self.profile.two_factor.method.is_none() => crate::t1("profile.two_factor.turn_on_by", "method", method_label(m)),
-            (false, Some(m)) => crate::t1("profile.two_factor.switch_to", "method", method_label(m)),
+        if self.confirm_on && !self.confirm_remove {
+            crate::t("profile.two_factor.turn_on_what")
+        } else {
+            crate::t("profile.two_factor.turn_off")
         }
     }
 
@@ -151,7 +152,7 @@ fn page(state: &AppState, user: CurrentUser, p: Profile) -> ProfileTemplate {
         totp_error: None,
         totp_key: None,
         confirm_open: false,
-        confirm_method: String::new(),
+        confirm_on: false,
         confirm_remove: false,
         confirm_error: None,
         dev: state.dev,
@@ -168,10 +169,7 @@ pub async fn show(
     let mut t = page(&state, user, p);
     t.notice = match q.saved.as_deref() {
         Some("password") => Some(crate::t("profile.password.changed")),
-        Some("two-factor") => Some(match t.profile.two_factor.method {
-            None => crate::t("profile.two_factor.is_off"),
-            Some(m) => crate::t1("profile.two_factor.is_method", "method", method_label(m)),
-        }),
+        Some("two-factor") => Some(crate::t(if t.profile.two_factor.enabled { "profile.two_factor.is_on" } else { "profile.two_factor.is_off" })),
         Some("totp-removed") => Some(crate::t("profile.two_factor.totp_removed")),
         Some("signed-out") => Some(crate::t("profile.sessions.signed_out_notice")),
         _ => None,
@@ -250,12 +248,6 @@ pub async fn save(
 
 // ---------- two-factor sign-in (two_factor.rs) ----------
 
-fn method_label(m: crate::two_factor::Method) -> String {
-    match m {
-        crate::two_factor::Method::Totp => crate::t("profile.two_factor.method_totp"),
-    }
-}
-
 /// The profile page again, with something to say (a refused code, …).
 async fn profile_with(state: &AppState, user: CurrentUser, status: StatusCode, f: impl FnOnce(&mut ProfileTemplate)) -> Result<Response, AppError> {
     let p = load_profile(state, &user).await?;
@@ -275,10 +267,10 @@ async fn pending_totp_key(state: &AppState, uid: i64) -> Result<Option<crate::to
 }
 
 #[derive(Deserialize)]
-pub struct MethodForm {
-    /// `''` (off) or `totp`.
+pub struct TwoFactorForm {
+    /// `on` or `off` (`users.two_factor` is stored as `totp` or `''`).
     #[serde(default)]
-    pub method: String,
+    pub two_factor: String,
     /// Turning two-factor off or switching it: the account's password, or
     /// (an account without one) a code from the app.
     #[serde(default)]
@@ -287,10 +279,11 @@ pub struct MethodForm {
     pub code: String,
 }
 
-fn parse_method(m: &str) -> Result<Option<crate::two_factor::Method>, AppError> {
-    match m {
-        "" | "off" => Ok(None),
-        m => Ok(Some(crate::two_factor::Method::parse(m).ok_or_else(|| AppError::BadRequest("unknown method".into()))?)),
+fn parse_on(v: &str) -> Result<bool, AppError> {
+    match v {
+        "on" => Ok(true),
+        "" | "off" => Ok(false),
+        _ => Err(AppError::BadRequest("two_factor is on or off".into())),
     }
 }
 
@@ -323,7 +316,7 @@ async fn prove_owner(state: &AppState, user: &CurrentUser, password: &str, code:
         }
         return Ok(None);
     }
-    if state.db.call(move |c| crate::two_factor::settings(c, uid)).await?.method.is_none() {
+    if !state.db.call(move |c| crate::two_factor::settings(c, uid)).await?.enabled {
         // No password and no second step: nothing to ask.
         return Ok(None);
     }
@@ -348,10 +341,10 @@ async fn prove_owner(state: &AppState, user: &CurrentUser, password: &str, code:
 }
 
 /// The profile again with the confirm dialog open.
-async fn confirm_again(state: &AppState, user: CurrentUser, status: StatusCode, method: String, remove: bool, error: Option<String>) -> Result<Response, AppError> {
+async fn confirm_again(state: &AppState, user: CurrentUser, status: StatusCode, on: bool, remove: bool, error: Option<String>) -> Result<Response, AppError> {
     profile_with(state, user, status, move |t| {
         t.confirm_open = true;
-        t.confirm_method = method;
+        t.confirm_on = on;
         t.confirm_remove = remove;
         t.confirm_error = error;
     })
@@ -366,41 +359,38 @@ async fn two_factor_changed(state: &AppState, user: &CurrentUser, keep: Option<S
     Ok(())
 }
 
-/// POST /profile/two-factor (method, password | code): the second sign-in
-/// step, one at a time. Every change, turning it on too, needs proof that
+/// POST /profile/two-factor (two_factor = on | off, password | code): the second sign-in
+/// step. Every change, turning it on too, needs proof that
 /// it is the owner (`prove_owner`, #374), then signs out the other devices.
-/// The authenticator app, until one is set up,
+/// Turning it on, until an app is set up,
 /// starts its enrolment instead (the dialog with its key opens).
 pub async fn set_two_factor(
     State(state): State<Arc<AppState>>,
     user: CurrentUser,
     auth::SessionToken(token): auth::SessionToken,
-    Form(f): Form<MethodForm>,
+    Form(f): Form<TwoFactorForm>,
 ) -> Result<Response, AppError> {
-    use crate::two_factor::{self, Method};
-    let method = parse_method(&f.method)?;
+    use crate::two_factor;
+    let on = parse_on(&f.two_factor)?;
     let uid = user.id;
     let current = state.db.call(move |c| two_factor::settings(c, uid)).await?;
-    if !two_factor::needs_proof(current.method, method) {
+    if !two_factor::needs_proof(current.enabled, on) {
         return Ok(Redirect::to(&crate::url("/profile?saved=two-factor#two-factor")).into_response());
     }
     if let Some((status, why)) = prove_owner(&state, &user, &f.password, &f.code).await? {
-        return confirm_again(&state, user, status, f.method, false, Some(why)).await;
+        return confirm_again(&state, user, status, on, false, Some(why)).await;
     }
-    if method == Some(Method::Totp) && current.totp_since.is_none() {
+    if on && current.totp_since.is_none() {
         let vault = state.vault.clone();
         state.db.call(move |c| two_factor::totp_start(c, &vault, uid, crate::db::now())).await?.map_err(|e| AppError::Internal(e.into()))?;
         tracing::info!("user {uid} started setting up an authenticator app");
         return Ok(Redirect::to(&crate::url("/profile?totp=enrol#two-factor")).into_response());
     }
-    match state.db.call(move |c| two_factor::set_method(c, uid, method)).await? {
-        Ok(()) => {
-            tracing::info!("user {uid} set two-factor sign-in to {}", method.map(Method::as_str).unwrap_or("off"));
-            two_factor_changed(&state, &user, token).await?;
-            Ok(Redirect::to(&crate::url("/profile?saved=two-factor#two-factor")).into_response())
-        }
-        Err(why) => profile_with(&state, user, StatusCode::UNPROCESSABLE_ENTITY, |t| t.two_factor_error = Some(why.into())).await,
-    }
+    // On with the app already set up, or off.
+    state.db.call(move |c| two_factor::set_enabled(c, uid, on)).await?;
+    tracing::info!("user {uid} set two-factor sign-in {}", if on { "on" } else { "off" });
+    two_factor_changed(&state, &user, token).await?;
+    Ok(Redirect::to(&crate::url("/profile?saved=two-factor#two-factor")).into_response())
 }
 
 /// POST /profile/two-factor/totp/confirm (code): the app's first code
@@ -450,14 +440,14 @@ pub async fn remove_totp(
     State(state): State<Arc<AppState>>,
     user: CurrentUser,
     auth::SessionToken(token): auth::SessionToken,
-    Form(f): Form<MethodForm>,
+    Form(f): Form<TwoFactorForm>,
 ) -> Result<Response, AppError> {
     let uid = user.id;
     let current = state.db.call(move |c| crate::two_factor::settings(c, uid)).await?;
-    let in_use = current.method == Some(crate::two_factor::Method::Totp);
+    let in_use = current.enabled;
     if in_use {
         if let Some((status, why)) = prove_owner(&state, &user, &f.password, &f.code).await? {
-            return confirm_again(&state, user, status, String::new(), true, Some(why)).await;
+            return confirm_again(&state, user, status, false, true, Some(why)).await;
         }
     }
     state.db.call(move |c| crate::two_factor::totp_remove(c, uid)).await?;

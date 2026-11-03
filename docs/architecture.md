@@ -87,7 +87,7 @@ src/
 
   share.rs       sharing a course with other learners by e-mail address (#451): invitation links the owner passes on (table course_shares, the link's token hashed), who may open a shared course
   totp.rs        time-based one-time passwords: RFC 6238 TOTP over RFC 4226 HOTP (SHA-1 written out, SHA-256/512 via sha2), base32, the otpauth://totp/ Key Uri Format and its QR code as inline SVG (the qrcode crate, no image feature); the dev authenticator (/dev/authenticator) reads its keys with it
-  two_factor.rs  two-factor sign-in: the method in use, the authenticator app's enrolment, sign-in challenges, the proof for turning it off (tables totp_keys, two_factor_challenges)
+  two_factor.rs  two-factor sign-in: on or off, the authenticator app's enrolment, sign-in challenges, the proof for turning it off (tables totp_keys, two_factor_challenges)
   profile.rs     user profiles: name/e-mail validation, profile persistence
   secrets.rs     the server's AI API keys (#25, table server_api_keys; the owner's, set on /manage, used by every account): master secret, ChaCha20-Poly1305 sealing
   settings.rs    server-wide settings the owner changes on /manage (table settings, #25): ai_off, the switch that hides every AI feature for every account (read into CurrentUser::ai_off by the session query)
@@ -300,7 +300,7 @@ totp_keys      (user_id PRIMARY KEY, secret, created_at, confirmed_at, last_step
                 -- bound to the user; codes are worked out from it, so it can't be hashed),
                 -- confirmed_at NULL while enrolling (purged after a day),
                 -- last_step the newest RFC 6238 time step accepted: a code works once
-two_factor_challenges (id, user_id, token_hash UNIQUE, method, attempts, created_at, expires_at)
+two_factor_challenges (id, user_id, token_hash UNIQUE, attempts, created_at, expires_at)
                 -- a sign-in waiting for its second step: token_hash is the SHA-256 of the `twofa` cookie's token;
                 -- 10 minutes, 5 tries
 signup_invites (id, token_hash UNIQUE, created_by, created_at, expires_at, used_at, used_by)

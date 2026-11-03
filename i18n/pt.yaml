@@ -168,7 +168,6 @@ auth:
       other: "Esse código está errado. Restam {n} tentativas."
     too_many_wrong: Muitos códigos errados, ou o código expirou. Entre de novo.
   two_factor:
-    needs_app: Configure primeiro o aplicativo autenticador.
     app_already: Um aplicativo autenticador já está configurado. Remova-o primeiro.
 
 
@@ -273,11 +272,9 @@ profile:
     totp_info_key: Não consegue ler o código? Escolha digitar uma chave de configuração e digite a chave que fica abaixo do código; ela é baseada em tempo.
     qr_title: Código QR do link de configuração
     turn_off: Desligar a autenticação em duas etapas
-    switch_to: "Trocar a autenticação em duas etapas para {method}"
-    turn_on_by: "Ligar a verificação em duas etapas por {method}"
-    method_totp: aplicativo autenticador
+    turn_on_what: "Ligar a verificação em duas etapas com um aplicativo autenticador"
     is_off: A autenticação em duas etapas está desligada.
-    is_method: "Autenticação em duas etapas: {method}."
+    is_on: "A autenticação em duas etapas está ligada."
     totp_removed: Aplicativo autenticador removido.
     too_many_attempts: Muitas tentativas. Aguarde alguns minutos e tente novamente.
     type_password: Digite sua senha para fazer esta alteração.
@@ -310,8 +307,7 @@ profile:
     name_bad_chars: "{label} contém caracteres não permitidos."
     password_mismatch: As novas senhas não coincidem.
     turn_off: Desligar a autenticação em duas etapas
-    switch_to: "Trocar a autenticação em duas etapas para {method}"
-    turn_on_by: "Ligar a verificação em duas etapas por {method}"
+    turn_on: "Ligar a verificação em duas etapas com um aplicativo autenticador"
 manage:
   title: Gerenciar usuários
   about: "Ações em qualquer conta. Só proprietários veem esta página."
@@ -1006,7 +1002,7 @@ docs:
     mini_h2: "{app} mini"
     mini_p: "O que esta página instala: o mesmo app, preparado para poucas pessoas que conhecem você, sem serviços externos."
     mini_out_h3: "Como ele está configurado"
-    mini_out_mail: "Sem e-mail nem SMS: os links aparecem na própria página."
+    mini_out_mail: "Sem e-mail: os links aparecem na própria página."
     mini_out_signup: "Cadastro por convite: você cria um link para cada pessoa."
     mini_out_jobs: "O trabalho em segundo plano roda dentro do app: nenhum serviço extra para manter."
     mini_out_db: "Um único arquivo de banco de dados (SQLite): sem servidor de banco de dados."

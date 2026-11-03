@@ -52,11 +52,11 @@ async function expectQr(page: Page): Promise<void> {
   expect(Math.abs(box.width - box.height)).toBeLessThan(2);
 }
 
-async function chooseMethod(page: Page, method: string): Promise<void> {
-  await page.locator(`[data-testid="profile-two-factor-method"][data-method="${method}"]`).click();
+async function choose(page: Page, on: boolean): Promise<void> {
+  await page.locator(`[data-testid="profile-two-factor-choice"][data-on="${on}"]`).click();
 }
 
-/** Off or another method while one is on: the "Confirm it's you" dialog asks for the password. */
+/** Turning it on or off: the "Confirm it's you" dialog asks for the password. */
 async function confirmWith(page: Page, password: string): Promise<void> {
   const dialog = page.getByTestId("two-factor-confirm-dialog");
   await expect(dialog).toBeVisible();
@@ -69,39 +69,38 @@ test("the second step is the authenticator app alone, and turning it on needs th
   await register(page, a, "spanish");
   await page.goto("/profile");
   const card = page.getByTestId("profile-two-factor");
-  // Off and the app: no e-mailed code, and a forged post for one is refused.
-  await expect(page.getByTestId("profile-two-factor-method")).toHaveCount(2);
-  await expect(page.locator('[data-testid="profile-two-factor-method"][data-method="email"]')).toHaveCount(0);
-  const email = await page.request.post("/profile/two-factor", { form: { method: "email", password: a.password }, maxRedirects: 0 });
-  expect(email.status()).toBe(400);
+  // Off and the app, nothing else; a forged post for anything else is refused.
+  await expect(page.getByTestId("profile-two-factor-choice")).toHaveCount(2);
+  const forged = await page.request.post("/profile/two-factor", { form: { two_factor: "email", password: a.password }, maxRedirects: 0 });
+  expect(forged.status()).toBe(400);
   // A session alone can't turn it on (#374).
-  for (const form of [{ method: "totp" }, { method: "totp", password: "not-the-password" }] as Record<string, string>[]) {
+  for (const form of [{ two_factor: "on" }, { two_factor: "on", password: "not-the-password" }] as Record<string, string>[]) {
     const res = await page.request.post("/profile/two-factor", { form, maxRedirects: 0 });
     expect(res.status(), JSON.stringify(form)).toBe(403);
   }
   const removeForged = await page.request.post("/profile/two-factor/totp/remove", { form: { password: "" }, maxRedirects: 0 });
   expect(removeForged.status()).toBe(303); // no app to remove: nothing to protect
   await page.reload();
-  await expect(card).toHaveAttribute("data-method", "");
+  await expect(card).toHaveAttribute("data-on", "false");
 
   // Cancel puts the chips back.
-  await chooseMethod(page, "totp");
+  await choose(page, true);
   const confirm = page.getByTestId("two-factor-confirm-dialog");
   await expect(confirm).toBeVisible();
-  await expect(confirm.getByTestId("two-factor-confirm-what")).toHaveText("Turn on two-factor sign-in by authenticator app");
+  await expect(confirm.getByTestId("two-factor-confirm-what")).toHaveText("Turn on two-factor sign-in with an authenticator app");
   await confirm.getByTestId("two-factor-confirm-cancel").click();
   await expect(confirm).toBeHidden();
-  await expect(page.locator('[data-testid="profile-two-factor-method"][data-method=""] input')).toBeChecked();
+  await expect(page.locator('[data-testid="profile-two-factor-choice"][data-on="false"] input')).toBeChecked();
 
   // A wrong password is refused, the right one starts the set-up; cancelling it leaves the step off.
-  await chooseMethod(page, "totp");
+  await choose(page, true);
   await confirmWith(page, "not-the-password");
   await expect(confirm.getByTestId("two-factor-confirm-error")).toContainText("password is not right");
-  await expect(card).toHaveAttribute("data-method", "");
+  await expect(card).toHaveAttribute("data-on", "false");
   await confirmWith(page, a.password);
   await expect(page.getByTestId("two-factor-totp-dialog")).toBeVisible();
   await page.getByTestId("two-factor-totp-cancel").click();
-  await expect(card).toHaveAttribute("data-method", "");
+  await expect(card).toHaveAttribute("data-on", "false");
   // Without a sign-in waiting for its code the device page is nothing.
   const stranger = await page.context().browser()!.newContext();
   expect((await stranger.request.get("/login/code/device")).status()).toBe(404);
@@ -115,7 +114,7 @@ test("an authenticator app is added through the dev authenticator and its codes 
   const a = newAccount("2fa-totp");
   await register(page, a, "spanish");
   await page.goto("/profile");
-  await chooseMethod(page, "totp");
+  await choose(page, true);
   await confirmWith(page, a.password);
   const dialog = page.getByTestId("two-factor-totp-dialog");
   await expect(dialog).toBeVisible();
@@ -162,12 +161,12 @@ test("an authenticator app is added through the dev authenticator and its codes 
   const first = await fresh();
   await page.getByTestId("two-factor-totp-code").fill(first);
   await page.getByTestId("two-factor-totp-confirm").click();
-  await expect(page.getByTestId("profile-two-factor")).toHaveAttribute("data-method", "totp");
+  await expect(page.getByTestId("profile-two-factor")).toHaveAttribute("data-on", "true");
   await expect(page.getByTestId("profile-two-factor-totp")).toContainText("Authenticator app added");
 
   await logout(page);
   await passwordStep(page, a);
-  await expect(page.getByTestId("login-code")).toHaveAttribute("data-method", "totp");
+  await expect(page.getByTestId("login-code")).toBeVisible();
   // The code used to turn it on works only once.
   await page.getByTestId("login-code-input").fill(first);
   await page.getByTestId("login-code-submit").click();
@@ -190,10 +189,10 @@ test("an authenticator app is added through the dev authenticator and its codes 
   await page.getByTestId("profile-two-factor-totp-remove").click();
   await confirmWith(page, "not-the-password");
   await expect(page.getByTestId("two-factor-confirm-error")).toContainText("password is not right");
-  await expect(page.getByTestId("profile-two-factor")).toHaveAttribute("data-method", "totp");
+  await expect(page.getByTestId("profile-two-factor")).toHaveAttribute("data-on", "true");
   await confirmWith(page, a.password);
   await expect(page.getByTestId("profile-notice")).toContainText("Authenticator app removed");
-  await expect(page.getByTestId("profile-two-factor")).toHaveAttribute("data-method", "");
+  await expect(page.getByTestId("profile-two-factor")).toHaveAttribute("data-on", "false");
   await row.getByTestId("dev-authenticator-remove").click();
   await expect(row).toHaveCount(0);
   expect((await authenticator()).accounts.some((x) => x.account === a.email.toLowerCase())).toBe(false);

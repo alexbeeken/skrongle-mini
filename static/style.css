@@ -204,7 +204,7 @@ input:focus { outline: 2px solid var(--gold); outline-offset: 1px; }
 .error-detail code { display: block; margin-top: .3rem; overflow-wrap: anywhere; }
 .error-text { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .9rem; white-space: pre-wrap; overflow-wrap: anywhere; }
 
-/* Chips: a row of radio choices (the motivator, the two-factor method). */
+/* Chips: a row of radio choices (the motivator, the two-factor choice). */
 .choice-chips { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .6rem; }
 .chip { display: inline-flex; align-items: center; gap: .4em; padding: .4rem .9rem; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--text); font: inherit; font-size: .92rem; cursor: pointer; }
 .chip img { width: 1.3em; height: 1.3em; }

@@ -1437,10 +1437,10 @@ fn registration_signs_in_and_nothing_is_mailed() {
     assert_eq!(again.status().as_u16(), 200);
     assert!(again.body_mut().read_to_string().unwrap().contains("already exists"));
     let profile = agent.get(&format!("{base}/profile")).header("cookie", &ann).call().unwrap().body_mut().read_to_string().unwrap();
-    for gone in [r#"data-testid="email-unverified""#, r#"data-testid="email-verify-resend""#, r#"data-method="email""#, "email-no-mail-info", "two-factor-confirm-send"] {
+    for gone in [r#"data-testid="email-unverified""#, r#"data-testid="email-verify-resend""#, "email-no-mail-info", "two-factor-confirm-send"] {
         assert!(!profile.contains(gone), "{gone} is on the page");
     }
-    assert!(profile.contains(r#"data-method="totp""#));
+    assert!(profile.contains(r#"data-on="true""#));
     let login = agent.get(&format!("{base}/login")).call().unwrap().body_mut().read_to_string().unwrap();
     assert!(!login.contains("login-reset-link"), "{login}");
     for gone in ["/reset", "/verify-email?token=abc"] {

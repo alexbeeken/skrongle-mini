@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}{{ crate::t("auth.code.title") }}{% endblock %}
 {% block content %}
-<section class="narrow" data-testid="login-code" data-method="{{ method }}">
+<section class="narrow" data-testid="login-code">
   <h1>{{ crate::t("auth.code.title") }}</h1>
   {% if let Some(e) = error %}<p class="alert error" role="alert" data-testid="login-code-error">{{ e }}</p>{% endif %}
   <p class="muted" data-testid="login-code-sent-to">{{ crate::t("auth.code.from_app") }}</p>
