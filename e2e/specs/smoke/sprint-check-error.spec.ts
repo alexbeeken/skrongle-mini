@@ -11,20 +11,24 @@ const COURSE = "spanish";
 const key = new AnswerKey(COURSE);
 const LESSON = "nouns-gender-articles-plurals";
 
-/** Open `path` with the first exercise `want` accepts moved to the front of the session. */
+/** Open `path` with the first exercise `want` accepts moved to the front of the session.
+ *  A session is a random draw from the lesson, so one without such an exercise is drawn again. */
 async function openWithFirst(page: Page, path: string, want: (e: { id?: string; kind?: string }) => boolean) {
+  let found = false;
   await page.route(/\/sprint\/play\?/, async (route) => {
     const res = await route.fetch();
     const html = (await res.text()).replace(/(<script id="session" type="application\/json">)([\s\S]*?)(<\/script>)/, (_m, a: string, json: string, c: string) => {
       const s = JSON.parse(json);
       const i = s.exercises.findIndex(want);
-      if (i < 0) throw new Error("no such exercise in the session");
+      if (i < 0) return a + json + c;
+      found = true;
       s.exercises.unshift(s.exercises.splice(i, 1)[0]);
       return a + JSON.stringify(s).replace(/</g, "\\u003c") + c;
     });
     await route.fulfill({ response: res, body: html });
   });
-  await page.goto(path);
+  for (let draws = 0; draws < 8 && !found; draws++) await page.goto(path);
+  if (!found) throw new Error("no such exercise in eight sessions of the lesson");
 }
 
 test("a failing check shows one error line, replaced on retry, cleared on success", async ({ page }) => {

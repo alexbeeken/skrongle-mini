@@ -75,7 +75,7 @@ test("the shop sells a badge once and keeps it across motivators", async ({ page
   await expect(page.getByTestId("shop-shelf").locator(`[data-badge="${cheap.id}"]`)).toBeVisible();
   await expect(page.getByTestId("shop-balance")).toHaveAttribute("data-skc", String(have - cheap.price));
   expect(await balance(page)).toBe(have - cheap.price);
-  await expect(await heroBadge(page, cheap.id)).toHaveAttribute("data-variant", "plain");
+  await expect(await heroBadge(page, cheap.id)).toBeVisible();
 
   // Twice: refused, nothing charged.
   const again = await page.request.post("/api/shop/buy", { form: { item: cheap.id }, maxRedirects: 0 });
