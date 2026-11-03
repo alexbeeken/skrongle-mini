@@ -326,13 +326,6 @@ fn hex(bytes: &[u8]) -> String {
     s
 }
 
-/// Associated data of a key a learner saved on their profile before the
-/// keys were the server's (`user_api_keys`, read only for the rows migration
-/// v99 brought over): binds a ciphertext to its row.
-fn aad(user_id: i64, provider: Provider) -> Vec<u8> {
-    format!("learnmap/api-key/v1/{user_id}/{}", provider.id()).into_bytes()
-}
-
 // ---------- authenticator apps' secrets (two_factor.rs) ----------
 
 /// Associated data for a TOTP secret: bound to its owner, and kept apart
@@ -359,15 +352,6 @@ fn server_aad(provider: Provider) -> Vec<u8> {
     format!("learnmap/server-api-key/v1/{}", provider.id()).into_bytes()
 }
 
-/// The associated data a stored row was sealed with: the server's, or for a
-/// key brought over from its owner's profile (migration v99) that user's.
-fn row_aad(sealed_for: Option<i64>, provider: Provider) -> Vec<u8> {
-    match sealed_for {
-        Some(user_id) => aad(user_id, provider),
-        None => server_aad(provider),
-    }
-}
-
 /// What the Manage Users page shows about one provider. Never the key itself.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct KeyStatus {
@@ -385,11 +369,11 @@ impl KeyStatus {
     }
 }
 
-type Row = (String, Vec<u8>, i64, Option<i64>);
+type Row = (String, Vec<u8>, i64);
 
 fn rows(conn: &Connection) -> rusqlite::Result<Vec<Row>> {
-    let mut stmt = conn.prepare_cached("SELECT provider, ciphertext, set_at, sealed_for FROM server_api_keys")?;
-    let rows = stmt.query_map([], |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?, r.get(3)?)))?;
+    let mut stmt = conn.prepare_cached("SELECT provider, ciphertext, set_at FROM server_api_keys")?;
+    let rows = stmt.query_map([], |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?)))?;
     rows.collect()
 }
 
@@ -400,7 +384,7 @@ pub fn statuses(conn: &Connection, vault: &Vault) -> rusqlite::Result<Vec<KeySta
         .into_iter()
         .map(|p| match rows.iter().find(|(id, ..)| id == p.id()) {
             None => KeyStatus { provider: p, hint: None, unreadable: false, updated_at: 0 },
-            Some((_, blob, at, sealed_for)) => match vault.open(&row_aad(*sealed_for, p), blob).and_then(|b| String::from_utf8(b).ok()) {
+            Some((_, blob, at)) => match vault.open(&server_aad(p), blob).and_then(|b| String::from_utf8(b).ok()) {
                 Some(key) => KeyStatus { provider: p, hint: Some(hint(p, &key)), unreadable: false, updated_at: *at },
                 None => KeyStatus { provider: p, hint: None, unreadable: true, updated_at: *at },
             },
@@ -417,10 +401,9 @@ pub fn usable(conn: &Connection, vault: &Vault) -> rusqlite::Result<Vec<Provider
 /// The server's key for a provider, for a feature that is about to call it.
 /// `None` when there is none or it no longer decrypts.
 pub fn get(conn: &Connection, vault: &Vault, provider: Provider) -> rusqlite::Result<Option<String>> {
-    let row: Option<(Vec<u8>, Option<i64>)> = conn
-        .query_row("SELECT ciphertext, sealed_for FROM server_api_keys WHERE provider = ?1", [provider.id()], |r| Ok((r.get(0)?, r.get(1)?)))
-        .optional()?;
-    Ok(row.and_then(|(b, u)| vault.open(&row_aad(u, provider), &b)).and_then(|b| String::from_utf8(b).ok()))
+    let blob: Option<Vec<u8>> =
+        conn.query_row("SELECT ciphertext FROM server_api_keys WHERE provider = ?1", [provider.id()], |r| r.get(0)).optional()?;
+    Ok(blob.and_then(|b| vault.open(&server_aad(provider), &b)).and_then(|b| String::from_utf8(b).ok()))
 }
 
 /// Store (or replace) the server's key for a provider, one that
@@ -428,8 +411,8 @@ pub fn get(conn: &Connection, vault: &Vault, provider: Provider) -> rusqlite::Re
 pub fn save(conn: &Connection, vault: &Vault, provider: Provider, key: &str) -> rusqlite::Result<()> {
     let blob = vault.seal(&server_aad(provider), key.as_bytes());
     conn.execute(
-        "INSERT INTO server_api_keys (provider, ciphertext, set_at, sealed_for) VALUES (?1, ?2, ?3, NULL)
-         ON CONFLICT(provider) DO UPDATE SET ciphertext = excluded.ciphertext, set_at = excluded.set_at, sealed_for = NULL",
+        "INSERT INTO server_api_keys (provider, ciphertext, set_at) VALUES (?1, ?2, ?3)
+         ON CONFLICT(provider) DO UPDATE SET ciphertext = excluded.ciphertext, set_at = excluded.set_at",
         params![provider.id(), blob, crate::db::now()],
     )?;
     Ok(())
@@ -450,8 +433,8 @@ pub fn saved_key_count(conn: &Connection) -> rusqlite::Result<i64> {
 /// lost and a new one created (`SKRONGLE_NEW_SECRET_KEY=1`). Returns how many.
 pub fn forget_unreadable(conn: &Connection, vault: &Vault) -> rusqlite::Result<usize> {
     let mut n = 0;
-    for (provider, blob, _, sealed_for) in rows(conn)? {
-        if !row_readable(vault, &provider, &blob, sealed_for) {
+    for (provider, blob, _) in rows(conn)? {
+        if !row_readable(vault, &provider, &blob) {
             n += conn.execute("DELETE FROM server_api_keys WHERE provider = ?1", [&provider])?;
         }
     }
@@ -481,12 +464,12 @@ pub fn forget_unreadable_totp(conn: &Connection, vault: &Vault) -> rusqlite::Res
 /// another backup).
 pub fn readable_count(conn: &Connection, vault: &Vault) -> rusqlite::Result<(usize, usize)> {
     let rows = rows(conn)?;
-    let readable = rows.iter().filter(|(p, b, _, u)| row_readable(vault, p, b, *u)).count();
+    let readable = rows.iter().filter(|(p, b, _)| row_readable(vault, p, b)).count();
     Ok((readable, rows.len()))
 }
 
-fn row_readable(vault: &Vault, provider: &str, blob: &[u8], sealed_for: Option<i64>) -> bool {
-    Provider::parse(provider).is_some_and(|p| vault.open(&row_aad(sealed_for, p), blob).is_some())
+fn row_readable(vault: &Vault, provider: &str, blob: &[u8]) -> bool {
+    Provider::parse(provider).is_some_and(|p| vault.open(&server_aad(p), blob).is_some())
 }
 
 /// The vault the server would use, from `SKRONGLE_SECRET_KEY` or an existing
@@ -632,7 +615,7 @@ mod tests {
         assert_eq!(open_totp(&v, 6, &blob), None, "another user's row");
         assert_eq!(open_totp(&vault(4), 5, &blob), None, "another master secret");
         // Not interchangeable with an API key's ciphertext.
-        assert_eq!(v.open(&aad(5, Provider::Anthropic), &blob), None);
+        assert_eq!(v.open(&server_aad(Provider::Anthropic), &blob), None);
     }
 
     #[test]
@@ -717,27 +700,6 @@ mod tests {
             assert_eq!(get(c, &vault(8), Provider::Google)?, None);
             assert_eq!(forget_unreadable(c, &v)?, 1);
             assert_eq!(readable_count(c, &v)?, (1, 1));
-            Ok(())
-        })
-        .unwrap();
-    }
-
-    /// Migration v99 brings the owner's profile keys over as they were
-    /// sealed (bound to the owner's id): they still open, and saving one
-    /// again seals it for the server.
-    #[test]
-    fn a_key_brought_over_from_the_owners_profile_opens() {
-        let db = crate::db::Db::open_in_memory().unwrap();
-        let v = vault(9);
-        db.with(|c| {
-            let blob = v.seal(&aad(42, Provider::OpenAi), b"sk-proj-oldWXYZ");
-            c.execute("INSERT INTO server_api_keys (provider, ciphertext, set_at, sealed_for) VALUES ('openai', ?1, 5, 42)", params![blob])?;
-            assert_eq!(get(c, &v, Provider::OpenAi)?.as_deref(), Some("sk-proj-oldWXYZ"));
-            assert_eq!(statuses(c, &v)?[1].hint.as_deref(), Some("WXYZ"));
-            save(c, &v, Provider::OpenAi, "sk-proj-new1234")?;
-            let sealed_for: Option<i64> = c.query_row("SELECT sealed_for FROM server_api_keys WHERE provider = 'openai'", [], |r| r.get(0))?;
-            assert_eq!(sealed_for, None);
-            assert_eq!(get(c, &v, Provider::OpenAi)?.as_deref(), Some("sk-proj-new1234"));
             Ok(())
         })
         .unwrap();

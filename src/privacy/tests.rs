@@ -1,8 +1,8 @@
 use super::*;
 use crate::db::Db;
 
-/// One learner with a row in every user table (and a course and a theme
-/// with files and an undo step).
+/// One learner with a row in every user table (and a course with files
+/// and an undo step).
 fn fill(c: &Connection, name: &str) -> i64 {
     let uid = crate::auth::create_user(c, &format!("{name}@example.org"), "$argon2id$secret-hash").unwrap();
     let course = format!("{name}-course");
@@ -22,26 +22,9 @@ fn fill(c: &Connection, name: &str) -> i64 {
              INSERT INTO lesson_notes (user_id, course_id, lesson_id, body, updated_at) VALUES ({uid}, 'spanish', 'a1', '{name}-note', 1);
              INSERT INTO earnings (user_id, course_id, points, goals, day, day_points, streak) VALUES ({uid}, 'spanish', 1, 0, 0, 1, 1);
              INSERT INTO motivator_purchases (user_id, course_id, item, price, created_at) VALUES ({uid}, 'spanish', 'sprout', 50, 1);
-             INSERT INTO user_api_keys (user_id, provider, ciphertext, updated_at) VALUES ({uid}, 'anthropic', x'deadbeef', 1);
-             INSERT INTO subscriptions (user_id, customer_id, subscription_id, status, event_at, updated_at) VALUES ({uid}, 'cus_{name}', 'sub_{name}', 'canceled', 1, 1);
-             INSERT INTO plan_grants (user_id, granted_at) VALUES ({uid}, 1);
-             INSERT INTO plan_cancellations (user_id, plan, reason, feedback, created_at) VALUES ({uid}, 'plus', 'price', 'too dear', 1);
-             INSERT INTO ai_usage (user_id, purpose, provider, model, key_source, created_at) VALUES ({uid}, 'tutor-turn', 'anthropic', 'm', 'hosted', 1);
-             INSERT INTO ai_credit_purchases (session_id, user_id, credit_micros, created_at) VALUES ('cs_{name}', {uid}, 1, 1);
-             INSERT INTO terms_acceptances (user_id, version, accepted_at) VALUES ({uid}, 'v1', 1);
-             INSERT INTO consents (user_id, purpose, granted_at, withdrawn_at) VALUES ({uid}, 'ai', 1, 2);
-             INSERT INTO terms_announcements (user_id, version, mailed_at) VALUES ({uid}, 'v2', 1);
-             INSERT INTO breach_notices (user_id, notice, mailed_at) VALUES ({uid}, '{name}-noticehash', 1);
-             INSERT INTO mail_outbox (user_id, to_addr, subject, body_text, purpose, next_attempt_at, created_at) VALUES ({uid}, '{name}@example.org', '{name}-subject', '{name}-mailbody', 'login-code', 1, 1);
-             INSERT INTO sms_outbox (user_id, to_number, body_text, purpose, next_attempt_at, created_at) VALUES ({uid}, '+447700900123', '{name}-text', 'login-code', 1, 1);
-             INSERT INTO sms_sends (user_id, number_key, kind, created_at) VALUES ({uid}, '{name}-numberkey', 'other', 1);
-             INSERT INTO email_verifications (user_id, email, token_hash, created_at, expires_at) VALUES ({uid}, '{name}@example.org', '{name}-vhash', 1, 2);
-             INSERT INTO password_resets (user_id, email, token_hash, created_at, expires_at) VALUES ({uid}, '{name}@example.org', '{name}-rhash', 1, 2);
              INSERT INTO totp_keys (user_id, secret, created_at, confirmed_at) VALUES ({uid}, '{name}-totpsecret', 1, 2);
-             INSERT INTO phone_verifications (user_id, phone, code_hash, salt, created_at, expires_at) VALUES ({uid}, '+447700900123', '{name}-phash', '{name}-psalt', 1, 2);
-             INSERT INTO two_factor_challenges (user_id, token_hash, method, code_hash, salt, created_at, expires_at) VALUES ({uid}, '{name}-chtoken', 'email', '{name}-chcode', '{name}-chsalt', 1, 2);
-             INSERT INTO two_factor_confirmations (user_id, method, code_hash, salt, created_at, expires_at) VALUES ({uid}, 'email', '{name}-cfcode', '{name}-cfsalt', 1, 2);
-             UPDATE users SET phone = '+447700900123', two_factor = 'totp' WHERE id = {uid};
+             INSERT INTO two_factor_challenges (user_id, token_hash, method, created_at, expires_at) VALUES ({uid}, '{name}-chtoken', 'totp', 1, 2);
+             UPDATE users SET two_factor = 'totp' WHERE id = {uid};
              INSERT INTO courses (id, owner_id, title, created_at, updated_at, notes) VALUES ('{course}', {uid}, 'T', 1, 1, '{name}-notes');
              INSERT INTO course_files (course_id, path, content, updated_at) VALUES ('{course}', 'course.json', '{{}}', 1);
              INSERT INTO course_undo (course_id, seq, title, label, created_at) VALUES ('{course}', 1, 'T', 'l', 1);
@@ -49,18 +32,8 @@ fn fill(c: &Connection, name: &str) -> i64 {
              INSERT INTO course_ai_runs (course_id, label, created_at) VALUES ('{course}', 'l', 1);
              INSERT INTO course_ai_run_files (course_id, side, path, content) VALUES ('{course}', 'after', 'course.json', '{{}}');
              INSERT INTO course_shares (course_id, email, token_hash, created_at) VALUES ('{course}', '{name}-friend@example.org', '{name}-shash', 1);
-             INSERT INTO course_flags (course_id, state, matches_json, content_hash, checked_at) VALUES ('{course}', 'flagged', '[]', '{name}-flaghash', 1);
-             INSERT INTO content_scores (course_id, chunk, hash, model, scanned_at) VALUES ('{course}', 'lessons/a.json', '{name}-scorehash', 'jev', 1);
-             INSERT INTO content_category_scores (course_id, chunk, category, score) VALUES ('{course}', 'lessons/a.json', 'hate', 0.1);
-             INSERT INTO content_checks (course_id, checked_at) VALUES ('{course}', 1);
              INSERT INTO projects (user_id, course_id, created_at, last_opened_at) VALUES ({uid}, 'spanish', 1, 1), ({uid}, '{course}', 1, 1);
-             INSERT INTO user_themes (owner_id, title, created_at, updated_at) VALUES ({uid}, 'th', 1, 1);
-             INSERT INTO user_theme_files (theme_id, path, content) VALUES (last_insert_rowid(), 'theme.json', '{{}}');
-             INSERT INTO data_exports (user_id, state, token_hash, file, created_at) VALUES ({uid}, 'ready', '{name}-exporthash', '{name}-export.json', 1);
              INSERT INTO signup_invites (token_hash, created_by, created_at, expires_at) VALUES ('{name}-invitehash', {uid}, 1, 2);
-             INSERT INTO waitlist (email, joined_at, confirmed_at, signed_up_at, user_id) VALUES ('{name}-waitlist@example.org', 1, 1, 2, {uid});
-             INSERT INTO content_reports (user_id, course_id, reason, email, details, created_at) VALUES ({uid}, 'someone-course', 'harmful', '{name}@example.org', '{name}-report', 1);
-             INSERT INTO privacy_actions (superuser_id, action, reason, created_at) VALUES ({uid}, 'export', '{name}-reason', 1);
              UPDATE users SET active_course = '{course}' WHERE id = {uid};"
     );
     c.execute_batch(&sql).unwrap();
@@ -105,8 +78,7 @@ fn deleting_an_account_removes_every_row_of_it() {
         let deleted = delete_account(c, ann)?.unwrap();
         assert_eq!(deleted.courses, vec!["ann-course".to_string()]);
         for (t, n) in &before {
-            let want = if KEPT_ON_DELETE.contains(&t.as_str()) { *n } else { n / 2 };
-            assert_eq!(count(c, t), want, "rows left in {t} after deleting ann");
+            assert_eq!(count(c, t), n / 2, "rows left in {t} after deleting ann");
         }
         for (t, filter) in USER_TABLES {
             let left: i64 = c.query_row(&format!("SELECT COUNT(*) FROM {t} WHERE {filter}"), [ann], |r| r.get(0))?;
@@ -205,10 +177,6 @@ fn retention_and_account_deletion_use_indexes() {
         assert_indexed(c, "SELECT id FROM courses WHERE state = 'failed' AND updated_at < ?1 ORDER BY id", "courses", Some("idx_courses_state_updated"));
         assert_indexed(c, "DELETE FROM projects WHERE course_id = ?1", "projects", Some("idx_projects_course"));
         assert_indexed(c, "UPDATE users SET active_course = NULL WHERE active_course = ?1", "users", Some("idx_users_active_course"));
-        assert_indexed(c, "UPDATE users SET theme = '' WHERE theme = ?1 AND theme <> ''", "users", Some("idx_users_theme"));
-        // What `DELETE FROM users` cascades into (every other child is
-        // covered by `db::tests::every_foreign_key_is_indexed`).
-        assert_indexed(c, "DELETE FROM ai_credit_purchases WHERE user_id = ?1", "ai_credit_purchases", Some("idx_ai_credit_purchases_user"));
         Ok(())
     })
     .unwrap();

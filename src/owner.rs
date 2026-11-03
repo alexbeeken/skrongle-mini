@@ -45,13 +45,11 @@ pub fn set_temporary_password(conn: &Connection, user_id: i64, hash: &str, keep:
 }
 
 /// Turn the account's second sign-in step off: the method, an authenticator
-/// app's key, sign-ins waiting for a code and codes sent to confirm a
-/// change.
+/// app's key and sign-ins waiting for a code.
 pub fn disable_two_factor(conn: &Connection, user_id: i64) -> rusqlite::Result<()> {
     conn.execute("UPDATE users SET two_factor = '' WHERE id = ?1", [user_id])?;
     conn.execute("DELETE FROM totp_keys WHERE user_id = ?1", [user_id])?;
     conn.execute("DELETE FROM two_factor_challenges WHERE user_id = ?1", [user_id])?;
-    conn.execute("DELETE FROM two_factor_confirmations WHERE user_id = ?1", [user_id])?;
     Ok(())
 }
 

@@ -43,7 +43,8 @@ pub fn schema_version() -> i64 {
 }
 
 /// The exit status of a server that refuses a database a newer release
-/// upgraded (#1329). `learnmap.service` does not restart on it.
+/// upgraded (#1329), or one from before the 1.0 schema (#49).
+/// `learnmap.service` does not restart on it.
 pub const NEWER_DB_EXIT: i32 = 78;
 
 fn newer_db_message(found: i64) -> String {
@@ -53,14 +54,28 @@ fn newer_db_message(found: i64) -> String {
     )
 }
 
-/// Refuses a database at `path` whose schema is newer than this binary's,
-/// reading it without writing anything. A missing or unreadable file passes:
+const PREDATES_MESSAGE: &str = "this database predates the 1.0 schema; start from a fresh one";
+
+/// A database made by a build from before the schema was squashed into v1
+/// (#49): its `users` table has a column only that history had
+/// (`username` in its first versions, `google_sub` after them). There is no
+/// upgrade path from it.
+fn predates_schema(conn: &Connection) -> rusqlite::Result<bool> {
+    conn.query_row("SELECT EXISTS(SELECT 1 FROM pragma_table_info('users') WHERE name IN ('username', 'google_sub'))", [], |r| r.get(0))
+}
+
+/// Refuses a database at `path` that this binary cannot use: one from
+/// before the 1.0 schema, or one whose schema is newer than this binary's.
+/// Reads it without writing anything. A missing or unreadable file passes:
 /// `Db::open` reports those.
 pub fn check_not_newer(path: &Path) -> Result<(), String> {
     if !path.exists() {
         return Ok(());
     }
     let Ok(conn) = Connection::open_with_flags(path, rusqlite::OpenFlags::SQLITE_OPEN_READ_ONLY) else { return Ok(()) };
+    if predates_schema(&conn).unwrap_or(false) {
+        return Err(format!("{}: {PREDATES_MESSAGE}", path.display()));
+    }
     match conn.query_row("PRAGMA user_version", [], |r| r.get::<_, i64>(0)) {
         Ok(found) if found > schema_version() => Err(newer_db_message(found)),
         _ => Ok(()),
@@ -234,6 +249,9 @@ fn trace_statement(event: TraceEvent<'_>) {
 }
 
 fn migrate(conn: &Connection) -> rusqlite::Result<()> {
+    if predates_schema(conn)? {
+        return Err(rusqlite::Error::SqliteFailure(rusqlite::ffi::Error::new(rusqlite::ffi::SQLITE_ERROR), Some(PREDATES_MESSAGE.to_string())));
+    }
     let current: i64 = conn.query_row("PRAGMA user_version", [], |r| r.get(0))?;
     if current > schema_version() {
         return Err(rusqlite::Error::SqliteFailure(

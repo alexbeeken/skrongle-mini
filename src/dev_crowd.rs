@@ -66,7 +66,6 @@ enum Prefers {
 
 /// One learner's habits, drawn once from their index.
 struct Learner {
-    index: usize,
     email: String,
     name: &'static str,
     /// Offset from UTC in seconds.
@@ -104,7 +103,6 @@ impl Learner {
             _ => Prefers::Guide,
         };
         Learner {
-            index,
             email: format!("learner-{index}@{DOMAIN}"),
             name: NAMES.get(rng.below(NAMES.len())).copied().unwrap_or("Ana"),
             tz: (ZONES.get(rng.below(ZONES.len())).copied().unwrap_or(0.0) * 3600.0) as i64,
@@ -177,10 +175,9 @@ fn live(conn: &Connection, l: &Learner, course: &ContentStore, hash: &str, today
     let joined = joined.min(l.deadline - 60);
     let uid = crate::auth::create_user(conn, &l.email, hash)?;
     conn.execute(
-        "UPDATE users SET created_at = ?2, email_verified_at = ?2, age_confirmed = 1, first_name = ?3, avatar_color = ?4 WHERE id = ?1",
-        params![uid, joined, l.name, (l.index % 8) as i64],
+        "UPDATE users SET created_at = ?2, email_verified_at = ?2, age_confirmed = 1, first_name = ?3 WHERE id = ?1",
+        params![uid, joined, l.name],
     )?;
-    conn.execute("UPDATE terms_acceptances SET accepted_at = ?2 WHERE user_id = ?1", params![uid, joined])?;
     crate::courses::open_project(conn, uid, cid)?;
     let mut last_opened = joined;
 

@@ -431,15 +431,14 @@ const PROGRESS_TABLES: [&str; 13] = [
 
 /// Wipe a user's progress and own courses (drafts and generated ones) and
 /// switch the review of AI changes back to opening by itself and forget its
-/// saved app language, so a `lang` cookie decides again (#1363); the account (owner or not), its keys,
-/// its credits and its sessions stay; its AI usage log goes too, so a test
-/// starts with the whole allowance. Returns the deleted course ids.
+/// saved app language, so a `lang` cookie decides again (#1363); the account
+/// (owner or not) and its sessions stay. Returns the deleted course ids.
 pub fn reset_user(conn: &Connection, user_id: i64) -> rusqlite::Result<Vec<String>> {
     let owned: Vec<String> = crate::courses::courses_owned_by(conn, user_id)?.into_iter().map(|r| r.id).collect();
     for id in &owned {
         crate::courses::delete_course(conn, id)?;
     }
-    for t in PROGRESS_TABLES.iter().chain(["projects", "ai_usage"].iter()) {
+    for t in PROGRESS_TABLES.iter().chain(["projects"].iter()) {
         conn.execute(&format!("DELETE FROM {t} WHERE user_id = ?1"), [user_id])?;
     }
     crate::mastery::cache::forget_all();

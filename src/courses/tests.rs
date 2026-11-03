@@ -122,7 +122,7 @@ fn generated_courses_have_a_lifecycle() {
         set_generating(c, id, "job1")?;
         let row = course(c, id)?.unwrap();
         assert!(row.is_generating());
-        assert_eq!((row.source.as_str(), row.visibility.as_str(), row.job_id.as_deref()), ("ai", "private", Some("job1")));
+        assert_eq!((row.source.as_str(), row.job_id.as_deref()), ("ai", Some("job1")));
         assert_eq!(notes_of(c, id)?, "x^2 + 5x + 6 = (x+2)(x+3)");
         // Half-written: the files exist but the course cannot be loaded.
         for f in starter_files(id, "Algebra") {

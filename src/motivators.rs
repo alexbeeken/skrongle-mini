@@ -204,14 +204,10 @@ pub fn find(id: &str) -> Option<&'static dyn Motivator> {
 }
 
 /// The motivator the user wears in a course (`projects.motivator`, #574);
-/// the account's for a course they never opened.
+/// the default for a course they never opened.
 pub fn worn(conn: &Connection, user_id: i64, course_id: &str) -> rusqlite::Result<&'static dyn Motivator> {
     let id: Option<String> = conn
-        .query_row(
-            "SELECT COALESCE((SELECT motivator FROM projects WHERE user_id = ?1 AND course_id = ?2), motivator) FROM users WHERE id = ?1",
-            params![user_id, course_id],
-            |r| r.get(0),
-        )
+        .query_row("SELECT motivator FROM projects WHERE user_id = ?1 AND course_id = ?2", params![user_id, course_id], |r| r.get(0))
         .optional()?;
     Ok(get(id.as_deref().unwrap_or("")))
 }

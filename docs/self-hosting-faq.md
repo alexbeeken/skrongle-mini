@@ -94,7 +94,8 @@ the database from before the update. See [Updating](self-hosting#updating).
 
 **Will an update lose my learners' progress?** No. Progress, accounts and
 courses made in the app are in the database, which an update doesn't
-replace; the new version migrates it when it starts. The update script
+replace; the new version migrates it when it starts (a database from
+before the 1.0 schema is not upgraded: the server says so and stops). The update script
 still copies it aside first.
 
 **How do I back up?** Copy `learn.db` and `learn.db.key` from

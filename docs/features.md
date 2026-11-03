@@ -82,8 +82,8 @@ Anyone can make a course, and it is theirs alone: a course made in the app
 lives in the database as the same JSON files a built-in course has
 (`courses` + `course_files`), and only its owner sees it, opens it or
 changes it (anyone else gets a 404), unless the owner shares it (below).
-Courses are `private`; publishing them to a catalogue is planned
-(`courses.visibility` is reserved for it).
+Courses are private: the editor tags them so; there is no catalogue to
+publish them to.
 
 A course made in the app gets every feature its files have data for, exactly
 like Spanish: the three modes, the tutor, mastery, passes, streaks, the daily goal,
@@ -935,8 +935,7 @@ the top bar is the gear, and conversation lines show only the speaker's name.
   time without resetting anything. Closing it without Save keeps what was
   saved.
 
-Every course starts with the account's motivator (`users.motivator`, which
-nothing edits any more).
+Every course starts with the default motivator (`projects.motivator` '').
 
 
 ## Progress across modes
@@ -980,8 +979,7 @@ the end of a lesson or session in every mode. The learner picks one per
 course in [the course's settings](#a-courses-settings) (the wizard of its first visit,
 then the gear on its card; the (i) says what each one does), stored in
 `projects.motivator` ('' for the default; #574). A new course starts with
-`users.motivator`, the account-wide choice from before #574, which nothing
-edits any more. Motivators are app-level code, not course data: a course
+the default. Motivators are app-level code, not course data: a course
 file cannot switch one on.
 
 | Motivator | id | What the home page leads with | Reward line |
@@ -1708,9 +1706,8 @@ keys). The password dialog and account deletion keep their explicit buttons. The
   with its date, explained behind an (i). The age confirmation (the day the
   account was made, read-only: taking it back means deleting the
   account). The AI features have no row: whether they are shown is the server's
-  choice, the owner's on Manage Users (#25), and the per-account consent
-  rows in `consents` (`src/consent.rs`) went with migration 99. Any rows
-  left go with the account.
+  choice, the owner's on Manage Users (#25), so there is no per-account
+  consent to record (`src/consent.rs`).
 - **Proof that it is the owner** (`prove_owner` in `src/routes/profile.rs`):
   every change a stolen session must not make asks for it: the password
   (checked like `/login`: 10 per account per 15 minutes, a wrong one
@@ -1741,8 +1738,7 @@ keys). The password dialog and account deletion keep their explicit buttons. The
   registration transaction);
   otherwise an owner sets it with **Make owner** on the page, or
   `./spanish-learning make-owner <email>` does (#635; see
-  `docs/self-hosting.md`, "If you lock yourself out"). Migration 98 (#16)
-  set it for every account that was a superuser or a developer before.
+  `docs/self-hosting.md`, "If you lock yourself out").
   In dev mode the
   dev user (`dev@example.com`) always is one. For anyone else the menu has
   no link, and the page and its forms answer 404 (`src/routes/manage.rs`).
@@ -1774,9 +1770,8 @@ keys). The password dialog and account deletion keep their explicit buttons. The
       to `next`. Choosing a password anywhere clears the flag
       (`profile::set_password_hash`).
     - **Turn off two-factor** (`POST /manage/two-factor-off`):
-      `users.two_factor` is cleared, and the account's `totp_keys`,
-      waiting sign-ins (`two_factor_challenges`) and change confirmations
-      (`two_factor_confirmations`) are deleted.
+      `users.two_factor` is cleared, and the account's `totp_keys` and
+      waiting sign-ins (`two_factor_challenges`) are deleted.
     - **Make owner** (`POST /manage/make-owner`, #16; only on rows that
       are not owners yet): `users.owner` is set, so the account sees
       Manage Users in its menu and may take every action here. The page

@@ -262,9 +262,8 @@ mod tests {
     fn every_user_progress_write_is_known() {
         const KNOWN: &[(&str, &str)] = &[
             ("src/mastery.rs", "reads, and the one write, `save`, which updates the cache"),
-            ("src/privacy.rs", "export columns; account deletion (a cascade) calls forget_user"),
+            ("src/privacy.rs", "account deletion lists it (a cascade) and calls forget_user"),
             ("src/dev.rs", "the dev reset deletes the rows and calls forget_all"),
-            ("src/db/migrations.rs", "the schema, before any cache exists"),
         ];
         let mut found = Vec::new();
         let mut stack = vec![std::path::PathBuf::from("src")];

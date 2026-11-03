@@ -31,7 +31,7 @@ case "${1:-status}" in
   status)
     echo "user: $UNAME (id $UID_) · db: $DB · course: $COURSE"
     echo "guide stages:"
-    q -column -header "select lesson_id, step, completed, best_stars, xp from journey_progress where user_id = $UID_ and course_id = '$COURSE';"
+    q -column -header "select lesson_id, step, completed, best_stars from journey_progress where user_id = $UID_ and course_id = '$COURSE';"
     echo "mastery:"
     q -column -header "select lesson_id, round(mastery_score) as mastery, times_tested, times_correct from user_progress where user_id = $UID_ and course_id = '$COURSE';"
     echo "answers: $(q "select count(*) from quiz_history where user_id = $UID_ and course_id = '$COURSE';") · terms: $(q "select count(*) from user_vocab where user_id = $UID_ and course_id = '$COURSE';") · game scores: $(q "select count(*) from game_scores where user_id = $UID_ and course_id = '$COURSE';")"
@@ -42,8 +42,8 @@ case "${1:-status}" in
     if [ "$1" = "all" ]; then set -- $(lesson_ids); fi
     for id in "$@"; do
       lesson_ids | grep -qx "$id" || { echo "unknown lesson id: $id"; exit 1; }
-      q "insert into journey_progress (user_id, course_id, lesson_id, step, completed, best_stars, xp, run_correct, run_answered, updated_at)
-         values ($UID_, '$COURSE', '$id', 0, 1, 3, 0, 0, 0, strftime('%s','now'))
+      q "insert into journey_progress (user_id, course_id, lesson_id, step, completed, best_stars, run_correct, run_answered, updated_at)
+         values ($UID_, '$COURSE', '$id', 0, 1, 3, 0, 0, strftime('%s','now'))
          on conflict(user_id, course_id, lesson_id) do update set completed = max(completed, 1), best_stars = max(best_stars, 3), step = 0, run_correct = 0, run_answered = 0, updated_at = excluded.updated_at;"
       echo "completed: $id"
     done
