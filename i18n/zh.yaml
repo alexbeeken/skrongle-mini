@@ -3002,27 +3002,6 @@ motivator:
       compass: "指南针"
       lighthouse: "灯塔"
       comet: "彗星"
-  social:
-    title: "社交"
-    about: "你与本课程其他学习者相比如何，以及有多少人在学习：只有匿名数字，不显示任何人的名字。"
-    week_effort: "本周你的努力超过了本课程 {pct} % 的学习者。"
-    week_count: "本周有 {n} 人学习了这门课程。"
-    today_count: "今天有 {n} 人在学习这门课程。"
-    streak_count: "今天有 {n} 名学习者保持了连续学习。"
-    streak_count_you: "今天有 {n} 名学习者保持了连续学习，你是其中之一。"
-    lesson_now: "过去一小时内有 {n} 名学习者学习了 {title}。"
-    goal: "今天：{n} / {goal}"
-    ahead_today: "，目前超过今天 {pct} % 的学习者"
-    info_label: "比较的内容"
-    info_title: "与其他学习者的比较"
-    info_compared: "你本周和今天的努力点数（与每日目标相同的点数）会与这段时间里学习本课程的所有人进行比较，无论他们使用哪种激励方式；本周通过的课程也会被统计。"
-    info_anonymous: "只显示总数和百分比。不会点名或展示任何人，包括你自己：其他人只会在数字中看到你。"
-    info_crowd: "只有在该时间段内至少有 {n} 名学习者活跃时才会显示比较。人数更少时，比较会透露太多关于少数人的信息。"
-    info_lesson: "你接下来要继续的课程还会显示过去一小时内有多少学习者打开或学习了它。"
-    reward:
-      passed: "本周通过这节课的 {n} 人中有你。"
-      first: "你是本周第一个通过这节课的人。"
-      effort: "本周你的努力超过了本课程 {pct} % 的学习者。"
 
 # The lesson editor (#841): static/lesson-editor.js and static/lesson-preview.js.
 editor:

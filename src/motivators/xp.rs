@@ -211,7 +211,6 @@ mod tests {
 
             // A run worth 600 of it (the afternoon) crossed from level 3 to 5.
             let run = RunOutcome {
-                lesson_id: Some("l1".into()),
                 points: 20,
                 passed: true,
                 goal_met: true,

@@ -184,7 +184,6 @@ teenager on a phone in Sprint, 6), `testing-bot` (sees only markup, 12).
 | `specs/smoke/mini.spec.ts` | 6 | yes |  |
 | `specs/smoke/motivator-reward.spec.ts` | 1 | yes |  |
 | `specs/smoke/motivator-skc.spec.ts` | 1 | yes |  |
-| `specs/smoke/motivator-social.spec.ts` | 1 | yes |  |
 | `specs/smoke/motivator-xp.spec.ts` | 1 | yes |  |
 | `specs/smoke/motivator.spec.ts` | 1 | yes |  |
 | `specs/smoke/password-reset.spec.ts` | 2 | yes |  |
@@ -481,7 +480,6 @@ Titles as Playwright lists them (from the source: run `npm ci` in e2e/ for loops
 - **`specs/smoke/mini.spec.ts`** (6, CI): a learner registers, signs in again and passes a lesson with nothing configured · there is no dev mailbox · the server says it is a Skrongle mini · the profile has no Subscription and no red ! on the e-mail · sharing shows the link once, and a reload goes back to the dialog without inviting again
 - **`specs/smoke/motivator-reward.spec.ts`** (1, CI): every mode's end screen shows the worn motivator's reward line
 - **`specs/smoke/motivator-skc.spec.ts`** (1, CI): Skrongle Cash draws the hero and reward line, and keeps counting while another motivator is worn
-- **`specs/smoke/motivator-social.spec.ts`** (1, CI): Social compares the learner with the course's other learners, anonymously
 - **`specs/smoke/motivator-xp.spec.ts`** (1, CI): XP counts what was earned under any motivator and levels the learner up
 - **`specs/smoke/motivator.spec.ts`** (1, CI): the motivator worn draws the course home, and switching keeps progress
 - **`specs/smoke/password-reset.spec.ts`** (2, CI): registering a taken address looks the same and mails its owner · a forgotten password is reset from the login page through the mailed link

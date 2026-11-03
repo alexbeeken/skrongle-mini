@@ -3002,27 +3002,6 @@ motivator:
       compass: "Boussole"
       lighthouse: "Phare"
       comet: "Comète"
-  social:
-    title: "Social"
-    about: "Où vous en êtes par rapport aux autres apprenants de ce cours, et combien étudient : uniquement des chiffres anonymes, personne n'est nommé."
-    week_effort: "Cette semaine, vous avez fourni plus d'effort que {pct} % des apprenants de ce cours."
-    week_count: "{n} personnes ont étudié ce cours cette semaine."
-    today_count: "{n} personnes étudient ce cours aujourd'hui."
-    streak_count: "{n} apprenants ont gardé leur série aujourd'hui."
-    streak_count_you: "{n} apprenants ont gardé leur série aujourd'hui. Vous en faites partie."
-    lesson_now: "{n} apprenants ont travaillé sur {title} dans la dernière heure."
-    goal: "Aujourd'hui : {n} / {goal}"
-    ahead_today: ", plus que {pct} % des apprenants du jour jusqu'ici"
-    info_label: "Ce qui est comparé"
-    info_title: "Comparaisons avec les autres apprenants"
-    info_compared: "Vos points d'effort de la semaine et du jour (les mêmes que pour l'objectif du jour) sont comparés à ceux de tous ceux qui ont étudié ce cours pendant ce temps, quel que soit leur motivateur, et les leçons réussies cette semaine sont comptées."
-    info_anonymous: "Seuls des totaux et des pourcentages sont affichés. Personne n'est nommé ni montré, vous non plus : les autres ne vous voient que dans les chiffres."
-    info_crowd: "Une comparaison n'apparaît que si au moins {n} apprenants ont été actifs pendant cette période. Avec moins, elle en dirait trop sur trop peu de personnes."
-    info_lesson: "La leçon où tu reprendrais indique aussi combien d'apprenants l'ont ouverte ou travaillée dans la dernière heure."
-    reward:
-      passed: "Vous faites partie des {n} personnes qui ont réussi cette leçon cette semaine."
-      first: "Vous êtes la première personne à réussir cette leçon cette semaine."
-      effort: "Plus d'effort que {pct} % des apprenants de ce cours cette semaine."
 
 # L'éditeur de leçon (#841) : static/lesson-editor.js et static/lesson-preview.js.
 editor:

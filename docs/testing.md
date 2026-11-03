@@ -63,8 +63,7 @@ build, the settings, and in the foreground or with `--watch` the server log in t
 
 ### A crowd of learners with history
 
-Some features only show with many learners behaving over time: the Social
-motivator's comparisons ("571 people studied this course this week"), the
+Some features only show with many learners behaving over time: the
 streak and daily goal over weeks, mastery decaying, a long History page,
 the retention jobs, and whether the queries behind them hold up with a
 thousand accounts in the tables (#583). `--seed-users` makes that crowd:

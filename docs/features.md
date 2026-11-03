@@ -994,7 +994,6 @@ file cannot switch one on.
 | Statistics and metrics (default) | `stats` | The daily goal's ring, the streak, lessons passed of the course, terms collected, *Continue: <lesson>* and the current unit's bar | "✓ Passed · 14 / 20 today · 🔥 6" (unit finished or daily goal met in place of the first parts when they happen) |
 | XP (#561) | `xp` | A character level badge ("Lv 7"), the bar to the next level ("340 / 700 XP"), *Continue: <lesson>* and today's daily goal counted in XP ("today: 120 / 200 XP": effort points ×10, the same goal as everyone's); its (i) has the effort table in XP and the bonuses | "+45 XP", plus "Level up! Lv 8" when the run crossed one or more levels |
 | Skrongle Cash | `skc` | The course's SKC balance with SKC's own glyph, today's SKC against the daily goal in SKC ("today: 18 / 20 SKC", the effort-point goal at SKC rates), *Continue: <lesson>*; a *Shop* button and the shelf of badges bought (#569); its (i) lists the rates and explains the shop in one line | "+27 SKC · +10 SKC daily goal · +5 SKC lesson passed" (the run's SKC, then each bonus that landed) |
-| Social | `social` | Up to four anonymous comparisons with the course's other learners ("You put in more effort than 70 % of learners in this course this week", "23 people are studying this course today", "6 learners worked on Greetings in the last hour" for the lesson to continue at, "14 learners kept their streak going today. You're one of them."), *Today: 14 / 20, more than 60 % of today's learners so far*, *Continue: <lesson>*; the (i) says what is compared and that nobody is named | "You're one of 41 who passed this lesson this week." when the run passed its lesson, else "More effort than 70 % of this course's learners this week."; nothing below the minimum crowd |
 
 **The reward line** (#568) is the same element on every end screen:
 `<p class="motivator-reward" data-testid="motivator-reward"
@@ -1089,26 +1088,6 @@ colour scheme: `motivators::skc::symbol()` draws it and
 `motivators::skc::amount(n)` an amount with it; use them wherever an SKC
 amount shows. "Skrongle Cash" and "SKC" are i18n keys
 (`motivator.skc.title`, `.short`), left untranslated in every language.
-
-**Social** (#563, `src/motivators/social.rs`) compares the learner with
-everyone else in the course, anonymously: effort points (`activity_log`)
-over the last seven days and since the learner's midnight, and passes
-(`lesson_passes.passed_at`) over the last seven days, and who opened or
-worked on the lesson to continue at in the last hour (`lesson_touches.at`,
-#501), counting every learner whatever motivator they wear. Nobody is named or shown, the learner
-included; there is no leaderboard. A comparison or count appears only when
-at least `MIN_CROWD` (5) learners, the learner among them, were active in
-its window; below that the hero is just *Today: n / goal* and *Continue*,
-and the reward line is left out. "More than N %" is the share of the other
-active learners with fewer points (rounded down). The others' numbers are
-read per course into memory, as index ranges over that course's last eight
-days (#602, #603) and its last hour of lesson touches, and reused for five minutes (`SKRONGLE_SOCIAL_CACHE_SECS`);
-the learner's own are always fresh. Social stores nothing.
-The streak line (#505) counts the learners whose streak in the `earnings`
-ledger is two days or more and ended on the learner's local day (the row's
-`day`, read through `idx_earnings_course_day`), adding "You're one of them"
-when the learner's own streak counts; a first day doesn't keep a streak. It
-hides below `MIN_CROWD` like every other count.
 
 **What a motivator may not do.** The measures underneath are the same
 whichever is worn: lesson passes (`progress.rs`), the daily goal's effort

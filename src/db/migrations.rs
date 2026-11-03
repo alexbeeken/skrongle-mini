@@ -931,7 +931,7 @@ pub(crate) const MIGRATIONS: &[&str] = &[
         PRIMARY KEY (user_id, course_id)
     );
     ",
-    // v57 (#602, #603): Social's crowd (`motivators/social.rs`) reads one
+    // v57 (#602, #603): a cross-learner count read one
     // course's last eight days. These make both reads index ranges over that
     // course and window, instead of a scan of every pass ever made and of
     // every course's week of activity.
@@ -1417,15 +1417,15 @@ pub(crate) const MIGRATIONS: &[&str] = &[
     ALTER TABLE users ADD COLUMN delete_at INTEGER;
     CREATE INDEX idx_users_delete_at ON users(delete_at) WHERE delete_at IS NOT NULL;
     ",
-    // v89 (#505): Social's streak line counts one course's learners whose
-    // streak ended in the last few days (`motivators/social.rs`). The
+    // v89 (#505): a cross-learner streak count read one course's learners whose
+    // streak ended in the last few days. The
     // earnings key is (user_id, course_id), so this makes that read an index
     // range over the course and its recent days instead of a scan.
     "
     CREATE INDEX idx_earnings_course_day ON earnings(course_id, day);
     ",
-    // v90 (#501): Social's "N learners worked on this lesson in the last hour"
-    // reads one course's recent lesson_touches as an index range.
+    // v90 (#501): a cross-learner "N learners worked on this lesson in the last hour"
+    // count read one course's recent lesson_touches as an index range.
     "
     CREATE INDEX idx_lesson_touches_course_at ON lesson_touches(course_id, at);
     ",
@@ -1476,6 +1476,15 @@ pub(crate) const MIGRATIONS: &[&str] = &[
     // v96 (#45): the twelve `housekeeping.*` job kinds became one
     // `housekeeping`; drop the old rows so they don't sit in /dev/jobs.
     "DELETE FROM jobs WHERE kind LIKE 'housekeeping.%';",
+    // v97 (#40): the cross-learner motivator is gone (a crowd of 5 never forms on a
+    // mini); anyone wearing it wears the default again (`motivators::DEFAULT`, ''), and
+    // the two indexes only it read are dropped.
+    "
+    UPDATE users SET motivator = '' WHERE motivator = 'social';
+    UPDATE projects SET motivator = '' WHERE motivator = 'social';
+    DROP INDEX idx_lesson_touches_course_at;
+    DROP INDEX idx_earnings_course_day;
+    ",
 ];
 
 /// Migrations (1-based versions) that rebuild a table other tables point at:
