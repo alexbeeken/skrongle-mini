@@ -203,6 +203,8 @@ export async function saveApiKey(page: Page, key: string, provider = "anthropic"
   await row.getByTestId("manage-api-key-input").fill(key);
   await expect(row).toHaveAttribute("data-key-set", "true");
   await expect(row.getByTestId("manage-api-key-status")).toContainText(key.slice(-4));
+  // The row says Set as soon as the key is typed; the save itself lands a moment later and marks the field. Wait for that before moving on.
+  await expect(row.locator(".field-wrap")).toHaveAttribute("data-saved", "");
 }
 
 /** Remove one of the server's AI API keys on Manage Users (an owner's `page`). */

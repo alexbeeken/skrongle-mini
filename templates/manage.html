@@ -79,19 +79,7 @@
     <details class="key-row" data-testid="manage-api-key" data-provider="{{ k.provider.id() }}" data-key-set="{{ k.is_set() }}" data-unreadable="{{ k.unreadable }}">
       <summary class="key-head" data-testid="manage-api-key-toggle">
         <h3>{{ k.provider.label() }}</h3>
-        <span class="small" data-testid="manage-api-key-status">
-          {% if k.unreadable %}
-            <span class="warn-text">{{ crate::t("manage.api_keys.unreadable") }}</span>
-          {% else if let Some(h) = k.hint %}
-            {% if k.provider.takes_url() %}
-            <span class="ok-text">{{ crate::t("manage.api_keys.on_file") }}</span> · <code>{{ h }}</code> · <code data-testid="manage-ollama-model-shown">{{ self.ollama_model_shown() }}</code>
-            {% else %}
-            <span class="ok-text">{{ crate::t("manage.api_keys.on_file") }}</span> · {{ crate::t("manage.api_keys.ends_in") }} <code>…{{ h }}</code>
-            {% endif %}
-          {% else %}
-            <span class="muted">{{ crate::t("manage.api_keys.none") }}</span>
-          {% endif %}
-        </span>
+        <span class="small" data-testid="manage-api-key-status">{% if k.unreadable %}<span class="warn-text">{{ crate::t("manage.api_keys.unreadable") }}</span>{% else if let Some(h) = k.hint %}{% if k.provider.takes_url() %}<span class="ok-text">{{ crate::t("manage.api_keys.on_file") }}</span> · <code>{{ h }}</code> · <code data-testid="manage-ollama-model-shown">{{ self.ollama_model_shown() }}</code>{% else %}<span class="ok-text">{{ crate::t("manage.api_keys.on_file") }}</span> · {{ crate::t("manage.api_keys.ends_in") }} <code>…{{ h }}</code>{% endif %}{% else %}<span class="muted">{{ crate::t("manage.api_keys.none") }}</span>{% endif %}</span>
       </summary>
       <div class="key-body">
         {% if k.provider.takes_url() %}

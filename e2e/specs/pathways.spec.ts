@@ -255,7 +255,9 @@ test("remove an API key: Manage Users says no key, and generating no longer offe
   // and the end puts the seeded ones back for the other specs.
   await devLogin(page, "open=spanish&keys=fake&next=/manage");
   try {
-    for (const p of ["anthropic", "openai", "google"]) await removeApiKey(page, p);
+    // The dev login seeds a key for every provider; take them all out so one saved key is the only one.
+    const seeded = await page.locator('[data-testid="manage-api-key"][data-key-set="true"]').evaluateAll((els) => els.map((e) => e.getAttribute("data-provider") ?? ""));
+    for (const p of seeded) await removeApiKey(page, p);
     const row = page.locator('[data-testid="manage-api-key"][data-provider="anthropic"]');
     await expect(row).toHaveAttribute("data-key-set", "false");
     await expect(row.getByTestId("manage-api-key-remove")).toHaveCount(0);
