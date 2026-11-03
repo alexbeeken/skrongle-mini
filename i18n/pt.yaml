@@ -173,76 +173,6 @@ auth:
     app_already: Um aplicativo autenticador já está configurado. Remova-o primeiro.
 
 
-mail:
-  waitlist_confirm:
-    subject: "Confirme seu lugar na lista de espera do {app}"
-    text: |
-      Olá,
-
-      Confirme que você quer entrar na lista de espera do {app} abrindo este link:
-
-      {link}
-
-      Vamos enviar um convite por e-mail quando chegar a sua vez. Se você não pediu para entrar, ignore esta mensagem: o endereço só é adicionado se o link for aberto.
-    html: |
-      <p>Olá,</p>
-      <p>Confirme que você quer entrar na lista de espera do {app}:</p>
-      <p><a href="{link}">Confirmar meu lugar</a></p>
-      <p>Ou cole este link no seu navegador: {link}</p>
-      <p>Vamos enviar um convite por e-mail quando chegar a sua vez. Se você não pediu para entrar, ignore esta mensagem: o endereço só é adicionado se o link for aberto.</p>
-  waitlist_invite:
-    subject: "Seu convite para o {app}"
-    text: |
-      Olá,
-
-      Chegou a sua vez: você está convidado a criar sua conta no {app}. Abra este link e cadastre-se com este endereço de e-mail ({email}):
-
-      {link}
-
-      O convite vale por {days} dias.
-    html: |
-      <p>Olá,</p>
-      <p>Chegou a sua vez: você está convidado a criar sua conta no {app}. Cadastre-se com este endereço de e-mail ({email}).</p>
-      <p><a href="{link}">Criar minha conta</a></p>
-      <p>Ou cole este link no seu navegador: {link}</p>
-      <p>O convite vale por {days} dias.</p>
-  account_deletion:
-    subject: "Sua conta do {app} será excluída em {date}"
-    text: |
-      Olá,
-
-      Você pediu para excluir sua conta do {app}. Ela será excluída de vez em {date}, com seu progresso, seus cursos e chaves salvas.
-
-      Para mantê-la, entre no {app} antes dessa data e escolha Cancelar exclusão.
-
-      Se não foi você que pediu, entre, cancele a exclusão e mude sua senha.
-  two_factor_changed:
-    subject: "Verificação em duas etapas no {app} foi alterada"
-    now_off: "está desativada"
-    now_totp: "agora pede um código de um aplicativo autenticador"
-    text: |
-      Olá,
-
-      Verificação em duas etapas no {app} {now}.
-
-      Todos os outros dispositivos foram desconectados. Se você não fez esta alteração, outra pessoa estava conectada à sua conta: entre, use “Sair de todos os outros lugares” no seu perfil e configure a verificação em duas etapas de volta.
-    html: |
-      <p>Olá,</p>
-      <p>Verificação em duas etapas no {app} <strong>{now}</strong>.</p>
-      <p>Todos os outros dispositivos foram desconectados. Se você não fez esta alteração, outra pessoa estava conectada à sua conta: entre, use “Sair de todos os outros lugares” no seu perfil e configure a verificação em duas etapas de volta.</p>
-  course_share:
-    subject: "{owner} compartilhou um curso com você no {app}: {title}"
-    text: |
-      Olá,
-      {owner} compartilhou o curso “{title}” com você no {app}. Abra este link para adicioná-lo aos seus cursos:
-      {link}
-      Você pode estudar o curso com o seu próprio progresso; só {owner} pode alterá-lo. Se você ainda não tem uma conta no {app}, o link permite criar uma. Se você não esperava este convite, ignore esta mensagem.
-    html: |
-      <p>Olá,</p>
-      <p>{owner} compartilhou o curso <strong>{title}</strong> com você no {app}.</p>
-      <p><a href="{link}">Abrir o curso</a></p>
-      <p>Ou cole este link no seu navegador: {link}</p>
-      <p>Você pode estudar o curso com o seu próprio progresso; só {owner} pode alterá-lo. Se você ainda não tem uma conta no {app}, o link permite criar uma. Se você não esperava este convite, ignore esta mensagem.</p>
 
 profile:
   title: Perfil
@@ -300,14 +230,11 @@ profile:
     title: "Privacidade e consentimento"
     info: "Sobre seus consentimentos"
     info_age: "Você confirmou sua idade ao se cadastrar. Para retirar isso, exclua sua conta em Seus dados."
-    info_email: "E-mails de serviço sempre são enviados: confirmação do seu endereço. E-mails opcionais vão aparecer aqui com seu próprio botão, desligados até você ligá-los."
     info_record: "Cada mudança fica registrada com a data."
     close: "Fechar"
     age: "Idade"
     age_confirmed: "Confirmada em {date}"
     age_not_confirmed: "Não confirmada"
-    email: "E-mail"
-    email_service: "Só mensagens de serviço"
   sessions:
     sign_out_others: "Sair de todos os outros lugares"
     info_label: "Sobre sair de todos os outros lugares"
@@ -2609,7 +2536,7 @@ courses:
     none_right: "nenhuma certa"
     failed: "O teste de nivelamento não carregou. Escolha um nível."
   share:
-    dialog_lead_no_mail: "Cada endereço recebe seu próprio link para você repassar: este servidor não envia e-mails. As pessoas estudam o curso com o próprio progresso; só você pode alterá-lo."
+    dialog_lead: "Cada endereço recebe seu próprio link para você repassar: este servidor não envia e-mails. As pessoas estudam o curso com o próprio progresso; só você pode alterá-lo."
     make_links: "Criar links de convite"
     made:
       one: "{n} link de convite criado. Copie e repasse; ele só aparece agora."
@@ -2619,14 +2546,12 @@ courses:
     button: Compartilhar
     button_count: "Compartilhar ({n})"
     dialog_title: Compartilhar este curso
-    dialog_lead: Cada pessoa com quem você compartilhar recebe um e-mail com um link. Ela estuda o curso com o próprio progresso; só você pode alterá-lo.
     status_opened: aberto
     status_invited: convidado
     remove: Remover
     remove_label: "Parar de compartilhar com {email}"
     emails_label: Endereços de e-mail
     emails_note: (um por linha, ou separados por vírgulas)
-    send: Enviar convites
     close: Fechar
     own_address: "Este é o seu próprio endereço: o curso já é seu."
     too_many_course: "Um curso pode ser compartilhado com até {max} endereços."
@@ -2634,9 +2559,6 @@ courses:
     at_least_one: Digite pelo menos um endereço de e-mail.
     bad_address: "“{address}”: {error}"
     bad_address_notice: "Um dos endereços não é de e-mail. Confira a lista e envie de novo."
-    sent:
-      one: "Convite enviado para {n} endereço."
-      other: "Convites enviados para {n} endereços."
     already_had: "{n} já tinha um."
     removed_notice: "Não está mais compartilhado com esse endereço."
     not_on_list: Esse endereço não estava na lista.

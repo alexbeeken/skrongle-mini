@@ -25,15 +25,14 @@ elif [ -z "${DEPLOY_ENV_OPTIONAL:-}" ]; then
   exit 1
 fi
 
-# The Pi's e-mail and text message settings (#579, #641): every
-# SKRONGLE_MAIL_* and SKRONGLE_SMS_* variable set in deploy.env (or the
-# environment), one NAME=value line each, for the env file scripts/deploy.sh
-# writes.
-# For one release (#584) a deploy.env still spelled LEARN_MAIL_* / LEARN_SMS_*
+# The Pi's text message settings (#641): every SKRONGLE_SMS_* variable set
+# in deploy.env (or the environment), one NAME=value line each, for the env
+# file scripts/deploy.sh writes.
+# For one release (#584) a deploy.env still spelled LEARN_SMS_*
 # works too: those lines are written under their SKRONGLE_ name, and a
 # SKRONGLE_ one set as well wins. The env file only ever gets SKRONGLE_ names.
 mail_env_lines() {
-  env | grep -E '^(SKRONGLE|LEARN)_(MAIL|SMS)_[A-Z0-9_]+=' | awk '
+  env | grep -E '^(SKRONGLE|LEARN)_SMS_[A-Z0-9_]+=' | awk '
     { eq = index($0, "="); key = substr($0, 1, eq - 1); val = substr($0, eq + 1)
       name = key; sub(/^(SKRONGLE|LEARN)_/, "", name)
       if (!(name in v) || key ~ /^SKRONGLE_/) v[name] = val }

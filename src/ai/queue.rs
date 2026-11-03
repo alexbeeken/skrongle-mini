@@ -32,7 +32,7 @@ use crate::jobs::{Claimed, Kind, Step, LEASE};
 /// A generation, revision, added lesson or translation: one row per job.
 /// The runner never retries one; past `max_attempts` takes (a server that
 /// keeps stopping mid-run) the job stops for good.
-pub const GENERATE: Kind = Kind { name: "generate_course", max_attempts: 3, delays: crate::mail::RETRY_DELAYS, every: None, at: None };
+pub const GENERATE: Kind = Kind { name: "generate_course", max_attempts: 3, delays: crate::jobs::RETRY_DELAYS, every: None, at: None };
 /// How often the heartbeat renews the leases of running jobs.
 pub const HEARTBEAT: Duration = Duration::from_secs(120);
 

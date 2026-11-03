@@ -19,14 +19,12 @@ fn scheduling_signs_out_and_waits_fourteen_days() {
             Ok((ann, bea))
         })
         .unwrap();
-    assert_eq!(db.with(|c| schedule(c, ann, now, true)).unwrap(), Some(now + 14 * DAY));
+    assert_eq!(db.with(|c| schedule(c, ann, now)).unwrap(), Some(now + 14 * DAY));
     let sessions = |u: i64| db.with(|c| c.query_row("SELECT COUNT(*) FROM sessions WHERE user_id = ?1", [u], |r| r.get::<_, i64>(0))).unwrap();
     assert_eq!((sessions(ann), sessions(bea)), (0, 1), "only that account is signed out");
-    let mails: i64 = db.with(|c| c.query_row("SELECT COUNT(*) FROM mail_outbox WHERE purpose = ?1 AND user_id = ?2", params![PURPOSE, ann], |r| r.get(0))).unwrap();
-    assert_eq!(mails, 1, "the date is mailed");
-    assert_eq!(db.with(|c| schedule(c, 999, now, false)).unwrap(), None);
+    assert_eq!(db.with(|c| schedule(c, 999, now)).unwrap(), None);
 
-    assert_eq!(db.with(|c| schedule(c, bea, now, false)).unwrap(), Some(now + 14 * DAY));
+    assert_eq!(db.with(|c| schedule(c, bea, now)).unwrap(), Some(now + 14 * DAY));
 
     assert!(db.with(|c| due(c, now + 14 * DAY - 1)).unwrap().is_empty());
     assert_eq!(db.with(|c| due(c, now + 14 * DAY)).unwrap(), vec![ann, bea]);

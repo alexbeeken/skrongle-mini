@@ -8,7 +8,7 @@
 # Assumes the Pi user can sudo (default on Raspberry Pi OS).
 # Honours SSH_OPTS (e.g. "-i ~/.ssh/localpi -o IdentitiesOnly=yes"; release.sh sets it
 # from PI_SSH_KEY in deploy/deploy.env), PI_BASE_PATH, PI_PUBLIC_URL and, when
-# STRIPE_* or SKRONGLE_MAIL_* are set, writes /etc/spanish-learning/env on the Pi.
+# STRIPE_* are set, writes /etc/spanish-learning/env on the Pi.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 SSH_OPTS="${SSH_OPTS:--o BatchMode=yes -o ConnectTimeout=15}"
@@ -63,20 +63,10 @@ ENVFILE=$(mktemp)
     echo "SKRONGLE_STRIPE_PRICE_ID=$STRIPE_PRICE_ID"
     [ -z "${STRIPE_PRICE_LABEL:-}" ] || echo "SKRONGLE_STRIPE_PRICE_LABEL=$STRIPE_PRICE_LABEL"
   fi
-  # E-mail (#579): every SKRONGLE_MAIL_* setting from deploy.env, written
-  # under its SKRONGLE_ name even when deploy.env still says LEARN_MAIL_*
-  # (#584, one release; a SKRONGLE_ one wins). As scripts/deploy-env.sh's
-  # mail_env_lines.
-  env | grep -E '^(SKRONGLE|LEARN)_MAIL_[A-Z0-9_]+=' | awk '
-    { eq = index($0, "="); key = substr($0, 1, eq - 1); val = substr($0, eq + 1)
-      name = key; sub(/^(SKRONGLE|LEARN)_/, "", name)
-      if (!(name in v) || key ~ /^SKRONGLE_/) v[name] = val }
-    END { for (n in v) print "SKRONGLE_" n "=" v[n] }' | sort || true
 } > "$ENVFILE"
 RSYNC -az "$ENVFILE" "$HOST:$STAGE/app.env"
 rm -f "$ENVFILE"
-MAIL_SET=$(env | grep -cE '^(LEARN|SKRONGLE)_MAIL_[A-Z0-9_]+=' || true)
-WRITE_ENV=$([ -n "${STRIPE_SECRET_KEY:-}" ] || [ "${MAIL_SET:-0}" -gt 0 ] && echo 1 || echo 0)
+WRITE_ENV=$([ -n "${STRIPE_SECRET_KEY:-}" ] && echo 1 || echo 0)
 
 echo "==> installing"
 SSH "$HOST" "NGINX_TLS_VHOST='$NGINX_TLS_VHOST' NGINX_HTTP_VHOST='$NGINX_HTTP_VHOST' WRITE_ENV='$WRITE_ENV' bash -s" <<'REMOTE'

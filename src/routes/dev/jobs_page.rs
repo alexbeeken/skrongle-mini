@@ -10,7 +10,7 @@ use serde::Deserialize;
 use std::sync::Arc;
 
 use super::super::Page;
-use super::{done, wants_html, InboxParams};
+use super::{done, wants_html, FormatParams};
 use crate::auth::{CurrentUser, MaybeUser};
 use crate::error::AppError;
 use crate::AppState;
@@ -50,7 +50,7 @@ pub async fn jobs(
     State(state): State<Arc<AppState>>,
     MaybeUser(user): MaybeUser,
     headers: axum::http::HeaderMap,
-    Query(q): Query<InboxParams>,
+    Query(q): Query<FormatParams>,
 ) -> Result<Response, AppError> {
     let rows = state.db.call(|c| crate::jobs::recent(c, 100)).await?;
     if !wants_html(&headers, q.format.as_deref()) {

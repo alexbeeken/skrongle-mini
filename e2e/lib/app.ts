@@ -265,3 +265,12 @@ export async function playSprintSession(page: Page, maxSteps = 300, afterCheck?:
     `Sprint mode session did not finish in ${maxSteps} steps.\nLast actions: ${log.join(", ")}\nStage: ${(await stage.innerText()).slice(0, 300)}`,
   );
 }
+
+/** After the Share form was sent: the link the dialog shows for `email`
+ * (shown this once, stored only hashed; nothing is mailed, the owner passes
+ * it on). */
+export async function shareLink(page: Page, email: string): Promise<string> {
+  const input = page.locator(`[data-testid="course-share-link-row"][data-email="${email.toLowerCase()}"] [data-testid="course-share-link"]`);
+  await expect(input).toHaveValue(/\/courses\/shared\/[0-9a-f]{64}$/);
+  return input.inputValue();
+}

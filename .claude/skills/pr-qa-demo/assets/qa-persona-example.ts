@@ -65,8 +65,8 @@ export default {
         await item.scrollIntoViewIfNeeded();
         await look("lessons list after the stage");
         await check(5, `${first.slug} shows passed on /lessons`, () => expect(item).toHaveAttribute("data-passed", "true"));
-        const mail = await (await page.request.get("/dev/inbox?format=json")).json();
-        await check(5, `no mail anywhere: /dev/inbox messages=${mail.messages.length}, smtp=${mail.smtp}`, async () => { expect(mail.messages).toEqual([]); expect(mail.smtp).toBeNull(); });
+        const inbox = (await page.request.get("/dev/inbox?format=json")).status();
+        await check(5, `no dev mailbox: /dev/inbox answers ${inbox}`, async () => { expect(inbox).toBe(404); });
       },
     },
   ],

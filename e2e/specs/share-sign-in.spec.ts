@@ -4,9 +4,8 @@
 // their list. A link that no longer works says so before and after signing
 // in (#1082).
 import { expect, test, type Page } from "@playwright/test";
-import { createCourse, devLogin, devReset } from "../lib/app";
+import { createCourse, devLogin, devReset, shareLink } from "../lib/app";
 import { logout, newAccount, register, signUp } from "../lib/learner";
-import { mailLink, waitForMail } from "../lib/mail";
 import { totp } from "../lib/totp";
 
 test.afterAll(async ({ browser }) => {
@@ -24,10 +23,10 @@ async function sharedCourse(page: Page): Promise<{ id: string; link: string }> {
   await page.getByTestId("course-edit-share").click();
   await page.getByTestId("course-share-emails").fill(invited.email);
   await page.getByTestId("course-share-send").click();
-  await expect(page.getByTestId("course-share-notice")).toHaveText("Invitation sent to 1 address.");
-  const mail = await waitForMail(invited.email, /shared a course with you/);
+  await expect(page.getByTestId("course-share-notice")).toContainText("1 invitation link made");
+  const link = await shareLink(page, invited.email);
   await logout(page);
-  return { id, link: mailLink(mail, /\/courses\/shared\//) };
+  return { id, link };
 }
 
 /** The authenticator's code for `secret` once it is not `used`: each code works once. */

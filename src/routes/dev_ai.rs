@@ -5,7 +5,7 @@
 //! developer check; the key decides): `POST /dev/ai/anthropic/v1/messages`,
 //! `POST /dev/ai/openai/v1/chat/completions`,
 //! `POST /dev/ai/google/v1beta/openai/chat/completions`, and the matching
-//! `GET …/models`. And the dev mailbox's AI section (no sign-in needed):
+//! `GET …/models`. And the dev pages' AI section (no sign-in needed):
 //! `/dev/ai` (the log, the two key profiles' limits and injected failures,
 //! Manual replies with the held requests, the fixtures), `/dev/ai/calls/{id}` (one call's bodies) and
 //! `/dev/ai/fixtures/{name}` (edit a fixture file in memory, save it, reset it).
@@ -287,7 +287,7 @@ pub async fn google_models(headers: HeaderMap) -> Response {
     models(Format::Google, headers).await
 }
 
-// ---------- the dev mailbox's AI section ----------
+// ---------- the dev pages' AI section ----------
 
 /// One row of the call log (`dev_ai_rows.html`).
 pub struct CallRow {

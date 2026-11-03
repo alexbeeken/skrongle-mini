@@ -106,8 +106,6 @@ pub fn delete_account(conn: &mut Connection, user_id: i64) -> rusqlite::Result<O
         tx.execute("DELETE FROM projects WHERE course_id = ?1", [c])?;
         tx.execute("UPDATE users SET active_course = NULL WHERE active_course = ?1", [c])?;
     }
-    // Recent verification mail outlives the account for its day (#395).
-    crate::mail::keep_for_caps(&tx, user_id, crate::db::now())?;
     let n = tx.execute("DELETE FROM users WHERE id = ?1", [user_id])?;
     tx.commit()?;
     // Its `user_progress` rows went with the cascade (#38).

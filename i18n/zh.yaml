@@ -173,76 +173,6 @@ auth:
     app_already: 已设置验证器应用。请先将其移除。
 
 
-mail:
-  waitlist_confirm:
-    subject: "确认你在 {app} 候补名单上的位置"
-    text: |
-      你好，
-
-      请打开这个链接，确认你想加入 {app} 的候补名单：
-
-      {link}
-
-      轮到你时，我们会用电子邮件发送邀请。如果你没有申请加入，请忽略这封邮件：不打开链接，这个地址就不会被加入。
-    html: |
-      <p>你好，</p>
-      <p>请确认你想加入 {app} 的候补名单：</p>
-      <p><a href="{link}">确认我的位置</a></p>
-      <p>或者把这个链接粘贴到浏览器：{link}</p>
-      <p>轮到你时，我们会用电子邮件发送邀请。如果你没有申请加入，请忽略这封邮件：不打开链接，这个地址就不会被加入。</p>
-  waitlist_invite:
-    subject: "你的 {app} 邀请"
-    text: |
-      你好，
-
-      轮到你了：我们邀请你创建 {app} 账户。打开这个链接，用这个电子邮件地址（{email}）注册：
-
-      {link}
-
-      邀请有效期为 {days} 天。
-    html: |
-      <p>你好，</p>
-      <p>轮到你了：我们邀请你创建 {app} 账户。请用这个电子邮件地址（{email}）注册。</p>
-      <p><a href="{link}">创建我的账户</a></p>
-      <p>或者把这个链接粘贴到浏览器：{link}</p>
-      <p>邀请有效期为 {days} 天。</p>
-  account_deletion:
-    subject: "你的 {app} 账户将于 {date} 被删除"
-    text: |
-      你好，
-
-      你请求删除你的 {app} 账户。它将于 {date} 被永久删除，连同你的学习进度、课程和已保存的密钥。
-
-      如要保留，请在此之前登录 {app} 并选择“取消删除”。
-
-      如果这不是你本人的请求，请登录、取消删除并修改密码。
-  two_factor_changed:
-    subject: "{app} 上的两步验证已更改"
-    now_off: 已关闭
-    now_totp: 现在要求输入验证器应用中的验证码
-    text: |
-      你好，
-
-      {app} 上的两步验证{now}。
-
-      其他所有设备均已退出登录。如果这不是你的操作，说明有其他人已登录你的账户：请登录，使用个人设置中的“退出其他所有设备”，并重新设置两步验证。
-    html: |
-      <p>你好，</p>
-      <p>{app} 上的两步验证<strong>{now}</strong>。</p>
-      <p>其他所有设备均已退出登录。如果这不是你的操作，说明有其他人已登录你的账户：请登录，使用个人设置中的“退出其他所有设备”，并重新设置两步验证。</p>
-  course_share:
-    subject: "{owner} 在 {app} 上与你分享了一门课程：{title}"
-    text: |
-      你好，
-      {owner} 在 {app} 上与你分享了课程“{title}”。打开此链接即可将它添加到你的课程中：
-      {link}
-      你可以用自己的学习进度学习这门课程；只有 {owner} 可以修改它。如果你还没有 {app} 账户，可以通过此链接注册。如果你并未期待这封邮件，请忽略。
-    html: |
-      <p>你好，</p>
-      <p>{owner} 在 {app} 上与你分享了课程 <strong>{title}</strong>。</p>
-      <p><a href="{link}">打开课程</a></p>
-      <p>或将此链接粘贴到浏览器中：{link}</p>
-      <p>你可以用自己的学习进度学习这门课程；只有 {owner} 可以修改它。如果你还没有 {app} 账户，可以通过此链接注册。如果你并未期待这封邮件，请忽略。</p>
 
 profile:
   title: 个人资料
@@ -300,14 +230,11 @@ profile:
     title: "隐私与同意"
     info: "关于你的同意"
     info_age: "你在注册时确认了年龄。要撤回，请在“你的数据”中删除账户。"
-    info_email: "服务邮件总是会发送：确认你的邮箱。可选邮件会出现在这里，各有开关，在你打开之前保持关闭。"
     info_record: "每次更改都会连同日期记录下来。"
     close: "关闭"
     age: "年龄"
     age_confirmed: "已于 {date} 确认"
     age_not_confirmed: "未确认"
-    email: "邮件"
-    email_service: "仅服务消息"
   sessions:
     sign_out_others: 退出其他所有设备
     info_label: 关于退出其他所有设备
@@ -2609,7 +2536,7 @@ courses:
     none_right: "全部答错"
     failed: "分级测试没有加载出来。请直接选择一个级别。"
   share:
-    dialog_lead_no_mail: "每个地址都会得到一个专属链接，由你转发：此服务器不发送电子邮件。他们以自己的进度学习这门课程；只有你可以修改它。"
+    dialog_lead: "每个地址都会得到一个专属链接，由你转发：此服务器不发送电子邮件。他们以自己的进度学习这门课程；只有你可以修改它。"
     make_links: "生成邀请链接"
     made:
       one: "已生成 {n} 个邀请链接。请复制并转发；它只在此时显示。"
@@ -2619,14 +2546,12 @@ courses:
     button: 分享
     button_count: "分享（{n}）"
     dialog_title: 分享此课程
-    dialog_lead: 你分享给的每个人都会收到一封含链接的邮件。他们用自己的学习进度学习这门课程；只有你可以修改它。
     status_opened: 已打开
     status_invited: 已邀请
     remove: 移除
     remove_label: "停止与 {email} 分享"
     emails_label: 电子邮件地址
     emails_note: （每行一个，或用逗号分隔）
-    send: 发送邀请
     close: 关闭
     own_address: "这是你自己的地址：该课程已经属于你。"
     too_many_course: "一门课程最多可与 {max} 个地址分享。"
@@ -2634,9 +2559,6 @@ courses:
     at_least_one: 请至少输入一个电子邮件地址。
     bad_address: "“{address}”：{error}"
     bad_address_notice: 其中有一个不是电子邮箱地址。请检查列表后重新发送。
-    sent:
-      one: "已向 {n} 个地址发送邀请。"
-      other: "已向 {n} 个地址发送邀请。"
     already_had: "{n} 个地址已经收到过邀请。"
     removed_notice: 已停止与该地址共享。
     not_on_list: 该地址不在列表中。

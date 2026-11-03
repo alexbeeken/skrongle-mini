@@ -15,13 +15,12 @@ The release you install is **Skrongle mini**: the same binary as the hosted
 site, with `skrongle.service` set for a handful of people who know you and
 no outside services. What it leaves out:
 
-- **No e-mail.** Links that would be mailed are shown in
-  the page ([Without e-mail](#without-e-mail)).
+- **No e-mail.** Nothing is mailed; links are shown in the page
+  ([No e-mail](#no-e-mail)).
 - **Sign-up by invitation.** The first account is yours, the owner's;
   everyone else needs a link you make (`SKRONGLE_SIGNUP=invite`,
   [Accounts and AI keys](#accounts-and-ai-keys)).
-- **Background work in process.** The mail and text outboxes and the
-  background jobs are rows in SQLite, run by threads in the server: no
+- **Background work in process.** The background jobs are rows in SQLite, run by threads in the server: no
   Redis or queue service.
 - **SQLite only.** One database file in `/var/lib/skrongle`, no database
   server.
@@ -147,8 +146,8 @@ A line that starts with `PROBLEM:` says what to fix.
   (`ProtectSystem=strict`, `ProtectHome`, `PrivateTmp`, …);
 - lets people sign up only with an invitation from you
   (`SKRONGLE_SIGNUP=invite`, see [Accounts and AI keys](#accounts-and-ai-keys));
-- makes the server a Skrongle mini (`SKRONGLE_MINI=1`), which turns e-mail
-  off (see
+- makes the server a Skrongle mini (`SKRONGLE_MINI=1`), with no plans or
+  payments (see
   [Accounts and AI keys](#accounts-and-ai-keys));
 - reads optional settings from `/etc/skrongle/env`.
 
@@ -170,7 +169,7 @@ starts `SKRONGLE_`; see [Renamed settings](#renamed-settings) if yours start `LE
 
 | Variable | Default | Meaning |
 |---|---|---|
-| `SKRONGLE_MINI` | unset (mini: `1`) | `1`: this server is a Skrongle mini, the self-hosted version. It is what makes the server a mini: without it the server is the hosted site, which refuses to start without e-mail, Google and Stripe. In a mini there are no plans or payments (every account has every feature and the server's AI key is shared, see [Accounts and AI keys](#accounts-and-ai-keys)), and the e-mail, text, Google, Stripe and S3 settings are ignored. Read once at startup. |
+| `SKRONGLE_MINI` | unset (mini: `1`) | `1`: this server is a Skrongle mini, the self-hosted version. It is what makes the server a mini: without it the server is the hosted site, which refuses to start without Google and Stripe. In a mini there are no plans or payments (every account has every feature and the server's AI key is shared, see [Accounts and AI keys](#accounts-and-ai-keys)), and the text, Google, Stripe and S3 settings are ignored. Read once at startup. |
 | `SKRONGLE_BIND` | `0.0.0.0:8080` | Address and port to listen on; a bare port (`8081`) means every interface. |
 | `SKRONGLE_SIGNUP` | `open` (mini: `invite`) | Who may make an account: `open`, `invite` or `closed`; see [Accounts and AI keys](#accounts-and-ai-keys). |
 | `SKRONGLE_PROXY_AUTH_HEADER`, `SKRONGLE_PROXY_AUTH_FROM` | — | Let the proxy in front sign people in; see [Signing in at the proxy](#signing-in-at-the-proxy). Both or neither. |
@@ -196,8 +195,8 @@ settings).
 ### Renamed settings
 
 Settings used to start `LEARN_` (and before that `SPANISH_`). They now
-start `SKRONGLE_`: `LEARN_DB` is `SKRONGLE_DB`, `LEARN_MAIL_FROM` is
-`SKRONGLE_MAIL_FROM`, and so on. The rest of the name is the same.
+start `SKRONGLE_`: `LEARN_DB` is `SKRONGLE_DB`, `LEARN_SIGNUP` is
+`SKRONGLE_SIGNUP`, and so on. The rest of the name is the same.
 
 This release still reads the old names, so an upgrade keeps working. At
 startup the log has one warning listing each old name it found and its new
@@ -213,27 +212,20 @@ sudo systemctl daemon-reload && sudo systemctl restart skrongle
 Or copy the new `skrongle.service` from the release over yours, if you
 have not edited it.
 
-## Without e-mail
+## No e-mail
 
-A Skrongle mini sends no e-mail (#633): the log says so
-once at start (`e-mail: not configured; features that need it are off`),
-and every feature that would send a message
-hides itself instead. The e-mail setting of the hosted site
-(`SKRONGLE_MAIL_PROVIDERS`) is ignored in a
-mini; the log
-names any that are set.
+Skrongle mini sends no e-mail and has no setting for it (#633, #10). An
+e-mail address is only what an account signs in with.
 
-| Feature | Without e-mail |
+| Feature | How it works |
 |---|---|
-| Two-factor sign-in | The authenticator app only. |
+| Registration | Registering signs the account in at once; nothing confirms the address. |
+| A forgotten password | No reset link: you give the account a temporary password (below). |
+| Two-factor sign-in | The authenticator app. |
 | Sharing a course | After inviting, the Share dialog shows each address's link with a Copy button, once (links are stored only hashed); pass it on yourself. |
 
-The authenticator app needs no e-mail, so two-factor sign-in still works.
-Nothing confirms an address and there is no password reset by link: a
-forgotten password gets a temporary one from you (below).
-
-Dev mode's mailbox and phone are off in a mini too, so `./.dev-start --mini`
-shows what a real mini shows.
+Dev mode's phone is off in a mini too, so `./.dev-start --mini` shows what
+a real mini shows.
 
 ## Accounts and AI keys
 

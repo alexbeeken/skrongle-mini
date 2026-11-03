@@ -188,8 +188,8 @@ pub fn admit(conn: &Connection, mode: Mode, invite: &str, _email: Option<&str>, 
 /// After the account `user_id` was made on `admit`'s word, in the same
 /// transaction: the link is used up, and the owner's account gets the owner flag
 /// (only while it is the one account).
-/// `false` when the link was used meanwhile, an e-mailed one names another
-/// address, or another account came first: the caller rolls back.
+/// `false` when the link was used meanwhile, one made for an address names
+/// another, or another account came first: the caller rolls back.
 pub fn finish(conn: &Connection, admitted: Admit, user_id: i64, now: i64) -> rusqlite::Result<bool> {
     let use_up = |id: i64| {
         conn.execute(

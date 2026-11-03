@@ -783,16 +783,13 @@ the AI tutor ask in text, so they leave these questions out
 
 **Share** on the course page (`src/share.rs`, `src/routes/share.rs`) opens a
 dialog: type e-mail addresses (one per line or separated by commas, up to
-20 at a time and 50 per course) and *Send invitations*. Every new address
-gets a message, "*Owner* shared a course with you on Skrongle: *title*",
-with a link (`/courses/shared/<token>`); the dialog lists every address with
+20 at a time and 50 per course) and *Make invitation links*. Nothing is
+mailed (#10): the page that comes back shows each new address's link
+(`/courses/shared/<token>`, `course-share-link`) with *Copy*
+(`course-share-link-copy`), once, since only the token's hash is stored,
+and the owner passes the links on. The dialog lists every address with
 *invited* or *opened* and a *Remove* button. The owner's own address is
-refused, and an address already on the list gets no second message.
-On a server without mail (#633, no `SKRONGLE_MAIL_PROVIDERS`) the dialog says
-so, its button reads *Make invitation links*, and nothing is mailed: the
-page that comes back shows each new address's link (`course-share-link`)
-with *Copy* (`course-share-link-copy`), once, since only the token's hash is
-stored. The share rows are made the same way; the owner passes the links on.
+refused, and an address already on the list gets no second link.
 
 Who may open a shared course: the account that opened its link (the first
 account to open a link keeps it, so a forwarded link lets nobody else in;
@@ -1712,9 +1709,7 @@ keys). The password dialog and account deletion keep their explicit buttons. The
 - **Privacy and consent** (#974, `profile-consent`): one row per consent
   with its date, explained behind an (i). The age confirmation (the day the
   account was made, read-only: taking it back means deleting the
-  account); e-mail, service messages only (hosted only;
-  an optional e-mail such as reminders gets a switch here, off by default).
-  The AI features have no row: whether they are shown is the server's
+  account). The AI features have no row: whether they are shown is the server's
   choice, the owner's on Manage Users (#25), and the per-account consent
   rows in `consents` (`src/consent.rs`) went with migration 99. Any rows
   left go with the account.
@@ -1727,11 +1722,9 @@ keys). The password dialog and account deletion keep their explicit buttons. The
   password change, deleting the account and every two-factor change.
 - **Your data**: *Delete account* (`POST /profile/delete`): the password, or for an
   account without one its e-mail address typed out and, with a second
-  step, a code from it (`profile-delete-code`, *Send code*
-  `profile-delete-send` for an e-mailed one; #376). It does not delete at once (#970,
-  `src/account_deletion.rs`): it sets `users.delete_at` 14 days out, ends every session
-  of the account and, where the server sends mail, mails the date
-  (`account-deletion`). The login page says the date (`login-notice`).
+  step, the authenticator's code (`profile-delete-code`; #376). It does not delete at once (#970,
+  `src/account_deletion.rs`): it sets `users.delete_at` 14 days out and ends every session
+  of the account. The login page says the date (`login-notice`).
   Signing in again works as usual, but every page then leads to
   `/account/deletion` (`account-deletion`, date `account-deletion-date`,
   *Cancel deletion* `account-deletion-cancel`, *Log out*
@@ -1862,8 +1855,7 @@ Registration has one required box, "I am at least [age] years old" (`age`;
 `SKRONGLE_MIN_AGE`, default 14; `templates/age_check.html`, the sentence with
 a rounded check box on its right in the AI pill's style). The server refuses
 the form without it. The answer is stored as `users.age_confirmed` (a
-boolean, never a birth date). Every e-mail the server sends has `Reply-To:`
-the support address (`SKRONGLE_SUPPORT_EMAIL`, #1328).
+boolean, never a birth date).
 
 ## Registration
 
@@ -1902,9 +1894,8 @@ wrong ones count against the sign-in limit). A missing or wrong password is
 refused (403) with the dialog open again and `two-factor-confirm-error`.
 An account without a password (signed in through a proxy) types the
 authenticator's code instead (`two-factor-confirm-code`). One with it off has nothing to type:
-*Confirm* makes the change. Once made, every other session of the account ends and the
-account's address is e-mailed (purpose `two-factor-changed`), so an
-owner whose session someone else used hears of it. Recovery codes are not
+*Confirm* makes the change. Once made, every other session of the account ends.
+Recovery codes are not
 offered yet. Without JavaScript the chips post with *Save* and the page
 comes back with the dialog shown as a form.
 

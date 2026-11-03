@@ -14,7 +14,7 @@
 //! "quota used up" error once it is reached, and failures injected on
 //! request (a hang, a 500, overloaded, a refused key, a broken body, a reply
 //! that does not fit the request). Everything is in memory for this server
-//! run; the dev mailbox's AI section (`/dev/ai`) shows the log and the controls.
+//! run; the dev pages' AI section (`/dev/ai`) shows the log and the controls.
 //!
 //! One key profile, **the learner's own** keys, told by the key in the
 //! request. Any other key is refused as a provider refuses an unknown one.

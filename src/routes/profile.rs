@@ -50,8 +50,6 @@ pub struct ProfileTemplate {
     pub confirm_method: String,
     pub confirm_remove: bool,
     pub confirm_error: Option<String>,
-    /// What this server can send (#633).
-    pub caps: crate::Caps,
 }
 
 impl ProfileTemplate {
@@ -161,7 +159,6 @@ fn page(state: &AppState, user: CurrentUser, p: Profile) -> ProfileTemplate {
         confirm_method: String::new(),
         confirm_remove: false,
         confirm_error: None,
-        caps: state.caps(),
         dev: state.dev,
         delete_error: None,
     }
@@ -367,29 +364,18 @@ async fn confirm_again(state: &AppState, user: CurrentUser, status: StatusCode, 
     .await
 }
 
-/// After two-factor sign-in changed (#374, #375): every other session
-/// ends, and the account's address is told (a failed mail is logged, not
-/// shown: the change is made).
-async fn two_factor_changed(state: &AppState, user: &CurrentUser, keep: Option<String>, method: Option<crate::two_factor::Method>) -> Result<(), AppError> {
+/// After two-factor sign-in changed (#374, #375): every other session ends.
+async fn two_factor_changed(state: &AppState, user: &CurrentUser, keep: Option<String>) -> Result<(), AppError> {
     let (uid, keep) = (user.id, keep.unwrap_or_default());
     let ended = state.db.call(move |c| auth::delete_other_sessions(c, uid, &keep)).await?;
     tracing::info!("user {uid}: two-factor sign-in changed, {ended} other sessions signed out");
-    if !user.email.is_empty() {
-        let queued = match crate::two_factor::changed_mail(&user.email, method, uid) {
-            Ok(mail) => state.mail.queue(&state.db, mail).await.map(|_| ()).map_err(|e| format!("{e:?}")),
-            Err(e) => Err(e),
-        };
-        if let Err(e) = queued {
-            tracing::warn!("could not tell user {uid} that two-factor sign-in changed: {e}");
-        }
-    }
     Ok(())
 }
 
 /// POST /profile/two-factor (method, password | code): the second sign-in
 /// step, one at a time. Every change, turning it on too, needs proof that
-/// it is the owner (`prove_owner`, #374), then signs out the other devices
-/// and e-mails the account. The authenticator app, until one is set up,
+/// it is the owner (`prove_owner`, #374), then signs out the other devices.
+/// The authenticator app, until one is set up,
 /// starts its enrolment instead (the dialog with its key opens).
 pub async fn set_two_factor(
     State(state): State<Arc<AppState>>,
@@ -416,7 +402,7 @@ pub async fn set_two_factor(
     match state.db.call(move |c| two_factor::set_method(c, uid, method)).await? {
         Ok(()) => {
             tracing::info!("user {uid} set two-factor sign-in to {}", method.map(Method::as_str).unwrap_or("off"));
-            two_factor_changed(&state, &user, token, method).await?;
+            two_factor_changed(&state, &user, token).await?;
             Ok(Redirect::to(&crate::url("/profile?saved=two-factor#two-factor")).into_response())
         }
         Err(why) => profile_with(&state, user, StatusCode::UNPROCESSABLE_ENTITY, |t| t.two_factor_error = Some(why.into())).await,
@@ -445,7 +431,7 @@ pub async fn confirm_totp(
     let (code, vault) = (f.code, state.vault.clone());
     if state.db.call(move |c| crate::two_factor::totp_confirm(c, &vault, uid, &code, crate::db::now())).await? {
         tracing::info!("user {uid} set up an authenticator app");
-        two_factor_changed(&state, &user, token, Some(crate::two_factor::Method::Totp)).await?;
+        two_factor_changed(&state, &user, token).await?;
         return Ok(Redirect::to(&crate::url("/profile?saved=two-factor#two-factor")).into_response());
     }
     let key = pending_totp_key(&state, uid).await?;
@@ -483,7 +469,7 @@ pub async fn remove_totp(
     state.db.call(move |c| crate::two_factor::totp_remove(c, uid)).await?;
     tracing::info!("user {uid} removed their authenticator app");
     if in_use {
-        two_factor_changed(&state, &user, token, None).await?;
+        two_factor_changed(&state, &user, token).await?;
     }
     Ok(Redirect::to(&crate::url("/profile?saved=totp-removed#two-factor")).into_response())
 }
@@ -590,9 +576,7 @@ pub async fn delete_account(
         let page = fail(&state, user, loaded, &why);
         return Ok((status, page).into_response());
     }
-    let mail = state.caps().mail;
-    let at = state.db.call(move |c| crate::account_deletion::schedule(c, uid, crate::db::now(), mail)).await?.ok_or(AppError::RedirectToLogin)?;
-    state.mail.notify();
+    let at = state.db.call(move |c| crate::account_deletion::schedule(c, uid, crate::db::now())).await?.ok_or(AppError::RedirectToLogin)?;
     tracing::info!("user {uid} asked to delete their account: deleted at {at} unless they cancel");
     Ok(([auth::clear_session_cookie()], Redirect::to(&crate::url(&format!("/login?deletion={at}")))).into_response())
 }

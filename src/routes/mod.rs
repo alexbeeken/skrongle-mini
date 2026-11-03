@@ -282,21 +282,12 @@ pub fn router(state: Arc<AppState>) -> Router {
     // Local testing only (`SKRONGLE_DEV=1` on a loopback bind): without it these paths 404.
     // And even then only for requests made on this machine, not through a proxy.
     if state.dev {
-        // The dev mailbox (e-mail, the authenticator, the AI provider's
-        // page): for whoever is testing, no sign-in (it is for all accounts).
+        // The dev pages (the jobs table, the authenticator, the AI provider's
+        // page): for whoever is testing, no sign-in (they are for all accounts).
         let devbox = Router::new()
-            .route("/dev/mail", get(dev::mail))
             .route("/dev/jobs", get(dev::jobs))
             .route("/dev/jobs/fail", post(dev::jobs_fail))
             .route("/dev/jobs/{id}", post(dev::jobs_act))
-            .route("/dev/mail/send", post(dev::mail_send))
-            .route("/dev/mail/{id}", get(dev::mail_message).post(dev::mail_act))
-            .route("/dev/inbox", get(dev::inbox))
-            .route("/dev/inbox/rows", get(dev::box_rows))
-            .route("/dev/inbox/latest", get(dev::inbox_latest))
-            .route("/dev/inbox/clear", post(dev::inbox_clear))
-            .route("/dev/inbox/{id}", get(dev::inbox_message).post(dev::inbox_act))
-            .route("/dev/inbox/{id}/raw", get(dev::inbox_raw))
             .route("/dev/authenticator", get(dev::authenticator).post(dev::authenticator_add))
             .route("/dev/authenticator/rows", get(dev::authenticator_rows))
             .route("/dev/authenticator/{id}", post(dev::authenticator_act))
@@ -744,17 +735,6 @@ pub(crate) async fn reward_line(
     Ok(crate::motivators::reward_html(line))
 }
 
-/// `test_state` on a server without a mail provider (#633).
-#[cfg(test)]
-pub(crate) fn test_state_without(mail: bool) -> Arc<AppState> {
-    let state = test_state(false);
-    let Ok(mut s) = Arc::try_unwrap(state) else { unreachable!("a new state has one owner") }; // panic-ok: tests only, a new state has one owner
-    if !mail {
-        s.mail = crate::mail::Mailer::idle_unconfigured();
-    }
-    Arc::new(s)
-}
-
 /// An app state for router tests: in-memory database, the built-in courses.
 #[cfg(test)]
 pub(crate) fn test_state(dev: bool) -> Arc<AppState> {
@@ -771,10 +751,7 @@ pub(crate) fn test_state(dev: bool) -> Arc<AppState> {
         prices: crate::prices::PriceTable::parse(crate::prices::DEFAULT_PRICES).unwrap(), // panic-ok: tests only, the built-in defaults parse
         dev,
         limits: crate::security::RateLimits::new(dev),
-        mail: crate::mail::Mailer::idle(),
         queue: crate::jobs::Queue::idle(),
-        dev_inbox: None,
-        dev_marks: Default::default(),
         dev_ai: Default::default(),
         dev_authenticator: Default::default(),
         public_url: None,

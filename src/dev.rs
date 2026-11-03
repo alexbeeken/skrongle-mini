@@ -379,9 +379,8 @@ pub fn valid_stem(stem: &str) -> bool {
 // ---------- the dev user ----------
 
 /// The dev user's id, creating the account on first use. Blocking (argon2).
-/// The dev user has confirmed its address, so the e-mail notice does not
-/// stand between a test and the app, and is an owner (`users.owner`: the
-/// Manage Users page).
+/// The dev user's address counts as confirmed, and it is an owner
+/// (`users.owner`: the Manage Users page).
 pub fn ensure_user(db: &Db) -> Result<i64, String> {
     let accept = |id: i64| {
         db.with(|c| {
@@ -481,46 +480,6 @@ pub fn seed(db: &Db, courses: &crate::courses::Courses, keys: Option<&crate::sec
     Ok(cid)
 }
 
-// ---------- the dev inbox pages' marks ----------
-
-/// What a dev inbox page remembers about one of its rows: opened (plain
-/// type, not bold) and archived (struck out, at the bottom).
-#[derive(Clone, Copy, Default, PartialEq, Eq, Debug)]
-pub struct Mark {
-    pub read: bool,
-    pub archived: bool,
-}
-
-/// The marks of every dev inbox page (`/dev/inbox`, `/dev/mail`), by box
-/// (`"mail-in"`, `"mail-out"`) and row id. In memory: a restart forgets
-/// them, as it empties the dev mailbox. Deleting is not a mark: the row goes.
-#[derive(Default)]
-pub struct Marks(std::sync::Mutex<std::collections::HashMap<(&'static str, i64), Mark>>);
-
-impl Marks {
-    pub fn get(&self, b: &'static str, id: i64) -> Mark {
-        self.0.lock().unwrap().get(&(b, id)).copied().unwrap_or_default()
-    }
-
-    pub fn set_read(&self, b: &'static str, id: i64, read: bool) {
-        self.0.lock().unwrap().entry((b, id)).or_default().read = read;
-    }
-
-    pub fn set_archived(&self, b: &'static str, id: i64, archived: bool) {
-        self.0.lock().unwrap().entry((b, id)).or_default().archived = archived;
-    }
-
-    /// The row was deleted.
-    pub fn forget(&self, b: &'static str, id: i64) {
-        self.0.lock().unwrap().remove(&(b, id));
-    }
-
-    /// The whole box was emptied.
-    pub fn clear(&self, b: &'static str) {
-        self.0.lock().unwrap().retain(|(k, _), _| *k != b);
-    }
-}
-
 // ---------- the dev authenticator ----------
 
 /// One account the dev authenticator holds, as an app would after a scan.
@@ -534,7 +493,7 @@ pub struct AuthAccount {
 /// The dev authenticator app (`/dev/authenticator`): the TOTP keys it was
 /// given, oldest first, each showing its current code, worked out here
 /// from the secret as an app does (`crate::totp`). In memory: a restart
-/// forgets them, as it empties the dev mailbox.
+/// forgets them.
 #[derive(Default)]
 pub struct Authenticator(std::sync::Mutex<(i64, Vec<AuthAccount>)>);
 

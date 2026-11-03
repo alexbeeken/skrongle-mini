@@ -1,8 +1,8 @@
-// The dev authenticator (#291): an authenticator app in the dev mailbox
-// page. It takes an otpauth://totp/ link (pasted, or "scanned" through
+// The dev authenticator (#291): an authenticator app among the dev pages.
+// It takes an otpauth://totp/ link (pasted, or "scanned" through
 // /dev/authenticator?uri=) or a setup key and shows each account's current
 // RFC 6238 code, which must match what Node's crypto works out. No sign-in:
-// the dev mailbox is open to whoever is testing.
+// the dev pages are open to whoever is testing.
 import { expect, test, type Locator } from "@playwright/test";
 import { base32Encode, totpForStep } from "../lib/totp";
 import { randomBytes } from "node:crypto";

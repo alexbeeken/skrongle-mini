@@ -20,8 +20,8 @@ A feature only appears when the course has the data for it. Date Dash needs a
 [Which field switches on what](course-structure#which-field-switches-on-what).
 
 **Can other people see my course?**
-Only the people you share it with: **Share** on the course page invites them
-by e-mail. They learn from it read-only, with their own progress. See
+Only the people you share it with: **Share** on the course page makes a
+link for each address, which you pass on. They learn from it read-only, with their own progress. See
 [Share a course](making-courses#share-a-course).
 
 **My course does not load. What now?**
@@ -38,7 +38,7 @@ See [Write lessons with an LLM](making-courses#write-lessons-with-an-llm-you-alr
 Ask whoever runs your Skrongle. On the Superuser page they set a temporary
 password for your account and give it to you; you choose your own at the
 next sign-in. Lost the phone with your authenticator app? They can turn
-two-factor sign-in off for you there too. There is no reset link by e-mail.
+two-factor sign-in off for you there too. Skrongle sends no e-mail, so there is no reset link.
 See [Accounts and AI keys](self-hosting#accounts-and-ai-keys).
 
 **Why does my Skrongle mini say it has all the accounts it can hold?**

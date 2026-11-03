@@ -175,79 +175,6 @@ auth:
     app_already: An authenticator app is already set up. Remove it first.
 
 
-mail:
-  waitlist_confirm:
-    subject: "Confirm your place on the {app} waitlist"
-    text: |
-      Hello,
-
-      Please confirm that you want to join the {app} waitlist by opening this link:
-
-      {link}
-
-      We'll e-mail you an invitation when it's your turn. If you didn't ask to join, ignore this message: the address isn't added unless the link is opened.
-    html: |
-      <p>Hello,</p>
-      <p>Please confirm that you want to join the {app} waitlist:</p>
-      <p><a href="{link}">Confirm my place</a></p>
-      <p>Or paste this link into your browser: {link}</p>
-      <p>We'll e-mail you an invitation when it's your turn. If you didn't ask to join, ignore this message: the address isn't added unless the link is opened.</p>
-  waitlist_invite:
-    subject: "Your invitation to {app}"
-    text: |
-      Hello,
-
-      It's your turn: you're invited to make your {app} account. Open this link and sign up with this e-mail address ({email}):
-
-      {link}
-
-      The invitation works for {days} days.
-    html: |
-      <p>Hello,</p>
-      <p>It's your turn: you're invited to make your {app} account. Sign up with this e-mail address ({email}).</p>
-      <p><a href="{link}">Make my account</a></p>
-      <p>Or paste this link into your browser: {link}</p>
-      <p>The invitation works for {days} days.</p>
-  account_deletion:
-    subject: "Your {app} account will be deleted on {date}"
-    text: |
-      Hello,
-
-      You asked to delete your {app} account. It will be deleted for good on {date}, with your progress, courses and saved keys.
-
-      To keep it, sign in to {app} before then and choose Cancel deletion.
-
-      If you did not ask for this, sign in, cancel the deletion and change your password.
-  two_factor_changed:
-    subject: "Two-factor sign-in on {app} changed"
-    now_off: is now off
-    now_totp: now asks for a code from an authenticator app
-    text: |
-      Hello,
-
-      Two-factor sign-in on {app} {now}.
-
-      Every other device was signed out. If you did not make this change, someone else was signed in to your account: sign in, use “Sign out everywhere else” on your profile, and set two-factor sign-in back.
-    html: |
-      <p>Hello,</p>
-      <p>Two-factor sign-in on {app} <strong>{now}</strong>.</p>
-      <p>Every other device was signed out. If you did not make this change, someone else was signed in to your account: sign in, use “Sign out everywhere else” on your profile, and set two-factor sign-in back.</p>
-  course_share:
-    subject: "{owner} shared a course with you on {app}: {title}"
-    text: |
-      Hello,
-
-      {owner} shared the course “{title}” with you on {app}. Open this link to add it to your courses:
-
-      {link}
-
-      You can learn from the course with your own progress; only {owner} can change it. If you do not have a {app} account yet, the link lets you create one. If you were not expecting this, ignore this message.
-    html: |
-      <p>Hello,</p>
-      <p>{owner} shared the course <strong>{title}</strong> with you on {app}.</p>
-      <p><a href="{link}">Open the course</a></p>
-      <p>Or paste this link into your browser: {link}</p>
-      <p>You can learn from the course with your own progress; only {owner} can change it. If you do not have a {app} account yet, the link lets you create one. If you were not expecting this, ignore this message.</p>
 
 profile:
   title: Profile
@@ -305,14 +232,11 @@ profile:
     title: "Privacy and consent"
     info: "About your consents"
     info_age: "You confirmed your age when you signed up. To take that back, delete your account under Your data."
-    info_email: "Service e-mails always go out: confirming your address. Optional e-mails will show up here with their own switch, off until you turn them on."
     info_record: "Each change is kept with its date."
     close: "Close"
     age: "Age"
     age_confirmed: "Confirmed {date}"
     age_not_confirmed: "Not confirmed"
-    email: "E-mail"
-    email_service: "Service messages only"
   sessions:
     sign_out_others: Sign out everywhere else
     info_label: About signing out everywhere else
@@ -2615,7 +2539,7 @@ courses:
     none_right: "none right"
     failed: "The placement test did not load. Pick a level instead."
   share:
-    dialog_lead_no_mail: "Each address gets its own link for you to pass on: this server does not send e-mail. They learn from the course with their own progress; only you can change it."
+    dialog_lead: "Each address gets its own link for you to pass on: this server does not send e-mail. They learn from the course with their own progress; only you can change it."
     make_links: "Make invitation links"
     made:
       one: "{n} invitation link made. Copy it and pass it on; it is shown only now."
@@ -2625,14 +2549,12 @@ courses:
     button: Share
     button_count: "Share ({n})"
     dialog_title: Share this course
-    dialog_lead: Everyone you share it with gets an e-mail with a link. They learn from the course with their own progress; only you can change it.
     status_opened: opened
     status_invited: invited
     remove: Remove
     remove_label: "Stop sharing with {email}"
     emails_label: E-mail addresses
     emails_note: (one per line, or separated by commas)
-    send: Send invitations
     close: Close
     own_address: "That is your own address: the course is yours already."
     too_many_course: "A course can be shared with up to {max} addresses."
@@ -2640,9 +2562,6 @@ courses:
     at_least_one: Type at least one e-mail address.
     bad_address: "“{address}”: {error}"
     bad_address_notice: One of those is not an e-mail address. Check the list and send it again.
-    sent:
-      one: "Invitation sent to {n} address."
-      other: "Invitations sent to {n} addresses."
     already_had: "{n} already had one."
     removed_notice: No longer shared with that address.
     not_on_list: That address was not on the list.

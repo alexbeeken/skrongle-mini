@@ -149,8 +149,8 @@ fn an_owner_cannot_delete_their_own_account() {
 }
 
 /// Account changes a stolen session must not make (#374, #375, #376):
-/// turning two-factor on needs proof, signs out the other devices and
-/// e-mails the account; "Sign out everywhere else" ends every other
+/// turning two-factor on needs proof and signs out the other devices;
+/// "Sign out everywhere else" ends every other
 /// session; an account without a password but with a second step deletes
 /// with its code.
 #[test]
@@ -193,7 +193,7 @@ fn account_changes_need_proof_and_sign_out_other_devices() {
     assert!(alive(&ann_t) && !alive(&ann_other));
 
     // Turning two-factor on needs the password (#374); done, it signs
-    // out the other devices and e-mails the account.
+    // out the other devices.
     let ann_other = session(ann);
     let method = || state.db.with(|c| crate::two_factor::settings(c, ann)).unwrap().method;
     let key_of = |u| state.db.with(|c| crate::two_factor::pending_key(c, &state.vault, u)).unwrap().unwrap();
@@ -207,8 +207,6 @@ fn account_changes_need_proof_and_sign_out_other_devices() {
     assert_eq!(post("/profile/two-factor/totp/confirm", &ann_c, &[("code", &key.code_at(now()))]).0, 303);
     assert_eq!(method(), Some(crate::two_factor::Method::Totp));
     assert!(alive(&ann_t) && !alive(&ann_other));
-    let told: i64 = state.db.with(|c| c.query_row("SELECT COUNT(*) FROM mail_outbox WHERE user_id = ?1 AND purpose = 'two-factor-changed'", [ann], |r| r.get(0))).unwrap();
-    assert_eq!(told, 1);
     assert_eq!(post("/profile/two-factor", &ann_c, &[("method", "email"), ("password", "right-password")]).0, 400, "no e-mailed second step (#10)");
 
     // An account without a password and without a second step has nothing

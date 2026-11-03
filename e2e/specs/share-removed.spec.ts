@@ -2,9 +2,8 @@
 // next API call gets a 410 and the page goes to the course list, instead of
 // Sprint's "try again" error that trying again cannot fix.
 import { expect, test } from "@playwright/test";
-import { createCourse, devLogin, devReset } from "../lib/app";
+import { createCourse, devLogin, devReset, shareLink } from "../lib/app";
 import { login, newAccount, signUp } from "../lib/learner";
-import { mailLink, waitForMail } from "../lib/mail";
 
 const LESSON = "first-lesson";
 
@@ -28,7 +27,7 @@ test("the share removed mid-Sprint: the page goes to the course list instead of 
   await dialog.getByTestId("course-share-send").click();
   const row = page.locator(`[data-testid="course-share-row"][data-email="${friend.email.toLowerCase()}"]`);
   await expect(row).toBeVisible();
-  await guest.goto(mailLink(await waitForMail(friend.email, /shared a course with you/), /\/courses\/shared\//));
+  await guest.goto(await shareLink(page, friend.email));
   await expect(guest).not.toHaveURL(/\/courses(\?|$)/);
 
   // The learner starts a Sprint; the owner removes the share.

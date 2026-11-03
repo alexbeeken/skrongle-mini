@@ -4,9 +4,8 @@
 // them back after registering; the course is then on their list, read only,
 // with the circle that says whose it is. Removing the share takes it away.
 import { expect, test } from "@playwright/test";
-import { createCourse, devLogin, devReset } from "../lib/app";
+import { createCourse, devLogin, devReset, shareLink } from "../lib/app";
 import { login, newAccount, signUp } from "../lib/learner";
-import { mailLink, waitForMail } from "../lib/mail";
 
 test.afterAll(async ({ browser }) => {
   const page = await browser.newPage();
@@ -20,7 +19,7 @@ test("an invited address registers from the link and has the course read only, u
   await page.getByTestId("generate-close").click();
   const friend = newAccount("share");
 
-  // The owner invites: the dialog lists the address, the mail carries the link.
+  // The owner invites: the dialog lists the address and shows its link, once.
   await page.getByTestId("course-edit-share").click();
   const dialog = page.getByTestId("course-share");
   await expect(dialog).toBeVisible();
@@ -29,14 +28,13 @@ test("an invited address registers from the link and has the course read only, u
   await expect(page.getByTestId("course-share-notice")).toContainText("your own address");
   await page.getByTestId("course-share-emails").fill(friend.email);
   await page.getByTestId("course-share-send").click();
-  await expect(page.getByTestId("course-share-notice")).toHaveText("Invitation sent to 1 address.");
+  await expect(page.getByTestId("course-share-notice")).toContainText("1 invitation link made");
+  const link = await shareLink(page, friend.email);
   const row = page.locator(`[data-testid="course-share-row"][data-email="${friend.email.toLowerCase()}"]`);
   await expect(row).toHaveAttribute("data-opened", "false");
   await expect(page.getByTestId("course-edit-share")).toHaveText("Share (1)");
-  const mail = await waitForMail(friend.email, /shared a course with you/);
-  const link = mailLink(mail, /\/courses\/shared\//);
 
-  // The owner opening their own link (from the inbox, say) does not take it: back to the dialog, the address still unopened.
+  // The owner opening their own link does not take it: back to the dialog, the address still unopened.
   await page.goto(link);
   await expect(page).toHaveURL(new RegExp(`/courses/${id}\\?share=1$`));
   await expect(page.getByTestId("course-share")).toBeVisible();
@@ -97,8 +95,8 @@ test("a shared course's circle tip wraps inside a phone screen while it shows, e
   await ownerPage.getByTestId("course-edit-share").click();
   await ownerPage.getByTestId("course-share-emails").fill("dev@example.com");
   await ownerPage.getByTestId("course-share-send").click();
-  await expect(ownerPage.getByTestId("course-share-notice")).toHaveText("Invitation sent to 1 address.");
-  const link = mailLink(await waitForMail("dev@example.com", /shared a course with you/), /\/courses\/shared\//);
+  await expect(ownerPage.getByTestId("course-share-notice")).toContainText("1 invitation link made");
+  const link = await shareLink(ownerPage, "dev@example.com");
   await ownerPage.context().close();
 
   await devLogin(page, "next=/courses");

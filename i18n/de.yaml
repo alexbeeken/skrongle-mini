@@ -173,76 +173,6 @@ auth:
     app_already: Eine Authenticator-App ist schon eingerichtet. Entferne sie zuerst.
 
 
-mail:
-  waitlist_confirm:
-    subject: "Bestätige deinen Platz auf der Warteliste von {app}"
-    text: |
-      Hallo,
-
-      bitte bestätige, dass du auf die Warteliste von {app} möchtest, indem du diesen Link öffnest:
-
-      {link}
-
-      Wir schicken dir eine Einladung per E-Mail, wenn du an der Reihe bist. Wenn du das nicht angefragt hast, ignoriere diese Nachricht: Die Adresse wird nur eingetragen, wenn der Link geöffnet wird.
-    html: |
-      <p>Hallo,</p>
-      <p>bitte bestätige, dass du auf die Warteliste von {app} möchtest:</p>
-      <p><a href="{link}">Meinen Platz bestätigen</a></p>
-      <p>Oder füge diesen Link in deinen Browser ein: {link}</p>
-      <p>Wir schicken dir eine Einladung per E-Mail, wenn du an der Reihe bist. Wenn du das nicht angefragt hast, ignoriere diese Nachricht: Die Adresse wird nur eingetragen, wenn der Link geöffnet wird.</p>
-  waitlist_invite:
-    subject: "Deine Einladung zu {app}"
-    text: |
-      Hallo,
-
-      du bist an der Reihe: Du bist eingeladen, dein {app}-Konto anzulegen. Öffne diesen Link und registriere dich mit dieser E-Mail-Adresse ({email}):
-
-      {link}
-
-      Die Einladung gilt {days} Tage.
-    html: |
-      <p>Hallo,</p>
-      <p>du bist an der Reihe: Du bist eingeladen, dein {app}-Konto anzulegen. Registriere dich mit dieser E-Mail-Adresse ({email}).</p>
-      <p><a href="{link}">Mein Konto anlegen</a></p>
-      <p>Oder füge diesen Link in deinen Browser ein: {link}</p>
-      <p>Die Einladung gilt {days} Tage.</p>
-  account_deletion:
-    subject: "Dein {app}-Konto wird am {date} gelöscht"
-    text: |
-      Hallo,
-
-      du hast die Löschung deines {app}-Kontos angefordert. Es wird am {date} endgültig gelöscht, mit deinem Fortschritt, deinen Kursen und gespeicherten Schlüsseln.
-
-      Wenn du es behalten willst, melde dich vorher bei {app} an und wähle Löschung abbrechen.
-
-      Wenn du das nicht angefordert hast, melde dich an, brich die Löschung ab und ändere dein Passwort.
-  two_factor_changed:
-    subject: "Zwei-Faktor-Anmeldung bei {app} geändert"
-    now_off: "ist jetzt aus"
-    now_totp: "fragt dich jetzt nach einem Code aus einer Authenticator-App"
-    text: |
-      Hallo,
-
-      die Zwei-Faktor-Anmeldung bei {app} {now}.
-
-      Alle anderen Geräte wurden abgemeldet. Wenn du diese Änderung nicht vorgenommen hast, war jemand anderes in deinem Konto angemeldet: Melde dich an, nutze auf deinem Profil „Überall sonst abmelden“ und stelle die Zwei-Faktor-Anmeldung wieder zurück.
-    html: |
-      <p>Hallo,</p>
-      <p>die Zwei-Faktor-Anmeldung bei {app} <strong>{now}</strong>.</p>
-      <p>Alle anderen Geräte wurden abgemeldet. Wenn du diese Änderung nicht vorgenommen hast, war jemand anderes in deinem Konto angemeldet: Melde dich an, nutze auf deinem Profil „Überall sonst abmelden“ und stelle die Zwei-Faktor-Anmeldung wieder zurück.</p>
-  course_share:
-    subject: "{owner} hat dir auf {app} einen Kurs geteilt: {title}"
-    text: |
-      Hallo,
-      {owner} hat dir den Kurs „{title}“ auf {app} geteilt. Öffne diesen Link, um ihn zu deinen Kursen hinzuzufügen:
-      {link}
-      Du kannst aus dem Kurs mit deinem eigenen Fortschritt lernen; nur {owner} kann ihn ändern. Falls du noch kein {app}-Konto hast, kannst du über den Link eines erstellen. Wenn du damit nicht gerechnet hast, ignoriere diese Nachricht einfach.
-    html: |
-      <p>Hallo,</p>
-      <p>{owner} hat dir den Kurs <strong>{title}</strong> auf {app} geteilt.</p>
-      <p><a href="{link}">Kurs öffnen</a></p>
-      <p>Oder füge diesen Link in deinen Browser ein: {link}</p>
-      <p>Du kannst aus dem Kurs mit deinem eigenen Fortschritt lernen; nur {owner} kann ihn ändern. Falls du noch kein {app}-Konto hast, kannst du über den Link eines erstellen. Wenn du damit nicht gerechnet hast, ignoriere diese Nachricht einfach.</p>
 
 profile:
   title: Profil
@@ -300,14 +230,11 @@ profile:
     title: "Datenschutz und Einwilligung"
     info: "Über deine Einwilligungen"
     info_age: "Du hast dein Alter bei der Registrierung bestätigt. Um das zurückzunehmen, lösche dein Konto unter Deine Daten."
-    info_email: "Service-E-Mails werden immer verschickt: Bestätigung deiner Adresse. Optionale E-Mails erscheinen hier mit eigenem Schalter, aus, bis du sie einschaltest."
     info_record: "Jede Änderung wird mit Datum gespeichert."
     close: "Schließen"
     age: "Alter"
     age_confirmed: "Bestätigt am {date}"
     age_not_confirmed: "Nicht bestätigt"
-    email: "E-Mail"
-    email_service: "Nur Service-Nachrichten"
   sessions:
     sign_out_others: "Überall sonst abmelden"
     info_label: "Über das Abmelden überall sonst"
@@ -2609,7 +2536,7 @@ courses:
     none_right: "nichts richtig"
     failed: "Der Einstufungstest hat nicht geladen. Wähle stattdessen eine Stufe."
   share:
-    dialog_lead_no_mail: "Jede Adresse bekommt einen eigenen Link, den du weitergibst: Dieser Server sendet keine E-Mails. Sie lernen mit dem Kurs mit eigenem Fortschritt; nur du kannst ihn ändern."
+    dialog_lead: "Jede Adresse bekommt einen eigenen Link, den du weitergibst: Dieser Server sendet keine E-Mails. Sie lernen mit dem Kurs mit eigenem Fortschritt; nur du kannst ihn ändern."
     make_links: "Einladungslinks erstellen"
     made:
       one: "{n} Einladungslink erstellt. Kopiere ihn und gib ihn weiter; er wird nur jetzt angezeigt."
@@ -2619,14 +2546,12 @@ courses:
     button: Teilen
     button_count: "Teilen ({n})"
     dialog_title: Diesen Kurs teilen
-    dialog_lead: Alle, mit denen du ihn teilst, bekommen eine E-Mail mit einem Link. Sie lernen aus dem Kurs mit ihrem eigenen Fortschritt; nur du kannst ihn ändern.
     status_opened: geöffnet
     status_invited: eingeladen
     remove: Entfernen
     remove_label: "Teilen mit {email} beenden"
     emails_label: E-Mail-Adressen
     emails_note: (eine pro Zeile oder durch Kommas getrennt)
-    send: Einladungen senden
     close: Schließen
     own_address: "Das ist deine eigene Adresse: Der Kurs gehört dir bereits."
     too_many_course: "Ein Kurs kann mit höchstens {max} Adressen geteilt werden."
@@ -2634,9 +2559,6 @@ courses:
     at_least_one: Gib mindestens eine E-Mail-Adresse ein.
     bad_address: "„{address}“: {error}"
     bad_address_notice: "Eine dieser Adressen ist keine E-Mail-Adresse. Prüfe die Liste und schick sie noch einmal."
-    sent:
-      one: "Einladung an {n} Adresse gesendet."
-      other: "Einladungen an {n} Adressen gesendet."
     already_had: "{n} hatte bereits eine."
     removed_notice: "Nicht mehr mit dieser Adresse geteilt."
     not_on_list: Diese Adresse stand nicht auf der Liste.

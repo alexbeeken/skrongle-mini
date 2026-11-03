@@ -173,79 +173,6 @@ auth:
     app_already: Ya hay una aplicación de autenticación configurada. Elimínala primero.
 
 
-mail:
-  waitlist_confirm:
-    subject: "Confirma tu lugar en la lista de espera de {app}"
-    text: |
-      Hola:
-
-      Confirma que quieres unirte a la lista de espera de {app} abriendo este enlace:
-
-      {link}
-
-      Te enviaremos una invitación por correo cuando sea tu turno. Si no pediste unirte, ignora este mensaje: la dirección no se añade si no se abre el enlace.
-    html: |
-      <p>Hola:</p>
-      <p>Confirma que quieres unirte a la lista de espera de {app}:</p>
-      <p><a href="{link}">Confirmar mi lugar</a></p>
-      <p>O pega este enlace en tu navegador: {link}</p>
-      <p>Te enviaremos una invitación por correo cuando sea tu turno. Si no pediste unirte, ignora este mensaje: la dirección no se añade si no se abre el enlace.</p>
-  waitlist_invite:
-    subject: "Tu invitación a {app}"
-    text: |
-      Hola:
-
-      Ya es tu turno: te invitamos a crear tu cuenta de {app}. Abre este enlace y regístrate con esta dirección de correo ({email}):
-
-      {link}
-
-      La invitación vale durante {days} días.
-    html: |
-      <p>Hola:</p>
-      <p>Ya es tu turno: te invitamos a crear tu cuenta de {app}. Regístrate con esta dirección de correo ({email}).</p>
-      <p><a href="{link}">Crear mi cuenta</a></p>
-      <p>O pega este enlace en tu navegador: {link}</p>
-      <p>La invitación vale durante {days} días.</p>
-  account_deletion:
-    subject: "Tu cuenta de {app} se eliminará el {date}"
-    text: |
-      Hola:
-
-      Pediste eliminar tu cuenta de {app}. Se eliminará para siempre el {date}, con tu progreso, tus cursos y tus claves guardadas.
-
-      Para conservarla, inicia sesión en {app} antes de esa fecha y elige Cancelar la eliminación.
-
-      Si no lo pediste tú, inicia sesión, cancela la eliminación y cambia tu contraseña.
-  two_factor_changed:
-    subject: "La verificación en dos pasos de {app} ha cambiado"
-    now_off: ahora está desactivada
-    now_totp: ahora pide un código de una aplicación de autenticación
-    text: |
-      Hola,
-
-      La verificación en dos pasos de {app} {now}.
-
-      Se cerró la sesión en todos los demás dispositivos. Si no hiciste este cambio, otra persona tenía la sesión iniciada en tu cuenta: inicia sesión, usa «Cerrar sesión en todos los demás sitios» en tu perfil y vuelve a configurar la verificación en dos pasos.
-    html: |
-      <p>Hola,</p>
-      <p>La verificación en dos pasos de {app} <strong>{now}</strong>.</p>
-      <p>Se cerró la sesión en todos los demás dispositivos. Si no hiciste este cambio, otra persona tenía la sesión iniciada en tu cuenta: inicia sesión, usa «Cerrar sesión en todos los demás sitios» en tu perfil y vuelve a configurar la verificación en dos pasos.</p>
-  course_share:
-    subject: "{owner} compartió un curso contigo en {app}: {title}"
-    text: |
-      Hola,
-
-      {owner} compartió contigo el curso “{title}” en {app}. Abre este enlace para añadirlo a tus cursos:
-
-      {link}
-
-      Puedes aprender del curso con tu propio progreso; solo {owner} puede cambiarlo. Si aún no tienes una cuenta en {app}, el enlace te permite crear una. Si no esperabas este mensaje, ignóralo.
-    html: |
-      <p>Hola,</p>
-      <p>{owner} compartió contigo el curso <strong>{title}</strong> en {app}.</p>
-      <p><a href="{link}">Abrir el curso</a></p>
-      <p>O pega este enlace en tu navegador: {link}</p>
-      <p>Puedes aprender del curso con tu propio progreso; solo {owner} puede cambiarlo. Si aún no tienes una cuenta en {app}, el enlace te permite crear una. Si no esperabas este mensaje, ignóralo.</p>
 
 quiz:
   page:
@@ -768,14 +695,11 @@ profile:
     title: "Privacidad y consentimiento"
     info: "Sobre tus consentimientos"
     info_age: "Confirmaste tu edad al registrarte. Para retirarlo, elimina tu cuenta en Tus datos."
-    info_email: "Los correos de servicio se envían siempre: confirmar tu dirección. Los correos opcionales aparecerán aquí con su propio interruptor, apagados hasta que los actives."
     info_record: "Cada cambio se guarda con su fecha."
     close: "Cerrar"
     age: "Edad"
     age_confirmed: "Confirmada el {date}"
     age_not_confirmed: "Sin confirmar"
-    email: "Correo"
-    email_service: "Solo mensajes de servicio"
   sessions:
     sign_out_others: Cerrar sesión en todos los demás sitios
     info_label: Sobre cerrar sesión en todos los demás sitios
@@ -2613,7 +2537,7 @@ courses:
     none_right: "ninguna bien"
     failed: "La prueba de nivel no se cargó. Elige un nivel."
   share:
-    dialog_lead_no_mail: "Cada dirección recibe su propio enlace para que tú se lo pases: este servidor no envía correos. Aprenden con el curso con su propio progreso; solo tú puedes cambiarlo."
+    dialog_lead: "Cada dirección recibe su propio enlace para que tú se lo pases: este servidor no envía correos. Aprenden con el curso con su propio progreso; solo tú puedes cambiarlo."
     make_links: "Crear enlaces de invitación"
     made:
       one: "{n} enlace de invitación creado. Cópialo y pásalo; solo se muestra ahora."
@@ -2623,14 +2547,12 @@ courses:
     button: Compartir
     button_count: "Compartir ({n})"
     dialog_title: Compartir este curso
-    dialog_lead: Cada persona con la que lo compartas recibe un correo con un enlace. Aprenden del curso con su propio progreso; solo tú puedes cambiarlo.
     status_opened: abierto
     status_invited: invitado
     remove: Quitar
     remove_label: "Dejar de compartir con {email}"
     emails_label: Direcciones de correo electrónico
     emails_note: (una por línea, o separadas por comas)
-    send: Enviar invitaciones
     close: Cerrar
     own_address: "Esa es tu propia dirección: el curso ya es tuyo."
     too_many_course: "Un curso se puede compartir con hasta {max} direcciones."
@@ -2638,9 +2560,6 @@ courses:
     at_least_one: Escribe al menos una dirección de correo electrónico.
     bad_address: "“{address}”: {error}"
     bad_address_notice: Una de esas no es una dirección de correo electrónico. Revisa la lista y vuelve a enviarla.
-    sent:
-      one: "Invitación enviada a {n} dirección."
-      other: "Invitaciones enviadas a {n} direcciones."
     already_had: "{n} ya tenía una."
     removed_notice: Ya no se comparte con esa dirección.
     not_on_list: Esa dirección no estaba en la lista.

@@ -200,17 +200,12 @@
     <dialog class="modal" id="consent-info" aria-labelledby="consent-info-title" data-testid="profile-consent-info-dialog">
       <h2 id="consent-info-title">{{ crate::t("profile.consent.title") }}</h2>
       <p>{{ crate::t("profile.consent.info_age") }}</p>
-      {% if caps.mail %}<p>{{ crate::t("profile.consent.info_email") }}</p>{% endif %}
       <p>{{ crate::t("profile.consent.info_record") }}</p>
       <div class="modal-actions"><button type="button" class="btn" data-closes data-testid="profile-consent-info-close">{{ crate::t("profile.consent.close") }}</button></div>
     </dialog>
     <dl class="facts">
       <dt>{{ crate::t("profile.consent.age") }}</dt>
       <dd data-testid="consent-age">{{ profile.age_text() }}</dd>
-      {% if caps.mail && profile.email.is_some() %}
-      <dt>{{ crate::t("profile.consent.email") }}</dt>
-      <dd data-testid="consent-email">{{ crate::t("profile.consent.email_service") }}</dd>
-      {% endif %}
     </dl>
   </section>
 

@@ -2,8 +2,15 @@
 // so a spec can check the codes the dev authenticator (/dev/authenticator)
 // shows, or type one into a sign-in, without trusting src/totp.rs.
 import { createHmac } from "node:crypto";
-import { expect } from "@playwright/test";
-import { devRequest } from "./mail";
+import { expect, request as playwrightRequest, test, type APIRequestContext } from "@playwright/test";
+
+let dev: Promise<APIRequestContext> | undefined;
+
+/** Requests to the dev pages (no sign-in), a context of their own made once per worker. */
+function devRequest(): Promise<APIRequestContext> {
+  dev ??= playwrightRequest.newContext({ baseURL: test.info().project.use.baseURL });
+  return dev;
+}
 
 const B32 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
 
