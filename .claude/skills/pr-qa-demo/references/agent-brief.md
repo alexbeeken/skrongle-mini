@@ -463,8 +463,6 @@ long one costs every later turn.
   refuses. Do form submissions as exact steps in `then`.
 - `gh api repos/{owner}/{repo}/…` fills the placeholders only inside a
   checkout. Elsewhere, write `alexbeeken/skrongle-mini`.
-- For a script that calls AWS, put a fake `aws` first on `PATH` that logs its
-  arguments. Never use real credentials.
 
 **QA run, 2026-10-30 (34 PRs, no Jev credits, a loaded Mac)**
 - When TypeSafe answers 402 ("no available TypeSafe API credits"), Jev is out for the

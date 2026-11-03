@@ -27,7 +27,7 @@ your report. Clone `target` with `cp -R --reflink=auto` instead of `cp -Rc`.
   `docs/course.schema.json`, the test course and its e2e specs in the same
   change), "no English in a template" (every string is an `i18n/*.yaml` key in
   every language file), "information behind an icon, not on the page", and
-  the two shapes (hosted or Skrongle mini, nothing in between).
+  one shape (a self-hosted box with no outside services, nothing else).
 - The issue: `gh api repos/{owner}/{repo}/issues/<N> --jq .body` and its comments,
   `gh api repos/{owner}/{repo}/issues/<N>/comments --jq '.[].body'`. Then the code it talks about.
   Issues are often written before the previous PR landed, so check whether
@@ -309,9 +309,9 @@ proposal for …"). Sweeps on 2026-10-29 made these PRs #1189, #1193, #1203,
 
 ## Harness facts (trust them)
 
-- The dev server is for development, not a third product shape. Don't add
-  fallbacks "for a self-hoster who skipped SMTP"; mini leaves provider
-  features out, the hosted site has them all.
+- The dev server is for development, not a second product shape. Don't add
+  fallbacks "if an e-mail provider is configured"; there is none, and no
+  feature depends on one.
 - Run anything that needs the Jev key through `zsh -ic '…'`; a plain shell
   doesn't see `~/.zshrc`.
 - Playwright's working directory is `e2e/`; read repo files from a spec with
