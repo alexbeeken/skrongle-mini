@@ -318,7 +318,7 @@ pub fn router(state: Arc<AppState>) -> Router {
                 .route("/dev/ai/xai/v1/chat/completions", post(dev_ai::compatible_chat))
                 .route("/dev/ai/openrouter/api/v1/chat/completions", post(dev_ai::compatible_chat))
                 .route("/dev/ai/ollama/v1/chat/completions", post(dev_ai::ollama_chat))
-                // The content check's Jev stand-in (#1036).
+                // The boot id, for the dev page to notice a restart (#1036).
                 .route("/dev/boot", get(|| async { crate::dev::boot_id() }))
                 .route_layer(axum::middleware::from_fn(crate::dev::local_only))
                 // Pasted LLM replies and fixtures are whole courses.

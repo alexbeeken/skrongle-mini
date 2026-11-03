@@ -1,5 +1,5 @@
 // A new learner and what the app says about their progress. Shared by the
-// playthrough (e2e/playthrough/core.ts) and the smoke specs: a fresh account
+// smoke specs: a fresh account
 // through /register, /api/progress, and the check that every page listing
 // lessons agrees with it (the "one passed" rule, docs/progress.md).
 import { expect, request, type Page } from "@playwright/test";
@@ -23,8 +23,8 @@ export interface ApiLesson {
 let made = 0;
 /** An address nobody has yet: `<prefix>-<time>-w<worker>-<n>-<random>@example.com`.
  * Each Playwright worker is its own process with its own counter, so the
- * worker index keeps two workers apart (#867). Outside a test run (the Jev
- * harness) there is no TEST_WORKER_INDEX and the process id stands in.
+ * worker index keeps two workers apart (#867). Outside a test run
+ * there is no TEST_WORKER_INDEX and the process id stands in.
  * `worker` is for the unit test, which simulates several workers. */
 export function newAccount(prefix: string, worker: string | number = process.env.TEST_WORKER_INDEX ?? `p${process.pid}`): Account {
   const stamp = new Date().toISOString().replace(/\D/g, "").slice(4, 14);

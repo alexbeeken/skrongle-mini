@@ -38,7 +38,7 @@ test("without a worker index the process id stands in", () => {
   const saved = process.env.TEST_WORKER_INDEX;
   delete process.env.TEST_WORKER_INDEX;
   try {
-    assert.match(newAccount("jev").email, new RegExp(`-wp${process.pid}-`));
+    assert.match(newAccount("smoke").email, new RegExp(`-wp${process.pid}-`));
   } finally {
     if (saved !== undefined) process.env.TEST_WORKER_INDEX = saved;
   }

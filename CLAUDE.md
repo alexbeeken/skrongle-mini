@@ -68,9 +68,7 @@ Read `docs/` before changing anything substantial:
 (`.github/workflows/smoke.yml`). Don't run them
 locally before pushing just to see them pass: push, then read the PR's
 checks (`gh pr checks`) and fix what fails. Locally, `cargo build` (it
-compiles) and the one test or spec you are debugging are enough. Checks
-CI does not run (Jev journeys, fact check, playthroughs)
-are still yours to run when the change calls for them.
+compiles) and the one test or spec you are debugging are enough. A check CI does not run is still yours to run when the change calls for it.
 
 CI is for finding failures, not debugging them: its jobs keep output
 minimal and build with line tables only. Debug a failure by rerunning that
@@ -83,7 +81,7 @@ The commands, for when you do need one:
 ```sh
 cargo test
 scripts/smoke.sh         # fresh DB + fixtures: main pages return 200, one AI generation end to end
-scripts/e2e.sh           # headless browser specs (Playwright): exact + smoke specs (no key, also CI on every PR); Jev journeys too if TYPESAFE_API_KEY is set
+scripts/e2e.sh           # headless browser specs (Playwright): exact + smoke specs (also CI on every PR)
 scripts/pi-budget.sh     # release binary size, idle RSS and threads vs scripts/pi-budget.txt (CI job "pi budget", off for now, #1387); --update after an accepted growth
 ./.dev-start --reset --seed --background   # then open <url>/dev/login and click through
 ./.dev-start --test-course …   # also offer the test course (/dev/login?open=test-course)

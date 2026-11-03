@@ -11,7 +11,7 @@ is not `1` and `SKRONGLE_PUBLIC_URL` is unset (or local). It also refuses it
 when the database holds any account besides `dev@example.com`, since that
 looks like a deploy's database, unless `SKRONGLE_DEV_FORCE=1` says it is a
 development one; `./.dev-start` sets that, and `scripts/e2e.sh`,
-`scripts/smoke.sh` and the playthroughs start from a fresh database. In dev
+and `scripts/smoke.sh` start from a fresh database. In dev
 mode **every** route answers only requests made to `localhost`,
 `127.0.0.1` or `[::1]` (any port) and gives anything else `421 Misdirected
 Request`, so a DNS-rebinding page cannot reach the dev server under its own
@@ -688,7 +688,7 @@ own are listed in its `AUTHORING.md`.
 ## Browser tests
 
 ```sh
-scripts/e2e.sh                          # exact specs; the optional model-judged specs too when a key is set
+scripts/e2e.sh                          # all specs
 scripts/e2e.sh --grep "reading check"   # any Playwright option works with e2e.sh
 npx --prefix e2e playwright show-report e2e/results/report   # after a failure: steps, trace, screenshot
 ```
@@ -727,16 +727,7 @@ offline. `npm --prefix e2e run typecheck` checks the TypeScript.
 | `e2e/lib/sprint-play.ts` | `playSprintRight`: a Sprint mode session played with the right answers; reports the exercise kinds it met |
 | `e2e/lib/learner.ts` | A fresh account (`newAccount`; `signUp` fills `/register` and waits for the signed-in page; `register` signs up and opens a course; `login`, `logout`), `/api/progress`, and the check that every page agrees with it |
 | `e2e/lib/fixtures.ts` | The smoke specs' `test`: seeded `Math.random` and a fake voice in every page; prints the seed on failure |
-| `e2e/results/` | Last run: `last-run.json`, the HTML report, traces, and the optional specs' reports (untracked) |
-
-### Optional model-judged specs
-
-Two kinds of spec use a hosted model to judge a page or to find a path toward a
-goal in words: `scripts/e2e-jev.sh` (journeys and judged statements) and
-`scripts/e2e-explore.sh` (exploratory runs that report and never fail). They are
-test tools, not part of the app, and run only when `TYPESAFE_API_KEY` is set in an
-untracked `./.env` or `e2e/.env` (see `e2e/.env.example`); without it
-`scripts/e2e.sh` skips them. Everything CI gates on is exact: no key, no model.
+| `e2e/results/` | Last run: `last-run.json`, the HTML report, traces (untracked) |
 
 ## Smoke specs
 

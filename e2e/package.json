@@ -2,18 +2,15 @@
   "name": "skurnonglifyable-e2e",
   "private": true,
   "type": "module",
-  "description": "Browser tests: Playwright drives the dev server; Jev (TypeSafe) judges and navigates when a key is set. Dev-only, never shipped.",
+  "description": "Browser tests: Playwright drives the dev server. Dev-only, never shipped.",
   "scripts": {
     "test": "playwright test",
-    "exact": "playwright test --grep-invert @jev",
-    "jev": "playwright test --grep @jev",
     "typecheck": "tsc -p .",
-    "unit": "node --test record/*.test.ts lib/*.test.ts"
+    "unit": "node --test lib/*.test.ts"
   },
   "devDependencies": {
     "@playwright/test": "1.64.1",
     "@types/node": "26.6.5",
-    "@typesafe-ai/sdk": "0.7.0",
     "typescript": "7.0.2"
   }
 }

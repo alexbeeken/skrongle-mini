@@ -1,14 +1,13 @@
-// Exact signals that the platform is broken, no model in the loop: the same
-// ones the explorer uses (e2e/lib/explore.ts), plus the playthrough's own
-// consistency checks. Each finding says where it happened (mode, lesson,
-// phase, URL) and keeps a screenshot of the first time.
+// Exact signals that the platform is broken, no model in the loop. Each
+// finding says where it happened (mode, lesson, phase, URL) and keeps a
+// screenshot of the first time.
 import type { Page } from "@playwright/test";
 import { join } from "node:path";
 
 export type Kind =
   | "bug" // HTTP errors, failed requests, console and page errors, overflow
   | "invariant" // progress that disagrees between pages, a fudge the app refused
-  | "stuck"; // a session Jev could not finish (a dead button, or Jev)
+  | "stuck"; // a session that could not finish (a dead button)
 
 export interface Finding {
   kind: Kind;

@@ -103,5 +103,4 @@ Short, plain and unambiguous: one obvious right answer, correct Spanish,
 no content that teaches anything beyond the feature. Keep each lesson about
 its feature, so its sessions stay predictable. Add to `everything.json` too
 when you add a lesson field. Lesson files are `json.dumps(indent=2,
-ensure_ascii=False)`. The fact check
-(`scripts/fact-check.sh`) is for real courses and doesn't cover this one.
+ensure_ascii=False)`.

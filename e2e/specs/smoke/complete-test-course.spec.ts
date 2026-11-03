@@ -9,7 +9,7 @@ import { ALL_KINDS, playSprintRight } from "../../lib/sprint-play.ts";
 import { expect, test } from "../../lib/fixtures.ts";
 import { AnswerKey } from "../../lib/key.ts";
 import { apiProgress, expectProgressAgrees, newAccount, register } from "../../lib/learner.ts";
-import { Findings } from "../../playthrough/watch.ts";
+import { Findings } from "../../lib/findings.ts";
 
 const COURSE = "test-course";
 const key = new AnswerKey(COURSE);

@@ -3,7 +3,7 @@
 // ear), from what the fake voice was asked to say. They read the state
 // attributes listed in docs/testing.md, never class names.
 import { expect, type Page, type TestInfo } from "@playwright/test";
-import { Findings } from "../playthrough/watch.ts";
+import { Findings } from "./findings.ts";
 import type { AnswerKey } from "./key.ts";
 
 /** Which answers a driver gives wrong: the 0-based index of each answer in the round. */

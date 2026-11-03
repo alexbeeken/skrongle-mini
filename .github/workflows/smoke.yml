@@ -2,8 +2,7 @@
 # server smoke test (scripts/smoke.sh), the exact browser specs and the
 # smoke specs (e2e/specs/smoke/), each suite in Playwright shards. Each job
 # starts its own fresh seeded server.
-# No key and no network beyond installing tools; the Jev specs are never run
-# here. See docs/testing.md, "Smoke specs".
+# No key and no network beyond installing tools. See docs/testing.md, "Smoke specs".
 #
 # Every job runs on GitHub-hosted runners (ubuntu-latest). The Rust and
 # npm caches (rust-cache, setup-node) are GitHub's. See docs/testing.md,

@@ -1,13 +1,10 @@
 #!/usr/bin/env bash
 # Browser tests (Playwright, headless) against a real server: fresh
 # database, seeded dev user (with the simulated provider's keys). The exact specs need no network
-# and no key; the Jev specs and journeys run only when TYPESAFE_API_KEY (or
-# JEV_API_KEY) is set, in the environment, e2e/.env or ./.env, and are skipped
-# otherwise. See docs/testing.md, "Browser tests".
+# and no key. See docs/testing.md, "Browser tests".
 #
-#   scripts/e2e.sh                       # everything (Jev parts skipped without a key)
+#   scripts/e2e.sh                       # everything
 #   scripts/e2e.sh --grep "reading check" # any Playwright option works
-#   scripts/e2e-jev.sh [journey-id…]     # only the Jev tests (see that script)
 #   KEEP=1 scripts/e2e.sh                # leave the server running afterwards
 #   SERVER_BIN=path scripts/e2e.sh       # run that server binary, don't build
 #
@@ -58,11 +55,7 @@ PID=$!
 for _ in $(seq 1 100); do curl -fsS "$URL/healthz" >/dev/null 2>&1 && break; sleep 0.2; done
 curl -fsS "$URL/healthz" >/dev/null || { echo "server did not start:"; cat "$LOG"; exit 1; }
 
-# The Jev key (and JEV_* settings) for the test runner only, not the app server.
-for f in .env e2e/.env; do
-  if [ -f "$f" ]; then set -a; . "./$f"; set +a; fi
-done
-echo "==> e2e against $URL, seed $SEED ($( [ -n "${TYPESAFE_API_KEY:-}${JEV_API_KEY:-}" ] && echo "Jev on" || echo "Jev off: no key, those specs are skipped"))"
+echo "==> e2e against $URL, seed $SEED"
 STATUS=0
 (cd e2e && E2E_BASE_URL="$URL" E2E_SEED="$SEED" npx playwright test "$@") || STATUS=$?
 if [ "$STATUS" != 0 ]; then

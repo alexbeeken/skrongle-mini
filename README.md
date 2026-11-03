@@ -132,9 +132,7 @@ simulated AI provider that answers from fixtures, and seeded accounts, so
 every AI feature can be exercised without a key. Working on the code with an
 LLM? Start with `CLAUDE.md`.
 
-The one key a developer may bring is for the optional model-judged browser
-tests, read by the test scripts alone from a git-ignored `.env`; see
-[docs/testing.md](docs/testing.md). The app itself keeps no developer keys.
+The app itself keeps no developer keys.
 
 ### Cross-compiling and releases
 

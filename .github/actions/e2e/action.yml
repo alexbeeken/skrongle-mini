@@ -48,7 +48,7 @@ runs:
       # SQLite's syncs cost nothing.
       env:
         E2E_DB: /dev/shm/e2e.db
-      run: SERVER_BIN=$(scripts/ci-build.sh) scripts/e2e.sh ${{ inputs.specs }} --shard ${{ inputs.shard }} --grep-invert @jev
+      run: SERVER_BIN=$(scripts/ci-build.sh) scripts/e2e.sh ${{ inputs.specs }} --shard ${{ inputs.shard }}
 
     - name: Keep the report of a failed run
       if: failure()
