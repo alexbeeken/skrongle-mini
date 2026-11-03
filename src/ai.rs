@@ -19,7 +19,7 @@
 use serde::Serialize;
 use std::collections::HashMap;
 use std::sync::atomic::{AtomicBool, Ordering};
-use std::sync::{Arc, Mutex};
+use std::sync::Mutex;
 use std::time::Duration;
 
 use crate::arrange::{outline_entry, patch_lesson, without_prerequisites};

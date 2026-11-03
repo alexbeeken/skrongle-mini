@@ -1,4 +1,5 @@
 use super::*;
+use std::sync::Arc;
 
 #[test]
 fn internal_addresses_are_recognised() {
