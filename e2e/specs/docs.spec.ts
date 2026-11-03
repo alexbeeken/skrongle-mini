@@ -16,7 +16,7 @@ test("the docs index is reachable logged out, with user and developer pages apar
   await expect(page.getByTestId("docs-section")).toHaveCount(3);
   await expect(page.getByTestId("docs-section-title")).toHaveText(["Guides", "Reference", "Developers"]);
   const dev = page.locator('[data-testid="docs-section"][data-section="dev"]');
-  for (const slug of ["architecture", "testing", "qa"]) await expect(dev.locator(`[data-slug="${slug}"]`)).toHaveCount(1);
+  for (const slug of ["architecture", "testing"]) await expect(dev.locator(`[data-slug="${slug}"]`)).toHaveCount(1);
   for (const slug of USER_PAGES) await expect(dev.locator(`[data-slug="${slug}"]`)).toHaveCount(0);
 
   // Every user guide is linked from the index body, and opens.

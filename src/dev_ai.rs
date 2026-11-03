@@ -81,7 +81,7 @@ pub fn key_provider(key: &str) -> Provider {
     Provider::ALL
         .into_iter()
         .filter(|p| !p.prefix().is_empty() && key.starts_with(p.prefix()))
-        .max_by_key(|p| (p.prefix().len(), std::cmp::Reverse(p.id())))
+        .max_by_key(|p| (p.prefix().len(), *p == Provider::OpenAi))
         .unwrap_or(Provider::OpenAi)
 }
 

@@ -5,7 +5,7 @@
 // /superuser address redirects to the page.
 import { expect, test } from "@playwright/test";
 import { devLogin } from "../lib/app";
-import { login, newAccount, signUp } from "../lib/learner";
+import { newAccount, signUp } from "../lib/learner";
 
 test("an owner sets a temporary password; the learner signs in with it and must choose a new one", async ({ page, browser }) => {
   const them = await (await browser.newContext()).newPage();
@@ -98,7 +98,6 @@ test("an owner makes another account an owner; the old /superuser address leads 
   const them = await (await browser.newContext()).newPage();
   const a = newAccount("make-owner");
   await signUp(them, a);
-  await login(them, a); // registering signs nobody in (#379)
 
   await devLogin(page);
   await page.goto("/superuser");
