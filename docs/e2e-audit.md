@@ -189,7 +189,7 @@ teenager on a phone in Sprint, 6), `testing-bot` (sees only markup, 12).
 | `specs/smoke/practice-nothing-yet.spec.ts` | 2 | yes |  |
 | `specs/smoke/practice-result-order.spec.ts` | 1 | yes |  |
 | `specs/smoke/practice-summary.spec.ts` | 2 | yes |  |
-| `specs/smoke/privacy.spec.ts` | 3 | yes |  |
+| `specs/smoke/privacy.spec.ts` | 2 | yes |  |
 | `specs/smoke/self-host.spec.ts` | 4 | yes |  |
 | `specs/smoke/skc-shop.spec.ts` | 2 | yes |  |
 | `specs/smoke/sprint-check-error.spec.ts` | 2 | yes |  |
@@ -477,7 +477,7 @@ Titles as Playwright lists them (from the source: run `npm ci` in e2e/ for loops
 - **`specs/smoke/practice-nothing-yet.spec.ts`** (2, CI): a fresh learner's practice shows Read next and no counter · a round with questions still shows the counter
 - **`specs/smoke/practice-result-order.spec.ts`** (1, CI): the result box sits above Next, and Hint goes once the answer is graded
 - **`specs/smoke/practice-summary.spec.ts`** (2, CI): the mastery change is shown as (+N), and left out when nothing changed · a round too short to count says what it needs the answers for
-- **`specs/smoke/privacy.spec.ts`** (3, CI): the deleting the account signs out and waits 14 days; signing in can cancel it (#970) · the AI forms say which provider gets the notes
+- **`specs/smoke/privacy.spec.ts`** (2, CI): deleting the account signs out and waits 14 days; signing in can cancel it (#970) · the AI forms say which provider gets the notes
 - **`specs/smoke/self-host.spec.ts`** (4, CI): the self-hosting guide is linked from the docs and readable on a phone · the guide is only linked from the docs, not the landing page or the footer · the self-hosting FAQ is linked from the technical guide and points at the diagnostics
 - **`specs/smoke/skc-shop.spec.ts`** (2, CI): the shop sells a badge once and keeps it across motivators · without JavaScript a refused buy says why
 - **`specs/smoke/sprint-check-error.spec.ts`** (2, CI): a failing check shows one error line, replaced on retry, cleared on success · a typed answer stays editable after a failed check (issue #672)
