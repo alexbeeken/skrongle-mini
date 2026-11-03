@@ -149,10 +149,10 @@ test("copies count against the account's course bytes: past the limit the copy i
   const acct = newAccount("copy");
   await signUp(page, acct);
   await login(page, acct); // registering signs nobody in (#379)
-  // Copy until the account is full (32 MB; the Spanish course takes 3.6 MB).
+  // Copy until the account is full (32 MB; the Spanish course takes about 2.3 MB).
   let made = 0;
   let refused = "";
-  for (let i = 0; i < 12 && !refused; i++) {
+  for (let i = 0; i < 20 && !refused; i++) {
     const r = await page.request.post("/courses/spanish/copy", { maxRedirects: 0 });
     expect(r.status()).toBe(303);
     const to = r.headers()["location"] ?? "";
