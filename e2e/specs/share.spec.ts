@@ -87,7 +87,7 @@ test("an invited address registers from the link and has the course read only, u
 test("a shared course's circle tip wraps inside a phone screen while it shows, even with a long owner address (#954)", async ({ page, browser }) => {
   // The owner has a long address, so "Shared with you by ..." is wider than the screen on one line.
   // newAccount adds about 17 characters; the part before the @ stays within the 64 that mail allows (#1003).
-  const owner = newAccount("a-long-owner-address-for-the-phone-tip-check");
+  const owner = newAccount("a-long-owner-address-for-the-tip-check");
   const ownerPage = await (await browser.newContext()).newPage();
   await signUp(ownerPage, owner);
   const id = await createCourse(ownerPage);
