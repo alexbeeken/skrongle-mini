@@ -498,7 +498,7 @@ const MISTAKES_SHOWN: i64 = 50;
 
 // ---------- handlers ----------
 
-pub async fn load_progress(state: &AppState, user_id: i64, course_id: &str) -> Result<HashMap<String, Progress>, AppError> {
+pub async fn load_progress(state: &AppState, user_id: i64, course_id: &str) -> Result<Arc<HashMap<String, Progress>>, AppError> {
     let cid = course_id.to_string();
     state.db.call(move |c| mastery::load_progress(c, user_id, &cid)).await
 }

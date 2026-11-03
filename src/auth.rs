@@ -267,7 +267,13 @@ pub fn find_user_credentials(conn: &Connection, email: &str) -> rusqlite::Result
 /// anyone in; the cookie's 256 random bits need no salt or slow hash.
 pub fn hash_token(token: &str) -> String {
     use sha2::{Digest, Sha256};
-    Sha256::digest(token.as_bytes()).iter().map(|b| format!("{b:02x}")).collect()
+    const HEX: &[u8; 16] = b"0123456789abcdef";
+    let mut out = String::with_capacity(64);
+    for b in Sha256::digest(token.as_bytes()) {
+        out.push(HEX[usize::from(b >> 4)] as char);
+        out.push(HEX[usize::from(b & 15)] as char);
+    }
+    out
 }
 
 /// Start a session; returns the token for the cookie (only its hash is stored).
@@ -586,6 +592,15 @@ impl<S: Send + Sync> FromRequestParts<S> for SessionToken {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// The hex lookup gives what the per-byte `format!` did.
+    #[test]
+    fn hash_token_hex_matches_format() {
+        use sha2::{Digest, Sha256};
+        let old: String = Sha256::digest(b"abc").iter().map(|b| format!("{b:02x}")).collect();
+        assert_eq!(hash_token("abc"), old);
+        assert_eq!(hash_token("abc"), "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad");
+    }
 
     /// A request after the first finds its user in memory (#37), and every
     /// change to what the session query reads is seen on the next request:
