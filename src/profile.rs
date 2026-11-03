@@ -68,39 +68,19 @@ pub struct Profile {
     pub last_name: String,
     /// `None` until the account has one; afterwards fixed.
     pub email: Option<String>,
-    pub created_at: i64,
     /// Accounts without one (signed in through a proxy) have no password to change.
     pub has_password: bool,
-    /// When the age box was ticked (`consent::age_confirmed_at`).
-    pub age_confirmed_at: Option<i64>,
     /// The phone number and the second sign-in step (`two_factor.rs`).
     pub two_factor: crate::two_factor::Settings,
 }
 
-impl Profile {
-    /// The age row of the Privacy and consent card.
-    pub fn age_text(&self) -> String {
-        match self.age_confirmed_at {
-            Some(t) => crate::t1("profile.consent.age_confirmed", "date", long_date(t)),
-            None => crate::t("profile.consent.age_not_confirmed"),
-        }
-    }
-
-    /// What a Google-only account types to confirm deleting itself: its
-    /// address (Google always gives one), or "delete" should it have none.
-    pub fn delete_phrase(&self) -> String {
-        self.email.clone().filter(|e| !e.is_empty()).unwrap_or_else(|| "delete".into())
-    }
-}
-
 pub fn load(conn: &Connection, user_id: i64) -> rusqlite::Result<Option<Profile>> {
-    let age_confirmed_at = crate::consent::age_confirmed_at(conn, user_id)?;
     let two_factor = match crate::two_factor::settings(conn, user_id) {
         Err(rusqlite::Error::QueryReturnedNoRows) => return Ok(None),
         r => r?,
     };
     conn.query_row(
-        "SELECT first_name, last_name, NULLIF(email, ''), created_at,
+        "SELECT first_name, last_name, NULLIF(email, ''),
                 password_hash != ''
          FROM users WHERE id = ?1",
         [user_id],
@@ -109,9 +89,7 @@ pub fn load(conn: &Connection, user_id: i64) -> rusqlite::Result<Option<Profile>
                 first_name: r.get(0)?,
                 last_name: r.get(1)?,
                 email: r.get(2)?,
-                created_at: r.get(3)?,
-                has_password: r.get(4)?,
-                age_confirmed_at,
+                has_password: r.get(3)?,
                 two_factor: two_factor.clone(),
             })
         },
@@ -208,12 +186,6 @@ pub fn public_name(first_name: &str, last_name: &str) -> String {
         Some(i) => format!("{f} {}.", i.to_uppercase()),
         None => f.to_string(),
     }
-}
-
-/// Month and year an account was created, for "member since".
-pub fn member_since(created_at: i64) -> String {
-    let (y, m, _) = civil(created_at);
-    crate::t2("profile.date.month_year", "month", month_name(m), "year", y)
 }
 
 /// "16 October 2026", for dates such as a subscription's renewal.
@@ -313,9 +285,6 @@ mod tests {
         assert_eq!(public_name("Ana", "élan"), "Ana É.");
         assert_eq!(public_name(" Ana ", ""), "Ana");
         assert_eq!(public_name("", "López"), "Learner");
-        assert_eq!(member_since(0), "January 1970");
-        assert_eq!(member_since(1_759_881_600), "October 2025"); // 2025-10-08
-        assert_eq!(member_since(951_782_400), "February 2000"); // 2000-02-29
         assert_eq!(long_date(951_782_400), "29 February 2000");
         assert_eq!(long_date(1_759_881_600 + 86_399), "8 October 2025");
     }

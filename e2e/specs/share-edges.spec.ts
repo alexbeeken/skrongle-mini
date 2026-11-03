@@ -247,7 +247,7 @@ test("the share removed mid-session: the next page goes to the course list, the 
 
 // The share removed mid-Sprint (#1083) is specs/share-removed.spec.ts.
 
-test("the owner deletes the course, or the whole account: the course leaves the learner's list and session", async ({ page, browser }) => {
+test("the owner deletes the course: the course leaves the learner's list and session", async ({ page, browser }) => {
   // The course.
   await devLogin(page, "next=/courses");
   const id = await newCourse(page);
@@ -258,18 +258,7 @@ test("the owner deletes the course, or the whole account: the course leaves the 
   await expect(await card(r.page, id)).toHaveCount(0);
   await backAtThePicker(r.page);
 
-  // The account.
-  const owner = await learner(browser, "share-edge-owner");
-  await owner.page.goto("/courses");
-  const id2 = await newCourse(owner.page);
-  await opens(r.page, await invite(owner.page, id2, r.account.email), id2);
-  await owner.page.goto("/profile");
-  await owner.page.getByTestId("profile-delete-password").fill(owner.account.password);
-  await owner.page.getByTestId("profile-delete-submit").click();
-  await expect(owner.page).not.toHaveURL(/\/profile/);
-  await expect(await card(r.page, id2)).toHaveCount(0);
-  await backAtThePicker(r.page);
-  for (const p of [r.page, owner.page]) await p.context().close();
+  await r.page.context().close();
 });
 
 test("the Share dialog is in the owner's language; the learner's pages stay in theirs", async ({ browser }) => {

@@ -20,11 +20,6 @@ pub enum AppError {
     /// removed mid-session (#1083): a 410 the page scripts answer by going
     /// to the course list, the way they answer a 401 with the login page.
     ApiNoCourse,
-    /// Signed in to an account scheduled for deletion (#970): redirect to
-    /// `/account/deletion`, where the learner may cancel it or sign out.
-    DeletionScheduled,
-    /// The same on an API route: a 403 JSON body.
-    ApiDeletionScheduled,
     /// Signed in with a temporary password the owner set (#635): redirect
     /// to `/password/change`, which returns to this app path afterwards.
     PasswordChangeRequired(String),
@@ -54,7 +49,6 @@ impl fmt::Display for AppError {
             AppError::Unauthorized => f.write_str("unauthorized"),
             AppError::ApiNoCourse => f.write_str("no course chosen"),
             AppError::PasswordChangeRequired(_) | AppError::ApiPasswordChangeRequired => f.write_str("a new password is needed"),
-            AppError::DeletionScheduled | AppError::ApiDeletionScheduled => f.write_str("the account is scheduled for deletion"),
             AppError::AiOff | AppError::ApiAiOff => f.write_str("AI features are off"),
             AppError::ApiTooManyRequests(m) => write!(f, "too many requests: {m}"),
             AppError::Db(e) => write!(f, "database error: {e}"),
@@ -100,13 +94,6 @@ impl IntoResponse for AppError {
                 StatusCode::GONE,
                 [(axum::http::header::CONTENT_TYPE, "application/json")],
                 r#"{"error":"choose a course first"}"#,
-            )
-                .into_response(),
-            AppError::DeletionScheduled => Redirect::to(&crate::url("/account/deletion")).into_response(),
-            AppError::ApiDeletionScheduled => (
-                StatusCode::FORBIDDEN,
-                [(axum::http::header::CONTENT_TYPE, "application/json")],
-                r#"{"error":"the account is scheduled for deletion"}"#,
             )
                 .into_response(),
             AppError::PasswordChangeRequired(next) => {

@@ -5,7 +5,7 @@
 <header class="profile-head">
   <div class="profile-title">
     <h1 data-testid="profile-display-name">{{ display_name }}</h1>
-    <p class="muted">{{ crate::t1("profile.head.member_since", "date", member_since.as_str()) }}</p>
+    {% if is_owner() %}<p class="muted small" data-testid="profile-role">{{ crate::t("profile.head.owner") }}</p>{% endif %}
   </div>
   <span class="save-status" data-testid="profile-save-status" data-state="saved" role="status" aria-label="{{ crate::t("profile.head.all_saved") }}" title="{{ crate::t("profile.head.all_saved") }}" hidden>
     <svg class="when-saved" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 16.2 5.3 12l-1.4 1.4 5.6 5.6 11-11-1.4-1.4z"/></svg>
@@ -30,8 +30,6 @@
     <li><a href="#personal" data-testid="profile-nav-link" data-section="personal">{{ crate::t("profile.nav.personal") }}</a></li>
     <li><a href="#account" data-testid="profile-nav-link" data-section="account">{{ crate::t("profile.nav.account") }}</a></li>
     <li><a href="#two-factor" data-testid="profile-nav-link" data-section="two-factor">{{ crate::t("profile.nav.two_factor") }}</a></li>
-    <li><a href="#consent" data-testid="profile-nav-link" data-section="consent">{{ crate::t("profile.nav.consent") }}</a></li>
-    <li><a href="#data" data-testid="profile-nav-link" data-section="data">{{ crate::t("profile.nav.data") }}</a></li>
   </ul>
 </nav>
 <section class="profile">
@@ -71,7 +69,6 @@
   <section class="card" id="account">
     <h2>{{ crate::t("profile.account.title") }}</h2>
     <dl class="facts">
-      <dt>{{ crate::t("profile.account.member_since") }}</dt><dd>{{ member_since }}</dd>
       <dt>{{ crate::t("profile.account.sign_in") }}</dt>
       <dd data-testid="profile-sign-in">
         {% if profile.has_password %}{{ crate::t("profile.account.password") }}{% endif %}
@@ -192,50 +189,6 @@
       <p>{{ crate::t("profile.two_factor.totp_info_key") }}</p>
       <div class="modal-actions"><button type="button" class="btn" data-closes>{{ crate::t("profile.two_factor.close") }}</button></div>
     </dialog>
-    {% endif %}
-  </section>
-
-  <section class="card" id="consent" data-testid="profile-consent">
-    <h2 class="heading-with-info">{{ crate::t("profile.consent.title") }} <button type="button" class="info-btn" data-opens="consent-info" aria-haspopup="dialog" aria-label="{{ crate::t("profile.consent.info") }}" data-testid="profile-consent-info">i</button></h2>
-    <dialog class="modal" id="consent-info" aria-labelledby="consent-info-title" data-testid="profile-consent-info-dialog">
-      <h2 id="consent-info-title">{{ crate::t("profile.consent.title") }}</h2>
-      <p>{{ crate::t("profile.consent.info_age") }}</p>
-      <p>{{ crate::t("profile.consent.info_record") }}</p>
-      <div class="modal-actions"><button type="button" class="btn" data-closes data-testid="profile-consent-info-close">{{ crate::t("profile.consent.close") }}</button></div>
-    </dialog>
-    <dl class="facts">
-      <dt>{{ crate::t("profile.consent.age") }}</dt>
-      <dd data-testid="consent-age">{{ profile.age_text() }}</dd>
-    </dl>
-  </section>
-
-  <section class="card" id="data" data-testid="profile-data">
-    <h2>{{ crate::t("profile.data.title") }}</h2>
-    {% if is_owner() %}
-    <p class="muted small" data-testid="profile-delete-owner">{{ crate::t("profile.data.delete_owner") }}</p>
-    {% else %}
-    <div class="profile-delete">
-    <h3>{{ crate::t("profile.data.delete_title") }}</h3>
-    <p class="muted small">{{ crate::t("profile.data.delete_about") }}</p>
-    <form method="post" action="{{ crate::base_path() }}/profile/delete" class="profile-form" data-testid="profile-delete-form">
-      {% if let Some(e) = delete_error %}<p class="alert error" role="alert" data-testid="profile-delete-error">{{ e }}</p>{% endif %}
-      {% if profile.has_password %}
-      <label>{{ crate::t("profile.data.your_password") }}
-        <input type="password" name="password" data-testid="profile-delete-password" maxlength="{{ crate::auth::PASSWORD_MAX }}" required autocomplete="current-password">
-      </label>
-      {% else %}
-      <label>{{ crate::t("profile.data.confirm_before") }}<strong>{{ profile.delete_phrase() }}</strong>{{ crate::t("profile.data.confirm_after") }}
-        <input type="text" name="confirm" data-testid="profile-delete-confirm" maxlength="{{ crate::profile::EMAIL_MAX }}" required autocomplete="off" spellcheck="false">
-      </label>
-      {% if proof_kind() != "none" %}
-      <label>{{ crate::t("profile.data.code_app") }}
-        <input type="text" name="code" inputmode="numeric" pattern="[0-9 ]*" maxlength="9" autocomplete="one-time-code" required data-testid="profile-delete-code">
-      </label>
-      {% endif %}
-      {% endif %}
-      <button type="submit" class="btn danger" data-testid="profile-delete-submit">{{ crate::t("profile.data.delete") }}</button>
-    </form>
-    </div>
     {% endif %}
   </section>
 </section>

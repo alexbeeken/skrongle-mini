@@ -94,7 +94,7 @@ test("only the owner sees the keys and the switch; nobody has them on the profil
   expect((await other.request.post("/manage/ai", { form: { off: "1" }, maxRedirects: 0 })).status()).toBe(404);
   expect((await other.request.post("/api/manage/keys", { data: { key_anthropic: "sk-ant-dev-not-yours" } })).status()).toBe(404);
   await other.goto("/profile");
-  await expect(other.getByTestId("profile-consent")).toBeVisible();
+  await expect(other.getByTestId("profile-two-factor")).toBeVisible();
   await expect(other.locator('[data-testid^="manage-api-key"], [data-testid^="profile-api-key"], [data-testid^="consent-ai"]')).toHaveCount(0);
   await expect(other.locator('[data-testid="profile-nav-link"][data-section="api-keys"]')).toHaveCount(0);
   await other.context().close();

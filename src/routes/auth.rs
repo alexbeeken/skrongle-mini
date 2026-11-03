@@ -30,7 +30,6 @@ pub struct LoginTemplate {
     pub email: String,
     /// Dev mode: offer a one-click login as the dev user.
     pub dev: bool,
-    pub notice: Option<String>,
     /// A course's share link brought the visitor here (`?share=<token>`,
     /// `share.rs`): the page says so, and signing in or registering goes
     /// on to the link.
@@ -97,8 +96,6 @@ fn after_sign_in(share: Option<&ShareNotice>) -> String {
 pub struct LoginQuery {
     /// A course's share link (`share.rs`): the page says what it is for.
     pub share: Option<String>,
-    /// Back from *Delete my account* (#970): when the account will be deleted.
-    pub deletion: Option<String>,
 }
 
 #[derive(Deserialize)]
@@ -140,13 +137,6 @@ fn proxy_page(status: StatusCode, signed_out: bool) -> Response {
 async fn admit(state: &AppState, invite: &str, email: Option<&str>) -> Result<Result<Admit, Refusal>, AppError> {
     let (mode, invite, email, dev) = (state.signup, invite.to_string(), email.map(str::to_string), state.dev);
     state.db.call(move |c| signup::admit(c, mode, &invite, email.as_deref(), now(), dev)).await
-}
-
-/// The login page's notice after *Delete my account* (#970): the date it
-/// goes, and that signing in before then can cancel it.
-fn deletion_notice(at: Option<&str>) -> Option<String> {
-    let at: i64 = at?.parse().ok().filter(|t| (1..32_503_680_000).contains(t))?;
-    Some(crate::t1("auth.login.deletion_scheduled", "date", crate::profile::long_date(at)))
 }
 
 #[derive(Template)]
@@ -214,8 +204,7 @@ pub async fn login_form(State(state): State<Arc<AppState>>, MaybeUser(user): May
     if state.proxy_auth.is_some() {
         return Ok(proxy_page(StatusCode::OK, false));
     }
-    let notice = deletion_notice(q.deletion.as_deref());
-    Ok(Page(LoginTemplate { user: None, error: None, email: String::new(), dev: state.dev, notice, share }).into_response())
+    Ok(Page(LoginTemplate { user: None, error: None, email: String::new(), dev: state.dev, share }).into_response())
 }
 
 pub async fn register_form(State(state): State<Arc<AppState>>, MaybeUser(user): MaybeUser, Query(q): Query<RegisterQuery>) -> Result<Response, AppError> {
@@ -258,7 +247,7 @@ pub async fn login(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp, r
         return Ok(proxy_page(StatusCode::FORBIDDEN, false));
     }
     let too_many = |email: String, share: Option<_>| {
-        let page = LoginTemplate { user: None, error: Some(crate::t("auth.login.too_many_attempts")), email, dev: state.dev, notice: None, share };
+        let page = LoginTemplate { user: None, error: Some(crate::t("auth.login.too_many_attempts")), email, dev: state.dev, share };
         (StatusCode::TOO_MANY_REQUESTS, Page(page)).into_response()
     };
     if state.limits.blocked(security::LOGIN_PER_IP, &ip, now()) {
@@ -277,7 +266,6 @@ pub async fn login(State(state): State<Arc<AppState>>, ClientIp(ip): ClientIp, r
             error: Some(msg.to_string()),
             email: email.clone(),
             dev: state.dev,
-            notice: None,
             share: share.clone(),
         })
         .into_response()

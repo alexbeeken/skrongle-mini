@@ -47,7 +47,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 - Sign-in: `auth.rs` (sessions, CurrentUser, Project), `auth/cache.rs` (the signed-in users kept in memory by session, #37), `routes/auth.rs`, `routes/auth/code.rs` (the two-factor step), `proxy_auth.rs` (proxy header), `signup.rs` (who may register), `urlenc.rs` (percent-encoding for the redirects they build).
 - Two-factor: `two_factor.rs`, `totp.rs`.
 - Profile: `profile.rs`, `routes/profile.rs`, `static/profile.js`, `static/autosave.js`.
-- Data rights: `privacy.rs` (export columns, deletion), `consent.rs` (optional consents for the Privacy and consent card), `account_deletion.rs` and `routes/account_deletion.rs` (deleting an account after 14 days, #970).
+- Data rights: `privacy.rs` (the user-table list, retention rules, the age confirmation).
 - Owner: `owner.rs`, `routes/manage.rs`, `static/manage.js`, `routes/password.rs` (temporary password gate); the server's AI API keys in `secrets.rs` and the hide-AI switch in `settings.rs`, both on Manage Users (#25).
 - Docs pages: `routes/docs.rs` (`/docs` sidebar `SECTIONS`, `/llms.txt`).
 
@@ -85,7 +85,6 @@ src/
   proxy_auth.rs  sign-in through a reverse proxy's identity header (SKRONGLE_PROXY_AUTH_HEADER / _FROM, #642): a middleware before every handler
   signup.rs      who may make an account (SKRONGLE_SIGNUP: open / invite / closed, #634): the first account is the owner, through the owner link written to the log at startup, invitation links (table signup_invites, the token hashed), the Manage Users page's Accounts part and invitation links (routes/manage.rs)
 
-  account_deletion.rs  the learner's own account deletion after 14 days of grace (#970): users.delete_at, signing out, the housekeeping step that deletes due accounts
   share.rs       sharing a course with other learners by e-mail address (#451): invitation links the owner passes on (table course_shares, the link's token hashed), who may open a shared course
   totp.rs        time-based one-time passwords: RFC 6238 TOTP over RFC 4226 HOTP (SHA-1 written out, SHA-256/512 via sha2), base32, the otpauth://totp/ Key Uri Format and its QR code as inline SVG (the qrcode crate, no image feature); the dev authenticator (/dev/authenticator) reads its keys with it
   two_factor.rs  two-factor sign-in: the method in use, the authenticator app's enrolment, sign-in challenges, the proof for turning it off (tables totp_keys, two_factor_challenges)
@@ -106,7 +105,7 @@ src/
   quiz.rs        adaptive question selection, answer normalisation/checking, tiny PRNG
   problems.rs    what the editor and the file page say when a course file is refused: kind, lesson, field, line, message, fix hint (every ContentError and arrange.rs refusal)
   owner.rs       what the owner does to an account with no message sent (#635): a temporary password (users.must_change_password), two-factor off, make an owner; the binary's commands (reset-password, disable-2fa, make-owner, help)
-  privacy.rs     a learner's data as a whole: USER_TABLES, account deletion, retention rules, the age confirmation and SKRONGLE_MIN_AGE (docs/data-inventory.md)
+  privacy.rs     a learner's data as a whole: USER_TABLES, retention rules, the age confirmation and SKRONGLE_MIN_AGE (docs/data-inventory.md)
   jobs.rs        background jobs (table jobs, #872): enqueue, the one-statement claim with a lease, retries with per-kind delays, periodic kinds that queue their next run; the `jobs` runner thread, which also drains the mail and text outboxes with a lease (#873); the hourly housekeeping as one job with a step per purge
   mathcheck.rs   numeric and expression answers: a small parser/evaluator, numbers in every spelling, equivalence by sampling
   algebra_tiles.rs  algebra-tiles questions: the pile from `tiles`, an answer must be two sides whose product is the tiles
@@ -144,10 +143,9 @@ src/
     docs.rs      /docs (sidebar sections: SECTIONS), /llms.txt (docs/llms.txt)
     auth.rs      /login /register (signs the new account in; a taken address is refused on the form) /logout
     auth/code.rs /login/code… (the two-factor step: code form, resend, cancel, status, dev device)
-    account_deletion.rs  /account/deletion (the only page of an account scheduled for deletion: its date, Cancel deletion, Log out)
     password.rs  /password/change (the gate after signing in with a temporary password: the new one twice, no old one)
     manage.rs    /manage, the Manage Users page (owners only, 404 otherwise; /superuser redirects here): every account on one page with Temporary password, Turn off two-factor and Make owner per row; invitation links under SKRONGLE_SIGNUP=invite; and the AI section (#25): the server's AI API keys (autosaved, POST /api/manage/keys) and Hide AI features for everyone. POST /manage/make-owner|invites|invites/revoke|temp-password|two-factor-off|api-keys/remove|ai
-    profile.rs   /profile (personal information, account), POST /api/profile (autosave), POST /profile/password, POST /profile/delete
+    profile.rs   /profile (personal information, account), POST /api/profile (autosave), POST /profile/password
     pages.rs     / (landing for visitors, home: the three modes) /lessons /lessons/{slug} /history /mistakes, POST /api/lessons/{slug}/note (the lesson note, autosave)
     map.rs       /map
     quiz.rs      /practice, POST /api/answer (grade_and_record: the one grading path for every mode), POST /api/lesson-check (the reading check)
@@ -196,7 +194,7 @@ queues its next run when a run ends. The thread wakes on `AppState::queue`
 or when the next row is due, at least once a minute, and reaches SQLite
 through `Db::with`. The first user is the hourly housekeeping, one kind
 (`housekeeping`, #45) that runs every purge as a step in turn (sessions, the
-game, AI job and tutor maps, rate limits, account deletions, retention,
+game, AI job and tutor maps, rate limits, retention,
 links, old job rows, then the WAL checkpoint); each step logs its
 count, a failing step is logged and the next still runs. At
 boot it gets a row due now if it has none, so a server restarted more
@@ -294,8 +292,7 @@ users          (id AUTOINCREMENT, email, password_hash, created_at, email_verifi
                 -- lang: the language the app speaks to this account in (i18n/<code>.yaml), '' = the browser's;
                 -- review_quiet 1: "Review AI changes" does not open by itself;
                 -- ai_effort: the effort Generate the course last ran at: low | medium | high (Fast, Balanced, Thorough);
-                -- delete_at: the learner asked to delete it; deleted then by the hourly housekeeping
-                -- (src/account_deletion.rs); CurrentUser sends it to /account/deletion until then, its courses are not shared out
+                -- delete_at: unused, nothing reads or writes it; stays until the next schema change
 sessions       (id, user_id, session_token UNIQUE, created_at, expires_at)
                 -- session_token is the SHA-256 (hex) of the cookie's token (auth::hash_token), never the token
 totp_keys      (user_id PRIMARY KEY, secret, created_at, confirmed_at, last_step)
@@ -697,10 +694,5 @@ writable path, and a release never touches the database.
   and anyone with both files, i.e. root on the box, can read them. The page
   never echoes a key back: only its last four characters. Back up the
   `.key` file with the database if you want saved keys to survive a restore.
-- Account data: *Profile → Your data* deletes the account (`POST /profile/delete`: the password,
-  or for an account without one the e-mail address typed out plus its
-  second step's code, if it has one). Deletion stops the account's
-  generation jobs, tutor chats and games in memory, removes the `users` row
-  (every user table cascades from it) and the caches of its courses, and clears the cookie.
 - Logs name users by id, never by name or address; model errors are scrubbed of
   the key before they are logged or shown (`ai::redact_key`).

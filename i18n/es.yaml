@@ -107,7 +107,6 @@ common:
 
 auth:
   login:
-    deletion_scheduled: "Tu cuenta se eliminará el {date}. Para conservarla, inicia sesión antes y cancela la eliminación."
     title: Iniciar sesión
     email_label: Correo electrónico
     password_label: Contraseña
@@ -640,9 +639,11 @@ landing:
 
 profile:
   title: Perfil
+  ok: Aceptar
+  close: "Cerrar"
   no_name: Estudiante
   head:
-    member_since: "Miembro desde {date}"
+    owner: Propietario
     all_saved: Todos los cambios guardados
   month:
     january: enero
@@ -658,7 +659,6 @@ profile:
     november: noviembre
     december: diciembre
   date:
-    month_year: "{month} de {year}"
     long: "{day} de {month} de {year}"
   privacy:
     title: Quién ve qué
@@ -672,8 +672,6 @@ profile:
     personal: Información personal
     account: Cuenta
     two_factor: Autenticación en dos pasos
-    data: Tus datos
-    consent: "Privacidad y consentimiento"
   personal:
     title: Información personal
     first_name: Nombre
@@ -685,20 +683,10 @@ profile:
     language_unavailable: Ese idioma no está disponible.
   account:
     title: Cuenta
-    member_since: Miembro desde
     sign_in: Inicio de sesión
     password: Contraseña
     and: y
     no_password: Esta cuenta no tiene contraseña que cambiar.
-  consent:
-    title: "Privacidad y consentimiento"
-    info: "Sobre tus consentimientos"
-    info_age: "Confirmaste tu edad al registrarte. Para retirarlo, elimina tu cuenta en Tus datos."
-    info_record: "Cada cambio se guarda con su fecha."
-    close: "Cerrar"
-    age: "Edad"
-    age_confirmed: "Confirmada el {date}"
-    age_not_confirmed: "Sin confirmar"
   sessions:
     sign_out_others: Cerrar sesión en todos los demás sitios
     info_label: Sobre cerrar sesión en todos los demás sitios
@@ -764,26 +752,6 @@ profile:
       other: "Ese código no es correcto. Te quedan {n} intentos."
     code_wrong_newest: Ese código no es correcto. Escribe el código más reciente que muestra la aplicación.
     code_gone: No hay ningún código pendiente, o ya caducó. Envía uno nuevo.
-  data:
-    title: Tus datos
-    ok: Aceptar
-    delete_title: Eliminar cuenta
-    delete_about: "Eliminamos tu cuenta 14 días después de que lo pidas. Se eliminan tu progreso, tus cursos y tus claves guardadas. Hasta entonces tu sesión queda cerrada, y puedes volver a iniciar sesión para cancelarlo."
-    delete_owner: "Tú gestionas este Skrongle, así que tu cuenta no se puede borrar aquí."
-    your_password: Tu contraseña
-    confirm_before: Escribe tu dirección de correo electrónico (
-    confirm_after: ) para confirmar
-    delete: Eliminar mi cuenta
-    too_many: Demasiados intentos. Espera unos minutos e inténtalo de nuevo.
-    password_wrong: La contraseña no es correcta.
-    type_email: Escribe tu dirección de correo electrónico para confirmar.
-    code_app: Código de tu aplicación de autenticación
-  deletion:
-    title: "Cuenta pendiente de eliminación"
-    on: "Esta cuenta se eliminará para siempre el {date}."
-    info_label: "Sobre la eliminación"
-    about: "Hasta ese día la cuenta solo puede cancelar la eliminación o cerrar sesión. Si la cancelas, todo queda como estaba. Después de ese día tu progreso, tus cursos y tus claves guardadas desaparecen para siempre."
-    cancel: "Cancelar la eliminación"
   save:
     not_a_field: Este campo no forma parte del perfil.
     motivator_unavailable: "Ese motivador no está disponible."

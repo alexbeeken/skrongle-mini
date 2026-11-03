@@ -27,14 +27,11 @@ pub struct ProfileTemplate {
     pub display_name: String,
     /// How other learners see the name being edited ("Ana L."), for the privacy note.
     pub public_name: String,
-    pub member_since: String,
     pub notice: Option<String>,
     /// Which form failed, so the message sits next to it.
     pub password_error: Option<String>,
     /// Dev mode: show the dev authenticator link.
     pub dev: bool,
-    /// Why deleting the account was refused.
-    pub delete_error: Option<String>,
     /// Two-factor sign-in: why the chosen method was refused.
     pub two_factor_error: Option<String>,
     /// The authenticator app's enrolment dialog opens on load (just started,
@@ -53,8 +50,7 @@ pub struct ProfileTemplate {
 }
 
 impl ProfileTemplate {
-    /// The signed-in account is an owner (`users.owner`): no Delete account
-    /// section, only the line saying why (#15).
+    /// The signed-in account is an owner (`users.owner`): the profile says so.
     pub fn is_owner(&self) -> bool {
         self.user.as_ref().is_some_and(|u| u.owner)
     }
@@ -146,7 +142,6 @@ fn page(state: &AppState, user: CurrentUser, p: Profile) -> ProfileTemplate {
     ProfileTemplate {
         display_name: profile::display_name(&p.first_name, &p.last_name),
         public_name: profile::public_name(&p.first_name, &p.last_name),
-        member_since: profile::member_since(p.created_at),
         user: Some(user),
         profile: p,
         notice: None,
@@ -160,7 +155,6 @@ fn page(state: &AppState, user: CurrentUser, p: Profile) -> ProfileTemplate {
         confirm_remove: false,
         confirm_error: None,
         dev: state.dev,
-        delete_error: None,
     }
 }
 
@@ -531,55 +525,6 @@ pub async fn end_other_sessions(State(state): State<Arc<AppState>>, user: Curren
     Ok(Redirect::to(&crate::url("/profile?saved=signed-out#account")).into_response())
 }
 
-
-#[derive(Deserialize)]
-pub struct DeleteForm {
-    /// The account's password; Google-only accounts type their e-mail address instead.
-    #[serde(default)]
-    pub password: String,
-    #[serde(default)]
-    pub confirm: String,
-    /// A Google-only account with a second step: a code from it.
-    #[serde(default)]
-    pub code: String,
-}
-
-/// POST /profile/delete: schedule the account's deletion
-/// (`account_deletion::schedule`, #970: 14 days out, signed out everywhere
-/// until then), after proof that it is the owner (`prove_owner`: the
-/// password; a Google-only account types its e-mail address and gives a
-/// second-step code, or without one has just confirmed with Google, #376).
-pub async fn delete_account(
-    State(state): State<Arc<AppState>>,
-    user: CurrentUser,
-    Form(form): Form<DeleteForm>,
-) -> Result<Response, AppError> {
-    // The owner runs the server: their account is not deleted from the
-    // profile (#15). The page hides the form; a POST by hand is refused.
-    if user.owner {
-        return Ok((StatusCode::FORBIDDEN, crate::t("profile.data.delete_owner")).into_response());
-    }
-    let loaded = load_profile(&state, &user).await?;
-    let fail = |state: &AppState, user: CurrentUser, loaded: Profile, msg: &str| {
-        let mut t = page(state, user, loaded);
-        t.delete_error = Some(msg.to_string());
-        Page(t).into_response()
-    };
-    let uid = user.id;
-    if !loaded.has_password && !form.confirm.trim().eq_ignore_ascii_case(&loaded.delete_phrase()) {
-        return Ok(fail(&state, user, loaded, &crate::t("profile.data.type_email")));
-    }
-    // The same proof as every account change, on the same allowances (#376, #378).
-    if let Some((status, why)) = prove_owner(&state, &user, &form.password, &form.code).await? {
-        // The form again with its error (200, as ever); only the limit is a 429.
-        let status = if status == StatusCode::FORBIDDEN { StatusCode::OK } else { status };
-        let page = fail(&state, user, loaded, &why);
-        return Ok((status, page).into_response());
-    }
-    let at = state.db.call(move |c| crate::account_deletion::schedule(c, uid, crate::db::now())).await?.ok_or(AppError::RedirectToLogin)?;
-    tracing::info!("user {uid} asked to delete their account: deleted at {at} unless they cancel");
-    Ok(([auth::clear_session_cookie()], Redirect::to(&crate::url(&format!("/login?deletion={at}")))).into_response())
-}
 
 #[cfg(test)]
 mod tests;

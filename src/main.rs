@@ -2,7 +2,6 @@
 //! games and phone sessions) driven by JSON courses. Sized for a Raspberry
 //! Pi Zero 2 W.
 
-mod account_deletion;
 mod activity;
 mod algebra_tiles;
 mod ai;
@@ -11,7 +10,6 @@ mod auth;
 mod caps;
 mod clock;
 mod conjugation;
-mod consent;
 mod content;
 mod courses;
 mod db;

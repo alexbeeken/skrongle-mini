@@ -137,13 +137,12 @@ pub fn claim(conn: &Connection, share: &Share, user_id: i64, now: i64) -> rusqli
     Ok(Claim::Ok)
 }
 
-/// May this account open the course through a share? Not while its owner
-/// is waiting to be deleted (#970).
+/// May this account open the course through a share?
 pub fn can_open(conn: &Connection, user_id: i64, course_id: &str) -> rusqlite::Result<bool> {
     conn.query_row(
         "SELECT EXISTS(SELECT 1 FROM course_shares s JOIN users u ON u.id = ?1
             JOIN courses c ON c.id = s.course_id JOIN users o ON o.id = c.owner_id
-            WHERE s.course_id = ?2 AND o.delete_at IS NULL
+            WHERE s.course_id = ?2
               AND s.user_id = u.id)",
         params![user_id, course_id],
         |r| r.get(0),
@@ -155,7 +154,7 @@ pub fn can_open(conn: &Connection, user_id: i64, course_id: &str) -> rusqlite::R
 const SHARED_WITH_SQL: &str = "SELECT s.course_id, o.first_name, o.last_name, COALESCE(o.email, ''), s.id
          FROM (SELECT id, course_id FROM course_shares WHERE user_id = ?1) s
          JOIN courses c ON c.id = s.course_id JOIN users o ON o.id = c.owner_id
-         WHERE c.owner_id != ?1 AND o.delete_at IS NULL
+         WHERE c.owner_id != ?1
          ORDER BY s.id DESC";
 
 /// The courses shared with this account (links it opened), newest share first, leaving out the ones taken down or of a

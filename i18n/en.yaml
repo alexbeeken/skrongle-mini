@@ -109,7 +109,6 @@ common:
 
 auth:
   login:
-    deletion_scheduled: "Your account will be deleted on {date}. To keep it, sign in before then and cancel the deletion."
     title: Log in
     email_label: E-mail address
     password_label: Password
@@ -178,9 +177,11 @@ auth:
 
 profile:
   title: Profile
+  ok: OK
+  close: "Close"
   no_name: Learner
   head:
-    member_since: "Member since {date}"
+    owner: Owner
     all_saved: All changes saved
   month:
     january: January
@@ -196,7 +197,6 @@ profile:
     november: November
     december: December
   date:
-    month_year: "{month} {year}"
     long: "{day} {month} {year}"
   privacy:
     title: Who sees what
@@ -210,8 +210,6 @@ profile:
     personal: Personal information
     account: Account
     two_factor: Two-factor authentication
-    data: Your data
-    consent: "Privacy and consent"
   personal:
     title: Personal information
     first_name: First name
@@ -223,20 +221,10 @@ profile:
     language_unavailable: That language is not available.
   account:
     title: Account
-    member_since: Member since
     sign_in: Sign-in
     password: Password
     and: and
     no_password: This account has no password to change.
-  consent:
-    title: "Privacy and consent"
-    info: "About your consents"
-    info_age: "You confirmed your age when you signed up. To take that back, delete your account under Your data."
-    info_record: "Each change is kept with its date."
-    close: "Close"
-    age: "Age"
-    age_confirmed: "Confirmed {date}"
-    age_not_confirmed: "Not confirmed"
   sessions:
     sign_out_others: Sign out everywhere else
     info_label: About signing out everywhere else
@@ -302,26 +290,6 @@ profile:
       other: "That code is not right. {n} tries left."
     code_wrong_newest: That code is not right. Type the newest code the app shows.
     code_gone: No code is waiting, or it expired. Send a new one.
-  data:
-    title: Your data
-    ok: OK
-    delete_title: Delete account
-    delete_about: "We delete your account 14 days after you ask. That deletes your progress, courses and saved keys. Until then you are signed out, and you can sign in again to cancel."
-    delete_owner: "You run this Skrongle, so your account can't be deleted here."
-    your_password: Your password
-    confirm_before: Type your e-mail address (
-    confirm_after: ) to confirm
-    delete: Delete my account
-    too_many: Too many attempts. Wait a few minutes and try again.
-    password_wrong: The password is not right.
-    type_email: Type your e-mail address to confirm.
-    code_app: Code from your authenticator app
-  deletion:
-    title: "Account scheduled for deletion"
-    on: "This account will be deleted for good on {date}."
-    info_label: "About the deletion"
-    about: "Until that day the account can only cancel the deletion or log out. Cancel it and everything stays as it was. After that day your progress, courses and saved keys are gone for good."
-    cancel: "Cancel deletion"
   save:
     not_a_field: This field is not part of the profile.
     motivator_unavailable: "That motivator is not available."

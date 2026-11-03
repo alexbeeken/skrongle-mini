@@ -4,20 +4,19 @@ What the app stores about a learner, where, why, whether it leaves the
 server, and for how long. It is the record of processing, taken from the
 schema in `src/db/migrations/v001_schema.sql`. Not legal advice.
 
-`src/privacy.rs` lists every user table in `USER_TABLES`: account deletion
-removes them, and a test fails when a table is
+`src/privacy.rs` lists every user table in `USER_TABLES`: a test fails when a table is
 added to the schema without being listed there. Add new tables here too.
 
 ## In the database (SQLite, `SKRONGLE_DB`)
 
-Every row below is removed when the account is deleted (`ON DELETE CASCADE`
+Every row below belongs to an account (`ON DELETE CASCADE`
 from `users(id)`, directly or through the owning course). `jobs`,
 `server_api_keys` and `settings` (`privacy::SHARED_TABLES`) belong to no
 account: the background job queue and the server's AI keys and settings.
 
 | Table | Columns with personal data | Why | Leaves the server? | Kept |
 |---|---|---|---|---|
-| `users` | `email`, `first_name`, `last_name`, `created_at`, `email_verified_at` (when the address was confirmed: only a proxy-made account and the dev user have one), `age_confirmed`, `owner` (Manage Users in the account menu: the person who runs the server), `must_change_password` (1 after the owner set a temporary password, until the account picks its own), `two_factor` (the second sign-in step in use: '' or `totp`), `active_course`, `lang` (the language the app is shown in, '' = the browser's), `review_quiet` (the review of AI changes does not open by itself), `ai_effort` (the effort *Generate the course* last ran at: `low`, `medium` or `high`), `delete_at` (when an account whose owner asked to delete it is deleted: 14 days after asking); `password_hash` (argon2id; `''` for an account a trusted proxy made) | the account and profile | no | until deleted. |
+| `users` | `email`, `first_name`, `last_name`, `created_at`, `email_verified_at` (when the address was confirmed: only a proxy-made account and the dev user have one), `age_confirmed`, `owner` (Manage Users in the account menu: the person who runs the server), `must_change_password` (1 after the owner set a temporary password, until the account picks its own), `two_factor` (the second sign-in step in use: '' or `totp`), `active_course`, `lang` (the language the app is shown in, '' = the browser's), `review_quiet` (the review of AI changes does not open by itself), `ai_effort` (the effort *Generate the course* last ran at: `low`, `medium` or `high`), `delete_at` (unused, nothing reads it); `password_hash` (argon2id; `''` for an account a trusted proxy made) | the account and profile | no | until deleted. |
 | `sessions` | `session_token` (the SHA-256 of the cookie's random 256-bit token; the token itself is never stored), `created_at`, `expires_at` | staying signed in | no | 30 days, purged hourly; deleted on logout. No IP address or user agent is stored. |
 | `totp_keys` | `secret` (the authenticator app's TOTP secret, encrypted at rest: ChaCha20-Poly1305 under the server's master secret, bound to the user; codes are worked out from it, so it can't be hashed), `created_at`, `confirmed_at`, `last_step` (the last code's time step, so a code works once) | two-factor sign-in with an authenticator app (`src/two_factor.rs`) | no (shown once to the learner while setting the app up) | until removed, another method is chosen, or deleted; an unconfirmed set-up is deleted after a day. |
 | `two_factor_challenges` | `token_hash` (SHA-256 of the `twofa` cookie's token), `method`, `attempts`, `created_at`, `expires_at` | a sign-in waiting for its second step | no | 10 minutes, five tries; deleted when used, cancelled or replaced, expired rows hourly. |
@@ -43,7 +42,7 @@ account: the background job queue and the server's AI keys and settings.
 | `course_shares` | `email` (a label the owner typed for the link), `token_hash` (SHA-256 of the link's token; the token itself is never stored), `user_id` (the account that opened the link), `created_at`, `opened_at` | sharing a course with other learners (`src/share.rs`) | no (the owner passes the link on) | until the owner removes it or deletes the course; a deleted recipient account unlinks the row (it stays on the owner's list). |
 | `server_api_keys` | `provider`, `ciphertext` (ChaCha20-Poly1305, bound to the provider), `set_at`; no account | the AI features of every account, with the keys an owner saved on Manage Users | the decrypted key goes to that provider with each call | until an owner removes it |
 | `settings` | `name`, `value`: server-wide settings (`ai_off`: the owner's "Hide AI features for everyone"); no account | what the owner set on Manage Users | no | until changed |
-| `jobs` | `kind`, `payload_json`, state, run and lease times, `last_error`; no account | background jobs (`src/jobs.rs`): today only the hourly housekeeping, whose payload is empty (it also deletes the accounts whose `delete_at` has come) | no | done rows deleted after a day, failed ones after 30 days (hourly housekeeping). It is about no one |
+| `jobs` | `kind`, `payload_json`, state, run and lease times, `last_error`; no account | background jobs (`src/jobs.rs`): today only the hourly housekeeping, whose payload is empty | no | done rows deleted after a day, failed ones after 30 days (hourly housekeeping). It is about no one |
 
 
 ## On disk besides the database
@@ -52,9 +51,9 @@ account: the background job queue and the server's AI keys and settings.
 
 | What | Why | Leaves the server? | Kept |
 |---|---|---|---|
-| AI tutor chats (`tutor::Sessions`): the transcript, the provider with its decrypted key | AI tutoring | the whole transcript goes to the provider each turn | 2 hours idle, or a restart; dropped at account deletion |
-| Generation jobs (`ai::Jobs`): the request incl. notes and the decrypted key, the progress log | AI courses | yes, to the provider | 6 hours after finishing, or a restart; cancelled at account deletion |
-| Timed game sessions (`games::Sessions`) | Word Match timing | no | 30 minutes; dropped at account deletion |
+| AI tutor chats (`tutor::Sessions`): the transcript, the provider with its decrypted key | AI tutoring | the whole transcript goes to the provider each turn | 2 hours idle, or a restart|
+| Generation jobs (`ai::Jobs`): the request incl. notes and the decrypted key, the progress log | AI courses | yes, to the provider | 6 hours after finishing, or a restart |
+| Timed game sessions (`games::Sessions`) | Word Match timing | no | 30 minutes |
 | Rate-limit counters (after #121): per address or account id, also learning writes per account (#381) | password guessing, scripted floods | no | minutes to an hour |
 
 ## In the browser
@@ -89,8 +88,5 @@ access log, which records IPs.
 
 ## Backups
 
-A deleted account stays in backups until they expire. The operator makes the
-backups and decides how long a deleted account stays in them.
-
-Deleting an account deletes its rows; nothing is kept in anonymized form.
-So after a deletion nothing personal stays except in the operator's backups.
+Backups hold the database as it was when they were made. The operator makes
+them and decides how long they are kept.

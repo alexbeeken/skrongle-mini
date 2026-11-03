@@ -14,7 +14,6 @@ use std::sync::{Arc, OnceLock};
 use crate::error::AppError;
 use crate::AppState;
 
-pub mod account_deletion;
 pub mod auth;
 pub mod courses;
 pub mod share;
@@ -250,14 +249,11 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/login/code/cancel", post(auth::login_code_cancel))
         .route("/register", get(auth::register_form).post(auth::register))
         .route("/logout", post(auth::logout))
-        .route("/account/deletion", get(account_deletion::page))
-        .route("/account/deletion/cancel", post(account_deletion::cancel))
         // profile (works without an active course)
         .route("/profile", get(profile::show))
         .route("/api/profile", post(profile::save))
         .route("/profile/password", post(profile::change_password))
         .route("/profile/sessions/end-others", post(profile::end_other_sessions))
-        .route("/profile/delete", post(profile::delete_account))
         .route("/profile/two-factor", post(profile::set_two_factor))
         .route("/profile/two-factor/totp/confirm", post(profile::confirm_totp))
         .route("/profile/two-factor/totp/remove", post(profile::remove_totp))

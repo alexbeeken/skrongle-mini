@@ -761,7 +761,7 @@ test("the profile has no Dev section for anyone; the seeded keys answer generate
   // Registering signs the new account in.
   await expect(them.getByTestId("nav-account-toggle")).toHaveAttribute("data-email", `${name}@example.com`);
   await them.goto("/profile");
-  await expect(them.getByTestId("profile-consent")).toBeVisible();
+  await expect(them.getByTestId("profile-two-factor")).toBeVisible();
   await expect(them.locator('[data-testid^="profile-api-key"]')).toHaveCount(0);
   await expect(them.getByTestId("profile-dev")).toHaveCount(0);
   await expect(them.locator('[data-testid="profile-nav-link"][data-section="dev"]')).toHaveCount(0);

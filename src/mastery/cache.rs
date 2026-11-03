@@ -12,9 +12,8 @@
 //!   still roll back, it drops the learner's entry instead;
 //!   [`super::record_answer`] (its own transaction, the hot path) takes the
 //!   entry out first and puts it back with the new row after the commit.
-//! - Every other change to the table drops entries: account deletion
-//!   ([`forget_user`]), course deletion ([`forget_course`]), the dev reset
-//!   ([`forget_all`]).
+//! - Every other change to the table drops entries: course deletion
+//!   ([`forget_course`]), the dev reset ([`forget_all`]).
 //!   The test `every_user_progress_write_is_known` lists the files that
 //!   write the table, so a new one is noticed.
 //!
@@ -131,13 +130,6 @@ pub fn current() -> Option<Arc<ProgressCache>> {
     CURRENT.with(|c| c.borrow().clone())
 }
 
-/// Drop a learner's entry: their rows changed outside [`super::save`].
-pub fn forget_user(user_id: i64) {
-    if let Some(c) = current() {
-        c.forget_user(user_id);
-    }
-}
-
 /// Drop every entry: the dev reset (`/dev/reset`).
 pub fn forget_all() {
     if let Some(c) = current() {
@@ -235,7 +227,7 @@ mod tests {
     }
 
     #[test]
-    fn deleting_an_account_a_course_or_resetting_drops_entries() {
+    fn deleting_a_course_or_resetting_drops_entries() {
         let db = Db::open_in_memory().unwrap();
         db.with(|c| {
             let uid = crate::auth::create_user(c, "ann@example.org", "h")?;
@@ -245,8 +237,6 @@ mod tests {
             load_progress(c, bob, "fr")?;
             crate::courses::delete_course(c, "fr")?;
             assert_eq!(db.progress_cache().len(), 1, "course deletion");
-            crate::privacy::delete_account(c, uid)?;
-            assert_eq!(db.progress_cache().len(), 0, "account deletion");
             load_progress(c, bob, "es")?;
             crate::dev::reset_user(c, bob)?;
             assert_eq!(db.progress_cache().len(), 0, "dev reset");
@@ -262,7 +252,7 @@ mod tests {
     fn every_user_progress_write_is_known() {
         const KNOWN: &[(&str, &str)] = &[
             ("src/mastery.rs", "reads, and the one write, `save`, which updates the cache"),
-            ("src/privacy.rs", "account deletion lists it (a cascade) and calls forget_user"),
+            ("src/privacy.rs", "lists it in USER_TABLES; it writes nothing"),
             ("src/dev.rs", "the dev reset deletes the rows and calls forget_all"),
         ];
         let mut found = Vec::new();

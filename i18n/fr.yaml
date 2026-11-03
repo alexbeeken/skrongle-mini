@@ -107,7 +107,6 @@ common:
 
 auth:
   login:
-    deletion_scheduled: "Votre compte sera supprimé le {date}. Pour le garder, connectez-vous avant cette date et annulez la suppression."
     title: Se connecter
     email_label: Adresse e-mail
     password_label: Mot de passe
@@ -176,9 +175,11 @@ auth:
 
 profile:
   title: Profil
+  ok: OK
+  close: "Fermer"
   no_name: Apprenant
   head:
-    member_since: "Membre depuis {date}"
+    owner: Propriétaire
     all_saved: Toutes les modifications sont enregistrées
   month:
     january: Janvier
@@ -194,7 +195,6 @@ profile:
     november: Novembre
     december: Décembre
   date:
-    month_year: "{month} {year}"
     long: "{day} {month} {year}"
   privacy:
     title: Qui voit quoi
@@ -208,8 +208,6 @@ profile:
     personal: Informations personnelles
     account: Compte
     two_factor: Double authentification
-    data: Vos données
-    consent: "Confidentialité et consentement"
   personal:
     title: Informations personnelles
     first_name: Prénom
@@ -221,20 +219,10 @@ profile:
     language_unavailable: Cette langue n'est pas disponible.
   account:
     title: Compte
-    member_since: Membre depuis
     sign_in: Connexion
     password: Mot de passe
     and: et
     no_password: "Ce compte n'a pas de mot de passe à modifier."
-  consent:
-    title: "Confidentialité et consentement"
-    info: "À propos de vos consentements"
-    info_age: "Vous avez confirmé votre âge à l'inscription. Pour le retirer, supprimez votre compte dans Vos données."
-    info_record: "Chaque changement est gardé avec sa date."
-    close: "Fermer"
-    age: "Âge"
-    age_confirmed: "Confirmé le {date}"
-    age_not_confirmed: "Non confirmé"
   sessions:
     sign_out_others: Se déconnecter partout ailleurs
     info_label: À propos de la déconnexion partout ailleurs
@@ -300,26 +288,6 @@ profile:
       other: "Ce code n'est pas bon. Il reste {n} essais."
     code_wrong_newest: Ce code n'est pas bon. Saisissez le code le plus récent affiché par l'application.
     code_gone: Aucun code n'est en attente, ou il a expiré. Demandez-en un nouveau.
-  data:
-    title: Vos données
-    ok: OK
-    delete_title: Supprimer le compte
-    delete_about: "Nous supprimons votre compte 14 jours après votre demande. Cela supprime votre progression, vos cours et clés enregistrées. D'ici là vous êtes déconnecté, et vous pouvez vous reconnecter pour annuler."
-    delete_owner: "Vous gérez ce Skrongle : votre compte ne peut donc pas être supprimé ici."
-    your_password: Votre mot de passe
-    confirm_before: "Saisissez votre adresse e-mail ("
-    confirm_after: ") pour confirmer"
-    delete: Supprimer mon compte
-    too_many: Trop de tentatives. Attendez quelques minutes et réessayez.
-    password_wrong: Le mot de passe n'est pas bon.
-    type_email: Saisissez votre adresse e-mail pour confirmer.
-    code_app: Code de votre application d'authentification
-  deletion:
-    title: "Suppression du compte prévue"
-    on: "Ce compte sera supprimé définitivement le {date}."
-    info_label: "À propos de la suppression"
-    about: "Jusqu'à ce jour, le compte peut seulement annuler la suppression ou se déconnecter. Si vous annulez, tout reste comme avant. Après ce jour, votre progression, vos cours et clés enregistrées sont supprimés définitivement."
-    cancel: "Annuler la suppression"
   save:
     not_a_field: Ce champ ne fait pas partie du profil.
     motivator_unavailable: "Cette motivation n'est pas disponible."

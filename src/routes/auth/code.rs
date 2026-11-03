@@ -28,7 +28,7 @@ fn code_page(state: &AppState, p: &two_factor::Pending, error: Option<String>) -
 
 /// Back to the login form, saying why the second step ended.
 fn code_gone(state: &AppState, msg: &str) -> Response {
-    let page = Page(LoginTemplate { user: None, error: Some(msg.to_string()), email: String::new(), dev: state.dev, notice: None, share: None });
+    let page = Page(LoginTemplate { user: None, error: Some(msg.to_string()), email: String::new(), dev: state.dev, share: None });
     ([twofa_cookie("", 0, state.secure_cookies)], page).into_response()
 }
 

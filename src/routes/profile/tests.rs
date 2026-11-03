@@ -1,154 +1,6 @@
-use crate::content::CourseFile;
-
-/// The privacy page is public; the export holds the learner's data and
-/// no secrets; deleting the account needs the password (or the e-mail address,
-/// for accounts without one), signs the
-/// account out and schedules the deletion 14 days out (#970): signing in
-/// again shows only the page that cancels it, and once due the hourly job
-/// leaves nothing to sign in with.
-#[test]
-fn privacy_page_export_and_account_deletion_over_http() {
-    let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let state = crate::routes::test_state(false);
-    let hash = crate::auth::hash_password("right-password").unwrap();
-    let (ann, gil) = state
-        .db
-        .with(|c| {
-            let ann = crate::auth::create_user(c, "ann@example.org", &hash)?;
-            let gil = crate::auth::create_user(c, "gil@example.org", "")?;
-            let files = [CourseFile { path: "course.json".into(), content: "{\"id\": \"ann-c\", \"note\": \"ann-file\"}".into() }];
-            crate::courses::create_course(c, ann, "ann-c", "Ann's", &files)?;
-            c.execute(
-                "INSERT INTO quiz_history (user_id, course_id, lesson_id, question_id, selected_answer, was_correct, answered_at) VALUES (?1, 'spanish', 'a1', 'q', 'ann-answer', 1, 1)",
-                [ann],
-            )?;
-            Ok((ann, gil))
-        })
-        .unwrap();
-    let session = |u| {
-        state.db.with(|c| crate::auth::create_session(c, u)).unwrap()
-    };
-    let (ann_t, gil_t) = (session(ann), session(gil));
-    let app = crate::routes::router(state.clone());
-    let base = rt.block_on(async {
-        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
-        let addr = listener.local_addr().unwrap();
-        tokio::spawn(async move { axum::serve(listener, app).await.unwrap() });
-        format!("http://{addr}")
-    });
-    let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
-    let get = |path: &str, cookie: &str| {
-        let mut r = agent.get(&format!("{base}{path}")).header("cookie", cookie).call().unwrap();
-        (r.status().as_u16(), r.body_mut().read_to_string().unwrap())
-    };
-    let post = |path: &str, cookie: &str, form: &[(&str, &str)]| {
-        let mut r = agent.post(&format!("{base}{path}")).header("cookie", cookie).send_form(form.iter().copied()).unwrap();
-        let cookie = r.headers().get("set-cookie").map(|v| v.to_str().unwrap().to_string()).unwrap_or_default();
-        (r.status().as_u16(), cookie, r.body_mut().read_to_string().unwrap())
-    };
-
-    // Deletion: the wrong password, refuse it.
-    let (status, _, html) = post("/profile/delete", &format!("sid={ann_t}"), &[("password", "wrong")]);
-    assert_eq!(status, 200);
-    assert!(html.contains("profile-delete-error"));
-    let before = crate::db::now();
-    let (status, cookie, _) = post("/profile/delete", &format!("sid={ann_t}"), &[("password", "right-password")]);
-    assert_eq!(status, 303);
-    assert!(cookie.starts_with("sid=;") && cookie.contains("Max-Age=0"));
-    let at: i64 = state.db.with(|c| c.query_row("SELECT delete_at FROM users WHERE id = ?1", [ann], |r| r.get(0))).unwrap();
-    assert!(at >= before + 14 * 86_400 && at <= crate::db::now() + 14 * 86_400, "14 days out");
-    assert_eq!(get("/profile", &format!("sid={ann_t}")).0, 303, "the old session is gone");
-    let (_, html) = get(&format!("/login?deletion={at}"), "");
-    assert!(html.contains("login-notice") && html.contains(&crate::profile::long_date(at)));
-
-    // Signing in again works, but every page leads to the deletion page,
-    // and Cancel deletion keeps the account.
-    let r = agent.post(&format!("{base}/login")).send_form([("email", "ann@example.org"), ("password", "right-password")]).unwrap();
-    assert_eq!(r.status().as_u16(), 303, "signed in");
-    let sid = r.headers().get_all("set-cookie").iter().map(|v| v.to_str().unwrap().split(';').next().unwrap().to_string()).find(|c| c.starts_with("sid=")).unwrap();
-    let r = agent.get(&format!("{base}/profile")).header("cookie", &sid).call().unwrap();
-    assert_eq!(r.status().as_u16(), 303);
-    assert!(r.headers().get("location").unwrap().to_str().unwrap().ends_with("/account/deletion"));
-    let r = agent.get(&format!("{base}/api/progress")).header("cookie", &sid).call().unwrap();
-    assert_eq!(r.status().as_u16(), 403, "the API refuses too");
-    let (status, html) = get("/account/deletion", &sid);
-    assert_eq!(status, 200);
-    assert!(html.contains("account-deletion-cancel") && html.contains(&crate::profile::long_date(at)));
-    assert_eq!(post("/account/deletion/cancel", &sid, &[]).0, 303);
-    assert_eq!(get("/profile", &sid).0, 200, "cancelled: the account works again");
-    assert_eq!(get("/account/deletion", &sid).0, 303, "nothing to cancel");
-
-    // Asked again; the hourly job deletes it only once it is due.
-    let (status, _, _) = post("/profile/delete", &sid, &[("password", "right-password")]);
-    assert_eq!(status, 303);
-    assert_eq!(crate::account_deletion::sweep(&state, &state.db).unwrap(), "", "not due yet");
-    state.db.with(|c| c.execute("UPDATE users SET delete_at = ?2 WHERE id = ?1", [ann, crate::db::now() - 1])).unwrap();
-    assert!(crate::account_deletion::sweep(&state, &state.db).unwrap().starts_with("1 account"));
-    let left: i64 = state
-        .db
-        .with(|c| c.query_row("SELECT (SELECT COUNT(*) FROM users WHERE id = ?1) + (SELECT COUNT(*) FROM courses)", [ann], |r| r.get(0)))
-        .unwrap();
-    assert_eq!(left, 0);
-    let (status, _, _) = post("/login", "", &[("email", "ann@example.org"), ("password", "right-password")]);
-    assert_eq!(status, 200, "signing in fails (the form is shown again)");
-
-    // An account without a password types its e-mail address (no second
-    // step, so nothing more).
-    let (status, _, html) = post("/profile/delete", &format!("sid={gil_t}"), &[("confirm", "nope")]);
-    assert_eq!(status, 200);
-    assert!(html.contains("Type your e-mail address"));
-    assert_eq!(post("/profile/delete", &format!("sid={gil_t}"), &[("confirm", " GIL@example.org ")]).0, 303);
-    let scheduled: bool = state.db.with(|c| c.query_row("SELECT delete_at IS NOT NULL FROM users WHERE id = ?1", [gil], |r| r.get(0))).unwrap();
-    assert!(scheduled, "scheduled, not deleted at once");
-}
-
-/// An owner cannot delete their own account (#15): the profile shows the
-/// line saying why instead of the form, and a POST by hand, even with the
-/// right password, is refused with a 403 and schedules nothing. Anyone else
-/// still gets the form.
-#[test]
-fn an_owner_cannot_delete_their_own_account() {
-    let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
-    let state = crate::routes::test_state(false);
-    let hash = crate::auth::hash_password("right-password").unwrap();
-    let (root_t, bob_t, root) = state
-        .db
-        .with(|c| {
-            let root = crate::auth::create_user(c, "root@example.org", &hash)?;
-            let bob = crate::auth::create_user(c, "bob@example.org", &hash)?;
-            crate::owner::make_owner(c, root)?;
-            Ok((crate::auth::create_session(c, root)?, crate::auth::create_session(c, bob)?, root))
-        })
-        .unwrap();
-    let app = crate::routes::router(state.clone());
-    let base = rt.block_on(async {
-        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
-        let addr = listener.local_addr().unwrap();
-        tokio::spawn(async move { axum::serve(listener, app).await.unwrap() });
-        format!("http://{addr}")
-    });
-    let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
-    let get = |cookie: &str| agent.get(&format!("{base}/profile")).header("cookie", cookie).call().unwrap().body_mut().read_to_string().unwrap();
-    let (root_c, bob_c) = (format!("sid={root_t}"), format!("sid={bob_t}"));
-
-    let page = get(&root_c);
-    assert!(page.contains(r#"data-testid="profile-delete-owner""#) && !page.contains("profile-delete-form"), "{page}");
-    let page = get(&bob_c);
-    assert!(page.contains("profile-delete-form") && !page.contains("profile-delete-owner"), "{page}");
-
-    let mut r = agent.post(&format!("{base}/profile/delete")).header("cookie", &root_c).send_form([("password", "right-password")]).unwrap();
-    assert_eq!(r.status().as_u16(), 403);
-    assert!(r.body_mut().read_to_string().unwrap().contains("can't be deleted here"));
-    let at: Option<i64> = state.db.with(|c| c.query_row("SELECT delete_at FROM users WHERE id = ?1", [root], |r| r.get(0))).unwrap();
-    assert_eq!(at, None, "nothing scheduled");
-    assert!(get(&root_c).contains("profile-delete-owner"), "still signed in");
-}
-
 /// Account changes a stolen session must not make (#374, #375, #376):
 /// turning two-factor on needs proof and signs out the other devices;
-/// "Sign out everywhere else" ends every other
-/// session; an account without a password but with a second step deletes
-/// with its code.
+/// "Sign out everywhere else" ends every other session.
 #[test]
 fn account_changes_need_proof_and_sign_out_other_devices() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
@@ -216,17 +68,6 @@ fn account_changes_need_proof_and_sign_out_other_devices() {
     let gil_method = || state.db.with(|c| crate::two_factor::settings(c, gil)).unwrap().method;
     assert_eq!(gil_method(), Some(crate::two_factor::Method::Totp));
     assert_eq!(post("/profile/two-factor", &gil_c, &[("method", "")]).0, 403, "turning it off takes a code");
-
-    // With a second step, deleting it takes a code from the app (#376).
-    let (status, _, _, body) = post("/profile/delete", &gil_c, &[("confirm", "gil@example.org")]);
-    assert_eq!(status, 200);
-    assert!(body.contains("profile-delete-code") && !body.contains("profile-delete-send"));
-    let next = key.code_at(now() + 30);
-    let wrong = (0..).map(|i| format!("{:06}", 100_000 + i)).find(|c| (-2..=2i64).all(|d| key.code_at((now() as i64 + d * 30) as u64) != *c)).unwrap();
-    assert_eq!(post("/profile/delete", &gil_c, &[("confirm", "gil@example.org"), ("code", &wrong)]).0, 200);
-    assert!(alive(&gil_t), "not deleted");
-    assert_eq!(post("/profile/delete", &gil_c, &[("confirm", "gil@example.org"), ("code", &next)]).0, 303);
-    assert!(!alive(&gil_t));
 }
 
 /// Autosave: each field saves on its own, a bad one stores nothing and
@@ -414,4 +255,31 @@ fn the_ai_keys_and_the_hide_ai_switch_are_the_owners_over_http() {
     assert_eq!(state.db.with(|c| crate::secrets::saved_key_count(c)).unwrap(), 0);
     assert!(get("/tutor", &bob).2.contains("tutor-no-key"));
     assert_eq!(post("/manage/ai", "", &[("off", "1")]).0, 303, "signed out: to the login page");
+}
+
+/// The header names the owner under the display name and no one else.
+#[test]
+fn the_profile_header_says_owner_only_for_the_owner() {
+    let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
+    let state = crate::routes::test_state(false);
+    let (root, bob) = state
+        .db
+        .with(|c| {
+            let root = crate::auth::create_user(c, "root@example.org", "x")?;
+            let bob = crate::auth::create_user(c, "bob@example.org", "x")?;
+            crate::owner::make_owner(c, root)?;
+            Ok((crate::auth::create_session(c, root)?, crate::auth::create_session(c, bob)?))
+        })
+        .unwrap();
+    let app = crate::routes::router(state.clone());
+    let base = rt.block_on(async {
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let addr = listener.local_addr().unwrap();
+        tokio::spawn(async move { axum::serve(listener, app).await.unwrap() });
+        format!("http://{addr}")
+    });
+    let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
+    let get = |sid: &str| agent.get(&format!("{base}/profile")).header("cookie", format!("sid={sid}")).call().unwrap().body_mut().read_to_string().unwrap();
+    assert!(get(&root).contains(r#"data-testid="profile-role">Owner<"#));
+    assert!(!get(&bob).contains("profile-role"));
 }

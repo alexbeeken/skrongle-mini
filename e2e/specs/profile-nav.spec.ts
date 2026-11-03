@@ -11,6 +11,9 @@ const link = (page: import("@playwright/test").Page, section: string) =>
 test("the profile nav marks the section in view", async ({ page }) => {
   await register(page, newAccount("profnav"), "spanish");
   await page.goto("/profile");
+  // The sections: personal, account, two-factor.
+  await expect(page.locator('[data-testid="profile-nav-link"]')).toHaveCount(3);
+  for (const gone of ["consent", "data"]) await expect(link(page, gone)).toHaveCount(0);
   await expect(link(page, "personal")).toHaveAttribute("aria-current", "location");
   await expect(page.locator('[data-testid="profile-nav-link"][aria-current]')).toHaveCount(1);
 
@@ -25,7 +28,7 @@ test("the profile nav marks the section in view", async ({ page }) => {
 
   // Scrolling to the bottom marks the last section.
   await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
-  await expect(link(page, "data")).toHaveAttribute("aria-current", "location");
+  await expect(link(page, "two-factor")).toHaveAttribute("aria-current", "location");
 
   await expect(link(page, "ai")).toHaveCount(0);
   await expect(link(page, "api-keys")).toHaveCount(0);

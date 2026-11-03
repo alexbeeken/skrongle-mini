@@ -106,10 +106,6 @@ pub async fn open_link(State(state): State<Arc<AppState>>, MaybeUser(user): Mayb
     let Some(user) = user else {
         return Ok(Redirect::to(&crate::url(&format!("/login?share={}", urlencode(&token)))).into_response());
     };
-    // Waiting to be deleted (#970): nothing but the page that cancels it.
-    if user.delete_at.is_some() {
-        return Err(AppError::DeletionScheduled);
-    }
     let Some(share) = share else {
         return Ok(Redirect::to(&crate::url("/courses?notice=share-gone")).into_response());
     };

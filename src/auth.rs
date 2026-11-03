@@ -133,11 +133,6 @@ pub struct CurrentUser {
     /// owner set (#635, `owner.rs`). The `CurrentUser` extractor sends the
     /// account to `/password/change` before anything else.
     pub must_change_password: bool,
-    /// `users.delete_at`: the learner asked to delete the account, and it
-    /// is deleted at this time (#970, `account_deletion.rs`). Until then
-    /// the `CurrentUser` extractor sends every page to `/account/deletion`,
-    /// whose one action is to cancel it.
-    pub delete_at: Option<i64>,
     /// `users.owner`: sees the Manage Users page, whose actions
     /// reach any account. Set by hand (and on the dev user in dev mode).
     pub owner: bool,
@@ -169,7 +164,6 @@ impl CurrentUser {
             course_owner: None,
             start_unit: String::new(),
             must_change_password: false,
-            delete_at: None,
             owner: false,
             ai_off: false,
             lang: String::new(),
@@ -309,7 +303,7 @@ fn session_sql() -> String {
     format!(
         "SELECT u.id, COALESCE(u.email, ''), u.active_course, c.title, u.first_name, u.last_name, NULL, NULL, {}, u.email_verified_at IS NOT NULL, u.owner,
                 COALESCE(p.start_unit, ''), NULL, u.lang, c.owner_id, u.must_change_password,
-                u.delete_at, s.expires_at
+                s.expires_at
          FROM sessions s JOIN users u ON u.id = s.user_id LEFT JOIN courses c ON c.id = u.active_course
          LEFT JOIN projects p ON p.user_id = u.id AND p.course_id = u.active_course
          WHERE s.session_token = ?1 AND s.expires_at > ?2",
@@ -333,7 +327,6 @@ fn read_session(conn: &Connection, hash: &str, now: i64) -> rusqlite::Result<Opt
                 first_name: r.get(4)?,
                 last_name: r.get(5)?,
                 must_change_password: r.get(15)?,
-                delete_at: r.get(16)?,
                 ai_off: r.get(8)?,
                 email_verified: r.get(9)?,
                 owner: r.get(10)?,
@@ -341,7 +334,7 @@ fn read_session(conn: &Connection, hash: &str, now: i64) -> rusqlite::Result<Opt
                 lang: r.get(13)?,
                 tz: 0,
             };
-            Ok((user, r.get(17)?))
+            Ok((user, r.get(16)?))
         },
     )
     .optional()
@@ -440,9 +433,6 @@ impl FromRequestParts<Arc<AppState>> for CurrentUser {
     async fn from_request_parts(parts: &mut Parts, state: &Arc<AppState>) -> Result<Self, Self::Rejection> {
         let api = parts.uri.path().starts_with("/api/");
         match resolve_user(parts, state).await? {
-            // Deletion scheduled (#970): nothing but the page that cancels it.
-            Some((_, user)) if user.delete_at.is_some() && api => Err(AppError::ApiDeletionScheduled),
-            Some((_, user)) if user.delete_at.is_some() => Err(AppError::DeletionScheduled),
             // A temporary password (#635): a new one first, then the rest.
             Some((_, user)) if user.must_change_password && api => Err(AppError::ApiPasswordChangeRequired),
             Some((_, user)) if user.must_change_password => Err(AppError::PasswordChangeRequired(next_path(parts))),

@@ -107,7 +107,6 @@ common:
 
 auth:
   login:
-    deletion_scheduled: "你的账户将于 {date} 被删除。如要保留，请在此之前登录并取消删除。"
     title: 登录
     email_label: 电子邮箱地址
     password_label: 密码
@@ -176,9 +175,11 @@ auth:
 
 profile:
   title: 个人资料
+  ok: 好
+  close: "关闭"
   no_name: 学习者
   head:
-    member_since: "注册于 {date}"
+    owner: 所有者
     all_saved: 所有更改已保存
   month:
     january: 一月
@@ -194,7 +195,6 @@ profile:
     november: 十一月
     december: 十二月
   date:
-    month_year: "{year}年{month}"
     long: "{year}年{month}{day}"
   privacy:
     title: 谁能看到什么
@@ -208,8 +208,6 @@ profile:
     personal: 个人信息
     account: 账户
     two_factor: 两步验证
-    data: 你的数据
-    consent: "隐私与同意"
   personal:
     title: 个人信息
     first_name: 名字
@@ -221,20 +219,10 @@ profile:
     language_unavailable: 该语言暂不可用。
   account:
     title: 账户
-    member_since: 注册于
     sign_in: 登录方式
     password: 密码
     and: 和
     no_password: 此账户没有可更改的密码。
-  consent:
-    title: "隐私与同意"
-    info: "关于你的同意"
-    info_age: "你在注册时确认了年龄。要撤回，请在“你的数据”中删除账户。"
-    info_record: "每次更改都会连同日期记录下来。"
-    close: "关闭"
-    age: "年龄"
-    age_confirmed: "已于 {date} 确认"
-    age_not_confirmed: "未确认"
   sessions:
     sign_out_others: 退出其他所有设备
     info_label: 关于退出其他所有设备
@@ -300,26 +288,6 @@ profile:
       other: "验证码不正确。还剩 {n} 次机会。"
     code_wrong_newest: 验证码不正确。请输入验证器应用当前显示的最新验证码。
     code_gone: 没有等待中的验证码，或验证码已过期。请重新发送一个。
-  data:
-    title: 你的数据
-    ok: 好
-    delete_title: 删除账户
-    delete_about: "我们会在你提出请求 14 天后删除你的账户。届时你的学习进度、课程和已保存的密钥都会被删除。在此之前你会被登出，重新登录即可取消。"
-    delete_owner: "你在运行这个 Skrongle，所以无法在此删除你的账户。"
-    your_password: 你的密码
-    confirm_before: 请输入你的电子邮箱地址（
-    confirm_after: "）以确认"
-    delete: 删除我的账户
-    too_many: 尝试次数过多。请稍等几分钟后再试。
-    password_wrong: 密码不正确。
-    type_email: 请输入你的电子邮箱地址以确认。
-    code_app: 来自验证器应用的验证码
-  deletion:
-    title: "账户已安排删除"
-    on: "此账户将于 {date} 被永久删除。"
-    info_label: "关于删除"
-    about: "在那天之前，此账户只能取消删除或登出。取消后一切保持原样。那天之后，你的学习进度、课程和已保存的密钥将被永久删除。"
-    cancel: "取消删除"
   save:
     not_a_field: 此字段不属于个人资料。
     motivator_unavailable: "该激励方式不可用。"

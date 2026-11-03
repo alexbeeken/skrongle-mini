@@ -219,9 +219,6 @@ fn account_forms_are_rate_limited() {
         assert_eq!(change("wrong"), 200);
     }
     assert_eq!(change("new-password-1"), 429);
-    // Deleting the account checks the password on the same allowance.
-    assert_eq!(post("/profile/delete", &format!("sid={here}"), &[("password", "new-password-1")]), 429);
-    assert!(alive(&here), "the account is still there");
 
     // Signing in takes the e-mail address, in any case.
     let login = |email: &str, pw: &str| post("/login", "", &[("email", email), ("password", pw)]);
@@ -245,7 +242,6 @@ fn account_forms_are_rate_limited() {
     }
     let bea_change = post("/profile/password", &bea_sid, &[("current", "right-password"), ("new", "new-password-2"), ("confirm", "new-password-2")]);
     assert_eq!(bea_change, 429);
-    assert_eq!(post("/profile/delete", &bea_sid, &[("password", "right-password")]), 429);
 
     // Registration needs the age box, and records it.
     let new_user = |email: &str| state.db.with(|c| crate::auth::find_user_credentials(c, email)).unwrap().map(|(id, _)| id);

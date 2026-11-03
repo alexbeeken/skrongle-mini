@@ -1679,8 +1679,9 @@ says why, and reloading or closing the tab gets the browser's own prompt.
 `static/autosave.js` does all of this for any page; `static/profile.js`
 wires up the fields (the course editor uses it too: see *Saving as you
 edit* under [Your own courses](#your-own-courses), and Manage Users' API
-keys). The password dialog and account deletion keep their explicit buttons. The page needs JavaScript.
+keys). The password dialog keeps its explicit buttons. The page needs JavaScript.
 
+- **Header**: the display name, and under it the word *Owner* (`profile-role`, a small muted line) for an owner account (`users.owner`); nothing for anyone else.
 - **Personal information**: first and last name (optional, up to 60
   characters). The site greets by first name and the menu shows "First Last"
   ("Learner" until a name is set); leaderboards show the first name and the
@@ -1691,7 +1692,7 @@ keys). The password dialog and account deletion keep their explicit buttons. The
   usernames). Asked for at registration and
   fixed from then on. The profile shows it read-only ("No e-mail on file"
   for an account from before addresses were asked for).
-- **Account**: member since, how the account signs in, and for password accounts a
+- **Account**: how the account signs in, and for password accounts a
   *Change password* button that opens a dialog (current password, the new
   one twice). The browser keeps it open until the two new ones match and are
   8 characters or more; a refusal from the server (wrong current password)
@@ -1702,34 +1703,13 @@ keys). The password dialog and account deletion keep their explicit buttons. The
   (`profile-sign-out-others`, `POST /profile/sessions/end-others`, #375,
   explained behind its (i)) ends every other session; changing the
   password or two-factor sign-in does the same.
-- **Privacy and consent** (#974, `profile-consent`): one row per consent
-  with its date, explained behind an (i). The age confirmation (the day the
-  account was made, read-only: taking it back means deleting the
-  account). The AI features have no row: whether they are shown is the server's
-  choice, the owner's on Manage Users (#25), so there is no per-account
-  consent to record (`src/consent.rs`).
 - **Proof that it is the owner** (`prove_owner` in `src/routes/profile.rs`):
   every change a stolen session must not make asks for it: the password
   (checked like `/login`: 10 per account per 15 minutes, a wrong one
   counting against sign-in, refused while sign-in is blocked, #378); an
   account without one (signed in through a proxy) gives a code from its
   second step, or with no second step nothing (#376). It guards the
-  password change, deleting the account and every two-factor change.
-- **Your data**: *Delete account* (`POST /profile/delete`): the password, or for an
-  account without one its e-mail address typed out and, with a second
-  step, the authenticator's code (`profile-delete-code`; #376). It does not delete at once (#970,
-  `src/account_deletion.rs`): it sets `users.delete_at` 14 days out and ends every session
-  of the account. The login page says the date (`login-notice`).
-  Signing in again works as usual, but every page then leads to
-  `/account/deletion` (`account-deletion`, date `account-deletion-date`,
-  *Cancel deletion* `account-deletion-cancel`, *Log out*
-  `account-deletion-logout`; API routes answer 403), and the account's
-  shared courses are hidden from their recipients meanwhile. The hourly
-  `housekeeping` job then removes the account and everything it
-  owns. An owner (`users.owner`, #15) has no *Delete account*: the profile
-  shows one line saying they run the server (`profile-delete-owner`), and
-  `POST /profile/delete` answers 403 for them. What is kept and for how long:
-  [data inventory](data-inventory).
+  password change and every two-factor change.
 - **Manage Users page** (`/manage`, owner accounts only, #220): actions
   that reach any account, for people running the app; the account menu
   links to it. An account is an owner when `users.owner` is 1. With `SKRONGLE_SIGNUP` `invite` or `closed` (#634)

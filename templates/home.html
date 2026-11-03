@@ -110,7 +110,7 @@
   <p>{{ crate::t1("tutor.no_key.p1", "app", crate::APP_NAME) }}</p>
   <p>{% if crate::routes::is_owner(user) %}{{ crate::t("tutor.no_key.p2") }}{% else %}{{ crate::t("tutor.no_key.ask_owner") }}{% endif %}</p>
   <div class="modal-actions">
-    <button type="button" class="btn ghost" commandfor="home-tutor-gate" command="close" data-closes data-testid="home-tutor-gate-close">{{ crate::t("profile.consent.close") }}</button>
+    <button type="button" class="btn ghost" commandfor="home-tutor-gate" command="close" data-closes data-testid="home-tutor-gate-close">{{ crate::t("profile.close") }}</button>
     {% if crate::routes::is_owner(user) %}<a class="btn" href="{{ crate::url("/manage#ai") }}" data-testid="home-tutor-gate-add-key">{{ crate::t("tutor.no_key.add_key") }}</a>{% endif %}
   </div>
 </dialog>

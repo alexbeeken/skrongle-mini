@@ -107,7 +107,6 @@ common:
 
 auth:
   login:
-    deletion_scheduled: "Sua conta será excluída em {date}. Para mantê-la, entre antes dessa data e cancele a exclusão."
     title: Entrar
     email_label: Endereço de e-mail
     password_label: Senha
@@ -176,9 +175,11 @@ auth:
 
 profile:
   title: Perfil
+  ok: "OK"
+  close: "Fechar"
   no_name: Estudante
   head:
-    member_since: "Membro desde {date}"
+    owner: Proprietário
     all_saved: Todas as alterações foram salvas
   month:
     january: Janeiro
@@ -194,7 +195,6 @@ profile:
     november: Novembro
     december: Dezembro
   date:
-    month_year: "{month} de {year}"
     long: "{day} de {month} de {year}"
   privacy:
     title: Quem vê o quê
@@ -208,8 +208,6 @@ profile:
     personal: Informações pessoais
     account: Conta
     two_factor: Autenticação em duas etapas
-    data: Seus dados
-    consent: "Privacidade e consentimento"
   personal:
     title: Informações pessoais
     first_name: Nome
@@ -221,20 +219,10 @@ profile:
     language_unavailable: Esse idioma não está disponível.
   account:
     title: Conta
-    member_since: Membro desde
     sign_in: Login
     password: Senha
     and: e
     no_password: Esta conta não tem senha para trocar.
-  consent:
-    title: "Privacidade e consentimento"
-    info: "Sobre seus consentimentos"
-    info_age: "Você confirmou sua idade ao se cadastrar. Para retirar isso, exclua sua conta em Seus dados."
-    info_record: "Cada mudança fica registrada com a data."
-    close: "Fechar"
-    age: "Idade"
-    age_confirmed: "Confirmada em {date}"
-    age_not_confirmed: "Não confirmada"
   sessions:
     sign_out_others: "Sair de todos os outros lugares"
     info_label: "Sobre sair de todos os outros lugares"
@@ -300,26 +288,6 @@ profile:
       other: "Esse código não está correto. Restam {n} tentativas."
     code_wrong_newest: Esse código não está correto. Digite o código mais recente que o aplicativo mostra.
     code_gone: Nenhum código está aguardando, ou ele expirou. Envie um novo.
-  data:
-    title: Seus dados
-    ok: "OK"
-    delete_title: Excluir conta
-    delete_about: "Excluímos sua conta 14 dias depois do pedido. Isso exclui seu progresso, seus cursos e chaves salvas. Até lá você fica desconectado, e pode entrar de novo para cancelar."
-    delete_owner: "Você administra este Skrongle, então sua conta não pode ser excluída aqui."
-    your_password: Sua senha
-    confirm_before: Digite seu endereço de e-mail (
-    confirm_after: ) para confirmar
-    delete: Excluir minha conta
-    too_many: Muitas tentativas. Aguarde alguns minutos e tente novamente.
-    password_wrong: A senha não está correta.
-    type_email: Digite seu endereço de e-mail para confirmar.
-    code_app: "Código do seu aplicativo autenticador"
-  deletion:
-    title: "Conta com exclusão agendada"
-    on: "Esta conta será excluída de vez em {date}."
-    info_label: "Sobre a exclusão"
-    about: "Até esse dia a conta só pode cancelar a exclusão ou sair. Se cancelar, tudo fica como estava. Depois desse dia seu progresso, seus cursos e chaves salvas somem de vez."
-    cancel: "Cancelar exclusão"
   save:
     not_a_field: Este campo não faz parte do perfil.
     motivator_unavailable: "Esse motivador não está disponível."

@@ -50,7 +50,7 @@ fn count(c: &Connection, t: &str) -> i64 {
 }
 
 /// Every table of the schema is a user table listed in `USER_TABLES`
-/// (or a server-wide one in `SHARED_TABLES`): /// it is deleted.
+/// (or a server-wide one in `SHARED_TABLES`).
 #[test]
 fn every_table_is_covered() {
     let db = Db::open_in_memory().unwrap();
@@ -59,34 +59,6 @@ fn every_table_is_covered() {
         for t in tables(c).into_iter().filter(|t| !SHARED_TABLES.contains(&t.as_str())) {
             assert!(listed.contains(&t.as_str()), "table {t} is not in privacy::USER_TABLES (deletion, docs/data-inventory.md)");
         }
-        Ok(())
-    })
-    .unwrap();
-}
-
-/// Deleting ann removes exactly her rows from every table, and bob's stay.
-#[test]
-fn deleting_an_account_removes_every_row_of_it() {
-    let db = Db::open_in_memory().unwrap();
-    db.with(|c| {
-        let ann = fill(c, "ann");
-        let bob = fill(c, "bob");
-        let before: Vec<(String, i64)> = tables(c).into_iter().filter(|t| !SHARED_TABLES.contains(&t.as_str())).map(|t| (t.clone(), count(c, &t))).collect();
-        for (t, n) in &before {
-            assert!(*n >= 2, "the fixture has no rows in {t}: add them so deletion is tested there");
-        }
-        let deleted = delete_account(c, ann)?.unwrap();
-        assert_eq!(deleted.courses, vec!["ann-course".to_string()]);
-        for (t, n) in &before {
-            assert_eq!(count(c, t), n / 2, "rows left in {t} after deleting ann");
-        }
-        for (t, filter) in USER_TABLES {
-            let left: i64 = c.query_row(&format!("SELECT COUNT(*) FROM {t} WHERE {filter}"), [ann], |r| r.get(0))?;
-            assert_eq!(left, 0, "{t} still has ann's rows");
-            let kept: i64 = c.query_row(&format!("SELECT COUNT(*) FROM {t} WHERE {filter}"), [bob], |r| r.get(0))?;
-            assert!(kept > 0, "{t} lost bob's rows");
-        }
-        assert_eq!(delete_account(c, ann)?, None);
         Ok(())
     })
     .unwrap();

@@ -107,7 +107,6 @@ common:
 
 auth:
   login:
-    deletion_scheduled: "Dein Konto wird am {date} gelöscht. Wenn du es behalten willst, melde dich vorher an und brich die Löschung ab."
     title: Anmelden
     email_label: E-Mail-Adresse
     password_label: Passwort
@@ -176,9 +175,11 @@ auth:
 
 profile:
   title: Profil
+  ok: "OK"
+  close: "Schließen"
   no_name: Lernende
   head:
-    member_since: "Mitglied seit {date}"
+    owner: Inhaber
     all_saved: Alle Änderungen gespeichert
   month:
     january: Januar
@@ -194,7 +195,6 @@ profile:
     november: November
     december: Dezember
   date:
-    month_year: "{month} {year}"
     long: "{day} {month} {year}"
   privacy:
     title: Wer was sieht
@@ -208,8 +208,6 @@ profile:
     personal: Persönliche Angaben
     account: Konto
     two_factor: Zwei-Faktor-Authentifizierung
-    data: Deine Daten
-    consent: "Datenschutz und Einwilligung"
   personal:
     title: Persönliche Angaben
     first_name: Vorname
@@ -221,20 +219,10 @@ profile:
     language_unavailable: Diese Sprache ist nicht verfügbar.
   account:
     title: Konto
-    member_since: Mitglied seit
     sign_in: Anmeldung
     password: Passwort
     and: und
     no_password: Dieses Konto hat kein Passwort, das man ändern könnte.
-  consent:
-    title: "Datenschutz und Einwilligung"
-    info: "Über deine Einwilligungen"
-    info_age: "Du hast dein Alter bei der Registrierung bestätigt. Um das zurückzunehmen, lösche dein Konto unter Deine Daten."
-    info_record: "Jede Änderung wird mit Datum gespeichert."
-    close: "Schließen"
-    age: "Alter"
-    age_confirmed: "Bestätigt am {date}"
-    age_not_confirmed: "Nicht bestätigt"
   sessions:
     sign_out_others: "Überall sonst abmelden"
     info_label: "Über das Abmelden überall sonst"
@@ -300,26 +288,6 @@ profile:
       other: "Der Code stimmt nicht. Noch {n} Versuche."
     code_wrong_newest: Der Code stimmt nicht. Gib den neuesten Code ein, den die App anzeigt.
     code_gone: Kein Code wartet, oder er ist abgelaufen. Schick einen neuen.
-  data:
-    title: Deine Daten
-    ok: "OK"
-    delete_title: Konto löschen
-    delete_about: "Wir löschen dein Konto 14 Tage nach deiner Anfrage. Dabei werden dein Fortschritt, deine Kurse und gespeicherten Schlüssel gelöscht. Bis dahin bist du abgemeldet und kannst dich wieder anmelden, um abzubrechen."
-    delete_owner: "Du betreibst dieses Skrongle, daher lässt sich dein Konto hier nicht löschen."
-    your_password: Dein Passwort
-    confirm_before: "Gib deine E-Mail-Adresse ("
-    confirm_after: ") ein, um zu bestätigen"
-    delete: Mein Konto löschen
-    too_many: Zu viele Versuche. Warte ein paar Minuten und versuche es erneut.
-    password_wrong: Das Passwort stimmt nicht.
-    type_email: Gib deine E-Mail-Adresse ein, um zu bestätigen.
-    code_app: "Code aus deiner Authenticator-App"
-  deletion:
-    title: "Konto wird gelöscht"
-    on: "Dieses Konto wird am {date} endgültig gelöscht."
-    info_label: "Über die Löschung"
-    about: "Bis zu diesem Tag kann das Konto nur die Löschung abbrechen oder sich abmelden. Brichst du ab, bleibt alles, wie es war. Danach sind dein Fortschritt, deine Kurse und gespeicherten Schlüssel endgültig weg."
-    cancel: "Löschung abbrechen"
   save:
     not_a_field: Dieses Feld gehört nicht zum Profil.
     motivator_unavailable: "Dieser Motivator ist nicht verfügbar."

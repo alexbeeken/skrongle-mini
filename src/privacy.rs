@@ -1,14 +1,13 @@
-//! A learner's data as a whole: account deletion, the retention rules the hourly housekeeping applies, and
+//! A learner's data as a whole: the table list, the retention rules the hourly housekeeping applies, and
 //! the age confirmation at sign-up. What is stored where, and why, is in
 //! `docs/data-inventory.md`; keep the two in step.
 
 use rusqlite::{params, Connection};
 
 /// Every table that holds a learner's rows, with the condition that selects
-/// them (`?1` is the user id). Deleting the `users` row removes all of them
-/// through `ON DELETE CASCADE`. A new table
+/// them (`?1` is the user id); every one cascades from `users(id)`. A new table
 /// with user data must be added here (the tests fail until it is).
-#[cfg_attr(not(test), allow(dead_code))] // the tests read it: they check every table is listed and that deletion clears each
+#[cfg_attr(not(test), allow(dead_code))] // the tests read it: they check every table is listed
 pub const USER_TABLES: &[(&str, &str)] = &[
     ("users", "id = ?1"),
     ("sessions", "user_id = ?1"),
@@ -43,35 +42,6 @@ pub const USER_TABLES: &[(&str, &str)] = &[
 /// `server_api_keys` and `settings` are the server's AI API keys and settings (#25), the owner's, no account.
 #[cfg_attr(not(test), allow(dead_code))]
 pub const SHARED_TABLES: &[&str] = &["jobs", "server_api_keys", "settings"];
-
-/// What deleting an account removed that lives in caches too.
-#[derive(Debug, Default, PartialEq)]
-pub struct Deleted {
-    /// The user's courses (their cached `ContentStore`s must go).
-    pub courses: Vec<String>,
-}
-
-/// Delete the account and everything it owns, in one transaction. Every
-/// user table cascades from `users(id)` (the courses' files through their
-/// parent rows); the few rows that only name a course by id (`projects`,
-/// `users.active_course`) are cleared here. `None` when there was no such user.
-pub fn delete_account(conn: &mut Connection, user_id: i64) -> rusqlite::Result<Option<Deleted>> {
-    let tx = conn.transaction()?;
-    let courses: Vec<String> = {
-        let mut stmt = tx.prepare("SELECT id FROM courses WHERE owner_id = ?1 ORDER BY id")?;
-        let v = stmt.query_map([user_id], |r| r.get(0))?.collect::<Result<_, _>>()?;
-        v
-    };
-    for c in &courses {
-        tx.execute("DELETE FROM projects WHERE course_id = ?1", [c])?;
-        tx.execute("UPDATE users SET active_course = NULL WHERE active_course = ?1", [c])?;
-    }
-    let n = tx.execute("DELETE FROM users WHERE id = ?1", [user_id])?;
-    tx.commit()?;
-    // Its `user_progress` rows went with the cascade (#38).
-    crate::mastery::cache::forget_user(user_id);
-    Ok((n > 0).then_some(Deleted { courses }))
-}
 
 // ---------- retention ----------
 

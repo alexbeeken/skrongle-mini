@@ -472,7 +472,7 @@ impl Runner {
 
 /// The hourly housekeeping, one job that runs every purge in turn: expired
 /// sessions, abandoned games, old generation jobs, idle tutor chats,
-/// rate-limit windows, accounts due for deletion (#970), the retention rules
+/// rate-limit windows, the retention rules
 /// (privacy.rs), old two-factor challenges and invitation links, old job
 /// rows, and last a WAL checkpoint so the -wal file doesn't grow on
 /// the SD card. Each step logs its count; a step that fails is logged and the
@@ -489,7 +489,6 @@ pub fn housekeeping(runner: Runner, state: &Arc<crate::AppState>, retention: cra
             ("ai_jobs", Box::new(|| Ok(note(s.jobs.purge_expired(), "old generation jobs dropped")))),
             ("tutor_chats", Box::new(|| Ok(note(s.tutors.purge_expired(), "idle tutor chats dropped")))),
             ("rate_limits", Box::new(|| Ok(note(s.limits.purge_expired(now()), "rate-limit windows dropped")))),
-            ("deletions", Box::new(|| crate::account_deletion::sweep(s, db))),
             (
                 "retention",
                 Box::new(|| {
