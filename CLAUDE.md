@@ -17,13 +17,6 @@ Read `docs/` before changing anything substantial:
   feature changes. The `/docs` sidebar is `SECTIONS` in `src/routes/docs.rs`
   (a page not listed lands under Developers); `/llms.txt` is `docs/llms.txt`.
 
-Rules for one area live in `.claude/rules/` and load when you open a
-matching file: `content.md` (course files, the format contract, the test
-course, fact check), `i18n.md` (app text), `ui.md`
-(information behind icons), `e2e.md` (testids, journeys, model
-call fixtures, Jev scripts). They don't load on their own in a worktree
-other than the one the session started in, so read the ones for your area.
-
 ## Conventions
 
 - Every learning handler takes `Project` (`src/auth.rs`): the user plus

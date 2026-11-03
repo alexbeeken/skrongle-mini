@@ -22,3 +22,6 @@ deploy/deploy.env
 
 # Agent worktrees (Claude Code)
 .claude/worktrees/
+
+# Local assistant configuration and rules; not part of the published tree
+.claude/
