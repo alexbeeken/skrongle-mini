@@ -1105,6 +1105,7 @@ profile:
     ok: Aceptar
     delete_title: Eliminar cuenta
     delete_about: "Eliminamos tu cuenta 14 días después de que lo pidas, o cuando termine el tiempo pagado de un plan cancelado, si es más tarde. Se eliminan tu progreso, tus cursos y tus claves guardadas. Hasta entonces tu sesión queda cerrada, y puedes volver a iniciar sesión para cancelarlo."
+    delete_owner: "Tú gestionas este Skrongle, así que tu cuenta no se puede borrar aquí."
     your_password: Tu contraseña
     confirm_before: Escribe tu dirección de correo electrónico (
     confirm_after: ) para confirmar

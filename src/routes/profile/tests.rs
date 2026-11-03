@@ -105,6 +105,51 @@ fn privacy_page_export_and_account_deletion_over_http() {
     assert!(scheduled, "scheduled, not deleted at once");
 }
 
+/// An owner cannot delete their own account (#15): the profile shows the
+/// line saying why instead of the form, and a POST by hand, even with the
+/// right password, is refused with a 403 and schedules nothing. Anyone else
+/// still gets the form.
+#[test]
+fn an_owner_cannot_delete_their_own_account() {
+    let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
+    let state = crate::routes::test_state(false);
+    let hash = crate::auth::hash_password("right-password").unwrap();
+    let (root_t, bob_t, root) = state
+        .db
+        .with(|c| {
+            let root = crate::auth::create_user(c, "root@example.org", &hash)?;
+            let bob = crate::auth::create_user(c, "bob@example.org", &hash)?;
+            crate::owner::make_owner(c, root)?;
+            for u in [root, bob] {
+                crate::terms::accept(c, u, crate::terms::version())?;
+            }
+            Ok((crate::auth::create_session(c, root)?, crate::auth::create_session(c, bob)?, root))
+        })
+        .unwrap();
+    let app = crate::routes::router(state.clone());
+    let base = rt.block_on(async {
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let addr = listener.local_addr().unwrap();
+        tokio::spawn(async move { axum::serve(listener, app).await.unwrap() });
+        format!("http://{addr}")
+    });
+    let agent: ureq::Agent = ureq::Agent::config_builder().http_status_as_error(false).max_redirects(0).build().into();
+    let get = |cookie: &str| agent.get(&format!("{base}/profile")).header("cookie", cookie).call().unwrap().body_mut().read_to_string().unwrap();
+    let (root_c, bob_c) = (format!("sid={root_t}"), format!("sid={bob_t}"));
+
+    let page = get(&root_c);
+    assert!(page.contains(r#"data-testid="profile-delete-owner""#) && !page.contains("profile-delete-form"), "{page}");
+    let page = get(&bob_c);
+    assert!(page.contains("profile-delete-form") && !page.contains("profile-delete-owner"), "{page}");
+
+    let mut r = agent.post(&format!("{base}/profile/delete")).header("cookie", &root_c).send_form([("password", "right-password")]).unwrap();
+    assert_eq!(r.status().as_u16(), 403);
+    assert!(r.body_mut().read_to_string().unwrap().contains("can't be deleted here"));
+    let at: Option<i64> = state.db.with(|c| c.query_row("SELECT delete_at FROM users WHERE id = ?1", [root], |r| r.get(0))).unwrap();
+    assert_eq!(at, None, "nothing scheduled");
+    assert!(get(&root_c).contains("profile-delete-owner"), "still signed in");
+}
+
 /// Account changes a stolen session must not make (#374, #375, #376):
 /// turning two-factor on needs proof, signs out the other devices and
 /// e-mails the account; "Sign out everywhere else" ends every other

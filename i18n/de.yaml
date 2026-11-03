@@ -634,6 +634,7 @@ profile:
     ok: "OK"
     delete_title: Konto löschen
     delete_about: "Wir löschen dein Konto 14 Tage nach deiner Anfrage, oder wenn die bezahlte Zeit eines gekündigten Abos endet, falls das später ist. Dabei werden dein Fortschritt, deine Kurse und gespeicherten Schlüssel gelöscht. Bis dahin bist du abgemeldet und kannst dich wieder anmelden, um abzubrechen."
+    delete_owner: "Du betreibst dieses Skrongle, daher lässt sich dein Konto hier nicht löschen."
     your_password: Dein Passwort
     confirm_before: "Gib deine E-Mail-Adresse ("
     confirm_after: ") ein, um zu bestätigen"

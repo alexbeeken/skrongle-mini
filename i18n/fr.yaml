@@ -634,6 +634,7 @@ profile:
     ok: OK
     delete_title: Supprimer le compte
     delete_about: "Nous supprimons votre compte 14 jours après votre demande, ou à la fin de la période payée d'un abonnement résilié, si elle est plus tardive. Cela supprime votre progression, vos cours et clés enregistrées. D'ici là vous êtes déconnecté, et vous pouvez vous reconnecter pour annuler."
+    delete_owner: "Vous gérez ce Skrongle : votre compte ne peut donc pas être supprimé ici."
     your_password: Votre mot de passe
     confirm_before: "Saisissez votre adresse e-mail ("
     confirm_after: ") pour confirmer"
