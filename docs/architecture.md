@@ -47,7 +47,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 - Sign-in: `auth.rs` (sessions, CurrentUser, Project), `auth/cache.rs` (the signed-in users kept in memory by session, #37), `routes/auth.rs`, `routes/auth/code.rs` (the two-factor step), `proxy_auth.rs` (proxy header), `signup.rs` (who may register), `urlenc.rs` (percent-encoding for the redirects they build).
 - Two-factor: `two_factor.rs`, `totp.rs`.
 - Profile: `profile.rs`, `routes/profile.rs`, `static/profile.js`, `static/autosave.js`.
-- Data rights: `privacy.rs` (the user-table list, retention rules, the age confirmation).
+- Data rights: `db/tables.rs` (the user-table list), `jobs/retention.rs` (retention rules), `signup.rs` (the age confirmation).
 - Owner: `owner.rs`, `routes/manage.rs`, `static/manage.js`, `routes/password.rs` (temporary password gate); the server's AI API keys in `secrets.rs` and the hide-AI switch in `settings.rs`, both on Manage Users (#25).
 - Docs pages: `routes/docs.rs` (`/docs` sidebar `SECTIONS`, `/llms.txt`).
 
@@ -83,7 +83,7 @@ src/
   auth.rs        argon2id hashing, sessions, CurrentUser (route guard) and Project (user + active course) extractors
   auth/cache.rs  the signed-in users by session in memory (#37): forgotten by temporary triggers (db.rs) on any write to a table the session query reads, and after 60 s
   proxy_auth.rs  sign-in through a reverse proxy's identity header (SKRONGLE_PROXY_AUTH_HEADER / _FROM, #642): a middleware before every handler
-  signup.rs      who may make an account (SKRONGLE_SIGNUP: open / invite / closed, #634): the first account is the owner, through the owner link written to the log at startup, invitation links (table signup_invites, the token hashed), the Manage Users page's Accounts part and invitation links (routes/manage.rs)
+  signup.rs      the age confirmation and SKRONGLE_MIN_AGE; who may make an account (SKRONGLE_SIGNUP: open / invite / closed, #634): the first account is the owner, through the owner link written to the log at startup, invitation links (table signup_invites, the token hashed), the Manage Users page's Accounts part and invitation links (routes/manage.rs)
 
   share.rs       sharing a course with other learners by e-mail address (#451): invitation links the owner passes on (table course_shares, the link's token hashed), who may open a shared course
   totp.rs        time-based one-time passwords: RFC 6238 TOTP over RFC 4226 HOTP (SHA-1 written out, SHA-256/512 via sha2), base32, the otpauth://totp/ Key Uri Format and its QR code as inline SVG (the qrcode crate, no image feature); the dev authenticator (/dev/authenticator) reads its keys with it
@@ -105,8 +105,9 @@ src/
   quiz.rs        adaptive question selection, answer normalisation/checking, tiny PRNG
   problems.rs    what the editor and the file page say when a course file is refused: kind, lesson, field, line, message, fix hint (every ContentError and arrange.rs refusal)
   owner.rs       what the owner does to an account with no message sent (#635): a temporary password (users.must_change_password), two-factor off, make an owner; the binary's commands (reset-password, disable-2fa, make-owner, help)
-  privacy.rs     a learner's data as a whole: USER_TABLES, retention rules, the age confirmation and SKRONGLE_MIN_AGE (docs/data-inventory.md)
-  jobs.rs        background jobs (table jobs, #872): enqueue, the one-statement claim with a lease, retries with per-kind delays, periodic kinds that queue their next run; the `jobs` runner thread, which also drains the mail and text outboxes with a lease (#873); the hourly housekeeping as one job with a step per purge
+  db/tables.rs   USER_TABLES and SHARED_TABLES: which tables hold a learner's rows, and the test that every table is listed (docs/data-inventory.md)
+  jobs/retention.rs  the retention rules the hourly housekeeping applies (old answers, finished notes, failed AI courses)
+  jobs.rs        background jobs (table jobs, #872): enqueue, the one-statement claim with a lease, retries with per-kind delays, periodic kinds that queue their next run; the `jobs` runner thread, which also drains the mail outbox with a lease (#873); the hourly housekeeping as one job with a step per purge
   mathcheck.rs   numeric and expression answers: a small parser/evaluator, numbers in every spelling, equivalence by sampling
   algebra_tiles.rs  algebra-tiles questions: the pile from `tiles`, an answer must be two sides whose product is the tiles
   clock.rs       clock answers: H:MM on the 12-hour face, the hands' angles, what a clock question may say
@@ -389,7 +390,7 @@ housekeeping sweeps read through `quiz_history(answered_at)`,
 updated_at)`, `courses(state) WHERE notes <> ''`, `projects(course_id)` and
 `users(active_course)`. What each table holds, and how long, is in the
 [data inventory](data-inventory); a table with user data must be listed in
-`privacy::USER_TABLES` (a test checks every table in the schema).
+`db::tables::USER_TABLES` (a test checks every table in the schema).
 
 **Model calls.** Every call site (`POST /courses/{id}/generate`,
 `POST /courses/{id}/ai`, the tutor) uses the server's key (or a pasted one on the
@@ -485,7 +486,7 @@ posture are in `docs/self-hosting.md`, "Skrongle mini".
 | `SKRONGLE_COURSE_BYTES_PER_USER` | `33554432` | Total size of the files of one account's courses |
 | `SKRONGLE_RETAIN_HISTORY_DAYS` | `730` | Delete answers in `quiz_history`, finished rounds in `game_activity` and the daily goal's `activity_log` older than this many days (at startup and hourly). `0`: keep them while the account exists. A placeholder until the retention periods are decided (TODO.md) |
 | `SKRONGLE_KEEP_NOTES` | `0` | `1`: keep the notes of an AI course once it is ready (revisions then see them). Default: emptied within the hour |
-| `SKRONGLE_FAILED_COURSE_RETENTION_DAYS` | `30` | Delete an AI course whose generation failed (with its notes and files) once it has gone this many days without a resume or edit (at startup and hourly, `privacy::apply_retention`). `0`: keep them |
+| `SKRONGLE_FAILED_COURSE_RETENTION_DAYS` | `30` | Delete an AI course whose generation failed (with its notes and files) once it has gone this many days without a resume or edit (at startup and hourly, `jobs::retention::apply_retention`). `0`: keep them |
 | `SKRONGLE_MIN_AGE` | `14` | The age the sign-up forms' age checkbox names (#976) |
 | `SKRONGLE_LOG` | `info` | One level: `error`, `warn`, `info`, `debug` or `trace`. Per-module filters like `skrongle=debug` are not supported; an unrecognised value logs one warning and runs at `info`. |
 | `SKRONGLE_SECURE_COOKIES` | `0` | Set `1` behind a TLS proxy to add `Secure` to cookies. Required outside mini and dev mode: the server refuses to start without it |

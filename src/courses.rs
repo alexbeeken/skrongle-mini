@@ -935,7 +935,7 @@ pub fn finish_generation(conn: &Connection, id: &str, error: Option<&str>) -> ru
 pub fn fail_interrupted(conn: &Connection) -> rusqlite::Result<usize> {
     conn.execute("UPDATE courses SET state = 'ready' WHERE state = 'revising'", [])?;
     conn.execute(
-        // `updated_at` starts the failed-course retention clock (privacy.rs).
+        // `updated_at` starts the failed-course retention clock (jobs/retention.rs).
         "UPDATE courses SET state = 'failed', updated_at = ?1, error = ?2
          WHERE state = 'generating'
            AND id NOT IN (SELECT json_extract(payload_json, '$.course') FROM jobs WHERE kind = ?3 AND state IN ('queued', 'running'))",

@@ -1,5 +1,6 @@
 use super::*;
 use crate::db::Db;
+use rusqlite::params;
 
 /// One learner with a row in every user table (and a course with files
 /// and an undo step).
@@ -39,31 +40,9 @@ fn fill(c: &Connection, name: &str) -> i64 {
     c.execute_batch(&sql).unwrap();
     uid
 }
-
-fn tables(c: &Connection) -> Vec<String> {
-    let mut stmt = c.prepare("SELECT name FROM sqlite_master WHERE type = 'table' AND name NOT LIKE 'sqlite_%' ORDER BY name").unwrap();
-    stmt.query_map([], |r| r.get(0)).unwrap().map(Result::unwrap).collect()
-}
-
 fn count(c: &Connection, t: &str) -> i64 {
     c.query_row(&format!("SELECT COUNT(*) FROM {t}"), [], |r| r.get(0)).unwrap()
 }
-
-/// Every table of the schema is a user table listed in `USER_TABLES`
-/// (or a server-wide one in `SHARED_TABLES`).
-#[test]
-fn every_table_is_covered() {
-    let db = Db::open_in_memory().unwrap();
-    let listed: Vec<&str> = USER_TABLES.iter().map(|(t, _)| *t).collect();
-    db.with(|c| {
-        for t in tables(c).into_iter().filter(|t| !SHARED_TABLES.contains(&t.as_str())) {
-            assert!(listed.contains(&t.as_str()), "table {t} is not in privacy::USER_TABLES (deletion, docs/data-inventory.md)");
-        }
-        Ok(())
-    })
-    .unwrap();
-}
-
 #[test]
 fn retention_drops_old_answers_rounds_and_finished_notes() {
     let db = Db::open_in_memory().unwrap();
@@ -152,32 +131,4 @@ fn retention_and_account_deletion_use_indexes() {
         Ok(())
     })
     .unwrap();
-}
-
-#[test]
-fn the_age_gate_refuses_an_unticked_box_and_records_a_ticked_one() {
-    let gate = AgeGate { min_age: 16 };
-    assert!(gate.check(true, "register").is_ok());
-    assert_eq!(gate.check(false, "register").unwrap_err(), "Confirm you are at least 16 to register.");
-    assert_eq!(gate.check(false, "continue").unwrap_err(), "Confirm you are at least 16 to continue.");
-    let db = Db::open_in_memory().unwrap();
-    db.with(|c| {
-        let id = crate::auth::create_user(c, "ann@example.org", "h")?;
-        let read = || c.query_row("SELECT age_confirmed FROM users WHERE id = ?1", [id], |r| r.get::<_, bool>(0)).unwrap();
-        assert!(!read());
-        record_age_confirmed(c, id, true)?;
-        assert!(read());
-        Ok(())
-    })
-    .unwrap();
-}
-
-/// The minimum age is 14 everywhere: the default gate names 14 in its box
-/// and refuses a sign-up without it.
-#[test]
-fn the_default_minimum_age_is_14() {
-    assert_eq!(DEFAULT_MIN_AGE, 14);
-    let gate = AgeGate { min_age: DEFAULT_MIN_AGE };
-    assert_eq!(crate::t1("auth.register.age", "min_age", gate.min_age), "I am at least 14 years old");
-    assert_eq!(gate.check(false, "register").unwrap_err(), "Confirm you are at least 14 to register.");
 }

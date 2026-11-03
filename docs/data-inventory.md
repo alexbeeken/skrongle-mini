@@ -4,14 +4,14 @@ What the app stores about a learner, where, why, whether it leaves the
 server, and for how long. It is the record of processing, taken from the
 schema in `src/db/migrations/v001_schema.sql`. Not legal advice.
 
-`src/privacy.rs` lists every user table in `USER_TABLES`: a test fails when a table is
+`src/db/tables.rs` lists every user table in `USER_TABLES`: a test fails when a table is
 added to the schema without being listed there. Add new tables here too.
 
 ## In the database (SQLite, `SKRONGLE_DB`)
 
 Every row below belongs to an account (`ON DELETE CASCADE`
 from `users(id)`, directly or through the owning course). `jobs`,
-`server_api_keys` and `settings` (`privacy::SHARED_TABLES`) belong to no
+`server_api_keys` and `settings` (`db::tables::SHARED_TABLES`) belong to no
 account: the background job queue and the server's AI keys and settings.
 
 | Table | Columns with personal data | Why | Leaves the server? | Kept |

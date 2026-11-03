@@ -35,7 +35,6 @@ mod motivators;
 mod urlenc;
 mod owner;
 mod placement;
-mod privacy;
 mod problems;
 mod profile;
 mod progress;
@@ -392,7 +391,7 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         Some(v) => Some(v.trim().parse::<u32>().map_err(|_| format!("SKRONGLE_MIN_AGE must be a whole number, got {v:?}"))?),
         None => None,
     };
-    privacy::init_min_age(min_age);
+    signup::init_min_age(min_age);
     let courses = Courses::load(&cfg.data_dir, cfg.test_course)
         .map_err(|e| format!("failed to load courses from {}: {e}", cfg.data_dir.display()))?;
     if cfg.test_course {
@@ -430,8 +429,8 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
     db.with(|c| c.execute_batch("PRAGMA shrink_memory;"))?;
     let purged = db.with(|c| auth::purge_expired_sessions(c))?;
     tracing::info!("database ready at {} ({purged} expired sessions purged)", cfg.db_path.display());
-    let retention = privacy::Retention::from_env();
-    let swept = db.with(|c| privacy::apply_retention(c, &retention, db::now()))?;
+    let retention = jobs::retention::Retention::from_env();
+    let swept = db.with(|c| jobs::retention::apply_retention(c, &retention, db::now()))?;
     let notes_rule = if retention.keep_notes { "kept" } else { "deleted" };
     match retention.history_days {
         Some(d) => tracing::info!("retention: answers and game rounds kept {d} days ({} answers, {} rounds older deleted); notes of finished AI courses {notes_rule}", swept.answers, swept.rounds),
