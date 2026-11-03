@@ -187,7 +187,7 @@ starts `SKRONGLE_`; see [Renamed settings](#renamed-settings) if yours start `LE
 | `SKRONGLE_OPENAI_BASE_URL` | `https://api.openai.com` | Point the OpenAI provider at any OpenAI-compatible server, e.g. Ollama on another machine. |
 | `SKRONGLE_ALLOW_PRIVATE_AI_URLS` | off | `1` lets learners type a base URL on your own network (e.g. `http://192.168.1.20:11434`) into the AI forms. Off, the server refuses to call private, loopback and link-local addresses for them, and ports other than 443 and 80. |
 | `SKRONGLE_AI_JOB_BUDGET_SECS` | `3600` | How long one AI generation job may run in all. Raise it for a slow self-hosted model. |
-| `SKRONGLE_LOG` | `info` | `error`, `warn`, `info`, `debug` or `trace`. |
+| `SKRONGLE_LOG` | `info` | One level: `error`, `warn`, `info`, `debug` or `trace`. Per-module filters like `skrongle=debug` are not supported; an unrecognised value logs one warning and runs at `info`. |
 | `SKRONGLE_SECURE_COOKIES` | off | `1` when the site is served over HTTPS (behind a TLS proxy). |
 | `SKRONGLE_PUBLIC_URL` | — | The address people use, e.g. `https://learn.example.org`. |
 | `SKRONGLE_TERMS` | `builtin` (mini: `/etc/skrongle/terms.md`) | Your Terms of Service: the path of a Markdown file (the unit sets `/etc/skrongle/terms.md`), or `builtin` for the hosted service's terms. See [Your own Terms](#your-own-terms). |

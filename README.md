@@ -186,7 +186,7 @@ startup ([Renamed settings](docs/self-hosting.md#renamed-settings)).
 | `SKRONGLE_BIND` | `0.0.0.0:8080` | Listen address |
 | `SKRONGLE_DATA_DIR` | `data` | Directory containing `courses/` |
 | `SKRONGLE_DB` | `learn.db` | SQLite file (WAL + SHM files are created next to it) |
-| `SKRONGLE_LOG` | `info` | `error`/`warn`/`info`/`debug`/`trace` |
+| `SKRONGLE_LOG` | `info` | One level: `error`, `warn`, `info`, `debug` or `trace`. Per-module filters like `skrongle=debug` are not supported; an unrecognised value logs one warning and runs at `info`. |
 | `SKRONGLE_SECURE_COOKIES` | `0` | Set `1` behind a TLS proxy to add `Secure` to cookies |
 | `SKRONGLE_BASE_PATH` | *(empty)* | URL prefix when mounted behind a reverse proxy, e.g. `/spanish` |
 | `SKRONGLE_PUBLIC_URL` | — | Public URL, for the links in e-mail |

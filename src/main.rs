@@ -253,7 +253,9 @@ struct Config {
     db_path: PathBuf,
     secure_cookies: bool,
     base_path: String,
-    log_level: tracing::Level,
+    log_level: tracing::level_filters::LevelFilter,
+    /// An unparseable `SKRONGLE_LOG`, warned about once the logger is up.
+    log_invalid: Option<String>,
     /// `SKRONGLE_SECRET_KEY`; without it the secret lives in `<db>.key`.
     secret_key: Option<String>,
     /// `SKRONGLE_DEV=1`: asked for; `dev::resolve` decides.
@@ -357,7 +359,8 @@ impl Config {
             db_path: env("DB").map(PathBuf::from).unwrap_or_else(|| PathBuf::from(DEFAULT_DB)),
             secure_cookies: env("SECURE_COOKIES").map(|v| v == "1" || v == "true").unwrap_or(false),
             base_path: normalize_base_path(&env("BASE_PATH").unwrap_or_default()),
-            log_level: env("LOG").and_then(|v| v.parse().ok()).unwrap_or(tracing::Level::INFO),
+            log_level: env("LOG").and_then(|v| v.parse().ok()).unwrap_or(tracing::level_filters::LevelFilter::INFO),
+            log_invalid: env("LOG").filter(|v| v.parse::<tracing::level_filters::LevelFilter>().is_err()),
             secret_key: env("SECRET_KEY"),
             prices: prices::PriceTable::from_env(),
             dev: env("DEV").is_some_and(|v| v == "1" || v == "true"),
@@ -445,13 +448,14 @@ fn main() {
     };
     tracing_subscriber::fmt()
         .with_max_level(cfg.log_level)
-        // journald stores raw bytes; keep colours only for a real terminal.
-        .with_ansi(std::io::IsTerminal::is_terminal(&std::io::stdout()))
         .with_target(false)
         .compact()
         .init();
     for w in [old_names, ignored].into_iter().flatten() {
         tracing::warn!("{w}");
+    }
+    if let Some(v) = &cfg.log_invalid {
+        tracing::warn!("SKRONGLE_LOG={v:?} is not a level (error, warn, info, debug or trace); using info");
     }
 
     // One async worker and two blocking threads (#35): at most 8 accounts and
@@ -538,6 +542,8 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         let hint = if cfg.dev { " (a dev database from another branch? ./.dev-start --reset recreates it)" } else { "" };
         format!("{}{hint}", startup::db_error(&cfg.db_path, &e))
     })?;
+    // Give back the page cache and temp memory the migrations grew.
+    db.with(|c| c.execute_batch("PRAGMA shrink_memory;"))?;
     let purged = db.with(|c| auth::purge_expired_sessions(c))?;
     tracing::info!("database ready at {} ({purged} expired sessions purged)", cfg.db_path.display());
     let retention = privacy::Retention::from_env();
