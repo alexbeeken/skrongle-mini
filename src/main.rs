@@ -22,7 +22,6 @@ mod doctor;
 mod earnings;
 mod sprint;
 mod error;
-mod exports;
 mod games;
 mod guide;
 mod i18n;
@@ -168,8 +167,6 @@ pub struct AppState {
     pub limits: security::RateLimits,
     /// The e-mail outbox's sender (`SKRONGLE_MAIL_*`; logs only when unset).
     pub mail: mail::Mailer,
-    /// "Download my data": the folder the export job writes to.
-    pub exports: exports::Exports,
     /// Wakes the background job runner (`jobs.rs`).
     pub queue: jobs::Queue,
     /// Dev mode: the SMTP mailbox the mail goes to (`/dev/inbox`); `None`
@@ -674,15 +671,6 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         Some(inbox) => tracing::info!("dev: e-mail goes to the dev mailbox (SMTP on {}); read it at http://{}{} (SKRONGLE_DEV_SMTP=0 to only log it)", inbox.addr(), cfg.bind, url("/dev/inbox")),
         None => {}
     }
-    tracing::info!("data exports: on disk, next to the database");
-    let exports_dir = exports::Exports::open(&cfg.db_path).map_err(|e| format!("data exports folder for {}: {e}", cfg.db_path.display()))?;
-    let export_mail: Option<Box<dyn Fn() + Send>> = mail_on.then(|| {
-        let wake = mailer.waker();
-        Box::new(move || {
-            let _ = wake.send(());
-        }) as Box<dyn Fn() + Send>
-    });
-    let export_builder = exports::Builder::new(exports_dir.dir.clone(), export_mail);
     let state = Arc::new(AppState {
         db: db.clone(),
         courses: Arc::new(courses.with_limits(courses::Limits {
@@ -699,7 +687,6 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         dev,
         limits: security::RateLimits::new(dev),
         mail: mailer,
-        exports: exports_dir,
         queue,
         dev_inbox,
         dev_marks: Default::default(),
@@ -712,15 +699,13 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
 
     // Background jobs: the mail outbox (drained first on every
     // pass), the hourly housekeeping (one job per purge, each queuing its
-    // next run; due at once on a fresh database), data exports (a slice per
-    // run), a generation resumed after a restart (started on its own thread), and in
+    // next run; due at once on a fresh database), a generation resumed after a restart (started on its own thread), and in
     // dev mode the always-failing kind /dev/jobs queues.
     mail_outbox.blank_at_start(&db);
     state.jobs.wake_with(state.queue.waker());
     ai::adopt(&state.jobs, &db)?;
     let gen_state = Arc::clone(&state);
     let mut runner = jobs::housekeeping(jobs::Runner::new().drain(mail_outbox.drain()), &state, retention)
-        .handle(jobs::EXPORT, move |db, payload| export_builder.run(db, payload))
         .handle_claimed(ai::GENERATE, move || ai::slot_free(&gen_state.jobs), ai::handler(Arc::clone(&state)));
     if dev {
         runner = jobs::dev(runner);

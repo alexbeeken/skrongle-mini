@@ -36,8 +36,7 @@ The numbers below the line are generated: `python3 scripts/e2e-audit.py
 - **Routes.** Of 137 production routes, 3 are reached by no flow:
   `POST /login/code/resend`, `POST /login/code/cancel`,
   `POST /profile/two-factor/code`. The script lists five more that are
-  reached in ways a grep cannot see: `GET /profile/export/download` (the link in the
-  export e-mail, in `smoke/export.spec.ts`), `/courses/shared/{token}` (from the invitation
+  reached in ways a grep cannot see: `/courses/shared/{token}` (from the invitation
   e-mail, in `share.spec.ts`, local only), `POST /api/courses/{id}/lessons`
   (the editor's autosave, the URL built by concatenation in
   `static/courses.js`), `/pictures/{*path}` (a course's SVG pictures),
@@ -57,7 +56,7 @@ The per-test list is below the line. In short:
 | Sign-up, sign-in, e-mail, 2FA | `smoke/verify-email`, `mail`, `two-factor`, `authenticator`, `terms`, `i18n` |
 | Learning, every mode and game | `smoke/happy-paths`, `smoke/complete-test-course`, `smoke/test-course-games`, `smoke/wrong-answers`, `smoke/wrong-answers-games`, `smoke/start-level`, `smoke/french`, `smoke/daily-goal`, `smoke/motivator*`, `modals`, `lesson-tables` |
 | Home page | `home` (local only) |
-| Profile | `profile-autosave`, `avatar-colour`, `ai-off` (all local only); `profile-nav`; `smoke/privacy`, `smoke/export` (export, delete) |
+| Profile | `profile-autosave`, `avatar-colour`, `ai-off` (all local only); `profile-nav`; `smoke/privacy` (delete) |
 | Plans and payments | `subscription`, `dev-payments`, `hosted-ai` (all local only) |
 | Generating a course | `exact`, `pathways`, `dev-ai`, `create`; `prompt-limits` (local only) |
 | Editing a course | `editor-autosave`, `forms`, `course-copy`; `lessons`, `editor-errors`, `course-report`, `revise`, `review-ai-changes`, `review-and-revise` (local only) |
@@ -174,7 +173,6 @@ teenager on a phone in Sprint, 6), `testing-bot` (sees only markup, 12).
 | `specs/smoke/complete-test-course.spec.ts` | 3 | yes |  |
 | `specs/smoke/daily-goal.spec.ts` | 1 | yes |  |
 | `specs/smoke/drill-first-set.spec.ts` | 2 | yes |  |
-| `specs/smoke/export.spec.ts` | 2 | yes |  |
 | `specs/smoke/french.spec.ts` | 5 | yes |  |
 | `specs/smoke/happy-paths.spec.ts` | 10 | yes |  |
 | `specs/smoke/mini.spec.ts` | 6 | yes |  |
@@ -243,8 +241,6 @@ No e2e file names them; a spec drives the form, link (its testid) or script that
 - `POST /profile/sessions/end-others`: `profile-sign-out-others-form`
 - `POST /profile/api-keys/remove`: `profile-api-key-remove-form`
 - `POST /profile/ai`: `static/profile.js`, `consent-ai-form`
-- `POST /profile/export`: `profile-export-form`
-- `GET POST /profile/export/download`: `profile-export-download-form`
 - `POST /profile/delete`: `profile-delete-form`
 - `POST /profile/verify-email/resend`: `verify-email-resend`
 - `POST /profile/two-factor/totp/confirm`: `two-factor-totp-code`
@@ -464,7 +460,6 @@ Titles as Playwright lists them (from the source: run `npm ci` in e2e/ for loops
 - **`specs/smoke/complete-test-course.spec.ts`** (3, CI): K: read and practise every lesson · D: every lesson's session, every exercise kind, the review mix and lightning · G: every Guide stage, in order
 - **`specs/smoke/daily-goal.spec.ts`** (1, CI): every mode fills one daily goal and resumes where the learner left off
 - **`specs/smoke/drill-first-set.spec.ts`** (2, CI): the drill opens on the first set with unlocked verbs, not Present · Start drill works without JavaScript
-- **`specs/smoke/export.spec.ts`** (2, CI): a learner asks for their data, gets the link by e-mail and downloads the JSON once
 - **`specs/smoke/french.spec.ts`** (5, CI): the course is on /courses, offers its four levels, and starts at greetings · Study: read greetings, pass its check, practise it; numbers' numeric questions grade · Sprint: play greetings' session right at phone width · Play: play the first stage · games: the verb drill (être, avoir) and Date Dash
 - **`specs/smoke/happy-paths.spec.ts`** (10, CI): 1. a new learner sees lesson 1 as next · 1b. a stage read in Study but never played says Start in the Guide, not Try again (#417) · 1c. a Guide stage played to the end under 70 % says Try again, not Continue past its last step (#417) · 2. Study: read lesson 1, pass its check, practise it: passed everywhere · 3. Sprint: play lesson 1's session right: passed everywhere · 4. Play: play stage 1: passed everywhere · 5. a lesson passed in one mode is passed in the other two · 6. progress survives logging out and back in · 7. a lesson whose every answer was right is not listed as needing practice (#681) · 8. a Guide stage's quick checks mix their options, so the right one is not always first (#962)
 - **`specs/smoke/mini.spec.ts`** (6, CI): a learner registers, signs in again and passes a lesson with nothing configured · there is no dev mailbox · the server says it is a Skrongle mini · the profile has no red ! on the e-mail · sharing shows the link once, and a reload goes back to the dialog without inviting again

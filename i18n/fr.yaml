@@ -373,21 +373,6 @@ mail:
       Pour le garder, connectez-vous à {app} avant cette date et choisissez Annuler la suppression.
 
       Si vous n'avez rien demandé, connectez-vous, annulez la suppression et changez votre mot de passe.
-  data_export:
-    subject: "Vos données {app} sont prêtes à être téléchargées"
-    text: |
-      Bonjour,
-
-      La copie de vos données {app} que vous avez demandée est prête. Connectez-vous à {app}, puis ouvrez ce lien pour la télécharger :
-
-      {link}
-
-      Le lien ne fonctionne qu'une fois, pendant 24 heures, et seulement tant que vous êtes connecté à ce compte. Si vous ne l'avez pas demandé, changez votre mot de passe : quelqu'un d'autre est connecté à votre compte.
-    html: |
-      <p>Bonjour,</p>
-      <p>La copie de vos données {app} que vous avez demandée est prête. Connectez-vous à {app}, puis ouvrez ce lien pour la télécharger :</p>
-      <p><a href="{link}">Télécharger mes données</a></p>
-      <p>Le lien ne fonctionne qu'une fois, pendant 24 heures, et seulement tant que vous êtes connecté à ce compte. Si vous ne l'avez pas demandé, changez votre mot de passe : quelqu'un d'autre est connecté à votre compte.</p>
   two_factor_changed:
     subject: "La connexion en deux étapes sur {app} a changé"
     now_off: est désactivée
@@ -524,9 +509,9 @@ profile:
     title: "Confidentialité et consentement"
     info: "À propos de vos consentements"
     info_age: "Vous avez confirmé votre âge à l'inscription. Pour le retirer, supprimez votre compte dans Vos données."
-    info_email: "Les e-mails de service partent toujours : confirmation de votre adresse, téléchargement de vos données et changements des conditions. Les e-mails facultatifs apparaîtront ici avec leur propre interrupteur, désactivés jusqu'à ce que vous les activiez."
+    info_email: "Les e-mails de service partent toujours : confirmation de votre adresse et changements des conditions. Les e-mails facultatifs apparaîtront ici avec leur propre interrupteur, désactivés jusqu'à ce que vous les activiez."
     info_ai: "Les fonctions d'IA envoient ce que vous écrivez à une entreprise d'IA. Masquez-les et rien ne sort, les fonctions disparaissent de l'application et vos clés API enregistrées sont supprimées."
-    info_record: "Chaque changement est gardé avec sa date et figure dans Télécharger mes données."
+    info_record: "Chaque changement est gardé avec sa date."
     close: "Fermer"
     terms: "Conditions et confidentialité"
     age: "Âge"
@@ -651,30 +636,9 @@ profile:
     bad_chars: Une clé d'API ne contient que des lettres, des chiffres et de la ponctuation, sans espaces.
     wrong_provider: "Cela ne ressemble pas à une clé {provider} : elles commencent par {prefix}."
   data:
-    export_download: "Télécharger mes données"
-    export_building_no_mail: "Vos données sont en cours de préparation. Quand elles seront prêtes, un bouton Télécharger apparaîtra ici."
-    export_ready_no_mail: "Vos données sont prêtes : téléchargez-les avec le bouton, une seule fois, jusqu'au {date}."
-    export_about_no_mail: "Un fichier JSON de tout ce qui est enregistré pour votre compte, préparé en arrière-plan. Quand il est prêt, téléchargez-le ici ; il fonctionne une fois, pendant 24 heures. Une copie par jour."
     title: Vos données
     stored_html: "Ce qui est conservé et pourquoi : <a href=\"{url}\" data-testid=\"profile-privacy-link\">politique de confidentialité</a>."
-    export: Préparer mes données (JSON)
-    export_heading: Télécharger mes données
-    export_info_label: À propos du téléchargement de vos données
-    export_preparing: Préparation…
-    export_about: Un fichier JSON de tout ce qui est enregistré pour votre compte, préparé en arrière-plan. Nous vous envoyons un lien par e-mail ; il ne fonctionne qu'une fois, pendant 24 heures, tant que vous êtes connecté. Une copie par jour.
-    export_ok: OK
-    export_your_address: votre adresse
-    export_none: Vous n'avez pas encore demandé de copie.
-    export_building: "En cours de préparation. Un lien sera envoyé par e-mail à {email} une fois prêt."
-    export_ready: "Prêt. Le lien a été envoyé par e-mail à {email} ; il ne fonctionne qu'une fois, jusqu'au {date}."
-    export_downloaded: "Téléchargé le {date}."
-    export_expired: Le dernier lien a expiré sans être utilisé.
-    export_failed: La dernière copie n'a pas pu être préparée. Réessayez.
-    export_next: "Une copie par jour : vous pourrez en demander une autre à partir du {date}."
-    export_queued: Préparation de vos données. Vous recevrez un e-mail avec le lien.
-    export_busy: Vos données sont déjà en cours de préparation.
-    export_soon: Une copie par jour. Voir (i) pour savoir quand vous pourrez en demander une autre.
-    export_gone: Ce lien de téléchargement a déjà été utilisé, a expiré, ou concerne un autre compte.
+    ok: OK
     delete_title: Supprimer le compte
     delete_about: "Nous supprimons votre compte 14 jours après votre demande, ou à la fin de la période payée d'un abonnement résilié, si elle est plus tardive. Cela supprime votre progression, vos cours et clés enregistrées. D'ici là vous êtes déconnecté, et vous pouvez vous reconnecter pour annuler."
     your_password: Votre mot de passe
@@ -1211,7 +1175,7 @@ study:
     note_h2: "Ma note"
     note_placeholder: "Tout ce qui vous aide à retenir cette leçon"
     note_info: "À propos de ma note"
-    note_info_body: "Vous seul voyez cette note. Elle s'enregistre pendant que vous tapez, jusqu'à {max} caractères, et figure dans Télécharger mes données sur votre profil."
+    note_info_body: "Vous seul voyez cette note. Elle s'enregistre pendant que vous tapez, jusqu'à {max} caractères."
     note_ok: "OK"
     note_saved: "Note enregistrée"
     note_too_long: "Une note peut compter au plus {max} caractères."

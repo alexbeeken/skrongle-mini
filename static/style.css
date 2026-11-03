@@ -931,7 +931,7 @@ dialog.report-dialog:not([open]):target { display: block; position: fixed; inset
 }
 .profile-actions { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; }
 .profile-actions .inline-actions { margin: 0; }
-/* Deleting the account sits apart from the export above it, under a line. */
+/* Deleting the account sits apart from the text above it, under a line. */
 .profile-delete { margin-top: 1.6rem; padding-top: .2rem; border-top: 1px solid var(--line); }
 .profile .card .profile-delete h3 { margin-top: 1rem; }
 .profile .card .key-row h3 { margin: 0; }
@@ -1221,7 +1221,6 @@ td.can-say:hover { background: var(--surface); }
 .share-list { width: 100%; margin: 0 0 1rem; border-collapse: collapse; }
 .share-list td { padding: .3rem .4rem .3rem 0; border-bottom: 1px solid var(--line, #e5e5e5); vertical-align: middle; }
 .share-list td:last-child { text-align: right; padding-right: 0; }
-.export-actions { display: flex; flex-wrap: wrap; gap: .5rem; }
 .share-links { list-style: none; margin: 0 0 1rem; padding: 0; }
 .share-links li { display: grid; gap: .2rem; margin-bottom: .6rem; }
 .share-links .field-with-icon { display: flex; gap: .4rem; }

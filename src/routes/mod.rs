@@ -242,8 +242,6 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/profile/sessions/end-others", post(profile::end_other_sessions))
         .route("/profile/api-keys/remove", post(profile::remove_api_key))
         .route("/profile/ai", post(profile::set_ai))
-        .route("/profile/export", post(profile::export))
-        .route("/profile/export/download", get(profile::export_download).post(profile::export_download_now))
         .route("/profile/delete", post(profile::delete_account))
         .route("/profile/verify-email/resend", post(profile::resend_verification))
         .route("/profile/two-factor", post(profile::set_two_factor))
@@ -686,7 +684,6 @@ pub(crate) fn test_state(dev: bool) -> Arc<AppState> {
         dev,
         limits: crate::security::RateLimits::new(dev),
         mail: crate::mail::Mailer::idle(),
-        exports: crate::exports::Exports { dir: std::env::temp_dir().join(format!("skrongle-test-exports-{}", std::process::id())) },
         queue: crate::jobs::Queue::idle(),
         dev_inbox: None,
         dev_marks: Default::default(),

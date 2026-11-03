@@ -260,7 +260,6 @@ names any that are set.
 | Confirming an address | No link is sent. The e-mail field shows an (i), not the red !, and nothing asks to send it again. |
 | Two-factor sign-in | The e-mail method is not offered. |
 | Sharing a course | After inviting, the Share dialog shows each address's link with a Copy button, once (links are stored only hashed); pass it on yourself. |
-| Download my data | No mail: when the copy is ready, the Data section's **Download my data** button gets it (the button is there with mail too). |
 
 The authenticator app needs no e-mail, so two-factor sign-in still works. An
 account whose second step was e-mail (a database moved over from
@@ -513,8 +512,7 @@ The whole state is two files in `/var/lib/skrongle`:
 | `learn.db` | The SQLite database: accounts, progress, courses made in the app. (`learn.db-wal` and `learn.db-shm` next to it belong to it while the server runs.) |
 | `learn.db.key` | The secret key that encrypts the AI keys learners saved. Without it those keys can't be read. If you set `SKRONGLE_SECRET_KEY` instead, keep a copy of that value. |
 
-(`learn.db.exports/` beside them holds "Download my data" files for a day at
-most; it need not be backed up.) A deleted account stays in your backups
+A deleted account stays in your backups
 and in the journal until they expire. The hosted site promises its users
 31 days at most; on your server that limit is yours to set and keep. Keep the two together, and somewhere other
 than the SD card. Stop the service while copying so the database is

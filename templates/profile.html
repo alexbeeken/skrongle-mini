@@ -343,24 +343,6 @@
   <section class="card" id="data" data-testid="profile-data">
     <h2>{{ crate::t("profile.data.title") }}</h2>
     <p class="muted small">{{ crate::t1("profile.data.stored_html", "url", crate::url("/privacy"))|safe }}</p>
-    <h3 class="heading-with-info">{{ crate::t("profile.data.export_heading") }} <button type="button" class="info-btn" data-opens="export-info" aria-haspopup="dialog" aria-label="{{ crate::t("profile.data.export_info_label") }}" data-testid="profile-export-info">i</button></h3>
-    {% if let Some(e) = export_error %}<p class="alert error" role="alert" data-testid="profile-export-error">{{ e }}</p>{% endif %}
-    <div class="export-actions">
-    <form method="post" action="{{ crate::url("/profile/export") }}" data-testid="profile-export-form">
-      <button type="submit" class="btn ghost" data-testid="profile-export" data-state="{{ export_state() }}"{% if !export_can_ask() %} disabled{% endif %}>{% if export_state() == "queued" || export_state() == "building" %}{{ crate::t("profile.data.export_preparing") }}{% else %}{{ crate::t("profile.data.export") }}{% endif %}</button>
-    </form>
-    {% if export_state() == "ready" %}
-    <form method="post" action="{{ crate::url("/profile/export/download") }}" data-testid="profile-export-download-form">
-      <button type="submit" class="btn" data-testid="profile-export-download">{{ crate::t("profile.data.export_download") }}</button>
-    </form>
-    {% endif %}
-    </div>
-    <dialog class="modal" id="export-info" aria-labelledby="export-info-title" data-testid="profile-export-dialog">
-      <h2 id="export-info-title">{{ crate::t("profile.data.export_heading") }}</h2>
-      <p data-testid="profile-export-state" data-state="{{ export_state() }}">{{ export_text() }}</p>
-      <p class="small">{% if caps.mail %}{{ crate::t("profile.data.export_about") }}{% else %}{{ crate::t("profile.data.export_about_no_mail") }}{% endif %}</p>
-      <div class="modal-actions"><button type="button" class="btn" data-closes data-testid="profile-export-close">{{ crate::t("profile.data.export_ok") }}</button></div>
-    </dialog>
     <div class="profile-delete">
     <h3>{{ crate::t("profile.data.delete_title") }}</h3>
     <p class="muted small">{{ crate::t("profile.data.delete_about") }}</p>

@@ -373,21 +373,6 @@ mail:
       Para conservarla, inicia sesión en {app} antes de esa fecha y elige Cancelar la eliminación.
 
       Si no lo pediste tú, inicia sesión, cancela la eliminación y cambia tu contraseña.
-  data_export:
-    subject: "Tus datos de {app} están listos para descargar"
-    text: |
-      Hola,
-
-      La copia de tus datos de {app} que pediste está lista. Inicia sesión en {app} y abre este enlace para descargarla:
-
-      {link}
-
-      El enlace funciona una sola vez, durante 24 horas, y solo con la sesión iniciada en esta cuenta. Si no la pediste, cambia tu contraseña: otra persona ha iniciado sesión en tu cuenta.
-    html: |
-      <p>Hola,</p>
-      <p>La copia de tus datos de {app} que pediste está lista. Inicia sesión en {app} y abre este enlace para descargarla:</p>
-      <p><a href="{link}">Descargar mis datos</a></p>
-      <p>El enlace funciona una sola vez, durante 24 horas, y solo con la sesión iniciada en esta cuenta. Si no la pediste, cambia tu contraseña: otra persona ha iniciado sesión en tu cuenta.</p>
   two_factor_changed:
     subject: "La verificación en dos pasos de {app} ha cambiado"
     now_off: ahora está desactivada
@@ -996,9 +981,9 @@ profile:
     title: "Privacidad y consentimiento"
     info: "Sobre tus consentimientos"
     info_age: "Confirmaste tu edad al registrarte. Para retirarlo, elimina tu cuenta en Tus datos."
-    info_email: "Los correos de servicio se envían siempre: confirmar tu dirección, la descarga de tus datos y los cambios en las condiciones. Los correos opcionales aparecerán aquí con su propio interruptor, apagados hasta que los actives."
+    info_email: "Los correos de servicio se envían siempre: confirmar tu dirección y los cambios en las condiciones. Los correos opcionales aparecerán aquí con su propio interruptor, apagados hasta que los actives."
     info_ai: "Las funciones de IA envían lo que escribes a una empresa de IA. Si las ocultas, no sale nada, las funciones desaparecen de la aplicación y se eliminan tus claves API guardadas."
-    info_record: "Cada cambio se guarda con su fecha y viene incluido en Descargar mis datos."
+    info_record: "Cada cambio se guarda con su fecha."
     close: "Cerrar"
     terms: "Condiciones y privacidad"
     age: "Edad"
@@ -1123,30 +1108,9 @@ profile:
     bad_chars: Una clave API solo contiene letras, dígitos y signos de puntuación, sin espacios.
     wrong_provider: "Eso no parece una clave de {provider}: empiezan por {prefix}."
   data:
-    export_download: "Descargar mis datos"
-    export_building_no_mail: "Estamos preparando tus datos. Cuando estén listos, aparecerá aquí un botón Descargar."
-    export_ready_no_mail: "Tus datos están listos: descárgalos con el botón, una sola vez, hasta el {date}."
-    export_about_no_mail: "Un archivo JSON con todo lo que se guarda de tu cuenta, preparado en segundo plano. Cuando esté listo, descárgalo aquí; funciona una vez, durante 24 horas. Una copia al día."
     title: Tus datos
     stored_html: "Qué se guarda y por qué: <a href=\"{url}\" data-testid=\"profile-privacy-link\">política de privacidad</a>."
-    export: Preparar mis datos (JSON)
-    export_heading: Descargar mis datos
-    export_info_label: Sobre la descarga de tus datos
-    export_preparing: Preparando…
-    export_about: Un archivo JSON con todo lo que se guarda de tu cuenta, preparado en segundo plano. Te enviamos un enlace por correo; funciona una sola vez, durante 24 horas, mientras tengas la sesión iniciada. Una copia al día.
-    export_ok: Aceptar
-    export_your_address: tu dirección
-    export_none: Todavía no has pedido una copia.
-    export_building: "Se está preparando. Enviaremos un enlace a {email} cuando esté lista."
-    export_ready: "Lista. El enlace se envió a {email}; funciona una sola vez, hasta el {date}."
-    export_downloaded: "Descargada el {date}."
-    export_expired: El último enlace caducó sin usarse.
-    export_failed: No se pudo preparar la última copia. Inténtalo de nuevo.
-    export_next: "Una copia al día: puedes pedir la siguiente a partir del {date}."
-    export_queued: Preparando tus datos. Recibirás un correo con el enlace.
-    export_busy: Tus datos ya se están preparando.
-    export_soon: Una copia al día. Mira la (i) para saber cuándo puedes volver a pedirla.
-    export_gone: Ese enlace de descarga ya se usó, caducó o es de otra cuenta.
+    ok: Aceptar
     delete_title: Eliminar cuenta
     delete_about: "Eliminamos tu cuenta 14 días después de que lo pidas, o cuando termine el tiempo pagado de un plan cancelado, si es más tarde. Se eliminan tu progreso, tus cursos y tus claves guardadas. Hasta entonces tu sesión queda cerrada, y puedes volver a iniciar sesión para cancelarlo."
     your_password: Tu contraseña
@@ -1554,7 +1518,7 @@ study:
     note_h2: "Mi nota"
     note_placeholder: "Lo que te ayude a recordar esta lección"
     note_info: "Sobre mi nota"
-    note_info_body: "Solo tú ves esta nota. Se guarda mientras escribes, hasta {max} caracteres, y va incluida en Descargar mis datos de tu perfil."
+    note_info_body: "Solo tú ves esta nota. Se guarda mientras escribes, hasta {max} caracteres."
     note_ok: "Vale"
     note_saved: "Nota guardada"
     note_too_long: "Una nota puede tener como máximo {max} caracteres."

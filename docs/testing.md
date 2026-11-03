@@ -1277,7 +1277,7 @@ still reach [the dev AI provider](#the-dev-ai-provider)) and passes
 `E2E_MINI=1` to the specs. `SKRONGLE_MINI=1` makes it a Skrongle mini (#578, #641: no
 dev mailbox, and `/healthz` says `ok skrongle mini <version>`). Sign-up stays open, since the specs register. A spec that needs a
 stand-in skips there: `test.skip(process.env.E2E_MINI === "1", "why")`
-(`verify-email.spec.ts`, `export.spec.ts`). `mini.spec.ts` checks what is
+(`verify-email.spec.ts`). `mini.spec.ts` checks what is
 true in the mini shape (a learner registers, signs in and passes a lesson;
 no dev mailbox; `/healthz` names the mini; the profile has an (i)
 instead of the red ! on the e-mail); each #632 issue adds its browser check there.

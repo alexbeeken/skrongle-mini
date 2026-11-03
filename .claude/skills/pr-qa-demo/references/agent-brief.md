@@ -379,7 +379,6 @@ long one costs every later turn.
 **Pages**
 - "Create a course" opens the Generate dialog over the editor, and it blocks every click.
   Go to the course URL without `?generate=1` first.
-- The dev user can prepare one data export a day; use a fresh account for export steps.
 - Picking a language on the profile saves and reloads; wait for the load before you
   navigate.
 - `page.reload()` after a form POST resends the form. Use `page.goto(url)` instead.

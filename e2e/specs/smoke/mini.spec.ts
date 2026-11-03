@@ -6,7 +6,7 @@
 // Each #632 issue adds its browser check here as it lands. Here: #633 no
 // red ! on the e-mail field, #636 no Subscription
 // section, #641 /healthz names the mini, #667 the share flow shows the
-// link once and a reload goes back to the dialog. Still to come: the export's Download button, #637 the Terms file, #634
+// link once and a reload goes back to the dialog. Still to come: #637 the Terms file, #634
 // the closed register page (the lane keeps sign-up open: the specs register).
 import { AnswerKey } from "../../lib/key.ts";
 import { playStage } from "../../lib/answer.ts";

@@ -373,21 +373,6 @@ mail:
       Wenn du es behalten willst, melde dich vorher bei {app} an und wähle Löschung abbrechen.
 
       Wenn du das nicht angefordert hast, melde dich an, brich die Löschung ab und ändere dein Passwort.
-  data_export:
-    subject: "Deine {app}-Daten sind zum Herunterladen bereit"
-    text: |
-      Hallo,
-
-      die Kopie deiner {app}-Daten, die du angefordert hast, ist fertig. Melde dich bei {app} an und öffne dann diesen Link, um sie herunterzuladen:
-
-      {link}
-
-      Der Link funktioniert einmal, 24 Stunden lang, und nur, solange du in diesem Konto angemeldet bist. Wenn du das nicht angefordert hast, ändere dein Passwort: Dann ist jemand anderes in deinem Konto angemeldet.
-    html: |
-      <p>Hallo,</p>
-      <p>die Kopie deiner {app}-Daten, die du angefordert hast, ist fertig. Melde dich bei {app} an und öffne dann diesen Link, um sie herunterzuladen:</p>
-      <p><a href="{link}">Meine Daten herunterladen</a></p>
-      <p>Der Link funktioniert einmal, 24 Stunden lang, und nur, solange du in diesem Konto angemeldet bist. Wenn du das nicht angefordert hast, ändere dein Passwort: Dann ist jemand anderes in deinem Konto angemeldet.</p>
   two_factor_changed:
     subject: "Zwei-Faktor-Anmeldung bei {app} geändert"
     now_off: "ist jetzt aus"
@@ -524,9 +509,9 @@ profile:
     title: "Datenschutz und Einwilligung"
     info: "Über deine Einwilligungen"
     info_age: "Du hast dein Alter bei der Registrierung bestätigt. Um das zurückzunehmen, lösche dein Konto unter Deine Daten."
-    info_email: "Service-E-Mails werden immer verschickt: Bestätigung deiner Adresse, dein Datendownload und Änderungen der Bedingungen. Optionale E-Mails erscheinen hier mit eigenem Schalter, aus, bis du sie einschaltest."
+    info_email: "Service-E-Mails werden immer verschickt: Bestätigung deiner Adresse und Änderungen der Bedingungen. Optionale E-Mails erscheinen hier mit eigenem Schalter, aus, bis du sie einschaltest."
     info_ai: "KI-Funktionen schicken, was du schreibst, an ein KI-Unternehmen. Blendest du sie aus, geht nichts mehr hinaus, die Funktionen verschwinden aus der App und deine gespeicherten API-Schlüssel werden gelöscht."
-    info_record: "Jede Änderung wird mit Datum gespeichert und ist in Meine Daten herunterladen enthalten."
+    info_record: "Jede Änderung wird mit Datum gespeichert."
     close: "Schließen"
     terms: "Bedingungen und Datenschutz"
     age: "Alter"
@@ -651,30 +636,9 @@ profile:
     bad_chars: Ein API-Schlüssel enthält nur Buchstaben, Ziffern und Satzzeichen, ohne Leerzeichen.
     wrong_provider: "Das sieht nicht nach einem {provider}-Schlüssel aus: sie beginnen mit {prefix}."
   data:
-    export_download: "Meine Daten herunterladen"
-    export_building_no_mail: "Deine Daten werden vorbereitet. Sobald sie fertig sind, erscheint hier ein Herunterladen-Knopf."
-    export_ready_no_mail: "Deine Daten sind fertig: Lade sie mit dem Knopf herunter, einmal, bis {date}."
-    export_about_no_mail: "Eine JSON-Datei mit allem, was zu deinem Konto gespeichert ist, im Hintergrund vorbereitet. Wenn sie fertig ist, lade sie hier herunter; das geht einmal, 24 Stunden lang. Eine Kopie pro Tag."
     title: Deine Daten
     stored_html: "Was gespeichert wird und warum: <a href=\"{url}\" data-testid=\"profile-privacy-link\">Datenschutzerklärung</a>."
-    export: "Meine Daten vorbereiten (JSON)"
-    export_heading: "Meine Daten herunterladen"
-    export_info_label: "Über das Herunterladen deiner Daten"
-    export_preparing: "Wird vorbereitet…"
-    export_about: "Eine JSON-Datei mit allem, was für dein Konto gespeichert ist; sie wird im Hintergrund vorbereitet. Wir schicken dir einen Link per E-Mail; er funktioniert einmal, 24 Stunden lang, solange du angemeldet bist. Eine Kopie pro Tag."
-    export_ok: "OK"
-    export_your_address: "deine Adresse"
-    export_none: "Du hast noch keine Kopie angefordert."
-    export_building: "Wird vorbereitet. Ein Link wird an {email} geschickt, sobald er fertig ist."
-    export_ready: "Fertig. Der Link wurde an {email} geschickt; er funktioniert einmal, bis {date}."
-    export_downloaded: "Am {date} heruntergeladen."
-    export_expired: "Der letzte Link ist abgelaufen, ohne benutzt worden zu sein."
-    export_failed: "Die letzte Kopie konnte nicht vorbereitet werden. Versuch es noch einmal."
-    export_next: "Eine Kopie pro Tag: die nächste kannst du ab {date} anfordern."
-    export_queued: "Deine Daten werden vorbereitet. Du bekommst eine E-Mail mit dem Link."
-    export_busy: "Deine Daten werden bereits vorbereitet."
-    export_soon: "Eine Kopie pro Tag. Unter (i) steht, wann du wieder anfordern kannst."
-    export_gone: "Dieser Download-Link wurde schon benutzt, ist abgelaufen oder gehört zu einem anderen Konto."
+    ok: "OK"
     delete_title: Konto löschen
     delete_about: "Wir löschen dein Konto 14 Tage nach deiner Anfrage, oder wenn die bezahlte Zeit eines gekündigten Abos endet, falls das später ist. Dabei werden dein Fortschritt, deine Kurse und gespeicherten Schlüssel gelöscht. Bis dahin bist du abgemeldet und kannst dich wieder anmelden, um abzubrechen."
     your_password: Dein Passwort
@@ -1211,7 +1175,7 @@ study:
     note_h2: "Meine Notiz"
     note_placeholder: "Alles, was dir hilft, dir diese Lektion zu merken"
     note_info: "Über meine Notiz"
-    note_info_body: "Nur du siehst diese Notiz. Sie wird beim Tippen gespeichert, bis zu {max} Zeichen, und ist in Meine Daten herunterladen in deinem Profil enthalten."
+    note_info_body: "Nur du siehst diese Notiz. Sie wird beim Tippen gespeichert, bis zu {max} Zeichen."
     note_ok: "OK"
     note_saved: "Notiz gespeichert"
     note_too_long: "Eine Notiz darf höchstens {max} Zeichen lang sein."

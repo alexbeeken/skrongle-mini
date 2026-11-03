@@ -60,9 +60,6 @@ pub struct ProfileTemplate {
     pub confirm_sent: Option<String>,
     /// Deleting an account without a password: where its code went.
     pub delete_sent: Option<String>,
-    /// "Download my data": the newest export (exports.rs), and why a link did not work.
-    pub export: Option<crate::exports::Status>,
-    pub export_error: Option<String>,
     /// What this server can send (#633): without mail no confirmation
     /// link or e-mailed codes.
     pub caps: crate::Caps,
@@ -79,36 +76,6 @@ impl ProfileTemplate {
             (false, Some(_)) => "send",
             (false, None) => "none",
         }
-    }
-
-    /// The newest export's state (`''`: none yet).
-    pub fn export_state(&self) -> &str {
-        self.export.as_ref().map_or("", |e| e.state.as_str())
-    }
-
-    /// Can a new export be asked for now?
-    pub fn export_can_ask(&self) -> bool {
-        self.export.as_ref().is_none_or(|e| !e.in_flight() && e.next_at.is_none())
-    }
-
-    /// What the (i) dialog says about the newest export.
-    pub fn export_text(&self) -> String {
-        let to = self.profile.email.clone().unwrap_or_else(|| crate::t("profile.data.export_your_address"));
-        let Some(e) = &self.export else { return crate::t("profile.data.export_none") };
-        let mut s = match e.state.as_str() {
-            "queued" | "building" if !self.caps.mail => crate::t("profile.data.export_building_no_mail"),
-            "queued" | "building" => crate::t1("profile.data.export_building", "email", &to),
-            "ready" if !self.caps.mail => crate::t1("profile.data.export_ready_no_mail", "date", e.expires_at.map(profile::long_date).unwrap_or_default()),
-            "ready" => crate::t2("profile.data.export_ready", "email", &to, "date", e.expires_at.map(profile::long_date).unwrap_or_default()),
-            "downloaded" => crate::t1("profile.data.export_downloaded", "date", e.downloaded_at.map(profile::long_date).unwrap_or_default()),
-            "expired" => crate::t("profile.data.export_expired"),
-            _ => crate::t("profile.data.export_failed"),
-        };
-        if let (Some(t), false) = (e.next_at, e.in_flight()) {
-            s.push(' ');
-            s.push_str(&crate::t1("profile.data.export_next", "date", profile::long_date(t)));
-        }
-        s
     }
 
     /// `''` (off), `email` or `totp`.
@@ -254,8 +221,6 @@ fn page(state: &AppState, user: CurrentUser, (p, api_keys): Loaded) -> ProfileTe
         confirm_remove: false,
         confirm_error: None,
         confirm_sent: None,
-        export: None,
-        export_error: None,
         caps: state.caps(),
         api_keys,
         dev: state.dev,
@@ -294,9 +259,6 @@ pub async fn show(
             Some(m) => crate::t1("profile.two_factor.is_method", "method", method_label(m)),
         }),
         (Some("totp-removed"), _) => Some(crate::t("profile.two_factor.totp_removed")),
-        // No mail on this server: no link is coming; the Download button is (#633).
-        (Some("export-queued"), _) if !t.caps.mail => Some(crate::t("profile.data.export_building_no_mail")),
-        (Some("export-queued"), _) => Some(crate::t("profile.data.export_queued")),
         (Some("signed-out"), _) => Some(crate::t("profile.sessions.signed_out_notice")),
         _ if q.ai.as_deref() == Some("off") => Some(crate::t("profile.ai.feature_hidden")),
         _ => None,
@@ -305,14 +267,6 @@ pub async fn show(
         t.totp_key = pending_totp_key(&state, user_id(&t)).await?;
         t.totp_open = t.totp_key.is_some();
     }
-    let uid = user_id(&t);
-    t.export = state.db.call(move |c| crate::exports::status(c, uid, crate::db::now())).await?;
-    t.export_error = match q.saved.as_deref() {
-        Some("export-busy") => Some(crate::t("profile.data.export_busy")),
-        Some("export-soon") => Some(crate::t("profile.data.export_soon")),
-        Some("export-gone") => Some(crate::t("profile.data.export_gone")),
-        _ => None,
-    };
     Ok(Page(t).into_response())
 }
 
@@ -839,114 +793,6 @@ pub async fn remove_api_key(
     Ok(Redirect::to(&crate::url(&format!("/profile?saved=key-removed&provider={provider}"))).into_response())
 }
 
-/// POST /profile/export: queue "Download my data" (exports.rs). The file
-/// is built in the background and a one-time link is e-mailed; one export
-/// in flight per account, one a day.
-pub async fn export(State(state): State<Arc<AppState>>, user: CurrentUser, headers: HeaderMap) -> Result<Response, AppError> {
-    let uid = user.id;
-    let base = crate::verify::public_base(&state, &headers);
-    let r = state.db.call(move |c| crate::exports::request(c, uid, &base, crate::db::now())).await?;
-    let saved = match r {
-        crate::exports::Requested::Queued(id) => {
-            state.queue.notify();
-            tracing::info!("user {uid} asked for their data (export #{id})");
-            "export-queued"
-        }
-        crate::exports::Requested::InFlight => "export-busy",
-        crate::exports::Requested::TooSoon(_) => "export-soon",
-    };
-    Ok(Redirect::to(&crate::url(&format!("/profile?saved={saved}#data"))).into_response())
-}
-
-#[derive(Deserialize)]
-pub struct ExportDownloadQuery {
-    #[serde(default)]
-    pub token: String,
-}
-
-/// A finished export's file as a response body, read on an OS thread of its
-/// own a chunk at a time, so the file never sits in memory whole.
-struct FileChunks(tokio::sync::mpsc::Receiver<std::io::Result<axum::body::Bytes>>);
-
-impl futures_core::Stream for FileChunks {
-    type Item = std::io::Result<axum::body::Bytes>;
-    fn poll_next(mut self: std::pin::Pin<&mut Self>, cx: &mut std::task::Context<'_>) -> std::task::Poll<Option<Self::Item>> {
-        self.0.poll_recv(cx)
-    }
-}
-
-/// GET /profile/export/download?token=…: the mailed link. Only for the
-/// account signed in, once, while it is fresh; the file is deleted as it is
-/// sent. Any other case goes back to the profile, which says the link is
-/// used or expired.
-pub async fn export_download(State(state): State<Arc<AppState>>, user: CurrentUser, Query(q): Query<ExportDownloadQuery>) -> Result<Response, AppError> {
-    let uid = user.id;
-    let token = q.token;
-    let file = state.db.call(move |c| crate::exports::take(c, uid, &token, crate::db::now())).await?;
-    send_export(&state, uid, file).await
-}
-
-/// POST /profile/export/download: the Data section's Download button, shown
-/// once the export is ready (#633: the way to it on a server without mail).
-/// Like the mailed link: once, while it is fresh, for the account signed in.
-pub async fn export_download_now(State(state): State<Arc<AppState>>, user: CurrentUser) -> Result<Response, AppError> {
-    let uid = user.id;
-    let file = state.db.call(move |c| crate::exports::take_ready(c, uid, crate::db::now())).await?;
-    send_export(&state, uid, file).await
-}
-
-/// The export file `file` names (in the exports folder), sent and deleted.
-/// `None` (or a file that is gone): back to the profile, which says so.
-async fn send_export(state: &AppState, uid: i64, file: Option<String>) -> Result<Response, AppError> {
-    use std::io::Read;
-    let gone = || Redirect::to(&crate::url("/profile?saved=export-gone#data")).into_response();
-    let Some(path) = file.and_then(|f| crate::exports::file_path(&state.exports.dir, &f)) else { return Ok(gone()) };
-    let mut f = match std::fs::File::open(&path) {
-        Ok(f) => f,
-        Err(e) => {
-            tracing::warn!("export for user {uid}: {} unreadable: {e}", path.display());
-            return Ok(gone());
-        }
-    };
-    let len = f.metadata().map(|m| m.len()).unwrap_or(0);
-    // The open handle still reads it; the link is used up either way.
-    if let Err(e) = std::fs::remove_file(&path) {
-        tracing::warn!("export for user {uid}: could not delete {}: {e}", path.display());
-    }
-    let (tx, rx) = tokio::sync::mpsc::channel(4);
-    std::thread::Builder::new()
-        .name("export-send".into())
-        .spawn(move || {
-            let mut buf = vec![0u8; 64 * 1024];
-            loop {
-                match f.read(&mut buf) {
-                    Ok(0) => break,
-                    Ok(n) => {
-                        if tx.blocking_send(Ok(axum::body::Bytes::copy_from_slice(&buf[..n]))).is_err() { // panic-ok: read returns n <= buf.len()
-                            break;
-                        }
-                    }
-                    Err(e) => {
-                        let _ = tx.blocking_send(Err(e));
-                        break;
-                    }
-                }
-            }
-        })
-        .map_err(|e| AppError::Internal(e.to_string()))?;
-    tracing::info!("user {uid} downloaded their data ({len} bytes)");
-    let file = format!("attachment; filename=\"{}-my-data.json\"", crate::APP_NAME.to_lowercase());
-    Ok((
-        [
-            (header::CONTENT_TYPE, "application/json; charset=utf-8".to_string()),
-            (header::CONTENT_DISPOSITION, file),
-            (header::CONTENT_LENGTH, len.to_string()),
-            (header::CACHE_CONTROL, "no-store".to_string()),
-        ],
-        axum::body::Body::from_stream(FileChunks(rx)),
-    )
-        .into_response())
-}
 
 #[derive(Deserialize)]
 pub struct DeleteForm {

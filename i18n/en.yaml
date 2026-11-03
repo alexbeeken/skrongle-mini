@@ -375,21 +375,6 @@ mail:
       To keep it, sign in to {app} before then and choose Cancel deletion.
 
       If you did not ask for this, sign in, cancel the deletion and change your password.
-  data_export:
-    subject: "Your {app} data is ready to download"
-    text: |
-      Hello,
-
-      The copy of your {app} data you asked for is ready. Sign in to {app}, then open this link to download it:
-
-      {link}
-
-      The link works once, for 24 hours, and only while you are signed in to this account. If you did not ask for it, change your password: someone else is signed in to your account.
-    html: |
-      <p>Hello,</p>
-      <p>The copy of your {app} data you asked for is ready. Sign in to {app}, then open this link to download it:</p>
-      <p><a href="{link}">Download my data</a></p>
-      <p>The link works once, for 24 hours, and only while you are signed in to this account. If you did not ask for it, change your password: someone else is signed in to your account.</p>
   two_factor_changed:
     subject: "Two-factor sign-in on {app} changed"
     now_off: is now off
@@ -529,9 +514,9 @@ profile:
     title: "Privacy and consent"
     info: "About your consents"
     info_age: "You confirmed your age when you signed up. To take that back, delete your account under Your data."
-    info_email: "Service e-mails always go out: confirming your address, your data download, and changes to the terms. Optional e-mails will show up here with their own switch, off until you turn them on."
+    info_email: "Service e-mails always go out: confirming your address and changes to the terms. Optional e-mails will show up here with their own switch, off until you turn them on."
     info_ai: "AI features send what you type to an AI company. Hide them and nothing goes out, the features are gone from the app, and your saved API keys are deleted."
-    info_record: "Each change is kept with its date and comes with Download my data."
+    info_record: "Each change is kept with its date."
     close: "Close"
     terms: "Terms and privacy"
     age: "Age"
@@ -656,30 +641,9 @@ profile:
     bad_chars: An API key contains only letters, digits and punctuation, with no spaces.
     wrong_provider: "That does not look like a {provider} key: they start with {prefix}."
   data:
-    export_download: "Download my data"
-    export_building_no_mail: "Your data is being prepared. When it is ready, a Download button appears here."
-    export_ready_no_mail: "Your data is ready: download it with the button, once, until {date}."
-    export_about_no_mail: "A JSON file of everything stored for your account, prepared in the background. When it is ready, download it here; it works once, for 24 hours. One copy a day."
     title: Your data
     stored_html: "What is stored and why: <a href=\"{url}\" data-testid=\"profile-privacy-link\">privacy policy</a>."
-    export: Prepare my data (JSON)
-    export_heading: Download my data
-    export_info_label: About downloading your data
-    export_preparing: Preparing…
-    export_about: A JSON file of everything stored for your account, prepared in the background. We e-mail you a link; it works once, for 24 hours, while you are signed in. One copy a day.
-    export_ok: OK
-    export_your_address: your address
-    export_none: You have not asked for a copy yet.
-    export_building: "Being prepared. A link will be e-mailed to {email} when it is ready."
-    export_ready: "Ready. The link was e-mailed to {email}; it works once, until {date}."
-    export_downloaded: "Downloaded on {date}."
-    export_expired: The last link expired unused.
-    export_failed: The last copy could not be prepared. Try again.
-    export_next: "One copy a day: you can ask for the next from {date}."
-    export_queued: Preparing your data. You will get an e-mail with the link.
-    export_busy: Your data is already being prepared.
-    export_soon: One copy a day. See (i) for when you can ask again.
-    export_gone: That download link has been used, has expired, or is for another account.
+    ok: OK
     delete_title: Delete account
     delete_about: "We delete your account 14 days after you ask, or when a cancelled plan's paid time ends if that is later. That deletes your progress, courses and saved keys. Until then you are signed out, and you can sign in again to cancel."
     your_password: Your password
@@ -1217,7 +1181,7 @@ study:
     note_h2: "My note"
     note_placeholder: "Anything that helps you remember this lesson"
     note_info: "About my note"
-    note_info_body: "Only you see this note. It saves as you type, up to {max} characters, and comes with Download my data on your profile."
+    note_info_body: "Only you see this note. It saves as you type, up to {max} characters."
     note_ok: "OK"
     note_saved: "Note saved"
     note_too_long: "A note can be at most {max} characters."

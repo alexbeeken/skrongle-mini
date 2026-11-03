@@ -89,13 +89,11 @@ pub fn forget_in_memory(state: &AppState, uid: i64) {
     state.games.drop_user(uid);
 }
 
-/// After `privacy::delete_account`: drop its courses from the cache and its
-/// export files from disk.
+/// After `privacy::delete_account`: drop its courses from the cache.
 pub fn forget_deleted(state: &AppState, deleted: &crate::privacy::Deleted) {
     for c in &deleted.courses {
         state.courses.invalidate(c);
     }
-    state.exports.remove(&deleted.export_files);
 }
 
 /// The hourly job: delete every account whose time has come.

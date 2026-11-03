@@ -1472,7 +1472,7 @@ fn caps_follow_the_providers() {
 /// #633: on a server with no mail provider nothing offers to send a
 /// message: no confirmation link or red !, no e-mailed second step (an account already on one cannot
 /// sign in, and is told the setting), share links are shown to the
-/// owner, and the data export is a Download button on the profile.
+/// owner.
 #[test]
 fn without_mail_nothing_offers_to_send() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
@@ -1535,23 +1535,9 @@ fn without_mail_nothing_offers_to_send() {
     let (status, _, _, page) = post(&format!("/courses/{id}/share"), &ann, &[("emails", "bob@example.org")]);
     assert!(status == 200 && !page.contains(r#"data-testid="course-share-link""#) && page.contains("already had one"), "{page}");
 
-    // Download my data: built without a mail, downloaded from the profile once.
-    let (status, _, loc, _) = post("/profile/export", &ann, &[]);
-    assert_eq!(status, 303);
-    let queued = get(loc.split('#').next().unwrap_or_default(), &ann).2;
-    assert!(!queued.contains("You will get an e-mail"), "the notice promises no mail: {queued}");
-    assert!(get("/profile", &ann).2.contains("a Download button appears here"));
-    assert_eq!(crate::exports::run_queued(&state.db, &state.exports.dir, None), 1);
-    assert_eq!(count("SELECT COUNT(*) FROM mail_outbox"), 0);
-    let profile = get("/profile", &ann).2;
-    assert!(profile.contains(r#"data-testid="profile-export-download""#), "{profile}");
-    assert_eq!(post("/profile/export/download", &bob, &[]).2, "/profile?saved=export-gone#data", "bob has none");
-    let (status, _, _, body) = post("/profile/export/download", &ann, &[]);
-    assert_eq!(status, 200);
-    assert!(body.contains("ann@example.org"));
-    let (status, _, loc, _) = post("/profile/export/download", &ann, &[]);
-    assert_eq!((status, loc.as_str()), (303, "/profile?saved=export-gone#data"), "once");
-    assert!(!get("/profile", &ann).2.contains(r#"data-testid="profile-export-download""#));
+    // No data export: the route is gone and the profile offers none.
+    assert_eq!(post("/profile/export", &ann, &[]).0, 404);
+    assert!(!get("/profile", &ann).2.contains("profile-export"));
 
     // An account whose second step went by a channel the server lost is refused, naming the setting.
     let sign_in = || post("/login", "", &[("email", "ann@example.org"), ("password", "long-enough-pw")]);

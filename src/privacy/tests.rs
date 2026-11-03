@@ -77,15 +77,14 @@ fn count(c: &Connection, t: &str) -> i64 {
 }
 
 /// Every table of the schema is a user table listed in `USER_TABLES`
-/// (or a server-wide one in `SHARED_TABLES`): a new table must say how
-/// it is exported and deleted.
+/// (or a server-wide one in `SHARED_TABLES`): /// it is deleted.
 #[test]
 fn every_table_is_covered() {
     let db = Db::open_in_memory().unwrap();
     let listed: Vec<&str> = USER_TABLES.iter().map(|(t, _)| *t).collect();
     db.with(|c| {
         for t in tables(c).into_iter().filter(|t| !SHARED_TABLES.contains(&t.as_str())) {
-            assert!(listed.contains(&t.as_str()), "table {t} is not in privacy::USER_TABLES (export, deletion, docs/data-inventory.md)");
+            assert!(listed.contains(&t.as_str()), "table {t} is not in privacy::USER_TABLES (deletion, docs/data-inventory.md)");
         }
         Ok(())
     })
@@ -105,7 +104,6 @@ fn deleting_an_account_removes_every_row_of_it() {
         }
         let deleted = delete_account(c, ann)?.unwrap();
         assert_eq!(deleted.courses, vec!["ann-course".to_string()]);
-        assert_eq!(deleted.export_files, vec!["ann-export.json".to_string()]);
         for (t, n) in &before {
             let want = if KEPT_ON_DELETE.contains(&t.as_str()) { *n } else { n / 2 };
             assert_eq!(count(c, t), want, "rows left in {t} after deleting ann");
@@ -122,130 +120,6 @@ fn deleting_an_account_removes_every_row_of_it() {
     .unwrap();
 }
 
-#[test]
-fn export_has_every_table_and_no_secrets() {
-    let db = Db::open_in_memory().unwrap();
-    db.with(|c| {
-        let ann = fill(c, "ann");
-        fill(c, "bob");
-        let v = export(c, ann)?.unwrap();
-        let text = v.to_string();
-        for (t, _) in USER_TABLES {
-            let rows = v["tables"][*t].as_array().unwrap_or_else(|| panic!("no {t} in the export"));
-            assert!(!rows.is_empty(), "{t} is empty in the export");
-        }
-        assert!(text.contains("ann-answer") && text.contains("ann-notes") && text.contains("ann@example.org"));
-        assert!(!text.contains("bob"), "another learner's data in the export");
-        assert!(!text.contains("secret-hash") && !text.contains("ann-token") && !text.contains("deadbeef") && !text.contains("ann-vhash"));
-        for secret in ["ann-totpsecret", "ann-phash", "ann-psalt", "ann-chtoken", "ann-chcode", "ann-chsalt", "ann-cfcode", "ann-cfsalt", "ann-rhash", "ann-subject", "ann-mailbody", "ann-text", "ann-exporthash", "ann-export.json", "ann-invitehash"] {
-            assert!(!text.contains(secret), "{secret} in the export");
-        }
-        assert!(text.contains("+447700900123") && text.contains("\"two_factor\":\"totp\""));
-        assert!(!text.contains("password_hash") && !text.contains("session_token") && !text.contains("ciphertext") && !text.contains("token_hash"));
-        // That the mail and the text were sent stays: purpose, recipient, date.
-        assert_eq!(v["tables"]["mail_outbox"][0]["purpose"], json!("login-code"));
-        assert_eq!(v["tables"]["mail_outbox"][0]["to_addr"], json!("ann@example.org"));
-        assert_eq!(v["tables"]["sms_outbox"][0]["to_number"], json!("+447700900123"));
-        assert_eq!(v["api_key_providers"], json!(["anthropic"]));
-        assert_eq!(v["has_password"], json!(true));
-        assert_eq!(export(c, 999)?, None);
-        Ok(())
-    })
-    .unwrap();
-}
-
-/// The query plan of `sql` with every `?n` bound to 1, one detail per line.
-fn plan(c: &Connection, sql: &str) -> String {
-    let mut stmt = c.prepare(&format!("EXPLAIN QUERY PLAN {sql}")).unwrap();
-    let n = stmt.parameter_count();
-    let mut q = stmt.query(rusqlite::params_from_iter(std::iter::repeat(1i64).take(n))).unwrap();
-    let mut out = Vec::new();
-    while let Some(r) = q.next().unwrap() {
-        out.push(r.get::<_, String>(3).unwrap());
-    }
-    out.join("\n")
-}
-
-/// Every page of the export, the first and the ones after, reads the
-/// learner's rows from an index in key order: no table scan, no sort
-/// of all their rows (#625).
-#[test]
-fn export_pages_use_an_index() {
-    let db = Db::open_in_memory().unwrap();
-    let mut bad = Vec::new();
-    db.with(|c| {
-        for (table, filter) in USER_TABLES {
-            for after in [false, true] {
-                let sql = page_sql(c, table, filter, exported_columns(table), after)?;
-                let p = plan(c, &sql);
-                // `course_shares` is two index searches (shares of the
-                // learner's courses, shares with the learner) whose
-                // union is sorted: only those rows, no history. So is
-                // `signup_invites` (links made, the link used).
-                let sorted = p.contains("TEMP B-TREE") && !matches!(*table, "course_shares" | "signup_invites");
-                if p.contains("SCAN") || sorted {
-                    bad.push(format!("{table} (after: {after}):\n{sql}\n{p}"));
-                }
-            }
-        }
-        Ok(())
-    })
-    .unwrap();
-    assert!(bad.is_empty(), "export pages without an index:\n\n{}", bad.join("\n\n"));
-}
-
-/// Keyset pages, tiny ones and pages cut short by the byte budget, add
-/// up to the same rows in the same order as the OFFSET pages the export
-/// read before #625.
-#[test]
-fn keyset_pages_read_what_offset_pages_did() {
-    let db = Db::open_in_memory().unwrap();
-    db.with(|c| {
-        let ann = fill(c, "ann");
-        fill(c, "bob");
-        // More than one page of rows in tables that grow, inserted out of key order.
-        for i in (0..23usize).rev() {
-            c.execute("INSERT INTO quiz_history (user_id, course_id, lesson_id, question_id, selected_answer, was_correct, answered_at) VALUES (?1, 'spanish', 'a1', ?2, 'x', 1, ?3)", params![ann, format!("q{i}"), i as i64])?;
-            c.execute("INSERT INTO user_progress (user_id, course_id, lesson_id) VALUES (?1, ?2, ?3)", params![ann, format!("c{}", i % 3), format!("l{i}")])?;
-            c.execute("INSERT INTO course_files (course_id, path, content, updated_at) VALUES ('ann-course', ?1, ?2, 1)", params![format!("lessons/{i}.json"), "y".repeat(i * 10)])?;
-            c.execute("INSERT INTO ai_credit_purchases (session_id, user_id, credit_micros, created_at) VALUES (?1, ?2, 1, 1)", params![format!("cs_{i}"), ann])?;
-            c.execute("INSERT INTO activity_log (user_id, course_id, kind, n, at) VALUES (?1, 'spanish', 'answer', 1, ?2)", params![ann, i as i64])?;
-        }
-        for (table, filter) in USER_TABLES {
-            let cols = exported_columns(table);
-            let mut pk = c.prepare("SELECT name FROM pragma_table_info(?1) WHERE pk > 0 ORDER BY pk")?;
-            let keys: Vec<String> = pk.query_map([table], |r| r.get(0))?.collect::<Result<_, _>>()?;
-            let order = if keys.is_empty() { "rowid".to_string() } else { keys.join(", ") };
-            let mut stmt = c.prepare(&format!("SELECT {} FROM {table} WHERE {} ORDER BY {order} LIMIT 4 OFFSET ?2", cols.join(", "), filter.replace("?1", "?3")))?;
-            let (mut old, mut offset) = (Vec::new(), 0i64);
-            loop {
-                let rows: Vec<Value> = stmt.query_map(params![4, offset, ann], |r| row_json(r, cols))?.collect::<Result<_, _>>()?;
-                if rows.is_empty() {
-                    break;
-                }
-                offset += rows.len() as i64;
-                old.extend(rows);
-            }
-            assert!(!old.is_empty(), "no rows of ann in {table}");
-            for (rows_per_page, bytes) in [(1, usize::MAX), (4, usize::MAX), (200, 50), (200, usize::MAX)] {
-                let (mut new, mut after) = (Vec::new(), Vec::new());
-                loop {
-                    let (rows, last) = page(c, table, ann, &after, rows_per_page, bytes)?;
-                    if rows.is_empty() {
-                        break;
-                    }
-                    after = last;
-                    new.extend(rows);
-                }
-                assert_eq!(new, old, "{table} differs with pages of {rows_per_page} rows / {bytes} bytes");
-            }
-        }
-        Ok(())
-    })
-    .unwrap();
-}
-
-#[test]
 fn retention_drops_old_answers_rounds_and_finished_notes() {
     let db = Db::open_in_memory().unwrap();
     db.with(|c| {
@@ -367,74 +241,4 @@ fn the_default_minimum_age_is_14() {
     assert_eq!(crate::t1("terms.check.age", "min_age", gate.min_age), "I am at least 14 years old");
     assert_eq!(gate.check(false, true, "register").unwrap_err(), "Confirm you are at least 14 to register.");
     assert_eq!(gate.check(false, false, "register").unwrap_err(), "Confirm you are at least 14 and accept the Terms to register.");
-}
-
-/// Every column of every user table is either exported or withheld,
-/// and nothing is listed that the schema does not have: a new column
-/// needs a decision before it can reach (or be kept out of) the export.
-#[test]
-fn every_column_has_an_export_decision() {
-    let db = Db::open_in_memory().unwrap();
-    let withheld = |t: &str| WITHHELD.iter().find(|(w, _)| *w == t).map(|(_, c)| *c).unwrap_or(&[]);
-    db.with(|c| {
-        let mut undecided = Vec::new();
-        for (t, _) in USER_TABLES {
-            let mut s = c.prepare(&format!("SELECT name FROM pragma_table_info('{t}')"))?;
-            let cols: Vec<String> = s.query_map([], |r| r.get(0))?.collect::<Result<_, _>>()?;
-            for col in &cols {
-                let (e, w) = (exported_columns(t).contains(&col.as_str()), withheld(t).contains(&col.as_str()));
-                assert!(!(e && w), "{t}.{col} is both exported and withheld");
-                if !e && !w {
-                    undecided.push(format!("{t}.{col}"));
-                }
-            }
-            for listed in exported_columns(t).iter().chain(withheld(t)) {
-                assert!(cols.iter().any(|c| c == listed), "privacy.rs lists {t}.{listed}, which the schema does not have");
-            }
-        }
-        assert!(undecided.is_empty(), "add these columns to privacy::EXPORTED or privacy::WITHHELD (and docs/data-inventory.md): {undecided:?}");
-        for (t, _) in EXPORTED.iter().chain(WITHHELD) {
-            assert!(USER_TABLES.iter().any(|(u, _)| u == t), "{t} is not a user table");
-        }
-        Ok(())
-    })
-    .unwrap();
-}
-
-/// Course shares in the export (#513, as docs/data-inventory.md says): the
-/// owner's export has every address they shared with; a recipient's has the
-/// shares their account opened, not one that reaches them only through
-/// their confirmed address; the link's hash is in neither.
-#[test]
-fn a_recipients_export_has_the_shares_their_account_opened() {
-    let db = Db::open_in_memory().unwrap();
-    db.with(|c| {
-        let mut ids = Vec::new();
-        for email in ["ann@example.org", "bob@example.org", "carol@example.org"] {
-            let id = crate::auth::create_user(c, email, "x")?;
-            crate::verify::mark_verified(c, id, 1)?;
-            ids.push(id);
-        }
-        let (ann, bob, carol) = (ids[0], ids[1], ids[2]);
-        crate::courses::create_course(c, ann, "fractions-1", "Fractions", &crate::courses::starter_files("fractions-1", "Fractions"))?;
-        let token = crate::share::invite(c, "fractions-1", "bob@example.org", 10)?.unwrap();
-        crate::share::invite(c, "fractions-1", "carol@example.org", 11)?.unwrap();
-        let share = crate::share::by_token(c, &token)?.unwrap();
-        assert_eq!(crate::share::claim(c, &share, bob, 12)?, crate::share::Claim::Ok);
-        assert!(crate::share::can_open(c, carol, "fractions-1")?, "carol is in by her address");
-
-        let shares = |uid: i64| -> Vec<serde_json::Value> {
-            let v = export(c, uid).unwrap().unwrap();
-            v["tables"]["course_shares"].as_array().unwrap().clone()
-        };
-        let emails = |rows: &[serde_json::Value]| rows.iter().map(|r| r["email"].as_str().unwrap().to_string()).collect::<Vec<_>>();
-        assert_eq!(emails(&shares(ann)), vec!["bob@example.org", "carol@example.org"]);
-        let bobs = shares(bob);
-        assert_eq!(emails(&bobs), vec!["bob@example.org"]);
-        assert_eq!(bobs[0]["opened_at"], 12);
-        assert!(bobs[0].get("token_hash").is_none(), "{:?}", bobs[0]);
-        assert!(shares(carol).is_empty(), "reached by address only: the owner's row, not in her export");
-        Ok(())
-    })
-    .unwrap();
 }
