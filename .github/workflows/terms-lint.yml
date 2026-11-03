@@ -1,5 +1,4 @@
-# A PR that edits the built-in Terms (docs/terms.md) or the privacy notice
-# (docs/privacy.md) adds an entry to docs/terms-changes.json, and a new
+# A PR that edits the built-in Terms (docs/terms.md) adds an entry to docs/terms-changes.json, and a new
 # entry comes with a text change (scripts/terms-lint.sh, #966, #978). Not a
 # required check (see the ruleset note in CLAUDE.md, "Pull requests").
 name: terms-lint
@@ -8,7 +7,6 @@ on:
   pull_request:
     paths:
       - docs/terms.md
-      - docs/privacy.md
       - docs/terms-changes.json
 
 jobs:

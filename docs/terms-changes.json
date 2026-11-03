@@ -12,33 +12,12 @@
     ]
   },
   {
-    "version": "2026-10-29",
-    "announced": "2026-10-29",
-    "effective": "2026-10-29",
-    "material": false,
-    "summary": [
-      "The privacy policy changed: the draft at /privacy is replaced by the full privacy notice.",
-      "It says what we collect (your account, learning data, courses and notes, payment status, server logs), who else sees it (hosting, Stripe, the e-mail and text providers, the AI providers you use, the content check), how long we keep it (nothing longer than a month after your account is gone) and how to download or delete your data.",
-      "Read it at /privacy."
-    ]
-  },
-  {
     "version": "2026-10-31",
     "announced": "2026-10-31",
     "effective": "2026-10-31",
     "material": false,
     "summary": [
       "New contact addresses: one for help with the site, plans and payments, and one for privacy requests, copyright notices and other legal matters. Section 32 lists both.",
-      "Nothing else changed."
-    ]
-  },
-  {
-    "version": "2026-11-01",
-    "announced": "2026-11-01",
-    "effective": "2026-11-01",
-    "material": false,
-    "summary": [
-      "The privacy policy changed: sign-in with Google is gone, so the notice no longer describes social logins or Google's API policy, and no longer lists Google as an authentication service.",
       "Nothing else changed."
     ]
   }

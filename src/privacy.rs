@@ -479,7 +479,7 @@ pub fn apply_retention(conn: &Connection, r: &Retention, now: i64) -> rusqlite::
 // ---------- age at sign-up ----------
 
 /// The "I am at least N" confirmation at sign-up. It is part of the Terms
-/// checkbox ("I am at least N and agree to the Terms and Privacy Policy",
+/// checkbox ("I am at least N and agree to the Terms",
 /// #72), which registration requires, so
 /// the gate is always on; N is `SKRONGLE_MIN_AGE` (`terms::min_age`, 14 by
 /// default, #976). `check` refuses a sign-up without the

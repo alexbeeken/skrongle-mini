@@ -1,17 +1,9 @@
-// Privacy (#74): the policy page is public, a learner asks to delete their account (#970)
+// Privacy (#74): a learner asks to delete their account (#970)
 // (downloading their data is export.spec.ts), and the AI forms say where notes go. Exact: no
 // model, no key, no network.
 import { expect, test } from "../../lib/fixtures.ts";
 import { createCourse, devLogin } from "../../lib/app.ts";
 import { newAccount, register } from "../../lib/learner.ts";
-
-test("the privacy policy is served to visitors", async ({ page }) => {
-  const res = await page.goto("/privacy");
-  expect(res?.status()).toBe(200);
-  await expect(page.locator("h1")).toHaveText("Privacy policy");
-  await expect(page.getByTestId("docs-body")).toContainText("Last updated:");
-  await expect(page.getByTestId("docs-link").filter({ hasText: "Cookie Notice" })).toHaveAttribute("data-slug", "cookies");
-});
 
 test("deleting the account signs out and waits 14 days; signing in can cancel it (#970)", async ({ page }) => {
   const account = newAccount("privacy");

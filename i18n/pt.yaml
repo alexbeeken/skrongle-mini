@@ -20,8 +20,6 @@ nav:
 
 footer:
   terms: termos
-  privacy: privacidade
-  cookies: cookies
 
 lang:
   label: Idioma
@@ -119,7 +117,6 @@ auth:
     or: ou
     no_account_html: "Ainda não tem conta? <a href=\"{url}\" data-testid=\"login-register-link\">Cadastre-se</a>."
     terms_link: Termos
-    privacy_link: Privacidade
     too_many_attempts: Muitas tentativas de entrar. Espere alguns minutos e tente de novo.
     incorrect: Endereço de e-mail ou senha incorretos.
     forgot: "Esqueceu sua senha?"
@@ -234,16 +231,15 @@ terms:
     title: Termos de Serviço
     version: "Versão {version}"
     markdown: Markdown
-    privacy: Política de Privacidade
   check:
     age: "Tenho pelo menos {min_age} anos de idade"
-    agree_html: "Concordo com os <a href=\"{terms_url}\" target=\"_blank\" data-testid=\"{tid}-terms-link\">Termos</a> e com a <a href=\"{privacy_url}\" target=\"_blank\" data-testid=\"{tid}-privacy-link\">Política de Privacidade</a>"
+    agree_html: "Concordo com os <a href=\"{terms_url}\" target=\"_blank\" data-testid=\"{tid}-terms-link\">Termos</a>"
   accept:
     title: Termos de Serviço
     changed: Os termos mudaram
     heading: Aceite os termos
     read_html: "Leia os <a href=\"{url}\" target=\"_blank\" data-testid=\"terms-gate-link\">Termos de Serviço</a> (versão {version}) e aceite-os para continuar."
-    check_html: "Tenho pelo menos {min_age} anos e concordo com os <a href=\"{terms_url}\" target=\"_blank\">Termos</a> e com a <a href=\"{privacy_url}\" target=\"_blank\" data-testid=\"terms-gate-privacy-link\">Política de Privacidade</a>"
+    check_html: "Tenho pelo menos {min_age} anos e concordo com os <a href=\"{terms_url}\" target=\"_blank\">Termos</a>"
     submit: Continuar
     logout: Sair em vez disso
     tick: Marque a caixa para aceitar os termos.
@@ -480,7 +476,6 @@ profile:
     appear_as_before: "Você aparecerá como: ("
     appear_as_after: ) para os outros usuários.
     email_private: Seu endereço de e-mail é visível só para você.
-    policy_link: política de privacidade
     ok: OK
   email_unverified:
     title: Confirme seu e-mail
@@ -515,7 +510,6 @@ profile:
     terms_accepted: "Versão {version}, aceita em {date}"
     terms_not_accepted: Não aceita
     terms_read: ler
-    terms_privacy: privacidade
     terms_title: Termos de Serviço
     terms_close: Fechar
     terms_open_page: Abrir como página
@@ -656,7 +650,6 @@ profile:
     export_ready_no_mail: "Seus dados estão prontos: baixe-os com o botão, uma única vez, até {date}."
     export_about_no_mail: "Um arquivo JSON com tudo o que está guardado da sua conta, preparado em segundo plano. Quando estiver pronto, baixe-o aqui; funciona uma vez, por 24 horas. Uma cópia por dia."
     title: Seus dados
-    stored_html: "O que é guardado e por quê: <a href=\"{url}\" data-testid=\"profile-privacy-link\">política de privacidade</a>."
     export: "Preparar meus dados (JSON)"
     export_heading: "Baixar meus dados"
     export_info_label: "Sobre baixar seus dados"
@@ -827,7 +820,6 @@ landing:
   final_h2: "Cadastre-se e responda uma pergunta: o que você gostaria de aprender?"
   browse_docs: Explore a documentação
   terms: Termos de Serviço
-  privacy: Política de Privacidade
   feat_guide_h: "Guia"
   feat_guide_p: "Cada lição como uma etapa de passos pequenos: cartões, verificações rápidas, flashcards e dicas, com estrelas no fim."
   try_lead: "Vinte segundos de cada modo. Escolha um e experimente."

@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
-# Terms lint (#966, #978): a change to the built-in Terms or to the privacy
-# notice goes through the update flow. If docs/terms.md or docs/privacy.md
-# changed, docs/terms-changes.json must gain an entry (version, announced
-# and effective dates, material flag, summary; for the privacy notice the
-# summary starts "The privacy policy changed:") in the same change; if the
-# changelog gained an entry, one of the two texts must have changed.
+# Terms lint (#966, #978): a change to the built-in Terms goes through the
+# update flow. If docs/terms.md changed, docs/terms-changes.json must gain an
+# entry (version, announced and effective dates, material flag, summary) in
+# the same change; if the changelog gained an entry, the text must have
+# changed.
 # `cargo test terms` checks the entries themselves (dates, summary, 30
 # days' notice, the "Last updated" lines).
 #
@@ -21,7 +20,7 @@ entries() { git show "$1:docs/terms-changes.json" 2>/dev/null | grep -c '"versio
 before=$(entries "$from")
 after=$(entries "$head")
 changed=""
-for doc in docs/terms.md docs/privacy.md; do
+for doc in docs/terms.md; do
   git diff --quiet "$from" "$head" -- "$doc" || changed="$changed $doc"
 done
 changed=${changed# }
@@ -33,7 +32,7 @@ if [ -n "$changed" ] && [ "${after:-0}" -le "${before:-0}" ]; then
   exit 1
 fi
 if [ -z "$changed" ] && [ "${after:-0}" -gt "${before:-0}" ]; then
-  echo "::error file=docs/terms-changes.json,title=Terms lint::docs/terms-changes.json has a new entry but neither docs/terms.md nor docs/privacy.md changed. Change the text (and its \"Last updated\" line) in the same PR."
+  echo "::error file=docs/terms-changes.json,title=Terms lint::docs/terms-changes.json has a new entry but docs/terms.md did not change. Change the text (and its \"Last updated\" line) in the same PR."
   exit 1
 fi
 echo "terms lint: ok (changed: ${changed:-nothing}, changelog entries $before -> $after)"
