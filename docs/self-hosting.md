@@ -24,8 +24,7 @@ no outside services. How it is set up:
 - **SQLite only.** One database file in `/var/lib/skrongle`, no database
   server.
 
-`SKRONGLE_MINI=1` is what makes a server a mini (`skrongle.service` sets
-it). The startup log line and `/healthz` then say `skrongle mini <version>`.
+The startup log line and `/healthz` say `skrongle mini <version>`.
 
 ### Security
 
@@ -144,8 +143,7 @@ A line that starts with `PROBLEM:` says what to fix.
   (`ProtectSystem=strict`, `ProtectHome`, `PrivateTmp`, …);
 - lets people sign up only with an invitation from you
   (`SKRONGLE_SIGNUP=invite`, see [Accounts and AI keys](#accounts-and-ai-keys));
-- makes the server a Skrongle mini (`SKRONGLE_MINI=1`), with no plans or
-  payments (see
+- runs it with no plans or payments (see
   [Accounts and AI keys](#accounts-and-ai-keys));
 - reads optional settings from `/etc/skrongle/env`.
 
@@ -167,7 +165,6 @@ Where a default says "unit", `skrongle.service` sets it.
 
 | Variable | Default | Meaning |
 |---|---|---|
-| `SKRONGLE_MINI` | unit: `1` | `1`: this server is a Skrongle mini. `skrongle.service` sets it, and the server does not start outside dev mode without it. Every account has every feature and the server's AI key is shared (see [Accounts and AI keys](#accounts-and-ai-keys)); the text, Google and S3 settings are ignored. Read once at startup. |
 | `SKRONGLE_BIND` | `0.0.0.0:8080` | Address and port to listen on; a bare port (`8081`) means every interface. |
 | `SKRONGLE_SIGNUP` | `open` (unit: `invite`) | Who may make an account: `open`, `invite` or `closed`; see [Accounts and AI keys](#accounts-and-ai-keys). |
 | `SKRONGLE_PROXY_AUTH_HEADER`, `SKRONGLE_PROXY_AUTH_FROM` | — | Let the proxy in front sign people in; see [Signing in at the proxy](#signing-in-at-the-proxy). Both or neither. |

@@ -51,7 +51,6 @@ mod routes;
 mod secrets;
 mod settings;
 mod share;
-mod shape;
 mod signup;
 mod startup;
 mod security;
@@ -89,18 +88,10 @@ pub const DEFAULT_BIND: &str = "0.0.0.0:8080";
 pub const DEFAULT_DATA_DIR: &str = "data";
 pub const DEFAULT_DB: &str = "learn.db";
 
-/// Skrongle mini (#641, #578): the small-box defaults
-/// `deploy/skrongle.service` sets (invite-only sign-up, the owner's own
-/// Terms). The server is a mini when `SKRONGLE_MINI=1` (`shape.rs`, read
-/// once at startup).
-pub fn is_mini() -> bool {
-    shape::current().is_mini()
-}
-
 /// What the server calls itself in the startup log and on `/healthz`:
-/// `skrongle mini 0.1.0` or `skrongle 0.1.0` ([`VERSION`]).
-pub fn edition(mini: bool) -> String {
-    if mini { format!("skrongle mini {VERSION}") } else { format!("skrongle {VERSION}") }
+/// `skrongle mini 0.1.0` ([`VERSION`]).
+pub fn edition() -> String {
+    format!("skrongle mini {VERSION}")
 }
 
 static BASE_PATH: OnceLock<String> = OnceLock::new();
@@ -177,27 +168,6 @@ pub struct AppState {
     pub proxy_auth: Option<proxy_auth::Config>,
 }
 
-/// Outside Skrongle mini (`SKRONGLE_MINI=1`) and the dev server, the server
-/// is served over HTTPS, so it needs `Secure` cookies, and proxy sign-in
-/// (`proxy_auth.rs`) is a mini feature it refuses (audit M3, #980).
-/// `Err` stops the server at startup.
-pub fn require_providers(mini: bool, dev: bool, secure_cookies: bool, proxy_auth: bool) -> Result<(), String> {
-    if mini || dev {
-        return Ok(());
-    }
-    if proxy_auth {
-        return Err(format!(
-            "this server signs people in itself; unset {} and {}, or run Skrongle mini (SKRONGLE_MINI=1) on a small box",
-            proxy_auth::HEADER_VAR,
-            proxy_auth::FROM_VAR
-        ));
-    }
-    if secure_cookies {
-        return Ok(());
-    }
-    Err("this server needs SKRONGLE_SECURE_COOKIES=1; set it, or run Skrongle mini (SKRONGLE_MINI=1) on a small box".into())
-}
-
 struct Config {
     bind: SocketAddr,
     data_dir: PathBuf,
@@ -237,13 +207,7 @@ const ENV_PREFIXES: [&str; 3] = ["SKRONGLE_", "LEARN_", "SPANISH_"];
 
 /// `SKRONGLE_<name>`, falling back for one release to the old
 /// `LEARN_<name>` and `SPANISH_<name>` spellings. Empty counts as unset.
-///
-/// In Skrongle mini the provider settings (`shape::HOSTED_ONLY`) read as
-/// unset, so texts, Google and S3 are off wherever they are read.
 pub fn env(name: &str) -> Option<String> {
-    if shape::current().hides(name) {
-        return None;
-    }
     env_from(name, &|key| std::env::var(key).ok())
 }
 
@@ -375,18 +339,6 @@ fn main() {
             std::process::exit(2);
         }
     }
-    // The shape first (`shape.rs`): in a mini `env` hides the provider
-    // settings `Config::from_env` would read.
-    let ignored = match shape::Shape::from_env() {
-        Ok(s) => {
-            shape::init(s);
-            s.ignored(&|name| env_from(name, &|key| std::env::var(key).ok()))
-        }
-        Err(e) => {
-            eprintln!("fatal: {e}");
-            std::process::exit(1);
-        }
-    };
     // Before `Config::from_env`, which takes the secrets out of the environment.
     let old_names = old_prefix_warning_now();
     let cfg = match Config::from_env() {
@@ -401,7 +353,7 @@ fn main() {
         .with_target(false)
         .compact()
         .init();
-    for w in [old_names, ignored].into_iter().flatten() {
+    if let Some(w) = old_names {
         tracing::warn!("{w}");
     }
     if let Some(v) = &cfg.log_invalid {
@@ -430,8 +382,7 @@ fn main() {
 
 async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
     let _ = BASE_PATH.set(cfg.base_path.clone());
-    tracing::info!("{} starting", edition(is_mini()));
-    tracing::info!("{}", shape::current().describe());
+    tracing::info!("{} starting", edition());
     // Bind first, so a taken port fails before anything else is loaded.
     let listener = tokio::net::TcpListener::bind(cfg.bind).await.map_err(|e| startup::bind_error(cfg.bind, &e))?;
     let signup = signup::Mode::from_env()?;
@@ -581,7 +532,6 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
         tracing::info!("dev: log in as '{}' / '{}', or open /dev/login", dev::DEV_EMAIL, dev::DEV_PASSWORD);
     }
 
-    require_providers(is_mini(), dev, cfg.secure_cookies, proxy_auth.is_some())?;
     if env("PUBLIC_URL").is_none() {
         tracing::info!("links the app hands out point to the host each request was made to; set SKRONGLE_PUBLIC_URL to fix them");
     }
@@ -635,7 +585,7 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
     }
     let app = routes::router(state);
     release_boot_memory();
-    tracing::info!("{} listening on http://{}{}", edition(is_mini()), cfg.bind, url("/"));
+    tracing::info!("{} listening on http://{}{}", edition(), cfg.bind, url("/"));
     // Handlers get the client's address (ConnectInfo) for the rate limits.
     server::serve(listener, app, server::Limits::default(), shutdown_signal()).await?;
     // Fold the WAL back into learn.db, so after a clean stop that one file
@@ -673,7 +623,7 @@ async fn shutdown_signal() {
 
 #[cfg(test)]
 mod tests {
-    use super::{env_from, old_prefix_warning, require_providers};
+    use super::{env_from, old_prefix_warning};
 
     fn lookup(vars: &[(&str, &str)]) -> impl Fn(&str) -> Option<String> {
         let vars: Vec<(String, String)> = vars.iter().map(|(k, v)| (k.to_string(), v.to_string())).collect();
@@ -737,23 +687,6 @@ mod tests {
         assert!(found.is_empty(), "settings are named SKRONGLE_ now; the old prefix is back in {found:?}");
     }
 
-    #[test]
-    fn a_server_outside_mini_requires_secure_cookies() {
-        let why = require_providers(false, false, false, false).unwrap_err();
-        assert!(why.contains("SKRONGLE_SECURE_COOKIES=1") && why.contains("SKRONGLE_MINI=1"), "{why}");
-        assert_eq!(require_providers(false, false, true, false), Ok(()));
-        assert_eq!(require_providers(true, false, false, false), Ok(()), "mini may run on plain HTTP");
-        assert_eq!(require_providers(false, true, false, false), Ok(()), "dev mode refuses secure cookies");
-    }
-
-    #[test]
-    fn a_server_outside_mini_refuses_proxy_sign_in() {
-        let why = require_providers(false, false, true, true).unwrap_err();
-        assert!(why.contains(crate::proxy_auth::HEADER_VAR) && why.contains(crate::proxy_auth::FROM_VAR), "{why}");
-        assert!(why.contains("SKRONGLE_MINI=1"), "{why}");
-        assert_eq!(require_providers(true, false, false, true), Ok(()), "proxy sign-in is a mini feature");
-        assert_eq!(require_providers(false, true, false, true), Ok(()), "dev mode may try it");
-    }
 }
 
 /// Hand the heap pages that booting freed back to the OS. Loading the

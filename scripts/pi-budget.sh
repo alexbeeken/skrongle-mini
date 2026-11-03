@@ -65,7 +65,7 @@ URL="http://127.0.0.1:$PORT"
 # env -i: nothing from the caller's shell (keys, SKRONGLE_DEV) reaches the
 # server; the rest is what deploy/skrongle.service sets.
 env -i PATH="$PATH" HOME="$WORK" \
-  SKRONGLE_BIND="127.0.0.1:$PORT" SKRONGLE_DB="$WORK/learn.db" SKRONGLE_DATA_DIR="$PWD/data" SKRONGLE_LOG=info SKRONGLE_MINI=1 \
+  SKRONGLE_BIND="127.0.0.1:$PORT" SKRONGLE_DB="$WORK/learn.db" SKRONGLE_DATA_DIR="$PWD/data" SKRONGLE_LOG=info \
   MALLOC_ARENA_MAX=2 MALLOC_TRIM_THRESHOLD_=65536 \
   "$BIN" >"$WORK/server.log" 2>&1 &
 PID=$!

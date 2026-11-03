@@ -13,7 +13,6 @@
 #   scripts/jev-playthrough.sh sprint --fail-on bug,invariant,stuck   # what exits 1 (default bug,invariant)
 #   scripts/jev-playthrough.sh sprint --headed --keep               # watch it; leave the server up
 #   scripts/jev-playthrough.sh sprint --url http://127.0.0.1:9000   # use a running server
-#                                               # (E2E_MINI=1 too if it is a mini: registering signs in there)
 #   scripts/jev-playthrough.sh serve e2e/results/playthrough/<run>/checkpoints/12-ser-vs-estar.db
 #                                               # a server on that checkpoint, logged-in account printed
 #   scripts/jev-playthrough.sh calibrate [--lessons 12]   # how often Jev answers the quiz right, asked
@@ -33,10 +32,9 @@ free_port() { python3 -c 'import socket; s = socket.socket(); s.bind(("127.0.0.1
 start_server() { # $1 database, $2 log; SKRONGLE_DEV in the environment for calibrate's dev login
   PORT=$(free_port)
   URL="http://127.0.0.1:$PORT"
-  # A plain server, as a learner meets it: no dev mode, no seed. A mini (SKRONGLE_MINI=1),
-  # because a server without SKRONGLE_MINI or dev mode needs every provider set (#641).
+  # A plain server, as a learner meets it: no dev mode, no seed.
   # TEST_COURSE=1 also offers the test course (scripts/jev-playthrough-test-course.sh).
-  SKRONGLE_BIND="127.0.0.1:$PORT" SKRONGLE_DB="$1" SKRONGLE_DATA_DIR=./data SKRONGLE_LOG=info SKRONGLE_DEV="${SKRONGLE_DEV:-}" TEST_COURSE="${TEST_COURSE:-}" SKRONGLE_MINI=1 \
+  SKRONGLE_BIND="127.0.0.1:$PORT" SKRONGLE_DB="$1" SKRONGLE_DATA_DIR=./data SKRONGLE_LOG=info SKRONGLE_DEV="${SKRONGLE_DEV:-}" TEST_COURSE="${TEST_COURSE:-}" \
     "${CARGO_TARGET_DIR:-target}/debug/spanish-learning" >"$2" 2>&1 &
   PID=$!
   for _ in $(seq 1 100); do curl -fsS "$URL/healthz" >/dev/null 2>&1 && break; sleep 0.2; done
@@ -107,10 +105,7 @@ if [ -z "$GIVEN_URL" ]; then
   [ "$MODE" = calibrate ] && export SKRONGLE_DEV=1 # it logs in through /dev/login
   start_server "$DB" "$LOG"
   echo "==> server $URL ($DB)"
-  # Our server is a mini: registering signs the learner in, with no "check
-  # your mail" page, and signUp (e2e/lib/learner.ts) only expects that with
-  # E2E_MINI=1 (#895).
-  export PLAYTHROUGH_URL="$URL" PLAYTHROUGH_DB="$DB" E2E_MINI=1
+  export PLAYTHROUGH_URL="$URL" PLAYTHROUGH_DB="$DB"
 fi
 
 STATUS=0

@@ -44,10 +44,7 @@ other than the one the session started in, so read the ones for your area.
   no "if an e-mail provider is configured", no half-configured servers, no
   fallbacks for a setting nobody has. A feature that would need one is not a
   feature of this app; say so in the issue and leave it out. The dev server
-  is for development, not a second shape. The server still reads
-  `SKRONGLE_MINI=1` at startup (`src/shape.rs`; code asks `crate::is_mini()`)
-  and the deploy unit sets it; a script that starts a server sets it too.
-  Retiring that switch is its own issue.
+  is for development, not a second shape.
 - Memory matters: the target is a Pi Zero 2 W (Skrongle mini). No new heavy dependencies;
   SQLite work goes through `Db::call`; long blocking work (LLM calls) gets
   its own OS thread, not the Tokio blocking pool.

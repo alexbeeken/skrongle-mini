@@ -1,7 +1,7 @@
 # Self-hosted GitHub Actions runners for alexbeeken/skrongle-mini, on the
 # laptop. The workflows pick them with `runs-on: ${{ vars.CI_RUNNER || 'laptop' }}`.
-# Four runners: a PR's `checks` run is nine jobs (cargo test, 3 exact shards,
-# 4 smoke shards, the mini lane), so one PR takes about two waves and a
+# Four runners: a PR's `checks` run is eight jobs (cargo test, 3 exact shards,
+# 4 smoke shards), so one PR takes about two waves and a
 # second PR waits. Each keeps its own work volume, so builds stay
 # incremental between jobs: the Rust build goes to CARGO_TARGET_DIR in the
 # volume, outside the checkout, where actions/checkout's `git clean -ffdx`

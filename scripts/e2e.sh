@@ -24,10 +24,6 @@
 # request gives up after SKRONGLE_AI_TIMEOUT_SECS=8, so a `timeout` fixture or an
 # injected timeout (specs/dev-ai.spec.ts) is over in seconds.
 #
-# E2E_MINI=1 is the mini lane (docs/testing.md, "The mini lane"): the
-# server runs without the dev stand-ins a self-hoster lacks (no dev Stripe), and
-# the specs see E2E_MINI=1 so the ones that need a stand-in skip.
-#
 # Uses its own database (./e2e.db, or E2E_DB) and a free port, so a running
 # ./.dev-start is left alone. First run installs e2e/node_modules and
 # Playwright's Chromium (needs network once).
@@ -54,16 +50,7 @@ BIN="${SERVER_BIN:-}" # a server already built (CI: scripts/ci-build.sh)
 [ -n "$BIN" ] || { cargo build -q; BIN="${CARGO_TARGET_DIR:-target}/debug/spanish-learning"; }
 DB="${E2E_DB:-./e2e.db}" # another name lets two runs share the checkout
 rm -f "$DB" "$DB-wal" "$DB-shm" "$DB.key"
-MINI="${E2E_MINI:-0}"
-# The mini lane: mail and texts only logged, no stand-in Stripe, and
-# SKRONGLE_MINI=1, which makes the server a Skrongle mini (#578: no plans and
-# no dev stand-ins, the hosted-only settings ignored;
-# /healthz says so, #641).
-MINI_ENV=()
-if [ "$MINI" = 1 ]; then
-  MINI_ENV=(SKRONGLE_MINI=1)
-fi
-env ${MINI_ENV[@]+"${MINI_ENV[@]}"} SKRONGLE_BIND="127.0.0.1:$PORT" SKRONGLE_DB="$DB" SKRONGLE_DATA_DIR=./data SKRONGLE_LOG=info \
+env SKRONGLE_BIND="127.0.0.1:$PORT" SKRONGLE_DB="$DB" SKRONGLE_DATA_DIR=./data SKRONGLE_LOG=info \
   SKRONGLE_DEV=1 SKRONGLE_DEV_SEED=1 SKRONGLE_LLM_MODE="${E2E_LLM_MODE:-}" SKRONGLE_LLM_TIMEOUT_SECS=30 SKRONGLE_AI_TIMEOUT_SECS=8 \
   TEST_COURSE=1 SKRONGLE_RNG_SEED="$SEED" \
   "$BIN" >"$LOG" 2>&1 &
@@ -75,9 +62,9 @@ curl -fsS "$URL/healthz" >/dev/null || { echo "server did not start:"; cat "$LOG
 for f in .env e2e/.env; do
   if [ -f "$f" ]; then set -a; . "./$f"; set +a; fi
 done
-echo "==> e2e against $URL, seed $SEED$( [ "$MINI" = 1 ] && echo ", mini lane") ($( [ -n "${TYPESAFE_API_KEY:-}${JEV_API_KEY:-}" ] && echo "Jev on" || echo "Jev off: no key, those specs are skipped"))"
+echo "==> e2e against $URL, seed $SEED ($( [ -n "${TYPESAFE_API_KEY:-}${JEV_API_KEY:-}" ] && echo "Jev on" || echo "Jev off: no key, those specs are skipped"))"
 STATUS=0
-(cd e2e && E2E_BASE_URL="$URL" E2E_SEED="$SEED" E2E_MINI="$MINI" npx playwright test "$@") || STATUS=$?
+(cd e2e && E2E_BASE_URL="$URL" E2E_SEED="$SEED" npx playwright test "$@") || STATUS=$?
 if [ "$STATUS" != 0 ]; then
   echo "==> e2e FAILED (seed $SEED: rerun with E2E_SEED=$SEED). Report: npx --prefix e2e playwright show-report e2e/results/report; server log tail:"
   tail -20 "$LOG"

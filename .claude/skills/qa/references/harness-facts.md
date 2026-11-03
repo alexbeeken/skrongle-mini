@@ -29,12 +29,6 @@ still hold next time; delete what has been fixed.
   started in the same second share the file and the second registration
   fails with "An account with that e-mail address already exists", then
   every mode fails at `/courses`. `run-all.sh` chains them for this reason.
-- **Playthroughs fail at `/courses` until #895 is fixed** (2026-10-25):
-  `scripts/jev-playthrough.sh` runs a mini server but never sets
-  `E2E_MINI=1`, so `signUp` waits for a "check your mail" page that never
-  comes. Until then run them as `E2E_MINI=1 scripts/jev-playthrough-all.sh`
-  if the script still doesn't export it, and don't read the fatal
-  `toBeVisible` at `/courses` as a site bug.
 - **The `start-at-a2` journey fails by design of its budget** (#896): the
   Start wizard has six screens and the journey allows eight steps. Not a
   regression of the wizard itself.
