@@ -353,10 +353,12 @@ binary is `target/release/spanish-learning` (`./spanish-learning
 reset-password …`); a release names it `skrongle`.
 
 Keep the server on your own network or behind Tailscale (below) anyway.
-The AI features (tutor, course generator) use a key each learner saves
-under *Profile settings → AI API keys* (Anthropic, OpenAI or Google). The
-secret key encrypts saved keys, so a database without its `.key` file can't
-use them.
+The AI features (tutor, course generator) use the server's keys, which
+you, the owner, save under *Manage Users → AI features* (Anthropic, OpenAI
+or Google); every account uses them, billed to you, and nobody else sees
+them. The same section has *Hide AI features for everyone*, which takes
+the AI features away from every account. The secret key encrypts saved
+keys, so a database without its `.key` file can't use them.
 
 ## Reaching it from outside
 

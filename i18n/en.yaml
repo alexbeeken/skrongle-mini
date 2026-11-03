@@ -40,6 +40,7 @@ error:
   home: Home
   lessons: Lessons
   courses: All courses
+  ai_off: "The AI features are turned off on this server."
 
 common:
   pager:
@@ -188,12 +189,6 @@ auth:
     needs_email: Confirm your e-mail address first.
     needs_app: Set up the authenticator app first.
     app_already: An authenticator app is already set up. Remove it first.
-  ai_switch:
-    label: Hide all AI features
-    about: About AI features
-    tip: The AI tutor and AI course creation are hidden and unusable. They work by sending what you type to an AI company with your own API key. You can change this any time in your profile.
-    off: "Off"
-    on: "On"
   verify_email:
     title: Confirm your e-mail address
     confirmed_heading: Your e-mail address is confirmed
@@ -497,7 +492,6 @@ profile:
     personal: Personal information
     account: Account
     two_factor: Two-factor authentication
-    api_keys: AI API keys
     data: Your data
     consent: "Privacy and consent"
   personal:
@@ -530,7 +524,6 @@ profile:
     info: "About your consents"
     info_age: "You confirmed your age when you signed up. To take that back, delete your account under Your data."
     info_email: "Service e-mails always go out: confirming your address, your data download, and changes to the terms. Optional e-mails will show up here with their own switch, off until you turn them on."
-    info_ai: "AI features send what you type to an AI company. Hide them and nothing goes out, the features are gone from the app, and your saved API keys are deleted."
     info_record: "Each change is kept with its date and comes with Download my data."
     close: "Close"
     terms: "Terms and privacy"
@@ -539,13 +532,6 @@ profile:
     age_not_confirmed: "Not confirmed"
     email: "E-mail"
     email_service: "Service messages only"
-    ai: "Do Not Show Me AI Features"
-    ai_on_since: "Shown since {date}"
-    ai_on: "Shown"
-    ai_off_since: "Hidden since {date}"
-    ai_off: "Hidden"
-    ai_key: "Own API key on file"
-    ai_keys_manage: "manage keys"
   sessions:
     sign_out_others: Sign out everywhere else
     info_label: About signing out everywhere else
@@ -624,37 +610,6 @@ profile:
     code_gone: No code is waiting, or it expired. Send a new one.
     too_many_codes: Too many codes sent. Wait a few minutes and try again.
     code_not_sent: The code could not be sent. Try again in a moment.
-  ai:
-    on: "On"
-    off: "Off"
-    close: Close
-    off_title: Hide all AI features?
-    off_text: This will delete all AI API keys saved in your profile.
-    cancel: Cancel
-    confirm: CONFIRM
-    hidden_notice: AI features are hidden. You will not be shown them, and nothing you do here goes to an AI company.
-    shown_notice: AI features are shown again.
-    feature_hidden: "That feature uses AI, which you have hidden. Turn off \"Do Not Show Me AI Features\" under Privacy and consent to use it."
-    keys_off: AI features are off for your account; turn them on to save a key.
-  api_keys:
-    title: AI API keys
-    about: "The AI tutor, Generate the course and Use AI call these providers with your key, billed to your account."
-    info: "About your API keys"
-    info_title: "Your API keys"
-    info_text: "Keys are encrypted before they are stored and are never shown again; only the last four characters stay visible so you can tell which key is on file. You can replace or remove a key at any time."
-    unreadable: "On file but unreadable: the server's secret changed. Paste it again."
-    on_file: ✓ Key on file
-    ends_in: ends in
-    none: No key yet
-    replace: Paste a new key to replace it
-    paste: Paste your key
-    get_one: get one
-    remove: Remove key
-    removed: "{provider} key removed."
-    empty: Paste the API key first.
-    too_long: "That is too long for an API key (max {max} characters)."
-    bad_chars: An API key contains only letters, digits and punctuation, with no spaces.
-    wrong_provider: "That does not look like a {provider} key: they start with {prefix}."
   data:
     export_download: "Download my data"
     export_building_no_mail: "Your data is being prepared. When it is ready, a Download button appears here."
@@ -713,13 +668,6 @@ profile:
     not_email: That does not look like an e-mail address.
     no_domain: E-mail address needs a domain like example.org.
   js:
-    no_key: No key yet
-    paste_key: Paste your key
-    paste_new_key: Paste a new key to replace it
-    key_on_file: ✓ Key on file
-    ends_in: ends in
-    on: "On"
-    off: "Off"
     account_menu_for: "Account menu for {name}"
     first_name: First name
     last_name: Last name
@@ -775,9 +723,36 @@ manage:
   terms_sent:
     one: "Announcement queued for {n} account."
     other: "Announcement queued for {n} accounts."
+  api_keys:
+    title: AI API keys
+    info_text: "Every account's AI features use these keys, billed to the account each key belongs to. Keys are encrypted before they are stored and are never shown again; only the last four characters stay visible so you can tell which key is on file. Only owners see them."
+    unreadable: "On file but unreadable: the server's secret changed. Paste it again."
+    on_file: ✓ Key on file
+    ends_in: ends in
+    none: No key yet
+    replace: Paste a new key to replace it
+    paste: "Paste the key"
+    get_one: get one
+    remove: Remove key
+    removed: "{provider} key removed."
+    empty: Paste the API key first.
+    too_long: "That is too long for an API key (max {max} characters)."
+    bad_chars: An API key contains only letters, digits and punctuation, with no spaces.
+    wrong_provider: "That does not look like a {provider} key: they start with {prefix}."
   js:
     copied: "Copied"
-
+    key_on_file: "✓ Key on file"
+    ends_in: "ends in"
+    paste_new_key: "Paste a new key to replace it"
+  ai:
+    title: "AI features"
+    info: "About the AI features"
+    about: "The AI tutor, course generation, Edit with AI and translation send what learners type to an AI provider, with the keys below. Hide them and they are gone for every account on this server and nothing goes out; the keys stay saved for when you show them again."
+    hide: "Hide AI features for everyone"
+    on: "On"
+    off: "Off"
+    hidden_notice: "AI features are hidden for every account."
+    shown_notice: "AI features are shown again for every account."
 
 landing:
   title: Learn anything from a folder of JSON files
@@ -965,8 +940,8 @@ home:
   open_ai: Open AI tutoring
   ai_tag: Chat with a tutor
   about_ai: About AI tutoring
-  using_key_html: "Using your <strong>{provider}</strong> key"
-  needs_key_html: "Needs an API key · <a href=\"{url}\" data-testid=\"home-ai-add-key\">add one in your profile</a>"
+  using_key_html: "Using the <strong>{provider}</strong> key"
+  needs_key_html: "Needs an API key · <a href=\"{url}\" data-testid=\"home-ai-add-key\">add one on Manage Users</a>"
   start_conversation: Start a conversation
   no_ai_keys: No AI keys set
   info_sprint_p: "Short tap-and-swipe sessions: word tiles, sorting, matching and quick quiz rounds. A streak and the daily goal keep you coming back."
@@ -978,8 +953,9 @@ home:
   info_play_dates: "a date dash, "
   info_play_end: or a hand of flashcards.
   info_guide_p: "The lessons in order, one small step at a time: a card or two, then a quick check. Finish a stage to unlock the next, and earn up to three stars on each."
-  info_ai_p: "A one-to-one lesson over chat: the tutor explains, checks you follow, sets an exercise when you are ready and talks you through your answer. Same questions, same mastery, just a conversation. Runs on your own API key."
+  info_ai_p: "A one-to-one lesson over chat: the tutor explains, checks you follow, sets an exercise when you are ready and talks you through your answer. Same questions, same mastery, just a conversation. Runs on this server's API key."
   ok: OK
+  needs_key_ask: "Needs an API key, which the owner of this server adds"
 
 goal:
   ring_label: "Today's goal: {n} of {goal} points"
@@ -1381,7 +1357,7 @@ docs:
     yours_account_html: "<strong>Invite everyone else</strong> with a link from <em>Manage Users</em> (in the account menu)."
     yours_terms_html: "<strong>Put your name in the Terms.</strong> Everyone accepts them when they sign up. Edit them with <code>sudo nano /etc/skrongle/terms.md</code>, then <code>sudo systemctl restart skrongle</code>; everyone accepts the new text at their next visit."
     yours_course_html: <strong>Pick a course.</strong> Spanish is built in, or make your own.
-    yours_ai_html: "<strong>Optional: AI tutor and course generator.</strong> Paste an Anthropic, OpenAI or Google key in <em>Profile settings → AI API keys</em>. They bill you directly."
+    yours_ai_html: "<strong>Optional: AI tutor and course generator.</strong> Paste an Anthropic, OpenAI or Google key under <em>Manage Users → AI features</em>. It serves everyone on the server and bills you directly."
     yours_tip: "🔒 Only people you invite can make an account."
     away_h2: Use it away from home
     optional: optional
@@ -2140,11 +2116,12 @@ tutor:
   no_key:
     title: Your tutor needs an API key
     p1: "AI tutoring runs on your own account with Claude, OpenAI or Google, so {app} never pays for or sees your conversations beyond this server."
-    p2: Add a key once in your profile; it is encrypted and only used when you ask the tutor something.
+    p2: "Add a key once on Manage Users; it is encrypted, serves every account and is only used when someone asks the tutor something."
     add_key: Add an API key
     back: Back to the modes
+    ask_owner: "Ask the owner of this server to add an API key on Manage Users."
   chars_label: Special characters
-  disclosure: "Your messages are sent to {provider} using your key."
+  disclosure: "Your messages are sent to {provider} using this server's key."
   placeholder: Say something to your tutor…
   input_label: Message to the tutor
   send: Send
@@ -2155,7 +2132,7 @@ tutor:
     message_too_long: message too long
     bad_turn: bad turn
     nothing_pending: no exercise is waiting for an answer
-    no_key: "no {provider} key on file; add one in your profile"
+    no_key: "no {provider} key on this server; the owner adds one on Manage Users"
     all_busy: the tutor is busy with other learners right now; try again in a moment
     still_answering: the tutor is still answering
     thread_failed: "could not start the tutor thread: {error}"
@@ -2589,10 +2566,10 @@ courses:
     submit: Submit
     review_changes: Review changes
     review_tip: "What the last AI run ({when}) changed"
-    sent_to_named_html: "Your notes are sent to <span data-testid=\"course-ai-provider\">{provider}</span> using your key."
-    sent_to_generic: Your notes are sent to your AI provider using your key.
-    no_key_html: "No AI provider key is set up. <a href=\"{url}\" data-testid=\"course-ai-profile-link\">Add an API key in your profile</a> to use AI features."
-    no_key: No AI provider key is set up. Add an API key in your profile to use AI features.
+    sent_to_named_html: "Your notes are sent to <span data-testid=\"course-ai-provider\">{provider}</span> using this server's key."
+    sent_to_generic: "Your notes are sent to the AI provider using this server's key."
+    no_key_html: "No AI provider key is set up. <a href=\"{url}\" data-testid=\"course-ai-profile-link\">Add an API key on Manage Users</a> to use AI features."
+    no_key: "No AI provider key is set up. Ask the owner of this server to add one on Manage Users."
     modal_generating: Generating…
     modal_count_rewritten: "{done} of {total} lessons rewritten or added"
     modal_count_edited: "{done} of {total} lessons rewritten"
@@ -2645,7 +2622,7 @@ courses:
       other: "your lessons {list}"
     list_sep: ", "
     quoted: "“{text}”"
-    no_key_html: "You need an AI provider key to generate a course. <a href=\"{url}\" data-testid=\"generate-profile-link\">Add an API key in your profile</a>, then come back here."
+    no_key_html: "You need an AI provider key to generate a course. <a href=\"{url}\" data-testid=\"generate-profile-link\">Add an API key on Manage Users</a>, then come back here."
     asked_for: What you asked for
     wish_label: What do you want to learn?
     wish_optional: "(optional: the title is enough to start)"
@@ -2682,8 +2659,8 @@ courses:
     instructions_label: Instructions
     reset: Reset to the default instructions
     edited: Edited
-    sent_to_html: "Your notes are sent to <span id=\"gen-disclosure-provider\">{provider}</span><span id=\"gen-disclosure-key\"> using your key</span>."
-    sent_to_generic: Your notes are sent to your AI provider using your key.
+    sent_to_html: "Your notes are sent to <span id=\"gen-disclosure-provider\">{provider}</span><span id=\"gen-disclosure-key\"> using this server's key</span>."
+    sent_to_generic: "Your notes are sent to the AI provider using this server's key."
     submit_resume: Resume writing
     submit_retry: Retry
     effort:
@@ -2705,7 +2682,7 @@ courses:
     choose_provider: Choose a provider.
     base_url: The base URL must start with http:// or https://.
     bad_key: That does not look like an API key.
-    paste_key: "Paste an API key for {provider}, or save one on your profile first."
+    paste_key: "No {provider} key is set up on this server."
     wish_too_long: "Keep what you want to learn to {max} characters at most; put longer material in the notes box."
     notes_too_long: "Keep your material to {max} characters at most; trim it or split the course in two."
     new_course: New course
@@ -2716,6 +2693,7 @@ courses:
     busy_other: "A course is already being generated; try again when it finishes."
     cancelling_revision: "Cancelling: the course stays as it was."
     cancelling_generation: "Cancelling: the course stops after the lesson being written."
+    no_key_ask: "You need an AI provider key to generate a course. Ask the owner of this server to add one on Manage Users."
   undo:
     undo: Undo
     redo: Redo

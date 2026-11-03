@@ -11,7 +11,7 @@ import { playSprintRight } from "../../lib/sprint-play.ts";
 import { expect, test } from "../../lib/fixtures.ts";
 import { expectHistory, playDates, playDrill, playFlashcards, playListening, playMatching, playNumbers, recordSpeech, watchBugs } from "../../lib/games.ts";
 import { AnswerKey } from "../../lib/key.ts";
-import { newAccount, register, saveApiKey } from "../../lib/learner.ts";
+import { newAccount, register, resetServerKeys } from "../../lib/learner.ts";
 
 const key = new AnswerKey(TEST_COURSE);
 const course = JSON.parse(readFileSync(join(courseDir(TEST_COURSE), "course.json"), "utf8"));
@@ -123,9 +123,8 @@ test("the paradigm drill, Numbers by ear, Date Dash (each drill)", async ({ page
 
 test("Tutor: a tutored lesson over the fixtures, one tapped and one typed answer", async ({ page }, info) => {
   const bugs = await newLearner(page, info);
-  // A key (any: the dev server answers model calls from data/test-fixtures/llm/).
-  await bugs.go("/profile");
-  await saveApiKey(page, "sk-ant-dev-test-fixtures");
+  // The server's keys serve every account (#25): the simulated provider's, answered from data/test-fixtures/llm/.
+  await resetServerKeys(page);
 
   await bugs.go("/tutor?lesson=everything");
   const done = { tapped: 0, typed: 0 };

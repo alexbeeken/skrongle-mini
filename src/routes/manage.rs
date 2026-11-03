@@ -5,15 +5,18 @@
 //! owner (#635, #16, `owner.rs`), reset e-mail verification (#220); and with
 //! `SKRONGLE_SIGNUP=invite`, the invitation links (#634, `signup.rs`); and
 //! while a material change of the terms is coming, a notice and the button
-//! that e-mails it to every account (#966, `terms.rs`).
+//! that e-mails it to every account (#966, `terms.rs`); and the AI section
+//! (#25): the server's AI API keys, which every account's AI features use
+//! (`secrets.rs`), and the switch that hides those features for everyone
+//! (`settings::AI_OFF`).
 //! Anyone else gets a 404, as if the page did not exist; the account menu
 //! links here only for owners.
 
 use askama::Template;
 use axum::extract::{Query, State};
-use axum::http::{header, HeaderMap};
+use axum::http::{header, HeaderMap, StatusCode};
 use axum::response::{IntoResponse, Redirect, Response};
-use axum::Form;
+use axum::{Form, Json};
 use serde::Deserialize;
 use std::sync::Arc;
 
@@ -21,6 +24,7 @@ use super::Page;
 use crate::auth::{self, CurrentUser};
 use crate::error::AppError;
 use crate::profile;
+use crate::secrets::{self, KeyStatus, Provider};
 use crate::AppState;
 
 #[derive(Template)]
@@ -55,6 +59,10 @@ pub struct ManageTemplate {
     /// Accounts still to e-mail about a coming change of the terms: above 0,
     /// the page says the terms have changed and offers Send.
     pub terms_owed: i64,
+    /// The server's AI API keys, one entry per provider; never the key itself.
+    pub api_keys: Vec<KeyStatus>,
+    /// The AI features are hidden for every account (`settings::AI_OFF`).
+    pub ai_off: bool,
 }
 
 pub struct AccountRow {
@@ -68,7 +76,11 @@ pub struct AccountRow {
 /// The page, for an owner.
 async fn load(state: &AppState, user: CurrentUser) -> Result<ManageTemplate, AppError> {
     let now = crate::db::now();
-    let (invites, accounts) = state.db.call(move |c| Ok((crate::signup::open_invites(c, now)?, crate::signup::accounts(c)?))).await?;
+    let vault = state.vault.clone();
+    let (invites, accounts, api_keys, ai_off) = state
+        .db
+        .call(move |c| Ok((crate::signup::open_invites(c, now)?, crate::signup::accounts(c)?, secrets::statuses(c, &vault)?, crate::settings::ai_off(c)?)))
+        .await?;
     let terms_owed = crate::terms::unannounced(state).await?;
     let total = accounts.len() as i64;
     Ok(ManageTemplate {
@@ -94,15 +106,19 @@ async fn load(state: &AppState, user: CurrentUser) -> Result<ManageTemplate, App
         max_accounts: crate::caps::MAX_ACCOUNTS,
         full: crate::caps::accounts_full(total, state.dev),
         terms_owed,
+        api_keys,
+        ai_off,
     })
 }
 
 #[derive(Deserialize)]
 pub struct ShowQuery {
     /// Back from an action: `reset`, `unknown`, `revoked`,
-    /// `two-factor-off` or `owner`, about `email`; or `terms-sent`, `n` e-mails.
+    /// `two-factor-off` or `owner`, about `email`; or `terms-sent`, `n` e-mails;
+    /// or `key-removed`, about `provider`; or `ai-off` / `ai-on`.
     pub did: Option<String>,
     pub email: Option<String>,
+    pub provider: Option<String>,
     pub n: Option<i64>,
 }
 
@@ -125,6 +141,13 @@ pub async fn show(State(state): State<Arc<AppState>>, user: CurrentUser, Query(q
         Some("two-factor-off") => t.notice = Some(crate::t1("manage.two_factor_off_done", "email", email)),
         Some("owner") => t.notice = Some(crate::t1("manage.make_owner_done", "email", email)),
         Some("terms-sent") => t.notice = Some(crate::tn("manage.terms_sent", q.n.unwrap_or(0))),
+        Some("key-removed") => {
+            if let Some(p) = q.provider.as_deref().and_then(Provider::parse) {
+                t.notice = Some(crate::t1("manage.api_keys.removed", "provider", p.label()));
+            }
+        }
+        Some("ai-off") => t.notice = Some(crate::t("manage.ai.hidden_notice")),
+        Some("ai-on") => t.notice = Some(crate::t("manage.ai.shown_notice")),
         _ => {}
     }
     Ok(Page(t).into_response())
@@ -280,4 +303,111 @@ pub async fn announce_terms(State(state): State<Arc<AppState>>, user: CurrentUse
     let n = crate::terms::announce_upcoming(&state).await?;
     tracing::info!("owner {} sent the terms change e-mail to {n} account(s)", user.id);
     Ok(Redirect::to(&crate::url(&format!("/manage?did=terms-sent&n={n}"))).into_response())
+}
+
+/// What the keys form autosaves (`static/manage.js`): `key_<provider>`
+/// (`key_anthropic`, …), any of them.
+#[derive(Deserialize)]
+pub struct KeysForm {
+    #[serde(flatten)]
+    pub keys: std::collections::HashMap<String, serde_json::Value>,
+}
+
+/// POST /api/manage/keys: save the server's AI API keys sent. All or
+/// nothing: a key that does not validate comes back as
+/// `422 {"errors": {field: message}}` and nothing is stored. Saved, the
+/// answer has each saved key's last four characters (`{"keys": {provider:
+/// hint}}`). Owners only: a 404 otherwise. The log line names the provider,
+/// never the key.
+pub async fn save_keys(State(state): State<Arc<AppState>>, user: CurrentUser, Json(form): Json<KeysForm>) -> Result<Response, AppError> {
+    if !user.owner {
+        return Err(AppError::NotFound);
+    }
+    let mut errors = serde_json::Map::new();
+    let mut keys = Vec::new();
+    for (field, value) in &form.keys {
+        let provider = field.strip_prefix("key_").and_then(Provider::parse);
+        let r = match (provider, value.as_str()) {
+            (Some(p), Some(v)) => secrets::validate_key(p, v).map(|k| keys.push((p, k))),
+            _ => Err(crate::t("profile.save.not_a_field")),
+        };
+        if let Err(e) = r {
+            errors.insert(field.clone(), e.into());
+        }
+    }
+    if !errors.is_empty() {
+        return Ok((StatusCode::UNPROCESSABLE_ENTITY, Json(serde_json::json!({ "errors": errors }))).into_response());
+    }
+    let vault = state.vault.clone();
+    let saved: Vec<Provider> = keys.iter().map(|(p, _)| *p).collect();
+    let statuses = state
+        .db
+        .call(move |c| {
+            let tx = c.transaction()?;
+            for (provider, key) in &keys {
+                secrets::save(&tx, &vault, *provider, key)?;
+            }
+            let statuses = secrets::statuses(&tx, &vault)?;
+            tx.commit()?;
+            Ok(statuses)
+        })
+        .await?;
+    for p in &saved {
+        tracing::info!("owner {} saved the server's {p} API key", user.id);
+    }
+    let hints: serde_json::Map<String, serde_json::Value> =
+        statuses.iter().filter(|k| saved.contains(&k.provider)).map(|k| (k.provider.id().to_string(), k.hint.clone().unwrap_or_default().into())).collect();
+    Ok(Json(serde_json::json!({ "keys": hints })).into_response())
+}
+
+#[derive(Deserialize)]
+pub struct ApiKeyForm {
+    #[serde(default)]
+    pub provider: String,
+}
+
+/// POST /manage/api-keys/remove (provider=…): the server's key for that
+/// provider is deleted; the AI features stop offering it. Owners only: a
+/// 404 otherwise.
+pub async fn remove_key(State(state): State<Arc<AppState>>, user: CurrentUser, Form(form): Form<ApiKeyForm>) -> Result<Response, AppError> {
+    if !user.owner {
+        return Err(AppError::NotFound);
+    }
+    let Some(provider) = Provider::parse(&form.provider) else {
+        return Err(AppError::BadRequest("unknown provider".into()));
+    };
+    state.db.call(move |c| secrets::remove(c, provider)).await?;
+    tracing::info!("owner {} removed the server's {provider} API key", user.id);
+    Ok(Redirect::to(&crate::url(&format!("/manage?did=key-removed&provider={provider}#ai"))).into_response())
+}
+
+#[derive(Deserialize)]
+pub struct AiForm {
+    /// `1` hides the AI features for everyone, `0` shows them again.
+    #[serde(default)]
+    pub off: String,
+}
+
+/// POST /manage/ai (off=1|0): hide or show the AI features for every
+/// account (`settings::AI_OFF`). Hidden, every page leaves out the tutor,
+/// course generation, Edit with AI and translation, their routes refuse
+/// (`CurrentUser::require_ai`), and tutor chats under way end. The keys
+/// stay, for when they are shown again. Owners only: a 404 otherwise.
+pub async fn set_ai(State(state): State<Arc<AppState>>, user: CurrentUser, Form(form): Form<AiForm>) -> Result<Response, AppError> {
+    if !user.owner {
+        return Err(AppError::NotFound);
+    }
+    let off = match form.off.as_str() {
+        "1" => true,
+        "0" => false,
+        _ => return Err(AppError::BadRequest("off must be 1 or 0".into())),
+    };
+    state.db.call(move |c| crate::settings::set_ai_off(c, off)).await?;
+    if off {
+        // A tutor conversation under way would still be calling the provider.
+        state.tutors.drop_all();
+    }
+    tracing::info!("owner {} {} the AI features for every account", user.id, if off { "hid" } else { "showed" });
+    let did = if off { "ai-off" } else { "ai-on" };
+    Ok(Redirect::to(&crate::url(&format!("/manage?did={did}#ai"))).into_response())
 }

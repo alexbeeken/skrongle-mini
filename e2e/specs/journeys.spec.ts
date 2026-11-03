@@ -25,7 +25,7 @@ test.describe("journeys", { tag: "@jev" }, () => {
       const before = { ...usage };
       const t0 = Date.now();
       const persona = journey.persona ? await loadPersona(journey.persona) : undefined;
-      const outcome = await navigate(page, journey, { persona });
+      const outcome = await navigate(page, journey, { persona }).finally(() => journey.teardown?.(page));
       const report = {
         id: journey.id,
         goal: journey.goal,

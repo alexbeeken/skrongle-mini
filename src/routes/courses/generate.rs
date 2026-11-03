@@ -190,10 +190,10 @@ impl GenerateView {
     }
 }
 
-/// The providers "Generate the course" can use: those with a saved key, in
-/// the profile's order.
-pub(super) async fn offered_providers(state: &AppState, user: &CurrentUser) -> Result<Vec<ProviderChoice>, AppError> {
-    Ok(provider_choices(state, user.id).await?.into_iter().filter(|p| p.saved_hint.is_some()).collect())
+/// The providers "Generate the course" can use: those the server has a key
+/// for, in Manage Users' order.
+pub(super) async fn offered_providers(state: &AppState, _user: &CurrentUser) -> Result<Vec<ProviderChoice>, AppError> {
+    Ok(provider_choices(state).await?.into_iter().filter(|p| p.saved_hint.is_some()).collect())
 }
 
 /// The provider a form uses when nothing else is said: the first saved
@@ -279,11 +279,10 @@ pub(super) async fn generate_view(state: &AppState, user: &CurrentUser, row: &Co
 #[derive(Deserialize)]
 pub struct GenerateForm {
     pub provider: String,
+    /// A key for a custom `base_url`, used for this job only and never
+    /// stored: the server's keys are the owner's to set (#25).
     #[serde(default)]
     pub api_key: String,
-    /// "on" to keep a pasted key on the profile (encrypted).
-    #[serde(default)]
-    pub save_key: Option<String>,
     #[serde(default)]
     pub model: String,
     #[serde(default)]
@@ -315,9 +314,9 @@ pub struct GenerateParams {
     pub resume: Option<String>,
 }
 
-async fn provider_choices(state: &AppState, user_id: i64) -> Result<Vec<ProviderChoice>, AppError> {
+async fn provider_choices(state: &AppState) -> Result<Vec<ProviderChoice>, AppError> {
     let vault = state.vault.clone();
-    let statuses = state.db.call(move |c| crate::secrets::statuses(c, &vault, user_id)).await?;
+    let statuses = state.db.call(move |c| crate::secrets::statuses(c, &vault)).await?;
     Ok(crate::secrets::Provider::ALL
         .into_iter()
         .map(|p| ProviderChoice {
@@ -359,16 +358,15 @@ pub(super) fn count_ai_job(state: &AppState, user_id: i64) {
 }
 
 /// The model to call, from the provider fields both AI forms send. The key
-/// is the pasted one (checked like the profile checks it, unless a custom base
-/// URL points at another server, and saved when asked) or the profile's,
-/// which only goes to the provider's own address: a custom base URL needs a
-/// pasted key. `Ok(Err(msg))` is a mistake to show on the form.
+/// is the pasted one (checked like Manage Users checks it, unless a custom
+/// base URL points at another server; kept in memory for the job only) or
+/// the server's, which only goes to the provider's own address: a custom
+/// base URL needs a pasted key. `Ok(Err(msg))` is a mistake to show on the form.
 pub(super) async fn ai_provider(
     state: &AppState,
-    user: &CurrentUser,
+    _user: &CurrentUser,
     provider: &str,
     api_key: &str,
-    save_key: bool,
     model: &str,
     base_url: &str,
 ) -> Result<Result<ai::Provider, String>, AppError> {
@@ -391,7 +389,7 @@ pub(super) async fn ai_provider(
         return Ok(Err("A custom base URL needs its own API key: paste the key for that server. Saved keys are only sent to the provider's own address.".into()));
     }
     let api_key = if !pasted.is_empty() {
-        let key = if base_url.is_empty() {
+        if base_url.is_empty() {
             match crate::secrets::validate_key(secret_provider, &pasted) {
                 Ok(k) => k,
                 Err(e) => return Ok(Err(e)),
@@ -400,15 +398,10 @@ pub(super) async fn ai_provider(
             return Ok(Err(crate::t("courses.generate.bad_key")));
         } else {
             pasted
-        };
-        if save_key && base_url.is_empty() {
-            let (vault, uid, k) = (state.vault.clone(), user.id, key.clone());
-            state.db.call(move |c| crate::secrets::save(c, &vault, uid, secret_provider, &k)).await?;
         }
-        key
     } else {
-        let (vault, uid) = (state.vault.clone(), user.id);
-        match state.db.call(move |c| crate::secrets::get(c, &vault, uid, secret_provider)).await? {
+        let vault = state.vault.clone();
+        match state.db.call(move |c| crate::secrets::get(c, &vault, secret_provider)).await? {
             Some(k) => k,
             None => return Ok(Err(crate::t1("courses.generate.paste_key", "provider", secret_provider.label()))),
         }
@@ -532,8 +525,8 @@ pub async fn generate_in(
     }
     // A key pasted into the form lives only in memory: after a restart that
     // job keeps its Resume button rather than going on by itself (#874).
-    let saved_key = form.api_key.trim().is_empty() || (form.save_key.is_some() && form.base_url.trim().is_empty());
-    let mut provider = match ai_provider(&state, &user, &form.provider, &form.api_key, form.save_key.is_some(), &form.model, &form.base_url).await? {
+    let saved_key = form.api_key.trim().is_empty();
+    let mut provider = match ai_provider(&state, &user, &form.provider, &form.api_key, &form.model, &form.base_url).await? {
         Ok(p) => p,
         Err(e) => fail!(e),
     };

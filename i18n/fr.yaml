@@ -38,6 +38,7 @@ error:
   home: Accueil
   lessons: Leçons
   courses: Tous les cours
+  ai_off: "Les fonctions d’IA sont désactivées sur ce serveur."
 
 common:
   pager:
@@ -186,12 +187,6 @@ auth:
     needs_email: Confirmez d'abord votre adresse e-mail.
     needs_app: Configurez d'abord l'application d'authentification.
     app_already: Une application d'authentification est déjà configurée. Supprimez-la d'abord.
-  ai_switch:
-    label: Masquer toutes les fonctions IA
-    about: À propos des fonctions IA
-    tip: Le tuteur IA et la création de cours par IA sont masqués et inutilisables. Elles fonctionnent en envoyant ce que vous tapez à une entreprise d'IA, avec votre propre clé API. Vous pouvez changer ce réglage à tout moment dans votre profil.
-    off: "Non"
-    on: "Oui"
   verify_email:
     title: Confirmez votre adresse e-mail
     confirmed_heading: Votre adresse e-mail est confirmée
@@ -492,7 +487,6 @@ profile:
     personal: Informations personnelles
     account: Compte
     two_factor: Double authentification
-    api_keys: Clés d'API IA
     data: Vos données
     consent: "Confidentialité et consentement"
   personal:
@@ -525,7 +519,6 @@ profile:
     info: "À propos de vos consentements"
     info_age: "Vous avez confirmé votre âge à l'inscription. Pour le retirer, supprimez votre compte dans Vos données."
     info_email: "Les e-mails de service partent toujours : confirmation de votre adresse, téléchargement de vos données et changements des conditions. Les e-mails facultatifs apparaîtront ici avec leur propre interrupteur, désactivés jusqu'à ce que vous les activiez."
-    info_ai: "Les fonctions d'IA envoient ce que vous écrivez à une entreprise d'IA. Masquez-les et rien ne sort, les fonctions disparaissent de l'application et vos clés API enregistrées sont supprimées."
     info_record: "Chaque changement est gardé avec sa date et figure dans Télécharger mes données."
     close: "Fermer"
     terms: "Conditions et confidentialité"
@@ -534,13 +527,6 @@ profile:
     age_not_confirmed: "Non confirmé"
     email: "E-mail"
     email_service: "Messages de service uniquement"
-    ai: "Ne pas m'afficher les fonctions d'IA"
-    ai_on_since: "Affichées depuis le {date}"
-    ai_on: "Affichées"
-    ai_off_since: "Masquées depuis le {date}"
-    ai_off: "Masquées"
-    ai_key: "Clé API personnelle enregistrée"
-    ai_keys_manage: "gérer les clés"
   sessions:
     sign_out_others: Se déconnecter partout ailleurs
     info_label: À propos de la déconnexion partout ailleurs
@@ -619,37 +605,6 @@ profile:
     code_gone: Aucun code n'est en attente, ou il a expiré. Demandez-en un nouveau.
     too_many_codes: Trop de codes envoyés. Attendez quelques minutes et réessayez.
     code_not_sent: Le code n'a pas pu être envoyé. Réessayez dans un instant.
-  ai:
-    on: "Activées"
-    off: "Désactivées"
-    close: Fermer
-    off_title: Masquer toutes les fonctions IA ?
-    off_text: Cela supprimera toutes les clés d'API IA enregistrées dans votre profil.
-    cancel: Annuler
-    confirm: CONFIRMER
-    hidden_notice: Les fonctions IA sont masquées. Elles ne vous seront pas montrées, et rien de ce que vous faites ici n'est envoyé à une entreprise d'IA.
-    shown_notice: Les fonctions IA sont de nouveau affichées.
-    feature_hidden: "Cette fonction utilise l'IA, que vous avez masquée. Désactivez « Ne pas m'afficher les fonctions d'IA » dans Confidentialité et consentement pour l'utiliser."
-    keys_off: Les fonctions IA sont désactivées pour votre compte ; activez-les pour enregistrer une clé.
-  api_keys:
-    title: Clés d'API IA
-    about: "Le tuteur IA, « Générer le cours » et « Utiliser l'IA » appellent ces fournisseurs avec votre clé, facturés sur votre compte."
-    info: "À propos de vos clés d'API"
-    info_title: "Vos clés d'API"
-    info_text: "Les clés sont chiffrées avant d'être enregistrées et ne sont jamais réaffichées ; seuls les quatre derniers caractères restent visibles pour que vous sachiez quelle clé est enregistrée. Vous pouvez remplacer ou supprimer une clé à tout moment."
-    unreadable: "Enregistrée mais illisible : le secret du serveur a changé. Collez-la à nouveau."
-    on_file: ✓ Clé enregistrée
-    ends_in: se termine par
-    none: Aucune clé pour l'instant
-    replace: Collez une nouvelle clé pour la remplacer
-    paste: Collez votre clé
-    get_one: en obtenir une
-    remove: Supprimer la clé
-    removed: "Clé {provider} supprimée."
-    empty: Collez d'abord la clé d'API.
-    too_long: "Cette clé est trop longue pour une clé d'API (max. {max} caractères)."
-    bad_chars: Une clé d'API ne contient que des lettres, des chiffres et de la ponctuation, sans espaces.
-    wrong_provider: "Cela ne ressemble pas à une clé {provider} : elles commencent par {prefix}."
   data:
     export_download: "Télécharger mes données"
     export_building_no_mail: "Vos données sont en cours de préparation. Quand elles seront prêtes, un bouton Télécharger apparaîtra ici."
@@ -708,13 +663,6 @@ profile:
     not_email: Cela ne ressemble pas à une adresse e-mail.
     no_domain: "L'adresse e-mail doit comporter un domaine, comme exemple.org."
   js:
-    no_key: Aucune clé pour l'instant
-    paste_key: Collez votre clé
-    paste_new_key: Collez une nouvelle clé pour la remplacer
-    key_on_file: ✓ Clé enregistrée
-    ends_in: se termine par
-    on: "Activées"
-    off: "Désactivées"
     account_menu_for: "Menu du compte de {name}"
     first_name: Prénom
     last_name: Nom
@@ -770,9 +718,36 @@ manage:
   terms_sent:
     one: "Annonce en file pour {n} compte."
     other: "Annonce en file pour {n} comptes."
+  api_keys:
+    title: Clés d'API IA
+    info_text: "Les fonctions d’IA de tous les comptes utilisent ces clés, facturées au compte auquel chaque clé appartient. Les clés sont chiffrées avant d’être enregistrées et ne sont plus jamais affichées ; seuls les quatre derniers caractères restent visibles pour savoir quelle clé est enregistrée. Seuls les propriétaires les voient."
+    unreadable: "Enregistrée mais illisible : le secret du serveur a changé. Collez-la à nouveau."
+    on_file: ✓ Clé enregistrée
+    ends_in: se termine par
+    none: Aucune clé pour l'instant
+    replace: Collez une nouvelle clé pour la remplacer
+    paste: "Collez la clé"
+    get_one: en obtenir une
+    remove: Supprimer la clé
+    removed: "Clé {provider} supprimée."
+    empty: Collez d'abord la clé d'API.
+    too_long: "Cette clé est trop longue pour une clé d'API (max. {max} caractères)."
+    bad_chars: Une clé d'API ne contient que des lettres, des chiffres et de la ponctuation, sans espaces.
+    wrong_provider: "Cela ne ressemble pas à une clé {provider} : elles commencent par {prefix}."
   js:
     copied: "Copié"
-
+    key_on_file: "✓ Clé enregistrée"
+    ends_in: "se termine par"
+    paste_new_key: "Collez une nouvelle clé pour la remplacer"
+  ai:
+    title: "Fonctions d’IA"
+    info: "À propos des fonctions d’IA"
+    about: "Le tuteur IA, la génération de cours, « Modifier avec l’IA » et la traduction envoient ce que les apprenants tapent à un fournisseur d’IA, avec les clés ci-dessous. Masquez-les et elles disparaissent pour tous les comptes de ce serveur et rien ne sort ; les clés restent enregistrées pour quand vous les réaffichez."
+    hide: "Masquer les fonctions d’IA pour tous"
+    on: "Oui"
+    off: "Non"
+    hidden_notice: "Les fonctions d’IA sont masquées pour tous les comptes."
+    shown_notice: "Les fonctions d’IA sont de nouveau affichées pour tous les comptes."
 
 landing:
   title: "Apprends n'importe quoi à partir d'un dossier de fichiers JSON"
@@ -959,8 +934,8 @@ home:
   open_ai: Ouvrir le tutorat IA
   ai_tag: Discutez avec un tuteur
   about_ai: À propos du tutorat IA
-  using_key_html: "Vous utilisez votre clé <strong>{provider}</strong>"
-  needs_key_html: "Clé d'API requise · <a href=\"{url}\" data-testid=\"home-ai-add-key\">ajoutez-en une dans votre profil</a>"
+  using_key_html: "Avec la clé <strong>{provider}</strong>"
+  needs_key_html: "Nécessite une clé d’API · <a href=\"{url}\" data-testid=\"home-ai-add-key\">ajoutez-en une dans Gérer les utilisateurs</a>"
   start_conversation: Commencer une conversation
   no_ai_keys: Aucune clé d'IA enregistrée
   info_sprint_p: "Sessions courtes à toucher et glisser : tuiles de mots, tri, appariement et petits quiz rapides. Une série et l'objectif du jour vous donnent envie de revenir."
@@ -972,8 +947,9 @@ home:
   info_play_dates: "une course aux dates, "
   info_play_end: ou une poignée de cartes.
   info_guide_p: "Les leçons dans l'ordre, un petit pas à la fois : une carte ou deux, puis un contrôle rapide. Terminez une étape pour débloquer la suivante, et gagnez jusqu'à trois étoiles sur chacune."
-  info_ai_p: "Une leçon en tête-à-tête par chat : le tuteur explique, vérifie que vous suivez, lance un exercice quand vous êtes prêt et vous accompagne dans votre réponse. Mêmes questions, même maîtrise, juste une conversation. Fonctionne avec votre propre clé d'API."
+  info_ai_p: "Un cours particulier par chat : le tuteur explique, vérifie que vous suivez, propose un exercice quand vous êtes prêt et commente votre réponse avec vous. Les mêmes questions, la même maîtrise, simplement en conversation. Fonctionne avec la clé d’API de ce serveur."
   ok: OK
+  needs_key_ask: "Nécessite une clé d’API, que le propriétaire de ce serveur ajoute"
 
 goal:
   ring_label: "Objectif du jour : {n} sur {goal} points"
@@ -1375,7 +1351,7 @@ docs:
     yours_account_html: "<strong>Invitez les autres</strong> avec un lien depuis <em>Gérer les utilisateurs</em> (dans le menu du compte)."
     yours_terms_html: "<strong>Mettez votre nom dans les conditions d'utilisation.</strong> Chacun les accepte à l'inscription. Modifiez-les avec <code>sudo nano /etc/skrongle/terms.md</code>, puis <code>sudo systemctl restart skrongle</code> ; chacun accepte le nouveau texte à sa prochaine visite."
     yours_course_html: <strong>Choisissez un cours.</strong> L'espagnol est intégré, ou créez le vôtre.
-    yours_ai_html: "<strong>Facultatif : tuteur IA et générateur de cours.</strong> Collez une clé Anthropic, OpenAI ou Google dans <em>Paramètres du profil → Clés d'API IA</em>. Ils vous facturent directement."
+    yours_ai_html: "<strong>Facultatif : tuteur IA et générateur de cours.</strong> Collez une clé Anthropic, OpenAI ou Google dans <em>Gérer les utilisateurs → Fonctions d’IA</em>. Elle sert à tout le monde sur le serveur et vous est facturée directement."
     yours_tip: "🔒 Seules les personnes que vous invitez peuvent créer un compte."
     away_h2: Utilisez-le hors de chez vous
     optional: facultatif
@@ -2134,11 +2110,12 @@ tutor:
   no_key:
     title: "Votre tuteur a besoin d'une clé API"
     p1: "Le tutorat IA fonctionne avec votre propre compte Claude, OpenAI ou Google, pour que {app} ne paie jamais vos conversations et ne les voie pas au-delà de ce serveur."
-    p2: "Ajoutez une clé une fois dans votre profil ; elle est chiffrée et n'est utilisée que lorsque vous posez une question au tuteur."
+    p2: "Ajoutez une clé une fois dans Gérer les utilisateurs ; elle est chiffrée, sert à tous les comptes et n’est utilisée que lorsque quelqu’un pose une question au tuteur."
     add_key: "Ajouter une clé API"
     back: "Retour aux modes"
+    ask_owner: "Demandez au propriétaire de ce serveur d’ajouter une clé d’API dans Gérer les utilisateurs."
   chars_label: "Caractères spéciaux"
-  disclosure: "Vos messages sont envoyés à {provider} avec votre clé."
+  disclosure: "Vos messages sont envoyés à {provider} avec la clé de ce serveur."
   placeholder: "Dites quelque chose à votre tuteur…"
   input_label: "Message au tuteur"
   send: "Envoyer"
@@ -2149,7 +2126,7 @@ tutor:
     message_too_long: "message trop long"
     bad_turn: "tour invalide"
     nothing_pending: "aucun exercice n'attend de réponse"
-    no_key: "aucune clé {provider} enregistrée ; ajoutez-en une dans votre profil"
+    no_key: "aucune clé {provider} sur ce serveur ; le propriétaire en ajoute une dans Gérer les utilisateurs"
     all_busy: "le tuteur est occupé avec d'autres apprenants ; réessayez dans un instant"
     still_answering: "le tuteur est encore en train de répondre"
     thread_failed: "impossible de démarrer le fil du tuteur : {error}"
@@ -2583,10 +2560,10 @@ courses:
     submit: Envoyer
     review_changes: Vérifier les modifications
     review_tip: "Ce que la dernière exécution de l'IA ({when}) a modifié"
-    sent_to_named_html: "Vos notes sont envoyées à <span data-testid=\"course-ai-provider\">{provider}</span> avec votre clé."
-    sent_to_generic: Vos notes sont envoyées à votre fournisseur d'IA avec votre clé.
-    no_key_html: "Aucune clé de fournisseur d'IA n'est configurée. <a href=\"{url}\" data-testid=\"course-ai-profile-link\">Ajoutez une clé API dans votre profil</a> pour utiliser les fonctions d'IA."
-    no_key: Aucune clé de fournisseur d'IA n'est configurée. Ajoutez une clé API dans votre profil pour utiliser les fonctions d'IA.
+    sent_to_named_html: "Vos notes sont envoyées à <span data-testid=\"course-ai-provider\">{provider}</span> avec la clé de ce serveur."
+    sent_to_generic: "Vos notes sont envoyées au fournisseur d’IA avec la clé de ce serveur."
+    no_key_html: "Aucune clé de fournisseur d’IA n’est configurée. <a href=\"{url}\" data-testid=\"course-ai-profile-link\">Ajoutez une clé d’API dans Gérer les utilisateurs</a> pour utiliser les fonctions d’IA."
+    no_key: "Aucune clé de fournisseur d’IA n’est configurée. Demandez au propriétaire de ce serveur d’en ajouter une dans Gérer les utilisateurs."
     modal_generating: Génération en cours…
     modal_count_rewritten: "{done} leçons sur {total} réécrites ou ajoutées"
     modal_count_edited: "{done} leçons sur {total} réécrites"
@@ -2639,7 +2616,7 @@ courses:
       other: "vos leçons {list}"
     list_sep: ", "
     quoted: "« {text} »"
-    no_key_html: "Vous avez besoin d'une clé de fournisseur d'IA pour générer un cours. <a href=\"{url}\" data-testid=\"generate-profile-link\">Ajoutez une clé API dans votre profil</a>, puis revenez ici."
+    no_key_html: "Il vous faut une clé de fournisseur d’IA pour générer un cours. <a href=\"{url}\" data-testid=\"generate-profile-link\">Ajoutez une clé d’API dans Gérer les utilisateurs</a>, puis revenez ici."
     asked_for: Ce que vous avez demandé
     wish_label: Que voulez-vous apprendre ?
     wish_optional: "(facultatif : le titre suffit pour commencer)"
@@ -2676,8 +2653,8 @@ courses:
     instructions_label: Instructions
     reset: Revenir aux instructions par défaut
     edited: Modifié
-    sent_to_html: "Vos notes sont envoyées à <span id=\"gen-disclosure-provider\">{provider}</span> avec votre clé."
-    sent_to_generic: Vos notes sont envoyées à votre fournisseur d'IA avec votre clé.
+    sent_to_html: "Vos notes sont envoyées à <span id=\"gen-disclosure-provider\">{provider}</span><span id=\"gen-disclosure-key\"> avec la clé de ce serveur</span>."
+    sent_to_generic: "Vos notes sont envoyées au fournisseur d’IA avec la clé de ce serveur."
     submit_resume: Reprendre la rédaction
     submit_retry: Réessayer
     effort:
@@ -2699,7 +2676,7 @@ courses:
     choose_provider: Choisissez un fournisseur.
     base_url: L'URL de base doit commencer par http:// ou https://.
     bad_key: Cela ne ressemble pas à une clé API.
-    paste_key: "Collez une clé API pour {provider}, ou enregistrez-en une d'abord dans votre profil."
+    paste_key: "Aucune clé {provider} n’est configurée sur ce serveur."
     wish_too_long: "Limitez ce que vous voulez apprendre à {max} caractères maximum ; mettez les supports plus longs dans la zone de notes."
     notes_too_long: "Limitez vos supports à {max} caractères maximum ; réduisez-les ou scindez le cours en deux."
     new_course: Nouveau cours
@@ -2710,6 +2687,7 @@ courses:
     busy_other: "Un cours est déjà en cours de génération ; réessayez quand il sera terminé."
     cancelling_revision: "Annulation : le cours reste tel qu'il était."
     cancelling_generation: "Annulation : le cours s'arrête après la leçon en cours d'écriture."
+    no_key_ask: "Il vous faut une clé de fournisseur d’IA pour générer un cours. Demandez au propriétaire de ce serveur d’en ajouter une dans Gérer les utilisateurs."
   undo:
     undo: Annuler
     redo: Rétablir

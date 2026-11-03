@@ -14,7 +14,7 @@
   {# The error opens smoothly in place (static/courses.js checks the boxes before posting), so nothing jumps. #}
   <div class="slide-open gen-error-slot" id="gen-error-slot"{% if g.error.is_some() %} data-shown{% endif %}><div><p class="alert error" role="alert" id="gen-error" data-testid="generate-error"{% if g.error.is_none() %} hidden{% endif %}>{% if let Some(e) = g.error %}{{ e }}{% endif %}</p></div></div>
 
-  {% if g.no_key %}<div class="alert warn gap-row" role="alert" data-testid="generate-no-key"><p>{{ crate::t1("courses.generate.no_key_html", "url", crate::url("/profile#api-keys"))|safe }}</p></div>{% endif %}
+  {% if g.no_key %}<div class="alert warn gap-row" role="alert" data-testid="generate-no-key"><p>{% if crate::routes::is_owner(user) %}{{ crate::t1("courses.generate.no_key_html", "url", crate::url("/manage#ai"))|safe }}{% else %}{{ crate::t("courses.generate.no_key_ask") }}{% endif %}</p></div>{% endif %}
   <form method="post" action="{{ crate::base_path() }}/courses/{{ g.course_id }}/generate" autocomplete="off" id="gen-form" data-testid="generate-form"{% if g.named.title.is_some() %} data-named-title{% endif %} data-too-short="{{ crate::ai::PROMPT_TOO_SHORT }}" data-wish-too-long="{{ crate::routes::courses::wish_too_long() }}" data-notes-too-long="{{ crate::routes::courses::notes_too_long() }}">
   <fieldset class="gen-fields"{% if g.no_key %} disabled data-testid="generate-disabled"{% endif %}>
     {% if g.resume %}

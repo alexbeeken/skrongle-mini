@@ -232,7 +232,7 @@ mod tests {
         assert_eq!((code, loc.as_str()), (303, "/terms/accept?next=%2Fsprint"));
         let (code, loc, _) = get("/tutor", &cookie);
         assert_eq!((code, loc.as_str()), (303, "/terms/accept?next=%2Ftutor"));
-        assert_eq!(post("/profile/ai", &cookie, &[("ai_off", "1")]), (303, "/terms/accept?next=%2F".to_string()));
+        assert_eq!(post("/profile/export", &cookie, &[]), (303, "/terms/accept?next=%2F".to_string()));
         // It cannot be dismissed.
         let (code, loc) = post("/terms/dismiss", &cookie, &[("next", "/courses")]);
         assert_eq!((code, loc.as_str()), (303, "/terms/accept?next=%2Fcourses"));

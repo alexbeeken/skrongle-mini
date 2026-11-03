@@ -38,6 +38,7 @@ error:
   home: Startseite
   lessons: Lektionen
   courses: Alle Kurse
+  ai_off: "Die KI-Funktionen sind auf diesem Server ausgeschaltet."
 
 common:
   pager:
@@ -186,12 +187,6 @@ auth:
     needs_email: Bestätige zuerst deine E-Mail-Adresse.
     needs_app: Richte zuerst die Authenticator-App ein.
     app_already: Eine Authenticator-App ist schon eingerichtet. Entferne sie zuerst.
-  ai_switch:
-    label: Alle KI-Funktionen ausblenden
-    about: Über KI-Funktionen
-    tip: Der KI-Tutor und das Erstellen von Kursen mit KI sind ausgeblendet und nicht nutzbar. Sie funktionieren, indem sie das, was du eingibst, mit deinem eigenen API-Schlüssel an ein KI-Unternehmen senden. Du kannst das jederzeit in deinem Profil ändern.
-    off: "Aus"
-    on: "An"
   verify_email:
     title: Bestätige deine E-Mail-Adresse
     confirmed_heading: Deine E-Mail-Adresse ist bestätigt
@@ -492,7 +487,6 @@ profile:
     personal: Persönliche Angaben
     account: Konto
     two_factor: Zwei-Faktor-Authentifizierung
-    api_keys: KI-API-Schlüssel
     data: Deine Daten
     consent: "Datenschutz und Einwilligung"
   personal:
@@ -525,7 +519,6 @@ profile:
     info: "Über deine Einwilligungen"
     info_age: "Du hast dein Alter bei der Registrierung bestätigt. Um das zurückzunehmen, lösche dein Konto unter Deine Daten."
     info_email: "Service-E-Mails werden immer verschickt: Bestätigung deiner Adresse, dein Datendownload und Änderungen der Bedingungen. Optionale E-Mails erscheinen hier mit eigenem Schalter, aus, bis du sie einschaltest."
-    info_ai: "KI-Funktionen schicken, was du schreibst, an ein KI-Unternehmen. Blendest du sie aus, geht nichts mehr hinaus, die Funktionen verschwinden aus der App und deine gespeicherten API-Schlüssel werden gelöscht."
     info_record: "Jede Änderung wird mit Datum gespeichert und ist in Meine Daten herunterladen enthalten."
     close: "Schließen"
     terms: "Bedingungen und Datenschutz"
@@ -534,13 +527,6 @@ profile:
     age_not_confirmed: "Nicht bestätigt"
     email: "E-Mail"
     email_service: "Nur Service-Nachrichten"
-    ai: "KI-Funktionen nicht anzeigen"
-    ai_on_since: "Angezeigt seit {date}"
-    ai_on: "Angezeigt"
-    ai_off_since: "Ausgeblendet seit {date}"
-    ai_off: "Ausgeblendet"
-    ai_key: "Eigener API-Schlüssel gespeichert"
-    ai_keys_manage: "Schlüssel verwalten"
   sessions:
     sign_out_others: "Überall sonst abmelden"
     info_label: "Über das Abmelden überall sonst"
@@ -619,37 +605,6 @@ profile:
     code_gone: Kein Code wartet, oder er ist abgelaufen. Schick einen neuen.
     too_many_codes: Zu viele Codes gesendet. Warte ein paar Minuten und versuche es erneut.
     code_not_sent: Der Code konnte nicht gesendet werden. Versuche es gleich noch einmal.
-  ai:
-    on: "Ein"
-    off: "Aus"
-    close: Schließen
-    off_title: Alle KI-Funktionen ausblenden?
-    off_text: Dadurch werden alle in deinem Profil gespeicherten KI-API-Schlüssel gelöscht.
-    cancel: Abbrechen
-    confirm: BESTÄTIGEN
-    hidden_notice: KI-Funktionen sind ausgeblendet. Du bekommst sie nicht angezeigt, und nichts, was du hier tust, geht an ein KI-Unternehmen.
-    shown_notice: KI-Funktionen werden wieder angezeigt.
-    feature_hidden: "Diese Funktion nutzt KI, die du ausgeblendet hast. Schalte unter Datenschutz und Einwilligung \"KI-Funktionen nicht anzeigen\" aus, um sie zu benutzen."
-    keys_off: KI-Funktionen sind für dein Konto aus; schalte sie ein, um einen Schlüssel zu speichern.
-  api_keys:
-    title: KI-API-Schlüssel
-    about: "Der KI-Tutor, „Kurs erstellen“ und „KI verwenden“ rufen diese Anbieter mit deinem Schlüssel auf, abgerechnet über dein Konto."
-    info: "Über deine API-Schlüssel"
-    info_title: "Deine API-Schlüssel"
-    info_text: "Schlüssel werden vor dem Speichern verschlüsselt und nie wieder angezeigt; nur die letzten vier Zeichen bleiben sichtbar, damit du erkennst, welcher Schlüssel hinterlegt ist. Du kannst einen Schlüssel jederzeit ersetzen oder entfernen."
-    unreadable: "Hinterlegt, aber nicht lesbar: das Geheimnis des Servers hat sich geändert. Füge ihn erneut ein."
-    on_file: ✓ Schlüssel hinterlegt
-    ends_in: endet auf
-    none: Noch kein Schlüssel
-    replace: Füge einen neuen Schlüssel ein, um ihn zu ersetzen
-    paste: Füge deinen Schlüssel ein
-    get_one: einen holen
-    remove: Schlüssel entfernen
-    removed: "Schlüssel von {provider} entfernt."
-    empty: Füge zuerst den API-Schlüssel ein.
-    too_long: "Das ist zu lang für einen API-Schlüssel (maximal {max} Zeichen)."
-    bad_chars: Ein API-Schlüssel enthält nur Buchstaben, Ziffern und Satzzeichen, ohne Leerzeichen.
-    wrong_provider: "Das sieht nicht nach einem {provider}-Schlüssel aus: sie beginnen mit {prefix}."
   data:
     export_download: "Meine Daten herunterladen"
     export_building_no_mail: "Deine Daten werden vorbereitet. Sobald sie fertig sind, erscheint hier ein Herunterladen-Knopf."
@@ -708,13 +663,6 @@ profile:
     not_email: Das sieht nicht nach einer E-Mail-Adresse aus.
     no_domain: Die E-Mail-Adresse braucht eine Domain wie example.org.
   js:
-    no_key: Noch kein Schlüssel
-    paste_key: Füge deinen Schlüssel ein
-    paste_new_key: Füge einen neuen Schlüssel ein, um ihn zu ersetzen
-    key_on_file: ✓ Schlüssel hinterlegt
-    ends_in: endet auf
-    on: "Ein"
-    off: "Aus"
     account_menu_for: "Kontomenü für {name}"
     first_name: Vorname
     last_name: Nachname
@@ -770,9 +718,36 @@ manage:
   terms_sent:
     one: "Ankündigung für {n} Konto in der Warteschlange."
     other: "Ankündigung für {n} Konten in der Warteschlange."
+  api_keys:
+    title: KI-API-Schlüssel
+    info_text: "Die KI-Funktionen jedes Kontos verwenden diese Schlüssel, abgerechnet über das Konto, zu dem der Schlüssel gehört. Schlüssel werden vor dem Speichern verschlüsselt und nie wieder angezeigt; nur die letzten vier Zeichen bleiben sichtbar, damit du erkennst, welcher Schlüssel hinterlegt ist. Nur Eigentümer sehen sie."
+    unreadable: "Hinterlegt, aber nicht lesbar: das Geheimnis des Servers hat sich geändert. Füge ihn erneut ein."
+    on_file: ✓ Schlüssel hinterlegt
+    ends_in: endet auf
+    none: Noch kein Schlüssel
+    replace: Füge einen neuen Schlüssel ein, um ihn zu ersetzen
+    paste: "Füge den Schlüssel ein"
+    get_one: einen holen
+    remove: Schlüssel entfernen
+    removed: "Schlüssel von {provider} entfernt."
+    empty: Füge zuerst den API-Schlüssel ein.
+    too_long: "Das ist zu lang für einen API-Schlüssel (maximal {max} Zeichen)."
+    bad_chars: Ein API-Schlüssel enthält nur Buchstaben, Ziffern und Satzzeichen, ohne Leerzeichen.
+    wrong_provider: "Das sieht nicht nach einem {provider}-Schlüssel aus: sie beginnen mit {prefix}."
   js:
     copied: "Kopiert"
-
+    key_on_file: "✓ Schlüssel hinterlegt"
+    ends_in: "endet auf"
+    paste_new_key: "Füge einen neuen Schlüssel ein, um ihn zu ersetzen"
+  ai:
+    title: "KI-Funktionen"
+    info: "Über die KI-Funktionen"
+    about: "Der KI-Tutor, die Kurserstellung, „Mit KI bearbeiten“ und die Übersetzung schicken, was Lernende eingeben, mit den Schlüsseln unten an einen KI-Anbieter. Blendest du sie aus, sind sie für jedes Konto auf diesem Server verschwunden und nichts geht hinaus; die Schlüssel bleiben gespeichert, bis du sie wieder einblendest."
+    hide: "KI-Funktionen für alle ausblenden"
+    on: "An"
+    off: "Aus"
+    hidden_notice: "Die KI-Funktionen sind für jedes Konto ausgeblendet."
+    shown_notice: "Die KI-Funktionen sind für jedes Konto wieder eingeblendet."
 
 landing:
   title: "Lerne alles aus einem Ordner mit JSON-Dateien"
@@ -959,8 +934,8 @@ home:
   open_ai: "KI-Nachhilfe öffnen"
   ai_tag: "Im Chat mit einem Tutor"
   about_ai: "Über die KI-Nachhilfe"
-  using_key_html: "Du nutzt deinen <strong>{provider}</strong>-Schlüssel"
-  needs_key_html: "Braucht einen API-Schlüssel · <a href=\"{url}\" data-testid=\"home-ai-add-key\">in deinem Profil hinzufügen</a>"
+  using_key_html: "Mit dem Schlüssel von <strong>{provider}</strong>"
+  needs_key_html: "Braucht einen API-Schlüssel · <a href=\"{url}\" data-testid=\"home-ai-add-key\">unter „Benutzer verwalten“ hinzufügen</a>"
   start_conversation: "Ein Gespräch beginnen"
   no_ai_keys: Keine KI-Schlüssel hinterlegt
   info_sprint_p: "Kurze Sitzungen zum Antippen und Wischen: Wortkacheln, Sortieren, Zuordnen und schnelle Quizrunden. Eine Serie und das Tagesziel bringen dich zurück."
@@ -972,8 +947,9 @@ home:
   info_play_dates: "ein Datums-Rennen, "
   info_play_end: "oder ein Stapel Karteikarten."
   info_guide_p: "Die Lektionen der Reihe nach, ein kleiner Schritt nach dem anderen: eine Karte oder zwei, dann eine kurze Prüfung. Schließ eine Stufe ab, um die nächste freizuschalten, und verdiene auf jeder bis zu drei Sterne."
-  info_ai_p: "Eine Lektion im Chat, nur für dich: Der Tutor erklärt, prüft, ob du folgst, stellt eine Übung, wenn du bereit bist, und führt dich durch deine Antwort. Dieselben Fragen, dieselbe Beherrschung, nur ein Gespräch. Läuft mit deinem eigenen API-Schlüssel."
+  info_ai_p: "Eine Einzelstunde im Chat: Der Tutor erklärt, prüft, ob du folgen kannst, stellt eine Übung, wenn du so weit bist, und bespricht deine Antwort mit dir. Dieselben Fragen, derselbe Lernstand, nur als Gespräch. Läuft mit dem API-Schlüssel dieses Servers."
   ok: "OK"
+  needs_key_ask: "Braucht einen API-Schlüssel, den der Eigentümer dieses Servers hinzufügt"
 
 goal:
   ring_label: "Tagesziel: {n} von {goal} Punkten"
@@ -1375,7 +1351,7 @@ docs:
     yours_account_html: "<strong>Lade alle anderen ein</strong>, mit einem Link unter <em>Benutzer verwalten</em> (im Kontomenü)."
     yours_terms_html: "<strong>Trag deinen Namen in die Nutzungsbedingungen ein.</strong> Alle akzeptieren sie bei der Anmeldung. Bearbeite sie mit <code>sudo nano /etc/skrongle/terms.md</code>, dann <code>sudo systemctl restart skrongle</code>; alle akzeptieren den neuen Text bei ihrem nächsten Besuch."
     yours_course_html: <strong>Wähle einen Kurs.</strong> Spanisch ist eingebaut, oder erstell deinen eigenen.
-    yours_ai_html: "<strong>Optional: KI-Tutor und Kursgenerator.</strong> Füge einen Anthropic-, OpenAI- oder Google-Schlüssel unter <em>Profileinstellungen → KI-API-Schlüssel</em> ein. Sie rechnen direkt mit dir ab."
+    yours_ai_html: "<strong>Optional: KI-Tutor und Kursgenerator.</strong> Füge unter <em>Benutzer verwalten → KI-Funktionen</em> einen Schlüssel von Anthropic, OpenAI oder Google ein. Er dient allen auf dem Server und wird direkt dir berechnet."
     yours_tip: "🔒 Nur Personen, die du einlädst, können ein Konto anlegen."
     away_h2: Unterwegs nutzen
     optional: optional
@@ -2134,11 +2110,12 @@ tutor:
   no_key:
     title: Dein Tutor braucht einen API-Schlüssel
     p1: "Die KI-Nachhilfe läuft über dein eigenes Konto bei Claude, OpenAI oder Google, sodass {app} deine Gespräche über diesen Server hinaus weder bezahlt noch sieht."
-    p2: Hinterlege einmal einen Schlüssel in deinem Profil; er wird verschlüsselt und nur verwendet, wenn du den Tutor etwas fragst.
+    p2: "Füge einmal unter „Benutzer verwalten“ einen Schlüssel hinzu; er wird verschlüsselt, dient jedem Konto und wird nur verwendet, wenn jemand den Tutor etwas fragt."
     add_key: API-Schlüssel hinzufügen
     back: Zurück zu den Modi
+    ask_owner: "Bitte den Eigentümer dieses Servers, unter „Benutzer verwalten“ einen API-Schlüssel hinzuzufügen."
   chars_label: Sonderzeichen
-  disclosure: "Deine Nachrichten werden mit deinem Schlüssel an {provider} gesendet."
+  disclosure: "Deine Nachrichten werden mit dem Schlüssel dieses Servers an {provider} gesendet."
   placeholder: Sag deinem Tutor etwas…
   input_label: Nachricht an den Tutor
   send: Senden
@@ -2149,7 +2126,7 @@ tutor:
     message_too_long: Nachricht zu lang
     bad_turn: ungültiger Schritt
     nothing_pending: Es wartet keine Übung auf eine Antwort
-    no_key: "Kein {provider}-Schlüssel hinterlegt; füge einen in deinem Profil hinzu"
+    no_key: "kein Schlüssel für {provider} auf diesem Server; der Eigentümer fügt ihn unter „Benutzer verwalten“ hinzu"
     all_busy: der Tutor ist gerade mit anderen Lernenden beschäftigt; versuche es gleich noch einmal
     still_answering: der Tutor antwortet noch
     thread_failed: "Der Tutor-Verlauf konnte nicht gestartet werden: {error}"
@@ -2583,10 +2560,10 @@ courses:
     submit: Absenden
     review_changes: Änderungen prüfen
     review_tip: "Was der letzte KI-Lauf ({when}) geändert hat"
-    sent_to_named_html: "Deine Notizen werden mit deinem Schlüssel an <span data-testid=\"course-ai-provider\">{provider}</span> gesendet."
-    sent_to_generic: Deine Notizen werden mit deinem Schlüssel an deinen KI-Anbieter gesendet.
-    no_key_html: "Kein KI-Anbieterschlüssel eingerichtet. <a href=\"{url}\" data-testid=\"course-ai-profile-link\">Füge in deinem Profil einen API-Schlüssel hinzu</a>, um KI-Funktionen zu nutzen."
-    no_key: Kein KI-Anbieterschlüssel eingerichtet. Füge in deinem Profil einen API-Schlüssel hinzu, um KI-Funktionen zu nutzen.
+    sent_to_named_html: "Deine Notizen werden mit dem Schlüssel dieses Servers an <span data-testid=\"course-ai-provider\">{provider}</span> gesendet."
+    sent_to_generic: "Deine Notizen werden mit dem Schlüssel dieses Servers an den KI-Anbieter gesendet."
+    no_key_html: "Es ist kein Schlüssel für einen KI-Anbieter eingerichtet. <a href=\"{url}\" data-testid=\"course-ai-profile-link\">Füge unter „Benutzer verwalten“ einen API-Schlüssel hinzu</a>, um KI-Funktionen zu nutzen."
+    no_key: "Es ist kein Schlüssel für einen KI-Anbieter eingerichtet. Bitte den Eigentümer dieses Servers, unter „Benutzer verwalten“ einen hinzuzufügen."
     modal_generating: Wird erstellt…
     modal_count_rewritten: "{done} von {total} Lektionen umgeschrieben oder hinzugefügt"
     modal_count_edited: "{done} von {total} Lektionen umgeschrieben"
@@ -2639,7 +2616,7 @@ courses:
       other: "deine Lektionen {list}"
     list_sep: ", "
     quoted: "„{text}“"
-    no_key_html: "Du brauchst einen KI-Anbieterschlüssel, um einen Kurs zu erstellen. <a href=\"{url}\" data-testid=\"generate-profile-link\">Füge in deinem Profil einen API-Schlüssel hinzu</a> und komm dann hierher zurück."
+    no_key_html: "Um einen Kurs zu erstellen, brauchst du einen Schlüssel für einen KI-Anbieter. <a href=\"{url}\" data-testid=\"generate-profile-link\">Füge unter „Benutzer verwalten“ einen API-Schlüssel hinzu</a> und komm dann hierher zurück."
     asked_for: Was du angefragt hast
     wish_label: Was möchtest du lernen?
     wish_optional: "(optional: der Titel reicht zum Start)"
@@ -2676,8 +2653,8 @@ courses:
     instructions_label: Anweisungen
     reset: Auf die Standardanweisungen zurücksetzen
     edited: Bearbeitet
-    sent_to_html: "Deine Notizen werden mit deinem Schlüssel an <span id=\"gen-disclosure-provider\">{provider}</span> gesendet."
-    sent_to_generic: Deine Notizen werden mit deinem Schlüssel an deinen KI-Anbieter gesendet.
+    sent_to_html: "Deine Notizen werden an <span id=\"gen-disclosure-provider\">{provider}</span><span id=\"gen-disclosure-key\"> mit dem Schlüssel dieses Servers</span> gesendet."
+    sent_to_generic: "Deine Notizen werden mit dem Schlüssel dieses Servers an den KI-Anbieter gesendet."
     submit_resume: Weiter schreiben
     submit_retry: Erneut versuchen
     effort:
@@ -2699,7 +2676,7 @@ courses:
     choose_provider: Wähle einen Anbieter.
     base_url: Die Basis-URL muss mit http:// oder https:// beginnen.
     bad_key: Das sieht nicht nach einem API-Schlüssel aus.
-    paste_key: "Füge einen API-Schlüssel für {provider} ein oder speichere zuerst einen in deinem Profil."
+    paste_key: "Auf diesem Server ist kein Schlüssel für {provider} eingerichtet."
     wish_too_long: "Halte das, was du lernen willst, auf höchstens {max} Zeichen; längeres Material gehört ins Notizfeld."
     notes_too_long: "Halte dein Material auf höchstens {max} Zeichen; kürze es oder teile den Kurs in zwei."
     new_course: Neuer Kurs
@@ -2710,6 +2687,7 @@ courses:
     busy_other: "Es wird gerade ein Kurs erstellt; versuche es noch einmal, wenn er fertig ist."
     cancelling_revision: "Wird abgebrochen: Der Kurs bleibt, wie er war."
     cancelling_generation: "Wird abgebrochen: Der Kurs hört nach der gerade geschriebenen Lektion auf."
+    no_key_ask: "Um einen Kurs zu erstellen, brauchst du einen Schlüssel für einen KI-Anbieter. Bitte den Eigentümer dieses Servers, unter „Benutzer verwalten“ einen hinzuzufügen."
   undo:
     undo: Rückgängig
     redo: Wiederholen

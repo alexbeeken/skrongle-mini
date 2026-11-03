@@ -399,13 +399,14 @@ pub fn ensure_user(db: &Db) -> Result<i64, String> {
     Ok(id)
 }
 
-/// Save the simulated provider's learner keys (`dev_ai::LEARNER_KEYS`), one
-/// for every provider, on the user's profile: what the seed and
+/// Save the simulated provider's keys (`dev_ai::LEARNER_KEYS`), one for
+/// every provider, as the server's keys: what the seed and
 /// `/dev/login?keys=dev` (or `keys=fake`) store. With them every AI form is
-/// unlocked and offers each provider; the simulator answers all three.
-pub fn save_dev_keys(conn: &Connection, vault: &crate::secrets::Vault, user_id: i64) -> rusqlite::Result<()> {
+/// unlocked for every account and offers each provider; the simulator
+/// answers them all.
+pub fn save_dev_keys(conn: &Connection, vault: &crate::secrets::Vault) -> rusqlite::Result<()> {
     for (p, k) in crate::dev_ai::LEARNER_KEYS {
-        crate::secrets::save(conn, vault, user_id, p, k)?;
+        crate::secrets::save(conn, vault, p, k)?;
     }
     Ok(())
 }
@@ -459,7 +460,7 @@ pub fn seed(db: &Db, courses: &crate::courses::Courses, keys: Option<&crate::sec
         crate::owner::make_owner(c, uid)?;
         crate::courses::open_project(c, uid, &cid)?;
         if let Some(vault) = keys {
-            save_dev_keys(c, vault, uid)?;
+            save_dev_keys(c, vault)?;
         }
         if !crate::progress::load_all(c, uid, &cid)?.is_empty() {
             return Ok(());

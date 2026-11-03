@@ -240,8 +240,6 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/api/profile", post(profile::save))
         .route("/profile/password", post(profile::change_password))
         .route("/profile/sessions/end-others", post(profile::end_other_sessions))
-        .route("/profile/api-keys/remove", post(profile::remove_api_key))
-        .route("/profile/ai", post(profile::set_ai))
         .route("/profile/export", post(profile::export))
         .route("/profile/export/download", get(profile::export_download).post(profile::export_download_now))
         .route("/profile/delete", post(profile::delete_account))
@@ -260,6 +258,9 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/manage/temp-password", post(manage::set_temp_password))
         .route("/manage/two-factor-off", post(manage::turn_off_two_factor))
         .route("/manage/terms-announce", post(manage::announce_terms))
+        .route("/manage/api-keys/remove", post(manage::remove_key))
+        .route("/manage/ai", post(manage::set_ai))
+        .route("/api/manage/keys", post(manage::save_keys))
         // api
         .route("/api/answer", post(quiz::answer))
         .route("/api/lesson-check", post(quiz::lesson_check))
@@ -459,6 +460,12 @@ pub fn asset_version() -> &'static str {
 }
 
 /// Versioned URL for an embedded asset, e.g. `/spanish/static/style.css?v=3f9a…`.
+/// Is the signed-in account an owner? The AI forms' "no key" notes link an
+/// owner to the keys on Manage Users and tell everyone else to ask one (#25).
+pub fn is_owner(user: &Option<crate::auth::CurrentUser>) -> bool {
+    user.as_ref().is_some_and(|u| u.owner)
+}
+
 pub fn asset_url(name: &str) -> String {
     format!("{}/static/{}?v={}", crate::base_path(), name, asset_version())
 }

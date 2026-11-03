@@ -529,11 +529,11 @@ pub async fn home(State(state): State<Arc<AppState>>, p: Project, headers: Heade
             let (week, _) = mastery::stats_since(c, uid, &cid, at - 7 * 86_400)?;
             let words = crate::vocab::count(c, uid, &cid)?;
             let games = crate::games::activity_stats(c, uid, &cid, at - 7 * 86_400)?;
-            // The AI tutoring card is not drawn for an account with AI features off.
+            // The AI tutoring card is not drawn while the owner hides the AI features.
             let tutor = if ai_off {
                 None
             } else {
-                crate::secrets::statuses(c, &vault, uid)?.into_iter().find(|k| k.hint.is_some()).map(|k| k.provider.label().to_string())
+                crate::secrets::usable(c, &vault)?.into_iter().next().map(|p| p.label().to_string())
             };
             let stages = crate::guide::load_all(c, uid, &cid)?;
             let passes = progress::load_all(c, uid, &cid)?;

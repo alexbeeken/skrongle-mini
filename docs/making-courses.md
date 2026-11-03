@@ -71,8 +71,9 @@ validation error, if any.
 The **Generate the course** dialog opens on a new course, and stays on offer
 (under *Use AI*) while you have only changed names (the title, lesson titles
 and lessons added by name). The AI keeps those names and plans the named lessons
-first. It needs an API key (Claude, OpenAI or Gemini) saved on your profile;
-without one the dialog is greyed out with a link to the profile.
+first. It needs an API key (Claude, OpenAI or Gemini) on the server, which
+the owner saves on *Manage Users*; without one the dialog is greyed out and
+says so.
 
 1. Say what you want to learn in a sentence or two.
 2. Optionally add your material: notes, homework, a syllabus (pasted, or text
@@ -95,8 +96,8 @@ the modal goes and the course's lessons are there.
 
 ## Change a course with AI
 
-**Use AI**, under the lesson table, uses the first API key saved on your
-profile (it names the provider only when you have two or more). Pick what the
+**Use AI**, under the lesson table, uses the server's first API key (it
+names the provider only when there are two or more). Pick what the
 AI may do with *Add*, *Edit* or *Add and edit*; the (i) beside them says what
 each does. The switch *Outline only* makes the lessons it writes outlines
 instead of full lessons (not with *Edit*, which always writes full lessons).
@@ -135,7 +136,7 @@ above each fixed lesson's diff, and lessons it left alone with *Check:* lines
 are under *Looked at, left alone*. *Review AI changes* under Use AI
 opens it again later. **Undo** under the table brings the old version back.
 
-With *Do Not Show Me AI Features* on in your profile, none of this is shown.
+While the server's owner hides the AI features (*Manage Users → AI features*), none of this is shown.
 
 ## Share a course
 

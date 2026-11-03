@@ -1084,7 +1084,7 @@ fn revision_plans_are_read_leniently_but_keep_ids() {
 #[test]
 fn failures_read_in_plain_words() {
     let key = plain_failure("the API answered HTTP 401. invalid x-api-key").unwrap();
-    assert!(key.contains("API key") && key.contains("profile"));
+    assert!(key.contains("API key") && key.contains("Manage Users"));
     assert!(plain_failure("lesson 2: the API answered HTTP 529. Overloaded").unwrap().contains("busy"));
     assert!(plain_failure("request failed: timed out after 900 s").unwrap().contains("in time"));
     assert!(plain_failure("the reply contains no JSON object").unwrap().contains("couldn't be used"));

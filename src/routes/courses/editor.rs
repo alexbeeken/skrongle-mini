@@ -293,16 +293,15 @@ pub struct Refill {
     pub lesson: Option<String>,
 }
 
-/// The first provider (in `Provider::ALL` order) the learner saved a key for.
-pub(super) async fn saved_provider(state: &AppState, user_id: i64) -> Result<Option<crate::secrets::Provider>, AppError> {
-    Ok(saved_providers(state, user_id).await?.into_iter().next())
+/// The first provider (in `Provider::ALL` order) the server has a key for.
+pub(super) async fn saved_provider(state: &AppState) -> Result<Option<crate::secrets::Provider>, AppError> {
+    Ok(saved_providers(state).await?.into_iter().next())
 }
 
-/// Every provider with a saved key, in `Provider::ALL` order.
-async fn saved_providers(state: &AppState, user_id: i64) -> Result<Vec<crate::secrets::Provider>, AppError> {
+/// Every provider the server has a key for, in `Provider::ALL` order.
+async fn saved_providers(state: &AppState) -> Result<Vec<crate::secrets::Provider>, AppError> {
     let vault = state.vault.clone();
-    let statuses = state.db.call(move |c| crate::secrets::statuses(c, &vault, user_id)).await?;
-    Ok(crate::secrets::Provider::ALL.into_iter().filter(|p| statuses.iter().any(|k| k.provider == *p && k.hint.is_some())).collect())
+    Ok(state.db.call(move |c| crate::secrets::usable(c, &vault)).await?)
 }
 
 /// "Add content with AI" for `row`, when it loads and no job holds it.
@@ -310,8 +309,8 @@ async fn ai_view(state: &AppState, user: &CurrentUser, row: &CourseRow, refill: 
     if (row.is_busy() && !locked) || row.error.is_some() || user.ai_off {
         return Ok(None);
     }
-    // The learner's first saved key.
-    let saved = saved_providers(state, user.id).await?;
+    // The server's first key.
+    let saved = saved_providers(state).await?;
     let provider = saved.first().map(|p| p.label());
     // Which provider is only worth saying when there was a choice.
     let named_provider = saved.len() > 1;

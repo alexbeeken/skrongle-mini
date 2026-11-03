@@ -1,8 +1,9 @@
 //! `/profile`: the page behind the gear in the top-right corner. Personal
 //! information, account details, password changes, this month's
-//! AI usage (allowance, credits), the AI API keys and the "Hide all AI
-//! features" switch (#147). It takes `CurrentUser`, not `Project`: a profile exists before any
-//! course is chosen.
+//! AI usage (allowance, credits). The AI API keys and the switch that hides
+//! the AI features are the server's, on the owner's Manage Users page (#25,
+//! `routes/manage.rs`). It takes `CurrentUser`, not `Project`: a profile
+//! exists before any course is chosen.
 
 use askama::Template;
 use axum::extract::{Query, State};
@@ -16,7 +17,6 @@ use super::Page;
 use crate::auth::{self, CurrentUser};
 use crate::error::AppError;
 use crate::profile::{self, Profile};
-use crate::secrets::{self, KeyStatus, Provider};
 use crate::AppState;
 
 #[derive(Template)]
@@ -31,10 +31,6 @@ pub struct ProfileTemplate {
     pub notice: Option<String>,
     /// Which form failed, so the message sits next to it.
     pub password_error: Option<String>,
-    /// One entry per provider; never the key itself.
-    pub api_keys: Vec<KeyStatus>,
-    /// Any key on file (readable or not): hiding the AI features asks first, since it deletes them.
-    pub keys_on_file: bool,
     /// Dev mode: show the dev authenticator link.
     pub dev: bool,
     /// Why deleting the account was refused.
@@ -188,24 +184,8 @@ impl ProfileTemplate {
 #[derive(Deserialize)]
 pub struct ShowQuery {
     pub saved: Option<String>,
-    pub provider: Option<String>,
-    /// `off`: sent here by an AI feature while AI features are off (`AppError::AiOff`).
-    pub ai: Option<String>,
     /// `enrol`: an authenticator app's enrolment just started.
     pub totp: Option<String>,
-}
-
-#[derive(Deserialize)]
-pub struct AiForm {
-    /// `1` turns AI features off, `0` back on.
-    #[serde(default)]
-    pub off: String,
-}
-
-#[derive(Deserialize)]
-pub struct ApiKeyForm {
-    #[serde(default)]
-    pub provider: String,
 }
 
 #[derive(Deserialize)]
@@ -218,23 +198,12 @@ pub struct PasswordForm {
     pub confirm: String,
 }
 
-/// Everything the page shows besides the form values.
-type Loaded = (Profile, Vec<KeyStatus>);
-
-async fn load_profile(state: &AppState, user: &CurrentUser) -> Result<Loaded, AppError> {
-    let vault = state.vault.clone();
+async fn load_profile(state: &AppState, user: &CurrentUser) -> Result<Profile, AppError> {
     let user_id = user.id;
-    let loaded = state
-        .db
-        .call(move |c| {
-            let Some(p) = profile::load(c, user_id)? else { return Ok(None) };
-            Ok(Some((p, secrets::statuses(c, &vault, user_id)?)))
-        })
-        .await?;
-    loaded.ok_or(AppError::RedirectToLogin)
+    state.db.call(move |c| profile::load(c, user_id)).await?.ok_or(AppError::RedirectToLogin)
 }
 
-fn page(state: &AppState, user: CurrentUser, (p, api_keys): Loaded) -> ProfileTemplate {
+fn page(state: &AppState, user: CurrentUser, p: Profile) -> ProfileTemplate {
     ProfileTemplate {
         delete_sent: None,
         display_name: profile::display_name(&p.first_name, &p.last_name),
@@ -244,7 +213,6 @@ fn page(state: &AppState, user: CurrentUser, (p, api_keys): Loaded) -> ProfileTe
         profile: p,
         notice: None,
         password_error: None,
-        keys_on_file: api_keys.iter().any(KeyStatus::is_set),
         two_factor_error: None,
         totp_open: false,
         totp_error: None,
@@ -257,7 +225,6 @@ fn page(state: &AppState, user: CurrentUser, (p, api_keys): Loaded) -> ProfileTe
         export: None,
         export_error: None,
         caps: state.caps(),
-        api_keys,
         dev: state.dev,
         delete_error: None,
         terms_html: terms_html(),
@@ -282,23 +249,18 @@ pub async fn show(
 ) -> Result<Response, AppError> {
     let p = load_profile(&state, &user).await?;
     let mut t = page(&state, user, p);
-    let provider = q.provider.as_deref().and_then(Provider::parse);
-    t.notice = match (q.saved.as_deref(), provider) {
-        (Some("password"), _) => Some(crate::t("profile.password.changed")),
-        (Some("verify-sent"), _) if t.user.as_ref().is_some_and(|u| u.needs_email_confirmation()) => Some(crate::t1("profile.save.sent_to", "email", t.profile.email.as_deref().unwrap_or_default())),
-        (Some("key-removed"), Some(p)) => Some(crate::t1("profile.api_keys.removed", "provider", p.label())),
-        (Some("ai-off"), _) => Some(crate::t("profile.ai.hidden_notice")),
-        (Some("ai-on"), _) => Some(crate::t("profile.ai.shown_notice")),
-        (Some("two-factor"), _) => Some(match t.profile.two_factor.method {
+    t.notice = match q.saved.as_deref() {
+        Some("password") => Some(crate::t("profile.password.changed")),
+        Some("verify-sent") if t.user.as_ref().is_some_and(|u| u.needs_email_confirmation()) => Some(crate::t1("profile.save.sent_to", "email", t.profile.email.as_deref().unwrap_or_default())),
+        Some("two-factor") => Some(match t.profile.two_factor.method {
             None => crate::t("profile.two_factor.is_off"),
             Some(m) => crate::t1("profile.two_factor.is_method", "method", method_label(m)),
         }),
-        (Some("totp-removed"), _) => Some(crate::t("profile.two_factor.totp_removed")),
+        Some("totp-removed") => Some(crate::t("profile.two_factor.totp_removed")),
         // No mail on this server: no link is coming; the Download button is (#633).
-        (Some("export-queued"), _) if !t.caps.mail => Some(crate::t("profile.data.export_building_no_mail")),
-        (Some("export-queued"), _) => Some(crate::t("profile.data.export_queued")),
-        (Some("signed-out"), _) => Some(crate::t("profile.sessions.signed_out_notice")),
-        _ if q.ai.as_deref() == Some("off") => Some(crate::t("profile.ai.feature_hidden")),
+        Some("export-queued") if !t.caps.mail => Some(crate::t("profile.data.export_building_no_mail")),
+        Some("export-queued") => Some(crate::t("profile.data.export_queued")),
+        Some("signed-out") => Some(crate::t("profile.sessions.signed_out_notice")),
         _ => None,
     };
     if q.totp.as_deref() == Some("enrol") && t.profile.two_factor.totp_pending {
@@ -324,15 +286,16 @@ pub struct ProfileChanges {
     pub last_name: Option<String>,
     /// The language the app speaks to this account in (`i18n::languages`).
     pub lang: Option<String>,
-    /// AI API keys, as `key_<provider>` (`key_anthropic`, …).
+    /// Anything else (the AI API keys are the server's now, on Manage
+    /// Users): refused, field by field.
     #[serde(flatten)]
-    pub keys: std::collections::HashMap<String, serde_json::Value>,
+    pub other: std::collections::HashMap<String, serde_json::Value>,
 }
 
 /// POST /api/profile: save the fields sent. All or nothing: a field that
 /// does not validate comes back as `422 {"errors": {field: message}}` and
 /// nothing is stored. Saved, the answer has what the page redraws: the
-/// name, and with a key its last four characters.
+/// name.
 pub async fn save(
     State(state): State<Arc<AppState>>,
     user: CurrentUser,
@@ -348,32 +311,20 @@ pub async fn save(
     };
     let first = changes.first_name.as_deref().and_then(|v| check("first_name", profile::validate_name(&crate::t("profile.personal.first_name"), v)));
     let last = changes.last_name.as_deref().and_then(|v| check("last_name", profile::validate_name(&crate::t("profile.personal.last_name"), v)));
-    let mut keys = Vec::new();
-    for (field, value) in &changes.keys {
-        let provider = field.strip_prefix("key_").and_then(Provider::parse);
-        let r = match (provider, value.as_str()) {
-            (Some(p), Some(v)) => secrets::validate_key(p, v).map(|k| keys.push((p, k))),
-            _ => Err(crate::t("profile.save.not_a_field")),
-        };
-        check(field, r.map(|()| String::new()));
+    for field in changes.other.keys() {
+        check(field, Err(crate::t("profile.save.not_a_field")));
     }
     let lang = changes.lang.as_deref().map(str::trim).and_then(|v| {
         let ok = if crate::i18n::is_language(v) { Ok(v.to_string()) } else { Err(crate::t("profile.personal.language_unavailable")) };
         check("lang", ok)
     });
-    if user.ai_off {
-        for field in changes.keys.keys() {
-            errors.insert(field.clone(), crate::t("profile.ai.keys_off").into());
-        }
-    }
     if !errors.is_empty() {
         let body = serde_json::json!({ "errors": errors });
         return Ok((StatusCode::UNPROCESSABLE_ENTITY, Json(body)).into_response());
     }
 
-    let (uid, vault) = (user.id, state.vault.clone());
-    let saved_keys: Vec<Provider> = keys.iter().map(|(p, _)| *p).collect();
-    let (p, statuses) = state
+    let uid = user.id;
+    let p = state
         .db
         .call(move |c| {
             let tx = c.transaction()?;
@@ -381,28 +332,15 @@ pub async fn save(
             if let Some(l) = &lang {
                 profile::set_lang(&tx, uid, l)?;
             }
-            for (provider, key) in &keys {
-                secrets::save(&tx, &vault, uid, *provider, key)?;
-            }
             let p = profile::load(&tx, uid)?;
-            let statuses = secrets::statuses(&tx, &vault, uid)?;
             tx.commit()?;
-            Ok((p, statuses))
+            Ok(p)
         })
         .await?;
     let p = p.ok_or(AppError::Unauthorized)?;
     tracing::info!("user {uid} updated their profile");
 
-    let mut body = serde_json::json!({ "display_name": profile::display_name(&p.first_name, &p.last_name) });
-    if !saved_keys.is_empty() {
-        let hints: serde_json::Map<String, serde_json::Value> = statuses
-            .iter()
-            .filter(|k| saved_keys.contains(&k.provider))
-            .map(|k| (k.provider.id().to_string(), k.hint.clone().unwrap_or_default().into()))
-            .collect();
-        body["keys"] = hints.into();
-    }
-    Ok(Json(body).into_response())
+    Ok(Json(serde_json::json!({ "display_name": profile::display_name(&p.first_name, &p.last_name) })).into_response())
 }
 
 /// POST /profile/verify-email/resend: a new confirmation link for the
@@ -735,9 +673,9 @@ pub async fn change_password(
     auth::SessionToken(token): auth::SessionToken,
     Form(form): Form<PasswordForm>,
 ) -> Result<Response, AppError> {
-    let (p, keys) = load_profile(&state, &user).await?;
+    let p = load_profile(&state, &user).await?;
     let fail = |state: &AppState, user: CurrentUser, p: Profile, msg: &str| {
-        let mut t = page(state, user, (p, keys.clone()));
+        let mut t = page(state, user, p);
         t.password_error = Some(msg.to_string());
         Page(t).into_response()
     };
@@ -783,60 +721,6 @@ pub async fn end_other_sessions(State(state): State<Arc<AppState>>, user: Curren
     let ended = state.db.call(move |c| auth::delete_other_sessions(c, uid, &keep)).await?;
     tracing::info!("user {uid} signed out everywhere else ({ended} sessions)");
     Ok(Redirect::to(&crate::url("/profile?saved=signed-out#account")).into_response())
-}
-
-/// POST /profile/ai (off=1|0): "Do Not Show Me AI Features" on or off. On, the
-/// pages hide every feature that calls an AI provider, their routes refuse
-/// (`CurrentUser::require_ai`) and every saved API key is deleted (the
-/// profile's dialog warns about that when there is one).
-pub async fn set_ai(
-    State(state): State<Arc<AppState>>,
-    user: CurrentUser,
-    headers: HeaderMap,
-    Form(form): Form<AiForm>,
-) -> Result<Response, AppError> {
-    let off = match form.off.as_str() {
-        "1" => true,
-        "0" => false,
-        _ => return Err(AppError::BadRequest("off must be 1 or 0".into())),
-    };
-    let uid = user.id;
-    let (keys, consent) = state
-        .db
-        .call(move |c| {
-            profile::set_ai_off(c, uid, off)?;
-            let keys = if off { secrets::remove_all(c, uid)? } else { 0 };
-            Ok((keys, crate::consent::latest(c, uid, crate::consent::AI)?))
-        })
-        .await?;
-    if off {
-        // A tutor conversation under way would still be calling the provider.
-        state.tutors.drop_user(uid);
-    }
-    tracing::info!("user {uid} {} AI features ({keys} API keys deleted)", if off { "hid" } else { "showed" });
-    // The page's switch (profile.js) asks for JSON and updates in place.
-    let wants_json = headers.get(header::ACCEPT).and_then(|v| v.to_str().ok()).is_some_and(|a| a.contains("application/json"));
-    if wants_json {
-        let consent = profile::ai_consent_text(off, consent);
-        return Ok(Json(serde_json::json!({ "ai_off": off, "keys_deleted": keys, "consent": consent })).into_response());
-    }
-    let saved = if off { "ai-off" } else { "ai-on" };
-    Ok(Redirect::to(&crate::url(&format!("/profile?saved={saved}#consent"))).into_response())
-}
-
-/// POST /profile/api-keys/remove
-pub async fn remove_api_key(
-    State(state): State<Arc<AppState>>,
-    user: CurrentUser,
-    Form(form): Form<ApiKeyForm>,
-) -> Result<Response, AppError> {
-    let Some(provider) = Provider::parse(&form.provider) else {
-        return Err(AppError::BadRequest("unknown provider".into()));
-    };
-    let uid = user.id;
-    state.db.call(move |c| secrets::remove(c, uid, provider)).await?;
-    tracing::info!("user {} removed their {} API key", user.id, provider);
-    Ok(Redirect::to(&crate::url(&format!("/profile?saved=key-removed&provider={provider}"))).into_response())
 }
 
 /// POST /profile/export: queue "Download my data" (exports.rs). The file
@@ -971,13 +855,13 @@ pub async fn delete_account(
     Form(form): Form<DeleteForm>,
 ) -> Result<Response, AppError> {
     let loaded = load_profile(&state, &user).await?;
-    let fail = |state: &AppState, user: CurrentUser, loaded: Loaded, msg: &str| {
+    let fail = |state: &AppState, user: CurrentUser, loaded: Profile, msg: &str| {
         let mut t = page(state, user, loaded);
         t.delete_error = Some(msg.to_string());
         Page(t).into_response()
     };
     let uid = user.id;
-    if !loaded.0.has_password && !form.confirm.trim().eq_ignore_ascii_case(&loaded.0.delete_phrase()) {
+    if !loaded.has_password && !form.confirm.trim().eq_ignore_ascii_case(&loaded.delete_phrase()) {
         return Ok(fail(&state, user, loaded, &crate::t("profile.data.type_email")));
     }
     // The same proof as every account change, on the same allowances (#376, #378).

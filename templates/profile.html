@@ -52,7 +52,6 @@
     <li><a href="#personal" data-testid="profile-nav-link" data-section="personal">{{ crate::t("profile.nav.personal") }}</a></li>
     <li><a href="#account" data-testid="profile-nav-link" data-section="account">{{ crate::t("profile.nav.account") }}</a></li>
     <li><a href="#two-factor" data-testid="profile-nav-link" data-section="two-factor">{{ crate::t("profile.nav.two_factor") }}</a></li>
-    <li data-ai-only{% if profile.ai_off %} hidden{% endif %}><a href="#api-keys" data-testid="profile-nav-link" data-section="api-keys">{{ crate::t("profile.nav.api_keys") }}</a></li>
     <li><a href="#consent" data-testid="profile-nav-link" data-section="consent">{{ crate::t("profile.nav.consent") }}</a></li>
     <li><a href="#data" data-testid="profile-nav-link" data-section="data">{{ crate::t("profile.nav.data") }}</a></li>
   </ul>
@@ -249,52 +248,12 @@
     {% endif %}
   </section>
 
-  <section class="card" id="api-keys" data-testid="profile-api-keys" data-ai-only{% if profile.ai_off %} hidden{% endif %}>
-    <dialog class="modal" id="api-keys-info-dialog" aria-labelledby="api-keys-info-dialog-title" data-testid="profile-api-keys-info-dialog">
-      <h2 id="api-keys-info-dialog-title">{{ crate::t("profile.api_keys.info_title") }}</h2>
-      <p>{{ crate::t("profile.api_keys.info_text") }}</p>
-      <div class="modal-actions"><button type="button" class="btn" data-closes data-testid="profile-api-keys-info-close">{{ crate::t("profile.ai.close") }}</button></div>
-    </dialog>
-    <h2 class="heading-with-info">{{ crate::t("profile.api_keys.title") }} <button type="button" class="info-btn" data-opens="api-keys-info-dialog" aria-haspopup="dialog" aria-label="{{ crate::t("profile.api_keys.info") }}" title="{{ crate::t("profile.api_keys.info") }}" data-testid="profile-api-keys-info"><span aria-hidden="true">i</span></button></h2>
-    <div class="own-keys-body" data-testid="profile-own-keys-body">
-    <p class="muted small" data-testid="profile-api-keys-about">{{ crate::t("profile.api_keys.about") }}</p>
-    {% for k in api_keys %}
-    <details class="key-row" data-testid="profile-api-key" data-provider="{{ k.provider.id() }}" data-key-set="{{ k.is_set() }}" data-unreadable="{{ k.unreadable }}">
-      <summary class="key-head" data-testid="profile-api-key-toggle">
-        <h3>{{ k.provider.label() }}</h3>
-        <span class="small" data-testid="profile-api-key-status">
-          {% if k.unreadable %}
-            <span class="warn-text">{{ crate::t("profile.api_keys.unreadable") }}</span>
-          {% else if let Some(h) = k.hint %}
-            <span class="ok-text">{{ crate::t("profile.api_keys.on_file") }}</span> · {{ crate::t("profile.api_keys.ends_in") }} <code>…{{ h }}</code>
-          {% else %}
-            <span class="muted">{{ crate::t("profile.api_keys.none") }}</span>
-          {% endif %}
-        </span>
-      </summary>
-      <div class="key-body">
-        <label for="key-{{ k.provider.id() }}"><span data-key-prompt>{% if k.is_set() %}{{ crate::t("profile.api_keys.replace") }}{% else %}{{ crate::t("profile.api_keys.paste") }}{% endif %}</span> <span class="muted small">(<a href="{{ k.provider.console_url() }}" target="_blank" rel="noopener">{{ crate::t("profile.api_keys.get_one") }}</a>)</span></label>
-        <span class="field-wrap"><input type="password" id="key-{{ k.provider.id() }}" name="key_{{ k.provider.id() }}" data-testid="profile-api-key-input" maxlength="400" autocomplete="off" spellcheck="false" placeholder="{{ k.provider.placeholder() }}" aria-describedby="key_{{ k.provider.id() }}-error"></span>
-        <span class="field-error" id="key_{{ k.provider.id() }}-error" data-testid="profile-api-key-error" hidden></span>
-        {% if k.is_set() %}
-        <form method="post" action="{{ crate::base_path() }}/profile/api-keys/remove" class="key-remove" data-testid="profile-api-key-remove-form">
-          <input type="hidden" name="provider" value="{{ k.provider.id() }}">
-          <button type="submit" class="link-btn small" data-testid="profile-api-key-remove">{{ crate::t("profile.api_keys.remove") }}</button>
-        </form>
-        {% endif %}
-      </div>
-    </details>
-    {% endfor %}
-    </div>
-  </section>
-
   <section class="card" id="consent" data-testid="profile-consent">
     <h2 class="heading-with-info">{{ crate::t("profile.consent.title") }} <button type="button" class="info-btn" data-opens="consent-info" aria-haspopup="dialog" aria-label="{{ crate::t("profile.consent.info") }}" data-testid="profile-consent-info">i</button></h2>
     <dialog class="modal" id="consent-info" aria-labelledby="consent-info-title" data-testid="profile-consent-info-dialog">
       <h2 id="consent-info-title">{{ crate::t("profile.consent.title") }}</h2>
       <p>{{ crate::t("profile.consent.info_age") }}</p>
       {% if caps.mail %}<p>{{ crate::t("profile.consent.info_email") }}</p>{% endif %}
-      <p>{{ crate::t("profile.consent.info_ai") }}</p>
       <p>{{ crate::t("profile.consent.info_record") }}</p>
       <div class="modal-actions"><button type="button" class="btn" data-closes data-testid="profile-consent-info-close">{{ crate::t("profile.consent.close") }}</button></div>
     </dialog>
@@ -311,33 +270,7 @@
       <dt>{{ crate::t("profile.consent.email") }}</dt>
       <dd data-testid="consent-email">{{ crate::t("profile.consent.email_service") }}</dd>
       {% endif %}
-      <dt id="consent-ai-label">{{ crate::t("profile.consent.ai") }}</dt>
-      <dd data-testid="consent-ai" data-ai-off="{{ profile.ai_off }}">
-        <div class="switch-row">
-          <span data-testid="consent-ai-state">{{ profile.ai_consent_text() }}</span>
-          {% if !profile.ai_off && keys_on_file %}
-          <button type="button" class="switch" role="switch" aria-checked="false" aria-labelledby="consent-ai-label" data-opens="ai-off-dialog" data-testid="consent-ai-switch"><span class="switch-knob" aria-hidden="true"></span>{{ crate::t("profile.ai.off") }}</button>
-          {% else %}
-          <form method="post" action="{{ crate::base_path() }}/profile/ai" data-testid="consent-ai-form">
-            <input type="hidden" name="off" value="{% if profile.ai_off %}0{% else %}1{% endif %}">
-            <button type="submit" class="switch" role="switch" aria-checked="{{ profile.ai_off }}" aria-labelledby="consent-ai-label" data-testid="consent-ai-switch"><span class="switch-knob" aria-hidden="true"></span>{% if profile.ai_off %}{{ crate::t("profile.ai.on") }}{% else %}{{ crate::t("profile.ai.off") }}{% endif %}</button>
-          </form>
-          {% endif %}
-        </div>
-        {% if keys_on_file %}<div class="small muted" data-testid="consent-ai-key">{{ crate::t("profile.consent.ai_key") }} · <a href="#api-keys">{{ crate::t("profile.consent.ai_keys_manage") }}</a></div>{% endif %}
-      </dd>
     </dl>
-    <dialog class="modal" id="ai-off-dialog" aria-labelledby="ai-off-dialog-title" data-testid="profile-ai-off-dialog">
-      <form method="post" action="{{ crate::base_path() }}/profile/ai" data-testid="profile-ai-off-form">
-        <input type="hidden" name="off" value="1">
-        <h2 id="ai-off-dialog-title">{{ crate::t("profile.ai.off_title") }}</h2>
-        <p>{{ crate::t("profile.ai.off_text") }}</p>
-        <div class="modal-actions">
-          <button type="button" class="btn ghost" data-closes data-testid="profile-ai-off-cancel">{{ crate::t("profile.ai.cancel") }}</button>
-          <button type="submit" class="btn" data-testid="profile-ai-off-confirm">{{ crate::t("profile.ai.confirm") }}</button>
-        </div>
-      </form>
-    </dialog>
   </section>
 
   <section class="card" id="data" data-testid="profile-data">

@@ -347,6 +347,7 @@ fn the_generate_estimate_counts_lessons_time_and_cost() {
 #[derive(askama::Template)]
 #[template(path = "ai_form.html")]
 struct AiFormAlone {
+    user: Option<crate::auth::CurrentUser>,
     af: editor::AiFormView,
 }
 
@@ -365,7 +366,7 @@ fn ai_form_html(mode: &'static str, can_change: bool) -> String {
         error: None,
         reviewable: None,
     };
-    AiFormAlone { af }.render().unwrap()
+    AiFormAlone { user: None, af }.render().unwrap()
 }
 
 /// The `<input>` of one mode radio.

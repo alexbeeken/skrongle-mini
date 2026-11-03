@@ -227,11 +227,11 @@ mod tests {
         let (right, wrong) = (Vault::from_master(&[7; 32]), Vault::from_master(&[9; 32]));
         let path = Path::new("/srv/skrongle/learn.db");
         db.with(|c| {
-            let uid = crate::auth::create_user(c, "ann@example.org", "h")?;
+            crate::auth::create_user(c, "ann@example.org", "h")?;
             // Nobody saved a key yet: any key will do.
             assert_eq!(readable_count(c, &wrong)?, (0, 0));
             assert!(check_secret_opens(path, "SKRONGLE_SECRET_KEY", 0, 0, false).is_ok());
-            save(c, &right, uid, Provider::Anthropic, "sk-ant-api03-abc")?;
+            save(c, &right, Provider::Anthropic, "sk-ant-api03-abc")?;
             // The key the database was saved with opens it.
             let (n, total) = readable_count(c, &right)?;
             assert!(check_secret_opens(path, "SKRONGLE_SECRET_KEY", n, total, false).is_ok());

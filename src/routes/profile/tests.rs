@@ -26,7 +26,9 @@ fn privacy_page_export_and_account_deletion_over_http() {
         })
         .unwrap();
     let key = "sk-ant-api03-0123456789abcdefghijklmnop";
-    state.db.with(|c| crate::secrets::save(c, &state.vault, ann, crate::secrets::Provider::Anthropic, key)).unwrap();
+    // A row from before the keys were the server's (#25): the export names
+    // the provider and never carries the ciphertext.
+    state.db.with(|c| c.execute("INSERT INTO user_api_keys (user_id, provider, ciphertext, updated_at) VALUES (?1, 'anthropic', ?2, 1)", rusqlite::params![ann, key.as_bytes()])).unwrap();
     let session = |u| {
         state.db.with(|c| crate::terms::accept(c, u, crate::terms::version())).unwrap();
         state.db.with(|c| crate::auth::create_session(c, u)).unwrap()
@@ -280,15 +282,10 @@ fn profile_fields_save_as_they_change() {
     let (status, body) = save(&cookie, serde_json::json!({"mock_ai": true}));
     assert_eq!(status, 422);
     assert!(body["errors"]["mock_ai"].as_str().unwrap().contains("not part of the profile"), "{body}");
-    // A key: checked like the form did, stored encrypted, answered with
-    // its last four characters only.
-    let (status, body) = save(&cookie, serde_json::json!({"key_openai": "sk-ant-wrong-box"}));
-    assert_eq!(status, 422, "{body}");
-    assert!(body["errors"]["key_openai"].is_string(), "{body}");
+    // The AI API keys are the server's, on Manage Users (#25): the profile refuses them.
     let (status, body) = save(&cookie, serde_json::json!({"key_anthropic": "sk-ant-api03-abcdWXYZ"}));
-    assert_eq!((status, body["keys"]["anthropic"].as_str()), (200, Some("WXYZ")), "{body}");
-    assert!(!body.to_string().contains("abcd"));
-    assert_eq!(save(&cookie, serde_json::json!({"key_nobody": "x"})).0, 422);
+    assert!(status == 422 && body["errors"]["key_anthropic"].as_str().unwrap().contains("not part of the profile"), "{body}");
+    assert_eq!(state.db.with(|c| crate::secrets::saved_key_count(c)).unwrap(), 0);
     // The theme is a course's setting now (#577): the profile refuses it.
     let (status, refused) = save(&cookie, serde_json::json!({"theme": ""}));
     assert!(status == 422 && refused["errors"]["theme"].is_string(), "{refused}");
@@ -300,12 +297,13 @@ fn profile_fields_save_as_they_change() {
     assert_eq!(stored().first_name, "Ana");
 }
 
-/// "Hide all AI features" (#147): the box at sign-up sets it, the
-/// profile shows it and turns it off again, and while it is on every
-/// route that would call an AI provider refuses (pages go to the
-/// profile, JSON gets a 403) and the pages stop offering them.
+/// The AI features are the server's (#25): only an owner sees, saves and
+/// removes the API keys, on Manage Users, and every account uses them; the
+/// owner's "Hide AI features for everyone" hides the tutor, generation and
+/// Use AI from every account, whose routes then refuse (pages a 403 page,
+/// JSON a 403), and showing them again brings them back.
 #[test]
-fn ai_features_can_be_turned_off_over_http() {
+fn the_ai_keys_and_the_hide_ai_switch_are_the_owners_over_http() {
     let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(2).enable_all().build().unwrap();
     let state = crate::routes::test_state(true);
     let app = crate::routes::router(state.clone());
@@ -324,118 +322,108 @@ fn ai_features_can_be_turned_off_over_http() {
     let post = |path: &str, cookie: &str, form: &[(&str, &str)]| {
         let mut r = agent.post(&format!("{base}{path}")).header("cookie", cookie).send_form(form.iter().copied()).unwrap();
         let location = r.headers().get("location").map(|v| v.to_str().unwrap().to_string()).unwrap_or_default();
-        let cookie = r.headers().get("set-cookie").map(|v| v.to_str().unwrap().to_string()).unwrap_or_default();
-        (r.status().as_u16(), location, cookie, r.body_mut().read_to_string().unwrap())
+        (r.status().as_u16(), location, r.body_mut().read_to_string().unwrap())
     };
-    let sid = |set_cookie: &str| set_cookie.split(';').next().unwrap().to_string();
+    let keys = |cookie: &str, body: serde_json::Value| {
+        let mut r = agent.post(&format!("{base}/api/manage/keys")).header("cookie", cookie).send_json(body).unwrap();
+        let status = r.status().as_u16();
+        (status, serde_json::from_str::<serde_json::Value>(&r.body_mut().read_to_string().unwrap()).unwrap_or_default())
+    };
+    let account = |email: &str, owner: bool| {
+        let id = state.db.with(|c| crate::auth::create_user(c, email, "x")).unwrap();
+        state.db.with(|c| {
+            crate::terms::accept(c, id, crate::terms::version())?;
+            c.execute("UPDATE users SET active_course = 'spanish', owner = ?2 WHERE id = ?1", rusqlite::params![id, owner])?;
+            Ok(())
+        })
+        .unwrap();
+        format!("sid={}", state.db.with(|c| crate::auth::create_session(c, id)).unwrap())
+    };
+    let ann = account("ann@example.org", true);
+    let bob = account("bob@example.org", false);
 
-    // Registering with the box ticked.
-    assert_eq!(post("/register", "", &[("email", "ann@example.org"), ("password", "right-password"), ("age", "on"), ("accept", "on"), ("no_ai", "on")]).0, 200);
-    // Registering does not sign in (#379).
-    let (status, _, cookie, _) = post("/login", "", &[("email", "ann@example.org"), ("password", "right-password")]);
-    assert_eq!(status, 303);
-    let ann = sid(&cookie);
-    let ann_id: i64 = state.db.with(|c| c.query_row("SELECT id FROM users WHERE email = 'ann@example.org'", [], |r| r.get(0))).unwrap();
-    state.db.with(|c| c.execute("UPDATE users SET active_course = 'spanish' WHERE id = ?1", [ann_id])).unwrap();
-    assert!(state.db.with(|c| crate::profile::load(c, ann_id)).unwrap().unwrap().ai_off);
-    // And without it.
-    assert_eq!(post("/register", "", &[("email", "bob@example.org"), ("password", "right-password"), ("age", "on"), ("accept", "on")]).0, 200);
-    // Registering does not sign in (#379).
-    let (status, _, cookie, _) = post("/login", "", &[("email", "bob@example.org"), ("password", "right-password")]);
-    assert_eq!(status, 303);
-    let bob = sid(&cookie);
-    let bob_id: i64 = state.db.with(|c| c.query_row("SELECT id FROM users WHERE email = 'bob@example.org'", [], |r| r.get(0))).unwrap();
-    state.db.with(|c| c.execute("UPDATE users SET active_course = 'spanish' WHERE id = ?1", [bob_id])).unwrap();
-    assert!(!state.db.with(|c| crate::profile::load(c, bob_id)).unwrap().unwrap().ai_off);
+    // Nobody has a keys card on the profile, and the old routes are gone.
+    for c in [&ann, &bob] {
+        let profile = get("/profile", c).2;
+        assert!(!profile.contains("api-key") && !profile.contains("consent-ai"), "{profile}");
+    }
+    assert_eq!(post("/profile/ai", &ann, &[("off", "1")]).0, 404);
+    // Only the owner sees Manage Users' AI section and may change it.
+    let manage = get("/manage", &ann).2;
+    assert!(manage.contains(r#"data-testid="manage-ai-card""#) && manage.contains(r#"data-ai-off="false""#), "{manage}");
+    assert_eq!(manage.matches(r#"data-testid="manage-api-key""#).count(), crate::secrets::Provider::ALL.len());
+    assert_eq!(get("/manage", &bob).0, 404);
+    assert_eq!(keys(&bob, serde_json::json!({"key_anthropic": "sk-ant-api03-abcdWXYZ"})).0, 404);
+    assert_eq!(post("/manage/ai", &bob, &[("off", "1")]).0, 404);
+    assert_eq!(post("/manage/api-keys/remove", &bob, &[("provider", "anthropic")]).0, 404);
 
-    // The pages: no tutor card, no generate card, no AI form or keys; the profile says so.
-    let (_, _, home) = get("/", &ann);
-    assert!(!home.contains("home-start-tutor") && !home.contains("/tutor"), "the home page offers the tutor");
+    // No key yet: Bob is told to ask the owner, Ann is sent to Manage Users.
+    assert!(get("/tutor", &bob).2.contains("Ask the owner of this server"));
+    assert!(get("/tutor", &ann).2.contains(r#"href="/manage#ai""#));
+    // A key: checked as before, stored for the server, answered with its last four characters only.
+    let (status, body) = keys(&ann, serde_json::json!({"key_openai": "sk-ant-wrong-box"}));
+    assert!(status == 422 && body["errors"]["key_openai"].is_string(), "{body}");
+    assert_eq!(keys(&ann, serde_json::json!({"key_nobody": "x"})).0, 422);
+    let (status, body) = keys(&ann, serde_json::json!({"key_anthropic": "sk-ant-api03-abcdWXYZ"}));
+    assert_eq!((status, body["keys"]["anthropic"].as_str()), (200, Some("WXYZ")), "{body}");
+    assert!(!body.to_string().contains("abcd"));
+    assert!(get("/manage", &ann).2.contains("…WXYZ"));
+    // Bob uses it: his tutor page offers it.
+    let tutor = get("/tutor", &bob).2;
+    assert!(!tutor.contains("tutor-no-key") && tutor.contains("ai-disclosure"), "{tutor}");
     assert!(get("/", &bob).2.contains("home-start-tutor"));
-    let (_, _, courses) = get("/courses", &ann);
-    assert!(!courses.contains("let an AI write") && !courses.contains("Have AI write it") && courses.contains("courses-create"), "the picker offers generation");
-    assert!(get("/courses", &bob).2.contains("Have AI write it"));
-    let (_, _, lesson) = get("/lessons/adjectives-agreement-position", &ann);
-    assert!(!lesson.contains("lesson-tutor") && !lesson.contains("/tutor?"), "the lesson page offers the tutor");
-    assert!(get("/lessons/adjectives-agreement-position", &bob).2.contains("lesson-tutor"));
-    let (_, _, profile) = get("/profile", &ann);
-    assert!(profile.contains("data-ai-off=\"true\"") && profile.contains("aria-checked=\"true\" aria-labelledby=\"consent-ai-label\"") && profile.contains("data-testid=\"profile-api-keys\" data-ai-only hidden"), "{profile}");
-    // Bob has no key on file: the switch posts straight away, no confirm dialog.
-    let (_, _, profile) = get("/profile", &bob);
-    assert!(profile.contains("data-ai-off=\"false\"") && profile.contains("aria-checked=\"false\" aria-labelledby=\"consent-ai-label\"") && profile.contains("consent-ai-form") && !profile.contains("data-opens=\"ai-off-dialog\"") && !profile.contains("data-testid=\"profile-ai\"") && profile.contains("data-testid=\"profile-api-keys\" data-ai-only>"), "{profile}");
-    // Create a course: the editor opens without the "Generate the course" dialog or the Use AI section.
+
+    // Hidden for everyone: no tutor, no generation, no AI form, for Bob and for Ann.
+    let (status, location, _) = post("/manage/ai", &ann, &[("off", "1")]);
+    assert_eq!((status, location.as_str()), (303, "/manage?did=ai-off#ai"));
+    assert!(state.db.with(|c| crate::settings::ai_off(c)).unwrap());
+    assert!(get("/manage?did=ai-off", &ann).2.contains("AI features are hidden for every account"));
+    for c in [&ann, &bob] {
+        let home = get("/", c).2;
+        assert!(!home.contains("home-start-tutor") && !home.contains("/tutor"), "the home page offers the tutor");
+        let courses = get("/courses", c).2;
+        assert!(!courses.contains("Have AI write it") && courses.contains("courses-create"), "the picker offers generation");
+        let lesson = get("/lessons/adjectives-agreement-position", c).2;
+        assert!(!lesson.contains("lesson-tutor") && !lesson.contains("/tutor?"), "the lesson page offers the tutor");
+    }
     let new_course = |cookie: &str| {
-        let (_, loc, _, _) = post("/courses/new", cookie, &[]);
+        let (_, loc, _) = post("/courses/new", cookie, &[]);
         loc.strip_prefix("/courses/").and_then(|l| l.strip_suffix("?generate=1")).expect("to the editor").to_string()
     };
-    let ann_course = new_course(&ann);
-    let (status, _, editor) = get(&format!("/courses/{ann_course}?generate=1"), &ann);
-    assert_eq!(status, 200);
-    assert!(editor.contains("data-testid=\"course-edit\"") && !editor.contains("data-testid=\"generate\"") && !editor.contains("data-testid=\"course-ai\""), "{editor}");
     let bob_course = new_course(&bob);
     let editor = get(&format!("/courses/{bob_course}?generate=1"), &bob).2;
-    assert!(editor.contains("data-testid=\"generate\"") && editor.contains("data-testid=\"course-ai\""));
-
-    // The routes: pages go to the profile, JSON is a 403; Bob is let through.
+    assert!(editor.contains(r#"data-testid="course-edit""#) && !editor.contains(r#"data-testid="generate""#) && !editor.contains(r#"data-testid="course-ai""#), "{editor}");
+    // The routes refuse: a page says so with a 403, JSON gets a 403.
     for path in ["/tutor", "/courses/generate/nope"] {
-        let (status, location, _) = get(path, &ann);
-        assert_eq!((status, location.as_str()), (303, "/profile?ai=off#consent"), "{path}");
+        let (status, _, body) = get(path, &bob);
+        assert_eq!(status, 403, "{path}");
+        assert!(body.contains("turned off on this server"), "{body}");
     }
-    assert_eq!(get("/tutor", &bob).0, 200);
-    assert_eq!(post(&format!("/courses/{ann_course}/generate"), &ann, &[("provider", "anthropic"), ("wish", "x")]).1, "/profile?ai=off#consent");
-    assert_eq!(post("/courses/spanish/ai", &ann, &[("text", "add a lesson"), ("mode", "add")]).1, "/profile?ai=off#consent");
+    assert_eq!(post(&format!("/courses/{bob_course}/generate"), &bob, &[("provider", "anthropic"), ("wish", "x")]).0, 403);
+    assert_eq!(post("/courses/spanish/ai", &bob, &[("text", "add a lesson"), ("mode", "add")]).0, 403);
     for path in ["/api/tutor/session?id=x", "/api/generate/nope"] {
-        let (status, _, body) = get(path, &ann);
+        let (status, _, body) = get(path, &bob);
         assert_eq!(status, 403, "{path}");
         assert!(body.contains("AI features are off"), "{body}");
     }
-    let (status, _) = {
-        let mut r = agent.post(&format!("{base}/api/tutor/start")).header("cookie", &ann).send_json(serde_json::json!({"provider": "anthropic", "lesson": ""})).unwrap();
-        (r.status().as_u16(), r.body_mut().read_to_string().unwrap())
-    };
+    let status = agent.post(&format!("{base}/api/tutor/start")).header("cookie", &bob).send_json(serde_json::json!({"provider": "anthropic", "lesson": ""})).unwrap().status().as_u16();
     assert_eq!(status, 403);
-    let (status, _) = {
-        let mut r = agent.post(&format!("{base}/api/profile")).header("cookie", &ann).send_json(serde_json::json!({"key_anthropic": "sk-ant-api03-abcdWXYZ"})).unwrap();
-        (r.status().as_u16(), r.body_mut().read_to_string().unwrap())
-    };
-    assert_eq!(status, 422, "a key cannot be saved while AI features are off");
-    // The profile's notice when a feature sent someone here.
-    assert!(get("/profile?ai=off", &ann).2.contains("which you have hidden"));
+    // The keys stay, for when the features are shown again.
+    assert_eq!(state.db.with(|c| crate::secrets::saved_key_count(c)).unwrap(), 1);
+    assert!(get("/manage", &ann).2.contains(r#"data-ai-off="true""#));
+    assert_eq!(post("/manage/ai", &ann, &[("off", "maybe")]).0, 400);
 
-    // Back on, then off again from the profile's confirm dialog.
-    let (status, location, _, _) = post("/profile/ai", &ann, &[("off", "0")]);
-    assert_eq!((status, location.as_str()), (303, "/profile?saved=ai-on#consent"));
-    assert!(!state.db.with(|c| crate::profile::load(c, ann_id)).unwrap().unwrap().ai_off);
-    assert!(get(&format!("/courses/{ann_course}?generate=1"), &ann).2.contains("data-testid=\"generate\""));
-    let (status, location, _, _) = post("/profile/ai", &ann, &[("off", "1")]);
-    assert_eq!((status, location.as_str()), (303, "/profile?saved=ai-off#consent"));
-    assert!(state.db.with(|c| crate::profile::load(c, ann_id)).unwrap().unwrap().ai_off);
-    assert!(get("/profile?saved=ai-off", &ann).2.contains("AI features are hidden"));
-    assert_eq!(post("/profile/ai", &ann, &[("off", "maybe")]).0, 400);
-    // The page's switch asks for JSON and gets the new state instead of a redirect.
-    let mut r = agent.post(&format!("{base}/profile/ai")).header("cookie", &ann).header("accept", "application/json").send_form([("off", "0")]).unwrap();
-    assert_eq!(r.status().as_u16(), 200);
-    let body: serde_json::Value = serde_json::from_str(&r.body_mut().read_to_string().unwrap()).unwrap();
-    assert_eq!((&body["ai_off"], &body["keys_deleted"]), (&serde_json::json!(false), &serde_json::json!(0)));
-    assert!(body["consent"].as_str().unwrap().starts_with("Shown since "), "{body}");
-    assert!(!state.db.with(|c| crate::profile::load(c, ann_id)).unwrap().unwrap().ai_off);
-    // Each change is a consent row closed or opened (#974).
-    let (status, location, _, _) = post("/profile/ai", &ann, &[("off", "1")]);
-    assert_eq!((status, location.as_str()), (303, "/profile?saved=ai-off#consent"));
-    let periods = state.db.with(|c| c.query_row("SELECT COUNT(*), COUNT(withdrawn_at) FROM consents WHERE user_id = ?1 AND purpose = 'ai'", [ann_id], |r| Ok((r.get::<_, i64>(0)?, r.get::<_, i64>(1)?)))).unwrap();
-    assert_eq!(periods.0, periods.1, "every period is closed while AI is off");
-    assert!(periods.0 >= 2);
-    assert!(get("/profile", &ann).2.contains("Hidden since "));
+    // Shown again: Bob has them back.
+    let (status, location, _) = post("/manage/ai", &ann, &[("off", "0")]);
+    assert_eq!((status, location.as_str()), (303, "/manage?did=ai-on#ai"));
+    assert!(get("/", &bob).2.contains("home-start-tutor"));
+    assert!(get(&format!("/courses/{bob_course}?generate=1"), &bob).2.contains(r#"data-testid="generate""#));
 
-    // With a key on file the switch opens the confirm dialog, and confirming deletes the keys.
-    let status = agent.post(&format!("{base}/api/profile")).header("cookie", &bob).send_json(serde_json::json!({"key_anthropic": "sk-ant-api03-abcdWXYZ"})).unwrap().status().as_u16();
-    assert_eq!(status, 200);
-    let bob_keys = || state.db.with(|c| c.query_row("SELECT COUNT(*) FROM user_api_keys u JOIN users s ON s.id = u.user_id WHERE s.email = 'bob@example.org'", [], |r| r.get::<_, i64>(0))).unwrap();
-    assert_eq!(bob_keys(), 1);
-    let (_, _, profile) = get("/profile", &bob);
-    assert!(profile.contains("profile-ai-off-confirm") && profile.contains("delete all AI API keys") && profile.contains("data-opens=\"ai-off-dialog\""), "{profile}");
-    assert_eq!(post("/profile/ai", &bob, &[("off", "1")]).1, "/profile?saved=ai-off#consent");
-    assert_eq!(bob_keys(), 0, "hiding the AI features deletes the saved keys");
-    assert!(get("/profile", &bob).2.contains("data-ai-off=\"true\""));
-    assert_eq!(post("/profile/ai", "", &[("off", "1")]).0, 303, "signed out: to the login page");
+    // Removing the key: the forms ask for one again.
+    let (status, location, _) = post("/manage/api-keys/remove", &ann, &[("provider", "anthropic")]);
+    assert_eq!((status, location.as_str()), (303, "/manage?did=key-removed&provider=anthropic#ai"));
+    assert!(get("/manage?did=key-removed&provider=anthropic", &ann).2.contains("key removed"));
+    assert_eq!(state.db.with(|c| crate::secrets::saved_key_count(c)).unwrap(), 0);
+    assert!(get("/tutor", &bob).2.contains("tutor-no-key"));
+    assert_eq!(post("/manage/ai", "", &[("off", "1")]).0, 303, "signed out: to the login page");
 }

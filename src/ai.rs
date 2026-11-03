@@ -105,7 +105,7 @@ impl ProviderKind {
         }
     }
 
-    /// Whose key it takes from the profile.
+    /// Which of the server's keys it takes (Manage Users).
     pub fn secret(self) -> crate::secrets::Provider {
         match self {
             ProviderKind::Anthropic => crate::secrets::Provider::Anthropic,
@@ -114,7 +114,7 @@ impl ProviderKind {
         }
     }
 
-    /// The provider as the profile page stores it (`secrets::Provider`).
+    /// The provider as Manage Users stores its key (`secrets::Provider`).
     pub fn from_secret(p: crate::secrets::Provider) -> ProviderKind {
         match p {
             crate::secrets::Provider::Anthropic => ProviderKind::Anthropic,
@@ -1665,11 +1665,11 @@ fn failure_kind(raw: &str) -> Option<Failure> {
 /// restart); pages show the raw text underneath as the detail.
 pub fn plain_failure(raw: &str) -> Option<&'static str> {
     Some(match failure_kind(raw)? {
-        Failure::Key => "Writing your course stopped. The AI provider didn't accept your API key. Check the key on your profile page, then try again.",
+        Failure::Key => "Writing your course stopped. The AI provider didn't accept the server's API key. The owner can check it on Manage Users; then try again.",
         Failure::Quota => "Writing your course stopped. Your AI provider account has run out of credit or reached its usage limit. Check your plan and billing with the provider, then try again.",
         Failure::Busy => "Writing your course stopped. The AI provider is busy right now. Wait a minute, then try again.",
         Failure::Unusable => "Writing your course stopped. The AI's reply couldn't be used to build the course. Try again.",
-        Failure::TurnedDown => "Writing your course stopped. The AI provider turned the request down. Try again; if it stops again, check the key on your profile page.",
+        Failure::TurnedDown => "Writing your course stopped. The AI provider turned the request down. Try again; if it stops again, the owner can check the key on Manage Users.",
         Failure::ProviderError => "Writing your course stopped. The AI provider answered with an error. Try again.",
         Failure::Unreachable => "Writing your course stopped. The AI provider didn't answer in time or couldn't be reached. Try again in a minute.",
         Failure::Declined => "Writing your course stopped. The AI declined to write this course. Try rewording your wish.",
@@ -1680,11 +1680,11 @@ pub fn plain_failure(raw: &str) -> Option<&'static str> {
 /// course revised), which has no Resume: it changed nothing, so try again.
 pub fn plain_revision_failure(raw: &str) -> Option<&'static str> {
     Some(match failure_kind(raw)? {
-        Failure::Key => "The AI provider didn't accept your API key. Check the key on your profile page, then try again. The course is unchanged.",
+        Failure::Key => "The AI provider didn't accept the server's API key. The owner can check it on Manage Users; then try again. The course is unchanged.",
         Failure::Quota => "Your AI provider account has run out of credit or reached its usage limit. Check your plan and billing with the provider, then try again. The course is unchanged.",
         Failure::Busy => "The AI provider is busy right now. Wait a minute, then try again. The course is unchanged.",
         Failure::Unusable => "The AI's reply couldn't be used. Try again, or say it differently. The course is unchanged.",
-        Failure::TurnedDown => "The AI provider turned the request down. Check the model on your profile page. The course is unchanged.",
+        Failure::TurnedDown => "The AI provider turned the request down. Try again; if it stops again, the owner can check the key on Manage Users. The course is unchanged.",
         Failure::ProviderError => "The AI provider answered with an error. Try again. The course is unchanged.",
         Failure::Unreachable => "The AI provider didn't answer in time or couldn't be reached. Try again in a minute. The course is unchanged.",
         Failure::Declined => "The AI declined. Try saying it differently. The course is unchanged.",

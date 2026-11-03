@@ -7,6 +7,11 @@
 // selects the text to copy by hand. A new link or password is the answer to
 // a POST, rendered in place; the address bar is set back to the page so a
 // reload asks for the page again instead of making another one (#665).
+//
+// The server's AI API keys (#25) save as they are pasted or typed
+// (static/autosave.js, POST /api/manage/keys): a pasted key at once, a typed
+// one 3 s after the last keystroke. Saved, the box empties (a key is never
+// shown again) and the row says which key is on file.
 (function () {
   "use strict";
 
@@ -51,4 +56,37 @@
     });
     if (dialog.hasAttribute("data-open-on-load")) { dialog.removeAttribute("open"); dialog.showModal(); }
   });
+
+  var inputs = document.querySelectorAll("[data-testid=manage-api-key-input]");
+  if (inputs.length && window.Autosave) {
+    var base = document.body.dataset.base || "";
+    var saver = Autosave({
+      url: base + "/api/manage/keys",
+      delay: 3000,
+      status: document.querySelector("[data-testid=manage-keys-save-status]"),
+      message: document.querySelector("[data-testid=manage-keys-save-error]"),
+      onSaved: function (data) {
+        if (data && data.keys) Object.keys(data.keys).forEach(function (p) { keySaved(p, data.keys[p]); });
+      },
+    });
+    inputs.forEach(function (input) {
+      saver.watch(input, { field: input.name, delay: 3000, burst: 6, ignoreEmpty: true });
+    });
+  }
+  function keySaved(provider, hint) {
+    var row = document.querySelector('[data-testid=manage-api-key][data-provider="' + provider + '"]');
+    if (!row) return;
+    row.dataset.keySet = "true";
+    row.dataset.unreadable = "false";
+    row.querySelector("[data-testid=manage-api-key-input]").value = "";
+    var status = row.querySelector("[data-testid=manage-api-key-status]");
+    status.textContent = "";
+    var ok = document.createElement("span");
+    ok.className = "ok-text";
+    ok.textContent = t("manage.js.key_on_file");
+    var code = document.createElement("code");
+    code.textContent = "\u2026" + hint;
+    status.append(ok, " · " + t("manage.js.ends_in") + " ", code);
+    row.querySelector("[data-key-prompt]").textContent = t("manage.js.paste_new_key");
+  }
 })();

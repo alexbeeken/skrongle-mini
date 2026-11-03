@@ -10,7 +10,7 @@ import { playSprint } from "../../lib/sprint-play.ts";
 import { expect, test } from "../../lib/fixtures.ts";
 import { lastHistory, playDates, playDrill, playFlashcards, playListening, playMatching, playNumbers, recordSpeech, watchBugs } from "../../lib/games.ts";
 import { AnswerKey } from "../../lib/key.ts";
-import { newAccount, progressOf, register, saveApiKey } from "../../lib/learner.ts";
+import { newAccount, progressOf, register, resetServerKeys } from "../../lib/learner.ts";
 
 const key = new AnswerKey(TEST_COURSE);
 const course = JSON.parse(readFileSync(fileURLToPath(new URL("../../../data/test-courses/test-course/course.json", import.meta.url)), "utf8"));
@@ -126,8 +126,8 @@ test("flashcards: a card marked not known comes back in the missed deck", async 
 
 test("Tutor: a wrong answer gets a wrong verdict", async ({ page }) => {
   await register(page, newAccount("wrong-tutor"), TEST_COURSE);
-  await page.goto("/profile");
-  await saveApiKey(page, "sk-ant-dev-test-fixtures");
+  // The server's keys serve every account (#25): the simulated provider's, answered from the fixtures.
+  await resetServerKeys(page);
 
   await page.goto("/tutor?lesson=everything");
   const ex = page.locator('[data-testid="tutor-exercise"]:not([data-state=done])');

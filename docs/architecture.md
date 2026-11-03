@@ -47,9 +47,9 @@ under `static/`, `templates/` or `data/` is missing from this list.
 - Sign-in: `auth.rs` (sessions, CurrentUser, Project), `auth/cache.rs` (the signed-in users kept in memory by session, #37), `routes/auth.rs`, `routes/auth/code.rs` (the two-factor step), `proxy_auth.rs` (proxy header), `signup.rs` (who may register), `urlenc.rs` (percent-encoding for the redirects they build).
 - Mail: `mail.rs` (`mail/resend.rs`, `mail/postmark.rs`, `mail/brevo.rs`, `mail/sink.rs`), `verify.rs` (address check), `reset.rs` + `routes/reset.rs` (password reset).
 - Two-factor: `two_factor.rs`, `totp.rs`.
-- Profile: `profile.rs`, `routes/profile.rs`, `static/profile.js`, `static/autosave.js`; keys in `secrets.rs`.
+- Profile: `profile.rs`, `routes/profile.rs`, `static/profile.js`, `static/autosave.js`.
 - Data rights: `privacy.rs` (export columns, deletion), `exports.rs` (Download my data), `consent.rs` (optional consents for the Privacy and consent card), `account_deletion.rs` and `routes/account_deletion.rs` (deleting an account after 14 days, #970).
-- Terms: `terms.rs`, `routes/terms.rs`. Owner: `owner.rs`, `routes/manage.rs`, `routes/password.rs` (temporary password gate).
+- Terms: `terms.rs`, `routes/terms.rs`. Owner: `owner.rs`, `routes/manage.rs`, `static/manage.js`, `routes/password.rs` (temporary password gate); the server's AI API keys in `secrets.rs` and the hide-AI switch in `settings.rs`, both on Manage Users (#25).
 - Docs pages: `routes/docs.rs` (`/docs` sidebar `SECTIONS`, `/llms.txt`).
 
 ### Dev mode only
@@ -100,7 +100,8 @@ src/
   two_factor.rs  two-factor sign-in: the method in use, the authenticator app's enrolment, sign-in challenges, the proof for turning it off (tables totp_keys, two_factor_challenges, two_factor_confirmations)
   terms.rs       Terms of Service: the source (built-in text or SKRONGLE_TERMS file), the built-in changelog (docs/terms-changes.json) and the version in effect, the notice of a newer version (minor or material), acceptances, the 30-day e-mail of a material change, sent from /manage (table terms_announcements)
   profile.rs     user profiles: name/e-mail validation, profile persistence
-  secrets.rs     learners' AI API keys: master secret, ChaCha20-Poly1305 sealing, per-user storage
+  secrets.rs     the server's AI API keys (#25, table server_api_keys; the owner's, set on /manage, used by every account): master secret, ChaCha20-Poly1305 sealing
+  settings.rs    server-wide settings the owner changes on /manage (table settings, #25): ai_off, the switch that hides every AI feature for every account (read into CurrentUser::ai_off by the session query)
   prices.rs      the price table behind the Generate dialog's cost estimate (SKRONGLE_AI_PRICES)
   server.rs      the listener: header and body timeouts, a connection cap (axum::serve plus limits)
   security.rs    security headers and the cross-site (CSRF) check on every request, client address, rate limits
@@ -158,8 +159,8 @@ src/
     terms.rs     /terms, /terms.md (public), /terms/accept (the gate for accounts without the current version, and the notice's accept form), /terms/dismiss (closes a minor change's notice)
     account_deletion.rs  /account/deletion (the only page of an account scheduled for deletion: its date, Cancel deletion, Log out)
     password.rs  /password/change (the gate after signing in with a temporary password: the new one twice, no old one)
-    manage.rs    /manage, the Manage Users page (owners only, 404 otherwise; /superuser redirects here): every account on one page with Temporary password, Turn off two-factor, Make owner and Reset email verification per row; invitation links under SKRONGLE_SIGNUP=invite; while a material terms change is coming, a notice and Send the announcement. POST /manage/make-owner|reset-email-verification|invites|invites/revoke|temp-password|two-factor-off|terms-announce
-    profile.rs   /profile (personal information, account, AI API keys), POST /api/profile (autosave), POST /profile/password|api-keys…|verify-email/resend, POST /profile/export (queue "Download my data"), GET /profile/export/download?token=… (the mailed link), POST /profile/delete
+    manage.rs    /manage, the Manage Users page (owners only, 404 otherwise; /superuser redirects here): every account on one page with Temporary password, Turn off two-factor, Make owner and Reset email verification per row; invitation links under SKRONGLE_SIGNUP=invite; while a material terms change is coming, a notice and Send the announcement. and the AI section (#25): the server's AI API keys (autosaved, POST /api/manage/keys) and Hide AI features for everyone. POST /manage/make-owner|reset-email-verification|invites|invites/revoke|temp-password|two-factor-off|terms-announce|api-keys/remove|ai
+    profile.rs   /profile (personal information, account), POST /api/profile (autosave), POST /profile/password|verify-email/resend, POST /profile/export (queue "Download my data"), GET /profile/export/download?token=… (the mailed link), POST /profile/delete
     pages.rs     / (landing for visitors, home: the three modes) /lessons /lessons/{slug} /history /mistakes, POST /api/lessons/{slug}/note (the lesson note, autosave)
     map.rs       /map
     quiz.rs      /practice, POST /api/answer (grade_and_record: the one grading path for every mode), POST /api/lesson-check (the reading check)
@@ -324,7 +325,8 @@ users          (id AUTOINCREMENT, password_hash, created_at, google_sub UNIQUE, 
                 -- avatar, avatar_color: the profile picture and its background, no longer read (the pictures are gone; the columns wait for the schema squash);
                 -- lang the language the app speaks to this account in (i18n/<code>.yaml, v42), '' = the browser's;
                 -- developer and superuser: the two old flags, merged into owner by v98 (#16); nothing reads them, they wait for the schema squash
-                -- ai_off 1 hides every feature that calls an AI provider and makes its routes refuse (#147)
+                -- ai_off: the old per-account "Hide all AI features" (#147); since v99 (#25) the switch is the
+                -- server's (settings 'ai_off'), nothing reads it, it waits for the schema squash
                 -- owner 1 opens /manage and links it from the account menu (by hand, make-owner, or the first account under SKRONGLE_SIGNUP=invite|closed; the dev user in dev mode)
                 -- phone: E.164 or ''; phone_verified_at: when a texted code confirmed it (v39);
                 -- phone_opted_out_at: a provider refused a text to it as opted out (STOP, v69, #969);
@@ -404,7 +406,16 @@ lesson_passes  (user_id, course_id, lesson_id, seen_at, seen_via, best_pct, best
                 -- via is 'k' | 'd' | 'g' (Study, Sprint, Play: the modes' old letters, progress::VIA_*)
                 -- | 'tutor' | 'agent' | 'legacy'; best_pct -1 = no counted run yet
 user_api_keys  (user_id, provider, ciphertext, updated_at)  PRIMARY KEY (user_id, provider)
-                -- provider is 'anthropic' | 'openai' | 'google'; ciphertext is sealed by src/secrets.rs
+                -- learners' own keys from before #25: v99 copied the first owner's into server_api_keys;
+                -- nothing reads or writes it now, kept until the schema squash drops it
+server_api_keys (provider PRIMARY KEY, ciphertext, set_at, sealed_for)  WITHOUT ROWID
+                -- the server's AI API keys (v99, #25), the owner's, set on /manage; provider is
+                -- 'anthropic' | 'openai' | 'google'; ciphertext is sealed by src/secrets.rs; sealed_for = the
+                -- user id its associated data names (a key v99 brought over from that owner's profile), NULL
+                -- for a key saved for the server
+settings       (name PRIMARY KEY, value)  WITHOUT ROWID
+                -- server-wide settings (src/settings.rs, v99, #25): 'ai_off' = '1' hides every AI feature for
+                -- every account (no row: shown). The session query reads it, so auth/cache.rs watches it
 subscriptions  (user_id PRIMARY KEY, customer_id UNIQUE, subscription_id, status, price_id, current_period_end,
                 cancel_at_period_end, event_at, updated_at, plan)
                 -- the learner's Stripe subscription as the last webhook described it; status is Stripe's;
@@ -416,8 +427,8 @@ terms_announcements (user_id, version, mailed_at)  PRIMARY KEY (user_id, version
                 -- who was e-mailed about a material change of the built-in terms (v67, #966)
                 -- one row per Terms of Service version a learner accepted; no IP address
 consents       (id, user_id, purpose, granted_at, withdrawn_at)
-                -- an optional consent (src/consent.rs, v82, #974): 'ai' = AI features; one row per time it was
-                -- given, withdrawn_at set when it is taken back. Shown on the profile's Privacy and consent card
+                -- an optional consent (src/consent.rs, v82, #974): the 'ai' rows went in v99 when the AI
+                -- features became the server's to show or hide (#25); nothing writes it now
 mail_outbox    (id, user_id, to_addr, subject, body_text, body_html, purpose, state, attempts, next_attempt_at,
                 scheduled_at, created_at, sent_at, provider, last_error, locked_by, locked_until)
                 -- e-mail to send (src/mail.rs); state 'queued' | 'sent' | 'failed'; provider = the one that took it;
@@ -510,7 +521,8 @@ and `users.mock_ai` (both 0 for every existing account; migration 40 drops
 and are never added to). Migration 35 added `sms_outbox`. Migration 39 added two-factor sign-in:
 `users.phone`, `phone_verified_at` and `two_factor` (off for every existing
 account), `totp_keys`, `phone_verifications`, `two_factor_challenges` and `two_factor_confirmations`. Migration 43 added
-`course_shares` (#451), migration 44 `data_exports` (#430).
+`course_shares` (#451), migration 44 `data_exports` (#430). Migration 99 (#25) added `server_api_keys`, seeded with the first owner's
+`user_api_keys` rows (which stay, unread), and `settings`; the `'ai'` consent rows went.
 Migration 45 rebuilt `users` with `AUTOINCREMENT` (ids are never handed out
 again, #364) and added `billing_ref` (a random value for every account) and
 `stripe_customer` (filled from the account's `subscriptions` row). Migration 46 added the `sms_sends` ledger and a unique index on verified
@@ -532,18 +544,19 @@ reads a whole table. Migration 61 (v61 in
 `privacy::USER_TABLES` (a test checks every table in the schema), and each of its columns in `privacy::EXPORTED` or `privacy::WITHHELD` (a test checks those too).
 
 **Model calls.** Every call site (`POST /courses/{id}/generate`,
-`POST /courses/{id}/ai`, the tutor) uses a saved key (or a pasted one on the
+`POST /courses/{id}/ai`, the tutor) uses the server's key (or a pasted one on the
 generate form) and the provider's base URL; nothing in the app knows
 whether the other end is real. There is no mock provider and no stub in
 `ai::complete` (#298): in dev mode the default base URLs
 (`ai::ProviderKind::default_base_url`, through `dev::provider_base_url`)
-point at the dev AI provider on this server, and the dev user's seeded keys
+point at the dev AI provider on this server, and the seeded keys
 are its keys, so fake replies come only from a key whose base URL points
 there. Before any of that, every such handler asks `user.require_ai()` (pages) or
-`user.require_ai_api()` (JSON): an account with `ai_off` set is sent to the
-profile's AI features section (`AppError::AiOff`) or answered 403
-(`AppError::ApiAiOff`), and the pages that link to those handlers leave the
-links out (`user.ai_off` in the templates).
+`user.require_ai_api()` (JSON): while the owner hides the AI features
+(`settings::AI_OFF`, which the session query reads into `CurrentUser::ai_off`
+for every account, #25) a page answers 403 saying so (`AppError::AiOff`) and
+JSON a 403 (`AppError::ApiAiOff`), and the pages that link to those handlers
+leave the links out (`user.ai_off` in the templates).
 Every request carries an `x-skrongle-call` header naming its purpose,
 key, job and vars (`ai::call_header`). The providers ignore it. The dev AI
 provider picks its fixture reply by it. Error statuses are read as
@@ -856,11 +869,12 @@ writable path, and a release never touches the database.
   default-src 'none'` so a script inside one does not run even when the file
   is opened directly, and `nosniff`.
 - API keys pasted into the course generator are used for that job only and
-  never stored. Keys saved on the profile page (`src/secrets.rs`) are sealed
-  with ChaCha20-Poly1305 under a key derived (SHA-256, labelled) from the
-  master secret, with the user id and provider as associated data, so a row
-  cannot be read from a copy of the database alone nor moved to another
-  account. The secret comes from `SKRONGLE_SECRET_KEY` or `<db>.key`; losing it
+  never stored. The server's keys, which an owner saves on Manage Users
+  (`src/secrets.rs`, #25), are sealed with ChaCha20-Poly1305 under a key
+  derived (SHA-256, labelled) from the master secret, with the provider as
+  associated data, so a row cannot be read from a copy of the database alone
+  nor moved to another provider's row. Only owners see the keys form; every
+  account's AI features use the keys. The secret comes from `SKRONGLE_SECRET_KEY` or `<db>.key`; losing it
   makes stored keys unreadable (the page says so and asks for them again;
   the server won't start on a database with saved keys and no key at all,
   or a key that opens none of them, until `SKRONGLE_NEW_SECRET_KEY=1` says the
