@@ -31,11 +31,10 @@ Read `docs/` before changing anything substantial:
   feature reports through `progress::mark_seen` / `record_run` /
   `record_taught_run`; show completion from passes, not from mode tables.
 - One shape. Skrongle mini is a handful of accounts on one box: SQLite, no
-  e-mail, text messages, third-party sign-in or payments, and no outside
-  service it has to reach except the AI providers a learner's own key points
-  at. Don't write code, docs, tests or issues that assume such a service:
-  no "if an e-mail provider is configured", no half-configured servers, no
-  fallbacks for a setting nobody has. A feature that would need one is not a
+  e-mail, and no outside service it has to reach except the AI providers the
+  owner's keys point at. Don't write code, docs, tests or issues that assume
+  such a service: no "if a provider is configured", no half-configured
+  servers, no fallbacks for a setting nobody has. A feature that would need one is not a
   feature of this app; say so in the issue and leave it out. The dev server
   is for development, not a second shape.
 - Memory matters: the target is a Pi Zero 2 W (Skrongle mini). No new heavy dependencies;

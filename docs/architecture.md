@@ -107,7 +107,7 @@ src/
   owner.rs       what the owner does to an account with no message sent (#635): a temporary password (users.must_change_password), two-factor off, make an owner; the binary's commands (reset-password, disable-2fa, make-owner, help)
   db/tables.rs   USER_TABLES and SHARED_TABLES: which tables hold a learner's rows, and the test that every table is listed (docs/data-inventory.md)
   jobs/retention.rs  the retention rules the hourly housekeeping applies (old answers, finished notes, failed AI courses)
-  jobs.rs        background jobs (table jobs, #872): enqueue, the one-statement claim with a lease, retries with per-kind delays, periodic kinds that queue their next run; the `jobs` runner thread, which also drains the mail outbox with a lease (#873); the hourly housekeeping as one job with a step per purge
+  jobs.rs        background jobs (table jobs, #872): enqueue, the one-statement claim with a lease, retries with per-kind delays, periodic kinds that queue their next run; the `jobs` runner thread; the hourly housekeeping as one job with a step per purge
   mathcheck.rs   numeric and expression answers: a small parser/evaluator, numbers in every spelling, equivalence by sampling
   algebra_tiles.rs  algebra-tiles questions: the pile from `tiles`, an answer must be two sides whose product is the tiles
   clock.rs       clock answers: H:MM on the 12-hour face, the hands' angles, what a clock question may say
@@ -198,9 +198,7 @@ game, AI job and tutor maps, rate limits, retention,
 links, old job rows, then the WAL checkpoint); each step logs its
 count, a failing step is logged and the next still runs. At
 boot it gets a row due now if it has none, so a server restarted more
-often than hourly still cleans up. There is no mail outbox to drain (#10; the
-`mail_outbox` table stays in the schema, no longer written). AI generation
-still has its own thread. `/dev/jobs` lists the job rows in dev mode.
+often than hourly still cleans up. AI generation still has its own thread. `/dev/jobs` lists the job rows in dev mode.
 
 **Proxy sign-in.** With `SKRONGLE_PROXY_AUTH_HEADER` and `_FROM` set,
 `proxy_auth::middleware` runs before every handler (not on `/dev/*`,
@@ -246,11 +244,7 @@ visible to its owner, and read only to whoever the owner shared it with
 (`share::can_open`; [features](features#sharing-a-course)): `POST
 /courses/open/{id}` checks both, the editor and file routes the owner only.
 
-**No e-mail.** The server sends no mail (#633, #10): no transport, no
-outbox drain, no dev mailbox. Sharing shows the links to the owner, the
-data export is a Download button, and a forgotten password gets the owner's
-temporary password. `docs/self-hosting.md`, "No e-mail", lists what that
-means for each feature.
+**No e-mail.** The server sends no mail. Sharing shows the link to the owner, and a forgotten password gets the owner's temporary password (`docs/self-hosting.md`, "No e-mail").
 
 
 **Templates** are server-rendered. The small scripts (`quiz.js`, `guide.js`,
@@ -467,8 +461,7 @@ startup logs one warning naming each old variable and its new name.
 **Skrongle mini** (#632, #641, #578) is the self-hosted release: one
 binary plus the defaults `deploy/skrongle.service` sets, marked *mini* in the table
 below: `SKRONGLE_SIGNUP=invite`,
-(#633). A mini has no e-mail, text messages, Google sign-in, payments or S3,
-and no setting for any of them. The startup line and `/healthz`
+A mini has no e-mail and no outside service, and no setting for one. The startup line and `/healthz`
 (`ok skrongle mini <version>`) name it. The
 release tarballs are `skrongle-<version>-<arch>.tar.gz`
 (`routes::docs::RELEASE_TARBALL`, `scripts/package-release.sh`); The pitch and the security

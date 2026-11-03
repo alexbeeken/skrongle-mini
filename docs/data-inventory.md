@@ -80,7 +80,7 @@ account: the background job queue and the server's AI keys and settings.
 `tracing` to stdout (journald under systemd). Lines name users by **id**,
 never by name or address (sign-in, registration, profile, keys, courses, games, tutor
 errors, deletion). Model errors are scrubbed of the key
-(`ai::redact_key`, tested). Text message lines name the outbox id, purpose and the number's last two digits; digit runs in provider errors are scrubbed (`sms::scrub`). Generation progress lines carry titles and
+(`ai::redact_key`, tested). Generation progress lines carry titles and
 counts ("Building from your material (1200 characters)"), never the notes.
 The app logs no IP addresses (#121's rate-limit warnings do log the
 address). The operator sets the journal's retention and the proxy's
