@@ -10,7 +10,7 @@ on:
 jobs:
   issue-number:
     name: issue number in title
-    runs-on: ${{ vars.CI_RUNNER || 'laptop' }}
+    runs-on: ubuntu-latest
     timeout-minutes: 2
     steps:
       - name: Title contains [<issue number>]

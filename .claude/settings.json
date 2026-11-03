@@ -1,7 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(*/.claude/skills/rotate/scripts/drop-worktree.sh *)"
-    ]
-  }
-}

@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# CI only: build the dev server once per commit for every job of a run on
-# the laptop runners, and print the binary's path. The runners share
-# /_shared (ci/runner/compose.yml); the first job to get here builds the
-# commit in its own target dir and copies the binary in, the others wait for
-# that and use it, so a run compiles the server once instead of once per
-# job. The binary finds static/ by the checkout path it was built in, which
-# is the same on every runner (RUNNER_WORKDIR). Without /_shared or flock
-# (hosted runners, a Mac) it just builds. See docs/testing.md, "CI runners".
+# CI only: build the dev server once per commit for every job of a run when
+# the runners share a /_shared volume, and print the binary's path. The first
+# job to get here builds the commit in its own target dir and copies the
+# binary in, the others wait for that and use it, so a run compiles the server
+# once instead of once per job. The binary finds static/ by the checkout path
+# it was built in, so the runners must check out at the same path. Without
+# /_shared or flock (GitHub-hosted runners, a Mac) it just builds. See
+# docs/testing.md, "CI runners".
 set -euo pipefail
 cd "$(dirname "$0")/.."
 command -v cargo >/dev/null 2>&1 || { [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"; }

@@ -747,7 +747,7 @@ E2E_SEED=7 scripts/e2e.sh specs/smoke       # another seed; a failure prints the
 ```
 
 Cheap, deterministic browser tests of the essential paths, right and wrong, run on
-every change (and by `.github/workflows/smoke.yml` on every PR, on the [laptop runners](#ci-runners), as separate checks: `cargo test`, `scripts/smoke.sh`, the exact specs and the smoke specs, each e2e suite in [shards](#ci-runners)): no model, no
+every change (and by `.github/workflows/smoke.yml` on every PR, on GitHub-hosted runners, as separate checks: `cargo test`, `scripts/smoke.sh`, the exact specs and the smoke specs, each e2e suite in shards (see "CI runners" below)): no model, no
 key, no network, about three minutes. Each test registers its own
 account through `/register`, so they never share the dev user, and ends
 with a check that every page agrees with `/api/progress`
@@ -822,119 +822,45 @@ a reason to add it to the template ([Markup hooks](#markup-hooks)).
 
 ## CI runners
 
-Every workflow job runs on self-hosted runners in Docker on the laptop, not
-on GitHub-hosted ones, so CI costs no Actions minutes (the cost report and
-the options weighed are in #209). The jobs ask for
-`runs-on: ${{ vars.CI_RUNNER || 'laptop' }}`; four runners carry the label
-`laptop`. A PR's `checks` run is eight jobs (cargo test, three exact shards,
-four smoke shards), so one PR takes about two waves and a
-second PR's jobs wait their turn. The four runners run under the
-`skrongle-mini-ci` compose project and are registered to this repository.
+CI runs on GitHub-hosted `ubuntu-latest` runners. A PR's `checks` workflow
+(`.github/workflows/smoke.yml`) is eight jobs: `cargo test` (which also runs
+`scripts/smoke.sh`), three exact-spec shards and four smoke-spec shards.
 
-```sh
-scripts/ci-runners.sh up       # build the image (ci/runner/) and start the four runners
-scripts/ci-runners.sh status   # containers, and the runners as GitHub sees them
-scripts/ci-runners.sh logs     # follow them
-scripts/ci-runners.sh down     # stop them; queued jobs wait until the next up
-scripts/ci-runners.sh prune    # delete the runners GitHub lists as offline (stopped without deregistering)
-scripts/ci-runners.sh reset    # also delete the work volumes (a clean build next time)
-```
-
-- **Image**: `ci/runner/Dockerfile`, GitHub's runner
-  (`myoung34/github-runner:ubuntu-noble`) on Ubuntu 24.04 like `ubuntu-latest`,
-  linux/arm64 on an Apple-silicon Mac. The workflow steps install Rust, Node
-  as they do on hosted runners; Playwright's Chromium and its system
-  libraries are baked in (`/ms-playwright`, the version in
-  `e2e/package.json`, passed in by `scripts/ci-runners.sh`), so the jobs'
-  `playwright install` finds them. Rust links with
-  `mold` there (the image's `aarch64-unknown-linux-gnu-gcc` wrapper), since
-  relinking is most of an incremental build. A change to the image takes
-  effect on the next `scripts/ci-runners.sh up`.
 - **Shards**: the e2e specs run one at a time (they share the dev user), so
-  `smoke.yml` splits each suite with Playwright's `--shard` (exact specs in 3,
-  smoke specs in 4), one job per shard with its own server
-  (`.github/actions/e2e`). Playwright splits by spec file, so a file always
-  runs whole, and files are dealt out in name order by test count, not
-  time: after adding a long spec file, check the split with
-  `npx playwright test specs/smoke --list --shard 1/4` (in `e2e/`) and
-  split the file if it lands next to another long one. The specs' type check
-  and unit tests (`tsc`, `npm run unit`) run once, in exact shard 3. The gate jobs `e2e exact specs` and `e2e smoke specs` pass only
-  when every shard passed; they carry the names the ruleset requires, so a
-  shard count can change without touching the ruleset. A failed shard keeps
-  its report as `playwright-report-<suite>-<n>`. To rerun one shard locally:
-  `scripts/e2e.sh specs/smoke --shard 2/3`. In CI a shard's database is in
-  RAM (`E2E_DB=/dev/shm/e2e.db`); it is thrown away after the run anyway.
-- **One build per commit**: the runners share a `/_shared` volume. Every
-  job that needs the server gets it from `scripts/ci-build.sh`: the first
-  to arrive builds the commit and copies the binary to
-  `/_shared/bin/<commit>-<debuginfo>`, the others wait on its lock and
-  reuse it (`SERVER_BIN` makes `e2e.sh` and `smoke.sh` skip their build).
-  A debug build serves `static/` from the path it was built in, so every
-  runner checks out at the same path (`RUNNER_WORKDIR=/_work/runner`,
-  `compose.yml`). Binaries older than 12 hours are deleted. Hosted runners
-  have no `/_shared` and build in each job as before.
+  each suite is split with Playwright's `--shard`, one job per shard with
+  its own server (`.github/actions/e2e`). Playwright splits by spec file,
+  so a file always runs whole, and files are dealt out in name order by test
+  count, not time: after adding a long spec file, check the split with
+  `npx playwright test specs/smoke --list --shard 1/4` (in `e2e/`). The
+  specs' type check and unit tests run once, in exact shard 3. A failed
+  shard keeps its report as `playwright-report-<suite>-<n>`. To rerun one
+  shard locally: `scripts/e2e.sh specs/smoke --shard 2/3`. In CI a shard's
+  database is in RAM (`E2E_DB=/dev/shm/e2e.db`).
+- **Gate jobs**: `e2e exact specs`, `e2e smoke specs` and `server smoke test
+  (scripts/smoke.sh)` pass only when every shard (or smoke.sh) passed. They
+  carry the names the ruleset requires, so a shard count can change without
+  touching the ruleset. The `pr-title` and `release` workflows are not
+  required.
+- **One build per job**: every job that needs the server gets it from
+  `scripts/ci-build.sh` (`SERVER_BIN` makes `e2e.sh` and `smoke.sh` skip
+  their build). Where the runners share a `/_shared` volume, it builds once
+  per run: the first job builds the commit and copies the binary there, the
+  others wait on its lock and reuse it. GitHub-hosted runners have no
+  `/_shared`, so each job builds once.
+- **Caches**: the Rust build uses `Swatinem/rust-cache` and the npm
+  install uses `setup-node`'s npm cache; both are GitHub's caches.
 - **No run on pushes to main**: `checks` runs only on PRs. A PR's run tests
   it merged into `main`, and the ruleset requires a PR to be up to date
-  with `main` before it merges, so `main` is what the last run tested. A PR
-  that falls behind shows "This branch is out of date"; update it (the
-  button, or merge `main` in), which runs its checks again.
-- **One Rust job**: `cargo test` and `scripts/smoke.sh` run in one job (the
-  `cargo test` check) so they share a build and a runner. smoke.sh runs even
-  when cargo test fails, and its outcome is the `server smoke test` check, a
-  gate like the e2e ones; its log is in the `cargo test` job.
-- **Token**: `up` needs one of two. With `SKRONGLE_MINI_CI_RUNNER_TOKEN` in
-  the shell (e.g. exported from `~/.zshrc`), a fine-grained token for this
-  repo with *Administration: Read and write*, the runners register at every
-  start and deregister at stop, so they come back after a reboot on their
-  own. Without it, `up` fetches a one-hour registration token through `gh`
-  (signed in as the repo's owner): the runners start and keep running, but a
-  container recreated later (a reboot, the next `up`) can't register with the
-  expired token, so run `up` again then. Either way the token is unset
-  before jobs run. A runner that stopped without deregistering stays listed
-  offline; `prune` deletes those.
-- **Required checks**: the ruleset on `main` ("main: PR with green checks")
-  wants a PR, up to date with main, with `cargo test`, `server smoke test
-  (scripts/smoke.sh)`, `e2e exact specs` and `e2e smoke specs` green; a
-  repository admin can bypass it. The other workflows (`pr-title`,
-  `release`) are not required.
-- **Builds stay on the runner**: each runner's work volume holds its Rust
-  build at `CARGO_TARGET_DIR=/_work/cargo-target` (set in `compose.yml`),
-  outside the checkout, so `actions/checkout`'s `git clean -ffdx` leaves it
-  alone and every job compiles incrementally. The first job after `up` or
-  `reset` builds from scratch (a few minutes); `reset` is the way to reclaim
-  the space. The GitHub caches in the workflows (`Swatinem/rust-cache`,
-  `setup-node`'s npm cache) run only on GitHub-hosted runners
-  (`if: runner.environment == 'github-hosted'`): on the laptop they cost
-  2–4 minutes of every job to fetch 200 MB through the home connection, and
-  their saves pushed the repo's cache store past GitHub's 10 GB limit.
+  with `main` before it merges. A PR that falls behind shows "This branch
+  is out of date"; update it, which runs its checks again.
 - **CI finds failures; debug them locally.** A job's output is kept short:
   the pass/fail lines, the failing spec's error and the server log tail, and
   a Playwright report as an artifact when a shard fails. Builds carry only
   line tables (`CARGO_PROFILE_DEV_DEBUG=line-tables-only` in `smoke.yml`),
   which compiles and links much faster; panics still name file and line.
   To dig into a failure, rerun the one spec or test in your own terminal
-  (`scripts/e2e.sh specs/smoke/x.spec.ts --grep "…"`, `cargo test name`),
+  (`scripts/e2e.sh specs/smoke/x.spec.ts --grep "..."`, `cargo test name`),
   where the dev profile has full debug info. For the rare failure only CI
   shows, turn full debug info on for CI with
   `gh variable set CI_DEBUGINFO --body full`, rerun, and
-  `gh variable delete CI_DEBUGINFO` afterwards. Each change of it rebuilds
-  every runner's target once. Add extra logging the same way, for that run
-  only, rather than leaving it in the jobs.
-- **Docker**: Colima, started at login by `brew services`, so the runners
-  (`restart: unless-stopped`) come back after a reboot. Give the VM room for
-  eight Rust builds and Chromiums: 14 CPUs and 28 GB on the 18-core, 48 GB
-  laptop (`colima stop && colima start --cpu 14 --memory 28`, while no job
-  runs: stopping the VM kills them). Idle CPUs cost the Mac nothing; memory
-  the VM has touched stays with it. Running the runners natively on macOS
-  was weighed in #302 and rejected: CI would no longer match the Pi and
-  `ubuntu-latest`, and the runners would share caches, ports and the home
-  folder with each other and the dev worktrees.
-- **Laptop asleep or off**: jobs stay queued and start when it is back;
-  GitHub cancels a job that waited 24 hours. Queued jobs cost nothing.
-- **Fallback**: set the repo variable `CI_RUNNER` to `ubuntu-latest`
-  (`gh variable set CI_RUNNER --body ubuntu-latest`) and the next runs use
-  GitHub-hosted runners, billed per minute; `gh variable delete CI_RUNNER`
-  goes back to the laptop.
-- **Private repo only**: a job runs whatever the PR's code says, inside a
-  container on the laptop. Fine while only we push; before taking PRs from
-  outside contributors, switch to the fallback or require approval for them.
+  `gh variable delete CI_DEBUGINFO` afterwards.

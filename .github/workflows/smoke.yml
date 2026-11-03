@@ -5,14 +5,9 @@
 # No key and no network beyond installing tools; the Jev specs are never run
 # here. See docs/testing.md, "Smoke specs".
 #
-# Every job in .github/workflows runs on the laptop's self-hosted runners
-# (label `laptop`, ci/runner/). Set the repo variable CI_RUNNER=ubuntu-latest
-# to fall back to GitHub-hosted runners. See docs/testing.md, "CI runners".
-#
-# The GitHub caches (rust-cache, setup-node's npm cache) are for GitHub-hosted
-# runners only: a laptop runner keeps its build in a persistent volume
-# (CARGO_TARGET_DIR, ci/runner/compose.yml), and fetching a 200 MB cache
-# from GitHub through the home connection took 2-4 minutes of every job.
+# Every job runs on GitHub-hosted runners (ubuntu-latest). The Rust and
+# npm caches (rust-cache, setup-node) are GitHub's. See docs/testing.md,
+# "CI runners".
 name: checks
 
 # Not on pushes to main: a PR's run already tested it merged into main,
@@ -29,7 +24,7 @@ concurrency:
 # and links much faster than full debug info. Debug locally, where the dev
 # profile keeps full debug info. For a failure that only CI shows, set the
 # repo variable CI_DEBUGINFO=full for a run, then delete it (docs/testing.md,
-# "CI runners"); changing it rebuilds every runner's target once.
+# "CI runners"); changing it rebuilds once.
 env:
   CARGO_PROFILE_DEV_DEBUG: ${{ vars.CI_DEBUGINFO || 'line-tables-only' }}
 
@@ -39,7 +34,7 @@ jobs:
   # cargo test, and the smoke gate below reports smoke.sh's outcome.
   rust:
     name: cargo test
-    runs-on: ${{ vars.CI_RUNNER || 'laptop' }}
+    runs-on: ubuntu-latest
     timeout-minutes: 20
     outputs:
       smoke: ${{ steps.smoke.outcome }}
@@ -47,7 +42,6 @@ jobs:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
-        if: runner.environment == 'github-hosted'
       # Release builds abort on panic: no new unwrap/expect/indexing outside tests (#389).
       - run: scripts/panic-check.sh
       # No source file grows past 1,500 non-test lines, or its baseline (#908).
@@ -62,7 +56,7 @@ jobs:
     name: server smoke test (scripts/smoke.sh)
     needs: rust
     if: ${{ !cancelled() }}
-    runs-on: ${{ vars.CI_RUNNER || 'laptop' }}
+    runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - run: '[ "${{ needs.rust.outputs.smoke }}" = success ] || { echo "scripts/smoke.sh: ${{ needs.rust.outputs.smoke || needs.rust.result }} (see the cargo test job)"; exit 1; }'
@@ -73,7 +67,7 @@ jobs:
   # gate jobs below carry the check names the ruleset requires.
   e2e-exact:
     name: e2e exact specs ${{ matrix.shard }}
-    runs-on: ${{ vars.CI_RUNNER || 'laptop' }}
+    runs-on: ubuntu-latest
     timeout-minutes: 30
     strategy:
       fail-fast: false
@@ -92,7 +86,7 @@ jobs:
 
   e2e-smoke:
     name: e2e smoke specs ${{ matrix.shard }}
-    runs-on: ${{ vars.CI_RUNNER || 'laptop' }}
+    runs-on: ubuntu-latest
     timeout-minutes: 30
     strategy:
       fail-fast: false
@@ -112,7 +106,7 @@ jobs:
     name: e2e exact specs
     needs: e2e-exact
     if: ${{ !cancelled() }}
-    runs-on: ${{ vars.CI_RUNNER || 'laptop' }}
+    runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - run: '[ "${{ needs.e2e-exact.result }}" = success ] || { echo "a shard did not pass: ${{ needs.e2e-exact.result }}"; exit 1; }'
@@ -121,7 +115,7 @@ jobs:
     name: e2e smoke specs
     needs: e2e-smoke
     if: ${{ !cancelled() }}
-    runs-on: ${{ vars.CI_RUNNER || 'laptop' }}
+    runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - run: '[ "${{ needs.e2e-smoke.result }}" = success ] || { echo "a shard did not pass: ${{ needs.e2e-smoke.result }}"; exit 1; }'
@@ -129,16 +123,15 @@ jobs:
   # Pi budget (#638): the stripped release binary, and the idle server's
   # memory and threads, against scripts/pi-budget.txt; the numbers go in the
   # job summary. The only release build in CI (fat LTO, the slowest build
-  # here, in the runner's own target volume); not a required check.
+  # here, ); not a required check.
   # Off for now (#1387): remove `if: false` to turn it back on.
   pi-budget:
     name: pi budget
     if: false
-    runs-on: ${{ vars.CI_RUNNER || 'laptop' }}
+    runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
-        if: runner.environment == 'github-hosted'
       - run: scripts/pi-budget.sh

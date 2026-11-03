@@ -72,7 +72,7 @@ other than the one the session started in, so read the ones for your area.
 
 **Let CI run the checks, once, after the push.** `cargo test`,
 `scripts/smoke.sh` and the exact and smoke e2e specs run on every PR
-(`.github/workflows/smoke.yml`, on self-hosted runners). Don't run them
+(`.github/workflows/smoke.yml`). Don't run them
 locally before pushing just to see them pass: push, then read the PR's
 checks (`gh pr checks`) and fix what fails. Locally, `cargo build` (it
 compiles) and the one test or spec you are debugging are enough. Checks

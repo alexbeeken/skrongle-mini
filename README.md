@@ -236,7 +236,7 @@ scripts/deploy-all.sh pi                         # name the target (add --skip-t
 `deploy/deploy.env.example` documents every setting next to its field: the
 Pi's ssh host and key path and its public URL. The example file holds placeholders
 and paths and is safe to commit. Any setting may instead be exported from
-your shell (`export PI_HOST=... ` in `~/.zshrc`, say); a variable set in the
+your shell; a variable set in the
 environment overrides the same one in the file, and `scripts/release.sh` runs
 with no file at all.
 

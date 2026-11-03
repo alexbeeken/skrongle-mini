@@ -21,11 +21,10 @@ runs:
   steps:
     - uses: dtolnay/rust-toolchain@stable
     - uses: Swatinem/rust-cache@v2
-      if: runner.environment == 'github-hosted'
     - uses: actions/setup-node@v4
       with:
         node-version: 24
-        cache: ${{ runner.environment == 'github-hosted' && 'npm' || '' }}
+        cache: npm
         cache-dependency-path: e2e/package-lock.json
 
     - name: Install the browser test tools
@@ -33,9 +32,7 @@ runs:
       working-directory: e2e
       run: |
         npm ci --no-fund --no-audit
-        # The laptop runner image has Chromium and its libraries baked in
-        # (ci/runner/Dockerfile), so this finds them; hosted runners install.
-        npx playwright install ${{ runner.environment == 'github-hosted' && '--with-deps' || '' }} chromium
+        npx playwright install --with-deps chromium
 
     - name: Type-check the specs, unit-test their helpers
       if: inputs.ts-checks == 'true'
