@@ -1,6 +1,6 @@
 use super::*;
 
-/// The session of the dev user every `state` has (a developer; the dev
+/// The session of the dev user every `state` has (an owner; the dev
 /// mailbox itself needs no sign-in).
 const DEV_TOKEN: &str = "d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0";
 
@@ -9,7 +9,7 @@ fn state(dev: bool) -> Arc<AppState> {
     s.db.with(|c| {
         let id = crate::auth::create_user(c, dev::DEV_EMAIL, "x")?;
         crate::terms::accept(c, id, crate::terms::version())?;
-        dev::set_developer(c, id)?;
+        crate::owner::make_owner(c, id)?;
         c.execute(
             "INSERT INTO sessions (user_id, session_token, created_at, expires_at) VALUES (?1, ?2, ?3, ?4)",
             rusqlite::params![id, crate::auth::hash_token(DEV_TOKEN), crate::db::now(), crate::db::now() + 3600],
@@ -20,7 +20,7 @@ fn state(dev: bool) -> Arc<AppState> {
     s
 }
 
-/// An HTTP client signed in as that developer.
+/// An HTTP client signed in as that owner.
 fn dev_agent(redirects: bool) -> ureq::Agent {
     let cookie = format!("{}={DEV_TOKEN}", crate::auth::SESSION_COOKIE);
     let mut b = ureq::Agent::config_builder().http_status_as_error(false);

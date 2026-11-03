@@ -33,7 +33,7 @@ pub mod quiz;
 pub mod password;
 pub mod reset;
 pub mod shop;
-pub mod superuser;
+pub mod manage;
 pub mod terms;
 pub mod tutor;
 pub mod vocab;
@@ -254,14 +254,16 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/profile/two-factor/totp/confirm", post(profile::confirm_totp))
         .route("/profile/two-factor/totp/remove", post(profile::remove_totp))
         .route("/profile/two-factor/code", post(profile::send_confirm_code))
-        // superusers (404 for anyone else)
-        .route("/superuser", get(superuser::show))
-        .route("/superuser/reset-email-verification", post(superuser::reset_email_verification))
-        .route("/superuser/invites", post(superuser::make_invite))
-        .route("/superuser/invites/revoke", post(superuser::revoke_invite))
-        .route("/superuser/temp-password", post(superuser::set_temp_password))
-        .route("/superuser/two-factor-off", post(superuser::turn_off_two_factor))
-        .route("/superuser/terms-announce", post(superuser::announce_terms))
+        // owners (404 for anyone else); /superuser was its old address
+        .route("/superuser", get(|q: RawQuery| moved("/manage", q)))
+        .route("/manage", get(manage::show))
+        .route("/manage/make-owner", post(manage::make_owner))
+        .route("/manage/reset-email-verification", post(manage::reset_email_verification))
+        .route("/manage/invites", post(manage::make_invite))
+        .route("/manage/invites/revoke", post(manage::revoke_invite))
+        .route("/manage/temp-password", post(manage::set_temp_password))
+        .route("/manage/two-factor-off", post(manage::turn_off_two_factor))
+        .route("/manage/terms-announce", post(manage::announce_terms))
         // api
         .route("/api/answer", post(quiz::answer))
         .route("/api/lesson-check", post(quiz::lesson_check))

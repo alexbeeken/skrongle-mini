@@ -167,7 +167,7 @@ fn the_dev_mailbox_needs_no_sign_in_and_the_simulator_speaks_the_wire_protocols(
             for u in [a, d] {
                 crate::terms::accept(c, u, crate::terms::version())?;
             }
-            set_developer(c, d)?;
+            crate::owner::make_owner(c, d)?;
             Ok((crate::auth::create_session(c, a)?, crate::auth::create_session(c, d)?))
         })
         .unwrap();
@@ -255,12 +255,10 @@ fn seed_and_reset_the_dev_user() {
     let uid = ensure_user(&db).unwrap();
     let passed = db.with(|c| crate::progress::passed_ids(c, uid, &cid)).unwrap();
     assert_eq!(passed.len(), 2);
-    let developer = |c: &mut Connection| c.query_row("SELECT developer FROM users WHERE id = ?1", [uid], |r| r.get::<_, bool>(0));
-    assert!(db.with(developer).unwrap());
     let verified = db.with(|c| c.query_row("SELECT email_verified_at IS NOT NULL FROM users WHERE id = ?1", [uid], |r| r.get::<_, bool>(0))).unwrap();
     assert!(verified, "the dev user's address is confirmed: no red ! on its profile");
-    let superuser = db.with(|c| c.query_row("SELECT superuser FROM users WHERE id = ?1", [uid], |r| r.get::<_, bool>(0))).unwrap();
-    assert!(superuser, "the dev user sees the profile's Superuser section");
+    let owner = |c: &mut Connection| c.query_row("SELECT owner FROM users WHERE id = ?1", [uid], |r| r.get::<_, bool>(0));
+    assert!(db.with(owner).unwrap(), "the dev user sees the Manage Users page");
     // Seeding again adds nothing.
     seed(&db, &courses, None).unwrap();
     assert_eq!(db.with(|c| crate::progress::load_all(c, uid, &cid)).unwrap().len(), 3);
@@ -277,5 +275,5 @@ fn seed_and_reset_the_dev_user() {
         Ok(())
     })
     .unwrap();
-    assert!(db.with(developer).unwrap(), "a reset keeps the account a developer");
+    assert!(db.with(owner).unwrap(), "a reset keeps the account an owner");
 }

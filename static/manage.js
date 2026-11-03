@@ -1,4 +1,4 @@
-// The Superuser page (/superuser). A row's action button fills its confirm
+// The Manage Users page (/manage). A row's action button fills its confirm
 // dialog with the row's address (or a course's id and title, #1034) and
 // opens it, on top of the course's detail dialog when it comes from there;
 // [data-closes] or Escape closes a dialog; one the server rendered open ([data-open-on-load]: a temporary
@@ -17,7 +17,7 @@
     b.addEventListener("click", function () {
       var field = document.getElementById(b.dataset.copy);
       if (!field) return;
-      var done = function () { b.textContent = t("superuser.js.copied"); };
+      var done = function () { b.textContent = t("manage.js.copied"); };
       var select = function () { field.focus(); field.select(); };
       if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(field.value).then(done, select);
       else select();

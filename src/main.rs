@@ -388,7 +388,7 @@ Usage:
   skrongle reset-password <email>
                                give the account a temporary password, printed here; it must be changed at the next sign-in
   skrongle disable-2fa <email> turn the account's two-factor sign-in off
-  skrongle make-owner <email>  make the account a superuser (the Superuser page)
+  skrongle make-owner <email>  make the account an owner (the Manage Users page)
   skrongle --version           print the version
   skrongle --schema-version    print the database schema version this binary migrates to
 

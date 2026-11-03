@@ -11,7 +11,7 @@ nav:
   switch_course_now: "Kurs wechseln (jetzt {course})"
   account_menu_for: "Kontomenü für {name}"
   profile: Profileinstellungen
-  superuser: Superuser
+  manage: Benutzer verwalten
   documentation: Dokumentation
   docs: Doku
   login: Anmelden
@@ -681,9 +681,9 @@ profile:
     turn_off: Zwei-Faktor-Anmeldung ausschalten
     switch_to: "Zwei-Faktor-Anmeldung auf {method} umstellen"
     turn_on_by: "Zwei-Faktor-Anmeldung per {method} einschalten"
-superuser:
-  title: Superuser
-  about: "Aktionen für jedes Konto. Nur Superuser sehen diese Seite."
+manage:
+  title: Benutzer verwalten
+  about: "Aktionen für jedes Konto. Nur Eigentümer sehen diese Seite."
   open_inbox: Im Dev-Postfach öffnen
   email: E-Mail-Adresse
   reset_note: Markiert die Adresse des Kontos als unbestätigt und sendet einen neuen Bestätigungslink, wie bei der Registrierung.
@@ -715,6 +715,9 @@ superuser:
   two_factor_off_about: "Das Konto meldet sich nur mit dem Passwort an, bis es die Zwei-Faktor-Anmeldung wieder einschaltet. Eine dafür eingerichtete Authenticator-App wird entfernt."
   two_factor_off_confirm: "Ausschalten"
   two_factor_off_done: "Die Zwei-Faktor-Anmeldung ist für {email} ausgeschaltet."
+  make_owner: "Zum Eigentümer machen"
+  make_owner_about: "Das Konto wird ebenfalls Eigentümer: Es sieht „Benutzer verwalten“ im Kontomenü und kann jede Aktion auf dieser Seite ausführen. Das lässt sich hier nicht rückgängig machen."
+  make_owner_done: "{email} ist jetzt Eigentümer."
   terms_changed: "Die Bedingungen haben sich geändert."
   terms_title: "Kommende Änderung der Bedingungen"
   terms_send: "Ankündigung senden"
@@ -1325,7 +1328,7 @@ docs:
     done_html: 🎉 <strong>Fertig.</strong> Setz ein Lesezeichen.
     not_loading_html: 💡 <strong>Lädt nicht?</strong> Führe <code>hostname -I</code> auf dem Pi aus und nimm stattdessen diese Nummer, z. B. <code>http://192.168.1.42:8080</code>.
     yours_h2: Mach es zu deinem
-    yours_account_html: "<strong>Lade alle anderen ein</strong>, mit einem Link unter <em>Superuser</em> (im Kontomenü)."
+    yours_account_html: "<strong>Lade alle anderen ein</strong>, mit einem Link unter <em>Benutzer verwalten</em> (im Kontomenü)."
     yours_terms_html: "<strong>Trag deinen Namen in die Nutzungsbedingungen ein.</strong> Alle akzeptieren sie bei der Anmeldung. Bearbeite sie mit <code>sudo nano /etc/skrongle/terms.md</code>, dann <code>sudo systemctl restart skrongle</code>; alle akzeptieren den neuen Text bei ihrem nächsten Besuch."
     yours_course_html: <strong>Wähle einen Kurs.</strong> Spanisch ist eingebaut, oder erstell deinen eigenen.
     yours_ai_html: "<strong>Optional: KI-Tutor und Kursgenerator.</strong> Füge einen Anthropic-, OpenAI- oder Google-Schlüssel unter <em>Profileinstellungen → KI-API-Schlüssel</em> ein. Sie rechnen direkt mit dir ab."

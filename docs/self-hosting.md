@@ -281,16 +281,15 @@ to `invite`:
    sudo journalctl -u skrongle -g "Owner link" -o cat | tail -n 1
    ```
 
-   Open that link and register: the account is yours, the owner's. It is
-   a superuser, so its account menu (the picture, top right) has a
-   **Superuser** page. Without the
+   Open that link and register: the account is yours, the owner's. Its account menu (the picture, top right) has a
+   **Manage Users** page. Without the
    link, `/register` only says the server has no owner yet, so someone
    else on your network can't make the first account before you. Every
    restart makes a new link (the old one stops working) until the owner's
    account exists. The link starts with `SKRONGLE_PUBLIC_URL` when set, else
    `http://<hostname>.local:<port>`; if that address doesn't open, keep the
    part from `/register` and put the address you use in front.
-2. For everyone else, open **Superuser** and click
+2. For everyone else, open **Manage Users** and click
    **Make an invitation link**. Copy the link (it is shown only then) and
    send it to one person. It works once, for 7 days; **Revoke** takes back
    one nobody has used yet.
@@ -304,7 +303,7 @@ A Skrongle mini holds at most **8 accounts**: a household plus a couple of
 guests. This is a fixed number, not a setting, in every sign-up mode. Past
 it the register form, invitation links and the proxy sign-in's account
 creation all say "This Skrongle has all the accounts it can hold", and the
-Superuser page shows "8 of 8 accounts" and hides the invitation form. The
+Manage Users page shows "8 of 8 accounts" and hides the invitation form. The
 Pi Zero 2 W has little memory, and one known size is what lets the rest of
 the server (sessions, rate limits, connections) bound what it keeps. The
 other values of the setting:
@@ -312,19 +311,20 @@ other values of the setting:
 | `SKRONGLE_SIGNUP` | Who may register |
 |---|---|
 | `open` (unset) | Anyone who can reach the server. The hosted site runs this way. |
-| `invite` | The first account (the owner, a superuser, through the owner link in the log), then only through an invitation link. |
-| `closed` | The first account (the owner, a superuser, through the owner link in the log), then nobody. |
+| `invite` | The first account (the owner's, through the owner link in the log), then only through an invitation link. |
+| `closed` | The first account (the owner's, through the owner link in the log), then nobody. |
 
 Any other value stops the server at
 startup with a message naming it; the log says which mode is on. Existing
 accounts always sign in. A server that already has
-accounts when you turn `invite` on gets no new owner: make one a superuser
-with `make-owner` (below).
+accounts when you turn `invite` on gets no new owner: make one an owner
+with `make-owner` (below), or with **Make owner** on the Manage Users page.
 
 Someone forgot their password, or lost the phone their two-factor codes go
-to? On the **Superuser** page, each account has **Temporary
+to? On the **Manage Users** page, each account has **Temporary
 password** (a new password, shown to you once, that they must change at
-their next sign-in) and **Turn off two-factor**. No message is sent: give
+their next sign-in), **Turn off two-factor** and **Make owner** (another
+person who may do all this). No message is sent: give
 them the password yourself.
 
 ### If you lock yourself out
@@ -343,7 +343,7 @@ sudo SKRONGLE_DB=/var/lib/skrongle/learn.db /opt/skrongle/skrongle make-owner yo
 |---|---|
 | `reset-password <email>` | Prints a temporary password and signs the account out everywhere. Sign in with it; the app then asks for a new one before anything else. |
 | `disable-2fa <email>` | Turns two-factor sign-in off: the password alone signs in. Turn it on again in the profile. |
-| `make-owner <email>` | Makes the account a superuser: its account menu gets the **Superuser** page. |
+| `make-owner <email>` | Makes the account an owner: its account menu gets the **Manage Users** page. |
 | `help` | Lists the commands. |
 
 An address no account has changes nothing and says so. Any other first

@@ -1,6 +1,6 @@
 //! What the person who runs the server (the owner) does to an account
 //! without any message being sent (#635): a temporary password, two-factor
-//! turned off, the Superuser flag. The profile's Superuser section and the
+//! turned off, the owner flag. The Manage Users page and the
 //! binary's commands (`./spanish-learning reset-password <email>`, see
 //! [`command`]) both call these, the commands also when the owner is locked
 //! out of their own account.
@@ -55,9 +55,9 @@ pub fn disable_two_factor(conn: &Connection, user_id: i64) -> rusqlite::Result<(
     Ok(())
 }
 
-/// Make the account a superuser (the profile's Superuser section).
-pub fn make_superuser(conn: &Connection, user_id: i64) -> rusqlite::Result<()> {
-    conn.execute("UPDATE users SET superuser = 1 WHERE id = ?1", [user_id])?;
+/// Make the account an owner (the Manage Users page).
+pub fn make_owner(conn: &Connection, user_id: i64) -> rusqlite::Result<()> {
+    conn.execute("UPDATE users SET owner = 1 WHERE id = ?1", [user_id])?;
     Ok(())
 }
 
@@ -67,7 +67,7 @@ const HELP: &str = "\
 Commands (run beside the server or with it stopped; the database is SKRONGLE_DB, default learn.db):
   reset-password <email>   give the account a temporary password, printed here; it must be changed at the next sign-in
   disable-2fa <email>      turn the account's two-factor sign-in off
-  make-owner <email>       make the account a superuser (the profile's Superuser section)
+  make-owner <email>       make the account an owner (the Manage Users page)
   help                     this list
 Without a command the server starts.";
 
@@ -136,8 +136,8 @@ pub fn run(conn: &Connection, name: &str, email: &str) -> rusqlite::Result<Resul
             format!("Two-factor sign-in is off for {email}.")
         }
         "make-owner" => {
-            make_superuser(conn, id)?;
-            format!("{email} is a superuser: the profile shows the Superuser section.")
+            make_owner(conn, id)?;
+            format!("{email} is an owner: the account menu shows Manage Users.")
         }
         other => return Ok(Err(format!("unknown command {other:?}"))),
     }))
@@ -190,7 +190,7 @@ mod tests {
 
             // make-owner.
             run(c, "make-owner", "ann@example.org")?.unwrap();
-            assert!(c.query_row("SELECT superuser FROM users WHERE id = ?1", [ann], |r| r.get::<_, bool>(0))?);
+            assert!(c.query_row("SELECT owner FROM users WHERE id = ?1", [ann], |r| r.get::<_, bool>(0))?);
 
             // Nobody by that address.
             assert!(run(c, "make-owner", "nobody@example.org")?.is_err());

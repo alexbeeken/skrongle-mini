@@ -11,7 +11,7 @@ nav:
   switch_course_now: "Cambiar de curso (ahora {course})"
   account_menu_for: "Menú de la cuenta de {name}"
   profile: Ajustes del perfil
-  superuser: Superusuario
+  manage: Gestionar usuarios
   documentation: Documentación
   docs: Docs
   login: Iniciar sesión
@@ -731,7 +731,7 @@ docs:
     done_html: 🎉 <strong>Listo.</strong> Guárdalo en marcadores.
     not_loading_html: 💡 <strong>¿No carga?</strong> Ejecuta <code>hostname -I</code> en la Pi y usa ese número en su lugar, p. ej. <code>http://192.168.1.42:8080</code>.
     yours_h2: Hazlo tuyo
-    yours_account_html: "<strong>Invita a los demás</strong> con un enlace desde <em>Superusuario</em> (en el menú de la cuenta)."
+    yours_account_html: "<strong>Invita a los demás</strong> con un enlace desde <em>Gestionar usuarios</em> (en el menú de la cuenta)."
     yours_terms_html: "<strong>Pon tu nombre en los Términos.</strong> Todos los aceptan al registrarse. Edítalos con <code>sudo nano /etc/skrongle/terms.md</code> y luego <code>sudo systemctl restart skrongle</code>; todos aceptan el texto nuevo en su próxima visita."
     yours_course_html: <strong>Elige un curso.</strong> El de español viene incluido, o crea el tuyo.
     yours_ai_html: "<strong>Opcional: tutor de IA y generador de cursos.</strong> Pega una clave de Anthropic, OpenAI o Google en <em>Ajustes del perfil → Claves de API de IA</em>. Te facturan directamente."
@@ -1152,9 +1152,9 @@ profile:
     turn_off: Desactivar el inicio de sesión en dos pasos
     switch_to: "Cambiar el inicio de sesión en dos pasos a {method}"
     turn_on_by: "Activar la verificación en dos pasos por {method}"
-superuser:
-  title: Superusuario
-  about: "Acciones sobre cualquier cuenta. Solo los superusuarios ven esta página."
+manage:
+  title: Gestionar usuarios
+  about: "Acciones sobre cualquier cuenta. Solo los propietarios ven esta página."
   open_inbox: Abrirlo en la bandeja de entrada de desarrollo
   email: Dirección de correo electrónico
   reset_note: Marca la dirección de la cuenta como no confirmada y envía un nuevo enlace de confirmación, como al registrarse.
@@ -1186,6 +1186,9 @@ superuser:
   two_factor_off_about: "La cuenta inicia sesión solo con su contraseña hasta que vuelva a activar la verificación en dos pasos. Se quita la app de autenticación configurada."
   two_factor_off_confirm: "Desactivarla"
   two_factor_off_done: "La verificación en dos pasos está desactivada para {email}."
+  make_owner: "Hacer propietario"
+  make_owner_about: "La cuenta pasa a ser propietaria también: ve Gestionar usuarios en el menú de la cuenta y puede hacer todo lo de esta página. Aquí no se puede deshacer."
+  make_owner_done: "{email} ya es propietario."
   terms_changed: "Los términos han cambiado."
   terms_title: "Próximo cambio de los términos"
   terms_send: "Enviar el aviso"

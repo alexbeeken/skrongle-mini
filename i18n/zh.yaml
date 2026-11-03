@@ -11,7 +11,7 @@ nav:
   switch_course_now: "切换课程（当前：{course}）"
   account_menu_for: "{name} 的账户菜单"
   profile: 个人资料设置
-  superuser: 超级用户
+  manage: 管理用户
   documentation: 文档
   docs: 文档
   login: 登录
@@ -681,9 +681,9 @@ profile:
     turn_off: 关闭两步登录验证
     switch_to: "将两步登录验证切换为{method}"
     turn_on_by: "通过{method}开启两步验证"
-superuser:
-  title: 超级用户
-  about: "对任何账户的操作。只有超级用户能看到此页面。"
+manage:
+  title: 管理用户
+  about: "对任何账户的操作。只有所有者能看到此页面。"
   open_inbox: 在开发收件箱中打开
   email: 电子邮箱地址
   reset_note: 将该账户的邮箱标记为未确认，并像注册时一样发送新的确认链接。
@@ -715,6 +715,9 @@ superuser:
   two_factor_off_about: "在重新开启两步验证之前，该账户只凭密码登录。为其设置的身份验证器应用会被移除。"
   two_factor_off_confirm: "关闭"
   two_factor_off_done: "{email} 的两步验证已关闭。"
+  make_owner: "设为所有者"
+  make_owner_about: "该账户也成为所有者：账户菜单中会出现“管理用户”，并能执行此页面上的所有操作。此处无法撤销。"
+  make_owner_done: "{email} 现在是所有者。"
   terms_changed: "条款已更改。"
   terms_title: "即将生效的条款变更"
   terms_send: "发送通知"
@@ -1325,7 +1328,7 @@ docs:
     done_html: 🎉 <strong>完成。</strong>把它加入书签。
     not_loading_html: 💡 <strong>无法加载？</strong>在树莓派上运行 <code>hostname -I</code>，然后改用显示的数字，例如 <code>http://192.168.1.42:8080</code>。
     yours_h2: 个性化设置
-    yours_account_html: "在账户菜单的<em>超级用户</em>页面中用链接<strong>邀请其他人</strong>。"
+    yours_account_html: "在账户菜单的<em>管理用户</em>页面中用链接<strong>邀请其他人</strong>。"
     yours_terms_html: "<strong>在服务条款中写上你的名字。</strong>每个人注册时都会接受它。用 <code>sudo nano /etc/skrongle/terms.md</code> 编辑，然后运行 <code>sudo systemctl restart skrongle</code>；每个人下次访问时都会接受新文本。"
     yours_course_html: <strong>选择一门课程。</strong>西班牙语已内置，也可以自己制作。
     yours_ai_html: "<strong>可选：AI 导师和课程生成器。</strong>在<em>个人设置 → AI API 密钥</em>中粘贴 Anthropic、OpenAI 或 Google 的密钥。费用由它们直接向你收取。"

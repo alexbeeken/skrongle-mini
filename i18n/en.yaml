@@ -13,7 +13,7 @@ nav:
   switch_course_now: "Switch course (now {course})"
   account_menu_for: "Account menu for {name}"
   profile: Profile settings
-  superuser: Superuser
+  manage: Manage Users
   documentation: Documentation
   docs: Docs
   login: Log in
@@ -686,9 +686,9 @@ profile:
     turn_off: Turn two-factor sign-in off
     switch_to: "Switch two-factor sign-in to {method}"
     turn_on_by: "Turn on two-factor sign-in by {method}"
-superuser:
-  title: Superuser
-  about: "Actions on any account. Only superusers see this page."
+manage:
+  title: Manage Users
+  about: "Actions on any account. Only owners see this page."
   open_inbox: Open it in the dev inbox
   email: E-mail address
   reset_note: Marks the account's address unconfirmed and sends a new confirmation link, as at registration.
@@ -720,6 +720,9 @@ superuser:
   two_factor_off_about: "The account signs in with its password alone until it turns two-factor on again. An authenticator app set up for it is removed."
   two_factor_off_confirm: "Turn it off"
   two_factor_off_done: "Two-factor sign-in is off for {email}."
+  make_owner: "Make owner"
+  make_owner_about: "The account becomes an owner too: it sees Manage Users in its account menu and can take every action on this page. It cannot be undone here."
+  make_owner_done: "{email} is an owner now."
   terms_changed: "The terms have changed."
   terms_title: "Coming change to the terms"
   terms_send: "Send the announcement"
@@ -1331,7 +1334,7 @@ docs:
     done_html: 🎉 <strong>Done.</strong> Bookmark it.
     not_loading_html: 💡 <strong>Not loading?</strong> Run <code>hostname -I</code> on the Pi and use that number instead, e.g. <code>http://192.168.1.42:8080</code>.
     yours_h2: Make it yours
-    yours_account_html: "<strong>Invite everyone else</strong> with a link from <em>Superuser</em> (in the account menu)."
+    yours_account_html: "<strong>Invite everyone else</strong> with a link from <em>Manage Users</em> (in the account menu)."
     yours_terms_html: "<strong>Put your name in the Terms.</strong> Everyone accepts them when they sign up. Edit them with <code>sudo nano /etc/skrongle/terms.md</code>, then <code>sudo systemctl restart skrongle</code>; everyone accepts the new text at their next visit."
     yours_course_html: <strong>Pick a course.</strong> Spanish is built in, or make your own.
     yours_ai_html: "<strong>Optional: AI tutor and course generator.</strong> Paste an Anthropic, OpenAI or Google key in <em>Profile settings → AI API keys</em>. They bill you directly."

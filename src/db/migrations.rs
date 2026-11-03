@@ -1485,6 +1485,13 @@ pub(crate) const MIGRATIONS: &[&str] = &[
     DROP INDEX idx_lesson_touches_course_at;
     DROP INDEX idx_earnings_course_day;
     ",
+    // v98 (#16): one `owner` flag replaces `superuser` and `developer`: the
+    // person who runs the server sees Manage Users (src/routes/manage.rs).
+    // The old columns stay, unread, until the schema squash drops them.
+    "
+    ALTER TABLE users ADD COLUMN owner INTEGER NOT NULL DEFAULT 0;
+    UPDATE users SET owner = 1 WHERE superuser = 1 OR developer = 1;
+    ",
 ];
 
 /// Migrations (1-based versions) that rebuild a table other tables point at:

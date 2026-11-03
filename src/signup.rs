@@ -2,12 +2,12 @@
 //!
 //! - `open` (the default): anyone who reaches the server may register, as
 //!   on the hosted site.
-//! - `invite`: only through an invitation link a superuser made on the
-//!   profile (Superuser → Accounts). A link works once, for 7 days.
+//! - `invite`: only through an invitation link an owner made on the
+//!   profile (Manage Users). A link works once, for 7 days.
 //! - `closed`: nobody.
 //!
 //! In `invite` and `closed` mode the first account is the owner's (the
-//! person who runs the server) and becomes a superuser. It is made only
+//! person who runs the server) and becomes an owner. It is made only
 //! through the owner's link: while the server has no account, every start
 //! makes a new one and writes it to the log ([`owner_link`]), so only
 //! someone who can read the server's log can claim the server. Whoever
@@ -186,7 +186,7 @@ pub fn admit(conn: &Connection, mode: Mode, invite: &str, _email: Option<&str>, 
 }
 
 /// After the account `user_id` was made on `admit`'s word, in the same
-/// transaction: the link is used up, and the owner becomes a superuser
+/// transaction: the link is used up, and the owner's account gets the owner flag
 /// (only while it is the one account).
 /// `false` when the link was used meanwhile, an e-mailed one names another
 /// address, or another account came first: the caller rolls back.
@@ -201,7 +201,7 @@ pub fn finish(conn: &Connection, admitted: Admit, user_id: i64, now: i64) -> rus
     };
     let ok = match admitted {
         Admit::Open => true,
-        Admit::Owner(id) => use_up(id)? && conn.execute("UPDATE users SET superuser = 1 WHERE id = ?1 AND (SELECT COUNT(*) FROM users) = 1", [user_id])? == 1,
+        Admit::Owner(id) => use_up(id)? && conn.execute("UPDATE users SET owner = 1 WHERE id = ?1 AND (SELECT COUNT(*) FROM users) = 1", [user_id])? == 1,
         Admit::Invited(id) => use_up(id)?,
     };
     Ok(ok)
@@ -281,24 +281,24 @@ pub fn purge(conn: &Connection, now: i64) -> rusqlite::Result<usize> {
     conn.execute("DELETE FROM signup_invites WHERE expires_at < ?1", [now - 30 * 86_400])
 }
 
-/// One account, for the Superuser section's list.
+/// One account, for the Manage Users page's list.
 #[derive(Debug, Clone)]
 pub struct Account {
     pub email: String,
     pub created_at: i64,
     /// The newest session still on record (sessions last 30 days), if any.
     pub last_sign_in: Option<i64>,
-    pub superuser: bool,
+    pub owner: bool,
 }
 
 /// Every account, newest first. The server holds at most
 /// `caps::MAX_ACCOUNTS`, so there is no paging.
 pub fn accounts(conn: &Connection) -> rusqlite::Result<Vec<Account>> {
     let mut stmt = conn.prepare_cached(
-        "SELECT COALESCE(u.email, ''), u.created_at, (SELECT MAX(s.created_at) FROM sessions s WHERE s.user_id = u.id), u.superuser
+        "SELECT COALESCE(u.email, ''), u.created_at, (SELECT MAX(s.created_at) FROM sessions s WHERE s.user_id = u.id), u.owner
          FROM users u ORDER BY u.created_at DESC, u.id DESC",
     )?;
-    let rows = stmt.query_map([], |r| Ok(Account { email: r.get(0)?, created_at: r.get(1)?, last_sign_in: r.get(2)?, superuser: r.get(3)? }))?;
+    let rows = stmt.query_map([], |r| Ok(Account { email: r.get(0)?, created_at: r.get(1)?, last_sign_in: r.get(2)?, owner: r.get(3)? }))?;
     rows.collect()
 }
 
@@ -320,8 +320,8 @@ mod tests {
     }
 
     /// In `invite` and `closed` mode the first account is the owner's, and
-    /// only through the owner's link; the next is not. `open` never makes a
-    /// superuser, nor an owner's link.
+    /// only through the owner's link; the next is not. `open` never makes an
+    /// owner, nor an owner's link.
     #[test]
     fn the_first_account_is_the_owner() {
         for mode in [Mode::Invite, Mode::Closed] {
@@ -337,8 +337,8 @@ mod tests {
                 assert!(open_invites(c, 2)?.is_empty(), "the owner's link is not listed");
                 let id = crate::auth::create_user(c, "owner@example.org", "h")?;
                 assert!(finish(c, a, id, 2)?);
-                let su: bool = c.query_row("SELECT superuser FROM users WHERE id = ?1", [id], |r| r.get(0))?;
-                assert!(su, "{mode:?}: the first account is a superuser");
+                let su: bool = c.query_row("SELECT owner FROM users WHERE id = ?1", [id], |r| r.get(0))?;
+                assert!(su, "{mode:?}: the first account is an owner");
                 assert_eq!(admit(c, mode, "", None, 2, false)?, Err(Refusal::Closed));
                 assert_ne!(admit(c, mode, &token, None, 2, false)?, Ok(a), "the owner's link is used up");
                 assert!(!finish(c, a, id, 3)?, "and can't be used again");
@@ -355,7 +355,7 @@ mod tests {
             crate::auth::create_user(c, "a@example.org", "h")?;
             let second = crate::auth::create_user(c, "b@example.org", "h")?;
             assert!(!finish(c, a, second, 1)?, "not the one account: refused");
-            let su: i64 = c.query_row("SELECT COUNT(*) FROM users WHERE superuser = 1", [], |r| r.get(0))?;
+            let su: i64 = c.query_row("SELECT COUNT(*) FROM users WHERE owner = 1", [], |r| r.get(0))?;
             assert_eq!(su, 0);
             Ok(())
         })
@@ -374,7 +374,7 @@ mod tests {
             assert_eq!(admit(c, Mode::Open, "", None, 1, false)?, Ok(Admit::Open));
             let id = crate::auth::create_user(c, "a@example.org", "h")?;
             finish(c, Admit::Open, id, 1)?;
-            let su: bool = c.query_row("SELECT superuser FROM users WHERE id = ?1", [id], |r| r.get(0))?;
+            let su: bool = c.query_row("SELECT owner FROM users WHERE id = ?1", [id], |r| r.get(0))?;
             assert!(!su, "open mode: the first account is an ordinary one");
             Ok(())
         })
@@ -456,8 +456,8 @@ mod tests {
             assert!(!finish(c, a, ann, t0 + 61)?, "a second use is refused");
             assert_eq!(admit(c, Mode::Invite, &token, None, t0 + 120, false)?, Err(Refusal::Used));
             assert!(open_invites(c, t0)?.is_empty());
-            let su: bool = c.query_row("SELECT superuser FROM users WHERE id = ?1", [ann], |r| r.get(0))?;
-            assert!(!su, "an invited account is not a superuser");
+            let su: bool = c.query_row("SELECT owner FROM users WHERE id = ?1", [ann], |r| r.get(0))?;
+            assert!(!su, "an invited account is not an owner");
 
             let late = make(c, owner, t0)?;
             assert!(matches!(admit(c, Mode::Invite, &late, None, t0 + INVITE_TTL_SECS - 1, false)?, Ok(Admit::Invited(_))));

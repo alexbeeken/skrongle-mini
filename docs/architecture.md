@@ -49,7 +49,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 - Two-factor: `two_factor.rs`, `totp.rs`.
 - Profile: `profile.rs`, `routes/profile.rs`, `static/profile.js`, `static/autosave.js`; keys in `secrets.rs`.
 - Data rights: `privacy.rs` (export columns, deletion), `consent.rs` (optional consents for the Privacy and consent card), `account_deletion.rs` and `routes/account_deletion.rs` (deleting an account after 14 days, #970).
-- Terms: `terms.rs`, `routes/terms.rs`. Owner and superuser: `owner.rs`, `routes/superuser.rs`, `routes/password.rs` (temporary password gate).
+- Terms: `terms.rs`, `routes/terms.rs`. Owner: `owner.rs`, `routes/manage.rs`, `routes/password.rs` (temporary password gate).
 - Docs pages: `routes/docs.rs` (`/docs` sidebar `SECTIONS`, `/llms.txt`).
 
 ### Dev mode only
@@ -89,7 +89,7 @@ src/
   mail/sink.rs   the dev mailbox: an SMTP server on 127.0.0.1 that keeps what it receives in memory, decoded (/dev/inbox)
   mail/brevo.rs  the `brevo` kind: Brevo's transactional HTTP API, response → Rejected/Unavailable, idempotency key per outbox row
   proxy_auth.rs  sign-in through a reverse proxy's identity header (SKRONGLE_PROXY_AUTH_HEADER / _FROM, #642): a middleware before every handler
-  signup.rs      who may make an account (SKRONGLE_SIGNUP: open / invite / closed, #634): the first account is the owner, through the owner link written to the log at startup, invitation links (table signup_invites, the token hashed), the Superuser page's Accounts part and invitation links (routes/superuser.rs)
+  signup.rs      who may make an account (SKRONGLE_SIGNUP: open / invite / closed, #634): the first account is the owner, through the owner link written to the log at startup, invitation links (table signup_invites, the token hashed), the Manage Users page's Accounts part and invitation links (routes/manage.rs)
 
   account_deletion.rs  the learner's own account deletion after 14 days of grace (#970): users.delete_at, signing out, the dated mail, the housekeeping step that deletes due accounts
   shape.rs       the two shapes (#578): SKRONGLE_MINI=1 is Skrongle mini, unset is the hosted site; read once at startup (shape::current, crate::is_mini); in a mini crate::env reads the hosted-only settings (HOSTED_ONLY: mail, SMS, Google, S3) as unset
@@ -98,7 +98,7 @@ src/
   reset.rs       password reset links (table password_resets, SHA-256 only, 1 h, single use), the "you already have an account" message, which unconfirmed accounts a registration replaces (SKRONGLE_UNCONFIRMED_DAYS)
   totp.rs        time-based one-time passwords: RFC 6238 TOTP over RFC 4226 HOTP (SHA-1 written out, SHA-256/512 via sha2), base32, the otpauth://totp/ Key Uri Format and its QR code as inline SVG (the qrcode crate, no image feature); the dev authenticator (/dev/authenticator) reads its keys with it
   two_factor.rs  two-factor sign-in: the method in use, the authenticator app's enrolment, sign-in challenges, the proof for turning it off (tables totp_keys, two_factor_challenges, two_factor_confirmations)
-  terms.rs       Terms of Service: the source (built-in text or SKRONGLE_TERMS file), the built-in changelog (docs/terms-changes.json) and the version in effect, the notice of a newer version (minor or material), acceptances, the 30-day e-mail of a material change, sent from /superuser (table terms_announcements)
+  terms.rs       Terms of Service: the source (built-in text or SKRONGLE_TERMS file), the built-in changelog (docs/terms-changes.json) and the version in effect, the notice of a newer version (minor or material), acceptances, the 30-day e-mail of a material change, sent from /manage (table terms_announcements)
   profile.rs     user profiles: name/e-mail validation, profile persistence
   secrets.rs     learners' AI API keys: master secret, ChaCha20-Poly1305 sealing, per-user storage
   prices.rs      the price table behind the Generate dialog's cost estimate (SKRONGLE_AI_PRICES)
@@ -114,7 +114,7 @@ src/
   progress.rs    lesson passes shared by every mode: the rule (seen + a run of >= 70 %), the RULES text for tutors and agents, table lesson_passes
   quiz.rs        adaptive question selection, answer normalisation/checking, tiny PRNG
   problems.rs    what the editor and the file page say when a course file is refused: kind, lesson, field, line, message, fix hint (every ContentError and arrange.rs refusal)
-  owner.rs       what the owner does to an account with no message sent (#635): a temporary password (users.must_change_password), two-factor off, make a superuser; the binary's commands (reset-password, disable-2fa, make-owner, help)
+  owner.rs       what the owner does to an account with no message sent (#635): a temporary password (users.must_change_password), two-factor off, make an owner; the binary's commands (reset-password, disable-2fa, make-owner, help)
   privacy.rs     a learner's data as a whole: USER_TABLES, account deletion, retention rules, the age confirmation (docs/data-inventory.md)
   jobs.rs        background jobs (table jobs, #872): enqueue, the one-statement claim with a lease, retries with per-kind delays, periodic kinds that queue their next run; the `jobs` runner thread, which also drains the mail and text outboxes with a lease (#873); the hourly housekeeping as one job with a step per purge
   mathcheck.rs   numeric and expression answers: a small parser/evaluator, numbers in every spelling, equivalence by sampling
@@ -157,7 +157,7 @@ src/
     terms.rs     /terms, /terms.md (public), /terms/accept (the gate for accounts without the current version, and the notice's accept form), /terms/dismiss (closes a minor change's notice)
     account_deletion.rs  /account/deletion (the only page of an account scheduled for deletion: its date, Cancel deletion, Log out)
     password.rs  /password/change (the gate after signing in with a temporary password: the new one twice, no old one)
-    superuser.rs /superuser (superusers only, 404 otherwise: every account on one page with Temporary password, Turn off two-factor and Reset email verification per row; invitation links under SKRONGLE_SIGNUP=invite; while a material terms change is coming, a notice and Send the announcement), POST /superuser/reset-email-verification|invites|invites/revoke|temp-password|two-factor-off|terms-announce
+    manage.rs    /manage, the Manage Users page (owners only, 404 otherwise; /superuser redirects here): every account on one page with Temporary password, Turn off two-factor, Make owner and Reset email verification per row; invitation links under SKRONGLE_SIGNUP=invite; while a material terms change is coming, a notice and Send the announcement. POST /manage/make-owner|reset-email-verification|invites|invites/revoke|temp-password|two-factor-off|terms-announce
     profile.rs   /profile (personal information, account, AI API keys), POST /api/profile (autosave), POST /profile/password|api-keys…|verify-email/resend, POST /profile/delete
     pages.rs     / (landing for visitors, home: the three modes) /lessons /lessons/{slug} /history /mistakes, POST /api/lessons/{slug}/note (the lesson note, autosave)
     map.rs       /map
@@ -306,7 +306,7 @@ session JSON, never hard-coded.
 users          (id AUTOINCREMENT, password_hash, created_at, google_sub UNIQUE, email,
                 active_course, first_name, last_name, avatar, avatar_color, age_confirmed, developer, ai_off,
                 email_verified_at, superuser, phone, phone_verified_at, two_factor, lang, billing_ref UNIQUE, stripe_customer,
-                must_change_password, suspended_at, beta)
+                must_change_password, suspended_at, beta, owner)
                 -- id is never reused after a deletion (AUTOINCREMENT since v45, #364);
                 -- billing_ref: random per account, what Stripe's subscription metadata names (never the id);
                 -- stripe_customer: the one Stripe customer every Checkout of the account shares (#394);
@@ -316,9 +316,9 @@ users          (id AUTOINCREMENT, password_hash, created_at, google_sub UNIQUE, 
                 -- email_verified_at: when the address was confirmed (link), NULL = not yet;
                 -- avatar, avatar_color: the profile picture and its background, no longer read (the pictures are gone; the columns wait for the schema squash);
                 -- lang the language the app speaks to this account in (i18n/<code>.yaml, v42), '' = the browser's;
-                -- developer 1 marks a developer account (set by hand or the dev seed); nothing reads it since #298
+                -- developer and superuser: the two old flags, merged into owner by v98 (#16); nothing reads them, they wait for the schema squash
                 -- ai_off 1 hides every feature that calls an AI provider and makes its routes refuse (#147)
-                -- superuser 1 opens /superuser and links it from the account menu (by hand, make-owner, or the first account under SKRONGLE_SIGNUP=invite|closed; the dev user in dev mode)
+                -- owner 1 opens /manage and links it from the account menu (by hand, make-owner, or the first account under SKRONGLE_SIGNUP=invite|closed; the dev user in dev mode)
                 -- phone: E.164 or ''; phone_verified_at: when a texted code confirmed it (v39);
                 -- phone_opted_out_at: a provider refused a text to it as opted out (STOP, v69, #969);
                 -- cleared when a text to it goes through or the number changes; codes go by e-mail meanwhile
@@ -464,7 +464,7 @@ ai_spend_days  (day PRIMARY KEY, cost_micros)
 blocked_ips    (id, cidr UNIQUE, created_at)
                 -- unused: the content check and moderation are gone (#9); the table goes with the schema squash (#2)
 privacy_actions (id, superuser_id, action, reason, created_at)
-                -- the privacy log on /superuser (v85, #981): export | forget | delete-account | sign-out | notice with the reason typed; no learner named
+                -- the privacy log on /manage (v85, #981): export | forget | delete-account | sign-out | notice with the reason typed; no learner named
 breach_notices (user_id, notice, mailed_at)  PRIMARY KEY (user_id, notice)
                 -- who had which breach notice (v91, #1068); notice = SHA-256 of subject and body, so Send again mails nobody twice
 ai_credit_purchases (session_id PRIMARY KEY, user_id, payment_intent, price_id, amount_cents, credit_micros,
@@ -580,7 +580,7 @@ The binary takes an optional first argument, read in `main` before the
 config or the server (`owner::command`, #635): `reset-password <email>`
 (prints a temporary password, sets `must_change_password`, ends the
 account's sessions), `disable-2fa <email>`, `make-owner <email>` (sets
-`superuser = 1`) and `help`. They open `SKRONGLE_DB` like the server does
+`owner = 1`) and `help`. They open `SKRONGLE_DB` like the server does
 (migrations included) and change it directly, so they work while the server
 runs (SQLite WAL, `busy_timeout`) or with it stopped, and send nothing; a
 SKRONGLE_DB with no file there is refused rather than created. An
@@ -623,7 +623,7 @@ posture are in `docs/self-hosting.md`, "Skrongle mini".
 | Variable | Default | Meaning |
 |---|---|---|
 | `SKRONGLE_BIND` | `0.0.0.0:8080` | Listen address; a bare port (`9000`) means every interface. A value that doesn't parse stops the server |
-| `SKRONGLE_SIGNUP` | `open` (*mini:* `invite`) | Who may make an account (`src/signup.rs`, #634): `open` (anyone), `invite` (only through a link a superuser makes on `/superuser`) or `closed`. Under `invite` and `closed` the first account on a server with none is made only through the owner link the server logs at startup (a new one each start), and is made a superuser. Read as is, with no older spelling; any other value stops startup. `deploy/skrongle.service` sets `invite`, `deploy/aws` nothing |
+| `SKRONGLE_SIGNUP` | `open` (*mini:* `invite`) | Who may make an account (`src/signup.rs`, #634): `open` (anyone), `invite` (only through a link an owner makes on `/manage`) or `closed`. Under `invite` and `closed` the first account on a server with none is made only through the owner link the server logs at startup (a new one each start), and is made an owner. Read as is, with no older spelling; any other value stops startup. `deploy/skrongle.service` sets `invite`, `deploy/aws` nothing |
 | `SKRONGLE_PROXY_AUTH_HEADER`, `SKRONGLE_PROXY_AUTH_FROM` | unset | Sign-in by a reverse proxy (`src/proxy_auth.rs`, #642): the header holding the person's e-mail address, and the proxy's addresses (IPs or CIDRs, comma-separated) it is trusted from, judged by the TCP peer, never `X-Forwarded-For`. Both or neither (one alone stops startup). A trusted request with the header is signed in without password, two-factor or rate limit; an unknown address follows `SKRONGLE_SIGNUP` (`open` makes a password-less account with its address confirmed). `/login` and `/register` only say the proxy signs in. Read as is, no older spelling. Skrongle mini only: the hosted server refuses to start with either set |
 | `SKRONGLE_DATA_DIR` | `data` | Directory containing `courses/` |
 | `SKRONGLE_DB` | `learn.db` | SQLite file (WAL + SHM files are created next to it) |

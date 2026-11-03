@@ -399,7 +399,7 @@ input[type="file"] { max-width: 100%; }
 .table-scroll { overflow-x: auto; max-width: 100%; }
 .table-scroll > table.small { border-collapse: collapse; }
 .table-scroll > table.small th, .table-scroll > table.small td { text-align: left; padding: .5rem 1.2rem .5rem 0; border-bottom: 1px solid var(--line); white-space: nowrap; vertical-align: middle; }
-.superuser table td, .superuser table th { white-space: nowrap; }
+.manage table td, .manage table th { white-space: nowrap; }
 .account-actions { display: flex; flex-wrap: wrap; gap: .25rem .75rem; }
 .pager { display: flex; gap: 1rem; align-items: center; justify-content: center; margin-top: .75rem; }
 .invite-link { display: flex; gap: .5rem; align-items: center; }
@@ -1937,7 +1937,7 @@ button.le-check.warn { background: #e8a317; color: #2e1f00; } button.le-check.ba
   .le-phone { border-width: 1px; border-color: var(--line); border-radius: 12px; box-shadow: none; width: auto; min-height: 0; }
 }
 
-/* Content reports (#968): the report form's reasons, the Superuser page's report rows. */
+/* Content reports (#968): the report form's reasons, the Manage Users page's report rows. */
 .content-report-fields { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: .1rem .8rem; margin: .3rem 0; }
 .content-report-fields dd { margin: 0; overflow-wrap: anywhere; }
 .content-report-details { white-space: pre-wrap; overflow-wrap: anywhere; }
@@ -1982,5 +1982,5 @@ dialog.modal.stat-modal { width: min(480px, calc(100vw - 2rem)); }
 .stat-unit-bar i { position: absolute; inset: 0 auto 0 0; border-radius: 999px; background: color-mix(in srgb, var(--gold) 55%, var(--line)); }
 .stat-unit-n { text-align: end; color: var(--muted); font-variant-numeric: tabular-nums; }
 
-/* The superuser's course table (#1034): search row, flag state pills, the detail dialog. */
+/* The owner's course table (#1034): search row, flag state pills, the detail dialog. */
 .modal-actions.pager { align-items: center; }

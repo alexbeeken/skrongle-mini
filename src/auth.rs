@@ -147,9 +147,9 @@ pub struct CurrentUser {
     /// the `CurrentUser` extractor sends every page to `/account/deletion`,
     /// whose one action is to cancel it.
     pub delete_at: Option<i64>,
-    /// `users.superuser`: sees the profile's Superuser section, whose actions
+    /// `users.owner`: sees the Manage Users page, whose actions
     /// reach any account. Set by hand (and on the dev user in dev mode).
-    pub superuser: bool,
+    pub owner: bool,
     /// `users.ai_off`: "Hide all AI features" (profile, or the box at
     /// sign-up). Pages hide the tutor, course generation and AI revisions,
     /// and their routes refuse through `require_ai`.
@@ -180,7 +180,7 @@ impl CurrentUser {
             terms_notice: None,
             must_change_password: false,
             delete_at: None,
-            superuser: false,
+            owner: false,
             ai_off: false,
             lang: String::new(),
             tz: 0,
@@ -322,7 +322,7 @@ pub fn user_for_session(conn: &Connection, token: &str) -> rusqlite::Result<Opti
 /// The session query: every table it reads must be in `cache::WATCHED`.
 fn session_sql() -> String {
     format!(
-        "SELECT u.id, COALESCE(u.email, ''), u.active_course, c.title, u.first_name, u.last_name, NULL, NULL, {}, u.ai_off, u.email_verified_at IS NOT NULL, u.superuser,
+        "SELECT u.id, COALESCE(u.email, ''), u.active_course, c.title, u.first_name, u.last_name, NULL, NULL, {}, u.ai_off, u.email_verified_at IS NOT NULL, u.owner,
                 COALESCE(p.start_unit, ''), NULL, u.lang, c.owner_id, u.must_change_password,
                 (SELECT version FROM terms_acceptances WHERE user_id = u.id ORDER BY accepted_at DESC, rowid DESC LIMIT 1), u.delete_at, s.expires_at
          FROM sessions s JOIN users u ON u.id = s.user_id LEFT JOIN courses c ON c.id = u.active_course
@@ -355,7 +355,7 @@ fn read_session(conn: &Connection, hash: &str, now: i64) -> rusqlite::Result<Opt
                 delete_at: r.get(18)?,
                 ai_off: r.get(9)?,
                 email_verified: r.get(10)?,
-                superuser: r.get(11)?,
+                owner: r.get(11)?,
                 start_unit: r.get(12)?,
                 lang: r.get(14)?,
                 tz: 0,

@@ -70,7 +70,7 @@ pub const USER_TABLES: &[(&str, &str)] = &[
 /// `user_id` to NULL instead (`ON DELETE SET NULL`). `sms_sends` is
 /// the leftover texts' rate-limit ledger; its table goes with the schema
 /// squash. `privacy_actions` is the log of privacy requests
-/// answered (#981): a superuser's rows stay, without their id.
+/// answered (#981): an owner's rows stay, without their id.
 #[cfg_attr(not(test), allow(dead_code))]
 pub const KEPT_ON_DELETE: &[&str] = &["sms_sends", "privacy_actions"];
 

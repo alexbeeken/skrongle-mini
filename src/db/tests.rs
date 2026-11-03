@@ -638,3 +638,24 @@ fn the_social_removal_migration_puts_its_wearers_back_on_the_default() {
     assert_eq!(col("SELECT motivator FROM users ORDER BY id"), ["", "xp"]);
     assert_eq!(col("SELECT motivator FROM projects ORDER BY user_id, course_id"), ["", "skc", "xp"]);
 }
+
+/// #16: one `owner` flag, set for every account that had either of the two
+/// old flags; the old columns stay until the schema squash.
+#[test]
+fn the_owner_migration_merges_the_old_flags() {
+    let v = MIGRATIONS.iter().position(|m| m.contains("ADD COLUMN owner INTEGER")).unwrap();
+    let conn = Connection::open_in_memory().unwrap();
+    for sql in &MIGRATIONS[..v] {
+        conn.execute_batch(sql).unwrap();
+    }
+    conn.execute_batch(&format!("PRAGMA user_version = {v};")).unwrap();
+    conn.execute(
+        "INSERT INTO users (id, password_hash, created_at, email, superuser, developer) VALUES
+            (1, 'h', 1, 'a@example.org', 1, 0), (2, 'h', 1, 'b@example.org', 0, 1), (3, 'h', 1, 'c@example.org', 1, 1), (4, 'h', 1, 'd@example.org', 0, 0)",
+        [],
+    )
+    .unwrap();
+    migrate(&conn).unwrap();
+    let owners: Vec<bool> = conn.prepare("SELECT owner FROM users ORDER BY id").unwrap().query_map([], |r| r.get(0)).unwrap().map(Result::unwrap).collect();
+    assert_eq!(owners, [true, true, true, false]);
+}

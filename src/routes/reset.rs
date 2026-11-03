@@ -67,7 +67,7 @@ fn step(user: Option<CurrentUser>, step: &'static str, token: String, email: Str
 
 /// A reset needs mail: without a provider (Skrongle mini, #633) the page
 /// does not exist, and the owner sets a temporary password instead
-/// (`superuser.rs`, #635). The login page's link follows `LoginTemplate::reset`.
+/// (`manage.rs`, #635). The login page's link follows `LoginTemplate::reset`.
 fn offered(state: &AppState) -> Result<(), AppError> {
     if state.caps().mail {
         Ok(())
