@@ -679,16 +679,7 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
             let _ = wake.send(());
         }) as Box<dyn Fn() + Send>
     });
-    let mut export_builder = exports::Builder::new(exports_dir.dir.clone(), export_mail);
-    // Dev: a slow export, to watch it in slices on /dev/jobs or stop the
-    // server halfway through (SKRONGLE_DEV_EXPORT_PAUSE_MS after each page,
-    // five pages a slice).
-    if let Some(ms) = env("DEV_EXPORT_PAUSE_MS").filter(|_| dev).and_then(|v| v.parse().ok()) {
-        export_builder.pause = std::time::Duration::from_millis(ms);
-        export_builder.slice_pages = 5;
-        tracing::warn!("DEV MODE: data exports pause {ms} ms after each page, five pages a slice (SKRONGLE_DEV_EXPORT_PAUSE_MS)");
-    }
-
+    let export_builder = exports::Builder::new(exports_dir.dir.clone(), export_mail);
     let state = Arc::new(AppState {
         db: db.clone(),
         courses: Arc::new(courses.with_limits(courses::Limits {
@@ -726,7 +717,7 @@ async fn run(cfg: Config) -> Result<(), Box<dyn std::error::Error>> {
     ai::adopt(&state.jobs, &db)?;
     let gen_state = Arc::clone(&state);
     let mut runner = jobs::housekeeping(jobs::Runner::new().drain(mail_outbox.drain()), &state, retention)
-        .handle_steps(jobs::EXPORT, move |db, payload| export_builder.run(db, payload))
+        .handle(jobs::EXPORT, move |db, payload| export_builder.run(db, payload))
         .handle_claimed(ai::GENERATE, move || ai::slot_free(&gen_state.jobs), ai::handler(Arc::clone(&state)));
     if dev {
         runner = jobs::dev(runner);

@@ -1545,7 +1545,7 @@ fn without_mail_nothing_offers_to_send() {
     let queued = get(loc.split('#').next().unwrap_or_default(), &ann).2;
     assert!(!queued.contains("You will get an e-mail"), "the notice promises no mail: {queued}");
     assert!(get("/profile", &ann).2.contains("a Download button appears here"));
-    assert_eq!(crate::exports::run_queued(&state.db, &state.exports.dir, None, std::time::Duration::ZERO), 1);
+    assert_eq!(crate::exports::run_queued(&state.db, &state.exports.dir, None), 1);
     assert_eq!(count("SELECT COUNT(*) FROM mail_outbox"), 0);
     let profile = get("/profile", &ann).2;
     assert!(profile.contains(r#"data-testid="profile-export-download""#), "{profile}");
