@@ -17,6 +17,9 @@ use crate::error::AppError;
 #[derive(Clone)]
 pub struct Db {
     conn: Arc<Mutex<Connection>>,
+    /// The signed-in users by session (#37), forgotten by this connection's
+    /// temporary triggers whenever a table they are read from changes.
+    sessions: Arc<crate::auth::SessionCache>,
 }
 
 /// Pragmas applied to every connection. See the README for the reasoning.
@@ -70,7 +73,23 @@ impl Db {
         conn.execute_batch(PRAGMAS)?;
         migrate(&conn)?;
         start_trace(&conn);
-        Ok(Db { conn: Arc::new(Mutex::new(conn)) })
+        Db::new(conn)
+    }
+
+    fn new(conn: Connection) -> rusqlite::Result<Db> {
+        let sessions = Arc::new(crate::auth::SessionCache::default());
+        let watched = Arc::clone(&sessions);
+        conn.create_scalar_function("forget_sessions", 0, rusqlite::functions::FunctionFlags::SQLITE_UTF8, move |_| {
+            watched.forget_all();
+            Ok(0)
+        })?;
+        conn.execute_batch(&crate::auth::SessionCache::triggers_sql())?;
+        Ok(Db { conn: Arc::new(Mutex::new(conn)), sessions })
+    }
+
+    /// The signed-in users kept in memory (`auth::cached_user`).
+    pub fn sessions(&self) -> Arc<crate::auth::SessionCache> {
+        Arc::clone(&self.sessions)
     }
 
     /// Open an in-memory database (tests).
@@ -79,7 +98,7 @@ impl Db {
         let conn = Connection::open_in_memory()?;
         conn.execute_batch("PRAGMA foreign_keys = ON;")?;
         migrate(&conn)?;
-        Ok(Db { conn: Arc::new(Mutex::new(conn)) })
+        Db::new(conn)
     }
 
     /// Run a closure against the connection on the blocking thread pool.

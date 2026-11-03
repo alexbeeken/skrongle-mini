@@ -44,7 +44,7 @@ under `static/`, `templates/` or `data/` is missing from this list.
 
 ### Accounts
 
-- Sign-in: `auth.rs` (sessions, CurrentUser, Project), `routes/auth.rs`, `routes/auth/code.rs` (the two-factor step), `proxy_auth.rs` (proxy header), `signup.rs` (who may register), `urlenc.rs` (percent-encoding for the redirects they build).
+- Sign-in: `auth.rs` (sessions, CurrentUser, Project), `auth/cache.rs` (the signed-in users kept in memory by session, #37), `routes/auth.rs`, `routes/auth/code.rs` (the two-factor step), `proxy_auth.rs` (proxy header), `signup.rs` (who may register), `urlenc.rs` (percent-encoding for the redirects they build).
 - Mail: `mail.rs` (`mail/resend.rs`, `mail/postmark.rs`, `mail/brevo.rs`, `mail/sink.rs`), `verify.rs` (address check), `reset.rs` + `routes/reset.rs` (password reset).
 - Two-factor: `two_factor.rs`, `totp.rs`.
 - Profile: `profile.rs`, `routes/profile.rs`, `static/profile.js`, `static/autosave.js`; keys in `secrets.rs`.
@@ -82,6 +82,7 @@ src/
   lint.rs        course lints (#445, #1199): cheap checks, no AI, for lessons that load but teach badly; the top of the feature usage report, an amber ! on the field in the lesson editor, logged at the end of a generation; lint/language.rs guesses a text's language
   db.rs          rusqlite connection, pragmas, migrations, spawn_blocking wrapper
   auth.rs        argon2id hashing, sessions, CurrentUser (route guard) and Project (user + active course) extractors
+  auth/cache.rs  the signed-in users by session in memory (#37): forgotten by temporary triggers (db.rs) on any write to a table the session query reads, and after 60 s
   mail.rs        e-mail: the outbox (table mail_outbox), the provider chain with fallback and cooldown, the sender the job runner drains (`mail::Outbox`), SMTP and log providers, SKRONGLE_MAIL_* config
   mail/resend.rs the `resend` kind: Resend's HTTP API (POST /emails, idempotency key per outbox row)
   mail/postmark.rs the `postmark` kind: Postmark's HTTP API (POST /email, Server API token, message stream, outbox id as metadata)
@@ -231,7 +232,10 @@ extractors below see it as any other session. See
 `docs/self-hosting.md`, "Signing in at the proxy".
 
 **Extractors.** `CurrentUser` resolves the session cookie (browser routes get
-redirected to `/login`, `/api/*` routes get a 401). The same query says
+redirected to `/login`, `/api/*` routes get a 401). It asks the database once
+per session: the user is then kept in memory (`auth/cache.rs`, #37) until a
+row of a table the query reads changes (the connection's temporary triggers forget
+them all), the session expires or a minute passes. The same query says
 whether the user accepted the current Terms (`terms::version()`: the newest
 entry of `docs/terms-changes.json` in effect, or the hash of the
 `SKRONGLE_TERMS` file) and which version they accepted last. A material
